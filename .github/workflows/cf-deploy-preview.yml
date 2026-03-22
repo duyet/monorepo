@@ -27,6 +27,8 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - uses: dorny/paths-filter@v4
         id: filter
@@ -137,7 +139,7 @@ jobs:
           CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
           CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
-          VITE_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+          VITE_CLERK_PUBLISHABLE_KEY: ${{ secrets.CLERK_PUBLISHABLE_KEY }}
 
       - name: Save build failure status
         if: failure() && steps.build.outcome == 'failure'
@@ -151,9 +153,12 @@ jobs:
         run: |
           cd apps/${{ matrix.app }}
 
+          # Read output directory from wrangler.toml, default to "dist"
+          OUTPUT_DIR=$(grep -oP 'pages_build_output_dir\s*=\s*"\K[^"]+' wrangler.toml 2>/dev/null || echo "dist")
+
           # Skip deploy if no static output directory exists
-          if [ ! -d "out" ]; then
-            echo "No 'out' directory found — app likely uses server-side rendering."
+          if [ ! -d "$OUTPUT_DIR" ]; then
+            echo "No '$OUTPUT_DIR' directory found — app may use server-side rendering."
             echo "Skipping Cloudflare Pages deploy for ${{ matrix.app }}."
             echo "url=skipped" >> $GITHUB_OUTPUT
             echo "branch=skipped" >> $GITHUB_OUTPUT
@@ -165,7 +170,7 @@ jobs:
           BRANCH_SLUG=$(echo "$BRANCH" | sed 's/[^a-zA-Z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-//' | sed 's/-$//' | cut -c1-28)
 
           # Deploy to preview branch
-          OUTPUT=$(bunx wrangler pages deploy out \
+          OUTPUT=$(bunx wrangler pages deploy "$OUTPUT_DIR" \
             --project-name=${{ matrix.project }} \
             --branch="$BRANCH_SLUG" \
             --commit-dirty=true 2>&1)

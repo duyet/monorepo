@@ -203,23 +203,23 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 ### 2022 (23 posts)
 
 - [Airflow Dataset (Data-aware scheduling)](https://blog.duyet.net/2022/09/airflow-dataset.html) - 2022-09-27
-- [Rust: Why ? is good](https://blog.duyet.net/2022/09/rust-question-mark-operator.html) - 2022-09-24
 - [Cargo: Patch Dependencies](https://blog.duyet.net/2022/09/cargo-patch-deps.html) - 2022-09-24
 - [Cargo: workspace inheritance](https://blog.duyet.net/2022/09/cargo-workspace-inheritance.html) - 2022-09-24
-- [Rust: Rayon - A data parallelism library for Rust](https://blog.duyet.net/2022/08/rust-rayon.html) - 2022-08-06
+- [Rust: Why ? is good](https://blog.duyet.net/2022/09/rust-question-mark-operator.html) - 2022-09-24
 - [Rust: indoc](https://blog.duyet.net/2022/08/rust-indoc.html) - 2022-08-06
+- [Rust: Rayon - A data parallelism library for Rust](https://blog.duyet.net/2022/08/rust-rayon.html) - 2022-08-06
 - [Rust automatically upgrade to a new edition](https://blog.duyet.net/2022/05/rust-cargo-fix.html) - 2022-05-14
 - [Rust Source-based Code Coverage](https://blog.duyet.net/2022/04/rust-code-cov.html) - 2022-04-09
 - [Spark on Kubernetes tại Fossil 🤔](https://blog.duyet.net/2022/03/spark-kubernetes-at-fossil.html) - 2022-03-09
 - [Rust: Box](https://blog.duyet.net/2022/03/rust-box.html) - 2022-03-05
 - [Manage Redshift/Postgres Privileges GitOps Style](https://blog.duyet.net/2022/02/grant-redshift-gitops.html) - 2022-02-24
 - [Rust: Option & Result](https://blog.duyet.net/2022/02/rust-option-result.html) - 2022-02-15
+- [Rust Design Pattern: Builder Pattern](https://blog.duyet.net/2022/02/rust-builder-design-pattern.html) - 2022-02-13
+- [Rust Design Pattern: Command Pattern](https://blog.duyet.net/2022/02/rust-command-design-pattern.html) - 2022-02-13
 - [Rust Design Pattern: Prefer Small Crates](https://blog.duyet.net/2022/02/rust-small-crates-design-pattern.html) - 2022-02-13
 - [Rust: Copy & Clone Trait](https://blog.duyet.net/2022/02/rust-copy-clone-trait.html) - 2022-02-13
-- [Rust Design Pattern: Command Pattern](https://blog.duyet.net/2022/02/rust-command-design-pattern.html) - 2022-02-13
-- [Rust: Trait](https://blog.duyet.net/2022/02/rust-trait.html) - 2022-02-13
 - [Rust: Struct](https://blog.duyet.net/2022/02/rust-struct.html) - 2022-02-13
-- [Rust Design Pattern: Builder Pattern](https://blog.duyet.net/2022/02/rust-builder-design-pattern.html) - 2022-02-13
+- [Rust: Trait](https://blog.duyet.net/2022/02/rust-trait.html) - 2022-02-13
 - [Rust: cargo-edit](https://blog.duyet.net/2022/02/cargo-edit.html) - 2022-02-06
 - [Rust: Format Strings in 1.58](https://blog.duyet.net/2022/01/rust-format-strings-1.58.html) - 2022-01-18
 - [Rust: FromStr trait](https://blog.duyet.net/2022/01/rust-fromstr.html) - 2022-01-02
@@ -228,8 +228,8 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 
 ### 2021 (13 posts)
 
-- [Rust: Ownership](https://blog.duyet.net/2021/12/rust-ownership.html) - 2021-12-19
 - [Rust Design Pattern: Strategy Pattern](https://blog.duyet.net/2021/12/rust-strategy-design-pattern.html) - 2021-12-19
+- [Rust: Ownership](https://blog.duyet.net/2021/12/rust-ownership.html) - 2021-12-19
 - [Rust và Data Engineering? 🤔](https://blog.duyet.net/2021/11/rust-data-engineering.html) - 2021-11-27
 - [Spark on Kubernetes - better handling for node shutdown](https://blog.duyet.net/2021/11/spark-node-decommission.html) - 2021-11-22
 - [Uptime with GitHub Actions](https://blog.duyet.net/2021/09/uptime-with-github-actions.html) - 2021-09-20
@@ -250,9 +250,9 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - [Scheduling Python script in Airflow](https://blog.duyet.net/2020/06/scheduling-python-script-in-airflow.html) - 2020-06-24
 - [Spark History Server on Kubernetes](https://blog.duyet.net/2020/05/spark-history-server-on-k8s.html) - 2020-05-29
 - [3 ways to run Spark on Kubernetes](https://blog.duyet.net/2020/05/spark-on-k8s.html) - 2020-05-24
+- [Airflow DAG Serialization](https://blog.duyet.net/2020/05/airflow-dag-serialization.html) - 2020-05-01
 - [Data Studio: Connecting BigQuery and Google Sheets to help with hefty data analysis](https://blog.duyet.net/2020/05/data-studio-caching-with-spreadsheet.html) - 2020-05-01
 - [TL;DR - Random Forest thay vì Neural Network](https://blog.duyet.net/2020/05/tldr-why-rf.html) - 2020-05-01
-- [Airflow DAG Serialization](https://blog.duyet.net/2020/05/airflow-dag-serialization.html) - 2020-05-01
 
 ### 2019 (19 posts)
 
@@ -264,14 +264,14 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - [Airflow - một số ghi chép](https://blog.duyet.net/2019/08/airflow-note.html) - 2019-08-27
 - [Cài đặt Apache Airflow với Docker Compose](https://blog.duyet.net/2019/08/airflow-docker-compose.html) - 2019-08-26
 - [Gửi Slack Alerts trên Airflow](https://blog.duyet.net/2019/08/slack-alerts-in-airflow.html) - 2019-08-20
+- [8 nền tảng serverless platform tốt nhất hiện nay](https://blog.duyet.net/2019/08/8-serverless-platform.html) - 2019-08-09
 - [Airflow - "context" dictionary](https://blog.duyet.net/2019/08/airflow-context.html) - 2019-08-09
 - [Guess.js](https://blog.duyet.net/2019/08/guess-js.html) - 2019-08-09
-- [8 nền tảng serverless platform tốt nhất hiện nay](https://blog.duyet.net/2019/08/8-serverless-platform.html) - 2019-08-09
 - [Migrate Blogger sang Gatsby](https://blog.duyet.net/2019/08/migrate-blogger-to-gatsby.html) - 2019-08-07
 - [Pricetrack: theo dõi giá và cashback (by Firebase)](https://blog.duyet.net/2019/05/pricetrack-cashback.html) - 2019-05-13
 - [Đi lại bằng phương tiện công cộng ở San Francisco](https://blog.duyet.net/2019/05/phuong-tien-cong-cong-san-francisco.html) - 2019-04-19
-- [Super Simple Shorten URL với Firebase Dynamic Links](https://blog.duyet.net/2019/04/shorten-url-voi-firebase.html) - 2019-04-19
 - [Google Cloud Next '19](https://blog.duyet.net/2019/04/google-cloud-next-19.html) - 2019-04-19
+- [Super Simple Shorten URL với Firebase Dynamic Links](https://blog.duyet.net/2019/04/shorten-url-voi-firebase.html) - 2019-04-19
 - [Resting và Spreading JavaScript Objects](https://blog.duyet.net/2019/03/7-thu-thuat-voi-resting-va-spreading.html) - 2019-03-27
 - [Checklist tối ưu hiệu năng React](https://blog.duyet.net/2019/03/react-performance-checklist.html) - 2019-03-03
 - [Papers with Code: A Fantastic GitHub Resource for Machine Learning](https://blog.duyet.net/2019/01/pwc.html) - 2019-01-06
@@ -284,8 +284,8 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - [5 bí quyết viết JS conditionals tốt hơn](https://blog.duyet.net/2018/09/5-bi-quyet-js-conditionals-tot-hon.html) - 2018-09-20
 - [VS Code - Import Cost](https://blog.duyet.net/2018/09/vs-code-import-cost.html) - 2018-09-17
 - [Deploy Deep Learning model as a web service API](https://blog.duyet.net/2018/07/deploy-deep-learning-model-as-web-service-api.html) - 2018-07-21
-- [TensorFlow.js](https://blog.duyet.net/2018/07/tensorflowjs.html) - 2018-07-19
 - [Signale - Hackable console logger for Nodejs](https://blog.duyet.net/2018/07/signale-console-logger.html) - 2018-07-19
+- [TensorFlow.js](https://blog.duyet.net/2018/07/tensorflowjs.html) - 2018-07-19
 - [Gio.js - 3D Globe Data Visualization](https://blog.duyet.net/2018/07/giojs-3d-globe-data-visualization.html) - 2018-07-01
 - [[Slide] Sentiment Analysis](https://blog.duyet.net/2018/06/slide-sentiment-analysis.html) - 2018-06-30
 - [Sử dụng PyTorch với GPU miễn phí trên Google Colab](https://blog.duyet.net/2018/06/su-dung-pytorch-voi-gpu-mien-phi-tren.html) - 2018-06-03
@@ -320,8 +320,8 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 
 ### 2016 (93 posts)
 
-- [The Evolution of a Software Engineer](https://blog.duyet.net/2016/12/the-evolution-of-software-engineer.html) - 2016-12-17
 - [Javascript Weekly #10](https://blog.duyet.net/2016/12/javascript-weekly-10.html) - 2016-12-17
+- [The Evolution of a Software Engineer](https://blog.duyet.net/2016/12/the-evolution-of-software-engineer.html) - 2016-12-17
 - [Merge conflicts on GitHub website](https://blog.duyet.net/2016/12/merge-conflicts-on-github-website.html) - 2016-12-14
 - [vnTokenizer trên PySpark](https://blog.duyet.net/2016/12/vntokenizer-tren-pyspark.html) - 2016-12-14
 - [Javascript Weekly #9](https://blog.duyet.net/2016/12/javascript-weekly-9.html) - 2016-12-10
@@ -347,8 +347,8 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - [saveto.co cập nhật: Note Card](https://blog.duyet.net/2016/07/savetoco-cap-nhat-note-card.html) - 2016-07-12
 - [Viện John von Neumann](https://blog.duyet.net/2016/07/vien-john-von-neumann.html) - 2016-07-05
 - [Javascript Weekly #6](https://blog.duyet.net/2016/07/javascript-weekly-6.html) - 2016-07-01
-- [Topic Modeling: Tìm chủ đề cho tập văn bản bài viết](https://blog.duyet.net/2016/06/topic-modeling-tim-chu-de-cho-tap-van-ban-bai-viet.html) - 2016-06-30
 - [saveto.co cập nhật giao diện, trend, share và bình luận](https://blog.duyet.net/2016/06/savetoco-cap-nhat-giao-dien-trend-share-binh-luan.html) - 2016-06-30
+- [Topic Modeling: Tìm chủ đề cho tập văn bản bài viết](https://blog.duyet.net/2016/06/topic-modeling-tim-chu-de-cho-tap-van-ban-bai-viet.html) - 2016-06-30
 - [Tìm hiểu về dữ liệu trong thể thao hiện đại](https://blog.duyet.net/2016/06/tim-hieu-ve-du-lieu-trong-the-thao-hien-dai.html) - 2016-06-29
 - [8 điều React.js beginner nên biết](https://blog.duyet.net/2016/06/8-dieu-reactjs-beginner-nen-biet.html) - 2016-06-25
 - [Chạy vnTokenizer trên môi trường Apache Spark](https://blog.duyet.net/2016/06/vntokenizer-tren-apache-spark.html) - 2016-06-23
@@ -383,8 +383,8 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - [ES6 có gì mới?](https://blog.duyet.net/2016/04/es6.html) - 2016-04-05
 - [Update saveto.co: tìm kiếm và gắn tag link](https://blog.duyet.net/2016/04/update-savetoco-tim-kiem-va-gan-tag-link.html) - 2016-04-02
 - [calc.js - evaluate expressions for Math](https://blog.duyet.net/2016/03/calcjs-evaluate-expressions-for-math.html) - 2016-03-27
-- [Neural networks là gì?](https://blog.duyet.net/2016/03/neural-networks.html) - 2016-03-26
 - [How one developer just broke Node, Babel and thousands of projects in 11 lines of JavaScript](https://blog.duyet.net/2016/03/how-one-developer-just-broke-the-internet.html) - 2016-03-26
+- [Neural networks là gì?](https://blog.duyet.net/2016/03/neural-networks.html) - 2016-03-26
 - [Postman](https://blog.duyet.net/2016/03/postman.html) - 2016-03-25
 - [saveto.co nâng cấp chức năng note](https://blog.duyet.net/2016/03/savetoco-nang-cap-chuc-nang-note.html) - 2016-03-24
 - [Sao lại là Node.js/Javascript?](https://blog.duyet.net/2016/03/why-nodejs-javascript.html) - 2016-03-19
@@ -394,10 +394,10 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - [CTB-Locker is back: the web server edition](https://blog.duyet.net/2016/03/ctb-locker-is-back-web-server-edition.html) - 2016-03-02
 - [PHP Game Boy Emulator in Terminal](https://blog.duyet.net/2016/02/game-boy-emulator-in-terminal.html) - 2016-02-28
 - [Facebook reactions](https://blog.duyet.net/2016/02/facebook-reactions.html) - 2016-02-27
-- [Japanese stopwords package for npm, bower and plaintext](https://blog.duyet.net/2016/02/japanese-stopwords-package.html) - 2016-02-27
 - [Google ra mắt Project Shield](https://blog.duyet.net/2016/02/google-ra-mat-project-shield.html) - 2016-02-27
-- [function* và yield trong Javascript generator function](https://blog.duyet.net/2016/02/generator-function-javascript.html) - 2016-02-21
+- [Japanese stopwords package for npm, bower and plaintext](https://blog.duyet.net/2016/02/japanese-stopwords-package.html) - 2016-02-27
 - [Detect robots in koa](https://blog.duyet.net/2016/02/detect-robots-in-koa.html) - 2016-02-21
+- [function* và yield trong Javascript generator function](https://blog.duyet.net/2016/02/generator-function-javascript.html) - 2016-02-21
 - [copy.js - simple copy text to clipboard in the browser](https://blog.duyet.net/2016/02/copyjs-simple-copy-text-to-clipboard-in.html) - 2016-02-17
 - [Tự động hóa Internet với IFTTT](https://blog.duyet.net/2016/02/tu-ong-hoa-internet-voi-ifttt.html) - 2016-02-10
 - [13.5TB - Yahoo ra mắt bộ Dataset cực lớn cho lĩnh vực máy học](https://blog.duyet.net/2016/02/yahoo-ra-mat-bo-dataset-lon-nhat-machine-learning.html) - 2016-02-09
@@ -405,14 +405,14 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - [Tensorflow - cài đặt trên Docker](https://blog.duyet.net/2016/02/cai-dat-tensorflow-tren-docker.html) - 2016-02-05
 - [Tensorflow - hướng dẫn cài đặt](https://blog.duyet.net/2016/02/tensorflow-huong-dan-cai-at-tren-ubuntu.html) - 2016-02-05
 - [Deep Learning là gì?](https://blog.duyet.net/2016/02/deep-learning-la-gi.html) - 2016-02-04
-- [Nodejs - Mã hóa mật khẩu](https://blog.duyet.net/2016/02/nodejs-ma-hoa-mat-khau.html) - 2016-02-03
 - [Bigdata - Columnar Database và Graph Database](https://blog.duyet.net/2016/02/columnar-database-va-graph-database.html) - 2016-02-03
 - [Docker - cài đặt Odoo 8/9 trên Docker](https://blog.duyet.net/2016/02/docker-cai-at-odoo-89-tren-docker.html) - 2016-02-03
-- [Nodejs - đọc file package.json](https://blog.duyet.net/2016/02/nodejs-oc-file-packagejson.html) - 2016-02-03
 - [Graph Database](https://blog.duyet.net/2016/02/graph-database.html) - 2016-02-03
+- [Nodejs - đọc file package.json](https://blog.duyet.net/2016/02/nodejs-oc-file-packagejson.html) - 2016-02-03
+- [Nodejs - Mã hóa mật khẩu](https://blog.duyet.net/2016/02/nodejs-ma-hoa-mat-khau.html) - 2016-02-03
 - [Offline-First trong Modern Web](https://blog.duyet.net/2016/01/offline-first-trong-modern-web.html) - 2016-01-07
-- [Nodejs - Backend Development Bookmarks](https://blog.duyet.net/2016/01/nodejs-backend-development-bookmarks.html) - 2016-01-03
 - [Javascript - Thư viện Vizualization ](https://blog.duyet.net/2016/01/javascript-thu-vien-vizualization.html) - 2016-01-03
+- [Nodejs - Backend Development Bookmarks](https://blog.duyet.net/2016/01/nodejs-backend-development-bookmarks.html) - 2016-01-03
 
 ### 2015 (81 posts)
 
@@ -439,27 +439,27 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - [All you need to know about Node.js 4.0.0](https://blog.duyet.net/2015/09/all-you-need-to-know-about-nodejs.html) - 2015-09-09
 - [Google has a new logo, seriously](https://blog.duyet.net/2015/09/google-has-new-logo-seriously.html) - 2015-09-01
 - [Google Cloud Platform Developer Roadshow](https://blog.duyet.net/2015/08/google-cloud-platform-developer-roadshow-ho-chi-minh-viet-nam.html) - 2015-08-27
-- [Git - Tutorial remove untracked files](https://blog.duyet.net/2015/08/how-to-remove-untracked-files.html) - 2015-08-25
 - [Git - Cách xem nội dung 1 file ở branch khác](https://blog.duyet.net/2015/08/git-cach-xem-noi-dung-1-file-o-branch-khac.html) - 2015-08-25
 - [Git - Cách xóa nhanh tất cả các branch cũ đã merge vào branch master](https://blog.duyet.net/2015/08/cach-xoa-nhanh-tat-ca-cac-branch-cu-da-merge.html) - 2015-08-25
+- [Git - Tutorial remove untracked files](https://blog.duyet.net/2015/08/how-to-remove-untracked-files.html) - 2015-08-25
 - [Git rebase, gộp commits bằng rebase](https://blog.duyet.net/2015/08/cach-su-dung-git-rebase.html) - 2015-08-25
 - [PHP - Có gì mới trong PHP 7](https://blog.duyet.net/2015/08/php-co-gi-moi-trong-php-7.html) - 2015-08-22
-- [Nodejs - Tạo static server đơn giản với Nodejs ](https://blog.duyet.net/2015/08/tao-server-static-don-gian-bang-nodejs.html) - 2015-08-09
-- [Feedback Social Platform](https://blog.duyet.net/2015/08/github-project-feedback-social-platform.html) - 2015-08-09
 - [6 lời khuyên để đảm bảo dù ở đâu, bạn cũng sống tốt với thu nhập cao](https://blog.duyet.net/2015/08/lam-theo-duoc-6-dieu-duoi-day-dam-bao-vut-o-dau-ban-cung-song-tot-thu-nhap-cao.html) - 2015-08-09
+- [Feedback Social Platform](https://blog.duyet.net/2015/08/github-project-feedback-social-platform.html) - 2015-08-09
 - [Nodejs - Create simple static server with Nodejs](https://blog.duyet.net/2015/08/nodejs-create-simple-static-server-with.html) - 2015-08-09
+- [Nodejs - Tạo static server đơn giản với Nodejs ](https://blog.duyet.net/2015/08/tao-server-static-don-gian-bang-nodejs.html) - 2015-08-09
 - [Nodejs - Các kỹ thuật Crawler, rút trích dữ liệu với Nodejs](https://blog.duyet.net/2015/08/cac-ky-thuat-crawler-rut-trich-du-lieu.html) - 2015-08-08
-- [Tổng hợp phím tắt của Visual Studio Code](https://blog.duyet.net/2015/08/tong-hop-phim-tat-cua-visual-studio-code.html) - 2015-08-07
+- [Git - Chỉnh sửa git vừa commit](https://blog.duyet.net/2015/08/git-chinh-sua-git-vua-commit.html) - 2015-08-07
 - [Git - Khôi phục bằng reflog sau khi xóa commit hoặc branch](https://blog.duyet.net/2015/08/git-khoi-phuc-bang-reflog) - 2015-08-07
 - [Nodejs - Các package mà mọi lập trình viên Nodejs đều phải biết.](https://blog.duyet.net/2015/08/nodejs-cac-package-ma-moi-lap-trinh.html) - 2015-08-07
-- [Git - Chỉnh sửa git vừa commit](https://blog.duyet.net/2015/08/git-chinh-sua-git-vua-commit.html) - 2015-08-07
+- [Tổng hợp phím tắt của Visual Studio Code](https://blog.duyet.net/2015/08/tong-hop-phim-tat-cua-visual-studio-code.html) - 2015-08-07
 - [JavaScript Style Guide](https://blog.duyet.net/2015/08/javascript-style-guide.html) - 2015-08-01
 - [Giao diện phẳng cho Sublime Text](https://blog.duyet.net/2015/07/giao-dien-phang-cho-sublime-text.html) - 2015-07-20
 - [Web - 20 nền tảng blogging và publishing tốt nhất trong năm 2015](https://blog.duyet.net/2015/07/web-20-nen-tang-blogging-va-publishing.html) - 2015-07-20
-- [Git - Kĩ thuật chia branch, "Branch early, branch often"](https://blog.duyet.net/2015/07/git-ki-thuat-chia-branch-branch-early.html) - 2015-07-16
 - [Git - Git Cheat Sheet](https://blog.duyet.net/2015/07/git-git-cheat-sheet.html) - 2015-07-16
-- [Git - Sử dụng git stash hiệu quả](https://blog.duyet.net/2015/07/su-dung-git-stash-hieu-qua.html) - 2015-07-14
+- [Git - Kĩ thuật chia branch, "Branch early, branch often"](https://blog.duyet.net/2015/07/git-ki-thuat-chia-branch-branch-early.html) - 2015-07-16
 - [Big Data - Monitoring Spark with Graphite and Grafana](https://blog.duyet.net/2015/07/big-data-monitoring-spark-with-graphite.html) - 2015-07-14
+- [Git - Sử dụng git stash hiệu quả](https://blog.duyet.net/2015/07/su-dung-git-stash-hieu-qua.html) - 2015-07-14
 - [Đạo lập trình - The Tao Of Programming ](https://blog.duyet.net/2015/07/tao-of-programming.html) - 2015-07-10
 - [JavaScript Code Smells](https://blog.duyet.net/2015/06/javascript-code-smells.html) - 2015-06-06
 - [Minimalism in Web design: past and future](https://blog.duyet.net/2015/06/minimalism-in-web-design-past-and-future.html) - 2015-06-05
@@ -471,29 +471,29 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - [Linux - một số thủ thuật với trình soạn thảo vim](https://blog.duyet.net/2015/04/linux-mot-so-thu-thuat-voi-trinh-soan.html) - 2015-04-25
 - [PySpark Getting Started](https://blog.duyet.net/2015/04/pyspark.html) - 2015-04-18
 - [PHP - Tổng quan về Web và thiết lập môi trường để lập trình PHP](https://blog.duyet.net/2015/04/php-bai-1-tong-quan-ve-web-va-thiet-lap.html) - 2015-04-16
-- [Mongo-Web-Query](https://blog.duyet.net/2015/04/mongo-web-query.html) - 2015-04-15
 - [Lorem Ipsum là gì?](https://blog.duyet.net/2015/04/lorem-ipsum-la-gi.html) - 2015-04-15
+- [Mongo-Web-Query](https://blog.duyet.net/2015/04/mongo-web-query.html) - 2015-04-15
 - [Big Data Explained in Less Than 2 Minutes](https://blog.duyet.net/2015/04/big-data-explained-in-less-than-2-minutes.html) - 2015-04-12
+- [Open Source - Tìm hiểu về giấy phép GNU (GNU General Public License)](https://blog.duyet.net/2015/04/tim-hieu-ve-giay-phep-gnu.html) - 2015-04-11
 - [Open Source - Tìm hiểu về giấy phép MIT](https://blog.duyet.net/2015/04/tim-hieu-ve-giay-phep-mit.html) - 2015-04-11
 - [Tìm hiểu về giấy phép Apache](https://blog.duyet.net/2015/04/open-source-tim-hieu-ve-giay-phep-apache.html) - 2015-04-11
-- [Open Source - Tìm hiểu về giấy phép GNU (GNU General Public License)](https://blog.duyet.net/2015/04/tim-hieu-ve-giay-phep-gnu.html) - 2015-04-11
 - [MongoDB - Cách thiết lập để App Server kết nối đến MongoDb Server](https://blog.duyet.net/2015/04/mongodb-cach-thiet-lap-e-app-server-ket.html) - 2015-04-09
 - [Redis](https://blog.duyet.net/2015/04/redis.html) - 2015-04-06
 - [MEAN.js Fullstack](https://blog.duyet.net/2015/04/nodejs-gioi-thieu-meanjs-fullstack.html) - 2015-04-05
 - [Cài đặt Apache Spark trên Ubuntu 14.04](https://blog.duyet.net/2015/03/bigdata-cai-dat-apache-spark-tren-ubuntu.html) - 2015-03-27
 - [So sánh mô hình Waterfall, mô hình mẫu, mô hình xoắn ốc](https://blog.duyet.net/2015/03/so-sanh-cac-mo-hinh-thac-nuoc-mo-hinh-mau-mo-hinh-xoan-oc.html) - 2015-03-15
 - [Xây dựng thương hiệu cá nhân tại công sở](https://blog.duyet.net/2015/03/xay-dung-thuong-hieu-ca-nhan-tai-cong-so.html) - 2015-03-09
-- [Quy trình phát triển phần mềm - mô hình xoắn ốc (The Boehm's spiral model)](https://blog.duyet.net/2015/02/spiral.html) - 2015-02-24
 - [Mô hình thác nước (Waterfall Model)](https://blog.duyet.net/2015/02/waterfall.html) - 2015-02-24
+- [Quy trình phát triển phần mềm - mô hình xoắn ốc (The Boehm's spiral model)](https://blog.duyet.net/2015/02/spiral.html) - 2015-02-24
 - [Design Patterns - hệ thống 23 mẫu Design Patterns](https://blog.duyet.net/2015/02/design-patterns-he-thong-23-mau-design.html) - 2015-02-23
 - [Design Patterns là gì?](https://blog.duyet.net/2015/02/design-patterns.html) - 2015-02-23
 - [DNS là gì?](https://blog.duyet.net/2015/02/dns.html) - 2015-02-23
 - [package.json là gì?](https://blog.duyet.net/2015/02/packagejson) - 2015-02-22
 - [Linux - Giao diện phẳng cho Ubuntu](https://blog.duyet.net/2015/02/linux-giao-dien-phang-cho-ubuntu.html) - 2015-02-17
-- [phpMyAdmin](https://blog.duyet.net/2015/02/phpmyadmin.html) - 2015-02-15
 - [Linux - Đường dẫn tuyệt đối và đường dẫn tương đối](https://blog.duyet.net/2015/02/linux-duong-dan-tuyet-doi-va-duong-dan-tuong-doi.html) - 2015-02-15
-- [Module hóa](https://blog.duyet.net/2015/02/module.html) - 2015-02-14
+- [phpMyAdmin](https://blog.duyet.net/2015/02/phpmyadmin.html) - 2015-02-15
 - [Github là gì?](https://blog.duyet.net/2015/02/github-la-gi.html) - 2015-02-14
+- [Module hóa](https://blog.duyet.net/2015/02/module.html) - 2015-02-14
 - [Linux - Một số lệnh hay dùng](https://blog.duyet.net/2015/02/linux-mot-so-lenh-hay-dung.html) - 2015-02-13
 - [Git - Phục hồi code cũ](https://blog.duyet.net/2015/01/git-recovering-old-code.html) - 2015-01-25
 - [Using ExpressJS to Display Static HTML File Content](https://blog.duyet.net/2015/01/expressjs-static-html.html) - 2015-01-23

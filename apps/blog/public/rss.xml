@@ -4,7 +4,7 @@
         <description><![CDATA[Sr. Data Engineer. Rustacean at night]]></description>
         <link>https://blog.duyet.net</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Sun, 22 Mar 2026 10:04:05 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 22 Mar 2026 10:43:43 GMT</lastBuildDate>
         <atom:link href="https://blog.duyet.net/rss.xml" rel="self" type="application/rss+xml"/>
         <item>
             <title><![CDATA[Claws]]></title>
@@ -175,13 +175,6 @@
             <pubDate>Tue, 27 Sep 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[Rust: Why ? is good]]></title>
-            <description><![CDATA[In Rust, the question mark (?) operator is used as an alternate error propagation method for functions that yield Result or Option types. The ? operator is a shortcut that minimizes the amount of code required in a function to quickly return Err or None from the types Result<T, Err>, or Option.]]></description>
-            <link>https://blog.duyet.net/2022/09/rust-question-mark-operator.html</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/09/rust-question-mark-operator.html</guid>
-            <pubDate>Sat, 24 Sep 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
             <title><![CDATA[Cargo: Patch Dependencies]]></title>
             <description><![CDATA[There are several scenarios when you will need to override or patch upstream dependencies. Like testing a bugfix of your crates before pushing to crates.io, a non-working upstream crate has a new feature or a bug fix on the master branch of its git repository that you'd want to try, etc. In these cases, the [patch] section of Cargo.toml might be useful.]]></description>
             <link>https://blog.duyet.net/2022/09/cargo-patch-deps.html</link>
@@ -196,17 +189,24 @@
             <pubDate>Sat, 24 Sep 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[Rust: Rayon - A data parallelism library for Rust]]></title>
-            <description><![CDATA[rayon là thư viện data-parallelism cho Rust, gọn nhẹ và dễ dàng convert từ code tính toán tuần tự sang song song mà vẫn đảm bảo không lỗi data-race.]]></description>
-            <link>https://blog.duyet.net/2022/08/rust-rayon.html</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/08/rust-rayon.html</guid>
-            <pubDate>Sat, 06 Aug 2022 00:00:00 GMT</pubDate>
+            <title><![CDATA[Rust: Why ? is good]]></title>
+            <description><![CDATA[In Rust, the question mark (?) operator is used as an alternate error propagation method for functions that yield Result or Option types. The ? operator is a shortcut that minimizes the amount of code required in a function to quickly return Err or None from the types Result<T, Err>, or Option.]]></description>
+            <link>https://blog.duyet.net/2022/09/rust-question-mark-operator.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/09/rust-question-mark-operator.html</guid>
+            <pubDate>Sat, 24 Sep 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Rust: indoc]]></title>
             <description><![CDATA[indoc là một crate nhỏ nhưng hữu ích giúp canh lề (indented documents). indoc!() macro nhận multiline string và un-indents lúc compile time, xoá tất cả khoảng trắng đầu tiên trên cách dòng dựa theo dòng đầu tiên.]]></description>
             <link>https://blog.duyet.net/2022/08/rust-indoc.html</link>
             <guid isPermaLink="true">https://blog.duyet.net/2022/08/rust-indoc.html</guid>
+            <pubDate>Sat, 06 Aug 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: Rayon - A data parallelism library for Rust]]></title>
+            <description><![CDATA[rayon là thư viện data-parallelism cho Rust, gọn nhẹ và dễ dàng convert từ code tính toán tuần tự sang song song mà vẫn đảm bảo không lỗi data-race.]]></description>
+            <link>https://blog.duyet.net/2022/08/rust-rayon.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/08/rust-rayon.html</guid>
             <pubDate>Sat, 06 Aug 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
@@ -252,6 +252,20 @@
             <pubDate>Tue, 15 Feb 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
+            <title><![CDATA[Rust Design Pattern: Builder Pattern]]></title>
+            <description><![CDATA[Builder được sử dụng cực kỳ phổ biến trong Rust so với các ngôn ngữ khác, bởi vì Rust không có overloading.]]></description>
+            <link>https://blog.duyet.net/2022/02/rust-builder-design-pattern.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-builder-design-pattern.html</guid>
+            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust Design Pattern: Command Pattern]]></title>
+            <description><![CDATA[Ý tưởng cơ bản của Command Pattern là tách các actions thành các object riêng và gọi chúng thông qua parameters.]]></description>
+            <link>https://blog.duyet.net/2022/02/rust-command-design-pattern.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-command-design-pattern.html</guid>
+            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
             <title><![CDATA[Rust Design Pattern: Prefer Small Crates]]></title>
             <description><![CDATA[Prefer small crates that do one thing well. Để có được sự hiệu quả, mọi crate phải được thiết kế tốt, lựa chọn dependencies kỹ càng và càng độc lập càng tốt.]]></description>
             <link>https://blog.duyet.net/2022/02/rust-small-crates-design-pattern.html</link>
@@ -266,20 +280,6 @@
             <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[Rust Design Pattern: Command Pattern]]></title>
-            <description><![CDATA[Ý tưởng cơ bản của Command Pattern là tách các actions thành các object riêng và gọi chúng thông qua parameters.]]></description>
-            <link>https://blog.duyet.net/2022/02/rust-command-design-pattern.html</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-command-design-pattern.html</guid>
-            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Rust: Trait]]></title>
-            <description><![CDATA[Rust Trait là gì? Rust có nhiều loại data types như primitives (i8, i32, str, ...), struct, enum và các loại kết hợp (aggregate) như tuples và array. Mọi types không có mối liên hệ nào với nhau. Các data types có các phương thức (methods) để tính toán hay convert từ loại này sang loại khác, nhưng chỉ để cho tiện lợi hơn, method chỉ là các function. Trait trong Rust giúp chúng ta thực hiện những điều này.]]></description>
-            <link>https://blog.duyet.net/2022/02/rust-trait.html</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-trait.html</guid>
-            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
             <title><![CDATA[Rust: Struct]]></title>
             <description><![CDATA[Struct được sử dụng trong Rust rất nhiều, hầu như là mọi lúc. Với struct ta có thể định nghĩa một kiểu dữ liệu riêng.]]></description>
             <link>https://blog.duyet.net/2022/02/rust-struct.html</link>
@@ -287,10 +287,10 @@
             <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[Rust Design Pattern: Builder Pattern]]></title>
-            <description><![CDATA[Builder được sử dụng cực kỳ phổ biến trong Rust so với các ngôn ngữ khác, bởi vì Rust không có overloading.]]></description>
-            <link>https://blog.duyet.net/2022/02/rust-builder-design-pattern.html</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-builder-design-pattern.html</guid>
+            <title><![CDATA[Rust: Trait]]></title>
+            <description><![CDATA[Rust Trait là gì? Rust có nhiều loại data types như primitives (i8, i32, str, ...), struct, enum và các loại kết hợp (aggregate) như tuples và array. Mọi types không có mối liên hệ nào với nhau. Các data types có các phương thức (methods) để tính toán hay convert từ loại này sang loại khác, nhưng chỉ để cho tiện lợi hơn, method chỉ là các function. Trait trong Rust giúp chúng ta thực hiện những điều này.]]></description>
+            <link>https://blog.duyet.net/2022/02/rust-trait.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-trait.html</guid>
             <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
@@ -329,17 +329,17 @@
             <pubDate>Sat, 01 Jan 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[Rust: Ownership]]></title>
-            <description><![CDATA[Ownership là một trong những tính năng đặc trưng của Rust, đây là cách giúp Rust đảm bảo memory safety mà không cần đến garbage collector.]]></description>
-            <link>https://blog.duyet.net/2021/12/rust-ownership.html</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2021/12/rust-ownership.html</guid>
-            <pubDate>Sun, 19 Dec 2021 00:00:00 GMT</pubDate>
-        </item>
-        <item>
             <title><![CDATA[Rust Design Pattern: Strategy Pattern]]></title>
             <description><![CDATA[Strategy design pattern là một technique nhằm mục đích phân tách nhiều vấn đề, tách software modules thông qua Dependency Inversion.]]></description>
             <link>https://blog.duyet.net/2021/12/rust-strategy-design-pattern.html</link>
             <guid isPermaLink="true">https://blog.duyet.net/2021/12/rust-strategy-design-pattern.html</guid>
+            <pubDate>Sun, 19 Dec 2021 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: Ownership]]></title>
+            <description><![CDATA[Ownership là một trong những tính năng đặc trưng của Rust, đây là cách giúp Rust đảm bảo memory safety mà không cần đến garbage collector.]]></description>
+            <link>https://blog.duyet.net/2021/12/rust-ownership.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2021/12/rust-ownership.html</guid>
             <pubDate>Sun, 19 Dec 2021 00:00:00 GMT</pubDate>
         </item>
         <item>

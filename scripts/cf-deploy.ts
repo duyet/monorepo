@@ -76,7 +76,15 @@ const envProductionPath = join(rootDir, ".env.production");
 const PRODUCTION_ENV = parseEnvFile(envProductionPath);
 
 // Apps that require secret syncing (have sensitive env vars)
-const APPS_WITH_SECRETS = new Set(["blog", "photos", "insights"]);
+const appsWithSecrets = new Set(["blog", "photos", "insights"]);
+
+interface AppConfig {
+  name: string;
+  projectName: string;
+  domain: string;
+  outputDir: string;
+  secrets: boolean;
+}
 
 /**
  * Dynamically discover deployable apps from the filesystem.
@@ -84,29 +92,26 @@ const APPS_WITH_SECRETS = new Set(["blog", "photos", "insights"]);
  * 1. A wrangler.toml file (Cloudflare Pages project)
  * 2. A "cf:deploy:prod" script in package.json
  *
- * The project name is read from wrangler.toml.
+ * The project name and output directory are read from wrangler.toml.
  * The domain follows the convention: <app>.duyet.net (except home -> duyet.net).
  */
-function discoverApps(): Record<
-  string,
-  {
-    name: string;
-    projectName: string;
-    domain: string;
-    secrets: boolean;
-  }
-> {
+function discoverApps(): Record<string, AppConfig> {
   const appsDir = join(rootDir, "apps");
-  const config: Record<
-    string,
-    { name: string; projectName: string; domain: string; secrets: boolean }
-  > = {};
+  const config: Record<string, AppConfig> = {};
 
   const entries = Bun.spawnSync({
     cmd: ["ls", appsDir],
   });
 
-  for (const appName of entries.stdout.toString().trim().split("\n")) {
+  const rawOutput = entries.stdout.toString().trim();
+  if (!rawOutput) {
+    console.error(
+      `[ERROR] No apps found in ${appsDir}. ls exit code: ${entries.exitCode}`
+    );
+    process.exit(1);
+  }
+
+  for (const appName of rawOutput.split("\n")) {
     const appDir = join(appsDir, appName);
     const wranglerPath = join(appDir, "wrangler.toml");
     const pkgPath = join(appDir, "package.json");
@@ -117,7 +122,7 @@ function discoverApps(): Record<
     const pkgContent = readFileSync(pkgPath, "utf-8");
     if (!pkgContent.includes('"cf:deploy:prod"')) continue;
 
-    // Extract project name from wrangler.toml
+    // Parse wrangler.toml
     const wranglerContent = readFileSync(wranglerPath, "utf-8");
     const projectMatch = wranglerContent.match(/name\s*=\s*"([^"]+)"/);
     if (!projectMatch) continue;
@@ -125,12 +130,28 @@ function discoverApps(): Record<
     const projectName = projectMatch[1];
     const domain = appName === "home" ? "duyet.net" : `${appName}.duyet.net`;
 
+    // Read pages_build_output_dir from wrangler.toml, default to "dist"
+    const outputDirMatch = wranglerContent.match(
+      /pages_build_output_dir\s*=\s*"([^"]+)"/
+    );
+    const outputDir = outputDirMatch ? outputDirMatch[1] : "dist";
+
     config[appName] = {
       name: appName,
       projectName,
       domain,
-      secrets: APPS_WITH_SECRETS.has(appName),
+      outputDir,
+      secrets: appsWithSecrets.has(appName),
     };
+  }
+
+  if (Object.keys(config).length === 0) {
+    console.error(
+      `[ERROR] No deployable apps discovered in ${appsDir}. ` +
+        `Ensure apps have both wrangler.toml and a "cf:deploy:prod" script in package.json. ` +
+        `Raw ls output: ${rawOutput}`
+    );
+    process.exit(1);
   }
 
   return config;
@@ -513,13 +534,13 @@ async function deployApp(appName: string): Promise<{
     console.log(`     → Domain: https://${appConfig.domain}`);
   }
 
-  // Build wrangler command
+  // Build wrangler command using output directory from wrangler.toml
   const wranglerCmd = [
     "bunx",
     "wrangler",
     "pages",
     "deploy",
-    "out",
+    appConfig.outputDir,
     `--project-name=${appConfig.projectName}`,
   ];
 

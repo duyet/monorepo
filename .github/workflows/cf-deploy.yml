@@ -86,7 +86,7 @@ jobs:
             fi
           else
             # Auto-detect changes using git diff
-            CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD 2>/dev/null || git diff --name-only HEAD)
+            CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD 2>/dev/null || git diff-tree --no-commit-id --name-only -r HEAD)
             PACKAGES_CHANGED=false
             if echo "$CHANGED_FILES" | grep -q '^packages/'; then
               PACKAGES_CHANGED=true
@@ -224,7 +224,7 @@ jobs:
           CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
           CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
-          VITE_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+          VITE_CLERK_PUBLISHABLE_KEY: ${{ secrets.CLERK_PUBLISHABLE_KEY }}
           CF_AIG_GATEWAY_ID: ${{ secrets.CF_AIG_GATEWAY_ID }}
           CF_AIG_TOKEN: ${{ secrets.CF_AIG_TOKEN }}
 
