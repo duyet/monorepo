@@ -1,3 +1,7 @@
+import type { NextRequest } from "next/server";
 import { createPingRoute } from "@duyet/libs/next-routes";
 
-export const { GET, dynamic } = createPingRoute();
+const pingRoute = createPingRoute();
+
+export const GET = (_request: NextRequest): Response => pingRoute.GET();
+export const dynamic = pingRoute.dynamic;
