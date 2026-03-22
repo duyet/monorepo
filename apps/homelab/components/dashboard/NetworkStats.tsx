@@ -12,6 +12,13 @@ import {
 } from "recharts";
 import { useNetworkStats } from "@/hooks/useDashboard";
 
+function formatTrafficValue(
+  value: number | string | readonly (number | string)[] | undefined
+) {
+  const numeric = Array.isArray(value) ? Number(value[0]) : Number(value);
+  return `${Number.isFinite(numeric) ? numeric : 0} MB/s`;
+}
+
 export function NetworkStats() {
   const { networkTraffic, speedTest } = useNetworkStats();
   return (
@@ -115,7 +122,7 @@ export function NetworkStats() {
                 borderRadius: "8px",
                 fontSize: "12px",
               }}
-              formatter={(value: number | undefined) => `${value ?? 0} MB/s`}
+              formatter={(value) => formatTrafficValue(value)}
             />
             <Line
               type="monotone"

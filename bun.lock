@@ -185,6 +185,7 @@
         "@duyet/tsconfig": "*",
         "@tailwindcss/vite": "^4.0.0",
         "@tanstack/router-plugin": "^1.0.0",
+        "@types/bun": "latest",
         "@types/react": "^19.1.4",
         "@types/rss": "^0.0.32",
         "@types/sanitize-html": "^2.16.0",
