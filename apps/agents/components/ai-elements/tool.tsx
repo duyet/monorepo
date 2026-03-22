@@ -24,7 +24,7 @@ export type ToolProps = ComponentProps<typeof Collapsible>;
 export const Tool = ({ className, ...props }: ToolProps) => (
   <Collapsible
     className={cn(
-      "group not-prose mb-4 w-full rounded-2xl border border-border/60 bg-card text-card-foreground shadow-sm",
+      "group not-prose mb-4 w-full rounded-2xl border border-border/70 bg-background text-card-foreground shadow-sm",
       className
     )}
     {...props}
@@ -66,7 +66,10 @@ const statusIcons: Record<ToolPart["state"], ReactNode> = {
 };
 
 export const getStatusBadge = (status: ToolPart["state"]) => (
-  <Badge className="gap-1.5 rounded-full text-xs" variant="secondary">
+  <Badge
+    className="gap-1.5 rounded-full border border-border/70 bg-muted/50 text-xs"
+    variant="secondary"
+  >
     {statusIcons[status]}
     {statusLabels[status]}
   </Badge>
@@ -93,7 +96,7 @@ export const ToolHeader = ({
     >
       <div className="flex items-center gap-2">
         <WrenchIcon className="size-4 text-muted-foreground" />
-        <span className="font-medium text-sm">{title ?? derivedName}</span>
+        <span className="text-sm font-medium">{title ?? derivedName}</span>
         {getStatusBadge(state)}
       </div>
       <ChevronDownIcon className="size-4 text-muted-foreground transition-transform group-data-[state=open]:rotate-180" />
@@ -106,7 +109,7 @@ export type ToolContentProps = ComponentProps<typeof CollapsibleContent>;
 export const ToolContent = ({ className, ...props }: ToolContentProps) => (
   <CollapsibleContent
     className={cn(
-      "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 space-y-4 p-4 text-popover-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
+      "space-y-4 border-t border-border/70 p-4 text-popover-foreground outline-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-top-2",
       className
     )}
     {...props}
@@ -122,7 +125,7 @@ export const ToolInput = ({ className, input, ...props }: ToolInputProps) => (
     <h4 className="font-medium text-muted-foreground text-xs uppercase tracking-wide">
       Parameters
     </h4>
-    <div className="rounded-lg bg-muted/50 overflow-hidden">
+    <div className="overflow-hidden rounded-xl border border-border/70 bg-muted/30">
       <CodeBlock code={JSON.stringify(input, null, 2)} language="json" />
     </div>
   </div>
@@ -160,10 +163,10 @@ export const ToolOutput = ({
       </h4>
       <div
         className={cn(
-          "overflow-x-auto rounded-lg text-xs [&_table]:w-full",
+          "overflow-x-auto rounded-xl border border-border/70 text-xs [&_table]:w-full",
           errorText
-            ? "bg-destructive/10 text-destructive"
-            : "bg-muted/50 text-foreground"
+            ? "bg-destructive/5 text-destructive"
+            : "bg-muted/30 text-foreground"
         )}
       >
         {errorText && <div>{errorText}</div>}

@@ -2,6 +2,7 @@ import { logger } from "@duyet/libs";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   createConversation as createLocalConversation,
+  DEFAULT_OPENROUTER_MODEL_ID,
   loadConversations as loadLocalStorage,
   deleteConversation as removeLocalStorage,
   saveConversation as saveLocalStorage,
@@ -21,10 +22,11 @@ interface UseConversationsReturn {
   activeConversation: Conversation | null;
   activeMessages: Message[];
   isLoading: boolean;
-  createNew: (mode: ChatMode) => Promise<string>;
+  createNew: (mode: ChatMode, modelId?: string) => Promise<string>;
   switchTo: (id: string) => Promise<Message[]>;
   remove: (id: string) => Promise<void>;
   updateTitle: (id: string, title: string) => Promise<void>;
+  updateModel: (id: string, modelId: string) => Promise<void>;
   saveMessages: (messages: Message[]) => Promise<void>;
   syncConversation: (id: string) => Promise<void>;
 }
@@ -110,13 +112,14 @@ async function fetchConversationWithMessages(
 async function createConversation(
   mode: ChatMode,
   title?: string,
+  modelId?: string,
   authHeaders: Record<string, string> = {}
 ): Promise<Conversation> {
   try {
     const response = await fetch(API_BASE, {
       method: "POST",
       headers: { "Content-Type": "application/json", ...authHeaders },
-      body: JSON.stringify({ mode, title }),
+      body: JSON.stringify({ mode, title, modelId }),
     });
     if (!response.ok)
       throw new Error(`Failed to create conversation: ${response.status}`);
@@ -127,7 +130,7 @@ async function createConversation(
     if (isAuthenticated(authHeaders)) {
       throw error; // Don't fall back for authenticated users
     }
-    const conv = createLocalConversation(mode);
+    const conv = createLocalConversation(mode, modelId);
     saveLocalStorage(conv);
     return conv;
   }
@@ -156,6 +159,33 @@ async function updateConversationTitle(
     const local = loadLocalStorage().find((c) => c.id === id);
     if (local) {
       saveLocalStorage({ ...local, title });
+    }
+  }
+}
+
+/**
+ * Update conversation model via API.
+ * Rethrows for authenticated users so callers can revert optimistic state.
+ */
+async function updateConversationModel(
+  id: string,
+  modelId: string,
+  authHeaders: Record<string, string> = {}
+): Promise<void> {
+  try {
+    const response = await fetch(`${API_BASE}/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json", ...authHeaders },
+      body: JSON.stringify({ modelId }),
+    });
+    if (!response.ok)
+      throw new Error(`Failed to update conversation: ${response.status}`);
+  } catch (error) {
+    logger.error("[useConversations] API error:", error);
+    if (isAuthenticated(authHeaders)) throw error;
+    const local = loadLocalStorage().find((c) => c.id === id);
+    if (local) {
+      saveLocalStorage({ ...local, modelId });
     }
   }
 }
@@ -276,21 +306,27 @@ export function useConversations(
     load();
   }, [hasAuth]);
 
-  const createNew = useCallback(async (mode: ChatMode): Promise<string> => {
-    logger.debug("[useConversations] Creating new conversation, mode:", mode);
-    const headers = await getAuthHeaders(getAuthTokenRef.current);
-    const conv = await createConversation(mode, undefined, headers);
-    logger.debug(
-      "[useConversations] Created conversation:",
-      conv.id,
-      conv.title
-    );
-    setConversations((prev) => [conv, ...prev]);
-    setActiveId(conv.id);
-    messagesCacheRef.current.set(conv.id, []);
-    logger.debug("[useConversations] Set active conversation:", conv.id);
-    return conv.id;
-  }, []);
+  const createNew = useCallback(
+    async (
+      mode: ChatMode,
+      modelId: string = DEFAULT_OPENROUTER_MODEL_ID
+    ): Promise<string> => {
+      logger.debug("[useConversations] Creating new conversation, mode:", mode);
+      const headers = await getAuthHeaders(getAuthTokenRef.current);
+      const conv = await createConversation(mode, undefined, modelId, headers);
+      logger.debug(
+        "[useConversations] Created conversation:",
+        conv.id,
+        conv.title
+      );
+      setConversations((prev) => [conv, ...prev]);
+      setActiveId(conv.id);
+      messagesCacheRef.current.set(conv.id, []);
+      logger.debug("[useConversations] Set active conversation:", conv.id);
+      return conv.id;
+    },
+    []
+  );
 
   const switchTo = useCallback(async (id: string): Promise<Message[]> => {
     // Check if we have messages cached
@@ -371,6 +407,28 @@ export function useConversations(
     [conversations]
   );
 
+  const updateModel = useCallback(
+    async (id: string, modelId: string) => {
+      const previous = conversations.find((c) => c.id === id);
+      setConversations((prev) =>
+        prev.map((c) => (c.id === id ? { ...c, modelId } : c))
+      );
+      const headers = await getAuthHeaders(getAuthTokenRef.current);
+      try {
+        await updateConversationModel(id, modelId, headers);
+      } catch {
+        if (previous) {
+          setConversations((prev) =>
+            prev.map((c) =>
+              c.id === id ? { ...c, modelId: previous.modelId } : c
+            )
+          );
+        }
+      }
+    },
+    [conversations]
+  );
+
   const saveMessages = useCallback(
     async (messages: Message[]) => {
       if (!activeId) return;
@@ -419,6 +477,7 @@ export function useConversations(
     switchTo,
     remove,
     updateTitle,
+    updateModel,
     saveMessages,
     syncConversation,
   };

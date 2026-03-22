@@ -1,15 +1,4 @@
 import {
-  Badge,
-  Button,
-  Card,
-  CardContent,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@duyet/components";
-import { cn } from "@duyet/libs";
-import {
   Activity,
   AlertCircle,
   CheckCircle2,
@@ -26,8 +15,13 @@ import {
   NodeTraceTimeline,
   StateInspector,
 } from "@/components/graph";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { ActivityPanelProps } from "@/lib/types";
+import { cn } from "@/lib/utils";
 import { ThinkingDots, ThinkingSteps } from "./thinking-steps";
 import { ToolExecutionItem } from "./tool-execution-item";
 

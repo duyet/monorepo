@@ -1,59 +1,23 @@
-import { Badge, Button } from "@duyet/components";
-import { AuthButtons } from "@duyet/components/header/AuthButtons";
-import {
-  Activity,
-  Download,
-  FileJson,
-  FileText,
-  MoreHorizontal,
-  Plus,
-  Wrench,
-} from "lucide-react";
-import { useState } from "react";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbList,
-  BreadcrumbPage,
-} from "@/components/ui/breadcrumb";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Download, FileJson, FileText, PanelRight, Plus } from "lucide-react";
+import { AuthControl } from "@/components/auth-control";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useExportConversation } from "@/lib/hooks/use-export-conversation";
-import { SettingsDialog } from "../settings/settings-dialog";
 
 interface ChatTopBarProps {
-  onToggleActivity: () => void;
-  onToggleTools?: () => void;
+  onToggleRightSidebar?: () => void;
   onNewChat: () => void;
-  showActivityButton: boolean;
-  activityCount: number;
   conversationTitle?: string;
   conversationId?: string;
 }
 
-// Export format options configuration
-const EXPORT_FORMATS = [
-  { format: "json", label: "Export as JSON", icon: FileJson },
-  { format: "md", label: "Export as Markdown", icon: FileText },
-  { format: "txt", label: "Export as Text", icon: FileText },
-] as const;
-
 export function ChatTopBar({
-  onToggleActivity,
-  onToggleTools,
+  onToggleRightSidebar,
   onNewChat,
-  showActivityButton,
-  activityCount,
   conversationTitle,
   conversationId,
 }: ChatTopBarProps) {
-  const [settingsOpen, setSettingsOpen] = useState(false);
   const { exportConversation, isExporting } = useExportConversation();
 
   const handleExport = async (format: "json" | "md" | "txt") => {
@@ -68,136 +32,74 @@ export function ChatTopBar({
   const canExport = Boolean(conversationId);
 
   return (
-    <>
-      <header className="absolute top-0 w-full z-10 flex h-14 items-center bg-transparent flex-shrink-0 px-2 sm:px-4 py-2 gap-2">
-        {/* Left: Sidebar trigger + breadcrumb */}
-        <div className="flex items-center gap-2">
+    <header className="absolute inset-x-0 top-0 z-10 flex h-14 items-center border-b bg-background/95 px-3 backdrop-blur sm:px-4">
+      <div className="flex items-center gap-2">
+        <div className="lg:hidden">
           <SidebarTrigger className="-ml-1" />
-          <Separator orientation="vertical" className="h-4" />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbPage>
-                  {conversationTitle || "New Task"}
-                </BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
         </div>
-
-        {/* Right: Actions */}
-        <div className="ml-auto flex items-center gap-1">
-          {/* Conversation actions */}
-          <div className="flex items-center gap-1">
-            <Button
-              variant="outline"
-              size="icon"
-              className="h-8 w-8"
-              onClick={onNewChat}
-              aria-label="New chat"
-            >
-              <Plus className="h-4 w-4" />
-              <span className="sr-only">New Chat</span>
-            </Button>
-
-            {onToggleTools && (
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-8 w-8"
-                onClick={onToggleTools}
-                aria-label="Open tools panel"
-              >
-                <Wrench className="h-4 w-4" />
-                <span className="sr-only">Tools</span>
-              </Button>
-            )}
-
-            {canExport && (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="h-8 w-8"
-                    disabled={isExporting}
-                    aria-label="Export conversation"
-                  >
-                    <Download
-                      className={`h-4 w-4 ${isExporting ? "animate-pulse" : ""}`}
-                    />
-                    <span className="sr-only">Export</span>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  {EXPORT_FORMATS.map(({ format, label, icon: Icon }) => (
-                    <DropdownMenuItem
-                      key={format}
-                      onClick={() =>
-                        handleExport(format as "json" | "md" | "txt")
-                      }
-                      disabled={isExporting}
-                    >
-                      <Icon className="h-4 w-4 mr-2" />
-                      {label}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )}
-          </div>
-
-          {/* Separator between conversation and panel actions */}
-          <Separator orientation="vertical" className="h-6" />
-
-          {/* Panel actions */}
-          <div className="flex items-center gap-1">
-            <Button
-              variant="outline"
-              size="icon"
-              className="h-8 w-8"
-              onClick={() => setSettingsOpen(true)}
-              aria-label="Open settings"
-            >
-              <MoreHorizontal className="h-4 w-4" />
-              <span className="sr-only">More</span>
-            </Button>
-
-            {showActivityButton && (
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-8 w-8 relative"
-                onClick={onToggleActivity}
-                aria-label="Toggle activity panel"
-              >
-                <Activity className="h-4 w-4" />
-                {activityCount > 0 && (
-                  <Badge
-                    variant="default"
-                    className="absolute -top-1 -right-1 h-4 w-4 p-0 flex items-center justify-center text-[9px] rounded-full"
-                  >
-                    {activityCount > 9 ? "9+" : activityCount}
-                  </Badge>
-                )}
-                <span className="sr-only">Toggle activity</span>
-              </Button>
-            )}
-          </div>
-
-          {/* Separator before auth */}
-          <Separator orientation="vertical" className="h-6" />
-
-          {/* Auth — self-wrapping with ClerkProvider */}
-          <AuthButtons
-            signInClassName="h-8 w-8 flex items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
-            avatarSize="h-7 w-7"
-            wrapWithProvider={true}
-          />
+        <Separator orientation="vertical" className="hidden h-4 lg:block" />
+        <div className="min-w-0">
+          <p className="truncate text-sm font-medium">
+            {conversationTitle || "New chat"}
+          </p>
+          <p className="text-xs text-muted-foreground">Agent workspace</p>
         </div>
-      </header>
+      </div>
 
-      <SettingsDialog open={settingsOpen} onOpenChange={setSettingsOpen} />
-    </>
+      <div className="ml-auto flex items-center gap-2">
+        <Button variant="outline" size="sm" onClick={onNewChat}>
+          <Plus className="h-4 w-4" />
+          New
+        </Button>
+
+        {canExport && (
+          <>
+            <Button
+              variant="ghost"
+              size="icon"
+              disabled={isExporting}
+              onClick={() => handleExport("json")}
+              aria-label="Export as JSON"
+            >
+              <FileJson className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              disabled={isExporting}
+              onClick={() => handleExport("md")}
+              aria-label="Export as Markdown"
+            >
+              <FileText className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              disabled={isExporting}
+              onClick={() => handleExport("txt")}
+              aria-label="Export as Text"
+            >
+              <Download className="h-4 w-4" />
+            </Button>
+          </>
+        )}
+
+        {onToggleRightSidebar && (
+          <Button
+            variant="ghost"
+            size="icon"
+            className="lg:hidden"
+            onClick={onToggleRightSidebar}
+            aria-label="Open details"
+          >
+            <PanelRight className="h-4 w-4" />
+          </Button>
+        )}
+
+        <Separator orientation="vertical" className="h-6" />
+
+        <AuthControl iconOnly className="h-8 w-8" />
+      </div>
+    </header>
   );
 }

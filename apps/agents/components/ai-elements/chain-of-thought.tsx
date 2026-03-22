@@ -155,7 +155,7 @@ export const ChainOfThought = memo(
       <ChainOfThoughtContext.Provider value={contextValue}>
         <Collapsible
           className={cn(
-            "not-prose mb-4 rounded-2xl border border-border/60 bg-muted/40 p-4",
+            "not-prose mb-4 rounded-2xl border border-border/70 bg-background p-4 shadow-sm",
             className
           )}
           onOpenChange={handleOpenChange}
@@ -202,7 +202,7 @@ export const ChainOfThoughtHeader = memo(
     return (
       <CollapsibleTrigger
         className={cn(
-          "flex w-full items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground",
+          "flex w-full items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground",
           className
         )}
         {...props}
@@ -237,13 +237,11 @@ export type ChainOfThoughtStepProps = ComponentProps<"div"> & {
 
 const StatusIcon = ({ status }: { status: ChainOfThoughtStepStatus }) => {
   if (status === "complete") {
-    return (
-      <CheckCircle2Icon className="size-4 shrink-0 text-green-500 dark:text-green-400" />
-    );
+    return <CheckCircle2Icon className="size-4 shrink-0 text-emerald-600" />;
   }
   if (status === "active") {
     return (
-      <CircleDotIcon className="size-4 shrink-0 animate-pulse text-blue-500 dark:text-blue-400" />
+      <CircleDotIcon className="size-4 shrink-0 animate-pulse text-blue-600" />
     );
   }
   return <CircleIcon className="size-4 shrink-0 text-muted-foreground/40" />;
@@ -368,7 +366,7 @@ export const ChainOfThoughtContent = memo(
   ({ className, children, ...props }: ChainOfThoughtContentProps) => (
     <CollapsibleContent
       className={cn(
-        "mt-3 pt-3 border-t border-border/40 text-sm text-muted-foreground",
+        "mt-3 border-t border-border/50 pt-3 text-sm text-muted-foreground",
         "max-h-[500px] overflow-y-auto pr-2",
         "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
         className
@@ -409,7 +407,7 @@ export const ChainOfThoughtImage = memo(
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         alt={alt}
-        className="rounded-md"
+        className="rounded-md border border-border/70"
         height={height}
         src={src}
         width={width}

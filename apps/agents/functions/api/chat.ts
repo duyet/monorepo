@@ -4,9 +4,10 @@
  * Handles streaming chat with LangGraph-style agent execution.
  * Mode: 'fast' = direct LLM, no tools. 'agent' = full graph execution with tool calling.
  *
- * Provider: ai-gateway-provider with unified API
+ * Provider: OpenRouter via the AI SDK provider package
  */
 
+import { createOpenRouter } from "@openrouter/ai-sdk-provider";
 import {
   convertToModelMessages,
   pruneMessages,
@@ -14,15 +15,8 @@ import {
   streamText,
   tool,
 } from "ai";
-import { createAiGateway } from "ai-gateway-provider";
-import { createUnified } from "ai-gateway-provider/providers/unified";
 import { z } from "zod";
-import {
-  AGENT_MODEL,
-  FAST_MODEL,
-  FAST_SYSTEM_PROMPT,
-  SYSTEM_PROMPT,
-} from "../../lib/agent";
+import { FAST_SYSTEM_PROMPT, SYSTEM_PROMPT } from "../../lib/agent";
 import { getClientIp, getUserFromRequest, hashIp } from "../../lib/auth";
 import { createDatabaseClient } from "../../lib/db/client";
 // Graph system imports (Unit 11 integration)
@@ -42,6 +36,7 @@ import {
   getGitHubTool,
   searchBlogTool,
 } from "../../lib/tools";
+import { DEFAULT_OPENROUTER_MODEL_ID } from "../../lib/types";
 
 /** Rate limit for unauthenticated users: max messages per 24h window */
 const ANON_RATE_LIMIT = 10;
@@ -107,13 +102,71 @@ function buildSystemPrompt(
 }
 
 interface Env {
-  AI: Ai;
   DB?: D1Database;
-  // AI Gateway configuration
-  CF_AIG_ACCOUNT_ID?: string;
-  CF_AIG_TOKEN?: string;
+  CLERK_ISSUER_URL?: string;
+  OPENROUTER_API_KEY?: string;
   // Server-side pepper for hashing IPs
   RATE_LIMIT_PEPPER?: string;
+}
+
+function getOpenRouterModel(env: Env, modelId?: string) {
+  const openrouterApiKey = env.OPENROUTER_API_KEY;
+  if (!openrouterApiKey) {
+    throw new Error(
+      "Missing OPENROUTER_API_KEY. Configure the OpenRouter secret."
+    );
+  }
+
+  const selectedModelId =
+    !modelId || modelId === "openrouter/free"
+      ? "openai/gpt-oss-20b:free"
+      : modelId;
+  const openrouter = createOpenRouter({ apiKey: openrouterApiKey });
+  return {
+    model: openrouter.chat(selectedModelId),
+    selectedModelId,
+  };
+}
+
+function getMessageMetadata(part: unknown, fallbackModelId: string) {
+  if (
+    !part ||
+    typeof part !== "object" ||
+    !("type" in part) ||
+    (part as { type: string }).type !== "finish"
+  ) {
+    return {};
+  }
+
+  const finishPart = part as {
+    response?: { modelId?: string };
+    totalUsage?: {
+      inputTokens?: number;
+      outputTokens?: number;
+      totalTokens?: number;
+      promptTokens?: number;
+      completionTokens?: number;
+    };
+    toolCalls?: unknown[];
+  };
+
+  const promptTokens =
+    finishPart.totalUsage?.inputTokens ?? finishPart.totalUsage?.promptTokens;
+  const completionTokens =
+    finishPart.totalUsage?.outputTokens ??
+    finishPart.totalUsage?.completionTokens;
+
+  return {
+    model: finishPart.response?.modelId || fallbackModelId,
+    tokens: {
+      prompt: promptTokens,
+      completion: completionTokens,
+      total:
+        finishPart.totalUsage?.totalTokens ??
+        (promptTokens ?? 0) + (completionTokens ?? 0),
+    },
+    toolCalls: finishPart.toolCalls?.length ?? 0,
+  };
 }
 
 const AGENT_TOOLS = {
@@ -227,21 +280,14 @@ const AGENT_TOOLS = {
 };
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
-  const { AI, DB, RATE_LIMIT_PEPPER } = context.env;
-  if (!AI) {
-    return new Response(
-      JSON.stringify({
-        error: "Missing AI binding — check wrangler.toml [ai] config",
-      }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
-  }
+  const { DB, RATE_LIMIT_PEPPER } = context.env;
 
   try {
     // Parse and validate the request body
     const requestBodySchema = z.object({
       messages: z.array(z.unknown()),
       mode: z.string().optional(),
+      modelId: z.string().optional(),
       conversationId: z.string().optional(),
       settings: z
         .object({
@@ -278,6 +324,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const {
       messages: uiMessages,
       mode = "agent",
+      modelId = DEFAULT_OPENROUTER_MODEL_ID,
       conversationId,
       settings,
       useGraph = false, // Default to legacy behavior for now
@@ -339,6 +386,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         },
         requestId,
         uiMessages,
+        modelId,
         conversationId,
         settings,
         user,
@@ -352,6 +400,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       requestId,
       uiMessages,
       mode,
+      modelId,
       conversationId,
       settings,
       user,
@@ -395,6 +444,7 @@ async function handleGraphExecution(
   },
   requestId: string,
   uiMessages: unknown[],
+  modelId: string,
   conversationId: string | undefined,
   settings:
     | { customInstructions?: string; language?: string; timezone?: string }
@@ -443,24 +493,7 @@ async function handleGraphExecution(
   // Build system prompt with graph context (shared helper)
   const system = buildSystemPrompt(SYSTEM_PROMPT, true, settings);
 
-  // AI Gateway setup
-  const accountId = context.env.CF_AIG_ACCOUNT_ID;
-  if (!accountId) {
-    return new Response(
-      JSON.stringify({
-        error: "Server misconfiguration: CF_AIG_ACCOUNT_ID is not set",
-      }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
-  }
-
-  const aigateway = createAiGateway({
-    accountId,
-    gateway: "monorepo",
-    apiKey: context.env.CF_AIG_TOKEN,
-  });
-  const unified = createUnified();
-  const model = aigateway(unified(`workers-ai/${AGENT_MODEL}`));
+  const { model, selectedModelId } = getOpenRouterModel(context.env, modelId);
 
   // Start graph execution in background — use waitUntil so Cloudflare does
   // not terminate the worker before the promise resolves.
@@ -518,6 +551,7 @@ async function handleGraphExecution(
           id: conversationId,
           mode: "agent",
           userId: user.userId,
+          modelId: selectedModelId,
         })
         .catch((err) => {
           console.error(
@@ -525,10 +559,21 @@ async function handleGraphExecution(
             err
           );
         });
+    } else if (existing.modelId !== selectedModelId) {
+      dbClient
+        .updateConversation({ id: conversationId, modelId: selectedModelId })
+        .catch((err) => {
+          console.error(
+            `[Chat API][${requestId}] Failed to update conversation model:`,
+            err
+          );
+        });
     }
   }
 
-  const response = result.toUIMessageStreamResponse();
+  const response = result.toUIMessageStreamResponse({
+    messageMetadata: ({ part }) => getMessageMetadata(part, selectedModelId),
+  });
 
   // Add rate limit headers
   if (rateLimitResult) {
@@ -555,6 +600,7 @@ async function handleDirectExecution(
   requestId: string,
   uiMessages: unknown[],
   mode: string,
+  modelId: string,
   conversationId: string | undefined,
   settings:
     | { customInstructions?: string; language?: string; timezone?: string }
@@ -568,23 +614,6 @@ async function handleDirectExecution(
     toolCalls: "require-last-only",
   });
 
-  // AI Gateway with unified provider
-  const accountId = context.env.CF_AIG_ACCOUNT_ID;
-  if (!accountId) {
-    return new Response(
-      JSON.stringify({
-        error: "Server misconfiguration: CF_AIG_ACCOUNT_ID is not set",
-      }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
-  }
-  const aigateway = createAiGateway({
-    accountId,
-    gateway: "monorepo",
-    apiKey: context.env.CF_AIG_TOKEN,
-  });
-  const unified = createUnified();
-
   const isFast = mode === "fast";
   const basePrompt = isFast ? FAST_SYSTEM_PROMPT : SYSTEM_PROMPT;
 
@@ -595,10 +624,7 @@ async function handleDirectExecution(
     settings
   );
 
-  const modelId = isFast ? FAST_MODEL : AGENT_MODEL;
-
-  // For Workers AI models, use the format: workers-ai/@cf/meta/...
-  const model = aigateway(unified(`workers-ai/${modelId}`));
+  const { model, selectedModelId } = getOpenRouterModel(context.env, modelId);
 
   const result = streamText({
     model,
@@ -626,6 +652,7 @@ async function handleDirectExecution(
           id: conversationId,
           mode: mode as "fast" | "agent",
           userId: user.userId,
+          modelId: selectedModelId,
         })
         .catch((err) => {
           console.error(
@@ -633,10 +660,24 @@ async function handleDirectExecution(
             err
           );
         });
+    } else if (existing.modelId !== selectedModelId) {
+      dbClient
+        .updateConversation({
+          id: conversationId,
+          modelId: selectedModelId,
+        })
+        .catch((err) => {
+          console.error(
+            `[Chat API][${requestId}] Failed to update conversation model:`,
+            err
+          );
+        });
     }
   }
 
-  const response = result.toUIMessageStreamResponse();
+  const response = result.toUIMessageStreamResponse({
+    messageMetadata: ({ part }) => getMessageMetadata(part, selectedModelId),
+  });
 
   // Add rate limit headers for unauthenticated users
   if (rateLimitResult) {

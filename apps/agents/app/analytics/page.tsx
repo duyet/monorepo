@@ -72,10 +72,7 @@ export default function AnalyticsPage() {
           <div className="flex h-full w-full overflow-hidden relative bg-transparent">
             <div className="relative flex flex-1 flex-col min-w-0 overflow-hidden">
               <ChatTopBar
-                onToggleActivity={() => {}}
                 onNewChat={() => createNew("fast")}
-                showActivityButton={false}
-                activityCount={0}
                 conversationTitle="Global System Analytics"
               />
 

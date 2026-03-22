@@ -159,10 +159,10 @@ export function ConversationEmptyState({
       )}
       {...props}
     >
-      <Card className="max-w-sm">
+      <Card className="max-w-sm border-border/70 bg-background shadow-sm">
         <CardContent className="flex flex-col items-center justify-center py-12 text-center">
           {icon && (
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted text-muted-foreground mb-4">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-border/70 bg-muted text-muted-foreground">
               {icon}
             </div>
           )}
@@ -201,10 +201,8 @@ export function ConversationScrollButton({
       type="button"
       aria-label="Scroll to bottom"
       className={cn(
-        "absolute bottom-4 left-1/2 -translate-x-1/2 z-10",
-        "flex items-center gap-1.5 rounded-full border border-border",
-        "px-3 py-1.5 text-xs font-medium text-foreground shadow-md",
-        "transition-all duration-200 hover:bg-muted",
+        "absolute bottom-4 left-1/2 z-10 -translate-x-1/2",
+        "flex items-center gap-1.5 rounded-full border border-border/70 bg-background px-3 py-1.5 text-xs font-medium text-foreground shadow-sm transition-colors hover:bg-muted",
         "animate-in fade-in slide-in-from-bottom-2",
         className
       )}

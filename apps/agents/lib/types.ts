@@ -4,6 +4,8 @@
 
 export type ChatMode = "fast" | "agent";
 
+export const DEFAULT_OPENROUTER_MODEL_ID = "openrouter/free";
+
 export interface Conversation {
   id: string;
   userId?: string;
@@ -11,6 +13,7 @@ export interface Conversation {
   createdAt: number;
   updatedAt: number;
   mode: ChatMode;
+  modelId?: string;
 }
 
 export interface Message {
