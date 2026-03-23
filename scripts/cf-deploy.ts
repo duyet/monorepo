@@ -24,7 +24,7 @@
  * - Domain convention: <app>.duyet.net (except home → duyet.net)
  */
 
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -99,28 +99,21 @@ function discoverApps(): Record<string, AppConfig> {
   const appsDir = join(rootDir, "apps");
   const config: Record<string, AppConfig> = {};
 
-  const entries = Bun.spawnSync({
-    cmd: ["ls", appsDir],
-  });
+  for (const entry of readdirSync(appsDir, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue;
 
-  const rawOutput = entries.stdout.toString().trim();
-  if (!rawOutput) {
-    console.error(
-      `[ERROR] No apps found in ${appsDir}. ls exit code: ${entries.exitCode}`
-    );
-    process.exit(1);
-  }
-
-  for (const appName of rawOutput.split("\n")) {
+    const appName = entry.name;
     const appDir = join(appsDir, appName);
     const wranglerPath = join(appDir, "wrangler.toml");
     const pkgPath = join(appDir, "package.json");
 
     if (!existsSync(wranglerPath) || !existsSync(pkgPath)) continue;
 
-    // Check for cf:deploy:prod script
-    const pkgContent = readFileSync(pkgPath, "utf-8");
-    if (!pkgContent.includes('"cf:deploy:prod"')) continue;
+    // Check for cf:deploy:prod script via parsed JSON
+    const pkgJson = JSON.parse(readFileSync(pkgPath, "utf-8")) as {
+      scripts?: Record<string, string>;
+    };
+    if (!pkgJson.scripts?.["cf:deploy:prod"]) continue;
 
     // Parse wrangler.toml
     const wranglerContent = readFileSync(wranglerPath, "utf-8");

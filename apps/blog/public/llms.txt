@@ -492,7 +492,7 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - [Linux - Giao diện phẳng cho Ubuntu](https://blog.duyet.net/2015/02/linux-giao-dien-phang-cho-ubuntu.html) - 2015-02-17
 - [Linux - Đường dẫn tuyệt đối và đường dẫn tương đối](https://blog.duyet.net/2015/02/linux-duong-dan-tuyet-doi-va-duong-dan-tuong-doi.html) - 2015-02-15
 - [phpMyAdmin](https://blog.duyet.net/2015/02/phpmyadmin.html) - 2015-02-15
-- [Github là gì?](https://blog.duyet.net/2015/02/github-la-gi.html) - 2015-02-14
+- [GitHub là gì?](https://blog.duyet.net/2015/02/github-la-gi.html) - 2015-02-14
 - [Module hóa](https://blog.duyet.net/2015/02/module.html) - 2015-02-14
 - [Linux - Một số lệnh hay dùng](https://blog.duyet.net/2015/02/linux-mot-so-lenh-hay-dung.html) - 2015-02-13
 - [Git - Phục hồi code cũ](https://blog.duyet.net/2015/01/git-recovering-old-code.html) - 2015-01-25
