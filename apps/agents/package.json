@@ -80,7 +80,7 @@
     "@duyet/tsconfig": "*",
     "@tanstack/router-plugin": "^1.167.0",
     "@types/react": "^19.1.4",
-    "@vitejs/plugin-react": "^4",
+    "@vitejs/plugin-react": "^6.0.0",
     "http-proxy": "^1.18.1",
     "typescript": "*",
     "vite": "6",
