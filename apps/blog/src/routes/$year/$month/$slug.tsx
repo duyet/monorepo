@@ -1,4 +1,3 @@
-import Header from "@duyet/components/Header";
 import Container from "@duyet/components/Container";
 import type { Post, Series } from "@duyet/interfaces";
 import { extractHeadings } from "@duyet/libs/extractHeadings";
@@ -111,9 +110,7 @@ function PostPage() {
   };
 
   return (
-    <>
-      <Header />
-      <Container>
+    <Container>
         <div className="relative">
           <ReadingProgress />
           <div className="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
@@ -127,7 +124,6 @@ function PostPage() {
 
           <TableOfContents headings={post.headings || []} />
         </div>
-      </Container>
-    </>
+    </Container>
   );
 }

@@ -1,7 +1,16 @@
-# Generated at build time by scripts/generate-posts-data.ts
+# Generated at build time by prebuild scripts
 public/posts-data.json
 public/posts-content/
 public/series-data.json
+public/llms.txt
+public/llms-full.txt
+public/rss.xml
+public/sitemap.xml
+public/robots.txt
+public/ping.json
+
+# Generated individual .md files for plain-text post access
+public/20[0-9][0-9]/
 
 # Build output
 dist/

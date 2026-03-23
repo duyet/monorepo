@@ -1,0 +1,3 @@
+# Serve .md files as plain text markdown
+/*.md
+  Content-Type: text/plain; charset=utf-8

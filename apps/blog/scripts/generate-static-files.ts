@@ -189,6 +189,32 @@ ${post.content || ""}
 writeFileSync(join(PUBLIC_DIR, "llms-full.txt"), llmsFullContent, "utf-8");
 console.log("  ✓ llms-full.txt");
 
+// ── individual .md files ─────────────────────────────────────────────────────
+// Generate plain markdown files at /{year}/{month}/{slug}.md paths so that
+// e.g. /2026/02/claws.md serves raw markdown instead of the SPA shell.
+let mdWritten = 0;
+for (const post of fullPosts) {
+  const slug = post.slug.replace(/^\//, "");
+  const mdDir = join(PUBLIC_DIR, dirname(slug));
+  mkdirSync(mdDir, { recursive: true });
+  const frontmatter = [
+    "---",
+    `title: "${(post.title || "").replace(/"/g, '\\"')}"`,
+    `date: ${new Date(post.date).toISOString().split("T")[0]}`,
+    `category: ${post.category || ""}`,
+    `tags: [${(post.tags || []).join(", ")}]`,
+    `url: ${SITE_URL}${post.slug}`,
+    "---",
+  ].join("\n");
+  writeFileSync(
+    join(PUBLIC_DIR, `${slug}.md`),
+    `${frontmatter}\n\n${post.content || ""}`,
+    "utf-8"
+  );
+  mdWritten++;
+}
+console.log(`  ✓ individual .md files (${mdWritten} posts)`);
+
 // ── sitemap.xml ───────────────────────────────────────────────────────────────
 const sitemapPosts = (getAllPosts(["slug", "date"], 100000) as Post[]).map(
   (p) => ({ ...p, slug: p.slug.replace(/\.html$/, "") })
