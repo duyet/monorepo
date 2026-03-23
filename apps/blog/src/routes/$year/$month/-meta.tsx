@@ -15,7 +15,7 @@ interface ContentProps {
 }
 
 export default function Meta({ post, series, className }: ContentProps) {
-  const markdownUrl = post.slug.replace(/\.html$/, ".md");
+  const markdownUrl = `${post.slug.replace(/\.html$/, "")}.md`;
 
   return (
     <div className={cn("space-y-8", className)}>

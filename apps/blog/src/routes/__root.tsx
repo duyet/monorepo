@@ -74,7 +74,8 @@ export const Route = createRootRoute({
         crossOrigin: "anonymous",
       },
       {
-        rel: "stylesheet",
+        rel: "preload",
+        as: "style",
         href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap",
       },
       {
@@ -94,6 +95,14 @@ function RootComponent() {
     <html lang="en">
       <head>
         <HeadContent />
+        {/* Non-blocking Google Fonts: preloaded above, applied here */}
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+          media="print"
+          // @ts-expect-error onLoad is valid on link elements
+          onLoad="this.media='all'"
+        />
       </head>
       <body>
         <ThemeProvider>

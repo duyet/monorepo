@@ -6,15 +6,12 @@ import { markdownToHtml } from "@duyet/libs/markdownToHtml";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
 import { RelatedPosts } from "@/components/post/RelatedPosts";
-import { SeriesNav } from "@/components/post/SeriesNav";
 import { TableOfContents } from "@/components/post/TableOfContents";
 import {
   getPostBySlug,
   getRelatedPosts,
   getSeries,
-  getSeriesNavigation,
 } from "@/lib/posts";
-import type { SeriesNavItem } from "@/lib/posts";
 import Content from "./-content";
 import Meta from "./-meta";
 
@@ -70,11 +67,8 @@ export const Route = createFileRoute("/$year/$month/$slug")({
       htmlContent = await markdownToHtml(markdownContent);
     }
 
-    const [relatedPosts, seriesNav, series] = await Promise.all([
+    const [relatedPosts, series] = await Promise.all([
       getRelatedPosts(postWithContent, 4),
-      postWithContent.series
-        ? getSeriesNavigation(slugPath, postWithContent.series as string)
-        : Promise.resolve({ prev: null, next: null }),
       postWithContent.series
         ? getSeries({ name: postWithContent.series as string })
         : Promise.resolve(null),
@@ -89,7 +83,7 @@ export const Route = createFileRoute("/$year/$month/$slug")({
       edit_url,
     };
 
-    return { post, relatedPosts, seriesNav, series };
+    return { post, relatedPosts, series };
   },
   component: PostPage,
 });
@@ -102,28 +96,26 @@ type LoadedPost = Post & {
 };
 
 function PostPage() {
-  const { post, relatedPosts, seriesNav, series } = Route.useLoaderData() as {
+  const { post, relatedPosts, series } = Route.useLoaderData() as {
     post: LoadedPost;
     relatedPosts: Post[];
-    seriesNav: { prev: SeriesNavItem | null; next: SeriesNavItem | null };
     series: Series | null;
   };
 
   return (
     <Container>
-        <div className="relative">
-          <ReadingProgress />
-          <div className="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
-            <article>
-              <Content post={post} />
-              <SeriesNav prev={seriesNav.prev} next={seriesNav.next} />
-              <Meta className="mt-10" post={post} series={series} />
-              <RelatedPosts posts={relatedPosts} />
-            </article>
-          </div>
-
-          <TableOfContents headings={post.headings || []} />
+      <div className="relative">
+        <ReadingProgress />
+        <div className="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+          <article className="bg-white dark:bg-neutral-900 rounded-2xl shadow-sm border border-neutral-100 dark:border-neutral-800 px-6 sm:px-10 lg:px-14 py-10 sm:py-14">
+            <Content post={post} />
+            <Meta className="mt-10" post={post} series={series} />
+          </article>
+          <RelatedPosts posts={relatedPosts} />
         </div>
+
+        <TableOfContents headings={post.headings || []} />
+      </div>
     </Container>
   );
 }
