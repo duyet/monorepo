@@ -53,14 +53,13 @@ export function MessageMetadata({
   return (
     <div
       className={cn(
-        "flex items-center gap-1.5",
-        "opacity-70 hover:opacity-100 transition-opacity"
+        "flex items-center gap-1.5 opacity-70 transition-opacity hover:opacity-100"
       )}
     >
       {modelName && (
         <Badge
           variant="secondary"
-          className="gap-1 font-normal text-[11px] font-[family-name:var(--font-geist-mono)]"
+          className="gap-1 rounded-full border border-border/70 bg-muted/40 font-normal text-[11px]"
           title="Model used"
         >
           <Zap className="h-3 w-3" />
@@ -71,7 +70,7 @@ export function MessageMetadata({
       {message.tokens && (
         <Badge
           variant="secondary"
-          className="gap-1 font-normal text-[11px] font-[family-name:var(--font-geist-mono)]"
+          className="gap-1 rounded-full border border-border/70 bg-muted/40 font-normal text-[11px]"
           title="Tokens used"
         >
           <Coins className="h-3 w-3" />
@@ -88,7 +87,7 @@ export function MessageMetadata({
       {duration && (
         <Badge
           variant="secondary"
-          className="gap-1 font-normal text-[11px] font-[family-name:var(--font-geist-mono)]"
+          className="gap-1 rounded-full border border-border/70 bg-muted/40 font-normal text-[11px]"
           title="Generation time"
         >
           <Clock className="h-3 w-3" />
@@ -99,7 +98,7 @@ export function MessageMetadata({
       {message.toolCalls !== undefined && message.toolCalls > 0 && (
         <Badge
           variant="secondary"
-          className="gap-1 font-normal text-[11px] font-[family-name:var(--font-geist-mono)]"
+          className="gap-1 rounded-full border border-border/70 bg-muted/40 font-normal text-[11px]"
           title="Tool calls made"
         >
           <Wrench className="h-3 w-3" />

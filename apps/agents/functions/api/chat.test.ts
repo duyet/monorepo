@@ -44,6 +44,15 @@ mock.module("ai-gateway-provider/providers/unified", () => ({
   createUnified: mock(() => (model: string) => model),
 }));
 
+mock.module("@openrouter/ai-sdk-provider", () => ({
+  createOpenRouter: mock(() => ({
+    chat: mock((model: string) => ({
+      modelId: model,
+      provider: "openrouter",
+    })),
+  })),
+}));
+
 // Track mock auth state for tests
 let mockAuthUser: { userId: string } | null = null;
 
@@ -70,6 +79,7 @@ function makeContext(body: any, env: Record<string, any> = {}, headers: Record<s
         gateway: mock((_name: string) => ({ gateway: _name })),
       },
       CF_AIG_ACCOUNT_ID: "test-account-id",
+      OPENROUTER_API_KEY: "test-openrouter-key",
       ...env,
     },
   };
@@ -97,16 +107,16 @@ function makeMockDB(postIncrementCount = 0) {
 
 
 describe("Chat API — onRequestPost", () => {
-  test("returns 500 when AI binding is missing", async () => {
+  test("returns 500 when OpenRouter key is missing", async () => {
     const ctx = makeContext(
       { messages: [], mode: "fast" },
-      { AI: undefined }
+      { OPENROUTER_API_KEY: undefined }
     );
 
     const response = await onRequestPost(ctx);
     expect(response.status).toBe(500);
-    const json = await response.json();
-    expect(json.error).toContain("AI binding");
+    const body = await response.text();
+    expect(body).toContain("OPENROUTER_API_KEY");
   });
 
   test("returns streaming response in fast mode", async () => {

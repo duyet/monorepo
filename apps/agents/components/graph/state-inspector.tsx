@@ -5,8 +5,6 @@
  * Allows inspection of current conversation state.
  */
 
-import { Badge, Button } from "@duyet/components";
-import { cn } from "@duyet/libs";
 import {
   AlertCircle,
   Check,
@@ -22,10 +20,13 @@ import {
   Search,
 } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { AgentState } from "@/lib/graph";
 import { useToggleSet } from "@/lib/hooks";
 import { useCheckpoints } from "@/lib/hooks/use-graph-state";
+import { cn } from "@/lib/utils";
 
 export interface StateInspectorProps {
   /** Current agent state to inspect */

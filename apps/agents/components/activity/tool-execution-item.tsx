@@ -1,5 +1,3 @@
-import { Badge } from "@duyet/components";
-import { cn } from "@duyet/libs";
 import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
 import {
   Accordion,
@@ -7,7 +5,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
 import type { ToolExecution } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 interface ToolExecutionItemProps {
   execution: ToolExecution;

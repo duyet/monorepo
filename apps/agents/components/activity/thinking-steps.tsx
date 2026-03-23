@@ -1,6 +1,6 @@
-import { Badge } from "@duyet/components";
 import { Brain } from "lucide-react";
 import { ChainOfThoughtStep } from "@/components/ai-elements/chain-of-thought";
+import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 interface ThinkingStepsProps {

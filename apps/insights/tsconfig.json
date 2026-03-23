@@ -26,26 +26,6 @@
   ],
   "exclude": [
     "node_modules",
-    ".next",
-    "dist",
-    "out",
-    "app/robots.ts",
-    "app/sitemap.ts",
-    "app/llms.txt/route.ts",
-    "app/ping/route.ts",
-    "app/*/page.tsx",
-    "app/*/[period]/page.tsx",
-    "app/*/[period1]/[period2]/page.tsx",
-    "app/layout.tsx",
-    "app/error.tsx",
-    "app/not-found.tsx",
-    "app/page.tsx",
-    "app/blog/compact-page.tsx",
-    "app/blog/cloudflare-with-periods.tsx",
-    "app/blog/posthog-with-periods.tsx",
-    "app/github/card.tsx",
-    "app/github/compact-page.tsx",
-    "app/wakatime/[period]",
-    "app/wakatime/page.tsx"
+    "dist"
   ]
 }

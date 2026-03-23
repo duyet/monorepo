@@ -1,6 +1,5 @@
 import type { Post } from "@duyet/interfaces";
 import { cn } from "@duyet/libs/utils";
-import { Link } from "@tanstack/react-router";
 import { Thumb } from "./Thumb";
 
 /**
@@ -55,13 +54,13 @@ export function FeedItem({ post, noThumbnail }: FeedItemProps) {
       <div className="flex flex-row gap-2 mb-2 text-gray-400">
         <time>{post.date.toString()}</time>
 
-        <Link to={`/category/${post.category_slug}`} className="text-gray-400">
+        <a href={`/category/${post.category_slug}`} className="text-gray-400">
           {post.category}
-        </Link>
+        </a>
       </div>
 
-      <Link
-        to={`/${post.slug}`}
+      <a
+        href={`/${post.slug}`}
         className={cn(
           "inline-block text-4xl font-bold py-2 mt-2 hover:underline",
           "from-gray-900 to-gray-800 bg-clip-text",
@@ -71,7 +70,7 @@ export function FeedItem({ post, noThumbnail }: FeedItemProps) {
         )}
       >
         {post.title}
-      </Link>
+      </a>
 
       <p className="mt-4 leading-relaxed">{post.excerpt}</p>
 

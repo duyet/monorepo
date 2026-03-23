@@ -4,8 +4,7 @@
  * Timeline view of executed nodes with outcomes and expandable details.
  */
 
-import { Badge } from "@duyet/components";
-import { cn, formatDuration } from "@duyet/libs";
+import { formatDuration } from "@duyet/libs";
 import {
   AlertCircle,
   CheckCircle2,
@@ -14,9 +13,11 @@ import {
   Clock,
   Loader2,
 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { NodeTrace } from "@/lib/graph";
 import { useToggleSet } from "@/lib/hooks";
+import { cn } from "@/lib/utils";
 
 export interface NodeTraceTimelineProps {
   /** Node execution traces in chronological order */

@@ -4,7 +4,13 @@
  */
 
 import type { AgentState } from "../graph/types";
-import type { ChatMode, Conversation, Message, Source } from "../types";
+import {
+  type ChatMode,
+  type Conversation,
+  DEFAULT_OPENROUTER_MODEL_ID,
+  type Message,
+  type Source,
+} from "../types";
 
 // Database row types
 export interface ConversationRow {
@@ -14,6 +20,7 @@ export interface ConversationRow {
   created_at: number;
   updated_at: number;
   mode: string;
+  model_id: string | null;
   message_count: number;
 }
 
@@ -43,6 +50,7 @@ export interface CreateConversationParams {
   mode: ChatMode;
   title?: string;
   userId?: string | null;
+  modelId?: string;
 }
 
 export interface CreateMessageParams {
@@ -57,6 +65,7 @@ export interface CreateMessageParams {
 export interface UpdateConversationParams {
   id: string;
   title?: string;
+  modelId?: string;
 }
 
 // Checkpoint row type
@@ -95,6 +104,7 @@ export class DatabaseClient {
       createdAt: row.created_at,
       updatedAt: row.updated_at,
       mode: row.mode as ChatMode,
+      modelId: row.model_id ?? undefined,
     };
   }
 
@@ -128,7 +138,7 @@ export class DatabaseClient {
     limit = 50
   ): Promise<Conversation[]> {
     const stmt = this.db.prepare(
-      "SELECT id, user_id, title, created_at, updated_at, mode, message_count FROM conversations WHERE user_id = ? ORDER BY updated_at DESC LIMIT ?"
+      "SELECT id, user_id, title, created_at, updated_at, mode, model_id, message_count FROM conversations WHERE user_id = ? ORDER BY updated_at DESC LIMIT ?"
     );
     const result = (await stmt.bind(userId, limit).all()) as {
       results: ConversationRow[];
@@ -141,7 +151,7 @@ export class DatabaseClient {
    */
   async getConversation(id: string): Promise<Conversation | null> {
     const stmt = this.db.prepare(
-      "SELECT id, user_id, title, created_at, updated_at, mode, message_count FROM conversations WHERE id = ?"
+      "SELECT id, user_id, title, created_at, updated_at, mode, model_id, message_count FROM conversations WHERE id = ?"
     );
     const result = (await stmt.bind(id).first()) as ConversationRow | null;
     return result ? this.rowToConversation(result) : null;
@@ -155,7 +165,7 @@ export class DatabaseClient {
   ): Promise<Conversation> {
     const now = Date.now();
     const stmt = this.db.prepare(
-      "INSERT INTO conversations (id, user_id, title, created_at, updated_at, mode, message_count) VALUES (?, ?, ?, ?, ?, ?, 0)"
+      "INSERT INTO conversations (id, user_id, title, created_at, updated_at, mode, model_id, message_count) VALUES (?, ?, ?, ?, ?, ?, ?, 0)"
     );
     await stmt
       .bind(
@@ -164,7 +174,8 @@ export class DatabaseClient {
         params.title || "New chat",
         now,
         now,
-        params.mode
+        params.mode,
+        params.modelId ?? DEFAULT_OPENROUTER_MODEL_ID
       )
       .run();
 
@@ -175,18 +186,37 @@ export class DatabaseClient {
       createdAt: now,
       updatedAt: now,
       mode: params.mode,
+      modelId: params.modelId ?? DEFAULT_OPENROUTER_MODEL_ID,
     };
   }
 
   /**
-   * Update a conversation (title only)
+   * Update conversation metadata.
    */
   async updateConversation(params: UpdateConversationParams): Promise<void> {
-    if (params.title === undefined) return;
+    if (params.title === undefined && params.modelId === undefined) return;
+
+    const assignments: string[] = [];
+    const values: unknown[] = [];
+
+    if (params.title !== undefined) {
+      assignments.push("title = ?");
+      values.push(params.title);
+    }
+
+    if (params.modelId !== undefined) {
+      assignments.push("model_id = ?");
+      values.push(params.modelId);
+    }
+
+    assignments.push("updated_at = ?");
+    values.push(Date.now());
+    values.push(params.id);
+
     const stmt = this.db.prepare(
-      "UPDATE conversations SET title = ?, updated_at = ? WHERE id = ?"
+      `UPDATE conversations SET ${assignments.join(", ")} WHERE id = ?`
     );
-    await stmt.bind(params.title, Date.now(), params.id).run();
+    await stmt.bind(...values).run();
   }
 
   /**

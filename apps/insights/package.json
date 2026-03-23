@@ -37,8 +37,8 @@
     "react-dom": "19.2.4",
     "react-is": "^19.1.0",
     "recharts": "^3.7.0",
-    "vite": "^6.0.0",
-    "vite-tsconfig-paths": "^5.0.0"
+    "vite": "^8.0.0",
+    "vite-tsconfig-paths": "^6.0.0"
   },
   "devDependencies": {
     "@duyet/interfaces": "*",
@@ -47,7 +47,7 @@
     "@tanstack/router-plugin": "^1.122.0",
     "@types/bun": "latest",
     "@types/react": "^19.1.4",
-    "@vitejs/plugin-react": "^4.0.0",
+    "@vitejs/plugin-react": "^6.0.0",
     "typescript": "*"
   }
 }

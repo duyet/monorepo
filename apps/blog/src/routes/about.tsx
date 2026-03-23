@@ -101,29 +101,43 @@ function About() {
         <div className="mb-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {links.map((link, index) => {
             const Icon = link.icon;
+            const isExternal = link.url.startsWith("http");
             return (
-              <Link
-                key={index}
-                to={link.url.startsWith("http") ? undefined : (link.url as "/")}
-                href={link.url.startsWith("http") ? link.url : undefined}
-                target={link.url.startsWith("http") ? "_blank" : undefined}
-                rel={
-                  link.url.startsWith("http")
-                    ? "noopener noreferrer"
-                    : undefined
-                }
-                className={`group flex flex-col p-10 ${link.color} rounded-3xl transition-transform duration-200 hover:scale-[1.02]`}
-              >
-                <div className="mb-8 text-neutral-800">
-                  <Icon />
-                </div>
-                <h3 className="mb-3 text-xl font-medium text-neutral-900">
-                  {link.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-neutral-700">
-                  {link.description}
-                </p>
-              </Link>
+              isExternal ? (
+                <a
+                  key={index}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`group flex flex-col p-10 ${link.color} rounded-3xl transition-transform duration-200 hover:scale-[1.02]`}
+                >
+                  <div className="mb-8 text-neutral-800">
+                    <Icon />
+                  </div>
+                  <h3 className="mb-3 text-xl font-medium text-neutral-900">
+                    {link.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-neutral-700">
+                    {link.description}
+                  </p>
+                </a>
+              ) : (
+                <Link
+                  key={index}
+                  to={link.url as "/"}
+                  className={`group flex flex-col p-10 ${link.color} rounded-3xl transition-transform duration-200 hover:scale-[1.02]`}
+                >
+                  <div className="mb-8 text-neutral-800">
+                    <Icon />
+                  </div>
+                  <h3 className="mb-3 text-xl font-medium text-neutral-900">
+                    {link.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-neutral-700">
+                    {link.description}
+                  </p>
+                </Link>
+              )
             );
           })}
         </div>
