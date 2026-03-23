@@ -47,7 +47,7 @@
     "@tanstack/router-plugin": "^1.122.0",
     "@types/bun": "latest",
     "@types/react": "^19.1.4",
-    "@vitejs/plugin-react": "^4.0.0",
+    "@vitejs/plugin-react": "^6.0.0",
     "typescript": "*"
   }
 }
