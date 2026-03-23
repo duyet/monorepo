@@ -209,8 +209,12 @@ export function getAllPosts(fields: string[] = [], limit = 0): Post[] {
 
   const posts = paths
     .map((path) => getPostByPath(path, fields))
-    // sort posts by date in descending order
-    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
+    // sort posts by date in descending order, then by title for stability
+    .sort((post1, post2) => {
+      if (post1.date > post2.date) return -1;
+      if (post1.date < post2.date) return 1;
+      return (post1.title || "").localeCompare(post2.title || "");
+    });
 
   if (limit > 0) {
     return posts.slice(0, limit);

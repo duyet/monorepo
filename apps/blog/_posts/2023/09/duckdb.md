@@ -300,7 +300,7 @@ When it comes to performing data transformations on medium-sized datasets, using
 
 Many of you might soon think about [use dbt and Duckdb instead of Spark in data pipelines like this guy](https://medium.com/datamindedbe/use-dbt-and-duckdb-instead-of-spark-in-data-pipelines-9063a31ea2b5).
 
-![DuckDB instead of Spark](/medium/2023/09/duckdb/duckdb-spark.png)
+![DuckDB instead of Spark](/media/2023/09/duckdb/duckdb-spark.png)
 
 Image: [dataminded](https://medium.com/datamindedbe/use-dbt-and-duckdb-instead-of-spark-in-data-pipelines-9063a31ea2b5)
 

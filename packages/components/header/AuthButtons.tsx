@@ -52,6 +52,14 @@ export function AuthButtons({
   signedOutContent?: React.ReactNode | null;
   wrapWithProvider?: boolean;
 } = {}) {
+  const importMetaEnv =
+    typeof import.meta !== "undefined"
+      ? ((import.meta as unknown as Record<string, unknown>).env as
+          | Record<string, string>
+          | undefined)
+      : undefined;
+  const publishableKey = importMetaEnv?.VITE_CLERK_PUBLISHABLE_KEY;
+
   const [clerkModule, setClerkModule] = useState<any>(null);
   const [currentUrl, setCurrentUrl] = useState("");
   const isOwner = useRef(false);
@@ -63,9 +71,7 @@ export function AuthButtons({
 
   useEffect(() => {
     if (clerkProviderMounted) return;
-
-    const key = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
-    if (!key) return;
+    if (!publishableKey) return;
 
     clerkProviderMounted = true;
     isOwner.current = true;
@@ -73,7 +79,7 @@ export function AuthButtons({
     import("@clerk/clerk-react")
       .then((mod) => setClerkModule(mod))
       .catch(() => {
-        // Clerk not available, hide auth buttons
+        // Clerk not available — isOwner stays true so fallback renders
       });
 
     return () => {
@@ -81,32 +87,30 @@ export function AuthButtons({
         clerkProviderMounted = false;
       }
     };
-  }, []);
+  }, [publishableKey]);
 
-  if (!clerkModule || !isOwner.current) {
+  // No publishable key — show unavailable fallback
+  if (!publishableKey) {
     return (
       <button
         type="button"
         className={`${signInClassName} ${className}`.trim()}
-        aria-label="Sign in"
+        aria-label="Sign in (Unavailable)"
       >
         <Icons.UserEmpty className="h-4 w-4" />
       </button>
     );
   }
 
+  // Key present but module not loaded yet — show nothing while loading
+  if (!clerkModule || !isOwner.current) {
+    return null;
+  }
+
   const { ClerkProvider, SignedOut, SignedIn, SignInButton, UserButton } =
     clerkModule;
-  const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
-  if (
-    !publishableKey ||
-    !ClerkProvider ||
-    !SignedOut ||
-    !SignedIn ||
-    !SignInButton ||
-    !UserButton
-  ) {
+  if (!ClerkProvider || !SignedOut || !SignedIn || !SignInButton || !UserButton) {
     return (
       <button
         type="button"

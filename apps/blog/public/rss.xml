@@ -4,7 +4,7 @@
         <description><![CDATA[Sr. Data Engineer. Rustacean at night]]></description>
         <link>https://blog.duyet.net</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Sat, 21 Mar 2026 13:08:51 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 22 Mar 2026 10:43:43 GMT</lastBuildDate>
         <atom:link href="https://blog.duyet.net/rss.xml" rel="self" type="application/rss+xml"/>
         <item>
             <title><![CDATA[Claws]]></title>
@@ -175,6 +175,13 @@
             <pubDate>Tue, 27 Sep 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
+            <title><![CDATA[Cargo: Patch Dependencies]]></title>
+            <description><![CDATA[There are several scenarios when you will need to override or patch upstream dependencies. Like testing a bugfix of your crates before pushing to crates.io, a non-working upstream crate has a new feature or a bug fix on the master branch of its git repository that you'd want to try, etc. In these cases, the [patch] section of Cargo.toml might be useful.]]></description>
+            <link>https://blog.duyet.net/2022/09/cargo-patch-deps.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/09/cargo-patch-deps.html</guid>
+            <pubDate>Sat, 24 Sep 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
             <title><![CDATA[Cargo: workspace inheritance]]></title>
             <description><![CDATA[Since 1.64.0, Cargo now supports workspace inheritance, so you can avoid duplicating similar field values between crates while working within a workspace. Workspace inheritance can include things like shared version numbers, repository URLs, or rust-version.]]></description>
             <link>https://blog.duyet.net/2022/09/cargo-workspace-inheritance.html</link>
@@ -186,13 +193,6 @@
             <description><![CDATA[In Rust, the question mark (?) operator is used as an alternate error propagation method for functions that yield Result or Option types. The ? operator is a shortcut that minimizes the amount of code required in a function to quickly return Err or None from the types Result<T, Err>, or Option.]]></description>
             <link>https://blog.duyet.net/2022/09/rust-question-mark-operator.html</link>
             <guid isPermaLink="true">https://blog.duyet.net/2022/09/rust-question-mark-operator.html</guid>
-            <pubDate>Sat, 24 Sep 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Cargo: Patch Dependencies]]></title>
-            <description><![CDATA[There are several scenarios when you will need to override or patch upstream dependencies. Like testing a bugfix of your crates before pushing to crates.io, a non-working upstream crate has a new feature or a bug fix on the master branch of its git repository that you'd want to try, etc. In these cases, the [patch] section of Cargo.toml might be useful.]]></description>
-            <link>https://blog.duyet.net/2022/09/cargo-patch-deps.html</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/09/cargo-patch-deps.html</guid>
             <pubDate>Sat, 24 Sep 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
@@ -259,27 +259,6 @@
             <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[Rust: Copy & Clone Trait]]></title>
-            <description><![CDATA[Có một số kiểu dữ liệu trong Rust rất đơn giản (simple types), bao gồm integers, floats, booleans (true và false), và char. Các simple types này nằm trên stack bởi vì complier biết chính xác size của nó. Chúng được gọi là copy types. Bởi vì nó simple và nhỏ gọn nên dễ dàng để copy, do đó compiler luôn copy nếu bạn bỏ nó vào function.]]></description>
-            <link>https://blog.duyet.net/2022/02/rust-copy-clone-trait.html</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-copy-clone-trait.html</guid>
-            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Rust: Trait]]></title>
-            <description><![CDATA[Rust Trait là gì? Rust có nhiều loại data types như primitives (i8, i32, str, ...), struct, enum và các loại kết hợp (aggregate) như tuples và array. Mọi types không có mối liên hệ nào với nhau. Các data types có các phương thức (methods) để tính toán hay convert từ loại này sang loại khác, nhưng chỉ để cho tiện lợi hơn, method chỉ là các function. Trait trong Rust giúp chúng ta thực hiện những điều này.]]></description>
-            <link>https://blog.duyet.net/2022/02/rust-trait.html</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-trait.html</guid>
-            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Rust: Struct]]></title>
-            <description><![CDATA[Struct được sử dụng trong Rust rất nhiều, hầu như là mọi lúc. Với struct ta có thể định nghĩa một kiểu dữ liệu riêng.]]></description>
-            <link>https://blog.duyet.net/2022/02/rust-struct.html</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-struct.html</guid>
-            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
             <title><![CDATA[Rust Design Pattern: Command Pattern]]></title>
             <description><![CDATA[Ý tưởng cơ bản của Command Pattern là tách các actions thành các object riêng và gọi chúng thông qua parameters.]]></description>
             <link>https://blog.duyet.net/2022/02/rust-command-design-pattern.html</link>
@@ -291,6 +270,27 @@
             <description><![CDATA[Prefer small crates that do one thing well. Để có được sự hiệu quả, mọi crate phải được thiết kế tốt, lựa chọn dependencies kỹ càng và càng độc lập càng tốt.]]></description>
             <link>https://blog.duyet.net/2022/02/rust-small-crates-design-pattern.html</link>
             <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-small-crates-design-pattern.html</guid>
+            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: Copy & Clone Trait]]></title>
+            <description><![CDATA[Có một số kiểu dữ liệu trong Rust rất đơn giản (simple types), bao gồm integers, floats, booleans (true và false), và char. Các simple types này nằm trên stack bởi vì complier biết chính xác size của nó. Chúng được gọi là copy types. Bởi vì nó simple và nhỏ gọn nên dễ dàng để copy, do đó compiler luôn copy nếu bạn bỏ nó vào function.]]></description>
+            <link>https://blog.duyet.net/2022/02/rust-copy-clone-trait.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-copy-clone-trait.html</guid>
+            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: Struct]]></title>
+            <description><![CDATA[Struct được sử dụng trong Rust rất nhiều, hầu như là mọi lúc. Với struct ta có thể định nghĩa một kiểu dữ liệu riêng.]]></description>
+            <link>https://blog.duyet.net/2022/02/rust-struct.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-struct.html</guid>
+            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: Trait]]></title>
+            <description><![CDATA[Rust Trait là gì? Rust có nhiều loại data types như primitives (i8, i32, str, ...), struct, enum và các loại kết hợp (aggregate) như tuples và array. Mọi types không có mối liên hệ nào với nhau. Các data types có các phương thức (methods) để tính toán hay convert từ loại này sang loại khác, nhưng chỉ để cho tiện lợi hơn, method chỉ là các function. Trait trong Rust giúp chúng ta thực hiện những điều này.]]></description>
+            <link>https://blog.duyet.net/2022/02/rust-trait.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-trait.html</guid>
             <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
@@ -308,17 +308,17 @@
             <pubDate>Tue, 18 Jan 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[Rust: Turbofish ::<> 🐠 ]]></title>
-            <description><![CDATA[Trong trường hợp bạn cần chỉ định kiểu dữ liệu cho một generic function, method, struct, hoặc enum, Rust có một cú pháp đặc biệt để làm điều này gọi là turbofish.]]></description>
-            <link>https://blog.duyet.net/2022/01/rust-turbofish.html</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/01/rust-turbofish.html</guid>
-            <pubDate>Sun, 02 Jan 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
             <title><![CDATA[Rust: FromStr trait]]></title>
             <description><![CDATA[FromStr là một trait để khởi tạo instance từ string trong Rust, nó tương đương abstract class nếu bạn có background OOP.]]></description>
             <link>https://blog.duyet.net/2022/01/rust-fromstr.html</link>
             <guid isPermaLink="true">https://blog.duyet.net/2022/01/rust-fromstr.html</guid>
+            <pubDate>Sun, 02 Jan 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: Turbofish ::<> 🐠 ]]></title>
+            <description><![CDATA[Trong trường hợp bạn cần chỉ định kiểu dữ liệu cho một generic function, method, struct, hoặc enum, Rust có một cú pháp đặc biệt để làm điều này gọi là turbofish.]]></description>
+            <link>https://blog.duyet.net/2022/01/rust-turbofish.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/01/rust-turbofish.html</guid>
             <pubDate>Sun, 02 Jan 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
@@ -329,17 +329,17 @@
             <pubDate>Sat, 01 Jan 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[Rust: Ownership]]></title>
-            <description><![CDATA[Ownership là một trong những tính năng đặc trưng của Rust, đây là cách giúp Rust đảm bảo memory safety mà không cần đến garbage collector.]]></description>
-            <link>https://blog.duyet.net/2021/12/rust-ownership.html</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2021/12/rust-ownership.html</guid>
-            <pubDate>Sun, 19 Dec 2021 00:00:00 GMT</pubDate>
-        </item>
-        <item>
             <title><![CDATA[Rust Design Pattern: Strategy Pattern]]></title>
             <description><![CDATA[Strategy design pattern là một technique nhằm mục đích phân tách nhiều vấn đề, tách software modules thông qua Dependency Inversion.]]></description>
             <link>https://blog.duyet.net/2021/12/rust-strategy-design-pattern.html</link>
             <guid isPermaLink="true">https://blog.duyet.net/2021/12/rust-strategy-design-pattern.html</guid>
+            <pubDate>Sun, 19 Dec 2021 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: Ownership]]></title>
+            <description><![CDATA[Ownership là một trong những tính năng đặc trưng của Rust, đây là cách giúp Rust đảm bảo memory safety mà không cần đến garbage collector.]]></description>
+            <link>https://blog.duyet.net/2021/12/rust-ownership.html</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2021/12/rust-ownership.html</guid>
             <pubDate>Sun, 19 Dec 2021 00:00:00 GMT</pubDate>
         </item>
         <item>

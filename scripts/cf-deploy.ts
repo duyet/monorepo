@@ -18,17 +18,13 @@
  * - Without --prod: Preview deployment (aliased URL like <hash>.<project>.pages.dev)
  * - With --prod: Production deployment (custom domains like blog.duyet.net)
  *
- * Apps and their deployment targets:
- * - home → duyet.net (duyet-home project)
- * - cv → cv.duyet.net (duyet-cv project)
- * - blog → blog.duyet.net (duyet-blog project)
- * - photos → photos.duyet.net (duyet-photos project)
- * - insights → insights.duyet.net (duyet-insights project)
- * - homelab → homelab.duyet.net (duyet-homelab project)
- * - agents → agents.duyet.net (duyet-agents project)
+ * Apps are discovered dynamically from the filesystem:
+ * - Any app with a wrangler.toml and "cf:deploy:prod" script is deployable
+ * - Project name is read from wrangler.toml
+ * - Domain convention: <app>.duyet.net (except home → duyet.net)
  */
 
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -79,65 +75,86 @@ function parseEnvFile(filePath: string): Record<string, string> {
 const envProductionPath = join(rootDir, ".env.production");
 const PRODUCTION_ENV = parseEnvFile(envProductionPath);
 
-// Configuration for apps that deploy to Cloudflare Pages
-const APPS_CONFIG: Record<
-  string,
-  {
-    name: string;
-    projectName: string;
-    domain: string;
-    secrets: boolean;
+// Apps that require secret syncing (have sensitive env vars)
+const appsWithSecrets = new Set(["blog", "photos", "insights"]);
+
+interface AppConfig {
+  name: string;
+  projectName: string;
+  domain: string;
+  outputDir: string;
+  secrets: boolean;
+}
+
+/**
+ * Dynamically discover deployable apps from the filesystem.
+ * An app is deployable if it has:
+ * 1. A wrangler.toml file (Cloudflare Pages project)
+ * 2. A "cf:deploy:prod" script in package.json
+ *
+ * The project name and output directory are read from wrangler.toml.
+ * The domain follows the convention: <app>.duyet.net (except home -> duyet.net).
+ */
+function discoverApps(): Record<string, AppConfig> {
+  const appsDir = join(rootDir, "apps");
+  const config: Record<string, AppConfig> = {};
+
+  for (const entry of readdirSync(appsDir, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue;
+
+    const appName = entry.name;
+    const appDir = join(appsDir, appName);
+    const wranglerPath = join(appDir, "wrangler.toml");
+    const pkgPath = join(appDir, "package.json");
+
+    if (!existsSync(wranglerPath) || !existsSync(pkgPath)) continue;
+
+    // Check for cf:deploy:prod script via parsed JSON
+    const pkgJson = JSON.parse(readFileSync(pkgPath, "utf-8")) as {
+      scripts?: Record<string, string>;
+    };
+    if (!pkgJson.scripts?.["cf:deploy:prod"]) continue;
+
+    // Parse wrangler.toml
+    const wranglerContent = readFileSync(wranglerPath, "utf-8");
+    const projectMatch = wranglerContent.match(/name\s*=\s*"([^"]+)"/);
+    if (!projectMatch) continue;
+
+    const projectName = projectMatch[1];
+    const domain = appName === "home" ? "duyet.net" : `${appName}.duyet.net`;
+
+    // Read pages_build_output_dir from wrangler.toml, default to "dist"
+    const outputDirMatch = wranglerContent.match(
+      /pages_build_output_dir\s*=\s*"([^"]+)"/
+    );
+    const outputDir = outputDirMatch ? outputDirMatch[1] : "dist";
+
+    config[appName] = {
+      name: appName,
+      projectName,
+      domain,
+      outputDir,
+      secrets: appsWithSecrets.has(appName),
+    };
   }
-> = {
-  home: {
-    name: "home",
-    projectName: "duyet-home",
-    domain: "duyet.net",
-    secrets: false,
-  },
-  cv: {
-    name: "cv",
-    projectName: "duyet-cv",
-    domain: "cv.duyet.net",
-    secrets: false,
-  },
-  blog: {
-    name: "blog",
-    projectName: "duyet-blog",
-    domain: "blog.duyet.net",
-    secrets: true,
-  },
-  photos: {
-    name: "photos",
-    projectName: "duyet-photos",
-    domain: "photos.duyet.net",
-    secrets: true,
-  },
-  insights: {
-    name: "insights",
-    projectName: "duyet-insights",
-    domain: "insights.duyet.net",
-    secrets: true,
-  },
-  homelab: {
-    name: "homelab",
-    projectName: "duyet-homelab",
-    domain: "homelab.duyet.net",
-    secrets: false,
-  },
-  agents: {
-    name: "agents",
-    projectName: "duyet-agents",
-    domain: "agents.duyet.net",
-    secrets: false,
-  },
-  "llm-timeline": {
-    name: "llm-timeline",
-    projectName: "duyet-llm-timeline",
-    domain: "llm-timeline.duyet.net",
-    secrets: false,
-  },
-};
+
+  if (Object.keys(config).length === 0) {
+    console.error(
+      `[ERROR] No deployable apps discovered in ${appsDir}. ` +
+        `Ensure apps have both wrangler.toml and a "cf:deploy:prod" script in package.json. ` +
+        `Raw ls output: ${rawOutput}`
+    );
+    process.exit(1);
+  }
+
+  return config;
+}
+
+// Dynamically discover deployable apps
+const APPS_CONFIG = discoverApps();
+console.log(
+  `[INFO] Discovered ${Object.keys(APPS_CONFIG).length} deployable app(s): ${Object.keys(APPS_CONFIG).join(", ")}`
+);
 
 // CLI args
 const dryRun = process.argv.includes("--dry-run");
@@ -389,10 +406,10 @@ async function buildAllApps(): Promise<boolean> {
   console.log(`[INFO] Loading environment from: .env.production`);
   console.log(`[INFO] Production URLs:`);
   console.log(
-    `       NEXT_PUBLIC_DUYET_HOME_URL=${PRODUCTION_ENV.NEXT_PUBLIC_DUYET_HOME_URL || "(not set)"}`
+    `       VITE_DUYET_HOME_URL=${PRODUCTION_ENV.VITE_DUYET_HOME_URL || PRODUCTION_ENV.NEXT_PUBLIC_DUYET_HOME_URL || "(not set)"}`
   );
   console.log(
-    `       NEXT_PUBLIC_DUYET_BLOG_URL=${PRODUCTION_ENV.NEXT_PUBLIC_DUYET_BLOG_URL || "(not set)"}`
+    `       VITE_DUYET_BLOG_URL=${PRODUCTION_ENV.VITE_DUYET_BLOG_URL || PRODUCTION_ENV.NEXT_PUBLIC_DUYET_BLOG_URL || "(not set)"}`
   );
   console.log(`       NODE_ENV=${PRODUCTION_ENV.NODE_ENV || "(not set)"}`);
 
@@ -510,13 +527,13 @@ async function deployApp(appName: string): Promise<{
     console.log(`     → Domain: https://${appConfig.domain}`);
   }
 
-  // Build wrangler command
+  // Build wrangler command using output directory from wrangler.toml
   const wranglerCmd = [
     "bunx",
     "wrangler",
     "pages",
     "deploy",
-    "out",
+    appConfig.outputDir,
     `--project-name=${appConfig.projectName}`,
   ];
 
