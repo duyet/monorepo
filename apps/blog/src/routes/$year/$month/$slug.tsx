@@ -5,11 +5,9 @@ import type { TOCItem } from "@duyet/libs/extractHeadings";
 import { markdownToHtml } from "@duyet/libs/markdownToHtml";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
-import { RelatedPosts } from "@/components/post/RelatedPosts";
 import { TableOfContents } from "@/components/post/TableOfContents";
 import {
   getPostBySlug,
-  getRelatedPosts,
   getSeries,
 } from "@/lib/posts";
 import Content from "./-content";
@@ -67,12 +65,9 @@ export const Route = createFileRoute("/$year/$month/$slug")({
       htmlContent = await markdownToHtml(markdownContent);
     }
 
-    const [relatedPosts, series] = await Promise.all([
-      getRelatedPosts(postWithContent, 4),
-      postWithContent.series
-        ? getSeries({ name: postWithContent.series as string })
-        : Promise.resolve(null),
-    ]);
+    const series = postWithContent.series
+      ? await getSeries({ name: postWithContent.series as string })
+      : null;
 
     const post = {
       ...postWithContent,
@@ -83,7 +78,7 @@ export const Route = createFileRoute("/$year/$month/$slug")({
       edit_url,
     };
 
-    return { post, relatedPosts, series };
+    return { post, series };
   },
   component: PostPage,
 });
@@ -96,9 +91,8 @@ type LoadedPost = Post & {
 };
 
 function PostPage() {
-  const { post, relatedPosts, series } = Route.useLoaderData() as {
+  const { post, series } = Route.useLoaderData() as {
     post: LoadedPost;
-    relatedPosts: Post[];
     series: Series | null;
   };
 
@@ -111,7 +105,6 @@ function PostPage() {
             <Content post={post} />
             <Meta className="mt-10" post={post} series={series} />
           </article>
-          <RelatedPosts posts={relatedPosts} />
         </div>
 
         <TableOfContents headings={post.headings || []} />
