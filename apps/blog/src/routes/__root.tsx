@@ -8,7 +8,12 @@ import { createDefaultNavigation } from "@duyet/components/Menu";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { cn } from "@duyet/libs/utils";
 import { duyetUrls } from "@duyet/urls";
-import { createRootRoute, Outlet } from "@tanstack/react-router";
+import {
+  createRootRoute,
+  HeadContent,
+  Outlet,
+  Scripts,
+} from "@tanstack/react-router";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
 function NotFoundComponent() {
@@ -46,31 +51,73 @@ function NotFoundComponent() {
 }
 
 export const Route = createRootRoute({
+  head: () => ({
+    meta: [
+      { charSet: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1.0" },
+      { name: "robots", content: "follow, index" },
+      { title: "Tôi là Duyệt | blog.duyet.net" },
+      {
+        name: "description",
+        content:
+          "Sr. Data Engineer. Rustacean at night. Technical blog on data engineering, distributed systems, and open source.",
+      },
+    ],
+    links: [
+      { rel: "icon", href: "/favicon.ico" },
+      { rel: "dns-prefetch", href: "https://fonts.googleapis.com" },
+      { rel: "dns-prefetch", href: "https://fonts.gstatic.com" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap",
+      },
+      {
+        rel: "alternate",
+        type: "application/rss+xml",
+        href: "/rss.xml",
+        title: "Tôi là Duyệt - RSS Feed",
+      },
+    ],
+  }),
   notFoundComponent: NotFoundComponent,
   component: RootComponent,
 });
 
 function RootComponent() {
   return (
-    <ThemeProvider>
-      <div
-        className={cn(
-          "font-sans bg-[var(--background)] text-[var(--foreground)]",
-          "subpixel-antialiased",
-          "[--font-inter:Inter,system-ui,sans-serif]",
-          "[--font-serif:'Libre_Baskerville',Georgia,serif]"
-        )}
-      >
-        <Header
-          longText="Data Engineering"
-          urls={duyetUrls}
-          navigationItems={createDefaultNavigation(duyetUrls)}
-        />
-        <Outlet />
-        <Footer />
-        <Analytics />
-        <ServiceWorkerRegister />
-      </div>
-    </ThemeProvider>
+    <html lang="en">
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        <ThemeProvider>
+          <div
+            className={cn(
+              "font-sans bg-[var(--background)] text-[var(--foreground)]",
+              "subpixel-antialiased",
+              "[--font-inter:Inter,system-ui,sans-serif]",
+              "[--font-serif:'Libre_Baskerville',Georgia,serif]"
+            )}
+          >
+            <Header
+              longText="Data Engineering"
+              urls={duyetUrls}
+              navigationItems={createDefaultNavigation(duyetUrls)}
+            />
+            <Outlet />
+            <Footer />
+            <Analytics />
+            <ServiceWorkerRegister />
+          </div>
+        </ThemeProvider>
+        <Scripts />
+      </body>
+    </html>
   );
 }

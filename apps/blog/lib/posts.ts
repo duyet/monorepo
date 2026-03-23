@@ -1,14 +1,39 @@
 /**
- * Client-side post data layer.
+ * Isomorphic post data layer.
  *
- * Loads post metadata and content from pre-generated JSON files in /public/,
- * using fetch() so no Node.js fs/path APIs appear in the browser bundle.
+ * Loads post metadata and content from pre-generated JSON files in /public/.
+ * During SSR/prerender: reads files from disk via fs.
+ * During client navigation: fetches via HTTP.
  *
  * Generated at build time by scripts/generate-posts-data.ts.
  */
 
 import type { CategoryCount, Post, Series, TagCount } from "@duyet/interfaces";
 import { getSlug } from "@duyet/libs/getSlug";
+
+const isServer = typeof window === "undefined";
+
+async function readPublicJson<T>(path: string): Promise<T> {
+  if (isServer) {
+    const { readFileSync, existsSync } = await import("node:fs");
+    const { join } = await import("node:path");
+    const baseDir = import.meta.dirname ?? process.cwd();
+    // During dev: public/ is next to src/
+    // During build/prerender: files are in dist/client/ (server is dist/server/)
+    const candidates = [
+      join(baseDir, "..", "public", path),
+      join(baseDir, "..", "client", path),
+      join(process.cwd(), "public", path),
+    ];
+    const filePath = candidates.find((p) => existsSync(p));
+    if (!filePath) throw new Error(`Public file not found: ${path}`);
+    const content = readFileSync(filePath, "utf-8");
+    return JSON.parse(content) as T;
+  }
+  const res = await fetch(`/${path}`);
+  if (!res.ok) throw new Error(`Failed to load ${path}: ${res.status}`);
+  return res.json() as Promise<T>;
+}
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -66,9 +91,7 @@ function hydratePost(raw: RawPost): Post {
 
 export async function fetchAllPosts(): Promise<Post[]> {
   if (postsCache) return postsCache;
-  const res = await fetch("/posts-data.json");
-  if (!res.ok) throw new Error(`Failed to load posts-data.json: ${res.status}`);
-  const raw: RawPost[] = await res.json();
+  const raw = await readPublicJson<RawPost[]>("posts-data.json");
   postsCache = raw.map(hydratePost);
   return postsCache;
 }
@@ -80,20 +103,14 @@ export async function fetchPostContent(slug: string): Promise<PostContent> {
 
   // Derive key: "/2024/01/my-post" -> "2024-01-my-post"
   const key = normalizedSlug.replace(/^\//, "").replace(/\//g, "-");
-  const res = await fetch(`/posts-content/${key}.json`);
-  if (!res.ok)
-    throw new Error(`Post content not found: ${slug} (${res.status})`);
-  const data: PostContent = await res.json();
+  const data = await readPublicJson<PostContent>(`posts-content/${key}.json`);
   contentCache.set(normalizedSlug, data);
   return data;
 }
 
 export async function fetchAllSeries(): Promise<Series[]> {
   if (seriesCache) return seriesCache;
-  const res = await fetch("/series-data.json");
-  if (!res.ok)
-    throw new Error(`Failed to load series-data.json: ${res.status}`);
-  const raw: Array<{
+  const raw = await readPublicJson<Array<{
     name: string;
     slug: string;
     posts: Array<{
@@ -103,7 +120,7 @@ export async function fetchAllSeries(): Promise<Series[]> {
       excerpt?: string;
       series?: string;
     }>;
-  }> = await res.json();
+  }>>("series-data.json");
 
   seriesCache = raw.map((s) => ({
     ...s,
