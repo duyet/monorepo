@@ -83,7 +83,7 @@
     "@vitejs/plugin-react": "^6.0.0",
     "http-proxy": "^1.18.1",
     "typescript": "*",
-    "vite": "6",
+    "vite": "8",
     "yaml": "^2.8.2",
     "@tailwindcss/vite": "^4.0.0"
   }
