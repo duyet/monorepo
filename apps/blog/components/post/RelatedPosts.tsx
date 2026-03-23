@@ -38,9 +38,8 @@ export function RelatedPosts({ posts, className }: RelatedPostsProps) {
               className={cn(
                 "group block",
                 "p-4 rounded-xl",
-                "border border-gray-200 dark:border-gray-800",
-                "hover:border-gray-300 dark:hover:border-gray-700",
-                "hover:bg-gray-50 dark:hover:bg-gray-900/50",
+                "bg-neutral-50 dark:bg-neutral-900",
+                "hover:bg-neutral-100 dark:hover:bg-neutral-800",
                 "transition-all duration-200"
               )}
             >

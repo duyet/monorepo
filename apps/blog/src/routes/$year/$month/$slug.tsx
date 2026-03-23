@@ -107,7 +107,7 @@ function PostPage() {
       <div className="relative">
         <ReadingProgress />
         <div className="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
-          <article className="bg-white dark:bg-neutral-900 rounded-2xl shadow-sm border border-neutral-100 dark:border-neutral-800 px-6 sm:px-10 lg:px-14 py-10 sm:py-14">
+          <article>
             <Content post={post} />
             <Meta className="mt-10" post={post} series={series} />
           </article>

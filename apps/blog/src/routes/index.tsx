@@ -39,7 +39,7 @@ function HomePage() {
     .map(([tag]) => tag);
 
   return (
-    <div className="bg-cream-warm dark:bg-background min-h-screen pb-10">
+    <div className="min-h-screen pb-10">
       <Container>
         <div className="mb-12 text-center">
           <p className="text-lg leading-relaxed text-neutral-700">
