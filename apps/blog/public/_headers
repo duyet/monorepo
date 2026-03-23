@@ -1,3 +1,12 @@
+# HTML pages: no-cache so deployments take effect immediately.
+# Cloudflare still serves from edge (304 revalidation), but never stale.
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Hashed assets: immutable long cache (filenames contain content hash)
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # Serve .md files as plain text markdown
 /*.md
   Content-Type: text/plain; charset=utf-8
