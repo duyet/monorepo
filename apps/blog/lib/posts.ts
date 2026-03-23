@@ -136,9 +136,11 @@ export async function getPostBySlug(
   const fullSlug = slugPath.startsWith("/") ? slugPath : `/${slugPath}`;
   // Strip .md / .html extensions
   const cleanSlug = fullSlug.replace(/\.(md|html)$/, "");
-  const post = posts.find((p) => p.slug === cleanSlug);
+  const post = posts.find(
+    (p) => p.slug.replace(/\.html$/, "") === cleanSlug
+  );
   if (!post) throw new Error(`Post not found: ${slugPath}`);
-  const content = await fetchPostContent(cleanSlug);
+  const content = await fetchPostContent(post.slug);
   return { ...post, ...content };
 }
 

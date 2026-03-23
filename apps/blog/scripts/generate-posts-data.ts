@@ -47,6 +47,7 @@ const allPosts = getAllPosts(metaFields, 0) as Post[];
 // Serialize dates to ISO strings (Date objects are not JSON-serializable)
 const postsData = allPosts.map((post) => ({
   ...post,
+  slug: post.slug.replace(/\.html$/, ""),
   date: post.date instanceof Date ? post.date.toISOString() : post.date,
   tags: post.tags || [],
   tags_slug: post.tags_slug || [],
@@ -69,8 +70,8 @@ const allPostsWithContent = getAllPosts(
 
 let written = 0;
 for (const post of allPostsWithContent) {
-  // Derive a safe filename from slug: "/2024/01/foo" -> "2024-01-foo"
-  const key = post.slug.replace(/^\//, "").replace(/\//g, "-");
+  // Derive a safe filename from slug: "/2024/01/foo.html" -> "2024-01-foo"
+  const key = post.slug.replace(/\.html$/, "").replace(/^\//, "").replace(/\//g, "-");
   const filePath = join(CONTENT_DIR, `${key}.json`);
   const payload = {
     content: post.content || "",
@@ -87,7 +88,7 @@ const seriesData = seriesList.map((s) => ({
   name: s.name,
   slug: s.slug,
   posts: s.posts.map((p) => ({
-    slug: p.slug,
+    slug: p.slug.replace(/\.html$/, ""),
     title: p.title,
     date: p.date instanceof Date ? p.date.toISOString() : p.date,
     excerpt: p.excerpt,

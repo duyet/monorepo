@@ -41,7 +41,9 @@ writeFileSync(join(PUBLIC_DIR, "robots.txt"), robotsTxt, "utf-8");
 console.log("  ✓ robots.txt");
 
 // ── rss.xml ──────────────────────────────────────────────────────────────────
-const posts = getAllPosts(["slug", "title", "excerpt", "date"], 50);
+const posts = (getAllPosts(["slug", "title", "excerpt", "date"], 50) as Post[]).map(
+  (p) => ({ ...p, slug: p.slug.replace(/\.html$/, "") })
+);
 
 const feed = new RSS({
   title: "Tôi là Duyệt",
@@ -50,7 +52,7 @@ const feed = new RSS({
   site_url: SITE_URL,
 });
 
-for (const post of posts as Post[]) {
+for (const post of posts) {
   feed.item({
     title: post.title || "",
     description: post.excerpt || "",
@@ -63,10 +65,10 @@ writeFileSync(join(PUBLIC_DIR, "rss.xml"), feed.xml({ indent: true }), "utf-8");
 console.log("  ✓ rss.xml");
 
 // ── llms.txt ──────────────────────────────────────────────────────────────────
-const allPosts = getAllPosts(
+const allPosts = (getAllPosts(
   ["slug", "title", "date", "category", "tags", "excerpt"],
   100000
-) as Post[];
+) as Post[]).map((p) => ({ ...p, slug: p.slug.replace(/\.html$/, "") }));
 
 const llmsContent = `# Duyet Le - Technical Blog
 
@@ -152,10 +154,10 @@ writeFileSync(join(PUBLIC_DIR, "llms.txt"), llmsContent, "utf-8");
 console.log("  ✓ llms.txt");
 
 // ── llms-full.txt ─────────────────────────────────────────────────────────────
-const fullPosts = getAllPosts(
+const fullPosts = (getAllPosts(
   ["slug", "title", "date", "category", "tags", "content"],
   100000
-) as Post[];
+) as Post[]).map((p) => ({ ...p, slug: p.slug.replace(/\.html$/, "") }));
 
 const llmsFullContent = `# Duyet Le - Technical Blog (Full Content)
 
@@ -188,7 +190,9 @@ writeFileSync(join(PUBLIC_DIR, "llms-full.txt"), llmsFullContent, "utf-8");
 console.log("  ✓ llms-full.txt");
 
 // ── sitemap.xml ───────────────────────────────────────────────────────────────
-const sitemapPosts = getAllPosts(["slug", "date"], 100000) as Post[];
+const sitemapPosts = (getAllPosts(["slug", "date"], 100000) as Post[]).map(
+  (p) => ({ ...p, slug: p.slug.replace(/\.html$/, "") })
+);
 const categories = Object.keys(getAllCategories());
 
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>

@@ -7,7 +7,7 @@
 
 # Claws
 
-- **URL**: https://blog.duyet.net/2026/02/claws.html
+- **URL**: https://blog.duyet.net/2026/02/claws
 - **Date**: 2026-02-22
 - **Category**: AI
 - **Tags**: Ai, Agents
@@ -51,7 +51,7 @@ The claws family is interesting because it shows something happening in AI right
 
 # Coding Agents
 
-- **URL**: https://blog.duyet.net/2026/01/ai.html
+- **URL**: https://blog.duyet.net/2026/01/ai
 - **Date**: 2026-01-01
 - **Category**: AI
 - **Tags**: Ai
@@ -546,7 +546,7 @@ Things I want to test or build when I have more time:
 
 # ClickHouse Rust UDFs
 
-- **URL**: https://blog.duyet.net/2024/11/clickhouse-rust-udf.html
+- **URL**: https://blog.duyet.net/2024/11/clickhouse-rust-udf
 - **Date**: 2024-11-01
 - **Category**: Data
 - **Tags**: Data, Clickhouse
@@ -891,7 +891,7 @@ More examples can be found in my repo at https://github.com/duyet/clickhouse-udf
 
 # ReplicatedReplacingMergeTree
 
-- **URL**: https://blog.duyet.net/2024/06/clickhouse-replicatedreplacingmergetree.html
+- **URL**: https://blog.duyet.net/2024/06/clickhouse-replicatedreplacingmergetree
 - **Date**: 2024-06-23
 - **Category**: Data
 - **Tags**: Data, Clickhouse, Clickhouse On Kubernetes
@@ -1327,7 +1327,7 @@ By following these guidelines, you can build a robust, highly available ClickHou
 
 # ReplacingMergeTree
 
-- **URL**: https://blog.duyet.net/2024/06/clickhouse-replacingmergetree.html
+- **URL**: https://blog.duyet.net/2024/06/clickhouse-replacingmergetree
 - **Date**: 2024-06-01
 - **Category**: Data
 - **Tags**: Data, Clickhouse, Clickhouse On Kubernetes
@@ -1445,7 +1445,7 @@ ORDER BY (user_id, event_type, event_time)
 
 # MergeTree
 
-- **URL**: https://blog.duyet.net/2024/05/clickhouse-mergetree.html
+- **URL**: https://blog.duyet.net/2024/05/clickhouse-mergetree
 - **Date**: 2024-05-31
 - **Category**: Data
 - **Tags**: Data, Clickhouse, Clickhouse On Kubernetes
@@ -1769,7 +1769,7 @@ The query now runs **5.41 times faster**. `LowCardinality` changes the internal 
 
 # Monitoring ClickHouse on Kubernetes
 
-- **URL**: https://blog.duyet.net/2024/03/clickhouse-monitoring.html
+- **URL**: https://blog.duyet.net/2024/03/clickhouse-monitoring
 - **Date**: 2024-03-27
 - **Category**: Data
 - **Tags**: Data, Clickhouse, Clickhouse On Kubernetes
@@ -1986,7 +1986,7 @@ Remember: Good monitoring is not just about collecting metrics—it's about unde
 
 # ClickHouse SELECT Advances
 
-- **URL**: https://blog.duyet.net/2024/03/clickhouse-select-advances.html
+- **URL**: https://blog.duyet.net/2024/03/clickhouse-select-advances
 - **Date**: 2024-03-26
 - **Category**: Data
 - **Tags**: Data, Clickhouse, Clickhouse On Kubernetes
@@ -2112,7 +2112,7 @@ SELECT * FROM merge(system, '^query_log')
 
 # ClickHouse on Kubernetes
 
-- **URL**: https://blog.duyet.net/2024/03/clickhouse-on-kubernetes.html
+- **URL**: https://blog.duyet.net/2024/03/clickhouse-on-kubernetes
 - **Date**: 2024-03-13
 - **Category**: Data
 - **Tags**: Data, Clickhouse, Clickhouse On Kubernetes
@@ -2419,7 +2419,7 @@ Thank you for reading. Feel free to reach out with questions or share your own e
 
 # 2023 - A Year of Moving
 
-- **URL**: https://blog.duyet.net/2024/02/2023-summary.html
+- **URL**: https://blog.duyet.net/2024/02/2023-summary
 - **Date**: 2024-02-09
 - **Category**: Story
 - **Tags**: 
@@ -2520,7 +2520,7 @@ Well, it's not entirely clear yet. I'm here enjoying my low-key lifestyle, at le
 
 # Apache OpenDAL in Rust to Access Any Kind of Data Services
 
-- **URL**: https://blog.duyet.net/2023/09/opendal.html
+- **URL**: https://blog.duyet.net/2023/09/opendal
 - **Date**: 2023-09-09
 - **Category**: Rust
 - **Tags**: Data, Rust, Data Engineering
@@ -2769,7 +2769,7 @@ Get and run the example code in my repository on GitHub [`duyet/opendal-examples
 
 # My Neovim Setup in 2023
 
-- **URL**: https://blog.duyet.net/2023/09/nvim-setup-2023.html
+- **URL**: https://blog.duyet.net/2023/09/nvim-setup-2023
 - **Date**: 2023-09-04
 - **Category**: Productivity
 - **Tags**: Vim, Ide
@@ -2809,7 +2809,7 @@ Now, take a look at some screenshots.
 
 # DuckDB
 
-- **URL**: https://blog.duyet.net/2023/09/duckdb.html
+- **URL**: https://blog.duyet.net/2023/09/duckdb
 - **Date**: 2023-09-03
 - **Category**: Data
 - **Tags**: Data, Data Engineering
@@ -3128,7 +3128,7 @@ For those who work with relational datasets, DuckDB is an excellent tool to cons
 
 # Airflow control the parallelism and concurrency (draw)
 
-- **URL**: https://blog.duyet.net/2023/07/airflow-control-parallelism-concurrency.html
+- **URL**: https://blog.duyet.net/2023/07/airflow-control-parallelism-concurrency
 - **Date**: 2023-07-16
 - **Category**: Data
 - **Tags**: Data, Data Engineering, Apache Airflow
@@ -3164,7 +3164,7 @@ Operators or tasks also have configurations that improves efficiency and schedul
 
 # Fossil Data Platform Rewritten in Rust 🦀
 
-- **URL**: https://blog.duyet.net/2023/06/fossil-data-platform-written-rust.html
+- **URL**: https://blog.duyet.net/2023/06/fossil-data-platform-written-rust
 - **Date**: 2023-06-18
 - **Category**: Rust
 - **Tags**: Data, Data Engineering, Rust
@@ -3430,7 +3430,7 @@ In addition, there are other valuable resources available to aid your learning a
 
 # Running Spark in GitHub Actions
 
-- **URL**: https://blog.duyet.net/2023/05/spark-github-actions.html
+- **URL**: https://blog.duyet.net/2023/05/spark-github-actions
 - **Date**: 2023-05-07
 - **Category**: Data
 - **Tags**: Data, Data Engineering, Apache Spark, Github
@@ -3549,7 +3549,7 @@ That's it. You can find all code in my repo: <https://github.com/duyet/spark-in-
 
 # Migrate (again) to Next.js 13 Pro Max
 
-- **URL**: https://blog.duyet.net/2023/05/migrate-blog-to-nextjs.html
+- **URL**: https://blog.duyet.net/2023/05/migrate-blog-to-nextjs
 - **Date**: 2023-05-01
 - **Category**: Project
 - **Tags**: Side Project, Web, React
@@ -3638,7 +3638,7 @@ Please find the source code of my Next.js blog here: [https://github.com/duyet/n
 
 # Why does Helm Charts interpret 0777 as 511?
 
-- **URL**: https://blog.duyet.net/2023/04/helm-charts-problem.html
+- **URL**: https://blog.duyet.net/2023/04/helm-charts-problem
 - **Date**: 2023-04-15
 - **Category**: Data
 - **Tags**: Kubernetes
@@ -3730,7 +3730,7 @@ customScriptDefaultMode: "0777"
 
 # GPT vs Traditional NLP Models
 
-- **URL**: https://blog.duyet.net/2023/04/nlp-vs-gpt.html
+- **URL**: https://blog.duyet.net/2023/04/nlp-vs-gpt
 - **Date**: 2023-04-01
 - **Category**: Data
 - **Tags**: Data, Data Engineering, Nlp
@@ -3795,7 +3795,7 @@ What do you think?
 
 # Ask ChatGPT about 20 important concepts of Apache Spark
 
-- **URL**: https://blog.duyet.net/2023/02/ask-chatgpt-spark.html
+- **URL**: https://blog.duyet.net/2023/02/ask-chatgpt-spark
 - **Date**: 2023-02-26
 - **Category**: Data
 - **Tags**: Data, Data Engineering
@@ -3850,7 +3850,7 @@ I asked ChatGPT to explain 20 important concepts of Apache Spark. Let's see what
 
 # Rust Data Engineering: Processing Dataframes with Polars
 
-- **URL**: https://blog.duyet.net/2023/02/rust-polars.html
+- **URL**: https://blog.duyet.net/2023/02/rust-polars
 - **Date**: 2023-02-19
 - **Category**: Rust
 - **Tags**: Data, Data Engineering, Rust
@@ -4072,7 +4072,7 @@ I hope this blog post has been helpful in introducing you to Polars and giving y
 
 # Data Engineering Tools written in Rust
 
-- **URL**: https://blog.duyet.net/2023/01/data-engineering-rust-tools.html
+- **URL**: https://blog.duyet.net/2023/01/data-engineering-rust-tools
 - **Date**: 2023-01-22
 - **Category**: Data
 - **Tags**: Data, Data Engineering, Rust
@@ -4284,7 +4284,7 @@ At first glance, Rust may seem like an over-engineered choice for data engineeri
 
 # Why ClickHouse Should Be the Go-To Choice for Your Next Data Platform?
 
-- **URL**: https://blog.duyet.net/2023/01/clickhouse.html
+- **URL**: https://blog.duyet.net/2023/01/clickhouse
 - **Date**: 2023-01-10
 - **Category**: Data
 - **Tags**: Data, Data Engineering, Clickhouse
@@ -4466,7 +4466,7 @@ I hope this helps. Was this a good idea? Please let me know.
 
 # Airflow Dataset (Data-aware scheduling)
 
-- **URL**: https://blog.duyet.net/2022/09/airflow-dataset.html
+- **URL**: https://blog.duyet.net/2022/09/airflow-dataset
 - **Date**: 2022-09-27
 - **Category**: Data
 - **Tags**: Data, Data Engineering, Apache Airflow
@@ -4577,7 +4577,7 @@ with DAG(
 
 # Cargo: Patch Dependencies
 
-- **URL**: https://blog.duyet.net/2022/09/cargo-patch-deps.html
+- **URL**: https://blog.duyet.net/2022/09/cargo-patch-deps
 - **Date**: 2022-09-24
 - **Category**: Rust
 - **Tags**: Rust, Cargo
@@ -4680,7 +4680,7 @@ my-library = { path = "../local/mylib" }
 
 # Cargo: workspace inheritance
 
-- **URL**: https://blog.duyet.net/2022/09/cargo-workspace-inheritance.html
+- **URL**: https://blog.duyet.net/2022/09/cargo-workspace-inheritance
 - **Date**: 2022-09-24
 - **Category**: Rust
 - **Tags**: Rust, Cargo
@@ -4736,7 +4736,7 @@ and ["inheriting a dependency from a workspace"](https://doc.rust-lang.org/carg
 
 # Rust: Why ? is good
 
-- **URL**: https://blog.duyet.net/2022/09/rust-question-mark-operator.html
+- **URL**: https://blog.duyet.net/2022/09/rust-question-mark-operator
 - **Date**: 2022-09-24
 - **Category**: Rust
 - **Tags**: Rust, Cargo
@@ -4833,7 +4833,7 @@ fn main() -> Result<()> {
 
 # Rust: indoc
 
-- **URL**: https://blog.duyet.net/2022/08/rust-indoc.html
+- **URL**: https://blog.duyet.net/2022/08/rust-indoc
 - **Date**: 2022-08-06
 - **Category**: Rust
 - **Tags**: Rust, Vietnamese, Rust Tiếng Việt
@@ -4885,7 +4885,7 @@ fn main() {
 
 # Rust: Rayon - A data parallelism library for Rust
 
-- **URL**: https://blog.duyet.net/2022/08/rust-rayon.html
+- **URL**: https://blog.duyet.net/2022/08/rust-rayon
 - **Date**: 2022-08-06
 - **Category**: Rust
 - **Tags**: Rust, Vietnamese, Rust Tiếng Việt
@@ -4943,7 +4943,7 @@ có thể chủ động điều khiển việc parallel tasks.
 
 # Rust automatically upgrade to a new edition
 
-- **URL**: https://blog.duyet.net/2022/05/rust-cargo-fix.html
+- **URL**: https://blog.duyet.net/2022/05/rust-cargo-fix
 - **Date**: 2022-05-14
 - **Category**: Rust
 - **Tags**: Rust
@@ -4983,7 +4983,7 @@ trait Foo {
 
 # Rust Source-based Code Coverage
 
-- **URL**: https://blog.duyet.net/2022/04/rust-code-cov.html
+- **URL**: https://blog.duyet.net/2022/04/rust-code-cov
 - **Date**: 2022-04-09
 - **Category**: Rust
 - **Tags**: Rust
@@ -5091,7 +5091,7 @@ the report to Github pull requests as well.
 
 # Spark on Kubernetes tại Fossil 🤔
 
-- **URL**: https://blog.duyet.net/2022/03/spark-kubernetes-at-fossil.html
+- **URL**: https://blog.duyet.net/2022/03/spark-kubernetes-at-fossil
 - **Date**: 2022-03-09
 - **Category**: Data
 - **Tags**: Vietnamese, Data Engineering, Apache Spark, Kubernetes
@@ -5412,7 +5412,7 @@ Do có nhiều chi tiết, nhiều vấn đề kỹ thuật, cách cài đặt, 
 
 # Rust: Box
 
-- **URL**: https://blog.duyet.net/2022/03/rust-box.html
+- **URL**: https://blog.duyet.net/2022/03/rust-box
 - **Date**: 2022-03-05
 - **Category**: Rust
 - **Tags**: Rust, Vietnamese, Rust Tiếng Việt
@@ -5622,7 +5622,7 @@ Lý do cần sử dụng pointer reference `&` hoặc smart pointer `Box<T>` b�
 
 # Manage Redshift/Postgres Privileges GitOps Style
 
-- **URL**: https://blog.duyet.net/2022/02/grant-redshift-gitops.html
+- **URL**: https://blog.duyet.net/2022/02/grant-redshift-gitops
 - **Date**: 2022-02-24
 - **Category**: Data
 - **Tags**: Rust, Database, Data Engineering
@@ -5889,7 +5889,7 @@ References:
 
 # Rust: Option & Result
 
-- **URL**: https://blog.duyet.net/2022/02/rust-option-result.html
+- **URL**: https://blog.duyet.net/2022/02/rust-option-result
 - **Date**: 2022-02-15
 - **Category**: Rust
 - **Tags**: Rust, Rust Tiếng Việt
@@ -6258,7 +6258,7 @@ Toán tử `?` sẽ unwrap giá trị `Ok`, hoặc return giá trị `Err` ở v
 
 # Rust Design Pattern: Builder Pattern
 
-- **URL**: https://blog.duyet.net/2022/02/rust-builder-design-pattern.html
+- **URL**: https://blog.duyet.net/2022/02/rust-builder-design-pattern
 - **Date**: 2022-02-13
 - **Category**: Rust
 - **Tags**: Rust, Vietnamese, Rust Tiếng Việt, Rust Design Patterns, Design Patterns
@@ -6378,7 +6378,7 @@ Phức tạp hơn so với việc init object trực tiếp, hoặc so với obj
 
 # Rust Design Pattern: Command Pattern
 
-- **URL**: https://blog.duyet.net/2022/02/rust-command-design-pattern.html
+- **URL**: https://blog.duyet.net/2022/02/rust-command-design-pattern
 - **Date**: 2022-02-13
 - **Category**: Rust
 - **Tags**: Rust, Vietnamese, Rust Tiếng Việt, Rust Design Patterns
@@ -6613,7 +6613,7 @@ trong các module khác nhau, việc sử dụng `trait` và `Box` ở cách 1 s
 
 # Rust Design Pattern: Prefer Small Crates
 
-- **URL**: https://blog.duyet.net/2022/02/rust-small-crates-design-pattern.html
+- **URL**: https://blog.duyet.net/2022/02/rust-small-crates-design-pattern
 - **Date**: 2022-02-13
 - **Category**: Rust
 - **Tags**: Rust, Vietnamese, Rust Tiếng Việt, Rust Design Patterns, Design Patterns
@@ -6668,7 +6668,7 @@ lựa chọn dependencies kỹ càng và càng nhỏ càng tốt.
 
 # Rust: Copy & Clone Trait
 
-- **URL**: https://blog.duyet.net/2022/02/rust-copy-clone-trait.html
+- **URL**: https://blog.duyet.net/2022/02/rust-copy-clone-trait
 - **Date**: 2022-02-13
 - **Category**: Rust
 - **Tags**: Rust, Vietnamese, Rust Tiếng Việt
@@ -6867,7 +6867,7 @@ fn main() {
 
 # Rust: Struct
 
-- **URL**: https://blog.duyet.net/2022/02/rust-struct.html
+- **URL**: https://blog.duyet.net/2022/02/rust-struct
 - **Date**: 2022-02-13
 - **Category**: Rust
 - **Tags**: Rust, Vietnamese, Rust Tiếng Việt
@@ -6957,7 +6957,7 @@ Xem tiếp về [Trait](/2022/02/rust-trait.html).
 
 # Rust: Trait
 
-- **URL**: https://blog.duyet.net/2022/02/rust-trait.html
+- **URL**: https://blog.duyet.net/2022/02/rust-trait
 - **Date**: 2022-02-13
 - **Category**: Rust
 - **Tags**: Rust, Vietnamese, Rust Tiếng Việt
@@ -7420,7 +7420,7 @@ Xem tiếp về [Struct](/2022/02/rust-struct.html).
 
 # Rust: cargo-edit
 
-- **URL**: https://blog.duyet.net/2022/02/cargo-edit.html
+- **URL**: https://blog.duyet.net/2022/02/cargo-edit
 - **Date**: 2022-02-06
 - **Category**: Rust
 - **Tags**: Rust, Vietnamese, Rust Tiếng Việt
@@ -7502,7 +7502,7 @@ $ cargo set-version --bump patch
 
 # Rust: Format Strings in 1.58
 
-- **URL**: https://blog.duyet.net/2022/01/rust-format-strings-1.58.html
+- **URL**: https://blog.duyet.net/2022/01/rust-format-strings-1.58
 - **Date**: 2022-01-18
 - **Category**: Rust
 - **Tags**: Rust, Vietnamese, Rust Tiếng Việt
@@ -7630,7 +7630,7 @@ println!("Sometimes I need to print {{ or }} too!")
 
 # Rust: FromStr trait
 
-- **URL**: https://blog.duyet.net/2022/01/rust-fromstr.html
+- **URL**: https://blog.duyet.net/2022/01/rust-fromstr
 - **Date**: 2022-01-02
 - **Category**: Rust
 - **Tags**: Rust, Vietnamese, Rust Tiếng Việt
@@ -7779,7 +7779,7 @@ assert_eq!(c, Color::Red);
 
 # Rust: Turbofish ::<> 🐠 
 
-- **URL**: https://blog.duyet.net/2022/01/rust-turbofish.html
+- **URL**: https://blog.duyet.net/2022/01/rust-turbofish
 - **Date**: 2022-01-02
 - **Category**: Rust
 - **Tags**: Rust, Vietnamese, Rust Tiếng Việt
@@ -7937,7 +7937,7 @@ Err::<u8, ()>(())
 
 # cheats.rs
 
-- **URL**: https://blog.duyet.net/2022/01/rust-cheatsheet.html
+- **URL**: https://blog.duyet.net/2022/01/rust-cheatsheet
 - **Date**: 2022-01-01
 - **Category**: Rust
 - **Tags**: Rust, Rust Tiếng Việt
@@ -7963,7 +7963,7 @@ make sure to give it a try: https://cheats.rs
 
 # Rust Design Pattern: Strategy Pattern
 
-- **URL**: https://blog.duyet.net/2021/12/rust-strategy-design-pattern.html
+- **URL**: https://blog.duyet.net/2021/12/rust-strategy-design-pattern
 - **Date**: 2021-12-19
 - **Category**: Rust
 - **Tags**: Rust, Vietnamese, Rust Tiếng Việt, Rust Design Patterns
@@ -8099,7 +8099,7 @@ behavior bằng cách implement `Serialize` và `Deserialize` traits cho ki�
 
 # Rust: Ownership
 
-- **URL**: https://blog.duyet.net/2021/12/rust-ownership.html
+- **URL**: https://blog.duyet.net/2021/12/rust-ownership
 - **Date**: 2021-12-19
 - **Category**: Rust
 - **Tags**: Rust, Vietnamese, Rust Tiếng Việt
@@ -8232,7 +8232,7 @@ Bạn có thể đọc thêm về [Ownership](https://doc.rust-lang.org/book/ch0
 
 # Rust và Data Engineering? 🤔
 
-- **URL**: https://blog.duyet.net/2021/11/rust-data-engineering.html
+- **URL**: https://blog.duyet.net/2021/11/rust-data-engineering
 - **Date**: 2021-11-27
 - **Category**: Data
 - **Tags**: Data Engineering, Rust, Vietnamese, Rust Tiếng Việt
@@ -8511,7 +8511,7 @@ Dự đoán trong 3-5 năm tới, Rust sẽ trở thành một trong những ng�
 
 # Spark on Kubernetes - better handling for node shutdown
 
-- **URL**: https://blog.duyet.net/2021/11/spark-node-decommission.html
+- **URL**: https://blog.duyet.net/2021/11/spark-node-decommission
 - **Date**: 2021-11-22
 - **Category**: Data
 - **Tags**: Data Engineering, Apache Spark, Kubernetes
@@ -8567,7 +8567,7 @@ These projects provide an adapter for translating node termination events to gra
 
 # Uptime with GitHub Actions
 
-- **URL**: https://blog.duyet.net/2021/09/uptime-with-github-actions.html
+- **URL**: https://blog.duyet.net/2021/09/uptime-with-github-actions
 - **Date**: 2021-09-20
 - **Category**: Productivity
 - **Tags**: Data Engineering, Docker
@@ -8612,7 +8612,7 @@ but if you use a private repository, you'll have to pay for this time.
 
 # From Docker to Podman on MacOS
 
-- **URL**: https://blog.duyet.net/2021/09/podman.html
+- **URL**: https://blog.duyet.net/2021/09/podman
 - **Date**: 2021-09-05
 - **Category**: Productivity
 - **Tags**: Data Engineering, Docker
@@ -8714,7 +8714,7 @@ by Katacode, which offers an interactive environment directly in your browser.
 
 # Good reasons to use ClickHouse
 
-- **URL**: https://blog.duyet.net/2021/08/good-reasons-to-use-clickhouse.html
+- **URL**: https://blog.duyet.net/2021/08/good-reasons-to-use-clickhouse
 - **Date**: 2021-08-29
 - **Category**: Data
 - **Tags**: Data, Data Engineering, Database, Clickhouse
@@ -8943,7 +8943,7 @@ See the supported formats here: https://clickhouse.com/docs/en/interfaces/format
 
 # zx
 
-- **URL**: https://blog.duyet.net/2021/08/zx.html
+- **URL**: https://blog.duyet.net/2021/08/zx
 - **Date**: 2021-08-28
 - **Category**: Productivity
 - **Tags**: Data Engineering, Linux
@@ -9003,7 +9003,7 @@ zx https://gist.githubusercontent.com/duyet/04fe68cc1ce7c82360354a90824a5edd/raw
 
 # Bitbucket Pipelines Notes
 
-- **URL**: https://blog.duyet.net/2021/08/bitbucket-pipelines-notes.html
+- **URL**: https://blog.duyet.net/2021/08/bitbucket-pipelines-notes
 - **Date**: 2021-08-27
 - **Category**: Productivity
 - **Tags**: Data Engineering, Git
@@ -9243,7 +9243,7 @@ https://support.atlassian.com/bitbucket-cloud/docs/variables-and-secrets/
 
 # Postgres Full Text Search
 
-- **URL**: https://blog.duyet.net/2021/07/postgres-full-text-search.html
+- **URL**: https://blog.duyet.net/2021/07/postgres-full-text-search
 - **Date**: 2021-07-04
 - **Category**: Data
 - **Tags**: Data, Data Engineering, Database
@@ -9371,7 +9371,7 @@ f
 
 # Migrating from Vim to NeoVim
 
-- **URL**: https://blog.duyet.net/2021/06/neovim.html
+- **URL**: https://blog.duyet.net/2021/06/neovim
 - **Date**: 2021-06-15
 - **Category**: Productivity
 - **Tags**: Vim, Ide
@@ -9449,7 +9449,7 @@ Moved to own setup: [My Neovim Setup in 2023](https://blog.duyet.net/2023/09/nvi
 
 # Migrate to Cloudflare Pages
 
-- **URL**: https://blog.duyet.net/2021/05/migrate-to-cloudflare-pages.html
+- **URL**: https://blog.duyet.net/2021/05/migrate-to-cloudflare-pages
 - **Date**: 2021-05-01
 - **Category**: Web
 - **Tags**: Web, Side Project
@@ -9534,7 +9534,7 @@ Let's see what happens to the Cloudflare Pages in the near future.
 
 # Spark on Kubernetes Performance Tuning
 
-- **URL**: https://blog.duyet.net/2021/04/spark-kubernetes-performance-tuning.html
+- **URL**: https://blog.duyet.net/2021/04/spark-kubernetes-performance-tuning
 - **Date**: 2021-04-10
 - **Category**: Data Engineering
 - **Tags**: Data Engineering, Apache Spark, Kubernetes
@@ -9620,7 +9620,7 @@ Always test these optimizations with your specific workload to ensure they provi
 
 # Airflow 2.0 - Taskflow API
 
-- **URL**: https://blog.duyet.net/2020/12/airflow-taskflow-api.html
+- **URL**: https://blog.duyet.net/2020/12/airflow-taskflow-api
 - **Date**: 2020-12-26
 - **Category**: Data Engineering
 - **Tags**: Apache Airflow, Data Engineering
@@ -9850,7 +9850,7 @@ Bây giờ bạn đã biết khi viết 1 DAG sử dụng Taskflow API trong Air
 
 # Tại sao nên triển khai Apache Spark trên Kubernetes
 
-- **URL**: https://blog.duyet.net/2020/10/why-spark-on-kubernetes.html
+- **URL**: https://blog.duyet.net/2020/10/why-spark-on-kubernetes
 - **Date**: 2020-10-24
 - **Category**: Data Engineering
 - **Tags**: Apache Spark, Data Engineering, Kubernetes
@@ -9999,7 +9999,7 @@ Bạn có thể tham khảo các cách để chạy ứng dụng Spark trên Kub
 
 # TL;DR - ES2020: Nullish Coalescing
 
-- **URL**: https://blog.duyet.net/2020/06/tldr-es2020-nullish-coalescing.html
+- **URL**: https://blog.duyet.net/2020/06/tldr-es2020-nullish-coalescing
 - **Date**: 2020-06-28
 - **Category**: Web
 - **Tags**: Web
@@ -10030,7 +10030,7 @@ undefined ?? [] // => []
 
 # Scheduling Python script in Airflow
 
-- **URL**: https://blog.duyet.net/2020/06/scheduling-python-script-in-airflow.html
+- **URL**: https://blog.duyet.net/2020/06/scheduling-python-script-in-airflow
 - **Date**: 2020-06-24
 - **Category**: Data Engineering
 - **Tags**: Data Engineering, Apache Airflow, Python
@@ -10097,7 +10097,7 @@ run_this = PythonOperator(dag=dag,
 
 # Spark History Server on Kubernetes
 
-- **URL**: https://blog.duyet.net/2020/05/spark-history-server-on-k8s.html
+- **URL**: https://blog.duyet.net/2020/05/spark-history-server-on-k8s
 - **Date**: 2020-05-29
 - **Category**: Data Engineering
 - **Tags**: Data Engineering, Apache Spark, Kubernetes
@@ -10221,7 +10221,7 @@ From above config, you should able to access the UI via: `http://[nodeIp]:18080`
 
 # 3 ways to run Spark on Kubernetes
 
-- **URL**: https://blog.duyet.net/2020/05/spark-on-k8s.html
+- **URL**: https://blog.duyet.net/2020/05/spark-on-k8s
 - **Date**: 2020-05-24
 - **Category**: Data Engineering
 - **Tags**: Data Engineering, Apache Spark, Kubernetes
@@ -10424,7 +10424,7 @@ It saves you effort in monitoring the status of jobs, looking for logs, and keep
 
 # Airflow DAG Serialization
 
-- **URL**: https://blog.duyet.net/2020/05/airflow-dag-serialization.html
+- **URL**: https://blog.duyet.net/2020/05/airflow-dag-serialization
 - **Date**: 2020-05-01
 - **Category**: Data Engineering
 - **Tags**: Data Engineering, Apache Airflow
@@ -10463,7 +10463,7 @@ If you are updating Airflow from <1.10.7, please do not forget to run `airflow d
 
 # Data Studio: Connecting BigQuery and Google Sheets to help with hefty data analysis
 
-- **URL**: https://blog.duyet.net/2020/05/data-studio-caching-with-spreadsheet.html
+- **URL**: https://blog.duyet.net/2020/05/data-studio-caching-with-spreadsheet
 - **Date**: 2020-05-01
 - **Category**: Data Engineering
 - **Tags**: Data Engineering, Tools
@@ -10518,7 +10518,7 @@ Good luck!
 
 # TL;DR - Random Forest thay vì Neural Network
 
-- **URL**: https://blog.duyet.net/2020/05/tldr-why-rf.html
+- **URL**: https://blog.duyet.net/2020/05/tldr-why-rf
 - **Date**: 2020-05-01
 - **Category**: Machine Learning
 - **Tags**: Machine Learning
@@ -10556,7 +10556,7 @@ Neural networks đã chứng tỏ rằng nó hiệu quả hơn một số thuậ
 
 # Javascript Shorthands Tips
 
-- **URL**: https://blog.duyet.net/2019/10/js-shorthand-tips.html
+- **URL**: https://blog.duyet.net/2019/10/js-shorthand-tips
 - **Date**: 2019-10-20
 - **Category**: Web
 - **Tags**: Web, Javascript
@@ -10748,7 +10748,7 @@ Thanks for reading, happy coding <3
 
 # Đánh giá hệ thống Information Retrieval (tiếp theo)
 
-- **URL**: https://blog.duyet.net/2019/10/ir-evaluation-2.html
+- **URL**: https://blog.duyet.net/2019/10/ir-evaluation-2
 - **Date**: 2019-10-09
 - **Category**: Data Engineering
 - **Tags**: Data, Data Engineering, Information Retrieval, Nlp
@@ -10874,7 +10874,7 @@ _Many slides in this post are adapted from Prof. Joydeep Ghosh (UT ECE) who in t
 
 # Sách hay (Engineering)
 
-- **URL**: https://blog.duyet.net/2019/09/books.html
+- **URL**: https://blog.duyet.net/2019/09/books
 - **Date**: 2019-09-17
 - **Category**: Data Engineering
 - **Tags**: Data, Data Engineering, Read
@@ -10960,7 +10960,7 @@ Ghi lại mấy cuốn sách hay (Engineering) đã đọc qua.
 
 # Đánh giá hệ thống Information Retrieval
 
-- **URL**: https://blog.duyet.net/2019/08/ir-evaluation.html
+- **URL**: https://blog.duyet.net/2019/08/ir-evaluation
 - **Date**: 2019-08-31
 - **Category**: Data Engineering
 - **Tags**: Data, Data Engineering, Information Retrieval, Nlp
@@ -11117,7 +11117,7 @@ _Many slides in this post are adapted from Prof. Joydeep Ghosh (UT ECE) who in t
 
 # Information Retrieval - Vector Space Model
 
-- **URL**: https://blog.duyet.net/2019/08/ir-vector-space-model.html
+- **URL**: https://blog.duyet.net/2019/08/ir-vector-space-model
 - **Date**: 2019-08-30
 - **Category**: Data Engineering
 - **Tags**: Data, Data Engineering, Information Retrieval, Nlp
@@ -11319,7 +11319,7 @@ Sau khi biểu diễn dưới dạng vector và tính khoảng cách, ta xếp h
 
 # Airflow - một số ghi chép
 
-- **URL**: https://blog.duyet.net/2019/08/airflow-note.html
+- **URL**: https://blog.duyet.net/2019/08/airflow-note
 - **Date**: 2019-08-27
 - **Category**: Data Engineering
 - **Tags**: Apache Airflow, Data, Data Engineering
@@ -11413,7 +11413,7 @@ Một số ghi chép, tips & tricks của mình trong quá trình sử dụng Ap
 
 # Cài đặt Apache Airflow với Docker Compose
 
-- **URL**: https://blog.duyet.net/2019/08/airflow-docker-compose.html
+- **URL**: https://blog.duyet.net/2019/08/airflow-docker-compose
 - **Date**: 2019-08-26
 - **Category**: Data Engineering
 - **Tags**: Apache Airflow, Data, Data Engineering
@@ -11543,7 +11543,7 @@ Chúc các bạn thành công.
 
 # Gửi Slack Alerts trên Airflow
 
-- **URL**: https://blog.duyet.net/2019/08/slack-alerts-in-airflow.html
+- **URL**: https://blog.duyet.net/2019/08/slack-alerts-in-airflow
 - **Date**: 2019-08-20
 - **Category**: Data Engineering
 - **Tags**: Apache Airflow, Data, Data Engineering
@@ -11654,7 +11654,7 @@ Chúc các bạn thành công.
 
 # 8 nền tảng serverless platform tốt nhất hiện nay
 
-- **URL**: https://blog.duyet.net/2019/08/8-serverless-platform.html
+- **URL**: https://blog.duyet.net/2019/08/8-serverless-platform
 - **Date**: 2019-08-09
 - **Category**: Server
 - **Tags**: Tools
@@ -11789,7 +11789,7 @@ Good luck!
 
 # Airflow - "context" dictionary
 
-- **URL**: https://blog.duyet.net/2019/08/airflow-context.html
+- **URL**: https://blog.duyet.net/2019/08/airflow-context
 - **Date**: 2019-08-09
 - **Category**: Data Engineering
 - **Tags**: Data, Python, Data Engineering, Apache Airflow
@@ -11844,7 +11844,7 @@ Biến `context` trong airflow là biến hay sử dụng trong Airflow (`Python
 
 # Guess.js
 
-- **URL**: https://blog.duyet.net/2019/08/guess-js.html
+- **URL**: https://blog.duyet.net/2019/08/guess-js
 - **Date**: 2019-08-09
 - **Category**: Javascript
 - **Tags**: Data, Web, Data Engineering, Javascript
@@ -11947,7 +11947,7 @@ module.exports = {
 
 # Migrate Blogger sang Gatsby
 
-- **URL**: https://blog.duyet.net/2019/08/migrate-blogger-to-gatsby.html
+- **URL**: https://blog.duyet.net/2019/08/migrate-blogger-to-gatsby
 - **Date**: 2019-08-07
 - **Category**: Story
 - **Tags**: Side Project, Javascript
@@ -12041,7 +12041,7 @@ Ngoài ra giờ đây mình có thể viết bài bằng Markdown trên `VSCode`
 
 # Pricetrack: theo dõi giá và cashback (by Firebase)
 
-- **URL**: https://blog.duyet.net/2019/05/pricetrack-cashback.html
+- **URL**: https://blog.duyet.net/2019/05/pricetrack-cashback
 - **Date**: 2019-05-13
 - **Category**: Project
 - **Tags**: Side Project
@@ -12096,7 +12096,7 @@ Nếu có thời gian mình sẽ có một bài chi tiết để build pricetrac
 
 # Đi lại bằng phương tiện công cộng ở San Francisco
 
-- **URL**: https://blog.duyet.net/2019/05/phuong-tien-cong-cong-san-francisco.html
+- **URL**: https://blog.duyet.net/2019/05/phuong-tien-cong-cong-san-francisco
 - **Date**: 2019-04-19
 - **Category**: Story
 - **Tags**: San Francisco, Travel, Transportation, Public Transit
@@ -12186,7 +12186,7 @@ Xe đi lại trong khuôn viên Google
 
 # Google Cloud Next '19
 
-- **URL**: https://blog.duyet.net/2019/04/google-cloud-next-19.html
+- **URL**: https://blog.duyet.net/2019/04/google-cloud-next-19
 - **Date**: 2019-04-19
 - **Category**: Story
 - **Tags**: Google, Events
@@ -12262,7 +12262,7 @@ Thử một số demo, các demo của Google luôn trực quan và hấp dẫn.
 
 # Super Simple Shorten URL với Firebase Dynamic Links
 
-- **URL**: https://blog.duyet.net/2019/04/shorten-url-voi-firebase.html
+- **URL**: https://blog.duyet.net/2019/04/shorten-url-voi-firebase
 - **Date**: 2019-04-19
 - **Category**: Project
 - **Tags**: Side Project
@@ -12401,7 +12401,7 @@ Hiện tại link được tạo bởi Dynamic Link không hiện trên Firebase
 
 # Resting và Spreading JavaScript Objects
 
-- **URL**: https://blog.duyet.net/2019/03/7-thu-thuat-voi-resting-va-spreading.html
+- **URL**: https://blog.duyet.net/2019/03/7-thu-thuat-voi-resting-va-spreading
 - **Date**: 2019-03-27
 - **Category**: Javascript
 - **Tags**: Es6, Javascript, Node.js, Tutorial
@@ -12554,7 +12554,7 @@ renamed(user) //=> { id: 5000, name: 'Bob Fossil' }
 
 # Checklist tối ưu hiệu năng React
 
-- **URL**: https://blog.duyet.net/2019/03/react-performance-checklist.html
+- **URL**: https://blog.duyet.net/2019/03/react-performance-checklist
 - **Date**: 2019-03-03
 - **Category**: Web
 - **Tags**: React, Web
@@ -12595,7 +12595,7 @@ Muốn tối ưu hiệu năng React, sau đây là checklist để tăng tốc w
 
 # Papers with Code: A Fantastic GitHub Resource for Machine Learning
 
-- **URL**: https://blog.duyet.net/2019/01/pwc.html
+- **URL**: https://blog.duyet.net/2019/01/pwc
 - **Date**: 2019-01-06
 - **Category**: Machine Learning
 - **Tags**: Deep Learning, Machine Learning, Artificial Intelligence (ai)
@@ -12621,7 +12621,7 @@ Github: [https://github.com/zziz/pwc](https://github.com/zziz/pwc)
 
 # api.duyet.net
 
-- **URL**: https://blog.duyet.net/2018/11/api.duyet.net.html
+- **URL**: https://blog.duyet.net/2018/11/api.duyet.net
 - **Date**: 2018-11-18
 - **Category**: Project
 - **Tags**: Side Project
@@ -12636,7 +12636,7 @@ Github: [https://github.com/zziz/pwc](https://github.com/zziz/pwc)
 
 # Web Performance 101
 
-- **URL**: https://blog.duyet.net/2018/11/web-performance-101.html
+- **URL**: https://blog.duyet.net/2018/11/web-performance-101
 - **Date**: 2018-11-13
 - **Category**: Web
 - **Tags**: News, Web
@@ -12661,7 +12661,7 @@ Github: [https://github.com/zziz/pwc](https://github.com/zziz/pwc)
 
 # [Slide] Build simple data pipeline for ETL and data aggregation on AWS
 
-- **URL**: https://blog.duyet.net/2018/11/simple-data-pipeline-aws.html
+- **URL**: https://blog.duyet.net/2018/11/simple-data-pipeline-aws
 - **Date**: 2018-11-12
 - **Category**: Data Engineering
 - **Tags**: Data Engineering, Talk
@@ -12679,7 +12679,7 @@ Nếu không xem được vui lòng download theo link sau: https://talk.duyet.n
 
 # 5 bí quyết viết JS conditionals tốt hơn
 
-- **URL**: https://blog.duyet.net/2018/09/5-bi-quyet-js-conditionals-tot-hon.html
+- **URL**: https://blog.duyet.net/2018/09/5-bi-quyet-js-conditionals-tot-hon
 - **Date**: 2018-09-20
 - **Category**: Web
 - **Tags**: Es6, Javascript, Tutorial
@@ -12971,7 +12971,7 @@ Hy vọng với các bí quyết trên sẽ giúp code JS của các bạn sẽ 
 
 # VS Code - Import Cost
 
-- **URL**: https://blog.duyet.net/2018/09/vs-code-import-cost.html
+- **URL**: https://blog.duyet.net/2018/09/vs-code-import-cost
 - **Date**: 2018-09-17
 - **Category**: Productivity
 - **Tags**: Node.js
@@ -12994,7 +12994,7 @@ don't be like me!
 
 # Deploy Deep Learning model as a web service API
 
-- **URL**: https://blog.duyet.net/2018/07/deploy-deep-learning-model-as-web-service-api.html
+- **URL**: https://blog.duyet.net/2018/07/deploy-deep-learning-model-as-web-service-api
 - **Date**: 2018-07-21
 - **Category**: Machine Learning
 - **Tags**: Data Engineering, Python, Data Science, Machine Learning
@@ -13116,7 +13116,7 @@ Hy vọng bài viết có thể giúp bạn hiểu hơn phần nào, vui lòng c
 
 # Signale - Hackable console logger for Nodejs
 
-- **URL**: https://blog.duyet.net/2018/07/signale-console-logger.html
+- **URL**: https://blog.duyet.net/2018/07/signale-console-logger
 - **Date**: 2018-07-19
 - **Category**: Web
 - **Tags**: Javascript, Node.js
@@ -13190,7 +13190,7 @@ Xem thêm chi tiết và cấu hình tham số tại đây: [https://github.com/
 
 # TensorFlow.js
 
-- **URL**: https://blog.duyet.net/2018/07/tensorflowjs.html
+- **URL**: https://blog.duyet.net/2018/07/tensorflowjs
 - **Date**: 2018-07-19
 - **Category**: Machine Learning
 - **Tags**: Javascript, Machine Learning, Web
@@ -13331,7 +13331,7 @@ Have fun, hãy để lại bình luận nếu có bất cứ thắc mắc gì nh
 
 # Gio.js - 3D Globe Data Visualization
 
-- **URL**: https://blog.duyet.net/2018/07/giojs-3d-globe-data-visualization.html
+- **URL**: https://blog.duyet.net/2018/07/giojs-3d-globe-data-visualization
 - **Date**: 2018-07-01
 - **Category**: Web
 - **Tags**: Javascript
@@ -13400,7 +13400,7 @@ Xem ví dụ tại [Codepen](https://codepen.io/syt123450/pen/VXNdgM).
 
 # [Slide] Sentiment Analysis
 
-- **URL**: https://blog.duyet.net/2018/06/slide-sentiment-analysis.html
+- **URL**: https://blog.duyet.net/2018/06/slide-sentiment-analysis
 - **Date**: 2018-06-30
 - **Category**: Machine Learning
 - **Tags**: Nlp, Machine Learning, Talk
@@ -13440,7 +13440,7 @@ Mình vừa có bài nói về **Sentiment Analysis** trong NLP bao quát, xin 
 
 # Sử dụng PyTorch với GPU miễn phí trên Google Colab
 
-- **URL**: https://blog.duyet.net/2018/06/su-dung-pytorch-voi-gpu-mien-phi-tren.html
+- **URL**: https://blog.duyet.net/2018/06/su-dung-pytorch-voi-gpu-mien-phi-tren
 - **Date**: 2018-06-03
 - **Category**: Machine Learning
 - **Tags**: Data Engineering, Python, Machine Learning
@@ -13492,7 +13492,7 @@ And that's it!
 
 # Propel - Machine learning for Javascript
 
-- **URL**: https://blog.duyet.net/2018/03/propel-machine-learning-for-javascript.html
+- **URL**: https://blog.duyet.net/2018/03/propel-machine-learning-for-javascript
 - **Date**: 2018-03-01
 - **Category**: Machine Learning
 - **Tags**: Data Engineering, Node.js, Javascript, Machine Learning
@@ -13531,7 +13531,7 @@ Sử dụng trên trình duyệt:
 
 # Phân lớp SVM với Word2vec
 
-- **URL**: https://blog.duyet.net/2018/02/svm-word2vec.html
+- **URL**: https://blog.duyet.net/2018/02/svm-word2vec
 - **Date**: 2018-02-25
 - **Category**: Machine Learning
 - **Tags**: Nlp, Machine Learning
@@ -13582,7 +13582,7 @@ Mình sẽ cập nhật source code và kết quả thực hiện step by step �
 
 # Duckling - phân tích văn bản sang dữ liệu có cấu trúc
 
-- **URL**: https://blog.duyet.net/2018/02/duckling-phan-tich-van-ban-sang-du-lieu-co-cau-truc.html
+- **URL**: https://blog.duyet.net/2018/02/duckling-phan-tich-van-ban-sang-du-lieu-co-cau-truc
 - **Date**: 2018-02-19
 - **Category**: Machine Learning
 - **Tags**: Data Engineering, Open Source, Machine Learning, Nlp
@@ -13691,7 +13691,7 @@ Xem thêm các hướng dẫn và cách mở rộng Duckling tại trang Github 
 
 # Colaboratory - phiên bản custom của Jupyter Notebook từ Google
 
-- **URL**: https://blog.duyet.net/2017/11/colaboratory-research-google.html
+- **URL**: https://blog.duyet.net/2017/11/colaboratory-research-google
 - **Date**: 2017-11-07
 - **Category**: Web
 - **Tags**: Data Engineering, Google, Data Science
@@ -13733,7 +13733,7 @@ Thử sử dụng Colaboratory tại đây nhé: [https://colab.research.googl
 
 # Doc2vec trong Sentiment Analysis
 
-- **URL**: https://blog.duyet.net/2017/10/doc2vec-trong-sentiment-analysis.html
+- **URL**: https://blog.duyet.net/2017/10/doc2vec-trong-sentiment-analysis
 - **Date**: 2017-10-08
 - **Category**: Machine Learning
 - **Tags**: Nlp, Machine Learning
@@ -14136,7 +14136,7 @@ Tham khảo:
 
 # Python - Nhận dạng xe hơi với OpenCV
 
-- **URL**: https://blog.duyet.net/2017/09/detect-cars-opencv.html
+- **URL**: https://blog.duyet.net/2017/09/detect-cars-opencv
 - **Date**: 2017-09-20
 - **Category**: Machine Learning
 - **Tags**: Data Engineering, Python, Machine Learning
@@ -14307,7 +14307,7 @@ Tham khảo:
 
 # Tolks.io - Put your story up on the Internet
 
-- **URL**: https://blog.duyet.net/2017/09/tolksio-put-your-story-up-on-internet.html
+- **URL**: https://blog.duyet.net/2017/09/tolksio-put-your-story-up-on-internet
 - **Date**: 2017-09-05
 - **Category**: Web
 - **Tags**: Web, Tools, Javascript Framework
@@ -14324,7 +14324,7 @@ Homepage: [https://tolks.io/](https://tolks.io/)
 
 # Machine Learning is Fun! (Vietnamese version)
 
-- **URL**: https://blog.duyet.net/2017/08/machine-learning-is-fun.html
+- **URL**: https://blog.duyet.net/2017/08/machine-learning-is-fun
 - **Date**: 2017-08-25
 - **Category**: Machine Learning
 - **Tags**: Machine Learning
@@ -14588,7 +14588,7 @@ Ngoài ra, bạn cũng có thể thử đủ loại thuật toán trong thư vi�
 
 # Phân lớp văn bản
 
-- **URL**: https://blog.duyet.net/2017/08/phan-lop-van-ban.html
+- **URL**: https://blog.duyet.net/2017/08/phan-lop-van-ban
 - **Date**: 2017-08-11
 - **Category**: Machine Learning
 - **Tags**: Data Engineering, Tutorial, Python, Nlp, Machine Learning
@@ -14655,7 +14655,7 @@ Source: [https://github.com/duyet/demo-text-classification/blob/master/classifi
 
 # natural - NLTK cho Javascript
 
-- **URL**: https://blog.duyet.net/2017/08/natural-nltk.html
+- **URL**: https://blog.duyet.net/2017/08/natural-nltk
 - **Date**: 2017-08-06
 - **Category**: Machine Learning
 - **Tags**: Data Engineering, Node.js, Javascript, Nlp, Machine Learning
@@ -14777,7 +14777,7 @@ Cả 2 đoạn trên đều cho kết quả `[ [ 'some', 'other', 'words' ], [ '
 
 # gpu.js - Tăng tốc Javascript với GPU
 
-- **URL**: https://blog.duyet.net/2017/07/gpujs.html
+- **URL**: https://blog.duyet.net/2017/07/gpujs
 - **Date**: 2017-07-26
 - **Category**: Web
 - **Tags**: Javascript, Javascript Framework
@@ -14824,7 +14824,7 @@ Khi chạy benchmark ở [trang chủ](http://gpu.rocks/), tùy vào cấu hình
 
 # URLs là UI
 
-- **URL**: https://blog.duyet.net/2017/07/urls-are-ui.html
+- **URL**: https://blog.duyet.net/2017/07/urls-are-ui
 - **Date**: 2017-07-20
 - **Category**: Web
 - **Tags**: Web
@@ -14887,7 +14887,7 @@ Tham khảo
 
 # Cài Apache Spark standalone bản pre-built
 
-- **URL**: https://blog.duyet.net/2017/05/cai-apache-spark-standalone-ban-pre.html
+- **URL**: https://blog.duyet.net/2017/05/cai-apache-spark-standalone-ban-pre
 - **Date**: 2017-05-31
 - **Category**: Data
 - **Tags**: Data Engineering, Apache Spark, Python, Javascript, Apache Spark, Big Data
@@ -14955,7 +14955,7 @@ Chúc bạn thành công.
 
 # Explain Shell - explainshell.com
 
-- **URL**: https://blog.duyet.net/2017/04/explain-shell-explainshellcom.html
+- **URL**: https://blog.duyet.net/2017/04/explain-shell-explainshellcom
 - **Date**: 2017-04-27
 - **Category**: Linux
 - **Tags**: Linux, Ubuntu
@@ -14972,7 +14972,7 @@ Bắt gặp một command linux trong một tutorial trên Internet nhưng khôn
 
 # NLP - Truyện Kiều Word2vec
 
-- **URL**: https://blog.duyet.net/2017/04/nlp-truyen-kieu-word2vec.html
+- **URL**: https://blog.duyet.net/2017/04/nlp-truyen-kieu-word2vec
 - **Date**: 2017-04-16
 - **Category**: Machine Learning
 - **Tags**: Data Engineering, Python, Javascript, Machine Learning
@@ -15179,7 +15179,7 @@ Tham khảo thêm:
 
 # Multcloud - di chuyển, sao chép dữ liệu qua lại giữa các Cloud Drive (Google Drive, Dropbox, ...)
 
-- **URL**: https://blog.duyet.net/2017/04/multcloud.html
+- **URL**: https://blog.duyet.net/2017/04/multcloud
 - **Date**: 2017-04-11
 - **Category**: Web
 - **Tags**: Tools, Tutorial
@@ -15217,7 +15217,7 @@ Ngoài ra bạn còn có thể chuyển file trực tiếp từ Google Drive (Dr
 
 # Python - Churn prediction with Graphlab
 
-- **URL**: https://blog.duyet.net/2017/03/python-churn-prediction-with-graphlab.html
+- **URL**: https://blog.duyet.net/2017/03/python-churn-prediction-with-graphlab
 - **Date**: 2017-03-18
 - **Category**: Machine Learning
 - **Tags**: Python, Data Science, Machine Learning
@@ -15278,7 +15278,7 @@ If the **churn_period** is set to 1 month, a churn forecast predicts the probabi
 
 # Notibar.js
 
-- **URL**: https://blog.duyet.net/2017/03/notibarjs.html
+- **URL**: https://blog.duyet.net/2017/03/notibarjs
 - **Date**: 2017-03-04
 - **Category**: Project
 - **Tags**: Javascript, Side Project
@@ -15325,7 +15325,7 @@ Github: [https://github.com/duyet/notibar.js](https://github.com/duyet/notibar.j
 
 # Learning R cheatsheet
 
-- **URL**: https://blog.duyet.net/2017/02/learning-r-cheatsheet.html
+- **URL**: https://blog.duyet.net/2017/02/learning-r-cheatsheet
 - **Date**: 2017-02-05
 - **Category**: Machine Learning
 - **Tags**: Data Engineering
@@ -15475,7 +15475,7 @@ x[2:3,]               # get multiple rows
 
 # Teleconsole - Chia sẻ remote console 
 
-- **URL**: https://blog.duyet.net/2017/01/teleconsole.html
+- **URL**: https://blog.duyet.net/2017/01/teleconsole
 - **Date**: 2017-01-26
 - **Category**: Linux
 - **Tags**: Tools
@@ -15525,7 +15525,7 @@ Hoặc mở giao diện Web mà Teleconsole cung cấp
 
 # Botpress - Phần 1: Init Chatbot
 
-- **URL**: https://blog.duyet.net/2017/01/botpress.html
+- **URL**: https://blog.duyet.net/2017/01/botpress
 - **Date**: 2017-01-24
 - **Category**: Web
 - **Tags**: Node.js, Javascript Framework
@@ -15666,7 +15666,7 @@ Xem tiếp phần 2: [Chatbot với Botpress - Phần 2: Coding](https://blog.du
 
 # Botpress - Phần 2: Coding
 
-- **URL**: https://blog.duyet.net/2017/01/botpress-p2.html
+- **URL**: https://blog.duyet.net/2017/01/botpress-p2
 - **Date**: 2017-01-24
 - **Category**: Web
 - **Tags**: Node.js, Javascript Framework
@@ -15867,7 +15867,7 @@ Xem phần 1: [Chatbot với Botpress - Phần 1: Init Chatbot](https://blog.duy
 
 # Rancher - Quản lý Docker Container bằng UI
 
-- **URL**: https://blog.duyet.net/2017/01/rancher.html
+- **URL**: https://blog.duyet.net/2017/01/rancher
 - **Date**: 2017-01-23
 - **Category**: Linux
 - **Tags**: Data Engineering, Docker, Kubernetes
@@ -15937,7 +15937,7 @@ Một số hình ảnh:
 
 # Shell - Mọi thao tác với tệp và thư mục trên Bash
 
-- **URL**: https://blog.duyet.net/2017/01/shell-thao-tac-voi-tep-va-thu-muc.html
+- **URL**: https://blog.duyet.net/2017/01/shell-thao-tac-voi-tep-va-thu-muc
 - **Date**: 2017-01-23
 - **Category**: Linux
 - **Tags**: Linux, Tutorial, Ubuntu
@@ -16140,7 +16140,7 @@ find my_folder -mtime +5
 
 # Writefull
 
-- **URL**: https://blog.duyet.net/2017/01/writefull.html
+- **URL**: https://blog.duyet.net/2017/01/writefull
 - **Date**: 2017-01-22
 - **Category**: News
 - **Tags**: 
@@ -16166,7 +16166,7 @@ Xem video sau để hiểu rõ hơn:
 
 # Javascript Weekly #10
 
-- **URL**: https://blog.duyet.net/2016/12/javascript-weekly-10.html
+- **URL**: https://blog.duyet.net/2016/12/javascript-weekly-10
 - **Date**: 2016-12-17
 - **Category**: Javascript
 - **Tags**: Javascript Weekly, React, Node.js
@@ -16212,7 +16212,7 @@ JOHN LEIDER
 
 # The Evolution of a Software Engineer
 
-- **URL**: https://blog.duyet.net/2016/12/the-evolution-of-software-engineer.html
+- **URL**: https://blog.duyet.net/2016/12/the-evolution-of-software-engineer
 - **Date**: 2016-12-17
 - **Category**: News
 - **Tags**: News, Software Engineering
@@ -16244,7 +16244,7 @@ The tenth year:
 
 # Merge conflicts on GitHub website
 
-- **URL**: https://blog.duyet.net/2016/12/merge-conflicts-on-github-website.html
+- **URL**: https://blog.duyet.net/2016/12/merge-conflicts-on-github-website
 - **Date**: 2016-12-14
 - **Category**: Git
 - **Tags**: Github, News
@@ -16259,7 +16259,7 @@ You can now resolve simple merge conflicts on GitHub right from your pull reques
 
 # vnTokenizer trên PySpark
 
-- **URL**: https://blog.duyet.net/2016/12/vntokenizer-tren-pyspark.html
+- **URL**: https://blog.duyet.net/2016/12/vntokenizer-tren-pyspark
 - **Date**: 2016-12-14
 - **Category**: Data Engineering
 - **Tags**: Data Engineering, Python, Apache Spark, Nlp, Machine Learning
@@ -16344,7 +16344,7 @@ Bạn có thể xem toàn bộ mã nguồn, input và output mẫu tại đây:�
 
 # Javascript Weekly #9
 
-- **URL**: https://blog.duyet.net/2016/12/javascript-weekly-9.html
+- **URL**: https://blog.duyet.net/2016/12/javascript-weekly-9
 - **Date**: 2016-12-10
 - **Category**: Javascript
 - **Tags**: Javascript, Javascript Weekly, React, Node.js
@@ -16386,7 +16386,7 @@ REACT NATIVE EXPRESS
 
 # R trên Jupyter Notebook (Ubuntu 14.04 / 14.10 / 16.04)
 
-- **URL**: https://blog.duyet.net/2016/11/r-tren-jupiter-notebook-ubuntu-1404.html
+- **URL**: https://blog.duyet.net/2016/11/r-tren-jupiter-notebook-ubuntu-1404
 - **Date**: 2016-11-22
 - **Category**: Data Engineering
 - **Tags**: Data Engineering, Python, Data Science
@@ -16447,7 +16447,7 @@ IRkernel: [https://github.com/IRkernel/IRkernel](https://github.com/IRkernel/IRk
 
 # Openstack - App Catalog và Docker trên Devstack
 
-- **URL**: https://blog.duyet.net/2016/10/devstack-maruno-magnum.html
+- **URL**: https://blog.duyet.net/2016/10/devstack-maruno-magnum
 - **Date**: 2016-10-29
 - **Category**: News
 - **Tags**: Docker, Python
@@ -16631,7 +16631,7 @@ sudo pip install python-openstackclient
 
 # Yarn: A new package manager for JavaScript
 
-- **URL**: https://blog.duyet.net/2016/10/yarn.html
+- **URL**: https://blog.duyet.net/2016/10/yarn
 - **Date**: 2016-10-13
 - **Category**: Javascript
 - **Tags**: Npm, Javascript, Node.js
@@ -16660,7 +16660,7 @@ Read more:
 
 # Try Ubuntu on Web
 
-- **URL**: https://blog.duyet.net/2016/10/try-ubuntu-on-web.html
+- **URL**: https://blog.duyet.net/2016/10/try-ubuntu-on-web
 - **Date**: 2016-10-09
 - **Category**: News
 - **Tags**: Open Source, Ubuntu, Web
@@ -16679,7 +16679,7 @@ Github của tour.ubuntu.com: [https://github.com/ubuntudesign/tour.ubuntu.com](
 
 # Spark: Convert Text (CSV) to Parquet để tối ưu hóa Spark SQL và HDFS
 
-- **URL**: https://blog.duyet.net/2016/09/spark-convert-text-csv-to-parquet.html
+- **URL**: https://blog.duyet.net/2016/09/spark-convert-text-csv-to-parquet
 - **Date**: 2016-09-21
 - **Category**: Data Engineering
 - **Tags**: Data Engineering, Apache Spark, Python, Big Data
@@ -16733,7 +16733,7 @@ Từ **897.9GB** text, với Parquet chỉ còn lại **231.4GB,** tiết kiệm
 
 # Chạy Apache Spark với Jupyter Notebook
 
-- **URL**: https://blog.duyet.net/2016/09/chay-apache-spark-voi-jupyter-notebook.html
+- **URL**: https://blog.duyet.net/2016/09/chay-apache-spark-voi-jupyter-notebook
 - **Date**: 2016-09-20
 - **Category**: Data
 - **Tags**: Data Engineering, Apache Spark, Python, Machine Learning
@@ -16813,7 +16813,7 @@ Tùy chỉnh các tham số tùy theo thực tế. Truy cập vào IPython Noteb
 
 # Tối ưu hóa Javascript với Google Closure Compiler
 
-- **URL**: https://blog.duyet.net/2016/09/toi-uu-hoa-javascript-voi-google-closure.html
+- **URL**: https://blog.duyet.net/2016/09/toi-uu-hoa-javascript-voi-google-closure
 - **Date**: 2016-09-14
 - **Category**: News
 - **Tags**: Javascript, Node.js
@@ -16896,7 +16896,7 @@ Còn khá nhiều chức năng và tham số như angularPass, polymerPass, rewr
 
 # PySpark - Thiếu thư viện Python trên Worker
 
-- **URL**: https://blog.duyet.net/2016/09/pyspark-thieu-thu-vien-python-tren-worker.html
+- **URL**: https://blog.duyet.net/2016/09/pyspark-thieu-thu-vien-python-tren-worker
 - **Date**: 2016-09-08
 - **Category**: Data
 - **Tags**: Data Engineering, Apache Spark, Python, Big Data
@@ -16935,7 +16935,7 @@ python setup.py bdist_egg
 
 # Autotrack turns 1.0
 
-- **URL**: https://blog.duyet.net/2016/09/autotrack-turns-10.html
+- **URL**: https://blog.duyet.net/2016/09/autotrack-turns-10
 - **Date**: 2016-09-01
 - **Category**: Javascript
 - **Tags**: News, Javascript
@@ -16992,7 +16992,7 @@ Bạn cũng có thể tìm hiểu thêm về Autotrack demo và Tools tại đâ
 
 # Bảo mật hai lớp
 
-- **URL**: https://blog.duyet.net/2016/09/bao-mat-hai-lop.html
+- **URL**: https://blog.duyet.net/2016/09/bao-mat-hai-lop
 - **Date**: 2016-09-01
 - **Category**: News
 - **Tags**: Security, Tutorial
@@ -17053,7 +17053,7 @@ Chỉ cần nhập mã từ ứng dụng:
 
 # Javascript Weekly #8
 
-- **URL**: https://blog.duyet.net/2016/08/javascript-weekly-8.html
+- **URL**: https://blog.duyet.net/2016/08/javascript-weekly-8
 - **Date**: 2016-08-31
 - **Category**: Javascript
 - **Tags**: Node.js, Javascript, Javascript Weekly, React
@@ -17109,7 +17109,7 @@ Theo dõi chuỗi bài viết JavaScript Weekly tại: [http://saveto.co/javascr
 
 # Thuyết âm mưu về lý do con người thích mèo
 
-- **URL**: https://blog.duyet.net/2016/08/thuyet-am-muu-ve-ly-do-con-nguoi-thich-meo.html
+- **URL**: https://blog.duyet.net/2016/08/thuyet-am-muu-ve-ly-do-con-nguoi-thich-meo
 - **Date**: 2016-08-27
 - **Category**: News
 - **Tags**: Read
@@ -17167,7 +17167,7 @@ Theo Trạm Đọc (Read Station), bài viết gốc tại đây: [http://tramdo
 
 # Parse Stack
 
-- **URL**: https://blog.duyet.net/2016/08/parse-stack.html
+- **URL**: https://blog.duyet.net/2016/08/parse-stack
 - **Date**: 2016-08-18
 - **Category**: Project
 - **Tags**: Node.js
@@ -17228,7 +17228,7 @@ Parse Server: [https://github.com/ParsePlatform/parse-server](https://github.com
 
 # Sự cố Vietcombank, một góc nhìn kỹ thuật
 
-- **URL**: https://blog.duyet.net/2016/08/su-co-vietcombank-mot-goc-nhin-ky-thuat.html
+- **URL**: https://blog.duyet.net/2016/08/su-co-vietcombank-mot-goc-nhin-ky-thuat
 - **Date**: 2016-08-18
 - **Category**: News
 - **Tags**: Security, Read
@@ -17382,7 +17382,7 @@ tienpp, thaidn, Kha Nguyen - VNSecurity
 
 # Có một Biển Đông trên không gian mạng
 
-- **URL**: https://blog.duyet.net/2016/08/co-mot-bien-ong-tren-khong-gian-mang.html
+- **URL**: https://blog.duyet.net/2016/08/co-mot-bien-ong-tren-khong-gian-mang
 - **Date**: 2016-08-01
 - **Category**: News
 - **Tags**: Security
@@ -17438,7 +17438,7 @@ Nguồn: http://vnhacker.blogspot.com/2016/07/co-mot-bien-ong-tren-khong-gian-ma
 
 # Create React Apps
 
-- **URL**: https://blog.duyet.net/2016/07/create-react-apps.html
+- **URL**: https://blog.duyet.net/2016/07/create-react-apps
 - **Date**: 2016-07-25
 - **Category**: Javascript
 - **Tags**: Tutorial, React
@@ -17499,7 +17499,7 @@ Rất nhanh chóng là bạn đã có thể bắt đầu code cho project mới 
 
 # Big Integer Javascript
 
-- **URL**: https://blog.duyet.net/2016/07/big-integer-javascript.html
+- **URL**: https://blog.duyet.net/2016/07/big-integer-javascript
 - **Date**: 2016-07-22
 - **Category**: Javascript
 - **Tags**: Javascript
@@ -17630,7 +17630,7 @@ See the full list of supported functions [here](https://github.com/peterolson/Bi
 
 # Javascript Weekly #7
 
-- **URL**: https://blog.duyet.net/2016/07/javascript-weekly-7_22.html
+- **URL**: https://blog.duyet.net/2016/07/javascript-weekly-7_22
 - **Date**: 2016-07-22
 - **Category**: Javascript
 - **Tags**: Node.js, Es6, Javascript, Javascript Weekly, React
@@ -17690,7 +17690,7 @@ Theo dõi chuỗi bài viết JavaScript Weekly tại: [http://saveto.co/javascr
 
 # Sublime Text Plugin nào cho lập trình viên Node.js
 
-- **URL**: https://blog.duyet.net/2016/07/sublime-text-plugin-nodejs.html
+- **URL**: https://blog.duyet.net/2016/07/sublime-text-plugin-nodejs
 - **Date**: 2016-07-20
 - **Category**: Web
 - **Tags**: Tutorial, Javascript, React, Node.js
@@ -17777,7 +17777,7 @@ Cài đặt:
 
 # saveto.co cập nhật: Note Card
 
-- **URL**: https://blog.duyet.net/2016/07/savetoco-cap-nhat-note-card.html
+- **URL**: https://blog.duyet.net/2016/07/savetoco-cap-nhat-note-card
 - **Date**: 2016-07-12
 - **Category**: Project
 - **Tags**: Side Project
@@ -17795,7 +17795,7 @@ Mọi phản hồi vui lòng tạo issues mới [tại đây](https://github.com
 
 # Viện John von Neumann
 
-- **URL**: https://blog.duyet.net/2016/07/vien-john-von-neumann.html
+- **URL**: https://blog.duyet.net/2016/07/vien-john-von-neumann
 - **Date**: 2016-07-05
 - **Category**: Story
 - **Tags**: 
@@ -17846,7 +17846,7 @@ Update 2021-04-21: Đã nhiều năm đọc lại bài này, cảm xúc những 
 
 # Javascript Weekly #6
 
-- **URL**: https://blog.duyet.net/2016/07/javascript-weekly-6.html
+- **URL**: https://blog.duyet.net/2016/07/javascript-weekly-6
 - **Date**: 2016-07-01
 - **Category**: Javascript
 - **Tags**: Node.js, Javascript, Javascript Weekly
@@ -17904,7 +17904,7 @@ Theo dõi chuỗi bài viết JavaScript Weekly tại: [http://saveto.co/javascr
 
 # saveto.co cập nhật giao diện, trend, share và bình luận
 
-- **URL**: https://blog.duyet.net/2016/06/savetoco-cap-nhat-giao-dien-trend-share-binh-luan.html
+- **URL**: https://blog.duyet.net/2016/06/savetoco-cap-nhat-giao-dien-trend-share-binh-luan
 - **Date**: 2016-06-30
 - **Category**: Project
 - **Tags**: Side Project
@@ -17929,7 +17929,7 @@ Và cuối cùng là đã có thể chia sẻ, save vào facebook và bình lu�
 
 # Topic Modeling: Tìm chủ đề cho tập văn bản bài viết
 
-- **URL**: https://blog.duyet.net/2016/06/topic-modeling-tim-chu-de-cho-tap-van-ban-bai-viet.html
+- **URL**: https://blog.duyet.net/2016/06/topic-modeling-tim-chu-de-cho-tap-van-ban-bai-viet
 - **Date**: 2016-06-30
 - **Category**: Machine Learning
 - **Tags**: Machine Learning, Data
@@ -18035,7 +18035,7 @@ Qua quá trình xử lý, ta được tập kết quả của 28,000 văn bản 
 
 # Tìm hiểu về dữ liệu trong thể thao hiện đại
 
-- **URL**: https://blog.duyet.net/2016/06/tim-hieu-ve-du-lieu-trong-the-thao-hien-dai.html
+- **URL**: https://blog.duyet.net/2016/06/tim-hieu-ve-du-lieu-trong-the-thao-hien-dai
 - **Date**: 2016-06-29
 - **Category**: Data
 - **Tags**: Data
@@ -18132,7 +18132,7 @@ Hay ho nhất là các dữ liệu đi theo nó. Ví dụ như qua thống kê 3
 
 # 8 điều React.js beginner nên biết
 
-- **URL**: https://blog.duyet.net/2016/06/8-dieu-reactjs-beginner-nen-biet.html
+- **URL**: https://blog.duyet.net/2016/06/8-dieu-reactjs-beginner-nen-biet
 - **Date**: 2016-06-25
 - **Category**: Javascript
 - **Tags**: Npm, React, Tools, Web
@@ -18273,7 +18273,7 @@ Redux Dev Tools còn [hay hơn](https://www.youtube.com/watch?v=xsSnOQynTHs), gi
 
 # Chạy vnTokenizer trên môi trường Apache Spark
 
-- **URL**: https://blog.duyet.net/2016/06/vntokenizer-tren-apache-spark.html
+- **URL**: https://blog.duyet.net/2016/06/vntokenizer-tren-apache-spark
 - **Date**: 2016-06-23
 - **Category**: Machine Learning
 - **Tags**: Apache Spark, Big Data, Machine Learning
@@ -18335,7 +18335,7 @@ Source code: [https://github.com/phuonglh/vn.vitk](https://github.com/phuonglh/v
 
 # React + Redux cơ bản - Phần 1: Component, JSX, Props & State
 
-- **URL**: https://blog.duyet.net/2016/06/react-redux-chap-1.html
+- **URL**: https://blog.duyet.net/2016/06/react-redux-chap-1
 - **Date**: 2016-06-23
 - **Category**: Javascript
 - **Tags**: Tutorial, React
@@ -18617,7 +18617,7 @@ Xem thêm: [8 điều React.js beginner nên biết](https://blog.duyet.net/2016
 
 # Javascript Weekly #5
 
-- **URL**: https://blog.duyet.net/2016/06/javascript-weekly-5.html
+- **URL**: https://blog.duyet.net/2016/06/javascript-weekly-5
 - **Date**: 2016-06-18
 - **Category**: Javascript
 - **Tags**: Node.js, Javascript, Javascript Weekly
@@ -18662,7 +18662,7 @@ Theo dõi chuỗi bài viết JavaScript Weekly tại: [http://saveto.co/javascr
 
 # saveto.co cập nhật: tự động tag, hỗ trợ ảnh GIF 
 
-- **URL**: https://blog.duyet.net/2016/06/savetoco-cap-nhat-ho-tro-anh-dong-tu-dong-tag.html
+- **URL**: https://blog.duyet.net/2016/06/savetoco-cap-nhat-ho-tro-anh-dong-tu-dong-tag
 - **Date**: 2016-06-12
 - **Category**: Project
 - **Tags**: Side Project
@@ -18677,7 +18677,7 @@ Theo dõi chuỗi bài viết JavaScript Weekly tại: [http://saveto.co/javascr
 
 # Javascript Weekly #4
 
-- **URL**: https://blog.duyet.net/2016/06/javascript-weekly-4.html
+- **URL**: https://blog.duyet.net/2016/06/javascript-weekly-4
 - **Date**: 2016-06-11
 - **Category**: Javascript
 - **Tags**: Node.js, Javascript, Javascript Weekly
@@ -18746,7 +18746,7 @@ Theo dõi chuỗi bài viết JavaScript Weekly tại: [http://saveto.co/javascr
 
 # Hướng dẫn quản trị Xenforo
 
-- **URL**: https://blog.duyet.net/2016/06/huong-dan-quan-tri-xenforo.html
+- **URL**: https://blog.duyet.net/2016/06/huong-dan-quan-tri-xenforo
 - **Date**: 2016-06-05
 - **Category**: Productivity
 - **Tags**: Tutorial, Php
@@ -18882,7 +18882,7 @@ Nhật ký lưu lại mọi hoạt động diễn đàn: Spam Cleaner Log, Spam 
 
 # JavaScript Weekly #3
 
-- **URL**: https://blog.duyet.net/2016/06/javascript-weekly-3.html
+- **URL**: https://blog.duyet.net/2016/06/javascript-weekly-3
 - **Date**: 2016-06-04
 - **Category**: Javascript
 - **Tags**: Node.js, Javascript, Javascript Weekly
@@ -18948,7 +18948,7 @@ Theo dõi chuỗi bài viết JavaScript Weekly tại: [http://saveto.co/javascr
 
 # Webfont.js - Web Font Loader
 
-- **URL**: https://blog.duyet.net/2016/06/web-font-loader.html
+- **URL**: https://blog.duyet.net/2016/06/web-font-loader
 - **Date**: 2016-06-04
 - **Category**: Javascript
 - **Tags**: Tutorial, Javascript
@@ -19014,7 +19014,7 @@ Tốc độ có thể được tăng lên, nhưng cách này có thể gây nên
 
 # Reverse shell on a Node.js application
 
-- **URL**: https://blog.duyet.net/2016/05/reverse-shell-on-nodejs-application.html
+- **URL**: https://blog.duyet.net/2016/05/reverse-shell-on-nodejs-application
 - **Date**: 2016-05-30
 - **Category**: Javascript
 - **Tags**: Node.js, Security
@@ -19171,7 +19171,7 @@ See origin post here: [https://wiremask.eu/writeups/reverse-shell-on-a-nodejs-ap
 
 # WebGazer.js - theo dõi chuyển động mắt của người dùng trên Website
 
-- **URL**: https://blog.duyet.net/2016/05/webgazerjs-theo-doi-chuyen-dong-mat.html
+- **URL**: https://blog.duyet.net/2016/05/webgazerjs-theo-doi-chuyen-dong-mat
 - **Date**: 2016-05-29
 - **Category**: Javascript
 - **Tags**: Javascript, Machine Learning
@@ -19234,7 +19234,7 @@ Chống chỉ định với ai bị mắt hí, mắt híp hay mắt lé!
 
 # JavaScript Weekly #2
 
-- **URL**: https://blog.duyet.net/2016/05/javascript-weekly-2.html
+- **URL**: https://blog.duyet.net/2016/05/javascript-weekly-2
 - **Date**: 2016-05-28
 - **Category**: Javascript
 - **Tags**: Node.js, Javascript, Javascript Weekly
@@ -19293,7 +19293,7 @@ Theo dõi chuỗi bài viết JavaScript Weekly tại: [http://saveto.co/javascr
 
 # Cách sử dụng Destructuring trong Javascript ES6
 
-- **URL**: https://blog.duyet.net/2016/05/cach-su-dung-destructuring-javascript-es6.html
+- **URL**: https://blog.duyet.net/2016/05/cach-su-dung-destructuring-javascript-es6
 - **Date**: 2016-05-27
 - **Category**: Javascript
 - **Tags**: Node.js, Es6, Javascript, Tutorial
@@ -19459,7 +19459,7 @@ const { Loader, main } = require('toolkit/loader')
 
 # ES6 - ép sử dụng tham số trong function
 
-- **URL**: https://blog.duyet.net/2016/05/es6-ep-su-dung-tham-so-trong-function.html
+- **URL**: https://blog.duyet.net/2016/05/es6-ep-su-dung-tham-so-trong-function
 - **Date**: 2016-05-27
 - **Category**: Javascript
 - **Tags**: Tutorial, Es6, Javascript
@@ -19498,7 +19498,7 @@ Tham khảo:
 
 # ES6 - swap (hoán đổi) nhanh 2 biến số
 
-- **URL**: https://blog.duyet.net/2016/05/es6-swap-via-destructuring.html
+- **URL**: https://blog.duyet.net/2016/05/es6-swap-via-destructuring
 - **Date**: 2016-05-27
 - **Category**: Javascript
 - **Tags**: Tutorial, Es6, Javascript
@@ -19523,7 +19523,7 @@ Xem thêm: Chap. ["Destructuring"](http://exploringjs.com/es6/ch_destructuring.h
 
 # JavaPoly.js: chạy Java ngay trên trình duyệt Web
 
-- **URL**: https://blog.duyet.net/2016/05/javapolyjs-chay-java-tren-trinh-duyet.html
+- **URL**: https://blog.duyet.net/2016/05/javapolyjs-chay-java-tren-trinh-duyet
 - **Date**: 2016-05-21
 - **Category**: Javascript
 - **Tags**: Node.js, Javascript, Javascript Framework
@@ -19570,7 +19570,7 @@ Thấy hay vậy thôi, chứ hiệu năng và ứng dụng thì mình chưa ngh
 
 #  JavaScript Weekly #1
 
-- **URL**: https://blog.duyet.net/2016/05/javascript-weekly-1.html
+- **URL**: https://blog.duyet.net/2016/05/javascript-weekly-1
 - **Date**: 2016-05-20
 - **Category**: Javascript
 - **Tags**: Node.js, Javascript, Javascript Weekly
@@ -19626,7 +19626,7 @@ Theo dõi chuỗi bài viết JavaScript Weekly tại: [http://saveto.co/javascr
 
 # saveto.co ra mắt TIL
 
-- **URL**: https://blog.duyet.net/2016/05/savetoco-ra-mat-til.html
+- **URL**: https://blog.duyet.net/2016/05/savetoco-ra-mat-til
 - **Date**: 2016-05-17
 - **Category**: Project
 - **Tags**: Side Project
@@ -19648,7 +19648,7 @@ Saveto.co vừa ra mắt chức năng TIL ([https://saveto.co/til](https://savet
 
 # console.log() nâng cao
 
-- **URL**: https://blog.duyet.net/2016/05/console-log.html
+- **URL**: https://blog.duyet.net/2016/05/console-log
 - **Date**: 2016-05-16
 - **Category**: Javascript
 - **Tags**: Javascript, Tutorial
@@ -19768,7 +19768,7 @@ console.groupEnd()
 
 # Cách truy cập Website khi bị chặn
 
-- **URL**: https://blog.duyet.net/2016/05/cach-truy-cap-website-khi-bi-chan.html
+- **URL**: https://blog.duyet.net/2016/05/cach-truy-cap-website-khi-bi-chan
 - **Date**: 2016-05-14
 - **Category**: Web
 - **Tags**: Tutorial, Security
@@ -19874,7 +19874,7 @@ ZenMate và BetterNet là 2 giải pháp nhanh và dễ sử dụng nhất. Các
 
 # Tiến sĩ là gì?
 
-- **URL**: https://blog.duyet.net/2016/05/tien-si-la-gi.html
+- **URL**: https://blog.duyet.net/2016/05/tien-si-la-gi
 - **Date**: 2016-05-07
 - **Category**: News
 - **Tags**: Read
@@ -19926,7 +19926,7 @@ Thôi, tiếp tục push nào.
 
 # Cài đặt Docker trên Ubuntu
 
-- **URL**: https://blog.duyet.net/2016/05/cai-dat-docker-tren-ubuntu.html
+- **URL**: https://blog.duyet.net/2016/05/cai-dat-docker-tren-ubuntu
 - **Date**: 2016-05-01
 - **Category**: Linux
 - **Tags**: Docker, Tutorial
@@ -19974,7 +19974,7 @@ Chúc bạn thành công.
 
 # Đóng gói và triển khai ứng dụng Nodejs bằng Docker
 
-- **URL**: https://blog.duyet.net/2016/05/dockerizing-nodejs.html
+- **URL**: https://blog.duyet.net/2016/05/dockerizing-nodejs
 - **Date**: 2016-05-01
 - **Category**: Linux
 - **Tags**: Node.js, Docker, Tutorial
@@ -20188,7 +20188,7 @@ Chúc bạn thành công.
 
 # Talk: Why docker?
 
-- **URL**: https://blog.duyet.net/2016/05/why-docker.html
+- **URL**: https://blog.duyet.net/2016/05/why-docker
 - **Date**: 2016-05-01
 - **Category**: Talk
 - **Tags**: Docker, Talk
@@ -20229,7 +20229,7 @@ Slide được Public tại đây: [https://talk.duyet.net/why-docker/](https://
 
 # Giới thiệu Koa.js
 
-- **URL**: https://blog.duyet.net/2016/04/gioi-thieu-koajs.html
+- **URL**: https://blog.duyet.net/2016/04/gioi-thieu-koajs
 - **Date**: 2016-04-30
 - **Category**: Javascript
 - **Tags**: Node.js
@@ -20394,7 +20394,7 @@ Với những bạn mới, tôi khuyên nên bắt đầu trước với koala h
 
 # Ra mắt Node.js v6.0.0
 
-- **URL**: https://blog.duyet.net/2016/04/ra-mat-nodejs-v6.html
+- **URL**: https://blog.duyet.net/2016/04/ra-mat-nodejs-v6
 - **Date**: 2016-04-27
 - **Category**: Javascript
 - **Tags**: Node.js, News
@@ -20460,7 +20460,7 @@ Tháng 10 năm nay Nodejs v6 mới chính thức chuyển sang phiên bản TLS.
 
 # Awesome functional programming in JavaScript
 
-- **URL**: https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript.html
+- **URL**: https://blog.duyet.net/2016/04/awesome-functional-programming-in-javascript
 - **Date**: 2016-04-18
 - **Category**: Javascript
 - **Tags**: Node.js, Javascript
@@ -20601,7 +20601,7 @@ Use the laws of math instead of always reinventing your own thing. Algebraic!
 
 # Deploy production Node.js với PM2 và Nginx
 
-- **URL**: https://blog.duyet.net/2016/04/deploy-production-nodejs-pm2-nginx.html
+- **URL**: https://blog.duyet.net/2016/04/deploy-production-nodejs-pm2-nginx
 - **Date**: 2016-04-10
 - **Category**: Javascript
 - **Tags**: Node.js, Tutorial, Tools
@@ -20761,7 +20761,7 @@ PM2 còn khá nhiều tính năng hữu ích, comment bên dưới để đượ
 
 # Grunt - lỗi ENOSPC
 
-- **URL**: https://blog.duyet.net/2016/04/grunt-loi-enospc.html
+- **URL**: https://blog.duyet.net/2016/04/grunt-loi-enospc
 - **Date**: 2016-04-08
 - **Category**: News
 - **Tags**: Node.js, Tutorial, Javascript
@@ -20790,7 +20790,7 @@ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo s
 
 # Tài liệu Panama
 
-- **URL**: https://blog.duyet.net/2016/04/tai-lieu-panama.html
+- **URL**: https://blog.duyet.net/2016/04/tai-lieu-panama
 - **Date**: 2016-04-06
 - **Category**: News
 - **Tags**: Read, Security
@@ -20858,7 +20858,7 @@ Tham khảo thêm, còn cập nhật dài dài:
 
 # ES6 có gì mới?
 
-- **URL**: https://blog.duyet.net/2016/04/es6.html
+- **URL**: https://blog.duyet.net/2016/04/es6
 - **Date**: 2016-04-05
 - **Category**: Javascript
 - **Tags**: Node.js, Es6, Javascript
@@ -21225,7 +21225,7 @@ Tham khảo thêm tại đây: [https://github.com/duyet-collections/es6features
 
 # Update saveto.co: tìm kiếm và gắn tag link
 
-- **URL**: https://blog.duyet.net/2016/04/update-savetoco-tim-kiem-va-gan-tag-link.html
+- **URL**: https://blog.duyet.net/2016/04/update-savetoco-tim-kiem-va-gan-tag-link
 - **Date**: 2016-04-02
 - **Category**: Project
 - **Tags**: Javascript, Side Project
@@ -21247,7 +21247,7 @@ Saveto is OpenSource: [https://github.com/saveto-co](https://github.com/saveto-c
 
 # calc.js - evaluate expressions for Math
 
-- **URL**: https://blog.duyet.net/2016/03/calcjs-evaluate-expressions-for-math.html
+- **URL**: https://blog.duyet.net/2016/03/calcjs-evaluate-expressions-for-math
 - **Date**: 2016-03-27
 - **Category**: Javascript
 - **Tags**: Node.js, Npm, Javascript
@@ -21289,7 +21289,7 @@ Thanks to [mathjs](https://github.com/josdejong/mathjs) eval.
 
 # How one developer just broke Node, Babel and thousands of projects in 11 lines of JavaScript
 
-- **URL**: https://blog.duyet.net/2016/03/how-one-developer-just-broke-the-internet.html
+- **URL**: https://blog.duyet.net/2016/03/how-one-developer-just-broke-the-internet
 - **Date**: 2016-03-26
 - **Category**: News
 - **Tags**: Node.js, Read
@@ -21338,7 +21338,7 @@ function leftpad (str, len, ch) {
 
 # Neural networks là gì?
 
-- **URL**: https://blog.duyet.net/2016/03/neural-networks.html
+- **URL**: https://blog.duyet.net/2016/03/neural-networks
 - **Date**: 2016-03-26
 - **Category**: Machine Learning
 - **Tags**: Deep Learning, Artificial Intelligence (ai), Neural Networks, Machine Learning
@@ -21370,7 +21370,7 @@ Hiện tại, Deep Learning đang được ứng dụng rất tốt trong việc
 
 # Postman
 
-- **URL**: https://blog.duyet.net/2016/03/postman.html
+- **URL**: https://blog.duyet.net/2016/03/postman
 - **Date**: 2016-03-25
 - **Category**: Web
 - **Tags**: Tutorial, Tools
@@ -21444,7 +21444,7 @@ Do một số chính sách, Chrome và XMLHttpRequest cấm gửi một số hea
 
 # saveto.co nâng cấp chức năng note
 
-- **URL**: https://blog.duyet.net/2016/03/savetoco-nang-cap-chuc-nang-note.html
+- **URL**: https://blog.duyet.net/2016/03/savetoco-nang-cap-chuc-nang-note
 - **Date**: 2016-03-24
 - **Category**: Project
 - **Tags**: Side Project
@@ -21473,7 +21473,7 @@ Saveto is OpenSource: [https://github.com/saveto-co](https://github.com/saveto-c
 
 # Sao lại là Node.js/Javascript?
 
-- **URL**: https://blog.duyet.net/2016/03/why-nodejs-javascript.html
+- **URL**: https://blog.duyet.net/2016/03/why-nodejs-javascript
 - **Date**: 2016-03-19
 - **Category**: Javascript
 - **Tags**: Node.js, Javascript
@@ -21562,7 +21562,7 @@ Với những ai đang do dự giữa Nodejs và RoR, bài viết không khuyên
 
 # Asiacrypt 2016
 
-- **URL**: https://blog.duyet.net/2016/03/asiacrypt-2016.html
+- **URL**: https://blog.duyet.net/2016/03/asiacrypt-2016
 - **Date**: 2016-03-18
 - **Category**: News
 - **Tags**: Security
@@ -21584,7 +21584,7 @@ Nhấn vào đây để tham gia: [https://groups.google.com/forum/#!forum/viet-
 
 # ProtonMail - dịch vụ mail end-to-end encrypted
 
-- **URL**: https://blog.duyet.net/2016/03/protonmail.html
+- **URL**: https://blog.duyet.net/2016/03/protonmail
 - **Date**: 2016-03-18
 - **Category**: News
 - **Tags**: Security
@@ -21603,7 +21603,7 @@ Protonmail là lựa chọn tốt nếu thay thế Gmail, hoặc cho những ai 
 
 # Giao thức Diffie-Hellman (DH)
 
-- **URL**: https://blog.duyet.net/2016/03/giao-thuc-diffie-hellman.html
+- **URL**: https://blog.duyet.net/2016/03/giao-thuc-diffie-hellman
 - **Date**: 2016-03-08
 - **Category**: Security
 - **Tags**: Security
@@ -21636,7 +21636,7 @@ Tham khảo
 
 # CTB-Locker is back: the web server edition
 
-- **URL**: https://blog.duyet.net/2016/03/ctb-locker-is-back-web-server-edition.html
+- **URL**: https://blog.duyet.net/2016/03/ctb-locker-is-back-web-server-edition
 - **Date**: 2016-03-02
 - **Category**: News
 - **Tags**: Security
@@ -21705,7 +21705,7 @@ The ransomware also includes functionality to communicate with the malware autho
 
 # PHP Game Boy Emulator in Terminal
 
-- **URL**: https://blog.duyet.net/2016/02/game-boy-emulator-in-terminal.html
+- **URL**: https://blog.duyet.net/2016/02/game-boy-emulator-in-terminal
 - **Date**: 2016-02-28
 - **Category**: Project
 - **Tags**: Php
@@ -21731,7 +21731,7 @@ Project được viết bằng PHP, đầu tiên cần cài đặt PHP 5.6 hoặ
 
 # Facebook reactions
 
-- **URL**: https://blog.duyet.net/2016/02/facebook-reactions.html
+- **URL**: https://blog.duyet.net/2016/02/facebook-reactions
 - **Date**: 2016-02-27
 - **Category**: News
 - **Tags**: News
@@ -21760,7 +21760,7 @@ Reactions là một trong những cập nhật được xem là lớn nhất c�
 
 # Google ra mắt Project Shield
 
-- **URL**: https://blog.duyet.net/2016/02/google-ra-mat-project-shield.html
+- **URL**: https://blog.duyet.net/2016/02/google-ra-mat-project-shield
 - **Date**: 2016-02-27
 - **Category**: News
 - **Tags**: Google, Security
@@ -21782,7 +21782,7 @@ Sau khi đăng ký, Project Shield sẽ hướng dẫn cài đặt, bằng cách
 
 # Japanese stopwords package for npm, bower and plaintext
 
-- **URL**: https://blog.duyet.net/2016/02/japanese-stopwords-package.html
+- **URL**: https://blog.duyet.net/2016/02/japanese-stopwords-package
 - **Date**: 2016-02-27
 - **Category**: Machine Learning
 - **Tags**: Github, Machine Learning, Nlp, Side Project
@@ -21853,7 +21853,7 @@ mocha
 
 # Detect robots in koa
 
-- **URL**: https://blog.duyet.net/2016/02/detect-robots-in-koa.html
+- **URL**: https://blog.duyet.net/2016/02/detect-robots-in-koa
 - **Date**: 2016-02-21
 - **Category**: Javascript
 - **Tags**: Node.js, Javascript Framework
@@ -21939,7 +21939,7 @@ app.listen(3000);
 
 # function* và yield trong Javascript generator function
 
-- **URL**: https://blog.duyet.net/2016/02/generator-function-javascript.html
+- **URL**: https://blog.duyet.net/2016/02/generator-function-javascript
 - **Date**: 2016-02-21
 - **Category**: Javascript
 - **Tags**: Es6, Javascript
@@ -22045,7 +22045,7 @@ Tham khảo:
 
 # copy.js - simple copy text to clipboard in the browser
 
-- **URL**: https://blog.duyet.net/2016/02/copyjs-simple-copy-text-to-clipboard-in.html
+- **URL**: https://blog.duyet.net/2016/02/copyjs-simple-copy-text-to-clipboard-in
 - **Date**: 2016-02-17
 - **Category**: Javascript
 - **Tags**: Node.js, Npm, Javascript
@@ -22127,7 +22127,7 @@ Visit project source code here: [https://github.com/duyet/copy.js](https://githu
 
 # Tự động hóa Internet với IFTTT
 
-- **URL**: https://blog.duyet.net/2016/02/tu-ong-hoa-internet-voi-ifttt.html
+- **URL**: https://blog.duyet.net/2016/02/tu-ong-hoa-internet-voi-ifttt
 - **Date**: 2016-02-10
 - **Category**: Automation
 - **Tags**: Tutorial
@@ -22190,7 +22190,7 @@ IFTTT: Control the world around you.
 
 # 13.5TB - Yahoo ra mắt bộ Dataset cực lớn cho lĩnh vực máy học
 
-- **URL**: https://blog.duyet.net/2016/02/yahoo-ra-mat-bo-dataset-lon-nhat-machine-learning.html
+- **URL**: https://blog.duyet.net/2016/02/yahoo-ra-mat-bo-dataset-lon-nhat-machine-learning
 - **Date**: 2016-02-09
 - **Category**: News
 - **Tags**: Big Data, Machine Learning, Nlp
@@ -22242,7 +22242,7 @@ Tham khảo
 
 # Nginx - adding cross-origin resource sharing (CORS) support to reverse proxied APIs
 
-- **URL**: https://blog.duyet.net/2016/02/nginx-adding-cors.html
+- **URL**: https://blog.duyet.net/2016/02/nginx-adding-cors
 - **Date**: 2016-02-08
 - **Category**: Linux
 - **Tags**: Tutorial
@@ -22300,7 +22300,7 @@ This config will add CORS support for all request from localhost and sub.duyet.n
 
 # Tensorflow - cài đặt trên Docker
 
-- **URL**: https://blog.duyet.net/2016/02/cai-dat-tensorflow-tren-docker.html
+- **URL**: https://blog.duyet.net/2016/02/cai-dat-tensorflow-tren-docker
 - **Date**: 2016-02-05
 - **Category**: Machine Learning
 - **Tags**: Docker, Machine Learning, Tutorial
@@ -22398,7 +22398,7 @@ Tài liệu chính thức TensorFlow Docker: [https://hub.docker.com/r/tensorflo
 
 # Tensorflow - hướng dẫn cài đặt
 
-- **URL**: https://blog.duyet.net/2016/02/tensorflow-huong-dan-cai-at-tren-ubuntu.html
+- **URL**: https://blog.duyet.net/2016/02/tensorflow-huong-dan-cai-at-tren-ubuntu
 - **Date**: 2016-02-05
 - **Category**: Machine Learning
 - **Tags**: Tutorial, Python, Machine Learning
@@ -22481,7 +22481,7 @@ Một cách khác cũng được khuyến khích là cài đặt trong môi trư
 
 # Deep Learning là gì?
 
-- **URL**: https://blog.duyet.net/2016/02/deep-learning-la-gi.html
+- **URL**: https://blog.duyet.net/2016/02/deep-learning-la-gi
 - **Date**: 2016-02-04
 - **Category**: Machine Learning
 - **Tags**: Machine Learning, Deep Learning, Artificial Intelligence (ai), Machine Learning
@@ -22510,7 +22510,7 @@ Xem tiếp: [Neural Networks là gì?](https://blog.duyet.net/2016/03/neural-net
 
 # Bigdata - Columnar Database và Graph Database
 
-- **URL**: https://blog.duyet.net/2016/02/columnar-database-va-graph-database.html
+- **URL**: https://blog.duyet.net/2016/02/columnar-database-va-graph-database
 - **Date**: 2016-02-03
 - **Category**: Data
 - **Tags**: Database, Big Data
@@ -22542,7 +22542,7 @@ Ví dụ, Facebook dùng CSDL graph để liệt kê và minh họa các mỗi q
 
 # Docker - cài đặt Odoo 8/9 trên Docker
 
-- **URL**: https://blog.duyet.net/2016/02/docker-cai-at-odoo-89-tren-docker.html
+- **URL**: https://blog.duyet.net/2016/02/docker-cai-at-odoo-89-tren-docker
 - **Date**: 2016-02-03
 - **Category**: Linux
 - **Tags**: Tutorial, Docker
@@ -22617,7 +22617,7 @@ docker run -p 127.0.0.1:8071:8069 --name odoo3 --link db:db -t odoo
 
 # Graph Database
 
-- **URL**: https://blog.duyet.net/2016/02/graph-database.html
+- **URL**: https://blog.duyet.net/2016/02/graph-database
 - **Date**: 2016-02-03
 - **Category**: Data
 - **Tags**: Database, Big Data
@@ -22699,7 +22699,7 @@ Giraph tôi sẽ trình bày trong những bài sau.
 
 # Nodejs - đọc file package.json
 
-- **URL**: https://blog.duyet.net/2016/02/nodejs-oc-file-packagejson.html
+- **URL**: https://blog.duyet.net/2016/02/nodejs-oc-file-packagejson
 - **Date**: 2016-02-03
 - **Category**: Javascript
 - **Tags**: Node.js, Tutorial
@@ -22724,7 +22724,7 @@ console.log(pkg.name)
 
 # Nodejs - Mã hóa mật khẩu
 
-- **URL**: https://blog.duyet.net/2016/02/nodejs-ma-hoa-mat-khau.html
+- **URL**: https://blog.duyet.net/2016/02/nodejs-ma-hoa-mat-khau
 - **Date**: 2016-02-03
 - **Category**: Javascript
 - **Tags**: Node.js, Tutorial
@@ -22813,7 +22813,7 @@ var hash = bcrypt.hashSync('bacon', 8);
 
 # Offline-First trong Modern Web
 
-- **URL**: https://blog.duyet.net/2016/01/offline-first-trong-modern-web.html
+- **URL**: https://blog.duyet.net/2016/01/offline-first-trong-modern-web
 - **Date**: 2016-01-07
 - **Category**: Web
 - **Tags**: Web
@@ -22869,7 +22869,7 @@ var hash = bcrypt.hashSync('bacon', 8);
 
 # Javascript - Thư viện Vizualization 
 
-- **URL**: https://blog.duyet.net/2016/01/javascript-thu-vien-vizualization.html
+- **URL**: https://blog.duyet.net/2016/01/javascript-thu-vien-vizualization
 - **Date**: 2016-01-03
 - **Category**: Javascript
 - **Tags**: Node.js, Javascript
@@ -22920,7 +22920,7 @@ Các thư viện Vizualization trên Js
 
 # Nodejs - Backend Development Bookmarks
 
-- **URL**: https://blog.duyet.net/2016/01/nodejs-backend-development-bookmarks.html
+- **URL**: https://blog.duyet.net/2016/01/nodejs-backend-development-bookmarks
 - **Date**: 2016-01-03
 - **Category**: Web
 - **Tags**: Node.js
@@ -23164,7 +23164,7 @@ Nhiều bạn hỏi, tôi note lại một số bài viết hữu ích về node
 
 # Year In Review 2015
 
-- **URL**: https://blog.duyet.net/2015/12/year-in-review-2015.html
+- **URL**: https://blog.duyet.net/2015/12/year-in-review-2015
 - **Date**: 2015-12-31
 - **Category**: Story
 - **Tags**: 
@@ -23195,7 +23195,7 @@ Chúc mọi người năm mới nhiều niềm vui, Try hard and Happy new year!
 
 # Unit test và Integration test
 
-- **URL**: https://blog.duyet.net/2015/12/unit-test-va-function-test.html
+- **URL**: https://blog.duyet.net/2015/12/unit-test-va-function-test
 - **Date**: 2015-12-21
 - **Category**: Javascript
 - **Tags**: 
@@ -23253,7 +23253,7 @@ Có 4 loại kiểm tra trong Integration Test:
 
 # Angular 2 có gì mới?
 
-- **URL**: https://blog.duyet.net/2015/12/angular-2-co-gi-moi.html
+- **URL**: https://blog.duyet.net/2015/12/angular-2-co-gi-moi
 - **Date**: 2015-12-20
 - **Category**: Javascript
 - **Tags**: Javascript Framework, Javascript
@@ -23319,7 +23319,7 @@ $scope sẽ được loại bỏ trong Angular 2
 
 # Docker là gì?
 
-- **URL**: https://blog.duyet.net/2015/12/docker.html
+- **URL**: https://blog.duyet.net/2015/12/docker
 - **Date**: 2015-12-20
 - **Category**: Docker
 - **Tags**: Docker
@@ -23475,7 +23475,7 @@ Tham khảo:
 
 # jsLab.xyz
 
-- **URL**: https://blog.duyet.net/2015/12/jslab-xyz.html
+- **URL**: https://blog.duyet.net/2015/12/jslab-xyz
 - **Date**: 2015-12-17
 - **Category**: Project
 - **Tags**: Node.js, Javascript, Side Project
@@ -23513,7 +23513,7 @@ jsLab có sứ mệnh riêng của mình.
 
 # Apache Spark on Docker
 
-- **URL**: https://blog.duyet.net/2015/12/apache-spark-on-docker.html
+- **URL**: https://blog.duyet.net/2015/12/apache-spark-on-docker
 - **Date**: 2015-12-12
 - **Category**: Data
 - **Tags**: Docker, Apache Spark, Web, Big Data
@@ -23696,7 +23696,7 @@ docker-compose exec spark-master spark-submit \
 
 # Chartico
 
-- **URL**: https://blog.duyet.net/2015/12/chartico.html
+- **URL**: https://blog.duyet.net/2015/12/chartico
 - **Date**: 2015-12-09
 - **Category**: Web
 - **Tags**: Tools, Tutorial, Web
@@ -23719,7 +23719,7 @@ Khi cần nhanh và gấp một biểu đồ đẹp nhưng đầy đủ các th�
 
 # Bigdata - Map-Reduce và bài toán Word Count
 
-- **URL**: https://blog.duyet.net/2015/12/map-reduce-va-bai-toan-wordcount.html
+- **URL**: https://blog.duyet.net/2015/12/map-reduce-va-bai-toan-wordcount
 - **Date**: 2015-12-02
 - **Category**: Data Engineering
 - **Tags**: Apache Spark, Big Data
@@ -23808,7 +23808,7 @@ Tham khảo:
 
 # Firefox OS
 
-- **URL**: https://blog.duyet.net/2015/11/firefox-os.html
+- **URL**: https://blog.duyet.net/2015/11/firefox-os
 - **Date**: 2015-11-14
 - **Category**: Web
 - **Tags**: Web, Javascript
@@ -23894,7 +23894,7 @@ Lưu ý thêm là toàn bộ HĐH được viết trên công nghệ HTML5, hứ
 
 # Google Big Data Meetup in Saigon
 
-- **URL**: https://blog.duyet.net/2015/11/google-big-data-meetup-in-saigon.html
+- **URL**: https://blog.duyet.net/2015/11/google-big-data-meetup-in-saigon
 - **Date**: 2015-11-13
 - **Category**: News
 - **Tags**: Events, Google, Big Data
@@ -23920,7 +23920,7 @@ Form [here](https://docs.google.com/forms/d/1anvfxYgbqSllHuq76KBvyOOUYxTJ-TJ7aGD
 
 # Nodejs - Cache in-memory trong Nodejs
 
-- **URL**: https://blog.duyet.net/2015/11/nodejs-cache-in-memory-trong-nodejs.html
+- **URL**: https://blog.duyet.net/2015/11/nodejs-cache-in-memory-trong-nodejs
 - **Date**: 2015-11-13
 - **Category**: Javascript
 - **Tags**: Node.js, Tutorial
@@ -24005,7 +24005,7 @@ Houdini is null
 
 # Clipboard.js
 
-- **URL**: https://blog.duyet.net/2015/10/clipboardjs-thu-vien-giup-cat-sao-chep-noi-dung-tren-web.html
+- **URL**: https://blog.duyet.net/2015/10/clipboardjs-thu-vien-giup-cat-sao-chep-noi-dung-tren-web
 - **Date**: 2015-10-30
 - **Category**: Javascript
 - **Tags**: Javascript, Javascript Framework
@@ -24097,7 +24097,7 @@ Mặc dù bài viết này được viết vào năm 2015, Clipboard.js vẫn c�
 
 # Cài đặt OpenVPN trên Debian, Ubuntu và CentOS
 
-- **URL**: https://blog.duyet.net/2015/10/cai-dat-openvpn-tren-debian-ubuntu-va-centos.html
+- **URL**: https://blog.duyet.net/2015/10/cai-dat-openvpn-tren-debian-ubuntu-va-centos
 - **Date**: 2015-10-26
 - **Category**: Linux
 - **Tags**: Linux, Ubuntu
@@ -24140,7 +24140,7 @@ Nên kiểm tra tài liệu chính thức của OpenVPN để có thông tin v�
 
 # Seminar - Giới thiệu Apache Spark và PredictionIO
 
-- **URL**: https://blog.duyet.net/2015/10/seminar-gioi-thieu-apache-spark-va-predictionio.html
+- **URL**: https://blog.duyet.net/2015/10/seminar-gioi-thieu-apache-spark-va-predictionio
 - **Date**: 2015-10-26
 - **Category**: Talk
 - **Tags**: Apache Spark
@@ -24167,7 +24167,7 @@ Còn đây là slide cho mọi người tham khảo:
 
 # Bruteforce Database
 
-- **URL**: https://blog.duyet.net/2015/10/github-project-bruteforce-database.html
+- **URL**: https://blog.duyet.net/2015/10/github-project-bruteforce-database
 - **Date**: 2015-10-05
 - **Category**: Project
 - **Tags**: Github, Side Project
@@ -24218,7 +24218,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 # PHP - Vietnamese Language Pack Extension for Flarum
 
-- **URL**: https://blog.duyet.net/2015/10/vietnamese-language-pack-extension-for-flarum.html
+- **URL**: https://blog.duyet.net/2015/10/vietnamese-language-pack-extension-for-flarum
 - **Date**: 2015-10-05
 - **Category**: PHP
 - **Tags**: Php, Github
@@ -24254,7 +24254,7 @@ Source code at Github: [https://github.com/duyet/flarum-vietnamese-extension](ht
 
 # Install Odoo 8 in Ubuntu 14.04/15.04
 
-- **URL**: https://blog.duyet.net/2015/09/install-odoo-8-in-ubuntu-14-04-15-04.html
+- **URL**: https://blog.duyet.net/2015/09/install-odoo-8-in-ubuntu-14-04-15-04
 - **Date**: 2015-09-22
 - **Category**: Linux
 - **Tags**: Linux, Tutorial, Ubuntu, Python
@@ -24470,7 +24470,7 @@ That’s it!
 
 # Git - 19 Tips For Everyday Git Use
 
-- **URL**: https://blog.duyet.net/2015/09/git-19-tips-for-everyday-git-use.html
+- **URL**: https://blog.duyet.net/2015/09/git-19-tips-for-everyday-git-use
 - **Date**: 2015-09-16
 - **Category**: Git
 - **Tags**: Git, Tutorial
@@ -24780,7 +24780,7 @@ You can also automate the process by providing `git bisect` with a script. You c
 
 # How to Install Oracle 12c on Ubuntu 15.04
 
-- **URL**: https://blog.duyet.net/2015/09/how-to-install-oracle-12c-on-ubuntu-1504.html
+- **URL**: https://blog.duyet.net/2015/09/how-to-install-oracle-12c-on-ubuntu-1504
 - **Date**: 2015-09-13
 - **Category**: Linux
 - **Tags**: Tutorial
@@ -25004,7 +25004,7 @@ cd /u01/binaries/database
 
 # JS - The Entire JavaScript Language in a Single Image
 
-- **URL**: https://blog.duyet.net/2015/09/js-entire-javascript-language-in-single.html
+- **URL**: https://blog.duyet.net/2015/09/js-entire-javascript-language-in-single
 - **Date**: 2015-09-10
 - **Category**: Javascript
 - **Tags**: Read, Javascript
@@ -25022,7 +25022,7 @@ For a better experience, you can access the [map online](http://coodict.github.i
 
 # All you need to know about Node.js 4.0.0
 
-- **URL**: https://blog.duyet.net/2015/09/all-you-need-to-know-about-nodejs.html
+- **URL**: https://blog.duyet.net/2015/09/all-you-need-to-know-about-nodejs
 - **Date**: 2015-09-09
 - **Category**: Javascript
 - **Tags**: Node.js
@@ -25170,7 +25170,7 @@ Source: http://apmblog.dynatrace.com/2015/09/05/all-you-need-to-know-about-node-
 
 # Google has a new logo, seriously
 
-- **URL**: https://blog.duyet.net/2015/09/google-has-new-logo-seriously.html
+- **URL**: https://blog.duyet.net/2015/09/google-has-new-logo-seriously
 - **Date**: 2015-09-01
 - **Category**: News
 - **Tags**: Google, News
@@ -25183,7 +25183,7 @@ Developing. Google has updated its logo in the wake of the move to Alphabet as a
 
 # Google Cloud Platform Developer Roadshow
 
-- **URL**: https://blog.duyet.net/2015/08/google-cloud-platform-developer-roadshow-ho-chi-minh-viet-nam.html
+- **URL**: https://blog.duyet.net/2015/08/google-cloud-platform-developer-roadshow-ho-chi-minh-viet-nam
 - **Date**: 2015-08-27
 - **Category**: News
 - **Tags**: Events, Google
@@ -25309,7 +25309,7 @@ Shinji is responsible for the technology behind all of Hatena’s services from 
 
 # Git - Cách xem nội dung 1 file ở branch khác
 
-- **URL**: https://blog.duyet.net/2015/08/git-cach-xem-noi-dung-1-file-o-branch-khac.html
+- **URL**: https://blog.duyet.net/2015/08/git-cach-xem-noi-dung-1-file-o-branch-khac
 - **Date**: 2015-08-25
 - **Category**: Git
 - **Tags**: Tutorial, Git
@@ -25334,7 +25334,7 @@ Vậy là bạn đã có thể xem nhanh nội dung file AuthController.js mà k
 
 # Git - Cách xóa nhanh tất cả các branch cũ đã merge vào branch master
 
-- **URL**: https://blog.duyet.net/2015/08/cach-xoa-nhanh-tat-ca-cac-branch-cu-da-merge.html
+- **URL**: https://blog.duyet.net/2015/08/cach-xoa-nhanh-tat-ca-cac-branch-cu-da-merge
 - **Date**: 2015-08-25
 - **Category**: Git
 - **Tags**: Git, Tutorial, Github
@@ -25369,7 +25369,7 @@ $ git push origin --delete $(git branch -r --merged origin/master | grep -v mast
 
 # Git - Tutorial remove untracked files
 
-- **URL**: https://blog.duyet.net/2015/08/how-to-remove-untracked-files.html
+- **URL**: https://blog.duyet.net/2015/08/how-to-remove-untracked-files
 - **Date**: 2015-08-25
 - **Category**: Git
 - **Tags**: Git
@@ -25418,7 +25418,7 @@ $ git clean -ffd
 
 # Git rebase, gộp commits bằng rebase
 
-- **URL**: https://blog.duyet.net/2015/08/cach-su-dung-git-rebase.html
+- **URL**: https://blog.duyet.net/2015/08/cach-su-dung-git-rebase
 - **Date**: 2015-08-25
 - **Category**: Git
 - **Tags**: Git, Tutorial
@@ -25496,7 +25496,7 @@ Hạn chế force push trên branch `master` hoặc branch chính để ảnh h�
 
 # PHP - Có gì mới trong PHP 7
 
-- **URL**: https://blog.duyet.net/2015/08/php-co-gi-moi-trong-php-7.html
+- **URL**: https://blog.duyet.net/2015/08/php-co-gi-moi-trong-php-7
 - **Date**: 2015-08-22
 - **Category**: PHP
 - **Tags**: Php
@@ -25583,7 +25583,7 @@ Nó cũng sẽ giúp việc đọc code và debug trở nên dễ dàng hơn, vi
 
 # 6 lời khuyên để đảm bảo dù ở đâu, bạn cũng sống tốt với thu nhập cao
 
-- **URL**: https://blog.duyet.net/2015/08/lam-theo-duoc-6-dieu-duoi-day-dam-bao-vut-o-dau-ban-cung-song-tot-thu-nhap-cao.html
+- **URL**: https://blog.duyet.net/2015/08/lam-theo-duoc-6-dieu-duoi-day-dam-bao-vut-o-dau-ban-cung-song-tot-thu-nhap-cao
 - **Date**: 2015-08-09
 - **Category**: News
 - **Tags**: 
@@ -25658,7 +25658,7 @@ Tư duy thế nào thì nó ra số phận thế. Chúc các bạn năm mới S�
 
 # Feedback Social Platform
 
-- **URL**: https://blog.duyet.net/2015/08/github-project-feedback-social-platform.html
+- **URL**: https://blog.duyet.net/2015/08/github-project-feedback-social-platform
 - **Date**: 2015-08-09
 - **Category**: Project
 - **Tags**: Github, Side Project
@@ -25690,7 +25690,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 # Nodejs - Create simple static server with Nodejs
 
-- **URL**: https://blog.duyet.net/2015/08/nodejs-create-simple-static-server-with.html
+- **URL**: https://blog.duyet.net/2015/08/nodejs-create-simple-static-server-with
 - **Date**: 2015-08-09
 - **Category**: Javascript
 - **Tags**: Node.js, Tutorial
@@ -25746,7 +25746,7 @@ Issues: [https://github.com/duyet/static-html-server/issues](https://github.com/
 
 # Nodejs - Tạo static server đơn giản với Nodejs 
 
-- **URL**: https://blog.duyet.net/2015/08/tao-server-static-don-gian-bang-nodejs.html
+- **URL**: https://blog.duyet.net/2015/08/tao-server-static-don-gian-bang-nodejs
 - **Date**: 2015-08-09
 - **Category**: Javascript
 - **Tags**: Node.js, Tutorial
@@ -25810,7 +25810,7 @@ Issues: [https://github.com/duyet/static-html-server/issues](https://github.com/
 
 # Nodejs - Các kỹ thuật Crawler, rút trích dữ liệu với Nodejs
 
-- **URL**: https://blog.duyet.net/2015/08/cac-ky-thuat-crawler-rut-trich-du-lieu.html
+- **URL**: https://blog.duyet.net/2015/08/cac-ky-thuat-crawler-rut-trich-du-lieu
 - **Date**: 2015-08-08
 - **Category**: Data Engineering
 - **Tags**: Node.js, Javascript Framework
@@ -25908,7 +25908,7 @@ Bài viết gốc được viết để hướng dẫn các kỹ thuật crawlin
 
 # Git - Chỉnh sửa git vừa commit
 
-- **URL**: https://blog.duyet.net/2015/08/git-chinh-sua-git-vua-commit.html
+- **URL**: https://blog.duyet.net/2015/08/git-chinh-sua-git-vua-commit
 - **Date**: 2015-08-07
 - **Category**: Git
 - **Tags**: Git, Tutorial
@@ -26051,7 +26051,7 @@ Reflog là một công cụ mạnh mẽ trong Git, giống như một chiếc c�
 
 # Nodejs - Các package mà mọi lập trình viên Nodejs đều phải biết.
 
-- **URL**: https://blog.duyet.net/2015/08/nodejs-cac-package-ma-moi-lap-trinh.html
+- **URL**: https://blog.duyet.net/2015/08/nodejs-cac-package-ma-moi-lap-trinh
 - **Date**: 2015-08-07
 - **Category**: Javascript
 - **Tags**: Node.js, Npm
@@ -26079,7 +26079,7 @@ Còn tiếp ... Mình sẽ cố gắng cập nhật thêm danh sách này, mới
 
 # Tổng hợp phím tắt của Visual Studio Code
 
-- **URL**: https://blog.duyet.net/2015/08/tong-hop-phim-tat-cua-visual-studio-code.html
+- **URL**: https://blog.duyet.net/2015/08/tong-hop-phim-tat-cua-visual-studio-code
 - **Date**: 2015-08-07
 - **Category**: News
 - **Tags**: Tutorial
@@ -26225,7 +26225,7 @@ Tổng hợp lại một số phím tắt hay, hay dùng của VS Code (cập nh
 
 # JavaScript Style Guide
 
-- **URL**: https://blog.duyet.net/2015/08/javascript-style-guide.html
+- **URL**: https://blog.duyet.net/2015/08/javascript-style-guide
 - **Date**: 2015-08-01
 - **Category**: Javascript
 - **Tags**: Tutorial, Javascript
@@ -27819,7 +27819,7 @@ Podcasts
 
 # Giao diện phẳng cho Sublime Text
 
-- **URL**: https://blog.duyet.net/2015/07/giao-dien-phang-cho-sublime-text.html
+- **URL**: https://blog.duyet.net/2015/07/giao-dien-phang-cho-sublime-text
 - **Date**: 2015-07-20
 - **Category**: Web
 - **Tags**: Tools, Ide
@@ -27877,7 +27877,7 @@ Search lấy theme bạn chọn, nhớ lấy tên theme rồi vào Sublime Text 
 
 # Web - 20 nền tảng blogging và publishing tốt nhất trong năm 2015
 
-- **URL**: https://blog.duyet.net/2015/07/web-20-nen-tang-blogging-va-publishing.html
+- **URL**: https://blog.duyet.net/2015/07/web-20-nen-tang-blogging-va-publishing
 - **Date**: 2015-07-20
 - **Category**: Web
 - **Tags**: Web
@@ -27916,7 +27916,7 @@ Sau đây là danh sách:
 
 # Git - Git Cheat Sheet
 
-- **URL**: https://blog.duyet.net/2015/07/git-git-cheat-sheet.html
+- **URL**: https://blog.duyet.net/2015/07/git-git-cheat-sheet
 - **Date**: 2015-07-16
 - **Category**: Git
 - **Tags**: Git
@@ -28050,7 +28050,7 @@ There you go! Hopefully that covers most of the basic ones and a few more. If yo
 
 # Git - Kĩ thuật chia branch, "Branch early, branch often"
 
-- **URL**: https://blog.duyet.net/2015/07/git-ki-thuat-chia-branch-branch-early.html
+- **URL**: https://blog.duyet.net/2015/07/git-ki-thuat-chia-branch-branch-early
 - **Date**: 2015-07-16
 - **Category**: Git
 - **Tags**: Git
@@ -28126,7 +28126,7 @@ Mặc dù sử dụng branch có vẻ tốn rất nhiều thao tác, nhưng đâ
 
 # Big Data - Monitoring Spark with Graphite and Grafana
 
-- **URL**: https://blog.duyet.net/2015/07/big-data-monitoring-spark-with-graphite.html
+- **URL**: https://blog.duyet.net/2015/07/big-data-monitoring-spark-with-graphite
 - **Date**: 2015-07-14
 - **Category**: News
 - **Tags**: Apache Spark, Big Data
@@ -28271,7 +28271,7 @@ Thanks to [Kostas Sakellis](https://github.com/ksakellis) @ Cloudera, [Andrew Jo
 
 # Git - Sử dụng git stash hiệu quả
 
-- **URL**: https://blog.duyet.net/2015/07/su-dung-git-stash-hieu-qua.html
+- **URL**: https://blog.duyet.net/2015/07/su-dung-git-stash-hieu-qua
 - **Date**: 2015-07-14
 - **Category**: Git
 - **Tags**: Git, Github, Tutorial
@@ -28350,7 +28350,7 @@ $ git stash clear
 
 # Đạo lập trình - The Tao Of Programming 
 
-- **URL**: https://blog.duyet.net/2015/07/tao-of-programming.html
+- **URL**: https://blog.duyet.net/2015/07/tao-of-programming
 - **Date**: 2015-07-10
 - **Category**: News
 - **Tags**: News
@@ -29147,7 +29147,7 @@ _It is time for you to leave._
 
 # JavaScript Code Smells
 
-- **URL**: https://blog.duyet.net/2015/06/javascript-code-smells.html
+- **URL**: https://blog.duyet.net/2015/06/javascript-code-smells
 - **Date**: 2015-06-06
 - **Category**: Javascript
 - **Tags**: Javascript
@@ -29196,7 +29196,7 @@ You can find the slides from the presentation online at [elijahmanor.com/talks/j
 
 # Minimalism in Web design: past and future
 
-- **URL**: https://blog.duyet.net/2015/06/minimalism-in-web-design-past-and-future.html
+- **URL**: https://blog.duyet.net/2015/06/minimalism-in-web-design-past-and-future
 - **Date**: 2015-06-05
 - **Category**: Web
 - **Tags**: Web
@@ -29349,7 +29349,7 @@ Article Source:[TNW - Minimalism in Web design: past and future](http://thenextw
 
 # Tìm hiểu về hệ thống quảng cáo và quảng cáo Online
 
-- **URL**: https://blog.duyet.net/2015/05/tim-hieu-ve-he-thong-quang-cao-online.html
+- **URL**: https://blog.duyet.net/2015/05/tim-hieu-ve-he-thong-quang-cao-online
 - **Date**: 2015-05-17
 - **Category**: News
 - **Tags**: Data Engineering, Read
@@ -29472,7 +29472,7 @@ Mặc dù những khái niệm cơ bản vẫn còn áp dụng, bộ dụng cụ
 
 # PHP - Cài đặt APC (Alternative PHP Cache) cho XAMPP trên Linux
 
-- **URL**: https://blog.duyet.net/2015/05/php-cai-dat-apc-alterdnative-php-cache-cho-xampp-tren-linux.html
+- **URL**: https://blog.duyet.net/2015/05/php-cai-dat-apc-alterdnative-php-cache-cho-xampp-tren-linux
 - **Date**: 2015-05-16
 - **Category**: PHP
 - **Tags**: Php
@@ -29539,7 +29539,7 @@ Và cuối cùng bạn chỉ cần thực hiện tiếp tục các bước như 
 
 # Google Materialize CSS framework
 
-- **URL**: https://blog.duyet.net/2015/04/gioi-thieu-ve-google-materialize-css.html
+- **URL**: https://blog.duyet.net/2015/04/gioi-thieu-ve-google-materialize-css
 - **Date**: 2015-04-27
 - **Category**: Web
 - **Tags**: 
@@ -29565,7 +29565,7 @@ Tóm lại đây là 1 framework cũng khá hay với những bạn yêu thích 
 
 # Twitter Bootstrap
 
-- **URL**: https://blog.duyet.net/2015/04/bootstrap.html
+- **URL**: https://blog.duyet.net/2015/04/bootstrap
 - **Date**: 2015-04-27
 - **Category**: Web
 - **Tags**: 
@@ -29716,7 +29716,7 @@ Sử dụng các Components của Bootstrap thực sự khá dễ dàng và nhan
 
 # Khái niệm cơ bản trong git
 
-- **URL**: https://blog.duyet.net/2015/04/git-va-cac-khai-niem-co-ban.html
+- **URL**: https://blog.duyet.net/2015/04/git-va-cac-khai-niem-co-ban
 - **Date**: 2015-04-26
 - **Category**: Git
 - **Tags**: Git, Tutorial
@@ -29857,7 +29857,7 @@ Còn khá nhiều định nghĩa trên Git, trên đây mình chỉ nói một v
 
 # Linux - một số thủ thuật với trình soạn thảo vim
 
-- **URL**: https://blog.duyet.net/2015/04/linux-mot-so-thu-thuat-voi-trinh-soan.html
+- **URL**: https://blog.duyet.net/2015/04/linux-mot-so-thu-thuat-voi-trinh-soan
 - **Date**: 2015-04-25
 - **Category**: Linux
 - **Tags**: Linux, Ubuntu, Vim
@@ -29903,7 +29903,7 @@ Vim là một công cụ rất mạnh mẽ khi bạn hiểu cách sử dụng n�
 
 # PySpark Getting Started
 
-- **URL**: https://blog.duyet.net/2015/04/pyspark.html
+- **URL**: https://blog.duyet.net/2015/04/pyspark
 - **Date**: 2015-04-18
 - **Category**: Data
 - **Tags**: Python, Apache Spark, Big Data
@@ -30274,7 +30274,7 @@ Hopefully you've enjoyed this post! Here are some helpful resources to explore S
 
 # PHP - Tổng quan về Web và thiết lập môi trường để lập trình PHP
 
-- **URL**: https://blog.duyet.net/2015/04/php-bai-1-tong-quan-ve-web-va-thiet-lap.html
+- **URL**: https://blog.duyet.net/2015/04/php-bai-1-tong-quan-ve-web-va-thiet-lap
 - **Date**: 2015-04-16
 - **Category**: PHP
 - **Tags**: Web, Tutorial, Php
@@ -30423,7 +30423,7 @@ Trong khi đợi các bài viết tiếp theo của khóa học, các bạn có 
 
 # Lorem Ipsum là gì?
 
-- **URL**: https://blog.duyet.net/2015/04/lorem-ipsum-la-gi.html
+- **URL**: https://blog.duyet.net/2015/04/lorem-ipsum-la-gi
 - **Date**: 2015-04-15
 - **Category**: Web
 - **Tags**: Web
@@ -30454,7 +30454,7 @@ Ngoài ra nếu bạn dùng Sublime Text thì cũng có Package hỗ trợ là L
 
 # Mongo-Web-Query
 
-- **URL**: https://blog.duyet.net/2015/04/mongo-web-query.html
+- **URL**: https://blog.duyet.net/2015/04/mongo-web-query
 - **Date**: 2015-04-15
 - **Category**: Web
 - **Tags**: Node.js, Mongodb, Github
@@ -30493,7 +30493,7 @@ MIT License
 
 # Big Data Explained in Less Than 2 Minutes
 
-- **URL**: https://blog.duyet.net/2015/04/big-data-explained-in-less-than-2-minutes.html
+- **URL**: https://blog.duyet.net/2015/04/big-data-explained-in-less-than-2-minutes
 - **Date**: 2015-04-12
 - **Category**: Data
 - **Tags**: Big Data, Read
@@ -30549,7 +30549,7 @@ Thanks to: [Bernard Marr](https://www.linkedin.com/in/bernardmarr?trk=pulse-det-
 
 # Open Source - Tìm hiểu về giấy phép GNU (GNU General Public License)
 
-- **URL**: https://blog.duyet.net/2015/04/tim-hieu-ve-giay-phep-gnu.html
+- **URL**: https://blog.duyet.net/2015/04/tim-hieu-ve-giay-phep-gnu
 - **Date**: 2015-04-11
 - **Category**: News
 - **Tags**: Open Source, License
@@ -30602,7 +30602,7 @@ Một số người lo ngại về vấn đề mã nguồn bị public tạo đi
 
 # Open Source - Tìm hiểu về giấy phép MIT
 
-- **URL**: https://blog.duyet.net/2015/04/tim-hieu-ve-giay-phep-mit.html
+- **URL**: https://blog.duyet.net/2015/04/tim-hieu-ve-giay-phep-mit
 - **Date**: 2015-04-11
 - **Category**: News
 - **Tags**: Open Source, License
@@ -30641,7 +30641,7 @@ Nguồn: https://thaiduynguyen.wordpress.com/2009/10/30/tim-hieu-ve-osl/
 
 # Tìm hiểu về giấy phép Apache
 
-- **URL**: https://blog.duyet.net/2015/04/open-source-tim-hieu-ve-giay-phep-apache.html
+- **URL**: https://blog.duyet.net/2015/04/open-source-tim-hieu-ve-giay-phep-apache
 - **Date**: 2015-04-11
 - **Category**: News
 - **Tags**: Open Source, License
@@ -30703,7 +30703,7 @@ Bên cạnh Apache Server, còn có những phần mềm khác sử dụng giấ
 
 # MongoDB - Cách thiết lập để App Server kết nối đến MongoDb Server
 
-- **URL**: https://blog.duyet.net/2015/04/mongodb-cach-thiet-lap-e-app-server-ket.html
+- **URL**: https://blog.duyet.net/2015/04/mongodb-cach-thiet-lap-e-app-server-ket
 - **Date**: 2015-04-09
 - **Category**: Data
 - **Tags**: Linux, Mongodb, Tutorial, Ubuntu
@@ -30825,7 +30825,7 @@ Xem thêm tại đây [MongoDB firewall documentation](http://docs.mongodb.org/m
 
 # Redis
 
-- **URL**: https://blog.duyet.net/2015/04/redis.html
+- **URL**: https://blog.duyet.net/2015/04/redis
 - **Date**: 2015-04-06
 - **Category**: Data
 - **Tags**: Database
@@ -30958,7 +30958,7 @@ Bài viết trên đây đã đưa ra những đặc trưng cơ bản của Redi
 
 # MEAN.js Fullstack
 
-- **URL**: https://blog.duyet.net/2015/04/nodejs-gioi-thieu-meanjs-fullstack.html
+- **URL**: https://blog.duyet.net/2015/04/nodejs-gioi-thieu-meanjs-fullstack
 - **Date**: 2015-04-05
 - **Category**: Javascript
 - **Tags**: Node.js, Javascript Framework, Web
@@ -31024,7 +31024,7 @@ NodeJS là một nền tảng cho việc viết ứng dụng Javascript phía se
 
 # Cài đặt Apache Spark trên Ubuntu 14.04
 
-- **URL**: https://blog.duyet.net/2015/03/bigdata-cai-dat-apache-spark-tren-ubuntu.html
+- **URL**: https://blog.duyet.net/2015/03/bigdata-cai-dat-apache-spark-tren-ubuntu
 - **Date**: 2015-03-27
 - **Category**: Data
 - **Tags**: Apache Spark, Python, Big Data
@@ -31243,7 +31243,7 @@ Quick Start: [http://spark.apache.org/docs/1.1.1/quick-start.html](http://spark.
 
 # So sánh mô hình Waterfall, mô hình mẫu, mô hình xoắn ốc
 
-- **URL**: https://blog.duyet.net/2015/03/so-sanh-cac-mo-hinh-thac-nuoc-mo-hinh-mau-mo-hinh-xoan-oc.html
+- **URL**: https://blog.duyet.net/2015/03/so-sanh-cac-mo-hinh-thac-nuoc-mo-hinh-mau-mo-hinh-xoan-oc
 - **Date**: 2015-03-15
 - **Category**: Software Engineering
 - **Tags**: Software Engineering, Design Patterns
@@ -31272,7 +31272,7 @@ Bài viết có nhập xứ:
 
 # Xây dựng thương hiệu cá nhân tại công sở
 
-- **URL**: https://blog.duyet.net/2015/03/xay-dung-thuong-hieu-ca-nhan-tai-cong-so.html
+- **URL**: https://blog.duyet.net/2015/03/xay-dung-thuong-hieu-ca-nhan-tai-cong-so
 - **Date**: 2015-03-09
 - **Category**: News
 - **Tags**: 
@@ -31323,7 +31323,7 @@ Luôn chuẩn bị sẵn sàng cho mình một phần giới thiệu ngắn về
 
 # Mô hình thác nước (Waterfall Model)
 
-- **URL**: https://blog.duyet.net/2015/02/waterfall.html
+- **URL**: https://blog.duyet.net/2015/02/waterfall
 - **Date**: 2015-02-24
 - **Category**: Software Engineering
 - **Tags**: Software Engineering, Design Patterns
@@ -31400,7 +31400,7 @@ Tuy nhiên, tồn tại một số mô hình thác nước biến thể (bao g�
 
 # Quy trình phát triển phần mềm - mô hình xoắn ốc (The Boehm's spiral model)
 
-- **URL**: https://blog.duyet.net/2015/02/spiral.html
+- **URL**: https://blog.duyet.net/2015/02/spiral
 - **Date**: 2015-02-24
 - **Category**: Software Engineering
 - **Tags**: Software Engineering
@@ -31459,7 +31459,7 @@ Hợp với hệ thống lớn có thể phân chia thành nhiều thành phần
 
 # Design Patterns - hệ thống 23 mẫu Design Patterns
 
-- **URL**: https://blog.duyet.net/2015/02/design-patterns-he-thong-23-mau-design.html
+- **URL**: https://blog.duyet.net/2015/02/design-patterns-he-thong-23-mau-design
 - **Date**: 2015-02-23
 - **Category**: Software Engineering
 - **Tags**: Design Patterns
@@ -31642,7 +31642,7 @@ Các bài viết sau mình sẽ đi sâu vào 3 nhóm chính, cuối cùng là c
 
 # Design Patterns là gì?
 
-- **URL**: https://blog.duyet.net/2015/02/design-patterns.html
+- **URL**: https://blog.duyet.net/2015/02/design-patterns
 - **Date**: 2015-02-23
 - **Category**: Software Engineering
 - **Tags**: Design Patterns
@@ -31695,7 +31695,7 @@ Có 3 nhóm chính sau:
 
 # DNS là gì?
 
-- **URL**: https://blog.duyet.net/2015/02/dns.html
+- **URL**: https://blog.duyet.net/2015/02/dns
 - **Date**: 2015-02-23
 - **Category**: News
 - **Tags**: Web
@@ -31856,7 +31856,7 @@ Còn khá nhiều các thuộc tính và quy định trong `package.json`, bạn
 
 # Linux - Giao diện phẳng cho Ubuntu
 
-- **URL**: https://blog.duyet.net/2015/02/linux-giao-dien-phang-cho-ubuntu.html
+- **URL**: https://blog.duyet.net/2015/02/linux-giao-dien-phang-cho-ubuntu
 - **Date**: 2015-02-17
 - **Category**: Linux
 - **Tags**: Linux, Ubuntu, Tools
@@ -31922,7 +31922,7 @@ Thắc mắc có thể comment bên dưới, chúc thành công :]]
 
 # Linux - Đường dẫn tuyệt đối và đường dẫn tương đối
 
-- **URL**: https://blog.duyet.net/2015/02/linux-duong-dan-tuyet-doi-va-duong-dan-tuong-doi.html
+- **URL**: https://blog.duyet.net/2015/02/linux-duong-dan-tuyet-doi-va-duong-dan-tuong-doi
 - **Date**: 2015-02-15
 - **Category**: Linux
 - **Tags**: Linux
@@ -32010,7 +32010,7 @@ $ cd ~
 
 # phpMyAdmin
 
-- **URL**: https://blog.duyet.net/2015/02/phpmyadmin.html
+- **URL**: https://blog.duyet.net/2015/02/phpmyadmin
 - **Date**: 2015-02-15
 - **Category**: Software Engineering
 - **Tags**: 
@@ -32048,7 +32048,7 @@ Giao diện phpMyAdmin như hình trên, trong đó:
 
 # Github là gì?
 
-- **URL**: https://blog.duyet.net/2015/02/github-la-gi.html
+- **URL**: https://blog.duyet.net/2015/02/github-la-gi
 - **Date**: 2015-02-14
 - **Category**: News
 - **Tags**: Git, Github
@@ -32095,7 +32095,7 @@ Ngoài những tính năng tuyệt vời của hệ thống quản lý source ph
 
 # Module hóa
 
-- **URL**: https://blog.duyet.net/2015/02/module.html
+- **URL**: https://blog.duyet.net/2015/02/module
 - **Date**: 2015-02-14
 - **Category**: Software Engineering
 - **Tags**: Read, Software Engineering
@@ -32136,7 +32136,7 @@ Module hóa là một phương pháp quản lý code hiệu quả, giúp bạn d
 
 # Linux - Một số lệnh hay dùng
 
-- **URL**: https://blog.duyet.net/2015/02/linux-mot-so-lenh-hay-dung.html
+- **URL**: https://blog.duyet.net/2015/02/linux-mot-so-lenh-hay-dung
 - **Date**: 2015-02-13
 - **Category**: Linux
 - **Tags**: Linux
@@ -32340,7 +32340,7 @@ $ sudo mkdir /root/lvduit
 
 # Git - Phục hồi code cũ
 
-- **URL**: https://blog.duyet.net/2015/01/git-recovering-old-code.html
+- **URL**: https://blog.duyet.net/2015/01/git-recovering-old-code
 - **Date**: 2015-01-25
 - **Category**: Git
 - **Tags**: Tutorial, Git
@@ -32405,7 +32405,7 @@ Các lệnh cũ vẫn hoạt động, nhưng các lệnh mới được khuyến
 
 # Using ExpressJS to Display Static HTML File Content
 
-- **URL**: https://blog.duyet.net/2015/01/expressjs-static-html.html
+- **URL**: https://blog.duyet.net/2015/01/expressjs-static-html
 - **Date**: 2015-01-23
 - **Category**: Javascript
 - **Tags**: Node.js
