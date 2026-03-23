@@ -152,9 +152,9 @@ jobs:
         with:
           path: |
             ~/.bun/install/cache
-          key: ${{ runner.os }}-${{ matrix.app }}-${{ hashFiles('**/bun.lock') }}
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
           restore-keys: |
-            ${{ runner.os }}-${{ matrix.app }}-
+            ${{ runner.os }}-bun-
 
       - name: Install dependencies
         run: bun install
@@ -165,45 +165,6 @@ jobs:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:ci
-
-      - name: Debug environment variables
-        run: |
-          echo "### Environment Variables Debug" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "#### ClickHouse Configuration:" >> $GITHUB_STEP_SUMMARY
-          echo "- CLICKHOUSE_HOST: ${CLICKHOUSE_HOST:+SET (${#CLICKHOUSE_HOST} chars)}${CLICKHOUSE_HOST:-NOT SET}" >> $GITHUB_STEP_SUMMARY
-          echo "- CLICKHOUSE_PORT: ${CLICKHOUSE_PORT:-NOT SET}" >> $GITHUB_STEP_SUMMARY
-          echo "- CLICKHOUSE_USER: ${CLICKHOUSE_USER:+SET (${#CLICKHOUSE_USER} chars)}${CLICKHOUSE_USER:-NOT SET}" >> $GITHUB_STEP_SUMMARY
-          echo "- CLICKHOUSE_AUTH: ${CLICKHOUSE_PASSWORD:+SET (${#CLICKHOUSE_PASSWORD} chars)}${CLICKHOUSE_PASSWORD:-NOT SET}" >> $GITHUB_STEP_SUMMARY
-          echo "- CLICKHOUSE_DATABASE: ${CLICKHOUSE_DATABASE:+SET (${#CLICKHOUSE_DATABASE} chars)}${CLICKHOUSE_DATABASE:-NOT SET}" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "#### Other API Keys:" >> $GITHUB_STEP_SUMMARY
-          echo "- GITHUB_TOKEN: ${GITHUB_TOKEN:+SET}${GITHUB_TOKEN:-NOT SET}" >> $GITHUB_STEP_SUMMARY
-          echo "- WAKATIME_API_KEY: ${WAKATIME_API_KEY:+SET}${WAKATIME_API_KEY:-NOT SET}" >> $GITHUB_STEP_SUMMARY
-          echo "- POSTHOG_API_KEY: ${POSTHOG_API_KEY:+SET}${POSTHOG_API_KEY:-NOT SET}" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "#### Build Environment:" >> $GITHUB_STEP_SUMMARY
-          echo "- NODE_ENV: $NODE_ENV" >> $GITHUB_STEP_SUMMARY
-          echo "- App: ${{ matrix.app }}" >> $GITHUB_STEP_SUMMARY
-
-          # Also print to logs for debugging
-          echo "=== ClickHouse Environment Check ==="
-          echo "CLICKHOUSE_HOST: ${CLICKHOUSE_HOST:+SET (${#CLICKHOUSE_HOST} chars)}${CLICKHOUSE_HOST:-NOT SET}"
-          echo "CLICKHOUSE_PORT: ${CLICKHOUSE_PORT:-NOT SET}"
-          echo "CLICKHOUSE_USER: ${CLICKHOUSE_USER:+SET (${#CLICKHOUSE_USER} chars)}${CLICKHOUSE_USER:-NOT SET}"
-          echo "CLICKHOUSE_AUTH: ${CLICKHOUSE_PASSWORD:+SET (${#CLICKHOUSE_PASSWORD} chars)}${CLICKHOUSE_PASSWORD:-NOT SET}"
-          echo "CLICKHOUSE_DATABASE: ${CLICKHOUSE_DATABASE:+SET (${#CLICKHOUSE_DATABASE} chars)}${CLICKHOUSE_DATABASE:-NOT SET}"
-          echo "==================================="
-        env:
-          CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
-          CLICKHOUSE_PORT: ${{ secrets.CLICKHOUSE_PORT }}
-          CLICKHOUSE_USER: ${{ secrets.CLICKHOUSE_USER }}
-          CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
-          CLICKHOUSE_DATABASE: ${{ secrets.CLICKHOUSE_DATABASE }}
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-          POSTHOG_API_KEY: ${{ secrets.POSTHOG_API_KEY }}
-          NODE_ENV: production
 
       - name: Test connectivity to ClickHouse
         if: matrix.app == 'photos' || matrix.app == 'insights'
@@ -261,17 +222,6 @@ jobs:
           VITE_DUYET_AGENTS_URL: https://agents.duyet.net
           VITE_DUYET_AI_URL: https://ai.duyet.net
           VITE_DUYET_AI_PERCENTAGE_URL: https://ai-percentage.duyet.net
-          # Keep NEXT_PUBLIC_ for backward compat during migration
-          NEXT_PUBLIC_DUYET_HOME_URL: https://duyet.net
-          NEXT_PUBLIC_DUYET_BLOG_URL: https://blog.duyet.net
-          NEXT_PUBLIC_DUYET_CV_URL: https://cv.duyet.net
-          NEXT_PUBLIC_DUYET_INSIGHTS_URL: https://insights.duyet.net
-          NEXT_PUBLIC_DUYET_PHOTOS_URL: https://photos.duyet.net
-          NEXT_PUBLIC_DUYET_HOMELAB_URL: https://homelab.duyet.net
-          NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL: https://llm-timeline.duyet.net
-          NEXT_PUBLIC_DUYET_AGENTS_URL: https://agents.duyet.net
-          NEXT_PUBLIC_DUYET_AI_URL: https://ai.duyet.net
-          NEXT_PUBLIC_DUYET_AI_PERCENTAGE_URL: https://ai-percentage.duyet.net
           # App-specific secrets (only used by apps that need them)
           CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
           CLICKHOUSE_PORT: ${{ vars.CLICKHOUSE_PORT }}
@@ -289,7 +239,6 @@ jobs:
           CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
           # Clerk Authentication (blog app)
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
-          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
           VITE_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
           # Cloudflare AI Gateway (agents app)
           CF_AIG_GATEWAY_ID: ${{ secrets.CF_AIG_GATEWAY_ID }}
