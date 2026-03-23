@@ -125,25 +125,16 @@ jobs:
 
       - uses: oven-sh/setup-bun@v2
 
+      - name: Restore bun cache
+        uses: actions/cache@v5
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
+
       - name: Install dependencies
         run: bun install
-
-      - name: Debug environment variables
-        run: |
-          echo "=== ClickHouse Environment Check ==="
-          echo "CLICKHOUSE_HOST: ${CLICKHOUSE_HOST:+SET (${#CLICKHOUSE_HOST} chars)}${CLICKHOUSE_HOST:-NOT SET}"
-          echo "CLICKHOUSE_PORT: ${CLICKHOUSE_PORT:-NOT SET}"
-          echo "CLICKHOUSE_USER: ${CLICKHOUSE_USER:+SET (${#CLICKHOUSE_USER} chars)}${CLICKHOUSE_USER:-NOT SET}"
-          echo "CLICKHOUSE_AUTH: ${CLICKHOUSE_PASSWORD:+SET (${#CLICKHOUSE_PASSWORD} chars)}${CLICKHOUSE_PASSWORD:-NOT SET}"
-          echo "CLICKHOUSE_DATABASE: ${CLICKHOUSE_DATABASE:+SET (${#CLICKHOUSE_DATABASE} chars)}${CLICKHOUSE_DATABASE:-NOT SET}"
-          echo "==================================="
-          echo "App: ${{ matrix.app }}"
-        env:
-          CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
-          CLICKHOUSE_PORT: ${{ secrets.CLICKHOUSE_PORT }}
-          CLICKHOUSE_USER: ${{ secrets.CLICKHOUSE_USER }}
-          CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
-          CLICKHOUSE_DATABASE: ${{ secrets.CLICKHOUSE_DATABASE }}
 
       - name: Build app
         id: build
@@ -152,16 +143,16 @@ jobs:
           bun run build
         env:
           NODE_ENV: production
-          NEXT_PUBLIC_DUYET_HOME_URL: https://duyet.net
-          NEXT_PUBLIC_DUYET_BLOG_URL: https://blog.duyet.net
-          NEXT_PUBLIC_DUYET_CV_URL: https://cv.duyet.net
-          NEXT_PUBLIC_DUYET_INSIGHTS_URL: https://insights.duyet.net
-          NEXT_PUBLIC_DUYET_PHOTOS_URL: https://photos.duyet.net
-          NEXT_PUBLIC_DUYET_HOMELAB_URL: https://homelab.duyet.net
-          NEXT_PUBLIC_DUYET_LLM_TIMELINE_URL: https://llm-timeline.duyet.net
-          NEXT_PUBLIC_DUYET_AGENTS_URL: https://agents.duyet.net
-          NEXT_PUBLIC_DUYET_AI_URL: https://ai.duyet.net
-          NEXT_PUBLIC_DUYET_AI_PERCENTAGE_URL: https://ai-percentage.duyet.net
+          VITE_DUYET_HOME_URL: https://duyet.net
+          VITE_DUYET_BLOG_URL: https://blog.duyet.net
+          VITE_DUYET_CV_URL: https://cv.duyet.net
+          VITE_DUYET_INSIGHTS_URL: https://insights.duyet.net
+          VITE_DUYET_PHOTOS_URL: https://photos.duyet.net
+          VITE_DUYET_HOMELAB_URL: https://homelab.duyet.net
+          VITE_DUYET_LLM_TIMELINE_URL: https://llm-timeline.duyet.net
+          VITE_DUYET_AGENTS_URL: https://agents.duyet.net
+          VITE_DUYET_AI_URL: https://ai.duyet.net
+          VITE_DUYET_AI_PERCENTAGE_URL: https://ai-percentage.duyet.net
           # App-specific secrets (only used by apps that need them)
           CLICKHOUSE_HOST: ${{ secrets.CLICKHOUSE_HOST }}
           CLICKHOUSE_PORT: ${{ vars.CLICKHOUSE_PORT }}
@@ -179,7 +170,7 @@ jobs:
           CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
           # Clerk Authentication (blog app)
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
-          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+          VITE_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
 
       - name: Save build failure status
         if: failure() && steps.build.outcome == 'failure'
@@ -194,8 +185,8 @@ jobs:
           cd apps/${{ matrix.app }}
 
           # Skip deploy if no static output directory exists
-          if [ ! -d "out" ]; then
-            echo "No 'out' directory found — app likely uses server-side rendering."
+          if [ ! -d "dist" ]; then
+            echo "No 'dist' directory found — Vite build may have failed."
             echo "Skipping Cloudflare Pages deploy for ${{ matrix.app }}."
             echo "url=skipped" >> $GITHUB_OUTPUT
             echo "branch=skipped" >> $GITHUB_OUTPUT
@@ -207,7 +198,7 @@ jobs:
           BRANCH_SLUG=$(echo "$BRANCH" | sed 's/[^a-zA-Z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-//' | sed 's/-$//' | cut -c1-28)
 
           # Deploy to preview branch
-          OUTPUT=$(bunx wrangler pages deploy out \
+          OUTPUT=$(bunx wrangler pages deploy dist \
             --project-name=${{ matrix.project }} \
             --branch="$BRANCH_SLUG" \
             --commit-dirty=true 2>&1)
