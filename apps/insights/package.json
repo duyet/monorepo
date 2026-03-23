@@ -38,7 +38,7 @@
     "react-is": "^19.1.0",
     "recharts": "^3.7.0",
     "vite": "^8.0.0",
-    "vite-tsconfig-paths": "^5.0.0"
+    "vite-tsconfig-paths": "^6.0.0"
   },
   "devDependencies": {
     "@duyet/interfaces": "*",

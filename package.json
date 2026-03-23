@@ -62,7 +62,7 @@
     "tw-animate-css": "^1.3.0",
     "typescript": "^5.8.3",
     "vite": "^8.0.0",
-    "vite-tsconfig-paths": "^5.0.0"
+    "vite-tsconfig-paths": "^6.0.0"
   },
   "packageManager": "bun@1.3.9",
   "patchedDependencies": {
