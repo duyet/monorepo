@@ -231,6 +231,61 @@ export function getStats(models: Model[]) {
   };
 }
 
+/**
+ * Get left accent border color for model cards based on license type.
+ * Returns Tailwind classes for a 3px left border.
+ */
+export function getLicenseAccent(license: Model["license"]): string {
+  switch (license) {
+    case "open":
+      return "border-l-emerald-400 dark:border-l-emerald-600";
+    case "closed":
+      return "border-l-red-400 dark:border-l-red-600";
+    case "partial":
+      return "border-l-indigo-400 dark:border-l-indigo-600";
+    default:
+      return "border-l-neutral-300 dark:border-l-neutral-600";
+  }
+}
+
+/**
+ * Map license type to Badge variant name
+ */
+export function getLicenseBadgeVariant(
+  license: Model["license"]
+): "open" | "closed" | "partial" | "default" {
+  switch (license) {
+    case "open":
+      return "open";
+    case "closed":
+      return "closed";
+    case "partial":
+      return "partial";
+    default:
+      return "default";
+  }
+}
+
+/**
+ * Map model type to Badge variant name
+ */
+export function getTypeBadgeVariant(
+  type: Model["type"]
+): "milestone" | "default" {
+  return type === "milestone" ? "milestone" : "default";
+}
+
+/**
+ * Map source to Badge variant name
+ */
+export function getSourceBadgeVariant(
+  source?: string
+): "curated" | "epoch" | "default" {
+  if (source === "curated") return "curated";
+  if (source === "epoch") return "epoch";
+  return "default";
+}
+
 // Re-export getSlug from @duyet/libs for convenience
 export { getSlug as slugify } from "@duyet/libs";
 

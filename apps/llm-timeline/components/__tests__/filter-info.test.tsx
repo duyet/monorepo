@@ -21,7 +21,8 @@ describe("FilterInfo", () => {
     const { getAllByPlaceholderText } = render(
       <FilterInfo {...filterInfoBaseProps} />
     );
-    const elements = getAllByPlaceholderText("Search models...");
+    // SearchAutocomplete uses a dynamic placeholder based on view
+    const elements = getAllByPlaceholderText(/Search models/);
     expect(elements.length).toBeGreaterThan(0);
   });
 
@@ -37,7 +38,7 @@ describe("FilterInfo", () => {
     expect(elements.length).toBeGreaterThan(0);
   });
 
-  it("renders 'organizations' label for organizations view", () => {
+  it("renders 'orgs' label for organizations view", () => {
     const { getAllByText } = render(
       <FilterInfo
         {...filterInfoBaseProps}
@@ -45,20 +46,23 @@ describe("FilterInfo", () => {
         resultCount={10}
       />
     );
-    const elements = getAllByText("organizations");
+    const elements = getAllByText("orgs");
     expect(elements.length).toBeGreaterThan(0);
   });
 
-  it("renders license select when onLicenseChange is provided", () => {
-    const { getByRole } = render(
+  it("renders license filter when onLicenseChange is provided", () => {
+    const { container } = render(
       <FilterInfo {...filterInfoBaseProps} onLicenseChange={() => {}} />
     );
-    expect(getByRole("combobox")).toBeDefined();
+    // Mobile select is always rendered when onLicenseChange provided
+    const selects = container.querySelectorAll("select");
+    expect(selects.length).toBeGreaterThan(0);
   });
 
-  it("does not render license select when onLicenseChange is absent", () => {
-    const { queryByRole } = render(<FilterInfo {...filterInfoBaseProps} />);
-    expect(queryByRole("combobox")).toBeNull();
+  it("does not render license filter when onLicenseChange is absent", () => {
+    const { container } = render(<FilterInfo {...filterInfoBaseProps} />);
+    const selects = container.querySelectorAll("select");
+    expect(selects.length).toBe(0);
   });
 
   it("shows comparison mode hint when comparisonMode=true", () => {
@@ -69,17 +73,17 @@ describe("FilterInfo", () => {
         onToggleComparisonMode={() => {}}
       />
     );
-    expect(getByText(/Comparison mode/)).toBeDefined();
+    expect(getByText("Compare")).toBeDefined();
   });
 
   it("does not show comparison mode hint when comparisonMode=false", () => {
     const { queryByText } = render(<FilterInfo {...filterInfoBaseProps} />);
-    expect(queryByText(/Comparison mode/)).toBeNull();
+    expect(queryByText("Compare")).toBeNull();
   });
 
-  it("renders lite mode toggle button", () => {
+  it("renders view mode toggle button", () => {
     const { getByRole } = render(<FilterInfo {...filterInfoBaseProps} />);
-    const btn = getByRole("button", { name: "Toggle lite mode" });
+    const btn = getByRole("button", { name: "Toggle view mode" });
     expect(btn).toBeDefined();
   });
 });

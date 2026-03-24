@@ -20,74 +20,82 @@ export function StatsCards({
     : 0;
 
   return (
-    <div className="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-4 animate-fade-in animate-fade-in-delay-1">
-      {/* Models Card */}
+    <div className="mb-4 flex flex-wrap items-center gap-2 animate-fade-in animate-fade-in-delay-1">
+      {/* Models */}
       <Link
         to="/"
         className={cn(
-          "group rounded-xl border p-5 transition-all hover:shadow-sm",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2",
+          "group flex items-center gap-2.5 rounded-xl border px-4 py-2.5 transition-all",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
           activeView === "models"
-            ? "border-neutral-300 dark:border-white/20 bg-white dark:bg-[#111] shadow-sm"
-            : "border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] hover:border-neutral-300 dark:hover:border-white/20"
+            ? "border-foreground/20 bg-card shadow-sm"
+            : "border-border bg-card hover:border-foreground/20 hover:shadow-sm"
         )}
       >
-        <div className="mb-3 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5">
-          <Sparkles className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
+        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-muted">
+          <Sparkles className="h-3.5 w-3.5 text-muted-foreground" />
         </div>
-        <div className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 font-[family-name:var(--font-mono)] tracking-tight">
-          {models.toLocaleString()}
-        </div>
-        <div className="mt-0.5 text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
-          Models
+        <div className="flex items-baseline gap-1.5">
+          <span className="text-lg font-bold font-[family-name:var(--font-mono)] tracking-tight text-foreground">
+            {models.toLocaleString()}
+          </span>
+          <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+            Models
+          </span>
         </div>
       </Link>
 
-      {/* Organizations Card */}
+      {/* Organizations */}
       <Link
         to="/org"
         className={cn(
-          "group rounded-xl border p-5 transition-all hover:shadow-sm",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2",
+          "group flex items-center gap-2.5 rounded-xl border px-4 py-2.5 transition-all",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
           activeView === "organizations"
-            ? "border-neutral-300 dark:border-white/20 bg-white dark:bg-[#111] shadow-sm"
-            : "border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] hover:border-neutral-300 dark:hover:border-white/20"
+            ? "border-foreground/20 bg-card shadow-sm"
+            : "border-border bg-card hover:border-foreground/20 hover:shadow-sm"
         )}
       >
-        <div className="mb-3 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5">
-          <Building2 className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
+        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-muted">
+          <Building2 className="h-3.5 w-3.5 text-muted-foreground" />
         </div>
-        <div className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 font-[family-name:var(--font-mono)] tracking-tight">
-          {organizations.toLocaleString()}
-        </div>
-        <div className="mt-0.5 text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
-          Organizations
+        <div className="flex items-baseline gap-1.5">
+          <span className="text-lg font-bold font-[family-name:var(--font-mono)] tracking-tight text-foreground">
+            {organizations.toLocaleString()}
+          </span>
+          <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+            Orgs
+          </span>
         </div>
       </Link>
 
-      {/* Data Sources Card */}
-      <div className="rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] p-5 transition-all hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm">
-        <div className="mb-3 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5">
-          <Database className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
+      {/* Data Points */}
+      <div className="flex items-center gap-2.5 rounded-xl border border-border bg-card px-4 py-2.5 transition-all hover:border-foreground/20 hover:shadow-sm">
+        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-muted">
+          <Database className="h-3.5 w-3.5 text-muted-foreground" />
         </div>
-        <div className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 font-[family-name:var(--font-mono)] tracking-tight">
-          {totalSources > 0 ? totalSources.toLocaleString() : "—"}
-        </div>
-        <div className="mt-0.5 text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
-          Data Points
+        <div className="flex items-baseline gap-1.5">
+          <span className="text-lg font-bold font-[family-name:var(--font-mono)] tracking-tight text-foreground">
+            {totalSources > 0 ? totalSources.toLocaleString() : "—"}
+          </span>
+          <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+            Sources
+          </span>
         </div>
       </div>
 
-      {/* Years Covered Card */}
-      <div className="rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] p-5 transition-all hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm">
-        <div className="mb-3 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5">
-          <Calendar className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
+      {/* Years Covered */}
+      <div className="flex items-center gap-2.5 rounded-xl border border-border bg-card px-4 py-2.5 transition-all hover:border-foreground/20 hover:shadow-sm">
+        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-muted">
+          <Calendar className="h-3.5 w-3.5 text-muted-foreground" />
         </div>
-        <div className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 font-[family-name:var(--font-mono)] tracking-tight">
-          2017–26
-        </div>
-        <div className="mt-0.5 text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
-          Years Covered
+        <div className="flex items-baseline gap-1.5">
+          <span className="text-lg font-bold font-[family-name:var(--font-mono)] tracking-tight text-foreground">
+            2017–26
+          </span>
+          <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+            Years
+          </span>
         </div>
       </div>
     </div>

@@ -39,9 +39,9 @@ describe("StatsCards", () => {
       <StatsCards models={250} organizations={42} />
     );
     expect(getAllByText("Models").length).toBeGreaterThan(0);
-    expect(getAllByText("Organizations").length).toBeGreaterThan(0);
-    expect(getAllByText("Data Points").length).toBeGreaterThan(0);
-    expect(getAllByText("Years Covered").length).toBeGreaterThan(0);
+    expect(getAllByText("Orgs").length).toBeGreaterThan(0);
+    expect(getAllByText("Sources").length).toBeGreaterThan(0);
+    expect(getAllByText("Years").length).toBeGreaterThan(0);
   });
 
   it("renders years covered as 2017–26", () => {
