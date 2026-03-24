@@ -3,26 +3,76 @@ import "../globals.css";
 import "../animations.css";
 
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import { cn } from "@duyet/libs/utils";
-import { createRootRoute, Outlet } from "@tanstack/react-router";
+import {
+  createRootRoute,
+  HeadContent,
+  Outlet,
+  Scripts,
+} from "@tanstack/react-router";
 import { NotFound } from "../components/NotFound";
 
 export const Route = createRootRoute({
-  component: RootLayout,
+  head: () => ({
+    meta: [
+      { charSet: "UTF-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1.0" },
+      { name: "robots", content: "follow, index" },
+      { title: "Duyet Le - Data Engineer" },
+      {
+        name: "description",
+        content:
+          "Data Engineer. I build data infrastructure and love Rust, TypeScript, and open source.",
+      },
+      {
+        name: "theme-color",
+        content: "#fbf7f0",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        name: "theme-color",
+        content: "#1f1f1f",
+        media: "(prefers-color-scheme: dark)",
+      },
+    ],
+    links: [
+      { rel: "icon", href: "/icon.svg", sizes: "any" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "preload",
+        as: "style",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap",
+      },
+    ],
+  }),
   notFoundComponent: NotFound,
+  component: RootComponent,
 });
 
-function RootLayout() {
+function RootComponent() {
   return (
-    <ThemeProvider>
-      <div
-        className={cn(
-          "text-claude-black subpixel-antialiased",
-          "dark:bg-claude-gray-900 dark:text-claude-gray-50 transition-colors duration-300"
-        )}
-      >
-        <Outlet />
-      </div>
-    </ThemeProvider>
+    <html lang="en">
+      <head>
+        <HeadContent />
+        {/* Non-blocking Google Fonts: preloaded above, applied here */}
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap"
+          media="print"
+          // @ts-expect-error onLoad is valid on link elements
+          onLoad="this.media='all'"
+        />
+      </head>
+      <body>
+        <ThemeProvider>
+          <Outlet />
+        </ThemeProvider>
+        <Scripts />
+      </body>
+    </html>
   );
 }

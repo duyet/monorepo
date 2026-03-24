@@ -10,7 +10,6 @@
   "include": [
     "vite-env.d.ts",
     "src",
-    "index.html",
     "vite.config.ts",
     "components/**/*.ts",
     "components/**/*.tsx",
