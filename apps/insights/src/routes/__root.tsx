@@ -4,14 +4,17 @@ import "../styles/globals.css";
 import Analytics from "@duyet/components/Analytics";
 import Container from "@duyet/components/Container";
 import Footer from "@duyet/components/Footer";
-import Head from "@duyet/components/Head";
 import Header from "@duyet/components/Header";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { insightsConfig } from "@duyet/config";
-import { createRootRoute, Outlet } from "@tanstack/react-router";
+import {
+  createRootRoute,
+  HeadContent,
+  Outlet,
+  Scripts,
+} from "@tanstack/react-router";
 import { GlobalPeriodSelector } from "@/components/GlobalPeriodSelector";
 import { CompactNavigation } from "@/components/navigation/CompactNavigation";
-import { ServiceWorkerProvider } from "@/components/sw/ServiceWorkerProvider";
 
 function NotFoundComponent() {
   return (
@@ -28,34 +31,70 @@ function NotFoundComponent() {
 }
 
 export const Route = createRootRoute({
+  head: () => ({
+    meta: [
+      { charSet: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1.0" },
+      { name: "robots", content: "follow, index" },
+      { title: "Insights | duyet.net" },
+      { name: "description", content: "Insights for duyet.net" },
+    ],
+    links: [
+      { rel: "icon", href: "/favicon.ico" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "preload",
+        as: "style",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;700&display=swap",
+      },
+    ],
+  }),
   notFoundComponent: NotFoundComponent,
   component: RootComponent,
 });
 
 function RootComponent() {
   return (
-    <ThemeProvider>
-      <ServiceWorkerProvider />
-      <Head />
-      <Header
-        longText={insightsConfig.header.longText}
-        shortText={insightsConfig.header.shortText}
-      />
+    <html lang="en">
+      <head>
+        <HeadContent />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;700&display=swap"
+          media="print"
+          // @ts-expect-error onLoad is valid on link elements
+          onLoad="this.media='all'"
+        />
+      </head>
+      <body>
+        <ThemeProvider>
+          <Header
+            longText={insightsConfig.header.longText}
+            shortText={insightsConfig.header.shortText}
+          />
 
-      <main>
-        <Container className="mb-20">
-          <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-            <CompactNavigation />
-            <GlobalPeriodSelector />
-          </div>
-          <div>
-            <Outlet />
-          </div>
-        </Container>
-      </main>
+          <main>
+            <Container className="mb-20">
+              <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+                <CompactNavigation />
+                <GlobalPeriodSelector />
+              </div>
+              <div>
+                <Outlet />
+              </div>
+            </Container>
+          </main>
 
-      <Footer />
-      <Analytics />
-    </ThemeProvider>
+          <Footer />
+          <Analytics />
+        </ThemeProvider>
+        <Scripts />
+      </body>
+    </html>
   );
 }
