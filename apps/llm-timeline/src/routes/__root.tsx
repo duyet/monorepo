@@ -2,9 +2,15 @@ import "@duyet/components/styles.css";
 import "../globals.css";
 import "../animations.css";
 
+import Analytics from "@duyet/components/Analytics";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { cn } from "@duyet/libs/utils";
-import { createRootRoute, Outlet } from "@tanstack/react-router";
+import {
+  createRootRoute,
+  HeadContent,
+  Outlet,
+  Scripts,
+} from "@tanstack/react-router";
 
 function NotFoundComponent() {
   return (
@@ -41,18 +47,82 @@ function NotFoundComponent() {
 }
 
 export const Route = createRootRoute({
-  component: () => (
-    <ThemeProvider>
-      <div
-        className={cn(
-          "text-neutral-900 dark:text-neutral-100",
-          "subpixel-antialiased",
-          "transition-colors duration-300"
-        )}
-      >
-        <Outlet />
-      </div>
-    </ThemeProvider>
-  ),
+  head: () => ({
+    meta: [
+      { charSet: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1.0" },
+      { name: "robots", content: "follow, index" },
+      {
+        name: "theme-color",
+        content: "#fbf7f0",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        name: "theme-color",
+        content: "#1f1f1f",
+        media: "(prefers-color-scheme: dark)",
+      },
+      { title: "LLM Timeline | llm-timeline.duyet.net" },
+      {
+        name: "description",
+        content:
+          "Interactive timeline of Large Language Model releases from 2017 to present.",
+      },
+    ],
+    links: [
+      { rel: "icon", href: "/favicon.svg", sizes: "any" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "preload",
+        as: "style",
+        href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:wght@400&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
+      },
+      {
+        rel: "alternate",
+        type: "application/rss+xml",
+        href: "/rss.xml",
+        title: "LLM Timeline - RSS Feed",
+      },
+    ],
+  }),
   notFoundComponent: NotFoundComponent,
+  component: RootComponent,
 });
+
+function RootComponent() {
+  return (
+    <html lang="en">
+      <head>
+        <HeadContent />
+        {/* Non-blocking Google Fonts: preloaded above, applied here */}
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:wght@400&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+          media="print"
+          // @ts-expect-error onLoad is valid on link elements
+          onLoad="this.media='all'"
+        />
+      </head>
+      <body>
+        <ThemeProvider>
+          <div
+            className={cn(
+              "text-neutral-900 dark:text-neutral-100",
+              "subpixel-antialiased",
+              "transition-colors duration-300"
+            )}
+          >
+            <Outlet />
+          </div>
+        </ThemeProvider>
+        <Analytics />
+        <Scripts />
+      </body>
+    </html>
+  );
+}

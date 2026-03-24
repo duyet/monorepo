@@ -1,19 +1,23 @@
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import tailwindcss from "@tailwindcss/vite";
-import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
-import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
+  server: { port: 3005 },
   plugins: [
-    TanStackRouterVite({
-      routesDirectory: "./src/routes",
-      generatedRouteTree: "./src/routeTree.gen.ts",
+    tanstackStart({
+      router: {
+        routesDirectory: "./routes",
+        generatedRouteTree: "./routeTree.gen.ts",
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: true,
+        failOnError: false,
+      },
     }),
-    react(),
     tailwindcss(),
     tsconfigPaths(),
   ],
-  server: { port: 3005 },
-  build: { outDir: "dist" },
 });

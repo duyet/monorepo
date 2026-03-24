@@ -2,6 +2,9 @@
 
 @layer base {
   :root {
+    --font-sans: "DM Sans", system-ui, sans-serif;
+    --font-display: "DM Serif Display", Georgia, serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
     --radius: 0.5rem;
     --background: #fbf7f0;
     --foreground: #1f1f1f;
