@@ -1,5 +1,11 @@
-import { createRootRoute, Outlet } from "@tanstack/react-router";
 import "../styles.css";
+
+import {
+  createRootRoute,
+  HeadContent,
+  Outlet,
+  Scripts,
+} from "@tanstack/react-router";
 
 function NotFoundComponent() {
   return (
@@ -16,10 +22,34 @@ function NotFoundComponent() {
 }
 
 export const Route = createRootRoute({
+  head: () => ({
+    meta: [
+      { charSet: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1.0" },
+      { name: "robots", content: "follow, index" },
+      { title: "AI Code Usage | duyet.net" },
+      {
+        name: "description",
+        content:
+          "Percentage of code written by AI across all repositories, detected via co-author signatures and email patterns.",
+      },
+    ],
+    links: [{ rel: "icon", href: "/favicon.ico" }],
+  }),
   notFoundComponent: NotFoundComponent,
   component: RootComponent,
 });
 
 function RootComponent() {
-  return <Outlet />;
+  return (
+    <html lang="en">
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        <Outlet />
+        <Scripts />
+      </body>
+    </html>
+  );
 }
