@@ -16,7 +16,7 @@ function OrgIndexPage() {
             key={org}
             to="/org/$slug"
             params={{ slug: slugify(org) }}
-            className="rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] px-4 py-3 text-sm font-medium text-neutral-900 dark:text-neutral-100 transition-all hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2"
+            className="rounded-xl border border-border bg-card px-4 py-3 text-sm font-medium text-foreground transition-all hover:border-foreground/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             {org}
           </Link>

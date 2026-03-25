@@ -23,9 +23,8 @@ export function VirtualOrgTimeline({
   liteMode,
 }: VirtualOrgTimelineProps) {
   const parentRef = useRef<HTMLDivElement>(null);
-  const [scrollMargin, setScrollMargin] = useState(200); // Default offset
+  const [scrollMargin, setScrollMargin] = useState(200);
 
-  // Calculate offset from top of page when container mounts
   useEffect(() => {
     if (parentRef.current) {
       const rect = parentRef.current.getBoundingClientRect();
@@ -36,7 +35,6 @@ export function VirtualOrgTimeline({
 
   const sortedOrgs = Array.from(modelsByOrg.keys());
 
-  // Flatten grouped data into a list of virtual items
   const virtualItems = useMemo(() => {
     const items: VirtualItem[] = [];
     sortedOrgs.forEach((org) => {
@@ -60,8 +58,8 @@ export function VirtualOrgTimeline({
 
   if (virtualItems.length === 0) {
     return (
-      <div className="rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] p-8 text-center">
-        <p className="text-neutral-500 dark:text-neutral-400">
+      <div className="rounded-xl border border-border bg-card p-8 text-center">
+        <p className="text-muted-foreground">
           No models found matching your filters.
         </p>
       </div>
@@ -70,13 +68,13 @@ export function VirtualOrgTimeline({
 
   const rowVirtualizer = useWindowVirtualizer({
     count: virtualItems.length,
-    scrollMargin: scrollMargin, // Offset from top of page
+    scrollMargin,
     estimateSize: (index) => {
       const item = virtualItems[index];
-      if (item.type === "group") return 100; // Org header height (includes avatar)
-      return liteMode ? 100 : 180; // Model card height
+      if (item.type === "group") return 80;
+      return liteMode ? 56 : 280;
     },
-    overscan: 5,
+    overscan: 8,
   });
 
   return (
@@ -101,13 +99,14 @@ export function VirtualOrgTimeline({
             return (
               <div
                 key={virtualRow.key}
+                data-index={virtualRow.index}
+                ref={rowVirtualizer.measureElement}
                 style={{
                   position: "absolute",
                   top: 0,
                   left: 0,
                   width: "100%",
-                  height: `${virtualRow.size}px`,
-                  transform: `translateY(${virtualRow.start}px)`,
+                  transform: `translateY(${virtualRow.start - rowVirtualizer.options.scrollMargin}px)`,
                   padding: "0 1rem",
                 }}
               >
@@ -115,19 +114,19 @@ export function VirtualOrgTimeline({
                 <div className="mb-6 flex items-center gap-4 overflow-hidden">
                   <div className="shrink-0 overflow-hidden">
                     <span
-                      className="select-none text-3xl font-bold leading-none block font-[family-name:var(--font-mono)] whitespace-nowrap text-neutral-200 dark:text-neutral-700"
+                      className="select-none text-3xl font-bold leading-none block font-[family-name:var(--font-mono)] whitespace-nowrap text-foreground/10"
                       aria-hidden="true"
                     >
                       {groupItem.org}
                     </span>
                   </div>
-                  <div className="h-px flex-1 min-w-0 shrink bg-gradient-to-r from-neutral-200 dark:from-white/10 to-transparent" />
+                  <div className="h-px flex-1 min-w-0 shrink bg-gradient-to-r from-border to-transparent" />
                   <div className="flex shrink-0 items-center gap-2">
                     <OrgAvatar org={groupItem.org!} size="sm" />
-                    <span className="text-sm font-medium truncate max-w-[12rem] text-neutral-900 dark:text-neutral-100">
+                    <span className="text-sm font-medium truncate max-w-[12rem] text-foreground">
                       {groupItem.org}
                     </span>
-                    <span className="text-xs uppercase tracking-widest font-[family-name:var(--font-mono)] text-neutral-500 dark:text-neutral-400">
+                    <span className="text-xs uppercase tracking-widest font-[family-name:var(--font-mono)] text-muted-foreground">
                       {groupItem.modelCount} model
                       {groupItem.modelCount !== 1 ? "s" : ""}
                     </span>
@@ -137,17 +136,18 @@ export function VirtualOrgTimeline({
             );
           }
 
-          // Model card
           const modelItem = item as VirtualItem & { type: "model" };
           return (
             <div
               key={virtualRow.key}
+              data-index={virtualRow.index}
+              ref={rowVirtualizer.measureElement}
               style={{
                 position: "absolute",
                 top: 0,
                 left: 0,
                 width: "100%",
-                transform: `translateY(${virtualRow.start}px)`,
+                transform: `translateY(${virtualRow.start - rowVirtualizer.options.scrollMargin}px)`,
                 paddingLeft: "1rem",
                 paddingRight: "1rem",
               }}

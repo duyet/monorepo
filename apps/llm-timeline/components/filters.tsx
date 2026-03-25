@@ -10,6 +10,7 @@ import {
 import { useCallback, useState } from "react";
 import { models as allModels, domains, organizations } from "@/lib/data";
 import type { FilterState } from "@/lib/utils";
+import { Button } from "./ui/button";
 import { SearchAutocomplete } from "./SearchAutocomplete";
 
 // Compute unique sources for filter dropdown
@@ -67,7 +68,7 @@ export function Filters({
   const hasActiveFilters = !!filters.search || activeFilterCount > 0;
 
   const selectClassName =
-    "h-9 rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-900 dark:text-neutral-100 px-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-400/50 dark:focus:ring-neutral-500/50 appearance-none cursor-pointer transition-all hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm";
+    "h-9 rounded-lg border border-border bg-card text-foreground px-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring/50 appearance-none cursor-pointer transition-all hover:border-foreground/20";
 
   return (
     <div className="mb-6 animate-fade-in animate-fade-in-delay-2">
@@ -88,14 +89,14 @@ export function Filters({
           className={cn(
             "flex h-[42px] items-center gap-2 rounded-lg border px-4 text-sm font-medium transition-all",
             filtersExpanded || activeFilterCount > 0
-              ? "border-neutral-300 dark:border-white/20 bg-neutral-100 dark:bg-white/10 text-neutral-700 dark:text-neutral-300"
-              : "border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-500 dark:text-neutral-400 hover:border-neutral-300 dark:hover:border-white/20"
+              ? "border-foreground/20 bg-accent text-foreground"
+              : "border-border bg-card text-muted-foreground hover:border-foreground/20"
           )}
         >
           <Filter className="h-4 w-4" />
           <span className="hidden sm:inline">Filters</span>
           {activeFilterCount > 0 && (
-            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-neutral-900 dark:bg-neutral-100 px-1.5 text-[10px] font-bold text-white dark:text-black">
+            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-foreground px-1.5 text-[10px] font-bold text-background">
               {activeFilterCount}
             </span>
           )}
@@ -109,14 +110,11 @@ export function Filters({
 
         {/* View toggle */}
         {onLiteModeToggle && (
-          <button
+          <Button
+            variant={liteMode ? "default" : "outline"}
+            size="icon"
             onClick={onLiteModeToggle}
-            className={cn(
-              "h-[42px] rounded-lg border px-3 transition-all",
-              liteMode
-                ? "border-neutral-300 dark:border-white/20 bg-neutral-100 dark:bg-white/10 text-neutral-700 dark:text-neutral-300"
-                : "border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-500 dark:text-neutral-400 hover:border-neutral-300 dark:hover:border-white/20"
-            )}
+            className="h-[42px] w-[42px]"
             title={liteMode ? "Switch to full view" : "Switch to compact view"}
             aria-label={
               liteMode ? "Switch to full view" : "Switch to compact view"
@@ -127,13 +125,13 @@ export function Filters({
             ) : (
               <Rows2 className="h-4 w-4" />
             )}
-          </button>
+          </Button>
         )}
       </div>
 
       {/* Expandable Filters */}
       {filtersExpanded && (
-        <div className="mt-3 rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] p-4 animate-fade-in-fast">
+        <div className="mt-3 rounded-xl border border-border bg-card p-4 animate-fade-in-fast">
           <div className="flex flex-wrap items-center gap-2.5">
             <select
               value={filters.license}
@@ -220,7 +218,7 @@ export function Filters({
             {hasActiveFilters && (
               <button
                 onClick={onClearFilters || clearFilters}
-                className="flex h-9 items-center gap-1.5 rounded-lg px-3 text-sm text-neutral-500 dark:text-neutral-400 transition-colors hover:text-neutral-700 dark:hover:text-neutral-300"
+                className="flex h-9 items-center gap-1.5 rounded-lg px-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
                 aria-label="Clear all filters"
               >
                 <X className="h-3.5 w-3.5" />
@@ -233,13 +231,13 @@ export function Filters({
 
       {/* Result count + download */}
       <div className="mt-3 flex items-center justify-between">
-        <span className="text-sm font-[family-name:var(--font-mono)] text-neutral-400 dark:text-neutral-500">
+        <span className="text-sm font-[family-name:var(--font-mono)] text-muted-foreground">
           {resultCount.toLocaleString()} result{resultCount !== 1 ? "s" : ""}
         </span>
         <a
           href="/data.json"
           download="llm-timeline-data.json"
-          className="flex items-center gap-1.5 text-xs text-neutral-400 dark:text-neutral-500 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
+          className="flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
           title="Download all model data as JSON"
         >
           <Download className="h-3 w-3" />

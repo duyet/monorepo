@@ -28,9 +28,8 @@ export function VirtualTimeline({
   onToggleSelection,
 }: VirtualTimelineProps) {
   const parentRef = useRef<HTMLDivElement>(null);
-  const [scrollMargin, setScrollMargin] = useState(200); // Default offset
+  const [scrollMargin, setScrollMargin] = useState(200);
 
-  // Calculate offset from top of page when container mounts or filter state changes
   useEffect(() => {
     if (parentRef.current) {
       const rect = parentRef.current.getBoundingClientRect();
@@ -39,13 +38,11 @@ export function VirtualTimeline({
     }
   }, [modelsByYear]);
 
-  // Sort years descending (newest first)
   const sortedYears = useMemo(
     () => Array.from(modelsByYear.keys()).sort((a, b) => b - a),
     [modelsByYear]
   );
 
-  // Flatten grouped data into a list of virtual items
   const virtualItems = useMemo<VirtualItem[]>(() => {
     const items: VirtualItem[] = [];
     sortedYears.forEach((year) => {
@@ -70,8 +67,8 @@ export function VirtualTimeline({
 
   if (virtualItems.length === 0) {
     return (
-      <div className="rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] p-8 text-center">
-        <p className="text-neutral-500 dark:text-neutral-400">
+      <div className="rounded-xl border border-border bg-card p-8 text-center">
+        <p className="text-muted-foreground">
           No models found matching your filters.
         </p>
       </div>
@@ -80,13 +77,13 @@ export function VirtualTimeline({
 
   const rowVirtualizer = useWindowVirtualizer({
     count: virtualItems.length,
-    scrollMargin: scrollMargin, // Offset from top of page
+    scrollMargin,
     estimateSize: (index) => {
       const item = virtualItems[index];
-      if (item.type === "group") return 80; // Year header height
-      return liteMode ? 100 : 180; // Model card height
+      if (item.type === "group") return 80;
+      return liteMode ? 56 : 280;
     },
-    overscan: 5,
+    overscan: 8,
   });
 
   return (
@@ -111,45 +108,47 @@ export function VirtualTimeline({
             return (
               <div
                 key={virtualRow.key}
+                data-index={virtualRow.index}
+                ref={rowVirtualizer.measureElement}
                 style={{
                   position: "absolute",
                   top: 0,
                   left: 0,
                   width: "100%",
-                  height: `${virtualRow.size}px`,
-                  transform: `translateY(${virtualRow.start}px)`,
+                  transform: `translateY(${virtualRow.start - rowVirtualizer.options.scrollMargin}px)`,
                   padding: "0 1rem",
                 }}
               >
                 {/* Year Header */}
-                <div className="mb-8">
+                <div className="mb-6">
                   <div className="flex items-end gap-4">
                     <span
-                      className="select-none text-6xl sm:text-7xl font-bold leading-none text-neutral-200 dark:text-neutral-700 font-[family-name:var(--font-display)]"
+                      className="select-none text-5xl sm:text-6xl font-bold leading-none text-foreground/10 font-[family-name:var(--font-display)]"
                       aria-hidden="true"
                     >
                       {groupItem.year}
                     </span>
-                    <div className="mb-2">
-                      <span className="text-xs font-medium text-neutral-400 dark:text-neutral-500 uppercase tracking-wider font-[family-name:var(--font-mono)]">
+                    <div className="mb-1.5">
+                      <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider font-[family-name:var(--font-mono)]">
                         {groupItem.modelCount} model
                         {groupItem.modelCount !== 1 ? "s" : ""}
                       </span>
                     </div>
                   </div>
-                  <div className="mt-2 h-px bg-gradient-to-r from-neutral-200 dark:from-white/10 to-transparent" />
+                  <div className="mt-1 h-px bg-gradient-to-r from-border to-transparent" />
                 </div>
               </div>
             );
           }
 
-          // Model card
           const modelItem = item as VirtualItem & { type: "model" };
           const isSelected =
             selectedModelNames?.has(modelItem.model!.name) ?? false;
           return (
             <div
               key={virtualRow.key}
+              data-index={virtualRow.index}
+              ref={rowVirtualizer.measureElement}
               onClick={() => {
                 if (comparisonMode) {
                   onToggleSelection?.(modelItem.model!);
@@ -160,7 +159,7 @@ export function VirtualTimeline({
                 top: 0,
                 left: 0,
                 width: "100%",
-                transform: `translateY(${virtualRow.start}px)`,
+                transform: `translateY(${virtualRow.start - rowVirtualizer.options.scrollMargin}px)`,
                 paddingLeft: "1rem",
                 paddingRight: "1rem",
               }}

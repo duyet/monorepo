@@ -7,12 +7,14 @@ import {
 import { Download, Plus, Search, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { PageLayout } from "@/components/page-layout";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import type { Model } from "@/lib/data";
 import { models } from "@/lib/data";
 import {
   formatDate,
   getLicenseBarColor,
-  getLicenseColor,
+  getLicenseBadgeVariant,
   slugify,
 } from "@/lib/utils";
 
@@ -148,7 +150,7 @@ function ComparePage() {
     <PageLayout description="Compare LLM models side-by-side">
       <div className="space-y-6">
         <div>
-          <h2 className="text-xl font-semibold mb-4 text-neutral-900 dark:text-neutral-100">
+          <h2 className="text-xl font-semibold mb-4 text-foreground">
             Model Comparison
           </h2>
 
@@ -156,12 +158,12 @@ function ComparePage() {
             {sortedModels.map((model) => (
               <div
                 key={model.name}
-                className="flex items-center gap-2 px-3 py-2 rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-900 dark:text-neutral-100"
+                className="flex items-center gap-2 px-3 py-2 rounded-xl border border-border bg-card text-foreground"
               >
                 <span className="font-medium">{model.name}</span>
                 <button
                   onClick={() => removeModel(model.name)}
-                  className="p-1 rounded hover:bg-neutral-200 dark:hover:bg-neutral-700"
+                  className="p-1 rounded text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
                   aria-label={`Remove ${model.name}`}
                 >
                   <X className="h-4 w-4" />
@@ -171,7 +173,7 @@ function ComparePage() {
             {selectedModels.length < MAX_COMPARE && (
               <button
                 onClick={() => setShowSelector(!showSelector)}
-                className="flex items-center gap-2 px-3 py-2 rounded-xl border border-dashed border-neutral-200 dark:border-white/10 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors text-neutral-500 dark:text-neutral-400"
+                className="flex items-center gap-2 px-3 py-2 rounded-xl border border-dashed border-border hover:bg-accent transition-colors text-muted-foreground"
               >
                 <Plus className="h-4 w-4" />
                 <span>
@@ -184,26 +186,27 @@ function ComparePage() {
           </div>
 
           {showSelector && (
-            <div className="mb-4 p-4 rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111]">
+            <div className="mb-4 p-4 rounded-xl border border-border bg-card">
               <div className="flex items-center gap-2 mb-3">
-                <Search className="h-4 w-4 text-neutral-500 dark:text-neutral-400" />
+                <Search className="h-4 w-4 text-muted-foreground" />
                 <input
                   type="text"
                   placeholder="Search models by name or organization..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="flex-1 px-3 py-2 rounded-md border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-900 dark:text-neutral-100"
+                  className="flex-1 px-3 py-2 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground"
                 />
-                <button
+                <Button
+                  variant="outline"
+                  size="sm"
                   onClick={() => setShowSelector(false)}
-                  className="px-3 py-2 rounded-md border border-neutral-200 dark:border-white/10 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
                 >
                   Cancel
-                </button>
+                </Button>
               </div>
-              <div className="max-h-64 overflow-y-auto space-y-1">
+              <div className="max-h-64 overflow-y-auto space-y-0.5">
                 {availableModels.length === 0 ? (
-                  <p className="text-center py-4 text-neutral-500 dark:text-neutral-400">
+                  <p className="text-center py-4 text-muted-foreground">
                     No matching models found
                   </p>
                 ) : (
@@ -211,16 +214,16 @@ function ComparePage() {
                     <button
                       key={model.name}
                       onClick={() => addModel(model)}
-                      className="w-full text-left px-3 py-2 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors flex items-center justify-between text-neutral-900 dark:text-neutral-100"
+                      className="w-full text-left px-3 py-2 rounded-lg hover:bg-accent transition-colors flex items-center justify-between text-foreground"
                     >
                       <div className="flex-1 min-w-0">
                         <div className="font-medium truncate">{model.name}</div>
-                        <div className="text-sm truncate text-neutral-500 dark:text-neutral-400">
+                        <div className="text-sm truncate text-muted-foreground">
                           {model.org}
                           {model.params && ` · ${model.params}`}
                         </div>
                       </div>
-                      <Plus className="h-4 w-4 flex-shrink-0 ml-2" />
+                      <Plus className="h-4 w-4 flex-shrink-0 ml-2 text-muted-foreground" />
                     </button>
                   ))
                 )}
@@ -231,17 +234,17 @@ function ComparePage() {
 
         {sortedModels.length > 0 ? (
           <div className="space-y-6">
-            <div className="rounded-xl border border-neutral-200 dark:border-white/10 overflow-x-auto">
+            <div className="rounded-xl border border-border overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5">
-                    <th className="px-4 py-3 text-left font-semibold w-32">
+                  <tr className="border-b border-border bg-muted/50">
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground w-32">
                       Metric
                     </th>
                     {sortedModels.map((model) => (
                       <th
                         key={model.name}
-                        className="px-4 py-3 text-left font-semibold"
+                        className="px-4 py-3 text-left font-semibold text-foreground"
                       >
                         {model.name}
                       </th>
@@ -249,66 +252,64 @@ function ComparePage() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="border-b border-neutral-200 dark:border-white/10">
-                    <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
+                  <tr className="border-b border-border">
+                    <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
                       Organization
                     </td>
                     {sortedModels.map((model) => (
-                      <td key={model.name} className="px-4 py-3">
+                      <td key={model.name} className="px-4 py-3 text-foreground">
                         {model.org}
                       </td>
                     ))}
                   </tr>
-                  <tr className="border-b border-neutral-200 dark:border-white/10">
-                    <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
+                  <tr className="border-b border-border">
+                    <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
                       Release Date
                     </td>
                     {sortedModels.map((model) => (
-                      <td key={model.name} className="px-4 py-3">
+                      <td key={model.name} className="px-4 py-3 font-[family-name:var(--font-mono)] text-sm text-foreground">
                         {formatDate(model.date)}
                       </td>
                     ))}
                   </tr>
-                  <tr className="border-b border-neutral-200 dark:border-white/10">
-                    <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
+                  <tr className="border-b border-border">
+                    <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
                       Parameters
                     </td>
                     {sortedModels.map((model) => (
-                      <td key={model.name} className="px-4 py-3">
+                      <td key={model.name} className="px-4 py-3 font-[family-name:var(--font-mono)] text-sm text-foreground">
                         {model.params || "Unknown"}
                       </td>
                     ))}
                   </tr>
-                  <tr className="border-b border-neutral-200 dark:border-white/10">
-                    <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
+                  <tr className="border-b border-border">
+                    <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
                       License
                     </td>
                     {sortedModels.map((model) => (
                       <td key={model.name} className="px-4 py-3">
-                        <span
-                          className={`px-2 py-1 rounded-md text-xs font-medium border ${getLicenseColor(model.license)}`}
-                        >
+                        <Badge variant={getLicenseBadgeVariant(model.license)}>
                           {model.license}
-                        </span>
+                        </Badge>
                       </td>
                     ))}
                   </tr>
-                  <tr className="border-b border-neutral-200 dark:border-white/10">
-                    <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
+                  <tr className="border-b border-border">
+                    <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
                       Type
                     </td>
                     {sortedModels.map((model) => (
-                      <td key={model.name} className="px-4 py-3 capitalize">
+                      <td key={model.name} className="px-4 py-3 capitalize text-foreground">
                         {model.type}
                       </td>
                     ))}
                   </tr>
                   <tr>
-                    <td className="px-4 py-3 font-medium align-top text-neutral-500 dark:text-neutral-400">
+                    <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground align-top">
                       Description
                     </td>
                     {sortedModels.map((model) => (
-                      <td key={model.name} className="px-4 py-3 text-sm">
+                      <td key={model.name} className="px-4 py-3 text-sm text-foreground">
                         {model.desc}
                       </td>
                     ))}
@@ -319,7 +320,7 @@ function ComparePage() {
 
             {sortedModels.some((m) => m.params) && (
               <div>
-                <h3 className="text-lg font-semibold mb-4 text-neutral-900 dark:text-neutral-100">
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">
                   Parameter Count Comparison
                 </h3>
                 <div className="space-y-3">
@@ -330,16 +331,16 @@ function ComparePage() {
                     return (
                       <div key={model.name}>
                         <div className="flex justify-between text-sm mb-1">
-                          <span className="font-medium text-neutral-900 dark:text-neutral-100">
+                          <span className="font-medium text-foreground">
                             {model.name}
                           </span>
-                          <span className="text-neutral-500 dark:text-neutral-400">
+                          <span className="font-[family-name:var(--font-mono)] text-muted-foreground">
                             {model.params}
                           </span>
                         </div>
-                        <div className="h-8 rounded-md overflow-hidden relative bg-neutral-200 dark:bg-white/10">
+                        <div className="h-7 rounded-lg overflow-hidden relative bg-muted">
                           <div
-                            className="h-full rounded-md transition-all duration-500"
+                            className="h-full rounded-lg transition-all duration-500"
                             style={{
                               width: `${percentage}%`,
                               backgroundColor: getLicenseBarColor(
@@ -352,7 +353,7 @@ function ComparePage() {
                     );
                   })}
                 </div>
-                <p className="text-xs mt-3 text-neutral-500 dark:text-neutral-400">
+                <p className="text-xs mt-3 text-muted-foreground">
                   * Models with unknown parameter counts are excluded from the
                   chart
                 </p>
@@ -361,37 +362,39 @@ function ComparePage() {
 
             {hasComparison && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-4 rounded-xl border border-neutral-200 dark:border-white/10">
-                  <p className="text-sm mb-2 text-neutral-500 dark:text-neutral-400">
+                <div className="p-4 rounded-xl border border-border bg-card">
+                  <p className="text-sm mb-2 text-muted-foreground">
                     Share this comparison:
                   </p>
-                  <code className="text-sm px-2 py-1 rounded bg-neutral-50 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-900 dark:text-neutral-100">
+                  <code className="text-sm px-2 py-1 rounded bg-muted border border-border text-foreground">
                     {typeof window !== "undefined"
                       ? window.location.href
                       : "/compare"}
                   </code>
                 </div>
-                <div className="p-4 rounded-xl border border-neutral-200 dark:border-white/10">
-                  <p className="text-sm mb-2 text-neutral-500 dark:text-neutral-400">
+                <div className="p-4 rounded-xl border border-border bg-card">
+                  <p className="text-sm mb-2 text-muted-foreground">
                     Export comparison data:
                   </p>
-                  <button
+                  <Button
+                    variant="outline"
+                    size="sm"
                     onClick={exportToCSV}
-                    className="flex items-center gap-2 rounded-md border border-neutral-200 bg-neutral-50 px-2 py-0.5 text-xs dark:border-white/10 dark:bg-white/5 text-neutral-900 dark:text-neutral-100 transition-all hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2"
+                    className="gap-2"
                   >
                     <Download className="h-4 w-4" />
-                    <span>Download CSV</span>
-                  </button>
+                    Download CSV
+                  </Button>
                 </div>
               </div>
             )}
           </div>
         ) : (
-          <div className="text-center py-12 rounded-xl border border-neutral-200 dark:border-white/10">
-            <p className="text-lg mb-2 text-neutral-500 dark:text-neutral-400">
+          <div className="text-center py-12 rounded-xl border border-border bg-card">
+            <p className="text-lg mb-2 text-muted-foreground">
               Select 2-4 models to compare
             </p>
-            <p className="text-sm text-neutral-500 dark:text-neutral-400">
+            <p className="text-sm text-muted-foreground">
               Click the "Add models" button above to get started
             </p>
           </div>

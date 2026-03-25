@@ -61,11 +61,11 @@ export function Timeline({
 
   if (sortedYears.length === 0) {
     return (
-      <div className="rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] p-12 text-center">
-        <p className="text-lg font-medium text-neutral-400 dark:text-neutral-500">
+      <div className="rounded-xl border border-border bg-card p-12 text-center">
+        <p className="text-lg font-medium text-muted-foreground">
           No models found
         </p>
-        <p className="mt-1 text-sm text-neutral-400 dark:text-neutral-500">
+        <p className="mt-1 text-sm text-muted-foreground">
           Try adjusting your filters
         </p>
       </div>
@@ -74,7 +74,7 @@ export function Timeline({
 
   return (
     <div
-      className="space-y-10"
+      className="space-y-8"
       role="listbox"
       aria-label="Timeline of LLM models"
       tabIndex={focusedIndex >= 0 ? 0 : -1}
@@ -90,23 +90,23 @@ export function Timeline({
               containIntrinsicSize: "0 500px",
             }}
           >
-            {/* Year Header */}
-            <div className="mb-8">
-              <div className="flex items-end gap-4">
+            {/* Sticky Year Header */}
+            <div className="sticky top-0 z-20 -mx-1 px-1 pb-4 pt-2">
+              <div className="flex items-end gap-4 bg-background/95 backdrop-blur-sm rounded-xl px-3 py-2 -mx-3">
                 <span
-                  className="select-none text-6xl sm:text-7xl font-bold leading-none text-neutral-200 dark:text-neutral-700 font-[family-name:var(--font-display)]"
+                  className="select-none text-5xl sm:text-6xl font-bold leading-none text-foreground/10 font-[family-name:var(--font-display)]"
                   aria-hidden="true"
                 >
                   {year}
                 </span>
-                <div className="mb-2">
-                  <span className="text-xs font-medium text-neutral-400 dark:text-neutral-500 uppercase tracking-wider font-[family-name:var(--font-mono)]">
+                <div className="mb-1.5 flex items-center gap-2">
+                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider font-[family-name:var(--font-mono)]">
                     {yearModels.length} model
                     {yearModels.length !== 1 ? "s" : ""}
                   </span>
                 </div>
               </div>
-              <div className="mt-2 h-px bg-gradient-to-r from-neutral-200 dark:from-white/10 to-transparent" />
+              <div className="mt-1 h-px bg-gradient-to-r from-border to-transparent" />
             </div>
 
             {/* Models for this year */}
@@ -125,9 +125,9 @@ export function Timeline({
                         onFocusChange?.(globalIndex);
                       }
                     }}
-                    className={`transition-all rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2 ${
+                    className={`transition-all rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                       isFocused && !comparisonMode
-                        ? "ring-2 ring-neutral-400 dark:ring-neutral-500 ring-offset-2"
+                        ? "ring-2 ring-ring ring-offset-2"
                         : ""
                     }`}
                     role="option"

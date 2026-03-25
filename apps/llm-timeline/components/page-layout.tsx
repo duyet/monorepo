@@ -2,6 +2,7 @@ import { AuthButtons } from "@duyet/components/header/AuthButtons";
 import Icons from "@duyet/components/Icons";
 import { Link } from "@tanstack/react-router";
 import { Download, Lock, Scale } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { lastSynced } from "@/lib/data";
 
@@ -13,76 +14,80 @@ interface PageLayoutProps {
 
 export function PageLayout({ children, description }: PageLayoutProps) {
   return (
-    <div className="min-h-screen bg-[#fbf7f0] dark:bg-[#1f1f1f]">
-      <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 overflow-hidden">
+    <div className="min-h-screen bg-background">
+      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8 overflow-hidden">
         {/* Header */}
-        <header className="mb-6">
+        <header className="mb-5">
           <div className="flex items-start justify-between gap-4">
             <div className="animate-fade-in">
               {/* Subtitle row with status dot */}
-              <div className="mb-2 flex items-center gap-2 animate-fade-in">
-                <span className="flex h-2 w-2 rounded-full bg-emerald-500" />
-                <span className="text-xs font-mono tracking-wide uppercase text-neutral-500 dark:text-neutral-400">
+              <div className="mb-1.5 flex items-center gap-2 animate-fade-in">
+                <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                <span className="text-[11px] font-mono tracking-wide uppercase text-muted-foreground">
                   Interactive LLM Release History
                 </span>
               </div>
 
               <Link
                 to="/"
-                className="group inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2 rounded"
+                className="group inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded"
               >
-                <h1 className="text-3xl sm:text-5xl font-bold text-neutral-900 dark:text-neutral-100 tracking-tight transition-opacity group-hover:opacity-80 font-[family-name:var(--font-display)]">
+                <h1 className="text-3xl sm:text-4xl font-bold text-foreground tracking-tight transition-opacity group-hover:opacity-80 font-[family-name:var(--font-display)]">
                   LLM Timeline
                 </h1>
               </Link>
               {description && (
-                <p className="mt-3 text-base text-neutral-500 dark:text-neutral-400 max-w-xl animate-fade-in animate-fade-in-delay-1">
+                <p className="mt-2 text-sm text-muted-foreground max-w-xl animate-fade-in animate-fade-in-delay-1">
                   {description}
                 </p>
               )}
             </div>
-            <div className="flex items-center gap-1.5 animate-fade-in animate-fade-in-delay-2">
+            <div className="flex items-center gap-1 animate-fade-in animate-fade-in-delay-2">
               <ThemeToggle />
-              <Link
-                to="/compare"
-                search={{ models: "" }}
-                className="rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 text-neutral-600 dark:text-neutral-400 dark:border-white/10 dark:bg-white/5 transition-all hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm"
-                aria-label="Compare models"
-              >
-                <Scale className="h-4 w-4" />
-              </Link>
-              <a
-                href="https://github.com/duyet/monorepo"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 text-neutral-600 dark:text-neutral-400 dark:border-white/10 dark:bg-white/5 transition-all hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm"
-                aria-label="GitHub"
-              >
-                <Icons.Github className="h-4 w-4" />
-              </a>
+              <Button variant="icon" size="icon" asChild>
+                <Link
+                  to="/compare"
+                  search={{ models: "" }}
+                  aria-label="Compare models"
+                >
+                  <Scale className="h-4 w-4" />
+                </Link>
+              </Button>
+              <Button variant="icon" size="icon" asChild>
+                <a
+                  href="https://github.com/duyet/monorepo"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub"
+                >
+                  <Icons.Github className="h-4 w-4" />
+                </a>
+              </Button>
               <AuthButtons
                 className="rounded-lg p-2.5"
-                signInClassName="rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5 transition-all hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm"
+                signInClassName="rounded-lg border border-border bg-card p-2.5 transition-all hover:bg-accent"
                 signedInContent={
-                  <a
-                    href="/data.json"
-                    download="llm-timeline-data.json"
-                    className="rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 text-neutral-600 dark:text-neutral-400 dark:border-white/10 dark:bg-white/5 transition-all hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm"
-                    title="Download all model data as JSON"
-                    aria-label="Download data"
-                  >
-                    <Download className="h-4 w-4" />
-                  </a>
+                  <Button variant="icon" size="icon" asChild>
+                    <a
+                      href="/data.json"
+                      download="llm-timeline-data.json"
+                      title="Download all model data as JSON"
+                      aria-label="Download data"
+                    >
+                      <Download className="h-4 w-4" />
+                    </a>
+                  </Button>
                 }
                 signedOutContent={
-                  <button
+                  <Button
+                    variant="icon"
+                    size="icon"
                     disabled
-                    className="rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 text-neutral-600 dark:text-neutral-400 dark:border-white/10 dark:bg-white/5 opacity-50 cursor-not-allowed"
                     title="Sign in to download data"
                     aria-label="Download requires sign in"
                   >
                     <Lock className="h-4 w-4" />
-                  </button>
+                  </Button>
                 }
               />
             </div>
@@ -90,7 +95,7 @@ export function PageLayout({ children, description }: PageLayoutProps) {
         </header>
 
         {/* Gradient separator */}
-        <div className="mb-8 h-px bg-gradient-to-r from-transparent via-neutral-200 dark:via-white/10 to-transparent animate-fade-in animate-fade-in-delay-2" />
+        <div className="mb-5 h-px bg-gradient-to-r from-transparent via-border to-transparent animate-fade-in animate-fade-in-delay-2" />
 
         {/* Content */}
         <div className="animate-fade-in animate-fade-in-delay-3">
@@ -98,13 +103,13 @@ export function PageLayout({ children, description }: PageLayoutProps) {
         </div>
 
         {/* Footer */}
-        <footer className="mt-16 border-t border-neutral-200 dark:border-white/10 pt-8 pb-8">
-          <div className="flex flex-wrap items-center justify-between gap-4 text-sm text-neutral-500 dark:text-neutral-400">
+        <footer className="mt-16 border-t border-border pt-8 pb-8">
+          <div className="flex flex-wrap items-center justify-between gap-4 text-sm text-muted-foreground">
             <p>
               Built by{" "}
               <a
                 href="https://duyet.net"
-                className="font-medium text-neutral-900 dark:text-neutral-100 underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-all hover:text-neutral-700 dark:hover:text-white"
+                className="font-medium text-foreground underline decoration-border underline-offset-2 transition-all hover:decoration-foreground/40"
               >
                 duyet
               </a>
@@ -113,69 +118,40 @@ export function PageLayout({ children, description }: PageLayoutProps) {
               Updated {lastSynced}
             </p>
           </div>
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-neutral-400 dark:text-neutral-500">
-            <span className="text-neutral-300 dark:text-neutral-600">
-              Data sources:
-            </span>
-            <a
-              href="https://huggingface.co/models"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
-            >
-              Hugging Face
-            </a>
-            <span>·</span>
-            <a
-              href="https://paperswithcode.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
-            >
-              PapersWithCode
-            </a>
-            <span>·</span>
-            <a
-              href="https://en.wikipedia.org/wiki/Large_language_model"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
-            >
-              Wikipedia
-            </a>
-            <span>·</span>
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
-            >
-              GitHub
-            </a>
-            <span>·</span>
-            <a
-              href="https://epoch.ai/data"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
-            >
-              Epoch AI
-            </a>
-            <span>·</span>
-            <span className="text-neutral-400 dark:text-neutral-500">
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-muted-foreground/70">
+            <span className="text-muted-foreground/50">Data sources:</span>
+            {[
+              ["https://huggingface.co/models", "Hugging Face"],
+              ["https://paperswithcode.com", "PapersWithCode"],
+              [
+                "https://en.wikipedia.org/wiki/Large_language_model",
+                "Wikipedia",
+              ],
+              ["https://github.com", "GitHub"],
+              ["https://epoch.ai/data", "Epoch AI"],
+            ].map(([href, label]) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-border underline-offset-2 transition-colors hover:text-muted-foreground"
+              >
+                {label}
+              </a>
+            ))}
+            <span className="text-muted-foreground/50">
               Official announcements
             </span>
-            <span>·</span>
             <a
               href="/llms.txt"
-              className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
+              className="underline decoration-border underline-offset-2 transition-colors hover:text-muted-foreground"
             >
               llms.txt
             </a>
-            <span>·</span>
             <a
               href="/rss.xml"
-              className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
+              className="underline decoration-border underline-offset-2 transition-colors hover:text-muted-foreground"
             >
               RSS
             </a>

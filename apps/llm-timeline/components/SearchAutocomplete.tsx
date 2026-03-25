@@ -1,3 +1,5 @@
+import { cn } from "@duyet/libs/utils";
+import { Search } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { models, organizations } from "@/lib/data";
 
@@ -61,7 +63,6 @@ export function SearchAutocomplete({
         if (matches.length >= MAX_SUGGESTIONS) break;
         const orgName = org.toLowerCase();
 
-        // Only add org if not already matched via model search
         if (
           orgName.includes(q) &&
           !matches.some((m) => m.type === "org" && m.name === org)
@@ -74,7 +75,6 @@ export function SearchAutocomplete({
       }
     }
 
-    // Prioritize model matches, then org matches
     matches.sort((a, b) => {
       if (a.type !== b.type) return a.type === "model" ? -1 : 1;
       return a.name.localeCompare(b.name);
@@ -161,10 +161,7 @@ export function SearchAutocomplete({
 
     return parts.map((part, i) =>
       part.toLowerCase().includes(query.toLowerCase()) ? (
-        <strong
-          key={i}
-          className="font-semibold text-neutral-900 dark:text-neutral-100"
-        >
+        <strong key={i} className="font-semibold text-foreground">
           {part}
         </strong>
       ) : (
@@ -173,25 +170,11 @@ export function SearchAutocomplete({
     );
   };
 
-  const getSuggestionIcon = (suggestion: Suggestion) => {
-    if (suggestion.type === "model") {
-      return (
-        <span className="inline-flex items-center gap-1.5 text-xs text-neutral-500 dark:text-neutral-400">
-          <span className="w-2 h-2 rounded-full bg-neutral-300 dark:bg-neutral-600" />
-          Model
-        </span>
-      );
-    }
-    return (
-      <span className="inline-flex items-center gap-1.5 text-xs text-neutral-500 dark:text-neutral-400">
-        <span className="w-2 h-2 rounded-full bg-neutral-500 dark:bg-neutral-400" />
-        Organization
-      </span>
-    );
-  };
-
   return (
     <div className="relative">
+      {/* Search Icon */}
+      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 pointer-events-none text-muted-foreground" />
+
       <input
         ref={inputRef}
         type="text"
@@ -204,7 +187,13 @@ export function SearchAutocomplete({
             setShowSuggestions(true);
           }
         }}
-        className={`w-full h-[42px] rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] text-neutral-900 dark:text-neutral-100 py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-1 focus:ring-neutral-400 dark:focus:ring-neutral-500 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 ${inputClassName || ""}`}
+        className={cn(
+          "flex h-10 w-full rounded-xl border border-border bg-card text-foreground",
+          "pl-9 pr-4 text-sm ring-offset-background",
+          "placeholder:text-muted-foreground",
+          "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+          inputClassName
+        )}
         autoComplete="off"
         role="combobox"
         aria-expanded={showSuggestions}
@@ -220,7 +209,7 @@ export function SearchAutocomplete({
         <div
           ref={dropdownRef}
           id="search-suggestions"
-          className="absolute z-10 mt-1 w-full rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] shadow-lg max-h-64 overflow-y-auto"
+          className="absolute z-30 mt-1.5 w-full rounded-xl border border-border bg-card max-h-64 overflow-y-auto"
           role="listbox"
         >
           {suggestions.map((suggestion, index) => (
@@ -232,20 +221,34 @@ export function SearchAutocomplete({
               aria-selected={index === selectedIndex}
               onClick={() => handleSelect(suggestion)}
               onMouseEnter={() => setSelectedIndex(index)}
-              className={`mx-1 my-0.5 px-3 py-2 rounded-lg cursor-pointer text-sm flex items-center justify-between gap-3 ${
+              className={cn(
+                "mx-1 my-0.5 px-3 py-2 rounded-lg cursor-pointer text-sm flex items-center justify-between gap-3 transition-colors",
                 index === selectedIndex
-                  ? "bg-neutral-100 dark:bg-neutral-800"
-                  : "hover:bg-neutral-50 dark:hover:bg-neutral-800/50"
-              } transition-all`}
+                  ? "bg-accent text-accent-foreground"
+                  : "hover:bg-accent/50"
+              )}
             >
               <div className="flex items-center gap-2 min-w-0 flex-1">
-                {getSuggestionIcon(suggestion)}
-                <span className="truncate text-neutral-700 dark:text-neutral-300">
+                <span
+                  className={cn(
+                    "inline-flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground shrink-0",
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "w-1.5 h-1.5 rounded-full",
+                      suggestion.type === "model"
+                        ? "bg-muted-foreground/40"
+                        : "bg-muted-foreground"
+                    )}
+                  />
+                  {suggestion.type === "model" ? "Model" : "Org"}
+                </span>
+                <span className="truncate text-foreground">
                   {highlightMatch(suggestion.name, value)}
                 </span>
                 {suggestion.org && (
-                  <span className="text-neutral-500 dark:text-neutral-400">
-                    {" "}
+                  <span className="text-muted-foreground text-xs">
                     · {suggestion.org}
                   </span>
                 )}
@@ -254,23 +257,6 @@ export function SearchAutocomplete({
           ))}
         </div>
       )}
-
-      {/* Search Icon */}
-      <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-500 dark:text-neutral-400">
-        <svg
-          className="h-4 w-4"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
-        </svg>
-      </div>
     </div>
   );
 }

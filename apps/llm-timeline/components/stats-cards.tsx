@@ -1,12 +1,54 @@
 import { cn } from "@duyet/libs/utils";
 import { Link } from "@tanstack/react-router";
 import { Building2, Calendar, Database, Sparkles } from "lucide-react";
+import type { ReactNode } from "react";
 
 interface StatsCardsProps {
   models: number;
   organizations: number;
   activeView?: "models" | "organizations";
   sourceStats?: Record<string, number>;
+}
+
+function StatCard({
+  icon,
+  value,
+  label,
+  active,
+  as: Comp = "div",
+  ...props
+}: {
+  icon: ReactNode;
+  value: string;
+  label: string;
+  active?: boolean;
+  as?: "div" | typeof Link;
+} & Record<string, unknown>) {
+  return (
+    // @ts-expect-error -- polymorphic component
+    <Comp
+      className={cn(
+        "flex flex-col items-center gap-3 rounded-2xl px-4 py-5 transition-all",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        active
+          ? "bg-card border border-foreground/10"
+          : "bg-muted/50 hover:bg-muted/80"
+      )}
+      {...props}
+    >
+      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-background">
+        {icon}
+      </div>
+      <div className="text-center">
+        <div className="text-2xl font-bold font-[family-name:var(--font-mono)] tracking-tight text-foreground">
+          {value}
+        </div>
+        <div className="mt-0.5 text-xs font-medium text-muted-foreground">
+          {label}
+        </div>
+      </div>
+    </Comp>
+  );
 }
 
 export function StatsCards({
@@ -20,76 +62,33 @@ export function StatsCards({
     : 0;
 
   return (
-    <div className="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-4 animate-fade-in animate-fade-in-delay-1">
-      {/* Models Card */}
-      <Link
+    <div className="mb-4 grid grid-cols-2 gap-2 sm:grid-cols-4 animate-fade-in animate-fade-in-delay-1">
+      <StatCard
+        as={Link}
         to="/"
-        className={cn(
-          "group rounded-xl border p-5 transition-all hover:shadow-sm",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2",
-          activeView === "models"
-            ? "border-neutral-300 dark:border-white/20 bg-white dark:bg-[#111] shadow-sm"
-            : "border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] hover:border-neutral-300 dark:hover:border-white/20"
-        )}
-      >
-        <div className="mb-3 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5">
-          <Sparkles className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
-        </div>
-        <div className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 font-[family-name:var(--font-mono)] tracking-tight">
-          {models.toLocaleString()}
-        </div>
-        <div className="mt-0.5 text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
-          Models
-        </div>
-      </Link>
-
-      {/* Organizations Card */}
-      <Link
+        icon={<Sparkles className="h-5 w-5 text-muted-foreground" />}
+        value={models.toLocaleString()}
+        label="Models"
+        active={activeView === "models"}
+      />
+      <StatCard
+        as={Link}
         to="/org"
-        className={cn(
-          "group rounded-xl border p-5 transition-all hover:shadow-sm",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2",
-          activeView === "organizations"
-            ? "border-neutral-300 dark:border-white/20 bg-white dark:bg-[#111] shadow-sm"
-            : "border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] hover:border-neutral-300 dark:hover:border-white/20"
-        )}
-      >
-        <div className="mb-3 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5">
-          <Building2 className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
-        </div>
-        <div className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 font-[family-name:var(--font-mono)] tracking-tight">
-          {organizations.toLocaleString()}
-        </div>
-        <div className="mt-0.5 text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
-          Organizations
-        </div>
-      </Link>
-
-      {/* Data Sources Card */}
-      <div className="rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] p-5 transition-all hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm">
-        <div className="mb-3 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5">
-          <Database className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
-        </div>
-        <div className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 font-[family-name:var(--font-mono)] tracking-tight">
-          {totalSources > 0 ? totalSources.toLocaleString() : "—"}
-        </div>
-        <div className="mt-0.5 text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
-          Data Points
-        </div>
-      </div>
-
-      {/* Years Covered Card */}
-      <div className="rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] p-5 transition-all hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm">
-        <div className="mb-3 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5">
-          <Calendar className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
-        </div>
-        <div className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 font-[family-name:var(--font-mono)] tracking-tight">
-          2017–26
-        </div>
-        <div className="mt-0.5 text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
-          Years Covered
-        </div>
-      </div>
+        icon={<Building2 className="h-5 w-5 text-muted-foreground" />}
+        value={organizations.toLocaleString()}
+        label="Organizations"
+        active={activeView === "organizations"}
+      />
+      <StatCard
+        icon={<Database className="h-5 w-5 text-muted-foreground" />}
+        value={totalSources > 0 ? totalSources.toLocaleString() : "—"}
+        label="Sources"
+      />
+      <StatCard
+        icon={<Calendar className="h-5 w-5 text-muted-foreground" />}
+        value="1950–26"
+        label="Years"
+      />
     </div>
   );
 }

@@ -46,10 +46,10 @@ export function StatsHeader({
               className={cn(
                 "rounded-xl border p-4 transition-all",
                 isActive
-                  ? "border-neutral-300 dark:border-white/20 bg-white dark:bg-[#111] shadow-sm"
-                  : "border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] hover:border-neutral-300 dark:hover:border-white/20 hover:shadow-sm",
+                  ? "border-foreground/20 bg-card"
+                  : "border-border bg-card hover:border-foreground/20",
                 isClickable
-                  ? "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2"
+                  ? "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   : "cursor-default"
               )}
               onClick={isClickable ? () => onViewChange(view) : undefined}
@@ -64,13 +64,13 @@ export function StatsHeader({
                   : undefined
               }
             >
-              <div className="mb-3 inline-flex rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 dark:border-white/10 dark:bg-white/5">
-                <Icon className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
+              <div className="mb-3 inline-flex rounded-lg bg-muted p-2.5">
+                <Icon className="h-4 w-4 text-muted-foreground" />
               </div>
-              <div className="text-2xl font-semibold font-[family-name:var(--font-mono)] text-neutral-900 dark:text-neutral-100">
+              <div className="text-2xl font-semibold font-[family-name:var(--font-mono)] text-foreground">
                 {value.toLocaleString()}
               </div>
-              <div className="mt-0.5 text-xs font-medium uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+              <div className="mt-0.5 text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {label}
               </div>
             </div>
@@ -80,12 +80,12 @@ export function StatsHeader({
 
       {/* Source breakdown */}
       {sourceStats && Object.keys(sourceStats).length > 0 && (
-        <div className="mt-3 text-xs text-neutral-500 dark:text-neutral-400">
+        <div className="mt-3 text-xs text-muted-foreground">
           Data sources:{" "}
           {Object.entries(sourceStats).map(([name, count], i) => (
             <span key={name}>
               {i > 0 && " + "}
-              <span className="font-medium text-neutral-900 dark:text-neutral-100">
+              <span className="font-medium text-foreground">
                 {count.toLocaleString()}
               </span>{" "}
               {name === "epoch" ? (
@@ -95,7 +95,7 @@ export function StatsHeader({
                     href="https://epoch.ai/data"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline decoration-neutral-300 dark:decoration-neutral-600 underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2"
+                    className="underline decoration-border underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   >
                     Epoch AI
                   </a>

@@ -1,4 +1,6 @@
 import { parseParamValue } from "@duyet/libs";
+import { cn } from "@duyet/libs/utils";
+import { X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { FilterInfo } from "@/components/filter-info";
 import {
@@ -9,6 +11,8 @@ import {
 import { OrgTimeline } from "@/components/org-timeline";
 import { StatsCards } from "@/components/stats-cards";
 import { Timeline } from "@/components/timeline";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { VirtualOrgTimeline } from "@/components/virtual-org-timeline";
 import { VirtualTimeline } from "@/components/virtual-timeline";
 import type { Model } from "@/lib/data";
@@ -19,7 +23,7 @@ import {
   filterModels,
   formatDate,
   getLicenseBarColor,
-  getLicenseColor,
+  getLicenseBadgeVariant,
   groupByOrg,
   groupByYear,
 } from "@/lib/utils";
@@ -230,14 +234,20 @@ export function StaticView({
 
       {/* Organization Shortcuts */}
       {view === "models" && showBadges && !comparisonMode && (
-        <div className="mb-4 flex flex-wrap gap-2">
+        <div className="mb-4 flex flex-wrap gap-1.5">
           {shortcutOrgs.map((shortcutOrg, index) => (
             <button
               key={shortcutOrg.id}
               onClick={() => setOrgFilter(shortcutOrg.name)}
-              className={`relative rounded-md border border-neutral-200 dark:border-white/10 px-3 py-1.5 text-sm transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800 ${orgFilter === shortcutOrg.name ? "bg-neutral-100 dark:bg-white/10" : "bg-white dark:bg-[#111]"}`}
+              className={cn(
+                "rounded-lg border px-3 py-1.5 text-sm transition-all",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                orgFilter === shortcutOrg.name
+                  ? "bg-foreground text-background border-foreground"
+                  : "border-border bg-card text-foreground hover:bg-accent"
+              )}
             >
-              <span className="mr-2 font-mono text-xs opacity-60">
+              <span className="mr-1.5 font-mono text-xs opacity-50">
                 {index + 1}
               </span>
               {shortcutOrg.name}
@@ -284,49 +294,51 @@ export function StaticView({
       {/* Comparison UI - only on main page */}
       {enableComparisonToggle && (
         <>
+          {/* Floating comparison bar */}
           {selectedModels.length > 0 && (
-            <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-neutral-200 dark:border-white/10 bg-[#fbf7f0] dark:bg-[#1f1f1f] p-4 animate-in slide-in-from-bottom">
+            <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-background/95 backdrop-blur-sm p-3 animate-in slide-in-from-bottom">
               <div className="mx-auto max-w-4xl">
-                <div className="flex items-center gap-4">
-                  <div className="flex flex-1 flex-wrap gap-2">
+                <div className="flex items-center gap-3">
+                  <div className="flex flex-1 flex-wrap gap-1.5">
                     {selectedModels.map((model) => (
                       <div
                         key={model.name}
-                        className="flex items-center gap-2 rounded-xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#111] px-3 py-2"
+                        className="flex items-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-1.5 text-sm"
                       >
-                        <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                        <span className="font-medium text-foreground">
                           {model.name}
                         </span>
                         <button
                           onClick={() => removeModel(model.name)}
-                          className="rounded p-0.5 transition-colors hover:bg-neutral-200 dark:hover:bg-neutral-700"
+                          className="rounded p-0.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
                           aria-label={`Remove ${model.name} from comparison`}
                         >
-                          ×
+                          <X className="h-3 w-3" />
                         </button>
                       </div>
                     ))}
                   </div>
-                  <button
+                  <Button
                     onClick={() => setIsModalOpen(true)}
                     disabled={!canCompare}
-                    className={`flex items-center gap-2 rounded-xl px-4 py-2 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${canCompare ? "bg-neutral-600 dark:bg-neutral-400 text-white" : "bg-white dark:bg-[#111] text-neutral-500 dark:text-neutral-400"}`}
+                    size="sm"
+                    className="shrink-0"
                   >
                     Compare ({selectedModels.length})
-                  </button>
+                  </Button>
                 </div>
               </div>
             </div>
           )}
 
+          {/* Comparison modal */}
           {isModalOpen && canCompare && (
             <div
-              className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-in fade-in"
-              style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 animate-in fade-in"
               onClick={() => setIsModalOpen(false)}
             >
               <div
-                className="max-h-[90vh] w-full max-w-5xl overflow-auto rounded-xl border border-neutral-200 dark:border-white/10 bg-[#fbf7f0] dark:bg-[#1f1f1f]"
+                className="max-h-[90vh] w-full max-w-5xl overflow-auto rounded-xl border border-border bg-background"
                 onClick={(e) => e.stopPropagation()}
               >
                 <ComparisonModalContent
@@ -362,39 +374,40 @@ function ComparisonModalContent({
 
   return (
     <>
-      <div className="sticky top-0 z-10 border-b border-neutral-200 dark:border-white/10 p-6 backdrop-blur-sm">
+      <div className="sticky top-0 z-10 border-b border-border p-6 bg-background/95 backdrop-blur-sm">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100">
+            <h2 className="text-xl font-semibold text-foreground">
               Model Comparison
             </h2>
-            <p className="text-sm text-neutral-500 dark:text-neutral-400">
+            <p className="text-sm text-muted-foreground">
               {sortedModels.length} model{sortedModels.length > 1 ? "s" : ""}{" "}
               selected
             </p>
           </div>
-          <button
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={onClose}
-            className="rounded-lg p-2 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
             aria-label="Close comparison"
           >
-            ×
-          </button>
+            <X className="h-4 w-4" />
+          </Button>
         </div>
       </div>
 
       <div className="p-6 space-y-6">
-        <div className="overflow-x-auto rounded-xl border border-neutral-200 dark:border-white/10">
+        <div className="overflow-x-auto rounded-xl border border-border">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-neutral-200 dark:border-white/10">
-                <th className="px-4 py-3 text-left font-semibold w-32 text-neutral-900 dark:text-neutral-100">
+              <tr className="border-b border-border bg-muted/50">
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground w-32">
                   Metric
                 </th>
                 {sortedModels.map((model) => (
                   <th
                     key={model.name}
-                    className="px-4 py-3 text-left font-semibold text-neutral-900 dark:text-neutral-100"
+                    className="px-4 py-3 text-left font-semibold text-foreground"
                   >
                     {model.name}
                   </th>
@@ -402,67 +415,65 @@ function ComparisonModalContent({
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b border-neutral-200 dark:border-white/10">
-                <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
+              <tr className="border-b border-border">
+                <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
                   Organization
                 </td>
                 {sortedModels.map((model) => (
                   <td
                     key={model.name}
-                    className="px-4 py-3 text-neutral-900 dark:text-neutral-100"
+                    className="px-4 py-3 text-foreground"
                   >
                     {model.org}
                   </td>
                 ))}
               </tr>
-              <tr className="border-b border-neutral-200 dark:border-white/10">
-                <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
+              <tr className="border-b border-border">
+                <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
                   Release Date
                 </td>
                 {sortedModels.map((model) => (
                   <td
                     key={model.name}
-                    className="px-4 py-3 text-neutral-900 dark:text-neutral-100"
+                    className="px-4 py-3 font-[family-name:var(--font-mono)] text-sm text-foreground"
                   >
                     {formatDate(model.date)}
                   </td>
                 ))}
               </tr>
-              <tr className="border-b border-neutral-200 dark:border-white/10">
-                <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
+              <tr className="border-b border-border">
+                <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
                   Parameters
                 </td>
                 {sortedModels.map((model) => (
                   <td
                     key={model.name}
-                    className="px-4 py-3 text-neutral-900 dark:text-neutral-100"
+                    className="px-4 py-3 font-[family-name:var(--font-mono)] text-sm text-foreground"
                   >
                     {model.params || "Unknown"}
                   </td>
                 ))}
               </tr>
-              <tr className="border-b border-neutral-200 dark:border-white/10">
-                <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
+              <tr className="border-b border-border">
+                <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
                   License
                 </td>
                 {sortedModels.map((model) => (
                   <td key={model.name} className="px-4 py-3">
-                    <span
-                      className={`rounded border px-2 py-1 text-xs font-medium uppercase tracking-wide ${getLicenseColor(model.license)}`}
-                    >
+                    <Badge variant={getLicenseBadgeVariant(model.license)}>
                       {model.license}
-                    </span>
+                    </Badge>
                   </td>
                 ))}
               </tr>
               <tr>
-                <td className="px-4 py-3 font-medium text-neutral-500 dark:text-neutral-400">
+                <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
                   Type
                 </td>
                 {sortedModels.map((model) => (
                   <td
                     key={model.name}
-                    className="px-4 py-3 capitalize text-neutral-900 dark:text-neutral-100"
+                    className="px-4 py-3 capitalize text-foreground"
                   >
                     {model.type}
                   </td>
@@ -474,7 +485,7 @@ function ComparisonModalContent({
 
         {sortedModels.some((m) => m.params) && (
           <div>
-            <h3 className="mb-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
               Parameter Count Comparison
             </h3>
             <div className="space-y-3">
@@ -485,16 +496,16 @@ function ComparisonModalContent({
                 return (
                   <div key={model.name}>
                     <div className="mb-1 flex justify-between text-sm">
-                      <span className="font-medium text-neutral-900 dark:text-neutral-100">
+                      <span className="font-medium text-foreground">
                         {model.name}
                       </span>
-                      <span className="text-neutral-500 dark:text-neutral-400">
+                      <span className="font-[family-name:var(--font-mono)] text-muted-foreground">
                         {model.params}
                       </span>
                     </div>
-                    <div className="relative h-8 overflow-hidden rounded-md bg-neutral-200 dark:bg-white/10 opacity-30">
+                    <div className="relative h-7 overflow-hidden rounded-lg bg-muted">
                       <div
-                        className="h-full rounded-md transition-all duration-500"
+                        className="h-full rounded-lg transition-all duration-500"
                         style={{
                           width: `${percentage}%`,
                           backgroundColor: getLicenseBarColor(model.license),
