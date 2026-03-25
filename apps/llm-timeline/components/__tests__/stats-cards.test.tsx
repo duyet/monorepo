@@ -39,7 +39,7 @@ describe("StatsCards", () => {
       <StatsCards models={250} organizations={42} />
     );
     expect(getAllByText("Models").length).toBeGreaterThan(0);
-    expect(getAllByText("Orgs").length).toBeGreaterThan(0);
+    expect(getAllByText("Organizations").length).toBeGreaterThan(0);
     expect(getAllByText("Sources").length).toBeGreaterThan(0);
     expect(getAllByText("Years").length).toBeGreaterThan(0);
   });
@@ -48,7 +48,7 @@ describe("StatsCards", () => {
     const { getAllByText } = render(
       <StatsCards models={250} organizations={42} />
     );
-    const elements = getAllByText("2017–26");
+    const elements = getAllByText("1950–26");
     expect(elements.length).toBeGreaterThan(0);
   });
 
