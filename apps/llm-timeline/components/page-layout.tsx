@@ -65,7 +65,7 @@ export function PageLayout({ children, description }: PageLayoutProps) {
               </Button>
               <AuthButtons
                 className="rounded-lg p-2.5"
-                signInClassName="rounded-lg border border-border bg-card p-2.5 transition-all hover:bg-accent hover:shadow-sm"
+                signInClassName="rounded-lg border border-border bg-card p-2.5 transition-all hover:bg-accent"
                 signedInContent={
                   <Button variant="icon" size="icon" asChild>
                     <a

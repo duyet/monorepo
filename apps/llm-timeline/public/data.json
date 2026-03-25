@@ -31722,7 +31722,7 @@
     "authors": "Lin Yang, Shawn Xu, Andrew Sellergren, Timo Kohlberger, Yuchen Zhou, Ira Ktena, Atilla Kiraly, Faruk Ahmed, Farhad Hormozdiari, Tiam Jaroensri, Eric Wang, Ellery Wulczyn, Fayaz Jamil, Theo Guidroz, Chuck Lau, Siyuan Qiao, Yun Liu, Akshay Goel, Kendall Park, Arnav Agharwal, Nick George, Yang Wang, Ryutaro Tanno, David G. T. Barrett, Wei-Hung Weng, S. Sara Mahdavi, Khaled Saab, Tao Tu, Sreenivasa Raju Kalidindi, Mozziyar Etemadi, Jorge Cuadros, Gregory Sorensen, Yossi Matias, Katherine Chou, Greg Corrado, Joelle Barral, Shravya Shetty, David Fleet, S. M. Ali Eslami, Daniel Tse, Shruthi Prabhakara, Cory McLean, Dave Steiner, Rory Pilgrim, Christopher Kelly, Shekoofeh Azizi, Daniel Golden"
   },
   {
-    "name": "Microsoft MAI-1",
+    "name": "Microsoft MAI-1 (2024 unreleased)",
     "date": "2024-05-06",
     "org": "Microsoft",
     "params": "500B",
@@ -34726,13 +34726,13 @@
     "name": "AlphaProof",
     "date": "2024-07-25",
     "org": "Google DeepMind",
-    "params": null,
+    "params": "3B",
     "type": "model",
     "license": "closed",
     "desc": "AI model by Google DeepMind",
     "source": "epoch",
     "domain": "Mathematics",
-    "link": "https://deepmind.google/discover/blog/ai-solves-imo-problems-at-silver-medal-level/",
+    "link": "https://deepmind.google/discover/blog/ai-solves-imo-problems-at-silver-medal-level/\n\nhttps://www.nature.com/articles/s41586-025-09833-y \n\nhttps://static-content.springer.com/esm/art%3A10.1038%2Fs41586-025-09833-y/MediaObjects/41586_2025_9833_MOESM1_ESM.pdf",
     "authors": "AlphaProof development was led by Thomas Hubert, Rishi Mehta and Laurent Sartran AlphaProof was developed with key contributions from Hussain Masoom, Aja Huang, Miklós Z. Horváth, Tom Zahavy, Vivek Veeriah, Eric Wieser, Jessica Yung, Lei Yu, Yannick Schroecker, Julian Schrittwieser, Ottavia Bertolli, Borja Ibarz, Edward Lockhart, Edward Hughes, Mark Rowland, Grace Margand. Alex Davies and Daniel Zheng led the development of informal systems such as final answer determination, with key contributions from Iuliya Beloshapka, Ingrid von Glehn, Yin Li, Fabian Pedregosa, Ameya Velingker and Goran Žužić. Oliver Nash, Bhavik Mehta, Paul Lezeau, Salvatore Mercuri, Lawrence Wu, Calle Soenne, Thomas Murrills, Luigi Massacci and Andrew Yang advised and contributed as Lean experts. Past contributors include Amol Mandhane, Tom Eccles, Eser Aygün, Zhitao Gong, Richard Evans, Soňa Mokrá, Amin Barekatain, Wendy Shang, Hannah Openshaw, Felix Gimeno. This work was advised by David Silver and Pushmeet Kohli."
   },
   {
@@ -51538,6 +51538,16 @@
     "source": "curated"
   },
   {
+    "name": "STATIC",
+    "date": "2026-02-01",
+    "org": "Google",
+    "params": "STATIC",
+    "type": "model",
+    "license": "open",
+    "desc": "YouTube (Google). STATIC (Sparse Transition Matrix-Accelerated Trie Index for Constrained Decoding). \"The model is a Gemini-based generative retrieval model similar to PLUM [8], served with a batch size of 2 (per chip) and a beam size of 𝑀 = 70. The model is based on a non-Mixture-of-Experts (MoE) architecture with 3 billion dense parameters. All benchmark experiments are conducted on Google TPU v6e accelerators.\"",
+    "source": "curated"
+  },
+  {
     "name": "Arrow 1.0",
     "date": "2026-02-01",
     "org": "Quiver",
@@ -51725,6 +51735,136 @@
     "type": "model",
     "license": "open",
     "desc": "196B-A11B.",
+    "source": "curated"
+  },
+  {
+    "name": "Nemotron-Cascade-2-30B-A3B",
+    "date": "2026-03-01",
+    "org": "NVIDIA",
+    "params": "Nemotron-Cascade-2-30B-A3B",
+    "type": "model",
+    "license": "open",
+    "desc": "30BA3B. Gold medal performance in both the 2025 IMO and the IOI. HLE=no tools.",
+    "source": "curated"
+  },
+  {
+    "name": "MiMo-V2-Pro",
+    "date": "2026-03-01",
+    "org": "Xiaomi",
+    "params": "MiMo-V2-Pro",
+    "type": "model",
+    "license": "open",
+    "desc": "1T42B. Over 1T total parameters (42B active). Uses a 7:1 Hybrid Attention mechanism and supports a 1M-token context window.",
+    "source": "curated"
+  },
+  {
+    "name": "Mamba-3",
+    "date": "2026-03-01",
+    "org": "CMU",
+    "params": "Mamba-3",
+    "type": "model",
+    "license": "open",
+    "desc": "\"with architectural refinements, our Mamba-3 model achieves significant gains across retrieval, state-tracking, and downstream language modeling tasks.\"",
+    "source": "curated"
+  },
+  {
+    "name": "MiniMax-M2.5",
+    "date": "2026-03-01",
+    "org": "MiniMax",
+    "params": "MiniMax-M2.5",
+    "type": "model",
+    "license": "open",
+    "desc": "230B-A10B. Early RSI. \"M2.7 is our first model deeply participating in its own evolution…\" https://lifearchitect.ai/asi/",
+    "source": "curated"
+  },
+  {
+    "name": "Holotron-12B",
+    "date": "2026-03-01",
+    "org": "H Company",
+    "params": "Holotron-12B",
+    "type": "model",
+    "license": "open",
+    "desc": "\"Holotron-12B is a high-throughput, multimodal Vision-Language Model (VLM) designed specifically as a policy model for computer-use agents.\"",
+    "source": "curated"
+  },
+  {
+    "name": "Mistral Small 4",
+    "date": "2026-03-01",
+    "org": "Mistral",
+    "params": "Mistral Small 4",
+    "type": "model",
+    "license": "open",
+    "desc": "119BA6.5B. \"unifies the capabilities of three different model families—Instruct, Reasoning (previously called Magistral), and Devstral—into a single, unified model.\"",
+    "source": "curated"
+  },
+  {
+    "name": "MiroThinker-H1",
+    "date": "2026-03-01",
+    "org": "MiroMindAI",
+    "params": "MiroThinker-H1",
+    "type": "model",
+    "license": "open",
+    "desc": "\"Our proprietary agent, MiroThinker-H1 provides promising evidence for long-chain verifiable reasoning [based on new model, MiroThinker-1.7\"",
+    "source": "curated"
+  },
+  {
+    "name": "Covenant-72B",
+    "date": "2026-03-01",
+    "org": "1Covenant",
+    "params": "Covenant-72B",
+    "type": "model",
+    "license": "open",
+    "desc": "\"largest permissionless collaboratively trained language model\" ~20 distinct peers, each running 8xB200 GPUs.",
+    "source": "curated"
+  },
+  {
+    "name": "Nemotron 3 Super",
+    "date": "2026-03-01",
+    "org": "NVIDIA",
+    "params": "Nemotron 3 Super",
+    "type": "model",
+    "license": "open",
+    "desc": "120B-A12B. Announce: https://blogs.nvidia.com/blog/nemotron-3-super-agentic-ai/",
+    "source": "curated"
+  },
+  {
+    "name": "Sarvam 105B",
+    "date": "2026-03-01",
+    "org": "Sarvam.ai",
+    "params": "Sarvam 105B",
+    "type": "model",
+    "license": "open",
+    "desc": "105BA10.3B. \"22 Indian languages\"",
+    "source": "curated"
+  },
+  {
+    "name": "GPT-5.4",
+    "date": "2026-03-01",
+    "org": "OpenAI",
+    "params": "GPT-5.4",
+    "type": "model",
+    "license": "open",
+    "desc": "\"most capable and efficient frontier model for professional work.\" Announce: https://openai.com/index/introducing-gpt-5-4/",
+    "source": "curated"
+  },
+  {
+    "name": "Yuan3.0-Ultra",
+    "date": "2026-03-01",
+    "org": "YuanLabAI",
+    "params": "Yuan3.0-Ultra",
+    "type": "model",
+    "license": "open",
+    "desc": "1515BA68.8B. Poor performance due to low training data/ratio.",
+    "source": "curated"
+  },
+  {
+    "name": "GPT-5.3 Instant",
+    "date": "2026-03-01",
+    "org": "OpenAI",
+    "params": "GPT-5.3 Instant",
+    "type": "model",
+    "license": "open",
+    "desc": "Announce: https://openai.com/index/gpt-5-3-instant/",
     "source": "curated"
   }
 ]

@@ -209,7 +209,7 @@ export function SearchAutocomplete({
         <div
           ref={dropdownRef}
           id="search-suggestions"
-          className="absolute z-30 mt-1.5 w-full rounded-xl border border-border bg-card shadow-lg max-h-64 overflow-y-auto"
+          className="absolute z-30 mt-1.5 w-full rounded-xl border border-border bg-card max-h-64 overflow-y-auto"
           role="listbox"
         >
           {suggestions.map((suggestion, index) => (

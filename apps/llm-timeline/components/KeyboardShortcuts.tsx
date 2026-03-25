@@ -130,7 +130,7 @@ export function KeyboardShortcutBadge({
         "absolute top-3 left-3 z-20 flex h-6 w-6 items-center justify-center rounded-md text-xs font-bold transition-all duration-200",
         isActive
           ? "bg-foreground text-background scale-110"
-          : "bg-card/90 text-foreground shadow-sm border border-border"
+          : "bg-card/90 text-foreground border border-border"
       )}
     >
       {number}
@@ -151,7 +151,7 @@ export function KeyboardHelpTooltip({
 
   return (
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 animate-in fade-in slide-in-from-bottom-4 duration-200">
-      <div className="mx-auto max-w-lg rounded-xl border border-border bg-card p-4 shadow-lg">
+      <div className="mx-auto max-w-lg rounded-xl border border-border bg-card p-4">
         <div className="flex items-start justify-between mb-3">
           <div className="flex items-center gap-2">
             <Keyboard className="h-4 w-4 text-muted-foreground" />
@@ -217,7 +217,7 @@ export function KeyboardHelpButton({ onClick }: { onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="fixed bottom-6 right-6 z-40 rounded-full border border-border bg-card p-3 shadow-md transition-all hover:scale-105 hover:shadow-lg"
+      className="fixed bottom-6 right-6 z-40 rounded-full border border-border bg-card p-3 transition-all hover:scale-105 hover:bg-accent"
       aria-label="Show keyboard shortcuts"
     >
       <Info className="h-4 w-4 text-muted-foreground" />

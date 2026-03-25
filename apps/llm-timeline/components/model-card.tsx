@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import type { Model } from "@/lib/data";
 import { models } from "@/lib/data";
 import {
-  getLicenseAccent,
   getLicenseBadgeVariant,
   getRelatedModels,
   getSourceBadgeVariant,
@@ -70,12 +69,12 @@ export function ModelCard({
             className={cn(
               "shrink-0 w-2 h-2 rounded-full",
               model.license === "open"
-                ? "bg-emerald-400 dark:bg-emerald-500"
+                ? "bg-emerald-500"
                 : model.license === "closed"
-                  ? "bg-red-400 dark:bg-red-500"
+                  ? "bg-red-500"
                   : model.license === "partial"
-                    ? "bg-indigo-400 dark:bg-indigo-500"
-                    : "bg-neutral-300 dark:bg-neutral-600"
+                    ? "bg-indigo-500"
+                    : "bg-muted-foreground/40"
             )}
           />
         )}
@@ -148,12 +147,11 @@ export function ModelCard({
         </div>
       )}
 
-      {/* Card with license accent border */}
+      {/* Card */}
       <div
         className={cn(
-          "flex-1 rounded-xl border border-l-[3px] p-4 transition-all bg-card",
-          getLicenseAccent(model.license),
-          "hover:border-foreground/20 hover:shadow-sm",
+          "flex-1 rounded-xl border p-4 transition-all bg-card",
+          "hover:border-foreground/20",
           isSelectable && isSelected
             ? "ring-2 ring-ring ring-offset-2 border-foreground/20"
             : "border-border"

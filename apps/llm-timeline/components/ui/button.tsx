@@ -17,7 +17,7 @@ const buttonVariants = cva(
           "hover:bg-accent hover:text-accent-foreground rounded-xl",
         outline:
           "border border-border bg-card hover:bg-accent hover:text-accent-foreground rounded-xl",
-        icon: "border border-border bg-card text-muted-foreground hover:bg-accent hover:border-border/80 hover:shadow-sm rounded-lg",
+        icon: "border border-border bg-card text-muted-foreground hover:bg-accent hover:border-border/80 rounded-lg",
       },
       size: {
         default: "h-9 px-4 py-2",

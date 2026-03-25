@@ -338,7 +338,7 @@ export function StaticView({
               onClick={() => setIsModalOpen(false)}
             >
               <div
-                className="max-h-[90vh] w-full max-w-5xl overflow-auto rounded-xl border border-border bg-background shadow-2xl"
+                className="max-h-[90vh] w-full max-w-5xl overflow-auto rounded-xl border border-border bg-background"
                 onClick={(e) => e.stopPropagation()}
               >
                 <ComparisonModalContent

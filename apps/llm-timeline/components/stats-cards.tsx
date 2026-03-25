@@ -28,8 +28,8 @@ export function StatsCards({
           "group flex items-center gap-2.5 rounded-xl border px-4 py-2.5 transition-all",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
           activeView === "models"
-            ? "border-foreground/20 bg-card shadow-sm"
-            : "border-border bg-card hover:border-foreground/20 hover:shadow-sm"
+            ? "border-foreground/20 bg-card"
+            : "border-border bg-card hover:border-foreground/20"
         )}
       >
         <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-muted">
@@ -52,8 +52,8 @@ export function StatsCards({
           "group flex items-center gap-2.5 rounded-xl border px-4 py-2.5 transition-all",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
           activeView === "organizations"
-            ? "border-foreground/20 bg-card shadow-sm"
-            : "border-border bg-card hover:border-foreground/20 hover:shadow-sm"
+            ? "border-foreground/20 bg-card"
+            : "border-border bg-card hover:border-foreground/20"
         )}
       >
         <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-muted">
@@ -70,7 +70,7 @@ export function StatsCards({
       </Link>
 
       {/* Data Points */}
-      <div className="flex items-center gap-2.5 rounded-xl border border-border bg-card px-4 py-2.5 transition-all hover:border-foreground/20 hover:shadow-sm">
+      <div className="flex items-center gap-2.5 rounded-xl border border-border bg-card px-4 py-2.5 transition-all hover:border-foreground/20">
         <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-muted">
           <Database className="h-3.5 w-3.5 text-muted-foreground" />
         </div>
@@ -85,7 +85,7 @@ export function StatsCards({
       </div>
 
       {/* Years Covered */}
-      <div className="flex items-center gap-2.5 rounded-xl border border-border bg-card px-4 py-2.5 transition-all hover:border-foreground/20 hover:shadow-sm">
+      <div className="flex items-center gap-2.5 rounded-xl border border-border bg-card px-4 py-2.5 transition-all hover:border-foreground/20">
         <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-muted">
           <Calendar className="h-3.5 w-3.5 text-muted-foreground" />
         </div>

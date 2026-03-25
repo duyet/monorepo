@@ -117,24 +117,7 @@ export function formatDate(dateStr: string): string {
 }
 
 /**
- * Get color for license type
- */
-export function getLicenseColor(license: Model["license"]): string {
-  switch (license) {
-    case "open":
-      return "bg-sage-light text-emerald-800 border-sage dark:bg-emerald-950 dark:text-emerald-300 dark:border-emerald-800";
-    case "closed":
-      return "bg-coral-light text-red-800 border-coral dark:bg-red-950 dark:text-red-300 dark:border-red-800";
-    case "partial":
-      return "bg-lavender-light text-indigo-800 border-lavender dark:bg-indigo-950 dark:text-indigo-300 dark:border-indigo-800";
-    default:
-      return "bg-neutral-100 text-neutral-700 border-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:border-neutral-700";
-  }
-}
-
-/**
  * Get CSS hex color for license type, suitable for inline style={{ backgroundColor }}.
- * Unlike getLicenseColor(), this returns actual color values, not Tailwind class names.
  */
 export function getLicenseBarColor(license: Model["license"]): string {
   switch (license) {
@@ -147,35 +130,6 @@ export function getLicenseBarColor(license: Model["license"]): string {
     default:
       return "#9CA3AF"; // neutral gray
   }
-}
-
-/**
- * Get color for model type
- */
-export function getTypeColor(type: Model["type"]): string {
-  switch (type) {
-    case "milestone":
-      return "bg-terracotta-light text-orange-800 border-terracotta dark:bg-orange-950 dark:text-orange-300 dark:border-orange-800";
-    case "model":
-      return "bg-oat-light text-neutral-700 border-oat dark:bg-neutral-800 dark:text-neutral-300 dark:border-neutral-600";
-    default:
-      return "bg-neutral-100 text-neutral-700 border-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:border-neutral-700";
-  }
-}
-
-const SOURCE_COLORS: Record<string, string> = {
-  curated:
-    "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-800",
-  epoch:
-    "bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-950 dark:text-purple-300 dark:border-purple-800",
-};
-
-/**
- * Get color for data source
- */
-export function getSourceColor(source?: string): string {
-  if (source && source in SOURCE_COLORS) return SOURCE_COLORS[source];
-  return "bg-neutral-100 text-neutral-600 border-neutral-200 dark:bg-neutral-800 dark:text-neutral-400 dark:border-neutral-700";
 }
 
 /**
@@ -229,23 +183,6 @@ export function getStats(models: Model[]) {
     closed: models.filter((m) => m.license === "closed").length,
     sources,
   };
-}
-
-/**
- * Get left accent border color for model cards based on license type.
- * Returns Tailwind classes for a 3px left border.
- */
-export function getLicenseAccent(license: Model["license"]): string {
-  switch (license) {
-    case "open":
-      return "border-l-emerald-400 dark:border-l-emerald-600";
-    case "closed":
-      return "border-l-red-400 dark:border-l-red-600";
-    case "partial":
-      return "border-l-indigo-400 dark:border-l-indigo-600";
-    default:
-      return "border-l-neutral-300 dark:border-l-neutral-600";
-  }
 }
 
 /**
