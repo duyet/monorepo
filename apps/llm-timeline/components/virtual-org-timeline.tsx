@@ -105,7 +105,7 @@ export function VirtualOrgTimeline({
                   left: 0,
                   width: "100%",
                   height: `${virtualRow.size}px`,
-                  transform: `translateY(${virtualRow.start}px)`,
+                  transform: `translateY(${virtualRow.start - rowVirtualizer.options.scrollMargin}px)`,
                   padding: "0 1rem",
                 }}
               >
@@ -144,7 +144,7 @@ export function VirtualOrgTimeline({
                 top: 0,
                 left: 0,
                 width: "100%",
-                transform: `translateY(${virtualRow.start}px)`,
+                transform: `translateY(${virtualRow.start - rowVirtualizer.options.scrollMargin}px)`,
                 paddingLeft: "1rem",
                 paddingRight: "1rem",
               }}
