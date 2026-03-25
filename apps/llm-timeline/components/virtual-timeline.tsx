@@ -28,9 +28,8 @@ export function VirtualTimeline({
   onToggleSelection,
 }: VirtualTimelineProps) {
   const parentRef = useRef<HTMLDivElement>(null);
-  const [scrollMargin, setScrollMargin] = useState(200); // Default offset
+  const [scrollMargin, setScrollMargin] = useState(200);
 
-  // Calculate offset from top of page when container mounts or filter state changes
   useEffect(() => {
     if (parentRef.current) {
       const rect = parentRef.current.getBoundingClientRect();
@@ -39,13 +38,11 @@ export function VirtualTimeline({
     }
   }, [modelsByYear]);
 
-  // Sort years descending (newest first)
   const sortedYears = useMemo(
     () => Array.from(modelsByYear.keys()).sort((a, b) => b - a),
     [modelsByYear]
   );
 
-  // Flatten grouped data into a list of virtual items
   const virtualItems = useMemo<VirtualItem[]>(() => {
     const items: VirtualItem[] = [];
     sortedYears.forEach((year) => {
@@ -80,13 +77,13 @@ export function VirtualTimeline({
 
   const rowVirtualizer = useWindowVirtualizer({
     count: virtualItems.length,
-    scrollMargin: scrollMargin, // Offset from top of page
+    scrollMargin,
     estimateSize: (index) => {
       const item = virtualItems[index];
-      if (item.type === "group") return 80; // Year header height
-      return liteMode ? 100 : 180; // Model card height
+      if (item.type === "group") return 80;
+      return liteMode ? 56 : 280;
     },
-    overscan: 5,
+    overscan: 8,
   });
 
   return (
@@ -111,12 +108,13 @@ export function VirtualTimeline({
             return (
               <div
                 key={virtualRow.key}
+                data-index={virtualRow.index}
+                ref={rowVirtualizer.measureElement}
                 style={{
                   position: "absolute",
                   top: 0,
                   left: 0,
                   width: "100%",
-                  height: `${virtualRow.size}px`,
                   transform: `translateY(${virtualRow.start - rowVirtualizer.options.scrollMargin}px)`,
                   padding: "0 1rem",
                 }}
@@ -143,13 +141,14 @@ export function VirtualTimeline({
             );
           }
 
-          // Model card
           const modelItem = item as VirtualItem & { type: "model" };
           const isSelected =
             selectedModelNames?.has(modelItem.model!.name) ?? false;
           return (
             <div
               key={virtualRow.key}
+              data-index={virtualRow.index}
+              ref={rowVirtualizer.measureElement}
               onClick={() => {
                 if (comparisonMode) {
                   onToggleSelection?.(modelItem.model!);

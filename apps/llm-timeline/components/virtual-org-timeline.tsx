@@ -68,13 +68,13 @@ export function VirtualOrgTimeline({
 
   const rowVirtualizer = useWindowVirtualizer({
     count: virtualItems.length,
-    scrollMargin: scrollMargin,
+    scrollMargin,
     estimateSize: (index) => {
       const item = virtualItems[index];
-      if (item.type === "group") return 100;
-      return liteMode ? 100 : 180;
+      if (item.type === "group") return 80;
+      return liteMode ? 56 : 280;
     },
-    overscan: 5,
+    overscan: 8,
   });
 
   return (
@@ -99,12 +99,13 @@ export function VirtualOrgTimeline({
             return (
               <div
                 key={virtualRow.key}
+                data-index={virtualRow.index}
+                ref={rowVirtualizer.measureElement}
                 style={{
                   position: "absolute",
                   top: 0,
                   left: 0,
                   width: "100%",
-                  height: `${virtualRow.size}px`,
                   transform: `translateY(${virtualRow.start - rowVirtualizer.options.scrollMargin}px)`,
                   padding: "0 1rem",
                 }}
@@ -139,6 +140,8 @@ export function VirtualOrgTimeline({
           return (
             <div
               key={virtualRow.key}
+              data-index={virtualRow.index}
+              ref={rowVirtualizer.measureElement}
               style={{
                 position: "absolute",
                 top: 0,
