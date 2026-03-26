@@ -18,6 +18,24 @@ interface Env {
   CLICKHOUSE_PROTOCOL?: string;
 }
 
+interface AIPercentageRow {
+  ai_percentage: number;
+  total_lines_added: number;
+  human_lines_added: number;
+  ai_lines_added: number;
+}
+
+interface AIPercentageHistoryRow extends AIPercentageRow {
+  date: string;
+  total_commits: number;
+  human_commits: number;
+  ai_commits: number;
+}
+
+interface CountRow {
+  count: number;
+}
+
 const aiPercentageRouter = new Hono<{ Bindings: Env }>();
 
 /**
@@ -46,7 +64,7 @@ async function executeClickHouseQuery(
   url: string,
   query: string,
   database = "default"
-): Promise<any[]> {
+): Promise<Record<string, unknown>[]> {
   const response = await fetch(`${url}?database=${database}`, {
     method: "POST",
     headers: {
@@ -128,7 +146,7 @@ aiPercentageRouter.get("/current", async (c) => {
       return c.json({ error: "No data available" }, 404);
     }
 
-    const row = data[0] as any;
+    const row = data[0] as AIPercentageRow;
 
     return c.json({
       ai_percentage: Number(row.ai_percentage) || 0,
@@ -205,16 +223,19 @@ aiPercentageRouter.get("/history", async (c) => {
     }
 
     return c.json({
-      data: data.map((row: any) => ({
-        date: String(row.date),
-        ai_percentage: Number(row.ai_percentage) || 0,
-        total_lines_added: Number(row.total_lines_added) || 0,
-        human_lines_added: Number(row.human_lines_added) || 0,
-        ai_lines_added: Number(row.ai_lines_added) || 0,
-        total_commits: Number(row.total_commits) || 0,
-        human_commits: Number(row.human_commits) || 0,
-        ai_commits: Number(row.ai_commits) || 0,
-      })),
+      data: data.map((row) => {
+        const r = row as AIPercentageHistoryRow;
+        return {
+          date: String(r.date),
+          ai_percentage: Number(r.ai_percentage) || 0,
+          total_lines_added: Number(r.total_lines_added) || 0,
+          human_lines_added: Number(r.human_lines_added) || 0,
+          ai_lines_added: Number(r.ai_lines_added) || 0,
+          total_commits: Number(r.total_commits) || 0,
+          human_commits: Number(r.human_commits) || 0,
+          ai_commits: Number(r.ai_commits) || 0,
+        };
+      }),
     });
   } catch (error) {
     console.error("Error fetching AI percentage history:", error);
@@ -254,7 +275,7 @@ aiPercentageRouter.get("/available", async (c) => {
       return c.json({ available: false });
     }
 
-    const count = Number((data[0] as any).count) || 0;
+    const count = Number((data[0] as CountRow).count) || 0;
     return c.json({ available: count > 0 });
   } catch (error) {
     console.error("Error checking AI percentage availability:", error);

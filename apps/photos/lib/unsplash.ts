@@ -44,7 +44,7 @@ export async function getUserPhotos(
       username: USERNAME,
       page,
       perPage,
-      orderBy: orderBy as any,
+      orderBy: orderBy as "latest" | "oldest" | "popular" | "views" | "downloads",
       stats: true, // Include statistics (views, downloads)
     });
 
@@ -156,11 +156,10 @@ export async function getPhotoDetails(
     }
 
     if (result.response) {
-      const detailed = result.response as any;
+      const detailed = result.response as Partial<UnsplashPhoto>;
       return {
         location: detailed.location,
         exif: detailed.exif,
-        // Also include any other fields that might be missing
         description: detailed.description,
         alt_description: detailed.alt_description,
       };
@@ -184,12 +183,12 @@ export async function getPhotoDetails(
 
       // Check if it's a fetch/network error with response
       if ("response" in error) {
-        const err = error as any;
+        const err = error as Error & { response?: { status?: number; statusText?: string } };
         console.error(
-          `      HTTP Status: ${err.response?.status || "unknown"}`
+          `      HTTP Status: ${err.response?.status ?? "unknown"}`
         );
         console.error(
-          `      Status Text: ${err.response?.statusText || "unknown"}`
+          `      Status Text: ${err.response?.statusText ?? "unknown"}`
         );
       }
 

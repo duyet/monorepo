@@ -1,4 +1,5 @@
 import type { ClickHouseClient } from "@clickhouse/client";
+import type { SyncOptions, SyncResult } from "../lib/base/types";
 import { AICodePercentageSyncer } from "./ai-code-percentage.syncer";
 import { CloudflareSyncer } from "./cloudflare.syncer";
 import { GitHubSyncer } from "./github.syncer";
@@ -20,7 +21,7 @@ export { WakaTimeActivitySyncer } from "./wakatime-activity.syncer";
 export type SyncerConstructor = new (
   client: ClickHouseClient
 ) => {
-  sync: (options?: any) => Promise<any>;
+  sync: (options?: SyncOptions) => Promise<SyncResult>;
 };
 
 export const syncerMap: Record<string, SyncerConstructor> = {

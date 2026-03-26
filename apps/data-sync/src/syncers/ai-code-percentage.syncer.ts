@@ -65,6 +65,47 @@ interface RawCommitRecord {
   pushed_date: string | null;
 }
 
+interface GraphQLEdge<T> {
+  node: T;
+}
+
+interface GitHubGraphQLResponse {
+  data: {
+    repository: {
+      url: string;
+      defaultBranchRef: {
+        target: {
+          history: {
+            pageInfo: { hasNextPage: boolean; endCursor: string };
+            edges: Array<{
+              _repo?: string;
+              node: {
+                oid: string;
+                abbreviatedOid: string;
+                url: string;
+                message: string;
+                messageHeadline: string;
+                messageBody: string;
+                author: { name: string; email: string; date: string };
+                committer: { name: string; email: string; date: string };
+                signature: { exists: boolean; valid: boolean; method: string | null } | null;
+                additions: number;
+                deletions: number;
+                changedFiles: number;
+                pushedDate: string | null;
+                committedDate: string;
+                authoredDate: string;
+                parents: { edges: GraphQLEdge<{ oid: string }>[] };
+                coAuthors: { edges: GraphQLEdge<{ name: string; email: string }>[] };
+              };
+            }>;
+          };
+        };
+      };
+    };
+  };
+}
+
 const GITHUB_GRAPHQL_URL = "https://api.github.com/graphql";
 
 const REPO_COMMIT_QUERY = `
@@ -133,7 +174,7 @@ const REPO_COMMIT_QUERY = `
   }
 `;
 
-export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord[]> {
+export class AICodePercentageSyncer extends BaseSyncer<GitHubGraphQLResponse, RawCommitRecord[]> {
   private owners: string[];
 
   constructor(client: ClickHouseClient, owner?: string | string[]) {
@@ -153,7 +194,7 @@ export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord[]> {
     return "github_commits_raw";
   }
 
-  protected async fetchFromApi(options: SyncOptions): Promise<any[]> {
+  protected async fetchFromApi(options: SyncOptions): Promise<GitHubGraphQLResponse[]> {
     const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
 
     // Calculate since date if startDate is provided
@@ -240,7 +281,7 @@ export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord[]> {
     }
 
     // Create separate response for each owner
-    const responses: any[] = [];
+    const responses: GitHubGraphQLResponse[] = [];
     for (const [currentOwner, commits] of commitsByOwner) {
       responses.push({
         data: {
@@ -464,8 +505,8 @@ export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord[]> {
           additions: node.additions,
           deletions: node.deletions,
           changed_files: node.changedFiles,
-          parents: node.parents.edges.map((e: any) => e.node.oid),
-          co_authors: node.coAuthors.edges.map((e: any) => ({
+          parents: node.parents.edges.map((e) => e.node.oid),
+          co_authors: node.coAuthors.edges.map((e) => ({
             name: e.node.name,
             email: e.node.email,
           })),
@@ -491,7 +532,7 @@ export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord[]> {
     return commits;
   }
 
-  protected async transform(data: any[]): Promise<RawCommitRecord[]> {
+  protected async transform(data: GitHubGraphQLResponse[]): Promise<RawCommitRecord[]> {
     if (!data || data.length === 0) {
       return [];
     }
@@ -512,7 +553,7 @@ export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord[]> {
         const commit = edge.node;
 
         // Format co_authors as array of "name <email>" strings
-        const coAuthorsFormatted = commit.coAuthors.edges.map((e: any) => {
+        const coAuthorsFormatted = commit.coAuthors.edges.map((e) => {
           const name = e.node.name;
           const email = e.node.email;
           return `${name} <${email}>`;
@@ -539,7 +580,7 @@ export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord[]> {
           additions: commit.additions,
           deletions: commit.deletions,
           changed_files: commit.changedFiles,
-          parents: commit.parents.edges.map((e: any) => e.node.oid),
+          parents: commit.parents.edges.map((e) => e.node.oid),
           co_authors: coAuthorsFormatted,
           signature_exists: commit.signature?.exists ? 1 : 0,
           signature_valid: commit.signature?.valid ? 1 : 0,

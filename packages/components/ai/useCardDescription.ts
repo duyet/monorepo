@@ -75,7 +75,7 @@ export function useCardDescription({
           throw new Error(`API error: ${response.status}`);
         }
 
-        const data = await response.json();
+        const data: { description?: string } = await response.json();
         setDescription(data.description || fallbackDescription);
       } catch (err) {
         setError(err as Error);
