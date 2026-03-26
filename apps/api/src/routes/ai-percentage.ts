@@ -69,7 +69,20 @@ async function executeClickHouseQuery(
 }
 
 /**
- * Get date condition SQL for filtering by days
+ * Validate and parse days parameter.
+ * Returns a safe positive integer between 1 and 3650, or null if invalid.
+ */
+function parseDays(input: string | undefined): number | null {
+  const days = Number(input || "365");
+  if (!Number.isInteger(days) || days < 1 || days > 3650) {
+    return null;
+  }
+  return days;
+}
+
+/**
+ * Get date condition SQL for filtering by days.
+ * `days` must be a validated positive integer (use parseDays first).
  */
 function getDateCondition(days: number): string {
   return `WHERE date >= now() - INTERVAL ${days} DAY`;
@@ -161,7 +174,10 @@ aiPercentageRouter.get("/history", async (c) => {
     return c.json({ error: "ClickHouse not configured" }, 500);
   }
 
-  const days = Number(c.req.query("days") || "365");
+  const days = parseDays(c.req.query("days"));
+  if (days === null) {
+    return c.json({ error: "Invalid 'days' parameter: must be an integer between 1 and 3650" }, 400);
+  }
   const dateCondition = getDateCondition(days);
 
   try {

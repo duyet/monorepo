@@ -328,9 +328,12 @@ export class MigrationRunner {
         }
 
         // Record migration using executeCommand (not executeQuery)
+        // Escape single quotes to prevent SQL injection from migration file metadata
+        const safeName = migration.name.replace(/'/g, "\\'");
+        const safeChecksum = migration.checksum.replace(/'/g, "\\'");
         const insertQuery = `
           INSERT INTO monorepo_migrations (version, name, checksum)
-          VALUES (${migration.version}, '${migration.name}', '${migration.checksum}')
+          VALUES (${migration.version}, '${safeName}', '${safeChecksum}')
         `;
 
         const insertResult = await executeCommand(insertQuery);

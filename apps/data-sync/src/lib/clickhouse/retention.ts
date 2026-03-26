@@ -2,6 +2,20 @@ import type { RetentionPolicy as ConfigRetentionPolicy } from "../../config/rete
 import { executeQuery } from "./client";
 
 /**
+ * Allowed table name pattern: only alphanumeric and underscores.
+ * Prevents SQL injection via table/column name interpolation.
+ */
+const SAFE_IDENTIFIER = /^[a-zA-Z_][a-zA-Z0-9_.]*$/;
+
+function assertSafeIdentifier(value: string, label: string): void {
+  if (!SAFE_IDENTIFIER.test(value)) {
+    throw new Error(
+      `Unsafe ${label}: "${value}" — only alphanumeric characters, underscores, and dots are allowed`
+    );
+  }
+}
+
+/**
  * Retention policy interface
  */
 export interface RetentionPolicy {
@@ -38,7 +52,9 @@ export interface RetentionResult {
  * Count records that would be deleted by retention policy
  */
 async function countExpiredRecords(policy: RetentionPolicy): Promise<number> {
+  assertSafeIdentifier(policy.table, "table name");
   const dateColumn = policy.dateColumn || "created_at";
+  assertSafeIdentifier(dateColumn, "date column");
   const cutoffDate = new Date();
   cutoffDate.setDate(cutoffDate.getDate() - policy.days);
 
@@ -76,6 +92,9 @@ async function deleteExpiredRecords(
 
   const conditions = policy.conditions ? `AND ${policy.conditions}` : "";
 
+  assertSafeIdentifier(policy.table, "table name");
+  assertSafeIdentifier(dateColumn, "date column");
+
   if (dryRun) {
     console.log(
       `[Retention] DRY RUN: Would delete records from ${policy.table}`
@@ -105,6 +124,7 @@ async function deleteExpiredRecords(
  * This triggers immediate cleanup of data marked for deletion by TTL
  */
 async function forceTTLCleanup(table: string): Promise<void> {
+  assertSafeIdentifier(table, "table name");
   console.log("[Retention] Forcing TTL cleanup for table:", table);
 
   const query = `OPTIMIZE TABLE ${table} FINAL`;
@@ -220,6 +240,11 @@ export async function getTableSizes(
 ): Promise<Record<string, { rows: number; bytes: number }>> {
   console.log("[Retention] Getting table sizes...");
 
+  // Validate all table names before interpolation
+  for (const t of tables) {
+    assertSafeIdentifier(t, "table name");
+  }
+
   const query = `
     SELECT
       table,
@@ -276,6 +301,7 @@ export async function getRetentionStatus(policies: RetentionPolicy[]): Promise<
     try {
       const expiredRows = await countExpiredRecords(policy);
 
+      assertSafeIdentifier(policy.table, "table name");
       const totalQuery = `SELECT count() as count FROM ${policy.table}`;
       const totalResult = await executeQuery(totalQuery);
 
