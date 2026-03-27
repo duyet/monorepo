@@ -30,7 +30,10 @@ interface MDXContentProps {
 }
 
 // MDX compiled component cache
-const mdxCache = new Map<string, Promise<React.ComponentType<MDXContentProps>>>();
+const mdxCache = new Map<
+  string,
+  Promise<React.ComponentType<MDXContentProps>>
+>();
 
 async function compileMDX(
   source: string

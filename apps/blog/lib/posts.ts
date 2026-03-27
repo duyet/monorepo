@@ -110,17 +110,20 @@ export async function fetchPostContent(slug: string): Promise<PostContent> {
 
 export async function fetchAllSeries(): Promise<Series[]> {
   if (seriesCache) return seriesCache;
-  const raw = await readPublicJson<Array<{
-    name: string;
-    slug: string;
-    posts: Array<{
-      slug: string;
-      title: string;
-      date: string;
-      excerpt?: string;
-      series?: string;
-    }>;
-  }>>("series-data.json");
+  const raw =
+    await readPublicJson<
+      Array<{
+        name: string;
+        slug: string;
+        posts: Array<{
+          slug: string;
+          title: string;
+          date: string;
+          excerpt?: string;
+          series?: string;
+        }>;
+      }>
+    >("series-data.json");
 
   seriesCache = raw.map((s) => ({
     ...s,
@@ -153,9 +156,7 @@ export async function getPostBySlug(
   const fullSlug = slugPath.startsWith("/") ? slugPath : `/${slugPath}`;
   // Strip .md / .html extensions
   const cleanSlug = fullSlug.replace(/\.(md|html)$/, "");
-  const post = posts.find(
-    (p) => p.slug.replace(/\.html$/, "") === cleanSlug
-  );
+  const post = posts.find((p) => p.slug.replace(/\.html$/, "") === cleanSlug);
   if (!post) throw new Error(`Post not found: ${slugPath}`);
   const content = await fetchPostContent(post.slug);
   return { ...post, ...content };

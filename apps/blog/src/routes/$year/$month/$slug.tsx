@@ -6,10 +6,7 @@ import { markdownToHtml } from "@duyet/libs/markdownToHtml";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
 import { TableOfContents } from "@/components/post/TableOfContents";
-import {
-  getPostBySlug,
-  getSeries,
-} from "@/lib/posts";
+import { getPostBySlug, getSeries } from "@/lib/posts";
 import Content from "./-content";
 import Meta from "./-meta";
 

@@ -41,9 +41,9 @@ writeFileSync(join(PUBLIC_DIR, "robots.txt"), robotsTxt, "utf-8");
 console.log("  ✓ robots.txt");
 
 // ── rss.xml ──────────────────────────────────────────────────────────────────
-const posts = (getAllPosts(["slug", "title", "excerpt", "date"], 50) as Post[]).map(
-  (p) => ({ ...p, slug: p.slug.replace(/\.html$/, "") })
-);
+const posts = (
+  getAllPosts(["slug", "title", "excerpt", "date"], 50) as Post[]
+).map((p) => ({ ...p, slug: p.slug.replace(/\.html$/, "") }));
 
 const feed = new RSS({
   title: "Tôi là Duyệt",
@@ -65,10 +65,12 @@ writeFileSync(join(PUBLIC_DIR, "rss.xml"), feed.xml({ indent: true }), "utf-8");
 console.log("  ✓ rss.xml");
 
 // ── llms.txt ──────────────────────────────────────────────────────────────────
-const allPosts = (getAllPosts(
-  ["slug", "title", "date", "category", "tags", "excerpt"],
-  100000
-) as Post[]).map((p) => ({ ...p, slug: p.slug.replace(/\.html$/, "") }));
+const allPosts = (
+  getAllPosts(
+    ["slug", "title", "date", "category", "tags", "excerpt"],
+    100000
+  ) as Post[]
+).map((p) => ({ ...p, slug: p.slug.replace(/\.html$/, "") }));
 
 const llmsContent = `# Duyet Le - Technical Blog
 
@@ -154,10 +156,12 @@ writeFileSync(join(PUBLIC_DIR, "llms.txt"), llmsContent, "utf-8");
 console.log("  ✓ llms.txt");
 
 // ── llms-full.txt ─────────────────────────────────────────────────────────────
-const fullPosts = (getAllPosts(
-  ["slug", "title", "date", "category", "tags", "content"],
-  100000
-) as Post[]).map((p) => ({ ...p, slug: p.slug.replace(/\.html$/, "") }));
+const fullPosts = (
+  getAllPosts(
+    ["slug", "title", "date", "category", "tags", "content"],
+    100000
+  ) as Post[]
+).map((p) => ({ ...p, slug: p.slug.replace(/\.html$/, "") }));
 
 const llmsFullContent = `# Duyet Le - Technical Blog (Full Content)
 

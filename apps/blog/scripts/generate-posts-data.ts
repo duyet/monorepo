@@ -71,7 +71,10 @@ const allPostsWithContent = getAllPosts(
 let written = 0;
 for (const post of allPostsWithContent) {
   // Derive a safe filename from slug: "/2024/01/foo.html" -> "2024-01-foo"
-  const key = post.slug.replace(/\.html$/, "").replace(/^\//, "").replace(/\//g, "-");
+  const key = post.slug
+    .replace(/\.html$/, "")
+    .replace(/^\//, "")
+    .replace(/\//g, "-");
   const filePath = join(CONTENT_DIR, `${key}.json`);
   const payload = {
     content: post.content || "",

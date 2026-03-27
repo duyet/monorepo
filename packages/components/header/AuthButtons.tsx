@@ -110,7 +110,13 @@ export function AuthButtons({
   const { ClerkProvider, SignedOut, SignedIn, SignInButton, UserButton } =
     clerkModule;
 
-  if (!ClerkProvider || !SignedOut || !SignedIn || !SignInButton || !UserButton) {
+  if (
+    !ClerkProvider ||
+    !SignedOut ||
+    !SignedIn ||
+    !SignInButton ||
+    !UserButton
+  ) {
     return (
       <button
         type="button"

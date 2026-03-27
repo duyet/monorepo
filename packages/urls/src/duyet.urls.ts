@@ -39,8 +39,7 @@ export const duyetUrls: UrlsConfig = {
     insights:
       importMetaEnv?.VITE_DUYET_INSIGHTS_URL || "https://insights.duyet.net",
     home: importMetaEnv?.VITE_DUYET_HOME_URL || "https://duyet.net",
-    photos:
-      importMetaEnv?.VITE_DUYET_PHOTOS_URL || "https://photos.duyet.net",
+    photos: importMetaEnv?.VITE_DUYET_PHOTOS_URL || "https://photos.duyet.net",
     homelab:
       importMetaEnv?.VITE_DUYET_HOMELAB_URL || "https://homelab.duyet.net",
   },

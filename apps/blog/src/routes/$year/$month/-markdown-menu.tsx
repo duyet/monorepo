@@ -132,9 +132,7 @@ export function MarkdownMenu({
                   <div className="text-sm font-medium text-neutral-900 dark:text-neutral-100 flex items-center gap-1">
                     {item.label}
                     {item.href && (
-                      <span className="text-neutral-400 text-xs">
-                        &#x2197;
-                      </span>
+                      <span className="text-neutral-400 text-xs">&#x2197;</span>
                     )}
                   </div>
                   <div className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">

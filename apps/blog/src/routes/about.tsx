@@ -102,42 +102,40 @@ function About() {
           {links.map((link, index) => {
             const Icon = link.icon;
             const isExternal = link.url.startsWith("http");
-            return (
-              isExternal ? (
-                <a
-                  key={index}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`group flex flex-col p-10 ${link.color} rounded-3xl transition-transform duration-200 hover:scale-[1.02]`}
-                >
-                  <div className="mb-8 text-neutral-800">
-                    <Icon />
-                  </div>
-                  <h3 className="mb-3 text-xl font-medium text-neutral-900">
-                    {link.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-neutral-700">
-                    {link.description}
-                  </p>
-                </a>
-              ) : (
-                <Link
-                  key={index}
-                  to={link.url as "/"}
-                  className={`group flex flex-col p-10 ${link.color} rounded-3xl transition-transform duration-200 hover:scale-[1.02]`}
-                >
-                  <div className="mb-8 text-neutral-800">
-                    <Icon />
-                  </div>
-                  <h3 className="mb-3 text-xl font-medium text-neutral-900">
-                    {link.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-neutral-700">
-                    {link.description}
-                  </p>
-                </Link>
-              )
+            return isExternal ? (
+              <a
+                key={index}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`group flex flex-col p-10 ${link.color} rounded-3xl transition-transform duration-200 hover:scale-[1.02]`}
+              >
+                <div className="mb-8 text-neutral-800">
+                  <Icon />
+                </div>
+                <h3 className="mb-3 text-xl font-medium text-neutral-900">
+                  {link.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-neutral-700">
+                  {link.description}
+                </p>
+              </a>
+            ) : (
+              <Link
+                key={index}
+                to={link.url as "/"}
+                className={`group flex flex-col p-10 ${link.color} rounded-3xl transition-transform duration-200 hover:scale-[1.02]`}
+              >
+                <div className="mb-8 text-neutral-800">
+                  <Icon />
+                </div>
+                <h3 className="mb-3 text-xl font-medium text-neutral-900">
+                  {link.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-neutral-700">
+                  {link.description}
+                </p>
+              </Link>
             );
           })}
         </div>
