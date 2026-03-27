@@ -2,6 +2,7 @@
   "extends": "@duyet/tsconfig/vite.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "types": ["node", "vite/client"],
     "paths": {
       "@/*": ["./*"]
     }
@@ -18,7 +19,7 @@
   ],
   "exclude": [
     "node_modules",
-    "out",
+    "dist",
     "app",
     "**/__tests__/**",
     "**/*.test.ts",
