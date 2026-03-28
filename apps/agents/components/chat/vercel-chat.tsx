@@ -42,6 +42,7 @@ export function VercelChat() {
     activeId,
     activeConversation,
     activeMessages,
+    isLoading: isConversationsLoading,
     createNew,
     switchTo,
     remove,
@@ -296,6 +297,7 @@ export function VercelChat() {
       <AppSidebar
         conversations={conversations}
         activeId={activeId}
+        isLoading={isConversationsLoading}
         onNewChat={handleNewChat}
         onSelectConversation={async (id) => {
           await switchTo(id);

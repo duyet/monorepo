@@ -34,8 +34,14 @@ export default function AnalyticsPage() {
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const { conversations, activeId, switchTo, remove, createNew } =
-    useConversations({ getAuthToken });
+  const {
+    conversations,
+    activeId,
+    isLoading: isConversationsLoading,
+    switchTo,
+    remove,
+    createNew,
+  } = useConversations({ getAuthToken });
 
   useEffect(() => {
     const controller = new AbortController();
@@ -59,6 +65,7 @@ export default function AnalyticsPage() {
       <AppSidebar
         conversations={conversations}
         activeId={activeId}
+        isLoading={isConversationsLoading}
         onNewChat={() => createNew("fast")}
         onSelectConversation={async (id) => {
           await switchTo(id);
