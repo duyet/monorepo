@@ -4,6 +4,7 @@ import { extractHeadings } from "@duyet/libs/extractHeadings";
 import type { TOCItem } from "@duyet/libs/extractHeadings";
 import { markdownToHtml } from "@duyet/libs/markdownToHtml";
 import { createFileRoute, notFound } from "@tanstack/react-router";
+import { SeriesBox } from "@/components/layout/SeriesBox";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
 import { TableOfContents } from "@/components/post/TableOfContents";
 import { getPostBySlug, getSeries } from "@/lib/posts";
@@ -102,6 +103,14 @@ function PostPage() {
             <Content post={post} />
             <Meta className="mt-10" post={post} series={series} />
           </article>
+
+          {series && (
+            <SeriesBox
+              className="mt-12"
+              series={series}
+              current={post.slug}
+            />
+          )}
         </div>
 
         <TableOfContents headings={post.headings || []} />
