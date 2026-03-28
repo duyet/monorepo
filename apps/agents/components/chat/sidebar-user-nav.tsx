@@ -69,8 +69,8 @@ function SignedInUserMenu({
       if (clerkInstance) {
         await clerkInstance.signOut();
       }
-    } catch {
-      // Silently handle sign out errors
+    } catch (error) {
+      console.error("Failed to sign out:", error);
     }
   };
 

@@ -10,6 +10,7 @@ import {
 
 export function SidebarToggle({
   className,
+  ...props
 }: ComponentProps<typeof SidebarTrigger>) {
   const { toggleSidebar } = useSidebar();
 
@@ -17,9 +18,13 @@ export function SidebarToggle({
     <Tooltip>
       <TooltipTrigger asChild>
         <Button
+          {...props}
           className={className}
           data-testid="sidebar-toggle-button"
-          onClick={toggleSidebar}
+          onClick={(e) => {
+            toggleSidebar();
+            props.onClick?.(e);
+          }}
           size="icon"
           variant="outline"
         >

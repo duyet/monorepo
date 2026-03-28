@@ -222,6 +222,10 @@ export function VercelChat() {
     await createNew(mode, modelId);
   };
 
+  const handleDeleteAllConversations = async () => {
+    await Promise.all(conversations.map((conv) => remove(conv.id)));
+  };
+
   // Auto-resize textarea on input
   const { ref: textareaCallbackRef, resize } = useAutoResize({
     maxHeight: 200,
@@ -303,6 +307,7 @@ export function VercelChat() {
           await switchTo(id);
         }}
         onDeleteConversation={remove}
+        onDeleteAllConversations={handleDeleteAllConversations}
       />
 
       {/* Main content area */}
