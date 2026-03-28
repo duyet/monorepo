@@ -84,3 +84,26 @@ CREATE TABLE IF NOT EXISTS graph_checkpoints (
 CREATE INDEX IF NOT EXISTS idx_checkpoints_conversation_id ON graph_checkpoints(conversation_id);
 CREATE INDEX IF NOT EXISTS idx_checkpoints_created_at ON graph_checkpoints(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_checkpoints_version ON graph_checkpoints(conversation_id, version DESC);
+
+-- Votes table for message feedback
+CREATE TABLE IF NOT EXISTS votes (
+  chat_id TEXT NOT NULL,
+  message_id TEXT NOT NULL,
+  is_upvoted INTEGER NOT NULL DEFAULT 0,
+  PRIMARY KEY (chat_id, message_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_votes_chat_id ON votes(chat_id);
+
+-- Documents table for artifacts (code, text, sheets)
+CREATE TABLE IF NOT EXISTS documents (
+  id TEXT NOT NULL,
+  title TEXT NOT NULL,
+  content TEXT,
+  kind TEXT NOT NULL DEFAULT 'text',
+  user_id TEXT,
+  created_at INTEGER NOT NULL,
+  PRIMARY KEY (id, created_at)
+);
+
+CREATE INDEX IF NOT EXISTS idx_documents_user_id ON documents(user_id);

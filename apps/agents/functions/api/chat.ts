@@ -1,31 +1,30 @@
 /**
  * Chat API — Cloudflare Pages Function
  *
- * Handles streaming chat with LangGraph-style agent execution.
- * Mode: 'fast' = direct LLM, no tools. 'agent' = full graph execution with tool calling.
+ * Handles streaming chat with tool calling via AI SDK v6.
+ * Supports both new messages and tool approval continuation flows.
  *
- * Provider: OpenRouter via the AI SDK provider package
+ * Provider: OpenRouter via @openrouter/ai-sdk-provider
  */
 
-import { createOpenRouter } from "@openrouter/ai-sdk-provider";
 import {
   convertToModelMessages,
-  pruneMessages,
+  createUIMessageStream,
+  createUIMessageStreamResponse,
   stepCountIs,
   streamText,
   tool,
 } from "ai";
 import { z } from "zod";
-import { FAST_SYSTEM_PROMPT, SYSTEM_PROMPT } from "../../lib/agent";
+import { getCapabilities } from "../../lib/ai/models";
+import {
+  buildSystemPrompt,
+  FAST_SYSTEM_PROMPT,
+  SYSTEM_PROMPT,
+} from "../../lib/ai/prompts";
+import { getLanguageModel } from "../../lib/ai/providers";
 import { getClientIp, getUserFromRequest, hashIp } from "../../lib/auth";
 import { createDatabaseClient } from "../../lib/db/client";
-// Graph system imports (Unit 11 integration)
-import {
-  createCheckpointer,
-  createInitialState,
-  createObservability,
-  GraphRouter,
-} from "../../lib/graph";
 import { AGENT_SKILLS } from "../../lib/skills-data";
 import {
   fetchLlmsTxt,
@@ -36,147 +35,68 @@ import {
   getGitHubTool,
   searchBlogTool,
 } from "../../lib/tools";
-import { DEFAULT_OPENROUTER_MODEL_ID } from "../../lib/types";
 
 /** Rate limit for unauthenticated users: max messages per 24h window */
 const ANON_RATE_LIMIT = 10;
 
-/**
- * Sanitize a user-supplied string before injecting into the system prompt.
- */
-function sanitizeUserString(value: string, maxLen: number): string {
-  const truncated = value.substring(0, maxLen);
-  return truncated
-    .replace(
-      /<\/?(?:system|assistant|user|human|prompt|instruction)[^>]*>/gi,
-      ""
-    )
-    .replace(/^\s*(?:system|assistant|human|user)\s*:/gim, "")
-    .trim();
-}
+// ─── Zod Request Schema ─────────────────────────────────────────────
 
-/**
- * Build system prompt with skills and user settings (shared helper)
- */
-function buildSystemPrompt(
-  basePrompt: string,
-  includeSkills: boolean,
-  settings?: {
-    customInstructions?: string;
-    language?: string;
-    timezone?: string;
-  }
-): string {
-  let system = basePrompt;
+const textPartSchema = z.object({
+  type: z.literal("text"),
+  text: z.string().min(1).max(2000),
+});
 
-  if (includeSkills && AGENT_SKILLS && AGENT_SKILLS.length > 0) {
-    const skillsXml = AGENT_SKILLS.map(
-      (skill) =>
-        `  <skill>\n    <name>${skill.metadata.name}</name>\n    <description>${skill.metadata.description.trim()}</description>\n    <content>\n${skill.content}\n    </content>\n  </skill>`
-    ).join("\n");
-    system += `\n\n<available_skills>\n${skillsXml}\n</available_skills>`;
-  }
+const filePartSchema = z.object({
+  type: z.literal("file"),
+  mediaType: z.enum(["image/jpeg", "image/png"]),
+  name: z.string().min(1).max(100),
+  url: z.string().url(),
+});
 
-  if (settings) {
-    const parts = [];
-    if (settings.customInstructions) {
-      const sanitized = sanitizeUserString(settings.customInstructions, 500);
-      if (sanitized) parts.push(`User Custom Instructions:\n${sanitized}`);
-    }
-    if (settings.language) {
-      const sanitized = sanitizeUserString(settings.language, 50);
-      if (sanitized)
-        parts.push(`The user's preferred language is: ${sanitized}`);
-    }
-    if (settings.timezone) {
-      const sanitized = sanitizeUserString(settings.timezone, 50);
-      if (sanitized) parts.push(`The user's current timezone is: ${sanitized}`);
-    }
+const partSchema = z.union([textPartSchema, filePartSchema]);
 
-    if (parts.length > 0) {
-      system += `\n\n--- User Preferences ---\n${parts.join("\n\n")}\n------------------------`;
-    }
-  }
+const userMessageSchema = z.object({
+  id: z.string(),
+  role: z.literal("user"),
+  parts: z.array(partSchema),
+});
 
-  return system;
-}
+const toolApprovalMessageSchema = z.object({
+  id: z.string(),
+  role: z.enum(["user", "assistant"]),
+  parts: z.array(z.record(z.unknown())),
+});
 
-interface Env {
-  DB?: D1Database;
-  CLERK_ISSUER_URL?: string;
-  OPENROUTER_API_KEY?: string;
-  // Server-side pepper for hashing IPs
-  RATE_LIMIT_PEPPER?: string;
-}
+const postRequestBodySchema = z.object({
+  id: z.string(),
+  message: userMessageSchema.optional(),
+  messages: z.array(toolApprovalMessageSchema).optional(),
+  selectedChatModel: z.string().optional(),
+  // Keep backward compatibility with legacy fields
+  mode: z.string().optional(),
+  modelId: z.string().optional(),
+  conversationId: z.string().optional(),
+  settings: z
+    .object({
+      customInstructions: z.string().optional(),
+      language: z.string().optional(),
+      timezone: z.string().optional(),
+    })
+    .optional(),
+});
 
-function getOpenRouterModel(env: Env, modelId?: string) {
-  const openrouterApiKey = env.OPENROUTER_API_KEY;
-  if (!openrouterApiKey) {
-    throw new Error(
-      "Missing OPENROUTER_API_KEY. Configure the OpenRouter secret."
-    );
-  }
+type PostRequestBody = z.infer<typeof postRequestBodySchema>;
 
-  const selectedModelId =
-    !modelId || modelId === "openrouter/free"
-      ? "openai/gpt-oss-20b:free"
-      : modelId;
-  const openrouter = createOpenRouter({ apiKey: openrouterApiKey });
-  return {
-    model: openrouter.chat(selectedModelId),
-    selectedModelId,
-  };
-}
-
-function getMessageMetadata(part: unknown, fallbackModelId: string) {
-  if (
-    !part ||
-    typeof part !== "object" ||
-    !("type" in part) ||
-    (part as { type: string }).type !== "finish"
-  ) {
-    return {};
-  }
-
-  const finishPart = part as {
-    response?: { modelId?: string };
-    totalUsage?: {
-      inputTokens?: number;
-      outputTokens?: number;
-      totalTokens?: number;
-      promptTokens?: number;
-      completionTokens?: number;
-    };
-    toolCalls?: unknown[];
-  };
-
-  const promptTokens =
-    finishPart.totalUsage?.inputTokens ?? finishPart.totalUsage?.promptTokens;
-  const completionTokens =
-    finishPart.totalUsage?.outputTokens ??
-    finishPart.totalUsage?.completionTokens;
-
-  return {
-    model: finishPart.response?.modelId || fallbackModelId,
-    tokens: {
-      prompt: promptTokens,
-      completion: completionTokens,
-      total:
-        finishPart.totalUsage?.totalTokens ??
-        (promptTokens ?? 0) + (completionTokens ?? 0),
-    },
-    toolCalls: finishPart.toolCalls?.length ?? 0,
-  };
-}
+// ─── Tool Definitions ───────────────────────────────────────────────
 
 const AGENT_TOOLS = {
   searchBlog: tool({
     description:
-      "Search Duyet's blog (296+ posts) by topic, technology, or keywords. Use for: finding articles about data engineering, ClickHouse, Rust, Spark, cloud computing, etc. Returns matching posts with titles, URLs, and snippets.",
-    inputSchema: z.object({
+      "Search Duyet's blog (296+ posts) by topic, technology, or keywords. Returns matching posts with titles, URLs, and snippets.",
+    parameters: z.object({
       query: z
         .string()
-        .describe("Search query — topic, keyword, or technology name"),
+        .describe("Search query - topic, keyword, or technology name"),
     }),
     execute: async ({ query }) => {
       const { results } = await searchBlogTool(query);
@@ -185,8 +105,8 @@ const AGENT_TOOLS = {
   }),
   getBlogPost: tool({
     description:
-      "Fetch the full content of a specific blog post. Use after searchBlog when user wants detailed information from a post. Requires the full URL from blog.duyet.net or duyet.net.",
-    inputSchema: z.object({
+      "Fetch the full content of a specific blog post. Use after searchBlog when user wants detailed information. Requires the full URL.",
+    parameters: z.object({
       url: z
         .string()
         .describe(
@@ -200,14 +120,12 @@ const AGENT_TOOLS = {
   }),
   getCV: tool({
     description:
-      "Retrieve Duyet's CV/Resume information. Use for questions about work experience, skills, education, or professional background. Choose 'summary' for quick overview, 'detailed' for comprehensive info.",
-    inputSchema: z.object({
+      "Retrieve Duyet's CV/Resume information. Choose 'summary' for quick overview, 'detailed' for full info.",
+    parameters: z.object({
       format: z
         .enum(["summary", "detailed"])
         .optional()
-        .describe(
-          "Format: 'summary' for quick overview, 'detailed' for full CV"
-        ),
+        .describe("Format: 'summary' or 'detailed'"),
     }),
     execute: async ({ format = "summary" }) => {
       const { content } = await getCVTool(format);
@@ -216,8 +134,8 @@ const AGENT_TOOLS = {
   }),
   getGitHub: tool({
     description:
-      "Fetch recent GitHub activity including commits, pull requests, issues, and releases. Use for questions about recent coding activity, open source contributions, or project updates. Requires user approval — inform them before calling.",
-    inputSchema: z.object({
+      "Fetch recent GitHub activity including commits, PRs, issues. Requires user approval.",
+    parameters: z.object({
       limit: z
         .number()
         .min(1)
@@ -225,7 +143,6 @@ const AGENT_TOOLS = {
         .optional()
         .describe("Number of recent activities (1-20, default 5)"),
     }),
-    needsApproval: true,
     execute: async ({ limit = 5 }) => {
       const { activity } = await getGitHubTool(limit);
       return activity;
@@ -233,8 +150,8 @@ const AGENT_TOOLS = {
   }),
   getAnalytics: tool({
     description:
-      "Get contact form analytics and reports. Use for questions about site traffic, contact submissions, or user engagement patterns. Requires user approval — inform them before calling. Available reports: summary, purpose_breakdown, daily_trends, recent_activity.",
-    inputSchema: z.object({
+      "Get contact form analytics and reports. Requires user approval. Reports: summary, purpose_breakdown, daily_trends, recent_activity.",
+    parameters: z.object({
       reportType: z
         .enum([
           "summary",
@@ -243,11 +160,8 @@ const AGENT_TOOLS = {
           "recent_activity",
         ])
         .optional()
-        .describe(
-          "Report type: 'summary' (overview), 'purpose_breakdown' (contact reasons), 'daily_trends' (time patterns), 'recent_activity' (latest submissions)"
-        ),
+        .describe("Report type (default: summary)"),
     }),
-    needsApproval: true,
     execute: async ({ reportType = "summary" }) => {
       const { analytics } = await getAnalyticsTool(reportType);
       return analytics;
@@ -255,8 +169,8 @@ const AGENT_TOOLS = {
   }),
   getAbout: tool({
     description:
-      "Get general background information about Duyet — who he is, what he does, his expertise areas. Use as a starting point for general questions.",
-    inputSchema: z.object({}),
+      "Get general background information about Duyet - who he is, expertise areas.",
+    parameters: z.object({}),
     execute: async () => {
       const { about } = await getAboutTool();
       return about;
@@ -264,12 +178,12 @@ const AGENT_TOOLS = {
   }),
   fetchLlmsTxt: tool({
     description:
-      "Fetch the llms.txt file from any duyet.net domain to get AI-readable documentation. Use for discovering available features, understanding domain structure, or getting comprehensive site information. Domains: home, blog, insights, llmTimeline, cv, photos, homelab. Also accepts full URLs.",
-    inputSchema: z.object({
+      "Fetch the llms.txt file from any duyet.net domain for AI-readable documentation.",
+    parameters: z.object({
       domain: z
         .string()
         .describe(
-          "Domain key (home, blog, insights, llmTimeline, cv, photos, homelab) or full URL (e.g., https://blog.duyet.net/llms.txt)"
+          "Domain key (home, blog, insights, llmTimeline, cv, photos, homelab) or full URL"
         ),
     }),
     execute: async ({ domain }) => {
@@ -279,63 +193,51 @@ const AGENT_TOOLS = {
   }),
 };
 
+// ─── Env Types ──────────────────────────────────────────────────────
+
+interface Env {
+  DB?: D1Database;
+  CLERK_ISSUER_URL?: string;
+  OPENROUTER_API_KEY?: string;
+  RATE_LIMIT_PEPPER?: string;
+}
+
+// ─── POST Handler ───────────────────────────────────────────────────
+
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   const { DB, RATE_LIMIT_PEPPER } = context.env;
 
   try {
-    // Parse and validate the request body
-    const requestBodySchema = z.object({
-      messages: z.array(z.unknown()),
-      mode: z.string().optional(),
-      modelId: z.string().optional(),
-      conversationId: z.string().optional(),
-      settings: z
-        .object({
-          customInstructions: z.string().optional(),
-          language: z.string().optional(),
-          timezone: z.string().optional(),
-        })
-        .optional(),
-      // New: useGraph flag to enable LangGraph-style execution (Unit 11)
-      useGraph: z.boolean().optional(),
-    });
-
-    let parsedBody: z.infer<typeof requestBodySchema>;
+    // Parse and validate request body with Zod schema
+    let requestBody: PostRequestBody;
     try {
       const raw = await context.request.json();
-      const result = requestBodySchema.safeParse(raw);
-      if (!result.success) {
-        return new Response(
-          JSON.stringify({
-            error: "Invalid request body",
-            details: result.error.flatten(),
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
-        );
-      }
-      parsedBody = result.data;
+      requestBody = postRequestBodySchema.parse(raw);
     } catch {
-      return new Response(
-        JSON.stringify({ error: "Invalid JSON in request body" }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
+      return Response.json({ error: "Invalid request body" }, { status: 400 });
     }
 
     const {
-      messages: uiMessages,
-      mode = "agent",
-      modelId = DEFAULT_OPENROUTER_MODEL_ID,
-      conversationId,
+      id,
+      message,
+      messages,
+      selectedChatModel,
+      mode,
+      modelId: legacyModelId,
+      conversationId: legacyConversationId,
       settings,
-      useGraph = false, // Default to legacy behavior for now
-    } = parsedBody;
+    } = requestBody;
 
-    // Extract auth and IP for rate limiting
+    // Resolve model ID: prefer new field, fall back to legacy
+    const chatModelId = selectedChatModel || legacyModelId || "openrouter/free";
+    // Resolve conversation ID: prefer new `id` field, fall back to legacy
+    const conversationId = id || legacyConversationId;
+
+    // Auth: extract user from Clerk JWT
     const user = await getUserFromRequest(
       context.request,
       context.env.CLERK_ISSUER_URL
     );
-    const clientIp = getClientIp(context.request);
 
     // Rate limit unauthenticated users
     let rateLimitResult: {
@@ -343,8 +245,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       remaining: number;
       total: number;
     } | null = null;
+
     if (!user && DB) {
       const dbClient = createDatabaseClient(DB);
+      const clientIp = getClientIp(context.request);
       const ipHash = await hashIp(clientIp, RATE_LIMIT_PEPPER);
       rateLimitResult = await dbClient.consumeRateLimit(
         ipHash,
@@ -352,17 +256,16 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       );
 
       if (!rateLimitResult.allowed) {
-        return new Response(
-          JSON.stringify({
+        return Response.json(
+          {
             error: "Rate limit exceeded",
             message: `You've reached the limit of ${ANON_RATE_LIMIT} messages per day. Sign in for unlimited access.`,
             remaining: 0,
             limit: ANON_RATE_LIMIT,
-          }),
+          },
           {
             status: 429,
             headers: {
-              "Content-Type": "application/json",
               "Retry-After": "86400",
               "X-RateLimit-Limit": String(ANON_RATE_LIMIT),
               "X-RateLimit-Remaining": "0",
@@ -372,321 +275,156 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       }
     }
 
-    // Generate unique request ID for tracing
-    const requestId = crypto.randomUUID().substring(0, 8);
+    // Determine if this is a tool approval continuation flow
+    const isToolApprovalFlow = Boolean(messages);
+    const isFastMode = mode === "fast";
 
-    // Unit 11: Graph-based execution path
-    // When useGraph=true and mode=agent, use GraphRouter instead of direct LLM
-    if (useGraph && mode === "agent") {
-      return await handleGraphExecution(
-        {
-          request: context.request,
-          env: context.env,
-          waitUntil: context.waitUntil.bind(context),
-        },
-        requestId,
-        uiMessages,
-        modelId,
-        conversationId,
-        settings,
-        user,
-        rateLimitResult
+    // Build UI messages array for the AI SDK
+    let uiMessages: Array<Record<string, unknown>>;
+
+    if (isToolApprovalFlow && messages) {
+      // Tool approval: use the messages array directly (contains approval states)
+      uiMessages = messages as Array<Record<string, unknown>>;
+    } else if (message) {
+      // New message: append to empty array (AI SDK manages history internally)
+      uiMessages = [message as unknown as Record<string, unknown>];
+    } else {
+      return Response.json(
+        { error: "Either message or messages is required" },
+        { status: 400 }
       );
     }
 
-    // Legacy direct LLM execution path (maintained for backward compatibility)
-    return await handleDirectExecution(
-      context,
-      requestId,
-      uiMessages,
-      mode,
-      modelId,
-      conversationId,
-      settings,
-      user,
-      rateLimitResult
+    // Build system prompt with skills and user settings
+    const capabilities = getCapabilities(chatModelId);
+    const basePrompt = isFastMode ? FAST_SYSTEM_PROMPT : SYSTEM_PROMPT;
+    const system = buildSystemPrompt(
+      basePrompt,
+      !isFastMode ? AGENT_SKILLS : undefined,
+      settings
     );
+
+    // Get AI model
+    const { model, resolvedModelId } = getLanguageModel(
+      context.env.OPENROUTER_API_KEY || "",
+      chatModelId
+    );
+
+    // Convert UI messages to model messages
+    const modelMessages = await convertToModelMessages(uiMessages);
+
+    // Store conversation for authenticated users
+    if (user && DB && conversationId) {
+      const dbClient = createDatabaseClient(DB);
+      const existing = await dbClient.getConversation(conversationId);
+      if (!existing) {
+        dbClient
+          .createConversation({
+            id: conversationId,
+            mode: isFastMode ? "fast" : "agent",
+            userId: user.userId,
+            modelId: resolvedModelId,
+          })
+          .catch((err) => {
+            console.error("[Chat API] Failed to create conversation:", err);
+          });
+      }
+    }
+
+    // Create streaming response using the template pattern
+    const stream = createUIMessageStream({
+      execute: async ({ writer }) => {
+        const result = streamText({
+          model,
+          system,
+          messages: modelMessages,
+          temperature: isFastMode ? 0.3 : 0.7,
+          ...(isFastMode
+            ? {}
+            : {
+                tools: AGENT_TOOLS,
+                toolChoice: "auto" as const,
+                stopWhen: stepCountIs(5),
+                experimental_activeTools: capabilities.tools
+                  ? [
+                      "searchBlog",
+                      "getBlogPost",
+                      "getCV",
+                      "getGitHub",
+                      "getAnalytics",
+                      "getAbout",
+                      "fetchLlmsTxt",
+                    ]
+                  : [],
+              }),
+        });
+
+        writer.merge(
+          result.toUIMessageStream({
+            sendReasoning: capabilities.reasoning,
+          })
+        );
+      },
+      onError: () => {
+        return "An error occurred while processing your request.";
+      },
+    });
+
+    const response = createUIMessageStreamResponse({ stream });
+
+    // Add rate limit headers for unauthenticated users
+    if (rateLimitResult) {
+      response.headers.set("X-RateLimit-Limit", String(ANON_RATE_LIMIT));
+      response.headers.set(
+        "X-RateLimit-Remaining",
+        String(rateLimitResult.remaining)
+      );
+    }
+
+    return response;
   } catch (error) {
-    const requestId = `error-${crypto.randomUUID().substring(0, 8)}`;
-    console.error(`[Chat API][${requestId}] Error:`, error);
+    console.error("[Chat API] Error:", error);
     const errorMessage =
       error instanceof Error ? error.message : "Unknown error";
-    console.error(`[Chat API][${requestId}] Error details:`, errorMessage);
-    return new Response(
-      JSON.stringify({
-        error: "Failed to process chat request",
-        details: errorMessage,
-      }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      }
+    return Response.json(
+      { error: "Failed to process chat request", details: errorMessage },
+      { status: 500 }
     );
   }
 };
 
-/**
- * Handle graph-based execution using GraphRouter (Unit 11)
- *
- * This path uses the LangGraph-style execution system:
- * 1. Create initial state from user input
- * 2. Execute graph with observability
- * 3. Stream results as nodes complete
- *
- * Note: For MVP, this still uses streamText for the actual LLM calls
- * but orchestrates through the GraphRouter for state management.
- */
-async function handleGraphExecution(
-  context: {
-    request: Request;
-    env: Env;
-    waitUntil: (promise: Promise<unknown>) => void;
-  },
-  requestId: string,
-  uiMessages: unknown[],
-  modelId: string,
-  conversationId: string | undefined,
-  settings:
-    | { customInstructions?: string; language?: string; timezone?: string }
-    | undefined,
-  user: { userId: string } | null,
-  rateLimitResult: { allowed: boolean; remaining: number; total: number } | null
-): Promise<Response> {
-  // Get user's last message as input
-  const lastMessage = uiMessages[uiMessages.length - 1];
-  const userInput =
-    typeof lastMessage === "object" &&
-    lastMessage !== null &&
-    "content" in lastMessage
-      ? String(lastMessage.content)
-      : String(lastMessage);
+// ─── DELETE Handler ─────────────────────────────────────────────────
 
-  // Create initial state for graph execution
-  const convId = conversationId || crypto.randomUUID();
-  const initialState = createInitialState(convId, userInput);
+export const onRequestDelete: PagesFunction<Env> = async (context) => {
+  const { DB } = context.env;
 
-  // Create observability middleware
-  const observability = createObservability({
-    debug: false, // Disable debug logs in production
-    logger: (level, message, ...args) => {
-      if (level === "error" || level === "warn") {
-        console.error(
-          `[Chat API][${requestId}][${level.toUpperCase()}]`,
-          message,
-          ...args
-        );
-      }
-    },
-  });
+  if (!DB) {
+    return Response.json({ error: "Database not configured" }, { status: 500 });
+  }
 
-  // For now, we still use streamText for the actual LLM interaction
-  // The graph will be executed in the background while we stream the LLM response
-  // TODO: In future, we'll stream graph state updates via SSE
+  const url = new URL(context.request.url);
+  const id = url.searchParams.get("id");
 
-  // Convert messages for AI SDK
-  const allMessages = await convertToModelMessages(uiMessages);
-  const messages = pruneMessages({
-    messages: allMessages,
-    toolCalls: "require-last-only",
-  });
+  if (!id) {
+    return Response.json({ error: "id required" }, { status: 400 });
+  }
 
-  // Build system prompt with graph context (shared helper)
-  const system = buildSystemPrompt(SYSTEM_PROMPT, true, settings);
-
-  const { model, selectedModelId } = getOpenRouterModel(context.env, modelId);
-
-  // Start graph execution in background — use waitUntil so Cloudflare does
-  // not terminate the worker before the promise resolves.
-  context.waitUntil(
-    (async () => {
-      try {
-        const router = new GraphRouter();
-        observability.startExecution();
-
-        const finalState = await router.executeGraph(initialState);
-
-        observability.endExecution();
-
-        // Persist checkpoint to D1 for resumability
-        if (context.env.DB) {
-          const dbClient = createDatabaseClient(context.env.DB);
-          const checkpointer = createCheckpointer(dbClient);
-
-          try {
-            await checkpointer.saveCheckpoint(finalState);
-          } catch (checkpointError) {
-            console.error(
-              `[Chat API][${requestId}] Failed to save checkpoint:`,
-              checkpointError
-            );
-          }
-        }
-      } catch (error) {
-        console.error(`[Chat API][${requestId}] Graph execution error:`, error);
-        observability.endExecution();
-      }
-    })()
+  const user = await getUserFromRequest(
+    context.request,
+    context.env.CLERK_ISSUER_URL
   );
 
-  // Stream the LLM response immediately (don't wait for graph)
-  const result = streamText({
-    model,
-    system,
-    messages,
-    temperature: 0.7,
-    tools: AGENT_TOOLS,
-    toolChoice: "auto" as const,
-    stopWhen: stepCountIs(30),
-  });
-
-  // Streaming started — structured observability handles logging
-
-  // Store conversation for authenticated users
-  if (user && context.env.DB && conversationId) {
-    const dbClient = createDatabaseClient(context.env.DB);
-    const existing = await dbClient.getConversation(conversationId);
-    if (!existing) {
-      dbClient
-        .createConversation({
-          id: conversationId,
-          mode: "agent",
-          userId: user.userId,
-          modelId: selectedModelId,
-        })
-        .catch((err) => {
-          console.error(
-            `[Chat API][${requestId}] Failed to create conversation:`,
-            err
-          );
-        });
-    } else if (existing.modelId !== selectedModelId) {
-      dbClient
-        .updateConversation({ id: conversationId, modelId: selectedModelId })
-        .catch((err) => {
-          console.error(
-            `[Chat API][${requestId}] Failed to update conversation model:`,
-            err
-          );
-        });
-    }
+  if (!user) {
+    return Response.json({ error: "unauthorized" }, { status: 401 });
   }
 
-  const response = result.toUIMessageStreamResponse({
-    messageMetadata: ({ part }) => getMessageMetadata(part, selectedModelId),
-  });
+  const dbClient = createDatabaseClient(DB);
+  const conversation = await dbClient.getConversation(id);
 
-  // Add rate limit headers
-  if (rateLimitResult) {
-    response.headers.set("X-RateLimit-Limit", String(ANON_RATE_LIMIT));
-    response.headers.set(
-      "X-RateLimit-Remaining",
-      String(rateLimitResult.remaining)
-    );
+  if (!conversation || conversation.userId !== user.userId) {
+    return Response.json({ error: "forbidden" }, { status: 403 });
   }
 
-  // Add header indicating graph execution
-  response.headers.set("X-Graph-Execution", "enabled");
-
-  return response;
-}
-
-/**
- * Handle direct LLM execution (legacy path)
- *
- * This maintains the existing behavior for backward compatibility.
- */
-async function handleDirectExecution(
-  context: { request: Request; env: Env },
-  requestId: string,
-  uiMessages: unknown[],
-  mode: string,
-  modelId: string,
-  conversationId: string | undefined,
-  settings:
-    | { customInstructions?: string; language?: string; timezone?: string }
-    | undefined,
-  user: { userId: string } | null,
-  rateLimitResult: { allowed: boolean; remaining: number; total: number } | null
-): Promise<Response> {
-  const allMessages = await convertToModelMessages(uiMessages);
-  const messages = pruneMessages({
-    messages: allMessages,
-    toolCalls: "require-last-only",
-  });
-
-  const isFast = mode === "fast";
-  const basePrompt = isFast ? FAST_SYSTEM_PROMPT : SYSTEM_PROMPT;
-
-  // Build system prompt with skills and settings (shared helper)
-  const system = buildSystemPrompt(
-    basePrompt,
-    !isFast && AGENT_SKILLS.length > 0,
-    settings
-  );
-
-  const { model, selectedModelId } = getOpenRouterModel(context.env, modelId);
-
-  const result = streamText({
-    model,
-    system,
-    messages,
-    temperature: isFast ? 0.3 : 0.7,
-    ...(isFast
-      ? {}
-      : {
-          tools: AGENT_TOOLS,
-          toolChoice: "auto" as const,
-          stopWhen: stepCountIs(30),
-        }),
-  });
-
-  // Streaming started — structured observability handles logging
-
-  // Store conversation for authenticated users (fire and forget)
-  if (user && context.env.DB && conversationId) {
-    const dbClient = createDatabaseClient(context.env.DB);
-    const existing = await dbClient.getConversation(conversationId);
-    if (!existing) {
-      dbClient
-        .createConversation({
-          id: conversationId,
-          mode: mode as "fast" | "agent",
-          userId: user.userId,
-          modelId: selectedModelId,
-        })
-        .catch((err) => {
-          console.error(
-            `[Chat API][${requestId}] Failed to create conversation:`,
-            err
-          );
-        });
-    } else if (existing.modelId !== selectedModelId) {
-      dbClient
-        .updateConversation({
-          id: conversationId,
-          modelId: selectedModelId,
-        })
-        .catch((err) => {
-          console.error(
-            `[Chat API][${requestId}] Failed to update conversation model:`,
-            err
-          );
-        });
-    }
-  }
-
-  const response = result.toUIMessageStreamResponse({
-    messageMetadata: ({ part }) => getMessageMetadata(part, selectedModelId),
-  });
-
-  // Add rate limit headers for unauthenticated users
-  if (rateLimitResult) {
-    response.headers.set("X-RateLimit-Limit", String(ANON_RATE_LIMIT));
-    response.headers.set(
-      "X-RateLimit-Remaining",
-      String(rateLimitResult.remaining)
-    );
-  }
-
-  return response;
-}
+  await dbClient.deleteConversation(id);
+  return Response.json({ success: true }, { status: 200 });
+};
