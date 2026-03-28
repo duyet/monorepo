@@ -1,12 +1,22 @@
 import { SectionLayout } from "@/components/layouts";
 import { DEFAULT_PERIOD, getPeriodDays } from "@/lib/periods";
-import { CCUsageActivity } from "./activity";
-import { CCUsageCosts } from "./costs";
-import { CCUsageDailyTable } from "./daily-table";
+import { CCUsageActivityView } from "./activity";
+import { CCUsageCostsView } from "./costs";
+import { CCUsageDailyTableView } from "./daily-table";
 import { CCUsageErrorBoundary } from "./error-boundary";
-import { CCUsageMetrics } from "./metrics";
-import { CCUsageModels } from "./models";
+import { CCUsageMetricsView } from "./metrics";
+import { CCUsageModelsView } from "./models";
 import type { DateRangeDays } from "./types";
+
+// Data fetchers
+import {
+  getCCUsageActivity,
+  getCCUsageActivityByModel,
+  getCCUsageActivityRaw,
+  getCCUsageCosts,
+  getCCUsageMetrics,
+  getCCUsageModels,
+} from "./utils/data-fetchers";
 
 export const metadata = {
   title: "AI Usage Analytics",
@@ -22,7 +32,18 @@ const STATIC_DAYS: DateRangeDays = getPeriodDays(
   DEFAULT_PERIOD
 ) as DateRangeDays;
 
-export default function CCUsage() {
+export default async function CCUsage() {
+  // Fetch all data in parallel
+  const [metrics, activity, activityByModel, models, costs, dailyActivity] =
+    await Promise.all([
+      getCCUsageMetrics(STATIC_DAYS),
+      getCCUsageActivity(STATIC_DAYS),
+      getCCUsageActivityByModel(STATIC_DAYS),
+      getCCUsageModels(STATIC_DAYS),
+      getCCUsageCosts(STATIC_DAYS),
+      getCCUsageActivityRaw(STATIC_DAYS),
+    ]);
+
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -47,7 +68,7 @@ export default function CCUsage() {
             title="Usage Overview"
             description="Token consumption and activity summary"
           >
-            <CCUsageMetrics days={STATIC_DAYS} />
+            <CCUsageMetricsView rawMetrics={metrics} />
           </SectionLayout>
         </CCUsageErrorBoundary>
 
@@ -56,7 +77,10 @@ export default function CCUsage() {
             title="Daily Activity"
             description="Token usage patterns"
           >
-            <CCUsageActivity days={STATIC_DAYS} />
+            <CCUsageActivityView
+              activity={activity}
+              activityByModel={activityByModel}
+            />
           </SectionLayout>
         </CCUsageErrorBoundary>
 
@@ -65,7 +89,7 @@ export default function CCUsage() {
             title="AI Model Usage"
             description="Model distribution and usage patterns"
           >
-            <CCUsageModels days={STATIC_DAYS} />
+            <CCUsageModelsView models={models} />
           </SectionLayout>
         </CCUsageErrorBoundary>
 
@@ -74,7 +98,7 @@ export default function CCUsage() {
             title="Daily Costs"
             description="Cost breakdown and spending patterns"
           >
-            <CCUsageCosts days={STATIC_DAYS} />
+            <CCUsageCostsView costs={costs} days={STATIC_DAYS} />
           </SectionLayout>
         </CCUsageErrorBoundary>
 
@@ -83,7 +107,10 @@ export default function CCUsage() {
             title="Daily Usage Detail"
             description="Complete daily breakdown of tokens and costs"
           >
-            <CCUsageDailyTable days={STATIC_DAYS} />
+            <CCUsageDailyTableView
+              activity={dailyActivity}
+              days={STATIC_DAYS}
+            />
           </SectionLayout>
         </CCUsageErrorBoundary>
 
