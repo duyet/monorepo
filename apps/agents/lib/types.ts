@@ -2,6 +2,8 @@
  * Types for the AI Agent application
  */
 
+import type { UIMessage } from "ai";
+
 export type ChatMode = "fast" | "agent";
 
 export const DEFAULT_OPENROUTER_MODEL_ID = "openrouter/free";
@@ -210,3 +212,24 @@ export type {
   VisualGraphData,
   VisualNode,
 } from "./graph/types";
+
+export type CustomUIDataTypes = {
+  appendMessage: string;
+  id: string;
+  title: string;
+  kind: string;
+  clear: null;
+  finish: null;
+  "chat-title": string;
+};
+
+export type ChatMessage = UIMessage<
+  { createdAt?: string },
+  CustomUIDataTypes
+>;
+
+export type Attachment = {
+  name: string;
+  url: string;
+  contentType: string;
+};
