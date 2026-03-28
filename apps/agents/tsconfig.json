@@ -18,6 +18,7 @@
   "include": [
     "src",
     "app",
+    "artifacts",
     "components",
     "lib",
     "hooks",
