@@ -582,6 +582,121 @@ export class DatabaseClient {
 
     return deletedCount;
   }
+
+  // ========== Vote Operations ==========
+
+  /**
+   * Get all votes for a conversation
+   */
+  async getVotesByChatId(
+    chatId: string
+  ): Promise<Array<{ chatId: string; messageId: string; isUpvoted: boolean }>> {
+    const stmt = this.db.prepare(
+      "SELECT chat_id, message_id, is_upvoted FROM votes WHERE chat_id = ?"
+    );
+    const result = (await stmt.bind(chatId).all()) as {
+      results: Array<{
+        chat_id: string;
+        message_id: string;
+        is_upvoted: number;
+      }>;
+    };
+
+    return (result.results || []).map((row) => ({
+      chatId: row.chat_id,
+      messageId: row.message_id,
+      isUpvoted: Boolean(row.is_upvoted),
+    }));
+  }
+
+  /**
+   * Cast or update a vote on a message
+   */
+  async voteMessage(params: {
+    chatId: string;
+    messageId: string;
+    isUpvoted: boolean;
+  }): Promise<void> {
+    const stmt = this.db.prepare(
+      "INSERT INTO votes (chat_id, message_id, is_upvoted) VALUES (?, ?, ?) ON CONFLICT(chat_id, message_id) DO UPDATE SET is_upvoted = ?"
+    );
+    await stmt
+      .bind(
+        params.chatId,
+        params.messageId,
+        params.isUpvoted ? 1 : 0,
+        params.isUpvoted ? 1 : 0
+      )
+      .run();
+  }
+
+  // ========== Document Operations ==========
+
+  /**
+   * Save a document (artifact)
+   */
+  async saveDocument(params: {
+    id: string;
+    title: string;
+    content: string;
+    kind: string;
+    userId: string;
+  }): Promise<void> {
+    const now = Date.now();
+    const stmt = this.db.prepare(
+      "INSERT INTO documents (id, title, content, kind, user_id, created_at) VALUES (?, ?, ?, ?, ?, ?)"
+    );
+    await stmt
+      .bind(params.id, params.title, params.content, params.kind, params.userId, now)
+      .run();
+  }
+
+  /**
+   * Get a document by ID
+   */
+  async getDocument(
+    id: string
+  ): Promise<{
+    id: string;
+    title: string;
+    content: string;
+    kind: string;
+    userId: string;
+    createdAt: number;
+  } | null> {
+    const stmt = this.db.prepare(
+      "SELECT id, title, content, kind, user_id, created_at FROM documents WHERE id = ? ORDER BY created_at DESC LIMIT 1"
+    );
+    const result = (await stmt.bind(id).first()) as {
+      id: string;
+      title: string;
+      content: string;
+      kind: string;
+      user_id: string;
+      created_at: number;
+    } | null;
+
+    if (!result) return null;
+
+    return {
+      id: result.id,
+      title: result.title,
+      content: result.content,
+      kind: result.kind,
+      userId: result.user_id,
+      createdAt: result.created_at,
+    };
+  }
+
+  /**
+   * Update document content
+   */
+  async updateDocumentContent(id: string, content: string): Promise<void> {
+    const stmt = this.db.prepare(
+      "UPDATE documents SET content = ? WHERE id = ?"
+    );
+    await stmt.bind(content, id).run();
+  }
 }
 
 /**
