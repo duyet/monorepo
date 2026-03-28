@@ -65,8 +65,8 @@ interface SidebarHistoryProps {
   conversations: Conversation[];
   activeId: string | null;
   isLoading: boolean;
-  onSelectConversation: (id: string) => void;
-  onDeleteConversation: (id: string) => void;
+  onSelectConversation: (id: string) => Promise<void> | void;
+  onDeleteConversation: (id: string) => Promise<void> | void;
 }
 
 export function SidebarHistory({
