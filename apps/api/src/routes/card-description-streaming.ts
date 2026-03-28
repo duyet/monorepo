@@ -69,7 +69,9 @@ function getSystemPrompt(cardType: CardType): string {
  */
 async function getContentForCardType(cardType: CardType): Promise<string> {
   if (cardType === "blog") {
-    const response = await fetch("https://blog.duyet.net/llms.txt");
+    const response = await fetch("https://blog.duyet.net/llms.txt", {
+      signal: AbortSignal.timeout(5_000),
+    });
     if (!response.ok) {
       throw new Error(`Failed to fetch blog content: ${response.status}`);
     }

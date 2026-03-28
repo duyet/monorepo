@@ -91,6 +91,22 @@ export const Route = createRootRoute({
     ],
   }),
   notFoundComponent: NotFoundComponent,
+  errorComponent: ({ error }) => (
+    <div className="flex min-h-screen items-center justify-center px-4 bg-background">
+      <div className="max-w-md text-center">
+        <h1 className="mb-4 text-4xl font-bold font-[family-name:var(--font-display)] text-foreground">
+          Something went wrong
+        </h1>
+        <p className="mb-8 text-sm text-muted-foreground">{error.message}</p>
+        <a
+          href="/"
+          className="rounded-xl px-6 py-2 font-medium transition-all hover:opacity-90 bg-primary text-primary-foreground"
+        >
+          Go to timeline
+        </a>
+      </div>
+    </div>
+  ),
   component: RootComponent,
 });
 

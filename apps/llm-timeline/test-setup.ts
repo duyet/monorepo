@@ -10,14 +10,75 @@ try {
 }
 
 // Mock @tanstack/react-router — must be before component imports
+const mockLocation = {
+  href: "/",
+  pathname: "/",
+  search: {},
+  searchStr: "",
+  hash: "",
+  state: {},
+  maskedLocation: undefined,
+};
+const createMockAtom = (value: unknown) => ({
+  get: () => value,
+  set: () => {},
+  subscribe: () => () => {},
+  state: value,
+});
+const mockRouterStore = createMockAtom({
+  location: mockLocation,
+  resolvedLocation: mockLocation,
+  status: "idle",
+  isLoading: false,
+  matches: [],
+  pendingMatches: [],
+});
 mock.module("@tanstack/react-router", () => ({
   useNavigate: () => () => {},
   useSearch: () => ({}),
   useParams: () => ({}),
+  useMatch: () => ({ id: "root" }),
+  useMatches: () => [],
   useRouter: () => ({
     navigate: () => {},
-    history: { push: () => {}, replace: () => {} },
+    history: {
+      push: () => {},
+      replace: () => {},
+      createHref: (href: unknown) => {
+        if (typeof href === "string") return href;
+        if (typeof href === "object" && href !== null && "pathname" in href)
+          return (href as { pathname: string }).pathname;
+        return "/";
+      },
+    },
+    stores: { location: createMockAtom(mockLocation) },
+    store: mockRouterStore,
+    options: {},
+    buildLocation: (...args: unknown[]) => {
+      const opts = args[0] as Record<string, unknown> | undefined;
+      const to = (opts?.to as string) ?? (opts?.dest as string) ?? "/";
+      return {
+        ...mockLocation,
+        href: to,
+        pathname: to,
+        search: opts?.search ?? {},
+        searchStr: "",
+        hash: (opts?.hash as string) ?? "",
+      };
+    },
+    matchRoute: () => false,
+    isActive: () => false,
   }),
+  useRouterState: (opts?: { select?: (s: unknown) => unknown }) => {
+    const state = {
+      location: mockLocation,
+      resolvedLocation: mockLocation,
+      status: "idle",
+      isLoading: false,
+      matches: [],
+    };
+    return opts?.select ? opts.select(state) : state;
+  },
   Link: ({
     children,
     to,

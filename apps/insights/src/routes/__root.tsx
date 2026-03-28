@@ -55,6 +55,17 @@ export const Route = createRootRoute({
     ],
   }),
   notFoundComponent: NotFoundComponent,
+  errorComponent: ({ error }) => (
+    <div className="flex min-h-[50vh] items-center justify-center">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold">Error</h1>
+        <p className="mt-2 text-muted-foreground">{error.message}</p>
+        <a href="/" className="mt-4 inline-block text-sm underline">
+          Go home
+        </a>
+      </div>
+    </div>
+  ),
   component: RootComponent,
 });
 

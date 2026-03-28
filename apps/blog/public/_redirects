@@ -1,6 +1,36 @@
 # Category redirects
 /category/data-engineer /category/data-engineering 301
 /category/bigdata /category/data 301
+/categories /category 301
+
+# Page redirects
+/page/:id /?page=:id 301
+/pages/:id /:id 301
+
+# Stats redirect
+/stats https://insights.duyet.net 301
+
+# Series redirect
+/series/clickhouse /series/clickhouse-on-kubernetes 301
+
+# Legacy blog post redirects
+/2015/01/git-phuc-hoi-code-cu-toan-tap.html /2015/01/git-recovering-old-code.html 301
+/2015/01/su-dung-expressjs-de-hien-thi-noi-dung.html /2015/01/expressjs-static-html.html 301
+/2015/02/coding-nhung-loi-ich-cua-viec-tiep-can.html /2015/01/module.html 301
+/2015/02/dns-la-cai-quai-gi-vay.html /2015/01/dns.html 301
+/2015/02/nodejs-packagejson-la-gi-vay.html /2015/02/packagejson.html 301
+/2015/02/quy-trinh-phat-trien-phan-mem-mo-hinh-thac-nuoc.html /2015/02/waterfall.html 301
+/2015/02/quy-trinh-phat-trien-phan-mem-mo-hinh-xoan-oc.html /2015/02/spiral.html 301
+/2015/02/oop-design-patterns-la-gi.html /2015/02/design-patterns.html 301
+/2015/02/gioi-thieu-lam-quen-voi-phpmyadmin-he.html /2015/02/phpmyadmin.html 301
+/2015/12/chartico-tao-bieu-o-cot-nhanh-chong-va.html /2015/12/chartico.html 301
+/2015/12/docker-la-gi-co-ban-ve-docker.html /2015/12/docker.html 301
+/2015/11/review-trai-nghiem-firefox-os.html /2015/11/firefox-os.html 301
+/2015/09/nodejs-all-you-need-to-know-about.html /2015/09/all-you-need-to-know-about-nodejs.html 301
+/2015/04/project-mongo-web-query-simple.html /2015/04/mongo-web-query.html 301
+/2015/04/database-tim-hieu-ve-csdl-redis.html /2015/04/redis.html 301
+/2015/04/bootstrap-gioi-thieu-ve-components.html /2015/04/bootstrap.html 301
+/2015/04/bigdata-getting-started-with-spark-in-python.html /2015/04/pyspark.html 301
 
 # Redirect .html to clean URLs
 /:year/:month/:slug.html /:year/:month/:slug/ 301

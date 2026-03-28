@@ -1,8 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import Container from "@duyet/components/Container";
 import PhotoGallery from "@/components/PhotoGallery";
-import { LoadingGrid } from "@/components/LoadingStates";
-import { usePhotos } from "@/hooks/usePhotos";
+import { loadPhotos } from "@/lib/load-photos";
 
 export const Route = createFileRoute("/$year")({
   beforeLoad: ({ params }) => {
@@ -15,51 +14,28 @@ export const Route = createFileRoute("/$year")({
       throw notFound();
     }
   },
-  head: ({ params }) => {
-    const year = params.year;
-    return {
-      meta: [
-        { title: `Photos from ${year} | Duyệt` },
-        {
-          name: "description",
-          content: `Photography collection from ${year} by Duyệt`,
-        },
-      ],
-    };
+  loader: async ({ params }) => {
+    const photos = await loadPhotos();
+    return photos.filter(
+      (photo) =>
+        new Date(photo.created_at).getFullYear().toString() === params.year
+    );
   },
+  head: ({ params }) => ({
+    meta: [
+      { title: `Photos from ${params.year} | Duyệt` },
+      {
+        name: "description",
+        content: `Photography collection from ${params.year} by Duyệt`,
+      },
+    ],
+  }),
   component: YearPage,
 });
 
 function YearPage() {
   const { year } = Route.useParams();
-  const { photos, error, isLoading } = usePhotos();
-
-  if (isLoading) {
-    return <LoadingGrid />;
-  }
-
-  if (error && photos.length === 0) {
-    return (
-      <div className="flex min-h-[400px] items-center justify-center">
-        <div className="text-center">
-          <p className="text-gray-500 dark:text-gray-400">
-            Failed to load photos. Please try again later.
-          </p>
-          <Link
-            to="/"
-            className="mt-4 inline-block rounded-lg bg-gray-100 px-4 py-2 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
-          >
-            Back to all photos
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  const yearPhotos = photos.filter((photo) => {
-    const photoYear = new Date(photo.created_at).getFullYear().toString();
-    return photoYear === year;
-  });
+  const yearPhotos = Route.useLoaderData();
 
   if (yearPhotos.length === 0) {
     return (
@@ -72,12 +48,12 @@ function YearPage() {
             <p className="mb-6 text-neutral-500 dark:text-neutral-400">
               There are no photos in the gallery from this year.
             </p>
-            <a
-              href="/"
+            <Link
+              to="/"
               className="inline-block rounded-lg bg-gray-100 px-4 py-2 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
             >
               Back to all photos
-            </a>
+            </Link>
           </div>
         </div>
       </Container>

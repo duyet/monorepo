@@ -50,6 +50,24 @@ export const Route = createRootRoute({
     ],
   }),
   notFoundComponent: NotFound,
+  errorComponent: ({ error }) => (
+    <div className="flex min-h-screen items-center justify-center px-4">
+      <div className="max-w-md text-center">
+        <h1 className="mb-4 text-4xl font-bold text-neutral-900 dark:text-neutral-100">
+          Something went wrong
+        </h1>
+        <p className="mb-8 text-sm text-neutral-500 dark:text-neutral-400">
+          {error.message}
+        </p>
+        <a
+          href="/"
+          className="rounded-xl bg-neutral-800 px-6 py-2 font-medium text-white transition-all hover:opacity-90 dark:bg-neutral-200 dark:text-neutral-900"
+        >
+          Go home
+        </a>
+      </div>
+    </div>
+  ),
   component: RootComponent,
 });
 
