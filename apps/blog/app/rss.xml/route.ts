@@ -2,7 +2,7 @@ import type { Post } from "@duyet/interfaces";
 import { getAllPosts } from "@duyet/libs/getPost";
 import RSS from "rss";
 
-const siteUrl = "https://blog.duyet.net";
+const siteUrl = process.env.NEXT_PUBLIC_DUYET_BLOG_URL || "https://blog.duyet.net";
 export const dynamic = "force-static";
 
 export async function GET() {

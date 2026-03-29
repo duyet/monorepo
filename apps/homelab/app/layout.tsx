@@ -8,6 +8,7 @@ import Header from "@duyet/components/Header";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { homelabConfig } from "@duyet/config";
 import { Inter } from "next/font/google";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 const inter = Inter({
   weight: ["100", "200", "300", "400", "700"],
@@ -39,7 +40,9 @@ export default function RootLayout({ children }: LayoutProps) {
 
           <main>
             <Container className="mb-20">
-              <div>{children}</div>
+              <ErrorBoundary>
+                <div>{children}</div>
+              </ErrorBoundary>
             </Container>
           </main>
 

@@ -1,7 +1,7 @@
 export const dynamic = "force-static";
 
 export function GET(): Response {
-  const siteUrl = "https://blog.duyet.net";
+  const siteUrl = process.env.NEXT_PUBLIC_DUYET_BLOG_URL || "https://blog.duyet.net";
 
   const robotsTxt = `User-agent: *
 Allow: /
