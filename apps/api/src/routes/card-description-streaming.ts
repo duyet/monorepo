@@ -13,6 +13,44 @@ interface Env {
   OPENROUTER_API_KEY?: string;
 }
 
+// ---------------------------------------------------------------------------
+// Rate limiter (in-memory, per-IP, resets on Worker restart)
+// ---------------------------------------------------------------------------
+const RATE_LIMIT_WINDOW_MS = 60_000; // 1 minute
+const RATE_LIMIT_MAX = 10; // requests per window per IP
+const rateLimitMap = new Map<string, { count: number; windowStart: number }>();
+
+function rateLimit(ip: string): { allowed: boolean; retryAfterMs: number } {
+  const now = Date.now();
+  let entry = rateLimitMap.get(ip);
+
+  if (!entry || now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
+    entry = { count: 0, windowStart: now };
+    rateLimitMap.set(ip, entry);
+  }
+
+  entry.count++;
+  if (entry.count > RATE_LIMIT_MAX) {
+    return {
+      allowed: false,
+      retryAfterMs: RATE_LIMIT_WINDOW_MS - (now - entry.windowStart),
+    };
+  }
+
+  // Prune entries older than 2x window to keep memory bounded
+  if (rateLimitMap.size > 1000) {
+    for (const [key, val] of rateLimitMap) {
+      if (now - val.windowStart > RATE_LIMIT_WINDOW_MS * 2) {
+        rateLimitMap.delete(key);
+      }
+    }
+  }
+
+  return { allowed: true, retryAfterMs: 0 };
+}
+
+const MAX_PROMPT_LENGTH = 500;
+
 const cardDescriptionRouter = new Hono<{ Bindings: Env }>();
 
 /**
@@ -96,13 +134,30 @@ async function getContentForCardType(cardType: CardType): Promise<string> {
  */
 cardDescriptionRouter.post("/", async (c) => {
   try {
+    // Rate limit by IP
+    const ip = c.req.header("cf-connecting-ip") || c.req.header("x-forwarded-for") || "unknown";
+    const { allowed, retryAfterMs } = rateLimit(ip);
+    if (!allowed) {
+      return c.json(
+        { error: "Rate limit exceeded", retryAfter: Math.ceil(retryAfterMs / 1000) },
+        429,
+      );
+    }
+
     const body = await c.req.json<CardDescriptionRequest>();
     const { prompt } = body;
 
     if (!prompt || typeof prompt !== "string") {
       return c.json(
         { error: "Missing or invalid required field: prompt" },
-        400
+        400,
+      );
+    }
+
+    if (prompt.length > MAX_PROMPT_LENGTH) {
+      return c.json(
+        { error: `Prompt too long (max ${MAX_PROMPT_LENGTH} chars)` },
+        400,
       );
     }
 
