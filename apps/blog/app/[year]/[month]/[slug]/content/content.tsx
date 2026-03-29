@@ -113,9 +113,13 @@ export async function getPost(slug: string[]) {
   // Regular markdown processing
   const content = await markdownToHtml(markdownContent);
 
+  // Sanitize snippet HTML to prevent XSS
+  const snippet = post.snippet ? await markdownToHtml(post.snippet) : "";
+
   return {
     ...post,
     content,
+    snippet,
     headings,
     markdown_content: markdownContent,
     edit_url: getGithubEditUrl(post.slug),
