@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   review:
-    uses: duyet/github-actions/.github/workflows/claude-code-review.yml@main
+    uses: duyet/github-actions/.github/workflows/claude-code-review.yml@02472419b3e1a62b37ec0c201cad336d26a680d3
     secrets:
       api_key: ${{ secrets.OPENROUTER_API_KEY }}
       bot_github_token: ${{ secrets.DUYETBOT_GITHUB_TOKEN }}

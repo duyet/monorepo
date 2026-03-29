@@ -7,7 +7,7 @@ on:
 
 jobs:
   analyze:
-    uses: duyet/github-actions/.github/workflows/claude-nightly-analysis.yml@main
+    uses: duyet/github-actions/.github/workflows/claude-nightly-analysis.yml@02472419b3e1a62b37ec0c201cad336d26a680d3
     permissions:
       contents: write
       pull-requests: write
