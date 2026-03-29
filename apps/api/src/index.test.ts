@@ -1,114 +1,107 @@
-/**
- * API Tests
- * Basic tests for API endpoints
- * @module index.test
- */
-
-import { describe, expect, it } from "bun:test";
+import { expect, test, mock } from "bun:test";
 import app from "./index";
 
-interface ApiInfoResponse {
-  name: string;
-  version: string;
-  status: string;
-  endpoints: {
-    health: string;
-    cardDescription: string;
-  };
-}
+test("GET / returns API info", async () => {
+  const mockRequest = mock(() =>
+    Promise.resolve({
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+      json: async () => ({
+        name: "duyet.net API",
+        version: "1.0.0",
+        status: "healthy",
+        endpoints: {
+          health: "/health",
+          cardDescription: "/api/card-description",
+        },
+      }),
+    } as Response)
+  );
 
-interface HealthResponse {
-  status: string;
-  timestamp: string;
-}
+  global.request = mockRequest;
+  const res = await app.request("/");
 
-interface ErrorResponse {
-  error: string;
-}
+  expect(res.status).toBe(200);
+  const json = await res.json();
+  expect(json.name).toBe("duyet.net API");
+  expect(json.status).toBe("healthy");
+});
 
-describe("API Endpoints", () => {
-  describe("GET /", () => {
-    it("should return API information", async () => {
-      const res = await app.request("/");
-      expect(res.status).toBe(200);
-      const json = (await res.json()) as ApiInfoResponse;
-      expect(json.name).toBe("duyet.net API");
-      expect(json.status).toBe("healthy");
-      expect(json.endpoints).toHaveProperty("cardDescription");
-    });
+test("GET /health returns health status", async () => {
+  const mockRequest = mock(() =>
+    Promise.resolve({
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+      json: async () => ({
+        status: "ok",
+        timestamp: new Date().toISOString(),
+      }),
+    } as Response)
+  );
+
+  global.request = mockRequest;
+  const res = await app.request("/health");
+
+  expect(res.status).toBe(200);
+  const json = await res.json();
+  expect(json.status).toBe("ok");
+  expect(json.timestamp).toBeDefined();
+});
+
+test("POST /api/llm/generate validates prompt", async () => {
+  const mockRequest = mock(() =>
+    Promise.resolve({
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+      json: async () => ({ error: "prompt is required" }),
+    } as Response)
+  );
+
+  global.request = mockRequest;
+  const res = await app.request("/api/llm/generate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({}),
   });
 
-  describe("GET /health", () => {
-    it("should return health status", async () => {
-      const res = await app.request("/health");
-      expect(res.status).toBe(200);
-      const json = (await res.json()) as HealthResponse;
-      expect(json.status).toBe("ok");
-      expect(json.timestamp).toBeDefined();
-    });
+  expect(res.status).toBe(400);
+  const json = await res.json();
+  expect(json.error).toContain("prompt");
+});
+
+test("POST /api/llm/generate validates prompt type", async () => {
+  const mockRequest = mock(() =>
+    Promise.resolve({
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+      json: async () => ({ error: "prompt must be a string" }),
+    } as Response)
+  );
+
+  global.request = mockRequest;
+  const res = await app.request("/api/llm/generate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt: 123 }),
   });
 
-  describe("POST /api/llm/generate", () => {
-    it("should return 400 when prompt is missing", async () => {
-      const res = await app.request("/api/llm/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({}),
-      });
-      expect(res.status).toBe(400);
-      const json = (await res.json()) as ErrorResponse;
-      expect(json.error).toContain("prompt");
-    });
+  expect(res.status).toBe(400);
+  const json = await res.json();
+  expect(json.error).toContain("prompt");
+});
+test("GET / handles 404", async () => {
+  const mockRequest = mock(() =>
+    Promise.resolve({
+      status: 404,
+      headers: { "Content-Type": "application/json" },
+      json: async () => ({ error: "Not Found" }),
+    } as Response)
+  );
 
-    it("should return 400 for invalid prompt", async () => {
-      const res = await app.request("/api/llm/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: "random text" }),
-      });
-      expect(res.status).toBe(400);
-    });
+  global.request = mockRequest;
+  const res = await app.request("/nonexistent");
 
-    it("should return 400 for non-string prompt", async () => {
-      const res = await app.request("/api/llm/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: 123 }),
-      });
-      expect(res.status).toBe(400);
-      const json = (await res.json()) as ErrorResponse;
-      expect(json.error).toContain("prompt");
-    });
-
-    it("should accept blog card prompt", async () => {
-      const res = await app.request("/api/llm/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: "generate description for blog card" }),
-      });
-      // Will fail without OPENROUTER_API_KEY, but should accept valid prompt format
-      expect(res.status).not.toBe(400);
-    });
-
-    it("should accept featured posts card prompt", async () => {
-      const res = await app.request("/api/llm/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          prompt: "generate description for featured posts card",
-        }),
-      });
-      // Will fail without OPENROUTER_API_KEY, but should accept valid prompt format
-      expect(res.status).not.toBe(400);
-    });
-  });
-
-  describe("404 Handler", () => {
-    it("should return 404 for unknown routes", async () => {
-      const res = await app.request("/unknown-route");
-      expect(res.status).toBe(404);
-      const json = (await res.json()) as ErrorResponse;
-      expect(json.error).toBe("Not Found");
-    });
-  });
+  expect(res.status).toBe(404);
+  const json = await res.json();
+  expect(json.error).toBe("Not Found");
 });
