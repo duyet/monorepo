@@ -1,3 +1,28 @@
+import { mock } from "bun:test";
+
+// Ensure router mock is registered before any component import
+mock.module("@tanstack/react-router", () => ({
+  useNavigate: () => () => {},
+  useSearch: () => ({}),
+  useParams: () => ({}),
+  useRouter: () => ({
+    navigate: () => {},
+    history: { push: () => {}, replace: () => {} },
+  }),
+  Link: (props: Record<string, unknown>) => {
+    const { children, to, ...rest } = props;
+    // biome-ignore lint/suspicious/noExplicitAny: test mock
+    const React = require("react") as any;
+    return React.createElement("a", { href: to, ...rest }, children);
+  },
+  createRootRoute: (opts: unknown) => opts,
+  createFileRoute: () => (opts: unknown) => opts,
+  Outlet: () => null,
+  ScrollRestoration: () => null,
+  redirect: (opts: unknown) => opts,
+  notFound: () => new Error("not found"),
+}));
+
 import {
   afterEach,
   cleanup,
