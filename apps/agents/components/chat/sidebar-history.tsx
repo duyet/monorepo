@@ -20,13 +20,13 @@ import {
 import type { Conversation } from "@/lib/types";
 import { ChatItem } from "./sidebar-history-item";
 
-type GroupedChats = {
+interface GroupedChats {
   today: Conversation[];
   yesterday: Conversation[];
   lastWeek: Conversation[];
   lastMonth: Conversation[];
   older: Conversation[];
-};
+}
 
 const groupChatsByDate = (chats: Conversation[]): GroupedChats => {
   const now = new Date();
@@ -35,7 +35,7 @@ const groupChatsByDate = (chats: Conversation[]): GroupedChats => {
 
   return chats.reduce(
     (groups, chat) => {
-      const chatDate = new Date(chat.createdAt);
+      const chatDate = new Date(chat.updatedAt);
 
       if (isToday(chatDate)) {
         groups.today.push(chat);
@@ -65,8 +65,8 @@ interface SidebarHistoryProps {
   conversations: Conversation[];
   activeId: string | null;
   isLoading: boolean;
-  onSelectConversation: (id: string) => void;
-  onDeleteConversation: (id: string) => void;
+  onSelectConversation: (id: string) => Promise<void> | void;
+  onDeleteConversation: (id: string) => Promise<void> | void;
 }
 
 export function SidebarHistory({
@@ -80,10 +80,11 @@ export function SidebarHistory({
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!deleteId) return;
     setShowDeleteDialog(false);
-    onDeleteConversation(deleteId);
+    await onDeleteConversation(deleteId);
+    setDeleteId(null);
   };
 
   if (isLoading) {
