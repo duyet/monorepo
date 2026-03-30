@@ -80,15 +80,15 @@ function About() {
   ];
 
   return (
-    <div className="min-h-screen bg-neutral-50">
+    <div className="min-h-screen bg-neutral-50 dark:bg-transparent">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
         {/* Header */}
         <div className="mb-12 text-center">
-          <h1 className="mb-6 font-serif text-5xl font-normal text-neutral-900 sm:text-6xl">
+          <h1 className="mb-6 font-serif text-5xl font-normal text-neutral-900 dark:text-neutral-100 sm:text-6xl">
             About
           </h1>
-          <p className="mx-auto max-w-3xl text-lg leading-relaxed text-neutral-700">
-            <strong className="font-semibold text-neutral-900">
+          <p className="mx-auto max-w-3xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
+            <strong className="font-semibold text-neutral-900 dark:text-neutral-100">
               Data Engineer
             </strong>{" "}
             with 6+ years of experience. I am confident in my knowledge of Data
@@ -110,13 +110,13 @@ function About() {
                 rel="noopener noreferrer"
                 className={`group flex flex-col p-10 ${link.color} rounded-3xl transition-transform duration-200 hover:scale-[1.02]`}
               >
-                <div className="mb-8 text-neutral-800">
+                <div className="mb-8 text-neutral-800 dark:text-neutral-200">
                   <Icon />
                 </div>
-                <h3 className="mb-3 text-xl font-medium text-neutral-900">
+                <h3 className="mb-3 text-xl font-medium text-neutral-900 dark:text-neutral-100">
                   {link.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-neutral-700">
+                <p className="text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">
                   {link.description}
                 </p>
               </a>
@@ -141,22 +141,22 @@ function About() {
         </div>
 
         {/* Skills Section */}
-        <div className="rounded-3xl bg-stone-100/70 p-8 sm:p-12">
-          <h2 className="mb-6 font-serif text-3xl font-normal text-neutral-900">
+        <div className="rounded-3xl bg-stone-100/70 dark:bg-neutral-800/50 p-8 sm:p-12">
+          <h2 className="mb-6 font-serif text-3xl font-normal text-neutral-900 dark:text-neutral-100">
             Skills & Stacks
           </h2>
           <div className="flex flex-wrap gap-3">
             {skills.map(({ name, link }) => (
               <span
                 key={name}
-                className="inline-block rounded-full bg-neutral-50 px-5 py-2 text-sm font-medium text-neutral-800 transition-colors hover:bg-neutral-100"
+                className="inline-block rounded-full bg-neutral-50 dark:bg-neutral-700 px-5 py-2 text-sm font-medium text-neutral-800 dark:text-neutral-200 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-600"
               >
                 {link ? (
                   <a
                     href={link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-neutral-900"
+                    className="hover:text-neutral-900 dark:hover:text-neutral-100"
                   >
                     {name}
                   </a>

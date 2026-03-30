@@ -22,7 +22,7 @@ function FeedPage() {
         <Feed posts={posts} />
 
         <Link to="/archives">
-          <div className="mt-12 rounded-lg py-4 text-center text-base font-medium text-neutral-800 transition-colors hover:bg-neutral-100 hover:text-neutral-900 hover:underline hover:underline-offset-4">
+          <div className="mt-12 rounded-lg py-4 text-center text-base font-medium text-neutral-800 dark:text-neutral-200 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-neutral-100 hover:underline hover:underline-offset-4">
             See more posts
           </div>
         </Link>
