@@ -102,7 +102,7 @@ function ContentCardInner({
       >
         {category && (
           <div className="inline-flex items-center">
-            <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-medium uppercase tracking-wide">
+            <span className="rounded-full bg-white/70 dark:bg-white/10 px-3 py-1 text-xs font-medium uppercase tracking-wide">
               {category}
             </span>
           </div>

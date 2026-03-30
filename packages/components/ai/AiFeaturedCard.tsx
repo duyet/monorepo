@@ -18,10 +18,10 @@ interface AiFeaturedCardProps {
 }
 
 const colorClasses = {
-  terracotta: "bg-terracotta-light text-neutral-900",
-  sage: "bg-sage-light text-neutral-900",
-  coral: "bg-coral-light text-neutral-900",
-  lavender: "bg-lavender-light text-neutral-900",
+  terracotta: "bg-terracotta-light text-neutral-900 dark:bg-terracotta-light/20 dark:text-neutral-100",
+  sage: "bg-sage-light text-neutral-900 dark:bg-sage-light/20 dark:text-neutral-100",
+  coral: "bg-coral-light text-neutral-900 dark:bg-coral-light/20 dark:text-neutral-100",
+  lavender: "bg-lavender-light text-neutral-900 dark:bg-lavender-light/20 dark:text-neutral-100",
 };
 
 const illustrationColors = {
@@ -60,7 +60,7 @@ export function AiFeaturedCard({
       <div className="relative z-10 flex flex-col gap-4">
         {category && (
           <div className="inline-flex items-center">
-            <span className="rounded-full bg-white/80 px-3 py-1 text-xs font-medium uppercase tracking-wide">
+            <span className="rounded-full bg-white/80 dark:bg-white/10 px-3 py-1 text-xs font-medium uppercase tracking-wide">
               {category}
             </span>
           </div>
@@ -73,13 +73,13 @@ export function AiFeaturedCard({
         {showThinking ? (
           <ThinkingAnimation />
         ) : displayDescription ? (
-          <p className="max-w-xl text-lg leading-relaxed text-neutral-700">
+          <p className="max-w-xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
             {displayDescription}
           </p>
         ) : null}
 
         {date && (
-          <time className="text-sm font-medium text-neutral-600">{date}</time>
+          <time className="text-sm font-medium text-neutral-600 dark:text-neutral-400">{date}</time>
         )}
       </div>
 
