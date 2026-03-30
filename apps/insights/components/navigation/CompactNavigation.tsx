@@ -5,7 +5,6 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import {
   Activity,
   BarChart3,
-  Bot,
   ChevronDown,
   Code,
   Globe,
@@ -53,12 +52,6 @@ const navItems: NavItem[] = [
     href: "/ai",
     icon: BarChart3,
     description: "Claude Code usage and cost analytics",
-  },
-  {
-    text: "Agents",
-    href: "/agents",
-    icon: Bot,
-    description: "Duyet Agent conversations and LLM usage",
   },
 ];
 

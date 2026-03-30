@@ -14,7 +14,6 @@ import { Route as WakatimeIndexRouteImport } from "./routes/wakatime/index";
 import { Route as GithubIndexRouteImport } from "./routes/github/index";
 import { Route as BlogIndexRouteImport } from "./routes/blog/index";
 import { Route as AiIndexRouteImport } from "./routes/ai/index";
-import { Route as AgentsIndexRouteImport } from "./routes/agents/index";
 import { Route as WakatimePeriodRouteImport } from "./routes/wakatime/$period";
 import { Route as GithubPeriodRouteImport } from "./routes/github/$period";
 import { Route as BlogPeriodRouteImport } from "./routes/blog/$period";
@@ -45,11 +44,6 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
 const AiIndexRoute = AiIndexRouteImport.update({
   id: "/ai/",
   path: "/ai/",
-  getParentRoute: () => rootRouteImport,
-} as any);
-const AgentsIndexRoute = AgentsIndexRouteImport.update({
-  id: "/agents/",
-  path: "/agents/",
   getParentRoute: () => rootRouteImport,
 } as any);
 const WakatimePeriodRoute = WakatimePeriodRouteImport.update({
@@ -90,7 +84,6 @@ export interface FileRoutesByFullPath {
   "/blog/$period": typeof BlogPeriodRoute;
   "/github/$period": typeof GithubPeriodRoute;
   "/wakatime/$period": typeof WakatimePeriodRoute;
-  "/agents/": typeof AgentsIndexRoute;
   "/ai/": typeof AiIndexRoute;
   "/blog/": typeof BlogIndexRoute;
   "/github/": typeof GithubIndexRoute;
@@ -104,7 +97,6 @@ export interface FileRoutesByTo {
   "/blog/$period": typeof BlogPeriodRoute;
   "/github/$period": typeof GithubPeriodRoute;
   "/wakatime/$period": typeof WakatimePeriodRoute;
-  "/agents": typeof AgentsIndexRoute;
   "/ai": typeof AiIndexRoute;
   "/blog": typeof BlogIndexRoute;
   "/github": typeof GithubIndexRoute;
@@ -119,7 +111,6 @@ export interface FileRoutesById {
   "/blog/$period": typeof BlogPeriodRoute;
   "/github/$period": typeof GithubPeriodRoute;
   "/wakatime/$period": typeof WakatimePeriodRoute;
-  "/agents/": typeof AgentsIndexRoute;
   "/ai/": typeof AiIndexRoute;
   "/blog/": typeof BlogIndexRoute;
   "/github/": typeof GithubIndexRoute;
@@ -135,7 +126,6 @@ export interface FileRouteTypes {
     | "/blog/$period"
     | "/github/$period"
     | "/wakatime/$period"
-    | "/agents/"
     | "/ai/"
     | "/blog/"
     | "/github/"
@@ -149,7 +139,6 @@ export interface FileRouteTypes {
     | "/blog/$period"
     | "/github/$period"
     | "/wakatime/$period"
-    | "/agents"
     | "/ai"
     | "/blog"
     | "/github"
@@ -163,7 +152,6 @@ export interface FileRouteTypes {
     | "/blog/$period"
     | "/github/$period"
     | "/wakatime/$period"
-    | "/agents/"
     | "/ai/"
     | "/blog/"
     | "/github/"
@@ -178,7 +166,6 @@ export interface RootRouteChildren {
   BlogPeriodRoute: typeof BlogPeriodRoute;
   GithubPeriodRoute: typeof GithubPeriodRoute;
   WakatimePeriodRoute: typeof WakatimePeriodRoute;
-  AgentsIndexRoute: typeof AgentsIndexRoute;
   AiIndexRoute: typeof AiIndexRoute;
   BlogIndexRoute: typeof BlogIndexRoute;
   GithubIndexRoute: typeof GithubIndexRoute;
@@ -222,13 +209,6 @@ declare module "@tanstack/react-router" {
       path: "/ai";
       fullPath: "/ai/";
       preLoaderRoute: typeof AiIndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/agents/": {
-      id: "/agents/";
-      path: "/agents";
-      fullPath: "/agents/";
-      preLoaderRoute: typeof AgentsIndexRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     "/wakatime/$period": {
@@ -282,7 +262,6 @@ const rootRouteChildren: RootRouteChildren = {
   BlogPeriodRoute: BlogPeriodRoute,
   GithubPeriodRoute: GithubPeriodRoute,
   WakatimePeriodRoute: WakatimePeriodRoute,
-  AgentsIndexRoute: AgentsIndexRoute,
   AiIndexRoute: AiIndexRoute,
   BlogIndexRoute: BlogIndexRoute,
   GithubIndexRoute: GithubIndexRoute,

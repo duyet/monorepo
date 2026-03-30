@@ -1,16 +1,7 @@
 import { calculateBackoffDelay, githubConfig } from "@duyet/config";
+import type { GithubRepo } from "@duyet/interfaces";
 
-export interface GitHubRepository {
-  name: string;
-  stargazers_count?: number;
-  forks_count?: number;
-  watchers_count?: number;
-  updated_at: string;
-  language?: string;
-  size?: number;
-  archived?: boolean;
-  private?: boolean;
-}
+export type GitHubRepository = GithubRepo;
 
 /**
  * Get GitHub token from environment variables
