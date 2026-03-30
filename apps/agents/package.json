@@ -26,7 +26,7 @@
   "dependencies": {
     "@ai-sdk/react": "^3.0.105",
     "@clerk/clerk-react": "^5.61.2",
-    "@cloudflare/ai-chat": "^0.1.0",
+    "@cloudflare/ai-chat": "^0.2.0",
     "@duyet/config": "*",
     "@duyet/libs": "*",
     "@hookform/resolvers": "^5.2.2",
@@ -54,7 +54,7 @@
     "@streamdown/mermaid": "^1.0.2",
     "@tanstack/react-router": "^1.168.0",
     "@xyflow/react": "^12.10.1",
-    "agents": "^0.7.0",
+    "agents": "^0.8.0",
     "ai": "^6.0.103",
     "ai-gateway-provider": "^3.1.1",
     "class-variance-authority": "^0.7.1",
