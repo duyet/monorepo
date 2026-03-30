@@ -29,16 +29,16 @@ interface ContentCardProps {
 }
 
 const colorClasses = {
-  ivory: "bg-ivory text-neutral-900",
-  oat: "bg-oat-light text-neutral-900",
-  cream: "bg-cream text-neutral-900",
-  cactus: "bg-cactus-light text-neutral-900",
-  sage: "bg-sage-light text-neutral-900",
-  lavender: "bg-lavender-light text-neutral-900",
-  terracotta: "bg-terracotta-light text-neutral-900",
-  coral: "bg-coral-light text-neutral-900",
+  ivory: "bg-ivory text-neutral-900 dark:bg-ivory/20 dark:text-neutral-100",
+  oat: "bg-oat-light text-neutral-900 dark:bg-oat-light/20 dark:text-neutral-100",
+  cream: "bg-cream text-neutral-900 dark:bg-cream/20 dark:text-neutral-100",
+  cactus: "bg-cactus-light text-neutral-900 dark:bg-cactus-light/20 dark:text-neutral-100",
+  sage: "bg-sage-light text-neutral-900 dark:bg-sage-light/20 dark:text-neutral-100",
+  lavender: "bg-lavender-light text-neutral-900 dark:bg-lavender-light/20 dark:text-neutral-100",
+  terracotta: "bg-terracotta-light text-neutral-900 dark:bg-terracotta-light/20 dark:text-neutral-100",
+  coral: "bg-coral-light text-neutral-900 dark:bg-coral-light/20 dark:text-neutral-100",
   white:
-    "border border-neutral-200 bg-white text-neutral-900 hover:border-neutral-300",
+    "border border-neutral-200 bg-white text-neutral-900 hover:border-neutral-300 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100 dark:hover:border-neutral-600",
 };
 
 const illustrationColorClasses = {
@@ -120,7 +120,7 @@ function ContentCardInner({
         {description && (
           <p
             className={cn(
-              "line-clamp-3 leading-relaxed text-neutral-700",
+              "line-clamp-3 leading-relaxed text-neutral-700 dark:text-neutral-300",
               featured
                 ? descriptionSizeClasses.featured
                 : descriptionSizeClasses.default
@@ -136,7 +136,7 @@ function ContentCardInner({
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full bg-white/70 px-2.5 py-0.5 text-xs font-medium text-neutral-700"
+                  className="rounded-full bg-white/70 dark:bg-white/10 px-2.5 py-0.5 text-xs font-medium text-neutral-700 dark:text-neutral-300"
                 >
                   {tag}
                 </span>
@@ -145,7 +145,7 @@ function ContentCardInner({
           )}
 
           {date && (
-            <time className="text-xs font-medium text-neutral-600">{date}</time>
+            <time className="text-xs font-medium text-neutral-600 dark:text-neutral-400">{date}</time>
           )}
         </div>
       </div>

@@ -25,15 +25,15 @@ export function HeroBanner({
         <BackLink href={backLinkHref} text={backLinkText} />
       </div>
 
-      <h1 className="mb-6 font-serif text-4xl font-bold text-neutral-900 md:text-5xl lg:text-6xl">
+      <h1 className="mb-6 font-serif text-4xl font-bold text-neutral-900 dark:text-neutral-100 md:text-5xl lg:text-6xl">
         {title}
       </h1>
 
-      <p className="mb-6 max-w-2xl text-lg leading-relaxed text-neutral-700">
+      <p className="mb-6 max-w-2xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
         {description}
       </p>
 
-      <div className="flex flex-wrap gap-4 text-sm font-medium text-neutral-600">
+      <div className="flex flex-wrap gap-4 text-sm font-medium text-neutral-600 dark:text-neutral-400">
         <div className="flex items-center gap-2">
           <svg
             className="h-5 w-5"

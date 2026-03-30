@@ -100,7 +100,7 @@ function PostsByCategory() {
         {/* Empty state */}
         {posts.length === 0 && (
           <div className="py-12 text-center">
-            <p className="text-lg text-neutral-600">
+            <p className="text-lg text-neutral-600 dark:text-neutral-400">
               No posts found in this category yet.
             </p>
           </div>

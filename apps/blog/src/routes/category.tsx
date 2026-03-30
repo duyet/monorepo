@@ -34,12 +34,12 @@ function Categories() {
     <div className="min-h-screen">
       <Container>
         <div className="mb-12">
-          <h1 className="mb-6 font-serif text-5xl font-bold text-neutral-900 md:text-6xl lg:text-7xl">
+          <h1 className="mb-6 font-serif text-5xl font-bold text-neutral-900 dark:text-neutral-100 md:text-6xl lg:text-7xl">
             Categories
           </h1>
-          <p className="max-w-2xl text-lg leading-relaxed text-neutral-700">
+          <p className="max-w-2xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
             Explore my writing organized by{" "}
-            <strong className="font-semibold text-neutral-900">
+            <strong className="font-semibold text-neutral-900 dark:text-neutral-100">
               {categoryEntries.length} main categories
             </strong>
             , covering everything from data engineering and machine learning to

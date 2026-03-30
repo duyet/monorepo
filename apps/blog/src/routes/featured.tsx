@@ -31,26 +31,26 @@ function Featured() {
   return (
     <div className="min-h-screen">
       <Container>
-        <div className="bg-cactus-light mb-12 rounded-3xl p-12 md:p-16">
-          <h1 className="mb-8 font-serif text-4xl font-bold text-neutral-900 md:text-5xl lg:text-6xl">
+        <div className="bg-cactus-light dark:bg-cactus-light/20 mb-12 rounded-3xl p-12 md:p-16">
+          <h1 className="mb-8 font-serif text-4xl font-bold text-neutral-900 dark:text-neutral-100 md:text-5xl lg:text-6xl">
             Featured
           </h1>
-          <p className="max-w-2xl text-lg leading-relaxed text-neutral-700">
+          <p className="max-w-2xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
             This page highlights{" "}
-            <strong className="font-semibold text-neutral-900">
+            <strong className="font-semibold text-neutral-900 dark:text-neutral-100">
               {postCount} featured blog posts
             </strong>
             . You can also explore{" "}
             <Link
               to="/"
-              className="text-neutral-900 underline underline-offset-4 transition-colors hover:text-neutral-600"
+              className="text-neutral-900 dark:text-neutral-100 underline underline-offset-4 transition-colors hover:text-neutral-600 dark:hover:text-neutral-400"
             >
               all posts
             </Link>{" "}
             or{" "}
             <Link
               to="/tags"
-              className="text-neutral-900 underline underline-offset-4 transition-colors hover:text-neutral-600"
+              className="text-neutral-900 dark:text-neutral-100 underline underline-offset-4 transition-colors hover:text-neutral-600 dark:hover:text-neutral-400"
             >
               by the topics
             </Link>

@@ -18,7 +18,7 @@ export function YearPost({ year, posts, className }: YearPostProps) {
     <div className={cn(className)}>
       <h1
         className={cn(
-          "mb-8 font-serif text-5xl font-bold text-neutral-900",
+          "mb-8 font-serif text-5xl font-bold text-neutral-900 dark:text-neutral-100",
           "sm:text-6xl",
           "md:mb-10 md:text-7xl"
         )}
@@ -33,14 +33,14 @@ export function YearPost({ year, posts, className }: YearPostProps) {
             key={post.slug}
           >
             <a
-              className="cursor-pointer text-base text-neutral-800 transition-colors hover:text-neutral-900 hover:underline hover:underline-offset-4"
+              className="cursor-pointer text-base text-neutral-800 dark:text-neutral-200 transition-colors hover:text-neutral-900 dark:hover:text-neutral-100 hover:underline hover:underline-offset-4"
               href={post.slug}
             >
               {post.title}
               <IsNewPost date={post.date} />
               <IsFeatured featured={post.featured} />
             </a>
-            <hr className="shrink grow border-dotted border-neutral-300" />
+            <hr className="shrink grow border-dotted border-neutral-300 dark:border-neutral-700" />
             <div className="flex-shrink-0 flex items-center gap-2 text-sm text-neutral-500">
               <time className="whitespace-nowrap">
                 {dateFormat(post.date, "MMM dd")}
