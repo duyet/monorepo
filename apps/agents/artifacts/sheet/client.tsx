@@ -76,8 +76,8 @@ export const sheetArtifact = new Artifact<"sheet", Metadata>({
       description: "Copy as .csv",
       onClick: ({ content }) => {
         const parsed = parse<string[]>(content, { skipEmptyLines: true });
-        const nonEmptyRows = parsed.data.filter((row) =>
-          row.some((cell) => cell.trim() !== "")
+        const nonEmptyRows = parsed.data.filter((row: string[]) =>
+          row.some((cell: string) => cell.trim() !== "")
         );
         const cleanedCsv = unparse(nonEmptyRows);
         navigator.clipboard.writeText(cleanedCsv);

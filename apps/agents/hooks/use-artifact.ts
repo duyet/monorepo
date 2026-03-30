@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "react";
 import useSWR from "swr";
 
-export type ArtifactKind = "text" | "code" | "sheet" | "image";
+export type ArtifactKind = "text" | "code" | "sheet";
 
 export type UIArtifact = {
   title: string;

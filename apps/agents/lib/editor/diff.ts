@@ -55,7 +55,7 @@ export function diffText(
   const diffs = dmp.diff_main(oldText, newText);
   dmp.diff_cleanupSemantic(diffs);
 
-  return diffs.map(([op, text]) => ({
+  return diffs.map(([op, text]: [number, string]) => ({
     type: op as DiffType,
     text,
   }));
@@ -89,7 +89,6 @@ export function diffEditor(
   const { merged } = alignBlocks(oldNodes, newNodes);
 
   // Reconstruct a document from merged blocks, applying diff marks
-  const { Fragment, Node: PMNode } = require("prosemirror-model");
   const nodes: ProseMirrorNode[] = [];
 
   for (const block of merged) {
@@ -224,7 +223,7 @@ function wrapWithDiffMark(
   if (content) {
     wrappedJSON.content = content.map((child) => ({
       ...child,
-      marks: [...(child.marks || []), { type: markType, attrs }],
+      marks: [...(Array.isArray(child.marks) ? child.marks : []), { type: markType, attrs }],
     }));
   }
 

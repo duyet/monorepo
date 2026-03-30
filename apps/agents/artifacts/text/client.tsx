@@ -9,7 +9,7 @@
  */
 
 import {
-  ClockRewindIcon,
+  HistoryIcon,
   CopyIcon,
   MessageSquareIcon,
   PenLineIcon,
@@ -94,7 +94,7 @@ export const textArtifact = new Artifact<"text", TextArtifactMetadata>({
 
   actions: [
     {
-      icon: <ClockRewindIcon size={18} />,
+      icon: <HistoryIcon size={18} />,
       description: "View changes",
       onClick: ({ handleVersionChange }) => {
         handleVersionChange("toggle");

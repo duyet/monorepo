@@ -24,6 +24,7 @@
     "lib",
     "hooks",
     "types.d.ts",
+    "vendor.d.ts",
     "vite.config.ts"
   ],
   "exclude": [

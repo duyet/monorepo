@@ -20,7 +20,7 @@ type ToolbarProps = {
   documentId: string;
   isToolbarVisible: boolean;
   onClose: () => void;
-  sendMessage: (message: any) => void;
+  sendMessage: ((...args: any[]) => any);
   setMessages: (messages: any[] | ((prev: any[]) => any[])) => void;
   status: "streaming" | "idle" | "submitted" | "error" | "ready";
   stop: () => void;
@@ -73,7 +73,7 @@ function PureToolbar({
               <button
                 className="flex size-10 items-center justify-center rounded-full border bg-background text-foreground shadow-md transition-colors hover:bg-muted"
                 onClick={() => {
-                  const context: ArtifactToolbarContext = { sendMessage };
+                  const context = { sendMessage } as ArtifactToolbarContext;
                   tool.onClick(context);
                 }}
                 type="button"

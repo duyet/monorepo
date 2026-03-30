@@ -364,6 +364,61 @@ export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
   );
 }
 
+// ---------------------------------------------------------------------------
+// Artifact-compatible message components (ai-chatbot template compatibility)
+// ---------------------------------------------------------------------------
+
+interface PreviewMessageProps {
+  chatId: string;
+  message: import("@/lib/types").ChatMessage;
+  isLoading: boolean;
+  isReadonly: boolean;
+  requiresScrollPadding: boolean;
+  setMessages: (messages: unknown[] | ((prev: unknown[]) => unknown[])) => void;
+}
+
+export function PreviewMessage({ message, isLoading }: PreviewMessageProps) {
+  if (message.role === "user") {
+    return (
+      <MessageRoot from="user" className="justify-end">
+        <MessageContent from="user">
+          {message.parts
+            ?.filter((p): p is { type: "text"; text: string } => p.type === "text")
+            .map((p, i) => (
+              <p key={i} className="whitespace-pre-wrap break-words text-[15px] leading-7 text-foreground">
+                {p.text}
+              </p>
+            ))}
+        </MessageContent>
+      </MessageRoot>
+    );
+  }
+
+  return (
+    <MessageRoot from="assistant">
+      <MessageContent from="assistant">
+        {message.parts?.map((part, i) => {
+          if (part.type === "text") {
+            return <MessageResponse key={i}>{part.text}</MessageResponse>;
+          }
+          return null;
+        })}
+        {isLoading && <StreamingCursor />}
+      </MessageContent>
+    </MessageRoot>
+  );
+}
+
+export function ThinkingMessage() {
+  return (
+    <MessageRoot from="assistant">
+      <MessageContent from="assistant">
+        <StreamingCursor />
+      </MessageContent>
+    </MessageRoot>
+  );
+}
+
 function formatRelativeTime(timestamp: number): string {
   const diff = Date.now() - timestamp;
   const seconds = Math.floor(diff / 1000);

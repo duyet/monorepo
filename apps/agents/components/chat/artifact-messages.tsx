@@ -4,11 +4,11 @@ import { memo } from "react";
 import { useMessages } from "@/hooks/use-messages";
 import type { ChatMessage } from "@/lib/types";
 import type { UIArtifact } from "./artifact";
-import { PreviewMessage, ThinkingMessage } from "./message";
+import { PreviewMessage, ThinkingMessage } from "./message-components";
 
 type ArtifactMessagesProps = {
   chatId: string;
-  status: "streaming" | "idle" | "submitted" | "error" | "ready";
+  status: "streaming" | "submitted" | "error" | "ready";
   messages: ChatMessage[];
   setMessages: (messages: any[] | ((prev: any[]) => any[])) => void;
   isReadonly: boolean;

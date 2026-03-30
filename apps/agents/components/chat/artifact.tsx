@@ -19,6 +19,7 @@ import { useArtifact } from "@/hooks/use-artifact";
 import { fetcher } from "@/lib/utils";
 import { ArtifactActions } from "./artifact-actions";
 import { ArtifactCloseButton } from "./artifact-close-button";
+import { Toolbar } from "./toolbar";
 
 export const artifactDefinitions = [textArtifact, codeArtifact, sheetArtifact];
 export type ArtifactKind = (typeof artifactDefinitions)[number]["kind"];

@@ -3,6 +3,7 @@ import {
   DOMParser,
   type MarkSpec,
   type Node as ProsemirrorNode,
+  type NodeSpec,
   Schema,
 } from "prosemirror-model";
 import { schema } from "prosemirror-schema-basic";
@@ -17,9 +18,13 @@ import { DiffType, diffEditor } from "@/lib/editor/diff";
 import "prosemirror-view/style/prosemirror.css";
 
 const diffSchema = new Schema({
-  nodes: addListNodes(schema.spec.nodes, "paragraph block*", "block"),
-  marks: OrderedMap.from({
-    ...schema.spec.marks.toObject(),
+  nodes: addListNodes(
+    schema.spec.nodes as OrderedMap<NodeSpec>,
+    "paragraph block*",
+    "block"
+  ) as unknown as typeof schema.spec.nodes,
+  marks: OrderedMap.from<MarkSpec>({
+    ...(schema.spec.marks as any).toObject(),
     diffMark: {
       attrs: { type: { default: "" } },
       toDOM(mark) {
@@ -37,7 +42,7 @@ const diffSchema = new Schema({
         return ["span", { class: className }, 0];
       },
     } as MarkSpec,
-  }),
+  }) as unknown as typeof schema.spec.marks,
 });
 
 function computeDiff(oldDoc: ProsemirrorNode, newDoc: ProsemirrorNode) {

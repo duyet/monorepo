@@ -26,7 +26,7 @@ const PureSpreadsheetEditor = ({ content, saveContent }: SheetEditorProps) => {
     }
     const result = parse<string[]>(content, { skipEmptyLines: true });
 
-    const paddedData = result.data.map((row) => {
+    const paddedData = result.data.map((row: string[]) => {
       const paddedRow = [...row];
       while (paddedRow.length < MIN_COLS) paddedRow.push("");
       return paddedRow;
@@ -67,7 +67,7 @@ const PureSpreadsheetEditor = ({ content, saveContent }: SheetEditorProps) => {
   }, []);
 
   const initialRows = useMemo(() => {
-    return parseData.map((row, rowIndex) => {
+    return parseData.map((row: string[], rowIndex: number) => {
       const rowData: Record<string, string | number> = {
         id: rowIndex,
         rowNumber: rowIndex + 1,
@@ -90,8 +90,8 @@ const PureSpreadsheetEditor = ({ content, saveContent }: SheetEditorProps) => {
   const handleRowsChange = (newRows: Record<string, string | number>[]) => {
     setLocalRows(newRows);
 
-    const updatedData = newRows.map((row) => {
-      return columns.slice(1).map((col) => String(row[col.key] ?? ""));
+    const updatedData = newRows.map((row: Record<string, string | number>) => {
+      return columns.slice(1).map((col: { key: string }) => String(row[col.key] ?? ""));
     });
 
     const newCsvContent = unparse(updatedData);

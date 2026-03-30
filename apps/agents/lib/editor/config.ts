@@ -1,5 +1,6 @@
+import type OrderedMap from "orderedmap";
 import { textblockTypeInputRule } from "prosemirror-inputrules";
-import { Schema } from "prosemirror-model";
+import { type NodeSpec, Schema } from "prosemirror-model";
 import { schema } from "prosemirror-schema-basic";
 import { addListNodes } from "prosemirror-schema-list";
 import type { Transaction } from "prosemirror-state";
@@ -9,7 +10,11 @@ import type { MutableRefObject } from "react";
 import { buildContentFromDocument } from "./functions";
 
 export const documentSchema = new Schema({
-  nodes: addListNodes(schema.spec.nodes, "paragraph block*", "block"),
+  nodes: addListNodes(
+    schema.spec.nodes as OrderedMap<NodeSpec>,
+    "paragraph block*",
+    "block"
+  ) as unknown as typeof schema.spec.nodes,
   marks: schema.spec.marks,
 });
 

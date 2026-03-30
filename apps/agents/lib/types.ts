@@ -221,6 +221,9 @@ export type CustomUIDataTypes = {
   clear: null;
   finish: null;
   "chat-title": string;
+  codeDelta: string;
+  textDelta: string;
+  sheetDelta: string;
 };
 
 export type ChatMessage = UIMessage<
