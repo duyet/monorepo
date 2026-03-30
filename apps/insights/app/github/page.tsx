@@ -1,13 +1,33 @@
 import { Suspense } from "react";
 import { PageLayout, SectionLayout } from "@/components/layouts";
-import { GithubActivity } from "./activity";
+import { GithubActivityView, fetchGithubStars } from "./activity";
 import { GithubCard } from "./card";
-import { CommitTimeline } from "./commit-timeline";
-import { GitHubLanguageStats } from "./language-stats";
-import { RepoTrends } from "./repo-trends";
+import { CommitTimelineView, fetchCommitStats } from "./commit-timeline";
+import { GitHubLanguageStatsView, fetchLanguageStats } from "./language-stats";
+import { RepoTrendsView, fetchTrendStats } from "./repo-trends";
 import { Repos } from "./repos";
 
 const owner = "duyet";
+
+async function GithubActivity({ owner }: { owner: string }) {
+  const repos = await fetchGithubStars(owner);
+  return <GithubActivityView owner={owner} repos={repos} />;
+}
+
+async function CommitTimeline() {
+  const stats = await fetchCommitStats(owner);
+  return <CommitTimelineView stats={stats} />;
+}
+
+async function GitHubLanguageStats() {
+  const stats = await fetchLanguageStats(owner);
+  return <GitHubLanguageStatsView stats={stats} />;
+}
+
+async function RepoTrends() {
+  const stats = await fetchTrendStats(owner);
+  return <RepoTrendsView stats={stats} />;
+}
 
 export const metadata = {
   title: "GitHub Insights @duyet",

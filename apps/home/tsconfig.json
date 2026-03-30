@@ -1,6 +1,7 @@
 {
   "extends": "@duyet/tsconfig/vite.json",
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "types": ["@types/bun"],
     "baseUrl": ".",
     "paths": {

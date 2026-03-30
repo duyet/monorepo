@@ -3,6 +3,7 @@
   "display": "Agents App",
   "extends": "@duyet/tsconfig/vite.json",
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "allowJs": true,
     "declaration": false,
     "declarationMap": false,

@@ -88,7 +88,7 @@ export function PostHogClient({ data }: PostHogClientProps) {
 
       {/* Popular Content Table */}
       <PopularContentTable
-        data={currentData.paths.map((path) => ({
+        data={currentData.paths.map((path: { path: string; visitors: number }) => ({
           name: path.path,
           value: path.visitors,
           href: `${blogUrl}${path.path}`,

@@ -88,6 +88,15 @@ function Repo({
   );
 }
 
+/** Async wrapper — fetches repos then renders ReposView */
+export async function Repos({
+  owner,
+  className,
+}: RepoProps) {
+  const repos = await fetchGithubRepos(owner);
+  return <ReposView owner={owner} repos={repos} className={className} />;
+}
+
 /**
  * Get Github projects of a user with some preferred projects and ignored projects
  */
