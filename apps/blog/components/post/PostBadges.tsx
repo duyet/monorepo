@@ -12,7 +12,7 @@ export function IsNewPost({ date }: IsNewPostProps) {
   }
 
   return (
-    <span className="ml-2 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
+    <span className="ml-2 rounded-full bg-blue-100 dark:bg-blue-900 px-2 py-0.5 text-xs font-medium text-blue-800 dark:text-blue-200">
       New
     </span>
   );
@@ -28,7 +28,7 @@ export function IsFeatured({ featured }: IsFeaturedProps) {
   }
 
   return (
-    <span className="ml-2 rounded-full bg-purple-100 px-2 py-0.5 text-xs font-medium text-purple-800">
+    <span className="ml-2 rounded-full bg-purple-100 dark:bg-purple-900 px-2 py-0.5 text-xs font-medium text-purple-800 dark:text-purple-200">
       Featured
     </span>
   );
