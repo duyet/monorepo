@@ -51,7 +51,7 @@ function PureArtifact({
   status: "streaming" | "idle" | "submitted" | "error" | "ready";
   stop: () => void;
   sendMessage: (message: any) => void;
-  setMessages: (messages: any[] | ((prev: any[]) => any[]) => void;
+  setMessages: (messages: any[] | ((prev: any[]) => any[])) => void;
   isReadonly: boolean;
   selectedModelId: string;
 }) {

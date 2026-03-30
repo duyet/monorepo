@@ -81,23 +81,33 @@ describe("API Endpoints", () => {
     });
 
     it("should accept blog card prompt", async () => {
-      const res = await app.request("/api/llm/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: "generate description for blog card" }),
-      });
+      const res = await app.request(
+        "/api/llm/generate",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            prompt: "generate description for blog card",
+          }),
+        },
+        { OPENROUTER_API_KEY: "test-mock-key" },
+      );
       // Will fail without OPENROUTER_API_KEY, but should accept valid prompt format
       expect(res.status).not.toBe(400);
     });
 
     it("should accept featured posts card prompt", async () => {
-      const res = await app.request("/api/llm/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          prompt: "generate description for featured posts card",
-        }),
-      });
+      const res = await app.request(
+        "/api/llm/generate",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            prompt: "generate description for featured posts card",
+          }),
+        },
+        { OPENROUTER_API_KEY: "test-mock-key" },
+      );
       // Will fail without OPENROUTER_API_KEY, but should accept valid prompt format
       expect(res.status).not.toBe(400);
     });

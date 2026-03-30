@@ -42,7 +42,8 @@ export const handleTransaction = ({
 
     if (transaction.getMeta("no-debounce")) {
       onSaveContent(updatedContent, false);
-  } else {
-    onSaveContent(updatedContent, true);
+    } else {
+      onSaveContent(updatedContent, true);
+    }
   }
 };

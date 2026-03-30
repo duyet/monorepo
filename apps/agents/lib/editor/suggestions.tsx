@@ -40,13 +40,14 @@ export const suggestionsPlugin = new Plugin({
       return this.getState(state)?.decorations ?? DecorationSet.empty;
     },
     handleDOMEvents: {
-    mousedown(_view, event) {
-      const target = event.target as HTMLElement;
-      if (target.closest(".suggestion-highlight")) {
-        event.preventDefault();
-        return true;
-      }
-      return false;
+      mousedown(_view, event) {
+        const target = event.target as HTMLElement;
+        if (target.closest(".suggestion-highlight")) {
+          event.preventDefault();
+          return true;
+        }
+        return false;
+      },
     },
   },
 });
