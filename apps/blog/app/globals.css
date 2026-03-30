@@ -34,6 +34,27 @@
   --foreground: #f9f9f8;
 }
 
+/* Dark prose needs an explicit palette; Tailwind's default prose-invert reads too dim here. */
+.dark .prose {
+  --tw-prose-body: #e8e6e2;
+  --tw-prose-headings: #f9f9f8;
+  --tw-prose-lead: #d4d1cb;
+  --tw-prose-links: #f9f9f8;
+  --tw-prose-bold: #f9f9f8;
+  --tw-prose-counters: #d4d1cb;
+  --tw-prose-bullets: #7c7869;
+  --tw-prose-hr: #3d3c38;
+  --tw-prose-quotes: #f3f2f0;
+  --tw-prose-quote-borders: #5c5850;
+  --tw-prose-captions: #a8a399;
+  --tw-prose-kbd: #f9f9f8;
+  --tw-prose-kbd-shadows: rgb(249 249 248 / 0.15);
+  --tw-prose-code: #f9f9f8;
+  --tw-prose-pre-code: #e8e6e2;
+  --tw-prose-th-borders: #5c5850;
+  --tw-prose-td-borders: #3d3c38;
+}
+
 /* Warm code styling — overrides shared cool slate colors */
 .prose :where(code):not(:where(pre code)) {
   background-color: #f3f2f0 !important;

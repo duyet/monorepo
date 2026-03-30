@@ -42,30 +42,30 @@ function HomePage() {
     <div className="min-h-screen pb-10">
       <Container>
         <div className="mb-12 text-center">
-          <p className="text-lg leading-relaxed text-neutral-700">
+          <p className="text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
             Lists all{" "}
-            <strong className="font-semibold text-neutral-900">
+            <strong className="font-semibold text-neutral-900 dark:text-neutral-100">
               {postCount} posts
             </strong>{" "}
             of the past {pastYears} years of blogging. You can jump straight to
             the{" "}
             <Link
               to="/feed"
-              className="text-neutral-900 underline underline-offset-4 transition-colors hover:text-neutral-600"
+              className="text-neutral-900 dark:text-neutral-100 underline underline-offset-4 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
             >
               /feed
             </Link>{" "}
             for latest posts, also explore{" "}
             <Link
               to="/tags"
-              className="text-neutral-900 underline underline-offset-4 transition-colors hover:text-neutral-600"
+              className="text-neutral-900 dark:text-neutral-100 underline underline-offset-4 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
             >
               by the topics
             </Link>{" "}
             or{" "}
             <Link
               to="/featured"
-              className="text-neutral-900 underline underline-offset-4 transition-colors hover:text-neutral-600"
+              className="text-neutral-900 dark:text-neutral-100 underline underline-offset-4 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
             >
               my featured posts
             </Link>
