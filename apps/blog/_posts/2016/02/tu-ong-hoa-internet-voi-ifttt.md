@@ -7,7 +7,7 @@ tags:
 modified_time: '2016-02-10T20:42:07.419+07:00'
 thumbnail: https://3.bp.blogspot.com/-gqb8ute4HW0/Vrs3iy96glI/AAAAAAAAPZo/1wTJSjXqZyM/s1600/IFTTT.png
 slug: /2016/02/tu-ong-hoa-internet-voi-ifttt.html
-category: Automation
+category: Infrastructure
 description: IFTTT là một dịch vụ rất thú vị, cho phép người dùng tự động hóa các dịch vụ internet như mạng xã hội, Google Drive, Mail, Dropbox, Calendars, ... thậm chí location, SMS, ... trên smartphone.
 ---
 
