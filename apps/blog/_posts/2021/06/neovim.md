@@ -11,40 +11,40 @@ slug: /2021/06/neovim.html
 description: I migrated to NeoVim, after six month with Vim.
 ---
 
-I have switched VSCode entirely to Vim for six months. VSCode is a great editor and very powerful, but I need something that makes me more productive. I used to learn how to use Vim many times since I was at university, but I gave up.
-But this time was different, I made it more serious, and I thought I had completed two goals: use 100% Vim and the speed of using Vim on par with the time of using VSCode.
+I've been using VSCode for a long time. It's a great editor, but I wanted something that makes me faster and more productive. I tried to learn Vim many times since university, but I always gave up.
+
+This time was different. I went all in, and after six months, I hit two goals: using Vim 100% of the time, and being just as fast as I was with VSCode.
 
 <figure class="float-right" style="width: 600px">
     <img src="/media/2021/06/vim-learning-curve-duyet.png" />
     <img src="/media/2021/06/using-vim.png" style="border: 1px" />
 </figure>
 
-This week I give it a chance to migrate to NeoVim. There are many reasons for me to make a decision:
+So this week, I decided to take the next step and move to NeoVim. Here's why:
 
-- Programs can interact with neovim using a remote API.
-- Strong default settings.
-- It can be running in many GUIs, IDEs, web browsers.
-- It fixes every issue I have with Vim.
-- Executing jobs/tasks asynchronously to improve performance.
-- The NeoVim config and plugin are fully compatible with Vim.
-- A nice website :)
+- It has a remote API, so other programs can talk to it.
+- Better default settings out of the box.
+- Works in many GUIs, IDEs, and even web browsers.
+- It fixes all the small issues I had with Vim.
+- Runs tasks in the background, so it feels faster.
+- Almost fully compatible with my existing Vim config and plugins.
+- And honestly, the website looks pretty cool :)
 
-# Downloading
+# Installing
 
-NeoVim can be installed in many ways, according to the Wiki: https://github.com/neovim/neovim/wiki/Installing-Neovim.
+There are many ways to install NeoVim. Check the wiki for details: https://github.com/neovim/neovim/wiki/Installing-Neovim.
 
-I'm using Homebrew to install on my Mac:
+On my Mac, I just use Homebrew:
 
 ```bash
 brew install neovim
 ```
 
-# NeoVim config
+# Setting up the config
 
-And you will not need to install the plugins or configure everything again.
-If you wish to migrate your existing Vim configuration to NeoVim, simply copy your ~/.vimrc to ~/.config/nvim/init.vim.
+The good news is you don't need to start from scratch. You can just copy your `~/.vimrc` to `~/.config/nvim/init.vim` and most things will work.
 
-In this case, I want to share the old Vim config with the NeoVim, I simply created a file `~/.config/nvim/init.vim` and with the content below to route NeoVim config to my previous vim setup:
+What I did instead was create a file at `~/.config/nvim/init.vim` that points NeoVim to my existing Vim config:
 
 ```vim
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
@@ -52,21 +52,21 @@ let &packpath = &runtimepath
 source ~/.vimrc
 ```
 
-NeoVim isn't entirely compatible with Vim, but almost all plugins work on NeoVim too, with me, all plugins worked fine.
+NeoVim isn't 100% compatible with Vim, but almost all plugins work just fine. I had zero issues with mine.
 
-On the other hands, I'm using this vimrc preset with a ton of useful plugins, color schemes, and configurations: https://github.com/amix/vimrc
+I also use this vimrc preset which comes with a ton of useful plugins, color schemes, and settings: https://github.com/amix/vimrc
 
 ![](/media/2021/06/neovim.png)
 
 ![](/media/2021/06/neovim-2.png)
 
-And the final thoughts, NeoVim has some plugins that take advantage of specific NeoVim features, and you can check it [here](https://github.com/neovim/neovim/wiki/Related-projects).
+One more thing — NeoVim has its own set of plugins that take advantage of features only available in NeoVim. You can explore them [here](https://github.com/neovim/neovim/wiki/Related-projects).
 
 ---
 
 _Updated Aug 2021_
 
-I just switched to NvChad (https://nvchad.netlify.app) shipped with a beautiful GUI and many settings. You can give it a try.
+I just switched to NvChad (https://nvchad.netlify.app). It comes with a beautiful UI and a lot of built-in settings. Give it a try!
 
 ![](/media/2021/06/nvchad.png)
 
@@ -74,6 +74,15 @@ I just switched to NvChad (https://nvchad.netlify.app) shipped with a beautiful 
 
 _Updated Aug 2023_
 
-Moved to own setup: [My Neovim Setup in 2023](https://blog.duyet.net/2023/09/nvim-setup-2023.html)
+Moved to my own setup: [My Neovim Setup in 2023](https://blog.duyet.net/2023/09/nvim-setup-2023.html)
 
 ![](/media/2023/09/nvim/screenshot_4.png)
+
+---
+
+# Recommended tutorials
+
+If you're just getting started with Vim or NeoVim, these two videos are worth watching:
+
+- [VIM isn't about speed](https://www.youtube.com/watch?v=X9xq4-AzGSI)
+- [Learn VIM Fast: Full Tutorial](https://www.youtube.com/watch?v=9cC9x-ntNQY)
