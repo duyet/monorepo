@@ -27,14 +27,14 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 
 ### [Claws](https://blog.duyet.net/2026/02/claws)
 - **Date**: 2026-02-22
-- **Category**: AI
+- **Category**: Machine Learning
 - **Tags**: Ai, Agents
 - **URL**: https://blog.duyet.net/2026/02/claws
 - **Description**: OpenClaw, NanoBot, PicoClaw, ZeroClaw, NullClaw, NemoClaw, ...
 
 ### [Coding Agents](https://blog.duyet.net/2026/01/ai)
 - **Date**: 2026-01-01
-- **Category**: AI
+- **Category**: Machine Learning
 - **Tags**: Ai
 - **URL**: https://blog.duyet.net/2026/01/ai
 - **Description**: Reflect on what I'm thinking and doing in this LLM era
@@ -504,7 +504,7 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 **Blog Statistics:**
 - Total Posts: 297
 - Years Active: 2015-2026
-- Categories: 20
+- Categories: 14
 - Tags: 58
 
 Generated from: https://blog.duyet.net
