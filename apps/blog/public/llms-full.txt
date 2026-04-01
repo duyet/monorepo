@@ -9,7 +9,7 @@
 
 - **URL**: https://blog.duyet.net/2026/02/claws
 - **Date**: 2026-02-22
-- **Category**: Machine Learning
+- **Category**: AI
 - **Tags**: Ai, Agents
 
 
@@ -53,7 +53,7 @@ The claws family is interesting because it shows something happening in AI right
 
 - **URL**: https://blog.duyet.net/2026/01/ai
 - **Date**: 2026-01-01
-- **Category**: Machine Learning
+- **Category**: AI
 - **Tags**: Ai
 
 
