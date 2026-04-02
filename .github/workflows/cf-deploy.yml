@@ -152,6 +152,7 @@ jobs:
         with:
           path: |
             ~/.bun/install/cache
+            node_modules
           key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
           restore-keys: |
             ${{ runner.os }}-bun-
@@ -160,6 +161,7 @@ jobs:
         run: bun install
 
       - name: Tailscale
+        continue-on-error: true
         uses: tailscale/github-action@v4
         with:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
@@ -168,6 +170,7 @@ jobs:
 
       - name: Test connectivity to ClickHouse
         if: matrix.app == 'photos' || matrix.app == 'insights'
+        continue-on-error: true
         run: |
           echo "Testing connectivity to ClickHouse..."
           echo "  Host: $CLICKHOUSE_HOST"
@@ -178,9 +181,10 @@ jobs:
           if ping -c 1 -W 5 "$CLICKHOUSE_HOST" > /dev/null 2>&1; then
             echo "✓ ICMP ping OK"
           else
-            echo "✗ ICMP ping failed"
+            echo "::warning::ICMP ping failed - Tailscale may not be connected"
             tailscale status --json | jq -r '.Peer[].TailscaleIPs[]' 2>/dev/null || true
-            exit 1
+            echo "Continuing build (will fall back to other providers)"
+            exit 0
           fi
 
           # Test HTTP port
