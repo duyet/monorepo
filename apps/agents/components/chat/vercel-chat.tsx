@@ -1,4 +1,5 @@
 import type { UIMessage } from "ai";
+import { AlertCircle } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Conversation,
@@ -8,6 +9,7 @@ import {
 } from "@/components/ai-elements/conversation";
 import { AppSidebar } from "@/components/app-sidebar";
 import { RightSidebar } from "@/components/right-sidebar";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { SidebarInset } from "@/components/ui/sidebar";
 import {
@@ -35,6 +37,7 @@ export function VercelChat() {
 
   // Layout state (sidebar handled by SidebarProvider)
   const [rightRailOpen, setRightRailOpen] = useState(false);
+  const [serviceError, setServiceError] = useState<string | null>(null);
 
   // Conversation management (scoped to authenticated user)
   const {
@@ -95,6 +98,18 @@ export function VercelChat() {
     modelId: activeConversation?.modelId,
     onError: (err) => {
       console.error("Chat error:", err);
+      // Detect service-level errors (e.g. missing API key) from JSON body
+      try {
+        const parsed = JSON.parse(err.message);
+        if (parsed.code === "missing_api_key") {
+          setServiceError(
+            parsed.message ||
+              "The AI service is not configured. Please try again later."
+          );
+        }
+      } catch {
+        // Not JSON, normal error
+      }
       if (lastInputRef.current) {
         setInput(lastInputRef.current);
         lastInputRef.current = "";
@@ -322,6 +337,20 @@ export function VercelChat() {
                 conversationTitle={activeConversation?.title}
                 conversationId={activeId ?? undefined}
               />
+
+              {/* Service error banner */}
+              {serviceError && (
+                <div className="absolute inset-x-0 top-14 z-10 px-4 pt-3">
+                  <Alert
+                    variant="destructive"
+                    className="mx-auto max-w-3xl animate-in fade-in slide-in-from-top-2 duration-300"
+                  >
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertTitle>Service unavailable</AlertTitle>
+                    <AlertDescription>{serviceError}</AlertDescription>
+                  </Alert>
+                </div>
+              )}
 
               {/* Messages area */}
               <Conversation
