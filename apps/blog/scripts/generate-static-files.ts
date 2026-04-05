@@ -252,6 +252,10 @@ ${categories
     <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
   </url>
   <url>
+    <loc>${SITE_URL}/category</loc>
+    <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
+  </url>
+  <url>
     <loc>${SITE_URL}/tags</loc>
     <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
   </url>
