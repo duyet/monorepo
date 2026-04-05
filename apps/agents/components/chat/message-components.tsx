@@ -367,7 +367,7 @@ export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
                   color
                 )}
               >
-                <Icon className={cn("h-4.5 w-4.5", iconColor)} />
+                <Icon className={cn("h-5 w-5", iconColor)} />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-medium text-foreground">{label}</p>

@@ -99,16 +99,21 @@ export function VercelChat() {
     onError: (err) => {
       console.error("Chat error:", err);
       // Detect service-level errors (e.g. missing API key) from JSON body
-      try {
-        const parsed = JSON.parse(err.message);
-        if (parsed.code === "missing_api_key") {
-          setServiceError(
-            parsed.message ||
-              "The AI service is not configured. Please try again later."
-          );
+      if (err instanceof Error && typeof err.message === "string") {
+        const trimmed = err.message.trim();
+        if (trimmed.startsWith("{")) {
+          try {
+            const parsed = JSON.parse(trimmed);
+            if (parsed.code === "missing_api_key") {
+              setServiceError(
+                parsed.message ||
+                  "The AI service is not configured. Please try again later."
+              );
+            }
+          } catch {
+            // Not JSON, normal error
+          }
         }
-      } catch {
-        // Not JSON, normal error
       }
       if (lastInputRef.current) {
         setInput(lastInputRef.current);
@@ -419,7 +424,7 @@ export function VercelChat() {
                 hasAssistantResponse={hasAssistantResponse}
                 stop={stop}
                 reload={reload}
-                error={error}
+                error={serviceError ? null : error}
                 textareaRef={textareaRef}
               />
             </div>

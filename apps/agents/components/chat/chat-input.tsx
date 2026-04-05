@@ -20,17 +20,13 @@ interface ChatInputProps {
 
 /** Extract a user-friendly message from an Error, handling JSON response bodies */
 function getErrorMessage(error: Error): string {
-  const msg = error.message;
+  const msg = error.message.trim();
   // AI SDK sometimes passes the raw JSON response body as the error message
-  if (msg.startsWith("{")) {
-    try {
-      const parsed = JSON.parse(msg);
-      return (
-        parsed.message || parsed.error || parsed.details || "An error occurred"
-      );
-    } catch {
-      // not JSON, use as-is
-    }
+  try {
+    const parsed = JSON.parse(msg);
+    return parsed.message || parsed.error || "An error occurred";
+  } catch {
+    // not JSON, use as-is
   }
   return msg || "An error occurred. Please try again.";
 }

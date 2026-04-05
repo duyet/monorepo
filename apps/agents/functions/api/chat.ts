@@ -409,6 +409,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     return Response.json(
       {
         error: userMessage,
+        message: userMessage,
         code: isApiKeyError ? "missing_api_key" : "internal_error",
       },
       { status: isApiKeyError ? 503 : 500 }
