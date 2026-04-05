@@ -1,4 +1,5 @@
-import { RefreshCw, Send, X } from "lucide-react";
+import { AlertCircle, RefreshCw, Send, X } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -15,6 +16,19 @@ interface ChatInputProps {
   reload: () => void;
   error: Error | null;
   textareaRef: React.Ref<HTMLTextAreaElement>;
+}
+
+/** Extract a user-friendly message from an Error, handling JSON response bodies */
+function getErrorMessage(error: Error): string {
+  const msg = error.message.trim();
+  // AI SDK sometimes passes the raw JSON response body as the error message
+  try {
+    const parsed = JSON.parse(msg);
+    return parsed.message || parsed.error || "An error occurred";
+  } catch {
+    // not JSON, use as-is
+  }
+  return msg || "An error occurred. Please try again.";
 }
 
 export function ChatInput({
@@ -90,9 +104,13 @@ export function ChatInput({
           </CardContent>
         </Card>
         {error && (
-          <p className="mt-2 text-center text-xs font-medium text-destructive">
-            {error.message}
-          </p>
+          <Alert
+            variant="destructive"
+            className="mt-2 animate-in fade-in slide-in-from-bottom-2 duration-200"
+          >
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>{getErrorMessage(error)}</AlertDescription>
+          </Alert>
         )}
       </div>
     </div>

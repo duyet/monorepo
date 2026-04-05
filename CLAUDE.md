@@ -15,7 +15,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Code Quality
 
 - `bun run lint` - Lint all projects using Turbo
-- `bun run fmt` or `bun run fix` - Format all TypeScript, TSX, and Markdown files with Prettier
+- `bun run fmt` - Format all TypeScript, TSX, and Markdown files with Biome
 - `bun run prettier-check` - Check code formatting without making changes
 - `bun run test` - Run tests across all packages using Turbo
 
@@ -138,10 +138,10 @@ Place environment files as `.env` or `.env.local` in the root directory.
 
 - Use Bun workspaces for cross-package dependencies (`@duyet/package-name`)
 - Turbo handles build orchestration and dependency management
-- All apps share common ESLint, Prettier, and TypeScript configurations
+- All apps share common Biome and TypeScript configurations
 - Environment variables are globally managed through Turborepo
 - Shared components and utilities live in `/packages` and are imported as workspace dependencies
-- App-specific scripts may include prebuild steps or wrappers; check the relevant `package.json` before assuming `bun run dev` is the plain Vite server
+- App-specific scripts may include prebuild steps or wrappers; check the relevant `package.json` before assuming `bun run dev` is the plain Vite server. Several apps also expose `test:watch`, `test:coverage`, `preview`, `sync`, `migrate`, `cleanup`, `rss`, `llms-txt`, and `sitemap` scripts.
 
 ## Git Workflow
 

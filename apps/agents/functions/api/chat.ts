@@ -233,6 +233,20 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     // Resolve conversation ID: prefer new `id` field, fall back to legacy
     const conversationId = id || legacyConversationId;
 
+    // Validate API key early — this is a server configuration issue,
+    // not a user error, so return a clear message.
+    if (!context.env.OPENROUTER_API_KEY) {
+      return Response.json(
+        {
+          error: "Service temporarily unavailable",
+          message:
+            "The AI service is not configured yet. Please try again later or contact the site administrator.",
+          code: "missing_api_key",
+        },
+        { status: 503 }
+      );
+    }
+
     // Auth: extract user from Clerk JWT
     const user = await getUserFromRequest(
       context.request,
@@ -384,11 +398,21 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     return response;
   } catch (error) {
     console.error("[Chat API] Error:", error);
-    const errorMessage =
-      error instanceof Error ? error.message : "Unknown error";
+    const rawMessage = error instanceof Error ? error.message : "Unknown error";
+
+    // Map known internal errors to user-friendly messages
+    const isApiKeyError = rawMessage.includes("OPENROUTER_API_KEY");
+    const userMessage = isApiKeyError
+      ? "The AI service is not configured yet. Please try again later."
+      : "Something went wrong while processing your request. Please try again.";
+
     return Response.json(
-      { error: "Failed to process chat request", details: errorMessage },
-      { status: 500 }
+      {
+        error: userMessage,
+        message: userMessage,
+        code: isApiKeyError ? "missing_api_key" : "internal_error",
+      },
+      { status: isApiKeyError ? 503 : 500 }
     );
   }
 };
