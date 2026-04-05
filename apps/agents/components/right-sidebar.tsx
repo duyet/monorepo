@@ -269,7 +269,7 @@ export function RightSidebar({
       side="right"
       variant="sidebar"
       collapsible="none"
-      className="hidden border-l bg-background lg:flex"
+      className="hidden w-72 border-l bg-background lg:flex"
     >
       {content}
     </Sidebar>
