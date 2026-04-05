@@ -343,30 +343,33 @@ export function VercelChat() {
                 conversationId={activeId ?? undefined}
               />
 
-              {/* Service error banner */}
-              {serviceError && (
-                <div className="absolute inset-x-0 top-14 z-10 px-4 pt-3">
-                  <Alert
-                    variant="destructive"
-                    className="mx-auto max-w-3xl animate-in fade-in slide-in-from-top-2 duration-300"
-                  >
-                    <AlertCircle className="h-4 w-4" />
-                    <AlertTitle>Service unavailable</AlertTitle>
-                    <AlertDescription>{serviceError}</AlertDescription>
-                  </Alert>
-                </div>
-              )}
-
               {/* Messages area */}
               <Conversation
                 className="relative flex-1"
                 autoScrollTrigger={autoScrollTrigger}
               >
                 <div className="w-full pb-40 pt-14">
+                  {/* Service error banner */}
+                  {serviceError && (
+                    <div className="mx-auto max-w-3xl px-4 sm:px-6 pt-4">
+                      <Alert
+                        variant="destructive"
+                        className="animate-in fade-in slide-in-from-top-2 duration-300"
+                      >
+                        <AlertCircle className="h-4 w-4" />
+                        <AlertTitle>Service unavailable</AlertTitle>
+                        <AlertDescription>{serviceError}</AlertDescription>
+                      </Alert>
+                    </div>
+                  )}
+
                   {!hasMessages && !streamingContent ? (
                     <ConversationEmptyState>
                       <div className="mx-auto max-w-3xl px-4 sm:px-6 pt-12">
-                        <WelcomeMessage onPromptSelect={handlePromptSelect} />
+                        <WelcomeMessage
+                          onPromptSelect={handlePromptSelect}
+                          disabled={!!serviceError}
+                        />
                       </div>
                     </ConversationEmptyState>
                   ) : (
@@ -442,7 +445,7 @@ export function VercelChat() {
       />
 
       <Sheet open={rightRailOpen} onOpenChange={setRightRailOpen}>
-        <SheetContent side="right" className="w-[360px] p-0 lg:hidden">
+        <SheetContent side="right" className="w-[320px] p-0 lg:hidden">
           <RightSidebar
             mobile
             modelId={modelId}

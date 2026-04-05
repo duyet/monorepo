@@ -334,9 +334,13 @@ const CAPABILITIES = [
 
 interface WelcomeMessageProps {
   onPromptSelect?: (prompt: string) => void;
+  disabled?: boolean;
 }
 
-export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
+export function WelcomeMessage({
+  onPromptSelect,
+  disabled,
+}: WelcomeMessageProps) {
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:py-16">
       <div className="mb-10 space-y-3 text-center">
@@ -348,12 +352,18 @@ export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <div
+        className={cn(
+          "grid grid-cols-1 gap-3 sm:grid-cols-2",
+          disabled && "pointer-events-none opacity-50"
+        )}
+      >
         {CAPABILITIES.map(
           ({ icon: Icon, prompt, label, desc, color, iconColor }) => (
             <button
               key={label}
               type="button"
+              disabled={disabled}
               onClick={() => onPromptSelect?.(prompt)}
               className={cn(
                 "group flex items-start gap-3.5 rounded-xl border border-border/60 p-4 text-left transition-all duration-200",
