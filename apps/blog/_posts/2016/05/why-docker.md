@@ -8,7 +8,7 @@ tags:
 modified_time: '2018-09-10T17:24:13.718+07:00'
 thumbnail: https://4.bp.blogspot.com/-84F7ca4G75c/VyYPFOcKb4I/AAAAAAAAULU/J4g0-i0v5K4s1vK2432PQsnsZ1qFB8MKACLcB/s1600/Screenshot%2Bfrom%2B2016-05-01%2B21-13-19.png
 slug: /2016/05/why-docker.html
-category: Talk
+category: Project
 description: 'Tuần rồi tôi có buổi Seminar về Docker tại ISLab UIT: First look về Docker, kiến trúc cơ bản, quy mô tình hình sử dụng, các ứng dụng và cách sử dụng, viết 1 Dockerfile đơn giản.'
 ---
 

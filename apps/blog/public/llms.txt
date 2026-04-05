@@ -504,7 +504,7 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 **Blog Statistics:**
 - Total Posts: 297
 - Years Active: 2015-2026
-- Categories: 20
+- Categories: 15
 - Tags: 58
 
 Generated from: https://blog.duyet.net

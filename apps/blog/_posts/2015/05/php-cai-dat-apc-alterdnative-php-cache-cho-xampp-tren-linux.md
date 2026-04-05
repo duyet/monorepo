@@ -6,7 +6,7 @@ tags:
   - PHP
 modified_time: '2015-05-16T00:28:34.671+07:00'
 slug: /2015/05/php-cai-dat-apc-alterdnative-php-cache-cho-xampp-tren-linux.html
-category: PHP
+category: Web
 description: Hướng dẫn cài đặt APC (Alternative PHP Cache) cho XAMPP trên Linux
 ---
 
