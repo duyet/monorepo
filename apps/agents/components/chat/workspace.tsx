@@ -89,12 +89,11 @@ export function ChatWorkspace() {
     thinkingSteps,
     modelId,
     setModelId,
-    mode,
-    setMode,
     addToolApprovalResponse,
   } = useChat({
     id: chatKey ?? undefined,
     modelId: activeConversation?.modelId,
+    mode: "agent",
     onError: (err) => {
       console.error("Chat error:", err);
       if (err instanceof Error) {
@@ -123,19 +122,6 @@ export function ChatWorkspace() {
     getAuthToken,
   });
 
-  useEffect(() => {
-    if (!activeConversation) return;
-
-    const conversationChanged =
-      activeConversationIdRef.current !== activeConversation.id;
-    if (!conversationChanged) return;
-
-    activeConversationIdRef.current = activeConversation.id;
-    setMode(activeConversation.mode);
-    localStorage.setItem("chat-mode", activeConversation.mode);
-    // Conversation mode is the source of truth when switching threads.
-  }, [activeConversation, setMode]);
-
   const partsMap = useMemo(() => {
     const map = new Map<string, UIMessage["parts"]>();
     for (const msg of uiMessages) {
@@ -160,24 +146,9 @@ export function ChatWorkspace() {
     [addToolApprovalResponse]
   );
 
-  const handleModeChange = useCallback(
-    (newMode: ChatMode) => {
-      setMode(newMode);
-      localStorage.setItem("chat-mode", newMode);
-    },
-    [setMode]
-  );
-
-  useEffect(() => {
-    const saved = localStorage.getItem("chat-mode") as ChatMode;
-    if (saved === "fast" || saved === "agent") {
-      handleModeChange(saved);
-    }
-  }, [handleModeChange]);
-
   const handlePromptSelect = async (prompt: string) => {
     if (!activeId) {
-      await createNew(mode, modelId);
+      await createNew("agent", modelId);
     }
     setInput(prompt);
     setTimeout(() => inputRef.current?.focus(), 0);
@@ -240,7 +211,7 @@ export function ChatWorkspace() {
     if (!input.trim()) return;
 
     if (!activeId) {
-      await createNew(mode, modelId);
+      await createNew("agent", modelId);
     }
 
     lastInputRef.current = input;
@@ -248,7 +219,7 @@ export function ChatWorkspace() {
   };
 
   const handleNewChat = async () => {
-    await createNew(mode, modelId);
+    await createNew("agent", modelId);
   };
 
   const handleDeleteAllConversations = async () => {
@@ -329,8 +300,6 @@ export function ChatWorkspace() {
           <ChatTopBar
             conversationId={activeId ?? undefined}
             conversationTitle={activeConversation?.title}
-            mode={mode}
-            onModeChange={handleModeChange}
             onNewChat={handleNewChat}
             onToggleLeftSidebar={() => setLeftRailOpen(true)}
             onToggleRightSidebar={() => setRightRailOpen(true)}

@@ -19,9 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useExportConversation } from "@/lib/hooks/use-export-conversation";
-import type { ChatMode } from "@/lib/types";
 
 interface ChatTopBarProps {
   onToggleLeftSidebar?: () => void;
@@ -30,8 +28,6 @@ interface ChatTopBarProps {
   conversationTitle?: string;
   conversationId?: string;
   subtitle?: string;
-  mode?: ChatMode;
-  onModeChange?: (mode: ChatMode) => void;
 }
 
 export function ChatTopBar({
@@ -41,8 +37,6 @@ export function ChatTopBar({
   conversationTitle,
   conversationId,
   subtitle = "Workspace",
-  mode,
-  onModeChange,
 }: ChatTopBarProps) {
   const { exportConversation, isExporting } = useExportConversation();
   const canExport = Boolean(conversationId);
@@ -97,23 +91,6 @@ export function ChatTopBar({
             </div>
           </div>
         </div>
-
-        {mode && onModeChange ? (
-          <Tabs
-            className="hidden md:block"
-            value={mode}
-            onValueChange={(value) => onModeChange(value as ChatMode)}
-          >
-            <TabsList className="h-9 rounded-lg border bg-muted/50 p-1 text-muted-foreground">
-              <TabsTrigger className="rounded-md px-3 text-xs" value="fast">
-                Fast
-              </TabsTrigger>
-              <TabsTrigger className="rounded-md px-3 text-xs" value="agent">
-                Agent
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
-        ) : null}
 
         <div className="ml-auto flex items-center gap-2">
           <Button variant="outline" size="sm" onClick={onNewChat} className="h-9">
