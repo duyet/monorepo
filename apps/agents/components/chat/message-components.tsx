@@ -1,11 +1,7 @@
 import type { UIMessage } from "ai";
 import {
-  ChartBar as BarChart2,
-  BookOpen,
   Check,
   Copy,
-  GitBranch,
-  User,
   X,
 } from "@phosphor-icons/react";
 import { useMemo, useState } from "react";
@@ -304,20 +300,14 @@ const SUGGESTION_CATEGORIES = [
     label: "Get Started",
     suggestions: [
       {
-        icon: BookOpen,
-        label: "Blog Search",
-        desc: "296+ posts on data engineering, cloud, and programming",
+        prefix: "Search",
+        label: "blog posts about ClickHouse",
         prompt: "Search blog posts about ClickHouse",
-        color: "bg-orange-100/50 dark:bg-orange-950/30",
-        iconColor: "text-orange-700 dark:text-orange-400",
       },
       {
-        icon: User,
-        label: "About Duyet",
-        desc: "Experience, skills, and professional background",
+        prefix: "Tell me about",
+        label: "Duyet's work experience",
         prompt: "Tell me about Duyet's work experience",
-        color: "bg-purple-100/50 dark:bg-purple-950/30",
-        iconColor: "text-purple-700 dark:text-purple-400",
       },
     ],
   },
@@ -326,20 +316,14 @@ const SUGGESTION_CATEGORIES = [
     label: "Explore",
     suggestions: [
       {
-        icon: GitBranch,
-        label: "GitHub Activity",
-        desc: "Recent commits, pull requests, and open source contributions",
+        prefix: "What has Duyet been",
+        label: "working on recently?",
         prompt: "What has Duyet been working on recently?",
-        color: "bg-blue-100/50 dark:bg-blue-950/30",
-        iconColor: "text-blue-700 dark:text-blue-400",
       },
       {
-        icon: BarChart2,
-        label: "Analytics",
-        desc: "Contact form stats and site performance insights",
+        prefix: "Show me the",
+        label: "contact form analytics",
         prompt: "Show me the contact form analytics",
-        color: "bg-amber-100/60 dark:bg-amber-950/30",
-        iconColor: "text-amber-700 dark:text-amber-400",
       },
     ],
   },
@@ -357,19 +341,16 @@ export function WelcomeMessage({
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:py-16">
-      <div className="mb-10 space-y-3 text-center">
+    <div className="mx-auto w-full max-w-2xl px-4 py-8 sm:py-16">
+      <div className="mb-10 text-center">
         <h1 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
-          How can I help you today?
+          What's on your mind?
         </h1>
-        <p className="mx-auto max-w-md text-sm leading-6 text-muted-foreground sm:text-base">
-          Ask me about blog posts, GitHub projects, CV, or anything else.
-        </p>
       </div>
 
       <div className="space-y-6">
         {SUGGESTION_CATEGORIES.map((category) => (
-          <div key={category.id}>
+          <div key={category.id} className="space-y-2">
             <button
               type="button"
               disabled={disabled}
@@ -379,56 +360,30 @@ export function WelcomeMessage({
                 )
               }
               className={cn(
-                "mb-3 flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+                "text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
                 disabled && "pointer-events-none opacity-50"
               )}
             >
-              <span>{category.label}</span>
-              <span
-                className={cn(
-                  "transition-transform",
-                  expandedCategory === category.id ? "rotate-180" : "rotate-0"
-                )}
-              >
-                ▼
-              </span>
+              {expandedCategory === category.id ? "▼" : "▶"} {category.label}
             </button>
 
             {expandedCategory === category.id && (
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 animate-in fade-in slide-in-from-top-2 duration-200">
-                {category.suggestions.map(
-                  ({ icon: Icon, prompt, label, desc, color, iconColor }) => (
-                    <button
-                      key={label}
-                      type="button"
-                      disabled={disabled}
-                      onClick={() => onPromptSelect?.(prompt)}
-                      className={cn(
-                        "group flex items-start gap-3.5 rounded-full border border-border p-4 text-left transition-all duration-200",
-                        "hover:border-foreground/20 hover:bg-muted/50",
-                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                        disabled && "pointer-events-none opacity-50"
-                      )}
-                    >
-                      <div
-                        className={cn(
-                          "flex size-9 shrink-0 items-center justify-center rounded-full",
-                          color
-                        )}
-                      >
-                        <Icon className={cn("h-5 w-5", iconColor)} />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="text-sm font-medium text-foreground">
-                          {label}
-                        </p>
-                        <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground line-clamp-2">
-                          {desc}
-                        </p>
-                      </div>
-                    </button>
-                  )
-                )}
+              <div className="animate-in fade-in slide-in-from-top-2 duration-200">
+                {category.suggestions.map(({ prefix, label, prompt }) => (
+                  <button
+                    key={prompt}
+                    type="button"
+                    disabled={disabled}
+                    onClick={() => onPromptSelect?.(prompt)}
+                    className={cn(
+                      "block w-full text-left py-2 text-sm text-muted-foreground hover:text-foreground transition-colors",
+                      disabled && "pointer-events-none opacity-50"
+                    )}
+                  >
+                    <span className="font-semibold text-foreground">{prefix}</span>{" "}
+                    {label}
+                  </button>
+                ))}
               </div>
             )}
           </div>
@@ -447,7 +402,7 @@ export function WelcomeMessage({
               disabled && "pointer-events-none opacity-50"
             )}
           >
-            Expand suggestions
+            Show suggestions
           </button>
         </div>
       )}

@@ -53,7 +53,7 @@ export function ChatInput({
   return (
     <div className="pointer-events-none absolute bottom-0 w-full px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-6 sm:px-6">
       <div className="mx-auto max-w-3xl">
-        <div className="pointer-events-auto rounded-3xl border border-input bg-popover/80 p-2 shadow-xs backdrop-blur-xl">
+        <div className="pointer-events-auto rounded-3xl border border-border/70 bg-white p-2 shadow-sm">
           <form ref={formRef} onSubmit={onSubmit} className="flex items-end gap-2">
             <Textarea
               ref={textareaRef}
