@@ -37,120 +37,75 @@ const apps: AppItem[] = [
     href: "/",
     host: "llm-timeline.duyet.net",
     utmContent: "llm_timeline_bento",
-    fallbackIcon: (
-      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-neutral-900 flex items-center justify-center border-4 border-neutral-100 dark:border-neutral-800">
-        <span className="text-xl font-bold text-neutral-900 dark:text-white">LLM</span>
-      </div>
-    ),
-    fallbackGradientClass: "bg-neutral-100 dark:bg-neutral-900",
+    screenshot: "/screenshots/llm-timeline.png",
   },
   {
     name: "AI Agents",
     href: "/agents",
     host: "agents.duyet.net",
     utmContent: "agents_bento",
-    fallbackIcon: (
-      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-neutral-900 flex items-center justify-center border-4 border-neutral-100 dark:border-neutral-800">
-        <span className="text-xl font-bold text-neutral-900 dark:text-white">AI</span>
-      </div>
-    ),
-    fallbackGradientClass: "bg-neutral-100 dark:bg-neutral-900",
+    screenshot: "/screenshots/ai-agents.png",
   },
   {
     name: "OpenClaw",
     href: "/claw",
     host: "claw.duyet.net",
     utmContent: "claw_bento",
-    fallbackIcon: (
-      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-neutral-900 flex items-center justify-center border-4 border-neutral-100 dark:border-neutral-800">
-        <span className="text-xl font-bold text-neutral-900 dark:text-white">claw</span>
-      </div>
-    ),
-    fallbackGradientClass: "bg-neutral-100 dark:bg-neutral-900",
+    screenshot: "/screenshots/openclaw.png",
   },
   {
     name: "MCP Tools",
     href: "/mcp",
     host: "mcp.duyet.net",
     utmContent: "mcp_bento",
-    fallbackIcon: (
-      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-neutral-900 flex items-center justify-center border-4 border-neutral-100 dark:border-neutral-800">
-        <span className="text-lg font-bold text-neutral-900 dark:text-white">MCP</span>
-      </div>
-    ),
-    fallbackGradientClass: "bg-neutral-100 dark:bg-neutral-900",
+    screenshot: "/screenshots/mcp-tools-art.png",
   },
   {
     name: "Rust Tiếng Việt",
     href: "/rust",
     host: "rust-tieng-viet.github.io",
     utmContent: "rust_bento",
-    fallbackIcon: (
-      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-neutral-900 flex items-center justify-center border-4 border-neutral-100 dark:border-neutral-800">
-        <span className="text-sm font-bold text-neutral-900 dark:text-white">Rust</span>
-      </div>
-    ),
-    fallbackGradientClass: "bg-neutral-100 dark:bg-neutral-900",
+    screenshot: "/screenshots/rust-art.png",
   },
   {
     name: "ClickHouse Monitoring",
     href: "/clickhouse-monitoring",
     host: "clickhouse.duyet.net",
     utmContent: "ch_monitor_bento",
-    fallbackIcon: (
-      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-neutral-900 flex items-center justify-center border-4 border-neutral-100 dark:border-neutral-800">
-        <span className="text-lg font-bold text-neutral-900 dark:text-white">CH</span>
-      </div>
-    ),
-    fallbackGradientClass: "bg-neutral-100 dark:bg-neutral-900",
+    screenshot: "/screenshots/ch-monitor.png",
   },
   {
     name: "Claude Plugins",
     href: "/claude-plugins",
     host: "github.com/duyet/claude-plugins",
     utmContent: "claude_plugins_bento",
-    fallbackIcon: (
-      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-neutral-900 flex items-center justify-center border-4 border-neutral-100 dark:border-neutral-800">
-        <span className="text-lg font-bold text-neutral-900 dark:text-white">Claude</span>
-      </div>
-    ),
-    fallbackGradientClass: "bg-neutral-100 dark:bg-neutral-900",
+    screenshot: "/screenshots/claude-plugins-art.png",
   },
   {
     name: "Stamp",
     href: "/stamp",
     host: "stamp.duyet.net",
     utmContent: "stamp_bento",
-    fallbackIcon: (
-      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-neutral-900 flex items-center justify-center border-4 border-neutral-100 dark:border-neutral-800">
-        <span className="text-xl font-bold text-neutral-900 dark:text-white">Stamp</span>
-      </div>
-    ),
-    fallbackGradientClass: "bg-neutral-100 dark:bg-neutral-900",
+    screenshot: "/screenshots/stamp.png",
   },
   {
     name: "AgentState",
     href: "/agentstate",
     host: "agentstate.app",
     utmContent: "agentstate_bento",
-    fallbackIcon: (
-      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-neutral-900 flex items-center justify-center border-4 border-neutral-100 dark:border-neutral-800">
-        <span className="text-sm font-bold text-neutral-900 dark:text-white">AgentState</span>
-      </div>
-    ),
-    fallbackGradientClass: "bg-neutral-100 dark:bg-neutral-900",
+    screenshot: "/screenshots/art-1.png",
   },
   {
     name: "okie.one",
     href: "/okie",
     host: "okie.one",
     utmContent: "okie_bento",
-    fallbackIcon: (
-      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-neutral-900 flex items-center justify-center border-4 border-neutral-100 dark:border-neutral-800">
-        <span className="text-3xl font-black text-neutral-900 dark:text-white">okie</span>
-      </div>
-    ),
-    fallbackGradientClass: "bg-neutral-100 dark:bg-neutral-900",
+  },
+  {
+    name: "pageview",
+    href: "https://pageview.duyet.net",
+    host: "pageview.duyet.net",
+    utmContent: "pageview_bento",
   },
 ];
 
@@ -341,19 +296,10 @@ function HomePage() {
               </span>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {apps.map((item, index) => {
+            {/* Apps with screenshots - Grid */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-12">
+              {apps.filter((app) => app.screenshot).map((item, index) => {
                 const shortcutNumber = index < 4 ? index + 6 : undefined;
-                const shortcutId =
-                  index === 0
-                    ? "llm-timeline"
-                    : index === 1
-                      ? "agents"
-                      : index === 2
-                        ? "openclaw"
-                        : index === 3
-                          ? "mcp"
-                          : undefined;
                 const delayClass = `animate-fade-in-delay-${Math.min(index + 7, 8)}`;
 
                 return (
@@ -366,36 +312,17 @@ function HomePage() {
                       item.host
                     )}
                     className="group flex flex-col overflow-hidden p-0"
-                    shortcutId={shortcutId}
+                    shortcutId={item.name.toLowerCase().replace(/\s+/g, "-")}
                     shortcutNumber={shortcutNumber}
                     animationClass={delayClass}
                   >
-                    <div
-                      className={`relative aspect-[16/9] w-full border-b border-neutral-200 flex items-center justify-center overflow-hidden dark:border-white/10 ${item.screenshot ? "bg-neutral-100 dark:bg-[#0a0a0a]" : item.fallbackGradientClass || "bg-neutral-50 dark:bg-white/[0.02]"}`}
-                    >
-                      {item.screenshot ? (
+                    <div className="relative aspect-[16/9] w-full border-b border-neutral-200 flex items-center justify-center overflow-hidden bg-neutral-100 dark:bg-[#0a0a0a] dark:border-white/10">
+                      {item.screenshot && (
                         <img
                           src={item.screenshot}
                           alt={item.name}
                           className="absolute inset-0 w-full h-full object-cover object-top opacity-90 transition-opacity group-hover:opacity-100"
                         />
-                      ) : (
-                        <>
-                          {item.fallbackBgImage && (
-                            <div
-                              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
-                              style={{ backgroundImage: item.fallbackBgImage }}
-                            />
-                          )}
-                          {item.fallbackBgImage && (
-                            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500" />
-                          )}
-                          <div className="relative z-10 flex transform items-center justify-center transition-transform duration-500">
-                            {item.fallbackIcon || (
-                              <Database className="w-16 h-16 text-neutral-300 dark:text-neutral-700" />
-                            )}
-                          </div>
-                        </>
                       )}
                     </div>
                     <div className="p-4 flex flex-col justify-center bg-white dark:bg-[#111]">
@@ -410,6 +337,31 @@ function HomePage() {
                 );
               })}
             </div>
+
+            {/* Apps without screenshots - Simple list */}
+            {apps.filter((app) => !app.screenshot).length > 0 && (
+              <div className="space-y-2">
+                {apps.filter((app) => !app.screenshot).map((item) => (
+                  <BentoCard
+                    key={item.name}
+                    href={addUtmParams(
+                      item.href,
+                      "homepage",
+                      item.utmContent,
+                      item.host
+                    )}
+                    className="flex items-center justify-between px-4 py-3 hover:bg-neutral-50 dark:hover:bg-neutral-900/50 transition-colors"
+                  >
+                    <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                      {item.name}
+                    </span>
+                    <span className="text-xs text-neutral-500 dark:text-neutral-400 break-all ml-4">
+                      {item.host}
+                    </span>
+                  </BentoCard>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Short URLs CTA */}

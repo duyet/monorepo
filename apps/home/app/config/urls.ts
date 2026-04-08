@@ -20,6 +20,7 @@ export const urls: Urls = {
   },
   "/agents": { target: "https://agents.duyet.net", desc: "AI Agents" },
   "/okie": { target: "https://okie.one", desc: "okie.one - LLM chat UI" },
+  "/pageview": { target: "https://pageview.duyet.net", desc: "pageview - analytics dashboard" },
   "/claude-plugins": {
     target: "https://github.com/duyet/claude-plugins",
     desc: "Claude Plugins",
