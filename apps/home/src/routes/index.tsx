@@ -107,6 +107,16 @@ const apps: AppItem[] = [
     ),
     fallbackGradientClass: "bg-gradient-to-br from-violet-600 to-indigo-600",
   },
+  {
+    name: "okie.one",
+    href: "/okie",
+    host: "okie.one",
+    utmContent: "okie_bento",
+    fallbackIcon: (
+      <Settings className="w-12 h-12 text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />
+    ),
+    fallbackGradientClass: "bg-neutral-900",
+  },
 ];
 
 function HomePage() {
