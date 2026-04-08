@@ -1,5 +1,5 @@
 import {
-  DotsThreeHorizontal as MoreHorizontal,
+  DotsThree as MoreHorizontal,
   Trash,
 } from "@phosphor-icons/react";
 import { memo } from "react";

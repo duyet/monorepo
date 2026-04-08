@@ -5,10 +5,10 @@ import { math } from "@streamdown/math";
 import { mermaid } from "@streamdown/mermaid";
 import type { ComponentType } from "react";
 import {
-  BrainCircuit as BrainCircuitIcon,
+  Brain as BrainCircuitIcon,
   CheckCircle as CheckCircle2Icon,
   CaretDown as ChevronDownIcon,
-  CircleDot as CircleDotIcon,
+  Target as CircleDotIcon,
   Circle as CircleIcon,
 } from "@phosphor-icons/react";
 import type { ComponentProps, ReactNode } from "react";

@@ -1,6 +1,5 @@
 import {
-  Activity,
-  ChartBar as BarChart3,
+  ChartBar as Activity,
   Spinner as Loader2,
   ChatCircle as MessageSquare,
   Users,
@@ -123,7 +122,7 @@ export default function AnalyticsPage() {
                           <CardTitle className="text-sm font-medium text-muted-foreground">
                             Total conversations
                           </CardTitle>
-                          <Activity className="size-4 text-muted-foreground" />
+                          <ChartBar className="size-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
                           <div className="text-3xl font-semibold">

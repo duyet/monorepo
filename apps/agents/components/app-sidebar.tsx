@@ -1,4 +1,4 @@
-import { ChatCirclePlus as MessageSquarePlus, Trash } from "@phosphor-icons/react";
+import { ChatCircle as MessageSquarePlus, Trash } from "@phosphor-icons/react";
 import { useState } from "react";
 import { SidebarHistory } from "@/components/chat/sidebar-history";
 import { SidebarUserNav } from "@/components/chat/sidebar-user-nav";

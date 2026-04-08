@@ -2,7 +2,7 @@
 
 import {
   Brain,
-  Cable,
+  Plug as Cable,
   Coin as Coins,
   Gauge,
   Sparkle as Sparkles,

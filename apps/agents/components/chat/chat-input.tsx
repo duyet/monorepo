@@ -1,5 +1,5 @@
 import {
-  AlertCircle as Warning,
+  Warning,
   ArrowClockwise as RefreshCw,
   ArrowUp as Send,
   X,
