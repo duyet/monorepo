@@ -1,5 +1,5 @@
 import { isToday, isYesterday, subMonths, subWeeks } from "date-fns";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,6 +10,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -57,7 +58,7 @@ const groupChatsByDate = (chats: Conversation[]): GroupedChats => {
       lastWeek: [],
       lastMonth: [],
       older: [],
-    } as GroupedChats,
+    } as GroupedChats
   );
 };
 
@@ -80,54 +81,10 @@ export function SidebarHistory({
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
-  const handleDelete = async () => {
-    if (!deleteId) return;
-    setShowDeleteDialog(false);
-    await onDeleteConversation(deleteId);
-    setDeleteId(null);
-  };
-
-  if (isLoading) {
-    return (
-      <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-        <SidebarGroupLabel className="text-[10px] font-semibold uppercase tracking-[0.12em] text-sidebar-foreground/70">
-          History
-        </SidebarGroupLabel>
-        <SidebarGroupContent>
-          <div className="flex flex-col gap-0.5 px-1">
-            {[44, 32, 28, 64, 52].map((item) => (
-              <div
-                className="flex h-8 items-center gap-2 rounded-lg px-2"
-                key={item}
-              >
-                <div
-                  className="h-3 flex-1 animate-pulse rounded-md bg-sidebar-foreground/[0.06]"
-                  style={{ maxWidth: `${item}%` }}
-                />
-              </div>
-            ))}
-          </div>
-        </SidebarGroupContent>
-      </SidebarGroup>
-    );
-  }
-
-  if (conversations.length === 0) {
-    return (
-      <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-        <SidebarGroupLabel className="text-[10px] font-semibold uppercase tracking-[0.12em] text-sidebar-foreground/70">
-          History
-        </SidebarGroupLabel>
-        <SidebarGroupContent>
-          <div className="flex w-full flex-row items-center justify-center gap-2 px-2 text-[13px] text-sidebar-foreground/60">
-            Your conversations will appear here once you start chatting!
-          </div>
-        </SidebarGroupContent>
-      </SidebarGroup>
-    );
-  }
-
-  const groupedChats = groupChatsByDate(conversations);
+  const groupedChats = useMemo(
+    () => groupChatsByDate(conversations),
+    [conversations]
+  );
 
   const groups = [
     { key: "today", label: "Today", chats: groupedChats.today },
@@ -137,60 +94,84 @@ export function SidebarHistory({
     { key: "older", label: "Older", chats: groupedChats.older },
   ];
 
+  const handleDelete = async () => {
+    if (!deleteId) return;
+    setShowDeleteDialog(false);
+    await onDeleteConversation(deleteId);
+    setDeleteId(null);
+  };
+
   return (
     <>
-      <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-        <SidebarGroupLabel className="text-[10px] font-semibold uppercase tracking-[0.12em] text-sidebar-foreground/70">
+      <SidebarGroup className="group-data-[collapsible=icon]:hidden px-3 pb-3">
+        <SidebarGroupLabel className="px-0 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
           History
         </SidebarGroupLabel>
+
         <SidebarGroupContent>
-          <SidebarMenu>
-            <div className="flex flex-col gap-4">
-              {groups.map(
-                (group) =>
-                  group.chats.length > 0 && (
-                    <div key={group.key}>
-                      <div className="px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-sidebar-foreground/70">
-                        {group.label}
+          <ScrollArea className="h-[calc(100svh-15rem)]">
+            <SidebarMenu className="flex flex-col gap-3 pr-3">
+              {isLoading ? (
+                <div className="space-y-2">
+                  {[1, 2, 3, 4].map((index) => (
+                    <div
+                      key={index}
+                      className="h-11 animate-pulse rounded-2xl border bg-muted/30"
+                    />
+                  ))}
+                </div>
+              ) : conversations.length === 0 ? (
+                <div className="rounded-2xl border border-dashed bg-muted/20 px-4 py-5 text-sm text-muted-foreground">
+                  Your conversations will appear here after you start chatting.
+                </div>
+              ) : (
+                groups.map(
+                  (group) =>
+                    group.chats.length > 0 && (
+                      <div key={group.key} className="space-y-2">
+                        <div className="px-2 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                          {group.label}
+                        </div>
+                        <div className="space-y-1">
+                          {group.chats.map((chat) => (
+                            <ChatItem
+                              chat={chat}
+                              isActive={chat.id === activeId}
+                              key={chat.id}
+                              onDelete={(chatId) => {
+                                setDeleteId(chatId);
+                                setShowDeleteDialog(true);
+                              }}
+                              onSelect={(id) => {
+                                setOpenMobile(false);
+                                onSelectConversation(id);
+                              }}
+                              setOpenMobile={setOpenMobile}
+                            />
+                          ))}
+                        </div>
                       </div>
-                      {group.chats.map((chat) => (
-                        <ChatItem
-                          chat={chat}
-                          isActive={chat.id === activeId}
-                          key={chat.id}
-                          onDelete={(chatId) => {
-                            setDeleteId(chatId);
-                            setShowDeleteDialog(true);
-                          }}
-                          onSelect={(id) => {
-                            setOpenMobile(false);
-                            onSelectConversation(id);
-                          }}
-                          setOpenMobile={setOpenMobile}
-                        />
-                      ))}
-                    </div>
-                  ),
+                    )
+                )
               )}
-            </div>
-          </SidebarMenu>
+            </SidebarMenu>
+            <ScrollBar orientation="vertical" />
+          </ScrollArea>
         </SidebarGroupContent>
       </SidebarGroup>
 
       <AlertDialog onOpenChange={setShowDeleteDialog} open={showDeleteDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogTitle>Delete this chat?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              chat and remove it from our servers.
+              This action cannot be undone. The conversation will be removed
+              from your workspace and server storage.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDelete}>
-              Continue
-            </AlertDialogAction>
+            <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

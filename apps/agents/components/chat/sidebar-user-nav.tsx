@@ -1,4 +1,4 @@
-import { ChevronUp, LogIn, LogOut, Moon, Sun } from "lucide-react";
+import { LogIn, LogOut } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,7 +24,6 @@ function emailToHue(email: string): number {
 export function SidebarUserNav() {
   const clerk = useClerkComponents();
 
-  // If Clerk is not configured, show nothing
   if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY || !clerk) {
     return null;
   }
@@ -37,11 +36,11 @@ export function SidebarUserNav() {
         <SignedOut>
           <SignInButton mode="modal">
             <SidebarMenuButton
-              className="h-8 px-2 rounded-lg bg-transparent text-sidebar-foreground/70 transition-colors duration-150 hover:text-sidebar-foreground"
+              className="h-10 rounded-2xl border border-sidebar-border/60 bg-background px-3 text-sidebar-foreground/80 shadow-sm transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
               data-testid="user-nav-sign-in"
             >
-              <LogIn className="h-4 w-4" />
-              <span className="text-[13px]">Sign in</span>
+              <LogIn />
+              <span className="text-sm font-medium">Sign in</span>
             </SidebarMenuButton>
           </SignInButton>
         </SignedOut>
@@ -53,7 +52,6 @@ export function SidebarUserNav() {
   );
 }
 
-/** Inner component that can call useUser() because it renders inside SignedIn */
 function SignedInUserMenu({
   useUser,
 }: {
@@ -78,36 +76,44 @@ function SignedInUserMenu({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <SidebarMenuButton
-          className="h-8 px-2 rounded-lg bg-transparent text-sidebar-foreground/70 transition-colors duration-150 hover:text-sidebar-foreground data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+          className="h-10 rounded-2xl border border-sidebar-border/60 bg-background px-3 text-sidebar-foreground/80 shadow-sm transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
           data-testid="user-nav-button"
         >
           <div
-            className="size-5 shrink-0 rounded-full ring-1 ring-sidebar-border/50"
+            className="size-7 shrink-0 rounded-full ring-1 ring-sidebar-border/60"
             style={{
               background: `linear-gradient(135deg, oklch(0.35 0.08 ${emailToHue(email)}), oklch(0.25 0.05 ${emailToHue(email) + 40}))`,
             }}
           />
-          <span className="truncate text-[13px]" data-testid="user-email">
-            {displayName}
-          </span>
-          <ChevronUp className="ml-auto size-3.5 text-sidebar-foreground/50" />
+          <div className="min-w-0 flex-1 text-left">
+            <div
+              className="truncate text-sm font-medium"
+              data-testid="user-email"
+            >
+              {displayName}
+            </div>
+            <div className="truncate text-xs text-sidebar-foreground/50">
+              Account
+            </div>
+          </div>
         </SidebarMenuButton>
       </DropdownMenuTrigger>
+
       <DropdownMenuContent
-        className="w-[--radix-popper-anchor-width] rounded-lg"
+        className="w-[--radix-popper-anchor-width]"
         data-testid="user-nav-menu"
         side="top"
       >
-        <DropdownMenuItem className="cursor-pointer text-[13px]">
+        <DropdownMenuItem className="cursor-pointer text-sm">
           <span className="truncate">{email}</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          className="cursor-pointer text-[13px]"
+          className="cursor-pointer text-sm"
           data-testid="user-nav-item-auth"
           onSelect={handleSignOut}
         >
-          <LogOut className="h-4 w-4" />
+          <LogOut />
           <span>Sign out</span>
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -41,7 +41,7 @@ export const textArtifact = new Artifact<"text", TextArtifactMetadata>({
     setMetadata({ suggestions: [] });
   },
 
-  onStreamPart: ({ streamPart, setMetadata, setArtifact }) => {
+  onStreamPart: ({ streamPart, setArtifact }) => {
     if (streamPart.type === "data-textDelta") {
       setArtifact((draftArtifact) => ({
         ...draftArtifact,

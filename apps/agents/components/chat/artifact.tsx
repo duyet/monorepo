@@ -1,10 +1,7 @@
 import { formatDistance } from "date-fns";
-import equal from "fast-deep-equal";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  type Dispatch,
   memo,
-  type SetStateAction,
   useCallback,
   useEffect,
   useRef,

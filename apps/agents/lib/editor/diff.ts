@@ -9,7 +9,7 @@
  * diff-match-patch instead of the original diff algorithm.
  */
 
-import { type Node as ProseMirrorNode } from "prosemirror-model";
+import type { Node as ProseMirrorNode } from "prosemirror-model";
 import DiffMatchPatch from "diff-match-patch";
 
 // ---------------------------------------------------------------------------
@@ -34,7 +34,7 @@ interface TextDiff {
   text: string;
 }
 
-function computeTextDiffs(oldText: string, newText: TextDiff[]): TextDiff[] {
+function _computeTextDiffs(_oldText: string, newText: TextDiff[]): TextDiff[] {
   const results: TextDiff[] = [];
 
   for (const diff of newText) {
@@ -65,7 +65,7 @@ export function diffText(
 // ProseMirror node-level diff
 // ---------------------------------------------------------------------------
 
-interface NodeDiffResult {
+interface _NodeDiffResult {
   type: DiffType;
   node: ProseMirrorNode;
 }
@@ -131,7 +131,7 @@ function alignBlocks(
   oldBlocks: Record<string, unknown>[],
   newBlocks: Record<string, unknown>[]
 ): { merged: BlockData[] } {
-  const merged: BlockData[] = [];
+  const _merged: BlockData[] = [];
 
   // Simple approach: hash each block's text content for comparison
   const oldHashes = oldBlocks.map(blockToHash);

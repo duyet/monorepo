@@ -7,10 +7,8 @@
  */
 
 import { memo } from "react";
-import { cn } from "@/lib/utils";
 import { artifactDefinitions, type ArtifactKind } from "./artifact";
 import type { ArtifactToolbarContext } from "./create-artifact";
-import { Button } from "../ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import { StopCircleIcon } from "lucide-react";
 

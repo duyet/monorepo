@@ -53,7 +53,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     return Response.json({ error: "unauthorized" }, { status: 401 });
   }
 
-  const db = createDatabaseClient(DB);
+  const _db = createDatabaseClient(DB);
 
   const stmt = DB.prepare(
     "SELECT id, title, content, kind, user_id, created_at FROM documents WHERE id = ? ORDER BY created_at ASC"

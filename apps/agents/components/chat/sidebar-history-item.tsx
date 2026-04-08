@@ -27,25 +27,27 @@ const PureChatItem = ({
   setOpenMobile: (open: boolean) => void;
 }) => {
   return (
-    <SidebarMenuItem>
+    <SidebarMenuItem className="group/item">
       <SidebarMenuButton
-        className="h-8 rounded-none text-[13px] text-sidebar-foreground/50 transition-all duration-150 hover:bg-transparent hover:text-sidebar-foreground data-[active=true]:text-sidebar-foreground data-[active=true]:font-medium data-[active=true]:border-b data-[active=true]:border-dashed data-[active=true]:border-sidebar-foreground/50"
+        className="h-auto rounded-2xl border border-transparent px-3 py-2.5 text-left text-sm text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground data-[active=true]:border-sidebar-border data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground"
         isActive={isActive}
         onClick={() => {
           setOpenMobile(false);
           onSelect(chat.id);
         }}
       >
-        <span className="truncate">{chat.title}</span>
+        <span className="block min-w-0 flex-1 truncate font-medium">
+          {chat.title}
+        </span>
       </SidebarMenuButton>
 
       <DropdownMenu modal={true}>
         <DropdownMenuTrigger asChild>
           <SidebarMenuAction
-            className="mr-0.5 rounded-md text-sidebar-foreground/50 ring-0 transition-colors duration-150 focus-visible:ring-0 hover:text-sidebar-foreground data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+            className="mr-1 rounded-xl text-sidebar-foreground/40 transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             showOnHover={!isActive}
           >
-            <MoreHorizontal className="h-4 w-4" />
+            <MoreHorizontal className="size-4" />
             <span className="sr-only">More</span>
           </SidebarMenuAction>
         </DropdownMenuTrigger>
@@ -55,7 +57,7 @@ const PureChatItem = ({
             className="cursor-pointer text-destructive focus:text-destructive"
             onSelect={() => onDelete(chat.id)}
           >
-            <Trash2 className="h-4 w-4" />
+            <Trash2 />
             <span>Delete</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
