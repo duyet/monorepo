@@ -8,7 +8,7 @@ import {
   User,
   X,
 } from "@phosphor-icons/react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   ChainOfThought,
   ChainOfThoughtContent,
@@ -298,38 +298,50 @@ export function StreamingCursor() {
   );
 }
 
-const CAPABILITIES = [
+const SUGGESTION_CATEGORIES = [
   {
-    icon: BookOpen,
-    label: "Blog Search",
-    desc: "296+ posts on data engineering, cloud, and programming",
-    prompt: "Search blog posts about ClickHouse",
-    color: "bg-orange-100/50 dark:bg-orange-950/30",
-    iconColor: "text-orange-700 dark:text-orange-400",
+    id: "get-started",
+    label: "Get Started",
+    suggestions: [
+      {
+        icon: BookOpen,
+        label: "Blog Search",
+        desc: "296+ posts on data engineering, cloud, and programming",
+        prompt: "Search blog posts about ClickHouse",
+        color: "bg-orange-100/50 dark:bg-orange-950/30",
+        iconColor: "text-orange-700 dark:text-orange-400",
+      },
+      {
+        icon: User,
+        label: "About Duyet",
+        desc: "Experience, skills, and professional background",
+        prompt: "Tell me about Duyet's work experience",
+        color: "bg-purple-100/50 dark:bg-purple-950/30",
+        iconColor: "text-purple-700 dark:text-purple-400",
+      },
+    ],
   },
   {
-    icon: User,
-    label: "CV",
-    desc: "Experience, skills, and professional background",
-    prompt: "Tell me about Duyet's work experience",
-    color: "bg-purple-100/50 dark:bg-purple-950/30",
-    iconColor: "text-purple-700 dark:text-purple-400",
-  },
-  {
-    icon: GitBranch,
-    label: "GitHub",
-    desc: "Recent commits, pull requests, and open source contributions",
-    prompt: "What has Duyet been working on recently?",
-    color: "bg-blue-100/50 dark:bg-blue-950/30",
-    iconColor: "text-blue-700 dark:text-blue-400",
-  },
-  {
-    icon: BarChart2,
-    label: "Analytics",
-    desc: "Contact form stats and site performance insights",
-    prompt: "Show me the contact form analytics",
-    color: "bg-amber-100/60 dark:bg-amber-950/30",
-    iconColor: "text-amber-700 dark:text-amber-400",
+    id: "explore",
+    label: "Explore",
+    suggestions: [
+      {
+        icon: GitBranch,
+        label: "GitHub Activity",
+        desc: "Recent commits, pull requests, and open source contributions",
+        prompt: "What has Duyet been working on recently?",
+        color: "bg-blue-100/50 dark:bg-blue-950/30",
+        iconColor: "text-blue-700 dark:text-blue-400",
+      },
+      {
+        icon: BarChart2,
+        label: "Analytics",
+        desc: "Contact form stats and site performance insights",
+        prompt: "Show me the contact form analytics",
+        color: "bg-amber-100/60 dark:bg-amber-950/30",
+        iconColor: "text-amber-700 dark:text-amber-400",
+      },
+    ],
   },
 ];
 
@@ -342,6 +354,8 @@ export function WelcomeMessage({
   onPromptSelect,
   disabled,
 }: WelcomeMessageProps) {
+  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:py-16">
       <div className="mb-10 space-y-3 text-center">
@@ -353,39 +367,90 @@ export function WelcomeMessage({
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        {CAPABILITIES.map(
-          ({ icon: Icon, prompt, label, desc, color, iconColor }) => (
+      <div className="space-y-6">
+        {SUGGESTION_CATEGORIES.map((category) => (
+          <div key={category.id}>
             <button
-              key={label}
               type="button"
               disabled={disabled}
-              onClick={() => onPromptSelect?.(prompt)}
+              onClick={() =>
+                setExpandedCategory(
+                  expandedCategory === category.id ? null : category.id
+                )
+              }
               className={cn(
-                "group flex items-start gap-3.5 rounded-full border border-border p-4 text-left transition-all duration-200",
-                "hover:border-foreground/20 hover:bg-muted/50",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                "mb-3 flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
                 disabled && "pointer-events-none opacity-50"
               )}
             >
-              <div
+              <span>{category.label}</span>
+              <span
                 className={cn(
-                  "flex size-9 shrink-0 items-center justify-center rounded-full",
-                  color
+                  "transition-transform",
+                  expandedCategory === category.id ? "rotate-180" : "rotate-0"
                 )}
               >
-                <Icon className={cn("h-5 w-5", iconColor)} />
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-foreground">{label}</p>
-                <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground line-clamp-2">
-                  {desc}
-                </p>
-              </div>
+                ▼
+              </span>
             </button>
-          )
-        )}
+
+            {expandedCategory === category.id && (
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 animate-in fade-in slide-in-from-top-2 duration-200">
+                {category.suggestions.map(
+                  ({ icon: Icon, prompt, label, desc, color, iconColor }) => (
+                    <button
+                      key={label}
+                      type="button"
+                      disabled={disabled}
+                      onClick={() => onPromptSelect?.(prompt)}
+                      className={cn(
+                        "group flex items-start gap-3.5 rounded-full border border-border p-4 text-left transition-all duration-200",
+                        "hover:border-foreground/20 hover:bg-muted/50",
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                        disabled && "pointer-events-none opacity-50"
+                      )}
+                    >
+                      <div
+                        className={cn(
+                          "flex size-9 shrink-0 items-center justify-center rounded-full",
+                          color
+                        )}
+                      >
+                        <Icon className={cn("h-5 w-5", iconColor)} />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-medium text-foreground">
+                          {label}
+                        </p>
+                        <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground line-clamp-2">
+                          {desc}
+                        </p>
+                      </div>
+                    </button>
+                  )
+                )}
+              </div>
+            )}
+          </div>
+        ))}
       </div>
+
+      {/* Default: show all categories collapsed on first render */}
+      {expandedCategory === null && (
+        <div className="mt-6 text-center">
+          <button
+            type="button"
+            disabled={disabled}
+            onClick={() => setExpandedCategory("get-started")}
+            className={cn(
+              "text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground",
+              disabled && "pointer-events-none opacity-50"
+            )}
+          >
+            Expand suggestions
+          </button>
+        </div>
+      )}
     </div>
   );
 }

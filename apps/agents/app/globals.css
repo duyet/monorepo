@@ -46,6 +46,10 @@
   --font-mono: "Geist Mono", "Courier New", monospace;
 
   --radius: 0.5rem;
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.65;
 
   /* Shadcn-ui default zinc theme */
   --background: hsl(0 0% 100%);
@@ -126,12 +130,13 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-sans);
-    font-feature-settings: "ss01", "ss02", "cv01";
+    font-feature-settings: "ss01", "ss02", "cv01", "zero";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
     position: relative;
+    letter-spacing: var(--letter-spacing-normal);
   }
 
   html {
@@ -152,13 +157,13 @@
   h4,
   h5,
   h6 {
-    letter-spacing: -0.02em;
-    line-height: 1.25;
+    letter-spacing: var(--letter-spacing-tight);
+    line-height: var(--line-height-tight);
     font-weight: 525;
   }
 
   p {
-    line-height: 1.65;
+    line-height: var(--line-height-normal);
   }
 }
 

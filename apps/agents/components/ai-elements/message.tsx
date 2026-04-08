@@ -66,7 +66,7 @@ export function MessageContent({
       className={cn(
         "relative flex flex-col gap-2",
         isUser
-          ? "w-fit max-w-[85%] rounded-3xl rounded-tr-sm border border-border/70 bg-muted/60 px-4 py-3 shadow-sm"
+          ? "w-fit max-w-[85%] rounded-3xl border border-border/70 bg-muted/60 px-4 py-3 shadow-sm"
           : "w-full min-w-0 flex-1 rounded-3xl border border-border/70 bg-background/90 px-4 py-4 shadow-sm",
         className
       )}
