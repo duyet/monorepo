@@ -8,7 +8,7 @@ tags:
 modified_time: '2015-10-05T20:46:41.997+07:00'
 thumbnail: https://1.bp.blogspot.com/-8a4wz6knhKo/VhJ9TYTSFnI/AAAAAAAADf0/kF8pUcA1zpg/s1600/flarum-logo.png
 slug: /2015/10/vietnamese-language-pack-extension-for-flarum.html
-category: PHP
+category: Web
 description: Gói ngôn ngữ tiếng Việt cho Flarum.
 ---
 

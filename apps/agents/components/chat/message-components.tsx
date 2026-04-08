@@ -367,7 +367,7 @@ export function WelcomeMessage({
               onClick={() => onPromptSelect?.(prompt)}
               className={cn(
                 "group flex items-start gap-3.5 rounded-xl border border-border/60 p-4 text-left transition-all duration-200",
-                "hover:border-border hover:bg-accent/40 hover:shadow-sm",
+                "hover:border-border hover:shadow-sm hover:bg-accent/40",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               )}
             >
@@ -381,7 +381,7 @@ export function WelcomeMessage({
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-medium text-foreground">{label}</p>
-                <p className="mt-0.5 line-clamp-2 text-xs leading-relaxed text-muted-foreground">
+                <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground line-clamp-2">
                   {desc}
                 </p>
               </div>
@@ -412,9 +412,14 @@ export function PreviewMessage({ message, isLoading }: PreviewMessageProps) {
       <MessageRoot from="user" className="justify-end">
         <MessageContent from="user">
           {message.parts
-            ?.filter((p): p is { type: "text"; text: string } => p.type === "text")
+            ?.filter(
+              (p): p is { type: "text"; text: string } => p.type === "text"
+            )
             .map((p, i) => (
-              <p key={i} className="whitespace-pre-wrap break-words text-[15px] leading-7 text-foreground">
+              <p
+                key={i}
+                className="whitespace-pre-wrap break-words text-[15px] leading-7 text-foreground"
+              >
                 {p.text}
               </p>
             ))}

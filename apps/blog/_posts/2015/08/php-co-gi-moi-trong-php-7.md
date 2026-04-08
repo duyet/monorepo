@@ -7,7 +7,7 @@ tags:
 modified_time: '2015-08-22T03:14:44.335+07:00'
 thumbnail: https://4.bp.blogspot.com/-qvsCP3kPz40/VdeEECDHEqI/AAAAAAAACwQ/JD4OFlHjdbo/s1600/php7.jpeg
 slug: /2015/08/php-co-gi-moi-trong-php-7.html
-category: PHP
+category: Web
 description: Phiên bản stable PHP hiện nay đang được sử dụng là phiên bản PHP 5.6. Sau một số tranh luận thì nhóm phát triển đã quyết định họ sẽ bỏ qua tên phiên bản PHP 6. PHP 6 đã tồn tại trong quá khứ như một dự án thử nghiệm, nhưng vì lý do nào đó chưa hoàn chỉnh.
 ---
 
