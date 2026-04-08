@@ -338,74 +338,33 @@ export function WelcomeMessage({
   onPromptSelect,
   disabled,
 }: WelcomeMessageProps) {
-  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
-
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-8 sm:py-16">
       <div className="mb-10 text-center">
         <h1 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
-          What's on your mind?
+          How can I help you today?
         </h1>
       </div>
 
-      <div className="space-y-6">
-        {SUGGESTION_CATEGORIES.map((category) => (
-          <div key={category.id} className="space-y-2">
-            <button
-              type="button"
-              disabled={disabled}
-              onClick={() =>
-                setExpandedCategory(
-                  expandedCategory === category.id ? null : category.id
-                )
-              }
-              className={cn(
-                "text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
-                disabled && "pointer-events-none opacity-50"
-              )}
-            >
-              {expandedCategory === category.id ? "▼" : "▶"} {category.label}
-            </button>
-
-            {expandedCategory === category.id && (
-              <div className="animate-in fade-in slide-in-from-top-2 duration-200">
-                {category.suggestions.map(({ prefix, label, prompt }) => (
-                  <button
-                    key={prompt}
-                    type="button"
-                    disabled={disabled}
-                    onClick={() => onPromptSelect?.(prompt)}
-                    className={cn(
-                      "block w-full text-left py-2 text-sm text-muted-foreground hover:text-foreground transition-colors",
-                      disabled && "pointer-events-none opacity-50"
-                    )}
-                  >
-                    <span className="font-semibold text-foreground">{prefix}</span>{" "}
-                    {label}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-
-      {/* Default: show all categories collapsed on first render */}
-      {expandedCategory === null && (
-        <div className="mt-6 text-center">
+      <div className="flex flex-wrap gap-2 justify-center">
+        {SUGGESTION_CATEGORIES.flatMap((category) => category.suggestions).map(({ prefix, label, prompt }, index) => (
           <button
+            key={prompt}
             type="button"
             disabled={disabled}
-            onClick={() => setExpandedCategory("get-started")}
+            onClick={() => onPromptSelect?.(prompt)}
             className={cn(
-              "text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground",
+              "inline-flex items-center gap-2 rounded-full border border-border/70 bg-white px-4 py-2 text-sm text-foreground shadow-sm hover:bg-muted/50 transition-colors",
+              "animate-in fade-in slide-in-from-top-2 duration-200",
               disabled && "pointer-events-none opacity-50"
             )}
+            style={{ animationDelay: `${index * 50}ms` }}
           >
-            Show suggestions
+            <span className="font-medium">{prefix}</span>
+            <span className="text-muted-foreground">{label}</span>
           </button>
-        </div>
-      )}
+        ))}
+      </div>
     </div>
   );
 }
