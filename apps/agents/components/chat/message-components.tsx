@@ -209,6 +209,7 @@ export function AssistantMessage({
                         <ToolOutput
                           output={part.output}
                           errorText={part.errorText}
+                          isStreaming={isStreaming && part.state === "input-streaming"}
                         />
 
                         {/* Approval workflow */}
