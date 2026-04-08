@@ -6,7 +6,6 @@ import {
 } from "@phosphor-icons/react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 
 interface ChatInputProps {
@@ -54,19 +53,18 @@ export function ChatInput({
   return (
     <div className="pointer-events-none absolute bottom-0 w-full px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-6 sm:px-6">
       <div className="mx-auto max-w-3xl">
-        <Card className="pointer-events-auto border">
-          <CardContent className="p-3">
-            <form ref={formRef} onSubmit={onSubmit} className="flex items-end gap-2">
-              <Textarea
-                ref={textareaRef}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={onKeyDown}
-                placeholder="Ask anything"
-                disabled={isLoading}
-                rows={1}
-                className="min-h-[48px] max-h-[180px] flex-1 resize-none rounded-lg border-0 bg-transparent px-3 py-2.5 text-[15px] shadow-none placeholder:text-muted-foreground/60 focus-visible:ring-0 focus-visible:ring-offset-0"
-              />
+        <div className="pointer-events-auto rounded-3xl border border-input bg-popover/80 p-2 shadow-xs backdrop-blur-xl">
+          <form ref={formRef} onSubmit={onSubmit} className="flex items-end gap-2">
+            <Textarea
+              ref={textareaRef}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={onKeyDown}
+              placeholder="Ask anything"
+              disabled={isLoading}
+              rows={1}
+              className="min-h-[44px] max-h-[180px] flex-1 resize-none border-none bg-transparent shadow-none px-3 py-2.5 placeholder:text-muted-foreground/60 focus-visible:ring-0 focus-visible:ring-offset-0"
+            />
 
               {isLoading ? (
                 <Button
@@ -108,8 +106,8 @@ export function ChatInput({
                 </>
               )}
             </form>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
         {error && (
           <Alert
             variant="destructive"
@@ -120,6 +118,5 @@ export function ChatInput({
           </Alert>
         )}
       </div>
-    </div>
   );
 }
