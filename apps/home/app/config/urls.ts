@@ -19,7 +19,7 @@ export const urls: Urls = {
     desc: "Interactive LLM releases timeline",
   },
   "/agents": { target: "https://agents.duyet.net", desc: "AI Agents" },
-  "/okie": { target: "https://okie.one", desc: "okie.one - LLM chat with free models" },
+  "/okie": { target: "https://okie.one", desc: "okie.one - LLM chat UI" },
   "/claude-plugins": {
     target: "https://github.com/duyet/claude-plugins",
     desc: "Claude Plugins",

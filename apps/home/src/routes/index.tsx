@@ -37,75 +37,108 @@ const apps: AppItem[] = [
     href: "/",
     host: "llm-timeline.duyet.net",
     utmContent: "llm_timeline_bento",
-    screenshot: "/screenshots/llm-timeline.png",
+    fallbackIcon: (
+      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-neutral-900 flex items-center justify-center border-4 border-neutral-100 dark:border-neutral-800">
+        <span className="text-xl font-bold text-neutral-900 dark:text-white">LLM</span>
+      </div>
+    ),
+    fallbackGradientClass: "bg-neutral-100 dark:bg-neutral-900",
   },
   {
     name: "AI Agents",
     href: "/agents",
     host: "agents.duyet.net",
     utmContent: "agents_bento",
-    screenshot: "/screenshots/ai-agents.png",
+    fallbackIcon: (
+      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-neutral-900 flex items-center justify-center border-4 border-neutral-100 dark:border-neutral-800">
+        <span className="text-xl font-bold text-neutral-900 dark:text-white">AI</span>
+      </div>
+    ),
+    fallbackGradientClass: "bg-neutral-100 dark:bg-neutral-900",
   },
   {
     name: "OpenClaw",
     href: "/claw",
     host: "claw.duyet.net",
     utmContent: "claw_bento",
-    screenshot: "/screenshots/openclaw.png",
+    fallbackIcon: (
+      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-neutral-900 flex items-center justify-center border-4 border-neutral-100 dark:border-neutral-800">
+        <span className="text-xl font-bold text-neutral-900 dark:text-white">claw</span>
+      </div>
+    ),
+    fallbackGradientClass: "bg-neutral-100 dark:bg-neutral-900",
   },
   {
     name: "MCP Tools",
     href: "/mcp",
     host: "mcp.duyet.net",
     utmContent: "mcp_bento",
-    screenshot: "/screenshots/mcp-tools-art.png",
     fallbackIcon: (
-      <Settings className="w-12 h-12 text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />
+      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-neutral-900 flex items-center justify-center border-4 border-neutral-100 dark:border-neutral-800">
+        <span className="text-lg font-bold text-neutral-900 dark:text-white">MCP</span>
+      </div>
     ),
-    fallbackGradientClass: "bg-neutral-900",
+    fallbackGradientClass: "bg-neutral-100 dark:bg-neutral-900",
   },
   {
     name: "Rust Tiếng Việt",
     href: "/rust",
     host: "rust-tieng-viet.github.io",
     utmContent: "rust_bento",
-    screenshot: "/screenshots/rust-art.png",
     fallbackIcon: (
-      <Settings className="w-12 h-12 text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />
+      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-neutral-900 flex items-center justify-center border-4 border-neutral-100 dark:border-neutral-800">
+        <span className="text-sm font-bold text-neutral-900 dark:text-white">Rust</span>
+      </div>
     ),
-    fallbackGradientClass: "bg-neutral-900",
+    fallbackGradientClass: "bg-neutral-100 dark:bg-neutral-900",
   },
   {
     name: "ClickHouse Monitoring",
     href: "/clickhouse-monitoring",
     host: "clickhouse.duyet.net",
     utmContent: "ch_monitor_bento",
-    screenshot: "/screenshots/ch-monitor.png",
+    fallbackIcon: (
+      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-neutral-900 flex items-center justify-center border-4 border-neutral-100 dark:border-neutral-800">
+        <span className="text-lg font-bold text-neutral-900 dark:text-white">CH</span>
+      </div>
+    ),
+    fallbackGradientClass: "bg-neutral-100 dark:bg-neutral-900",
   },
   {
     name: "Claude Plugins",
     href: "/claude-plugins",
     host: "github.com/duyet/claude-plugins",
     utmContent: "claude_plugins_bento",
-    screenshot: "/screenshots/claude-plugins-art.png",
+    fallbackIcon: (
+      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-neutral-900 flex items-center justify-center border-4 border-neutral-100 dark:border-neutral-800">
+        <span className="text-lg font-bold text-neutral-900 dark:text-white">Claude</span>
+      </div>
+    ),
+    fallbackGradientClass: "bg-neutral-100 dark:bg-neutral-900",
   },
   {
     name: "Stamp",
     href: "/stamp",
     host: "stamp.duyet.net",
     utmContent: "stamp_bento",
-    screenshot: "/screenshots/stamp.png",
+    fallbackIcon: (
+      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-neutral-900 flex items-center justify-center border-4 border-neutral-100 dark:border-neutral-800">
+        <span className="text-xl font-bold text-neutral-900 dark:text-white">Stamp</span>
+      </div>
+    ),
+    fallbackGradientClass: "bg-neutral-100 dark:bg-neutral-900",
   },
   {
     name: "AgentState",
     href: "/agentstate",
     host: "agentstate.app",
     utmContent: "agentstate_bento",
-    screenshot: "/screenshots/art-1.png",
     fallbackIcon: (
-      <Database className="w-12 h-12 text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />
+      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-neutral-900 flex items-center justify-center border-4 border-neutral-100 dark:border-neutral-800">
+        <span className="text-sm font-bold text-neutral-900 dark:text-white">AgentState</span>
+      </div>
     ),
-    fallbackGradientClass: "bg-gradient-to-br from-violet-600 to-indigo-600",
+    fallbackGradientClass: "bg-neutral-100 dark:bg-neutral-900",
   },
   {
     name: "okie.one",
