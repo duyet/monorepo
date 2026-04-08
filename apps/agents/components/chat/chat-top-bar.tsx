@@ -63,34 +63,35 @@ export function ChatTopBar({
   };
 
   return (
-    <header className="sticky top-0 z-30 border-b bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
-      <div className="flex min-h-16 items-center gap-3 px-4 py-3 sm:px-6">
+    <header className="sticky top-0 z-30 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+      <div className="flex min-h-[60px] items-center gap-3 px-4 py-2.5 sm:px-6">
         <div className="flex min-w-0 flex-1 items-center gap-3">
           {onToggleLeftSidebar ? (
             <Button
               size="icon"
-              variant="outline"
+              variant="ghost"
               onClick={onToggleLeftSidebar}
               aria-label="Open conversations"
+              className="h-9 w-9"
             >
               <PanelLeft />
             </Button>
           ) : null}
 
           <div className="flex min-w-0 items-center gap-3">
-            <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border bg-muted/40">
+            <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border bg-muted/50">
               <Sparkles className="size-4 text-muted-foreground" />
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <h1 className="truncate text-sm font-semibold sm:text-base">
+                <h1 className="truncate text-sm font-medium sm:text-base">
                   {conversationTitle || "New chat"}
                 </h1>
-                <Badge variant="secondary" className="hidden sm:inline-flex">
+                <Badge variant="secondary" className="hidden sm:inline-flex text-xs">
                   {subtitle}
                 </Badge>
               </div>
-              <p className="truncate text-xs text-muted-foreground">
+              <p className="truncate text-xs text-muted-foreground/80">
                 {conversationId ? "Conversation ready" : "Start a new thread"}
               </p>
             </div>
@@ -103,11 +104,11 @@ export function ChatTopBar({
             value={mode}
             onValueChange={(value) => onModeChange(value as ChatMode)}
           >
-            <TabsList className="h-10 rounded-full border bg-muted/50 p-1">
-              <TabsTrigger className="rounded-full px-3" value="fast">
+            <TabsList className="h-9 rounded-lg border bg-muted/50 p-1">
+              <TabsTrigger className="rounded-md px-3 text-xs" value="fast">
                 Fast
               </TabsTrigger>
-              <TabsTrigger className="rounded-full px-3" value="agent">
+              <TabsTrigger className="rounded-md px-3 text-xs" value="agent">
                 Agent
               </TabsTrigger>
             </TabsList>
@@ -115,7 +116,7 @@ export function ChatTopBar({
         ) : null}
 
         <div className="ml-auto flex items-center gap-2">
-          <Button variant="outline" size="sm" onClick={onNewChat}>
+          <Button variant="outline" size="sm" onClick={onNewChat} className="h-9">
             <Plus data-icon="inline-start" />
             New
           </Button>
@@ -153,9 +154,10 @@ export function ChatTopBar({
           {onToggleRightSidebar ? (
             <Button
               size="icon"
-              variant="outline"
+              variant="ghost"
               onClick={onToggleRightSidebar}
               aria-label="Open inspector"
+              className="h-9 w-9"
             >
               <PanelRight />
             </Button>
@@ -163,7 +165,7 @@ export function ChatTopBar({
 
           <Separator
             orientation="vertical"
-            className="mx-1 hidden h-8 md:block"
+            className="mx-1 hidden h-6 md:block"
           />
 
           <AuthControl iconOnly className="h-9 w-9" />

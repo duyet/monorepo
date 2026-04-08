@@ -47,9 +47,9 @@ export function ChatInput({
   textareaRef,
 }: ChatInputProps) {
   return (
-    <div className="pointer-events-none absolute bottom-0 w-full px-3 pb-[max(1rem,env(safe-area-inset-bottom))] pt-6 sm:px-4">
+    <div className="pointer-events-none absolute bottom-0 w-full px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-6 sm:px-6">
       <div className="mx-auto max-w-3xl">
-        <Card className="pointer-events-auto border-border/70 bg-background/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/85">
+        <Card className="pointer-events-auto border shadow-md backdrop-blur-sm">
           <CardContent className="p-3">
             <form ref={formRef} onSubmit={onSubmit} className="flex items-end gap-2">
               <Textarea
@@ -60,7 +60,7 @@ export function ChatInput({
                 placeholder="Ask anything"
                 disabled={isLoading}
                 rows={1}
-                className="min-h-[52px] max-h-[200px] flex-1 resize-none rounded-xl border-0 bg-transparent px-3 py-3 text-[15px] shadow-none placeholder:text-muted-foreground/70 focus-visible:ring-0 focus-visible:ring-offset-0"
+                className="min-h-[48px] max-h-[180px] flex-1 resize-none rounded-lg border-0 bg-transparent px-3 py-2.5 text-[15px] shadow-none placeholder:text-muted-foreground/60 focus-visible:ring-0 focus-visible:ring-offset-0"
               />
 
               {isLoading ? (
@@ -69,7 +69,7 @@ export function ChatInput({
                   onClick={stop}
                   size="icon"
                   variant="default"
-                  className="h-10 w-10 rounded-xl"
+                  className="h-9 w-9 rounded-lg"
                 >
                   <X className="h-4 w-4" />
                   <span className="sr-only">Stop</span>
@@ -82,7 +82,7 @@ export function ChatInput({
                       onClick={() => reload()}
                       size="icon"
                       variant="ghost"
-                      className="h-10 w-10 rounded-xl"
+                      className="h-9 w-9 rounded-lg"
                     >
                       <RefreshCw className="h-4 w-4" />
                       <span className="sr-only">Regenerate</span>
@@ -94,7 +94,7 @@ export function ChatInput({
                       disabled={!canSubmit}
                       size="icon"
                       variant={canSubmit ? "default" : "secondary"}
-                      className="h-10 w-10 rounded-xl"
+                      className="h-9 w-9 rounded-lg"
                     >
                       <Send className="h-4 w-4" />
                       <span className="sr-only">Send</span>
