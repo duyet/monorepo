@@ -104,7 +104,7 @@ export function ChatTopBar({
             value={mode}
             onValueChange={(value) => onModeChange(value as ChatMode)}
           >
-            <TabsList className="h-9 rounded-lg border bg-muted/50 p-1">
+            <TabsList className="h-9 rounded-lg border bg-muted/50 p-1 text-muted-foreground">
               <TabsTrigger className="rounded-md px-3 text-xs" value="fast">
                 Fast
               </TabsTrigger>

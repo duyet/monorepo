@@ -352,12 +352,7 @@ export function WelcomeMessage({
         </p>
       </div>
 
-      <div
-        className={cn(
-          "grid grid-cols-1 gap-3 sm:grid-cols-2",
-          disabled && "pointer-events-none opacity-50"
-        )}
-      >
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {CAPABILITIES.map(
           ({ icon: Icon, prompt, label, desc, color, iconColor }) => (
             <button
@@ -366,9 +361,10 @@ export function WelcomeMessage({
               disabled={disabled}
               onClick={() => onPromptSelect?.(prompt)}
               className={cn(
-                "group flex items-start gap-3.5 rounded-xl border border-border/60 p-4 text-left transition-all duration-200",
-                "hover:border-border hover:shadow-sm hover:bg-accent/40",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                "group flex items-start gap-3.5 rounded-xl border border-border p-4 text-left transition-all duration-200",
+                "hover:border-foreground/20 hover:bg-muted/50",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                disabled && "pointer-events-none opacity-50"
               )}
             >
               <div
