@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 interface ChatInputProps {
   input: string;
   setInput: (value: string) => void;
+  formRef?: React.RefObject<HTMLFormElement | null>;
   onSubmit: (e: React.FormEvent) => void;
   onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
   isLoading: boolean;
@@ -34,6 +35,7 @@ function getErrorMessage(error: Error): string {
 export function ChatInput({
   input,
   setInput,
+  formRef,
   onSubmit,
   onKeyDown,
   isLoading,
@@ -49,7 +51,7 @@ export function ChatInput({
       <div className="mx-auto max-w-3xl">
         <Card className="pointer-events-auto border-border/70 bg-background/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/85">
           <CardContent className="p-3">
-            <form onSubmit={onSubmit} className="flex items-end gap-2">
+            <form ref={formRef} onSubmit={onSubmit} className="flex items-end gap-2">
               <Textarea
                 ref={textareaRef}
                 value={input}

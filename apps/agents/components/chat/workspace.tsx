@@ -233,7 +233,7 @@ export function ChatWorkspace() {
   }, [activeId]);
 
   const handleFormSubmit = async (
-    e: React.FormEvent<HTMLFormElement>
+    e: React.FormEvent
   ) => {
     e.preventDefault();
     if (!input.trim()) return;
