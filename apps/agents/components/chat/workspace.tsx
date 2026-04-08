@@ -337,7 +337,7 @@ export function ChatWorkspace() {
             subtitle="Agent workspace"
           />
 
-          <div className="grid min-h-0 flex-1 lg:grid-cols-[minmax(0,1fr)_18rem]">
+          <div className="flex min-h-0 flex-1 flex-col">
             <main className="flex min-h-0 min-w-0 flex-col">
               <Conversation
                 className="relative flex-1 bg-gradient-to-b from-background to-muted/20"
@@ -422,23 +422,13 @@ export function ChatWorkspace() {
                 textareaRef={textareaRef}
               />
             </main>
-
-            <RightSidebar
-              modelId={modelId}
-              onModelChange={handleModelChange}
-              tokenStats={tokenStats}
-              toolExecutions={toolExecutions}
-              approvalCount={approvalCount}
-              thinkingStepsCount={thinkingSteps.length}
-            />
           </div>
         </div>
       </SidebarInset>
 
       <Sheet open={rightRailOpen} onOpenChange={setRightRailOpen}>
-        <SheetContent side="right" className="w-[360px] p-0 lg:hidden">
+        <SheetContent side="right" className="w-[360px] p-0">
           <RightSidebar
-            mobile
             modelId={modelId}
             onModelChange={handleModelChange}
             tokenStats={tokenStats}

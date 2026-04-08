@@ -152,7 +152,6 @@ export function ChatTopBar({
 
           {onToggleRightSidebar ? (
             <Button
-              className="lg:hidden"
               size="icon"
               variant="outline"
               onClick={onToggleRightSidebar}
