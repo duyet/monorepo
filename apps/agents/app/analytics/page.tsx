@@ -80,7 +80,6 @@ export default function AnalyticsPage() {
           <ChatTopBar
             conversationTitle="Global analytics"
             onNewChat={() => createNew("fast")}
-            subtitle="Read-only dashboard"
           />
 
           <div className="flex-1 overflow-y-auto">

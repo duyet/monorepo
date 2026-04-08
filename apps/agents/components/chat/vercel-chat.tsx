@@ -337,7 +337,6 @@ export function VercelChat() {
             <div className="relative flex flex-1 flex-col min-w-0 overflow-hidden">
               {/* Chat top bar */}
               <ChatTopBar
-                onToggleRightSidebar={() => setRightRailOpen(true)}
                 onNewChat={handleNewChat}
                 conversationTitle={activeConversation?.title}
                 conversationId={activeId ?? undefined}

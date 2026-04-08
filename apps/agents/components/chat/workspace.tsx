@@ -301,9 +301,6 @@ export function ChatWorkspace() {
             conversationId={activeId ?? undefined}
             conversationTitle={activeConversation?.title}
             onNewChat={handleNewChat}
-            onToggleLeftSidebar={() => setLeftRailOpen(true)}
-            onToggleRightSidebar={() => setRightRailOpen(true)}
-            subtitle="Agent workspace"
           />
 
           <div className="flex min-h-0 flex-1 flex-col">
