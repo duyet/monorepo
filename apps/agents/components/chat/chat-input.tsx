@@ -49,7 +49,7 @@ export function ChatInput({
   return (
     <div className="pointer-events-none absolute bottom-0 w-full px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-6 sm:px-6">
       <div className="mx-auto max-w-3xl">
-        <Card className="pointer-events-auto border shadow-md backdrop-blur-sm">
+        <Card className="pointer-events-auto border">
           <CardContent className="p-3">
             <form ref={formRef} onSubmit={onSubmit} className="flex items-end gap-2">
               <Textarea
