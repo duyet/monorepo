@@ -66,7 +66,7 @@ export function ChatTopBar({
               variant="ghost"
               onClick={onToggleLeftSidebar}
               aria-label="Open conversations"
-              className="h-9 w-9"
+              className="size-9 rounded-full"
             >
               <PanelLeft />
             </Button>
@@ -134,7 +134,7 @@ export function ChatTopBar({
               variant="ghost"
               onClick={onToggleRightSidebar}
               aria-label="Open inspector"
-              className="h-9 w-9"
+              className="size-9 rounded-full"
             >
               <PanelRight />
             </Button>
@@ -145,7 +145,7 @@ export function ChatTopBar({
             className="mx-1 hidden h-6 md:block"
           />
 
-          <AuthControl iconOnly className="h-9 w-9" />
+          <AuthControl iconOnly className="size-9 rounded-full" />
         </div>
       </div>
     </header>

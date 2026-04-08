@@ -50,7 +50,7 @@ export function AppSidebar({
         <button
           type="button"
           onClick={onNewChat}
-          className="flex w-full items-center justify-start gap-3 rounded-xl border bg-background px-4 py-2.5 shadow-sm transition-colors hover:bg-muted/50"
+          className="flex w-full items-center justify-start gap-3 rounded-full border bg-background px-4 py-2.5 shadow-sm transition-colors hover:bg-muted/50"
         >
           <MessageSquarePlus />
           <span className="font-medium">New chat</span>
@@ -70,7 +70,7 @@ export function AppSidebar({
           </div>
           {onDeleteAllConversations && conversations.length > 0 ? (
             <Button
-              className="mt-3 w-full justify-start rounded-xl"
+              className="mt-3 w-full justify-start rounded-full"
               variant="ghost"
               onClick={() => setShowDeleteAllDialog(true)}
             >

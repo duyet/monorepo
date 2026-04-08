@@ -84,7 +84,7 @@ export function UserMessage({ message }: MessageProps) {
           <Button
             variant="ghost"
             size="icon"
-            className="h-7 w-7 rounded-full opacity-0 transition-opacity group-hover:opacity-100"
+            className="size-7 rounded-full opacity-0 transition-opacity group-hover:opacity-100"
             onClick={handleCopy}
           >
             <CopyIcon state={copyState} />
@@ -362,7 +362,7 @@ export function WelcomeMessage({
               disabled={disabled}
               onClick={() => onPromptSelect?.(prompt)}
               className={cn(
-                "group flex items-start gap-3.5 rounded-xl border border-border p-4 text-left transition-all duration-200",
+                "group flex items-start gap-3.5 rounded-full border border-border p-4 text-left transition-all duration-200",
                 "hover:border-foreground/20 hover:bg-muted/50",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
                 disabled && "pointer-events-none opacity-50"
@@ -370,7 +370,7 @@ export function WelcomeMessage({
             >
               <div
                 className={cn(
-                  "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg",
+                  "flex size-9 shrink-0 items-center justify-center rounded-full",
                   color
                 )}
               >
