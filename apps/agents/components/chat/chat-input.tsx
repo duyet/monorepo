@@ -74,7 +74,7 @@ export function ChatInput({
                   onClick={stop}
                   size="icon"
                   variant="default"
-                  className="h-9 w-9 rounded-lg"
+                  className="size-9 rounded-full"
                 >
                   <X className="h-4 w-4" />
                   <span className="sr-only">Stop</span>
@@ -87,7 +87,7 @@ export function ChatInput({
                       onClick={() => reload()}
                       size="icon"
                       variant="ghost"
-                      className="h-9 w-9 rounded-lg"
+                      className="size-9 rounded-full"
                     >
                       <RefreshCw className="h-4 w-4" />
                       <span className="sr-only">Regenerate</span>
@@ -99,7 +99,7 @@ export function ChatInput({
                       disabled={!canSubmit}
                       size="icon"
                       variant={canSubmit ? "default" : "secondary"}
-                      className="h-9 w-9 rounded-lg"
+                      className="size-9 rounded-full"
                     >
                       <Send className="h-4 w-4" />
                       <span className="sr-only">Send</span>
