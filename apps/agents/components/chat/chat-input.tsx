@@ -63,7 +63,7 @@ export function ChatInput({
               placeholder="Ask anything"
               disabled={isLoading}
               rows={1}
-              className="min-h-[44px] max-h-[180px] flex-1 resize-none border-none bg-transparent shadow-none placeholder:text-muted-foreground/60 focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="min-h-[44px] max-h-[180px] flex-1 resize-none border-none bg-transparent shadow-none px-3 py-2.5 placeholder:text-muted-foreground/60 focus-visible:ring-0 focus-visible:ring-offset-0"
             />
 
               {isLoading ? (
@@ -118,6 +118,5 @@ export function ChatInput({
           </Alert>
         )}
       </div>
-    </div>
   );
 }
