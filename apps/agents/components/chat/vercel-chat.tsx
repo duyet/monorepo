@@ -1,5 +1,5 @@
 import type { UIMessage } from "ai";
-import { AlertCircle } from "lucide-react";
+import { Warning as AlertCircle } from "@phosphor-icons/react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Conversation,

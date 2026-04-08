@@ -6,13 +6,13 @@
 
 import { formatDuration } from "@duyet/libs";
 import {
-  AlertCircle,
-  CheckCircle2,
-  ChevronDown,
-  ChevronRight,
+  Warning as AlertCircle,
+  CheckCircle as CheckCircle2,
+  CaretDown as ChevronDown,
+  CaretRight as ChevronRight,
   Clock,
-  Loader2,
-} from "lucide-react";
+  Spinner as Loader2,
+} from "@phosphor-icons/react";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { NodeTrace } from "@/lib/graph";

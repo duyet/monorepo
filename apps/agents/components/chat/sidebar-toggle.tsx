@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { PanelLeft } from "lucide-react";
+import { Sidebar as PanelLeft } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { type SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import {

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ExternalLink, Home } from "lucide-react";
+import { Link as ExternalLink, House as Home } from "@phosphor-icons/react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {

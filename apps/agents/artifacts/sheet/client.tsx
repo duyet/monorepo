@@ -8,12 +8,12 @@
  */
 
 import {
-  CopyIcon,
-  LineChartIcon,
-  RedoIcon,
-  SparklesIcon,
-  UndoIcon,
-} from "lucide-react";
+  Copy as CopyIcon,
+  ChartLine as LineChartIcon,
+  ArrowClockwise as RedoIcon,
+  Sparkle as SparklesIcon,
+  ArrowCounterClockwise as UndoIcon,
+} from "@phosphor-icons/react";
 import { parse, unparse } from "papaparse";
 import { toast } from "sonner";
 import { Artifact } from "@/components/chat/create-artifact";

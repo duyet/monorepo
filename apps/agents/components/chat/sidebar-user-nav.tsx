@@ -1,4 +1,4 @@
-import { LogIn, LogOut } from "lucide-react";
+import { SignIn as LogIn, SignOut as LogOut } from "@phosphor-icons/react";
 import {
   DropdownMenu,
   DropdownMenuContent,

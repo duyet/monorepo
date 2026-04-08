@@ -9,13 +9,13 @@
  */
 
 import {
-  CopyIcon,
-  MessageSquareIcon,
-  PlayIcon,
-  RedoIcon,
-  TerminalIcon,
-  UndoIcon,
-} from "lucide-react";
+  Copy as CopyIcon,
+  ChatCircle as MessageSquareIcon,
+  Play as PlayIcon,
+  ArrowClockwise as RedoIcon,
+  Terminal as TerminalIcon,
+  ArrowCounterClockwise as UndoIcon,
+} from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { Artifact } from "@/components/chat/create-artifact";
 import { CodeEditor } from "@/components/chat/code-editor";

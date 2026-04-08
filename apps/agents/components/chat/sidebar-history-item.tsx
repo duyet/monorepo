@@ -1,4 +1,7 @@
-import { MoreHorizontal, Trash2 } from "lucide-react";
+import {
+  DotsThreeHorizontal as MoreHorizontal,
+  Trash,
+} from "@phosphor-icons/react";
 import { memo } from "react";
 import {
   DropdownMenu,
@@ -57,7 +60,7 @@ const PureChatItem = ({
             className="cursor-pointer text-destructive focus:text-destructive"
             onSelect={() => onDelete(chat.id)}
           >
-            <Trash2 />
+            <Trash />
             <span>Delete</span>
           </DropdownMenuItem>
         </DropdownMenuContent>

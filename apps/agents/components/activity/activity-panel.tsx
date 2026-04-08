@@ -5,10 +5,10 @@ import {
   Clock,
   FileCode,
   ListTree,
-  Loader2,
+  Spinner as Loader2,
   Network,
   X,
-} from "lucide-react";
+} from "@phosphor-icons/react";
 import { useMemo, useState } from "react";
 import {
   GraphVisualizer,

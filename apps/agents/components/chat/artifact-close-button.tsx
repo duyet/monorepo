@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { initialArtifactData, useArtifact } from "@/hooks/use-artifact";
-import { XIcon } from "lucide-react";
+import { X as XIcon } from "@phosphor-icons/react";
 
 function PureArtifactCloseButton() {
   const { setArtifact } = useArtifact();

@@ -1,4 +1,4 @@
-import { LogIn } from "lucide-react";
+import { SignIn as LogIn } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { useClerkComponents } from "@/lib/hooks/use-clerk-components";
 

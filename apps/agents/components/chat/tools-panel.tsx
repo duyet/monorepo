@@ -1,13 +1,13 @@
 import {
-  BarChart2,
+  ChartBar as BarChart2,
   BookOpen,
-  ChevronDown,
+  CaretDown as ChevronDown,
   GitBranch,
   Globe,
-  Home,
-  Loader2,
+  House as Home,
+  Spinner as Loader2,
   User,
-} from "lucide-react";
+} from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import {
   Accordion,

@@ -1,5 +1,8 @@
 import { Slot } from "@radix-ui/react-slot";
-import { ChevronRight, MoreHorizontal } from "lucide-react";
+import {
+  CaretRight as ChevronRight,
+  DotsThreeHorizontal as MoreHorizontal,
+} from "@phosphor-icons/react";
 import * as React from "react";
 
 import { cn } from "@/lib/utils";

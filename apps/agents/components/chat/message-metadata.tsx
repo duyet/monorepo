@@ -1,5 +1,10 @@
 import { cn } from "@duyet/libs";
-import { Clock, Coins, Wrench, Zap } from "lucide-react";
+import {
+  Clock,
+  Coin as Coins,
+  Wrench,
+  Lightning as Zap,
+} from "@phosphor-icons/react";
 import { Badge } from "@/components/ui/badge";
 import type { Message } from "@/lib/types";
 

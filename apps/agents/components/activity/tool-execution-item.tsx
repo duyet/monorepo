@@ -1,4 +1,8 @@
-import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
+import {
+  Warning as AlertCircle,
+  CheckCircle as CheckCircle2,
+  Spinner as Loader2,
+} from "@phosphor-icons/react";
 import {
   Accordion,
   AccordionContent,

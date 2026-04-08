@@ -9,13 +9,13 @@
  */
 
 import {
-  HistoryIcon,
-  CopyIcon,
-  MessageSquareIcon,
-  PenLineIcon,
-  RedoIcon,
-  UndoIcon,
-} from "lucide-react";
+  ClockCounterClockwise as HistoryIcon,
+  Copy as CopyIcon,
+  ChatCircle as MessageSquareIcon,
+  Pen as PenLineIcon,
+  ArrowClockwise as RedoIcon,
+  ArrowCounterClockwise as UndoIcon,
+} from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { Artifact } from "@/components/chat/create-artifact";
 import { DiffView } from "@/components/chat/diffview";

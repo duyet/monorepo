@@ -1,10 +1,10 @@
 import {
   Activity,
-  BarChart3,
-  Loader2,
-  MessageSquare,
+  ChartBar as BarChart3,
+  Spinner as Loader2,
+  ChatCircle as MessageSquare,
   Users,
-} from "lucide-react";
+} from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import {
   Area,

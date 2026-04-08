@@ -6,19 +6,19 @@
  */
 
 import {
-  AlertCircle,
+  Warning as AlertCircle,
   Check,
-  ChevronDown,
-  ChevronRight,
+  CaretDown as ChevronDown,
+  CaretRight as ChevronRight,
   Code,
   Copy,
   FileText,
   History,
-  Loader2,
-  RefreshCw,
-  RotateCcw,
-  Search,
-} from "lucide-react";
+  Spinner as Loader2,
+  ArrowClockwise as RefreshCw,
+  ArrowCounterClockwise as RotateCcw,
+  MagnifyingGlass as Search,
+} from "@phosphor-icons/react";
 import { useCallback, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";

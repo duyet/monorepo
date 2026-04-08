@@ -10,7 +10,7 @@ import { memo } from "react";
 import { artifactDefinitions, type ArtifactKind } from "./artifact";
 import type { ArtifactToolbarContext } from "./create-artifact";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
-import { StopCircleIcon } from "lucide-react";
+import { StopCircle as StopCircleIcon } from "@phosphor-icons/react";
 
 type ToolbarProps = {
   artifactActions: React.ReactNode;
