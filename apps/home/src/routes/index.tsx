@@ -112,7 +112,6 @@ const apps: AppItem[] = [
     href: "/okie",
     host: "okie.one",
     utmContent: "okie_bento",
-    screenshot: "/screenshots/okie.png",
     fallbackIcon: (
       <Settings className="w-12 h-12 text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />
     ),
