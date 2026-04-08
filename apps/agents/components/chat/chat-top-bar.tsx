@@ -2,6 +2,7 @@ import {
   Download,
   FileJson,
   FileText,
+  PanelLeft,
   PanelRight,
   Plus,
   Sparkles,
@@ -18,12 +19,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
-import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useExportConversation } from "@/lib/hooks/use-export-conversation";
 import type { ChatMode } from "@/lib/types";
 
 interface ChatTopBarProps {
+  onToggleLeftSidebar?: () => void;
   onToggleRightSidebar?: () => void;
   onNewChat: () => void;
   conversationTitle?: string;
@@ -34,6 +35,7 @@ interface ChatTopBarProps {
 }
 
 export function ChatTopBar({
+  onToggleLeftSidebar,
   onToggleRightSidebar,
   onNewChat,
   conversationTitle,
@@ -64,9 +66,16 @@ export function ChatTopBar({
     <header className="sticky top-0 z-30 border-b bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
       <div className="flex min-h-16 items-center gap-3 px-4 py-3 sm:px-6">
         <div className="flex min-w-0 flex-1 items-center gap-3">
-          <div className="lg:hidden">
-            <SidebarTrigger className="-ml-1" />
-          </div>
+          {onToggleLeftSidebar ? (
+            <Button
+              size="icon"
+              variant="outline"
+              onClick={onToggleLeftSidebar}
+              aria-label="Open conversations"
+            >
+              <PanelLeft />
+            </Button>
+          ) : null}
 
           <div className="flex min-w-0 items-center gap-3">
             <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border bg-muted/40">

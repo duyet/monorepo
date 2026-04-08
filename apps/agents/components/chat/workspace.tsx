@@ -38,6 +38,7 @@ export function ChatWorkspace() {
   const lastInputRef = useRef<string>("");
   const activeConversationIdRef = useRef<string | null>(null);
   const getAuthToken = useClerkAuthToken();
+  const [leftRailOpen, setLeftRailOpen] = useState(false);
   const [rightRailOpen, setRightRailOpen] = useState(false);
   const [serviceError, setServiceError] = useState<string | null>(null);
 
@@ -323,18 +324,6 @@ export function ChatWorkspace() {
 
   return (
     <>
-      <AppSidebar
-        conversations={conversations}
-        activeId={activeId}
-        isLoading={isConversationsLoading}
-        onNewChat={handleNewChat}
-        onSelectConversation={async (id) => {
-          await switchTo(id);
-        }}
-        onDeleteConversation={remove}
-        onDeleteAllConversations={handleDeleteAllConversations}
-      />
-
       <SidebarInset>
         <div className="flex min-h-svh flex-col bg-background">
           <ChatTopBar
@@ -343,6 +332,7 @@ export function ChatWorkspace() {
             mode={mode}
             onModeChange={handleModeChange}
             onNewChat={handleNewChat}
+            onToggleLeftSidebar={() => setLeftRailOpen(true)}
             onToggleRightSidebar={() => setRightRailOpen(true)}
             subtitle="Agent workspace"
           />
@@ -455,6 +445,23 @@ export function ChatWorkspace() {
             toolExecutions={toolExecutions}
             approvalCount={approvalCount}
             thinkingStepsCount={thinkingSteps.length}
+          />
+        </SheetContent>
+      </Sheet>
+
+      <Sheet open={leftRailOpen} onOpenChange={setLeftRailOpen}>
+        <SheetContent side="left" className="w-[360px] p-0">
+          <AppSidebar
+            conversations={conversations}
+            activeId={activeId}
+            isLoading={isConversationsLoading}
+            onNewChat={handleNewChat}
+            onSelectConversation={async (id) => {
+              await switchTo(id);
+              setLeftRailOpen(false);
+            }}
+            onDeleteConversation={remove}
+            onDeleteAllConversations={handleDeleteAllConversations}
           />
         </SheetContent>
       </Sheet>
