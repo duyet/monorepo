@@ -1,7 +1,11 @@
 import type { ToolUIPart } from "ai";
 import type { ComponentProps, ReactNode } from "react";
 import { createContext, useContext } from "react";
-import { AlertCircleIcon, CheckIcon, XIcon } from "lucide-react";
+import {
+  Warning as AlertCircleIcon,
+  Check as CheckIcon,
+  X as XIcon,
+} from "@phosphor-icons/react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";

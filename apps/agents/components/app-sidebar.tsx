@@ -1,4 +1,4 @@
-import { MessageSquarePlus, Trash2 } from "lucide-react";
+import { ChatCirclePlus as MessageSquarePlus, Trash } from "@phosphor-icons/react";
 import { useState } from "react";
 import { SidebarHistory } from "@/components/chat/sidebar-history";
 import { SidebarUserNav } from "@/components/chat/sidebar-user-nav";
@@ -46,21 +46,21 @@ export function AppSidebar({
   return (
     <>
     <div className="flex h-full flex-col">
-      <div className="border-b px-4 py-4">
+      <div className="border-b px-3 py-3">
         <button
           type="button"
           onClick={onNewChat}
-          className="flex w-full items-center justify-start gap-3 rounded-full border bg-background px-4 py-2.5 transition-colors hover:bg-muted/50"
+          className="flex w-full items-center justify-start gap-2 rounded-full border bg-background px-4 py-2.5 shadow-sm transition-colors hover:bg-muted/50"
         >
-          <div className="flex size-9 items-center justify-center rounded-full bg-muted/40">
+          <div className="flex size-9 items-center justify-center rounded-full bg-muted/30">
             <MessageSquarePlus className="size-4" />
           </div>
           <span className="font-medium">New chat</span>
         </button>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-4 py-4">
-        <div className="rounded-2xl border bg-muted/20 p-4">
+      <div className="flex-1 overflow-y-auto px-3 py-3">
+        <div className="rounded-2xl border bg-muted/20 p-3">
           <div className="flex items-center justify-between gap-2">
             <div>
               <p className="text-sm font-semibold">Agent workspace</p>
@@ -72,19 +72,19 @@ export function AppSidebar({
           </div>
           {onDeleteAllConversations && conversations.length > 0 ? (
             <Button
-              className="mt-3 w-full justify-start gap-2 rounded-full"
+              className="mt-3 w-full justify-start gap-2 rounded-full px-3"
               variant="ghost"
               onClick={() => setShowDeleteAllDialog(true)}
             >
-              <div className="flex size-9 items-center justify-center rounded-full bg-muted/40">
-                <Trash2 className="size-4" />
+              <div className="flex size-7 items-center justify-center rounded-full bg-muted/30">
+                <Trash className="size-4" />
               </div>
               Delete all chats
             </Button>
           ) : null}
         </div>
 
-        <Separator className="my-4" />
+        <Separator className="my-3" />
 
         <SidebarHistory
           conversations={conversations}
@@ -95,7 +95,7 @@ export function AppSidebar({
         />
       </div>
 
-      <div className="border-t px-4 py-4">
+      <div className="border-t px-3 py-3">
         <SidebarUserNav />
       </div>
     </div>

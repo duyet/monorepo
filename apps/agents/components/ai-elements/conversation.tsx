@@ -1,4 +1,4 @@
-import { ChevronDown } from "lucide-react";
+import { CaretDown as ChevronDown } from "@phosphor-icons/react";
 import type { ComponentProps, ReactNode } from "react";
 import {
   createContext,
@@ -202,7 +202,7 @@ export function ConversationScrollButton({
       aria-label="Scroll to bottom"
       className={cn(
         "absolute bottom-4 left-1/2 z-10 -translate-x-1/2",
-        "flex items-center gap-1.5 rounded-full border border-border/70 bg-background px-3 py-1.5 text-xs font-medium text-foreground shadow-sm transition-colors hover:bg-muted",
+        "flex items-center gap-1.5 rounded-full border border-border/70 bg-background px-3 py-1.5 text-xs font-medium text-foreground shadow-sm transition-all hover:bg-muted hover:shadow-md",
         "animate-in fade-in slide-in-from-bottom-2",
         className
       )}

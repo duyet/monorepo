@@ -1,12 +1,12 @@
 import {
-  Download,
-  FileJson,
+  DownloadSimple as Download,
+  FileCode as FileJson,
   FileText,
-  PanelLeft,
-  PanelRight,
+  Sidebar as PanelLeft,
+  SidebarSimple as PanelRight,
   Plus,
-  Sparkles,
-} from "lucide-react";
+  Sparkle as Sparkles,
+} from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { AuthControl } from "@/components/auth-control";
 import { Badge } from "@/components/ui/badge";
@@ -58,23 +58,23 @@ export function ChatTopBar({
 
   return (
     <header className="sticky top-0 z-30 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="flex min-h-[60px] items-center gap-3 px-4 py-2.5 sm:px-6">
-        <div className="flex min-w-0 flex-1 items-center gap-3">
+      <div className="flex min-h-[60px] items-center gap-2 px-4 py-2.5 sm:px-6">
+        <div className="flex min-w-0 flex-1 items-center gap-2">
           {onToggleLeftSidebar ? (
             <Button
               size="icon"
               variant="ghost"
               onClick={onToggleLeftSidebar}
               aria-label="Open conversations"
-              className="h-9 w-9"
+              className="size-9 shrink-0"
             >
-              <PanelLeft />
+              <PanelLeft weight="regular" className="size-4" />
             </Button>
           ) : null}
 
-          <div className="flex min-w-0 items-center gap-3">
+          <div className="flex min-w-0 flex-1 items-center gap-2">
             <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border bg-muted/50">
-              <Sparkles className="size-4 text-muted-foreground" />
+              <Sparkles weight="fill" className="size-4 text-muted-foreground" />
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2">
@@ -92,9 +92,9 @@ export function ChatTopBar({
           </div>
         </div>
 
-        <div className="ml-auto flex items-center gap-2">
+        <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" onClick={onNewChat} className="h-9">
-            <Plus data-icon="inline-start" />
+            <Plus data-icon="inline-start" weight="regular" className="size-4" />
             New
           </Button>
 
@@ -106,22 +106,23 @@ export function ChatTopBar({
                   size="icon"
                   variant="outline"
                   aria-label="Export conversation"
+                  className="size-9 shrink-0"
                 >
-                  <Download />
+                  <Download weight="regular" className="size-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onSelect={() => void handleExport("json")}>
-                  <FileJson data-icon="inline-start" />
+                  <FileJson data-icon="inline-start" weight="regular" className="size-4" />
                   Export JSON
                 </DropdownMenuItem>
                 <DropdownMenuItem onSelect={() => void handleExport("md")}>
-                  <FileText data-icon="inline-start" />
+                  <FileText data-icon="inline-start" weight="regular" className="size-4" />
                   Export Markdown
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onSelect={() => void handleExport("txt")}>
-                  <Download data-icon="inline-start" />
+                  <Download data-icon="inline-start" weight="regular" className="size-4" />
                   Export text
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -134,9 +135,9 @@ export function ChatTopBar({
               variant="ghost"
               onClick={onToggleRightSidebar}
               aria-label="Open inspector"
-              className="h-9 w-9"
+              className="size-9 shrink-0"
             >
-              <PanelRight />
+              <PanelRight weight="regular" className="size-4" />
             </Button>
           ) : null}
 
@@ -145,7 +146,7 @@ export function ChatTopBar({
             className="mx-1 hidden h-6 md:block"
           />
 
-          <AuthControl iconOnly className="h-9 w-9" />
+          <AuthControl iconOnly className="size-9 shrink-0" />
         </div>
       </div>
     </header>
