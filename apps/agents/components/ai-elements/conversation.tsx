@@ -1,4 +1,4 @@
-import { ChevronDown } from "lucide-react";
+import { CaretDown as ChevronDown } from "@phosphor-icons/react";
 import type { ComponentProps, ReactNode } from "react";
 import {
   createContext,

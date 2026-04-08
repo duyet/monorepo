@@ -1,6 +1,13 @@
 "use client";
 
-import { Brain, Cable, Coins, Gauge, Sparkles, Wrench } from "lucide-react";
+import {
+  Brain,
+  Cable,
+  Coin as Coins,
+  Gauge,
+  Sparkle as Sparkles,
+  Wrench,
+} from "@phosphor-icons/react";
 import type { ComponentType } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -123,7 +130,7 @@ export function RightSidebar({
 
   const content = (
     <Tabs defaultValue="status" className="flex h-full flex-col">
-      <SidebarHeader className="border-b px-4 py-4">
+      <SidebarHeader className="border-b px-3 py-3">
         <div className="space-y-3">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
@@ -135,7 +142,7 @@ export function RightSidebar({
           </div>
 
           <Select value={modelId} onValueChange={onModelChange}>
-            <SelectTrigger className="h-10 w-full bg-background">
+            <SelectTrigger className="h-10 w-full rounded-full bg-background">
               <SelectValue placeholder="Choose a model" />
             </SelectTrigger>
             <SelectContent>
@@ -160,7 +167,7 @@ export function RightSidebar({
 
       <SidebarContent>
         <ScrollArea className="h-full">
-          <TabsContent className="mt-0 space-y-4 p-4" value="status">
+          <TabsContent className="mt-0 space-y-4 p-3" value="status">
             <SidebarGroup className="px-0 py-0">
               <SidebarGroupLabel className="px-0 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
                 Analytics
@@ -199,9 +206,9 @@ export function RightSidebar({
                     key={server.name}
                     className="border-border/70 bg-background shadow-sm"
                   >
-                    <CardContent className="flex items-start gap-3 p-4">
-                      <div className="rounded-xl border bg-muted/40 p-2">
-                        <Cable className="text-muted-foreground" />
+                    <CardContent className="flex items-start gap-3 p-3">
+                      <div className="flex size-9 items-center justify-center rounded-full border bg-muted/40">
+                        <Cable className="size-4 text-muted-foreground" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-2">
@@ -221,7 +228,7 @@ export function RightSidebar({
             </SidebarGroup>
           </TabsContent>
 
-          <TabsContent className="mt-0 space-y-3 p-4" value="tools">
+          <TabsContent className="mt-0 space-y-3 p-3" value="tools">
             <SidebarGroup className="px-0 py-0">
               <SidebarGroupLabel className="px-0 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
                 Available tools
@@ -233,7 +240,9 @@ export function RightSidebar({
                     className="flex items-center justify-between rounded-2xl border bg-background px-3 py-2.5"
                   >
                     <div className="flex items-center gap-2">
-                      <Sparkles className="text-muted-foreground" />
+                      <div className="flex size-7 items-center justify-center rounded-full bg-muted/30">
+                        <Sparkles className="size-4 text-muted-foreground" />
+                      </div>
                       <span className="text-sm font-medium">{toolName}</span>
                     </div>
                     <Badge variant="outline">Ready</Badge>
@@ -250,9 +259,11 @@ export function RightSidebar({
               </SidebarGroupLabel>
               <SidebarGroupContent>
                 <Card className="border-border/70 bg-background shadow-sm">
-                  <CardContent className="flex items-center justify-between p-4">
+                  <CardContent className="flex items-center justify-between p-3">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Gauge />
+                      <div className="flex size-7 items-center justify-center rounded-full bg-muted/30">
+                        <Gauge className="size-4" />
+                      </div>
                       Streaming context
                     </div>
                     <Badge variant="secondary">
@@ -266,7 +277,7 @@ export function RightSidebar({
         </ScrollArea>
       </SidebarContent>
 
-      <SidebarFooter className="border-t px-4 py-3">
+      <SidebarFooter className="border-t px-3 py-3">
         <div className="flex items-center justify-between text-xs text-muted-foreground">
           <span>Model inspector</span>
           <span>{mobile ? "Mobile" : "Desktop"}</span>

@@ -1,4 +1,7 @@
-import { BookIcon, ChevronDownIcon } from "lucide-react";
+import {
+  BookOpen as BookIcon,
+  CaretDown as ChevronDownIcon,
+} from "@phosphor-icons/react";
 import type { ComponentProps } from "react";
 import {
   Collapsible,
