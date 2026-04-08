@@ -2,7 +2,7 @@ import { cjk } from "@streamdown/cjk";
 import { code } from "@streamdown/code";
 import { math } from "@streamdown/math";
 import { mermaid } from "@streamdown/mermaid";
-import { FileIcon } from "lucide-react";
+import { File as FileIcon } from "@phosphor-icons/react";
 import type { ComponentProps, ReactNode } from "react";
 import { useCallback, useRef, useState } from "react";
 import { Streamdown } from "streamdown";

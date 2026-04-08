@@ -1,14 +1,14 @@
 import type { DynamicToolUIPart, ToolUIPart } from "ai";
 import {
-  CheckCircle2Icon,
-  ChevronDownIcon,
-  CircleIcon,
-  ClockIcon,
-  LoaderIcon,
-  MoreVerticalIcon,
-  WrenchIcon,
-  XCircleIcon,
-} from "lucide-react";
+  CheckCircle as CheckCircle2Icon,
+  CaretDown as ChevronDownIcon,
+  Circle as CircleIcon,
+  Clock as ClockIcon,
+  Spinner as LoaderIcon,
+  DotsThreeVertical as MoreVerticalIcon,
+  Wrench as WrenchIcon,
+  XCircle as XCircleIcon,
+} from "@phosphor-icons/react";
 import type { ComponentProps, ReactNode } from "react";
 import { isValidElement, useState } from "react";
 import { Badge } from "@/components/ui/badge";

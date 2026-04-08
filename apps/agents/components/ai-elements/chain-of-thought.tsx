@@ -3,14 +3,14 @@ import { cjk } from "@streamdown/cjk";
 import { code } from "@streamdown/code";
 import { math } from "@streamdown/math";
 import { mermaid } from "@streamdown/mermaid";
-import type { LucideIcon } from "lucide-react";
+import type { ComponentType } from "react";
 import {
-  BrainCircuitIcon,
-  CheckCircle2Icon,
-  ChevronDownIcon,
-  CircleDotIcon,
-  CircleIcon,
-} from "lucide-react";
+  BrainCircuit as BrainCircuitIcon,
+  CheckCircle as CheckCircle2Icon,
+  CaretDown as ChevronDownIcon,
+  CircleDot as CircleDotIcon,
+  Circle as CircleIcon,
+} from "@phosphor-icons/react";
 import type { ComponentProps, ReactNode } from "react";
 import {
   createContext,
