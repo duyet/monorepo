@@ -47,75 +47,75 @@
 
   --radius: 0.5rem;
 
-  /* Clean white palette, no shadows */
-  --background: oklch(1 0 0);           /* Pure white */
-  --foreground: oklch(0.15 0 0);        /* Near black - pure foreground */
-  --card: oklch(1 0 0);                /* Pure white */
-  --card-foreground: oklch(0.15 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.15 0 0);
-  --primary: oklch(0.15 0 0);           /* Near black */
-  --primary-foreground: oklch(1 0 0);   /* Pure white */
-  --secondary: oklch(0.96 0 0);         /* Light gray */
-  --secondary-foreground: oklch(0.20 0 0);
-  --muted: oklch(0.96 0 0);            /* Light gray */
-  --muted-foreground: oklch(0.50 0 0);  /* Medium gray - clearer muted foreground */
-  --accent: oklch(0.96 0 0);            /* Light gray */
-  --accent-foreground: oklch(0.15 0 0);
-  --destructive: oklch(0.55 0.18 25);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.90 0 0);            /* Light border - crisp border */
-  --input: oklch(0.90 0 0);
-  --ring: oklch(0.45 0 0);             /* Focus ring */
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.98 0 0);
-  --sidebar-foreground: oklch(0.30 0 0);
-  --sidebar-primary: oklch(0.15 0 0);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.15 0 0 / 0.08);
-  --sidebar-accent-foreground: oklch(0.15 0 0);
-  --sidebar-border: oklch(0.88 0 0);
-  --sidebar-ring: oklch(0.45 0 0);
+  /* Shadcn-ui default zinc theme */
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 240 5.9% 10%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 240 5.9% 10%;
+  --chart-1: 12 76% 61%;
+  --chart-2: 173 58% 39%;
+  --chart-3: 197 37% 24%;
+  --chart-4: 43 74% 66%;
+  --chart-5: 27 87% 67%;
+  --sidebar: 0 0% 98%;
+  --sidebar-foreground: 240 5.3% 9%;
+  --sidebar-primary: 240 5.9% 10%;
+  --sidebar-primary-foreground: 0 0% 98%;
+  --sidebar-accent: 240 4.8% 95.9%;
+  --sidebar-accent-foreground: 240 5.9% 10%;
+  --sidebar-border: 240 5.9% 90%;
+  --sidebar-ring: 240 5.9% 10%;
 }
 
 .dark {
-  /* Clean dark palette, no shadows */
-  --background: oklch(0.15 0 0);        /* Near black */
-  --foreground: oklch(0.985 0 0);      /* Pure white - match dark mode to pure contrast */
-  --card: oklch(0.18 0 0);             /* Slightly lighter */
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.18 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.96 0 0);          /* White */
-  --primary-foreground: oklch(0.15 0 0);
-  --secondary: oklch(0.22 0 0);         /* Medium gray */
-  --secondary-foreground: oklch(0.80 0 0);
-  --muted: oklch(0.20 0 0);            /* Dark gray */
-  --muted-foreground: oklch(0.60 0 0);  /* Medium gray */
-  --accent: oklch(0.22 0 0);           /* Dark gray */
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.65 0.18 25);
-  --destructive-foreground: oklch(0.96 0 0);
-  --border: oklch(100% 0 0 / 8%);      /* Dark border - high contrast */
-  --input: oklch(100% 0 0 / 8%);
-  --ring: oklch(0.50 0 0);             /* Focus ring */
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.14 0 0);
-  --sidebar-foreground: oklch(0.80 0 0);
-  --sidebar-primary: oklch(0.96 0 0);
-  --sidebar-primary-foreground: oklch(0.15 0 0);
-  --sidebar-accent: oklch(0.96 0 0 / 0.08);
-  --sidebar-accent-foreground: oklch(0.96 0 0);
-  --sidebar-border: oklch(0.24 0 0);
-  --sidebar-ring: oklch(0.50 0 0);
+  /* Shadcn-ui default zinc theme - dark mode */
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 0 0% 98%;
+  --primary-foreground: 240 5.9% 10%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --ring: 240 4.9% 83.9%;
+  --chart-1: 220 70% 50%;
+  --chart-2: 160 60% 45%;
+  --chart-3: 30 80% 55%;
+  --chart-4: 280 65% 60%;
+  --chart-5: 340 75% 55%;
+  --sidebar: 240 5.9% 10%;
+  --sidebar-foreground: 240 4.8% 95.9%;
+  --sidebar-primary: 0 0% 98%;
+  --sidebar-primary-foreground: 240 5.9% 10%;
+  --sidebar-accent: 240 3.7% 15.9%;
+  --sidebar-accent-foreground: 0 0% 98%;
+  --sidebar-border: 240 3.7% 15.9%;
+  --sidebar-ring: 240 4.9% 83.9%;
 }
 
 @layer base {
@@ -192,11 +192,11 @@ textarea:focus-visible {
 @layer base {
   * {
     scrollbar-width: thin;
-    scrollbar-color: oklch(0.15 0.01 85 / 0.15) transparent;
+    scrollbar-color: hsl(240 5% 20%) transparent;
   }
 
   .dark * {
-    scrollbar-color: oklch(0.93 0.005 85 / 0.12) transparent;
+    scrollbar-color: hsl(240 5% 20%) transparent;
   }
 
   *::-webkit-scrollbar {
@@ -209,20 +209,20 @@ textarea:focus-visible {
   }
 
   *::-webkit-scrollbar-thumb {
-    background: oklch(0.15 0.01 85 / 0.15);
+    background: hsl(240 5% 20% / 0.3);
     border-radius: 9999px;
   }
 
   *::-webkit-scrollbar-thumb:hover {
-    background: oklch(0.15 0.01 85 / 0.25);
+    background: hsl(240 5% 20% / 0.5);
   }
 
   .dark *::-webkit-scrollbar-thumb {
-    background: oklch(0.93 0.005 85 / 0.12);
+    background: hsl(240 5% 20% / 0.3);
   }
 
   .dark *::-webkit-scrollbar-thumb:hover {
-    background: oklch(0.93 0.005 85 / 0.2);
+    background: hsl(240 5% 20% / 0.5);
   }
 
   *::-webkit-scrollbar-corner {
