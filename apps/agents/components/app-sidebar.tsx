@@ -1,9 +1,4 @@
-import {
-  MessageSquare,
-  PanelLeft,
-  PenSquare,
-  Trash2,
-} from "lucide-react";
+import { MessageSquarePlus, PanelLeftClose, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { SidebarHistory } from "@/components/chat/sidebar-history";
 import { SidebarUserNav } from "@/components/chat/sidebar-user-nav";
@@ -17,6 +12,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
@@ -28,14 +25,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-  SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Separator } from "@/components/ui/separator";
 import type { Conversation } from "@/lib/types";
 
 interface AppSidebarProps {
@@ -68,14 +60,14 @@ export function AppSidebar({
   return (
     <>
       <Sidebar collapsible="icon">
-        <SidebarHeader className="pb-0 pt-3">
+        <SidebarHeader className="border-b px-3 py-3">
           <SidebarMenu>
-            <SidebarMenuItem className="flex flex-row items-center justify-between">
-              <div className="group/logo relative flex items-center justify-center">
+            <SidebarMenuItem>
+              <div className="flex items-center gap-2">
                 <SidebarMenuButton
                   asChild
-                  className="size-8 !px-0 items-center justify-center group-data-[collapsible=icon]:group-hover/logo:opacity-0"
-                  tooltip="Chatbot"
+                  className="h-9 flex-1 justify-start gap-3 rounded-xl border bg-background px-3 shadow-sm"
+                  tooltip="New conversation"
                 >
                   <button
                     type="button"
@@ -84,65 +76,53 @@ export function AppSidebar({
                       onNewChat();
                     }}
                   >
-                    <MessageSquare className="size-4 text-sidebar-foreground/50" />
+                    <MessageSquarePlus />
+                    <span className="font-medium">New chat</span>
                   </button>
                 </SidebarMenuButton>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <SidebarMenuButton
-                      className="pointer-events-none absolute inset-0 size-8 opacity-0 group-data-[collapsible=icon]:pointer-events-auto group-data-[collapsible=icon]:group-hover/logo:opacity-100"
-                      onClick={() => toggleSidebar()}
-                    >
-                      <PanelLeft className="size-4" />
-                    </SidebarMenuButton>
-                  </TooltipTrigger>
-                  <TooltipContent
-                    className="hidden md:block"
-                    side="right"
-                  >
-                    Open sidebar
-                  </TooltipContent>
-                </Tooltip>
-              </div>
-              <div className="group-data-[collapsible=icon]:hidden">
-                <SidebarTrigger className="text-sidebar-foreground/60 transition-colors duration-150 hover:text-sidebar-foreground" />
+
+                <Button
+                  aria-label="Toggle sidebar"
+                  className="hidden h-9 w-9 rounded-xl lg:inline-flex"
+                  size="icon"
+                  variant="outline"
+                  onClick={() => toggleSidebar()}
+                >
+                  <PanelLeftClose />
+                </Button>
               </div>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarHeader>
 
         <SidebarContent>
-          <SidebarGroup className="pt-1">
+          <SidebarGroup className="px-3 py-3">
             <SidebarGroupContent>
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton
-                    className="h-8 rounded-lg border border-sidebar-border text-[13px] text-sidebar-foreground/70 transition-colors duration-150 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground"
-                    onClick={() => {
-                      setOpenMobile(false);
-                      onNewChat();
-                    }}
-                    tooltip="New Chat"
+              <div className="rounded-2xl border bg-muted/20 p-3">
+                <div className="flex items-center justify-between gap-2">
+                  <div>
+                    <p className="text-sm font-semibold">Agent workspace</p>
+                    <p className="text-xs text-muted-foreground">
+                      Conversations, tools, and approvals
+                    </p>
+                  </div>
+                  <Badge variant="secondary">{conversations.length}</Badge>
+                </div>
+                {onDeleteAllConversations && conversations.length > 0 ? (
+                  <Button
+                    className="mt-3 w-full justify-start rounded-xl"
+                    variant="ghost"
+                    onClick={() => setShowDeleteAllDialog(true)}
                   >
-                    <PenSquare className="size-4" />
-                    <span className="font-medium">New chat</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                {conversations.length > 0 && onDeleteAllConversations && (
-                  <SidebarMenuItem>
-                    <SidebarMenuButton
-                      className="rounded-lg text-sidebar-foreground/40 transition-colors duration-150 hover:bg-destructive/10 hover:text-destructive"
-                      onClick={() => setShowDeleteAllDialog(true)}
-                      tooltip="Delete All Chats"
-                    >
-                      <Trash2 className="size-4" />
-                      <span className="text-[13px]">Delete all</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                )}
-              </SidebarMenu>
+                    <Trash2 />
+                    Delete all chats
+                  </Button>
+                ) : null}
+              </div>
             </SidebarGroupContent>
           </SidebarGroup>
+
+          <Separator className="mx-3 my-1" />
 
           <SidebarHistory
             conversations={conversations}
@@ -153,7 +133,7 @@ export function AppSidebar({
           />
         </SidebarContent>
 
-        <SidebarFooter className="border-t border-sidebar-border pt-2 pb-3">
+        <SidebarFooter className="border-t px-3 py-3">
           <SidebarUserNav />
         </SidebarFooter>
         <SidebarRail />
@@ -167,14 +147,14 @@ export function AppSidebar({
           <AlertDialogHeader>
             <AlertDialogTitle>Delete all chats?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete all
-              your chats and remove them from our servers.
+              This action cannot be undone. It will permanently remove every
+              conversation from your workspace.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction onClick={handleDeleteAll}>
-              Delete All
+              Delete all
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

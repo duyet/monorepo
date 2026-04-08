@@ -1,15 +1,36 @@
-import { Download, FileJson, FileText, PanelRight, Plus } from "lucide-react";
+import {
+  Download,
+  FileJson,
+  FileText,
+  PanelRight,
+  Plus,
+  Sparkles,
+} from "lucide-react";
+import { toast } from "sonner";
 import { AuthControl } from "@/components/auth-control";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useExportConversation } from "@/lib/hooks/use-export-conversation";
+import type { ChatMode } from "@/lib/types";
 
 interface ChatTopBarProps {
   onToggleRightSidebar?: () => void;
   onNewChat: () => void;
   conversationTitle?: string;
   conversationId?: string;
+  subtitle?: string;
+  mode?: ChatMode;
+  onModeChange?: (mode: ChatMode) => void;
 }
 
 export function ChatTopBar({
@@ -17,88 +38,128 @@ export function ChatTopBar({
   onNewChat,
   conversationTitle,
   conversationId,
+  subtitle = "Workspace",
+  mode,
+  onModeChange,
 }: ChatTopBarProps) {
   const { exportConversation, isExporting } = useExportConversation();
+  const canExport = Boolean(conversationId);
 
   const handleExport = async (format: "json" | "md" | "txt") => {
     if (!conversationId) return;
+
     try {
       await exportConversation({ conversationId, format });
+      toast.success(`Exported as ${format.toUpperCase()}`);
     } catch (error) {
-      console.error("Export failed:", error);
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Failed to export conversation";
+      toast.error(message);
     }
   };
 
-  const canExport = Boolean(conversationId);
-
   return (
-    <header className="absolute inset-x-0 top-0 z-10 flex h-14 items-center border-b bg-background/95 px-3 backdrop-blur sm:px-4">
-      <div className="flex items-center gap-2">
-        <div className="lg:hidden">
-          <SidebarTrigger className="-ml-1" />
+    <header className="sticky top-0 z-30 border-b bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
+      <div className="flex min-h-16 items-center gap-3 px-4 py-3 sm:px-6">
+        <div className="flex min-w-0 flex-1 items-center gap-3">
+          <div className="lg:hidden">
+            <SidebarTrigger className="-ml-1" />
+          </div>
+
+          <div className="flex min-w-0 items-center gap-3">
+            <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border bg-muted/40">
+              <Sparkles className="size-4 text-muted-foreground" />
+            </div>
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                <h1 className="truncate text-sm font-semibold sm:text-base">
+                  {conversationTitle || "New chat"}
+                </h1>
+                <Badge variant="secondary" className="hidden sm:inline-flex">
+                  {subtitle}
+                </Badge>
+              </div>
+              <p className="truncate text-xs text-muted-foreground">
+                {conversationId ? "Conversation ready" : "Start a new thread"}
+              </p>
+            </div>
+          </div>
         </div>
-        <Separator orientation="vertical" className="hidden h-4 lg:block" />
-        <div className="min-w-0">
-          <p className="truncate text-sm font-medium">
-            {conversationTitle || "New chat"}
-          </p>
-          <p className="text-xs text-muted-foreground">Agent workspace</p>
-        </div>
-      </div>
 
-      <div className="ml-auto flex items-center gap-2">
-        <Button variant="outline" size="sm" onClick={onNewChat}>
-          <Plus className="h-4 w-4" />
-          New
-        </Button>
-
-        {canExport && (
-          <>
-            <Button
-              variant="ghost"
-              size="icon"
-              disabled={isExporting}
-              onClick={() => handleExport("json")}
-              aria-label="Export as JSON"
-            >
-              <FileJson className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              disabled={isExporting}
-              onClick={() => handleExport("md")}
-              aria-label="Export as Markdown"
-            >
-              <FileText className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              disabled={isExporting}
-              onClick={() => handleExport("txt")}
-              aria-label="Export as Text"
-            >
-              <Download className="h-4 w-4" />
-            </Button>
-          </>
-        )}
-
-        {onToggleRightSidebar && (
-          <Button
-            variant="ghost"
-            size="icon"
-            className="lg:hidden"
-            onClick={onToggleRightSidebar}
-            aria-label="Open details"
+        {mode && onModeChange ? (
+          <Tabs
+            className="hidden md:block"
+            value={mode}
+            onValueChange={(value) => onModeChange(value as ChatMode)}
           >
-            <PanelRight className="h-4 w-4" />
+            <TabsList className="h-10 rounded-full border bg-muted/50 p-1">
+              <TabsTrigger className="rounded-full px-3" value="fast">
+                Fast
+              </TabsTrigger>
+              <TabsTrigger className="rounded-full px-3" value="agent">
+                Agent
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
+        ) : null}
+
+        <div className="ml-auto flex items-center gap-2">
+          <Button variant="outline" size="sm" onClick={onNewChat}>
+            <Plus data-icon="inline-start" />
+            New
           </Button>
-        )}
 
-        <Separator orientation="vertical" className="h-6" />
+          {canExport ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  disabled={isExporting}
+                  size="icon"
+                  variant="outline"
+                  aria-label="Export conversation"
+                >
+                  <Download />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onSelect={() => void handleExport("json")}>
+                  <FileJson data-icon="inline-start" />
+                  Export JSON
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => void handleExport("md")}>
+                  <FileText data-icon="inline-start" />
+                  Export Markdown
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onSelect={() => void handleExport("txt")}>
+                  <Download data-icon="inline-start" />
+                  Export text
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : null}
 
-        <AuthControl iconOnly className="h-8 w-8" />
+          {onToggleRightSidebar ? (
+            <Button
+              className="lg:hidden"
+              size="icon"
+              variant="outline"
+              onClick={onToggleRightSidebar}
+              aria-label="Open inspector"
+            >
+              <PanelRight />
+            </Button>
+          ) : null}
+
+          <Separator
+            orientation="vertical"
+            className="mx-1 hidden h-8 md:block"
+          />
+
+          <AuthControl iconOnly className="h-9 w-9" />
+        </div>
       </div>
     </header>
   );

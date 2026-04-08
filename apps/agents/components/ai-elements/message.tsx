@@ -35,7 +35,7 @@ export function Message({ from, className, children }: MessageProps) {
       data-from={from}
       className={cn(
         "group flex w-full gap-4 animate-in fade-in duration-300",
-        isUser ? "justify-end py-2.5" : "py-5",
+        isUser ? "justify-end py-2" : "py-4",
         className
       )}
     >
@@ -67,7 +67,7 @@ export function MessageContent({
         "relative flex flex-col gap-2",
         isUser
           ? "w-fit max-w-[85%] rounded-3xl rounded-tr-sm border border-border/70 bg-muted/60 px-4 py-3 shadow-sm"
-          : "w-full min-w-0 flex-1",
+          : "w-full min-w-0 flex-1 rounded-3xl border border-border/70 bg-background/90 px-4 py-4 shadow-sm",
         className
       )}
     >
@@ -83,7 +83,9 @@ MessageContent.displayName = "MessageContent";
 // ─── MessageResponse (Streamdown renderer) ────────────────────────────────────
 
 // Cast needed: mermaid version mismatch between @streamdown/mermaid and streamdown
-const streamdownPlugins = { cjk, code, math, mermaid } as Parameters<typeof Streamdown>[0]["plugins"];
+const streamdownPlugins = { cjk, code, math, mermaid } as Parameters<
+  typeof Streamdown
+>[0]["plugins"];
 
 export interface MessageResponseProps {
   children: string;
@@ -177,7 +179,7 @@ export function MessageAction({
             aria-label={label ?? tooltip}
             onClick={onClick}
             className={cn(
-              "flex h-6 w-6 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
+              "flex size-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
               className
             )}
           >
