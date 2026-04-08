@@ -1,38 +1,26 @@
 import { copyFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
-import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import tailwindcss from "@tailwindcss/vite";
-import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
+  server: { port: 3004 },
   plugins: [
-    TanStackRouterVite({
-      routesDirectory: "./src/routes",
-      generatedRouteTree: "./src/routeTree.gen.ts",
-      autoCodeSplitting: true,
-    }),
-    react(),
-    ...tailwindcss(),
-    {
-      name: "preserve-cf-async",
-      transformIndexHtml: {
-        order: "post",
-        handler(html) {
-          // Add data-cfasync="false" to html tag to disable Rocket Loader entirely
-          html = html.replace(
-            /<html/g,
-            '<html data-cfasync="false"'
-          );
-          // Ensure data-cfasync="false" is on module scripts
-          html = html.replace(
-            /<script type="module"/g,
-            '<script type="module" data-cfasync="false"'
-          );
-          return html;
-        },
+    tanstackStart({
+      router: {
+        routesDirectory: "./routes",
+        generatedRouteTree: "./routeTree.gen.ts",
       },
-    },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        failOnError: false,
+      },
+    }),
+    tailwindcss(),
+    tsconfigPaths(),
     {
       name: "spa-route-prerender",
       closeBundle() {
@@ -59,8 +47,5 @@ export default defineConfig({
   build: {
     outDir: "dist",
     emptyOutDir: true,
-  },
-  server: {
-    port: 3004,
   },
 });

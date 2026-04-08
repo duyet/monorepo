@@ -1,6 +1,6 @@
-const { spawn } = require("node:child_process");
-const http = require("node:http");
-const httpProxy = require("http-proxy");
+import { spawn } from "child_process";
+import http from "node:http";
+import httpProxy from "http-proxy";
 
 // Configuration
 const VITE_PORT = parseInt(process.env.PORT, 10) || 3004;
