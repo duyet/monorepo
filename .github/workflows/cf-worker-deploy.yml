@@ -50,6 +50,27 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Validate required secrets
+        run: |
+          missing=0
+          if [ -z "${{ secrets.AI_GATEWAY_TOKEN }}" ]; then
+            echo "::error::Required secret AI_GATEWAY_TOKEN is not set"
+            missing=1
+          fi
+          if [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ]; then
+            echo "::error::Required secret CLOUDFLARE_API_TOKEN is not set"
+            missing=1
+          fi
+          if [ -z "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ]; then
+            echo "::error::Required secret CLOUDFLARE_ACCOUNT_ID is not set"
+            missing=1
+          fi
+          if [ "$missing" -eq 1 ]; then
+            echo "::error::One or more required secrets are missing. Failing deployment."
+            exit 1
+          fi
+          echo "All required secrets are present"
+
       - name: Deploy Worker to Cloudflare
         run: |
           cd apps/agents/workers
@@ -58,13 +79,8 @@ jobs:
           bunx wrangler deploy
 
           # Set AI Gateway token secret
-          if [ -n "${{ secrets.AI_GATEWAY_TOKEN }}" ]; then
-            echo "Setting AI_GATEWAY_TOKEN secret..."
-            echo "${{ secrets.AI_GATEWAY_TOKEN }}" | bunx wrangler secret put AI_GATEWAY_TOKEN
-          else
-            echo "Warning: AI_GATEWAY_TOKEN secret not set in GitHub Secrets"
-            echo "Skipping secret configuration - worker may not function correctly"
-          fi
+          echo "Setting AI_GATEWAY_TOKEN secret..."
+          echo "${{ secrets.AI_GATEWAY_TOKEN }}" | bunx wrangler secret put AI_GATEWAY_TOKEN
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
