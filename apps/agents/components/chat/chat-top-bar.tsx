@@ -58,41 +58,40 @@ export function ChatTopBar({
 
   return (
     <header className="sticky top-0 z-30 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="flex min-h-[60px] items-center gap-3 px-4 py-2.5 sm:px-6">
-        <div className="flex min-w-0 flex-1 items-center gap-3">
+      <div className="flex min-h-[60px] items-center gap-2 px-4 py-2.5 sm:px-6">
+        <div className="flex min-w-0 flex-1 items-center gap-2">
           {onToggleLeftSidebar ? (
             <Button
               size="icon"
               variant="ghost"
               onClick={onToggleLeftSidebar}
               aria-label="Open conversations"
-              className="h-9 w-9"
+              className="size-9"
             >
               <PanelLeft />
             </Button>
           ) : null}
 
-          <div className="flex min-w-0 items-center gap-3">
-            <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border bg-muted/50">
-              <Sparkles className="size-4 text-muted-foreground" />
+          <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border bg-muted/50">
+            <Sparkles className="size-4 text-muted-foreground" />
+          </div>
+
+          <div className="min-w-0">
+            <div className="flex items-center gap-2">
+              <h1 className="truncate text-sm font-medium sm:text-base">
+                {conversationTitle || "New chat"}
+              </h1>
+              <Badge variant="secondary" className="hidden sm:inline-flex text-xs">
+                {subtitle}
+              </Badge>
             </div>
-            <div className="min-w-0">
-              <div className="flex items-center gap-2">
-                <h1 className="truncate text-sm font-medium sm:text-base">
-                  {conversationTitle || "New chat"}
-                </h1>
-                <Badge variant="secondary" className="hidden sm:inline-flex text-xs">
-                  {subtitle}
-                </Badge>
-              </div>
-              <p className="truncate text-xs text-muted-foreground/80">
-                {conversationId ? "Conversation ready" : "Start a new thread"}
-              </p>
-            </div>
+            <p className="truncate text-xs text-muted-foreground/80">
+              {conversationId ? "Conversation ready" : "Start a new thread"}
+            </p>
           </div>
         </div>
 
-        <div className="ml-auto flex items-center gap-2">
+        <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" onClick={onNewChat} className="h-9">
             <Plus data-icon="inline-start" />
             New
@@ -106,6 +105,7 @@ export function ChatTopBar({
                   size="icon"
                   variant="outline"
                   aria-label="Export conversation"
+                  className="size-9"
                 >
                   <Download />
                 </Button>
@@ -134,7 +134,7 @@ export function ChatTopBar({
               variant="ghost"
               onClick={onToggleRightSidebar}
               aria-label="Open inspector"
-              className="h-9 w-9"
+              className="size-9"
             >
               <PanelRight />
             </Button>
@@ -145,7 +145,7 @@ export function ChatTopBar({
             className="mx-1 hidden h-6 md:block"
           />
 
-          <AuthControl iconOnly className="h-9 w-9" />
+          <AuthControl iconOnly className="size-9" />
         </div>
       </div>
     </header>
