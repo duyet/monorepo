@@ -1,4 +1,9 @@
-import { AlertCircle, RefreshCw, Send, X } from "lucide-react";
+import {
+  AlertCircle as Warning,
+  ArrowClockwise as RefreshCw,
+  ArrowUp as Send,
+  X,
+} from "@phosphor-icons/react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -110,7 +115,7 @@ export function ChatInput({
             variant="destructive"
             className="mt-2 animate-in fade-in slide-in-from-bottom-2 duration-200"
           >
-            <AlertCircle className="h-4 w-4" />
+            <Warning className="h-4 w-4" />
             <AlertDescription>{getErrorMessage(error)}</AlertDescription>
           </Alert>
         )}

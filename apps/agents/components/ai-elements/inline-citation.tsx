@@ -1,11 +1,11 @@
 import * as HoverCard from "@radix-ui/react-hover-card";
 import useEmblaCarousel from "embla-carousel-react";
 import {
-  BookOpenIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ExternalLinkIcon,
-} from "lucide-react";
+  BookOpen as BookOpenIcon,
+  CaretLeft as ChevronLeftIcon,
+  CaretRight as ChevronRightIcon,
+  Link as ExternalLinkIcon,
+} from "@phosphor-icons/react";
 import {
   type ComponentProps,
   createContext,

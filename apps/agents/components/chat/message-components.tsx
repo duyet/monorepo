@@ -1,13 +1,13 @@
 import type { UIMessage } from "ai";
 import {
-  BarChart2,
+  ChartBar as BarChart2,
   BookOpen,
   Check,
   Copy,
   GitBranch,
   User,
   X,
-} from "lucide-react";
+} from "@phosphor-icons/react";
 import { useMemo } from "react";
 import {
   ChainOfThought,

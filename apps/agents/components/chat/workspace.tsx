@@ -2,7 +2,7 @@
 
 import type { UIMessage } from "ai";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { AlertCircle } from "lucide-react";
+import { Warning as AlertCircle } from "@phosphor-icons/react";
 import {
   Conversation,
   ConversationContent,

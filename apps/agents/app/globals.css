@@ -49,7 +49,7 @@
 
   /* Clean white palette, no shadows */
   --background: oklch(1 0 0);           /* Pure white */
-  --foreground: oklch(0.15 0 0);        /* Near black */
+  --foreground: oklch(0.15 0 0);        /* Near black - pure foreground */
   --card: oklch(1 0 0);                /* Pure white */
   --card-foreground: oklch(0.15 0 0);
   --popover: oklch(1 0 0);
@@ -59,12 +59,12 @@
   --secondary: oklch(0.96 0 0);         /* Light gray */
   --secondary-foreground: oklch(0.20 0 0);
   --muted: oklch(0.96 0 0);            /* Light gray */
-  --muted-foreground: oklch(0.50 0 0);  /* Medium gray */
+  --muted-foreground: oklch(0.50 0 0);  /* Medium gray - clearer muted foreground */
   --accent: oklch(0.96 0 0);            /* Light gray */
   --accent-foreground: oklch(0.15 0 0);
   --destructive: oklch(0.55 0.18 25);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.90 0 0);            /* Light border */
+  --border: oklch(0.90 0 0);            /* Light border - crisp border */
   --input: oklch(0.90 0 0);
   --ring: oklch(0.45 0 0);             /* Focus ring */
   --chart-1: oklch(0.646 0.222 41.116);
@@ -85,11 +85,11 @@
 .dark {
   /* Clean dark palette, no shadows */
   --background: oklch(0.15 0 0);        /* Near black */
-  --foreground: oklch(0.94 0 0);       /* Off-white */
+  --foreground: oklch(0.985 0 0);      /* Pure white - match dark mode to pure contrast */
   --card: oklch(0.18 0 0);             /* Slightly lighter */
-  --card-foreground: oklch(0.94 0 0);
+  --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.18 0 0);
-  --popover-foreground: oklch(0.94 0 0);
+  --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.96 0 0);          /* White */
   --primary-foreground: oklch(0.15 0 0);
   --secondary: oklch(0.22 0 0);         /* Medium gray */
@@ -97,11 +97,11 @@
   --muted: oklch(0.20 0 0);            /* Dark gray */
   --muted-foreground: oklch(0.60 0 0);  /* Medium gray */
   --accent: oklch(0.22 0 0);           /* Dark gray */
-  --accent-foreground: oklch(0.94 0 0);
+  --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.65 0.18 25);
   --destructive-foreground: oklch(0.96 0 0);
-  --border: oklch(0.25 0 0);           /* Dark border */
-  --input: oklch(0.25 0 0);
+  --border: oklch(100% 0 0 / 8%);      /* Dark border - high contrast */
+  --input: oklch(100% 0 0 / 8%);
   --ring: oklch(0.50 0 0);             /* Focus ring */
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
