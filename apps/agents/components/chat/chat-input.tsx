@@ -1,4 +1,5 @@
-import { RefreshCw, Send, Square } from "lucide-react";
+import { AlertCircle, RefreshCw, Send, Square } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -6,7 +7,8 @@ import { Textarea } from "@/components/ui/textarea";
 interface ChatInputProps {
   input: string;
   setInput: (value: string) => void;
-  onSubmit: (e: React.FormEvent) => void;
+  formRef: React.RefObject<HTMLFormElement | null>;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
   isLoading: boolean;
   canSubmit: boolean;
@@ -15,6 +17,16 @@ interface ChatInputProps {
   reload: () => void;
   error: Error | null;
   textareaRef: React.Ref<HTMLTextAreaElement>;
+}
+
+function getErrorMessage(error: Error): string {
+  const msg = error.message.trim();
+  try {
+    const parsed = JSON.parse(msg);
+    return parsed.message || parsed.error || "An error occurred";
+  } catch {
+    return msg || "An error occurred. Please try again.";
+  }
 }
 
 export function ChatInput({
@@ -28,14 +40,15 @@ export function ChatInput({
   stop,
   reload,
   error,
+  formRef,
   textareaRef,
 }: ChatInputProps) {
   return (
-    <div className="border-t bg-background/95 px-3 py-3 backdrop-blur supports-[backdrop-filter]:bg-background/80 sm:px-4">
+    <div className="pointer-events-none absolute bottom-0 w-full px-3 pb-[max(1rem,env(safe-area-inset-bottom))] pt-6 sm:px-4">
       <div className="mx-auto max-w-4xl">
-        <Card className="border-border/70 bg-background shadow-sm">
+        <Card className="pointer-events-auto border-border/70 bg-background/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/85">
           <CardContent className="p-3 sm:p-4">
-            <form onSubmit={onSubmit} className="flex items-end gap-3">
+            <form ref={formRef} onSubmit={onSubmit} className="flex items-end gap-2">
               <Textarea
                 ref={textareaRef}
                 value={input}
@@ -57,7 +70,7 @@ export function ChatInput({
                     className="size-10 rounded-xl"
                   >
                     <Square />
-                    <span className="sr-only">Stop generation</span>
+                    <span className="sr-only">Stop</span>
                   </Button>
                 ) : (
                   <>
@@ -93,9 +106,13 @@ export function ChatInput({
           </CardContent>
         </Card>
         {error ? (
-          <p className="mt-2 text-center text-xs text-destructive">
-            {error.message}
-          </p>
+          <Alert
+            variant="destructive"
+            className="mt-2 animate-in fade-in slide-in-from-bottom-2 duration-200"
+          >
+            <AlertCircle />
+            <AlertDescription>{getErrorMessage(error)}</AlertDescription>
+          </Alert>
         ) : (
           <p className="mt-2 text-center text-xs text-muted-foreground">
             Enter to send, Shift+Enter for a new line.

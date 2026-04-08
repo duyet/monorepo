@@ -39,6 +39,7 @@ import {
 } from "@/components/ai-elements/tool";
 import { Button } from "@/components/ui/button";
 import type { Message } from "@/lib/types";
+import { cn } from "@/lib/utils";
 import { MessageMetadata } from "./message-metadata";
 
 interface MessageProps {
@@ -333,32 +334,60 @@ const CAPABILITIES = [
 
 interface WelcomeMessageProps {
   onPromptSelect?: (prompt: string) => void;
+  disabled?: boolean;
 }
 
-export function WelcomeMessage({ onPromptSelect }: WelcomeMessageProps) {
+export function WelcomeMessage({
+  onPromptSelect,
+  disabled,
+}: WelcomeMessageProps) {
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:py-12">
-      <div className="mb-8 space-y-2">
+    <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:py-16">
+      <div className="mb-10 space-y-3 text-center">
         <h1 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
           How can I help you today?
         </h1>
-        <p className="text-sm leading-6 text-muted-foreground sm:text-base">
-          Ask me about my blog posts, GitHub projects, CV, or anything else.
+        <p className="mx-auto max-w-md text-sm leading-6 text-muted-foreground sm:text-base">
+          Ask me about blog posts, GitHub projects, CV, or anything else.
         </p>
       </div>
 
-      <div className="flex flex-wrap gap-2">
-        {CAPABILITIES.map(({ icon: Icon, prompt, label }) => (
-          <Button
-            key={label}
-            variant="outline"
-            onClick={() => onPromptSelect?.(prompt)}
-            className="group h-auto gap-2 rounded-full border-border/70 bg-background px-4 py-2.5 shadow-sm"
-          >
-            <Icon className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-foreground" />
-            <span>{prompt}</span>
-          </Button>
-        ))}
+      <div
+        className={cn(
+          "grid grid-cols-1 gap-3 sm:grid-cols-2",
+          disabled && "pointer-events-none opacity-50"
+        )}
+      >
+        {CAPABILITIES.map(
+          ({ icon: Icon, prompt, label, desc, color, iconColor }) => (
+            <button
+              key={label}
+              type="button"
+              disabled={disabled}
+              onClick={() => onPromptSelect?.(prompt)}
+              className={cn(
+                "group flex items-start gap-3.5 rounded-xl border border-border/60 p-4 text-left transition-all duration-200",
+                "hover:border-border hover:bg-accent/40 hover:shadow-sm",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              )}
+            >
+              <div
+                className={cn(
+                  "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg",
+                  color
+                )}
+              >
+                <Icon className={cn("h-5 w-5", iconColor)} />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-medium text-foreground">{label}</p>
+                <p className="mt-0.5 line-clamp-2 text-xs leading-relaxed text-muted-foreground">
+                  {desc}
+                </p>
+              </div>
+            </button>
+          )
+        )}
       </div>
     </div>
   );

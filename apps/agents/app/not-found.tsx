@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, Home } from "lucide-react";
+import { ExternalLink, Home } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -38,7 +38,7 @@ export default function NotFound() {
               rel="noopener noreferrer"
               target="_blank"
             >
-              <ArrowLeft />
+              <ExternalLink />
               duyet.net
             </a>
           </Button>

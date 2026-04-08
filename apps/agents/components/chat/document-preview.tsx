@@ -4,20 +4,14 @@ import { sheetArtifact } from "@/artifacts/sheet/client";
 import { textArtifact } from "@/artifacts/text/client";
 import type { UIArtifact } from "./artifact";
 
-const artifactDefinitions = [textArtifact, codeArtifact, sheetArtifact];
+const _artifactDefinitions = [textArtifact, codeArtifact, sheetArtifact];
 
 type DocumentPreviewProps = {
-  isCurrentVersion: boolean;
-  currentVersionIndex: number;
-  getDocumentContentById: (index: number) => string;
   status: UIArtifact["status"];
   documentId: string;
 };
 
 function PureDocumentPreview({
-  isCurrentVersion,
-  currentVersionIndex,
-  getDocumentContentById,
   status,
   documentId,
 }: DocumentPreviewProps) {
@@ -27,7 +21,7 @@ function PureDocumentPreview({
         {documentId !== "init" ? `Document ${documentId}` : "No document"}
       </div>
       <div className="text-xs text-muted-foreground">
-        {status === "streaming" ? "Generating..." : `Version ${currentVersionIndex + 1}`}
+        {status === "streaming" ? "Generating..." : "Ready"}
       </div>
     </div>
   );

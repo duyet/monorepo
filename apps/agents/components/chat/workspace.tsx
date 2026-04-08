@@ -2,6 +2,7 @@
 
 import type { UIMessage } from "ai";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { AlertCircle } from "lucide-react";
 import {
   Conversation,
   ConversationContent,
@@ -18,6 +19,7 @@ import { ChatInput } from "@/components/chat/chat-input";
 import { ChatTopBar } from "@/components/chat/chat-top-bar";
 import { LoadingIndicator } from "@/components/chat/loading-indicator";
 import { RightSidebar } from "@/components/right-sidebar";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { SidebarInset } from "@/components/ui/sidebar";
 import {
@@ -32,9 +34,12 @@ import type { ChatMode } from "@/lib/types";
 
 export function ChatWorkspace() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const lastInputRef = useRef<string>("");
+  const activeConversationIdRef = useRef<string | null>(null);
   const getAuthToken = useClerkAuthToken();
   const [rightRailOpen, setRightRailOpen] = useState(false);
+  const [serviceError, setServiceError] = useState<string | null>(null);
 
   const {
     conversations,
@@ -91,6 +96,22 @@ export function ChatWorkspace() {
     modelId: activeConversation?.modelId,
     onError: (err) => {
       console.error("Chat error:", err);
+      if (err instanceof Error) {
+        const trimmed = err.message.trim();
+        if (trimmed.startsWith("{")) {
+          try {
+            const parsed = JSON.parse(trimmed);
+            if (parsed.code === "missing_api_key") {
+              setServiceError(
+                parsed.message ||
+                  "The AI service is not configured. Please try again later."
+              );
+            }
+          } catch {
+            // Not JSON, continue with normal recovery.
+          }
+        }
+      }
       if (lastInputRef.current) {
         setInput(lastInputRef.current);
         lastInputRef.current = "";
@@ -103,10 +124,16 @@ export function ChatWorkspace() {
 
   useEffect(() => {
     if (!activeConversation) return;
-    if (activeConversation.mode === mode) return;
+
+    const conversationChanged =
+      activeConversationIdRef.current !== activeConversation.id;
+    if (!conversationChanged) return;
+
+    activeConversationIdRef.current = activeConversation.id;
     setMode(activeConversation.mode);
-    // Only sync once when switching conversations so manual mode changes stick.
-  }, [activeConversation?.id, activeConversation?.mode, mode, setMode]);
+    localStorage.setItem("chat-mode", activeConversation.mode);
+    // Conversation mode is the source of truth when switching threads.
+  }, [activeConversation, setMode]);
 
   const partsMap = useMemo(() => {
     const map = new Map<string, UIMessage["parts"]>();
@@ -205,7 +232,9 @@ export function ChatWorkspace() {
     setTitleGenerated(false);
   }, [activeId]);
 
-  const handleFormSubmit = async (e: React.FormEvent) => {
+  const handleFormSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
     if (!input.trim()) return;
 
@@ -248,7 +277,7 @@ export function ChatWorkspace() {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      handleFormSubmit(e);
+      formRef.current?.requestSubmit();
     }
   };
 
@@ -325,10 +354,23 @@ export function ChatWorkspace() {
                 autoScrollTrigger={autoScrollTrigger}
               >
                 <div className="mx-auto flex w-full max-w-4xl flex-col gap-5 px-4 py-6 sm:px-6 lg:px-8">
+                  {serviceError ? (
+                    <Alert
+                      variant="destructive"
+                      className="mx-auto w-full max-w-3xl animate-in fade-in slide-in-from-top-2 duration-300"
+                    >
+                      <AlertCircle />
+                      <AlertTitle>Service unavailable</AlertTitle>
+                      <AlertDescription>{serviceError}</AlertDescription>
+                    </Alert>
+                  ) : null}
                   {!hasMessages && !streamingContent ? (
                     <ConversationEmptyState>
                       <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 pt-8">
-                        <WelcomeMessage onPromptSelect={handlePromptSelect} />
+                        <WelcomeMessage
+                          disabled={!!serviceError}
+                          onPromptSelect={handlePromptSelect}
+                        />
                       </div>
                     </ConversationEmptyState>
                   ) : (
@@ -378,6 +420,7 @@ export function ChatWorkspace() {
               <ChatInput
                 input={input}
                 setInput={setInput}
+                formRef={formRef}
                 onSubmit={handleFormSubmit}
                 onKeyDown={handleKeyDown}
                 isLoading={isLoading}
