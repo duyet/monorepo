@@ -142,6 +142,11 @@ Place environment files as `.env` or `.env.local` in the root directory.
 - Environment variables are globally managed through Turborepo
 - Shared components and utilities live in `/packages` and are imported as workspace dependencies
 - App-specific scripts may include prebuild steps or wrappers; check the relevant `package.json` before assuming `bun run dev` is the plain Vite server. Several apps also expose `test:watch`, `test:coverage`, `preview`, `sync`, `migrate`, `cleanup`, `rss`, `llms-txt`, and `sitemap` scripts.
+- Notable app workflows:
+  - `apps/agents`: `bun run prebuild` builds skills before `vite build`; `bun run test:e2e` runs the browser test harness.
+  - `apps/data-sync`: `bun run sync:all`, `sync:wakatime`, `sync:cloudflare`, `sync:github`, `sync:unsplash`, `migrate:up|down|status|verify`, and `cleanup:dry-run`.
+  - `apps/llm-timeline`: `bun run rss`, `llms-txt`, `sitemap`, and `sync:dry` for content generation and sync checks.
+  - Several apps also expose `cf:deploy:prod`; check the app `package.json` before using the generic root deploy flow for production.
 
 ## Git Workflow
 
