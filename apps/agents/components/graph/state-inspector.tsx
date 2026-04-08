@@ -13,7 +13,7 @@ import {
   Code,
   Copy,
   FileText,
-  History,
+  ClockCounterClockwise as History,
   Spinner as Loader2,
   ArrowClockwise as RefreshCw,
   ArrowCounterClockwise as RotateCcw,

@@ -1,10 +1,10 @@
 import {
-  Activity,
-  AlertCircle,
-  CheckCircle2,
+  ChartBar as Activity,
+  Warning as AlertCircle,
+  CheckCircle,
   Clock,
   FileCode,
-  ListTree,
+  TreeStructure as ListTree,
   Spinner as Loader2,
   Network,
   X,
@@ -181,7 +181,7 @@ export function ActivityPanel({
                   variant="outline"
                   className="text-[10px] px-1.5 py-0 border-border"
                 >
-                  <CheckCircle2 className="h-2.5 w-2.5 mr-1" />
+                  <CheckCircle className="h-2.5 w-2.5 mr-1" />
                   {completeCount}
                 </Badge>
               )}
@@ -253,7 +253,7 @@ export function ActivityPanel({
                     variant="outline"
                     className="text-[10px] px-1.5 py-0 border-border"
                   >
-                    <CheckCircle2 className="h-2.5 w-2.5 mr-1" />
+                    <CheckCircle className="h-2.5 w-2.5 mr-1" />
                     {graphStats.completeCount}
                   </Badge>
                 )}

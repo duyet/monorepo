@@ -1,5 +1,6 @@
 import {
-  ChartBar as Activity,
+  ChartBar,
+  ChartLine,
   Spinner as Loader2,
   ChatCircle as MessageSquare,
   Users,
@@ -165,7 +166,7 @@ export default function AnalyticsPage() {
                     <Card className="shadow-sm">
                       <CardHeader className="space-y-1">
                         <CardTitle className="flex items-center gap-2 text-lg font-medium">
-                          <BarChart3 className="size-4 text-muted-foreground" />
+                          <ChartLine className="size-4 text-muted-foreground" />
                           Conversations over the last 7 days
                         </CardTitle>
                         <p className="text-sm text-muted-foreground">

@@ -229,7 +229,7 @@ export const ChainOfThoughtHeader = memo(
 export type ChainOfThoughtStepStatus = "complete" | "active" | "pending";
 
 export type ChainOfThoughtStepProps = ComponentProps<"div"> & {
-  icon?: LucideIcon;
+  icon?: ComponentType<{ className?: string }>;
   label: string;
   description?: string;
   status?: ChainOfThoughtStepStatus;
