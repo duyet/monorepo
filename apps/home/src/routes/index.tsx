@@ -113,9 +113,11 @@ const apps: AppItem[] = [
     host: "okie.one",
     utmContent: "okie_bento",
     fallbackIcon: (
-      <Settings className="w-12 h-12 text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />
+      <div className="w-16 h-16 rounded-2xl bg-white dark:bg-neutral-900 flex items-center justify-center border-4 border-neutral-100 dark:border-neutral-800">
+        <span className="text-3xl font-black text-neutral-900 dark:text-white">okie</span>
+      </div>
     ),
-    fallbackGradientClass: "bg-neutral-900",
+    fallbackGradientClass: "bg-neutral-100 dark:bg-neutral-900",
   },
 ];
 
