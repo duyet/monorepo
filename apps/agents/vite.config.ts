@@ -15,6 +15,25 @@ export default defineConfig({
     react(),
     ...tailwindcss(),
     {
+      name: "preserve-cf-async",
+      transformIndexHtml: {
+        order: "post",
+        handler(html) {
+          // Add data-cfasync="false" to html tag to disable Rocket Loader entirely
+          html = html.replace(
+            /<html/g,
+            '<html data-cfasync="false"'
+          );
+          // Ensure data-cfasync="false" is on module scripts
+          html = html.replace(
+            /<script type="module"/g,
+            '<script type="module" data-cfasync="false"'
+          );
+          return html;
+        },
+      },
+    },
+    {
       name: "spa-route-prerender",
       closeBundle() {
         const outDir = join(process.cwd(), "dist");
