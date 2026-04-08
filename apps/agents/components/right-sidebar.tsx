@@ -90,10 +90,12 @@ function MetricCard({
   icon: ComponentType<{ className?: string }>;
 }) {
   return (
-    <Card className="border-border/70 bg-background shadow-sm">
+    <Card className="border-border/70 bg-background">
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center gap-2 text-sm font-medium">
-          <Icon className="text-muted-foreground" />
+          <div className="flex size-9 items-center justify-center rounded-full bg-muted/40">
+            <Icon className="size-4 text-muted-foreground" />
+          </div>
           {title}
         </CardTitle>
       </CardHeader>
@@ -135,7 +137,7 @@ export function RightSidebar({
           </div>
 
           <Select value={modelId} onValueChange={onModelChange}>
-            <SelectTrigger className="h-10 w-full bg-background">
+            <SelectTrigger className="h-10 w-full rounded-full bg-background">
               <SelectValue placeholder="Choose a model" />
             </SelectTrigger>
             <SelectContent>
@@ -197,11 +199,11 @@ export function RightSidebar({
                 {MCP_SERVERS.map((server) => (
                   <Card
                     key={server.name}
-                    className="border-border/70 bg-background shadow-sm"
+                    className="border-border/70 bg-background"
                   >
-                    <CardContent className="flex items-start gap-3 p-4">
-                      <div className="rounded-xl border bg-muted/40 p-2">
-                        <Cable className="text-muted-foreground" />
+                    <CardContent className="flex items-center gap-3 p-4">
+                      <div className="flex size-9 shrink-0 items-center justify-center rounded-full border bg-muted/40">
+                        <Cable className="size-4 text-muted-foreground" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-2">
@@ -230,10 +232,12 @@ export function RightSidebar({
                 {TOOLS.map((toolName) => (
                   <div
                     key={toolName}
-                    className="flex items-center justify-between rounded-2xl border bg-background px-3 py-2.5"
+                    className="flex items-center justify-between rounded-full border bg-background px-4 py-2.5"
                   >
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="text-muted-foreground" />
+                    <div className="flex items-center gap-3">
+                      <div className="flex size-9 items-center justify-center rounded-full bg-muted/40">
+                        <Sparkles className="size-4 text-muted-foreground" />
+                      </div>
                       <span className="text-sm font-medium">{toolName}</span>
                     </div>
                     <Badge variant="outline">Ready</Badge>
@@ -249,10 +253,12 @@ export function RightSidebar({
                 Live session
               </SidebarGroupLabel>
               <SidebarGroupContent>
-                <Card className="border-border/70 bg-background shadow-sm">
+                <Card className="border-border/70 bg-background">
                   <CardContent className="flex items-center justify-between p-4">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Gauge />
+                    <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                      <div className="flex size-9 items-center justify-center rounded-full bg-muted/40">
+                        <Gauge className="size-4" />
+                      </div>
                       Streaming context
                     </div>
                     <Badge variant="secondary">
