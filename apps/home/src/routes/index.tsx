@@ -108,6 +108,7 @@ const apps: AppItem[] = [
     host: "okie.one",
     utmContent: "okie_bento",
     description: "Vietnamese community platform for developers",
+    screenshot: "/screenshots/okie.png",
   },
   {
     name: "pageview",
