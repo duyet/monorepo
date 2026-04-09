@@ -5,9 +5,7 @@ import {
   BarChart,
   BookOpen,
   Camera,
-  Database,
   FileText,
-  Settings,
   User,
 } from "lucide-react";
 import { Suspense } from "react";
@@ -25,6 +23,7 @@ interface AppItem {
   href: string;
   host: string;
   utmContent: string;
+  description: string;
   screenshot?: string;
   fallbackIcon?: React.ReactNode;
   fallbackGradientClass?: string;
@@ -37,6 +36,7 @@ const apps: AppItem[] = [
     href: "/",
     host: "llm-timeline.duyet.net",
     utmContent: "llm_timeline_bento",
+    description: "Interactive timeline of 50+ LLM models from 2017-2025",
     screenshot: "/screenshots/llm-timeline.png",
   },
   {
@@ -44,6 +44,7 @@ const apps: AppItem[] = [
     href: "/agents",
     host: "agents.duyet.net",
     utmContent: "agents_bento",
+    description: "AI chat interface with Cloudflare Workers AI and streaming",
     screenshot: "/screenshots/ai-agents.png",
   },
   {
@@ -51,6 +52,7 @@ const apps: AppItem[] = [
     href: "/claw",
     host: "claw.duyet.net",
     utmContent: "claw_bento",
+    description: "Open source alternative to Screenshot API",
     screenshot: "/screenshots/openclaw.png",
   },
   {
@@ -58,6 +60,7 @@ const apps: AppItem[] = [
     href: "/mcp",
     host: "mcp.duyet.net",
     utmContent: "mcp_bento",
+    description: "Model Context Protocol tools and integrations",
     screenshot: "/screenshots/mcp-tools-art.png",
   },
   {
@@ -65,6 +68,7 @@ const apps: AppItem[] = [
     href: "/rust",
     host: "rust-tieng-viet.github.io",
     utmContent: "rust_bento",
+    description: "Rust programming language documentation in Vietnamese",
     screenshot: "/screenshots/rust-art.png",
   },
   {
@@ -72,6 +76,7 @@ const apps: AppItem[] = [
     href: "/clickhouse-monitoring",
     host: "clickhouse.duyet.net",
     utmContent: "ch_monitor_bento",
+    description: "Real-time monitoring dashboard for ClickHouse clusters",
     screenshot: "/screenshots/ch-monitor.png",
   },
   {
@@ -79,6 +84,7 @@ const apps: AppItem[] = [
     href: "/claude-plugins",
     host: "github.com/duyet/claude-plugins",
     utmContent: "claude_plugins_bento",
+    description: "Official plugins for Claude Code and AI SDK",
     screenshot: "/screenshots/claude-plugins-art.png",
   },
   {
@@ -86,6 +92,7 @@ const apps: AppItem[] = [
     href: "/stamp",
     host: "stamp.duyet.net",
     utmContent: "stamp_bento",
+    description: "URL shortener with analytics and custom domains",
     screenshot: "/screenshots/stamp.png",
   },
   {
@@ -93,19 +100,21 @@ const apps: AppItem[] = [
     href: "/agentstate",
     host: "agentstate.app",
     utmContent: "agentstate_bento",
-    screenshot: "/screenshots/art-1.png",
+    description: "AI agent state management and debugging tools",
   },
   {
     name: "okie.one",
     href: "/okie",
     host: "okie.one",
     utmContent: "okie_bento",
+    description: "Vietnamese community platform for developers",
   },
   {
     name: "pageview",
     href: "https://pageview.duyet.net",
     host: "pageview.duyet.net",
     utmContent: "pageview_bento",
+    description: "Simple, privacy-friendly analytics for websites",
   },
 ];
 
@@ -296,9 +305,9 @@ function HomePage() {
               </span>
             </div>
 
-            {/* Apps with screenshots - Grid */}
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-12">
-              {apps.filter((app) => app.screenshot).map((item, index) => {
+            {/* Unified grid for all apps */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {apps.map((item, index) => {
                 const shortcutNumber = index < 4 ? index + 6 : undefined;
                 const delayClass = `animate-fade-in-delay-${Math.min(index + 7, 8)}`;
 
@@ -316,19 +325,22 @@ function HomePage() {
                     shortcutNumber={shortcutNumber}
                     animationClass={delayClass}
                   >
-                    <div className="relative aspect-[16/9] w-full border-b border-neutral-200 flex items-center justify-center overflow-hidden bg-neutral-100 dark:bg-[#0a0a0a] dark:border-white/10">
-                      {item.screenshot && (
+                    {item.screenshot && (
+                      <div className="relative aspect-[16/9] w-full border-b border-neutral-200 flex items-center justify-center overflow-hidden bg-neutral-100 dark:bg-[#0a0a0a] dark:border-white/10">
                         <img
                           src={item.screenshot}
                           alt={item.name}
                           className="absolute inset-0 w-full h-full object-cover object-top opacity-90 transition-opacity group-hover:opacity-100"
                         />
-                      )}
-                    </div>
+                      </div>
+                    )}
                     <div className="p-4 flex flex-col justify-center bg-white dark:bg-[#111]">
-                      <h4 className="text-sm font-semibold text-neutral-900 truncate dark:text-neutral-100">
+                      <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
                         {item.name}
                       </h4>
+                      <p className="text-xs text-neutral-600 dark:text-neutral-400 line-clamp-1 mt-1">
+                        {item.description}
+                      </p>
                       <div className="mt-1 text-xs text-neutral-500 dark:text-neutral-400 break-all">
                         {item.host}
                       </div>
@@ -337,31 +349,6 @@ function HomePage() {
                 );
               })}
             </div>
-
-            {/* Apps without screenshots - Simple list */}
-            {apps.filter((app) => !app.screenshot).length > 0 && (
-              <div className="space-y-2">
-                {apps.filter((app) => !app.screenshot).map((item) => (
-                  <BentoCard
-                    key={item.name}
-                    href={addUtmParams(
-                      item.href,
-                      "homepage",
-                      item.utmContent,
-                      item.host
-                    )}
-                    className="flex items-center justify-between px-4 py-3 hover:bg-neutral-50 dark:hover:bg-neutral-900/50 transition-colors"
-                  >
-                    <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
-                      {item.name}
-                    </span>
-                    <span className="text-xs text-neutral-500 dark:text-neutral-400 break-all ml-4">
-                      {item.host}
-                    </span>
-                  </BentoCard>
-                ))}
-              </div>
-            )}
           </div>
 
           {/* Short URLs CTA */}
