@@ -43,7 +43,7 @@ I didn't stop writing, tons of drafts in my [obsidian](https://obsidian.md/), no
     ]},
     { label: "Model", items: [
       { label: "Opus 4.6", link: "#z-claude-mi-claude-or-claude" },
-      { label: "GLM 4.7", link: "#z-claude-mi-claude-or-claude" }
+      { label: "GLM 4.7 (GLM 5.1 is too slow)", link: "#z-claude-mi-claude-or-claude" }
     ]},
     { label: "Provider", items: [
       { label: "OpenRouter", link: "#claude-code-openrouter-on-github-actions" },
@@ -336,6 +336,12 @@ cancel the deploy check job
 ```
 
 Under the hood, Claude uses `CronCreate`, `CronList`, and `CronDelete` tools. Each task has an 8-character ID, and a session can hold up to 50 scheduled tasks. Recurring tasks auto-expire after 3 days. Set `CLAUDE_CODE_DISABLE_CRON=1` to disable the scheduler entirely.
+
+### Paperclip
+
+If [OpenClaw](https://openclaw.ai) is the employee, [Paperclip](https://paperclip.dev) is the company. For zero-human companies, Paperclip lets you spin up an entire org where every role - CEO, staff engineers, reviewers - is a Claude Code instance, from the smartest model down to the cheapest. I'm using it now to run Duet Company: one Opus agent as the lead, a handful of Sonnet workers doing the grunt work, and a Haiku reviewer catching the obvious stuff. You define the org chart, assign tasks, and let them coordinate. It's wild.
+
+<video src="https://github.com/user-attachments/assets/773bdfb2-6d1e-4e30-8c5f-3487d5b70c8f" width="600" controls></video>
 
 ### Claude Code (+ OpenRouter) on GitHub Actions
 
