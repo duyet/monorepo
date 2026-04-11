@@ -17,6 +17,9 @@ export const Route = createFileRoute("/$year/$month/$slug")({
     const slug = rawSlug.replace(/\.(md|html)$/, "");
     const post = (loaderData as { post?: Post } | undefined)?.post;
     const title = post?.title || slug.replace(/-/g, " ");
+    const ogImage = post?.thumbnail
+      ? new URL(post.thumbnail, "https://blog.duyet.net").toString()
+      : undefined;
     return {
       meta: [
         { title: `${title} | Tôi là Duyệt` },
@@ -34,9 +37,7 @@ export const Route = createFileRoute("/$year/$month/$slug")({
               { property: "og:description", content: post.excerpt },
             ]
           : []),
-        ...(post?.thumbnail
-          ? [{ property: "og:image", content: post.thumbnail }]
-          : []),
+        ...(ogImage ? [{ property: "og:image", content: ogImage }] : []),
       ],
       links: [
         {
