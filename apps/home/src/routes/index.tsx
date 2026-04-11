@@ -52,7 +52,7 @@ const apps: AppItem[] = [
     href: "/claw",
     host: "claw.duyet.net",
     utmContent: "claw_bento",
-    description: "Open source alternative to Screenshot API",
+    description: "OpenClaw Management Dashboard",
     screenshot: "/screenshots/openclaw.png",
   },
   {
@@ -85,7 +85,6 @@ const apps: AppItem[] = [
     host: "github.com/duyet/claude-plugins",
     utmContent: "claude_plugins_bento",
     description: "Official plugins for Claude Code and AI SDK",
-    screenshot: "/screenshots/claude-plugins-art.png",
   },
   {
     name: "Stamp",
@@ -302,31 +301,32 @@ function HomePage() {
                 Apps
               </h2>
               <span className="text-sm text-neutral-500 dark:text-neutral-400">
-                Vibe
+                Managed by @duyetbot AI Agent
               </span>
             </div>
 
-            {/* Unified grid for all apps */}
+            {/* Apps with screenshots */}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {apps.map((item, index) => {
-                const shortcutNumber = index < 4 ? index + 6 : undefined;
-                const delayClass = `animate-fade-in-delay-${Math.min(index + 7, 8)}`;
+              {apps
+                .filter((item) => item.screenshot)
+                .map((item, index) => {
+                  const shortcutNumber = index < 4 ? index + 6 : undefined;
+                  const delayClass = `animate-fade-in-delay-${Math.min(index + 7, 8)}`;
 
-                return (
-                  <BentoCard
-                    key={item.name}
-                    href={addUtmParams(
-                      item.href,
-                      "homepage",
-                      item.utmContent,
-                      item.host
-                    )}
-                    className="group flex flex-col overflow-hidden p-0"
-                    shortcutId={item.name.toLowerCase().replace(/\s+/g, "-")}
-                    shortcutNumber={shortcutNumber}
-                    animationClass={delayClass}
-                  >
-                    {item.screenshot && (
+                  return (
+                    <BentoCard
+                      key={item.name}
+                      href={addUtmParams(
+                        item.href,
+                        "homepage",
+                        item.utmContent,
+                        item.host
+                      )}
+                      className="group flex flex-col overflow-hidden p-0"
+                      shortcutId={item.name.toLowerCase().replace(/\s+/g, "-")}
+                      shortcutNumber={shortcutNumber}
+                      animationClass={delayClass}
+                    >
                       <div className="relative aspect-[16/9] w-full border-b border-neutral-200 flex items-center justify-center overflow-hidden bg-neutral-100 dark:bg-[#0a0a0a] dark:border-white/10">
                         <img
                           src={item.screenshot}
@@ -334,21 +334,54 @@ function HomePage() {
                           className="absolute inset-0 w-full h-full object-cover object-top opacity-90 transition-opacity group-hover:opacity-100"
                         />
                       </div>
-                    )}
-                    <div className="p-4 flex flex-col justify-center bg-white dark:bg-[#111]">
+                      <div className="p-4 flex flex-col justify-center bg-white dark:bg-[#111]">
+                        <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+                          {item.name}
+                        </h4>
+                        <p className="text-xs text-neutral-600 dark:text-neutral-400 line-clamp-1 mt-1">
+                          {item.description}
+                        </p>
+                        <div className="mt-1 text-xs text-neutral-500 dark:text-neutral-400 break-all">
+                          {item.host}
+                        </div>
+                      </div>
+                    </BentoCard>
+                  );
+                })}
+            </div>
+
+            {/* Apps without screenshots — compact row */}
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 mt-4">
+              {apps
+                .filter((item) => !item.screenshot)
+                .map((item, index) => {
+                  const delayClass = `animate-fade-in-delay-${Math.min(index + 7, 8)}`;
+
+                  return (
+                    <BentoCard
+                      key={item.name}
+                      href={addUtmParams(
+                        item.href,
+                        "homepage",
+                        item.utmContent,
+                        item.host
+                      )}
+                      className="group flex flex-col overflow-hidden p-4"
+                      shortcutId={item.name.toLowerCase().replace(/\s+/g, "-")}
+                      animationClass={delayClass}
+                    >
                       <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
                         {item.name}
                       </h4>
-                      <p className="text-xs text-neutral-600 dark:text-neutral-400 line-clamp-1 mt-1">
+                      <p className="text-xs text-neutral-600 dark:text-neutral-400 line-clamp-2 mt-1">
                         {item.description}
                       </p>
-                      <div className="mt-1 text-xs text-neutral-500 dark:text-neutral-400 break-all">
+                      <div className="mt-2 text-xs text-neutral-500 dark:text-neutral-400 break-all">
                         {item.host}
                       </div>
-                    </div>
-                  </BentoCard>
-                );
-              })}
+                    </BentoCard>
+                  );
+                })}
             </div>
           </div>
 
