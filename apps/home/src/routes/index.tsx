@@ -331,6 +331,7 @@ function HomePage() {
                         <img
                           src={item.screenshot}
                           alt={item.name}
+                          loading="lazy"
                           className="absolute inset-0 w-full h-full object-cover object-top opacity-90 transition-opacity group-hover:opacity-100"
                         />
                       </div>
@@ -355,7 +356,9 @@ function HomePage() {
               {apps
                 .filter((item) => !item.screenshot)
                 .map((item, index) => {
-                  const delayClass = `animate-fade-in-delay-${Math.min(index + 7, 8)}`;
+                  const visualIndex = index + apps.filter((i) => i.screenshot).length;
+                  const delayClass = `animate-fade-in-delay-${Math.min(visualIndex + 7, 8)}`;
+                  const shortcutNumber = visualIndex < 4 ? visualIndex + 6 : undefined;
 
                   return (
                     <BentoCard
@@ -368,6 +371,7 @@ function HomePage() {
                       )}
                       className="group flex flex-col overflow-hidden p-4"
                       shortcutId={item.name.toLowerCase().replace(/\s+/g, "-")}
+                      shortcutNumber={shortcutNumber}
                       animationClass={delayClass}
                     >
                       <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
