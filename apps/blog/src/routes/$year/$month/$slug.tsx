@@ -12,17 +12,32 @@ import Content from "./-content";
 import Meta from "./-meta";
 
 export const Route = createFileRoute("/$year/$month/$slug")({
-  head: ({ params }) => {
+  head: ({ params, loaderData }) => {
     const { year, month, slug: rawSlug } = params;
     const slug = rawSlug.replace(/\.(md|html)$/, "");
+    const post = (loaderData as { post?: Post } | undefined)?.post;
+    const title = post?.title || slug.replace(/-/g, " ");
+    const ogImage = post?.thumbnail
+      ? new URL(post.thumbnail, "https://blog.duyet.net").toString()
+      : undefined;
     return {
       meta: [
-        { title: `${slug.replace(/-/g, " ")} | Tôi là Duyệt` },
+        { title: `${title} | Tôi là Duyệt` },
         { property: "og:type", content: "article" },
         {
           property: "og:url",
           content: `https://blog.duyet.net/${year}/${month}/${slug}`,
         },
+        ...(post?.title
+          ? [{ property: "og:title", content: post.title }]
+          : []),
+        ...(post?.excerpt
+          ? [
+              { name: "description", content: post.excerpt },
+              { property: "og:description", content: post.excerpt },
+            ]
+          : []),
+        ...(ogImage ? [{ property: "og:image", content: ogImage }] : []),
       ],
       links: [
         {
