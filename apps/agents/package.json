@@ -61,7 +61,7 @@
     "@tanstack/react-router": "^1.168.0",
     "@tanstack/react-start": "^1.0.0",
     "@xyflow/react": "^12.10.1",
-    "agents": "^0.10.0",
+    "agents": "^0.11.0",
     "ai": "^6.0.103",
     "ai-gateway-provider": "^3.1.1",
     "class-variance-authority": "^0.7.1",
