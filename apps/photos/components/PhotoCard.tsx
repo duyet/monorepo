@@ -62,7 +62,7 @@ export default function PhotoCard({
       }}
     >
       {/* Image Container */}
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden rounded-2xl">
         <LazyImage
           src={imageSrc}
           alt={description}
