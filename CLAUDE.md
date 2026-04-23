@@ -96,7 +96,7 @@ This is a **Bun monorepo** managed by **Turborepo** containing:
 
 10. **ai-percentage** (`apps/ai-percentage/`) - Dashboard showing the percentage of code written by AI across repositories
     - Live at https://ai-percentage.duyet.net (Cloudflare Pages)
-    - Static SPA; production deploy uses `bun run cf:deploy:prod`
+    - Static SPA; use `bun run build` locally and `bun run cf:deploy:prod` for production deploy
 
 11. **data-sync** (`apps/data-sync/`) - CLI for syncing analytics and activity data into ClickHouse
     - Use `bun run sync <name>`, `bun run migrate`, and `bun run cleanup` for operational data workflows
@@ -144,7 +144,8 @@ Place environment files as `.env` or `.env.local` in the root directory.
 - App-specific scripts may include prebuild steps or wrappers; check the relevant `package.json` before assuming `bun run dev` is the plain Vite server. Several apps also expose `test:watch`, `test:coverage`, `preview`, `sync`, `migrate`, `cleanup`, `rss`, `llms-txt`, and `sitemap` scripts.
 - Notable app workflows:
   - `apps/agents`: `bun run prebuild` builds skills before `vite build`; `bun run dev` installs `http-proxy` before starting `node dev.js`, while `bun run dev:vite` runs Vite-only local development; `bun run test:e2e` runs the browser test harness.
-  - `apps/api`: `bun run dev` uses Wrangler, and `bun run test:watch` is available for iterative API testing.
+  - `apps/api`: `bun run dev` uses Wrangler, `bun run deploy` builds then deploys the worker, and `bun run test:watch` is available for iterative API testing.
+  - `apps/cv`: `bun run preview` serves the built app locally to validate production output before deploy.
   - `apps/data-sync`: `bun run sync:all`, `sync:wakatime`, `sync:cloudflare`, `sync:github`, `sync:unsplash`, `migrate:up|down|status|verify`, and `cleanup:dry-run`.
   - `apps/llm-timeline`: `bun run rss`, `llms-txt`, `sitemap`, and `sync:dry` for content generation and sync checks.
   - Several apps also expose `cf:deploy:prod`; check the app `package.json` before using the generic root deploy flow for production.
