@@ -36,7 +36,7 @@ export default function PhotoFeed({ photos }: PhotoFeedProps) {
             itemScope
             itemType="https://schema.org/ImageObject"
           >
-            <div className="relative overflow-hidden rounded-lg bg-neutral-100 dark:bg-neutral-800">
+            <div className="relative overflow-hidden rounded-2xl bg-neutral-100 dark:bg-neutral-800">
               <img
                 src={photo.urls.regular}
                 alt={photo.alt_description || photo.description || "Photo"}
