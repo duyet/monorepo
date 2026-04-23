@@ -6,7 +6,7 @@
   "scripts": {
     "config": "bun ../../scripts/sync-app-secrets.ts duyet-photos",
     "prebuild": "bun scripts/generate-photos-data.ts",
-    "build": "bun --bun vite build",
+    "build": "bun --bun vite build && bun scripts/patch-html-for-cloudflare.ts",
     "dev": "bun --bun vite dev --port 3003",
     "fmt": "bun run fix",
     "lint": "biome lint .",
