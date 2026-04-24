@@ -14,10 +14,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Code Quality
 
-- `bun run lint` - Lint all projects using Turbo
+- `bun run lint` - Lint the repository with Biome
 - `bun run fmt` - Format all TypeScript, TSX, and Markdown files with Biome
-- `bun run prettier-check` - Check code formatting without making changes
 - `bun run test` - Run tests across all packages using Turbo
+- TODO: Add a dedicated `prettier-check` script if Prettier check mode is needed at root.
 
 ### Individual App Development
 
