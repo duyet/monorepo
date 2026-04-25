@@ -4,17 +4,35 @@
 - **Live: https://duyet-cv.vercel.app** (Vercel)
 - **Live: https://duyet-cv.pages.dev** (Cloudflare Pages)
 
-## Update CV
+## Overview
 
-Currently, it only serves as a website for hosting a PDF CV. We need to replace the latest CV file in the [./public](./public) folder.
+Personal CV / resume hosting with TanStack Start and static pre-rendering. Displays structured resume content and serves a PDF download.
 
-## Deploy Your Local Project
+- **Framework**: TanStack Start (SSR + static pre-rendering), TanStack Router
+- **Styling**: Tailwind CSS + Radix UI components
+- **Content**: Structured resume data with LD+JSON schema
 
-To deploy your local project to Vercel, push it to GitHub/GitLab/Bitbucket
-and [import to Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=upstash-roadmap).
+## Development
 
-**Important**: When you import your project on Vercel, make sure to click on **Environment Variables** and set them to
-match your `.env.local` file.
+```bash
+bun run dev          # Start dev server on port 3002
+bun run build        # Build static site to 'dist/client/'
+bun run lint         # Run Biome linter
+bun run check-types  # TypeScript type check
+bun run preview      # Preview production build locally
+```
+
+## Deployment
+
+```bash
+# Deploy to Cloudflare Pages (preview)
+bun run cf:deploy
+
+# Deploy to Cloudflare Pages (production)
+bun run cf:deploy:prod
+```
+
+See [CLAUDE.md](../../CLAUDE.md) for detailed documentation on architecture, development patterns, and common tasks.
 
 ---
 
