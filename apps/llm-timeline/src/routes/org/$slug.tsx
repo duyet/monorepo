@@ -14,6 +14,7 @@ export const Route = createFileRoute("/org/$slug")({
   head: ({ params }) => {
     const org = organizations.find((o) => slugify(o) === params.slug);
     if (!org) return {};
+    const canonicalUrl = `https://llm-timeline.duyet.net/org/${params.slug}`;
     return {
       meta: [
         { title: `${org} LLM Models | LLM Timeline` },
@@ -21,7 +22,15 @@ export const Route = createFileRoute("/org/$slug")({
           name: "description",
           content: `A comprehensive timeline of Large Language Model releases from ${org}.`,
         },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: canonicalUrl },
+        { property: "og:title", content: `${org} LLM Models | LLM Timeline` },
+        {
+          property: "og:description",
+          content: `A comprehensive timeline of Large Language Model releases from ${org}.`,
+        },
       ],
+      links: [{ rel: "canonical", href: canonicalUrl }],
     };
   },
   component: OrgPage,

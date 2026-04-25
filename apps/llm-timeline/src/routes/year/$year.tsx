@@ -14,6 +14,7 @@ export const Route = createFileRoute("/year/$year")({
     const year = params.year;
     const yearNum = parseInt(year, 10);
     if (Number.isNaN(yearNum) || !years.includes(yearNum)) return {};
+    const canonicalUrl = `https://llm-timeline.duyet.net/year/${year}`;
     return {
       meta: [
         { title: `LLM Models Released in ${year} | LLM Timeline` },
@@ -21,7 +22,15 @@ export const Route = createFileRoute("/year/$year")({
           name: "description",
           content: `A comprehensive timeline of Large Language Model releases from ${year}.`,
         },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: canonicalUrl },
+        { property: "og:title", content: `LLM Models Released in ${year} | LLM Timeline` },
+        {
+          property: "og:description",
+          content: `A comprehensive timeline of Large Language Model releases from ${year}.`,
+        },
       ],
+      links: [{ rel: "canonical", href: canonicalUrl }],
     };
   },
   component: YearPage,
