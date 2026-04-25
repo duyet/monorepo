@@ -2,8 +2,87 @@ import Header from "@duyet/components/Header";
 import { createFileRoute } from "@tanstack/react-router";
 import { addUtmParams } from "../../app/lib/utm";
 
+const profilePageJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  dateCreated: "2020-01-01",
+  dateModified: new Date().toISOString().split("T")[0],
+  mainEntity: {
+    "@type": "Person",
+    name: "Duyet Le",
+    jobTitle: "Senior Data & AI Engineer",
+    email: "me@duyet.net",
+    url: "https://duyet.net",
+    sameAs: [
+      "https://github.com/duyet",
+      "https://linkedin.com/in/duyet",
+      "https://blog.duyet.net",
+    ],
+    description:
+      "Senior Data & AI Engineer with 6+ years of experience building scalable data infrastructure, AI/ML platforms, and distributed systems. Expertise in modern data warehousing, real-time processing, and cloud-native architectures.",
+    knowsAbout: [
+      "Data Engineering",
+      "AI/ML Infrastructure",
+      "Platform Engineering",
+      "LlamaIndex",
+      "AI SDK",
+      "LangGraph",
+      "ClickHouse",
+      "Apache Spark",
+      "Apache Airflow",
+      "Python",
+      "Rust",
+      "TypeScript",
+      "Kubernetes",
+      "AWS",
+      "GCP",
+      "Kafka",
+      "BigQuery",
+      "Helm",
+      "Distributed Systems",
+      "Cloud Computing",
+      "Data Warehousing",
+      "Machine Learning Infrastructure",
+      "DevOps",
+    ],
+    worksFor: {
+      "@type": "Organization",
+      name: "Cartrack",
+      url: "https://cartrack.us",
+    },
+    alumniOf: {
+      "@type": "CollegeOrUniversity",
+      name: "University of Information Technology",
+    },
+  },
+});
+
 export const Route = createFileRoute("/about")({
   component: AboutPage,
+  head: () => ({
+    meta: [
+      {
+        title: "About Duyet | Senior Data & AI Engineer",
+      },
+      {
+        name: "description",
+        content:
+          "Senior Data & AI Engineer with 6+ years of experience building scalable data infrastructure, AI/ML platforms, and distributed systems. Expertise in modern data engineering, real-time processing, and cloud-native architectures.",
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://duyet.net/about",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: profilePageJsonLd,
+      },
+    ],
+  }),
 });
 
 // Claude-style SVG Icons - minimal, geometric, soft
