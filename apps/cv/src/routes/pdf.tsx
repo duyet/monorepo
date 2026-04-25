@@ -4,8 +4,24 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/pdf")({
   head: () => ({
     meta: [
-      { title: "Duyet Le | Resume" },
-      { name: "description", content: "" },
+      { title: "CV - PDF View | duyet.net" },
+      {
+        name: "description",
+        content:
+          "View and download Duyet Le's CV as a PDF. Software engineer specializing in full-stack development, Rust, and modern web technologies.",
+      },
+      { property: "og:title", content: "CV - PDF View | duyet.net" },
+      {
+        property: "og:description",
+        content:
+          "View and download Duyet Le's CV as a PDF. Software engineer specializing in full-stack development, Rust, and modern web technologies.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://cv.duyet.net/pdf" },
+      {
+        rel: "canonical",
+        href: "https://cv.duyet.net/pdf",
+      },
     ],
   }),
   component: Page,
