@@ -1,83 +1,107 @@
-# Duyet Data Engineering Blog
+# Duyet Blog
 
-This repository contains the Nextjs version of the blog, which has been migrated from the old Gatsby version.
-The blog is now integrated with Auth0 for authentication and Vercel Storage KV for serverless Redis storage to support comments.
+Personal blog with MDX posts, KaTeX math rendering, and static pre-rendering.
 
-- **Live: https://blog.duyet.net** (official)
-- **Live: https://duyet.vercel.app** (Vercel)
-- **Live: https://duyet-blog.pages.dev** (Cloudflare Pages)
+- **Live**: https://blog.duyet.net (official)
+- **Live**: https://duyet-blog.pages.dev (Cloudflare Pages)
 
 ![](../../.github/screenshot/screenshot-blog.png)
 
 ## What's New?
 
-- The blog has been rewritten in Nextjs to improve performance and simplify the codebase.
-- Comments are now supported by Auth0 and stored at Serverless Redis (Upstash).
+- Migrated from Vite SPA to **TanStack Start** with static pre-rendering for improved performance and SEO
+- Content is pre-rendered at build time (393+ pages), eliminating client-side hydration issues
+- Uses Vite + TanStack Router for file-based routing
+- Supports Markdown/MDX posts with KaTeX math, syntax highlighting, and RSS feed
+
+## Development
+
+```bash
+# Install dependencies
+bun install
+
+# Start development server
+bun run dev
+
+# Build for production
+bun run build
+
+# Run tests
+bun run test
+
+# Type checking
+bun run check-types
+
+# Linting
+bun run lint
+```
 
 ## Deployment
 
-If you would like to deploy your own instance of the blog, follow these instructions:
+The blog is deployed to Cloudflare Pages via GitHub Actions.
 
-### `1` Clone the repository:
-
-```bash
-git clone https://github.com/duyet/monorepo.git
-```
-
-### `2` Set up environment variables
-
-Copy the `.env.local.example` file in this directory to `.env.local` (which will be ignored by Git):
+### Local Deployment
 
 ```bash
-cp .env.local.example .env.local
+# Deploy to preview
+bun run cf:deploy
+
+# Deploy to production
+bun run cf:deploy:prod
 ```
 
-or clone from Vercel deploy
+### Environment Variables
+
+Environment variables are defined at the monorepo root in `.env` or `.env.local`:
 
 ```bash
-vercel env pull .env.local
+# Cross-app navigation
+VITE_DUYET_BLOG_URL=https://blog.duyet.net
+VITE_DUYET_CV_URL=https://cv.duyet.net
+VITE_DUYET_INSIGHTS_URL=https://insights.duyet.net
+
+# Analytics (optional)
+VITE_MEASUREMENT_ID=G-XXXXXXXXX
 ```
 
-### `3` Configuring Vercel Storage KV
+### Adding a New Post
 
-Go to the **Vercel Storage** and create a new database. Copy the .env.local from Vercel UI.
+1. Create a new file in `_posts/YYYY-MM-DD-slug.md` or `_posts/YYYY-MM-DD-slug.mdx`
+2. Add frontmatter:
 
-![](./.github/screenshot/kv.png)
+```markdown
+---
+title: "Post Title"
+date: "2025-01-15"
+category: "Data Engineering"
+tags: ["rust", "clickhouse"]
+series: "series-name"
+---
+```
 
-- `KV_URL`
-- `KV_REST_API_URL`
-- `KV_REST_API_TOKEN`
-- `KV_REST_API_READ_ONLY_TOKEN`
+3. Write content in Markdown or MDX
+4. Math: use `$inline$` or `$$block$$` KaTeX syntax
+5. Code blocks get syntax highlighting automatically
 
-### `4` Configuring Auth0
+### Build Process
 
-1. Go to the [Auth0 dashboard](https://manage.auth0.com/) and create a new application of type **Single Page Web
-   Applications**.
-2. Go to the settings page of the application
-3. Configure the following settings:
-   - **Allowed Callback URLs**: Should be set to `http://localhost:3000/` when testing locally or typically
-     to `https://myapp.com/` when deploying your application.
-   - **Allowed Logout URLs**: Should be set to `http://localhost:3000/` when testing locally or typically
-     to `https://myapp.com/` when deploying your application.
-   - **Allowed Web Origins**: Should be set to `http://localhost:3000` when testing locally or typically
-     to `https://myapp.com/` when deploying your application.
-4. Save the settings.
+- Prebuild steps generate post data and static files
+- TanStack Start pre-renders all routes at build time
+- Output is optimized for Cloudflare Pages deployment
+- RSS feed and sitemap are auto-generated
 
-#### Auth0 environment
+## Architecture
 
-- `NEXT_PUBLIC_AUTH0_DOMAIN`: Can be found in the Auth0 dashboard under `settings`.
-- `NEXT_PUBLIC_AUTH0_CLIENT_ID`: Can be found in the Auth0 dashboard under `settings`.
-- `NEXT_PUBLIC_AUTH0_ADMIN_EMAIL`: This is the email of the admin user which you use while signing in Auth0. Admin is able to delete any comment.
+- **Framework**: Vite + TanStack Router + TanStack Start
+- **Styling**: Tailwind CSS v4
+- **Content**: MDX posts with KaTeX math and syntax highlighting
+- **Package Manager**: Bun
+- **Deployment**: Cloudflare Pages (static pre-rendering)
 
-## Deploy Your Local Project
+## Documentation
 
-To deploy your local project to Vercel, push it to GitHub/GitLab/Bitbucket
-and [import to Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=upstash-roadmap).
-
-**Important**: When you import your project on Vercel, make sure to click on **Environment Variables** and set them to
-match your `.env.local` file.
+See [CLAUDE.md](./CLAUDE.md) for detailed development patterns, project structure, and common tasks.
 
 ---
 
 **This repository is maintained by [@duyetbot](https://github.com/duyetbot).**
-
