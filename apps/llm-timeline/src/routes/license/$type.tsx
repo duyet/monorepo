@@ -26,11 +26,17 @@ export const Route = createFileRoute("/license/$type")({
   head: ({ params }) => {
     const type = params.type as LicenseType;
     if (!LICENSES.includes(type)) return {};
+    const canonicalUrl = `https://llm-timeline.duyet.net/license/${type}`;
     return {
       meta: [
         { title: `${LICENSE_LABELS[type]} Models | LLM Timeline` },
         { name: "description", content: LICENSE_DESCRIPTIONS[type] },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: canonicalUrl },
+        { property: "og:title", content: `${LICENSE_LABELS[type]} Models | LLM Timeline` },
+        { property: "og:description", content: LICENSE_DESCRIPTIONS[type] },
       ],
+      links: [{ rel: "canonical", href: canonicalUrl }],
     };
   },
   component: LicensePage,
