@@ -151,7 +151,7 @@ jobs:
         run: bun install
 
       - name: Type check
-        run: bun run check-types
+        run: bun run turbo check-types
 
   unittest:
     name: Unit tests
