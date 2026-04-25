@@ -301,6 +301,7 @@ export function ChatWorkspace() {
             conversationId={activeId ?? undefined}
             conversationTitle={activeConversation?.title}
             onNewChat={handleNewChat}
+            onOpenSidebar={() => setLeftRailOpen(true)}
           />
 
           <div className="flex min-h-0 flex-1 flex-col">
