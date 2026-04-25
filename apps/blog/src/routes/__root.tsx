@@ -92,6 +92,7 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
+    {/* Vietnamese branding ("Tôi là Duyệt") with English technical content */}
     <html lang="en">
       <head>
         <HeadContent />
