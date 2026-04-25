@@ -278,8 +278,8 @@ function AboutPage() {
               About
             </h1>
             <p className="mx-auto max-w-3xl text-lg leading-relaxed text-neutral-700">
-              Data Engineer with 6+ years of experience. I am confident in my
-              knowledge of Data Engineering concepts, best practices and
+              Data & AI Engineer with 8+ years of experience. I am confident in my
+              knowledge of Data Engineering, AI/ML concepts, best practices and
               state-of-the-art data and Cloud technologies.
             </p>
           </div>
