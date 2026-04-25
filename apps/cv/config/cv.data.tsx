@@ -14,7 +14,7 @@ export const cvData: CVData = {
     title: "Résumé",
     email: "me@duyet.net",
     overview:
-      "Data Engineer with 6+ years of experience in modern data warehousing, distributed systems, and cloud computing. Proficient in LlamaIndex, AI SDK, LangGraph, ClickHouse, Spark, Airflow, Python, Rust.",
+      "Data & AI Engineer with 8+ years of experience in modern data warehousing, distributed systems, AI/ML, and cloud computing. Proficient in LlamaIndex, AI SDK, LangGraph, ClickHouse, Spark, Airflow, Python, Rust.",
     contacts: [
       {
         id: "email",
@@ -259,10 +259,10 @@ export const cvData: CVData = {
 
 export const llmsInfo: LLMsInfo = {
   name: "Duyet Le",
-  role: "Senior Data Engineer",
+  role: "Senior Data & AI Engineer",
   email: "me@duyet.net",
   website: "https://duyet.net",
-  bio: "Data Engineer with 6+ years of experience in modern data warehousing, distributed systems, and cloud computing. Proficient in LlamaIndex, AI SDK, LangGraph, ClickHouse, Spark, Airflow, Python, and Rust.",
+  bio: "Data & AI Engineer with 8+ years of experience in modern data warehousing, distributed systems, AI/ML, and cloud computing. Proficient in LlamaIndex, AI SDK, LangGraph, ClickHouse, Spark, Airflow, Python, and Rust.",
   expertise: [
     "Data Engineering",
     "Distributed Systems",

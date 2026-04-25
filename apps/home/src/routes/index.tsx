@@ -136,12 +136,12 @@ function HomePage() {
             </div>
 
             <h1 className="mb-4 font-sans text-3xl font-bold tracking-tight text-neutral-900 sm:text-5xl dark:text-neutral-100">
-              Data Engineering
+              Data & AI Engineering
             </h1>
             <p className="max-w-2xl text-base leading-relaxed text-neutral-600 sm:text-lg font-normal dark:text-neutral-400">
-              Building scalable data infrastructure and architecting robust
-              distributed systems. I design data pipelines and engineer
-              intelligent applications.
+              Building scalable data infrastructure and AI-powered systems.
+              I design data pipelines, engineer intelligent applications, and
+              architect robust distributed systems.
             </p>
           </div>
 

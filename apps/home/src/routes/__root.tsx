@@ -17,11 +17,11 @@ export const Route = createRootRoute({
       { charSet: "UTF-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
       { name: "robots", content: "follow, index" },
-      { title: "Duyet Le - Data Engineer" },
+      { title: "Duyet Le - Data & AI Engineer" },
       {
         name: "description",
         content:
-          "Data Engineer. I build data infrastructure and love Rust, TypeScript, and open source.",
+          "Data & AI Engineer. I build data infrastructure, AI-powered systems, and love Rust, TypeScript, and open source.",
       },
       {
         name: "theme-color",
