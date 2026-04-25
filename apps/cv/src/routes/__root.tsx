@@ -27,7 +27,7 @@ const personJsonLd = JSON.stringify({
     "https://blog.duyet.net",
   ],
   description:
-    "Data Engineer with 6+ years of experience in modern data warehousing, distributed systems, and cloud computing.",
+    "Data & AI Engineer with 8+ years of experience in modern data warehousing, distributed systems, AI/ML, and cloud computing.",
   knowsAbout: [
     "LlamaIndex",
     "AI SDK",
