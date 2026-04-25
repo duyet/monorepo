@@ -19,7 +19,7 @@ const profilePageJsonLd = JSON.stringify({
       "https://blog.duyet.net",
     ],
     description:
-      "Senior Data & AI Engineer with 6+ years of experience building scalable data infrastructure, AI/ML platforms, and distributed systems. Expertise in modern data warehousing, real-time processing, and cloud-native architectures.",
+      "Senior Data & AI Engineer with 8+ years of experience building scalable data infrastructure, AI/ML platforms, and distributed systems. Expertise in modern data warehousing, real-time processing, and cloud-native architectures.",
     knowsAbout: [
       "Data Engineering",
       "AI/ML Infrastructure",
@@ -67,7 +67,7 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "Senior Data & AI Engineer with 6+ years of experience building scalable data infrastructure, AI/ML platforms, and distributed systems. Expertise in modern data engineering, real-time processing, and cloud-native architectures.",
+          "Senior Data & AI Engineer with 8+ years of experience building scalable data infrastructure, AI/ML platforms, and distributed systems. Expertise in modern data engineering, real-time processing, and cloud-native architectures.",
       },
     ],
     links: [
