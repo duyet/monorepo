@@ -2,6 +2,7 @@ import {
   DownloadSimple as Download,
   FileCode as FileJson,
   FileText,
+  List,
   Plus,
 } from "@phosphor-icons/react";
 import { toast } from "sonner";
@@ -20,12 +21,14 @@ interface ChatTopBarProps {
   onNewChat: () => void;
   conversationTitle?: string;
   conversationId?: string;
+  onOpenSidebar?: () => void;
 }
 
 export function ChatTopBar({
   onNewChat,
   conversationTitle,
   conversationId,
+  onOpenSidebar,
 }: ChatTopBarProps) {
   const { exportConversation, isExporting } = useExportConversation();
   const canExport = Boolean(conversationId);
@@ -48,6 +51,17 @@ export function ChatTopBar({
   return (
     <header className="sticky top-0 z-30 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       <div className="flex h-14 items-center gap-2 px-4">
+        {onOpenSidebar ? (
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onOpenSidebar}
+            aria-label="Open sidebar"
+            className="md:hidden size-9 shrink-0 rounded-full"
+          >
+            <List weight="regular" className="size-4" />
+          </Button>
+        ) : null}
         <div className="flex min-w-0 flex-1 items-center">
           <h1 className="truncate text-sm font-medium">
             {conversationTitle || "New chat"}
