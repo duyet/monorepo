@@ -66,7 +66,7 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "Interactive timeline of Large Language Model releases from 2017 to present.",
+          "Interactive timeline of 3,923+ Large Language Model releases from 1950–2026 across 1,378+ organizations.",
       },
     ],
     links: [
