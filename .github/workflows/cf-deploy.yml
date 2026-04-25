@@ -129,7 +129,7 @@ jobs:
 
   deploy:
     name: Deploy ${{ matrix.app }}
-    needs: detect-changes
+    needs: [detect-changes, typecheck, unittest, lint]
     if: ${{ needs.detect-changes.outputs.matrix != '{"include":[]}' }}
     runs-on: ubuntu-latest
     strategy:
