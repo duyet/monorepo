@@ -9,11 +9,27 @@ import { RateLimitError, NetworkError, AuthError } from "@/lib/errors";
 export const Route = createFileRoute("/feed")({
   head: () => ({
     meta: [
-      { title: "Photo Stream | Photos" },
+      { title: "Photo Stream | duyet.net" },
       {
         name: "description",
         content:
-          "A chronological stream of my photography. One image at a time, each with its story.",
+          "A chronological stream of photography by Duyệt. One image at a time, each with its story—explore the latest photos in a continuous feed.",
+      },
+      {
+        name: "keywords",
+        content: "photography feed, photo stream, latest photos, photography blog",
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://photos.duyet.net/feed",
+      },
+      {
+        rel: "alternate",
+        type: "application/rss+xml",
+        title: "Photo Stream - Photos",
+        href: "https://photos.duyet.net/feed",
       },
     ],
   }),

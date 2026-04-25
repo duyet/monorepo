@@ -19,10 +19,16 @@ export const Route = createFileRoute("/$year")({
     const year = params.year;
     return {
       meta: [
-        { title: `Photos from ${year} | Duyệt` },
+        { title: `Photos from ${year} | duyet.net` },
         {
           name: "description",
-          content: `Photography collection from ${year} by Duyệt`,
+          content: `Photography collection from ${year} by Duyệt. Explore stunning landscapes, portraits, and street photography captured throughout ${year}.`,
+        },
+      ],
+      links: [
+        {
+          rel: "canonical",
+          href: `https://photos.duyet.net/${year}`,
         },
       ],
     };
