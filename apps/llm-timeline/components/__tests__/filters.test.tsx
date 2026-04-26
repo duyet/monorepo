@@ -21,7 +21,7 @@ const baseFilters = {
 };
 
 describe("Filters", () => {
-  it("shows total result context when filtered", () => {
+  it("shows total result context when resultCount is below totalCount", () => {
     const { getByText } = render(
       <Filters
         filters={{ ...baseFilters, license: "open" }}
@@ -34,10 +34,23 @@ describe("Filters", () => {
     expect(getByText("of 100 total")).toBeDefined();
   });
 
-  it("hides total result context when unfiltered", () => {
+  it("hides total result context when resultCount matches totalCount", () => {
     const { queryByText } = render(
       <Filters
         filters={baseFilters}
+        onFilterChange={() => {}}
+        resultCount={100}
+        totalCount={100}
+      />
+    );
+
+    expect(queryByText("of 100 total")).toBeNull();
+  });
+
+  it("keeps total result context hidden when only filter state changes", () => {
+    const { queryByText } = render(
+      <Filters
+        filters={{ ...baseFilters, license: "open" }}
         onFilterChange={() => {}}
         resultCount={100}
         totalCount={100}
