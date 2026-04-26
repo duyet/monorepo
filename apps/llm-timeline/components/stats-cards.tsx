@@ -1,6 +1,6 @@
 import { cn } from "@duyet/libs/utils";
 import { Link } from "@tanstack/react-router";
-import { Building2, Calendar, Database, Sparkles, TrendingUp } from "lucide-react";
+import { Building2, Database, Sparkles, TrendingUp } from "lucide-react";
 import type { ReactNode } from "react";
 
 interface StatsCardsProps {

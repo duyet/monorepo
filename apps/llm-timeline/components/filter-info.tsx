@@ -1,11 +1,10 @@
 import { cn } from "@duyet/libs/utils";
-import { GitCompare, List, X, SlidersHorizontal, ChevronDown } from "lucide-react";
-import { useState, useCallback } from "react";
+import { GitCompare, List, SlidersHorizontal, ChevronDown } from "lucide-react";
+import { useState } from "react";
 import { SearchAutocomplete } from "@/components/SearchAutocomplete";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Select } from "@/components/ui/select";
-import type { Model } from "@/lib/data";
 import { domains } from "@/lib/data";
 
 type View = "models" | "organizations";
@@ -15,10 +14,7 @@ interface FilterInfoProps {
   totalCount: number;
   view: View;
   license?: "all" | "open" | "closed" | "partial";
-  year?: number;
-  org?: string;
   liteMode?: boolean;
-  models: Model[];
   searchQuery?: string;
   onSearchChange?: (query: string) => void;
   onLicenseChange?: (license: "all" | "open" | "closed" | "partial") => void;

@@ -11,7 +11,6 @@ mock.module("@tanstack/react-router", () => ({
   }),
   Link: (props: Record<string, unknown>) => {
     const { children, to, ...rest } = props;
-    // biome-ignore lint/suspicious/noExplicitAny: test mock
     const React = require("react") as any;
     return React.createElement("a", { href: to, ...rest }, children);
   },
