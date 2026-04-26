@@ -2,6 +2,8 @@ import Header from "@duyet/components/Header";
 import { createFileRoute } from "@tanstack/react-router";
 import { addUtmParams } from "../../app/lib/utm";
 
+const experienceYears = "8+ years";
+
 const profilePageJsonLd = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "ProfilePage",
@@ -18,8 +20,7 @@ const profilePageJsonLd = JSON.stringify({
       "https://linkedin.com/in/duyet",
       "https://blog.duyet.net",
     ],
-    description:
-      "Senior Data & AI Engineer with 8+ years of experience building scalable data infrastructure, AI/ML platforms, and distributed systems. Expertise in modern data warehousing, real-time processing, and cloud-native architectures.",
+    description: `Senior Data & AI Engineer with ${experienceYears} of experience building scalable data infrastructure, AI/ML platforms, and distributed systems. Expertise in modern data warehousing, real-time processing, and cloud-native architectures.`,
     knowsAbout: [
       "Data Engineering",
       "AI/ML Infrastructure",
@@ -66,8 +67,7 @@ export const Route = createFileRoute("/about")({
       },
       {
         name: "description",
-        content:
-          "Senior Data & AI Engineer with 8+ years of experience building scalable data infrastructure, AI/ML platforms, and distributed systems. Expertise in modern data engineering, real-time processing, and cloud-native architectures.",
+        content: `Senior Data & AI Engineer with ${experienceYears} of experience building scalable data infrastructure, AI/ML platforms, and distributed systems. Expertise in modern data engineering, real-time processing, and cloud-native architectures.`,
       },
     ],
     links: [
@@ -357,9 +357,9 @@ function AboutPage() {
               About
             </h1>
             <p className="mx-auto max-w-3xl text-lg leading-relaxed text-neutral-700">
-              Data & AI Engineer with 8+ years of experience. I am confident in my
-              knowledge of Data Engineering, AI/ML concepts, best practices and
-              state-of-the-art data and Cloud technologies.
+              Data & AI Engineer with {experienceYears} of experience. I am
+              confident in my knowledge of Data Engineering, AI/ML concepts,
+              best practices and state-of-the-art data and Cloud technologies.
             </p>
           </div>
 
