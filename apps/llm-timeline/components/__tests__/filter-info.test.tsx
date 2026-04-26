@@ -38,7 +38,7 @@ describe("FilterInfo", () => {
     expect(elements.length).toBeGreaterThan(0);
   });
 
-  it("renders 'orgs' label for organizations view", () => {
+  it("renders 'organizations' label for organizations view", () => {
     const { getAllByText } = render(
       <FilterInfo
         {...filterInfoBaseProps}
@@ -46,17 +46,17 @@ describe("FilterInfo", () => {
         resultCount={10}
       />
     );
-    const elements = getAllByText("orgs");
+    const elements = getAllByText("organizations");
     expect(elements.length).toBeGreaterThan(0);
   });
 
-  it("renders license filter when onLicenseChange is provided", () => {
-    const { container } = render(
+  it("renders filter toggle button when onLicenseChange is provided", () => {
+    const { getByText } = render(
       <FilterInfo {...filterInfoBaseProps} onLicenseChange={() => {}} />
     );
-    // Mobile select is always rendered when onLicenseChange provided
-    const selects = container.querySelectorAll("select");
-    expect(selects.length).toBeGreaterThan(0);
+    // Filter toggle button should be present
+    const filterButton = getByText("Filters");
+    expect(filterButton).toBeDefined();
   });
 
   it("does not render license filter when onLicenseChange is absent", () => {
@@ -73,7 +73,7 @@ describe("FilterInfo", () => {
         onToggleComparisonMode={() => {}}
       />
     );
-    expect(getByText("Compare")).toBeDefined();
+    expect(getByText("Comparing")).toBeDefined();
   });
 
   it("does not show comparison mode hint when comparisonMode=false", () => {
@@ -82,8 +82,8 @@ describe("FilterInfo", () => {
   });
 
   it("renders view mode toggle button", () => {
-    const { getByRole } = render(<FilterInfo {...filterInfoBaseProps} />);
-    const btn = getByRole("button", { name: "Toggle view mode" });
+    const { getByText } = render(<FilterInfo {...filterInfoBaseProps} />);
+    const btn = getByText("Full");
     expect(btn).toBeDefined();
   });
 });

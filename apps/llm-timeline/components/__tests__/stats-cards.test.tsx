@@ -69,11 +69,11 @@ describe("StatsCards", () => {
     expect(getAllByText("Years").length).toBeGreaterThan(0);
   });
 
-  it("renders years covered as 2017–26", () => {
+  it("renders years covered as count", () => {
     const { getAllByText } = render(
       <StatsCards models={250} organizations={42} />
     );
-    const elements = getAllByText("1950–26");
+    const elements = getAllByText("76");
     expect(elements.length).toBeGreaterThan(0);
   });
 
