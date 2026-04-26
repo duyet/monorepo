@@ -14,9 +14,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Code Quality
 
-- `bun run lint` - Lint all projects using Turbo
+- `bun run lint` - Lint the workspace with Biome
 - `bun run fmt` - Format all TypeScript, TSX, and Markdown files with Biome
-- `bun run prettier-check` - Check code formatting without making changes
 - `bun run test` - Run tests across all packages using Turbo
 
 ### Individual App Development
@@ -49,6 +48,7 @@ cd apps/blog && bun run cf:deploy:prod
 GitHub Actions automatically deploy:
 - **Production**: Push to `master`/`main` deploys changed apps to production
 - **Preview**: PRs get preview deployments with URLs commented by @duyetbot
+- Both deploy workflows run type check (`bun run turbo check-types`), unit tests, and lint before deploy jobs.
 
 ## Architecture Overview
 
@@ -149,7 +149,7 @@ Place environment files as `.env` or `.env.local` in the root directory.
   - `apps/cv`: `bun run preview` serves the built app locally to validate production output before deploy.
   - `apps/data-sync`: `bun run sync:all`, `sync:wakatime`, `sync:cloudflare`, `sync:github`, `sync:unsplash`, `migrate:up|down|status|verify`, and `cleanup:dry-run`.
   - `apps/data-sync`: `bun run sync ai-code-percentage` refreshes the dataset used by `apps/ai-percentage`.
-  - `apps/llm-timeline`: `bun run rss`, `llms-txt`, `sitemap`, and `sync:dry` for content generation and sync checks.
+  - `apps/llm-timeline`: `bun run rss`, `llms-txt`, `sitemap`, `sync`, and `sync:dry` for content generation and sync checks.
   - Several apps also expose `cf:deploy:prod`; check the app `package.json` before using the generic root deploy flow for production.
 
 ## Git Workflow
