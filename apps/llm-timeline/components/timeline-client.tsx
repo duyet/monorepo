@@ -41,6 +41,7 @@ export function TimelineClient() {
         onFilterChange={handleFilterChange}
         onClearFilters={handleClearFilters}
         resultCount={filteredModels.length}
+        totalCount={models.length}
       />
       <Timeline
         modelsByYear={modelsByYear}

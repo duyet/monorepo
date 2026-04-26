@@ -80,6 +80,7 @@ export function StaticAppClient({
           filters={filters}
           onFilterChange={handleFilterChange}
           resultCount={filteredModels.length}
+          totalCount={filteredModels.length}
           liteMode={liteMode}
           onLiteModeToggle={() => setLiteMode((prev) => !prev)}
         />
@@ -199,6 +200,7 @@ export function AppClient({
           filters={filters}
           onFilterChange={handleFilterChange}
           resultCount={filteredModels.length}
+          totalCount={filteredModels.length}
           liteMode={liteMode}
           onLiteModeToggle={() => setLiteMode((prev) => !prev)}
         />

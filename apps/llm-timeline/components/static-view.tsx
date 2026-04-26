@@ -1,6 +1,6 @@
 import { parseParamValue } from "@duyet/libs";
 import { cn } from "@duyet/libs/utils";
-import { X } from "lucide-react";
+import { X, SlidersHorizontal } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { FilterInfo } from "@/components/filter-info";
 import {
@@ -215,6 +215,7 @@ export function StaticView({
       {/* Filter Info with Search */}
       <FilterInfo
         resultCount={filteredModels.length}
+        totalCount={allModels.length}
         view={view}
         license={licenseFilter}
         year={year}

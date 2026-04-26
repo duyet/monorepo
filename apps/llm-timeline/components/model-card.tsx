@@ -1,6 +1,6 @@
 import { cn } from "@duyet/libs/utils";
 import { useNavigate } from "@tanstack/react-router";
-import { Check, ChevronDown, ChevronUp, Link2 } from "lucide-react";
+import { Check, ChevronDown, ChevronUp, Link2, ExternalLink } from "lucide-react";
 import { useMemo, useState } from "react";
 import { OrgAvatar } from "@/components/org-avatar";
 import { Badge } from "@/components/ui/badge";
@@ -25,6 +25,13 @@ interface ModelCardProps {
   onSelectionChange?: (selected: boolean) => void;
 }
 
+// License color mapping for visual indicator
+const LICENSE_COLORS = {
+  open: "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]",
+  closed: "bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.4)]",
+  partial: "bg-indigo-500 shadow-[0_0_8px_rgba(99,102,241,0.4)]",
+};
+
 export function ModelCard({
   model,
   isLast,
@@ -36,8 +43,8 @@ export function ModelCard({
   if (lite) {
     return (
       <div
-        className="relative flex items-center gap-3 py-1.5 group"
-        style={{ minHeight: "32px" }}
+        className="group relative flex items-center gap-3 py-2 transition-all hover:bg-accent/50 rounded-lg px-2 -mx-2"
+        style={{ minHeight: "36px" }}
       >
         {/* Selection checkbox */}
         {isSelectable && (
@@ -45,11 +52,11 @@ export function ModelCard({
             onClick={() => onSelectionChange?.(!isSelected)}
             className={cn(
               "shrink-0 relative flex items-center justify-center transition-all",
-              "w-5 h-5 rounded border",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+              "w-5 h-5 rounded border-2",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
               isSelected
                 ? "bg-foreground border-foreground"
-                : "bg-card border-border hover:border-foreground/40"
+                : "bg-card border-border hover:border-foreground/60"
             )}
             aria-label={
               isSelected
@@ -58,75 +65,69 @@ export function ModelCard({
             }
           >
             {isSelected && (
-              <Check className="h-3 w-3 text-background" />
+              <Check className="h-3 w-3 text-background" strokeWidth={3} />
             )}
           </button>
         )}
 
-        {/* Small dot indicator with license color */}
+        {/* License indicator with glow */}
         {!isSelectable && (
           <div
             className={cn(
-              "shrink-0 w-2 h-2 rounded-full",
-              model.license === "open"
-                ? "bg-emerald-500"
-                : model.license === "closed"
-                  ? "bg-red-500"
-                  : model.license === "partial"
-                    ? "bg-indigo-500"
-                    : "bg-muted-foreground/40"
+              "shrink-0 w-2 h-2 rounded-full transition-all duration-300",
+              LICENSE_COLORS[model.license as keyof typeof LICENSE_COLORS] || "bg-muted-foreground"
             )}
           />
         )}
 
         {/* Model name on left */}
-        <div className="flex items-center gap-2 min-w-0 flex-1">
+        <div className="flex items-center gap-2.5 min-w-0 flex-1">
           <OrgAvatar org={model.org} size="sm" />
           <span className="truncate text-sm font-medium text-foreground">
             {model.name}
           </span>
         </div>
 
-        {/* Dots separator */}
-        <div className="flex-1 px-2 opacity-30 bg-[length:4px_4px] bg-repeat-x bg-center [background-image:radial-gradient(circle,rgb(212_212_212)_1px,transparent_1px)] dark:[background-image:radial-gradient(circle,rgb(64_64_64)_1px,transparent_1px)]" />
+        {/* Elegant separator */}
+        <div className="flex-1 h-px bg-gradient-to-r from-border/50 to-transparent mx-2" />
 
         {/* Year and metadata on right */}
-        <div className="flex shrink-0 items-center gap-1.5">
-          <span className="text-xs font-[family-name:var(--font-mono)] text-muted-foreground">
+        <div className="flex shrink-0 items-center gap-2">
+          <span className="text-xs font-[family-name:var(--font-mono)] text-muted-foreground tabular-nums">
             {model.date.slice(0, 4)}
           </span>
-          <Badge variant={getTypeBadgeVariant(model.type)}>{model.type}</Badge>
-          <Badge variant={getLicenseBadgeVariant(model.license)}>
+          <Badge variant={getTypeBadgeVariant(model.type)} className="text-[10px] px-1.5 py-0">
+            {model.type}
+          </Badge>
+          <Badge
+            variant={getLicenseBadgeVariant(model.license)}
+            className="text-[10px] px-1.5 py-0"
+          >
             {model.license}
           </Badge>
-          {model.source && (
-            <Badge variant={getSourceBadgeVariant(model.source)}>
-              {model.source === "epoch" ? "Epoch" : "Curated"}
-            </Badge>
-          )}
         </div>
       </div>
     );
   }
 
   return (
-    <div className="relative flex items-start gap-3 pb-6 group">
-      {/* Timeline Line */}
+    <div className="relative flex items-start gap-4 pb-6 group">
+      {/* Enhanced Timeline Line with gradient */}
       {!isLast && (
-        <div className="absolute left-[13px] top-0 h-full w-px bg-border" />
+        <div className="absolute left-[15px] top-8 h-full w-px bg-gradient-to-b from-border via-border/50 to-transparent" />
       )}
 
-      {/* Org logo as timeline dot or selection checkbox */}
+      {/* Org logo with enhanced styling or selection checkbox */}
       {isSelectable ? (
-        <div className="relative z-10 shrink-0 bg-background">
+        <div className="relative z-10 shrink-0 bg-background rounded-lg">
           <button
             onClick={() => onSelectionChange?.(!isSelected)}
             className={cn(
-              "flex items-center justify-center transition-all rounded-lg p-1",
+              "flex items-center justify-center transition-all rounded-lg p-1.5",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
               isSelected
-                ? "bg-foreground"
-                : "bg-card border border-border hover:border-foreground/40"
+                ? "bg-foreground shadow-lg"
+                : "bg-card border border-border hover:border-foreground/40 hover:shadow-md"
             )}
             aria-label={
               isSelected
@@ -135,87 +136,103 @@ export function ModelCard({
             }
           >
             {isSelected ? (
-              <Check className="h-5 w-5 text-background" />
+              <Check className="h-5 w-5 text-background" strokeWidth={2.5} />
             ) : (
               <OrgAvatar org={model.org} size="sm" />
             )}
           </button>
         </div>
       ) : (
-        <div className="relative z-10 shrink-0 rounded-lg p-1 bg-background">
-          <OrgAvatar org={model.org} size="sm" />
+        <div className="relative z-10 shrink-0">
+          {/* Glow effect behind avatar */}
+          <div className={cn(
+            "absolute inset-0 rounded-full blur-md opacity-50 transition-opacity duration-300",
+            LICENSE_COLORS[model.license as keyof typeof LICENSE_COLORS] || "bg-muted-foreground"
+          )} style={{ transform: "scale(1.5)" }} />
+          <div className="relative rounded-lg p-1.5 bg-background">
+            <OrgAvatar org={model.org} size="sm" />
+          </div>
         </div>
       )}
 
-      {/* Card */}
+      {/* Enhanced Card */}
       <div
         className={cn(
-          "flex-1 rounded-xl border p-4 transition-all bg-card",
-          "hover:border-foreground/20",
+          "flex-1 rounded-xl border transition-all duration-300 bg-card/50 backdrop-blur-sm",
+          "hover:border-foreground/15 hover:shadow-lg hover:bg-card",
           isSelectable && isSelected
-            ? "ring-2 ring-ring ring-offset-2 border-foreground/20"
-            : "border-border"
+            ? "ring-2 ring-ring ring-offset-2 ring-offset-background border-foreground/20 shadow-md"
+            : "border-border/50"
         )}
       >
-        {/* Header row */}
-        <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
-          <div className="min-w-0 flex-1">
-            <h3 className="text-base font-semibold truncate text-foreground">
+        {/* Header row with improved hierarchy */}
+        <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
+          <div className="min-w-0 flex-1 space-y-1">
+            <h3 className="text-lg font-semibold font-[family-name:var(--font-display)] tracking-tight text-foreground leading-tight">
               {model.name}
             </h3>
-            <p className="text-xs truncate text-muted-foreground">
+            <p className="text-sm text-muted-foreground">
               {model.org}
             </p>
           </div>
 
-          {/* Date + params */}
-          <div className="text-right">
-            <div className="text-xs font-[family-name:var(--font-mono)] text-muted-foreground">
+          {/* Date + params with monospace */}
+          <div className="text-right space-y-0.5">
+            <div className="text-sm font-[family-name:var(--font-mono)] text-muted-foreground tabular-nums">
               {model.date.slice(0, 7)}
             </div>
             {model.params && (
-              <div className="text-xs font-[family-name:var(--font-mono)] font-medium text-foreground/70">
+              <div className="text-sm font-[family-name:var(--font-mono)] font-medium text-foreground/80 tabular-nums">
                 {model.params}
               </div>
             )}
           </div>
         </div>
 
-        {/* Badges */}
-        <div className="mb-2 flex flex-wrap gap-1.5">
-          <Badge variant={getTypeBadgeVariant(model.type)}>{model.type}</Badge>
-          <Badge variant={getLicenseBadgeVariant(model.license)}>
+        {/* Enhanced Badges */}
+        <div className="mb-3 flex flex-wrap gap-1.5">
+          <Badge variant={getTypeBadgeVariant(model.type)} className="text-xs">
+            {model.type}
+          </Badge>
+          <Badge
+            variant={getLicenseBadgeVariant(model.license)}
+            className="text-xs"
+          >
             {model.license}
           </Badge>
           {model.source && (
-            <Badge variant={getSourceBadgeVariant(model.source)}>
+            <Badge
+              variant={getSourceBadgeVariant(model.source)}
+              className="text-xs"
+            >
               {model.source === "epoch" ? "Epoch" : "Curated"}
             </Badge>
           )}
         </div>
 
-        {/* Description */}
-        <p className="text-sm leading-relaxed line-clamp-3 text-muted-foreground">
+        {/* Description with better readability */}
+        <p className="text-sm leading-relaxed text-foreground/80 line-clamp-3">
           {model.desc}
         </p>
 
-        {/* Metadata (from Epoch.ai or other enriched sources) */}
+        {/* Enhanced Metadata */}
         {(model.domain ||
           model.link ||
           model.trainingCompute ||
           model.trainingHardware ||
           model.authors) && (
-          <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 border-t border-border pt-2 text-[11px] text-muted-foreground">
+          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 border-t border-border/50 pt-3 text-xs text-muted-foreground">
             {model.domain && (
-              <span>
+              <span className="flex items-center gap-1.5">
                 {model.link ? (
                   <a
                     href={model.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline decoration-border underline-offset-2 text-foreground/70 hover:text-foreground"
+                    className="underline decoration-border/50 underline-offset-2 text-foreground/70 hover:text-foreground transition-colors inline-flex items-center gap-1"
                   >
                     {model.domain}
+                    <ExternalLink className="h-3 w-3" />
                   </a>
                 ) : (
                   model.domain
@@ -227,13 +244,14 @@ export function ModelCard({
                 href={model.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline decoration-border underline-offset-2 text-foreground/70 hover:text-foreground"
+                className="underline decoration-border/50 underline-offset-2 text-foreground/70 hover:text-foreground inline-flex items-center gap-1"
               >
                 Paper
+                <ExternalLink className="h-3 w-3" />
               </a>
             )}
             {model.trainingCompute && (
-              <span className="font-[family-name:var(--font-mono)]">
+              <span className="font-[family-name:var(--font-mono)] tabular-nums">
                 {model.trainingCompute} FLOP
               </span>
             )}
@@ -275,16 +293,16 @@ function RelatedModelsSection({ model }: RelatedModelsSectionProps) {
   };
 
   return (
-    <div className="mt-3 border-t border-border pt-2">
+    <div className="mt-4 border-t border-border/50 pt-3">
       <div className="flex items-center justify-between gap-2">
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground transition-all hover:text-foreground"
+          className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground transition-all hover:text-foreground"
         >
           {isExpanded ? (
-            <ChevronUp className="h-3 w-3" />
+            <ChevronUp className="h-3.5 w-3.5" />
           ) : (
-            <ChevronDown className="h-3 w-3" />
+            <ChevronDown className="h-3.5 w-3.5" />
           )}
           <span>Related Models ({relatedModels.length})</span>
         </button>
@@ -293,19 +311,19 @@ function RelatedModelsSection({ model }: RelatedModelsSectionProps) {
           variant="outline"
           size="sm"
           onClick={handleCompareAll}
-          className="h-6 px-2 text-[11px]"
+          className="h-7 px-2.5 text-xs"
         >
           Compare All
         </Button>
       </div>
 
       {isExpanded && (
-        <div className="mt-2 flex flex-col gap-1">
+        <div className="mt-3 flex flex-col gap-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
           {relatedModels.map((related) => (
             <a
               key={related.name}
               href={`#${related.name}`}
-              className="flex items-center gap-2 rounded-lg px-2 py-1.5 transition-colors hover:bg-accent"
+              className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 transition-all hover:bg-accent hover:shadow-sm"
               title={related.desc}
             >
               <OrgAvatar org={related.org} size="sm" />
@@ -318,16 +336,18 @@ function RelatedModelsSection({ model }: RelatedModelsSectionProps) {
                   {related.params && (
                     <>
                       <span>·</span>
-                      <span className="font-[family-name:var(--font-mono)]">
+                      <span className="font-[family-name:var(--font-mono)] tabular-nums">
                         {related.params}
                       </span>
                     </>
                   )}
                   <span>·</span>
-                  <span>{related.date.slice(0, 4)}</span>
+                  <span className="font-[family-name:var(--font-mono)] tabular-nums">
+                    {related.date.slice(0, 4)}
+                  </span>
                 </div>
               </div>
-              <Link2 className="h-3 w-3 shrink-0 text-muted-foreground" />
+              <Link2 className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
             </a>
           ))}
         </div>

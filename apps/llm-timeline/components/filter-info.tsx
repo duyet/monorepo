@@ -1,14 +1,18 @@
 import { cn } from "@duyet/libs/utils";
-import { GitCompare, List, X } from "lucide-react";
+import { GitCompare, List, X, SlidersHorizontal, ChevronDown } from "lucide-react";
+import { useState, useCallback } from "react";
 import { SearchAutocomplete } from "@/components/SearchAutocomplete";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Select } from "@/components/ui/select";
 import type { Model } from "@/lib/data";
+import { domains } from "@/lib/data";
 
 type View = "models" | "organizations";
 
 interface FilterInfoProps {
   resultCount: number;
+  totalCount: number;
   view: View;
   license?: "all" | "open" | "closed" | "partial";
   year?: number;
@@ -24,6 +28,7 @@ interface FilterInfoProps {
 
 export function FilterInfo({
   resultCount,
+  totalCount,
   view,
   license = "all",
   liteMode,
@@ -33,6 +38,9 @@ export function FilterInfo({
   comparisonMode,
   onToggleComparisonMode,
 }: FilterInfoProps) {
+  const [filtersExpanded, setFiltersExpanded] = useState(false);
+  const [domainFilter, setDomainFilter] = useState("all");
+
   const toggleLiteMode = () => {
     const url = new URL(window.location.href);
     if (liteMode) {
@@ -43,135 +51,144 @@ export function FilterInfo({
     window.location.href = url.toString();
   };
 
+  const isFiltered = resultCount < totalCount;
+  const activeFilterCount = [
+    license !== "all",
+    domainFilter !== "all",
+  ].filter(Boolean).length;
+
   return (
-    <>
-      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4 rounded-xl border border-border bg-card px-4 py-3 animate-fade-in animate-fade-in-delay-2">
-        {/* Search with autocomplete — full width on mobile */}
-        <div className="flex-1 min-w-0">
+    <div className="space-y-3">
+      {/* Search + Filter Toggle Row */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="flex-1">
           <SearchAutocomplete
             value={searchQuery}
             onChange={(val) => onSearchChange?.(val)}
+            inputClassName="h-10"
             placeholder={`Search ${view === "organizations" ? "organizations" : "models"}...`}
           />
         </div>
 
-        {/* Controls row */}
-        <div className="flex items-center gap-3 justify-between sm:justify-end">
-          {/* Result count */}
-          <div className="flex items-center gap-2 text-sm whitespace-nowrap text-muted-foreground">
-            <span className="font-semibold font-[family-name:var(--font-mono)] text-foreground">
-              {resultCount.toLocaleString()}
-            </span>
-            {view === "organizations" ? "orgs" : "models"}
-          </div>
-
-          {/* License filter pills */}
+        <div className="flex items-center gap-2">
+          {/* Filter toggle */}
           {onLicenseChange && (
-            <div className="hidden sm:flex items-center gap-1">
-              {(
-                [
-                  ["all", "All"],
-                  ["open", "Open"],
-                  ["closed", "Closed"],
-                  ["partial", "Partial"],
-                ] as const
-              ).map(([value, label]) => (
-                <button
-                  key={value}
-                  onClick={() => onLicenseChange(value)}
-                  className={cn(
-                    "rounded-lg px-2.5 py-1 text-xs font-medium transition-all",
-                    license === value
-                      ? "bg-foreground text-background"
-                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                  )}
+            <button
+              onClick={() => setFiltersExpanded(!filtersExpanded)}
+              className={cn(
+                "flex h-10 items-center gap-2 rounded-lg border px-3 text-sm font-medium transition-all",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                filtersExpanded || activeFilterCount > 0
+                  ? "border-foreground/20 bg-accent text-foreground"
+                  : "border-border bg-card text-muted-foreground hover:border-foreground/20 hover:bg-accent/50"
+              )}
+            >
+              <SlidersHorizontal className="h-4 w-4" />
+              <span className="hidden sm:inline">Filters</span>
+              {activeFilterCount > 0 && (
+                <Badge
+                  variant="default"
+                  className="h-5 min-w-5 px-1.5 text-[10px] font-bold"
                 >
-                  {label}
-                </button>
-              ))}
-            </div>
+                  {activeFilterCount}
+                </Badge>
+              )}
+              <ChevronDown
+                className={cn(
+                  "h-3.5 w-3.5 transition-transform duration-200",
+                  filtersExpanded && "rotate-180"
+                )}
+              />
+            </button>
           )}
 
-          {/* Mobile license select */}
-          {onLicenseChange && (
-            <select
-              value={license}
-              onChange={(e) =>
-                onLicenseChange(
-                  e.target.value as "all" | "open" | "closed" | "partial"
-                )
-              }
-              className="sm:hidden rounded-lg border border-border bg-card text-foreground py-1.5 px-2 text-xs focus:outline-none focus:ring-1 focus:ring-ring"
-            >
-              <option value="all">All</option>
-              <option value="open">Open</option>
-              <option value="closed">Closed</option>
-              <option value="partial">Partial</option>
-            </select>
-          )}
-
-          {/* Divider */}
-          <div className="hidden sm:block h-5 w-px bg-border" />
-
-          {/* Action buttons */}
-          <div className="flex items-center gap-1">
-            {view === "models" && onToggleComparisonMode && (
-              <Button
-                variant={comparisonMode ? "default" : "ghost"}
-                size="icon"
-                onClick={onToggleComparisonMode}
-                className="h-8 w-8"
-                title={
-                  comparisonMode
-                    ? "Exit comparison mode"
-                    : "Compare models"
-                }
-                aria-label={
-                  comparisonMode
-                    ? "Exit comparison mode"
-                    : "Enter comparison mode"
-                }
-              >
-                <GitCompare className="h-3.5 w-3.5" />
-              </Button>
+          {/* View toggle */}
+          <button
+            onClick={toggleLiteMode}
+            className={cn(
+              "flex h-10 items-center gap-2 rounded-lg border px-3 text-sm font-medium transition-all",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              liteMode
+                ? "border-foreground/20 bg-accent text-foreground"
+                : "border-border bg-card text-muted-foreground hover:border-foreground/20 hover:bg-accent/50"
             )}
-
-            <Button
-              variant={liteMode ? "default" : "ghost"}
-              size="icon"
-              onClick={toggleLiteMode}
-              className="h-8 w-8"
-              title={liteMode ? "Switch to full view" : "Switch to compact view"}
-              aria-label="Toggle view mode"
-            >
-              <List className="h-3.5 w-3.5" />
-            </Button>
-          </div>
+            title={liteMode ? "Switch to full view" : "Switch to compact view"}
+          >
+            {liteMode ? (
+              <List className="h-4 w-4" />
+            ) : (
+              <GitCompare className="h-4 w-4" />
+            )}
+            <span className="hidden sm:inline">
+              {liteMode ? "Compact" : "Full"}
+            </span>
+          </button>
         </div>
       </div>
 
-      {/* Comparison mode hint */}
-      {comparisonMode && (
-        <div className="mb-4 flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-2.5 text-sm animate-fade-in-fast">
-          <Badge variant="default" className="text-[11px]">
-            Compare
-          </Badge>
-          <span className="text-muted-foreground">
-            Click models to select (max 3), then press{" "}
-            <kbd className="rounded border border-border px-1.5 py-0.5 font-mono text-xs bg-muted">
-              c
-            </kbd>{" "}
-            to compare.
-          </span>
-          <button
-            onClick={onToggleComparisonMode}
-            className="ml-auto text-muted-foreground hover:text-foreground transition-colors"
-            aria-label="Exit comparison mode"
-          >
-            <X className="h-3.5 w-3.5" />
-          </button>
+      {/* Expandable Filters */}
+      {filtersExpanded && onLicenseChange && (
+        <div className="rounded-xl border border-border bg-card/50 backdrop-blur-sm p-4 animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="flex flex-wrap gap-2">
+            <Select
+              variant="filter"
+              value={license}
+              onChange={(e) =>
+                onLicenseChange(e.target.value as "all" | "open" | "closed" | "partial")
+              }
+            >
+              <option value="all">All Licenses</option>
+              <option value="open">Open</option>
+              <option value="closed">Closed</option>
+              <option value="partial">Partial</option>
+            </Select>
+
+            <Select
+              variant="filter"
+              value={domainFilter}
+              onChange={(e) => setDomainFilter(e.target.value)}
+            >
+              <option value="all">All Domains</option>
+              {domains.slice(0, 15).map((d) => (
+                <option key={d} value={d}>
+                  {d}
+                </option>
+              ))}
+            </Select>
+          </div>
         </div>
       )}
-    </>
+
+      {/* Result count with filtered indicator */}
+      <div className="flex items-center justify-between text-sm">
+        <div className="flex items-center gap-2">
+          <span className={cn(
+            "font-[family-name:var(--font-mono)] tabular-nums",
+            isFiltered ? "text-foreground font-medium" : "text-muted-foreground"
+          )}>
+            {resultCount.toLocaleString()}
+            <span className="text-muted-foreground"> {view === "organizations" ? "organizations" : "models"}</span>
+          </span>
+          {isFiltered && (
+            <span className="text-muted-foreground">
+              of {totalCount.toLocaleString()} total
+            </span>
+          )}
+        </div>
+
+        {/* Compare button when applicable */}
+        {comparisonMode !== undefined && onToggleComparisonMode && (
+          <Button
+            variant={comparisonMode ? "default" : "outline"}
+            size="sm"
+            onClick={onToggleComparisonMode}
+            className="h-8"
+          >
+            <GitCompare className="h-3.5 w-3.5 mr-1.5" />
+            {comparisonMode ? "Comparing" : "Compare"}
+          </Button>
+        )}
+      </div>
+    </div>
   );
 }
