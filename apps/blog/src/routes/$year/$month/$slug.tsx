@@ -28,9 +28,7 @@ export const Route = createFileRoute("/$year/$month/$slug")({
           property: "og:url",
           content: `https://blog.duyet.net/${year}/${month}/${slug}`,
         },
-        ...(post?.title
-          ? [{ property: "og:title", content: post.title }]
-          : []),
+        ...(post?.title ? [{ property: "og:title", content: post.title }] : []),
         ...(post?.excerpt
           ? [
               { name: "description", content: post.excerpt },
@@ -120,11 +118,7 @@ function PostPage() {
           </article>
 
           {series && (
-            <SeriesBox
-              className="mt-12"
-              series={series}
-              current={post.slug}
-            />
+            <SeriesBox className="mt-12" series={series} current={post.slug} />
           )}
         </div>
 

@@ -122,9 +122,7 @@ export function FilterInfo({
                 onClick={onToggleComparisonMode}
                 className="h-8 w-8"
                 title={
-                  comparisonMode
-                    ? "Exit comparison mode"
-                    : "Compare models"
+                  comparisonMode ? "Exit comparison mode" : "Compare models"
                 }
                 aria-label={
                   comparisonMode
@@ -141,7 +139,9 @@ export function FilterInfo({
               size="icon"
               onClick={toggleLiteMode}
               className="h-8 w-8"
-              title={liteMode ? "Switch to full view" : "Switch to compact view"}
+              title={
+                liteMode ? "Switch to full view" : "Switch to compact view"
+              }
               aria-label="Toggle view mode"
             >
               <List className="h-3.5 w-3.5" />

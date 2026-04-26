@@ -420,10 +420,7 @@ function ComparisonModalContent({
                   Organization
                 </td>
                 {sortedModels.map((model) => (
-                  <td
-                    key={model.name}
-                    className="px-4 py-3 text-foreground"
-                  >
+                  <td key={model.name} className="px-4 py-3 text-foreground">
                     {model.org}
                   </td>
                 ))}

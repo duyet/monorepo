@@ -32,11 +32,15 @@ const colorClasses = {
   ivory: "bg-ivory text-neutral-900 dark:bg-ivory/20 dark:text-neutral-100",
   oat: "bg-oat-light text-neutral-900 dark:bg-oat-light/20 dark:text-neutral-100",
   cream: "bg-cream text-neutral-900 dark:bg-cream/20 dark:text-neutral-100",
-  cactus: "bg-cactus-light text-neutral-900 dark:bg-cactus-light/20 dark:text-neutral-100",
+  cactus:
+    "bg-cactus-light text-neutral-900 dark:bg-cactus-light/20 dark:text-neutral-100",
   sage: "bg-sage-light text-neutral-900 dark:bg-sage-light/20 dark:text-neutral-100",
-  lavender: "bg-lavender-light text-neutral-900 dark:bg-lavender-light/20 dark:text-neutral-100",
-  terracotta: "bg-terracotta-light text-neutral-900 dark:bg-terracotta-light/20 dark:text-neutral-100",
-  coral: "bg-coral-light text-neutral-900 dark:bg-coral-light/20 dark:text-neutral-100",
+  lavender:
+    "bg-lavender-light text-neutral-900 dark:bg-lavender-light/20 dark:text-neutral-100",
+  terracotta:
+    "bg-terracotta-light text-neutral-900 dark:bg-terracotta-light/20 dark:text-neutral-100",
+  coral:
+    "bg-coral-light text-neutral-900 dark:bg-coral-light/20 dark:text-neutral-100",
   white:
     "border border-neutral-200 bg-white text-neutral-900 hover:border-neutral-300 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100 dark:hover:border-neutral-600",
 };
@@ -145,7 +149,9 @@ function ContentCardInner({
           )}
 
           {date && (
-            <time className="text-xs font-medium text-neutral-600 dark:text-neutral-400">{date}</time>
+            <time className="text-xs font-medium text-neutral-600 dark:text-neutral-400">
+              {date}
+            </time>
           )}
         </div>
       </div>

@@ -31,10 +31,12 @@ const diffSchema = new Schema({
         let className = "";
         switch (mark.attrs.type) {
           case DiffType.Inserted:
-            className = "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 rounded-sm px-0.5 -mx-0.5";
+            className =
+              "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 rounded-sm px-0.5 -mx-0.5";
             break;
           case DiffType.Deleted:
-            className = "bg-red-500/15 line-through text-red-600 dark:text-red-400 rounded-sm px-0.5 -mx-0.5 opacity-70";
+            className =
+              "bg-red-500/15 line-through text-red-600 dark:text-red-400 rounded-sm px-0.5 -mx-0.5 opacity-70";
             break;
           default:
             className = "";
@@ -60,44 +62,44 @@ export const DiffView = ({ oldContent, newContent }: DiffViewProps) => {
 
   useEffect(() => {
     if (editorRef.current && !viewRef.current) {
-    const parser = DOMParser.fromSchema(diffSchema);
+      const parser = DOMParser.fromSchema(diffSchema);
 
-    const oldHtmlContent = renderToString(
-      <MessageResponse>{oldContent}</MessageResponse>
-    );
-    const newHtmlContent = renderToString(
-      <MessageResponse>{newContent}</MessageResponse>
-    );
-
-    const oldContainer = document.createElement("div");
-    oldContainer.innerHTML = oldHtmlContent;
-
-    const newContainer = document.createElement("div");
-    newContainer.innerHTML = newHtmlContent;
-
-    const oldDoc = parser.parse(oldContainer);
-    const newDoc = parser.parse(newContainer);
-
-    const diffedDoc = computeDiff(oldDoc, newDoc);
-
-    const state = EditorState.create({
-      doc: diffedDoc,
-      plugins: [],
-    });
-
-    viewRef.current = new EditorView(editorRef.current, {
-      state,
-      editable: () => false,
-    });
-
-    requestAnimationFrame(() => {
-      const firstDiff = editorRef.current?.querySelector(
-        "[class*='bg-emerald'], [class*='bg-red']"
+      const oldHtmlContent = renderToString(
+        <MessageResponse>{oldContent}</MessageResponse>
       );
-      if (firstDiff) {
-        firstDiff.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    });
+      const newHtmlContent = renderToString(
+        <MessageResponse>{newContent}</MessageResponse>
+      );
+
+      const oldContainer = document.createElement("div");
+      oldContainer.innerHTML = oldHtmlContent;
+
+      const newContainer = document.createElement("div");
+      newContainer.innerHTML = newHtmlContent;
+
+      const oldDoc = parser.parse(oldContainer);
+      const newDoc = parser.parse(newContainer);
+
+      const diffedDoc = computeDiff(oldDoc, newDoc);
+
+      const state = EditorState.create({
+        doc: diffedDoc,
+        plugins: [],
+      });
+
+      viewRef.current = new EditorView(editorRef.current, {
+        state,
+        editable: () => false,
+      });
+
+      requestAnimationFrame(() => {
+        const firstDiff = editorRef.current?.querySelector(
+          "[class*='bg-emerald'], [class*='bg-red']"
+        );
+        if (firstDiff) {
+          firstDiff.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      });
     }
 
     return () => {

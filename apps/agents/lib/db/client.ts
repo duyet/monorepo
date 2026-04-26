@@ -647,16 +647,21 @@ export class DatabaseClient {
       "INSERT INTO documents (id, title, content, kind, user_id, created_at) VALUES (?, ?, ?, ?, ?, ?)"
     );
     await stmt
-      .bind(params.id, params.title, params.content, params.kind, params.userId, now)
+      .bind(
+        params.id,
+        params.title,
+        params.content,
+        params.kind,
+        params.userId,
+        now
+      )
       .run();
   }
 
   /**
    * Get a document by ID
    */
-  async getDocument(
-    id: string
-  ): Promise<{
+  async getDocument(id: string): Promise<{
     id: string;
     title: string;
     content: string;

@@ -17,14 +17,8 @@ import { useDataStream } from "@/components/chat/data-stream-provider";
 import { useAutoResume } from "@/hooks/use-auto-resume";
 import { ChatbotError } from "@/lib/errors";
 import type { ChatMessage } from "@/lib/types";
-import {
-  DEFAULT_OPENROUTER_MODEL_ID,
-} from "@/lib/types";
-import {
-  fetcher,
-  fetchWithErrorHandlers,
-  generateUUID,
-} from "@/lib/utils";
+import { DEFAULT_OPENROUTER_MODEL_ID } from "@/lib/types";
+import { fetcher, fetchWithErrorHandlers, generateUUID } from "@/lib/utils";
 
 const CHAT_API_URL = import.meta.env.VITE_CHAT_API_URL || "/api/chat";
 
@@ -70,7 +64,7 @@ export function ActiveChatProvider({ children }: { children: ReactNode }) {
   const chatId = chatIdFromUrl ?? newChatIdRef.current;
 
   const [currentModelId, setCurrentModelId] = useState(
-    DEFAULT_OPENROUTER_MODEL_ID,
+    DEFAULT_OPENROUTER_MODEL_ID
   );
   const currentModelIdRef = useRef(currentModelId);
   useEffect(() => {
@@ -131,7 +125,7 @@ export function ActiveChatProvider({ children }: { children: ReactNode }) {
             "state" in part &&
             part.state === "approval-responded" &&
             "approval" in part &&
-            (part.approval as { approved?: boolean })?.approved === true,
+            (part.approval as { approved?: boolean })?.approved === true
         ) ?? false
       );
     },
@@ -148,7 +142,7 @@ export function ActiveChatProvider({ children }: { children: ReactNode }) {
               return (
                 state === "approval-responded" || state === "output-denied"
               );
-            }),
+            })
           );
 
         return {
@@ -173,9 +167,7 @@ export function ActiveChatProvider({ children }: { children: ReactNode }) {
       if (error instanceof ChatbotError) {
         console.error(`[chat] ${error.message}`);
       } else {
-        console.error(
-          `[chat] ${error.message || "An error occurred"}`,
-        );
+        console.error(`[chat] ${error.message || "An error occurred"}`);
       }
     },
   });
@@ -261,7 +253,7 @@ export function ActiveChatProvider({ children }: { children: ReactNode }) {
       isNewChat,
       isLoadingChat,
       currentModelId,
-    ],
+    ]
   );
 
   return (

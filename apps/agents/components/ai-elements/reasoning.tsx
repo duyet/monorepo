@@ -206,7 +206,9 @@ export type ReasoningContentProps = ComponentProps<
 };
 
 // Cast needed: mermaid version mismatch between @streamdown/mermaid and streamdown
-const streamdownPlugins = { cjk, code, math, mermaid } as Parameters<typeof Streamdown>[0]["plugins"];
+const streamdownPlugins = { cjk, code, math, mermaid } as Parameters<
+  typeof Streamdown
+>[0]["plugins"];
 
 export const ReasoningContent = memo(
   ({ className, children, ...props }: ReasoningContentProps) => (

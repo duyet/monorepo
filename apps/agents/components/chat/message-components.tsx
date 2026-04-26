@@ -1,9 +1,5 @@
 import type { UIMessage } from "ai";
-import {
-  Check,
-  Copy,
-  X,
-} from "@phosphor-icons/react";
+import { Check, Copy, X } from "@phosphor-icons/react";
 import { useMemo, useState } from "react";
 import {
   ChainOfThought,
@@ -205,7 +201,9 @@ export function AssistantMessage({
                         <ToolOutput
                           output={part.output}
                           errorText={part.errorText}
-                          isStreaming={isStreaming && part.state === "input-streaming"}
+                          isStreaming={
+                            isStreaming && part.state === "input-streaming"
+                          }
                         />
 
                         {/* Approval workflow */}
@@ -347,23 +345,25 @@ export function WelcomeMessage({
       </div>
 
       <div className="flex flex-wrap gap-2 justify-center">
-        {SUGGESTION_CATEGORIES.flatMap((category) => category.suggestions).map(({ prefix, label, prompt }, index) => (
-          <button
-            key={prompt}
-            type="button"
-            disabled={disabled}
-            onClick={() => onPromptSelect?.(prompt)}
-            className={cn(
-              "inline-flex items-center gap-2 rounded-full border border-border/70 bg-white px-4 py-2 text-sm text-foreground shadow-sm hover:bg-muted/50 transition-colors",
-              "animate-in fade-in slide-in-from-top-2 duration-200",
-              disabled && "pointer-events-none opacity-50"
-            )}
-            style={{ animationDelay: `${index * 50}ms` }}
-          >
-            <span className="font-medium">{prefix}</span>
-            <span className="text-muted-foreground">{label}</span>
-          </button>
-        ))}
+        {SUGGESTION_CATEGORIES.flatMap((category) => category.suggestions).map(
+          ({ prefix, label, prompt }, index) => (
+            <button
+              key={prompt}
+              type="button"
+              disabled={disabled}
+              onClick={() => onPromptSelect?.(prompt)}
+              className={cn(
+                "inline-flex items-center gap-2 rounded-full border border-border/70 bg-white px-4 py-2 text-sm text-foreground shadow-sm hover:bg-muted/50 transition-colors",
+                "animate-in fade-in slide-in-from-top-2 duration-200",
+                disabled && "pointer-events-none opacity-50"
+              )}
+              style={{ animationDelay: `${index * 50}ms` }}
+            >
+              <span className="font-medium">{prefix}</span>
+              <span className="text-muted-foreground">{label}</span>
+            </button>
+          )
+        )}
       </div>
     </div>
   );

@@ -1,7 +1,4 @@
-import {
-  DotsThree as MoreHorizontal,
-  Trash,
-} from "@phosphor-icons/react";
+import { DotsThree as MoreHorizontal, Trash } from "@phosphor-icons/react";
 import { memo } from "react";
 import {
   DropdownMenu,

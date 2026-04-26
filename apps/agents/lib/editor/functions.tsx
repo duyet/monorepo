@@ -30,7 +30,10 @@ export const createDecorations = (
   const decorations: Decoration[] = [];
 
   for (const suggestion of suggestions) {
-    if (suggestion.selectionStart !== undefined && suggestion.selectionEnd !== undefined) {
+    if (
+      suggestion.selectionStart !== undefined &&
+      suggestion.selectionEnd !== undefined
+    ) {
       decorations.push(
         Decoration.inline(suggestion.selectionStart, suggestion.selectionEnd, {
           class: "suggestion-highlight",

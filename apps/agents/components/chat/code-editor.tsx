@@ -59,7 +59,8 @@ function PureCodeEditor({ content, onSaveContent, status }: EditorProps) {
           if (status !== "streaming") return;
           const dom = editorRef.current?.scrollDOM;
           if (!dom) return;
-          const atBottom = dom.scrollHeight - dom.scrollTop - dom.clientHeight < 40;
+          const atBottom =
+            dom.scrollHeight - dom.scrollTop - dom.clientHeight < 40;
           userScrolledRef.current = !atBottom;
         },
       });
@@ -68,7 +69,13 @@ function PureCodeEditor({ content, onSaveContent, status }: EditorProps) {
 
       const newState = EditorState.create({
         doc: editorRef.current.state.doc,
-        extensions: [basicSetup, python(), oneDark, updateListener, scrollListener],
+        extensions: [
+          basicSetup,
+          python(),
+          oneDark,
+          updateListener,
+          scrollListener,
+        ],
         selection: currentSelection,
       });
 
@@ -113,9 +120,11 @@ function PureCodeEditor({ content, onSaveContent, status }: EditorProps) {
 }
 
 export const CodeEditor = memo(PureCodeEditor, (prevProps, nextProps) => {
-  if (prevProps.status === "streaming" && nextProps.status === "streaming") return false;
+  if (prevProps.status === "streaming" && nextProps.status === "streaming")
+    return false;
   if (prevProps.content !== nextProps.content) return false;
   if (prevProps.status !== nextProps.status) return false;
-  if (prevProps.currentVersionIndex !== nextProps.currentVersionIndex) return false;
+  if (prevProps.currentVersionIndex !== nextProps.currentVersionIndex)
+    return false;
   return true;
 });

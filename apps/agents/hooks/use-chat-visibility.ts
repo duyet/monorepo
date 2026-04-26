@@ -9,8 +9,9 @@ export function useChatVisibility({
   chatId: string;
   initialVisibilityType: VisibilityType;
 }) {
-  const [visibilityType, setLocalVisibility] =
-    useState<VisibilityType>(initialVisibilityType);
+  const [visibilityType, setLocalVisibility] = useState<VisibilityType>(
+    initialVisibilityType
+  );
 
   const setVisibilityType = useCallback(
     (updatedVisibilityType: VisibilityType) => {
@@ -26,7 +27,7 @@ export function useChatVisibility({
         setLocalVisibility(visibilityType);
       });
     },
-    [chatId, visibilityType],
+    [chatId, visibilityType]
   );
 
   return { visibilityType, setVisibilityType };

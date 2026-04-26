@@ -54,7 +54,11 @@ export function ChatInput({
     <div className="pointer-events-none absolute bottom-0 w-full px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-6 sm:px-6">
       <div className="mx-auto max-w-3xl">
         <div className="pointer-events-auto rounded-3xl border border-border/70 bg-white p-2 shadow-sm">
-          <form ref={formRef} onSubmit={onSubmit} className="flex items-end gap-2">
+          <form
+            ref={formRef}
+            onSubmit={onSubmit}
+            className="flex items-end gap-2"
+          >
             <Textarea
               ref={textareaRef}
               value={input}
@@ -66,57 +70,57 @@ export function ChatInput({
               className="min-h-[44px] max-h-[180px] flex-1 resize-none border-none bg-transparent shadow-none px-3 py-2.5 placeholder:text-muted-foreground/60 focus-visible:ring-0 focus-visible:ring-offset-0"
             />
 
-              {isLoading ? (
-                <Button
-                  type="button"
-                  onClick={stop}
-                  size="icon"
-                  variant="default"
-                  className="size-9 rounded-full"
-                >
-                  <X className="h-4 w-4" />
-                  <span className="sr-only">Stop</span>
-                </Button>
-              ) : (
-                <>
-                  {hasAssistantResponse && input.length === 0 ? (
-                    <Button
-                      type="button"
-                      onClick={() => reload()}
-                      size="icon"
-                      variant="ghost"
-                      className="size-9 rounded-full"
-                    >
-                      <RefreshCw className="h-4 w-4" />
-                      <span className="sr-only">Regenerate</span>
-                    </Button>
-                  ) : null}
-                  {(input.length > 0 || !hasAssistantResponse) && (
-                    <Button
-                      type="submit"
-                      disabled={!canSubmit}
-                      size="icon"
-                      variant={canSubmit ? "default" : "secondary"}
-                      className="size-9 rounded-full"
-                    >
-                      <Send className="h-4 w-4" />
-                      <span className="sr-only">Send</span>
-                    </Button>
-                  )}
-                </>
-              )}
-            </form>
-          </div>
+            {isLoading ? (
+              <Button
+                type="button"
+                onClick={stop}
+                size="icon"
+                variant="default"
+                className="size-9 rounded-full"
+              >
+                <X className="h-4 w-4" />
+                <span className="sr-only">Stop</span>
+              </Button>
+            ) : (
+              <>
+                {hasAssistantResponse && input.length === 0 ? (
+                  <Button
+                    type="button"
+                    onClick={() => reload()}
+                    size="icon"
+                    variant="ghost"
+                    className="size-9 rounded-full"
+                  >
+                    <RefreshCw className="h-4 w-4" />
+                    <span className="sr-only">Regenerate</span>
+                  </Button>
+                ) : null}
+                {(input.length > 0 || !hasAssistantResponse) && (
+                  <Button
+                    type="submit"
+                    disabled={!canSubmit}
+                    size="icon"
+                    variant={canSubmit ? "default" : "secondary"}
+                    className="size-9 rounded-full"
+                  >
+                    <Send className="h-4 w-4" />
+                    <span className="sr-only">Send</span>
+                  </Button>
+                )}
+              </>
+            )}
+          </form>
         </div>
-        {error && (
-          <Alert
-            variant="destructive"
-            className="mt-2 animate-in fade-in slide-in-from-bottom-2 duration-200"
-          >
-            <Warning className="h-4 w-4" />
-            <AlertDescription>{getErrorMessage(error)}</AlertDescription>
-          </Alert>
-        )}
       </div>
+      {error && (
+        <Alert
+          variant="destructive"
+          className="mt-2 animate-in fade-in slide-in-from-bottom-2 duration-200"
+        >
+          <Warning className="h-4 w-4" />
+          <AlertDescription>{getErrorMessage(error)}</AlertDescription>
+        </Alert>
+      )}
+    </div>
   );
 }

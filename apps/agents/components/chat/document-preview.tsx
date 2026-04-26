@@ -11,10 +11,7 @@ type DocumentPreviewProps = {
   documentId: string;
 };
 
-function PureDocumentPreview({
-  status,
-  documentId,
-}: DocumentPreviewProps) {
+function PureDocumentPreview({ status, documentId }: DocumentPreviewProps) {
   return (
     <div className="flex flex-col gap-4 p-4">
       <div className="text-sm font-medium text-muted-foreground">

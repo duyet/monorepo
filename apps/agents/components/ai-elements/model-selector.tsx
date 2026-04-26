@@ -102,21 +102,19 @@ export const ModelSelectorItem = ({
   />
 );
 
-export type ModelSelectorShortcutProps = ComponentProps<
-  typeof CommandShortcut
->;
+export type ModelSelectorShortcutProps = ComponentProps<typeof CommandShortcut>;
 
-export const ModelSelectorShortcut = (
-  props: ModelSelectorShortcutProps
-) => <CommandShortcut {...props} />;
+export const ModelSelectorShortcut = (props: ModelSelectorShortcutProps) => (
+  <CommandShortcut {...props} />
+);
 
 export type ModelSelectorSeparatorProps = ComponentProps<
   typeof CommandSeparator
 >;
 
-export const ModelSelectorSeparator = (
-  props: ModelSelectorSeparatorProps
-) => <CommandSeparator {...props} />;
+export const ModelSelectorSeparator = (props: ModelSelectorSeparatorProps) => (
+  <CommandSeparator {...props} />
+);
 
 export type ModelSelectorLogoProps = Omit<
   ComponentProps<"img">,

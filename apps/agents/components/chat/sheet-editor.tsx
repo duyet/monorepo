@@ -47,7 +47,8 @@ const PureSpreadsheetEditor = ({ content, saveContent }: SheetEditorProps) => {
       width: 50,
       renderCell: ({ rowIdx }: { rowIdx: number }) => rowIdx + 1,
       cellClass: "border-t border-r dark:bg-neutral-950 dark:text-neutral-50",
-      headerCellClass: "border-t border-r dark:bg-neutral-900 dark:text-neutral-50",
+      headerCellClass:
+        "border-t border-r dark:bg-neutral-900 dark:text-neutral-50",
     };
 
     const dataColumns = Array.from({ length: MIN_COLS }, (_, i) => ({
@@ -91,7 +92,9 @@ const PureSpreadsheetEditor = ({ content, saveContent }: SheetEditorProps) => {
     setLocalRows(newRows);
 
     const updatedData = newRows.map((row: Record<string, string | number>) => {
-      return columns.slice(1).map((col: { key: string }) => String(row[col.key] ?? ""));
+      return columns
+        .slice(1)
+        .map((col: { key: string }) => String(row[col.key] ?? ""));
     });
 
     const newCsvContent = unparse(updatedData);

@@ -19,18 +19,15 @@ export function useScrollToBottom() {
     return scrollTop + clientHeight >= scrollHeight - 100;
   }, []);
 
-  const scrollToBottom = useCallback(
-    (behavior: ScrollBehavior = "smooth") => {
-      if (!containerRef.current) {
-        return;
-      }
-      containerRef.current.scrollTo({
-        top: containerRef.current.scrollHeight,
-        behavior,
-      });
-    },
-    [],
-  );
+  const scrollToBottom = useCallback((behavior: ScrollBehavior = "smooth") => {
+    if (!containerRef.current) {
+      return;
+    }
+    containerRef.current.scrollTo({
+      top: containerRef.current.scrollHeight,
+      behavior,
+    });
+  }, []);
 
   useEffect(() => {
     const container = containerRef.current;

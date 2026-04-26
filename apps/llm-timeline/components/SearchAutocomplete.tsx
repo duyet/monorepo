@@ -231,7 +231,7 @@ export function SearchAutocomplete({
               <div className="flex items-center gap-2 min-w-0 flex-1">
                 <span
                   className={cn(
-                    "inline-flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground shrink-0",
+                    "inline-flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground shrink-0"
                   )}
                 >
                   <span

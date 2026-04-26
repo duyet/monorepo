@@ -226,10 +226,7 @@ export type CustomUIDataTypes = {
   sheetDelta: string;
 };
 
-export type ChatMessage = UIMessage<
-  { createdAt?: string },
-  CustomUIDataTypes
->;
+export type ChatMessage = UIMessage<{ createdAt?: string }, CustomUIDataTypes>;
 
 export type Attachment = {
   name: string;

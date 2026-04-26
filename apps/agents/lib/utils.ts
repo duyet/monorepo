@@ -40,7 +40,7 @@ export const fetcher = async (url: string) => {
 
 export async function fetchWithErrorHandlers(
   input: RequestInfo | URL,
-  init?: RequestInit,
+  init?: RequestInit
 ): Promise<Response> {
   try {
     const response = await fetch(input, init);

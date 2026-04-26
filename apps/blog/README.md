@@ -5,12 +5,12 @@ Personal blog with MDX posts, KaTeX math rendering, and static pre-rendering.
 - **Live**: https://blog.duyet.net (official)
 - **Live**: https://duyet-blog.pages.dev (Cloudflare Pages)
 
-![](../../.github/screenshot/screenshot-blog.png)
+![Screenshot of Duyet Blog homepage](../../.github/screenshot/screenshot-blog.png)
 
 ## What's New?
 
 - Migrated from Vite SPA to **TanStack Start** with static pre-rendering for improved performance and SEO
-- Content is pre-rendered at build time (393+ pages), eliminating client-side hydration issues
+- Content is pre-rendered at build time for improved SEO and faster initial page loads
 - Uses Vite + TanStack Router for file-based routing
 - Supports Markdown/MDX posts with KaTeX math, syntax highlighting, and RSS feed
 
@@ -69,15 +69,15 @@ VITE_MEASUREMENT_ID=G-XXXXXXXXX
 1. Create a new file in `_posts/YYYY-MM-DD-slug.md` or `_posts/YYYY-MM-DD-slug.mdx`
 2. Add frontmatter:
 
-```markdown
----
-title: "Post Title"
-date: "2025-01-15"
-category: "Data Engineering"
-tags: ["rust", "clickhouse"]
-series: "series-name"
----
-```
+   ```markdown
+   ---
+   title: "Post Title"
+   date: "2025-01-15"
+   category: "Data Engineering"
+   tags: ["rust", "clickhouse"]
+   series: "series-name"
+   ---
+   ```
 
 3. Write content in Markdown or MDX
 4. Math: use `$inline$` or `$$block$$` KaTeX syntax

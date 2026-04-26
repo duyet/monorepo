@@ -27,10 +27,8 @@ const inputGroupAddonVariants = cva(
       align: {
         "inline-start": "order-first pl-3",
         "inline-end": "order-last pr-3",
-        "block-start":
-          "order-first w-full justify-start px-3 pt-3",
-        "block-end":
-          "order-last w-full justify-start px-3 pb-3",
+        "block-start": "order-first w-full justify-start px-3 pt-3",
+        "block-end": "order-last w-full justify-start px-3 pb-3",
       },
     },
     defaultVariants: {
@@ -43,8 +41,7 @@ function InputGroupAddon({
   className,
   align = "inline-start",
   ...props
-}: React.ComponentProps<"div"> &
-  VariantProps<typeof inputGroupAddonVariants>) {
+}: React.ComponentProps<"div"> & VariantProps<typeof inputGroupAddonVariants>) {
   return (
     <div
       role="group"
@@ -98,10 +95,7 @@ function InputGroupButton({
   );
 }
 
-function InputGroupText({
-  className,
-  ...props
-}: React.ComponentProps<"span">) {
+function InputGroupText({ className, ...props }: React.ComponentProps<"span">) {
   return (
     <span
       className={cn(

@@ -45,81 +45,81 @@ export function AppSidebar({
 
   return (
     <>
-    <div className="flex h-full flex-col">
-      <div className="border-b px-3 py-3">
-        <button
-          type="button"
-          onClick={onNewChat}
-          className="flex w-full items-center justify-start gap-2 rounded-full border bg-background px-4 py-2.5 shadow-sm transition-colors hover:bg-muted/50"
-        >
-          <div className="flex size-9 items-center justify-center rounded-full bg-muted/30">
-            <MessageSquarePlus className="size-4" />
-          </div>
-          <span className="font-medium">New chat</span>
-        </button>
-      </div>
-
-      <div className="flex-1 overflow-y-auto px-3 py-3">
-        <div className="rounded-2xl border bg-muted/20 p-3">
-          <div className="flex items-center justify-between gap-2">
-            <div>
-              <p className="text-sm font-semibold">Agent workspace</p>
-              <p className="text-xs text-muted-foreground">
-                Conversations, tools, and approvals
-              </p>
+      <div className="flex h-full flex-col">
+        <div className="border-b px-3 py-3">
+          <button
+            type="button"
+            onClick={onNewChat}
+            className="flex w-full items-center justify-start gap-2 rounded-full border bg-background px-4 py-2.5 shadow-sm transition-colors hover:bg-muted/50"
+          >
+            <div className="flex size-9 items-center justify-center rounded-full bg-muted/30">
+              <MessageSquarePlus className="size-4" />
             </div>
-            <Badge variant="secondary">{conversations.length}</Badge>
-          </div>
-          {onDeleteAllConversations && conversations.length > 0 ? (
-            <Button
-              className="mt-3 w-full justify-start gap-2 rounded-full px-3"
-              variant="ghost"
-              onClick={() => setShowDeleteAllDialog(true)}
-            >
-              <div className="flex size-7 items-center justify-center rounded-full bg-muted/30">
-                <Trash className="size-4" />
-              </div>
-              Delete all chats
-            </Button>
-          ) : null}
+            <span className="font-medium">New chat</span>
+          </button>
         </div>
 
-        <Separator className="my-3" />
+        <div className="flex-1 overflow-y-auto px-3 py-3">
+          <div className="rounded-2xl border bg-muted/20 p-3">
+            <div className="flex items-center justify-between gap-2">
+              <div>
+                <p className="text-sm font-semibold">Agent workspace</p>
+                <p className="text-xs text-muted-foreground">
+                  Conversations, tools, and approvals
+                </p>
+              </div>
+              <Badge variant="secondary">{conversations.length}</Badge>
+            </div>
+            {onDeleteAllConversations && conversations.length > 0 ? (
+              <Button
+                className="mt-3 w-full justify-start gap-2 rounded-full px-3"
+                variant="ghost"
+                onClick={() => setShowDeleteAllDialog(true)}
+              >
+                <div className="flex size-7 items-center justify-center rounded-full bg-muted/30">
+                  <Trash className="size-4" />
+                </div>
+                Delete all chats
+              </Button>
+            ) : null}
+          </div>
 
-        <SidebarHistory
-          conversations={conversations}
-          activeId={activeId}
-          isLoading={isLoading}
-          onSelectConversation={onSelectConversation}
-          onDeleteConversation={onDeleteConversation}
-        />
+          <Separator className="my-3" />
+
+          <SidebarHistory
+            conversations={conversations}
+            activeId={activeId}
+            isLoading={isLoading}
+            onSelectConversation={onSelectConversation}
+            onDeleteConversation={onDeleteConversation}
+          />
+        </div>
+
+        <div className="border-t px-3 py-3">
+          <SidebarUserNav />
+        </div>
       </div>
 
-      <div className="border-t px-3 py-3">
-        <SidebarUserNav />
-      </div>
-    </div>
-
-    <AlertDialog
-      onOpenChange={setShowDeleteAllDialog}
-      open={showDeleteAllDialog}
-    >
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Delete all chats?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. It will permanently remove every
-            conversation from your workspace.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDeleteAll}>
-            Delete all
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+      <AlertDialog
+        onOpenChange={setShowDeleteAllDialog}
+        open={showDeleteAllDialog}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete all chats?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. It will permanently remove every
+              conversation from your workspace.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDeleteAll}>
+              Delete all
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 }

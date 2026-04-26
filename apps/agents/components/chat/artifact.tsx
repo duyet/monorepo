@@ -1,12 +1,6 @@
 import { formatDistance } from "date-fns";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  memo,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import { useWindowSize } from "usehooks-ts";
 import { codeArtifact } from "@/artifacts/code/client";
@@ -132,7 +126,9 @@ function PureArtifact({
 
           setIsContentDirty(false);
           return currentDocs.map((doc, i) =>
-            i === currentDocs.length - 1 ? { ...doc, content: updatedContent } : doc
+            i === currentDocs.length - 1
+              ? { ...doc, content: updatedContent }
+              : doc
           );
         },
         { revalidate: false }
@@ -203,7 +199,10 @@ function PureArtifact({
 
   if (!artifact.isVisible && !isMobile) {
     return (
-      <div className="h-dvh w-0 shrink-0 overflow-hidden transition-[width] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]" data-testid="artifact" />
+      <div
+        className="h-dvh w-0 shrink-0 overflow-hidden transition-[width] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
+        data-testid="artifact"
+      />
     );
   }
 
@@ -251,13 +250,18 @@ function PureArtifact({
         onScroll={() => {
           const el = artifactContentRef.current;
           if (!el) return;
-          const atBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 40;
+          const atBottom =
+            el.scrollHeight - el.scrollTop - el.clientHeight < 40;
           userScrolledArtifact.current = !atBottom;
         }}
         ref={artifactContentRef}
       >
         <artifactDefinition.content
-          content={isCurrentVersion ? artifact.content : getDocumentContentById(currentVersionIndex)}
+          content={
+            isCurrentVersion
+              ? artifact.content
+              : getDocumentContentById(currentVersionIndex)
+          }
           currentVersionIndex={currentVersionIndex}
           getDocumentContentById={getDocumentContentById}
           isCurrentVersion={isCurrentVersion}
@@ -288,7 +292,9 @@ function PureArtifact({
               artifactKind={artifact.kind}
               documentId={artifact.documentId}
               isToolbarVisible={true}
-              onClose={() => setArtifact((prev) => ({ ...prev, isVisible: false }))}
+              onClose={() =>
+                setArtifact((prev) => ({ ...prev, isVisible: false }))
+              }
               sendMessage={sendMessage}
               setIsToolbarVisible={() => {}}
               setMessages={setMessages}
@@ -304,11 +310,25 @@ function PureArtifact({
   if (isMobile) {
     return (
       <motion.div
-        animate={{ opacity: 1, x: 0, y: 0, height: windowHeight, width: "100dvw", borderRadius: 0 }}
+        animate={{
+          opacity: 1,
+          x: 0,
+          y: 0,
+          height: windowHeight,
+          width: "100dvw",
+          borderRadius: 0,
+        }}
         className="fixed inset-0 z-50 flex h-dvh flex-col overflow-hidden bg-sidebar"
         data-testid="artifact"
         exit={{ opacity: 0, scale: 0.95 }}
-        initial={{ opacity: 1, x: artifact.boundingBox.left, y: artifact.boundingBox.top, height: artifact.boundingBox.height, width: artifact.boundingBox.width, borderRadius: 50 }}
+        initial={{
+          opacity: 1,
+          x: artifact.boundingBox.left,
+          y: artifact.boundingBox.top,
+          height: artifact.boundingBox.height,
+          width: artifact.boundingBox.width,
+          borderRadius: 50,
+        }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
       >
         {artifactPanel}

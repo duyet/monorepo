@@ -18,7 +18,7 @@ type ToolbarProps = {
   documentId: string;
   isToolbarVisible: boolean;
   onClose: () => void;
-  sendMessage: ((...args: any[]) => any);
+  sendMessage: (...args: any[]) => any;
   setMessages: (messages: any[] | ((prev: any[]) => any[])) => void;
   status: "streaming" | "idle" | "submitted" | "error" | "ready";
   stop: () => void;

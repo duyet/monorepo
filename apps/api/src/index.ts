@@ -40,7 +40,7 @@ app.use("*", async (c, next) => {
   c.header("Referrer-Policy", "strict-origin-when-cross-origin");
   c.header(
     "Content-Security-Policy",
-    "default-src 'none'; frame-ancestors 'none'",
+    "default-src 'none'; frame-ancestors 'none'"
   );
 });
 

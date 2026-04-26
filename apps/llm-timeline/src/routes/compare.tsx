@@ -257,7 +257,10 @@ function ComparePage() {
                       Organization
                     </td>
                     {sortedModels.map((model) => (
-                      <td key={model.name} className="px-4 py-3 text-foreground">
+                      <td
+                        key={model.name}
+                        className="px-4 py-3 text-foreground"
+                      >
                         {model.org}
                       </td>
                     ))}
@@ -267,7 +270,10 @@ function ComparePage() {
                       Release Date
                     </td>
                     {sortedModels.map((model) => (
-                      <td key={model.name} className="px-4 py-3 font-[family-name:var(--font-mono)] text-sm text-foreground">
+                      <td
+                        key={model.name}
+                        className="px-4 py-3 font-[family-name:var(--font-mono)] text-sm text-foreground"
+                      >
                         {formatDate(model.date)}
                       </td>
                     ))}
@@ -277,7 +283,10 @@ function ComparePage() {
                       Parameters
                     </td>
                     {sortedModels.map((model) => (
-                      <td key={model.name} className="px-4 py-3 font-[family-name:var(--font-mono)] text-sm text-foreground">
+                      <td
+                        key={model.name}
+                        className="px-4 py-3 font-[family-name:var(--font-mono)] text-sm text-foreground"
+                      >
                         {model.params || "Unknown"}
                       </td>
                     ))}
@@ -299,7 +308,10 @@ function ComparePage() {
                       Type
                     </td>
                     {sortedModels.map((model) => (
-                      <td key={model.name} className="px-4 py-3 capitalize text-foreground">
+                      <td
+                        key={model.name}
+                        className="px-4 py-3 capitalize text-foreground"
+                      >
                         {model.type}
                       </td>
                     ))}
@@ -309,7 +321,10 @@ function ComparePage() {
                       Description
                     </td>
                     {sortedModels.map((model) => (
-                      <td key={model.name} className="px-4 py-3 text-sm text-foreground">
+                      <td
+                        key={model.name}
+                        className="px-4 py-3 text-sm text-foreground"
+                      >
                         {model.desc}
                       </td>
                     ))}

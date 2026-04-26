@@ -21,7 +21,12 @@ declare module "papaparse" {
 
   interface ParseResult<T> {
     data: T[];
-    errors: Array<{ type: string; code: string; message: string; row?: number }>;
+    errors: Array<{
+      type: string;
+      code: string;
+      message: string;
+      row?: number;
+    }>;
     meta: {
       delimiter: string;
       linebreak: string;
@@ -52,7 +57,9 @@ declare module "react-data-grid" {
     frozen?: boolean;
     resizable?: boolean;
     sortable?: boolean;
-    renderCell?: ComponentType<{ rowIdx: number; row: TRow }> | ((props: { rowIdx: number; row: TRow }) => React.ReactNode);
+    renderCell?:
+      | ComponentType<{ rowIdx: number; row: TRow }>
+      | ((props: { rowIdx: number; row: TRow }) => React.ReactNode);
     renderEditCell?: ComponentType<unknown>;
     cellClass?: string;
     headerCellClass?: string;
@@ -62,14 +69,20 @@ declare module "react-data-grid" {
     columns: Column<TRow>[];
     rows: TRow[];
     onRowsChange?: (rows: TRow[]) => void;
-    onCellClick?: (args: { column: Column<TRow>; row: TRow; selectCell: (enableEditor: boolean) => void }) => void;
+    onCellClick?: (args: {
+      column: Column<TRow>;
+      row: TRow;
+      selectCell: (enableEditor: boolean) => void;
+    }) => void;
     className?: string;
     style?: React.CSSProperties;
     defaultColumnOptions?: Partial<Column<TRow>>;
     enableVirtualization?: boolean;
   }
 
-  declare const DataGrid: <TRow = Record<string, unknown>>(props: DataGridProps<TRow>) => JSX.Element;
+  declare const DataGrid: <TRow = Record<string, unknown>>(
+    props: DataGridProps<TRow>
+  ) => JSX.Element;
   export default DataGrid;
   export declare const textEditor: ComponentType<unknown>;
 }

@@ -55,7 +55,12 @@ export function ChatTopBar({
         </div>
 
         <div className="flex items-center gap-1">
-          <Button variant="ghost" size="sm" onClick={onNewChat} className="h-9 rounded-full">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onNewChat}
+            className="h-9 rounded-full"
+          >
             <Plus weight="regular" className="size-4" />
           </Button>
 
@@ -74,16 +79,28 @@ export function ChatTopBar({
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onSelect={() => void handleExport("json")}>
-                  <FileJson data-icon="inline-start" weight="regular" className="size-4" />
+                  <FileJson
+                    data-icon="inline-start"
+                    weight="regular"
+                    className="size-4"
+                  />
                   Export JSON
                 </DropdownMenuItem>
                 <DropdownMenuItem onSelect={() => void handleExport("md")}>
-                  <FileText data-icon="inline-start" weight="regular" className="size-4" />
+                  <FileText
+                    data-icon="inline-start"
+                    weight="regular"
+                    className="size-4"
+                  />
                   Export Markdown
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onSelect={() => void handleExport("txt")}>
-                  <Download data-icon="inline-start" weight="regular" className="size-4" />
+                  <Download
+                    data-icon="inline-start"
+                    weight="regular"
+                    className="size-4"
+                  />
                   Export text
                 </DropdownMenuItem>
               </DropdownMenuContent>

@@ -45,7 +45,10 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const documentId = url.searchParams.get("id");
 
   if (!documentId) {
-    return Response.json({ error: "id parameter is required" }, { status: 400 });
+    return Response.json(
+      { error: "id parameter is required" },
+      { status: 400 }
+    );
   }
 
   const user = await getUserFromRequest(context.request, CLERK_ISSUER_URL);
@@ -99,7 +102,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const documentId = url.searchParams.get("id");
 
   if (!documentId) {
-    return Response.json({ error: "id parameter is required" }, { status: 400 });
+    return Response.json(
+      { error: "id parameter is required" },
+      { status: 400 }
+    );
   }
 
   const user = await getUserFromRequest(context.request, CLERK_ISSUER_URL);
@@ -107,7 +113,12 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     return Response.json({ error: "unauthorized" }, { status: 401 });
   }
 
-  let body: { title?: string; content?: string; kind?: string; isManualEdit?: boolean };
+  let body: {
+    title?: string;
+    content?: string;
+    kind?: string;
+    isManualEdit?: boolean;
+  };
   try {
     body = await context.request.json();
   } catch {
@@ -168,7 +179,10 @@ export const onRequestDelete: PagesFunction<Env> = async (context) => {
   const timestamp = url.searchParams.get("timestamp");
 
   if (!documentId) {
-    return Response.json({ error: "id parameter is required" }, { status: 400 });
+    return Response.json(
+      { error: "id parameter is required" },
+      { status: 400 }
+    );
   }
 
   if (!timestamp) {

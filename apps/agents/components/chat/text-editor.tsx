@@ -38,7 +38,9 @@ function PureEditor({
 }: EditorProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<EditorView | null>(null);
-  const [activeSuggestion, setActiveSuggestion] = useState<UISuggestion | null>(null);
+  const [activeSuggestion, setActiveSuggestion] = useState<UISuggestion | null>(
+    null
+  );
   const suggestionsRef = useRef<UISuggestion[]>([]);
 
   useEffect(() => {
@@ -99,7 +101,9 @@ function PureEditor({
 
   useEffect(() => {
     if (editorRef.current && content) {
-      const currentContent = buildContentFromDocument(editorRef.current.state.doc);
+      const currentContent = buildContentFromDocument(
+        editorRef.current.state.doc
+      );
 
       if (status === "streaming") {
         const newDocument = buildDocumentFromContent(content);
@@ -137,7 +141,10 @@ function PureEditor({
 
       suggestionsRef.current = projectedSuggestions;
 
-      const decorations = createDecorations(projectedSuggestions, editorRef.current);
+      const decorations = createDecorations(
+        projectedSuggestions,
+        editorRef.current
+      );
       const transaction = editorRef.current.state.tr;
       transaction.setMeta(suggestionsPluginKey, { decorations });
       editorRef.current.dispatch(transaction);
@@ -207,7 +214,9 @@ function PureEditor({
               </button>
             </div>
           </div>,
-          containerRef.current.closest("[data-slot='artifact-content']") as HTMLElement
+          containerRef.current.closest(
+            "[data-slot='artifact-content']"
+          ) as HTMLElement
         )}
     </>
   );

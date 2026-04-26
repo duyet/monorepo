@@ -57,9 +57,7 @@ export function ModelCard({
                 : `Select ${model.name} for comparison`
             }
           >
-            {isSelected && (
-              <Check className="h-3 w-3 text-background" />
-            )}
+            {isSelected && <Check className="h-3 w-3 text-background" />}
           </button>
         )}
 

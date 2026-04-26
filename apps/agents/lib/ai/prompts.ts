@@ -51,8 +51,7 @@ export function buildSystemPrompt(
     }
     if (settings.timezone) {
       const sanitized = sanitizeUserString(settings.timezone, 50);
-      if (sanitized)
-        parts.push(`The user's current timezone is: ${sanitized}`);
+      if (sanitized) parts.push(`The user's current timezone is: ${sanitized}`);
     }
 
     if (parts.length > 0) {

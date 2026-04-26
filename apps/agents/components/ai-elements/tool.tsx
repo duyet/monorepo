@@ -72,21 +72,32 @@ const statusDescriptions: Record<ToolPart["state"], string> = {
 const statusIcons: Record<ToolPart["state"], ReactNode> = {
   "approval-requested": <ClockIcon className="size-3.5 text-amber-600" />,
   "approval-responded": <CheckCircle2Icon className="size-3.5 text-blue-600" />,
-  "input-available": <LoaderIcon className="size-3.5 animate-spin text-muted-foreground" />,
-  "input-streaming": <CircleIcon className="size-3.5 animate-pulse text-muted-foreground" />,
-  "output-available": <CheckCircle2Icon className="size-3.5 text-emerald-600" />,
+  "input-available": (
+    <LoaderIcon className="size-3.5 animate-spin text-muted-foreground" />
+  ),
+  "input-streaming": (
+    <CircleIcon className="size-3.5 animate-pulse text-muted-foreground" />
+  ),
+  "output-available": (
+    <CheckCircle2Icon className="size-3.5 text-emerald-600" />
+  ),
   "output-denied": <XCircleIcon className="size-3.5 text-orange-600" />,
   "output-error": <XCircleIcon className="size-3.5 text-red-600" />,
 };
 
 const statusColors: Record<ToolPart["state"], string> = {
-  "approval-requested": "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/30 dark:text-amber-400",
-  "approval-responded": "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/30 dark:text-blue-400",
+  "approval-requested":
+    "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/30 dark:text-amber-400",
+  "approval-responded":
+    "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/30 dark:text-blue-400",
   "input-available": "bg-muted text-muted-foreground",
   "input-streaming": "bg-muted text-muted-foreground",
-  "output-available": "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-400",
-  "output-denied": "bg-orange-50 text-orange-700 border-orange-200 dark:bg-orange-950/30 dark:text-orange-400",
-  "output-error": "bg-red-50 text-red-700 border-red-200 dark:bg-red-950/30 dark:text-red-400",
+  "output-available":
+    "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-400",
+  "output-denied":
+    "bg-orange-50 text-orange-700 border-orange-200 dark:bg-orange-950/30 dark:text-orange-400",
+  "output-error":
+    "bg-red-50 text-red-700 border-red-200 dark:bg-red-950/30 dark:text-red-400",
 };
 
 export const getStatusBadge = (status: ToolPart["state"]) => (
@@ -130,12 +141,14 @@ export const ToolHeader = ({
       {...props}
     >
       <div className="flex items-center gap-2.5 flex-1">
-        <div className={cn(
-          "flex size-7 items-center justify-center rounded-md",
-          state === "input-available" || state === "input-streaming"
-            ? "bg-primary/10 text-primary"
-            : "bg-muted text-muted-foreground"
-        )}>
+        <div
+          className={cn(
+            "flex size-7 items-center justify-center rounded-md",
+            state === "input-available" || state === "input-streaming"
+              ? "bg-primary/10 text-primary"
+              : "bg-muted text-muted-foreground"
+          )}
+        >
           <WrenchIcon className="size-3.5" />
         </div>
         <div className="flex-1 text-left">
@@ -147,10 +160,12 @@ export const ToolHeader = ({
       </div>
       <div className="flex items-center gap-2">
         {getStatusBadge(state)}
-        <ChevronDownIcon className={cn(
-          "size-4 text-muted-foreground transition-transform duration-200",
-          isOpen && "rotate-180"
-        )} />
+        <ChevronDownIcon
+          className={cn(
+            "size-4 text-muted-foreground transition-transform duration-200",
+            isOpen && "rotate-180"
+          )}
+        />
       </div>
     </CollapsibleTrigger>
   );
@@ -160,10 +175,7 @@ export type ToolContentProps = ComponentProps<typeof CollapsibleContent>;
 
 export const ToolContent = ({ className, ...props }: ToolContentProps) => (
   <CollapsibleContent
-    className={cn(
-      "border-t px-4 py-3 space-y-3",
-      className
-    )}
+    className={cn("border-t px-4 py-3 space-y-3", className)}
     {...props}
   />
 );
@@ -182,10 +194,12 @@ export const ToolInput = ({ className, input, ...props }: ToolInputProps) => {
         onClick={() => setIsExpanded(!isExpanded)}
         className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
       >
-        <ChevronDownIcon className={cn(
-          "size-3 transition-transform duration-200",
-          !isExpanded && "-rotate-90"
-        )} />
+        <ChevronDownIcon
+          className={cn(
+            "size-3 transition-transform duration-200",
+            !isExpanded && "-rotate-90"
+          )}
+        />
         <span>Parameters</span>
       </button>
       {isExpanded && (
@@ -226,15 +240,17 @@ export const ToolOutput = ({
   if (typeof output === "object" && !isValidElement(output)) {
     outputString = JSON.stringify(output, null, 2);
     Output = (
-      <CodeBlock
-        code={outputString}
-        language="json"
-        className="text-xs"
-      />
+      <CodeBlock code={outputString} language="json" className="text-xs" />
     );
   } else if (typeof output === "string") {
     outputString = output;
-    Output = <CodeBlock code={output} language="markdown" className="text-xs whitespace-pre-wrap" />;
+    Output = (
+      <CodeBlock
+        code={output}
+        language="markdown"
+        className="text-xs whitespace-pre-wrap"
+      />
+    );
   } else {
     Output = <div>{output as ReactNode}</div>;
   }
@@ -247,10 +263,12 @@ export const ToolOutput = ({
           onClick={() => setIsExpanded(!isExpanded)}
           className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
         >
-          <ChevronDownIcon className={cn(
-            "size-3 transition-transform duration-200",
-            !isExpanded && "-rotate-90"
-          )} />
+          <ChevronDownIcon
+            className={cn(
+              "size-3 transition-transform duration-200",
+              !isExpanded && "-rotate-90"
+            )}
+          />
           <span>{errorText ? "Error" : "Result"}</span>
         </button>
         {isStreaming && (
@@ -261,13 +279,17 @@ export const ToolOutput = ({
         )}
       </div>
       {isExpanded && (
-        <div className={cn(
-          "rounded-lg border p-3 text-xs",
-          errorText
-            ? "bg-destructive/10 text-destructive border-destructive/20"
-            : "bg-muted/30"
-        )}>
-          {errorText && <div className="mb-2 text-destructive">{errorText}</div>}
+        <div
+          className={cn(
+            "rounded-lg border p-3 text-xs",
+            errorText
+              ? "bg-destructive/10 text-destructive border-destructive/20"
+              : "bg-muted/30"
+          )}
+        >
+          {errorText && (
+            <div className="mb-2 text-destructive">{errorText}</div>
+          )}
           {Output}
         </div>
       )}

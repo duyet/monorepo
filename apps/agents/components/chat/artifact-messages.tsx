@@ -41,7 +41,9 @@ function PureArtifactMessages({
           isReadonly={isReadonly}
           key={message.id}
           message={message}
-          requiresScrollPadding={hasSentMessage && index === messages.length - 1}
+          requiresScrollPadding={
+            hasSentMessage && index === messages.length - 1
+          }
           setMessages={setMessages}
         />
       ))}
@@ -60,8 +62,15 @@ function PureArtifactMessages({
   );
 }
 
-function areEqual(prevProps: ArtifactMessagesProps, nextProps: ArtifactMessagesProps) {
-  if (prevProps.artifactStatus === "streaming" && nextProps.artifactStatus === "streaming") return true;
+function areEqual(
+  prevProps: ArtifactMessagesProps,
+  nextProps: ArtifactMessagesProps
+) {
+  if (
+    prevProps.artifactStatus === "streaming" &&
+    nextProps.artifactStatus === "streaming"
+  )
+    return true;
   if (prevProps.status !== nextProps.status) return false;
   if (prevProps.messages.length !== nextProps.messages.length) return false;
   return true;

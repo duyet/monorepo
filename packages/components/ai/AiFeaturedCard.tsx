@@ -18,10 +18,13 @@ interface AiFeaturedCardProps {
 }
 
 const colorClasses = {
-  terracotta: "bg-terracotta-light text-neutral-900 dark:bg-terracotta-light/20 dark:text-neutral-100",
+  terracotta:
+    "bg-terracotta-light text-neutral-900 dark:bg-terracotta-light/20 dark:text-neutral-100",
   sage: "bg-sage-light text-neutral-900 dark:bg-sage-light/20 dark:text-neutral-100",
-  coral: "bg-coral-light text-neutral-900 dark:bg-coral-light/20 dark:text-neutral-100",
-  lavender: "bg-lavender-light text-neutral-900 dark:bg-lavender-light/20 dark:text-neutral-100",
+  coral:
+    "bg-coral-light text-neutral-900 dark:bg-coral-light/20 dark:text-neutral-100",
+  lavender:
+    "bg-lavender-light text-neutral-900 dark:bg-lavender-light/20 dark:text-neutral-100",
 };
 
 const illustrationColors = {
@@ -79,7 +82,9 @@ export function AiFeaturedCard({
         ) : null}
 
         {date && (
-          <time className="text-sm font-medium text-neutral-600 dark:text-neutral-400">{date}</time>
+          <time className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
+            {date}
+          </time>
         )}
       </div>
 

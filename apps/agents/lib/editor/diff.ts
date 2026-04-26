@@ -48,10 +48,7 @@ function _computeTextDiffs(_oldText: string, newText: TextDiff[]): TextDiff[] {
  * Compute character-level diffs between two plain-text strings.
  * Returns an array of { type, text } segments.
  */
-export function diffText(
-  oldText: string,
-  newText: string
-): TextDiff[] {
+export function diffText(oldText: string, newText: string): TextDiff[] {
   const diffs = dmp.diff_main(oldText, newText);
   dmp.diff_cleanupSemantic(diffs);
 
@@ -96,11 +93,15 @@ export function diffEditor(
       nodes.push(schema.nodeFromJSON(block.new));
     } else if (block.type === DiffType.Inserted) {
       nodes.push(
-        wrapWithDiffMark(schema, block.new, "diffMark", { type: String(DiffType.Inserted) })
+        wrapWithDiffMark(schema, block.new, "diffMark", {
+          type: String(DiffType.Inserted),
+        })
       );
     } else if (block.type === DiffType.Deleted) {
       nodes.push(
-        wrapWithDiffMark(schema, block.old, "diffMark", { type: String(DiffType.Deleted) })
+        wrapWithDiffMark(schema, block.old, "diffMark", {
+          type: String(DiffType.Deleted),
+        })
       );
     }
   }
@@ -118,7 +119,9 @@ interface BlockData {
   type: DiffType;
 }
 
-function getBlockNodes(docJSON: Record<string, unknown>): Record<string, unknown>[] {
+function getBlockNodes(
+  docJSON: Record<string, unknown>
+): Record<string, unknown>[] {
   const content = docJSON.content as Array<Record<string, unknown>> | undefined;
   return content ?? [];
 }
@@ -218,12 +221,17 @@ function wrapWithDiffMark(
   }
 
   const wrappedJSON = { ...nodeJSON };
-  const content = wrappedJSON.content as Array<Record<string, unknown>> | undefined;
+  const content = wrappedJSON.content as
+    | Array<Record<string, unknown>>
+    | undefined;
 
   if (content) {
     wrappedJSON.content = content.map((child) => ({
       ...child,
-      marks: [...(Array.isArray(child.marks) ? child.marks : []), { type: markType, attrs }],
+      marks: [
+        ...(Array.isArray(child.marks) ? child.marks : []),
+        { type: markType, attrs },
+      ],
     }));
   }
 

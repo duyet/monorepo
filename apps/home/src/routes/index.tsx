@@ -356,9 +356,11 @@ function HomePage() {
               {apps
                 .filter((item) => !item.screenshot)
                 .map((item, index) => {
-                  const visualIndex = index + apps.filter((i) => i.screenshot).length;
+                  const visualIndex =
+                    index + apps.filter((i) => i.screenshot).length;
                   const delayClass = `animate-fade-in-delay-${Math.min(visualIndex + 7, 8)}`;
-                  const shortcutNumber = visualIndex < 4 ? visualIndex + 6 : undefined;
+                  const shortcutNumber =
+                    visualIndex < 4 ? visualIndex + 6 : undefined;
 
                   return (
                     <BentoCard

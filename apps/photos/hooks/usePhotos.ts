@@ -38,7 +38,9 @@ async function readPublicJson<T>(path: string): Promise<T> {
   }
   const res = await fetch(`/${path}`);
   if (!res.ok) {
-    throw new NetworkError(`Failed to load ${path}: ${res.status} ${res.statusText}`);
+    throw new NetworkError(
+      `Failed to load ${path}: ${res.status} ${res.statusText}`
+    );
   }
   return res.json() as Promise<T>;
 }
