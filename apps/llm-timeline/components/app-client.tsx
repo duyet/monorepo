@@ -123,7 +123,7 @@ export function AppClient({
           filters={filters}
           onFilterChange={handleFilterChange}
           resultCount={filteredModels.length}
-          totalCount={filteredModels.length}
+          totalCount={initialModels.length}
           liteMode={liteMode}
           onLiteModeToggle={() => setLiteMode((prev) => !prev)}
         />
