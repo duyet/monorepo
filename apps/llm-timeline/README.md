@@ -15,7 +15,7 @@ Interactive timeline of Large Language Model releases from 2017 to present.
 
 ## Tech Stack
 
-- Next.js 15 with App Router
+- Vite + TanStack Start with React 19
 - Tailwind CSS for styling
 - Lucide React for icons
 - TypeScript for type safety

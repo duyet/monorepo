@@ -16,7 +16,7 @@ A beautiful monitoring dashboard for a 3-node minipc cluster, styled with Claude
 
 ## Tech Stack
 
-- **Framework**: Next.js 15 with React 19
+- **Framework**: Vite + TanStack Start with React 19
 - **Styling**: Tailwind CSS with custom Claude-inspired color palette
 - **Charts**: Recharts for data visualization
 - **Icons**: Lucide React
@@ -25,16 +25,16 @@ A beautiful monitoring dashboard for a 3-node minipc cluster, styled with Claude
 
 ```bash
 # Install dependencies
-yarn install
+bun install
 
 # Run development server (port 3002)
-yarn dev
+bun run dev
 
 # Build for production
-yarn build
+bun run build
 
 # Start production server
-yarn start
+bun run start
 ```
 
 ## Color Palette

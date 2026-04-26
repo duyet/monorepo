@@ -1,6 +1,6 @@
 # Photos App - Photography Portfolio with Build-Time Metadata Extraction
 
-A Next.js 15 photography portfolio application that displays photos from both Unsplash and local files, with comprehensive EXIF metadata inspection. Photos are scanned and metadata is extracted at build time for optimal performance.
+A Vite + TanStack Start photography portfolio application that displays photos from both Unsplash and local files, with comprehensive EXIF metadata inspection. Photos are scanned and metadata is extracted at build time for optimal performance.
 
 ## Features
 
@@ -36,7 +36,7 @@ A Next.js 15 photography portfolio application that displays photos from both Un
 ## Architecture
 
 ### Technology Stack
-- **Framework**: Next.js 15 (App Router, Static Export)
+- **Framework**: Vite + TanStack Start (Static Export)
 - **Build Mode**: Static Site Generation (SSG)
 - **Image Processing**: Sharp
 - **EXIF Extraction**: ExifReader
@@ -72,7 +72,7 @@ apps/photos/
 
 ### Build-Time Photo Scanning
 
-When you run `yarn build`, the application:
+When you run `bun run build`, the application:
 
 1. **Scans** `public/photos/` directory for image files (JPEG, PNG, WebP)
 2. **Extracts** comprehensive EXIF metadata from each photo
@@ -89,7 +89,7 @@ Simply place your photos in the `public/photos/` directory:
 cp ~/my-photos/*.jpg apps/photos/public/photos/
 
 # Rebuild the site to scan and extract metadata
-yarn build
+bun run build
 
 # The photos will now appear in your gallery with full metadata!
 ```
@@ -193,17 +193,17 @@ Each scanned photo generates:
 # Start development server
 # Photos are scanned on each page load
 cd apps/photos
-yarn dev
+bun run dev
 ```
 
 ### Production Build
 ```bash
 # Build static site
 # Photos are scanned once during build
-yarn build
+bun run build
 
 # Preview the static build
-yarn start
+bun run start
 
 # Deploy the 'out' directory
 ```
@@ -217,7 +217,7 @@ yarn start
 
 2. Rebuild the site:
    ```bash
-   yarn build
+   bun run build
    ```
 
 3. Photos appear in your gallery with full metadata!
@@ -370,7 +370,7 @@ Just deploy the `out/` directory after running `yarn build`.
 - Use a EXIF viewer to check if data exists in the file
 
 ### Build errors?
-- Ensure Sharp is properly installed: `yarn install`
+- Ensure Sharp is properly installed: `bun install`
 - Check that photos are not corrupted
 - Verify file permissions on the photos directory
 
