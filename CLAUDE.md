@@ -48,7 +48,7 @@ cd apps/blog && bun run cf:deploy:prod
 GitHub Actions automatically deploy:
 - **Production**: Push to `master`/`main` deploys changed apps to production
 - **Preview**: PRs get preview deployments with URLs commented by @duyetbot
-- Both deploy workflows run type check (`bun run turbo check-types`), unit tests, and lint before deploy jobs.
+- Both deploy workflows run type checks (`bun run turbo check-types`), unit tests, and lint before deploy jobs.
 
 ## Architecture Overview
 
