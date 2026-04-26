@@ -6,25 +6,16 @@ import {
   it,
   render,
 } from "../../test-setup";
+import { DEFAULT_FILTERS } from "../../lib/utils";
 import { Filters } from "../filters";
 
 afterEach(cleanup);
-
-const baseFilters = {
-  search: "",
-  license: "all" as const,
-  type: "all" as const,
-  org: "",
-  source: "all" as const,
-  domain: "all",
-  params: "all",
-};
 
 describe("Filters", () => {
   it("shows total result context when resultCount is below totalCount", () => {
     const { getByText } = render(
       <Filters
-        filters={{ ...baseFilters, license: "open" }}
+        filters={{ ...DEFAULT_FILTERS, license: "open" }}
         onFilterChange={() => {}}
         resultCount={42}
         totalCount={100}
@@ -37,7 +28,7 @@ describe("Filters", () => {
   it("hides total result context when resultCount matches totalCount", () => {
     const { queryByText } = render(
       <Filters
-        filters={baseFilters}
+        filters={DEFAULT_FILTERS}
         onFilterChange={() => {}}
         resultCount={100}
         totalCount={100}
@@ -50,7 +41,7 @@ describe("Filters", () => {
   it("keeps total result context hidden when only filter state changes", () => {
     const { queryByText } = render(
       <Filters
-        filters={{ ...baseFilters, license: "open" }}
+        filters={{ ...DEFAULT_FILTERS, license: "open" }}
         onFilterChange={() => {}}
         resultCount={100}
         totalCount={100}
