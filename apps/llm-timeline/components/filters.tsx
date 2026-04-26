@@ -2,14 +2,13 @@ import { cn } from "@duyet/libs/utils";
 import {
   ChevronDown,
   Download,
-  Filter,
   LayoutList,
   Rows2,
   X,
   SlidersHorizontal,
 } from "lucide-react";
 import { useCallback, useState } from "react";
-import { models as allModels, domains, organizations } from "@/lib/data";
+import { models as allModels, domains } from "@/lib/data";
 import type { FilterState } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
