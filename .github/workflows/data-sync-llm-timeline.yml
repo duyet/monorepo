@@ -19,6 +19,7 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: write
+      pull-requests: write
 
     steps:
       - name: Checkout
@@ -40,15 +41,39 @@ jobs:
         working-directory: apps/llm-timeline
         run: bun scripts/sync-data.ts
 
-      - name: Commit updated data
+      - name: Create data sync pull request
         if: ${{ inputs.dry_run != true }}
-        uses: stefanzweifel/git-auto-commit-action@v7
-        with:
-          commit_message: |
-            chore(llm-timeline): sync model data from Google Sheets + Epoch AI
+        env:
+          GH_TOKEN: ${{ secrets.DUYETBOT_GITHUB_TOKEN != '' && secrets.DUYETBOT_GITHUB_TOKEN || github.token }}
+        run: |
+          git add apps/llm-timeline/lib/data.ts
 
-            Co-Authored-By: duyet <me@duyet.net>
-            Co-Authored-By: duyetbot <duyetbot@users.noreply.github.com>
-          file_pattern: apps/llm-timeline/lib/data.ts
-          commit_user_name: duyetbot
-          commit_user_email: duyetbot@users.noreply.github.com
+          if git diff --cached --quiet; then
+            echo "No LLM timeline data changes detected."
+            exit 0
+          fi
+
+          branch="chore/llm-timeline-data-sync"
+          head="${{ github.repository_owner }}:$branch"
+
+          git config user.name "duyetbot"
+          git config user.email "duyetbot@users.noreply.github.com"
+          git switch "$branch" 2>/dev/null || git switch --create "$branch"
+          git commit -m "chore(llm-timeline): sync model data from Google Sheets + Epoch AI" \
+            -m "Co-Authored-By: duyet <me@duyet.net>" \
+            -m "Co-Authored-By: duyetbot <duyetbot@users.noreply.github.com>"
+          git push --force-with-lease "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" "$branch"
+
+          pr_number="$(gh pr list --head "$head" --state open --json number --jq '.[0].number')"
+
+          if [ -n "$pr_number" ]; then
+            gh pr edit "$pr_number" \
+              --title "chore(llm-timeline): sync model data from Google Sheets + Epoch AI" \
+              --body "Automated LLM Timeline data sync from Google Sheets and Epoch AI."
+          else
+            gh pr create \
+              --base "${{ github.ref_name }}" \
+              --head "$head" \
+              --title "chore(llm-timeline): sync model data from Google Sheets + Epoch AI" \
+              --body "Automated LLM Timeline data sync from Google Sheets and Epoch AI."
+          fi
