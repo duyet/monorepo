@@ -66,7 +66,7 @@ jobs:
             -m "Co-Authored-By: duyetbot <duyetbot@users.noreply.github.com>"
           git push --force-with-lease "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" "$branch"
 
-          pr_number="$(gh pr list --head "$head" --state open --json number --jq '.[0].number')"
+          pr_number="$(gh pr list --head "$head" --state open --json number --jq '.[0].number // empty')"
 
           if [ -n "$pr_number" ]; then
             gh pr edit "$pr_number" \

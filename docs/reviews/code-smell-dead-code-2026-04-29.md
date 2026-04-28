@@ -8,6 +8,13 @@ Recently changed files:
 
 ## Findings Fixed
 
+### Warning: implicit empty fallback for generated sync PR lookup
+
+- File: `.github/workflows/data-sync-llm-timeline.yml:67`
+- Finding: the generated sync PR lookup relied on the default `gh --jq` behavior when no open PR exists. Making the empty fallback explicit keeps the shell branch condition clear and avoids future jq behavior drift around absent array elements.
+- Fix: changed the jq expression to `.[0].number // empty` so the create path explicitly runs when no matching PR exists.
+- Confidence: confident.
+
 ### Warning: repeated generated PR metadata in workflow shell
 
 - File: `.github/workflows/data-sync-llm-timeline.yml:62`
@@ -25,3 +32,4 @@ Search evidence:
 
 - `git log --since='2026-04-27T21:03:15Z' --name-only` found only `.github/workflows/data-sync-llm-timeline.yml` after the last run.
 - `rg -n "chore\\(llm-timeline\\): sync model data from Google Sheets \\+ Epoch AI|Automated LLM Timeline data sync from Google Sheets and Epoch AI" .github/workflows/data-sync-llm-timeline.yml` found five repeated metadata literals before the fix.
+- `gh pr list --head duyet:no-such-branch-for-code-smell-20260429 --state open --json number --jq '.[0].number // empty' | wc -c` returned `0`, confirming the fallback is empty for no matches.
