@@ -49,6 +49,7 @@ GitHub Actions automatically deploy:
 - **Production**: Push to `master`/`main` deploys changed apps to production
 - **Preview**: PRs get preview deployments with URLs commented by @duyetbot
 - Both deploy workflows run type checks (`bun run turbo check-types`), unit tests, and lint before deploy jobs.
+- **Data sync**: `.github/workflows/data-sync-llm-timeline.yml` runs weekly (Monday 06:00 UTC) and supports manual `workflow_dispatch` dry runs.
 
 ## Architecture Overview
 
@@ -150,6 +151,7 @@ Place environment files as `.env` or `.env.local` in the root directory.
   - `apps/data-sync`: `bun run sync:all`, `sync:wakatime`, `sync:cloudflare`, `sync:github`, `sync:unsplash`, `migrate:up|down|status|verify`, and `cleanup:dry-run`.
   - `apps/data-sync`: `bun run sync ai-code-percentage` refreshes the dataset used by `apps/ai-percentage`.
   - `apps/llm-timeline`: `bun run rss`, `llms-txt`, `sitemap`, `sync`, and `sync:dry` for content generation and sync checks.
+  - `apps/llm-timeline`: LLM Timeline data refresh also runs in GitHub Actions and opens/updates `chore/llm-timeline-data-sync` PRs when `apps/llm-timeline/lib/data.ts` changes.
   - Several apps also expose `cf:deploy:prod`; check the app `package.json` before using the generic root deploy flow for production.
 
 ## Git Workflow
