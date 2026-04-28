@@ -55,11 +55,13 @@ jobs:
 
           branch="chore/llm-timeline-data-sync"
           head="${{ github.repository_owner }}:$branch"
+          pr_title="chore(llm-timeline): sync model data from Google Sheets + Epoch AI"
+          pr_body="Automated LLM Timeline data sync from Google Sheets and Epoch AI."
 
           git config user.name "duyetbot"
           git config user.email "duyetbot@users.noreply.github.com"
           git switch "$branch" 2>/dev/null || git switch --create "$branch"
-          git commit -m "chore(llm-timeline): sync model data from Google Sheets + Epoch AI" \
+          git commit -m "$pr_title" \
             -m "Co-Authored-By: duyet <me@duyet.net>" \
             -m "Co-Authored-By: duyetbot <duyetbot@users.noreply.github.com>"
           git push --force-with-lease "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" "$branch"
@@ -68,12 +70,12 @@ jobs:
 
           if [ -n "$pr_number" ]; then
             gh pr edit "$pr_number" \
-              --title "chore(llm-timeline): sync model data from Google Sheets + Epoch AI" \
-              --body "Automated LLM Timeline data sync from Google Sheets and Epoch AI."
+              --title "$pr_title" \
+              --body "$pr_body"
           else
             gh pr create \
               --base "${{ github.ref_name }}" \
               --head "$head" \
-              --title "chore(llm-timeline): sync model data from Google Sheets + Epoch AI" \
-              --body "Automated LLM Timeline data sync from Google Sheets and Epoch AI."
+              --title "$pr_title" \
+              --body "$pr_body"
           fi
