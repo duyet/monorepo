@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@clickhouse/client": "^1.12.1",
+    "@duckdb/node-api": "^1.5.2-r.1",
     "@duyet/components": "*",
     "@duyet/libs": "*",
     "@radix-ui/react-dialog": "^1.1.2",
