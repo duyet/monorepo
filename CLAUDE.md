@@ -50,6 +50,8 @@ GitHub Actions automatically deploy:
 - **Preview**: PRs get preview deployments with URLs commented by @duyetbot
 - Both deploy workflows run type checks (`bun run turbo check-types`), unit tests, and lint before deploy jobs.
 - **Data sync**: `.github/workflows/data-sync-llm-timeline.yml` runs weekly (Monday 06:00 UTC) and supports manual `workflow_dispatch` dry runs.
+  - Manual dry run uses `dry_run=true` and runs `bun scripts/sync-data.ts --dry-run --verbose` in `apps/llm-timeline`.
+  - Non-dry runs commit `apps/llm-timeline/lib/data.ts` updates to `chore/llm-timeline-data-sync` with title `chore(llm-timeline): sync model data from Google Sheets + Epoch AI`.
 
 ## Architecture Overview
 
