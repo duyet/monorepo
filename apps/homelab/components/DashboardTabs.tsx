@@ -31,6 +31,7 @@ export function DashboardTabs({
   const handleTabChange = useCallback(
     (id: TabId) => {
       navigate({
+        to: "/",
         search: (prev: RootSearch) => ({ ...prev, tab: id }),
         replace: true,
       });

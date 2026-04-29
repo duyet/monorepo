@@ -1,5 +1,6 @@
 import { getAllClickHousePhotos } from "./clickhouse-provider";
 import { getAllCloudinaryPhotos } from "./cloudinary-provider";
+import { getAllDuckDBPhotos } from "./duckdb-provider";
 import type { PhotoFetchError } from "./errors";
 import { UnknownPhotoError } from "./errors";
 import { getFallbackPhotos } from "./fallback-provider";
@@ -35,8 +36,17 @@ export async function getAllPhotos(): Promise<Photo[]> {
   const allPhotos: Photo[] = [];
   const errors: PhotoFetchError[] = [];
 
-  // Try ClickHouse first (fastest, no rate limits)
-  const clickhousePhotos = await getAllClickHousePhotos();
+  // Try the local DuckDB cache first so builds still have data when ClickHouse
+  // is temporarily unreachable.
+  const duckDBPhotos = await getAllDuckDBPhotos();
+  if (duckDBPhotos.length > 0) {
+    console.log("🦆 DuckDB cache available - using as primary source");
+    allPhotos.push(...duckDBPhotos);
+  }
+
+  // Try ClickHouse next (fastest remote source, no Unsplash rate limits)
+  const clickhousePhotos =
+    allPhotos.length === 0 ? await getAllClickHousePhotos() : [];
 
   if (clickhousePhotos.length > 0) {
     console.log("🚀 ClickHouse data available - using as primary source");

@@ -10,6 +10,7 @@
   },
   "scripts": {
     "config": "bun ../../scripts/sync-app-secrets.ts duyet-insights",
+    "sync:cache": "bun --env-file=.env.local scripts/sync-analytics-cache.ts",
     "build": "bun --bun vite build",
     "check-types": "tsc --noEmit",
     "dev": "vite dev --port 3001",
@@ -25,6 +26,7 @@
   },
   "dependencies": {
     "@clickhouse/client": "^1.12.1",
+    "@duckdb/node-api": "^1.5.2-r.1",
     "@duyet/components": "*",
     "@duyet/config": "*",
     "@duyet/libs": "*",

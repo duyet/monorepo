@@ -20,6 +20,53 @@ import {
   validateDaysParameter,
 } from "./queries";
 
+async function executeDuckDBCacheQuery(
+  query: string
+): Promise<Record<string, unknown>[]> {
+  if (typeof window !== "undefined") {
+    return [];
+  }
+
+  const { executeDuckDBQuery } = await import(
+    /* @vite-ignore */ "./duckdb-cache"
+  );
+  return executeDuckDBQuery(query);
+}
+
+let hasLoggedDuckDBCacheFallback = false;
+
+async function executeAnalyticsQuery(
+  clickHouseQuery: string,
+  duckDBQuery = clickHouseQuery
+): Promise<Record<string, unknown>[]> {
+  let results: Record<string, unknown>[] = [];
+  try {
+    results = await executeClickHouseQueryLegacy(clickHouseQuery);
+  } catch (error) {
+    console.warn(
+      "[CCUsage] ClickHouse query failed, trying DuckDB cache:",
+      error instanceof Error ? error.message : error
+    );
+  }
+
+  if (results.length > 0) {
+    return results;
+  }
+
+  const cacheResults = await executeDuckDBCacheQuery(duckDBQuery);
+  if (cacheResults.length > 0 && !hasLoggedDuckDBCacheFallback) {
+    console.log("[CCUsage] Using DuckDB cache fallback");
+    hasLoggedDuckDBCacheFallback = true;
+  }
+  return cacheResults;
+}
+
+function getDuckDBDateCondition(days: DateRangeDays, column: string): string {
+  const safeDays = validateDaysParameter(days);
+  if (safeDays === "all") return "";
+  return `WHERE ${column} > current_date - INTERVAL ${safeDays} DAY`;
+}
+
 // Single in-flight promise prevents concurrent callers from running duplicate checks
 let healthCheckPromise: Promise<boolean> | null = null;
 
@@ -129,7 +176,19 @@ export async function getCCUsageMetrics(
     ${dateCondition}
   `;
 
-  const results = await executeClickHouseQueryLegacy(query);
+  const duckDBQuery = `
+    SELECT
+      SUM(total_tokens) as total_tokens,
+      SUM(input_tokens) as input_tokens,
+      SUM(output_tokens) as output_tokens,
+      SUM(cache_creation_tokens + cache_read_tokens) as cache_tokens,
+      SUM(total_cost) as total_cost,
+      COUNT(DISTINCT date) as active_days
+    FROM ccusage_usage_daily
+    ${getDuckDBDateCondition(days, "date")}
+  `;
+
+  let results = await executeAnalyticsQuery(query, duckDBQuery);
 
   if (!results || results.length === 0) {
     return {
@@ -159,7 +218,19 @@ export async function getCCUsageMetrics(
     LIMIT 1
   `;
 
-  const modelResults = await executeClickHouseQueryLegacy(modelQuery);
+  const modelDuckDBQuery = `
+    SELECT model_name, SUM(input_tokens + output_tokens + cache_creation_tokens + cache_read_tokens) as total_tokens
+    FROM ccusage_model_breakdowns
+    ${getDuckDBDateCondition(days, "created_at")}
+    GROUP BY model_name
+    ORDER BY total_tokens DESC
+    LIMIT 1
+  `;
+
+  const modelResults = await executeAnalyticsQuery(
+    modelQuery,
+    modelDuckDBQuery
+  );
   const topModel =
     modelResults.length > 0 ? String(modelResults[0].model_name) : "N/A";
 
@@ -195,7 +266,21 @@ export async function getCCUsageActivity(
     ORDER BY date ASC
   `;
 
-  const results = await executeClickHouseQueryLegacy(query);
+  const duckDBQuery = `
+    SELECT
+      CAST(date AS VARCHAR) as date,
+      SUM(total_tokens) as "Total Tokens",
+      SUM(input_tokens) as "Input Tokens",
+      SUM(output_tokens) as "Output Tokens",
+      SUM(cache_creation_tokens + cache_read_tokens) as "Cache Tokens",
+      SUM(total_cost) as "Total Cost"
+    FROM ccusage_usage_daily
+    ${getDuckDBDateCondition(days, "date")}
+    GROUP BY date
+    ORDER BY date ASC
+  `;
+
+  const results = await executeAnalyticsQuery(query, duckDBQuery);
 
   if (!results || results.length === 0) return [];
 
@@ -231,7 +316,21 @@ export async function getCCUsageActivityRaw(
     ORDER BY date ASC
   `;
 
-  const results = await executeClickHouseQueryLegacy(query);
+  const duckDBQuery = `
+    SELECT
+      CAST(date AS VARCHAR) as date,
+      SUM(total_tokens) as "Total Tokens",
+      SUM(input_tokens) as "Input Tokens",
+      SUM(output_tokens) as "Output Tokens",
+      SUM(cache_creation_tokens + cache_read_tokens) as "Cache Tokens",
+      SUM(total_cost) as "Total Cost"
+    FROM ccusage_usage_daily
+    ${getDuckDBDateCondition(days, "date")}
+    GROUP BY date
+    ORDER BY date ASC
+  `;
+
+  const results = await executeAnalyticsQuery(query, duckDBQuery);
 
   if (!results || results.length === 0) return [];
 
@@ -265,7 +364,20 @@ export async function getCCUsageModels(
     LIMIT 10
   `;
 
-  const results = await executeClickHouseQueryLegacy(query);
+  const duckDBQuery = `
+    SELECT
+      model_name,
+      SUM(cost) as total_cost,
+      SUM(input_tokens + output_tokens + cache_creation_tokens + cache_read_tokens) as total_tokens,
+      COUNT(*) as usage_count
+    FROM ccusage_model_breakdowns
+    ${getDuckDBDateCondition(days, "created_at")}
+    GROUP BY model_name
+    ORDER BY total_tokens DESC
+    LIMIT 10
+  `;
+
+  const results = await executeAnalyticsQuery(query, duckDBQuery);
 
   if (!results || results.length === 0) return [];
 
@@ -336,7 +448,21 @@ export async function getCCUsageProjects(
     LIMIT 15
   `;
 
-  const results = await executeClickHouseQueryLegacy(query);
+  const duckDBQuery = `
+    SELECT
+      session_id,
+      project_path,
+      SUM(total_tokens) as total_tokens,
+      SUM(total_cost) as total_cost,
+      MAX(last_activity) as last_activity
+    FROM ccusage_usage_sessions
+    ${getDuckDBDateCondition(days, "last_activity")}
+    GROUP BY session_id, project_path
+    ORDER BY total_tokens DESC
+    LIMIT 15
+  `;
+
+  const results = await executeAnalyticsQuery(query, duckDBQuery);
 
   if (!results || results.length === 0) return [];
 
@@ -364,7 +490,24 @@ export async function getCCUsageEfficiency(): Promise<CCUsageEfficiencyData[]> {
     ORDER BY date DESC
   `;
 
-  const results = await executeClickHouseQueryLegacy(query);
+  const duckDBQuery = `
+    SELECT
+      CAST(date AS VARCHAR) as date,
+      SUM(total_tokens) as tokens,
+      SUM(total_cost) as cost,
+      CASE
+        WHEN SUM(total_cost) > 0
+        THEN SUM(total_tokens) / SUM(total_cost)
+        ELSE 0
+      END as tokens_per_dollar
+    FROM ccusage_usage_daily
+    WHERE date >= current_date - INTERVAL 30 DAY
+    AND total_cost > 0
+    GROUP BY date
+    ORDER BY date DESC
+  `;
+
+  const results = await executeAnalyticsQuery(query, duckDBQuery);
 
   if (!results || results.length === 0) return [];
 
@@ -397,7 +540,21 @@ export async function getCCUsageCosts(
     ORDER BY date ASC
   `;
 
-  const results = await executeClickHouseQueryLegacy(query);
+  const duckDBQuery = `
+    SELECT
+      CAST(date AS VARCHAR) as date,
+      SUM(total_cost) as total_cost,
+      SUM(input_tokens) as input_tokens,
+      SUM(output_tokens) as output_tokens,
+      SUM(cache_creation_tokens + cache_read_tokens) as cache_tokens,
+      SUM(total_tokens) as total_tokens
+    FROM ccusage_usage_daily
+    ${getDuckDBDateCondition(days, "date")}
+    GROUP BY date
+    ORDER BY date ASC
+  `;
+
+  const results = await executeAnalyticsQuery(query, duckDBQuery);
 
   if (!results || results.length === 0) return [];
 
@@ -464,7 +621,18 @@ export async function getCCUsageActivityByModel(
     ORDER BY date ASC
   `;
 
-  const results = await executeClickHouseQueryLegacy(query);
+  const duckDBQuery = `
+    SELECT
+      CAST(created_at AS DATE)::VARCHAR as date,
+      model_name,
+      SUM(input_tokens + output_tokens + cache_creation_tokens + cache_read_tokens) as total_tokens
+    FROM ccusage_model_breakdowns
+    ${getDuckDBDateCondition(days, "created_at")}
+    GROUP BY CAST(created_at AS DATE), model_name
+    ORDER BY date ASC
+  `;
+
+  const results = await executeAnalyticsQuery(query, duckDBQuery);
 
   if (!results || results.length === 0) return [];
 
