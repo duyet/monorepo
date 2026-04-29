@@ -6,7 +6,6 @@ import type { Photo } from "./types";
 
 interface DuckDBPhotoRow {
   photo_id: string;
-  provider: string;
   created_at: string;
   updated_at: string;
   width: number;
@@ -141,7 +140,6 @@ export async function getAllDuckDBPhotos(): Promise<Photo[]> {
       `
         SELECT
           photo_id,
-          provider,
           CAST(created_at AS VARCHAR) as created_at,
           CAST(updated_at AS VARCHAR) as updated_at,
           width,
