@@ -188,7 +188,7 @@ export async function getCCUsageMetrics(
     ${getDuckDBDateCondition(days, "date")}
   `;
 
-  let results = await executeAnalyticsQuery(query, duckDBQuery);
+  const results = await executeAnalyticsQuery(query, duckDBQuery);
 
   if (!results || results.length === 0) {
     return {
