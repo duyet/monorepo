@@ -42,7 +42,7 @@ function getSshHost(): string {
 }
 
 function getClickHouseConfig() {
-  const useSsh = process.env.CLICKHOUSE_USE_SSH_TUNNEL === "1";
+  const useSsh = useSshClickHouse();
   const host = useSsh ? "127.0.0.1" : process.env.CLICKHOUSE_HOST;
   const port = useSsh ? String(getLocalPort()) : process.env.CLICKHOUSE_PORT || "8123";
   const user = process.env.CLICKHOUSE_USER;
