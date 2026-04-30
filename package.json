@@ -15,6 +15,7 @@
     "prepare": "[ \"$CI\" != \"true\" ] && husky || true",
     "fmt": "biome format --write .",
     "lint": "biome lint .",
+    "check-types": "turbo check-types",
     "start": "dotenv -- turbo start",
     "test": "dotenv -- turbo test",
     "config": "turbo run config",
