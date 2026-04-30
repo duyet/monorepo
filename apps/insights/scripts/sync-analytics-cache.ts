@@ -21,6 +21,9 @@ type QuerySpec = {
 };
 
 type ClickHouseClient = ReturnType<typeof createClient>;
+type FetchRowsSource =
+  | { mode: "direct"; client: ClickHouseClient }
+  | { mode: "ssh" };
 
 const UNSPLASH_USERNAME = process.env.UNSPLASH_USERNAME;
 
@@ -309,12 +312,12 @@ async function runSshClickHouseQuery(
     .map((line) => JSON.parse(line));
 }
 
-async function fetchRows(client: ClickHouseClient | null, spec: QuerySpec) {
-  if (!client) {
+async function fetchRows(source: FetchRowsSource, spec: QuerySpec) {
+  if (source.mode === "ssh") {
     return runSshClickHouseQuery(spec.query, spec.queryParams);
   }
 
-  const result = await client.query({
+  const result = await source.client.query({
     query: spec.query,
     format: "JSONEachRow",
     query_params: spec.queryParams,
@@ -359,23 +362,26 @@ async function main() {
     rmSync(tempPath);
   }
 
-  const clickhouse = useSshClickHouse()
-    ? null
-    : createClient({
-        ...getClickHouseConfig(),
-        request_timeout: 60_000,
-        clickhouse_settings: {
-          max_execution_time: 60,
-          max_result_rows: "100000",
-        },
-      });
+  const rowSource: FetchRowsSource = useSshClickHouse()
+    ? { mode: "ssh" }
+    : {
+        mode: "direct",
+        client: createClient({
+          ...getClickHouseConfig(),
+          request_timeout: 60_000,
+          clickhouse_settings: {
+            max_execution_time: 60,
+            max_result_rows: "100000",
+          },
+        }),
+      };
 
   const instance = await DuckDBInstance.create(tempPath);
   const connection = await instance.connect();
 
   try {
     for (const spec of querySpecs) {
-      const rows = await fetchRows(clickhouse, spec);
+      const rows = await fetchRows(rowSource, spec);
       await replaceTable(connection, spec, rows, tempDir);
       console.log(`  ${spec.table}: ${rows.length} rows`);
     }
@@ -396,7 +402,9 @@ async function main() {
     await Bun.write(cachePath, Bun.file(tempPath));
     rmSync(tempPath);
   } finally {
-    await clickhouse?.close();
+    if (rowSource.mode === "direct") {
+      await rowSource.client.close();
+    }
     rmSync(tempDir, { force: true, recursive: true });
   }
 

@@ -3,7 +3,7 @@
 ## Scope
 
 - Reviewed changes since `2026-04-29T21:00:53Z`.
-- Recent modified files:
+- Recently modified files:
   - `CLAUDE.md`
   - `apps/insights/app/ai/utils/data-fetchers.ts`
   - `apps/insights/scripts/sync-analytics-cache.ts`
@@ -16,7 +16,7 @@
 - File: `apps/insights/scripts/sync-analytics-cache.ts`
 - Lines before fix: `368-375`, `319-321`, `403`
 - Issue: `main()` always created a ClickHouse HTTP client, but `fetchRows()` immediately bypassed that client in SSH mode and used `runSshClickHouseQuery()` instead.
-- Fix: create the HTTP client only for direct ClickHouse mode, pass `null` in SSH mode, close the client only when it exists, and keep the HTTP config helper direct-mode-only.
+- Fix: create the HTTP client only for direct ClickHouse mode, use an explicit SSH fetch mode when no HTTP client is needed, close the client only when it exists, and keep the HTTP config helper direct-mode-only.
 - Behavior impact: none intended. Direct mode still uses the same client config. SSH mode still runs the same SSH query path.
 
 ## Dead Code Evidence
