@@ -16,7 +16,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - `bun run lint` - Lint the workspace with Biome
 - `bun run fmt` - Format all TypeScript, TSX, and Markdown files with Biome
-- `bun run turbo check-types` - Run workspace TypeScript checks via Turbo (used in CI)
+- `bun run check-types` - Run workspace TypeScript checks via Turbo (used in CI)
 - `bun run test` - Run tests across all packages using Turbo
 
 ### Individual App Development
