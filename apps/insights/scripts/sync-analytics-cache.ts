@@ -20,11 +20,9 @@ type QuerySpec = {
   queryParams?: Record<string, unknown>;
 };
 
-const UNSPLASH_USERNAME = process.env.UNSPLASH_USERNAME;
+type ClickHouseClient = ReturnType<typeof createClient>;
 
-function getLocalPort(): number {
-  return Number(process.env.CLICKHOUSE_SSH_LOCAL_PORT || "18123");
-}
+const UNSPLASH_USERNAME = process.env.UNSPLASH_USERNAME;
 
 function useSshClickHouse(): boolean {
   return (
@@ -42,14 +40,13 @@ function getSshHost(): string {
 }
 
 function getClickHouseConfig() {
-  const useSsh = useSshClickHouse();
-  const host = useSsh ? "127.0.0.1" : process.env.CLICKHOUSE_HOST;
-  const port = useSsh ? String(getLocalPort()) : process.env.CLICKHOUSE_PORT || "8123";
+  const host = process.env.CLICKHOUSE_HOST;
+  const port = process.env.CLICKHOUSE_PORT || "8123";
   const user = process.env.CLICKHOUSE_USER;
   const password = process.env.CLICKHOUSE_PASSWORD;
   const database = process.env.CLICKHOUSE_DATABASE;
   const protocol =
-    (useSsh ? "http" : process.env.CLICKHOUSE_PROTOCOL) ||
+    process.env.CLICKHOUSE_PROTOCOL ||
     (["443", "8443", "9440"].includes(port) ? "https" : "http");
 
   const missing = [];
@@ -312,11 +309,8 @@ async function runSshClickHouseQuery(
     .map((line) => JSON.parse(line));
 }
 
-async function fetchRows(
-  client: ReturnType<typeof createClient>,
-  spec: QuerySpec
-) {
-  if (useSshClickHouse()) {
+async function fetchRows(client: ClickHouseClient | null, spec: QuerySpec) {
+  if (!client) {
     return runSshClickHouseQuery(spec.query, spec.queryParams);
   }
 
@@ -365,14 +359,16 @@ async function main() {
     rmSync(tempPath);
   }
 
-  const clickhouse = createClient({
-    ...getClickHouseConfig(),
-    request_timeout: 60_000,
-    clickhouse_settings: {
-      max_execution_time: 60,
-      max_result_rows: "100000",
-    },
-  });
+  const clickhouse = useSshClickHouse()
+    ? null
+    : createClient({
+        ...getClickHouseConfig(),
+        request_timeout: 60_000,
+        clickhouse_settings: {
+          max_execution_time: 60,
+          max_result_rows: "100000",
+        },
+      });
 
   const instance = await DuckDBInstance.create(tempPath);
   const connection = await instance.connect();
@@ -400,7 +396,7 @@ async function main() {
     await Bun.write(cachePath, Bun.file(tempPath));
     rmSync(tempPath);
   } finally {
-    await clickhouse.close();
+    await clickhouse?.close();
     rmSync(tempDir, { force: true, recursive: true });
   }
 
