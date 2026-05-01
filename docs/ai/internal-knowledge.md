@@ -71,26 +71,60 @@ This repository is the Bun/Turborepo monorepo for duyet.net public apps, shared 
 
 ## Rust/WASM Modules
 
-Rust crates in `crates/` compile to WASM via `wasm-pack --target web`. Output lands in `packages/wasm/pkg/<crate>/`. Apps import from `@duyet/wasm/pkg/<crate>/<crate>.js`.
+Rust crates in `crates/` serve two purposes:
+- **Build-time**: Native CLI binary (`duyet-cli`) for data sync and prerender
+- **Runtime**: WASM modules for browser/CF Workers (diff, exif, utils, markdown)
 
 ### Build & Test
 
-- `bun run wasm:build` — build all crates to WASM
+- `bun run rust:build` — build native CLI binary (`target/release/duyet-cli`)
+- `bun run wasm:build` — build runtime crates to WASM
 - `bun run wasm:test` — `cargo test` across workspace
 - `bun run wasm:clippy` — lint Rust code
 - `bun run bench:wasm` — run TS vs WASM benchmarks
 
 ### Crates
 
-| Crate | Function | App Consumer |
-|-------|----------|-------------|
-| `crates/markdown/` | `markdown_to_html(input) -> String` | `packages/libs/markdownToHtml.ts` |
-| `crates/csv-parser/` | `parse_csv(input) -> String` (JSON 2D array) | `apps/llm-timeline/lib/csv.ts` |
-| `crates/normalizers/` | `normalize_date/params/license/type/text`, `convert_numeric_params` | `apps/llm-timeline/lib/normalizers.ts` |
-| `crates/exif/` | `extract_exif(data: &[u8]) -> String` | `apps/photos/lib/exifExtractor.ts` |
-| `crates/diff/` | `diff_text(old, new)`, `align_blocks(old, new)` | `apps/agents/lib/editor/diff.ts` |
-| `crates/utils/` | `escape_reg_exp`, `slugify` | `packages/libs/string.ts` |
-| `crates/dedup/` | `merge_all_sources(input) -> String` | `apps/llm-timeline/lib/deduplicator.ts` |
+| Crate | Mode | Function | Consumer |
+|-------|------|----------|----------|
+| `crates/cli/` | Build | Unified CLI: `csv`, `normalize`, `dedup`, `markdown` subcommands | JS wrappers via `callCli()` |
+| `crates/markdown/` | Both | `markdown_to_html(input) -> String` | WASM for per-page, CLI for batch |
+| `crates/csv-parser/` | Build | `parse_csv(input) -> String` | `apps/llm-timeline/lib/csv.ts` |
+| `crates/normalizers/` | Build | 8 normalize functions | `apps/llm-timeline/lib/normalizers.ts` |
+| `crates/dedup/` | Build | `merge_all_sources(input) -> String` | `apps/llm-timeline/lib/deduplicator.ts` |
+| `crates/exif/` | Runtime | `extract_exif(data: &[u8]) -> String` | `apps/photos/lib/exifExtractor.ts` |
+| `crates/diff/` | Runtime | `diff_text`, `align_blocks` | `apps/agents/lib/editor/diff.ts` |
+| `crates/utils/` | Runtime | `escape_reg_exp`, `slugify` | `packages/libs/string.ts` |
+
+### Native CLI Protocol
+
+The `duyet-cli` binary reads JSON from stdin, writes JSON to stdout:
+
+```bash
+echo '{"input":"a,b\\n1,2"}' | duyet-cli csv
+# {"ok":true,"data":[["a","b"],["1","2"]]}
+
+echo '{"input":[{"fn":"normalize_date","args":["Q1 2024"]}]}' | duyet-cli normalize
+# {"ok":true,"data":["2024-01-01"]}
+```
+
+JS wrapper: `import { callCli } from "@duyet/libs/native-cli"`
+
+### WASM Initialization Pattern (runtime modules)
+
+WASM modules require `initSync()` before use. In Node/Bun:
+
+```ts
+import { initSync, extract_exif } from "@duyet/wasm/pkg/exif/exif.js"
+import { readFileSync } from "node:fs"
+
+const wasmPath = new URL("exif_bg.wasm", import.meta.url)
+initSync({ module: readFileSync(new URL(wasmPath).pathname) })
+```
+
+In browser/CF Workers, use the default async export instead of `initSync`.
+
+Type declarations for WASM modules are in `packages/wasm/types.d.ts` (committed to git, since `pkg/` is gitignored).
 
 ### WASM Initialization Pattern
 
@@ -114,35 +148,17 @@ In browser/CF Workers, use the default async export instead of `initSync`.
 | diff-text (line-level) | 0.11ms | 0.11ms | ~1x | Parity |
 | string-utils | 0.14ms | 0.14ms | ~1x | Parity |
 | exif-parse | 0.001ms | 0.001ms | ~1x | Parity |
-| csv-parse | 0.08ms | 0.16ms | 0.5x | WASM slower — JSON overhead |
-| normalizers | 0.01ms | 0.04ms | 0.23x | WASM slower — boundary cost |
-| dedup | 0.01ms | 0.04ms | 0.29x | WASM slower — boundary cost |
+| csv-parse | 0.08ms | 0.16ms | 0.5x | WASM slower → now uses native CLI |
+| normalizers | 0.01ms | 0.04ms | 0.23x | WASM slower → now uses native CLI batch |
+| dedup | 0.01ms | 0.04ms | 0.29x | WASM slower → now uses native CLI |
 
-### When WASM Wins vs Loses
+### Architecture Decision
 
-**Rule**: WASM only outperforms TS when computation time exceeds the JS↔WASM boundary
-crossing cost (~30-40μs per call in Bun). Below ~1ms compute, string marshaling
-dominates.
+**Rule**: WASM only outperforms TS when compute > JS↔WASM boundary cost (~30-40μs).
 
-- **Wins**: Heavy parsing, complex algorithms, large data transforms (markdown 6ms → 0.08ms)
-- **Parity**: Medium compute where overhead is small fraction of total (diff, string utils)
-- **Loses**: Sub-100μs operations where boundary cost exceeds compute (csv, normalizers, dedup)
-
-**Batch APIs fix this**: Processing N items per single WASM call amortizes boundary cost.
-Not yet implemented — TS remains default for fast operations.
-
-### Bundle Size
-
-- Markdown stack: 1.1MB unified/remark/rehype JS → 270KB WASM binary
-- Normalizers: 1102KB WASM (large due to regex crate)
-- Other modules: 12-159KB each
-
-### Design Decisions
-
-- Normalizers wrapper (`apps/llm-timeline/lib/normalizers.ts`) calls WASM via `initSync`. The app already uses WASM in production.
-- Markdown WASM is ready to replace `packages/libs/markdownToHtml.ts` but not yet wired.
-- Diff WASM provides `align_blocks` (line-level LCS) — the function apps actually use. `diff_text` (char-level) exists but is slower on large inputs.
-- All crates kept regardless of benchmark results — useful for CF Workers, CLI tools, and future batch APIs.
+- **Native CLI** (build-time): csv, normalizers, dedup. No boundary cost. Batch mode for normalizers.
+- **WASM** (runtime): markdown (79x win), diff, exif, utils. Used in browser/CF Workers.
+- **Native binary markdown**: CLI provides batch mode for pre-generation, but per-page prerender keeps WASM (3900 spawns would be slower).
 
 ## Commit Scopes
 
