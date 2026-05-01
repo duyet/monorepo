@@ -1,0 +1,109 @@
+# API Documentation
+
+## Overview
+
+The REST API provides access to user management, authentication, and data export
+functionality. All endpoints require HTTPS and return JSON responses.
+
+## Authentication
+
+All API requests must include an authorization header with a valid JWT token.
+Tokens expire after 24 hours and can be refreshed using the /auth/refresh endpoint.
+
+### POST /auth/login
+
+Request body:
+```json
+{
+  "email": "user@example.com",
+  "password": "securepassword123"
+}
+```
+
+Response:
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refreshToken": "dGhpcyBpcyBhIHJlZnJlc2ggdG9rZW4...",
+  "expiresIn": 86400
+}
+```
+
+## User Management
+
+### GET /users
+
+Returns a paginated list of users. Supports filtering by role, status, and
+registration date.
+
+Query parameters:
+- page (integer): Page number, default 1
+- limit (integer): Results per page, default 20, max 100
+- role (string): Filter by role (admin, editor, viewer)
+- status (string): Filter by status (active, inactive, suspended)
+- sort (string): Sort field (name, email, createdAt)
+- order (string): Sort direction (asc, desc)
+
+### POST /users
+
+Creates a new user. Requires admin role.
+
+Request body:
+```json
+{
+  "name": "Jane Doe",
+  "email": "jane@example.com",
+  "role": "editor",
+  "department": "Engineering"
+}
+```
+
+### PUT /users/:id
+
+Updates an existing user. Partial updates are supported.
+
+### DELETE /users/:id
+
+Soft deletes a user. The user record is marked as deleted but preserved
+for audit purposes. Deleted users can be restored within 30 days.
+
+## Data Export
+
+### POST /export
+
+Initiates a data export job. Supports CSV, JSON, and XML formats.
+
+The export runs asynchronously. The response includes a job ID that can be
+used to check the export status via GET /export/:jobId/status.
+
+## Rate Limiting
+
+API requests are rate limited to 1000 requests per hour per API key.
+Rate limit headers are included in every response:
+- X-RateLimit-Limit: Maximum requests allowed
+- X-RateLimit-Remaining: Requests remaining in current window
+- X-RateLimit-Reset: Unix timestamp when the window resets
+
+## Error Handling
+
+All errors follow RFC 7807 Problem Details format:
+```json
+{
+  "type": "https://api.example.com/errors/validation",
+  "title": "Validation Error",
+  "status": 400,
+  "detail": "Email address is invalid",
+  "instance": "/users/123"
+}
+```
+
+Common error codes:
+- 400: Bad Request - Invalid input parameters
+- 401: Unauthorized - Missing or invalid token
+- 403: Forbidden - Insufficient permissions
+- 404: Not Found - Resource does not exist
+- 409: Conflict - Resource already exists
+- 422: Unprocessable Entity - Validation failure
+- 429: Too Many Requests - Rate limit exceeded
+- 500: Internal Server Error - Unexpected server failure
+- 503: Service Unavailable - Temporary maintenance
