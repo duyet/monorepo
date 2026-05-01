@@ -29,10 +29,10 @@ describe("markdownToHtml", () => {
     expect(result).toContain("Bob");
   });
 
-  test("converts GFM strikethrough (del stripped by sanitizer)", async () => {
+  test("converts GFM strikethrough", async () => {
     const result = await markdownToHtml("~~deleted~~");
     expect(result).toContain("deleted");
-    expect(result).not.toContain("<del>");
+    expect(result).toContain("<del>");
   });
 
   test("converts inline code", async () => {
@@ -88,5 +88,15 @@ describe("markdownToHtml", () => {
     const result = await markdownToHtml("");
     expect(typeof result).toBe("string");
     expect(result.trim()).toBe("");
+  });
+
+  test("adds heading IDs via WASM", async () => {
+    const result = await markdownToHtml("## My Heading");
+    expect(result).toContain('id="my-heading"');
+  });
+
+  test("autolinks headings", async () => {
+    const result = await markdownToHtml("## My Heading");
+    expect(result).toContain('href="#my-heading"');
   });
 });
