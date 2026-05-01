@@ -1,0 +1,17 @@
+[package]
+name = "duyet-diff"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+wasm-bindgen.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+similar = { version = "2", features = ["text", "inline"] }
+
+[dev-dependencies]
+wasm-bindgen-test.workspace = true
