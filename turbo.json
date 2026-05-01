@@ -93,6 +93,14 @@
     },
     "cf:deploy:prod": {
       "cache": false
+    },
+    "wasm:build": {
+      "outputs": ["packages/wasm/pkg/**"],
+      "dependsOn": []
+    },
+    "wasm:build:release": {
+      "outputs": ["packages/wasm/pkg/**"],
+      "dependsOn": []
     }
   }
 }

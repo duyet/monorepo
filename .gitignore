@@ -52,3 +52,8 @@ yarn-error.log*
 # Screenshot files
 *-app.png
 .herenow/
+
+# Rust/WASM
+target/
+**/pkg/
+Cargo.lock

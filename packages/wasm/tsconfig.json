@@ -1,0 +1,8 @@
+{
+  "extends": "@duyet/tsconfig/base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "."
+  },
+  "include": ["index.ts"]
+}
