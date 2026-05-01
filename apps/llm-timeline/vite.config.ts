@@ -2,7 +2,7 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { wasmExternal } from "@duyet/config/vite-wasm-external";
+import { wasmExternal } from "@duyet/config";
 
 export default defineConfig({
   server: { port: 3005 },

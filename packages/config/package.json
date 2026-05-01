@@ -9,8 +9,7 @@
     ".": "./src/index.ts",
     "./app": "./src/app.config.ts",
     "./api": "./src/api.config.ts",
-    "./ui": "./src/ui.config.ts",
-    "./vite-wasm-external": "./src/vite-wasm-external.ts"
+    "./ui": "./src/ui.config.ts"
   },
   "scripts": {
     "lint": "biome lint .",

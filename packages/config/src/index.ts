@@ -12,3 +12,6 @@ export * from "./app.config";
 
 // Re-export all UI configuration
 export * from "./ui.config";
+
+// Re-export Vite WASM externalization plugin
+export { wasmExternal } from "./vite-wasm-external";
