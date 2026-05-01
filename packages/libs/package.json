@@ -4,6 +4,18 @@
   "license": "MIT",
   "main": "./index.ts",
   "types": "./index.ts",
+  "exports": {
+    ".": "./index.ts",
+    "./date": "./date.ts",
+    "./extractHeadings": "./extractHeadings.ts",
+    "./getPost": "./getPost.ts",
+    "./getSeries": "./getSeries.ts",
+    "./getSlug": "./getSlug.ts",
+    "./markdownToHtml": "./markdownToHtml.ts",
+    "./native-cli": "./native-cli.ts",
+    "./string": "./string.ts",
+    "./utils": "./utils.ts"
+  },
   "dependencies": {
     "clsx": "^2.0.0",
     "date-fns": "^4.0.0",

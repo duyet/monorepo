@@ -7,7 +7,6 @@ export * from "./formatNumber";
 export * from "./getRelatedPosts";
 export * from "./getSlug";
 export * from "./logger";
-export * from "./markdownToHtml";
 export * from "./object-utils";
 export * from "./parseModelParams";
 export * from "./string";
