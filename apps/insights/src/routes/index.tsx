@@ -1,30 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { getCCUsageMetrics } from "@/app/ai/utils";
-import { getWakaTimeMetrics } from "@/app/wakatime/wakatime-utils";
 import { OverviewDashboard } from "@/components/dashboard/OverviewDashboard";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
-    const shouldFetchLiveMetrics =
-      typeof window === "undefined" &&
-      (process.env.CI || process.env.GITHUB_ACTIONS);
-
-    if (!shouldFetchLiveMetrics) {
-      return {
-        aiMetrics: null,
-        wakaTimeMetrics: null,
-      };
-    }
-
-    const [aiMetrics, wakaTimeMetrics] = await Promise.allSettled([
-      getCCUsageMetrics(30),
-      getWakaTimeMetrics(30),
-    ]);
-
+    // Keep the root route deterministic for Cloudflare Pages prerendering.
+    // Live metrics pages load their own data on their dedicated routes.
     return {
-      aiMetrics: aiMetrics.status === "fulfilled" ? aiMetrics.value : null,
-      wakaTimeMetrics:
-        wakaTimeMetrics.status === "fulfilled" ? wakaTimeMetrics.value : null,
+      aiMetrics: null,
+      wakaTimeMetrics: null,
     };
   },
   head: () => ({
