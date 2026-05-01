@@ -1,0 +1,15 @@
+[package]
+name = "duyet-markdown"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+pulldown-cmark = { version = "0.13", features = ["simd"] }
+wasm-bindgen.workspace = true
+
+[dev-dependencies]
+wasm-bindgen-test.workspace = true
