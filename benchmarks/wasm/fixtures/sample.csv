@@ -1,0 +1,121 @@
+id,name,email,department,salary,hire_date,city,country,manager,level
+1,Alice Johnson,alice.johnson@example.com,Engineering,125000,2020-03-15,San Francisco,US,Bob Smith,5
+2,Bob Smith,bob.smith@example.com,Engineering,155000,2018-01-10,San Francisco,US,Carol Davis,6
+3,Carol Davis,carol.davis@example.com,Engineering,175000,2015-06-22,San Francisco,US,,7
+4,"David, Jr.",david.williams@example.com,Marketing,95000,2021-09-01,New York,US,Eve Brown,4
+5,Eve Brown,eve.brown@example.com,Marketing,115000,2019-04-18,New York,US,Frank Miller,5
+6,Frank Miller,frank.miller@example.com,Marketing,135000,2017-11-30,New York,US,,6
+7,Grace Lee,grace.lee@example.com,Sales,88000,2022-02-14,Chicago,US,Henry Wilson,3
+8,Henry Wilson,henry.wilson@example.com,Sales,108000,2020-07-05,Chicago,US,Irene Taylor,4
+9,Irene Taylor,irene.taylor@example.com,Sales,128000,2018-12-01,Chicago,US,,5
+10,Jack Anderson,"jack.anderson@example.com",Engineering,142000,2019-08-20,San Francisco,US,Bob Smith,5
+11,Karen Martinez,karen.martinez@example.com,Engineering,118000,2021-03-10,San Francisco,US,Alice Johnson,4
+12,"Leo ""The Lion"" Chen",leo.chen@example.com,Engineering,132000,2020-01-25,San Francisco,US,Bob Smith,5
+13,Mia Thompson,mia.thompson@example.com,Design,105000,2021-06-15,Austin,US,Nancy Garcia,4
+14,Nancy Garcia,nancy.garcia@example.com,Design,125000,2019-09-08,Austin,US,,5
+15,Oliver Rodriguez,oliver.rodriguez@example.com,Design,98000,2022-11-01,Austin,US,Nancy Garcia,3
+16,Patricia Kim,patricia.kim@example.com,Product,138000,2018-05-12,Seattle,US,Quincy Adams,5
+17,Quincy Adams,quincy.adams@example.com,Product,158000,2016-08-03,Seattle,US,,6
+18,Rachel Nguyen,rachel.nguyen@example.com,Product,115000,2020-10-20,Seattle,US,Patricia Kim,4
+19,Samuel Park,samuel.park@example.com,DevOps,135000,2019-02-28,Portland,US,Tina Clark,5
+20,Tina Clark,tina.clark@example.com,DevOps,145000,2017-12-15,Portland,US,,6
+21,Uma Sharma,uma.sharma@example.com,Data Science,148000,2018-09-10,San Francisco,US,Victor Lewis,5
+22,Victor Lewis,victor.lewis@example.com,Data Science,168000,2016-04-05,San Francisco,US,,7
+23,Wendy Hall,wendy.hall@example.com,Data Science,122000,2020-06-01,San Francisco,US,Uma Sharma,4
+24,Xavier Costa,xavier.costa@example.com,Security,140000,2019-11-15,New York,US,Yuki Tanaka,5
+25,Yuki Tanaka,yuki.tanaka@example.com,Security,160000,2017-07-20,New York,US,,6
+26,Zara Ahmed,zara.ahmed@example.com,QA,95000,2022-01-10,Austin,US,Aaron Brooks,3
+27,Aaron Brooks,aaron.brooks@example.com,QA,115000,2019-05-15,Austin,US,,5
+28,Bella Chang,bella.chang@example.com,QA,102000,2021-08-22,Austin,US,Aaron Brooks,4
+29,Carlos Diaz,carlos.diaz@example.com,Finance,110000,2020-03-01,Chicago,US,Diana Evans,4
+30,Diana Evans,diana.evans@example.com,Finance,130000,2018-06-18,Chicago,US,,5
+31,Ethan Foster,ethan.foster@example.com,Legal,145000,2017-09-25,New York,US,,6
+32,Fiona Grant,fiona.grant@example.com,HR,98000,2021-12-01,Chicago,US,Greg Howard,3
+33,Greg Howard,greg.howard@example.com,HR,118000,2019-03-20,Chicago,US,,5
+34,Hannah Irving,hannah.irving@example.com,Support,72000,2022-07-15,Portland,US,Ian Jones,2
+35,Ian Jones,ian.jones@example.com,Support,92000,2020-04-10,Portland,US,,4
+36,Julia Klein,julia.klein@example.com,Engineering,155000,2017-10-05,San Francisco,US,Bob Smith,6
+37,Kevin Liu,kevin.liu@example.com,Engineering,125000,2020-09-12,San Francisco,US,Alice Johnson,4
+38,Laura Mitchell,laura.mitchell@example.com,Engineering,112000,2021-11-20,San Francisco,US,Karen Martinez,3
+39,Marcus Olson,marcus.olson@example.com,Engineering,128000,2020-02-14,San Francisco,US,Julia Klein,4
+40,Nora Patel,nora.patel@example.com,Engineering,145000,2018-08-30,San Francisco,US,Bob Smith,5
+41,Oscar Quinn,oscar.quinn@example.com,DevOps,125000,2020-05-18,Portland,US,Samuel Park,4
+42,Paula Reyes,paula.reyes@example.com,DevOps,115000,2021-01-25,Portland,US,Samuel Park,3
+43,Rick Santos,rick.santos@example.com,Sales,95000,2021-07-08,Chicago,US,Grace Lee,3
+44,Sara Thomas,sara.thomas@example.com,Sales,105000,2020-11-15,Chicago,US,Henry Wilson,4
+45,Tom Underwood,tom.underwood@example.com,Sales,88000,2022-03-22,Chicago,US,Grace Lee,2
+46,Uri Vargas,uri.vargas@example.com,Marketing,102000,2020-08-10,New York,US,Eve Brown,4
+47,Vera Wu,vera.wu@example.com,Marketing,95000,2021-04-05,New York,US,Eve Brown,3
+48,Wade Xiong,wade.xiong@example.com,Data Science,135000,2019-06-20,San Francisco,US,Uma Sharma,4
+49,Xena Young,xena.young@example.com,Data Science,128000,2020-01-30,San Francisco,US,Uma Sharma,4
+50,Yusuf Zaman,yusuf.zaman@example.com,Product,125000,2019-10-15,Seattle,US,Patricia Kim,4
+51,Aria Blake,aria.blake@example.com,Engineering,132000,2019-04-08,San Francisco,US,Julia Klein,5
+52,Blake Cohen,blake.cohen@example.com,Engineering,118000,2020-12-20,San Francisco,US,Nora Patel,4
+53,Chloe Dixon,chloe.dixon@example.com,Engineering,145000,2018-02-14,San Francisco,US,Bob Smith,5
+54,Derek Ellis,derek.ellis@example.com,Engineering,108000,2021-09-30,San Francisco,US,Alice Johnson,3
+55,Elena Fischer,elena.fischer@example.com,Engineering,138000,2019-07-12,San Francisco,US,Julia Klein,5
+56,Felix Gomez,felix.gomez@example.com,Engineering,122000,2020-06-25,San Francisco,US,Nora Patel,4
+57,Gina Huang,gina.huang@example.com,Engineering,155000,2017-03-18,San Francisco,US,Bob Smith,6
+58,Hiro Ishida,hiro.ishida@example.com,Engineering,128000,2020-04-02,San Francisco,US,Chloe Dixon,4
+59,Iris Jackson,iris.jackson@example.com,Engineering,115000,2021-02-18,San Francisco,US,Kevin Liu,3
+60,James Kim,james.kim@example.com,Engineering,142000,2018-11-05,San Francisco,US,Bob Smith,5
+61,Kate Lin,kate.lin@example.com,Engineering,135000,2019-05-20,San Francisco,US,Julia Klein,5
+62,Liam Murphy,liam.murphy@example.com,Engineering,108000,2021-08-12,San Francisco,US,Blake Cohen,3
+63,Maya Nakamura,maya.nakamura@example.com,Engineering,148000,2018-01-08,San Francisco,US,Bob Smith,6
+64,Noah Ortiz,noah.ortiz@example.com,Engineering,125000,2020-03-28,San Francisco,US,Gina Huang,4
+65,Olivia Perry,olivia.perry@example.com,Engineering,132000,2019-09-15,San Francisco,US,Chloe Dixon,5
+66,Peter Qu,Peter.qu@example.com,Engineering,115000,2021-05-10,San Francisco,US,Kate Lin,3
+67,Quinn Ross,quinn.ross@example.com,Engineering,140000,2018-06-22,San Francisco,US,Bob Smith,5
+68,Ruby Sanchez,ruby.sanchez@example.com,Engineering,128000,2020-01-05,San Francisco,US,Maya Nakamura,4
+69,Steve Tran,steve.tran@example.com,Engineering,135000,2019-03-14,San Francisco,US,Julia Klein,5
+70,Tina Underhill,tina.underhill@example.com,Engineering,120000,2020-10-08,San Francisco,US,Nora Patel,4
+71,Umar Voss,umar.voss@example.com,Engineering,145000,2018-04-20,San Francisco,US,Bob Smith,6
+72,Violet Wang,violet.wang@example.com,Engineering,112000,2021-07-25,San Francisco,US,Blake Cohen,3
+73,Will Xu,will.xu@example.com,Engineering,138000,2019-01-30,San Francisco,US,Gina Huang,5
+74,Xi Yamamoto,xi.yamamoto@example.com,Engineering,125000,2020-08-15,San Francisco,US,Umar Voss,4
+75,Yuki Zhang,yuki.zhang@example.com,Engineering,155000,2017-06-10,San Francisco,US,Bob Smith,6
+76,Zoe Allan,zoe.allan@example.com,Engineering,118000,2020-05-22,San Francisco,US,Chloe Dixon,4
+77,Adam Booth,adam.booth@example.com,Engineering,132000,2019-11-08,San Francisco,US,Julia Klein,5
+78,Beth Chen,beth.chen@example.com,Engineering,145000,2018-03-25,San Francisco,US,Bob Smith,6
+79,Carl Dean,carl.dean@example.com,Engineering,108000,2021-04-18,San Francisco,US,Olivia Perry,3
+80,Dana Erikson,dana.erikson@example.com,Engineering,128000,2020-02-10,San Francisco,US,Gina Huang,4
+81,Erik Ford,erik.ford@example.com,Engineering,135000,2019-08-05,San Francisco,US,Maya Nakamura,5
+82,Faye Gunn,faye.gunn@example.com,Engineering,142000,2018-09-18,San Francisco,US,Bob Smith,5
+83,George Hart,george.hart@example.com,Engineering,115000,2021-01-30,San Francisco,US,Adam Booth,3
+84,Hana Ito,hana.ito@example.com,Engineering,125000,2020-07-12,San Francisco,US,Quinn Ross,4
+85,Ivan Jeong,ivan.jeong@example.com,Engineering,138000,2019-04-25,San Francisco,US,Julia Klein,5
+86,Joy Kang,joy.kang@example.com,Engineering,148000,2018-02-08,San Francisco,US,Bob Smith,6
+87,Ken Lim,ken.lim@example.com,Engineering,120000,2020-11-20,San Francisco,US,Faye Gunn,4
+88,Lily Ma,lily.ma@example.com,Engineering,132000,2019-10-02,San Francisco,US,Gina Huang,5
+89,Mike Novak,mike.novak@example.com,Engineering,108000,2021-06-15,San Francisco,US,Ken Lim,3
+90,Nancy Okamoto,nancy.okamoto@example.com,Engineering,145000,2018-05-30,San Francisco,US,Bob Smith,6
+91,Owen Park,owen.park@example.com,Engineering,128000,2020-04-08,San Francisco,US,Nancy Okamoto,4
+92,Pam Qi,pam.qi@example.com,Engineering,115000,2021-03-22,San Francisco,US,Ivan Jeong,3
+93,Raj Rana,raj.rana@example.com,Engineering,138000,2019-02-14,San Francisco,US,Julia Klein,5
+94,Sara Tao,sara.tao@example.com,Engineering,125000,2020-09-28,San Francisco,US,Erik Ford,4
+95,Tom Ueno,tom.ueno@example.com,Engineering,142000,2018-08-10,San Francisco,US,Bob Smith,5
+96,Una Valdez,una.valdez@example.com,Engineering,118000,2021-10-05,San Francisco,US,Lily Ma,3
+97,Vic Wu,vic.wu@example.com,Engineering,135000,2019-06-18,San Francisco,US,Maya Nakamura,5
+98,Wes Xie,wes.xie@example.com,Engineering,128000,2020-06-30,San Francisco,US,Tom Ueno,4
+99,Yara Yoon,yara.yoon@example.com,Engineering,155000,2017-11-22,San Francisco,US,Bob Smith,6
+100,Zack Zheng,zack.zheng@example.com,Engineering,132000,2019-12-12,San Francisco,US,Gina Huang,5
+101,Amir Bashir,amir.bashir@example.com,Sales,92000,2021-10-01,Chicago,US,Grace Lee,3
+102,Bree Cooper,bree.cooper@example.com,Sales,105000,2020-03-15,Chicago,US,Henry Wilson,4
+103,Chad Devine,chad.devine@example.com,Sales,88000,2022-05-20,Chicago,US,Grace Lee,2
+104,Dina Elias,dina.elias@example.com,Sales,98000,2021-01-08,Chicago,US,Henry Wilson,3
+105,Eric Ford,eric.ford@example.com,Sales,112000,2019-07-22,Chicago,US,Irene Taylor,4
+106,Faye Grant,faye.grant@example.com,Sales,95000,2021-09-14,Chicago,US,Henry Wilson,3
+107,Gus Hunt,gus.hunt@example.com,Sales,102000,2020-06-28,Chicago,US,Irene Taylor,4
+108,Hana Ivanov,hana.ivanov@example.com,Sales,88000,2022-02-10,Chicago,US,Grace Lee,2
+109,Ira Jones,ira.jones@example.com,Sales,118000,2018-11-05,Chicago,US,Irene Taylor,5
+110,Jay Kim,jay.kim@example.com,Sales,95000,2021-04-22,Chicago,US,Bree Cooper,3
+111,Kira Lee,kira.lee@example.com,Marketing,108000,2020-05-15,New York,US,Eve Brown,4
+112,Lars Mueller,lars.mueller@example.com,Marketing,98000,2021-08-20,New York,US,Eve Brown,3
+113,Mona Nguyen,mona.nguyen@example.com,Marketing,115000,2019-10-10,New York,US,Frank Miller,4
+114,Nick Oliveira,nick.oliveira@example.com,Marketing,102000,2020-12-05,New York,US,Eve Brown,4
+115,Opal Pratt,opal.pratt@example.com,Marketing,95000,2022-01-18,New York,US,Lars Mueller,2
+116,Raj Patel,raj.patel@example.com,Finance,125000,2019-06-01,Chicago,US,Diana Evans,4
+117,Sita Rao,sita.rao@example.com,Finance,115000,2020-09-15,Chicago,US,Diana Evans,4
+118,Tom Reeves,tom.reeves@example.com,Finance,108000,2021-02-20,Chicago,US,Diana Evans,3
+119, Uma Sharma2,uma.sharma2@example.com,Data Science,135000,2019-03-10,San Francisco,US,Victor Lewis,4
+120,Wes Turner,wes.turner@example.com,Data Science,145000,2018-07-25,San Francisco,US,Victor Lewis,5

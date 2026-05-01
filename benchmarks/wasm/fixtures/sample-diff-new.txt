@@ -1,0 +1,135 @@
+# API Documentation v2
+
+## Overview
+
+The REST API provides access to user management, authentication, data export,
+and analytics functionality. All endpoints require HTTPS and return JSON
+responses. API versioning is supported via URL path prefix (/v2/).
+
+## Authentication
+
+All API requests must include an authorization header with a valid JWT token.
+Tokens expire after 12 hours (reduced from 24h for security) and can be
+refreshed using the /v2/auth/refresh endpoint.
+
+### POST /v2/auth/login
+
+Request body:
+```json
+{
+  "email": "user@example.com",
+  "password": "securepassword123",
+  "mfaCode": "123456"
+}
+```
+
+Response:
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refreshToken": "dGhpcyBpcyBhIHJlZnJlc2ggdG9rZW4...",
+  "expiresIn": 43200,
+  "mfaRequired": false
+}
+```
+
+## User Management
+
+### GET /v2/users
+
+Returns a paginated list of users. Supports filtering by role, status,
+registration date, and department.
+
+Query parameters:
+- page (integer): Page number, default 1
+- limit (integer): Results per page, default 25, max 200
+- role (string): Filter by role (admin, editor, viewer, superadmin)
+- status (string): Filter by status (active, inactive, suspended, pending)
+- department (string): Filter by department name
+- sort (string): Sort field (name, email, createdAt, lastLoginAt)
+- order (string): Sort direction (asc, desc)
+- search (string): Full-text search across name and email
+
+### POST /v2/users
+
+Creates a new user. Requires admin or superadmin role.
+
+Request body:
+```json
+{
+  "name": "Jane Doe",
+  "email": "jane@example.com",
+  "role": "editor",
+  "department": "Engineering",
+  "sendInvite": true
+}
+```
+
+### PUT /v2/users/:id
+
+Updates an existing user. Partial updates are supported.
+
+### DELETE /v2/users/:id
+
+Soft deletes a user. The user record is marked as deleted but preserved
+for audit purposes. Deleted users can be restored within 90 days (increased
+from 30 days). Bulk delete is supported via POST /v2/users/bulk-delete.
+
+## Data Export
+
+### POST /v2/export
+
+Initiates a data export job. Supports CSV, JSON, XML, and Parquet formats.
+
+The export runs asynchronously. The response includes a job ID that can be
+used to check the export status via GET /v2/export/:jobId/status.
+
+Exports now support incremental mode with `since` parameter for delta exports.
+
+## Analytics (New)
+
+### GET /v2/analytics/summary
+
+Returns aggregated analytics data for the specified time range.
+
+### GET /v2/analytics/users/:id/activity
+
+Returns activity timeline for a specific user.
+
+## Rate Limiting
+
+API requests are rate limited to 2000 requests per hour per API key
+(increased from 1000). Premium API keys get 10000 requests per hour.
+Rate limit headers are included in every response:
+- X-RateLimit-Limit: Maximum requests allowed
+- X-RateLimit-Remaining: Requests remaining in current window
+- X-RateLimit-Reset: Unix timestamp when the window resets
+- X-RateLimit-Policy: Rate limit tier (standard, premium)
+
+## Error Handling
+
+All errors follow RFC 7807 Problem Details format with additional debugging
+information in development mode:
+```json
+{
+  "type": "https://api.example.com/errors/validation",
+  "title": "Validation Error",
+  "status": 400,
+  "detail": "Email address is invalid",
+  "instance": "/v2/users/123",
+  "traceId": "abc-123-def-456",
+  "timestamp": "2026-05-01T12:00:00Z"
+}
+```
+
+Common error codes:
+- 400: Bad Request - Invalid input parameters
+- 401: Unauthorized - Missing or invalid token
+- 403: Forbidden - Insufficient permissions
+- 404: Not Found - Resource does not exist
+- 409: Conflict - Resource already exists
+- 422: Unprocessable Entity - Validation failure
+- 429: Too Many Requests - Rate limit exceeded
+- 500: Internal Server Error - Unexpected server failure
+- 502: Bad Gateway - Upstream service failure (new)
+- 503: Service Unavailable - Temporary maintenance
