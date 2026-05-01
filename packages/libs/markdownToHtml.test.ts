@@ -1,7 +1,14 @@
+import { existsSync } from "node:fs";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, expect, test } from "bun:test";
-import { markdownToHtml } from "./markdownToHtml";
 
-describe("markdownToHtml", () => {
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const WASM_EXISTS = existsSync(join(__dirname, "../wasm/pkg/markdown/markdown_bg.wasm"));
+
+describe.skipIf(!WASM_EXISTS)("markdownToHtml", () => {
+  const { markdownToHtml } = require("./markdownToHtml") as typeof import("./markdownToHtml");
+
   test("converts basic markdown paragraph", async () => {
     const result = await markdownToHtml("Hello **world**");
     expect(result).toContain("<strong>world</strong>");
@@ -46,7 +53,6 @@ describe("markdownToHtml", () => {
     const result = await markdownToHtml(md);
     expect(result).toContain("<pre>");
     expect(result).toContain("<code");
-    // syntax highlighting wraps tokens in spans, check for identifier tokens
     expect(result).toContain("const");
   });
 
