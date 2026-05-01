@@ -8,6 +8,7 @@
 //   import { noop } from "@duyet/wasm/pkg/placeholder/placeholder.js"
 //   import { parseCsv } from "@duyet/wasm/pkg/csv-parser/csv_parser.js"
 //   import { escape_reg_exp, slugify } from "@duyet/wasm/pkg/utils/utils.js"
+//   import { merge_all_sources } from "@duyet/wasm/pkg/dedup/dedup.js"
 //
 // Each WASM module must be initialized before use (auto-happens on first import
 // with wasm-pack's --target web output).
