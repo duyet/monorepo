@@ -58,6 +58,7 @@
         "@duyet/components": "*",
         "@duyet/config": "*",
         "@duyet/libs": "*",
+        "@duyet/wasm": "*",
         "@hookform/resolvers": "^5.2.2",
         "@openrouter/ai-sdk-provider": "^2.2.5",
         "@phosphor-icons/react": "^2.1.10",
@@ -93,7 +94,6 @@
         "cmdk": "^1.1.1",
         "codemirror": "^6.65.0",
         "date-fns": "^4.1.0",
-        "diff-match-patch": "^1.0.0",
         "embla-carousel-react": "^8.6.0",
         "fast-deep-equal": "^3.1.0",
         "framer-motion": "^12.34.0",
@@ -1774,8 +1774,6 @@
     "devlop": ["devlop@1.1.0", "", { "dependencies": { "dequal": "^2.0.0" } }, "sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA=="],
 
     "diff": ["diff@8.0.3", "", {}, "sha512-qejHi7bcSD4hQAZE0tNAawRK1ZtafHDmMTMkrrIGgSLl7hTnQHmKCeB45xAcbfTqK2zowkM3j3bHt/4b/ARbYQ=="],
-
-    "diff-match-patch": ["diff-match-patch@1.0.5", "", {}, "sha512-IayShXAgj/QMXgB0IWmKx+rOPuGMhqm5w6jvFxmVenXKIzRqTAAsbBPT3kWQeGANj3jGgvcvv4yK6SxqYmikgw=="],
 
     "dom-accessibility-api": ["dom-accessibility-api@0.6.3", "", {}, "sha512-7ZgogeTnjuHbo+ct10G9Ffp0mif17idi0IyWNVA/wcwcm7NPOD/WEHVP3n7n3MhXqxoIYm8d6MuZohYWIZ4T3w=="],
 

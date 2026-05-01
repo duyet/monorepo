@@ -1,19 +1,16 @@
 /**
  * ProseMirror-based document diffing utility.
  *
- * Uses diff-match-patch for text-level diffs, then maps those onto
- * ProseMirror document nodes to produce a merged document with
- * insert/delete marks that the DiffView component renders.
- *
- * Ported from vercel/ai-chatbot lib/editor/diff.js, adapted to use
- * diff-match-patch instead of the original diff algorithm.
+ * Uses Rust/WASM (similar crate) for text-level and block-level diffs,
+ * then maps those onto ProseMirror document nodes to produce a merged
+ * document with insert/delete marks that the DiffView component renders.
  */
 
 import type { Node as ProseMirrorNode } from "prosemirror-model";
-import DiffMatchPatch from "diff-match-patch";
+import { diff_text, align_blocks } from "@duyet/wasm/pkg/diff/diff.js";
 
 // ---------------------------------------------------------------------------
-// Diff type enum
+// Diff type enum (matches the original diff-match-patch convention)
 // ---------------------------------------------------------------------------
 
 export enum DiffType {
@@ -23,25 +20,30 @@ export enum DiffType {
 }
 
 // ---------------------------------------------------------------------------
-// Text-level diff using diff-match-patch
+// WASM type code mapping
+// Rust uses: 0=equal, 1=insert, 2=delete
+// TS uses:   0=unchanged, 1=inserted, -1=deleted
 // ---------------------------------------------------------------------------
 
-const dmp = new DiffMatchPatch();
-dmp.Edit_Cost = 8; // slightly more aggressive matching
+const WASM_INSERT = 1;
+const WASM_DELETE = 2;
+const EMPTY_BLOCK: Record<string, unknown> = { type: "paragraph", content: [] };
+
+function wasmToDiffType(code: number): DiffType {
+  switch (code) {
+    case WASM_INSERT: return DiffType.Inserted;
+    case WASM_DELETE: return DiffType.Deleted;
+    default: return DiffType.Unchanged;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Text-level diff using WASM
+// ---------------------------------------------------------------------------
 
 interface TextDiff {
   type: DiffType;
   text: string;
-}
-
-function _computeTextDiffs(_oldText: string, newText: TextDiff[]): TextDiff[] {
-  const results: TextDiff[] = [];
-
-  for (const diff of newText) {
-    results.push(diff);
-  }
-
-  return results;
 }
 
 /**
@@ -52,11 +54,10 @@ export function diffText(
   oldText: string,
   newText: string
 ): TextDiff[] {
-  const diffs = dmp.diff_main(oldText, newText);
-  dmp.diff_cleanupSemantic(diffs);
-
-  return diffs.map(([op, text]: [number, string]) => ({
-    type: op as DiffType,
+  const json = diff_text(oldText, newText);
+  const ops: Array<{ type: number; text: string }> = JSON.parse(json);
+  return ops.map(({ type, text }) => ({
+    type: wasmToDiffType(type),
     text,
   }));
 }
@@ -64,11 +65,6 @@ export function diffText(
 // ---------------------------------------------------------------------------
 // ProseMirror node-level diff
 // ---------------------------------------------------------------------------
-
-interface _NodeDiffResult {
-  type: DiffType;
-  node: ProseMirrorNode;
-}
 
 /**
  * Compare two ProseMirror JSON representations and produce a merged
@@ -85,10 +81,8 @@ export function diffEditor(
   const oldNodes = getBlockNodes(oldDocJSON);
   const newNodes = getBlockNodes(newDocJSON);
 
-  // Build a simple LCS-style alignment at the block level
-  const { merged } = alignBlocks(oldNodes, newNodes);
+  const merged = alignBlocks(oldNodes, newNodes);
 
-  // Reconstruct a document from merged blocks, applying diff marks
   const nodes: ProseMirrorNode[] = [];
 
   for (const block of merged) {
@@ -124,68 +118,64 @@ function getBlockNodes(docJSON: Record<string, unknown>): Record<string, unknown
 }
 
 /**
- * Align old and new block arrays using a simple LCS approach.
- * Returns merged blocks with diff type annotations.
+ * Align old and new block arrays using the WASM LCS implementation.
+ * Converts blocks to text for comparison, delegates alignment to Rust,
+ * then reconstructs block references with diff type annotations.
+ *
+ * The WASM output is in merged order. We track positions into the original
+ * old/new block arrays using the line text to map back to block objects.
  */
 function alignBlocks(
   oldBlocks: Record<string, unknown>[],
   newBlocks: Record<string, unknown>[]
-): { merged: BlockData[] } {
-  const _merged: BlockData[] = [];
+): BlockData[] {
+  if (oldBlocks.length === 0 && newBlocks.length === 0) return [];
 
-  // Simple approach: hash each block's text content for comparison
-  const oldHashes = oldBlocks.map(blockToHash);
-  const newHashes = newBlocks.map(blockToHash);
+  const oldTexts = oldBlocks.map(blockToHash);
+  const newTexts = newBlocks.map(blockToHash);
 
-  // Build LCS table
-  const m = oldHashes.length;
-  const n = newHashes.length;
-  const dp: number[][] = Array.from({ length: m + 1 }, () =>
-    Array(n + 1).fill(0)
-  );
+  const oldJoined = oldTexts.join("\n");
+  const newJoined = newTexts.join("\n");
 
-  for (let i = 1; i <= m; i++) {
-    for (let j = 1; j <= n; j++) {
-      if (oldHashes[i - 1] === newHashes[j - 1]) {
-        dp[i][j] = dp[i - 1][j - 1] + 1;
-      } else {
-        dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
-      }
-    }
-  }
+  const json = align_blocks(oldJoined, newJoined);
+  const wasmBlocks: Array<{ type: number; old_text: string; new_text: string }> = JSON.parse(json);
 
-  // Backtrack to produce the merged result
+  // Walk the WASM output and map back to original block objects by index.
+  // The LCS backtrack processes old/new arrays sequentially, so advancing
+  // cursors linearly is correct.
+  let oldIdx = 0;
+  let newIdx = 0;
   const result: BlockData[] = [];
-  let i = m,
-    j = n;
 
-  while (i > 0 || j > 0) {
-    if (i > 0 && j > 0 && oldHashes[i - 1] === newHashes[j - 1]) {
-      result.unshift({
-        old: oldBlocks[i - 1],
-        new: newBlocks[j - 1],
-        type: DiffType.Unchanged,
-      });
-      i--;
-      j--;
-    } else if (j > 0 && (i === 0 || dp[i][j - 1] >= dp[i - 1][j])) {
-      result.unshift({
-        old: newBlocks[j - 1],
-        new: newBlocks[j - 1],
-        type: DiffType.Inserted,
-      });
-      j--;
-    } else if (i > 0) {
-      result.unshift({
-        old: oldBlocks[i - 1],
-        new: oldBlocks[i - 1],
-        type: DiffType.Deleted,
-      });
-      i--;
+  for (const wb of wasmBlocks) {
+    const diffType = wasmToDiffType(wb.type);
+
+    // Advance old cursor to match text
+    let oldBlock = EMPTY_BLOCK;
+    while (oldIdx < oldTexts.length) {
+      if (oldTexts[oldIdx] === wb.old_text) {
+        oldBlock = oldBlocks[oldIdx];
+        oldIdx++;
+        break;
+      }
+      oldIdx++;
     }
+
+    // Advance new cursor to match text
+    let newBlock = EMPTY_BLOCK;
+    while (newIdx < newTexts.length) {
+      if (newTexts[newIdx] === wb.new_text) {
+        newBlock = newBlocks[newIdx];
+        newIdx++;
+        break;
+      }
+      newIdx++;
+    }
+
+    result.push({ old: oldBlock, new: newBlock, type: diffType });
   }
 
-  return { merged: result };
+  return result;
 }
 
 /**
