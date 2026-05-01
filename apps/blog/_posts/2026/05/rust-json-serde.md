@@ -84,8 +84,18 @@ fn main() -> Result<(), serde_json::Error> {
 For pretty-printed output, use `serde_json::to_string_pretty()`:
 
 ```rust
-let json = serde_json::to_string_pretty(&user)?;
-println!("{}", json);
+fn main() -> Result<(), serde_json::Error> {
+    let user = User {
+        name: "Bob".to_string(),
+        age: 30,
+        email: "bob@example.com".to_string(),
+    };
+
+    let json = serde_json::to_string_pretty(&user)?;
+    println!("{}", json);
+
+    Ok(())
+}
 ```
 
 [`serde`]: https://serde.rs/
