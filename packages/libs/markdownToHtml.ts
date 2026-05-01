@@ -15,6 +15,7 @@ let _markdownToHtml: ((input: string) => string) | null = null;
 async function ensureWasmInit() {
   if (_markdownToHtml) return;
   const { initSync, markdown_to_html } = await import(
+    /* @vite-ignore */
     "@duyet/wasm/pkg/markdown/markdown.js"
   );
   const wasmPath = join(__dirname, "../wasm/pkg/markdown/markdown_bg.wasm");

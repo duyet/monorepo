@@ -12,7 +12,10 @@ let _wasmSlugify: ((input: string, max?: number | null) => string) | null = null
  */
 export async function initWasmStringUtils(): Promise<void> {
   try {
-    const mod = await import("@duyet/wasm/pkg/utils/utils.js")
+    const mod = await import(
+      /* @vite-ignore */
+      "@duyet/wasm/pkg/utils/utils.js"
+    )
     await mod.default()
     wasmEscapeRegExp = mod.escape_reg_exp
     _wasmSlugify = mod.slugify
