@@ -32,18 +32,11 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { ToolExecution } from "@/lib/types";
 
-const OPENROUTER_MODELS = [
-  "openrouter/auto",
-  "openrouter/free",
-  "nvidia/nemotron-3-super-120b-a12b:free",
-  "stepfun/step-3.5-flash:free",
-  "z-ai/glm-4.5-air:free",
-  "nvidia/nemotron-3-nano-30b-a3b:free",
-  "qwen/qwen3-coder:free",
-  "qwen/qwen3-next-80b-a3b-instruct:free",
-  "minimax/minimax-m2.5:free",
-  "openai/gpt-oss-120b:free",
-  "openai/gpt-oss-20b:free",
+const CHAT_MODELS = [
+  {
+    id: "@cf/zai-org/glm-4.7-flash",
+    name: "GLM 4.7 Flash",
+  },
 ] as const;
 
 const MCP_SERVERS = [
@@ -127,6 +120,9 @@ export function RightSidebar({
   const completeCount = toolExecutions.filter(
     (execution) => execution.status === "complete"
   ).length;
+  const selectedModelId = CHAT_MODELS.some((model) => model.id === modelId)
+    ? modelId
+    : CHAT_MODELS[0].id;
 
   const content = (
     <Tabs defaultValue="status" className="flex h-full flex-col">
@@ -141,14 +137,14 @@ export function RightSidebar({
             </p>
           </div>
 
-          <Select value={modelId} onValueChange={onModelChange}>
+          <Select value={selectedModelId} onValueChange={onModelChange}>
             <SelectTrigger className="h-11 w-full rounded-lg bg-white">
               <SelectValue placeholder="Choose a model" />
             </SelectTrigger>
             <SelectContent>
-              {OPENROUTER_MODELS.map((model) => (
-                <SelectItem key={model} value={model}>
-                  {model}
+              {CHAT_MODELS.map((model) => (
+                <SelectItem key={model.id} value={model.id}>
+                  {model.name}
                 </SelectItem>
               ))}
             </SelectContent>

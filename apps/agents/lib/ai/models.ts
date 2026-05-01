@@ -2,7 +2,7 @@
  * Model definitions for Cloudflare Workers AI.
  */
 
-import { AGENT_MODEL, FAST_MODEL } from "../agent";
+import { FAST_MODEL } from "../agent";
 
 export const DEFAULT_CHAT_MODEL = FAST_MODEL;
 
@@ -30,7 +30,7 @@ export const chatModels: ChatModel[] = [
 
 /**
  * Static capability map for known models.
- * OpenRouter models generally support tools; vision/reasoning vary.
+ * Cloudflare Workers AI chat models generally support tools; vision/reasoning vary.
  */
 export const modelCapabilities: Record<string, ModelCapabilities> = {
   [FAST_MODEL]: { tools: true, vision: false, reasoning: false },
