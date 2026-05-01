@@ -8,22 +8,19 @@ import rehypeStringify from "rehype-stringify";
 import sanitizeHtml from "sanitize-html";
 import { unified } from "unified";
 
-import { initSync, markdown_to_html } from "@duyet/wasm/pkg/markdown/markdown.js";
-
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-let wasmReady = false;
+let _markdownToHtml: ((input: string) => string) | null = null;
 
-function ensureWasmInit() {
-  if (!wasmReady) {
-    const wasmPath = join(
-      __dirname,
-      "../wasm/pkg/markdown/markdown_bg.wasm",
-    );
-    const wasmBuffer = readFileSync(wasmPath);
-    initSync({ module: wasmBuffer });
-    wasmReady = true;
-  }
+async function ensureWasmInit() {
+  if (_markdownToHtml) return;
+  const { initSync, markdown_to_html } = await import(
+    "@duyet/wasm/pkg/markdown/markdown.js"
+  );
+  const wasmPath = join(__dirname, "../wasm/pkg/markdown/markdown_bg.wasm");
+  const wasmBuffer = readFileSync(wasmPath);
+  initSync({ module: wasmBuffer });
+  _markdownToHtml = markdown_to_html;
 }
 
 /**
@@ -96,8 +93,8 @@ async function postProcessHtml(html: string): Promise<string> {
  * Step 3: JS post-processing via rehype for syntax highlighting and KaTeX.
  */
 export async function markdownToHtml(markdown: string) {
-  ensureWasmInit();
-  const html = markdown_to_html(markdown);
+  await ensureWasmInit();
+  const html = _markdownToHtml!(markdown);
   const safe = sanitize(html);
   return postProcessHtml(safe);
 }

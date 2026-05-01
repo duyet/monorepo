@@ -18,7 +18,6 @@ if (crates.length === 0) {
 
 console.log(`Building ${crates.length} crate(s): ${crates.join(", ")}`)
 
-const profile = release ? "release" : "dev"
 const cargoArgs = release ? ["--release"] : []
 
 // Build all crates for WASM target

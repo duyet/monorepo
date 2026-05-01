@@ -12,8 +12,8 @@ declare module "@duyet/wasm/pkg/dedup/dedup.js" {
 }
 
 declare module "@duyet/wasm/pkg/diff/diff.js" {
-  export function diff_text(old: string, new: string): string
-  export function align_blocks(old: string, new: string): string
+  export function diff_text(oldStr: string, newStr: string): string
+  export function align_blocks(oldStr: string, newStr: string): string
   export function initSync(module: { module: BufferSource }): void
 }
 
