@@ -1,9 +1,12 @@
 /**
  * Merge and de-duplicate models from N data sources
  * Higher priority sources win on duplicates
+ *
+ * Core merge logic runs in Rust/WASM for performance.
  */
 
 import type { DataSourceAdapter, MergeStats, Model } from "./types";
+import { merge_all_sources as wasmMergeAllSources } from "@duyet/wasm/pkg/dedup/dedup.js";
 
 export interface SourceResult {
   source: DataSourceAdapter;
@@ -11,59 +14,23 @@ export interface SourceResult {
 }
 
 /**
- * Create a unique key for de-duplication
- * Uses normalized name, org, and date to identify duplicates
- */
-export function createModelKey(model: Model): string {
-  return `${model.name.toLowerCase().trim()}|${model.org.toLowerCase().trim()}|${model.date}`;
-}
-
-/**
  * Merge models from N data sources, deduplicating by key
  *
- * Strategy:
- * 1. Sort sources by priority descending (highest priority added first)
- * 2. For each model: add if key unseen, skip as duplicate otherwise
- * 3. Sort final list by date ascending
+ * Delegates to the Rust/WASM dedup module. Serializes only the fields
+ * the WASM function needs (source name + priority, model objects).
  */
 export function mergeAllSources(results: SourceResult[]): {
   models: Model[];
   stats: MergeStats;
 } {
-  const seen = new Set<string>();
-  const merged: Model[] = [];
-  let duplicateCount = 0;
+  const wasmInput = results.map(({ source, models }) => ({
+    source: { name: source.name, priority: source.priority },
+    models,
+  }));
 
-  const sorted = [...results].sort(
-    (a, b) => b.source.priority - a.source.priority
-  );
+  const json = wasmMergeAllSources(JSON.stringify(wasmInput));
 
-  for (const { models } of sorted) {
-    for (const model of models) {
-      const key = createModelKey(model);
-      if (seen.has(key)) {
-        duplicateCount++;
-        continue;
-      }
-      seen.add(key);
-      merged.push(model);
-    }
-  }
-
-  merged.sort((a, b) => a.date.localeCompare(b.date));
-
-  const sources: Record<string, number> = {};
-  for (const { source, models } of results) {
-    sources[source.name] = models.length;
-  }
-
-  const stats: MergeStats = {
-    sources,
-    duplicates: duplicateCount,
-    total: merged.length,
-  };
-
-  return { models: merged, stats };
+  return JSON.parse(json) as { models: Model[]; stats: MergeStats };
 }
 
 /**
