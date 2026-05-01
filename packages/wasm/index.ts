@@ -6,7 +6,7 @@
 // Import directly from the generated module:
 //
 //   import { noop } from "@duyet/wasm/pkg/placeholder/placeholder.js"
-//   import { parseCsv } from "@duyet/wasm/pkg/csv-parser/csv_parser.js"
+//   import { parse_csv } from "@duyet/wasm/pkg/csv-parser/csv_parser.js"
 //
 // Each WASM module must be initialized before use (auto-happens on first import
 // with wasm-pack's --target web output).
