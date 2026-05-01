@@ -49,27 +49,32 @@ export function ChatTopBar({
   };
 
   return (
-    <header className="sticky top-0 z-30 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="flex h-14 items-center gap-2 px-4">
+    <header className="sticky top-0 z-30 border-b border-[#1a1a1a]/15 bg-[#f8f8f2]/95 backdrop-blur supports-[backdrop-filter]:bg-[#f8f8f2]/85">
+      <div className="flex h-16 items-center gap-3 px-5 sm:px-8">
         {onOpenSidebar ? (
           <Button
             variant="ghost"
             size="icon"
             onClick={onOpenSidebar}
             aria-label="Open sidebar"
-            className="md:hidden size-9 shrink-0 rounded-full"
+            className="size-9 shrink-0 rounded-lg md:hidden"
           >
             <List weight="regular" className="size-4" />
           </Button>
         ) : null}
         <div className="flex min-w-0 flex-1 items-center">
-          <h1 className="truncate text-sm font-medium">
+          <h1 className="truncate text-base font-semibold tracking-tight">
             {conversationTitle || "New chat"}
           </h1>
         </div>
 
         <div className="flex items-center gap-1">
-          <Button variant="ghost" size="sm" onClick={onNewChat} className="h-9 rounded-full">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onNewChat}
+            className="h-9 rounded-lg px-3"
+          >
             <Plus weight="regular" className="size-4" />
           </Button>
 
@@ -81,30 +86,42 @@ export function ChatTopBar({
                   size="icon"
                   variant="ghost"
                   aria-label="Export conversation"
-                  className="size-9 shrink-0 rounded-full"
+                  className="size-9 shrink-0 rounded-lg"
                 >
                   <Download weight="regular" className="size-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onSelect={() => void handleExport("json")}>
-                  <FileJson data-icon="inline-start" weight="regular" className="size-4" />
+                  <FileJson
+                    data-icon="inline-start"
+                    weight="regular"
+                    className="size-4"
+                  />
                   Export JSON
                 </DropdownMenuItem>
                 <DropdownMenuItem onSelect={() => void handleExport("md")}>
-                  <FileText data-icon="inline-start" weight="regular" className="size-4" />
+                  <FileText
+                    data-icon="inline-start"
+                    weight="regular"
+                    className="size-4"
+                  />
                   Export Markdown
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onSelect={() => void handleExport("txt")}>
-                  <Download data-icon="inline-start" weight="regular" className="size-4" />
+                  <Download
+                    data-icon="inline-start"
+                    weight="regular"
+                    className="size-4"
+                  />
                   Export text
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : null}
 
-          <AuthControl iconOnly className="size-9 shrink-0 rounded-full" />
+          <AuthControl iconOnly className="size-9 shrink-0 rounded-lg" />
         </div>
       </div>
     </header>

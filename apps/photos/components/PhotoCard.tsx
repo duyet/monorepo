@@ -46,7 +46,7 @@ export default function PhotoCard({
   return (
     <div
       className={cn(
-        "group relative cursor-pointer overflow-hidden transition-all duration-300 hover:-translate-y-1",
+        "group relative cursor-pointer overflow-hidden transition-all duration-300 hover:-translate-y-0.5",
         "break-inside-avoid", // Prevents breaking in masonry layout + proper spacing
         className
       )}
@@ -62,7 +62,7 @@ export default function PhotoCard({
       }}
     >
       {/* Image Container */}
-      <div className="relative overflow-hidden rounded-2xl">
+      <div className="relative overflow-hidden rounded-lg">
         <LazyImage
           src={imageSrc}
           alt={description}
@@ -130,12 +130,12 @@ export default function PhotoCard({
       {/* Always visible caption and location */}
       <div className="p-3">
         {photo.description && (
-          <h3 className="mb-1.5 line-clamp-5 text-sm font-medium leading-snug text-neutral-900 dark:text-neutral-100">
+          <h3 className="mb-1.5 line-clamp-4 text-xs font-medium leading-5 text-neutral-900 dark:text-neutral-100">
             {photo.description}
           </h3>
         )}
         {location && (
-          <p className="flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400">
+          <p className="flex items-center gap-1.5 text-[11px] text-neutral-600 dark:text-neutral-400">
             <span className="text-sm" role="img" aria-label="Location">
               📍
             </span>

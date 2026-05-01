@@ -1,9 +1,5 @@
 import type { UIMessage } from "ai";
-import {
-  Check,
-  Copy,
-  X,
-} from "@phosphor-icons/react";
+import { Check, Copy, X } from "@phosphor-icons/react";
 import { useMemo, useState } from "react";
 import {
   ChainOfThought,
@@ -69,8 +65,11 @@ export function UserMessage({ message }: MessageProps) {
 
   return (
     <MessageRoot from="user" className="justify-end">
-      <MessageContent from="user">
-        <p className="whitespace-pre-wrap break-words text-[15px] leading-7 text-foreground">
+      <MessageContent
+        from="user"
+        className="rounded-xl border-none bg-white px-5 py-4 shadow-none"
+      >
+        <p className="whitespace-pre-wrap break-words text-base font-medium leading-7 text-foreground">
           {message.content}
         </p>
         <div className="flex items-center gap-2">
@@ -80,7 +79,7 @@ export function UserMessage({ message }: MessageProps) {
           <Button
             variant="ghost"
             size="icon"
-            className="size-7 rounded-full opacity-0 transition-opacity group-hover:opacity-100"
+            className="size-7 rounded-md opacity-0 transition-opacity group-hover:opacity-100"
             onClick={handleCopy}
           >
             <CopyIcon state={copyState} />
@@ -157,7 +156,10 @@ export function AssistantMessage({
 
   return (
     <MessageRoot from="assistant">
-      <MessageContent from="assistant">
+      <MessageContent
+        from="assistant"
+        className="rounded-xl border-none bg-transparent px-0 py-2 shadow-none"
+      >
         {hasParts ? (
           <>
             {groupedParts.map((grouped) => {
@@ -205,7 +207,9 @@ export function AssistantMessage({
                         <ToolOutput
                           output={part.output}
                           errorText={part.errorText}
-                          isStreaming={isStreaming && part.state === "input-streaming"}
+                          isStreaming={
+                            isStreaming && part.state === "input-streaming"
+                          }
                         />
 
                         {/* Approval workflow */}
@@ -288,7 +292,7 @@ export function AssistantMessage({
 
 export function StreamingCursor() {
   return (
-    <span className="inline-flex align-middle ml-0.5 animate-pulse">
+    <span className="ml-0.5 inline-flex animate-pulse align-middle">
       <span className="h-[1em] w-0.5 bg-foreground" />
     </span>
   );
@@ -339,31 +343,37 @@ export function WelcomeMessage({
   disabled,
 }: WelcomeMessageProps) {
   return (
-    <div className="mx-auto w-full max-w-2xl px-4 py-8 sm:py-16">
-      <div className="mb-10 text-center">
-        <h1 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
-          How can I help you today?
+    <div className="mx-auto w-full px-0 py-6 sm:py-12">
+      <div className="mb-10">
+        <h1 className="text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+          How can I help?
         </h1>
+        <p className="mt-5 max-w-[520px] text-lg font-medium leading-snug tracking-tight text-muted-foreground">
+          Ask about Duyet's writing, CV, GitHub activity, analytics, or current
+          project context.
+        </p>
       </div>
 
-      <div className="flex flex-wrap gap-2 justify-center">
-        {SUGGESTION_CATEGORIES.flatMap((category) => category.suggestions).map(({ prefix, label, prompt }, index) => (
-          <button
-            key={prompt}
-            type="button"
-            disabled={disabled}
-            onClick={() => onPromptSelect?.(prompt)}
-            className={cn(
-              "inline-flex items-center gap-2 rounded-full border border-border/70 bg-white px-4 py-2 text-sm text-foreground shadow-sm hover:bg-muted/50 transition-colors",
-              "animate-in fade-in slide-in-from-top-2 duration-200",
-              disabled && "pointer-events-none opacity-50"
-            )}
-            style={{ animationDelay: `${index * 50}ms` }}
-          >
-            <span className="font-medium">{prefix}</span>
-            <span className="text-muted-foreground">{label}</span>
-          </button>
-        ))}
+      <div className="flex flex-wrap gap-3">
+        {SUGGESTION_CATEGORIES.flatMap((category) => category.suggestions).map(
+          ({ prefix, label, prompt }, index) => (
+            <button
+              key={prompt}
+              type="button"
+              disabled={disabled}
+              onClick={() => onPromptSelect?.(prompt)}
+              className={cn(
+                "inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-[#f0f0e8]",
+                "animate-in fade-in slide-in-from-top-2 duration-200",
+                disabled && "pointer-events-none opacity-50"
+              )}
+              style={{ animationDelay: `${index * 50}ms` }}
+            >
+              <span className="font-medium">{prefix}</span>
+              <span className="text-muted-foreground">{label}</span>
+            </button>
+          )
+        )}
       </div>
     </div>
   );
@@ -386,7 +396,10 @@ export function PreviewMessage({ message, isLoading }: PreviewMessageProps) {
   if (message.role === "user") {
     return (
       <MessageRoot from="user" className="justify-end">
-        <MessageContent from="user">
+        <MessageContent
+          from="user"
+          className="rounded-xl border-none bg-white px-5 py-4 shadow-none"
+        >
           {message.parts
             ?.filter(
               (p): p is { type: "text"; text: string } => p.type === "text"

@@ -26,8 +26,8 @@ export interface GridConfiguration {
  */
 export const MASONRY_CONFIG: GridConfiguration = {
   breakpoints: {
-    default: 4, // 4 columns on very wide screens (1536px+)
-    1280: 3, // 3 columns on desktop (1024px - 1280px)
+    default: 5, // 5 columns on very wide screens (1536px+)
+    1280: 4, // 4 columns on desktop (1280px - 1536px)
     1024: 3, // 3 columns on smaller desktop
     768: 2, // 2 columns on tablet
     640: 1, // 1 column on mobile
@@ -67,7 +67,7 @@ export function getMasonryClasses(): {
   column: string;
 } {
   return {
-    container: "flex w-full gap-4",
+    container: "flex w-full gap-3 sm:gap-4",
     column: "bg-clip-padding",
   };
 }

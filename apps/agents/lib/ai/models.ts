@@ -1,11 +1,10 @@
 /**
- * Model definitions for OpenRouter
- *
- * Defines available chat models, capabilities, and defaults.
- * Uses OpenRouter as the provider (not Vercel AI Gateway).
+ * Model definitions for Cloudflare Workers AI.
  */
 
-export const DEFAULT_CHAT_MODEL = "openrouter/free";
+import { FAST_MODEL } from "../agent";
+
+export const DEFAULT_CHAT_MODEL = FAST_MODEL;
 
 export type ModelCapabilities = {
   tools: boolean;
@@ -22,51 +21,19 @@ export type ChatModel = {
 
 export const chatModels: ChatModel[] = [
   {
-    id: "openrouter/free",
-    name: "Free (GPT OSS 20B)",
-    provider: "openrouter",
-    description: "Free tier model via OpenRouter",
-  },
-  {
-    id: "openai/gpt-oss-20b:free",
-    name: "GPT OSS 20B",
-    provider: "openai",
-    description: "Compact reasoning model (free)",
-  },
-  {
-    id: "google/gemini-2.5-flash",
-    name: "Gemini 2.5 Flash",
-    provider: "google",
-    description: "Fast and capable model with tool use",
-  },
-  {
-    id: "anthropic/claude-sonnet-4",
-    name: "Claude Sonnet 4",
-    provider: "anthropic",
-    description: "Balanced performance and capability",
-  },
-  {
-    id: "deepseek/deepseek-chat-v3-0324:free",
-    name: "DeepSeek V3",
-    provider: "deepseek",
-    description: "Open-weight model with tool use (free)",
+    id: FAST_MODEL,
+    name: "GLM 4.7 Flash",
+    provider: "cloudflare",
+    description: "Fast Workers AI model via Cloudflare AI Gateway",
   },
 ];
 
 /**
  * Static capability map for known models.
- * OpenRouter models generally support tools; vision/reasoning vary.
+ * Cloudflare Workers AI chat models generally support tools; vision/reasoning vary.
  */
 export const modelCapabilities: Record<string, ModelCapabilities> = {
-  "openrouter/free": { tools: true, vision: false, reasoning: false },
-  "openai/gpt-oss-20b:free": { tools: true, vision: false, reasoning: true },
-  "google/gemini-2.5-flash": { tools: true, vision: true, reasoning: false },
-  "anthropic/claude-sonnet-4": { tools: true, vision: true, reasoning: false },
-  "deepseek/deepseek-chat-v3-0324:free": {
-    tools: true,
-    vision: false,
-    reasoning: false,
-  },
+  [FAST_MODEL]: { tools: true, vision: false, reasoning: false },
 };
 
 export function getCapabilities(modelId: string): ModelCapabilities {
@@ -80,3 +47,14 @@ export function getCapabilities(modelId: string): ModelCapabilities {
 }
 
 export const allowedModelIds = new Set(chatModels.map((m) => m.id));
+
+const LEGACY_MODEL_ALIASES: Record<string, string> = {
+  "openrouter/free": DEFAULT_CHAT_MODEL,
+  "openai/gpt-oss-20b:free": DEFAULT_CHAT_MODEL,
+};
+
+export function resolveModelId(modelId?: string): string {
+  if (!modelId) return DEFAULT_CHAT_MODEL;
+  const resolved = LEGACY_MODEL_ALIASES[modelId] ?? modelId;
+  return allowedModelIds.has(resolved) ? resolved : DEFAULT_CHAT_MODEL;
+}

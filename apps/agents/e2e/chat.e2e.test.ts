@@ -11,12 +11,17 @@ describe.skipIf(!RUN_E2E)("Agent Chat API - E2E (Real Integration)", () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        messages: [
-          {
-            role: "user",
-            content: "What is your name? Say just one word, no punctuation",
-          },
-        ],
+        id: "e2e-chat",
+        message: {
+          id: "e2e-user-message",
+          role: "user",
+          parts: [
+            {
+              type: "text",
+              text: "What is your name? Say just one word, no punctuation",
+            },
+          ],
+        },
         mode: "fast",
       }),
     });
@@ -55,6 +60,6 @@ describe.skipIf(!RUN_E2E)("Agent Chat API - E2E (Real Integration)", () => {
 
     expect(response.status).toBe(400);
     const json = await response.json();
-    expect(json.error).toContain("Invalid JSON");
+    expect(json.error).toContain("Invalid request body");
   });
 });

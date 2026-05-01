@@ -51,6 +51,8 @@ describe("getVarsForApp", () => {
     CLERK_SECRET_KEY: "sk_test_abc123",
     NEXT_PUBLIC_DUYET_BLOG_URL: "https://blog.duyet.net",
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: "pk_test_xyz",
+    CF_AIG_GATEWAY_ID: "monorepo",
+    CF_AIG_TOKEN: "aig789",
     CLOUDFLARE_ACCOUNT_ID: "acc123",
     CLOUDFLARE_API_TOKEN: "tok456",
   };
@@ -58,6 +60,8 @@ describe("getVarsForApp", () => {
   test("returns correct secrets for known app", () => {
     const { secrets } = getVarsForApp("duyet-agents", env);
     expect(secrets).toHaveProperty("CLERK_SECRET_KEY", "sk_test_abc123");
+    expect(secrets).toHaveProperty("CF_AIG_GATEWAY_ID", "monorepo");
+    expect(secrets).toHaveProperty("CF_AIG_TOKEN", "aig789");
     expect(secrets).toHaveProperty("CLOUDFLARE_ACCOUNT_ID", "acc123");
     expect(secrets).toHaveProperty("CLOUDFLARE_API_TOKEN", "tok456");
   });
@@ -80,6 +84,8 @@ describe("getVarsForApp", () => {
     });
     expect(missing).toContain("CLOUDFLARE_ACCOUNT_ID");
     expect(missing).toContain("CLOUDFLARE_API_TOKEN");
+    expect(missing).toContain("CF_AIG_GATEWAY_ID");
+    expect(missing).toContain("CF_AIG_TOKEN");
     expect(missing).toContain("NEXT_PUBLIC_DUYET_BLOG_URL");
   });
 
@@ -101,6 +107,8 @@ describe("appConfig", () => {
   test("duyet-agents includes CF credentials for Workers AI binding", () => {
     const config = appConfig["duyet-agents"];
     expect(config).toBeDefined();
+    expect(config.secrets).toContain("CF_AIG_GATEWAY_ID");
+    expect(config.secrets).toContain("CF_AIG_TOKEN");
     expect(config.secrets).toContain("CLOUDFLARE_ACCOUNT_ID");
     expect(config.secrets).toContain("CLOUDFLARE_API_TOKEN");
     expect(config.secrets).toContain("CLERK_SECRET_KEY");

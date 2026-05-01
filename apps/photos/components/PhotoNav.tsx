@@ -63,11 +63,11 @@ export default function PhotoNav() {
 
   return (
     <nav
-      className="fixed left-0 right-0 top-0 z-50 border-b border-neutral-200/80 bg-white/80 backdrop-blur-md transition-all dark:border-neutral-800/80 dark:bg-slate-900/80"
+      className="fixed left-0 right-0 top-0 z-50 border-b border-neutral-200/80 bg-white/90 backdrop-blur-md transition-all dark:border-neutral-200/80 dark:bg-white/90"
       aria-label="Main navigation"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-center">
+        <div className="flex h-14 items-center justify-center">
           {/* Desktop Navigation - Centered */}
           <div className="hidden items-center gap-1 md:flex">
             {navigationItems.map((item) => (
@@ -101,7 +101,7 @@ export default function PhotoNav() {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="border-t border-neutral-200/80 bg-white dark:border-neutral-800/80 dark:bg-slate-900 md:hidden">
+        <div className="border-t border-neutral-200/80 bg-white md:hidden">
           <div className="space-y-1 px-4 pb-3 pt-2">
             {navigationItems.map((item) => (
               <MobileNavLink
@@ -120,8 +120,8 @@ export default function PhotoNav() {
 function NavLink({ item }: { item: NavItem }) {
   const className = cn(
     "rounded-lg px-3 py-2 text-sm font-medium transition-all",
-    "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900",
-    "dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100",
+    "text-neutral-700 hover:bg-neutral-950 hover:text-white",
+    "dark:text-neutral-700 dark:hover:bg-neutral-950 dark:hover:text-white",
     "focus:ring-terracotta focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
   );
 
@@ -141,8 +141,8 @@ function MobileNavLink({
 }) {
   const className = cn(
     "block rounded-lg px-3 py-2 text-base font-medium transition-all",
-    "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900",
-    "dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
+    "text-neutral-700 hover:bg-neutral-950 hover:text-white",
+    "dark:text-neutral-700 dark:hover:bg-neutral-950 dark:hover:text-white"
   );
 
   return (

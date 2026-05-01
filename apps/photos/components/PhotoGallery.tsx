@@ -26,15 +26,21 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
       </a>
 
       <div>
-        <Container className="py-12">
-          <section className="mb-8 text-center" aria-labelledby="intro-heading">
+        <Container className="py-10 sm:py-12">
+          <section
+            className="mb-6 max-w-3xl text-left"
+            aria-labelledby="intro-heading"
+          >
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
+              Photos
+            </p>
             <h1
               id="intro-heading"
-              className="mb-4 font-serif text-4xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 md:text-5xl"
+              className="mb-4 text-4xl font-semibold leading-[0.98] tracking-tight text-neutral-950 sm:text-5xl lg:text-6xl"
             >
               Photography Collection
             </h1>
-            <p className="mx-auto mb-6 max-w-2xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
+            <p className="mb-6 max-w-2xl text-sm leading-6 text-neutral-600 sm:text-base">
               {isFallback ? (
                 <>
                   A selection of{" "}
@@ -51,7 +57,7 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
                     href="https://unsplash.com/@_duyet"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-terracotta hover:text-terracotta-medium dark:text-terracotta-light font-medium underline underline-offset-4 transition-colors"
+                    className="font-medium text-neutral-950 underline underline-offset-4 transition-colors hover:text-neutral-600"
                   >
                     Unsplash
                   </a>{" "}
@@ -62,7 +68,7 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
               Prefer a narrative experience?{" "}
               <a
                 href="/feed"
-                className="text-terracotta hover:text-terracotta-medium dark:text-terracotta-light font-medium underline underline-offset-4 transition-colors"
+                className="font-medium text-neutral-950 underline underline-offset-4 transition-colors hover:text-neutral-600"
               >
                 View the photo stream
               </a>
@@ -74,7 +80,7 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
 
       {/* Photo grid - full width with padding */}
       <section
-        className="w-full py-8"
+        className="w-full py-4"
         aria-labelledby="photos-heading"
         id="main-content"
       >

@@ -61,15 +61,15 @@ describe("GridUtilities", () => {
       expect(getColumnsForViewport(1200)).toBe(3);
     });
 
-    test("returns 4 columns for wide screens", () => {
-      expect(getColumnsForViewport(1600)).toBe(4);
+    test("returns 5 columns for wide screens", () => {
+      expect(getColumnsForViewport(1600)).toBe(5);
     });
   });
 
   describe("getMasonryClasses", () => {
     test("returns container and column classes", () => {
       const result = getMasonryClasses();
-      expect(result.container).toBe("flex w-full gap-4");
+      expect(result.container).toBe("flex w-full gap-3 sm:gap-4");
       expect(result.column).toBe("bg-clip-padding");
     });
   });
@@ -176,8 +176,8 @@ describe("GridUtilities", () => {
 
   describe("MASONRY_CONFIG", () => {
     test("has correct breakpoints", () => {
-      expect(MASONRY_CONFIG.breakpoints.default).toBe(4);
-      expect(MASONRY_CONFIG.breakpoints["1280"]).toBe(3);
+      expect(MASONRY_CONFIG.breakpoints.default).toBe(5);
+      expect(MASONRY_CONFIG.breakpoints["1280"]).toBe(4);
       expect(MASONRY_CONFIG.breakpoints["768"]).toBe(2);
       expect(MASONRY_CONFIG.breakpoints["640"]).toBe(1);
     });

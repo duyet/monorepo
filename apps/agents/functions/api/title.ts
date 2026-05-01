@@ -2,23 +2,30 @@
  * Title Generation API — Cloudflare Pages Function
  *
  * Generates a short conversation title from the first user message + assistant reply.
- * Uses the fast model via AI Gateway unified API for low latency.
+ * Uses the fast Workers AI model through the Pages AI binding.
  */
 
 import { generateText } from "ai";
-import { createAiGateway } from "ai-gateway-provider";
-import { createUnified } from "ai-gateway-provider/providers/unified";
+import { createWorkersAI } from "workers-ai-provider";
 import { FAST_MODEL } from "../../lib/agent";
 
 interface Env {
-  AI: Ai;
-  CF_AIG_ACCOUNT_ID?: string;
+  AI?: Ai;
+  AI_GATEWAY?: string;
+  CF_AIG_GATEWAY_ID?: string;
   CF_AIG_TOKEN?: string;
+  CLOUDFLARE_ACCOUNT_ID?: string;
+  CLOUDFLARE_API_TOKEN?: string;
 }
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   const { AI } = context.env;
-  if (!AI) {
+  const apiKey = context.env.CF_AIG_TOKEN || context.env.CLOUDFLARE_API_TOKEN;
+  const hasGatewayCredentials = Boolean(
+    context.env.CLOUDFLARE_ACCOUNT_ID && apiKey
+  );
+
+  if (!AI && !hasGatewayCredentials) {
     return new Response(JSON.stringify({ title: "New chat" }), {
       headers: { "Content-Type": "application/json" },
     });
@@ -33,15 +40,22 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       });
     }
 
-    const aigateway = createAiGateway({
-      accountId: context.env.CF_AIG_ACCOUNT_ID,
-      gateway: "monorepo",
-      apiKey: context.env.CF_AIG_TOKEN,
-    });
-    const unified = createUnified();
+    const gateway = {
+      id: context.env.CF_AIG_GATEWAY_ID || context.env.AI_GATEWAY || "monorepo",
+    };
+    const workersai = hasGatewayCredentials
+      ? createWorkersAI({
+          accountId: context.env.CLOUDFLARE_ACCOUNT_ID as string,
+          apiKey: apiKey as string,
+          gateway,
+        })
+      : createWorkersAI({
+          binding: AI as Ai,
+          gateway,
+        });
 
     const { text } = await generateText({
-      model: aigateway(unified(`workers-ai/${FAST_MODEL}`)),
+      model: workersai.chat(FAST_MODEL),
       messages: [
         {
           role: "system",

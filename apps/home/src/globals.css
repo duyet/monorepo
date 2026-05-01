@@ -6,6 +6,9 @@
       "Inter", -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui,
       sans-serif;
     --font-serif: "Libre Baskerville", Georgia, serif;
+    --color-primary: #1a1a1a;
+    --color-theme: #f8f8f2;
+    --color-status: oklch(70.5% 0.213 47.604);
   }
 
   html {
@@ -13,13 +16,17 @@
   }
 
   body {
-    background-color: #fbf7f0;
-    color: #1f1f1f;
+    background-color: var(--color-theme);
+    color: var(--color-primary);
+    font-feature-settings: "ss01", "ss02", "cv01", "zero";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   .dark body {
-    background-color: #1f1f1f;
-    color: #f9f9f8;
+    background-color: var(--color-theme);
+    color: var(--color-primary);
   }
 }
 

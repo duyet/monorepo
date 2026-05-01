@@ -32,18 +32,11 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { ToolExecution } from "@/lib/types";
 
-const OPENROUTER_MODELS = [
-  "openrouter/auto",
-  "openrouter/free",
-  "nvidia/nemotron-3-super-120b-a12b:free",
-  "stepfun/step-3.5-flash:free",
-  "z-ai/glm-4.5-air:free",
-  "nvidia/nemotron-3-nano-30b-a3b:free",
-  "qwen/qwen3-coder:free",
-  "qwen/qwen3-next-80b-a3b-instruct:free",
-  "minimax/minimax-m2.5:free",
-  "openai/gpt-oss-120b:free",
-  "openai/gpt-oss-20b:free",
+const CHAT_MODELS = [
+  {
+    id: "@cf/zai-org/glm-4.7-flash",
+    name: "GLM 4.7 Flash",
+  },
 ] as const;
 
 const MCP_SERVERS = [
@@ -97,7 +90,7 @@ function MetricCard({
   icon: ComponentType<{ className?: string }>;
 }) {
   return (
-    <Card className="border-border/70 bg-background shadow-sm">
+    <Card className="rounded-xl border-none bg-white shadow-none">
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center gap-2 text-sm font-medium">
           <Icon className="text-muted-foreground" />
@@ -127,10 +120,13 @@ export function RightSidebar({
   const completeCount = toolExecutions.filter(
     (execution) => execution.status === "complete"
   ).length;
+  const selectedModelId = CHAT_MODELS.some((model) => model.id === modelId)
+    ? modelId
+    : CHAT_MODELS[0].id;
 
   const content = (
     <Tabs defaultValue="status" className="flex h-full flex-col">
-      <SidebarHeader className="border-b px-3 py-3">
+      <SidebarHeader className="border-b border-[#1a1a1a]/15 px-4 py-4">
         <div className="space-y-3">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
@@ -141,24 +137,24 @@ export function RightSidebar({
             </p>
           </div>
 
-          <Select value={modelId} onValueChange={onModelChange}>
-            <SelectTrigger className="h-10 w-full rounded-full bg-background">
+          <Select value={selectedModelId} onValueChange={onModelChange}>
+            <SelectTrigger className="h-11 w-full rounded-lg bg-white">
               <SelectValue placeholder="Choose a model" />
             </SelectTrigger>
             <SelectContent>
-              {OPENROUTER_MODELS.map((model) => (
-                <SelectItem key={model} value={model}>
-                  {model}
+              {CHAT_MODELS.map((model) => (
+                <SelectItem key={model.id} value={model.id}>
+                  {model.name}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
 
-          <TabsList className="grid h-10 w-full grid-cols-2 rounded-full border bg-muted/40 p-1">
-            <TabsTrigger className="rounded-full" value="status">
+          <TabsList className="grid h-11 w-full grid-cols-2 rounded-lg bg-white p-1">
+            <TabsTrigger className="rounded-md" value="status">
               Status
             </TabsTrigger>
-            <TabsTrigger className="rounded-full" value="tools">
+            <TabsTrigger className="rounded-md" value="tools">
               Tools
             </TabsTrigger>
           </TabsList>
@@ -167,7 +163,7 @@ export function RightSidebar({
 
       <SidebarContent>
         <ScrollArea className="h-full">
-          <TabsContent className="mt-0 space-y-4 p-3" value="status">
+          <TabsContent className="mt-0 space-y-4 p-4" value="status">
             <SidebarGroup className="px-0 py-0">
               <SidebarGroupLabel className="px-0 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
                 Analytics
@@ -204,10 +200,10 @@ export function RightSidebar({
                 {MCP_SERVERS.map((server) => (
                   <Card
                     key={server.name}
-                    className="border-border/70 bg-background shadow-sm"
+                    className="rounded-xl border-none bg-white shadow-none"
                   >
                     <CardContent className="flex items-start gap-3 p-3">
-                      <div className="flex size-9 items-center justify-center rounded-full border bg-muted/40">
+                      <div className="flex size-9 items-center justify-center rounded-lg bg-muted/60">
                         <Cable className="size-4 text-muted-foreground" />
                       </div>
                       <div className="min-w-0 flex-1">
@@ -228,7 +224,7 @@ export function RightSidebar({
             </SidebarGroup>
           </TabsContent>
 
-          <TabsContent className="mt-0 space-y-3 p-3" value="tools">
+          <TabsContent className="mt-0 space-y-3 p-4" value="tools">
             <SidebarGroup className="px-0 py-0">
               <SidebarGroupLabel className="px-0 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
                 Available tools
@@ -237,10 +233,10 @@ export function RightSidebar({
                 {TOOLS.map((toolName) => (
                   <div
                     key={toolName}
-                    className="flex items-center justify-between rounded-2xl border bg-background px-3 py-2.5"
+                    className="flex items-center justify-between rounded-xl bg-white px-3 py-2.5"
                   >
                     <div className="flex items-center gap-2">
-                      <div className="flex size-7 items-center justify-center rounded-full bg-muted/30">
+                      <div className="flex size-7 items-center justify-center rounded-md bg-muted/60">
                         <Sparkles className="size-4 text-muted-foreground" />
                       </div>
                       <span className="text-sm font-medium">{toolName}</span>
@@ -258,10 +254,10 @@ export function RightSidebar({
                 Live session
               </SidebarGroupLabel>
               <SidebarGroupContent>
-                <Card className="border-border/70 bg-background shadow-sm">
+                <Card className="rounded-xl border-none bg-white shadow-none">
                   <CardContent className="flex items-center justify-between p-3">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <div className="flex size-7 items-center justify-center rounded-full bg-muted/30">
+                      <div className="flex size-7 items-center justify-center rounded-md bg-muted/60">
                         <Gauge className="size-4" />
                       </div>
                       Streaming context
@@ -277,7 +273,7 @@ export function RightSidebar({
         </ScrollArea>
       </SidebarContent>
 
-      <SidebarFooter className="border-t px-3 py-3">
+      <SidebarFooter className="border-t border-[#1a1a1a]/15 px-4 py-4">
         <div className="flex items-center justify-between text-xs text-muted-foreground">
           <span>Model inspector</span>
           <span>{mobile ? "Mobile" : "Desktop"}</span>
@@ -287,7 +283,7 @@ export function RightSidebar({
   );
 
   if (mobile) {
-    return <div className="flex h-full flex-col bg-background">{content}</div>;
+    return <div className="flex h-full flex-col bg-[#f8f8f2]">{content}</div>;
   }
 
   return (
@@ -295,7 +291,7 @@ export function RightSidebar({
       side="right"
       variant="sidebar"
       collapsible="none"
-      className="hidden w-72 border-l bg-background lg:flex"
+      className="hidden w-72 border-l border-[#1a1a1a]/15 bg-[#f8f8f2] lg:flex"
     >
       {content}
     </Sidebar>
