@@ -6,10 +6,16 @@
  * @param maxLength - Maximum length of slug (will truncate at word boundary)
  * @returns slug
  */
+
+import { _getWasmSlugify } from "./string"
+
 export const getSlug = (name?: string, maxLength = 100): string => {
   if (!name) {
-    return "";
+    return ""
   }
+
+  const wasmSlugify = _getWasmSlugify()
+  if (wasmSlugify) return wasmSlugify(name, maxLength)
 
   let slug = name
     .toLowerCase()

@@ -17,6 +17,7 @@
     "remark-parse": "^11.0.0",
     "sanitize-html": "^2.13.0",
     "tailwind-merge": "^3.0.0",
+    "@duyet/wasm": "*",
     "unified": "^11.0.0",
     "unist-util-visit": "^5.0.0",
     "vfile": "^6.0.3"
