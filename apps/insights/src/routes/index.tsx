@@ -5,6 +5,17 @@ import { OverviewDashboard } from "@/components/dashboard/OverviewDashboard";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
+    const shouldFetchLiveMetrics =
+      typeof window === "undefined" &&
+      (process.env.CI || process.env.GITHUB_ACTIONS);
+
+    if (!shouldFetchLiveMetrics) {
+      return {
+        aiMetrics: null,
+        wakaTimeMetrics: null,
+      };
+    }
+
     const [aiMetrics, wakaTimeMetrics] = await Promise.allSettled([
       getCCUsageMetrics(30),
       getWakaTimeMetrics(30),

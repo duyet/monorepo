@@ -265,9 +265,18 @@ jobs:
         run: |
           cd apps/${{ matrix.app }}
 
+          OUTPUT_DIR=$(grep 'pages_build_output_dir' wrangler.toml 2>/dev/null | sed 's/.*=[[:space:]]*"\([^"]*\)".*/\1/' || true)
+          if [ -z "$OUTPUT_DIR" ]; then
+            if [ -d "dist/client" ]; then
+              OUTPUT_DIR="dist/client"
+            else
+              OUTPUT_DIR="dist"
+            fi
+          fi
+
           # Skip deploy if no static output directory exists
-          if [ ! -d "dist" ]; then
-            echo "No 'dist' directory found — Vite build may have failed."
+          if [ ! -d "$OUTPUT_DIR" ]; then
+            echo "No '$OUTPUT_DIR' directory found — Vite build may have failed."
             echo "Skipping Cloudflare Pages deploy for ${{ matrix.app }}."
             echo "url=skipped" >> $GITHUB_OUTPUT
             echo "branch=skipped" >> $GITHUB_OUTPUT
@@ -279,7 +288,7 @@ jobs:
           BRANCH_SLUG=$(echo "$BRANCH" | sed 's/[^a-zA-Z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-//' | sed 's/-$//' | cut -c1-28)
 
           # Deploy to preview branch
-          OUTPUT=$(bunx wrangler pages deploy dist \
+          OUTPUT=$(bunx wrangler pages deploy "$OUTPUT_DIR" \
             --project-name=${{ matrix.project }} \
             --branch="$BRANCH_SLUG" \
             --commit-dirty=true 2>&1)
