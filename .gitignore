@@ -56,4 +56,5 @@ yarn-error.log*
 # Rust/WASM
 target/
 **/pkg/
+!**/pkg/**/*.d.ts
 Cargo.lock
