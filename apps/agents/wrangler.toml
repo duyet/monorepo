@@ -6,8 +6,6 @@ pages_build_output_dir = "dist/client"
 [vars]
 # Server-side pepper for hashing IPs before storage. Override in dashboard for production.
 RATE_LIMIT_PEPPER = "change-me-in-production"
-# Cloudflare AI Gateway used by Workers AI requests.
-CF_AIG_GATEWAY_ID = "monorepo"
 
 [[d1_databases]]
 binding = "DB"
