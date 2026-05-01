@@ -3,65 +3,14 @@
  * Used by all data source adapters
  */
 
+import { parse_csv } from "@duyet/wasm/pkg/csv-parser/csv_parser.js";
+
 /**
- * RFC 4180 compliant CSV parser
+ * RFC 4180 compliant CSV parser (WASM-backed)
  * Handles quoted fields, embedded commas, and newlines
  */
 export function parseCsv(text: string): string[][] {
-  const rows: string[][] = [];
-  let i = 0;
-
-  while (i < text.length) {
-    const row: string[] = [];
-
-    while (i < text.length) {
-      if (text[i] === '"') {
-        // Quoted field
-        i++; // skip opening quote
-        let field = "";
-        while (i < text.length) {
-          if (text[i] === '"' && text[i + 1] === '"') {
-            field += '"';
-            i += 2;
-          } else if (text[i] === '"') {
-            i++; // skip closing quote
-            break;
-          } else {
-            field += text[i++];
-          }
-        }
-        row.push(field);
-        if (text[i] === ",") i++;
-        else if (text[i] === "\r") i++;
-      } else {
-        // Unquoted field — read until comma or newline
-        let field = "";
-        while (
-          i < text.length &&
-          text[i] !== "," &&
-          text[i] !== "\n" &&
-          text[i] !== "\r"
-        ) {
-          field += text[i++];
-        }
-        row.push(field.trim());
-        if (text[i] === ",") i++;
-        else if (text[i] === "\r") i++;
-      }
-
-      // End of row
-      if (i >= text.length || text[i] === "\n") {
-        i++; // skip newline
-        break;
-      }
-    }
-
-    if (row.length > 0 && !(row.length === 1 && row[0] === "")) {
-      rows.push(row);
-    }
-  }
-
-  return rows;
+  return JSON.parse(parse_csv(text)) as string[][];
 }
 
 /**

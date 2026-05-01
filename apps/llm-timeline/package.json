@@ -26,6 +26,7 @@
     "@duyet/components": "*",
     "@duyet/libs": "*",
     "@duyet/urls": "*",
+    "@duyet/wasm": "*",
     "@radix-ui/react-slot": "^1.2.4",
     "@tanstack/react-router": "^1.0.0",
     "@tanstack/react-start": "^1.0.0",
