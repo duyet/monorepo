@@ -4,8 +4,6 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { wasmExternal } from "@duyet/config";
-
 export default defineConfig({
   server: { port: 3004 },
   plugins: [
@@ -22,7 +20,15 @@ export default defineConfig({
     }),
     tailwindcss(),
     tsconfigPaths(),
-    wasmExternal(),
+    {
+      name: "wasm-external",
+      enforce: "pre",
+      resolveId(source: string) {
+        if (source.startsWith("@duyet/wasm/pkg/")) {
+          return { id: source, external: true };
+        }
+      },
+    },
     {
       name: "spa-route-prerender",
       closeBundle() {
