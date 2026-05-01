@@ -12,9 +12,16 @@ export default defineConfig({
       },
       prerender: {
         enabled: true,
-        crawlLinks: true,
+        autoStaticPathsDiscovery: false,
+        crawlLinks: false,
         failOnError: false,
       },
+      pages: [
+        {
+          path: "/",
+          prerender: { enabled: true, outputPath: "/index.html" },
+        },
+      ],
     }),
     tailwindcss(),
     tsconfigPaths(),
