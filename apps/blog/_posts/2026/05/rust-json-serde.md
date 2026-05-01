@@ -39,18 +39,11 @@ struct User {
 }
 ```
 
-Now you can use `serde_json::from_str()` to parse a JSON string into a `User`:
+Now you can use `serde_json::from_str()` to parse a JSON string into a `User`.
+The `main` function returns `Result` so the `?` operator can return any JSON
+parsing error to the caller:
 
 ```rust
-use serde::{Deserialize, Serialize};
-
-#[derive(Debug, Serialize, Deserialize)]
-struct User {
-    name: String,
-    age: u32,
-    email: String,
-}
-
 fn main() -> Result<(), serde_json::Error> {
     let json = r#"
     {
@@ -74,15 +67,6 @@ You can also use `serde_json::to_string()` to convert a `User` instance back
 into a JSON string:
 
 ```rust
-use serde::{Deserialize, Serialize};
-
-#[derive(Debug, Serialize, Deserialize)]
-struct User {
-    name: String,
-    age: u32,
-    email: String,
-}
-
 fn main() -> Result<(), serde_json::Error> {
     let user = User {
         name: "Bob".to_string(),
