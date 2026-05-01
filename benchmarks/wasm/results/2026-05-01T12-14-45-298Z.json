@@ -1,0 +1,166 @@
+{
+  "timestamp": "2026-05-01T12:14:45.297Z",
+  "results": [
+    {
+      "module": "csv-parse",
+      "ts": {
+        "mean": 0.076,
+        "median": 0.048,
+        "p95": 0.152,
+        "p99": 0.538,
+        "min": 0.045,
+        "max": 4.231
+      },
+      "wasm": {
+        "mean": 0.156,
+        "median": 0.144,
+        "p95": 0.221,
+        "p99": 0.289,
+        "min": 0.132,
+        "max": 0.509
+      },
+      "speedup": 0.49,
+      "status": "fail",
+      "wasmReady": true,
+      "iterations": 1000
+    },
+    {
+      "module": "dedup",
+      "ts": {
+        "mean": 0.015,
+        "median": 0.012,
+        "p95": 0.021,
+        "p99": 0.043,
+        "min": 0.01,
+        "max": 1.252
+      },
+      "wasm": {
+        "mean": 0.037,
+        "median": 0.035,
+        "p95": 0.049,
+        "p99": 0.074,
+        "min": 0.033,
+        "max": 0.682
+      },
+      "speedup": 0.41,
+      "status": "fail",
+      "wasmReady": true,
+      "iterations": 2000
+    },
+    {
+      "module": "diff-text",
+      "ts": {
+        "mean": 0.066,
+        "median": 0.054,
+        "p95": 0.087,
+        "p99": 0.137,
+        "min": 0.051,
+        "max": 0.82
+      },
+      "wasm": {
+        "mean": 4.903,
+        "median": 4.762,
+        "p95": 5.635,
+        "p99": 6.929,
+        "min": 4.459,
+        "max": 21.807
+      },
+      "speedup": 0.01,
+      "status": "fail",
+      "wasmReady": true,
+      "iterations": 500
+    },
+    {
+      "module": "exif-parse",
+      "ts": {
+        "mean": 0.001,
+        "median": 0.001,
+        "p95": 0.002,
+        "p99": 0.004,
+        "min": 0.001,
+        "max": 0.052
+      },
+      "wasm": {
+        "mean": 0.001,
+        "median": 0.001,
+        "p95": 0.002,
+        "p99": 0.005,
+        "min": 0.001,
+        "max": 0.196
+      },
+      "speedup": 1,
+      "status": "fail",
+      "wasmReady": true,
+      "iterations": 2000
+    },
+    {
+      "module": "markdown-to-html",
+      "ts": {
+        "mean": 12.92,
+        "median": 8.585,
+        "p95": 26.46,
+        "p99": 54.188,
+        "min": 4.456,
+        "max": 64.846
+      },
+      "wasm": {
+        "mean": 0.08,
+        "median": 0.065,
+        "p95": 0.139,
+        "p99": 0.201,
+        "min": 0.06,
+        "max": 0.207
+      },
+      "speedup": 161.5,
+      "status": "pass",
+      "wasmReady": true,
+      "iterations": 100
+    },
+    {
+      "module": "normalizers",
+      "ts": {
+        "mean": 0.01,
+        "median": 0.008,
+        "p95": 0.019,
+        "p99": 0.04,
+        "min": 0.007,
+        "max": 1.206
+      },
+      "wasm": {
+        "mean": 0.043,
+        "median": 0.035,
+        "p95": 0.066,
+        "p99": 0.158,
+        "min": 0.028,
+        "max": 2.339
+      },
+      "speedup": 0.23,
+      "status": "fail",
+      "wasmReady": true,
+      "iterations": 5000
+    },
+    {
+      "module": "string-utils",
+      "ts": {
+        "mean": 0.162,
+        "median": 0.141,
+        "p95": 0.194,
+        "p99": 0.368,
+        "min": 0.108,
+        "max": 20.239
+      },
+      "wasm": {
+        "mean": 0.163,
+        "median": 0.118,
+        "p95": 0.35,
+        "p99": 0.608,
+        "min": 0.092,
+        "max": 4.69
+      },
+      "speedup": 0.99,
+      "status": "fail",
+      "wasmReady": true,
+      "iterations": 10000
+    }
+  ]
+}

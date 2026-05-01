@@ -1,6 +1,14 @@
+import { readFileSync } from "node:fs"
+import { join, dirname } from "node:path"
+import { initSync, extract_exif } from "../../../packages/wasm/pkg/exif/exif.js"
+
+// Initialize WASM module
+const wasmPath = join(dirname(import.meta.url.replace("file://", "")), "..", "..", "..", "packages", "wasm", "pkg", "exif", "exif_bg.wasm")
+initSync({ module: readFileSync(wasmPath) })
+
 export const name = "exif-parse"
 export const iterations = 2000
-export const wasmReady = false
+export const wasmReady = true
 
 // Generate a synthetic EXIF-like binary buffer (JPEG SOI + APP1 marker + TIFF header + IFD)
 // This is a minimal valid EXIF structure, not a real photo, but exercises the same parsing paths.
@@ -221,7 +229,7 @@ export function tsFn(input: unknown): Record<string, unknown> {
   return result
 }
 
-// WASM: stub
 export function wasmFn(input: unknown): Record<string, unknown> {
-  return tsFn(input)
+  const buffer = input as ArrayBuffer
+  return JSON.parse(extract_exif(new Uint8Array(buffer))) as Record<string, unknown>
 }

@@ -1,10 +1,16 @@
 import { readFileSync } from "node:fs"
-import { join } from "node:path"
+import { join, dirname } from "node:path"
+import { initSync, diff_text, align_blocks } from "../../../packages/wasm/pkg/diff/diff.js"
+
+// Initialize WASM module
+const wasmPath = join(dirname(import.meta.url.replace("file://", "")), "..", "..", "..", "packages", "wasm", "pkg", "diff", "diff_bg.wasm")
+initSync({ module: readFileSync(wasmPath) })
 
 export const name = "diff-text"
 export const iterations = 500
-export const wasmReady = false
+export const wasmReady = true
 
+// Use line-level diff with real fixtures (matches actual app usage in sheet editor)
 const oldText = readFileSync(join(import.meta.dir, "..", "fixtures", "sample-diff.txt"), "utf-8")
 const newText = readFileSync(join(import.meta.dir, "..", "fixtures", "sample-diff-new.txt"), "utf-8")
 
@@ -16,66 +22,24 @@ interface DiffOp {
 }
 
 /**
- * TS character-level diff using LCS dynamic programming.
- * Returns array of { type, text } ops (0=equal, 1=insert, 2=delete).
+ * TS line-level diff using LCS dynamic programming.
+ * Mirrors the Rust align_blocks function — same algorithm, same output shape.
  */
 export function tsFn(input: unknown): DiffOp[] {
-  const { old: a, new: b } = input as { old: string; new: string }
+  const { old: oldStr, new: newStr } = input as { old: string; new: string }
 
-  // Simplified LCS-based diff
-  const n = a.length
-  const m = b.length
+  const oldLines = oldStr ? oldStr.split("\n") : []
+  const newLines = newStr ? newStr.split("\n") : []
 
-  // For large inputs, use a simple greedy approach
-  const ops: DiffOp[] = []
-  let i = 0
-  let j = 0
+  const m = oldLines.length
+  const n = newLines.length
 
-  // Build edit script using dynamic programming table (limited to reasonable sizes)
-  if (n * m < 10_000_000) {
-    const dp = buildLCSTable(a, b)
-    backtrackDiff(ops, a, b, dp, n, m)
-  } else {
-    // Fallback: simple line-by-line comparison
-    while (i < n && j < m) {
-      if (a[i] === b[j]) {
-        ops.push({ type: 0, text: a[i] })
-        i++
-        j++
-      } else {
-        // Look ahead
-        const nextMatchA = b.indexOf(a[i], j)
-        const nextMatchB = a.indexOf(b[j], i)
-        if (nextMatchA >= 0 && (nextMatchB < 0 || nextMatchA - j <= nextMatchB - i)) {
-          for (let k = j; k < nextMatchA; k++) ops.push({ type: 1, text: b[k] })
-          j = nextMatchA
-        } else if (nextMatchB >= 0) {
-          for (let k = i; k < nextMatchB; k++) ops.push({ type: 2, text: a[k] })
-          i = nextMatchB
-        } else {
-          ops.push({ type: 2, text: a[i] })
-          ops.push({ type: 1, text: b[j] })
-          i++
-          j++
-        }
-      }
-    }
-    while (i < n) ops.push({ type: 2, text: a[i++] })
-    while (j < m) ops.push({ type: 1, text: b[j++] })
-  }
+  // LCS DP table
+  const dp: number[][] = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0))
 
-  // Merge consecutive same-type ops
-  return mergeOps(ops)
-}
-
-function buildLCSTable(a: string, b: string): number[][] {
-  const n = a.length
-  const m = b.length
-  const dp: number[][] = Array.from({ length: n + 1 }, () => new Array(m + 1).fill(0))
-
-  for (let i = 1; i <= n; i++) {
-    for (let j = 1; j <= m; j++) {
-      if (a[i - 1] === b[j - 1]) {
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (oldLines[i - 1] === newLines[j - 1]) {
         dp[i][j] = dp[i - 1][j - 1] + 1
       } else {
         dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1])
@@ -83,41 +47,42 @@ function buildLCSTable(a: string, b: string): number[][] {
     }
   }
 
-  return dp
-}
+  // Backtrack
+  const ops: DiffOp[] = []
+  let i = m
+  let j = n
 
-function backtrackDiff(ops: DiffOp[], a: string, b: string, dp: number[][], i: number, j: number): void {
   while (i > 0 || j > 0) {
-    if (i > 0 && j > 0 && a[i - 1] === b[j - 1]) {
-      ops.push({ type: 0, text: a[i - 1] })
+    if (i > 0 && j > 0 && oldLines[i - 1] === newLines[j - 1]) {
+      ops.push({ type: 0, text: oldLines[i - 1] })
       i--
       j--
     } else if (j > 0 && (i === 0 || dp[i][j - 1] >= dp[i - 1][j])) {
-      ops.push({ type: 1, text: b[j - 1] })
+      ops.push({ type: 1, text: newLines[j - 1] })
       j--
     } else if (i > 0) {
-      ops.push({ type: 2, text: a[i - 1] })
+      ops.push({ type: 2, text: oldLines[i - 1] })
       i--
     }
   }
-  ops.reverse()
-}
 
-function mergeOps(ops: DiffOp[]): DiffOp[] {
+  ops.reverse()
+
+  // Merge consecutive same-type ops
   if (ops.length === 0) return ops
   const merged: DiffOp[] = [ops[0]]
-  for (let i = 1; i < ops.length; i++) {
+  for (let k = 1; k < ops.length; k++) {
     const last = merged[merged.length - 1]
-    if (last.type === ops[i].type) {
-      last.text += ops[i].text
+    if (last.type === ops[k].type) {
+      last.text += "\n" + ops[k].text
     } else {
-      merged.push({ ...ops[i] })
+      merged.push({ ...ops[k] })
     }
   }
   return merged
 }
 
-// WASM: stub
 export function wasmFn(input: unknown): DiffOp[] {
-  return tsFn(input)
+  const { old: a, new: b } = input as { old: string; new: string }
+  return JSON.parse(align_blocks(a, b)) as DiffOp[]
 }

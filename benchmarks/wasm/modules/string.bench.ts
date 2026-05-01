@@ -1,6 +1,14 @@
+import { readFileSync } from "node:fs"
+import { join, dirname } from "node:path"
+import { initSync, escape_reg_exp, slugify as wasmSlugify } from "../../../packages/wasm/pkg/utils/utils.js"
+
+// Initialize WASM module
+const wasmPath = join(dirname(import.meta.url.replace("file://", "")), "..", "..", "..", "packages", "wasm", "pkg", "utils", "utils_bg.wasm")
+initSync({ module: readFileSync(wasmPath) })
+
 export const name = "string-utils"
 export const iterations = 10000
-export const wasmReady = false
+export const wasmReady = true
 
 // Realistic string operations: escapeRegExp, slugify, truncate, camelCase
 const strings = Array.from({ length: 50 }, (_, i) => ({
@@ -48,7 +56,15 @@ function truncate(str: string, len: number): string {
   return str.length <= len ? str : str.slice(0, len) + "..."
 }
 
-// WASM: stub
 export function wasmFn(input: unknown): unknown[] {
-  return tsFn(input)
+  const items = input as Array<{ raw: string; regex: string; path: string }>
+  return items.map((item) => ({
+    slug: wasmSlugify(item.raw),
+    escaped: escape_reg_exp(item.regex),
+    camel: toCamelCase(item.raw),
+    truncated: truncate(item.path, 30),
+    wordCount: item.raw.trim().split(/\s+/).length,
+    reversed: item.raw.split("").reverse().join(""),
+    base64: btoa(item.raw.slice(0, 20)),
+  }))
 }

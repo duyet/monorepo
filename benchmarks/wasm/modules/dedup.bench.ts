@@ -1,6 +1,14 @@
+import { readFileSync } from "node:fs"
+import { join, dirname } from "node:path"
+import { initSync, merge_all_sources } from "../../../packages/wasm/pkg/dedup/dedup.js"
+
+// Initialize WASM module
+const wasmPath = join(dirname(import.meta.url.replace("file://", "")), "..", "..", "..", "packages", "wasm", "pkg", "dedup", "dedup_bg.wasm")
+initSync({ module: readFileSync(wasmPath) })
+
 export const name = "dedup"
 export const iterations = 2000
-export const wasmReady = false
+export const wasmReady = true
 
 // Generate realistic dedup input: array of objects with duplicates
 const baseItems = Array.from({ length: 200 }, (_, i) => ({
@@ -42,7 +50,8 @@ export function tsFn(input: unknown): unknown {
   }
 }
 
-// WASM: stub
 export function wasmFn(input: unknown): unknown {
-  return tsFn(input)
+  const { items, strings } = input as { items: Array<{ id: number; name: string; value: number; category: string }>; strings: string[] }
+  const wasmInput = JSON.stringify([items])
+  return JSON.parse(merge_all_sources(wasmInput))
 }
