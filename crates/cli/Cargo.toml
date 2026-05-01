@@ -1,0 +1,18 @@
+[package]
+name = "duyet-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "duyet-cli"
+path = "src/main.rs"
+
+[dependencies]
+duyet-csv-parser = { path = "../csv-parser" }
+duyet-normalizers = { path = "../normalizers" }
+duyet-dedup = { path = "../dedup" }
+duyet-markdown = { path = "../markdown" }
+serde.workspace = true
+serde_json.workspace = true
+clap = { version = "4", features = ["derive"] }
