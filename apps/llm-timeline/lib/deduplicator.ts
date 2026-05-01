@@ -6,7 +6,7 @@
  */
 
 import type { DataSourceAdapter, MergeStats, Model } from "./types";
-import { merge_all_sources as wasmMergeAllSources } from "@duyet/wasm/pkg/dedup/dedup.js";
+import { callCli } from "@duyet/libs/native-cli";
 
 export interface SourceResult {
   source: DataSourceAdapter;
@@ -28,9 +28,9 @@ export function mergeAllSources(results: SourceResult[]): {
     models,
   }));
 
-  const json = wasmMergeAllSources(JSON.stringify(wasmInput));
+  const json = callCli<{ models: Model[]; stats: MergeStats }>("dedup", wasmInput);
 
-  return JSON.parse(json) as { models: Model[]; stats: MergeStats };
+  return json;
 }
 
 /**

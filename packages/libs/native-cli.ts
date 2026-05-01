@@ -1,8 +1,10 @@
 import { spawnSync } from "node:child_process"
 import { existsSync } from "node:fs"
-import { resolve } from "node:path"
+import { dirname, resolve } from "node:path"
+import { fileURLToPath } from "node:url"
 
-const BINARY_PATH = resolve(import.meta.dir, "../../target/release/duyet-cli")
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const BINARY_PATH = resolve(__dirname, "../../target/release/duyet-cli")
 
 interface CliResult<T> {
   ok: boolean

@@ -3,14 +3,14 @@
  * Used by all data source adapters
  */
 
-import { parse_csv } from "@duyet/wasm/pkg/csv-parser/csv_parser.js";
+import { callCli } from "@duyet/libs/native-cli";
 
 /**
- * RFC 4180 compliant CSV parser (WASM-backed)
+ * RFC 4180 compliant CSV parser (native Rust binary)
  * Handles quoted fields, embedded commas, and newlines
  */
 export function parseCsv(text: string): string[][] {
-  return JSON.parse(parse_csv(text)) as string[][];
+  return callCli<string[][]>("csv", text);
 }
 
 /**
