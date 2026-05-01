@@ -4,6 +4,7 @@ import {
   FileText,
   List,
   Plus,
+  SlidersHorizontal,
 } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { AuthControl } from "@/components/auth-control";
@@ -22,6 +23,7 @@ interface ChatTopBarProps {
   conversationTitle?: string;
   conversationId?: string;
   onOpenSidebar?: () => void;
+  onOpenInspector?: () => void;
 }
 
 export function ChatTopBar({
@@ -29,6 +31,7 @@ export function ChatTopBar({
   conversationTitle,
   conversationId,
   onOpenSidebar,
+  onOpenInspector,
 }: ChatTopBarProps) {
   const { exportConversation, isExporting } = useExportConversation();
   const canExport = Boolean(conversationId);
@@ -69,10 +72,23 @@ export function ChatTopBar({
         </div>
 
         <div className="flex items-center gap-1">
+          {onOpenInspector ? (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onOpenInspector}
+              aria-label="Open inspector"
+              className="size-9 shrink-0 rounded-lg lg:hidden"
+            >
+              <SlidersHorizontal weight="regular" className="size-4" />
+            </Button>
+          ) : null}
+
           <Button
             variant="ghost"
             size="sm"
             onClick={onNewChat}
+            aria-label="New chat"
             className="h-9 rounded-lg px-3"
           >
             <Plus weight="regular" className="size-4" />

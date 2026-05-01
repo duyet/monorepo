@@ -32,14 +32,14 @@ export function YearPost({ year, posts, className }: YearPostProps) {
             key={post.slug}
           >
             <a
-              className="cursor-pointer text-sm leading-5 text-neutral-800 transition-colors hover:text-neutral-950 hover:underline hover:underline-offset-4"
+              className="min-w-0 flex-1 cursor-pointer break-words text-sm leading-5 text-neutral-800 transition-colors hover:text-neutral-950 hover:underline hover:underline-offset-4"
               href={post.slug}
             >
               {post.title}
               <IsNewPost date={post.date} />
               <IsFeatured featured={post.featured} />
             </a>
-            <hr className="shrink grow border-dotted border-neutral-300" />
+            <hr className="hidden shrink grow border-dotted border-neutral-300 sm:block" />
             <div className="flex flex-shrink-0 items-center gap-2 text-xs text-neutral-500">
               <time className="whitespace-nowrap">
                 {dateFormat(post.date, "MMM dd")}
