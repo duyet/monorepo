@@ -40,7 +40,7 @@ export async function scanLocalPhotos(): Promise<LocalPhoto[]> {
         const stats = fs.statSync(filePath);
 
         // Extract EXIF metadata
-        const exif = await extractExifData(buffer);
+        const exif = extractExifData(buffer);
 
         // Get image metadata using sharp
         const image = sharp(buffer);
