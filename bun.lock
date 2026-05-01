@@ -539,6 +539,14 @@
         "typescript": "^6.0.0",
       },
     },
+    "packages/wasm": {
+      "name": "@duyet/wasm",
+      "version": "0.1.0",
+      "devDependencies": {
+        "@duyet/tsconfig": "*",
+        "typescript": "*",
+      },
+    },
   },
   "packages": {
     "@adobe/css-tools": ["@adobe/css-tools@4.4.4", "", {}, "sha512-Elp+iwUx5rN5+Y8xLt5/GRoG20WGoDCQ/1Fb+1LiGtvwbDavuSk0jhD/eZdckHAuzcDzccnkv+rEjyWfRx18gg=="],
@@ -796,6 +804,8 @@
     "@duyet/tsconfig": ["@duyet/tsconfig@workspace:packages/tsconfig"],
 
     "@duyet/urls": ["@duyet/urls@workspace:packages/urls"],
+
+    "@duyet/wasm": ["@duyet/wasm@workspace:packages/wasm"],
 
     "@emnapi/core": ["@emnapi/core@1.9.1", "", { "dependencies": { "@emnapi/wasi-threads": "1.2.0", "tslib": "^2.4.0" } }, "sha512-mukuNALVsoix/w1BJwFzwXBN/dHeejQtuVzcDsfOEsdpCumXb/E9j8w11h5S54tT1xhifGfbbSm/ICrObRb3KA=="],
 

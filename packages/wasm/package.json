@@ -1,0 +1,15 @@
+{
+  "name": "@duyet/wasm",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "scripts": {
+    "build": "echo 'WASM modules built via cargo/wasm-pack at repo root'",
+    "test": "echo 'WASM tests run via cargo test — see bun run wasm:test'"
+  },
+  "devDependencies": {
+    "@duyet/tsconfig": "*",
+    "typescript": "*"
+  }
+}
