@@ -19,8 +19,8 @@
     "lint": "biome lint .",
     "test": "bun test",
     "test:e2e": "bun run scripts/test-e2e.ts",
-    "deploy": "bun run build && bunx wrangler pages deploy dist --project-name=duyet-agents",
-    "cf:deploy": "bun run scripts/build-skills.ts && bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy dist --project-name=duyet-agents --commit-dirty=true",
+    "deploy": "bun run build && bunx wrangler pages deploy dist/client --project-name=duyet-agents",
+    "cf:deploy": "bun run scripts/build-skills.ts && bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy dist/client --project-name=duyet-agents --commit-dirty=true",
     "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh agents duyet-agents"
   },
   "dependencies": {

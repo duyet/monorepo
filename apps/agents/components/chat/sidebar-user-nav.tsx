@@ -36,7 +36,7 @@ export function SidebarUserNav() {
         <SignedOut>
           <SignInButton mode="modal">
             <SidebarMenuButton
-              className="h-10 rounded-2xl border border-sidebar-border/60 bg-background px-3 text-sidebar-foreground/80 shadow-sm transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+              className="h-11 rounded-lg bg-white px-3 text-sidebar-foreground/80 transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
               data-testid="user-nav-sign-in"
             >
               <LogIn />
@@ -76,11 +76,11 @@ function SignedInUserMenu({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <SidebarMenuButton
-          className="h-10 rounded-2xl border border-sidebar-border/60 bg-background px-3 text-sidebar-foreground/80 shadow-sm transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+          className="h-11 rounded-lg bg-white px-3 text-sidebar-foreground/80 transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
           data-testid="user-nav-button"
         >
           <div
-            className="size-7 shrink-0 rounded-full ring-1 ring-sidebar-border/60"
+            className="size-7 shrink-0 rounded-md ring-1 ring-sidebar-border/60"
             style={{
               background: `linear-gradient(135deg, oklch(0.35 0.08 ${emailToHue(email)}), oklch(0.25 0.05 ${emailToHue(email) + 40}))`,
             }}

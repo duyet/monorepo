@@ -1,4 +1,5 @@
 import { spawn } from "child_process";
+import { existsSync, readFileSync } from "node:fs";
 import http from "node:http";
 import httpProxy from "http-proxy";
 
@@ -7,6 +8,18 @@ const VITE_PORT = parseInt(process.env.PORT, 10) || 3004;
 const FUNCTION_PORT = VITE_PORT + 1; // 3005
 const PROXY_PORT = VITE_PORT + 2; // 3006
 const PROXY_HOST = "http://localhost";
+const ENV_FILES = [
+  "../../.env",
+  "../../.env.local",
+  "../../.env.production",
+  "../../.env.production.local",
+  ".env.local",
+  ".dev.vars",
+];
+
+for (const file of ENV_FILES) {
+  loadEnvFile(file);
+}
 
 console.log(`\x1b[36m[Proxy]\x1b[0m Starting Development Server Proxy...`);
 console.log(`\x1b[36m[Proxy]\x1b[0m Vite UI: http://localhost:${VITE_PORT}`);
@@ -78,11 +91,11 @@ function startProcesses() {
   const wranglerProcess = spawn(
     "bun",
     [
-      "--bun",
       "x",
       "wrangler",
       "pages",
       "dev",
+      ...wranglerBindings(),
       "--port",
       FUNCTION_PORT.toString(),
     ],
@@ -103,4 +116,35 @@ function startProcesses() {
 
   process.on("SIGINT", cleanup);
   process.on("SIGTERM", cleanup);
+}
+
+function wranglerBindings() {
+  if (!process.env.CLOUDFLARE_ACCOUNT_ID) return [];
+  return [
+    "--binding",
+    `CLOUDFLARE_ACCOUNT_ID=${process.env.CLOUDFLARE_ACCOUNT_ID}`,
+  ];
+}
+
+function loadEnvFile(file) {
+  if (!existsSync(file)) return;
+
+  for (const line of readFileSync(file, "utf8").split("\n")) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+
+    const eqIndex = trimmed.indexOf("=");
+    if (eqIndex === -1) continue;
+
+    const key = trimmed.slice(0, eqIndex).trim();
+    let value = trimmed.slice(eqIndex + 1).trim();
+    if (
+      (value.startsWith('"') && value.endsWith('"')) ||
+      (value.startsWith("'") && value.endsWith("'"))
+    ) {
+      value = value.slice(1, -1);
+    }
+
+    process.env[key] = value;
+  }
 }

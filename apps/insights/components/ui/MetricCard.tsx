@@ -26,7 +26,7 @@ export function MetricCard({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-xl border bg-card p-6 text-card-foreground",
+        "relative overflow-hidden rounded-lg border border-border/80 bg-card p-4 text-card-foreground",
         className
       )}
     >
@@ -34,7 +34,7 @@ export function MetricCard({
         <div className="space-y-2">
           <p className="text-sm font-medium text-muted-foreground">{title}</p>
           <div className="flex items-baseline space-x-2">
-            <p className="text-3xl font-bold tracking-tight">{value}</p>
+            <p className="text-2xl font-semibold tracking-tight">{value}</p>
             {change && (
               <span
                 className={cn(

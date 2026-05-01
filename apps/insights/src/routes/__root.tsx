@@ -50,7 +50,7 @@ export const Route = createRootRoute({
       {
         rel: "preload",
         as: "style",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap",
       },
     ],
   }),
@@ -65,7 +65,7 @@ function RootComponent() {
         <HeadContent />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
           media="print"
           // @ts-expect-error onLoad is valid on link elements
           onLoad="this.media='all'"
@@ -78,9 +78,9 @@ function RootComponent() {
             shortText={insightsConfig.header.shortText}
           />
 
-          <main>
-            <Container className="mb-20">
-              <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+          <main className="bg-white text-neutral-950">
+            <Container className="mb-20 pt-6">
+              <div className="mb-8 flex flex-wrap items-center justify-between gap-3">
                 <CompactNavigation />
                 <GlobalPeriodSelector />
               </div>

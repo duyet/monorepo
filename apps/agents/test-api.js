@@ -30,7 +30,13 @@ req.on("error", (err) => {
 
 req.write(
   JSON.stringify({
-    messages: [{ role: "user", content: "What is your name?" }],
+    id: "local-smoke",
+    message: {
+      id: "local-smoke-user",
+      role: "user",
+      parts: [{ type: "text", text: "What is your name?" }],
+    },
+    mode: "fast",
   })
 );
 req.end();

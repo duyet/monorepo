@@ -32,40 +32,46 @@ function HomePage() {
   const years = Object.keys(postsByYear).map(Number);
   const pastYears = new Date().getFullYear() - Math.min(...years);
 
-  const topSeriesList = seriesList.slice(0, 3);
+  const topSeriesList = seriesList.slice(0, 4);
   const topTags = Object.entries(allTags)
     .sort(([, a], [, b]) => b - a)
     .slice(0, 5)
     .map(([tag]) => tag);
 
   return (
-    <div className="min-h-screen pb-10">
+    <div className="min-h-screen bg-white pb-14">
       <Container>
-        <div className="mb-12 text-center">
-          <p className="text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
+        <div className="mb-10 max-w-4xl pt-8 sm:pt-12">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
+            Blog archive
+          </p>
+          <h1 className="max-w-3xl text-4xl font-semibold leading-[0.98] tracking-tight text-neutral-950 sm:text-5xl lg:text-6xl">
+            Notes on data, systems, and engineering craft.
+          </h1>
+          <p className="mt-5 max-w-2xl text-sm leading-6 text-neutral-600 sm:text-base">
             Lists all{" "}
-            <strong className="font-semibold text-neutral-900 dark:text-neutral-100">
+            <strong className="font-semibold text-neutral-950">
               {postCount} posts
             </strong>{" "}
             of the past {pastYears} years of blogging. You can jump straight to
             the{" "}
             <Link
               to="/feed"
-              className="text-neutral-900 dark:text-neutral-100 underline underline-offset-4 transition-colors hover:text-neutral-600 dark:hover:text-neutral-400"
+              className="font-medium text-neutral-950 underline underline-offset-4 transition-colors hover:text-neutral-600"
             >
               /feed
             </Link>{" "}
             for latest posts, also explore{" "}
             <Link
               to="/tags"
-              className="text-neutral-900 dark:text-neutral-100 underline underline-offset-4 transition-colors hover:text-neutral-600 dark:hover:text-neutral-400"
+              className="font-medium text-neutral-950 underline underline-offset-4 transition-colors hover:text-neutral-600"
             >
               by the topics
             </Link>{" "}
             or{" "}
             <Link
               to="/featured"
-              className="text-neutral-900 dark:text-neutral-100 underline underline-offset-4 transition-colors hover:text-neutral-600 dark:hover:text-neutral-400"
+              className="font-medium text-neutral-950 underline underline-offset-4 transition-colors hover:text-neutral-600"
             >
               my featured posts
             </Link>
@@ -75,7 +81,7 @@ function HomePage() {
 
         <HomeCards seriesList={topSeriesList} topTags={topTags} />
 
-        <div className="flex flex-col gap-12">
+        <div className="grid gap-8 lg:grid-cols-3">
           {Object.entries(postsByYear)
             .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
             .map(([year, posts]) => (

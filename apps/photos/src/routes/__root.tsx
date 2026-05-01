@@ -106,8 +106,8 @@ function RootComponent() {
         <ThemeProvider>
           <div
             className={cn(
-              "bg-[var(--background)] text-[var(--foreground)] subpixel-antialiased",
-              "transition-colors duration-1000"
+              "bg-white text-[var(--foreground)] subpixel-antialiased",
+              "transition-colors duration-300"
             )}
           >
             <div className="flex min-h-screen flex-col">

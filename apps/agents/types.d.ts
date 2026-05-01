@@ -19,5 +19,9 @@ declare interface D1PreparedStatement {
 }
 
 declare interface Ai {
-  run(model: string, request: unknown): Promise<unknown>;
+  run(
+    model: string,
+    request: unknown,
+    options?: { gateway?: GatewayOptions }
+  ): Promise<unknown>;
 }

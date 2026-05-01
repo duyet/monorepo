@@ -103,7 +103,7 @@ export function SidebarHistory({
 
   return (
     <>
-      <SidebarGroup className="group-data-[collapsible=icon]:hidden px-3 pb-3">
+      <SidebarGroup className="group-data-[collapsible=icon]:hidden px-0 pb-3">
         <SidebarGroupLabel className="px-0 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
           History
         </SidebarGroupLabel>
@@ -116,12 +116,12 @@ export function SidebarHistory({
                   {[1, 2, 3, 4].map((index) => (
                     <div
                       key={index}
-                      className="h-11 animate-pulse rounded-2xl border bg-muted/30"
+                      className="h-11 animate-pulse rounded-lg bg-white"
                     />
                   ))}
                 </div>
               ) : conversations.length === 0 ? (
-                <div className="rounded-2xl border border-dashed bg-muted/20 px-4 py-5 text-sm text-muted-foreground">
+                <div className="rounded-xl border border-dashed border-[#1a1a1a]/20 bg-white px-4 py-5 text-sm font-medium text-muted-foreground">
                   Your conversations will appear here after you start chatting.
                 </div>
               ) : (

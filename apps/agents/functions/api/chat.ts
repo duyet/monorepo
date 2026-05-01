@@ -4,7 +4,7 @@
  * Handles streaming chat with tool calling via AI SDK v6.
  * Supports both new messages and tool approval continuation flows.
  *
- * Provider: OpenRouter via @openrouter/ai-sdk-provider
+ * Provider: Cloudflare Workers AI via AI Gateway
  */
 
 import {
@@ -68,7 +68,7 @@ const toolApprovalMessageSchema = z.object({
 });
 
 const postRequestBodySchema = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   message: userMessageSchema.optional(),
   messages: z.array(toolApprovalMessageSchema).optional(),
   selectedChatModel: z.string().optional(),
@@ -196,9 +196,14 @@ const AGENT_TOOLS = {
 // ─── Env Types ──────────────────────────────────────────────────────
 
 interface Env {
+  AI?: Ai;
   DB?: D1Database;
   CLERK_ISSUER_URL?: string;
-  OPENROUTER_API_KEY?: string;
+  AI_GATEWAY?: string;
+  CF_AIG_GATEWAY_ID?: string;
+  CF_AIG_TOKEN?: string;
+  CLOUDFLARE_ACCOUNT_ID?: string;
+  CLOUDFLARE_API_TOKEN?: string;
   RATE_LIMIT_PEPPER?: string;
 }
 
@@ -231,17 +236,22 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     // Resolve model ID: prefer new field, fall back to legacy
     const chatModelId = selectedChatModel || legacyModelId || "openrouter/free";
     // Resolve conversation ID: prefer new `id` field, fall back to legacy
-    const conversationId = id || legacyConversationId;
+    const conversationId = id || legacyConversationId || crypto.randomUUID();
 
-    // Validate API key early — this is a server configuration issue,
-    // not a user error, so return a clear message.
-    if (!context.env.OPENROUTER_API_KEY) {
+    const hasGatewayCredentials = Boolean(
+      context.env.CLOUDFLARE_ACCOUNT_ID &&
+        (context.env.CF_AIG_TOKEN || context.env.CLOUDFLARE_API_TOKEN)
+    );
+
+    // Validate Cloudflare AI configuration early. This is deployment
+    // configuration, not a user error.
+    if (!context.env.AI && !hasGatewayCredentials) {
       return Response.json(
         {
           error: "Service temporarily unavailable",
           message:
             "The AI service is not configured yet. Please try again later or contact the site administrator.",
-          code: "missing_api_key",
+          code: "missing_ai_config",
         },
         { status: 503 }
       );
@@ -264,12 +274,16 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       const dbClient = createDatabaseClient(DB);
       const clientIp = getClientIp(context.request);
       const ipHash = await hashIp(clientIp, RATE_LIMIT_PEPPER);
-      rateLimitResult = await dbClient.consumeRateLimit(
-        ipHash,
-        ANON_RATE_LIMIT
-      );
+      try {
+        rateLimitResult = await dbClient.consumeRateLimit(
+          ipHash,
+          ANON_RATE_LIMIT
+        );
+      } catch (error) {
+        console.warn("[Chat API] Rate limit unavailable:", error);
+      }
 
-      if (!rateLimitResult.allowed) {
+      if (rateLimitResult && !rateLimitResult.allowed) {
         return Response.json(
           {
             error: "Rate limit exceeded",
@@ -320,7 +334,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     // Get AI model
     const { model, resolvedModelId } = getLanguageModel(
-      context.env.OPENROUTER_API_KEY || "",
+      context.env,
       chatModelId
     );
 
@@ -401,8 +415,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const rawMessage = error instanceof Error ? error.message : "Unknown error";
 
     // Map known internal errors to user-friendly messages
-    const isApiKeyError = rawMessage.includes("OPENROUTER_API_KEY");
-    const userMessage = isApiKeyError
+    const isAiConfigError = rawMessage.includes("Cloudflare AI configuration");
+    const userMessage = isAiConfigError
       ? "The AI service is not configured yet. Please try again later."
       : "Something went wrong while processing your request. Please try again.";
 
@@ -410,9 +424,9 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       {
         error: userMessage,
         message: userMessage,
-        code: isApiKeyError ? "missing_api_key" : "internal_error",
+        code: isAiConfigError ? "missing_ai_config" : "internal_error",
       },
-      { status: isApiKeyError ? 503 : 500 }
+      { status: isAiConfigError ? 503 : 500 }
     );
   }
 };

@@ -1,36 +1,52 @@
 /**
- * AI provider configuration
+ * AI provider configuration.
  *
- * Uses OpenRouter as the LLM provider via @openrouter/ai-sdk-provider.
- * Resolves the "openrouter/free" alias to actual free model IDs.
+ * Uses the Cloudflare Workers AI binding and routes requests through AI Gateway
+ * for observability, caching, and gateway policy enforcement.
  */
 
-import { createOpenRouter } from "@openrouter/ai-sdk-provider";
+import { createWorkersAI } from "workers-ai-provider";
+import { DEFAULT_CHAT_MODEL, resolveModelId } from "./models";
+
+interface CloudflareAiEnv {
+  AI?: Ai;
+  AI_GATEWAY?: string;
+  CF_AIG_GATEWAY_ID?: string;
+  CF_AIG_TOKEN?: string;
+  CLOUDFLARE_ACCOUNT_ID?: string;
+  CLOUDFLARE_API_TOKEN?: string;
+}
 
 /**
- * Create an OpenRouter language model instance.
- *
- * @param apiKey - OpenRouter API key
- * @param modelId - Model identifier (e.g. "openai/gpt-oss-20b:free")
- * @returns The AI SDK language model and resolved model ID
+ * Create a Workers AI language model instance.
  */
-export function getLanguageModel(apiKey: string, modelId: string) {
-  if (!apiKey) {
+export function getLanguageModel(env: CloudflareAiEnv, modelId: string) {
+  const gateway = {
+    id: env.CF_AIG_GATEWAY_ID || env.AI_GATEWAY || "monorepo",
+  };
+  const apiKey = env.CF_AIG_TOKEN || env.CLOUDFLARE_API_TOKEN;
+
+  if (!env.AI && !(env.CLOUDFLARE_ACCOUNT_ID && apiKey)) {
     throw new Error(
-      "Missing OPENROUTER_API_KEY. Configure the OpenRouter secret."
+      "Missing Cloudflare AI configuration. Configure the AI binding or Cloudflare AI Gateway credentials."
     );
   }
 
-  // Resolve the "openrouter/free" alias to actual model
-  const resolvedModelId =
-    !modelId || modelId === "openrouter/free"
-      ? "openai/gpt-oss-20b:free"
-      : modelId;
-
-  const openrouter = createOpenRouter({ apiKey });
+  const resolvedModelId = resolveModelId(modelId);
+  const workersai =
+    env.CLOUDFLARE_ACCOUNT_ID && apiKey
+      ? createWorkersAI({
+          accountId: env.CLOUDFLARE_ACCOUNT_ID,
+          apiKey,
+          gateway,
+        })
+      : createWorkersAI({
+          binding: env.AI as Ai,
+          gateway,
+        });
 
   return {
-    model: openrouter.chat(resolvedModelId),
+    model: workersai.chat(resolvedModelId || DEFAULT_CHAT_MODEL),
     resolvedModelId,
   };
 }

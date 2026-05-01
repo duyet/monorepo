@@ -204,9 +204,7 @@ export function ChatWorkspace() {
     setTitleGenerated(false);
   }, [activeId]);
 
-  const handleFormSubmit = async (
-    e: React.FormEvent
-  ) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
 
@@ -296,7 +294,7 @@ export function ChatWorkspace() {
   return (
     <>
       <SidebarInset>
-        <div className="flex min-h-svh flex-col bg-background">
+        <div className="flex min-h-svh flex-col bg-[#f8f8f2]">
           <ChatTopBar
             conversationId={activeId ?? undefined}
             conversationTitle={activeConversation?.title}
@@ -307,10 +305,10 @@ export function ChatWorkspace() {
           <div className="flex min-h-0 flex-1 flex-col">
             <main className="flex min-h-0 min-w-0 flex-col">
               <Conversation
-                className="relative flex-1 bg-gradient-to-b from-background to-muted/20"
+                className="relative flex-1"
                 autoScrollTrigger={autoScrollTrigger}
               >
-                <div className="mx-auto flex w-full max-w-4xl flex-col gap-5 px-4 py-6 sm:px-6 lg:px-8">
+                <div className="mx-auto flex w-full max-w-[860px] flex-col gap-5 px-5 py-7 sm:px-8 lg:px-10">
                   {serviceError ? (
                     <Alert
                       variant="destructive"
@@ -323,7 +321,7 @@ export function ChatWorkspace() {
                   ) : null}
                   {!hasMessages && !streamingContent ? (
                     <ConversationEmptyState>
-                      <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 pt-8">
+                      <div className="mx-auto flex w-full max-w-[720px] flex-col gap-6 pt-8">
                         <WelcomeMessage
                           disabled={!!serviceError}
                           onPromptSelect={handlePromptSelect}

@@ -3,7 +3,7 @@ import { describe, test, expect, mock } from "bun:test";
 /**
  * Tests for the Chat API Pages Function.
  *
- * The function uses AI SDK v6 createUIMessageStream + streamText with OpenRouter.
+ * The function uses AI SDK v6 createUIMessageStream + streamText with Workers AI.
  * We mock the AI SDK, provider, auth, and database modules to test request
  * validation, rate limiting, and tool registration paths.
  */
@@ -40,11 +40,11 @@ mock.module("ai", () => ({
   pruneMessages: mock(({ messages }: any) => messages),
 }));
 
-mock.module("@openrouter/ai-sdk-provider", () => ({
-  createOpenRouter: mock(() => ({
+mock.module("workers-ai-provider", () => ({
+  createWorkersAI: mock(() => ({
     chat: mock((model: string) => ({
       modelId: model,
-      provider: "openrouter",
+      provider: "workersai.chat",
     })),
   })),
 }));
@@ -82,7 +82,8 @@ function makeContext(body: any, env: Record<string, any> = {}, headers: Record<s
       body: JSON.stringify(body),
     }),
     env: {
-      OPENROUTER_API_KEY: "test-openrouter-key",
+      AI: { run: mock(() => Promise.resolve({ response: "ok" })) },
+      CF_AIG_GATEWAY_ID: "monorepo",
       ...env,
     },
   };
@@ -137,7 +138,7 @@ describe("Chat API — onRequestPost", () => {
         headers: { "Content-Type": "application/json" },
         body: "not-json",
       }),
-      env: { OPENROUTER_API_KEY: "test-key" },
+      env: { AI: { run: mock(() => Promise.resolve({ response: "ok" })) } },
     };
 
     const response = await onRequestPost(ctx as any);

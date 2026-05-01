@@ -179,6 +179,8 @@ export const appConfig: Record<
   "duyet-agents": {
     secrets: [
       "CLERK_SECRET_KEY",
+      "CF_AIG_GATEWAY_ID",
+      "CF_AIG_TOKEN",
       "CLOUDFLARE_ACCOUNT_ID",
       "CLOUDFLARE_API_TOKEN",
     ],

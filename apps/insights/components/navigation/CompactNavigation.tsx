@@ -85,10 +85,10 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
                 key={item.href}
                 to={item.href}
                 className={cn(
-                  "flex items-center space-x-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-                  "hover:bg-accent hover:text-accent-foreground",
+                  "flex items-center space-x-2 rounded-lg px-3 py-2 text-xs font-semibold transition-colors",
+                  "hover:bg-neutral-950 hover:text-white",
                   isActive
-                    ? "bg-accent text-accent-foreground"
+                    ? "bg-neutral-950 text-white"
                     : "text-muted-foreground"
                 )}
               >
@@ -110,7 +110,7 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
         {/* Mobile Toggle Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center space-x-2 rounded-lg bg-accent px-3 py-2 text-sm font-medium text-accent-foreground"
+          className="flex items-center space-x-2 rounded-lg bg-neutral-950 px-3 py-2 text-sm font-medium text-white"
         >
           <Menu className="h-4 w-4" />
           <span>Menu</span>
@@ -129,7 +129,7 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
               className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm"
               onClick={() => setIsOpen(false)}
             />
-            <div className="fixed bottom-0 left-0 right-0 z-50 max-h-[85vh] overflow-y-auto rounded-t-lg border bg-card p-4 shadow-lg">
+            <div className="fixed bottom-0 left-0 right-0 z-50 max-h-[85vh] overflow-y-auto rounded-t-xl border bg-card p-4 shadow-lg">
               <div className="sticky top-0 mb-4 flex items-center justify-between bg-card pb-2">
                 <h3 className="text-sm font-semibold">Navigation</h3>
                 <button
@@ -153,9 +153,9 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
                       onClick={() => setIsOpen(false)}
                       className={cn(
                         "flex items-start space-x-3 rounded-lg p-3 transition-colors",
-                        "hover:bg-accent hover:text-accent-foreground",
+                        "hover:bg-neutral-950 hover:text-white",
                         isActive
-                          ? "bg-accent text-accent-foreground"
+                          ? "bg-neutral-950 text-white"
                           : "text-muted-foreground"
                       )}
                     >

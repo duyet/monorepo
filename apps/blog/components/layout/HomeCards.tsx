@@ -8,17 +8,19 @@ interface HomeCardsProps {
 
 export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
   return (
-    <div className="mb-16 flex flex-col gap-6">
-      <AiFeaturedCard
-        title="Featured Posts"
-        href="/featured"
-        category="Highlights"
-        fallbackDescription="Explore my most popular and impactful articles on data engineering, software architecture, and technology insights."
-        color="terracotta"
-        cardType="featured"
-      />
+    <div className="mb-14 grid grid-cols-1 gap-4 md:grid-cols-3">
+      <div className="[&>*]:h-full [&_h2]:text-2xl [&_h3]:text-2xl [&_p]:text-sm">
+        <AiFeaturedCard
+          title="Featured Posts"
+          href="/featured"
+          category="Highlights"
+          fallbackDescription="Explore my most popular and impactful articles on data engineering, software architecture, and technology insights."
+          color="terracotta"
+          cardType="featured"
+        />
+      </div>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+      <div className="[&>*]:h-full [&_h2]:text-2xl [&_h3]:text-2xl [&_p]:text-sm">
         <ContentCard
           title="Explore by Topics"
           href="/tags"
@@ -28,7 +30,9 @@ export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
           color="oat"
           illustration="geometric"
         />
+      </div>
 
+      <div className="[&>*]:h-full [&_h2]:text-2xl [&_h3]:text-2xl [&_p]:text-sm">
         <ContentCard
           title="Series"
           href="/series"
