@@ -42,6 +42,23 @@ export function ChatWorkspace() {
   const [rightRailOpen, setRightRailOpen] = useState(false);
   const [serviceError, setServiceError] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+    const closeMobileSheetsOnDesktop = () => {
+      if (mediaQuery.matches) {
+        setLeftRailOpen(false);
+        setRightRailOpen(false);
+      }
+    };
+
+    closeMobileSheetsOnDesktop();
+    mediaQuery.addEventListener("change", closeMobileSheetsOnDesktop);
+    return () => {
+      mediaQuery.removeEventListener("change", closeMobileSheetsOnDesktop);
+    };
+  }, []);
+
   const {
     conversations,
     activeId,
@@ -290,6 +307,14 @@ export function ChatWorkspace() {
       await updateModel(activeId, value);
     }
   };
+  const rightSidebarProps = {
+    modelId,
+    onModelChange: handleModelChange,
+    tokenStats,
+    toolExecutions,
+    approvalCount,
+    thinkingStepsCount: thinkingSteps.length,
+  };
 
   return (
     <>
@@ -300,15 +325,16 @@ export function ChatWorkspace() {
             conversationTitle={activeConversation?.title}
             onNewChat={handleNewChat}
             onOpenSidebar={() => setLeftRailOpen(true)}
+            onOpenInspector={() => setRightRailOpen(true)}
           />
 
-          <div className="flex min-h-0 flex-1 flex-col">
-            <main className="flex min-h-0 min-w-0 flex-col">
+          <div className="flex min-h-0 flex-1">
+            <main className="relative flex min-h-0 min-w-0 flex-1 flex-col">
               <Conversation
                 className="relative flex-1"
                 autoScrollTrigger={autoScrollTrigger}
               >
-                <div className="mx-auto flex w-full max-w-[860px] flex-col gap-5 px-5 py-7 sm:px-8 lg:px-10">
+                <div className="mx-auto flex w-full max-w-[860px] flex-col gap-5 px-5 pb-40 pt-7 sm:px-8 lg:px-10">
                   {serviceError ? (
                     <Alert
                       variant="destructive"
@@ -391,21 +417,22 @@ export function ChatWorkspace() {
         </div>
       </SidebarInset>
 
+      <RightSidebar {...rightSidebarProps} />
+
       <Sheet open={rightRailOpen} onOpenChange={setRightRailOpen}>
-        <SheetContent side="right" className="w-[360px] p-0">
-          <RightSidebar
-            modelId={modelId}
-            onModelChange={handleModelChange}
-            tokenStats={tokenStats}
-            toolExecutions={toolExecutions}
-            approvalCount={approvalCount}
-            thinkingStepsCount={thinkingSteps.length}
-          />
+        <SheetContent
+          side="right"
+          className="w-[min(360px,calc(100vw-2rem))] max-w-[360px] p-0 lg:hidden"
+        >
+          <RightSidebar mobile {...rightSidebarProps} />
         </SheetContent>
       </Sheet>
 
       <Sheet open={leftRailOpen} onOpenChange={setLeftRailOpen}>
-        <SheetContent side="left" className="w-[360px] p-0">
+        <SheetContent
+          side="left"
+          className="w-[min(360px,calc(100vw-2rem))] max-w-[360px] p-0"
+        >
           <AppSidebar
             conversations={conversations}
             activeId={activeId}

@@ -135,11 +135,15 @@ export default function PhotoCard({
           </h3>
         )}
         {location && (
-          <p className="flex items-center gap-1.5 text-[11px] text-neutral-600 dark:text-neutral-400">
-            <span className="text-sm" role="img" aria-label="Location">
+          <p className="flex min-w-0 items-center gap-1.5 text-[11px] text-neutral-600 dark:text-neutral-400">
+            <span
+              className="shrink-0 text-sm"
+              role="img"
+              aria-label="Location"
+            >
               📍
             </span>
-            <span className="line-clamp-1">{location}</span>
+            <span className="min-w-0 truncate">{location}</span>
           </p>
         )}
       </div>
