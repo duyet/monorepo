@@ -30,13 +30,11 @@ import {
   useMergeRefs,
 } from "@/lib/hooks";
 import { useClerkAuthToken } from "@/lib/hooks/use-clerk-auth";
-import type { ChatMode } from "@/lib/types";
 
 export function ChatWorkspace() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const lastInputRef = useRef<string>("");
-  const activeConversationIdRef = useRef<string | null>(null);
   const getAuthToken = useClerkAuthToken();
   const [leftRailOpen, setLeftRailOpen] = useState(false);
   const [rightRailOpen, setRightRailOpen] = useState(false);
