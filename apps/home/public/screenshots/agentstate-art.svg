@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">AgentState thumbnail</title>
+  <desc id="desc">A mobile-inspired product card for AgentState with line-art agent workflow tools and a muted status panel.</desc>
+  <defs>
+    <linearGradient id="top" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#234345" />
+      <stop offset="1" stop-color="#8fb3ad" />
+    </linearGradient>
+    <filter id="softShadow" x="-15%" y="-15%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#1a1a1a" flood-opacity=".18" />
+    </filter>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="18" stdDeviation="26" flood-color="#1a1a1a" flood-opacity=".14" />
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1000" fill="#f8f8f2" />
+  <g filter="url(#softShadow)">
+    <rect x="88" y="-270" width="1424" height="430" rx="56" fill="url(#top)" />
+    <text x="800" y="76" text-anchor="middle" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="52" font-weight="600">Today's pulse</text>
+    <text x="150" y="-92" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="50" font-weight="600" opacity=".22">Keep agent memory inspectable</text>
+    <text x="150" y="-18" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="36" opacity=".28">Trace decisions, state changes, and tool outputs before tomorrow's run.</text>
+    <g transform="translate(150 84)" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 58h18c12 0 22-10 22-22V22c0-11 9-20 20-20h18" />
+      <path d="M166 2h22c11 0 20 9 20 20v14c0 12 10 22 22 22h18" />
+      <path d="M328 58l54-48c10-9 25-1 23 12l-10 72c-2 14-19 19-29 9l-22-22-30 30" />
+    </g>
+  </g>
+
+  <g filter="url(#cardShadow)">
+    <rect x="92" y="210" width="1416" height="690" rx="42" fill="#ffffff" stroke="#e3e0d8" stroke-width="2" />
+    <rect x="92" y="210" width="1416" height="405" rx="42" fill="#fffef9" />
+    <path d="M92 574h1416" stroke="#e3e0d8" stroke-width="2" />
+
+    <g transform="translate(198 292)" fill="none" stroke="#1f1f1f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M0 230c48-34 82-34 132 0s84 34 132 0 84-34 132 0" />
+      <rect x="30" y="96" width="250" height="138" rx="18" />
+      <path d="M72 194c28-74 62-42 90-88s58 10 86-38" />
+      <circle cx="72" cy="194" r="9" fill="#fffef9" />
+      <circle cx="162" cy="106" r="9" fill="#fffef9" />
+      <circle cx="248" cy="68" r="9" fill="#fffef9" />
+
+      <path d="M398 224h156" />
+      <path d="M476 224V86" />
+      <circle cx="476" cy="86" r="70" />
+      <circle cx="476" cy="86" r="36" />
+      <path d="M476 50v36h38" />
+      <path d="M476 16V0" />
+      <path d="M440 0h72" />
+
+      <rect x="660" y="88" width="260" height="146" rx="20" />
+      <path d="M702 178c40-36 74-16 106-44s72 8 112-34" />
+      <path d="M704 124h34M704 150h24M704 202h152" />
+      <circle cx="738" cy="124" r="8" fill="#fffef9" />
+      <circle cx="808" cy="134" r="8" fill="#fffef9" />
+      <circle cx="920" cy="100" r="8" fill="#fffef9" />
+
+      <rect x="1000" y="124" width="220" height="110" rx="18" />
+      <path d="M1034 206l50-48 44 28 72-62" />
+      <circle cx="1064" cy="156" r="12" />
+      <path d="M1168 88l80-74" />
+      <path d="M1208 48l36 36" />
+    </g>
+
+    <rect x="92" y="615" width="1416" height="285" rx="42" fill="#a9b9aa" />
+    <text x="180" y="710" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="64" font-weight="600">Agent state you can trust</text>
+    <text x="180" y="784" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="400" opacity=".9">Track memory, retries, approvals, and tool output without losing context between runs.</text>
+    <g transform="translate(180 842)" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M0 48h28c14 0 26-12 26-26V8" />
+      <path d="M132 8h34c14 0 26 12 26 26v14" />
+      <path d="M282 48V10h38c22 0 38 16 38 38v0" />
+      <path d="M448 52l86-76-20 110-38-38-34 34" />
+    </g>
+  </g>
+</svg>

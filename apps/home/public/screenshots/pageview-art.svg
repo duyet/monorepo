@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">pageview thumbnail</title>
+  <desc id="desc">A mobile-inspired analytics card with line-art charts and a muted pageview summary panel.</desc>
+  <defs>
+    <linearGradient id="pulse" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#243e42" />
+      <stop offset="1" stop-color="#8aaeb5" />
+    </linearGradient>
+    <filter id="topShadow" x="-15%" y="-20%" width="130%" height="150%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#1a1a1a" flood-opacity=".18" />
+    </filter>
+    <filter id="mainShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="20" stdDeviation="28" flood-color="#1a1a1a" flood-opacity=".14" />
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1000" fill="#f8f8f2" />
+  <g filter="url(#topShadow)">
+    <rect x="88" y="-280" width="1424" height="438" rx="56" fill="url(#pulse)" />
+    <text x="800" y="76" text-anchor="middle" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="52" font-weight="600">Today's pulse</text>
+    <text x="150" y="-90" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="50" font-weight="600" opacity=".22">Traffic is quiet until it is useful</text>
+    <text x="150" y="-18" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="36" opacity=".28">Watch referrers, posts, and conversion signals without heavy analytics noise.</text>
+    <g transform="translate(150 84)" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M16 84V12M16 84h94M46 84V42M78 84V28M110 84V58" />
+      <path d="M178 78c42-56 74-20 110-70s70 18 112-28" />
+      <path d="M474 80l88-72 18 108-42-36-34 38" />
+    </g>
+  </g>
+
+  <g filter="url(#mainShadow)">
+    <rect x="92" y="212" width="1416" height="688" rx="42" fill="#ffffff" stroke="#e3e0d8" stroke-width="2" />
+    <rect x="92" y="212" width="1416" height="404" rx="42" fill="#fffef9" />
+    <path d="M92 576h1416" stroke="#e3e0d8" stroke-width="2" />
+
+    <g transform="translate(188 284)" fill="none" stroke="#1f1f1f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M0 238c46-28 84-32 132 0s88 28 136 0" />
+      <path d="M70 226V104c0-24 18-44 42-44h170c24 0 42 20 42 44v122" />
+      <path d="M112 184c30-54 60-20 96-66s72 24 116-42" />
+      <circle cx="112" cy="184" r="8" fill="#fffef9" />
+      <circle cx="208" cy="118" r="8" fill="#fffef9" />
+      <circle cx="324" cy="76" r="8" fill="#fffef9" />
+
+      <rect x="440" y="54" width="274" height="206" rx="22" />
+      <path d="M488 206V98M548 206v-56M608 206v-92M668 206v-34" />
+      <path d="M488 82h176" />
+
+      <rect x="828" y="82" width="292" height="178" rx="22" />
+      <path d="M874 202c38-34 72-16 108-52s72 2 124-54" />
+      <circle cx="874" cy="202" r="8" fill="#fffef9" />
+      <circle cx="982" cy="150" r="8" fill="#fffef9" />
+      <circle cx="1106" cy="96" r="8" fill="#fffef9" />
+      <path d="M874 120h48M874 146h32M874 230h154" />
+
+      <path d="M1168 268c34-64 68-28 102-74s66 4 104-48" />
+      <path d="M1168 268h196" />
+    </g>
+
+    <rect x="92" y="616" width="1416" height="284" rx="42" fill="#b7ad99" />
+    <text x="180" y="710" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="64" font-weight="600">Pageviews without the noise</text>
+    <text x="180" y="784" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="400" opacity=".9">See useful traffic, referrers, and content signals in a compact privacy-friendly dashboard.</text>
+    <g transform="translate(180 842)" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 58c40-42 70-20 112-62s78 20 126-28" />
+      <path d="M338 86V8M388 86V36M438 86V22M488 86V58" />
+      <path d="M594 54l74-50 46 88 72-74" />
+    </g>
+  </g>
+</svg>

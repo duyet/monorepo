@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">AnyRouter product artwork</title>
+  <desc id="desc">Abstract routing dashboard on a black canvas.</desc>
+  <rect width="1200" height="800" fill="#050505"/>
+  <rect x="110" y="110" width="980" height="580" rx="28" fill="#111"/>
+  <rect x="150" y="150" width="900" height="70" rx="14" fill="#f8f8f2"/>
+  <circle cx="185" cy="185" r="10" fill="#f97316"/>
+  <circle cx="220" cy="185" r="10" fill="#1a1a1a"/>
+  <circle cx="255" cy="185" r="10" fill="#1a1a1a"/>
+  <path d="M220 420h210c80 0 80-150 160-150h150" fill="none" stroke="#f8f8f2" stroke-width="18" stroke-linecap="round"/>
+  <path d="M220 420h210c80 0 80 150 160 150h150" fill="none" stroke="#f97316" stroke-width="18" stroke-linecap="round"/>
+  <path d="M760 270l120 90-120 90" fill="none" stroke="#f8f8f2" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M760 450l120 90-120 90" fill="none" stroke="#f97316" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="150" y="640" fill="#f8f8f2" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="600">AnyRouter</text>
+  <text x="150" y="690" fill="#f8f8f2" opacity=".62" font-family="Inter, Arial, sans-serif" font-size="24">Model routing and gateway control</text>
+</svg>

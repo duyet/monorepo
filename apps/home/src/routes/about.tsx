@@ -1,6 +1,18 @@
-import Header from "@duyet/components/Header";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  Github as GithubIcon,
+  LinkedIn as LinkedInIcon,
+} from "@duyet/components/Icons";
+import {
+  ArrowRight,
+  BookOpen,
+  FileUser,
+  Radio,
+} from "lucide-react";
+import { Suspense } from "react";
 import { addUtmParams } from "../../app/lib/utm";
+import { BuildDate } from "../components/BuildDate";
+import { FooterInteractive } from "../components/FooterInteractive";
 
 const experienceYears = "8+ years";
 
@@ -85,344 +97,339 @@ export const Route = createFileRoute("/about")({
   }),
 });
 
-// Claude-style SVG Icons - minimal, geometric, soft
-const ResumeIcon = () => (
-  <svg
-    aria-hidden="true"
-    width="80"
-    height="80"
-    viewBox="0 0 80 80"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <rect
-      x="24"
-      y="16"
-      width="32"
-      height="48"
-      rx="6"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      fill="none"
-    />
-    <circle
-      cx="40"
-      cy="30"
-      r="6"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      fill="none"
-    />
-    <path
-      d="M31 46C31 42 34 40 40 40C46 40 49 42 49 46"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-    />
-    <line
-      x1="32"
-      y1="54"
-      x2="48"
-      y2="54"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-    />
-  </svg>
-);
+const links = [
+  {
+    title: "Resume",
+    description:
+      "Experience building scalable data infrastructure, AI applications, and production systems.",
+    url: addUtmParams("https://cv.duyet.net", "about_page", "resume_card"),
+    icon: FileUser,
+    tone: "bg-[#bfdbfe] dark:bg-[#1f3a5f]",
+  },
+  {
+    title: "GitHub",
+    description:
+      "Open source work across Python, Rust, TypeScript, analytics, and developer tooling.",
+    url: addUtmParams("https://github.com/duyet", "about_page", "github_card"),
+    icon: GithubIcon,
+    tone: "bg-[#a7f3d0] dark:bg-[#164634]",
+  },
+  {
+    title: "LinkedIn",
+    description:
+      "Professional history, roles, and career context in data and platform engineering.",
+    url: addUtmParams(
+      "https://linkedin.com/in/duyet",
+      "about_page",
+      "linkedin_card"
+    ),
+    icon: LinkedInIcon,
+    tone: "bg-[#fecaca] dark:bg-[#4f1f1f]",
+  },
+  {
+    title: "Blog",
+    description:
+      "Technical writing on data engineering, distributed systems, AI agents, and open source.",
+    url: addUtmParams("https://blog.duyet.net", "about_page", "blog_card"),
+    icon: BookOpen,
+    tone: "bg-white dark:bg-[#1a1a1a]",
+  },
+];
 
-const GithubIcon = () => (
-  <svg
-    aria-hidden="true"
-    width="80"
-    height="80"
-    viewBox="0 0 80 80"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <circle
-      cx="40"
-      cy="38"
-      r="18"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      fill="none"
-    />
-    <circle cx="33" cy="35" r="2.5" fill="currentColor" />
-    <circle cx="47" cy="35" r="2.5" fill="currentColor" />
-    <path
-      d="M32 48C32 48 34 52 40 52C46 52 48 48 48 48"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-    />
-    <path
-      d="M28 44V50C28 52 26 54 24 54"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-    />
-    <path
-      d="M52 44V50C52 52 54 54 56 54"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-    />
-  </svg>
-);
+const focusAreas = [
+  {
+    label: "Data systems",
+    value: "Pipelines, warehouses, observability, and distributed services",
+  },
+  {
+    label: "AI infrastructure",
+    value: "Agent workflows, model routing, evaluation, and usage analytics",
+  },
+  {
+    label: "Engineering practice",
+    value: "Small tools, clean interfaces, production hygiene, and writing",
+  },
+];
 
-const LinkedInIcon = () => (
-  <svg
-    aria-hidden="true"
-    width="80"
-    height="80"
-    viewBox="0 0 80 80"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <rect
-      x="22"
-      y="22"
-      width="36"
-      height="36"
-      rx="8"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      fill="none"
-    />
-    <circle cx="32" cy="34" r="3" fill="currentColor" />
-    <rect x="28" y="40" width="8" height="14" rx="1.5" fill="currentColor" />
-    <rect x="40" y="40" width="8" height="14" rx="1.5" fill="currentColor" />
-    <path
-      d="M44 40V38C44 36 45 34 48 34C51 34 52 36 52 38V54"
-      stroke="currentColor"
-      strokeWidth="3"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      fill="none"
-    />
-  </svg>
-);
-
-const BlogIcon = () => (
-  <svg
-    aria-hidden="true"
-    width="80"
-    height="80"
-    viewBox="0 0 80 80"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <rect
-      x="24"
-      y="20"
-      width="32"
-      height="40"
-      rx="6"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      fill="none"
-    />
-    <line
-      x1="32"
-      y1="32"
-      x2="48"
-      y2="32"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-    />
-    <line
-      x1="32"
-      y1="40"
-      x2="48"
-      y2="40"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-    />
-    <line
-      x1="32"
-      y1="48"
-      x2="42"
-      y2="48"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-    />
-  </svg>
-);
-
-interface LinkItem {
-  icon: () => React.JSX.Element;
-  title: string;
-  description: string;
-  url: string;
-  color: string;
-}
+const skills = [
+  "Python",
+  "Rust",
+  "TypeScript",
+  "Spark",
+  "Airflow",
+  "ClickHouse",
+  "BigQuery",
+  "Kafka",
+  "Kubernetes",
+  "AWS",
+  "GCP",
+  "LlamaIndex",
+  "AI SDK",
+  "LangGraph",
+];
 
 function AboutPage() {
-  const BLOG_URL =
-    import.meta.env.VITE_DUYET_BLOG_URL || "https://blog.duyet.net";
-
-  const links: LinkItem[] = [
-    {
-      icon: ResumeIcon,
-      title: "Resume",
-      description:
-        "Experience building scalable data infrastructure and leading engineering teams.",
-      url: addUtmParams("https://cv.duyet.net", "about_page", "resume_card"),
-      color: "bg-orange-100/50",
-    },
-    {
-      icon: GithubIcon,
-      title: "GitHub",
-      description:
-        "Open source contributions and personal projects in Python, Rust, and TypeScript.",
-      url: addUtmParams(
-        "https://github.com/duyet",
-        "about_page",
-        "github_card"
-      ),
-      color: "bg-purple-100/50",
-    },
-    {
-      icon: LinkedInIcon,
-      title: "LinkedIn",
-      description:
-        "Professional network and career highlights in data engineering.",
-      url: addUtmParams(
-        "https://linkedin.com/in/duyet",
-        "about_page",
-        "linkedin_card"
-      ),
-      color: "bg-blue-100/50",
-    },
-    {
-      icon: BlogIcon,
-      title: "Blog",
-      description:
-        "Technical writings on data engineering, distributed systems, and open source.",
-      url: addUtmParams(BLOG_URL, "about_page", "blog_card"),
-      color: "bg-amber-100/60",
-    },
-  ];
-
-  const skills = [
-    {
-      name: "Python",
-      link: addUtmParams(
-        "https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=python",
-        "about_page",
-        "skill_python"
-      ),
-    },
-    {
-      name: "Rust",
-      link: addUtmParams(
-        "https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=rust",
-        "about_page",
-        "skill_rust"
-      ),
-    },
-    {
-      name: "Javascript",
-      link: addUtmParams(
-        "https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=javascript",
-        "about_page",
-        "skill_javascript"
-      ),
-    },
-    { name: "Spark" },
-    {
-      name: "Airflow",
-      link: addUtmParams(
-        `${BLOG_URL}/tag/airflow/`,
-        "about_page",
-        "skill_airflow"
-      ),
-    },
-    { name: "AWS" },
-    { name: "GCP" },
-  ];
-
   return (
-    <>
-      <Header shortText="Duyệt" />
-      <div className="min-h-screen bg-neutral-50">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
-          {/* Header */}
-          <div className="mb-12 text-center">
-            <h1 className="mb-6 font-serif text-5xl font-normal text-neutral-900 sm:text-6xl">
-              About
-            </h1>
-            <p className="mx-auto max-w-3xl text-lg leading-relaxed text-neutral-700">
-              Data & AI Engineer with {experienceYears} of experience. I am
-              confident in my knowledge of Data Engineering, AI/ML concepts,
-              best practices and state-of-the-art data and Cloud technologies.
-            </p>
-          </div>
+    <div className="min-h-screen bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
+      <header className="sticky top-0 z-50 bg-[#f8f8f2]/95 backdrop-blur dark:bg-[#0d0e0c]/95">
+        <div className="mx-auto flex max-w-[1280px] items-center justify-between px-5 py-4 sm:px-8 lg:px-10 lg:py-5">
+          <Link
+            to="/"
+            className="flex items-center gap-3 text-xl font-semibold tracking-tight"
+          >
+            <DuyetMark />
+            Duyet Le
+          </Link>
 
-          {/* Links Grid */}
-          <div className="mb-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {links.map((link) => {
-              const Icon = link.icon;
+          <nav className="hidden items-center gap-7 text-sm font-medium md:flex">
+            <a href="https://blog.duyet.net">Blog</a>
+            <Link to="/projects">Projects</Link>
+            <a href="https://cv.duyet.net">Experience</a>
+            <a href="https://insights.duyet.net">Insights</a>
+            <Link to="/about">About</Link>
+          </nav>
+
+          <a
+            href={addUtmParams(
+              "https://status.duyet.net",
+              "about",
+              "header_status"
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex min-w-24 items-center justify-end gap-2 text-sm font-medium"
+          >
+            <span className="h-3 w-3 rounded-full bg-orange-500" />
+            <span>Status</span>
+          </a>
+        </div>
+      </header>
+
+      <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] pb-20 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+        <section className="mx-auto max-w-[1280px] px-5 py-14 sm:px-8 md:py-18 lg:px-10 lg:py-24 xl:py-28">
+          <p className="mb-4 text-sm font-medium text-[#1a1a1a]/60 dark:text-[#f8f8f2]/60">
+            About
+          </p>
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(320px,0.55fr)] lg:items-end">
+            <div className="max-w-[820px] space-y-6">
+              <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+                I build data and AI systems that stay useful in production.
+              </h1>
+              <p className="max-w-[620px] text-lg font-medium leading-snug tracking-tight text-[#1a1a1a]/80 dark:text-[#f8f8f2]/80 lg:text-xl">
+                Data & AI Engineer with {experienceYears} of experience across
+                modern data infrastructure, AI/ML platforms, distributed
+                systems, and cloud-native engineering.
+              </p>
+            </div>
+
+            <div className="space-y-4 text-base font-medium leading-7 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+              <p>
+                I care about systems that are easy to operate, easy to explain,
+                and boring in the places where reliability matters.
+              </p>
+              <p>
+                Most of my work sits where data products, AI tools, and
+                engineering platforms meet.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4 lg:gap-6 xl:gap-8">
+            {links.map((item) => {
+              const Icon = item.icon;
               return (
                 <a
-                  key={link.title}
-                  href={link.url}
-                  target={link.url.startsWith("http") ? "_blank" : undefined}
-                  rel={
-                    link.url.startsWith("http")
-                      ? "noopener noreferrer"
-                      : undefined
-                  }
-                  className={`group flex flex-col p-10 ${link.color} rounded-3xl transition-transform duration-200 hover:scale-[1.02]`}
+                  key={item.title}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`group flex min-h-[220px] flex-col rounded-xl p-5 transition-transform hover:-translate-y-0.5 lg:min-h-[240px] lg:p-6 ${item.tone}`}
                 >
-                  <div className="mb-8 text-neutral-800">
-                    <Icon />
+                  <div className="flex items-start justify-between gap-6">
+                    <h2 className="text-base font-medium lg:text-lg">
+                      {item.title}
+                    </h2>
+                    <Icon className="h-7 w-7 shrink-0 lg:h-8 lg:w-8" />
                   </div>
-                  <p className="mb-3 text-xl font-medium text-neutral-900">
-                    {link.title}
-                  </p>
-                  <p className="text-sm leading-relaxed text-neutral-700">
-                    {link.description}
+                  <p className="mt-auto max-w-[560px] text-lg font-medium leading-tight tracking-tight md:text-xl">
+                    {item.description}
                   </p>
                 </a>
               );
             })}
           </div>
+        </section>
 
-          {/* Skills Section */}
-          <div className="rounded-3xl bg-stone-100/70 p-8 sm:p-12">
-            <h2 className="mb-6 font-serif text-3xl font-normal text-neutral-900">
-              Skills & Stacks
-            </h2>
-            <div className="flex flex-wrap gap-3">
-              {skills.map(({ name, link }) =>
-                link ? (
-                  <a
-                    key={name}
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block rounded-full bg-neutral-50 px-5 py-2 text-sm font-medium text-neutral-800 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
-                  >
-                    {name}
-                  </a>
-                ) : (
-                  <span
-                    key={name}
-                    className="inline-block rounded-full bg-neutral-50 px-5 py-2 text-sm font-medium text-neutral-800 transition-colors hover:bg-neutral-100"
-                  >
-                    {name}
-                  </span>
-                )
+        <section className="mx-auto mt-24 max-w-[1280px] px-5 sm:px-8 lg:mt-32 lg:px-10 xl:mt-40">
+          <div className="grid gap-10 lg:grid-cols-[0.8fr_1fr] lg:items-start">
+            <div>
+              <p className="mb-3 text-sm font-medium text-[#1a1a1a]/60 dark:text-[#f8f8f2]/60">
+                Work
+              </p>
+              <h2 className="text-balance text-3xl font-semibold tracking-tight md:text-4xl">
+                Practical engineering, written down clearly.
+              </h2>
+            </div>
+
+            <div className="divide-y divide-[#1a1a1a]/12 border-y border-[#1a1a1a]/12 dark:divide-white/12 dark:border-white/12">
+              {focusAreas.map((item) => (
+                <div
+                  key={item.label}
+                  className="grid gap-3 py-6 md:grid-cols-[180px_1fr] md:gap-8"
+                >
+                  <p className="text-sm font-semibold uppercase tracking-normal text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
+                    {item.label}
+                  </p>
+                  <p className="text-xl font-medium leading-tight tracking-tight">
+                    {item.value}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto mt-24 max-w-[1280px] px-5 sm:px-8 lg:mt-32 lg:px-10 xl:mt-40">
+          <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+            <div>
+              <p className="mb-3 text-sm font-medium text-[#1a1a1a]/60 dark:text-[#f8f8f2]/60">
+                Stack
+              </p>
+              <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
+                Tools I reach for.
+              </h2>
+            </div>
+            <a
+              href={addUtmParams(
+                "https://github.com/duyet",
+                "about_page",
+                "skills_github"
               )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-base font-medium"
+            >
+              Repositories
+              <ArrowRight className="h-5 w-5" />
+            </a>
+          </div>
+
+          <div className="mt-10 flex flex-wrap gap-x-5 gap-y-4 text-2xl font-semibold tracking-tight text-[#1a1a1a]/90 dark:text-[#f8f8f2]/90 md:text-3xl">
+            {skills.map((skill) => (
+              <span key={skill}>{skill}</span>
+            ))}
+          </div>
+        </section>
+
+        <section className="mx-auto mt-24 max-w-[1280px] px-5 sm:px-8 lg:mt-32 lg:px-10 xl:mt-40">
+          <div className="grid gap-5 rounded-xl bg-white p-6 dark:bg-[#1a1a1a] md:grid-cols-[1fr_auto] md:items-center lg:p-8">
+            <div className="flex items-start gap-4">
+              <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#1a1a1a] text-white dark:bg-[#f8f8f2] dark:text-[#0d0e0c]">
+                <Radio className="h-5 w-5" />
+              </span>
+              <div>
+                <h2 className="text-xl font-semibold tracking-tight">
+                  Follow the work
+                </h2>
+                <p className="mt-1 text-base font-medium text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+                  Blog posts, project notes, analytics, and small tools across
+                  the Duyet network.
+                </p>
+              </div>
+            </div>
+            <a
+              href={addUtmParams(
+                "https://blog.duyet.net",
+                "about_page",
+                "follow_blog"
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#1a1a1a] px-6 py-4 text-base font-medium text-white transition-colors hover:bg-[#444] dark:bg-[#f8f8f2] dark:text-[#0d0e0c] dark:hover:bg-white"
+            >
+              Read blog
+              <ArrowRight className="h-5 w-5" />
+            </a>
+          </div>
+        </section>
+      </main>
+
+      <footer className="sticky bottom-0 bg-white px-5 pb-12 pt-24 dark:bg-[#1a1a1a] sm:px-8 lg:px-10 lg:pb-16 lg:pt-28 xl:pb-20">
+        <div className="mx-auto max-w-[1280px]">
+          <h2 className="max-w-[820px] text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+            Build useful systems, then explain them clearly.
+          </h2>
+          <div className="my-12 flex flex-wrap items-center gap-4 md:my-16">
+            <a
+              href={addUtmParams(
+                "https://github.com/duyet",
+                "about_page",
+                "footer_github"
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-lg bg-[#1a1a1a] px-6 py-4 text-base font-medium text-white transition-colors hover:bg-[#444] dark:bg-[#f8f8f2] dark:text-[#0d0e0c] dark:hover:bg-white lg:px-8 lg:text-lg"
+            >
+              GitHub
+            </a>
+            <a
+              href={addUtmParams(
+                "https://linkedin.com/in/duyet",
+                "about_page",
+                "footer_linkedin"
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-lg border border-[#1a1a1a]/15 px-6 py-4 text-base font-medium transition-colors hover:border-[#1a1a1a] dark:border-white/15 dark:hover:border-white lg:px-8 lg:text-lg"
+            >
+              LinkedIn
+            </a>
+          </div>
+
+          <hr className="border-[#1a1a1a]/15 dark:border-white/15" />
+
+          <div className="grid gap-6 pt-10 text-base font-medium md:grid-cols-2 md:pt-16">
+            <div className="flex flex-wrap items-center gap-6">
+              <span>© Duyet Le</span>
+              <a href="/llms.txt" className="underline underline-offset-2">
+                llms.txt
+              </a>
+              <Suspense fallback={<div className="h-10 w-10" />}>
+                <FooterInteractive />
+              </Suspense>
+            </div>
+            <div className="flex flex-wrap items-center gap-6 md:justify-end">
+              <BuildDate />
+              <a
+                href={addUtmParams(
+                  "https://status.duyet.net",
+                  "about_page",
+                  "footer_status"
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2"
+              >
+                <span className="h-3 w-3 rounded-full bg-orange-500" />
+                <span>All Systems Operational</span>
+              </a>
             </div>
           </div>
         </div>
-      </div>
-    </>
+      </footer>
+    </div>
+  );
+}
+
+function DuyetMark() {
+  return (
+    <span className="grid h-5 w-5 grid-cols-2 gap-0.5" aria-hidden="true">
+      <span className="bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
+      <span className="translate-y-1 bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
+      <span className="-translate-y-1 bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
+      <span className="bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
+    </span>
   );
 }
