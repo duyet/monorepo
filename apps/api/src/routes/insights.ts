@@ -294,9 +294,9 @@ async function getWakaMonthlyTrend(auth: string) {
 
 async function getCloudflareOverview(env: Env) {
   const zoneId = env.CLOUDFLARE_ZONE_ID;
-  const authToken = env.CLOUDFLARE_API_TOKEN || env.CLOUDFLARE_API_KEY;
+  const apiToken = env.CLOUDFLARE_API_TOKEN;
 
-  if (!zoneId || !authToken) {
+  if (!zoneId || !apiToken) {
     return {
       cloudflare: {
         ...EMPTY_OVERVIEW.cloudflare,
@@ -335,7 +335,7 @@ async function getCloudflareOverview(env: Env) {
       },
     }),
     headers: {
-      Authorization: `Bearer ${authToken}`,
+      Authorization: `Bearer ${apiToken}`,
       "Content-Type": "application/json",
     },
     method: "POST",
