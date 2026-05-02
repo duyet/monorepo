@@ -23,14 +23,41 @@ function ProjectsPage() {
     <div className="min-h-screen bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
       <header className="sticky top-0 z-50 bg-[#f8f8f2]/95 backdrop-blur dark:bg-[#0d0e0c]/95">
         <div className="mx-auto flex max-w-[1280px] items-center justify-between px-5 py-4 sm:px-8 lg:px-10 lg:py-5">
-          <Link to="/" className="flex items-center gap-3 text-xl font-semibold tracking-tight">
+          <Link
+            to="/"
+            className="flex items-center gap-3 text-xl font-semibold tracking-tight"
+          >
             <DuyetMark />
             Duyet Le
           </Link>
           <nav className="hidden items-center gap-7 text-sm font-medium md:flex">
-            <a href="https://blog.duyet.net">Blog</a>
-            <a href="https://cv.duyet.net">Experience</a>
-            <a href="https://insights.duyet.net">Insights</a>
+            <a
+              href={addUtmParams(
+                "https://blog.duyet.net",
+                "projects",
+                "header_blog"
+              )}
+            >
+              Blog
+            </a>
+            <a
+              href={addUtmParams(
+                "https://cv.duyet.net",
+                "projects",
+                "header_cv"
+              )}
+            >
+              Experience
+            </a>
+            <a
+              href={addUtmParams(
+                "https://insights.duyet.net",
+                "projects",
+                "header_insights"
+              )}
+            >
+              Insights
+            </a>
             <Link to="/about">About</Link>
           </nav>
           <a
@@ -74,7 +101,11 @@ function ProjectsPage() {
         <section className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 xl:mt-16 xl:gap-8">
           {apps.map((item, index) =>
             item.screenshot ? (
-              <ProjectCard key={item.name} item={item} shortcutNumber={index + 1} />
+              <ProjectCard
+                key={item.name}
+                item={item}
+                shortcutNumber={index + 1}
+              />
             ) : (
               <CompactProjectCard
                 key={item.name}
@@ -112,10 +143,10 @@ function ProjectCard({
       </div>
       <div className="p-5 text-white">
         <h2 className="text-lg font-semibold tracking-tight">{item.name}</h2>
-        <p className="mt-2 text-sm font-medium leading-6 text-white/82">
+        <p className="mt-2 text-sm font-medium leading-6 text-white/80">
           {item.description}
         </p>
-        <p className="mt-5 truncate text-sm font-medium text-white/62">
+        <p className="mt-5 truncate text-sm font-medium text-white/60">
           {item.host}
         </p>
       </div>
@@ -167,6 +198,8 @@ function ProjectLink({
       <a
         href={href}
         className={className}
+        target="_blank"
+        rel="noopener noreferrer"
         data-shortcut-id={shortcutId}
         data-shortcut-number={shortcutNumber}
       >
