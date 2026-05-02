@@ -20,6 +20,12 @@ export interface Env {
   CLICKHOUSE_PASSWORD?: string;
   CLICKHOUSE_DATABASE?: string;
   CLICKHOUSE_PROTOCOL?: string;
+  CLOUDFLARE_API_KEY?: string;
+  CLOUDFLARE_API_TOKEN?: string;
+  CLOUDFLARE_ZONE_ID?: string;
+  POSTHOG_API_KEY?: string;
+  POSTHOG_PROJECT_ID?: string;
+  VITE_DUYET_BLOG_URL?: string;
   WAKATIME_API_KEY?: string;
 }
 

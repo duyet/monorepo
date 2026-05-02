@@ -7,10 +7,31 @@ interface Env {
   CLICKHOUSE_PASSWORD?: string;
   CLICKHOUSE_DATABASE?: string;
   CLICKHOUSE_PROTOCOL?: string;
+  CLOUDFLARE_API_KEY?: string;
+  CLOUDFLARE_API_TOKEN?: string;
+  CLOUDFLARE_ZONE_ID?: string;
+  POSTHOG_API_KEY?: string;
+  POSTHOG_PROJECT_ID?: string;
+  VITE_DUYET_BLOG_URL?: string;
   WAKATIME_API_KEY?: string;
 }
 
 const insightsRouter = new Hono<{ Bindings: Env }>();
+
+interface TrafficGroup {
+  date: { date: string };
+  sum: {
+    bytes?: number;
+    cachedBytes?: number;
+    pageViews: number;
+    requests: number;
+  };
+  uniq: { uniques: number };
+}
+
+interface CloudflareData {
+  viewer: { zones: Array<{ httpRequests1dGroups: TrafficGroup[] }> };
+}
 
 const EMPTY_OVERVIEW = {
   aiActivity: [],
@@ -69,25 +90,30 @@ async function queryClickHouse(
   if (!url) return [];
 
   const database = env.CLICKHOUSE_DATABASE || "default";
-  const response = await fetch(`${url}?database=${database}`, {
-    body: `${query}\nFORMAT JSONEachRow`,
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "text/plain",
-    },
-    method: "POST",
-  });
+  try {
+    const response = await fetch(`${url}?database=${database}`, {
+      body: `${query}\nFORMAT JSONEachRow`,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "text/plain",
+      },
+      method: "POST",
+    });
 
-  if (!response.ok) {
+    if (!response.ok) {
+      return [];
+    }
+
+    const text = await response.text();
+    return text
+      .trim()
+      .split("\n")
+      .filter(Boolean)
+      .map((line) => JSON.parse(line));
+  } catch (error) {
+    console.error("ClickHouse insights query failed:", error);
     return [];
   }
-
-  const text = await response.text();
-  return text
-    .trim()
-    .split("\n")
-    .filter(Boolean)
-    .map((line) => JSON.parse(line));
 }
 
 async function getAiOverview(env: Env) {
@@ -180,13 +206,10 @@ async function getWakaOverview(env: Env) {
     };
   }
 
+  const auth = `Basic ${btoa(env.WAKATIME_API_KEY)}`;
   const response = await fetch(
     "https://wakatime.com/api/v1/users/current/stats/last_30_days",
-    {
-      headers: {
-        Authorization: `Basic ${btoa(env.WAKATIME_API_KEY)}`,
-      },
-    }
+    { headers: { Authorization: auth } }
   );
 
   if (!response.ok) {
@@ -212,6 +235,8 @@ async function getWakaOverview(env: Env) {
   const data = json.data;
   const languages = data?.languages ?? [];
 
+  const trend = await getWakaMonthlyTrend(auth);
+
   return {
     wakaLanguages: languages.slice(0, 8),
     wakaMetrics: {
@@ -220,15 +245,235 @@ async function getWakaOverview(env: Env) {
       topLanguage: languages[0]?.name || "N/A",
       totalHours: Number(data?.total_seconds || 0) / 3600,
     },
-    wakaTrend: [],
+    wakaTrend: trend,
+  };
+}
+
+async function getWakaMonthlyTrend(auth: string) {
+  const response = await fetch(
+    "https://wakatime.com/api/v1/users/current/insights/days/all_time",
+    { headers: { Authorization: auth } }
+  );
+
+  if (!response.ok) return [];
+
+  const json = (await response.json()) as {
+    data?: { days?: Array<{ date?: string; total?: number }> };
+  };
+
+  const monthly = new Map<string, number>();
+  for (const day of json.data?.days ?? []) {
+    if (!day.date || day.total == null) continue;
+    const yearMonth = day.date.slice(0, 7);
+    monthly.set(yearMonth, (monthly.get(yearMonth) || 0) + Number(day.total));
+  }
+
+  return Array.from(monthly.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([yearMonth, totalSeconds]) => {
+      const [year, month] = yearMonth.split("-").map(Number);
+      return {
+        displayDate: new Date(Date.UTC(year, month - 1)).toLocaleDateString(
+          "en-US",
+          { month: "short", timeZone: "UTC", year: "numeric" }
+        ),
+        hours: Math.round((totalSeconds / 3600) * 10) / 10,
+        yearMonth,
+      };
+    });
+}
+
+async function getCloudflareOverview(env: Env) {
+  const zoneId = env.CLOUDFLARE_ZONE_ID;
+  const authToken = env.CLOUDFLARE_API_TOKEN || env.CLOUDFLARE_API_KEY;
+
+  if (!zoneId || !authToken) {
+    return {
+      cloudflare: {
+        ...EMPTY_OVERVIEW.cloudflare,
+        generatedAt: new Date().toISOString(),
+      },
+    };
+  }
+
+  const endDate = new Date();
+  const startDate = new Date();
+  startDate.setDate(startDate.getDate() - 30);
+
+  const response = await fetch("https://api.cloudflare.com/client/v4/graphql", {
+    body: JSON.stringify({
+      query: `
+        query viewer($zoneTag: string, $date_start: string, $date_end: string) {
+          viewer {
+            zones(filter: { zoneTag: $zoneTag }) {
+              httpRequests1dGroups(
+                orderBy: [date_ASC]
+                limit: 1000
+                filter: { date_geq: $date_start, date_lt: $date_end }
+              ) {
+                date: dimensions { date }
+                sum { requests pageViews cachedBytes bytes }
+                uniq { uniques }
+              }
+            }
+          }
+        }
+      `,
+      variables: {
+        date_end: endDate.toISOString().split("T")[0],
+        date_start: startDate.toISOString().split("T")[0],
+        zoneTag: zoneId,
+      },
+    }),
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+  });
+
+  if (!response.ok) {
+    return {
+      cloudflare: {
+        ...EMPTY_OVERVIEW.cloudflare,
+        generatedAt: new Date().toISOString(),
+      },
+    };
+  }
+
+  const data = (await response.json()) as { data?: CloudflareData };
+  const groups =
+    data.data?.viewer.zones[0]?.httpRequests1dGroups ??
+    EMPTY_OVERVIEW.cloudflare.data.viewer.zones[0].httpRequests1dGroups;
+
+  return {
+    cloudflare: {
+      data: data.data ?? EMPTY_OVERVIEW.cloudflare.data,
+      days: 30,
+      generatedAt: new Date().toISOString(),
+      totalPageviews: groups.reduce(
+        (sum, item) => sum + Number(item.sum.pageViews || 0),
+        0
+      ),
+      totalRequests: groups.reduce(
+        (sum, item) => sum + Number(item.sum.requests || 0),
+        0
+      ),
+    },
+  };
+}
+
+async function getPostHogOverview(env: Env) {
+  const apiKey = env.POSTHOG_API_KEY;
+  const projectId = env.POSTHOG_PROJECT_ID;
+
+  if (!apiKey || !projectId) {
+    return {
+      posthog: {
+        ...EMPTY_OVERVIEW.posthog,
+        blogUrl: env.VITE_DUYET_BLOG_URL ?? "",
+      },
+    };
+  }
+
+  const response = await fetch(
+    `https://app.posthog.com/api/projects/${projectId}/query/`,
+    {
+      body: JSON.stringify({
+        query: {
+          breakdownBy: "Page",
+          dateRange: { date_from: "-30d", date_to: null },
+          doPathCleaning: false,
+          includeBounceRate: true,
+          includeScrollDepth: false,
+          kind: "WebStatsTableQuery",
+          limit: 20,
+          properties: [],
+        },
+      }),
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    }
+  );
+
+  if (!response.ok) {
+    return {
+      posthog: {
+        ...EMPTY_OVERVIEW.posthog,
+        blogUrl: env.VITE_DUYET_BLOG_URL ?? "",
+      },
+    };
+  }
+
+  const data = (await response.json()) as {
+    columns?: string[];
+    results?: (string | number | [number])[][];
+  };
+  const columns = data.columns ?? [];
+  const pathIndex = columns.findIndex((column) => {
+    const normalized = column.toLowerCase();
+    return (
+      normalized.includes("page") ||
+      normalized.includes("path") ||
+      normalized.includes("breakdown_value")
+    );
+  });
+  const visitorsIndex = columns.findIndex((column) => {
+    const normalized = column.toLowerCase();
+    return normalized.includes("visitor") || normalized.includes("unique");
+  });
+  const viewsIndex = columns.findIndex((column) => {
+    const normalized = column.toLowerCase();
+    return normalized.includes("view") || normalized.includes("pageview");
+  });
+
+  if (pathIndex === -1 || visitorsIndex === -1 || viewsIndex === -1) {
+    return {
+      posthog: {
+        ...EMPTY_OVERVIEW.posthog,
+        blogUrl: env.VITE_DUYET_BLOG_URL ?? "",
+      },
+    };
+  }
+
+  const paths = (data.results ?? []).map((row) => {
+    const viewsValue = row[viewsIndex];
+    const visitorsValue = row[visitorsIndex];
+
+    return {
+      path: String(row[pathIndex] || ""),
+      views: Number(Array.isArray(viewsValue) ? viewsValue[0] : viewsValue) || 0,
+      visitors:
+        Number(
+          Array.isArray(visitorsValue) ? visitorsValue[0] : visitorsValue
+        ) || 0,
+    };
+  });
+  const totalVisitors = paths.reduce((sum, path) => sum + path.visitors, 0);
+  const totalViews = paths.reduce((sum, path) => sum + path.views, 0);
+
+  return {
+    posthog: {
+      avgVisitorsPerPage:
+        paths.length > 0 ? Math.round(totalVisitors / paths.length) : 0,
+      blogUrl: env.VITE_DUYET_BLOG_URL ?? "",
+      paths,
+      totalViews,
+      totalVisitors,
+    },
   };
 }
 
 insightsRouter.get("/overview", async (c) => {
   try {
-    const [ai, waka] = await Promise.all([
+    const [ai, waka, cloudflare, posthog] = await Promise.allSettled([
       getAiOverview(c.env),
       getWakaOverview(c.env),
+      getCloudflareOverview(c.env),
+      getPostHogOverview(c.env),
     ]);
 
     c.header("Access-Control-Allow-Origin", "*");
@@ -238,12 +483,10 @@ insightsRouter.get("/overview", async (c) => {
     );
     return c.json({
       ...EMPTY_OVERVIEW,
-      ...ai,
-      ...waka,
-      cloudflare: {
-        ...EMPTY_OVERVIEW.cloudflare,
-        generatedAt: new Date().toISOString(),
-      },
+      ...(ai.status === "fulfilled" ? ai.value : {}),
+      ...(waka.status === "fulfilled" ? waka.value : {}),
+      ...(cloudflare.status === "fulfilled" ? cloudflare.value : {}),
+      ...(posthog.status === "fulfilled" ? posthog.value : {}),
     });
   } catch (error) {
     console.error("Error fetching insights overview:", error);
