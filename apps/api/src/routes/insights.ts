@@ -1,22 +1,9 @@
-import { Hono } from "hono";
-
-interface Env {
-  CLICKHOUSE_HOST?: string;
-  CLICKHOUSE_PORT?: string;
-  CLICKHOUSE_USER?: string;
-  CLICKHOUSE_PASSWORD?: string;
-  CLICKHOUSE_DATABASE?: string;
-  CLICKHOUSE_PROTOCOL?: string;
-  CLOUDFLARE_API_KEY?: string;
-  CLOUDFLARE_API_TOKEN?: string;
-  CLOUDFLARE_ZONE_ID?: string;
-  POSTHOG_API_KEY?: string;
-  POSTHOG_PROJECT_ID?: string;
-  VITE_DUYET_BLOG_URL?: string;
-  WAKATIME_API_KEY?: string;
-}
+import { Hono, type Context } from "hono";
+import type { Env } from "../env.js";
 
 const insightsRouter = new Hono<{ Bindings: Env }>();
+const FETCH_TIMEOUT_MS = 10_000;
+const FALLBACK_CORS_ORIGIN = "https://insights.duyet.net";
 
 interface TrafficGroup {
   date: { date: string };
@@ -68,7 +55,9 @@ const EMPTY_OVERVIEW = {
   wakaTrend: [],
 };
 
-function getClickHouseUrl(env: Env): string | null {
+function getClickHouseConfig(
+  env: Env
+): { headers: Record<string, string>; url: string } | null {
   const host = env.CLICKHOUSE_HOST;
   const password = env.CLICKHOUSE_PASSWORD;
   const user = env.CLICKHOUSE_USER || "default";
@@ -79,25 +68,33 @@ function getClickHouseUrl(env: Env): string | null {
     return null;
   }
 
-  return `${protocol}://${user}:${encodeURIComponent(password)}@${host}:${port}`;
+  return {
+    headers: {
+      "X-ClickHouse-Key": password,
+      "X-ClickHouse-User": user,
+    },
+    url: `${protocol}://${host}:${port}`,
+  };
 }
 
 async function queryClickHouse(
   env: Env,
   query: string
 ): Promise<Record<string, unknown>[]> {
-  const url = getClickHouseUrl(env);
-  if (!url) return [];
+  const config = getClickHouseConfig(env);
+  if (!config) return [];
 
   const database = env.CLICKHOUSE_DATABASE || "default";
   try {
-    const response = await fetch(`${url}?database=${database}`, {
+    const response = await fetch(`${config.url}?database=${database}`, {
       body: `${query}\nFORMAT JSONEachRow`,
       headers: {
+        ...config.headers,
         Accept: "application/json",
         "Content-Type": "text/plain",
       },
       method: "POST",
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     });
 
     if (!response.ok) {
@@ -105,11 +102,17 @@ async function queryClickHouse(
     }
 
     const text = await response.text();
-    return text
-      .trim()
-      .split("\n")
-      .filter(Boolean)
-      .map((line) => JSON.parse(line));
+    const results: Record<string, unknown>[] = [];
+
+    for (const line of text.trim().split("\n").filter(Boolean)) {
+      try {
+        results.push(JSON.parse(line) as Record<string, unknown>);
+      } catch {
+        console.warn("Skipping malformed ClickHouse JSONEachRow line");
+      }
+    }
+
+    return results;
   } catch (error) {
     console.error("ClickHouse insights query failed:", error);
     return [];
@@ -209,7 +212,10 @@ async function getWakaOverview(env: Env) {
   const auth = `Basic ${btoa(env.WAKATIME_API_KEY)}`;
   const response = await fetch(
     "https://wakatime.com/api/v1/users/current/stats/last_30_days",
-    { headers: { Authorization: auth } }
+    {
+      headers: { Authorization: auth },
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+    }
   );
 
   if (!response.ok) {
@@ -252,7 +258,10 @@ async function getWakaOverview(env: Env) {
 async function getWakaMonthlyTrend(auth: string) {
   const response = await fetch(
     "https://wakatime.com/api/v1/users/current/insights/days/all_time",
-    { headers: { Authorization: auth } }
+    {
+      headers: { Authorization: auth },
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+    }
   );
 
   if (!response.ok) return [];
@@ -330,6 +339,7 @@ async function getCloudflareOverview(env: Env) {
       "Content-Type": "application/json",
     },
     method: "POST",
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
   });
 
   if (!response.ok) {
@@ -396,6 +406,7 @@ async function getPostHogOverview(env: Env) {
         "Content-Type": "application/json",
       },
       method: "POST",
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     }
   );
 
@@ -467,6 +478,19 @@ async function getPostHogOverview(env: Env) {
   };
 }
 
+function setCors(c: Context<{ Bindings: Env }>) {
+  const origin = c.req.header("Origin");
+  const allowedOrigin =
+    origin &&
+    (/^https:\/\/(insights\.)?duyet\.net$/.test(origin) ||
+      /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin))
+      ? origin
+      : FALLBACK_CORS_ORIGIN;
+
+  c.header("Access-Control-Allow-Origin", allowedOrigin);
+  c.header("Vary", "Origin");
+}
+
 insightsRouter.get("/overview", async (c) => {
   try {
     const [ai, waka, cloudflare, posthog] = await Promise.allSettled([
@@ -476,7 +500,7 @@ insightsRouter.get("/overview", async (c) => {
       getPostHogOverview(c.env),
     ]);
 
-    c.header("Access-Control-Allow-Origin", "*");
+    setCors(c);
     c.header(
       "Cache-Control",
       "public, max-age=300, stale-while-revalidate=3600"
@@ -490,13 +514,13 @@ insightsRouter.get("/overview", async (c) => {
     });
   } catch (error) {
     console.error("Error fetching insights overview:", error);
-    c.header("Access-Control-Allow-Origin", "*");
+    setCors(c);
     return c.json(EMPTY_OVERVIEW);
   }
 });
 
 insightsRouter.options("*", (c) => {
-  c.header("Access-Control-Allow-Origin", "*");
+  setCors(c);
   c.header("Access-Control-Allow-Methods", "GET, OPTIONS");
   c.header("Access-Control-Allow-Headers", "Content-Type");
   return c.body(null, 204);

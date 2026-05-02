@@ -64,8 +64,11 @@ function RootComponent() {
       <head>
         <HeadContent />
         <link
-          media="all"
           rel="stylesheet"
+          media="print"
+          onLoad={(event) => {
+            event.currentTarget.media = "all";
+          }}
           href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
         />
       </head>

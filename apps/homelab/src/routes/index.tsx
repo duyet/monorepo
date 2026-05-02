@@ -76,16 +76,19 @@ function HomelabPage() {
             <SummaryMetric
               icon={<Server className="h-4 w-4" />}
               label="Nodes"
+              tone="#cfe2f3"
               value={`${onlineCount}/${totalNodes}`}
             />
             <SummaryMetric
               icon={<Wifi className="h-4 w-4" />}
               label="Services"
+              tone="#b8efd2"
               value={`${runningServices}/${totalServices}`}
             />
             <SummaryMetric
               icon={<Smartphone className="h-4 w-4" />}
               label="Devices"
+              tone="#f6c5c7"
               value={`${onlineDevices.length}/${devices.length}`}
             />
           </div>
@@ -110,14 +113,19 @@ function HomelabPage() {
 function SummaryMetric({
   icon,
   label,
+  tone,
   value,
 }: {
   icon: React.ReactNode;
   label: string;
+  tone: string;
   value: string;
 }) {
   return (
-    <div className="rounded-xl bg-white p-4 text-[#1a1a1a] shadow-[inset_0_-1px_0_rgba(0,0,0,0.08)] first:bg-[#cfe2f3] [&:nth-child(2)]:bg-[#b8efd2] [&:nth-child(3)]:bg-[#f6c5c7]">
+    <div
+      className="rounded-xl p-4 text-[#1a1a1a] shadow-[inset_0_-1px_0_rgba(0,0,0,0.08)]"
+      style={{ backgroundColor: tone }}
+    >
       <div className="mb-8 flex h-9 w-9 items-center justify-center rounded-lg bg-black/10 text-[#1a1a1a]">
         {icon}
       </div>

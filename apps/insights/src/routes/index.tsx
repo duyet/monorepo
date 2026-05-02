@@ -217,11 +217,28 @@ async function fetchOverviewDataFromApi(): Promise<LoaderData> {
     if (!response.ok) {
       return EMPTY_LOADER_DATA;
     }
-    return await response.json();
+    const data = await response.json();
+    return isLoaderData(data) ? data : EMPTY_LOADER_DATA;
   } catch (error) {
     console.error("[Insights] Overview API fetch failed:", error);
     return EMPTY_LOADER_DATA;
   }
+}
+
+function isLoaderData(value: unknown): value is LoaderData {
+  if (!value || typeof value !== "object") return false;
+
+  const data = value as Partial<LoaderData>;
+  return Boolean(
+    data.aiMetrics &&
+      data.wakaMetrics &&
+      data.cloudflare &&
+      data.posthog &&
+      Array.isArray(data.aiActivity) &&
+      Array.isArray(data.aiModels) &&
+      Array.isArray(data.wakaLanguages) &&
+      Array.isArray(data.wakaTrend)
+  );
 }
 
 export const Route = createFileRoute("/")({

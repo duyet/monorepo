@@ -8,26 +8,7 @@ import { Hono } from "hono";
 import aiPercentageRouter from "./routes/ai-percentage.js";
 import cardDescriptionStreamingRouter from "./routes/card-description-streaming.js";
 import insightsRouter from "./routes/insights.js";
-
-/**
- * Cloudflare Workers bindings interface
- */
-export interface Env {
-  OPENROUTER_API_KEY?: string;
-  CLICKHOUSE_HOST?: string;
-  CLICKHOUSE_PORT?: string;
-  CLICKHOUSE_USER?: string;
-  CLICKHOUSE_PASSWORD?: string;
-  CLICKHOUSE_DATABASE?: string;
-  CLICKHOUSE_PROTOCOL?: string;
-  CLOUDFLARE_API_KEY?: string;
-  CLOUDFLARE_API_TOKEN?: string;
-  CLOUDFLARE_ZONE_ID?: string;
-  POSTHOG_API_KEY?: string;
-  POSTHOG_PROJECT_ID?: string;
-  VITE_DUYET_BLOG_URL?: string;
-  WAKATIME_API_KEY?: string;
-}
+import type { Env } from "./env.js";
 
 /**
  * Main Hono application
