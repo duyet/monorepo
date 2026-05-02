@@ -3,24 +3,20 @@ import {
   Github as GithubIcon,
   LinkedIn as LinkedInIcon,
 } from "@duyet/components/Icons";
-import {
-  ArrowRight,
-  BookOpen,
-  FileUser,
-  Radio,
-} from "lucide-react";
+import { ArrowRight, BookOpen, FileUser, Radio } from "lucide-react";
 import { Suspense } from "react";
 import { addUtmParams } from "../../app/lib/utm";
 import { BuildDate } from "../components/BuildDate";
 import { FooterInteractive } from "../components/FooterInteractive";
 
 const experienceYears = "8+ years";
+const contentLastModified = "2026-05-02";
 
 const profilePageJsonLd = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "ProfilePage",
   dateCreated: "2020-01-01",
-  dateModified: new Date().toISOString().split("T")[0],
+  dateModified: contentLastModified,
   mainEntity: {
     "@type": "Person",
     name: "Duyet Le",
@@ -182,10 +178,30 @@ function AboutPage() {
           </Link>
 
           <nav className="hidden items-center gap-7 text-sm font-medium md:flex">
-            <a href="https://blog.duyet.net">Blog</a>
+            <a
+              href={addUtmParams(
+                "https://blog.duyet.net",
+                "about",
+                "header_blog"
+              )}
+            >
+              Blog
+            </a>
             <Link to="/projects">Projects</Link>
-            <a href="https://cv.duyet.net">Experience</a>
-            <a href="https://insights.duyet.net">Insights</a>
+            <a
+              href={addUtmParams("https://cv.duyet.net", "about", "header_cv")}
+            >
+              Experience
+            </a>
+            <a
+              href={addUtmParams(
+                "https://insights.duyet.net",
+                "about",
+                "header_insights"
+              )}
+            >
+              Insights
+            </a>
             <Link to="/about">About</Link>
           </nav>
 

@@ -74,6 +74,23 @@ const products: Product[] = [
 ];
 
 export const Route = createFileRoute("/p/$project")({
+  head: ({ params, loaderData }) => {
+    const product =
+      (loaderData as { product?: Product } | undefined)?.product ??
+      products.find((item) => item.slug === params.project);
+
+    return {
+      meta: [
+        { title: `${product?.name ?? "Project"} | Duyet Le` },
+        {
+          name: "description",
+          content:
+            product?.summary ??
+            "A Duyet Le project surface for data, AI, and developer tools.",
+        },
+      ],
+    };
+  },
   loader: ({ params }) => {
     const product = products.find((item) => item.slug === params.project);
     if (!product) throw notFound();
@@ -87,8 +104,8 @@ function ProductPage() {
   const related = products.filter((item) => item.slug !== product.slug);
 
   return (
-    <div className="min-h-screen bg-[#f8f8f2] text-[#1a1a1a]">
-      <header className="sticky top-0 z-50 bg-[#f8f8f2]/95 backdrop-blur">
+    <div className="min-h-screen bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
+      <header className="sticky top-0 z-50 bg-[#f8f8f2]/95 backdrop-blur dark:bg-[#0d0e0c]/95">
         <div className="mx-auto flex max-w-[1340px] items-center justify-between px-5 py-3 sm:px-8 md:py-5 lg:px-10">
           <Link
             to="/"
@@ -98,8 +115,24 @@ function ProductPage() {
           </Link>
           <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
             <Link to="/">Home</Link>
-            <a href="https://blog.duyet.net">Blog</a>
-            <a href="https://cv.duyet.net">CV</a>
+            <a
+              href={addUtmParams(
+                "https://blog.duyet.net",
+                "product_page",
+                "header_blog"
+              )}
+            >
+              Blog
+            </a>
+            <a
+              href={addUtmParams(
+                "https://cv.duyet.net",
+                "product_page",
+                "header_cv"
+              )}
+            >
+              CV
+            </a>
           </nav>
           <span className="flex min-w-24 items-center justify-end gap-2 text-sm font-medium">
             <span className="h-3 w-3 rounded-full bg-orange-500" />
@@ -108,17 +141,17 @@ function ProductPage() {
         </div>
       </header>
 
-      <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] pb-16 2xl:rounded-b-[4rem]">
+      <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
         <section className="mx-auto max-w-[1340px] px-5 py-12 sm:px-8 md:py-16 lg:px-10 lg:py-24 xl:py-28">
           <Link
             to="/"
-            className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-[#1a1a1a]/70 hover:text-[#1a1a1a]"
+            className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-[#1a1a1a]/70 hover:text-[#1a1a1a] dark:text-[#f8f8f2]/70 dark:hover:text-[#f8f8f2]"
           >
             <ArrowLeft className="h-4 w-4" />
             Back home
           </Link>
           <div className="space-y-4 md:space-y-6 lg:space-y-8">
-            <p className="text-sm font-medium text-[#1a1a1a]/70">
+            <p className="text-sm font-medium text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
               {product.eyebrow}
             </p>
             <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl xl:text-8xl">
@@ -159,7 +192,7 @@ function ProductPage() {
               {product.highlights.map((highlight) => (
                 <div
                   key={highlight}
-                  className="rounded-lg border border-[#1a1a1a]/10 bg-white p-5"
+                  className="rounded-lg border border-[#1a1a1a]/10 bg-white p-5 dark:border-white/10 dark:bg-[#1a1a1a]"
                 >
                   <p className="text-base font-semibold leading-snug md:text-lg">
                     {highlight}
@@ -178,7 +211,7 @@ function ProductPage() {
               )}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg bg-[#1a1a1a] px-6 py-4 text-base font-medium text-white transition-colors hover:bg-[#444] md:text-lg"
+              className="inline-flex items-center gap-2 rounded-lg bg-[#1a1a1a] px-6 py-4 text-base font-medium text-white transition-colors hover:bg-[#444] dark:bg-[#f8f8f2] dark:text-[#0d0e0c] dark:hover:bg-white md:text-lg"
             >
               Visit project
               <ExternalLink className="h-5 w-5" />
@@ -214,16 +247,32 @@ function ProductPage() {
         </section>
       </main>
 
-      <nav className="mx-auto mb-4 mt-10 w-max rounded-full bg-white px-6 py-4 text-sm font-medium shadow-lg ring-1 ring-black/5 md:hidden">
+      <nav className="mx-auto mb-4 mt-10 w-max rounded-full bg-white px-6 py-4 text-sm font-medium shadow-lg ring-1 ring-black/5 dark:bg-[#1a1a1a] dark:ring-white/10 md:hidden">
         <ul className="flex items-center justify-center gap-5">
           <li>
             <Link to="/">Home</Link>
           </li>
           <li>
-            <a href="https://blog.duyet.net">Blog</a>
+            <a
+              href={addUtmParams(
+                "https://blog.duyet.net",
+                "product_page",
+                "mobile_blog"
+              )}
+            >
+              Blog
+            </a>
           </li>
           <li>
-            <a href="https://cv.duyet.net">CV</a>
+            <a
+              href={addUtmParams(
+                "https://cv.duyet.net",
+                "product_page",
+                "mobile_cv"
+              )}
+            >
+              CV
+            </a>
           </li>
           <li>
             <Link to="/about">About</Link>
@@ -236,8 +285,10 @@ function ProductPage() {
 
 function Meta({ label, value }: { label: string; value: string }) {
   return (
-    <div className="border-t border-[#1a1a1a]/15 pt-3">
-      <h3 className="text-sm text-[#1a1a1a]/60 lg:text-base">{label}</h3>
+    <div className="border-t border-[#1a1a1a]/15 pt-3 dark:border-white/15">
+      <h3 className="text-sm text-[#1a1a1a]/60 dark:text-[#f8f8f2]/60 lg:text-base">
+        {label}
+      </h3>
       <p className="mt-1 text-base font-semibold lg:text-lg">{value}</p>
     </div>
   );

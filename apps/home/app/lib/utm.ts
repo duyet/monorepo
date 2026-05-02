@@ -9,7 +9,7 @@ export function addUtmParams(
   content?: string,
   host?: string
 ): string {
-  const absUrl = url.startsWith("/") && host ? `https://${host}` : url;
+  const absUrl = url.startsWith("/") && host ? `https://${host}${url}` : url;
   if (absUrl.startsWith("/")) return absUrl;
   const urlObj = new URL(absUrl);
   urlObj.searchParams.set("utm_source", "home");

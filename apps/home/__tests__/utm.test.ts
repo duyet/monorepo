@@ -34,6 +34,17 @@ describe("addUtmParams", () => {
     expect(result).toContain("utm_source=home");
   });
 
+  it("preserves relative path when host provided", () => {
+    const result = addUtmParams(
+      "/agents",
+      "homepage",
+      "agents_bento",
+      "agents.duyet.net"
+    );
+    expect(result).toContain("https://agents.duyet.net/agents");
+    expect(result).toContain("utm_content=agents_bento");
+  });
+
   it("returns relative path unchanged when no host", () => {
     const result = addUtmParams("/about");
     expect(result).toBe("/about");

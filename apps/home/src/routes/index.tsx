@@ -81,10 +81,34 @@ function HomePage() {
             </Link>
 
             <nav className="hidden items-center gap-7 text-sm font-medium md:flex">
-              <a href="https://blog.duyet.net">Blog</a>
+              <a
+                href={addUtmParams(
+                  "https://blog.duyet.net",
+                  "homepage",
+                  "header_blog"
+                )}
+              >
+                Blog
+              </a>
               <Link to="/projects">Projects</Link>
-              <a href="https://cv.duyet.net">Experience</a>
-              <a href="https://insights.duyet.net">Insights</a>
+              <a
+                href={addUtmParams(
+                  "https://cv.duyet.net",
+                  "homepage",
+                  "header_cv"
+                )}
+              >
+                Experience
+              </a>
+              <a
+                href={addUtmParams(
+                  "https://insights.duyet.net",
+                  "homepage",
+                  "header_insights"
+                )}
+              >
+                Insights
+              </a>
               <Link to="/about">About</Link>
             </nav>
 
@@ -149,7 +173,6 @@ function HomePage() {
                 <CapabilityCard key={item.title} {...item} />
               ))}
             </div>
-
           </section>
 
           <section
@@ -309,10 +332,10 @@ function ProjectCard({
       </div>
       <div className="p-5 text-white">
         <h3 className="text-lg font-semibold tracking-tight">{item.name}</h3>
-        <p className="mt-2 text-sm font-medium leading-6 text-white/82">
+        <p className="mt-2 text-sm font-medium leading-6 text-white/80">
           {item.description}
         </p>
-        <p className="mt-5 truncate text-sm font-medium text-white/62">
+        <p className="mt-5 truncate text-sm font-medium text-white/60">
           {item.host}
         </p>
       </div>
@@ -410,6 +433,8 @@ function AppLink({
       <a
         href={href}
         className={className}
+        target="_blank"
+        rel="noopener noreferrer"
         data-shortcut-id={shortcutId}
         data-shortcut-number={shortcutNumber}
       >

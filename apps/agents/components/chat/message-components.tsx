@@ -1,6 +1,6 @@
 import type { UIMessage } from "ai";
 import { Check, Copy, X } from "@phosphor-icons/react";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
   ChainOfThought,
   ChainOfThoughtContent,

@@ -267,6 +267,7 @@
       "dependencies": {
         "@duyet/components": "*",
         "@duyet/libs": "*",
+        "@duyet/urls": "*",
         "@tanstack/react-router": "^1.0.0",
         "@tanstack/react-start": "^1.0.0",
         "framer-motion": "^12.36.0",
