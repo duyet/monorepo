@@ -169,3 +169,47 @@ Use no scope only when no listed scope fits.
 ## Documentation Direction
 
 This file is the root internal knowledge base for AI agents. Keep `AGENTS.md` and root `CLAUDE.md` as short entrypoints. Move durable duplicated workflow details here as docs are rewritten.
+
+## Public App UI Direction
+
+The current public-app visual direction is a Websmith-inspired Duyet system, not a literal clone. Keep Duyet content, routes, data loading, auth, keyboard behavior, and app-specific workflows intact. Copy the design language only: quiet editorial layout, warm surfaces, compact cards, restrained borders, and mobile-safe wrapping.
+
+### Design Tokens
+
+- Use a white or warm off-white page background. Preferred warm base: `#f8f8f2`; white is acceptable for dense data or photo-heavy apps where the user explicitly prefers it.
+- Use near-black foreground text, usually `#1a1a1a` or `#1f1f1f`, never low-contrast gray for primary content.
+- Use Inter-first typography for refreshed apps: `Inter, ui-sans-serif, system-ui, sans-serif`. If an app already has a deliberate serif/display pairing, keep it only when it serves that app.
+- Keep headings tight but not oversized. Desktop heroes should feel confident, not billboard-sized. Use around `text-4xl` to `text-5xl` for primary app heroes, smaller for utility dashboards.
+- Keep body text relaxed and readable: mostly `text-sm` and `text-base`; avoid giant feature-card copy.
+- Use a compact radius system: `8px` to `12px` for buttons, panels, cards, inputs, and screenshots. Avoid pill-shaped cards unless the existing control is a badge or status chip.
+- Primary controls should usually be black or near-black rounded rectangles with white text. Secondary controls are white/warm panels with a single thin border.
+- Accent/status orange can use `oklch(70.5% .213 47.604)` or a close orange. Use it sparingly for status dots, highlights, or active marks, not as a full-page theme.
+- Pastel panels should be soft and varied, not a one-hue palette: light blue, emerald, red/coral, stone, and pale orange panels are preferred. Avoid purple-blue gradients as the main theme.
+
+### Layout Pattern
+
+- Prefer sticky, minimal headers with identity, a small route group, and a status indicator.
+- Use left-aligned editorial heroes. The first viewport should clearly identify the app or topic without a marketing splash page.
+- On laptop and larger screens, use 3+ columns where content naturally supports it. Keep the cards smaller and more relaxed than the original bento refresh.
+- Use two-column grids only for large screenshots, long-form editorial sections, or when card content needs width.
+- Keep section rhythm simple: full-width bands or unframed constrained sections. Do not nest cards inside cards.
+- Cards should be compact: small title, short supporting text, one metadata/status row, and modest padding (`p-4` or `p-5`; rarely `p-6`).
+- Use simple borders (`border-black/10`, `border-stone-200`, or tokenized equivalents), very light shadows if any, and no decorative gradient blobs/orbs.
+- For visual app showcases, use existing local screenshots/assets. Do not copy Websmith logo, copy, or imagery.
+
+### Mobile Rules
+
+- Test at a real mobile width around 390px and at tablet/laptop widths before finishing visual work.
+- No horizontal overflow. Check `document.documentElement.scrollWidth - document.documentElement.clientWidth`.
+- Clamp drawers, sheets, and side panels with `w-[min(360px,calc(100vw-2rem))]` or an equivalent max-width pattern.
+- Long titles, locations, URLs, and metric labels need `min-w-0`, `break-words`, `truncate`, or hidden decorative dividers on small screens.
+- Composer or sticky bottom controls must reserve matching scroll padding so content does not sit underneath them.
+- Responsive grids should usually be `grid-cols-1`, then `sm:grid-cols-2` or `md:grid-cols-2`, then `lg:grid-cols-3` or more when the content is compact.
+
+### App-Specific Notes
+
+- `apps/home`: editorial homepage with sticky minimal header, oversized but not huge left-aligned hero, relaxed 3+ column project grid on laptop, pastel service tiles, compact black CTAs, and large footer/contact rhythm.
+- `apps/agents`: preserve the chat workspace. Restyle tokens, sidebars, top bar, empty state, messages, composer, tool approvals, and right rail. Keep mobile drawers reachable and clamped.
+- `apps/blog`: keep white background preference. Use compact home cards and mobile-safe archive rows; avoid the old large shared-card padding in 3-column contexts.
+- `apps/insights`: keep dashboard density. Use the shared warm/near-black tokens and compact operational panels rather than a landing-page composition.
+- `apps/photos`: keep the photo-first white background. Text metadata such as location must truncate or wrap safely.

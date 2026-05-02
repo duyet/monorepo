@@ -30,14 +30,24 @@ function SeriesPage() {
   const { seriesList } = Route.useLoaderData() as { seriesList: Series[] };
 
   return (
-    <div className="mb-0 mt-10 grid grid-cols-1 gap-8 md:grid-cols-1">
-      {seriesList.map((series: Series, index: number) => (
-        <SeriesBox
-          className={cn(seriesBackgrounds[index % seriesBackgrounds.length])}
-          key={series.slug}
-          series={series}
-        />
-      ))}
+    <div className="min-h-screen bg-white pb-14 dark:bg-[#0d0e0c]">
+      <div className="mb-12 max-w-3xl pt-8 sm:pt-12">
+        <h1 className="mb-5 text-4xl font-semibold tracking-tight text-neutral-950 dark:text-[#f8f8f2] sm:text-5xl lg:text-6xl">
+          Series
+        </h1>
+        <p className="max-w-2xl text-sm leading-6 text-neutral-600 dark:text-[#f8f8f2]/70 sm:text-base">
+          Longer threads and linked notes grouped into focused reading paths.
+        </p>
+      </div>
+      <div className="grid grid-cols-1 gap-5">
+        {seriesList.map((series: Series, index: number) => (
+          <SeriesBox
+            className={cn(seriesBackgrounds[index % seriesBackgrounds.length])}
+            key={series.slug}
+            series={series}
+          />
+        ))}
+      </div>
     </div>
   );
 }

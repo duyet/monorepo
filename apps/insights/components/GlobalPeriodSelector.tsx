@@ -1,8 +1,28 @@
 "use client";
 
-import { Tabs, TabsList, TabsTrigger } from "@duyet/components/ui/tabs";
 import { Link, useRouterState } from "@tanstack/react-router";
+import { cn } from "@duyet/libs";
 import { DEFAULT_PERIOD, PERIODS, type PeriodValue } from "@/lib/periods";
+
+const validTabs = ["blog", "github", "wakatime", "ai"] as const;
+type AnalyticsTab = (typeof validTabs)[number];
+
+function isAnalyticsTab(tab: string): tab is AnalyticsTab {
+  return validTabs.includes(tab as AnalyticsTab);
+}
+
+function getPeriodRoute(tab: AnalyticsTab) {
+  switch (tab) {
+    case "blog":
+      return "/blog/$period";
+    case "github":
+      return "/github/$period";
+    case "wakatime":
+      return "/wakatime/$period";
+    case "ai":
+      return "/ai/$period";
+  }
+}
 
 export function GlobalPeriodSelector() {
   const location = useRouterState({ select: (s) => s.location });
@@ -15,23 +35,32 @@ export function GlobalPeriodSelector() {
   const currentPeriod = (segments[1] || DEFAULT_PERIOD) as PeriodValue;
 
   // Only show on analytics tabs
-  const validTabs = ["blog", "github", "wakatime", "ai"];
-  if (!validTabs.includes(currentTab)) {
+  if (!isAnalyticsTab(currentTab)) {
     return null;
   }
 
+  const route = getPeriodRoute(currentTab);
+
   return (
-    <Tabs value={currentPeriod}>
-      <TabsList>
-        {PERIODS.map((period) => (
+    <div className="inline-flex items-center rounded-lg bg-muted p-1 text-muted-foreground">
+      {PERIODS.map((period) => {
+        const isActive = currentPeriod === period.value;
+
+        return (
           <Link
             key={period.value}
-            to={`/${currentTab}/${period.value}` as string}
+            className={cn(
+              "inline-flex h-8 items-center justify-center whitespace-nowrap rounded-md px-3 text-sm font-medium transition-colors",
+              "hover:text-foreground",
+              isActive && "bg-background text-foreground shadow-2xs"
+            )}
+            params={{ period: period.value }}
+            to={route}
           >
-            <TabsTrigger value={period.value}>{period.label}</TabsTrigger>
+            {period.label}
           </Link>
-        ))}
-      </TabsList>
-    </Tabs>
+        );
+      })}
+    </div>
   );
 }

@@ -32,12 +32,12 @@ function Archives() {
   const pastYears = new Date().getFullYear() - Math.min(...years);
 
   return (
-    <Container>
-      <div>
+    <Container className="max-w-[1280px] px-5 pt-10 sm:px-8 sm:pt-14 lg:px-10 lg:pt-20">
+      <div className="mb-10 max-w-2xl text-sm leading-6 text-neutral-600 dark:text-[#f8f8f2]/70 sm:text-base">
         Lists all {postCount} posts of the past {pastYears} years. You can also
         explore <Link to="/tags">by the topics</Link>.
       </div>
-      <div className="flex flex-col gap-8">
+      <div className="flex max-w-4xl flex-col gap-10">
         {Object.entries(postsByYear)
           .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
           .map(([year, posts]) => (

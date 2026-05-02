@@ -4,8 +4,15 @@
         <description><![CDATA[Sr. Data Engineer. Rustacean at night]]></description>
         <link>https://blog.duyet.net</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Fri, 01 May 2026 11:14:56 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 02 May 2026 14:08:45 GMT</lastBuildDate>
         <atom:link href="https://blog.duyet.net/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Claws]]></title>
+            <description><![CDATA[OpenClaw, NanoBot, PicoClaw, ZeroClaw, NullClaw, NemoClaw, ...]]></description>
+            <link>https://blog.duyet.net/2026/02/claws</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/02/claws</guid>
+            <pubDate>Sun, 22 Feb 2026 00:00:00 GMT</pubDate>
+        </item>
         <item>
             <title><![CDATA[Claws]]></title>
             <description><![CDATA[OpenClaw, NanoBot, PicoClaw, ZeroClaw, NullClaw, NemoClaw, ...]]></description>
@@ -348,14 +355,6 @@
             <link>https://blog.duyet.net/2021/11/rust-data-engineering</link>
             <guid isPermaLink="true">https://blog.duyet.net/2021/11/rust-data-engineering</guid>
             <pubDate>Sat, 27 Nov 2021 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Spark on Kubernetes - better handling for node shutdown]]></title>
-            <description><![CDATA[Spark 3.1 on the Kubernetes project is now officially declared as production-ready and Generally Available. Spot instances in Kubernetes can cut your bill by up to 70-80% if you are willing to trade in reliability. The new feature - SPIP: Add better handling for node shutdown (SPARK-20624) was implemented to deal with the problem of losing an executor when working with spot nodes - the need to recompute the shuffle or cached data.
-]]></description>
-            <link>https://blog.duyet.net/2021/11/spark-node-decommission</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2021/11/spark-node-decommission</guid>
-            <pubDate>Mon, 22 Nov 2021 00:00:00 GMT</pubDate>
         </item>
     </channel>
 </rss>

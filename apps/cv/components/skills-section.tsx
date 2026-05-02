@@ -16,8 +16,8 @@ import { Skill } from "@/components/skill";
 
 function SkillRow({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <p className="text-[15px] leading-7 text-neutral-700 dark:text-neutral-300">
-      <strong className="text-neutral-900 dark:text-neutral-100">
+    <p className="text-[15px] leading-7 text-neutral-800 dark:text-foreground/80 print:text-[8.2pt] print:leading-snug">
+      <strong className="text-neutral-900 dark:text-foreground">
         {title}:
       </strong>{" "}
       {children}
@@ -28,7 +28,7 @@ function SkillRow({ title, children }: { title: string; children: ReactNode }) {
 export function SkillsSection() {
   return (
     <Section title="Skills">
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 print:gap-1">
         <SkillRow title="Data Engineering">
           <Skill skill="LlamaIndex" url="https://www.llamaindex.ai/" />
           {", "}

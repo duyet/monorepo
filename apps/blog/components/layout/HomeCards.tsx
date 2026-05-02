@@ -15,7 +15,7 @@ export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
       description:
         "Explore my most popular and impactful articles on data engineering, software architecture, and technology insights.",
       tags: [],
-      className: "bg-red-50 dark:bg-red-950/30",
+      className: "bg-[#f2dedb] dark:bg-[#3f1f1f]",
     },
     {
       title: "Explore by Topics",
@@ -24,7 +24,7 @@ export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
       description:
         "Discover content organized by technology, tools, and concepts.",
       tags: topTags,
-      className: "bg-stone-100 dark:bg-stone-900",
+      className: "bg-[#f4f4ef] dark:bg-[#242420]",
     },
     {
       title: "Series",
@@ -33,7 +33,7 @@ export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
       description:
         "Comprehensive multi-part guides on specific topics and technologies.",
       tags: seriesList.map((series) => series.name),
-      className: "bg-emerald-50 dark:bg-emerald-950/30",
+      className: "bg-[#dcefe7] dark:bg-[#164634]",
     },
   ];
 
@@ -43,15 +43,15 @@ export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
         <Link
           key={card.href}
           to={card.href}
-          className={`${card.className} group flex min-h-[220px] flex-col rounded-xl border border-neutral-950/10 p-5 text-neutral-950 transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:border-white/10 dark:text-neutral-50 dark:focus-visible:outline-neutral-50 md:min-h-[240px] md:p-6 lg:p-7`}
+          className={`${card.className} group flex min-h-[190px] flex-col rounded-xl border border-neutral-950/10 p-5 text-neutral-950 transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:border-white/10 dark:text-[#f8f8f2] dark:focus-visible:outline-[#f8f8f2] md:min-h-[210px]`}
         >
           <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-600 dark:text-neutral-400">
             {card.category}
           </span>
-          <h3 className="mt-5 text-2xl font-semibold leading-tight tracking-tight">
+          <h3 className="mt-5 text-xl font-semibold leading-tight tracking-tight md:text-2xl">
             {card.title}
           </h3>
-          <p className="mt-4 text-sm leading-6 text-neutral-700 dark:text-neutral-300">
+          <p className="mt-3 text-sm leading-6 text-neutral-700 dark:text-[#f8f8f2]/70">
             {card.description}
           </p>
           {card.tags.length > 0 ? (

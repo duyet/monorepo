@@ -578,9 +578,11 @@ export async function testClickHouseConnection(): Promise<{
  * Execute query and return data array (backward compatibility)
  */
 export async function executeClickHouseQueryLegacy(
-  query: string
+  query: string,
+  timeoutMs?: number,
+  maxRetries?: number
 ): Promise<Record<string, unknown>[]> {
-  const result = await executeClickHouseQuery(query);
+  const result = await executeClickHouseQuery(query, timeoutMs, maxRetries);
 
   if (!result.success && result.error) {
     console.error("[ClickHouse Query Legacy] Query failed:", result.error);

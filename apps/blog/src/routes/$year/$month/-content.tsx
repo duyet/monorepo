@@ -76,14 +76,14 @@ function MDXRenderer({ source }: { source: string }) {
 export default function Content({ post }: { post: ContentPost }) {
   return (
     <>
-      <header className="mb-8 flex flex-col gap-4">
+      <header className="mb-10 flex flex-col gap-5 pt-8 sm:pt-12 md:mb-14">
         <h1
           className={cn(
             "mt-2 inline-block break-words py-2",
-            "font-serif text-neutral-900 dark:text-neutral-100",
-            "text-3xl font-bold tracking-normal",
-            "md:text-4xl md:tracking-tight",
-            "lg:text-5xl lg:tracking-tight"
+            "text-neutral-950 dark:text-[#f8f8f2]",
+            "text-4xl font-semibold leading-[0.98] tracking-tight",
+            "md:text-5xl",
+            "lg:text-6xl"
           )}
         >
           {post.title}
@@ -99,7 +99,7 @@ export default function Content({ post }: { post: ContentPost }) {
           className={cn(
             'prose-a[href^="https://"]:after:content-["↗︎"] prose dark:prose-invert prose-code:break-words',
             "prose-h1:font-serif prose-h1:tracking-tight",
-            "mb-10 mt-10 max-w-none"
+            "mb-10 mt-10 max-w-none prose-lg prose-p:leading-8 prose-p:text-neutral-800 dark:prose-p:text-[#f8f8f2]/80"
           )}
           dangerouslySetInnerHTML={{ __html: post.content || "No content" }}
         />
