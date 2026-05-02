@@ -62,22 +62,28 @@ export function AIPercentageHero() {
       </div>
 
       <div className="grid gap-3 sm:grid-cols-3">
-        <div className="rounded-xl bg-[#cfe2f3] p-4 text-[#1a1a1a]">
-          <div className="text-xs text-black/60">Total Lines</div>
+        <div className="rounded-xl bg-[var(--panel-blue)] p-4 text-[#1a1a1a] dark:text-[#f8f8f2]">
+          <div className="text-xs text-black/60 dark:text-white/60">
+            Total Lines
+          </div>
           <div className="mt-2 text-xl font-semibold tabular-nums">
             {(total_lines_added / 1000).toFixed(1)}K
           </div>
         </div>
 
-        <div className="rounded-xl bg-[#fde3bf] p-4 text-[#1a1a1a]">
-          <div className="text-xs text-black/60">AI Lines</div>
+        <div className="rounded-xl bg-[var(--panel-orange)] p-4 text-[#1a1a1a] dark:text-[#f8f8f2]">
+          <div className="text-xs text-black/60 dark:text-white/60">
+            AI Lines
+          </div>
           <div className="mt-2 text-xl font-semibold tabular-nums">
             {(ai_lines_added / 1000).toFixed(1)}K
           </div>
         </div>
 
-        <div className="rounded-xl bg-[#b8efd2] p-4 text-[#1a1a1a]">
-          <div className="text-xs text-black/60">Human Lines</div>
+        <div className="rounded-xl bg-[var(--panel-emerald)] p-4 text-[#1a1a1a] dark:text-[#f8f8f2]">
+          <div className="text-xs text-black/60 dark:text-white/60">
+            Human Lines
+          </div>
           <div className="mt-2 text-xl font-semibold tabular-nums">
             {(human_lines_added / 1000).toFixed(1)}K
           </div>

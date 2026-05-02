@@ -124,7 +124,7 @@
   html,
   body,
   main {
-    background: #ffffff;
+    background: var(--background);
   }
 }
 

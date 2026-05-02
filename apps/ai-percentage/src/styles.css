@@ -22,6 +22,9 @@
     --input: #deded4;
     --ring: #1a1a1a;
     --radius: 0.5rem;
+    --panel-blue: #cfe2f3;
+    --panel-orange: #fde3bf;
+    --panel-emerald: #b8efd2;
   }
 
   .dark {
@@ -44,6 +47,9 @@
     --border: rgba(248, 248, 242, 0.14);
     --input: rgba(248, 248, 242, 0.14);
     --ring: #f8f8f2;
+    --panel-blue: #2a3f50;
+    --panel-orange: #4a3523;
+    --panel-emerald: #214334;
   }
 
   @theme inline {
