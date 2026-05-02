@@ -2,12 +2,12 @@ import { cn } from "@duyet/libs/utils";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
-  BarChart,
-  BookOpen,
-  FileText,
+  ChartNoAxesCombined,
+  Newspaper,
+  UserRound,
+  FileUser,
   Link as LinkIcon,
   Server,
-  Workflow,
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { Suspense } from "react";
@@ -15,127 +15,31 @@ import { addUtmParams } from "../../app/lib/utm";
 import { BuildDate } from "../components/BuildDate";
 import { FooterInteractive } from "../components/FooterInteractive";
 import { KeyboardFeatures } from "../components/KeyboardFeatures";
+import { apps, type AppItem } from "../data/projects";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-interface AppItem {
-  name: string;
-  href: string;
-  host: string;
-  utmContent: string;
-  description: string;
-  screenshot?: string;
-}
-
-const apps: AppItem[] = [
-  {
-    name: "LLM Timeline",
-    href: "/",
-    host: "llm-timeline.duyet.net",
-    utmContent: "llm_timeline_bento",
-    description: "Interactive timeline of 50+ LLM models from 2017-2025",
-    screenshot: "/screenshots/llm-timeline.png",
-  },
-  {
-    name: "AI Agents",
-    href: "/agents",
-    host: "agents.duyet.net",
-    utmContent: "agents_bento",
-    description: "AI chat interface with Cloudflare Workers AI and streaming",
-    screenshot: "/screenshots/ai-agents.png",
-  },
-  {
-    name: "OpenClaw",
-    href: "/claw",
-    host: "claw.duyet.net",
-    utmContent: "claw_bento",
-    description: "OpenClaw Management Dashboard",
-    screenshot: "/screenshots/openclaw.png",
-  },
-  {
-    name: "MCP Tools",
-    href: "/mcp",
-    host: "mcp.duyet.net",
-    utmContent: "mcp_bento",
-    description: "Model Context Protocol tools and integrations",
-    screenshot: "/screenshots/mcp-tools-art.png",
-  },
-  {
-    name: "Rust Tiếng Việt",
-    href: "/rust",
-    host: "rust-tieng-viet.github.io",
-    utmContent: "rust_bento",
-    description: "Rust programming language documentation in Vietnamese",
-    screenshot: "/screenshots/rust-art.png",
-  },
-  {
-    name: "ClickHouse Monitoring",
-    href: "/clickhouse-monitoring",
-    host: "clickhouse.duyet.net",
-    utmContent: "ch_monitor_bento",
-    description: "Real-time monitoring dashboard for ClickHouse clusters",
-    screenshot: "/screenshots/ch-monitor.png",
-  },
-  {
-    name: "Claude Plugins",
-    href: "/claude-plugins",
-    host: "github.com/duyet/claude-plugins",
-    utmContent: "claude_plugins_bento",
-    description: "Official plugins for Claude Code and AI SDK",
-  },
-  {
-    name: "Stamp",
-    href: "/stamp",
-    host: "stamp.duyet.net",
-    utmContent: "stamp_bento",
-    description: "URL shortener with analytics and custom domains",
-    screenshot: "/screenshots/stamp.png",
-  },
-  {
-    name: "AgentState",
-    href: "/agentstate",
-    host: "agentstate.app",
-    utmContent: "agentstate_bento",
-    description: "AI agent state management and debugging tools",
-  },
-  {
-    name: "okie.one",
-    href: "/okie",
-    host: "okie.one",
-    utmContent: "okie_bento",
-    description: "Vietnamese community platform for developers",
-    screenshot: "/screenshots/okie.png",
-  },
-  {
-    name: "pageview",
-    href: "https://pageview.duyet.net",
-    host: "pageview.duyet.net",
-    utmContent: "pageview_bento",
-    description: "Simple, privacy-friendly analytics for websites",
-  },
-];
-
 const capabilities = [
   {
-    title: "Write",
+    title: "Blog",
     description:
       "Deep dives into data engineering architecture, distributed systems, AI agents, and lessons learned from scaling open source.",
     href: addUtmParams("https://blog.duyet.net", "homepage", "blog_card"),
-    icon: BookOpen,
-    className: "bg-white",
+    icon: Newspaper,
+    className: "bg-white dark:bg-[#1a1a1a]",
   },
   {
-    title: "Build",
+    title: "Resume",
     description:
       "Scalable data infrastructure, intelligent applications, and production systems that stay fast as usage grows.",
     href: addUtmParams("https://cv.duyet.net", "homepage", "resume_card"),
-    icon: Workflow,
-    className: "bg-[#bfdbfe]",
+    icon: FileUser,
+    className: "bg-[#bfdbfe] dark:bg-[#1f3a5f]",
   },
   {
-    title: "Measure",
+    title: "Insights",
     description:
       "Live analytics for coding activity, site traffic, token usage, and operational systems across the Duyet network.",
     href: addUtmParams(
@@ -143,16 +47,16 @@ const capabilities = [
       "homepage",
       "insights_card"
     ),
-    icon: BarChart,
-    className: "bg-[#a7f3d0]",
+    icon: ChartNoAxesCombined,
+    className: "bg-[#a7f3d0] dark:bg-[#164634]",
   },
   {
-    title: "Document",
+    title: "About",
     description:
       "Clear project surfaces for Rust, ClickHouse, MCP tools, AI agents, and the small systems that make them useful.",
     href: "/about",
-    icon: FileText,
-    className: "bg-[#fecaca]",
+    icon: UserRound,
+    className: "bg-[#fecaca] dark:bg-[#4f1f1f]",
   },
 ];
 
@@ -166,8 +70,8 @@ function HomePage() {
         <KeyboardFeatures />
       </Suspense>
 
-      <div className="min-h-screen bg-[#f8f8f2] text-[#1a1a1a]">
-        <header className="sticky top-0 z-50 bg-[#f8f8f2]/95 backdrop-blur">
+      <div className="min-h-screen bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
+        <header className="sticky top-0 z-50 bg-[#f8f8f2]/95 backdrop-blur dark:bg-[#0d0e0c]/95">
           <div className="mx-auto flex max-w-[1280px] items-center justify-between px-5 py-4 sm:px-8 lg:px-10 lg:py-5">
             <Link to="/" className="flex items-center gap-3">
               <DuyetMark />
@@ -177,9 +81,34 @@ function HomePage() {
             </Link>
 
             <nav className="hidden items-center gap-7 text-sm font-medium md:flex">
-              <a href="https://blog.duyet.net">Blog</a>
-              <a href="https://cv.duyet.net">Experience</a>
-              <a href="https://insights.duyet.net">Insights</a>
+              <a
+                href={addUtmParams(
+                  "https://blog.duyet.net",
+                  "homepage",
+                  "header_blog"
+                )}
+              >
+                Blog
+              </a>
+              <Link to="/projects">Projects</Link>
+              <a
+                href={addUtmParams(
+                  "https://cv.duyet.net",
+                  "homepage",
+                  "header_cv"
+                )}
+              >
+                Experience
+              </a>
+              <a
+                href={addUtmParams(
+                  "https://insights.duyet.net",
+                  "homepage",
+                  "header_insights"
+                )}
+              >
+                Insights
+              </a>
               <Link to="/about">About</Link>
             </nav>
 
@@ -199,7 +128,7 @@ function HomePage() {
           </div>
         </header>
 
-        <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] pb-16 2xl:rounded-b-[4rem]">
+        <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
           <section className="mx-auto max-w-[1280px] px-5 py-14 sm:px-8 md:py-18 lg:px-10 lg:py-24 xl:py-28">
             <div className="max-w-[860px] space-y-6">
               <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
@@ -225,33 +154,24 @@ function HomePage() {
             </div>
 
             <div className="my-10 flex justify-center lg:my-14">
-              <a
-                href="#apps"
-                className="rounded-lg bg-[#1a1a1a] px-6 py-4 text-base font-medium text-white transition-colors hover:bg-[#444] lg:px-8 lg:text-lg"
+              <Link
+                to="/projects"
+                className="rounded-lg bg-[#1a1a1a] px-6 py-4 text-base font-medium text-white transition-colors hover:bg-[#444] dark:bg-[#f8f8f2] dark:text-[#0d0e0c] dark:hover:bg-white lg:px-8 lg:text-lg"
               >
-                View more apps
-              </a>
+                View more projects
+              </Link>
             </div>
           </section>
 
           <section className="mx-auto mt-24 max-w-[1280px] px-5 sm:px-8 lg:mt-32 lg:px-10 xl:mt-40">
             <h2 className="text-2xl font-semibold tracking-tight md:text-3xl xl:text-4xl">
-              What I do
+              Explore the work
             </h2>
 
             <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4 lg:gap-6 xl:gap-8">
               {capabilities.map((item) => (
                 <CapabilityCard key={item.title} {...item} />
               ))}
-            </div>
-
-            <div className="my-10 flex justify-center lg:my-14">
-              <Link
-                to="/about"
-                className="rounded-lg bg-[#1a1a1a] px-6 py-4 text-base font-medium text-white transition-colors hover:bg-[#444] lg:px-8 lg:text-lg"
-              >
-                More about Duyet
-              </Link>
             </div>
           </section>
 
@@ -263,7 +183,7 @@ function HomePage() {
               <h2 className="text-2xl font-semibold tracking-tight md:text-3xl xl:text-4xl">
                 Apps
               </h2>
-              <p className="text-base font-medium text-[#1a1a1a]/70">
+              <p className="text-base font-medium text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
                 Managed by @duyetbot AI Agent
               </p>
             </div>
@@ -278,27 +198,29 @@ function HomePage() {
               ))}
             </div>
 
-            <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 xl:gap-8">
-              {compactApps.map((item) => (
-                <CompactAppCard key={item.name} item={item} />
-              ))}
-            </div>
+            {compactApps.length > 0 && (
+              <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 xl:gap-8">
+                {compactApps.map((item) => (
+                  <CompactAppCard key={item.name} item={item} />
+                ))}
+              </div>
+            )}
           </section>
 
           <section className="mx-auto mt-24 max-w-[1280px] px-5 sm:px-8 lg:mt-32 lg:px-10 xl:mt-40">
             <Link
               to="/ls"
-              className="group grid gap-5 rounded-xl bg-white p-6 transition-colors hover:bg-[#f2f2eb] md:grid-cols-[1fr_auto] md:items-center lg:p-8"
+              className="group grid gap-5 rounded-xl bg-white p-6 transition-colors hover:bg-[#f2f2eb] dark:bg-[#1a1a1a] dark:hover:bg-[#242420] md:grid-cols-[1fr_auto] md:items-center lg:p-8"
             >
               <div className="flex items-start gap-4">
-                <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#1a1a1a] text-white">
+                <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#1a1a1a] text-white dark:bg-[#f8f8f2] dark:text-[#0d0e0c]">
                   <LinkIcon className="h-5 w-5" />
                 </span>
                 <div>
                   <h3 className="text-xl font-semibold tracking-tight">
                     duyet.net/ls
                   </h3>
-                  <p className="mt-1 text-base font-medium text-[#1a1a1a]/70">
+                  <p className="mt-1 text-base font-medium text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
                     All short URLs and redirects
                   </p>
                 </div>
@@ -308,7 +230,7 @@ function HomePage() {
           </section>
         </main>
 
-        <footer className="sticky bottom-0 bg-white px-5 pb-12 pt-24 sm:px-8 lg:px-10 lg:pb-16 lg:pt-28 xl:pb-20">
+        <footer className="sticky bottom-0 bg-white px-5 pb-12 pt-24 dark:bg-[#1a1a1a] sm:px-8 lg:px-10 lg:pb-16 lg:pt-28 xl:pb-20">
           <div className="mx-auto max-w-[1280px]">
             <h2 className="max-w-[820px] text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
               Build useful systems, then explain them clearly.
@@ -322,7 +244,7 @@ function HomePage() {
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-lg bg-[#1a1a1a] px-6 py-4 text-base font-medium text-white transition-colors hover:bg-[#444] lg:px-8 lg:text-lg"
+                className="rounded-lg bg-[#1a1a1a] px-6 py-4 text-base font-medium text-white transition-colors hover:bg-[#444] dark:bg-[#f8f8f2] dark:text-[#0d0e0c] dark:hover:bg-white lg:px-8 lg:text-lg"
               >
                 GitHub
               </a>
@@ -334,13 +256,13 @@ function HomePage() {
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-lg border border-[#1a1a1a]/15 px-6 py-4 text-base font-medium transition-colors hover:border-[#1a1a1a] lg:px-8 lg:text-lg"
+                className="rounded-lg border border-[#1a1a1a]/15 px-6 py-4 text-base font-medium transition-colors hover:border-[#1a1a1a] dark:border-white/15 dark:hover:border-white lg:px-8 lg:text-lg"
               >
                 LinkedIn
               </a>
             </div>
 
-            <hr className="border-[#1a1a1a]/15" />
+            <hr className="border-[#1a1a1a]/15 dark:border-white/15" />
 
             <div className="grid gap-6 pt-10 text-base font-medium md:grid-cols-2 md:pt-16">
               <div className="flex flex-wrap items-center gap-6">
@@ -379,10 +301,10 @@ function HomePage() {
 function DuyetMark() {
   return (
     <span className="grid h-5 w-5 grid-cols-2 gap-0.5" aria-hidden="true">
-      <span className="bg-[#1a1a1a]" />
-      <span className="translate-y-1 bg-[#1a1a1a]" />
-      <span className="-translate-y-1 bg-[#1a1a1a]" />
-      <span className="bg-[#1a1a1a]" />
+      <span className="bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
+      <span className="translate-y-1 bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
+      <span className="-translate-y-1 bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
+      <span className="bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
     </span>
   );
 }
@@ -397,20 +319,24 @@ function ProjectCard({
   return (
     <AppLink
       item={item}
-      className="group relative overflow-hidden rounded-xl bg-[#1a1a1a]"
+      className={`group overflow-hidden rounded-xl border border-[#1a1a1a]/10 ${item.tone ?? "bg-[#1a1a1a]"} transition-transform hover:-translate-y-0.5 dark:border-white/10`}
       shortcutNumber={shortcutNumber}
     >
-      <div className="absolute inset-0 z-10 h-1/2 bg-gradient-to-b from-black/65 to-transparent" />
-      <img
-        src={item.screenshot}
-        alt={item.name}
-        loading="lazy"
-        className="aspect-[16/10] h-full w-full rounded-xl object-cover object-top transition-transform duration-500 group-hover:scale-[1.025]"
-      />
-      <div className="absolute left-6 top-6 z-20 text-white lg:left-8 lg:top-8">
+      <div className="overflow-hidden bg-[#1a1a1a]">
+        <img
+          src={item.screenshot}
+          alt={item.name}
+          loading="lazy"
+          className="aspect-[16/10] w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.025]"
+        />
+      </div>
+      <div className="p-5 text-white">
         <h3 className="text-lg font-semibold tracking-tight">{item.name}</h3>
-        <p className="mt-1 text-xs font-medium text-white/80">
+        <p className="mt-2 text-sm font-medium leading-6 text-white/80">
           {item.description}
+        </p>
+        <p className="mt-5 truncate text-sm font-medium text-white/60">
+          {item.host}
         </p>
       </div>
     </AppLink>
@@ -427,7 +353,7 @@ function CapabilityCard({
   title: string;
   description: string;
   href: string;
-  icon: typeof BookOpen;
+  icon: typeof Newspaper;
   className: string;
 }) {
   const isExternal = href.startsWith("http");
@@ -472,16 +398,16 @@ function CompactAppCard({ item }: { item: AppItem }) {
   return (
     <AppLink
       item={item}
-      className="group flex min-h-36 flex-col rounded-xl bg-white p-5 transition-colors hover:bg-[#f2f2eb] lg:p-6"
+      className="group flex min-h-36 flex-col rounded-xl bg-white p-5 transition-colors hover:bg-[#f2f2eb] dark:bg-[#1a1a1a] dark:hover:bg-[#242420] lg:p-6"
     >
-      <div className="mb-8 flex h-10 w-10 items-center justify-center rounded-lg bg-[#1a1a1a] text-white">
+      <div className="mb-8 flex h-10 w-10 items-center justify-center rounded-lg bg-[#1a1a1a] text-white dark:bg-[#f8f8f2] dark:text-[#0d0e0c]">
         <Server className="h-5 w-5" />
       </div>
       <h3 className="text-lg font-semibold tracking-tight">{item.name}</h3>
-      <p className="mt-2 text-sm font-medium leading-snug text-[#1a1a1a]/70">
+      <p className="mt-2 text-sm font-medium leading-snug text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
         {item.description}
       </p>
-      <p className="mt-auto pt-6 text-sm font-medium text-[#1a1a1a]/55">
+      <p className="mt-auto pt-6 text-sm font-medium text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
         {item.host}
       </p>
     </AppLink>
@@ -506,9 +432,9 @@ function AppLink({
     return (
       <a
         href={href}
+        className={className}
         target="_blank"
         rel="noopener noreferrer"
-        className={className}
         data-shortcut-id={shortcutId}
         data-shortcut-number={shortcutNumber}
       >
