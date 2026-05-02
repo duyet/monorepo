@@ -143,6 +143,7 @@
       "name": "ai-percentage",
       "version": "0.1.0",
       "dependencies": {
+        "@duyet/components": "*",
         "@duyet/config": "*",
         "@duyet/libs": "*",
         "@tanstack/react-router": "^1.0.0",
@@ -348,6 +349,7 @@
       "version": "0.1.0",
       "dependencies": {
         "@duyet/components": "*",
+        "@duyet/config": "*",
         "@duyet/libs": "*",
         "@duyet/urls": "*",
         "@duyet/wasm": "*",

@@ -60,15 +60,16 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
           media="print"
-          // @ts-expect-error onLoad is valid on link elements
-          onLoad="this.media='all'"
+          onLoad={(event) => {
+            event.currentTarget.media = "all";
+          }}
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
         />
       </head>
       <body>
@@ -78,8 +79,8 @@ function RootComponent() {
             shortText={insightsConfig.header.shortText}
           />
 
-          <main className="bg-white text-neutral-950">
-            <Container className="mb-20 pt-6">
+          <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2] 2xl:rounded-b-[4rem]">
+            <Container className="mb-20 max-w-[1360px] px-5 pb-16 pt-6 sm:px-8 lg:px-10">
               <div className="mb-8 flex flex-wrap items-center justify-between gap-3">
                 <CompactNavigation />
                 <GlobalPeriodSelector />

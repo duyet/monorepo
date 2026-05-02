@@ -1,5 +1,10 @@
+import "@duyet/components/styles.css";
 import "../styles.css";
 
+import Analytics from "@duyet/components/Analytics";
+import Footer from "@duyet/components/Footer";
+import Header from "@duyet/components/Header";
+import ThemeProvider from "@duyet/components/ThemeProvider";
 import {
   createRootRoute,
   HeadContent,
@@ -42,12 +47,17 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
       <body>
-        <Outlet />
+        <ThemeProvider>
+          <Header longText="AI Code Usage" shortText="AI %" />
+          <Outlet />
+          <Footer />
+        </ThemeProvider>
+        <Analytics />
         <Scripts />
       </body>
     </html>

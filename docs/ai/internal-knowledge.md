@@ -212,4 +212,5 @@ The current public-app visual direction is a Websmith-inspired Duyet system, not
 - `apps/agents`: preserve the chat workspace. Restyle tokens, sidebars, top bar, empty state, messages, composer, tool approvals, and right rail. Keep mobile drawers reachable and clamped.
 - `apps/blog`: keep white background preference. Use compact home cards and mobile-safe archive rows; avoid the old large shared-card padding in 3-column contexts.
 - `apps/insights`: keep dashboard density. Use the shared warm/near-black tokens and compact operational panels rather than a landing-page composition.
+- `apps/insights`: architecture is static HTML frontend plus backend Worker API calls. Do not use TanStack Start server functions for runtime data loading; client-side data refreshes should call `apps/api` Worker endpoints.
 - `apps/photos`: keep the photo-first white background. Text metadata such as location must truncate or wrap safely.

@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@duyet/components": "*",
+    "@duyet/config": "*",
     "@duyet/libs": "*",
     "@duyet/urls": "*",
     "@duyet/wasm": "*",

@@ -51,7 +51,7 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
@@ -61,8 +61,8 @@ function RootComponent() {
             longText={homelabConfig.header.longText}
             shortText={homelabConfig.header.shortText}
           />
-          <main>
-            <Container className="mb-20 max-w-[1280px] px-4 sm:px-6 lg:px-8">
+          <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2] 2xl:rounded-b-[4rem]">
+            <Container className="mb-20 max-w-[1360px] px-5 pb-16 pt-8 sm:px-8 lg:px-10">
               <Outlet />
             </Container>
           </main>

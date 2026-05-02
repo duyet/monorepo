@@ -13,16 +13,16 @@ export function AIPercentageChart({ days = 365 }: AIPercentageChartProps) {
 
   if (isLoading) {
     return (
-      <div className="flex h-64 items-center justify-center rounded-xl border border-border bg-card p-5">
-        <div className="h-8 w-8 animate-pulse rounded-lg bg-secondary" />
+      <div className="flex h-64 items-center justify-center rounded-xl bg-white p-5 dark:bg-[#171815]">
+        <div className="h-8 w-8 animate-pulse rounded-lg bg-[#eeeee5] dark:bg-[#242420]" />
       </div>
     );
   }
 
   if (error || !data || data.length === 0) {
     return (
-      <div className="flex h-64 items-center justify-center rounded-xl border border-border bg-card p-5">
-        <p className="text-muted-foreground">
+      <div className="flex h-64 items-center justify-center rounded-xl bg-white p-5 dark:bg-[#171815]">
+        <p className="text-[#686862] dark:text-[#b7b7aa]">
           {error ? "Failed to load data" : "No data available"}
         </p>
       </div>
@@ -39,10 +39,10 @@ export function AIPercentageChart({ days = 365 }: AIPercentageChartProps) {
   }));
 
   return (
-    <div className="rounded-xl border border-border bg-card p-5">
+    <div className="rounded-xl bg-white p-5 shadow-[0_1px_0_rgba(0,0,0,0.08),0_22px_60px_rgba(0,0,0,0.06)] dark:bg-[#171815]">
       <div className="mb-4">
         <h3 className="text-sm font-semibold">AI vs Human Code Over Time</h3>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-xs text-[#686862] dark:text-[#b7b7aa]">
           Daily lines added by AI and human contributors (in thousands)
         </p>
       </div>
@@ -131,11 +131,11 @@ export function AIPercentageChart({ days = 365 }: AIPercentageChartProps) {
       <div className="mt-4 flex items-center justify-center gap-6 text-xs">
         <div className="flex items-center gap-2">
           <div className="h-3 w-3 rounded-full bg-accent" />
-          <span className="text-muted-foreground">AI Code</span>
+          <span className="text-[#686862] dark:text-[#b7b7aa]">AI Code</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="h-3 w-3 rounded-full bg-blue-600" />
-          <span className="text-muted-foreground">Human Code</span>
+          <span className="text-[#686862] dark:text-[#b7b7aa]">Human Code</span>
         </div>
       </div>
     </div>
