@@ -55,18 +55,18 @@ function HomelabPage() {
   );
 
   return (
-    <div className="space-y-8">
-      <section className="rounded-xl border border-border bg-card p-5 shadow-sm sm:p-6">
-        <div className="grid gap-6 lg:grid-cols-[1.3fr_1fr] lg:items-end">
+    <div className="space-y-10">
+      <section className="pt-8 lg:pt-12">
+        <div className="grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
           <div>
-            <div className="mb-4 inline-flex items-center gap-2 rounded-lg border border-[#d9ead0] bg-[#eef8e8] px-3 py-1 text-xs font-medium text-neutral-800 dark:border-emerald-900/40 dark:bg-emerald-950/30 dark:text-emerald-300">
-              <Activity className="h-3.5 w-3.5" />
+            <div className="mb-5 inline-flex items-center gap-2 rounded-md bg-[#1a1a1a] px-3 py-2 text-sm font-medium text-white">
+              <Activity className="h-4 w-4 text-[#ff6a00]" />
               Snapshot dashboard
             </div>
-            <h1 className="text-3xl font-semibold tracking-tight text-neutral-950 dark:text-foreground sm:text-4xl">
-              Homelab
+            <h1 className="max-w-4xl text-balance text-5xl font-semibold tracking-tight text-[#1a1a1a] dark:text-[#f8f8f2] sm:text-6xl lg:text-7xl">
+              Homelab operating view.
             </h1>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-600 dark:text-muted-foreground">
+            <p className="mt-6 max-w-3xl text-pretty text-lg leading-8 text-[#4d4d4d] dark:text-[#cfcfc8]">
               Cluster health, running services, network throughput, and smart
               home devices in one operational view.
             </p>
@@ -97,8 +97,8 @@ function HomelabPage() {
         smartDevices={smartDevices}
       />
 
-      <div className="border-t border-border pt-4">
-        <p className="text-xs text-neutral-500 dark:text-muted-foreground">
+      <div className="border-t border-black/10 pt-5 dark:border-white/15">
+        <p className="text-sm leading-6 text-[#686862] dark:text-[#b7b7aa]">
           This is not a realtime dashboard. Data is captured by AI Agent and
           committed directly to source code. Snapshot taken at {snapshotDate}.
         </p>
@@ -117,16 +117,14 @@ function SummaryMetric({
   value: string;
 }) {
   return (
-    <div className="rounded-lg border border-border bg-secondary p-3">
-      <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-card text-neutral-700 shadow-sm dark:text-foreground">
+    <div className="rounded-xl bg-white p-4 text-[#1a1a1a] shadow-[inset_0_-1px_0_rgba(0,0,0,0.08)] first:bg-[#cfe2f3] [&:nth-child(2)]:bg-[#b8efd2] [&:nth-child(3)]:bg-[#f6c5c7]">
+      <div className="mb-8 flex h-9 w-9 items-center justify-center rounded-lg bg-black/10 text-[#1a1a1a]">
         {icon}
       </div>
-      <div className="text-lg font-semibold tabular-nums text-neutral-950 dark:text-foreground">
+      <div className="text-2xl font-semibold tabular-nums tracking-tight">
         {value}
       </div>
-      <div className="text-xs text-neutral-500 dark:text-muted-foreground">
-        {label}
-      </div>
+      <div className="mt-1 text-sm font-medium text-black/60">{label}</div>
     </div>
   );
 }

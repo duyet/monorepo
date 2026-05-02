@@ -1,4 +1,3 @@
-import { createClient } from "@clickhouse/client";
 import type { ClickHouseConfig, QueryResult } from "../types";
 
 const DEBUG = process.env.NODE_ENV !== "production";
@@ -91,13 +90,28 @@ export function getClickHouseConfig(): ClickHouseConfig | null {
 }
 
 // Singleton client instance for connection pooling
-let clientInstance: ReturnType<typeof createClient> | null = null;
+let clientInstance: {
+  close: () => Promise<void>;
+  query: (args: {
+    abort_signal?: AbortSignal;
+    format: "JSONEachRow";
+    query: string;
+    query_id?: string;
+  }) => Promise<{
+    json: () => Promise<unknown>;
+    query_id?: string;
+  }>;
+} | null = null;
 
 /**
  * Get ClickHouse client instance with error handling and connection pooling
  * Returns a singleton instance that reuses connections via Keep-Alive
  */
-export function getClickHouseClient() {
+export async function getClickHouseClient() {
+  if (typeof window !== "undefined") {
+    return null;
+  }
+
   // Return existing client if available
   if (clientInstance) {
     return clientInstance;
@@ -110,6 +124,8 @@ export function getClickHouseClient() {
   }
 
   try {
+    const { createClient } = await import("@clickhouse/client");
+
     // Use official URL format: protocol://username:password@host:port/database
     // This is the recommended approach per ClickHouse JS client docs
     const encodedUsername = encodeURIComponent(config.username);
@@ -312,7 +328,7 @@ export async function executeClickHouseQuery(
     maxRetries,
   });
 
-  const client = getClickHouseClient();
+  const client = await getClickHouseClient();
 
   if (!client) {
     console.error(
@@ -508,7 +524,7 @@ export async function testClickHouseConnection(): Promise<{
     };
   }
 
-  const client = getClickHouseClient();
+  const client = await getClickHouseClient();
   if (!client) {
     return {
       success: false,

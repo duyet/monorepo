@@ -13,6 +13,7 @@
     "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh ai-percentage duyet-ai-percentage"
   },
   "dependencies": {
+    "@duyet/components": "*",
     "@duyet/config": "*",
     "@duyet/libs": "*",
     "@tanstack/react-router": "^1.0.0",

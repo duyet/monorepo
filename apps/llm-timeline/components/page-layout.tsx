@@ -14,35 +14,31 @@ interface PageLayoutProps {
 
 export function PageLayout({ children, description }: PageLayoutProps) {
   return (
-    <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8 overflow-hidden">
-        {/* Header */}
-        <header className="mb-5">
-          <div className="flex items-start justify-between gap-4">
+    <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2] 2xl:rounded-b-[4rem]">
+      <div className="mx-auto max-w-[1360px] overflow-hidden px-5 pb-16 pt-8 sm:px-8 lg:px-10">
+        <header className="mb-8 pt-8 lg:pt-12">
+          <div className="grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
             <div className="animate-fade-in">
-              {/* Subtitle row with status dot */}
-              <div className="mb-1.5 flex items-center gap-2 animate-fade-in">
-                <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                <span className="text-[11px] font-mono tracking-wide uppercase text-muted-foreground">
-                  Interactive LLM Release History
-                </span>
+              <div className="mb-5 inline-flex animate-fade-in items-center gap-2 rounded-md bg-[#1a1a1a] px-3 py-2 text-sm font-medium text-white">
+                <span className="flex h-2 w-2 rounded-full bg-[#ff6a00]" />
+                <span>Interactive LLM Release History</span>
               </div>
 
               <Link
                 to="/"
                 className="group inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded"
               >
-                <h1 className="text-3xl sm:text-4xl font-bold text-foreground tracking-tight transition-opacity group-hover:opacity-80 font-[family-name:var(--font-display)]">
+                <h1 className="max-w-5xl text-balance font-[family-name:var(--font-sans)] text-5xl font-semibold tracking-tight text-[#1a1a1a] transition-opacity group-hover:opacity-80 dark:text-[#f8f8f2] sm:text-6xl lg:text-7xl">
                   LLM Timeline
                 </h1>
               </Link>
               {description && (
-                <p className="mt-2 text-sm text-muted-foreground max-w-xl animate-fade-in animate-fade-in-delay-1">
+                <p className="mt-6 max-w-3xl animate-fade-in animate-fade-in-delay-1 text-pretty text-lg leading-8 text-[#4d4d4d] dark:text-[#cfcfc8]">
                   {description}
                 </p>
               )}
             </div>
-            <div className="flex items-center gap-1 animate-fade-in animate-fade-in-delay-2">
+            <div className="flex animate-fade-in animate-fade-in-delay-2 flex-wrap items-center gap-2 lg:justify-end">
               <ThemeToggle />
               <Button variant="icon" size="icon" asChild>
                 <Link
@@ -94,16 +90,11 @@ export function PageLayout({ children, description }: PageLayoutProps) {
           </div>
         </header>
 
-        {/* Gradient separator */}
-        <div className="mb-5 h-px bg-gradient-to-r from-transparent via-border to-transparent animate-fade-in animate-fade-in-delay-2" />
-
-        {/* Content */}
-        <div className="animate-fade-in animate-fade-in-delay-3">
+        <div className="animate-fade-in animate-fade-in-delay-3 space-y-8">
           {children}
         </div>
 
-        {/* Footer */}
-        <footer className="mt-16 border-t border-border pt-8 pb-8">
+        <footer className="mt-16 border-t border-black/10 pt-8 pb-8 dark:border-white/15">
           <div className="flex flex-wrap items-center justify-between gap-4 text-sm text-muted-foreground">
             <p>
               Built by{" "}
@@ -158,6 +149,6 @@ export function PageLayout({ children, description }: PageLayoutProps) {
           </div>
         </footer>
       </div>
-    </div>
+    </main>
   );
 }

@@ -35,7 +35,7 @@ export function StatsHeader({
 
   return (
     <>
-      <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-2">
+      <div className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
         {stats.map(({ label, value, icon: Icon, view }) => {
           const isActive = view !== undefined && activeView === view;
           const isClickable = view !== undefined;
@@ -44,10 +44,10 @@ export function StatsHeader({
             <div
               key={label}
               className={cn(
-                "rounded-xl border p-4 transition-all",
+                "rounded-xl p-5 text-[#1a1a1a] shadow-[inset_0_-1px_0_rgba(0,0,0,0.08)] transition-all",
                 isActive
-                  ? "border-foreground/20 bg-card"
-                  : "border-border bg-card hover:border-foreground/20",
+                  ? "bg-[#b8efd2]"
+                  : "bg-[#cfe2f3] hover:-translate-y-0.5",
                 isClickable
                   ? "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   : "cursor-default"
@@ -64,13 +64,13 @@ export function StatsHeader({
                   : undefined
               }
             >
-              <div className="mb-3 inline-flex rounded-lg bg-muted p-2.5">
-                <Icon className="h-4 w-4 text-muted-foreground" />
+              <div className="mb-8 inline-flex rounded-lg bg-black/10 p-2.5">
+                <Icon className="h-4 w-4 text-[#1a1a1a]" />
               </div>
-              <div className="text-2xl font-semibold font-[family-name:var(--font-mono)] text-foreground">
+              <div className="font-[family-name:var(--font-mono)] text-3xl font-semibold text-[#1a1a1a]">
                 {value.toLocaleString()}
               </div>
-              <div className="mt-0.5 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              <div className="mt-1 text-sm font-medium text-black/60">
                 {label}
               </div>
             </div>

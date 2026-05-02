@@ -52,6 +52,8 @@ yarn-error.log*
 # Screenshot files
 *-app.png
 .herenow/
+.codex/
+output/
 
 # Rust/WASM
 target/

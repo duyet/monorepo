@@ -3,7 +3,10 @@ import "../globals.css";
 import "../animations.css";
 
 import Analytics from "@duyet/components/Analytics";
+import Footer from "@duyet/components/Footer";
+import Header from "@duyet/components/Header";
 import ThemeProvider from "@duyet/components/ThemeProvider";
+import { llmTimelineConfig } from "@duyet/config";
 import { cn } from "@duyet/libs/utils";
 import {
   createRootRoute,
@@ -96,20 +99,25 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
         {/* Non-blocking Google Fonts: preloaded above, applied here */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:wght@400&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
-          media="print"
-          // @ts-expect-error onLoad is valid on link elements
-          onLoad="this.media='all'"
+          media="all"
         />
       </head>
       <body>
         <ThemeProvider>
+          <Header
+            longText="LLM Timeline"
+            shortText={llmTimelineConfig.metadata.title.replace(
+              " | duyet.net",
+              ""
+            )}
+          />
           <div
             className={cn(
               "text-foreground",
@@ -119,6 +127,7 @@ function RootComponent() {
           >
             <Outlet />
           </div>
+          <Footer />
         </ThemeProvider>
         <Analytics />
         <Scripts />
