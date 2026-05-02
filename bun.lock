@@ -429,6 +429,7 @@
         "@tremor/react": "^3.18.3",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
+        "cmdk": "^1.1.1",
         "lucide-react": "^1.0.0",
         "next-themes": "^0.4.0",
         "react": "19.2.5",

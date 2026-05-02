@@ -1,21 +1,37 @@
+import {
+  Button,
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@duyet/components";
 import { cn } from "@duyet/libs/utils";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   ChartNoAxesCombined,
-  Newspaper,
-  UserRound,
   FileUser,
   Link as LinkIcon,
+  MenuIcon,
+  Newspaper,
   Server,
+  UserRound,
 } from "lucide-react";
 import type { ReactNode } from "react";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { addUtmParams } from "../../app/lib/utm";
 import { BuildDate } from "../components/BuildDate";
 import { FooterInteractive } from "../components/FooterInteractive";
 import { KeyboardFeatures } from "../components/KeyboardFeatures";
-import { apps, type AppItem } from "../data/projects";
+import { type AppItem, apps } from "../data/projects";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -60,6 +76,33 @@ const capabilities = [
   },
 ];
 
+const navItems = [
+  {
+    label: "Blog",
+    href: addUtmParams("https://blog.duyet.net", "homepage", "header_blog"),
+  },
+  { label: "Projects", href: "/projects" },
+  {
+    label: "Experience",
+    href: addUtmParams("https://cv.duyet.net", "homepage", "header_cv"),
+  },
+  {
+    label: "Insights",
+    href: addUtmParams(
+      "https://insights.duyet.net",
+      "homepage",
+      "header_insights"
+    ),
+  },
+  { label: "About", href: "/about" },
+];
+
+const statusHref = addUtmParams(
+  "https://status.duyet.net",
+  "homepage",
+  "header_status"
+);
+
 function HomePage() {
   const visualApps = apps.filter((item) => item.screenshot);
   const compactApps = apps.filter((item) => !item.screenshot);
@@ -81,50 +124,24 @@ function HomePage() {
             </Link>
 
             <nav className="hidden items-center gap-7 text-sm font-medium md:flex">
-              <a
-                href={addUtmParams(
-                  "https://blog.duyet.net",
-                  "homepage",
-                  "header_blog"
-                )}
-              >
-                Blog
-              </a>
-              <Link to="/projects">Projects</Link>
-              <a
-                href={addUtmParams(
-                  "https://cv.duyet.net",
-                  "homepage",
-                  "header_cv"
-                )}
-              >
-                Experience
-              </a>
-              <a
-                href={addUtmParams(
-                  "https://insights.duyet.net",
-                  "homepage",
-                  "header_insights"
-                )}
-              >
-                Insights
-              </a>
-              <Link to="/about">About</Link>
+              {navItems.map((item) => (
+                <HeaderLink key={item.label} href={item.href}>
+                  {item.label}
+                </HeaderLink>
+              ))}
             </nav>
 
             <a
-              href={addUtmParams(
-                "https://status.duyet.net",
-                "homepage",
-                "header_status"
-              )}
+              href={statusHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex min-w-24 items-center justify-end gap-2 text-sm font-medium"
+              className="hidden min-w-24 items-center justify-end gap-2 text-sm font-medium md:flex"
             >
               <span className="h-3 w-3 rounded-full bg-orange-500" />
               <span>Status</span>
             </a>
+
+            <MobileMenu />
           </div>
         </header>
 
@@ -143,27 +160,6 @@ function HomePage() {
           </section>
 
           <section className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 xl:gap-8">
-              {visualApps.slice(0, 6).map((item, index) => (
-                <ProjectCard
-                  key={item.name}
-                  item={item}
-                  shortcutNumber={index + 1}
-                />
-              ))}
-            </div>
-
-            <div className="my-10 flex justify-center lg:my-14">
-              <Link
-                to="/projects"
-                className="rounded-lg bg-[#1a1a1a] px-6 py-4 text-base font-medium text-white transition-colors hover:bg-[#444] dark:bg-[#f8f8f2] dark:text-[#0d0e0c] dark:hover:bg-white lg:px-8 lg:text-lg"
-              >
-                View more projects
-              </Link>
-            </div>
-          </section>
-
-          <section className="mx-auto mt-24 max-w-[1280px] px-5 sm:px-8 lg:mt-32 lg:px-10 xl:mt-40">
             <h2 className="text-2xl font-semibold tracking-tight md:text-3xl xl:text-4xl">
               Explore the work
             </h2>
@@ -177,7 +173,7 @@ function HomePage() {
 
           <section
             id="apps"
-            className="mx-auto mt-24 max-w-[1280px] px-5 sm:px-8 lg:mt-32 lg:px-10 xl:mt-40"
+            className="mx-auto mt-16 max-w-[1280px] px-5 sm:px-8 lg:mt-20 lg:px-10 xl:mt-24"
           >
             <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
               <h2 className="text-2xl font-semibold tracking-tight md:text-3xl xl:text-4xl">
@@ -189,13 +185,22 @@ function HomePage() {
             </div>
 
             <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 xl:gap-8">
-              {visualApps.slice(6).map((item, index) => (
+              {visualApps.map((item, index) => (
                 <ProjectCard
                   key={item.name}
                   item={item}
-                  shortcutNumber={index < 4 ? index + 7 : undefined}
+                  shortcutNumber={index < 10 ? index + 1 : undefined}
                 />
               ))}
+            </div>
+
+            <div className="my-10 flex justify-center lg:my-14">
+              <Link
+                to="/projects"
+                className="rounded-lg bg-[#1a1a1a] px-6 py-4 text-base font-medium text-white transition-colors hover:bg-[#444] dark:bg-[#f8f8f2] dark:text-[#0d0e0c] dark:hover:bg-white lg:px-8 lg:text-lg"
+              >
+                View more projects
+              </Link>
             </div>
 
             {compactApps.length > 0 && (
@@ -298,6 +303,78 @@ function HomePage() {
   );
 }
 
+function HeaderLink({ href, children }: { href: string; children: ReactNode }) {
+  if (href.startsWith("http")) {
+    return <a href={href}>{children}</a>;
+  }
+
+  return <Link to={href}>{children}</Link>;
+}
+
+function MobileMenu() {
+  const [open, setOpen] = useState(false);
+  const items = [
+    ...navItems,
+    {
+      label: "Status",
+      href: statusHref,
+      external: true,
+    },
+  ];
+
+  return (
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
+        <Button
+          type="button"
+          variant="outline"
+          size="icon"
+          className="md:hidden"
+          aria-label="Open menu"
+        >
+          <MenuIcon data-icon="inline-start" />
+        </Button>
+      </SheetTrigger>
+      <SheetContent
+        side="top"
+        className="mx-auto mt-3 w-[calc(100%-2rem)] max-w-sm rounded-xl border border-[#1a1a1a]/10 p-0 dark:border-white/10"
+      >
+        <SheetHeader className="px-4 pt-4 text-left">
+          <SheetTitle className="text-base">Menu</SheetTitle>
+          <SheetDescription className="sr-only">
+            Search and open Duyet site navigation links.
+          </SheetDescription>
+        </SheetHeader>
+        <Command className="bg-transparent">
+          <CommandInput placeholder="Search pages..." />
+          <CommandList>
+            <CommandEmpty>No page found.</CommandEmpty>
+            <CommandGroup heading="Navigation">
+              {items.map((item) => (
+                <CommandItem
+                  key={item.label}
+                  value={item.label}
+                  onSelect={() => {
+                    setOpen(false);
+                    window.location.href = item.href;
+                  }}
+                >
+                  <span>{item.label}</span>
+                  {"external" in item && item.external ? (
+                    <span className="ml-auto text-xs text-muted-foreground">
+                      External
+                    </span>
+                  ) : null}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </SheetContent>
+    </Sheet>
+  );
+}
+
 function DuyetMark() {
   return (
     <span className="grid h-5 w-5 grid-cols-2 gap-0.5" aria-hidden="true">
@@ -319,7 +396,7 @@ function ProjectCard({
   return (
     <AppLink
       item={item}
-      className={`group overflow-hidden rounded-xl border border-[#1a1a1a]/10 ${item.tone ?? "bg-[#1a1a1a]"} transition-transform hover:-translate-y-0.5 dark:border-white/10`}
+      className={`group overflow-hidden rounded-xl ${item.tone ?? "bg-[#1a1a1a]"} transition-transform hover:-translate-y-0.5`}
       shortcutNumber={shortcutNumber}
     >
       <div className="overflow-hidden bg-[#1a1a1a]">
