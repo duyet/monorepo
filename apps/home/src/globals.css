@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   :root {
     --font-inter:
@@ -9,6 +11,11 @@
     --color-primary: #1a1a1a;
     --color-theme: #f8f8f2;
     --color-status: oklch(70.5% 0.213 47.604);
+  }
+
+  html.dark {
+    --color-primary: #f8f8f2;
+    --color-theme: #0d0e0c;
   }
 
   html {
@@ -24,9 +31,10 @@
     text-rendering: optimizeLegibility;
   }
 
-  .dark body {
+  html.dark body {
     background-color: var(--color-theme);
     color: var(--color-primary);
+    color-scheme: dark;
   }
 }
 
