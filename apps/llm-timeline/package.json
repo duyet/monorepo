@@ -19,8 +19,8 @@
     "llms-txt": "bun scripts/generate-llms-txt.ts",
     "sitemap": "bun scripts/generate-sitemap.ts",
     "prebuild": "bun scripts/generate-rss.ts && bun scripts/generate-llms-txt.ts && bun scripts/generate-data-json.ts",
-    "sync": "bun scripts/sync-data.ts",
-    "sync:dry": "bun scripts/sync-data.ts --dry-run --verbose"
+    "sync": "bun run --cwd \"$PWD/../..\" rust:build && bun scripts/sync-data.ts",
+    "sync:dry": "bun run --cwd \"$PWD/../..\" rust:build && bun scripts/sync-data.ts --dry-run --verbose"
   },
   "dependencies": {
     "@duyet/components": "*",
