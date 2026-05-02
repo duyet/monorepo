@@ -14,7 +14,7 @@ const hostOf = (url: string) => new URL(url).host;
 
 const projectUrls = {
   llmTimeline: "https://llm-timeline.duyet.net",
-  agents: "https://agents.duyet.net",
+  agents: "https://agents.duyet.net/agents",
   claw: "https://claw.duyet.net",
   claudePlugins: "https://github.com/duyet/claude-plugins",
   stamp: "https://stamp.duyet.net",
@@ -24,53 +24,6 @@ const projectUrls = {
 };
 
 export const apps: AppItem[] = [
-  {
-    name: "LLM Timeline",
-    href: "/",
-    host: hostOf(projectUrls.llmTimeline),
-    utmContent: "llm_timeline_bento",
-    description: "Interactive timeline of 50+ LLM models from 2017-2025",
-    screenshot: "/screenshots/llm-timeline.png",
-    tone: "bg-[#4f6f62]",
-  },
-  {
-    name: "AI Agents",
-    href: "/agents",
-    host: hostOf(projectUrls.agents),
-    utmContent: "agents_bento",
-    description: "AI chat interface with Cloudflare Workers AI and streaming",
-    screenshot: "/screenshots/ai-agents.png",
-    tone: "bg-[#536f91]",
-  },
-  {
-    name: "OpenClaw",
-    href: "/claw",
-    host: hostOf(projectUrls.claw),
-    utmContent: "claw_bento",
-    description: "OpenClaw Management Dashboard",
-    screenshot: "/screenshots/openclaw.png",
-    tone: "bg-[#7f524e]",
-  },
-  {
-    name: "MCP Tools",
-    href: duyetUrls.external.mcp ?? "https://mcp.duyet.net",
-    host: hostOf(duyetUrls.external.mcp ?? "https://mcp.duyet.net"),
-    utmContent: "mcp_bento",
-    description: "Model Context Protocol tools and integrations",
-    screenshot: "/screenshots/mcp-tools-art.png",
-    tone: "bg-[#5f6257]",
-  },
-  {
-    name: "Rust Tiếng Việt",
-    href: duyetUrls.external.rust ?? "https://rust-tieng-viet.github.io",
-    host: hostOf(
-      duyetUrls.external.rust ?? "https://rust-tieng-viet.github.io"
-    ),
-    utmContent: "rust_bento",
-    description: "Rust programming language documentation in Vietnamese",
-    screenshot: "/screenshots/rust-art.png",
-    tone: "bg-[#6a5578]",
-  },
   {
     name: "ClickHouse Monitoring",
     href: duyetUrls.external.clickhouse ?? "https://clickhouse.duyet.net",
@@ -83,7 +36,36 @@ export const apps: AppItem[] = [
     tone: "bg-[#8b633f]",
   },
   {
-    name: "Claude Plugins",
+    name: "Rust Tieng Viet",
+    href: duyetUrls.external.rust ?? "https://rust-tieng-viet.github.io",
+    host: hostOf(
+      duyetUrls.external.rust ?? "https://rust-tieng-viet.github.io"
+    ),
+    utmContent: "rust_bento",
+    description: "Rust programming language documentation in Vietnamese",
+    screenshot: "/screenshots/rust-art.png",
+    tone: "bg-[#6a5578]",
+  },
+  {
+    name: "MCP Tools",
+    href: duyetUrls.external.mcp ?? "https://mcp.duyet.net",
+    host: hostOf(duyetUrls.external.mcp ?? "https://mcp.duyet.net"),
+    utmContent: "mcp_bento",
+    description: "Model Context Protocol tools and integrations",
+    screenshot: "/screenshots/mcp-tools-art.png",
+    tone: "bg-[#5f6257]",
+  },
+  {
+    name: "AI Agents",
+    href: projectUrls.agents,
+    host: hostOf(projectUrls.agents),
+    utmContent: "agents_bento",
+    description: "AI chat interface with Cloudflare Workers AI and streaming",
+    screenshot: "/screenshots/ai-agents.png",
+    tone: "bg-[#536f91]",
+  },
+  {
+    name: "Claude Codex Plugins",
     href: projectUrls.claudePlugins,
     host: hostOf(projectUrls.claudePlugins),
     utmContent: "claude_plugins_bento",
@@ -92,7 +74,7 @@ export const apps: AppItem[] = [
     tone: "bg-[#4f6f62]",
   },
   {
-    name: "Stamp",
+    name: "Stamps",
     href: "/stamp",
     host: hostOf(projectUrls.stamp),
     utmContent: "stamp_bento",
@@ -101,8 +83,8 @@ export const apps: AppItem[] = [
     tone: "bg-[#7f524e]",
   },
   {
-    name: "AgentState",
-    href: "/agentstate",
+    name: "Agent State",
+    href: projectUrls.agentState,
     host: hostOf(projectUrls.agentState),
     utmContent: "agentstate_bento",
     description: "AI agent state management and debugging tools",
@@ -110,7 +92,7 @@ export const apps: AppItem[] = [
     tone: "bg-[#536f91]",
   },
   {
-    name: "Agent Demo",
+    name: "Okie.one",
     href: "/okie",
     host: hostOf(projectUrls.okie),
     utmContent: "okie_bento",
@@ -119,12 +101,21 @@ export const apps: AppItem[] = [
     tone: "bg-[#5f6257]",
   },
   {
-    name: "pageview",
+    name: "PageView",
     href: projectUrls.pageview,
     host: hostOf(projectUrls.pageview),
     utmContent: "pageview_bento",
     description: "Simple, privacy-friendly analytics for websites",
     screenshot: "/screenshots/pageview-art.svg",
     tone: "bg-[#7a705d]",
+  },
+  {
+    name: "LLM Timeline",
+    href: "/",
+    host: hostOf(projectUrls.llmTimeline),
+    utmContent: "llm_timeline_bento",
+    description: "Interactive timeline of 50+ LLM models from 2017-2025",
+    screenshot: "/screenshots/llm-timeline.png",
+    tone: "bg-[#4f6f62]",
   },
 ];
