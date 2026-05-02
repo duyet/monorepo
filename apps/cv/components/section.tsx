@@ -9,7 +9,7 @@ interface SectionProps {
 export function Section({ title, className, children }: SectionProps) {
   return (
     <section className={cn(className)}>
-      <h2 className="mb-3 font-[family-name:var(--font-serif)] text-lg font-bold tracking-tight text-neutral-500 dark:text-neutral-400">
+      <h2 className="mb-4 text-3xl font-semibold tracking-tight text-neutral-950 dark:text-foreground print:mb-1 print:text-[8pt]">
         {title}
       </h2>
       {children}

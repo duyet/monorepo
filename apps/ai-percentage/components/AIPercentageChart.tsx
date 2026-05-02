@@ -13,15 +13,15 @@ export function AIPercentageChart({ days = 365 }: AIPercentageChartProps) {
 
   if (isLoading) {
     return (
-      <div className="flex h-64 items-center justify-center rounded-lg border bg-card p-8">
-        <div className="h-8 w-8 animate-pulse rounded-full bg-gray-200" />
+      <div className="flex h-64 items-center justify-center rounded-xl border border-border bg-card p-5">
+        <div className="h-8 w-8 animate-pulse rounded-lg bg-secondary" />
       </div>
     );
   }
 
   if (error || !data || data.length === 0) {
     return (
-      <div className="flex h-64 items-center justify-center rounded-lg border bg-card p-8">
+      <div className="flex h-64 items-center justify-center rounded-xl border border-border bg-card p-5">
         <p className="text-muted-foreground">
           {error ? "Failed to load data" : "No data available"}
         </p>
@@ -39,9 +39,9 @@ export function AIPercentageChart({ days = 365 }: AIPercentageChartProps) {
   }));
 
   return (
-    <div className="rounded-lg border bg-card p-6">
+    <div className="rounded-xl border border-border bg-card p-5">
       <div className="mb-4">
-        <h3 className="font-medium">AI vs Human Code Over Time</h3>
+        <h3 className="text-sm font-semibold">AI vs Human Code Over Time</h3>
         <p className="text-xs text-muted-foreground">
           Daily lines added by AI and human contributors (in thousands)
         </p>
@@ -50,11 +50,19 @@ export function AIPercentageChart({ days = 365 }: AIPercentageChartProps) {
         <svg viewBox="0 0 800 200" className="h-full w-full">
           <defs>
             <linearGradient id="aiGradient" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="#9333ea" stopOpacity={0.3} />
-              <stop offset="100%" stopColor="#9333ea" stopOpacity={0} />
+              <stop
+                offset="0%"
+                stopColor="oklch(70.5% 0.213 47.604)"
+                stopOpacity={0.28}
+              />
+              <stop
+                offset="100%"
+                stopColor="oklch(70.5% 0.213 47.604)"
+                stopOpacity={0}
+              />
             </linearGradient>
             <linearGradient id="humanGradient" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="#2563eb" stopOpacity={0.3} />
+              <stop offset="0%" stopColor="#2563eb" stopOpacity={0.24} />
               <stop offset="100%" stopColor="#2563eb" stopOpacity={0} />
             </linearGradient>
           </defs>
@@ -69,7 +77,12 @@ export function AIPercentageChart({ days = 365 }: AIPercentageChartProps) {
 
             return (
               <g key={row.date}>
-                <circle cx={x} cy={aiY} r="3" fill="#9333ea" />
+                <circle
+                  cx={x}
+                  cy={aiY}
+                  r="3"
+                  fill="oklch(70.5% 0.213 47.604)"
+                />
                 <circle cx={x} cy={humanY} r="3" fill="#2563eb" />
               </g>
             );
@@ -89,7 +102,7 @@ export function AIPercentageChart({ days = 365 }: AIPercentageChartProps) {
               })
               .join(" ")}
             fill="none"
-            stroke="#9333ea"
+            stroke="oklch(70.5% 0.213 47.604)"
             strokeWidth="2"
             strokeOpacity="0.8"
           />
@@ -117,7 +130,7 @@ export function AIPercentageChart({ days = 365 }: AIPercentageChartProps) {
 
       <div className="mt-4 flex items-center justify-center gap-6 text-xs">
         <div className="flex items-center gap-2">
-          <div className="h-3 w-3 rounded-full bg-purple-600" />
+          <div className="h-3 w-3 rounded-full bg-accent" />
           <span className="text-muted-foreground">AI Code</span>
         </div>
         <div className="flex items-center gap-2">

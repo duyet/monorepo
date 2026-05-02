@@ -9,14 +9,14 @@ export function ServiceDowntime() {
   return (
     <div>
       <div className="mb-4 flex flex-row items-center justify-between">
-        <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+        <h2 className="text-base font-semibold tracking-tight text-neutral-950 dark:text-foreground">
           Recent Service Downtime
         </h2>
         <a
           href={EXTERNAL_LINKS.UPTIME_MONITOR}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+          className="flex items-center gap-1 text-xs text-neutral-700 underline decoration-neutral-300 underline-offset-2 hover:text-neutral-950 dark:text-muted-foreground dark:hover:text-foreground"
         >
           View full history
           <ExternalLink className="h-3 w-3" />
@@ -24,7 +24,7 @@ export function ServiceDowntime() {
       </div>
       {downtimeHistory.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-12 text-center">
-          <div className="rounded-full bg-green-100 p-4 dark:bg-green-900/30">
+          <div className="rounded-xl bg-[#eef8e8] p-4 dark:bg-emerald-950/30">
             <AlertCircle className="h-8 w-8 text-green-600" />
           </div>
           <p className="mt-4 text-lg font-medium">All systems operational</p>
@@ -37,7 +37,7 @@ export function ServiceDowntime() {
           {downtimeHistory.map((incident, index) => (
             <div
               key={index}
-              className="flex items-start gap-2 rounded-lg border border-neutral-200 bg-neutral-50 p-2 dark:border-neutral-800 dark:bg-neutral-900/50"
+              className="flex items-start gap-2 rounded-lg border border-[#e8e0d4] bg-white p-2 dark:border-white/12 dark:bg-[#1a1a1a]"
             >
               <div className="rounded bg-orange-100 p-1 dark:bg-orange-900/30">
                 <AlertCircle className="h-4 w-4 text-orange-600" />
@@ -45,10 +45,10 @@ export function ServiceDowntime() {
               <div className="flex-1 text-xs">
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <h4 className="font-mono font-semibold text-neutral-900 dark:text-neutral-100">
+                    <h4 className="font-mono font-semibold text-neutral-950 dark:text-foreground">
                       {incident.service}
                     </h4>
-                    <p className="text-neutral-600 dark:text-neutral-400">
+                    <p className="text-neutral-600 dark:text-muted-foreground">
                       {incident.reason}
                     </p>
                   </div>
@@ -57,7 +57,7 @@ export function ServiceDowntime() {
                     {incident.duration}
                   </div>
                 </div>
-                <div className="mt-1 flex gap-2 text-neutral-500 dark:text-neutral-500">
+                <div className="mt-1 flex gap-2 text-neutral-500 dark:text-muted-foreground">
                   <span>{incident.start}</span>
                   <span>→</span>
                   <span>{incident.end}</span>

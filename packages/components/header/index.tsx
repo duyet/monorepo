@@ -6,7 +6,6 @@ import { duyetProfile } from "@duyet/profile";
 import type { UrlsConfig } from "@duyet/urls";
 import { duyetUrls } from "@duyet/urls";
 import { Menu as MenuIcon, X } from "lucide-react";
-import { useState } from "react";
 import Container from "../Container";
 import MenuNav, { type NavigationItem } from "../Menu";
 import { AuthButtons } from "./AuthButtons";
@@ -59,8 +58,6 @@ export default function Header({
   className,
   containerClassName,
 }: HeaderProps) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
   // Use profile defaults if not overridden
   const displayShortText = shortText ?? profile.personal.shortName;
   const displayLongText = longText ?? profile.personal.title;
@@ -101,33 +98,22 @@ export default function Header({
           {/* Mobile: hamburger + auth */}
           <div className="flex items-center gap-3 md:hidden">
             <AuthButtons urls={urls} />
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen((prev) => !prev)}
-              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={mobileMenuOpen}
-              className="p-1 text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 rounded"
-            >
-              {mobileMenuOpen ? (
-                <X className="size-5" />
-              ) : (
-                <MenuIcon className="size-5" />
-              )}
-            </button>
+            <details className="group relative">
+              <summary className="flex cursor-pointer list-none rounded p-1 text-neutral-700 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:text-neutral-300 dark:hover:text-neutral-100 dark:focus-visible:ring-neutral-500 [&::-webkit-details-marker]:hidden">
+                <span className="sr-only">Toggle menu</span>
+                <MenuIcon className="size-5 group-open:hidden" />
+                <X className="hidden size-5 group-open:block" />
+              </summary>
+              <div className="absolute right-0 top-full z-50 mt-3 w-[min(260px,calc(100vw-2rem))] rounded-xl border border-neutral-200 bg-white p-4 shadow-lg dark:border-white/10 dark:bg-[#1a1a1a]">
+                <MenuNav
+                  urls={urls}
+                  navigationItems={navigationItems}
+                  className="flex-col items-start gap-3"
+                />
+              </div>
+            </details>
           </div>
         </nav>
-
-        {/* Mobile dropdown */}
-        {mobileMenuOpen && (
-          <div className="md:hidden border-t border-neutral-200 dark:border-neutral-700 mt-4 pt-4">
-            <MenuNav
-              urls={urls}
-              navigationItems={navigationItems}
-              className="flex-col gap-3"
-              onItemClick={() => setMobileMenuOpen(false)}
-            />
-          </div>
-        )}
       </Container>
     </header>
   );

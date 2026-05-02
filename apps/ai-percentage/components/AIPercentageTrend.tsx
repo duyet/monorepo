@@ -13,15 +13,15 @@ export function AIPercentageTrend({ days = 365 }: AIPercentageTrendProps) {
 
   if (isLoading) {
     return (
-      <div className="flex h-64 items-center justify-center rounded-lg border bg-card p-8">
-        <div className="h-8 w-8 animate-pulse rounded-full bg-gray-200" />
+      <div className="flex h-64 items-center justify-center rounded-xl border border-border bg-card p-5">
+        <div className="h-8 w-8 animate-pulse rounded-lg bg-secondary" />
       </div>
     );
   }
 
   if (error || !data || data.length === 0) {
     return (
-      <div className="flex h-64 items-center justify-center rounded-lg border bg-card p-8">
+      <div className="flex h-64 items-center justify-center rounded-xl border border-border bg-card p-5">
         <p className="text-muted-foreground">
           {error ? "Failed to load data" : "No data available"}
         </p>
@@ -38,9 +38,9 @@ export function AIPercentageTrend({ days = 365 }: AIPercentageTrendProps) {
   }));
 
   return (
-    <div className="rounded-lg border bg-card p-6">
+    <div className="rounded-xl border border-border bg-card p-5">
       <div className="mb-4">
-        <h3 className="font-medium">AI Code Percentage Trend</h3>
+        <h3 className="text-sm font-semibold">AI Code Percentage Trend</h3>
         <p className="text-xs text-muted-foreground">
           Percentage of AI-written code over time
         </p>
@@ -49,8 +49,16 @@ export function AIPercentageTrend({ days = 365 }: AIPercentageTrendProps) {
         <svg viewBox="0 0 800 200" className="h-full w-full">
           <defs>
             <linearGradient id="trendGradient" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="#9333ea" stopOpacity={0.3} />
-              <stop offset="100%" stopColor="#9333ea" stopOpacity={0} />
+              <stop
+                offset="0%"
+                stopColor="oklch(70.5% 0.213 47.604)"
+                stopOpacity={0.28}
+              />
+              <stop
+                offset="100%"
+                stopColor="oklch(70.5% 0.213 47.604)"
+                stopOpacity={0}
+              />
             </linearGradient>
           </defs>
 
@@ -63,7 +71,7 @@ export function AIPercentageTrend({ days = 365 }: AIPercentageTrendProps) {
               })
               .join(" ")}
             fill="url(#trendGradient)"
-            stroke="#9333ea"
+            stroke="oklch(70.5% 0.213 47.604)"
             strokeWidth="2"
           />
         </svg>

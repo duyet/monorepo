@@ -82,7 +82,7 @@ export const TIME_POINTS = [
 
 // Bento grid cell styling — flat, consistent tiles
 export const BENTO_CELL =
-  "rounded-2xl border border-neutral-200 p-5 dark:border-neutral-700/50 dark:bg-neutral-800/80";
+  "rounded-xl border border-border bg-card p-4 shadow-sm sm:p-5";
 
 // Chart colors — Claude brand palette for Recharts
 export const CHART_COLORS = {

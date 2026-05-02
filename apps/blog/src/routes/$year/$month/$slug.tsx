@@ -110,10 +110,11 @@ function PostPage() {
   };
 
   return (
-    <Container>
-      <div className="relative">
+    <div className="min-h-screen bg-white pb-14 dark:bg-[#0d0e0c]">
+      <Container>
+        <div className="relative">
         <ReadingProgress />
-        <div className="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+        <div className="container mx-auto mb-10 max-w-2xl px-0">
           <article>
             <Content post={post} />
             <Meta className="mt-10" post={post} series={series} />
@@ -130,6 +131,7 @@ function PostPage() {
 
         <TableOfContents headings={post.headings || []} />
       </div>
-    </Container>
+      </Container>
+    </div>
   );
 }

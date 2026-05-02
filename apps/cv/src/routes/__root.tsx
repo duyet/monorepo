@@ -128,20 +128,20 @@ function RootComponent() {
       <body>
         <ThemeProvider>
           <main>
-            <Container className="mb-20 mt-10 min-h-screen max-w-3xl md:mt-20 print:mb-10 print:mt-10">
+            <Container className="mb-16 mt-8 min-h-screen max-w-6xl bg-white px-5 md:mt-12 print:m-0 print:max-w-none print:p-0">
               <Outlet />
             </Container>
           </main>
-          <div className="border-t print:hidden">
+          <div className="print:hidden">
             <Header
               logo={false}
-              containerClassName="max-w-3xl"
+              containerClassName="max-w-5xl"
               longText="Resume"
               navigationItems={[HOME, BLOG, PHOTOS, INSIGHTS, ABOUT]}
               shortText="CV"
             />
           </div>
-          <Footer className="print:hidden" containerClassName="max-w-3xl" />
+          <Footer className="print:hidden" containerClassName="max-w-5xl" />
           <Analytics />
         </ThemeProvider>
         <Scripts />

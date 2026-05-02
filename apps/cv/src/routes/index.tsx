@@ -1,4 +1,3 @@
-import { Separator } from "@duyet/components/ui/separator";
 import { createFileRoute } from "@tanstack/react-router";
 import { Education } from "@/components/education";
 import { ExperienceItem } from "@/components/experience";
@@ -16,11 +15,11 @@ function Page() {
   const { personal, experience, education } = cvData;
 
   return (
-    <div className="m-auto flex min-h-screen flex-col gap-6 text-sm text-foreground">
+    <div className="m-auto flex min-h-screen flex-col gap-9 bg-white text-sm text-foreground print:min-h-0 print:gap-2 print:text-black">
       <Profile personal={personal} />
 
       <Section title="Experience">
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-5 print:gap-1.5">
           {experience.map((exp) => (
             <ExperienceItem
               key={exp.id}
@@ -37,35 +36,22 @@ function Page() {
         </div>
       </Section>
 
-      <Section title="Education">
-        {education.map((edu) => (
-          <Education
-            key={edu.id}
-            major={edu.major}
-            thesis={edu.thesis}
-            thesisUrl={edu.thesisUrl}
-            university={edu.university}
-            period={edu.period}
-          />
-        ))}
-      </Section>
+      <div className="grid gap-8 lg:grid-cols-[0.9fr_1.4fr]">
+        <Section title="Education">
+          {education.map((edu) => (
+            <Education
+              key={edu.id}
+              major={edu.major}
+              thesis={edu.thesis}
+              thesisUrl={edu.thesisUrl}
+              university={edu.university}
+              period={edu.period}
+            />
+          ))}
+        </Section>
 
-      <SkillsSection />
-
-      <footer className="cv-print-footer hidden print:block">
-        <Separator className="cv-footer-separator my-2" />
-        <p className="text-xs text-muted-foreground">
-          Live version at{" "}
-          <a
-            href="https://duyet.net/cv"
-            className="underline"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            https://duyet.net/cv
-          </a>
-        </p>
-      </footer>
+        <SkillsSection />
+      </div>
     </div>
   );
 }

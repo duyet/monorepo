@@ -40,8 +40,15 @@
 }
 
 .dark {
-  --background: #ffffff;
-  --foreground: #1a1a1a;
+  --background: #0d0e0c;
+  --foreground: #f8f8f2;
+  --muted: #242420;
+  --muted-foreground: #b0b0a8;
+  --border: rgba(248, 248, 242, 0.12);
+  --accent: oklch(70.5% 0.213 47.604);
+  --panel-blue: #1a2a3f;
+  --panel-emerald: #164634;
+  --panel-red: #3f1f1f;
 }
 
 html {

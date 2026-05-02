@@ -39,39 +39,39 @@ function HomePage() {
     .map(([tag]) => tag);
 
   return (
-    <div className="min-h-screen bg-white pb-14">
-      <Container>
-        <div className="mb-10 max-w-4xl pt-8 sm:pt-12">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
+    <div className="bg-white pb-14 dark:bg-[#0d0e0c]">
+      <Container className="max-w-[1280px] px-5 sm:px-8 lg:px-10">
+        <div className="mb-10 max-w-4xl pt-10 sm:pt-14 lg:pt-20">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500 dark:text-[#f8f8f2]/55">
             Blog archive
           </p>
-          <h1 className="max-w-3xl text-4xl font-semibold leading-[0.98] tracking-tight text-neutral-950 sm:text-5xl lg:text-6xl">
+          <h1 className="max-w-3xl text-4xl font-semibold leading-[0.98] tracking-tight text-neutral-950 dark:text-[#f8f8f2] sm:text-5xl lg:text-6xl">
             Notes on data, systems, and engineering craft.
           </h1>
-          <p className="mt-5 max-w-2xl text-sm leading-6 text-neutral-600 sm:text-base">
+          <p className="mt-5 max-w-2xl text-sm leading-6 text-neutral-600 dark:text-[#f8f8f2]/70 sm:text-base">
             Lists all{" "}
-            <strong className="font-semibold text-neutral-950">
+            <strong className="font-semibold text-neutral-950 dark:text-[#f8f8f2]">
               {postCount} posts
             </strong>{" "}
             of the past {pastYears} years of blogging. You can jump straight to
             the{" "}
             <Link
               to="/feed"
-              className="font-medium text-neutral-950 underline underline-offset-4 transition-colors hover:text-neutral-600"
+              className="font-medium text-neutral-950 underline underline-offset-4 transition-colors hover:text-neutral-600 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
             >
               /feed
             </Link>{" "}
             for latest posts, also explore{" "}
             <Link
               to="/tags"
-              className="font-medium text-neutral-950 underline underline-offset-4 transition-colors hover:text-neutral-600"
+              className="font-medium text-neutral-950 underline underline-offset-4 transition-colors hover:text-neutral-600 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
             >
               by the topics
             </Link>{" "}
             or{" "}
             <Link
               to="/featured"
-              className="font-medium text-neutral-950 underline underline-offset-4 transition-colors hover:text-neutral-600"
+              className="font-medium text-neutral-950 underline underline-offset-4 transition-colors hover:text-neutral-600 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
             >
               my featured posts
             </Link>
@@ -81,7 +81,7 @@ function HomePage() {
 
         <HomeCards seriesList={topSeriesList} topTags={topTags} />
 
-        <div className="grid gap-8 lg:grid-cols-3">
+        <div className="flex max-w-4xl flex-col gap-10">
           {Object.entries(postsByYear)
             .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
             .map(([year, posts]) => (

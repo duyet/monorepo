@@ -10,15 +10,40 @@ import type {
 } from "../types";
 import { anonymizeProjects, distributePercentages } from "./data-processing";
 import {
-  executeClickHouseQuery,
-  executeClickHouseQueryLegacy,
-  testClickHouseConnection,
-} from "./database";
-import {
   getCreatedAtCondition,
   getDateCondition,
   validateDaysParameter,
 } from "./queries";
+
+async function executeServerClickHouseQuery(
+  query: string,
+  timeoutMs: number,
+  maxRetries: number
+) {
+  if (typeof window !== "undefined") {
+    return { success: false, data: [], error: "ClickHouse is server-only" };
+  }
+
+  const { executeClickHouseQuery } = await import(
+    /* @vite-ignore */ "./database"
+  );
+  return executeClickHouseQuery(query, timeoutMs, maxRetries);
+}
+
+async function testServerClickHouseConnection() {
+  if (typeof window !== "undefined") {
+    return {
+      success: false,
+      message: "ClickHouse health check is server-only",
+      details: {},
+    };
+  }
+
+  const { testClickHouseConnection } = await import(
+    /* @vite-ignore */ "./database"
+  );
+  return testClickHouseConnection();
+}
 
 async function executeDuckDBCacheQuery(
   query: string
@@ -34,19 +59,34 @@ async function executeDuckDBCacheQuery(
 }
 
 let hasLoggedDuckDBCacheFallback = false;
+let clickHouseUnavailable = false;
+
+const CLICKHOUSE_FALLBACK_TIMEOUT_MS = 5_000;
 
 async function executeAnalyticsQuery(
   clickHouseQuery: string,
   duckDBQuery = clickHouseQuery
 ): Promise<Record<string, unknown>[]> {
   let results: Record<string, unknown>[] = [];
-  try {
-    results = await executeClickHouseQueryLegacy(clickHouseQuery);
-  } catch (error) {
-    console.warn(
-      "[CCUsage] ClickHouse query failed, trying DuckDB cache:",
-      error instanceof Error ? error.message : error
-    );
+
+  if (!clickHouseUnavailable) {
+    try {
+      const result = await executeServerClickHouseQuery(
+        clickHouseQuery,
+        CLICKHOUSE_FALLBACK_TIMEOUT_MS,
+        1
+      );
+      results = result.data;
+      if (!result.success) {
+        clickHouseUnavailable = true;
+      }
+    } catch (error) {
+      console.warn(
+        "[CCUsage] ClickHouse query failed, trying DuckDB cache:",
+        error instanceof Error ? error.message : error
+      );
+      clickHouseUnavailable = true;
+    }
   }
 
   if (results.length > 0) {
@@ -83,7 +123,7 @@ export function checkClickHouseHealth(): Promise<boolean> {
     const startTime = Date.now();
 
     try {
-      const result = await testClickHouseConnection();
+      const result = await testServerClickHouseConnection();
 
       if (!result.success) {
         console.error("[ClickHouse Health] ✗ Connection failed:", {
@@ -119,7 +159,7 @@ export async function pingClickHouse(): Promise<{
   const startTime = Date.now();
 
   try {
-    const result = await executeClickHouseQuery(
+    const result = await executeServerClickHouseQuery(
       "SELECT 1 as ping, now() as server_time",
       10000, // 10 second timeout for ping
       1 // Only 1 attempt for ping
@@ -154,15 +194,6 @@ export async function pingClickHouse(): Promise<{
 export async function getCCUsageMetrics(
   days: DateRangeDays = 30
 ): Promise<CCUsageMetricsData> {
-  // Run health check on first call to quickly detect connectivity issues
-  const healthy = await checkClickHouseHealth();
-  if (!healthy) {
-    console.error(
-      "[CCUsage Metrics] Health check failed - ClickHouse may be unreachable"
-    );
-    // Continue anyway - the actual queries will also fail but with more details
-  }
-
   const dateCondition = getDateCondition(days);
   const query = `
     SELECT

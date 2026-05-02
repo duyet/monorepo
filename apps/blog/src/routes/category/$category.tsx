@@ -85,7 +85,7 @@ function PostsByCategory() {
         />
 
         {/* Posts organized by year */}
-        <div className="flex flex-col gap-12">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {Object.entries(postsByYear)
             .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
             .map(([year, yearPosts]) => (

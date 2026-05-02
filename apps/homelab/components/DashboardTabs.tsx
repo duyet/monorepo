@@ -67,7 +67,11 @@ export function DashboardTabs({
   return (
     <div className="space-y-8">
       {/* Tab Navigation */}
-      <div className="flex gap-2" role="tablist" onKeyDown={handleKeyDown}>
+      <div
+        className="flex flex-wrap gap-2"
+        role="tablist"
+        onKeyDown={handleKeyDown}
+      >
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -83,10 +87,10 @@ export function DashboardTabs({
               aria-controls={`${tab.id}-panel`}
               tabIndex={isActive ? 0 : -1}
               onClick={() => handleTabChange(tab.id)}
-              className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+              className={`inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
                 isActive
-                  ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
-                  : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-700"
+                  ? "bg-neutral-950 text-white dark:bg-neutral-950 dark:text-white"
+                  : "bg-white text-neutral-600 ring-1 ring-[#e8e0d4] hover:bg-[#fffdf7] dark:bg-[#1a1a1a] dark:text-muted-foreground dark:ring-white/12 dark:hover:bg-[#242420]"
               }`}
             >
               <Icon className="h-4 w-4" />

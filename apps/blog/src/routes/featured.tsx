@@ -29,28 +29,28 @@ function Featured() {
   );
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white pb-14 dark:bg-[#0d0e0c]">
       <Container>
-        <div className="bg-cactus-light dark:bg-cactus-light/20 mb-12 rounded-3xl p-12 md:p-16">
-          <h1 className="mb-8 font-serif text-4xl font-bold text-neutral-900 dark:text-neutral-100 md:text-5xl lg:text-6xl">
+        <div className="mb-12 rounded-xl border border-neutral-950/10 bg-[#dcefe7] p-6 dark:border-white/10 dark:bg-[#164634] sm:p-8 md:p-10">
+          <h1 className="mb-5 text-4xl font-semibold tracking-tight text-neutral-950 dark:text-[#f8f8f2] md:text-5xl">
             Featured
           </h1>
-          <p className="max-w-2xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
+          <p className="max-w-2xl text-sm leading-6 text-neutral-700 dark:text-[#f8f8f2]/75 sm:text-base">
             This page highlights{" "}
-            <strong className="font-semibold text-neutral-900 dark:text-neutral-100">
+            <strong className="font-semibold text-neutral-950 dark:text-[#f8f8f2]">
               {postCount} featured blog posts
             </strong>
             . You can also explore{" "}
             <Link
               to="/"
-              className="text-neutral-900 dark:text-neutral-100 underline underline-offset-4 transition-colors hover:text-neutral-600 dark:hover:text-neutral-400"
+              className="font-medium text-neutral-950 underline underline-offset-4 transition-colors hover:text-neutral-600 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
             >
               all posts
             </Link>{" "}
             or{" "}
             <Link
               to="/tags"
-              className="text-neutral-900 dark:text-neutral-100 underline underline-offset-4 transition-colors hover:text-neutral-600 dark:hover:text-neutral-400"
+              className="font-medium text-neutral-950 underline underline-offset-4 transition-colors hover:text-neutral-600 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
             >
               by the topics
             </Link>
@@ -58,7 +58,7 @@ function Featured() {
           </p>
         </div>
 
-        <div className="flex flex-col gap-12">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {Object.entries(postsByYear)
             .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
             .map(([year, posts]) => (

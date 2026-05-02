@@ -26,15 +26,15 @@ function Tags() {
   const totalPosts = Object.values(tags).reduce((sum, count) => sum + count, 0);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white pb-14 dark:bg-[#0d0e0c]">
       <Container>
-        <div className="mb-12">
-          <h1 className="mb-6 font-serif text-5xl font-bold text-neutral-900 dark:text-neutral-100 md:text-6xl lg:text-7xl">
+        <div className="mb-12 max-w-3xl pt-8 sm:pt-12">
+          <h1 className="mb-5 text-4xl font-semibold tracking-tight text-neutral-950 dark:text-[#f8f8f2] sm:text-5xl lg:text-6xl">
             Topics
           </h1>
-          <p className="max-w-2xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
+          <p className="max-w-2xl text-sm leading-6 text-neutral-600 dark:text-[#f8f8f2]/70 sm:text-base">
             Explore my writing organized by{" "}
-            <strong className="font-semibold text-neutral-900 dark:text-neutral-100">
+            <strong className="font-semibold text-neutral-950 dark:text-[#f8f8f2]">
               {tagEntries.length} diverse topics
             </strong>
             , spanning programming languages, frameworks, data engineering,
@@ -43,7 +43,7 @@ function Tags() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {tagEntries.map(([tag, count], index) => {
             const metadata = getTagMetadata(tag, count, index);
 

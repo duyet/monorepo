@@ -23,52 +23,56 @@
 }
 
 :root {
+  --font-inter:
+    "Inter", -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui,
+    sans-serif;
+  --font-serif: "Libre Baskerville", Georgia, serif;
   --background: #ffffff;
-  --foreground: #1f1f1f;
+  --foreground: #241f17;
   --card: #ffffff;
-  --card-foreground: #1f1f1f;
+  --card-foreground: #241f17;
   --popover: #ffffff;
-  --popover-foreground: #1f1f1f;
-  --primary: #18181b;
+  --popover-foreground: #1a1a1a;
+  --primary: #1a1a1a;
   --primary-foreground: #f9f9f8;
-  --secondary: #e8e6e2;
-  --secondary-foreground: #1f1f1f;
-  --muted: #e8e6e2;
-  --muted-foreground: #71717a;
-  --accent: #e8e6e2;
-  --accent-foreground: #1f1f1f;
+  --secondary: #ede3d5;
+  --secondary-foreground: #241f17;
+  --muted: #ede3d5;
+  --muted-foreground: #6f665b;
+  --accent: #e7dac8;
+  --accent-foreground: #241f17;
   --destructive: hsl(0 84.2% 60.2%);
   --destructive-foreground: hsl(0 0% 98%);
-  --border: #e8e6e2;
-  --input: #e8e6e2;
-  --ring: #18181b;
+  --border: #d8c8b4;
+  --input: #d8c8b4;
+  --ring: #1a1a1a;
   --chart-1: hsl(12 76% 61%);
   --chart-2: hsl(173 58% 39%);
   --chart-3: hsl(197 37% 24%);
   --chart-4: hsl(43 74% 66%);
   --chart-5: hsl(27 87% 67%);
-  --radius: 0.5rem;
+  --radius: 0.625rem;
 }
 .dark {
-  --background: #1f1f1f;
-  --foreground: #f9f9f8;
-  --card: #111111;
-  --card-foreground: #f9f9f8;
-  --popover: #111111;
-  --popover-foreground: #f9f9f8;
-  --primary: #f9f9f8;
-  --primary-foreground: #18181b;
-  --secondary: #2b2a27;
-  --secondary-foreground: #f9f9f8;
-  --muted: #2b2a27;
-  --muted-foreground: #a1a1aa;
-  --accent: #2b2a27;
-  --accent-foreground: #f9f9f8;
-  --destructive: hsl(0 62.8% 30.6%);
-  --destructive-foreground: hsl(0 0% 98%);
-  --border: #3d3c38;
-  --input: #3d3c38;
-  --ring: #d4d4d8;
+  --background: #0d0e0c;
+  --foreground: #f8f8f2;
+  --card: #1a1a1a;
+  --card-foreground: #f8f8f2;
+  --popover: #1a1a1a;
+  --popover-foreground: #f8f8f2;
+  --primary: #f8f8f2;
+  --primary-foreground: #0d0e0c;
+  --secondary: #242420;
+  --secondary-foreground: #f8f8f2;
+  --muted: #242420;
+  --muted-foreground: #b0b0a8;
+  --accent: #2a2a24;
+  --accent-foreground: #f8f8f2;
+  --destructive: #f87171;
+  --destructive-foreground: #0d0e0c;
+  --border: rgba(248, 248, 242, 0.12);
+  --input: rgba(248, 248, 242, 0.12);
+  --ring: #f8f8f2;
   --chart-1: hsl(220 70% 50%);
   --chart-2: hsl(160 60% 45%);
   --chart-3: hsl(30 80% 55%);
@@ -110,6 +114,17 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-inter);
+    font-feature-settings: "ss01", "ss02", "cv01", "zero";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  html,
+  body,
+  main {
+    background: #ffffff;
   }
 }
 
@@ -118,7 +133,7 @@
   /* Use A4 page size with proper margins */
   @page {
     size: A4;
-    margin: 15mm 20mm;
+    margin: 8mm 10mm;
   }
 
   html,
@@ -129,22 +144,20 @@
     padding: 0;
   }
 
-  /* Professional serif font for better print readability */
   body {
-    font-family: "Georgia", "Times New Roman", Times, serif !important;
-    font-size: 11pt !important;
-    line-height: 1.4 !important;
+    font-family: var(--font-inter), Arial, sans-serif !important;
+    font-size: 8.5pt !important;
+    line-height: 1.22 !important;
     background: white !important;
     color: #000 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
-  /* Keep serif font for headings */
   h1,
   h2,
   h3 {
-    font-family: var(--font-serif), Georgia, serif !important;
+    font-family: var(--font-inter), Arial, sans-serif !important;
   }
 
   /* Link styling: show URLs after links for reference */
@@ -165,6 +178,12 @@
     min-height: auto !important;
     margin: 0 !important;
     padding: 0 !important;
+  }
+
+  main,
+  main > *,
+  main [class*="min-h-screen"] {
+    min-height: 0 !important;
   }
 
   /* Reduce all gaps and spacing */
@@ -190,19 +209,20 @@
   }
 
   h1 {
-    font-size: 18pt !important;
-    margin-bottom: 0.3rem !important;
+    font-size: 20pt !important;
+    margin-bottom: 0.1rem !important;
     font-weight: 700 !important;
   }
 
   h2 {
-    font-size: 14pt !important;
-    margin-bottom: 0.2rem !important;
+    font-size: 8pt !important;
+    margin-bottom: 0.08rem !important;
     font-weight: 600 !important;
+    letter-spacing: 0.08em !important;
   }
 
   h3 {
-    font-size: 12pt !important;
+    font-size: 9.5pt !important;
     font-weight: 600 !important;
   }
 
@@ -262,34 +282,9 @@
   }
 
   /* Print footer styling */
-  .cv-print-footer {
-    margin-top: 0.3rem !important;
-    padding-top: 0.2rem !important;
-  }
-
-  .cv-print-footer p {
-    font-size: 8pt !important;
-    font-weight: 400 !important;
-    text-align: left !important;
-    color: #666 !important;
-    line-height: 1.2 !important;
-  }
-
-  .cv-print-footer a {
-    color: #666 !important;
-    text-decoration: none !important;
-    font-weight: 400 !important;
-  }
-
-  .cv-print-footer .cv-footer-separator {
-    margin: 0.1rem 0 !important;
-    width: 30% !important;
-    max-width: 30% !important;
-    height: 0.5px !important;
-    border: none !important;
-    border-top: 0.5px solid #ccc !important;
-    opacity: 0.5 !important;
-    background: transparent !important;
+  .cv-print-footer,
+  footer {
+    display: none !important;
   }
 
   /* Optimize list styling */
@@ -299,14 +294,12 @@
   }
 
   li {
-    margin: 0.1rem 0 !important;
+    margin: 0 !important;
   }
 
   /* Company logos - keep grayscale for professional look */
   img {
-    filter: grayscale(100%) !important;
-    max-width: 1.5em !important;
-    max-height: 1.5em !important;
+    display: none !important;
   }
 
   /* Ensure all text is readable in print - force dark colors */

@@ -3,18 +3,17 @@ import type { PersonalInfo } from "@/config/cv.types";
 
 export function Profile({ personal }: { personal: PersonalInfo }) {
   return (
-    <header className="flex flex-col gap-3">
-      <h1 className="inline-flex flex-wrap items-center gap-2 font-[family-name:var(--font-serif)] text-[28px] font-bold tracking-tight text-neutral-950 dark:text-neutral-50">
+    <header className="flex flex-col gap-4 bg-white print:gap-1">
+      <h1 className="flex flex-col gap-1 text-balance text-5xl font-semibold leading-none tracking-tight text-neutral-950 sm:text-6xl dark:text-foreground print:text-[20pt]">
         <span>{personal.name}</span>
-        <span className="text-neutral-300 dark:text-neutral-700">/</span>
-        <span className="font-normal text-neutral-500 dark:text-neutral-400">
+        <span className="text-3xl font-medium text-neutral-500 sm:text-4xl dark:text-muted-foreground print:text-[12pt]">
           {personal.title}
         </span>
       </h1>
 
       <ContactLinks contacts={personal.contacts} />
 
-      <p className="max-w-2xl text-[15px] leading-7 text-neutral-700 dark:text-neutral-300">
+      <p className="max-w-4xl text-balance text-lg font-medium leading-8 text-neutral-800 dark:text-foreground/80 print:text-[9pt] print:font-normal print:leading-snug">
         {personal.overview}
       </p>
     </header>

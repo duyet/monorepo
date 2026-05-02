@@ -25,66 +25,66 @@ export function NetworkStats() {
     <div className="space-y-6">
       {/* Speedtest Results */}
       <div>
-        <h2 className="mb-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+        <h2 className="mb-4 text-base font-semibold tracking-tight text-neutral-950 dark:text-foreground">
           Internet Speed Test
         </h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {/* Download — emerald */}
-          <div className="rounded-3xl border border-emerald-200/70 bg-gradient-to-br from-emerald-100 to-emerald-50 p-4 dark:border-emerald-700/20 dark:from-emerald-900/25 dark:to-emerald-950/10">
+          <div className="rounded-xl border border-[#d9ead0] bg-[#eef8e8] p-4 dark:border-emerald-900/40 dark:bg-emerald-950/30">
             <div className="flex items-center gap-2">
               <ArrowDown className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
               <p className="text-xs font-medium text-emerald-700 dark:text-emerald-300">
                 Download
               </p>
             </div>
-            <p className="mt-2 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+            <p className="mt-2 text-2xl font-semibold text-neutral-950 dark:text-foreground">
               {speedTest.download}
             </p>
-            <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+            <p className="mt-1 text-sm text-neutral-600 dark:text-muted-foreground">
               Mbps
             </p>
           </div>
 
           {/* Upload — red */}
-          <div className="rounded-3xl border border-red-200/70 bg-gradient-to-br from-red-100 to-red-50 p-4 dark:border-red-700/20 dark:from-red-900/25 dark:to-red-950/10">
+          <div className="rounded-xl border border-[#f0d8c5] bg-[#fff1e4] p-4 dark:border-red-900/40 dark:bg-red-950/30">
             <div className="flex items-center gap-2">
               <ArrowUp className="h-4 w-4 text-red-600 dark:text-red-400" />
               <p className="text-xs font-medium text-red-700 dark:text-red-300">
                 Upload
               </p>
             </div>
-            <p className="mt-2 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+            <p className="mt-2 text-2xl font-semibold text-neutral-950 dark:text-foreground">
               {speedTest.upload}
             </p>
-            <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+            <p className="mt-1 text-sm text-neutral-600 dark:text-muted-foreground">
               Mbps
             </p>
           </div>
 
           {/* Ping — violet */}
-          <div className="rounded-3xl border border-violet-200/70 bg-gradient-to-br from-violet-100 to-violet-50 p-4 dark:border-violet-700/20 dark:from-violet-900/25 dark:to-violet-950/10">
+          <div className="rounded-xl border border-[#dddafe] bg-[#f3f2ff] p-4 dark:border-violet-900/40 dark:bg-violet-950/30">
             <div className="flex items-center gap-2">
-              <Gauge className="h-4 w-4 text-violet-600 dark:text-violet-400" />
-              <p className="text-xs font-medium text-violet-700 dark:text-violet-300">
+              <Gauge className="h-4 w-4 text-violet-600 dark:text-violet-600" />
+              <p className="text-xs font-medium text-violet-700 dark:text-violet-700">
                 Ping
               </p>
             </div>
-            <p className="mt-2 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+            <p className="mt-2 text-2xl font-semibold text-neutral-950 dark:text-foreground">
               {speedTest.ping}
             </p>
-            <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+            <p className="mt-1 text-sm text-neutral-600 dark:text-muted-foreground">
               ms
             </p>
           </div>
         </div>
-        <p className="mt-4 text-xs text-neutral-600 dark:text-neutral-400">
+        <p className="mt-4 text-xs text-neutral-600 dark:text-muted-foreground">
           Last test: {speedTest.timestamp} (via speedtest-cli)
         </p>
       </div>
 
       {/* Network Traffic Chart */}
       <div>
-        <h2 className="mb-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+        <h2 className="mb-4 text-base font-semibold tracking-tight text-neutral-950 dark:text-foreground">
           Network Traffic - Last 24 Hours
         </h2>
         <ResponsiveContainer width="100%" height={240}>
@@ -146,13 +146,13 @@ export function NetworkStats() {
         <div className="mt-3 flex justify-center gap-6 text-xs">
           <div className="flex items-center gap-2">
             <div className="h-2 w-2 rounded-full bg-claude-sky" />
-            <span className="text-neutral-600 dark:text-neutral-400">
+            <span className="text-neutral-600 dark:text-muted-foreground">
               Incoming
             </span>
           </div>
           <div className="flex items-center gap-2">
             <div className="h-2 w-2 rounded-full bg-claude-coral" />
-            <span className="text-neutral-600 dark:text-neutral-400">
+            <span className="text-neutral-600 dark:text-muted-foreground">
               Outgoing
             </span>
           </div>

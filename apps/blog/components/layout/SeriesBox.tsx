@@ -17,11 +17,11 @@ export function SeriesBox({
   return (
     <div
       className={cn(
-        "bg-oat dark:bg-claude-gray-800 rounded-3xl p-8 md:p-12",
+        "rounded-xl border border-neutral-950/10 bg-[#f4f4ef] p-6 dark:border-white/10 dark:bg-[#1a1a1a] sm:p-8",
         className
       )}
     >
-      <h2 className="mb-8 flex flex-row items-center gap-3 font-serif text-2xl font-bold text-neutral-900 dark:text-neutral-100 md:text-3xl">
+      <h2 className="mb-6 flex flex-row items-center gap-3 text-2xl font-semibold tracking-tight text-neutral-950 dark:text-[#f8f8f2] md:text-3xl">
         <NewspaperIcon size={28} strokeWidth={2} />
         Series:{" "}
         <a
@@ -38,27 +38,27 @@ export function SeriesBox({
           return (
             <div
               className={cn(
-                "flex items-center gap-6 rounded-2xl p-4 transition-all",
-                isCurrent ? "bg-white dark:bg-claude-gray-700" : ""
+                "flex items-center gap-4 rounded-lg p-3 transition-colors sm:gap-5 sm:p-4",
+                isCurrent ? "bg-white dark:bg-[#242420]" : "hover:bg-white/70 dark:hover:bg-white/5"
               )}
               key={slug}
             >
               <div
                 className={cn(
-                  "font-serif text-5xl font-bold md:text-6xl",
-                  "text-neutral-900 dark:text-neutral-100"
+                  "text-3xl font-semibold tabular-nums md:text-4xl",
+                  "text-neutral-950 dark:text-[#f8f8f2]"
                 )}
               >
                 {i + 1}
               </div>
               <div className="flex-1">
                 {isCurrent ? (
-                  <span className="line-clamp-1 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+                  <span className="line-clamp-1 text-base font-semibold text-neutral-950 dark:text-[#f8f8f2]">
                     {title}
                   </span>
                 ) : (
                   <a
-                    className="line-clamp-1 text-lg font-medium text-neutral-800 dark:text-neutral-200 transition-colors hover:text-neutral-900 dark:hover:text-neutral-100 hover:underline hover:underline-offset-4"
+                    className="line-clamp-1 text-base font-medium text-neutral-800 transition-colors hover:text-neutral-950 hover:underline hover:underline-offset-4 dark:text-[#f8f8f2]/80 dark:hover:text-[#f8f8f2]"
                     href={slug}
                   >
                     {title}
@@ -69,8 +69,8 @@ export function SeriesBox({
                   className={cn(
                     "line-clamp-1 text-sm",
                     isCurrent
-                      ? "text-neutral-700 dark:text-neutral-300"
-                      : "text-neutral-600 dark:text-neutral-400"
+                      ? "text-neutral-700 dark:text-[#f8f8f2]/70"
+                      : "text-neutral-600 dark:text-[#f8f8f2]/55"
                   )}
                 >
                   {excerpt}

@@ -56,13 +56,13 @@ function RootComponent() {
         <HeadContent />
       </head>
       <body>
-        <ThemeProvider>
+        <ThemeProvider defaultTheme="light">
           <Header
             longText={homelabConfig.header.longText}
             shortText={homelabConfig.header.shortText}
           />
           <main>
-            <Container className="mb-20">
+            <Container className="mb-20 max-w-[1280px] px-4 sm:px-6 lg:px-8">
               <Outlet />
             </Container>
           </main>

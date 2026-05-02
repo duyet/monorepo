@@ -16,10 +16,10 @@ export function SmartDevicesOverview() {
           <Wifi className="h-4 w-4 text-claude-mint" />
         </div>
         <div>
-          <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+          <p className="text-sm font-medium text-neutral-950 dark:text-foreground">
             {devices.length} Connected Device{devices.length !== 1 ? "s" : ""}
           </p>
-          <p className="text-xs text-neutral-500 dark:text-neutral-400">
+          <p className="text-xs text-neutral-500 dark:text-muted-foreground">
             {devices.filter((d) => d.status !== "offline").length} online
           </p>
         </div>
@@ -29,7 +29,7 @@ export function SmartDevicesOverview() {
       <DysonAirPurifier />
 
       {/* Separator */}
-      <div className="border-t border-neutral-200 dark:border-neutral-800" />
+      <div className="border-t border-[#e8e0d4] dark:border-white/12" />
 
       {/* Bosch Washing Machine */}
       <BoschWashingMachine />
