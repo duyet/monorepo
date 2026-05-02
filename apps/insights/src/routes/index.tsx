@@ -1,4 +1,5 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
+import { createServerFn } from "@tanstack/react-start";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   ArrowUpRight,
@@ -163,12 +164,8 @@ const PANEL_COLORS = ["#cfe2f3", "#b8efd2", "#f6c5c7", "#fde3bf", "#ded1ea"];
 const CHART_ORANGE = "#ff6a00";
 const CHART_BLACK = "#1a1a1a";
 
-export const Route = createFileRoute("/")({
-  loader: async (): Promise<LoaderData> => {
-    if (!import.meta.env.SSR) {
-      return EMPTY_LOADER_DATA;
-    }
-
+const loadOverviewData = createServerFn().handler(
+  async (): Promise<LoaderData> => {
     const [aiData, blogData, wakaData, posthogData] = await Promise.all([
       import("@/app/ai/utils/data-fetchers"),
       import("@/app/blog/cloudflare"),
@@ -206,7 +203,11 @@ export const Route = createFileRoute("/")({
       wakaMetrics: settled(wakaMetrics, EMPTY_WAKA_METRICS),
       wakaTrend: settled(wakaTrend, []),
     };
-  },
+  }
+);
+
+export const Route = createFileRoute("/")({
+  loader: async (): Promise<LoaderData> => loadOverviewData(),
   head: () => ({
     meta: [
       { title: "@duyet Insights Dashboard" },
@@ -796,6 +797,7 @@ function shortDate(date: string) {
   return parsed.toLocaleDateString("en-US", {
     day: "numeric",
     month: "short",
+    timeZone: "UTC",
   });
 }
 

@@ -53,7 +53,10 @@ function Page() {
 
           <p className="border-t border-black/10 px-4 py-4 text-center text-sm text-[#686862] dark:border-white/15 dark:text-[#b7b7aa]">
             Data Source: GitHub + ClickHouse | Detection: Co-author & email
-            patterns | Last updated: {new Date().toLocaleDateString()}
+            patterns | Last updated:{" "}
+            <span suppressHydrationWarning>
+              {new Date().toLocaleDateString()}
+            </span>
           </p>
         </div>
       </div>
