@@ -1,5 +1,4 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   ArrowUpRight,
@@ -160,54 +159,76 @@ const EMPTY_POSTHOG: PostHogSummary = {
   totalVisitors: 0,
 };
 
-const PANEL_COLORS = ["#cfe2f3", "#b8efd2", "#f6c5c7", "#fde3bf", "#ded1ea"];
-const CHART_ORANGE = "#ff6a00";
-const CHART_BLACK = "#1a1a1a";
+const PANEL_COLORS = [
+  "var(--insights-panel-blue)",
+  "var(--insights-panel-emerald)",
+  "var(--insights-panel-coral)",
+  "var(--insights-panel-orange)",
+  "var(--insights-panel-lilac)",
+];
+const CHART_ORANGE = "var(--insights-chart-accent)";
+const CHART_BLACK = "var(--insights-chart-ink)";
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "https://api.duyet.net";
 
-const loadOverviewData = createServerFn().handler(
-  async (): Promise<LoaderData> => {
-    const [aiData, blogData, wakaData, posthogData] = await Promise.all([
-      import("@/app/ai/utils/data-fetchers"),
-      import("@/app/blog/cloudflare"),
-      import("@/app/wakatime/wakatime-utils"),
-      import("@/app/blog/posthog"),
-    ]);
+async function loadOverviewDataForStaticBuild(): Promise<LoaderData> {
+  const [aiData, blogData, wakaData, posthogData] = await Promise.all([
+    import("@/app/ai/utils/data-fetchers"),
+    import("@/app/blog/cloudflare"),
+    import("@/app/wakatime/wakatime-utils"),
+    import("@/app/blog/posthog"),
+  ]);
 
-    const [
-      aiMetrics,
-      aiActivity,
-      aiModels,
-      wakaMetrics,
-      wakaLanguages,
-      wakaTrend,
-      cloudflare,
-      posthog,
-    ] = await Promise.allSettled([
-      aiData.getCCUsageMetrics(30),
-      aiData.getCCUsageActivity(30),
-      aiData.getCCUsageModels(30),
-      wakaData.getWakaTimeMetrics(30),
-      wakaData.getWakaTimeLanguages(30),
-      wakaData.getWakaTimeMonthlyTrend(),
-      blogData.fetchCloudflareData(30),
-      posthogData.fetchPostHogData(30),
-    ]);
+  const [
+    aiMetrics,
+    aiActivity,
+    aiModels,
+    wakaMetrics,
+    wakaLanguages,
+    wakaTrend,
+    cloudflare,
+    posthog,
+  ] = await Promise.allSettled([
+    aiData.getCCUsageMetrics(30),
+    aiData.getCCUsageActivity(30),
+    aiData.getCCUsageModels(30),
+    wakaData.getWakaTimeMetrics(30),
+    wakaData.getWakaTimeLanguages(30),
+    wakaData.getWakaTimeMonthlyTrend(),
+    blogData.fetchCloudflareData(30),
+    posthogData.fetchPostHogData(30),
+  ]);
 
-    return {
-      aiActivity: settled(aiActivity, []),
-      aiMetrics: settled(aiMetrics, EMPTY_AI_METRICS),
-      aiModels: settled(aiModels, []),
-      cloudflare: settled(cloudflare, EMPTY_CLOUDFLARE),
-      posthog: settled(posthog, EMPTY_POSTHOG),
-      wakaLanguages: settled(wakaLanguages, []),
-      wakaMetrics: settled(wakaMetrics, EMPTY_WAKA_METRICS),
-      wakaTrend: settled(wakaTrend, []),
-    };
+  return {
+    aiActivity: settled(aiActivity, []),
+    aiMetrics: settled(aiMetrics, EMPTY_AI_METRICS),
+    aiModels: settled(aiModels, []),
+    cloudflare: settled(cloudflare, EMPTY_CLOUDFLARE),
+    posthog: settled(posthog, EMPTY_POSTHOG),
+    wakaLanguages: settled(wakaLanguages, []),
+    wakaMetrics: settled(wakaMetrics, EMPTY_WAKA_METRICS),
+    wakaTrend: settled(wakaTrend, []),
+  };
+}
+
+async function fetchOverviewDataFromApi(): Promise<LoaderData> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/insights/overview`);
+    if (!response.ok) {
+      return EMPTY_LOADER_DATA;
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("[Insights] Overview API fetch failed:", error);
+    return EMPTY_LOADER_DATA;
   }
-);
+}
 
 export const Route = createFileRoute("/")({
-  loader: async (): Promise<LoaderData> => loadOverviewData(),
+  loader: async (): Promise<LoaderData> =>
+    import.meta.env.SSR
+      ? loadOverviewDataForStaticBuild()
+      : fetchOverviewDataFromApi(),
   head: () => ({
     meta: [
       { title: "@duyet Insights Dashboard" },

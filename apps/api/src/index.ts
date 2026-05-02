@@ -7,6 +7,7 @@
 import { Hono } from "hono";
 import aiPercentageRouter from "./routes/ai-percentage.js";
 import cardDescriptionStreamingRouter from "./routes/card-description-streaming.js";
+import insightsRouter from "./routes/insights.js";
 
 /**
  * Cloudflare Workers bindings interface
@@ -19,6 +20,7 @@ export interface Env {
   CLICKHOUSE_PASSWORD?: string;
   CLICKHOUSE_DATABASE?: string;
   CLICKHOUSE_PROTOCOL?: string;
+  WAKATIME_API_KEY?: string;
 }
 
 /**
@@ -40,7 +42,7 @@ app.use("*", async (c, next) => {
   c.header("Referrer-Policy", "strict-origin-when-cross-origin");
   c.header(
     "Content-Security-Policy",
-    "default-src 'none'; frame-ancestors 'none'",
+    "default-src 'none'; frame-ancestors 'none'"
   );
 });
 
@@ -56,6 +58,7 @@ app.get("/", (c) => {
       health: "/",
       cardDescription: "/api/llm/generate",
       aiPercentage: "/api/ai/percentage",
+      insights: "/api/insights",
     },
   });
 });
@@ -76,6 +79,11 @@ app.route("/api/llm/generate", cardDescriptionStreamingRouter);
  * Register AI percentage routes
  */
 app.route("/api/ai/percentage", aiPercentageRouter);
+
+/**
+ * Register Insights data routes
+ */
+app.route("/api/insights", insightsRouter);
 
 /**
  * 404 handler
