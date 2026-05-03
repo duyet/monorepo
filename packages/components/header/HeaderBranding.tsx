@@ -2,7 +2,6 @@
 
 import { cn } from "@duyet/libs/utils";
 import { Link } from "@tanstack/react-router";
-import Logo from "../Logo";
 
 interface HeaderBrandingProps {
   /** URL for the home link */
@@ -11,12 +10,29 @@ interface HeaderBrandingProps {
   shortText?: string;
   /** Long text shown on larger screens */
   longText?: string;
-  /** Show logo */
+  /** Show logo (DuyetMark) */
   logo?: boolean;
   /** Center layout mode */
   center?: boolean;
   /** Optional CSS classes forwarded to the Link element */
   className?: string;
+}
+
+/**
+ * DuyetMark: abstract 2x2 grid logo.
+ */
+function DuyetMark() {
+  return (
+    <span
+      className="grid h-5 w-5 grid-cols-2 gap-0.5"
+      aria-hidden="true"
+    >
+      <span className="bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
+      <span className="translate-y-1 bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
+      <span className="-translate-y-1 bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
+      <span className="bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
+    </span>
+  );
 }
 
 /**
@@ -27,45 +43,41 @@ export function HeaderBranding({
   shortText,
   longText,
   logo = true,
-  center = false,
+  center,
   className,
 }: HeaderBrandingProps) {
-  const linkClassName = cn(
-    "font-serif text-xl sm:text-2xl font-normal text-neutral-900 dark:text-neutral-100",
-    className
+  const displayText = longText ?? shortText ?? "Duyet Le";
+
+  const inner = (
+    <>
+      {logo && <DuyetMark />}
+      <span
+        className={cn(
+          "text-xl font-semibold tracking-tight",
+          center && "md:text-4xl md:mt-5",
+          className
+        )}
+      >
+        {displayText}
+      </span>
+    </>
   );
-  const textContent =
-    shortText && longText ? (
-      <>
-        <span className="block sm:hidden">{shortText}</span>
-        <span
-          className={cn("hidden sm:block", center && "md:text-7xl md:mt-5")}
-        >
-          {longText}
-        </span>
-      </>
-    ) : (
-      <span>{shortText || longText}</span>
+
+  const linkClassName = cn(
+    "flex items-center gap-3",
+  );
+
+  if (homeUrl.startsWith("http")) {
+    return (
+      <a href={homeUrl} className={linkClassName}>
+        {inner}
+      </a>
     );
+  }
 
   return (
-    <div className={cn("flex flex-row items-center gap-2")}>
-      {logo && (
-        <Logo
-          className={center ? "md:flex-col" : ""}
-          logoClassName={center ? "md:w-40 md:h-40" : ""}
-        />
-      )}
-
-      {homeUrl.startsWith("http") ? (
-        <a href={homeUrl} className={linkClassName}>
-          {textContent}
-        </a>
-      ) : (
-        <Link to={homeUrl} className={linkClassName}>
-          {textContent}
-        </Link>
-      )}
-    </div>
+    <Link to={homeUrl} className={linkClassName}>
+      {inner}
+    </Link>
   );
 }

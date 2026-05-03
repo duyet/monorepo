@@ -65,13 +65,15 @@ function RootComponent() {
       </head>
       <body>
         <ThemeProvider>
-          <Header longText="AI Code Usage" shortText="AI %" />
-          <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2] 2xl:rounded-b-[4rem]">
-            <div className="mx-auto max-w-[1280px] px-5 pb-16 pt-6 sm:px-8 lg:px-10">
-              <Outlet />
-            </div>
-          </main>
-          <Footer />
+          <div className="min-h-screen bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
+            <Header longText="AI Code Usage" shortText="AI %" />
+            <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+              <div className="mx-auto max-w-[1280px] px-5 pb-16 pt-6 sm:px-8 lg:px-10">
+                <Outlet />
+              </div>
+            </main>
+            <Footer className="bg-[#f2f2eb] dark:bg-[#1a1a1a]" />
+          </div>
         </ThemeProvider>
         <Analytics />
         <Scripts />

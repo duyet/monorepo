@@ -6,7 +6,6 @@ import { duyetProfile } from "@duyet/profile";
 import type { UrlsConfig } from "@duyet/urls";
 import { duyetUrls } from "@duyet/urls";
 import { Menu as MenuIcon, X } from "lucide-react";
-import Container from "../Container";
 import MenuNav, { type NavigationItem } from "../Menu";
 import { AuthButtons } from "./AuthButtons";
 import { HeaderBranding } from "./HeaderBranding";
@@ -65,56 +64,53 @@ export default function Header({
   return (
     <header
       className={cn(
-        "py-10",
-        center ? "md:flex md:justify-center md:my-10" : "",
+        "sticky top-0 z-50 bg-[#f8f8f2]/95 backdrop-blur dark:bg-[#0d0e0c]/95",
         className
       )}
     >
-      <Container className={cn("mb-0", containerClassName)}>
-        <nav
-          className={cn(
-            "flex items-center flex-wrap justify-between transition-all gap-4",
-            center && "md:flex-col md:gap-10"
-          )}
-        >
-          <HeaderBranding
-            homeUrl={urls.apps.home}
-            shortText={displayShortText}
-            longText={displayLongText}
-            logo={logo}
-            center={center}
+      <div
+        className={cn(
+          "mx-auto flex max-w-[1280px] items-center justify-between px-5 py-4 sm:px-8 lg:px-10 lg:py-5",
+          containerClassName
+        )}
+      >
+        <HeaderBranding
+          homeUrl={urls.apps.home}
+          shortText={displayShortText}
+          longText={displayLongText}
+          logo={logo}
+          center={center}
+        />
+
+        {/* Desktop nav */}
+        <nav className="hidden items-center gap-7 text-sm font-medium md:flex">
+          <MenuNav
+            urls={urls}
+            navigationItems={navigationItems}
+            className="gap-7"
           />
-
-          {/* Desktop nav */}
-          <div className="hidden md:flex flex-row gap-3 sm:gap-5 flex-wrap items-center">
-            <MenuNav
-              urls={urls}
-              navigationItems={navigationItems}
-              className="gap-3 sm:gap-5"
-            />
-            <AuthButtons urls={urls} />
-          </div>
-
-          {/* Mobile: hamburger + auth */}
-          <div className="flex items-center gap-3 md:hidden">
-            <AuthButtons urls={urls} />
-            <details className="group relative">
-              <summary className="flex cursor-pointer list-none rounded p-1 text-neutral-700 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:text-neutral-300 dark:hover:text-neutral-100 dark:focus-visible:ring-neutral-500 [&::-webkit-details-marker]:hidden">
-                <span className="sr-only">Toggle menu</span>
-                <MenuIcon className="size-5 group-open:hidden" />
-                <X className="hidden size-5 group-open:block" />
-              </summary>
-              <div className="absolute right-0 top-full z-50 mt-3 w-[min(260px,calc(100vw-2rem))] rounded-xl border border-neutral-200 bg-white p-4 shadow-lg dark:border-white/10 dark:bg-[#1a1a1a]">
-                <MenuNav
-                  urls={urls}
-                  navigationItems={navigationItems}
-                  className="flex-col items-start gap-3"
-                />
-              </div>
-            </details>
-          </div>
+          <AuthButtons urls={urls} />
         </nav>
-      </Container>
+
+        {/* Mobile: hamburger + auth */}
+        <div className="flex items-center gap-3 md:hidden">
+          <AuthButtons urls={urls} />
+          <details className="group relative">
+            <summary className="flex cursor-pointer list-none rounded p-1 text-neutral-700 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:text-neutral-300 dark:hover:text-neutral-100 dark:focus-visible:ring-neutral-500 [&::-webkit-details-marker]:hidden">
+              <span className="sr-only">Toggle menu</span>
+              <MenuIcon className="size-5 group-open:hidden" />
+              <X className="hidden size-5 group-open:block" />
+            </summary>
+            <div className="absolute right-0 top-full z-50 mt-3 w-[min(260px,calc(100vw-2rem))] rounded-xl border border-[#1a1a1a]/10 bg-white p-4 shadow-lg dark:border-white/10 dark:bg-[#1a1a1a]">
+              <MenuNav
+                urls={urls}
+                navigationItems={navigationItems}
+                className="flex-col items-start gap-3"
+              />
+            </div>
+          </details>
+        </div>
+      </div>
     </header>
   );
 }

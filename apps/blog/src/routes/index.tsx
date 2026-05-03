@@ -83,7 +83,7 @@ function HomePage() {
           <HomeCards seriesList={topSeriesList} topTags={topTags} />
         </div>
 
-        <div className="mx-auto max-w-[820px] flex flex-col gap-10">
+        <div className="mx-auto mt-14 max-w-[820px] flex flex-col gap-10">
           {Object.entries(postsByYear)
             .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
             .map(([year, posts]) => (

@@ -127,21 +127,26 @@ function RootComponent() {
       </head>
       <body>
         <ThemeProvider>
-          <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
-            <Container className="mb-16 mt-8 min-h-screen max-w-[1280px] rounded-xl bg-white px-5 py-10 dark:bg-[#1a1a1a] md:mt-12 md:py-14 print:m-0 print:max-w-none print:p-0 print:bg-transparent">
-              <Outlet />
-            </Container>
-          </main>
-          <div className="print:hidden">
-            <Header
-              logo={false}
+          <div className="min-h-screen bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
+            <div className="print:hidden">
+              <Header
+                logo={false}
+                containerClassName="max-w-5xl"
+                longText="Resume"
+                navigationItems={[HOME, BLOG, PHOTOS, INSIGHTS, ABOUT]}
+                shortText="CV"
+              />
+            </div>
+            <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+              <Container className="mb-16 mt-8 min-h-screen max-w-[1280px] rounded-xl bg-white px-5 py-10 dark:bg-[#1a1a1a] md:mt-12 md:py-14 print:m-0 print:max-w-none print:p-0 print:bg-transparent">
+                <Outlet />
+              </Container>
+            </main>
+            <Footer
+              className="bg-[#f2f2eb] print:hidden dark:bg-[#1a1a1a]"
               containerClassName="max-w-5xl"
-              longText="Resume"
-              navigationItems={[HOME, BLOG, PHOTOS, INSIGHTS, ABOUT]}
-              shortText="CV"
             />
           </div>
-          <Footer className="print:hidden" containerClassName="max-w-5xl" />
           <Analytics />
         </ThemeProvider>
         <Scripts />

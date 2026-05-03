@@ -179,18 +179,11 @@ export default function Footer({
   return (
     <footer
       className={cn(
-        "bg-neutral-50 pb-[env(safe-area-inset-bottom)] relative dark:bg-claude-gray-900",
+        "bg-[#f2f2eb] px-5 pb-12 pt-24 dark:bg-[#1a1a1a] sm:px-8 lg:px-10 lg:pb-16 lg:pt-28 xl:pb-20",
         className
       )}
     >
-      <hr className="dark:border-neutral-700" />
-      <div
-        className={cn(
-          "mx-auto max-w-[90rem] py-12 flex justify-center md:justify-center text-black dark:text-white",
-          "pl-[max(env(safe-area-inset-left),1.5rem)] pr-[max(env(safe-area-inset-right),1.5rem)]",
-          containerClassName
-        )}
-      >
+      <div className={cn("mx-auto max-w-[1280px]", containerClassName)}>
         <FooterContent profile={profile} urls={urls} />
       </div>
     </footer>
