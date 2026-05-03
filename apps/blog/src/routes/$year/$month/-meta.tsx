@@ -18,7 +18,7 @@ export default function Meta({ post, className }: ContentProps) {
 
   return (
     <div className={cn(className)}>
-      <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm text-neutral-500 dark:text-neutral-400">
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm font-medium text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
         <div className="flex items-center gap-1.5">
           <Calendar className="h-3.5 w-3.5" />
           <time dateTime={new Date(post.date).toISOString()}>
@@ -28,7 +28,7 @@ export default function Meta({ post, className }: ContentProps) {
               day: "numeric",
             })}
           </time>
-          <span className="text-neutral-300 dark:text-neutral-600">·</span>
+          <span className="text-[#1a1a1a]/20 dark:text-white/20">·</span>
           <span>{distanceToNow(new Date(post.date))}</span>
         </div>
 
@@ -42,7 +42,7 @@ export default function Meta({ post, className }: ContentProps) {
         <Link
           to="/category/$category/"
           params={{ category: post.category_slug || getSlug(post.category) }}
-          className="flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-white transition-colors"
+          className="flex items-center gap-1.5 transition-colors hover:text-[#1a1a1a] dark:hover:text-[#f8f8f2]"
         >
           <Folder className="h-3.5 w-3.5" />
           <span>{post.category}</span>
@@ -57,13 +57,13 @@ export default function Meta({ post, className }: ContentProps) {
                   to="/tag/$tag/"
                   params={{ tag: getSlug(tag) }}
                   key={tag}
-                  className="hover:text-neutral-900 dark:hover:text-white transition-colors"
+                  className="transition-colors hover:text-[#1a1a1a] dark:hover:text-[#f8f8f2]"
                 >
                   {tag}
                 </Link>
               ))}
               {post.tags.length > 5 && (
-                <span className="text-neutral-400">
+                <span className="text-[#1a1a1a]/35 dark:text-white/35">
                   +{post.tags.length - 5}
                 </span>
               )}
@@ -72,7 +72,7 @@ export default function Meta({ post, className }: ContentProps) {
         )}
 
         <a
-          className="flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-white transition-colors"
+          className="flex items-center gap-1.5 transition-colors hover:text-[#1a1a1a] dark:hover:text-[#f8f8f2]"
           href={post.edit_url || "#"}
           rel="noopener noreferrer"
           target="_blank"

@@ -110,15 +110,18 @@ function PostPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f8f2] pb-14 dark:bg-[#0d0e0c]">
+    <div className="bg-[#f8f8f2] pb-20 dark:bg-[#0d0e0c]">
       <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
-        <div className="relative">
         <ReadingProgress />
-        <div className="mx-auto mb-10 max-w-[720px] px-0">
+
+        <div className="mx-auto max-w-[720px]">
           <article>
             <Content post={post} />
-            <Meta className="mt-10" post={post} series={series} />
           </article>
+
+          <div className="my-12 border-t border-[#1a1a1a]/10 dark:border-white/10" />
+
+          <Meta post={post} series={series} />
 
           {series && (
             <SeriesBox
@@ -130,7 +133,6 @@ function PostPage() {
         </div>
 
         <TableOfContents headings={post.headings || []} />
-      </div>
       </Container>
     </div>
   );
