@@ -23,6 +23,13 @@
 
   body {
     font-family: var(--font-inter);
+    background-color: #f8f8f2;
+    color: #1a1a1a;
+  }
+
+  .dark body {
+    background-color: #0d0e0c;
+    color: #f8f8f2;
   }
 }
 
@@ -30,10 +37,10 @@
   --radius: 0.65rem;
   --font-inter: "Inter", -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Libre Baskerville", Georgia, serif;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.141 0.005 285.823);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.141 0.005 285.823);
+  --background: #f8f8f2;
+  --foreground: #1a1a1a;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.141 0.005 285.823);
   --primary: oklch(0.623 0.214 259.815);
@@ -71,10 +78,10 @@
 }
 
 .dark {
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.985 0 0);
+  --background: #0d0e0c;
+  --foreground: #f8f8f2;
+  --card: #1a1a1a;
+  --card-foreground: #f8f8f2;
   --popover: oklch(0.21 0.006 285.885);
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.546 0.245 262.881);
