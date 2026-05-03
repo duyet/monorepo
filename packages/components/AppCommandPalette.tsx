@@ -95,13 +95,12 @@ export function AppCommandPalette({ className }: AppCommandPaletteProps) {
         <button
           type="button"
           className={cn(
-            "flex min-w-24 items-center justify-end gap-2 text-sm font-medium transition-colors hover:text-[#1a1a1a]/65 dark:hover:text-[#f8f8f2]/70",
+            "flex items-center justify-center rounded-lg p-2 transition-colors hover:bg-[#1a1a1a]/5 dark:hover:bg-white/5",
             className
           )}
-          aria-label="Open command palette"
+          aria-label="Search"
         >
           <Search className="h-4 w-4" />
-          <span>Command Palette</span>
         </button>
       </DialogTrigger>
       <DialogContent className="w-[min(520px,calc(100vw-2rem))] overflow-hidden rounded-xl border-[#1a1a1a]/10 bg-white p-0 text-[#1a1a1a] dark:border-white/10 dark:bg-[#1a1a1a] dark:text-[#f8f8f2]">

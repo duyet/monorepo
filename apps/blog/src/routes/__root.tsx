@@ -17,7 +17,7 @@ import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center px-4 bg-[#fbf7f0] dark:bg-[#1f1f1f]">
+    <div className="flex min-h-screen items-center justify-center px-4 bg-[#f8f8f2] dark:bg-[#0d0e0c]">
       <div className="max-w-md text-center">
         <h1 className="mb-4 text-6xl font-bold font-serif text-neutral-900 dark:text-neutral-100">
           404
@@ -156,7 +156,7 @@ function BlogHeader() {
 
 function BlogFooter() {
   return (
-    <footer className="sticky bottom-0 bg-white px-5 pb-12 pt-24 dark:bg-[#1a1a1a] sm:px-8 lg:px-10 lg:pb-16 lg:pt-28 xl:pb-20">
+    <footer className="sticky bottom-0 bg-[#f2f2eb] px-5 pb-12 pt-24 dark:bg-[#1a1a1a] sm:px-8 lg:px-10 lg:pb-16 lg:pt-28 xl:pb-20">
       <div className="mx-auto max-w-[1280px]">
         <h2 className="max-w-[820px] text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
           Notes on useful systems, written clearly.

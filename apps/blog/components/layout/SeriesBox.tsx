@@ -17,11 +17,11 @@ export function SeriesBox({
   return (
     <div
       className={cn(
-        "rounded-xl border border-neutral-950/10 bg-[#f4f4ef] p-6 dark:border-white/10 dark:bg-[#1a1a1a] sm:p-8",
+        "rounded-xl border border-[#1a1a1a]/10 bg-white p-6 dark:border-white/10 dark:bg-[#1a1a1a] sm:p-8",
         className
       )}
     >
-      <h2 className="mb-6 flex flex-row items-center gap-3 text-2xl font-semibold tracking-tight text-neutral-950 dark:text-[#f8f8f2] md:text-3xl">
+      <h2 className="mb-6 flex flex-row items-center gap-3 text-2xl font-semibold tracking-tight text-[#1a1a1a] dark:text-[#f8f8f2] md:text-3xl">
         <NewspaperIcon size={28} strokeWidth={2} />
         Series:{" "}
         <a
@@ -39,26 +39,28 @@ export function SeriesBox({
             <div
               className={cn(
                 "flex items-center gap-4 rounded-lg p-3 transition-colors sm:gap-5 sm:p-4",
-                isCurrent ? "bg-white dark:bg-[#242420]" : "hover:bg-white/70 dark:hover:bg-white/5"
+                isCurrent
+                  ? "bg-[#f8f8f2] dark:bg-[#0d0e0c]"
+                  : ""
               )}
               key={slug}
             >
               <div
                 className={cn(
                   "text-3xl font-semibold tabular-nums md:text-4xl",
-                  "text-neutral-950 dark:text-[#f8f8f2]"
+                  "text-[#1a1a1a]/25 dark:text-[#f8f8f2]/25"
                 )}
               >
                 {i + 1}
               </div>
               <div className="flex-1">
                 {isCurrent ? (
-                  <span className="line-clamp-1 text-base font-semibold text-neutral-950 dark:text-[#f8f8f2]">
+                  <span className="line-clamp-1 text-base font-semibold text-[#1a1a1a] dark:text-[#f8f8f2]">
                     {title}
                   </span>
                 ) : (
                   <a
-                    className="line-clamp-1 text-base font-medium text-neutral-800 transition-colors hover:text-neutral-950 hover:underline hover:underline-offset-4 dark:text-[#f8f8f2]/80 dark:hover:text-[#f8f8f2]"
+                    className="line-clamp-1 text-base font-medium text-[#1a1a1a]/80 transition-colors hover:text-[#1a1a1a] hover:underline hover:underline-offset-4 dark:text-[#f8f8f2]/80 dark:hover:text-[#f8f8f2]"
                     href={slug}
                   >
                     {title}
@@ -69,8 +71,8 @@ export function SeriesBox({
                   className={cn(
                     "line-clamp-1 text-sm",
                     isCurrent
-                      ? "text-neutral-700 dark:text-[#f8f8f2]/70"
-                      : "text-neutral-600 dark:text-[#f8f8f2]/55"
+                      ? "text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70"
+                      : "text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55"
                   )}
                 >
                   {excerpt}
