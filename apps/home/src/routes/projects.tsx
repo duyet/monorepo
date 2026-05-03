@@ -153,7 +153,7 @@ function CompactProjectCard({
   return (
     <ProjectLink
       item={item}
-      className="group flex min-h-44 flex-col rounded-xl border border-[#1a1a1a]/10 bg-white p-5 transition-colors hover:bg-[#f2f2eb] dark:border-white/10 dark:bg-[#1a1a1a] dark:hover:bg-[#242420]"
+      className="group flex min-h-44 flex-col rounded-xl border border-[#1a1a1a]/10 bg-white p-5 transition-colors dark:border-white/10 dark:bg-[#1a1a1a]"
       shortcutNumber={shortcutNumber}
     >
       <h2 className="text-lg font-semibold tracking-tight">{item.name}</h2>

@@ -28,7 +28,7 @@ export function YearPost({ year, posts, className }: YearPostProps) {
       <div className="divide-y divide-[#1a1a1a]/10 rounded-xl bg-white dark:divide-white/10 dark:bg-[#1a1a1a]">
         {posts.map((post: Post) => (
           <article
-            className="group flex flex-row items-center gap-3 px-5 py-4 transition-colors first:rounded-t-xl last:rounded-b-xl hover:bg-[#f2f2eb] dark:hover:bg-[#242420] sm:px-6"
+            className="group flex flex-row items-center gap-3 px-5 py-4 transition-colors first:rounded-t-xl last:rounded-b-xl sm:px-6"
             key={post.slug}
           >
             <a
@@ -39,7 +39,6 @@ export function YearPost({ year, posts, className }: YearPostProps) {
               <IsNewPost date={post.date} />
               <IsFeatured featured={post.featured} />
             </a>
-            <hr className="hidden shrink grow border-dotted border-[#1a1a1a]/15 dark:border-white/15 sm:block" />
             <div className="flex flex-shrink-0 items-center gap-2 text-sm font-medium text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
               <time className="whitespace-nowrap">
                 {dateFormat(post.date, "MMM dd")}

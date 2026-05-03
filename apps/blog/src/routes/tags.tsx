@@ -58,7 +58,7 @@ function Tags() {
                 key={tag}
                 to="/tag/$tag"
                 params={{ tag: getSlug(tag) }}
-                className={`${tone} group flex min-h-[170px] flex-col rounded-xl p-5 text-[#1a1a1a] transition-colors hover:bg-[#f2f2eb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a1a1a] dark:text-[#f8f8f2] dark:hover:bg-[#242420]`}
+                className={`${tone} group flex min-h-[170px] flex-col rounded-xl p-5 text-[#1a1a1a] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a1a1a] dark:text-[#f8f8f2]`}
               >
                 <span className="text-sm font-medium text-[#1a1a1a]/60 dark:text-[#f8f8f2]/60">
                   {count} {count === 1 ? "post" : "posts"}

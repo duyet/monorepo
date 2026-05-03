@@ -218,7 +218,7 @@ function HomePage() {
           <section className="mx-auto mt-24 max-w-[1280px] px-5 sm:px-8 lg:mt-32 lg:px-10 xl:mt-40">
             <Link
               to="/ls"
-              className="group grid gap-5 rounded-xl bg-white p-6 transition-colors hover:bg-[#f2f2eb] dark:bg-[#1a1a1a] dark:hover:bg-[#242420] md:grid-cols-[1fr_auto] md:items-center lg:p-8"
+              className="group grid gap-5 rounded-xl bg-white p-6 transition-colors dark:bg-[#1a1a1a] md:grid-cols-[1fr_auto] md:items-center lg:p-8"
             >
               <div className="flex items-start gap-4">
                 <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#1a1a1a] text-white dark:bg-[#f8f8f2] dark:text-[#0d0e0c]">
@@ -478,7 +478,7 @@ function CompactAppCard({ item }: { item: AppItem }) {
   return (
     <AppLink
       item={item}
-      className="group flex min-h-36 flex-col rounded-xl bg-white p-5 transition-colors hover:bg-[#f2f2eb] dark:bg-[#1a1a1a] dark:hover:bg-[#242420] lg:p-6"
+      className="group flex min-h-36 flex-col rounded-xl bg-white p-5 transition-colors dark:bg-[#1a1a1a] lg:p-6"
     >
       <div className="mb-8 flex h-10 w-10 items-center justify-center rounded-lg bg-[#1a1a1a] text-white dark:bg-[#f8f8f2] dark:text-[#0d0e0c]">
         <Server className="h-5 w-5" />
