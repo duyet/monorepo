@@ -15,7 +15,7 @@ function Page() {
   const { personal, experience, education } = cvData;
 
   return (
-    <div className="m-auto flex min-h-screen flex-col gap-9 bg-white text-sm text-foreground print:min-h-0 print:gap-2 print:text-black">
+    <div className="m-auto flex min-h-screen flex-col gap-9 text-sm text-foreground print:min-h-0 print:gap-2 print:text-black">
       <Profile personal={personal} />
 
       <Section title="Experience">

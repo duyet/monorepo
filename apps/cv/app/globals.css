@@ -27,14 +27,14 @@
     "Inter", -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui,
     sans-serif;
   --font-serif: "Libre Baskerville", Georgia, serif;
-  --background: #ffffff;
-  --foreground: #241f17;
+  --background: #f8f8f2;
+  --foreground: #1a1a1a;
   --card: #ffffff;
-  --card-foreground: #241f17;
+  --card-foreground: #1a1a1a;
   --popover: #ffffff;
   --popover-foreground: #1a1a1a;
   --primary: #1a1a1a;
-  --primary-foreground: #f9f9f8;
+  --primary-foreground: #f8f8f2;
   --secondary: #ede3d5;
   --secondary-foreground: #241f17;
   --muted: #ede3d5;

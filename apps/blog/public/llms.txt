@@ -32,13 +32,6 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - **URL**: https://blog.duyet.net/2026/02/claws
 - **Description**: OpenClaw, NanoBot, PicoClaw, ZeroClaw, NullClaw, NemoClaw, ...
 
-### [Claws](https://blog.duyet.net/2026/02/claws)
-- **Date**: 2026-02-22
-- **Category**: AI
-- **Tags**: Ai, Agents
-- **URL**: https://blog.duyet.net/2026/02/claws
-- **Description**: OpenClaw, NanoBot, PicoClaw, ZeroClaw, NullClaw, NemoClaw, ...
-
 ### [Coding Agents](https://blog.duyet.net/2026/01/ai)
 - **Date**: 2026-01-01
 - **Category**: AI
@@ -101,6 +94,13 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - **Tags**: 
 - **URL**: https://blog.duyet.net/2024/02/2023-summary
 - **Description**: So, I hadn't really planned on writing a summary post for this year, as lazy as I am, but somehow, here we are.
+
+### [Rust: Processing JSON with serde](https://blog.duyet.net/2023/10/rust-json-serde)
+- **Date**: 2023-10-15
+- **Category**: Rust
+- **Tags**: Rust, Serde
+- **URL**: https://blog.duyet.net/2023/10/rust-json-serde
+- **Description**: Serialize and deserialize JSON in Rust using serde and serde_json — derive macros, field attributes, enum representations, file I/O, dynamic values, and error handling.
 
 ### [Apache OpenDAL in Rust to Access Any Kind of Data Services](https://blog.duyet.net/2023/09/opendal)
 - **Date**: 2023-09-09
@@ -168,9 +168,8 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 
 ## All Blog Posts by Year
 
-### 2026 (3 posts)
+### 2026 (2 posts)
 
-- [Claws](https://blog.duyet.net/2026/02/claws) - 2026-02-22
 - [Claws](https://blog.duyet.net/2026/02/claws) - 2026-02-22
 - [Coding Agents](https://blog.duyet.net/2026/01/ai) - 2026-01-01
 
@@ -185,8 +184,9 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - [ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-on-kubernetes) - 2024-03-13
 - [2023 - A Year of Moving](https://blog.duyet.net/2024/02/2023-summary) - 2024-02-09
 
-### 2023 (13 posts)
+### 2023 (14 posts)
 
+- [Rust: Processing JSON with serde](https://blog.duyet.net/2023/10/rust-json-serde) - 2023-10-15
 - [Apache OpenDAL in Rust to Access Any Kind of Data Services](https://blog.duyet.net/2023/09/opendal) - 2023-09-09
 - [My Neovim Setup in 2023](https://blog.duyet.net/2023/09/nvim-setup-2023) - 2023-09-04
 - [DuckDB](https://blog.duyet.net/2023/09/duckdb) - 2023-09-03
@@ -506,6 +506,6 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - Total Posts: 298
 - Years Active: 2015-2026
 - Categories: 15
-- Tags: 58
+- Tags: 59
 
 Generated from: https://blog.duyet.net

@@ -127,8 +127,8 @@ function RootComponent() {
       </head>
       <body>
         <ThemeProvider>
-          <main>
-            <Container className="mb-16 mt-8 min-h-screen max-w-6xl bg-white px-5 md:mt-12 print:m-0 print:max-w-none print:p-0">
+          <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+            <Container className="mb-16 mt-8 min-h-screen max-w-[1280px] rounded-xl bg-white px-5 py-10 dark:bg-[#1a1a1a] md:mt-12 md:py-14 print:m-0 print:max-w-none print:p-0 print:bg-transparent">
               <Outlet />
             </Container>
           </main>

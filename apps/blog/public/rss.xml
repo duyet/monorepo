@@ -4,15 +4,8 @@
         <description><![CDATA[Sr. Data Engineer. Rustacean at night]]></description>
         <link>https://blog.duyet.net</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Sat, 02 May 2026 14:16:10 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 03 May 2026 12:33:48 GMT</lastBuildDate>
         <atom:link href="https://blog.duyet.net/rss.xml" rel="self" type="application/rss+xml"/>
-        <item>
-            <title><![CDATA[Claws]]></title>
-            <description><![CDATA[OpenClaw, NanoBot, PicoClaw, ZeroClaw, NullClaw, NemoClaw, ...]]></description>
-            <link>https://blog.duyet.net/2026/02/claws</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2026/02/claws</guid>
-            <pubDate>Sun, 22 Feb 2026 00:00:00 GMT</pubDate>
-        </item>
         <item>
             <title><![CDATA[Claws]]></title>
             <description><![CDATA[OpenClaw, NanoBot, PicoClaw, ZeroClaw, NullClaw, NemoClaw, ...]]></description>
@@ -82,6 +75,13 @@
             <link>https://blog.duyet.net/2024/02/2023-summary</link>
             <guid isPermaLink="true">https://blog.duyet.net/2024/02/2023-summary</guid>
             <pubDate>Fri, 09 Feb 2024 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: Processing JSON with serde]]></title>
+            <description><![CDATA[Serialize and deserialize JSON in Rust using serde and serde_json — derive macros, field attributes, enum representations, file I/O, dynamic values, and error handling.]]></description>
+            <link>https://blog.duyet.net/2023/10/rust-json-serde</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2023/10/rust-json-serde</guid>
+            <pubDate>Sun, 15 Oct 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Apache OpenDAL in Rust to Access Any Kind of Data Services]]></title>

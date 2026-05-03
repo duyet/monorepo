@@ -39,7 +39,12 @@ export const Route = createRootRoute({
           "Percentage of code written by AI across all repositories, detected via co-author signatures and email patterns.",
       },
     ],
-    links: [{ rel: "icon", href: "/favicon.ico" }],
+    links: [
+      { rel: "icon", href: "/favicon.ico" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      { rel: "preload", as: "style", href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap" },
+    ],
   }),
   notFoundComponent: NotFoundComponent,
   component: RootComponent,
@@ -50,11 +55,22 @@ function RootComponent() {
     <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap"
+          media="print"
+          // @ts-expect-error onLoad is valid on link elements
+          onLoad="this.media='all'"
+        />
       </head>
       <body>
         <ThemeProvider>
           <Header longText="AI Code Usage" shortText="AI %" />
-          <Outlet />
+          <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2] 2xl:rounded-b-[4rem]">
+            <div className="mx-auto max-w-[1280px] px-5 pb-16 pt-6 sm:px-8 lg:px-10">
+              <Outlet />
+            </div>
+          </main>
           <Footer />
         </ThemeProvider>
         <Analytics />
