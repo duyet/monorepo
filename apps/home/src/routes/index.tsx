@@ -1,5 +1,6 @@
 import {
   Button,
+  AppCommandPalette,
   Command,
   CommandEmpty,
   CommandGroup,
@@ -103,6 +104,7 @@ const statusHref = addUtmParams(
   "header_status"
 );
 
+
 function HomePage() {
   const visualApps = apps.filter((item) => item.screenshot);
   const compactApps = apps.filter((item) => !item.screenshot);
@@ -131,6 +133,7 @@ function HomePage() {
               ))}
             </nav>
 
+            <AppCommandPalette className="hidden md:flex" />
             <a
               href={statusHref}
               target="_blank"

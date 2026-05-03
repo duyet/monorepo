@@ -37,7 +37,7 @@ function Archives() {
         Lists all {postCount} posts of the past {pastYears} years. You can also
         explore <Link to="/tags">by the topics</Link>.
       </div>
-      <div className="flex max-w-4xl flex-col gap-10">
+      <div className="flex max-w-5xl flex-col gap-8">
         {Object.entries(postsByYear)
           .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
           .map(([year, posts]) => (
