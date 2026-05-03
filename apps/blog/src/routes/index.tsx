@@ -56,21 +56,21 @@ function HomePage() {
             of the past {pastYears} years of blogging. You can jump straight to
             the{" "}
             <Link
-              to="/feed"
+              to="/feed/"
               className="font-medium text-[#1a1a1a] underline underline-offset-4 transition-colors hover:text-[#1a1a1a]/70 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
             >
               /feed
             </Link>{" "}
             for latest posts, also explore{" "}
             <Link
-              to="/tags"
+              to="/tags/"
               className="font-medium text-[#1a1a1a] underline underline-offset-4 transition-colors hover:text-[#1a1a1a]/70 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
             >
               by the topics
             </Link>{" "}
             or{" "}
             <Link
-              to="/featured"
+              to="/featured/"
               className="font-medium text-[#1a1a1a] underline underline-offset-4 transition-colors hover:text-[#1a1a1a]/70 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
             >
               my featured posts

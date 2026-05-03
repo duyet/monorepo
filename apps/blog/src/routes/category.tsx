@@ -31,15 +31,15 @@ function Categories() {
   );
 
   return (
-    <div className="min-h-screen bg-white pb-14 dark:bg-[#0d0e0c]">
-      <Container>
+    <div className="min-h-screen bg-[#f8f8f2] pb-14 dark:bg-[#0d0e0c]">
+      <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
         <div className="mb-12 max-w-3xl pt-8 sm:pt-12">
-          <h1 className="mb-5 text-4xl font-semibold tracking-tight text-neutral-950 dark:text-[#f8f8f2] sm:text-5xl lg:text-6xl">
+          <h1 className="mb-5 text-4xl font-semibold tracking-tight text-[#1a1a1a] dark:text-[#f8f8f2] sm:text-5xl lg:text-6xl">
             Categories
           </h1>
-          <p className="max-w-2xl text-sm leading-6 text-neutral-600 dark:text-[#f8f8f2]/70 sm:text-base">
+          <p className="max-w-2xl text-sm leading-6 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70 sm:text-base">
             Explore my writing organized by{" "}
-            <strong className="font-semibold text-neutral-950 dark:text-[#f8f8f2]">
+            <strong className="font-semibold text-[#1a1a1a] dark:text-[#f8f8f2]">
               {categoryEntries.length} main categories
             </strong>
             , covering everything from data engineering and machine learning to

@@ -49,7 +49,7 @@ function Featured() {
             </Link>{" "}
             or{" "}
             <Link
-              to="/tags"
+              to="/tags/"
               className="font-medium text-[#1a1a1a] underline underline-offset-4 transition-colors hover:text-[#1a1a1a]/65 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
             >
               by the topics

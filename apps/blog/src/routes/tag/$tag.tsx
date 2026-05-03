@@ -62,8 +62,8 @@ function PostsByTag() {
   const colorClass = getTagColorClass(metadata.color, "light");
 
   return (
-    <div className="min-h-screen">
-      <Container>
+    <div className="min-h-screen bg-[#f8f8f2] pb-14 dark:bg-[#0d0e0c]">
+      <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
         <HeroBanner
           title={tagName}
           description={metadata.description}
@@ -90,7 +90,7 @@ function PostsByTag() {
         {/* Empty state */}
         {posts.length === 0 && (
           <div className="py-12 text-center">
-            <p className="text-lg text-neutral-600 dark:text-neutral-400">
+            <p className="text-lg text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
               No posts found with this tag yet.
             </p>
           </div>

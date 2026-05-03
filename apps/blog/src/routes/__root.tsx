@@ -139,10 +139,10 @@ function BlogHeader() {
 
         <nav className="hidden items-center gap-7 text-sm font-medium md:flex">
           <Link to="/">Blog</Link>
-          <Link to="/archives">Archives</Link>
-          <Link to="/featured">Featured</Link>
-          <Link to="/series">Series</Link>
-          <Link to="/tags">Tags</Link>
+          <Link to="/archives/">Archives</Link>
+          <Link to="/featured/">Featured</Link>
+          <Link to="/series/">Series</Link>
+          <Link to="/tags/">Tags</Link>
           <a href={addUtmParams(duyetUrls.apps.home, "blog", "header_home")}>
             Home
           </a>
@@ -196,7 +196,7 @@ function BlogFooter() {
             <a href="/llms.txt" className="underline underline-offset-2">
               llms.txt
             </a>
-            <Link to="/archives" className="underline underline-offset-2">
+            <Link to="/archives/" className="underline underline-offset-2">
               Archives
             </Link>
           </div>

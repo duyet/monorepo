@@ -76,13 +76,13 @@ function MDXRenderer({ source }: { source: string }) {
 export default function Content({ post }: { post: ContentPost }) {
   return (
     <>
-      <header className="mb-10 flex flex-col gap-5 pt-8 sm:pt-12 md:mb-14">
+      <header className="mb-10 flex flex-col gap-5 pt-10 sm:pt-14 md:mb-14">
         <h1
           className={cn(
             "mt-2 inline-block break-words py-2",
-            "text-neutral-950 dark:text-[#f8f8f2]",
+            "text-[#1a1a1a] dark:text-[#f8f8f2]",
             "text-4xl font-semibold leading-[0.98] tracking-tight",
-            "md:text-5xl",
+            "sm:text-5xl",
             "lg:text-6xl"
           )}
         >

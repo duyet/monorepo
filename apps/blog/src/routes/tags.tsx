@@ -56,7 +56,7 @@ function Tags() {
             return (
               <Link
                 key={tag}
-                to="/tag/$tag"
+                to="/tag/$tag/"
                 params={{ tag: getSlug(tag) }}
                 className={`${tone} group flex min-h-[170px] flex-col rounded-xl p-5 text-[#1a1a1a] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a1a1a] dark:text-[#f8f8f2]`}
               >

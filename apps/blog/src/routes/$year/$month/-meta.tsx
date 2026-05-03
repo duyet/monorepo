@@ -40,7 +40,7 @@ export default function Meta({ post, className }: ContentProps) {
         )}
 
         <Link
-          to="/category/$category"
+          to="/category/$category/"
           params={{ category: post.category_slug || getSlug(post.category) }}
           className="flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-white transition-colors"
         >
@@ -54,7 +54,7 @@ export default function Meta({ post, className }: ContentProps) {
             <div className="flex flex-wrap gap-1.5">
               {post.tags.slice(0, 5).map((tag) => (
                 <Link
-                  to="/tag/$tag"
+                  to="/tag/$tag/"
                   params={{ tag: getSlug(tag) }}
                   key={tag}
                   className="hover:text-neutral-900 dark:hover:text-white transition-colors"

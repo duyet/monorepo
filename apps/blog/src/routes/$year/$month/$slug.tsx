@@ -110,11 +110,11 @@ function PostPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white pb-14 dark:bg-[#0d0e0c]">
-      <Container>
+    <div className="min-h-screen bg-[#f8f8f2] pb-14 dark:bg-[#0d0e0c]">
+      <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
         <div className="relative">
         <ReadingProgress />
-        <div className="container mx-auto mb-10 max-w-2xl px-0">
+        <div className="mx-auto mb-10 max-w-[720px] px-0">
           <article>
             <Content post={post} />
             <Meta className="mt-10" post={post} series={series} />
