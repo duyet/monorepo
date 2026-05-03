@@ -31,41 +31,39 @@ function Categories() {
   );
 
   return (
-    <div className="min-h-screen bg-[#f8f8f2] pb-14 dark:bg-[#0d0e0c]">
-      <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
-        <div className="mb-12 max-w-3xl pt-8 sm:pt-12">
-          <h1 className="mb-5 text-4xl font-semibold tracking-tight text-[#1a1a1a] dark:text-[#f8f8f2] sm:text-5xl lg:text-6xl">
-            Categories
-          </h1>
-          <p className="max-w-2xl text-sm leading-6 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70 sm:text-base">
-            Explore my writing organized by{" "}
-            <strong className="font-semibold text-[#1a1a1a] dark:text-[#f8f8f2]">
-              {categoryEntries.length} main categories
-            </strong>
-            , covering everything from data engineering and machine learning to
-            web development and career insights. {totalPosts} posts and
-            counting.
-          </p>
-        </div>
+    <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
+      <div className="mb-12 max-w-[820px] pt-10 sm:pt-14 lg:pt-20">
+        <h1 className="text-4xl font-semibold tracking-tight text-[#1a1a1a] dark:text-[#f8f8f2] sm:text-5xl lg:text-6xl">
+          Categories
+        </h1>
+        <p className="mt-5 text-lg font-medium leading-7 tracking-tight text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+          Explore my writing organized by{" "}
+          <strong className="font-semibold text-[#1a1a1a] dark:text-[#f8f8f2]">
+            {categoryEntries.length} main categories
+          </strong>
+          , covering everything from data engineering and machine learning to
+          web development and career insights. {totalPosts} posts and
+          counting.
+        </p>
+      </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {categoryEntries.map(([category, count], index) => {
-            const metadata = getCategoryMetadata(category, count, index);
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {categoryEntries.map(([category, count], index) => {
+          const metadata = getCategoryMetadata(category, count, index);
 
-            return (
-              <ContentCard
-                key={category}
-                title={category}
-                href={`/category/${getSlug(category)}`}
-                description={metadata.description}
-                color={metadata.color}
-                illustration={metadata.illustration}
-                tags={[`${count} ${count === 1 ? "post" : "posts"}`]}
-              />
-            );
-          })}
-        </div>
-      </Container>
-    </div>
+          return (
+            <ContentCard
+              key={category}
+              title={category}
+              href={`/category/${getSlug(category)}`}
+              description={metadata.description}
+              color={metadata.color}
+              illustration={metadata.illustration}
+              tags={[`${count} ${count === 1 ? "post" : "posts"}`]}
+            />
+          );
+        })}
+      </div>
+    </Container>
   );
 }

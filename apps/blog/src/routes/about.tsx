@@ -80,92 +80,90 @@ function About() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f8f8f2] pb-14 dark:bg-[#0d0e0c]">
-      <div className="mx-auto max-w-[1280px] px-5 py-16 sm:px-8 sm:py-24 lg:px-10">
-        {/* Header */}
-        <div className="mx-auto mb-12 max-w-[820px] text-center">
-          <h1 className="mb-6 text-4xl font-semibold tracking-tight text-[#1a1a1a] dark:text-[#f8f8f2] sm:text-5xl lg:text-6xl">
-            About
-          </h1>
-          <p className="mx-auto max-w-3xl text-lg leading-relaxed text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
-            <strong className="font-semibold text-[#1a1a1a] dark:text-[#f8f8f2]">
-              Data Engineer
-            </strong>{" "}
-            with 6+ years of experience. I am confident in my knowledge of Data
-            Engineering concepts, best practices and state-of-the-art data and
-            Cloud technologies.
-          </p>
-        </div>
+    <div className="mx-auto max-w-[1280px] px-5 py-16 sm:px-8 sm:py-24 lg:px-10">
+      {/* Header */}
+      <div className="mx-auto mb-12 max-w-[820px] text-center">
+        <h1 className="mb-6 text-4xl font-semibold tracking-tight text-[#1a1a1a] dark:text-[#f8f8f2] sm:text-5xl lg:text-6xl">
+          About
+        </h1>
+        <p className="mx-auto max-w-3xl text-lg leading-relaxed text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+          <strong className="font-semibold text-[#1a1a1a] dark:text-[#f8f8f2]">
+            Data Engineer
+          </strong>{" "}
+          with 6+ years of experience. I am confident in my knowledge of Data
+          Engineering concepts, best practices and state-of-the-art data and
+          Cloud technologies.
+        </p>
+      </div>
 
-        {/* Links Grid */}
-        <div className="mx-auto mb-16 grid max-w-[820px] gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {links.map((link, index) => {
-            const Icon = link.icon;
-            const isExternal = link.url.startsWith("http");
-            return isExternal ? (
-              <a
-                key={index}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`group flex flex-col p-10 ${link.color} rounded-3xl transition-transform duration-200 hover:scale-[1.02]`}
-              >
-                <div className="mb-8 text-[#1a1a1a] dark:text-[#f8f8f2]">
-                  <Icon />
-                </div>
-                <h3 className="mb-3 text-xl font-medium text-[#1a1a1a] dark:text-[#f8f8f2]">
-                  {link.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
-                  {link.description}
-                </p>
-              </a>
-            ) : (
-              <Link
-                key={index}
-                to={link.url as "/"}
-                className={`group flex flex-col p-10 ${link.color} rounded-3xl transition-transform duration-200 hover:scale-[1.02]`}
-              >
-                <div className="mb-8 text-[#1a1a1a]">
-                  <Icon />
-                </div>
-                <h3 className="mb-3 text-xl font-medium text-[#1a1a1a]">
-                  {link.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-[#1a1a1a]/70">
-                  {link.description}
-                </p>
-              </Link>
-            );
-          })}
-        </div>
+      {/* Links Grid */}
+      <div className="mx-auto mb-16 grid max-w-[820px] gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {links.map((link, index) => {
+          const Icon = link.icon;
+          const isExternal = link.url.startsWith("http");
+          return isExternal ? (
+            <a
+              key={index}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`group flex flex-col p-10 ${link.color} rounded-xl transition-transform duration-200 hover:scale-[1.02]`}
+            >
+              <div className="mb-8 text-[#1a1a1a] dark:text-[#f8f8f2]">
+                <Icon />
+              </div>
+              <h3 className="mb-3 text-xl font-medium text-[#1a1a1a] dark:text-[#f8f8f2]">
+                {link.title}
+              </h3>
+              <p className="text-sm leading-relaxed text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+                {link.description}
+              </p>
+            </a>
+          ) : (
+            <Link
+              key={index}
+              to={link.url as "/"}
+              className={`group flex flex-col p-10 ${link.color} rounded-xl transition-transform duration-200 hover:scale-[1.02]`}
+            >
+              <div className="mb-8 text-[#1a1a1a]">
+                <Icon />
+              </div>
+              <h3 className="mb-3 text-xl font-medium text-[#1a1a1a]">
+                {link.title}
+              </h3>
+              <p className="text-sm leading-relaxed text-[#1a1a1a]/70">
+                {link.description}
+              </p>
+            </Link>
+          );
+        })}
+      </div>
 
-        {/* Skills Section */}
-        <div className="mx-auto max-w-[820px] rounded-3xl bg-stone-100/70 p-8 dark:bg-neutral-800/50 sm:p-12">
-          <h2 className="mb-6 text-2xl font-semibold text-[#1a1a1a] dark:text-[#f8f8f2] sm:text-3xl">
-            Skills & Stacks
-          </h2>
-          <div className="flex flex-wrap gap-3">
-            {skills.map(({ name, link }) => (
-              <span
-                key={name}
-                className="inline-block rounded-full bg-[#f8f8f2] px-5 py-2 text-sm font-medium text-[#1a1a1a] dark:bg-neutral-700 dark:text-[#f8f8f2]/70"
-              >
-                {link ? (
-                  <a
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-[#1a1a1a]/65 dark:hover:text-[#f8f8f2]"
-                  >
-                    {name}
-                  </a>
-                ) : (
-                  name
-                )}
-              </span>
-            ))}
-          </div>
+      {/* Skills Section */}
+      <div className="mx-auto max-w-[820px] rounded-xl bg-[#f8f8f2] p-8 dark:bg-[#0d0e0c] sm:p-12">
+        <h2 className="mb-6 text-2xl font-semibold text-[#1a1a1a] dark:text-[#f8f8f2] sm:text-3xl">
+          Skills & Stacks
+        </h2>
+        <div className="flex flex-wrap gap-3">
+          {skills.map(({ name, link }) => (
+            <span
+              key={name}
+              className="inline-block rounded-full bg-white px-5 py-2 text-sm font-medium text-[#1a1a1a] dark:bg-white/10 dark:text-[#f8f8f2]/70"
+            >
+              {link ? (
+                <a
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#1a1a1a]/65 dark:hover:text-[#f8f8f2]"
+                >
+                  {name}
+                </a>
+              ) : (
+                name
+              )}
+            </span>
+          ))}
         </div>
       </div>
     </div>

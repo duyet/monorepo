@@ -25,7 +25,7 @@ function SeriesDetailPage() {
   if (!series) {
     return (
       <div className="py-12 text-center">
-        <p className="text-lg text-neutral-600">Series not found.</p>
+        <p className="text-lg text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">Series not found.</p>
       </div>
     );
   }

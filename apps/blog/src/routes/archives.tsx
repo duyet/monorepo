@@ -32,24 +32,27 @@ function Archives() {
   const pastYears = new Date().getFullYear() - Math.min(...years);
 
   return (
-    <div className="bg-[#f8f8f2] pb-14 dark:bg-[#0d0e0c]">
-      <Container className="mx-auto max-w-[1280px] px-5 pt-10 sm:px-8 sm:pt-14 lg:px-10 lg:pt-20">
-        <div className="mb-10 max-w-2xl text-sm leading-6 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70 sm:text-base">
+    <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
+      <div className="mx-auto max-w-[820px] pt-10 sm:pt-14 lg:pt-20">
+        <h1 className="text-4xl font-semibold tracking-tight text-[#1a1a1a] dark:text-[#f8f8f2] sm:text-5xl lg:text-6xl">
+          Archives
+        </h1>
+        <p className="mt-5 text-lg font-medium leading-7 tracking-tight text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
           Lists all {postCount} posts of the past {pastYears} years. You can also
           explore <Link to="/tags/">by the topics</Link>.
-        </div>
-        <div className="flex max-w-5xl flex-col gap-8">
-          {Object.entries(postsByYear)
-            .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
-            .map(([year, posts]) => (
-              <YearPost
-                key={year}
-                year={Number.parseInt(year, 10)}
-                posts={posts}
-              />
-            ))}
-        </div>
-      </Container>
-    </div>
+        </p>
+      </div>
+      <div className="mx-auto mt-14 max-w-[820px] flex flex-col gap-8">
+        {Object.entries(postsByYear)
+          .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
+          .map(([year, posts]) => (
+            <YearPost
+              key={year}
+              year={Number.parseInt(year, 10)}
+              posts={posts}
+            />
+          ))}
+      </div>
+    </Container>
   );
 }

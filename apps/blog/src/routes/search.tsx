@@ -1,4 +1,3 @@
-import Container from "@duyet/components/Container";
 import type { CategoryCount, Post, TagCount } from "@duyet/interfaces";
 import { createFileRoute } from "@tanstack/react-router";
 import { SearchClient } from "@/components/blog/search-client";
@@ -48,20 +47,18 @@ function SearchPage() {
   };
 
   return (
-    <Container>
-      <div className="flex flex-col gap-8">
-        <div>
-          <h1 className="mb-4 font-serif text-5xl font-bold text-neutral-900 dark:text-neutral-100 sm:text-6xl md:mb-6 md:text-7xl">
-            Search
-          </h1>
-          <p className="text-neutral-600 dark:text-neutral-400">
-            Search through {allPosts.length} blog posts by title, category,
-            tags, or date range.
-          </p>
-        </div>
-
-        <SearchClient posts={allPosts} categories={categories} tags={tags} />
+    <div className="mx-auto max-w-[820px] px-5 sm:px-8 lg:px-10">
+      <div className="pt-10 sm:pt-14 lg:pt-20">
+        <h1 className="text-4xl font-semibold tracking-tight text-[#1a1a1a] dark:text-[#f8f8f2] sm:text-5xl lg:text-6xl">
+          Search
+        </h1>
+        <p className="mt-5 text-lg font-medium leading-7 tracking-tight text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+          Search through {allPosts.length} blog posts by title, category,
+          tags, or date range.
+        </p>
       </div>
-    </Container>
+
+      <SearchClient posts={allPosts} categories={categories} tags={tags} />
+    </div>
   );
 }

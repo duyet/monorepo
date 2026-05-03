@@ -39,62 +39,60 @@ function HomePage() {
     .map(([tag]) => tag);
 
   return (
-    <div className="bg-[#f8f8f2] pb-14 dark:bg-[#0d0e0c]">
-      <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
-        <div className="mx-auto max-w-[820px] pt-10 sm:pt-14 lg:pt-20">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500 dark:text-[#f8f8f2]/55">
-            Blog archive
-          </p>
-          <h1 className="text-4xl font-semibold leading-[0.98] tracking-tight text-neutral-950 dark:text-[#f8f8f2] sm:text-5xl lg:text-6xl">
-            Notes on data, systems, and engineering craft.
-          </h1>
-          <p className="mt-5 text-lg font-medium leading-7 tracking-tight text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
-            Lists all{" "}
-            <strong className="font-semibold text-[#1a1a1a] dark:text-[#f8f8f2]">
-              {postCount} posts
-            </strong>{" "}
-            of the past {pastYears} years of blogging. You can jump straight to
-            the{" "}
-            <Link
-              to="/feed/"
-              className="font-medium text-[#1a1a1a] underline underline-offset-4 transition-colors hover:text-[#1a1a1a]/70 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
-            >
-              /feed
-            </Link>{" "}
-            for latest posts, also explore{" "}
-            <Link
-              to="/tags/"
-              className="font-medium text-[#1a1a1a] underline underline-offset-4 transition-colors hover:text-[#1a1a1a]/70 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
-            >
-              by the topics
-            </Link>{" "}
-            or{" "}
-            <Link
-              to="/featured/"
-              className="font-medium text-[#1a1a1a] underline underline-offset-4 transition-colors hover:text-[#1a1a1a]/70 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
-            >
-              my featured posts
-            </Link>
-            .
-          </p>
-        </div>
+    <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
+      <div className="mx-auto max-w-[820px] pt-10 sm:pt-14 lg:pt-20">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
+          Blog archive
+        </p>
+        <h1 className="text-4xl font-semibold leading-[0.98] tracking-tight text-[#1a1a1a] dark:text-[#f8f8f2] sm:text-5xl lg:text-6xl">
+          Notes on data, systems, and engineering craft.
+        </h1>
+        <p className="mt-5 text-lg font-medium leading-7 tracking-tight text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+          Lists all{" "}
+          <strong className="font-semibold text-[#1a1a1a] dark:text-[#f8f8f2]">
+            {postCount} posts
+          </strong>{" "}
+          of the past {pastYears} years of blogging. You can jump straight to
+          the{" "}
+          <Link
+            to="/feed/"
+            className="font-medium text-[#1a1a1a] underline underline-offset-4 transition-colors hover:text-[#1a1a1a]/70 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
+          >
+            /feed
+          </Link>{" "}
+          for latest posts, also explore{" "}
+          <Link
+            to="/tags/"
+            className="font-medium text-[#1a1a1a] underline underline-offset-4 transition-colors hover:text-[#1a1a1a]/70 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
+          >
+            by the topics
+          </Link>{" "}
+          or{" "}
+          <Link
+            to="/featured/"
+            className="font-medium text-[#1a1a1a] underline underline-offset-4 transition-colors hover:text-[#1a1a1a]/70 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
+          >
+            my featured posts
+          </Link>
+          .
+        </p>
+      </div>
 
-        <div className="mx-auto mt-14 max-w-[820px]">
-          <HomeCards seriesList={topSeriesList} topTags={topTags} />
-        </div>
+      <div className="mx-auto mt-14 max-w-[820px]">
+        <HomeCards seriesList={topSeriesList} topTags={topTags} />
+      </div>
 
-        <div className="mx-auto mt-14 max-w-[820px] flex flex-col gap-10">
-          {Object.entries(postsByYear)
-            .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
-            .map(([year, posts]) => (
-              <YearPost
-                key={year}
-                year={Number.parseInt(year, 10)}
-                posts={posts}
-              />
-            ))}
-        </div>
-      </Container>
-    </div>
+      <div className="mx-auto mt-14 max-w-[820px] flex flex-col gap-10">
+        {Object.entries(postsByYear)
+          .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
+          .map(([year, posts]) => (
+            <YearPost
+              key={year}
+              year={Number.parseInt(year, 10)}
+              posts={posts}
+            />
+          ))}
+      </div>
+    </Container>
   );
 }

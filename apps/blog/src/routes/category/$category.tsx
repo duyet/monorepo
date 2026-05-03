@@ -72,40 +72,38 @@ function PostsByCategory() {
   const colorClass = getCategoryColorClass(metadata.color, "light");
 
   return (
-    <div className="min-h-screen bg-[#f8f8f2] pb-14 dark:bg-[#0d0e0c]">
-      <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
-        <HeroBanner
-          title={categoryName}
-          description={metadata.description}
-          colorClass={colorClass}
-          postCount={postCount}
-          yearCount={yearCount}
-          backLinkHref="/category"
-          backLinkText="All Categories"
-        />
+    <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
+      <HeroBanner
+        title={categoryName}
+        description={metadata.description}
+        colorClass={colorClass}
+        postCount={postCount}
+        yearCount={yearCount}
+        backLinkHref="/category"
+        backLinkText="All Categories"
+      />
 
-        {/* Posts organized by year */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {Object.entries(postsByYear)
-            .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
-            .map(([year, yearPosts]) => (
-              <YearPost
-                key={year}
-                year={Number.parseInt(year, 10)}
-                posts={yearPosts}
-              />
-            ))}
+      {/* Posts organized by year */}
+      <div className="mx-auto max-w-[820px] flex flex-col gap-8">
+        {Object.entries(postsByYear)
+          .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
+          .map(([year, yearPosts]) => (
+            <YearPost
+              key={year}
+              year={Number.parseInt(year, 10)}
+              posts={yearPosts}
+            />
+          ))}
+      </div>
+
+      {/* Empty state */}
+      {posts.length === 0 && (
+        <div className="py-12 text-center">
+          <p className="text-lg text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+            No posts found in this category yet.
+          </p>
         </div>
-
-        {/* Empty state */}
-        {posts.length === 0 && (
-          <div className="py-12 text-center">
-            <p className="text-lg text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
-              No posts found in this category yet.
-            </p>
-          </div>
-        )}
-      </Container>
-    </div>
+      )}
+    </Container>
   );
 }
