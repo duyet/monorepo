@@ -1,5 +1,6 @@
 import {
   Button,
+  AppCommandPalette,
   Command,
   CommandEmpty,
   CommandGroup,
@@ -97,12 +98,6 @@ const navItems = [
   { label: "About", href: "/about" },
 ];
 
-const statusHref = addUtmParams(
-  "https://status.duyet.net",
-  "homepage",
-  "header_status"
-);
-
 function HomePage() {
   const visualApps = apps.filter((item) => item.screenshot);
   const compactApps = apps.filter((item) => !item.screenshot);
@@ -131,15 +126,7 @@ function HomePage() {
               ))}
             </nav>
 
-            <a
-              href={statusHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden min-w-24 items-center justify-end gap-2 text-sm font-medium md:flex"
-            >
-              <span className="h-3 w-3 rounded-full bg-orange-500" />
-              <span>Status</span>
-            </a>
+            <AppCommandPalette className="hidden md:flex" />
 
             <MobileMenu />
           </div>
@@ -313,14 +300,7 @@ function HeaderLink({ href, children }: { href: string; children: ReactNode }) {
 
 function MobileMenu() {
   const [open, setOpen] = useState(false);
-  const items = [
-    ...navItems,
-    {
-      label: "Status",
-      href: statusHref,
-      external: true,
-    },
-  ];
+  const items = navItems;
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>

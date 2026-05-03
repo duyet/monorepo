@@ -18,29 +18,29 @@ export function YearPost({ year, posts, className }: YearPostProps) {
     <div className={cn(className)}>
       <h1
         className={cn(
-          "mb-4 text-3xl font-semibold tracking-tight text-neutral-950 dark:text-[#f8f8f2]",
-          "sm:text-4xl"
+          "mb-4 text-2xl font-semibold tracking-tight text-[#1a1a1a] dark:text-[#f8f8f2]",
+          "sm:text-3xl"
         )}
       >
         {year}
       </h1>
 
-      <div className="flex flex-col gap-3">
+      <div className="divide-y divide-[#1a1a1a]/10 rounded-xl bg-white dark:divide-white/10 dark:bg-[#1a1a1a]">
         {posts.map((post: Post) => (
           <article
-            className="group flex flex-row items-center gap-3 rounded-lg py-1 transition-colors hover:bg-neutral-50 dark:hover:bg-white/5"
+            className="group flex flex-row items-center gap-3 px-4 py-3 transition-colors first:rounded-t-xl last:rounded-b-xl hover:bg-[#f2f2eb] dark:hover:bg-[#242420] sm:px-5"
             key={post.slug}
           >
             <a
-              className="min-w-0 flex-1 cursor-pointer break-words text-sm leading-5 text-neutral-800 transition-colors hover:text-neutral-950 hover:underline hover:underline-offset-4 dark:text-[#f8f8f2]/80 dark:hover:text-[#f8f8f2]"
+              className="min-w-0 flex-1 cursor-pointer break-words text-sm font-medium leading-5 text-[#1a1a1a]/80 transition-colors hover:text-[#1a1a1a] hover:underline hover:underline-offset-4 dark:text-[#f8f8f2]/80 dark:hover:text-[#f8f8f2]"
               href={post.slug}
             >
               {post.title}
               <IsNewPost date={post.date} />
               <IsFeatured featured={post.featured} />
             </a>
-            <hr className="hidden shrink grow border-dotted border-neutral-300 dark:border-white/15 sm:block" />
-            <div className="flex flex-shrink-0 items-center gap-2 text-xs text-neutral-500 dark:text-[#f8f8f2]/50">
+            <hr className="hidden shrink grow border-dotted border-[#1a1a1a]/15 dark:border-white/15 sm:block" />
+            <div className="flex flex-shrink-0 items-center gap-2 text-xs font-medium text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
               <time className="whitespace-nowrap">
                 {dateFormat(post.date, "MMM dd")}
               </time>

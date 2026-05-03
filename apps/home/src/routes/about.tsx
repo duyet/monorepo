@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { AppCommandPalette } from "@duyet/components";
 import {
   Github as GithubIcon,
   LinkedIn as LinkedInIcon,
@@ -205,19 +206,7 @@ function AboutPage() {
             <Link to="/about">About</Link>
           </nav>
 
-          <a
-            href={addUtmParams(
-              "https://status.duyet.net",
-              "about",
-              "header_status"
-            )}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex min-w-24 items-center justify-end gap-2 text-sm font-medium"
-          >
-            <span className="h-3 w-3 rounded-full bg-orange-500" />
-            <span>Status</span>
-          </a>
+          <AppCommandPalette />
         </div>
       </header>
 

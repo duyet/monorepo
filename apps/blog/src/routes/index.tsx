@@ -39,7 +39,7 @@ function HomePage() {
     .map(([tag]) => tag);
 
   return (
-    <div className="bg-white pb-14 dark:bg-[#0d0e0c]">
+    <div className="bg-[#f8f8f2] pb-14 dark:bg-[#0d0e0c]">
       <Container className="max-w-[1280px] px-5 sm:px-8 lg:px-10">
         <div className="mb-10 max-w-4xl pt-10 sm:pt-14 lg:pt-20">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500 dark:text-[#f8f8f2]/55">
@@ -81,7 +81,7 @@ function HomePage() {
 
         <HomeCards seriesList={topSeriesList} topTags={topTags} />
 
-        <div className="flex max-w-4xl flex-col gap-10">
+        <div className="flex max-w-5xl flex-col gap-8">
           {Object.entries(postsByYear)
             .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
             .map(([year, posts]) => (

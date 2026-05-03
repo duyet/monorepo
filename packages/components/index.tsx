@@ -1,4 +1,5 @@
 export { default as Analytics } from "./Analytics";
+export { AppCommandPalette } from "./AppCommandPalette";
 // AI Components
 export * from "./ai";
 export { default as ClerkAuthProvider } from "./ClerkAuthProvider";

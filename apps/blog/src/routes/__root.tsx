@@ -2,6 +2,7 @@ import "@duyet/components/styles.css";
 import "../../app/globals.css";
 
 import Analytics from "@duyet/components/Analytics";
+import { AppCommandPalette } from "@duyet/components";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { cn } from "@duyet/libs/utils";
 import { duyetUrls } from "@duyet/urls";
@@ -113,7 +114,7 @@ function RootComponent() {
             )}
           >
             <BlogHeader />
-            <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+            <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
               <Outlet />
             </main>
             <BlogFooter />
@@ -129,7 +130,7 @@ function RootComponent() {
 
 function BlogHeader() {
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur dark:bg-[#0d0e0c]/95">
+    <header className="sticky top-0 z-50 bg-[#f8f8f2]/95 backdrop-blur dark:bg-[#0d0e0c]/95">
       <div className="mx-auto flex max-w-[1280px] items-center justify-between px-5 py-4 sm:px-8 lg:px-10 lg:py-5">
         <Link to="/" className="flex items-center gap-3">
           <DuyetMark />
@@ -147,19 +148,7 @@ function BlogHeader() {
           </a>
         </nav>
 
-        <a
-          href={addUtmParams(
-            "https://status.duyet.net",
-            "blog",
-            "header_status"
-          )}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex min-w-24 items-center justify-end gap-2 text-sm font-medium"
-        >
-          <span className="h-3 w-3 rounded-full bg-orange-500" />
-          <span>Status</span>
-        </a>
+        <AppCommandPalette />
       </div>
     </header>
   );

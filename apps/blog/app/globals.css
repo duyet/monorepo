@@ -23,9 +23,9 @@
   }
 }
 
-/* Design system tokens — white Websmith-style public app palette */
+/* Design system tokens — shared public app palette */
 :root {
-  --background: #ffffff;
+  --background: #f8f8f2;
   --foreground: #1a1a1a;
   --muted: #f4f4ef;
   --muted-foreground: #5f5f57;
