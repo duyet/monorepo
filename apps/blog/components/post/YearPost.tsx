@@ -28,7 +28,7 @@ export function YearPost({ year, posts, className }: YearPostProps) {
       <div className="divide-y divide-[#1a1a1a]/10 rounded-xl bg-white dark:divide-white/10 dark:bg-[#1a1a1a]">
         {posts.map((post: Post) => (
           <article
-            className="group flex flex-row items-center gap-3 px-5 py-4 transition-colors first:rounded-t-xl last:rounded-b-xl sm:px-6"
+            className="group flex flex-row items-center gap-3 p-5 transition-colors first:rounded-t-xl last:rounded-b-xl lg:p-6"
             key={post.slug}
           >
             <a
