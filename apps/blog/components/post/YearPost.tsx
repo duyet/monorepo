@@ -25,10 +25,10 @@ export function YearPost({ year, posts, className }: YearPostProps) {
         {year}
       </h2>
 
-      <div className="divide-y divide-[#1a1a1a]/10 rounded-xl bg-white dark:divide-white/10 dark:bg-[#1a1a1a]">
+      <div className="overflow-hidden rounded-2xl border border-[#1a1a1a]/12 bg-white shadow-[0_18px_48px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-[#171815] dark:shadow-none">
         {posts.map((post: Post) => (
           <article
-            className="group flex flex-row items-center gap-3 p-5 transition-colors first:rounded-t-xl last:rounded-b-xl lg:p-6"
+            className="group flex flex-row items-center gap-3 border-b border-[#1a1a1a]/10 bg-[#fcfcfa] p-5 transition-colors first:rounded-t-2xl last:rounded-b-2xl last:border-b-0 hover:bg-white dark:border-white/10 dark:bg-transparent dark:hover:bg-white/5 lg:p-6"
             key={post.slug}
           >
             <a

@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { addUtmParams } from "../../../app/lib/utm";
+import { SiteFooter, SiteHeader } from "../../components/SiteChrome";
 
 type Product = {
   slug: string;
@@ -105,41 +106,7 @@ function ProductPage() {
 
   return (
     <div className="min-h-screen bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
-      <header className="sticky top-0 z-50 bg-[#f8f8f2]/95 backdrop-blur dark:bg-[#0d0e0c]/95">
-        <div className="mx-auto flex max-w-[1340px] items-center justify-between px-5 py-3 sm:px-8 md:py-5 lg:px-10">
-          <Link
-            to="/"
-            className="flex items-center gap-2 text-xl font-semibold tracking-tight"
-          >
-            Duyet
-          </Link>
-          <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
-            <Link to="/">Home</Link>
-            <a
-              href={addUtmParams(
-                "https://blog.duyet.net",
-                "product_page",
-                "header_blog"
-              )}
-            >
-              Blog
-            </a>
-            <a
-              href={addUtmParams(
-                "https://cv.duyet.net",
-                "product_page",
-                "header_cv"
-              )}
-            >
-              CV
-            </a>
-          </nav>
-          <span className="flex min-w-24 items-center justify-end gap-2 text-sm font-medium">
-            <span className="h-3 w-3 rounded-full bg-orange-500" />
-            Product
-          </span>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
         <section className="mx-auto max-w-[1340px] px-5 py-12 sm:px-8 md:py-16 lg:px-10 lg:py-24 xl:py-28">
@@ -246,39 +213,7 @@ function ProductPage() {
           </div>
         </section>
       </main>
-
-      <nav className="mx-auto mb-4 mt-10 w-max rounded-full bg-white px-6 py-4 text-sm font-medium shadow-lg ring-1 ring-black/5 dark:bg-[#1a1a1a] dark:ring-white/10 md:hidden">
-        <ul className="flex items-center justify-center gap-5">
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <a
-              href={addUtmParams(
-                "https://blog.duyet.net",
-                "product_page",
-                "mobile_blog"
-              )}
-            >
-              Blog
-            </a>
-          </li>
-          <li>
-            <a
-              href={addUtmParams(
-                "https://cv.duyet.net",
-                "product_page",
-                "mobile_cv"
-              )}
-            >
-              CV
-            </a>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-        </ul>
-      </nav>
+      <SiteFooter />
     </div>
   );
 }

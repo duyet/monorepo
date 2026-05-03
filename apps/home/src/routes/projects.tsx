@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { AppCommandPalette } from "@duyet/components";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 import { addUtmParams } from "../../app/lib/utm";
+import { SiteFooter, SiteHeader } from "../components/SiteChrome";
 import { apps, type AppItem } from "../data/projects";
 
 export const Route = createFileRoute("/projects")({
@@ -22,48 +22,7 @@ export const Route = createFileRoute("/projects")({
 function ProjectsPage() {
   return (
     <div className="min-h-screen bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
-      <header className="sticky top-0 z-50 bg-[#f8f8f2]/95 backdrop-blur dark:bg-[#0d0e0c]/95">
-        <div className="mx-auto flex max-w-[1280px] items-center justify-between px-5 py-4 sm:px-8 lg:px-10 lg:py-5">
-          <Link
-            to="/"
-            className="flex items-center gap-3 text-xl font-semibold tracking-tight"
-          >
-            <DuyetMark />
-            Duyet Le
-          </Link>
-          <nav className="hidden items-center gap-7 text-sm font-medium md:flex">
-            <a
-              href={addUtmParams(
-                "https://blog.duyet.net",
-                "projects",
-                "header_blog"
-              )}
-            >
-              Blog
-            </a>
-            <a
-              href={addUtmParams(
-                "https://cv.duyet.net",
-                "projects",
-                "header_cv"
-              )}
-            >
-              Experience
-            </a>
-            <a
-              href={addUtmParams(
-                "https://insights.duyet.net",
-                "projects",
-                "header_insights"
-              )}
-            >
-              Insights
-            </a>
-            <Link to="/about">About</Link>
-          </nav>
-          <AppCommandPalette />
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="mx-auto max-w-[1280px] px-5 pb-20 pt-10 sm:px-8 md:pt-16 lg:px-10">
         <Link
@@ -105,6 +64,7 @@ function ProjectsPage() {
           )}
         </section>
       </main>
+      <SiteFooter />
     </div>
   );
 }
@@ -206,16 +166,5 @@ function ProjectLink({
     >
       {children}
     </Link>
-  );
-}
-
-function DuyetMark() {
-  return (
-    <span className="grid h-5 w-5 grid-cols-2 gap-0.5" aria-hidden="true">
-      <span className="bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
-      <span className="translate-y-1 bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
-      <span className="-translate-y-1 bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
-      <span className="bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
-    </span>
   );
 }

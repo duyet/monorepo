@@ -1,28 +1,20 @@
 import Container from "@duyet/components/Container";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { LayoutGrid, ListTree } from "lucide-react";
-import { HomeCards } from "@/components/layout";
-import { PostPulseGrid, YearPost } from "@/components/post";
-import { getAllSeries, getAllTags, getPostsByAllYear } from "@/lib/posts";
-import type { Post, Series, TagCount } from "@duyet/interfaces";
+import { YearPost } from "@/components/post";
+import { getPostsByAllYear } from "@/lib/posts";
+import type { Post } from "@duyet/interfaces";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
-    const [postsByYear, seriesList, allTags] = await Promise.all([
-      getPostsByAllYear(),
-      getAllSeries(),
-      getAllTags(),
-    ]);
-    return { postsByYear, seriesList, allTags };
+    const postsByYear = await getPostsByAllYear();
+    return { postsByYear };
   },
   component: HomePage,
 });
 
 function HomePage() {
-  const { postsByYear, seriesList, allTags } = Route.useLoaderData() as {
+  const { postsByYear } = Route.useLoaderData() as {
     postsByYear: Record<number, Post[]>;
-    seriesList: Series[];
-    allTags: TagCount;
   };
 
   const postCount = Object.values(postsByYear).reduce(
@@ -32,15 +24,6 @@ function HomePage() {
 
   const years = Object.keys(postsByYear).map(Number);
   const pastYears = new Date().getFullYear() - Math.min(...years);
-
-  const topSeriesList = seriesList.slice(0, 4);
-  const topTags = Object.entries(allTags)
-    .sort(([, a], [, b]) => b - a)
-    .slice(0, 5)
-    .map(([tag]) => tag);
-  const sortedPosts = Object.values(postsByYear)
-    .flat()
-    .sort((a, b) => b.date.getTime() - a.date.getTime());
 
   return (
     <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
@@ -82,38 +65,8 @@ function HomePage() {
         </p>
       </div>
 
-      <div className="mx-auto mt-14 max-w-[820px]">
-        <HomeCards seriesList={topSeriesList} topTags={topTags} />
-      </div>
-
       <div className="mx-auto mt-14 max-w-[1080px]">
-        <span id="year-mode" className="sr-only" />
-        <span id="grid-mode" className="sr-only" />
-        <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h2 className="text-2xl font-semibold tracking-tight text-[#1a1a1a] dark:text-[#f8f8f2] sm:text-3xl">
-              Posts
-            </h2>
-          </div>
-          <div className="post-mode-switch flex w-full rounded-xl border border-[#1a1a1a]/10 bg-white p-1 shadow-[0_12px_32px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-[#171815] sm:w-auto">
-            <a
-              href="#year-mode"
-              className="post-mode-year flex flex-1 items-center justify-center gap-2 rounded-lg bg-[#1a1a1a] px-3 py-2 text-sm font-semibold text-white shadow-sm transition duration-200 active:scale-[0.98] dark:bg-[#f8f8f2] dark:text-[#0d0e0c] motion-reduce:transform-none sm:flex-none"
-            >
-              <ListTree size={16} />
-              <span>By year</span>
-            </a>
-            <a
-              href="#grid-mode"
-              className="post-mode-grid flex flex-1 items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-[#1a1a1a]/62 transition duration-200 hover:bg-[#1a1a1a]/5 hover:text-[#1a1a1a] active:scale-[0.98] dark:text-[#f8f8f2]/62 dark:hover:bg-white/10 dark:hover:text-[#f8f8f2] motion-reduce:transform-none sm:flex-none"
-            >
-              <LayoutGrid size={16} />
-              <span>Grid</span>
-            </a>
-          </div>
-        </div>
-
-        <div className="post-year-mode mx-auto flex max-w-[820px] flex-col gap-10">
+        <div className="mx-auto flex max-w-[820px] flex-col gap-10">
           {Object.entries(postsByYear)
             .sort(
               ([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10)
@@ -125,10 +78,6 @@ function HomePage() {
                 posts={posts}
               />
             ))}
-        </div>
-
-        <div className="post-grid-mode">
-          <PostPulseGrid posts={sortedPosts} />
         </div>
       </div>
     </Container>

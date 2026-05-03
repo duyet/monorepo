@@ -99,31 +99,3 @@ html.dark .prose pre {
 .dark .prose a:hover {
   color: #f9f9f8;
 }
-
-.post-grid-mode {
-  display: none;
-}
-
-#grid-mode:target ~ .post-mode-switch .post-mode-year {
-  background: transparent;
-  color: color-mix(in srgb, var(--foreground) 62%, transparent);
-  box-shadow: none;
-}
-
-#grid-mode:target ~ .post-mode-switch .post-mode-grid {
-  background: var(--foreground);
-  color: var(--background);
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.12);
-}
-
-#grid-mode:target ~ .post-year-mode {
-  display: none;
-}
-
-#grid-mode:target ~ .post-grid-mode {
-  display: block;
-}
-
-#year-mode:target ~ .post-grid-mode {
-  display: none;
-}

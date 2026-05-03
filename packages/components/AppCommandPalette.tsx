@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@duyet/libs/utils";
+import { duyetUrls } from "@duyet/urls";
 import {
   Command,
   CommandEmpty,
@@ -8,57 +9,88 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
+  CommandSeparator,
 } from "./ui/command";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-  DialogTrigger,
-} from "./ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { Search } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const appItems = [
+type PaletteItem = {
+  label: string;
+  description: string;
+  href: string;
+};
+
+const appItems: PaletteItem[] = [
   {
     label: "Home",
-    description: "duyet.net",
-    href: "https://duyet.net",
+    description: "Main landing page",
+    href: duyetUrls.apps.home,
   },
   {
     label: "Blog",
     description: "Technical writing and notes",
-    href: "https://blog.duyet.net",
+    href: duyetUrls.apps.blog,
+  },
+  {
+    label: "Archives",
+    description: "Chronological archive of posts",
+    href: `${duyetUrls.apps.blog}/archives/`,
+  },
+  {
+    label: "Featured",
+    description: "Highlighted posts",
+    href: `${duyetUrls.apps.blog}/featured/`,
+  },
+  {
+    label: "Series",
+    description: "Long-form post collections",
+    href: `${duyetUrls.apps.blog}/series/`,
+  },
+  {
+    label: "Tags",
+    description: "Browse by topic",
+    href: `${duyetUrls.apps.blog}/tags/`,
+  },
+  {
+    label: "Search",
+    description: "Search blog posts and content",
+    href: `${duyetUrls.apps.blog}/search`,
   },
   {
     label: "Projects",
     description: "Apps, tools, dashboards, and open source systems",
-    href: "https://duyet.net/projects",
+    href: `${duyetUrls.apps.home}/projects`,
+  },
+  {
+    label: "Short URLs",
+    description: "Search and browse redirect links",
+    href: `${duyetUrls.apps.home}/ls`,
   },
   {
     label: "About",
     description: "Profile and work context",
-    href: "https://duyet.net/about",
+    href: `${duyetUrls.apps.home}/about`,
   },
   {
     label: "Experience",
     description: "CV and professional history",
-    href: "https://cv.duyet.net",
+    href: duyetUrls.apps.cv,
   },
   {
     label: "Insights",
     description: "Analytics and operational dashboards",
-    href: "https://insights.duyet.net",
+    href: duyetUrls.apps.insights,
   },
   {
     label: "Photos",
     description: "Photo gallery",
-    href: "https://photos.duyet.net",
+    href: duyetUrls.apps.photos,
   },
   {
     label: "Homelab",
     description: "Homelab docs and services",
-    href: "https://homelab.duyet.net",
+    href: duyetUrls.apps.homelab,
   },
   {
     label: "LLM Timeline",
@@ -89,6 +121,30 @@ interface AppCommandPaletteProps {
 export function AppCommandPalette({ className }: AppCommandPaletteProps) {
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== "k") {
+        return;
+      }
+
+      if (
+        event.target instanceof HTMLInputElement ||
+        event.target instanceof HTMLTextAreaElement ||
+        event.target instanceof HTMLSelectElement ||
+        event.target instanceof HTMLElement &&
+          event.target.isContentEditable
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+      setOpen(true);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -106,14 +162,35 @@ export function AppCommandPalette({ className }: AppCommandPaletteProps) {
       <DialogContent className="w-[min(520px,calc(100vw-2rem))] overflow-hidden rounded-xl border-[#1a1a1a]/10 bg-white p-0 text-[#1a1a1a] dark:border-white/10 dark:bg-[#1a1a1a] dark:text-[#f8f8f2]">
         <DialogTitle className="sr-only">Command Palette</DialogTitle>
         <DialogDescription className="sr-only">
-          Search across Duyet apps and pages.
+          Search across Duyet apps, pages, and subdomains.
         </DialogDescription>
         <Command className="bg-transparent">
-          <CommandInput placeholder="Search apps and pages..." />
+          <CommandInput placeholder="Search pages and apps..." />
           <CommandList className="max-h-[360px]">
             <CommandEmpty>No app found.</CommandEmpty>
-            <CommandGroup heading="Duyet network">
-              {appItems.map((item) => (
+            <CommandGroup heading="Duyet apps">
+              {appItems.slice(0, 11).map((item) => (
+                <CommandItem
+                  key={item.href}
+                  value={`${item.label} ${item.description}`}
+                  onSelect={() => {
+                    setOpen(false);
+                    window.location.href = item.href;
+                  }}
+                  className="items-start rounded-lg px-3 py-3"
+                >
+                  <div className="min-w-0">
+                    <div className="font-medium">{item.label}</div>
+                    <div className="truncate text-xs text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
+                      {item.description}
+                    </div>
+                  </div>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+            <CommandSeparator />
+            <CommandGroup heading="External">
+              {appItems.slice(11).map((item) => (
                 <CommandItem
                   key={item.href}
                   value={`${item.label} ${item.description}`}

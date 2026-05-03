@@ -5,6 +5,7 @@ import type { Profile } from "@duyet/profile";
 import { duyetProfile } from "@duyet/profile";
 import type { UrlsConfig } from "@duyet/urls";
 import { duyetUrls } from "@duyet/urls";
+import type { ReactNode } from "react";
 import { Menu as MenuIcon, X } from "lucide-react";
 import MenuNav, { type NavigationItem } from "../Menu";
 import { AuthButtons } from "./AuthButtons";
@@ -25,6 +26,10 @@ interface HeaderProps {
   center?: boolean;
   /** Navigation items (if not provided, Menu will use default) */
   navigationItems?: NavigationItem[];
+  /** Optional action slot rendered with the navigation */
+  actions?: ReactNode;
+  /** Show auth controls */
+  showAuthButtons?: boolean;
   /** Optional CSS classes */
   className?: string;
   /** Container CSS classes */
@@ -54,6 +59,8 @@ export default function Header({
   longText,
   center = false,
   navigationItems,
+  actions,
+  showAuthButtons = true,
   className,
   containerClassName,
 }: HeaderProps) {
@@ -89,12 +96,14 @@ export default function Header({
             navigationItems={navigationItems}
             className="gap-7"
           />
-          <AuthButtons urls={urls} />
+          {actions}
+          {showAuthButtons ? <AuthButtons urls={urls} /> : null}
         </nav>
 
         {/* Mobile: hamburger + auth */}
         <div className="flex items-center gap-3 md:hidden">
-          <AuthButtons urls={urls} />
+          {actions}
+          {showAuthButtons ? <AuthButtons urls={urls} /> : null}
           <details className="group relative">
             <summary className="flex cursor-pointer list-none rounded p-1 text-neutral-700 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:text-neutral-300 dark:hover:text-neutral-100 dark:focus-visible:ring-neutral-500 [&::-webkit-details-marker]:hidden">
               <span className="sr-only">Toggle menu</span>

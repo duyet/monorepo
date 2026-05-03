@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { SiteFooter, SiteHeader } from "../components/SiteChrome";
 import {
   CATEGORY_MAP,
   CATEGORY_ORDER,
@@ -33,8 +34,10 @@ const publicUrls = Object.entries(urls)
 
 function ListPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-neutral-100">
-      <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
+    <div className="min-h-screen bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
+      <SiteHeader />
+
+      <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
         {/* Header */}
         <div className="mb-10">
           <Link
@@ -85,7 +88,8 @@ function ListPage() {
             </Link>
           </p>
         </div>
-      </div>
+      </main>
+      <SiteFooter />
     </div>
   );
 }
