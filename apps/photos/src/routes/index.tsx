@@ -21,7 +21,7 @@ function PhotosPage() {
     return (
       <Container>
         <div className="flex min-h-[400px] items-center justify-center">
-          <div className="max-w-md rounded-2xl bg-white p-8 text-center dark:bg-slate-900">
+          <div className="max-w-md rounded-2xl bg-white p-8 text-center dark:bg-[#1a1a1a]">
             <div className="mb-4 flex justify-center">
               {error instanceof RateLimitError ? (
                 <svg

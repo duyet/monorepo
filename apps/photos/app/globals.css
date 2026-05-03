@@ -22,7 +22,7 @@
 
 :root {
   --radius: 0.5rem;
-  --background: #ffffff;
+  --background: #f8f8f2;
   --foreground: #1a1a1a;
 
   --muted: oklch(0.967 0.001 286.375);
@@ -76,8 +76,8 @@
 }
 
 .dark {
-  --background: oklch(0.13 0.01 260);
-  --foreground: oklch(0.97 0.005 260);
+  --background: #0d0e0c;
+  --foreground: #f8f8f2;
 
   --muted: oklch(0.274 0.006 286.033);
   --muted-foreground: oklch(0.705 0.015 286.067);

@@ -7,7 +7,6 @@ import Footer from "@duyet/components/Footer";
 import Header from "@duyet/components/Header";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { llmTimelineConfig } from "@duyet/config";
-import { cn } from "@duyet/libs/utils";
 import {
   createRootRoute,
   HeadContent,
@@ -17,21 +16,21 @@ import {
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center px-4 bg-background">
+    <div className="flex min-h-screen items-center justify-center px-4 bg-[#f8f8f2] dark:bg-[#0d0e0c]">
       <div className="max-w-md text-center">
-        <h1 className="mb-4 text-6xl font-bold font-[family-name:var(--font-display)] text-foreground">
+        <h1 className="mb-4 text-6xl font-bold font-[family-name:var(--font-display)] text-[#1a1a1a] dark:text-[#f8f8f2]">
           404
         </h1>
-        <h2 className="mb-4 text-xl font-semibold text-muted-foreground">
+        <h2 className="mb-4 text-xl font-semibold text-[#4d4d4d] dark:text-[#cfcfc8]">
           Page not found
         </h2>
-        <p className="mb-8 text-sm text-muted-foreground">
+        <p className="mb-8 text-sm text-[#4d4d4d] dark:text-[#cfcfc8]">
           The page you are looking for does not exist or has been moved.
         </p>
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
           <a
             href="/"
-            className="rounded-xl px-6 py-2 font-medium transition-all hover:opacity-90 bg-primary text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="rounded-xl px-6 py-2 font-medium transition-all hover:opacity-90 bg-[#1a1a1a] text-[#f8f8f2] dark:bg-[#f8f8f2] dark:text-[#1a1a1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             Go to timeline
           </a>
@@ -39,7 +38,7 @@ function NotFoundComponent() {
             href="https://duyet.net"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-xl border border-border px-6 py-2 font-medium transition-all hover:opacity-80 text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="rounded-xl border border-[#e5e5e5] dark:border-white/10 px-6 py-2 font-medium transition-all hover:opacity-80 text-[#1a1a1a] dark:text-[#f8f8f2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             duyet.net
           </a>
@@ -57,12 +56,12 @@ export const Route = createRootRoute({
       { name: "robots", content: "follow, index" },
       {
         name: "theme-color",
-        content: "#fbf7f0",
+        content: "#f8f8f2",
         media: "(prefers-color-scheme: light)",
       },
       {
         name: "theme-color",
-        content: "#1f1f1f",
+        content: "#0d0e0c",
         media: "(prefers-color-scheme: dark)",
       },
       { title: "LLM Timeline | llm-timeline.duyet.net" },
@@ -83,7 +82,7 @@ export const Route = createRootRoute({
       {
         rel: "preload",
         as: "style",
-        href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:wght@400&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap",
       },
       {
         rel: "alternate",
@@ -105,29 +104,23 @@ function RootComponent() {
         {/* Non-blocking Google Fonts: preloaded above, applied here */}
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:wght@400&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap"
           media="all"
         />
       </head>
       <body>
         <ThemeProvider>
-          <Header
-            longText="LLM Timeline"
-            shortText={llmTimelineConfig.metadata.title.replace(
-              " | duyet.net",
-              ""
-            )}
-          />
-          <div
-            className={cn(
-              "text-foreground",
-              "subpixel-antialiased",
-              "transition-colors duration-300"
-            )}
-          >
+          <div className="min-h-screen bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
+            <Header
+              longText="LLM Timeline"
+              shortText={llmTimelineConfig.metadata.title.replace(
+                " | duyet.net",
+                ""
+              )}
+            />
             <Outlet />
+            <Footer className="bg-[#f2f2eb] dark:bg-[#1a1a1a]" />
           </div>
-          <Footer />
         </ThemeProvider>
         <Analytics />
         <Scripts />

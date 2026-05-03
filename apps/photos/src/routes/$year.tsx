@@ -48,12 +48,12 @@ function YearPage() {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="text-center">
-          <p className="text-gray-500 dark:text-gray-400">
+          <p className="text-[#1a1a1a]/60 dark:text-[#f8f8f2]/60">
             Failed to load photos. Please try again later.
           </p>
           <Link
             to="/"
-            className="mt-4 inline-block rounded-lg bg-gray-100 px-4 py-2 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
+            className="mt-4 inline-block rounded-lg bg-[#1a1a1a]/10 px-4 py-2 transition-colors hover:bg-[#1a1a1a]/20 dark:bg-white/10 dark:hover:bg-white/20"
           >
             Back to all photos
           </Link>
@@ -80,7 +80,7 @@ function YearPage() {
             </p>
             <a
               href="/"
-              className="inline-block rounded-lg bg-gray-100 px-4 py-2 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
+              className="inline-block rounded-lg bg-[#1a1a1a]/10 px-4 py-2 transition-colors hover:bg-[#1a1a1a]/20 dark:bg-white/10 dark:hover:bg-white/20"
             >
               Back to all photos
             </a>
