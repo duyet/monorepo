@@ -1,14 +1,14 @@
 ---
 title: 'Rust: Processing JSON with serde'
-date: '2026-05-01'
+date: '2023-10-15'
 featured: true
 author: Duyet
 category: Rust
 tags:
   - Rust
   - Serde
-slug: /2026/05/rust-json-serde.html
-twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2026%2F05%2Frust-json-serde.html
+slug: /2023/10/rust-json-serde.html
+twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2023%2F10%2Frust-json-serde.html
 description: Serialize and deserialize JSON in Rust using serde and serde_json — derive macros, field attributes, enum representations, file I/O, dynamic values, and error handling.
 ---
 
