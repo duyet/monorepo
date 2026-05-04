@@ -23,6 +23,7 @@
 }
 
 :root {
+  --font-serif: "Libre Baskerville", Georgia, serif;
   --background: #ffffff;
   --foreground: #1f1f1f;
   --card: #ffffff;
