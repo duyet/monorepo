@@ -51,7 +51,7 @@ export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
           style={
             {
               "--card-bg": CARD_BG_COLORS[
-                hashString(`${card.href}:${card.title}:${card.category}:${index}`)
+                hashString(`${card.href}:${card.title}:${card.category}:${index}`) % CARD_BG_COLORS.length
               ],
               "--card-bg-dark": `hsl(${(index * 77 + 196) % 360} 36% 17%)`,
             } as CSSProperties

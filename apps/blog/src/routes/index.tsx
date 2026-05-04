@@ -18,11 +18,7 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
-  const { postsByYear, seriesList, allTags } = Route.useLoaderData() as {
-    postsByYear: Record<number, Post[]>;
-    seriesList: Series[];
-    allTags: TagCount;
-  };
+  const { postsByYear, seriesList, allTags } = Route.useLoaderData();
 
   const postCount = Object.values(postsByYear).reduce(
     (acc, yearPosts) => acc + yearPosts.length,
