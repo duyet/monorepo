@@ -25,8 +25,7 @@
   --font-inter:
     "Inter", -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui,
     sans-serif;
-  --font-serif:
-    "Libre Baskerville", Georgia, serif;
+  --font-serif: "Libre Baskerville", Georgia, serif;
   --background: #f8f8f2;
   --foreground: #1a1a1a;
   --card: #ffffff;
@@ -35,15 +34,15 @@
   --popover-foreground: #1a1a1a;
   --primary: #1a1a1a;
   --primary-foreground: #f9f9f8;
-  --secondary: #f1eee6;
+  --secondary: #f4f4ef;
   --secondary-foreground: #1a1a1a;
-  --muted: #f1eee6;
-  --muted-foreground: #66625c;
-  --accent: #e9f3df;
+  --muted: #f4f4ef;
+  --muted-foreground: #5f5f57;
+  --accent: #f4f4ef;
   --accent-foreground: #1a1a1a;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #e8e0d4;
-  --input: #e8e0d4;
+  --border: #e8e6de;
+  --input: #e8e6de;
   --ring: #1a1a1a;
 
   /* Claude-inspired brand colors */

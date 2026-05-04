@@ -2,26 +2,26 @@
 
 @layer base {
   :root {
-    --radius: 0.5rem;
+    --radius: 0.625rem;
     --background: #f8f8f2;
     --foreground: #1a1a1a;
     --card: #ffffff;
     --card-foreground: #1a1a1a;
-    --muted: #f5f5f5;
-    --muted-foreground: #737373;
-    --accent: #f5f5f5;
+    --muted: #f4f4ef;
+    --muted-foreground: #5f5f57;
+    --accent: #f4f4ef;
     --accent-foreground: #1a1a1a;
-    --primary: #404040;
+    --primary: #1a1a1a;
     --primary-foreground: #ffffff;
-    --secondary: #f5f5f5;
+    --secondary: #f4f4ef;
     --secondary-foreground: #1a1a1a;
-    --border: #e5e5e5;
-    --input: #e5e5e5;
-    --ring: #a3a3a3;
-    --year-watermark: #e5e5e5;
+    --border: #e8e6de;
+    --input: #e8e6de;
+    --ring: oklch(70.5% 0.213 47.604);
+    --year-watermark: #e8e6de;
     /* Alias variables for component consistency */
     --text: #1a1a1a;
-    --text-muted: #737373;
+    --text-muted: #5f5f57;
     --bg-card: #ffffff;
   }
 
@@ -68,7 +68,7 @@
   }
 
   html {
-    font-family: var(--font-sans), system-ui, sans-serif;
+    font-family: Inter, ui-sans-serif, system-ui, sans-serif;
   }
 
   body {
