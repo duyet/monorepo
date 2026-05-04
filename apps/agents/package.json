@@ -26,7 +26,7 @@
   "dependencies": {
     "@ai-sdk/react": "^3.0.105",
     "@clerk/clerk-react": "^5.61.2",
-    "@cloudflare/ai-chat": "^0.5.0",
+    "@cloudflare/ai-chat": "^0.6.0",
     "@codemirror/lang-python": "^6.2.1",
     "@codemirror/state": "^6.5.0",
     "@codemirror/theme-one-dark": "^6.1.2",
@@ -62,7 +62,7 @@
     "@tanstack/react-router": "^1.168.0",
     "@tanstack/react-start": "^1.0.0",
     "@xyflow/react": "^12.10.1",
-    "agents": "^0.11.0",
+    "agents": "^0.12.0",
     "ai": "^6.0.103",
     "ai-gateway-provider": "^3.1.1",
     "class-variance-authority": "^0.7.1",
