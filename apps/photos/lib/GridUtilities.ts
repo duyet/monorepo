@@ -26,8 +26,10 @@ export interface GridConfiguration {
  */
 export const MASONRY_CONFIG: GridConfiguration = {
   breakpoints: {
-    default: 5, // 5 columns on very wide screens (1536px+)
-    1280: 4, // 4 columns on desktop (1280px - 1536px)
+    default: 7, // 7 columns on ultra-wide (1920px+)
+    1920: 6, // 6 columns on very wide
+    1536: 5, // 5 columns on large desktop
+    1280: 4, // 4 columns on desktop
     1024: 3, // 3 columns on smaller desktop
     768: 2, // 2 columns on tablet
     640: 1, // 1 column on mobile
@@ -49,13 +51,14 @@ export const MASONRY_CONFIG: GridConfiguration = {
 export function getColumnsForViewport(width: number): number {
   const { breakpoints } = MASONRY_CONFIG;
 
-  if (width >= 1536) return breakpoints.default;
-  if (width >= 1280) return breakpoints["1280"];
-  if (width >= 1024) return breakpoints["1024"];
-  if (width >= 768) return breakpoints["768"];
-  if (width >= 640) return breakpoints["640"];
+  if (width >= 1920) return breakpoints.default;
+  if (width >= 1536) return breakpoints["1920"];
+  if (width >= 1280) return breakpoints["1536"];
+  if (width >= 1024) return breakpoints["1280"];
+  if (width >= 768) return breakpoints["1024"];
+  if (width >= 640) return breakpoints["768"];
 
-  return 1; // Mobile fallback
+  return 1;
 }
 
 /**

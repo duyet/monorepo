@@ -11,15 +11,9 @@ const navigationItems = [
     name: "Blog",
     href: addUtmParams("https://blog.duyet.net", "site_header", "blog"),
   },
-  { name: "Projects", href: "/projects" },
-  { name: "Short URLs", href: "/ls" },
   {
     name: "Experience",
     href: addUtmParams("https://cv.duyet.net", "site_header", "cv"),
-  },
-  {
-    name: "Insights",
-    href: addUtmParams("https://insights.duyet.net", "site_header", "insights"),
   },
   { name: "About", href: "/about" },
 ];

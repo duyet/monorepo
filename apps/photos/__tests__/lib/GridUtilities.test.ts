@@ -53,16 +53,20 @@ describe("GridUtilities", () => {
       expect(getColumnsForViewport(600)).toBe(1);
     });
 
-    test("returns 2 columns for tablet", () => {
-      expect(getColumnsForViewport(800)).toBe(2);
+    test("returns 3 columns for tablet", () => {
+      expect(getColumnsForViewport(800)).toBe(3);
     });
 
-    test("returns 3 columns for desktop", () => {
-      expect(getColumnsForViewport(1200)).toBe(3);
+    test("returns 4 columns for desktop", () => {
+      expect(getColumnsForViewport(1200)).toBe(4);
     });
 
-    test("returns 5 columns for wide screens", () => {
-      expect(getColumnsForViewport(1600)).toBe(5);
+    test("returns 6 columns for wide screens", () => {
+      expect(getColumnsForViewport(1600)).toBe(6);
+    });
+
+    test("returns 7 columns for ultra-wide screens", () => {
+      expect(getColumnsForViewport(2560)).toBe(7);
     });
   });
 
@@ -176,7 +180,9 @@ describe("GridUtilities", () => {
 
   describe("MASONRY_CONFIG", () => {
     test("has correct breakpoints", () => {
-      expect(MASONRY_CONFIG.breakpoints.default).toBe(5);
+      expect(MASONRY_CONFIG.breakpoints.default).toBe(7);
+      expect(MASONRY_CONFIG.breakpoints["1920"]).toBe(6);
+      expect(MASONRY_CONFIG.breakpoints["1536"]).toBe(5);
       expect(MASONRY_CONFIG.breakpoints["1280"]).toBe(4);
       expect(MASONRY_CONFIG.breakpoints["768"]).toBe(2);
       expect(MASONRY_CONFIG.breakpoints["640"]).toBe(1);

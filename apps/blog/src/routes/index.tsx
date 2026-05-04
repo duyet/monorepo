@@ -1,20 +1,27 @@
 import Container from "@duyet/components/Container";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { HomeCards } from "@/components/layout";
 import { YearPost } from "@/components/post";
-import { getPostsByAllYear } from "@/lib/posts";
-import type { Post } from "@duyet/interfaces";
+import { getAllSeries, getAllTags, getPostsByAllYear } from "@/lib/posts";
+import type { Post, Series, TagCount } from "@duyet/interfaces";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
-    const postsByYear = await getPostsByAllYear();
-    return { postsByYear };
+    const [postsByYear, seriesList, allTags] = await Promise.all([
+      getPostsByAllYear(),
+      getAllSeries(),
+      getAllTags(),
+    ]);
+    return { postsByYear, seriesList, allTags };
   },
   component: HomePage,
 });
 
 function HomePage() {
-  const { postsByYear } = Route.useLoaderData() as {
+  const { postsByYear, seriesList, allTags } = Route.useLoaderData() as {
     postsByYear: Record<number, Post[]>;
+    seriesList: Series[];
+    allTags: TagCount;
   };
 
   const postCount = Object.values(postsByYear).reduce(
@@ -24,6 +31,12 @@ function HomePage() {
 
   const years = Object.keys(postsByYear).map(Number);
   const pastYears = new Date().getFullYear() - Math.min(...years);
+
+  const topSeriesList = seriesList.slice(0, 4);
+  const topTags = Object.entries(allTags)
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 5)
+    .map(([tag]) => tag);
 
   return (
     <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
@@ -63,6 +76,10 @@ function HomePage() {
           </Link>
           .
         </p>
+      </div>
+
+      <div className="mx-auto mt-14 max-w-[820px]">
+        <HomeCards seriesList={topSeriesList} topTags={topTags} />
       </div>
 
       <div className="mx-auto mt-14 max-w-[1080px]">

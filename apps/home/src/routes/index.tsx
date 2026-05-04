@@ -181,14 +181,6 @@ function ProjectCard({
       className={`group overflow-hidden rounded-xl ${item.tone ?? "bg-[#1a1a1a]"} transition-transform hover:-translate-y-0.5`}
       shortcutNumber={shortcutNumber}
     >
-      <div className="overflow-hidden bg-[#1a1a1a]">
-        <img
-          src={item.screenshot}
-          alt={item.name}
-          loading="lazy"
-          className="aspect-[16/10] w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.025]"
-        />
-      </div>
       <div className="p-5 text-white">
         <h3 className="text-lg font-semibold tracking-tight">{item.name}</h3>
         <p className="mt-2 text-sm font-medium leading-6 text-white/80">

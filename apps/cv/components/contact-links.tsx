@@ -11,7 +11,7 @@ import { ResumeLink } from "./resume-link";
 
 export function ContactLinks({ contacts }: { contacts: ContactLink[] }) {
   return (
-    <div className="inline-flex w-full flex-wrap gap-x-4 gap-y-1 text-sm font-medium leading-6 text-neutral-700 print:text-[8pt] print:leading-tight">
+    <div className="mt-1 inline-flex w-full flex-wrap gap-x-3 gap-y-1 text-[13px] leading-6">
       {contacts.map((contact) => {
         if (contact.type === "email") {
           return <span key={contact.id}>{contact.label}</span>;
@@ -37,15 +37,15 @@ export function ContactLinks({ contacts }: { contacts: ContactLink[] }) {
                 >
                   <div className="flex items-start gap-2.5">
                     {contact.hoverContent.icon ? (
-                      <span className="mt-0.5 text-base text-neutral-500 dark:text-neutral-500">
+                      <span className="mt-0.5 text-base text-neutral-500 dark:text-neutral-400">
                         {contact.hoverContent.icon}
                       </span>
                     ) : null}
                     <div className="min-w-0">
-                      <div className="font-medium text-neutral-900 dark:text-neutral-900">
+                      <div className="font-medium text-neutral-900 dark:text-neutral-50">
                         {contact.hoverContent.title}
                       </div>
-                      <div className="text-neutral-600 dark:text-neutral-600">
+                      <div className="text-neutral-600 dark:text-neutral-300">
                         {contact.hoverContent.subtitle}
                       </div>
                     </div>
