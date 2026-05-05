@@ -42,7 +42,7 @@ export function SeriesBox({
       </h2>
 
       <div className="grid grid-cols-1 gap-2">
-        {posts.map(({ slug, title, excerpt }, i) => {
+        {posts.map(({ slug, title, excerpt }) => {
           const isCurrent = current === slug;
           return (
             <div
@@ -56,16 +56,6 @@ export function SeriesBox({
               )}
               key={slug}
             >
-              <div
-                className={cn(
-                  "text-3xl font-semibold tabular-nums md:text-4xl",
-                  isDarkTone
-                    ? "text-white/35"
-                    : "text-[#1a1a1a]/25 dark:text-[#f8f8f2]/25"
-                )}
-              >
-                {i + 1}
-              </div>
               <div className="flex-1">
                 {isCurrent ? (
                   <span

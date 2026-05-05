@@ -13,6 +13,10 @@ import {
 import { fetchTrendStats, RepoTrendsView } from "@/app/github/repo-trends";
 import { fetchGithubRepos, ReposView } from "@/app/github/repos";
 import { getPeriodConfig } from "@/lib/periods";
+import {
+  InsightsPageHeader,
+  InsightsSection,
+} from "@/components/layouts/InsightsPageShell";
 
 const OWNER = "duyet";
 
@@ -78,74 +82,55 @@ function GitHubPeriodPage() {
     Route.useLoaderData();
 
   return (
-    <div className="space-y-8">
-      <div className="border-b pb-6">
-        <h1 className="text-2xl font-bold tracking-tight">GitHub Analytics</h1>
-        <p className="mt-1 text-muted-foreground">
-          Repository insights and development activity • {config.label}
-        </p>
-      </div>
+    <div className="space-y-6">
+      <InsightsPageHeader
+        badge={`GitHub • ${config.label}`}
+        title="Repository analytics"
+        description="Repository insights and development activity for the selected period."
+      />
 
-      <div className="space-y-8">
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">Language Distribution</h2>
-            <p className="text-sm text-muted-foreground">
-              Programming languages and repository statistics
-            </p>
-          </div>
+      <div className="space-y-6">
+        <InsightsSection
+          title="Language distribution"
+          description="Programming languages and repository statistics."
+        >
           <GitHubLanguageStatsView stats={languageStats} />
-        </div>
+        </InsightsSection>
 
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">Repository Trends</h2>
-            <p className="text-sm text-muted-foreground">
-              Stars, forks, and trending repositories
-            </p>
-          </div>
+        <InsightsSection
+          title="Repository trends"
+          description="Stars, forks, and trending repositories."
+        >
           <RepoTrendsView stats={trendStats} />
-        </div>
+        </InsightsSection>
 
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">Repository Overview</h2>
-            <p className="text-sm text-muted-foreground">
-              Public repositories and statistics
-            </p>
-          </div>
+        <InsightsSection
+          title="Repository overview"
+          description="Public repositories and statistics."
+        >
           <ReposView owner={OWNER} repos={repos} />
-        </div>
+        </InsightsSection>
 
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">Commit Activity</h2>
-            <p className="text-sm text-muted-foreground">
-              Weekly commit frequency and patterns
-            </p>
-          </div>
+        <InsightsSection
+          title="Commit activity"
+          description="Weekly commit frequency and patterns."
+        >
           <CommitTimelineView stats={commitStats} />
-        </div>
+        </InsightsSection>
 
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">Development Activity</h2>
-            <p className="text-sm text-muted-foreground">
-              Recent contributions and activity patterns
-            </p>
-          </div>
+        <InsightsSection
+          title="Development activity"
+          description="Recent contributions and activity patterns."
+        >
           <GithubActivityView owner={OWNER} repos={stars} />
-        </div>
+        </InsightsSection>
 
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">Profile Statistics</h2>
-            <p className="text-sm text-muted-foreground">
-              Overall GitHub profile metrics
-            </p>
-          </div>
+        <InsightsSection
+          title="Profile statistics"
+          description="Overall GitHub profile metrics."
+        >
           <GithubCard owner={OWNER} />
-        </div>
+        </InsightsSection>
       </div>
     </div>
   );

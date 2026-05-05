@@ -3,6 +3,11 @@ import { getWakaTimeComparison } from "@/app/wakatime/wakatime-comparison-utils"
 import { ComparisonMetrics } from "@/components/comparison";
 import type { PeriodDays } from "@/lib/periods";
 import { getPeriodConfig, getPeriodDays, isPeriodValue } from "@/lib/periods";
+import {
+  InsightsNotice,
+  InsightsPageHeader,
+  InsightsSection,
+} from "@/components/layouts/InsightsPageShell";
 
 export const Route = createFileRoute("/compare/wakatime/$period1/$period2")({
   loader: async ({ params }) => {
@@ -57,12 +62,11 @@ function WakaTimeComparisonPage() {
 
   if (invalid) {
     return (
-      <div className="rounded-lg border border-red-200 bg-red-50 p-6 text-red-900 dark:border-red-800 dark:bg-red-950 dark:text-red-100">
-        <h2 className="text-lg font-semibold">Invalid Period</h2>
-        <p className="mt-2 text-sm">
-          Please select valid time periods for comparison.
-        </p>
-      </div>
+      <InsightsNotice
+        tone="error"
+        title="Invalid period"
+        body="Please select valid time periods for comparison."
+      />
     );
   }
 
@@ -70,27 +74,23 @@ function WakaTimeComparisonPage() {
   const period2Label = days2 === "all" ? "All time" : `${days2} days`;
 
   return (
-    <div className="space-y-8">
-      <div className="border-b pb-6">
-        <h1 className="text-2xl font-bold tracking-tight">
-          Coding Analytics Comparison
-        </h1>
-        <p className="mt-1 text-muted-foreground">
-          Comparing WakaTime coding activity: {config1?.label} vs{" "}
-          {config2?.label}
-        </p>
-      </div>
+    <div className="space-y-6">
+      <InsightsPageHeader
+        badge="Compare • WakaTime"
+        title="Coding analytics comparison"
+        description={`Comparing coding activity between ${config1?.label} and ${config2?.label}.`}
+      />
 
       {!comparison ? (
-        <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-6 text-yellow-900 dark:border-yellow-800 dark:bg-yellow-950 dark:text-yellow-100">
-          <h2 className="text-lg font-semibold">Data Unavailable</h2>
-          <p className="mt-2 text-sm">
-            WakaTime data is not available for the selected periods.
-          </p>
-        </div>
+        <InsightsNotice
+          title="Data unavailable"
+          body="WakaTime data is not available for the selected periods."
+        />
       ) : (
-        <div>
-          <h2 className="mb-4 text-lg font-semibold">Metrics Comparison</h2>
+        <InsightsSection
+          title="Metrics comparison"
+          description="Period-over-period comparison of key coding metrics."
+        >
           <ComparisonMetrics
             period1Label={period1Label}
             period2Label={period2Label}
@@ -124,7 +124,7 @@ function WakaTimeComparisonPage() {
             Data from WakaTime • Positive values indicate increase in{" "}
             {period1Label} compared to {period2Label}
           </p>
-        </div>
+        </InsightsSection>
       )}
     </div>
   );

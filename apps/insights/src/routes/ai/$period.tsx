@@ -14,6 +14,10 @@ import {
   getCCUsageModels,
 } from "@/app/ai/utils/data-fetchers";
 import { getPeriodConfig, getPeriodDays } from "@/lib/periods";
+import {
+  InsightsPageHeader,
+  InsightsSection,
+} from "@/components/layouts/InsightsPageShell";
 
 export const Route = createFileRoute("/ai/$period")({
   loader: async ({ params }) => {
@@ -80,77 +84,59 @@ function AiPeriodPage() {
   const tableTitle = isLong ? "Monthly Usage Detail" : "Daily Usage Detail";
 
   return (
-    <div className="space-y-8">
-      <div className="border-b pb-4">
-        <h1 className="text-2xl font-bold tracking-tight">
-          AI Usage Analytics
-        </h1>
-        <p className="mt-1 text-muted-foreground">
-          Claude Code usage patterns, token consumption, and model insights
-          {config?.label ? ` • ${config.label}` : ""}
-        </p>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Claude Code current subscription $100
-        </p>
-      </div>
+    <div className="space-y-6">
+      <InsightsPageHeader
+        badge={`AI • ${config?.label ?? "Period"}`}
+        title="AI usage analytics"
+        description="Token usage and model activity across the selected period."
+      />
 
-      <div className="space-y-8">
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">Usage Overview</h2>
-            <p className="text-sm text-muted-foreground">
-              {isAllTime
-                ? "All-time token consumption and activity summary"
-                : `Usage overview for the last ${config?.label}`}
-            </p>
-          </div>
+      <div className="space-y-6">
+        <InsightsSection
+          title="Usage overview"
+          description={
+            isAllTime
+              ? "All-time token consumption and activity summary."
+              : `Usage overview for the last ${config?.label}.`
+          }
+        >
           <CCUsageMetricsView rawMetrics={metrics} />
-        </div>
+        </InsightsSection>
 
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">{activityTitle}</h2>
-            <p className="text-sm text-muted-foreground">
-              {isAllTime
-                ? "All-time token usage patterns"
-                : `Token usage patterns for the last ${config?.label}`}
-            </p>
-          </div>
+        <InsightsSection
+          title={activityTitle}
+          description={
+            isAllTime
+              ? "All-time token usage patterns."
+              : `Token usage patterns for the last ${config?.label}.`
+          }
+        >
           <CCUsageActivityView
             activity={activity}
             activityByModel={activityByModel}
           />
-        </div>
+        </InsightsSection>
 
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">AI Model Usage</h2>
-            <p className="text-sm text-muted-foreground">
-              Model distribution and usage patterns
-            </p>
-          </div>
+        <InsightsSection
+          title="AI model usage"
+          description="Model distribution and usage patterns."
+        >
           <CCUsageModelsView models={models} />
-        </div>
+        </InsightsSection>
 
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">{costsTitle}</h2>
-            <p className="text-sm text-muted-foreground">
-              Cost breakdown and spending patterns
-            </p>
-          </div>
+        <InsightsSection
+          title={costsTitle}
+          description="Estimated cost breakdown and spending patterns."
+        >
           <CCUsageCostsView costs={costs} days={days} />
-        </div>
+        </InsightsSection>
 
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">{tableTitle}</h2>
-            <p className="text-sm text-muted-foreground">
-              Complete breakdown of tokens and costs
-            </p>
-          </div>
+        <InsightsSection
+          title={tableTitle}
+          description="Complete breakdown of tokens and cost estimates."
+        >
           <CCUsageDailyTableView activity={activityRaw} days={days} />
-        </div>
+        </InsightsSection>
 
         <p className="text-xs text-muted-foreground">
           Claude Code Usage Analytics

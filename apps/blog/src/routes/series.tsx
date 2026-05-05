@@ -19,13 +19,13 @@ export const Route = createFileRoute("/series")({
 });
 
 const seriesBackgrounds = [
-  "bg-[#0f172a]",
-  "bg-[#1e293b]",
-  "bg-[#1f3a5f]",
-  "bg-[#0f5132]",
-  "bg-[#3f1f1f]",
-  "bg-[#3b2f24]",
-  "bg-[#172554]",
+  "bg-[#eef4ff]",
+  "bg-[#edf7f1]",
+  "bg-[#fff4e8]",
+  "bg-[#f3efff]",
+  "bg-[#ffeef0]",
+  "bg-[#ecf7f7]",
+  "bg-[#f7f1e8]",
 ];
 
 function SeriesPage() {
@@ -45,14 +45,14 @@ function SeriesPage() {
       </div>
       <div className="mx-auto grid max-w-5xl grid-cols-1 gap-5">
         {seriesList.map((series: Series, index: number) => {
-          const tone = seriesBackgrounds[index % seriesBackgrounds.length];
+          const bgClass = seriesBackgrounds[index % seriesBackgrounds.length];
 
           return (
             <SeriesBox
-              className={cn(tone)}
+              className={cn(bgClass)}
               key={series.slug}
               series={series}
-              tone="dark"
+              tone="light"
             />
           );
         })}

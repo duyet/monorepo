@@ -115,7 +115,7 @@ function RootComponent() {
                   </span>
                 </a>
 
-                <nav className="hidden items-center gap-7 text-sm font-medium md:flex">
+                <nav className="hidden items-center gap-7 text-sm font-medium lg:flex">
                   {headerNavItems.map((item) => (
                     <HeaderLink key={item.label} href={item.href}>
                       {item.label}
@@ -123,7 +123,7 @@ function RootComponent() {
                   ))}
                 </nav>
 
-                <div className="md:hidden" ref={mobileMenuRef}>
+                <div className="lg:hidden" ref={mobileMenuRef}>
                   <button
                     type="button"
                     onClick={() => {
@@ -157,27 +157,31 @@ function RootComponent() {
               </div>
             </header>
 
-            <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+            <main className="relative z-10 bg-[#f8f8f2] pb-16 dark:bg-[#11120f]">
               <div className="mx-auto max-w-[1280px] px-5 pb-16 pt-6 sm:px-8 lg:px-10">
-                <div className="mb-8 flex flex-wrap items-center justify-between gap-3">
-                  <CompactNavigation />
-                  <GlobalPeriodSelector />
+                <div className="mb-8 rounded-xl border border-[#1a1a1a]/10 bg-white p-3 shadow-[0_1px_0_rgba(0,0,0,0.08)] dark:border-white/10 dark:bg-[#171815]">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <CompactNavigation />
+                    <GlobalPeriodSelector />
+                  </div>
                 </div>
-                <Outlet />
+                <div className="rounded-xl border border-[#1a1a1a]/10 bg-white p-5 shadow-[0_1px_0_rgba(0,0,0,0.08)] dark:border-white/10 dark:bg-[#171815] sm:p-6">
+                  <Outlet />
+                </div>
               </div>
             </main>
 
-            <footer className="sticky bottom-0 bg-white px-5 pb-12 pt-24 dark:bg-[#1a1a1a] sm:px-8 lg:px-10 lg:pb-16 lg:pt-28 xl:pb-20">
+            <footer className="bg-[#111f35] px-5 pb-12 pt-16 text-[#f8f8f2] dark:bg-[#090f18] sm:px-8 lg:px-10 lg:pb-16 lg:pt-20 xl:pb-20">
               <div className="mx-auto max-w-[1280px]">
                 <h2 className="max-w-[820px] text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-                  Build useful systems, then explain them clearly.
+                  Operational analytics that stay clear under load.
                 </h2>
                 <div className="my-12 flex flex-wrap items-center gap-4 md:my-16">
                   <a
                     href="https://github.com/duyet"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-lg bg-[#1a1a1a] px-6 py-4 text-base font-medium text-white transition-colors hover:bg-[#444] dark:bg-[#f8f8f2] dark:text-[#0d0e0c] dark:hover:bg-white lg:px-8 lg:text-lg"
+                    className="rounded-lg bg-[#f8f8f2] px-6 py-4 text-base font-medium text-[#0d0e0c] transition-colors hover:bg-white lg:px-8 lg:text-lg"
                   >
                     GitHub
                   </a>
@@ -185,13 +189,13 @@ function RootComponent() {
                     href="https://linkedin.com/in/duyet"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-lg border border-[#1a1a1a]/15 px-6 py-4 text-base font-medium transition-colors hover:border-[#1a1a1a] dark:border-white/15 dark:hover:border-white lg:px-8 lg:text-lg"
+                    className="rounded-lg border border-white/25 px-6 py-4 text-base font-medium transition-colors hover:border-white lg:px-8 lg:text-lg"
                   >
                     LinkedIn
                   </a>
                 </div>
 
-                <hr className="border-[#1a1a1a]/15 dark:border-white/15" />
+                <hr className="border-white/15" />
 
                 <div className="grid gap-6 pt-10 text-base font-medium md:grid-cols-2 md:pt-16">
                   <div className="flex flex-wrap items-center gap-6">
@@ -207,7 +211,7 @@ function RootComponent() {
                       rel="noopener noreferrer"
                       className="flex items-center gap-2"
                     >
-                      <span className="h-3 w-3 rounded-full bg-orange-500" />
+                      <span className="h-3 w-3 rounded-full bg-orange-400" />
                       <span>All Systems Operational</span>
                     </a>
                   </div>

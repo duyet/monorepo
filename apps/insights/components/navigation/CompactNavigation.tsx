@@ -73,7 +73,7 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
     <>
       {/* Desktop Navigation */}
       <nav className={cn("hidden md:block", className)}>
-        <div className="flex items-center space-x-1">
+        <div className="flex flex-wrap items-center gap-2">
           {navItems.map((item) => {
             const Icon = item.icon;
             const currentBasePath = getBasePath(pathname);
@@ -85,11 +85,11 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
                 key={item.href}
                 to={item.href}
                 className={cn(
-                  "flex items-center space-x-2 rounded-lg px-3 py-2 text-xs font-semibold transition-colors",
-                  "hover:bg-neutral-950 hover:text-white",
+                  "flex items-center space-x-2 rounded-lg border px-3 py-2 text-xs font-semibold transition-colors",
+                  "border-[#1a1a1a]/12 bg-white hover:border-[#1a1a1a]/30 hover:bg-[#f5f5ef] dark:border-white/12 dark:bg-[#171815] dark:hover:border-white/30 dark:hover:bg-[#20211d]",
                   isActive
-                    ? "bg-neutral-950 text-white"
-                    : "text-muted-foreground"
+                    ? "border-[#1a1a1a] bg-[#1a1a1a] text-white dark:border-[#f8f8f2] dark:bg-[#f8f8f2] dark:text-[#11120f]"
+                    : "text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70"
                 )}
               >
                 <Icon className="h-4 w-4" />
@@ -110,7 +110,9 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
         {/* Mobile Toggle Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center space-x-2 rounded-lg bg-neutral-950 px-3 py-2 text-sm font-medium text-white"
+          aria-expanded={isOpen}
+          aria-label="Toggle menu"
+          className="flex items-center space-x-2 rounded-lg border border-[#1a1a1a]/12 bg-white px-3 py-2 text-sm font-medium text-[#1a1a1a] dark:border-white/12 dark:bg-[#171815] dark:text-[#f8f8f2]"
         >
           <Menu className="h-4 w-4" />
           <span>Menu</span>
@@ -126,15 +128,15 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
         {isOpen && (
           <>
             <div
-              className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm"
+              className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm"
               onClick={() => setIsOpen(false)}
             />
-            <div className="fixed bottom-0 left-0 right-0 z-50 max-h-[85vh] overflow-y-auto rounded-t-xl border bg-card p-4 shadow-lg">
-              <div className="sticky top-0 mb-4 flex items-center justify-between bg-card pb-2">
+            <div className="fixed bottom-3 left-1/2 z-50 max-h-[85vh] w-[min(360px,calc(100vw-1rem))] -translate-x-1/2 overflow-y-auto rounded-xl border border-[#1a1a1a]/12 bg-white p-4 shadow-lg dark:border-white/12 dark:bg-[#171815]">
+              <div className="sticky top-0 mb-4 flex items-center justify-between bg-white pb-2 dark:bg-[#171815]">
                 <h3 className="text-sm font-semibold">Navigation</h3>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="rounded-lg p-1 hover:bg-accent"
+                  className="rounded-lg p-1 hover:bg-black/5 dark:hover:bg-white/5"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -152,11 +154,11 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
                       to={item.href}
                       onClick={() => setIsOpen(false)}
                       className={cn(
-                        "flex items-start space-x-3 rounded-lg p-3 transition-colors",
-                        "hover:bg-neutral-950 hover:text-white",
+                        "flex items-start space-x-3 rounded-lg border p-3 transition-colors",
+                        "border-[#1a1a1a]/10 hover:border-[#1a1a1a]/25 hover:bg-[#f5f5ef] dark:border-white/10 dark:hover:border-white/25 dark:hover:bg-[#20211d]",
                         isActive
-                          ? "bg-neutral-950 text-white"
-                          : "text-muted-foreground"
+                          ? "border-[#1a1a1a] bg-[#1a1a1a] text-white dark:border-[#f8f8f2] dark:bg-[#f8f8f2] dark:text-[#11120f]"
+                          : "text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70"
                       )}
                     >
                       <Icon className="mt-0.5 h-5 w-5 shrink-0" />
