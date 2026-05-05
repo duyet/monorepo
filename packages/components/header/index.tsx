@@ -71,7 +71,7 @@ export default function Header({
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b border-[#1a1a1a]/10 bg-white/95 backdrop-blur dark:border-white/10 dark:bg-[#0d0e0c]/95",
+        "z-50 border-b border-[#1a1a1a]/10 bg-white/95 backdrop-blur dark:border-white/10 dark:bg-[#0d0e0c]/95",
         className
       )}
     >

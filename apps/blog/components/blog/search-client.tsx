@@ -136,12 +136,12 @@ export function SearchClient({ posts, categories, tags }: SearchClientProps) {
       </aside>
 
       {/* Results Area */}
-      <div className="flex-1 flex flex-col gap-6">
+      <div className="flex flex-1 flex-col gap-6">
         <SearchBar placeholder="Search by title, category, or tags..." />
 
-        <div className="flex flex-col gap-4">
+        <div className="surface-card-base surface-card-warm flex flex-col gap-4 p-4 lg:p-5">
           {hasFilters && (
-            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+            <p className="text-sm text-[#1a1a1a]/75 dark:text-[#f8f8f2]/75">
               Found {sortedPosts.length}{" "}
               {sortedPosts.length === 1 ? "result" : "results"}
               {query && ` for "${query}"`}
@@ -149,7 +149,7 @@ export function SearchClient({ posts, categories, tags }: SearchClientProps) {
           )}
 
           {sortedPosts.length === 0 ? (
-            <div className="py-12 text-center text-neutral-500 dark:text-neutral-500">
+            <div className="py-12 text-center text-[#1a1a1a]/65 dark:text-[#f8f8f2]/65">
               {hasFilters
                 ? "No posts found matching your filters. Try adjusting your search criteria."
                 : "Start typing to search posts, or use the filters to browse."}

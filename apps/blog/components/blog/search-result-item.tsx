@@ -1,7 +1,6 @@
 import type { Post } from "@duyet/interfaces";
 import { escapeRegExp } from "@duyet/libs/string";
 import { cn } from "@duyet/libs/utils";
-import { Link } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { IsFeatured, IsNewPost } from "@/components/post";
 
@@ -46,18 +45,21 @@ export function SearchResultItem({
 
   return (
     <article
-      className={cn("group flex flex-row items-center gap-4 py-2", className)}
+      className={cn(
+        "surface-card-base surface-card-warm group flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:gap-4",
+        className
+      )}
     >
       <a
-        className="text-base text-neutral-800 transition-colors hover:text-neutral-900 hover:underline hover:underline-offset-4 dark:text-neutral-200 dark:hover:text-neutral-100"
+        className="min-w-0 text-base font-medium text-[#1a1a1a] transition-colors hover:opacity-80 hover:underline hover:underline-offset-4 dark:text-[#f8f8f2]"
         href={post.slug}
       >
         {highlightText(post.title)}
         <IsNewPost date={post.date} />
         <IsFeatured featured={post.featured} />
       </a>
-      <hr className="shrink grow border-dotted border-neutral-300 dark:border-neutral-700" />
-      <time className="flex-shrink-0 whitespace-nowrap text-sm text-neutral-500">
+      <hr className="hidden shrink grow border-dotted border-[#1a1a1a]/30 dark:border-[#f8f8f2]/30 sm:block" />
+      <time className="flex-shrink-0 whitespace-nowrap text-sm text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
         {post.date.toLocaleDateString("en-US", {
           year: "numeric",
           month: "short",

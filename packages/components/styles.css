@@ -34,6 +34,51 @@
   }
 }
 
+@layer components {
+  :root {
+    --surface-card-warm: #f3eee6;
+    --surface-card-blue: #bfdbfe;
+    --surface-card-emerald: #a7f3d0;
+    --surface-card-coral: #fecaca;
+    --surface-card-text: #1a1a1a;
+    --surface-card-border: rgb(26 26 26 / 0.1);
+    --surface-card-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
+  }
+
+  .dark {
+    --surface-card-warm: #1a1a1a;
+    --surface-card-blue: #1f3a5f;
+    --surface-card-emerald: #164634;
+    --surface-card-coral: #4f1f1f;
+    --surface-card-text: #f8f8f2;
+    --surface-card-border: rgb(248 248 242 / 0.12);
+    --surface-card-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+  }
+
+  .surface-card-base {
+    border: 1px solid var(--surface-card-border);
+    border-radius: 0.75rem;
+    color: var(--surface-card-text);
+    box-shadow: var(--surface-card-shadow);
+  }
+
+  .surface-card-warm {
+    background-color: var(--surface-card-warm);
+  }
+
+  .surface-card-blue {
+    background-color: var(--surface-card-blue);
+  }
+
+  .surface-card-emerald {
+    background-color: var(--surface-card-emerald);
+  }
+
+  .surface-card-coral {
+    background-color: var(--surface-card-coral);
+  }
+}
+
 /*
  * Code styling - placed outside @layer for higher specificity
  * to override Tailwind prose plugin defaults
