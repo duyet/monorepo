@@ -2,28 +2,26 @@ import "@duyet/components/styles.css";
 import "../styles/globals.css";
 
 import Analytics from "@duyet/components/Analytics";
+import { AppCommandPalette } from "@duyet/components";
+import Footer from "@duyet/components/Footer";
+import Header from "@duyet/components/Header";
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import ThemeToggle from "@duyet/components/ThemeToggle";
+import type { NavigationItem } from "@duyet/components/Menu";
 import {
   createRootRoute,
   HeadContent,
   Outlet,
   Scripts,
 } from "@tanstack/react-router";
-import type { JSX, ReactNode } from "react";
-import { Suspense, useEffect, useRef, useState } from "react";
-import { Menu as MenuIcon, X } from "lucide-react";
 import { GlobalPeriodSelector } from "@/components/GlobalPeriodSelector";
 import { CompactNavigation } from "@/components/navigation/CompactNavigation";
 
-const headerNavItems = [
-  { label: "Insights", href: "/" },
-  { label: "Blog", href: "https://blog.duyet.net" },
-  { label: "Resume", href: "https://cv.duyet.net" },
-  { label: "About", href: "https://duyet.net/about" },
+const insightsNavigation: NavigationItem[] = [
+  { name: "Insights", href: "/" },
+  { name: "Blog", href: "https://blog.duyet.net" },
+  { name: "Experience", href: "https://cv.duyet.net" },
+  { name: "About", href: "https://duyet.net/about" },
 ];
-
-const statusHref = "https://status.duyet.net";
 
 function NotFoundComponent() {
   return (
@@ -68,28 +66,6 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const mobileMenuRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const onPointerDown = (event: MouseEvent | TouchEvent) => {
-      if (!mobileMenuOpen || !mobileMenuRef.current) {
-        return;
-      }
-
-      if (!mobileMenuRef.current.contains(event.target as Node)) {
-        setMobileMenuOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", onPointerDown);
-    document.addEventListener("touchstart", onPointerDown);
-    return () => {
-      document.removeEventListener("mousedown", onPointerDown);
-      document.removeEventListener("touchstart", onPointerDown);
-    };
-  }, [mobileMenuOpen]);
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -106,58 +82,15 @@ function RootComponent() {
       <body>
         <ThemeProvider>
           <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
-            <header className="sticky top-0 z-50 border-b border-[#1a1a1a]/10 bg-white/95 backdrop-blur dark:border-white/10 dark:bg-[#0d0e0c]/95">
-              <div className="mx-auto flex max-w-[1280px] items-center justify-between px-5 py-4 sm:px-8 lg:px-10 lg:py-5">
-                <a href="/" className="flex items-center gap-3">
-                  <DuyetMark />
-                  <span className="text-xl font-semibold tracking-tight">
-                    Duyet Le
-                  </span>
-                </a>
+            <Header
+              shortText="Duyet Le"
+              longText="Duyet Le"
+              navigationItems={insightsNavigation}
+              showAuthButtons={false}
+              actions={<AppCommandPalette />}
+            />
 
-                <nav className="hidden items-center gap-7 text-sm font-medium lg:flex">
-                  {headerNavItems.map((item) => (
-                    <HeaderLink key={item.label} href={item.href}>
-                      {item.label}
-                    </HeaderLink>
-                  ))}
-                </nav>
-
-                <div className="lg:hidden" ref={mobileMenuRef}>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setMobileMenuOpen((open) => !open);
-                    }}
-                    className="flex rounded-lg p-1.5 text-neutral-700 hover:bg-[#1a1a1a]/5 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:text-neutral-300 dark:hover:bg-white/5 dark:hover:text-neutral-100 dark:focus-visible:ring-neutral-500"
-                    aria-expanded={mobileMenuOpen}
-                    aria-label="Toggle menu"
-                  >
-                    <MenuIcon className={mobileMenuOpen ? "hidden size-5" : "size-5"} />
-                    <X className={mobileMenuOpen ? "size-5" : "hidden size-5"} />
-                  </button>
-                  {mobileMenuOpen ? (
-                    <div className="absolute right-0 top-full z-50 mt-3 w-[min(280px,calc(100vw-2rem))] rounded-xl border border-[#1a1a1a]/10 bg-white p-4 shadow-lg dark:border-white/10 dark:bg-[#1a1a1a]">
-                      <nav className="flex flex-col items-start gap-3 text-sm font-medium">
-                        {headerNavItems.map((item) => (
-                          <HeaderLink
-                            key={item.label}
-                            href={item.href}
-                            onClick={() => {
-                              setMobileMenuOpen(false);
-                            }}
-                          >
-                            {item.label}
-                          </HeaderLink>
-                        ))}
-                      </nav>
-                    </div>
-                  ) : null}
-                </div>
-              </div>
-            </header>
-
-            <main className="relative z-10 bg-[#f8f8f2] pb-16 dark:bg-[#11120f]">
+            <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] pb-16 dark:bg-[#11120f] 2xl:rounded-b-[4rem]">
               <div className="mx-auto max-w-[1280px] px-5 pb-16 pt-6 sm:px-8 lg:px-10">
                 <div className="mb-8 rounded-xl border border-[#1a1a1a]/10 bg-white p-3 shadow-[0_1px_0_rgba(0,0,0,0.08)] dark:border-white/10 dark:bg-[#171815]">
                   <div className="flex flex-wrap items-center justify-between gap-3">
@@ -165,59 +98,11 @@ function RootComponent() {
                     <GlobalPeriodSelector />
                   </div>
                 </div>
-                <div className="rounded-xl border border-[#1a1a1a]/10 bg-white p-5 shadow-[0_1px_0_rgba(0,0,0,0.08)] dark:border-white/10 dark:bg-[#171815] sm:p-6">
-                  <Outlet />
-                </div>
+                <Outlet />
               </div>
             </main>
 
-            <footer className="bg-[#111f35] px-5 pb-12 pt-16 text-[#f8f8f2] dark:bg-[#090f18] sm:px-8 lg:px-10 lg:pb-16 lg:pt-20 xl:pb-20">
-              <div className="mx-auto max-w-[1280px]">
-                <h2 className="max-w-[820px] text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-                  Operational analytics that stay clear under load.
-                </h2>
-                <div className="my-12 flex flex-wrap items-center gap-4 md:my-16">
-                  <a
-                    href="https://github.com/duyet"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-lg bg-[#f8f8f2] px-6 py-4 text-base font-medium text-[#0d0e0c] transition-colors hover:bg-white lg:px-8 lg:text-lg"
-                  >
-                    GitHub
-                  </a>
-                  <a
-                    href="https://linkedin.com/in/duyet"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-lg border border-white/25 px-6 py-4 text-base font-medium transition-colors hover:border-white lg:px-8 lg:text-lg"
-                  >
-                    LinkedIn
-                  </a>
-                </div>
-
-                <hr className="border-white/15" />
-
-                <div className="grid gap-6 pt-10 text-base font-medium md:grid-cols-2 md:pt-16">
-                  <div className="flex flex-wrap items-center gap-6">
-                    <span>&copy; Duyet Le</span>
-                    <Suspense fallback={null}>
-                      <ThemeToggle />
-                    </Suspense>
-                  </div>
-                  <div className="flex flex-wrap items-center gap-6 md:justify-end">
-                    <a
-                      href={statusHref}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2"
-                    >
-                      <span className="h-3 w-3 rounded-full bg-orange-400" />
-                      <span>All Systems Operational</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </footer>
+            <Footer />
           </div>
 
           <Analytics />
@@ -225,36 +110,5 @@ function RootComponent() {
         <Scripts />
       </body>
     </html>
-  );
-}
-
-function HeaderLink({
-  href,
-  children,
-  onClick,
-}: {
-  href: string;
-  children: ReactNode;
-  onClick?: () => void;
-}): JSX.Element {
-  if (href.startsWith("http")) {
-    return (
-      <a href={href} target="_blank" rel="noopener noreferrer" onClick={onClick}>
-        {children}
-      </a>
-    );
-  }
-
-  return <a href={href} onClick={onClick}>{children}</a>;
-}
-
-function DuyetMark(): JSX.Element {
-  return (
-    <span className="grid h-5 w-5 grid-cols-2 gap-0.5" aria-hidden="true">
-      <span className="bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
-      <span className="translate-y-1 bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
-      <span className="-translate-y-1 bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
-      <span className="bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
-    </span>
   );
 }

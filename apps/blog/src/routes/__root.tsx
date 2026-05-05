@@ -8,7 +8,6 @@ import Header from "@duyet/components/Header";
 import type { NavigationItem } from "@duyet/components/Menu";
 import { duyetUrls } from "@duyet/urls";
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import { cn } from "@duyet/libs/utils";
 import {
   createRootRoute,
   HeadContent,
@@ -107,26 +106,18 @@ function RootComponent() {
       </head>
       <body>
         <ThemeProvider>
-          <div
-            className={cn(
-              "min-h-screen bg-[#071a33] font-sans text-[var(--foreground)]",
-              "subpixel-antialiased",
-              "[--font-inter:Inter,system-ui,sans-serif]",
-              "[--font-serif:'Libre_Baskerville',Georgia,serif]"
-            )}
-          >
+          <div className="min-h-screen bg-white font-sans text-[var(--foreground)] subpixel-antialiased [--font-inter:Inter,system-ui,sans-serif] [--font-serif:'Libre_Baskerville',Georgia,serif] dark:bg-[#0d0e0c]">
             <Header
               shortText="Duyet Le"
               longText="Duyet Le"
               navigationItems={blogNavigation}
               showAuthButtons={false}
               actions={<AppCommandPalette />}
-              className="bg-[#dbe8f7]/95 dark:bg-[#0d0e0c]/95"
             />
             <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
               <Outlet />
             </main>
-            <Footer className="dark bg-[#071a33]" />
+            <Footer />
             <Analytics />
             <ServiceWorkerRegister />
           </div>

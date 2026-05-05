@@ -28,11 +28,11 @@ export function YearPost({ year, posts, className }: YearPostProps) {
       <div className="overflow-hidden rounded-2xl border border-[#1a1a1a]/12 bg-white dark:border-white/10 dark:bg-[#171815]">
         {posts.map((post: Post) => (
           <a
-            className="group flex flex-row items-center gap-3 border-b border-[#1a1a1a]/10 bg-white p-5 transition-colors first:rounded-t-2xl last:rounded-b-2xl last:border-b-0 hover:bg-[#f8f8f2] dark:border-white/10 dark:bg-transparent dark:hover:bg-white/5 lg:p-6"
+            className="group flex flex-row items-center gap-3 border-b border-[#1a1a1a]/10 bg-white p-5 transition-colors first:rounded-t-2xl last:rounded-b-2xl last:border-b-0 dark:border-white/10 dark:bg-transparent lg:p-6"
             href={post.slug}
             key={post.slug}
           >
-            <div className="min-w-0 flex-1 break-words text-base font-medium leading-6 text-[#1a1a1a]/80 transition-colors group-hover:text-[#1a1a1a] group-hover:underline group-hover:underline-offset-4 dark:text-[#f8f8f2]/80 dark:group-hover:text-[#f8f8f2]">
+            <div className="min-w-0 flex-1 break-words text-base font-medium leading-6 text-[#1a1a1a]/80 transition-colors group-hover:text-[#1a1a1a] dark:text-[#f8f8f2]/80 dark:group-hover:text-[#f8f8f2]">
               {post.title}
               <IsNewPost date={post.date} />
               <IsFeatured featured={post.featured} />
