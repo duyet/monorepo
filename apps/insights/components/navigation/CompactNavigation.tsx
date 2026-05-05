@@ -110,6 +110,8 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
         {/* Mobile Toggle Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
+          aria-expanded={isOpen}
+          aria-label="Toggle menu"
           className="flex items-center space-x-2 rounded-lg border border-[#1a1a1a]/12 bg-white px-3 py-2 text-sm font-medium text-[#1a1a1a] dark:border-white/12 dark:bg-[#171815] dark:text-[#f8f8f2]"
         >
           <Menu className="h-4 w-4" />
@@ -126,11 +128,11 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
         {isOpen && (
           <>
             <div
-              className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm"
+              className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm"
               onClick={() => setIsOpen(false)}
             />
             <div className="fixed bottom-3 left-1/2 z-50 max-h-[85vh] w-[min(360px,calc(100vw-1rem))] -translate-x-1/2 overflow-y-auto rounded-xl border border-[#1a1a1a]/12 bg-white p-4 shadow-lg dark:border-white/12 dark:bg-[#171815]">
-              <div className="sticky top-0 mb-4 flex items-center justify-between bg-card pb-2">
+              <div className="sticky top-0 mb-4 flex items-center justify-between bg-white pb-2 dark:bg-[#171815]">
                 <h3 className="text-sm font-semibold">Navigation</h3>
                 <button
                   onClick={() => setIsOpen(false)}

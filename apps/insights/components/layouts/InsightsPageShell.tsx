@@ -1,15 +1,30 @@
 import { cn } from "@duyet/libs/utils";
-import type { ReactNode } from "react";
+import type { JSX, ReactNode } from "react";
+
+interface InsightsPageHeaderProps {
+  title: string;
+  description: string;
+  badge?: string;
+}
+
+interface InsightsSectionProps {
+  title: string;
+  description?: string;
+  children: ReactNode;
+  className?: string;
+}
+
+interface InsightsNoticeProps {
+  title: string;
+  body: string;
+  tone?: "warning" | "error";
+}
 
 export function InsightsPageHeader({
   title,
   description,
   badge,
-}: {
-  title: string;
-  description: string;
-  badge?: string;
-}) {
+}: InsightsPageHeaderProps): JSX.Element {
   return (
     <header className="rounded-xl border border-[#1a1a1a]/10 bg-white p-6 shadow-[0_1px_0_rgba(0,0,0,0.08)] dark:border-white/10 dark:bg-[#171815]">
       {badge ? (
@@ -30,12 +45,7 @@ export function InsightsSection({
   description,
   children,
   className,
-}: {
-  title: string;
-  description?: string;
-  children: ReactNode;
-  className?: string;
-}) {
+}: InsightsSectionProps): JSX.Element {
   return (
     <section
       className={cn(
@@ -60,11 +70,7 @@ export function InsightsNotice({
   title,
   body,
   tone = "warning",
-}: {
-  title: string;
-  body: string;
-  tone?: "warning" | "error";
-}) {
+}: InsightsNoticeProps): JSX.Element {
   const toneClasses =
     tone === "error"
       ? "border-red-200 bg-red-50 text-red-900 dark:border-red-800 dark:bg-red-950 dark:text-red-100"

@@ -45,11 +45,11 @@ function SeriesPage() {
       </div>
       <div className="mx-auto grid max-w-5xl grid-cols-1 gap-5">
         {seriesList.map((series: Series, index: number) => {
-          const tone = seriesBackgrounds[index % seriesBackgrounds.length];
+          const bgClass = seriesBackgrounds[index % seriesBackgrounds.length];
 
           return (
             <SeriesBox
-              className={cn(tone)}
+              className={cn(bgClass)}
               key={series.slug}
               series={series}
               tone="light"

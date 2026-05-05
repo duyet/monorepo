@@ -20,6 +20,11 @@ import {
 } from "@/components/layouts/InsightsPageShell";
 
 const STATIC_DAYS: PeriodDays = getPeriodDays(DEFAULT_PERIOD) as PeriodDays;
+const WAKATIME_BADGE_URL = "/wakatime-assets/badge.svg";
+const WAKATIME_HEATMAP_URLS = {
+  light: "/wakatime-assets/heatmap-light.svg",
+  dark: "/wakatime-assets/heatmap-dark.svg",
+};
 
 export const Route = createFileRoute("/wakatime/")({
   loader: async () => {
@@ -123,17 +128,13 @@ function WakatimePage() {
                   alt="Wakatime Badge"
                   className="mt-3"
                   height={30}
-                  src="https://wakatime.com/badge/user/8d67d3f3-1ae6-4b1e-a8a1-32c57b3e05f9.svg"
+                  src={WAKATIME_BADGE_URL}
                   width={200}
                 />
               }
               source="WakaTime (Last Year)"
               title="Coding Activity Heatmap"
-              url={{
-                light:
-                  "https://wakatime.com/share/@duyet/bf2b1851-7d8f-4c32-9033-f0ac18362d9e.svg",
-                dark: "https://wakatime.com/share/@duyet/b7b8389a-04ba-402f-9095-b1748a5be49c.svg",
-              }}
+              url={WAKATIME_HEATMAP_URLS}
             />
           </div>
         </InsightsSection>

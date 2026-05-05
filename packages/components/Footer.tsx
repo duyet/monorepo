@@ -16,7 +16,11 @@ function FooterLink({ href, children }: { href: string; children: ReactNode }) {
     "no-underline transition-colors hover:text-[#1a1a1a] dark:hover:text-[#f8f8f2]"
   );
 
-  if (href.startsWith("http")) {
+  const isExternalHttp = /^https?:\/\//.test(href);
+  const hasExplicitScheme = /^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(href);
+  const isRouterPath = href.startsWith("/") || href.startsWith(".");
+
+  if (isExternalHttp) {
     return (
       <a
         href={href}
@@ -24,6 +28,14 @@ function FooterLink({ href, children }: { href: string; children: ReactNode }) {
         target="_blank"
         rel="noopener noreferrer"
       >
+        {children}
+      </a>
+    );
+  }
+
+  if (hasExplicitScheme && !isRouterPath) {
+    return (
+      <a href={href} className={classes}>
         {children}
       </a>
     );
