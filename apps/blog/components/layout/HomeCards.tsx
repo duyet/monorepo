@@ -7,10 +7,10 @@ interface HomeCardsProps {
 }
 
 const CARD_SURFACES = [
-  "surface-card-warm",
-  "surface-card-blue",
-  "surface-card-emerald",
-  "surface-card-coral",
+  "bg-[#f3eee6]",
+  "bg-[#bfdbfe]",
+  "bg-[#a7f3d0]",
+  "bg-[#fecaca]",
 ];
 
 export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
@@ -47,15 +47,15 @@ export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
         <Link
           key={card.href}
           to={card.href}
-          className={`surface-card-base ${CARD_SURFACES[index % CARD_SURFACES.length]} group flex min-h-[180px] flex-col p-5 transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a1a1a] dark:focus-visible:outline-[#f8f8f2] lg:p-6`}
+          className={`surface-card-base ${CARD_SURFACES[index % CARD_SURFACES.length]} group flex min-h-[180px] flex-col p-5 transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a1a1a] lg:p-6`}
         >
-          <span className="text-sm font-medium text-[#1a1a1a]/65 dark:text-[#f8f8f2]/65">
+          <span className="text-sm font-medium text-[#1a1a1a]/65">
             {card.category}
           </span>
           <h3 className="mt-5 text-lg font-semibold leading-tight tracking-tight md:text-xl">
             {card.title}
           </h3>
-          <p className="mt-2 text-sm font-medium leading-snug text-[#1a1a1a]/80 dark:text-[#f8f8f2]/80">
+          <p className="mt-2 text-sm font-medium leading-snug text-[#1a1a1a]/80">
             {card.description}
           </p>
           {card.tags.length > 0 ? (
@@ -63,7 +63,7 @@ export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
               {card.tags.slice(0, 5).map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-lg border border-[#1a1a1a]/20 bg-[#1a1a1a]/8 px-2.5 py-1 text-xs font-medium text-[#1a1a1a]/85 dark:border-[#f8f8f2]/20 dark:bg-[#f8f8f2]/10 dark:text-[#f8f8f2]/85"
+                  className="rounded-lg border border-[#1a1a1a]/20 bg-[#1a1a1a]/8 px-2.5 py-1 text-xs font-medium text-[#1a1a1a]/85"
                 >
                   {tag}
                 </span>

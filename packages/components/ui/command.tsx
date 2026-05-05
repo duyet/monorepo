@@ -28,7 +28,7 @@ function CommandInput({
   return (
     <div
       data-slot="command-input-wrapper"
-      className="flex h-12 items-center gap-2 border-b px-3"
+      className="flex h-12 items-center gap-2 border-b border-[#1a1a1a]/10 px-3"
     >
       <SearchIcon className="size-4 shrink-0 opacity-50" />
       <CommandPrimitive.Input

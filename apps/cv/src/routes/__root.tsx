@@ -128,7 +128,7 @@ function RootComponent() {
       <body>
         <ThemeProvider>
           <main>
-            <Container className="mb-20 mt-10 min-h-screen max-w-3xl md:mt-20 print:mb-10 print:mt-10">
+            <Container className="mb-20 mt-10 min-h-screen max-w-3xl md:mt-20">
               <Outlet />
             </Container>
           </main>
