@@ -1,6 +1,7 @@
 import {
   CornerDownLeft,
   Expand,
+  Search,
   Globe,
   Mic,
   Plus,
@@ -186,6 +187,32 @@ export function HomeAgentsChat() {
 
     return (
       <div className="mt-4 rounded-2xl border border-[#1a1a1a]/10 bg-white">
+        <form
+          className="border-b border-[#1a1a1a]/10 p-4"
+          onSubmit={async (event) => {
+            event.preventDefault();
+            if (loading) return;
+            await sendMessage(input);
+          }}
+        >
+          <div className="mx-auto flex w-full max-w-5xl items-center gap-3 rounded-[30px] border border-[#cbd5e1] bg-[#f8fafc] px-4 py-3">
+            <Search className="h-6 w-6 shrink-0 text-[#1f2937]" />
+            <input
+              value={input}
+              onChange={(event) => setInput(event.target.value)}
+              placeholder="Type a message..."
+              className="h-10 w-full bg-transparent text-3xl leading-tight text-[#374151] outline-none placeholder:text-[#6b7280]"
+            />
+            <button
+              type="submit"
+              disabled={loading || input.trim().length === 0}
+              className="rounded-3xl bg-[#f58a1f] px-7 py-3 text-2xl font-medium text-white disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              Search
+            </button>
+          </div>
+        </form>
+
         <div className={`overflow-y-auto px-4 py-4 ${expanded ? "h-[440px]" : "h-[240px]"}`}>
           {messages.length === 0 ? (
             <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#faf9f6] p-4 text-sm text-[#1a1a1a]/70">
@@ -291,6 +318,24 @@ export function HomeAgentsChat() {
 
         <SignedOut>
           <div className="mt-4 rounded-2xl border border-[#1a1a1a]/10 bg-white p-4">
+            <div className="mx-auto mb-4 flex w-full max-w-5xl items-center gap-3 rounded-[30px] border border-[#cbd5e1] bg-[#f8fafc] px-4 py-3">
+              <Search className="h-6 w-6 shrink-0 text-[#1f2937]" />
+              <input
+                disabled
+                value=""
+                placeholder="Type a message..."
+                className="h-10 w-full bg-transparent text-3xl leading-tight text-[#374151] outline-none placeholder:text-[#6b7280]"
+              />
+              <SignInButton mode="modal" forceRedirectUrl="https://duyet.net">
+                <button
+                  type="button"
+                  className="rounded-3xl bg-[#f58a1f] px-7 py-3 text-2xl font-medium text-white"
+                >
+                  Search
+                </button>
+              </SignInButton>
+            </div>
+
             <div className="mb-3 flex flex-wrap gap-2">
               {FALLBACK_QUESTIONS.map((question) => (
                 <span
