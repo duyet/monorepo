@@ -3,6 +3,7 @@ import "../globals.css";
 import "../animations.css";
 
 import ThemeProvider from "@duyet/components/ThemeProvider";
+import { ClerkAuthProvider } from "@duyet/components";
 import {
   createRootRoute,
   HeadContent,
@@ -68,9 +69,11 @@ function RootComponent() {
         />
       </head>
       <body>
-        <ThemeProvider>
-          <Outlet />
-        </ThemeProvider>
+        <ClerkAuthProvider>
+          <ThemeProvider>
+            <Outlet />
+          </ThemeProvider>
+        </ClerkAuthProvider>
         <Scripts />
       </body>
     </html>

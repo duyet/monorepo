@@ -21,7 +21,11 @@
     "test:e2e": "bun run scripts/test-e2e.ts",
     "deploy": "bun run build && bunx wrangler pages deploy dist/client --project-name=duyet-agents",
     "cf:deploy": "bun run scripts/build-skills.ts && bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy dist/client --project-name=duyet-agents --commit-dirty=true",
-    "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh agents duyet-agents"
+    "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh agents duyet-agents",
+    "workers:dev": "bunx wrangler dev --config workers/wrangler.toml",
+    "workers:deploy": "bunx wrangler deploy --config workers/wrangler.toml",
+    "workers:d1:migrate": "bunx wrangler d1 execute duyet-agents-db --file workers/src/migrations/0001_init.sql",
+    "workers:check-types": "tsc -p workers/tsconfig.json --noEmit"
   },
   "dependencies": {
     "@ai-sdk/react": "^3.0.105",
