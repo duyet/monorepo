@@ -39,6 +39,17 @@
 }
 
 @layer utilities {
+  .home-ai-search {
+    overflow: hidden;
+  }
+
+  .home-ai-search-snippet {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
   .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;

@@ -29,11 +29,17 @@ interface RecommendationResponse {
 }
 
 const FALLBACK_QUESTIONS = [
-  "What are practical AI architecture patterns?",
-  "How should I improve this homepage UX?",
-  "What should I monitor after deploy?",
-  "Show me Cloudflare Agents best practices.",
+  "What should I explore first on duyet.net?",
+  "Show projects about data engineering and AI agents.",
+  "Which app should I open for analytics and insights?",
+  "Summarize Duyet Le's current work focus.",
 ];
+
+const AGENTS_BASE_URL =
+  import.meta.env.VITE_DUYET_AGENTS_URL || "https://agents.duyet.net";
+const AI_SEARCH_API_URL =
+  import.meta.env.VITE_AI_SEARCH_API_URL ||
+  "https://84249c5c-c9b2-418d-8f03-ab3335997606.search.ai.cloudflare.com/";
 
 export function HomeAgentsChat() {
   const [clerk, setClerk] = useState<ClerkModule | null>(null);
@@ -73,9 +79,10 @@ export function HomeAgentsChat() {
 
   function HeroHeading() {
     return (
-      <div className="mx-auto w-full max-w-2xl">
+      <div className="home-ai-search mx-auto w-full max-w-2xl">
         <search-bar-snippet
-          api-url={import.meta.env.VITE_AI_SEARCH_API_URL || "https://84249c5c-c9b2-418d-8f03-ab3335997606.search.ai.cloudflare.com/"}
+          className="home-ai-search-snippet"
+          api-url={AI_SEARCH_API_URL}
           placeholder="Search..."
           maxResults={50}
           maxRenderResults={10}
@@ -97,7 +104,7 @@ export function HomeAgentsChat() {
           if (!token) return;
 
           const res = await fetch(
-            "https://agents.duyet.net/api/recommendations?focus=ai",
+            `${AGENTS_BASE_URL}/api/recommendations?focus=ai`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -141,7 +148,7 @@ export function HomeAgentsChat() {
 
       try {
         const sessionId = `home-${user?.id ?? "unknown-user"}`;
-        const response = await fetch("https://agents.duyet.net/api/chat", {
+        const response = await fetch(`${AGENTS_BASE_URL}/api/chat`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
