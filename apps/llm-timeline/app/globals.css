@@ -19,7 +19,7 @@
     --input: #e8e6de;
     --ring: oklch(70.5% 0.213 47.604);
     --year-watermark: #e8e6de;
-    --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+    --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
     /* Alias variables for component consistency */
     --text: #1a1a1a;
     --text-muted: #5f5f57;
