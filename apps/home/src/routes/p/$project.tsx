@@ -105,10 +105,10 @@ function ProductPage() {
   const related = products.filter((item) => item.slug !== product.slug);
 
   return (
-    <div className="min-h-screen bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
+    <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
       <SiteHeader />
 
-      <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+      <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
         <section className="mx-auto max-w-[1340px] px-5 py-12 sm:px-8 md:py-16 lg:px-10 lg:py-24 xl:py-28">
           <Link
             to="/"
@@ -178,7 +178,7 @@ function ProductPage() {
               )}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg bg-[#1a1a1a] px-6 py-4 text-base font-medium text-white transition-colors hover:bg-[#444] dark:bg-[#f8f8f2] dark:text-[#0d0e0c] dark:hover:bg-white md:text-lg"
+              className="inline-flex items-center gap-2 rounded-lg bg-[#1a1a1a] px-6 py-4 text-base font-medium text-white transition-colors hover:bg-[#444] dark:bg-white dark:text-[#0d0e0c] dark:hover:bg-white md:text-lg"
             >
               Visit project
               <ExternalLink className="h-5 w-5" />

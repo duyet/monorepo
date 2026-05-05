@@ -21,7 +21,7 @@ export const Route = createFileRoute("/projects")({
 
 function ProjectsPage() {
   return (
-    <div className="min-h-screen bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
+    <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
       <SiteHeader />
 
       <main className="mx-auto max-w-[1280px] px-5 pb-20 pt-10 sm:px-8 md:pt-16 lg:px-10">

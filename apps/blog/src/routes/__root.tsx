@@ -19,7 +19,7 @@ import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center px-4 bg-[#f8f8f2] dark:bg-[#0d0e0c]">
+    <div className="flex min-h-screen items-center justify-center px-4 bg-white dark:bg-[#0d0e0c]">
       <div className="max-w-md text-center">
         <h1 className="mb-4 text-6xl font-bold font-serif text-neutral-900 dark:text-neutral-100">
           404
@@ -122,10 +122,10 @@ function RootComponent() {
               showAuthButtons={false}
               actions={<AppCommandPalette />}
             />
-            <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+            <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
               <Outlet />
             </main>
-            <Footer className="bg-[#f2f2eb] dark:bg-[#1a1a1a]" />
+            <Footer className="bg-white dark:bg-[#1a1a1a]" />
             <Analytics />
             <ServiceWorkerRegister />
           </div>

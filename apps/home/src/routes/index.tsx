@@ -69,10 +69,10 @@ function HomePage() {
         <KeyboardFeatures />
       </Suspense>
 
-      <div className="min-h-screen bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
+      <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
         <SiteHeader />
 
-        <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+        <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
           <section className="mx-auto max-w-[1280px] px-5 py-14 sm:px-8 md:py-18 lg:px-10 lg:py-24 xl:py-28">
             <div className="max-w-[860px] space-y-6">
               <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
@@ -124,7 +124,7 @@ function HomePage() {
             <div className="my-10 flex justify-center lg:my-14">
               <Link
                 to="/projects"
-                className="rounded-lg bg-[#1a1a1a] px-6 py-4 text-base font-medium text-white transition-colors hover:bg-[#444] dark:bg-[#f8f8f2] dark:text-[#0d0e0c] dark:hover:bg-white lg:px-8 lg:text-lg"
+                className="rounded-lg bg-[#1a1a1a] px-6 py-4 text-base font-medium text-white transition-colors hover:bg-[#444] dark:bg-white dark:text-[#0d0e0c] dark:hover:bg-white lg:px-8 lg:text-lg"
               >
                 View more projects
               </Link>
@@ -145,7 +145,7 @@ function HomePage() {
               className="group grid gap-5 rounded-xl bg-white p-6 transition-colors dark:bg-[#1a1a1a] md:grid-cols-[1fr_auto] md:items-center lg:p-8"
             >
               <div className="flex items-start gap-4">
-                <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#1a1a1a] text-white dark:bg-[#f8f8f2] dark:text-[#0d0e0c]">
+                <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#1a1a1a] text-white dark:bg-white dark:text-[#0d0e0c]">
                   <LinkIcon className="h-5 w-5" />
                 </span>
                 <div>
@@ -251,7 +251,7 @@ function CompactAppCard({ item }: { item: AppItem }) {
       item={item}
       className="group flex min-h-36 flex-col rounded-xl bg-white p-5 transition-colors dark:bg-[#1a1a1a] lg:p-6"
     >
-      <div className="mb-8 flex h-10 w-10 items-center justify-center rounded-lg bg-[#1a1a1a] text-white dark:bg-[#f8f8f2] dark:text-[#0d0e0c]">
+      <div className="mb-8 flex h-10 w-10 items-center justify-center rounded-lg bg-[#1a1a1a] text-white dark:bg-white dark:text-[#0d0e0c]">
         <Server className="h-5 w-5" />
       </div>
       <h3 className="text-lg font-semibold tracking-tight">{item.name}</h3>

@@ -12,9 +12,8 @@ import ThemeToggle from "./ThemeToggle";
 
 function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   const classes = cn(
-    "text-sm text-neutral-500 dark:text-neutral-400",
-    "no-underline hover:text-gray-700",
-    "dark:hover:text-white transition"
+    "text-sm text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70",
+    "no-underline transition-colors hover:text-[#1a1a1a] dark:hover:text-[#f8f8f2]"
   );
 
   if (href.startsWith("http")) {
@@ -39,7 +38,9 @@ function FooterLink({ href, children }: { href: string; children: ReactNode }) {
 
 function FooterHeader({ children }: { children: ReactNode }) {
   return (
-    <h3 className="text-sm text-black dark:text-white font-bold">{children}</h3>
+    <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
+      {children}
+    </h3>
   );
 }
 
@@ -83,61 +84,60 @@ export function FooterContent({
   urls = duyetUrls,
 }: FooterContentProps = {}) {
   const navigation = createFooterNavigation(urls, profile);
+  const localDate = new Date().toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
   return (
     <Container>
       <div aria-labelledby="footer-heading">
         <h2 id="footer-heading" className="sr-only">
           Footer
         </h2>
-        <div className="w-full py-8 mx-auto">
-          <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-            <div className="grid grid-cols-1 gap-8 xl:col-span-2">
-              <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 md:gap-8">
-                <div className="mt-6 md:mt-0">
-                  <Logo className="p-0" />
-                </div>
 
-                <div className="mt-6 sm:mt-12 md:mt-0">
-                  <FooterHeader>Resources</FooterHeader>
-                  <ul className="mt-4 space-y-1.5 list-none ml-0">
-                    {navigation.general.map((item) => (
-                      <li key={item.name}>
-                        <FooterLink href={item.href}>{item.name}</FooterLink>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+        <div className="grid gap-12 border-t border-[#1a1a1a]/10 py-10 dark:border-white/10 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:gap-16 md:py-14">
+          <div className="space-y-5">
+            <Logo className="p-0" />
+            <p className="max-w-sm text-sm leading-6 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+              Build useful systems, then explain them clearly.
+            </p>
+          </div>
 
-                <div className="mt-6 sm:mt-12 md:mt-0">
-                  <FooterHeader>{profile.personal.email}</FooterHeader>
-                  <div className="mt-4 text-sm text-gray-600 dark:text-neutral-400">
-                    <Social profile={profile} />
-                  </div>
-                  <ul className="mt-4 space-y-1.5 list-none ml-0">
-                    {navigation.profile.map((item) => (
-                      <li key={item.name}>
-                        <FooterLink href={item.href}>{item.name}</FooterLink>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+          <div className="grid gap-10 sm:grid-cols-2">
+            <div>
+              <FooterHeader>Resources</FooterHeader>
+              <ul className="mt-4 space-y-2 list-none ml-0">
+                {navigation.general.map((item) => (
+                  <li key={item.name}>
+                    <FooterLink href={item.href}>{item.name}</FooterLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <FooterHeader>{profile.personal.email}</FooterHeader>
+              <div className="mt-4 text-sm text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+                <Social profile={profile} />
               </div>
+              <ul className="mt-4 space-y-2 list-none ml-0">
+                {navigation.profile.map((item) => (
+                  <li key={item.name}>
+                    <FooterLink href={item.href}>{item.name}</FooterLink>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
+        </div>
 
-          <div className="pt-8 mt-8 sm:flex sm:items-center sm:justify-between">
-            <div className="mt-5">
-              <p className="mt-4 text-xs text-gray-500 dark:text-neutral-400">
-                &copy; {new Date().getFullYear()}{" "}
-                {urls.apps.home.replace(/^https?:\/\//, "")} |{" "}
-                {profile.personal.title} |{" "}
-                {new Date().toISOString().split("T")[0]}
-              </p>
-            </div>
-            <div className="mt-5">
-              <ThemeToggle />
-            </div>
-          </div>
+        <div className="flex flex-col gap-4 border-t border-[#1a1a1a]/10 pt-6 text-xs text-[#1a1a1a]/55 dark:border-white/10 dark:text-[#f8f8f2]/55 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            &copy; {new Date().getFullYear()} {urls.apps.home.replace(/^https?:\/\//, "")} | {" "}
+            {profile.personal.title} | {localDate}
+          </p>
+          <ThemeToggle />
         </div>
       </div>
     </Container>
@@ -179,7 +179,7 @@ export default function Footer({
   return (
     <footer
       className={cn(
-        "bg-[#f2f2eb] px-5 pb-12 pt-24 dark:bg-[#1a1a1a] sm:px-8 lg:px-10 lg:pb-16 lg:pt-28 xl:pb-20",
+        "bg-white px-5 pb-10 pt-14 dark:bg-[#1a1a1a] sm:px-8 lg:px-10 lg:pb-12 lg:pt-16",
         className
       )}
     >

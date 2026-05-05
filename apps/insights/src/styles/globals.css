@@ -23,8 +23,8 @@
 
   body {
     font-family: var(--font-inter);
-    background-color: #f8f8f2;
-    color: #1a1a1a;
+    background-color: var(--background);
+    color: var(--foreground);
   }
 
   .dark body {
@@ -37,7 +37,7 @@
   --radius: 0.65rem;
   --font-inter: "Inter", -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Libre Baskerville", Georgia, serif;
-  --background: #f8f8f2;
+  --background: #ffffff;
   --foreground: #1a1a1a;
   --card: #ffffff;
   --card-foreground: #1a1a1a;

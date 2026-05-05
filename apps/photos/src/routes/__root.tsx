@@ -29,7 +29,7 @@ function NotFoundComponent() {
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
           <Link
             to="/"
-            className="rounded-xl bg-[#1a1a1a] px-6 py-2 font-medium text-white transition-all hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 dark:bg-[#f8f8f2] dark:text-[#0d0e0c] dark:focus-visible:ring-neutral-500"
+            className="rounded-xl bg-[#1a1a1a] px-6 py-2 font-medium text-white transition-all hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 dark:bg-white dark:text-[#0d0e0c] dark:focus-visible:ring-neutral-500"
           >
             Back to gallery
           </Link>
@@ -60,7 +60,7 @@ export const Route = createRootRoute({
       },
       {
         name: "theme-color",
-        content: "#f8f8f2",
+        content: "#ffffff",
         media: "(prefers-color-scheme: light)",
       },
       {
@@ -104,14 +104,14 @@ function RootComponent() {
       </head>
       <body>
         <ThemeProvider>
-          <div className="min-h-screen bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
+          <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
             <Header longText="Photos" shortText="Photos" />
-            <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+            <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
               <div className="mx-auto px-5 pb-16 pt-6 sm:px-8 lg:px-4 xl:px-6 2xl:px-8">
                 <Outlet />
               </div>
             </main>
-            <Footer className="bg-[#f2f2eb] dark:bg-[#1a1a1a]" />
+            <Footer className="bg-white dark:bg-[#1a1a1a]" />
           </div>
           <Analytics />
         </ThemeProvider>

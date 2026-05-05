@@ -10,8 +10,9 @@ import {
   Outlet,
   Scripts,
 } from "@tanstack/react-router";
-import type { ReactNode } from "react";
-import { Suspense } from "react";
+import type { JSX, ReactNode } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
+import { Menu as MenuIcon, X } from "lucide-react";
 import { GlobalPeriodSelector } from "@/components/GlobalPeriodSelector";
 import { CompactNavigation } from "@/components/navigation/CompactNavigation";
 
@@ -67,6 +68,28 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onPointerDown = (event: MouseEvent | TouchEvent) => {
+      if (!mobileMenuOpen || !mobileMenuRef.current) {
+        return;
+      }
+
+      if (!mobileMenuRef.current.contains(event.target as Node)) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("touchstart", onPointerDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("touchstart", onPointerDown);
+    };
+  }, [mobileMenuOpen]);
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -82,8 +105,8 @@ function RootComponent() {
       </head>
       <body>
         <ThemeProvider>
-          <div className="min-h-screen bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
-            <header className="sticky top-0 z-50 bg-[#f8f8f2]/95 backdrop-blur dark:bg-[#0d0e0c]/95">
+          <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
+            <header className="sticky top-0 z-50 border-b border-[#1a1a1a]/10 bg-white/95 backdrop-blur dark:border-white/10 dark:bg-[#0d0e0c]/95">
               <div className="mx-auto flex max-w-[1280px] items-center justify-between px-5 py-4 sm:px-8 lg:px-10 lg:py-5">
                 <a href="/" className="flex items-center gap-3">
                   <DuyetMark />
@@ -100,19 +123,41 @@ function RootComponent() {
                   ))}
                 </nav>
 
-                <a
-                  href={statusHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hidden items-center gap-2 text-sm font-medium md:flex"
-                >
-                  <span className="h-3 w-3 rounded-full bg-orange-500" />
-                  <span>Status</span>
-                </a>
+                <div className="md:hidden" ref={mobileMenuRef}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMobileMenuOpen((open) => !open);
+                    }}
+                    className="flex rounded-lg p-1.5 text-neutral-700 hover:bg-[#1a1a1a]/5 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:text-neutral-300 dark:hover:bg-white/5 dark:hover:text-neutral-100 dark:focus-visible:ring-neutral-500"
+                    aria-expanded={mobileMenuOpen}
+                    aria-label="Toggle menu"
+                  >
+                    <MenuIcon className={mobileMenuOpen ? "hidden size-5" : "size-5"} />
+                    <X className={mobileMenuOpen ? "size-5" : "hidden size-5"} />
+                  </button>
+                  {mobileMenuOpen ? (
+                    <div className="absolute right-0 top-full z-50 mt-3 w-[min(280px,calc(100vw-2rem))] rounded-xl border border-[#1a1a1a]/10 bg-white p-4 shadow-lg dark:border-white/10 dark:bg-[#1a1a1a]">
+                      <nav className="flex flex-col items-start gap-3 text-sm font-medium">
+                        {headerNavItems.map((item) => (
+                          <HeaderLink
+                            key={item.label}
+                            href={item.href}
+                            onClick={() => {
+                              setMobileMenuOpen(false);
+                            }}
+                          >
+                            {item.label}
+                          </HeaderLink>
+                        ))}
+                      </nav>
+                    </div>
+                  ) : null}
+                </div>
               </div>
             </header>
 
-            <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+            <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
               <div className="mx-auto max-w-[1280px] px-5 pb-16 pt-6 sm:px-8 lg:px-10">
                 <div className="mb-8 flex flex-wrap items-center justify-between gap-3">
                   <CompactNavigation />
@@ -122,7 +167,7 @@ function RootComponent() {
               </div>
             </main>
 
-            <footer className="sticky bottom-0 bg-[#f2f2eb] px-5 pb-12 pt-24 dark:bg-[#1a1a1a] sm:px-8 lg:px-10 lg:pb-16 lg:pt-28 xl:pb-20">
+            <footer className="sticky bottom-0 bg-white px-5 pb-12 pt-24 dark:bg-[#1a1a1a] sm:px-8 lg:px-10 lg:pb-16 lg:pt-28 xl:pb-20">
               <div className="mx-auto max-w-[1280px]">
                 <h2 className="max-w-[820px] text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
                   Build useful systems, then explain them clearly.
@@ -182,22 +227,24 @@ function RootComponent() {
 function HeaderLink({
   href,
   children,
+  onClick,
 }: {
   href: string;
   children: ReactNode;
-}) {
+  onClick?: () => void;
+}): JSX.Element {
   if (href.startsWith("http")) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer">
+      <a href={href} target="_blank" rel="noopener noreferrer" onClick={onClick}>
         {children}
       </a>
     );
   }
 
-  return <a href={href}>{children}</a>;
+  return <a href={href} onClick={onClick}>{children}</a>;
 }
 
-function DuyetMark() {
+function DuyetMark(): JSX.Element {
   return (
     <span className="grid h-5 w-5 grid-cols-2 gap-0.5" aria-hidden="true">
       <span className="bg-[#1a1a1a] dark:bg-[#f8f8f2]" />

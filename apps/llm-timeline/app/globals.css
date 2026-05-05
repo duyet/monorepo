@@ -3,7 +3,7 @@
 @layer base {
   :root {
     --radius: 0.625rem;
-    --background: #f8f8f2;
+    --background: #ffffff;
     --foreground: #1a1a1a;
     --card: #ffffff;
     --card-foreground: #1a1a1a;
