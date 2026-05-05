@@ -30,6 +30,8 @@ interface HeaderProps {
   actions?: ReactNode;
   /** Show auth controls */
   showAuthButtons?: boolean;
+  /** When false, AuthButtons will not mount its own ClerkProvider */
+  authButtonsWrapWithProvider?: boolean;
   /** Optional CSS classes */
   className?: string;
   /** Container CSS classes */
@@ -61,6 +63,7 @@ export default function Header({
   navigationItems,
   actions,
   showAuthButtons = true,
+  authButtonsWrapWithProvider = true,
   className,
   containerClassName,
 }: HeaderProps) {
@@ -97,13 +100,23 @@ export default function Header({
             className="gap-7"
           />
           {actions}
-          {showAuthButtons ? <AuthButtons urls={urls} /> : null}
+          {showAuthButtons ? (
+            <AuthButtons
+              urls={urls}
+              wrapWithProvider={authButtonsWrapWithProvider}
+            />
+          ) : null}
         </nav>
 
         {/* Mobile nav */}
         <div className="flex items-center gap-3 lg:hidden">
           {actions}
-          {showAuthButtons ? <AuthButtons urls={urls} /> : null}
+          {showAuthButtons ? (
+            <AuthButtons
+              urls={urls}
+              wrapWithProvider={authButtonsWrapWithProvider}
+            />
+          ) : null}
           <details className="group relative">
             <summary className="flex cursor-pointer list-none rounded-lg p-1.5 text-neutral-700 hover:bg-[#1a1a1a]/5 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:text-neutral-300 dark:hover:bg-white/5 dark:hover:text-neutral-100 dark:focus-visible:ring-neutral-500 [&::-webkit-details-marker]:hidden">
               <span className="sr-only">Toggle menu</span>
