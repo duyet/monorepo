@@ -39,13 +39,13 @@ jobs:
     environment:
       name: production
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e450dabe0009e67214ff5f5447ce83dd  # v6.0.2
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f  # v6.3.0
         with:
           node-version: 24
 
-      - uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@0c507e51419868618aeaa5fe8019c62421857d6  # v2.2.0
 
       - name: Install dependencies
         run: bun install
@@ -76,11 +76,11 @@ jobs:
           cd apps/agents/workers
 
           # Deploy the worker
-          bunx wrangler deploy
+          bunx wrangler@4.20.0 deploy
 
           # Set AI Gateway token secret
           echo "Setting AI_GATEWAY_TOKEN secret..."
-          echo "${{ secrets.AI_GATEWAY_TOKEN }}" | bunx wrangler secret put AI_GATEWAY_TOKEN
+          echo "${{ secrets.AI_GATEWAY_TOKEN }}" | bunx wrangler@4.20.0 secret put AI_GATEWAY_TOKEN
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -96,7 +96,7 @@ jobs:
       - name: Health check
         run: |
           # Get worker URL from wrangler
-          WORKER_URL=$(bunx wrangler deployments list --name duyet-agents-api --json 2>/dev/null | jq -r '.[0].url // empty')
+          WORKER_URL=$(bunx wrangler@4.20.0 deployments list --name duyet-agents-api --json 2>/dev/null | jq -r '.[0].url // empty')
 
           if [ -n "$WORKER_URL" ]; then
             echo "Checking $WORKER_URL/chat..."
@@ -129,13 +129,13 @@ jobs:
     environment:
       name: production
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e450dabe0009e67214ff5f5447ce83dd  # v6.0.2
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f  # v6.3.0
         with:
           node-version: 24
 
-      - uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@0c507e51419868618aeaa5fe8019c62421857d6  # v2.2.0
 
       - name: Install dependencies
         run: bun install
@@ -158,7 +158,7 @@ jobs:
       - name: Health check
         run: |
           # Get worker URL from wrangler
-          WORKER_URL=$(bunx wrangler deployments list --name duyet-api --json 2>/dev/null | jq -r '.[0].url // empty')
+          WORKER_URL=$(bunx wrangler@4.20.0 deployments list --name duyet-api --json 2>/dev/null | jq -r '.[0].url // empty')
 
           if [ -n "$WORKER_URL" ]; then
             echo "Checking $WORKER_URL..."

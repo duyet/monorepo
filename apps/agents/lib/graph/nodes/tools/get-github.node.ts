@@ -30,8 +30,8 @@ export class GetGitHubNode extends GraphNode {
     error?: string;
   }> {
     try {
-      // Extract limit from route or default to 5
-      const limit = state.route ? parseInt(state.route, 10) || 5 : 5;
+      // Extract limit from tool parameters (not route, which is the next node name)
+      const limit = typeof state.limit === 'number' ? state.limit : 5;
 
       // Call the tool
       const { activity } = await getGitHubTool(limit);

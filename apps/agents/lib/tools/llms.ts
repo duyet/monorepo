@@ -27,9 +27,22 @@ export async function fetchLlmsTxtTool(domain: LlmsDomain | string): Promise<{
   sources: Source[];
 }> {
   let url: string;
-  if (domain.startsWith("http")) {
+
+  const predefinedUrl = LLMS_TXT_DOMAINS[domain as LlmsDomain];
+  if (predefinedUrl) {
+    url = predefinedUrl;
+  } else if (domain.startsWith("http")) {
     // Validate that raw URLs are within the duyet.net domain
     const parsed = new URL(domain);
+
+    // Reject URLs with suspicious characters that could bypass hostname check
+    if (domain.includes("@") || domain.includes("?") || domain.includes("#")) {
+      return {
+        content: `URL not allowed: suspicious characters in URL.`,
+        sources: [],
+      };
+    }
+
     if (!/^([a-z0-9-]+\.)?duyet\.net$/.test(parsed.hostname)) {
       return {
         content: `URL not allowed: ${parsed.hostname}. Only duyet.net domains are supported.`,
@@ -38,9 +51,14 @@ export async function fetchLlmsTxtTool(domain: LlmsDomain | string): Promise<{
     }
     url = domain;
   } else {
-    url =
-      LLMS_TXT_DOMAINS[domain as LlmsDomain] ||
-      `https://${domain}.duyet.net/llms.txt`;
+    // Free-form label: validate as a single subdomain label (no dots, no special chars)
+    if (!/^[a-z0-9-]+$/.test(domain)) {
+      return {
+        content: `Invalid domain: ${domain}. Only predefined domains or valid subdomain labels are allowed.`,
+        sources: [],
+      };
+    }
+    url = `https://${domain}.duyet.net/llms.txt`;
   }
 
   try {

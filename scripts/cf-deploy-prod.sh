@@ -44,5 +44,4 @@ bun run --env-file="$ROOT_DIR/.env.production" \
         --env-file="$ROOT_DIR/.env.production.local" \
         build
 
-# Deploy
-bunx wrangler pages deploy "$OUTPUT_DIR" --project-name="$PROJECT_NAME" --commit-dirty=true
+bunx wrangler@4.20.0 pages deploy "$OUTPUT_DIR" --project-name="$PROJECT_NAME" --commit-dirty=true

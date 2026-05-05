@@ -20,10 +20,10 @@ function getConfig(): ClickHouseConfig | null {
   const password = process.env.CLICKHOUSE_PASSWORD;
   const database = process.env.CLICKHOUSE_DATABASE;
 
-  // Auto-detect protocol from port (443, 8443, 9440 = https)
+   // Default to https; only allow http for localhost/127.0.0.1
   const protocol =
     process.env.CLICKHOUSE_PROTOCOL ||
-    (["443", "8443", "9440"].includes(port) ? "https" : "http");
+    (port === "8123" && (host === "localhost" || host === "127.0.0.1") ? "http" : "https");
 
   if (!host || !password || !database) {
     return null;

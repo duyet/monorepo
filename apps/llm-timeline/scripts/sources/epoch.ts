@@ -167,7 +167,15 @@ export const epoch: DataSourceAdapter = {
       if (domain) model.domain = normalizeText(domain);
 
       const link = getCellValue(row, colMap.link);
-      if (link) model.link = link;
+      if (link) {
+        // Only allow http/https URLs; block javascript:, data:, vbscript: protocols
+        const normalizedLink = link.toLowerCase().trim();
+        if (normalizedLink.startsWith('http://') || normalizedLink.startsWith('https://')) {
+          model.link = link;
+        } else {
+          console.warn(`Skipping invalid link: ${link}`);
+        }
+      }
 
       const rawCompute = getCellValue(row, colMap.trainingCompute);
       if (rawCompute) {

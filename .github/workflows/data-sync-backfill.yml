@@ -49,13 +49,22 @@ jobs:
     steps:
       - id: parse
         run: |
-          # Parse comma-separated sources into JSON array
+          # Validate sources against allowlist
+          ALLOWED_SOURCES=("github" "wakatime" "cloudflare" "unsplash" "posthog")
           SOURCES="${{ inputs.sources }}"
-          IFS=',' read -ra ARRAY <<< "$SOURCES"
+          IFS=',' read -ra INPUT_ARRAY <<< "$SOURCES"
           JSON="["
-          for i in "${!ARRAY[@]}"; do
-            source=$(echo "${ARRAY[$i]}" | xargs)
-            if [ $i -gt 0 ]; then
+          first=true
+          for i in "${INPUT_ARRAY[@]}"; do
+            source=$(echo "${INPUT_ARRAY[$i]}" | xargs)
+            # Validate against allowlist
+            if [[ ! " ${ALLOWED_SOURCES[@]} " =~ " ${source} " ]]; then
+              echo "::error::Invalid source: $source. Allowed: ${ALLOWED_SOURCES[*]}"
+              exit 1
+            fi
+            if [ "$first" = true ]; then
+              first=false
+            else
               JSON="$JSON,"
             fi
             JSON="$JSON\"$source\""
@@ -72,16 +81,16 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+        uses: oven-sh/setup-bun@0c507e51419868618aeaa5fe8019c62421857d6  # v2.2.0
 
       - name: Install dependencies
         run: bun install
 
       - name: Tailscale
-        uses: tailscale/github-action@v4
+        uses: tailscale/github-action@306e68a486fd2350f2bfc3b19fcd143891a4a2d8  # v4.0.0
         with:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
@@ -136,16 +145,16 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+        uses: oven-sh/setup-bun@0c507e51419868618aeaa5fe8019c62421857d6  # v2.2.0
 
       - name: Install dependencies
         run: bun install
 
       - name: Tailscale
-        uses: tailscale/github-action@v4
+        uses: tailscale/github-action@306e68a486fd2350f2bfc3b19fcd143891a4a2d8  # v4.0.0
         with:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
@@ -166,7 +175,7 @@ jobs:
 
       - name: Upload sync logs
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@75de838dbc9d0a9bac267f5c0d3d45766a7710  # v7.0.0
         with:
           name: ${{ matrix.source }}-backfill-logs-${{ github.run_id }}
           path: apps/data-sync/logs/

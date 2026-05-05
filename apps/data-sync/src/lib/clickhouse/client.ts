@@ -110,12 +110,13 @@ export function getClient(): ClickHouseClient | null {
       ? config.host.split(":")[0]
       : config.host;
 
-    // Use official URL format: protocol://user:password@host:port/database
-    const url = `${config.protocol}://${config.user}:${config.password}@${hostWithoutPort}:${config.port}${config.database ? `/${config.database}` : ""}`;
+    // Build URL without embedding password directly in the string
+    // Use separate username/password fields instead of URL-embedded credentials
+    const url = `${config.protocol}://${hostWithoutPort}:${config.port}${config.database ? `/${config.database}` : ""}`;
 
     console.log(
       "[ClickHouse Client] Creating client with URL:",
-      url.replace(/:([^:@]+)@/, ":***@")
+      `${config.protocol}://${config.user}:***@${hostWithoutPort}:${config.port}${config.database ? `/${config.database}` : ""}`
     );
 
     clientInstance = createClient({

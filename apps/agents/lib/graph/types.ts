@@ -29,6 +29,9 @@ export interface AgentState {
 
   /** Execution metadata */
   metadata: StateMetadata;
+
+  /** Optional limit for tools (e.g., GitHub API result caps) */
+  limit?: number;
 }
 
 /** State metadata for observability */

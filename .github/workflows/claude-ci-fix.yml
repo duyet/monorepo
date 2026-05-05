@@ -17,7 +17,6 @@ permissions:
   contents: write
   pull-requests: write
   actions: read
-  id-token: write
 
 jobs:
   fix-ci:
@@ -32,20 +31,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout failing branch
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
         with:
           ref: ${{ github.event.workflow_run.head_branch }}
           fetch-depth: 1
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+        uses: oven-sh/setup-bun@0c507e51419868618aeaa5fe8019c62421857d6  # v2.2.0
 
       - name: Install dependencies
         run: bun install
 
+      - name: Sanitize branch name
+        id: sanitize
+        run: |
+          BRANCH="${{ github.event.workflow_run.head_branch }}"
+          SAFE_BRANCH=$(echo "$BRANCH" | sed 's/[^a-zA-Z0-9/_-]//g')
+          echo "safe_branch=$SAFE_BRANCH" >> $GITHUB_OUTPUT
+          echo "Original: $BRANCH"
+          echo "Sanitized: $SAFE_BRANCH"
+
       - name: Run Claude to diagnose and fix CI failure
-        uses: anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@2cc1ac1331eac7a6a96d716dd204dd2888d0fcd2  # v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
 
@@ -57,61 +65,61 @@ jobs:
             The **"${{ github.event.workflow_run.name }}"** CI workflow failed on a pull request.
 
             **Details:**
-            - Branch: `${{ github.event.workflow_run.head_branch }}`
-            - PR: #${{ github.event.workflow_run.pull_requests[0].number }}
-            - Failed run: ${{ github.event.workflow_run.html_url }}
-            - Run ID: `${{ github.event.workflow_run.id }}`
+              - Branch: `${{ steps.sanitize.outputs.safe_branch }}`
+              - PR: #${{ github.event.workflow_run.pull_requests[0].number }}
+              - Failed run: ${{ github.event.workflow_run.html_url }}
+              - Run ID: `${{ github.event.workflow_run.id }}`
 
             **Your task — follow these steps in order:**
 
             1. **Read CLAUDE.md** to understand the project conventions and coding standards.
 
             2. **Get the failure logs** to understand what went wrong:
-               ```
-               gh run view ${{ github.event.workflow_run.id }} --log-failed
-               ```
+                ```
+                gh run view ${{ github.event.workflow_run.id }} --log-failed
+                ```
 
             3. **Reproduce the failure locally** to confirm you understand it:
-               - If "Lint" failed: `bun run lint`
-               - If "Test" failed: `bun run turbo check-types` and/or `bun run test`
+                - If "Lint" failed: `bun run lint`
+                - If "Test" failed: `bun run turbo check-types` and/or `bun run test`
 
             4. **Fix the root cause** by editing source files. Rules:
-               - Fix the actual code — do not disable lint rules or skip tests
-               - Do not modify test files to make tests pass (fix the source)
-               - Do not change unrelated code
+                - Fix the actual code — do not disable lint rules or skip tests
+                - Do not modify test files to make tests pass (fix the source)
+                - Do not change unrelated code
 
             5. **Verify the fix** by re-running the same commands from step 3. All must pass.
 
             6. **Create a fix branch** named exactly:
-               `claude/fix-ci-${{ github.event.workflow_run.pull_requests[0].number }}-${{ github.run_id }}`
-               ```
-               git checkout -b claude/fix-ci-${{ github.event.workflow_run.pull_requests[0].number }}-${{ github.run_id }}
-               ```
+                `claude/fix-ci-${{ github.event.workflow_run.pull_requests[0].number }}-${{ github.run_id }}`
+                ```
+                git checkout -b "claude/fix-ci-${{ github.event.workflow_run.pull_requests[0].number }}-${{ github.run_id }}" "${{ steps.sanitize.outputs.safe_branch }}"
+                ```
 
             7. **Commit** following the conventions in CLAUDE.md (semantic prefix, co-authors):
-               ```
-               git commit -m "fix(ci): fix ${{ github.event.workflow_run.name }} failures
+                ```
+                git commit -m "fix(ci): fix ${{ github.event.workflow_run.name }} failures
 
-               Auto-fix for failed run: ${{ github.event.workflow_run.html_url }}
+                Auto-fix for failed run: ${{ github.event.workflow_run.html_url }}
 
-               Co-Authored-By: duyet <me@duyet.net>
-               Co-Authored-By: duyetbot <duyetbot@users.noreply.github.com>"
-               ```
+                Co-Authored-By: duyet <me@duyet.net>
+                Co-Authored-By: duyetbot <duyetbot@users.noreply.github.com>"
+                ```
 
             8. **Push and open a PR** targeting the original branch:
-               ```
-               git push origin claude/fix-ci-${{ github.event.workflow_run.pull_requests[0].number }}-${{ github.run_id }}
-               gh pr create \
-                 --title "fix(ci): auto-fix ${{ github.event.workflow_run.name }} failures on PR #${{ github.event.workflow_run.pull_requests[0].number }}" \
-                 --body "Automated fix for CI failure on PR #${{ github.event.workflow_run.pull_requests[0].number }}.
+                ```
+                git push origin claude/fix-ci-${{ github.event.workflow_run.pull_requests[0].number }}-${{ github.run_id }}
+                gh pr create \
+                  --title "fix(ci): auto-fix ${{ github.event.workflow_run.name }} failures on PR #${{ github.event.workflow_run.pull_requests[0].number }}" \
+                  --body "Automated fix for CI failure on PR #${{ github.event.workflow_run.pull_requests[0].number }}.
 
-               **Failed run:** ${{ github.event.workflow_run.html_url }}
+                **Failed run:** ${{ github.event.workflow_run.html_url }}
 
-               Please review and merge into \`${{ github.event.workflow_run.head_branch }}\` if the fix looks correct." \
-                 --base "${{ github.event.workflow_run.head_branch }}"
-               ```
+                Please review and merge into \`${{ steps.sanitize.outputs.safe_branch }}\` if the fix looks correct." \
+                  --base "${{ steps.sanitize.outputs.safe_branch }}" \
+                ```
 
-            **If you cannot confidently fix the issue** (e.g. the failure requires business logic decisions, or is a flaky test), instead post a comment on PR #${{ github.event.workflow_run.pull_requests[0].number }} explaining:
+            **If you cannot confidently fix the issue** (e.g., the failure requires business logic decisions, or is a flaky test), instead post a comment on PR #${{ github.event.workflow_run.pull_requests[0].number }} explaining:
             - What the failure is
             - What you investigated
             - Why you couldn't auto-fix it

@@ -64,6 +64,9 @@ export function useCardDescription({
   useEffect(() => {
     const controller = new AbortController();
 
+    // Debounce: skip rapid re-fetches for same cardType
+    if (description && !error) return;
+
     async function fetchDescription() {
       try {
         setIsLoading(true);

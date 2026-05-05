@@ -79,7 +79,13 @@ export const sheetArtifact = new Artifact<"sheet", Metadata>({
         const nonEmptyRows = parsed.data.filter((row: string[]) =>
           row.some((cell: string) => cell.trim() !== "")
         );
-        const cleanedCsv = unparse(nonEmptyRows);
+        // Neutralize spreadsheet formulas: prefix =, +, -, @ with tab
+        const neutralizedRows = nonEmptyRows.map((row: string[]) =>
+          row.map((cell: string) =>
+            typeof cell === 'string' && /^[-+=@]/.test(cell) ? `\t${cell}` : cell
+          )
+        );
+        const cleanedCsv = unparse(neutralizedRows);
         navigator.clipboard.writeText(cleanedCsv);
         toast.success("Copied CSV to clipboard!");
       },

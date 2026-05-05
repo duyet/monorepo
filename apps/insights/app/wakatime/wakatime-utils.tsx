@@ -28,12 +28,21 @@ interface WakaTimeStats {
 
 // Using stats endpoint instead of summaries (summaries requires premium)
 
+// Simple in-memory cache for WakaTime API responses (per-request lifetime)
+const wakaTimeCache = new Map<string, { data: unknown; expiry: number }>();
+
 async function wakaTimeRequest(endpoint: string) {
   const apiKey = process.env.WAKATIME_API_KEY;
 
   if (!apiKey) {
     console.warn("WAKATIME_API_KEY not found in environment variables");
     return null;
+  }
+
+  // Check cache first (5 minute TTL)
+  const cached = wakaTimeCache.get(endpoint);
+  if (cached && cached.expiry > Date.now()) {
+    return cached.data;
   }
 
   const url = `${wakatimeConfig.baseUrl}${endpoint}`;
@@ -63,6 +72,9 @@ async function wakaTimeRequest(endpoint: string) {
     }
 
     const data = await res.json();
+
+    // Populate cache (5 minute TTL)
+    wakaTimeCache.set(endpoint, { data, expiry: Date.now() + 5 * 60 * 1000 });
 
     // Basic validation to ensure we have a valid response object
     if (!data || typeof data !== "object") {

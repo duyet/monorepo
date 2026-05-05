@@ -306,7 +306,15 @@ export class MigrationRunner {
   async up(): Promise<void> {
     console.log("[Migration Runner] Running UP migrations...");
 
-    const pending = await this.getPending();
+    // Simple guard: only one concurrent migration run per process
+    if ((this as any)._running) {
+      console.warn("[Migration Runner] Migration already in progress, skipping");
+      return;
+    }
+    (this as any)._running = true;
+
+    try {
+      const pending = await this.getPending();
 
     if (pending.length === 0) {
       console.log("[Migration Runner] No pending migrations");
@@ -352,6 +360,9 @@ export class MigrationRunner {
     }
 
     console.log("[Migration Runner] All migrations applied successfully");
+    } finally {
+      (this as any)._running = false;
+    }
   }
 
   /**
@@ -360,7 +371,14 @@ export class MigrationRunner {
   async down(count = 1): Promise<void> {
     console.log(`[Migration Runner] Rolling back ${count} migration(s)...`);
 
-    const applied = await this.getApplied();
+    if ((this as any)._running) {
+      console.warn("[Migration Runner] Migration already in progress, skipping");
+      return;
+    }
+    (this as any)._running = true;
+
+    try {
+      const applied = await this.getApplied();
 
     if (applied.length === 0) {
       console.log("[Migration Runner] No migrations to rollback");
@@ -432,6 +450,9 @@ export class MigrationRunner {
     }
 
     console.log("[Migration Runner] Rollback completed");
+    } finally {
+      (this as any)._running = false;
+    }
   }
 
   /**
