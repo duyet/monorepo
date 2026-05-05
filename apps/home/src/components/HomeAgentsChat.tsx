@@ -39,10 +39,11 @@ export function HomeAgentsChat() {
     );
   }
 
-  const { SignedIn, SignedOut, SignInButton, useAuth } = clerk;
+  const { SignedIn, SignedOut, SignInButton, useAuth, useUser } = clerk;
 
   function SignedInComposer() {
     const { getToken } = useAuth();
+    const { user } = useUser();
 
     const submit = async (content: string) => {
       const token = await getToken();
@@ -55,6 +56,7 @@ export function HomeAgentsChat() {
       setError(null);
 
       try {
+        const sessionId = `home-${user?.id ?? "unknown-user"}`;
         const response = await fetch("https://agents.duyet.net/api/chat", {
           method: "POST",
           headers: {
@@ -63,7 +65,7 @@ export function HomeAgentsChat() {
           },
           body: JSON.stringify({
             message: content,
-            sessionId: "home-chat",
+            sessionId,
           }),
         });
 

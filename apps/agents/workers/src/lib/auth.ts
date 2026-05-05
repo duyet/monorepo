@@ -37,43 +37,58 @@ async function verifyJwt(
   token: string,
   issuerUrl?: string
 ): Promise<Record<string, unknown> | null> {
-  const parts = token.split(".");
-  if (parts.length !== 3) return null;
+  try {
+    const parts = token.split(".");
+    if (parts.length !== 3) return null;
 
-  const header = JSON.parse(new TextDecoder().decode(base64UrlDecode(parts[0])));
-  if (!header.alg || typeof header.alg !== "string" || !header.alg.startsWith("RS")) {
+    const header = JSON.parse(
+      new TextDecoder().decode(base64UrlDecode(parts[0]))
+    );
+    if (
+      !header.alg ||
+      typeof header.alg !== "string" ||
+      !header.alg.startsWith("RS")
+    ) {
+      return null;
+    }
+
+    const keys = await getClerkJwks(issuerUrl);
+    if (keys.length === 0) return null;
+
+    const jwk = header.kid
+      ? keys.find((k) => (k as Record<string, unknown>).kid === header.kid)
+      : keys[0];
+    if (!jwk) return null;
+
+    const key = await crypto.subtle.importKey(
+      "jwk",
+      jwk,
+      {
+        name: "RSASSA-PKCS1-v1_5",
+        hash: { name: `SHA-${header.alg.slice(2)}` },
+      },
+      false,
+      ["verify"]
+    );
+
+    const valid = await crypto.subtle.verify(
+      "RSASSA-PKCS1-v1_5",
+      key,
+      base64UrlDecode(parts[2]).buffer as ArrayBuffer,
+      new TextEncoder().encode(`${parts[0]}.${parts[1]}`)
+    );
+
+    if (!valid) return null;
+
+    const payload = JSON.parse(
+      new TextDecoder().decode(base64UrlDecode(parts[1]))
+    );
+    if (payload.exp && payload.exp * 1000 < Date.now()) return null;
+    if (payload.nbf && payload.nbf * 1000 > Date.now() + 30_000) return null;
+    return payload;
+  } catch {
     return null;
   }
-
-  const keys = await getClerkJwks(issuerUrl);
-  if (keys.length === 0) return null;
-
-  const jwk = header.kid
-    ? keys.find((k) => (k as Record<string, unknown>).kid === header.kid)
-    : keys[0];
-  if (!jwk) return null;
-
-  const key = await crypto.subtle.importKey(
-    "jwk",
-    jwk,
-    { name: "RSASSA-PKCS1-v1_5", hash: { name: `SHA-${header.alg.slice(2)}` } },
-    false,
-    ["verify"]
-  );
-
-  const valid = await crypto.subtle.verify(
-    "RSASSA-PKCS1-v1_5",
-    key,
-    base64UrlDecode(parts[2]).buffer as ArrayBuffer,
-    new TextEncoder().encode(`${parts[0]}.${parts[1]}`)
-  );
-
-  if (!valid) return null;
-
-  const payload = JSON.parse(new TextDecoder().decode(base64UrlDecode(parts[1])));
-  if (payload.exp && payload.exp * 1000 < Date.now()) return null;
-  if (payload.nbf && payload.nbf * 1000 > Date.now() + 30_000) return null;
-  return payload;
 }
 
 export async function getUserFromRequest(
