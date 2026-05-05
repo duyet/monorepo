@@ -305,7 +305,7 @@ function IndexPage() {
           <MetricTile
             icon={Eye}
             label="Page views"
-            tone="#ffffff"
+            tone="#f3eee6"
             value={formatNumber(
               data.cloudflare.totalPageviews || data.posthog.totalViews
             )}
@@ -315,7 +315,7 @@ function IndexPage() {
           <MetricTile
             icon={Bot}
             label="AI tokens"
-            tone="#ffffff"
+            tone="#bfdbfe"
             value={formatCompact(data.aiMetrics.totalTokens)}
           />
         </div>
@@ -323,7 +323,7 @@ function IndexPage() {
           <MetricTile
             icon={Clock3}
             label="Coding hours"
-            tone="#ffffff"
+            tone="#a7f3d0"
             value={formatNumber(data.wakaMetrics.totalHours)}
           />
         </div>
@@ -331,7 +331,7 @@ function IndexPage() {
           <MetricTile
             icon={Zap}
             label="AI cost"
-            tone="#ffffff"
+            tone="#fecaca"
             value={formatCurrency(data.aiMetrics.totalCost)}
           />
         </div>
@@ -343,18 +343,21 @@ function IndexPage() {
           label="AI top model"
           metric={data.aiMetrics.topModel}
           summary={`${formatCompact(data.aiMetrics.cacheTokens)} cache tokens across ${data.aiMetrics.activeDays} active days.`}
+          tone="#bfdbfe"
         />
         <FlatStatusCard
           icon={Code2}
           label="Human coding"
           metric={data.wakaMetrics.topLanguage}
           summary={`${formatNumber(data.wakaMetrics.avgDailyHours)} average hours per active day.`}
+          tone="#a7f3d0"
         />
         <FlatStatusCard
           icon={BarChart3}
           label="Traffic requests"
           metric={formatNumber(data.cloudflare.totalRequests)}
           summary="Cloudflare request volume for current overview period."
+          tone="#f3eee6"
         />
       </section>
 
@@ -494,14 +497,19 @@ function FlatStatusCard({
   label,
   metric,
   summary,
+  tone,
 }: {
   icon: typeof Eye;
   label: string;
   metric: string;
   summary: string;
+  tone: string;
 }) {
   return (
-    <div className="flex min-h-44 flex-col rounded-xl border border-black/10 bg-white p-5 text-[#1a1a1a]">
+    <div
+      className="flex min-h-44 flex-col rounded-xl border border-black/10 p-5 text-[#1a1a1a]"
+      style={{ backgroundColor: tone }}
+    >
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-sm font-medium text-black/60">{label}</p>

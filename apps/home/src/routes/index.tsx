@@ -27,7 +27,7 @@ const capabilities = [
       "Deep dives into data engineering architecture, distributed systems, AI agents, and lessons learned from scaling open source.",
     href: addUtmParams("https://blog.duyet.net", "homepage", "blog_card"),
     icon: Newspaper,
-    className: "bg-white",
+    className: "bg-[#f3eee6]",
   },
   {
     title: "Resume",
@@ -35,7 +35,7 @@ const capabilities = [
       "Scalable data infrastructure, intelligent applications, and production systems that stay fast as usage grows.",
     href: addUtmParams("https://cv.duyet.net", "homepage", "resume_card"),
     icon: FileUser,
-    className: "bg-white",
+    className: "bg-[#bfdbfe]",
   },
   {
     title: "Insights",
@@ -47,7 +47,7 @@ const capabilities = [
       "insights_card"
     ),
     icon: ChartNoAxesCombined,
-    className: "bg-white",
+    className: "bg-[#a7f3d0]",
   },
   {
     title: "About",
@@ -55,7 +55,7 @@ const capabilities = [
       "Clear project surfaces for Rust, ClickHouse, MCP tools, AI agents, and the small systems that make them useful.",
     href: "/about",
     icon: UserRound,
-    className: "bg-white",
+    className: "bg-[#fecaca]",
   },
 ];
 
@@ -106,7 +106,7 @@ function HomePage() {
               <h2 className="text-2xl font-semibold tracking-tight md:text-3xl xl:text-4xl">
                 Apps
               </h2>
-              <p className="text-base font-medium text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+              <p className="text-base font-medium text-[#1a1a1a]/70">
                 Managed by @duyetbot AI Agent
               </p>
             </div>
@@ -178,7 +178,7 @@ function ProjectCard({
   return (
     <AppLink
       item={item}
-      className="group overflow-hidden rounded-xl border border-[#1a1a1a]/10 bg-white transition-transform hover:-translate-y-0.5"
+      className={`group overflow-hidden rounded-xl border border-[#1a1a1a]/10 ${item.tone ?? "bg-[#f3eee6]"} transition-transform hover:-translate-y-0.5`}
       shortcutNumber={shortcutNumber}
     >
       <div className="p-5 text-[#1a1a1a]">
@@ -249,7 +249,7 @@ function CompactAppCard({ item }: { item: AppItem }) {
   return (
     <AppLink
       item={item}
-      className="group flex min-h-36 flex-col rounded-xl border border-[#1a1a1a]/10 bg-white p-5 transition-colors lg:p-6"
+      className={`group flex min-h-36 flex-col rounded-xl border border-[#1a1a1a]/10 ${item.tone ?? "bg-[#f3eee6]"} p-5 transition-colors lg:p-6`}
     >
       <div className="mb-8 flex h-10 w-10 items-center justify-center rounded-lg border border-[#1a1a1a]/10 bg-white text-[#1a1a1a]">
         <Server className="h-5 w-5" />
