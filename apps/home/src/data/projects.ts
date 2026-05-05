@@ -114,7 +114,7 @@ export const apps: AppItem[] = [
     href: "/",
     host: hostOf(projectUrls.llmTimeline),
     utmContent: "llm_timeline_bento",
-    description: "Interactive timeline of 50+ LLM models from 2017-2025",
+    description: "Interactive timeline of LLM models from 2017-2025",
     screenshot: "/screenshots/llm-timeline.png",
     tone: "bg-[#4f6f62]",
   },

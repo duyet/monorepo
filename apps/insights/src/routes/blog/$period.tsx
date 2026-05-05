@@ -3,6 +3,10 @@ import { CloudflareView, fetchCloudflareData } from "@/app/blog/cloudflare";
 import { fetchPostHogData, PostHogView } from "@/app/blog/posthog";
 import type { PeriodDays } from "@/lib/periods";
 import { getPeriodConfig, getPeriodDays } from "@/lib/periods";
+import {
+  InsightsPageHeader,
+  InsightsSection,
+} from "@/components/layouts/InsightsPageShell";
 
 export const Route = createFileRoute("/blog/$period")({
   loader: async ({ params }) => {
@@ -43,38 +47,30 @@ function BlogPeriodPage() {
   const { config, cloudflare, posthog } = Route.useLoaderData();
 
   return (
-    <div className="space-y-8">
-      <div className="border-b pb-4">
-        <h1 className="text-2xl font-bold tracking-tight">Blog Analytics</h1>
-        <p className="mt-1 text-muted-foreground">
-          Traffic and behavior insights from Cloudflare and PostHog
-          {config?.label ? ` • ${config.label}` : ""}
-        </p>
-      </div>
+    <div className="space-y-6">
+      <InsightsPageHeader
+        badge={`Blog • ${config?.label ?? "Period"}`}
+        title="Blog analytics"
+        description="Traffic and behavior insights from Cloudflare and PostHog."
+      />
 
-      <div className="space-y-8">
+      <div className="space-y-6">
         {cloudflare && (
-          <div>
-            <div className="mb-4">
-              <h2 className="text-lg font-semibold">Traffic Analytics</h2>
-              <p className="text-sm text-muted-foreground">
-                CDN traffic and performance data
-              </p>
-            </div>
+          <InsightsSection
+            title="Traffic analytics"
+            description="CDN traffic and performance data."
+          >
             <CloudflareView {...cloudflare} />
-          </div>
+          </InsightsSection>
         )}
 
         {posthog && posthog.paths.length > 0 && (
-          <div>
-            <div className="mb-4">
-              <h2 className="text-lg font-semibold">User Analytics</h2>
-              <p className="text-sm text-muted-foreground">
-                Popular content and visitor behavior
-              </p>
-            </div>
+          <InsightsSection
+            title="User analytics"
+            description="Popular content and visitor behavior."
+          >
             <PostHogView {...posthog} />
-          </div>
+          </InsightsSection>
         )}
       </div>
     </div>

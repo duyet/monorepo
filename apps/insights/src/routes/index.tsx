@@ -8,7 +8,6 @@ import {
   Code2,
   Eye,
   Globe2,
-  Radio,
   Sparkles,
   Zap,
 } from "lucide-react";
@@ -23,6 +22,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { InsightsPageHeader } from "@/components/layouts/InsightsPageShell";
 
 interface AiActivity {
   "Total Cost": number;
@@ -294,24 +294,15 @@ function IndexPage() {
   const topPosts = data.posthog.paths.slice(0, 5);
 
   return (
-    <div className="space-y-12">
-      <section className="grid gap-8 pt-8 lg:grid-cols-[1.3fr_0.7fr] lg:items-end lg:pt-14">
-        <div className="min-w-0">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-md bg-[#1a1a1a] px-3 py-2 text-sm font-medium text-white">
-            <Radio className="h-4 w-4 text-[#ff6a00]" />
-            Live operating view
-          </div>
-          <h1 className="max-w-5xl text-balance font-semibold text-5xl tracking-tight sm:text-6xl lg:text-7xl">
-            Signals across code, content, traffic, and AI work.
-          </h1>
-          <p className="mt-6 max-w-3xl text-pretty text-lg leading-8 text-[#4d4d4d] dark:text-[#cfcfc8]">
-            A compact dashboard for the Duyet network: what people read, what
-            systems are used, how much coding happened, and where AI spend is
-            moving.
-          </p>
-        </div>
+    <div className="space-y-8">
+      <InsightsPageHeader
+        badge="Overview"
+        title="Network health across traffic, coding, and AI."
+        description="Live operational surface for the Duyet network, with data pulled from Cloudflare, PostHog, WakaTime, and Claude Code usage."
+      />
 
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-2">
+      <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#f6f8fc] p-2 dark:border-white/10 dark:bg-[#111825]">
           <MetricTile
             icon={Eye}
             label="Page views"
@@ -320,18 +311,24 @@ function IndexPage() {
               data.cloudflare.totalPageviews || data.posthog.totalViews
             )}
           />
+        </div>
+        <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#f4fbf7] p-2 dark:border-white/10 dark:bg-[#102119]">
           <MetricTile
             icon={Bot}
             label="AI tokens"
             tone="#b8efd2"
             value={formatCompact(data.aiMetrics.totalTokens)}
           />
+        </div>
+        <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#fcf4f4] p-2 dark:border-white/10 dark:bg-[#2a1719]">
           <MetricTile
             icon={Clock3}
             label="Coding hours"
             tone="#f6c5c7"
             value={formatNumber(data.wakaMetrics.totalHours)}
           />
+        </div>
+        <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#fff8ee] p-2 dark:border-white/10 dark:bg-[#2a1d12]">
           <MetricTile
             icon={Zap}
             label="AI cost"
@@ -456,7 +453,7 @@ function IndexPage() {
         </ChartPanel>
       </section>
 
-      <section className="grid gap-4 border-t border-black/10 pt-8 dark:border-white/15 md:grid-cols-3">
+      <section className="grid gap-4 rounded-xl border border-black/10 bg-[#fafaf6] p-5 dark:border-white/15 dark:bg-[#141510] md:grid-cols-3">
         <SourceNote
           icon={Globe2}
           label="Cloudflare + PostHog"
@@ -494,7 +491,7 @@ function MetricTile({
 }) {
   return (
     <div
-      className="min-w-0 rounded-xl p-4 text-[#1a1a1a] shadow-[inset_0_-1px_0_rgba(0,0,0,0.08)]"
+      className="min-w-0 rounded-lg border border-black/10 p-4 text-[#1a1a1a] shadow-[inset_0_-1px_0_rgba(0,0,0,0.06)]"
       style={{ backgroundColor: tone }}
     >
       <div className="flex items-center justify-between gap-3">
@@ -525,7 +522,7 @@ function StatusCard({
 }) {
   return (
     <Link
-      className="group flex min-h-52 flex-col rounded-xl p-5 text-[#1a1a1a] transition-transform duration-200 hover:-translate-y-1"
+      className="group flex min-h-52 flex-col rounded-xl border border-black/10 p-5 text-[#1a1a1a] transition-transform duration-200 hover:-translate-y-0.5"
       style={{ backgroundColor: tone }}
       to={href}
     >
@@ -556,7 +553,7 @@ function ChartPanel({
   title: string;
 }) {
   return (
-    <div className="rounded-xl bg-white p-5 shadow-[0_1px_0_rgba(0,0,0,0.08),0_22px_60px_rgba(0,0,0,0.06)] dark:bg-[#171815]">
+    <div className="rounded-xl border border-black/10 bg-white p-5 shadow-[0_1px_0_rgba(0,0,0,0.08),0_14px_36px_rgba(0,0,0,0.05)] dark:border-white/10 dark:bg-[#171815]">
       <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
         <div className="min-w-0">
           <p className="text-sm font-medium text-[#ff6a00]">{eyebrow}</p>
@@ -585,7 +582,7 @@ function ListPanel({
   title: string;
 }) {
   return (
-    <div className="rounded-xl bg-[#1a1a1a] p-5 text-white shadow-[0_22px_60px_rgba(0,0,0,0.16)]">
+    <div className="rounded-xl border border-[#1a1a1a]/20 bg-[#1a1a1a] p-5 text-white shadow-[0_20px_40px_rgba(0,0,0,0.2)]">
       <p className="text-sm font-medium text-[#ffb27c]">{eyebrow}</p>
       <h2 className="mt-1 text-2xl font-semibold tracking-tight">{title}</h2>
       <div className="mt-6 space-y-4">

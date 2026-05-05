@@ -14,6 +14,11 @@ import {
   getCCUsageModels,
 } from "@/app/ai/utils/data-fetchers";
 import { DEFAULT_PERIOD, getPeriodDays } from "@/lib/periods";
+import {
+  InsightsNotice,
+  InsightsPageHeader,
+  InsightsSection,
+} from "@/components/layouts/InsightsPageShell";
 
 const STATIC_DAYS: DateRangeDays = getPeriodDays(
   DEFAULT_PERIOD
@@ -68,74 +73,55 @@ function AiPage() {
   } = Route.useLoaderData();
 
   return (
-    <div className="space-y-8">
-      <div className="border-b pb-4">
-        <h1 className="text-2xl font-bold tracking-tight">
-          AI Usage Analytics
-        </h1>
-        <p className="mt-1 text-muted-foreground">
-          Claude Code usage patterns, token consumption, and model insights
-        </p>
-        <p className="mt-2 text-xs text-muted-foreground">
-          Note: This is a cost simulation calculated based on token consumption.
-          I am currently using Claude Code MAX ($100) + ZAI Pro so this does not
-          reflect actual charges
-        </p>
-      </div>
+    <div className="space-y-6">
+      <InsightsPageHeader
+        badge="AI"
+        title="AI usage analytics"
+        description="Claude Code usage patterns, token consumption, model mix, and estimated spend trends."
+      />
+      <InsightsNotice
+        title="Cost note"
+        body="This is a token-based simulation view. It does not represent direct billing totals."
+      />
 
-      <div className="space-y-8">
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">Usage Overview</h2>
-            <p className="text-sm text-muted-foreground">
-              Token consumption and activity summary
-            </p>
-          </div>
+      <div className="space-y-6">
+        <InsightsSection
+          title="Usage overview"
+          description="Token consumption and activity summary."
+        >
           <CCUsageMetricsView rawMetrics={metrics} />
-        </div>
+        </InsightsSection>
 
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">Daily Activity</h2>
-            <p className="text-sm text-muted-foreground">
-              Token usage patterns
-            </p>
-          </div>
+        <InsightsSection
+          title="Daily activity"
+          description="Token usage patterns."
+        >
           <CCUsageActivityView
             activity={activity}
             activityByModel={activityByModel}
           />
-        </div>
+        </InsightsSection>
 
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">AI Model Usage</h2>
-            <p className="text-sm text-muted-foreground">
-              Model distribution and usage patterns
-            </p>
-          </div>
+        <InsightsSection
+          title="AI model usage"
+          description="Model distribution and usage patterns."
+        >
           <CCUsageModelsView models={models} />
-        </div>
+        </InsightsSection>
 
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">Daily Costs</h2>
-            <p className="text-sm text-muted-foreground">
-              Cost breakdown and spending patterns
-            </p>
-          </div>
+        <InsightsSection
+          title="Daily costs"
+          description="Estimated spend breakdown."
+        >
           <CCUsageCostsView costs={costs} days={days} />
-        </div>
+        </InsightsSection>
 
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">Daily Usage Detail</h2>
-            <p className="text-sm text-muted-foreground">
-              Complete daily breakdown of tokens and costs
-            </p>
-          </div>
+        <InsightsSection
+          title="Daily usage detail"
+          description="Complete daily breakdown of tokens and cost estimates."
+        >
           <CCUsageDailyTableView activity={activityRaw} days={days} />
-        </div>
+        </InsightsSection>
 
         <p className="text-xs text-muted-foreground">
           Data Source: Claude Code | Last updated:{" "}

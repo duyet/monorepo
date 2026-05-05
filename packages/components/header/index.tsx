@@ -90,7 +90,7 @@ export default function Header({
         />
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-7 text-sm font-medium md:flex">
+        <nav className="hidden items-center gap-7 text-sm font-medium lg:flex">
           <MenuNav
             urls={urls}
             navigationItems={navigationItems}
@@ -101,7 +101,7 @@ export default function Header({
         </nav>
 
         {/* Mobile nav */}
-        <div className="flex items-center gap-3 md:hidden">
+        <div className="flex items-center gap-3 lg:hidden">
           {actions}
           {showAuthButtons ? <AuthButtons urls={urls} /> : null}
           <details className="group relative">

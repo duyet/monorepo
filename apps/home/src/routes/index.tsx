@@ -27,7 +27,7 @@ const capabilities = [
       "Deep dives into data engineering architecture, distributed systems, AI agents, and lessons learned from scaling open source.",
     href: addUtmParams("https://blog.duyet.net", "homepage", "blog_card"),
     icon: Newspaper,
-    className: "bg-white dark:bg-[#1a1a1a]",
+    className: "bg-[#f3eee6] dark:bg-[#1a1a1a]",
   },
   {
     title: "Resume",

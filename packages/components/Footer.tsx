@@ -96,18 +96,23 @@ export function FooterContent({
           Footer
         </h2>
 
-        <div className="grid gap-12 border-t border-[#1a1a1a]/10 py-10 dark:border-white/10 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:gap-16 md:py-14">
+        <div className="grid gap-12 border-t border-[#1a1a1a]/10 py-10 dark:border-white/10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1.9fr)] md:gap-14 md:py-14">
           <div className="space-y-5">
             <Logo className="p-0" />
             <p className="max-w-sm text-sm leading-6 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
               Build useful systems, then explain them clearly.
             </p>
+            <div className="pt-2">
+              <FooterLink href={`mailto:${profile.personal.email}`}>
+                Contact via email
+              </FooterLink>
+            </div>
           </div>
 
-          <div className="grid gap-10 sm:grid-cols-2">
+          <div className="grid gap-8 sm:grid-cols-2">
             <div>
               <FooterHeader>Resources</FooterHeader>
-              <ul className="mt-4 space-y-2 list-none ml-0">
+              <ul className="ml-0 mt-4 list-none space-y-2.5">
                 {navigation.general.map((item) => (
                   <li key={item.name}>
                     <FooterLink href={item.href}>{item.name}</FooterLink>
@@ -121,7 +126,7 @@ export function FooterContent({
               <div className="mt-4 text-sm text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
                 <Social profile={profile} />
               </div>
-              <ul className="mt-4 space-y-2 list-none ml-0">
+              <ul className="ml-0 mt-4 list-none space-y-2.5">
                 {navigation.profile.map((item) => (
                   <li key={item.name}>
                     <FooterLink href={item.href}>{item.name}</FooterLink>

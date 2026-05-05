@@ -132,7 +132,7 @@ function RootComponent() {
               <Outlet />
             </Container>
           </main>
-          <div className="border-t print:hidden">
+          <div className="print:hidden">
             <Header
               logo={false}
               containerClassName="max-w-3xl"
