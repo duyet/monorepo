@@ -90,7 +90,7 @@ function HomePage() {
 
           <section className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
             <h2 className="text-2xl font-semibold tracking-tight md:text-3xl xl:text-4xl">
-              Explore the work
+              Explore my site
             </h2>
 
             <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4 lg:gap-6 xl:gap-8">
@@ -99,6 +99,14 @@ function HomePage() {
               ))}
             </div>
           </section>
+
+          <WorkStackSection
+            repositoryUrl={addUtmParams(
+              "https://github.com/duyet",
+              "homepage",
+              "skills_github"
+            )}
+          />
 
           <section
             id="apps"
@@ -142,14 +150,6 @@ function HomePage() {
           </section>
 
           <HomeAgentsChat />
-
-          <WorkStackSection
-            repositoryUrl={addUtmParams(
-              "https://github.com/duyet",
-              "homepage",
-              "skills_github"
-            )}
-          />
 
           <section className="mx-auto mt-24 max-w-[1280px] px-5 sm:px-8 lg:mt-32 lg:px-10 xl:mt-40">
             <Link
