@@ -19,7 +19,6 @@ const projectUrls = {
   claudePlugins: "https://github.com/duyet/claude-plugins",
   stamp: "https://stamp.duyet.net",
   agentState: "https://agentstate.app",
-  okie: "https://okie.one",
   pageview: "https://pageview.duyet.net",
 };
 
@@ -90,15 +89,6 @@ export const apps: AppItem[] = [
     description: "AI agent state management and debugging tools",
     screenshot: "/screenshots/agentstate-art.svg",
     tone: "bg-[#536f91]",
-  },
-  {
-    name: "Okie.one",
-    href: "/okie",
-    host: hostOf(projectUrls.okie),
-    utmContent: "okie_bento",
-    description: "A focused demo for testing agent workflows and prompt tools",
-    screenshot: "/screenshots/okie.png",
-    tone: "bg-[#5f6257]",
   },
   {
     name: "PageView",

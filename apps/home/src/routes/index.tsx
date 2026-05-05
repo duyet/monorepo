@@ -193,13 +193,12 @@ function ProjectCard({
       className={`group overflow-hidden rounded-xl border border-[#1a1a1a]/10 ${item.tone ?? "bg-[#f3eee6]"} transition-transform hover:-translate-y-0.5`}
       shortcutNumber={shortcutNumber}
     >
-      <div className="p-5 text-white">
-        <h3 className="text-lg font-semibold tracking-tight">{item.name}</h3>
+      <div className="p-4 text-white lg:p-5">
+        <h3 className="text-base font-semibold tracking-tight lg:text-lg">
+          {item.name}
+        </h3>
         <p className="mt-2 text-sm font-medium leading-6 text-white/85">
           {item.description}
-        </p>
-        <p className="mt-5 truncate text-sm font-medium text-white/70">
-          {item.host}
         </p>
       </div>
     </AppLink>

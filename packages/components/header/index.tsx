@@ -73,13 +73,13 @@ export default function Header({
   return (
     <header
       className={cn(
-        "z-50 border-b border-[#1a1a1a]/10 bg-white/95 backdrop-blur dark:border-white/10 dark:bg-[#0d0e0c]/95",
+        "z-50 bg-white/95 backdrop-blur dark:bg-[#0d0e0c]/95",
         className
       )}
     >
       <div
         className={cn(
-          "mx-auto flex max-w-[1280px] flex-col gap-3 px-5 py-4 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:gap-0 lg:px-10",
+          "mx-auto flex max-w-[1280px] flex-row items-center justify-between gap-3 px-5 py-4 sm:px-8 lg:px-10",
           containerClassName
         )}
       >

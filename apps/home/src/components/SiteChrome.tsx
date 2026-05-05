@@ -4,13 +4,12 @@ import { addUtmParams } from "../../app/lib/utm";
 const navigationItems = [
   { name: "Home", href: "/" },
   { name: "Projects", href: "/projects" },
-  { name: "Short URLs", href: "/ls" },
   {
     name: "Blog",
     href: addUtmParams("https://blog.duyet.net", "site_header", "blog"),
   },
   {
-    name: "Experience",
+    name: "CV",
     href: addUtmParams("https://cv.duyet.net", "site_header", "cv"),
   },
   { name: "About", href: "/about" },
