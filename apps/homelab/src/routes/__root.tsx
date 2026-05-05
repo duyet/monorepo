@@ -57,17 +57,17 @@ function RootComponent() {
       </head>
       <body>
         <ThemeProvider defaultTheme="light">
-          <div className="min-h-screen bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
+          <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
             <Header
               longText={homelabConfig.header.longText}
               shortText={homelabConfig.header.shortText}
             />
-            <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+            <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
               <Container className="mb-20 max-w-[1280px] px-5 pb-16 pt-8 sm:px-8 lg:px-10">
                 <Outlet />
               </Container>
             </main>
-            <Footer className="bg-[#f2f2eb] dark:bg-[#1a1a1a]" />
+            <Footer className="bg-white dark:bg-[#1a1a1a]" />
           </div>
           <Analytics />
         </ThemeProvider>

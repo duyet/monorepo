@@ -7,12 +7,16 @@ interface HomeCardsProps {
   topTags: string[];
 }
 
-const CARD_BG_COLORS = Array.from({ length: 100 }, (_, index) => {
-  const hue = (index * 37) % 360;
-  const saturation = 72 - (index % 5) * 4;
-  const lightness = 88 - (index % 4) * 5;
-  return `hsl(${hue} ${saturation}% ${lightness}%)`;
-});
+const CARD_BG_COLORS = [
+  "#0f172a",
+  "#1e293b",
+  "#1f3a5f",
+  "#0f5132",
+  "#3b2f24",
+  "#3f1f1f",
+  "#1b2a41",
+  "#172554",
+];
 
 export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
   const cards = [
@@ -53,18 +57,15 @@ export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
               "--card-bg": CARD_BG_COLORS[
                 hashString(`${card.href}:${card.title}:${card.category}:${index}`) % CARD_BG_COLORS.length
               ],
-              "--card-bg-dark": `hsl(${(index * 77 + 196) % 360} 36% 17%)`,
             } as CSSProperties
           }
-          className="group flex min-h-[180px] flex-col rounded-xl border border-[#1a1a1a]/10 bg-[var(--card-bg)] p-5 text-[#1a1a1a] shadow-[0_16px_36px_rgba(15,23,42,0.05)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a1a1a] dark:border-white/10 dark:bg-[var(--card-bg-dark)] dark:text-[#f8f8f2] dark:focus-visible:outline-[#f8f8f2] lg:p-6"
+          className="group flex min-h-[180px] flex-col rounded-xl border border-[#1a1a1a]/10 bg-[var(--card-bg)] p-5 text-white shadow-[0_16px_36px_rgba(15,23,42,0.12)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a1a1a] dark:border-white/10 dark:focus-visible:outline-[#f8f8f2] lg:p-6"
         >
-          <span className="text-sm font-medium text-[#1a1a1a]/60 dark:text-[#f8f8f2]/60">
-            {card.category}
-          </span>
+          <span className="text-sm font-medium text-white/70">{card.category}</span>
           <h3 className="mt-5 text-lg font-semibold leading-tight tracking-tight md:text-xl">
             {card.title}
           </h3>
-          <p className="mt-2 text-sm font-medium leading-snug text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+          <p className="mt-2 text-sm font-medium leading-snug text-white/78">
             {card.description}
           </p>
           {card.tags.length > 0 ? (
@@ -72,7 +73,7 @@ export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
               {card.tags.slice(0, 5).map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-lg bg-white/75 px-2.5 py-1 text-xs font-medium text-[#1a1a1a]/65 dark:bg-white/10 dark:text-[#f8f8f2]/70"
+                  className="rounded-lg border border-white/25 bg-white/10 px-2.5 py-1 text-xs font-medium text-white/85"
                 >
                   {tag}
                 </span>

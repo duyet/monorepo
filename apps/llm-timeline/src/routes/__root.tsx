@@ -16,7 +16,7 @@ import {
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center px-4 bg-[#f8f8f2] dark:bg-[#0d0e0c]">
+    <div className="flex min-h-screen items-center justify-center px-4 bg-white dark:bg-[#0d0e0c]">
       <div className="max-w-md text-center">
         <h1 className="mb-4 text-6xl font-bold font-[family-name:var(--font-display)] text-[#1a1a1a] dark:text-[#f8f8f2]">
           404
@@ -30,7 +30,7 @@ function NotFoundComponent() {
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
           <a
             href="/"
-            className="rounded-xl px-6 py-2 font-medium transition-all hover:opacity-90 bg-[#1a1a1a] text-[#f8f8f2] dark:bg-[#f8f8f2] dark:text-[#1a1a1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="rounded-xl px-6 py-2 font-medium transition-all hover:opacity-90 bg-[#1a1a1a] text-[#f8f8f2] dark:bg-white dark:text-[#1a1a1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             Go to timeline
           </a>
@@ -110,7 +110,7 @@ function RootComponent() {
       </head>
       <body>
         <ThemeProvider>
-          <div className="min-h-screen bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
+          <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
             <Header
               longText="LLM Timeline"
               shortText={llmTimelineConfig.metadata.title.replace(
@@ -118,12 +118,12 @@ function RootComponent() {
                 ""
               )}
             />
-            <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+            <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
               <div className="mx-auto max-w-[1280px] px-5 pb-16 pt-6 sm:px-8 lg:px-10">
                 <Outlet />
               </div>
             </main>
-            <Footer className="bg-[#f2f2eb] dark:bg-[#1a1a1a]" />
+            <Footer className="bg-white dark:bg-[#1a1a1a]" />
           </div>
         </ThemeProvider>
         <Analytics />

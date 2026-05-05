@@ -25,8 +25,9 @@
   --font-inter:
     "Inter", -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui,
     sans-serif;
-  --font-serif: "Libre Baskerville", georgia, serif;
-  --background: #f8f8f2;
+  --font-serif:
+    "Libre Baskerville", Georgia, serif;
+  --background: #ffffff;
   --foreground: #1a1a1a;
   --card: #ffffff;
   --card-foreground: #1a1a1a;

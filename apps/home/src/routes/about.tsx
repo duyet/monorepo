@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import {
   Github as GithubIcon,
   LinkedIn as LinkedInIcon,
@@ -164,10 +164,10 @@ const skills = [
 
 function AboutPage() {
   return (
-      <div className="min-h-screen bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
+      <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
         <SiteHeader />
 
-      <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] pb-20 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+      <main className="relative z-10 rounded-b-3xl bg-white pb-20 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
         <section className="mx-auto max-w-[1280px] px-5 py-14 sm:px-8 md:py-18 lg:px-10 lg:py-24 xl:py-28">
           <p className="mb-4 text-sm font-medium text-[#1a1a1a]/60 dark:text-[#f8f8f2]/60">
             About
@@ -288,7 +288,7 @@ function AboutPage() {
         <section className="mx-auto mt-24 max-w-[1280px] px-5 sm:px-8 lg:mt-32 lg:px-10 xl:mt-40">
           <div className="grid gap-5 rounded-xl bg-white p-6 dark:bg-[#1a1a1a] md:grid-cols-[1fr_auto] md:items-center lg:p-8">
             <div className="flex items-start gap-4">
-              <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#1a1a1a] text-white dark:bg-[#f8f8f2] dark:text-[#0d0e0c]">
+              <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#1a1a1a] text-white dark:bg-white dark:text-[#0d0e0c]">
                 <Radio className="h-5 w-5" />
               </span>
               <div>
@@ -309,7 +309,7 @@ function AboutPage() {
               )}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#1a1a1a] px-6 py-4 text-base font-medium text-white transition-colors hover:bg-[#444] dark:bg-[#f8f8f2] dark:text-[#0d0e0c] dark:hover:bg-white"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#1a1a1a] px-6 py-4 text-base font-medium text-white transition-colors hover:bg-[#444] dark:bg-white dark:text-[#0d0e0c] dark:hover:bg-white"
             >
               Read blog
               <ArrowRight className="h-5 w-5" />

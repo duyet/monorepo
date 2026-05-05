@@ -1,8 +1,4 @@
-import {
-  AppCommandPalette,
-  Footer,
-  Header,
-} from "@duyet/components";
+import { AppCommandPalette, Footer, Header } from "@duyet/components";
 import { addUtmParams } from "../../app/lib/utm";
 
 const navigationItems = [
@@ -18,12 +14,6 @@ const navigationItems = [
   { name: "About", href: "/about" },
 ];
 
-const statusHref = addUtmParams(
-  "https://status.duyet.net",
-  "site_header",
-  "status"
-);
-
 export function SiteHeader() {
   return (
     <Header
@@ -31,20 +21,7 @@ export function SiteHeader() {
       longText="Duyet Le"
       navigationItems={navigationItems}
       showAuthButtons={false}
-      actions={
-        <div className="hidden items-center gap-2 md:flex">
-          <AppCommandPalette />
-          <a
-            href={statusHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="min-w-24 items-center justify-end gap-2 text-sm font-medium"
-          >
-            <span className="h-3 w-3 rounded-full bg-orange-500" />
-            <span>Status</span>
-          </a>
-        </div>
-      }
+      actions={<AppCommandPalette />}
     />
   );
 }
