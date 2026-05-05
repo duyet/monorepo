@@ -14,6 +14,8 @@ import type { ReactNode } from "react";
 import { addUtmParams } from "../../app/lib/utm";
 import { KeyboardFeatures } from "../components/KeyboardFeatures";
 import { SiteFooter, SiteHeader } from "../components/SiteChrome";
+import { HomeAgentsChat } from "../components/HomeAgentsChat";
+import { WorkStackSection } from "../components/WorkStackSection";
 import { type AppItem, apps } from "../data/projects";
 
 export const Route = createFileRoute("/")({
@@ -139,6 +141,16 @@ function HomePage() {
             )}
           </section>
 
+          <HomeAgentsChat />
+
+          <WorkStackSection
+            repositoryUrl={addUtmParams(
+              "https://github.com/duyet",
+              "homepage",
+              "skills_github"
+            )}
+          />
+
           <section className="mx-auto mt-24 max-w-[1280px] px-5 sm:px-8 lg:mt-32 lg:px-10 xl:mt-40">
             <Link
               to="/ls"
@@ -181,12 +193,12 @@ function ProjectCard({
       className={`group overflow-hidden rounded-xl border border-[#1a1a1a]/10 ${item.tone ?? "bg-[#f3eee6]"} transition-transform hover:-translate-y-0.5`}
       shortcutNumber={shortcutNumber}
     >
-      <div className="p-5 text-[#1a1a1a]">
+      <div className="p-5 text-white">
         <h3 className="text-lg font-semibold tracking-tight">{item.name}</h3>
-        <p className="mt-2 text-sm font-medium leading-6 text-[#1a1a1a]/80">
+        <p className="mt-2 text-sm font-medium leading-6 text-white/85">
           {item.description}
         </p>
-        <p className="mt-5 truncate text-sm font-medium text-[#1a1a1a]/60">
+        <p className="mt-5 truncate text-sm font-medium text-white/70">
           {item.host}
         </p>
       </div>
