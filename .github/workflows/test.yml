@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@544eadc6bf3d226fd7a7a9f0dc5b5bf7ca0675b9  # v1  # v6.0.2
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744  # v3  # v1  # v6.0.2
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -53,7 +53,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@544eadc6bf3d226fd7a7a9f0dc5b5bf7ca0675b9  # v1  # v6.0.2
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744  # v3  # v1  # v6.0.2
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -98,7 +98,7 @@ jobs:
       actions: read
     steps:
       - name: Checkout
-        uses: actions/checkout@544eadc6bf3d226fd7a7a9f0dc5b5bf7ca0675b9  # v1  # v6.0.2
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744  # v3  # v1  # v6.0.2
 
       - name: Setup Node
         uses: actions/setup-node@v6
