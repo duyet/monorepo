@@ -76,7 +76,7 @@ function UrlCard({ path, target, desc }: UrlEntry) {
       href={target}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
-      className="group flex flex-col gap-2 overflow-hidden rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-neutral-300 hover:shadow-md"
+      className="group flex flex-col gap-2 overflow-hidden rounded-2xl border border-neutral-200 bg-white p-5 shadow-none transition-all hover:-translate-y-0.5 hover:border-neutral-300"
     >
       <div className="flex items-start justify-between gap-2">
         <code className="font-mono text-base font-bold text-neutral-900 transition-colors group-hover:text-neutral-600">
@@ -170,7 +170,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
             placeholder="Search by path, URL, or description..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-2xl border border-neutral-300 bg-white px-5 py-4 pl-12 pr-28 text-neutral-900 placeholder-neutral-500 shadow-sm transition-all focus:border-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-200"
+            className="w-full rounded-2xl border border-neutral-300 bg-white px-5 py-4 pl-12 pr-28 text-neutral-900 placeholder-neutral-500 shadow-none transition-all focus:border-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-200"
           />
           <svg
             aria-hidden="true"
@@ -217,7 +217,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                 className={cn(
                   "rounded-md p-1.5 transition-colors",
                   view === "list"
-                    ? "bg-white text-neutral-900 shadow-sm"
+                    ? "bg-white text-neutral-900 shadow-none"
                     : "text-neutral-400 hover:text-neutral-600"
                 )}
               >
@@ -230,7 +230,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                 className={cn(
                   "rounded-md p-1.5 transition-colors",
                   view === "grid"
-                    ? "bg-white text-neutral-900 shadow-sm"
+                    ? "bg-white text-neutral-900 shadow-none"
                     : "text-neutral-400 hover:text-neutral-600"
                 )}
               >
@@ -318,7 +318,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                 href={target}
                 target={isExternal ? "_blank" : undefined}
                 rel={isExternal ? "noopener noreferrer" : undefined}
-                className="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm transition-all hover:border-neutral-300 hover:shadow-md"
+                className="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-5 shadow-none transition-all hover:border-neutral-300"
               >
                 <div className="flex flex-col gap-2">
                   <div className="flex items-center gap-2">

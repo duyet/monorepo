@@ -38,8 +38,7 @@ const rootDir = join(__dirname, "..");
  */
 function parseEnvFile(filePath: string): Record<string, string> {
   if (!existsSync(filePath)) {
-    console.error(`[ERROR] Environment file not found: ${filePath}`);
-    process.exit(1);
+    return {};
   }
 
   const content = readFileSync(filePath, "utf-8");
@@ -70,10 +69,40 @@ function parseEnvFile(filePath: string): Record<string, string> {
   return env;
 }
 
+function loadEnvFiles(paths: string[]): Record<string, string> {
+  const merged: Record<string, string> = {};
+  for (const filePath of paths) {
+    const parsed = parseEnvFile(filePath);
+    for (const [key, value] of Object.entries(parsed)) {
+      if (!(key in merged) || merged[key] === "") {
+        merged[key] = value;
+      }
+    }
+  }
+  return merged;
+}
+
 // Load production environment from .env.production
 // These values override .env.local during build (process.env has highest precedence)
 const envProductionPath = join(rootDir, ".env.production");
 const PRODUCTION_ENV = parseEnvFile(envProductionPath);
+const DEPLOY_ENV = loadEnvFiles([
+  join(rootDir, ".env.production.local"),
+  join(rootDir, ".env.local"),
+  join(rootDir, ".env.production"),
+  join(rootDir, ".env"),
+]);
+
+const CLOUDFLARE_ENV = {
+  CLOUDFLARE_API_TOKEN:
+    Bun.env.CLOUDFLARE_API_TOKEN || DEPLOY_ENV.CLOUDFLARE_API_TOKEN || "",
+  CLOUDFLARE_ACCOUNT_ID:
+    Bun.env.CLOUDFLARE_ACCOUNT_ID || DEPLOY_ENV.CLOUDFLARE_ACCOUNT_ID || "",
+  CLOUDFLARE_API_KEY:
+    Bun.env.CLOUDFLARE_API_KEY || DEPLOY_ENV.CLOUDFLARE_API_KEY || "",
+  CLOUDFLARE_EMAIL:
+    Bun.env.CLOUDFLARE_EMAIL || DEPLOY_ENV.CLOUDFLARE_EMAIL || "",
+};
 
 // Apps that require secret syncing (have sensitive env vars)
 const appsWithSecrets = new Set(["blog", "photos", "insights"]);
@@ -229,6 +258,7 @@ async function runCommand(
 
     if (!success && !ignoreError) {
       console.error(`  [ERROR] ${description} failed`);
+      if (stdout) console.error(`    stdout: ${stdout}`);
       if (stderr) console.error(`    ${stderr}`);
     }
 
@@ -239,6 +269,51 @@ async function runCommand(
       stderr,
     });
   });
+}
+
+async function preflightCloudflareAuth(): Promise<boolean> {
+  if (dryRun) return true;
+
+  const hasToken = Boolean(CLOUDFLARE_ENV.CLOUDFLARE_API_TOKEN);
+  const hasApiKeyPair = Boolean(
+    CLOUDFLARE_ENV.CLOUDFLARE_API_KEY && CLOUDFLARE_ENV.CLOUDFLARE_EMAIL
+  );
+  if (hasToken || hasApiKeyPair) return true;
+
+  const whoami = await runCommand(
+    ["bunx", "wrangler", "whoami"],
+    rootDir,
+    "Cloudflare auth preflight",
+    true,
+    CLOUDFLARE_ENV
+  );
+
+  if (whoami.success) return true;
+
+  const combinedOutput = `${whoami.stdout}\n${whoami.stderr}`;
+  const missingTokenHint =
+    "set a CLOUDFLARE_API_TOKEN environment variable";
+  if (combinedOutput.includes(missingTokenHint)) {
+    console.error(
+      "[ERROR] Cloudflare auth is missing for non-interactive deployment."
+    );
+    console.error(
+      "[ERROR] Set CLOUDFLARE_API_TOKEN in shell or .env.production.local before running cf:deploy."
+    );
+    console.error(
+      "[ERROR] Docs: https://developers.cloudflare.com/fundamentals/api/get-started/create-token/"
+    );
+  } else {
+    console.error("[ERROR] Cloudflare auth preflight failed.");
+    if (whoami.stdout.trim()) {
+      console.error(`[ERROR] wrangler whoami stdout:\n${whoami.stdout.trim()}`);
+    }
+    if (whoami.stderr.trim()) {
+      console.error(`[ERROR] wrangler whoami stderr:\n${whoami.stderr.trim()}`);
+    }
+  }
+
+  return false;
 }
 
 /**
@@ -515,6 +590,7 @@ async function configPhase(): Promise<boolean> {
 async function deployApp(appName: string): Promise<{
   success: boolean;
   app: string;
+  error?: string;
 }> {
   const appConfig = APPS_CONFIG[appName];
   const appDir = join(rootDir, "apps", appName);
@@ -563,18 +639,27 @@ async function deployApp(appName: string): Promise<{
     wranglerCmd,
     appDir,
     `Deploy ${appName}`,
-    true
+    true,
+    CLOUDFLARE_ENV
   );
 
   if (result.success) {
     console.log(`     ✓ Deployed successfully to ${deployTarget}`);
   } else {
     console.log(`     ✗ Deployment failed`);
+    if (result.stdout.trim()) {
+      console.log(`     ↳ stdout: ${result.stdout.trim()}`);
+    }
+    if (result.stderr.trim()) {
+      console.log(`     ↳ stderr: ${result.stderr.trim()}`);
+    }
   }
 
+  const errorOutput = (result.stderr || result.stdout).trim() || undefined;
   return {
     success: result.success,
     app: appName,
+    error: errorOutput,
   };
 }
 
@@ -605,6 +690,12 @@ async function deployPhase(): Promise<boolean> {
     console.error(
       `[ERROR] ${failed.length} deployment(s) failed: ${failed.map((r) => r.app).join(", ")}`
     );
+    for (const failure of failed) {
+      if (failure.error) {
+        const firstLine = failure.error.split("\n")[0];
+        console.error(`  - ${failure.app}: ${firstLine}`);
+      }
+    }
     return false;
   }
 
@@ -720,6 +811,11 @@ async function main() {
     console.warn(
       "[WARN] Config phase had issues, continuing with deployment..."
     );
+  }
+
+  const authSuccess = await preflightCloudflareAuth();
+  if (!authSuccess) {
+    process.exit(1);
   }
 
   // Deploy

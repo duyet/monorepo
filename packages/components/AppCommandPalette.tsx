@@ -151,7 +151,7 @@ export function AppCommandPalette({ className }: AppCommandPaletteProps) {
         <button
           type="button"
           className={cn(
-            "flex items-center justify-center rounded-lg border border-[#1a1a1a]/10 bg-[#f3eee6] p-2 text-[#1a1a1a] transition-colors hover:bg-[#ece3d7] dark:border-white/10 dark:bg-[#1a1a1a] dark:text-[#f8f8f2] dark:hover:bg-[#222222]",
+            "flex items-center justify-center rounded-lg border border-[#1a1a1a]/10 bg-white p-2 text-[#1a1a1a] transition-colors hover:bg-[#f7f7f7] dark:border-[#1a1a1a]/10 dark:bg-white dark:text-[#1a1a1a] dark:hover:bg-[#f7f7f7]",
             className
           )}
           aria-label="Search"
@@ -159,7 +159,7 @@ export function AppCommandPalette({ className }: AppCommandPaletteProps) {
           <Search className="h-4 w-4" />
         </button>
       </DialogTrigger>
-      <DialogContent className="w-[min(560px,calc(100vw-2rem))] overflow-hidden rounded-xl border-[#1a1a1a]/10 bg-[#fbf7f0] p-0 text-[#1a1a1a] shadow-[0_16px_36px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-[#151515] dark:text-[#f8f8f2] dark:shadow-[0_16px_36px_rgba(0,0,0,0.35)]">
+      <DialogContent className="w-[min(560px,calc(100vw-2rem))] overflow-hidden rounded-xl border-[#1a1a1a]/10 bg-white p-0 text-[#1a1a1a] shadow-none dark:border-[#1a1a1a]/10 dark:bg-white dark:text-[#1a1a1a] dark:shadow-none">
         <DialogTitle className="sr-only">Command Palette</DialogTitle>
         <DialogDescription className="sr-only">
           Search across Duyet apps, pages, and subdomains.
@@ -180,11 +180,11 @@ export function AppCommandPalette({ className }: AppCommandPaletteProps) {
                     setOpen(false);
                     window.location.href = item.href;
                   }}
-                  className="items-start rounded-lg px-3 py-3 data-[selected=true]:bg-[#f3eee6] data-[selected=true]:text-[#1a1a1a] dark:data-[selected=true]:bg-[#232323] dark:data-[selected=true]:text-[#f8f8f2]"
+                  className="items-start rounded-lg px-3 py-3 data-[selected=true]:bg-[#f3f4f6] data-[selected=true]:text-[#1a1a1a] dark:data-[selected=true]:bg-[#f3f4f6] dark:data-[selected=true]:text-[#1a1a1a]"
                 >
                   <div className="min-w-0">
                     <div className="text-sm font-semibold tracking-tight">{item.label}</div>
-                    <div className="truncate text-xs text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
+                    <div className="truncate text-xs text-[#1a1a1a]/55 dark:text-[#1a1a1a]/55">
                       {item.description}
                     </div>
                   </div>
@@ -201,11 +201,11 @@ export function AppCommandPalette({ className }: AppCommandPaletteProps) {
                     setOpen(false);
                     window.location.href = item.href;
                   }}
-                  className="items-start rounded-lg px-3 py-3 data-[selected=true]:bg-[#f3eee6] data-[selected=true]:text-[#1a1a1a] dark:data-[selected=true]:bg-[#232323] dark:data-[selected=true]:text-[#f8f8f2]"
+                  className="items-start rounded-lg px-3 py-3 data-[selected=true]:bg-[#f3f4f6] data-[selected=true]:text-[#1a1a1a] dark:data-[selected=true]:bg-[#f3f4f6] dark:data-[selected=true]:text-[#1a1a1a]"
                 >
                   <div className="min-w-0">
                     <div className="text-sm font-semibold tracking-tight">{item.label}</div>
-                    <div className="truncate text-xs text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
+                    <div className="truncate text-xs text-[#1a1a1a]/55 dark:text-[#1a1a1a]/55">
                       {item.description}
                     </div>
                   </div>

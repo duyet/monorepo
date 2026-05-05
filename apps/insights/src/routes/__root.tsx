@@ -81,7 +81,7 @@ function RootComponent() {
       </head>
       <body>
         <ThemeProvider>
-          <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
+          <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-white dark:text-[#1a1a1a]">
             <Header
               shortText="Duyet Le"
               longText="Duyet Le"
@@ -90,9 +90,9 @@ function RootComponent() {
               actions={<AppCommandPalette />}
             />
 
-            <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] pb-16 dark:bg-[#11120f] 2xl:rounded-b-[4rem]">
+            <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-white 2xl:rounded-b-[4rem]">
               <div className="mx-auto max-w-[1280px] px-5 pb-16 pt-6 sm:px-8 lg:px-10">
-                <div className="mb-8 rounded-xl border border-[#1a1a1a]/10 bg-white p-3 shadow-[0_1px_0_rgba(0,0,0,0.08)] dark:border-white/10 dark:bg-[#171815]">
+                <div className="mb-8 rounded-xl border border-[#1a1a1a]/10 bg-white p-3 shadow-none dark:border-[#1a1a1a]/10 dark:bg-white">
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <CompactNavigation />
                     <GlobalPeriodSelector />

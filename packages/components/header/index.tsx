@@ -90,7 +90,7 @@ export default function Header({
         />
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-7 text-sm font-medium lg:flex">
+        <nav className="hidden items-center gap-7 text-sm font-medium md:flex">
           <MenuNav
             urls={urls}
             navigationItems={navigationItems}
@@ -101,7 +101,7 @@ export default function Header({
         </nav>
 
         {/* Mobile nav */}
-        <div className="flex items-center gap-3 lg:hidden">
+        <div className="flex items-center gap-3 md:hidden">
           {actions}
           {showAuthButtons ? <AuthButtons urls={urls} /> : null}
           <details className="group relative">
@@ -110,7 +110,7 @@ export default function Header({
               <MenuIcon className="size-5 group-open:hidden" />
               <X className="hidden size-5 group-open:block" />
             </summary>
-            <div className="absolute right-0 top-full z-50 mt-3 w-[min(280px,calc(100vw-2rem))] rounded-xl border border-[#1a1a1a]/10 bg-white p-4 shadow-lg dark:border-white/10 dark:bg-[#1a1a1a]">
+            <div className="absolute right-0 top-full z-50 mt-3 w-[min(280px,calc(100vw-2rem))] rounded-xl border border-[#1a1a1a]/10 bg-white p-4 shadow-none dark:border-[#1a1a1a]/10 dark:bg-white">
               <MenuNav
                 urls={urls}
                 navigationItems={navigationItems}

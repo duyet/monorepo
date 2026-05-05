@@ -27,7 +27,7 @@ const capabilities = [
       "Deep dives into data engineering architecture, distributed systems, AI agents, and lessons learned from scaling open source.",
     href: addUtmParams("https://blog.duyet.net", "homepage", "blog_card"),
     icon: Newspaper,
-    className: "bg-[#f3eee6] dark:bg-[#1a1a1a]",
+    className: "bg-white",
   },
   {
     title: "Resume",
@@ -35,7 +35,7 @@ const capabilities = [
       "Scalable data infrastructure, intelligent applications, and production systems that stay fast as usage grows.",
     href: addUtmParams("https://cv.duyet.net", "homepage", "resume_card"),
     icon: FileUser,
-    className: "bg-[#bfdbfe] dark:bg-[#1f3a5f]",
+    className: "bg-white",
   },
   {
     title: "Insights",
@@ -47,7 +47,7 @@ const capabilities = [
       "insights_card"
     ),
     icon: ChartNoAxesCombined,
-    className: "bg-[#a7f3d0] dark:bg-[#164634]",
+    className: "bg-white",
   },
   {
     title: "About",
@@ -55,7 +55,7 @@ const capabilities = [
       "Clear project surfaces for Rust, ClickHouse, MCP tools, AI agents, and the small systems that make them useful.",
     href: "/about",
     icon: UserRound,
-    className: "bg-[#fecaca] dark:bg-[#4f1f1f]",
+    className: "bg-white",
   },
 ];
 
@@ -69,10 +69,10 @@ function HomePage() {
         <KeyboardFeatures />
       </Suspense>
 
-      <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
+      <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-white dark:text-[#1a1a1a]">
         <SiteHeader />
 
-        <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+        <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-white 2xl:rounded-b-[4rem]">
           <section className="mx-auto max-w-[1280px] px-5 py-14 sm:px-8 md:py-18 lg:px-10 lg:py-24 xl:py-28">
             <div className="max-w-[860px] space-y-6">
               <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
@@ -124,7 +124,7 @@ function HomePage() {
             <div className="my-10 flex justify-center lg:my-14">
               <Link
                 to="/projects"
-                className="rounded-lg bg-[#1a1a1a] px-6 py-4 text-base font-medium text-white transition-colors hover:bg-[#444] dark:bg-white dark:text-[#0d0e0c] dark:hover:bg-white lg:px-8 lg:text-lg"
+                className="rounded-lg border border-[#1a1a1a]/10 bg-white px-6 py-4 text-base font-medium text-[#1a1a1a] transition-colors hover:bg-[#f7f7f7] lg:px-8 lg:text-lg"
               >
                 View more projects
               </Link>
@@ -142,17 +142,17 @@ function HomePage() {
           <section className="mx-auto mt-24 max-w-[1280px] px-5 sm:px-8 lg:mt-32 lg:px-10 xl:mt-40">
             <Link
               to="/ls"
-              className="group grid gap-5 rounded-xl bg-white p-6 transition-colors dark:bg-[#1a1a1a] md:grid-cols-[1fr_auto] md:items-center lg:p-8"
+              className="group grid gap-5 rounded-xl border border-[#1a1a1a]/10 bg-white p-6 transition-colors md:grid-cols-[1fr_auto] md:items-center lg:p-8"
             >
               <div className="flex items-start gap-4">
-                <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#1a1a1a] text-white dark:bg-white dark:text-[#0d0e0c]">
+                <span className="flex h-12 w-12 items-center justify-center rounded-lg border border-[#1a1a1a]/10 bg-white text-[#1a1a1a]">
                   <LinkIcon className="h-5 w-5" />
                 </span>
                 <div>
                   <h3 className="text-xl font-semibold tracking-tight">
                     duyet.net/ls
                   </h3>
-                  <p className="mt-1 text-base font-medium text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+                  <p className="mt-1 text-base font-medium text-[#1a1a1a]/70">
                     All short URLs and redirects
                   </p>
                 </div>
@@ -178,15 +178,15 @@ function ProjectCard({
   return (
     <AppLink
       item={item}
-      className={`group overflow-hidden rounded-xl ${item.tone ?? "bg-[#1a1a1a]"} transition-transform hover:-translate-y-0.5`}
+      className="group overflow-hidden rounded-xl border border-[#1a1a1a]/10 bg-white transition-transform hover:-translate-y-0.5"
       shortcutNumber={shortcutNumber}
     >
-      <div className="p-5 text-white">
+      <div className="p-5 text-[#1a1a1a]">
         <h3 className="text-lg font-semibold tracking-tight">{item.name}</h3>
-        <p className="mt-2 text-sm font-medium leading-6 text-white/80">
+        <p className="mt-2 text-sm font-medium leading-6 text-[#1a1a1a]/80">
           {item.description}
         </p>
-        <p className="mt-5 truncate text-sm font-medium text-white/60">
+        <p className="mt-5 truncate text-sm font-medium text-[#1a1a1a]/60">
           {item.host}
         </p>
       </div>
@@ -249,16 +249,16 @@ function CompactAppCard({ item }: { item: AppItem }) {
   return (
     <AppLink
       item={item}
-      className="group flex min-h-36 flex-col rounded-xl bg-white p-5 transition-colors dark:bg-[#1a1a1a] lg:p-6"
+      className="group flex min-h-36 flex-col rounded-xl border border-[#1a1a1a]/10 bg-white p-5 transition-colors lg:p-6"
     >
-      <div className="mb-8 flex h-10 w-10 items-center justify-center rounded-lg bg-[#1a1a1a] text-white dark:bg-white dark:text-[#0d0e0c]">
+      <div className="mb-8 flex h-10 w-10 items-center justify-center rounded-lg border border-[#1a1a1a]/10 bg-white text-[#1a1a1a]">
         <Server className="h-5 w-5" />
       </div>
       <h3 className="text-lg font-semibold tracking-tight">{item.name}</h3>
-      <p className="mt-2 text-sm font-medium leading-snug text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+      <p className="mt-2 text-sm font-medium leading-snug text-[#1a1a1a]/70">
         {item.description}
       </p>
-      <p className="mt-auto pt-6 text-sm font-medium text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
+      <p className="mt-auto pt-6 text-sm font-medium text-[#1a1a1a]/55">
         {item.host}
       </p>
     </AppLink>

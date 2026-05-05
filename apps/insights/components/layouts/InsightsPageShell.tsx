@@ -26,14 +26,14 @@ export function InsightsPageHeader({
   badge,
 }: InsightsPageHeaderProps): JSX.Element {
   return (
-    <header className="rounded-xl border border-[#1a1a1a]/10 bg-white p-6 shadow-[0_1px_0_rgba(0,0,0,0.08)] dark:border-white/10 dark:bg-[#171815]">
+    <header className="rounded-xl border border-[#1a1a1a]/10 bg-white p-6 shadow-none dark:border-[#1a1a1a]/10 dark:bg-white">
       {badge ? (
-        <p className="mb-3 inline-flex rounded-md bg-[#1a1a1a] px-3 py-1.5 text-xs font-semibold tracking-wide text-white dark:bg-[#f8f8f2] dark:text-[#0d0e0c]">
+        <p className="mb-3 inline-flex rounded-md bg-[#1a1a1a] px-3 py-1.5 text-xs font-semibold tracking-wide text-white">
           {badge}
         </p>
       ) : null}
       <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h1>
-      <p className="mt-3 max-w-3xl text-sm leading-6 text-[#1a1a1a]/65 dark:text-[#f8f8f2]/65">
+      <p className="mt-3 max-w-3xl text-sm leading-6 text-[#1a1a1a]/65">
         {description}
       </p>
     </header>
@@ -49,14 +49,14 @@ export function InsightsSection({
   return (
     <section
       className={cn(
-        "rounded-xl border border-[#1a1a1a]/10 bg-white p-5 shadow-[0_1px_0_rgba(0,0,0,0.08)] dark:border-white/10 dark:bg-[#171815] lg:p-6",
+        "rounded-xl border border-[#1a1a1a]/10 bg-white p-5 shadow-none dark:border-[#1a1a1a]/10 dark:bg-white lg:p-6",
         className
       )}
     >
       <div className="mb-4">
         <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
         {description ? (
-          <p className="mt-1 text-sm text-[#1a1a1a]/60 dark:text-[#f8f8f2]/60">
+          <p className="mt-1 text-sm text-[#1a1a1a]/60">
             {description}
           </p>
         ) : null}

@@ -1,7 +1,6 @@
-import { Link, createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
-  ArrowUpRight,
   BarChart3,
   Bot,
   Clock3,
@@ -278,10 +277,6 @@ function IndexPage() {
     date: shortDate(item.date),
     tokens: item["Total Tokens"],
   }));
-  const monthlyCoding = data.wakaTrend.slice(-8).map((item) => ({
-    date: item.displayDate,
-    hours: item.hours,
-  }));
   const topModels = data.aiModels.slice(0, 5).map((model) => ({
     name: compactName(model.name),
     percent: model.percent,
@@ -291,85 +286,75 @@ function IndexPage() {
     name: language.name,
     percent: language.percent,
   }));
+  const aiVsHuman = [
+    { label: "AI tokens (K)", value: Number((data.aiMetrics.totalTokens / 1000).toFixed(1)) },
+    { label: "Coding hours", value: Number(data.wakaMetrics.totalHours.toFixed(1)) },
+  ];
   const topPosts = data.posthog.paths.slice(0, 5);
 
   return (
     <div className="space-y-8">
       <InsightsPageHeader
         badge="Overview"
-        title="Network health across traffic, coding, and AI."
-        description="Live operational surface for the Duyet network, with data pulled from Cloudflare, PostHog, WakaTime, and Claude Code usage."
+        title="AI vs human coding insights."
+        description="Operational view focused on AI token usage, model/tool mix, coding hours, and supporting traffic context."
       />
 
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#f6f8fc] p-2 dark:border-white/10 dark:bg-[#111825]">
+        <div className="rounded-xl border border-[#1a1a1a]/10 bg-white p-2 shadow-none">
           <MetricTile
             icon={Eye}
             label="Page views"
-            tone="#cfe2f3"
+            tone="#ffffff"
             value={formatNumber(
               data.cloudflare.totalPageviews || data.posthog.totalViews
             )}
           />
         </div>
-        <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#f4fbf7] p-2 dark:border-white/10 dark:bg-[#102119]">
+        <div className="rounded-xl border border-[#1a1a1a]/10 bg-white p-2 shadow-none">
           <MetricTile
             icon={Bot}
             label="AI tokens"
-            tone="#b8efd2"
+            tone="#ffffff"
             value={formatCompact(data.aiMetrics.totalTokens)}
           />
         </div>
-        <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#fcf4f4] p-2 dark:border-white/10 dark:bg-[#2a1719]">
+        <div className="rounded-xl border border-[#1a1a1a]/10 bg-white p-2 shadow-none">
           <MetricTile
             icon={Clock3}
             label="Coding hours"
-            tone="#f6c5c7"
+            tone="#ffffff"
             value={formatNumber(data.wakaMetrics.totalHours)}
           />
         </div>
-        <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#fff8ee] p-2 dark:border-white/10 dark:bg-[#2a1d12]">
+        <div className="rounded-xl border border-[#1a1a1a]/10 bg-white p-2 shadow-none">
           <MetricTile
             icon={Zap}
             label="AI cost"
-            tone="#fde3bf"
+            tone="#ffffff"
             value={formatCurrency(data.aiMetrics.totalCost)}
           />
         </div>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <StatusCard
-          href="/blog"
-          icon={Globe2}
-          label="Traffic"
-          metric={formatNumber(data.cloudflare.totalRequests)}
-          summary="Cloudflare request volume and visitor movement for the public network."
-          tone="#cfe2f3"
-        />
-        <StatusCard
-          href="/ai"
+      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <FlatStatusCard
           icon={Sparkles}
-          label="AI Usage"
+          label="AI top model"
           metric={data.aiMetrics.topModel}
           summary={`${formatCompact(data.aiMetrics.cacheTokens)} cache tokens across ${data.aiMetrics.activeDays} active days.`}
-          tone="#b8efd2"
         />
-        <StatusCard
-          href="/wakatime"
+        <FlatStatusCard
           icon={Code2}
-          label="Coding"
+          label="Human coding"
           metric={data.wakaMetrics.topLanguage}
           summary={`${formatNumber(data.wakaMetrics.avgDailyHours)} average hours per active day.`}
-          tone="#f6c5c7"
         />
-        <StatusCard
-          href="/github"
+        <FlatStatusCard
           icon={BarChart3}
-          label="Repositories"
-          metric="Open source"
-          summary="GitHub, coding activity, and public project signals stay one click away."
-          tone="#ded1ea"
+          label="Traffic requests"
+          metric={formatNumber(data.cloudflare.totalRequests)}
+          summary="Cloudflare request volume for current overview period."
         />
       </section>
 
@@ -392,18 +377,30 @@ function IndexPage() {
         </ChartPanel>
 
         <ListPanel
-          eyebrow="Content"
+          eyebrow="Tools"
           emptyLabel="PostHog data is not configured for this build."
           items={topPosts.map((path) => ({
             label: path.path,
             meta: `${formatNumber(path.visitors)} visitors`,
             value: formatNumber(path.views),
           }))}
-          title="Most-read pages"
+          title="Most-used pages"
         />
       </section>
 
       <section className="grid gap-5 xl:grid-cols-2">
+        <ChartPanel
+          eyebrow="AI vs Human"
+          subtitle="Relative scale between AI token volume and human coding time."
+          title="AI vs human coding volume"
+        >
+          <InsightBarChart
+            data={aiVsHuman}
+            nameKey="label"
+            valueKey="value"
+          />
+        </ChartPanel>
+
         <ChartPanel
           eyebrow="AI"
           subtitle="Token volume and cost from the cached ccusage warehouse."
@@ -416,26 +413,13 @@ function IndexPage() {
             labelMap={{ cost: "Cost", tokens: "K tokens" }}
           />
         </ChartPanel>
-
-        <ChartPanel
-          eyebrow="Coding"
-          subtitle="Monthly WakaTime trend for recent engineering activity."
-          title="Build cadence"
-        >
-          <InsightAreaChart
-            colors={["#1a1a1a"]}
-            data={monthlyCoding}
-            keys={["hours"]}
-            labelMap={{ hours: "Hours" }}
-          />
-        </ChartPanel>
       </section>
 
       <section className="grid gap-5 xl:grid-cols-2">
         <ChartPanel
-          eyebrow="Models"
-          subtitle="The most active model families by token share."
-          title="AI model mix"
+          eyebrow="Models / Tools"
+          subtitle="Most active model families by token share."
+          title="Model and tool mix"
         >
           <InsightBarChart data={topModels} nameKey="name" valueKey="percent" />
         </ChartPanel>
@@ -453,7 +437,7 @@ function IndexPage() {
         </ChartPanel>
       </section>
 
-      <section className="grid gap-4 rounded-xl border border-black/10 bg-[#fafaf6] p-5 dark:border-white/15 dark:bg-[#141510] md:grid-cols-3">
+      <section className="grid gap-4 rounded-xl border border-black/10 bg-white p-5 md:grid-cols-3">
         <SourceNote
           icon={Globe2}
           label="Cloudflare + PostHog"
@@ -467,7 +451,7 @@ function IndexPage() {
         <SourceNote
           icon={Code2}
           label="WakaTime"
-          text="Coding totals come from WakaTime stats and insights endpoints."
+          text="Human coding totals come from WakaTime stats and insights endpoints."
         />
       </section>
     </div>
@@ -491,7 +475,7 @@ function MetricTile({
 }) {
   return (
     <div
-      className="min-w-0 rounded-lg border border-black/10 p-4 text-[#1a1a1a] shadow-[inset_0_-1px_0_rgba(0,0,0,0.06)]"
+      className="min-w-0 rounded-lg border border-black/10 bg-white p-4 text-[#1a1a1a] shadow-none"
       style={{ backgroundColor: tone }}
     >
       <div className="flex items-center justify-between gap-3">
@@ -505,27 +489,19 @@ function MetricTile({
   );
 }
 
-function StatusCard({
-  href,
+function FlatStatusCard({
   icon: Icon,
   label,
   metric,
   summary,
-  tone,
 }: {
-  href: string;
   icon: typeof Eye;
   label: string;
   metric: string;
   summary: string;
-  tone: string;
 }) {
   return (
-    <Link
-      className="group flex min-h-52 flex-col rounded-xl border border-black/10 p-5 text-[#1a1a1a] transition-transform duration-200 hover:-translate-y-0.5"
-      style={{ backgroundColor: tone }}
-      to={href}
-    >
+    <div className="flex min-h-44 flex-col rounded-xl border border-black/10 bg-white p-5 text-[#1a1a1a]">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-sm font-medium text-black/60">{label}</p>
@@ -536,8 +512,7 @@ function StatusCard({
         <Icon className="h-6 w-6 shrink-0" />
       </div>
       <p className="mt-auto text-sm leading-6 text-black/70">{summary}</p>
-      <ArrowUpRight className="mt-5 h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-    </Link>
+    </div>
   );
 }
 
@@ -553,7 +528,7 @@ function ChartPanel({
   title: string;
 }) {
   return (
-    <div className="rounded-xl border border-black/10 bg-white p-5 shadow-[0_1px_0_rgba(0,0,0,0.08),0_14px_36px_rgba(0,0,0,0.05)] dark:border-white/10 dark:bg-[#171815]">
+    <div className="rounded-xl border border-black/10 bg-white p-5 shadow-none dark:border-black/10 dark:bg-white">
       <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
         <div className="min-w-0">
           <p className="text-sm font-medium text-[#ff6a00]">{eyebrow}</p>
@@ -561,7 +536,7 @@ function ChartPanel({
             {title}
           </h2>
         </div>
-        <p className="max-w-md text-sm leading-6 text-black/60 dark:text-white/60">
+        <p className="max-w-md text-sm leading-6 text-black/60">
           {subtitle}
         </p>
       </div>
@@ -582,23 +557,23 @@ function ListPanel({
   title: string;
 }) {
   return (
-    <div className="rounded-xl border border-[#1a1a1a]/20 bg-[#1a1a1a] p-5 text-white shadow-[0_20px_40px_rgba(0,0,0,0.2)]">
-      <p className="text-sm font-medium text-[#ffb27c]">{eyebrow}</p>
-      <h2 className="mt-1 text-2xl font-semibold tracking-tight">{title}</h2>
+    <div className="rounded-xl border border-[#1a1a1a]/10 bg-white p-5 text-[#1a1a1a] shadow-none">
+      <p className="text-sm font-medium text-[#ff6a00]">{eyebrow}</p>
+      <h2 className="mt-1 text-2xl font-semibold tracking-tight text-[#1a1a1a]">{title}</h2>
       <div className="mt-6 space-y-4">
         {items.length === 0 ? (
-          <p className="text-sm leading-6 text-white/60">{emptyLabel}</p>
+          <p className="text-sm leading-6 text-[#1a1a1a]/60">{emptyLabel}</p>
         ) : (
           items.map((item) => (
             <div
-              className="grid grid-cols-[1fr_auto] gap-4 border-t border-white/12 pt-4 first:border-t-0 first:pt-0"
+              className="grid grid-cols-[1fr_auto] gap-4 border-t border-black/10 pt-4 first:border-t-0 first:pt-0"
               key={item.label}
             >
               <div className="min-w-0">
                 <p className="truncate text-sm font-medium">{item.label}</p>
-                <p className="mt-1 text-xs text-white/55">{item.meta}</p>
+                <p className="mt-1 text-xs text-[#1a1a1a]/55">{item.meta}</p>
               </div>
-              <p className="text-sm font-semibold text-white">{item.value}</p>
+              <p className="text-sm font-semibold text-[#1a1a1a]">{item.value}</p>
             </div>
           ))
         )}
@@ -628,7 +603,7 @@ function InsightAreaChart({
   return (
     <div className="h-[280px] min-w-0" ref={ref}>
       {(!isHydrated || width === 0) && (
-        <div className="flex h-full items-center justify-center rounded-lg bg-black/[0.03] text-sm text-black/55 dark:bg-white/[0.06] dark:text-white/55">
+        <div className="flex h-full items-center justify-center rounded-lg bg-black/[0.03] text-sm text-black/55">
           Chart loading.
         </div>
       )}
@@ -729,7 +704,7 @@ function InsightBarChart({
   return (
     <div className="h-[280px] min-w-0" ref={ref}>
       {(!isHydrated || width === 0) && (
-        <div className="flex h-full items-center justify-center rounded-lg bg-black/[0.03] text-sm text-black/55 dark:bg-white/[0.06] dark:text-white/55">
+        <div className="flex h-full items-center justify-center rounded-lg bg-black/[0.03] text-sm text-black/55">
           Chart loading.
         </div>
       )}
@@ -787,7 +762,7 @@ function InsightBarChart({
 
 function EmptyChart({ label }: { label: string }) {
   return (
-    <div className="flex h-[280px] items-center justify-center rounded-lg bg-black/[0.03] text-sm text-black/55 dark:bg-white/[0.06] dark:text-white/55">
+    <div className="flex h-[280px] items-center justify-center rounded-lg bg-black/[0.03] text-sm text-black/55">
       {label}
     </div>
   );
@@ -807,7 +782,7 @@ function SourceNote({
       <Icon className="mt-1 h-5 w-5 shrink-0 text-[#ff6a00]" />
       <div>
         <h3 className="font-semibold">{label}</h3>
-        <p className="mt-1 text-sm leading-6 text-black/60 dark:text-white/60">
+        <p className="mt-1 text-sm leading-6 text-black/60">
           {text}
         </p>
       </div>
