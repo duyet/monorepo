@@ -23,8 +23,8 @@
 
   body {
     font-family: var(--font-inter);
-    background-color: #f8f8f2;
-    color: #1a1a1a;
+    background-color: var(--background);
+    color: var(--foreground);
   }
 
   .dark body {

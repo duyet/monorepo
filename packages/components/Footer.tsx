@@ -84,6 +84,11 @@ export function FooterContent({
   urls = duyetUrls,
 }: FooterContentProps = {}) {
   const navigation = createFooterNavigation(urls, profile);
+  const localDate = new Date().toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
   return (
     <Container>
       <div aria-labelledby="footer-heading">
@@ -130,7 +135,7 @@ export function FooterContent({
         <div className="flex flex-col gap-4 border-t border-[#1a1a1a]/10 pt-6 text-xs text-[#1a1a1a]/55 dark:border-white/10 dark:text-[#f8f8f2]/55 sm:flex-row sm:items-center sm:justify-between">
           <p>
             &copy; {new Date().getFullYear()} {urls.apps.home.replace(/^https?:\/\//, "")} | {" "}
-            {profile.personal.title} | {new Date().toISOString().split("T")[0]}
+            {profile.personal.title} | {localDate}
           </p>
           <ThemeToggle />
         </div>

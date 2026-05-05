@@ -10,8 +10,8 @@ import {
   Outlet,
   Scripts,
 } from "@tanstack/react-router";
-import type { ReactNode } from "react";
-import { Suspense } from "react";
+import type { JSX, ReactNode } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { Menu as MenuIcon, X } from "lucide-react";
 import { GlobalPeriodSelector } from "@/components/GlobalPeriodSelector";
 import { CompactNavigation } from "@/components/navigation/CompactNavigation";
@@ -68,6 +68,28 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onPointerDown = (event: MouseEvent | TouchEvent) => {
+      if (!mobileMenuOpen || !mobileMenuRef.current) {
+        return;
+      }
+
+      if (!mobileMenuRef.current.contains(event.target as Node)) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("touchstart", onPointerDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("touchstart", onPointerDown);
+    };
+  }, [mobileMenuOpen]);
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -101,23 +123,36 @@ function RootComponent() {
                   ))}
                 </nav>
 
-                <div className="md:hidden">
-                  <details className="group relative">
-                    <summary className="flex cursor-pointer list-none rounded-lg p-1.5 text-neutral-700 hover:bg-[#1a1a1a]/5 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:text-neutral-300 dark:hover:bg-white/5 dark:hover:text-neutral-100 dark:focus-visible:ring-neutral-500 [&::-webkit-details-marker]:hidden">
-                      <span className="sr-only">Toggle menu</span>
-                      <MenuIcon className="size-5 group-open:hidden" />
-                      <X className="hidden size-5 group-open:block" />
-                    </summary>
+                <div className="md:hidden" ref={mobileMenuRef}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMobileMenuOpen((open) => !open);
+                    }}
+                    className="flex rounded-lg p-1.5 text-neutral-700 hover:bg-[#1a1a1a]/5 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:text-neutral-300 dark:hover:bg-white/5 dark:hover:text-neutral-100 dark:focus-visible:ring-neutral-500"
+                    aria-expanded={mobileMenuOpen}
+                    aria-label="Toggle menu"
+                  >
+                    <MenuIcon className={mobileMenuOpen ? "hidden size-5" : "size-5"} />
+                    <X className={mobileMenuOpen ? "size-5" : "hidden size-5"} />
+                  </button>
+                  {mobileMenuOpen ? (
                     <div className="absolute right-0 top-full z-50 mt-3 w-[min(280px,calc(100vw-2rem))] rounded-xl border border-[#1a1a1a]/10 bg-white p-4 shadow-lg dark:border-white/10 dark:bg-[#1a1a1a]">
                       <nav className="flex flex-col items-start gap-3 text-sm font-medium">
                         {headerNavItems.map((item) => (
-                          <HeaderLink key={item.label} href={item.href}>
+                          <HeaderLink
+                            key={item.label}
+                            href={item.href}
+                            onClick={() => {
+                              setMobileMenuOpen(false);
+                            }}
+                          >
                             {item.label}
                           </HeaderLink>
                         ))}
                       </nav>
                     </div>
-                  </details>
+                  ) : null}
                 </div>
               </div>
             </header>
@@ -192,22 +227,24 @@ function RootComponent() {
 function HeaderLink({
   href,
   children,
+  onClick,
 }: {
   href: string;
   children: ReactNode;
-}) {
+  onClick?: () => void;
+}): JSX.Element {
   if (href.startsWith("http")) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer">
+      <a href={href} target="_blank" rel="noopener noreferrer" onClick={onClick}>
         {children}
       </a>
     );
   }
 
-  return <a href={href}>{children}</a>;
+  return <a href={href} onClick={onClick}>{children}</a>;
 }
 
-function DuyetMark() {
+function DuyetMark(): JSX.Element {
   return (
     <span className="grid h-5 w-5 grid-cols-2 gap-0.5" aria-hidden="true">
       <span className="bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
