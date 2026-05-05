@@ -22,7 +22,7 @@ export function SiteHeader() {
       shortText="Duyet Le"
       longText="Duyet Le"
       navigationItems={navigationItems}
-      showAuthButtons={false}
+      showAuthButtons
       actions={<AppCommandPalette />}
     />
   );
