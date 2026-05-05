@@ -90,8 +90,8 @@ When answering questions:
 4. Keep responses concise but informative`,
         };
 
-        // Use Workers AI with streaming via AI binding + authenticated AI Gateway "monorepo"
-        const gatewayName = env.AI_GATEWAY || "monorepo";
+        // Use Workers AI with streaming via AI binding + authenticated AI Gateway.
+        const gatewayName = env.AI_GATEWAY || "default";
         const gatewayToken = env.AI_GATEWAY_TOKEN;
         const requestId = crypto.randomUUID();
 
@@ -105,7 +105,7 @@ When answering questions:
           metadata: {
             requestId,
             endpoint: "chat-api",
-            model: "llama-3.3-70b-instruct-fp8-fast",
+            model: "google/gemini-3.1-flash-lite",
             messageCount: messages.length,
           },
         };
@@ -115,7 +115,7 @@ When answering questions:
         }
 
         const aiResponse = await env.AI.run(
-          "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+          "google/gemini-3.1-flash-lite",
           {
             messages: [systemPrompt, ...messages],
             stream: true,

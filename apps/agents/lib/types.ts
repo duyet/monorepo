@@ -6,7 +6,7 @@ import type { UIMessage } from "ai";
 
 export type ChatMode = "fast" | "agent";
 
-export const DEFAULT_OPENROUTER_MODEL_ID = "@cf/zai-org/glm-4.7-flash";
+export const DEFAULT_OPENROUTER_MODEL_ID = "google/gemini-3.1-flash-lite";
 
 export interface Conversation {
   id: string;

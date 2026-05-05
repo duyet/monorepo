@@ -208,7 +208,37 @@ interface Env {
   AI_SEARCH_ENDPOINT?: string;
   AI_SEARCH_SEARCH_ENDPOINT?: string;
   AI_SEARCH_CHAT_COMPLETIONS_ENDPOINT?: string;
+  AI_SEARCH_MCP_ENDPOINT?: string;
   AI_SEARCH_AUTH_TOKEN?: string;
+}
+
+async function callMcp(
+  endpoint: string,
+  method: string,
+  params: Record<string, unknown>,
+  authToken?: string
+): Promise<unknown> {
+  const headers: HeadersInit = { "Content-Type": "application/json" };
+  if (authToken) headers.Authorization = `Bearer ${authToken}`;
+
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      jsonrpc: "2.0",
+      id: crypto.randomUUID(),
+      method,
+      params,
+    }),
+  });
+
+  if (!response.ok) return null;
+
+  const payload = (await response.json().catch(() => null)) as
+    | { result?: unknown; error?: unknown }
+    | null;
+  if (!payload || payload.error) return null;
+  return payload.result ?? null;
 }
 
 function getLatestUserText(
@@ -242,6 +272,40 @@ async function fetchAiSearchContext(
   query: string,
   mode: "fast" | "agent"
 ): Promise<string | null> {
+  if (env.AI_SEARCH_MCP_ENDPOINT) {
+    const listResult = (await callMcp(
+      env.AI_SEARCH_MCP_ENDPOINT,
+      "tools/list",
+      {},
+      env.AI_SEARCH_AUTH_TOKEN
+    )) as { tools?: Array<{ name?: string }> } | null;
+
+    const searchTool =
+      listResult?.tools?.find((t) => /search/i.test(t.name || "")) ||
+      listResult?.tools?.[0];
+
+    if (searchTool?.name) {
+      const mcpData = await callMcp(
+        env.AI_SEARCH_MCP_ENDPOINT,
+        "tools/call",
+        {
+          name: searchTool.name,
+          arguments: {
+            query,
+            q: query,
+            top_k: mode === "fast" ? 3 : 8,
+            limit: mode === "fast" ? 3 : 8,
+          },
+        },
+        env.AI_SEARCH_AUTH_TOKEN
+      );
+
+      if (mcpData) {
+        return `Relevant retrieved context (MCP):\n${JSON.stringify(mcpData).slice(0, 3000)}`;
+      }
+    }
+  }
+
   const searchEndpoint = env.AI_SEARCH_SEARCH_ENDPOINT || env.AI_SEARCH_ENDPOINT;
   if (!searchEndpoint) return null;
 

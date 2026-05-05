@@ -44,8 +44,7 @@ export const Route = createRootRoute({
         crossOrigin: "anonymous",
       },
       {
-        rel: "preload",
-        as: "style",
+        rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap",
       },
     ],
@@ -59,14 +58,6 @@ function RootComponent() {
     <html lang="en">
       <head>
         <HeadContent />
-        {/* Non-blocking Google Fonts: preloaded above, applied here */}
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap"
-          media="print"
-          // @ts-expect-error onLoad is valid on link elements
-          onLoad="this.media='all'"
-        />
       </head>
       <body>
         <ClerkAuthProvider>

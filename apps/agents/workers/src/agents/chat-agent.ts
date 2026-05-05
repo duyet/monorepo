@@ -4,6 +4,7 @@ import { createWorkersAI } from "workers-ai-provider";
 import { addMessage, addSession, ensureConversation } from "../lib/repository";
 import { buildPatternHint, detectPattern } from "./patterns";
 import { createTools } from "./tools";
+import { AGENT_MODEL, FAST_MODEL } from "../../../lib/agent";
 
 export interface ChatState {
   conversationId: string;
@@ -46,13 +47,10 @@ export class ChatAgent extends AIChatAgent<any, ChatState> {
 
     const workersai = createWorkersAI({
       binding: env.AI,
-      gateway: env.AI_GATEWAY ?? "monorepo",
+      gateway: env.AI_GATEWAY ?? "default",
     });
 
-    const modelId =
-      this.state.mode === "fast"
-        ? "@cf/meta/llama-3.1-8b-instruct-fast"
-        : "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
+    const modelId = this.state.mode === "fast" ? FAST_MODEL : AGENT_MODEL;
 
     const model = workersai(modelId, {
       sessionAffinity: this.sessionAffinity,

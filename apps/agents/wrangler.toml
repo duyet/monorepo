@@ -6,9 +6,11 @@ pages_build_output_dir = "dist/client"
 [vars]
 # Server-side pepper for hashing IPs before storage. Override in dashboard for production.
 RATE_LIMIT_PEPPER = "change-me-in-production"
+AI_GATEWAY = "default"
 AI_SEARCH_API_BASE = "https://84249c5c-c9b2-418d-8f03-ab3335997606.search.ai.cloudflare.com"
 AI_SEARCH_SEARCH_ENDPOINT = "https://84249c5c-c9b2-418d-8f03-ab3335997606.search.ai.cloudflare.com/search"
 AI_SEARCH_CHAT_COMPLETIONS_ENDPOINT = "https://84249c5c-c9b2-418d-8f03-ab3335997606.search.ai.cloudflare.com/chat/completions"
+AI_SEARCH_MCP_ENDPOINT = "https://84249c5c-c9b2-418d-8f03-ab3335997606.search.ai.cloudflare.com/mcp"
 AI_SEARCH_ENDPOINT = "https://84249c5c-c9b2-418d-8f03-ab3335997606.search.ai.cloudflare.com/search"
 
 [[d1_databases]]

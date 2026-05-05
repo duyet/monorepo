@@ -4,6 +4,14 @@ import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
   server: { port: 3001 },
+  build: {
+    rolldownOptions: {
+      output: {
+        // Keep client output as a single bundle to avoid runtime dynamic chunk loads.
+        codeSplitting: false,
+      },
+    },
+  },
   plugins: [
     tanstackStart({
       router: {

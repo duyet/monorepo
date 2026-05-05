@@ -49,17 +49,9 @@ function ProjectsPage() {
         <section className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 xl:mt-16 xl:gap-8">
           {apps.map((item, index) =>
             item.screenshot ? (
-              <ProjectCard
-                key={item.name}
-                item={item}
-                shortcutNumber={index + 1}
-              />
+              <ProjectCard key={item.name} item={item} />
             ) : (
-              <CompactProjectCard
-                key={item.name}
-                item={item}
-                shortcutNumber={index + 1}
-              />
+              <CompactProjectCard key={item.name} item={item} />
             )
           )}
         </section>
@@ -71,16 +63,13 @@ function ProjectsPage() {
 
 function ProjectCard({
   item,
-  shortcutNumber,
 }: {
   item: AppItem;
-  shortcutNumber?: number;
 }) {
   return (
     <ProjectLink
       item={item}
       className={`group overflow-hidden rounded-xl border border-[#1a1a1a]/10 ${item.tone ?? "bg-[#1a1a1a]"} transition-transform hover:-translate-y-0.5 dark:border-white/10`}
-      shortcutNumber={shortcutNumber}
     >
       <div className="overflow-hidden bg-[#1a1a1a]">
         <img
@@ -105,16 +94,13 @@ function ProjectCard({
 
 function CompactProjectCard({
   item,
-  shortcutNumber,
 }: {
   item: AppItem;
-  shortcutNumber?: number;
 }) {
   return (
     <ProjectLink
       item={item}
       className="group flex min-h-44 flex-col rounded-xl border border-[#1a1a1a]/10 bg-white p-5 transition-colors dark:border-white/10 dark:bg-[#1a1a1a]"
-      shortcutNumber={shortcutNumber}
     >
       <h2 className="text-lg font-semibold tracking-tight">{item.name}</h2>
       <p className="mt-2 text-sm font-medium leading-6 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
@@ -131,40 +117,21 @@ function CompactProjectCard({
 function ProjectLink({
   item,
   className,
-  shortcutNumber,
   children,
 }: {
   item: AppItem;
   className?: string;
-  shortcutNumber?: number;
   children: ReactNode;
 }) {
   const href = addUtmParams(item.href, "projects", item.utmContent, item.host);
-  const shortcutId = item.name.toLowerCase().replace(/\s+/g, "-");
 
   if (href.startsWith("http")) {
     return (
-      <a
-        href={href}
-        className={className}
-        target="_blank"
-        rel="noopener noreferrer"
-        data-shortcut-id={shortcutId}
-        data-shortcut-number={shortcutNumber}
-      >
+      <a href={href} className={className} target="_blank" rel="noopener noreferrer">
         {children}
       </a>
     );
   }
 
-  return (
-    <Link
-      to={href}
-      className={className}
-      data-shortcut-id={shortcutId}
-      data-shortcut-number={shortcutNumber}
-    >
-      {children}
-    </Link>
-  );
+  return <Link to={href} className={className}>{children}</Link>;
 }

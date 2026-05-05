@@ -22,9 +22,9 @@ export type ChatModel = {
 export const chatModels: ChatModel[] = [
   {
     id: FAST_MODEL,
-    name: "GLM 4.7 Flash",
+    name: "Gemini 3.1 Flash Lite",
     provider: "cloudflare",
-    description: "Fast Workers AI model via Cloudflare AI Gateway",
+    description: "Google Gemini model via Cloudflare Workers AI + AI Gateway",
   },
 ];
 

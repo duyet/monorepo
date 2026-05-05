@@ -34,8 +34,8 @@ import type { ToolExecution } from "@/lib/types";
 
 const CHAT_MODELS = [
   {
-    id: "@cf/zai-org/glm-4.7-flash",
-    name: "GLM 4.7 Flash",
+    id: "google/gemini-3.1-flash-lite",
+    name: "Gemini 3.1 Flash Lite",
   },
 ] as const;
 

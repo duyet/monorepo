@@ -1,1 +1,1 @@
-export { ScratchChat as default } from "@/components/chat/scratch-chat";
+export { VercelChat as default } from "@/components/chat/vercel-chat";

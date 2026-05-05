@@ -5,7 +5,9 @@ import type { Profile } from "@duyet/profile";
 import { duyetProfile } from "@duyet/profile";
 import type { UrlsConfig } from "@duyet/urls";
 import { duyetUrls } from "@duyet/urls";
+import { Menu as MenuIcon, X as CloseIcon } from "lucide-react";
 import type { ReactNode } from "react";
+import { useEffect, useState } from "react";
 import MenuNav, { type NavigationItem } from "../Menu";
 import { AuthButtons } from "./AuthButtons";
 import { HeaderBranding } from "./HeaderBranding";
@@ -66,6 +68,23 @@ export default function Header({
   className,
   containerClassName,
 }: HeaderProps) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [isMobileViewport, setIsMobileViewport] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(max-width: 767px)").matches;
+  });
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+    const syncViewport = () => {
+      const mobile = mediaQuery.matches;
+      setIsMobileViewport(mobile);
+      if (!mobile) setMobileOpen(false);
+    };
+    syncViewport();
+    mediaQuery.addEventListener("change", syncViewport);
+    return () => mediaQuery.removeEventListener("change", syncViewport);
+  }, []);
   // Use profile defaults if not overridden
   const displayShortText = shortText ?? profile.personal.shortName;
   const displayLongText = longText ?? profile.personal.title;
@@ -91,32 +110,13 @@ export default function Header({
           center={center}
         />
 
-        {/* Desktop nav */}
-        <nav className="hidden items-center gap-7 text-sm font-medium lg:flex">
-          <MenuNav
-            urls={urls}
-            navigationItems={navigationItems}
-            className="gap-7"
-          />
-          {actions}
-          {showAuthButtons ? (
-            <AuthButtons
-              urls={urls}
-              wrapWithProvider={authButtonsWrapWithProvider}
-            />
-          ) : null}
-        </nav>
-
-        {/* Mobile nav (no dropdown) */}
-        <div className="flex items-center justify-between gap-3 lg:hidden">
-          <div className="min-w-0 overflow-x-auto">
+        {!isMobileViewport ? (
+          <nav className="flex items-center gap-7 text-sm font-medium">
             <MenuNav
               urls={urls}
               navigationItems={navigationItems}
-              className="min-w-max flex-nowrap gap-4 whitespace-nowrap"
+              className="gap-7"
             />
-          </div>
-          <div className="flex shrink-0 items-center gap-3">
             {actions}
             {showAuthButtons ? (
               <AuthButtons
@@ -124,8 +124,42 @@ export default function Header({
                 wrapWithProvider={authButtonsWrapWithProvider}
               />
             ) : null}
+          </nav>
+        ) : (
+          <div className="relative flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setMobileOpen((prev) => !prev)}
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-[#1a1a1a]/15 bg-white text-[#1a1a1a]"
+            >
+              {mobileOpen ? (
+                <CloseIcon className="h-5 w-5" />
+              ) : (
+                <MenuIcon className="h-5 w-5" />
+              )}
+            </button>
+            <div className="flex shrink-0 items-center gap-2">
+              {actions}
+              {showAuthButtons ? (
+                <AuthButtons
+                  urls={urls}
+                  wrapWithProvider={authButtonsWrapWithProvider}
+                />
+              ) : null}
+            </div>
+            {mobileOpen ? (
+              <div className="absolute right-0 top-12 z-50 min-w-48 rounded-lg border border-[#1a1a1a]/12 bg-white p-3 shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
+                <MenuNav
+                  urls={urls}
+                  navigationItems={navigationItems}
+                  onItemClick={() => setMobileOpen(false)}
+                  className="flex-col items-start gap-3 whitespace-nowrap"
+                />
+              </div>
+            ) : null}
           </div>
-        </div>
+        )}
       </div>
     </header>
   );

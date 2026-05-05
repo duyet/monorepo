@@ -8,10 +8,10 @@
 import type { AgentTool } from "./types";
 
 /** Fast mode: lightweight model for quick conversational responses */
-export const FAST_MODEL = "@cf/zai-org/glm-4.7-flash";
+export const FAST_MODEL = "google/gemini-3.1-flash-lite";
 
 /** Agent mode: larger model with function-calling support */
-export const AGENT_MODEL = "@cf/zai-org/glm-4.7-flash";
+export const AGENT_MODEL = "google/gemini-3.1-flash-lite";
 
 export const SYSTEM_PROMPT = `# Duyetbot
 

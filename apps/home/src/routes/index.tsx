@@ -124,12 +124,8 @@ function HomePage() {
             </div>
 
             <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 xl:gap-8">
-              {visualApps.map((item, index) => (
-                <ProjectCard
-                  key={item.name}
-                  item={item}
-                  shortcutNumber={index < 10 ? index + 1 : undefined}
-                />
+              {visualApps.map((item) => (
+                <ProjectCard key={item.name} item={item} />
               ))}
             </div>
 
@@ -182,16 +178,13 @@ function HomePage() {
 
 function ProjectCard({
   item,
-  shortcutNumber,
 }: {
   item: AppItem;
-  shortcutNumber?: number;
 }) {
   return (
     <AppLink
       item={item}
       className={`group overflow-hidden rounded-xl border border-[#1a1a1a]/10 ${item.tone ?? "bg-[#f3eee6]"} transition-transform hover:-translate-y-0.5`}
-      shortcutNumber={shortcutNumber}
     >
       <div className="p-4 text-white lg:p-5">
         <h3 className="text-base font-semibold tracking-tight lg:text-lg">
@@ -279,16 +272,13 @@ function CompactAppCard({ item }: { item: AppItem }) {
 function AppLink({
   item,
   className,
-  shortcutNumber,
   children,
 }: {
   item: AppItem;
   className?: string;
-  shortcutNumber?: number;
   children: ReactNode;
 }) {
   const href = addUtmParams(item.href, "homepage", item.utmContent, item.host);
-  const shortcutId = item.name.toLowerCase().replace(/\s+/g, "-");
 
   if (href.startsWith("http")) {
     return (
@@ -297,8 +287,6 @@ function AppLink({
         className={className}
         target="_blank"
         rel="noopener noreferrer"
-        data-shortcut-id={shortcutId}
-        data-shortcut-number={shortcutNumber}
       >
         {children}
       </a>
@@ -306,12 +294,7 @@ function AppLink({
   }
 
   return (
-    <Link
-      to={href}
-      className={className}
-      data-shortcut-id={shortcutId}
-      data-shortcut-number={shortcutNumber}
-    >
+    <Link to={href} className={className}>
       {children}
     </Link>
   );

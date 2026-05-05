@@ -22,7 +22,7 @@ interface CloudflareAiEnv {
  */
 export function getLanguageModel(env: CloudflareAiEnv, modelId: string) {
   const gateway = {
-    id: env.CF_AIG_GATEWAY_ID || env.AI_GATEWAY || "monorepo",
+    id: env.CF_AIG_GATEWAY_ID || env.AI_GATEWAY || "default",
   };
   const apiKey = env.CF_AIG_TOKEN || env.CLOUDFLARE_API_TOKEN;
 

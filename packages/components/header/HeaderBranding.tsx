@@ -64,7 +64,7 @@ export function HeaderBranding({
   );
 
   const linkClassName = cn(
-    "flex items-center gap-3",
+    "flex items-center gap-3 whitespace-nowrap",
   );
 
   if (homeUrl.startsWith("http")) {

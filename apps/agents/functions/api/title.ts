@@ -41,7 +41,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     }
 
     const gateway = {
-      id: context.env.CF_AIG_GATEWAY_ID || context.env.AI_GATEWAY || "monorepo",
+      id: context.env.CF_AIG_GATEWAY_ID || context.env.AI_GATEWAY || "default",
     };
     const workersai = hasGatewayCredentials
       ? createWorkersAI({

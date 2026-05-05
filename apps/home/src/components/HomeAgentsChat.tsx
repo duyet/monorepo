@@ -1,15 +1,12 @@
 import {
   CornerDownLeft,
-  Expand,
   Search,
   Globe,
   Mic,
   Plus,
-  Shrink,
   Sparkles,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import "@cloudflare/ai-search-snippet";
 
 type ClerkModule = typeof import("@clerk/clerk-react");
 
@@ -38,21 +35,18 @@ const FALLBACK_QUESTIONS = [
   "Show me Cloudflare Agents best practices.",
 ];
 
-function getGreetingPrefix(hour: number): string {
-  if (hour < 12) return "Good morning";
-  if (hour < 18) return "Good afternoon";
-  return "Good evening";
-}
-
 export function HomeAgentsChat() {
   const [clerk, setClerk] = useState<ClerkModule | null>(null);
-  const [expanded, setExpanded] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [recommendations, setRecommendations] =
     useState<string[]>(FALLBACK_QUESTIONS);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    import("@cloudflare/ai-search-snippet").catch(() => undefined);
+  }, []);
 
   useEffect(() => {
     import("@clerk/clerk-react")
@@ -67,26 +61,21 @@ export function HomeAgentsChat() {
 
   if (!keyExists || !clerk) {
     return (
-      <section className="mx-auto mt-6 max-w-[1280px] px-5 sm:px-8 lg:mt-8 lg:px-10">
-        <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#f3eee6] p-5 lg:p-6">
-          <h3 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            {getGreetingPrefix(new Date().getHours())}
-          </h3>
-          <p className="mt-2 text-sm text-[#1a1a1a]/70">
-            Auth is not configured on this environment.
-          </p>
+      <section className="mx-auto my-6 max-w-[1280px] px-5 sm:my-8 sm:px-8 lg:px-10">
+        <div className="flex justify-center">
+          <HeroHeading />
         </div>
       </section>
     );
   }
 
-  const { SignedIn, SignedOut, SignInButton, useAuth, useUser } = clerk;
+  const { SignedIn, SignedOut, useAuth, useUser } = clerk;
 
   function HeroHeading() {
     return (
-      <div className="w-full max-w-5xl">
+      <div className="mx-auto w-full max-w-2xl">
         <search-bar-snippet
-          apiUrl={import.meta.env.VITE_AI_SEARCH_API_URL || "https://84249c5c-c9b2-418d-8f03-ab3335997606.search.ai.cloudflare.com/"}
+          api-url={import.meta.env.VITE_AI_SEARCH_API_URL || "https://84249c5c-c9b2-418d-8f03-ab3335997606.search.ai.cloudflare.com/"}
           placeholder="Search..."
           maxResults={50}
           maxRenderResults={10}
@@ -214,7 +203,7 @@ export function HomeAgentsChat() {
           </div>
         </form>
 
-        <div className={`overflow-y-auto px-4 py-4 ${expanded ? "h-[440px]" : "h-[240px]"}`}>
+        <div className="h-[240px] overflow-y-auto px-4 py-4">
           {messages.length === 0 ? (
             <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#faf9f6] p-4 text-sm text-[#1a1a1a]/70">
               Ask anything about projects, architecture, Cloudflare Agents, or data systems.
@@ -300,64 +289,13 @@ export function HomeAgentsChat() {
   }
 
   return (
-    <section className="mx-auto mt-6 max-w-[1280px] px-5 sm:px-8 lg:mt-8 lg:px-10">
+    <section className="mx-auto my-6 max-w-[1280px] px-5 sm:my-8 sm:px-8 lg:px-10">
       <div className="flex justify-center">
         <HeroHeading />
       </div>
 
       <div className="mt-4">
-        <div className="mb-2 flex justify-end">
-          <button
-            type="button"
-            onClick={() => setExpanded((prev) => !prev)}
-            className="inline-flex items-center justify-center rounded-lg border border-[#1a1a1a]/15 bg-white p-2 text-[#1a1a1a] transition-colors hover:bg-[#f9f9f9]"
-            aria-label={expanded ? "Collapse chat box" : "Expand chat box"}
-            title={expanded ? "Collapse" : "Expand"}
-          >
-            {expanded ? <Shrink className="h-4 w-4" /> : <Expand className="h-4 w-4" />}
-          </button>
-        </div>
-
-        <SignedOut>
-          <div className="mt-4 rounded-2xl border border-[#1a1a1a]/10 bg-white p-4">
-            <div className="mx-auto mb-4 flex w-full max-w-5xl items-center gap-3 rounded-[30px] border border-[#cbd5e1] bg-[#f8fafc] px-4 py-3">
-              <Search className="h-6 w-6 shrink-0 text-[#1f2937]" />
-              <input
-                disabled
-                value=""
-                placeholder="Type a message..."
-                className="h-10 w-full bg-transparent text-3xl leading-tight text-[#374151] outline-none placeholder:text-[#6b7280]"
-              />
-              <SignInButton mode="modal" forceRedirectUrl="https://duyet.net">
-                <button
-                  type="button"
-                  className="rounded-3xl bg-[#f58a1f] px-7 py-3 text-2xl font-medium text-white"
-                >
-                  Search
-                </button>
-              </SignInButton>
-            </div>
-
-            <div className="mb-3 flex flex-wrap gap-2">
-              {FALLBACK_QUESTIONS.map((question) => (
-                <span
-                  key={question}
-                  className="rounded-full border border-[#1a1a1a]/15 bg-[#f8f8f8] px-3 py-1.5 text-xs font-medium text-[#1a1a1a]/75"
-                >
-                  {question}
-                </span>
-              ))}
-            </div>
-            <SignInButton mode="modal" forceRedirectUrl="https://duyet.net">
-              <button
-                type="button"
-                className="rounded-lg bg-[#1a1a1a] px-4 py-2 text-sm font-medium text-white"
-              >
-                Sign in to start chatting
-              </button>
-            </SignInButton>
-          </div>
-        </SignedOut>
+        <SignedOut />
 
         <SignedIn>
           <SignedInChat />

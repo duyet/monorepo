@@ -7,7 +7,7 @@ declare module "react" {
         HTMLAttributes<HTMLElement>,
         HTMLElement
       > & {
-        apiUrl: string;
+        "api-url": string;
         placeholder?: string;
         maxResults?: number;
         maxRenderResults?: number;
