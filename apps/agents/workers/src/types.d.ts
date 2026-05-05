@@ -18,7 +18,7 @@ declare interface DurableObjectNamespace<T = unknown> {
   get(id: DurableObjectId): DurableObjectStub<T>;
 }
 
-declare interface DurableObjectId {}
+declare type DurableObjectId = {}
 
 declare interface DurableObjectStub<T = unknown> {
   [key: string]: any;
