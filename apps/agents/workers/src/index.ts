@@ -32,6 +32,7 @@ async function handleCompatChat(request: Request, env: Env): Promise<Response> {
     sessionId?: string;
     conversationId?: string;
     title?: string;
+    mode?: "fast" | "agent";
   };
 
   const text = body.message?.trim();
@@ -41,7 +42,12 @@ async function handleCompatChat(request: Request, env: Env): Promise<Response> {
   const conversationId = body.conversationId?.trim() || crypto.randomUUID();
 
   const agent = await getAgentByName(env.ChatAgent, sessionId);
-  await agent.setSession({ userId: user.userId, conversationId, title: body.title });
+  await agent.setSession({
+    userId: user.userId,
+    conversationId,
+    title: body.title,
+    mode: body.mode,
+  });
   const result = await agent.submitMessage({ userId: user.userId, text });
 
   return json({

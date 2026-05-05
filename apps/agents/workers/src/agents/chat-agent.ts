@@ -9,6 +9,7 @@ export interface ChatState {
   conversationId: string;
   userId: string;
   title: string;
+  mode: "fast" | "agent";
   updatedAt: number;
 }
 
@@ -25,6 +26,7 @@ export class ChatAgent extends AIChatAgent<any, ChatState> {
     conversationId: "",
     userId: "",
     title: "New chat",
+    mode: "agent",
     updatedAt: Date.now(),
   };
 
@@ -42,7 +44,12 @@ export class ChatAgent extends AIChatAgent<any, ChatState> {
       gateway: env.AI_GATEWAY ?? "monorepo",
     });
 
-    const model = workersai("@cf/meta/llama-3.3-70b-instruct-fp8-fast", {
+    const modelId =
+      this.state.mode === "fast"
+        ? "@cf/meta/llama-3.1-8b-instruct-fast"
+        : "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
+
+    const model = workersai(modelId, {
       sessionAffinity: this.sessionAffinity,
     });
 
@@ -60,7 +67,12 @@ export class ChatAgent extends AIChatAgent<any, ChatState> {
     return result.toUIMessageStreamResponse();
   }
 
-  async setSession(input: { userId: string; conversationId: string; title?: string }) {
+  async setSession(input: {
+    userId: string;
+    conversationId: string;
+    title?: string;
+    mode?: "fast" | "agent";
+  }) {
     const env = (this as any).env as { DB: D1Database };
     const title = input.title?.trim() || "New chat";
 
@@ -69,6 +81,7 @@ export class ChatAgent extends AIChatAgent<any, ChatState> {
       userId: input.userId,
       conversationId: input.conversationId,
       title,
+      mode: input.mode ?? "agent",
       updatedAt: Date.now(),
     });
 
