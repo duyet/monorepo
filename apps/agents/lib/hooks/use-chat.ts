@@ -60,10 +60,8 @@ function getTextContent(msg: UIMessage): string {
     .join("");
 }
 
-/** Map DynamicToolUIPart state to ToolExecution status */
-function toExecutionStatus(
-  state: DynamicToolUIPart["state"]
-): ToolExecution["status"] {
+/** Map tool UI part state to ToolExecution status */
+function toExecutionStatus(state: string): ToolExecution["status"] {
   switch (state) {
     case "output-available":
       return "complete";
@@ -350,30 +348,41 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     Map<string, { start: number; end?: number }>
   >(new Map());
 
-  /** Collect tool executions from DynamicToolUIPart parts across all messages */
+  /** Collect tool executions from dynamic/static tool parts across all messages */
   const toolExecutions = useMemo<ToolExecution[]>(() => {
     const executions: ToolExecution[] = [];
     for (const msg of aiMessages) {
       if (msg.role !== "assistant") continue;
       for (const part of msg.parts) {
         const type = part.type as string;
-        if (type !== "dynamic-tool") continue;
-        const p = part as any;
-        if (!p.toolCallId || !p.toolName) continue;
+        if (type !== "dynamic-tool" && !type.startsWith("tool-")) continue;
+        if (!("state" in part)) continue;
+        const p = part as unknown as {
+          toolCallId?: string;
+          toolName?: string;
+          state: string;
+          input?: unknown;
+          output?: unknown;
+        };
+
+        const fallbackToolId = `${msg.id}-${type}`;
+        const toolCallId = p.toolCallId || fallbackToolId;
+        const toolName =
+          p.toolName || (type.startsWith("tool-") ? type.replace(/^tool-/, "") : type);
         const isComplete = p.state === "output-available";
 
-        const timestamps = toolTimestampsRef.current.get(p.toolCallId);
+        const timestamps = toolTimestampsRef.current.get(toolCallId);
         if (!timestamps) {
-          toolTimestampsRef.current.set(p.toolCallId, { start: Date.now() });
+          toolTimestampsRef.current.set(toolCallId, { start: Date.now() });
         }
-        const ts = toolTimestampsRef.current.get(p.toolCallId)!;
+        const ts = toolTimestampsRef.current.get(toolCallId)!;
         if (isComplete && !ts.end) {
           ts.end = Date.now();
         }
 
         executions.push({
-          id: p.toolCallId,
-          toolName: p.toolName,
+          id: toolCallId,
+          toolName,
           parameters: (p.input as Record<string, unknown>) || {},
           startTime: ts.start,
           endTime: isComplete ? ts.end : undefined,

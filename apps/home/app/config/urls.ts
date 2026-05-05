@@ -33,6 +33,10 @@ export const urls: Urls = {
     target: "https://claw.duyet.net",
     desc: "OpenClaw Mission Control",
   },
+  "/claws": {
+    target: "https://blog.duyet.net/2026/02/claws",
+    desc: "C.L.A.W.S article",
+  },
   "/blog": "https://blog.duyet.net",
   "/cv": "https://cv.duyet.net",
   "/about": { target: "/about", desc: "about me", system: false },

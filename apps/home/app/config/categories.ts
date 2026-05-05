@@ -9,6 +9,7 @@ export const CATEGORY_MAP: Record<string, Category> = {
   "/about": "Apps",
   "/ai": "Apps",
   "/claw": "Apps",
+  "/claws": "Apps",
   "/agentstate": "Apps",
   "/i": "Apps",
   "/insights": "Apps",

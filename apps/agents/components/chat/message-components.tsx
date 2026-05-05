@@ -45,6 +45,26 @@ interface AssistantMessageProps extends MessageProps {
   onToolDeny?: (id: string, reason?: string) => void;
 }
 
+type ToolLikePart = UIMessage["parts"][number] & {
+  state: string;
+  toolCallId?: string;
+  toolName?: string;
+  input?: unknown;
+  output?: unknown;
+  errorText?: string;
+  approval?: { id: string };
+};
+
+function isToolLikePart(part: UIMessage["parts"][number]): part is ToolLikePart {
+  const type = part.type as string;
+  return (
+    (type === "dynamic-tool" || type.startsWith("tool-")) &&
+    typeof part === "object" &&
+    part !== null &&
+    "state" in part
+  );
+}
+
 type CopyState = "idle" | "copied" | "failed";
 
 function CopyIcon({ state }: { state: CopyState }) {
@@ -154,6 +174,99 @@ export function AssistantMessage({
     groupedParts[0]?.type === "reasoning-group" &&
     groupedParts[0]?.reasoningState === "streaming";
 
+  const renderToolPart = (
+    part: UIMessage["parts"][number],
+    key: string
+  ) => {
+    if (!isToolLikePart(part)) return null;
+    const type = part.type as string;
+    const isDynamic = type === "dynamic-tool";
+    const isStaticTool = type.startsWith("tool-");
+    const toolPart = part;
+
+    const toolCallId = toolPart.toolCallId || key;
+    const toolName =
+      toolPart.toolName ||
+      (isStaticTool ? type.replace(/^tool-/, "") : "tool");
+    const isToolStreaming =
+      toolPart.state === "input-streaming" ||
+      (isStreaming && toolPart.state === "input-available");
+
+    return (
+      <Tool
+        key={toolCallId}
+        defaultOpen={
+          toolPart.state === "output-available" ||
+          toolPart.state === "output-error"
+        }
+      >
+        <ToolHeader
+          {...(isDynamic
+            ? {
+                type: "dynamic-tool" as const,
+                state: toolPart.state as any,
+                toolName,
+              }
+            : {
+                type: type as any,
+                state: toolPart.state as any,
+              })}
+        />
+        <ToolContent>
+          <ToolInput input={toolPart.input} />
+          <ToolOutput
+            output={toolPart.output}
+            errorText={toolPart.errorText}
+            isStreaming={isToolStreaming}
+          />
+
+          {/* Approval workflow (dynamic tool parts only) */}
+          {isDynamic && toolPart.approval ? (
+            <Confirmation
+              approval={toolPart.approval as any}
+              state={toolPart.state as any}
+            >
+              <ConfirmationRequest>
+                <p className="text-sm text-foreground">
+                  Do you want to approve <strong>{toolName}</strong>?
+                </p>
+                <ConfirmationActions>
+                  <ConfirmationAction
+                    onClick={() => {
+                      const approvalId = toolPart.approval?.id;
+                      if (approvalId) onToolDeny?.(approvalId);
+                    }}
+                    variant="outline"
+                  >
+                    Deny
+                  </ConfirmationAction>
+                  <ConfirmationAction
+                    onClick={() => {
+                      const approvalId = toolPart.approval?.id;
+                      if (approvalId) onToolApprove?.(approvalId);
+                    }}
+                  >
+                    Approve
+                  </ConfirmationAction>
+                </ConfirmationActions>
+              </ConfirmationRequest>
+              <ConfirmationAccepted>
+                <p className="text-sm text-emerald-600">
+                  You approved this tool execution
+                </p>
+              </ConfirmationAccepted>
+              <ConfirmationRejected>
+                <p className="text-sm text-red-600">
+                  You rejected this tool execution
+                </p>
+              </ConfirmationRejected>
+            </Confirmation>
+          ) : null}
+        </ToolContent>
+      </Tool>
+    );
+  };
+
   return (
     <MessageRoot from="assistant">
       <MessageContent
@@ -188,72 +301,11 @@ export function AssistantMessage({
                       {part.text}
                     </MessageResponse>
                   );
-                } else if (part.type === "dynamic-tool") {
-                  return (
-                    <Tool
-                      key={part.toolCallId}
-                      defaultOpen={
-                        part.state === "output-available" ||
-                        part.state === "output-error"
-                      }
-                    >
-                      <ToolHeader
-                        type="dynamic-tool"
-                        state={part.state}
-                        toolName={part.toolName}
-                      />
-                      <ToolContent>
-                        <ToolInput input={part.input} />
-                        <ToolOutput
-                          output={part.output}
-                          errorText={part.errorText}
-                          isStreaming={
-                            isStreaming && part.state === "input-streaming"
-                          }
-                        />
-
-                        {/* Approval workflow */}
-                        <Confirmation
-                          approval={part.approval}
-                          state={part.state}
-                        >
-                          <ConfirmationRequest>
-                            <p className="text-sm text-foreground">
-                              Do you want to approve{" "}
-                              <strong>{part.toolName}</strong>?
-                            </p>
-                            <ConfirmationActions>
-                              <ConfirmationAction
-                                onClick={() => onToolDeny?.(part.approval!.id)}
-                                variant="outline"
-                              >
-                                Deny
-                              </ConfirmationAction>
-                              <ConfirmationAction
-                                onClick={() =>
-                                  onToolApprove?.(part.approval!.id)
-                                }
-                              >
-                                Approve
-                              </ConfirmationAction>
-                            </ConfirmationActions>
-                          </ConfirmationRequest>
-                          <ConfirmationAccepted>
-                            <p className="text-sm text-emerald-600">
-                              You approved this tool execution
-                            </p>
-                          </ConfirmationAccepted>
-                          <ConfirmationRejected>
-                            <p className="text-sm text-red-600">
-                              You rejected this tool execution
-                            </p>
-                          </ConfirmationRejected>
-                        </Confirmation>
-                      </ToolContent>
-                    </Tool>
-                  );
                 }
-                return null;
+                return renderToolPart(
+                  part,
+                  `tool-${grouped.originalIndex}-${part.type}`
+                );
               }
               return null;
             })}
@@ -423,6 +475,32 @@ export function PreviewMessage({ message, isLoading }: PreviewMessageProps) {
         {message.parts?.map((part, i) => {
           if (part.type === "text") {
             return <MessageResponse key={i}>{part.text}</MessageResponse>;
+          }
+          if (isToolLikePart(part)) {
+            return (
+              <Tool key={`preview-tool-${i}`} defaultOpen>
+                <ToolHeader
+                  {...((part.type as string) === "dynamic-tool"
+                    ? {
+                        type: "dynamic-tool" as const,
+                        state: part.state as any,
+                        toolName: part.toolName ?? "tool",
+                      }
+                    : {
+                        type: part.type as any,
+                        state: part.state as any,
+                      })}
+                />
+                <ToolContent>
+                  <ToolInput input={part.input} />
+                  <ToolOutput
+                    output={part.output}
+                    errorText={part.errorText}
+                    isStreaming={isLoading && part.state === "input-streaming"}
+                  />
+                </ToolContent>
+              </Tool>
+            );
           }
           return null;
         })}
