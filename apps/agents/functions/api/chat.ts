@@ -206,6 +206,8 @@ interface Env {
   CLOUDFLARE_API_TOKEN?: string;
   RATE_LIMIT_PEPPER?: string;
   AI_SEARCH_ENDPOINT?: string;
+  AI_SEARCH_SEARCH_ENDPOINT?: string;
+  AI_SEARCH_CHAT_COMPLETIONS_ENDPOINT?: string;
   AI_SEARCH_AUTH_TOKEN?: string;
 }
 
@@ -240,7 +242,8 @@ async function fetchAiSearchContext(
   query: string,
   mode: "fast" | "agent"
 ): Promise<string | null> {
-  if (!env.AI_SEARCH_ENDPOINT) return null;
+  const searchEndpoint = env.AI_SEARCH_SEARCH_ENDPOINT || env.AI_SEARCH_ENDPOINT;
+  if (!searchEndpoint) return null;
 
   const headers: HeadersInit = {
     "Content-Type": "application/json",
@@ -251,7 +254,7 @@ async function fetchAiSearchContext(
   }
 
   const topK = mode === "fast" ? 3 : 8;
-  const response = await fetch(env.AI_SEARCH_ENDPOINT, {
+  const response = await fetch(searchEndpoint, {
     method: "POST",
     headers,
     body: JSON.stringify({

@@ -9,6 +9,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import "@cloudflare/ai-search-snippet";
 
 type ClerkModule = typeof import("@clerk/clerk-react");
 
@@ -82,17 +83,17 @@ export function HomeAgentsChat() {
   const { SignedIn, SignedOut, SignInButton, useAuth, useUser } = clerk;
 
   function HeroHeading() {
-    const { user } = useUser();
-    const hour = new Date().getHours();
-    const prefix = getGreetingPrefix(hour);
-    const firstName = user?.firstName?.trim();
-
     return (
-      <>
-        <h3 className="text-2xl font-semibold tracking-tight sm:text-4xl">
-          {firstName ? `${prefix}, ${firstName}.` : prefix}
-        </h3>
-      </>
+      <div className="w-full max-w-5xl">
+        <search-bar-snippet
+          apiUrl={import.meta.env.VITE_AI_SEARCH_API_URL || "https://84249c5c-c9b2-418d-8f03-ab3335997606.search.ai.cloudflare.com/"}
+          placeholder="Search..."
+          maxResults={50}
+          maxRenderResults={10}
+          show-url="true"
+          show-date="true"
+        />
+      </div>
     );
   }
 
@@ -300,11 +301,12 @@ export function HomeAgentsChat() {
 
   return (
     <section className="mx-auto mt-6 max-w-[1280px] px-5 sm:px-8 lg:mt-8 lg:px-10">
-      <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#f3eee6] p-5 lg:p-6">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <HeroHeading />
-          </div>
+      <div className="flex justify-center">
+        <HeroHeading />
+      </div>
+
+      <div className="mt-4">
+        <div className="mb-2 flex justify-end">
           <button
             type="button"
             onClick={() => setExpanded((prev) => !prev)}

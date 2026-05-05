@@ -16,6 +16,8 @@
     "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh home duyet-home"
   },
   "dependencies": {
+    "@clerk/clerk-react": "^5.61.2",
+    "@cloudflare/ai-search-snippet": "^0.0.39",
     "@duyet/components": "*",
     "@duyet/libs": "*",
     "@duyet/urls": "*",
@@ -24,8 +26,7 @@
     "framer-motion": "^12.36.0",
     "lucide-react": "^1.0.0",
     "react": "19.2.5",
-    "react-dom": "19.2.5",
-    "@clerk/clerk-react": "^5.61.2"
+    "react-dom": "19.2.5"
   },
   "devDependencies": {
     "@duyet/tailwind-config": "*",

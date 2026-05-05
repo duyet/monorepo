@@ -70,11 +70,15 @@ export function AuthButtons({
   }, []);
 
   useEffect(() => {
-    if (clerkProviderMounted) return;
     if (!publishableKey) return;
 
-    clerkProviderMounted = true;
-    isOwner.current = true;
+    if (wrapWithProvider) {
+      if (clerkProviderMounted) return;
+      clerkProviderMounted = true;
+      isOwner.current = true;
+    } else {
+      isOwner.current = true;
+    }
 
     import("@clerk/clerk-react")
       .then((mod) => setClerkModule(mod))
@@ -83,11 +87,11 @@ export function AuthButtons({
       });
 
     return () => {
-      if (isOwner.current) {
+      if (isOwner.current && wrapWithProvider) {
         clerkProviderMounted = false;
       }
     };
-  }, [publishableKey]);
+  }, [publishableKey, wrapWithProvider]);
 
   // No publishable key — show unavailable fallback
   if (!publishableKey) {

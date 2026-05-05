@@ -267,6 +267,7 @@
       "version": "0.1.0",
       "dependencies": {
         "@clerk/clerk-react": "^5.61.2",
+        "@cloudflare/ai-search-snippet": "^0.0.39",
         "@duyet/components": "*",
         "@duyet/libs": "*",
         "@duyet/urls": "*",
@@ -709,6 +710,8 @@
     "@clickhouse/client-common": ["@clickhouse/client-common@1.18.2", "", {}, "sha512-J0SG6q9V31ydxonglpj9xhNRsUxCsF71iEZ784yldqMYwsHixj/9xHFDgBDX3DuMiDx/kPDfXnf+pimp08wIBA=="],
 
     "@cloudflare/ai-chat": ["@cloudflare/ai-chat@0.6.2", "", { "peerDependencies": { "@ai-sdk/react": "^3.0.0", "agents": ">=0.12.1 <1.0.0", "ai": "^6.0.0", "react": "^19.0.0", "zod": "^4.0.0" } }, "sha512-REmV3xkiTntoN/hm0NrbhKeoqpa83fJkyOabITYYFwdgKf9JtVbTEQU72LWO5ACa/8wHq3X9z8z8j3vxcU20GQ=="],
+
+    "@cloudflare/ai-search-snippet": ["@cloudflare/ai-search-snippet@0.0.39", "", {}, "sha512-1d9iyB9hZP2Zt+VfOMD/WEetyGZKmslB4BG7Lfi9bJZhNQFZELzoQ7ATWfcG7H2Zc856njQnqNJ8V/TeGhFmOg=="],
 
     "@cloudflare/kv-asset-handler": ["@cloudflare/kv-asset-handler@0.4.2", "", {}, "sha512-SIOD2DxrRRwQ+jgzlXCqoEFiKOFqaPjhnNTGKXSRLvp1HiOvapLaFG2kEr9dYQTYe8rKrd9uvDUzmAITeNyaHQ=="],
 

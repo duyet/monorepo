@@ -3,6 +3,7 @@ import { z } from "zod";
 
 type ToolEnv = {
   AI_SEARCH_ENDPOINT?: string;
+  AI_SEARCH_SEARCH_ENDPOINT?: string;
   AI_SEARCH_AUTH_TOKEN?: string;
 };
 
@@ -45,7 +46,9 @@ export function createTools(env: ToolEnv, mode: "fast" | "agent") {
   }),
   };
 
-  if (mode === "agent" && env.AI_SEARCH_ENDPOINT) {
+  const searchEndpoint = env.AI_SEARCH_SEARCH_ENDPOINT || env.AI_SEARCH_ENDPOINT;
+
+  if (mode === "agent" && searchEndpoint) {
     return {
       ...tools,
       searchKnowledgeBase: tool({
@@ -64,7 +67,7 @@ export function createTools(env: ToolEnv, mode: "fast" | "agent") {
             headers.Authorization = `Bearer ${env.AI_SEARCH_AUTH_TOKEN}`;
           }
 
-          const res = await fetch(env.AI_SEARCH_ENDPOINT!, {
+          const res = await fetch(searchEndpoint, {
             method: "POST",
             headers,
             body: JSON.stringify({
