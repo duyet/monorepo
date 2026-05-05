@@ -23,7 +23,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744  # v3  # v1  # v6.0.2
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4  # v3  # v1  # v6.0.2
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
