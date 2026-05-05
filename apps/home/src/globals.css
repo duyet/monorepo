@@ -39,10 +39,6 @@
 }
 
 @layer utilities {
-  .home-ai-search {
-    overflow: hidden;
-  }
-
   .home-ai-search-snippet {
     display: block;
     width: 100%;
