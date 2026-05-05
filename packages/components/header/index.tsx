@@ -6,7 +6,6 @@ import { duyetProfile } from "@duyet/profile";
 import type { UrlsConfig } from "@duyet/urls";
 import { duyetUrls } from "@duyet/urls";
 import type { ReactNode } from "react";
-import { Menu as MenuIcon, X } from "lucide-react";
 import MenuNav, { type NavigationItem } from "../Menu";
 import { AuthButtons } from "./AuthButtons";
 import { HeaderBranding } from "./HeaderBranding";
@@ -80,7 +79,7 @@ export default function Header({
     >
       <div
         className={cn(
-          "mx-auto flex max-w-[1280px] items-center justify-between px-5 py-4 sm:px-8 lg:px-10",
+          "mx-auto flex max-w-[1280px] flex-col gap-3 px-5 py-4 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:gap-0 lg:px-10",
           containerClassName
         )}
       >
@@ -108,29 +107,24 @@ export default function Header({
           ) : null}
         </nav>
 
-        {/* Mobile nav */}
-        <div className="flex items-center gap-3 lg:hidden">
-          {actions}
-          {showAuthButtons ? (
-            <AuthButtons
+        {/* Mobile nav (no dropdown) */}
+        <div className="flex items-center justify-between gap-3 lg:hidden">
+          <div className="min-w-0 overflow-x-auto">
+            <MenuNav
               urls={urls}
-              wrapWithProvider={authButtonsWrapWithProvider}
+              navigationItems={navigationItems}
+              className="min-w-max flex-nowrap gap-4 whitespace-nowrap"
             />
-          ) : null}
-          <details className="group relative">
-            <summary className="flex cursor-pointer list-none rounded-lg p-1.5 text-neutral-700 hover:bg-[#1a1a1a]/5 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:text-neutral-300 dark:hover:bg-white/5 dark:hover:text-neutral-100 dark:focus-visible:ring-neutral-500 [&::-webkit-details-marker]:hidden">
-              <span className="sr-only">Toggle menu</span>
-              <MenuIcon className="size-5 group-open:hidden" />
-              <X className="hidden size-5 group-open:block" />
-            </summary>
-            <div className="absolute right-0 top-full z-50 mt-3 w-[min(280px,calc(100vw-2rem))] rounded-xl border border-[#1a1a1a]/10 bg-white p-4 shadow-none dark:border-[#1a1a1a]/10 dark:bg-white">
-              <MenuNav
+          </div>
+          <div className="flex shrink-0 items-center gap-3">
+            {actions}
+            {showAuthButtons ? (
+              <AuthButtons
                 urls={urls}
-                navigationItems={navigationItems}
-                className="flex-col items-start gap-3"
+                wrapWithProvider={authButtonsWrapWithProvider}
               />
-            </div>
-          </details>
+            ) : null}
+          </div>
         </div>
       </div>
     </header>

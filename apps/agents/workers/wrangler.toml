@@ -2,6 +2,9 @@ name = "duyet-agents-api"
 main = "src/index.ts"
 compatibility_date = "2026-05-05"
 compatibility_flags = ["nodejs_compat"]
+routes = [
+  { pattern = "agents-api.duyet.net/*", zone_name = "duyet.net" }
+]
 
 [observability]
 enabled = true

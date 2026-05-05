@@ -68,6 +68,47 @@ async function handleConversations(request: Request, env: Env): Promise<Response
   return json({ conversations });
 }
 
+async function handleRecommendations(
+  request: Request,
+  env: Env
+): Promise<Response> {
+  const user = await getUserFromRequest(request, env.CLERK_ISSUER_URL);
+  if (!user) return json({ error: "Unauthorized" }, 401);
+
+  const url = new URL(request.url);
+  const focus = url.searchParams.get("focus")?.toLowerCase() ?? "";
+
+  const common = [
+    "What should I build next with Cloudflare Agents?",
+    "How can I improve this monorepo architecture?",
+    "Show me practical performance wins for this stack.",
+  ];
+
+  const focused =
+    focus === "ai"
+      ? [
+          "What are practical AI agent patterns for production?",
+          "How should I design human-in-the-loop approval flows?",
+          "What is the safest way to persist chat history?",
+        ]
+      : focus === "data"
+        ? [
+            "How should I model analytics events in ClickHouse?",
+            "What are good data pipeline reliability checks?",
+            "How can I reduce query latency for dashboard workloads?",
+          ]
+        : [
+            "Give me 3 high-impact improvements for duyet.net.",
+            "How should I structure API routes for maintainability?",
+            "What should I monitor first after deploy?",
+          ];
+
+  return json({
+    userId: user.userId,
+    questions: [...focused, ...common],
+  });
+}
+
 export { ChatAgent };
 
 export default {
@@ -86,6 +127,10 @@ export default {
 
     if (url.pathname === "/api/conversations" && request.method === "GET") {
       return handleConversations(request, env);
+    }
+
+    if (url.pathname === "/api/recommendations" && request.method === "GET") {
+      return handleRecommendations(request, env);
     }
 
     const routed = await routeAgentRequest(request, env);
