@@ -75,6 +75,8 @@ function HomePage() {
         <SiteHeader />
 
         <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-white 2xl:rounded-b-[4rem]">
+          <HomeAgentsChat />
+
           <section className="mx-auto max-w-[1280px] px-5 py-14 sm:px-8 md:py-18 lg:px-10 lg:py-24 xl:py-28">
             <div className="max-w-[860px] space-y-6">
               <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
@@ -148,8 +150,6 @@ function HomePage() {
               </div>
             )}
           </section>
-
-          <HomeAgentsChat />
 
           <section className="mx-auto mt-24 max-w-[1280px] px-5 sm:px-8 lg:mt-32 lg:px-10 xl:mt-40">
             <Link

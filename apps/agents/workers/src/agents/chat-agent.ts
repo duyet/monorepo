@@ -3,7 +3,7 @@ import { convertToModelMessages, streamText, type UIMessage } from "ai";
 import { createWorkersAI } from "workers-ai-provider";
 import { addMessage, addSession, ensureConversation } from "../lib/repository";
 import { buildPatternHint, detectPattern } from "./patterns";
-import { baseTools } from "./tools";
+import { createTools } from "./tools";
 
 export interface ChatState {
   conversationId: string;
@@ -33,7 +33,12 @@ export class ChatAgent extends AIChatAgent<any, ChatState> {
   chatRecovery = true;
 
   async onChatMessage() {
-    const env = (this as any).env as { AI: Ai; AI_GATEWAY?: string };
+    const env = (this as any).env as {
+      AI: Ai;
+      AI_GATEWAY?: string;
+      AI_SEARCH_ENDPOINT?: string;
+      AI_SEARCH_AUTH_TOKEN?: string;
+    };
 
     const lastUserMessage = [...this.messages].reverse().find((m) => m.role === "user");
     const lastUserText = lastUserMessage ? getText(lastUserMessage.parts) : "";
@@ -59,9 +64,10 @@ export class ChatAgent extends AIChatAgent<any, ChatState> {
       system: [
         "You are duyetbot for agents.duyet.net.",
         "Keep responses practical and concise.",
+        "For questions about duyet.net/blog content, call searchKnowledgeBase first when available.",
         buildPatternHint(pattern),
       ].join("\n"),
-      tools: baseTools,
+      tools: createTools(env, this.state.mode),
     });
 
     return result.toUIMessageStreamResponse();

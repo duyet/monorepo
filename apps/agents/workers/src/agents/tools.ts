@@ -1,7 +1,13 @@
 import { tool } from "ai";
 import { z } from "zod";
 
-export const baseTools = {
+type ToolEnv = {
+  AI_SEARCH_ENDPOINT?: string;
+  AI_SEARCH_AUTH_TOKEN?: string;
+};
+
+export function createTools(env: ToolEnv, mode: "fast" | "agent") {
+  const tools = {
   getTime: tool({
     description: "Get current server time in ISO format.",
     inputSchema: z.object({}),
@@ -37,4 +43,62 @@ export const baseTools = {
       }));
     },
   }),
-};
+  };
+
+  if (mode === "agent" && env.AI_SEARCH_ENDPOINT) {
+    return {
+      ...tools,
+      searchKnowledgeBase: tool({
+        description:
+          "Search the Cloudflare AI Search knowledge base for relevant context before answering site/blog questions.",
+        inputSchema: z.object({
+          query: z.string().min(2),
+          topK: z.number().int().min(1).max(10).optional(),
+        }),
+        execute: async ({ query, topK }) => {
+          const headers: HeadersInit = {
+            "Content-Type": "application/json",
+          };
+
+          if (env.AI_SEARCH_AUTH_TOKEN) {
+            headers.Authorization = `Bearer ${env.AI_SEARCH_AUTH_TOKEN}`;
+          }
+
+          const res = await fetch(env.AI_SEARCH_ENDPOINT!, {
+            method: "POST",
+            headers,
+            body: JSON.stringify({
+              query,
+              top_k: topK ?? 5,
+            }),
+          });
+
+          const raw = await res.text();
+          if (!res.ok) {
+            return {
+              ok: false,
+              status: res.status,
+              error: `AI Search failed with status ${res.status}`,
+              response: raw.slice(0, 2000),
+            };
+          }
+
+          let data: unknown = null;
+          try {
+            data = JSON.parse(raw);
+          } catch {
+            data = raw;
+          }
+
+          return {
+            ok: true,
+            status: res.status,
+            data,
+          };
+        },
+      }),
+    };
+  }
+
+  return tools;
+}

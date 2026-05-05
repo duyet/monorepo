@@ -28,5 +28,6 @@ new_sqlite_classes = ["ChatAgent"]
 
 [vars]
 AI_GATEWAY = "monorepo"
+AI_SEARCH_ENDPOINT = "https://84249c5c-c9b2-418d-8f03-ab3335997606.search.ai.cloudflare.com/search"
 # e.g. https://your-org.clerk.accounts.dev
 CLERK_ISSUER_URL = ""

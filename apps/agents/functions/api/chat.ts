@@ -205,6 +205,89 @@ interface Env {
   CLOUDFLARE_ACCOUNT_ID?: string;
   CLOUDFLARE_API_TOKEN?: string;
   RATE_LIMIT_PEPPER?: string;
+  AI_SEARCH_ENDPOINT?: string;
+  AI_SEARCH_AUTH_TOKEN?: string;
+}
+
+function getLatestUserText(
+  uiMessages: Array<Record<string, unknown>>
+): string | null {
+  const lastUser = [...uiMessages]
+    .reverse()
+    .find((message) => message.role === "user");
+  if (!lastUser || !Array.isArray(lastUser.parts)) return null;
+
+  const text = lastUser.parts
+    .filter((part): part is { type: string; text: string } => {
+      return (
+        typeof part === "object" &&
+        part !== null &&
+        "type" in part &&
+        (part as { type?: unknown }).type === "text" &&
+        "text" in part &&
+        typeof (part as { text?: unknown }).text === "string"
+      );
+    })
+    .map((part) => part.text)
+    .join("\n")
+    .trim();
+
+  return text.length > 0 ? text : null;
+}
+
+async function fetchAiSearchContext(
+  env: Env,
+  query: string,
+  mode: "fast" | "agent"
+): Promise<string | null> {
+  if (!env.AI_SEARCH_ENDPOINT) return null;
+
+  const headers: HeadersInit = {
+    "Content-Type": "application/json",
+  };
+
+  if (env.AI_SEARCH_AUTH_TOKEN) {
+    headers.Authorization = `Bearer ${env.AI_SEARCH_AUTH_TOKEN}`;
+  }
+
+  const topK = mode === "fast" ? 3 : 8;
+  const response = await fetch(env.AI_SEARCH_ENDPOINT, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      query,
+      top_k: topK,
+    }),
+  });
+
+  if (!response.ok) return null;
+
+  const payload = (await response.json().catch(() => null)) as
+    | {
+        results?: Array<{
+          title?: string;
+          text?: string;
+          snippet?: string;
+          url?: string;
+          source?: string;
+        }>;
+      }
+    | null;
+
+  const items = payload?.results;
+  if (!Array.isArray(items) || items.length === 0) return null;
+
+  const lines = items
+    .slice(0, topK)
+    .map((item, index) => {
+      const title = item.title || item.source || `Result ${index + 1}`;
+      const excerpt = (item.snippet || item.text || "").slice(0, 500);
+      const url = item.url ? `\nURL: ${item.url}` : "";
+      return `- ${title}${url}\n${excerpt}`;
+    })
+    .join("\n\n");
+
+  return `Relevant retrieved context:\n${lines}`;
 }
 
 // ─── POST Handler ───────────────────────────────────────────────────
@@ -326,7 +409,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     // Build system prompt with skills and user settings
     const capabilities = getCapabilities(chatModelId);
     const basePrompt = isFastMode ? FAST_SYSTEM_PROMPT : SYSTEM_PROMPT;
-    const system = buildSystemPrompt(
+    let system = buildSystemPrompt(
       basePrompt,
       !isFastMode ? AGENT_SKILLS : undefined,
       settings
@@ -340,6 +423,21 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     // Convert UI messages to model messages
     const modelMessages = await convertToModelMessages(uiMessages);
+
+    // Optional pre-generation retrieval from Cloudflare AI Search.
+    if (!isToolApprovalFlow) {
+      const latestUserText = getLatestUserText(uiMessages);
+      if (latestUserText) {
+        const ragContext = await fetchAiSearchContext(
+          context.env,
+          latestUserText,
+          isFastMode ? "fast" : "agent"
+        );
+        if (ragContext) {
+          system = `${system}\n\n${ragContext}`;
+        }
+      }
+    }
 
     // Store conversation for authenticated users
     if (user && DB && conversationId) {

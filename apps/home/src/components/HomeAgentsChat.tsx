@@ -42,13 +42,6 @@ function getGreetingPrefix(hour: number): string {
   return "Good evening";
 }
 
-const HERO_VARIANTS = [
-  "What's on your mind?",
-  "What would you like to build?",
-  "What should we work on today?",
-  "What can I help you ship?",
-];
-
 export function HomeAgentsChat() {
   const [clerk, setClerk] = useState<ClerkModule | null>(null);
   const [expanded, setExpanded] = useState(false);
@@ -70,17 +63,12 @@ export function HomeAgentsChat() {
     []
   );
 
-  const heroVariant = useMemo(
-    () => HERO_VARIANTS[Math.floor(Math.random() * HERO_VARIANTS.length)],
-    []
-  );
-
   if (!keyExists || !clerk) {
     return (
-      <section className="mx-auto mt-16 max-w-[1280px] px-5 sm:px-8 lg:mt-20 lg:px-10">
+      <section className="mx-auto mt-6 max-w-[1280px] px-5 sm:px-8 lg:mt-8 lg:px-10">
         <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#f3eee6] p-5 lg:p-6">
           <h3 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            {heroVariant}
+            {getGreetingPrefix(new Date().getHours())}
           </h3>
           <p className="mt-2 text-sm text-[#1a1a1a]/70">
             Auth is not configured on this environment.
@@ -103,12 +91,6 @@ export function HomeAgentsChat() {
         <h3 className="text-2xl font-semibold tracking-tight sm:text-4xl">
           {firstName ? `${prefix}, ${firstName}.` : prefix}
         </h3>
-        <p className="mt-2 text-base font-medium text-[#1a1a1a]/85 sm:text-lg">
-          {heroVariant}
-        </p>
-        <p className="mt-2 text-sm text-[#1a1a1a]/70">
-          Ask from the homepage. Sign in is required to send.
-        </p>
       </>
     );
   }
@@ -290,7 +272,7 @@ export function HomeAgentsChat() {
   }
 
   return (
-    <section className="mx-auto mt-16 max-w-[1280px] px-5 sm:px-8 lg:mt-20 lg:px-10">
+    <section className="mx-auto mt-6 max-w-[1280px] px-5 sm:px-8 lg:mt-8 lg:px-10">
       <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#f3eee6] p-5 lg:p-6">
         <div className="flex items-start justify-between gap-3">
           <div>
