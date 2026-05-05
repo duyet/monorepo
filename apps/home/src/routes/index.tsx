@@ -15,6 +15,7 @@ import { addUtmParams } from "../../app/lib/utm";
 import { KeyboardFeatures } from "../components/KeyboardFeatures";
 import { SiteFooter, SiteHeader } from "../components/SiteChrome";
 import { HomeAgentsChat } from "../components/HomeAgentsChat";
+import { WorkStackSection } from "../components/WorkStackSection";
 import { type AppItem, apps } from "../data/projects";
 
 export const Route = createFileRoute("/")({
@@ -141,6 +142,14 @@ function HomePage() {
           </section>
 
           <HomeAgentsChat />
+
+          <WorkStackSection
+            repositoryUrl={addUtmParams(
+              "https://github.com/duyet",
+              "homepage",
+              "skills_github"
+            )}
+          />
 
           <section className="mx-auto mt-24 max-w-[1280px] px-5 sm:px-8 lg:mt-32 lg:px-10 xl:mt-40">
             <Link
