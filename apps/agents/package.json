@@ -77,6 +77,7 @@
     "embla-carousel-react": "^8.6.0",
     "fast-deep-equal": "^3.1.0",
     "framer-motion": "^12.34.0",
+    "lucide-react": "^1.0.0",
     "motion": "^12.34.3",
     "nanoid": "^5.0.0",
     "orderedmap": "^2.0.0",
