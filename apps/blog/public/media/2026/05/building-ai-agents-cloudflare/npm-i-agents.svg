@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" role="img" aria-labelledby="title desc">
+  <title id="title">npm i agents terminal card</title>
+  <desc id="desc">A Cloudflare orange terminal illustration showing the npm i agents command and a Lunch Agent TypeScript example.</desc>
+  <defs>
+    <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.8" fill="#f97316" opacity="0.8" />
+    </pattern>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="22" flood-color="#7c2d12" flood-opacity="0.12" />
+    </filter>
+  </defs>
+  <rect width="1600" height="760" fill="#fffdf8" />
+  <rect width="1600" height="760" fill="url(#dots)" />
+  <g transform="translate(535 58)">
+    <rect width="530" height="246" rx="10" fill="#fffdf8" stroke="#f97316" stroke-width="2" />
+    <circle cx="54" cy="55" r="14" fill="none" stroke="#f97316" stroke-width="2" />
+    <circle cx="90" cy="55" r="14" fill="none" stroke="#f97316" stroke-width="2" />
+    <circle cx="126" cy="55" r="14" fill="none" stroke="#f97316" stroke-width="2" />
+    <text x="64" y="168" fill="#c2410c" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="52" letter-spacing="1">$ npm i agents</text>
+  </g>
+  <g filter="url(#softShadow)" transform="translate(90 292)">
+    <rect width="1420" height="430" rx="10" fill="#fffdf8" stroke="#f97316" stroke-width="2" />
+    <text x="42" y="74" fill="#c2410c" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="34" font-weight="700">Lunch Agent</text>
+    <text x="244" y="74" fill="#c2410c" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="28">An agent that helps pick lunch for coworkers in an office.</text>
+    <line x1="42" y1="118" x2="1378" y2="118" stroke="#f97316" stroke-width="2" />
+    <text x="42" y="178" fill="#991b1b" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="25">import</text>
+    <text x="146" y="178" fill="#7c2d12" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="25">{ Agent, callable } from</text>
+    <text x="508" y="178" fill="#78716c" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="25">'agents';</text>
+    <text x="42" y="216" fill="#991b1b" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="25">import</text>
+    <text x="146" y="216" fill="#7c2d12" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="25">{ searchMenusByAgent, chooseWinners } from</text>
+    <text x="770" y="216" fill="#78716c" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="25">'../utils';</text>
+    <text x="42" y="284" fill="#991b1b" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="25">export class</text>
+    <text x="240" y="284" fill="#b45309" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="25">LunchAgent</text>
+    <text x="410" y="284" fill="#991b1b" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="25">extends</text>
+    <text x="532" y="284" fill="#c2410c" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="25">Agent&lt;Env, LunchState&gt; {</text>
+    <text x="92" y="326" fill="#b45309" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="25">onStart()</text>
+    <text x="260" y="326" fill="#7c2d12" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="25">{</text>
+    <text x="146" y="368" fill="#c2410c" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="25">this.schedule(</text>
+    <text x="350" y="368" fill="#78716c" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="25">'weekdays at 11:30pm'</text>
+    <text x="690" y="368" fill="#7c2d12" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="25">,</text>
+    <text x="728" y="368" fill="#78716c" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="25">'chooseLunch'</text>
+    <text x="922" y="368" fill="#7c2d12" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="25">);</text>
+  </g>
+</svg>

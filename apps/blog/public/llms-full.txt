@@ -1,7 +1,78 @@
 # Duyet Le - Technical Blog (Full Content)
 
-> This file contains the full markdown content of all 298 blog posts.
+> This file contains the full markdown content of all 299 blog posts.
 > For a summary index, see https://blog.duyet.net/llms.txt
+
+---
+
+# Building AI Agents on Cloudflare
+
+- **URL**: https://blog.duyet.net/2026/05/building-ai-agents-cloudflare
+- **Date**: 2026-05-06
+- **Category**: AI
+- **Tags**: Ai, Agents, Cloudflare
+
+
+Cloudflare has one of the most generous free plans I've seen for building websites in the last 10 years, and it is still true now that they are shifting focus to AI agents. With the free tier, you already get enough for personal projects and medium-scale workloads.
+
+Start with [agents.cloudflare.com](https://agents.cloudflare.com). It already lists almost everything you need.
+
+![npm i agents](/media/2026/05/building-ai-agents-cloudflare/npm-i-agents.svg)
+
+Cloudflare's `agents` SDK is a good one, alongside the [AI SDK](https://github.com/vercel/ai).
+
+Each agent runs as a TypeScript class on a Durable Object, with its own SQL database, WebSocket connections, scheduling, state, and lifecycle.
+
+The stack is simple: run agent logic on [Workers](https://workers.cloudflare.com/), keep state in [Durable Objects](https://developers.cloudflare.com/durable-objects/), call models with Workers AI or AI Gateway, retrieve knowledge from AI Search or Vectorize, and let agents act through Browser Run, MCP, Queues, Workflows, Email, Dynamic Workers, and Sandboxes.
+
+The starter for the Agents SDK also includes streaming chat, tools, human-in-the-loop approval, scheduling, and Workers AI by default.
+
+This is the free/pricing snapshot they offer today, May 6, 2026:
+
+| Service | Free budget | Pricing |
+| --- | --- | --- |
+| **Agents SDK** | No separate quota. Uses Workers and Durable Objects. | Pay for the underlying services. ([Cloudflare Docs][1]) |
+| **Workers** | 100k requests/day, 10 ms CPU/invocation. | Paid starts at $5/mo: 10M requests/mo, 30M CPU-ms/mo, then usage-based overage. ([Cloudflare Docs][2]) |
+| **Durable Objects** | 100k requests/day, 13k GB-s/day, SQLite-backed DOs on Free. | Paid includes 1M requests/mo and 400k GB-s/mo, then overage. ([Cloudflare Docs][2]) |
+| **Workers AI** | 10k Neurons/day. | $0.011 per 1k Neurons after free allocation on Paid. ([Cloudflare Docs][3]) |
+| **AI Gateway** | Core features free; 100k persistent logs total on Free. | Paid has 10M logs/gateway. Logpush: $0.05/M requests. Guardrails bill through Workers AI. ([Cloudflare Docs][4]) |
+| **AI Search** | Open beta: 100 instances, 100k files/instance, 20k queries/mo, 500 crawled pages/day. | Paid: 5k instances, 1M files or 500k hybrid search, unlimited queries/crawling. Future pricing has not been announced yet. ([Cloudflare Docs][5]) |
+| **Vectorize** | 30M queried vector dimensions/mo, 5M stored dimensions. | Paid includes 50M queried dimensions/mo and 10M stored dimensions, then $0.01/M queried and $0.05/100M stored. ([Cloudflare Docs][6]) |
+| **D1** | 5M rows read/day, 100k rows written/day, 5 GB storage. | Paid includes 25B reads/mo, 50M writes/mo, 5 GB storage, then overage. ([Cloudflare Docs][2]) |
+| **R2** | 10 GB-month, 1M Class A ops, 10M Class B ops, free egress. | $0.015/GB-month, $4.50/M Class A, $0.36/M Class B, egress free. ([Cloudflare Docs][2]) |
+| **KV** | 100k reads/day, 1k writes/day, 1 GB storage. | Paid includes 10M reads/mo and 1M writes/mo, then usage-based overage. ([Cloudflare Docs][2]) |
+| **Queues** | 10k operations/day, 24h retention. | Paid includes 1M operations/mo, then $0.40/M operations. ([Cloudflare Docs][2]) |
+| **Workflows** | Included on Free; shares Workers limits; 1 GB storage. | Same as Workers pricing, plus workflow storage after quota. ([Cloudflare Docs][7]) |
+| **Browser Run** | 10 min/day, 3 concurrent browsers. | Paid includes 10 hours/mo and 10 browsers, then $0.09/hour and $2/browser. ([Cloudflare Docs][8]) |
+| **MCP Servers** | Cloudflare provides managed remote MCP servers. | Cost depends on the services/tools used by the MCP server. ([Cloudflare Docs][9]) |
+| **Email Service** | Inbound Email Routing is unlimited. Outbound email is not on Free. | Paid includes 3k outbound emails/mo, then $0.35/1k emails. ([Cloudflare Docs][10]) |
+| **Dynamic Workers** | Paid only. | 1k unique Dynamic Workers/mo included, then $0.002 per Dynamic Worker/day. Requests and CPU bill as Workers. Billing starts May 26, 2026. ([Cloudflare Docs][11]) |
+| **Sandboxes / Containers** | No free container budget. | Paid includes 25 GiB-hours, 375 vCPU-min, 200 GB-hours/mo, then usage-based overage. ([Cloudflare Docs][2]) |
+| **Realtime** | 1,000 GB free tier. | $0.05/GB egress after the free tier. ([Cloudflare Docs][12]) |
+
+[1]: https://developers.cloudflare.com/agents/ "Agents - Cloudflare Agents docs"
+[2]: https://developers.cloudflare.com/workers/platform/pricing/ "Pricing - Cloudflare Workers docs"
+[3]: https://developers.cloudflare.com/workers-ai/platform/pricing/ "Pricing - Cloudflare Workers AI docs"
+[4]: https://developers.cloudflare.com/ai-gateway/reference/pricing/ "Pricing - Cloudflare AI Gateway docs"
+[5]: https://developers.cloudflare.com/ai-search/platform/limits-pricing/ "Limits & pricing - Cloudflare AI Search docs"
+[6]: https://developers.cloudflare.com/vectorize/platform/pricing/ "Pricing - Cloudflare Vectorize docs"
+[7]: https://developers.cloudflare.com/workflows/reference/pricing/ "Pricing - Cloudflare Workflows docs"
+[8]: https://developers.cloudflare.com/browser-run/pricing/ "Pricing - Cloudflare Browser Run docs"
+[9]: https://developers.cloudflare.com/agents/model-context-protocol/mcp-servers-for-cloudflare/ "Cloudflare's own MCP servers - Cloudflare Agents docs"
+[10]: https://developers.cloudflare.com/email-service/platform/pricing/ "Pricing - Cloudflare Email Service docs"
+[11]: https://developers.cloudflare.com/dynamic-workers/pricing/ "Pricing - Cloudflare Dynamic Workers docs"
+[12]: https://developers.cloudflare.com/realtime/sfu/pricing/ "Pricing - Cloudflare Realtime docs"
+
+# My default stack
+
+For a simple agent, I would start with:
+
+Workers + Agents SDK + Durable Objects + Workers AI + AI Gateway + AI Search
+
+Then add:
+
+Browser Run for web browsing, Queues and Workflows for background jobs, R2 for files, Email Service for email agents, and Sandboxes or Dynamic Workers for coding agents.
+
 
 ---
 
