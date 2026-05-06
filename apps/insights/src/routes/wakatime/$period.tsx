@@ -73,7 +73,7 @@ export const Route = createFileRoute("/wakatime/$period")({
 });
 
 function WakaTimePeriodPage() {
-  const { config, days, isAllTime, metrics, activity, languages } =
+  const { config, isAllTime, metrics, activity, languages } =
     Route.useLoaderData();
 
   const activityTitle = isAllTime ? "Monthly Activity" : "Daily Activity";
