@@ -28,7 +28,7 @@ export function PopularContentTable({
 }: PopularContentTableProps) {
   if (!data || data.length === 0) {
     return (
-      <div className={cn("rounded-lg border bg-card p-4", className)}>
+      <div className={cn("rounded-xl p-4", className)}>
         <p className="text-sm text-muted-foreground">No data available</p>
       </div>
     );
@@ -40,7 +40,7 @@ export function PopularContentTable({
   const maxValue = values.length > 0 ? Math.max(...values) : 1;
 
   return (
-    <div className={cn("rounded-lg border bg-card", className)}>
+    <div className={cn("rounded-xl", className)}>
       <div className="border-b p-4">
         <h3 className="text-sm font-medium">Most Popular Content</h3>
       </div>

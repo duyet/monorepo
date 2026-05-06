@@ -14,7 +14,7 @@ export function CCUsageActivityView({
   if (!activity.length) {
     return (
       <div
-        className={`rounded-lg border bg-card p-8 text-center ${className || ""}`}
+        className={`rounded-xl p-8 text-center ${className || ""}`}
       >
         <p className="text-muted-foreground">No activity data available</p>
         <p className="mt-2 text-xs text-muted-foreground">
@@ -34,7 +34,7 @@ export function CCUsageActivityView({
   return (
     <div className={`space-y-6 ${className || ""}`}>
       {/* Token Usage Chart */}
-      <div className="rounded-lg border bg-card p-4">
+      <div className="rounded-xl p-4">
         <div className="mb-4">
           <h3 className="font-medium">Token Usage Trend</h3>
           <p className="text-xs text-muted-foreground">
@@ -57,7 +57,7 @@ export function CCUsageActivityView({
 
       {/* Daily Token Usage by Model Chart */}
       {activityByModel.length > 0 && (
-        <div className="rounded-lg border bg-card p-4">
+        <div className="rounded-xl p-4">
           <div className="mb-4">
             <h3 className="font-medium">Daily Usage by Model</h3>
             <p className="text-xs text-muted-foreground">

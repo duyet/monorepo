@@ -30,9 +30,9 @@ export function ProgressiveDisclosure({
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   const variantStyles = {
-    default: "border rounded-lg bg-card",
+    default: "rounded-xl",
     subtle: "border-b",
-    card: "border rounded-lg bg-card shadow-sm",
+    card: "rounded-xl shadow-sm",
   };
 
   return (
@@ -173,7 +173,7 @@ export function AdvancedToggle({
       </button>
 
       {showAdvanced && (
-        <div className="bg-muted/30 rounded-lg border p-4">
+        <div className="bg-muted/30 rounded-xl p-4">
           {advancedContent}
         </div>
       )}
@@ -203,7 +203,7 @@ export function InfoDisclosure({
   };
 
   return (
-    <div className={cn("rounded-lg border bg-card p-3", className)}>
+    <div className={cn("rounded-xl p-3", className)}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex w-full items-center space-x-2 text-left"

@@ -19,11 +19,11 @@ export function SectionLayout({
   className = "",
 }: SectionLayoutProps) {
   return (
-    <section className={`space-y-4 ${className}`}>
-      <div className="mb-4">
-        <h2 className="text-lg font-semibold">{title}</h2>
+    <section className={className}>
+      <div className="mb-5">
+        <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
         {description && (
-          <p className="text-sm text-muted-foreground">{description}</p>
+          <p className="mt-1 text-sm text-[#1a1a1a]/60">{description}</p>
         )}
       </div>
       <Suspense fallback={<SkeletonCard />}>{children}</Suspense>

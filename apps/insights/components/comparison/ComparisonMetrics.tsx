@@ -56,7 +56,7 @@ export function ComparisonMetrics({
   className,
 }: ComparisonMetricsProps) {
   return (
-    <div className={cn("rounded-lg border bg-card p-6", className)}>
+    <div className={cn("rounded-xl p-6", className)}>
       <table className="w-full">
         <thead>
           <tr className="border-b">

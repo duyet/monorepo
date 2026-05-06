@@ -27,7 +27,7 @@ export function CompactMetric({
   return (
     <div
       className={cn(
-        "rounded-lg border bg-card p-4 text-card-foreground",
+        "rounded-xl p-4 text-[#1a1a1a]",
         className
       )}
       title={tooltip}

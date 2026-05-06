@@ -13,9 +13,9 @@ export function WakaTimeMonthlyTrendView({
 }) {
   if (!monthlyData || monthlyData.length === 0) {
     return (
-      <div className="rounded-lg border bg-card p-4">
+      <div className="rounded-xl p-4">
         <div className="mb-4">
-          <h3 className="font-medium">Monthly Activity Trend</h3>
+          <h3 className="font-medium text-[#1a1a1a] dark:text-white">Monthly Activity Trend</h3>
           <p className="text-xs text-muted-foreground">
             Long-term coding activity over the years
           </p>
@@ -28,9 +28,9 @@ export function WakaTimeMonthlyTrendView({
   }
 
   return (
-    <div className="rounded-lg border bg-card p-4">
+    <div className="rounded-xl p-4">
       <div className="mb-4">
-        <h3 className="font-medium">Monthly Activity Trend</h3>
+        <h3 className="font-medium text-[#1a1a1a] dark:text-white">Monthly Activity Trend</h3>
         <p className="text-xs text-muted-foreground">
           Coding activity month by month over the last{" "}
           {Math.ceil(monthlyData.length / 12)} years
