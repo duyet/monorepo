@@ -12,7 +12,7 @@ A comprehensive collection of technical blog posts covering Data Engineering, So
 
 ## About This Blog
 
-298+ technical articles covering topics including:
+299+ technical articles covering topics including:
 - Data Engineering & Big Data
 - Apache Spark, ClickHouse, Apache Airflow
 - Cloud Computing (AWS, GCP, Azure)
@@ -24,6 +24,13 @@ A comprehensive collection of technical blog posts covering Data Engineering, So
 Articles span from 2015 to 2026, documenting the evolution of modern data engineering and software development practices.
 
 ## Recent Posts
+
+### [Building AI Agents on Cloudflare](https://blog.duyet.net/2026/05/building-ai-agents-cloudflare)
+- **Date**: 2026-05-06
+- **Category**: AI
+- **Tags**: Ai, Agents, Cloudflare
+- **URL**: https://blog.duyet.net/2026/05/building-ai-agents-cloudflare
+- **Description**: Cloudflare's Agents SDK runs stateful TypeScript agents on Durable Objects, with Workers AI, AI Gateway, AI Search, Vectorize, Browser Run, Queues, Workflows, Email, Dynamic Workers, and Sandboxes around it.
 
 ### [Claws](https://blog.duyet.net/2026/02/claws)
 - **Date**: 2026-02-22
@@ -158,18 +165,12 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - **URL**: https://blog.duyet.net/2023/04/helm-charts-problem
 - **Description**: Why does Helm Charts interpret 0777 to 511? It took me quite some time to debug it.
 
-### [GPT vs Traditional NLP Models](https://blog.duyet.net/2023/04/nlp-vs-gpt)
-- **Date**: 2023-04-01
-- **Category**: Data
-- **Tags**: Data, Data Engineering, Nlp
-- **URL**: https://blog.duyet.net/2023/04/nlp-vs-gpt
-- **Description**: The field of Natural Language Processing (NLP) has seen remarkable advancements in recent years, and the emergence of the Generative Pre-trained Transformer (GPT) has revolutionized the way NLP models operate. GPT is a cutting-edge language model that employs deep learning to generate human-like text. Unlike conventional NLP models, which required extensive training on specific tasks, GPT is pre-trained on vast amounts of data and can be fine-tuned for various NLP tasks
-
 
 ## All Blog Posts by Year
 
-### 2026 (2 posts)
+### 2026 (3 posts)
 
+- [Building AI Agents on Cloudflare](https://blog.duyet.net/2026/05/building-ai-agents-cloudflare) - 2026-05-06
 - [Claws](https://blog.duyet.net/2026/02/claws) - 2026-02-22
 - [Coding Agents](https://blog.duyet.net/2026/01/ai) - 2026-01-01
 
@@ -503,9 +504,9 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 ---
 
 **Blog Statistics:**
-- Total Posts: 298
+- Total Posts: 299
 - Years Active: 2015-2026
 - Categories: 15
-- Tags: 59
+- Tags: 60
 
 Generated from: https://blog.duyet.net

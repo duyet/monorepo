@@ -4,8 +4,15 @@
         <description><![CDATA[Sr. Data Engineer. Rustacean at night]]></description>
         <link>https://blog.duyet.net</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 05 May 2026 16:03:40 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 06 May 2026 15:15:09 GMT</lastBuildDate>
         <atom:link href="https://blog.duyet.net/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Building AI Agents on Cloudflare]]></title>
+            <description><![CDATA[Cloudflare's Agents SDK runs stateful TypeScript agents on Durable Objects, with Workers AI, AI Gateway, AI Search, Vectorize, Browser Run, Queues, Workflows, Email, Dynamic Workers, and Sandboxes around it.]]></description>
+            <link>https://blog.duyet.net/2026/05/building-ai-agents-cloudflare</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/05/building-ai-agents-cloudflare</guid>
+            <pubDate>Wed, 06 May 2026 00:00:00 GMT</pubDate>
+        </item>
         <item>
             <title><![CDATA[Claws]]></title>
             <description><![CDATA[OpenClaw, NanoBot, PicoClaw, ZeroClaw, NullClaw, NemoClaw, ...]]></description>
@@ -348,13 +355,6 @@
             <link>https://blog.duyet.net/2021/12/rust-ownership</link>
             <guid isPermaLink="true">https://blog.duyet.net/2021/12/rust-ownership</guid>
             <pubDate>Sun, 19 Dec 2021 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Rust và Data Engineering? 🤔]]></title>
-            <description><![CDATA[Tại sao Rust là lựa chọn cho Data Engineering? Khám phá 7 lý do chính từ performance, memory safety, đến WebAssembly và hệ sinh thái data tools như Apache Arrow, DataFusion, và Polars. Bài viết chi tiết về ưu nhược điểm, learning curve, và tương lai của Rust trong lĩnh vực Data Engineering và Big Data processing.]]></description>
-            <link>https://blog.duyet.net/2021/11/rust-data-engineering</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2021/11/rust-data-engineering</guid>
-            <pubDate>Sat, 27 Nov 2021 00:00:00 GMT</pubDate>
         </item>
     </channel>
 </rss>
