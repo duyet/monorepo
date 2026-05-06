@@ -301,40 +301,32 @@ function IndexPage() {
       />
 
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-xl border border-[#1a1a1a]/10 bg-white p-2 shadow-none">
-          <MetricTile
-            icon={Eye}
-            label="Page views"
-            tone="#f3eee6"
-            value={formatNumber(
-              data.cloudflare.totalPageviews || data.posthog.totalViews
-            )}
-          />
-        </div>
-        <div className="rounded-xl border border-[#1a1a1a]/10 bg-white p-2 shadow-none">
-          <MetricTile
-            icon={Bot}
-            label="AI tokens"
-            tone="#bfdbfe"
-            value={formatCompact(data.aiMetrics.totalTokens)}
-          />
-        </div>
-        <div className="rounded-xl border border-[#1a1a1a]/10 bg-white p-2 shadow-none">
-          <MetricTile
-            icon={Clock3}
-            label="Coding hours"
-            tone="#a7f3d0"
-            value={formatNumber(data.wakaMetrics.totalHours)}
-          />
-        </div>
-        <div className="rounded-xl border border-[#1a1a1a]/10 bg-white p-2 shadow-none">
-          <MetricTile
-            icon={Zap}
-            label="AI cost"
-            tone="#fecaca"
-            value={formatCurrency(data.aiMetrics.totalCost)}
-          />
-        </div>
+        <MetricTile
+          icon={Eye}
+          label="Page views"
+          tone="#f3eee6"
+          value={formatNumber(
+            data.cloudflare.totalPageviews || data.posthog.totalViews
+          )}
+        />
+        <MetricTile
+          icon={Bot}
+          label="AI tokens"
+          tone="#bfdbfe"
+          value={formatCompact(data.aiMetrics.totalTokens)}
+        />
+        <MetricTile
+          icon={Clock3}
+          label="Coding hours"
+          tone="#a7f3d0"
+          value={formatNumber(data.wakaMetrics.totalHours)}
+        />
+        <MetricTile
+          icon={Zap}
+          label="AI cost"
+          tone="#fecaca"
+          value={formatCurrency(data.aiMetrics.totalCost)}
+        />
       </section>
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -440,7 +432,7 @@ function IndexPage() {
         </ChartPanel>
       </section>
 
-      <section className="grid gap-4 rounded-xl border border-black/10 bg-white p-5 md:grid-cols-3">
+      <section className="grid gap-4 rounded-xl bg-[#f3eee6] p-5 md:grid-cols-3">
         <SourceNote
           icon={Globe2}
           label="Cloudflare + PostHog"
@@ -478,7 +470,7 @@ function MetricTile({
 }) {
   return (
     <div
-      className="min-w-0 rounded-lg border border-black/10 bg-white p-4 text-[#1a1a1a] shadow-none"
+      className="min-w-0 rounded-xl p-5 text-[#1a1a1a] transition-transform hover:-translate-y-0.5"
       style={{ backgroundColor: tone }}
     >
       <div className="flex items-center justify-between gap-3">
@@ -507,7 +499,7 @@ function FlatStatusCard({
 }) {
   return (
     <div
-      className="flex min-h-44 flex-col rounded-xl border border-black/10 p-5 text-[#1a1a1a]"
+      className="flex min-h-44 flex-col rounded-xl p-5 text-[#1a1a1a] transition-transform hover:-translate-y-0.5"
       style={{ backgroundColor: tone }}
     >
       <div className="flex items-start justify-between gap-4">
@@ -536,7 +528,7 @@ function ChartPanel({
   title: string;
 }) {
   return (
-    <div className="rounded-xl border border-black/10 bg-white p-5 shadow-none dark:border-black/10 dark:bg-white">
+    <div className="rounded-xl bg-white p-5">
       <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
         <div className="min-w-0">
           <p className="text-sm font-medium text-[#ff6a00]">{eyebrow}</p>
@@ -565,7 +557,7 @@ function ListPanel({
   title: string;
 }) {
   return (
-    <div className="rounded-xl border border-[#1a1a1a]/10 bg-white p-5 text-[#1a1a1a] shadow-none">
+    <div className="rounded-xl bg-white p-5 text-[#1a1a1a]">
       <p className="text-sm font-medium text-[#ff6a00]">{eyebrow}</p>
       <h2 className="mt-1 text-2xl font-semibold tracking-tight text-[#1a1a1a]">{title}</h2>
       <div className="mt-6 space-y-4">

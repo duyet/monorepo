@@ -14,7 +14,7 @@ export function CCUsageCostsView({
   if (!costs || costs.length === 0) {
     return (
       <div
-        className={`rounded-lg border bg-card p-8 text-center ${className || ""}`}
+        className={`rounded-xl p-8 text-center ${className || ""}`}
       >
         <p className="text-muted-foreground">No cost data available</p>
         <p className="mt-2 text-xs text-muted-foreground">
@@ -76,7 +76,7 @@ export function CCUsageCostsView({
     <div className={`space-y-6 ${className || ""}`}>
       {/* Cost Summary Cards */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <div className="rounded-lg border bg-card p-4">
+        <div className="rounded-xl p-4">
           <div className="flex items-baseline gap-2">
             <div className="text-2xl font-bold">
               {formatCurrency(summary.total)}
@@ -94,7 +94,7 @@ export function CCUsageCostsView({
             Total ({typeof days === "number" ? `${days} days` : "all time"})
           </p>
         </div>
-        <div className="rounded-lg border bg-card p-4">
+        <div className="rounded-xl p-4">
           <div className="flex items-baseline gap-2">
             <div className="text-2xl font-bold">
               {formatCurrency(summary.average)}
@@ -112,7 +112,7 @@ export function CCUsageCostsView({
             Daily Average (vs previous period)
           </p>
         </div>
-        <div className="rounded-lg border bg-card p-4">
+        <div className="rounded-xl p-4">
           <div className="text-2xl font-bold">
             {formatCurrency(summary.projected)}
           </div>
@@ -121,7 +121,7 @@ export function CCUsageCostsView({
       </div>
 
       {/* Cost Chart */}
-      <div className="rounded-lg border bg-card p-4">
+      <div className="rounded-xl p-4">
         <div className="mb-4">
           <h3 className="font-medium">Daily Cost Breakdown ($)</h3>
           <p className="text-xs text-muted-foreground">

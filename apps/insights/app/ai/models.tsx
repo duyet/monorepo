@@ -28,7 +28,7 @@ export function CCUsageModelsView({
   if (!models.length) {
     return (
       <div
-        className={`rounded-lg border bg-card p-8 text-center ${className || ""}`}
+        className={`rounded-xl p-8 text-center ${className || ""}`}
       >
         <p className="text-muted-foreground">No model data available</p>
         <p className="mt-2 text-xs text-muted-foreground">
@@ -41,7 +41,7 @@ export function CCUsageModelsView({
   return (
     <div className={`grid gap-6 lg:grid-cols-2 ${className || ""}`}>
       {/* Token Distribution */}
-      <div className="rounded-lg border bg-card p-4">
+      <div className="rounded-xl p-4">
         <div className="mb-4">
           <h3 className="font-medium">Token Distribution</h3>
           <p className="text-xs text-muted-foreground">
@@ -52,7 +52,7 @@ export function CCUsageModelsView({
       </div>
 
       {/* Cost Distribution */}
-      <div className="rounded-lg border bg-card p-4">
+      <div className="rounded-xl p-4">
         <div className="mb-4">
           <h3 className="font-medium">Cost Distribution</h3>
           <p className="text-xs text-muted-foreground">

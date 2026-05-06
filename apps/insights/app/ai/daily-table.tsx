@@ -45,7 +45,7 @@ export function CCUsageDailyTableView({
   if (!activity.length) {
     return (
       <div
-        className={`rounded-lg border bg-card p-8 text-center ${className || ""}`}
+        className={`rounded-xl p-8 text-center ${className || ""}`}
       >
         <p className="text-muted-foreground">No data available</p>
       </div>
@@ -131,7 +131,7 @@ export function CCUsageDailyTableView({
   );
 
   return (
-    <div className={`rounded-lg border bg-card ${className || ""}`}>
+    <div className={`rounded-xl ${className || ""}`}>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead className="bg-muted/50 border-b">

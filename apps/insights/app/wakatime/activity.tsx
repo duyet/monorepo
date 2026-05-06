@@ -29,9 +29,9 @@ export function WakaTimeActivityView({
     : "Daily programming activity";
 
   return (
-    <div className="rounded-lg border bg-card p-4">
+    <div className="rounded-xl p-4">
       <div className="mb-4">
-        <h3 className="font-medium">{title}</h3>
+        <h3 className="font-medium text-[#1a1a1a] dark:text-white">{title}</h3>
         <p className="text-xs text-muted-foreground">{description}</p>
       </div>
       <BarChart

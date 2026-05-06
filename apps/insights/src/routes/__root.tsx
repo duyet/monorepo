@@ -92,7 +92,7 @@ function RootComponent() {
 
             <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-white 2xl:rounded-b-[4rem]">
               <div className="mx-auto max-w-[1280px] px-5 pb-16 pt-6 sm:px-8 lg:px-10">
-                <div className="mb-8 rounded-xl border border-[#1a1a1a]/10 bg-white p-3 shadow-none dark:border-[#1a1a1a]/10 dark:bg-white">
+                <div className="mb-8">
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <CompactNavigation />
                     <GlobalPeriodSelector />

@@ -121,22 +121,20 @@ function WakatimePage() {
           title="Yearly activity"
           description="Annual coding activity heatmap."
         >
-          <div className="rounded-lg border border-[#1a1a1a]/12 bg-white p-4 dark:border-white/12 dark:bg-[#171815]">
-            <StaticCard
-              extra={
-                <img
-                  alt="Wakatime Badge"
-                  className="mt-3"
-                  height={30}
-                  src={WAKATIME_BADGE_URL}
-                  width={200}
-                />
-              }
-              source="WakaTime (Last Year)"
-              title="Coding Activity Heatmap"
-              url={WAKATIME_HEATMAP_URLS}
-            />
-          </div>
+          <StaticCard
+            extra={
+              <img
+                alt="Wakatime Badge"
+                className="mt-3"
+                height={30}
+                src={WAKATIME_BADGE_URL}
+                width={200}
+              />
+            }
+            source="WakaTime (Last Year)"
+            title="Coding Activity Heatmap"
+            url={WAKATIME_HEATMAP_URLS}
+          />
         </InsightsSection>
 
         <p className="text-xs text-muted-foreground">Data Source: WakaTime</p>
