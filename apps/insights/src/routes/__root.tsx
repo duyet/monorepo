@@ -86,7 +86,7 @@ function RootComponent() {
               shortText="Duyet Le"
               longText="Duyet Le"
               navigationItems={insightsNavigation}
-              showAuthButtons={false}
+              showAuthButtons
               actions={<AppCommandPalette />}
             />
 

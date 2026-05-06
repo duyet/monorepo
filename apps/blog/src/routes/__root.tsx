@@ -111,7 +111,7 @@ function RootComponent() {
               shortText="Duyet Le"
               longText="Duyet Le"
               navigationItems={blogNavigation}
-              showAuthButtons={false}
+              showAuthButtons
               actions={<AppCommandPalette />}
             />
             <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
