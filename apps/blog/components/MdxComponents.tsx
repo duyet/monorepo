@@ -1,4 +1,5 @@
 import type { MDXComponents } from "mdx/types";
+import { cn } from "@duyet/libs/utils";
 import { CardGrid } from "./blog/CardGrid";
 import {
   ClaudeCard,
@@ -61,10 +62,16 @@ export const mdxComponents: MDXComponents = {
   Image,
   img: Image,
   table: ({ children, ...props }) => (
-    <div className="my-6 overflow-x-auto">
+    <div className="my-8 overflow-x-auto sm:-mx-4 sm:-mx-8 lg:-mx-16 xl:-mx-24">
       <table
         {...props}
-        className="text-sm [&_th]:whitespace-nowrap [&_td]:whitespace-nowrap"
+        className={cn(
+          "text-sm leading-7 w-full table-auto text-left",
+          "[&_thead_tr]:border-b [&_thead_tr]:border-[#1a1a1a]/15 dark:[&_thead_tr]:border-white/15",
+          "[&_th]:py-3 [&_th]:pr-4 [&_th]:font-semibold [&_th]:text-[#1a1a1a] dark:[&_th]:text-[#f8f8f2] [&_th]:align-bottom",
+          "[&_td]:py-3 [&_td]:pr-4 [&_td]:text-[#1a1a1a] dark:[&_td]:text-[#f8f8f2] [&_td]:align-baseline",
+          "[&_th:last-child]:pr-0 [&_td:last-child]:pr-0"
+        )}
       >
         {children}
       </table>

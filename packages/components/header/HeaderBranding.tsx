@@ -53,7 +53,7 @@ export function HeaderBranding({
       {logo && <DuyetMark />}
       <span
         className={cn(
-          "text-xl font-semibold tracking-tight",
+          "text-lg font-semibold tracking-tight",
           center && "md:text-4xl md:mt-5",
           className
         )}

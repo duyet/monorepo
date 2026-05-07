@@ -65,26 +65,26 @@ export function MarkdownMenu({
       icon: copied ? (
         <Check className="h-5 w-5 text-green-500" />
       ) : (
-        <Copy className="h-5 w-5 text-neutral-500" />
+        <Copy className="h-5 w-5 text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55" />
       ),
       label: copied ? "Copied!" : "Copy page",
       description: "Copy page as Markdown for LLMs",
       onClick: handleCopy,
     },
     {
-      icon: <FileText className="h-5 w-5 text-neutral-500" />,
+      icon: <FileText className="h-5 w-5 text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55" />,
       label: "View as Markdown",
       description: "View this page as plain text",
       href: markdownUrl,
     },
     {
-      icon: <ChatGPTIcon className="h-5 w-5 text-neutral-500" />,
+      icon: <ChatGPTIcon className="h-5 w-5 text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55" />,
       label: "Open in ChatGPT",
       description: "Ask questions about this page",
       href: `https://chatgpt.com/?q=${encodeURIComponent(`Read and summarize this blog post: ${pageUrl}`)}`,
     },
     {
-      icon: <ClaudeIcon className="h-5 w-5 text-neutral-500" />,
+      icon: <ClaudeIcon className="h-5 w-5 text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55" />,
       label: "Open in Claude",
       description: "Ask questions about this page",
       href: `https://claude.ai/new?q=${encodeURIComponent(`Read and summarize this blog post: ${pageUrl}`)}`,
@@ -98,8 +98,9 @@ export function MarkdownMenu({
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
           "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm",
-          "border border-neutral-200 dark:border-neutral-700",
-          "hover:bg-neutral-50 dark:hover:bg-neutral-800",
+          "border border-[#1a1a1a]/10 dark:border-white/10",
+          "hover:bg-[#f7f7f7] dark:hover:bg-[#1a1a1a]",
+          "text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70",
           "transition-colors"
         )}
       >
@@ -117,8 +118,8 @@ export function MarkdownMenu({
         <div
           className={cn(
             "absolute right-0 bottom-full mb-2 w-72 z-50",
-            "rounded-xl border border-neutral-200 dark:border-neutral-700",
-            "bg-white dark:bg-neutral-900",
+            "rounded-xl border border-[#1a1a1a]/10 dark:border-white/10",
+            "bg-white dark:bg-[#1a1a1a]",
             "shadow-lg",
             "overflow-hidden",
             "py-1"
@@ -129,13 +130,13 @@ export function MarkdownMenu({
               <div className="flex items-start gap-3 px-4 py-3">
                 <div className="mt-0.5 flex-shrink-0">{item.icon}</div>
                 <div>
-                  <div className="text-sm font-medium text-neutral-900 dark:text-neutral-100 flex items-center gap-1">
+                  <div className="text-sm font-medium text-[#1a1a1a] dark:text-[#f8f8f2] flex items-center gap-1">
                     {item.label}
                     {item.href && (
-                      <span className="text-neutral-400 text-xs">&#x2197;</span>
+                      <span className="text-[#1a1a1a]/35 dark:text-[#f8f8f2]/35 text-xs">&#x2197;</span>
                     )}
                   </div>
-                  <div className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
+                  <div className="text-xs text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55 mt-0.5">
                     {item.description}
                   </div>
                 </div>
@@ -148,7 +149,7 @@ export function MarkdownMenu({
                   type="button"
                   key={item.label}
                   onClick={item.onClick}
-                  className="w-full text-left hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
+                  className="w-full text-left hover:bg-[#f7f7f7] dark:hover:bg-[#1a1a1a]/50 transition-colors"
                 >
                   {content}
                 </button>
@@ -161,7 +162,7 @@ export function MarkdownMenu({
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
+                className="block hover:bg-[#f7f7f7] dark:hover:bg-[#1a1a1a]/50 transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 {content}

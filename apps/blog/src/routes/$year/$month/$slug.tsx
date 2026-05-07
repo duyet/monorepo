@@ -110,15 +110,13 @@ function PostPage() {
   };
 
   return (
-    <div className="pb-20 dark:bg-[#0d0e0c]">
+    <div className="pb-20 dark:bg-[#0d0e0c] overflow-x-hidden">
       <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
         <ReadingProgress />
 
         <div className="mx-auto flex justify-center gap-10 xl:max-w-[1280px]">
           <div className="min-w-0 max-w-3xl flex-1">
-            <article>
-              <Content post={post} />
-            </article>
+            <Content post={post} />
 
             <div className="my-12 border-t border-[#1a1a1a]/10 dark:border-white/10" />
 

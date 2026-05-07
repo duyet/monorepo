@@ -1,16 +1,13 @@
 import { cn } from "@duyet/libs/utils";
 import type { UrlsConfig } from "@duyet/urls";
 import { duyetUrls } from "@duyet/urls";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 
 export type NavigationItem = {
   name: string;
   href: string;
 };
 
-/**
- * Helper function to create default navigation items from URLs
- */
 export function createDefaultNavigation(urls: UrlsConfig): NavigationItem[] {
   return [
     { name: "Home", href: urls.apps.home },
@@ -21,10 +18,6 @@ export function createDefaultNavigation(urls: UrlsConfig): NavigationItem[] {
   ];
 }
 
-/**
- * Helper exports for common navigation items (for backward compatibility)
- * These now use the duyetUrls configuration
- */
 export const HOME = { name: "Home", href: duyetUrls.apps.home };
 export const ABOUT = { name: "About", href: `${duyetUrls.apps.home}/about` };
 export const INSIGHTS = { name: "Insights", href: duyetUrls.apps.insights };
@@ -36,45 +29,46 @@ export const ARCHIVES = {
 export const FEED = { name: "Feed", href: duyetUrls.apps.blog };
 export const BLOG = { name: "Blog", href: duyetUrls.apps.blog };
 export const CV = { name: "CV", href: duyetUrls.apps.cv };
-export const SEARCH = { name: "Search", href: `${duyetUrls.apps.blog}/search` };
+export const SEARCH = {
+  name: "Search",
+  href: `${duyetUrls.apps.blog}/search`,
+};
 
 type Props = {
-  /** URLs configuration (defaults to duyetUrls) */
   urls?: UrlsConfig;
-  /** Optional CSS classes */
   className?: string;
-  /** Custom navigation items (if not provided, uses default from urls) */
   navigationItems?: NavigationItem[];
-  /** Callback when a nav item is clicked (useful for closing mobile menu) */
   onItemClick?: () => void;
 };
 
-/**
- * Navigation menu component
- *
- * Displays navigation links based on URLs configuration.
- * Can accept custom navigation items or auto-generate from URLs.
- *
- * @example
- * ```tsx
- * import { Menu } from '@duyet/components'
- * import { duyetUrls } from '@duyet/urls'
- *
- * <Menu urls={duyetUrls} />
- * ```
- */
 export default function Menu({
   urls = duyetUrls,
   className,
   navigationItems,
   onItemClick,
 }: Props) {
-  // Use provided navigation items or generate from URLs
   const items = navigationItems ?? createDefaultNavigation(urls);
+  const router = useRouterState();
+  const currentPath = router.location.pathname;
+
+  function isActive(href: string): boolean {
+    if (href.startsWith("http")) return false;
+    if (href === "/") return currentPath === "/";
+    return currentPath.startsWith(href);
+  }
+
+  const linkClass = (href: string) =>
+    cn(
+      "text-sm font-medium px-3 py-1.5 rounded-lg transition-colors",
+      isActive(href)
+        ? "bg-[#1a1a1a] text-white dark:bg-[#f8f8f2] dark:text-[#0d0e0c]"
+        : "text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70 hover:bg-[#f7f7f7] dark:hover:bg-white/5"
+    );
+
   return (
     <div
       className={cn(
-        "flex flex-row gap-3 sm:gap-5 flex-wrap items-center",
+        "flex flex-row gap-1 flex-wrap items-center",
         className
       )}
     >
@@ -84,7 +78,7 @@ export default function Menu({
             key={name}
             href={href}
             onClick={onItemClick}
-            className="text-sm sm:text-base text-neutral-900 dark:text-neutral-100 hover:underline underline-offset-8"
+            className="text-sm font-medium px-3 py-1.5 rounded-lg transition-colors text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70 hover:bg-[#f7f7f7] dark:hover:bg-white/5"
           >
             {name}
           </a>
@@ -93,7 +87,7 @@ export default function Menu({
             key={name}
             to={href}
             onClick={onItemClick}
-            className="text-sm sm:text-base text-neutral-900 dark:text-neutral-100 hover:underline underline-offset-8"
+            className={linkClass(href)}
           >
             {name}
           </Link>

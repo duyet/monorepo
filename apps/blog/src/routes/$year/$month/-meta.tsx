@@ -59,7 +59,7 @@ export default function Meta({ post, className }: ContentProps) {
                   key={tag}
                   className="transition-colors hover:text-[#1a1a1a] dark:hover:text-[#f8f8f2]"
                 >
-                  {tag}
+                  #{tag.toLowerCase()}
                 </Link>
               ))}
               {post.tags.length > 5 && (
