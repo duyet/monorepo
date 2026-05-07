@@ -66,14 +66,14 @@ function MDXRenderer({ source }: { source: string }) {
         "prose dark:prose-invert",
         "max-w-none",
         "[&>table]:overflow-x-auto [&>table]:sm:-mx-4 [&>table]:sm:-mx-8 [&>table]:lg:-mx-16 [&>table]:xl:-mx-24",
-        "[&>table]:border-t [&>table]:border-b [&>table]:border-[#e6dfd8] dark:[&>table]:border-white/10",
+        "[&>table]:border-t [&>table]:border-b [&>table]:border-[var(--border)] dark:[&>table]:border-white/10",
         "[&>pre]:overflow-x-auto [&>pre]:sm:-mx-4 [&>pre]:sm:-mx-8 [&>pre]:lg:-mx-16 [&>pre]:xl:-mx-24",
-        "prose-headings:text-[#141413] dark:prose-headings:text-[#f8f8f2]",
+        "prose-headings:text-[var(--foreground)]",
         "prose-headings:font-serif prose-headings:font-normal prose-headings:tracking-tight",
-        "prose-p:text-[#3d3d3a] dark:prose-p:text-[#f8f8f2]/80",
-        "prose-a:text-[#cc785c] dark:prose-a:text-[#cc785c]",
+        "prose-p:text-[#3d3d3a] dark:prose-p:text-[var(--foreground)]/80",
+        "prose-a:text-[var(--accent)] dark:prose-a:text-[var(--accent)]",
         "prose-a:underline prose-a:underline-offset-4",
-        "prose-strong:text-[#141413] dark:prose-strong:text-[#f8f8f2]",
+        "prose-strong:text-[var(--foreground)]",
         "prose-code:break-words",
         "prose-table:text-sm prose-table:leading-relaxed prose-table:table-auto"
       )}
@@ -90,7 +90,7 @@ export default function Content({ post }: { post: ContentPost }) {
         <h1
           className={cn(
             "mt-2 break-words py-2",
-            "text-[#141413] dark:text-[#f8f8f2]",
+            "text-[var(--foreground)]",
             "font-serif",
             "text-[48px] font-normal leading-[1.1] tracking-[-1px]",
             "sm:text-[64px] sm:tracking-[-1.5px]"
@@ -111,15 +111,15 @@ export default function Content({ post }: { post: ContentPost }) {
             "max-w-none",
             "prose-lg",
             "[&>table]:overflow-x-auto [&>table]:sm:-mx-4 [&>table]:sm:-mx-8 [&>table]:lg:-mx-16 [&>table]:xl:-mx-24",
-            "[&>table]:border-t [&>table]:border-b [&>table]:border-[#e6dfd8] dark:[&>table]:border-white/10",
+            "[&>table]:border-t [&>table]:border-b [&>table]:border-[var(--border)] dark:[&>table]:border-white/10",
             "[&>pre]:overflow-x-auto [&>pre]:sm:-mx-4 [&>pre]:sm:-mx-8 [&>pre]:lg:-mx-16 [&>pre]:xl:-mx-24",
-            "prose-headings:text-[#141413] dark:prose-headings:text-[#f8f8f2]",
+            "prose-headings:text-[var(--foreground)]",
             "prose-headings:font-serif prose-headings:font-normal prose-headings:tracking-tight",
-            "prose-p:text-[#3d3d3a] dark:prose-p:text-[#f8f8f2]/80",
+            "prose-p:text-[#3d3d3a] dark:prose-p:text-[var(--foreground)]/80",
             "prose-p:leading-8",
-            "prose-a:text-[#cc785c] dark:prose-a:text-[#cc785c]",
+            "prose-a:text-[var(--accent)] dark:prose-a:text-[var(--accent)]",
             "prose-a:underline prose-a:underline-offset-4",
-            "prose-strong:text-[#141413] dark:prose-strong:text-[#f8f8f2]",
+            "prose-strong:text-[var(--foreground)]",
             "prose-code:break-words",
             "prose-table:text-sm prose-table:leading-relaxed"
           )}

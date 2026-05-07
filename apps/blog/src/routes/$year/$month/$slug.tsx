@@ -110,7 +110,7 @@ function PostPage() {
   };
 
   return (
-    <div className="bg-[#faf9f5] dark:bg-[#0d0e0c] min-h-screen overflow-x-hidden pb-20">
+    <div className="overflow-x-hidden pb-20">
       <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
         <ReadingProgress />
 

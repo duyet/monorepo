@@ -61,8 +61,8 @@ export default function Menu({
     cn(
       "text-sm font-medium px-3 py-1.5 rounded-lg transition-colors",
       isActive(href)
-        ? "bg-[#efe9de] text-[#141413] dark:bg-white/10 dark:text-[#f8f8f2]"
-        : "text-[#6c6a64] dark:text-[#f8f8f2]/70 hover:bg-[#efe9de]/60 dark:hover:bg-white/5"
+        ? "bg-[var(--muted)] text-[var(--foreground)] dark:bg-white/10 dark:text-[#f8f8f2]"
+        : "text-[var(--muted-foreground)] dark:text-[#f8f8f2]/70 hover:bg-[var(--muted)]/60 dark:hover:bg-white/5"
     );
 
   return (
@@ -78,7 +78,7 @@ export default function Menu({
             key={name}
             href={href}
             onClick={onItemClick}
-            className="text-sm font-medium px-3 py-1.5 rounded-lg transition-colors text-[#6c6a64] dark:text-[#f8f8f2]/70 hover:bg-[#efe9de]/60 dark:hover:bg-white/5"
+            className="text-sm font-medium px-3 py-1.5 rounded-lg transition-colors text-[var(--muted-foreground)] dark:text-[#f8f8f2]/70 hover:bg-[var(--muted)]/60 dark:hover:bg-white/5"
           >
             {name}
           </a>

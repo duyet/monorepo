@@ -17,11 +17,12 @@ export function FeaturedPost({ post, className }: FeaturedPostProps) {
       params={{ year, month, slug }}
       className={cn(
         "group block rounded-xl p-8",
-        "bg-[#181715] dark:bg-[#181715]",
+        // Always dark surface — cream-to-dark pacing rhythm
+        "bg-[#181715]",
         className
       )}
     >
-      <span className="inline-block rounded-full bg-[#cc785c] px-3 py-1 text-[12px] font-medium uppercase tracking-[1.5px] text-white">
+      <span className="inline-block rounded-full bg-[var(--accent)] px-3 py-1 text-[12px] font-medium uppercase tracking-[1.5px] text-white">
         {post.category}
       </span>
       <h2

@@ -18,7 +18,7 @@ import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center px-4 bg-[#faf9f5] dark:bg-[#0d0e0c]">
+    <div className="flex min-h-screen items-center justify-center px-4 bg-[var(--background)]">
       <div className="max-w-md text-center">
         <h1 className="mb-4 text-6xl font-bold font-serif text-[#141413] dark:text-[#f8f8f2]">
           404
@@ -106,7 +106,7 @@ function RootComponent() {
       </head>
       <body>
         <ThemeProvider>
-          <div className="min-h-screen bg-[#faf9f5] font-sans text-[var(--foreground)] subpixel-antialiased [--font-inter:Inter,system-ui,sans-serif] [--font-serif:'Libre_Baskerville',Georgia,serif] dark:bg-[#0d0e0c]">
+          <div className="min-h-screen bg-[var(--background)] font-sans text-[var(--foreground)] subpixel-antialiased [--font-inter:Inter,system-ui,sans-serif] [--font-serif:'Libre_Baskerville',Georgia,serif]">
             <Header
               shortText="Duyet Le"
               longText="Duyet Le"
@@ -114,7 +114,7 @@ function RootComponent() {
               showAuthButtons
               actions={<AppCommandPalette />}
             />
-            <main className="relative z-10 rounded-b-3xl bg-[#faf9f5] pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+            <main className="relative z-10 rounded-b-3xl pb-16 2xl:rounded-b-[4rem]">
               <Outlet />
             </main>
             <Footer />

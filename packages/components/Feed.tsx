@@ -1,4 +1,5 @@
 import type { Post } from "@duyet/interfaces";
+import { dateFormat } from "@duyet/libs/date";
 import { cn } from "@duyet/libs/utils";
 import { Thumb } from "./Thumb";
 
@@ -22,22 +23,14 @@ export default function Feed({ posts, ...props }: FeedProps) {
 }
 
 export function FeedItem({ post, noThumbnail }: FeedItemProps) {
-  const [, year, month, slug] = post.slug.split("/");
-
   return (
     <article className="mb-16">
-      <div className="mb-2 flex flex-row gap-2 text-[13px] font-medium text-[#8e8b82] dark:text-[#a09d96]">
-        <time>
-          {new Date(post.date).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-          })}
-        </time>
+      <div className="mb-2 flex flex-row gap-2 text-[13px] font-medium text-[var(--muted-foreground)]">
+        <time>{dateFormat(post.date, "MMM d, yyyy")}</time>
         <span>·</span>
         <a
           href={`/category/${post.category_slug}`}
-          className="text-[#8e8b82] hover:text-[#cc785c] dark:text-[#a09d96] dark:hover:text-[#cc785c] transition-colors"
+          className="text-[var(--muted-foreground)] hover:text-[var(--accent)] transition-colors"
         >
           {post.category}
         </a>
@@ -47,8 +40,8 @@ export function FeedItem({ post, noThumbnail }: FeedItemProps) {
         href={`/${post.slug}`}
         className={cn(
           "inline-block font-serif font-normal py-2 mt-2",
-          "text-[#141413] dark:text-[#f8f8f2]",
-          "hover:text-[#cc785c] dark:hover:text-[#cc785c]",
+          "text-[var(--foreground)]",
+          "hover:text-[var(--accent)]",
           "transition-colors",
           "text-3xl tracking-tight",
           "md:text-4xl md:tracking-[-0.5px]",
@@ -59,7 +52,7 @@ export function FeedItem({ post, noThumbnail }: FeedItemProps) {
       </a>
 
       {post.excerpt && (
-        <p className="mt-3 text-[16px] leading-[1.55] text-[#3d3d3a] dark:text-[#f8f8f2]/60">
+        <p className="mt-3 text-[16px] leading-[1.55] text-[#3d3d3a] dark:text-[var(--foreground)]/60">
           {post.excerpt}
         </p>
       )}

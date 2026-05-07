@@ -17,13 +17,13 @@ export function PostCard({ post, className }: PostCardProps) {
       params={{ year, month, slug }}
       className={cn(
         "group block rounded-xl p-6",
-        "bg-[#efe9de] dark:bg-white/5",
+        "bg-[var(--muted)] dark:bg-white/5",
         "transition-colors",
-        "hover:bg-[#e8e0d2] dark:hover:bg-white/8",
+        "hover:bg-[var(--muted)]/80 dark:hover:bg-white/8",
         className
       )}
     >
-      <div className="flex items-center gap-2 text-[13px] font-medium text-[#6c6a64] dark:text-[#f8f8f2]/45">
+      <div className="flex items-center gap-2 text-[13px] font-medium text-[var(--muted-foreground)]">
         <span>{post.category}</span>
         <span>·</span>
         <time>{dateFormat(post.date, "MMM d, yyyy")}</time>
@@ -31,16 +31,16 @@ export function PostCard({ post, className }: PostCardProps) {
       <h3
         className={cn(
           "mt-2 text-[18px] font-medium leading-[1.3] tracking-tight",
-          "text-[#141413] dark:text-[#f8f8f2]",
+          "text-[var(--foreground)]",
           "font-serif",
-          "group-hover:text-[#cc785c] dark:group-hover:text-[#cc785c]",
+          "group-hover:text-[var(--accent)]",
           "transition-colors"
         )}
       >
         {post.title}
       </h3>
       {post.excerpt && (
-        <p className="mt-2 line-clamp-2 text-[14px] leading-[1.55] text-[#3d3d3a] dark:text-[#f8f8f2]/60">
+        <p className="mt-2 line-clamp-2 text-[14px] leading-[1.55] text-[#3d3d3a] dark:text-[var(--foreground)]/60">
           {post.excerpt}
         </p>
       )}
