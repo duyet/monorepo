@@ -24,7 +24,7 @@ export function Tabs({ tabs, defaultTab, className = "" }: TabsProps) {
   if (!tabs || tabs.length === 0) {
     return (
       <div
-        className={`text-base text-gray-500 dark:text-gray-400 ${className}`}
+        className={`text-base text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55 ${className}`}
       >
         No tabs available
       </div>
@@ -67,7 +67,7 @@ export function Tabs({ tabs, defaultTab, className = "" }: TabsProps) {
       <div
         ref={tablistRef}
         role="tablist"
-        className="flex gap-4 border-b border-gray-200 dark:border-claude-gray-800 mb-4"
+        className="flex gap-4 border-b border-[#1a1a1a]/10 dark:border-white/10 mb-4"
         onKeyDown={handleKeyDown}
       >
         {tabs.map((tab) => (
@@ -81,13 +81,13 @@ export function Tabs({ tabs, defaultTab, className = "" }: TabsProps) {
             onClick={() => setActiveTab(tab.id)}
             className={`pb-2 text-base font-medium transition-colors relative ${
               activeTab === tab.id
-                ? "text-gray-900 dark:text-white"
-                : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                ? "text-[#1a1a1a] dark:text-[#f8f8f2]"
+                : "text-[#1a1a1a]/70 dark:text-[#f8f8f2]/55 hover:text-[#1a1a1a] dark:hover:text-[#f8f8f2]"
             }`}
           >
             {tab.label}
             {activeTab === tab.id && (
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900 dark:bg-white" />
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#1a1a1a] dark:bg-[#f8f8f2]" />
             )}
           </button>
         ))}

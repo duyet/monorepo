@@ -34,7 +34,7 @@ function Image({
       <img
         src={imageSrc || ""}
         alt={alt || ""}
-        className="rounded-xl border border-gray-200 dark:border-gray-700 max-w-full"
+        className="rounded-xl border border-[#1a1a1a]/10 dark:border-white/10 max-w-full"
         loading="lazy"
         {...props}
       />

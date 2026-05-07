@@ -78,9 +78,9 @@ export function CodeBlock({ children, className, ...props }: CodeBlockProps) {
             "px-2 py-0.5",
             "text-xs font-medium",
             "rounded-md",
-            "bg-gray-100 dark:bg-gray-800",
-            "text-gray-600 dark:text-gray-400",
-            "border border-gray-200 dark:border-gray-700",
+            "bg-[#f7f7f7] dark:bg-[#1a1a1a]",
+            "text-[#1a1a1a]/70 dark:text-[#f8f8f2]/55",
+            "border border-[#1a1a1a]/10 dark:border-white/10",
             "select-none"
           )}
         >
@@ -90,10 +90,10 @@ export function CodeBlock({ children, className, ...props }: CodeBlockProps) {
       <pre
         ref={preRef}
         className={cn(
-          "bg-white dark:bg-gray-900",
-          "border border-gray-200 dark:border-gray-700",
+          "bg-white dark:bg-[#1a1a1a]/50",
+          "border border-[#1a1a1a]/10 dark:border-white/10",
           "rounded-xl py-3 px-3 pr-12",
-          "text-gray-800 dark:text-gray-100",
+          "text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70",
           "overflow-x-auto",
           "text-sm",
           language && "pt-10",
@@ -109,9 +109,9 @@ export function CodeBlock({ children, className, ...props }: CodeBlockProps) {
           "absolute top-3 right-3",
           "p-1.5",
           "rounded-md",
-          "text-gray-400 dark:text-gray-500",
-          "hover:text-gray-600 dark:hover:text-gray-300",
-          "hover:bg-gray-100 dark:hover:bg-gray-800",
+          "text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55",
+          "hover:text-[#1a1a1a]/70 dark:hover:text-[#f8f8f2]/70",
+          "hover:bg-[#f7f7f7] dark:hover:bg-[#1a1a1a]",
           "transition-all duration-200",
           "opacity-0 group-hover:opacity-100",
           "focus:opacity-100"
