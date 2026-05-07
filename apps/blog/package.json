@@ -30,6 +30,7 @@
     "@types/mdx": "^2.0.13",
     "katex": "^0.16.11",
     "lucide-react": "^1.0.0",
+    "mermaid": "^11.14.0",
     "react": "19.2.5",
     "react-dom": "19.2.5",
     "rehype-highlight": "^7.0.0",
