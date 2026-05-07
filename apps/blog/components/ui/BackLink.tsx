@@ -7,7 +7,7 @@ export function BackLink({ href, text }: BackLinkProps) {
   return (
     <a
       href={href}
-      className="inline-flex cursor-pointer items-center text-sm font-medium text-neutral-600 dark:text-neutral-400 transition-colors hover:text-neutral-900 dark:hover:text-neutral-100"
+      className="inline-flex cursor-pointer items-center text-sm font-medium text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55 transition-colors hover:text-[#1a1a1a] dark:hover:text-[#f8f8f2]"
     >
       <svg
         className="mr-2 h-4 w-4"
