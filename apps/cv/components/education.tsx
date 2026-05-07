@@ -23,21 +23,21 @@ export function Education({
         <h3 className="text-[15px] font-bold text-neutral-900 dark:text-neutral-100">
           {university}
         </h3>
+        <span className="text-[13px] italic text-black dark:text-neutral-200">
+          <ResumeLink
+            href={thesisUrl}
+            external
+            className="text-inherit hover:underline"
+          >
+            Thesis
+          </ResumeLink>
+        </span>
       </div>
       <div className="flex items-baseline justify-between">
-        <span className="text-[14px] italic text-neutral-700 dark:text-neutral-300">
+        <span className="text-[14px] italic text-black dark:text-neutral-100">
           {major}
         </span>
       </div>
-      <p className="mt-0.5 text-[13px] italic text-neutral-500 dark:text-neutral-400">
-        <ResumeLink
-          href={thesisUrl}
-          external
-          className="text-inherit hover:underline"
-        >
-          {thesis}
-        </ResumeLink>
-      </p>
     </div>
   );
 }

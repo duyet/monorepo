@@ -1,40 +1,73 @@
 /* arasgungore LaTeX CV template — CSS replica */
+@import "computer-modern/cmu-serif.css";
+
 body {
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: "CMU Serif", Georgia, serif;
   font-size: 16px;
   line-height: 1.4;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
 }
 
-/* Print: fit 1 page A4 */
+/* Print: match web version exactly */
 @media print {
   @page {
     size: A4;
-    margin: 8mm 10mm;
+    margin: 2mm 10mm;
   }
 
   html,
   body {
-    width: 100%;
-    height: auto;
-    margin: 0;
-    padding: 0;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
-    font-size: 11pt;
-    line-height: 1.3;
   }
 
+  /* Force text black for clean print */
+  * {
+    color: #000 !important;
+    text-decoration-color: #000 !important;
+  }
+
+  /* Container: strip min-height */
+  main > div {
+    min-height: auto !important;
+  }
+
+  /* Kill page container min-height */
+  .min-h-screen {
+    min-height: auto !important;
+  }
+
+  /* Kill print footer separator space */
+  .cv-print-footer .cv-footer-separator {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Hide interactive elements */
   [role="dialog"],
   [data-state*="open"],
-  .hover-card-content {
+  .hover-card-content,
+  .print\:hidden,
+  button,
+  [role="button"],
+  nav {
     display: none !important;
   }
 
-  .print\:hidden,
-  button,
-  [role="button"] {
+  /* Thinner section rules */
+  section > h2 {
+    border-bottom: 0.5pt solid #999 !important;
+  }
+
+  /* Hide company logos in print */
+  img {
     display: none !important;
+  }
+
+  /* Remove link decoration for print */
+  a,
+  span.underline {
+    text-decoration: none !important;
   }
 }

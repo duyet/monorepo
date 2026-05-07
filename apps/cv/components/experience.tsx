@@ -41,11 +41,11 @@ export function ExperienceItem({
         <span className="text-[14px] italic text-neutral-700 dark:text-neutral-300">
           {title}
         </span>
-        <span className="text-[13px] italic text-neutral-600 dark:text-neutral-400">
+        <span className="text-[13px] italic text-black dark:text-neutral-200">
           <PeriodText from={from} to={to} />
         </span>
       </div>
-      <ul className="ml-4 mt-1 list-disc pl-4 text-[14px]">
+      <ul className="ml-3 mt-1 list-disc pl-3 text-[14px]">
         {responsibilities.map(({ id, item }) => (
           <li className="mt-0.5 leading-5" key={id}>
             {item}
@@ -67,19 +67,19 @@ function CompanyLine({
 >) {
   const logoWithText = (
     <span className="inline-flex items-center gap-1.5">
+      <span>{company}</span>
       {companyLogo ? (
         <img
           src={companyLogo}
           alt={company}
-          width={16}
-          height={16}
+          width={12}
+          height={12}
           className={cn(
-            "h-4 w-auto grayscale hover:grayscale-0 dark:brightness-0 dark:invert print:hidden",
+            "h-3 w-auto grayscale hover:grayscale-0 dark:brightness-0 dark:invert print:hidden",
             companyLogoClassName
           )}
         />
       ) : null}
-      <span>{company}</span>
     </span>
   );
 

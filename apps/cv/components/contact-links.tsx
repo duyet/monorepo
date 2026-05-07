@@ -11,11 +11,11 @@ import { ResumeLink } from "./resume-link";
 
 export function ContactLinks({ contacts }: { contacts: ContactLink[] }) {
   return (
-    <div className="mt-1 flex flex-wrap items-center justify-center gap-x-1.5 text-[13px] text-neutral-600 dark:text-neutral-400">
+    <div className="mt-1 flex flex-wrap items-center justify-center gap-x-1.5 text-[13px] text-black dark:text-neutral-200">
       {contacts.map((contact, i) => (
         <span key={contact.id} className="inline-flex items-center">
           {i > 0 && (
-            <span className="mr-1.5 text-neutral-400 dark:text-neutral-600">
+            <span className="mr-1.5 text-neutral-600 dark:text-neutral-400">
               |
             </span>
           )}

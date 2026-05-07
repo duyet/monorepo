@@ -12,7 +12,7 @@ import { Skill } from "@/components/skill";
 export function SkillsSection() {
   return (
     <Section title="Technical Skills">
-      <div className="text-[14px] leading-5 text-neutral-700 dark:text-neutral-300">
+      <div className="text-[14px] leading-5 text-black dark:text-neutral-100">
         <span>
           <strong className="text-neutral-900 dark:text-neutral-100">
             Languages &amp; Frameworks:{" "}
@@ -61,6 +61,8 @@ export function SkillsSection() {
           <SkillKubernetes />
           {", "}
           <SkillHelm />
+          {", "}
+          <Skill skill="Cloudflare" />
         </span>
       </div>
     </Section>

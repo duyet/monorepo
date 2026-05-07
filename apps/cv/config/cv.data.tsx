@@ -64,7 +64,7 @@ export const cvData: CVData = {
       responsibilities: [
         {
           id: 1,
-          item: "Deprecated old stack (Spark, Iceberg, Trino) replaced by ClickHouse.",
+          item: "Migrated from legacy stack (Spark, Iceberg, Trino) to ClickHouse.",
         },
         {
           id: 2,
@@ -94,7 +94,7 @@ export const cvData: CVData = {
         },
         {
           id: 3,
-          item: "Enhanced ClickHouse for 300% better data compression and 2x-100x faster queries, compared with Trino + Iceberg",
+          item: "Achieved 300% better data compression and 2x-100x faster queries with ClickHouse compared to Trino + Iceberg.",
         },
         {
           id: 4,
@@ -102,7 +102,7 @@ export const cvData: CVData = {
         },
         {
           id: 5,
-          item: "Built multi-agent LLM + RAG systems with LlamaIndex, Qdrant, ClickHouse text2sql, Next.js, and LangGraph.",
+          item: "Built AI Agents and AI Workflows on top of ClickHouse Data Lake and Documentation with LangGraph, LlamaIndex, Qdrant, Firecrawl, Cube.js, Next.js.",
         },
       ],
     },
@@ -118,7 +118,7 @@ export const cvData: CVData = {
       responsibilities: [
         {
           id: 1,
-          item: "Optimize monthly costs from $45,000 to $20,000 (GCP and AWS Cloud).",
+          item: "Optimized monthly costs from $45,000 to $20,000 (GCP and AWS).",
         },
         {
           id: 2,
@@ -148,7 +148,7 @@ export const cvData: CVData = {
                 text="everything deployed on Kubernetes"
                 links={[
                   {
-                    text: "Spark on Kubernetes tại Fossil︎",
+                    text: "Spark on Kubernetes at Fossil︎",
                     href: "https://blog.duyet.net/2022/03/spark-kubernetes-at-fossil.html",
                   },
                   {
@@ -206,11 +206,11 @@ export const cvData: CVData = {
       responsibilities: [
         {
           id: 1,
-          item: "Developed data pipelines, data cleaning and visualizations for adhoc problems.",
+          item: "Developed data pipelines, data cleaning and visualizations for ad-hoc problems.",
         },
         {
           id: 2,
-          item: "Train and deployed ML models: customer lifetime value, churn prediction, sales optimization, recruitment optimization, etc.",
+          item: "Trained and deployed ML models: customer lifetime value, churn prediction, sales optimization, recruitment optimization, etc.",
         },
       ],
     },
