@@ -11,22 +11,27 @@ import { ResumeLink } from "./resume-link";
 
 export function ContactLinks({ contacts }: { contacts: ContactLink[] }) {
   return (
-    <div className="mt-1 inline-flex w-full flex-wrap gap-x-3 gap-y-1 text-[13px] leading-6">
-      {contacts.map((contact) => {
-        if (contact.type === "email") {
-          return <span key={contact.id}>{contact.label}</span>;
-        }
-
-        if (contact.hoverContent) {
-          return (
-            <HoverCard key={contact.id} openDelay={100} closeDelay={100}>
+    <div className="mt-1 flex flex-wrap items-center justify-center gap-x-1.5 text-[13px] text-neutral-600 dark:text-neutral-400">
+      {contacts.map((contact, i) => (
+        <span key={contact.id} className="inline-flex items-center">
+          {i > 0 && (
+            <span className="mr-1.5 text-neutral-400 dark:text-neutral-600">
+              |
+            </span>
+          )}
+          {contact.type === "email" ? (
+            <span className="underline decoration-neutral-300 underline-offset-2 dark:decoration-neutral-600">
+              {contact.label}
+            </span>
+          ) : contact.hoverContent ? (
+            <HoverCard openDelay={100} closeDelay={100}>
               <HoverCardTrigger asChild>
                 <ResumeLink
                   href={contact.url}
                   external
-                  className="text-inherit"
+                  className="text-inherit underline decoration-neutral-300 underline-offset-2 hover:decoration-neutral-500 dark:decoration-neutral-600"
                 >
-                  {contact.label}
+                  {contact.label.replace("https://", "").replace("linkedin.com/in/", "linkedin.com/in/")}
                 </ResumeLink>
               </HoverCardTrigger>
               <HoverCardContent className={hoverCardClassName}>
@@ -53,20 +58,17 @@ export function ContactLinks({ contacts }: { contacts: ContactLink[] }) {
                 </ResumeLink>
               </HoverCardContent>
             </HoverCard>
-          );
-        }
-
-        return (
-          <ResumeLink
-            key={contact.id}
-            href={contact.url}
-            external
-            className="text-inherit"
-          >
-            {contact.label}
-          </ResumeLink>
-        );
-      })}
+          ) : (
+            <ResumeLink
+              href={contact.url}
+              external
+              className="text-inherit underline decoration-neutral-300 underline-offset-2 hover:decoration-neutral-500 dark:decoration-neutral-600"
+            >
+              {contact.label.replace("https://", "")}
+            </ResumeLink>
+          )}
+        </span>
+      ))}
     </div>
   );
 }

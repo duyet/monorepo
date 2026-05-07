@@ -26,21 +26,28 @@ export function ExperienceItem({
   className,
 }: ExperienceItemProps) {
   return (
-    <div className={cn("flex flex-col gap-1", className)}>
-      <h3 className="inline-flex items-center gap-2 font-[family-name:var(--font-serif)] text-[15px] font-bold tracking-tight">
-        <span>{title}</span>
-        <span>-</span>
-        <CompanyLine
-          company={company}
-          companyUrl={companyUrl}
-          companyLogo={companyLogo}
-          companyLogoClassName={companyLogoClassName}
-        />
-      </h3>
-      <PeriodLine from={from} to={to} />
-      <ul className="ml-2 mt-2 list-disc pl-5 text-sm">
+    <div className={cn("mt-3 first:mt-0", className)}>
+      <div className="flex items-baseline justify-between">
+        <h3 className="text-[15px] font-bold text-neutral-900 dark:text-neutral-100">
+          <CompanyLine
+            company={company}
+            companyUrl={companyUrl}
+            companyLogo={companyLogo}
+            companyLogoClassName={companyLogoClassName}
+          />
+        </h3>
+      </div>
+      <div className="flex items-baseline justify-between">
+        <span className="text-[14px] italic text-neutral-700 dark:text-neutral-300">
+          {title}
+        </span>
+        <span className="text-[13px] italic text-neutral-600 dark:text-neutral-400">
+          <PeriodText from={from} to={to} />
+        </span>
+      </div>
+      <ul className="ml-4 mt-1 list-disc pl-4 text-[14px]">
         {responsibilities.map(({ id, item }) => (
-          <li className="mt-1" key={id}>
+          <li className="mt-0.5 leading-5" key={id}>
             {item}
           </li>
         ))}
@@ -59,20 +66,15 @@ function CompanyLine({
   "company" | "companyUrl" | "companyLogo" | "companyLogoClassName"
 >) {
   const logoWithText = (
-    <span
-      className={cn(
-        "group inline-flex items-center gap-2 font-normal",
-        "hover:underline hover:decoration-neutral-300 hover:decoration-1 hover:underline-offset-2 dark:hover:decoration-neutral-600"
-      )}
-    >
+    <span className="inline-flex items-center gap-1.5">
       {companyLogo ? (
         <img
           src={companyLogo}
           alt={company}
-          width={24}
-          height={24}
+          width={16}
+          height={16}
           className={cn(
-            "h-6 w-auto grayscale group-hover:grayscale-0 dark:brightness-0 dark:invert print:hidden",
+            "h-4 w-auto grayscale hover:grayscale-0 dark:brightness-0 dark:invert print:hidden",
             companyLogoClassName
           )}
         />
@@ -83,7 +85,11 @@ function CompanyLine({
 
   if (companyUrl) {
     return (
-      <ResumeLink href={companyUrl} external className="m-0 p-0 text-inherit">
+      <ResumeLink
+        href={companyUrl}
+        external
+        className="m-0 p-0 text-inherit hover:underline"
+      >
         {logoWithText}
       </ResumeLink>
     );
@@ -92,25 +98,11 @@ function CompanyLine({
   return logoWithText;
 }
 
-function PeriodLine({ from, to }: { from: Date; to?: Date }) {
-  const monthFmt = new Intl.DateTimeFormat("en-US", { month: "long" });
-
-  const fromString = `${monthFmt.format(from)} ${from.getFullYear()}`;
-  const toString = to
+function PeriodText({ from, to }: { from: Date; to?: Date }) {
+  const monthFmt = new Intl.DateTimeFormat("en-US", { month: "short" });
+  const fromStr = `${monthFmt.format(from)} ${from.getFullYear()}`;
+  const toStr = to
     ? `${monthFmt.format(to)} ${to.getFullYear()}`
-    : "CURRENT";
-  const period = `${fromString} - ${toString}`;
-
-  const duration = distanceFormat(from, to ? to : new Date());
-
-  return (
-    <div className="group inline-flex gap-2 text-xs uppercase text-neutral-600 dark:text-neutral-300">
-      <div className="hover:text-neutral-700 dark:hover:text-neutral-200">
-        {period}
-      </div>
-      <div className="hidden font-bold text-neutral-400 group-hover:block dark:text-neutral-400">
-        {duration}
-      </div>
-    </div>
-  );
+    : "Present";
+  return <>{`${fromStr} – ${toStr}`}</>;
 }

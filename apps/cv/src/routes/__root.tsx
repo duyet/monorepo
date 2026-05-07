@@ -103,7 +103,7 @@ export const Route = createRootRoute({
       {
         rel: "preload",
         as: "style",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap",
       },
     ],
     scripts: [{ type: "application/ld+json", children: personJsonLd }],
@@ -119,7 +119,7 @@ function RootComponent() {
         <HeadContent />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap"
           media="print"
           // @ts-expect-error onLoad is valid on link elements
           onLoad="this.media='all'"

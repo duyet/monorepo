@@ -16,26 +16,8 @@ function Page() {
   const { personal, experience, education } = cvData;
 
   return (
-    <div className="m-auto flex min-h-screen flex-col gap-6 text-sm text-foreground">
+    <div className="m-auto flex min-h-screen flex-col gap-0 text-[15px] text-foreground">
       <Profile personal={personal} />
-
-      <Section title="Experience">
-        <div className="flex flex-col gap-4">
-          {experience.map((exp) => (
-            <ExperienceItem
-              key={exp.id}
-              title={exp.title}
-              company={exp.company}
-              companyUrl={exp.companyUrl}
-              companyLogo={exp.companyLogo}
-              companyLogoClassName={exp.companyLogoClassName}
-              from={exp.from}
-              to={exp.to}
-              responsibilities={exp.responsibilities}
-            />
-          ))}
-        </div>
-      </Section>
 
       <Section title="Education">
         {education.map((edu) => (
@@ -50,6 +32,22 @@ function Page() {
         ))}
       </Section>
 
+      <Section title="Experience">
+        {experience.map((exp) => (
+          <ExperienceItem
+            key={exp.id}
+            title={exp.title}
+            company={exp.company}
+            companyUrl={exp.companyUrl}
+            companyLogo={exp.companyLogo}
+            companyLogoClassName={exp.companyLogoClassName}
+            from={exp.from}
+            to={exp.to}
+            responsibilities={exp.responsibilities}
+          />
+        ))}
+      </Section>
+
       <SkillsSection />
 
       <footer className="cv-print-footer hidden print:block">
@@ -57,12 +55,12 @@ function Page() {
         <p className="text-xs text-muted-foreground">
           Live version at{" "}
           <a
-            href="https://duyet.net/cv"
+            href="https://cv.duyet.net"
             className="underline"
             target="_blank"
             rel="noopener noreferrer"
           >
-            https://duyet.net/cv
+            https://cv.duyet.net
           </a>
         </p>
       </footer>

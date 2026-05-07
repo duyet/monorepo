@@ -1,8 +1,17 @@
-/* Print styles: keep visual parity with screen */
+/* arasgungore LaTeX CV template — CSS replica */
+body {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 16px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Print: fit 1 page A4 */
 @media print {
   @page {
     size: A4;
-    margin: 10mm 14mm;
+    margin: 8mm 10mm;
   }
 
   html,
@@ -13,6 +22,8 @@
     padding: 0;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+    font-size: 11pt;
+    line-height: 1.3;
   }
 
   [role="dialog"],
