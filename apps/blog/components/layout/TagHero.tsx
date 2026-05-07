@@ -14,7 +14,7 @@ export function TagHero({
   yearCount,
 }: TagHeroProps) {
   return (
-    <div className="relative mb-16 overflow-hidden rounded-2xl border border-[#1a1a1a]/[0.06] dark:border-white/[0.06]">
+    <div className="relative mb-16 mt-10 overflow-hidden rounded-2xl border border-[#1a1a1a]/[0.06] dark:border-white/[0.06] sm:mt-14 lg:mt-20">
       <div
         className={`${colorClass} absolute inset-0 opacity-60 dark:opacity-20`}
       />

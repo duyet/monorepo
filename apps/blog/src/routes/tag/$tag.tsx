@@ -12,13 +12,23 @@ function findTagBySlug(tags: TagCount, slug: string): string | undefined {
     Object.keys(tags).find((t) => getSlug(t).endsWith(`-${slug}`));
 }
 
+function slugToDisplay(slug: string): string {
+  return slug
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+}
+
 export const Route = createFileRoute("/tag/$tag")({
   head: ({ params }) => {
-    const { tag } = params;
+    const display = params.tag
+      .split("-")
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(" ");
     return {
       meta: [
-        { title: `${tag} | Tôi là Duyệt` },
-        { name: "description", content: `Blog posts tagged with ${tag}.` },
+        { title: `${display} | Tôi là Duyệt` },
+        { name: "description", content: `Blog posts tagged with ${display}.` },
       ],
     };
   },
@@ -40,11 +50,12 @@ function PostsByTag() {
     tags: TagCount;
   };
 
-  const tagName = findTagBySlug(tags, tag) || tag;
+  const resolvedTag = findTagBySlug(tags, tag);
+  const displayName = slugToDisplay(tag);
 
   const tagIndex = Object.keys(tags)
     .sort((a, b) => tags[b] - tags[a])
-    .indexOf(tagName);
+    .indexOf(resolvedTag || tag);
 
   const postsByYear = posts.reduce((acc: Record<number, Post[]>, post) => {
     const year = new Date(post.date).getFullYear();
@@ -58,13 +69,13 @@ function PostsByTag() {
   const postCount = posts.length;
   const yearCount = Object.keys(postsByYear).length;
 
-  const metadata = getTagMetadata(tagName, postCount, tagIndex);
+  const metadata = getTagMetadata(displayName, postCount, tagIndex);
   const colorClass = getTagColorClass(metadata.color, "light");
 
   return (
     <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
       <TagHero
-        tagName={tagName}
+        tagName={displayName}
         colorClass={colorClass}
         postCount={postCount}
         yearCount={yearCount}

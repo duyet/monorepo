@@ -6,7 +6,7 @@
   "scripts": {
     "config": "bun ../../scripts/sync-app-secrets.ts duyet-blog",
     "prebuild": "bun scripts/generate-posts-data.ts && bun scripts/generate-static-files.ts",
-    "build": "bun --bun vite build",
+    "build": "bun --bun vite build && bun scripts/generate-tag-aliases.ts",
     "check-types": "tsc --noEmit",
     "dev": "bun --bun vite dev --port 3000",
     "fmt": "bun run fix",
