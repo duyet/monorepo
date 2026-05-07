@@ -130,19 +130,19 @@ export function SearchBar({
           placeholder={placeholder}
           className={cn(
             "w-full px-4 py-3 text-lg",
-            "border border-neutral-300 dark:border-neutral-700",
-            "bg-white dark:bg-neutral-900",
-            "text-neutral-900 dark:text-neutral-100",
-            "placeholder:text-neutral-400 dark:placeholder:text-neutral-600",
+            "border border-[#1a1a1a]/10 dark:border-white/10",
+            "bg-white dark:bg-[#1a1a1a]",
+            "text-[#1a1a1a] dark:text-[#f8f8f2]",
+            "placeholder:text-[#1a1a1a]/55 dark:placeholder:text-[#f8f8f2]/55",
             "rounded-lg",
-            "focus:outline-none focus:ring-2 focus:ring-neutral-500",
+            "focus:outline-none focus:ring-2 focus:ring-[#1a1a1a]/55",
             "transition-all",
             inputClassName
           )}
           autoComplete="off"
         />
-        <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-sm text-neutral-400">
-          <kbd className="hidden rounded border border-neutral-300 px-2 py-1 text-xs dark:border-neutral-700 sm:inline-block">
+        <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-sm text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
+          <kbd className="hidden rounded border border-[#1a1a1a]/10 px-2 py-1 text-xs dark:border-white/10 sm:inline-block">
             /
           </kbd>
         </div>
@@ -152,16 +152,16 @@ export function SearchBar({
       {showHistory && isInitialized && history.length > 0 && !query && (
         <div
           data-search-history
-          className="absolute z-10 mt-2 w-full rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-lg"
+          className="absolute z-10 mt-2 w-full rounded-lg border border-[#1a1a1a]/10 dark:border-white/10 bg-white dark:bg-[#1a1a1a] shadow-lg"
         >
-          <div className="flex items-center justify-between border-b border-neutral-200 dark:border-neutral-800 px-4 py-2">
-            <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
+          <div className="flex items-center justify-between border-b border-[#1a1a1a]/10 dark:border-white/10 px-4 py-2">
+            <span className="text-xs font-medium text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
               Recent searches
             </span>
             <button
               type="button"
               onClick={clear}
-              className="text-xs text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors"
+              className="text-xs text-[#1a1a1a]/55 hover:text-[#1a1a1a] dark:text-[#f8f8f2]/55 dark:hover:text-[#f8f8f2] transition-colors"
             >
               Clear
             </button>
@@ -172,10 +172,10 @@ export function SearchBar({
                 <button
                   type="button"
                   onClick={() => handleHistoryClick(historyQuery)}
-                  className="w-full px-4 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors flex items-center gap-2"
+                  className="w-full px-4 py-2 text-left text-sm text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70 hover:bg-[#f7f7f7] dark:hover:bg-[#1a1a1a] transition-colors flex items-center gap-2"
                 >
                   <svg
-                    className="w-4 h-4 text-neutral-400 shrink-0"
+                    className="w-4 h-4 text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55 shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
