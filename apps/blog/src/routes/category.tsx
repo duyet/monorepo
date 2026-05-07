@@ -2,7 +2,7 @@ import { ContentCard } from "@duyet/components";
 import Container from "@duyet/components/Container";
 import type { CategoryCount } from "@duyet/interfaces";
 import { getSlug } from "@duyet/libs/getSlug";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useMatches } from "@tanstack/react-router";
 import { getCategoryMetadata } from "@/lib/category-metadata";
 import { getAllCategories } from "@/lib/posts";
 
@@ -21,6 +21,9 @@ export const Route = createFileRoute("/category")({
 });
 
 function Categories() {
+  const hasChild = useMatches().some((m) => m.id === "/category/$category");
+  if (hasChild) return <Outlet />;
+
   const { categories } = Route.useLoaderData() as { categories: CategoryCount };
   const categoryEntries = Object.entries(categories).sort(
     ([, a], [, b]) => b - a

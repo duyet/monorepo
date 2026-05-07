@@ -1,6 +1,6 @@
 import type { Series } from "@duyet/interfaces";
 import { cn } from "@duyet/libs/utils";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useMatches } from "@tanstack/react-router";
 import { SeriesBox } from "@/components/layout";
 import { getAllSeries } from "@/lib/posts";
 
@@ -29,6 +29,9 @@ const seriesBackgrounds = [
 ];
 
 function SeriesPage() {
+  const hasChild = useMatches().some((m) => m.id === "/series/$slug");
+  if (hasChild) return <Outlet />;
+
   const { seriesList } = Route.useLoaderData() as { seriesList: Series[] };
 
   return (
