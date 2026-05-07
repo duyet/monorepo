@@ -19,13 +19,13 @@ export const Route = createFileRoute("/series")({
 });
 
 const seriesBackgrounds = [
-  "bg-[#eef4ff]",
-  "bg-[#edf7f1]",
-  "bg-[#fff4e8]",
-  "bg-[#f3efff]",
-  "bg-[#ffeef0]",
-  "bg-[#ecf7f7]",
-  "bg-[#f7f1e8]",
+  "bg-[#eef4ff] dark:bg-[#1a2a3f]",
+  "bg-[#edf7f1] dark:bg-[#164634]",
+  "bg-[#fff4e8] dark:bg-[#3f2f1f]",
+  "bg-[#f3efff] dark:bg-[#2f1f3f]",
+  "bg-[#ffeef0] dark:bg-[#4f1f1f]",
+  "bg-[#ecf7f7] dark:bg-[#1f3f3f]",
+  "bg-[#f7f1e8] dark:bg-[#3f2f1f]",
 ];
 
 function SeriesPage() {
