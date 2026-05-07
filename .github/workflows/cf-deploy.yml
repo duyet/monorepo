@@ -252,7 +252,7 @@ jobs:
 
       - name: Tailscale
         continue-on-error: true
-        uses: tailscale/github-action@784f7d9b7f2270a025278f58c6880f8d296f94  # v4.0.0
+        uses: tailscale/github-action@v4.1.2
         with:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
