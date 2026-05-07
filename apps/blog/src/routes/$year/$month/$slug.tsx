@@ -114,7 +114,7 @@ function PostPage() {
       <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
         <ReadingProgress />
 
-        <div className="mx-auto max-w-[720px]">
+        <div className="mx-auto max-w-3xl">
           <article>
             <Content post={post} />
           </article>
