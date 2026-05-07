@@ -114,25 +114,27 @@ function PostPage() {
       <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
         <ReadingProgress />
 
-        <div className="mx-auto max-w-3xl">
-          <article>
-            <Content post={post} />
-          </article>
+        <div className="mx-auto flex gap-10 xl:max-w-[1280px]">
+          <div className="min-w-0 max-w-3xl flex-1">
+            <article>
+              <Content post={post} />
+            </article>
 
-          <div className="my-12 border-t border-[#1a1a1a]/10 dark:border-white/10" />
+            <div className="my-12 border-t border-[#1a1a1a]/10 dark:border-white/10" />
 
-          <Meta post={post} series={series} />
+            <Meta post={post} series={series} />
 
-          {series && (
-            <SeriesBox
-              className="mt-12"
-              series={series}
-              current={post.slug}
-            />
-          )}
+            {series && (
+              <SeriesBox
+                className="mt-12"
+                series={series}
+                current={post.slug}
+              />
+            )}
+          </div>
+
+          <TableOfContents headings={post.headings || []} />
         </div>
-
-        <TableOfContents headings={post.headings || []} />
       </Container>
     </div>
   );

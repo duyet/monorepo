@@ -39,7 +39,6 @@ export function TableOfContents({
   const [headings] = useState<TOCItem[]>(initialHeadings);
   const [activeId, setActiveId] = useState<string>("");
   const [internalIsMobileOpen, setInternalIsMobileOpen] = useState(false);
-  const [isDesktopVisible, setIsDesktopVisible] = useState(true);
 
   // Use external state if provided, otherwise use internal state
   const isMobileOpen =
@@ -148,7 +147,7 @@ export function TableOfContents({
           "bg-white dark:bg-[#1a1a1a]",
           "shadow-lg border border-[#1a1a1a]/10 dark:border-white/10",
           "flex items-center justify-center",
-          "hover:bg-gray-50 dark:hover:bg-[#1a1a1a]/80",
+          "hover:bg-[#f7f7f7] dark:hover:bg-[#1a1a1a]/80",
           "transition-all duration-200",
           "hover:scale-105 active:scale-95"
         )}
@@ -179,43 +178,19 @@ export function TableOfContents({
         <TOCContent />
       </nav>
 
-      {/* Desktop: Toggle button on right side */}
-      <button
-        onClick={() => setIsDesktopVisible(!isDesktopVisible)}
-        className={cn(
-          "hidden xl:flex",
-          "fixed top-24 right-4 z-40",
-          "w-10 h-10 rounded-full",
-          "items-center justify-center",
-          "bg-white dark:bg-[#1a1a1a]",
-          "shadow-lg border border-[#1a1a1a]/10 dark:border-white/10",
-          "hover:bg-gray-50 dark:hover:bg-[#1a1a1a]/80",
-          "transition-all duration-300"
-        )}
-        aria-label={
-          isDesktopVisible ? "Hide table of contents" : "Show table of contents"
-        }
-      >
-        <TOCIcon className="w-5 h-5 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70" />
-      </button>
-
-      {/* Desktop: Fixed sidebar */}
-      <nav
-        aria-hidden={!isDesktopVisible}
-        inert={!isDesktopVisible ? true : undefined}
+      {/* Desktop: Inline sticky sidebar */}
+      <aside
         className={cn(
           "hidden xl:block",
-          "fixed top-24 right-8 w-56",
+          "w-56 shrink-0",
+          "sticky top-24",
+          "self-start",
           "max-h-[calc(100vh-8rem)] overflow-y-auto",
-          "text-sm",
-          "transition-all duration-300",
-          isDesktopVisible
-            ? "opacity-100 translate-x-0"
-            : "opacity-0 translate-x-8 pointer-events-none"
+          "text-sm"
         )}
       >
         <TOCContent />
-      </nav>
+      </aside>
     </>
   );
 }
