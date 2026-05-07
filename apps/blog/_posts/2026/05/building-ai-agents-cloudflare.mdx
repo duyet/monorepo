@@ -23,7 +23,7 @@ Cloudflare's `agents` SDK is a good one, alongside the [AI SDK](https://github.c
 
 Each agent runs as a TypeScript class on a Durable Object, with its own SQL database, WebSocket connections, scheduling, state, and lifecycle.
 
-The stack is simple: run agent logic on [Workers](https://workers.cloudflare.com/), keep state in [Durable Objects](https://developers.cloudflare.com/durable-objects/), call models with Workers AI or AI Gateway, retrieve knowledge from AI Search or Vectorize, and let agents act through Browser Run, MCP, Queues, Workflows, Email, Dynamic Workers, and Sandboxes.
+The stack is simple: run agent logic on [Workers](https://developers.cloudflare.com/workers/), keep state in [Durable Objects](https://developers.cloudflare.com/durable-objects/), call models with [Workers AI](https://developers.cloudflare.com/workers-ai/) or [AI Gateway](https://developers.cloudflare.com/ai-gateway/), retrieve knowledge from [AI Search](https://developers.cloudflare.com/ai-search/) or [Vectorize](https://developers.cloudflare.com/vectorize/), and let agents act through [Browser Run](https://developers.cloudflare.com/browser-run/), [MCP](https://developers.cloudflare.com/agents/model-context-protocol/mcp-servers-for-cloudflare/), [Queues](https://developers.cloudflare.com/queues/), [Workflows](https://developers.cloudflare.com/workflows/), [Email](https://developers.cloudflare.com/email-service/), [Dynamic Workers](https://developers.cloudflare.com/dynamic-workers/), and [Sandboxes](https://developers.cloudflare.com/containers/).
 
 The starter for the Agents SDK also includes streaming chat, tools, human-in-the-loop approval, scheduling, and Workers AI by default.
 
@@ -67,8 +67,8 @@ This is the free/pricing snapshot they offer today, May 6, 2026:
 
 For a simple agent, I would start with:
 
-Workers + Agents SDK + Durable Objects + Workers AI + AI Gateway + AI Search
+[Workers](https://developers.cloudflare.com/workers/) + [Agents SDK](https://developers.cloudflare.com/agents/) + [Durable Objects](https://developers.cloudflare.com/durable-objects/) + [Workers AI](https://developers.cloudflare.com/workers-ai/) + [AI Gateway](https://developers.cloudflare.com/ai-gateway/) + [AI Search](https://developers.cloudflare.com/ai-search/)
 
 Then add:
 
-Browser Run for web browsing, Queues and Workflows for background jobs, R2 for files, Email Service for email agents, and Sandboxes or Dynamic Workers for coding agents.
+[Browser Run](https://developers.cloudflare.com/browser-run/) for web browsing, [Queues](https://developers.cloudflare.com/queues/) and [Workflows](https://developers.cloudflare.com/workflows/) for background jobs, [R2](https://developers.cloudflare.com/r2/) for files, [Email Service](https://developers.cloudflare.com/email-service/) for email agents, and [Sandboxes](https://developers.cloudflare.com/containers/) or [Dynamic Workers](https://developers.cloudflare.com/dynamic-workers/) for coding agents.
