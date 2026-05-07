@@ -218,8 +218,8 @@ export function SearchFilters({
               "px-3 py-2 rounded-md text-sm font-medium transition-colors text-left",
               activePreset === option.value ||
                 (!activePreset && option.value === "all")
-                ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
-                : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
+                ? "bg-[#1a1a1a] text-white dark:bg-white dark:text-[#0d0e0c]"
+                : "bg-[#f7f7f7] text-[#1a1a1a]/70 hover:bg-[#f7f7f7] dark:bg-[#1a1a1a] dark:text-[#f8f8f2]/70 dark:hover:bg-[#1a1a1a]"
             )}
           >
             {option.label}
@@ -248,14 +248,14 @@ export function SearchFilters({
     <div className={cn("flex flex-col gap-6", className)}>
       {/* Header with clear button */}
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+        <h2 className="text-lg font-semibold text-[#1a1a1a] dark:text-[#f8f8f2]">
           Filters
         </h2>
         {hasActiveFilters && (
           <button
             type="button"
             onClick={clearAllFilters}
-            className="text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+            className="text-sm text-[#1a1a1a]/55 hover:text-[#1a1a1a] dark:text-[#f8f8f2]/55 dark:hover:text-[#f8f8f2]"
           >
             Clear all
           </button>
@@ -292,7 +292,7 @@ export function SearchFilters({
         <select
           value={currentCategory}
           onChange={(e) => handleCategoryChange(e.target.value)}
-          className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-500"
+          className="w-full px-3 py-2 border border-[#1a1a1a]/10 dark:border-white/10 bg-white dark:bg-[#1a1a1a] text-[#1a1a1a] dark:text-[#f8f8f2] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a1a1a]/55"
         >
           <option value="">All categories</option>
           {sortedCategories.map(([category, count]) => (
@@ -312,8 +312,8 @@ export function SearchFilters({
             className={cn(
               "px-3 py-1.5 rounded-md text-sm font-medium transition-colors",
               currentTags.length === 0
-                ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
-                : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
+                ? "bg-[#1a1a1a] text-white dark:bg-white dark:text-[#0d0e0c]"
+                : "bg-[#f7f7f7] text-[#1a1a1a]/70 hover:bg-[#f7f7f7] dark:bg-[#1a1a1a] dark:text-[#f8f8f2]/70 dark:hover:bg-[#1a1a1a]"
             )}
           >
             All tags
@@ -326,8 +326,8 @@ export function SearchFilters({
               className={cn(
                 "px-3 py-1.5 rounded-md text-sm font-medium transition-colors",
                 currentTags.includes(tag)
-                  ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
-                  : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
+                  ? "bg-[#1a1a1a] text-white dark:bg-white dark:text-[#0d0e0c]"
+                  : "bg-[#f7f7f7] text-[#1a1a1a]/70 hover:bg-[#f7f7f7] dark:bg-[#1a1a1a] dark:text-[#f8f8f2]/70 dark:hover:bg-[#1a1a1a]"
               )}
               title={`${count} posts`}
             >
@@ -348,7 +348,7 @@ export function SearchFilters({
               onClick={() => handleDatePresetChange("custom")}
               className={cn(
                 "px-3 py-2 rounded-md text-sm font-medium transition-colors text-left",
-                "bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
+                "bg-[#f7f7f7] text-[#1a1a1a]/70 hover:bg-[#f7f7f7] dark:bg-[#1a1a1a] dark:text-[#f8f8f2]/70 dark:hover:bg-[#1a1a1a]"
               )}
             >
               Custom range
@@ -360,7 +360,7 @@ export function SearchFilters({
               <div>
                 <label
                   htmlFor="from-date"
-                  className="block text-xs font-medium text-neutral-600 dark:text-neutral-400 mb-1"
+                  className="block text-xs font-medium text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55 mb-1"
                 >
                   From
                 </label>
@@ -371,13 +371,13 @@ export function SearchFilters({
                   onChange={(e) =>
                     handleCustomDateChange("from", e.target.value)
                   }
-                  className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-500"
+                  className="w-full px-3 py-2 border border-[#1a1a1a]/10 dark:border-white/10 bg-white dark:bg-[#1a1a1a] text-[#1a1a1a] dark:text-[#f8f8f2] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a1a1a]/55"
                 />
               </div>
               <div>
                 <label
                   htmlFor="to-date"
-                  className="block text-xs font-medium text-neutral-600 dark:text-neutral-400 mb-1"
+                  className="block text-xs font-medium text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55 mb-1"
                 >
                   To
                 </label>
@@ -386,7 +386,7 @@ export function SearchFilters({
                   type="date"
                   value={customToDate}
                   onChange={(e) => handleCustomDateChange("to", e.target.value)}
-                  className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-500"
+                  className="w-full px-3 py-2 border border-[#1a1a1a]/10 dark:border-white/10 bg-white dark:bg-[#1a1a1a] text-[#1a1a1a] dark:text-[#f8f8f2] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a1a1a]/55"
                 />
               </div>
             </div>
@@ -396,7 +396,7 @@ export function SearchFilters({
                 setIsCustomDateRange(false);
                 updateFilters({ preset: "all" });
               }}
-              className="text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+              className="text-sm text-[#1a1a1a]/55 hover:text-[#1a1a1a] dark:text-[#f8f8f2]/55 dark:hover:text-[#f8f8f2]"
             >
               Back to presets
             </button>
@@ -416,7 +416,7 @@ function FilterSection({
 }) {
   return (
     <div className="space-y-2">
-      <h3 className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+      <h3 className="text-sm font-medium text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
         {title}
       </h3>
       {children}
@@ -449,12 +449,12 @@ function ActiveFilterBadge({
   onRemove: () => void;
 }) {
   return (
-    <span className="inline-flex items-center gap-1 px-2 py-1 bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-md text-sm">
+    <span className="inline-flex items-center gap-1 px-2 py-1 bg-[#f7f7f7] dark:bg-[#1a1a1a] text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70 rounded-md text-sm">
       {label}
       <button
         type="button"
         onClick={onRemove}
-        className="hover:text-neutral-900 dark:hover:text-neutral-100"
+        className="hover:text-[#1a1a1a] dark:hover:text-[#f8f8f2]"
         aria-label={`Remove ${label} filter`}
       >
         <CloseIcon />
