@@ -26,7 +26,7 @@ export function YearPost({ year, posts, className }: YearPostProps) {
         {year}
       </h2>
 
-      <div className="overflow-hidden rounded-2xl border border-[#1a1a1a]/12 bg-white dark:border-white/10 dark:bg-[#171815]">
+      <div className="overflow-hidden rounded-2xl border border-[#1a1a1a]/12 bg-white dark:border-white/10 dark:bg-[#1a1a1a]">
         {posts.map((post: Post) => {
           const [, year, month, slug] = post.slug.split("/");
           return (
