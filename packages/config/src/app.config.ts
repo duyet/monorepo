@@ -57,6 +57,7 @@ export interface AppUrls {
   homelab: string;
   agents: string;
   llmTimeline: string;
+  burns: string;
 }
 
 // Environment-aware URL configuration
@@ -78,6 +79,7 @@ export const appUrls: AppUrls = {
   agents: env("VITE_DUYET_AGENTS_URL") ?? "https://agents.duyet.net",
   llmTimeline:
     env("VITE_DUYET_LLM_TIMELINE_URL") ?? "https://llm-timeline.duyet.net",
+  burns: env("VITE_DUYET_BURNS_URL") ?? "https://burns.duyet.net",
 };
 
 // Blog app configuration
@@ -257,6 +259,26 @@ export const llmTimelineConfig = {
   },
 };
 
+// Burns app configuration
+export const burnsConfig = {
+  metadata: {
+    title: "Burns | Token Counter",
+    description:
+      "Total Claude Code token consumption — input, output, cached — visualized.",
+    lang: "en",
+  } as AppMetadata,
+  fonts: {
+    inter: {
+      name: "Inter",
+      weights: ["300", "400", "500", "600", "700"] as const,
+      subsets: ["latin"] as const,
+      variable: "--font-inter",
+      display: "swap",
+    } as const,
+  },
+  header: { longText: "Burns", shortText: "Burns" },
+};
+
 // Export all configs
 export const appConfig = {
   urls: appUrls,
@@ -268,6 +290,7 @@ export const appConfig = {
   homelab: homelabConfig,
   agents: agentsConfig,
   llmTimeline: llmTimelineConfig,
+  burns: burnsConfig,
 };
 
 // Named exports for convenience
