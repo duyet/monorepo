@@ -8,6 +8,7 @@ import {
 import { ComparisonList } from "./blog/ComparisonList";
 import { InfoBox } from "./blog/InfoBox";
 import { LazyCodeBlock } from "./blog/LazyCodeBlock";
+import { Mermaid } from "./blog/Mermaid";
 // Import components directly for RSC compatibility
 import { PricingTable } from "./blog/PricingTable";
 import { Step, Steps } from "./blog/Steps";
@@ -55,9 +56,20 @@ export const mdxComponents: MDXComponents = {
   ClaudeCard,
   ClaudeCardGrid,
   ClaudeCardNested,
+  Mermaid,
   pre: LazyCodeBlock,
   Image,
-  img: Image, // Handle standard markdown image syntax ![alt](url)
+  img: Image,
+  table: ({ children, ...props }) => (
+    <div className="my-6 overflow-x-auto">
+      <table
+        {...props}
+        className="text-sm [&_th]:whitespace-nowrap [&_td]:whitespace-nowrap"
+      >
+        {children}
+      </table>
+    </div>
+  ),
 };
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
