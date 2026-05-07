@@ -5,7 +5,7 @@ author: Duyet
 category: Data Engineering
 tags:
   - Data Engineering
-  - Apache Airflow
+  - Airflow
   - Python
 
 thumbnail: https://images.unsplash.com/photo-1592928038511-20202bdad1fd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80

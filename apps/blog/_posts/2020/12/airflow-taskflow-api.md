@@ -5,7 +5,7 @@ featured: true
 author: Duyet
 category: Data Engineering
 tags:
-  - Apache Airflow
+  - Airflow
   - Data Engineering
 thumbnail: https://1.bp.blogspot.com/-ON0KTUqotAs/X-chcnFmhtI/AAAAAAABzmA/-kBwGuYyCS44Q16FCHL23iio9WUm6Ux9wCLcBGAsYHQ/s0/duyet-airflow-taskflow-api.png
 slug: /2020/12/airflow-taskflow-api.html

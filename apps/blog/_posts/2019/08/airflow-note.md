@@ -3,7 +3,7 @@ title: Airflow - một số ghi chép
 date: '2019-08-27'
 category: Data Engineering
 tags:
-  - Apache Airflow
+  - Airflow
   - Data
   - Data Engineering
 slug: /2019/08/airflow-note.html
