@@ -14,7 +14,7 @@ export const cvData: CVData = {
     title: "Résumé",
     email: "me@duyet.net",
     overview:
-      "Data & AI Engineer with 8+ years of experience in modern data warehousing, distributed systems, AI/ML, and cloud computing. Proficient in LlamaIndex, AI SDK, LangGraph, ClickHouse, Spark, Airflow, Python, Rust.",
+      "Data & AI Engineer — Data Warehousing, Distributed Systems, AI Agents, Cloud, Web. Proficient in LlamaIndex, AI SDK, LangGraph, ClickHouse, Spark, Airflow, Python, Rust.",
     contacts: [
       {
         id: "email",
