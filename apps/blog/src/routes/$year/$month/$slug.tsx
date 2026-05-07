@@ -110,7 +110,7 @@ function PostPage() {
   };
 
   return (
-    <div className="bg-[#f8f8f2] pb-20 dark:bg-[#0d0e0c]">
+    <div className="pb-20 dark:bg-[#0d0e0c]">
       <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
         <ReadingProgress />
 
