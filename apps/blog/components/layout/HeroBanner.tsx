@@ -21,21 +21,21 @@ export function HeroBanner({
 }: HeroBannerProps) {
   return (
     <div
-      className={`${colorClass} mb-12 rounded-xl border border-neutral-950/10 p-6 dark:border-white/10 sm:p-8 md:p-10`}
+      className={`${colorClass} mb-12 rounded-xl border border-[#1a1a1a]/10 p-6 dark:border-white/10 sm:p-8 md:p-10`}
     >
       <div className="mb-4">
         <BackLink href={backLinkHref} text={backLinkText} />
       </div>
 
-      <h1 className="mb-5 text-4xl font-semibold tracking-tight text-neutral-950 dark:text-[#f8f8f2] md:text-5xl">
+      <h1 className="mb-5 text-4xl font-semibold tracking-tight text-[#1a1a1a] dark:text-[#f8f8f2] md:text-5xl">
         {title}
       </h1>
 
-      <p className="mb-6 max-w-2xl text-sm leading-6 text-neutral-700 dark:text-[#f8f8f2]/75 sm:text-base">
+      <p className="mb-6 max-w-2xl text-sm leading-6 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/75 sm:text-base">
         {description}
       </p>
 
-      <div className="flex flex-wrap gap-4 text-sm font-medium text-neutral-600 dark:text-[#f8f8f2]/60">
+      <div className="flex flex-wrap gap-4 text-sm font-medium text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
         <div className="flex items-center gap-2">
           <svg
             className="h-5 w-5"

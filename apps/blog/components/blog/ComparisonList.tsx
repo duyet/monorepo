@@ -25,7 +25,7 @@ export function ComparisonList({
   if (!items || items.length === 0) {
     return (
       <div
-        className={`text-base text-gray-500 dark:text-gray-400 ${className}`}
+        className={`text-base text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55 ${className}`}
       >
         No items to compare
       </div>
@@ -34,15 +34,15 @@ export function ComparisonList({
 
   return (
     <div
-      className={`space-y-4 border-l-2 border-gray-300 dark:border-claude-gray-700 pl-4 py-3 ${className}`}
+      className={`space-y-4 border-l-2 border-[#1a1a1a]/10 dark:border-white/10 pl-4 py-3 ${className}`}
     >
       {title && (
         <div className="space-y-1">
-          <h2 className="text-lg font-medium text-gray-900 dark:text-white">
+          <h2 className="text-lg font-medium text-[#1a1a1a] dark:text-[#f8f8f2]">
             {title}
           </h2>
           {description && (
-            <p className="text-base text-gray-600 dark:text-gray-400">
+            <p className="text-base text-[#1a1a1a]/70 dark:text-[#f8f8f2]/55">
               {description}
             </p>
           )}
@@ -53,16 +53,16 @@ export function ComparisonList({
         {items.map((item) => (
           <div
             key={item.id}
-            className={`flex gap-4 ${item.highlight ? "bg-gray-50 dark:bg-claude-gray-900/50 p-2" : ""}`}
+            className={`flex gap-4 ${item.highlight ? "bg-[#f7f7f7] dark:bg-[#1a1a1a]/50 p-2" : ""}`}
           >
-            <span className="text-gray-500 dark:text-gray-400 font-medium flex-shrink-0 text-sm">
+            <span className="text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55 font-medium flex-shrink-0 text-sm">
               {item.label}:
             </span>
             <span
               className={`text-base ${
                 item.highlight
-                  ? "font-medium text-gray-900 dark:text-white"
-                  : "text-gray-700 dark:text-gray-300"
+                  ? "font-medium text-[#1a1a1a] dark:text-[#f8f8f2]"
+                  : "text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70"
               }`}
             >
               {item.value}
