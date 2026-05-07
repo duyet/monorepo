@@ -14,7 +14,7 @@ export function DailyChart({ daily, firstDate }: DailyChartProps) {
   const chartHeight = 80;
 
   const sinceLabel = firstDate
-    ? `Since ${new Date(firstDate + "T00:00:00").toLocaleDateString("en-US", { month: "short", year: "numeric" })}`
+    ? `Since ${new Date(firstDate).toLocaleDateString("en-US", { month: "short", year: "numeric" })}`
     : `Last ${recent.length} days`;
 
   return (

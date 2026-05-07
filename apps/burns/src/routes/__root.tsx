@@ -2,7 +2,6 @@ import "@duyet/components/styles.css";
 import "../styles.css";
 
 import Analytics from "@duyet/components/Analytics";
-import Footer from "@duyet/components/Footer";
 import {
   createRootRoute,
   HeadContent,
@@ -73,7 +72,9 @@ function RootComponent() {
           <main>
             <Outlet />
           </main>
-          <Footer />
+          <p style={{ textAlign: "center", padding: "32px 0", fontSize: 12, color: "var(--muted-soft)" }}>
+            <a href="https://duyet.net" style={{ color: "var(--muted)", textDecoration: "none" }}>duyet.net</a>
+          </p>
         </div>
         <Analytics />
         <Scripts />

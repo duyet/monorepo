@@ -36,7 +36,7 @@ function Page() {
           color: "var(--muted)",
           lineHeight: 1.6,
         }}>
-          tokens consumed by {data.models.join(", ")}
+          tokens consumed by {data.sources.join(", ")}
         </p>
       </div>
 

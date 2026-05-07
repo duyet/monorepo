@@ -1,38 +1,10 @@
 {
-  "generatedAt": "2026-05-07T18:08:48.201Z",
-  "firstDate": "Sat Aug 02 2025 07:00:00 GMT+0700 (Indochina Time)",
-  "models": [
-    "glm-4.7",
-    "claude-sonnet-4-5-20250929",
-    "gpt-5",
-    "claude-sonnet-4-20250514",
-    "claude-haiku-4-5-20251001",
-    "glm-5.1",
-    "claude-opus-4-5-20251101",
-    "claude-opus-4-6",
-    "claude-opus-4-7",
-    "claude-sonnet-4-6",
-    "gpt-5.3-codex",
-    "gpt-5.5",
-    "claude-opus-4-1-20250805",
-    "glm-4.6",
-    "glm-4.5-air",
-    "glm-5",
-    "claude-opus-4-5",
-    "big-pickle",
-    "claude-opus-4-20250514",
-    "stepfun-ai/step-3.5-flash",
-    "minimax-m2.1-free",
-    "gpt-5.4-mini",
-    "grok-code",
-    "claude-haiku-4-5",
-    "gpt-5.4",
-    "mistralai/devstral-2-123b-instruct-2512",
-    "zai-glm-4.7",
-    "mistralai/devstral-small-2505:free",
-    "gemini-3-pro-high",
-    "gemini-3-flash",
-    "gemini-3-pro-preview"
+  "generatedAt": "2026-05-07T18:13:33.475Z",
+  "firstDate": "2025-08-02",
+  "sources": [
+    "Claude Code",
+    "Codex",
+    "OpenCode"
   ],
   "totals": {
     "input_tokens": 5811039172,
@@ -44,7 +16,7 @@
   },
   "daily": [
     {
-      "date": "Wed May 06 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-05-06",
       "input_tokens": 4422805221,
       "output_tokens": 10503611,
       "cache_creation_tokens": 0,
@@ -53,7 +25,7 @@
       "cost": 858.88
     },
     {
-      "date": "Tue May 05 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-05-05",
       "input_tokens": 6166126,
       "output_tokens": 416234,
       "cache_creation_tokens": 0,
@@ -62,7 +34,7 @@
       "cost": 7.98
     },
     {
-      "date": "Mon May 04 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-05-04",
       "input_tokens": 11948553,
       "output_tokens": 1788297,
       "cache_creation_tokens": 0,
@@ -71,7 +43,7 @@
       "cost": 6.14
     },
     {
-      "date": "Sun May 03 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-05-03",
       "input_tokens": 2104938,
       "output_tokens": 358973,
       "cache_creation_tokens": 0,
@@ -80,7 +52,7 @@
       "cost": 0.85
     },
     {
-      "date": "Sat May 02 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-05-02",
       "input_tokens": 134399564,
       "output_tokens": 254018,
       "cache_creation_tokens": 0,
@@ -89,7 +61,7 @@
       "cost": 79.46
     },
     {
-      "date": "Fri May 01 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-05-01",
       "input_tokens": 125907291,
       "output_tokens": 952663,
       "cache_creation_tokens": 0,
@@ -98,7 +70,7 @@
       "cost": 72.47
     },
     {
-      "date": "Thu Apr 30 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-30",
       "input_tokens": 5903545,
       "output_tokens": 10252,
       "cache_creation_tokens": 0,
@@ -107,7 +79,7 @@
       "cost": 4.22
     },
     {
-      "date": "Wed Apr 29 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-29",
       "input_tokens": 5628038,
       "output_tokens": 164037,
       "cache_creation_tokens": 0,
@@ -116,7 +88,7 @@
       "cost": 4.72
     },
     {
-      "date": "Tue Apr 28 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-28",
       "input_tokens": 29764596,
       "output_tokens": 1433322,
       "cache_creation_tokens": 0,
@@ -125,7 +97,7 @@
       "cost": 23.46
     },
     {
-      "date": "Mon Apr 27 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-27",
       "input_tokens": 5330523,
       "output_tokens": 226315,
       "cache_creation_tokens": 0,
@@ -134,7 +106,7 @@
       "cost": 10.48
     },
     {
-      "date": "Sun Apr 26 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-26",
       "input_tokens": 13261512,
       "output_tokens": 1087905,
       "cache_creation_tokens": 0,
@@ -143,7 +115,7 @@
       "cost": 21.62
     },
     {
-      "date": "Sat Apr 25 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-25",
       "input_tokens": 213576,
       "output_tokens": 71246,
       "cache_creation_tokens": 0,
@@ -152,7 +124,7 @@
       "cost": 0.68
     },
     {
-      "date": "Fri Apr 24 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-24",
       "input_tokens": 525784,
       "output_tokens": 203462,
       "cache_creation_tokens": 2595854,
@@ -161,7 +133,7 @@
       "cost": 60.17
     },
     {
-      "date": "Thu Apr 23 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-23",
       "input_tokens": 1473069,
       "output_tokens": 197926,
       "cache_creation_tokens": 2108766,
@@ -170,7 +142,7 @@
       "cost": 19.66
     },
     {
-      "date": "Wed Apr 22 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-22",
       "input_tokens": 64703292,
       "output_tokens": 4948324,
       "cache_creation_tokens": 3421936,
@@ -179,7 +151,7 @@
       "cost": 47.55
     },
     {
-      "date": "Tue Apr 21 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-21",
       "input_tokens": 23890475,
       "output_tokens": 933252,
       "cache_creation_tokens": 7693585,
@@ -188,7 +160,7 @@
       "cost": 177.93
     },
     {
-      "date": "Mon Apr 20 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-20",
       "input_tokens": 27590975,
       "output_tokens": 2058006,
       "cache_creation_tokens": 7403218,
@@ -197,7 +169,7 @@
       "cost": 238.56
     },
     {
-      "date": "Sun Apr 19 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-19",
       "input_tokens": 6459452,
       "output_tokens": 1585666,
       "cache_creation_tokens": 7270463,
@@ -206,7 +178,7 @@
       "cost": 259.6
     },
     {
-      "date": "Sat Apr 18 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-18",
       "input_tokens": 12642026,
       "output_tokens": 2749934,
       "cache_creation_tokens": 7362457,
@@ -215,7 +187,7 @@
       "cost": 246.44
     },
     {
-      "date": "Fri Apr 17 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-17",
       "input_tokens": 16684549,
       "output_tokens": 2064653,
       "cache_creation_tokens": 5639299,
@@ -224,7 +196,7 @@
       "cost": 184.84
     },
     {
-      "date": "Thu Apr 16 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-16",
       "input_tokens": 15948276,
       "output_tokens": 2292598,
       "cache_creation_tokens": 5562120,
@@ -233,7 +205,7 @@
       "cost": 165.61
     },
     {
-      "date": "Wed Apr 15 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-15",
       "input_tokens": 2559625,
       "output_tokens": 278848,
       "cache_creation_tokens": 0,
@@ -242,7 +214,7 @@
       "cost": 6.53
     },
     {
-      "date": "Tue Apr 14 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-14",
       "input_tokens": 22606108,
       "output_tokens": 2483936,
       "cache_creation_tokens": 6263089,
@@ -251,7 +223,7 @@
       "cost": 153.18
     },
     {
-      "date": "Mon Apr 13 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-13",
       "input_tokens": 11113012,
       "output_tokens": 1164889,
       "cache_creation_tokens": 4481382,
@@ -260,7 +232,7 @@
       "cost": 125.72
     },
     {
-      "date": "Sat Apr 11 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-11",
       "input_tokens": 4381177,
       "output_tokens": 710885,
       "cache_creation_tokens": 3927763,
@@ -269,7 +241,7 @@
       "cost": 64.99
     },
     {
-      "date": "Fri Apr 10 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-10",
       "input_tokens": 12335157,
       "output_tokens": 1216365,
       "cache_creation_tokens": 6920306,
@@ -278,7 +250,7 @@
       "cost": 142.32
     },
     {
-      "date": "Thu Apr 09 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-09",
       "input_tokens": 17059945,
       "output_tokens": 1959364,
       "cache_creation_tokens": 8548765,
@@ -287,7 +259,7 @@
       "cost": 137.06
     },
     {
-      "date": "Wed Apr 08 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-08",
       "input_tokens": 8250842,
       "output_tokens": 1140820,
       "cache_creation_tokens": 6068577,
@@ -296,7 +268,7 @@
       "cost": 94.67
     },
     {
-      "date": "Tue Apr 07 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-07",
       "input_tokens": 5472642,
       "output_tokens": 561911,
       "cache_creation_tokens": 7914871,
@@ -305,7 +277,7 @@
       "cost": 109.6
     },
     {
-      "date": "Mon Apr 06 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-06",
       "input_tokens": 5567,
       "output_tokens": 2420,
       "cache_creation_tokens": 110999,
@@ -314,7 +286,7 @@
       "cost": 1.89
     },
     {
-      "date": "Sun Apr 05 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-05",
       "input_tokens": 99483,
       "output_tokens": 14932,
       "cache_creation_tokens": 678792,
@@ -323,7 +295,7 @@
       "cost": 9.93
     },
     {
-      "date": "Sat Apr 04 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-04",
       "input_tokens": 1686,
       "output_tokens": 5971,
       "cache_creation_tokens": 317258,
@@ -332,7 +304,7 @@
       "cost": 3.02
     },
     {
-      "date": "Fri Apr 03 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-03",
       "input_tokens": 743096,
       "output_tokens": 30545,
       "cache_creation_tokens": 651170,
@@ -341,7 +313,7 @@
       "cost": 11.7
     },
     {
-      "date": "Thu Apr 02 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-02",
       "input_tokens": 38,
       "output_tokens": 2895,
       "cache_creation_tokens": 81778,
@@ -350,7 +322,7 @@
       "cost": 0.27
     },
     {
-      "date": "Wed Apr 01 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-04-01",
       "input_tokens": 15223,
       "output_tokens": 24373,
       "cache_creation_tokens": 447729,
@@ -359,7 +331,7 @@
       "cost": 1.56
     },
     {
-      "date": "Sat Mar 28 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-28",
       "input_tokens": 29406249,
       "output_tokens": 123362,
       "cache_creation_tokens": 0,
@@ -368,7 +340,7 @@
       "cost": 0
     },
     {
-      "date": "Fri Mar 27 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-27",
       "input_tokens": 474771,
       "output_tokens": 57310,
       "cache_creation_tokens": 0,
@@ -377,7 +349,7 @@
       "cost": 0.82
     },
     {
-      "date": "Mon Mar 23 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-23",
       "input_tokens": 2405568,
       "output_tokens": 21260,
       "cache_creation_tokens": 0,
@@ -386,7 +358,7 @@
       "cost": 4.23
     },
     {
-      "date": "Sun Mar 22 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-22",
       "input_tokens": 68166132,
       "output_tokens": 1019659,
       "cache_creation_tokens": 0,
@@ -395,7 +367,7 @@
       "cost": 98.92
     },
     {
-      "date": "Sat Mar 21 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-21",
       "input_tokens": 42993309,
       "output_tokens": 541684,
       "cache_creation_tokens": 0,
@@ -404,7 +376,7 @@
       "cost": 78.75
     },
     {
-      "date": "Fri Mar 20 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-20",
       "input_tokens": 86771037,
       "output_tokens": 477966,
       "cache_creation_tokens": 0,
@@ -413,7 +385,7 @@
       "cost": 178.91
     },
     {
-      "date": "Thu Mar 19 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-19",
       "input_tokens": 53511244,
       "output_tokens": 505318,
       "cache_creation_tokens": 0,
@@ -422,7 +394,7 @@
       "cost": 114.29
     },
     {
-      "date": "Wed Mar 18 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-18",
       "input_tokens": 37313513,
       "output_tokens": 2490227,
       "cache_creation_tokens": 3162095,
@@ -431,7 +403,7 @@
       "cost": 146.03
     },
     {
-      "date": "Tue Mar 17 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-17",
       "input_tokens": 212281,
       "output_tokens": 32657,
       "cache_creation_tokens": 196280,
@@ -440,7 +412,7 @@
       "cost": 3.3
     },
     {
-      "date": "Mon Mar 16 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-16",
       "input_tokens": 1239637,
       "output_tokens": 558218,
       "cache_creation_tokens": 12083467,
@@ -449,7 +421,7 @@
       "cost": 117.09
     },
     {
-      "date": "Sun Mar 15 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-15",
       "input_tokens": 481625,
       "output_tokens": 249331,
       "cache_creation_tokens": 5483137,
@@ -458,7 +430,7 @@
       "cost": 54.7
     },
     {
-      "date": "Sat Mar 14 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-14",
       "input_tokens": 1089797,
       "output_tokens": 255913,
       "cache_creation_tokens": 3036682,
@@ -467,7 +439,7 @@
       "cost": 18.41
     },
     {
-      "date": "Fri Mar 13 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-13",
       "input_tokens": 6315291,
       "output_tokens": 448793,
       "cache_creation_tokens": 3948911,
@@ -476,7 +448,7 @@
       "cost": 48.41
     },
     {
-      "date": "Thu Mar 12 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-12",
       "input_tokens": 10290686,
       "output_tokens": 740254,
       "cache_creation_tokens": 752360,
@@ -485,7 +457,7 @@
       "cost": 30.01
     },
     {
-      "date": "Wed Mar 11 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-11",
       "input_tokens": 20578073,
       "output_tokens": 1748748,
       "cache_creation_tokens": 2367665,
@@ -494,7 +466,7 @@
       "cost": 62.12
     },
     {
-      "date": "Tue Mar 10 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-10",
       "input_tokens": 12483117,
       "output_tokens": 1594492,
       "cache_creation_tokens": 4970313,
@@ -503,7 +475,7 @@
       "cost": 65.66
     },
     {
-      "date": "Mon Mar 09 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-09",
       "input_tokens": 15218830,
       "output_tokens": 1827938,
       "cache_creation_tokens": 10249544,
@@ -512,7 +484,7 @@
       "cost": 148.15
     },
     {
-      "date": "Sun Mar 08 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-08",
       "input_tokens": 7813076,
       "output_tokens": 2795264,
       "cache_creation_tokens": 11355468,
@@ -521,7 +493,7 @@
       "cost": 266.12
     },
     {
-      "date": "Sat Mar 07 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-07",
       "input_tokens": 2229,
       "output_tokens": 1274,
       "cache_creation_tokens": 86456,
@@ -530,7 +502,7 @@
       "cost": 0.32
     },
     {
-      "date": "Fri Mar 06 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-06",
       "input_tokens": 95103,
       "output_tokens": 142558,
       "cache_creation_tokens": 3275765,
@@ -539,7 +511,7 @@
       "cost": 18.04
     },
     {
-      "date": "Thu Mar 05 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-05",
       "input_tokens": 454117,
       "output_tokens": 111333,
       "cache_creation_tokens": 1554070,
@@ -548,7 +520,7 @@
       "cost": 7.99
     },
     {
-      "date": "Wed Mar 04 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-04",
       "input_tokens": 961763,
       "output_tokens": 250664,
       "cache_creation_tokens": 4936437,
@@ -557,7 +529,7 @@
       "cost": 33.85
     },
     {
-      "date": "Tue Mar 03 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-03",
       "input_tokens": 50089,
       "output_tokens": 84112,
       "cache_creation_tokens": 2222756,
@@ -566,7 +538,7 @@
       "cost": 18.36
     },
     {
-      "date": "Mon Mar 02 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-03-02",
       "input_tokens": 44365,
       "output_tokens": 200186,
       "cache_creation_tokens": 3500457,
@@ -575,7 +547,7 @@
       "cost": 56.93
     },
     {
-      "date": "Sat Feb 28 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-28",
       "input_tokens": 1179,
       "output_tokens": 2364,
       "cache_creation_tokens": 0,
@@ -584,7 +556,7 @@
       "cost": 0.01
     },
     {
-      "date": "Fri Feb 27 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-27",
       "input_tokens": 1412863,
       "output_tokens": 372148,
       "cache_creation_tokens": 4533186,
@@ -593,7 +565,7 @@
       "cost": 37.98
     },
     {
-      "date": "Thu Feb 26 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-26",
       "input_tokens": 1278735,
       "output_tokens": 160928,
       "cache_creation_tokens": 3122690,
@@ -602,7 +574,7 @@
       "cost": 29.11
     },
     {
-      "date": "Wed Feb 25 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-25",
       "input_tokens": 82406,
       "output_tokens": 21200,
       "cache_creation_tokens": 3388514,
@@ -611,7 +583,7 @@
       "cost": 35.4
     },
     {
-      "date": "Tue Feb 24 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-24",
       "input_tokens": 948,
       "output_tokens": 1525,
       "cache_creation_tokens": 517686,
@@ -620,7 +592,7 @@
       "cost": 2.13
     },
     {
-      "date": "Mon Feb 23 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-23",
       "input_tokens": 10091,
       "output_tokens": 597,
       "cache_creation_tokens": 668212,
@@ -629,7 +601,7 @@
       "cost": 1.97
     },
     {
-      "date": "Sun Feb 22 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-22",
       "input_tokens": 2226,
       "output_tokens": 109,
       "cache_creation_tokens": 255351,
@@ -638,7 +610,7 @@
       "cost": 0.63
     },
     {
-      "date": "Fri Feb 20 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-20",
       "input_tokens": 7602,
       "output_tokens": 1794,
       "cache_creation_tokens": 728966,
@@ -647,7 +619,7 @@
       "cost": 4.94
     },
     {
-      "date": "Thu Feb 19 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-19",
       "input_tokens": 142,
       "output_tokens": 99,
       "cache_creation_tokens": 204280,
@@ -656,7 +628,7 @@
       "cost": 0.38
     },
     {
-      "date": "Wed Feb 18 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-18",
       "input_tokens": 9272,
       "output_tokens": 1570,
       "cache_creation_tokens": 1808650,
@@ -665,7 +637,7 @@
       "cost": 8.96
     },
     {
-      "date": "Mon Feb 16 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-16",
       "input_tokens": 0,
       "output_tokens": 0,
       "cache_creation_tokens": 0,
@@ -674,7 +646,7 @@
       "cost": 0
     },
     {
-      "date": "Sat Feb 14 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-14",
       "input_tokens": 4186,
       "output_tokens": 670,
       "cache_creation_tokens": 806446,
@@ -683,7 +655,7 @@
       "cost": 4.94
     },
     {
-      "date": "Fri Feb 13 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-13",
       "input_tokens": 16404,
       "output_tokens": 3814,
       "cache_creation_tokens": 2582864,
@@ -692,7 +664,7 @@
       "cost": 18.29
     },
     {
-      "date": "Thu Feb 12 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-12",
       "input_tokens": 316528,
       "output_tokens": 10883,
       "cache_creation_tokens": 2674015,
@@ -701,7 +673,7 @@
       "cost": 29.84
     },
     {
-      "date": "Wed Feb 11 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-11",
       "input_tokens": 9488,
       "output_tokens": 1614,
       "cache_creation_tokens": 814875,
@@ -710,7 +682,7 @@
       "cost": 8.56
     },
     {
-      "date": "Tue Feb 10 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-10",
       "input_tokens": 0,
       "output_tokens": 0,
       "cache_creation_tokens": 0,
@@ -719,7 +691,7 @@
       "cost": 0
     },
     {
-      "date": "Mon Feb 09 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-09",
       "input_tokens": 318875,
       "output_tokens": 15202,
       "cache_creation_tokens": 0,
@@ -728,7 +700,7 @@
       "cost": 0.76
     },
     {
-      "date": "Sun Feb 08 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-08",
       "input_tokens": 1404027,
       "output_tokens": 90250,
       "cache_creation_tokens": 2604167,
@@ -737,7 +709,7 @@
       "cost": 29.92
     },
     {
-      "date": "Sat Feb 07 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-07",
       "input_tokens": 47254,
       "output_tokens": 2473,
       "cache_creation_tokens": 2123664,
@@ -746,7 +718,7 @@
       "cost": 11.83
     },
     {
-      "date": "Fri Feb 06 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-06",
       "input_tokens": 166182,
       "output_tokens": 22782,
       "cache_creation_tokens": 2602577,
@@ -755,7 +727,7 @@
       "cost": 12.99
     },
     {
-      "date": "Thu Feb 05 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-05",
       "input_tokens": 47337,
       "output_tokens": 554,
       "cache_creation_tokens": 881763,
@@ -764,7 +736,7 @@
       "cost": 3.05
     },
     {
-      "date": "Wed Feb 04 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-04",
       "input_tokens": 68964,
       "output_tokens": 1655,
       "cache_creation_tokens": 2192012,
@@ -773,7 +745,7 @@
       "cost": 6.83
     },
     {
-      "date": "Tue Feb 03 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-03",
       "input_tokens": 187391,
       "output_tokens": 8497,
       "cache_creation_tokens": 5263974,
@@ -782,7 +754,7 @@
       "cost": 37.78
     },
     {
-      "date": "Mon Feb 02 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-02",
       "input_tokens": 141644,
       "output_tokens": 2634,
       "cache_creation_tokens": 3009339,
@@ -791,7 +763,7 @@
       "cost": 10.67
     },
     {
-      "date": "Sun Feb 01 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-02-01",
       "input_tokens": 67628,
       "output_tokens": 5598,
       "cache_creation_tokens": 3458511,
@@ -800,7 +772,7 @@
       "cost": 27.56
     },
     {
-      "date": "Sat Jan 31 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-31",
       "input_tokens": 161295,
       "output_tokens": 36902,
       "cache_creation_tokens": 1932555,
@@ -809,7 +781,7 @@
       "cost": 11.09
     },
     {
-      "date": "Fri Jan 30 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-30",
       "input_tokens": 122018,
       "output_tokens": 1398,
       "cache_creation_tokens": 1302412,
@@ -818,7 +790,7 @@
       "cost": 5.08
     },
     {
-      "date": "Thu Jan 29 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-29",
       "input_tokens": 93659,
       "output_tokens": 1519,
       "cache_creation_tokens": 1310345,
@@ -827,7 +799,7 @@
       "cost": 5.76
     },
     {
-      "date": "Wed Jan 28 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-28",
       "input_tokens": 168355,
       "output_tokens": 2443,
       "cache_creation_tokens": 2050108,
@@ -836,7 +808,7 @@
       "cost": 13.22
     },
     {
-      "date": "Tue Jan 27 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-27",
       "input_tokens": 306109,
       "output_tokens": 4405,
       "cache_creation_tokens": 2956032,
@@ -845,7 +817,7 @@
       "cost": 17.1
     },
     {
-      "date": "Mon Jan 26 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-26",
       "input_tokens": 549644,
       "output_tokens": 7012,
       "cache_creation_tokens": 1990430,
@@ -854,7 +826,7 @@
       "cost": 6.57
     },
     {
-      "date": "Sun Jan 25 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-25",
       "input_tokens": 88432,
       "output_tokens": 354,
       "cache_creation_tokens": 1019452,
@@ -863,7 +835,7 @@
       "cost": 3.84
     },
     {
-      "date": "Sat Jan 24 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-24",
       "input_tokens": 390724,
       "output_tokens": 3446,
       "cache_creation_tokens": 4579662,
@@ -872,7 +844,7 @@
       "cost": 23.68
     },
     {
-      "date": "Fri Jan 23 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-23",
       "input_tokens": 475767,
       "output_tokens": 12298,
       "cache_creation_tokens": 972224,
@@ -881,7 +853,7 @@
       "cost": 4.11
     },
     {
-      "date": "Thu Jan 22 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-22",
       "input_tokens": 68346,
       "output_tokens": 847,
       "cache_creation_tokens": 1462696,
@@ -890,7 +862,7 @@
       "cost": 7.18
     },
     {
-      "date": "Wed Jan 21 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-21",
       "input_tokens": 627663,
       "output_tokens": 5424,
       "cache_creation_tokens": 7938238,
@@ -899,7 +871,7 @@
       "cost": 24.72
     },
     {
-      "date": "Tue Jan 20 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-20",
       "input_tokens": 272876,
       "output_tokens": 3664,
       "cache_creation_tokens": 3044836,
@@ -908,7 +880,7 @@
       "cost": 23.3
     },
     {
-      "date": "Mon Jan 19 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-19",
       "input_tokens": 59009,
       "output_tokens": 87,
       "cache_creation_tokens": 493630,
@@ -917,7 +889,7 @@
       "cost": 0.92
     },
     {
-      "date": "Sun Jan 18 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-18",
       "input_tokens": 398766,
       "output_tokens": 16062,
       "cache_creation_tokens": 680313,
@@ -926,7 +898,7 @@
       "cost": 4.78
     },
     {
-      "date": "Sat Jan 17 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-17",
       "input_tokens": 257920,
       "output_tokens": 4729,
       "cache_creation_tokens": 3628934,
@@ -935,7 +907,7 @@
       "cost": 34.33
     },
     {
-      "date": "Fri Jan 16 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-16",
       "input_tokens": 295789,
       "output_tokens": 10883,
       "cache_creation_tokens": 2458384,
@@ -944,7 +916,7 @@
       "cost": 14.61
     },
     {
-      "date": "Thu Jan 15 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-15",
       "input_tokens": 44117,
       "output_tokens": 18100,
       "cache_creation_tokens": 1836408,
@@ -953,7 +925,7 @@
       "cost": 6.66
     },
     {
-      "date": "Wed Jan 14 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-14",
       "input_tokens": 5661028,
       "output_tokens": 430186,
       "cache_creation_tokens": 372336,
@@ -962,7 +934,7 @@
       "cost": 13.33
     },
     {
-      "date": "Tue Jan 13 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-13",
       "input_tokens": 943867,
       "output_tokens": 146677,
       "cache_creation_tokens": 1196324,
@@ -971,7 +943,7 @@
       "cost": 7.33
     },
     {
-      "date": "Mon Jan 12 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-12",
       "input_tokens": 26504,
       "output_tokens": 9915,
       "cache_creation_tokens": 1131902,
@@ -980,7 +952,7 @@
       "cost": 6.61
     },
     {
-      "date": "Sun Jan 11 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-11",
       "input_tokens": 746908,
       "output_tokens": 80713,
       "cache_creation_tokens": 4326606,
@@ -989,7 +961,7 @@
       "cost": 25.78
     },
     {
-      "date": "Sat Jan 10 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-10",
       "input_tokens": 145394,
       "output_tokens": 49852,
       "cache_creation_tokens": 4654704,
@@ -998,7 +970,7 @@
       "cost": 19.32
     },
     {
-      "date": "Fri Jan 09 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-09",
       "input_tokens": 1040843,
       "output_tokens": 16390,
       "cache_creation_tokens": 1232200,
@@ -1007,7 +979,7 @@
       "cost": 2.33
     },
     {
-      "date": "Thu Jan 08 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-08",
       "input_tokens": 8745984,
       "output_tokens": 293685,
       "cache_creation_tokens": 995118,
@@ -1016,7 +988,7 @@
       "cost": 3.32
     },
     {
-      "date": "Wed Jan 07 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-07",
       "input_tokens": 326,
       "output_tokens": 1165,
       "cache_creation_tokens": 330347,
@@ -1025,7 +997,7 @@
       "cost": 3.87
     },
     {
-      "date": "Tue Jan 06 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-06",
       "input_tokens": 509376,
       "output_tokens": 54552,
       "cache_creation_tokens": 0,
@@ -1034,7 +1006,7 @@
       "cost": 1.3
     },
     {
-      "date": "Mon Jan 05 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-05",
       "input_tokens": 113905056,
       "output_tokens": 580836,
       "cache_creation_tokens": 0,
@@ -1043,7 +1015,7 @@
       "cost": 0
     },
     {
-      "date": "Sun Jan 04 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-04",
       "input_tokens": 12766062,
       "output_tokens": 89985,
       "cache_creation_tokens": 1175727,
@@ -1052,7 +1024,7 @@
       "cost": 24.59
     },
     {
-      "date": "Sat Jan 03 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-03",
       "input_tokens": 33063812,
       "output_tokens": 751036,
       "cache_creation_tokens": 7432312,
@@ -1061,7 +1033,7 @@
       "cost": 0
     },
     {
-      "date": "Fri Jan 02 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-02",
       "input_tokens": 20474,
       "output_tokens": 283,
       "cache_creation_tokens": 335545,
@@ -1070,7 +1042,7 @@
       "cost": 7.44
     },
     {
-      "date": "Thu Jan 01 2026 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2026-01-01",
       "input_tokens": 1837,
       "output_tokens": 53,
       "cache_creation_tokens": 258558,
@@ -1079,7 +1051,7 @@
       "cost": 2.79
     },
     {
-      "date": "Wed Dec 31 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-31",
       "input_tokens": 796455,
       "output_tokens": 41044,
       "cache_creation_tokens": 0,
@@ -1088,7 +1060,7 @@
       "cost": 1.9
     },
     {
-      "date": "Tue Dec 30 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-30",
       "input_tokens": 6287,
       "output_tokens": 3196,
       "cache_creation_tokens": 157605,
@@ -1097,7 +1069,7 @@
       "cost": 3.42
     },
     {
-      "date": "Mon Dec 29 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-29",
       "input_tokens": 777,
       "output_tokens": 43,
       "cache_creation_tokens": 125276,
@@ -1106,7 +1078,7 @@
       "cost": 1.95
     },
     {
-      "date": "Sun Dec 28 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-28",
       "input_tokens": 1116197,
       "output_tokens": 67959,
       "cache_creation_tokens": 122407,
@@ -1115,7 +1087,7 @@
       "cost": 4.4
     },
     {
-      "date": "Sat Dec 27 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-27",
       "input_tokens": 2,
       "output_tokens": 5,
       "cache_creation_tokens": 43073,
@@ -1124,7 +1096,7 @@
       "cost": 0.31
     },
     {
-      "date": "Fri Dec 26 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-26",
       "input_tokens": 1276415,
       "output_tokens": 65338,
       "cache_creation_tokens": 703245,
@@ -1133,7 +1105,7 @@
       "cost": 14.33
     },
     {
-      "date": "Thu Dec 25 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-25",
       "input_tokens": 5182968,
       "output_tokens": 135364,
       "cache_creation_tokens": 1089721,
@@ -1142,7 +1114,7 @@
       "cost": 30.06
     },
     {
-      "date": "Wed Dec 24 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-24",
       "input_tokens": 23242084,
       "output_tokens": 368382,
       "cache_creation_tokens": 932360,
@@ -1151,7 +1123,7 @@
       "cost": 11.53
     },
     {
-      "date": "Tue Dec 23 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-23",
       "input_tokens": 1840407,
       "output_tokens": 51386,
       "cache_creation_tokens": 289379,
@@ -1160,7 +1132,7 @@
       "cost": 6.91
     },
     {
-      "date": "Mon Dec 22 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-22",
       "input_tokens": 3597,
       "output_tokens": 4162,
       "cache_creation_tokens": 820471,
@@ -1169,7 +1141,7 @@
       "cost": 5.4
     },
     {
-      "date": "Sun Dec 21 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-21",
       "input_tokens": 88786,
       "output_tokens": 33805,
       "cache_creation_tokens": 1825214,
@@ -1178,7 +1150,7 @@
       "cost": 15.47
     },
     {
-      "date": "Sat Dec 20 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-20",
       "input_tokens": 100652,
       "output_tokens": 44189,
       "cache_creation_tokens": 2456150,
@@ -1187,7 +1159,7 @@
       "cost": 17.94
     },
     {
-      "date": "Fri Dec 19 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-19",
       "input_tokens": 238548,
       "output_tokens": 151742,
       "cache_creation_tokens": 9389811,
@@ -1196,7 +1168,7 @@
       "cost": 78.62
     },
     {
-      "date": "Thu Dec 18 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-18",
       "input_tokens": 484213,
       "output_tokens": 175333,
       "cache_creation_tokens": 11408979,
@@ -1205,7 +1177,7 @@
       "cost": 117.07
     },
     {
-      "date": "Wed Dec 17 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-17",
       "input_tokens": 212731,
       "output_tokens": 188522,
       "cache_creation_tokens": 8723751,
@@ -1214,7 +1186,7 @@
       "cost": 100.25
     },
     {
-      "date": "Tue Dec 16 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-16",
       "input_tokens": 1037308,
       "output_tokens": 272036,
       "cache_creation_tokens": 15978764,
@@ -1223,7 +1195,7 @@
       "cost": 134.79
     },
     {
-      "date": "Mon Dec 15 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-15",
       "input_tokens": 118702,
       "output_tokens": 43610,
       "cache_creation_tokens": 3841742,
@@ -1232,7 +1204,7 @@
       "cost": 40.25
     },
     {
-      "date": "Sun Dec 14 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-14",
       "input_tokens": 374231,
       "output_tokens": 160289,
       "cache_creation_tokens": 8181940,
@@ -1241,7 +1213,7 @@
       "cost": 120.61
     },
     {
-      "date": "Sat Dec 13 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-13",
       "input_tokens": 458605,
       "output_tokens": 127918,
       "cache_creation_tokens": 6023361,
@@ -1250,7 +1222,7 @@
       "cost": 86.94
     },
     {
-      "date": "Fri Dec 12 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-12",
       "input_tokens": 214089,
       "output_tokens": 78142,
       "cache_creation_tokens": 4578089,
@@ -1259,7 +1231,7 @@
       "cost": 45.45
     },
     {
-      "date": "Thu Dec 11 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-11",
       "input_tokens": 506833,
       "output_tokens": 248801,
       "cache_creation_tokens": 10291968,
@@ -1268,7 +1240,7 @@
       "cost": 144.84
     },
     {
-      "date": "Wed Dec 10 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-10",
       "input_tokens": 188593,
       "output_tokens": 170133,
       "cache_creation_tokens": 6762299,
@@ -1277,7 +1249,7 @@
       "cost": 89.04
     },
     {
-      "date": "Tue Dec 09 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-09",
       "input_tokens": 148232,
       "output_tokens": 263430,
       "cache_creation_tokens": 9214982,
@@ -1286,7 +1258,7 @@
       "cost": 95.14
     },
     {
-      "date": "Mon Dec 08 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-08",
       "input_tokens": 93851,
       "output_tokens": 62310,
       "cache_creation_tokens": 3312763,
@@ -1295,7 +1267,7 @@
       "cost": 73.4
     },
     {
-      "date": "Sun Dec 07 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-07",
       "input_tokens": 7651,
       "output_tokens": 18494,
       "cache_creation_tokens": 696922,
@@ -1304,7 +1276,7 @@
       "cost": 13.01
     },
     {
-      "date": "Sat Dec 06 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-06",
       "input_tokens": 216140,
       "output_tokens": 154220,
       "cache_creation_tokens": 4924500,
@@ -1313,7 +1285,7 @@
       "cost": 59.36
     },
     {
-      "date": "Fri Dec 05 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-05",
       "input_tokens": 433772,
       "output_tokens": 170354,
       "cache_creation_tokens": 4465709,
@@ -1322,7 +1294,7 @@
       "cost": 59.42
     },
     {
-      "date": "Thu Dec 04 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-04",
       "input_tokens": 399255,
       "output_tokens": 334179,
       "cache_creation_tokens": 6782775,
@@ -1331,7 +1303,7 @@
       "cost": 83.66
     },
     {
-      "date": "Wed Dec 03 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-03",
       "input_tokens": 415421,
       "output_tokens": 223411,
       "cache_creation_tokens": 7894584,
@@ -1340,7 +1312,7 @@
       "cost": 115.6
     },
     {
-      "date": "Tue Dec 02 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-02",
       "input_tokens": 76951,
       "output_tokens": 149377,
       "cache_creation_tokens": 6394151,
@@ -1349,7 +1321,7 @@
       "cost": 70.46
     },
     {
-      "date": "Mon Dec 01 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-12-01",
       "input_tokens": 3692729,
       "output_tokens": 288281,
       "cache_creation_tokens": 2189490,
@@ -1358,7 +1330,7 @@
       "cost": 25.69
     },
     {
-      "date": "Sun Nov 30 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-30",
       "input_tokens": 78821,
       "output_tokens": 67863,
       "cache_creation_tokens": 1718587,
@@ -1367,7 +1339,7 @@
       "cost": 25.38
     },
     {
-      "date": "Sat Nov 29 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-29",
       "input_tokens": 905131,
       "output_tokens": 242919,
       "cache_creation_tokens": 7081046,
@@ -1376,7 +1348,7 @@
       "cost": 91.29
     },
     {
-      "date": "Fri Nov 28 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-28",
       "input_tokens": 3085,
       "output_tokens": 2199,
       "cache_creation_tokens": 77963,
@@ -1385,7 +1357,7 @@
       "cost": 1.39
     },
     {
-      "date": "Thu Nov 27 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-27",
       "input_tokens": 40,
       "output_tokens": 1818,
       "cache_creation_tokens": 113523,
@@ -1394,7 +1366,7 @@
       "cost": 1.91
     },
     {
-      "date": "Wed Nov 26 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-26",
       "input_tokens": 10,
       "output_tokens": 3,
       "cache_creation_tokens": 49359,
@@ -1403,7 +1375,7 @@
       "cost": 0.31
     },
     {
-      "date": "Tue Nov 25 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-25",
       "input_tokens": 34425,
       "output_tokens": 26024,
       "cache_creation_tokens": 1183842,
@@ -1412,7 +1384,7 @@
       "cost": 13.77
     },
     {
-      "date": "Mon Nov 24 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-24",
       "input_tokens": 248217,
       "output_tokens": 145412,
       "cache_creation_tokens": 5895934,
@@ -1421,7 +1393,7 @@
       "cost": 61.27
     },
     {
-      "date": "Sun Nov 23 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-23",
       "input_tokens": 100654,
       "output_tokens": 131092,
       "cache_creation_tokens": 6461388,
@@ -1430,7 +1402,7 @@
       "cost": 53.74
     },
     {
-      "date": "Sat Nov 22 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-22",
       "input_tokens": 292027,
       "output_tokens": 92142,
       "cache_creation_tokens": 5197378,
@@ -1439,7 +1411,7 @@
       "cost": 46.29
     },
     {
-      "date": "Fri Nov 21 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-21",
       "input_tokens": 56073,
       "output_tokens": 170601,
       "cache_creation_tokens": 2979437,
@@ -1448,7 +1420,7 @@
       "cost": 20.02
     },
     {
-      "date": "Thu Nov 20 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-20",
       "input_tokens": 111701,
       "output_tokens": 336098,
       "cache_creation_tokens": 5626455,
@@ -1457,7 +1429,7 @@
       "cost": 46.8
     },
     {
-      "date": "Wed Nov 19 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-19",
       "input_tokens": 29185,
       "output_tokens": 237754,
       "cache_creation_tokens": 3187667,
@@ -1466,7 +1438,7 @@
       "cost": 28.45
     },
     {
-      "date": "Tue Nov 18 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-18",
       "input_tokens": 50537,
       "output_tokens": 529548,
       "cache_creation_tokens": 8647673,
@@ -1475,7 +1447,7 @@
       "cost": 78.79
     },
     {
-      "date": "Mon Nov 17 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-17",
       "input_tokens": 140783,
       "output_tokens": 719440,
       "cache_creation_tokens": 8156847,
@@ -1484,7 +1456,7 @@
       "cost": 84.03
     },
     {
-      "date": "Sat Nov 15 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-15",
       "input_tokens": 11018,
       "output_tokens": 234892,
       "cache_creation_tokens": 2535049,
@@ -1493,7 +1465,7 @@
       "cost": 25.42
     },
     {
-      "date": "Fri Nov 14 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-14",
       "input_tokens": 47504,
       "output_tokens": 195868,
       "cache_creation_tokens": 2793348,
@@ -1502,7 +1474,7 @@
       "cost": 26.79
     },
     {
-      "date": "Thu Nov 13 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-13",
       "input_tokens": 120892486,
       "output_tokens": 1606424,
       "cache_creation_tokens": 14907680,
@@ -1511,7 +1483,7 @@
       "cost": 149.32
     },
     {
-      "date": "Wed Nov 12 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-12",
       "input_tokens": 275016,
       "output_tokens": 1246222,
       "cache_creation_tokens": 20377736,
@@ -1520,7 +1492,7 @@
       "cost": 95.38
     },
     {
-      "date": "Tue Nov 11 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-11",
       "input_tokens": 301298,
       "output_tokens": 1355058,
       "cache_creation_tokens": 27924704,
@@ -1529,7 +1501,7 @@
       "cost": 126.99
     },
     {
-      "date": "Mon Nov 10 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-10",
       "input_tokens": 17286,
       "output_tokens": 143252,
       "cache_creation_tokens": 2068876,
@@ -1538,7 +1510,7 @@
       "cost": 8.87
     },
     {
-      "date": "Sun Nov 09 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-09",
       "input_tokens": 142948,
       "output_tokens": 656784,
       "cache_creation_tokens": 14388886,
@@ -1547,7 +1519,7 @@
       "cost": 63.18
     },
     {
-      "date": "Sat Nov 08 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-08",
       "input_tokens": 2392,
       "output_tokens": 91512,
       "cache_creation_tokens": 2707280,
@@ -1556,7 +1528,7 @@
       "cost": 14.37
     },
     {
-      "date": "Fri Nov 07 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-07",
       "input_tokens": 21240,
       "output_tokens": 13024,
       "cache_creation_tokens": 1170542,
@@ -1565,7 +1537,7 @@
       "cost": 4.45
     },
     {
-      "date": "Thu Nov 06 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-06",
       "input_tokens": 38668512,
       "output_tokens": 724056,
       "cache_creation_tokens": 24949544,
@@ -1574,7 +1546,7 @@
       "cost": 136.11
     },
     {
-      "date": "Wed Nov 05 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-05",
       "input_tokens": 384946,
       "output_tokens": 5610,
       "cache_creation_tokens": 0,
@@ -1583,7 +1555,7 @@
       "cost": 0.16
     },
     {
-      "date": "Tue Nov 04 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-04",
       "input_tokens": 78346,
       "output_tokens": 157046,
       "cache_creation_tokens": 5172796,
@@ -1592,7 +1564,7 @@
       "cost": 23.98
     },
     {
-      "date": "Mon Nov 03 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-03",
       "input_tokens": 2912,
       "output_tokens": 44254,
       "cache_creation_tokens": 3074706,
@@ -1601,7 +1573,7 @@
       "cost": 26.72
     },
     {
-      "date": "Sat Nov 01 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-11-01",
       "input_tokens": 4188,
       "output_tokens": 8148,
       "cache_creation_tokens": 4046322,
@@ -1610,7 +1582,7 @@
       "cost": 31.68
     },
     {
-      "date": "Fri Oct 31 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-31",
       "input_tokens": 1076,
       "output_tokens": 254,
       "cache_creation_tokens": 1112660,
@@ -1619,7 +1591,7 @@
       "cost": 6.77
     },
     {
-      "date": "Thu Oct 30 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-30",
       "input_tokens": 318,
       "output_tokens": 77352,
       "cache_creation_tokens": 2473954,
@@ -1628,7 +1600,7 @@
       "cost": 23.41
     },
     {
-      "date": "Wed Oct 29 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-29",
       "input_tokens": 28024,
       "output_tokens": 743054,
       "cache_creation_tokens": 16177400,
@@ -1637,7 +1609,7 @@
       "cost": 88.86
     },
     {
-      "date": "Tue Oct 28 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-28",
       "input_tokens": 54,
       "output_tokens": 1118,
       "cache_creation_tokens": 171356,
@@ -1646,7 +1618,7 @@
       "cost": 0.71
     },
     {
-      "date": "Mon Oct 27 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-27",
       "input_tokens": 8044,
       "output_tokens": 139096,
       "cache_creation_tokens": 1461616,
@@ -1655,7 +1627,7 @@
       "cost": 13.27
     },
     {
-      "date": "Sun Oct 26 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-26",
       "input_tokens": 58108,
       "output_tokens": 757256,
       "cache_creation_tokens": 6983212,
@@ -1664,7 +1636,7 @@
       "cost": 67.68
     },
     {
-      "date": "Sat Oct 25 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-25",
       "input_tokens": 92,
       "output_tokens": 22484,
       "cache_creation_tokens": 569784,
@@ -1673,7 +1645,7 @@
       "cost": 7.6
     },
     {
-      "date": "Fri Oct 24 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-24",
       "input_tokens": 1006,
       "output_tokens": 85056,
       "cache_creation_tokens": 1270640,
@@ -1682,7 +1654,7 @@
       "cost": 8.79
     },
     {
-      "date": "Thu Oct 23 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-23",
       "input_tokens": 10740,
       "output_tokens": 14026,
       "cache_creation_tokens": 825522,
@@ -1691,7 +1663,7 @@
       "cost": 8.58
     },
     {
-      "date": "Wed Oct 22 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-22",
       "input_tokens": 8676,
       "output_tokens": 40988,
       "cache_creation_tokens": 3552242,
@@ -1700,7 +1672,7 @@
       "cost": 21.55
     },
     {
-      "date": "Tue Oct 21 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-21",
       "input_tokens": 23866,
       "output_tokens": 104,
       "cache_creation_tokens": 604946,
@@ -1709,7 +1681,7 @@
       "cost": 3.15
     },
     {
-      "date": "Mon Oct 20 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-20",
       "input_tokens": 54378,
       "output_tokens": 186358,
       "cache_creation_tokens": 2976166,
@@ -1718,7 +1690,7 @@
       "cost": 18.33
     },
     {
-      "date": "Sun Oct 19 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-19",
       "input_tokens": 14686,
       "output_tokens": 134906,
       "cache_creation_tokens": 2061886,
@@ -1727,7 +1699,7 @@
       "cost": 21.1
     },
     {
-      "date": "Sat Oct 18 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-18",
       "input_tokens": 8726,
       "output_tokens": 91654,
       "cache_creation_tokens": 4221520,
@@ -1736,7 +1708,7 @@
       "cost": 31.48
     },
     {
-      "date": "Fri Oct 17 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-17",
       "input_tokens": 21322,
       "output_tokens": 26808,
       "cache_creation_tokens": 527000,
@@ -1745,7 +1717,7 @@
       "cost": 3.37
     },
     {
-      "date": "Thu Oct 16 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-16",
       "input_tokens": 99452,
       "output_tokens": 248360,
       "cache_creation_tokens": 13305274,
@@ -1754,7 +1726,7 @@
       "cost": 93.1
     },
     {
-      "date": "Wed Oct 15 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-15",
       "input_tokens": 12826,
       "output_tokens": 4636,
       "cache_creation_tokens": 1041390,
@@ -1763,7 +1735,7 @@
       "cost": 5.5
     },
     {
-      "date": "Tue Oct 14 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-14",
       "input_tokens": 230,
       "output_tokens": 3632,
       "cache_creation_tokens": 535936,
@@ -1772,7 +1744,7 @@
       "cost": 3.22
     },
     {
-      "date": "Mon Oct 13 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-13",
       "input_tokens": 6266,
       "output_tokens": 15496,
       "cache_creation_tokens": 653948,
@@ -1781,7 +1753,7 @@
       "cost": 7.02
     },
     {
-      "date": "Sat Oct 11 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-11",
       "input_tokens": 29916,
       "output_tokens": 488714,
       "cache_creation_tokens": 6991366,
@@ -1790,7 +1762,7 @@
       "cost": 64.26
     },
     {
-      "date": "Fri Oct 10 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-10",
       "input_tokens": 29048,
       "output_tokens": 49362,
       "cache_creation_tokens": 654690,
@@ -1799,7 +1771,7 @@
       "cost": 5.19
     },
     {
-      "date": "Thu Oct 09 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-09",
       "input_tokens": 37560,
       "output_tokens": 135008,
       "cache_creation_tokens": 1553592,
@@ -1808,7 +1780,7 @@
       "cost": 14.07
     },
     {
-      "date": "Wed Oct 08 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-08",
       "input_tokens": 154,
       "output_tokens": 18014,
       "cache_creation_tokens": 4556024,
@@ -1817,7 +1789,7 @@
       "cost": 20.03
     },
     {
-      "date": "Tue Oct 07 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-07",
       "input_tokens": 1774,
       "output_tokens": 11886,
       "cache_creation_tokens": 2060874,
@@ -1826,7 +1798,7 @@
       "cost": 9.1
     },
     {
-      "date": "Mon Oct 06 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-06",
       "input_tokens": 1528,
       "output_tokens": 16990,
       "cache_creation_tokens": 1011032,
@@ -1835,7 +1807,7 @@
       "cost": 7.59
     },
     {
-      "date": "Sun Oct 05 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-05",
       "input_tokens": 15846,
       "output_tokens": 155692,
       "cache_creation_tokens": 7694218,
@@ -1844,7 +1816,7 @@
       "cost": 55.69
     },
     {
-      "date": "Sat Oct 04 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-04",
       "input_tokens": 474,
       "output_tokens": 84,
       "cache_creation_tokens": 94020,
@@ -1853,7 +1825,7 @@
       "cost": 0.58
     },
     {
-      "date": "Fri Oct 03 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-03",
       "input_tokens": 45122,
       "output_tokens": 492516,
       "cache_creation_tokens": 17792200,
@@ -1862,7 +1834,7 @@
       "cost": 198.49
     },
     {
-      "date": "Thu Oct 02 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-02",
       "input_tokens": 50724,
       "output_tokens": 417194,
       "cache_creation_tokens": 18396462,
@@ -1871,7 +1843,7 @@
       "cost": 152.44
     },
     {
-      "date": "Wed Oct 01 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-10-01",
       "input_tokens": 172,
       "output_tokens": 101730,
       "cache_creation_tokens": 626912,
@@ -1880,7 +1852,7 @@
       "cost": 10.21
     },
     {
-      "date": "Tue Sep 30 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-30",
       "input_tokens": 31992,
       "output_tokens": 143794,
       "cache_creation_tokens": 4281318,
@@ -1889,7 +1861,7 @@
       "cost": 46.14
     },
     {
-      "date": "Mon Sep 29 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-29",
       "input_tokens": 20928,
       "output_tokens": 284276,
       "cache_creation_tokens": 4718924,
@@ -1898,7 +1870,7 @@
       "cost": 71.42
     },
     {
-      "date": "Sun Sep 28 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-28",
       "input_tokens": 2646,
       "output_tokens": 89592,
       "cache_creation_tokens": 773458,
@@ -1907,7 +1879,7 @@
       "cost": 8.74
     },
     {
-      "date": "Sat Sep 27 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-27",
       "input_tokens": 1726,
       "output_tokens": 166,
       "cache_creation_tokens": 249200,
@@ -1916,7 +1888,7 @@
       "cost": 3.01
     },
     {
-      "date": "Fri Sep 26 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-26",
       "input_tokens": 226,
       "output_tokens": 6764,
       "cache_creation_tokens": 1342580,
@@ -1925,7 +1897,7 @@
       "cost": 12.15
     },
     {
-      "date": "Thu Sep 25 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-25",
       "input_tokens": 1946,
       "output_tokens": 27446,
       "cache_creation_tokens": 1979506,
@@ -1934,7 +1906,7 @@
       "cost": 19.8
     },
     {
-      "date": "Wed Sep 24 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-24",
       "input_tokens": 1354,
       "output_tokens": 12974,
       "cache_creation_tokens": 1103226,
@@ -1943,7 +1915,7 @@
       "cost": 10.46
     },
     {
-      "date": "Tue Sep 23 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-23",
       "input_tokens": 15820,
       "output_tokens": 23636,
       "cache_creation_tokens": 2884622,
@@ -1952,7 +1924,7 @@
       "cost": 25.9
     },
     {
-      "date": "Mon Sep 22 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-22",
       "input_tokens": 450,
       "output_tokens": 11270,
       "cache_creation_tokens": 1022862,
@@ -1961,7 +1933,7 @@
       "cost": 17.49
     },
     {
-      "date": "Sun Sep 21 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-21",
       "input_tokens": 1244,
       "output_tokens": 19366,
       "cache_creation_tokens": 3745500,
@@ -1970,7 +1942,7 @@
       "cost": 91.92
     },
     {
-      "date": "Sat Sep 20 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-20",
       "input_tokens": 314,
       "output_tokens": 13868,
       "cache_creation_tokens": 431882,
@@ -1979,7 +1951,7 @@
       "cost": 3.6
     },
     {
-      "date": "Fri Sep 19 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-19",
       "input_tokens": 1074,
       "output_tokens": 7376,
       "cache_creation_tokens": 1581324,
@@ -1988,7 +1960,7 @@
       "cost": 19.23
     },
     {
-      "date": "Thu Sep 18 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-18",
       "input_tokens": 218,
       "output_tokens": 3612,
       "cache_creation_tokens": 308458,
@@ -1997,7 +1969,7 @@
       "cost": 8.89
     },
     {
-      "date": "Wed Sep 17 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-17",
       "input_tokens": 8746,
       "output_tokens": 32650,
       "cache_creation_tokens": 5047230,
@@ -2006,7 +1978,7 @@
       "cost": 42.7
     },
     {
-      "date": "Tue Sep 16 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-16",
       "input_tokens": 344,
       "output_tokens": 394,
       "cache_creation_tokens": 194944,
@@ -2015,7 +1987,7 @@
       "cost": 1.26
     },
     {
-      "date": "Mon Sep 15 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-15",
       "input_tokens": 978,
       "output_tokens": 28594,
       "cache_creation_tokens": 980552,
@@ -2024,7 +1996,7 @@
       "cost": 12.56
     },
     {
-      "date": "Sun Sep 14 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-14",
       "input_tokens": 2958,
       "output_tokens": 150384,
       "cache_creation_tokens": 5717538,
@@ -2033,7 +2005,7 @@
       "cost": 57.86
     },
     {
-      "date": "Sat Sep 13 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-13",
       "input_tokens": 20742,
       "output_tokens": 8954,
       "cache_creation_tokens": 1888880,
@@ -2042,7 +2014,7 @@
       "cost": 15.38
     },
     {
-      "date": "Fri Sep 12 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-12",
       "input_tokens": 344,
       "output_tokens": 17408,
       "cache_creation_tokens": 1651700,
@@ -2051,7 +2023,7 @@
       "cost": 14.74
     },
     {
-      "date": "Thu Sep 11 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-11",
       "input_tokens": 6268,
       "output_tokens": 41328,
       "cache_creation_tokens": 4065918,
@@ -2060,7 +2032,7 @@
       "cost": 44.96
     },
     {
-      "date": "Wed Sep 10 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-10",
       "input_tokens": 178,
       "output_tokens": 568,
       "cache_creation_tokens": 237142,
@@ -2069,7 +2041,7 @@
       "cost": 2.34
     },
     {
-      "date": "Tue Sep 09 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-09",
       "input_tokens": 7130,
       "output_tokens": 62566,
       "cache_creation_tokens": 5441980,
@@ -2078,7 +2050,7 @@
       "cost": 65.87
     },
     {
-      "date": "Mon Sep 08 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-08",
       "input_tokens": 245508,
       "output_tokens": 364920,
       "cache_creation_tokens": 13166130,
@@ -2087,7 +2059,7 @@
       "cost": 125.26
     },
     {
-      "date": "Sun Sep 07 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-07",
       "input_tokens": 592,
       "output_tokens": 692,
       "cache_creation_tokens": 698554,
@@ -2096,7 +2068,7 @@
       "cost": 6.37
     },
     {
-      "date": "Sat Sep 06 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-06",
       "input_tokens": 20242,
       "output_tokens": 215104,
       "cache_creation_tokens": 8010584,
@@ -2105,7 +2077,7 @@
       "cost": 94.07
     },
     {
-      "date": "Fri Sep 05 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-05",
       "input_tokens": 10260,
       "output_tokens": 111860,
       "cache_creation_tokens": 6438042,
@@ -2114,7 +2086,7 @@
       "cost": 58
     },
     {
-      "date": "Thu Sep 04 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-04",
       "input_tokens": 24026,
       "output_tokens": 167272,
       "cache_creation_tokens": 2264214,
@@ -2123,7 +2095,7 @@
       "cost": 27.93
     },
     {
-      "date": "Wed Sep 03 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-03",
       "input_tokens": 41012,
       "output_tokens": 183042,
       "cache_creation_tokens": 7809794,
@@ -2132,7 +2104,7 @@
       "cost": 75.16
     },
     {
-      "date": "Tue Sep 02 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-02",
       "input_tokens": 1994,
       "output_tokens": 78669,
       "cache_creation_tokens": 2050277,
@@ -2141,7 +2113,7 @@
       "cost": 31.31
     },
     {
-      "date": "Mon Sep 01 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-09-01",
       "input_tokens": 13780,
       "output_tokens": 30882,
       "cache_creation_tokens": 1101008,
@@ -2150,7 +2122,7 @@
       "cost": 9.51
     },
     {
-      "date": "Sun Aug 31 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-31",
       "input_tokens": 4368,
       "output_tokens": 952,
       "cache_creation_tokens": 170594,
@@ -2159,7 +2131,7 @@
       "cost": 1.66
     },
     {
-      "date": "Sat Aug 30 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-30",
       "input_tokens": 347,
       "output_tokens": 4209,
       "cache_creation_tokens": 906009,
@@ -2168,7 +2140,7 @@
       "cost": 8.73
     },
     {
-      "date": "Fri Aug 29 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-29",
       "input_tokens": 233,
       "output_tokens": 269,
       "cache_creation_tokens": 137754,
@@ -2177,7 +2149,7 @@
       "cost": 1.82
     },
     {
-      "date": "Thu Aug 28 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-28",
       "input_tokens": 14352,
       "output_tokens": 37297,
       "cache_creation_tokens": 2923161,
@@ -2186,7 +2158,7 @@
       "cost": 28.29
     },
     {
-      "date": "Wed Aug 27 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-27",
       "input_tokens": 3734,
       "output_tokens": 58791,
       "cache_creation_tokens": 2858973,
@@ -2195,7 +2167,7 @@
       "cost": 29.65
     },
     {
-      "date": "Tue Aug 26 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-26",
       "input_tokens": 1287,
       "output_tokens": 9369,
       "cache_creation_tokens": 595153,
@@ -2204,7 +2176,7 @@
       "cost": 7
     },
     {
-      "date": "Mon Aug 25 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-25",
       "input_tokens": 51285,
       "output_tokens": 192836,
       "cache_creation_tokens": 8053913,
@@ -2213,7 +2185,7 @@
       "cost": 76.05
     },
     {
-      "date": "Sun Aug 24 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-24",
       "input_tokens": 21602,
       "output_tokens": 262545,
       "cache_creation_tokens": 6200550,
@@ -2222,7 +2194,7 @@
       "cost": 74.25
     },
     {
-      "date": "Sat Aug 23 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-23",
       "input_tokens": 5378,
       "output_tokens": 71174,
       "cache_creation_tokens": 4971931,
@@ -2231,7 +2203,7 @@
       "cost": 62.03
     },
     {
-      "date": "Fri Aug 22 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-22",
       "input_tokens": 6371,
       "output_tokens": 115519,
       "cache_creation_tokens": 5654876,
@@ -2240,7 +2212,7 @@
       "cost": 59.96
     },
     {
-      "date": "Thu Aug 21 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-21",
       "input_tokens": 5119,
       "output_tokens": 137272,
       "cache_creation_tokens": 5224268,
@@ -2249,7 +2221,7 @@
       "cost": 96.53
     },
     {
-      "date": "Wed Aug 20 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-20",
       "input_tokens": 2966,
       "output_tokens": 69089,
       "cache_creation_tokens": 4358531,
@@ -2258,7 +2230,7 @@
       "cost": 55.75
     },
     {
-      "date": "Tue Aug 19 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-19",
       "input_tokens": 968,
       "output_tokens": 26144,
       "cache_creation_tokens": 1687031,
@@ -2267,7 +2239,7 @@
       "cost": 37.03
     },
     {
-      "date": "Mon Aug 18 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-18",
       "input_tokens": 5384,
       "output_tokens": 90084,
       "cache_creation_tokens": 5625192,
@@ -2276,7 +2248,7 @@
       "cost": 71.38
     },
     {
-      "date": "Sun Aug 17 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-17",
       "input_tokens": 3678,
       "output_tokens": 119038,
       "cache_creation_tokens": 2793844,
@@ -2285,7 +2257,7 @@
       "cost": 41.67
     },
     {
-      "date": "Sat Aug 16 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-16",
       "input_tokens": 9136,
       "output_tokens": 1336980,
       "cache_creation_tokens": 8738997,
@@ -2294,7 +2266,7 @@
       "cost": 107.75
     },
     {
-      "date": "Fri Aug 15 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-15",
       "input_tokens": 3248,
       "output_tokens": 56883,
       "cache_creation_tokens": 3075899,
@@ -2303,7 +2275,7 @@
       "cost": 27.72
     },
     {
-      "date": "Thu Aug 14 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-14",
       "input_tokens": 6505,
       "output_tokens": 333802,
       "cache_creation_tokens": 7061026,
@@ -2312,7 +2284,7 @@
       "cost": 92.36
     },
     {
-      "date": "Wed Aug 13 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-13",
       "input_tokens": 4501,
       "output_tokens": 136103,
       "cache_creation_tokens": 4355827,
@@ -2321,7 +2293,7 @@
       "cost": 84.19
     },
     {
-      "date": "Tue Aug 12 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-12",
       "input_tokens": 8330,
       "output_tokens": 37576,
       "cache_creation_tokens": 2872696,
@@ -2330,7 +2302,7 @@
       "cost": 92.25
     },
     {
-      "date": "Mon Aug 11 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-11",
       "input_tokens": 8856,
       "output_tokens": 88186,
       "cache_creation_tokens": 2710718,
@@ -2339,7 +2311,7 @@
       "cost": 125.2
     },
     {
-      "date": "Sun Aug 10 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-10",
       "input_tokens": 2296,
       "output_tokens": 96035,
       "cache_creation_tokens": 2271478,
@@ -2348,7 +2320,7 @@
       "cost": 50.88
     },
     {
-      "date": "Sat Aug 09 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-09",
       "input_tokens": 2408,
       "output_tokens": 28579,
       "cache_creation_tokens": 1614440,
@@ -2357,7 +2329,7 @@
       "cost": 61.66
     },
     {
-      "date": "Fri Aug 08 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-08",
       "input_tokens": 8547,
       "output_tokens": 156940,
       "cache_creation_tokens": 6197455,
@@ -2366,7 +2338,7 @@
       "cost": 147.48
     },
     {
-      "date": "Thu Aug 07 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-07",
       "input_tokens": 664,
       "output_tokens": 6898,
       "cache_creation_tokens": 258072,
@@ -2375,7 +2347,7 @@
       "cost": 21.11
     },
     {
-      "date": "Wed Aug 06 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-06",
       "input_tokens": 133,
       "output_tokens": 14151,
       "cache_creation_tokens": 170870,
@@ -2384,7 +2356,7 @@
       "cost": 11.13
     },
     {
-      "date": "Tue Aug 05 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-05",
       "input_tokens": 703,
       "output_tokens": 18283,
       "cache_creation_tokens": 712136,
@@ -2393,7 +2365,7 @@
       "cost": 78.15
     },
     {
-      "date": "Sun Aug 03 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-03",
       "input_tokens": 147,
       "output_tokens": 1903,
       "cache_creation_tokens": 138599,
@@ -2402,7 +2374,7 @@
       "cost": 1.92
     },
     {
-      "date": "Sat Aug 02 2025 07:00:00 GMT+0700 (Indochina Time)",
+      "date": "2025-08-02",
       "input_tokens": 1899,
       "output_tokens": 1765,
       "cache_creation_tokens": 180129,
