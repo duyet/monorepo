@@ -32,7 +32,7 @@ function About() {
       description:
         "Experience building scalable data infrastructure and leading engineering teams.",
       url: "https://cv.duyet.net",
-      color: "bg-orange-100/50",
+      color: "bg-orange-100/50 dark:bg-[#4f2f1f]",
     },
     {
       icon: GithubIcon,
@@ -40,7 +40,7 @@ function About() {
       description:
         "Open source contributions and personal projects in Python, Rust, and TypeScript.",
       url: "https://github.com/duyet",
-      color: "bg-purple-100/50",
+      color: "bg-purple-100/50 dark:bg-[#2f1f3f]",
     },
     {
       icon: LinkedInIcon,
@@ -48,7 +48,7 @@ function About() {
       description:
         "Professional network and career highlights in data engineering.",
       url: "https://linkedin.com/in/duyet",
-      color: "bg-blue-100/50",
+      color: "bg-blue-100/50 dark:bg-[#1f2a3f]",
     },
     {
       icon: BlogIcon,
@@ -56,7 +56,7 @@ function About() {
       description:
         "Technical writings on data engineering, distributed systems, and open source.",
       url: "/",
-      color: "bg-amber-100/60",
+      color: "bg-amber-100/60 dark:bg-[#3f2f1f]",
     },
   ];
 
@@ -125,13 +125,13 @@ function About() {
               to={link.url as "/"}
               className={`group flex flex-col p-10 ${link.color} rounded-xl transition-transform duration-200 hover:scale-[1.02]`}
             >
-              <div className="mb-8 text-[#1a1a1a]">
+              <div className="mb-8 text-[#1a1a1a] dark:text-[#f8f8f2]">
                 <Icon />
               </div>
-              <h3 className="mb-3 text-xl font-medium text-[#1a1a1a]">
+              <h3 className="mb-3 text-xl font-medium text-[#1a1a1a] dark:text-[#f8f8f2]">
                 {link.title}
               </h3>
-              <p className="text-sm leading-relaxed text-[#1a1a1a]/70">
+              <p className="text-sm leading-relaxed text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
                 {link.description}
               </p>
             </Link>
