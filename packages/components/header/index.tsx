@@ -48,14 +48,14 @@ export default function Header({
   return (
     <header
       className={cn(
-        "z-50 bg-white dark:bg-[#0d0e0c]",
-        "border-b border-[#1a1a1a]/8 dark:border-white/8",
+        "z-50 bg-[#faf9f5] dark:bg-[#0d0e0c]",
+        "border-b border-[#e6dfd8] dark:border-white/8",
         className
       )}
     >
       <div
         className={cn(
-          "mx-auto flex max-w-[1280px] items-center justify-between px-5 py-3 sm:px-8 lg:px-10",
+          "mx-auto flex max-w-[1200px] items-center justify-between px-5 py-3 sm:px-8 lg:px-10",
           containerClassName
         )}
       >
@@ -98,8 +98,8 @@ export default function Header({
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             className={cn(
               "inline-flex h-8 w-8 items-center justify-center rounded-lg",
-              "text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70",
-              "hover:bg-[#f7f7f7] dark:hover:bg-white/5",
+              "text-[#6c6a64] dark:text-[#f8f8f2]/70",
+              "hover:bg-[#efe9de] dark:hover:bg-white/5",
               "transition-colors"
             )}
           >
@@ -119,7 +119,7 @@ export default function Header({
           mobileOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         )}
       >
-        <div className="border-t border-[#1a1a1a]/8 dark:border-white/8 px-5 py-3">
+        <div className="border-t border-[#e6dfd8] dark:border-white/8 px-5 py-3">
           <MenuNav
             urls={urls}
             navigationItems={navigationItems}

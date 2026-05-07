@@ -23,16 +23,16 @@
   }
 }
 
-/* Design system tokens — shared public app palette */
+/* Design system tokens — Anthropic warm cream palette */
 :root {
-  --background: #ffffff;
-  --foreground: #1a1a1a;
-  --muted: #f4f4ef;
-  --muted-foreground: #5f5f57;
-  --border: #e8e6de;
-  --accent: oklch(70.5% 0.213 47.604);
-  --panel-blue: #dceafa;
-  --panel-emerald: #dcefe7;
+  --background: #faf9f5;
+  --foreground: #141413;
+  --muted: #efe9de;
+  --muted-foreground: #6c6a64;
+  --border: #e6dfd8;
+  --accent: #cc785c;
+  --panel-blue: #dbeafe;
+  --panel-emerald: #d1fae5;
   --panel-red: #f2dedb;
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
@@ -43,9 +43,9 @@
   --background: #0d0e0c;
   --foreground: #f8f8f2;
   --muted: #242420;
-  --muted-foreground: #b0b0a8;
+  --muted-foreground: #a09d96;
   --border: rgba(248, 248, 242, 0.12);
-  --accent: oklch(70.5% 0.213 47.604);
+  --accent: #cc785c;
   --panel-blue: #1a2a3f;
   --panel-emerald: #164634;
   --panel-red: #3f1f1f;
@@ -60,10 +60,10 @@ body {
   color: var(--foreground);
 }
 
-/* Warm code styling — overrides shared cool slate colors */
+/* Warm code styling — cream surfaces */
 .prose :where(code):not(:where(pre code)) {
-  background-color: #f3f2f0 !important;
-  color: #3d3c38 !important;
+  background-color: #efe9de !important;
+  color: #3d3d3a !important;
   border-radius: 0.25rem;
   padding: 0.125rem 0.375rem;
 }
@@ -76,9 +76,9 @@ body {
 .prose pre,
 .prose pre[class*="language-"],
 article pre {
-  background-color: #f9f9f8 !important;
-  border: 1px solid #e8e6e2 !important;
-  color: #3d3c38 !important;
+  background-color: #f5f0e8 !important;
+  border: 1px solid #e6dfd8 !important;
+  color: #3d3d3a !important;
 }
 
 .dark .prose pre,
@@ -91,11 +91,11 @@ html.dark .prose pre {
 }
 
 .dark .prose a {
-  color: #e8e6e2;
+  color: #cc785c;
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 
 .dark .prose a:hover {
-  color: #f9f9f8;
+  color: #e8a55a;
 }

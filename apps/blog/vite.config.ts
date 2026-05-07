@@ -31,11 +31,12 @@ export default defineConfig({
     tailwindcss(),
     tsconfigPaths(),
     {
-      name: "wasm-external",
+      name: "wasm-resolve",
       enforce: "pre",
       resolveId(source: string) {
         if (source.startsWith("@duyet/wasm/pkg/")) {
-          return { id: source, external: true };
+          const relPath = source.replace("@duyet/wasm/", "");
+          return resolve(__dirname, "../../packages/wasm", relPath);
         }
       },
     },

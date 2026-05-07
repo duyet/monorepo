@@ -18,21 +18,21 @@ import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center px-4 bg-white dark:bg-[#0d0e0c]">
+    <div className="flex min-h-screen items-center justify-center px-4 bg-[#faf9f5] dark:bg-[#0d0e0c]">
       <div className="max-w-md text-center">
-        <h1 className="mb-4 text-6xl font-bold font-serif text-neutral-900 dark:text-neutral-100">
+        <h1 className="mb-4 text-6xl font-bold font-serif text-[#141413] dark:text-[#f8f8f2]">
           404
         </h1>
-        <h2 className="mb-4 text-xl font-semibold text-neutral-500 dark:text-neutral-400">
+        <h2 className="mb-4 text-xl font-semibold text-[#6c6a64] dark:text-[#a09d96]">
           Page not found
         </h2>
-        <p className="mb-8 text-sm text-neutral-500 dark:text-neutral-400">
+        <p className="mb-8 text-sm text-[#6c6a64] dark:text-[#a09d96]">
           The page you are looking for does not exist or has been moved.
         </p>
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
           <a
             href="/"
-            className="rounded-xl px-6 py-2 font-medium transition-all hover:opacity-90 bg-neutral-800 dark:bg-neutral-200 text-white dark:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2"
+            className="rounded-xl px-6 py-2 font-medium transition-all hover:opacity-90 bg-[#cc785c] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#cc785c] focus-visible:ring-offset-2"
           >
             Go to blog
           </a>
@@ -40,7 +40,7 @@ function NotFoundComponent() {
             href="https://duyet.net"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-xl border border-neutral-200 dark:border-white/10 px-6 py-2 font-medium transition-all hover:opacity-80 text-neutral-900 dark:text-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-500 focus-visible:ring-offset-2"
+            className="rounded-xl border border-[#e6dfd8] dark:border-white/10 px-6 py-2 font-medium transition-all hover:opacity-80 text-[#141413] dark:text-[#f8f8f2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#cc785c] focus-visible:ring-offset-2"
           >
             duyet.net
           </a>
@@ -106,7 +106,7 @@ function RootComponent() {
       </head>
       <body>
         <ThemeProvider>
-          <div className="min-h-screen bg-white font-sans text-[var(--foreground)] subpixel-antialiased [--font-inter:Inter,system-ui,sans-serif] [--font-serif:'Libre_Baskerville',Georgia,serif] dark:bg-[#0d0e0c]">
+          <div className="min-h-screen bg-[#faf9f5] font-sans text-[var(--foreground)] subpixel-antialiased [--font-inter:Inter,system-ui,sans-serif] [--font-serif:'Libre_Baskerville',Georgia,serif] dark:bg-[#0d0e0c]">
             <Header
               shortText="Duyet Le"
               longText="Duyet Le"
@@ -114,7 +114,7 @@ function RootComponent() {
               showAuthButtons
               actions={<AppCommandPalette />}
             />
-            <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+            <main className="relative z-10 rounded-b-3xl bg-[#faf9f5] pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
               <Outlet />
             </main>
             <Footer />

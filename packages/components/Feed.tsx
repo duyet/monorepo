@@ -2,38 +2,15 @@ import type { Post } from "@duyet/interfaces";
 import { cn } from "@duyet/libs/utils";
 import { Thumb } from "./Thumb";
 
-/**
- * Props for individual feed items
- */
 interface FeedItemProps {
-  /** Post data to display */
   post: Post;
-  /** Hide thumbnail image if true */
   noThumbnail?: boolean;
 }
 
-/**
- * Props for the Feed component
- */
 export interface FeedProps extends Omit<FeedItemProps, "post"> {
-  /** Array of posts to display */
   posts: Post[];
 }
 
-/**
- * Feed component - displays posts in a vertical list layout
- *
- * Features large typography, category links, and optional thumbnails.
- * Suitable for blog index pages and archives.
- *
- * @example
- * ```tsx
- * import { Feed } from '@duyet/components'
- *
- * <Feed posts={posts} />
- * <Feed posts={posts} noThumbnail />
- * ```
- */
 export default function Feed({ posts, ...props }: FeedProps) {
   if (!posts) {
     return <p>No blog posted yet :/</p>;
@@ -44,17 +21,24 @@ export default function Feed({ posts, ...props }: FeedProps) {
   ));
 }
 
-/**
- * FeedItem component - individual item within the feed
- * @internal
- */
 export function FeedItem({ post, noThumbnail }: FeedItemProps) {
+  const [, year, month, slug] = post.slug.split("/");
+
   return (
     <article className="mb-16">
-      <div className="flex flex-row gap-2 mb-2 text-gray-400">
-        <time>{post.date.toString()}</time>
-
-        <a href={`/category/${post.category_slug}`} className="text-gray-400">
+      <div className="mb-2 flex flex-row gap-2 text-[13px] font-medium text-[#8e8b82] dark:text-[#a09d96]">
+        <time>
+          {new Date(post.date).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })}
+        </time>
+        <span>·</span>
+        <a
+          href={`/category/${post.category_slug}`}
+          className="text-[#8e8b82] hover:text-[#cc785c] dark:text-[#a09d96] dark:hover:text-[#cc785c] transition-colors"
+        >
           {post.category}
         </a>
       </div>
@@ -62,17 +46,23 @@ export function FeedItem({ post, noThumbnail }: FeedItemProps) {
       <a
         href={`/${post.slug}`}
         className={cn(
-          "inline-block text-4xl font-bold py-2 mt-2 hover:underline",
-          "from-gray-900 to-gray-800 bg-clip-text",
-          "dark:from-gray-50 dark:to-gray-300",
-          "md:text-4xl md:tracking-tighter",
-          "lg:text-5xl lg:tracking-tighter"
+          "inline-block font-serif font-normal py-2 mt-2",
+          "text-[#141413] dark:text-[#f8f8f2]",
+          "hover:text-[#cc785c] dark:hover:text-[#cc785c]",
+          "transition-colors",
+          "text-3xl tracking-tight",
+          "md:text-4xl md:tracking-[-0.5px]",
+          "lg:text-[48px] lg:tracking-[-1px] lg:leading-[1.1]"
         )}
       >
         {post.title}
       </a>
 
-      <p className="mt-4 leading-relaxed">{post.excerpt}</p>
+      {post.excerpt && (
+        <p className="mt-3 text-[16px] leading-[1.55] text-[#3d3d3a] dark:text-[#f8f8f2]/60">
+          {post.excerpt}
+        </p>
+      )}
 
       {!noThumbnail && (
         <div className="mb-16">
