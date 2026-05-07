@@ -106,13 +106,13 @@ export function TableOfContents({
   const TOCContent = ({ showHeader = true }: { showHeader?: boolean }) => (
     <>
       {showHeader && (
-        <div className="flex items-center gap-2 mb-4 font-medium text-gray-500 dark:text-gray-400">
+        <div className="flex items-center gap-2 mb-4 font-medium text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
           <TOCIcon className="w-4 h-4" />
           On this page
         </div>
       )}
 
-      <ul className="space-y-1 border-l border-gray-200 dark:border-gray-800">
+      <ul className="space-y-1 border-l border-[#1a1a1a]/10 dark:border-white/10">
         {headings.map((heading) => (
           <li key={heading.id}>
             <a
@@ -125,7 +125,7 @@ export function TableOfContents({
                 heading.level === 3 && "pl-6 text-xs",
                 activeId === heading.id
                   ? "border-blue-500 text-blue-600 dark:text-blue-400 font-medium"
-                  : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:border-gray-300 dark:hover:border-gray-600"
+                  : "border-transparent text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55 hover:text-[#1a1a1a] dark:hover:text-[#f8f8f2] hover:border-[#1a1a1a]/15 dark:hover:border-white/15"
               )}
             >
               {heading.text}
@@ -145,10 +145,10 @@ export function TableOfContents({
           "xl:hidden",
           "fixed bottom-6 right-6 z-40",
           "w-12 h-12 rounded-full",
-          "bg-white dark:bg-gray-800",
-          "shadow-lg border border-gray-200 dark:border-gray-700",
+          "bg-white dark:bg-[#1a1a1a]",
+          "shadow-lg border border-[#1a1a1a]/10 dark:border-white/10",
           "flex items-center justify-center",
-          "hover:bg-gray-50 dark:hover:bg-gray-700",
+          "hover:bg-gray-50 dark:hover:bg-[#1a1a1a]/80",
           "transition-all duration-200",
           "hover:scale-105 active:scale-95"
         )}
@@ -156,7 +156,7 @@ export function TableOfContents({
           isMobileOpen ? "Close table of contents" : "Open table of contents"
         }
       >
-        <TOCIcon className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+        <TOCIcon className="w-5 h-5 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70" />
       </button>
 
       {/* Mobile/Tablet: Slide-out panel */}
@@ -167,8 +167,8 @@ export function TableOfContents({
           "xl:hidden",
           "fixed top-20 right-0 z-30",
           "w-72 max-w-[80vw]",
-          "bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm",
-          "shadow-xl border-l border-gray-200 dark:border-gray-700",
+          "bg-white/95 dark:bg-[#0d0e0c]/95 backdrop-blur-sm",
+          "shadow-xl border-l border-[#1a1a1a]/10 dark:border-white/10",
           "p-4 pt-4",
           "max-h-[70vh] overflow-y-auto",
           "text-sm rounded-l-xl",
@@ -187,16 +187,16 @@ export function TableOfContents({
           "fixed top-24 right-4 z-40",
           "w-10 h-10 rounded-full",
           "items-center justify-center",
-          "bg-white dark:bg-gray-800",
-          "shadow-lg border border-gray-200 dark:border-gray-700",
-          "hover:bg-gray-50 dark:hover:bg-gray-700",
+          "bg-white dark:bg-[#1a1a1a]",
+          "shadow-lg border border-[#1a1a1a]/10 dark:border-white/10",
+          "hover:bg-gray-50 dark:hover:bg-[#1a1a1a]/80",
           "transition-all duration-300"
         )}
         aria-label={
           isDesktopVisible ? "Hide table of contents" : "Show table of contents"
         }
       >
-        <TOCIcon className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+        <TOCIcon className="w-5 h-5 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70" />
       </button>
 
       {/* Desktop: Fixed sidebar */}
