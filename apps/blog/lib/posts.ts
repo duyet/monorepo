@@ -215,7 +215,8 @@ export async function getPostsByTag(tag: string): Promise<Post[]> {
   return posts.filter(
     (p) =>
       (p.tags_slug ?? []).includes(tag) ||
-      (p.tags ?? []).some((t) => getSlug(t) === tag)
+      (p.tags ?? []).some((t) => getSlug(t) === tag) ||
+      (p.tags_slug ?? []).some((s) => s.endsWith(`-${tag}`))
   );
 }
 
