@@ -271,64 +271,64 @@ const colorSchemes = [
     bgDark: "dark:bg-terracotta/30",
     nested: "bg-terracotta/20", // Darker for nested cards
     nestedDark: "dark:bg-terracotta/40",
-    text: "text-gray-700",
-    textDark: "dark:text-gray-200",
+    text: "text-[#1a1a1a]/70",
+    textDark: "dark:text-[#f8f8f2]/70",
   },
   {
     bg: "bg-lavender-light", // Soft lavender #dfe0ec
     bgDark: "dark:bg-lavender/30",
     nested: "bg-lavender/40",
     nestedDark: "dark:bg-lavender/50",
-    text: "text-gray-700",
-    textDark: "dark:text-gray-200",
+    text: "text-[#1a1a1a]/70",
+    textDark: "dark:text-[#f8f8f2]/70",
   },
   {
     bg: "bg-sage-light", // Soft sage #d0ddd8
     bgDark: "dark:bg-sage/30",
     nested: "bg-sage/40",
     nestedDark: "dark:bg-sage/50",
-    text: "text-gray-700",
-    textDark: "dark:text-gray-200",
+    text: "text-[#1a1a1a]/70",
+    textDark: "dark:text-[#f8f8f2]/70",
   },
   {
     bg: "bg-oat-light", // Warm beige #ebe5db (like "Featured courses")
     bgDark: "dark:bg-oat/30",
     nested: "bg-oat/60",
     nestedDark: "dark:bg-oat/50",
-    text: "text-gray-700",
-    textDark: "dark:text-gray-200",
+    text: "text-[#1a1a1a]/70",
+    textDark: "dark:text-[#f8f8f2]/70",
   },
   {
     bg: "bg-cream", // Warm cream #faf8f3
     bgDark: "dark:bg-cream-warm/30",
     nested: "bg-cream-warm",
     nestedDark: "dark:bg-cream-warm/50",
-    text: "text-gray-700",
-    textDark: "dark:text-gray-200",
+    text: "text-[#1a1a1a]/70",
+    textDark: "dark:text-[#f8f8f2]/70",
   },
   {
     bg: "bg-cactus-light", // Muted green #d4e3de
     bgDark: "dark:bg-cactus/30",
     nested: "bg-cactus/40",
     nestedDark: "dark:bg-cactus/50",
-    text: "text-gray-700",
-    textDark: "dark:text-gray-200",
+    text: "text-[#1a1a1a]/70",
+    textDark: "dark:text-[#f8f8f2]/70",
   },
   {
     bg: "bg-coral-light", // Soft coral #ffc4a8
     bgDark: "dark:bg-coral/30",
     nested: "bg-coral/30",
     nestedDark: "dark:bg-coral/50",
-    text: "text-gray-700",
-    textDark: "dark:text-gray-200",
+    text: "text-[#1a1a1a]/70",
+    textDark: "dark:text-[#f8f8f2]/70",
   },
   {
     bg: "bg-ivory", // Off-white #f5f3ef
     bgDark: "dark:bg-ivory-medium/30",
     nested: "bg-ivory-medium",
     nestedDark: "dark:bg-ivory-medium/50",
-    text: "text-gray-700",
-    textDark: "dark:text-gray-200",
+    text: "text-[#1a1a1a]/70",
+    textDark: "dark:text-[#f8f8f2]/70",
   },
 ];
 
@@ -381,7 +381,7 @@ export function ClaudeCard({ title, items, className }: ClaudeCardProps) {
             <h3
               className={cn(
                 "text-2xl sm:text-3xl md:text-4xl font-serif leading-tight",
-                "text-gray-900 dark:text-white"
+                "text-[#1a1a1a] dark:text-[#f8f8f2]"
               )}
             >
               {title}
@@ -398,7 +398,7 @@ export function ClaudeCard({ title, items, className }: ClaudeCardProps) {
                 className={cn(
                   "flex items-baseline gap-3 sm:gap-4 py-3 sm:py-4",
                   index !== items.length - 1 &&
-                    "border-b border-gray-900/20 dark:border-white/20"
+                    "border-b border-[#1a1a1a]/20 dark:border-white/20"
                 )}
               >
                 <span
@@ -414,7 +414,7 @@ export function ClaudeCard({ title, items, className }: ClaudeCardProps) {
                   <strong
                     className={cn(
                       "font-semibold text-base sm:text-lg",
-                      "text-gray-900 dark:text-white"
+                      "text-[#1a1a1a] dark:text-[#f8f8f2]"
                     )}
                   >
                     {item.label}
@@ -540,7 +540,7 @@ export function ClaudeCardNested({
             <h3
               className={cn(
                 "text-2xl md:text-4xl font-serif leading-tight mt-2",
-                "text-gray-900 dark:text-white"
+                "text-[#1a1a1a] dark:text-[#f8f8f2]"
               )}
             >
               {title}
@@ -565,11 +565,11 @@ export function ClaudeCardNested({
                   href={actionButton.link}
                   className={cn(
                     "inline-flex items-center gap-2 px-5 py-2.5",
-                    "rounded-full border-2 border-gray-900 dark:border-white",
+                    "rounded-full border-2 border-[#1a1a1a] dark:border-[#f8f8f2]",
                     "text-sm font-medium",
-                    "text-gray-900 dark:text-white",
-                    "hover:bg-gray-900 hover:text-white",
-                    "dark:hover:bg-white dark:hover:text-gray-900",
+                    "text-[#1a1a1a] dark:text-[#f8f8f2]",
+                    "hover:bg-[#1a1a1a] hover:text-white",
+                    "dark:hover:bg-[#f8f8f2] dark:hover:text-[#1a1a1a]",
                     "transition-all duration-200"
                   )}
                 >
@@ -612,14 +612,14 @@ export function ClaudeCardNested({
                           href={item.link}
                           className={cn(
                             "text-sm sm:text-base no-underline",
-                            "text-gray-900 dark:text-white",
+                            "text-[#1a1a1a] dark:text-[#f8f8f2]",
                             "hover:opacity-70 transition-opacity"
                           )}
                         >
                           {item.label}
                         </a>
                       ) : (
-                        <span className="text-sm sm:text-base text-gray-900 dark:text-white">
+                        <span className="text-sm sm:text-base text-[#1a1a1a] dark:text-[#f8f8f2]">
                           {item.label}
                         </span>
                       )}
@@ -666,15 +666,15 @@ export function ClaudeCardGrid({ cards, className }: ClaudeCardGridProps) {
             key={index}
             {...cardProps}
             className={cn(
-              "flex flex-col gap-1 p-4 rounded-2xl border border-gray-200 dark:border-gray-700 no-underline",
-              "hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:no-underline transition-colors"
+              "flex flex-col gap-1 p-4 rounded-2xl border border-[#1a1a1a]/10 dark:border-white/10 no-underline",
+              "hover:bg-[#f7f7f7] dark:hover:bg-[#1a1a1a] hover:no-underline transition-colors"
             )}
           >
-            <h4 className="font-semibold text-gray-900 dark:text-white">
+            <h4 className="font-semibold text-[#1a1a1a] dark:text-[#f8f8f2]">
               {card.title}
             </h4>
             {card.description && (
-              <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+              <p className="text-sm text-[#1a1a1a]/70 dark:text-[#f8f8f2]/55 line-clamp-2">
                 {card.description}
               </p>
             )}

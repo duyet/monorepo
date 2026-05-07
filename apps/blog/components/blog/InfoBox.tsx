@@ -50,11 +50,11 @@ export function InfoBox({
         </div>
         <div className="flex-1 space-y-1">
           {title && (
-            <h3 className="font-medium text-gray-900 dark:text-white text-base">
+            <h3 className="font-medium text-[#1a1a1a] dark:text-[#f8f8f2] text-base">
               {title}
             </h3>
           )}
-          <div className="text-gray-700 dark:text-gray-300 text-base">
+          <div className="text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70 text-base">
             {children}
           </div>
         </div>

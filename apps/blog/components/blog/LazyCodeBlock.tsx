@@ -18,7 +18,7 @@ export function LazyCodeBlock(props: ComponentProps<typeof CodeBlockImpl>) {
   return (
     <Suspense
       fallback={
-        <div className="relative min-h-[100px] animate-pulse rounded-xl bg-gray-100 dark:bg-gray-800" />
+        <div className="relative min-h-[100px] animate-pulse rounded-xl bg-[#f7f7f7] dark:bg-[#1a1a1a]" />
       }
     >
       <CodeBlockImpl {...props} />

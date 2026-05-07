@@ -120,7 +120,7 @@ export function CardGrid({
   if (!cards || cards.length === 0) {
     return (
       <div
-        className={`text-base text-gray-500 dark:text-gray-400 ${className}`}
+        className={`text-base text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55 ${className}`}
       >
         No cards available
       </div>
@@ -141,26 +141,26 @@ export function CardGrid({
         return (
           <div
             key={card.id}
-            className="border border-gray-200 dark:border-claude-gray-800 p-4 hover:bg-gray-50 dark:hover:bg-claude-gray-900/50 transition-colors"
+            className="border border-[#1a1a1a]/10 dark:border-white/10 p-4 hover:bg-[#f7f7f7] dark:hover:bg-[#1a1a1a] transition-colors"
           >
             <div className="space-y-3">
               <div className="flex items-start gap-3">
-                <div className="flex-shrink-0 text-gray-400 dark:text-gray-600">
+                <div className="flex-shrink-0 text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
                   <IconComponent size={24} />
                 </div>
-                <h3 className="font-medium text-gray-900 dark:text-white text-base">
+                <h3 className="font-medium text-[#1a1a1a] dark:text-[#f8f8f2] text-base">
                   {card.title}
                 </h3>
               </div>
 
-              <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+              <p className="text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70 text-sm leading-relaxed">
                 {card.description}
               </p>
 
               {card.link && (
                 <a
                   href={card.link.href}
-                  className="inline-block text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                  className="inline-block text-sm text-[#1a1a1a]/70 dark:text-[#f8f8f2]/55 hover:text-[#1a1a1a] dark:hover:text-[#f8f8f2] transition-colors"
                 >
                   {card.link.text} →
                 </a>
