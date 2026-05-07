@@ -17,6 +17,9 @@ async function main() {
     `md:ccusage?motherduck_token=${MOTHERDUCK_TOKEN}`,
   );
 
+  const parseNum = (v: unknown): number =>
+    typeof v === "bigint" ? Number(v) : Number(v ?? 0);
+
   console.log("Fetching totals...");
   const totalsRows = await db.all(`
     SELECT
@@ -31,9 +34,6 @@ async function main() {
   `);
 
   const totals = totalsRows[0];
-  // DuckDB returns BIGINT as string for large numbers, convert
-  const parseNum = (v: unknown): number =>
-    typeof v === "bigint" ? Number(v) : Number(v ?? 0);
 
   console.log("Fetching daily breakdown...");
   const dailyRows = await db.all(`
@@ -51,8 +51,24 @@ async function main() {
     ORDER BY date DESC
   `);
 
+  console.log("Fetching models...");
+  const modelRows = await db.all(`
+    SELECT model_name, SUM(total_tokens) as total
+    FROM ccusage_events
+    WHERE record_type = 'daily'
+    GROUP BY model_name
+    ORDER BY total DESC
+  `);
+  const models = modelRows.map((r) => String(r.model_name));
+
+  const firstDate = dailyRows.length > 0
+    ? String(dailyRows[dailyRows.length - 1].date)
+    : null;
+
   const data = {
     generatedAt: new Date().toISOString(),
+    firstDate,
+    models,
     totals: {
       input_tokens: parseNum(totals.input_tokens),
       output_tokens: parseNum(totals.output_tokens),
@@ -78,6 +94,8 @@ async function main() {
   console.log(`\nTotal tokens: ${data.totals.total_tokens.toLocaleString()}`);
   console.log(`Total cost:   $${data.totals.total_cost.toLocaleString()}`);
   console.log(`Days:         ${data.daily.length}`);
+  console.log(`Models:       ${models.join(", ")}`);
+  console.log(`Since:        ${firstDate}`);
   console.log(`Written to:   ${OUTPUT_FILE}`);
 
   await db.close();

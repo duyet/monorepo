@@ -2,15 +2,20 @@ import type { DailyEntry } from "../lib/types";
 
 interface DailyChartProps {
   daily: DailyEntry[];
+  firstDate: string | null;
 }
 
-export function DailyChart({ daily }: DailyChartProps) {
-  const recent = daily.slice(0, 60);
-  if (recent.length === 0) return null;
+export function DailyChart({ daily, firstDate }: DailyChartProps) {
+  if (daily.length === 0) return null;
 
+  const recent = daily.slice(0, 60);
   const maxTokens = Math.max(...recent.map((d) => d.total_tokens));
   const barWidth = 100 / recent.length;
   const chartHeight = 80;
+
+  const sinceLabel = firstDate
+    ? `Since ${new Date(firstDate + "T00:00:00").toLocaleDateString("en-US", { month: "short", year: "numeric" })}`
+    : `Last ${recent.length} days`;
 
   return (
     <div className="animate-fade-in-delay" style={{ width: "100%", maxWidth: 640, margin: "0 auto" }}>
@@ -21,7 +26,7 @@ export function DailyChart({ daily }: DailyChartProps) {
         letterSpacing: "0.04em",
         color: "var(--muted-soft)",
       }}>
-        Last {recent.length} days
+        {sinceLabel}
       </p>
       <svg
         viewBox={`0 0 100 ${chartHeight}`}

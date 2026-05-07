@@ -19,6 +19,8 @@ export interface DailyEntry {
 
 export interface TokenData {
   generatedAt: string;
+  firstDate: string | null;
+  models: string[];
   totals: TokenTotals;
   daily: DailyEntry[];
 }

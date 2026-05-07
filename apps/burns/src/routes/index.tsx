@@ -34,8 +34,9 @@ function Page() {
           fontSize: 13,
           letterSpacing: "0.02em",
           color: "var(--muted)",
+          lineHeight: 1.6,
         }}>
-          tokens consumed by Claude Code
+          tokens consumed by {data.models.join(", ")}
         </p>
       </div>
 
@@ -43,7 +44,7 @@ function Page() {
         <TokenBreakdown totals={data.totals} />
       </div>
 
-      <DailyChart daily={data.daily} />
+      <DailyChart daily={data.daily} firstDate={data.firstDate} />
     </div>
   );
 }
