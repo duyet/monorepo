@@ -102,10 +102,9 @@ fn inject_heading_ids(html: &mut String) -> String {
 
                 // Reconstruct: <hN id="slug" class="heading">...content...<a href="#slug" class="heading-link" aria-hidden="true">#</a></hN>
                 result.push_str(&format!(
-                    "<h{} id=\"{}\" class=\"heading\">{}<a href=\"#{}\" class=\"heading-link\" aria-hidden=\"true\">#</a>{}</h{}>",
+                    "<h{} id=\"{}\" class=\"heading\"><a href=\"#{}\" class=\"heading-link\" aria-hidden=\"true\">#</a>{}</h{}>",
                     level,
                     slug,
-                    &input[pos + 3..open_end], // attributes after tag name (if any)
                     slug,
                     &text,
                     level,
@@ -116,8 +115,9 @@ fn inject_heading_ids(html: &mut String) -> String {
             }
         }
 
-        result.push(bytes[pos] as char);
-        pos += 1;
+        let ch = input[pos..].chars().next().unwrap();
+        result.push(ch);
+        pos += ch.len_utf8();
     }
 
     result
@@ -247,5 +247,21 @@ mod tests {
         let html = markdown_to_html("Display: $$E = mc^2$$");
         assert!(html.contains("math-display"));
         assert!(html.contains("E = mc^2"));
+    }
+
+    #[test]
+    fn test_emoji_preserved() {
+        let html = markdown_to_html("- ✅ Done\n- ❌ Failed\n- 📊 Chart");
+        assert!(html.contains("✅"), "checkmark emoji should be preserved");
+        assert!(html.contains("❌"), "cross emoji should be preserved");
+        assert!(html.contains("📊"), "chart emoji should be preserved");
+    }
+
+    #[test]
+    fn test_heading_no_extra_gt() {
+        let html = markdown_to_html("## Section Title");
+        // Should NOT contain a bare ">" before the autolink anchor
+        assert!(!html.contains("heading\">>"), "no extra > before anchor");
+        assert!(html.contains("class=\"heading\"><a"));
     }
 }
