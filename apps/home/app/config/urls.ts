@@ -29,6 +29,14 @@ export const urls: Urls = {
     target: "https://stamp.duyet.net",
     desc: "Stamp",
   },
+  "/burn": {
+    target: "https://burns.duyet.net",
+    desc: "Token burn counter",
+  },
+  "/burns": {
+    target: "https://burns.duyet.net",
+    desc: "Token burn counter",
+  },
   "/claw": {
     target: "https://claw.duyet.net",
     desc: "OpenClaw Mission Control",
