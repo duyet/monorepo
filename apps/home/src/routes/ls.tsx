@@ -1,5 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteFooter, SiteHeader } from "../components/SiteChrome";
+import { createFileRoute } from "@tanstack/react-router";
 import {
   CATEGORY_MAP,
   CATEGORY_ORDER,
@@ -34,41 +33,36 @@ const publicUrls = Object.entries(urls)
 
 function ListPage() {
   return (
-    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
-      <SiteHeader />
-
-      <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
+    <div style={{ minHeight: "100vh", background: "#faf9f5", color: "#141413" }}>
+      <main style={{ maxWidth: 1024, margin: "0 auto", padding: "48px 16px 64px" }}>
         {/* Header */}
-        <div className="mb-10">
-          <Link
-            to="/"
-            className="group mb-6 inline-flex items-center gap-2 text-sm text-[var(--muted-foreground)] transition-colors hover:text-[var(--foreground)]"
+        <div style={{ marginBottom: 40 }}>
+          <a
+            href="/"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              fontSize: 13,
+              color: "#8e8b82",
+              textDecoration: "none",
+              marginBottom: 24,
+            }}
           >
-            <svg
-              aria-hidden="true"
-              className="h-4 w-4 transition-transform group-hover:-translate-x-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
+            <svg aria-hidden="true" style={{ width: 14, height: 14 }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             Back to home
-          </Link>
-          <div className="flex items-baseline gap-4">
-            <h1 className="font-serif text-5xl font-normal text-[var(--foreground)]">
+          </a>
+          <div style={{ display: "flex", alignItems: "baseline", gap: 16 }}>
+            <h1 style={{ fontFamily: '"Cormorant Garamond", "Garamond", "Times New Roman", serif', fontSize: 48, fontWeight: 400, color: "#141413", margin: 0 }}>
               Short URLs
             </h1>
-            <span className="rounded-full bg-[var(--muted)] px-3 py-1 text-sm font-medium text-[var(--muted-foreground)]">
+            <span style={{ fontSize: 13, color: "#8e8b82" }}>
               {publicUrls.length}
             </span>
           </div>
-          <p className="mt-3 text-lg text-[var(--muted-foreground)]">
+          <p style={{ marginTop: 8, fontSize: 16, color: "#6c6a64" }}>
             Quick links and redirects for duyet.net
           </p>
         </div>
@@ -76,20 +70,16 @@ function ListPage() {
         {/* Client-side search and list */}
         <UrlsList urls={publicUrls} />
 
-        {/* Footer */}
-        <div className="mt-12 border-t border-[var(--border)] pt-8 text-center">
-          <p className="text-sm text-[var(--muted-foreground)]">
-            All short URLs redirect via{" "}
-            <Link
-              to="/"
-              className="underline underline-offset-2 transition-colors hover:text-[var(--foreground)]"
-            >
-              duyet.net
-            </Link>
-          </p>
+        {/* Footer link */}
+        <div style={{ marginTop: 64, textAlign: "center" }}>
+          <a
+            href="/"
+            style={{ fontSize: 13, color: "#8e8b82", textDecoration: "none" }}
+          >
+            duyet.net
+          </a>
         </div>
       </main>
-      <SiteFooter />
     </div>
   );
 }
