@@ -33,11 +33,7 @@ export const urls: Urls = {
     target: "https://burns.duyet.net",
     desc: "Token burn counter",
   },
-  "/burns": {
-    target: "https://burns.duyet.net",
-    desc: "Token burn counter",
-  },
-  "/claw": {
+"/claw": {
     target: "https://claw.duyet.net",
     desc: "OpenClaw Mission Control",
   },

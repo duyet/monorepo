@@ -59,7 +59,6 @@
 
 # Burns
 /burn https://burns.duyet.net 302
-/burns https://burns.duyet.net 302
 
 # SPA fallback — must be last
 /* /index.html 200
