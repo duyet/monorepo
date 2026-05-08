@@ -183,22 +183,22 @@ export function HomeAgentsChat() {
     };
 
     return (
-      <div className="mt-4 rounded-2xl border border-[#1a1a1a]/10 bg-white">
+      <div className="mt-4 rounded-2xl border border-[var(--border)] bg-[var(--background)]">
         <form
-          className="border-b border-[#1a1a1a]/10 p-4"
+          className="border-b border-[var(--border)] p-4"
           onSubmit={async (event) => {
             event.preventDefault();
             if (loading) return;
             await sendMessage(input);
           }}
         >
-          <div className="mx-auto flex w-full max-w-5xl items-center gap-3 rounded-[30px] border border-[#cbd5e1] bg-[#f8fafc] px-4 py-3">
-            <Search className="h-6 w-6 shrink-0 text-[#1f2937]" />
+          <div className="mx-auto flex w-full max-w-5xl items-center gap-3 rounded-[30px] border border-[var(--border)] bg-[var(--muted)] px-4 py-3">
+            <Search className="h-6 w-6 shrink-0 text-[var(--foreground)]" />
             <input
               value={input}
               onChange={(event) => setInput(event.target.value)}
               placeholder="Type a message..."
-              className="h-10 w-full bg-transparent text-3xl leading-tight text-[#374151] outline-none placeholder:text-[#6b7280]"
+              className="h-10 w-full bg-transparent text-3xl leading-tight text-[var(--foreground)] outline-none placeholder:text-[var(--muted-foreground)]"
             />
             <button
               type="submit"
@@ -212,7 +212,7 @@ export function HomeAgentsChat() {
 
         <div className="h-[240px] overflow-y-auto px-4 py-4">
           {messages.length === 0 ? (
-            <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#faf9f6] p-4 text-sm text-[#1a1a1a]/70">
+            <div className="rounded-xl border border-[var(--border)] bg-[var(--muted)] p-4 text-sm text-[var(--foreground)]/70">
               Ask anything about projects, architecture, Cloudflare Agents, or data systems.
             </div>
           ) : (
@@ -222,8 +222,8 @@ export function HomeAgentsChat() {
                   key={message.id}
                   className={`max-w-[88%] rounded-2xl px-4 py-3 text-sm leading-6 ${
                     message.role === "user"
-                      ? "ml-auto bg-[#1a1a1a] text-white"
-                      : "bg-[#f7f6f3] text-[#1a1a1a]"
+                      ? "ml-auto bg-[var(--foreground)] text-[var(--background)]"
+                      : "bg-[var(--muted)] text-[var(--foreground)]"
                   }`}
                 >
                   {message.content}
@@ -233,14 +233,14 @@ export function HomeAgentsChat() {
           )}
         </div>
 
-        <div className="border-t border-[#1a1a1a]/10 px-3 py-3">
+        <div className="border-t border-[var(--border)] px-3 py-3">
           <div className="mb-3 flex gap-2 overflow-x-auto pb-1">
             {recommendations.map((question) => (
               <button
                 key={question}
                 type="button"
                 onClick={() => setInput(question)}
-                className="shrink-0 rounded-full border border-[#1a1a1a]/15 bg-[#f8f8f8] px-3 py-1.5 text-xs font-medium text-[#1a1a1a]/85 hover:bg-[#f1f1f1]"
+                className="shrink-0 rounded-full border border-[var(--border)] bg-[var(--muted)] px-3 py-1.5 text-xs font-medium text-[var(--foreground)]/85 hover:bg-[var(--muted-foreground)]/15"
               >
                 {question}
               </button>
@@ -259,21 +259,21 @@ export function HomeAgentsChat() {
               value={input}
               onChange={(event) => setInput(event.target.value)}
               placeholder="What would you like to know?"
-              className="min-h-24 w-full resize-none rounded-xl border border-[#1a1a1a]/15 bg-white p-3 text-sm text-[#1a1a1a] outline-none focus:border-[#1a1a1a]/40"
+              className="min-h-24 w-full resize-none rounded-xl border border-[var(--border)] bg-[var(--background)] p-3 text-sm text-[var(--foreground)] outline-none focus:border-[var(--foreground)]/40"
             />
 
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3 text-[#1a1a1a]/60">
-                <button type="button" className="rounded p-1 hover:bg-[#f5f5f5]" title="Add">
+              <div className="flex items-center gap-3 text-[var(--foreground)]/60">
+                <button type="button" className="rounded p-1 hover:bg-[var(--muted)]" title="Add">
                   <Plus className="h-4 w-4" />
                 </button>
-                <button type="button" className="rounded p-1 hover:bg-[#f5f5f5]" title="Voice">
+                <button type="button" className="rounded p-1 hover:bg-[var(--muted)]" title="Voice">
                   <Mic className="h-4 w-4" />
                 </button>
-                <button type="button" className="rounded p-1 hover:bg-[#f5f5f5]" title="Search">
+                <button type="button" className="rounded p-1 hover:bg-[var(--muted)]" title="Search">
                   <Globe className="h-4 w-4" />
                 </button>
-                <span className="inline-flex items-center gap-1 rounded-full bg-[#f5f5f5] px-2 py-1 text-xs">
+                <span className="inline-flex items-center gap-1 rounded-full bg-[var(--muted)] px-2 py-1 text-xs">
                   <Sparkles className="h-3 w-3" /> GPT-4o
                 </span>
               </div>
@@ -281,7 +281,7 @@ export function HomeAgentsChat() {
               <button
                 type="submit"
                 disabled={loading || input.trim().length === 0}
-                className="inline-flex items-center justify-center rounded-xl bg-[#1a1a1a] px-3 py-2 text-white disabled:cursor-not-allowed disabled:opacity-50"
+                className="inline-flex items-center justify-center rounded-xl bg-[var(--foreground)] px-3 py-2 text-[var(--background)] disabled:cursor-not-allowed disabled:opacity-50"
                 title="Send"
               >
                 <CornerDownLeft className="h-4 w-4" />

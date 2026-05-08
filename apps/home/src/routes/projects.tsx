@@ -21,26 +21,26 @@ export const Route = createFileRoute("/projects")({
 
 function ProjectsPage() {
   return (
-    <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
+    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       <SiteHeader />
 
       <main className="mx-auto max-w-[1280px] px-5 pb-20 pt-10 sm:px-8 md:pt-16 lg:px-10">
         <Link
           to="/"
-          className="mb-10 inline-flex items-center gap-2 text-sm font-medium text-[#1a1a1a]/65 transition-colors hover:text-[#1a1a1a] dark:text-[#f8f8f2]/65 dark:hover:text-[#f8f8f2]"
+          className="mb-10 inline-flex items-center gap-2 text-sm font-medium text-[var(--muted-foreground)] transition-colors hover:text-[var(--foreground)]"
         >
           <ArrowLeft className="h-4 w-4" />
           Back home
         </Link>
 
         <section className="max-w-3xl">
-          <p className="mb-3 text-sm font-medium text-[#1a1a1a]/60 dark:text-[#f8f8f2]/60">
+          <p className="mb-3 text-sm font-medium text-[var(--muted-foreground)]">
             Projects
           </p>
           <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
             Apps, tools, dashboards, and open source systems.
           </h1>
-          <p className="mt-5 max-w-2xl text-base font-medium leading-7 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+          <p className="mt-5 max-w-2xl text-base font-medium leading-7 text-[var(--muted-foreground)]">
             A complete list of public project surfaces across data engineering,
             AI infrastructure, analytics, developer tooling, and writing.
           </p>
@@ -69,9 +69,9 @@ function ProjectCard({
   return (
     <ProjectLink
       item={item}
-      className={`group overflow-hidden rounded-xl border border-[#1a1a1a]/10 ${item.tone ?? "bg-[#1a1a1a]"} transition-transform hover:-translate-y-0.5 dark:border-white/10`}
+      className={`group overflow-hidden rounded-xl border border-[var(--border)] ${item.tone ?? "bg-[var(--foreground)]"} transition-transform hover:-translate-y-0.5`}
     >
-      <div className="overflow-hidden bg-[#1a1a1a]">
+      <div className="overflow-hidden bg-[var(--foreground)]">
         <img
           src={item.screenshot}
           alt={item.name}
@@ -100,13 +100,13 @@ function CompactProjectCard({
   return (
     <ProjectLink
       item={item}
-      className="group flex min-h-44 flex-col rounded-xl border border-[#1a1a1a]/10 bg-white p-5 transition-colors dark:border-white/10 dark:bg-[#1a1a1a]"
+      className="group flex min-h-44 flex-col rounded-xl border border-[var(--border)] bg-[var(--background)] p-5 transition-colors"
     >
       <h2 className="text-lg font-semibold tracking-tight">{item.name}</h2>
-      <p className="mt-2 text-sm font-medium leading-6 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+      <p className="mt-2 text-sm font-medium leading-6 text-[var(--muted-foreground)]">
         {item.description}
       </p>
-      <div className="mt-auto flex items-center justify-between gap-4 pt-8 text-sm font-medium text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
+      <div className="mt-auto flex items-center justify-between gap-4 pt-8 text-sm font-medium text-[var(--muted-foreground)]">
         <span className="truncate">{item.host}</span>
         <ArrowRight className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1" />
       </div>

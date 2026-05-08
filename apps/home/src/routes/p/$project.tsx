@@ -105,20 +105,20 @@ function ProductPage() {
   const related = products.filter((item) => item.slug !== product.slug);
 
   return (
-    <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
+    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       <SiteHeader />
 
-      <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+      <main className="relative z-10 rounded-b-3xl bg-[var(--background)] pb-16 2xl:rounded-b-[4rem]">
         <section className="mx-auto max-w-[1340px] px-5 py-12 sm:px-8 md:py-16 lg:px-10 lg:py-24 xl:py-28">
           <Link
             to="/"
-            className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-[#1a1a1a]/70 hover:text-[#1a1a1a] dark:text-[#f8f8f2]/70 dark:hover:text-[#f8f8f2]"
+            className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
           >
             <ArrowLeft className="h-4 w-4" />
             Back home
           </Link>
           <div className="space-y-4 md:space-y-6 lg:space-y-8">
-            <p className="text-sm font-medium text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+            <p className="text-sm font-medium text-[var(--muted-foreground)]">
               {product.eyebrow}
             </p>
             <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl xl:text-8xl">
@@ -159,7 +159,7 @@ function ProductPage() {
               {product.highlights.map((highlight) => (
                 <div
                   key={highlight}
-                  className="rounded-lg border border-[#1a1a1a]/10 bg-white p-5 dark:border-white/10 dark:bg-[#1a1a1a]"
+                  className="rounded-lg border border-[var(--border)] bg-[var(--background)] p-5"
                 >
                   <p className="text-base font-semibold leading-snug md:text-lg">
                     {highlight}
@@ -178,7 +178,7 @@ function ProductPage() {
               )}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg bg-[#1a1a1a] px-6 py-4 text-base font-medium text-white transition-colors hover:bg-[#444] dark:bg-white dark:text-[#0d0e0c] dark:hover:bg-white md:text-lg"
+              className="inline-flex items-center gap-2 rounded-lg bg-[var(--foreground)] px-6 py-4 text-base font-medium text-[var(--background)] transition-colors hover:bg-[var(--foreground)]/80 md:text-lg"
             >
               Visit project
               <ExternalLink className="h-5 w-5" />
@@ -220,8 +220,8 @@ function ProductPage() {
 
 function Meta({ label, value }: { label: string; value: string }) {
   return (
-    <div className="border-t border-[#1a1a1a]/15 pt-3 dark:border-white/15">
-      <h3 className="text-sm text-[#1a1a1a]/60 dark:text-[#f8f8f2]/60 lg:text-base">
+    <div className="border-t border-[var(--border)] pt-3">
+      <h3 className="text-sm text-[var(--muted-foreground)] lg:text-base">
         {label}
       </h3>
       <p className="mt-1 text-base font-semibold lg:text-lg">{value}</p>

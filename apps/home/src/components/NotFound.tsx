@@ -4,13 +4,13 @@ export function NotFound() {
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="max-w-md text-center">
-        <h1 className="mb-4 font-serif text-8xl font-bold text-neutral-900 dark:text-neutral-100">
+        <h1 className="mb-4 font-serif text-8xl font-bold text-[var(--foreground)]">
           404
         </h1>
-        <h2 className="mb-4 text-xl font-semibold text-neutral-700 dark:text-neutral-300">
+        <h2 className="mb-4 text-xl font-semibold text-[var(--foreground)]/85">
           Page not found
         </h2>
-        <p className="mb-8 text-neutral-600 dark:text-neutral-400">
+        <p className="mb-8 text-[var(--foreground)]/70">
           Sorry, we couldn&apos;t find the page you&apos;re looking for.
         </p>
         <Link

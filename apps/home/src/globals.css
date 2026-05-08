@@ -5,17 +5,25 @@
 @layer base {
   :root {
     --font-inter:
-      "Inter", -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui,
+      "Inter", -apple-system, BlinkMacDesktopFont, ui-sans-serif, system-ui,
       sans-serif;
     --font-serif: "Libre Baskerville", Georgia, serif;
-    --color-primary: #1a1a1a;
-    --color-theme: #ffffff;
-    --color-status: oklch(70.5% 0.213 47.604);
+
+    --background: #faf9f5;
+    --foreground: #141413;
+    --muted: #efe9de;
+    --muted-foreground: #6c6a64;
+    --border: #e6dfd8;
+    --accent: #cc785c;
   }
 
   html.dark {
-    --color-primary: #f8f8f2;
-    --color-theme: #0d0e0c;
+    --background: #0d0e0c;
+    --foreground: #f8f8f2;
+    --muted: #242420;
+    --muted-foreground: #a09d96;
+    --border: rgba(248, 248, 242, 0.12);
+    --accent: #cc785c;
   }
 
   html {
@@ -23,8 +31,8 @@
   }
 
   body {
-    background-color: var(--color-theme);
-    color: var(--color-primary);
+    background-color: var(--background);
+    color: var(--foreground);
     font-feature-settings: "ss01", "ss02", "cv01", "zero";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -32,8 +40,8 @@
   }
 
   html.dark body {
-    background-color: var(--color-theme);
-    color: var(--color-primary);
+    background-color: var(--background);
+    color: var(--foreground);
     color-scheme: dark;
   }
 }

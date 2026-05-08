@@ -34,7 +34,7 @@ const publicUrls = Object.entries(urls)
 
 function ListPage() {
   return (
-    <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
+    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       <SiteHeader />
 
       <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
@@ -42,7 +42,7 @@ function ListPage() {
         <div className="mb-10">
           <Link
             to="/"
-            className="group mb-6 inline-flex items-center gap-2 text-sm text-neutral-600 transition-colors hover:text-neutral-900"
+            className="group mb-6 inline-flex items-center gap-2 text-sm text-[var(--muted-foreground)] transition-colors hover:text-[var(--foreground)]"
           >
             <svg
               aria-hidden="true"
@@ -61,14 +61,14 @@ function ListPage() {
             Back to home
           </Link>
           <div className="flex items-baseline gap-4">
-            <h1 className="font-serif text-5xl font-normal text-neutral-900">
+            <h1 className="font-serif text-5xl font-normal text-[var(--foreground)]">
               Short URLs
             </h1>
-            <span className="rounded-full bg-neutral-200 px-3 py-1 text-sm font-medium text-neutral-600">
+            <span className="rounded-full bg-[var(--muted)] px-3 py-1 text-sm font-medium text-[var(--muted-foreground)]">
               {publicUrls.length}
             </span>
           </div>
-          <p className="mt-3 text-lg text-neutral-600">
+          <p className="mt-3 text-lg text-[var(--muted-foreground)]">
             Quick links and redirects for duyet.net
           </p>
         </div>
@@ -77,12 +77,12 @@ function ListPage() {
         <UrlsList urls={publicUrls} />
 
         {/* Footer */}
-        <div className="mt-12 border-t border-neutral-200 pt-8 text-center">
-          <p className="text-sm text-neutral-500">
+        <div className="mt-12 border-t border-[var(--border)] pt-8 text-center">
+          <p className="text-sm text-[var(--muted-foreground)]">
             All short URLs redirect via{" "}
             <Link
               to="/"
-              className="underline underline-offset-2 transition-colors hover:text-neutral-900"
+              className="underline underline-offset-2 transition-colors hover:text-[var(--foreground)]"
             >
               duyet.net
             </Link>

@@ -6,7 +6,7 @@ export function FooterInteractive() {
     <>
       <ThemeToggle />
       <AuthButtons
-        signInClassName="text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
+        signInClassName="text-[var(--muted-foreground)]/70 hover:text-[var(--foreground)] transition-colors"
         avatarSize="h-5 w-5"
       />
     </>

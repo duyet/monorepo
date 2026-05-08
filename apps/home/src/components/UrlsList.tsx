@@ -76,22 +76,22 @@ function UrlCard({ path, target, desc }: UrlEntry) {
       href={target}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
-      className="group flex flex-col gap-2 overflow-hidden rounded-2xl border border-neutral-200 bg-white p-5 shadow-none transition-all hover:-translate-y-0.5 hover:border-neutral-300"
+      className="group flex flex-col gap-2 overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--background)] p-5 shadow-none transition-all hover:-translate-y-0.5 hover:border-[var(--foreground)]/30"
     >
       <div className="flex items-start justify-between gap-2">
-        <code className="font-mono text-base font-bold text-neutral-900 transition-colors group-hover:text-neutral-600">
+        <code className="font-mono text-base font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--foreground)]/70">
           {path}
         </code>
         {isExternal && (
-          <ExternalIcon className="mt-0.5 h-4 w-4 flex-shrink-0 text-neutral-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          <ExternalIcon className="mt-0.5 h-4 w-4 flex-shrink-0 text-[var(--muted-foreground)]/70 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         )}
       </div>
       {desc ? (
-        <p className="line-clamp-2 text-sm text-neutral-600">{desc}</p>
+        <p className="line-clamp-2 text-sm text-[var(--foreground)]/70">{desc}</p>
       ) : (
-        <p className="text-sm text-neutral-300">—</p>
+        <p className="text-sm text-[var(--muted-foreground)]/50">—</p>
       )}
-      <p className="mt-auto truncate font-mono text-xs text-neutral-400">
+      <p className="mt-auto truncate font-mono text-xs text-[var(--muted-foreground)]/70">
         {target}
       </p>
     </a>
@@ -107,11 +107,11 @@ function CategoryHeader({
 }) {
   return (
     <div className="mb-3 flex items-center gap-3">
-      <h2 className="text-xs font-semibold uppercase tracking-widest text-neutral-400">
+      <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--muted-foreground)]/70">
         {category}
       </h2>
-      <div className="flex-1 border-t border-neutral-200" />
-      <span className="text-xs text-neutral-400">{count}</span>
+      <div className="flex-1 border-t border-[var(--border)]" />
+      <span className="text-xs text-[var(--muted-foreground)]/70">{count}</span>
     </div>
   );
 }
@@ -170,11 +170,11 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
             placeholder="Search by path, URL, or description..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-2xl border border-neutral-300 bg-white px-5 py-4 pl-12 pr-28 text-neutral-900 placeholder-neutral-500 shadow-none transition-all focus:border-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-200"
+            className="w-full rounded-2xl border border-[var(--border)] bg-[var(--background)] px-5 py-4 pl-12 pr-28 text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] shadow-none transition-all focus:border-[var(--foreground)]/40 focus:outline-none focus:ring-2 focus:ring-[var(--border)]"
           />
           <svg
             aria-hidden="true"
-            className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-neutral-400"
+            className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[var(--muted-foreground)]/70"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -192,7 +192,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                 type="button"
                 aria-label="Clear search"
                 onClick={() => setSearchQuery("")}
-                className="rounded p-1 text-neutral-400 transition-colors hover:text-neutral-900"
+                className="rounded p-1 text-[var(--muted-foreground)]/70 transition-colors hover:text-[var(--foreground)]"
               >
                 <svg
                   aria-hidden="true"
@@ -209,7 +209,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
               </button>
             )}
             {/* View toggle */}
-            <div className="flex rounded-lg border border-neutral-200 bg-neutral-50 p-0.5">
+            <div className="flex rounded-lg border border-[var(--border)] bg-[var(--muted)] p-0.5">
               <button
                 type="button"
                 aria-label="List view"
@@ -217,8 +217,8 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                 className={cn(
                   "rounded-md p-1.5 transition-colors",
                   view === "list"
-                    ? "bg-white text-neutral-900 shadow-none"
-                    : "text-neutral-400 hover:text-neutral-600"
+                    ? "bg-[var(--background)] text-[var(--foreground)] shadow-none"
+                    : "text-[var(--muted-foreground)]/70 hover:text-[var(--foreground)]/70"
                 )}
               >
                 <ListIcon className="h-4 w-4" />
@@ -230,8 +230,8 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                 className={cn(
                   "rounded-md p-1.5 transition-colors",
                   view === "grid"
-                    ? "bg-white text-neutral-900 shadow-none"
-                    : "text-neutral-400 hover:text-neutral-600"
+                    ? "bg-[var(--background)] text-[var(--foreground)] shadow-none"
+                    : "text-[var(--muted-foreground)]/70 hover:text-[var(--foreground)]/70"
                 )}
               >
                 <GridIcon className="h-4 w-4" />
@@ -240,7 +240,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
           </div>
         </div>
         <div className="mt-3 flex items-center justify-between text-sm">
-          <p className="text-neutral-500">
+          <p className="text-[var(--muted-foreground)]">
             {filteredUrls.length === urls.length ? (
               <>Showing all {urls.length} short URLs</>
             ) : (
@@ -253,7 +253,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
             <button
               type="button"
               onClick={() => setSearchQuery("")}
-              className="text-neutral-600 hover:text-neutral-900"
+              className="text-[var(--foreground)]/70 hover:text-[var(--foreground)]"
             >
               Clear search
             </button>
@@ -263,10 +263,10 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
 
       {/* No results */}
       {filteredUrls.length === 0 && (
-        <div className="rounded-2xl border border-neutral-200 bg-white p-12 text-center">
+        <div className="rounded-2xl border border-[var(--border)] bg-[var(--background)] p-12 text-center">
           <svg
             aria-hidden="true"
-            className="mx-auto mb-4 h-12 w-12 text-neutral-300"
+            className="mx-auto mb-4 h-12 w-12 text-[var(--muted-foreground)]/50"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -278,13 +278,13 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
             />
           </svg>
-          <p className="text-neutral-600">
+          <p className="text-[var(--foreground)]/70">
             No URLs found matching &ldquo;{searchQuery}&rdquo;
           </p>
           <button
             type="button"
             onClick={() => setSearchQuery("")}
-            className="mt-3 text-sm text-neutral-900 hover:underline"
+            className="mt-3 text-sm text-[var(--foreground)] hover:underline"
           >
             Clear search
           </button>
@@ -318,19 +318,19 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                 href={target}
                 target={isExternal ? "_blank" : undefined}
                 rel={isExternal ? "noopener noreferrer" : undefined}
-                className="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-5 shadow-none transition-all hover:border-neutral-300"
+                className="group relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--background)] p-5 shadow-none transition-all hover:border-[var(--foreground)]/30"
               >
                 <div className="flex flex-col gap-2">
                   <div className="flex items-center gap-2">
-                    <code className="inline-flex items-center rounded-lg bg-neutral-100 px-3 py-1.5 font-mono text-sm font-semibold text-neutral-900 transition-colors group-hover:bg-neutral-200">
+                    <code className="inline-flex items-center rounded-lg bg-[var(--muted)] px-3 py-1.5 font-mono text-sm font-semibold text-[var(--foreground)] transition-colors group-hover:bg-[var(--muted-foreground)]/15">
                       {path}
                     </code>
                     {isExternal && (
-                      <ExternalIcon className="h-4 w-4 text-neutral-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      <ExternalIcon className="h-4 w-4 text-[var(--muted-foreground)]/70 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     )}
                   </div>
-                  {desc && <p className="text-sm text-neutral-700">{desc}</p>}
-                  <div className="mt-1 flex items-center gap-2 text-xs text-neutral-500">
+                  {desc && <p className="text-sm text-[var(--foreground)]/85">{desc}</p>}
+                  <div className="mt-1 flex items-center gap-2 text-xs text-[var(--muted-foreground)]">
                     <svg
                       aria-hidden="true"
                       className="h-3 w-3 flex-shrink-0"
@@ -360,7 +360,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
           {Array.from(grouped.entries()).map(([category, entries]) => (
             <div key={category} className="mb-8">
               <CategoryHeader category={category} count={entries.length} />
-              <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white">
+              <div className="overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--background)]">
                 {entries.map(({ path, target, desc }, i) => {
                   const isExternal = target.startsWith("http");
                   return (
@@ -370,22 +370,22 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                       target={isExternal ? "_blank" : undefined}
                       rel={isExternal ? "noopener noreferrer" : undefined}
                       className={cn(
-                        "group flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-neutral-50",
-                        i !== 0 && "border-t border-neutral-100"
+                        "group flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-[var(--muted)]",
+                        i !== 0 && "border-t border-[var(--border)]"
                       )}
                     >
-                      <code className="w-28 flex-shrink-0 font-mono text-sm font-semibold text-neutral-900 sm:w-36">
+                      <code className="w-28 flex-shrink-0 font-mono text-sm font-semibold text-[var(--foreground)] sm:w-36">
                         {path}
                       </code>
-                      <p className="min-w-0 flex-1 truncate text-sm text-neutral-600">
-                        {desc ?? <span className="text-neutral-300">—</span>}
+                      <p className="min-w-0 flex-1 truncate text-sm text-[var(--foreground)]/70">
+                        {desc ?? <span className="text-[var(--muted-foreground)]/50">—</span>}
                       </p>
-                      <span className="hidden truncate font-mono text-xs text-neutral-400 sm:block sm:max-w-[200px]">
+                      <span className="hidden truncate font-mono text-xs text-[var(--muted-foreground)]/70 sm:block sm:max-w-[200px]">
                         {target}
                       </span>
                       <svg
                         aria-hidden="true"
-                        className="h-4 w-4 flex-shrink-0 text-neutral-300 transition-transform group-hover:translate-x-0.5 group-hover:text-neutral-500"
+                        className="h-4 w-4 flex-shrink-0 text-[var(--muted-foreground)]/50 transition-transform group-hover:translate-x-0.5 group-hover:text-[var(--muted-foreground)]"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"

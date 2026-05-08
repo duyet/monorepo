@@ -29,7 +29,7 @@ const capabilities = [
       "Deep dives into data engineering architecture, distributed systems, AI agents, and lessons learned from scaling open source.",
     href: addUtmParams("https://blog.duyet.net", "homepage", "blog_card"),
     icon: Newspaper,
-    className: "bg-[#f3eee6]",
+    className: "bg-[var(--muted)]",
   },
   {
     title: "Resume",
@@ -71,10 +71,10 @@ function HomePage() {
         <KeyboardFeatures />
       </Suspense>
 
-      <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-white dark:text-[#1a1a1a]">
+      <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
         <SiteHeader />
 
-        <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-white 2xl:rounded-b-[4rem]">
+        <main className="relative z-10 rounded-b-3xl bg-[var(--background)] pb-16 2xl:rounded-b-[4rem]">
           <HomeAgentsChat />
 
           <section className="mx-auto max-w-[1280px] px-5 py-14 sm:px-8 md:py-18 lg:px-10 lg:py-24 xl:py-28">
@@ -118,7 +118,7 @@ function HomePage() {
               <h2 className="text-2xl font-semibold tracking-tight md:text-3xl xl:text-4xl">
                 Apps
               </h2>
-              <p className="text-base font-medium text-[#1a1a1a]/70">
+              <p className="text-base font-medium text-[var(--muted-foreground)]">
                 Managed by @duyetbot AI Agent
               </p>
             </div>
@@ -132,7 +132,7 @@ function HomePage() {
             <div className="my-10 flex justify-center lg:my-14">
               <Link
                 to="/projects"
-                className="rounded-lg border border-[#1a1a1a]/10 bg-white px-6 py-4 text-base font-medium text-[#1a1a1a] transition-colors hover:bg-[#f7f7f7] lg:px-8 lg:text-lg"
+                className="rounded-lg border border-[var(--border)] bg-[var(--background)] px-6 py-4 text-base font-medium text-[var(--foreground)] transition-colors hover:bg-[var(--muted)] lg:px-8 lg:text-lg"
               >
                 View more projects
               </Link>
@@ -150,17 +150,17 @@ function HomePage() {
           <section className="mx-auto mt-24 max-w-[1280px] px-5 sm:px-8 lg:mt-32 lg:px-10 xl:mt-40">
             <Link
               to="/ls"
-              className="group grid gap-5 rounded-xl border border-[#1a1a1a]/10 bg-white p-6 transition-colors md:grid-cols-[1fr_auto] md:items-center lg:p-8"
+              className="group grid gap-5 rounded-xl border border-[var(--border)] bg-[var(--background)] p-6 transition-colors md:grid-cols-[1fr_auto] md:items-center lg:p-8"
             >
               <div className="flex items-start gap-4">
-                <span className="flex h-12 w-12 items-center justify-center rounded-lg border border-[#1a1a1a]/10 bg-white text-[#1a1a1a]">
+                <span className="flex h-12 w-12 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)]">
                   <LinkIcon className="h-5 w-5" />
                 </span>
                 <div>
                   <h3 className="text-xl font-semibold tracking-tight">
                     duyet.net/ls
                   </h3>
-                  <p className="mt-1 text-base font-medium text-[#1a1a1a]/70">
+                  <p className="mt-1 text-base font-medium text-[var(--muted-foreground)]">
                     All short URLs and redirects
                   </p>
                 </div>
@@ -184,7 +184,7 @@ function ProjectCard({
   return (
     <AppLink
       item={item}
-      className={`group overflow-hidden rounded-xl border border-[#1a1a1a]/10 ${item.tone ?? "bg-[#f3eee6]"} transition-transform hover:-translate-y-0.5`}
+      className={`group overflow-hidden rounded-xl border border-[var(--border)] ${item.tone ?? "bg-[var(--muted)]"} transition-transform hover:-translate-y-0.5`}
     >
       <div className="p-4 text-white lg:p-5">
         <h3 className="text-base font-semibold tracking-tight lg:text-lg">
@@ -253,16 +253,16 @@ function CompactAppCard({ item }: { item: AppItem }) {
   return (
     <AppLink
       item={item}
-      className={`group flex min-h-36 flex-col rounded-xl border border-[#1a1a1a]/10 ${item.tone ?? "bg-[#f3eee6]"} p-5 transition-colors lg:p-6`}
+      className={`group flex min-h-36 flex-col rounded-xl border border-[var(--border)] ${item.tone ?? "bg-[var(--muted)]"} p-5 transition-colors lg:p-6`}
     >
-      <div className="mb-8 flex h-10 w-10 items-center justify-center rounded-lg border border-[#1a1a1a]/10 bg-white text-[#1a1a1a]">
+      <div className="mb-8 flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)]">
         <Server className="h-5 w-5" />
       </div>
       <h3 className="text-lg font-semibold tracking-tight">{item.name}</h3>
-      <p className="mt-2 text-sm font-medium leading-snug text-[#1a1a1a]/70">
+      <p className="mt-2 text-sm font-medium leading-snug text-[var(--muted-foreground)]">
         {item.description}
       </p>
-      <p className="mt-auto pt-6 text-sm font-medium text-[#1a1a1a]/55">
+      <p className="mt-auto pt-6 text-sm font-medium text-[var(--muted-foreground)]">
         {item.host}
       </p>
     </AppLink>

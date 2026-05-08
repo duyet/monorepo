@@ -99,7 +99,7 @@ const links = [
       "Experience building scalable data infrastructure, AI applications, and production systems.",
     url: addUtmParams("https://cv.duyet.net", "about_page", "resume_card"),
     icon: FileUser,
-    tone: "bg-[#bfdbfe] dark:bg-[#1f3a5f]",
+    tone: "bg-[#bfdbfe]",
   },
   {
     title: "GitHub",
@@ -107,7 +107,7 @@ const links = [
       "Open source work across Python, Rust, TypeScript, analytics, and developer tooling.",
     url: addUtmParams("https://github.com/duyet", "about_page", "github_card"),
     icon: GithubIcon,
-    tone: "bg-[#a7f3d0] dark:bg-[#164634]",
+    tone: "bg-[#a7f3d0]",
   },
   {
     title: "LinkedIn",
@@ -119,7 +119,7 @@ const links = [
       "linkedin_card"
     ),
     icon: LinkedInIcon,
-    tone: "bg-[#fecaca] dark:bg-[#4f1f1f]",
+    tone: "bg-[#fecaca]",
   },
   {
     title: "Blog",
@@ -127,18 +127,18 @@ const links = [
       "Technical writing on data engineering, distributed systems, AI agents, and open source.",
     url: addUtmParams("https://blog.duyet.net", "about_page", "blog_card"),
     icon: BookOpen,
-    tone: "bg-white dark:bg-[#1a1a1a]",
+    tone: "bg-[var(--background)]",
   },
 ];
 
 function AboutPage() {
   return (
-      <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
+      <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
         <SiteHeader />
 
-      <main className="relative z-10 rounded-b-3xl bg-white pb-20 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+      <main className="relative z-10 rounded-b-3xl bg-[var(--background)] pb-20 2xl:rounded-b-[4rem]">
         <section className="mx-auto max-w-[1280px] px-5 py-14 sm:px-8 md:py-18 lg:px-10 lg:py-24 xl:py-28">
-          <p className="mb-4 text-sm font-medium text-[#1a1a1a]/60 dark:text-[#f8f8f2]/60">
+          <p className="mb-4 text-sm font-medium text-[var(--muted-foreground)]">
             About
           </p>
           <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(320px,0.55fr)] lg:items-end">
@@ -146,14 +146,14 @@ function AboutPage() {
               <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
                 I build data and AI systems that stay useful in production.
               </h1>
-              <p className="max-w-[620px] text-lg font-medium leading-snug tracking-tight text-[#1a1a1a]/80 dark:text-[#f8f8f2]/80 lg:text-xl">
+              <p className="max-w-[620px] text-lg font-medium leading-snug tracking-tight text-[var(--foreground)]/80 lg:text-xl">
                 Data & AI Engineer with {experienceYears} of experience across
                 modern data infrastructure, AI/ML platforms, distributed
                 systems, and cloud-native engineering.
               </p>
             </div>
 
-            <div className="space-y-4 text-base font-medium leading-7 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+            <div className="space-y-4 text-base font-medium leading-7 text-[var(--muted-foreground)]">
               <p>
                 I care about systems that are easy to operate, easy to explain,
                 and boring in the places where reliability matters.
@@ -202,16 +202,16 @@ function AboutPage() {
         />
 
         <section className="mx-auto mt-24 max-w-[1280px] px-5 sm:px-8 lg:mt-32 lg:px-10 xl:mt-40">
-          <div className="grid gap-5 rounded-xl bg-white p-6 dark:bg-[#1a1a1a] md:grid-cols-[1fr_auto] md:items-center lg:p-8">
+          <div className="grid gap-5 rounded-xl bg-[var(--muted)] p-6 md:grid-cols-[1fr_auto] md:items-center lg:p-8">
             <div className="flex items-start gap-4">
-              <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#1a1a1a] text-white dark:bg-white dark:text-[#0d0e0c]">
+              <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-[var(--foreground)] text-[var(--background)]">
                 <Radio className="h-5 w-5" />
               </span>
               <div>
                 <h2 className="text-xl font-semibold tracking-tight">
                   Follow the work
                 </h2>
-                <p className="mt-1 text-base font-medium text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+                <p className="mt-1 text-base font-medium text-[var(--muted-foreground)]">
                   Blog posts, project notes, analytics, and small tools across
                   the Duyet network.
                 </p>
@@ -225,7 +225,7 @@ function AboutPage() {
               )}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#1a1a1a] px-6 py-4 text-base font-medium text-white transition-colors hover:bg-[#444] dark:bg-white dark:text-[#0d0e0c] dark:hover:bg-white"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--foreground)] px-6 py-4 text-base font-medium text-[var(--background)] transition-colors hover:bg-[var(--foreground)]/80"
             >
               Read blog
               <ArrowRight className="h-5 w-5" />
