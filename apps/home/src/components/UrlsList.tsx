@@ -1,5 +1,4 @@
 import { cn } from "@duyet/libs/utils";
-import { Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { CATEGORY_ORDER, type Category } from "../../app/config/categories";
 
@@ -12,62 +11,36 @@ interface UrlEntry {
   category?: Category;
 }
 
-function ListIcon({ className }: { className?: string }) {
+function ListIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
   return (
-    <svg
-      className={className}
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      aria-hidden="true"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M4 6h16M4 10h16M4 14h16M4 18h16"
-      />
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
     </svg>
   );
 }
 
-function GridIcon({ className }: { className?: string }) {
+function GridIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
   return (
-    <svg
-      className={className}
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      aria-hidden="true"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"
-      />
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
     </svg>
   );
 }
 
-function ExternalIcon({ className }: { className?: string }) {
+function ExternalIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
   return (
-    <svg
-      className={className}
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      aria-hidden="true"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-      />
+    <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
     </svg>
   );
 }
+
+const surfaceCard = "#efe9de";
+const canvas = "#faf9f5";
+const ink = "#141413";
+const muted = "#6c6a64";
+const mutedSoft = "#8e8b82";
+const hairline = "#e6dfd8";
 
 function UrlCard({ path, target, desc }: UrlEntry) {
   const isExternal = target.startsWith("http");
@@ -76,42 +49,46 @@ function UrlCard({ path, target, desc }: UrlEntry) {
       href={target}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
-      className="group flex flex-col gap-2 overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--background)] p-5 shadow-none transition-all hover:-translate-y-0.5 hover:border-[var(--foreground)]/30"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 8,
+        background: surfaceCard,
+        padding: 20,
+        borderRadius: 8,
+        textDecoration: "none",
+        color: ink,
+        transition: "transform 0.15s ease",
+      }}
+      onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; }}
+      onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; }}
     >
-      <div className="flex items-start justify-between gap-2">
-        <code className="font-mono text-base font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--foreground)]/70">
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <code style={{ fontFamily: "monospace", fontSize: 15, fontWeight: 600, color: ink }}>
           {path}
         </code>
-        {isExternal && (
-          <ExternalIcon className="mt-0.5 h-4 w-4 flex-shrink-0 text-[var(--muted-foreground)]/70 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        )}
+        {isExternal && <ExternalIcon style={{ width: 14, height: 14, color: mutedSoft, flexShrink: 0 }} />}
       </div>
       {desc ? (
-        <p className="line-clamp-2 text-sm text-[var(--foreground)]/70">{desc}</p>
+        <p style={{ fontSize: 13, color: muted, lineHeight: 1.4, margin: 0 }}>{desc}</p>
       ) : (
-        <p className="text-sm text-[var(--muted-foreground)]/50">—</p>
+        <p style={{ fontSize: 13, color: mutedSoft }}>—</p>
       )}
-      <p className="mt-auto truncate font-mono text-xs text-[var(--muted-foreground)]/70">
+      <p style={{ fontFamily: "monospace", fontSize: 11, color: mutedSoft, margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
         {target}
       </p>
     </a>
   );
 }
 
-function CategoryHeader({
-  category,
-  count,
-}: {
-  category: string;
-  count: number;
-}) {
+function CategoryHeader({ category, count }: { category: string; count: number }) {
   return (
-    <div className="mb-3 flex items-center gap-3">
-      <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--muted-foreground)]/70">
+    <div style={{ marginBottom: 12, display: "flex", alignItems: "center", gap: 12 }}>
+      <h2 style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em", color: mutedSoft, margin: 0 }}>
         {category}
       </h2>
-      <div className="flex-1 border-t border-[var(--border)]" />
-      <span className="text-xs text-[var(--muted-foreground)]/70">{count}</span>
+      <div style={{ flex: 1, borderTop: `1px solid ${hairline}` }} />
+      <span style={{ fontSize: 11, color: mutedSoft }}>{count}</span>
     </div>
   );
 }
@@ -141,7 +118,6 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
     );
   }, [searchQuery, urls]);
 
-  // grouped always uses filteredUrls so search works in both views
   const grouped = useMemo(() => {
     const map = new Map<string, UrlEntry[]>();
     for (const entry of filteredUrls) {
@@ -161,143 +137,111 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
 
   return (
     <>
-      {/* Search Bar + View Toggle */}
-      <div className="mb-8">
-        <div className="relative">
+      {/* Search + Toggle */}
+      <div style={{ marginBottom: 32 }}>
+        <div style={{ position: "relative" }}>
           <input
             type="text"
             aria-label="Search by path, URL, or description"
             placeholder="Search by path, URL, or description..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-2xl border border-[var(--border)] bg-[var(--background)] px-5 py-4 pl-12 pr-28 text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] shadow-none transition-all focus:border-[var(--foreground)]/40 focus:outline-none focus:ring-2 focus:ring-[var(--border)]"
+            style={{
+              width: "100%",
+              padding: "14px 100px 14px 44px",
+              fontSize: 14,
+              background: canvas,
+              color: ink,
+              border: `1px solid ${hairline}`,
+              borderRadius: 8,
+              outline: "none",
+              fontFamily: "inherit",
+            }}
           />
           <svg
             aria-hidden="true"
-            className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[var(--muted-foreground)]/70"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+            style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", width: 18, height: 18, color: mutedSoft }}
+            fill="none" viewBox="0 0 24 24" stroke="currentColor"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
-          <div className="absolute right-3 top-1/2 flex -translate-y-1/2 items-center gap-1">
+          <div style={{ position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", display: "flex", alignItems: "center", gap: 4 }}>
             {searchQuery && (
               <button
                 type="button"
                 aria-label="Clear search"
                 onClick={() => setSearchQuery("")}
-                className="rounded p-1 text-[var(--muted-foreground)]/70 transition-colors hover:text-[var(--foreground)]"
+                style={{ background: "none", border: "none", padding: 4, color: mutedSoft, cursor: "pointer" }}
               >
-                <svg
-                  aria-hidden="true"
-                  className="h-4 w-4"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                    clipRule="evenodd"
-                  />
+                <svg aria-hidden="true" style={{ width: 16, height: 16 }} fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                 </svg>
               </button>
             )}
-            {/* View toggle */}
-            <div className="flex rounded-lg border border-[var(--border)] bg-[var(--muted)] p-0.5">
+            <div style={{ display: "flex", background: surfaceCard, borderRadius: 6, padding: 2 }}>
               <button
                 type="button"
                 aria-label="List view"
                 onClick={() => setViewAndSave("list")}
-                className={cn(
-                  "rounded-md p-1.5 transition-colors",
-                  view === "list"
-                    ? "bg-[var(--background)] text-[var(--foreground)] shadow-none"
-                    : "text-[var(--muted-foreground)]/70 hover:text-[var(--foreground)]/70"
-                )}
+                style={{
+                  padding: 5,
+                  borderRadius: 4,
+                  border: "none",
+                  background: view === "list" ? canvas : "transparent",
+                  color: view === "list" ? ink : mutedSoft,
+                  cursor: "pointer",
+                  transition: "background 0.15s",
+                }}
               >
-                <ListIcon className="h-4 w-4" />
+                <ListIcon style={{ width: 16, height: 16 }} />
               </button>
               <button
                 type="button"
                 aria-label="Grid view"
                 onClick={() => setViewAndSave("grid")}
-                className={cn(
-                  "rounded-md p-1.5 transition-colors",
-                  view === "grid"
-                    ? "bg-[var(--background)] text-[var(--foreground)] shadow-none"
-                    : "text-[var(--muted-foreground)]/70 hover:text-[var(--foreground)]/70"
-                )}
+                style={{
+                  padding: 5,
+                  borderRadius: 4,
+                  border: "none",
+                  background: view === "grid" ? canvas : "transparent",
+                  color: view === "grid" ? ink : mutedSoft,
+                  cursor: "pointer",
+                  transition: "background 0.15s",
+                }}
               >
-                <GridIcon className="h-4 w-4" />
+                <GridIcon style={{ width: 16, height: 16 }} />
               </button>
             </div>
           </div>
         </div>
-        <div className="mt-3 flex items-center justify-between text-sm">
-          <p className="text-[var(--muted-foreground)]">
-            {filteredUrls.length === urls.length ? (
-              <>Showing all {urls.length} short URLs</>
-            ) : (
-              <>
-                Showing {filteredUrls.length} of {urls.length} URLs
-              </>
-            )}
-          </p>
-          {searchQuery && (
-            <button
-              type="button"
-              onClick={() => setSearchQuery("")}
-              className="text-[var(--foreground)]/70 hover:text-[var(--foreground)]"
-            >
-              Clear search
-            </button>
-          )}
+        <div style={{ marginTop: 10, fontSize: 13, color: muted }}>
+          {filteredUrls.length === urls.length
+            ? `Showing all ${urls.length} short URLs`
+            : `Showing ${filteredUrls.length} of ${urls.length} URLs`}
         </div>
       </div>
 
       {/* No results */}
       {filteredUrls.length === 0 && (
-        <div className="rounded-2xl border border-[var(--border)] bg-[var(--background)] p-12 text-center">
-          <svg
-            aria-hidden="true"
-            className="mx-auto mb-4 h-12 w-12 text-[var(--muted-foreground)]/50"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-          <p className="text-[var(--foreground)]/70">
-            No URLs found matching &ldquo;{searchQuery}&rdquo;
-          </p>
+        <div style={{ background: surfaceCard, borderRadius: 8, padding: 48, textAlign: "center" }}>
+          <p style={{ color: muted, fontSize: 14 }}>No URLs found matching &ldquo;{searchQuery}&rdquo;</p>
           <button
             type="button"
             onClick={() => setSearchQuery("")}
-            className="mt-3 text-sm text-[var(--foreground)] hover:underline"
+            style={{ marginTop: 12, fontSize: 13, color: ink, background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}
           >
             Clear search
           </button>
         </div>
       )}
 
-      {/* Grid view — grouped cards, 3 cols */}
+      {/* Grid view */}
       {filteredUrls.length > 0 && view === "grid" && (
         <div>
           {Array.from(grouped.entries()).map(([category, entries]) => (
-            <div key={category} className="mb-8">
+            <div key={category} style={{ marginBottom: 32 }}>
               <CategoryHeader category={category} count={entries.length} />
-              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))" }}>
                 {entries.map((entry) => (
                   <UrlCard key={entry.path} {...entry} />
                 ))}
@@ -307,9 +251,9 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
         </div>
       )}
 
-      {/* List view — search results: flat 2-col cards */}
+      {/* List view — search: flat cards */}
       {filteredUrls.length > 0 && view === "list" && searchQuery && (
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))" }}>
           {filteredUrls.map(({ path, target, desc }) => {
             const isExternal = target.startsWith("http");
             return (
@@ -318,35 +262,29 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                 href={target}
                 target={isExternal ? "_blank" : undefined}
                 rel={isExternal ? "noopener noreferrer" : undefined}
-                className="group relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--background)] p-5 shadow-none transition-all hover:border-[var(--foreground)]/30"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 6,
+                  background: surfaceCard,
+                  padding: 16,
+                  borderRadius: 8,
+                  textDecoration: "none",
+                  color: ink,
+                }}
               >
-                <div className="flex flex-col gap-2">
-                  <div className="flex items-center gap-2">
-                    <code className="inline-flex items-center rounded-lg bg-[var(--muted)] px-3 py-1.5 font-mono text-sm font-semibold text-[var(--foreground)] transition-colors group-hover:bg-[var(--muted-foreground)]/15">
-                      {path}
-                    </code>
-                    {isExternal && (
-                      <ExternalIcon className="h-4 w-4 text-[var(--muted-foreground)]/70 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    )}
-                  </div>
-                  {desc && <p className="text-sm text-[var(--foreground)]/85">{desc}</p>}
-                  <div className="mt-1 flex items-center gap-2 text-xs text-[var(--muted-foreground)]">
-                    <svg
-                      aria-hidden="true"
-                      className="h-3 w-3 flex-shrink-0"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 7l5 5m0 0l-5 5m5-5H6"
-                      />
-                    </svg>
-                    <span className="truncate font-mono">{target}</span>
-                  </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <code style={{ fontFamily: "monospace", fontSize: 13, fontWeight: 600, background: canvas, padding: "4px 10px", borderRadius: 4, color: ink }}>
+                    {path}
+                  </code>
+                  {isExternal && <ExternalIcon style={{ width: 14, height: 14, color: mutedSoft }} />}
+                </div>
+                {desc && <p style={{ fontSize: 13, color: muted, margin: 0 }}>{desc}</p>}
+                <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 4 }}>
+                  <svg aria-hidden="true" style={{ width: 12, height: 12, flexShrink: 0 }} fill="none" viewBox="0 0 24 24" stroke={mutedSoft}>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                  <span style={{ fontFamily: "monospace", fontSize: 11, color: mutedSoft, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{target}</span>
                 </div>
               </a>
             );
@@ -354,13 +292,13 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
         </div>
       )}
 
-      {/* List view — default: grouped table rows */}
+      {/* List view — default: grouped rows */}
       {filteredUrls.length > 0 && view === "list" && !searchQuery && (
         <div>
           {Array.from(grouped.entries()).map(([category, entries]) => (
-            <div key={category} className="mb-8">
+            <div key={category} style={{ marginBottom: 32 }}>
               <CategoryHeader category={category} count={entries.length} />
-              <div className="overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--background)]">
+              <div style={{ background: surfaceCard, borderRadius: 8, overflow: "hidden" }}>
                 {entries.map(({ path, target, desc }, i) => {
                   const isExternal = target.startsWith("http");
                   return (
@@ -369,33 +307,30 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                       href={target}
                       target={isExternal ? "_blank" : undefined}
                       rel={isExternal ? "noopener noreferrer" : undefined}
-                      className={cn(
-                        "group flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-[var(--muted)]",
-                        i !== 0 && "border-t border-[var(--border)]"
-                      )}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 16,
+                        padding: "12px 20px",
+                        textDecoration: "none",
+                        color: ink,
+                        borderTop: i === 0 ? "none" : `1px solid ${hairline}`,
+                        transition: "background 0.15s",
+                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.background = canvas; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
                     >
-                      <code className="w-28 flex-shrink-0 font-mono text-sm font-semibold text-[var(--foreground)] sm:w-36">
+                      <code style={{ fontFamily: "monospace", fontSize: 13, fontWeight: 600, color: ink, width: 120, flexShrink: 0 }}>
                         {path}
                       </code>
-                      <p className="min-w-0 flex-1 truncate text-sm text-[var(--foreground)]/70">
-                        {desc ?? <span className="text-[var(--muted-foreground)]/50">—</span>}
+                      <p style={{ fontSize: 13, color: muted, flex: 1, margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                        {desc ?? <span style={{ color: mutedSoft }}>—</span>}
                       </p>
-                      <span className="hidden truncate font-mono text-xs text-[var(--muted-foreground)]/70 sm:block sm:max-w-[200px]">
+                      <span style={{ fontFamily: "monospace", fontSize: 11, color: mutedSoft, maxWidth: 200, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                         {target}
                       </span>
-                      <svg
-                        aria-hidden="true"
-                        className="h-4 w-4 flex-shrink-0 text-[var(--muted-foreground)]/50 transition-transform group-hover:translate-x-0.5 group-hover:text-[var(--muted-foreground)]"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
+                      <svg aria-hidden="true" style={{ width: 14, height: 14, flexShrink: 0, color: mutedSoft }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </a>
                   );
