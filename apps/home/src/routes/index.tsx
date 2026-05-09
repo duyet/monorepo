@@ -28,7 +28,7 @@ const capabilities = [
       "Deep dives into data engineering architecture, distributed systems, AI agents, and lessons learned from scaling open source.",
     href: addUtmParams("https://blog.duyet.net", "homepage", "blog_card"),
     icon: Newspaper,
-    className: "bg-[var(--surface-card)]",
+    className: "bg-[#efe9de] dark:bg-[#252320]",
   },
   {
     title: "Resume",
@@ -36,7 +36,7 @@ const capabilities = [
       "Scalable data infrastructure, intelligent applications, and production systems that stay fast as usage grows.",
     href: addUtmParams("https://cv.duyet.net", "homepage", "resume_card"),
     icon: FileUser,
-    className: "bg-[#f5f0e8] dark:bg-blue-900/20",
+    className: "bg-[#f5f0e8] dark:bg-[#1f1e1b]",
   },
   {
     title: "Insights",
@@ -48,7 +48,7 @@ const capabilities = [
       "insights_card"
     ),
     icon: ChartNoAxesCombined,
-    className: "bg-[#e8e0d2] dark:bg-emerald-900/20",
+    className: "bg-[#e8e0d2] dark:bg-[#2a2824]",
   },
   {
     title: "About",
@@ -56,7 +56,7 @@ const capabilities = [
       "Clear project surfaces for Rust, ClickHouse, MCP tools, AI agents, and the small systems that make them useful.",
     href: "/about",
     icon: UserRound,
-    className: "bg-[var(--surface-card)]",
+    className: "bg-[#faf9f5] border border-[var(--border)] dark:bg-[#181715]",
   },
 ];
 
@@ -210,7 +210,7 @@ function ProjectCard({
   return (
     <AppLink
       item={item}
-      className={`group relative flex aspect-square flex-col justify-end overflow-hidden rounded-xl border border-[var(--border)] p-8 transition-all hover:-translate-y-1 hover:shadow-xl ${item.tone ?? "bg-[var(--muted)]"}`}
+      className={`group relative flex aspect-square flex-col justify-end overflow-hidden rounded-xl border border-[var(--border)] p-6 transition-all hover:-translate-y-1 hover:shadow-xl ${item.tone ?? "bg-[var(--muted)]"}`}
     >
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
       <div className="relative z-10 text-white">
@@ -240,14 +240,14 @@ function CapabilityCard({
 }) {
   const isExternal = href.startsWith("http");
   const children = (
-    <div className="flex h-full flex-col justify-between p-8">
-      <div className="flex items-start justify-between gap-6">
-        <Icon className="h-10 w-10 shrink-0 lg:h-12 lg:w-12 text-[var(--foreground)] opacity-20" />
-        <span className="font-serif text-xl opacity-40">0{title === "Blog" ? 1 : title === "Resume" ? 2 : title === "Insights" ? 3 : 4}</span>
+    <div className="flex h-full flex-col justify-between p-6 lg:p-7">
+      <div className="flex items-start justify-between gap-4">
+        <Icon className="h-7 w-7 shrink-0 lg:h-8 lg:w-8 text-[var(--foreground)] opacity-20" />
+        <span className="font-serif text-lg opacity-40">0{title === "Blog" ? 1 : title === "Resume" ? 2 : title === "Insights" ? 3 : 4}</span>
       </div>
-      <div className="mt-8">
-        <h3 className="font-serif text-2xl lg:text-[36px]">{title}</h3>
-        <p className="mt-3 text-lg font-normal leading-relaxed text-[var(--body)] lg:text-xl">
+      <div className="mt-6">
+        <h3 className="font-serif text-xl lg:text-[28px]">{title}</h3>
+        <p className="mt-2 text-base font-normal leading-snug text-[var(--body)] lg:text-lg">
           {description}
         </p>
       </div>
@@ -255,7 +255,7 @@ function CapabilityCard({
   );
 
   const classes = cn(
-    "flex min-h-[320px] flex-col rounded-xl transition-all hover:-translate-y-1 hover:shadow-lg lg:min-h-[400px]",
+    "flex min-h-[220px] flex-col rounded-xl transition-all hover:-translate-y-1 hover:shadow-lg lg:min-h-[240px]",
     className
   );
 
@@ -283,7 +283,7 @@ function CompactAppCard({ item }: { item: AppItem }) {
   return (
     <AppLink
       item={item}
-      className={`group flex min-h-40 flex-col justify-between rounded-xl border border-[var(--border)] p-8 transition-all hover:bg-[var(--muted)]`}
+      className={`group flex min-h-40 flex-col justify-between rounded-xl border border-[var(--border)] p-6 transition-all hover:bg-[var(--muted)]`}
     >
       <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--background)] text-[var(--foreground)] shadow-sm ring-1 ring-[var(--border)]">
         <Server className="h-5 w-5" />
