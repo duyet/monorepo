@@ -8,7 +8,7 @@ tags:
 
 modified_time: '2025-11-09T00:00:00.000+07:00'
 thumbnail: https://1.bp.blogspot.com/-zKPSuJl81ss/VVgTJnRpLnI/AAAAAAAACfQ/NW8xNo8FrxA/s1600/image_a3c65c2974270fd093ee8a9bf8ae7d0b.jpg
-slug: /2015/05/tim-hieu-ve-he-thong-quang-cao-online.html
+slug: /2015/05/tim-hieu-ve-he-thong-quang-cao-online
 category: News
 description: Chắc hẳn trong đa số chúng ta đều rất ghét các loại quảng cáo trên Web, Internet. Có lẽ nguyên nhân lớn nhất là chúng cản trở chúng ta đến với dịch vụ (che tầm nhìn của trang web hay tivi), và chúng hiển thị những thông tin mà chúng ta coi là dư thừa, không cần thiết. Tuy nhiên có phải vì thế mà quảng cáo chỉ toàn điều xấu và không đáng tồn tại?
 ---

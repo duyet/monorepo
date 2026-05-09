@@ -8,7 +8,7 @@ tags:
   - Node.js
   - Read
 modified_time: '2016-05-02T19:39:38.146+07:00'
-slug: /2016/03/how-one-developer-just-broke-the-internet.html
+slug: /2016/03/how-one-developer-just-broke-the-internet
 category: News
 description: Một lập trình viên vừa gây lỗi hàng loạt cho Node, Babel và hàng nghìn projects khác. Chỉ với 11 dòng Javascript.
 ---

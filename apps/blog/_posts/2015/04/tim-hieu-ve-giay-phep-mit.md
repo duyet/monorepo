@@ -6,7 +6,7 @@ tags:
   - Open Source
   - License
 modified_time: '2015-04-11T13:08:57.544+07:00'
-slug: /2015/04/tim-hieu-ve-giay-phep-mit.html
+slug: /2015/04/tim-hieu-ve-giay-phep-mit
 category: News
 description: MIT là một giấy phép phần mềm tự do được phát hành bởi Học viện Công nghệ Massachusetts (Massachusetts Institute of Technology – MIT), được hội đồng MIT X sử dụng.
 ---

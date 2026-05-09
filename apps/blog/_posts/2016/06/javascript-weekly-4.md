@@ -8,7 +8,7 @@ tags:
   - Javascript Weekly
 modified_time: '2016-06-11T22:02:39.496+07:00'
 thumbnail: https://4.bp.blogspot.com/-mQxRpFMY0UM/V1wn05hGx3I/AAAAAAAAXiA/PUSZrt0AUoMEyGQbfmEbmJlhnEmBIp-5gCK4B/s1600/js-4.png
-slug: /2016/06/javascript-weekly-4.html
+slug: /2016/06/javascript-weekly-4
 category: Javascript
 description: React và ES6 vẫn là các chủ đề đang được quan tâm. Javascript Weekly tuần này có gì hot?
 ---

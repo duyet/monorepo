@@ -5,7 +5,7 @@ category: Web
 tags:
   - Web
   - Javascript
-slug: /2019/10/js-shorthand-tips.html
+slug: /2019/10/js-shorthand-tips
 thumbnail:
 description: These Javascript shorthand tips will make your code look more cool and clean.
 ---

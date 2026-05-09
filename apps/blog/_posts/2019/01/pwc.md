@@ -9,7 +9,7 @@ tags:
   - Artificial Intelligence (AI)
 modified_time: '2019-01-06T10:16:58.212+07:00'
 thumbnail: https://4.bp.blogspot.com/-MeLBsmLAEPc/XDFwdbzx4OI/AAAAAAAA3eM/dvTNPS6N26wnQQvOQ-OtVOPC5A4JXwNQgCLcBGAs/s1600/duyet-pwc.png
-slug: /2019/01/pwc.html
+slug: /2019/01/pwc
 description: Papers with code. Sorted by stars. Updated weekly.
 ---
 

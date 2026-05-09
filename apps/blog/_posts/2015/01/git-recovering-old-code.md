@@ -7,7 +7,7 @@ tags:
   - Tutorial
   - Git
 thumbnail: https://raw.githubusercontent.com/git/git-scm.com/main/public/images/logos/downloads/Git-Logo-2Color.png
-slug: /2015/01/git-recovering-old-code.html
+slug: /2015/01/git-recovering-old-code
 description: Git là một công cụ mạnh mẽ để quản lý dự án, được sử dụng phổ biến hiện nay. Dưới đây là một số trường hợp mà bạn có thể cần phục hồi mã nguồn do lỗi, hoặc các tình huống khác mà bạn thường gặp
 ---
 

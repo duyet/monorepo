@@ -9,7 +9,7 @@ tags:
   - Big Data
 modified_time: '2016-01-11T02:00:26.381+07:00'
 thumbnail: https://1.bp.blogspot.com/-KvlK1aCu4JA/VmsMOTCCySI/AAAAAAAALYo/H_kBQPB_dDE/s1600/KuDr42X_ITXghJhSInDZekNEF0jLt3NeVxtRye3tqco.png
-slug: /2015/12/apache-spark-on-docker.html
+slug: /2015/12/apache-spark-on-docker
 category: Data
 description: Containerizing Apache Spark with Docker remains essential in 2025. This guide covers modern deployment practices using Docker Compose, Kubernetes considerations, and best practices with current Spark versions.
 ---

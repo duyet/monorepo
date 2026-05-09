@@ -6,7 +6,7 @@ tags:
   - Side Project
 modified_time: '2016-03-25T00:03:10.156+07:00'
 thumbnail: https://4.bp.blogspot.com/-IQqx5voNl_w/VvLTmSA8WLI/AAAAAAAASMk/gcSzeVC8jd8m8mZIn5ySX_ytb_F1YLSFA/s1600/screencapture-saveto-co-note-1458754419141.png
-slug: /2016/03/savetoco-nang-cap-chuc-nang-note.html
+slug: /2016/03/savetoco-nang-cap-chuc-nang-note
 category: Project
 description: Hệ thống service saveto.co dùng để share và shortener URL, home for the best link in the internet.
 ---

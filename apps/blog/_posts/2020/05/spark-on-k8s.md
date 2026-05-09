@@ -11,7 +11,7 @@ tags:
 
 # thumbnail: https://3.bp.blogspot.com/-F-neg4I_RWs/Xsno7eN23rI/AAAAAAABZV4/qTy_8SkWlkQSyH5Gg7D01mFaFkeuWRsuwCK4BGAYYCw/s1600/draft-of-apache-spark-image-2.png
 thumbnail: https://1.bp.blogspot.com/-VI84ABaeYlc/XtIGszW5AoI/AAAAAAABZ0s/w1MDUsBNLwsB7_gMIKf-WMX5JXfZOnXLACK4BGAYYCw/s1600/livy-spark-k8s.png
-slug: /2020/05/spark-on-k8s.html
+slug: /2020/05/spark-on-k8s
 description: Spark can run on clusters managed by Kubernetes. This feature makes use of native Kubernetes scheduler that has been added to Spark.
 ---
 

@@ -6,7 +6,7 @@ tags:
   - Github
   - Side Project
 modified_time: '2018-09-10T17:30:29.064+07:00'
-slug: /2015/08/github-project-feedback-social-platform.html
+slug: /2015/08/github-project-feedback-social-platform
 category: Project
 description: Feedback Social is platform free for all to feedback, preview, complain,... about everything. They can get for supports from community about that.
 ---

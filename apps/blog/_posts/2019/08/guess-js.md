@@ -10,7 +10,7 @@ tags:
   - Javascript
 
 thumbnail: https://4.bp.blogspot.com/-Gjsnx_YH4HM/XU2UV2DlnnI/AAAAAAABFVM/LjDl6ilxQeYPzQgs_acID9VEwy4L62QsACK4BGAYYCw/s200/guess.png
-slug: /2019/08/guess-js.html
+slug: /2019/08/guess-js
 description: Guess.js - Thư viện và công cụ cải thiện UX dựa trên Dữ liệu, thống kê và Machine Learning. Và cách cài đặt plugin Gatsby.
 ---
 

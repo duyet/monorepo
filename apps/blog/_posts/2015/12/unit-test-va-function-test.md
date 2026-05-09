@@ -5,7 +5,7 @@ author: Duyet
 tags:
 modified_time: '2016-01-11T01:59:18.744+07:00'
 thumbnail: https://3.bp.blogspot.com/-k9Gxf_MV1Gg/Vnfrm5xSgxI/AAAAAAAAMMs/bicR-4BjnmU/s1600/unit-test.jpg
-slug: /2015/12/unit-test-va-function-test.html
+slug: /2015/12/unit-test-va-function-test
 category: Javascript
 description: Một hoạt động mang tính sống còn trong các dự án sản xuất hoặc gia công phần mềm, đó là kiểm thử phần mềm (testing).
 ---

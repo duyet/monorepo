@@ -5,7 +5,7 @@ author: Duyet
 tags:
 modified_time: '2017-01-23T20:21:19.616+07:00'
 thumbnail: https://1.bp.blogspot.com/-NpSIkbQHR-I/WITO8_hyp9I/AAAAAAAAidY/HYD5rOjVQo4q55AWb297izVxxl4eBnywQCLcB/s1600/80e9cd2e-f410-4f9c-bd12-8c40e9079b56.png
-slug: /2017/01/writefull.html
+slug: /2017/01/writefull
 category: News
 description: Writefull là tool hỗ trợ viết report, tài liệu khoa học bằng tiếng Anh khá hay, nó giúp mình tra cứu từ, sử dụng từ theo ngữ cảnh, so sánh từ, dịch, Writefull sử dụng CSDL từ Google News, Google Scholar, Web, ...
 ---

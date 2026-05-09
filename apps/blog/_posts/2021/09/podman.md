@@ -6,7 +6,7 @@ category: Productivity
 tags:
   - Data Engineering
   - Docker
-slug: /2021/09/podman.html
+slug: /2021/09/podman
 thumbnail: https://podman.io/images/podman.svg
 description: >
   I'm looking for some of alternatives for Docker. Currently, there are a 

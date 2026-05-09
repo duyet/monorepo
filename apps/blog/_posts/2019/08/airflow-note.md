@@ -6,7 +6,7 @@ tags:
   - Apache Airflow
   - Data
   - Data Engineering
-slug: /2019/08/airflow-note.html
+slug: /2019/08/airflow-note
 thumbnail: https://images.unsplash.com/photo-1548945357-bc51479af448?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80
 description: Một số ghi chép, tips & tricks của mình trong quá trình sử dụng Apache Airflow.
 ---

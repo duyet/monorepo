@@ -8,7 +8,7 @@ tags:
   - Data Engineering
   - Database
 thumbnail: https://1.bp.blogspot.com/-myVyO9v0lXQ/YOHlrpMnfFI/AAAAAAACIJ8/YfkgH_rMiRMqxhoI0rNTOeC61w8XGaLCACLcBGAsYHQ/s0/pg-full-text-duyet.png
-slug: /2021/07/postgres-full-text-search.html
+slug: /2021/07/postgres-full-text-search
 description: Postgres has built-in functions to handle Full Text Search queries. This is like a "search engine" within Postgres.
 ---
 

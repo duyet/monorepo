@@ -9,7 +9,7 @@ tags:
   - Data Engineering
   - Apache Spark
   - Github
-slug: /2023/05/spark-github-actions.html
+slug: /2023/05/spark-github-actions
 thumbnail: /media/2023/05/spark-github-actions/1.png
 description: 'This post provides a quick and easy guide on how to run Apache Spark in GitHub Actions for testing purposes'
 ---

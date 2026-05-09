@@ -6,7 +6,7 @@ tags:
   - Node.js
 modified_time: '2017-08-06T11:41:14.315+07:00'
 thumbnail: https://4.bp.blogspot.com/-sCicwYtVpcY/VyS-dwEy4YI/AAAAAAAAUBM/5Q1QZ6zVR5YcsV7lgN8MYWfkZvrz6AXtgCK4B/s1600/Screen-Shot-2014-04-11-at-7.49.09-AM.png
-slug: /2016/04/gioi-thieu-koajs.html
+slug: /2016/04/gioi-thieu-koajs
 category: Javascript
 description: Về Node.js, ắt hẳn mọi người đều đã quá quen với Expressjs. Nên nay tôi giới thiệu một framework mới cũng khá hay, hiệu năng cao và dễ sử dụng KoaJs
 ---

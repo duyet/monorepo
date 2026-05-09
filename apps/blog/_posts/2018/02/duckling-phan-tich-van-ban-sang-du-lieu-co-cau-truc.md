@@ -9,7 +9,7 @@ tags:
   - NLP
 modified_time: '2018-09-10T17:20:37.168+07:00'
 thumbnail: https://1.bp.blogspot.com/-EDgp745KklY/WopyCVizV7I/AAAAAAAAqbc/-xBWh3Ve4xg9DQGDY8YMbLiB688d-zXagCK4BGAYYCw/s1600/carbon_duckling.png
-slug: /2018/02/duckling-phan-tich-van-ban-sang-du-lieu-co-cau-truc.html
+slug: /2018/02/duckling-phan-tich-van-ban-sang-du-lieu-co-cau-truc
 category: Machine Learning
 description: Duckling là một thư viện của Haskell, phát triển bởi Facebook, rất hay để phân tích (parses) dữ liệu text sang dạng có cấu trúc (structured data). Công cụ này rất hữu ích trong các ứng dụng phân tích văn bản trong NLP và nhất là lĩnh vực chatbot.
 ---

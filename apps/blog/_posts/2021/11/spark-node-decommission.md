@@ -8,7 +8,7 @@ tags:
   - Data Engineering
   - Apache Spark
   - Kubernetes
-slug: /2021/11/spark-node-decommission.html
+slug: /2021/11/spark-node-decommission
 thumbnail: https://1.bp.blogspot.com/--34hINH9_uQ/YZqJZ0URtWI/AAAAAAACXDw/yGn6wkjBWaMDfSZL3Hylwz6ILzP4xKDvACLcBGAsYHQ/s0/spark-spot-node-shutdown.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2021%2F11%2Fspark-node-decommission.html
 hackerNewsCommentUrl: https://news.ycombinator.com/item?id=29974675

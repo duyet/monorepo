@@ -7,7 +7,7 @@ tags:
   - Side Project
 modified_time: '2015-10-05T20:46:06.959+07:00'
 thumbnail: https://2.bp.blogspot.com/-DBFErnG-8AE/VhJ-z3Y-41I/AAAAAAAADgA/FGCt8naBMKs/s1600/mtyourmind.10001mb.com.png
-slug: /2015/10/github-project-bruteforce-database.html
+slug: /2015/10/github-project-bruteforce-database
 category: Project
 description: A Password dictionaries for hacking, bruteforce, testing ...
 ---

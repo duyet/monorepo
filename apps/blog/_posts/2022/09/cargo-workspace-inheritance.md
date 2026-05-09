@@ -6,7 +6,7 @@ category: Rust
 tags:
   - Rust
   - Cargo
-slug: /2022/09/cargo-workspace-inheritance.html
+slug: /2022/09/cargo-workspace-inheritance
 thumbnail: https://i.imgur.com/JRrTxzC.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F09%2Fcargo-workspace-inheritance.html
 description: Since 1.64.0, Cargo now supports workspace inheritance, so you can avoid duplicating similar field values between crates while working within a workspace. Workspace inheritance can include things like shared version numbers, repository URLs, or rust-version.

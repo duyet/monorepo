@@ -6,7 +6,7 @@ tags:
   - Node.js
   - NPM
 modified_time: '2015-08-07T20:38:19.130+07:00'
-slug: /2015/08/nodejs-cac-package-ma-moi-lap-trinh.html
+slug: /2015/08/nodejs-cac-package-ma-moi-lap-trinh
 category: Javascript
 description: Nodejs module (hay npm module) giúp lập trình viên Nodejs phát triển ứng dụng cực nhanh, lý do là các việc cần xử lý hầu hết là các module đã giải quyết cho chúng ta rồi. Sau mình sẽ liệt kê danh sách các module mà bất cứ ai khi bắt đầu học Nodejs đều phải biết.
 ---

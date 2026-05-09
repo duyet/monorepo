@@ -10,7 +10,7 @@ tags:
   - Vietnamese
   - Rust Tiếng Việt
   - Rust Design Patterns
-slug: /2022/02/rust-command-design-pattern.html
+slug: /2022/02/rust-command-design-pattern
 description: Ý tưởng cơ bản của Command Pattern là tách các actions thành các object riêng và gọi chúng thông qua parameters.
 ---
 

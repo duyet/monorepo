@@ -8,7 +8,7 @@ tags:
   - Machine Learning
 modified_time: '2018-09-01T22:32:19.839+07:00'
 thumbnail: https://3.bp.blogspot.com/-QM-iDbzDDHA/WMyzyHEo0bI/AAAAAAAAkLg/xshMvTyQvmYvUQMzROiW4NOmuewyGoXfACK4B/s1600/churn-illustration.png
-slug: /2017/03/python-churn-prediction-with-graphlab.html
+slug: /2017/03/python-churn-prediction-with-graphlab
 category: Machine Learning
 description: Churn prediction is the task of identifying whether users are likely to stop using a service, product, or website. With Graphlab toolkit, you can start with raw (or processed) usage metrics and accurately forecast the probability that a given customer will churn.
 ---

@@ -8,7 +8,7 @@ tags:
   - Javascript
 modified_time: '2016-05-02T19:39:16.320+07:00'
 thumbnail: https://1.bp.blogspot.com/-vmFjdMDVRok/Vvek0fYiwmI/AAAAAAAASas/iUUHSjQAWYUcWK6F5tx8qq3nfP_sVozOg/s1600/calc.png
-slug: /2016/03/calcjs-evaluate-expressions-for-math.html
+slug: /2016/03/calcjs-evaluate-expressions-for-math
 category: Javascript
 description: Flexible expression parser and offers an integrated solution to work with numbers, big numbers, complex numbers, units, and matrices. Powerful and easy to use.
 ---

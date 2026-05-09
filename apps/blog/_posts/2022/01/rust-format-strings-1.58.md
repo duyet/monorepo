@@ -8,7 +8,7 @@ tags:
   - Vietnamese
   - Rust Tiếng Việt
 
-slug: /2022/01/rust-format-strings-1.58.html
+slug: /2022/01/rust-format-strings-1.58
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F01%2Frust-turbofish.html
 thumbnail: https://i.imgur.com/OrkBRwV.png
 description: Bản cập nhật `Rust 1.58.0` vừa bổ sung một số tính năng mình thấy khá hay về format string.

@@ -8,7 +8,7 @@ tags:
   - Data Science
 modified_time: '2017-11-07T21:44:08.268+07:00'
 thumbnail: https://3.bp.blogspot.com/-nk_nMNcWKYM/WgHCCof8UaI/AAAAAAAAoJQ/L5dEhuHoU7Q87DLnbgSRWhITvd2Lr1D2ACLcBGAs/s1600/cola.png
-slug: /2017/11/colaboratory-research-google.html
+slug: /2017/11/colaboratory-research-google
 category: Web
 description: Colaboratory là phiên bản Jupyter Notebook được Google update lại, nhiều chức năng hay hơn nhất là khả năng cộng tác tương tự Google Docs. Code được lưu trong Google Drive, sử dụng miễn phí backend máy ảo của Google.
 ---

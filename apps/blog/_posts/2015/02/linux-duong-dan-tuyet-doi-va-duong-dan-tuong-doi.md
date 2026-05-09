@@ -7,7 +7,7 @@ tags:
   - Linux
 modified_time: '2015-02-16T12:47:50.156+07:00'
 thumbnail: https://1.bp.blogspot.com/-7Vz3G6MLhWs/VOAh4mrkK4I/AAAAAAAACG4/DURQJ5i71pE/s1600/Screenshot%2Bfrom%2B2015-02-15%2B11%3A33%3A35.png
-slug: /2015/02/linux-duong-dan-tuyet-doi-va-duong-dan-tuong-doi.html
+slug: /2015/02/linux-duong-dan-tuyet-doi-va-duong-dan-tuong-doi
 description: Trong linux, khi làm việc trên server hay đơn giản hơn là làm việc trên ternimal, ít nhiều bạn cũng phải rớ tới các file và thư mục, bay nhảy qua lại. Nhưng 1 điều bạn nhất định phải biết, đó là đường dẫn.
 ---
 

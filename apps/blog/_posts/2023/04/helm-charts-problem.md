@@ -5,7 +5,7 @@ author: Duyet
 category: Data
 tags:
   - Kubernetes
-slug: /2023/04/helm-charts-problem.html
+slug: /2023/04/helm-charts-problem
 thumbnail: https://i.imgur.com/HhcwrAw.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2023%2F04%2Fhelm-charts-problem.html
 description: Why does Helm Charts interpret 0777 to 511? It took me quite some time to debug it.

@@ -9,7 +9,7 @@ tags:
   - Machine Learning
 modified_time: '2018-07-20T10:14:07.558+07:00'
 thumbnail: https://4.bp.blogspot.com/-rCCLsL2bgWA/WpgsDSlK8nI/AAAAAAAAqrM/4Ijx-Bt0yvYMe29D7W48z97lGge2IZDHgCLcBGAs/s1600/Propel.png
-slug: /2018/03/propel-machine-learning-for-javascript.html
+slug: /2018/03/propel-machine-learning-for-javascript
 category: Machine Learning
 description: Propel cung cấp cơ chế GPU-backed giống như thư viện Numpy trên Python, propel có thể cung cấp 1 kiến trúc rất mạnh cho các thuật toán Machine learning trên Javascript, như hỗ trợ tính toán rất mạnh và nhanh, như các tính toán trên ma trận, list, plot, ...
 ---

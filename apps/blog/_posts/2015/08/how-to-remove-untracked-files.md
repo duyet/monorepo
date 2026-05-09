@@ -5,7 +5,7 @@ author: Duyet
 tags:
   - Git
 modified_time: '2016-02-29T23:23:31.364+07:00'
-slug: /2015/08/how-to-remove-untracked-files.html
+slug: /2015/08/how-to-remove-untracked-files
 category: Git
 description: If you have a bunch of untracked files and want to remove them all in one go then just do this
 ---

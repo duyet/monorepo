@@ -8,7 +8,7 @@ tags:
   - Data
   - Data Engineering
   - Rust
-slug: /2023/02/rust-polars.html
+slug: /2023/02/rust-polars
 thumbnail: https://i.imgur.com/9yixw8K.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2023%2F02%2Frust-polars.html
 description: If you're interested in data engineering with Rust, you might want to check out Polars, a Rust DataFrame library with Pandas-like API.

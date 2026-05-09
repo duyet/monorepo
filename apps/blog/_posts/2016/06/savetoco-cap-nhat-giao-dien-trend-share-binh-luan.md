@@ -6,7 +6,7 @@ tags:
   - Side Project
 modified_time: '2016-06-30T23:39:31.427+07:00'
 thumbnail: https://3.bp.blogspot.com/-m5O1aeEL_Uc/V3VJ-QDKyFI/AAAAAAAAYps/m4jpG6hycrUqacjFRntOCKsbiJK_AcZDQCLcB/s1600/saveto-update-1.png
-slug: /2016/06/savetoco-cap-nhat-giao-dien-trend-share-binh-luan.html
+slug: /2016/06/savetoco-cap-nhat-giao-dien-trend-share-binh-luan
 category: Project
 description: saveto.co vừa cập nhật hệ thống, nâng cấp một ít giao diện, cho phép hiển thị trực tiếp meta image từ URL.
 ---

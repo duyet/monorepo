@@ -9,7 +9,7 @@ tags:
   - Vietnamese
   - Rust Tiếng Việt
 
-slug: /2022/02/rust-trait.html
+slug: /2022/02/rust-trait
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F02%2Frust-trait.html
 thumbnail: https://i.imgur.com/ZKHSRQK.png
 description: Rust Trait là gì? Rust có nhiều loại data types như primitives (i8, i32, str, ...), struct, enum và các loại kết hợp (aggregate) như tuples và array. Mọi types không có mối liên hệ nào với nhau. Các data types có các phương thức (methods) để tính toán hay convert từ loại này sang loại khác, nhưng chỉ để cho tiện lợi hơn, method chỉ là các function. Trait trong Rust giúp chúng ta thực hiện những điều này.

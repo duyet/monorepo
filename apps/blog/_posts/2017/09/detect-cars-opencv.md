@@ -8,7 +8,7 @@ tags:
   - Machine Learning
 modified_time: '2018-09-01T22:32:19.312+07:00'
 thumbnail: https://1.bp.blogspot.com/-Sx90cRHgP4s/WcKO5d4IRGI/AAAAAAAAnjM/gp0RZ17opasM_xxlTQGid7cX-WqC9BRRwCLcBGAs/s1600/result_car2.png
-slug: /2017/09/detect-cars-opencv.html
+slug: /2017/09/detect-cars-opencv
 category: Machine Learning
 description: Trong bài này, mình sẽ hướng dẫn sử dụng OpenCV để nhận diện xe hơi trong ảnh (video frame) với đặc trưng HAAR, sử dụng file mô hình đã được trained.
 ---

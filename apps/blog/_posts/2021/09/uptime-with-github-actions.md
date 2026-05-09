@@ -6,7 +6,7 @@ category: Productivity
 tags:
   - Data Engineering
   - Docker
-slug: /2021/09/uptime-with-github-actions.html
+slug: /2021/09/uptime-with-github-actions
 thumbnail: https://1.bp.blogspot.com/-uGEmZa3e2Pc/YUiWb8qAkaI/AAAAAAACQig/bPXGd6Kl6EULxY61aolS0W6-PSldz5kOgCLcBGAsYHQ/s0/uptime-1.png
 description: >
   Hey, I just found this tool, so incredibly clever that 

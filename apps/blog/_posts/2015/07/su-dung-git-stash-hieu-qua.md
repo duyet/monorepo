@@ -8,7 +8,7 @@ tags:
   - Tutorial
 modified_time: '2016-03-01T12:14:08.804+07:00'
 thumbnail: https://1.bp.blogspot.com/-3yYbNqRb-g4/VaUEdtFF9QI/AAAAAAAACm0/yuduSPkQak8/s1600/git.png
-slug: /2015/07/su-dung-git-stash-hieu-qua.html
+slug: /2015/07/su-dung-git-stash-hieu-qua
 category: Git
 description: Git là công cụ cực kì hiệu quả để quản lý source code và cũng cực kì phổ biến khi gần như mọi công ty hay team develope sử dụng. Bài viết sau của bạn Lê Việt Tú đăng trên Kipalog hướng dẫn cách sử dụng Git stash một cách hiệu quả.
 ---

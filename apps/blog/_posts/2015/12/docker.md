@@ -6,7 +6,7 @@ tags:
   - Docker
 modified_time: '2025-11-09T00:00:00.000+07:00'
 thumbnail: https://4.bp.blogspot.com/-_yUdu_nrol8/VnZeC8EMsdI/AAAAAAAAMG0/Qiij482W6lg/s1600/product%2B-%2Bengine.png
-slug: /2015/12/docker.html
+slug: /2015/12/docker
 category: Infrastructure
 description: Vậy Docker là gì và tại sao nó hữu ích.
 ---

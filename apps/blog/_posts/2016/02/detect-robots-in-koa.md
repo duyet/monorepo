@@ -6,7 +6,7 @@ tags:
   - Node.js
   - Javascript Framework
 modified_time: '2025-11-09T00:00:00.000+07:00'
-slug: /2016/02/detect-robots-in-koa.html
+slug: /2016/02/detect-robots-in-koa
 category: Javascript
 description: Plugin for Koa.js to detect crawler bots and user agents
 ---

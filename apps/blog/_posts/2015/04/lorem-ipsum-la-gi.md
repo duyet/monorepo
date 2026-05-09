@@ -6,7 +6,7 @@ tags:
   - Web
 modified_time: '2015-04-15T23:06:58.760+07:00'
 thumbnail: https://4.bp.blogspot.com/-E6m4y8pwKVo/VS6LS5LUCmI/AAAAAAAACRU/8aSZgKRN-DI/s1600/lipsum.jpg
-slug: /2015/04/lorem-ipsum-la-gi.html
+slug: /2015/04/lorem-ipsum-la-gi
 category: Web
 description: Nếu bạn là người quen với việc thiết kế web, chắc chắn không dưới một lần bạn đã từng thấy những giao diện được thiết kế và có các dòng chữ không phải là ngôn ngữ quen thuộc nào trên thế giới. Đó chính là những dòng chữ quen thuộc của giới thiết kế layout "Lorem Ipsum Dolor sit amet …"
 ---

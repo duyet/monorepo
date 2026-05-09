@@ -7,7 +7,7 @@ tags:
   - Tutorial
 modified_time: '2018-09-10T17:29:34.941+07:00'
 thumbnail: https://2.bp.blogspot.com/-6e-BntuJcuY/VccJShY74fI/AAAAAAAACtQ/AEgG4pJeriE/s1600/test-html-server.png
-slug: /2015/08/nodejs-create-simple-static-server-with.html
+slug: /2015/08/nodejs-create-simple-static-server-with
 category: Javascript
 description: With this simple package, you can create your own static server simply by Nodejs.
 ---

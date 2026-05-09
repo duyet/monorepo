@@ -8,7 +8,7 @@ tags:
   - Javascript
 modified_time: '2016-05-27T12:32:27.018+07:00'
 thumbnail: https://3.bp.blogspot.com/-ASmcHtbRZj4/V0fa2A-pCEI/AAAAAAAAWDs/AP5UfzkG1icZUj4TCv68Nr4hu5SK04zxACK4B/s1600/swap-es-duyetdev.com.png
-slug: /2016/05/es6-swap-via-destructuring.html
+slug: /2016/05/es6-swap-via-destructuring
 category: Javascript
 description: ES6 có chức năng destructuring có khá nhiều công dụng. Thủ thuật sau giúp hoán đổi giá trị 2 biến bằng cách destructuring.
 ---

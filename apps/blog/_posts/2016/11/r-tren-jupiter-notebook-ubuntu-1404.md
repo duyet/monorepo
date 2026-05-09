@@ -8,7 +8,7 @@ tags:
   - Data Science
 modified_time: '2016-11-22T23:53:50.793+07:00'
 thumbnail: https://4.bp.blogspot.com/-aQIMnwL9Gxc/WDR00IF9dqI/AAAAAAAAf9w/ZvplzJNUtI8vjWh2nF8_kVJZoYF3fHF9QCLcB/s1600/Screenshot%2Bfrom%2B2016-11-22%2B23-39-25.png
-slug: /2016/11/r-tren-jupiter-notebook-ubuntu-1404.html
+slug: /2016/11/r-tren-jupiter-notebook-ubuntu-1404
 category: Data Engineering
 description: Jupyter Notebook là công cụ khá mạnh của lập trình viên Python và Data Science. Nếu dùng R, Jupyter cũng cho phép ta tích hợp R kernel vào Notebook một cách dễ dàng.
 ---

@@ -6,7 +6,7 @@ tags:
   - Design Patterns
 category: Software Engineering
 modified_time: '2015-02-23T22:40:07.138+07:00'
-slug: /2015/02/design-patterns-he-thong-23-mau-design.html
+slug: /2015/02/design-patterns-he-thong-23-mau-design
 description: Hệ thống các mẫu design pattern hiện có 23 mẫu được định nghĩa bởi Gang of Four - một kiến thức cơ bản và không lỗi thời trong công nghệ phần mềm
 ---
 

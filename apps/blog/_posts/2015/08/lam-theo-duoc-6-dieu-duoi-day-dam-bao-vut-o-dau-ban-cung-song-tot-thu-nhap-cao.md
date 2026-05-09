@@ -4,7 +4,7 @@ date: '2015-08-09'
 author: Duyet
 tags:
 modified_time: '2015-08-09T23:04:07.441+07:00'
-slug: /2015/08/lam-theo-duoc-6-dieu-duoi-day-dam-bao-vut-o-dau-ban-cung-song-tot-thu-nhap-cao.html
+slug: /2015/08/lam-theo-duoc-6-dieu-duoi-day-dam-bao-vut-o-dau-ban-cung-song-tot-thu-nhap-cao
 category: News
 description: Bài viết của Tony buổi sáng về 6 nguyên tắc sống - chỗ ở, ăn uống, mối quan hệ, học tập, du lịch và tiết kiệm. Những lời khuyên này vẫn còn giá trị nhất định trong năm 2025 khi nói về mindset, kỷ luật và phát triển cá nhân, mặc dù một số con số tiền tệ cần điều chỉnh theo thời điểm hiện tại.
 archived_note: Bài viết gốc từ năm 2015. Một số hình ảnh từ Blogspot có thể không còn khả dụng.

@@ -9,7 +9,7 @@ tags:
   - Data
   - ClickHouse
   - ClickHouse on Kubernetes
-slug: /2024/03/clickhouse-monitoring.html
+slug: /2024/03/clickhouse-monitoring
 thumbnail: /media/2024/03/monitoring-clickhouse/clickhouse-monitoring.png
 description: Complete guide to monitoring ClickHouse on Kubernetes. Learn about built-in dashboards, Prometheus + Grafana setup, powerful system tables for monitoring queries, and the ClickHouse Monitoring UI dashboard. Includes practical examples, essential monitoring queries, and best practices for production observability.
 twitterCommentUrl: https://x.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2024%2F03%2Fclickhouse-monitoring.html

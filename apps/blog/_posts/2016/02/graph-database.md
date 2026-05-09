@@ -7,7 +7,7 @@ tags:
   - Big Data
 modified_time: '2016-02-03T17:14:05.023+07:00'
 thumbnail: https://2.bp.blogspot.com/-Wq61rnHCVQk/VrHL_XD9alI/AAAAAAAAPEE/8DjlqxdZ5dE/s1600/Wikipedia_multilingual_network_graph_July_2013.svg.png
-slug: /2016/02/graph-database.html
+slug: /2016/02/graph-database
 category: Data
 description: Bài trước tôi có nói về Columnar Database và Graph Database. Mục đích là so sánh và đi sâu vào Graph Database. Tiếp đến là xử lý Graph Database với Big Data.
 ---

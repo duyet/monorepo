@@ -7,7 +7,7 @@ tags:
   - Data
   - Data Engineering
   - Apache Airflow
-slug: /2023/07/airflow-control-parallelism-concurrency.html
+slug: /2023/07/airflow-control-parallelism-concurrency
 thumbnail: /media/2023/07/airflow-control-parallelism-concurrency.svg
 description: 'How to control parallelism and concurrency'
 ---

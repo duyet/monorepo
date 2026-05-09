@@ -5,7 +5,7 @@ author: Duyet
 tags:
 modified_time: '2016-01-11T01:59:09.345+07:00'
 thumbnail: null
-slug: /2015/12/year-in-review-2015.html
+slug: /2015/12/year-in-review-2015
 category: Story
 description: Năm qua thiệt dài, làm thiệt nhiều, thiệt siêng, đôi lúc cũng lười vô tội vạ, được nhiều, mất nhiều, tổng kết lại vài thứ trong năm qua.
 ---

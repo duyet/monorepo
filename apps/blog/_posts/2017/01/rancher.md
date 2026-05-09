@@ -8,7 +8,7 @@ tags:
   - Kubernetes
 modified_time: '2018-07-20T10:14:07.356+07:00'
 thumbnail: https://3.bp.blogspot.com/-QUh_PaavDSA/WIWWTCtiTXI/AAAAAAAAies/LvVHTtMjnAglcdCB8uZfGsgJVfz7dirXQCLcB/s1600/ezgif.com-optimize.gif
-slug: /2017/01/rancher.html
+slug: /2017/01/rancher
 category: Linux
 description: 'Rancher giúp quản lý Docker bằng UI Web một cách tiện dụng, mọi thao tác đều trên UI. Rancher còn tích hợp Shell trên Docker, App catalog, ...'
 ---

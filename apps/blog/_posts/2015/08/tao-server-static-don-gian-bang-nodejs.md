@@ -7,7 +7,7 @@ tags:
   - Tutorial
 modified_time: '2018-09-10T17:30:05.200+07:00'
 thumbnail: https://2.bp.blogspot.com/-6e-BntuJcuY/VccJShY74fI/AAAAAAAACtQ/AEgG4pJeriE/s1600/test-html-server.png
-slug: /2015/08/tao-server-static-don-gian-bang-nodejs.html
+slug: /2015/08/tao-server-static-don-gian-bang-nodejs
 category: Javascript
 description: Với package sau bạn có thể tạo 1 static server đơn giản bằng Nodejs.
 ---

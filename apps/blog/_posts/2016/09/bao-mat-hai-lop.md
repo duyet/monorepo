@@ -7,7 +7,7 @@ tags:
   - Tutorial
 modified_time: '2016-09-01T12:36:14.646+07:00'
 thumbnail: https://3.bp.blogspot.com/-U90ziEzboCk/V8e8QNYdT_I/AAAAAAAAcq4/2utzWI8wLTsV5OLn9I2Hwevtb0FdbvwFgCK4B/s1600/FIDO-Yubico-YubiKeys-GfW-blog-845x321.png
-slug: /2016/09/bao-mat-hai-lop.html
+slug: /2016/09/bao-mat-hai-lop
 category: News
 description: 'Bảo mật 2 lớp là một hình thức bảo mật hiệu quả, được sử dụng phổ biến và ủng hộ khá đông đảo. Khi bật Xác minh 2 bước (còn được gọi là xác thực hai yếu tố), bạn thêm một lớp bảo mật bổ sung cho tài khoản của mình. Bạn đăng nhập bằng thông tin bạn biết (mật khẩu của bạn) và thông tin bạn có (một mã được gửi đến điện thoại của bạn).'
 ---

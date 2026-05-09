@@ -9,7 +9,7 @@ tags:
   - Node.js
 modified_time: '2016-12-10T10:09:19.995+07:00'
 thumbnail: https://2.bp.blogspot.com/-3n1yGifwJdY/WEtxXVdp38I/AAAAAAAAgt4/ijum1QPHo6ENxNmPawMuGeKyxKfw2tfEACLcB/s1600/Screenshot%2Bfrom%2B2016-12-10%2B10-06-59.png
-slug: /2016/12/javascript-weekly-9.html
+slug: /2016/12/javascript-weekly-9
 category: Javascript
 description:
 ---

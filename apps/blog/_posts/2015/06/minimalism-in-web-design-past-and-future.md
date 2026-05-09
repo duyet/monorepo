@@ -6,7 +6,7 @@ tags:
   - Web
 modified_time: '2015-06-05T00:02:37.012+07:00'
 thumbnail: https://2.bp.blogspot.com/-Ii0eS7_8A70/VXCAw07Cg5I/AAAAAAAAChI/WSsc3VwRPuI/s1600/beatbox-520x310.png
-slug: /2015/06/minimalism-in-web-design-past-and-future.html
+slug: /2015/06/minimalism-in-web-design-past-and-future
 category: Web
 description: Minimalism is one of the most enduring visual frameworks in Web design given its timeless elegance and clear presentation of content. While cycles of popularity come and go, the design technique is a classic and lasting visual philosophy for designers across all specializations and industries.
 ---

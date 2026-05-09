@@ -5,7 +5,7 @@ author: Duyet
 category: Javascript
 tags:
   - Node.js
-slug: /2015/01/expressjs-static-html.html
+slug: /2015/01/expressjs-static-html
 thumbnail: https://expressjs.com/images/express-facebook-share.png
 description: 'In ExpressJs, there is a very simple way to send an HTML file to the browser using the method: res.sendFile(), which reads the content of the .html file and sends it to the browser, allowing us to quickly display the content of a page or some static page.'
 ---

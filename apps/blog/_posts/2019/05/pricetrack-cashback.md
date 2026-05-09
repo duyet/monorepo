@@ -8,7 +8,7 @@ tags:
 - Side Project
 
 thumbnail: https://1.bp.blogspot.com/-YI_vbZhajkU/XNl4r1H3CRI/AAAAAAABAgI/eZRSFuf3RXQsltqLb2_ObS_lWlE475n5wCLcBGAs/s1600/screenshot-detail.png
-slug: /2019/05/pricetrack-cashback.html
+slug: /2019/05/pricetrack-cashback
 description: "Pricetrack (https://pricetrack.web.app) là một side project nhỏ của mình với chức năng theo dõi giá liên tục từ các trang TMDT (tiki.vn, shopee.vn, ...), thông báo và cashback hoàn tiền.
 Vì hay mua sắm nên pricetrack giúp mình check được giá ảo lên xuống thất thường, hoặc track khi nào có khuyến mãi thì mua.
 Khi giá thay đổi, giảm hoặc dưới ngưỡng mong muốn, tracker sẽ alert thông qua email hoặc push notification qua trình duyệt. Được build hoàn toàn từ Firebase của Google, trong lúc mình test các dịch vụ của nền tảng này thì pricetrack ra đời."

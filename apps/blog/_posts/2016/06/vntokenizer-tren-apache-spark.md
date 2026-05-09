@@ -7,7 +7,7 @@ tags:
   - Big Data
   - Machine Learning
 modified_time: '2018-09-10T17:20:36.889+07:00'
-slug: /2016/06/vntokenizer-tren-apache-spark.html
+slug: /2016/06/vntokenizer-tren-apache-spark
 category: Machine Learning
 description: vnTokenizer là công cụ chuyên dùng tách từ, gán nhãn từ loại cho tiếng Việt, của tác giả Lê Hồng Phương. vnTokenizer được viết bằng Java, có thể sử dụng như Tools Command Line hoặc Programming.
 ---

@@ -5,7 +5,7 @@ author: Duyet
 tags:
   - Security
 modified_time: '2016-03-18T23:13:42.399+07:00'
-slug: /2016/03/asiacrypt-2016.html
+slug: /2016/03/asiacrypt-2016
 category: News
 description: Asiacrypt 2016 - Hội thảo quốc tế về mật mã học được tổ chức tại Hà Nội
 ---

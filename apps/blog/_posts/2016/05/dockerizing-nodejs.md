@@ -8,7 +8,7 @@ tags:
   - Tutorial
 modified_time: '2018-09-10T17:23:15.023+07:00'
 thumbnail: https://1.bp.blogspot.com/-PdJFod9lQSU/VyYyDa_nEnI/AAAAAAAAUaE/CpGySWOh_TMGvZGjYqpcSHtTft7yi7tjwCK4B/s1600/1-_MtS4HqN2srTcrSyet61DQ.jpeg
-slug: /2016/05/dockerizing-nodejs.html
+slug: /2016/05/dockerizing-nodejs
 category: Linux
 description: Hướng dẫn cách đóng gói và build image docker cho ứng dụng Nodejs một cách cơ bản nhất.
 ---

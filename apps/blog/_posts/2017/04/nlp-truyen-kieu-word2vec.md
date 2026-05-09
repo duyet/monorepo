@@ -9,7 +9,7 @@ tags:
   - Machine Learning
 modified_time: '2018-09-10T17:20:37.588+07:00'
 thumbnail: https://1.bp.blogspot.com/-O7tdQkuYZ4U/WPOFQVmaFaI/AAAAAAAAkmE/B_LuJ3fxknYsAekzZCy5uOLez3znOiV9wCK4B/s1600/word2vectors.gif
-slug: /2017/04/nlp-truyen-kieu-word2vec.html
+slug: /2017/04/nlp-truyen-kieu-word2vec
 category: Machine Learning
 description: Khám phá Word2vec qua "Truyện Kiều" của Nguyễn Du. Hướng dẫn chi tiết về word embeddings, cách xử lý tiếng Việt với n-grams, và sử dụng Gensim Python để training mô hình. Bài viết giải thích về distributed representation, PCA visualization, và những phát hiện thú vị về mối quan hệ ngữ nghĩa giữa các từ trong kinh điển văn học Việt Nam.
 ---

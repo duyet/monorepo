@@ -6,7 +6,7 @@ tags:
 category: Software Engineering
 modified_time: '2015-02-15T23:05:02.138+07:00'
 thumbnail: https://1.bp.blogspot.com/-RIl_Pz6Y1Fo/VODDEddfGiI/AAAAAAAACHw/wibuZ6SUfAQ/s1600/Screenshot%2Bfrom%2B2015-02-15%2B22%3A59%3A44.png
-slug: /2015/02/phpmyadmin.html
+slug: /2015/02/phpmyadmin
 description: phpMyAdmin là 1 chương trình mã nguồn mở miễn phí, viết bằng PHP, dùng để hỗ trợ các bạn làm việc với MySQL thông qua giao diện web mà không cần dùng tới những dòng lệnh MySQL phức tạp.
 ---
 

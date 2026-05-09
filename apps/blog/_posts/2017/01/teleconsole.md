@@ -6,7 +6,7 @@ tags:
   - Tools
 modified_time: '2017-01-26T09:53:34.037+07:00'
 thumbnail: https://4.bp.blogspot.com/-SyehZxOfseM/WIlfpz8ZHGI/AAAAAAAAioQ/RZdJWwM9zwQttiAcu1ECPU4pk-hNVrFlACK4B/s1600/full-screen-teleconsole.gif
-slug: /2017/01/teleconsole.html
+slug: /2017/01/teleconsole
 category: Linux
 description: Teleconsole là dịch vụ miễn phí dùng để chia sẻ terminal session với người khác, giống như Teamviewer cho Terminal.
 ---

@@ -6,7 +6,7 @@ tags:
   - Software Engineering
   - Design Patterns
 modified_time: '2015-03-15T23:58:50.492+07:00'
-slug: /2015/03/so-sanh-cac-mo-hinh-thac-nuoc-mo-hinh-mau-mo-hinh-xoan-oc.html
+slug: /2015/03/so-sanh-cac-mo-hinh-thac-nuoc-mo-hinh-mau-mo-hinh-xoan-oc
 category: Software Engineering
 description: Phân tích so sánh chi tiết ba mô hình phát triển phần mềm kinh điển - Waterfall, Prototype, và Spiral - về ưu điểm, nhược điểm và ứng dụng
 ---

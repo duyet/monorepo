@@ -6,7 +6,7 @@ category: Rust
 tags:
   - Rust
   - Rust Tiếng Việt
-slug: /2022/01/rust-cheatsheet.html
+slug: /2022/01/rust-cheatsheet
 thumbnail: https://i.imgur.com/bX8iwcM.png
 description: This is the best cheat sheet that I have ever seen. It breaks down the different categories, from language constructs, data layouts, types, tooling, etc.
 ---

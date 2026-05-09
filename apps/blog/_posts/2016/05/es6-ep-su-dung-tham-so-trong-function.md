@@ -7,7 +7,7 @@ tags:
   - ES6
   - Javascript
 modified_time: '2016-05-27T11:34:39.996+07:00'
-slug: /2016/05/es6-ep-su-dung-tham-so-trong-function.html
+slug: /2016/05/es6-ep-su-dung-tham-so-trong-function
 category: Javascript
 description: Các tham số function trong Javascript thực ra không bắt buộc, Javascript chỉ kiểm tra khi nó được sử dụng đến. Một số trường hợp ta muốn bắt buộc người sử dụng hàm phải điền tham số này khi gọi hàm. Thủ thuật sau sử dụng chức năng default param trong ES6
 ---

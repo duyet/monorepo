@@ -5,7 +5,7 @@ author: Duyet
 tags:
 modified_time: '2015-04-27T20:50:25.576+07:00'
 thumbnail: https://1.bp.blogspot.com/-TAp70-55a34/VT3u2ezvzzI/AAAAAAAACaA/L32plzw7ZWY/s1600/bs-components-intro.png
-slug: /2015/04/bootstrap.html
+slug: /2015/04/bootstrap
 category: Web
 description: Ở bài trước mình đã giới thiệu về Bootstrap về hệ thống Grid, giúp bạn tạo nên bố cục, giao diện Responsive cho trang web. Cùng với các định dạng sẵn tất cả các Tag HTML theo phong cách của Bootstrap nếu muốn dùng nhanh thì có thể không cần phải code thêm chút CSS nào nữa. Mình sẽ giúp các bạn tìm hiểu tiếp Components là gì và cách sử dụng chúng ra sao.
 ---

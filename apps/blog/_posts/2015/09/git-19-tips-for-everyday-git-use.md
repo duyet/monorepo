@@ -6,7 +6,7 @@ tags:
   - Git
   - Tutorial
 modified_time: '2015-09-16T14:12:43.738+07:00'
-slug: /2015/09/git-19-tips-for-everyday-git-use.html
+slug: /2015/09/git-19-tips-for-everyday-git-use
 category: Git
 description: 'I’ve been using git full time for the past 4 years, and I wanted to share the most practical tips that I’ve learned along the way. Hopefully, it will be useful to somebody out there'
 ---

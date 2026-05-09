@@ -6,7 +6,7 @@ category: Productivity
 tags:
   - Data Engineering
   - Linux
-slug: /2021/08/zx.html
+slug: /2021/08/zx
 thumbnail: https://1.bp.blogspot.com/-UxQmomMaIJA/YSn3KPNcrQI/AAAAAAACNMA/nBsVLSi2dYUFx9QK1zWX8-s0ViiNSHLAQCLcBGAsYHQ/s0/zx-thumb.png
 description: >
   A tool for writing better scripts. I usually choose to write a Python or Deno script instead of a shell script for more convenience. 

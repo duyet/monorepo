@@ -9,7 +9,7 @@ tags:
   - Node.js
 modified_time: '2016-07-20T11:16:14.977+07:00'
 thumbnail: https://3.bp.blogspot.com/-Vk9xy2-YHhQ/V476BZ29wmI/AAAAAAAAaC8/dzgxlK1P5nQ-GNPbynkCDUxxHmwYl4rxACK4B/s1600/package-control-duyetdev.gif
-slug: /2016/07/sublime-text-plugin-nodejs.html
+slug: /2016/07/sublime-text-plugin-nodejs
 category: Web
 description: Hôm nay mình sẽ giới thiệu 1 số plugin cần có để lập trình Node.js trên Sublime.
 ---

@@ -10,7 +10,7 @@ tags:
   - Machine Learning
 modified_time: '2018-09-10T17:20:37.866+07:00'
 thumbnail: https://4.bp.blogspot.com/-7UyZjfbL--g/WYadFDYvEfI/AAAAAAAAmc4/x-jU5zgVZz8BsBM5VP5zkZA5Y8c79XIBQCK4BGAYYCw/s1600/nlp_js.png
-slug: /2017/08/natural-nltk.html
+slug: /2017/08/natural-nltk
 category: Machine Learning
 description: 'NaturalJS được ví như nltk cho Node. natural có nhiều chức năng xử lý ngôn ngữ tự nhiên như: Tokenizing, stemming, classification, phonetics, tf-idf, WordNet, string similarity, ...'
 ---

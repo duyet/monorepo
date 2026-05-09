@@ -7,7 +7,7 @@ tags:
   - Tutorial
 modified_time: '2015-04-26T00:33:45.750+07:00'
 thumbnail: https://4.bp.blogspot.com/-ZYIJIZWTj-I/VTvM1dMdDCI/AAAAAAAACWA/_V9XNOLwkAw/s1600/2color-lightbg%402x.png
-slug: /2015/04/git-va-cac-khai-niem-co-ban.html
+slug: /2015/04/git-va-cac-khai-niem-co-ban
 category: Git
 description: Bạn là lập trình viên, và đôi khi bạn muốn đưa về trạng thái trước khi quậy phá của file code nào đó? Cách đơn giản nhất đó là sao chép lại file trước khi chỉnh sửa. Trường hợp dùng phương pháp này thì sẽ phải thường xuyên thực hiện việc thêm ngày đã thay đổi vào tên thư mục hay file. Tuy nhiên, việc tự mình sao chép file mỗi lần chỉnh sửa thì sẽ rất vất vả, và cũng dễ xảy ra nhầm lẫn.
 ---

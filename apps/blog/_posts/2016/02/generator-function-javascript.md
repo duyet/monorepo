@@ -7,7 +7,7 @@ tags:
   - Javascript
 modified_time: '2016-02-26T21:31:30.559+07:00'
 thumbnail: https://1.bp.blogspot.com/-OA0tvHhNN3o/VsiyjiJwLbI/AAAAAAAAQAo/IugUE3zNbrY/s1600/generator-function.png
-slug: /2016/02/generator-function-javascript.html
+slug: /2016/02/generator-function-javascript
 category: Javascript
 description: function* giúp khai báo 1 generator function, trả về 1 Generator object. Với chức năng mới này, hàm có thể dừng thực thi bất cứ thời điểm nào, đợi async chạy xong, xong tiếp tục thực thi.
 ---

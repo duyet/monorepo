@@ -7,7 +7,7 @@ author: Duyet
 tags:
   - Tutorial
 modified_time: '2018-09-10T17:26:06.992+07:00'
-slug: /2016/02/nginx-adding-cors.html
+slug: /2016/02/nginx-adding-cors
 category: Linux
 description: Example Nginx configuration for adding cross-origin resource sharing (CORS) support to reverse proxied APIs.
 ---

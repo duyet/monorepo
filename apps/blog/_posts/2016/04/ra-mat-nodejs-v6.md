@@ -7,7 +7,7 @@ tags:
   - News
 modified_time: '2016-05-02T19:36:00.033+07:00'
 thumbnail: https://3.bp.blogspot.com/-_fNbLVO5xXM/VyDN2wT51fI/AAAAAAAAT7o/XeHb_vlbC4AM85F9_UpRHBJhOhT0a2wNwCK4B/s1600/Node-dot-js-796x398.jpg
-slug: /2016/04/ra-mat-nodejs-v6.html
+slug: /2016/04/ra-mat-nodejs-v6
 category: Javascript
 description: Ra mắt Node.js v6.0.0
 ---

@@ -8,7 +8,7 @@ tags:
   - Tutorial
 modified_time: '2025-11-09T00:00:00.000+07:00'
 thumbnail: https://2.bp.blogspot.com/-ALrzO2lz1Hk/VrTSHtGlC8I/AAAAAAAAPHE/ZFPNvhh_PPA/s1600/CYJ-8P4WkAQtAqp.png
-slug: /2016/02/cai-dat-tensorflow-tren-docker.html
+slug: /2016/02/cai-dat-tensorflow-tren-docker
 category: Machine Learning
 description: Docker luôn là giải pháp đóng gói và triển khai các ứng dụng 1 cách nhanh chóng và an toàn. Sau mình xin hướng dẫn các cài đặt Tensorflow trong môi trường container của Docker.
 ---

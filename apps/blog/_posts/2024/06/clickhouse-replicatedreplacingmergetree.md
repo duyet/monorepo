@@ -9,7 +9,7 @@ tags:
   - Data
   - ClickHouse
   - ClickHouse on Kubernetes
-slug: /2024/06/clickhouse-replicatedreplacingmergetree.html
+slug: /2024/06/clickhouse-replicatedreplacingmergetree
 thumbnail: /media/2024/06/clickhouse-replicated/clickhouse-replicatedreplacingmergetree.png
 description: Learn how to set up and manage ReplicatedReplacingMergeTree in ClickHouse on Kubernetes. This comprehensive guide covers cluster setup with ClickHouse Operator, data replication, performance tuning, and best practices for high availability deployments.
 twitterCommentUrl: https://x.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2024%2F06%2Fclickhouse-replicatedreplacingmergetree.html

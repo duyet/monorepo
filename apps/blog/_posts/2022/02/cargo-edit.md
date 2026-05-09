@@ -8,7 +8,7 @@ tags:
   - Vietnamese
   - Rust Tiếng Việt
 
-slug: /2022/02/cargo-edit.html
+slug: /2022/02/cargo-edit
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F02%2Fcargo-edit.html
 thumbnail: https://i.imgur.com/zy1QIYA.png
 description: cargo-edit là công cụ mở rộng của cargo cho phép có thêm một số tính năng quản lý dependencies giống như npm hoặc yarn.

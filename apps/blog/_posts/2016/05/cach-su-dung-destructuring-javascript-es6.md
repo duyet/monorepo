@@ -9,7 +9,7 @@ tags:
   - Tutorial
 modified_time: '2016-05-27T13:11:33.464+07:00'
 thumbnail: https://2.bp.blogspot.com/-6CbJccfAv4A/V0fdpvOadvI/AAAAAAAAWEM/Z7TwERT_aAgcV-HfBQZfq-yXOCOBqomtQCK4B/s1600/es6-destructuring.png
-slug: /2016/05/cach-su-dung-destructuring-javascript-es6.html
+slug: /2016/05/cach-su-dung-destructuring-javascript-es6
 category: Javascript
 description: Destructuring là chức năng mới trong ES6 của Javascript. Giúp extract dữ liệu (có thể lồng nhau) từ Array hoặc Object.
 ---

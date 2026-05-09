@@ -8,7 +8,7 @@ tags:
   - Side Project
 modified_time: '2016-01-11T02:00:17.623+07:00'
 thumbnail: https://3.bp.blogspot.com/-YEiHaBErShs/VnJos52PFGI/AAAAAAAAMAo/Su-T_R9cnZ0/s1600/jslab.png
-slug: /2015/12/jslab-xyz.html
+slug: /2015/12/jslab-xyz
 category: Project
 description: jsLab.xyz
 ---

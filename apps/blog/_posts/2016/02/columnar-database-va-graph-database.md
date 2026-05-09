@@ -7,7 +7,7 @@ tags:
   - Big Data
 modified_time: '2016-02-03T16:34:19.787+07:00'
 thumbnail: https://1.bp.blogspot.com/-NNyJ44vDSBs/VrHI1EhZvvI/AAAAAAAAPD0/C_-Fxe4gF_k/s1600/example-graph.jpg
-slug: /2016/02/columnar-database-va-graph-database.html
+slug: /2016/02/columnar-database-va-graph-database
 category: Data
 description: Như đã nói về big data, chúng ta có các loại dữ liệu khác nhau và chúng ta cần lưu trữ trong database. Bigdata có thể xử lý và lưu trữ trên nhiều loại CSDL khác nhau. Sau đây tôi sẽ nói 1 ít về columnar Database và Graph Database.
 ---

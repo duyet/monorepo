@@ -5,7 +5,7 @@ author: Duyet
 tags: [javascript]
 modified_time: '2015-06-06T08:51:54.455+07:00'
 thumbnail: https://i.ytimg.com/vi/JVlfj7mQZPo/default.jpg
-slug: /2015/06/javascript-code-smells.html
+slug: /2015/06/javascript-code-smells
 category: Javascript
 description: As we grow as developers we strive to write more maintainable code, but on our journey we often times don't know what that looks like yet.
 ---

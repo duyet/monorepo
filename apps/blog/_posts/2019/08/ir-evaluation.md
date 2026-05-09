@@ -9,7 +9,7 @@ tags:
   - Data Engineering
   - Information Retrieval
   - NLP
-slug: /2019/08/ir-evaluation.html
+slug: /2019/08/ir-evaluation
 thumbnail: https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80
 description: Trong bài này chúng ta sẽ tìm hiểu về cách đánh giá các hệ thống Information Retrieval, thách thức của việc đánh giá và các độ đo phổ biến như Precision/Accuracy, Recall, R-precision, F-measure, MAP, ...
 ---

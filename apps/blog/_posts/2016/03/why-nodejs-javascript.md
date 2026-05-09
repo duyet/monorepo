@@ -7,7 +7,7 @@ tags:
   - Javascript
 modified_time: '2016-05-02T19:40:06.595+07:00'
 thumbnail: https://1.bp.blogspot.com/-02uvvbRBDEE/Vu0-MapY7TI/AAAAAAAAR6o/TImmG942FQwE1RxaBpwQEt_n_6PC1G_ag/s1600/Screenshot%2Bfrom%2B2016-03-19%2B18-54-46.png
-slug: /2016/03/why-nodejs-javascript.html
+slug: /2016/03/why-nodejs-javascript
 category: Javascript
 description: Hàng năm, Stack Overflow đều có 1 cuộc khảo sát trên hàng trăm nghìn Developers thông qua các dịch của mình. Năm nay có 56,033 coders trên 173 nước trên thế giới tham gia khảo sát. Kết quả của các khảo sát này cho ta cái nhìn tổng quan và đúng đắn nhất về development trong năm qua.
 ---

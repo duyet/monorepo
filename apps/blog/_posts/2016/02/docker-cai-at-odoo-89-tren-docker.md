@@ -7,7 +7,7 @@ tags:
   - Docker
 modified_time: '2016-02-10T12:46:43.686+07:00'
 thumbnail: https://3.bp.blogspot.com/-wtT1nv3Ugjw/VrGtMM6_XVI/AAAAAAAAPC8/l7qi3IkqGCg/s1600/odoo-docker-big-_495x160.jpg
-slug: /2016/02/docker-cai-at-odoo-89-tren-docker.html
+slug: /2016/02/docker-cai-at-odoo-89-tren-docker
 category: Linux
 description: Hướng dẫn cài đặt Odoo 8/9 trên Server Ubuntu chỉ bằng vài bước đơn giản
 ---

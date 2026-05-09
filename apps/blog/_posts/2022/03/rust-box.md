@@ -8,7 +8,7 @@ tags:
   - Vietnamese
   - Rust Tiếng Việt
 
-slug: /2022/03/rust-box.html
+slug: /2022/03/rust-box
 thumbnail: https://i.imgur.com/Axgh2R9.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F03%2Frust-box.html
 description: Tất cả giá trị trên Rust mặc định đều được allocated trên stack. Giá trị có thể được boxed, allocated trên heap bằng cách sử dụng Box<T>. Box<T> là một smart pointer của Rust cho phép allocated trên heap giá trị có kiểu T, còn pointer trỏ đến giá trị đó sẽ nằm trên stack.

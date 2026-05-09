@@ -7,7 +7,7 @@ category: Productivity
 tags:
   - Vim
   - IDE
-slug: /2023/09/nvim-setup-2023.html
+slug: /2023/09/nvim-setup-2023
 thumbnail: /media/2023/09/nvim/screenshot_4.png
 description: It's been years since I first started using neovim and I've been updating it regularly ever since.
 ---

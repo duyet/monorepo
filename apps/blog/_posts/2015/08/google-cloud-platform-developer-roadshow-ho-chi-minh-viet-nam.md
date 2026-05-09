@@ -7,7 +7,7 @@ tags:
   - Google
 modified_time: '2015-08-28T23:34:31.605+07:00'
 thumbnail: https://3.bp.blogspot.com/-KJbSfLPwRLk/Vd6ypB6Zy5I/AAAAAAAACyg/BwwX8fLMNzE/s1600/Google-CloudPlatform_VerticalLockup.png
-slug: /2015/08/google-cloud-platform-developer-roadshow-ho-chi-minh-viet-nam.html
+slug: /2015/08/google-cloud-platform-developer-roadshow-ho-chi-minh-viet-nam
 category: News
 description: Please come join us for some great learning and discussion on the future of compute, storage, big data and the power of Google Cloud Platform
 ---

@@ -7,7 +7,7 @@ tags:
   - Javascript Framework
 modified_time: '2025-11-09T00:00:00.000+07:00'
 thumbnail: https://3.bp.blogspot.com/-nogpFtDX4JE/VjNskDinauI/AAAAAAAAFfk/ciSSYDvmaKs/s1600/5ab0a950-5fb4-11e5-9602-e73c0b661883.jpg
-slug: /2015/10/clipboardjs-thu-vien-giup-cat-sao-chep-noi-dung-tren-web.html
+slug: /2015/10/clipboardjs-thu-vien-giup-cat-sao-chep-noi-dung-tren-web
 category: Javascript
 description: Clipboard.js là một thư viện vô cùng gọn nhẹ (2kb) giúp bạn dễ dàng cắt hoặc sao chép nội dung trên trang web một cách dễ dàng. Được sử dụng trong các trường hợp bạn muốn người dùng tự động copy dữ liệu vào trong clipboard mà không cần thực hiện thao tác copy hoặc Ctrl + C.
 ---

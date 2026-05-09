@@ -7,7 +7,7 @@ tags:
   - Tutorial
   - Github
 modified_time: '2015-08-25T22:58:57.734+07:00'
-slug: /2015/08/cach-xoa-nhanh-tat-ca-cac-branch-cu-da-merge.html
+slug: /2015/08/cach-xoa-nhanh-tat-ca-cac-branch-cu-da-merge
 category: Git
 description: Nếu bạn có rất nhiều branch trên repo, mỗi branch phát triển 1 chức năng của dự án. Trong số chúng có nhiều branch đã hoàn thành, và đã được merge vào branch chính (master) chẳng hạn, mình gọi các branch này là branch cũ.
 ---

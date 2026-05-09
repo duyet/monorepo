@@ -6,7 +6,7 @@ tags:
   - Node.js
   - Security
 modified_time: '2016-05-30T23:12:07.074+07:00'
-slug: /2016/05/reverse-shell-on-nodejs-application.html
+slug: /2016/05/reverse-shell-on-nodejs-application
 category: Javascript
 description: How we obtained a Javascript reverse shell by exploiting a vulnerability on a Node.js application during a security assessment.
 ---

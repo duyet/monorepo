@@ -7,7 +7,7 @@ tags:
   - Google
   - Big Data
 modified_time: '2016-04-04T17:00:42.706+07:00'
-slug: /2015/11/google-big-data-meetup-in-saigon.html
+slug: /2015/11/google-big-data-meetup-in-saigon
 category: News
 description: Felipe Hoffa is a US-based Big Data Developer Advocate of Google.
 ---

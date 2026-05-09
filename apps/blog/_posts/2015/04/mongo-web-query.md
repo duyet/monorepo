@@ -8,7 +8,7 @@ tags:
   - Github
 modified_time: '2015-04-15T21:33:52.205+07:00'
 thumbnail: https://4.bp.blogspot.com/-66BlQG7PLEU/VS52lOH1UnI/AAAAAAAACRE/egh7Z4oZBOk/s1600/687474703a2f2f692e696d6775722e636f6d2f3543734e4b39442e706e67.png
-slug: /2015/04/mongo-web-query.html
+slug: /2015/04/mongo-web-query
 category: Web
 description: Mongo Web Query is Simple Node Application on Web, for query the MongoDB data, one of tools for LvDuit Project Preview Mining.
 ---

@@ -6,7 +6,7 @@ tags:
   - Security
 modified_time: '2016-05-02T19:41:37.840+07:00'
 thumbnail: https://1.bp.blogspot.com/-PWQ8eL2rX70/Vuwrlp0ko4I/AAAAAAAAR5Y/WEQ8q4QytdwXFd3soJbCkrTCreB8sDwHw/s1600/Screen-Shot-2014-05-02-at-8.47.10-PM.png
-slug: /2016/03/protonmail.html
+slug: /2016/03/protonmail
 category: News
 description: ProtonMail cho ra mắt beta hồi 2014, nhưng theo được biết đến hiện nay 2 ứng dụng trên Play Store và Apple Store mới được duyệt do phía Apple và sự chấp thuận chính phủ Mỹ.
 ---

@@ -8,7 +8,7 @@ tags:
   - Javascript
 modified_time: '2016-02-21T01:41:52.268+07:00'
 thumbnail: https://3.bp.blogspot.com/-qnoZylNW4-g/VsizR9xBEPI/AAAAAAAAQAw/fR-qHa0ccjk/s1600/copyjs.png
-slug: /2016/02/copyjs-simple-copy-text-to-clipboard-in.html
+slug: /2016/02/copyjs-simple-copy-text-to-clipboard-in
 category: Javascript
 description: Simple copy to clipboard. No Flash.
 ---

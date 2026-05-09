@@ -6,7 +6,7 @@ tags:
   - Tutorial
 modified_time: '2025-11-09T00:00:00.000+07:00'
 thumbnail: null
-slug: /2015/08/tong-hop-phim-tat-cua-visual-studio-code.html
+slug: /2015/08/tong-hop-phim-tat-cua-visual-studio-code
 category: News
 description: Tổng hợp lại một số phím tắt hay, hay dùng của VS Code.
 ---

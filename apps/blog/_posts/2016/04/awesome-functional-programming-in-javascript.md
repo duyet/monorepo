@@ -6,7 +6,7 @@ tags:
   - Node.js
   - Javascript
 modified_time: '2016-05-02T19:36:58.924+07:00'
-slug: /2016/04/awesome-functional-programming-in-javascript.html
+slug: /2016/04/awesome-functional-programming-in-javascript
 category: Javascript
 description: A curated list of awesome functional programming in JavaScript
 ---

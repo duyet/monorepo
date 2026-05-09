@@ -7,7 +7,7 @@ tags:
   - React
   - Web
 modified_time: '2019-03-03T21:35:03.766+07:00'
-slug: /2019/03/react-performance-checklist.html
+slug: /2019/03/react-performance-checklist
 description: Muốn tối ưu hiệu năng React, sau đây là checklist để tăng tốc website sử dụng React
 thumbnail: https://3.bp.blogspot.com/-bFgY2B1OocY/XHtXsk5vO7I/AAAAAAAA6jw/58sdPt44VxEgItEdWIo6nhCaVnHsEbcmQCK4BGAYYCw/s1600/zoomed.png
 ---

@@ -7,7 +7,7 @@ tags:
   - Web
 modified_time: '2018-11-13T00:11:36.222+07:00'
 thumbnail: https://3.bp.blogspot.com/-JVmogTZv_Bs/W-mzZzk0NlI/AAAAAAAA1JI/axjukAia6WEVCx4_QnOjb7qkQ8TLhYVmACLcBGAs/s1600/Screen%2BShot%2B2018-11-13%2Bat%2B12.07.30%2BAM.png
-slug: /2018/11/web-performance-101.html
+slug: /2018/11/web-performance-101
 category: Web
 description: Trang web sau sẽ giới thiệu tất tần tật về tối ưu hiệu năng của modern web. Bài viết sẽ giải thích vì sao việc tối ưu là quan trọng, những công nghệ tối ưu và công cụ nào hiện đang được sử dụng, giải thích một cách chi tiết dễ hiểu và cách ứng dụng chúng.
 ---

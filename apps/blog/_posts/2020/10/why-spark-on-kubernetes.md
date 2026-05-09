@@ -8,7 +8,7 @@ tags:
   - Data Engineering
   - Kubernetes
 thumbnail: https://1.bp.blogspot.com/-aBPAW0o9sqY/X5Ps-9d_hLI/AAAAAAABp1A/ZCTOfwThNEUykd4biRSDnZj0D7menY9kACLcBGAsYHQ/s0/spark-on-k8s.jpg
-slug: /2020/10/why-spark-on-kubernetes.html
+slug: /2020/10/why-spark-on-kubernetes
 description: Spark đã quá nổi tiếng trong thế giới Data Engineering và Bigdata. Kubernetes cũng ngày càng phổ biến tương tự, là một hệ thống quản lý deployment và scaling application. Bài viết này bàn đến một số lợi ích khi triển khai ứng dụng Apache Spark trên hệ thống Kubernetes.
 ---
 

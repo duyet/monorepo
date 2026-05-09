@@ -7,7 +7,7 @@ tags:
   - Javascript
 modified_time: '2017-08-06T11:41:14.281+07:00'
 thumbnail: https://4.bp.blogspot.com/-iLc0CpE-jZs/V8ftpMNqYkI/AAAAAAAAcro/TjcwWkEVSLY4Bz6p0FE6wBwE28oN-91zQCK4B/s1600/autotrack.png
-slug: /2016/09/autotrack-turns-10.html
+slug: /2016/09/autotrack-turns-10
 category: Javascript
 description: Autotrack là thư viện Javascript sử dụng với analytics.js, cung cấp cho lập trình viên nhiều công cụ hơn để theo dõi hoạt động người dùng trên web.
 ---

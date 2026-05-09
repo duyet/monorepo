@@ -8,7 +8,7 @@ tags:
   - Vim
 modified_time: '2015-04-25T13:09:47.309+07:00'
 thumbnail: https://1.bp.blogspot.com/-Jls16PZ6Obc/VTsuvm57idI/AAAAAAAACU8/AmSffEltsSw/s1600/vim.png
-slug: /2015/04/linux-mot-so-thu-thuat-voi-trinh-soan.html
+slug: /2015/04/linux-mot-so-thu-thuat-voi-trinh-soan
 category: Linux
 description: Vim (hoặc vi) là một trong những editor mạnh mẽ trên terminal Linux. Sau đây là một vài thủ thuật hay khi sử dụng vim trên Linux.
 ---

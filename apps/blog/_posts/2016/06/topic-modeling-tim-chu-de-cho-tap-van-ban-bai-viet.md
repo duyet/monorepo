@@ -7,7 +7,7 @@ tags:
   - Data
 modified_time: '2016-06-30T23:41:48.897+07:00'
 thumbnail: https://1.bp.blogspot.com/-TItqIphNgKI/V3R0PP5SioI/AAAAAAAAYnw/5JUCgLf8v4QSRGA3J4VnJDwBRePYD3HAgCK4B/s1600/vnexpress-category-duyetdev.png
-slug: /2016/06/topic-modeling-tim-chu-de-cho-tap-van-ban-bai-viet.html
+slug: /2016/06/topic-modeling-tim-chu-de-cho-tap-van-ban-bai-viet
 category: Machine Learning
 description: 'Câu hỏi: Với số lượng bài viết lớn như vậy (hơn 28,000 bài viết), bạn hãy tìm cách nào đó để nhóm các bài viết theo những chủ đề khác nhau. Bạn hãy đề xuất một phương pháp để có thể đặt tên cho từng chủ đề một cách hợp lý nhất. Kết quả công ty A mong đợi sẽ là một file dạng csv gồm 2 cột: cột 1 là tên bài báo, cột 2 là tên chủ đề tương ứng.'
 ---

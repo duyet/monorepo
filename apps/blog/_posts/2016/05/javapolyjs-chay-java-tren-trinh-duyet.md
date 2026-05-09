@@ -8,7 +8,7 @@ tags:
   - Javascript Framework
 modified_time: '2017-08-06T11:41:14.356+07:00'
 thumbnail: https://3.bp.blogspot.com/-0PVYXnZKPos/Vz9CsMIpfnI/AAAAAAAAVi0/MHADr9GRYt4DooMtDYj-DesgH9Ba3KcMACK4B/s1600/f1s7ah2zp9vghd2hth1a.jpg
-slug: /2016/05/javapolyjs-chay-java-tren-trinh-duyet.html
+slug: /2016/05/javapolyjs-chay-java-tren-trinh-duyet
 category: Javascript
 description: Polyfills native, hỗ trợ JVM, bạn có thể import file Jar, biên dịch và chạy trực tiếp mã Java ngay trên trình duyệt Web với JavaPoly, thư viện được viết bằng Javascript.
 ---

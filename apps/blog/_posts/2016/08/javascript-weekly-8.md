@@ -9,7 +9,7 @@ tags:
   - React
 modified_time: '2016-08-31T13:45:22.392+07:00'
 thumbnail: https://4.bp.blogspot.com/-EeqUOHEdZrU/V8Z6JSTShDI/AAAAAAAAclM/4xB15KFwMzwpHjYJXww5sS7zO-yS7d06gCK4B/s1600/JSFor-Mike-700x382.jpg
-slug: /2016/08/javascript-weekly-8.html
+slug: /2016/08/javascript-weekly-8
 category: Javascript
 description: 'Javascript Weekly #8 với các bài viết: React Native có mặt trên Ubuntu, JS góp mặt vào IoT với việc điều khiển các mạch máy tính thông minh, song song hoá tính toán với GPU, ...'
 ---

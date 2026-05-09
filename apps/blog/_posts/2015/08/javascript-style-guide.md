@@ -6,7 +6,7 @@ tags:
   - Tutorial
   - Javascript
 modified_time: '2015-08-01T10:25:33.996+07:00'
-slug: /2015/08/javascript-style-guide.html
+slug: /2015/08/javascript-style-guide
 category: Javascript
 description: A mostly reasonable approach to JavaScript.
 ---

@@ -8,7 +8,7 @@ tags:
   - Ubuntu
 modified_time: '2017-01-23T11:38:35.234+07:00'
 thumbnail: https://1.bp.blogspot.com/-LFMgOUBzTRc/WIWIaGmpQzI/AAAAAAAAieU/kvAZPXb218k53BpTdGwnVJQbL4KyhjtRgCLcB/s1600/Screenshot%2Bfrom%2B2017-01-23%2B11-36-34.png
-slug: /2017/01/shell-thao-tac-voi-tep-va-thu-muc.html
+slug: /2017/01/shell-thao-tac-voi-tep-va-thu-muc
 category: Linux
 description: Shell bash trên Linux nếu như biết khai thác thì nó sẽ là một công cụ rất mạnh, trong bài này mình sẽ liệt kê các thao tác với tệp và thư mục (copy, move, rename, zip, ...). Like a hacker :))
 ---

@@ -7,7 +7,7 @@ tags:
   - Tutorial
 modified_time: '2018-09-10T17:24:35.829+07:00'
 thumbnail: https://2.bp.blogspot.com/-PixuaXfP3N8/VyYNLdQQKPI/AAAAAAAAUJE/jpqCnfOYVyYaMwWBl3V2whQlLdxzU70qQCK4B/s1600/docker-swarm-hero2.png
-slug: /2016/05/cai-dat-docker-tren-ubuntu.html
+slug: /2016/05/cai-dat-docker-tren-ubuntu
 category: Linux
 description: Docker cung cấp một nền tảng mở cho các nhà phát triển và sysadmins để xây dựng, đóng gói, vận chuyển và triển khai ứng dụng bất cứ nơi nào, ứng dụng được chạy trong một container lightweight, cùng với khả năng tự động hóa, nhân bản nhanh, gọn nhẹ, ...
 ---

@@ -9,7 +9,7 @@ tags:
   - Side Project
 modified_time: '2016-03-18T23:29:23.351+07:00'
 thumbnail: https://4.bp.blogspot.com/-tKM0wg2Vmqc/VtFheibWiSI/AAAAAAAAQbc/KFhuP43v4lA/s1600/japanese-stopwords.png
-slug: /2016/02/japanese-stopwords-package.html
+slug: /2016/02/japanese-stopwords-package
 category: Machine Learning
 description: Japanese stopwords, available for npm, bower, plaintext. 日本のストップワード
 ---

@@ -5,7 +5,7 @@ author: Duyet
 tags:
   - News
 modified_time: '2015-07-10T23:36:20.684+07:00'
-slug: /2015/07/tao-of-programming.html
+slug: /2015/07/tao-of-programming
 category: News
 description: 'Bản dịch tiếng Việt đầy đủ của "The Tao of Programming" - tác phẩm kinh điển về triết lý lập trình. 9 chương về Cõi hư vô, Lập Trình Sư, Thiết kế, Lập trình, Cải tiến, Quản đốc, Trung tâm đầu não, Phần cứng và phần mềm. Những bài học vượt thời gian về nghệ thuật coding, debugging, và sống hài hòa với Đạo của lập trình.'
 ---

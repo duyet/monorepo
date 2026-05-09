@@ -6,7 +6,7 @@ tags:
   - Javascript
 modified_time: '2017-08-06T11:41:14.325+07:00'
 thumbnail: https://4.bp.blogspot.com/-i7nGASMBcM0/V5Gd_g2OWaI/AAAAAAAAaI8/o--B6bDhYbks5Md71uVLEKrfHn76B-AHACK4B/s1600/bigint.png
-slug: /2016/07/big-integer-javascript.html
+slug: /2016/07/big-integer-javascript
 category: Javascript
 description: "JavaScript's Integer has a limit of up to 18437736874454810627 (that is, 2^64-2^53+3). To handle much larger values with high performance, we can use the Big Integer library."
 ---

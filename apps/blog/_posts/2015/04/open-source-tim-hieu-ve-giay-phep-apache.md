@@ -7,7 +7,7 @@ tags:
   - License
 modified_time: '2015-04-11T14:13:30.700+07:00'
 thumbnail: https://3.bp.blogspot.com/-1HhLBU4pQYg/VSi7A9h4lRI/AAAAAAAACPo/ujnaYYl6GV4/s1600/mantle-asf.png
-slug: /2015/04/open-source-tim-hieu-ve-giay-phep-apache.html
+slug: /2015/04/open-source-tim-hieu-ve-giay-phep-apache
 category: News
 description: Giấy phép Apache là giấy phép mã nguồn mở được soạn ra bởi Tổ chức phần mềm Apache (ASF – Apache Software Foundation).
 ---

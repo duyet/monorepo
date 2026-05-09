@@ -7,7 +7,7 @@ tags:
   - News
 modified_time: '2016-12-14T08:03:54.029+07:00'
 thumbnail: https://4.bp.blogspot.com/-hFeQOcGkxNM/WFCaOI3pDKI/AAAAAAAAhBg/s5ZA2JgUDF4J5NQn8cXDCgaklegz8RstwCK4B/s1600/fd64b010-c06b-11e6-9dd3-a827e299c5bf.gif
-slug: /2016/12/merge-conflicts-on-github-website.html
+slug: /2016/12/merge-conflicts-on-github-website
 category: Git
 description: Merge conflicts ngay trên Github
 ---

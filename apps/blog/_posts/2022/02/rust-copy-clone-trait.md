@@ -8,7 +8,7 @@ tags:
   - Vietnamese
   - Rust Tiếng Việt
 
-slug: /2022/02/rust-copy-clone-trait.html
+slug: /2022/02/rust-copy-clone-trait
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F02%2Frust-copy-clone-trait.html
 thumbnail: https://i.imgur.com/shjfLWK.png
 description: 'Có một số kiểu dữ liệu trong Rust rất đơn giản (simple types), bao gồm integers, floats, booleans (true và false), và char. Các simple types này nằm trên stack bởi vì complier biết chính xác size của nó. Chúng được gọi là copy types. Bởi vì nó simple và nhỏ gọn nên dễ dàng để copy, do đó compiler luôn copy nếu bạn bỏ nó vào function.'

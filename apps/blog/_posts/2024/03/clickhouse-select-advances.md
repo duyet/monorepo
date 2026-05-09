@@ -8,7 +8,7 @@ tags:
   - Data
   - ClickHouse
   - ClickHouse on Kubernetes
-slug: /2024/03/clickhouse-select-advances.html
+slug: /2024/03/clickhouse-select-advances
 thumbnail: /media/2024/03/clickhouse-select-advances/query.png
 description: Dynamic column selection (also known as a `COLUMNS` expression) allows you to match some columns in a result with a re2 regular expression.
 ---

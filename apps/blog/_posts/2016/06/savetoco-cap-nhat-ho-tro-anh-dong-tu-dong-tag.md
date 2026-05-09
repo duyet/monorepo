@@ -5,7 +5,7 @@ author: Duyet
 tags:
   - Side Project
 modified_time: '2016-06-18T23:17:36.576+07:00'
-slug: /2016/06/savetoco-cap-nhat-ho-tro-anh-dong-tu-dong-tag.html
+slug: /2016/06/savetoco-cap-nhat-ho-tro-anh-dong-tu-dong-tag
 category: Project
 description: saveto.co vừa được cập nhật, hỗ trợ chia sẻ ảnh ảnh động và tự động gán nhãn tag với một số nội dung.
 ---

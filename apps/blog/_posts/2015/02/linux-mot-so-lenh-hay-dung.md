@@ -7,7 +7,7 @@ tags:
   - Linux
 modified_time: '2015-02-15T11:47:58.252+07:00'
 thumbnail: https://3.bp.blogspot.com/-4cvpjZwnz50/VN4p_hlVBOI/AAAAAAAACFE/0kqpzy9wJQ0/s1600/IMG_8804_resize.jpg
-slug: /2015/02/linux-mot-so-lenh-hay-dung.html
+slug: /2015/02/linux-mot-so-lenh-hay-dung
 description: Dùng Linux cũng đã lâu. Thấy nhiều bạn học HDH, nếu không nắm được một số câu lệnh cần thiết thì công việc quản trị của bạn sẽ gặp không ít khó khăn, mình ghi ra vài lệnh hay, hay dùng trên Linux để tiện tham khảo.
 ---
 

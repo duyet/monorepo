@@ -7,7 +7,7 @@ tags:
   - News
 modified_time: '2015-09-01T23:11:35.725+07:00'
 thumbnail: https://i.ytimg.com/vi/olFEpeMwgHk/default.jpg
-slug: /2015/09/google-has-new-logo-seriously.html
+slug: /2015/09/google-has-new-logo-seriously
 category: News
 description: Google có Logo mới
 ---

@@ -7,7 +7,7 @@ tags:
   - Vim
   - IDE
 thumbnail: https://1.bp.blogspot.com/-D5-xqeucXwM/YMi6sJPYO7I/AAAAAAACGPg/7bD9Fb7RESkklbaVh_s72hqyIj5dlEmYQCLcBGAsYHQ/s0/Screen%2BShot%2B2021-06-15%2Bat%2B20.13.21.png
-slug: /2021/06/neovim.html
+slug: /2021/06/neovim
 description: I migrated to NeoVim, after six month with Vim.
 ---
 

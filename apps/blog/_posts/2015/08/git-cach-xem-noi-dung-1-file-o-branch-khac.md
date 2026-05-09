@@ -6,7 +6,7 @@ tags:
   - Tutorial
   - Git
 modified_time: '2025-11-09T00:00:00.000+07:00'
-slug: /2015/08/git-cach-xem-noi-dung-1-file-o-branch-khac.html
+slug: /2015/08/git-cach-xem-noi-dung-1-file-o-branch-khac
 category: Git
 description: 'Nếu bạn đang ở 1 nhánh, và bạn muốn xem nội dung của 1 file nằm ở trên nhánh khác mà không cần phải checkout.'
 ---

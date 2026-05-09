@@ -6,7 +6,7 @@ tags:
   - Tutorial
 modified_time: '2015-09-14T12:45:56.662+07:00'
 thumbnail: https://1.bp.blogspot.com/-CB9-dLfNP90/VfZd6RSwrNI/AAAAAAAAC5M/rmrmrNrd86s/s1600/Screenshot%2Bfrom%2B2015-09-14%2B12%253A38%253A55.png
-slug: /2015/09/how-to-install-oracle-12c-on-ubuntu-1504.html
+slug: /2015/09/how-to-install-oracle-12c-on-ubuntu-1504
 category: Linux
 description: Cách cài đặt Oracle 12c trên Ubuntu 15.04
 ---

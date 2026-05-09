@@ -6,7 +6,7 @@ tags:
   - Side Project
 modified_time: '2016-07-12T10:43:02.069+07:00'
 thumbnail: https://1.bp.blogspot.com/-ygEOobbwRPI/V4RmaAY1KVI/AAAAAAAAZwc/ASHaVZwKe7s2e-zMRWgDjFRWzYAeADETACLcB/s1600/saveto-note-card.png
-slug: /2016/07/savetoco-cap-nhat-note-card.html
+slug: /2016/07/savetoco-cap-nhat-note-card
 category: Project
 description: save.co vừa cập nhật chức năng note card mới, cho phép ghi chú nhanh như các công cụ ghi chú khác. Hiện tại Note Card đang triển khai thử nghiệm, mọi note sẽ được public. Ngoài ra người dùng cũng có khả năng chọn background cho Note Card.
 ---

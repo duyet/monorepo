@@ -5,7 +5,7 @@ author: Duyet
 category: Rust
 tags:
   - Rust
-slug: /2022/04/rust-code-cov.html
+slug: /2022/04/rust-code-cov
 thumbnail: https://i.imgur.com/Pmccyke.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F04%2Frust-code-cov.html
 linkedInCommentUrl:

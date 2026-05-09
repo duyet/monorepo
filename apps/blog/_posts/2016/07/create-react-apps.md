@@ -7,7 +7,7 @@ tags:
   - React
 modified_time: '2016-07-25T09:31:24.499+07:00'
 thumbnail: https://3.bp.blogspot.com/-HahL2Dcmo7o/V5Vz1SQORXI/AAAAAAAAaMM/HomR1n60e4oKER20VhEDSIZQag-nQqptwCK4B/s1600/create-react-app.png
-slug: /2016/07/create-react-apps.html
+slug: /2016/07/create-react-apps
 category: Javascript
 description: Facebook ra mắt công cụ mới Create React App - generate ra React starter project.
 ---

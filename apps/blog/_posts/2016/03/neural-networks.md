@@ -9,7 +9,7 @@ tags:
   - Machine Learning
 modified_time: '2016-05-02T19:39:30.826+07:00'
 thumbnail: https://1.bp.blogspot.com/-IrbvGQYE780/Vvai3HWIZKI/AAAAAAAASX8/Bk--e7sYx8cmsbgq8aooy7bUKKr80wKVw/s1600/500px-Network3322.png
-slug: /2016/03/neural-networks.html
+slug: /2016/03/neural-networks
 category: Machine Learning
 description: Neural networks là gì?
 ---

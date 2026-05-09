@@ -9,7 +9,7 @@ tags:
   - Machine Learning
 modified_time: '2016-03-26T21:57:57.625+07:00'
 thumbnail: https://1.bp.blogspot.com/-jKehM_T47GI/VrMiraOWJiI/AAAAAAAAPFE/jpYwrmCFW6g/s1600/small_1420.png
-slug: /2016/02/deep-learning-la-gi.html
+slug: /2016/02/deep-learning-la-gi
 category: Machine Learning
 description: 'Thế giới đã chứng kiến sự phát triển vượt bậc sau khi con người phát minh ra các công nghệ: động cơ hơi nước, điện, máy vi tính, internet. Công nghệ tiếp theo sẽ có sự tác động mạnh mẽ như vậy chính là trí thông minh nhân tạo (Artificial Intelligence - AI)'
 ---

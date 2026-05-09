@@ -6,7 +6,7 @@ tags:
   - Security
 modified_time: '2016-05-02T19:41:20.131+07:00'
 thumbnail: https://3.bp.blogspot.com/-OCj_qVWa3gQ/VtXfet69CWI/AAAAAAAAQiY/xhQ9CDVm7cg/s1600/ctb_locker_en_1.png
-slug: /2016/03/ctb-locker-is-back-web-server-edition.html
+slug: /2016/03/ctb-locker-is-back-web-server-edition
 category: News
 description: Cryptolockers have become more and more sophisticated, bypassing system protections and terrifying anyone in their path. TeslaCrypt, CryptoWall, TorrentLocker, Locky and CTB-Locker are only some of the malware we have protected from for the past two years. We have seen many shapes and colors of cryptolockers, but the new CTB-Locker variant says it all. The world of cybercriminals is investing in how to reinvent cryptolockers.
 ---

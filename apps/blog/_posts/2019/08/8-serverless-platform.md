@@ -7,7 +7,7 @@ tags:
   - Tools
 
 thumbnail: https://2.bp.blogspot.com/-UXFKQHmgZr4/XU5GBRoYgMI/AAAAAAABFX4/36g3ohD57bUaGSoqwPctGsTdL4lG85vPwCK4BGAYYCw/s1600/serverless-arch.jpg
-slug: /2019/08/8-serverless-platform.html
+slug: /2019/08/8-serverless-platform
 description: Một vài nền tảng serverless tốt nhất hiện nay cho ứng dụng của bạn.
 ---
 

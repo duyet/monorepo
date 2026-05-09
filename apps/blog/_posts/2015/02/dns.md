@@ -5,7 +5,7 @@ author: Duyet
 tags:
   - Web
 modified_time: '2025-11-09T00:00:00.000+07:00'
-slug: /2015/02/dns.html
+slug: /2015/02/dns
 category: News
 description: DNS là từ viết tắt trong tiếng Anh của Domain Name System, là Hệ thống phân giải tên miền được phát minh vào năm 1984 cho Internet. Bạn có thể hiểu DNS như một cái "Danh bạ điện thoại" để tìm trên Internet bằng cách dịch tên máy chủ máy tính thành địa chỉ IP
 ---

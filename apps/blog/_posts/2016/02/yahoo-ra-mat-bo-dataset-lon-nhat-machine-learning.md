@@ -8,7 +8,7 @@ tags:
   - NLP
 modified_time: '2016-02-09T23:39:26.233+07:00'
 thumbnail: https://3.bp.blogspot.com/-H7jTeKLalpM/VroS_GtuDxI/AAAAAAAAPYg/2ziVowvFxR0/s1600/Screenshot%2Bfrom%2B2016-02-09%2B23-23-25.png
-slug: /2016/02/yahoo-ra-mat-bo-dataset-lon-nhat-machine-learning.html
+slug: /2016/02/yahoo-ra-mat-bo-dataset-lon-nhat-machine-learning
 category: News
 description: Yahoo Labs đã tung ra nhiều loại bộ dữ liệu khác nhau cho những ai nghiên cứu trong lĩnh vực máy học (Machine Learning). Các bộ dữ liệu này chủ yếu được thu thập từ các dịch vụ của Yahoo, như thông tin hoạt động người dùng, dữ liệu đồ thị, ảnh đã gán nhãn, ngôn ngữ tự nhiên, tin nhắn, tương tác mạng xã hội, tương tác tin tức ... từ Yahoo News, Yahoo Sports, Yahoo Finance, Yahoo Movies, ...
 ---

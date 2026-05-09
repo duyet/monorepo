@@ -10,7 +10,7 @@ tags:
   - Machine Learning
 modified_time: '2018-10-31T23:23:57.689+07:00'
 thumbnail: https://3.bp.blogspot.com/-msPb3Y2WcN8/W9nW7gASaMI/AAAAAAAA04w/P9xEh3pGAN8pRsJmaTgFHqssjUToQHo3wCLcBGAs/s1080/deep-learning-web-app.png
-slug: /2018/07/deploy-deep-learning-model-as-web-service-api.html
+slug: /2018/07/deploy-deep-learning-model-as-web-service-api
 description: Trong bài này mình sẽ hướng dẫn deploy 1 model Deep learning, cụ thể là Keras dưới dạng một web service API. Sử dụng Flask framework python và Redis server như một Messeage Queue.
 ---
 

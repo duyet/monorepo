@@ -7,7 +7,7 @@ tags:
   - Data
   - Data Engineering
   - Apache Airflow
-slug: /2022/09/airflow-dataset.html
+slug: /2022/09/airflow-dataset
 thumbnail: https://i.imgur.com/oESqHNY.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F09%2Fairflow-dataset.html
 description: Airflow since 2.4, in addition to scheduling DAGs based upon time, they can also be scheduled based upon a task updating a dataset. This will change the way you schedule DAGs.

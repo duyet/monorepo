@@ -7,7 +7,7 @@ tags:
   - License
 modified_time: '2015-04-11T13:03:51.623+07:00'
 thumbnail: https://upload.wikimedia.org/wikipedia/commons/9/93/GPLv3_Logo.svg
-slug: /2015/04/tim-hieu-ve-giay-phep-gnu.html
+slug: /2015/04/tim-hieu-ve-giay-phep-gnu
 category: News
 description: GNU (GNU General Public License) là giấy phép phần mềm tự do phổ biến nhất, ban đầu được thiết kê bới Richard Stallman, dành cho dự án GNU. Phiên bản 2 của giấy phép này được phát hành năm 1991, và phiên bản 3, phiên bản hiện tại, được phát hành năm 2007.
 ---

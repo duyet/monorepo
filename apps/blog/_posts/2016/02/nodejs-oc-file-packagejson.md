@@ -7,7 +7,7 @@ tags:
   - Tutorial
 modified_time: '2016-02-03T17:15:07.500+07:00'
 thumbnail: https://1.bp.blogspot.com/-bt9C6eXcBa8/VrGqjAbhpKI/AAAAAAAAPCs/1wKZ1nusi3A/s1600/npm-the-guide-13-638.jpg
-slug: /2016/02/nodejs-oc-file-packagejson.html
+slug: /2016/02/nodejs-oc-file-packagejson
 category: Javascript
 description: 'Đọc file package.json giúp ta lấy được một số thông tin của project, như: tên project, version, danh sách các package, ...'
 ---

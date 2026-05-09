@@ -7,7 +7,7 @@ category: Rust
 tags:
   - Rust
   - Cargo
-slug: /2022/09/rust-question-mark-operator.html
+slug: /2022/09/rust-question-mark-operator
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F09%2Frust-question-mark-operator.html
 description: In Rust, the question mark (?) operator is used as an alternate error propagation method for functions that yield Result or Option types. The ? operator is a shortcut that minimizes the amount of code required in a function to quickly return Err or None from the types Result<T, Err>, or Option.
 ---

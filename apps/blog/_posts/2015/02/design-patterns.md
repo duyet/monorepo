@@ -6,7 +6,7 @@ tags:
   - Design Patterns
 modified_time: '2015-02-23T23:19:57.778+07:00'
 thumbnail: https://3.bp.blogspot.com/-TjEKejI8edI/VOtRCGheINI/AAAAAAAACKA/7BihROVk8WM/s1600/Abstract_Factory_example1-2x.png
-slug: /2015/02/design-patterns.html
+slug: /2015/02/design-patterns
 category: Software Engineering
 description: Design patterns là các giải pháp đã được tối ưu hóa, được tái sử dụng cho các vấn đề lập trình mà chúng ta gặp phải hàng ngày. Nó là một khuôn mẫu đã được suy nghĩ, giải quyết trong tình huống cụ thể rồi.
 ---
