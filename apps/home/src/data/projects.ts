@@ -20,9 +20,18 @@ const projectUrls = {
   stamp: "https://stamp.duyet.net",
   agentState: "https://agentstate.app",
   pageview: "https://pageview.duyet.net",
+  fonts: "https://duyet.github.io/fonts/",
 };
 
 export const apps: AppItem[] = [
+  {
+    name: "Vietnamese Fonts",
+    href: projectUrls.fonts,
+    host: hostOf(projectUrls.fonts),
+    utmContent: "fonts_bento",
+    description: "Curated collection of beautiful Vietnamese-compatible fonts",
+    tone: "bg-[#7a705d]",
+  },
   {
     name: "ClickHouse Monitoring",
     href: duyetUrls.external.clickhouse ?? "https://clickhouse.duyet.net",
