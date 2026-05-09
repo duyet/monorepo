@@ -17,17 +17,24 @@ const navigationItems = [
 
 export function SiteHeader() {
   return (
-    <Header
-      shortText="Duyet Le"
-      longText="Duyet Le"
-      navigationItems={navigationItems}
-      showAuthButtons
-      authButtonsWrapWithProvider={false}
-      actions={<AppCommandPalette />}
-    />
+    <div className="sticky top-0 z-50">
+      <Header
+        shortText="Duyet Le"
+        longText="Duyet Le"
+        navigationItems={navigationItems}
+        showAuthButtons
+        authButtonsWrapWithProvider={false}
+        actions={<AppCommandPalette />}
+        className="border-none bg-[var(--background)]/80 backdrop-blur-md py-4"
+        containerClassName="max-w-[1200px]"
+      />
+      {/* Visual divider matching Claude's hairline */}
+      <div className="h-px w-full bg-[var(--hairline)] opacity-50" />
+    </div>
   );
 }
 
 export function SiteFooter() {
   return <Footer />;
 }
+

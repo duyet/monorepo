@@ -31,11 +31,11 @@ export function HeroBanner({
         {title}
       </h1>
 
-      <p className="mb-6 max-w-2xl text-sm leading-6 text-[var(--body)] dark:text-[var(--on-dark-soft)] sm:text-base">
+      <p className="mb-6 max-w-2xl text-sm leading-6 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/75 sm:text-base">
         {description}
       </p>
 
-      <div className="flex flex-wrap gap-4 text-sm font-medium text-[var(--muted)]">
+      <div className="flex flex-wrap gap-4 text-sm font-medium text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
         <div className="flex items-center gap-2">
           <svg
             className="h-5 w-5"

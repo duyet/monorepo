@@ -76,7 +76,7 @@ export const Route = createRootRoute({
       {
         rel: "preload",
         as: "style",
-        href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Cormorant+Garamond:wght@400;500;600&display=swap",
       },
       {
         rel: "alternate",
@@ -98,7 +98,7 @@ function RootComponent() {
         {/* Non-blocking Google Fonts: preloaded above, applied here */}
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Cormorant+Garamond:wght@400;500;600&display=swap"
           media="print"
           // @ts-expect-error onLoad is valid on link elements
           onLoad="this.media='all'"
@@ -106,7 +106,7 @@ function RootComponent() {
       </head>
       <body>
         <ThemeProvider>
-          <div className="min-h-screen bg-[var(--background)] font-sans text-[var(--foreground)] subpixel-antialiased [--font-inter:Inter,system-ui,sans-serif] [--font-serif:'Libre_Baskerville',Georgia,serif]">
+          <div className="min-h-screen bg-[var(--background)] font-sans text-[var(--foreground)] subpixel-antialiased [--font-inter:Inter,system-ui,sans-serif] [--font-serif:'Cormorant_Garamond',Garamond,'Times New Roman',serif]">
             <Header
               shortText="Duyet Le"
               longText="Duyet Le"

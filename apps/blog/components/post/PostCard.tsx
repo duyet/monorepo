@@ -17,9 +17,9 @@ export function PostCard({ post, className }: PostCardProps) {
       params={{ year, month, slug }}
       className={cn(
         "group block rounded-xl p-6",
-        "bg-[var(--muted)] dark:bg-white/5",
+        "bg-[var(--surface-card)] dark:bg-white/5",
         "transition-colors",
-        "hover:bg-[var(--muted)]/80 dark:hover:bg-white/8",
+        "hover:bg-[var(--surface-soft)] dark:hover:bg-white/8",
         className
       )}
     >
@@ -40,7 +40,7 @@ export function PostCard({ post, className }: PostCardProps) {
         {post.title}
       </h3>
       {post.excerpt && (
-        <p className="mt-2 line-clamp-2 text-[14px] leading-[1.55] text-[#3d3d3a] dark:text-[var(--foreground)]/60">
+        <p className="mt-2 line-clamp-2 text-[14px] leading-[1.55] text-[var(--body)] dark:text-[var(--foreground)]/60">
           {post.excerpt}
         </p>
       )}

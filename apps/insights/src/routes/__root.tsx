@@ -57,7 +57,7 @@ export const Route = createRootRoute({
       {
         rel: "preload",
         as: "style",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap",
       },
     ],
   }),
@@ -76,12 +76,12 @@ function RootComponent() {
           onLoad={(event) => {
             event.currentTarget.media = "all";
           }}
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap"
         />
       </head>
       <body>
         <ThemeProvider>
-          <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-white dark:text-[#1a1a1a]">
+          <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
             <Header
               shortText="Duyet Le"
               longText="Duyet Le"
@@ -90,7 +90,7 @@ function RootComponent() {
               actions={<AppCommandPalette />}
             />
 
-            <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-white 2xl:rounded-b-[4rem]">
+            <main className="relative z-10 rounded-b-3xl bg-[var(--background)] pb-16 2xl:rounded-b-[4rem]">
               <div className="mx-auto max-w-[1280px] px-5 pb-16 pt-6 sm:px-8 lg:px-10">
                 <div className="mb-8">
                   <div className="flex flex-wrap items-center justify-between gap-3">

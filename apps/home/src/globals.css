@@ -55,6 +55,7 @@
 
   html {
     font-family: var(--font-inter);
+    font-size: 18px; /* Slightly larger base font for "Big text" */
   }
 
   body {
@@ -64,6 +65,42 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, .font-serif {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  /* Target Header branding text from @duyet/components */
+  header a span[class*="font-semibold"] {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 1.4rem;
+    letter-spacing: -0.01em;
+  }
+
+  /* Target Header navigation links */
+  header nav a {
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--muted-foreground);
+    transition: color 0.2s;
+  }
+
+  header nav a:hover {
+    color: var(--foreground);
+  }
+
+  header nav a[aria-current="page"], 
+  header nav a.active {
+    color: var(--foreground);
+  }
+
+  ::selection {
+    background-color: var(--primary);
+    color: white;
   }
 
   html.dark body {
@@ -95,3 +132,4 @@
     overflow: hidden;
   }
 }
+

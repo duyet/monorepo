@@ -88,7 +88,7 @@ export function MobileTOCButton({
           "bg-[var(--surface-soft)] dark:bg-[var(--surface-dark)]",
           "hover:bg-[var(--surface-card)] dark:hover:bg-[var(--surface-dark-elevated)]",
           "text-sm font-medium",
-          "text-[var(--body)] dark:text-[var(--on-dark-soft)]",
+          "text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70",
           "transition-all duration-200",
           "active:scale-95",
           "border border-[var(--hairline)] dark:border-white/10"

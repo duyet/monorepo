@@ -73,8 +73,8 @@ export function SeriesBox({
                     className={cn(
                       "line-clamp-1 text-base font-medium transition-colors hover:underline hover:underline-offset-4",
                       isDarkTone
-                        ? "text-[var(--on-dark-soft)] hover:text-[var(--on-dark)]"
-                        : "text-[var(--body)] hover:text-[var(--foreground)] dark:text-[var(--on-dark-soft)] dark:hover:text-[var(--on-dark)]"
+                        ? "text-white/80 hover:text-white"
+                        : "text-[#1a1a1a]/80 hover:text-[#1a1a1a] dark:text-[#f8f8f2]/80 dark:hover:text-[#f8f8f2]"
                     )}
                     href={slug}
                   >
@@ -87,11 +87,11 @@ export function SeriesBox({
                     "line-clamp-1 text-sm",
                     isDarkTone
                       ? isCurrent
-                        ? "text-[var(--on-dark)]/74"
-                        : "text-[var(--on-dark-soft)]"
+                        ? "text-white/74"
+                        : "text-white/62"
                       : isCurrent
-                        ? "text-[var(--body)]"
-                        : "text-[var(--muted)]"
+                        ? "text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70"
+                        : "text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55"
                   )}
                 >
                   {excerpt}

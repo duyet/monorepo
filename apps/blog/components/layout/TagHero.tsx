@@ -28,11 +28,11 @@ export function TagHero({
           {tagName}
         </h1>
 
-        <div className="flex items-center gap-3 text-sm font-medium text-[var(--muted)]">
+        <div className="flex items-center gap-3 text-sm font-medium text-[#1a1a1a]/50 dark:text-[#f8f8f2]/45">
           <span>
             {postCount} {postCount === 1 ? "post" : "posts"}
           </span>
-          <span className="text-[var(--hairline)] dark:text-white/20">
+          <span className="text-[#1a1a1a]/20 dark:text-[#f8f8f2]/20">
             &middot;
           </span>
           <span>

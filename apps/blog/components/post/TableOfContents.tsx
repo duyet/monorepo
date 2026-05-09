@@ -105,7 +105,7 @@ export function TableOfContents({
   const TOCContent = ({ showHeader = true }: { showHeader?: boolean }) => (
     <>
       {showHeader && (
-        <div className="flex items-center gap-2 mb-4 font-medium text-[var(--muted)]">
+        <div className="flex items-center gap-2 mb-4 font-medium text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
           <TOCIcon className="w-4 h-4" />
           On this page
         </div>
@@ -124,7 +124,7 @@ export function TableOfContents({
                 heading.level === 3 && "pl-6 text-xs",
                 activeId === heading.id
                   ? "border-blue-500 text-blue-600 dark:text-blue-400 font-medium"
-                  : "border-transparent text-[var(--muted)] hover:text-[var(--foreground)] dark:hover:text-[var(--on-dark)] hover:border-[var(--hairline)] dark:hover:border-white/15"
+                  : "border-transparent text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55 hover:text-[#1a1a1a] dark:hover:text-[#f8f8f2] hover:border-[#1a1a1a]/15 dark:hover:border-white/15"
               )}
             >
               {heading.text}
@@ -155,7 +155,7 @@ export function TableOfContents({
           isMobileOpen ? "Close table of contents" : "Open table of contents"
         }
       >
-        <TOCIcon className="w-5 h-5 text-[var(--body)] dark:text-[var(--on-dark-soft)]" />
+        <TOCIcon className="w-5 h-5 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70" />
       </button>
 
       {/* Mobile/Tablet: Slide-out panel */}

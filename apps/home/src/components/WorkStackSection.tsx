@@ -38,12 +38,12 @@ const skills = [
 
 export function WorkStackSection({ repositoryUrl }: WorkStackSectionProps) {
   return (
-    <>
-      <section className="mx-auto mt-24 max-w-[1280px] px-5 sm:px-8 lg:mt-32 lg:px-10 xl:mt-40">
-        <div className="grid gap-10 lg:grid-cols-[0.8fr_1fr] lg:items-start">
-          <div>
-            <p className="mb-3 text-sm font-medium text-[var(--muted-foreground)]">Work</p>
-            <h2 className="text-balance text-3xl font-semibold tracking-tight md:text-4xl">
+    <div className="space-y-32 py-10 lg:space-y-48">
+      <section className="">
+        <div className="grid gap-16 lg:grid-cols-[0.7fr_1fr] lg:items-start">
+          <div className="max-w-md">
+            <p className="mb-6 font-serif text-xl italic text-[var(--primary)]">Focus</p>
+            <h2 className="font-serif text-4xl leading-tight sm:text-5xl lg:text-6xl">
               Practical engineering, written down clearly.
             </h2>
           </div>
@@ -52,12 +52,12 @@ export function WorkStackSection({ repositoryUrl }: WorkStackSectionProps) {
             {focusAreas.map((item) => (
               <div
                 key={item.label}
-                className="grid gap-3 py-6 md:grid-cols-[180px_1fr] md:gap-8"
+                className="grid gap-4 py-10 md:grid-cols-[200px_1fr] md:gap-12 lg:py-14"
               >
-                <p className="text-sm font-semibold uppercase tracking-normal text-[var(--muted-foreground)]">
+                <p className="font-serif text-xl text-[var(--muted-foreground)] opacity-60">
                   {item.label}
                 </p>
-                <p className="text-xl font-medium leading-tight tracking-tight">
+                <p className="text-2xl font-normal leading-snug tracking-tight text-[var(--body-strong)] lg:text-3xl">
                   {item.value}
                 </p>
               </div>
@@ -66,31 +66,38 @@ export function WorkStackSection({ repositoryUrl }: WorkStackSectionProps) {
         </div>
       </section>
 
-      <section className="mx-auto mt-24 max-w-[1280px] px-5 sm:px-8 lg:mt-32 lg:px-10 xl:mt-40">
-        <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
-          <div>
-            <p className="mb-3 text-sm font-medium text-[var(--muted-foreground)]">Stack</p>
-            <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
+      <section className="">
+        <div className="flex flex-col justify-between gap-10 md:flex-row md:items-end">
+          <div className="max-w-2xl">
+            <p className="mb-6 font-serif text-xl italic text-[var(--primary)]">Stack</p>
+            <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl">
               Tools I reach for.
             </h2>
+            <p className="mt-6 text-xl text-[var(--muted-foreground)] lg:text-2xl">
+              A curated set of technologies for building reliable, scalable systems.
+            </p>
           </div>
           <a
             href={repositoryUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-base font-medium"
+            className="group inline-flex items-center gap-2 font-serif text-2xl hover:text-[var(--primary)] transition-colors lg:text-3xl"
           >
             Repositories
-            <ArrowRight className="h-5 w-5" />
+            <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-1" />
           </a>
         </div>
 
-        <div className="mt-10 flex flex-wrap gap-x-5 gap-y-4 text-2xl font-semibold tracking-tight text-[var(--foreground)]/90 md:text-3xl">
+        <div className="mt-16 flex flex-wrap gap-x-10 gap-y-6 font-serif text-3xl tracking-tight text-[var(--foreground)]/80 md:text-4xl lg:text-5xl lg:leading-tight">
           {skills.map((skill) => (
-            <span key={skill}>{skill}</span>
+            <span key={skill} className="hover:text-[var(--primary)] transition-colors cursor-default">
+              {skill}
+            </span>
           ))}
+          <span className="text-[var(--primary)] opacity-40">✱</span>
         </div>
       </section>
-    </>
+    </div>
   );
 }
+

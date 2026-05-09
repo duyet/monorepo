@@ -271,64 +271,64 @@ const colorSchemes = [
     bgDark: "dark:bg-terracotta/30",
     nested: "bg-terracotta/20", // Darker for nested cards
     nestedDark: "dark:bg-terracotta/40",
-    text: "text-[var(--body)]",
-    textDark: "dark:text-[var(--on-dark-soft)]",
+    text: "text-[#1a1a1a]/70",
+    textDark: "dark:text-[#f8f8f2]/70",
   },
   {
     bg: "bg-lavender-light", // Soft lavender #dfe0ec
     bgDark: "dark:bg-lavender/30",
     nested: "bg-lavender/40",
     nestedDark: "dark:bg-lavender/50",
-    text: "text-[var(--body)]",
-    textDark: "dark:text-[var(--on-dark-soft)]",
+    text: "text-[#1a1a1a]/70",
+    textDark: "dark:text-[#f8f8f2]/70",
   },
   {
     bg: "bg-sage-light", // Soft sage #d0ddd8
     bgDark: "dark:bg-sage/30",
     nested: "bg-sage/40",
     nestedDark: "dark:bg-sage/50",
-    text: "text-[var(--body)]",
-    textDark: "dark:text-[var(--on-dark-soft)]",
+    text: "text-[#1a1a1a]/70",
+    textDark: "dark:text-[#f8f8f2]/70",
   },
   {
     bg: "bg-oat-light", // Warm beige #ebe5db (like "Featured courses")
     bgDark: "dark:bg-oat/30",
     nested: "bg-oat/60",
     nestedDark: "dark:bg-oat/50",
-    text: "text-[var(--body)]",
-    textDark: "dark:text-[var(--on-dark-soft)]",
+    text: "text-[#1a1a1a]/70",
+    textDark: "dark:text-[#f8f8f2]/70",
   },
   {
     bg: "bg-cream", // Warm cream #faf8f3
     bgDark: "dark:bg-cream-warm/30",
     nested: "bg-cream-warm",
     nestedDark: "dark:bg-cream-warm/50",
-    text: "text-[var(--body)]",
-    textDark: "dark:text-[var(--on-dark-soft)]",
+    text: "text-[#1a1a1a]/70",
+    textDark: "dark:text-[#f8f8f2]/70",
   },
   {
     bg: "bg-cactus-light", // Muted green #d4e3de
     bgDark: "dark:bg-cactus/30",
     nested: "bg-cactus/40",
     nestedDark: "dark:bg-cactus/50",
-    text: "text-[var(--body)]",
-    textDark: "dark:text-[var(--on-dark-soft)]",
+    text: "text-[#1a1a1a]/70",
+    textDark: "dark:text-[#f8f8f2]/70",
   },
   {
     bg: "bg-coral-light", // Soft coral #ffc4a8
     bgDark: "dark:bg-coral/30",
     nested: "bg-coral/30",
     nestedDark: "dark:bg-coral/50",
-    text: "text-[var(--body)]",
-    textDark: "dark:text-[var(--on-dark-soft)]",
+    text: "text-[#1a1a1a]/70",
+    textDark: "dark:text-[#f8f8f2]/70",
   },
   {
     bg: "bg-ivory", // Off-white #f5f3ef
     bgDark: "dark:bg-ivory-medium/30",
     nested: "bg-ivory-medium",
     nestedDark: "dark:bg-ivory-medium/50",
-    text: "text-[var(--body)]",
-    textDark: "dark:text-[var(--on-dark-soft)]",
+    text: "text-[#1a1a1a]/70",
+    textDark: "dark:text-[#f8f8f2]/70",
   },
 ];
 
@@ -674,7 +674,7 @@ export function ClaudeCardGrid({ cards, className }: ClaudeCardGridProps) {
               {card.title}
             </h4>
             {card.description && (
-              <p className="text-sm text-[var(--body)] dark:text-[var(--muted)] line-clamp-2">
+              <p className="text-sm text-[#1a1a1a]/70 dark:text-[#f8f8f2]/55 line-clamp-2">
                 {card.description}
               </p>
             )}
