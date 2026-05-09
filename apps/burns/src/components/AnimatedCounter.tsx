@@ -5,11 +5,11 @@ interface AnimatedCounterProps {
   duration?: number;
 }
 
-function easeOutExponential(t: number): number {
-  return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+function easeOutQuad(t: number): number {
+  return t * (2 - t);
 }
 
-export function AnimatedCounter({ target, duration = 2000 }: AnimatedCounterProps) {
+export function AnimatedCounter({ target, duration = 700 }: AnimatedCounterProps) {
   const [display, setDisplay] = useState("0");
   const started = useRef(false);
 
@@ -23,7 +23,7 @@ export function AnimatedCounter({ target, duration = 2000 }: AnimatedCounterProp
     const tick = (now: number) => {
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
-      const eased = easeOutExponential(progress);
+      const eased = easeOutQuad(progress);
       const current = Math.floor(eased * target);
       setDisplay(current.toLocaleString("en-US"));
 

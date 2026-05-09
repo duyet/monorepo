@@ -27,7 +27,7 @@ function Page() {
       padding: "80px 24px",
     }}>
       <div className="animate-fade-in">
-        <AnimatedCounter target={data.totals.total_tokens} duration={2000} />
+        <AnimatedCounter target={data.totals.total_tokens} />
         <p style={{
           marginTop: 12,
           textAlign: "center",
