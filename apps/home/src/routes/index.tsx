@@ -76,8 +76,8 @@ function HomePage() {
 
         <main className="relative z-10">
           {/* Hero Section */}
-          <section className="mx-auto max-w-[1200px] px-6 py-20 sm:px-10 md:py-28 lg:py-32 xl:py-36">
-            <div className="max-w-[920px] space-y-8">
+          <section className="mx-auto max-w-[1200px] px-6 py-12 sm:px-10 md:py-16 lg:py-20 xl:py-24">
+            <div className="max-w-[920px] space-y-6">
               <h1 className="font-serif text-5xl leading-tight sm:text-6xl lg:text-[64px]">
                 Meet your <span className="text-[var(--primary)] italic">thinking partner</span> in Data & AI.
               </h1>
@@ -103,33 +103,9 @@ function HomePage() {
             </div>
           </section>
 
-          {/* Product/Agent Section (Dark Band) */}
-          <section className="bg-[var(--surface-dark)] py-20 lg:py-28">
-            <div className="mx-auto max-w-[1200px] px-6 sm:px-10">
-              <div className="mb-12 flex flex-col justify-between gap-6 lg:mb-16 lg:flex-row lg:items-end">
-                <div className="max-w-2xl">
-                  <h2 className="font-serif text-3xl text-[var(--on-dark)] sm:text-4xl lg:text-[48px]">
-                    Autonomous assistance.
-                  </h2>
-                  <p className="mt-4 text-lg text-[var(--on-dark-soft)] lg:text-xl">
-                    Experience the next generation of data engineering with AI agents that help you build, monitor, and optimize.
-                  </p>
-                </div>
-                <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-[var(--on-dark-soft)]">
-                  <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
-                  Live Agent System
-                </div>
-              </div>
-
-              <div className="overflow-hidden rounded-xl bg-[#1f1e1b] shadow-2xl ring-1 ring-white/10">
-                <HomeAgentsChat />
-              </div>
-            </div>
-          </section>
-
           {/* Capabilities Section */}
-          <section className="mx-auto max-w-[1200px] px-6 py-24 sm:px-10 lg:py-32">
-            <div className="mb-12">
+          <section className="mx-auto max-w-[1200px] px-6 py-12 sm:px-10 lg:py-20">
+            <div className="mb-10">
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-[48px]">
                 Explore the network.
               </h2>
@@ -143,7 +119,7 @@ function HomePage() {
           </section>
 
           {/* WorkStack (Cream Card Band) */}
-          <section className="bg-[var(--muted)] py-24 lg:py-32">
+          <section className="bg-[var(--muted)] py-16 lg:py-24">
             <div className="mx-auto max-w-[1200px] px-6 sm:px-10">
               <WorkStackSection
                 repositoryUrl={addUtmParams(
@@ -158,9 +134,9 @@ function HomePage() {
           {/* Apps Section */}
           <section
             id="apps"
-            className="mx-auto max-w-[1200px] px-6 py-24 sm:px-10 lg:py-32"
+            className="mx-auto max-w-[1200px] px-6 py-16 sm:px-10 lg:py-24"
           >
-            <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <div className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-end">
               <div>
                 <h2 className="font-serif text-3xl sm:text-4xl lg:text-[48px]">
                   Featured Systems.
@@ -183,7 +159,7 @@ function HomePage() {
               ))}
             </div>
 
-            <div className="mt-12 flex justify-center">
+            <div className="mt-10 flex justify-center">
               <Link
                 to="/projects"
                 className="group inline-flex items-center gap-2 font-serif text-xl hover:text-[var(--primary)] transition-colors lg:text-[28px]"
@@ -194,7 +170,7 @@ function HomePage() {
             </div>
 
             {compactApps.length > 0 && (
-              <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+              <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
                 {compactApps.map((item) => (
                   <CompactAppCard key={item.name} item={item} />
                 ))}
@@ -203,10 +179,10 @@ function HomePage() {
           </section>
 
           {/* Footer Callout (Coral Band) */}
-          <section className="mx-auto max-w-[1200px] px-6 pb-24 sm:px-10">
+          <section className="mx-auto max-w-[1200px] px-6 pb-16 sm:px-10">
             <Link
               to="/ls"
-              className="group flex flex-col items-center justify-center overflow-hidden rounded-2xl bg-[var(--primary)] px-10 py-16 text-center text-white transition-transform hover:scale-[1.01] active:scale-[0.99] lg:py-24"
+              className="group flex flex-col items-center justify-center overflow-hidden rounded-2xl bg-[var(--primary)] px-10 py-12 text-center text-white transition-transform hover:scale-[1.01] active:scale-[0.99] lg:py-20"
             >
               <h3 className="font-serif text-3xl sm:text-5xl lg:text-[64px]">
                 Looking for a link?
@@ -219,13 +195,14 @@ function HomePage() {
               </div>
             </Link>
           </section>
-          </main>
+        </main>
 
-          <SiteFooter />
-          </div>
-          </>
-          );
-          }
+        <SiteFooter />
+      </div>
+    </>
+  );
+}
+
 
           function ProjectCard({
           item,

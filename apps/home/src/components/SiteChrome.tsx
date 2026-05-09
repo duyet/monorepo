@@ -25,7 +25,7 @@ export function SiteHeader() {
         showAuthButtons
         authButtonsWrapWithProvider={false}
         actions={<AppCommandPalette />}
-        className="border-none bg-[var(--background)]/80 backdrop-blur-md py-4"
+        className="border-none bg-[var(--background)]/80 backdrop-blur-md py-2"
         containerClassName="max-w-[1200px]"
       />
       {/* Visual divider matching Claude's hairline */}
@@ -33,6 +33,7 @@ export function SiteHeader() {
     </div>
   );
 }
+
 
 export function SiteFooter() {
   return <Footer />;

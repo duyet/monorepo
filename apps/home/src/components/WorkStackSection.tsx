@@ -38,11 +38,11 @@ const skills = [
 
 export function WorkStackSection({ repositoryUrl }: WorkStackSectionProps) {
   return (
-    <div className="space-y-24 py-10 lg:space-y-36">
+    <div className="space-y-16 py-8 lg:space-y-20">
       <section className="">
-        <div className="grid gap-12 lg:grid-cols-[0.7fr_1fr] lg:items-start">
+        <div className="grid gap-10 lg:grid-cols-[0.7fr_1fr] lg:items-start">
           <div className="max-w-md">
-            <p className="mb-4 font-serif text-lg italic text-[var(--primary)]">Focus</p>
+            <p className="mb-3 font-serif text-lg italic text-[var(--primary)]">Focus</p>
             <h2 className="font-serif text-3xl leading-tight sm:text-4xl lg:text-[48px]">
               Practical engineering, written down clearly.
             </h2>
@@ -52,7 +52,7 @@ export function WorkStackSection({ repositoryUrl }: WorkStackSectionProps) {
             {focusAreas.map((item) => (
               <div
                 key={item.label}
-                className="grid gap-3 py-8 md:grid-cols-[200px_1fr] md:gap-10 lg:py-10"
+                className="grid gap-2 py-6 md:grid-cols-[200px_1fr] md:gap-8 lg:py-8"
               >
                 <p className="font-serif text-lg text-[var(--muted-foreground)] opacity-60 lg:text-[22px]">
                   {item.label}
@@ -67,13 +67,13 @@ export function WorkStackSection({ repositoryUrl }: WorkStackSectionProps) {
       </section>
 
       <section className="">
-        <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-2xl">
-            <p className="mb-4 font-serif text-lg italic text-[var(--primary)]">Stack</p>
+            <p className="mb-3 font-serif text-lg italic text-[var(--primary)]">Stack</p>
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-[48px]">
               Tools I reach for.
             </h2>
-            <p className="mt-4 text-lg text-[var(--muted-foreground)] lg:text-xl">
+            <p className="mt-2 text-lg text-[var(--muted-foreground)] lg:text-xl">
               A curated set of technologies for building reliable, scalable systems.
             </p>
           </div>
@@ -81,14 +81,14 @@ export function WorkStackSection({ repositoryUrl }: WorkStackSectionProps) {
             href={repositoryUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 font-serif text-xl hover:text-[var(--primary)] transition-colors lg:text-[28px]"
+            className="group inline-flex items-center gap-2 font-serif text-lg hover:text-[var(--primary)] transition-colors lg:text-[24px]"
           >
             Repositories
             <ArrowRight className="h-5 w-5" />
           </a>
         </div>
 
-        <div className="mt-12 flex flex-wrap gap-x-8 gap-y-4 font-serif text-2xl tracking-tight text-[var(--foreground)]/80 md:text-3xl lg:text-[36px] lg:leading-tight">
+        <div className="mt-10 flex flex-wrap gap-x-8 gap-y-4 font-serif text-2xl tracking-tight text-[var(--foreground)]/80 md:text-3xl lg:text-[36px] lg:leading-tight">
           {skills.map((skill) => (
             <span key={skill} className="hover:text-[var(--primary)] transition-colors cursor-default">
               {skill}
@@ -100,5 +100,6 @@ export function WorkStackSection({ repositoryUrl }: WorkStackSectionProps) {
     </div>
   );
 }
+
 
 
