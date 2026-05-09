@@ -78,7 +78,7 @@ function HomePage() {
                 <p className="font-serif text-xl italic text-[var(--primary)] lg:text-2xl">
                   Duyet Le
                 </p>
-                <h1 className="font-serif text-5xl leading-tight sm:text-6xl lg:text-[72px] xl:text-[84px]">
+                <h1 className="font-serif text-5xl sm:text-6xl lg:text-[72px] xl:text-[84px]">
                   Data Engineer & <br />
                   <span className="text-[var(--primary)] italic">
                     AI Agent Engineer
