@@ -108,7 +108,7 @@ export function FooterContent({
           Footer
         </h2>
 
-        <div className="grid gap-12 border-t border-white/10 py-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1.9fr)] md:gap-14 md:py-14">
+        <div className="grid gap-12 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1.9fr)] md:gap-14 py-8 md:py-10">
           <div className="space-y-5">
             <Logo className="p-0" />
             <p className="max-w-sm text-sm leading-6 text-[var(--on-dark-soft)]">
@@ -149,7 +149,7 @@ export function FooterContent({
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-[var(--on-dark-soft)] sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-4 text-xs text-[var(--on-dark-soft)] sm:flex-row sm:items-center sm:justify-between">
           <p>
             &copy; {new Date().getFullYear()} {urls.apps.home.replace(/^https?:\/\//, "")} | {" "}
             {profile.personal.title} | {localDate}
@@ -196,7 +196,7 @@ export default function Footer({
   return (
     <footer
       className={cn(
-        "bg-[var(--surface-dark)] text-[var(--on-dark)] px-5 pb-10 pt-14 sm:px-8 lg:px-10 lg:pb-12 lg:pt-16",
+        "bg-[var(--surface-dark)] text-[var(--on-dark)] px-5 pb-8 pt-10 sm:px-8 lg:px-10 lg:pb-10 lg:pt-12",
         className
       )}
     >
