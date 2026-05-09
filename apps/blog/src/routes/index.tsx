@@ -27,7 +27,7 @@ function HomePage() {
 
   const featured = allPosts[0];
   const recentCards = allPosts.slice(1, 7);
-  const olderByYear = groupByYear(allPosts.slice(7));
+  const allByYear = groupByYear(allPosts);
 
   return (
     <Container className="mx-auto max-w-[1200px] px-5 sm:px-8 lg:px-10">
@@ -80,8 +80,8 @@ function HomePage() {
         </div>
       )}
 
-      {/* Older posts grouped by year */}
-      {olderByYear.map(([year, posts]) => (
+      {/* All posts grouped by year */}
+      {allByYear.map(([year, posts]) => (
         <YearPost key={year} year={year} posts={posts} className="mt-16" />
       ))}
 

@@ -25,7 +25,7 @@ const projectUrls = {
 
 export const apps: AppItem[] = [
   {
-    name: "Vietnamese Fonts",
+    name: "Duyet Serif",
     href: projectUrls.fonts,
     host: hostOf(projectUrls.fonts),
     utmContent: "fonts_bento",
