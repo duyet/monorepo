@@ -1,0 +1,1155 @@
+ ▐▛███▜▌   Claude Code v2.1.138
+▝▜█████▛▘  glm-5.1 · API Usage Billing
+  ▘▘ ▝▝    ~/project/monorepo
+
+❯ /batch /loop 10m                                                              
+                                                                                
+https://thariqs.github.io/html-effectiveness/                                   
+                                                                                
+please update apps/home and apps/blog and apps/insights to matched this style   
+                                                                                
+review ands update everything component and css and class and shared componetns 
+                                                                                
+make sure all screen size / responsive working well                             
+                                                                                
+---                                                                             
+                                                                                
+## Overview                                                                     
+                                                                                
+Claude.com is the warmest, most editorial interface in the AI-product category. 
+ The base atmosphere is a **tinted cream canvas** (`{colors.canvas}` — #faf9f5) 
+ — distinctly warm, deliberately not the cool gray-white that every other AI    
+brand uses. Headlines run a **slab-serif display** ("Copernicus" / Tiempos      
+Headline) at weight 400 with negative letter-spacing, paired with **StyreneB /  
+Inter** body sans. The combination feels like a literary publication, not a     
+SaaS marketing page.                                                            
+                                                                                
+Brand voltage comes from the **cream + coral pairing** — coral                  
+(`{colors.primary}` — #cc785c) is the signature Anthropic accent, used on every 
+ primary CTA, on the brand wordmark, and on full-bleed callout cards. The coral 
+ is warm, slightly muted, never cyan/blue — a deliberate counter-positioning    
+against OpenAI's cool slate, Google's saturated blue, and Microsoft's corporate 
+ cyan.                                                                          
+                                                                                
+The system has three surface modes that alternate page-by-page:                 
+1. **Cream canvas** (`{colors.canvas}`) — default body floor                    
+2. **Light cream cards** (`{colors.surface-card}`) — feature card backgrounds   
+3. **Dark navy product surfaces** (`{colors.surface-dark}`) — code editor       
+mockups, model showcase cards, pre-footer CTAs, footer itself                   
+                                                                                
+The dark surfaces are where Claude shows its product chrome — code blocks,      
+terminal output, model comparison tables, agentic-flow diagrams. The            
+cream-to-dark contrast is the page's pacing rhythm.                             
+                                                                                
+**Key Characteristics:**                                                        
+- Warm cream canvas (`{colors.canvas}` — #faf9f5) with dark warm-ink text       
+(`{colors.ink}` — #141413). The brand's defining color choice.                  
+- Coral primary CTA (`{colors.primary}` — #cc785c). Used scarcely on individual 
+ buttons, generously on full-bleed coral callout cards.                         
+- Slab-serif display headlines via Copernicus / Tiempos Headline at weight 400  
+with negative letter-spacing. Pairs with humanist sans body for a literary      
+editorial voice.                                                                
+- Dark navy product mockup cards (`{colors.surface-dark}` — #181715) carrying   
+code blocks, terminal panels, model comparison data — the brand shows the       
+product chrome at scale rather than abstract marketing illustrations.           
+- Light cream feature cards (`{colors.surface-card}` — #efe9de) — slightly      
+darker than canvas, used for content-driven feature explanations.               
+- Anthropic radial-spike mark — a small black asterisk-like glyph (4-spoke      
+radial) — appears as the brand wordmark prefix and as a content marker.         
+- Border radius is hierarchical: `{rounded.md}` (8px) for buttons + inputs,     
+`{rounded.lg}` (12px) for content + product cards, `{rounded.xl}` (16px) for    
+the hero illustration container, `{rounded.pill}` for badges.                   
+- Section rhythm `{spacing.section}` (96px) — modern-SaaS standard. Internal    
+card padding stays generous at `{spacing.xl}` (32px).                           
+                                                                                
+## Colors                                                                       
+                                                                                
+### Brand & Accent                                                              
+- **Coral / Primary** (`{colors.primary}` — #cc785c): The signature Anthropic   
+warm coral. Used on every primary CTA background, on full-bleed coral callout   
+cards, on the brand wordmark accent. The most-recognized Anthropic color        
+outside of the spike-mark logo.                                                 
+- **Coral Active** (`{colors.primary-active}` — #a9583e): The press /           
+hover-darker variant.                                                           
+- **Coral Disabled** (`{colors.primary-disabled}` — #e6dfd8): A desaturated     
+cream-tinted disabled state.                                                    
+- **Accent Teal** (`{colors.accent-teal}` — #5db8a6): Used sparingly on         
+secondary product surfaces (terminal status indicators, "active connection"     
+dots in connectors page).                                                       
+- **Accent Amber** (`{colors.accent-amber}` — #e8a55a): A small companion       
+warm-tone used on category badges and inline highlights.                        
+                                                                                
+### Surface                                                                     
+- **Canvas** (`{colors.canvas}` — #faf9f5): The default page floor. Tinted      
+cream — warm, deliberately not pure white.                                      
+- **Surface Soft** (`{colors.surface-soft}` — #f5f0e8): Section dividers,       
+very-soft band backgrounds.                                                     
+- **Surface Card** (`{colors.surface-card}` — #efe9de): Feature cards, content  
+cards. One step darker than canvas.                                             
+- **Surface Cream Strong** (`{colors.surface-cream-strong}` — #e8e0d2): A       
+strongest-cream variant used on selected category tabs and emphasized section   
+bands.                                                                          
+- **Surface Dark** (`{colors.surface-dark}` — #181715): Code editor mockups,    
+model showcase cards, footer. The dominant dark surface.                        
+- **Surface Dark Elevated** (`{colors.surface-dark-elevated}` — #252320):       
+Elevated cards inside dark bands (settings panels in mockups).                  
+- **Surface Dark Soft** (`{colors.surface-dark-soft}` — #1f1e1b): Slightly      
+lighter dark, used for code block backgrounds inside larger dark cards.         
+- **Hairline** (`{colors.hairline}` — #e6dfd8): The 1px border tone on cream    
+surfaces. Same hex as `{colors.primary-disabled}` — borders feel like one       
+elevation step rather than ink lines.                                           
+- **Hairline Soft** (`{colors.hairline-soft}` — #ebe6df): Barely-visible        
+divider used inside the same band.                                              
+                                                                                
+### Text                                                                        
+- **Ink** (`{colors.ink}` — #141413): All headlines and primary text. Warm      
+dark, slightly off-pure-black.                                                  
+- **Body Strong** (`{colors.body-strong}` — #252523): Emphasized paragraphs,    
+lead text.                                                                      
+- **Body** (`{colors.body}` — #3d3d3a): Default running-text color.             
+- **Muted** (`{colors.muted}` — #6c6a64): Sub-headings, breadcrumbs,            
+footer-adjacent secondary text.                                                 
+- **Muted Soft** (`{colors.muted-soft}` — #8e8b82): Captions, fine-print,       
+copyright lines.                                                                
+- **On Primary** (`{colors.on-primary}` — #ffffff): Text on coral buttons.      
+- **On Dark** (`{colors.on-dark}` — #faf9f5): Cream-tinted white used on dark   
+surfaces (echoes the canvas tone).                                              
+- **On Dark Soft** (`{colors.on-dark-soft}` — #a09d96): Footer body text,       
+secondary labels in dark mockups.                                               
+                                                                                
+### Semantic                                                                    
+- **Success** (`{colors.success}` — #5db872): Green status dots, "available"    
+indicators.                                                                     
+- **Warning** (`{colors.warning}` — #d4a017): Warning callouts (rare on         
+marketing surfaces).                                                            
+- **Error** (`{colors.error}` — #c64545): Validation errors.                    
+                                                                                
+## Typography                                                                   
+                                                                                
+### Font Family                                                                 
+The system runs **Copernicus** (or **Tiempos Headline** as substitute) as the   
+slab-serif display face for headlines, and **StyreneB** (or **Inter** as        
+substitute) as the humanist sans for body, navigation, and UI labels.           
+**JetBrains Mono** handles code blocks. The fallback stack walks `Tiempos       
+Headline, Garamond, "Times New Roman", serif` for display and `Inter,           
+-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif` for body.    
+                                                                                
+The display/body split is editorial:                                            
+- Copernicus serif (weight 400, negative tracking) → h1, h2, h3, hero display   
+- StyreneB sans (weight 400-500) → body, navigation, buttons, captions, labels  
+- JetBrains Mono → all code blocks and terminal text                            
+                                                                                
+### Hierarchy                                                                   
+                                                                                
+| Token | Size | Weight | Line Height | Letter Spacing | Use |                  
+|---|---|---|---|---|---|                                                       
+| `{typography.display-xl}` | 64px | 400 | 1.05 | -1.5px | Homepage h1 ("Meet   
+your thinking partner") — Copernicus serif |                                    
+| `{typography.display-lg}` | 48px | 400 | 1.1 | -1px | Section heads —         
+Copernicus |                                                                    
+| `{typography.display-md}` | 36px | 400 | 1.15 | -0.5px | Sub-section heads,   
+model names — Copernicus |                                                      
+| `{typography.display-sm}` | 28px | 400 | 1.2 | -0.3px | Pricing tier names,   
+callout headlines — Copernicus |                                                
+| `{typography.title-lg}` | 22px | 500 | 1.3 | 0 | Pricing plan size labels —   
+StyreneB |                                                                      
+| `{typography.title-md}` | 18px | 500 | 1.4 | 0 | Feature card titles, intro   
+paragraphs |                                                                    
+| `{typography.title-sm}` | 16px | 500 | 1.4 | 0 | Connector tile titles, list  
+labels |                                                                        
+| `{typography.body-md}` | 16px | 400 | 1.55 | 0 | Default running-text —       
+StyreneB |                                                                      
+| `{typography.body-sm}` | 14px | 400 | 1.55 | 0 | Footer body, fine-print |    
+| `{typography.caption}` | 13px | 500 | 1.4 | 0 | Badge labels, captions |      
+| `{typography.caption-uppercase}` | 12px | 500 | 1.4 | 1.5px | Category tags,  
+"NEW" badges |                                                                  
+| `{typography.code}` | 14px | 400 | 1.6 | 0 | Code blocks — JetBrains Mono |   
+| `{typography.button}` | 14px | 500 | 1.0 | 0 | Standard button labels |       
+| `{typography.nav-link}` | 14px | 500 | 1.4 | 0 | Top-nav menu items |         
+                                                                                
+### Principles                                                                  
+Display sizes use weight 400 (regular), never bold. Negative letter-spacing     
+(-0.3 to -1.5px) is essential — Copernicus without it reads as off-brand. The   
+serif character is what gives Anthropic its literary, considered voice;         
+switching to a sans-serif display would make Claude feel like every other AI    
+tool.                                                                           
+                                                                                
+Body type stays at weight 400 for paragraphs, weight 500 for labels and         
+emphasized phrases. The sans body is humanist (StyreneB) — never geometric.     
+Inter is an acceptable substitute because of its similar humanist proportions;  
+Helvetica or Arial would be too neutral and break the warm-editorial feel.      
+                                                                                
+### Note on Font Substitutes                                                    
+If Copernicus / Tiempos Headline is unavailable, **Cormorant Garamond** at      
+weight 500 with -0.02em letter-spacing is the closest open-source               
+approximation. **EB Garamond** is a fallback. For StyreneB, **Inter** is the    
+closest match — both are humanist sans designed for screen reading. **Söhne**   
+is another close alternative if licensed.                                       
+                                                                                
+## Layout                                                                       
+                                                                                
+### Spacing System                                                              
+- **Base unit:** 4px.                                                           
+- **Tokens:** `{spacing.xxs}` 4px · `{spacing.xs}` 8px · `{spacing.sm}` 12px ·  
+`{spacing.md}` 16px · `{spacing.lg}` 24px · `{spacing.xl}` 32px ·               
+`{spacing.xxl}` 48px · `{spacing.section}` 96px.                                
+- **Section padding:** `{spacing.section}` (96px) — modern-SaaS rhythm.         
+- **Card internal padding:** `{spacing.xl}` (32px) for feature cards, pricing   
+tier cards, model comparison cards; `{spacing.lg}` (24px) for code-window cards 
+ and connector tiles.                                                           
+- **Callout / CTA bands:** `{spacing.xxl}` (48px) inside coral callout cards;   
+64px inside the larger dark CTA band.                                           
+                                                                                
+### Grid & Container                                                            
+- **Max content width:** ~1200px centered.                                      
+- **Editorial body:** Single 12-column grid; hero often uses 6/6 split (h1      
+left, illustration right).                                                      
+- **Feature card grids:** 3-up at desktop, 2-up at tablet, 1-up at mobile.      
+- **Connector tile grids:** 4-up or 6-up at desktop, 2-up at tablet, 1-up at    
+mobile.                                                                         
+- **Pricing grid:** 3-up at desktop (Free / Pro / Team / Enterprise often),     
+1-up at mobile.                                                                 
+                                                                                
+### Whitespace Philosophy                                                       
+The cream canvas + serif display + generous internal padding create an          
+editorial pacing — Claude reads like a long-form magazine column rather than a  
+marketing template. Whitespace between bands stays uniform at 96px; whitespace  
+inside cards is generous (32px), letting type breathe.                          
+                                                                                
+## Elevation & Depth                                                            
+                                                                                
+| Level | Treatment | Use |                                                     
+|---|---|---|                                                                   
+| Flat | No shadow, no border | Body sections, top nav, hero bands |            
+| Soft hairline | 1px `{colors.hairline}` border | Inputs, sub-nav,             
+occasionally on cards |                                                         
+| Cream card | `{colors.surface-card}` background — no shadow | Feature cards,  
+content cards |                                                                 
+| Dark surface card | `{colors.surface-dark}` background — no shadow | Code     
+editor mockups, model showcase cards |                                          
+| Subtle drop shadow | Faint shadow at low alpha | Hover-elevated states (the   
+system uses `0 1px 3px rgba(20,20,19,0.08)` rarely) |                           
+                                                                                
+The elevation philosophy is **color-block first, shadow rare**. Most depth      
+comes from the cream-vs-dark surface contrast. Shadows are minimal. The dark    
+surface mockups have their own internal product chrome (code editor scrollbars, 
+ line numbers, syntax highlighting) which adds detail without needing external  
+shadows.                                                                        
+                                                                                
+### Decorative Depth                                                            
+- The Anthropic spike-mark glyph (4-spoke radial asterisk) appears as a small   
+black mark in the brand wordmark and inline as a content marker.                
+- Code editor mockups carry their own internal depth: syntax-highlighted text   
+in muted blues / oranges / grays, line numbers in `{colors.muted-soft}`, status 
+ bars at the bottom in `{colors.surface-dark-elevated}`.                        
+- Some hero illustrations use simple line-art with coral and dark-navy strokes  
+on cream — minimal, hand-drawn-feeling, never photorealistic.                   
+                                                                                
+## Shapes                                                                       
+                                                                                
+### Border Radius Scale                                                         
+                                                                                
+| Token | Value | Use |                                                         
+|---|---|---|                                                                   
+| `{rounded.xs}` | 4px | Reserved for badge accents and tiny dropdowns |        
+| `{rounded.sm}` | 6px | Small inline buttons, dropdown items |                 
+| `{rounded.md}` | 8px | Standard CTA buttons, text inputs, category tabs |     
+| `{rounded.lg}` | 12px | Content cards (feature, pricing, code-window,         
+model-comparison) |                                                             
+| `{rounded.xl}` | 16px | Hero illustration container, the larger marquee       
+components |                                                                    
+| `{rounded.pill}` | 9999px | Badge pills, "NEW" tags |                         
+| `{rounded.full}` | 9999px / 50% | Avatar substitutes, icon buttons |          
+                                                                                
+### Photography & Illustrations                                                 
+Claude's hero rarely uses photography. Instead it uses:                         
+- Simple line-art illustrations with coral + dark-navy strokes on the cream     
+canvas                                                                          
+- Code editor mockups (the dominant "hero" treatment on developer-focused       
+pages)                                                                          
+- Terminal output mockups with monospace text on dark                           
+- Model comparison cards (Opus / Sonnet / Haiku) with abstract geometric        
+thumbnails                                                                      
+                                                                                
+When photography is used (rare — mostly testimonials), avatars crop to perfect  
+circles at 40px diameter.                                                       
+                                                                                
+## Components                                                                   
+                                                                                
+### Top Navigation                                                              
+                                                                                
+**`top-nav`** — Cream nav bar pinned to the top of every page. 64px tall,       
+`{colors.canvas}` background. Carries the Anthropic spike-mark + "Claude"       
+wordmark at left, primary horizontal menu (Product, Solutions, Use Cases,       
+Pricing, Research, Company) center-left, right-side cluster with "Sign in"      
+text-link, "Try Claude" `{component.button-primary}` (coral). Menu items in     
+`{typography.nav-link}` (StyreneB 14px / 500).                                  
+                                                                                
+### Buttons                                                                     
+                                                                                
+**`button-primary`** — The signature coral CTA. Background `{colors.primary}`   
+(#cc785c), text `{colors.on-primary}` (white), type `{typography.button}`       
+(StyreneB 14px / 500), padding 12px × 20px, height 40px, rounded `{rounded.md}` 
+ (8px). Active state `button-primary-active` darkens to                         
+`{colors.primary-active}` (#a9583e).                                            
+                                                                                
+**`button-secondary`** — Cream button with hairline outline. Background         
+`{colors.canvas}`, text `{colors.ink}`, 1px hairline border, same padding +     
+height + radius as primary.                                                     
+                                                                                
+**`button-secondary-on-dark`** — Used over `{colors.surface-dark}` cards.       
+Background `{colors.surface-dark-elevated}` (#252320), text `{colors.on-dark}`. 
+ Stays dark — the system never inverts to a light secondary on dark surfaces.   
+                                                                                
+**`button-text-link`** — Inline text button, no background. Used for "Sign in"  
+in the top nav and inline CTA links.                                            
+                                                                                
+**`button-icon-circular`** — 36px circular icon button. Background              
+`{colors.canvas}`, hairline border, ink-color icon. Used for carousel arrows,   
+share, "view more".                                                             
+                                                                                
+**`text-link`** — Inline body links in `{colors.primary}` (the coral).          
+Underlined on press; the coral inline link is one of the system's most          
+distinctive small details.                                                      
+                                                                                
+### Cards & Containers                                                          
+                                                                                
+**`hero-band`** — Cream-canvas hero with a 6-6 grid: h1 + sub-headline + button 
+ row on the left, hero illustration card or product mockup card on the right.   
+Vertical padding `{spacing.section}` (96px).                                    
+                                                                                
+**`hero-illustration-card`** — A larger card holding the hero's right-side      
+artifact — sometimes a coral-stroke line illustration on cream background,      
+sometimes a dark code editor mockup. Background `{colors.canvas}` or            
+`{colors.surface-dark}` depending on context, rounded `{rounded.xl}` (16px).    
+                                                                                
+**`feature-card`** — Used in 3-up feature grids. Background                     
+`{colors.surface-card}` (#efe9de — slightly darker cream), rounded              
+`{rounded.lg}` (12px), internal padding `{spacing.xl}` (32px). Carries a small  
+icon at top, an `{typography.title-md}` headline, and a body description in     
+`{typography.body-md}`.                                                         
+                                                                                
+**`product-mockup-card-dark`** — Dark navy card showing actual Claude product   
+chrome (chat interface, code editor, agent controls). Background                
+`{colors.surface-dark}`, rounded `{rounded.lg}`, internal padding               
+`{spacing.xl}` (32px). Carries text labels in `{colors.on-dark}` and product UI 
+ fragments below.                                                               
+                                                                                
+**`code-window-card`** — A specialized dark card showing a code editor with     
+line numbers, syntax-highlighted code in `{typography.code}` (JetBrains Mono),  
+and sometimes a "Run" button or terminal output panel below. Background         
+`{colors.surface-dark}` with `{colors.surface-dark-soft}` for the inner code    
+block, rounded `{rounded.lg}`, padding `{spacing.lg}` (24px). The signature     
+visual element of Claude Code product pages.                                    
+                                                                                
+**`model-comparison-card`** — Used on the homepage's "Which problem are you up  
+against?" section comparing Opus / Sonnet / Haiku. Background `{colors.canvas}` 
+ with hairline border, rounded `{rounded.lg}`, internal padding `{spacing.xl}`  
+(32px). Carries the model name, a short capability blurb, and a                 
+`{component.text-link}` to learn more.                                          
+                                                                                
+**`pricing-tier-card`** — Standard tier card. Background `{colors.canvas}` with 
+ hairline border, rounded `{rounded.lg}`, padding `{spacing.xl}` (32px).        
+Carries the plan name in `{typography.title-lg}` (StyreneB), price in           
+`{typography.display-sm}` (Copernicus serif!), feature checklist in             
+`{typography.body-md}`, and a `{component.button-primary}` at the bottom.       
+                                                                                
+**`pricing-tier-card-featured`** — The featured tier (typically "Pro" or        
+"Team"). Background flips to `{colors.surface-dark}`, text inverts to           
+`{colors.on-dark}`. The dark surface IS the featured-tier signal.               
+                                                                                
+**`callout-card-coral`** — A full-bleed coral card carrying a major             
+call-to-action. Background `{colors.primary}` (#cc785c), text                   
+`{colors.on-primary}` (white), rounded `{rounded.lg}`, padding `{spacing.xxl}`  
+(48px). The coral surface IS the voltage; the CTA inside uses an inverted       
+button style (cream/canvas button on coral).                                    
+                                                                                
+**`connector-tile`** — Used on the connectors page's integration grid.          
+Background `{colors.canvas}` with hairline border, rounded `{rounded.lg}`,      
+padding 20px. Each tile carries a logo at top, a `{typography.title-sm}`        
+connector name, and a short description.                                        
+                                                                                
+### Inputs & Forms                                                              
+                                                                                
+**`text-input`** — Standard text input. Background `{colors.canvas}`, text      
+`{colors.ink}`, type `{typography.body-md}`, rounded `{rounded.md}` (8px),      
+padding 10px × 14px, height 40px. 1px hairline border in `{colors.hairline}`.   
+                                                                                
+**`text-input-focused`** — Focus state. Border thickens or shifts to            
+`{colors.primary}` (coral) for emphasis. Carries a 3px coral-at-15%-alpha outer 
+ ring.                                                                          
+                                                                                
+**`cookie-consent-card`** — Bottom-right floating dark cookie banner.           
+Background `{colors.surface-dark}`, text `{colors.on-dark}`, rounded            
+`{rounded.lg}`, padding `{spacing.lg}` (24px). One of the few places dark       
+surface appears at small scale on cream pages.                                  
+                                                                                
+### Tags / Badges                                                               
+                                                                                
+**`badge-pill`** — Small pill label used for category tags. Background          
+`{colors.surface-card}`, text `{colors.ink}`, type `{typography.caption}` (13px 
+ / 500), rounded `{rounded.pill}`, padding 4px × 12px.                          
+                                                                                
+**`badge-coral`** — Coral-fill badge for "NEW", "BETA", featured highlights.    
+Background `{colors.primary}`, text `{colors.on-primary}`, type                 
+`{typography.caption-uppercase}` (12px / 500 / 1.5px tracking), rounded         
+`{rounded.pill}`, padding 4px × 12px.                                           
+                                                                                
+### Tab / Filter                                                                
+                                                                                
+**`category-tab`** + **`category-tab-active`** — Used in sub-nav rows on        
+solutions / connectors pages. Inactive: transparent background,                 
+`{colors.muted}` text. Active: `{colors.surface-card}` background,              
+`{colors.ink}` text. Padding 8px × 14px, rounded `{rounded.md}`.                
+                                                                                
+### CTA / Footer                                                                
+                                                                                
+**`cta-band-coral`** — A pre-footer "Try Claude" CTA card. Full-width coral     
+fill, white type, rounded `{rounded.lg}`, padding 64px. Carries an h2 in        
+`{typography.display-sm}` (still serif!), a sub-line, and a cream-button CTA.   
+                                                                                
+**`cta-band-dark`** — Alternative pre-footer band on developer-focused pages.   
+Background `{colors.surface-dark}`, text `{colors.on-dark}`, rounded            
+`{rounded.lg}`, padding 64px. Often pairs with a code-window card.              
+                                                                                
+**`footer`** — Dark navy footer that closes every page. Background              
+`{colors.surface-dark}` (#181715), text `{colors.on-dark-soft}`. 4-column link  
+list at desktop covering Product / Company / Resources / Legal. Vertical        
+padding 64px. The Anthropic spike-mark + "Anthropic" wordmark sits at the top   
+in `{colors.on-dark}`. The footer never inverts.                                
+                                                                                
+## Do's and Don'ts                                                              
+                                                                                
+### Do                                                                          
+- Anchor every page on the cream canvas. Pure white reads as "any other AI      
+tool"; the warm tint is the brand differentiator.                               
+- Use Copernicus serif for every display headline. Pair with StyreneB sans      
+body. Negative letter-spacing on display sizes is non-negotiable.               
+- Reserve `{colors.primary}` (coral) for primary CTAs and full-bleed            
+`{component.callout-card-coral}` moments. Don't paint accent moments coral      
+elsewhere.                                                                      
+- Use `{component.product-mockup-card-dark}` and `{component.code-window-card}` 
+ to show actual Claude product chrome. Don't paint marketing illustrations of   
+code when you can show real code.                                               
+- Pair `{component.feature-card}` (cream) with                                  
+`{component.product-mockup-card-dark}` (navy) in alternating bands. The         
+cream-to-dark rhythm is the brand's pacing mechanism.                           
+- Use the Anthropic spike-mark glyph as the brand wordmark prefix. Never invert 
+ the mark to white-on-dark within the wordmark itself.                          
+- Apply `{spacing.section}` (96px) between major bands.                         
+                                                                                
+### Don't                                                                       
+- Don't use cool grays or pure white for canvas. Cream is the brand.            
+- Don't bold serif display weight. Copernicus at 700 reads as bombastic; the    
+system stays at 400.                                                            
+- Don't use cool blue or saturated cyan as a brand accent. The coral is the     
+brand voltage.                                                                  
+- Don't put coral everywhere. The coral is scarce on individual elements and    
+generous only on full-bleed coral callout cards.                                
+- Don't use Inter for display headlines. The serif character is the brand       
+voice.                                                                          
+- Don't repeat the same surface mode in two consecutive bands. The pacing       
+alternates: cream → cream-card → dark-mockup → cream → coral-callout →          
+dark-footer.                                                                    
+- Don't add hover state styling beyond what the system already encodes —        
+primary darkens on press; nothing else changes.                                 
+                                                                                
+## Responsive Behavior                                                          
+                                                                                
+### Breakpoints                                                                 
+                                                                                
+| Name | Width | Key Changes |                                                  
+|---|---|---|                                                                   
+| Mobile | < 768px | Hamburger nav; hero h1 64→32px; hero-illustration-card     
+stacks below content; feature grids 1-up; connector tiles 2-up; pricing 1-up;   
+footer 4 cols → 1 |                                                             
+| Tablet | 768–1024px | Top nav stays horizontal but tightens; feature cards    
+2-up; connector tiles 3-up; pricing 2-up |                                      
+| Desktop | 1024–1440px | Full top-nav with all menu items; 3-up feature cards; 
+ 4-up or 6-up connector tiles; 3-up pricing tiers |                             
+| Wide | > 1440px | Same as desktop with more outer breathing room; max content 
+ width caps at 1200px |                                                         
+                                                                                
+### Touch Targets                                                               
+- `{component.button-primary}` at minimum 40 × 40px.                            
+- `{component.button-icon-circular}` at exactly 36 × 36 — slightly under WCAG   
+44 but visually centered.                                                       
+- `{component.text-input}` height is 40px.                                      
+- Connector tile entire card area is tappable; effective tap area >> 44px.      
+                                                                                
+### Collapsing Strategy                                                         
+- Top nav collapses to hamburger at < 768px; menu opens as a full-screen cream  
+sheet.                                                                          
+- Hero band's 6-6 grid collapses to single-column on mobile — h1 + sub-head +   
+buttons first, then the illustration / mockup card below.                       
+- Feature grids reduce columns rather than scaling cards down.                  
+- Pricing tier cards collapse 4 → 2 → 1; featured-tier dark surface stays       
+visually distinct at every breakpoint.                                          
+- Code-window cards retain code legibility at every breakpoint by allowing      
+horizontal scroll within the card rather than wrapping code lines.              
+                                                                                
+### Image Behavior                                                              
+- Code blocks inside dark mockups stay at fixed font-size; horizontal scroll on 
+ mobile rather than wrapping.                                                   
+- Hero illustrations scale proportionally; line-art strokes thin slightly on    
+mobile.                                                                         
+- Avatar photos in testimonials crop to circles at every breakpoint.            
+                                                                                
+## Iteration Guide                                                              
+                                                                                
+1. Focus on ONE component at a time. Reference its YAML key                     
+(`{component.feature-card}`, `{component.code-window-card}`).                   
+2. Variants of an existing component (`-active`, `-disabled`, `-focused`) live  
+as separate entries in `components:`.                                           
+3. Use `{token.refs}` everywhere — never inline hex.                            
+4. Never document hover. Default and Active/Pressed states only.                
+5. Display headlines stay Copernicus serif 400 with negative tracking. Body     
+stays StyreneB / Inter 400. The split is unbreakable.                           
+6. Cream + coral + dark navy is the trinity. Don't introduce a fourth surface   
+tone (no purple cards, no green sections).                                      
+7. When in doubt about emphasis: bigger Copernicus serif before bolder weight.  
+                                                                                
+## Known Gaps                                                                   
+                                                                                
+- Copernicus and StyreneB are licensed Anthropic typefaces and not available as 
+ public web fonts. Substitutes (Tiempos Headline / Cormorant Garamond / EB      
+Garamond for serif; Inter / Söhne for sans) are documented in the typography    
+section.                                                                        
+- The Anthropic radial-spike-mark is a brand glyph rendered as inline SVG; it's 
+ not formalized as a system token here. Treat it as a logo asset.               
+- Animation and transition timings (chat message reveal, code block typewriter  
+effect on the homepage, agentic-flow diagram animations) are not in scope.      
+- Form validation states beyond `{component.text-input-focused}` are not        
+extracted — error / success states would need a sign-up or feedback flow to     
+confirm.                                                                        
+- The actual Claude product surface (claude.ai chat interface) shares some      
+tokens with the marketing site but adds many product-specific components (chat  
+bubbles, message tools, file upload chips, conversation history sidebar) that   
+are out of scope for this marketing-surface document.                           
+- The "agent" / "computer use" demo cards on certain pages display animated     
+Claude controlling a browser — the static screenshot doesn't fully capture the  
+animation chrome.                                                               
+
+⏺ Large design migration across 3 apps. Entering plan mode to research current
+  state and decompose work.
+
+⏺ Entered plan mode
+  Claude is now exploring and designing an implementation approach.
+
+⏺ Launching parallel exploration of the 3 target apps to understand current
+  design patterns, CSS, components, and shared infrastructure.
+
+⏺ 3 Explore agents finished (ctrl+o to expand)
+   ├ Explore home app design · 56 tool uses · 0 tokens
+   │ ⎿  Done
+   ├ Explore blog app design · 74 tool uses · 0 tokens
+   │ ⎿  Done
+   └ Explore insights + shared design · 72 tool uses · 0 tokens
+     ⎿  Done
+
+⏺ Good research. All 3 apps explored. Key findings:
+
+  - Home already uses cream palette (#faf9f5) but has inconsistencies (inline
+  styles in /ls, hardcoded colors in footer)
+  - Blog most aligned - cream palette, Libre Baskerville serif headings, warm
+  accent #cc785c
+  - Insights furthest from target - uses white bg + oklch blue-violet primary,
+  needs full palette overhaul
+  - Shared packages (Header, Footer, cards) use hardcoded hex colors instead of
+  CSS variables
+
+  Let me fetch the reference URL and check some critical shared files before
+  writing the plan.
+
+⏺ 🌐 Z.ai Built-in Tool: webReader
+
+  Input:
+  {"url":"https://thariqs.github.io/html-effectiveness/","return_format":"markdo
+  wn","retain_images":false}
+
+  Executing on server...
+
+  Read 2 files (ctrl+o to expand)
+
+⏺ Output:
+  webReader_result_summary: [{"text": {"title": "The unreasonable effectiveness
+  of HTML — examples", "url": "https://thariqs.github.io/html-effectiveness/",
+  "content": "Companion to the blog post\n\nTwenty self-contained .html files an
+   agent produced instead of a wall of markdown.\nEach one trades a document
+  you'd skim for o...
+
+⏺ Reference site is about HTML effectiveness, not the design target. The actual
+  design spec is the Claude.com design system in the prompt. Let me now design
+  the implementation plan.
+
+⏺ Plan(Design implementation plan)
+  ⎿  Done (52 tool uses · 97.4k tokens · 7m 25s)
+  (ctrl+o to expand)
+  ⎿  Read ../../.claude/MODE.md (199 lines)
+  ⎿  Read ../../.claude/RULES.md (67 lines)
+  ⎿  Read ../../.claude/PRINCIPLES.md (160 lines)
+  ⎿  Read packages/components/header/index.tsx (134 lines)
+  ⎿  Read packages/components/Footer.tsx (209 lines)
+  ⎿  Skills restored (batch)
+
+⏺ Updated plan
+  ⎿  /plan to preview
+
+⏺ User answered Claude's questions:
+  ⎿  · How should workers verify changes end-to-end? Each app has a dev server 
+     but no visual regression tests. What's the e2e verification approach? → Dev
+      server + manual review
+
+⏺ Updated plan
+  ⎿  /plan to preview
+
+⏺ User approved Claude's plan
+  ⎿  Plan saved to: ~/.claude/plans/streamed-hugging-koala.md · /plan to edit
+     Anthropic Design System Migration — Plan
+
+     Context
+
+     Migrate apps/home, apps/blog, and apps/insights to match the
+     Anthropic/Claude.com design system. The current apps already use a warm
+     palette close to the target (cream canvas, ink text, surface-card
+     backgrounds) but lack key tokens (surface-dark, on-dark, body hierarchy),
+     use inconsistent hardcoded hex colors, and use Libre Baskerville instead of
+      Cormorant Garamond for serif headings. Shared packages (@duyet/components,
+      @duyet/tailwind-config) need coordinated updates since all apps consume
+     them.
+
+     Outcome: All 3 apps render with Anthropic design tokens via CSS variables —
+      warm cream canvas, coral CTAs, Cormorant Garamond serif headings with
+     negative tracking, dark navy footer, hierarchical border-radius, 96px
+     section rhythm, color-block elevation (no shadows).
+
+     ---
+     Unit 1: Shared Packages
+
+     1a. packages/tailwind-config/colors.js
+
+     - Add missing Anthropic tokens to exported palette: surface-dark: #181715,
+     surface-dark-elevated: #252320, surface-dark-soft: #1f1e1b, surface-soft: 
+     #f5f0e8, surface-cream-strong: #e8e0d2, on-dark: #faf9f5, on-dark-soft: 
+     #a09d96, hairline: #e6dfd8, hairline-soft: #ebe6df, accent-teal: #5db8a6,
+     accent-amber: #e8a55a
+     - Ensure coral: #cc785c, coral-active: #a9583e, coral-disabled: #e6dfd8
+     exist in palette
+
+     1b. packages/components/styles.css
+
+     - Add missing CSS custom properties: --surface-dark,
+     --surface-dark-elevated, --surface-dark-soft, --on-dark, --on-dark-soft,
+     --hairline, --surface-soft
+     - Update --background default to #faf9f5 (canvas), --foreground to #141413
+     (ink)
+     - Add --font-serif pointing to Cormorant Garamond stack
+
+     1c. packages/components/Footer.tsx
+
+     - Replace hardcoded #1a1a1a → var(--surface-dark) / var(--on-dark) /
+     var(--on-dark-soft)
+     - Replace hardcoded #f8f8f2 → var(--on-dark)
+     - Update bg: bg-white dark:bg-[#1a1a1a] → bg-[var(--surface-dark)]
+     (permanent dark, no light variant)
+     - Update text: text-[#1a1a1a]/70 → text-[var(--on-dark-soft)]
+     - Update borders: border-[#1a1a1a]/10 → border-[var(--hairline)] or
+     border-white/10
+
+     1d. packages/components/header/index.tsx
+
+     - Minor: ensure mobile nav panel uses border-[var(--hairline)] consistently
+     - Already uses bg-[var(--background)] and border-[var(--border)] — minimal
+     changes needed
+
+     ---
+     Unit 2: Home App (apps/home)
+
+     2a. apps/home/src/globals.css
+
+     - Add all missing Anthropic CSS variables (surface-dark, on-dark,
+     body-strong, body, muted-soft, etc.)
+     - Add font import: @import url('https://fonts.googleapis.com/css2?family=Co
+     rmorant+Garamond:wght@400;500;600&display=swap')
+     - Set --font-serif: 'Cormorant Garamond', Garamond, 'Times New Roman', 
+     serif
+     - Ensure dark mode overrides map to Anthropic dark equivalents
+
+     2b. apps/home/src/components/UrlsList.tsx (MAJOR REWRITE)
+
+     - Remove 6 hardcoded color constants at top of file
+     - Convert all inline styles to Tailwind classes using CSS variables
+     - Add dark mode support (currently none)
+     - Ensure responsive behavior (grid cols, padding, font sizes)
+
+     2c. apps/home/src/routes/ls.tsx
+
+     - Convert inline styles to Tailwind + CSS variables
+     - Add responsive breakpoints matching design spec
+     - Apply Anthropic typography tokens
+
+     2d. apps/home/src/components/HomeAgentsChat.tsx
+
+     - Replace bg-[#f58a1f] (orange) → bg-[var(--primary)] (coral)
+     - Update hover to hover:bg-[var(--primary-active)]
+
+     2e. Other home routes
+
+     - Audit each route for hardcoded hex → CSS variable conversion
+     - Verify 96px section spacing rhythm
+     - Ensure heading typography uses serif with negative tracking
+
+     ---
+     Unit 3: Blog App (apps/blog)
+
+     3a. apps/blog/app/globals.css
+
+     - Change --font-serif from Libre Baskerville to Cormorant Garamond
+     - Add missing Anthropic tokens (surface-dark, on-dark, hairline, etc.)
+     - Keep prose code overrides (cream bg / dark github-dark) — they're correct
+
+     3b. apps/blog/components/blog/ClaudeCard.tsx (MAJOR — 689 lines)
+
+     - Convert 30+ hardcoded hex references to CSS variables
+     - Key replacements: #f5f0e8 → var(--surface-soft), #efe9de → var(--muted)
+     (surface-card), #cc785c → var(--primary), #141413 → var(--foreground),
+     #181715 → var(--surface-dark)
+     - Preserve component structure and logic
+
+     3c. apps/blog/components/post/FeaturedPost.tsx
+
+     - Replace bg-[#181715] → bg-[var(--surface-dark)]
+     - Replace hardcoded text colors with var(--on-dark) / var(--on-dark-soft)
+
+     3d. Other blog components
+
+     - Audit all components in apps/blog/components/ for hardcoded hex
+     - Convert to CSS variables
+     - Verify prose heading typography (serif, normal weight, tracking-tight)
+
+     ---
+     Unit 4: Insights App (apps/insights)
+
+     4a. apps/insights/src/styles/globals.css
+
+     - Migrate from blue-violet primary to coral: --primary: #cc785c,
+     --primary-foreground: #ffffff
+     - Change --background: #ffffff → #faf9f5 (canvas)
+     - Change --foreground → #141413 (ink)
+     - Update surface/card/muted tokens to Anthropic warm palette
+     - Preserve all oklch chart tokens (--chart-1 through --chart-5) and
+     panel-specific colors
+     - Add Cormorant Garamond font import and --font-serif
+
+     4b. apps/insights/components/navigation/CompactNavigation.tsx
+
+     - Replace all hardcoded hex (#1a1a1a, #f8f8f2, #f5f5ef, #171815) with CSS
+     variables
+     - Add proper dark mode support
+
+     4c. Chart components
+
+     - Update --chart-1 through --chart-5 to warm palette
+     (coral/amber/teal/sage/slate)
+     - Verify chart rendering after color change
+
+     4d. Other insights components
+
+     - Audit for hardcoded hex → CSS variable conversion
+     - Ensure responsive behavior
+
+     ---
+     Execution Strategy
+
+     Parallel agents (no worktrees per CLAUDE.md):
+     1. Agent 1: Unit 1 (shared packages) — must complete first
+     2. Agent 2: Unit 2 (home app) — can start after Unit 1
+     3. Agent 3: Unit 3 (blog app) — can start after Unit 1
+     4. Agent 4: Unit 4 (insights app) — can start after Unit 1
+
+     Sequence: Unit 1 first (shared deps), then Units 2-4 in parallel.
+
+     No bun build in parallel agents (OOM risk). Verify build once after all
+     units merge.
+
+     ---
+     Verification
+
+     Per worker (automated):
+     1. bunx biome lint <changed-files> — lint check
+     2. bun run check-types — type safety (run once globally after all units)
+     3. bun run test — unit tests pass
+
+     Post-merge manual review:
+     1. cd apps/home && bun run dev → cream canvas, coral CTAs, serif headings,
+     dark footer
+     2. cd apps/blog && bun run dev → same palette, prose serif headings,
+     ClaudeCard warm tones
+     3. cd apps/insights && bun run dev → warm palette, charts render with
+     updated colors
+     4. Responsive: check mobile/tablet/desktop breakpoints on each app
+     5. Dark mode toggle: verify footer stays dark, cream surfaces invert
+     correctly
+     6. bun run build — final build verification (single run, not parallel)
+
+⏺ Plan approved. Executing Unit 1 (shared packages) first, then spawning
+  parallel agents for apps.
+
+  Read 2 files (ctrl+o to expand)
+⏺ Starting Unit 1: shared packages. Editing all 4 files.
+
+⏺ Update(packages/tailwind-config/colors.js)
+  ⎿  Added 44 lines, removed 1 line
+       86  };
+       87  
+       88  /**
+       89 + * Anthropic design system tokens                             
+       90 + *                                                            
+       91 + * Core palette from the Anthropic/Claude.com design language.
+       92 + * Warm cream canvas, coral primary, dark navy surfaces.      
+       93 + * @see PLAN — Anthropic Design System Migration              
+       94 + */                                                           
+       95 +export const anthropicColors = {                              
+       96 +  // Surface                                                  
+       97 +  "anthropic-canvas": "#faf9f5",                              
+       98 +  "anthropic-surface-soft": "#f5f0e8",                        
+       99 +  "anthropic-surface-card": "#efe9de",                        
+      100 +  "anthropic-surface-cream-strong": "#e8e0d2",                
+      101 +  "anthropic-surface-dark": "#181715",                        
+      102 +  "anthropic-surface-dark-elevated": "#252320",               
+      103 +  "anthropic-surface-dark-soft": "#1f1e1b",                   
+      104 +  // Borders                                                  
+      105 +  "anthropic-hairline": "#e6dfd8",                            
+      106 +  "anthropic-hairline-soft": "#ebe6df",                       
+      107 +  // Text                                                     
+      108 +  "anthropic-ink": "#141413",                                 
+      109 +  "anthropic-body-strong": "#252523",                         
+      110 +  "anthropic-body": "#3d3d3a",                                
+      111 +  "anthropic-muted": "#6c6a64",                               
+      112 +  "anthropic-muted-soft": "#8e8b82",                          
+      113 +  "anthropic-on-dark": "#faf9f5",                             
+      114 +  "anthropic-on-dark-soft": "#a09d96",                        
+      115 +  // Primary / Coral                                          
+      116 +  "anthropic-primary": "#cc785c",                             
+      117 +  "anthropic-primary-active": "#a9583e",                      
+      118 +  "anthropic-primary-disabled": "#e6dfd8",                    
+      119 +  // Accents                                                  
+      120 +  "anthropic-accent-teal": "#5db8a6",                         
+      121 +  "anthropic-accent-amber": "#e8a55a",                        
+      122 +  // Semantic                                                 
+      123 +  "anthropic-success": "#5db872",                             
+      124 +  "anthropic-warning": "#d4a017",                             
+      125 +  "anthropic-error": "#c64545",                               
+      126 +  // On-primary (white text on coral)                         
+      127 +  "anthropic-on-primary": "#ffffff",                          
+      128 +};                                                            
+      129 +                                                              
+      130 +/**                                                           
+      131   * Complete color palette
+      132   *
+      133   * Combines Claude palette with semantic brand colors,
+       92 - * card colors, and any additional custom colors.             
+      134 + * card colors, and Anthropic design system tokens.           
+      135   */
+      136  export const colors = {
+      137    ...claudeColors,
+      138    ...brandColors,
+      139    ...cardColors,
+      140 +  ...anthropicColors,                                         
+      141    // Legacy colors for backward compatibility
+      142    gold: "#ffd465",
+      143  };
+
+⏺ Update(packages/components/styles.css)
+  ⎿  Added 54 lines, removed 7 lines
+      21  
+      22    /* Unified dark mode CSS variables for consistent theming acr
+          oss all apps */
+      23    :root {
+      24 -    /* Light mode colors */                                    
+      25 -    --background: #ffffff;                                     
+      26 -    --foreground: #374151; /* gray-700 */                      
+      24 +    /* Anthropic design system — light mode defaults */        
+      25 +    --background: #faf9f5;                                     
+      26 +    --foreground: #141413;                                     
+      27 +                                                               
+      28 +    /* Surface hierarchy */                                    
+      29 +    --surface-soft: #f5f0e8;                                   
+      30 +    --surface-card: #efe9de;                                   
+      31 +    --surface-cream-strong: #e8e0d2;                           
+      32 +    --surface-dark: #181715;                                   
+      33 +    --surface-dark-elevated: #252320;                          
+      34 +    --surface-dark-soft: #1f1e1b;                              
+      35 +                                                               
+      36 +    /* Borders */                                              
+      37 +    --hairline: #e6dfd8;                                       
+      38 +    --hairline-soft: #ebe6df;                                  
+      39 +                                                               
+      40 +    /* Text hierarchy */                                       
+      41 +    --ink: #141413;                                            
+      42 +    --body-strong: #252523;                                    
+      43 +    --body: #3d3d3a;                                           
+      44 +    --muted: #6c6a64;                                          
+      45 +    --muted-soft: #8e8b82;                                     
+      46 +    --on-dark: #faf9f5;                                        
+      47 +    --on-dark-soft: #a09d96;                                   
+      48 +                                                               
+      49 +    /* Primary / Coral */                                      
+      50 +    --primary: #cc785c;                                        
+      51 +    --primary-active: #a9583e;                                 
+      52 +    --primary-disabled: #e6dfd8;                               
+      53 +    --on-primary: #ffffff;                                     
+      54 +                                                               
+      55 +    /* Accents */                                              
+      56 +    --accent-teal: #5db8a6;                                    
+      57 +    --accent-amber: #e8a55a;                                   
+      58 +                                                               
+      59 +    /* Semantic */                                             
+      60 +    --success: #5db872;                                        
+      61 +    --warning: #d4a017;                                        
+      62 +    --error: #c64545;                                          
+      63 +                                                               
+      64 +    /* Border */                                               
+      65 +    --border: #e6dfd8;                                         
+      66 +                                                               
+      67 +    /* Font stacks */                                          
+      68 +    --font-serif: 'Cormorant Garamond', Garamond, 'Times New Ro
+         +man', serif;                                                   
+      69 +    --font-sans: Inter, -apple-system, BlinkMacSystemFont, 'Seg
+         +oe UI', Roboto, sans-serif;                                    
+      70 +    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular
+         +, monospace;                                                   
+      71    }
+      72  
+      73    .dark {
+      30 -    /* Dark mode colors - consistent across blog, cv, insights 
+         -*/                                                             
+      31 -    /* Using .dark selector to match next-themes which adds cla
+         -ss to <html> */                                                
+      32 -    --background: #0f172a; /* slate-900 */                     
+      33 -    --foreground: #f8fafc; /* slate-50 */                      
+      74 +    --background: #181715;                                     
+      75 +    --foreground: #faf9f5;                                     
+      76 +    --border: #303030;                                         
+      77 +    --surface-soft: #1f1e1b;                                   
+      78 +    --surface-card: #252320;                                   
+      79 +    --muted: #a09d96;                                          
+      80 +    --muted-soft: #8e8b82;                                     
+      81    }
+      82  }
+      83  
+
+⏺ Now updating Footer.tsx — converting to permanent dark surface with CSS
+  variables.
+
+⏺ Update(packages/components/Footer.tsx)
+  ⎿  Added 2 lines, removed 2 lines
+      12  
+      13  function FooterLink({ href, children }: { href: string; childre
+          n: ReactNode }) {
+      14    const classes = cn(
+      15 -    "text-sm text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70",        
+      16 -    "no-underline transition-colors hover:text-[#1a1a1a] dark:h
+         -over:text-[#f8f8f2]"                                           
+      15 +    "text-sm text-[var(--on-dark-soft)]",                      
+      16 +    "no-underline transition-colors hover:text-[var(--on-dark)]
+         +"                                                              
+      17    );
+      18  
+      19    const isExternalHttp = /^https?:\/\//.test(href);
+
+⏺ Update(packages/components/Footer.tsx)
+  ⎿  Added 1 line, removed 1 line
+      50  
+      51  function FooterHeader({ children }: { children: ReactNode }) {
+      52    return (
+      53 -    <h3 className="text-xs font-semibold uppercase tracking-[0.
+         -14em] text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">               
+      53 +    <h3 className="text-xs font-semibold uppercase tracking-[0.
+         +14em] text-[var(--on-dark)]/55">                               
+      54        {children}
+      55      </h3>
+      56    );
+
+⏺ Update(packages/components/Footer.tsx)
+  ⎿  Added 2 lines, removed 2 lines
+      108            Footer
+      109          </h2>
+      110  
+      111 -        <div className="grid gap-12 border-t border-[#1a1a1a]/
+          -10 py-10 dark:border-white/10 md:grid-cols-[minmax(0,1.1fr)_mi
+          -nmax(0,1.9fr)] md:gap-14 md:py-14">                           
+      111 +        <div className="grid gap-12 border-t border-white/10 p
+          +y-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1.9fr)] md:gap-14 
+          +md:py-14">                                                    
+      112            <div className="space-y-5">
+      113              <Logo className="p-0" />
+      114 -            <p className="max-w-sm text-sm leading-6 text-[#1a
+          -1a1a]/70 dark:text-[#f8f8f2]/70">                             
+      114 +            <p className="max-w-sm text-sm leading-6 text-[var
+          +(--on-dark-soft)]">                                           
+      115                Build useful systems, then explain them clearly.
+      116              </p>
+      117              <div className="pt-2">
+
+⏺ Update(packages/components/Footer.tsx)
+  ⎿  Added 1 line, removed 1 line
+      135  
+      136              <div>
+      137                <FooterHeader>{profile.personal.email}</FooterHe
+           ader>
+      138 -              <div className="mt-4 text-sm text-[#1a1a1a]/70 d
+          -ark:text-[#f8f8f2]/70">                                       
+      138 +              <div className="mt-4 text-sm text-[var(--on-dark
+          +-soft)]">                                                     
+      139                  <Social profile={profile} />
+      140                </div>
+      141                <ul className="ml-0 mt-4 list-none space-y-2.5">
+
+⏺ Update(packages/components/Footer.tsx)
+  ⎿  Added 1 line, removed 1 line
+      149            </div>
+      150          </div>
+      151  
+      152 -        <div className="flex flex-col gap-4 border-t border-[#
+          -1a1a1a]/10 pt-6 text-xs text-[#1a1a1a]/55 dark:border-white/10
+          - dark:text-[#f8f8f2]/55 sm:flex-row sm:items-center sm:justify
+          --between">                                                    
+      152 +        <div className="flex flex-col gap-4 border-t border-wh
+          +ite/10 pt-6 text-xs text-[var(--on-dark-soft)] sm:flex-row sm:
+          +items-center sm:justify-between">                             
+      153            <p>
+      154              &copy; {new Date().getFullYear()} {urls.apps.home.
+           replace(/^https?:\/\//, "")} | {" "}
+      155              {profile.personal.title} | {localDate}
+
+⏺ Update(packages/components/Footer.tsx)
+  ⎿  Added 1 line, removed 1 line
+      196    return (
+      197      <footer
+      198        className={cn(
+      199 -        "bg-white px-5 pb-10 pt-14 dark:bg-[#1a1a1a] sm:px-8 l
+          -g:px-10 lg:pb-12 lg:pt-16",                                   
+      199 +        "bg-[var(--surface-dark)] text-[var(--on-dark)] px-5 p
+          +b-10 pt-14 sm:px-8 lg:px-10 lg:pb-12 lg:pt-16",               
+      200          className
+      201        )}
+      202      >
+
+⏺ Now checking Logo and Social components used in the dark footer, plus the
+  header fix.
+
+  Searched for 1 pattern, read 3 files, ran 1 shell command (ctrl+o to expand)
+
+⏺ Social only used in Footer. Safe to update for dark context.
+
+⏺ Update(packages/components/Social.tsx)
+  ⎿  Added 1 line, removed 2 lines
+      42  }: SocialProps): ReactElement {
+      43    const iconClasses = cn(
+      44      iconSize,
+      45 -    "text-claude-gray-400 hover:text-claude-gray-600",         
+      46 -    "dark:text-gray-500 dark:hover:text-white"                 
+      45 +    "text-[var(--on-dark-soft)] hover:text-[var(--on-dark)] tra
+         +nsition-colors"                                                
+      46    );
+      47  
+      48    // Map social links to icons
+
+⏺ Now updating the ThemeToggle for the dark footer context, and the header
+  mobile panel border.
+
+⏺ Update(packages/components/ThemeToggle.tsx)
+  ⎿  Added 5 lines, removed 5 lines
+       7  import { useEffect, useState } from "react";
+       8  
+       9  const toggleGroupClasses = cn(
+      10 -  "p-[3px] w-fit flex rounded-full border border-gray-200",    
+      11 -  "dark:border-gray-800"                                       
+      10 +  "p-[3px] w-fit flex rounded-full border border-[var(--hairlin
+         +e)]",                                                          
+      11 +  "dark:border-white/15"                                       
+      12  );
+      13  
+      14  const toggleGroupItemClasses = cn(
+      15    "h-8 w-8 flex items-center rounded-full justify-center transi
+          tion",
+      16 -  "text-gray-400 hover:text-gray-900 dark:hover:data-[state=off
+         -]:text-gray-100",                                              
+      17 -  "data-[state=on]:bg-gray-200 data-[state=on]:text-gray-900", 
+      18 -  "dark:data-[state=on]:bg-gray-800 dark:data-[state=on]:text-g
+         -ray-200"                                                       
+      16 +  "text-[var(--muted)] hover:text-[var(--foreground)]",        
+      17 +  "data-[state=on]:bg-[var(--surface-card)] data-[state=on]:tex
+         +t-[var(--foreground)]",                                        
+      18 +  "dark:data-[state=on]:bg-white/15 dark:data-[state=on]:text-[
+         +var(--on-dark)]"                                               
+      19  );
+      20  
+      21  const iconProps = {
+
+⏺ Update(packages/components/header/index.tsx)
+  ⎿  Added 1 line, removed 1 line
+      119            mobileOpen ? "max-h-96 opacity-100" : "max-h-0 opaci
+           ty-0"
+      120          )}
+      121        >
+      122 -        <div className="border-t border-[var(--border)] dark:b
+          -order-white/8 px-5 py-3">                                     
+      122 +        <div className="border-t border-[var(--hairline)] dark
+          +:border-white/8 px-5 py-3">                                   
+      123            <MenuNav
+      124              urls={urls}
+      125              navigationItems={navigationItems}
+
+⏺ ★ Insight ─────────────────────────────────────
+  Shared package design token strategy: By defining all Anthropic tokens as CSS
+  custom properties in styles.css, each app's globals.css can override just the
+  ones it needs while inheriting the full set. This avoids prop-drilling colors
+  through components — the Footer doesn't need to know if it's in light or dark
+  mode, it just reads var(--on-dark-soft) and the value resolves from the
+  cascade.
+
+  Permanent dark footer: The Anthropic design uses a permanently dark footer
+  (#181715) regardless of light/dark mode. The Social and ThemeToggle components
+   now reference var(--on-dark-*) tokens instead of conditional dark: Tailwind
+  classes, since they're always rendered on dark surfaces.
+  ─────────────────────────────────────────────────
+
+  Unit 1 complete. Now spawning 3 parallel agents for the app migrations (Units
+  2-4).
+
+⏺ 3 background agents launched (↓ to manage)
+   ├ home-unit: Migrate apps/home to Anthropic design
+   ├ blog-unit: Migrate apps/blog to Anthropic design
+   └ insights-unit: Migrate apps/insights to Anthropic design
+
+❯ cp and deployt 
+
+⏺ Fixing agent type prefix and re-spawning all 3 app migration agents in
+  parallel.
+
+⏺ 3 background agents launched (↓ to manage)
+   ├ home-unit: Migrate apps/home to Anthropic design
+   ├ blog-unit: Migrate apps/blog to Anthropic design
+   └ insights-unit: Migrate apps/insights to Anthropic design
+
+⏺ 3 agents launched in parallel — migrating home, blog, and insights apps. Unit
+  1 (shared packages) already complete on this branch.
+
+  Noted: you want cp (commit + push) and deploy after all agents finish. Will do
+   once they report back.
+✻ Crunched for 29m 49s
+
+※ recap: Migrating 3 apps to Anthropic design system (warm cream, coral, serif headings). Shared packages done, 3 agents running in background for home/blog/insights. Will commit, push, and deploy once they finish. (disable recaps in /config)
+
+⏺ Agent "Migrate apps/blog to Anthropic design" completed
+  ⎿  API Error: Request rejected (429) · Usage limit reached for 5 hour. Your 
+     limit will reset at 2026-05-09 19:06:53
+
+✻ Sautéed for 3m 5s
+
+⏺ Agent "Migrate apps/home to Anthropic design" completed
+
+⏺ Agent "Migrate apps/insights to Anthropic design" completed
+  ⎿  Interrupted · What should Claude do instead?
