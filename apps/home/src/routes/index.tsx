@@ -61,9 +61,6 @@ const capabilities = [
 ];
 
 function HomePage() {
-  const visualApps = apps.filter((item) => item.screenshot);
-  const compactApps = apps.filter((item) => !item.screenshot);
-
   return (
     <>
       <Suspense fallback={null}>
@@ -133,15 +130,15 @@ function HomePage() {
           {/* Apps Section */}
           <section
             id="apps"
-            className="mx-auto max-w-[1200px] px-6 py-16 sm:px-10 lg:py-24"
+            className="mx-auto max-w-[1200px] px-6 py-12 sm:px-10 lg:py-20"
           >
-            <div className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
               <div>
                 <h2 className="font-serif text-3xl sm:text-4xl lg:text-[48px]">
-                  Featured Systems.
+                  Apps
                 </h2>
                 <p className="mt-2 text-lg font-medium text-[var(--muted-foreground)] lg:text-xl">
-                  Production-grade tools and experimental interfaces.
+                  A curated collection of production tools, experimental interfaces, and data systems.
                 </p>
               </div>
               <div className="flex items-center gap-2 text-sm font-medium text-[var(--muted-foreground)]">
@@ -152,29 +149,21 @@ function HomePage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-              {visualApps.map((item) => (
-                <ProjectCard key={item.name} item={item} />
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
+              {apps.map((item) => (
+                <AppRow key={item.name} item={item} />
               ))}
             </div>
 
             <div className="mt-10 flex justify-center">
               <Link
                 to="/projects"
-                className="group inline-flex items-center gap-2 font-serif text-xl hover:text-[var(--primary)] transition-colors lg:text-[28px]"
+                className="group inline-flex items-center gap-2 font-serif text-lg hover:text-[var(--primary)] transition-colors lg:text-xl"
               >
                 View all artifacts
-                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
-
-            {compactApps.length > 0 && (
-              <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-                {compactApps.map((item) => (
-                  <CompactAppCard key={item.name} item={item} />
-                ))}
-              </div>
-            )}
           </section>
 
           {/* Footer Callout (Coral Band) */}
@@ -202,7 +191,7 @@ function HomePage() {
   );
 }
 
-function ProjectCard({
+function AppRow({
   item,
 }: {
   item: AppItem;
@@ -210,14 +199,16 @@ function ProjectCard({
   return (
     <AppLink
       item={item}
-      className={`group relative flex aspect-square flex-col justify-end overflow-hidden rounded-xl border border-[var(--border)] p-6 transition-all hover:-translate-y-1 hover:shadow-xl ${item.tone ?? "bg-[var(--muted)]"}`}
+      className="group flex items-start gap-4 rounded-xl border border-[var(--border)] p-4 transition-all hover:bg-[var(--surface-card)] hover:shadow-sm"
     >
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-      <div className="relative z-10 text-white">
-        <h3 className="font-serif text-xl lg:text-[28px]">
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[var(--background)] text-[var(--foreground)] shadow-sm ring-1 ring-[var(--border)] group-hover:bg-[var(--primary)] group-hover:text-white transition-colors">
+        <Server className="h-5 w-5" />
+      </div>
+      <div className="min-w-0">
+        <h3 className="font-serif text-lg leading-snug tracking-tight group-hover:text-[var(--primary)] transition-colors">
           {item.name}
         </h3>
-        <p className="mt-2 text-base font-normal leading-snug text-white/90 line-clamp-2">
+        <p className="mt-1 text-sm font-normal leading-relaxed text-[var(--muted-foreground)] line-clamp-2">
           {item.description}
         </p>
       </div>
@@ -276,25 +267,6 @@ function CapabilityCard({
     <Link to={href} className={classes}>
       {children}
     </Link>
-  );
-}
-
-function CompactAppCard({ item }: { item: AppItem }) {
-  return (
-    <AppLink
-      item={item}
-      className={`group flex min-h-40 flex-col justify-between rounded-xl border border-[var(--border)] p-6 transition-all hover:bg-[var(--muted)]`}
-    >
-      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--background)] text-[var(--foreground)] shadow-sm ring-1 ring-[var(--border)]">
-        <Server className="h-5 w-5" />
-      </div>
-      <div>
-        <h3 className="font-serif text-xl tracking-tight lg:text-[28px]">{item.name}</h3>
-        <p className="mt-1 text-base font-normal leading-snug text-[var(--muted-foreground)]">
-          {item.description}
-        </p>
-      </div>
-    </AppLink>
   );
 }
 
