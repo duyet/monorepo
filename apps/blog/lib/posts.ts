@@ -60,6 +60,8 @@ interface RawPost {
 export interface PostContent {
   content: string;
   isMDX: boolean;
+  /** Pre-converted HTML for .md posts (set at build time by generate-posts-data.ts). */
+  html?: string;
 }
 
 /** Navigation item within a series (prev/next). */

@@ -74,7 +74,12 @@ export const Route = createFileRoute("/$year/$month/$slug")({
 
     if (postWithContent.isMDX) {
       mdxSource = markdownContent;
+    } else if (postWithContent.html) {
+      // Use pre-converted HTML from build-time (avoids WASM markdownToHtml
+      // during SSR prerender, which fails after Vite bundling).
+      htmlContent = postWithContent.html;
     } else {
+      // Dev-mode fallback: markdownToHtml works fine in Bun.
       htmlContent = await markdownToHtml(markdownContent);
     }
 
