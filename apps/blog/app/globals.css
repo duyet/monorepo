@@ -272,7 +272,6 @@ html.dark .prose pre {
 
 .prose li > strong {
   color: var(--ink);
-  dark:color: var(--on-dark);
 }
 
 /* Blockquote styling */
@@ -300,7 +299,6 @@ html.dark .prose pre {
   cursor: pointer;
   font-weight: 500;
   color: var(--ink);
-  dark:color: var(--on-dark);
 }
 
 .prose summary:hover {
