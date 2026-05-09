@@ -7,15 +7,15 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 const toggleGroupClasses = cn(
-  "p-[3px] w-fit flex rounded-full border border-gray-200",
-  "dark:border-gray-800"
+  "p-[3px] w-fit flex rounded-full border border-[var(--hairline)]",
+  "dark:border-white/15"
 );
 
 const toggleGroupItemClasses = cn(
   "h-8 w-8 flex items-center rounded-full justify-center transition",
-  "text-gray-400 hover:text-gray-900 dark:hover:data-[state=off]:text-gray-100",
-  "data-[state=on]:bg-gray-200 data-[state=on]:text-gray-900",
-  "dark:data-[state=on]:bg-gray-800 dark:data-[state=on]:text-gray-200"
+  "text-[var(--muted)] hover:text-[var(--foreground)]",
+  "data-[state=on]:bg-[var(--surface-card)] data-[state=on]:text-[var(--foreground)]",
+  "dark:data-[state=on]:bg-white/15 dark:data-[state=on]:text-[var(--on-dark)]"
 );
 
 const iconProps = {

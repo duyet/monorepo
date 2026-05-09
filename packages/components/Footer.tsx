@@ -12,8 +12,8 @@ import ThemeToggle from "./ThemeToggle";
 
 function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   const classes = cn(
-    "text-sm text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70",
-    "no-underline transition-colors hover:text-[#1a1a1a] dark:hover:text-[#f8f8f2]"
+    "text-sm text-[var(--on-dark-soft)]",
+    "no-underline transition-colors hover:text-[var(--on-dark)]"
   );
 
   const isExternalHttp = /^https?:\/\//.test(href);
@@ -50,7 +50,7 @@ function FooterLink({ href, children }: { href: string; children: ReactNode }) {
 
 function FooterHeader({ children }: { children: ReactNode }) {
   return (
-    <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
+    <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--on-dark)]/55">
       {children}
     </h3>
   );
@@ -108,10 +108,10 @@ export function FooterContent({
           Footer
         </h2>
 
-        <div className="grid gap-12 border-t border-[#1a1a1a]/10 py-10 dark:border-white/10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1.9fr)] md:gap-14 md:py-14">
+        <div className="grid gap-12 border-t border-white/10 py-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1.9fr)] md:gap-14 md:py-14">
           <div className="space-y-5">
             <Logo className="p-0" />
-            <p className="max-w-sm text-sm leading-6 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+            <p className="max-w-sm text-sm leading-6 text-[var(--on-dark-soft)]">
               Build useful systems, then explain them clearly.
             </p>
             <div className="pt-2">
@@ -135,7 +135,7 @@ export function FooterContent({
 
             <div>
               <FooterHeader>{profile.personal.email}</FooterHeader>
-              <div className="mt-4 text-sm text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+              <div className="mt-4 text-sm text-[var(--on-dark-soft)]">
                 <Social profile={profile} />
               </div>
               <ul className="ml-0 mt-4 list-none space-y-2.5">
@@ -149,7 +149,7 @@ export function FooterContent({
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 border-t border-[#1a1a1a]/10 pt-6 text-xs text-[#1a1a1a]/55 dark:border-white/10 dark:text-[#f8f8f2]/55 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-[var(--on-dark-soft)] sm:flex-row sm:items-center sm:justify-between">
           <p>
             &copy; {new Date().getFullYear()} {urls.apps.home.replace(/^https?:\/\//, "")} | {" "}
             {profile.personal.title} | {localDate}
@@ -196,7 +196,7 @@ export default function Footer({
   return (
     <footer
       className={cn(
-        "bg-white px-5 pb-10 pt-14 dark:bg-[#1a1a1a] sm:px-8 lg:px-10 lg:pb-12 lg:pt-16",
+        "bg-[var(--surface-dark)] text-[var(--on-dark)] px-5 pb-10 pt-14 sm:px-8 lg:px-10 lg:pb-12 lg:pt-16",
         className
       )}
     >

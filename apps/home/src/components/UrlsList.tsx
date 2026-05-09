@@ -11,7 +11,7 @@ interface UrlEntry {
   category?: Category;
 }
 
-function ListIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
+function ListIcon({ className }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
@@ -19,7 +19,7 @@ function ListIcon({ className, style }: { className?: string; style?: React.CSSP
   );
 }
 
-function GridIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
+function GridIcon({ className }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
@@ -27,20 +27,13 @@ function GridIcon({ className, style }: { className?: string; style?: React.CSSP
   );
 }
 
-function ExternalIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
+function ExternalIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
     </svg>
   );
 }
-
-const surfaceCard = "#efe9de";
-const canvas = "#faf9f5";
-const ink = "#141413";
-const muted = "#6c6a64";
-const mutedSoft = "#8e8b82";
-const hairline = "#e6dfd8";
 
 function UrlCard({ path, target, desc }: UrlEntry) {
   const isExternal = target.startsWith("http");
@@ -49,32 +42,20 @@ function UrlCard({ path, target, desc }: UrlEntry) {
       href={target}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 8,
-        background: surfaceCard,
-        padding: 20,
-        borderRadius: 8,
-        textDecoration: "none",
-        color: ink,
-        transition: "transform 0.15s ease",
-      }}
-      onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; }}
-      onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; }}
+      className="flex flex-col gap-2 rounded-lg bg-[var(--muted)] p-5 text-[var(--foreground)] no-underline transition-transform duration-150 hover:-translate-y-0.5"
     >
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <code style={{ fontFamily: "monospace", fontSize: 15, fontWeight: 600, color: ink }}>
+      <div className="flex items-center justify-between">
+        <code className="font-mono text-[15px] font-semibold text-[var(--foreground)]">
           {path}
         </code>
-        {isExternal && <ExternalIcon style={{ width: 14, height: 14, color: mutedSoft, flexShrink: 0 }} />}
+        {isExternal && <ExternalIcon className="h-3.5 w-3.5 shrink-0 text-[var(--muted-soft)]" />}
       </div>
       {desc ? (
-        <p style={{ fontSize: 13, color: muted, lineHeight: 1.4, margin: 0 }}>{desc}</p>
+        <p className="m-0 text-[13px] leading-snug text-[var(--muted-foreground)]">{desc}</p>
       ) : (
-        <p style={{ fontSize: 13, color: mutedSoft }}>—</p>
+        <p className="m-0 text-[13px] text-[var(--muted-soft)]">&mdash;</p>
       )}
-      <p style={{ fontFamily: "monospace", fontSize: 11, color: mutedSoft, margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+      <p className="m-0 truncate font-mono text-[11px] text-[var(--muted-soft)]">
         {target}
       </p>
     </a>
@@ -83,12 +64,12 @@ function UrlCard({ path, target, desc }: UrlEntry) {
 
 function CategoryHeader({ category, count }: { category: string; count: number }) {
   return (
-    <div style={{ marginBottom: 12, display: "flex", alignItems: "center", gap: 12 }}>
-      <h2 style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em", color: mutedSoft, margin: 0 }}>
+    <div className="mb-3 flex items-center gap-3">
+      <h2 className="m-0 text-[11px] font-semibold uppercase tracking-widest text-[var(--muted-soft)]">
         {category}
       </h2>
-      <div style={{ flex: 1, borderTop: `1px solid ${hairline}` }} />
-      <span style={{ fontSize: 11, color: mutedSoft }}>{count}</span>
+      <div className="flex-1 border-t border-[var(--hairline)]" />
+      <span className="text-[11px] text-[var(--muted-soft)]">{count}</span>
     </div>
   );
 }
@@ -138,83 +119,67 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
   return (
     <>
       {/* Search + Toggle */}
-      <div style={{ marginBottom: 32 }}>
-        <div style={{ position: "relative" }}>
+      <div className="mb-8">
+        <div className="relative">
           <input
             type="text"
             aria-label="Search by path, URL, or description"
             placeholder="Search by path, URL, or description..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            style={{
-              width: "100%",
-              padding: "14px 100px 14px 44px",
-              fontSize: 14,
-              background: canvas,
-              color: ink,
-              border: `1px solid ${hairline}`,
-              borderRadius: 8,
-              outline: "none",
-              fontFamily: "inherit",
-            }}
+            className="w-full rounded-lg border border-[var(--hairline)] bg-[var(--background)] px-[100px] py-3.5 text-sm text-[var(--foreground)] outline-none transition-colors placeholder:text-[var(--muted-soft)] focus:border-[var(--foreground)]/30"
           />
           <svg
             aria-hidden="true"
-            style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", width: 18, height: 18, color: mutedSoft }}
+            className="absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[var(--muted-soft)]"
             fill="none" viewBox="0 0 24 24" stroke="currentColor"
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
-          <div style={{ position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", display: "flex", alignItems: "center", gap: 4 }}>
+          <div className="absolute right-2.5 top-1/2 flex -translate-y-1/2 items-center gap-1">
             {searchQuery && (
               <button
                 type="button"
                 aria-label="Clear search"
                 onClick={() => setSearchQuery("")}
-                style={{ background: "none", border: "none", padding: 4, color: mutedSoft, cursor: "pointer" }}
+                className="cursor-pointer border-none bg-transparent p-1 text-[var(--muted-soft)]"
               >
-                <svg aria-hidden="true" style={{ width: 16, height: 16 }} fill="currentColor" viewBox="0 0 20 20">
+                <svg aria-hidden="true" className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                 </svg>
               </button>
             )}
-            <div style={{ display: "flex", background: surfaceCard, borderRadius: 6, padding: 2 }}>
+            <div className="flex rounded-md bg-[var(--muted)] p-0.5">
               <button
                 type="button"
                 aria-label="List view"
                 onClick={() => setViewAndSave("list")}
-                style={{
-                  padding: 5,
-                  borderRadius: 4,
-                  border: "none",
-                  background: view === "list" ? canvas : "transparent",
-                  color: view === "list" ? ink : mutedSoft,
-                  cursor: "pointer",
-                  transition: "background 0.15s",
-                }}
+                className={cn(
+                  "cursor-pointer rounded border-none p-[5px] transition-colors duration-150",
+                  view === "list"
+                    ? "bg-[var(--background)] text-[var(--foreground)]"
+                    : "bg-transparent text-[var(--muted-soft)]"
+                )}
               >
-                <ListIcon style={{ width: 16, height: 16 }} />
+                <ListIcon className="h-4 w-4" />
               </button>
               <button
                 type="button"
                 aria-label="Grid view"
                 onClick={() => setViewAndSave("grid")}
-                style={{
-                  padding: 5,
-                  borderRadius: 4,
-                  border: "none",
-                  background: view === "grid" ? canvas : "transparent",
-                  color: view === "grid" ? ink : mutedSoft,
-                  cursor: "pointer",
-                  transition: "background 0.15s",
-                }}
+                className={cn(
+                  "cursor-pointer rounded border-none p-[5px] transition-colors duration-150",
+                  view === "grid"
+                    ? "bg-[var(--background)] text-[var(--foreground)]"
+                    : "bg-transparent text-[var(--muted-soft)]"
+                )}
               >
-                <GridIcon style={{ width: 16, height: 16 }} />
+                <GridIcon className="h-4 w-4" />
               </button>
             </div>
           </div>
         </div>
-        <div style={{ marginTop: 10, fontSize: 13, color: muted }}>
+        <div className="mt-2.5 text-[13px] text-[var(--muted-foreground)]">
           {filteredUrls.length === urls.length
             ? `Showing all ${urls.length} short URLs`
             : `Showing ${filteredUrls.length} of ${urls.length} URLs`}
@@ -223,12 +188,12 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
 
       {/* No results */}
       {filteredUrls.length === 0 && (
-        <div style={{ background: surfaceCard, borderRadius: 8, padding: 48, textAlign: "center" }}>
-          <p style={{ color: muted, fontSize: 14 }}>No URLs found matching &ldquo;{searchQuery}&rdquo;</p>
+        <div className="rounded-lg bg-[var(--muted)] p-12 text-center">
+          <p className="text-sm text-[var(--muted-foreground)]">No URLs found matching &ldquo;{searchQuery}&rdquo;</p>
           <button
             type="button"
             onClick={() => setSearchQuery("")}
-            style={{ marginTop: 12, fontSize: 13, color: ink, background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}
+            className="mt-3 cursor-pointer border-none bg-transparent text-[13px] text-[var(--foreground)] underline"
           >
             Clear search
           </button>
@@ -239,9 +204,9 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
       {filteredUrls.length > 0 && view === "grid" && (
         <div>
           {Array.from(grouped.entries()).map(([category, entries]) => (
-            <div key={category} style={{ marginBottom: 32 }}>
+            <div key={category} className="mb-8">
               <CategoryHeader category={category} count={entries.length} />
-              <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))" }}>
+              <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
                 {entries.map((entry) => (
                   <UrlCard key={entry.path} {...entry} />
                 ))}
@@ -253,7 +218,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
 
       {/* List view — search: flat cards */}
       {filteredUrls.length > 0 && view === "list" && searchQuery && (
-        <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))" }}>
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {filteredUrls.map(({ path, target, desc }) => {
             const isExternal = target.startsWith("http");
             return (
@@ -262,29 +227,20 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                 href={target}
                 target={isExternal ? "_blank" : undefined}
                 rel={isExternal ? "noopener noreferrer" : undefined}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 6,
-                  background: surfaceCard,
-                  padding: 16,
-                  borderRadius: 8,
-                  textDecoration: "none",
-                  color: ink,
-                }}
+                className="flex flex-col gap-1.5 rounded-lg bg-[var(--muted)] p-4 text-[var(--foreground)] no-underline"
               >
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <code style={{ fontFamily: "monospace", fontSize: 13, fontWeight: 600, background: canvas, padding: "4px 10px", borderRadius: 4, color: ink }}>
+                <div className="flex items-center gap-2">
+                  <code className="rounded bg-[var(--background)] px-2.5 py-1 font-mono text-[13px] font-semibold text-[var(--foreground)]">
                     {path}
                   </code>
-                  {isExternal && <ExternalIcon style={{ width: 14, height: 14, color: mutedSoft }} />}
+                  {isExternal && <ExternalIcon className="h-3.5 w-3.5 text-[var(--muted-soft)]" />}
                 </div>
-                {desc && <p style={{ fontSize: 13, color: muted, margin: 0 }}>{desc}</p>}
-                <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 4 }}>
-                  <svg aria-hidden="true" style={{ width: 12, height: 12, flexShrink: 0 }} fill="none" viewBox="0 0 24 24" stroke={mutedSoft}>
+                {desc && <p className="m-0 text-[13px] text-[var(--muted-foreground)]">{desc}</p>}
+                <div className="mt-1 flex items-center gap-1.5">
+                  <svg aria-hidden="true" className="h-3 w-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="var(--muted-soft)">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
-                  <span style={{ fontFamily: "monospace", fontSize: 11, color: mutedSoft, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{target}</span>
+                  <span className="truncate font-mono text-[11px] text-[var(--muted-soft)]">{target}</span>
                 </div>
               </a>
             );
@@ -296,9 +252,9 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
       {filteredUrls.length > 0 && view === "list" && !searchQuery && (
         <div>
           {Array.from(grouped.entries()).map(([category, entries]) => (
-            <div key={category} style={{ marginBottom: 32 }}>
+            <div key={category} className="mb-8">
               <CategoryHeader category={category} count={entries.length} />
-              <div style={{ background: surfaceCard, borderRadius: 8, overflow: "hidden" }}>
+              <div className="overflow-hidden rounded-lg bg-[var(--muted)]">
                 {entries.map(({ path, target, desc }, i) => {
                   const isExternal = target.startsWith("http");
                   return (
@@ -307,29 +263,23 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                       href={target}
                       target={isExternal ? "_blank" : undefined}
                       rel={isExternal ? "noopener noreferrer" : undefined}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 16,
-                        padding: "12px 20px",
-                        textDecoration: "none",
-                        color: ink,
-                        borderTop: i === 0 ? "none" : `1px solid ${hairline}`,
-                        transition: "background 0.15s",
-                      }}
-                      onMouseEnter={(e) => { e.currentTarget.style.background = canvas; }}
+                      className={cn(
+                        "flex items-center gap-4 px-5 py-3 no-underline text-[var(--foreground)] transition-colors duration-150",
+                        i === 0 ? "" : "border-t border-[var(--hairline)]"
+                      )}
+                      onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-soft)"; }}
                       onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
                     >
-                      <code style={{ fontFamily: "monospace", fontSize: 13, fontWeight: 600, color: ink, width: 120, flexShrink: 0 }}>
+                      <code className="w-[120px] shrink-0 font-mono text-[13px] font-semibold text-[var(--foreground)]">
                         {path}
                       </code>
-                      <p style={{ fontSize: 13, color: muted, flex: 1, margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                        {desc ?? <span style={{ color: mutedSoft }}>—</span>}
+                      <p className="m-0 flex-1 truncate text-[13px] text-[var(--muted-foreground)]">
+                        {desc ?? <span className="text-[var(--muted-soft)]">&mdash;</span>}
                       </p>
-                      <span style={{ fontFamily: "monospace", fontSize: 11, color: mutedSoft, maxWidth: 200, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                      <span className="max-w-[200px] truncate font-mono text-[11px] text-[var(--muted-soft)]">
                         {target}
                       </span>
-                      <svg aria-hidden="true" style={{ width: 14, height: 14, flexShrink: 0, color: mutedSoft }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-[var(--muted-soft)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </a>

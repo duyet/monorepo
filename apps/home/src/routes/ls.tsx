@@ -33,36 +33,28 @@ const publicUrls = Object.entries(urls)
 
 function ListPage() {
   return (
-    <div style={{ minHeight: "100vh", background: "#faf9f5", color: "#141413" }}>
-      <main style={{ maxWidth: 1024, margin: "0 auto", padding: "48px 16px 64px" }}>
+    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+      <main className="mx-auto max-w-[1024px] px-4 pb-16 pt-12">
         {/* Header */}
-        <div style={{ marginBottom: 40 }}>
+        <div className="mb-10">
           <a
             href="/"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              fontSize: 13,
-              color: "#8e8b82",
-              textDecoration: "none",
-              marginBottom: 24,
-            }}
+            className="mb-6 inline-flex items-center gap-2 text-[13px] text-[var(--muted-soft)] no-underline"
           >
-            <svg aria-hidden="true" style={{ width: 14, height: 14 }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg aria-hidden="true" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             Back to home
           </a>
-          <div style={{ display: "flex", alignItems: "baseline", gap: 16 }}>
-            <h1 style={{ fontFamily: '"Cormorant Garamond", "Garamond", "Times New Roman", serif', fontSize: 48, fontWeight: 400, color: "#141413", margin: 0 }}>
+          <div className="flex items-baseline gap-4">
+            <h1 className="m-0 font-[family-name:var(--font-serif)] text-5xl font-normal tracking-tight text-[var(--foreground)]">
               Short URLs
             </h1>
-            <span style={{ fontSize: 13, color: "#8e8b82" }}>
+            <span className="text-[13px] text-[var(--muted-soft)]">
               {publicUrls.length}
             </span>
           </div>
-          <p style={{ marginTop: 8, fontSize: 16, color: "#6c6a64" }}>
+          <p className="mt-2 text-base text-[var(--muted-foreground)]">
             Quick links and redirects for duyet.net
           </p>
         </div>
@@ -71,10 +63,10 @@ function ListPage() {
         <UrlsList urls={publicUrls} />
 
         {/* Footer link */}
-        <div style={{ marginTop: 64, textAlign: "center" }}>
+        <div className="mt-16 text-center">
           <a
             href="/"
-            style={{ fontSize: 13, color: "#8e8b82", textDecoration: "none" }}
+            className="text-[13px] text-[var(--muted-soft)] no-underline"
           >
             duyet.net
           </a>

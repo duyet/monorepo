@@ -20,15 +20,15 @@ export function SeriesBox({
   return (
     <div
       className={cn(
-        "rounded-xl border border-[#1a1a1a]/10 bg-white p-6 dark:border-white/10 dark:bg-[#1a1a1a] sm:p-8",
-        isDarkTone && "border-white/15 bg-[#0f172a] text-white dark:bg-[#0f172a]",
+        "rounded-xl border border-[var(--hairline)] bg-[var(--background)] p-6 dark:border-white/10 dark:bg-[var(--surface-dark)] sm:p-8",
+        isDarkTone && "border-white/15 bg-[var(--surface-dark)] text-[var(--on-dark)] dark:bg-[var(--surface-dark)]",
         className
       )}
     >
       <h2
         className={cn(
           "mb-6 flex flex-row items-center gap-3 text-2xl font-semibold tracking-tight md:text-3xl",
-          isDarkTone ? "text-white" : "text-[#1a1a1a] dark:text-[#f8f8f2]"
+          isDarkTone ? "text-[var(--on-dark)]" : "text-[var(--foreground)] dark:text-[var(--on-dark)]"
         )}
       >
         <NewspaperIcon size={28} strokeWidth={2} />
@@ -51,7 +51,7 @@ export function SeriesBox({
                 isCurrent
                   ? isDarkTone
                     ? "bg-white/12"
-                    : "bg-white dark:bg-[#0d0e0c]"
+                    : "bg-[var(--background)] dark:bg-[var(--surface-dark-soft)]"
                   : ""
               )}
               key={slug}
@@ -62,8 +62,8 @@ export function SeriesBox({
                     className={cn(
                       "line-clamp-1 text-base font-semibold",
                       isDarkTone
-                        ? "text-white"
-                        : "text-[#1a1a1a] dark:text-[#f8f8f2]"
+                        ? "text-[var(--on-dark)]"
+                        : "text-[var(--foreground)] dark:text-[var(--on-dark)]"
                     )}
                   >
                     {title}
@@ -73,8 +73,8 @@ export function SeriesBox({
                     className={cn(
                       "line-clamp-1 text-base font-medium transition-colors hover:underline hover:underline-offset-4",
                       isDarkTone
-                        ? "text-white/80 hover:text-white"
-                        : "text-[#1a1a1a]/80 hover:text-[#1a1a1a] dark:text-[#f8f8f2]/80 dark:hover:text-[#f8f8f2]"
+                        ? "text-[var(--on-dark-soft)] hover:text-[var(--on-dark)]"
+                        : "text-[var(--body)] hover:text-[var(--foreground)] dark:text-[var(--on-dark-soft)] dark:hover:text-[var(--on-dark)]"
                     )}
                     href={slug}
                   >
@@ -87,11 +87,11 @@ export function SeriesBox({
                     "line-clamp-1 text-sm",
                     isDarkTone
                       ? isCurrent
-                        ? "text-white/74"
-                        : "text-white/62"
+                        ? "text-[var(--on-dark)]/74"
+                        : "text-[var(--on-dark-soft)]"
                       : isCurrent
-                        ? "text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70"
-                        : "text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55"
+                        ? "text-[var(--body)]"
+                        : "text-[var(--muted)]"
                   )}
                 >
                   {excerpt}

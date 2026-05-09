@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -7,7 +8,7 @@
     --font-inter:
       "Inter", -apple-system, BlinkMacDesktopFont, ui-sans-serif, system-ui,
       sans-serif;
-    --font-serif: "Libre Baskerville", Georgia, serif;
+    --font-serif: 'Cormorant Garamond', Garamond, 'Times New Roman', serif;
 
     --background: #faf9f5;
     --foreground: #141413;
@@ -15,6 +16,19 @@
     --muted-foreground: #6c6a64;
     --border: #e6dfd8;
     --accent: #cc785c;
+    --primary: #cc785c;
+    --primary-active: #a9583e;
+    --primary-disabled: #e6dfd8;
+    --surface-dark: #181715;
+    --surface-dark-elevated: #252320;
+    --surface-dark-soft: #1f1e1b;
+    --surface-soft: #f5f0e8;
+    --on-dark: #faf9f5;
+    --on-dark-soft: #a09d96;
+    --hairline: #e6dfd8;
+    --body-strong: #252523;
+    --body: #3d3d3a;
+    --muted-soft: #8e8b82;
   }
 
   html.dark {
@@ -24,6 +38,19 @@
     --muted-foreground: #a09d96;
     --border: rgba(248, 248, 242, 0.12);
     --accent: #cc785c;
+    --primary: #cc785c;
+    --primary-active: #e8926e;
+    --primary-disabled: rgba(248, 248, 242, 0.12);
+    --surface-dark: #181715;
+    --surface-dark-elevated: #252320;
+    --surface-dark-soft: #1f1e1b;
+    --surface-soft: #1a1918;
+    --on-dark: #faf9f5;
+    --on-dark-soft: #a09d96;
+    --hairline: rgba(248, 248, 242, 0.12);
+    --body-strong: #f0efe9;
+    --body: #c8c5bc;
+    --muted-soft: #7a776e;
   }
 
   html {

@@ -42,8 +42,7 @@ export default function Social({
 }: SocialProps): ReactElement {
   const iconClasses = cn(
     iconSize,
-    "text-claude-gray-400 hover:text-claude-gray-600",
-    "dark:text-gray-500 dark:hover:text-white"
+    "text-[var(--on-dark-soft)] hover:text-[var(--on-dark)] transition-colors"
   );
 
   // Map social links to icons

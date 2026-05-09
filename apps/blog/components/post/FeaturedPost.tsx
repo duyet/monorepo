@@ -18,7 +18,7 @@ export function FeaturedPost({ post, className }: FeaturedPostProps) {
       className={cn(
         "group block rounded-xl p-8",
         // Always dark surface — cream-to-dark pacing rhythm
-        "bg-[#181715]",
+        "bg-[var(--surface-dark)]",
         className
       )}
     >
@@ -28,9 +28,9 @@ export function FeaturedPost({ post, className }: FeaturedPostProps) {
       <h2
         className={cn(
           "mt-4 text-[36px] font-normal leading-[1.15] tracking-[-0.5px]",
-          "text-[#faf9f5]",
+          "text-[var(--on-dark)]",
           "font-serif",
-          "group-hover:text-[#faf9f5]/80",
+          "group-hover:text-[var(--on-dark)]/80",
           "transition-colors"
         )}
       >

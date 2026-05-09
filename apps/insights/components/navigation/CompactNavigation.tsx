@@ -86,10 +86,10 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
                 to={item.href}
                 className={cn(
                   "flex items-center space-x-2 rounded-lg border px-3 py-2 text-xs font-semibold transition-colors",
-                  "border-[#1a1a1a]/12 bg-white hover:border-[#1a1a1a]/30 hover:bg-[#f5f5ef] dark:border-white/12 dark:bg-[#171815] dark:hover:border-white/30 dark:hover:bg-[#20211d]",
+                  "border-foreground/12 bg-background hover:border-foreground/30 hover:bg-surface-soft dark:border-on-dark/12 dark:bg-surface-dark dark:hover:border-on-dark/30 dark:hover:bg-surface-dark-elevated",
                   isActive
-                    ? "border-[#1a1a1a] bg-[#1a1a1a] text-white dark:border-[#f8f8f2] dark:bg-[#f8f8f2] dark:text-[#11120f]"
-                    : "text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70"
+                    ? "border-foreground bg-foreground text-on-primary dark:border-on-dark dark:bg-on-dark dark:text-ink"
+                    : "text-foreground/70 dark:text-on-dark/70"
                 )}
               >
                 <Icon className="h-4 w-4" />
@@ -112,7 +112,7 @@ export function CompactNavigation({ className }: CompactNavigationProps) {
           onClick={() => setIsOpen(!isOpen)}
           aria-expanded={isOpen}
           aria-label="Toggle menu"
-          className="flex items-center space-x-2 rounded-lg border border-[#1a1a1a]/12 bg-white px-3 py-2 text-sm font-medium text-[#1a1a1a] dark:border-white/12 dark:bg-[#171815] dark:text-[#f8f8f2]"
+          className="flex items-center space-x-2 rounded-lg border border-foreground/12 bg-background px-3 py-2 text-sm font-medium text-foreground dark:border-on-dark/12 dark:bg-surface-dark dark:text-on-dark"
         >
           <Menu className="h-4 w-4" />
           <span>Menu</span>

@@ -203,7 +203,7 @@ export function HomeAgentsChat() {
             <button
               type="submit"
               disabled={loading || input.trim().length === 0}
-              className="rounded-3xl bg-[#f58a1f] px-7 py-3 text-2xl font-medium text-white disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-3xl bg-[var(--primary)] px-7 py-3 text-2xl font-medium text-white hover:bg-[var(--primary-active)] disabled:cursor-not-allowed disabled:opacity-50"
             >
               Search
             </button>
