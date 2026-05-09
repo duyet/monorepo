@@ -1,20 +1,27 @@
 import type { MDXComponents } from "mdx/types";
 import { cn } from "@duyet/libs/utils";
+import { Callout } from "./blog/Callout";
 import { CardGrid } from "./blog/CardGrid";
 import {
   ClaudeCard,
   ClaudeCardGrid,
   ClaudeCardNested,
 } from "./blog/ClaudeCard";
+import { ChartGrid, StatGrid } from "./blog/ChartGrid";
+import { Collapsible } from "./blog/Collapsible";
 import { ComparisonList } from "./blog/ComparisonList";
+import { DesignSwatches, ColorPalette } from "./blog/DesignSwatches";
 import { InfoBox } from "./blog/InfoBox";
 import { LazyCodeBlock } from "./blog/LazyCodeBlock";
 import { Mermaid } from "./blog/Mermaid";
+import { MarginNote, MarginBlock, InlineNote } from "./blog/MarginNotes";
 // Import components directly for RSC compatibility
 import { PricingTable } from "./blog/PricingTable";
 import { Step, Steps } from "./blog/Steps";
 import { StepsList } from "./blog/StepsList";
 import { Tabs } from "./blog/Tabs";
+import { Timeline, StatusBadge } from "./blog/Timeline";
+import { AnnotatedDiff, SideBySideDiff } from "./blog/AnnotatedDiff";
 
 // Custom Image component for MDX
 function Image({
@@ -58,6 +65,19 @@ export const mdxComponents: MDXComponents = {
   ClaudeCardGrid,
   ClaudeCardNested,
   Mermaid,
+  Collapsible,
+  DesignSwatches,
+  ColorPalette,
+  MarginNote,
+  MarginBlock,
+  InlineNote,
+  Timeline,
+  StatusBadge,
+  AnnotatedDiff,
+  SideBySideDiff,
+  Callout,
+  ChartGrid,
+  StatGrid,
   pre: LazyCodeBlock,
   Image,
   img: Image,
