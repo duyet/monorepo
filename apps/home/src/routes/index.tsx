@@ -14,7 +14,6 @@ import type { ReactNode } from "react";
 import { addUtmParams } from "../../app/lib/utm";
 import { KeyboardFeatures } from "../components/KeyboardFeatures";
 import { SiteFooter, SiteHeader } from "../components/SiteChrome";
-import { HomeAgentsChat } from "../components/HomeAgentsChat";
 import { WorkStackSection } from "../components/WorkStackSection";
 import { type AppItem, apps } from "../data/projects";
 
@@ -29,7 +28,7 @@ const capabilities = [
       "Deep dives into data engineering architecture, distributed systems, AI agents, and lessons learned from scaling open source.",
     href: addUtmParams("https://blog.duyet.net", "homepage", "blog_card"),
     icon: Newspaper,
-    className: "bg-[var(--muted)]",
+    className: "bg-[var(--surface-card)]",
   },
   {
     title: "Resume",
@@ -37,7 +36,7 @@ const capabilities = [
       "Scalable data infrastructure, intelligent applications, and production systems that stay fast as usage grows.",
     href: addUtmParams("https://cv.duyet.net", "homepage", "resume_card"),
     icon: FileUser,
-    className: "bg-[#bfdbfe] dark:bg-blue-900/30",
+    className: "bg-[#f5f0e8] dark:bg-blue-900/20",
   },
   {
     title: "Insights",
@@ -49,7 +48,7 @@ const capabilities = [
       "insights_card"
     ),
     icon: ChartNoAxesCombined,
-    className: "bg-[#a7f3d0] dark:bg-emerald-900/30",
+    className: "bg-[#e8e0d2] dark:bg-emerald-900/20",
   },
   {
     title: "About",
@@ -57,7 +56,7 @@ const capabilities = [
       "Clear project surfaces for Rust, ClickHouse, MCP tools, AI agents, and the small systems that make them useful.",
     href: "/about",
     icon: UserRound,
-    className: "bg-[#fecaca] dark:bg-rose-900/30",
+    className: "bg-[var(--surface-card)]",
   },
 ];
 
@@ -185,7 +184,7 @@ function HomePage() {
               className="group flex flex-col items-center justify-center overflow-hidden rounded-2xl bg-[var(--primary)] px-10 py-12 text-center text-white transition-transform hover:scale-[1.01] active:scale-[0.99] lg:py-20"
             >
               <h3 className="font-serif text-3xl sm:text-5xl lg:text-[64px]">
-                Looking for a link?
+                https://duyet.net/ls
               </h3>
               <p className="mt-4 text-lg text-white/90 lg:text-xl">
                 Browse the complete directory of redirects and short URLs.
@@ -203,102 +202,101 @@ function HomePage() {
   );
 }
 
-
-          function ProjectCard({
-          item,
-          }: {
-          item: AppItem;
-          }) {
-          return (
-          <AppLink
-          item={item}
-          className={`group relative flex aspect-square flex-col justify-end overflow-hidden rounded-xl border border-[var(--border)] p-6 transition-all hover:-translate-y-1 hover:shadow-xl ${item.tone ?? "bg-[var(--muted)]"}`}
-          >
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-          <div className="relative z-10 text-white">
-          <h3 className="font-serif text-xl lg:text-[28px]">
+function ProjectCard({
+  item,
+}: {
+  item: AppItem;
+}) {
+  return (
+    <AppLink
+      item={item}
+      className={`group relative flex aspect-square flex-col justify-end overflow-hidden rounded-xl border border-[var(--border)] p-8 transition-all hover:-translate-y-1 hover:shadow-xl ${item.tone ?? "bg-[var(--muted)]"}`}
+    >
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+      <div className="relative z-10 text-white">
+        <h3 className="font-serif text-xl lg:text-[28px]">
           {item.name}
-          </h3>
-          <p className="mt-2 text-base font-normal leading-snug text-white/90 line-clamp-2">
+        </h3>
+        <p className="mt-2 text-base font-normal leading-snug text-white/90 line-clamp-2">
           {item.description}
-          </p>
-          </div>
-          </AppLink>
-          );
-          }
+        </p>
+      </div>
+    </AppLink>
+  );
+}
 
-          function CapabilityCard({
-          title,
-          description,
-          href,
-          icon: Icon,
-          className,
-          }: {
-          title: string;
-          description: string;
-          href: string;
-          icon: typeof Newspaper;
-          className: string;
-          }) {
-          const isExternal = href.startsWith("http");
-          const children = (
-          <div className="flex h-full flex-col justify-between p-6 lg:p-8">
-          <div className="flex items-start justify-between gap-6">
-          <Icon className="h-8 w-8 shrink-0 lg:h-10 lg:w-10 text-[var(--foreground)] opacity-20" />
-          <span className="font-serif text-lg opacity-40">0{title === "Blog" ? 1 : title === "Resume" ? 2 : title === "Insights" ? 3 : 4}</span>
-          </div>
-          <div className="mt-8">
-          <h3 className="font-serif text-2xl lg:text-[36px]">{title}</h3>
-          <p className="mt-3 text-lg font-normal leading-relaxed text-[var(--body)] lg:text-xl">
+function CapabilityCard({
+  title,
+  description,
+  href,
+  icon: Icon,
+  className,
+}: {
+  title: string;
+  description: string;
+  href: string;
+  icon: typeof Newspaper;
+  className: string;
+}) {
+  const isExternal = href.startsWith("http");
+  const children = (
+    <div className="flex h-full flex-col justify-between p-8">
+      <div className="flex items-start justify-between gap-6">
+        <Icon className="h-10 w-10 shrink-0 lg:h-12 lg:w-12 text-[var(--foreground)] opacity-20" />
+        <span className="font-serif text-xl opacity-40">0{title === "Blog" ? 1 : title === "Resume" ? 2 : title === "Insights" ? 3 : 4}</span>
+      </div>
+      <div className="mt-8">
+        <h3 className="font-serif text-2xl lg:text-[36px]">{title}</h3>
+        <p className="mt-3 text-lg font-normal leading-relaxed text-[var(--body)] lg:text-xl">
           {description}
-          </p>
-          </div>
-          </div>
-          );
+        </p>
+      </div>
+    </div>
+  );
 
-          const classes = cn(
-          "flex min-h-[280px] flex-col rounded-2xl transition-all hover:-translate-y-1 hover:shadow-lg lg:min-h-[320px]",
-          className
-          );
+  const classes = cn(
+    "flex min-h-[320px] flex-col rounded-xl transition-all hover:-translate-y-1 hover:shadow-lg lg:min-h-[400px]",
+    className
+  );
 
-          if (isExternal) {
-          return (
-          <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={classes}
-          >
-          {children}
-          </a>
-          );
-          }
+  if (isExternal) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={classes}
+      >
+        {children}
+      </a>
+    );
+  }
 
-          return (
-          <Link to={href} className={classes}>
-          {children}
-          </Link>
-          );
-          }
+  return (
+    <Link to={href} className={classes}>
+      {children}
+    </Link>
+  );
+}
 
-          function CompactAppCard({ item }: { item: AppItem }) {
-          return (
-          <AppLink
-          item={item}
-          className={`group flex min-h-40 flex-col justify-between rounded-xl border border-[var(--border)] p-6 transition-all hover:bg-[var(--muted)] lg:p-8`}
-          >
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--background)] text-[var(--foreground)] shadow-sm ring-1 ring-[var(--border)]">
-          <Server className="h-5 w-5" />
-          </div>
-          <div>
-          <h3 className="font-serif text-xl tracking-tight lg:text-[28px]">{item.name}</h3>
-          <p className="mt-1 text-base font-normal leading-snug text-[var(--muted-foreground)]">
+function CompactAppCard({ item }: { item: AppItem }) {
+  return (
+    <AppLink
+      item={item}
+      className={`group flex min-h-40 flex-col justify-between rounded-xl border border-[var(--border)] p-8 transition-all hover:bg-[var(--muted)]`}
+    >
+      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--background)] text-[var(--foreground)] shadow-sm ring-1 ring-[var(--border)]">
+        <Server className="h-5 w-5" />
+      </div>
+      <div>
+        <h3 className="font-serif text-xl tracking-tight lg:text-[28px]">{item.name}</h3>
+        <p className="mt-1 text-base font-normal leading-snug text-[var(--muted-foreground)]">
           {item.description}
-          </p>
-          </div>
-          </AppLink>
-          );
-          }
+        </p>
+      </div>
+    </AppLink>
+  );
+}
 
 function AppLink({
   item,
@@ -330,4 +328,3 @@ function AppLink({
     </Link>
   );
 }
-
