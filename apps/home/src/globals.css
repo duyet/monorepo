@@ -54,7 +54,7 @@
 
   html {
     font-family: var(--font-inter);
-    font-size: 18px; /* Slightly larger base font for "Big text" */
+    font-size: 16px; 
   }
 
   body {
@@ -69,14 +69,18 @@
   h1, h2, h3, h4, h5, .font-serif {
     font-family: var(--font-serif);
     font-weight: 400;
-    letter-spacing: -0.02em;
   }
+
+  h1 { letter-spacing: -1.5px; line-height: 1.05; }
+  h2 { letter-spacing: -1px; line-height: 1.1; }
+  h3 { letter-spacing: -0.5px; line-height: 1.15; }
+  h4 { letter-spacing: -0.3px; line-height: 1.2; }
 
   /* Target Header branding text from @duyet/components */
   header a span[class*="font-semibold"] {
     font-family: var(--font-serif);
-    font-weight: 500;
-    font-size: 1.4rem;
+    font-weight: 400;
+    font-size: 1.25rem;
     letter-spacing: -0.01em;
   }
 
