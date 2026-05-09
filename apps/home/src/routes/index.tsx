@@ -73,27 +73,40 @@ function HomePage() {
         <main className="relative z-10">
           {/* Hero Section */}
           <section className="mx-auto max-w-[1200px] px-6 py-12 sm:px-10 md:py-16 lg:py-20 xl:py-24">
-            <div className="max-w-[920px] space-y-6">
-              <h1 className="font-serif text-5xl leading-tight sm:text-6xl lg:text-[64px]">
-                Meet your <span className="text-[var(--primary)] italic">thinking partner</span> in Data & AI.
-              </h1>
-              <p className="max-w-[620px] text-lg font-normal leading-relaxed text-[var(--body)] sm:text-xl lg:text-[22px] lg:leading-snug">
-                Building scalable data infrastructure and intelligent systems that feel human, written with clarity and engineered for production.
+            <div className="max-w-[920px] space-y-8">
+              <div className="space-y-4">
+                <p className="font-serif text-xl italic text-[var(--primary)] lg:text-2xl">
+                  Duyet Le
+                </p>
+                <h1 className="font-serif text-5xl leading-tight sm:text-6xl lg:text-[72px] xl:text-[84px]">
+                  Data Engineer & <br />
+                  <span className="text-[var(--primary)] italic">
+                    AI Agent Engineer
+                  </span>
+                </h1>
+              </div>
+              <p className="max-w-[680px] text-lg font-normal leading-relaxed text-[var(--body)] sm:text-xl lg:text-[24px] lg:leading-snug">
+                I build scalable data infrastructure and intelligent systems that
+                feel human — engineered with clarity for production at scale.
               </p>
-              <div className="flex flex-wrap gap-4 pt-2">
+              <div className="flex flex-wrap gap-4 pt-4">
                 <Link
                   to="/about"
-                  className="inline-flex h-12 items-center justify-center rounded-lg bg-[var(--primary)] px-6 text-base font-medium text-white transition-colors hover:bg-[var(--primary-active)]"
+                  className="inline-flex h-12 items-center justify-center rounded-lg bg-[var(--primary)] px-6 text-base font-medium text-white transition-all hover:bg-[var(--primary-active)] hover:shadow-lg active:scale-95"
                 >
-                  Learn about my work
+                  About me
                 </Link>
                 <a
-                  href={addUtmParams("https://github.com/duyet", "homepage", "hero_cta")}
+                  href={addUtmParams(
+                    "https://github.com/duyet",
+                    "homepage",
+                    "hero_cta"
+                  )}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-12 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--background)] px-6 text-base font-medium transition-colors hover:bg-[var(--muted)]"
+                  className="inline-flex h-12 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--background)] px-6 text-base font-medium transition-all hover:bg-[var(--muted)] active:scale-95"
                 >
-                  View GitHub
+                  GitHub
                 </a>
               </div>
             </div>
@@ -101,9 +114,9 @@ function HomePage() {
 
           {/* Capabilities Section */}
           <section className="mx-auto max-w-[1200px] px-6 py-12 sm:px-10 lg:py-20">
-            <div className="mb-10">
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-[48px]">
-                Explore the network.
+            <div className="mb-12">
+              <h2 className="font-serif text-4xl sm:text-5xl lg:text-[56px]">
+                Network.
               </h2>
             </div>
 
@@ -132,54 +145,50 @@ function HomePage() {
             id="apps"
             className="mx-auto max-w-[1200px] px-6 py-12 sm:px-10 lg:py-20"
           >
-            <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <div className="mb-12 flex flex-col justify-between gap-4 md:flex-row md:items-end">
               <div>
-                <h2 className="font-serif text-3xl sm:text-4xl lg:text-[48px]">
-                  Apps
+                <h2 className="font-serif text-4xl sm:text-5xl lg:text-[56px]">
+                  Apps.
                 </h2>
-                <p className="mt-2 text-lg font-medium text-[var(--muted-foreground)] lg:text-xl">
-                  A curated collection of production tools, experimental interfaces, and data systems.
+                <p className="mt-4 max-w-xl text-lg font-medium text-[var(--muted-foreground)] lg:text-xl">
+                  A curated collection of production tools, experimental
+                  interfaces, and data systems managed by <span className="text-[var(--foreground)]">@duyetbot</span>.
                 </p>
-              </div>
-              <div className="flex items-center gap-2 text-sm font-medium text-[var(--muted-foreground)]">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--muted)] text-[var(--foreground)] text-[8px]">
-                  ✱
-                </span>
-                Managed by @duyetbot
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
               {apps.map((item) => (
                 <AppRow key={item.name} item={item} />
               ))}
             </div>
 
-            <div className="mt-10 flex justify-center">
+            <div className="mt-12 flex justify-center">
               <Link
                 to="/projects"
-                className="group inline-flex items-center gap-2 font-serif text-lg hover:text-[var(--primary)] transition-colors lg:text-xl"
+                className="group inline-flex items-center gap-2 font-serif text-xl hover:text-[var(--primary)] transition-colors lg:text-2xl"
               >
                 View all artifacts
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
           </section>
 
           {/* Footer Callout (Coral Band) */}
-          <section className="mx-auto max-w-[1200px] px-6 pb-16 sm:px-10">
+          <section className="mx-auto max-w-[1200px] px-6 pb-20 sm:px-10">
             <Link
               to="/ls"
-              className="group flex flex-col items-center justify-center overflow-hidden rounded-2xl bg-[var(--primary)] px-10 py-12 text-center text-white transition-transform hover:scale-[1.01] active:scale-[0.99] lg:py-20"
+              className="group flex flex-col items-center justify-center overflow-hidden rounded-2xl bg-[var(--primary)] px-10 py-16 text-center text-white transition-all hover:scale-[1.01] active:scale-[0.99] lg:py-24"
             >
-              <h3 className="font-serif text-3xl sm:text-5xl lg:text-[64px]">
-                https://duyet.net/ls
+              <h3 className="font-serif text-4xl sm:text-5xl lg:text-[72px]">
+                duyet.net/ls
               </h3>
-              <p className="mt-4 text-lg text-white/90 lg:text-xl">
-                Browse the complete directory of redirects and short URLs.
+              <p className="mt-6 max-w-lg text-lg text-white/90 lg:text-xl">
+                Browse the complete directory of redirects, short URLs, and
+                connected apps in the network.
               </p>
-              <div className="mt-8 flex h-12 w-12 items-center justify-center rounded-full bg-white text-[var(--primary)] transition-transform group-hover:rotate-45">
-                <ArrowRight className="h-6 w-6" />
+              <div className="mt-10 flex h-14 w-14 items-center justify-center rounded-full bg-white text-[var(--primary)] transition-transform group-hover:rotate-45">
+                <ArrowRight className="h-7 w-7" />
               </div>
             </Link>
           </section>

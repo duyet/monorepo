@@ -304,7 +304,6 @@ function IndexPage() {
         <MetricTile
           icon={Eye}
           label="Page views"
-          tone="#f3eee6"
           value={formatNumber(
             data.cloudflare.totalPageviews || data.posthog.totalViews
           )}
@@ -312,19 +311,16 @@ function IndexPage() {
         <MetricTile
           icon={Bot}
           label="AI tokens"
-          tone="#bfdbfe"
           value={formatCompact(data.aiMetrics.totalTokens)}
         />
         <MetricTile
           icon={Clock3}
           label="Coding hours"
-          tone="#a7f3d0"
           value={formatNumber(data.wakaMetrics.totalHours)}
         />
         <MetricTile
           icon={Zap}
           label="AI cost"
-          tone="#fecaca"
           value={formatCurrency(data.aiMetrics.totalCost)}
         />
       </section>
@@ -335,21 +331,18 @@ function IndexPage() {
           label="AI top model"
           metric={data.aiMetrics.topModel}
           summary={`${formatCompact(data.aiMetrics.cacheTokens)} cache tokens across ${data.aiMetrics.activeDays} active days.`}
-          tone="#bfdbfe"
         />
         <FlatStatusCard
           icon={Code2}
           label="Human coding"
           metric={data.wakaMetrics.topLanguage}
           summary={`${formatNumber(data.wakaMetrics.avgDailyHours)} average hours per active day.`}
-          tone="#a7f3d0"
         />
         <FlatStatusCard
           icon={BarChart3}
           label="Traffic requests"
           metric={formatNumber(data.cloudflare.totalRequests)}
           summary="Cloudflare request volume for current overview period."
-          tone="#f3eee6"
         />
       </section>
 
@@ -432,7 +425,7 @@ function IndexPage() {
         </ChartPanel>
       </section>
 
-      <section className="grid gap-4 rounded-xl bg-[#f3eee6] p-5 md:grid-cols-3">
+      <section className="grid gap-4 rounded-xl bg-[var(--surface-card)] border border-[var(--border)] p-6 md:grid-cols-3">
         <SourceNote
           icon={Globe2}
           label="Cloudflare + PostHog"
@@ -460,24 +453,21 @@ function settled<T>(result: PromiseSettledResult<T>, fallback: T): T {
 function MetricTile({
   icon: Icon,
   label,
-  tone,
   value,
 }: {
   icon: typeof Eye;
   label: string;
-  tone: string;
   value: string;
 }) {
   return (
     <div
-      className="min-w-0 rounded-xl p-5 text-[#1a1a1a] transition-transform hover:-translate-y-0.5"
-      style={{ backgroundColor: tone }}
+      className="min-w-0 rounded-xl bg-[var(--surface-card)] p-5 text-[#1a1a1a] transition-transform hover:-translate-y-0.5 border border-[var(--border)]"
     >
       <div className="flex items-center justify-between gap-3">
         <p className="text-sm font-medium text-black/65">{label}</p>
-        <Icon className="h-4 w-4 shrink-0" />
+        <Icon className="h-4 w-4 shrink-0 opacity-40" />
       </div>
-      <p className="mt-8 truncate text-2xl font-semibold tracking-tight">
+      <p className="mt-8 truncate text-3xl font-serif tracking-tight">
         {value}
       </p>
     </div>
@@ -489,29 +479,26 @@ function FlatStatusCard({
   label,
   metric,
   summary,
-  tone,
 }: {
   icon: typeof Eye;
   label: string;
   metric: string;
   summary: string;
-  tone: string;
 }) {
   return (
     <div
-      className="flex min-h-44 flex-col rounded-xl p-5 text-[#1a1a1a] transition-transform hover:-translate-y-0.5"
-      style={{ backgroundColor: tone }}
+      className="flex min-h-44 flex-col rounded-xl bg-[var(--surface-dark)] p-6 text-[var(--on-dark)] transition-transform hover:-translate-y-0.5 border border-white/5 shadow-md"
     >
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-sm font-medium text-black/60">{label}</p>
-          <h2 className="mt-3 break-words text-2xl font-semibold tracking-tight">
+          <p className="text-sm font-medium text-[var(--on-dark-soft)]">{label}</p>
+          <h2 className="mt-3 break-words text-3xl font-serif tracking-tight">
             {metric}
           </h2>
         </div>
-        <Icon className="h-6 w-6 shrink-0" />
+        <Icon className="h-6 w-6 shrink-0 opacity-50" />
       </div>
-      <p className="mt-auto text-sm leading-6 text-black/70">{summary}</p>
+      <p className="mt-auto pt-4 text-sm leading-6 text-[var(--on-dark-soft)] opacity-80">{summary}</p>
     </div>
   );
 }
@@ -528,15 +515,15 @@ function ChartPanel({
   title: string;
 }) {
   return (
-    <div className="rounded-xl bg-white p-5">
-      <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
+    <div className="rounded-xl bg-[var(--surface-card)] border border-[var(--border)] p-6 shadow-sm">
+      <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div className="min-w-0">
-          <p className="text-sm font-medium text-[#ff6a00]">{eyebrow}</p>
-          <h2 className="mt-1 text-2xl font-semibold tracking-tight">
+          <p className="font-serif text-lg italic text-[var(--primary)]">{eyebrow}</p>
+          <h2 className="mt-1 text-3xl font-serif tracking-tight text-[var(--foreground)]">
             {title}
           </h2>
         </div>
-        <p className="max-w-md text-sm leading-6 text-black/60">
+        <p className="max-w-md text-base leading-snug text-[var(--muted-foreground)]">
           {subtitle}
         </p>
       </div>
@@ -557,23 +544,23 @@ function ListPanel({
   title: string;
 }) {
   return (
-    <div className="rounded-xl bg-white p-5 text-[#1a1a1a]">
-      <p className="text-sm font-medium text-[#ff6a00]">{eyebrow}</p>
-      <h2 className="mt-1 text-2xl font-semibold tracking-tight text-[#1a1a1a]">{title}</h2>
-      <div className="mt-6 space-y-4">
+    <div className="rounded-xl bg-[var(--surface-card)] border border-[var(--border)] p-6 shadow-sm text-[var(--foreground)]">
+      <p className="font-serif text-lg italic text-[var(--primary)]">{eyebrow}</p>
+      <h2 className="mt-1 text-3xl font-serif tracking-tight text-[var(--foreground)]">{title}</h2>
+      <div className="mt-8 space-y-5">
         {items.length === 0 ? (
-          <p className="text-sm leading-6 text-[#1a1a1a]/60">{emptyLabel}</p>
+          <p className="text-base leading-snug text-[var(--muted-foreground)]">{emptyLabel}</p>
         ) : (
           items.map((item) => (
             <div
-              className="grid grid-cols-[1fr_auto] gap-4 border-t border-black/10 pt-4 first:border-t-0 first:pt-0"
+              className="grid grid-cols-[1fr_auto] gap-4 border-t border-[var(--border)] pt-5 first:border-t-0 first:pt-0"
               key={item.label}
             >
               <div className="min-w-0">
-                <p className="truncate text-sm font-medium">{item.label}</p>
-                <p className="mt-1 text-xs text-[#1a1a1a]/55">{item.meta}</p>
+                <p className="truncate text-base font-medium">{item.label}</p>
+                <p className="mt-1 text-sm text-[var(--muted-foreground)]">{item.meta}</p>
               </div>
-              <p className="text-sm font-semibold text-[#1a1a1a]">{item.value}</p>
+              <p className="text-base font-serif font-semibold text-[var(--foreground)]">{item.value}</p>
             </div>
           ))
         )}

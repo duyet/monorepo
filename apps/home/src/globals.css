@@ -4,10 +4,10 @@
 
 @layer base {
   :root {
-    --font-inter:
-      "Inter", -apple-system, BlinkMacDesktopFont, ui-sans-serif, system-ui,
-      sans-serif;
-    --font-serif: Garamond, "Apple Garamond", "EB Garamond", serif;
+    --font-inter: "Inter Variable", "Inter", -apple-system, BlinkMacDesktopFont,
+      ui-sans-serif, system-ui, sans-serif;
+    --font-serif: "Cormorant Garamond", Garamond, "Apple Garamond",
+      "EB Garamond", serif;
 
     --background: #faf9f5;
     --foreground: #141413;
@@ -54,7 +54,8 @@
 
   html {
     font-family: var(--font-inter);
-    font-size: 16px; 
+    font-size: 18px;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
@@ -64,16 +65,33 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    line-height: 1.6;
   }
 
-  h1, h2, h3, h4, h5, .font-serif {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  .font-serif {
     font-family: var(--font-serif);
-    font-weight: 400;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--foreground);
   }
 
-  h1 { letter-spacing: -1.5px; line-height: 1.05; }
-  h2 { letter-spacing: -1px; line-height: 1.1; }
-  h3 { letter-spacing: -0.5px; line-height: 1.15; }
+  h1 {
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  h2 {
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  h3 {
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
   h4 { letter-spacing: -0.3px; line-height: 1.2; }
 
   /* Target Header branding text from @duyet/components */
