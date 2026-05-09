@@ -159,11 +159,11 @@ const EMPTY_POSTHOG: PostHogSummary = {
 };
 
 const PANEL_COLORS = [
-  "var(--chart-1)",
-  "var(--chart-2)",
-  "var(--chart-3)",
-  "var(--chart-4)",
-  "var(--chart-5)",
+  "var(--insights-panel-blue)",
+  "var(--insights-panel-emerald)",
+  "var(--insights-panel-coral)",
+  "var(--insights-panel-orange)",
+  "var(--insights-panel-lilac)",
 ];
 const CHART_ORANGE = "var(--insights-chart-accent)";
 const CHART_BLACK = "var(--insights-chart-ink)";

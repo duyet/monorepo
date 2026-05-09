@@ -82,12 +82,12 @@ function About() {
   return (
     <div className="mx-auto max-w-[1280px] px-5 py-16 sm:px-8 sm:py-24 lg:px-10">
       {/* Header */}
-      <div className="mx-auto mb-12 max-w-[820px] text-center">
-        <h1 className="mb-6 text-4xl font-semibold tracking-tight text-[#1a1a1a] dark:text-[#f8f8f2] sm:text-5xl lg:text-6xl">
+      <div className="mx-auto mb-16 max-w-[820px] text-center sm:mb-24">
+        <h1 className="mb-6 font-serif text-4xl tracking-[-0.5px] text-[var(--ink)] dark:text-[var(--on-dark)] sm:text-5xl lg:text-[56px] lg:tracking-[-1px]">
           About
         </h1>
-        <p className="mx-auto max-w-3xl text-lg leading-relaxed text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
-          <strong className="font-semibold text-[#1a1a1a] dark:text-[#f8f8f2]">
+        <p className="mx-auto max-w-3xl text-lg leading-relaxed text-[var(--body)] dark:text-[var(--muted)]">
+          <strong className="font-medium text-[var(--body-strong)] dark:text-[var(--on-dark)]">
             Data Engineer
           </strong>{" "}
           with 6+ years of experience. I am confident in my knowledge of Data
@@ -140,22 +140,22 @@ function About() {
       </div>
 
       {/* Skills Section */}
-      <div className="mx-auto max-w-[820px] rounded-xl bg-[#f8f8f2] p-8 dark:bg-[#0d0e0c] sm:p-12">
-        <h2 className="mb-6 text-2xl font-semibold text-[#1a1a1a] dark:text-[#f8f8f2] sm:text-3xl">
+      <div className="mx-auto max-w-[820px] rounded-xl bg-[var(--surface-card)] p-8 dark:bg-[var(--surface-dark)] sm:p-12">
+        <h2 className="mb-6 font-serif text-2xl tracking-[-0.3px] text-[var(--ink)] dark:text-[var(--on-dark)] sm:text-3xl">
           Skills & Stacks
         </h2>
         <div className="flex flex-wrap gap-3">
           {skills.map(({ name, link }) => (
             <span
               key={name}
-              className="inline-block rounded-full bg-white px-5 py-2 text-sm font-medium text-[#1a1a1a] dark:bg-white/10 dark:text-[#f8f8f2]/70"
+              className="inline-block rounded-full bg-[var(--background-primary)] px-5 py-2 text-sm font-medium text-[var(--ink)] dark:bg-white/10 dark:text-[var(--on-dark-soft)]"
             >
               {link ? (
                 <a
                   href={link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[#1a1a1a]/65 dark:hover:text-[#f8f8f2]"
+                  className="hover:text-[var(--muted)] dark:hover:text-[var(--on-dark)]"
                 >
                   {name}
                 </a>

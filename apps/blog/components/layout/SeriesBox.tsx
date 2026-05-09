@@ -20,39 +20,38 @@ export function SeriesBox({
   return (
     <div
       className={cn(
-        "rounded-xl border border-[var(--hairline)] bg-[var(--background)] p-6 dark:border-white/10 dark:bg-[var(--surface-dark)] sm:p-8",
-        isDarkTone && "border-white/15 bg-[var(--surface-dark)] text-[var(--on-dark)] dark:bg-[var(--surface-dark)]",
+        "rounded-lg border border-[var(--hairline)] bg-[var(--surface-card)] p-8 dark:bg-[var(--surface-card)]",
+        isDarkTone && "border-white/15 bg-[var(--surface-dark)] text-[var(--on-dark)]",
         className
       )}
     >
       <h2
         className={cn(
-          "mb-6 flex flex-row items-center gap-3 text-2xl font-semibold tracking-tight md:text-3xl",
-          isDarkTone ? "text-[var(--on-dark)]" : "text-[var(--foreground)] dark:text-[var(--on-dark)]"
+          "mb-6 flex flex-row items-center gap-3 font-serif text-2xl tracking-[-0.3px] text-[var(--ink)] dark:text-[var(--on-dark)] md:text-3xl"
         )}
       >
-        <NewspaperIcon size={28} strokeWidth={2} />
+        <NewspaperIcon size={24} strokeWidth={1.5} className="text-[var(--muted)]" />
         Series:{" "}
         <a
-          className="underline-offset-4 hover:underline"
+          className="underline-offset-4 hover:text-[var(--primary)] hover:underline transition-colors"
           href={`/series/${series.slug}`}
         >
           {name}
         </a>
       </h2>
 
-      <div className="grid grid-cols-1 gap-2">
+      <div className="grid grid-cols-1 gap-3">
         {posts.map(({ slug, title, excerpt }) => {
           const isCurrent = current === slug;
           return (
             <div
               className={cn(
-                "flex items-center gap-4 rounded-lg p-3 transition-colors sm:gap-5 sm:p-4",
+                "rounded-md p-4 transition-colors",
                 isCurrent
                   ? isDarkTone
                     ? "bg-white/12"
-                    : "bg-[var(--background)] dark:bg-[var(--surface-dark-soft)]"
-                  : ""
+                    : "bg-[var(--background-primary)] dark:bg-[var(--surface-dark-soft)]"
+                  : "hover:bg-[var(--background-primary)]/50 dark:hover:bg-[var(--surface-dark-soft)]/50"
               )}
               key={slug}
             >
@@ -60,10 +59,7 @@ export function SeriesBox({
                 {isCurrent ? (
                   <span
                     className={cn(
-                      "line-clamp-1 text-base font-semibold",
-                      isDarkTone
-                        ? "text-[var(--on-dark)]"
-                        : "text-[var(--foreground)] dark:text-[var(--on-dark)]"
+                      "line-clamp-1 text-base font-medium text-[var(--ink)] dark:text-[var(--on-dark)]"
                     )}
                   >
                     {title}
@@ -71,10 +67,7 @@ export function SeriesBox({
                 ) : (
                   <a
                     className={cn(
-                      "line-clamp-1 text-base font-medium transition-colors hover:underline hover:underline-offset-4",
-                      isDarkTone
-                        ? "text-white/80 hover:text-white"
-                        : "text-[#1a1a1a]/80 hover:text-[#1a1a1a] dark:text-[#f8f8f2]/80 dark:hover:text-[#f8f8f2]"
+                      "line-clamp-1 text-base font-medium text-[var(--body-strong)] hover:text-[var(--primary)] transition-colors dark:text-[var(--on-dark-soft)] dark:hover:text-[var(--primary)]"
                     )}
                     href={slug}
                   >
@@ -84,14 +77,7 @@ export function SeriesBox({
 
                 <p
                   className={cn(
-                    "line-clamp-1 text-sm",
-                    isDarkTone
-                      ? isCurrent
-                        ? "text-white/74"
-                        : "text-white/62"
-                      : isCurrent
-                        ? "text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70"
-                        : "text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55"
+                    "line-clamp-1 mt-1 text-sm text-[var(--muted)] dark:text-[var(--on-dark-soft)]"
                   )}
                 >
                   {excerpt}
