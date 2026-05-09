@@ -15,13 +15,14 @@ export function SeriesBox({
 }) {
   if (!series) return null;
   const { name, posts } = series;
-  const isDarkTone = tone === "dark";
+
+  // Tone parameter kept for API compatibility with downstream consumers
+  void tone;
 
   return (
     <div
       className={cn(
-        "rounded-lg border border-[var(--hairline)] bg-[var(--surface-card)] p-8 dark:bg-[var(--surface-card)]",
-        isDarkTone && "border-white/15 bg-[var(--surface-dark)] text-[var(--on-dark)]",
+        "rounded-lg border border-[var(--hairline)] p-8 dark:border-white/10",
         className
       )}
     >
@@ -30,7 +31,7 @@ export function SeriesBox({
           "mb-6 flex flex-row items-center gap-3 font-serif text-2xl tracking-[-0.3px] text-[var(--ink)] dark:text-[var(--on-dark)] md:text-3xl"
         )}
       >
-        <NewspaperIcon size={24} strokeWidth={1.5} className="text-[var(--muted)]" />
+        <NewspaperIcon size={24} strokeWidth={1.5} className="text-[var(--muted)] dark:text-[var(--on-dark-soft)]" />
         Series:{" "}
         <a
           className="underline-offset-4 hover:text-[var(--primary)] hover:underline transition-colors"
@@ -46,12 +47,8 @@ export function SeriesBox({
           return (
             <div
               className={cn(
-                "rounded-md p-4 transition-colors",
-                isCurrent
-                  ? isDarkTone
-                    ? "bg-white/12"
-                    : "bg-[var(--background-primary)] dark:bg-[var(--surface-dark-soft)]"
-                  : "hover:bg-[var(--background-primary)]/50 dark:hover:bg-[var(--surface-dark-soft)]/50"
+                "rounded-md bg-white/60 p-4 transition-colors dark:bg-black/20",
+                isCurrent && "bg-white/80 dark:bg-black/30"
               )}
               key={slug}
             >

@@ -17,6 +17,16 @@ export const Route = createFileRoute("/series")({
   component: SeriesPage,
 });
 
+const seriesBackgrounds = [
+  "bg-cactus dark:bg-[#252320]",
+  "bg-oat dark:bg-[#1f1e1b]",
+  "bg-clay dark:bg-[#3f2f1f]",
+  "bg-sky dark:bg-[#2a2824]",
+  "bg-heather dark:bg-[#2a2830]",
+  "bg-fig dark:bg-[#3f1f2f]",
+  "bg-olive dark:bg-[#1f2f1f]",
+];
+
 function SeriesPage() {
   const hasChild = useMatches().some((m) => m.id === "/series/$slug");
   if (hasChild) return <Outlet />;
@@ -36,13 +46,18 @@ function SeriesPage() {
         </div>
       </div>
       <div className="mx-auto grid max-w-5xl grid-cols-1 gap-5">
-        {seriesList.map((series: Series) => (
-          <SeriesBox
-            key={series.slug}
-            series={series}
-            tone="light"
-          />
-        ))}
+        {seriesList.map((series: Series, index: number) => {
+          const bgClass = seriesBackgrounds[index % seriesBackgrounds.length];
+
+          return (
+            <SeriesBox
+              key={series.slug}
+              series={series}
+              tone="light"
+              className={bgClass}
+            />
+          );
+        })}
       </div>
     </div>
   );
