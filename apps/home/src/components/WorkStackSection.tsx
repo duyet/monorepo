@@ -45,7 +45,7 @@ export function WorkStackSection({ repositoryUrl }: WorkStackSectionProps) {
             <p className="mb-4 font-serif text-xl italic text-[var(--primary)] lg:text-2xl">
               Focus
             </p>
-            <h2 className="font-serif text-4xl leading-tight sm:text-5xl lg:text-[56px]">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-[48px]">
               Practical engineering, written down clearly.
             </h2>
           </div>

@@ -33,7 +33,7 @@ function HomePage() {
     <Container className="mx-auto max-w-[1200px] px-5 sm:px-8 lg:px-10">
       {/* Large serif hero */}
       <div className="pt-16 sm:pt-24 lg:pt-32">
-        <h1 className="font-serif text-[48px] font-normal leading-[1.05] tracking-[-1px] text-[var(--foreground)] sm:text-[64px] sm:tracking-[-1.5px]">
+        <h1 className="font-serif text-[48px] font-normal tracking-[-1px] text-[var(--foreground)] sm:text-[64px] sm:tracking-[-1.5px]">
           Notes on data,
           <br />
           systems &amp; engineering

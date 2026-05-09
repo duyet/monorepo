@@ -26,6 +26,16 @@
     background-color: var(--background);
     color: var(--foreground);
   }
+
+  h1, h2, h3, h4, h5, .font-serif {
+    font-family: var(--font-serif);
+    font-weight: 400;
+  }
+
+  h1 { letter-spacing: -1.5px; line-height: 1.05; }
+  h2 { letter-spacing: -1px; line-height: 1.1; }
+  h3 { letter-spacing: -0.5px; line-height: 1.15; }
+  h4 { letter-spacing: -0.3px; line-height: 1.2; }
 }
 
 :root {

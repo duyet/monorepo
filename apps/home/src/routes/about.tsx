@@ -137,13 +137,13 @@ function AboutPage() {
         <SiteHeader />
 
       <main className="relative z-10 rounded-b-3xl bg-[var(--background)] pb-20 2xl:rounded-b-[4rem]">
-        <section className="mx-auto max-w-[1280px] px-5 py-14 sm:px-8 md:py-18 lg:px-10 lg:py-24 xl:py-28">
+        <section className="mx-auto max-w-[1200px] px-6 py-12 sm:px-10 md:py-16 lg:py-20 xl:py-24">
           <p className="mb-6 font-serif text-xl italic text-[var(--primary)] lg:text-2xl">
             About
           </p>
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.55fr)] lg:items-end">
             <div className="max-w-[880px] space-y-8">
-              <h1 className="font-serif text-5xl leading-tight sm:text-6xl lg:text-[72px] xl:text-[84px]">
+              <h1 className="font-serif text-5xl sm:text-6xl lg:text-[72px] xl:text-[84px]">
                 Building data and AI systems that <span className="text-[var(--primary)] italic">stay useful</span> in production.
               </h1>
               <p className="max-w-[680px] text-xl font-normal leading-relaxed text-[var(--body)] lg:text-2xl">
@@ -166,7 +166,7 @@ function AboutPage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
+        <section className="mx-auto max-w-[1200px] px-6 sm:px-10">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
             {links.map((item) => {
               const Icon = item.icon;
@@ -201,7 +201,7 @@ function AboutPage() {
           )}
         />
 
-        <section className="mx-auto mt-24 max-w-[1280px] px-5 sm:px-8 lg:mt-32 lg:px-10 xl:mt-40">
+        <section className="mx-auto mt-24 max-w-[1200px] px-6 pb-20 sm:px-10 lg:mt-32 lg:pb-32">
           <div className="grid gap-5 rounded-xl bg-[var(--muted)] p-6 md:grid-cols-[1fr_auto] md:items-center lg:p-8">
             <div className="flex items-start gap-4">
               <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-[var(--foreground)] text-[var(--background)]">

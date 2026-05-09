@@ -246,7 +246,7 @@ function AppRow({
         <Server className="h-6 w-6" />
       </div>
       <div className="min-w-0 pt-1">
-        <h3 className="font-serif text-xl leading-snug tracking-tight group-hover:text-[var(--primary)] transition-colors">
+        <h3 className="font-serif text-xl tracking-tight group-hover:text-[var(--primary)] transition-colors">
           {item.name}
         </h3>
         <p className="mt-2 text-[15px] font-normal leading-relaxed text-[var(--muted-foreground)] line-clamp-2">

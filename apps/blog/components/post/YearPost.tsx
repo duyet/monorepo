@@ -14,7 +14,7 @@ export function YearPost({ year, posts, className }: YearPostProps) {
 
   return (
     <div className={cn(className)}>
-      <h2 className="mb-4 font-serif text-[36px] font-normal leading-[1.15] tracking-[-0.5px] text-[var(--foreground)]">
+      <h2 className="mb-4 font-serif text-[36px] font-normal tracking-[-0.5px] text-[var(--foreground)]">
         {year}
       </h2>
 

@@ -45,7 +45,7 @@ export function OverviewDashboard({
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
           Insights
         </p>
-        <h1 className="text-4xl font-semibold leading-[0.98] tracking-tight sm:text-5xl lg:text-6xl">
+        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
           Dashboard overview
         </h1>
         <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">

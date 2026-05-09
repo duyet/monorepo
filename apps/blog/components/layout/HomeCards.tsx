@@ -52,7 +52,7 @@ export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
           <span className="text-sm font-medium text-[#1a1a1a]/65 dark:text-[#f8f8f2]/65">
             {card.category}
           </span>
-          <h3 className="mt-5 text-lg font-semibold leading-tight tracking-tight text-[var(--foreground)] dark:text-[var(--on-dark)] md:text-xl">
+          <h3 className="mt-5 text-lg font-semibold tracking-tight text-[var(--foreground)] dark:text-[var(--on-dark)] md:text-xl">
             {card.title}
           </h3>
           <p className="mt-2 text-sm font-medium leading-snug text-[#1a1a1a]/80 dark:text-[#f8f8f2]/80">
