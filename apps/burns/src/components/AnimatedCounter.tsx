@@ -43,7 +43,7 @@ export function AnimatedCounter({ target, duration = 700 }: AnimatedCounterProps
       style={{
         display: "block",
         textAlign: "center",
-        fontFamily: "var(--serif)",
+        fontFamily: "Garamond, 'Apple Garamond', 'EB Garamond', serif",
         fontWeight: 400,
         letterSpacing: "-0.03em",
         lineHeight: 1.05,
