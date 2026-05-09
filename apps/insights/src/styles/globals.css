@@ -93,11 +93,6 @@
   /* Insights-specific chart tokens */
   --insights-chart-accent: #cc785c;
   --insights-chart-ink: #141413;
-  --insights-panel-blue: #cfe2f3;
-  --insights-panel-emerald: #b8efd2;
-  --insights-panel-coral: #f6c5c7;
-  --insights-panel-orange: #fde3bf;
-  --insights-panel-lilac: #ded1ea;
 
   /* Sidebar */
   --sidebar: #faf9f5;
@@ -155,11 +150,6 @@
   /* Insights-specific chart tokens (dark) */
   --insights-chart-accent: #d98d73;
   --insights-chart-ink: #faf9f5;
-  --insights-panel-blue: #87a7c5;
-  --insights-panel-emerald: #79c49f;
-  --insights-panel-coral: #d88b91;
-  --insights-panel-orange: #d8a86d;
-  --insights-panel-lilac: #b69ac8;
 
   /* Sidebar (dark) */
   --sidebar: #181715;

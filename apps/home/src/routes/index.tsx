@@ -174,6 +174,38 @@ function HomePage() {
             </div>
           </section>
 
+          {/* Contact Section */}
+          <section className="mx-auto max-w-[1200px] px-6 py-12 sm:px-10 lg:py-20">
+            <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+              <div className="max-w-xl">
+                <h2 className="font-serif text-4xl sm:text-5xl lg:text-[56px]">
+                  Let’s build.
+                </h2>
+                <p className="mt-4 text-xl text-[var(--muted-foreground)] lg:text-2xl">
+                  Interested in data infrastructure, AI agents, or open source
+                  collaboration? I’m always open to discussing new projects and
+                  ideas.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href="mailto:me@duyet.net"
+                  className="inline-flex h-14 items-center justify-center rounded-xl bg-[var(--foreground)] px-8 text-lg font-medium text-[var(--background)] transition-all hover:bg-[var(--foreground)]/90 hover:shadow-lg active:scale-95"
+                >
+                  Send an email
+                </a>
+                <a
+                  href="https://linkedin.com/in/duyet"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-14 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--background)] px-8 text-lg font-medium transition-all hover:bg-[var(--muted)] active:scale-95"
+                >
+                  LinkedIn
+                </a>
+              </div>
+            </div>
+          </section>
+
           {/* Footer Callout (Coral Band) */}
           <section className="mx-auto max-w-[1200px] px-6 pb-20 sm:px-10">
             <Link
@@ -208,16 +240,16 @@ function AppRow({
   return (
     <AppLink
       item={item}
-      className="group flex items-start gap-4 rounded-xl border border-[var(--border)] p-4 transition-all hover:bg-[var(--surface-card)] hover:shadow-sm"
+      className="group flex items-start gap-4 rounded-xl border border-[var(--border)] p-5 transition-all hover:bg-[var(--surface-soft)] hover:shadow-md"
     >
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[var(--background)] text-[var(--foreground)] shadow-sm ring-1 ring-[var(--border)] group-hover:bg-[var(--primary)] group-hover:text-white transition-colors">
-        <Server className="h-5 w-5" />
+      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-[var(--background)] text-[var(--foreground)] shadow-sm ring-1 ring-[var(--border)] group-hover:bg-[var(--primary)] group-hover:text-white transition-all group-hover:scale-110">
+        <Server className="h-6 w-6" />
       </div>
-      <div className="min-w-0">
-        <h3 className="font-serif text-lg leading-snug tracking-tight group-hover:text-[var(--primary)] transition-colors">
+      <div className="min-w-0 pt-1">
+        <h3 className="font-serif text-xl leading-snug tracking-tight group-hover:text-[var(--primary)] transition-colors">
           {item.name}
         </h3>
-        <p className="mt-1 text-sm font-normal leading-relaxed text-[var(--muted-foreground)] line-clamp-2">
+        <p className="mt-2 text-[15px] font-normal leading-relaxed text-[var(--muted-foreground)] line-clamp-2">
           {item.description}
         </p>
       </div>
@@ -240,14 +272,14 @@ function CapabilityCard({
 }) {
   const isExternal = href.startsWith("http");
   const children = (
-    <div className="flex h-full flex-col justify-between p-6 lg:p-7">
+    <div className="flex h-full flex-col justify-between p-8 lg:p-10">
       <div className="flex items-start justify-between gap-4">
-        <Icon className="h-7 w-7 shrink-0 lg:h-8 lg:w-8 text-[var(--foreground)] opacity-20" />
-        <span className="font-serif text-lg opacity-40">0{title === "Blog" ? 1 : title === "Resume" ? 2 : title === "Insights" ? 3 : 4}</span>
+        <Icon className="h-8 w-8 shrink-0 lg:h-10 lg:w-10 text-[var(--foreground)] opacity-20" />
+        <span className="font-serif text-xl opacity-40">0{title === "Blog" ? 1 : title === "Resume" ? 2 : title === "Insights" ? 3 : 4}</span>
       </div>
-      <div className="mt-6">
-        <h3 className="font-serif text-xl lg:text-[28px]">{title}</h3>
-        <p className="mt-2 text-base font-normal leading-snug text-[var(--body)] lg:text-lg">
+      <div className="mt-8">
+        <h3 className="font-serif text-2xl lg:text-[32px]">{title}</h3>
+        <p className="mt-3 text-lg font-normal leading-snug text-[var(--body)] lg:text-xl">
           {description}
         </p>
       </div>
@@ -255,7 +287,7 @@ function CapabilityCard({
   );
 
   const classes = cn(
-    "flex min-h-[220px] flex-col rounded-xl transition-all hover:-translate-y-1 hover:shadow-lg lg:min-h-[240px]",
+    "flex min-h-[240px] flex-col rounded-2xl transition-all hover:-translate-y-2 hover:shadow-xl lg:min-h-[280px]",
     className
   );
 

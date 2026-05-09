@@ -13,6 +13,10 @@ const navigationItems = [
     href: addUtmParams("https://cv.duyet.net", "site_header", "cv"),
   },
   { name: "About", href: "/about" },
+  {
+    name: "Contact",
+    href: "mailto:me@duyet.net",
+  },
 ];
 
 export function SiteHeader() {

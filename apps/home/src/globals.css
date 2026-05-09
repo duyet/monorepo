@@ -6,8 +6,7 @@
   :root {
     --font-inter: "Inter Variable", "Inter", -apple-system, BlinkMacDesktopFont,
       ui-sans-serif, system-ui, sans-serif;
-    --font-serif: "Cormorant Garamond", Garamond, "Apple Garamond",
-      "EB Garamond", serif;
+    --font-serif: Garamond, "Apple Garamond", "EB Garamond", serif;
 
     --background: #faf9f5;
     --foreground: #141413;
@@ -54,7 +53,7 @@
 
   html {
     font-family: var(--font-inter);
-    font-size: 18px;
+    font-size: 16px;
     -webkit-text-size-adjust: 100%;
   }
 
