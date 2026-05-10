@@ -37,7 +37,7 @@
 }
 
 :root {
-  --font-inter: "Inter Variable", "Inter", -apple-system, BlinkMacDesktopFont,
+  --font-inter: "Inter Variable", "Inter", -apple-system, BlinkMacSystemFont,
     ui-sans-serif, system-ui, sans-serif;
   --font-serif: Garamond, "Apple Garamond", "EB Garamond", serif;
 

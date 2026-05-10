@@ -28,6 +28,7 @@
     --gutter: 32px;
     --section-spacer-lg: 96px;
     --section-spacer-sm: 48px;
+    --text-column-max-width: 680px;
 
     /* Font Sizes */
     --display-1: 72px;
