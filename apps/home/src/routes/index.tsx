@@ -4,7 +4,6 @@ import {
   ArrowRight,
   ChartNoAxesCombined,
   FileUser,
-  Link as LinkIcon,
   Newspaper,
   Server,
   UserRound,
@@ -28,7 +27,7 @@ const capabilities = [
       "Deep dives into data engineering architecture, distributed systems, AI agents, and lessons learned from scaling open source.",
     href: addUtmParams("https://blog.duyet.net", "homepage", "blog_card"),
     icon: Newspaper,
-    className: "bg-[#efe9de] dark:bg-[#252320]",
+    className: "bg-cactus dark:bg-[#252320]",
   },
   {
     title: "Resume",
@@ -36,7 +35,7 @@ const capabilities = [
       "Scalable data infrastructure, intelligent applications, and production systems that stay fast as usage grows.",
     href: addUtmParams("https://cv.duyet.net", "homepage", "resume_card"),
     icon: FileUser,
-    className: "bg-[#f5f0e8] dark:bg-[#1f1e1b]",
+    className: "bg-oat dark:bg-[#1f1e1b]",
   },
   {
     title: "Insights",
@@ -48,7 +47,7 @@ const capabilities = [
       "insights_card"
     ),
     icon: ChartNoAxesCombined,
-    className: "bg-[#e8e0d2] dark:bg-[#2a2824]",
+    className: "bg-sky dark:bg-[#2a2824]",
   },
   {
     title: "About",
@@ -56,7 +55,7 @@ const capabilities = [
       "Clear project surfaces for Rust, ClickHouse, MCP tools, AI agents, and the small systems that make them useful.",
     href: "/about",
     icon: UserRound,
-    className: "bg-[#faf9f5] border border-[var(--border)] dark:bg-[#181715]",
+    className: "bg-fig dark:bg-[#181715] text-white",
   },
 ];
 
@@ -72,64 +71,72 @@ function HomePage() {
 
         <main className="relative z-10">
           {/* Hero Section */}
-          <section className="mx-auto max-w-[1200px] px-6 py-12 sm:px-10 md:py-16 lg:py-20 xl:py-24">
-            <div className="max-w-[920px] space-y-8">
-              <div className="space-y-4">
-                <p className="font-serif text-xl italic text-[var(--primary)] lg:text-2xl">
-                  Duyet Le
+          <section className="mx-auto max-w-[var(--container-max-width)] px-6 py-16 sm:px-10 lg:px-[var(--page-margins)] lg:py-[var(--section-spacer-lg)]">
+            <div className="grid gap-[var(--gap-xl)] lg:grid-cols-2 lg:items-center">
+              <div className="space-y-[var(--gap-md)]">
+                <div className="space-y-[var(--gap-xs)]">
+                  <p className="font-serif text-xl italic text-[var(--primary)] lg:text-2xl">
+                    Duyet Le
+                  </p>
+                  <h1 className="font-serif text-5xl sm:text-6xl lg:text-[72px] xl:text-[84px] tracking-tight">
+                    Data Engineer & <br />
+                    <span className="text-[var(--primary)] italic">
+                      AI Agent Engineer
+                    </span>
+                  </h1>
+                </div>
+                <p className="max-w-[var(--text-column-max-width)] text-xl leading-relaxed text-[var(--body)] lg:text-2xl">
+                  I build scalable data infrastructure and intelligent systems that
+                  feel human — engineered with clarity for production at scale.
                 </p>
-                <h1 className="font-serif text-5xl sm:text-6xl lg:text-[72px] xl:text-[84px]">
-                  Data Engineer & <br />
-                  <span className="text-[var(--primary)] italic">
-                    AI Agent Engineer
-                  </span>
-                </h1>
+                <div className="flex flex-wrap gap-4 pt-4">
+                  <Link
+                    to="/about"
+                    className="inline-flex h-14 items-center justify-center rounded-xl bg-[var(--foreground)] px-8 text-lg font-medium text-[var(--background)] transition-all hover:opacity-90 active:scale-95"
+                  >
+                    About me
+                  </Link>
+                  <a
+                    href={addUtmParams(
+                      "https://github.com/duyet",
+                      "homepage",
+                      "hero_cta"
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex h-14 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--background)] px-8 text-lg font-medium transition-all hover:bg-[var(--surface-card)] active:scale-95"
+                  >
+                    GitHub
+                  </a>
+                </div>
               </div>
-              <p className="max-w-[680px] text-lg font-normal leading-relaxed text-[var(--body)] sm:text-xl lg:text-[24px] lg:leading-snug">
-                I build scalable data infrastructure and intelligent systems that
-                feel human — engineered with clarity for production at scale.
-              </p>
-              <div className="flex flex-wrap gap-4 pt-4">
-                <Link
-                  to="/about"
-                  className="inline-flex h-12 items-center justify-center rounded-lg bg-[var(--primary)] px-6 text-base font-medium text-white transition-all hover:bg-[var(--primary-active)] hover:shadow-lg active:scale-95"
-                >
-                  About me
-                </Link>
-                <a
-                  href={addUtmParams(
-                    "https://github.com/duyet",
-                    "homepage",
-                    "hero_cta"
-                  )}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-12 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--background)] px-6 text-base font-medium transition-all hover:bg-[var(--muted)] active:scale-95"
-                >
-                  GitHub
-                </a>
+              <div className="hidden lg:block">
+                 <div className="aspect-[4/3] rounded-[var(--radius-lg)] bg-clay p-16 flex items-center justify-center shadow-2xl relative overflow-hidden group">
+                    <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <span className="text-white opacity-20 font-serif text-[160px] select-none">✱</span>
+                 </div>
               </div>
             </div>
           </section>
 
           {/* Capabilities Section */}
-          <section className="mx-auto max-w-[1200px] px-6 py-12 sm:px-10 lg:py-20">
-            <div className="mb-12">
-              <h2 className="font-serif text-4xl sm:text-5xl lg:text-[56px]">
+          <section className="mx-auto max-w-[var(--container-max-width)] px-6 py-12 sm:px-10 lg:px-[var(--page-margins)] lg:py-20">
+            <div className="mb-[var(--gap-lg)]">
+              <h2 className="font-serif text-4xl sm:text-5xl lg:text-[56px] tracking-tight">
                 Network.
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
+            <div className="grid grid-cols-1 gap-[var(--gap-md)] md:grid-cols-2 lg:gap-[var(--gap-lg)]">
               {capabilities.map((item) => (
                 <CapabilityCard key={item.title} {...item} />
               ))}
             </div>
           </section>
 
-          {/* WorkStack (Cream Card Band) */}
-          <section className="bg-[var(--muted)] py-16 lg:py-24">
-            <div className="mx-auto max-w-[1200px] px-6 sm:px-10">
+          {/* WorkStack Band */}
+          <section className="bg-[var(--background-secondary)] py-16 lg:py-[var(--section-spacer-lg)]">
+            <div className="mx-auto max-w-[var(--container-max-width)] px-6 sm:px-10 lg:px-[var(--page-margins)]">
               <WorkStackSection
                 repositoryUrl={addUtmParams(
                   "https://github.com/duyet",
@@ -143,11 +150,11 @@ function HomePage() {
           {/* Apps Section */}
           <section
             id="apps"
-            className="mx-auto max-w-[1200px] px-6 py-12 sm:px-10 lg:py-20"
+            className="mx-auto max-w-[var(--container-max-width)] px-6 py-12 sm:px-10 lg:px-[var(--page-margins)] lg:py-20"
           >
-            <div className="mb-12 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <div className="mb-[var(--gap-lg)] flex flex-col justify-between gap-4 md:flex-row md:items-end">
               <div>
-                <h2 className="font-serif text-4xl sm:text-5xl lg:text-[56px]">
+                <h2 className="font-serif text-4xl sm:text-5xl lg:text-[56px] tracking-tight">
                   Apps.
                 </h2>
                 <p className="mt-4 max-w-xl text-lg font-medium text-[var(--muted-foreground)] lg:text-xl">
@@ -175,10 +182,10 @@ function HomePage() {
           </section>
 
           {/* Contact Section */}
-          <section className="mx-auto max-w-[1200px] px-6 py-12 sm:px-10 lg:py-20">
+          <section className="mx-auto max-w-[var(--container-max-width)] px-6 py-12 sm:px-10 lg:px-[var(--page-margins)] lg:py-20">
             <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
               <div className="max-w-xl">
-                <h2 className="font-serif text-4xl sm:text-5xl lg:text-[56px]">
+                <h2 className="font-serif text-4xl sm:text-5xl lg:text-[56px] tracking-tight">
                   Let’s build.
                 </h2>
                 <p className="mt-4 text-xl text-[var(--muted-foreground)] lg:text-2xl">
@@ -190,7 +197,7 @@ function HomePage() {
               <div className="flex flex-wrap gap-4">
                 <a
                   href="mailto:me@duyet.net"
-                  className="inline-flex h-14 items-center justify-center rounded-xl bg-[var(--foreground)] px-8 text-lg font-medium text-[var(--background)] transition-all hover:bg-[var(--foreground)]/90 hover:shadow-lg active:scale-95"
+                  className="inline-flex h-14 items-center justify-center rounded-xl bg-[var(--foreground)] px-8 text-lg font-medium text-[var(--background)] transition-all hover:opacity-90 hover:shadow-lg active:scale-95"
                 >
                   Send an email
                 </a>
@@ -198,7 +205,7 @@ function HomePage() {
                   href="https://linkedin.com/in/duyet"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-14 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--background)] px-8 text-lg font-medium transition-all hover:bg-[var(--muted)] active:scale-95"
+                  className="inline-flex h-14 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--background)] px-8 text-lg font-medium transition-all hover:bg-[var(--surface-card)] active:scale-95"
                 >
                   LinkedIn
                 </a>
@@ -207,12 +214,12 @@ function HomePage() {
           </section>
 
           {/* Footer Callout (Coral Band) */}
-          <section className="mx-auto max-w-[1200px] px-6 pb-20 sm:px-10">
+          <section className="mx-auto max-w-[var(--container-max-width)] px-6 pb-20 sm:px-10 lg:px-[var(--page-margins)]">
             <Link
               to="/ls"
-              className="group flex flex-col items-center justify-center overflow-hidden rounded-2xl bg-[var(--primary)] px-10 py-16 text-center text-white transition-all hover:scale-[1.01] active:scale-[0.99] lg:py-24"
+              className="group flex flex-col items-center justify-center overflow-hidden rounded-[var(--radius-lg)] bg-[var(--primary)] px-10 py-16 text-center text-white transition-all hover:scale-[1.01] active:scale-[0.99] lg:py-24"
             >
-              <h3 className="font-serif text-4xl sm:text-5xl lg:text-[72px]">
+              <h3 className="font-serif text-4xl sm:text-6xl lg:text-[72px] tracking-tight">
                 duyet.net/ls
               </h3>
               <p className="mt-6 max-w-lg text-lg text-white/90 lg:text-xl">
@@ -246,7 +253,7 @@ function AppRow({
         <Server className="h-6 w-6" />
       </div>
       <div className="min-w-0 pt-1">
-        <h3 className="font-serif text-xl tracking-tight group-hover:text-[var(--primary)] transition-colors">
+        <h3 className="font-serif text-xl leading-snug tracking-tight group-hover:text-[var(--primary)] transition-colors">
           {item.name}
         </h3>
         <p className="mt-2 text-[15px] font-normal leading-relaxed text-[var(--muted-foreground)] line-clamp-2">
@@ -274,12 +281,12 @@ function CapabilityCard({
   const children = (
     <div className="flex h-full flex-col justify-between p-8 lg:p-10">
       <div className="flex items-start justify-between gap-4">
-        <Icon className="h-8 w-8 shrink-0 lg:h-10 lg:w-10 text-[var(--foreground)] opacity-20" />
+        <Icon className="h-8 w-8 shrink-0 lg:h-10 lg:w-10 text-current opacity-20" />
         <span className="font-serif text-xl opacity-40">0{title === "Blog" ? 1 : title === "Resume" ? 2 : title === "Insights" ? 3 : 4}</span>
       </div>
-      <div className="mt-8">
-        <h3 className="font-serif text-2xl lg:text-[32px]">{title}</h3>
-        <p className="mt-3 text-lg font-normal leading-snug text-[var(--body)] lg:text-xl">
+      <div className="mt-12">
+        <h3 className="font-serif text-2xl lg:text-[32px] tracking-tight">{title}</h3>
+        <p className="mt-3 text-lg font-normal leading-snug text-current opacity-80 lg:text-xl">
           {description}
         </p>
       </div>

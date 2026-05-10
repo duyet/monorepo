@@ -8,9 +8,6 @@
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
   looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
 */
 @layer base {
   *,
@@ -25,6 +22,7 @@
     font-family: var(--font-inter);
     background-color: var(--background);
     color: var(--foreground);
+    line-height: 1.55;
   }
 
   h1, h2, h3, h4, h5, .font-serif {
@@ -32,168 +30,173 @@
     font-weight: 400;
   }
 
-  h1 { letter-spacing: -1.5px; line-height: 1.05; }
-  h2 { letter-spacing: -1px; line-height: 1.1; }
-  h3 { letter-spacing: -0.5px; line-height: 1.15; }
-  h4 { letter-spacing: -0.3px; line-height: 1.2; }
+  h1 { letter-spacing: -1.5px; }
+  h2 { letter-spacing: -1px; }
+  h3 { letter-spacing: -0.5px; }
+  h4 { letter-spacing: -0.3px; }
 }
 
 :root {
-  --radius: 0.65rem;
-  --font-inter: "Inter", -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, sans-serif;
+  --font-inter: "Inter Variable", "Inter", -apple-system, BlinkMacDesktopFont,
+    ui-sans-serif, system-ui, sans-serif;
   --font-serif: Garamond, "Apple Garamond", "EB Garamond", serif;
 
-  /* Anthropic warm palette */
+  /* Spacing & Radius Scale */
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-max: 1000px;
+  
+  --gap-xxs: 8px;
+  --gap-xs: 16px;
+  --gap-sm: 24px;
+  --gap-md: 32px;
+  --gap-lg: 48px;
+  --gap-xl: 64px;
+
+  /* Container & Media */
+  --container-max-width: 1400px;
+  --page-margins: 64px;
+  --gutter: 32px;
+  --section-spacer-lg: 96px;
+  --section-spacer-sm: 48px;
+
+  /* Font Sizes */
+  --display-1: 72px;
+  --display-2: 64px;
+  --headline-1: 52px;
+  --headline-2: 44px;
+  --headline-3: 36px;
+  --headline-4: 32px;
+  --headline-5: 25px;
+  --headline-6: 19px;
+  --body-large-1: 25px;
+  --body-large-2: 23px;
+  --body-1: 20px;
+  --body-2: 17px;
+  --body-3: 15px;
+  --body-4: 12px;
+
+  /* Base Palette */
   --background: #faf9f5;
   --foreground: #141413;
-  --card: #ffffff;
-  --card-foreground: #141413;
-  --popover: #ffffff;
-  --popover-foreground: #141413;
-  --primary: #cc785c;
-  --primary-foreground: #ffffff;
-  --secondary: #efe9de;
-  --secondary-foreground: #252523;
+  
+  /* Anthropic Ivory Theme */
+  --foreground-primary: #141413;
+  --foreground-secondary: #30302e;
+  --foreground-tertiary: #5e5d59;
+  --background-primary: #faf9f5;
+  --background-secondary: #f0eee6;
+  --background-tertiary: #e8e6dc;
+  --background-clay: #d97757;
+  --background-oat: #e3dacc;
+  
+  --border-strong: #141413;
+  --border-subtle: #d1cfc5;
+  --border-faint: #f0eee6;
+
+  /* Semantic Surface Variables */
   --muted: #efe9de;
   --muted-foreground: #6c6a64;
-  --accent: #efe9de;
-  --accent-foreground: #252523;
-  --destructive: #c64545;
-  --destructive-foreground: #ffffff;
   --border: #e6dfd8;
-  --input: #e6dfd8;
-  --ring: #cc785c;
-
-  /* Anthropic surface hierarchy */
-  --surface-soft: #f5f0e8;
+  --accent: #cc785c;
+  --primary: #cc785c;
+  --primary-active: #a9583e;
+  --primary-disabled: #e6dfd8;
   --surface-card: #efe9de;
   --surface-dark: #181715;
   --surface-dark-elevated: #252320;
   --surface-dark-soft: #1f1e1b;
-  --surface-cream-strong: #e8e0d2;
-
-  /* Anthropic borders */
-  --hairline: #e6dfd8;
-  --hairline-soft: #ebe6df;
-
-  /* Anthropic text hierarchy */
-  --ink: #141413;
+  --surface-soft: #f5f0e8;
+  --on-dark: #faf9f5;
+  --on-dark-soft: #a09d96;
+  --hairline: rgba(20, 20, 19, 0.08);
   --body-strong: #252523;
   --body: #3d3d3a;
   --muted-soft: #8e8b82;
-  --on-dark: #faf9f5;
-  --on-dark-soft: #a09d96;
 
-  /* Anthropic primary / Coral */
-  --primary-active: #a9583e;
-  --primary-disabled: #e6dfd8;
-  --on-primary: #ffffff;
+  /* Card Backgrounds */
+  --bg-clay: #d97757;
+  --bg-oat: #e3dacc;
+  --bg-olive: #788c5d;
+  --bg-cactus: #bcd1ca;
+  --bg-sky: #6a9bcc;
+  --bg-heather: #cbcadb;
+  --bg-fig: #c46686;
+  --bg-coral: #ebcece;
 
-  /* Anthropic accents */
-  --accent-teal: #5db8a6;
-  --accent-amber: #e8a55a;
-
-  /* Chart colors — warm tones */
+  /* Chart Colors */
   --chart-1: #cc785c;
-  --chart-2: #e8a55a;
-  --chart-3: #5db8a6;
-  --chart-4: #5db872;
+  --chart-2: #788c5d;
+  --chart-3: #6a9bcc;
+  --chart-4: #e8a55a;
   --chart-5: #8e8b82;
 
   /* Insights-specific chart tokens */
   --insights-chart-accent: #cc785c;
   --insights-chart-ink: #141413;
-
-  /* Sidebar */
-  --sidebar: #faf9f5;
-  --sidebar-foreground: #141413;
-  --sidebar-primary: #cc785c;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #efe9de;
-  --sidebar-accent-foreground: #252523;
-  --sidebar-border: #e6dfd8;
-  --sidebar-ring: #cc785c;
 }
 
 .dark {
-  --background: #181715;
-  --foreground: #faf9f5;
-  --card: #252320;
-  --card-foreground: #faf9f5;
-  --popover: #1f1e1b;
-  --popover-foreground: #faf9f5;
-  --primary: #cc785c;
-  --primary-foreground: #ffffff;
-  --secondary: #252320;
-  --secondary-foreground: #faf9f5;
-  --muted: #252320;
-  --muted-foreground: #a09d96;
-  --accent: #252320;
-  --accent-foreground: #faf9f5;
-  --destructive: #e06060;
-  --destructive-foreground: #faf9f5;
-  --border: #303030;
-  --input: #303030;
-  --ring: #cc785c;
+  --background: #0d0e0c;
+  --foreground: #f8f8f2;
+  
+  /* Anthropic Slate Theme */
+  --foreground-primary: #faf9f5;
+  --foreground-secondary: #b0aea5;
+  --foreground-tertiary: #87867f;
+  --background-primary: #141413;
+  --background-secondary: #1f1e1d;
+  --background-tertiary: #30302e;
+  
+  --border-strong: #faf9f5;
+  --border-subtle: #5e5d59;
+  --border-faint: #1f1e1d;
 
-  /* Dark surface hierarchy */
-  --surface-soft: #1f1e1b;
-  --surface-card: #252320;
+  --muted: #242420;
+  --muted-foreground: #a09d96;
+  --border: rgba(248, 248, 242, 0.12);
+  --accent: #cc785c;
+  --primary: #cc785c;
+  --primary-active: #e8926e;
+  --primary-disabled: rgba(248, 248, 242, 0.12);
   --surface-dark: #181715;
   --surface-dark-elevated: #252320;
-  --hairline: #303030;
-  --hairline-soft: #2a2a2a;
-  --ink: #faf9f5;
-  --body-strong: #e8e6e1;
-  --body: #c5c2ba;
-  --muted-soft: #8e8b82;
+  --surface-dark-soft: #1f1e1b;
+  --surface-soft: #1a1918;
   --on-dark: #faf9f5;
   --on-dark-soft: #a09d96;
+  --hairline: rgba(248, 248, 242, 0.12);
+  --body-strong: #f0efe9;
+  --body: #c8c5bc;
+  --muted-soft: #7a776e;
 
-  /* Chart colors — warm tones (dark) */
+  /* Chart Colors (dark) */
   --chart-1: #d98d73;
-  --chart-2: #edb873;
-  --chart-3: #7acbb9;
-  --chart-4: #7acb8c;
+  --chart-2: #96a67a;
+  --chart-3: #89b1d9;
+  --chart-4: #e8a55a;
   --chart-5: #a09d96;
 
   /* Insights-specific chart tokens (dark) */
   --insights-chart-accent: #d98d73;
   --insights-chart-ink: #faf9f5;
-
-  /* Sidebar (dark) */
-  --sidebar: #181715;
-  --sidebar-foreground: #faf9f5;
-  --sidebar-primary: #cc785c;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #252320;
-  --sidebar-accent-foreground: #faf9f5;
-  --sidebar-border: #303030;
-  --sidebar-ring: #cc785c;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-ring: var(--ring);
-  --color-radius: var(--radius);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-}
+/* Anthropic Utility Classes */
+.bg-slate-1000 { background-color: #0f0f0e!important }
+.bg-slate-950 { background-color: #141413!important }
+.bg-slate-900 { background-color: #1a1918!important }
+.bg-slate-150 { background-color: #f0eee6!important }
+.bg-slate-100 { background-color: #f5f4ed!important }
+.bg-slate-050 { background-color: #faf9f5!important }
+
+.bg-clay { background-color: var(--bg-clay)!important }
+.bg-oat { background-color: var(--bg-oat)!important }
+.bg-olive { background-color: var(--bg-olive)!important }
+.bg-cactus { background-color: var(--bg-cactus)!important }
+.bg-sky { background-color: var(--bg-sky)!important }
+.bg-heather { background-color: var(--bg-heather)!important }
+.bg-fig { background-color: var(--bg-fig)!important }
+.bg-coral { background-color: var(--bg-coral)!important }

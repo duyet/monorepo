@@ -8,8 +8,62 @@
       ui-sans-serif, system-ui, sans-serif;
     --font-serif: Garamond, "Apple Garamond", "EB Garamond", serif;
 
+    /* Spacing & Radius Scale */
+    --radius-xs: 8px;
+    --radius-sm: 12px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-max: 1000px;
+    
+    --gap-xxs: 8px;
+    --gap-xs: 16px;
+    --gap-sm: 24px;
+    --gap-md: 32px;
+    --gap-lg: 48px;
+    --gap-xl: 64px;
+
+    /* Container & Media */
+    --container-max-width: 1400px;
+    --page-margins: 64px;
+    --gutter: 32px;
+    --section-spacer-lg: 96px;
+    --section-spacer-sm: 48px;
+
+    /* Font Sizes */
+    --display-1: 72px;
+    --display-2: 64px;
+    --headline-1: 52px;
+    --headline-2: 44px;
+    --headline-3: 36px;
+    --headline-4: 32px;
+    --headline-5: 25px;
+    --headline-6: 19px;
+    --body-large-1: 25px;
+    --body-large-2: 23px;
+    --body-1: 20px;
+    --body-2: 17px;
+    --body-3: 15px;
+    --body-4: 12px;
+
+    /* Base Palette */
     --background: #faf9f5;
     --foreground: #141413;
+    
+    /* Anthropic Ivory Theme */
+    --foreground-primary: #141413;
+    --foreground-secondary: #30302e;
+    --foreground-tertiary: #5e5d59;
+    --background-primary: #faf9f5;
+    --background-secondary: #f0eee6;
+    --background-tertiary: #e8e6dc;
+    --background-clay: #d97757;
+    --background-oat: #e3dacc;
+    
+    --border-strong: #141413;
+    --border-subtle: #d1cfc5;
+    --border-faint: #f0eee6;
+
+    /* Semantic Surface Variables */
     --muted: #efe9de;
     --muted-foreground: #6c6a64;
     --border: #e6dfd8;
@@ -17,21 +71,45 @@
     --primary: #cc785c;
     --primary-active: #a9583e;
     --primary-disabled: #e6dfd8;
+    --surface-card: #efe9de;
     --surface-dark: #181715;
     --surface-dark-elevated: #252320;
     --surface-dark-soft: #1f1e1b;
     --surface-soft: #f5f0e8;
     --on-dark: #faf9f5;
     --on-dark-soft: #a09d96;
-    --hairline: #e6dfd8;
+    --hairline: rgba(20, 20, 19, 0.08);
     --body-strong: #252523;
     --body: #3d3d3a;
     --muted-soft: #8e8b82;
+
+    /* Card Backgrounds */
+    --bg-clay: #d97757;
+    --bg-oat: #e3dacc;
+    --bg-olive: #788c5d;
+    --bg-cactus: #bcd1ca;
+    --bg-sky: #6a9bcc;
+    --bg-heather: #cbcadb;
+    --bg-fig: #c46686;
+    --bg-coral: #ebcece;
   }
 
   html.dark {
     --background: #0d0e0c;
     --foreground: #f8f8f2;
+    
+    /* Anthropic Slate Theme */
+    --foreground-primary: #faf9f5;
+    --foreground-secondary: #b0aea5;
+    --foreground-tertiary: #87867f;
+    --background-primary: #141413;
+    --background-secondary: #1f1e1d;
+    --background-tertiary: #30302e;
+    
+    --border-strong: #faf9f5;
+    --border-subtle: #5e5d59;
+    --border-faint: #1f1e1d;
+
     --muted: #242420;
     --muted-foreground: #a09d96;
     --border: rgba(248, 248, 242, 0.12);
@@ -64,34 +142,36 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    line-height: 1.6;
+    line-height: 1.55;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  .font-serif {
+  h1, h2, h3, h4, h5, .font-serif {
     font-family: var(--font-serif);
-    font-weight: 500;
-    line-height: 1.2;
+    font-weight: 400;
     color: var(--foreground);
   }
 
-  h1 {
-    letter-spacing: -0.03em;
-    line-height: 1;
-  }
-  h2 {
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-  }
-  h3 {
-    letter-spacing: -0.01em;
-    line-height: 1.2;
-  }
-  h4 { letter-spacing: -0.3px; line-height: 1.2; }
+  h1 { letter-spacing: -1.5px; }
+  h2 { letter-spacing: -1px; }
+  h3 { letter-spacing: -0.5px; }
+  h4 { letter-spacing: -0.3px; }
+
+  /* Anthropic Utility Classes */
+  .bg-slate-1000 { background-color: #0f0f0e!important }
+  .bg-slate-950 { background-color: #141413!important }
+  .bg-slate-900 { background-color: #1a1918!important }
+  .bg-slate-150 { background-color: #f0eee6!important }
+  .bg-slate-100 { background-color: #f5f4ed!important }
+  .bg-slate-050 { background-color: #faf9f5!important }
+  
+  .bg-clay { background-color: var(--bg-clay)!important }
+  .bg-oat { background-color: var(--bg-oat)!important }
+  .bg-olive { background-color: var(--bg-olive)!important }
+  .bg-cactus { background-color: var(--bg-cactus)!important }
+  .bg-sky { background-color: var(--bg-sky)!important }
+  .bg-heather { background-color: var(--bg-heather)!important }
+  .bg-fig { background-color: var(--bg-fig)!important }
+  .bg-coral { background-color: var(--bg-coral)!important }
 
   /* Target Header branding text from @duyet/components */
   header a span[class*="font-semibold"] {
@@ -131,13 +211,6 @@
 }
 
 @layer utilities {
-  .home-ai-search-snippet {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-  }
-
   .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -152,4 +225,3 @@
     overflow: hidden;
   }
 }
-
