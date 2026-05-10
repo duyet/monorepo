@@ -53,6 +53,7 @@ yarn-error.log*
 *-app.png
 .herenow/
 .codex/
+.claude/worktrees/
 output/
 
 # Rust/WASM
