@@ -9,3 +9,12 @@ For deploy/config workflows, use root scripts (`bun run config`, `bun run deploy
 For Rust/WASM workflows, use the documented root commands (`bun run rust:build`, `bun run wasm:build`, `bun run wasm:test`, `bun run wasm:clippy`, `bun run bench:wasm`) only when the touched change requires them.
 
 Put durable repository knowledge in `docs/ai/internal-knowledge.md` instead of expanding this file.
+
+## Code-smell / dead-code automation
+
+For scoped reviews after the last run timestamp:
+
+- `git log --since='<2026-05-10T10:04:33Z>' --name-only --pretty=format:'%H%n%s%n%b'` (or `--since='24h ago'`)
+- `git show --unified=3 <commit_sha>`
+- `rg -n "<symbol>" <file-or-dir> --glob '!**/*.test.*' --glob '!**/__tests__/**'` for dead-reference evidence
+- Keep run findings in `docs/reviews/code-smell-dead-code-<DATE>.md` with concrete evidence
