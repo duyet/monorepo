@@ -107,9 +107,7 @@ for (const post of allPostsWithContent) {
 }
 
 // Count how many have html pre-converted
-const withHtml = allPostsWithContent.filter(
-  (p) => !Boolean(p.isMDX) && p.content
-).length;
+const withHtml = allPostsWithContent.filter((p) => !p.isMDX && p.content).length;
 console.log(`  ✓ posts-content/ (${written} files, ${withHtml} pre-converted to HTML)`);
 
 // ── series-data.json ───────────────────────────────────────────────────────────
