@@ -27,14 +27,6 @@ const projectUrls = {
 
 export const apps: AppItem[] = [
   {
-    name: "Duyet Serif",
-    href: projectUrls.fonts,
-    host: hostOf(projectUrls.fonts),
-    utmContent: "fonts_bento",
-    description: "Curated collection of beautiful Vietnamese-compatible fonts",
-    tone: "bg-[#7a705d]",
-  },
-  {
     name: "ClickHouse Monitoring",
     href: projectUrls.clickhouseMonitoring,
     host: hostOf(projectUrls.clickhouseMonitoring),
@@ -45,23 +37,12 @@ export const apps: AppItem[] = [
     tone: "bg-[#8b633f]",
   },
   {
-    name: "Rust Tieng Viet",
-    href: duyetUrls.external.rust ?? "https://rust-tieng-viet.github.io",
-    host: hostOf(
-      duyetUrls.external.rust ?? "https://rust-tieng-viet.github.io"
-    ),
-    utmContent: "rust_bento",
-    description: "Rust programming language documentation in Vietnamese",
-    screenshot: "/screenshots/rust-art.png",
-    tone: "bg-[#6a5578]",
-  },
-  {
-    name: "MCP Tools",
-    href: duyetUrls.external.mcp ?? "https://mcp.duyet.net",
-    host: hostOf(duyetUrls.external.mcp ?? "https://mcp.duyet.net"),
-    utmContent: "mcp_bento",
-    description: "Model Context Protocol tools and integrations",
-    screenshot: "/screenshots/mcp-tools-art.png",
+    name: "ShareHTML",
+    href: projectUrls.shareHtml,
+    host: hostOf(projectUrls.shareHtml),
+    utmContent: "sharehtml_bento",
+    description:
+      "Share HTML, Markdown, and code files. Built for Human and AI Agent. Self-hosted on Cloudflare Workers.",
     tone: "bg-[#5f6257]",
   },
   {
@@ -72,6 +53,24 @@ export const apps: AppItem[] = [
     description: "AI chat interface with Cloudflare Workers AI and streaming",
     screenshot: "/screenshots/ai-agents.png",
     tone: "bg-[#536f91]",
+  },
+  {
+    name: "Agent State",
+    href: projectUrls.agentState,
+    host: hostOf(projectUrls.agentState),
+    utmContent: "agentstate_bento",
+    description: "AI agent state management and debugging tools",
+    screenshot: "/screenshots/agentstate-art.svg",
+    tone: "bg-[#536f91]",
+  },
+  {
+    name: "MCP Tools",
+    href: duyetUrls.external.mcp ?? "https://mcp.duyet.net",
+    host: hostOf(duyetUrls.external.mcp ?? "https://mcp.duyet.net"),
+    utmContent: "mcp_bento",
+    description: "Model Context Protocol tools and integrations",
+    screenshot: "/screenshots/mcp-tools-art.png",
+    tone: "bg-[#5f6257]",
   },
   {
     name: "Claude Codex Plugins",
@@ -92,15 +91,6 @@ export const apps: AppItem[] = [
     tone: "bg-[#7f524e]",
   },
   {
-    name: "Agent State",
-    href: projectUrls.agentState,
-    host: hostOf(projectUrls.agentState),
-    utmContent: "agentstate_bento",
-    description: "AI agent state management and debugging tools",
-    screenshot: "/screenshots/agentstate-art.svg",
-    tone: "bg-[#536f91]",
-  },
-  {
     name: "PageView",
     href: projectUrls.pageview,
     host: hostOf(projectUrls.pageview),
@@ -110,14 +100,6 @@ export const apps: AppItem[] = [
     tone: "bg-[#7a705d]",
   },
   {
-    name: "ShareHTML",
-    href: projectUrls.shareHtml,
-    host: hostOf(projectUrls.shareHtml),
-    utmContent: "sharehtml_bento",
-    description: "Publish and share HTML documents with simple hosted links",
-    tone: "bg-[#5f6257]",
-  },
-  {
     name: "LLM Timeline",
     href: "/",
     host: hostOf(projectUrls.llmTimeline),
@@ -125,5 +107,24 @@ export const apps: AppItem[] = [
     description: "Interactive timeline of LLM models from 2017-2025",
     screenshot: "/screenshots/llm-timeline.png",
     tone: "bg-[#4f6f62]",
+  },
+  {
+    name: "Rust Tieng Viet",
+    href: duyetUrls.external.rust ?? "https://rust-tieng-viet.github.io",
+    host: hostOf(
+      duyetUrls.external.rust ?? "https://rust-tieng-viet.github.io"
+    ),
+    utmContent: "rust_bento",
+    description: "Rust programming language documentation in Vietnamese",
+    screenshot: "/screenshots/rust-art.png",
+    tone: "bg-[#6a5578]",
+  },
+  {
+    name: "Duyet Serif",
+    href: projectUrls.fonts,
+    host: hostOf(projectUrls.fonts),
+    utmContent: "fonts_bento",
+    description: "Curated collection of beautiful Vietnamese-compatible fonts",
+    tone: "bg-[#7a705d]",
   },
 ];
