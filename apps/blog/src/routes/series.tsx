@@ -18,7 +18,9 @@ export const Route = createFileRoute("/series")({
 });
 
 function SeriesPage() {
-  const hasChild = useMatches().some((m) => m.id === "/series/$slug");
+  const hasChild = useMatches().some(
+    (match) => match.routeId === "/series/$slug"
+  );
   if (hasChild) return <Outlet />;
 
   const { seriesList } = Route.useLoaderData() as { seriesList: Series[] };
@@ -42,7 +44,7 @@ function SeriesPage() {
             key={series.slug}
             series={series}
             tone="light"
-            className="bg-white shadow-none"
+            className="bg-transparent"
           />
         ))}
       </div>

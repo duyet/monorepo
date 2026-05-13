@@ -6,11 +6,13 @@ export function SeriesBox({
   current,
   className,
   tone = "light",
+  showTitle = true,
 }: {
   series: Series | null;
   current?: string;
   className?: string;
   tone?: "light" | "dark";
+  showTitle?: boolean;
 }) {
   if (!series) return null;
   const { name, posts } = series;
@@ -25,19 +27,21 @@ export function SeriesBox({
         className
       )}
     >
-      <h2
-        className={cn(
-          "mb-6 text-2xl font-semibold tracking-[-0.02em] text-[var(--ink)] dark:text-[var(--on-dark)]"
-        )}
-      >
-        Series:{" "}
-        <a
-          className="underline-offset-4 transition-colors hover:text-[var(--body)] hover:underline"
-          href={`/series/${series.slug}`}
+      {showTitle && (
+        <h2
+          className={cn(
+            "mb-6 text-2xl font-semibold tracking-[-0.02em] text-[var(--ink)] dark:text-[var(--on-dark)]"
+          )}
         >
-          {name}
-        </a>
-      </h2>
+          Series:{" "}
+          <a
+            className="underline-offset-4 transition-colors hover:text-[var(--body)] hover:underline"
+            href={`/series/${series.slug}/`}
+          >
+            {name}
+          </a>
+        </h2>
+      )}
 
       <div className="grid grid-cols-1 gap-3">
         {posts.map(({ slug, title, excerpt }) => {
@@ -64,7 +68,7 @@ export function SeriesBox({
                     className={cn(
                       "line-clamp-1 text-base font-medium text-[var(--body-strong)] transition-colors hover:text-[var(--body)] dark:text-[var(--on-dark-soft)] dark:hover:text-[var(--on-dark)]"
                     )}
-                    href={slug}
+                    href={`${slug}/`}
                   >
                     {title}
                   </a>

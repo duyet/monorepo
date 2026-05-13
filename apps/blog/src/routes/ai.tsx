@@ -12,12 +12,12 @@ export const Route = createFileRoute("/ai")({
 
 function AI() {
   return (
-    <div className="mx-auto mb-16 max-w-[820px] space-y-6 leading-loose">
-      <div className="mb-8 pt-10 md:mb-16 sm:pt-14 lg:pt-20">
-        <h1 className="text-4xl font-semibold tracking-tight text-[#1a1a1a] dark:text-[#f8f8f2] sm:text-5xl lg:text-6xl">
+    <div className="mx-auto mb-16 max-w-[820px] px-5 leading-loose sm:px-8 lg:px-10">
+      <div className="blog-page-head border-b border-[var(--border-faint)] pb-8">
+        <h1 className="text-4xl font-semibold tracking-tight text-[#1a1a1a] dark:text-[#f8f8f2] sm:text-5xl">
           AI
         </h1>
-        <div className="mt-8 space-y-5 text-lg font-medium leading-7 tracking-tight text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+        <div className="mt-6 space-y-5 text-base font-medium leading-7 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
           <p>
             None of the contents in my blog was written by an AI tool. I have
             used AI for{" "}
