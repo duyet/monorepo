@@ -46,7 +46,7 @@ export function SearchResultItem({
   return (
     <article
       className={cn(
-        "surface-card-base surface-card-warm group flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:gap-4",
+        "group flex flex-col gap-3 border-t border-[var(--border-faint)] py-4 first:border-t-0 sm:flex-row sm:items-center sm:gap-4",
         className
       )}
     >
