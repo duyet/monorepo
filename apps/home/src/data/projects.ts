@@ -20,6 +20,7 @@ const projectUrls = {
   stamp: "https://stamp.duyet.net",
   agentState: "https://agentstate.app",
   pageview: "https://pageview.duyet.net",
+  shareHtml: "https://html.duyet.net",
   fonts: "https://duyet.github.io/fonts/",
 };
 
@@ -107,6 +108,14 @@ export const apps: AppItem[] = [
     description: "Simple, privacy-friendly analytics for websites",
     screenshot: "/screenshots/pageview-art.svg",
     tone: "bg-[#7a705d]",
+  },
+  {
+    name: "ShareHTML",
+    href: projectUrls.shareHtml,
+    host: hostOf(projectUrls.shareHtml),
+    utmContent: "sharehtml_bento",
+    description: "Publish and share HTML documents with simple hosted links",
+    tone: "bg-[#5f6257]",
   },
   {
     name: "LLM Timeline",

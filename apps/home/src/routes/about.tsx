@@ -99,7 +99,6 @@ const links = [
       "Experience building scalable data infrastructure, AI applications, and production systems.",
     url: addUtmParams("https://cv.duyet.net", "about_page", "resume_card"),
     icon: FileUser,
-    tone: "bg-[#bfdbfe]",
   },
   {
     title: "GitHub",
@@ -107,7 +106,6 @@ const links = [
       "Open source work across Python, Rust, TypeScript, analytics, and developer tooling.",
     url: addUtmParams("https://github.com/duyet", "about_page", "github_card"),
     icon: GithubIcon,
-    tone: "bg-[#a7f3d0]",
   },
   {
     title: "LinkedIn",
@@ -119,7 +117,6 @@ const links = [
       "linkedin_card"
     ),
     icon: LinkedInIcon,
-    tone: "bg-[#fecaca]",
   },
   {
     title: "Blog",
@@ -127,7 +124,6 @@ const links = [
       "Technical writing on data engineering, distributed systems, AI agents, and open source.",
     url: addUtmParams("https://blog.duyet.net", "about_page", "blog_card"),
     icon: BookOpen,
-    tone: "bg-[var(--background)]",
   },
 ];
 
@@ -136,24 +132,24 @@ function AboutPage() {
       <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
         <SiteHeader />
 
-      <main className="relative z-10 rounded-b-3xl bg-[var(--background)] pb-20 2xl:rounded-b-[4rem]">
-        <section className="mx-auto max-w-[1200px] px-6 py-12 sm:px-10 md:py-16 lg:py-20 xl:py-24">
-          <p className="mb-6 font-serif text-xl italic text-[var(--primary)] lg:text-2xl">
+      <main className="relative z-10 bg-[var(--background)] pb-16">
+        <section className="mx-auto max-w-[1180px] px-5 py-12 sm:px-8 md:py-16 lg:px-10 lg:py-20">
+          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.12em] text-[var(--muted-foreground)]">
             About
           </p>
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.55fr)] lg:items-end">
-            <div className="max-w-[880px] space-y-8">
-              <h1 className="font-serif text-5xl sm:text-6xl lg:text-[72px] xl:text-[84px]">
-                Building data and AI systems that <span className="text-[var(--primary)] italic">stay useful</span> in production.
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(300px,0.55fr)] lg:items-end">
+            <div className="max-w-[780px] space-y-6">
+              <h1 className="text-balance text-4xl font-semibold leading-[1.08] sm:text-5xl lg:text-6xl">
+                Building data and AI systems that stay useful in production.
               </h1>
-              <p className="max-w-[680px] text-xl font-normal leading-relaxed text-[var(--body)] lg:text-2xl">
+              <p className="max-w-[680px] text-base leading-7 text-[var(--body)] sm:text-lg">
                 I’m a Senior Data & AI Engineer with {experienceYears} of experience across
                 modern data infrastructure, AI/ML platforms, distributed
                 systems, and cloud-native engineering.
               </p>
             </div>
 
-            <div className="space-y-6 text-lg font-normal leading-relaxed text-[var(--muted-foreground)] lg:text-xl">
+            <div className="space-y-4 text-base leading-7 text-[var(--muted-foreground)]">
               <p>
                 I care about systems that are easy to operate, easy to explain,
                 and boring in the places where reliability matters.
@@ -166,8 +162,8 @@ function AboutPage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1200px] px-6 sm:px-10">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        <section className="mx-auto max-w-[1180px] px-5 sm:px-8 lg:px-10">
+          <div className="border-y border-[var(--hairline)]">
             {links.map((item) => {
               const Icon = item.icon;
               return (
@@ -176,15 +172,13 @@ function AboutPage() {
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`group flex min-h-[240px] flex-col rounded-2xl p-6 transition-all hover:-translate-y-2 hover:shadow-xl lg:min-h-[280px] lg:p-8 ${item.tone} border border-[var(--border)]`}
+                  className="group grid gap-4 border-t border-[var(--hairline)] py-5 text-[var(--foreground)] transition-colors first:border-t-0 hover:text-[var(--muted-foreground)] md:grid-cols-[32px_160px_1fr] md:items-start"
                 >
-                  <div className="flex items-start justify-between gap-6">
-                    <h2 className="font-serif text-2xl lg:text-[28px]">
-                      {item.title}
-                    </h2>
-                    <Icon className="h-8 w-8 shrink-0 lg:h-10 lg:w-10 opacity-30" />
-                  </div>
-                  <p className="mt-auto text-lg font-normal leading-snug text-[var(--body)] lg:text-xl">
+                  <Icon className="h-5 w-5 shrink-0 text-[var(--muted-foreground)] md:mt-1" />
+                  <h2 className="text-lg font-semibold">
+                    {item.title}
+                  </h2>
+                  <p className="text-sm leading-6 text-[var(--muted-foreground)]">
                     {item.description}
                   </p>
                 </a>
@@ -201,10 +195,10 @@ function AboutPage() {
           )}
         />
 
-        <section className="mx-auto mt-24 max-w-[1200px] px-6 pb-20 sm:px-10 lg:mt-32 lg:pb-32">
-          <div className="grid gap-5 rounded-xl bg-[var(--muted)] p-6 md:grid-cols-[1fr_auto] md:items-center lg:p-8">
+        <section className="mx-auto mt-14 max-w-[1180px] px-5 pb-16 sm:px-8 lg:px-10">
+          <div className="grid gap-5 border-y border-[var(--hairline)] py-6 md:grid-cols-[1fr_auto] md:items-center">
             <div className="flex items-start gap-4">
-              <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-[var(--foreground)] text-[var(--background)]">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center text-[var(--foreground)]">
                 <Radio className="h-5 w-5" />
               </span>
               <div>
@@ -225,7 +219,7 @@ function AboutPage() {
               )}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--foreground)] px-6 py-4 text-base font-medium text-[var(--background)] transition-colors hover:bg-[var(--foreground)]/80"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--foreground)] px-5 py-3 text-sm font-medium text-[var(--background)] transition-colors hover:bg-[var(--foreground)]/80"
             >
               Read blog
               <ArrowRight className="h-5 w-5" />

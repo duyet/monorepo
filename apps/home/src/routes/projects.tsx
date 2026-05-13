@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 import { addUtmParams } from "../../app/lib/utm";
 import { SiteFooter, SiteHeader } from "../components/SiteChrome";
@@ -24,36 +23,21 @@ function ProjectsPage() {
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       <SiteHeader />
 
-      <main className="mx-auto max-w-[1280px] px-5 pb-20 pt-10 sm:px-8 md:pt-16 lg:px-10">
-        <Link
-          to="/"
-          className="mb-10 inline-flex items-center gap-2 text-sm font-medium text-[var(--muted-foreground)] transition-colors hover:text-[var(--foreground)]"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back home
-        </Link>
-
-        <section className="max-w-3xl">
-          <p className="mb-3 text-sm font-medium text-[var(--muted-foreground)]">
-            Projects
-          </p>
-          <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-            Apps, tools, dashboards, and open source systems.
+      <main className="mx-auto max-w-[1180px] px-5 pb-20 pt-12 sm:px-8 md:pt-16 lg:px-10">
+        <section className="grid gap-8 md:grid-cols-[minmax(0,2fr)_minmax(220px,1fr)] md:items-start">
+          <h1 className="text-balance text-4xl font-semibold leading-[1.08] sm:text-5xl lg:text-6xl">
+            Apps, tools, dashboards, and open source systems
           </h1>
-          <p className="mt-5 max-w-2xl text-base font-medium leading-7 text-[var(--muted-foreground)]">
+          <p className="max-w-sm text-base leading-7 text-[var(--muted-foreground)] md:pt-2">
             A complete list of public project surfaces across data engineering,
             AI infrastructure, analytics, developer tooling, and writing.
           </p>
         </section>
 
-        <section className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 xl:mt-16 xl:gap-8">
-          {apps.map((item, index) =>
-            item.screenshot ? (
-              <ProjectCard key={item.name} item={item} />
-            ) : (
-              <CompactProjectCard key={item.name} item={item} />
-            )
-          )}
+        <section className="mt-12 grid grid-cols-1 gap-x-10 gap-y-8 border-t border-[var(--hairline)] pt-8 sm:grid-cols-2 lg:grid-cols-3">
+          {apps.map((item) => (
+            <ProjectIndexItem key={item.name} item={item} />
+          ))}
         </section>
       </main>
       <SiteFooter />
@@ -61,7 +45,7 @@ function ProjectsPage() {
   );
 }
 
-function ProjectCard({
+function ProjectIndexItem({
   item,
 }: {
   item: AppItem;
@@ -69,47 +53,19 @@ function ProjectCard({
   return (
     <ProjectLink
       item={item}
-      className={`group overflow-hidden rounded-xl border border-[var(--border)] ${item.tone ?? "bg-[var(--foreground)]"} transition-transform hover:-translate-y-0.5`}
+      className="group block min-w-0 rounded-md text-[var(--foreground)] no-underline outline-none hover:no-underline focus-visible:ring-2 focus-visible:ring-[var(--foreground)]/30"
     >
-      <div className="overflow-hidden bg-[var(--foreground)]">
-        <img
-          src={item.screenshot}
-          alt={item.name}
-          loading="lazy"
-          className="aspect-[16/10] w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.025]"
-        />
-      </div>
-      <div className="p-5 text-white">
-        <h2 className="text-lg font-semibold tracking-tight">{item.name}</h2>
-        <p className="mt-2 text-sm font-medium leading-6 text-white/80">
+      <article className="min-w-0">
+        <h2 className="w-fit max-w-full text-xl font-semibold leading-7 transition-colors group-hover:text-[var(--muted-foreground)]">
+          <span className="break-words">{item.name}</span>
+        </h2>
+        <p className="mt-2 text-sm leading-6 text-[var(--muted-foreground)]">
           {item.description}
         </p>
-        <p className="mt-5 truncate text-sm font-medium text-white/60">
+        <p className="mt-3 truncate font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-[var(--muted-soft)]">
           {item.host}
         </p>
-      </div>
-    </ProjectLink>
-  );
-}
-
-function CompactProjectCard({
-  item,
-}: {
-  item: AppItem;
-}) {
-  return (
-    <ProjectLink
-      item={item}
-      className="group flex min-h-44 flex-col rounded-xl border border-[var(--border)] bg-[var(--background)] p-5 transition-colors"
-    >
-      <h2 className="text-lg font-semibold tracking-tight">{item.name}</h2>
-      <p className="mt-2 text-sm font-medium leading-6 text-[var(--muted-foreground)]">
-        {item.description}
-      </p>
-      <div className="mt-auto flex items-center justify-between gap-4 pt-8 text-sm font-medium text-[var(--muted-foreground)]">
-        <span className="truncate">{item.host}</span>
-        <ArrowRight className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1" />
-      </div>
+      </article>
     </ProjectLink>
   );
 }

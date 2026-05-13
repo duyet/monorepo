@@ -4,7 +4,7 @@ export function NotFound() {
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="max-w-md text-center">
-        <h1 className="mb-4 font-serif text-8xl font-bold text-[var(--foreground)]">
+        <h1 className="mb-4 text-6xl font-semibold text-[var(--foreground)]">
           404
         </h1>
         <h2 className="mb-4 text-xl font-semibold text-[var(--foreground)]/85">
@@ -15,7 +15,7 @@ export function NotFound() {
         </p>
         <Link
           to="/"
-          className="inline-block rounded-lg bg-terracotta px-6 py-2 font-medium text-white hover:bg-terracotta-medium transition-colors"
+          className="inline-block rounded-lg bg-[var(--foreground)] px-5 py-3 text-sm font-medium text-[var(--background)] transition-colors hover:bg-[var(--foreground)]/85"
         >
           Go back home
         </Link>
