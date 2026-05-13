@@ -21,7 +21,6 @@ interface LinkItem {
   title: string;
   description: string;
   url: string;
-  color: string;
 }
 
 function About() {
@@ -32,7 +31,6 @@ function About() {
       description:
         "Experience building scalable data infrastructure and leading engineering teams.",
       url: "https://cv.duyet.net",
-      color: "bg-orange-100/50 dark:bg-[#4f2f1f]",
     },
     {
       icon: GithubIcon,
@@ -40,7 +38,6 @@ function About() {
       description:
         "Open source contributions and personal projects in Python, Rust, and TypeScript.",
       url: "https://github.com/duyet",
-      color: "bg-purple-100/50 dark:bg-[#2f1f3f]",
     },
     {
       icon: LinkedInIcon,
@@ -48,7 +45,6 @@ function About() {
       description:
         "Professional network and career highlights in data engineering.",
       url: "https://linkedin.com/in/duyet",
-      color: "bg-blue-100/50 dark:bg-[#1f2a3f]",
     },
     {
       icon: BlogIcon,
@@ -56,7 +52,6 @@ function About() {
       description:
         "Technical writings on data engineering, distributed systems, and open source.",
       url: "/",
-      color: "bg-amber-100/60 dark:bg-[#3f2f1f]",
     },
   ];
 
@@ -80,13 +75,12 @@ function About() {
   ];
 
   return (
-    <div className="mx-auto max-w-[1280px] px-5 py-16 sm:px-8 sm:py-24 lg:px-10">
-      {/* Header */}
-      <div className="mx-auto mb-16 max-w-[820px] text-center sm:mb-24">
-        <h1 className="mb-6 font-serif text-4xl tracking-[-0.5px] text-[var(--ink)] dark:text-[var(--on-dark)] sm:text-5xl lg:text-[56px] lg:tracking-[-1px]">
+    <div className="mx-auto max-w-[1180px] px-5 py-12 sm:px-8 sm:py-16 lg:px-10">
+      <div className="blog-page-head mb-12 max-w-[760px]">
+        <h1>
           About
         </h1>
-        <p className="mx-auto max-w-3xl text-lg leading-relaxed text-[var(--body)] dark:text-[var(--muted)]">
+        <p>
           <strong className="font-medium text-[var(--body-strong)] dark:text-[var(--on-dark)]">
             Data Engineer
           </strong>{" "}
@@ -96,8 +90,7 @@ function About() {
         </p>
       </div>
 
-      {/* Links Grid */}
-      <div className="mx-auto mb-16 grid max-w-[820px] gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="blog-link-grid mb-16">
         {links.map((link, index) => {
           const Icon = link.icon;
           const isExternal = link.url.startsWith("http");
@@ -107,48 +100,43 @@ function About() {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className={`group flex flex-col p-10 ${link.color} rounded-xl transition-transform duration-200 hover:scale-[1.02]`}
             >
-              <div className="mb-8 text-[#1a1a1a] dark:text-[#f8f8f2]">
-                <Icon />
+              <div>
+                <div className="mb-6 text-[#1a1a1a] dark:text-[#f8f8f2]">
+                  <Icon />
+                </div>
+                <h3>{link.title}</h3>
+                <p>{link.description}</p>
               </div>
-              <h3 className="mb-3 text-xl font-medium text-[#1a1a1a] dark:text-[#f8f8f2]">
-                {link.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
-                {link.description}
-              </p>
+              <span className="meta">Open →</span>
             </a>
           ) : (
             <Link
               key={index}
               to={link.url as "/"}
-              className={`group flex flex-col p-10 ${link.color} rounded-xl transition-transform duration-200 hover:scale-[1.02]`}
             >
-              <div className="mb-8 text-[#1a1a1a] dark:text-[#f8f8f2]">
-                <Icon />
+              <div>
+                <div className="mb-6 text-[#1a1a1a] dark:text-[#f8f8f2]">
+                  <Icon />
+                </div>
+                <h3>{link.title}</h3>
+                <p>{link.description}</p>
               </div>
-              <h3 className="mb-3 text-xl font-medium text-[#1a1a1a] dark:text-[#f8f8f2]">
-                {link.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
-                {link.description}
-              </p>
+              <span className="meta">Open →</span>
             </Link>
           );
         })}
       </div>
 
-      {/* Skills Section */}
-      <div className="mx-auto max-w-[820px] rounded-xl bg-[var(--surface-card)] p-8 dark:bg-[var(--surface-dark)] sm:p-12">
-        <h2 className="mb-6 font-serif text-2xl tracking-[-0.3px] text-[var(--ink)] dark:text-[var(--on-dark)] sm:text-3xl">
+      <div className="border-y border-[var(--border-faint)] py-8">
+        <h2 className="mb-6 text-2xl font-semibold tracking-[-0.02em] text-[var(--ink)] dark:text-[var(--on-dark)]">
           Skills & Stacks
         </h2>
         <div className="flex flex-wrap gap-3">
           {skills.map(({ name, link }) => (
             <span
               key={name}
-              className="inline-block rounded-full bg-[var(--background-primary)] px-5 py-2 text-sm font-medium text-[var(--ink)] dark:bg-white/10 dark:text-[var(--on-dark-soft)]"
+              className="inline-block rounded-lg border border-[var(--border-faint)] px-3 py-2 text-sm font-medium text-[var(--ink)] dark:bg-white/10 dark:text-[var(--on-dark-soft)]"
             >
               {link ? (
                 <a

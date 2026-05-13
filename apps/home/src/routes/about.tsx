@@ -1,9 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import {
-  Github as GithubIcon,
-  LinkedIn as LinkedInIcon,
-} from "@duyet/components/Icons";
-import { ArrowRight, BookOpen, FileUser, Radio } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { addUtmParams } from "../../app/lib/utm";
 import { SiteFooter, SiteHeader } from "../components/SiteChrome";
 import { WorkStackSection } from "../components/WorkStackSection";
@@ -98,14 +94,12 @@ const links = [
     description:
       "Experience building scalable data infrastructure, AI applications, and production systems.",
     url: addUtmParams("https://cv.duyet.net", "about_page", "resume_card"),
-    icon: FileUser,
   },
   {
     title: "GitHub",
     description:
       "Open source work across Python, Rust, TypeScript, analytics, and developer tooling.",
     url: addUtmParams("https://github.com/duyet", "about_page", "github_card"),
-    icon: GithubIcon,
   },
   {
     title: "LinkedIn",
@@ -116,21 +110,19 @@ const links = [
       "about_page",
       "linkedin_card"
     ),
-    icon: LinkedInIcon,
   },
   {
     title: "Blog",
     description:
       "Technical writing on data engineering, distributed systems, AI agents, and open source.",
     url: addUtmParams("https://blog.duyet.net", "about_page", "blog_card"),
-    icon: BookOpen,
   },
 ];
 
 function AboutPage() {
   return (
-      <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
-        <SiteHeader />
+    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+      <SiteHeader />
 
       <main className="relative z-10 bg-[var(--background)] pb-16">
         <section className="mx-auto max-w-[1180px] px-5 py-12 sm:px-8 md:py-16 lg:px-10 lg:py-20">
@@ -164,52 +156,45 @@ function AboutPage() {
 
         <section className="mx-auto max-w-[1180px] px-5 sm:px-8 lg:px-10">
           <div className="border-y border-[var(--hairline)]">
-            {links.map((item) => {
-              const Icon = item.icon;
-              return (
-                <a
-                  key={item.title}
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group grid gap-4 border-t border-[var(--hairline)] py-5 text-[var(--foreground)] transition-colors first:border-t-0 hover:text-[var(--muted-foreground)] md:grid-cols-[32px_160px_1fr] md:items-start"
-                >
-                  <Icon className="h-5 w-5 shrink-0 text-[var(--muted-foreground)] md:mt-1" />
-                  <h2 className="text-lg font-semibold">
-                    {item.title}
-                  </h2>
-                  <p className="text-sm leading-6 text-[var(--muted-foreground)]">
-                    {item.description}
-                  </p>
-                </a>
-              );
-            })}
+            {links.map((item) => (
+              <a
+                key={item.title}
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group grid gap-2 border-t border-[var(--hairline)] py-5 text-[var(--foreground)] transition-colors first:border-t-0 hover:text-[var(--muted-foreground)] md:grid-cols-[160px_1fr] md:gap-8 md:items-start"
+              >
+                <h2 className="text-lg font-semibold">
+                  {item.title}
+                </h2>
+                <p className="text-sm leading-6 text-[var(--muted-foreground)]">
+                  {item.description}
+                </p>
+              </a>
+            ))}
           </div>
         </section>
 
-        <WorkStackSection
-          repositoryUrl={addUtmParams(
-            "https://github.com/duyet",
-            "about_page",
-            "skills_github"
-          )}
-        />
+        <section className="mx-auto mt-14 max-w-[1180px] px-5 sm:px-8 lg:px-10">
+          <WorkStackSection
+            repositoryUrl={addUtmParams(
+              "https://github.com/duyet",
+              "about_page",
+              "skills_github"
+            )}
+          />
+        </section>
 
         <section className="mx-auto mt-14 max-w-[1180px] px-5 pb-16 sm:px-8 lg:px-10">
           <div className="grid gap-5 border-y border-[var(--hairline)] py-6 md:grid-cols-[1fr_auto] md:items-center">
-            <div className="flex items-start gap-4">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center text-[var(--foreground)]">
-                <Radio className="h-5 w-5" />
-              </span>
-              <div>
-                <h2 className="text-xl font-semibold tracking-tight">
-                  Follow the work
-                </h2>
-                <p className="mt-1 text-base font-medium text-[var(--muted-foreground)]">
-                  Blog posts, project notes, analytics, and small tools across
-                  the Duyet network.
-                </p>
-              </div>
+            <div>
+              <h2 className="text-xl font-semibold tracking-tight">
+                Follow the work
+              </h2>
+              <p className="mt-1 text-base font-medium text-[var(--muted-foreground)]">
+                Blog posts, project notes, analytics, and small tools across
+                the Duyet network.
+              </p>
             </div>
             <a
               href={addUtmParams(

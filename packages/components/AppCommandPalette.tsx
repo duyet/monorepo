@@ -194,7 +194,7 @@ export function AppCommandPalette({ className }: AppCommandPaletteProps) {
           <Search className="h-4 w-4" />
         </button>
       </DialogTrigger>
-      <DialogContent className="w-[min(620px,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-[#1a1a1a]/10 bg-white p-0 text-[#1a1a1a] shadow-none dark:border-[#1a1a1a]/10 dark:bg-white dark:text-[#1a1a1a] dark:shadow-none">
+      <DialogContent className="w-[min(860px,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-[#1a1a1a]/10 bg-white p-0 text-[#1a1a1a] shadow-none dark:border-[#1a1a1a]/10 dark:bg-white dark:text-[#1a1a1a] dark:shadow-none">
         <DialogTitle className="sr-only">Command Palette</DialogTitle>
         <DialogDescription className="sr-only">
           Search across Duyet apps, pages, and subdomains.
@@ -202,9 +202,9 @@ export function AppCommandPalette({ className }: AppCommandPaletteProps) {
         <Command className="bg-transparent">
           <CommandInput
             placeholder="Search pages and apps..."
-            className="text-lg font-medium placeholder:text-[#1a1a1a]/50 dark:placeholder:text-[#1a1a1a]/50"
+            className="h-16 text-2xl font-medium placeholder:text-[#1a1a1a]/45 dark:placeholder:text-[#1a1a1a]/45"
           />
-          <CommandList className="max-h-[460px] p-2">
+          <CommandList className="max-h-[640px] p-3">
             <CommandEmpty>No app found.</CommandEmpty>
             <CommandGroup heading="Duyet apps">
               {appItems.slice(0, 11).map((item) => (
@@ -215,15 +215,15 @@ export function AppCommandPalette({ className }: AppCommandPaletteProps) {
                     setOpen(false);
                     window.location.href = item.href;
                   }}
-                  className="items-start rounded-xl border border-transparent px-3 py-3 data-[selected=true]:border-[#1a1a1a]/10 data-[selected=true]:bg-[#f7f7f7] data-[selected=true]:text-[#1a1a1a] dark:data-[selected=true]:border-[#1a1a1a]/10 dark:data-[selected=true]:bg-[#f7f7f7] dark:data-[selected=true]:text-[#1a1a1a]"
+                  className="items-start rounded-xl border border-transparent px-5 py-4 data-[selected=true]:border-[#1a1a1a]/10 data-[selected=true]:bg-[#f7f7f7] data-[selected=true]:text-[#1a1a1a] dark:data-[selected=true]:border-[#1a1a1a]/10 dark:data-[selected=true]:bg-[#f7f7f7] dark:data-[selected=true]:text-[#1a1a1a]"
                 >
-                  <div className="flex min-w-0 items-start gap-3">
-                    <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#1a1a1a]/10 bg-white">
-                      <item.icon className="h-4 w-4 text-[#1a1a1a]/80" />
+                  <div className="flex min-w-0 items-start gap-4">
+                    <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#1a1a1a]/10 bg-white">
+                      <item.icon className="h-5 w-5 text-[#1a1a1a]/80" />
                     </span>
                     <div className="min-w-0">
-                      <div className="text-sm font-semibold tracking-tight">{item.label}</div>
-                      <div className="truncate text-xs text-[#1a1a1a]/55 dark:text-[#1a1a1a]/55">
+                      <div className="text-base font-semibold tracking-tight sm:text-lg">{item.label}</div>
+                      <div className="truncate text-sm text-[#1a1a1a]/55 dark:text-[#1a1a1a]/55">
                         {item.description}
                       </div>
                     </div>
@@ -241,15 +241,15 @@ export function AppCommandPalette({ className }: AppCommandPaletteProps) {
                     setOpen(false);
                     window.location.href = item.href;
                   }}
-                  className="items-start rounded-xl border border-transparent px-3 py-3 data-[selected=true]:border-[#1a1a1a]/10 data-[selected=true]:bg-[#f7f7f7] data-[selected=true]:text-[#1a1a1a] dark:data-[selected=true]:border-[#1a1a1a]/10 dark:data-[selected=true]:bg-[#f7f7f7] dark:data-[selected=true]:text-[#1a1a1a]"
+                  className="items-start rounded-xl border border-transparent px-5 py-4 data-[selected=true]:border-[#1a1a1a]/10 data-[selected=true]:bg-[#f7f7f7] data-[selected=true]:text-[#1a1a1a] dark:data-[selected=true]:border-[#1a1a1a]/10 dark:data-[selected=true]:bg-[#f7f7f7] dark:data-[selected=true]:text-[#1a1a1a]"
                 >
-                  <div className="flex min-w-0 items-start gap-3">
-                    <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#1a1a1a]/10 bg-white">
-                      <item.icon className="h-4 w-4 text-[#1a1a1a]/80" />
+                  <div className="flex min-w-0 items-start gap-4">
+                    <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#1a1a1a]/10 bg-white">
+                      <item.icon className="h-5 w-5 text-[#1a1a1a]/80" />
                     </span>
                     <div className="min-w-0">
-                      <div className="text-sm font-semibold tracking-tight">{item.label}</div>
-                      <div className="truncate text-xs text-[#1a1a1a]/55 dark:text-[#1a1a1a]/55">
+                      <div className="text-base font-semibold tracking-tight sm:text-lg">{item.label}</div>
+                      <div className="truncate text-sm text-[#1a1a1a]/55 dark:text-[#1a1a1a]/55">
                         {item.description}
                       </div>
                     </div>

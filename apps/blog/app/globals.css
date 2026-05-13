@@ -20,11 +20,12 @@
   }
 }
 
-/* Design system tokens — Anthropic warm cream palette */
+/* Blog design tokens */
 :root {
   --font-inter: "Inter Variable", "Inter", -apple-system, BlinkMacDesktopFont,
     ui-sans-serif, system-ui, sans-serif;
-  --font-serif: Garamond, "Apple Garamond", "EB Garamond", serif;
+  --font-serif: var(--font-inter);
+  --font-mono: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
 
   /* Spacing & Radius Scale */
   --radius-xs: 8px;
@@ -64,26 +65,26 @@
   --body-4: 12px;
 
   /* Base Palette */
-  --background: #faf9f5;
+  --background: #ffffff;
   --foreground: #141413;
   
-  /* Anthropic Ivory Theme */
+  /* Neutral light theme */
   --foreground-primary: #141413;
   --foreground-secondary: #30302e;
   --foreground-tertiary: #5e5d59;
-  --background-primary: #faf9f5;
-  --background-secondary: #f0eee6;
-  --background-tertiary: #e8e6dc;
+  --background-primary: #ffffff;
+  --background-secondary: #f7f7f5;
+  --background-tertiary: #efefec;
   --background-clay: #d97757;
-  --background-oat: #e3dacc;
+  --background-oat: #ededeb;
   
   --border-strong: #141413;
-  --border-subtle: #d1cfc5;
-  --border-faint: #f0eee6;
+  --border-subtle: #d8d8d3;
+  --border-faint: #eeeeea;
 
   /* Surface hierarchy */
-  --surface-soft: #f5f0e8;
-  --surface-card: #efe9de;
+  --surface-soft: #f7f7f5;
+  --surface-card: #ffffff;
   --surface-dark: #181715;
   --surface-dark-elevated: #252320;
 
@@ -100,9 +101,9 @@
   --on-dark-soft: #a09d96;
 
   /* Primary / Coral */
-  --primary: #cc785c;
-  --primary-active: #a9583e;
-  --primary-disabled: #e6dfd8;
+  --primary: #141413;
+  --primary-active: #30302e;
+  --primary-disabled: #d8d8d3;
 
   /* Legacy aliases */
   --muted-foreground: #6c6a64;
@@ -161,16 +162,16 @@ body {
 }
 
 h1, h2, h3, h4, h5, .font-serif {
-  font-family: var(--font-serif);
-  font-weight: 400;
+  font-family: var(--font-inter);
+  font-weight: 600;
 }
 
-h1 { letter-spacing: -1.5px; }
-h2 { letter-spacing: -1px; }
-h3 { letter-spacing: -0.5px; }
-h4 { letter-spacing: -0.3px; }
+h1 { letter-spacing: -0.025em; }
+h2 { letter-spacing: -0.018em; }
+h3 { letter-spacing: -0.012em; }
+h4 { letter-spacing: -0.008em; }
 
-/* Anthropic Utility Classes */
+/* Neutral utility aliases */
 .bg-slate-1000 { background-color: #0f0f0e!important }
 .bg-slate-950 { background-color: #141413!important }
 .bg-slate-900 { background-color: #1a1918!important }
@@ -187,7 +188,7 @@ h4 { letter-spacing: -0.3px; }
 .bg-fig { background-color: var(--bg-fig)!important }
 .bg-coral { background-color: var(--bg-coral)!important }
 
-/* Warm code styling — cream surfaces */
+/* Code styling */
 .prose :where(code):not(:where(pre code)) {
   background-color: var(--surface-card) !important;
   color: var(--body) !important;
@@ -340,4 +341,3 @@ html.dark .prose pre {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
-

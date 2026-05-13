@@ -30,11 +30,11 @@ function Featured() {
 
   return (
     <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
-      <div className="mx-auto max-w-[820px] pt-10 sm:pt-14 lg:pt-20">
-        <h1 className="text-4xl font-semibold tracking-tight text-[#1a1a1a] dark:text-[#f8f8f2] sm:text-5xl lg:text-6xl">
+      <div className="blog-page-head mx-auto max-w-[820px]">
+        <h1>
           Featured
         </h1>
-        <p className="mt-5 text-lg font-medium leading-7 tracking-tight text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
+        <p>
           This page highlights{" "}
           <strong className="font-semibold text-[#1a1a1a] dark:text-[#f8f8f2]">
             {postCount} featured blog posts

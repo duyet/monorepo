@@ -14,24 +14,24 @@ export function YearPost({ year, posts, className }: YearPostProps) {
 
   return (
     <div className={cn(className)}>
-      <h2 className="mb-4 font-serif text-[36px] font-normal tracking-[-0.5px] text-[var(--foreground)]">
+      <h2 className="mb-4 text-[26px] font-semibold tracking-[-0.02em] text-[var(--foreground)]">
         {year}
       </h2>
 
-      <div className="divide-y divide-[var(--border)] dark:divide-white/8 rounded-xl border border-[var(--border)] dark:border-white/8 bg-[var(--surface-card)]/70 dark:bg-white/[0.02] overflow-hidden">
+      <div className="divide-y divide-[var(--border-faint)] border-y border-[var(--border-faint)]">
         {posts.map((post: Post) => {
           const [, year, month, slug] = post.slug.split("/");
           return (
             <Link
-              className="group flex flex-row items-center gap-3 px-5 py-4 transition-colors hover:bg-[var(--muted)]/50 dark:hover:bg-white/[0.03]"
+              className="group flex flex-col gap-1 py-4 transition-colors hover:bg-[var(--surface-soft)] sm:flex-row sm:items-center sm:gap-4 sm:px-3"
               to="/$year/$month/$slug/"
               params={{ year, month, slug }}
               key={post.slug}
             >
-              <div className="min-w-0 flex-1 text-[16px] font-medium leading-[1.4] text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
+              <div className="min-w-0 flex-1 break-words text-[15px] font-medium leading-[1.45] text-[var(--foreground)] transition-colors group-hover:text-[var(--body)]">
                 {post.title}
               </div>
-              <time className="flex-shrink-0 whitespace-nowrap text-[13px] font-medium text-[var(--muted-foreground)]">
+              <time className="flex-shrink-0 whitespace-nowrap text-[12px] font-medium text-[var(--muted-foreground)]">
                 {dateFormat(post.date, "MMM dd")}
               </time>
             </Link>
