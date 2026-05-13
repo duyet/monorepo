@@ -16,9 +16,10 @@ Put durable repository knowledge in `docs/ai/internal-knowledge.md` instead of e
 
 For scoped reviews after the last run timestamp:
 
-- `git log --since='<2026-05-10T10:04:33Z>' --name-only --pretty=format:'%H%n%s%n%b'` (or `--since='24h ago'`)
+- `git log --since='<LAST_RUN_ISO>' --name-only --pretty=format:'%H%n%s%n%b'` (or `--since='24h ago'`)
 - `git show --unified=3 <commit_sha>`
 - `rg -n "<symbol>" <file-or-dir> --glob '!**/*.test.*' --glob '!**/__tests__/**'` for dead-reference evidence
 - `rg -n "setup-bun@" .github/workflows -g'*.yml'` to verify valid action pins after CI workflow updates
+- `rg -n "setup-bun@v" .github/workflows -g'*.yml'` to catch unpinned Bun setup actions
 - Keep durable findings in `docs/ai/core-memory.md` and list reference docs in `docs/INDEX.md`
 - Do not create dated `docs/reviews/code-smell-dead-code-<DATE>.md` files
