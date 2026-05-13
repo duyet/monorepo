@@ -14,21 +14,17 @@ module.exports = {
     ...config.theme,
     extend: {
       ...config.theme?.extend,
-      // Claude's color palette and card colors are now defined in shared config:
-      // - @duyet/tailwind-config/claude.theme.js (claude-*, claude-gray-*)
-      // - @duyet/tailwind-config/colors.js (ivory, oat, cream, cactus, sage, lavender, terracotta, coral)
-      // All colors are automatically available via config.theme?.extend?.colors
       colors: {
         ...config.theme?.extend?.colors,
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        serif: ["var(--font-serif)", "Georgia", "serif"],
+        serif: ["var(--font-inter)", "system-ui", "sans-serif"],
       },
     },
   },
   safelist: [
-    // Card color backgrounds
+    // Legacy color backgrounds
     "bg-ivory",
     "bg-oat-light",
     "bg-cream",

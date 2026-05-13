@@ -183,27 +183,27 @@ export function HomeAgentsChat() {
     };
 
     return (
-      <div className="mt-4 rounded-2xl border border-[var(--border)] bg-[var(--background)]">
+      <div className="mt-4 border-y border-[var(--hairline)]">
         <form
-          className="border-b border-[var(--border)] p-4"
+          className="border-b border-[var(--hairline)] py-4"
           onSubmit={async (event) => {
             event.preventDefault();
             if (loading) return;
             await sendMessage(input);
           }}
         >
-          <div className="mx-auto flex w-full max-w-5xl items-center gap-3 rounded-[30px] border border-[var(--border)] bg-[var(--muted)] px-4 py-3">
-            <Search className="h-6 w-6 shrink-0 text-[var(--foreground)]" />
+          <div className="mx-auto flex w-full max-w-5xl items-center gap-3 border-b border-[var(--hairline)] py-3">
+            <Search className="h-5 w-5 shrink-0 text-[var(--muted-foreground)]" />
             <input
               value={input}
               onChange={(event) => setInput(event.target.value)}
               placeholder="Type a message..."
-              className="h-10 w-full bg-transparent text-3xl leading-tight text-[var(--foreground)] outline-none placeholder:text-[var(--muted-foreground)]"
+              className="h-10 w-full bg-transparent text-base leading-tight text-[var(--foreground)] outline-none placeholder:text-[var(--muted-foreground)]"
             />
             <button
               type="submit"
               disabled={loading || input.trim().length === 0}
-              className="rounded-3xl bg-[var(--primary)] px-7 py-3 text-2xl font-medium text-white hover:bg-[var(--primary-active)] disabled:cursor-not-allowed disabled:opacity-50"
+              className="bg-[var(--foreground)] px-4 py-2 text-sm font-medium text-[var(--background)] hover:bg-[var(--foreground)]/85 disabled:cursor-not-allowed disabled:opacity-50"
             >
               Search
             </button>
@@ -212,7 +212,7 @@ export function HomeAgentsChat() {
 
         <div className="h-[240px] overflow-y-auto px-4 py-4">
           {messages.length === 0 ? (
-            <div className="rounded-xl border border-[var(--border)] bg-[var(--muted)] p-4 text-sm text-[var(--foreground)]/70">
+            <div className="border-y border-[var(--hairline)] py-4 text-sm text-[var(--foreground)]/70">
               Ask anything about projects, architecture, Cloudflare Agents, or data systems.
             </div>
           ) : (
@@ -220,7 +220,7 @@ export function HomeAgentsChat() {
               {messages.map((message) => (
                 <div
                   key={message.id}
-                  className={`max-w-[88%] rounded-2xl px-4 py-3 text-sm leading-6 ${
+                  className={`max-w-[88%] px-4 py-3 text-sm leading-6 ${
                     message.role === "user"
                       ? "ml-auto bg-[var(--foreground)] text-[var(--background)]"
                       : "bg-[var(--muted)] text-[var(--foreground)]"
@@ -240,7 +240,7 @@ export function HomeAgentsChat() {
                 key={question}
                 type="button"
                 onClick={() => setInput(question)}
-                className="shrink-0 rounded-full border border-[var(--border)] bg-[var(--muted)] px-3 py-1.5 text-xs font-medium text-[var(--foreground)]/85 hover:bg-[var(--muted-foreground)]/15"
+                className="shrink-0 border-b border-[var(--hairline)] px-1 py-1.5 text-xs font-medium text-[var(--foreground)]/85 hover:text-[var(--muted-foreground)]"
               >
                 {question}
               </button>
@@ -259,7 +259,7 @@ export function HomeAgentsChat() {
               value={input}
               onChange={(event) => setInput(event.target.value)}
               placeholder="What would you like to know?"
-              className="min-h-24 w-full resize-none rounded-xl border border-[var(--border)] bg-[var(--background)] p-3 text-sm text-[var(--foreground)] outline-none focus:border-[var(--foreground)]/40"
+              className="min-h-24 w-full resize-none border-y border-[var(--hairline)] bg-transparent py-3 text-sm text-[var(--foreground)] outline-none focus:border-[var(--foreground)]/40"
             />
 
             <div className="flex items-center justify-between">
@@ -281,7 +281,7 @@ export function HomeAgentsChat() {
               <button
                 type="submit"
                 disabled={loading || input.trim().length === 0}
-                className="inline-flex items-center justify-center rounded-xl bg-[var(--foreground)] px-3 py-2 text-[var(--background)] disabled:cursor-not-allowed disabled:opacity-50"
+                className="inline-flex items-center justify-center bg-[var(--foreground)] px-3 py-2 text-[var(--background)] disabled:cursor-not-allowed disabled:opacity-50"
                 title="Send"
               >
                 <CornerDownLeft className="h-4 w-4" />
