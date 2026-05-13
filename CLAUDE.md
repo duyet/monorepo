@@ -16,7 +16,7 @@ Put durable repository knowledge in `docs/ai/internal-knowledge.md` instead of e
 
 For scoped reviews after the last run timestamp:
 
-- `git log --since='<2026-05-10T10:04:33Z>' --name-only --pretty=format:'%H%n%s%n%b'` (or `--since='24h ago'`)
+- `git log --since='<LAST_RUN_ISO>' --name-only --pretty=format:'%H%n%s%n%b'` (or `--since='24h ago'`)
 - `git show --unified=3 <commit_sha>`
 - `rg -n "<symbol>" <file-or-dir> --glob '!**/*.test.*' --glob '!**/__tests__/**'` for dead-reference evidence
 - `rg -n "setup-bun@" .github/workflows -g'*.yml'` to verify valid action pins after CI workflow updates
