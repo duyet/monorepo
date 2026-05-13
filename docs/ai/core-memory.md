@@ -24,3 +24,8 @@ This file stores durable outcomes from code-smell and dead-code automation runs.
   - `.github/workflows/cf-worker-deploy.yml`
   - `.github/workflows/data-sync-backfill.yml`
 - CI trigger coverage fix: `cf-deploy.yml` and `cf-deploy-preview.yml` now trigger when `.npmrc` or `bunfig.toml` changes.
+- Bun pin consistency fix: replaced remaining floating `oven-sh/setup-bun@v2` references with `0c5077e51419868618aeaa5fe8019c62421857d6` in:
+  - `.github/workflows/lint.yml`
+  - `.github/workflows/test.yml`
+  - `.github/workflows/data-sync-template.yml`
+  - `.github/workflows/data-sync-llm-timeline.yml`
