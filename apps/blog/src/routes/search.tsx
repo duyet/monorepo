@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SearchClient } from "@/components/blog/search-client";
 import { getAllCategories, getAllPosts, getAllTags } from "@/lib/posts";
 
-export type SearchParams = {
+type SearchParams = {
   q?: string;
   category?: string;
   tags?: string;
