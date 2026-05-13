@@ -115,16 +115,19 @@ export default function Header({
       {/* Mobile nav panel */}
       <div
         className={cn(
-          "md:hidden overflow-hidden transition-all duration-200 ease-out",
-          mobileOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          "md:hidden fixed inset-x-0 top-16 z-40 min-h-[calc(100dvh-4rem)] bg-[var(--background)] px-5 py-8 transition-all duration-200 ease-out sm:px-8",
+          mobileOpen
+            ? "pointer-events-auto translate-y-0 opacity-100"
+            : "pointer-events-none -translate-y-2 opacity-0"
         )}
+        aria-hidden={!mobileOpen}
       >
-        <div className="border-t border-[var(--hairline)] dark:border-white/8 px-5 py-3">
+        <div className="border-y border-[var(--hairline)] py-4 dark:border-white/8">
           <MenuNav
             urls={urls}
             navigationItems={navigationItems}
             onItemClick={() => setMobileOpen(false)}
-            className="flex-col items-start gap-1"
+            className="flex-col items-stretch gap-0"
           />
         </div>
       </div>

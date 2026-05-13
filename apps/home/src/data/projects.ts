@@ -13,6 +13,7 @@ export interface AppItem {
 const hostOf = (url: string) => new URL(url).host;
 
 const projectUrls = {
+  clickhouseMonitoring: "https://chmonitor.dev",
   llmTimeline: "https://llm-timeline.duyet.net",
   agents: "https://agents.duyet.net/agents",
   claw: "https://claw.duyet.net",
@@ -35,12 +36,11 @@ export const apps: AppItem[] = [
   },
   {
     name: "ClickHouse Monitoring",
-    href: duyetUrls.external.clickhouse ?? "https://clickhouse.duyet.net",
-    host: hostOf(
-      duyetUrls.external.clickhouse ?? "https://clickhouse.duyet.net"
-    ),
+    href: projectUrls.clickhouseMonitoring,
+    host: hostOf(projectUrls.clickhouseMonitoring),
     utmContent: "ch_monitor_bento",
-    description: "Real-time monitoring dashboard for ClickHouse clusters",
+    description:
+      "ClickHouse monitoring with AI agent support for finding insights, monitoring clusters, and triaging activity",
     screenshot: "/screenshots/ch-monitor.png",
     tone: "bg-[#8b633f]",
   },

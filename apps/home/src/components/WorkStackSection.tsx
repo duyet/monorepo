@@ -38,9 +38,9 @@ const skills = [
 
 export function WorkStackSection({ repositoryUrl }: WorkStackSectionProps) {
   return (
-    <div className="space-y-12 py-4 lg:space-y-14">
+    <div className="space-y-10 py-2 lg:space-y-12">
       <section>
-        <div className="grid gap-8 lg:grid-cols-[0.7fr_1fr] lg:items-start">
+        <div className="grid gap-6 lg:grid-cols-[0.65fr_1fr] lg:items-start">
           <div className="max-w-md">
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.12em] text-[var(--muted-foreground)]">
               Focus
@@ -50,16 +50,16 @@ export function WorkStackSection({ repositoryUrl }: WorkStackSectionProps) {
             </h2>
           </div>
 
-          <div className="divide-y divide-[var(--border)] border-y border-[var(--border)]">
+          <div className="divide-y divide-[var(--hairline)] border-y border-[var(--hairline)]">
             {focusAreas.map((item) => (
               <div
                 key={item.label}
-                className="grid gap-2 py-5 md:grid-cols-[180px_1fr] md:gap-8"
+                className="grid gap-2 py-4 md:grid-cols-[180px_1fr] md:gap-8"
               >
                 <p className="text-sm font-semibold text-[var(--foreground)]">
                   {item.label}
                 </p>
-                <p className="text-base leading-7 text-[var(--muted-foreground)]">
+                <p className="text-sm leading-6 text-[var(--muted-foreground)]">
                   {item.value}
                 </p>
               </div>
@@ -93,7 +93,7 @@ export function WorkStackSection({ repositoryUrl }: WorkStackSectionProps) {
           </a>
         </div>
 
-        <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 border-y border-[var(--hairline)] py-5">
+        <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 border-y border-[var(--hairline)] py-4">
           {skills.map((skill) => (
             <span
               key={skill}
@@ -107,4 +107,3 @@ export function WorkStackSection({ repositoryUrl }: WorkStackSectionProps) {
     </div>
   );
 }
-

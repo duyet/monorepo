@@ -39,18 +39,19 @@ const products: Product[] = [
   {
     slug: "chm",
     name: "ClickHouse Monitoring",
-    eyebrow: "Operational dashboard",
-    summary: "A ClickHouse cluster monitoring surface for fast daily triage.",
+    eyebrow: "AI-assisted monitoring",
+    summary:
+      "A ClickHouse cluster monitoring surface with agent support for finding insights and triaging activity.",
     image: "/screenshots/ch-monitor.png",
-    url: "https://clickhouse.duyet.net",
+    url: "https://chmonitor.dev",
     year: "2026",
     role: "Product design, frontend, observability",
     industry: "Data infrastructure",
     overview:
-      "The monitoring app keeps cluster health, query activity, and operational signals in a compact interface built for repeated use.",
+      "The monitoring app keeps cluster health, query activity, and operational signals in a compact interface, with AI agent support for finding insights and monitoring changes.",
     highlights: [
       "Dense but readable dashboards for ClickHouse operations.",
-      "Focused query and cluster views without marketing-page chrome.",
+      "AI agent workflows for surfacing insights from cluster and query activity.",
       "Responsive layouts that keep metrics scannable on smaller screens.",
     ],
   },

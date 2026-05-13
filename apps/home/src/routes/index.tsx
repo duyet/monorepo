@@ -1,12 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  ArrowRight,
-  ChartNoAxesCombined,
-  FileUser,
-  Newspaper,
-  Server,
-  UserRound,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Suspense } from "react";
 import type { ReactNode } from "react";
 import { addUtmParams } from "../../app/lib/utm";
@@ -25,14 +18,12 @@ const capabilities = [
     description:
       "Deep dives into data engineering architecture, distributed systems, AI agents, and lessons learned from scaling open source.",
     href: addUtmParams("https://blog.duyet.net", "homepage", "blog_card"),
-    icon: Newspaper,
   },
   {
     title: "Resume",
     description:
       "Scalable data infrastructure, intelligent applications, and production systems that stay fast as usage grows.",
     href: addUtmParams("https://cv.duyet.net", "homepage", "resume_card"),
-    icon: FileUser,
   },
   {
     title: "Insights",
@@ -43,14 +34,12 @@ const capabilities = [
       "homepage",
       "insights_card"
     ),
-    icon: ChartNoAxesCombined,
   },
   {
     title: "About",
     description:
       "Clear project surfaces for Rust, ClickHouse, MCP tools, AI agents, and the small systems that make them useful.",
     href: "/about",
-    icon: UserRound,
   },
 ];
 
@@ -66,14 +55,14 @@ function HomePage() {
 
         <main className="relative z-10">
           {/* Hero Section */}
-          <section className="mx-auto max-w-[1180px] px-5 py-14 sm:px-8 md:py-20 lg:px-10">
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.9fr)] lg:items-center">
-              <div className="space-y-[var(--gap-md)]">
-                <div className="space-y-4">
+          <section className="mx-auto max-w-[1180px] px-5 py-10 sm:px-8 md:py-14 lg:px-10 lg:py-16">
+            <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)] lg:items-start">
+              <div className="space-y-6">
+                <div className="space-y-3">
                   <p className="text-sm font-semibold uppercase tracking-[0.12em] text-[var(--muted-foreground)]">
                     Duyet Le
                   </p>
-                  <h1 className="max-w-3xl text-balance text-4xl font-semibold leading-[1.06] sm:text-5xl lg:text-6xl">
+                  <h1 className="max-w-3xl text-balance text-4xl font-semibold leading-[1.06] sm:text-5xl lg:text-[64px]">
                     Data engineer building practical AI systems
                   </h1>
                 </div>
@@ -108,11 +97,14 @@ function HomePage() {
                     ["Data systems", "Pipelines, warehouses, observability"],
                     ["AI products", "Agents, routing, evaluation"],
                     ["Open source", "Rust, TypeScript, Cloudflare"],
-                  ].map(([label, value]) => (
+                  ].map(([label, value], index) => (
                     <div
                       key={label}
-                      className="grid grid-cols-[140px_1fr] gap-8 border-t border-[var(--hairline)] py-4 first:border-t-0"
+                      className="grid grid-cols-[32px_140px_1fr] gap-6 border-t border-[var(--hairline)] py-4 first:border-t-0"
                     >
+                      <p className="font-mono text-xs text-[var(--muted-soft)]">
+                        {String(index + 1).padStart(2, "0")}
+                      </p>
                       <p className="text-sm font-semibold text-[var(--foreground)]">
                         {label}
                       </p>
@@ -127,8 +119,8 @@ function HomePage() {
           </section>
 
           {/* Capabilities Section */}
-          <section className="mx-auto max-w-[1180px] px-5 py-10 sm:px-8 lg:px-10 lg:py-14">
-            <div className="mb-6">
+          <section className="mx-auto max-w-[1180px] px-5 py-8 sm:px-8 lg:px-10 lg:py-10">
+            <div className="mb-5">
               <h2 className="text-2xl font-semibold sm:text-3xl">
                 Network
               </h2>
@@ -142,7 +134,7 @@ function HomePage() {
           </section>
 
           {/* WorkStack Band */}
-          <section className="border-y border-[var(--hairline)] bg-[var(--background-secondary)] py-12 lg:py-16">
+          <section className="border-y border-[var(--hairline)] bg-[var(--background-secondary)] py-10 lg:py-12">
             <div className="mx-auto max-w-[1180px] px-5 sm:px-8 lg:px-10">
               <WorkStackSection
                 repositoryUrl={addUtmParams(
@@ -157,7 +149,7 @@ function HomePage() {
           {/* Apps Section */}
           <section
             id="apps"
-            className="mx-auto max-w-[1180px] px-5 py-10 sm:px-8 lg:px-10 lg:py-14"
+            className="mx-auto max-w-[1180px] px-5 py-8 sm:px-8 lg:px-10 lg:py-10"
           >
             <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-end">
               <div>
@@ -168,10 +160,14 @@ function HomePage() {
                   A curated collection of production tools, experimental
                   interfaces, and data systems managed by <span className="text-[var(--foreground)]">@duyetbot</span>.
                 </p>
+                <p className="mt-2 max-w-xl text-xs leading-5 text-[var(--muted-soft)]">
+                  duyet.net is now managed by the duyetbot agent and can change
+                  at any time.
+                </p>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-x-10 border-y border-[var(--hairline)] md:grid-cols-2 lg:grid-cols-3">
+            <div className="border-y border-[var(--hairline)]">
               {apps.map((item) => (
                 <AppRow key={item.name} item={item} />
               ))}
@@ -189,7 +185,7 @@ function HomePage() {
           </section>
 
           {/* Contact Section */}
-          <section className="mx-auto max-w-[1180px] px-5 py-10 sm:px-8 lg:px-10 lg:py-14">
+          <section className="mx-auto max-w-[1180px] px-5 py-8 sm:px-8 lg:px-10 lg:py-10">
             <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
               <div className="max-w-xl">
                 <h2 className="text-2xl font-semibold sm:text-3xl">
@@ -254,19 +250,19 @@ function AppRow({
   return (
     <AppLink
       item={item}
-      className="group flex items-start gap-4 border-t border-[var(--hairline)] py-5 text-[var(--foreground)] transition-colors first:border-t-0 hover:text-[var(--muted-foreground)]"
+      className="group grid gap-2 border-t border-[var(--hairline)] py-4 text-[var(--foreground)] transition-colors first:border-t-0 hover:text-[var(--muted-foreground)] sm:grid-cols-[180px_1fr_180px] sm:gap-8"
     >
-      <div className="flex h-7 w-7 shrink-0 items-center justify-center text-[var(--muted-foreground)]">
-        <Server className="h-4 w-4" />
-      </div>
       <div className="min-w-0">
         <h3 className="text-base font-semibold leading-snug">
           {item.name}
         </h3>
-        <p className="mt-1 text-sm leading-6 text-[var(--muted-foreground)] line-clamp-2">
-          {item.description}
-        </p>
       </div>
+      <p className="text-sm leading-6 text-[var(--muted-foreground)] sm:max-w-2xl">
+        {item.description}
+      </p>
+      <p className="truncate font-mono text-xs text-[var(--muted-soft)] sm:text-right">
+        {item.host}
+      </p>
     </AppLink>
   );
 }
@@ -275,19 +271,14 @@ function CapabilityRow({
   title,
   description,
   href,
-  icon: Icon,
 }: {
   title: string;
   description: string;
   href: string;
-  icon: typeof Newspaper;
 }) {
   const isExternal = href.startsWith("http");
   const children = (
-    <div className="grid gap-4 py-6 md:grid-cols-[32px_180px_1fr] md:items-start">
-      <div className="pt-1">
-        <Icon className="h-5 w-5 shrink-0 text-[var(--muted-foreground)]" />
-      </div>
+    <div className="grid gap-2 py-5 md:grid-cols-[180px_1fr] md:gap-8 md:items-start">
       <h3 className="text-lg font-semibold">{title}</h3>
       <p className="text-sm leading-6 text-[var(--muted-foreground)]">
         {description}
