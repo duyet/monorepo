@@ -47,3 +47,12 @@ This file stores durable outcomes from code-smell and dead-code automation runs.
 - Dead-code review (confident): no new dead code candidates in non-test files modified since `2026-05-13T21:00:54Z`; only content files plus `cf-deploy.yml`, `scripts/wasm-build.ts`, and blog static headers/redirects changed.
   - Evidence: `git log --since='2026-05-13T21:00:54Z' --name-only --pretty=format: | sed '/^$/d' | sort -u`, plus repo-wide non-test symbol checks for touched symbols.
 - Performance audit: no measured regressions available in this commit window; recommend relying on post-merge `master` workflow durations for the first signal on added blog WASM build cost.
+
+### 2026-05-16
+
+- CI hardening (warning -> fixed): replaced floating `wasm-pack` installer version in blog deploy workflow.
+  - `.github/workflows/cf-deploy.yml`: `version: latest` -> `version: v0.15.0`
+  - Evidence: `rg -n "jetli/wasm-pack-action@|version: latest|version: v0.15.0" .github/workflows/cf-deploy.yml` plus `gh api repos/rustwasm/wasm-pack/releases/latest --jq '.tag_name'`.
+- Dead-code review (confident): no new dead code in non-test files changed in the fallback 24-hour window.
+  - Evidence: `git log --since='24 hours ago' --name-only --pretty=format: | sed '/^$/d' | sort -u` and repo-wide non-test symbol checks in touched code files.
+- Performance audit: no measured regression signal in this window; latest `master` push workflows remained `success` for `Lint`, `Test`, and `Deploy to Cloudflare Pages`.
