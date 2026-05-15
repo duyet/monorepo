@@ -20,6 +20,7 @@ For scoped reviews after the last run timestamp:
 - `git show --unified=3 <commit_sha>`
 - `rg -n "<symbol>" <file-or-dir> --glob '!**/*.test.*' --glob '!**/__tests__/**'` for dead-reference evidence
 - `rg -n "setup-bun@" .github/workflows -g'*.yml'` to verify valid action pins after CI workflow updates
+- `rg -n "dtolnay/rust-toolchain@|jetli/wasm-pack-action@" .github/workflows -g'*.yml'` to verify Rust/WASM action refs are SHA-pinned after deploy-workflow changes
 - Keep durable findings in `docs/ai/core-memory.md` and list reference docs in `docs/INDEX.md`
 - Do not create dated `docs/reviews/code-smell-dead-code-<DATE>.md` files
 - `gh run list --branch master --event push --limit 10 --json databaseId,headSha,status,conclusion,name,updatedAt` to confirm post-merge `master` CI is green
