@@ -32,7 +32,8 @@ Ngay bây giờ React Native đã có mặt trên Ubuntu.
 
 Clip dài 50 phút cho bạn biết được cách sử dụng JS với Raspberry Pi và cách điều khiển LEDs, buttons, displays, và motors bằng JavaScript.
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/h_VYAjKDTJk" frameborder="0" allowfullscreen></iframe>
+[Watch on YouTube — JavaScript Electronics on the Pi Zero](https://www.youtube.com/watch?v=h_VYAjKDTJk)
+
 ## [WebMonkeys: Massively Parallel GPU Programming from JS](http://saveto.co/boYWHj)
 
 MAIA VICTOR  

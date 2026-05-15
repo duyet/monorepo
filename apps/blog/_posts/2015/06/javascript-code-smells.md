@@ -24,7 +24,7 @@ Most developers can smell brittle and fragile code a mile away, but it takes tim
 
 The following video was recorded this year at FluentConf. This is the 30 minute version of the talk.
 
-<iframe allowfullscreen="" frameborder="0" height="424" src="https://www.youtube.com/embed/JVlfj7mQZPo" width="710"></iframe>
+[Watch on YouTube — JavaScript Code Smells (FluentConf)](https://www.youtube.com/watch?v=JVlfj7mQZPo)
 
 ## Types of Smells
 

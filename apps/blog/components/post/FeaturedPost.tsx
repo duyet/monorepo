@@ -16,39 +16,35 @@ export function FeaturedPost({ post, className }: FeaturedPostProps) {
       to="/$year/$month/$slug/"
       params={{ year, month, slug }}
       className={cn(
-        "group block rounded-xl p-8",
-        // Always dark surface — cream-to-dark pacing rhythm
-        "bg-[var(--surface-dark)]",
+        "group block border-y border-[var(--border-faint)] py-7 transition-colors hover:bg-[var(--surface-soft)] sm:py-8",
         className
       )}
     >
-      <span className="inline-block rounded-full bg-[var(--accent)] px-3 py-1 text-[12px] font-medium uppercase tracking-[1.5px] text-white">
-        {post.category}
-      </span>
+      <div className="flex flex-wrap items-center gap-2 text-[12px] font-medium uppercase tracking-[0.08em] text-[var(--muted)]">
+        <span>{post.category}</span>
+        <span>/</span>
+        <time>{dateFormat(post.date, "MMMM d, yyyy")}</time>
+      </div>
       <h2
         className={cn(
-          "mt-4 text-[36px] font-normal leading-[1.15] tracking-[-0.5px]",
-          "text-[var(--on-dark)]",
-          "font-serif",
-          "group-hover:text-[var(--on-dark)]/80",
+          "mt-4 max-w-4xl text-[30px] font-semibold leading-[1.12] tracking-[-0.02em] sm:text-[38px]",
+          "text-[var(--ink)]",
+          "group-hover:text-[var(--body)]",
           "transition-colors"
         )}
       >
         {post.title}
       </h2>
       {post.excerpt && (
-        <p className="mt-3 line-clamp-3 text-[16px] leading-[1.55] text-[#a09d96]">
+        <p className="mt-4 max-w-3xl text-[15px] leading-[1.65] text-[var(--body)]">
           {post.excerpt}
         </p>
       )}
-      <div className="mt-5 flex items-center gap-2 text-[14px] text-[#a09d96]">
-        <time>{dateFormat(post.date, "MMMM d, yyyy")}</time>
+      <div className="mt-5 flex items-center gap-2 text-[13px] text-[var(--muted)]">
         {post.readingTime && (
-          <>
-            <span>·</span>
-            <span>{post.readingTime} min read</span>
-          </>
+          <span>{post.readingTime} min read</span>
         )}
+        <span className="transition-transform group-hover:translate-x-1">→</span>
       </div>
     </Link>
   );

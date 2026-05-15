@@ -29,3 +29,29 @@ This file stores durable outcomes from code-smell and dead-code automation runs.
   - `.github/workflows/test.yml`
   - `.github/workflows/data-sync-template.yml`
   - `.github/workflows/data-sync-llm-timeline.yml`
+
+### 2026-05-14
+
+- Dead-code cleanup (confident): removed `apps/home/src/components/HomeAgentsChat.tsx` after repo-wide non-test search returned only the declaration.
+  - Evidence: `rg -n "HomeAgentsChat|components/HomeAgentsChat" apps packages --glob '!**/*.test.*' --glob '!**/*.spec.*' --glob '!**/__tests__/**'`.
+- Dead-export cleanup (confident): `SearchParams` in `apps/blog/src/routes/search.tsx` is now file-local because no cross-file non-test references exist.
+  - Evidence: `rg -n "\bSearchParams\b" apps packages --glob '!**/*.test.*' --glob '!**/*.spec.*' --glob '!**/__tests__/**'`.
+- Performance audit: no measured regressions found in commits since `2026-05-13T10:13:12Z`; latest `master` push workflows for `ff0f95cb` (`Lint`, `Test`, `Deploy to Cloudflare Pages`) are `success`.
+
+### 2026-05-15
+
+- CI hardening (warning -> fixed): deploy workflow added floating third-party action refs for blog WASM build. Pinned both refs to immutable SHAs:
+  - `.github/workflows/cf-deploy.yml`: `dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8` (stable)
+  - `.github/workflows/cf-deploy.yml`: `jetli/wasm-pack-action@0d096b08b4e5a7de8c28de67e11e945404e9eefa` (v0.4.0)
+  - Evidence: `git ls-remote https://github.com/dtolnay/rust-toolchain refs/heads/stable`, `git ls-remote https://github.com/jetli/wasm-pack-action refs/tags/v0.4.0`
+- Dead-code review (confident): no new dead code candidates in non-test files modified since `2026-05-13T21:00:54Z`; only content files plus `cf-deploy.yml`, `scripts/wasm-build.ts`, and blog static headers/redirects changed.
+  - Evidence: `git log --since='2026-05-13T21:00:54Z' --name-only --pretty=format: | sed '/^$/d' | sort -u`, plus repo-wide non-test symbol checks for touched symbols.
+- Performance audit: no measured regressions available in this commit window; recommend relying on post-merge `master` workflow durations for the first signal on added blog WASM build cost.
+### 2026-05-16
+
+- CI hardening (warning -> fixed): replaced floating `wasm-pack` installer version in blog deploy workflow.
+  - `.github/workflows/cf-deploy.yml`: `version: latest` -> `version: v0.15.0`
+  - Evidence: `rg -n "jetli/wasm-pack-action@|version: latest|version: v0.15.0" .github/workflows/cf-deploy.yml` plus `gh api repos/rustwasm/wasm-pack/releases/latest --jq '.tag_name'`.
+- Dead-code review (confident): no new dead code in non-test files changed in the fallback 24-hour window.
+  - Evidence: `git log --since='24 hours ago' --name-only --pretty=format: | sed '/^$/d' | sort -u` and repo-wide non-test symbol checks in touched code files.
+- Performance audit: no measured regression signal in this window; latest `master` push workflows remained `success` for `Lint`, `Test`, and `Deploy to Cloudflare Pages`.

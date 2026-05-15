@@ -4,10 +4,7 @@ import { getSlug } from "@duyet/libs/getSlug";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { HeroBanner } from "@/components/layout";
 import { YearPost } from "@/components/post";
-import {
-  getCategoryColorClass,
-  getCategoryMetadata,
-} from "@/lib/category-metadata";
+import { getCategoryMetadata } from "@/lib/category-metadata";
 import { getAllCategories, getPostsByCategory } from "@/lib/posts";
 
 export const Route = createFileRoute("/category/$category")({
@@ -69,17 +66,15 @@ function PostsByCategory() {
 
   // Get dynamic metadata
   const metadata = getCategoryMetadata(categoryName, postCount, categoryIndex);
-  const colorClass = getCategoryColorClass(metadata.color, "light");
 
   return (
     <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
       <HeroBanner
         title={categoryName}
         description={metadata.description}
-        colorClass={colorClass}
         postCount={postCount}
         yearCount={yearCount}
-        backLinkHref="/category"
+        backLinkHref="/category/"
         backLinkText="All Categories"
       />
 

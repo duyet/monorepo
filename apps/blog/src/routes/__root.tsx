@@ -1,5 +1,6 @@
 import "@duyet/components/styles.css";
 import "../../app/globals.css";
+import "../../styles/blog-design.css";
 
 import Analytics from "@duyet/components/Analytics";
 import Footer from "@duyet/components/Footer";
@@ -76,7 +77,7 @@ export const Route = createRootRoute({
       {
         rel: "preload",
         as: "style",
-        href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Cormorant+Garamond:wght@400;500;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
       },
       {
         rel: "alternate",
@@ -98,7 +99,7 @@ function RootComponent() {
         {/* Non-blocking Google Fonts: preloaded above, applied here */}
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Cormorant+Garamond:wght@400;500;600&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
           media="print"
           // @ts-expect-error onLoad is valid on link elements
           onLoad="this.media='all'"
@@ -106,7 +107,7 @@ function RootComponent() {
       </head>
       <body>
         <ThemeProvider>
-          <div className="min-h-screen bg-[var(--background)] font-sans text-[var(--foreground)] subpixel-antialiased [--font-inter:Inter,system-ui,sans-serif] [--font-serif:'Cormorant_Garamond',Garamond,'Times New Roman',serif]">
+          <div className="min-h-screen bg-[var(--background)] font-sans text-[var(--foreground)] subpixel-antialiased [--font-inter:Inter,system-ui,sans-serif] [--font-serif:Inter,system-ui,sans-serif]">
             <Header
               shortText="Duyet Le"
               longText="Duyet Le"
@@ -114,7 +115,7 @@ function RootComponent() {
               showAuthButtons
               actions={<AppCommandPalette />}
             />
-            <main className="relative z-10 rounded-b-3xl pb-16 2xl:rounded-b-[4rem]">
+            <main className="relative z-10 pb-16">
               <Outlet />
             </main>
             <Footer />

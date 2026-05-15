@@ -4,7 +4,6 @@ import { getSlug } from "@duyet/libs/getSlug";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { TagHero } from "@/components/layout";
 import { YearPost } from "@/components/post";
-import { getTagColorClass, getTagMetadata } from "@/lib/tag-metadata";
 import { getAllTags, getPostsByTag } from "@/lib/posts";
 
 function findTagBySlug(tags: TagCount, slug: string): string | undefined {
@@ -45,17 +44,12 @@ export const Route = createFileRoute("/tag/$tag")({
 
 function PostsByTag() {
   const { tag } = Route.useParams();
-  const { posts, tags } = Route.useLoaderData() as {
+  const { posts } = Route.useLoaderData() as {
     posts: Post[];
     tags: TagCount;
   };
 
-  const resolvedTag = findTagBySlug(tags, tag);
   const displayName = slugToDisplay(tag);
-
-  const tagIndex = Object.keys(tags)
-    .sort((a, b) => tags[b] - tags[a])
-    .indexOf(resolvedTag || tag);
 
   const postsByYear = posts.reduce((acc: Record<number, Post[]>, post) => {
     const year = new Date(post.date).getFullYear();
@@ -69,14 +63,11 @@ function PostsByTag() {
   const postCount = posts.length;
   const yearCount = Object.keys(postsByYear).length;
 
-  const metadata = getTagMetadata(displayName, postCount, tagIndex);
-  const colorClass = getTagColorClass(metadata.color, "light");
-
   return (
     <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
       <TagHero
         tagName={displayName}
-        colorClass={colorClass}
+        colorClass=""
         postCount={postCount}
         yearCount={yearCount}
       />

@@ -32,7 +32,6 @@ export function SiteHeader() {
         className="border-none bg-[var(--background)]/95 backdrop-blur-sm h-16"
         containerClassName="max-w-[1200px]"
       />
-      {/* Visual divider matching Claude's hairline */}
       <div className="h-px w-full bg-[var(--hairline)]" />
     </div>
   );
@@ -42,4 +41,3 @@ export function SiteHeader() {
 export function SiteFooter() {
   return <Footer />;
 }
-

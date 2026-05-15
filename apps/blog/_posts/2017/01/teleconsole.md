@@ -46,6 +46,4 @@ Hoặc mở giao diện Web mà Teleconsole cung cấp
 
 [![](https://4.bp.blogspot.com/-LJ9L5Ur3d-k/WIljqxnokII/AAAAAAAAiok/muVUPTNyUZUKBQFX7lFftTXQF1ycQ0GhACLcB/s1600/Screenshot%2Bfrom%2B2017-01-26%2B09-49-01.png)](https://4.bp.blogspot.com/-LJ9L5Ur3d-k/WIljqxnokII/AAAAAAAAiok/muVUPTNyUZUKBQFX7lFftTXQF1ycQ0GhACLcB/s1600/Screenshot%2Bfrom%2B2017-01-26%2B09-49-01.png)
 
-<div>
-    <iframe allowfullscreen="" frameborder="0" height="480" src="https://www.youtube.com/embed/R8CnrnquS_s?rel=0" width="853"></iframe>
-</div>
+[Demo video on YouTube](https://www.youtube.com/watch?v=R8CnrnquS_s)

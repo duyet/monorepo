@@ -39,18 +39,19 @@ const products: Product[] = [
   {
     slug: "chm",
     name: "ClickHouse Monitoring",
-    eyebrow: "Operational dashboard",
-    summary: "A ClickHouse cluster monitoring surface for fast daily triage.",
+    eyebrow: "AI-assisted monitoring",
+    summary:
+      "A ClickHouse cluster monitoring surface with agent support for finding insights and triaging activity.",
     image: "/screenshots/ch-monitor.png",
-    url: "https://clickhouse.duyet.net",
+    url: "https://chmonitor.dev",
     year: "2026",
     role: "Product design, frontend, observability",
     industry: "Data infrastructure",
     overview:
-      "The monitoring app keeps cluster health, query activity, and operational signals in a compact interface built for repeated use.",
+      "The monitoring app keeps cluster health, query activity, and operational signals in a compact interface, with AI agent support for finding insights and monitoring changes.",
     highlights: [
       "Dense but readable dashboards for ClickHouse operations.",
-      "Focused query and cluster views without marketing-page chrome.",
+      "AI agent workflows for surfacing insights from cluster and query activity.",
       "Responsive layouts that keep metrics scannable on smaller screens.",
     ],
   },
@@ -108,8 +109,8 @@ function ProductPage() {
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       <SiteHeader />
 
-      <main className="relative z-10 rounded-b-3xl bg-[var(--background)] pb-16 2xl:rounded-b-[4rem]">
-        <section className="mx-auto max-w-[1340px] px-5 py-12 sm:px-8 md:py-16 lg:px-10 lg:py-24 xl:py-28">
+      <main className="relative z-10 bg-[var(--background)] pb-16">
+        <section className="mx-auto max-w-[1180px] px-5 py-12 sm:px-8 md:py-16 lg:px-10">
           <Link
             to="/"
             className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
@@ -121,32 +122,32 @@ function ProductPage() {
             <p className="text-sm font-medium text-[var(--muted-foreground)]">
               {product.eyebrow}
             </p>
-            <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl xl:text-8xl">
+            <h1 className="text-4xl font-semibold leading-[1.08] sm:text-5xl lg:text-6xl">
               {product.name}
             </h1>
-            <p className="max-w-[580px] text-lg leading-7 lg:text-xl">
+            <p className="max-w-[580px] text-base leading-7 text-[var(--muted-foreground)] sm:text-lg">
               {product.summary}
             </p>
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1340px] px-5 sm:px-8 lg:px-10">
+        <section className="mx-auto max-w-[1180px] px-5 sm:px-8 lg:px-10">
           <img
             src={product.image}
             alt={`${product.name} product screenshot`}
-            className="aspect-[4/3] w-full rounded-lg bg-[#050505] object-cover sm:aspect-[6/4] lg:aspect-[5/3] xl:rounded-xl"
+            className="aspect-[4/3] w-full bg-[#050505] object-cover sm:aspect-[6/4] lg:aspect-[5/3]"
           />
         </section>
 
-        <section className="mx-auto mt-16 max-w-[1340px] px-5 sm:px-8 md:mt-20 lg:mt-24 lg:px-10">
+        <section className="mx-auto mt-14 max-w-[1180px] px-5 sm:px-8 lg:px-10">
           <div className="space-y-4 lg:space-y-6">
-            <h2 className="text-lg lg:text-xl">About {product.name}</h2>
-            <p className="max-w-[1180px] text-2xl font-semibold tracking-tight sm:text-3xl md:text-4xl xl:text-5xl">
+            <h2 className="text-lg font-semibold">About {product.name}</h2>
+            <p className="max-w-[900px] text-xl font-semibold leading-snug sm:text-2xl md:text-3xl">
               {product.overview}
             </p>
           </div>
 
-          <div className="my-12 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 lg:mt-16 lg:gap-6 xl:mt-20 xl:gap-8">
+          <div className="my-10 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
             <Meta label="Product" value={product.name} />
             <Meta label="Industry" value={product.industry} />
             <Meta label="Role" value={product.role} />
@@ -154,14 +155,14 @@ function ProductPage() {
           </div>
 
           <div className="space-y-4 lg:space-y-6">
-            <h2 className="text-lg lg:text-xl">Highlights</h2>
-            <div className="grid gap-4 md:grid-cols-3 lg:gap-6 xl:gap-8">
+            <h2 className="text-lg font-semibold">Highlights</h2>
+            <div className="border-y border-[var(--hairline)]">
               {product.highlights.map((highlight) => (
                 <div
                   key={highlight}
-                  className="rounded-lg border border-[var(--border)] bg-[var(--background)] p-5"
+                  className="border-t border-[var(--hairline)] py-4 first:border-t-0"
                 >
-                  <p className="text-base font-semibold leading-snug md:text-lg">
+                  <p className="text-sm font-medium leading-6 md:text-base">
                     {highlight}
                   </p>
                 </div>
@@ -169,7 +170,7 @@ function ProductPage() {
             </div>
           </div>
 
-          <div className="my-12 flex justify-center lg:my-16">
+          <div className="my-10 flex justify-start">
             <a
               href={addUtmParams(
                 product.url,
@@ -178,7 +179,7 @@ function ProductPage() {
               )}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg bg-[var(--foreground)] px-6 py-4 text-base font-medium text-[var(--background)] transition-colors hover:bg-[var(--foreground)]/80 md:text-lg"
+              className="inline-flex items-center gap-2 rounded-lg bg-[var(--foreground)] px-5 py-3 text-sm font-medium text-[var(--background)] transition-colors hover:bg-[var(--foreground)]/80"
             >
               Visit project
               <ExternalLink className="h-5 w-5" />
@@ -186,27 +187,28 @@ function ProductPage() {
           </div>
         </section>
 
-        <section className="mx-auto mt-20 max-w-[1340px] px-5 sm:px-8 lg:mt-28 lg:px-10 xl:mt-32">
-          <h2 className="text-3xl font-semibold tracking-tight md:text-4xl xl:text-5xl">
+        <section className="mx-auto mt-16 max-w-[1180px] px-5 sm:px-8 lg:px-10">
+          <h2 className="text-2xl font-semibold md:text-3xl">
             More projects
           </h2>
-          <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-6 xl:mt-16 xl:gap-8">
+          <div className="mt-6 border-y border-[var(--hairline)]">
             {related.map((item) => (
               <Link
                 key={item.slug}
                 to="/p/$project"
                 params={{ project: item.slug }}
-                className="group relative overflow-hidden rounded-lg bg-[#050505]"
+                className="group grid gap-4 border-t border-[var(--hairline)] py-5 text-[var(--foreground)] first:border-t-0 hover:text-[var(--muted-foreground)] sm:grid-cols-[180px_1fr] sm:items-center"
               >
                 <img
                   src={item.image}
                   alt=""
-                  className="aspect-[4/3] w-full object-cover opacity-75 transition-transform duration-500 group-hover:scale-[1.025] sm:aspect-[6/4]"
+                  className="aspect-[16/9] w-full bg-[#050505] object-cover object-top"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent" />
-                <div className="absolute left-6 top-6 z-10 text-white lg:left-8 lg:top-8">
-                  <p className="text-xl font-medium">{item.name}</p>
-                  <p className="text-sm opacity-80">{item.eyebrow}</p>
+                <div>
+                  <p className="text-lg font-semibold">{item.name}</p>
+                  <p className="mt-1 text-sm text-[var(--muted-foreground)]">
+                    {item.eyebrow}
+                  </p>
                 </div>
               </Link>
             ))}
