@@ -1,5 +1,5 @@
 import { $ } from "bun"
-import { readdirSync, statSync } from "node:fs"
+import { readFileSync, readdirSync, statSync } from "node:fs"
 import { join } from "node:path"
 
 const CRATES_DIR = join(import.meta.dir, "..", "crates")
@@ -8,7 +8,12 @@ const release = Bun.argv.includes("--release")
 
 const crates = readdirSync(CRATES_DIR).filter((name) => {
   const p = join(CRATES_DIR, name)
-  return statSync(p).isDirectory() && statSync(join(p, "Cargo.toml"), { throwIfNoEntry: false })
+  if (!statSync(p).isDirectory()) return false
+  const cargoPath = join(p, "Cargo.toml")
+  if (!statSync(cargoPath, { throwIfNoEntry: false })) return false
+  // wasm-pack requires crate-type = ["cdylib", ...]. Skip binary/CLI crates
+  // so a binary crate in this workspace doesn't break the WASM build.
+  return readFileSync(cargoPath, "utf-8").includes("cdylib")
 })
 
 if (crates.length === 0) {
