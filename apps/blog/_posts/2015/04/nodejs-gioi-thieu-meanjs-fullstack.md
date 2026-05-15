@@ -22,7 +22,7 @@ MEAN là viết tắt của **M**ongoDB + **E**xpressJS + **A**ngularJS + **
 
 ![](https://3.bp.blogspot.com/-5rfaJD0WbCQ/VT5I0zIo48I/AAAAAAAACbA/Z3PvVUVO7Vo/s1600/meanjs-intro.png)
 
-<table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><img border="0" src="https://4.bp.blogspot.com/-733zSU8O2Ks/VT5KUPiciZI/AAAAAAAACbo/XdgpOsbRnsE/s1600/MEAN.io_vs_MEAN.JS_logos.png" style="margin-left: auto; margin-right: auto;" /></td></tr><tr><td class="tr-caption" style="text-align: center;">MEANjs là một tổ hợp thống nhất</td></tr></tbody></table>
+![MEANjs là một tổ hợp thống nhất](https://4.bp.blogspot.com/-733zSU8O2Ks/VT5KUPiciZI/AAAAAAAACbo/XdgpOsbRnsE/s1600/MEAN.io_vs_MEAN.JS_logos.png)
 
 ### 1. MongoDB
 

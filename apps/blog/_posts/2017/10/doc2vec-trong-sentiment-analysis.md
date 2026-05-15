@@ -365,7 +365,8 @@ cm = confusion_matrix(y_test, y_pred, labels=[0, 1])
 plot_confusion_matrix(cm, classes=['neg', 'pos'])
 ```
 
-_Accuracy 0.86376_<br />
+_Accuracy 0.86376_
+
 _Confusion matrix, without normalization_
 
 [![](https://3.bp.blogspot.com/-xZEUdBCyrEI/WdnN-V4iInI/AAAAAAAAnww/OqQ3uBxMCV0Eg0XkvsN7f-q2hkMZTrUvQCK4BGAYYCw/s1600/confusion_matrix_LR.png)](https://3.bp.blogspot.com/-xZEUdBCyrEI/WdnN-V4iInI/AAAAAAAAnww/OqQ3uBxMCV0Eg0XkvsN7f-q2hkMZTrUvQCK4BGAYYCw/s1600/confusion_matrix_LR.png)
@@ -384,7 +385,8 @@ cm = confusion_matrix(y_test, y_pred, labels=[0, 1])
 plot_confusion_matrix(cm, classes=['neg', 'pos'])
 ```
 
-_Accuracy 0.86708_ <br />
+_Accuracy 0.86708_
+
 _Confusion matrix, without normalization_
 
 [![](https://4.bp.blogspot.com/-vMs52b_9gZk/WdnOJG1wjhI/AAAAAAAAnw4/H10XIqYo_sMpAGS0tGWThPZkT0pkEJLHQCK4BGAYYCw/s1600/confusion_matrix_SVM.png)](https://4.bp.blogspot.com/-vMs52b_9gZk/WdnOJG1wjhI/AAAAAAAAnw4/H10XIqYo_sMpAGS0tGWThPZkT0pkEJLHQCK4BGAYYCw/s1600/confusion_matrix_SVM.png)

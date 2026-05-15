@@ -13,6 +13,8 @@ category: Web
 description: Tolks.io này giúp ta tạo một đoạn hội thoại ngắn giữa các nhân vật, trông rất ngộ nghĩnh. Trang này được viết bằng Vue.js
 ---
 
+> **Note (2025):** tolks.io appears to be defunct; links may no longer resolve. Post kept for historical reference.
+
 [Fun] project [tolks.io](http://tolks.io/) này giúp ta tạo một đoạn hội thoại ngắn giữa các nhân vật, trông rất ngộ nghĩnh. Trang này được viết bằng Vue.js
 
 [![](https://2.bp.blogspot.com/-jz-AIhUQYQo/Wa6ty7Ub3gI/AAAAAAAAmzA/CudLd1IAa84CumHooJr9Wxvcs3dOW1eBwCLcBGAs/s1600/threesome.gif)](https://tolks.io/#!/tolk/-KtHHDSNQ35y0Y_KZQvv)

@@ -13,6 +13,8 @@ category: Project
 description: jsLab.xyz
 ---
 
+> **Note (2025):** jsLab.xyz và blog.jslab.xyz đã ngừng hoạt động. Bài viết được giữ lại để lưu lại lịch sử ý tưởng ban đầu.
+
 [jsLab](http://jslab.xyz/) - Mình thích Js, mình làm việc nhiều về các công nghệ của Js, cũng có nhiều mini-project dạng side-project. Vậy tại sao không tập hợp chúng lại.
 
 [![](https://3.bp.blogspot.com/-YEiHaBErShs/VnJos52PFGI/AAAAAAAAMAo/Su-T_R9cnZ0/s1600/jslab.png)](https://3.bp.blogspot.com/-YEiHaBErShs/VnJos52PFGI/AAAAAAAAMAo/Su-T_R9cnZ0/s1600/jslab.png)

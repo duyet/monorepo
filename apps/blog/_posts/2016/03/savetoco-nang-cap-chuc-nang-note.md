@@ -11,6 +11,8 @@ category: Project
 description: Hệ thống service saveto.co dùng để share và shortener URL, home for the best link in the internet.
 ---
 
+> **Note (2025):** Dịch vụ saveto.co đã ngừng hoạt động. Bài viết được giữ lại để tham khảo về dự án cũ. Source code vẫn còn tại [github.com/saveto-co](https://github.com/saveto-co).
+
 Hệ thống service [saveto.co](https://saveto.co/) dùng để share và shortener URL, home for the best link in the internet.
 
 Hiện saveto.co vừa được nâng cấp để có thể lưu trữ note, snippet code (hỗ trợ highlight các ngôn ngữ phổ biến hiện nay).
