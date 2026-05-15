@@ -20,6 +20,7 @@ For scoped reviews after the last run timestamp:
 - `git show --unified=3 <commit_sha>`
 - `rg -n "<symbol>" <file-or-dir> --glob '!**/*.test.*' --glob '!**/__tests__/**'` for dead-reference evidence
 - `rg -n "setup-bun@" .github/workflows -g'*.yml'` to verify valid action pins after CI workflow updates
+- `rg -n "setup-bun@v" .github/workflows -g'*.yml'` to catch unpinned Bun setup actions
 - `rg -n "dtolnay/rust-toolchain@|jetli/wasm-pack-action@|version: latest" .github/workflows -g'*.yml'` to verify Rust/WASM action refs and wasm-pack version pins after deploy-workflow changes
 - Keep durable findings in `docs/ai/core-memory.md` and list reference docs in `docs/INDEX.md`
 - Do not create dated `docs/reviews/code-smell-dead-code-<DATE>.md` files
