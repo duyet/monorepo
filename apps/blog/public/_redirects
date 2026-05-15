@@ -5,5 +5,9 @@
 # Redirect .html to clean URLs
 /:year/:month/:slug.html /:year/:month/:slug/ 301
 
+# Ensure post URLs always have a trailing slash so CF Pages serves
+# the pre-rendered index.html from the matching directory
+/:year/:month/:slug /:year/:month/:slug/ 301
+
 # SPA fallback — all unmatched paths serve index.html
 /* /index.html 200
