@@ -15,6 +15,11 @@ export default defineConfig({
         crawlLinks: true,
         failOnError: false,
       },
+      server: {
+        build: {
+          inlineCss: true,
+        },
+      },
     }),
     tailwindcss(),
     tsconfigPaths(),
