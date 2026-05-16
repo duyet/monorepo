@@ -55,3 +55,11 @@ This file stores durable outcomes from code-smell and dead-code automation runs.
 - Dead-code review (confident): no new dead code in non-test files changed in the fallback 24-hour window.
   - Evidence: `git log --since='24 hours ago' --name-only --pretty=format: | sed '/^$/d' | sort -u` and repo-wide non-test symbol checks in touched code files.
 - Performance audit: no measured regression signal in this window; latest `master` push workflows remained `success` for `Lint`, `Test`, and `Deploy to Cloudflare Pages`.
+
+### 2026-05-17
+
+- Commit window scan since `2026-05-15 21:01:30 +0000` found only CI/docs maintenance commits: `4fbc8f676000056a9affb2018c3fd7a874c858dd`, `3491ef35d6ac64e9a006ebffa09a6027db6c96b3`, and `857e45529dfc1a9158504037e8b36d326c585f72`.
+- Code smell review (info): no functional anti-patterns or bug signals in changed files (`.github/workflows/cf-deploy.yml`, `CLAUDE.md`, `docs/ai/core-memory.md`).
+- Dead-code review (confident): no new dead code candidates from this commit window because changes are workflow/docs-only; no new app/package symbols were introduced.
+- CI audit: push workflows on `master` for `3491ef35` and `857e4552` are `success` for both `Lint` and `Test`.
+- Performance audit: no measurements or traces changed in this window, so no grounded regression claim; continue tracking workflow-duration deltas for CI-cost signals.
