@@ -42,7 +42,7 @@ This pattern is useful for explicit global stylesheets, especially when you alre
 
 - They are discovered when route `head()` runs.
 - They can appear in the `dynamic` Early Hints phase as route `head().links` entries.
-- They are not rewritten by Start's runtime [`transformAssets`](./cdn-asset-urls) option.
+- They are not rewritten by Start's runtime [`transformAssets`](https://tanstack.com/start/latest/docs/framework/react/cdn-asset-urls) option.
 - They are not inlined by Start CSS inlining.
 
 Use this pattern when explicit control of the route head is more important than Start's manifest-managed CSS features.
@@ -115,7 +115,7 @@ Use this rule of thumb:
 - Use `allLinks` in the `dynamic` phase when you want one combined Early Hints response with both static manifest assets and dynamic head links.
 - If CSS inlining is enabled, inlined manifest-managed stylesheet assets are skipped by static Early Hints because they are embedded in the HTML.
 
-See the [Early Hints guide](./early-hints) for the callback and response header APIs.
+See the [Early Hints guide](https://tanstack.com/start/latest/docs/framework/react/early-hints) for the callback and response header APIs.
 
 ## Inline Route CSS in Production
 
@@ -203,7 +203,7 @@ Start embeds it as:
 
 Root-relative URLs are left unchanged at build time. Absolute URLs, protocol-relative URLs, data URLs, and hash references are also left unchanged.
 
-If you need to rewrite CSS-internal URLs at runtime, such as prepending a CDN origin to fonts or background images, opt into CSS URL templates with `server.build.inlineCss: { enabled: true, transformAssets: true }`. See [Transform URLs Inside Inlined CSS](./cdn-asset-urls#transform-urls-inside-inlined-css) for the detailed `transformAssets` behavior.
+If you need to rewrite CSS-internal URLs at runtime, such as prepending a CDN origin to fonts or background images, opt into CSS URL templates with `server.build.inlineCss: { enabled: true, transformAssets: true }`. See [Transform URLs Inside Inlined CSS](https://tanstack.com/start/latest/docs/framework/react/cdn-asset-urls#transform-urls-inside-inlined-css) for the detailed `transformAssets` behavior.
 
 ### Tradeoffs
 
@@ -229,4 +229,4 @@ Use these options together based on what you need in production.
 | Earliest CSS Early Hints                  | Side-effect imports or CSS modules with static hints |
 | Redirect-safe stylesheet Early Hints      | `?url` imports with dynamic hints                    |
 | Fewer blocking CSS requests on first load | `server.build.inlineCss`                             |
-| Runtime CDN rewriting for Start assets    | [`transformAssets`](./cdn-asset-urls)                |
+| Runtime CDN rewriting for Start assets    | [`transformAssets`](https://tanstack.com/start/latest/docs/framework/react/cdn-asset-urls) |
