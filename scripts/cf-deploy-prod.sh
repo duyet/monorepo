@@ -9,6 +9,7 @@ set -euo pipefail
 APP_DIR="$1"
 PROJECT_NAME="$2"
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+PRODUCTION_BRANCH="${CF_PAGES_PRODUCTION_BRANCH:-master}"
 
 # Auto-detect output dir: use explicit arg, or read from wrangler.toml, or default to dist
 if [ -n "${3:-}" ]; then
@@ -44,4 +45,4 @@ bun run --env-file="$ROOT_DIR/.env.production" \
         --env-file="$ROOT_DIR/.env.production.local" \
         build
 
-bunx wrangler@4.20.0 pages deploy "$OUTPUT_DIR" --project-name="$PROJECT_NAME" --commit-dirty=true
+bunx wrangler@4.20.0 pages deploy "$OUTPUT_DIR" --project-name="$PROJECT_NAME" --branch="$PRODUCTION_BRANCH" --commit-dirty=true

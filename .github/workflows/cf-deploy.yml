@@ -29,6 +29,7 @@ on:
           - llm-timeline
           - photos
           - ai-percentage
+          - agent-ui
 
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
@@ -56,6 +57,8 @@ jobs:
         if: github.event_name != 'workflow_dispatch'
         with:
           filters: |
+            agent-ui:
+              - 'apps/agent-ui/**'
             blog:
               - 'apps/blog/**'
             cv:
@@ -80,6 +83,7 @@ jobs:
         run: |
           # App configurations
           declare -A APPS
+          APPS[agent-ui]='{"app":"agent-ui","project":"duyet-agents","url":"https://agents.duyet.net"}'
           APPS[blog]='{"app":"blog","project":"duyet-blog","url":"https://blog.duyet.net"}'
           APPS[cv]='{"app":"cv","project":"duyet-cv","url":"https://cv.duyet.net"}'
           APPS[home]='{"app":"home","project":"duyet-home","url":"https://duyet.net"}'
@@ -94,7 +98,7 @@ jobs:
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             INPUT_APP="${{ github.event.inputs.app }}"
             if [[ "$INPUT_APP" == "all" ]]; then
-              for app in blog cv home homelab insights llm-timeline photos ai-percentage; do
+              for app in agent-ui blog cv home homelab insights llm-timeline photos ai-percentage; do
                 DEPLOY_APPS+=("${APPS[$app]}")
               done
             elif [[ -n "$INPUT_APP" ]]; then
@@ -108,7 +112,7 @@ jobs:
             PACKAGES_CHANGED="${{ steps.filter.outputs.packages }}"
             FILTER_OUTPUTS='${{ toJson(steps.filter.outputs) }}'
 
-            for app in blog cv home homelab insights llm-timeline photos ai-percentage; do
+            for app in agent-ui blog cv home homelab insights llm-timeline photos ai-percentage; do
               APP_CHANGED=$(echo "$FILTER_OUTPUTS" | jq -r --arg app "$app" '.[$app]')
               if [[ "$APP_CHANGED" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
                 DEPLOY_APPS+=("${APPS[$app]}")
@@ -340,6 +344,7 @@ jobs:
           VITE_DUYET_HOMELAB_URL: https://homelab.duyet.net
           VITE_DUYET_LLM_TIMELINE_URL: https://llm-timeline.duyet.net
           VITE_DUYET_AGENTS_URL: https://agents.duyet.net
+          VITE_DUYET_AGENTS_API_URL: https://agents-api.duyet.net
           VITE_DUYET_AI_URL: https://ai.duyet.net
           VITE_DUYET_AI_PERCENTAGE_URL: https://ai-percentage.duyet.net
           # App-specific secrets (only used by apps that need them)

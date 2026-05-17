@@ -37,7 +37,8 @@ This repository is the Bun/Turborepo monorepo for duyet.net public apps, shared 
 - `apps/photos`: photo gallery for `https://photos.duyet.net`, Unsplash and Cloudinary-related workflows.
 - `apps/homelab`: homelab docs and resources for `https://homelab.duyet.net`.
 - `apps/llm-timeline`: LLM release timeline for `https://llm-timeline.duyet.net`, with sync, RSS, sitemap, and llms.txt generation.
-- `apps/agent-api`: API-only Cloudflare Agents Worker for `https://agents.duyet.net` and `https://agents-api.duyet.net`; REST chat is `POST /api/v1/chat` with Clerk bearer auth or `AGENT_API_TOKEN`.
+- `apps/agent-ui`: simple Cloudflare Pages chat UI for `https://agents.duyet.net`, using Clerk auth and the AI SDK UI message model against `apps/agent-api`.
+- `apps/agent-api`: API-only Cloudflare Agents Worker for `https://agents-api.duyet.net`; REST chat is `POST /api/v1/chat` with Clerk bearer auth or `AGENT_API_TOKEN`.
 - `apps/api`: Hono API on Cloudflare Workers for `https://api.duyet.net`.
 - `apps/ai-percentage`: AI-written-code dashboard for `https://ai-percentage.duyet.net`; data comes from `apps/data-sync`.
 - `apps/data-sync`: operational CLI for ClickHouse analytics/activity syncs and migrations.
@@ -57,12 +58,14 @@ This repository is the Bun/Turborepo monorepo for duyet.net public apps, shared 
 - Cloudflare Pages production deploys happen on pushes to `master` or `main`; PRs receive preview deploys.
 - Deploy workflows run type checks, tests, and lint before deploy jobs.
 - App-level `cf:deploy:prod` scripts are authoritative when present.
+- `apps/agent-ui` deploys `dist/client` to the `duyet-agents` Pages project for `https://agents.duyet.net`.
 - `apps/insights` deploys `dist/client` to the `duyet-insights` Pages project.
 - `apps/api` uses Wrangler as a Worker, not a Pages app.
 - `apps/agent-api` uses Wrangler as a Worker, not a Pages app.
 
 ## App-Specific Command Notes
 
+- `apps/agent-ui`: `bun run dev` uses Vite on port 3008; local chat expects `apps/agent-api` on port 8788 unless `VITE_DUYET_AGENTS_API_URL` or `VITE_AGENT_API_URL` is set.
 - `apps/agent-api`: `bun run dev` uses Wrangler on port 8788; `bun run deploy` type-checks then deploys the Worker; `bun run config` syncs `AGENT_API_TOKEN` plus Clerk verification secrets.
 - `apps/api`: `bun run dev` uses Wrangler; `bun run deploy` builds then deploys the Worker.
 - `apps/cv`: `bun run preview` validates production output locally.
@@ -210,7 +213,8 @@ The current public-app visual direction is a Websmith-inspired Duyet system, not
 ### App-Specific Notes
 
 - `apps/home`: editorial homepage with sticky minimal header, oversized but not huge left-aligned hero, relaxed 3+ column project grid on laptop, pastel service tiles, compact black CTAs, and large footer/contact rhythm.
-- `apps/agent-api`: keep this surface API-only. Do not reintroduce a frontend unless explicitly requested; preserve `/api/v1/chat`, `/agents/ChatAgent/:sessionId`, Clerk bearer auth, and `AGENT_API_TOKEN` support.
+- `apps/agent-ui`: keep this a small signed-in chat surface for `agents.duyet.net`; it should call `apps/agent-api` and not duplicate agent logic.
+- `apps/agent-api`: keep this surface API-only for `agents-api.duyet.net`. Preserve `/api/v1/chat`, `/agents/ChatAgent/:sessionId`, Clerk bearer auth, and `AGENT_API_TOKEN` support.
 - `apps/blog`: keep white background preference. Use compact home cards and mobile-safe archive rows; avoid the old large shared-card padding in 3-column contexts.
 - `apps/insights`: keep dashboard density. Use the shared warm/near-black tokens and compact operational panels rather than a landing-page composition.
 - `apps/insights`: architecture is static HTML frontend plus backend Worker API calls. Do not use TanStack Start server functions for runtime data loading; client-side data refreshes should call `apps/api` Worker endpoints.
