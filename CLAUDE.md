@@ -17,6 +17,7 @@ Put durable repository knowledge in `docs/ai/internal-knowledge.md` instead of e
 For scoped reviews after the last run timestamp:
 
 - `git log --since='<LAST_RUN_ISO>' --name-only --pretty=format:'%H%n%s%n%b'` (or `--since='24h ago'`)
+- `git log --since='<LAST_RUN_ISO>' --no-merges --name-only --pretty=format:'%H%n%s%n%b'` when merge commits make change attribution noisy
 - If <LAST_RUN_ISO> is UTC (`...Z`), pass an explicit UTC offset to avoid local-time drift (example: `git log --since='2026-05-15 21:01:30 +0000' --name-only --pretty=format:'%H%n%s%n%b'`).
 - `git show --unified=3 <commit_sha>`
 - `rg -n "<symbol>" <file-or-dir> --glob '!**/*.test.*' --glob '!**/__tests__/**'` for dead-reference evidence
