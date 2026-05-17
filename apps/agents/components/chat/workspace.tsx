@@ -227,14 +227,20 @@ export function ChatWorkspace() {
   const handlePromptSubmit = useCallback(
     async (message: PromptInputMessage) => {
       const text = message.text.trim();
-      if (!text) return;
+      const files = message.files.map((file) => ({
+        ...file,
+        name: file.filename || "attachment",
+      })) as import("ai").FileUIPart[];
+      const hasFiles = files.length > 0;
+
+      if (!text && !hasFiles) return;
 
       if (!activeId) {
         await createNew(mode, modelId);
       }
 
       lastInputRef.current = text;
-      submitMessage(text);
+      submitMessage({ text, files });
     },
     [activeId, createNew, mode, modelId, submitMessage]
   );

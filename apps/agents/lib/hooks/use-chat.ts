@@ -2,6 +2,7 @@ import { useChat as useAIChat } from "@ai-sdk/react";
 import type {
   ChatStatus,
   ChatAddToolApproveResponseFunction,
+  FileUIPart,
   TextUIPart,
   UIMessage,
 } from "ai";
@@ -33,7 +34,7 @@ export interface UseChatReturn {
   uiMessages: UIMessage[];
   input: string;
   setInput: (value: string) => void;
-  submitMessage: (value: string) => void;
+  submitMessage: (payload: { text: string; files?: FileUIPart[] }) => void;
   handleSubmit: (e?: React.FormEvent) => void;
   status: ChatStatus;
   isLoading: boolean;
@@ -397,11 +398,20 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
   }, [aiMessages]);
 
   const submitMessage = useCallback(
-    (value: string) => {
-      const trimmedInput = value.trim();
-      if (!trimmedInput || status !== "ready") return;
+    (payload: { text: string; files?: FileUIPart[] }) => {
+      const trimmedInput = payload.text.trim();
+      const files = payload.files ?? [];
+      const hasFiles = files.length > 0;
+
+      if ((!trimmedInput && !hasFiles) || status !== "ready") return;
+
+      const normalizedText = trimmedInput || "Sent with attachment";
       setInput("");
-      sendMessage({ text: trimmedInput });
+
+      sendMessage({
+        files,
+        text: normalizedText,
+      });
     },
     [status, sendMessage]
   );
@@ -409,7 +419,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
   const handleSubmit = useCallback(
     (e?: React.FormEvent) => {
       e?.preventDefault();
-      submitMessage(input);
+      submitMessage({ text: input });
     },
     [input, submitMessage]
   );

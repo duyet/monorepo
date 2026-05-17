@@ -133,6 +133,30 @@ function PromptInputAttachmentsDisplay() {
   );
 }
 
+function PromptInputSubmitControl({
+  canSubmit,
+  status,
+  stop,
+}: {
+  canSubmit: boolean;
+  status: ChatStatus;
+  stop: () => void;
+}) {
+  const attachments = usePromptInputAttachments();
+  const hasAttachments = attachments.files.length > 0;
+  const isStreaming = status === "submitted" || status === "streaming";
+  const disabled = !isStreaming && !canSubmit && !hasAttachments;
+
+  return (
+    <PromptInputSubmit
+      className={cn(status === "ready" && "bg-foreground")}
+      disabled={disabled}
+      onStop={stop}
+      status={status}
+    />
+  );
+}
+
 export function ChatInput({
   input,
   setInput,
@@ -173,8 +197,6 @@ export function ChatInput({
     return [...groups.entries()];
   }, []);
 
-  const submitDisabled = !canSubmit && !isLoading;
-
   return (
     <div className="pointer-events-none absolute bottom-0 w-full px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-8 sm:px-8">
       <div className="mx-auto max-w-[720px] space-y-2">
@@ -194,7 +216,7 @@ export function ChatInput({
 
         <div className="pointer-events-auto rounded-xl bg-white p-2">
           <PromptInput
-            accept="image/*,application/pdf,text/plain"
+            accept="image/png,image/jpeg"
             globalDrop
             multiple
             onSubmit={onSubmitMessage}
@@ -304,11 +326,10 @@ export function ChatInput({
                 </ModelSelector>
               </PromptInputTools>
 
-              <PromptInputSubmit
-                className={cn(status === "ready" && "bg-foreground")}
-                disabled={submitDisabled}
-                onStop={stop}
+              <PromptInputSubmitControl
+                canSubmit={canSubmit}
                 status={status}
+                stop={stop}
               />
             </PromptInputFooter>
           </PromptInput>
