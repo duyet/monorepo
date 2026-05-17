@@ -1,5 +1,11 @@
 [
   {
+    "app": "agent-ui",
+    "project": "duyet-agents",
+    "url": "https://agents.duyet.net",
+    "domain": "agents.duyet.net"
+  },
+  {
     "app": "blog",
     "project": "duyet-blog",
     "url": "https://blog.duyet.net",
@@ -34,11 +40,5 @@
     "project": "duyet-photos",
     "url": "https://photos.duyet.net",
     "domain": "photos.duyet.net"
-  },
-  {
-    "app": "agents",
-    "project": "duyet-agents",
-    "url": "https://agents.duyet.net",
-    "domain": "agents.duyet.net"
   }
 ]

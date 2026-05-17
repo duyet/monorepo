@@ -46,7 +46,10 @@
     "CLOUDINARY_FOLDER",
     "VITE_API_BASE_URL",
     "VITE_CLERK_PUBLISHABLE_KEY",
-    "CLERK_SECRET_KEY"
+    "CLERK_SECRET_KEY",
+    "CLERK_JWT_KEY",
+    "CLERK_AUTHORIZED_PARTIES",
+    "AGENT_API_TOKEN"
   ],
   "globalDependencies": [
     ".env",

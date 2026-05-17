@@ -300,7 +300,7 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - [Colaboratory - phiên bản custom của Jupyter Notebook từ Google](https://blog.duyet.net/2017/11/colaboratory-research-google) - 2017-11-07
 - [Doc2vec trong Sentiment Analysis](https://blog.duyet.net/2017/10/doc2vec-trong-sentiment-analysis) - 2017-10-08
 - [Python - Nhận dạng xe hơi với OpenCV](https://blog.duyet.net/2017/09/detect-cars-opencv) - 2017-09-20
-- [Tolks.io - Put your story up on the Internet](https://blog.duyet.net/2017/09/tolksio-put-your-story-up-on-internet) - 2017-09-05
+- [Tolks.io — a tiny dialogue maker on Vue.js](https://blog.duyet.net/2017/09/tolksio-put-your-story-up-on-internet) - 2017-09-05
 - [Machine Learning is Fun! (Vietnamese version)](https://blog.duyet.net/2017/08/machine-learning-is-fun) - 2017-08-25
 - [Phân lớp văn bản](https://blog.duyet.net/2017/08/phan-lop-van-ban) - 2017-08-11
 - [natural - NLTK cho Javascript](https://blog.duyet.net/2017/08/natural-nltk) - 2017-08-06
@@ -388,7 +388,7 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - [How one developer just broke Node, Babel and thousands of projects in 11 lines of JavaScript](https://blog.duyet.net/2016/03/how-one-developer-just-broke-the-internet) - 2016-03-26
 - [Neural networks là gì?](https://blog.duyet.net/2016/03/neural-networks) - 2016-03-26
 - [Postman](https://blog.duyet.net/2016/03/postman) - 2016-03-25
-- [saveto.co nâng cấp chức năng note](https://blog.duyet.net/2016/03/savetoco-nang-cap-chuc-nang-note) - 2016-03-24
+- [saveto.co — adding markdown notes and code snippets](https://blog.duyet.net/2016/03/savetoco-nang-cap-chuc-nang-note) - 2016-03-24
 - [Sao lại là Node.js/Javascript?](https://blog.duyet.net/2016/03/why-nodejs-javascript) - 2016-03-19
 - [Asiacrypt 2016](https://blog.duyet.net/2016/03/asiacrypt-2016) - 2016-03-18
 - [ProtonMail - dịch vụ mail end-to-end encrypted](https://blog.duyet.net/2016/03/protonmail) - 2016-03-18
@@ -422,7 +422,7 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - [Unit test và Integration test](https://blog.duyet.net/2015/12/unit-test-va-function-test) - 2015-12-21
 - [Angular 2 có gì mới?](https://blog.duyet.net/2015/12/angular-2-co-gi-moi) - 2015-12-20
 - [Docker là gì?](https://blog.duyet.net/2015/12/docker) - 2015-12-20
-- [jsLab.xyz](https://blog.duyet.net/2015/12/jslab-xyz) - 2015-12-17
+- [jsLab.xyz — a side-project archive](https://blog.duyet.net/2015/12/jslab-xyz) - 2015-12-17
 - [Apache Spark on Docker](https://blog.duyet.net/2015/12/apache-spark-on-docker) - 2015-12-12
 - [Chartico](https://blog.duyet.net/2015/12/chartico) - 2015-12-09
 - [Bigdata - Map-Reduce và bài toán Word Count](https://blog.duyet.net/2015/12/map-reduce-va-bai-toan-wordcount) - 2015-12-02

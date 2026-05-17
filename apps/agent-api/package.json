@@ -1,0 +1,31 @@
+{
+  "name": "agent-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "config": "bun ../../scripts/sync-app-secrets.ts duyet-agent-api",
+    "dev": "bunx wrangler dev --env development --config wrangler.toml --port 8788",
+    "deploy": "bun run check-types && bunx wrangler deploy --env=\"\" --config wrangler.toml",
+    "cf:deploy:prod": "bun run --env-file=../../.env.production --env-file=../../.env.production.local deploy",
+    "check-types": "tsc --noEmit",
+    "test": "bun test",
+    "lint": "biome lint .",
+    "fmt": "biome format --write ."
+  },
+  "dependencies": {
+    "@clerk/backend": "^2.32.0",
+    "@cloudflare/ai-chat": "^0.7.0",
+    "agents": "^0.12.4",
+    "ai": "^6.0.180",
+    "workers-ai-provider": "^3.1.14",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260511.1",
+    "@duyet/tsconfig": "*",
+    "@types/node": "^25.7.0",
+    "bun-types": "^1.3.4",
+    "typescript": "^6.0.3"
+  }
+}

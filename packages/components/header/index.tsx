@@ -25,6 +25,7 @@ interface HeaderProps {
   authButtonsWrapWithProvider?: boolean;
   className?: string;
   containerClassName?: string;
+  onMobileMenuClick?: () => void;
 }
 
 export default function Header({
@@ -40,7 +41,9 @@ export default function Header({
   authButtonsWrapWithProvider = true,
   className,
   containerClassName,
+  onMobileMenuClick,
 }: HeaderProps) {
+  const useExternalMenu = typeof onMobileMenuClick === "function";
   const [mobileOpen, setMobileOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const [headerHeight, setHeaderHeight] = useState(64);
@@ -112,8 +115,20 @@ export default function Header({
           )}
           <button
             type="button"
-            onClick={() => setMobileOpen((prev) => !prev)}
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            onClick={() => {
+              if (useExternalMenu) {
+                onMobileMenuClick?.();
+                return;
+              }
+              setMobileOpen((prev) => !prev);
+            }}
+            aria-label={
+              useExternalMenu
+                ? "Open menu"
+                : mobileOpen
+                  ? "Close menu"
+                  : "Open menu"
+            }
             className={cn(
               "inline-flex h-8 w-8 items-center justify-center rounded-lg",
               "text-[var(--muted-foreground)] dark:text-[#f8f8f2]/70",
@@ -121,7 +136,7 @@ export default function Header({
               "transition-colors"
             )}
           >
-            {mobileOpen ? (
+            {!useExternalMenu && mobileOpen ? (
               <CloseIcon className="h-4 w-4" />
             ) : (
               <MenuIcon className="h-4 w-4" />
@@ -131,29 +146,31 @@ export default function Header({
       </div>
 
       {/* Mobile nav panel */}
-      <div
-        className={cn(
-          "md:hidden fixed inset-x-0 top-[var(--mobile-menu-offset)] z-40 min-h-[calc(100dvh-var(--mobile-menu-offset))] bg-[var(--background)] px-5 py-8 transition-all duration-200 ease-out sm:px-8",
-          mobileOpen
-            ? "pointer-events-auto translate-y-0 opacity-100"
-            : "pointer-events-none -translate-y-2 opacity-0"
-        )}
-        style={
-          {
-            "--mobile-menu-offset": `${headerHeight}px`,
-          } as CSSProperties
-        }
-        aria-hidden={!mobileOpen}
-      >
-        <div className="border-y border-[var(--hairline)] py-4 dark:border-white/8">
-          <MenuNav
-            urls={urls}
-            navigationItems={navigationItems}
-            onItemClick={() => setMobileOpen(false)}
-            className="flex-col items-stretch gap-0"
-          />
+      {!useExternalMenu && (
+        <div
+          className={cn(
+            "md:hidden fixed inset-x-0 top-[var(--mobile-menu-offset)] z-40 min-h-[calc(100dvh-var(--mobile-menu-offset))] bg-[var(--background)] px-5 py-8 transition-all duration-200 ease-out sm:px-8",
+            mobileOpen
+              ? "pointer-events-auto translate-y-0 opacity-100"
+              : "pointer-events-none -translate-y-2 opacity-0"
+          )}
+          style={
+            {
+              "--mobile-menu-offset": `${headerHeight}px`,
+            } as CSSProperties
+          }
+          aria-hidden={!mobileOpen}
+        >
+          <div className="border-y border-[var(--hairline)] py-4 dark:border-white/8">
+            <MenuNav
+              urls={urls}
+              navigationItems={navigationItems}
+              onItemClick={() => setMobileOpen(false)}
+              className="flex-col items-stretch gap-0"
+            />
+          </div>
         </div>
-      </div>
+      )}
     </header>
   );
 }

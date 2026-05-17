@@ -49,44 +49,45 @@ describe("parseEnvContent", () => {
 describe("getVarsForApp", () => {
   const env = {
     CLERK_SECRET_KEY: "sk_test_abc123",
+    CLERK_JWT_KEY: "jwt-public-key",
     NEXT_PUBLIC_DUYET_BLOG_URL: "https://blog.duyet.net",
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: "pk_test_xyz",
-    CF_AIG_GATEWAY_ID: "monorepo",
-    CF_AIG_TOKEN: "aig789",
+    AGENT_API_TOKEN: "agent-secret",
     CLOUDFLARE_ACCOUNT_ID: "acc123",
     CLOUDFLARE_API_TOKEN: "tok456",
   };
 
-  test("returns correct secrets for known app", () => {
-    const { secrets } = getVarsForApp("duyet-agents", env);
+  test("returns correct secrets for agent-api", () => {
+    const { secrets } = getVarsForApp("duyet-agent-api", env);
+    expect(secrets).toHaveProperty("AGENT_API_TOKEN", "agent-secret");
     expect(secrets).toHaveProperty("CLERK_SECRET_KEY", "sk_test_abc123");
-    expect(secrets).toHaveProperty("CF_AIG_GATEWAY_ID", "monorepo");
-    expect(secrets).toHaveProperty("CF_AIG_TOKEN", "aig789");
+    expect(secrets).toHaveProperty("CLERK_JWT_KEY", "jwt-public-key");
     expect(secrets).toHaveProperty("CLOUDFLARE_ACCOUNT_ID", "acc123");
     expect(secrets).toHaveProperty("CLOUDFLARE_API_TOKEN", "tok456");
   });
 
-  test("returns correct buildVars for known app", () => {
-    const { buildVars } = getVarsForApp("duyet-agents", env);
-    expect(buildVars).toHaveProperty(
-      "NEXT_PUBLIC_DUYET_BLOG_URL",
-      "https://blog.duyet.net"
-    );
-    expect(buildVars).toHaveProperty(
-      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
-      "pk_test_xyz"
-    );
+  test("agent-api does not need Pages build vars", () => {
+    const { buildVars } = getVarsForApp("duyet-agent-api", env);
+    expect(buildVars).toEqual({});
   });
 
   test("returns missing list for vars not in env", () => {
-    const { missing } = getVarsForApp("duyet-agents", {
+    const { missing } = getVarsForApp("duyet-agent-api", {
       CLERK_SECRET_KEY: "sk_test_abc123",
     });
+    expect(missing).toContain("AGENT_API_TOKEN");
     expect(missing).toContain("CLOUDFLARE_ACCOUNT_ID");
     expect(missing).toContain("CLOUDFLARE_API_TOKEN");
-    expect(missing).toContain("CF_AIG_GATEWAY_ID");
-    expect(missing).toContain("CF_AIG_TOKEN");
-    expect(missing).toContain("NEXT_PUBLIC_DUYET_BLOG_URL");
+    expect(missing).not.toContain("CLERK_JWT_KEY or CLERK_SECRET_KEY");
+  });
+
+  test("requires one Clerk verification secret for agent-api", () => {
+    const { missing } = getVarsForApp("duyet-agent-api", {
+      AGENT_API_TOKEN: "agent-secret",
+      CLOUDFLARE_ACCOUNT_ID: "acc123",
+      CLOUDFLARE_API_TOKEN: "tok456",
+    });
+    expect(missing).toContain("CLERK_JWT_KEY or CLERK_SECRET_KEY");
   });
 
   test("returns empty result for unknown app", () => {
@@ -97,21 +98,21 @@ describe("getVarsForApp", () => {
   });
 
   test("does not include missing vars in secrets or buildVars", () => {
-    const { secrets, buildVars } = getVarsForApp("duyet-agents", {});
+    const { secrets, buildVars } = getVarsForApp("duyet-agent-api", {});
     expect(Object.keys(secrets)).toHaveLength(0);
     expect(Object.keys(buildVars)).toHaveLength(0);
   });
 });
 
 describe("appConfig", () => {
-  test("duyet-agents includes CF credentials for Workers AI binding", () => {
-    const config = appConfig["duyet-agents"];
+  test("duyet-agent-api includes API, Clerk, and CF deployment secrets", () => {
+    const config = appConfig["duyet-agent-api"];
     expect(config).toBeDefined();
-    expect(config.secrets).toContain("CF_AIG_GATEWAY_ID");
-    expect(config.secrets).toContain("CF_AIG_TOKEN");
+    expect(config.secrets).toContain("AGENT_API_TOKEN");
+    expect(config.optionalSecrets ?? []).toContain("CLERK_JWT_KEY");
+    expect(config.optionalSecrets ?? []).toContain("CLERK_SECRET_KEY");
     expect(config.secrets).toContain("CLOUDFLARE_ACCOUNT_ID");
     expect(config.secrets).toContain("CLOUDFLARE_API_TOKEN");
-    expect(config.secrets).toContain("CLERK_SECRET_KEY");
   });
 
   test("all apps have secrets and buildVars arrays", () => {
@@ -120,6 +121,9 @@ describe("appConfig", () => {
       expect(Array.isArray(config.buildVars)).toBe(true);
       // Ensure no empty string entries
       for (const s of config.secrets) {
+        expect(s.length).toBeGreaterThan(0);
+      }
+      for (const s of config.optionalSecrets ?? []) {
         expect(s.length).toBeGreaterThan(0);
       }
     }

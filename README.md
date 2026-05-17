@@ -11,7 +11,7 @@ This monorepo contains the public apps and shared packages for duyet.net.
 - **Photos**: https://photos.duyet.net (official) | https://duyet-photos.pages.dev (Cloudflare Pages)
 - **Homelab**: https://homelab.duyet.net (official) | https://duyet-homelab.pages.dev (Cloudflare Pages)
 - **LLM Timeline**: https://llm-timeline.duyet.net (official) | https://duyet-llm-timeline.pages.dev (Cloudflare Pages)
-- **AI Agents**: https://agents.duyet.net (official) | https://duyet-agents.pages.dev (Cloudflare Pages)
+- **AI Agents API**: https://agents.duyet.net (official) | https://agents-api.duyet.net (API)
 - **AI Chat**: https://ai.duyet.net (official)
 - **AI Percentage**: https://ai-percentage.duyet.net (official)
 - **API**: https://api.duyet.net (official)

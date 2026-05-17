@@ -103,6 +103,10 @@ const CLOUDFLARE_ENV = {
   CLOUDFLARE_EMAIL:
     Bun.env.CLOUDFLARE_EMAIL || DEPLOY_ENV.CLOUDFLARE_EMAIL || "",
 };
+const PRODUCTION_BRANCH =
+  Bun.env.CF_PAGES_PRODUCTION_BRANCH ||
+  DEPLOY_ENV.CF_PAGES_PRODUCTION_BRANCH ||
+  "master";
 
 // Apps that require secret syncing (have sensitive env vars)
 const appsWithSecrets = new Set(["blog", "photos", "insights"]);
@@ -150,7 +154,12 @@ function discoverApps(): Record<string, AppConfig> {
     if (!projectMatch) continue;
 
     const projectName = projectMatch[1];
-    const domain = appName === "home" ? "duyet.net" : `${appName}.duyet.net`;
+    const domain =
+      appName === "home"
+        ? "duyet.net"
+        : appName === "agent-ui"
+          ? "agents.duyet.net"
+          : `${appName}.duyet.net`;
 
     // Read pages_build_output_dir from wrangler.toml, default to "dist"
     const outputDirMatch = wranglerContent.match(
@@ -613,9 +622,10 @@ async function deployApp(appName: string): Promise<{
     `--project-name=${appConfig.projectName}`,
   ];
 
-  // For preview deployments, use current git branch
-  // Production deployments (isProd) don't specify --branch, which deploys to production
-  if (!isProd) {
+  if (isProd) {
+    wranglerCmd.push(`--branch=${PRODUCTION_BRANCH}`);
+  } else {
+    // For preview deployments, use current git branch.
     // Get current git branch for preview deployment alias
     const gitBranch = Bun.spawnSync({
       cmd: ["git", "branch", "--show-current"],

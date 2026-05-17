@@ -151,10 +151,24 @@ const appItems: PaletteItem[] = [
 
 interface AppCommandPaletteProps {
   className?: string;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  hideDefaultTrigger?: boolean;
 }
 
-export function AppCommandPalette({ className }: AppCommandPaletteProps) {
-  const [open, setOpen] = useState(false);
+export function AppCommandPalette({
+  className,
+  open: controlledOpen,
+  onOpenChange,
+  hideDefaultTrigger = false,
+}: AppCommandPaletteProps) {
+  const [internalOpen, setInternalOpen] = useState(false);
+  const isControlled = controlledOpen !== undefined;
+  const open = isControlled ? controlledOpen : internalOpen;
+  const setOpen = (value: boolean) => {
+    if (!isControlled) setInternalOpen(value);
+    onOpenChange?.(value);
+  };
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -182,18 +196,20 @@ export function AppCommandPalette({ className }: AppCommandPaletteProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <button
-          type="button"
-          className={cn(
-            "flex items-center justify-center rounded-lg p-2 text-[#1a1a1a] transition-colors hover:bg-[#1a1a1a]/5",
-            className
-          )}
-          aria-label="Search"
-        >
-          <Search className="h-4 w-4" />
-        </button>
-      </DialogTrigger>
+      {!hideDefaultTrigger && (
+        <DialogTrigger asChild>
+          <button
+            type="button"
+            className={cn(
+              "flex items-center justify-center rounded-lg p-2 text-[#1a1a1a] transition-colors hover:bg-[#1a1a1a]/5",
+              className
+            )}
+            aria-label="Search"
+          >
+            <Search className="h-4 w-4" />
+          </button>
+        </DialogTrigger>
+      )}
       <DialogContent className="w-[min(860px,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-[#1a1a1a]/10 bg-white p-0 text-[#1a1a1a] shadow-none dark:border-[#1a1a1a]/10 dark:bg-white dark:text-[#1a1a1a] dark:shadow-none">
         <DialogTitle className="sr-only">Command Palette</DialogTitle>
         <DialogDescription className="sr-only">

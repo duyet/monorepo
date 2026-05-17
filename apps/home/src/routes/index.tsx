@@ -102,7 +102,7 @@ function HomePage() {
                       key={label}
                       className="grid grid-cols-[32px_140px_1fr] gap-6 border-t border-[var(--hairline)] py-4 first:border-t-0"
                     >
-                      <p className="font-mono text-xs text-[var(--muted-soft)]">
+                      <p className="font-mono text-xs tabular-nums text-[var(--muted-soft)]">
                         {String(index + 1).padStart(2, "0")}
                       </p>
                       <p className="text-sm font-semibold text-[var(--foreground)]">
@@ -250,17 +250,17 @@ function AppRow({
   return (
     <AppLink
       item={item}
-      className="group grid gap-2 border-t border-[var(--hairline)] py-4 text-[var(--foreground)] transition-colors first:border-t-0 hover:text-[var(--muted-foreground)] sm:grid-cols-[180px_1fr_180px] sm:gap-8"
+      className="group grid gap-2 border-t border-[var(--hairline)] py-4 text-[var(--foreground)] transition-colors duration-200 ease-out first:border-t-0 hover:text-[var(--muted-foreground)] sm:grid-cols-[180px_1fr_180px] sm:gap-8"
     >
       <div className="min-w-0">
-        <h3 className="text-base font-semibold leading-snug">
+        <h3 className="text-base font-semibold leading-snug transition-transform duration-200 ease-out group-hover:translate-x-0.5">
           {item.name}
         </h3>
       </div>
       <p className="text-sm leading-6 text-[var(--muted-foreground)] sm:max-w-2xl">
         {item.description}
       </p>
-      <p className="truncate font-mono text-xs text-[var(--muted-soft)] sm:text-right">
+      <p className="truncate font-mono text-xs tabular-nums text-[var(--muted-soft)] sm:text-right">
         {item.host}
       </p>
     </AppLink>
@@ -279,7 +279,9 @@ function CapabilityRow({
   const isExternal = href.startsWith("http");
   const children = (
     <div className="grid gap-2 py-5 md:grid-cols-[180px_1fr] md:gap-8 md:items-start">
-      <h3 className="text-lg font-semibold">{title}</h3>
+      <h3 className="text-lg font-semibold transition-transform duration-200 ease-out group-hover:translate-x-0.5">
+        {title}
+      </h3>
       <p className="text-sm leading-6 text-[var(--muted-foreground)]">
         {description}
       </p>
@@ -287,7 +289,7 @@ function CapabilityRow({
   );
 
   const classes =
-    "block border-t border-[var(--hairline)] text-[var(--foreground)] transition-colors first:border-t-0 hover:text-[var(--muted-foreground)]";
+    "group block border-t border-[var(--hairline)] text-[var(--foreground)] transition-colors duration-200 ease-out first:border-t-0 hover:text-[var(--muted-foreground)]";
 
   if (isExternal) {
     return (

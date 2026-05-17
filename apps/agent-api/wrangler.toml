@@ -1,0 +1,29 @@
+name = "duyet-agents-api"
+main = "src/index.ts"
+compatibility_date = "2026-05-17"
+compatibility_flags = ["nodejs_compat"]
+routes = [
+  { pattern = "agents-api.duyet.net", custom_domain = true }
+]
+
+[observability]
+enabled = true
+
+[ai]
+binding = "AI"
+remote = true
+
+[durable_objects]
+bindings = [
+  { name = "ChatAgent", class_name = "ChatAgent" }
+]
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["ChatAgent"]
+
+[vars]
+CLERK_AUTHORIZED_PARTIES = "https://duyet.net,https://blog.duyet.net,https://cv.duyet.net,https://insights.duyet.net,https://photos.duyet.net,https://homelab.duyet.net,https://llm-timeline.duyet.net,https://ai-percentage.duyet.net,https://agents.duyet.net,https://agents-api.duyet.net"
+
+[env.development.vars]
+CLERK_AUTHORIZED_PARTIES = "https://duyet.net,https://blog.duyet.net,https://cv.duyet.net,https://insights.duyet.net,https://photos.duyet.net,https://homelab.duyet.net,https://llm-timeline.duyet.net,https://ai-percentage.duyet.net,https://agents.duyet.net,https://agents-api.duyet.net,http://localhost:3000,http://localhost:3004,http://localhost:3008,http://localhost:5173,http://localhost:8788,http://127.0.0.1:3000,http://127.0.0.1:3004,http://127.0.0.1:3008,http://127.0.0.1:5173,http://127.0.0.1:8788"

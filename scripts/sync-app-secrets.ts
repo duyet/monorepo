@@ -33,7 +33,7 @@ const dryRun = process.argv.includes("--dry-run");
 // Define which vars each app needs
 export const appConfig: Record<
   string,
-  { secrets: string[]; buildVars: string[] }
+  { secrets: string[]; optionalSecrets?: string[]; buildVars: string[] }
 > = {
   "duyet-api": {
     secrets: [
@@ -176,23 +176,14 @@ export const appConfig: Record<
       "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
     ],
   },
-  "duyet-agents": {
+  "duyet-agent-api": {
     secrets: [
-      "CLERK_SECRET_KEY",
-      "CF_AIG_GATEWAY_ID",
-      "CF_AIG_TOKEN",
+      "AGENT_API_TOKEN",
       "CLOUDFLARE_ACCOUNT_ID",
       "CLOUDFLARE_API_TOKEN",
     ],
-    buildVars: [
-      "NEXT_PUBLIC_DUYET_BLOG_URL",
-      "NEXT_PUBLIC_DUYET_CV_URL",
-      "NEXT_PUBLIC_DUYET_HOMELAB_URL",
-      "NEXT_PUBLIC_DUYET_INSIGHTS_URL",
-      "NEXT_PUBLIC_DUYET_PHOTOS_URL",
-      "NEXT_PUBLIC_DUYET_HOME_URL",
-      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
-    ],
+    optionalSecrets: ["CLERK_SECRET_KEY", "CLERK_JWT_KEY"],
+    buildVars: [],
   },
   "duyet-ai": {
     secrets: ["CLERK_SECRET_KEY"],
@@ -205,6 +196,10 @@ export const appConfig: Record<
       "NEXT_PUBLIC_DUYET_HOME_URL",
       "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
     ],
+  },
+  "duyet-burns": {
+    secrets: ["MOTHERDUCK_TOKEN"],
+    buildVars: [],
   },
   "duyet-ai-percentage": {
     secrets: ["CLERK_SECRET_KEY"],
@@ -252,7 +247,12 @@ function loadEnvFiles(): Record<string, string> {
   const env: Record<string, string> = {};
 
   // 1. Load from root .env files (base configuration)
-  const rootEnvFiles = [".env", ".env.local"];
+  const rootEnvFiles = [
+    ".env",
+    ".env.local",
+    ".env.production",
+    ".env.production.local",
+  ];
   for (const file of rootEnvFiles) {
     const filePath = join(rootDir, file);
     if (!existsSync(filePath)) continue;
@@ -319,6 +319,19 @@ export function getVarsForApp(
     }
   }
 
+  for (const key of config.optionalSecrets ?? []) {
+    const value = env[key];
+    if (value) secrets[key] = value;
+  }
+
+  if (
+    appName === "duyet-agent-api" &&
+    !secrets.CLERK_JWT_KEY &&
+    !secrets.CLERK_SECRET_KEY
+  ) {
+    missing.push("CLERK_JWT_KEY or CLERK_SECRET_KEY");
+  }
+
   // Get build vars (for Pages projects)
   for (const key of config.buildVars) {
     const value = env[key];
@@ -334,7 +347,8 @@ export function getVarsForApp(
 
 async function setSecretsBulk(
   appName: string,
-  secrets: Record<string, string>
+  secrets: Record<string, string>,
+  env: Record<string, string>
 ): Promise<boolean> {
   if (dryRun || Object.keys(secrets).length === 0) {
     if (dryRun && Object.keys(secrets).length > 0) {
@@ -362,14 +376,14 @@ async function setSecretsBulk(
     // Use different commands for Pages vs Workers
     const cmd = isPagesProject
       ? ["bunx", "wrangler", "pages", "secret", "bulk", tmpFile]
-      : ["bunx", "wrangler", "secret", "bulk", tmpFile];
+      : ["bunx", "wrangler", "secret", "bulk", tmpFile, "--env="];
 
     // Run wrangler from the app directory so it finds wrangler.toml
     const result = Bun.spawnSync({
       cmd,
       cwd: appDir,
       stdio: ["inherit", "pipe", "pipe"],
-      env: { ...process.env },
+      env: { ...process.env, ...env },
     });
 
     // Clean up temp file
@@ -394,7 +408,8 @@ async function setSecretsBulk(
 
 async function setBuildVarsForPages(
   appName: string,
-  buildVars: Record<string, string>
+  buildVars: Record<string, string>,
+  env: Record<string, string>
 ): Promise<boolean> {
   if (dryRun || Object.keys(buildVars).length === 0) {
     if (dryRun && Object.keys(buildVars).length > 0) {
@@ -420,7 +435,7 @@ async function setBuildVarsForPages(
         cmd,
         cwd: appDir,
         stdio: ["pipe", "pipe", "pipe"],
-        env: { ...process.env },
+        env: { ...process.env, ...env },
         input: value,
       });
 
@@ -482,7 +497,7 @@ async function main() {
       console.log(`    - ${key}: ${masked}`);
     }
 
-    const result = await setSecretsBulk(appName, secrets);
+    const result = await setSecretsBulk(appName, secrets, env);
     if (!result) {
       console.log(`  [ERROR] Failed to sync secrets`);
       process.exit(1);
@@ -501,7 +516,7 @@ async function main() {
       console.log(`    - ${key}=${value}`);
     }
 
-    const result = await setBuildVarsForPages(appName, buildVars);
+    const result = await setBuildVarsForPages(appName, buildVars, env);
     if (!result) {
       console.log(`  [ERROR] Failed to sync build vars`);
       process.exit(1);
