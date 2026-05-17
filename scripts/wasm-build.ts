@@ -43,6 +43,7 @@ for (const crate of crates) {
     "--target", "web",
     "--out-dir", outPath,
     "--out-name", outName,
+    "--locked",
     ...(release ? ["--release"] : []),
     cratePath,
   ]

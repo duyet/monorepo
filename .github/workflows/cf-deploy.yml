@@ -32,7 +32,6 @@ on:
           - ai-percentage
 
 env:
-  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ vars.TURBO_TEAM }}
   TURBO_REMOTE_ONLY: true
 
@@ -157,6 +156,8 @@ jobs:
 
       - name: Type check
         run: bun run turbo check-types
+        env:
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
 
   unittest:
     name: Unit tests
@@ -216,6 +217,8 @@ jobs:
 
       - name: Lint
         run: bun run lint
+        env:
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
 
   deploy:
     name: Deploy ${{ matrix.app }}
@@ -240,7 +243,7 @@ jobs:
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2.2.0
 
       - name: Restore cache
-        uses: actions/cache@v5
+        uses: actions/cache@a7833574556fa59680c1b7cb190c1735db73ebf0  # v5.0.0
         with:
           path: |
             ~/.bun/install/cache
@@ -254,13 +257,13 @@ jobs:
 
       - name: Setup Rust toolchain (blog WASM markdown)
         if: matrix.app == 'blog'
-        uses: dtolnay/rust-toolchain@stable
+        uses: dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8  # stable
         with:
           targets: wasm32-unknown-unknown
 
       - name: Cache cargo registry & build
         if: matrix.app == 'blog'
-        uses: actions/cache@v5
+        uses: actions/cache@a7833574556fa59680c1b7cb190c1735db73ebf0  # v5.0.0
         with:
           path: |
             ~/.cargo/registry
@@ -272,9 +275,9 @@ jobs:
 
       - name: Install wasm-pack
         if: matrix.app == 'blog'
-        uses: jetli/wasm-pack-action@v0.4.0
+        uses: jetli/wasm-pack-action@0d096b08b4e5a7de8c28de67e11e945404e9eefa  # v0.4.0
         with:
-          version: latest
+          version: 0.13.1
 
       - name: Build WASM packages (markdown converter)
         if: matrix.app == 'blog'
@@ -334,6 +337,7 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
           # Production environment variables (Vite apps use VITE_ prefix)
           NODE_ENV: production
           VITE_DUYET_HOME_URL: https://duyet.net
