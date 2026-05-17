@@ -38,7 +38,7 @@ async function handleCompatChat(request: Request, env: Env): Promise<Response> {
   const text = body.message?.trim();
   if (!text) return json({ error: "message is required" }, 400);
 
-  const sessionId = body.sessionId?.trim() || `home-${user.userId}`;
+  const sessionId = `home-${user.userId}`;
   const conversationId = body.conversationId?.trim() || crypto.randomUUID();
 
   const agent = await getAgentByName(env.ChatAgent, sessionId);
@@ -138,6 +138,9 @@ export default {
     if (url.pathname === "/api/recommendations" && request.method === "GET") {
       return handleRecommendations(request, env);
     }
+
+    const routedUser = await getUserFromRequest(request, env.CLERK_ISSUER_URL);
+    if (!routedUser) return json({ error: "Unauthorized" }, 401);
 
     const routed = await routeAgentRequest(request, env);
     if (routed) return routed;
