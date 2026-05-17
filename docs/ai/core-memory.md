@@ -63,3 +63,18 @@ This file stores durable outcomes from code-smell and dead-code automation runs.
 - Dead-code review (confident): no new dead code candidates from this commit window because changes are workflow/docs-only; no new app/package symbols were introduced.
 - CI audit: push workflows on `master` for `3491ef35` and `857e4552` are `success` for both `Lint` and `Test`.
 - Performance audit: no measurements or traces changed in this window, so no grounded regression claim; continue tracking workflow-duration deltas for CI-cost signals.
+
+### 2026-05-18
+
+- Commit window scan since `2026-05-16 21:00:13 +0000` included agent-api/ui/home/CI changes; reviewed non-merge commits for actionable code smell and dead code.
+- Code smell review (info): no proven runtime bug in current `HEAD` from this window. Targeted lint passed for touched source files:
+  - `apps/agent-api/src/{index.ts,agent.ts,public-messages.ts,routing.ts}`
+  - `apps/agent-ui/src/{App.tsx,agent-api-transport.ts}`
+  - `apps/home/src/components/SiteChrome.tsx`
+  - `packages/components/{AppCommandPalette.tsx,header/index.tsx,header/AuthButtons.tsx}`
+  - Evidence: `bunx biome lint <paths>` returned `Checked 10 files ... No fixes applied.`
+- Dead-code review (confident): no new zero-reference symbols in current touched surfaces.
+  - Evidence: repo-wide non-test reference checks for `toPublicMessageMetadata`, `hasReasoningParts`, `stripReasoningParts`, `AppCommandPalette`, and `SiteChrome` returned active references outside declarations.
+- CI audit: latest `master` push workflows for `fea49fec` and `76c213b1` are `success` for `Lint`, `Test`, and deploy jobs.
+  - Evidence: `gh run list --branch master --event push --limit 20 --json databaseId,headSha,status,conclusion,name,updatedAt`.
+- Workflow docs update: added `git log --since='<LAST_RUN_ISO>' --no-merges ...` to `CLAUDE.md` to reduce false positives from merge-only metadata during maintenance scans.
