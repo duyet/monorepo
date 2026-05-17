@@ -37,7 +37,7 @@ This repository is the Bun/Turborepo monorepo for duyet.net public apps, shared 
 - `apps/photos`: photo gallery for `https://photos.duyet.net`, Unsplash and Cloudinary-related workflows.
 - `apps/homelab`: homelab docs and resources for `https://homelab.duyet.net`.
 - `apps/llm-timeline`: LLM release timeline for `https://llm-timeline.duyet.net`, with sync, RSS, sitemap, and llms.txt generation.
-- `apps/agents`: AI chat interface for `https://agents.duyet.net`, Cloudflare Pages Functions, Workers AI, and AI Gateway.
+- `apps/agent-api`: API-only Cloudflare Agents Worker for `https://agents.duyet.net` and `https://agents-api.duyet.net`; REST chat is `POST /api/v1/chat` with Clerk bearer auth or `AGENT_API_TOKEN`.
 - `apps/api`: Hono API on Cloudflare Workers for `https://api.duyet.net`.
 - `apps/ai-percentage`: AI-written-code dashboard for `https://ai-percentage.duyet.net`; data comes from `apps/data-sync`.
 - `apps/data-sync`: operational CLI for ClickHouse analytics/activity syncs and migrations.
@@ -59,10 +59,11 @@ This repository is the Bun/Turborepo monorepo for duyet.net public apps, shared 
 - App-level `cf:deploy:prod` scripts are authoritative when present.
 - `apps/insights` deploys `dist/client` to the `duyet-insights` Pages project.
 - `apps/api` uses Wrangler as a Worker, not a Pages app.
+- `apps/agent-api` uses Wrangler as a Worker, not a Pages app.
 
 ## App-Specific Command Notes
 
-- `apps/agents`: `bun run prebuild` builds skills; `bun run dev` uses `node dev.js`; `bun run dev:vite` is Vite-only; `bun run test:e2e` runs browser tests.
+- `apps/agent-api`: `bun run dev` uses Wrangler on port 8788; `bun run deploy` type-checks then deploys the Worker; `bun run config` syncs `AGENT_API_TOKEN` plus Clerk verification secrets.
 - `apps/api`: `bun run dev` uses Wrangler; `bun run deploy` builds then deploys the Worker.
 - `apps/cv`: `bun run preview` validates production output locally.
 - `apps/data-sync`: use `bun run sync <name>`, `bun run sync:all`, `bun run migrate:*`, and `bun run cleanup:dry-run`.
@@ -93,7 +94,7 @@ Rust crates in `crates/` serve two purposes:
 | `crates/normalizers/` | Build | 8 normalize functions | `apps/llm-timeline/lib/normalizers.ts` |
 | `crates/dedup/` | Build | `merge_all_sources(input) -> String` | `apps/llm-timeline/lib/deduplicator.ts` |
 | `crates/exif/` | Runtime | `extract_exif(data: &[u8]) -> String` | `apps/photos/lib/exifExtractor.ts` |
-| `crates/diff/` | Runtime | `diff_text`, `align_blocks` | `apps/agents/lib/editor/diff.ts` |
+| `crates/diff/` | Runtime | `diff_text`, `align_blocks` | currently no app consumer after the agents UI removal |
 | `crates/utils/` | Runtime | `escape_reg_exp`, `slugify` | `packages/libs/string.ts` |
 
 ### Native CLI Protocol
@@ -209,7 +210,7 @@ The current public-app visual direction is a Websmith-inspired Duyet system, not
 ### App-Specific Notes
 
 - `apps/home`: editorial homepage with sticky minimal header, oversized but not huge left-aligned hero, relaxed 3+ column project grid on laptop, pastel service tiles, compact black CTAs, and large footer/contact rhythm.
-- `apps/agents`: preserve the chat workspace. Restyle tokens, sidebars, top bar, empty state, messages, composer, tool approvals, and right rail. Keep mobile drawers reachable and clamped.
+- `apps/agent-api`: keep this surface API-only. Do not reintroduce a frontend unless explicitly requested; preserve `/api/v1/chat`, `/agents/ChatAgent/:sessionId`, Clerk bearer auth, and `AGENT_API_TOKEN` support.
 - `apps/blog`: keep white background preference. Use compact home cards and mobile-safe archive rows; avoid the old large shared-card padding in 3-column contexts.
 - `apps/insights`: keep dashboard density. Use the shared warm/near-black tokens and compact operational panels rather than a landing-page composition.
 - `apps/insights`: architecture is static HTML frontend plus backend Worker API calls. Do not use TanStack Start server functions for runtime data loading; client-side data refreshes should call `apps/api` Worker endpoints.

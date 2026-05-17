@@ -28,7 +28,6 @@ on:
           - insights
           - llm-timeline
           - photos
-          - agents
           - ai-percentage
 
 env:
@@ -71,8 +70,6 @@ jobs:
               - 'apps/llm-timeline/**'
             photos:
               - 'apps/photos/**'
-            agents:
-              - 'apps/agents/**'
             ai-percentage:
               - 'apps/ai-percentage/**'
             packages:
@@ -90,7 +87,6 @@ jobs:
           APPS[insights]='{"app":"insights","project":"duyet-insights","url":"https://insights.duyet.net"}'
           APPS[llm-timeline]='{"app":"llm-timeline","project":"duyet-llm-timeline","url":"https://llm-timeline.duyet.net"}'
           APPS[photos]='{"app":"photos","project":"duyet-photos","url":"https://photos.duyet.net"}'
-          APPS[agents]='{"app":"agents","project":"duyet-agents","url":"https://agents.duyet.net"}'
           APPS[ai-percentage]='{"app":"ai-percentage","project":"duyet-ai-percentage","url":"https://ai-percentage.duyet.net"}'
 
           DEPLOY_APPS=()
@@ -98,7 +94,7 @@ jobs:
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             INPUT_APP="${{ github.event.inputs.app }}"
             if [[ "$INPUT_APP" == "all" ]]; then
-              for app in blog cv home homelab insights llm-timeline photos agents ai-percentage; do
+              for app in blog cv home homelab insights llm-timeline photos ai-percentage; do
                 DEPLOY_APPS+=("${APPS[$app]}")
               done
             elif [[ -n "$INPUT_APP" ]]; then
@@ -112,7 +108,7 @@ jobs:
             PACKAGES_CHANGED="${{ steps.filter.outputs.packages }}"
             FILTER_OUTPUTS='${{ toJson(steps.filter.outputs) }}'
 
-            for app in blog cv home homelab insights llm-timeline photos agents ai-percentage; do
+            for app in blog cv home homelab insights llm-timeline photos ai-percentage; do
               APP_CHANGED=$(echo "$FILTER_OUTPUTS" | jq -r --arg app "$app" '.[$app]')
               if [[ "$APP_CHANGED" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
                 DEPLOY_APPS+=("${APPS[$app]}")
@@ -366,9 +362,6 @@ jobs:
           # Clerk Authentication (blog app)
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
           VITE_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
-          # Cloudflare AI Gateway (agents app)
-          CF_AIG_GATEWAY_ID: ${{ secrets.CF_AIG_GATEWAY_ID }}
-          CF_AIG_TOKEN: ${{ secrets.CF_AIG_TOKEN }}
 
       - name: Deployment summary
         run: |
