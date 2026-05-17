@@ -43,7 +43,6 @@ export function AuthButtons({
   signedInContent = null,
   signedOutContent = null,
   wrapWithProvider = true,
-  simpleAvatar = false,
 }: {
   urls?: UrlsConfig;
   className?: string;
@@ -52,7 +51,6 @@ export function AuthButtons({
   signedInContent?: React.ReactNode | null;
   signedOutContent?: React.ReactNode | null;
   wrapWithProvider?: boolean;
-  simpleAvatar?: boolean;
 } = {}) {
   const importMetaEnv =
     typeof import.meta !== "undefined"
@@ -113,15 +111,8 @@ export function AuthButtons({
     return null;
   }
 
-  const {
-    ClerkProvider,
-    SignedOut,
-    SignedIn,
-    SignInButton,
-    UserButton,
-    useUser,
-    useClerk,
-  } = clerkModule;
+  const { ClerkProvider, SignedOut, SignedIn, SignInButton, UserButton } =
+    clerkModule;
 
   if (
     !ClerkProvider ||
@@ -161,23 +152,14 @@ export function AuthButtons({
         </SignInButton>
       </SignedOut>
       <SignedIn>
-        {simpleAvatar ? (
-          <SimpleAvatar
-            useUser={useUser}
-            useClerk={useClerk}
-            avatarSize={avatarSize}
-            redirectUrl={redirectUrl}
-          />
-        ) : (
-          <UserButton
-            appearance={{
-              elements: {
-                avatarBox: avatarSize,
-              },
-            }}
-            afterSignOutUrl={redirectUrl}
-          />
-        )}
+        <UserButton
+          appearance={{
+            elements: {
+              avatarBox: avatarSize,
+            },
+          }}
+          afterSignOutUrl={redirectUrl}
+        />
       </SignedIn>
     </>
   );
@@ -186,49 +168,5 @@ export function AuthButtons({
     <ClerkProvider publishableKey={publishableKey}>{content}</ClerkProvider>
   ) : (
     content
-  );
-}
-
-function SimpleAvatar({
-  useUser,
-  useClerk,
-  avatarSize,
-  redirectUrl,
-}: {
-  useUser: () => { user?: { imageUrl?: string; fullName?: string | null; primaryEmailAddress?: { emailAddress?: string } | null } | null };
-  useClerk: () => { signOut: (opts?: { redirectUrl?: string }) => Promise<void> };
-  avatarSize: string;
-  redirectUrl: string;
-}) {
-  const { user } = useUser();
-  const { signOut } = useClerk();
-  if (!user) return null;
-
-  const label =
-    user.fullName ||
-    user.primaryEmailAddress?.emailAddress ||
-    "Account";
-
-  return (
-    <button
-      type="button"
-      onClick={() => signOut({ redirectUrl })}
-      aria-label={`Sign out (${label})`}
-      title={`Sign out (${label})`}
-      className={`group relative ${avatarSize} overflow-hidden rounded-full ring-1 ring-[var(--hairline)] transition-all hover:ring-[var(--foreground)]/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--foreground)]/60`}
-    >
-      {user.imageUrl ? (
-        <img
-          src={user.imageUrl}
-          alt=""
-          className="h-full w-full object-cover"
-          referrerPolicy="no-referrer"
-        />
-      ) : (
-        <span className="flex h-full w-full items-center justify-center bg-[var(--muted)] text-[10px] font-medium text-[var(--muted-foreground)]">
-          {label.slice(0, 1).toUpperCase()}
-        </span>
-      )}
-    </button>
   );
 }

@@ -1,4 +1,4 @@
-import { AppCommandPalette, Footer, Header } from "@duyet/components";
+import { Footer, Header } from "@duyet/components";
 import { addUtmParams } from "../../app/lib/utm";
 
 const navigationItems = [
@@ -28,8 +28,6 @@ export function SiteHeader() {
         navigationItems={navigationItems}
         showAuthButtons
         authButtonsWrapWithProvider={false}
-        authSimpleAvatar
-        actions={<AppCommandPalette />}
         className="border-none bg-[var(--background)]/95 backdrop-blur-sm h-16"
         containerClassName="max-w-[1200px]"
       />

@@ -23,7 +23,6 @@ interface HeaderProps {
   actions?: ReactNode;
   showAuthButtons?: boolean;
   authButtonsWrapWithProvider?: boolean;
-  authSimpleAvatar?: boolean;
   className?: string;
   containerClassName?: string;
 }
@@ -39,7 +38,6 @@ export default function Header({
   actions,
   showAuthButtons = true,
   authButtonsWrapWithProvider = true,
-  authSimpleAvatar = false,
   className,
   containerClassName,
 }: HeaderProps) {
@@ -99,7 +97,6 @@ export default function Header({
             <AuthButtons
               urls={urls}
               wrapWithProvider={authButtonsWrapWithProvider}
-              simpleAvatar={authSimpleAvatar}
             />
           )}
         </nav>
@@ -111,7 +108,6 @@ export default function Header({
             <AuthButtons
               urls={urls}
               wrapWithProvider={authButtonsWrapWithProvider}
-              simpleAvatar={authSimpleAvatar}
             />
           )}
           <button
