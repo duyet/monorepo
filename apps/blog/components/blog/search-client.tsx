@@ -1,7 +1,6 @@
 import type { CategoryCount, Post, TagCount } from "@duyet/interfaces";
 import { useMemo } from "react";
 import { useSearch } from "@tanstack/react-router";
-import type { SearchParams } from "@/src/routes/search";
 import { SearchBar, SearchFilters, SearchResultItem } from "@/components/blog";
 
 const DEFAULT_INITIAL_POST_COUNT = 20;
@@ -139,7 +138,7 @@ export function SearchClient({ posts, categories, tags }: SearchClientProps) {
       <div className="flex flex-1 flex-col gap-6">
         <SearchBar placeholder="Search by title, category, or tags..." />
 
-        <div className="surface-card-base surface-card-warm flex flex-col gap-4 p-4 lg:p-5">
+        <div className="flex flex-col gap-4 border-y border-[var(--border-faint)] py-4 lg:py-5">
           {hasFilters && (
             <p className="text-sm text-[#1a1a1a]/75 dark:text-[#f8f8f2]/75">
               Found {sortedPosts.length}{" "}

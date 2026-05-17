@@ -1,4 +1,4 @@
-import type { CategoryCount, Post } from "@duyet/interfaces";
+import type { Post } from "@duyet/interfaces";
 import { getSlug } from "@duyet/libs/getSlug";
 import { createFileRoute } from "@tanstack/react-router";
 import { getAllCategories, getAllPosts } from "@/lib/posts";
@@ -23,11 +23,13 @@ function HtmlSitemapPage() {
     categories: string[];
   };
   const HOME_URL = import.meta.env.VITE_DUYET_HOME_URL || "https://duyet.net";
+  const linkClass =
+    "text-[var(--ink)] underline underline-offset-4 transition-colors hover:text-[var(--body)] dark:text-[var(--on-dark)] dark:hover:text-[var(--on-dark-soft)]";
 
   return (
     <div className="mx-auto max-w-[820px] px-5 sm:px-8 lg:px-10">
-      <div className="pt-10 sm:pt-14 lg:pt-20">
-        <h1 className="text-4xl font-semibold tracking-tight text-[#1a1a1a] dark:text-[#f8f8f2] sm:text-5xl lg:text-6xl">
+      <div className="blog-page-head border-b border-[var(--border-faint)] pb-8">
+        <h1 className="text-4xl font-semibold tracking-tight text-[#1a1a1a] dark:text-[#f8f8f2] sm:text-5xl">
           HTML Sitemap
         </h1>
       </div>
@@ -42,7 +44,7 @@ function HtmlSitemapPage() {
               <li key={post.slug}>
                 <a
                   href={post.slug}
-                  className="text-[#1a1a1a] underline underline-offset-4 hover:text-[#1a1a1a]/70 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
+                  className={linkClass}
                 >
                   {post.title}
                 </a>
@@ -62,8 +64,8 @@ function HtmlSitemapPage() {
             {categories.map((category) => (
               <li key={category}>
                 <a
-                  href={`/category/${getSlug(category)}`}
-                  className="text-[#1a1a1a] underline underline-offset-4 hover:text-[#1a1a1a]/70 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
+                  href={`/category/${getSlug(category)}/`}
+                  className={linkClass}
                 >
                   {category}
                 </a>
@@ -78,7 +80,7 @@ function HtmlSitemapPage() {
             <li>
               <a
                 href="/"
-                className="text-[#1a1a1a] underline underline-offset-4 hover:text-[#1a1a1a]/70 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
+                className={linkClass}
               >
                 Home
               </a>
@@ -86,7 +88,7 @@ function HtmlSitemapPage() {
             <li>
               <a
                 href={`${HOME_URL}/about`}
-                className="text-[#1a1a1a] underline underline-offset-4 hover:text-[#1a1a1a]/70 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
+                className={linkClass}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -95,32 +97,32 @@ function HtmlSitemapPage() {
             </li>
             <li>
               <a
-                href="/archives"
-                className="text-[#1a1a1a] underline underline-offset-4 hover:text-[#1a1a1a]/70 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
+                href="/archives/"
+                className={linkClass}
               >
                 Archives
               </a>
             </li>
             <li>
               <a
-                href="/featured"
-                className="text-[#1a1a1a] underline underline-offset-4 hover:text-[#1a1a1a]/70 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
+                href="/featured/"
+                className={linkClass}
               >
                 Featured
               </a>
             </li>
             <li>
               <a
-                href="/tags"
-                className="text-[#1a1a1a] underline underline-offset-4 hover:text-[#1a1a1a]/70 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
+                href="/tags/"
+                className={linkClass}
               >
                 Tags
               </a>
             </li>
             <li>
               <a
-                href="/series"
-                className="text-[#1a1a1a] underline underline-offset-4 hover:text-[#1a1a1a]/70 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
+                href="/series/"
+                className={linkClass}
               >
                 Series
               </a>
@@ -134,7 +136,7 @@ function HtmlSitemapPage() {
           This sitemap is also available in XML format at{" "}
           <a
             href="/sitemap.xml"
-            className="text-[#1a1a1a] underline underline-offset-4 hover:text-[#1a1a1a]/70 dark:text-[#f8f8f2] dark:hover:text-[#f8f8f2]/70"
+            className={linkClass}
           >
             /sitemap.xml
           </a>

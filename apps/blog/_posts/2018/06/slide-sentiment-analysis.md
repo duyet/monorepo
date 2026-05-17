@@ -34,10 +34,4 @@ Mình vừa có bài nói về **Sentiment Analysis** trong NLP bao quát, xin 
     2.  Aspect Extraction
     3.  Aspect Sentiment Classification
 
-**[Xem và tải PDF tại đây](https://goo.gl/3nEq13).**
-
-<div>
-<object data="https://talk.duyet.net/senti/senti.pdf#view=FitH" height="800" type="application/pdf" width="100%">
-    <iframe border="0" src="https://talk.duyet.net/senti/senti.pdf#view=FitH" style="border: 0; height: 800px; width: 100%;"></iframe>
-</object>
-</div>
+**[Xem và tải PDF tại đây](https://talk.duyet.net/senti/senti.pdf).**

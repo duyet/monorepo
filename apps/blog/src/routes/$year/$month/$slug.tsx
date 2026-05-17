@@ -123,7 +123,7 @@ function PostPage() {
           <div className="min-w-0 max-w-3xl flex-1">
             <Content post={post} />
 
-            <div className="my-12 border-t border-[#e6dfd8] dark:border-white/10" />
+            <div className="my-12 border-t border-[var(--border-faint)] dark:border-white/10" />
 
             <Meta post={post} series={series} />
 

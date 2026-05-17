@@ -1,17 +1,18 @@
 import type { Series } from "@duyet/interfaces";
 import { cn } from "@duyet/libs/utils";
-import { NewspaperIcon } from "lucide-react";
 
 export function SeriesBox({
   series,
   current,
   className,
   tone = "light",
+  showTitle = true,
 }: {
   series: Series | null;
   current?: string;
   className?: string;
   tone?: "light" | "dark";
+  showTitle?: boolean;
 }) {
   if (!series) return null;
   const { name, posts } = series;
@@ -22,24 +23,25 @@ export function SeriesBox({
   return (
     <div
       className={cn(
-        "rounded-lg border border-[var(--hairline)] p-8 dark:border-white/10",
+        "border-y border-[var(--border-faint)] py-6 dark:border-white/10",
         className
       )}
     >
-      <h2
-        className={cn(
-          "mb-6 flex flex-row items-center gap-3 font-serif text-2xl tracking-[-0.3px] text-[var(--ink)] dark:text-[var(--on-dark)] md:text-3xl"
-        )}
-      >
-        <NewspaperIcon size={24} strokeWidth={1.5} className="text-[var(--muted)] dark:text-[var(--on-dark-soft)]" />
-        Series:{" "}
-        <a
-          className="underline-offset-4 hover:text-[var(--primary)] hover:underline transition-colors"
-          href={`/series/${series.slug}`}
+      {showTitle && (
+        <h2
+          className={cn(
+            "mb-6 text-2xl font-semibold tracking-[-0.02em] text-[var(--ink)] dark:text-[var(--on-dark)]"
+          )}
         >
-          {name}
-        </a>
-      </h2>
+          Series:{" "}
+          <a
+            className="underline-offset-4 transition-colors hover:text-[var(--body)] hover:underline"
+            href={`/series/${series.slug}/`}
+          >
+            {name}
+          </a>
+        </h2>
+      )}
 
       <div className="grid grid-cols-1 gap-3">
         {posts.map(({ slug, title, excerpt }) => {
@@ -47,8 +49,8 @@ export function SeriesBox({
           return (
             <div
               className={cn(
-                "rounded-md bg-white/60 p-4 transition-colors dark:bg-black/20",
-                isCurrent && "bg-white/80 dark:bg-black/30"
+                "border-t border-[var(--border-faint)] py-4 transition-colors hover:bg-[var(--surface-soft)]",
+                isCurrent && "bg-[var(--surface-soft)]"
               )}
               key={slug}
             >
@@ -64,9 +66,9 @@ export function SeriesBox({
                 ) : (
                   <a
                     className={cn(
-                      "line-clamp-1 text-base font-medium text-[var(--body-strong)] hover:text-[var(--primary)] transition-colors dark:text-[var(--on-dark-soft)] dark:hover:text-[var(--primary)]"
+                      "line-clamp-1 text-base font-medium text-[var(--body-strong)] transition-colors hover:text-[var(--body)] dark:text-[var(--on-dark-soft)] dark:hover:text-[var(--on-dark)]"
                     )}
-                    href={slug}
+                    href={`${slug}/`}
                   >
                     {title}
                   </a>

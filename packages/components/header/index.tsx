@@ -6,8 +6,8 @@ import { duyetProfile } from "@duyet/profile";
 import type { UrlsConfig } from "@duyet/urls";
 import { duyetUrls } from "@duyet/urls";
 import { Menu as MenuIcon, X as CloseIcon } from "lucide-react";
-import type { ReactNode } from "react";
-import { useState } from "react";
+import type { CSSProperties, ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 import MenuNav, { type NavigationItem } from "../Menu";
 import { AuthButtons } from "./AuthButtons";
 import { HeaderBranding } from "./HeaderBranding";
@@ -42,11 +42,29 @@ export default function Header({
   containerClassName,
 }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const [headerHeight, setHeaderHeight] = useState(64);
   const displayShortText = shortText ?? profile.personal.shortName;
   const displayLongText = longText ?? profile.personal.title;
 
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+
+    const updateHeaderHeight = () => {
+      setHeaderHeight(header.getBoundingClientRect().height);
+    };
+
+    updateHeaderHeight();
+    const observer = new ResizeObserver(updateHeaderHeight);
+    observer.observe(header);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <header
+      ref={headerRef}
       className={cn(
         "z-50 bg-[var(--background)]",
         "border-b border-[var(--border)] dark:border-white/8",
@@ -115,16 +133,24 @@ export default function Header({
       {/* Mobile nav panel */}
       <div
         className={cn(
-          "md:hidden overflow-hidden transition-all duration-200 ease-out",
-          mobileOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          "md:hidden fixed inset-x-0 top-[var(--mobile-menu-offset)] z-40 min-h-[calc(100dvh-var(--mobile-menu-offset))] bg-[var(--background)] px-5 py-8 transition-all duration-200 ease-out sm:px-8",
+          mobileOpen
+            ? "pointer-events-auto translate-y-0 opacity-100"
+            : "pointer-events-none -translate-y-2 opacity-0"
         )}
+        style={
+          {
+            "--mobile-menu-offset": `${headerHeight}px`,
+          } as CSSProperties
+        }
+        aria-hidden={!mobileOpen}
       >
-        <div className="border-t border-[var(--hairline)] dark:border-white/8 px-5 py-3">
+        <div className="border-y border-[var(--hairline)] py-4 dark:border-white/8">
           <MenuNav
             urls={urls}
             navigationItems={navigationItems}
             onItemClick={() => setMobileOpen(false)}
-            className="flex-col items-start gap-1"
+            className="flex-col items-stretch gap-0"
           />
         </div>
       </div>

@@ -6,13 +6,13 @@
   :root {
     --font-inter: "Inter Variable", "Inter", -apple-system, BlinkMacDesktopFont,
       ui-sans-serif, system-ui, sans-serif;
-    --font-serif: Garamond, "Apple Garamond", "EB Garamond", serif;
+    --font-serif: var(--font-inter);
 
     /* Spacing & Radius Scale */
     --radius-xs: 8px;
     --radius-sm: 12px;
-    --radius-md: 16px;
-    --radius-lg: 24px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
     --radius-max: 1000px;
     
     --gap-xxs: 8px;
@@ -47,36 +47,35 @@
     --body-4: 12px;
 
     /* Base Palette */
-    --background: #faf9f5;
+    --background: #fbfbfa;
     --foreground: #141413;
-    
-    /* Anthropic Ivory Theme */
+
     --foreground-primary: #141413;
     --foreground-secondary: #30302e;
     --foreground-tertiary: #5e5d59;
-    --background-primary: #faf9f5;
-    --background-secondary: #f0eee6;
-    --background-tertiary: #e8e6dc;
-    --background-clay: #d97757;
-    --background-oat: #e3dacc;
-    
+    --background-primary: #fbfbfa;
+    --background-secondary: #f4f4f1;
+    --background-tertiary: #ecebe6;
+    --background-clay: #e7e1d5;
+    --background-oat: #f0ede6;
+
     --border-strong: #141413;
     --border-subtle: #d1cfc5;
     --border-faint: #f0eee6;
 
     /* Semantic Surface Variables */
-    --muted: #efe9de;
-    --muted-foreground: #6c6a64;
-    --border: #e6dfd8;
-    --accent: #cc785c;
-    --primary: #cc785c;
-    --primary-active: #a9583e;
-    --primary-disabled: #e6dfd8;
-    --surface-card: #efe9de;
+    --muted: #f0f0ed;
+    --muted-foreground: #66645f;
+    --border: #e2e0da;
+    --accent: #c06f4f;
+    --primary: #1f1f1d;
+    --primary-active: #3a3935;
+    --primary-disabled: #e2e0da;
+    --surface-card: #ffffff;
     --surface-dark: #181715;
     --surface-dark-elevated: #252320;
     --surface-dark-soft: #1f1e1b;
-    --surface-soft: #f5f0e8;
+    --surface-soft: #f5f5f2;
     --on-dark: #faf9f5;
     --on-dark-soft: #a09d96;
     --hairline: rgba(20, 20, 19, 0.08);
@@ -84,22 +83,21 @@
     --body: #3d3d3a;
     --muted-soft: #8e8b82;
 
-    /* Card Backgrounds */
-    --bg-clay: #d97757;
-    --bg-oat: #e3dacc;
-    --bg-olive: #788c5d;
-    --bg-cactus: #bcd1ca;
-    --bg-sky: #6a9bcc;
-    --bg-heather: #cbcadb;
-    --bg-fig: #c46686;
-    --bg-coral: #ebcece;
+    /* Legacy color utilities */
+    --bg-clay: #ebe5da;
+    --bg-oat: #f2eee7;
+    --bg-olive: #e6ebdf;
+    --bg-cactus: #e5efec;
+    --bg-sky: #e7eef5;
+    --bg-heather: #ecebf3;
+    --bg-fig: #eee6ea;
+    --bg-coral: #f2e7e4;
   }
 
   html.dark {
     --background: #0d0e0c;
     --foreground: #f8f8f2;
     
-    /* Anthropic Slate Theme */
     --foreground-primary: #faf9f5;
     --foreground-secondary: #b0aea5;
     --foreground-tertiary: #87867f;
@@ -147,17 +145,14 @@
   }
 
   h1, h2, h3, h4, h5, .font-serif {
-    font-family: var(--font-serif);
-    font-weight: 400;
+    font-family: var(--font-inter);
+    font-weight: 600;
     color: var(--foreground);
   }
 
-  h1 { letter-spacing: -1.5px; }
-  h2 { letter-spacing: -1px; }
-  h3 { letter-spacing: -0.5px; }
-  h4 { letter-spacing: -0.3px; }
+  h1, h2, h3, h4 { letter-spacing: 0; }
 
-  /* Anthropic Utility Classes */
+  /* Legacy utility classes */
   .bg-slate-1000 { background-color: #0f0f0e!important }
   .bg-slate-950 { background-color: #141413!important }
   .bg-slate-900 { background-color: #1a1918!important }
@@ -176,16 +171,16 @@
 
   /* Target Header branding text from @duyet/components */
   header a span[class*="font-semibold"] {
-    font-family: var(--font-serif);
-    font-weight: 400;
-    font-size: 1.25rem;
-    letter-spacing: -0.01em;
+    font-family: var(--font-inter);
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0;
   }
 
   /* Target Header navigation links */
   header nav a {
     font-weight: 500;
-    font-size: 1rem;
+    font-size: 0.875rem;
     color: var(--muted-foreground);
     transition: color 0.2s;
   }

@@ -40,10 +40,6 @@ yarn-error.log*
 .wrangler
 .wrangler-seeds*.json
 
-*.local.*
-
-# wrangler
-.wrangler
 .playwright-mcp
 
 # Blog attachments (local drafts)
