@@ -4,14 +4,16 @@ import { Database } from "duckdb-async";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-const MOTHERDUCK_TOKEN =
-  process.env.MOTHERDUCK_TOKEN ??
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx2ZHVpdDA4QGdtYWlsLmNvbSIsIm1kUmVnaW9uIjoiYXdzLXVzLWVhc3QtMSIsInNlc3Npb24iOiJsdmR1aXQwOC5nbWFpbC5jb20iLCJwYXQiOiJycE5KZUp2ZldOSkhFODZkcjJvTkppMzlDYzZOLWNOYzk1c29YWVlMa1FnIiwidXNlcklkIjoiNzdjZTE5NTYtYzg0Yy00MDJhLWFmZTEtMjU3M2JhOTJkOGExIiwiaXNzIjoibWRfcGF0IiwicmVhZE9ubHkiOmZhbHNlLCJ0b2tlblR5cGUiOiJyZWFkX3dyaXRlIiwiaWF0IjoxNzc4MDU4NjcwfQ.r91S2weNKmyl0X2O65_iFI8mAa6f7RVjeQ33CFITIuc";
+const MOTHERDUCK_TOKEN = process.env.MOTHERDUCK_TOKEN;
 
 const OUTPUT_DIR = join(import.meta.dirname, "..", "public");
 const OUTPUT_FILE = join(OUTPUT_DIR, "token-data.json");
 
 async function main() {
+  if (!MOTHERDUCK_TOKEN) {
+    throw new Error("MOTHERDUCK_TOKEN is required");
+  }
+
   console.log("Connecting to MotherDuck...");
   const db = await Database.create(
     `md:ccusage?motherduck_token=${MOTHERDUCK_TOKEN}`,
