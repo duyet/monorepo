@@ -23,6 +23,23 @@ function json(data: unknown, status = 200): Response {
   });
 }
 
+function buildUserScopedSessionId(
+  userId: string,
+  requestedSessionId?: string
+): string {
+  const requested = requestedSessionId?.trim();
+  if (!requested) return `home-${userId}`;
+
+  const safeSuffix = requested.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 64);
+  if (!safeSuffix) return `home-${userId}`;
+
+  return `home-${userId}-${safeSuffix}`;
+}
+
+function isWebSocketUpgrade(request: Request): boolean {
+  return request.headers.get("upgrade")?.toLowerCase() === "websocket";
+}
+
 async function handleCompatChat(request: Request, env: Env): Promise<Response> {
   const user = await getUserFromRequest(request, env.CLERK_ISSUER_URL);
   if (!user) return json({ error: "Unauthorized" }, 401);
@@ -38,7 +55,7 @@ async function handleCompatChat(request: Request, env: Env): Promise<Response> {
   const text = body.message?.trim();
   if (!text) return json({ error: "message is required" }, 400);
 
-  const sessionId = `home-${user.userId}`;
+  const sessionId = buildUserScopedSessionId(user.userId, body.sessionId);
   const conversationId = body.conversationId?.trim() || crypto.randomUUID();
 
   const agent = await getAgentByName(env.ChatAgent, sessionId);
@@ -139,8 +156,10 @@ export default {
       return handleRecommendations(request, env);
     }
 
-    const routedUser = await getUserFromRequest(request, env.CLERK_ISSUER_URL);
-    if (!routedUser) return json({ error: "Unauthorized" }, 401);
+    if (!isWebSocketUpgrade(request)) {
+      const routedUser = await getUserFromRequest(request, env.CLERK_ISSUER_URL);
+      if (!routedUser) return json({ error: "Unauthorized" }, 401);
+    }
 
     const routed = await routeAgentRequest(request, env);
     if (routed) return routed;
