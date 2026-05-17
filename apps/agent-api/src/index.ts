@@ -13,6 +13,7 @@ import {
   type Env,
   type SubmitApiMessageResult,
 } from "./agent";
+import { scopedAgentRequest } from "./routing";
 
 export { ChatAgent };
 export type { Env };
@@ -108,7 +109,8 @@ function apiInfo() {
     endpoints: {
       health: "/health",
       chat: "/api/v1/chat",
-      nativeAgent: "/agents/ChatAgent/:sessionId",
+      nativeAgent: "/agents/chat-agent/:sessionId",
+      nativeAgentAlias: "/agents/ChatAgent/:sessionId",
       llms: "/llms.txt",
     },
     auth: {
@@ -127,6 +129,7 @@ function llmsText(): string {
     "## Endpoints",
     "- GET /health",
     "- POST /api/v1/chat",
+    "- /agents/chat-agent/:sessionId",
     "- /agents/ChatAgent/:sessionId",
     "",
     "## Auth",
@@ -168,20 +171,6 @@ function isSessionOwnerMismatchError(error: unknown): boolean {
       "code" in error &&
       error.code === "SESSION_OWNER_MISMATCH")
   );
-}
-
-function scopedAgentRequest(request: Request, auth: AuthContext): Request | null {
-  const url = new URL(request.url);
-  const parts = url.pathname.split("/").filter(Boolean);
-
-  if (parts[0] !== "agents" || parts[1] !== "ChatAgent" || !parts[2]) {
-    return null;
-  }
-
-  parts[2] = getScopedSessionName(auth, parts[2]);
-  url.pathname = `/${parts.join("/")}`;
-
-  return new Request(url, request);
 }
 
 async function handleChat(request: Request, env: Env, auth: AuthContext) {
