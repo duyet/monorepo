@@ -198,7 +198,7 @@ jobs:
   deploy-preview:
     name: Deploy ${{ matrix.app }}
     needs: [detect-changes, typecheck, unittest, lint]
-    if: ${{ needs.detect-changes.outputs.matrix != '{"include":[]}' && github.event.pull_request.head.repo.full_name == github.repository && (github.event.pull_request.author_association == 'OWNER' || github.event.pull_request.author_association == 'MEMBER') }}
+    if: ${{ needs.detect-changes.outputs.matrix != '{"include":[]}' && github.event.pull_request.head.repo.full_name == github.repository && (github.event.pull_request.author_association == 'OWNER' || github.event.pull_request.author_association == 'MEMBER' || github.event.pull_request.author_association == 'COLLABORATOR') }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -354,7 +354,7 @@ jobs:
   comment-pr:
     name: Comment deployment URLs
     needs: [detect-changes, deploy-preview]
-    if: always() && needs.detect-changes.outputs.matrix != '{"include":[]}'
+    if: always() && needs.detect-changes.outputs.matrix != '{"include":[]}' && needs.deploy-preview.result != 'skipped'
     runs-on: ubuntu-latest
     steps:
       - name: Download all deployment artifacts
