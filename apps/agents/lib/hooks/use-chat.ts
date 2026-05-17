@@ -1,7 +1,7 @@
 import { useChat as useAIChat } from "@ai-sdk/react";
 import type {
+  ChatStatus,
   ChatAddToolApproveResponseFunction,
-  DynamicToolUIPart,
   TextUIPart,
   UIMessage,
 } from "ai";
@@ -33,7 +33,9 @@ export interface UseChatReturn {
   uiMessages: UIMessage[];
   input: string;
   setInput: (value: string) => void;
+  submitMessage: (value: string) => void;
   handleSubmit: (e?: React.FormEvent) => void;
+  status: ChatStatus;
   isLoading: boolean;
   streamingContent: string;
   error: Error | null;
@@ -394,15 +396,22 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     return executions;
   }, [aiMessages]);
 
-  const handleSubmit = useCallback(
-    (e?: React.FormEvent) => {
-      e?.preventDefault();
-      const trimmedInput = input.trim();
+  const submitMessage = useCallback(
+    (value: string) => {
+      const trimmedInput = value.trim();
       if (!trimmedInput || status !== "ready") return;
       setInput("");
       sendMessage({ text: trimmedInput });
     },
-    [input, status, sendMessage]
+    [status, sendMessage]
+  );
+
+  const handleSubmit = useCallback(
+    (e?: React.FormEvent) => {
+      e?.preventDefault();
+      submitMessage(input);
+    },
+    [input, submitMessage]
   );
 
   return {
@@ -410,7 +419,9 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     uiMessages: aiMessages,
     input,
     setInput,
+    submitMessage,
     handleSubmit,
+    status,
     isLoading: isActiveStatus,
     streamingContent,
     error: aiError ?? null,

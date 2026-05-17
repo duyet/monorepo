@@ -7,17 +7,16 @@ import {
   ConversationEmptyState,
   ConversationScrollButton,
 } from "@/components/ai-elements/conversation";
+import type { PromptInputMessage } from "@/components/ai-elements/prompt-input";
 import { AppSidebar } from "@/components/app-sidebar";
 import { RightSidebar } from "@/components/right-sidebar";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { SidebarInset } from "@/components/ui/sidebar";
 import {
-  useAutoResize,
   useChat,
   useConversations,
   useKeyboardShortcuts,
-  useMergeRefs,
 } from "@/lib/hooks";
 import { useClerkAuthToken } from "@/lib/hooks/use-clerk-auth";
 import type { ChatMode } from "@/lib/types";
@@ -31,7 +30,6 @@ import {
 } from "./message-components";
 
 export function VercelChat() {
-  const inputRef = useRef<HTMLTextAreaElement>(null);
   const lastInputRef = useRef<string>("");
   const getAuthToken = useClerkAuthToken();
 
@@ -80,7 +78,8 @@ export function VercelChat() {
     uiMessages,
     input,
     setInput,
-    handleSubmit,
+    submitMessage,
+    status,
     isLoading,
     streamingContent,
     error,
@@ -168,7 +167,12 @@ export function VercelChat() {
       await createNew(mode, modelId);
     }
     setInput(prompt);
-    setTimeout(() => inputRef.current?.focus(), 0);
+    setTimeout(() => {
+      const textarea = document.querySelector(
+        'textarea[name="message"]'
+      ) as HTMLTextAreaElement | null;
+      textarea?.focus();
+    }, 0);
   };
 
   // Generate title from model after first assistant response
@@ -225,18 +229,20 @@ export function VercelChat() {
     setTitleGenerated(false);
   }, [activeId]);
 
-  // Auto-create conversation on first message submit
-  const handleFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim()) return;
+  const handlePromptSubmit = useCallback(
+    async (message: PromptInputMessage) => {
+      const text = message.text.trim();
+      if (!text) return;
 
-    if (!activeId) {
-      await createNew(mode, modelId);
-    }
+      if (!activeId) {
+        await createNew(mode, modelId);
+      }
 
-    lastInputRef.current = input;
-    handleSubmit(e);
-  };
+      lastInputRef.current = text;
+      submitMessage(text);
+    },
+    [activeId, createNew, mode, modelId, submitMessage]
+  );
 
   const handleNewChat = async () => {
     await createNew(mode, modelId);
@@ -246,35 +252,23 @@ export function VercelChat() {
     await Promise.all(conversations.map((conv) => remove(conv.id)));
   };
 
-  // Auto-resize textarea on input
-  const { ref: textareaCallbackRef, resize } = useAutoResize({
-    maxHeight: 200,
-    minHeight: 44,
-  });
-  const textareaRef = useMergeRefs(textareaCallbackRef, inputRef);
-
   // autoScrollTrigger changes whenever new messages arrive or streaming content grows
   const autoScrollTrigger = messages.length + streamingContent.length;
 
   // Keyboard shortcuts
   useKeyboardShortcuts(
     {
-      onFocusInput: () => inputRef.current?.focus(),
-      onStop: isLoading ? stop : undefined,
-      onClearInput: () => {
-        setInput("");
-        resize();
+      onFocusInput: () => {
+        const textarea = document.querySelector(
+          'textarea[name="message"]'
+        ) as HTMLTextAreaElement | null;
+        textarea?.focus();
       },
+      onStop: isLoading ? stop : undefined,
+      onClearInput: () => setInput(""),
     },
     { enabled: true }
   );
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleFormSubmit(e);
-    }
-  };
 
   const hasMessages = messages.length > 0;
   const hasAssistantResponse = messages.some((m) => m.role === "assistant");
@@ -419,15 +413,19 @@ export function VercelChat() {
               <ChatInput
                 input={input}
                 setInput={setInput}
-                onSubmit={handleFormSubmit}
-                onKeyDown={handleKeyDown}
+                onSubmitMessage={handlePromptSubmit}
+                onSuggestionSelect={handlePromptSelect}
+                status={status}
+                mode={mode}
+                onModeChange={handleModeChange}
+                modelId={modelId}
+                onModelChange={handleModelChange}
                 isLoading={isLoading}
                 canSubmit={canSubmit}
                 hasAssistantResponse={hasAssistantResponse}
                 stop={stop}
                 reload={reload}
                 error={serviceError ? null : error}
-                textareaRef={textareaRef}
               />
             </div>
           </div>
