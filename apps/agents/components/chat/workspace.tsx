@@ -9,6 +9,7 @@ import {
   ConversationEmptyState,
   ConversationScrollButton,
 } from "@/components/ai-elements/conversation";
+import type { PromptInputMessage } from "@/components/ai-elements/prompt-input";
 import {
   AssistantMessage,
   UserMessage,
@@ -23,17 +24,13 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { SidebarInset } from "@/components/ui/sidebar";
 import {
-  useAutoResize,
   useChat,
   useConversations,
   useKeyboardShortcuts,
-  useMergeRefs,
 } from "@/lib/hooks";
 import { useClerkAuthToken } from "@/lib/hooks/use-clerk-auth";
 
 export function ChatWorkspace() {
-  const inputRef = useRef<HTMLTextAreaElement>(null);
-  const formRef = useRef<HTMLFormElement>(null);
   const lastInputRef = useRef<string>("");
   const getAuthToken = useClerkAuthToken();
   const [leftRailOpen, setLeftRailOpen] = useState(false);
@@ -94,7 +91,8 @@ export function ChatWorkspace() {
     uiMessages,
     input,
     setInput,
-    handleSubmit,
+    submitMessage,
+    status,
     isLoading,
     streamingContent,
     error,
@@ -104,6 +102,8 @@ export function ChatWorkspace() {
     thinkingSteps,
     modelId,
     setModelId,
+    mode,
+    setMode,
     addToolApprovalResponse,
   } = useChat({
     id: chatKey ?? undefined,
@@ -161,12 +161,32 @@ export function ChatWorkspace() {
     [addToolApprovalResponse]
   );
 
+  const handleModeChange = useCallback(
+    (newMode: "agent" | "fast") => {
+      setMode(newMode);
+      localStorage.setItem("chat-mode", newMode);
+    },
+    [setMode]
+  );
+
+  useEffect(() => {
+    const saved = localStorage.getItem("chat-mode");
+    if (saved === "fast" || saved === "agent") {
+      handleModeChange(saved);
+    }
+  }, [handleModeChange]);
+
   const handlePromptSelect = async (prompt: string) => {
     if (!activeId) {
-      await createNew("agent", modelId);
+      await createNew(mode, modelId);
     }
     setInput(prompt);
-    setTimeout(() => inputRef.current?.focus(), 0);
+    setTimeout(() => {
+      const textarea = document.querySelector(
+        'textarea[name="message"]'
+      ) as HTMLTextAreaElement | null;
+      textarea?.focus();
+    }, 0);
   };
 
   const generateTitle = useCallback(
@@ -219,52 +239,51 @@ export function ChatWorkspace() {
     setTitleGenerated(false);
   }, [activeId]);
 
-  const handleFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim()) return;
+  const handlePromptSubmit = useCallback(
+    async (message: PromptInputMessage) => {
+      const text = message.text.trim();
+      const files = message.files.map((file) => ({
+        ...file,
+        name: (file.filename || "attachment").trim().slice(0, 100) || "attachment",
+      })) as import("ai").FileUIPart[];
+      const hasFiles = files.length > 0;
 
-    if (!activeId) {
-      await createNew("agent", modelId);
-    }
+      if (!text && !hasFiles) return;
 
-    lastInputRef.current = input;
-    handleSubmit(e);
-  };
+      let conversationId = activeId ?? undefined;
+      if (!activeId) {
+        conversationId = await createNew(mode, modelId);
+      }
+
+      lastInputRef.current = text;
+      submitMessage({ text, files, conversationId });
+    },
+    [activeId, createNew, mode, modelId, submitMessage]
+  );
 
   const handleNewChat = async () => {
-    await createNew("agent", modelId);
+    await createNew(mode, modelId);
   };
 
   const handleDeleteAllConversations = async () => {
     await Promise.all(conversations.map((conv) => remove(conv.id)));
   };
 
-  const { ref: textareaCallbackRef, resize } = useAutoResize({
-    maxHeight: 220,
-    minHeight: 48,
-  });
-  const textareaRef = useMergeRefs(textareaCallbackRef, inputRef);
-
   const autoScrollTrigger = messages.length + streamingContent.length;
 
   useKeyboardShortcuts(
     {
-      onFocusInput: () => inputRef.current?.focus(),
-      onStop: isLoading ? stop : undefined,
-      onClearInput: () => {
-        setInput("");
-        resize();
+      onFocusInput: () => {
+        const textarea = document.querySelector(
+          'textarea[name="message"]'
+        ) as HTMLTextAreaElement | null;
+        textarea?.focus();
       },
+      onStop: isLoading ? stop : undefined,
+      onClearInput: () => setInput(""),
     },
     { enabled: true }
   );
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      formRef.current?.requestSubmit();
-    }
-  };
 
   const hasMessages = messages.length > 0;
   const hasAssistantResponse = messages.some((m) => m.role === "assistant");
@@ -399,16 +418,19 @@ export function ChatWorkspace() {
               <ChatInput
                 input={input}
                 setInput={setInput}
-                formRef={formRef}
-                onSubmit={handleFormSubmit}
-                onKeyDown={handleKeyDown}
+                onSubmitMessage={handlePromptSubmit}
+                onSuggestionSelect={handlePromptSelect}
+                status={status}
+                mode={mode}
+                onModeChange={handleModeChange}
+                modelId={modelId}
+                onModelChange={handleModelChange}
                 isLoading={isLoading}
                 canSubmit={canSubmit}
                 hasAssistantResponse={hasAssistantResponse}
                 stop={stop}
                 reload={reload}
-                error={error}
-                textareaRef={textareaRef}
+                error={serviceError ? null : error}
               />
             </main>
           </div>

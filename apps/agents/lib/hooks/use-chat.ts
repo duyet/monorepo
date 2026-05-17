@@ -1,7 +1,8 @@
 import { useChat as useAIChat } from "@ai-sdk/react";
 import type {
+  ChatStatus,
   ChatAddToolApproveResponseFunction,
-  DynamicToolUIPart,
+  FileUIPart,
   TextUIPart,
   UIMessage,
 } from "ai";
@@ -33,7 +34,13 @@ export interface UseChatReturn {
   uiMessages: UIMessage[];
   input: string;
   setInput: (value: string) => void;
+  submitMessage: (payload: {
+    text: string;
+    files?: FileUIPart[];
+    conversationId?: string;
+  }) => void;
   handleSubmit: (e?: React.FormEvent) => void;
+  status: ChatStatus;
   isLoading: boolean;
   streamingContent: string;
   error: Error | null;
@@ -394,15 +401,38 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     return executions;
   }, [aiMessages]);
 
+  const submitMessage = useCallback(
+    (payload: { text: string; files?: FileUIPart[]; conversationId?: string }) => {
+      const trimmedInput = payload.text.trim();
+      const files = payload.files ?? [];
+      const hasFiles = files.length > 0;
+
+      if ((!trimmedInput && !hasFiles) || status !== "ready") return;
+
+      const normalizedText = trimmedInput || "Sent with attachment";
+      setInput("");
+
+      const requestOptions = payload.conversationId
+        ? { body: { conversationId: payload.conversationId } }
+        : undefined;
+
+      sendMessage(
+        {
+          files,
+          text: normalizedText,
+        },
+        requestOptions
+      );
+    },
+    [status, sendMessage]
+  );
+
   const handleSubmit = useCallback(
     (e?: React.FormEvent) => {
       e?.preventDefault();
-      const trimmedInput = input.trim();
-      if (!trimmedInput || status !== "ready") return;
-      setInput("");
-      sendMessage({ text: trimmedInput });
+      submitMessage({ text: input });
     },
-    [input, status, sendMessage]
+    [input, submitMessage]
   );
 
   return {
@@ -410,7 +440,9 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     uiMessages: aiMessages,
     input,
     setInput,
+    submitMessage,
     handleSubmit,
+    status,
     isLoading: isActiveStatus,
     streamingContent,
     error: aiError ?? null,
