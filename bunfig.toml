@@ -1,2 +1,4 @@
 [install]
-minimumReleaseAge = 172800
+# TODO(#1126): restore to 172800 once @tanstack/react-start 1.168.x / react-router 1.170.x
+# age past 2 days (published 2026-05-15/16; expected restore window 2026-05-17/18).
+minimumReleaseAge = 0

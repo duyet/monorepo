@@ -137,7 +137,11 @@ export function ActiveChatProvider({ children }: { children: ReactNode }) {
     },
     transport: new DefaultChatTransport({
       api: CHAT_API_URL,
-      fetch: fetchWithErrorHandlers,
+      fetch: Object.assign(
+        (input: RequestInfo | URL, init?: RequestInit) =>
+          fetchWithErrorHandlers(input, init),
+        fetch,
+      ),
       prepareSendMessagesRequest(request) {
         const lastMessage = request.messages.at(-1);
         const isToolApprovalContinuation =
