@@ -12,7 +12,7 @@
     "start": "bun --bun vite preview --port 3008",
     "deploy": "bun run build && bunx wrangler pages deploy dist/client --project-name=duyet-agents",
     "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy dist/client --project-name=duyet-agents --commit-dirty=true",
-    "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh agent-ui duyet-agents"
+    "cf:deploy:prod": "bun ../../scripts/cf-deploy-prod.ts agent-ui duyet-agents"
   },
   "dependencies": {
     "@ai-sdk/react": "^3.0.118",
