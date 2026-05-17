@@ -23,17 +23,24 @@ function json(data: unknown, status = 200): Response {
   });
 }
 
-function buildUserScopedSessionId(
+async function buildUserScopedSessionId(
   userId: string,
   requestedSessionId?: string
-): string {
+): Promise<string> {
   const requested = requestedSessionId?.trim();
   if (!requested) return `home-${userId}`;
 
-  const safeSuffix = requested.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 64);
-  if (!safeSuffix) return `home-${userId}`;
+  const hint = requested.replace(/[^a-zA-Z0-9_-]/g, "-").slice(0, 24) || "session";
+  const digest = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(requested)
+  );
+  const hash = [...new Uint8Array(digest)]
+    .slice(0, 8)
+    .map((byte) => byte.toString(16).padStart(2, "0"))
+    .join("");
 
-  return `home-${userId}-${safeSuffix}`;
+  return `home-${userId}-${hint}-${hash}`;
 }
 
 function isWebSocketUpgrade(request: Request): boolean {
@@ -55,7 +62,7 @@ async function handleCompatChat(request: Request, env: Env): Promise<Response> {
   const text = body.message?.trim();
   if (!text) return json({ error: "message is required" }, 400);
 
-  const sessionId = buildUserScopedSessionId(user.userId, body.sessionId);
+  const sessionId = await buildUserScopedSessionId(user.userId, body.sessionId);
   const conversationId = body.conversationId?.trim() || crypto.randomUUID();
 
   const agent = await getAgentByName(env.ChatAgent, sessionId);
