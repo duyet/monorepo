@@ -244,7 +244,7 @@ export function ChatWorkspace() {
       const text = message.text.trim();
       const files = message.files.map((file) => ({
         ...file,
-        name: file.filename || "attachment",
+        name: (file.filename || "attachment").trim().slice(0, 100) || "attachment",
       })) as import("ai").FileUIPart[];
       const hasFiles = files.length > 0;
 
