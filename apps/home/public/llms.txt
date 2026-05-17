@@ -17,7 +17,7 @@ This is the personal website of Duyet Le, a Senior Data Engineer and technology 
   - Alternate URLs: https://duyet-homelab.pages.dev (Cloudflare)
 - **LLM Timeline**: https://llm-timeline.duyet.net - Interactive timeline of Large Language Model releases from 2017 to present
   - Alternate URLs: https://duyet-llm-timeline.pages.dev (Cloudflare)
-- **AI Agents**: https://agents.duyet.net (https://duyet-agents.pages.dev) - Chat interface with @duyetbot for blog, CV, and GitHub activity
+- **AI Agents API**: https://agents.duyet.net (https://agents-api.duyet.net) - API-only Cloudflare Agents endpoint with `POST /api/v1/chat`
 - **OpenClaw**: https://claw.duyet.net - Mission Control dashboard
 - **MCP Tools**: https://mcp.duyet.net - Model Context Protocol tools and utilities
 - **Rust Tiếng Việt**: https://duyet.net/rust - Vietnamese Rust programming language guide
@@ -62,4 +62,4 @@ Each platform provides structured information for AI systems:
 - **Photos**: https://photos.duyet.net/llms.txt - Photography portfolio from Unsplash
 - **MCP Tools**: https://mcp.duyet.net/llms.txt - AI tools and utilities
 - **LLM Timeline**: https://llm-timeline.duyet.net/llms.txt - LLM timeline and history data
-- **AI Agents**: https://agents.duyet.net/llms.txt - AI chat interface information
+- **AI Agents API**: https://agents.duyet.net/llms.txt - API-only agent endpoint information
