@@ -9,6 +9,21 @@ set -euo pipefail
 APP_DIR="$1"
 PROJECT_NAME="$2"
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+
+load_env_file() {
+  local env_file="$1"
+
+  if [ -f "$env_file" ]; then
+    set -a
+    # shellcheck disable=SC1090
+    source "$env_file"
+    set +a
+  fi
+}
+
+load_env_file "$ROOT_DIR/.env.production"
+load_env_file "$ROOT_DIR/.env.production.local"
+
 PRODUCTION_BRANCH="${CF_PAGES_PRODUCTION_BRANCH:-master}"
 
 # Auto-detect output dir: use explicit arg, or read from wrangler.toml, or default to dist
