@@ -121,6 +121,19 @@ function getLatestAssistantText(messages: UIMessage[]): string {
   return latest ? getTextFromParts(latest.parts) : "";
 }
 
+function hasReasoningParts(messages: UIMessage[]): boolean {
+  return messages.some((message) => {
+    return message.parts.some((part) => part.type === "reasoning");
+  });
+}
+
+function stripReasoningParts(messages: UIMessage[]): UIMessage[] {
+  return messages.map((message) => ({
+    ...message,
+    parts: message.parts.filter((part) => part.type !== "reasoning"),
+  }));
+}
+
 function getPendingInteractions(messages: UIMessage[]): PendingInteraction[] {
   const latest = [...messages].reverse().find((message) => {
     return message.role === "assistant";
@@ -240,14 +253,22 @@ export class ChatAgent extends AIChatAgent<Env, ChatState> {
       ...messages,
       userMessage,
     ]);
-    const pendingInteractions = getPendingInteractions(this.messages);
+    const messages = hasReasoningParts(this.messages)
+      ? stripReasoningParts(this.messages)
+      : this.messages;
+
+    if (messages !== this.messages) {
+      await this.persistMessages(messages);
+    }
+
+    const pendingInteractions = getPendingInteractions(messages);
 
     this.setState({ ...this.state, updatedAt: Date.now() });
 
     return {
-      assistantText: getLatestAssistantText(this.messages),
+      assistantText: getLatestAssistantText(messages),
       interactionRequired: pendingInteractions.length > 0,
-      messages: this.messages,
+      messages,
       pendingInteractions,
       status: result.status,
     };
@@ -283,6 +304,7 @@ export class ChatAgent extends AIChatAgent<Env, ChatState> {
       }),
       messages: pruneMessages({
         messages: inlineDataUrls(await convertToModelMessages(this.messages)),
+        reasoning: "all",
         toolCalls: "before-last-2-messages",
       }),
       tools: {
@@ -390,7 +412,7 @@ export class ChatAgent extends AIChatAgent<Env, ChatState> {
       abortSignal: options?.abortSignal,
     });
 
-    return result.toUIMessageStreamResponse();
+    return result.toUIMessageStreamResponse({ sendReasoning: false });
   }
 
   async executeTask(description: string, _task: Schedule<string>) {

@@ -13,6 +13,7 @@ import {
   type Env,
   type SubmitApiMessageResult,
 } from "./agent";
+import { toPublicMessageMetadata } from "./public-messages";
 import { scopedAgentRequest } from "./routing";
 
 export { ChatAgent };
@@ -226,7 +227,7 @@ async function handleChat(request: Request, env: Env, auth: AuthContext) {
       assistantText: result.assistantText,
       interactionRequired: result.interactionRequired,
       pendingInteractions: result.pendingInteractions,
-      messages: result.messages,
+      messages: toPublicMessageMetadata(result.messages),
     });
   } catch (error) {
     const status = isSessionOwnerMismatchError(error) ? 403 : 500;
