@@ -13,6 +13,7 @@ export interface AppItem {
 const hostOf = (url: string) => new URL(url).host;
 
 const projectUrls = {
+  anyRouter: "https://anyrouter.dev",
   clickhouseMonitoring: "https://chmonitor.dev",
   llmTimeline: "https://llm-timeline.duyet.net",
   agents: "https://agents.duyet.net/agents",
@@ -26,6 +27,16 @@ const projectUrls = {
 };
 
 export const apps: AppItem[] = [
+  {
+    name: "AnyRouter",
+    href: projectUrls.anyRouter,
+    host: hostOf(projectUrls.anyRouter),
+    utmContent: "anyrouter_bento",
+    description:
+      "One API for every AI model. Route traffic across providers with fallback, observability, and BYOK from a single OpenAI-compatible endpoint built on Cloudflare's edge.",
+    screenshot: "/screenshots/anyrouter-art.svg",
+    tone: "bg-[#536f91]",
+  },
   {
     name: "ClickHouse Monitoring",
     href: projectUrls.clickhouseMonitoring,
