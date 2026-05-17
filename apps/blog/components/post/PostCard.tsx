@@ -15,35 +15,27 @@ export function PostCard({ post, className }: PostCardProps) {
     <Link
       to="/$year/$month/$slug/"
       params={{ year, month, slug }}
-      className={cn(
-        "group block rounded-xl p-6",
-        "bg-[var(--surface-card)] dark:bg-white/5",
-        "transition-colors",
-        "hover:bg-[var(--surface-soft)] dark:hover:bg-white/8",
-        className
-      )}
+      className={cn("card", className)}
     >
-      <div className="flex items-center gap-2 text-[13px] font-medium text-[var(--muted-foreground)]">
-        <span>{post.category}</span>
-        <span>·</span>
-        <time>{dateFormat(post.date, "MMM d, yyyy")}</time>
-      </div>
-      <h3
-        className={cn(
-          "mt-2 text-[18px] font-medium leading-[1.3] tracking-tight",
-          "text-[var(--foreground)]",
-          "font-serif",
-          "group-hover:text-[var(--accent)]",
-          "transition-colors"
+      <div className="card-body">
+        <div className="post-meta">
+          <span>{post.category}</span>
+          <span>·</span>
+          <time>{dateFormat(post.date, "MMM d, yyyy")}</time>
+        </div>
+        <h3 className="card-title mt-3">
+          {post.title}
+        </h3>
+        {post.excerpt && (
+          <p className="card-desc mt-2">
+            {post.excerpt}
+          </p>
         )}
-      >
-        {post.title}
-      </h3>
-      {post.excerpt && (
-        <p className="mt-2 line-clamp-2 text-[14px] leading-[1.55] text-[var(--body)] dark:text-[var(--foreground)]/60">
-          {post.excerpt}
-        </p>
-      )}
+        <div className="card-footer">
+          <span>{post.readingTime || "Article"}</span>
+          <span className="card-arrow">→</span>
+        </div>
+      </div>
     </Link>
   );
 }

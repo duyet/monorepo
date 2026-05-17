@@ -35,14 +35,14 @@ function ExternalIcon({ className }: { className?: string }) {
   );
 }
 
-function UrlCard({ path, target, desc }: UrlEntry) {
+function UrlRow({ path, target, desc }: UrlEntry) {
   const isExternal = target.startsWith("http");
   return (
     <a
       href={target}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
-      className="flex flex-col gap-2 rounded-lg bg-[var(--muted)] p-5 text-[var(--foreground)] no-underline transition-transform duration-150 hover:-translate-y-0.5"
+      className="flex flex-col gap-2 border-t border-[var(--hairline)] py-4 text-[var(--foreground)] no-underline transition-colors first:border-t-0 hover:text-[var(--muted-foreground)]"
     >
       <div className="flex items-center justify-between">
         <code className="font-mono text-[15px] font-semibold text-[var(--foreground)]">
@@ -124,10 +124,10 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
           <input
             type="text"
             aria-label="Search by path, URL, or description"
-            placeholder="Search by path, URL, or description..."
+            placeholder="Search URLs..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-lg border border-[var(--hairline)] bg-[var(--background)] px-[100px] py-3.5 text-sm text-[var(--foreground)] outline-none transition-colors placeholder:text-[var(--muted-soft)] focus:border-[var(--foreground)]/30"
+            className="w-full border-b border-[var(--hairline)] bg-transparent px-10 py-3.5 pr-[100px] text-sm text-[var(--foreground)] outline-none transition-colors placeholder:text-[var(--muted-soft)] focus:border-[var(--foreground)]/30"
           />
           <svg
             aria-hidden="true"
@@ -188,7 +188,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
 
       {/* No results */}
       {filteredUrls.length === 0 && (
-        <div className="rounded-lg bg-[var(--muted)] p-12 text-center">
+        <div className="border-y border-[var(--hairline)] py-12 text-center">
           <p className="text-sm text-[var(--muted-foreground)]">No URLs found matching &ldquo;{searchQuery}&rdquo;</p>
           <button
             type="button"
@@ -206,9 +206,9 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
           {Array.from(grouped.entries()).map(([category, entries]) => (
             <div key={category} className="mb-8">
               <CategoryHeader category={category} count={entries.length} />
-              <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="border-y border-[var(--hairline)]">
                 {entries.map((entry) => (
-                  <UrlCard key={entry.path} {...entry} />
+                  <UrlRow key={entry.path} {...entry} />
                 ))}
               </div>
             </div>
@@ -216,9 +216,9 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
         </div>
       )}
 
-      {/* List view — search: flat cards */}
+      {/* List view — search: flat rows */}
       {filteredUrls.length > 0 && view === "list" && searchQuery && (
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="border-y border-[var(--hairline)]">
           {filteredUrls.map(({ path, target, desc }) => {
             const isExternal = target.startsWith("http");
             return (
@@ -227,10 +227,10 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                 href={target}
                 target={isExternal ? "_blank" : undefined}
                 rel={isExternal ? "noopener noreferrer" : undefined}
-                className="flex flex-col gap-1.5 rounded-lg bg-[var(--muted)] p-4 text-[var(--foreground)] no-underline"
+                className="flex flex-col gap-1.5 border-t border-[var(--hairline)] py-4 text-[var(--foreground)] no-underline first:border-t-0"
               >
                 <div className="flex items-center gap-2">
-                  <code className="rounded bg-[var(--background)] px-2.5 py-1 font-mono text-[13px] font-semibold text-[var(--foreground)]">
+                  <code className="font-mono text-[13px] font-semibold text-[var(--foreground)]">
                     {path}
                   </code>
                   {isExternal && <ExternalIcon className="h-3.5 w-3.5 text-[var(--muted-soft)]" />}
@@ -254,7 +254,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
           {Array.from(grouped.entries()).map(([category, entries]) => (
             <div key={category} className="mb-8">
               <CategoryHeader category={category} count={entries.length} />
-              <div className="overflow-hidden rounded-lg bg-[var(--muted)]">
+              <div className="border-y border-[var(--hairline)]">
                 {entries.map(({ path, target, desc }, i) => {
                   const isExternal = target.startsWith("http");
                   return (
@@ -273,10 +273,10 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                       <code className="w-[120px] shrink-0 font-mono text-[13px] font-semibold text-[var(--foreground)]">
                         {path}
                       </code>
-                      <p className="m-0 flex-1 truncate text-[13px] text-[var(--muted-foreground)]">
+                      <p className="m-0 hidden flex-1 truncate text-[13px] text-[var(--muted-foreground)] sm:block">
                         {desc ?? <span className="text-[var(--muted-soft)]">&mdash;</span>}
                       </p>
-                      <span className="max-w-[200px] truncate font-mono text-[11px] text-[var(--muted-soft)]">
+                      <span className="hidden max-w-[200px] truncate font-mono text-[11px] text-[var(--muted-soft)] sm:block">
                         {target}
                       </span>
                       <svg aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-[var(--muted-soft)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -25,22 +25,17 @@ Một số developer thường tạo sẵn các môi trường này, và upload 
 
 Docker là công cụ tạo môi trường đóng gói, nó còn đóng gói cả hệ điều hành trong đó, vậy Docker khác máy ảo chỗ nào?
 
-<table class="table" style="width: 80%px;">
-    <tbody>
-        <tr>
-            <td valign="bottom" width="50%"><img border="0" src="https://4.bp.blogspot.com/-LAeYmjceju4/VnZXDlR9hNI/AAAAAAAAMGk/be31bdghXhM/s1600/what-is-docker-diagram.png" /></td>
-            <td valign="bottom"><img border="0" src="https://1.bp.blogspot.com/-L1MR5K0rxCA/VnZW_3dldeI/AAAAAAAAMGY/c2mwzOvr0W0/s1600/what-is-vm-diagram.png" /></td>
-        </tr>
-        <tr>
-            <td>
-                <h3>Máy ảo</h3>Mỗi máy ảo chứa ứng dụng, kèm theo các thư viện và hệ điều hành, mỗi ứng dụng như vậy chiếm hàng chục GBs.</td>
-            <td>
-                <h3>Docker  </h3>
-                <div>Mỗi containers chứa ứng dụng gồm chứa các thư viện riêng, nhưng kernel được chia sẻ với các containers khác. Mỗi kernel được chạy trong các môi trường độc lập với nhau. Docker infrastructure chạy được trên mọi máy tính, đám mây hay nền tảng nào. Vì vậy bạn có thể vận chuyển ứng dụng đến bất cứ đâu và không cần phải quan tâm đến môi trường phát triển, thiếu thư viện, ...</div>
-            </td>
-        </tr>
-    </tbody>
-</table>
+### Máy ảo
+
+![What is a VM diagram](https://1.bp.blogspot.com/-L1MR5K0rxCA/VnZW_3dldeI/AAAAAAAAMGY/c2mwzOvr0W0/s1600/what-is-vm-diagram.png)
+
+Mỗi máy ảo chứa ứng dụng, kèm theo các thư viện và hệ điều hành, mỗi ứng dụng như vậy chiếm hàng chục GBs.
+
+### Docker
+
+![What is Docker diagram](https://4.bp.blogspot.com/-LAeYmjceju4/VnZXDlR9hNI/AAAAAAAAMGk/be31bdghXhM/s1600/what-is-docker-diagram.png)
+
+Mỗi containers chứa ứng dụng gồm chứa các thư viện riêng, nhưng kernel được chia sẻ với các containers khác. Mỗi kernel được chạy trong các môi trường độc lập với nhau. Docker infrastructure chạy được trên mọi máy tính, đám mây hay nền tảng nào. Vì vậy bạn có thể vận chuyển ứng dụng đến bất cứ đâu và không cần phải quan tâm đến môi trường phát triển, thiếu thư viện, ...
   
   
   

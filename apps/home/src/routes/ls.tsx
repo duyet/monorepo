@@ -34,8 +34,7 @@ const publicUrls = Object.entries(urls)
 function ListPage() {
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
-      <main className="mx-auto max-w-[1024px] px-4 pb-16 pt-12">
-        {/* Header */}
+      <main className="mx-auto max-w-[1024px] px-5 pb-16 pt-12 sm:px-8">
         <div className="mb-10">
           <a
             href="/"
@@ -47,7 +46,7 @@ function ListPage() {
             Back to home
           </a>
           <div className="flex items-baseline gap-4">
-            <h1 className="m-0 font-[family-name:var(--font-serif)] text-5xl font-normal tracking-tight text-[var(--foreground)]">
+            <h1 className="m-0 text-4xl font-semibold text-[var(--foreground)] sm:text-5xl">
               Short URLs
             </h1>
             <span className="text-[13px] text-[var(--muted-soft)]">
@@ -59,10 +58,8 @@ function ListPage() {
           </p>
         </div>
 
-        {/* Client-side search and list */}
         <UrlsList urls={publicUrls} />
 
-        {/* Footer link */}
         <div className="mt-16 text-center">
           <a
             href="/"

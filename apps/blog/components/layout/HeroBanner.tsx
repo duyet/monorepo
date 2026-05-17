@@ -3,7 +3,7 @@ import { BackLink } from "../ui/BackLink";
 interface HeroBannerProps {
   title: string;
   description: string;
-  colorClass: string;
+  colorClass?: string;
   postCount: number;
   yearCount: number;
   backLinkHref: string;
@@ -19,59 +19,29 @@ export function HeroBanner({
   backLinkHref,
   backLinkText,
 }: HeroBannerProps) {
+  void colorClass;
+
   return (
-    <div
-      className={`${colorClass} mb-12 rounded-xl border border-[var(--hairline)] p-6 dark:border-white/10 sm:p-8 md:p-10`}
-    >
+    <div className="blog-page-head mb-12 border-b border-[var(--border-faint)] pb-8">
       <div className="mb-4">
         <BackLink href={backLinkHref} text={backLinkText} />
       </div>
 
-      <h1 className="mb-5 text-4xl font-semibold tracking-tight text-[var(--foreground)] dark:text-[var(--on-dark)] md:text-5xl">
+      <h1 className="mb-5 text-4xl font-semibold tracking-tight text-[var(--foreground)] dark:text-[var(--on-dark)] sm:text-5xl">
         {title}
       </h1>
 
-      <p className="mb-6 max-w-2xl text-sm leading-6 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/75 sm:text-base">
+      <p className="mb-6 max-w-2xl text-base leading-7 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/75">
         {description}
       </p>
 
-      <div className="flex flex-wrap gap-4 text-sm font-medium text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
-        <div className="flex items-center gap-2">
-          <svg
-            className="h-5 w-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-            />
-          </svg>
-          <span>
-            {postCount} {postCount === 1 ? "post" : "posts"}
-          </span>
-        </div>
-        <div className="flex items-center gap-2">
-          <svg
-            className="h-5 w-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-            />
-          </svg>
-          <span>
-            {yearCount} {yearCount === 1 ? "year" : "years"}
-          </span>
-        </div>
+      <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm font-medium text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
+        <span>
+          {postCount} {postCount === 1 ? "post" : "posts"}
+        </span>
+        <span>
+          {yearCount} {yearCount === 1 ? "year" : "years"}
+        </span>
       </div>
     </div>
   );

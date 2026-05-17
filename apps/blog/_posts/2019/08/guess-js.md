@@ -24,7 +24,7 @@ Preloading tài nguyên là một cách hay để cải thiệu hiệu năng tra
 
 Bạn có thể xem thông báo ra mắt chính thức của Guess.js bởi Addy Osmani và Ewa Gasperowicz tại Google I/O 2018:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Mv-l3-tJgGk?start=2275" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[Watch on YouTube — Google I/O 2018 announcement](https://www.youtube.com/watch?v=Mv-l3-tJgGk&t=2275s)
 
 # Cài đặt Guess.js vào Gatsby
 
