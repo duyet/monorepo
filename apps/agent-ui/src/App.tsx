@@ -40,7 +40,7 @@ function agentApiUrl(): string {
     return "http://localhost:8788";
   }
 
-  return "https://agents-api.duyet.net";
+  return location.origin;
 }
 
 function textParts(message: UIMessage): string {

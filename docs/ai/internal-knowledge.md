@@ -65,7 +65,7 @@ This repository is the Bun/Turborepo monorepo for duyet.net public apps, shared 
 
 ## App-Specific Command Notes
 
-- `apps/agent-ui`: `bun run dev` uses Vite on port 3008; local chat expects `apps/agent-api` on port 8788 unless `VITE_DUYET_AGENTS_API_URL` or `VITE_AGENT_API_URL` is set.
+- `apps/agent-ui`: `bun run dev` uses Vite on port 3008; local chat expects `apps/agent-api` on port 8788 unless `VITE_DUYET_AGENTS_API_URL` or `VITE_AGENT_API_URL` is set. Production chat uses the same-origin `/api/v1/chat` Pages Function proxy so browsers do not need to resolve `agents-api.duyet.net`.
 - `apps/agent-api`: `bun run dev` uses Wrangler on port 8788; `bun run deploy` type-checks then deploys the Worker; `bun run cf:deploy:prod` loads production env files before deploy; `bun run config` syncs `AGENT_API_TOKEN` plus Clerk verification secrets.
 - `apps/api`: `bun run dev` uses Wrangler; `bun run deploy` builds then deploys the Worker.
 - `apps/cv`: `bun run preview` validates production output locally.
