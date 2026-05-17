@@ -34,7 +34,11 @@ export interface UseChatReturn {
   uiMessages: UIMessage[];
   input: string;
   setInput: (value: string) => void;
-  submitMessage: (payload: { text: string; files?: FileUIPart[] }) => void;
+  submitMessage: (payload: {
+    text: string;
+    files?: FileUIPart[];
+    conversationId?: string;
+  }) => void;
   handleSubmit: (e?: React.FormEvent) => void;
   status: ChatStatus;
   isLoading: boolean;
@@ -398,7 +402,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
   }, [aiMessages]);
 
   const submitMessage = useCallback(
-    (payload: { text: string; files?: FileUIPart[] }) => {
+    (payload: { text: string; files?: FileUIPart[]; conversationId?: string }) => {
       const trimmedInput = payload.text.trim();
       const files = payload.files ?? [];
       const hasFiles = files.length > 0;
@@ -408,10 +412,17 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
       const normalizedText = trimmedInput || "Sent with attachment";
       setInput("");
 
-      sendMessage({
-        files,
-        text: normalizedText,
-      });
+      const requestOptions = payload.conversationId
+        ? { body: { conversationId: payload.conversationId } }
+        : undefined;
+
+      sendMessage(
+        {
+          files,
+          text: normalizedText,
+        },
+        requestOptions
+      );
     },
     [status, sendMessage]
   );

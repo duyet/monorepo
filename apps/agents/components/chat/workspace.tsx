@@ -161,6 +161,21 @@ export function ChatWorkspace() {
     [addToolApprovalResponse]
   );
 
+  const handleModeChange = useCallback(
+    (newMode: "agent" | "fast") => {
+      setMode(newMode);
+      localStorage.setItem("chat-mode", newMode);
+    },
+    [setMode]
+  );
+
+  useEffect(() => {
+    const saved = localStorage.getItem("chat-mode");
+    if (saved === "fast" || saved === "agent") {
+      handleModeChange(saved);
+    }
+  }, [handleModeChange]);
+
   const handlePromptSelect = async (prompt: string) => {
     if (!activeId) {
       await createNew(mode, modelId);
@@ -235,12 +250,13 @@ export function ChatWorkspace() {
 
       if (!text && !hasFiles) return;
 
+      let conversationId = activeId ?? undefined;
       if (!activeId) {
-        await createNew(mode, modelId);
+        conversationId = await createNew(mode, modelId);
       }
 
       lastInputRef.current = text;
-      submitMessage({ text, files });
+      submitMessage({ text, files, conversationId });
     },
     [activeId, createNew, mode, modelId, submitMessage]
   );
@@ -406,7 +422,7 @@ export function ChatWorkspace() {
                 onSuggestionSelect={handlePromptSelect}
                 status={status}
                 mode={mode}
-                onModeChange={setMode}
+                onModeChange={handleModeChange}
                 modelId={modelId}
                 onModelChange={handleModelChange}
                 isLoading={isLoading}
@@ -414,7 +430,7 @@ export function ChatWorkspace() {
                 hasAssistantResponse={hasAssistantResponse}
                 stop={stop}
                 reload={reload}
-                error={error}
+                error={serviceError ? null : error}
               />
             </main>
           </div>

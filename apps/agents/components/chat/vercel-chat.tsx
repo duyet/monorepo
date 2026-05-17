@@ -240,12 +240,13 @@ export function VercelChat() {
 
       if (!text && !hasFiles) return;
 
+      let conversationId = activeId ?? undefined;
       if (!activeId) {
-        await createNew(mode, modelId);
+        conversationId = await createNew(mode, modelId);
       }
 
       lastInputRef.current = text;
-      submitMessage({ text, files });
+      submitMessage({ text, files, conversationId });
     },
     [activeId, createNew, mode, modelId, submitMessage]
   );
