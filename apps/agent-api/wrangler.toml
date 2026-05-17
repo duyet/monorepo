@@ -3,7 +3,7 @@ main = "src/index.ts"
 compatibility_date = "2026-05-17"
 compatibility_flags = ["nodejs_compat"]
 routes = [
-  { pattern = "agents-api.duyet.net/*", zone_name = "duyet.net" }
+  { pattern = "agents-api.duyet.net", custom_domain = true }
 ]
 
 [observability]

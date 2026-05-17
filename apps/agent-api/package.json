@@ -7,6 +7,7 @@
     "config": "bun ../../scripts/sync-app-secrets.ts duyet-agent-api",
     "dev": "bunx wrangler dev --env development --config wrangler.toml --port 8788",
     "deploy": "bun run check-types && bunx wrangler deploy --env=\"\" --config wrangler.toml",
+    "cf:deploy:prod": "bun run --env-file=../../.env.production --env-file=../../.env.production.local deploy",
     "check-types": "tsc --noEmit",
     "test": "bun test",
     "lint": "biome lint .",

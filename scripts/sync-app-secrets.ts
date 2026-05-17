@@ -347,7 +347,8 @@ export function getVarsForApp(
 
 async function setSecretsBulk(
   appName: string,
-  secrets: Record<string, string>
+  secrets: Record<string, string>,
+  env: Record<string, string>
 ): Promise<boolean> {
   if (dryRun || Object.keys(secrets).length === 0) {
     if (dryRun && Object.keys(secrets).length > 0) {
@@ -375,14 +376,14 @@ async function setSecretsBulk(
     // Use different commands for Pages vs Workers
     const cmd = isPagesProject
       ? ["bunx", "wrangler", "pages", "secret", "bulk", tmpFile]
-      : ["bunx", "wrangler", "secret", "bulk", tmpFile];
+      : ["bunx", "wrangler", "secret", "bulk", tmpFile, "--env="];
 
     // Run wrangler from the app directory so it finds wrangler.toml
     const result = Bun.spawnSync({
       cmd,
       cwd: appDir,
       stdio: ["inherit", "pipe", "pipe"],
-      env: { ...process.env },
+      env: { ...process.env, ...env },
     });
 
     // Clean up temp file
@@ -407,7 +408,8 @@ async function setSecretsBulk(
 
 async function setBuildVarsForPages(
   appName: string,
-  buildVars: Record<string, string>
+  buildVars: Record<string, string>,
+  env: Record<string, string>
 ): Promise<boolean> {
   if (dryRun || Object.keys(buildVars).length === 0) {
     if (dryRun && Object.keys(buildVars).length > 0) {
@@ -433,7 +435,7 @@ async function setBuildVarsForPages(
         cmd,
         cwd: appDir,
         stdio: ["pipe", "pipe", "pipe"],
-        env: { ...process.env },
+        env: { ...process.env, ...env },
         input: value,
       });
 
@@ -495,7 +497,7 @@ async function main() {
       console.log(`    - ${key}: ${masked}`);
     }
 
-    const result = await setSecretsBulk(appName, secrets);
+    const result = await setSecretsBulk(appName, secrets, env);
     if (!result) {
       console.log(`  [ERROR] Failed to sync secrets`);
       process.exit(1);
@@ -514,7 +516,7 @@ async function main() {
       console.log(`    - ${key}=${value}`);
     }
 
-    const result = await setBuildVarsForPages(appName, buildVars);
+    const result = await setBuildVarsForPages(appName, buildVars, env);
     if (!result) {
       console.log(`  [ERROR] Failed to sync build vars`);
       process.exit(1);
