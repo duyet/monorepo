@@ -78,3 +78,14 @@ This file stores durable outcomes from code-smell and dead-code automation runs.
 - CI audit: latest `master` push workflows for `fea49fec` and `76c213b1` are `success` for `Lint`, `Test`, and deploy jobs.
   - Evidence: `gh run list --branch master --event push --limit 20 --json databaseId,headSha,status,conclusion,name,updatedAt`.
 - Workflow docs update: added `git log --since='<LAST_RUN_ISO>' --no-merges ...` to `CLAUDE.md` to reduce false positives from merge-only metadata during maintenance scans.
+
+### 2026-05-19
+
+- Commit window scan since `2026-05-17 21:01:50 +0000` covered: `2ec7fbee94832378699541a8b7b321e100b6c77e`, `5354427407973bab8a2d6837812db75810b1412b`, and `ea4fd318b419ea263caa4d23bf1f33db34aed351`.
+- Code smell review (info): no grounded functional bug/regression in current `HEAD` from this window; targeted lint passed on touched app/package files.
+  - Evidence: `bunx biome lint <touched paths>` returned `Checked 22 files in 40ms. No fixes applied.`
+- Dead-code review (confident): no zero-reference symbols in touched non-test files; removed-file fallout from `apps/homelab/components/ThemeProvider.tsx` is clean after import-path scans.
+  - Evidence: `rg -n "homelab/components/ThemeProvider|from \"@/components/ThemeProvider\"|useTheme\\(" apps packages --glob '!**/*.test.*' --glob '!**/*.spec.*' --glob '!**/__tests__/**'`.
+- CI audit: push workflows on `master` for the scanned commits are green for `Lint`, `Test`, and `Deploy to Cloudflare Pages`.
+  - Evidence: `gh run list --branch master --event push --limit 12 --json databaseId,headSha,status,conclusion,name,updatedAt`.
+- Workflow docs update: added detached-HEAD preflight and touched-file inventory commands to `CLAUDE.md` for safer automation loops.
