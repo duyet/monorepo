@@ -13,7 +13,7 @@ const toggleGroupClasses = cn(
 
 const toggleGroupItemClasses = cn(
   "h-8 w-8 flex items-center rounded-full justify-center transition",
-  "text-[var(--muted)] hover:text-[var(--foreground)]",
+  "text-[var(--muted-foreground,var(--muted))] hover:text-[var(--foreground)]",
   "data-[state=on]:bg-[var(--surface-card)] data-[state=on]:text-[var(--foreground)]",
   "dark:data-[state=on]:bg-white/15 dark:data-[state=on]:text-[var(--on-dark)]"
 );

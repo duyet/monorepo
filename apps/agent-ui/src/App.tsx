@@ -6,6 +6,7 @@ import {
   useAuth,
 } from "@clerk/clerk-react";
 import { useChat } from "@ai-sdk/react";
+import ThemeToggle from "@duyet/components/ThemeToggle";
 import {
   Card,
   CardContent,
@@ -183,6 +184,7 @@ function ChatScreen() {
             <div className="hidden items-center gap-2 sm:flex">
               <ResponseStatus response={lastResponse} />
             </div>
+            <ThemeToggle />
             <Button
               aria-label="Reset conversation"
               onClick={resetSession}

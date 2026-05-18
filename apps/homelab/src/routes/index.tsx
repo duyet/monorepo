@@ -123,16 +123,16 @@ function SummaryMetric({
 }) {
   return (
     <div
-      className="rounded-xl p-4 text-[#1a1a1a] shadow-[inset_0_-1px_0_rgba(0,0,0,0.08)]"
-      style={{ backgroundColor: tone }}
+      className="rounded-xl bg-[var(--metric-tone)] p-4 text-[#1a1a1a] shadow-[inset_0_-1px_0_rgba(0,0,0,0.08)] dark:bg-[#171815] dark:text-[#f8f8f2] dark:shadow-none dark:ring-1 dark:ring-white/12"
+      style={{ "--metric-tone": tone } as React.CSSProperties}
     >
-      <div className="mb-8 flex h-9 w-9 items-center justify-center rounded-lg bg-black/10 text-[#1a1a1a]">
+      <div className="mb-8 flex h-9 w-9 items-center justify-center rounded-lg bg-black/10 text-[#1a1a1a] dark:bg-white/10 dark:text-[#f8f8f2]">
         {icon}
       </div>
       <div className="text-2xl font-semibold tabular-nums tracking-tight">
         {value}
       </div>
-      <div className="mt-1 text-sm font-medium text-black/60">{label}</div>
+      <div className="mt-1 text-sm font-medium text-black/60 dark:text-[#b7b7aa]">{label}</div>
     </div>
   );
 }

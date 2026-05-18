@@ -20,7 +20,7 @@ export function WakaTimeHourlyHeatmapView({
   return (
     <div className="rounded-xl p-4">
       <div className="mb-4">
-        <h3 className="font-medium text-[#1a1a1a] dark:text-white">Coding Activity by Day of Week</h3>
+        <h3 className="font-medium text-[var(--foreground)]">Coding Activity by Day of Week</h3>
         <p className="text-xs text-muted-foreground">
           Weekly coding patterns based on the last 30 days
         </p>

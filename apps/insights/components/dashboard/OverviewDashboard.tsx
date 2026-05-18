@@ -59,7 +59,7 @@ export function OverviewDashboard({
           Key Performance Indicators • Last 30 Days
         </h2>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-          <CompactCard padding="sm" className="bg-[#dceafa]">
+          <CompactCard padding="sm" className="bg-[var(--insights-card-blue)]">
             <div className="space-y-1">
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 <Clock className="h-3 w-3" />
@@ -78,7 +78,7 @@ export function OverviewDashboard({
             </div>
           </CompactCard>
 
-          <CompactCard padding="sm" className="bg-[#dcefe7]">
+          <CompactCard padding="sm" className="bg-[var(--insights-card-emerald)]">
             <div className="space-y-1">
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 <Zap className="h-3 w-3" />
@@ -97,7 +97,7 @@ export function OverviewDashboard({
             </div>
           </CompactCard>
 
-          <CompactCard padding="sm" className="bg-[#f2dedb]">
+          <CompactCard padding="sm" className="bg-[var(--insights-card-coral)]">
             <a
               href="https://homelab.duyet.net"
               target="_blank"
@@ -106,8 +106,8 @@ export function OverviewDashboard({
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/70">
-                    <Server className="h-4 w-4 text-neutral-950" />
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/70 dark:bg-white/10">
+                    <Server className="h-4 w-4 text-neutral-950 dark:text-[#f8f8f2]" />
                   </div>
                   <div className="space-y-1">
                     <div className="text-sm font-semibold group-hover:underline group-hover:underline-offset-4">

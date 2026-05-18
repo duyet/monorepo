@@ -14,7 +14,7 @@ import { z } from "zod";
 import ErrorPage from "@/app/error";
 import NotFoundPage from "@/app/not-found";
 import Analytics from "@duyet/components/Analytics";
-import ThemeProvider from "@/components/ThemeProvider";
+import ThemeProvider from "@duyet/components/ThemeProvider";
 
 const rootSearchSchema = z.object({
   tab: z.enum(["infrastructure", "smart-devices"]).optional(),
@@ -56,7 +56,7 @@ function RootComponent() {
         <HeadContent />
       </head>
       <body>
-        <ThemeProvider defaultTheme="light">
+        <ThemeProvider>
           <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
             <Header
               longText={homelabConfig.header.longText}

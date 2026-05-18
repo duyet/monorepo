@@ -1,4 +1,6 @@
 import { ClerkProvider } from "@clerk/clerk-react";
+import ThemeProvider from "@duyet/components/ThemeProvider";
+import ThemeToggle from "@duyet/components/ThemeToggle";
 import {
   Card,
   CardContent,
@@ -42,9 +44,12 @@ function AuthUnavailable() {
               </p>
             </div>
           </div>
-          <Button disabled type="button" variant="outline">
-            Sign in
-          </Button>
+          <div className="flex shrink-0 items-center gap-2">
+            <ThemeToggle />
+            <Button disabled type="button" variant="outline">
+              Sign in
+            </Button>
+          </div>
         </header>
 
         <Card className="flex min-h-0 flex-1 flex-col overflow-hidden shadow-none">
@@ -91,12 +96,14 @@ function AuthUnavailable() {
 
 createRoot(rootElement).render(
   <StrictMode>
-    {canUseClerk ? (
-      <ClerkProvider publishableKey={publishableKey}>
-        <App />
-      </ClerkProvider>
-    ) : (
-      <AuthUnavailable />
-    )}
+    <ThemeProvider>
+      {canUseClerk ? (
+        <ClerkProvider publishableKey={publishableKey}>
+          <App />
+        </ClerkProvider>
+      ) : (
+        <AuthUnavailable />
+      )}
+    </ThemeProvider>
   </StrictMode>
 );

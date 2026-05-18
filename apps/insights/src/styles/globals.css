@@ -136,6 +136,19 @@
   /* Insights-specific chart tokens */
   --insights-chart-accent: #cc785c;
   --insights-chart-ink: #141413;
+  --insights-chart-grid: rgba(20, 20, 19, 0.08);
+  --insights-chart-tooltip-bg: #141413;
+  --insights-chart-tooltip-text: #faf9f5;
+  --insights-chart-placeholder-bg: rgba(20, 20, 19, 0.03);
+  --insights-chart-placeholder-text: rgba(20, 20, 19, 0.55);
+  --insights-card-blue: #dceafa;
+  --insights-card-emerald: #dcefe7;
+  --insights-card-coral: #f2dedb;
+  --insights-panel-blue: #6a9bcc;
+  --insights-panel-emerald: #788c5d;
+  --insights-panel-coral: #d97757;
+  --insights-panel-orange: #e8a55a;
+  --insights-panel-lilac: #9a8fc5;
 }
 
 .dark {
@@ -182,6 +195,19 @@
   /* Insights-specific chart tokens (dark) */
   --insights-chart-accent: #d98d73;
   --insights-chart-ink: #faf9f5;
+  --insights-chart-grid: rgba(248, 248, 242, 0.12);
+  --insights-chart-tooltip-bg: #252320;
+  --insights-chart-tooltip-text: #faf9f5;
+  --insights-chart-placeholder-bg: rgba(248, 248, 242, 0.06);
+  --insights-chart-placeholder-text: rgba(248, 248, 242, 0.62);
+  --insights-card-blue: #1a2a3f;
+  --insights-card-emerald: #163425;
+  --insights-card-coral: #3a2422;
+  --insights-panel-blue: #89b1d9;
+  --insights-panel-emerald: #96a67a;
+  --insights-panel-coral: #d98d73;
+  --insights-panel-orange: #e8a55a;
+  --insights-panel-lilac: #b6aadf;
 }
 
 /* Anthropic Utility Classes */

@@ -2,6 +2,8 @@
 
 @source "../../../packages/components";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   :root {
     --background: #ffffff;
@@ -24,6 +26,34 @@
     --input: #e4e4e7;
     --ring: #171717;
     --radius: 0.5rem;
+    --surface-card: #ffffff;
+    --hairline: rgba(23, 23, 23, 0.12);
+    --on-dark: #f8f8f2;
+  }
+
+  .dark {
+    --background: #0d0e0c;
+    --foreground: #f8f8f2;
+    --card: #171815;
+    --card-foreground: #f8f8f2;
+    --popover: #171815;
+    --popover-foreground: #f8f8f2;
+    --primary: #f8f8f2;
+    --primary-foreground: #0d0e0c;
+    --secondary: #242420;
+    --secondary-foreground: #f8f8f2;
+    --muted: #242420;
+    --muted-foreground: #b7b7aa;
+    --accent: #242420;
+    --accent-foreground: #f8f8f2;
+    --destructive: #f87171;
+    --destructive-foreground: #0d0e0c;
+    --border: rgba(248, 248, 242, 0.14);
+    --input: rgba(248, 248, 242, 0.14);
+    --ring: #f8f8f2;
+    --surface-card: #171815;
+    --hairline: rgba(248, 248, 242, 0.14);
+    --on-dark: #f8f8f2;
   }
 
   @theme inline {

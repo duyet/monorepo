@@ -28,7 +28,7 @@ export function CompactCard({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-xl text-[#1a1a1a]",
+        "relative overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface-card)] text-[var(--foreground)]",
         className
       )}
     >

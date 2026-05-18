@@ -167,6 +167,9 @@ const PANEL_COLORS = [
 ];
 const CHART_ORANGE = "var(--insights-chart-accent)";
 const CHART_BLACK = "var(--insights-chart-ink)";
+const CHART_GRID = "var(--insights-chart-grid)";
+const CHART_TOOLTIP_BACKGROUND = "var(--insights-chart-tooltip-bg)";
+const CHART_TOOLTIP_TEXT = "var(--insights-chart-tooltip-text)";
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "https://api.duyet.net";
 
@@ -461,10 +464,10 @@ function MetricTile({
 }) {
   return (
     <div
-      className="min-w-0 rounded-xl bg-[var(--surface-card)] p-5 text-[#1a1a1a] transition-transform hover:-translate-y-0.5 border border-[var(--border)]"
+      className="min-w-0 rounded-xl bg-[var(--surface-card)] p-5 text-[var(--foreground)] transition-transform hover:-translate-y-0.5 border border-[var(--border)]"
     >
       <div className="flex items-center justify-between gap-3">
-        <p className="text-sm font-medium text-black/65">{label}</p>
+        <p className="text-sm font-medium text-[var(--muted-foreground)]">{label}</p>
         <Icon className="h-4 w-4 shrink-0 opacity-40" />
       </div>
       <p className="mt-8 truncate text-3xl font-serif tracking-tight">
@@ -590,7 +593,7 @@ function InsightAreaChart({
   return (
     <div className="h-[280px] min-w-0" ref={ref}>
       {(!isHydrated || width === 0) && (
-        <div className="flex h-full items-center justify-center rounded-lg bg-black/[0.03] text-sm text-black/55">
+        <div className="flex h-full items-center justify-center rounded-lg bg-[var(--insights-chart-placeholder-bg)] text-sm text-[var(--insights-chart-placeholder-text)]">
           Chart loading.
         </div>
       )}
@@ -625,29 +628,31 @@ function InsightAreaChart({
             ))}
           </defs>
           <CartesianGrid
-            stroke="#1a1a1a"
+            stroke={CHART_GRID}
             strokeDasharray="3 3"
-            strokeOpacity={0.08}
+            strokeOpacity={1}
           />
           <XAxis
             axisLine={false}
             dataKey="date"
             fontSize={12}
+            tick={{ fill: "var(--muted-foreground)" }}
             tickLine={false}
             tickMargin={10}
           />
           <YAxis
             axisLine={false}
             fontSize={12}
+            tick={{ fill: "var(--muted-foreground)" }}
             tickLine={false}
             tickMargin={8}
           />
           <Tooltip
             contentStyle={{
-              background: "#1a1a1a",
+              background: CHART_TOOLTIP_BACKGROUND,
               border: "0",
               borderRadius: "8px",
-              color: "white",
+              color: CHART_TOOLTIP_TEXT,
               fontSize: "12px",
             }}
             formatter={(value, name) => [
@@ -691,7 +696,7 @@ function InsightBarChart({
   return (
     <div className="h-[280px] min-w-0" ref={ref}>
       {(!isHydrated || width === 0) && (
-        <div className="flex h-full items-center justify-center rounded-lg bg-black/[0.03] text-sm text-black/55">
+        <div className="flex h-full items-center justify-center rounded-lg bg-[var(--insights-chart-placeholder-bg)] text-sm text-[var(--insights-chart-placeholder-text)]">
           Chart loading.
         </div>
       )}
@@ -705,12 +710,13 @@ function InsightBarChart({
         >
           <CartesianGrid
             horizontal={false}
-            stroke="#1a1a1a"
-            strokeOpacity={0.08}
+            stroke={CHART_GRID}
+            strokeOpacity={1}
           />
           <XAxis
             axisLine={false}
             fontSize={12}
+            tick={{ fill: "var(--muted-foreground)" }}
             tickLine={false}
             type="number"
             unit="%"
@@ -719,16 +725,17 @@ function InsightBarChart({
             axisLine={false}
             dataKey={nameKey}
             fontSize={12}
+            tick={{ fill: "var(--muted-foreground)" }}
             tickLine={false}
             type="category"
             width={112}
           />
           <Tooltip
             contentStyle={{
-              background: "#1a1a1a",
+              background: CHART_TOOLTIP_BACKGROUND,
               border: "0",
               borderRadius: "8px",
-              color: "white",
+              color: CHART_TOOLTIP_TEXT,
               fontSize: "12px",
             }}
             formatter={(value) => [`${formatNumber(Number(value))}%`, "Share"]}
@@ -749,7 +756,7 @@ function InsightBarChart({
 
 function EmptyChart({ label }: { label: string }) {
   return (
-    <div className="flex h-[280px] items-center justify-center rounded-lg bg-black/[0.03] text-sm text-black/55">
+    <div className="flex h-[280px] items-center justify-center rounded-lg bg-[var(--insights-chart-placeholder-bg)] text-sm text-[var(--insights-chart-placeholder-text)]">
       {label}
     </div>
   );
@@ -769,7 +776,7 @@ function SourceNote({
       <Icon className="mt-1 h-5 w-5 shrink-0 text-[#ff6a00]" />
       <div>
         <h3 className="font-semibold">{label}</h3>
-        <p className="mt-1 text-sm leading-6 text-black/60">
+        <p className="mt-1 text-sm leading-6 text-[var(--muted-foreground)]">
           {text}
         </p>
       </div>

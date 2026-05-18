@@ -26,7 +26,7 @@ export function MetricCard({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-xl p-4 text-[#1a1a1a]",
+        "relative overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface-card)] p-4 text-[var(--foreground)]",
         className
       )}
     >

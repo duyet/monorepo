@@ -40,9 +40,10 @@ export function ResourceMetrics() {
               />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: "rgba(255, 255, 255, 0.95)",
-                  border: "1px solid #e5e5e5",
+                  backgroundColor: "var(--card)",
+                  border: "1px solid var(--border)",
                   borderRadius: "8px",
+                  color: "var(--card-foreground)",
                   fontSize: "12px",
                 }}
               />
@@ -115,9 +116,10 @@ export function ResourceMetrics() {
               />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: "rgba(255, 255, 255, 0.95)",
-                  border: "1px solid #e5e5e5",
+                  backgroundColor: "var(--card)",
+                  border: "1px solid var(--border)",
                   borderRadius: "8px",
+                  color: "var(--card-foreground)",
                   fontSize: "12px",
                 }}
               />

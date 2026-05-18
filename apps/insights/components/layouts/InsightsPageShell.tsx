@@ -33,7 +33,7 @@ export function InsightsPageHeader({
         </p>
       ) : null}
       <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h1>
-      <p className="mt-3 max-w-3xl text-base font-medium leading-6 text-[#1a1a1a]/65">
+      <p className="mt-3 max-w-3xl text-base font-medium leading-6 text-[var(--muted-foreground)]">
         {description}
       </p>
     </header>
@@ -51,7 +51,7 @@ export function InsightsSection({
       <div className="mb-4">
         <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
         {description ? (
-          <p className="mt-1 text-sm text-[#1a1a1a]/60">
+          <p className="mt-1 text-sm text-[var(--muted-foreground)]">
             {description}
           </p>
         ) : null}

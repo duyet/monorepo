@@ -44,10 +44,10 @@ export function StatsHeader({
             <div
               key={label}
               className={cn(
-                "rounded-xl p-5 text-[#1a1a1a] shadow-[inset_0_-1px_0_rgba(0,0,0,0.08)] transition-all",
+                "rounded-xl p-5 text-[#1a1a1a] shadow-[inset_0_-1px_0_rgba(0,0,0,0.08)] transition-all dark:text-[#f8f8f2] dark:shadow-none dark:ring-1 dark:ring-white/12",
                 isActive
-                  ? "bg-[#b8efd2]"
-                  : "bg-[#cfe2f3] hover:-translate-y-0.5",
+                  ? "bg-[#b8efd2] dark:bg-[#214334]"
+                  : "bg-[#cfe2f3] hover:-translate-y-0.5 dark:bg-[#1a2a3f]",
                 isClickable
                   ? "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   : "cursor-default"
@@ -64,13 +64,13 @@ export function StatsHeader({
                   : undefined
               }
             >
-              <div className="mb-8 inline-flex rounded-lg bg-black/10 p-2.5">
-                <Icon className="h-4 w-4 text-[#1a1a1a]" />
+              <div className="mb-8 inline-flex rounded-lg bg-black/10 p-2.5 dark:bg-white/10">
+                <Icon className="h-4 w-4 text-[#1a1a1a] dark:text-[#f8f8f2]" />
               </div>
-              <div className="font-[family-name:var(--font-mono)] text-3xl font-semibold text-[#1a1a1a]">
+              <div className="font-[family-name:var(--font-mono)] text-3xl font-semibold text-[#1a1a1a] dark:text-[#f8f8f2]">
                 {value.toLocaleString()}
               </div>
-              <div className="mt-1 text-sm font-medium text-black/60">
+              <div className="mt-1 text-sm font-medium text-black/60 dark:text-[#b7b7aa]">
                 {label}
               </div>
             </div>

@@ -12,7 +12,7 @@ export function WakaTimeLanguagesView({
       {/* Language Distribution - Pie Chart */}
       <div className="rounded-xl p-4">
         <div className="mb-4">
-          <h3 className="font-medium text-[#1a1a1a] dark:text-white">Language Breakdown</h3>
+          <h3 className="font-medium text-[var(--foreground)]">Language Breakdown</h3>
           <p className="text-xs text-muted-foreground">
             Full pie view of usage distribution
           </p>
@@ -31,7 +31,7 @@ export function WakaTimeLanguagesView({
       {/* Language Distribution - Donut Chart */}
       <div className="rounded-xl p-4">
         <div className="mb-4">
-          <h3 className="font-medium text-[#1a1a1a] dark:text-white">Language Distribution</h3>
+          <h3 className="font-medium text-[var(--foreground)]">Language Distribution</h3>
           <p className="text-xs text-muted-foreground">
             Visual breakdown by usage
           </p>

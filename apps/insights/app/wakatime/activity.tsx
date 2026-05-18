@@ -31,7 +31,7 @@ export function WakaTimeActivityView({
   return (
     <div className="rounded-xl p-4">
       <div className="mb-4">
-        <h3 className="font-medium text-[#1a1a1a] dark:text-white">{title}</h3>
+        <h3 className="font-medium text-[var(--foreground)]">{title}</h3>
         <p className="text-xs text-muted-foreground">{description}</p>
       </div>
       <BarChart

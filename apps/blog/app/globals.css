@@ -198,7 +198,7 @@ h4 { letter-spacing: -0.008em; }
 
 .dark .prose :where(code):not(:where(pre code)) {
   background-color: #3d3c38 !important;
-  color: #e8e62 !important;
+  color: #f8f8f2 !important;
 }
 
 .prose pre,

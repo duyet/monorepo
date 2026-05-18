@@ -2,6 +2,8 @@ import "@duyet/components/styles.css";
 import "../styles.css";
 
 import Analytics from "@duyet/components/Analytics";
+import ThemeProvider from "@duyet/components/ThemeProvider";
+import ThemeToggle from "@duyet/components/ThemeToggle";
 import {
   createRootRoute,
   HeadContent,
@@ -68,15 +70,18 @@ function RootComponent() {
         />
       </head>
       <body>
-        <div style={{ minHeight: "100vh", background: "var(--canvas)", color: "var(--ink)" }}>
-          <main>
-            <Outlet />
-          </main>
-          <p style={{ textAlign: "center", padding: "32px 0", fontSize: 12, color: "var(--muted-soft)" }}>
-            <a href="https://duyet.net" style={{ color: "var(--muted)", textDecoration: "none" }}>duyet.net</a>
-          </p>
-        </div>
-        <Analytics />
+        <ThemeProvider>
+          <div style={{ minHeight: "100vh", background: "var(--canvas)", color: "var(--ink)" }}>
+            <main>
+              <Outlet />
+            </main>
+            <footer className="flex flex-col items-center gap-4 px-4 py-8 text-xs text-[var(--muted-soft)]">
+              <ThemeToggle />
+              <a href="https://duyet.net" style={{ color: "var(--muted)", textDecoration: "none" }}>duyet.net</a>
+            </footer>
+          </div>
+          <Analytics />
+        </ThemeProvider>
         <Scripts />
       </body>
     </html>
