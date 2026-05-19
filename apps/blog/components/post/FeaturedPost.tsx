@@ -29,7 +29,7 @@ export function FeaturedPost({
         {post.thumbnail ? (
           <img
             src={post.thumbnail}
-            alt={post.title}
+            alt=""
             width={1200}
             height={675}
             loading="eager"
