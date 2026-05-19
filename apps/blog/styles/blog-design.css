@@ -1,15 +1,9 @@
 .blog-site-header {
   position: sticky;
   top: 0;
-  border-bottom: 0 !important;
+  background: var(--background);
   background: color-mix(in srgb, var(--background) 94%, transparent);
   backdrop-filter: blur(16px);
-}
-
-.blog-site-header-inner {
-  max-width: 1440px !important;
-  padding-top: 16px !important;
-  padding-bottom: 16px !important;
 }
 
 .blog-site-header a {
@@ -106,7 +100,7 @@
   );
 }
 
-.blog-featured-media h2 {
+.blog-featured-media h1 {
   position: absolute;
   right: 38px;
   bottom: 32px;
@@ -370,7 +364,7 @@
     aspect-ratio: 4 / 3;
   }
 
-  .blog-featured-media h2 {
+  .blog-featured-media h1 {
     right: 22px;
     bottom: 22px;
     left: 22px;

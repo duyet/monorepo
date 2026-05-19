@@ -2,6 +2,7 @@ import type { Post } from "@duyet/interfaces";
 import { dateFormat } from "@duyet/libs/date";
 import { cn } from "@duyet/libs/utils";
 import { Link } from "@tanstack/react-router";
+import type { ReactElement } from "react";
 
 export interface YearPostProps {
   year: number;
@@ -9,7 +10,11 @@ export interface YearPostProps {
   className?: string;
 }
 
-export function YearPost({ year, posts, className }: YearPostProps) {
+export function YearPost({
+  year,
+  posts,
+  className,
+}: YearPostProps): ReactElement | null {
   if (!posts.length) return null;
 
   return (

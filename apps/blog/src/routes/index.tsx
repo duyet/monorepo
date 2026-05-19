@@ -1,9 +1,11 @@
 import Container from "@duyet/components/Container";
+import { dateFormat } from "@duyet/libs/date";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { FeaturedPost } from "@/components/post/FeaturedPost";
 import { YearPost } from "@/components/post/YearPost";
 import { getPostsByAllYear } from "@/lib/posts";
 import type { Post } from "@duyet/interfaces";
+import type { ReactElement } from "react";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
@@ -13,7 +15,7 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-function HomePage() {
+function HomePage(): ReactElement {
   const { postsByYear } = Route.useLoaderData();
 
   const allPosts: Post[] = Object.entries(postsByYear)
@@ -94,7 +96,7 @@ const focusAreas = [
   },
 ];
 
-function RecentPostLink({ post }: { post: Post }) {
+function RecentPostLink({ post }: { post: Post }): ReactElement {
   const [, year, month, slug] = post.slug.split("/");
 
   return (
@@ -124,9 +126,5 @@ function groupByYear(posts: Post[]): [number, Post[]][] {
 }
 
 function formatPostDate(date: Date | string): string {
-  return new Intl.DateTimeFormat("en", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  }).format(new Date(date));
+  return dateFormat(date instanceof Date ? date : new Date(date), "MMM d, yyyy");
 }

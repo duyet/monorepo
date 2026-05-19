@@ -2,13 +2,17 @@ import type { Post } from "@duyet/interfaces";
 import { dateFormat } from "@duyet/libs/date";
 import { cn } from "@duyet/libs/utils";
 import { Link } from "@tanstack/react-router";
+import type { ReactElement } from "react";
 
 interface FeaturedPostProps {
   post: Post;
   className?: string;
 }
 
-export function FeaturedPost({ post, className }: FeaturedPostProps) {
+export function FeaturedPost({
+  post,
+  className,
+}: FeaturedPostProps): ReactElement {
   const [, year, month, slug] = post.slug.split("/");
   const date = dateFormat(post.date, "MMMM d, yyyy");
 
@@ -23,7 +27,13 @@ export function FeaturedPost({ post, className }: FeaturedPostProps) {
     >
       <div className="blog-featured-media">
         {post.thumbnail ? (
-          <img src={post.thumbnail} alt="" loading="eager" />
+          <img
+            src={post.thumbnail}
+            alt={post.title}
+            width={1200}
+            height={675}
+            loading="eager"
+          />
         ) : (
           <div className="blog-featured-fallback" aria-hidden="true">
             <span>{post.category}</span>
@@ -31,7 +41,7 @@ export function FeaturedPost({ post, className }: FeaturedPostProps) {
           </div>
         )}
         <div className="blog-featured-scrim" aria-hidden="true" />
-        <h2>{post.title}</h2>
+        <h1>{post.title}</h1>
       </div>
 
       <div className="blog-featured-copy">
