@@ -43,6 +43,7 @@ const metaFields = [
   "series",
   "readingTime",
   "snippet",
+  "thumbnail",
   "author",
 ];
 
