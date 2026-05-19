@@ -113,6 +113,8 @@ function RootComponent() {
               longText="Duyet Le"
               navigationItems={blogNavigation}
               showAuthButtons
+              className="blog-site-header"
+              containerClassName="blog-site-header-inner"
               actions={<AppCommandPalette />}
             />
             <main className="relative z-10 pb-16">
