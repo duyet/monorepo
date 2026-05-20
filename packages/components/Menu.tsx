@@ -10,7 +10,7 @@ export type NavigationItem = {
 
 export function createDefaultNavigation(urls: UrlsConfig): NavigationItem[] {
   return [
-    { name: "Home", href: urls.apps.home },
+    { name: "Home", href: "/" },
     { name: "About", href: `${urls.apps.home}/about` },
     { name: "Photos", href: urls.apps.photos },
     { name: "Insights", href: urls.apps.insights },
