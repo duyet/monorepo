@@ -30,7 +30,7 @@ afterAll(() => {
 });
 
 describe("getPostByPath – thumbnail field", () => {
-  test("keeps thumbnail undefined even when frontmatter thumbnail exists", () => {
+  test("returns thumbnail when frontmatter thumbnail exists", () => {
     const path = writeTempPost(
       "thumb-url.md",
       [
@@ -42,10 +42,10 @@ describe("getPostByPath – thumbnail field", () => {
     );
 
     const post = getPostByPath(path, ["slug", "thumbnail"]);
-    expect(post.thumbnail).toBeUndefined();
+    expect(post.thumbnail).toBe("/media/2024/01/cover.jpg");
   });
 
-  test("keeps thumbnail undefined when frontmatter thumbnail is an absolute URL", () => {
+  test("returns thumbnail when frontmatter thumbnail is an absolute URL", () => {
     const path = writeTempPost(
       "thumb-abs.md",
       [
@@ -57,7 +57,7 @@ describe("getPostByPath – thumbnail field", () => {
     );
 
     const post = getPostByPath(path, ["slug", "thumbnail"]);
-    expect(post.thumbnail).toBeUndefined();
+    expect(post.thumbnail).toBe("https://example.com/images/cover.png");
   });
 
   test("keeps thumbnail undefined when frontmatter thumbnail is empty", () => {
@@ -106,6 +106,6 @@ describe("getPostByPath – thumbnail field", () => {
     const post = getPostByPath(path, ["slug", "title", "thumbnail", "date"]);
     expect(post.title).toBe("Multi Field Post");
     expect(post.date).toBeInstanceOf(Date);
-    expect(post.thumbnail).toBeUndefined();
+    expect(post.thumbnail).toBe("/media/multi-cover.svg");
   });
 });
