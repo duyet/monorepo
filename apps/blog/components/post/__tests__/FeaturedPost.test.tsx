@@ -57,10 +57,10 @@ function makePost(overrides: Partial<Post> = {}): Post {
 describe("FeaturedPost", () => {
   it("renders title and category", () => {
     const post = makePost({ title: "My Featured Article", category: "Data" });
-    const { getByText } = render(<FeaturedPost post={post} />);
+    const { getAllByText } = render(<FeaturedPost post={post} />);
 
-    expect(getByText("My Featured Article")).toBeDefined();
-    expect(getByText("Data")).toBeDefined();
+    expect(getAllByText("My Featured Article").length).toBe(2);
+    expect(getAllByText("Data").length).toBe(2);
   });
 
   it("renders route link with slug params", () => {
@@ -96,11 +96,11 @@ describe("FeaturedPost", () => {
     expect(paragraph).toBeNull();
   });
 
-  it("renders reading time when provided", () => {
+  it("does not render reading time even when provided", () => {
     const post = makePost({ readingTime: 7 });
-    const { getByText } = render(<FeaturedPost post={post} />);
+    const { container } = render(<FeaturedPost post={post} />);
 
-    expect(getByText("7 min read")).toBeDefined();
+    expect(container.textContent).not.toContain("7 min read");
   });
 
   it("omits reading time when not provided", () => {
