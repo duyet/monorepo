@@ -2,7 +2,7 @@ import { describe, expect, mock, test } from "bun:test";
 
 mock.module("@tanstack/react-router", () => ({
   Link: () => null,
-  useRouterState: () => ({ location: { pathname: "/" } }),
+  useRouter: () => ({ state: { location: { pathname: "/" } } }),
 }));
 
 const { HOME, createDefaultNavigation } = await import("../Menu");
