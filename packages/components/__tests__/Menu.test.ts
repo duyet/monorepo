@@ -1,9 +1,7 @@
 import { describe, expect, mock, test } from "bun:test";
 
 mock.module("@tanstack/react-router", () => ({
-  Link: ({ children, ...props }: { children: React.ReactNode; [key: string]: unknown }) => (
-    <a {...props}>{children}</a>
-  ),
+  Link: () => null,
   useRouterState: () => ({ location: { pathname: "/" } }),
 }));
 
