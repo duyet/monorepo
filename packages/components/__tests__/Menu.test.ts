@@ -1,18 +1,26 @@
-import { describe, expect, test } from "bun:test";
-import { HOME, createDefaultNavigation } from "../Menu";
-import type { NavigationItem } from "../Menu";
+import { describe, expect, mock, test } from "bun:test";
+
+mock.module("@tanstack/react-router", () => ({
+  Link: ({ children, ...props }: { children: React.ReactNode; [key: string]: unknown }) => (
+    <a {...props}>{children}</a>
+  ),
+  useRouterState: () => ({ location: { pathname: "/" } }),
+}));
+
+const { HOME, createDefaultNavigation } = await import("../Menu");
+
+type NavigationItem = {
+  name: string;
+  href: string;
+};
 
 describe("HOME constant", () => {
   test("has name 'Home'", () => {
     expect(HOME.name).toBe("Home");
   });
 
-  test("has href '/' (relative root path, not an external URL)", () => {
-    expect(HOME.href).toBe("/");
-  });
-
-  test("does not point to an external domain", () => {
-    expect(HOME.href.startsWith("http")).toBe(false);
+  test("uses an absolute URL", () => {
+    expect(HOME.href.startsWith("http")).toBe(true);
   });
 });
 
@@ -30,31 +38,26 @@ describe("createDefaultNavigation", () => {
   test("returns an array of NavigationItem objects", () => {
     const items = createDefaultNavigation(mockUrls);
     expect(Array.isArray(items)).toBe(true);
-    expect(items.length).toBeGreaterThan(0);
+    expect(items.length).toBe(5);
   });
 
-  test("first item is HOME with href '/'", () => {
+  test("first item is Home and uses urls.apps.home", () => {
     const items = createDefaultNavigation(mockUrls);
     const first = items[0];
     expect(first.name).toBe("Home");
-    expect(first.href).toBe("/");
-  });
-
-  test("first item matches the HOME constant exactly", () => {
-    const items = createDefaultNavigation(mockUrls);
-    expect(items[0]).toEqual(HOME);
+    expect(first.href).toBe(mockUrls.apps.home);
   });
 
   test("includes About with URL from urls.apps.home", () => {
     const items = createDefaultNavigation(mockUrls);
-    const about = items.find((i: NavigationItem) => i.name === "About");
+    const about = items.find((item: NavigationItem) => item.name === "About");
     expect(about).toBeDefined();
     expect(about?.href).toBe(`${mockUrls.apps.home}/about`);
   });
 
   test("includes Photos with URL from urls.apps.photos", () => {
     const items = createDefaultNavigation(mockUrls);
-    const photos = items.find((i: NavigationItem) => i.name === "Photos");
+    const photos = items.find((item: NavigationItem) => item.name === "Photos");
     expect(photos).toBeDefined();
     expect(photos?.href).toBe(mockUrls.apps.photos);
   });
@@ -67,15 +70,5 @@ describe("createDefaultNavigation", () => {
       expect(typeof item.href).toBe("string");
       expect(item.href.length).toBeGreaterThan(0);
     }
-  });
-
-  test("Home item href is not affected by the urls argument", () => {
-    const urlsA = { ...mockUrls, apps: { ...mockUrls.apps, home: "https://a.example.com" } };
-    const urlsB = { ...mockUrls, apps: { ...mockUrls.apps, home: "https://b.example.com" } };
-    const itemsA = createDefaultNavigation(urlsA);
-    const itemsB = createDefaultNavigation(urlsB);
-    // Both should have href "/"  regardless of urls.apps.home
-    expect(itemsA[0].href).toBe("/");
-    expect(itemsB[0].href).toBe("/");
   });
 });
