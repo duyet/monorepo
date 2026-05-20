@@ -20,6 +20,7 @@ interface HeaderProps {
   longText?: string;
   center?: boolean;
   navigationItems?: NavigationItem[];
+  homeUrl?: string;
   actions?: ReactNode;
   showAuthButtons?: boolean;
   authButtonsWrapWithProvider?: boolean;
@@ -36,6 +37,7 @@ export default function Header({
   longText,
   center = false,
   navigationItems,
+  homeUrl = "/",
   actions,
   showAuthButtons = true,
   authButtonsWrapWithProvider = true,
@@ -81,7 +83,7 @@ export default function Header({
         )}
       >
         <HeaderBranding
-          homeUrl={urls.apps.home}
+          homeUrl={homeUrl}
           shortText={displayShortText}
           longText={displayLongText}
           logo={logo}

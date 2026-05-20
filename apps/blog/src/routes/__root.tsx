@@ -113,6 +113,8 @@ function RootComponent() {
               longText="Duyet Le"
               navigationItems={blogNavigation}
               showAuthButtons
+              className="blog-site-header border-b-0"
+              containerClassName="blog-site-header-inner max-w-[1440px] py-4 lg:px-12"
               actions={<AppCommandPalette />}
             />
             <main className="relative z-10 pb-16">
@@ -130,10 +132,10 @@ function RootComponent() {
 }
 
 const blogNavigation: NavigationItem[] = [
-  { name: "Blog", href: duyetUrls.apps.blog },
-  { name: "Archives", href: `${duyetUrls.apps.blog}/archives/` },
-  { name: "Featured", href: `${duyetUrls.apps.blog}/featured/` },
-  { name: "Series", href: `${duyetUrls.apps.blog}/series/` },
-  { name: "Tags", href: `${duyetUrls.apps.blog}/tags/` },
-  { name: "Home", href: duyetUrls.apps.home },
+  { name: "Home", href: "/" },
+  { name: "Archives", href: "/archives/" },
+  { name: "Featured", href: "/featured/" },
+  { name: "Series", href: "/series/" },
+  { name: "Tags", href: "/tags/" },
+  { name: "Duyet.net", href: duyetUrls.apps.home },
 ];

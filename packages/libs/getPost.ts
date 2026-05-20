@@ -175,6 +175,10 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
       post.snippet = data.snippet || "";
     }
 
+    if (field === "thumbnail") {
+      post.thumbnail = data.thumbnail || undefined;
+    }
+
     if (field === "featured") {
       post.featured = Boolean(data.featured) || false;
     }

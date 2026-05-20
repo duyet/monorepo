@@ -24,7 +24,9 @@ export const Route = createFileRoute("/category")({
 });
 
 function Categories() {
-  const hasChild = useMatches().some((m) => m.id === "/category/$category");
+  const hasChild = useMatches().some(
+    (match) => match.routeId === "/category/$category"
+  );
   if (hasChild) return <Outlet />;
 
   const { categories } = Route.useLoaderData() as { categories: CategoryCount };

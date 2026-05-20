@@ -8,9 +8,11 @@ export type NavigationItem = {
   href: string;
 };
 
+export const HOME = { name: "Home", href: "/" };
+
 export function createDefaultNavigation(urls: UrlsConfig): NavigationItem[] {
   return [
-    { name: "Home", href: urls.apps.home },
+    HOME,
     { name: "About", href: `${urls.apps.home}/about` },
     { name: "Photos", href: urls.apps.photos },
     { name: "Insights", href: urls.apps.insights },
@@ -18,7 +20,6 @@ export function createDefaultNavigation(urls: UrlsConfig): NavigationItem[] {
   ];
 }
 
-export const HOME = { name: "Home", href: duyetUrls.apps.home };
 export const ABOUT = { name: "About", href: `${duyetUrls.apps.home}/about` };
 export const INSIGHTS = { name: "Insights", href: duyetUrls.apps.insights };
 export const PHOTOS = { name: "Photos", href: duyetUrls.apps.photos };

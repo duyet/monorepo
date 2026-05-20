@@ -2,49 +2,57 @@ import type { Post } from "@duyet/interfaces";
 import { dateFormat } from "@duyet/libs/date";
 import { cn } from "@duyet/libs/utils";
 import { Link } from "@tanstack/react-router";
+import type { ReactElement } from "react";
 
 interface FeaturedPostProps {
   post: Post;
   className?: string;
 }
 
-export function FeaturedPost({ post, className }: FeaturedPostProps) {
+export function FeaturedPost({
+  post,
+  className,
+}: FeaturedPostProps): ReactElement {
   const [, year, month, slug] = post.slug.split("/");
+  const date = dateFormat(post.date, "MMMM d, yyyy");
 
   return (
     <Link
       to="/$year/$month/$slug/"
       params={{ year, month, slug }}
       className={cn(
-        "group block border-y border-[var(--border-faint)] py-7 transition-colors hover:bg-[var(--surface-soft)] sm:py-8",
+        "blog-featured-post group block",
         className
       )}
     >
-      <div className="flex flex-wrap items-center gap-2 text-[12px] font-medium uppercase tracking-[0.08em] text-[var(--muted)]">
-        <span>{post.category}</span>
-        <span>/</span>
-        <time>{dateFormat(post.date, "MMMM d, yyyy")}</time>
+      <div className="blog-featured-media">
+        {post.thumbnail ? (
+          <img
+            src={post.thumbnail}
+            alt=""
+            width={1200}
+            height={675}
+            loading="eager"
+          />
+        ) : (
+          <div className="blog-featured-fallback" aria-hidden="true">
+            <span>{post.category}</span>
+            <span>{date}</span>
+          </div>
+        )}
+        <div className="blog-featured-scrim" aria-hidden="true" />
+        <h1>{post.title}</h1>
       </div>
-      <h2
-        className={cn(
-          "mt-4 max-w-4xl text-[30px] font-semibold leading-[1.12] tracking-[-0.02em] sm:text-[38px]",
-          "text-[var(--ink)]",
-          "group-hover:text-[var(--body)]",
-          "transition-colors"
-        )}
-      >
-        {post.title}
-      </h2>
-      {post.excerpt && (
-        <p className="mt-4 max-w-3xl text-[15px] leading-[1.65] text-[var(--body)]">
-          {post.excerpt}
-        </p>
-      )}
-      <div className="mt-5 flex items-center gap-2 text-[13px] text-[var(--muted)]">
-        {post.readingTime && (
-          <span>{post.readingTime} min read</span>
-        )}
-        <span className="transition-transform group-hover:translate-x-1">→</span>
+
+      <div className="blog-featured-copy">
+        <div className="blog-featured-title" aria-hidden="true">
+          {post.title}
+        </div>
+        <div className="blog-featured-meta">
+          <span>{post.category}</span>
+          <time>{date}</time>
+        </div>
+        {post.excerpt && <p>{post.excerpt}</p>}
       </div>
     </Link>
   );
