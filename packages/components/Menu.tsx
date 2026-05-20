@@ -1,7 +1,7 @@
 import { cn } from "@duyet/libs/utils";
 import type { UrlsConfig } from "@duyet/urls";
 import { duyetUrls } from "@duyet/urls";
-import { Link, useRouter } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 
 export type NavigationItem = {
   name: string;
@@ -48,12 +48,11 @@ export default function Menu({
   onItemClick,
 }: Props) {
   const items = navigationItems ?? createDefaultNavigation(urls);
-  const router = useRouter();
-  const currentPath = router.state.location.pathname;
+  const currentPath = typeof window === "undefined" ? "" : window.location.pathname;
 
   function isActive(href: string): boolean {
     if (href.startsWith("http")) return false;
-    if (href === "/") return currentPath === "/";
+    if (href === "/") return currentPath === "/" || currentPath === "";
     return currentPath.startsWith(href);
   }
 
