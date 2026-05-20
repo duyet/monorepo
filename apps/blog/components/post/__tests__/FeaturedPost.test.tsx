@@ -5,9 +5,38 @@ import {
   describe,
   expect,
   it,
+  mock,
   render,
 } from "../../../test-setup";
-import { FeaturedPost } from "../FeaturedPost";
+
+mock.module("@tanstack/react-router", () => ({
+  Link: ({
+    children,
+    to,
+    params,
+    ...props
+  }: {
+    children: React.ReactNode;
+    to: string;
+    params?: Record<string, string>;
+    [key: string]: unknown;
+  }) => {
+    let href = to;
+    if (params) {
+      for (const [key, value] of Object.entries(params)) {
+        href = href.replace(`$${key}`, value);
+      }
+    }
+
+    return (
+      <a href={href} {...props}>
+        {children}
+      </a>
+    );
+  },
+}));
+
+const { FeaturedPost } = await import("../FeaturedPost");
 
 afterEach(cleanup);
 
@@ -26,125 +55,58 @@ function makePost(overrides: Partial<Post> = {}): Post {
 }
 
 describe("FeaturedPost", () => {
-  it("renders post title in h1 inside media area", () => {
-    const post = makePost({ title: "My Featured Article" });
-    const { getAllByText } = render(<FeaturedPost post={post} />);
-    const titles = getAllByText("My Featured Article");
-    // Title appears in both the h1 (inside blog-featured-media) and aria-hidden div
-    expect(titles.length).toBeGreaterThanOrEqual(1);
+  it("renders title and category", () => {
+    const post = makePost({ title: "My Featured Article", category: "Data" });
+    const { getByText } = render(<FeaturedPost post={post} />);
+
+    expect(getByText("My Featured Article")).toBeDefined();
+    expect(getByText("Data")).toBeDefined();
   });
 
-  it("renders fallback div when post has no thumbnail", () => {
-    const post = makePost({ thumbnail: undefined });
+  it("renders route link with slug params", () => {
+    const post = makePost({ slug: "/2024/03/spring-post" });
     const { container } = render(<FeaturedPost post={post} />);
-    const fallback = container.querySelector(".blog-featured-fallback");
-    expect(fallback).toBeDefined();
-    expect(fallback).not.toBeNull();
+
+    const link = container.querySelector("a");
+    expect(link).not.toBeNull();
+    expect(link?.getAttribute("href")).toBe("/2024/03/spring-post/");
   });
 
-  it("does not render fallback div when post has a thumbnail", () => {
-    const post = makePost({ thumbnail: "/media/2024/01/cover.jpg" });
+  it("renders formatted date text", () => {
+    const post = makePost({ date: new Date("2024-03-15") });
     const { container } = render(<FeaturedPost post={post} />);
-    const fallback = container.querySelector(".blog-featured-fallback");
-    expect(fallback).toBeNull();
+
+    const time = container.querySelector("time");
+    expect(time).not.toBeNull();
+    expect(time?.textContent).toContain("2024");
   });
 
-  it("renders img when post has a thumbnail", () => {
-    const post = makePost({ thumbnail: "/media/2024/01/cover.jpg" });
-    const { container } = render(<FeaturedPost post={post} />);
-    const img = container.querySelector("img");
-    expect(img).toBeDefined();
-    expect(img).not.toBeNull();
-    expect(img?.getAttribute("src")).toBe("/media/2024/01/cover.jpg");
-  });
-
-  it("img has empty alt attribute for decorative image", () => {
-    const post = makePost({ thumbnail: "/media/cover.jpg" });
-    const { container } = render(<FeaturedPost post={post} />);
-    const img = container.querySelector("img");
-    expect(img?.getAttribute("alt")).toBe("");
-  });
-
-  it("renders post excerpt when provided", () => {
+  it("renders excerpt when provided", () => {
     const post = makePost({ excerpt: "This is a great post excerpt." });
     const { getByText } = render(<FeaturedPost post={post} />);
+
     expect(getByText("This is a great post excerpt.")).toBeDefined();
   });
 
   it("does not render excerpt paragraph when excerpt is absent", () => {
     const post = makePost({ excerpt: undefined });
     const { container } = render(<FeaturedPost post={post} />);
-    const copy = container.querySelector(".blog-featured-copy");
-    const paragraph = copy?.querySelector("p");
+
+    const paragraph = container.querySelector("p");
     expect(paragraph).toBeNull();
   });
 
-  it("renders category in fallback and meta sections", () => {
-    const post = makePost({ category: "Data Engineering", thumbnail: undefined });
-    const { getAllByText } = render(<FeaturedPost post={post} />);
-    const matches = getAllByText("Data Engineering");
-    expect(matches.length).toBeGreaterThanOrEqual(1);
+  it("renders reading time when provided", () => {
+    const post = makePost({ readingTime: 7 });
+    const { getByText } = render(<FeaturedPost post={post} />);
+
+    expect(getByText("7 min read")).toBeDefined();
   });
 
-  it("renders formatted date in meta section", () => {
-    const post = makePost({ date: new Date("2024-03-15") });
+  it("omits reading time when not provided", () => {
+    const post = makePost({ readingTime: undefined });
     const { container } = render(<FeaturedPost post={post} />);
-    const meta = container.querySelector(".blog-featured-meta");
-    expect(meta?.textContent).toContain("2024");
-  });
 
-  it("renders as an anchor link wrapping content", () => {
-    const post = makePost();
-    const { container } = render(<FeaturedPost post={post} />);
-    const link = container.querySelector("a");
-    expect(link).toBeDefined();
-    expect(link).not.toBeNull();
-  });
-
-  it("applies additional className to the link element", () => {
-    const post = makePost();
-    const { container } = render(
-      <FeaturedPost post={post} className="extra-class" />
-    );
-    const link = container.querySelector("a");
-    expect(link?.className).toContain("extra-class");
-  });
-
-  it("always includes blog-featured-post class on the link", () => {
-    const post = makePost();
-    const { container } = render(<FeaturedPost post={post} />);
-    const link = container.querySelector("a");
-    expect(link?.className).toContain("blog-featured-post");
-  });
-
-  it("renders scrim div inside media area", () => {
-    const post = makePost();
-    const { container } = render(<FeaturedPost post={post} />);
-    const scrim = container.querySelector(".blog-featured-scrim");
-    expect(scrim).toBeDefined();
-    expect(scrim).not.toBeNull();
-  });
-
-  it("fallback contains date text when no thumbnail", () => {
-    const post = makePost({ date: new Date("2024-06-01"), thumbnail: undefined });
-    const { container } = render(<FeaturedPost post={post} />);
-    const fallback = container.querySelector(".blog-featured-fallback");
-    expect(fallback?.textContent).toContain("2024");
-  });
-
-  it("aria-hidden is set on fallback and scrim elements", () => {
-    const post = makePost({ thumbnail: undefined });
-    const { container } = render(<FeaturedPost post={post} />);
-    const fallback = container.querySelector(".blog-featured-fallback");
-    const scrim = container.querySelector(".blog-featured-scrim");
-    expect(fallback?.getAttribute("aria-hidden")).toBe("true");
-    expect(scrim?.getAttribute("aria-hidden")).toBe("true");
-  });
-
-  it("aria-hidden is set on blog-featured-title (duplicate title for layout)", () => {
-    const post = makePost();
-    const { container } = render(<FeaturedPost post={post} />);
-    const titleDiv = container.querySelector(".blog-featured-title");
-    expect(titleDiv?.getAttribute("aria-hidden")).toBe("true");
+    expect(container.textContent).not.toContain("min read");
   });
 });
