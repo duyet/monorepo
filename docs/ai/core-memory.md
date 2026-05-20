@@ -89,3 +89,14 @@ This file stores durable outcomes from code-smell and dead-code automation runs.
 - CI audit: push workflows on `master` for the scanned commits are green for `Lint`, `Test`, and `Deploy to Cloudflare Pages`.
   - Evidence: `gh run list --branch master --event push --limit 12 --json databaseId,headSha,status,conclusion,name,updatedAt`.
 - Workflow docs update: added detached-HEAD preflight and touched-file inventory commands to `CLAUDE.md` for safer automation loops.
+
+### 2026-05-21
+
+- Commit window scan after the previous durable entry covered `c7a5a04bb3111fb2e65938d26cf5b6ba7f66e07e`, `2130ac8947e05dfa6ec9e12148bb2e045e2248f9`, and `3ee2c9fd27dde339dbcbd9b62eb021c325b14350`.
+- Code smell review (info): no grounded runtime bug found. The deploy-preview author filter now excludes `COLLABORATOR`, and the Clerk override resolves all consumers to `@clerk/shared@3.47.5`.
+  - Evidence: `bun pm why @clerk/shared` returned only `@clerk/shared@3.47.5`; `rg -n "@clerk/shared@3\.47\.[0-4]|@clerk/shared@3\.47\.5|@clerk/shared\"" package.json bun.lock` found no vulnerable `3.47.0` through `3.47.4` lock entries.
+- Dead-code review (confident): no new dead-code candidates because the scanned non-doc code changes are workflow config and dependency metadata only.
+  - Evidence: `git show --name-only --pretty=format: 2130ac89 3ee2c9fd | sed '/^$/d' | sort -u` returned `.github/workflows/cf-deploy-preview.yml`, `bun.lock`, `bunfig.toml`, and `package.json`.
+- CI audit: latest `master` push workflows for `3ee2c9fd27dde339dbcbd9b62eb021c325b14350` are green for `Lint`, `Test`, and `Deploy to Cloudflare Pages`.
+  - Evidence: `gh run list --branch master --event push --limit 15 --json databaseId,headSha,status,conclusion,name,updatedAt,url`.
+- Workflow docs update: added `bun pm why <package>` to `CLAUDE.md` so future dependency-security scans verify override resolution before trusting `package.json` alone.

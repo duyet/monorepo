@@ -22,6 +22,7 @@ For scoped reviews after the last run timestamp:
 - If <LAST_RUN_ISO> is UTC (`...Z`), pass an explicit UTC offset to avoid local-time drift (example: `git log --since='2026-05-15 21:01:30 +0000' --name-only --pretty=format:'%H%n%s%n%b'`).
 - `git symbolic-ref --short -q HEAD || echo "DETACHED"` before PR work so automation can branch off detached worktrees safely
 - `git show --unified=3 <commit_sha>`
+- `bun pm why <package>` to verify dependency overrides resolve to the intended package version
 - `rg -n "<symbol>" <file-or-dir> --glob '!**/*.test.*' --glob '!**/__tests__/**'` for dead-reference evidence
 - `rg -n "setup-bun@" .github/workflows -g'*.yml'` to verify valid action pins after CI workflow updates
 - `rg -n "setup-bun@v" .github/workflows -g'*.yml'` to catch unpinned Bun setup actions
