@@ -187,6 +187,14 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
       post.series = data.series || undefined;
     }
 
+    if (field === "thumbnail") {
+      const thumbnail = data.thumbnail;
+      post.thumbnail =
+        typeof thumbnail === "string" && thumbnail.trim().length > 0
+          ? thumbnail.trim()
+          : undefined;
+    }
+
     if (field === "isMDX") {
       post.isMDX = fullPath.endsWith(".mdx");
     }
