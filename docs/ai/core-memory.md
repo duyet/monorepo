@@ -110,3 +110,14 @@ This file stores durable outcomes from code-smell and dead-code automation runs.
 - CI audit: latest `master` push workflows for `64ffdb43eeaef62b4e3bb031d576b0f0e41a774b` are green for `Lint`, `Test`, and `Deploy to Cloudflare Pages`.
   - Evidence: `gh run list --branch master --event push --limit 10 --json databaseId,headSha,status,conclusion,name,updatedAt,url`.
 - Workflow docs update: recorded the linked-worktree `.git/worktrees/...` permission fallback in `docs/ai/internal-knowledge.md`; `AGENTS.md` is a symlink to `CLAUDE.md`, and `CLAUDE.md` is the canonical instruction entrypoint.
+
+### 2026-05-23
+
+- Commit window scan since `2026-05-22T04:06:53.367Z` covered `0e13171a838913654bf8c6a2acb60e20fe453fc2` and `3ba05edab633262e86581e8eccec575c18b211d4`.
+- Code smell review (warning -> fixed): found duplicated `thumbnail` handling branch in `packages/libs/getPost.ts` during review of `3ba05e...`. `getPostByPath` was assigning `post.thumbnail` twice for the same field; the earlier assignment was removed so only the trim-aware branch remains.
+  - Evidence: `git show 3ba05edab633262e86581e8eccec575c18b211d4 -- packages/libs/getPost.ts`
+- Dead-code review (confident): no zero-reference dead-code candidates were identified in the touched app/package files after this fix (`Menu.tsx`, `Header`, `getPost.ts`, updated tests, docs); symbols still resolve in non-test surfaces.
+  - Evidence: `rg -n "HOME|createDefaultNavigation|getPostByPath" packages apps --glob '!**/*.test.*' --glob '!**/__tests__/**'`
+- CI audit: latest `master` runs for `3ba05edab633262e86581e8eccec575c18b211d4` are green (`Lint`, `Test`, `Deploy to Cloudflare Pages`).
+  - Evidence: `gh run list --branch master --event push --limit 10 --json databaseId,headSha,status,conclusion,name,updatedAt,url`.
+- Documentation update status: scan findings and commands continue to be logged in durable docs, and index references remain in `docs/INDEX.md`.

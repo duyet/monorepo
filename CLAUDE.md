@@ -28,6 +28,7 @@ For scoped reviews after the last run timestamp:
 - `rg -n "setup-bun@" .github/workflows -g'*.yml'` to verify valid action pins after CI workflow updates
 - `rg -n "setup-bun@v" .github/workflows -g'*.yml'` to catch unpinned Bun setup actions
 - `rg -n "dtolnay/rust-toolchain@|jetli/wasm-pack-action@|version: latest" .github/workflows -g'*.yml'` to verify Rust/WASM action refs and wasm-pack version pins after deploy-workflow changes
+- `rg -n "if \\(field ===" packages/libs --glob '*.ts'` to catch duplicate field branches in parser-style switch/if chains before cleanup
 - Keep durable findings in `docs/ai/core-memory.md` and list reference docs in `docs/INDEX.md`
 - Do not create dated `docs/reviews/code-smell-dead-code-<DATE>.md` files
 - `gh run list --branch master --event push --limit 10 --json databaseId,headSha,status,conclusion,name,updatedAt` to confirm post-merge `master` CI is green
