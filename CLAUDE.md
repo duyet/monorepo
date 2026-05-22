@@ -21,6 +21,7 @@ For scoped reviews after the last run timestamp:
 - `git log --since='<LAST_RUN_ISO>' --no-merges --name-only --pretty=format: | sed '/^$/d' | sort -u` to inventory touched files before symbol checks
 - If <LAST_RUN_ISO> is UTC (`...Z`), pass an explicit UTC offset to avoid local-time drift (example: `git log --since='2026-05-15 21:01:30 +0000' --name-only --pretty=format:'%H%n%s%n%b'`).
 - `git symbolic-ref --short -q HEAD || echo "DETACHED"` before PR work so automation can branch off detached worktrees safely
+- If a linked worktree reports `Operation not permitted` under `.git/worktrees/...`, use the canonical checkout after `git status --short --branch` and stage only touched paths
 - `git show --unified=3 <commit_sha>`
 - `bun pm why <package>` to verify dependency overrides resolve to the intended package version
 - `rg -n "<symbol>" <file-or-dir> --glob '!**/*.test.*' --glob '!**/__tests__/**'` for dead-reference evidence

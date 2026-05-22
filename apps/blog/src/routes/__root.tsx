@@ -112,6 +112,7 @@ function RootComponent() {
               shortText="Duyet Le"
               longText="Duyet Le"
               navigationItems={blogNavigation}
+              homeUrl="/"
               showAuthButtons
               className="blog-site-header border-b-0"
               containerClassName="blog-site-header-inner max-w-[1440px] py-4 lg:px-12"
