@@ -140,5 +140,7 @@ This file stores durable outcomes from code-smell and dead-code automation runs.
   - Consolidated and expanded `apps/agent-assistant/package.json` dependencies to include missing runtime packages.
   - Replaced `tool-fallback` status icon lookup with explicit mapping function returning `React.ComponentType<React.ComponentProps<"svg">>`.
   - Evidence: `bun run check-types` (agent-assistant workspace) now exits 0 after fix.
+- Follow-up fix in the same cycle: changed `apps/agent-assistant/package.json` `@langchain/langgraph-sdk` from `^0.3.9` (invalid/non-existent) to `^1.9.4` (valid, present in Bun lock and registry).
+  - Evidence: `bunx bun pm view @langchain/langgraph-sdk versions --json | tail -n 20` plus CI reinstall logs after re-trigger.
 - Dead-code review (needs-review): no dead code candidates were added by this follow-up; these files are now referenced by app UI runtime paths.
   - Evidence: `rg -n "from \"@radix-ui/(react-avatar|react-slot|react-collapsible|react-dialog|react-tooltip)\"|tool-fallback.tsx" apps/agent-assistant`.
