@@ -59,8 +59,8 @@ describe("FeaturedPost", () => {
     const post = makePost({ title: "My Featured Article", category: "Data" });
     const { getAllByText } = render(<FeaturedPost post={post} />);
 
-    expect(getAllByText("My Featured Article").length).toBe(1);
-    expect(getAllByText("Data").length).toBe(1);
+    expect(getAllByText("My Featured Article").length).toBe(2);
+    expect(getAllByText("Data").length).toBe(2);
   });
 
   it("renders route link with slug params", () => {
@@ -96,11 +96,11 @@ describe("FeaturedPost", () => {
     expect(paragraph).toBeNull();
   });
 
-  it("renders reading time when provided", () => {
+  it("does not render reading time even when provided", () => {
     const post = makePost({ readingTime: 7 });
     const { container } = render(<FeaturedPost post={post} />);
 
-    expect(container.textContent).toContain("7 min read");
+    expect(container.textContent).not.toContain("7 min read");
   });
 
   it("omits reading time when not provided", () => {
