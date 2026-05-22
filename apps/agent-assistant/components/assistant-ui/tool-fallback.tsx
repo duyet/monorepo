@@ -83,12 +83,20 @@ function ToolFallbackRoot({
 
 type ToolStatus = ToolCallMessagePartStatus["type"];
 
-const statusIconMap: Record<ToolStatus, React.ElementType> = {
-  running: LoaderIcon,
-  complete: CheckIcon,
-  incomplete: XCircleIcon,
-  "requires-action": AlertCircleIcon,
-};
+function getToolStatusIcon(
+  statusType: ToolStatus
+): React.ComponentType<React.ComponentProps<"svg">> {
+  switch (statusType) {
+    case "running":
+      return LoaderIcon;
+    case "complete":
+      return CheckIcon;
+    case "requires-action":
+      return AlertCircleIcon;
+    case "incomplete":
+      return XCircleIcon;
+  }
+}
 
 function ToolFallbackTrigger({
   toolName,
@@ -104,7 +112,7 @@ function ToolFallbackTrigger({
   const isCancelled =
     status?.type === "incomplete" && status.reason === "cancelled";
 
-  const Icon = statusIconMap[statusType];
+  const Icon = getToolStatusIcon(statusType);
   const label = isCancelled ? "Cancelled tool" : "Used tool";
 
   return (

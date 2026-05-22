@@ -121,3 +121,24 @@ This file stores durable outcomes from code-smell and dead-code automation runs.
 - CI audit: latest `master` runs for `3ba05edab633262e86581e8eccec575c18b211d4` are green (`Lint`, `Test`, `Deploy to Cloudflare Pages`).
   - Evidence: `gh run list --branch master --event push --limit 10 --json databaseId,headSha,status,conclusion,name,updatedAt,url`.
 - Documentation update status: scan findings and commands continue to be logged in durable docs, and index references remain in `docs/INDEX.md`.
+
+### 2026-05-24
+
+- Commit window scan since `2026-05-22T04:06:53.367Z` found additional CI-critical findings in `apps/agent-assistant` from recent migration work (`0d34cc641d868b66434744a757b373644d9d385c`, `93cc490c2d8645bb17a859126c9f1da0aa1ebdc0`, `a0e21e6de8a317a7313844bd783b7d6736ef39ac`, `3ba05edab633262e86581e8eccec575c18b211d4`).
+- Code smell review (warning -> fixed): PR checks showed `agent-assistant` TS failures from incorrect dependency/runtime imports and one unsafe typed index path. Root causes were:
+  - Missing/invalid imports from `radix-ui` root package (`components/ui/{avatar,button,collapsible,dialog,tooltip}.*` and `assistant-ui/tooltip-icon-button.tsx`)
+  - Missing dependencies in `apps/agent-assistant/package.json` (`@langchain/langgraph-sdk`, `class-variance-authority`, `clsx`, `tailwind-merge`, `@radix-ui/*` components)
+  - `components/assistant-ui/tool-fallback.tsx` used map indexing with inferred `any` on `ToolCallMessagePartStatus`-derived key
+  - Evidence: `gh run view 26311816108 --job 77462100842 --log-failed` and `gh run view 26311816097 --job 77462100742 --log-failed` plus local `bun run check-types` pre-merge validation.
+- Fixes applied (commit in this cycle):
+  - Replaced `radix-ui` imports with package-specific namespaces
+    - `@radix-ui/react-avatar`
+    - `@radix-ui/react-slot`
+    - `@radix-ui/react-collapsible`
+    - `@radix-ui/react-dialog`
+    - `@radix-ui/react-tooltip`
+  - Consolidated and expanded `apps/agent-assistant/package.json` dependencies to include missing runtime packages.
+  - Replaced `tool-fallback` status icon lookup with explicit mapping function returning `React.ComponentType<React.ComponentProps<"svg">>`.
+  - Evidence: `bun run check-types` (agent-assistant workspace) now exits 0 after fix.
+- Dead-code review (needs-review): no dead code candidates were added by this follow-up; these files are now referenced by app UI runtime paths.
+  - Evidence: `rg -n "from \"@radix-ui/(react-avatar|react-slot|react-collapsible|react-dialog|react-tooltip)\"|tool-fallback.tsx" apps/agent-assistant`.
