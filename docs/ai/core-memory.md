@@ -100,3 +100,13 @@ This file stores durable outcomes from code-smell and dead-code automation runs.
 - CI audit: latest `master` push workflows for `3ee2c9fd27dde339dbcbd9b62eb021c325b14350` are green for `Lint`, `Test`, and `Deploy to Cloudflare Pages`.
   - Evidence: `gh run list --branch master --event push --limit 15 --json databaseId,headSha,status,conclusion,name,updatedAt,url`.
 - Workflow docs update: added `bun pm why <package>` to `CLAUDE.md` so future dependency-security scans verify override resolution before trusting `package.json` alone.
+
+### 2026-05-22
+
+- Commit window scan since `2026-05-20 21:00:37 +0000` covered `a16873c0e35b50f179da1a30d49d0a33853fcd3b` and `64ffdb43eeaef62b4e3bb031d576b0f0e41a774b`.
+- Code smell review (warning -> fixed): the blog redesign changed shared `HOME` and `Header` defaults to `/`, which made default headers on subdomain apps link their Home/brand affordances to the current app root instead of `https://duyet.net`. Restored shared defaults to `urls.apps.home`; kept blog and home app roots explicit with `homeUrl="/"` for local SPA behavior.
+  - Evidence: `rg -n "\bHOME\b|homeUrl|createDefaultNavigation" apps packages --glob '!**/*.test.*' --glob '!**/*.spec.*' --glob '!**/__tests__/**'` showed default `Header` consumers in apps without explicit `navigationItems`, plus CV importing shared `HOME`.
+- Dead-code review (confident): no zero-reference removal was justified; `HOME`, `homeUrl`, and `createDefaultNavigation` remain referenced by shared headers and app roots.
+- CI audit: latest `master` push workflows for `64ffdb43eeaef62b4e3bb031d576b0f0e41a774b` are green for `Lint`, `Test`, and `Deploy to Cloudflare Pages`.
+  - Evidence: `gh run list --branch master --event push --limit 10 --json databaseId,headSha,status,conclusion,name,updatedAt,url`.
+- Workflow docs update: recorded the linked-worktree `.git/worktrees/...` permission fallback in `docs/ai/internal-knowledge.md`; `AGENTS.md` is a symlink to `CLAUDE.md`, and `CLAUDE.md` is the canonical instruction entrypoint.

@@ -8,11 +8,11 @@ export type NavigationItem = {
   href: string;
 };
 
-export const HOME = { name: "Home", href: "/" };
+export const HOME = { name: "Home", href: duyetUrls.apps.home };
 
 export function createDefaultNavigation(urls: UrlsConfig): NavigationItem[] {
   return [
-    HOME,
+    { name: "Home", href: urls.apps.home },
     { name: "About", href: `${urls.apps.home}/about` },
     { name: "Photos", href: urls.apps.photos },
     { name: "Insights", href: urls.apps.insights },

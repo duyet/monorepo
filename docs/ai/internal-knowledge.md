@@ -10,6 +10,7 @@ This repository is the Bun/Turborepo monorepo for duyet.net public apps, shared 
 - Preserve existing UX and public routes unless the request explicitly changes them.
 - Use Bun commands from the relevant package or app directory. Check the local `package.json` before assuming a script exists.
 - Verify with the narrowest useful command first, then broaden only when needed.
+- If a linked worktree reports `Operation not permitted` under `.git/worktrees/...`, use the canonical checkout after `git status --short --branch`; stage only touched paths so unrelated local edits stay out of commits.
 
 ## Root Commands
 

@@ -37,7 +37,7 @@ export default function Header({
   longText,
   center = false,
   navigationItems,
-  homeUrl = "/",
+  homeUrl = urls.apps.home,
   actions,
   showAuthButtons = true,
   authButtonsWrapWithProvider = true,
