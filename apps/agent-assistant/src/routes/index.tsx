@@ -1,18 +1,21 @@
-"use client";
-
 import { AssistantRuntimeProvider } from "@assistant-ui/react";
 import {
   type LangChainMessage,
   unstable_createLangGraphStream,
   useLangGraphRuntime,
 } from "@assistant-ui/react-langgraph";
+import { createFileRoute } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { Thread } from "@/components/assistant-ui/thread";
 import { createClient } from "@/lib/chatApi";
 
-const ASSISTANT_ID = process.env.NEXT_PUBLIC_LANGGRAPH_ASSISTANT_ID!;
+export const Route = createFileRoute("/")({
+  component: AssistantPage,
+});
 
-export function Assistant() {
+const ASSISTANT_ID = "agent";
+
+function AssistantPage() {
   const client = useMemo(() => createClient(), []);
   const stream = useMemo(
     () =>
@@ -35,15 +38,28 @@ export function Assistant() {
         messages: LangChainMessage[];
       }>(externalId);
       return {
-        messages: state.values.messages,
-        interrupts: state.tasks[0]?.interrupts,
+        messages: state.values.messages || [],
+        interrupts: state.tasks?.[0]?.interrupts || [],
       };
     },
   });
 
   return (
-    <AssistantRuntimeProvider runtime={runtime}>
-      <Thread />
-    </AssistantRuntimeProvider>
+    <div className="mx-auto max-w-4xl py-8">
+      <div className="mb-8 text-center">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          duyetbot
+        </h1>
+        <p className="mt-2 text-lg text-muted-foreground">
+          Your personal, stateful engineering assistant.
+        </p>
+      </div>
+
+      <div className="rounded-xl border bg-card text-card-foreground shadow-sm h-[600px] overflow-hidden flex flex-col">
+        <AssistantRuntimeProvider runtime={runtime}>
+          <Thread />
+        </AssistantRuntimeProvider>
+      </div>
+    </div>
   );
 }

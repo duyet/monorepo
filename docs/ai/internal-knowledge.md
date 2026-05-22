@@ -43,7 +43,7 @@ This repository is the Bun/Turborepo monorepo for duyet.net public apps, shared 
 - `apps/api`: Hono API on Cloudflare Workers for `https://api.duyet.net`.
 - `apps/ai-percentage`: AI-written-code dashboard for `https://ai-percentage.duyet.net`; data comes from `apps/data-sync`.
 - `apps/data-sync`: operational CLI for ClickHouse analytics/activity syncs and migrations.
-- `apps/agent-assistant`: Next.js App Router workspace with assistant-ui + LangGraph (OpenAI/Ollama integration) serving as a local agent interface.
+- `apps/agent-assistant`: Next.js App Router workspace with assistant-ui + LangGraph (OpenAI/Ollama integration) serving as a local agent interface. Deployed to Cloudflare Pages (`duyet-agent-assistant`) for `https://agent-assistant.duyet.net`.
 
 ## Shared Packages
 
@@ -64,6 +64,7 @@ This repository is the Bun/Turborepo monorepo for duyet.net public apps, shared 
 - `apps/insights` deploys `dist/client` to the `duyet-insights` Pages project.
 - `apps/api` uses Wrangler as a Worker, not a Pages app.
 - `apps/agent-api` uses Wrangler as a Worker, not a Pages app.
+- `apps/agent-assistant` deploys to the `duyet-agent-assistant` Pages project for `https://agent-assistant.duyet.net` using the `--webpack` flag to ensure monorepo hoisting compatibility.
 
 ## App-Specific Command Notes
 

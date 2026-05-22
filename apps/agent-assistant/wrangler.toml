@@ -1,0 +1,18 @@
+name = "duyet-agent-assistant"
+main = "dist/server/server.js"
+compatibility_date = "2026-05-14"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "dist/client"
+run_worker_first = ["/api/*"]
+not_found_handling = "single-page-application"
+
+[durable_objects]
+bindings = [
+  { name = "THREAD_STORE", class_name = "ThreadStateDO" }
+]
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["ThreadStateDO"]
