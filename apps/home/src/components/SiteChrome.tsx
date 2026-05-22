@@ -29,6 +29,7 @@ export function SiteHeader() {
         shortText="Duyet Le"
         longText="Duyet Le"
         navigationItems={navigationItems}
+        homeUrl="/"
         showAuthButtons
         authButtonsWrapWithProvider={false}
         onMobileMenuClick={() => setPaletteOpen(true)}
