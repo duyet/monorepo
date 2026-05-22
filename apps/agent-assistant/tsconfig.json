@@ -1,0 +1,22 @@
+{
+  "extends": "@duyet/tsconfig/vite.json",
+  "compilerOptions": {
+    "ignoreDeprecations": "6.0",
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "types": ["@cloudflare/workers-types", "@types/node", "vite/client"],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "components/**/*.ts",
+    "components/**/*.tsx",
+    "lib/**/*.ts",
+    "lib/**/*.tsx",
+    "vite.config.ts",
+    "backend/**/*.ts"
+  ]
+}
