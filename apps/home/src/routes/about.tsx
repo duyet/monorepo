@@ -1,8 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
 import { addUtmParams } from "../../app/lib/utm";
 import { SiteFooter, SiteHeader } from "../components/SiteChrome";
-import { WorkStackSection } from "../components/WorkStackSection";
 
 const experienceYears = "8+ years";
 const contentLastModified = "2026-05-02";
@@ -65,20 +63,13 @@ export const Route = createFileRoute("/about")({
   component: AboutPage,
   head: () => ({
     meta: [
-      {
-        title: "About Duyet | Senior Data & AI Engineer",
-      },
+      { title: "About Duyet | Senior Data & AI Engineer" },
       {
         name: "description",
-        content: `Senior Data & AI Engineer with ${experienceYears} of experience building scalable data infrastructure, AI/ML platforms, and distributed systems. Expertise in modern data engineering, real-time processing, and cloud-native architectures.`,
+        content: `Senior Data & AI Engineer with ${experienceYears} of experience building scalable data infrastructure, AI/ML platforms, and distributed systems.`,
       },
     ],
-    links: [
-      {
-        rel: "canonical",
-        href: "https://duyet.net/about",
-      },
-    ],
+    links: [{ rel: "canonical", href: "https://duyet.net/about" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -91,20 +82,17 @@ export const Route = createFileRoute("/about")({
 const links = [
   {
     title: "Resume",
-    description:
-      "Experience building scalable data infrastructure, AI applications, and production systems.",
+    description: "Roles, references, and the long-form story.",
     url: addUtmParams("https://cv.duyet.net", "about_page", "resume_card"),
   },
   {
     title: "GitHub",
-    description:
-      "Open source work across Python, Rust, TypeScript, analytics, and developer tooling.",
+    description: "Open source across Python, Rust, and TypeScript.",
     url: addUtmParams("https://github.com/duyet", "about_page", "github_card"),
   },
   {
     title: "LinkedIn",
-    description:
-      "Professional history, roles, and career context in data and platform engineering.",
+    description: "Professional history and career context.",
     url: addUtmParams(
       "https://linkedin.com/in/duyet",
       "about_page",
@@ -113,104 +101,71 @@ const links = [
   },
   {
     title: "Blog",
-    description:
-      "Technical writing on data engineering, distributed systems, AI agents, and open source.",
+    description: "Writing on data engineering, AI agents, and OSS.",
     url: addUtmParams("https://blog.duyet.net", "about_page", "blog_card"),
   },
 ];
 
 function AboutPage() {
   return (
-    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+    <div className="min-h-screen bg-[color:var(--background)] text-[color:var(--foreground)]">
       <SiteHeader />
 
-      <main className="relative z-10 bg-[var(--background)] pb-16">
-        <section className="mx-auto max-w-[1180px] px-5 py-12 sm:px-8 md:py-16 lg:px-10 lg:py-20">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.12em] text-[var(--muted-foreground)]">
+      <main className="mx-auto max-w-2xl px-6 pt-24 pb-20 md:px-8 md:pt-32 md:pb-32">
+        <article className="prose-editorial">
+          <h1 className="font-serif text-5xl tracking-tight md:text-6xl">
             About
+          </h1>
+
+          <p className="mt-8 text-lg leading-7 text-[color:var(--foreground)]">
+            I’m a Senior Data &amp; AI Engineer with {experienceYears} of
+            experience across modern data infrastructure, AI/ML platforms, and
+            distributed systems.
           </p>
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(300px,0.55fr)] lg:items-end">
-            <div className="max-w-[780px] space-y-6">
-              <h1 className="text-balance text-4xl font-semibold leading-[1.08] sm:text-5xl lg:text-6xl">
-                Building data and AI systems that stay useful in production.
-              </h1>
-              <p className="max-w-[680px] text-base leading-7 text-[var(--body)] sm:text-lg">
-                I’m a Senior Data & AI Engineer with {experienceYears} of experience across
-                modern data infrastructure, AI/ML platforms, distributed
-                systems, and cloud-native engineering.
-              </p>
-            </div>
 
-            <div className="space-y-4 text-base leading-7 text-[var(--muted-foreground)]">
-              <p>
-                I care about systems that are easy to operate, easy to explain,
-                and boring in the places where reliability matters.
-              </p>
-              <p>
-                Most of my work sits where data products, AI tools, and
-                engineering platforms meet.
-              </p>
-            </div>
-          </div>
-        </section>
+          <p className="mt-6 text-base leading-7 text-[color:var(--muted)]">
+            I care about systems that are easy to operate, easy to explain, and
+            boring in the places where reliability matters. Most of my work sits
+            where data products, AI tools, and engineering platforms meet.
+          </p>
 
-        <section className="mx-auto max-w-[1180px] px-5 sm:px-8 lg:px-10">
-          <div className="border-y border-[var(--hairline)]">
+          <h2 className="mt-16 font-serif text-3xl tracking-tight">Focus</h2>
+          <p className="mt-4 text-base leading-7 text-[color:var(--muted)]">
+            Data pipelines, warehouses, observability. Agent workflows, model
+            routing, evaluation, and usage analytics. Small tools and clean
+            interfaces.
+          </p>
+
+          <h2 className="mt-16 font-serif text-3xl tracking-tight">Stack</h2>
+          <p className="mt-4 text-base leading-7 text-[color:var(--muted)]">
+            Python, Rust, TypeScript. Spark, Airflow, ClickHouse, BigQuery,
+            Kafka. Kubernetes, AWS, GCP, Cloudflare. LlamaIndex, AI SDK,
+            LangGraph.
+          </p>
+
+          <h2 className="mt-16 font-serif text-3xl tracking-tight">
+            Elsewhere
+          </h2>
+          <ul className="mt-6 flex flex-col gap-5">
             {links.map((item) => (
-              <a
-                key={item.title}
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group grid gap-2 border-t border-[var(--hairline)] py-5 text-[var(--foreground)] transition-colors first:border-t-0 hover:text-[var(--muted-foreground)] md:grid-cols-[160px_1fr] md:gap-8 md:items-start"
-              >
-                <h2 className="text-lg font-semibold">
-                  {item.title}
-                </h2>
-                <p className="text-sm leading-6 text-[var(--muted-foreground)]">
-                  {item.description}
-                </p>
-              </a>
+              <li key={item.title}>
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block no-underline"
+                >
+                  <p className="font-serif text-xl tracking-tight text-[color:var(--foreground)] transition-transform duration-150 ease-out group-hover:-translate-y-px">
+                    <span className="link-underline">{item.title}</span>
+                  </p>
+                  <p className="mt-1 text-sm text-[color:var(--muted)]">
+                    {item.description}
+                  </p>
+                </a>
+              </li>
             ))}
-          </div>
-        </section>
-
-        <section className="mx-auto mt-14 max-w-[1180px] px-5 sm:px-8 lg:px-10">
-          <WorkStackSection
-            repositoryUrl={addUtmParams(
-              "https://github.com/duyet",
-              "about_page",
-              "skills_github"
-            )}
-          />
-        </section>
-
-        <section className="mx-auto mt-14 max-w-[1180px] px-5 pb-16 sm:px-8 lg:px-10">
-          <div className="grid gap-5 border-y border-[var(--hairline)] py-6 md:grid-cols-[1fr_auto] md:items-center">
-            <div>
-              <h2 className="text-xl font-semibold tracking-tight">
-                Follow the work
-              </h2>
-              <p className="mt-1 text-base font-medium text-[var(--muted-foreground)]">
-                Blog posts, project notes, analytics, and small tools across
-                the Duyet network.
-              </p>
-            </div>
-            <a
-              href={addUtmParams(
-                "https://blog.duyet.net",
-                "about_page",
-                "follow_blog"
-              )}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--foreground)] px-5 py-3 text-sm font-medium text-[var(--background)] transition-colors hover:bg-[var(--foreground)]/80"
-            >
-              Read blog
-              <ArrowRight className="h-5 w-5" />
-            </a>
-          </div>
-        </section>
+          </ul>
+        </article>
       </main>
 
       <SiteFooter />

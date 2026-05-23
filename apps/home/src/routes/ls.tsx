@@ -5,6 +5,7 @@ import {
   DEFAULT_CATEGORY,
 } from "../../app/config/categories";
 import { urls } from "../../app/config/urls";
+import { SiteFooter, SiteHeader } from "../components/SiteChrome";
 import UrlsList from "../components/UrlsList";
 
 export const Route = createFileRoute("/ls")({
@@ -33,42 +34,30 @@ const publicUrls = Object.entries(urls)
 
 function ListPage() {
   return (
-    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
-      <main className="mx-auto max-w-[1024px] px-5 pb-16 pt-12 sm:px-8">
-        <div className="mb-10">
-          <a
-            href="/"
-            className="mb-6 inline-flex items-center gap-2 text-[13px] text-[var(--muted-soft)] no-underline"
-          >
-            <svg aria-hidden="true" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Back to home
-          </a>
+    <div className="min-h-screen bg-[color:var(--background)] text-[color:var(--foreground)]">
+      <SiteHeader />
+
+      <main className="mx-auto max-w-6xl px-6 pt-24 pb-20 md:px-8 md:pt-32 md:pb-32">
+        <header className="max-w-3xl">
           <div className="flex items-baseline gap-4">
-            <h1 className="m-0 text-4xl font-semibold text-[var(--foreground)] sm:text-5xl">
+            <h1 className="font-serif text-5xl tracking-tight md:text-6xl">
               Short URLs
             </h1>
-            <span className="text-[13px] text-[var(--muted-soft)]">
+            <span className="font-mono text-sm tabular-nums text-[color:var(--subtle)]">
               {publicUrls.length}
             </span>
           </div>
-          <p className="mt-2 text-base text-[var(--muted-foreground)]">
-            Quick links and redirects for duyet.net
+          <p className="mt-6 max-w-2xl text-lg text-[color:var(--muted)]">
+            Quick links and redirects for duyet.net.
           </p>
-        </div>
+        </header>
 
-        <UrlsList urls={publicUrls} />
-
-        <div className="mt-16 text-center">
-          <a
-            href="/"
-            className="text-[13px] text-[var(--muted-soft)] no-underline"
-          >
-            duyet.net
-          </a>
+        <div className="mt-16">
+          <UrlsList urls={publicUrls} />
         </div>
       </main>
+
+      <SiteFooter />
     </div>
   );
 }
