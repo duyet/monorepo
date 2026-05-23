@@ -69,7 +69,15 @@ function ProjectCard({ item, index }: { item: AppItem; index: number }) {
 
         <div className="mt-6 border-t border-[color:var(--hairline)] pt-3 flex items-center justify-between text-[11px] font-mono text-[color:var(--subtle)]">
           <span className="truncate max-w-[200px]" title={item.host}>
-            {item.host}
+            <span>{item.host}</span>
+            {item.domain && item.domain !== item.host ? (
+              <>
+                <span aria-hidden="true"> · </span>
+                <span className="text-[color:var(--muted)] transition-colors duration-200 ease-out group-hover:text-[color:var(--accent)]">
+                  {item.domain}
+                </span>
+              </>
+            ) : null}
           </span>
           <span className="text-[color:var(--accent)] font-semibold uppercase tracking-wider text-[9px] bg-[color:var(--accent)]/10 px-2 py-0.5 rounded-full">
             Live

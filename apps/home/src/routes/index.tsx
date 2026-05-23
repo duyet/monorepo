@@ -6,6 +6,7 @@ import { addUtmParams } from "../../app/lib/utm";
 import { KeyboardFeatures } from "../components/KeyboardFeatures";
 import { SiteFooter, SiteHeader } from "../components/SiteChrome";
 import { type AppItem, apps } from "../data/projects";
+import { type SiblingApp, siblingApps } from "../data/sibling-apps";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -142,6 +143,30 @@ function HomePage() {
             </div>
           </section>
 
+          {/* Sites Section — sibling apps in the monorepo */}
+          <section
+            id="sites"
+            className="pb-20 md:pb-32"
+          >
+            <div className="mb-10">
+              <span className="text-xs font-bold uppercase tracking-wider text-[color:var(--accent)] mb-3 block">
+                Monorepo Directory
+              </span>
+              <h2 className="text-3xl font-medium tracking-tight md:text-4xl text-[color:var(--foreground)]">
+                Sites
+              </h2>
+              <p className="mt-4 max-w-2xl text-base text-[color:var(--muted)] leading-relaxed">
+                Live applications deployed from this monorepo. Each ships directly to its own production domain.
+              </p>
+            </div>
+
+            <div className="border-t border-[color:var(--hairline)]">
+              {siblingApps.map((item) => (
+                <SiteRow key={item.domain} item={item} />
+              ))}
+            </div>
+          </section>
+
           {/* Contact Section */}
           <section className="pb-20 md:pb-32">
             <h2 className="text-3xl font-medium tracking-tight md:text-4xl text-[color:var(--foreground)]">
@@ -255,5 +280,28 @@ function ProjectLink({
     <Link to={href} className="block no-underline h-full">
       {children}
     </Link>
+  );
+}
+
+function SiteRow({ item }: { item: SiblingApp }) {
+  return (
+    <a
+      href={`https://${item.domain}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group grid gap-4 border-b border-[color:var(--hairline)] py-5 text-[color:var(--foreground)] transition-colors duration-150 ease-out hover:text-[color:var(--accent)] sm:grid-cols-[180px_1fr_220px] sm:gap-8 items-center"
+    >
+      <div className="min-w-0">
+        <h3 className="text-base font-semibold leading-snug transition-transform duration-150 ease-out group-hover:translate-x-0.5 text-[color:var(--foreground)] group-hover:text-[color:var(--accent)]">
+          {item.name}
+        </h3>
+      </div>
+      <p className="text-sm leading-relaxed text-[color:var(--muted)] sm:max-w-2xl">
+        {item.description}
+      </p>
+      <p className="truncate font-mono text-xs tabular-nums text-[color:var(--subtle)] transition-colors duration-150 ease-out group-hover:text-[color:var(--accent)] sm:text-right">
+        {item.domain}
+      </p>
+    </a>
   );
 }

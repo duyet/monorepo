@@ -89,7 +89,7 @@ export function useCardDescription({
           throw new Error(`API error: ${response.status}`);
         }
 
-        const data = await response.json();
+        const data = (await response.json()) as { description?: string };
 
         if (controller.signal.aborted) return;
 

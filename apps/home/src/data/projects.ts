@@ -8,6 +8,13 @@ export interface AppItem {
   description: string;
   screenshot?: string;
   tone?: string;
+  /**
+   * Canonical production domain (without scheme). Optional — render in the
+   * project row meta strip and link to `https://{domain}` when present.
+   * Distinct from `host`, which is derived from the navigation `href` and may
+   * point at a repo (e.g. github.com) or an internal route.
+   */
+  domain?: string;
 }
 
 const hostOf = (url: string) => new URL(url).host;
@@ -36,6 +43,7 @@ export const apps: AppItem[] = [
       "One API for every AI model. Route traffic across providers with fallback, observability, and BYOK from a single OpenAI-compatible endpoint built on Cloudflare's edge.",
     screenshot: "/screenshots/anyrouter-art.svg",
     tone: "bg-[#536f91]",
+    domain: "anyrouter.dev",
   },
   {
     name: "ClickHouse Monitoring",
@@ -46,6 +54,7 @@ export const apps: AppItem[] = [
       "ClickHouse monitoring with AI agent support for finding insights, monitoring clusters, and triaging activity",
     screenshot: "/screenshots/ch-monitor.png",
     tone: "bg-[#8b633f]",
+    domain: "chmonitor.dev",
   },
   {
     name: "ShareHTML",
@@ -55,6 +64,7 @@ export const apps: AppItem[] = [
     description:
       "Share HTML, Markdown, and code files. Built for Human and AI Agent. Self-hosted on Cloudflare Workers.",
     tone: "bg-[#5f6257]",
+    domain: "html.duyet.net",
   },
   {
     name: "AI Agents",
@@ -64,6 +74,7 @@ export const apps: AppItem[] = [
     description: "AI chat interface with Cloudflare Workers AI and streaming",
     screenshot: "/screenshots/ai-agents.png",
     tone: "bg-[#536f91]",
+    domain: "agents.duyet.net",
   },
   {
     name: "Agent State",
@@ -73,6 +84,7 @@ export const apps: AppItem[] = [
     description: "AI agent state management and debugging tools",
     screenshot: "/screenshots/agentstate-art.svg",
     tone: "bg-[#536f91]",
+    domain: "agentstate.app",
   },
   {
     name: "MCP Tools",
@@ -82,6 +94,7 @@ export const apps: AppItem[] = [
     description: "Model Context Protocol tools and integrations",
     screenshot: "/screenshots/mcp-tools-art.png",
     tone: "bg-[#5f6257]",
+    domain: "mcp.duyet.net",
   },
   {
     name: "Claude Codex Plugins",
@@ -100,6 +113,7 @@ export const apps: AppItem[] = [
     description: "URL shortener with analytics and custom domains",
     screenshot: "/screenshots/stamp.png",
     tone: "bg-[#7f524e]",
+    domain: "stamp.duyet.net",
   },
   {
     name: "PageView",
@@ -109,6 +123,7 @@ export const apps: AppItem[] = [
     description: "Simple, privacy-friendly analytics for websites",
     screenshot: "/screenshots/pageview-art.svg",
     tone: "bg-[#7a705d]",
+    domain: "pageview.duyet.net",
   },
   {
     name: "LLM Timeline",
@@ -118,6 +133,7 @@ export const apps: AppItem[] = [
     description: "Interactive timeline of LLM models from 2017-2025",
     screenshot: "/screenshots/llm-timeline.png",
     tone: "bg-[#4f6f62]",
+    domain: "llm-timeline.duyet.net",
   },
   {
     name: "Rust Tieng Viet",
