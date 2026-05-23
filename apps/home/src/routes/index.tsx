@@ -90,25 +90,25 @@ function HomePage() {
 
         <main className="mx-auto max-w-[1200px] px-6 md:px-8">
           {/* ── Hero ── */}
-          <section className="pt-28 pb-16 md:pt-40 md:pb-24">
-            <div className="max-w-3xl">
-              <h1 className="font-medium text-5xl md:text-7xl tracking-tight leading-[1.05] text-[color:var(--foreground)]">
+          <section className="pt-16 pb-10 md:pt-20 md:pb-12">
+            <div className="max-w-2xl">
+              <h1 className="font-medium text-4xl md:text-6xl tracking-tight leading-[1.1] text-[color:var(--foreground)]">
                 Duyet Le
               </h1>
-              <p className="mt-6 max-w-xl text-lg md:text-xl text-[color:var(--muted)] leading-relaxed">
-                Building data systems, AI agents, and lightweight tools that
-                stay simple in production.
+              <p className="mt-4 max-w-lg text-base md:text-lg text-[color:var(--muted)] leading-relaxed">
+                Data engineer and AI engineer building infrastructure,
+                agents, and lightweight tools that stay simple in production.
               </p>
-              <div className="mt-10 flex flex-wrap gap-4">
+              <div className="mt-6 flex flex-wrap gap-3">
                 <a
                   href="mailto:me@duyet.net"
-                  className="inline-flex items-center justify-center rounded-lg bg-[color:var(--accent)] px-6 py-3 text-sm font-medium text-white hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer"
+                  className="inline-flex items-center justify-center rounded-lg bg-[color:var(--accent)] px-5 py-2.5 text-sm font-medium text-white hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer"
                 >
                   Get in touch
                 </a>
                 <Link
                   to="/projects"
-                  className="inline-flex items-center justify-center rounded-lg border border-[color:var(--hairline)] px-6 py-3 text-sm font-medium text-[color:var(--muted)] hover:text-[color:var(--foreground)] hover:bg-[color:var(--faint)] transition-all cursor-pointer"
+                  className="inline-flex items-center justify-center rounded-lg border border-[color:var(--hairline)] px-5 py-2.5 text-sm font-medium text-[color:var(--muted)] hover:text-[color:var(--foreground)] hover:bg-[color:var(--faint)] transition-all cursor-pointer"
                 >
                   View projects
                 </Link>
@@ -117,14 +117,14 @@ function HomePage() {
           </section>
 
           {/* ── Metrics ── */}
-          <section className="py-10 md:py-14 border-y border-[color:var(--hairline)]">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+          <section className="py-6 md:py-8 border-y border-[color:var(--hairline)]">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
               {metrics.map((m) => (
                 <div key={m.label}>
-                  <p className="text-3xl md:text-4xl font-medium tracking-tight tabular-nums text-[color:var(--foreground)]">
+                  <p className="text-2xl md:text-3xl font-medium tracking-tight tabular-nums text-[color:var(--foreground)]">
                     {m.value}
                   </p>
-                  <p className="mt-1 text-sm text-[color:var(--muted)]">
+                  <p className="mt-0.5 text-xs text-[color:var(--muted)]">
                     {m.label}
                   </p>
                 </div>
@@ -133,9 +133,9 @@ function HomePage() {
           </section>
 
           {/* ── Selected Work ── */}
-          <section className="py-20 md:py-32">
-            <div className="mb-10 flex items-baseline justify-between">
-              <h2 className="text-3xl font-medium tracking-tight md:text-4xl text-[color:var(--foreground)]">
+          <section className="py-12 md:py-16">
+            <div className="mb-6 flex items-baseline justify-between">
+              <h2 className="text-2xl font-medium tracking-tight md:text-3xl text-[color:var(--foreground)]">
                 Selected work
               </h2>
               <Link
@@ -159,20 +159,20 @@ function HomePage() {
           </section>
 
           {/* ── What I Build ── */}
-          <section className="py-20 md:py-32">
-            <h2 className="text-3xl font-medium tracking-tight md:text-4xl text-[color:var(--foreground)] mb-12">
+          <section className="py-12 md:py-16">
+            <h2 className="text-2xl font-medium tracking-tight md:text-3xl text-[color:var(--foreground)] mb-6">
               What I build
             </h2>
             <div className="border-t border-[color:var(--hairline)]">
               {expertise.map((area) => (
                 <div
                   key={area.title}
-                  className="group py-8 border-b border-[color:var(--hairline)] flex flex-col md:flex-row md:items-baseline gap-2 md:gap-12"
+                  className="group py-5 border-b border-[color:var(--hairline)] flex flex-col md:flex-row md:items-baseline gap-1 md:gap-8"
                 >
-                  <h3 className="text-lg font-semibold tracking-tight text-[color:var(--foreground)] md:w-56 shrink-0 group-hover:text-[color:var(--accent)] transition-colors duration-150">
+                  <h3 className="text-base font-semibold tracking-tight text-[color:var(--foreground)] md:w-48 shrink-0 group-hover:text-[color:var(--accent)] transition-colors duration-150">
                     {area.title}
                   </h3>
-                  <p className="text-base text-[color:var(--muted)] leading-relaxed max-w-2xl">
+                  <p className="text-sm text-[color:var(--muted)] leading-relaxed max-w-2xl">
                     {area.description}
                   </p>
                 </div>
@@ -181,12 +181,12 @@ function HomePage() {
           </section>
 
           {/* ── Sites ── */}
-          <section id="sites" className="py-20 md:py-32">
-            <div className="mb-10">
-              <h2 className="text-3xl font-medium tracking-tight md:text-4xl text-[color:var(--foreground)]">
+          <section id="sites" className="py-12 md:py-16">
+            <div className="mb-6">
+              <h2 className="text-2xl font-medium tracking-tight md:text-3xl text-[color:var(--foreground)]">
                 Sites
               </h2>
-              <p className="mt-4 max-w-2xl text-base text-[color:var(--muted)] leading-relaxed">
+              <p className="mt-2 max-w-2xl text-sm text-[color:var(--muted)] leading-relaxed">
                 Live applications deployed from this monorepo. Each ships
                 directly to its own production domain.
               </p>
@@ -199,11 +199,11 @@ function HomePage() {
           </section>
 
           {/* ── Contact ── */}
-          <section className="py-20 md:py-32">
-            <h2 className="text-3xl font-medium tracking-tight md:text-4xl text-[color:var(--foreground)]">
+          <section className="py-12 md:py-16">
+            <h2 className="text-2xl font-medium tracking-tight md:text-3xl text-[color:var(--foreground)]">
               Get in touch
             </h2>
-            <p className="mt-4 max-w-2xl text-base text-[color:var(--muted)] leading-relaxed">
+            <p className="mt-2 max-w-2xl text-sm text-[color:var(--muted)] leading-relaxed">
               Open to work on data infrastructure, AI agents, and open-source
               software.
             </p>
@@ -257,7 +257,7 @@ function ProjectCard({
 }) {
   return (
     <div
-      className="card-v2 p-5 md:p-6 flex flex-col justify-between h-full group animate-fade-in relative"
+      className="card-v2 p-4 md:p-5 flex flex-col justify-between h-full group animate-fade-in relative"
       style={{ animationDelay: `${index * 60}ms` }}
     >
       <ProjectLink item={item}>
@@ -338,7 +338,7 @@ function SiteRow({ item }: { item: SiblingApp }) {
       href={`https://${item.domain}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="group grid gap-4 border-b border-[color:var(--hairline)] py-5 text-[color:var(--foreground)] transition-colors duration-150 ease-out hover:text-[color:var(--accent)] sm:grid-cols-[180px_1fr_220px] sm:gap-8 items-center"
+      className="group grid gap-3 border-b border-[color:var(--hairline)] py-3.5 text-[color:var(--foreground)] transition-colors duration-150 ease-out hover:text-[color:var(--accent)] sm:grid-cols-[160px_1fr_200px] sm:gap-6 items-center"
     >
       <div className="min-w-0">
         <h3 className="text-base font-semibold leading-snug transition-transform duration-150 ease-out group-hover:translate-x-0.5 text-[color:var(--foreground)] group-hover:text-[color:var(--accent)]">
