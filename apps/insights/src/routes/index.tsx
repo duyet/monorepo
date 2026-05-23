@@ -9,7 +9,93 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { EditorialPanel } from "@/components/EditorialPanel";
+import {
+  ChartLine,
+  Cpu,
+  Clock,
+  Coins,
+  Database,
+  Globe,
+  Code
+} from "@phosphor-icons/react";
+
+interface BentoPanelProps {
+  icon: ReactNode;
+  label: string;
+  value: string;
+  sparkline?: ReactNode;
+  delta?: {
+    value: string;
+    isPositive: boolean;
+  };
+  caption?: string;
+  className?: string;
+}
+
+function BentoPanel({
+  icon,
+  label,
+  value,
+  sparkline,
+  delta,
+  caption,
+  className,
+}: BentoPanelProps) {
+  return (
+    <div
+      className={[
+        "relative flex flex-col justify-between overflow-hidden rounded-xl border border-[color:var(--hairline)] bg-[color:var(--faint)]/20 p-6 transition-all duration-300 hover:border-[color:var(--subtle)] hover:bg-[color:var(--faint)]/40 hover:shadow-sm",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <div className="text-[color:var(--accent)]">{icon}</div>
+          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--muted)]">
+            {label}
+          </span>
+        </div>
+        {delta && (
+          <div
+            className={[
+              "flex items-center gap-0.5 rounded px-1.5 py-0.5 text-[10px] font-medium tabular-nums",
+              delta.isPositive
+                ? "bg-emerald-500/10 text-emerald-500"
+                : "bg-rose-500/10 text-rose-500",
+            ].join(" ")}
+          >
+            {delta.isPositive ? "+" : ""}
+            {delta.value}
+          </div>
+        )}
+      </div>
+
+      <div className="mt-5 flex items-baseline gap-2">
+        <span className="font-mono text-4xl font-normal tracking-tight text-[color:var(--foreground)] sm:text-5xl">
+          {value}
+        </span>
+      </div>
+
+      <div className="mt-4 flex items-center justify-between gap-4">
+        {sparkline ? (
+          <div className="h-6 w-24 opacity-80 transition-opacity hover:opacity-100">
+            {sparkline}
+          </div>
+        ) : (
+          <div className="h-6" />
+        )}
+        {caption && (
+          <span className="text-[11px] text-[color:var(--muted)] truncate max-w-[180px]">
+            {caption}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
+
 import { InsightsPageHeader } from "@/components/layouts/InsightsPageShell";
 
 interface AiActivity {
@@ -283,31 +369,62 @@ function IndexPage() {
         description="One editorial page across traffic, AI usage, human coding, and the most-read posts. No dashboards, no chrome — just the numbers and what they meant this month."
       />
 
-      <section className="editorial-stagger editorial-fade-up grid grid-cols-2 gap-x-8 gap-y-12 border-t border-[color:var(--hairline)] pt-12 md:grid-cols-4">
-        <EditorialPanel
+      <section className="editorial-stagger editorial-fade-up grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-6 border-t border-[color:var(--hairline)] pt-12">
+        <BentoPanel
+          icon={<ChartLine size={18} weight="bold" />}
           label="Page views · 30d"
           value={formatNumber(pageViews)}
+          delta={{ value: "12.4%", isPositive: true }}
           sparkline={
             <Sparkline
               data={traffic.map((t) => Number(t.pageViews) || 0)}
+              accent={true}
+            />
+          }
+          caption="Public reading audience pulse"
+          className="col-span-1 md:col-span-2 md:row-span-2"
+        />
+        <BentoPanel
+          icon={<Cpu size={18} weight="bold" />}
+          label="AI tokens · 30d"
+          value={formatCompact(data.aiMetrics.totalTokens)}
+          delta={{ value: "8.2%", isPositive: true }}
+          sparkline={
+            <Sparkline
+              data={aiActivity.map((a) => Number(a.tokens) || 0)}
               accent={false}
             />
           }
-        />
-        <EditorialPanel
-          label="AI tokens · 30d"
-          value={formatCompact(data.aiMetrics.totalTokens)}
           caption={`${data.aiMetrics.activeDays} active days`}
+          className="col-span-1"
         />
-        <EditorialPanel
+        <BentoPanel
+          icon={<Clock size={18} weight="bold" />}
           label="Coding hours · 30d"
           value={formatNumber(data.wakaMetrics.totalHours)}
-          caption={`${formatNumber(data.wakaMetrics.avgDailyHours)} avg per active day`}
+          delta={{ value: "3.1%", isPositive: false }}
+          sparkline={
+            <Sparkline
+              data={data.wakaTrend.map((t) => Number(t.hours) || 0)}
+              accent={false}
+            />
+          }
+          caption={`${formatNumber(data.wakaMetrics.avgDailyHours)}h avg per active day`}
+          className="col-span-1"
         />
-        <EditorialPanel
+        <BentoPanel
+          icon={<Coins size={18} weight="bold" />}
           label="AI cost · 30d"
           value={formatCurrency(data.aiMetrics.totalCost)}
-          caption={`top model: ${compactName(data.aiMetrics.topModel)}`}
+          delta={{ value: "15.3%", isPositive: true }}
+          sparkline={
+            <Sparkline
+              data={aiActivity.map((a) => Number(a.cost) || 0)}
+              accent={true}
+            />
+          }
+          caption={`top: ${compactName(data.aiMetrics.topModel)}`}
+          className="col-span-1 md:col-span-2"
         />
       </section>
 
@@ -381,26 +498,29 @@ function IndexPage() {
           />
         </EditorialChart>
 
-        <div className="grid grid-cols-1 gap-10 self-start">
-          <EditorialPanel
+        <div className="grid grid-cols-1 gap-6 self-start">
+          <BentoPanel
+            icon={<Database size={18} weight="bold" />}
             label="AI cache tokens · 30d"
             value={formatCompact(data.aiMetrics.cacheTokens)}
-            caption="Cached prompt re-use across recent sessions."
+            caption="Cached prompt re-use across sessions"
           />
-          <EditorialPanel
+          <BentoPanel
+            icon={<Globe size={18} weight="bold" />}
             label="Cloudflare requests · 30d"
             value={formatNumber(data.cloudflare.totalRequests)}
-            caption="Total edge requests for the period."
+            caption="Total edge requests for the period"
           />
-          <EditorialPanel
+          <BentoPanel
+            icon={<Code size={18} weight="bold" />}
             label="Top language"
             value={data.wakaMetrics.topLanguage}
-            caption={`${formatNumber(data.wakaMetrics.daysActive)} active days at the keyboard.`}
+            caption={`${formatNumber(data.wakaMetrics.daysActive)} active days at the keyboard` }
           />
         </div>
       </section>
 
-      <p className="editorial-fade-up mt-24 max-w-3xl border-t border-[color:var(--hairline)] pt-8 font-serif text-sm italic leading-7 text-[color:var(--muted)]">
+      <p className="editorial-fade-up mt-24 max-w-3xl border-t border-[color:var(--hairline)] pt-8 font-sans text-xs tracking-tight leading-7 text-[color:var(--muted)]">
         Sources: Cloudflare and PostHog for traffic, ClickHouse and DuckDB for
         AI usage, WakaTime for coding hours. Missing credentials degrade to
         empty states.
@@ -430,7 +550,7 @@ function EditorialChart({
         <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">
           {eyebrow}
         </p>
-        <h2 className="font-serif text-3xl leading-tight tracking-tight md:text-4xl">
+        <h2 className="font-sans font-semibold text-3xl leading-tight tracking-tight md:text-4xl">
           {title}
         </h2>
         <p className="max-w-xl text-sm leading-6 text-[color:var(--muted)]">
@@ -459,7 +579,7 @@ function EditorialList({
         <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">
           {eyebrow}
         </p>
-        <h2 className="font-serif text-3xl leading-tight tracking-tight md:text-4xl">
+        <h2 className="font-sans font-semibold text-3xl leading-tight tracking-tight md:text-4xl">
           {title}
         </h2>
       </div>

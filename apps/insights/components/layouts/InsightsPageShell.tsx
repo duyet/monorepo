@@ -32,7 +32,7 @@ export function InsightsPageHeader({
           {badge}
         </p>
       ) : null}
-      <h1 className="mt-4 font-serif text-5xl leading-[1.05] tracking-tight sm:text-6xl md:text-7xl">
+      <h1 className="mt-4 font-sans font-semibold text-5xl leading-[1.05] tracking-tight sm:text-6xl md:text-7xl">
         {title}
       </h1>
       <p className="mt-6 max-w-2xl text-base leading-7 text-[color:var(--muted)]">
@@ -55,7 +55,7 @@ export function InsightsSection({
           {title}
         </p>
         {description ? (
-          <p className="font-serif text-2xl leading-snug tracking-tight text-[color:var(--foreground)] md:text-3xl">
+          <p className="font-sans font-medium text-2xl leading-snug tracking-tight text-[color:var(--foreground)] md:text-3xl">
             {description}
           </p>
         ) : null}
@@ -82,7 +82,7 @@ export function InsightsNotice({
       <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">
         {tone === "error" ? "Error" : "Notice"}
       </p>
-      <h2 className="font-serif text-2xl tracking-tight">{title}</h2>
+      <h2 className="font-sans font-medium text-2xl tracking-tight">{title}</h2>
       <p className="max-w-2xl text-sm leading-6 text-[color:var(--muted)]">
         {body}
       </p>
