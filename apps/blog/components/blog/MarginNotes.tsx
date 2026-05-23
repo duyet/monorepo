@@ -19,13 +19,7 @@ export function MarginNote({
   className = "",
 }: MarginNoteProps) {
   return (
-    <span
-      className={cn(
-        "noted inline align-middle",
-        "lg:relative",
-        className
-      )}
-    >
+    <span className={cn("noted inline align-middle", "lg:relative", className)}>
       <span className="noted-label text-[var(--primary)] text-xs font-medium">
         {label || "Note"}
       </span>

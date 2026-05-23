@@ -23,9 +23,9 @@ mock.module("@duyet/libs/getPost", () => ({
 }));
 
 import { describe, expect, test } from "bun:test";
-import RSS from "rss";
 import type { Post } from "@duyet/interfaces";
 import { getAllPosts } from "@duyet/libs/getPost";
+import RSS from "rss";
 
 const SITE_URL = "https://blog.duyet.net";
 

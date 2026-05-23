@@ -1,5 +1,5 @@
-import { dateFormat } from "@duyet/libs/date";
 import type { Post } from "@duyet/interfaces";
+import { dateFormat } from "@duyet/libs/date";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactElement } from "react";
 import { getPostsByAllYear } from "@/lib/posts";
@@ -65,7 +65,10 @@ function Featured(): ReactElement {
         return (
           <div key={year}>
             <h2 className="em-year">{year}</h2>
-            <section className="em-list" aria-label={`Featured posts from ${year}`}>
+            <section
+              className="em-list"
+              aria-label={`Featured posts from ${year}`}
+            >
               {posts.map((post, i) => {
                 const style: CSSProperties = {
                   animationDelay: `${Math.min(i, 8) * 50}ms`,

@@ -31,12 +31,8 @@ export function YearPost({
               params={{ year, month, slug }}
               key={post.slug}
             >
-              <div className="year-post-title">
-                {post.title}
-              </div>
-              <time>
-                {dateFormat(post.date, "MMM dd")}
-              </time>
+              <div className="year-post-title">{post.title}</div>
+              <time>{dateFormat(post.date, "MMM dd")}</time>
             </Link>
           );
         })}

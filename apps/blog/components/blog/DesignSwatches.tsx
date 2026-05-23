@@ -77,7 +77,10 @@ export function DesignSwatches({
                   </div>
                 )}
                 {variant === "spacing" && (
-                  <div className="mt-3 h-2 bg-[var(--primary)]/20 rounded" style={{ width: swatch.value }} />
+                  <div
+                    className="mt-3 h-2 bg-[var(--primary)]/20 rounded"
+                    style={{ width: swatch.value }}
+                  />
                 )}
               </div>
             )}

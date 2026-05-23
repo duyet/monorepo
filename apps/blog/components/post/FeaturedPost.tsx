@@ -20,10 +20,7 @@ export function FeaturedPost({
     <Link
       to="/$year/$month/$slug/"
       params={{ year, month, slug }}
-      className={cn(
-        "blog-featured-post group block",
-        className
-      )}
+      className={cn("blog-featured-post group block", className)}
     >
       <div className="blog-featured-media">
         {post.thumbnail ? (

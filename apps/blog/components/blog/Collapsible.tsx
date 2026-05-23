@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
 import { cn } from "@duyet/libs/utils";
 import { ChevronDown } from "lucide-react";
+import { useRef, useState } from "react";
 
 export interface CollapsibleProps {
   title: string;

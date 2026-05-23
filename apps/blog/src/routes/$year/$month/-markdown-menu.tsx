@@ -131,7 +131,9 @@ export function MarkdownMenu({
                   <div className="text-sm font-medium text-[var(--foreground)] flex items-center gap-1">
                     {item.label}
                     {item.href && (
-                      <span className="text-[var(--muted-foreground)]/50 text-xs">&#x2197;</span>
+                      <span className="text-[var(--muted-foreground)]/50 text-xs">
+                        &#x2197;
+                      </span>
                     )}
                   </div>
                   <div className="text-xs text-[var(--muted-foreground)] mt-0.5">

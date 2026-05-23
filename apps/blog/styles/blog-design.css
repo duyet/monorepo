@@ -496,7 +496,10 @@
   text-decoration: none;
   color: var(--body);
   background: #ffffff;
-  transition: border-color 120ms, color 120ms, background 120ms;
+  transition:
+    border-color 120ms,
+    color 120ms,
+    background 120ms;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -587,7 +590,9 @@
 }
 
 @media (max-width: 640px) {
-  .sec-intro { margin-left: 0; }
+  .sec-intro {
+    margin-left: 0;
+  }
 }
 
 .card-grid {
@@ -613,7 +618,9 @@
   border-radius: 0;
   text-decoration: none;
   color: inherit;
-  transition: background 150ms ease, color 150ms ease;
+  transition:
+    background 150ms ease,
+    color 150ms ease;
   overflow: hidden;
 }
 
@@ -763,7 +770,9 @@
   background: var(--surface-soft);
   color: var(--muted);
   border: 1px solid var(--border-faint);
-  transition: background 150ms, color 150ms;
+  transition:
+    background 150ms,
+    color 150ms;
 }
 
 .tag-badge:hover {

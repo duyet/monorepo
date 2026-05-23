@@ -2,15 +2,14 @@ import "@duyet/components/styles.css";
 import "../../app/globals.css";
 import "../../styles/blog-design.css";
 
+import { SiteNavV2 } from "@duyet/components";
 import Analytics from "@duyet/components/Analytics";
 import Footer from "@duyet/components/Footer";
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import { cn } from "@duyet/libs/utils";
 import { duyetUrls } from "@duyet/urls";
 import {
   createRootRoute,
   HeadContent,
-  Link,
   Outlet,
   Scripts,
   useRouterState,
@@ -81,44 +80,25 @@ function EditorialNav() {
       return pathname === "/" || pathname === "";
     }
     if (!item.matchPrefix) return false;
-    return pathname === item.matchPrefix ||
-      pathname.startsWith(`${item.matchPrefix}/`);
+    return (
+      pathname === item.matchPrefix ||
+      pathname.startsWith(`${item.matchPrefix}/`)
+    );
   };
 
+  const navLinks = blogNavItems.map((item) => ({
+    name: item.name,
+    href: item.href,
+    active: isActive(item),
+  }));
+
   return (
-    <header className="editorial-nav">
-      <div className="editorial-nav__inner">
-        <Link to="/" className="editorial-nav__brand" aria-label="Duyet Le, home">
-          Duyet Le
-        </Link>
-        <nav className="editorial-nav__links" aria-label="Primary">
-          {blogNavItems.map((item) =>
-            item.external ? (
-              <a
-                key={item.name}
-                href={item.href}
-                className="editorial-nav__link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {item.name}
-              </a>
-            ) : (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={cn(
-                  "editorial-nav__link",
-                  isActive(item) && "is-active"
-                )}
-              >
-                {item.name}
-              </Link>
-            )
-          )}
-        </nav>
-      </div>
-    </header>
+    <SiteNavV2
+      brandText="Duyet Le"
+      brandHref="/"
+      activeApp="blog"
+      links={navLinks}
+    />
   );
 }
 

@@ -86,10 +86,7 @@ function About(): ReactElement {
         </p>
       </header>
 
-      <section
-        className="mx-auto max-w-2xl"
-        aria-label="Profile links"
-      >
+      <section className="mx-auto max-w-2xl" aria-label="Profile links">
         {links.map((link, i) => {
           const Icon = link.icon;
           const isExternal = link.url.startsWith("http");

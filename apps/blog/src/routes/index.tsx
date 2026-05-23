@@ -1,5 +1,5 @@
-import { dateFormat } from "@duyet/libs/date";
 import type { Post } from "@duyet/interfaces";
+import { dateFormat } from "@duyet/libs/date";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactElement } from "react";
 import { getPostsByAllYear } from "@/lib/posts";
@@ -76,9 +76,7 @@ function HeroRow({ post }: { post: Post }): ReactElement {
     >
       <span className="em-hero__eyebrow">Latest</span>
       <h1 className="em-hero__title">{post.title}</h1>
-      {post.excerpt && (
-        <p className="em-hero__dek">{post.excerpt}</p>
-      )}
+      {post.excerpt && <p className="em-hero__dek">{post.excerpt}</p>}
       <div className="em-hero__meta">
         <time dateTime={new Date(post.date).toISOString()}>
           {formatPostDate(post.date)}

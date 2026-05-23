@@ -54,8 +54,7 @@ function SeriesDetailPage(): ReactElement {
         <h1 className="em-masthead__title">{series.name}</h1>
         <div className="em-masthead__meta">
           <span>
-            {series.posts.length}{" "}
-            {series.posts.length === 1 ? "post" : "posts"}
+            {series.posts.length} {series.posts.length === 1 ? "post" : "posts"}
           </span>
         </div>
       </header>

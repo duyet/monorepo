@@ -39,7 +39,9 @@ export function AnnotatedDiff({
       )}
     >
       <div className="flex items-center justify-between px-4 py-2 bg-[var(--surface-soft)] border-b border-[var(--hairline)]">
-        <span className="font-mono text-xs text-[var(--muted)]">{language}</span>
+        <span className="font-mono text-xs text-[var(--muted)]">
+          {language}
+        </span>
         <span className="text-xs text-[var(--muted)]">
           {lines.filter((l) => l.type === "added").length} additions,{" "}
           {lines.filter((l) => l.type === "removed").length} deletions

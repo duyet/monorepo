@@ -39,6 +39,38 @@ export function TableOfContents({
   const [headings] = useState<TOCItem[]>(initialHeadings);
   const [activeId, setActiveId] = useState<string>("");
   const [internalIsMobileOpen, setInternalIsMobileOpen] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY;
+      const scrollableHeight = documentHeight - windowHeight;
+      if (scrollableHeight <= 0) {
+        setProgress(0);
+        return;
+      }
+      const scrollProgress = (scrollTop / scrollableHeight) * 100;
+      setProgress(Math.min(Math.max(scrollProgress, 0), 100));
+    };
+
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // Use external state if provided, otherwise use internal state
   const isMobileOpen =
@@ -123,7 +155,7 @@ export function TableOfContents({
                 heading.level === 2 && "pl-4",
                 heading.level === 3 && "pl-6 text-xs",
                 activeId === heading.id
-                  ? "border-blue-500 text-blue-600 dark:text-blue-400 font-medium"
+                  ? "border-[var(--cf-orange)] text-[var(--cf-orange)] dark:text-[var(--cf-orange)] font-medium"
                   : "border-transparent text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55 hover:text-[#1a1a1a] dark:hover:text-[#f8f8f2] hover:border-[#1a1a1a]/15 dark:hover:border-white/15"
               )}
             >
@@ -178,17 +210,25 @@ export function TableOfContents({
         <TOCContent />
       </nav>
 
-      {/* Desktop: Inline sticky sidebar */}
+      {/* Desktop: Inline sticky sidebar with vertical active orange reading-progress indicator */}
       <aside
         className={cn(
-          "hidden xl:block",
-          "w-56 shrink-0",
+          "hidden lg:block",
+          "w-60 shrink-0",
           "sticky top-24",
           "self-start",
           "max-h-[calc(100vh-8rem)] overflow-y-auto",
-          "text-sm"
+          "text-sm",
+          "pl-6 relative"
         )}
       >
+        {/* Active vertical orange reading progress line */}
+        <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-neutral-200 dark:bg-neutral-800 rounded-full">
+          <div
+            className="w-full bg-[var(--cf-orange)] transition-all duration-150 ease-out rounded-full"
+            style={{ height: `${progress}%` }}
+          />
+        </div>
         <TOCContent />
       </aside>
     </>
