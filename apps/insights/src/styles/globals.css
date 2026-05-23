@@ -29,8 +29,8 @@
   }
 
   h1, h2, h3, h4, h5, .font-serif {
-    font-family: var(--font-serif);
-    font-weight: 400;
+    font-family: var(--font-sans);
+    font-weight: 500;
   }
 
   h1 { letter-spacing: -1.5px; }
@@ -74,11 +74,11 @@
 }
 
 :root {
-  --font-sans: "Inter Variable", "Inter", -apple-system, BlinkMacSystemFont,
+  --font-sans: "Geist Sans", "Inter Variable", "Inter", -apple-system, BlinkMacSystemFont,
     ui-sans-serif, system-ui, sans-serif;
   --font-inter: var(--font-sans);
-  --font-serif: "EB Garamond", Garamond, "Apple Garamond", ui-serif, serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-serif: var(--font-sans);
+  --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* Spacing & Radius Scale */
   --radius-xs: 8px;
