@@ -128,22 +128,12 @@ export function SearchBar({
           onFocus={handleFocus}
           onBlur={handleBlur}
           placeholder={placeholder}
-          className={cn(
-            "w-full px-4 py-3 text-lg",
-            "border border-[#1a1a1a]/10 dark:border-white/10",
-            "bg-white dark:bg-[#1a1a1a]",
-            "text-[#1a1a1a] dark:text-[#f8f8f2]",
-            "placeholder:text-[#1a1a1a]/55 dark:placeholder:text-[#f8f8f2]/55",
-            "rounded-lg",
-            "focus:outline-none focus:ring-2 focus:ring-[#1a1a1a]/55",
-            "transition-all",
-            inputClassName
-          )}
+          className={cn("em-search-input", inputClassName)}
           autoComplete="off"
         />
-        <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-sm text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
-          <kbd className="hidden rounded border border-[#1a1a1a]/10 px-2 py-1 text-xs dark:border-white/10 sm:inline-block">
-            /
+        <div className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 text-xs text-[color:var(--em-subtle)]">
+          <kbd className="hidden font-mono text-[10px] uppercase tracking-wider sm:inline-block">
+            press /
           </kbd>
         </div>
       </form>

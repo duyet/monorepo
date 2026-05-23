@@ -1,9 +1,8 @@
-import Container from "@duyet/components/Container";
 import type { CategoryCount, Post } from "@duyet/interfaces";
+import { dateFormat } from "@duyet/libs/date";
 import { getSlug } from "@duyet/libs/getSlug";
-import { createFileRoute, notFound } from "@tanstack/react-router";
-import { HeroBanner } from "@/components/layout";
-import { YearPost } from "@/components/post";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import type { CSSProperties, ReactElement } from "react";
 import { getCategoryMetadata } from "@/lib/category-metadata";
 import { getAllCategories, getPostsByCategory } from "@/lib/posts";
 
@@ -34,71 +33,101 @@ export const Route = createFileRoute("/category/$category")({
   component: PostsByCategory,
 });
 
-function PostsByCategory() {
+function postParams(post: Post) {
+  const [, year, month, slug] = post.slug.split("/");
+  return { year, month, slug };
+}
+
+function PostsByCategory(): ReactElement {
   const { category } = Route.useParams();
   const { posts, categories } = Route.useLoaderData() as {
     posts: Post[];
     categories: CategoryCount;
   };
 
-  // Get the category display name (reverse slug to title)
   const categoryName =
     Object.keys(categories).find((cat) => getSlug(cat) === category) ||
     category;
 
-  // Get the index for consistent color rotation
   const categoryIndex = Object.keys(categories)
     .sort((a, b) => categories[b] - categories[a])
     .indexOf(categoryName);
 
-  // Group posts by year
   const postsByYear = posts.reduce((acc: Record<number, Post[]>, post) => {
     const year = new Date(post.date).getFullYear();
-    if (!acc[year]) {
-      acc[year] = [];
-    }
+    if (!acc[year]) acc[year] = [];
     acc[year].push(post);
     return acc;
   }, {});
 
-  const postCount = posts.length;
-  const yearCount = Object.keys(postsByYear).length;
-
-  // Get dynamic metadata
-  const metadata = getCategoryMetadata(categoryName, postCount, categoryIndex);
+  const metadata = getCategoryMetadata(
+    categoryName,
+    posts.length,
+    categoryIndex
+  );
 
   return (
-    <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
-      <HeroBanner
-        title={categoryName}
-        description={metadata.description}
-        postCount={postCount}
-        yearCount={yearCount}
-        backLinkHref="/category/"
-        backLinkText="All Categories"
-      />
-
-      {/* Posts organized by year */}
-      <div className="mx-auto max-w-[820px] flex flex-col gap-8">
-        {Object.entries(postsByYear)
-          .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
-          .map(([year, yearPosts]) => (
-            <YearPost
-              key={year}
-              year={Number.parseInt(year, 10)}
-              posts={yearPosts}
-            />
-          ))}
-      </div>
-
-      {/* Empty state */}
-      {posts.length === 0 && (
-        <div className="py-12 text-center">
-          <p className="text-lg text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
-            No posts found in this category yet.
-          </p>
+    <div className="px-6 md:px-8">
+      <header className="em-masthead">
+        <span className="em-masthead__eyebrow">
+          <Link
+            to="/category/"
+            className="transition-colors hover:text-[color:var(--em-foreground)]"
+          >
+            Category
+          </Link>
+        </span>
+        <h1 className="em-masthead__title">{categoryName}</h1>
+        {metadata.description && (
+          <p className="em-masthead__dek">{metadata.description}</p>
+        )}
+        <div className="em-masthead__meta">
+          <span>
+            {posts.length} {posts.length === 1 ? "post" : "posts"}
+          </span>
+          <span>
+            {Object.keys(postsByYear).length}{" "}
+            {Object.keys(postsByYear).length === 1 ? "year" : "years"}
+          </span>
         </div>
+      </header>
+
+      {Object.entries(postsByYear)
+        .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
+        .map(([year, yearPosts]) => (
+          <div key={year}>
+            <h2 className="em-year">{year}</h2>
+            <section className="em-list" aria-label={`Posts from ${year}`}>
+              {yearPosts.map((post, i) => {
+                const style: CSSProperties = {
+                  animationDelay: `${Math.min(i, 8) * 40}ms`,
+                };
+                return (
+                  <Link
+                    key={post.slug}
+                    to="/$year/$month/$slug/"
+                    params={postParams(post)}
+                    className="em-list__row editorial-enter"
+                    style={style}
+                  >
+                    <h3 className="em-list__title">{post.title}</h3>
+                    <div className="em-list__meta">
+                      <time dateTime={new Date(post.date).toISOString()}>
+                        {dateFormat(post.date, "MMM d, yyyy")}
+                      </time>
+                    </div>
+                  </Link>
+                );
+              })}
+            </section>
+          </div>
+        ))}
+
+      {posts.length === 0 && (
+        <p className="mx-auto mt-12 max-w-2xl text-center text-sm text-[color:var(--em-muted)]">
+          No posts found in this category yet.
+        </p>
       )}
-    </Container>
+    </div>
   );
 }

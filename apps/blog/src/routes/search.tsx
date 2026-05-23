@@ -1,5 +1,6 @@
 import type { CategoryCount, Post, TagCount } from "@duyet/interfaces";
 import { createFileRoute } from "@tanstack/react-router";
+import type { ReactElement } from "react";
 import { SearchClient } from "@/components/blog/search-client";
 import { getAllCategories, getAllPosts, getAllTags } from "@/lib/posts";
 
@@ -39,7 +40,7 @@ export const Route = createFileRoute("/search")({
   component: SearchPage,
 });
 
-function SearchPage() {
+function SearchPage(): ReactElement {
   const { allPosts, categories, tags } = Route.useLoaderData() as {
     allPosts: Post[];
     categories: CategoryCount;
@@ -47,18 +48,18 @@ function SearchPage() {
   };
 
   return (
-    <div className="mx-auto max-w-[820px] px-5 sm:px-8 lg:px-10">
-      <div className="blog-page-head">
-        <h1>
-          Search
-        </h1>
-        <p>
-          Search through {allPosts.length} blog posts by title, category,
-          tags, or date range.
+    <div className="px-6 md:px-8">
+      <header className="em-masthead">
+        <span className="em-masthead__eyebrow">Find</span>
+        <h1 className="em-masthead__title">Search</h1>
+        <p className="em-masthead__dek">
+          {allPosts.length} posts. Search by title, category, tags, or date.
         </p>
-      </div>
+      </header>
 
-      <SearchClient posts={allPosts} categories={categories} tags={tags} />
+      <div className="mx-auto max-w-6xl">
+        <SearchClient posts={allPosts} categories={categories} tags={tags} />
+      </div>
     </div>
   );
 }

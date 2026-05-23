@@ -1,6 +1,11 @@
 import type { Series } from "@duyet/interfaces";
-import { createFileRoute, Outlet, useMatches } from "@tanstack/react-router";
-import { SeriesBox } from "@/components/layout";
+import {
+  createFileRoute,
+  Link,
+  Outlet,
+  useMatches,
+} from "@tanstack/react-router";
+import type { CSSProperties, ReactElement } from "react";
 import { getAllSeries } from "@/lib/posts";
 
 export const Route = createFileRoute("/series")({
@@ -17,7 +22,7 @@ export const Route = createFileRoute("/series")({
   component: SeriesPage,
 });
 
-function SeriesPage() {
+function SeriesPage(): ReactElement {
   const hasChild = useMatches().some(
     (match) => match.routeId === "/series/$slug"
   );
@@ -26,27 +31,36 @@ function SeriesPage() {
   const { seriesList } = Route.useLoaderData() as { seriesList: Series[] };
 
   return (
-    <div className="min-h-screen bg-[var(--background-primary)] px-5 pb-14 sm:px-8 lg:px-10">
-      <div className="mx-auto mb-10 max-w-[1180px]">
-        <div className="max-w-3xl">
-          <div className="blog-page-head">
-            <h1>Series</h1>
-            <p>
-              Longer threads and linked notes grouped into focused reading
-              paths.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-5">
-        {seriesList.map((series: Series) => (
-          <SeriesBox
-            key={series.slug}
-            series={series}
-            tone="light"
-            className="bg-transparent"
-          />
-        ))}
+    <div className="px-6 md:px-8">
+      <header className="em-masthead">
+        <span className="em-masthead__eyebrow">Reading paths</span>
+        <h1 className="em-masthead__title">Series</h1>
+        <p className="em-masthead__dek">
+          Longer threads and linked notes grouped into focused reading paths.
+        </p>
+      </header>
+
+      <div className="em-index">
+        {seriesList.map((series, i) => {
+          const style: CSSProperties = {
+            animationDelay: `${Math.min(i, 12) * 40}ms`,
+          };
+          return (
+            <Link
+              key={series.slug}
+              to="/series/$slug/"
+              params={{ slug: series.slug }}
+              className="em-index__row editorial-enter"
+              style={style}
+            >
+              <span className="em-index__name">{series.name}</span>
+              <span className="em-index__count">
+                {series.posts.length}{" "}
+                {series.posts.length === 1 ? "post" : "posts"}
+              </span>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

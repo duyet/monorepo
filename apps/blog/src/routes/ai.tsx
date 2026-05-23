@@ -12,23 +12,28 @@ export const Route = createFileRoute("/ai")({
 
 function AI() {
   return (
-    <div className="mx-auto mb-16 max-w-[820px] px-5 leading-loose sm:px-8 lg:px-10">
-      <div className="blog-page-head border-b border-[var(--border-faint)] pb-8">
-        <h1 className="text-4xl font-semibold tracking-tight text-[#1a1a1a] dark:text-[#f8f8f2] sm:text-5xl">
-          AI
-        </h1>
-        <div className="mt-6 space-y-5 text-base font-medium leading-7 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
-          <p>
-            None of the contents in my blog was written by an AI tool. I have
-            used AI for{" "}
-            <del>English sentences correction</del>, now I use AI agent for
-            English corrections and do the review.
-          </p>
-          <p>
-            I use different LLM tools for coding, mostly Claude Code + NeoVim.
-          </p>
-          <p>Latest: Claude Code, opencode, ZAI, Grok.</p>
-        </div>
+    <div className="px-6 md:px-8">
+      <header className="em-masthead">
+        <span className="em-masthead__eyebrow">Editorial note</span>
+        <h1 className="em-masthead__title">On AI</h1>
+      </header>
+
+      <div className="mx-auto max-w-2xl space-y-5 text-[15px] leading-7 text-[color:var(--em-muted)]">
+        <p>
+          None of the contents in my blog was written by an AI tool. I used to
+          rely on AI for{" "}
+          <del className="decoration-[color:var(--em-subtle)]">
+            English sentence corrections
+          </del>
+          ; now I use an AI agent for English corrections and do the review
+          myself.
+        </p>
+        <p>
+          I use different LLM tools for coding, mostly Claude Code + NeoVim.
+        </p>
+        <p className="text-[color:var(--em-foreground)]">
+          Latest: Claude Code, opencode, ZAI, Grok.
+        </p>
       </div>
     </div>
   );

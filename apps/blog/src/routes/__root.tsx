@@ -4,49 +4,138 @@ import "../../styles/blog-design.css";
 
 import Analytics from "@duyet/components/Analytics";
 import Footer from "@duyet/components/Footer";
-import { AppCommandPalette } from "@duyet/components";
-import Header from "@duyet/components/Header";
-import type { NavigationItem } from "@duyet/components/Menu";
-import { duyetUrls } from "@duyet/urls";
 import ThemeProvider from "@duyet/components/ThemeProvider";
+import { cn } from "@duyet/libs/utils";
+import { duyetUrls } from "@duyet/urls";
 import {
   createRootRoute,
   HeadContent,
+  Link,
   Outlet,
   Scripts,
+  useRouterState,
 } from "@tanstack/react-router";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center px-4 bg-[var(--background)]">
+    <div className="flex min-h-screen items-center justify-center px-6 bg-[var(--em-background)]">
       <div className="max-w-md text-center">
-        <h1 className="mb-4 text-6xl font-bold font-serif text-[#141413] dark:text-[#f8f8f2]">
+        <p className="mb-4 text-xs uppercase tracking-[0.16em] text-[color:var(--em-muted)]">
           404
-        </h1>
-        <h2 className="mb-4 text-xl font-semibold text-[#6c6a64] dark:text-[#a09d96]">
-          Page not found
-        </h2>
-        <p className="mb-8 text-sm text-[#6c6a64] dark:text-[#a09d96]">
-          The page you are looking for does not exist or has been moved.
         </p>
-        <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
+        <h1 className="font-editorial-serif mb-3 text-4xl font-medium tracking-tight text-[color:var(--em-foreground)] sm:text-5xl">
+          Page not found
+        </h1>
+        <p className="mb-8 text-sm text-[color:var(--em-muted)]">
+          The page you're looking for has moved or never existed.
+        </p>
+        <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <a
             href="/"
-            className="rounded-xl px-6 py-2 font-medium transition-all hover:opacity-90 bg-[#cc785c] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#cc785c] focus-visible:ring-offset-2"
+            className="text-sm font-medium text-[color:var(--em-foreground)] underline decoration-[color:var(--em-accent)] decoration-1 underline-offset-4 transition-colors hover:text-[color:var(--em-accent)]"
           >
-            Go to blog
+            Back to blog
           </a>
+          <span aria-hidden className="text-[color:var(--em-subtle)]">
+            ·
+          </span>
           <a
             href="https://duyet.net"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-xl border border-[#e6dfd8] dark:border-white/10 px-6 py-2 font-medium transition-all hover:opacity-80 text-[#141413] dark:text-[#f8f8f2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#cc785c] focus-visible:ring-offset-2"
+            className="text-sm text-[color:var(--em-muted)] transition-colors hover:text-[color:var(--em-foreground)]"
           >
             duyet.net
           </a>
         </div>
       </div>
+    </div>
+  );
+}
+
+interface BlogNavItem {
+  name: string;
+  href: string;
+  external?: boolean;
+  matchPrefix?: string;
+}
+
+const blogNavItems: BlogNavItem[] = [
+  { name: "Latest", href: "/", matchPrefix: "/" },
+  { name: "Archives", href: "/archives/", matchPrefix: "/archives" },
+  { name: "Featured", href: "/featured/", matchPrefix: "/featured" },
+  { name: "Series", href: "/series/", matchPrefix: "/series" },
+  { name: "Tags", href: "/tags/", matchPrefix: "/tags" },
+  { name: "Search", href: "/search/", matchPrefix: "/search" },
+  { name: "About", href: "/about/", matchPrefix: "/about" },
+  { name: "Duyet.net", href: duyetUrls.apps.home, external: true },
+];
+
+function EditorialNav() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  const isActive = (item: BlogNavItem) => {
+    if (item.external) return false;
+    if (item.matchPrefix === "/") {
+      return pathname === "/" || pathname === "";
+    }
+    if (!item.matchPrefix) return false;
+    return pathname === item.matchPrefix ||
+      pathname.startsWith(`${item.matchPrefix}/`);
+  };
+
+  return (
+    <header className="editorial-nav">
+      <div className="editorial-nav__inner">
+        <Link to="/" className="editorial-nav__brand" aria-label="Duyet Le, home">
+          Duyet Le
+        </Link>
+        <nav className="editorial-nav__links" aria-label="Primary">
+          {blogNavItems.map((item) =>
+            item.external ? (
+              <a
+                key={item.name}
+                href={item.href}
+                className="editorial-nav__link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {item.name}
+              </a>
+            ) : (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={cn(
+                  "editorial-nav__link",
+                  isActive(item) && "is-active"
+                )}
+              >
+                {item.name}
+              </Link>
+            )
+          )}
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+function BotCredit() {
+  return (
+    <div className="em-bot-credit" role="contentinfo">
+      <em>
+        This site is auto-driven and auto-designed by the{" "}
+        <a
+          href="https://github.com/duyetbot"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          duyetbot
+        </a>{" "}
+        agent.
+      </em>
     </div>
   );
 }
@@ -107,20 +196,12 @@ function RootComponent() {
       </head>
       <body>
         <ThemeProvider>
-          <div className="min-h-screen bg-[var(--background)] font-sans text-[var(--foreground)] subpixel-antialiased [--font-inter:Inter,system-ui,sans-serif] [--font-serif:Inter,system-ui,sans-serif]">
-            <Header
-              shortText="Duyet Le"
-              longText="Duyet Le"
-              navigationItems={blogNavigation}
-              homeUrl="/"
-              showAuthButtons
-              className="blog-site-header border-b-0"
-              containerClassName="blog-site-header-inner max-w-[1440px] py-4 lg:px-12"
-              actions={<AppCommandPalette />}
-            />
-            <main className="relative z-10 pb-16">
+          <div className="blog-editorial-shell min-h-screen subpixel-antialiased">
+            <EditorialNav />
+            <main className="relative z-10 pb-12">
               <Outlet />
             </main>
+            <BotCredit />
             <Footer />
             <Analytics />
             <ServiceWorkerRegister />
@@ -131,12 +212,3 @@ function RootComponent() {
     </html>
   );
 }
-
-const blogNavigation: NavigationItem[] = [
-  { name: "Home", href: "/" },
-  { name: "Archives", href: "/archives/" },
-  { name: "Featured", href: "/featured/" },
-  { name: "Series", href: "/series/" },
-  { name: "Tags", href: "/tags/" },
-  { name: "Duyet.net", href: duyetUrls.apps.home },
-];
