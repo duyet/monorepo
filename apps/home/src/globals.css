@@ -34,7 +34,7 @@
 
     /* Premium card-v2 tokens */
     --card-bg: #ffffff;
-    --card-border: rgba(246, 130, 31, 0.08);
+    --card-border: rgba(246, 130, 31, 0.18);
     --card-border-hover: rgba(246, 130, 31, 0.22);
     --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(246, 130, 31, 0.01);
     --card-shadow-hover: 0 8px 24px rgba(246, 130, 31, 0.06), 0 2px 6px rgba(0, 0, 0, 0.02);
@@ -143,7 +143,7 @@
 
     /* Premium card-v2 tokens - Dark */
     --card-bg: #121212;
-    --card-border: rgba(246, 130, 31, 0.12);
+    --card-border: rgba(246, 130, 31, 0.22);
     --card-border-hover: rgba(246, 130, 31, 0.32);
     --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     --card-shadow-hover: 0 8px 24px rgba(246, 130, 31, 0.08);

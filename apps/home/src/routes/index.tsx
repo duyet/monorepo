@@ -65,9 +65,7 @@ function HomePage() {
         <main className="mx-auto max-w-[1200px] px-6 md:px-8">
           {/* Asymmetric Hero Section */}
           <section className="pt-20 pb-16 md:pt-28 md:pb-24">
-            <div className="grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-10 lg:gap-16 items-center">
-              {/* Left Side: Editorial Content */}
-              <div className="flex flex-col items-start text-left">
+            <div className="flex flex-col items-start text-left max-w-2xl">
                 <span className="text-xs font-bold uppercase tracking-wider text-[color:var(--accent)] mb-4">
                   Data & AI Engineer
                 </span>
@@ -92,34 +90,6 @@ function HomePage() {
                   </Link>
                 </div>
               </div>
-
-              {/* Right Side: Elegant Live-Activity Card */}
-              <div className="w-full max-w-md lg:max-w-none">
-                <div className="card-v2 p-6 flex flex-col gap-4 relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-radial from-[color:var(--accent)]/10 to-transparent pointer-events-none" />
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-[color:var(--accent)] bg-[color:var(--accent)]/10 px-2.5 py-0.5 rounded-full font-semibold">
-                      Live Status
-                    </span>
-                    <span className="flex h-2 w-2 relative">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[color:var(--accent)] opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-[color:var(--accent)]"></span>
-                    </span>
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-semibold tracking-tight text-[color:var(--foreground)]">Active Worktree</h4>
-                    <p className="mt-1 text-xs text-[color:var(--muted)] font-mono">v2/home-refresh</p>
-                  </div>
-                  <div className="border-t border-[color:var(--hairline)] pt-3 flex items-center justify-between text-[11px] font-mono text-[color:var(--subtle)]">
-                    <span className="flex items-center gap-1">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                      <span>Sync: 100% OK</span>
-                    </span>
-                    <span className="tabular-nums">2026-05-23</span>
-                  </div>
-                </div>
-              </div>
-            </div>
           </section>
 
           {/* Premium Grid Project Section */}
