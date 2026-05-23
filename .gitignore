@@ -57,3 +57,6 @@ target/
 **/pkg/
 !**/pkg/**/*.d.ts
 Cargo.lock
+
+# Antigravity CLI
+.antigravitycli/
