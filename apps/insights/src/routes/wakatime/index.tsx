@@ -74,14 +74,14 @@ function WakatimePage() {
     Route.useLoaderData();
 
   return (
-    <div className="space-y-6">
+    <div>
       <InsightsPageHeader
         badge="WakaTime"
-        title="Coding analytics"
+        title="Where the hours at the keyboard went."
         description="Programming activity, language trends, and coding behavior from WakaTime."
       />
 
-      <div className="space-y-6">
+      <div>
         <InsightsSection
           title="Coding overview"
           description="Programming activity summary for the last 30 days."
@@ -137,7 +137,9 @@ function WakatimePage() {
           />
         </InsightsSection>
 
-        <p className="text-xs text-muted-foreground">Data Source: WakaTime</p>
+        <p className="border-t border-[color:var(--hairline)] pt-6 text-xs italic text-[color:var(--muted)]">
+          Source: WakaTime.
+        </p>
       </div>
     </div>
   );

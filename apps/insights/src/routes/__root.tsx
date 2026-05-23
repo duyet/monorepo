@@ -2,38 +2,29 @@ import "@duyet/components/styles.css";
 import "../styles/globals.css";
 
 import Analytics from "@duyet/components/Analytics";
-import { AppCommandPalette } from "@duyet/components";
-import Footer from "@duyet/components/Footer";
-import Header from "@duyet/components/Header";
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import type { NavigationItem } from "@duyet/components/Menu";
 import {
   createRootRoute,
   HeadContent,
   Outlet,
   Scripts,
 } from "@tanstack/react-router";
-import { GlobalPeriodSelector } from "@/components/GlobalPeriodSelector";
-import { CompactNavigation } from "@/components/navigation/CompactNavigation";
-
-const insightsNavigation: NavigationItem[] = [
-  { name: "Insights", href: "/" },
-  { name: "Blog", href: "https://blog.duyet.net" },
-  { name: "Experience", href: "https://cv.duyet.net" },
-  { name: "About", href: "https://duyet.net/about" },
-];
+import { EditorialNavigation } from "@/components/navigation/EditorialNavigation";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-[50vh] items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold">404</h1>
-        <p className="mt-2 text-muted-foreground">Page not found</p>
-        <a href="/" className="mt-4 inline-block text-sm underline">
-          Go home
-        </a>
-      </div>
-    </div>
+    <main className="mx-auto flex min-h-[60vh] w-full max-w-6xl flex-col items-start justify-center px-6 md:px-8">
+      <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--muted)]">
+        404
+      </p>
+      <h1 className="mt-4 font-serif text-5xl tracking-tight">Page not found.</h1>
+      <a
+        href="/"
+        className="mt-6 text-sm underline decoration-[color:var(--accent)] underline-offset-4 hover:text-[color:var(--accent)]"
+      >
+        Return home
+      </a>
+    </main>
   );
 }
 
@@ -57,7 +48,7 @@ export const Route = createRootRoute({
       {
         rel: "preload",
         as: "style",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap",
       },
     ],
   }),
@@ -76,33 +67,21 @@ function RootComponent() {
           onLoad={(event) => {
             event.currentTarget.media = "all";
           }}
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap"
+          href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
         />
       </head>
       <body>
         <ThemeProvider>
-          <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
-            <Header
-              shortText="Duyet Le"
-              longText="Duyet Le"
-              navigationItems={insightsNavigation}
-              showAuthButtons
-              actions={<AppCommandPalette />}
-            />
+          <div className="flex min-h-screen flex-col bg-[var(--background)] text-[var(--foreground)]">
+            <EditorialNavigation />
 
-            <main className="relative z-10 rounded-b-3xl bg-[var(--background)] pb-16 2xl:rounded-b-[4rem]">
-              <div className="mx-auto max-w-[1280px] px-5 pb-16 pt-6 sm:px-8 lg:px-10">
-                <div className="mb-8">
-                  <div className="flex flex-wrap items-center justify-between gap-3">
-                    <CompactNavigation />
-                    <GlobalPeriodSelector />
-                  </div>
-                </div>
+            <main className="flex-1 pt-24 pb-20">
+              <div className="mx-auto w-full max-w-6xl px-6 md:px-8">
                 <Outlet />
               </div>
             </main>
 
-            <Footer />
+            <EditorialFooter />
           </div>
 
           <Analytics />
@@ -110,5 +89,30 @@ function RootComponent() {
         <Scripts />
       </body>
     </html>
+  );
+}
+
+function EditorialFooter() {
+  const year = new Date().getFullYear();
+  return (
+    <footer className="border-t border-[color:var(--hairline)]">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-6 py-10 text-xs text-[color:var(--muted)] md:flex-row md:items-center md:justify-between md:px-8">
+        <p className="font-serif italic">
+          &copy; {year} Duyet Le &middot; insights.duyet.net
+        </p>
+        <p className="font-serif italic">
+          This site is auto-driven and auto-designed by the{" "}
+          <a
+            href="https://github.com/duyetbot"
+            target="_blank"
+            rel="noreferrer noopener"
+            className="underline decoration-[color:var(--accent)] decoration-1 underline-offset-4 transition-colors hover:text-[color:var(--accent)]"
+          >
+            duyetbot
+          </a>{" "}
+          agent.
+        </p>
+      </div>
+    </footer>
   );
 }

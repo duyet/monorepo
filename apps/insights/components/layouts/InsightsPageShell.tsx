@@ -26,14 +26,16 @@ export function InsightsPageHeader({
   badge,
 }: InsightsPageHeaderProps): JSX.Element {
   return (
-    <header>
+    <header className="editorial-fade-up mb-16">
       {badge ? (
-        <p className="mb-3 inline-flex rounded-md bg-[#1a1a1a] px-3 py-1.5 text-xs font-semibold tracking-wide text-white">
+        <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">
           {badge}
         </p>
       ) : null}
-      <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h1>
-      <p className="mt-3 max-w-3xl text-base font-medium leading-6 text-[var(--muted-foreground)]">
+      <h1 className="mt-4 font-serif text-5xl leading-[1.05] tracking-tight sm:text-6xl md:text-7xl">
+        {title}
+      </h1>
+      <p className="mt-6 max-w-2xl text-base leading-7 text-[color:var(--muted)]">
         {description}
       </p>
     </header>
@@ -47,11 +49,13 @@ export function InsightsSection({
   className,
 }: InsightsSectionProps): JSX.Element {
   return (
-    <section className={cn("space-y-4", className)}>
-      <div className="mb-4">
-        <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
+    <section className={cn("editorial-fade-up py-12", className)}>
+      <div className="mb-8 flex flex-col gap-1 border-t border-[color:var(--hairline)] pt-8">
+        <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">
+          {title}
+        </p>
         {description ? (
-          <p className="mt-1 text-sm text-[var(--muted-foreground)]">
+          <p className="font-serif text-2xl leading-snug tracking-tight text-[color:var(--foreground)] md:text-3xl">
             {description}
           </p>
         ) : null}
@@ -66,15 +70,22 @@ export function InsightsNotice({
   body,
   tone = "warning",
 }: InsightsNoticeProps): JSX.Element {
-  const toneClasses =
-    tone === "error"
-      ? "border-red-200 bg-red-50 text-red-900 dark:border-red-800 dark:bg-red-950 dark:text-red-100"
-      : "border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-100";
-
   return (
-    <div className={cn("rounded-xl border p-5", toneClasses)}>
-      <h2 className="text-lg font-semibold">{title}</h2>
-      <p className="mt-2 text-sm leading-6">{body}</p>
+    <div
+      className={cn(
+        "editorial-fade-up flex flex-col gap-2 border-l-2 py-3 pl-5",
+        tone === "error"
+          ? "border-[color:var(--accent)]"
+          : "border-[color:var(--muted)]"
+      )}
+    >
+      <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">
+        {tone === "error" ? "Error" : "Notice"}
+      </p>
+      <h2 className="font-serif text-2xl tracking-tight">{title}</h2>
+      <p className="max-w-2xl text-sm leading-6 text-[color:var(--muted)]">
+        {body}
+      </p>
     </div>
   );
 }

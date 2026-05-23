@@ -11,6 +11,7 @@ import {
 import { StaticCard } from "@/components/StaticCard";
 import type { PeriodDays } from "@/lib/periods";
 import { getPeriodConfig, getPeriodDays } from "@/lib/periods";
+import { PeriodSwitcher } from "@/components/PeriodSwitcher";
 import {
   InsightsPageHeader,
   InsightsSection,
@@ -85,14 +86,22 @@ function WakaTimePeriodPage() {
     : `Programming activity summary for the last ${config.label}`;
 
   return (
-    <div className="space-y-6">
+    <div>
       <InsightsPageHeader
-        badge={`WakaTime • ${config.label}`}
-        title="Coding analytics"
+        badge={`WakaTime · ${config.label}`}
+        title="Where the hours at the keyboard went."
         description="Programming activity and language statistics for the selected period."
       />
 
-      <div className="space-y-6">
+      <div className="editorial-fade-up mb-12">
+        <PeriodSwitcher
+          current={config.value}
+          route="/wakatime/$period"
+          eyebrow="Period"
+        />
+      </div>
+
+      <div>
         <InsightsSection title="Coding overview" description={overviewDescription}>
           <WakaTimeMetricsView metrics={metrics} />
         </InsightsSection>
@@ -131,8 +140,8 @@ function WakaTimePeriodPage() {
           />
         </InsightsSection>
 
-        <p className="text-xs text-muted-foreground">
-          Data from WakaTime • Updated daily
+        <p className="border-t border-[color:var(--hairline)] pt-6 text-xs italic text-[color:var(--muted)]">
+          Data from WakaTime · updated daily.
         </p>
       </div>
     </div>

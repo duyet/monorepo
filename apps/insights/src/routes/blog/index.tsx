@@ -40,14 +40,14 @@ function BlogPage() {
   const { cloudflare, posthog } = Route.useLoaderData();
 
   return (
-    <div className="space-y-6">
+    <div>
       <InsightsPageHeader
         badge="Blog"
-        title="Blog analytics"
+        title="Who came by, and what they read."
         description="Traffic and reader behavior from Cloudflare and PostHog."
       />
 
-      <div className="space-y-6">
+      <div>
         {cloudflare && (
           <InsightsSection
             title="Traffic analytics"
