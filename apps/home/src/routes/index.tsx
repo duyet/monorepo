@@ -43,6 +43,12 @@ const rowMeta: Record<string, { year: string; stack: string; status: string }> =
     "Duyet Serif": { year: "2024", stack: "Fonts", status: "OSS" },
   };
 
+const statusDot: Record<string, string> = {
+  Live: "bg-emerald-500",
+  Beta: "bg-amber-500",
+  OSS: "bg-[color:var(--subtle)]",
+};
+
 const featured: ProjectRowItem[] = apps.slice(0, 6).map((item) => ({
   ...item,
   ...(rowMeta[item.name] ?? {
@@ -106,9 +112,14 @@ function HomePage() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {featured.map((item, i) => (
-                <ProjectCard key={item.name} item={item} index={i} />
+                <div
+                  key={item.name}
+                  className={i === 0 ? "md:col-span-2 lg:col-span-2" : ""}
+                >
+                  <ProjectCard item={item} index={i} featured={i === 0} />
+                </div>
               ))}
             </div>
           </section>
@@ -187,26 +198,28 @@ function HomePage() {
 function ProjectCard({
   item,
   index,
+  featured = false,
 }: {
   item: ProjectRowItem;
   index: number;
+  featured?: boolean;
 }) {
   return (
     <div
-      className="card-v2 p-5 flex flex-col justify-between h-full group animate-fade-in relative"
-      style={{ animationDelay: `${index * 50}ms` }}
+      className="card-v2 p-5 md:p-6 flex flex-col justify-between h-full group animate-fade-in relative"
+      style={{ animationDelay: `${index * 60}ms` }}
     >
       <ProjectLink item={item}>
         <div className="flex flex-col gap-3">
           <div className="flex items-start justify-between gap-3">
-            <h3 className="font-semibold text-lg tracking-tight text-[color:var(--foreground)] group-hover:text-[color:var(--accent)] transition-colors duration-150">
+            <h3 className={`font-semibold tracking-tight text-[color:var(--foreground)] group-hover:text-[color:var(--accent)] transition-colors duration-150 ${featured ? "text-xl md:text-2xl" : "text-lg"}`}>
               {item.name}
             </h3>
             <span className="text-[color:var(--muted)] group-hover:text-[color:var(--accent)] transition-colors duration-150">
               <ArrowSquareOut size={18} weight="bold" />
             </span>
           </div>
-          <p className="text-sm text-[color:var(--muted)] leading-relaxed line-clamp-3">
+          <p className={`text-[color:var(--muted)] leading-relaxed ${featured ? "text-base" : "text-sm"} ${featured ? "line-clamp-4" : "line-clamp-3"}`}>
             {item.description}
           </p>
         </div>
@@ -216,7 +229,10 @@ function ProjectCard({
           <div className="flex items-center gap-2">
             <span>{item.stack}</span>
             <span className="h-1 w-1 rounded-full bg-[color:var(--hairline)]" />
-            <span className="text-[color:var(--accent)] font-semibold">{item.status}</span>
+            <span className="flex items-center gap-1.5">
+              <span className={`h-1.5 w-1.5 rounded-full ${statusDot[item.status] ?? "bg-[color:var(--hairline)]"}`} />
+              <span className="font-semibold">{item.status}</span>
+            </span>
           </div>
         </div>
       </ProjectLink>

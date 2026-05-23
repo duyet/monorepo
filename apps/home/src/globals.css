@@ -284,12 +284,16 @@
     border: 1px solid var(--card-border);
     border-radius: var(--radius-lg);
     box-shadow: var(--card-shadow);
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  
+
   .card-v2:hover {
     border-color: var(--card-border-hover);
     box-shadow: var(--card-shadow-hover);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
+  }
+
+  .card-v2:active {
+    transform: translateY(0);
   }
 }
