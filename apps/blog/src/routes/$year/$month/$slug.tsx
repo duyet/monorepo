@@ -8,6 +8,7 @@ import { SeriesBox } from "@/components/layout/SeriesBox";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
 import { TableOfContents } from "@/components/post/TableOfContents";
 import { getPostBySlug, getSeries } from "@/lib/posts";
+import "@/styles/post-reader.css";
 import Content from "./-content";
 import Meta from "./-meta";
 
@@ -115,24 +116,18 @@ function PostPage() {
   };
 
   return (
-    <div className="overflow-x-hidden pb-20">
+    <div className="post-reader overflow-x-hidden pb-24">
       <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
         <ReadingProgress />
 
         <div className="mx-auto flex justify-center gap-10 xl:max-w-[1280px]">
-          <div className="min-w-0 max-w-3xl flex-1">
+          <div className="post-body min-w-0 flex-1">
             <Content post={post} />
 
-            <div className="my-12 border-t border-[var(--border-faint)] dark:border-white/10" />
-
-            <Meta post={post} series={series} />
+            <Meta post={post} series={series} className="post-meta mt-12" />
 
             {series && (
-              <SeriesBox
-                className="mt-12"
-                series={series}
-                current={post.slug}
-              />
+              <SeriesBox series={series} current={post.slug} />
             )}
           </div>
 

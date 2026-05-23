@@ -53,6 +53,18 @@ async function compileMDX(
   return MDXContent as React.ComponentType<MDXContentProps>;
 }
 
+// Shared editorial prose classes — narrow measure, generous leading.
+// CSS in `styles/post-reader.css` (scoped under `.post-reader`) controls
+// font family, sizing, and colour; here we just keep table/pre overflow
+// behaviour and let prose hooks pick up the rest.
+const proseClassName = cn(
+  "prose dark:prose-invert",
+  "max-w-none",
+  "[&>table]:overflow-x-auto [&>table]:sm:-mx-4 [&>table]:lg:-mx-8",
+  "[&>pre]:overflow-x-auto",
+  "prose-table:text-sm prose-table:leading-relaxed prose-table:table-auto"
+);
+
 function MDXRenderer({ source }: { source: string }) {
   if (!mdxCache.has(source)) {
     mdxCache.set(source, compileMDX(source));
@@ -61,23 +73,7 @@ function MDXRenderer({ source }: { source: string }) {
   const MDXContent = use(mdxCache.get(source)!);
 
   return (
-    <article
-      className={cn(
-        "prose dark:prose-invert",
-        "max-w-none",
-        "[&>table]:overflow-x-auto [&>table]:sm:-mx-4 [&>table]:sm:-mx-8 [&>table]:lg:-mx-16 [&>table]:xl:-mx-24",
-        "[&>table]:border-t [&>table]:border-b [&>table]:border-[var(--border)] dark:[&>table]:border-white/10",
-        "[&>pre]:overflow-x-auto [&>pre]:sm:-mx-4 [&>pre]:sm:-mx-8 [&>pre]:lg:-mx-16 [&>pre]:xl:-mx-24",
-        "prose-headings:text-[var(--foreground)]",
-        "prose-headings:font-semibold prose-headings:tracking-tight",
-        "prose-p:text-[#3d3d3a] dark:prose-p:text-[var(--foreground)]/80",
-        "prose-a:text-[var(--ink)] dark:prose-a:text-[var(--on-dark)]",
-        "prose-a:underline prose-a:underline-offset-4",
-        "prose-strong:text-[var(--foreground)]",
-        "prose-code:break-words",
-        "prose-table:text-sm prose-table:leading-relaxed prose-table:table-auto"
-      )}
-    >
+    <article className={proseClassName}>
       <MDXContent components={mdxComponents} />
     </article>
   );
@@ -86,41 +82,19 @@ function MDXRenderer({ source }: { source: string }) {
 export default function Content({ post }: { post: ContentPost }) {
   return (
     <>
-      <header className="mb-10 flex flex-col gap-5 border-b border-[var(--border-faint)] pb-8 pt-10 sm:pt-14 lg:pt-16">
-        <h1
-          className={cn(
-            "mt-2 break-words py-2",
-            "text-[var(--foreground)]",
-            "text-[34px] font-semibold leading-[1.12] tracking-tight",
-            "sm:text-[46px]"
-          )}
-        >
-          {post.title}
-        </h1>
+      <header className="post-header">
+        <h1 className="post-title">{post.title}</h1>
 
-        <OldPostWarning post={post} year={5} className="" />
+        {post.excerpt ? <p className="post-dek">{post.excerpt}</p> : null}
+
+        <OldPostWarning post={post} year={5} className="mt-6" />
       </header>
 
       {post.isMDX && post.mdxSource ? (
         <MDXRenderer source={post.mdxSource} />
       ) : (
         <article
-          className={cn(
-            'prose dark:prose-invert',
-            "max-w-none",
-            "[&>table]:overflow-x-auto [&>table]:sm:-mx-4 [&>table]:sm:-mx-8 [&>table]:lg:-mx-16 [&>table]:xl:-mx-24",
-            "[&>table]:border-t [&>table]:border-b [&>table]:border-[var(--border)] dark:[&>table]:border-white/10",
-            "[&>pre]:overflow-x-auto [&>pre]:sm:-mx-4 [&>pre]:sm:-mx-8 [&>pre]:lg:-mx-16 [&>pre]:xl:-mx-24",
-            "prose-headings:text-[var(--foreground)]",
-            "prose-headings:font-semibold prose-headings:tracking-tight",
-            "prose-p:text-[#3d3d3a] dark:prose-p:text-[var(--foreground)]/80",
-            "prose-p:leading-8",
-            "prose-a:text-[var(--ink)] dark:prose-a:text-[var(--on-dark)]",
-            "prose-a:underline prose-a:underline-offset-4",
-            "prose-strong:text-[var(--foreground)]",
-            "prose-code:break-words",
-            "prose-table:text-sm prose-table:leading-relaxed"
-          )}
+          className={proseClassName}
           dangerouslySetInnerHTML={{ __html: post.content || "No content" }}
         />
       )}
