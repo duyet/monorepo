@@ -97,10 +97,9 @@ export function MarkdownMenu({
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm",
-          "border border-[#1a1a1a]/10 dark:border-white/10",
-          "hover:bg-[#f7f7f7] dark:hover:bg-[#1a1a1a]",
-          "text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70",
+          "flex items-center gap-1.5 text-sm",
+          "text-[var(--muted)] dark:text-[#f8f8f2]/55",
+          "hover:text-[var(--ink)] dark:hover:text-[var(--on-dark)]",
           "transition-colors"
         )}
       >
@@ -118,9 +117,8 @@ export function MarkdownMenu({
         <div
           className={cn(
             "absolute right-0 bottom-full mb-2 w-72 z-[9999]",
-            "rounded-xl border border-[var(--border)] dark:border-white/10",
+            "rounded-md border border-[var(--hairline)] dark:border-white/10",
             "bg-[var(--background)] dark:bg-[#1a1a1a]",
-            "shadow-lg",
             "overflow-hidden",
             "py-1"
           )}

@@ -1,0 +1,337 @@
+/* Post reader editorial layout — scoped to .post-reader on the post route.
+ * Owned by the Unit-4 redesign. Reaches across the prose tree to override
+ * global blog styles for the reader experience only; list pages and the
+ * shell remain untouched.
+ */
+
+.post-reader {
+  /* Reader-local fonts. Fall back to global tokens so we don't need to
+   * mutate globals.css. */
+  --reader-serif: "EB Garamond", Garamond, "Apple Garamond", ui-serif, serif;
+  --reader-sans: "Inter Variable", Inter, ui-sans-serif, system-ui, sans-serif;
+  --reader-mono: "JetBrains Mono", "JetBrains Mono Variable", ui-monospace,
+    "SF Mono", Menlo, Monaco, Consolas, monospace;
+
+  /* Local fallbacks for tokens Unit 3 owns globally. */
+  --reader-faint: var(--surface-soft, #f7f7f5);
+  --reader-hairline: var(--hairline, rgba(20, 20, 19, 0.08));
+  --reader-muted: var(--muted, #6c6a64);
+  --reader-ink: var(--ink, #141413);
+  --reader-accent: var(--accent, #cc785c);
+}
+
+.dark .post-reader {
+  --reader-faint: rgba(255, 255, 255, 0.04);
+}
+
+/* ----------- Lede header ------------------------------------------ */
+
+.post-reader .post-header {
+  margin: 0 auto 56px;
+  padding-top: 24px;
+}
+
+.post-reader .post-title {
+  margin: 0;
+  font-family: var(--reader-serif);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  font-size: clamp(2.4rem, 4.6vw, 3.6rem);
+  color: var(--reader-ink);
+  text-wrap: balance;
+}
+
+.dark .post-reader .post-title {
+  color: var(--on-dark, #faf9f5);
+}
+
+.post-reader .post-dek {
+  margin: 18px 0 0;
+  font-family: var(--reader-serif);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.25rem;
+  line-height: 1.45;
+  color: var(--reader-muted);
+  text-wrap: pretty;
+}
+
+.post-reader .post-meta {
+  margin-top: 28px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ----------- Prose: narrow measure, generous leading -------------- */
+
+.post-reader .post-body {
+  max-width: 68ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.post-reader .prose {
+  font-family: var(--reader-sans);
+  font-size: 1.0625rem;
+  line-height: 2;
+  color: var(--body, #3d3d3a);
+}
+
+.dark .post-reader .prose {
+  color: rgba(248, 248, 242, 0.82);
+}
+
+.post-reader .prose p {
+  line-height: 2;
+  margin-bottom: 1.25em;
+}
+
+/* Serif headings inside the article body */
+.post-reader .prose :where(h2, h3, h4) {
+  font-family: var(--reader-serif);
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  color: var(--reader-ink);
+}
+
+.dark .post-reader .prose :where(h2, h3, h4) {
+  color: var(--on-dark, #faf9f5);
+}
+
+.post-reader .prose h2 {
+  font-size: 1.75rem;
+  line-height: 1.2;
+  margin-top: 2.4em;
+  margin-bottom: 0.6em;
+  /* Strip the global border-bottom — let whitespace separate. */
+  border-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.post-reader .prose h3 {
+  font-size: 1.35rem;
+  line-height: 1.3;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+
+.post-reader .prose h4 {
+  font-size: 1.1rem;
+  line-height: 1.35;
+  margin-top: 1.6em;
+  margin-bottom: 0.4em;
+}
+
+/* Links: subtle by default, accent underline on hover. */
+.post-reader .prose a {
+  color: var(--reader-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--reader-hairline);
+  text-underline-offset: 4px;
+  transition: text-decoration-color 150ms ease-out;
+}
+
+.post-reader .prose a:hover {
+  text-decoration-color: var(--reader-accent);
+}
+
+.dark .post-reader .prose a {
+  color: var(--on-dark, #faf9f5);
+}
+
+/* Blockquote: hairline rule, no italic-fest. */
+.post-reader .prose blockquote {
+  border-left: 1px solid var(--reader-hairline);
+  padding-left: 1.25em;
+  margin: 1.5em 0;
+  color: var(--reader-muted);
+  font-style: normal;
+}
+
+/* Footnotes / asides muted and smaller. */
+.post-reader .prose aside,
+.post-reader .prose .footnotes,
+.post-reader .prose section.footnotes {
+  font-size: 0.875em;
+  color: var(--reader-muted);
+  border-top: 1px solid var(--reader-hairline);
+  margin-top: 3em;
+  padding-top: 1.5em;
+}
+
+/* ----------- Code blocks: flat, no rounded, no shadow ------------- */
+
+.post-reader .prose :where(pre),
+.post-reader article pre {
+  background-color: var(--reader-faint) !important;
+  border: 0 !important;
+  border-left: 2px solid var(--reader-hairline) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 1em 1.25em;
+  margin: 2em 0;
+  font-family: var(--reader-mono);
+  font-size: 0.875em;
+  line-height: 1.7;
+}
+
+.dark .post-reader .prose :where(pre),
+.dark .post-reader article pre {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  border-left-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.post-reader .prose :where(pre) code {
+  background: transparent !important;
+  padding: 0 !important;
+  font-size: inherit;
+}
+
+/* Inline code: subtle faint bg, sharp corners. */
+.post-reader .prose :where(code):not(:where(pre code)) {
+  background-color: var(--reader-faint) !important;
+  color: var(--reader-ink) !important;
+  border-radius: 2px !important;
+  padding: 0.1em 0.35em !important;
+  font-family: var(--reader-mono);
+  font-size: 0.875em;
+  font-weight: 400;
+}
+
+.dark .post-reader .prose :where(code):not(:where(pre code)) {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  color: var(--on-dark, #faf9f5) !important;
+}
+
+/* ----------- Meta strip: tabular nums for dates ------------------- */
+
+.post-reader .post-meta time,
+.post-reader .post-meta .meta-number {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ----------- Fade-up on first paint ------------------------------- */
+
+@keyframes post-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .post-reader .post-header,
+  .post-reader .post-body {
+    animation: post-fade-up 320ms ease-out both;
+  }
+  .post-reader .post-body {
+    animation-delay: 60ms;
+  }
+}
+
+/* Series block: borderless editorial list. */
+
+.series-block {
+  margin-top: 56px;
+  padding: 28px 0;
+  border-top: 1px solid var(--reader-hairline);
+  border-bottom: 1px solid var(--reader-hairline);
+}
+
+.series-block .series-label {
+  margin: 0 0 6px;
+  font-family: var(--reader-sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--reader-muted);
+}
+
+.series-block .series-title {
+  margin: 0 0 18px;
+  font-family: var(--reader-serif);
+  font-weight: 500;
+  font-size: 1.4rem;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  color: var(--reader-ink);
+}
+
+.dark .series-block .series-title {
+  color: var(--on-dark, #faf9f5);
+}
+
+.series-block .series-title a {
+  color: inherit;
+  text-decoration: none;
+  background-image: linear-gradient(
+    transparent calc(100% - 1px),
+    var(--reader-hairline) 1px
+  );
+  background-size: 100% 100%;
+  transition: background-image 150ms ease-out;
+}
+
+.series-block .series-title a:hover {
+  background-image: linear-gradient(
+    transparent calc(100% - 1px),
+    var(--reader-accent) 1px
+  );
+}
+
+.series-block ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: series-counter;
+}
+
+.series-block li {
+  display: grid;
+  grid-template-columns: 2.25rem 1fr;
+  gap: 0 4px;
+  padding: 6px 0;
+  counter-increment: series-counter;
+  font-family: var(--reader-sans);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.series-block li::before {
+  content: counter(series-counter, decimal-leading-zero);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
+  color: var(--reader-muted);
+  padding-top: 0.25em;
+}
+
+.series-block li a {
+  color: var(--reader-muted);
+  text-decoration: none;
+  transition: color 150ms ease-out;
+}
+
+.series-block li a:hover {
+  color: var(--reader-ink);
+}
+
+.dark .series-block li a:hover {
+  color: var(--on-dark, #faf9f5);
+}
+
+.series-block li.is-current span,
+.series-block li.is-current {
+  color: var(--reader-ink);
+  font-weight: 600;
+}
+
+.dark .series-block li.is-current,
+.dark .series-block li.is-current span {
+  color: var(--on-dark, #faf9f5);
+}
