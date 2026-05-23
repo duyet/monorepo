@@ -120,15 +120,15 @@ function ProductPage() {
           <p className="font-mono text-xs uppercase tracking-[0.12em] text-[color:var(--subtle)]">
             {product.eyebrow}
           </p>
-          <h1 className="mt-3 font-serif text-5xl tracking-tight md:text-6xl">
+          <h1 className="mt-3 text-4xl font-medium tracking-tight md:text-5xl text-[color:var(--foreground)]">
             {product.name}
           </h1>
-          <p className="mt-6 text-lg leading-7 text-[color:var(--muted)]">
+          <p className="mt-6 text-lg leading-relaxed text-[color:var(--muted)]">
             {product.summary}
           </p>
         </header>
 
-        <p className="mt-12 text-base leading-7 text-[color:var(--foreground)]">
+        <p className="mt-12 text-base leading-relaxed text-[color:var(--foreground)]">
           {product.overview}
         </p>
 
@@ -140,8 +140,8 @@ function ProductPage() {
         </dl>
 
         <section className="mt-14">
-          <h2 className="font-serif text-2xl tracking-tight">Highlights</h2>
-          <ul className="mt-4 flex flex-col gap-3 text-base leading-7 text-[color:var(--foreground)]">
+          <h2 className="text-2xl font-semibold tracking-tight text-[color:var(--foreground)]">Highlights</h2>
+          <ul className="mt-4 flex flex-col gap-3 text-base leading-relaxed text-[color:var(--foreground)]">
             {product.highlights.map((highlight) => (
               <li key={highlight} className="flex gap-3">
                 <span
@@ -163,7 +163,7 @@ function ProductPage() {
             )}
             target="_blank"
             rel="noopener noreferrer"
-            className="link-underline text-base text-[color:var(--foreground)]"
+            className="link-underline text-base text-[color:var(--foreground)] font-medium"
           >
             Visit {product.name} →
           </a>
@@ -171,27 +171,26 @@ function ProductPage() {
 
         {related.length > 0 && (
           <section className="mt-20 border-t border-[color:var(--hairline)] pt-10">
-            <h2 className="font-serif text-2xl tracking-tight">
+            <h2 className="text-2xl font-semibold tracking-tight text-[color:var(--foreground)] mb-6">
               More projects
             </h2>
-            <ul className="mt-4 flex flex-col">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {related.map((item) => (
-                <li key={item.slug} className="group py-4">
-                  <Link
-                    to="/p/$project"
-                    params={{ project: item.slug }}
-                    className="block no-underline"
-                  >
-                    <p className="font-serif text-xl tracking-tight text-[color:var(--foreground)] transition-transform duration-150 ease-out group-hover:-translate-y-px">
-                      <span className="link-underline">{item.name}</span>
-                    </p>
-                    <p className="mt-1 text-sm text-[color:var(--muted)]">
-                      {item.eyebrow}
-                    </p>
-                  </Link>
-                </li>
+                <Link
+                  key={item.slug}
+                  to="/p/$project"
+                  params={{ project: item.slug }}
+                  className="card-v2 p-5 block no-underline group"
+                >
+                  <h3 className="font-semibold text-lg tracking-tight text-[color:var(--foreground)] group-hover:text-[color:var(--accent)] transition-colors duration-150">
+                    {item.name}
+                  </h3>
+                  <p className="mt-1 text-sm text-[color:var(--muted)]">
+                    {item.eyebrow}
+                  </p>
+                </Link>
               ))}
-            </ul>
+            </div>
           </section>
         )}
       </main>
@@ -207,7 +206,7 @@ function Meta({ label, value }: { label: string; value: string }) {
       <dt className="text-[color:var(--subtle)] uppercase tracking-[0.08em] text-[11px]">
         {label}
       </dt>
-      <dd className="mt-1 text-[color:var(--foreground)]">{value}</dd>
+      <dd className="mt-1 text-[color:var(--foreground)] font-medium">{value}</dd>
     </div>
   );
 }

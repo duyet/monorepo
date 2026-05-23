@@ -1,3 +1,4 @@
+import { ArrowSquareOut } from "@phosphor-icons/react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { addUtmParams } from "../../app/lib/utm";
@@ -23,48 +24,59 @@ function ProjectsPage() {
     <div className="min-h-screen bg-[color:var(--background)] text-[color:var(--foreground)]">
       <SiteHeader />
 
-      <main className="mx-auto max-w-6xl px-6 pt-24 pb-20 md:px-8 md:pt-32 md:pb-32">
-        <header className="max-w-3xl">
-          <h1 className="font-serif text-5xl tracking-tight md:text-6xl">
+      <main className="mx-auto max-w-[1200px] px-6 pt-24 pb-20 md:px-8 md:pt-32 md:pb-32">
+        <header className="max-w-3xl mb-16">
+          <h1 className="text-4xl font-medium tracking-tight md:text-5xl text-[color:var(--foreground)]">
             Projects
           </h1>
-          <p className="mt-6 max-w-2xl text-lg text-[color:var(--muted)]">
+          <p className="mt-6 max-w-2xl text-lg text-[color:var(--muted)] leading-relaxed">
             A complete list of public project surfaces across data engineering,
             AI infrastructure, analytics, and developer tooling.
           </p>
         </header>
 
-        <ul className="mt-16 flex flex-col">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {apps.map((item, i) => (
-            <ProjectRow key={item.name} item={item} index={i} />
+            <ProjectCard key={item.name} item={item} index={i} />
           ))}
-        </ul>
+        </div>
       </main>
       <SiteFooter />
     </div>
   );
 }
 
-function ProjectRow({ item, index }: { item: AppItem; index: number }) {
+function ProjectCard({ item, index }: { item: AppItem; index: number }) {
   return (
-    <li
-      className="group animate-fade-in py-6 md:py-7"
-      style={{ animationDelay: `${index * 30}ms` }}
+    <div
+      className="card-v2 p-5 flex flex-col justify-between h-full group animate-fade-in relative"
+      style={{ animationDelay: `${index * 20}ms` }}
     >
       <ProjectLink item={item}>
-        <div className="grid items-baseline gap-2 md:grid-cols-[1fr_auto]">
-          <h2 className="font-serif text-2xl tracking-tight text-[color:var(--foreground)] transition-transform duration-150 ease-out group-hover:-translate-y-px">
-            <span className="link-underline">{item.name}</span>
-          </h2>
-          <p className="truncate font-mono text-xs tabular-nums text-[color:var(--subtle)] md:text-right">
-            {item.host}
+        <div className="flex flex-col gap-3">
+          <div className="flex items-start justify-between gap-3">
+            <h2 className="font-semibold text-lg tracking-tight text-[color:var(--foreground)] group-hover:text-[color:var(--accent)] transition-colors duration-150">
+              {item.name}
+            </h2>
+            <span className="text-[color:var(--muted)] group-hover:text-[color:var(--accent)] transition-colors duration-150">
+              <ArrowSquareOut size={18} weight="bold" />
+            </span>
+          </div>
+          <p className="text-sm text-[color:var(--muted)] leading-relaxed line-clamp-3">
+            {item.description}
           </p>
         </div>
-        <p className="mt-2 max-w-3xl text-base text-[color:var(--muted)]">
-          {item.description}
-        </p>
+
+        <div className="mt-6 border-t border-[color:var(--hairline)] pt-3 flex items-center justify-between text-[11px] font-mono text-[color:var(--subtle)]">
+          <span className="truncate max-w-[200px]" title={item.host}>
+            {item.host}
+          </span>
+          <span className="text-[color:var(--accent)] font-semibold uppercase tracking-wider text-[9px] bg-[color:var(--accent)]/10 px-2 py-0.5 rounded-full">
+            Live
+          </span>
+        </div>
       </ProjectLink>
-    </li>
+    </div>
   );
 }
 
@@ -81,7 +93,7 @@ function ProjectLink({
     return (
       <a
         href={href}
-        className="block no-underline"
+        className="block no-underline h-full"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -91,7 +103,7 @@ function ProjectLink({
   }
 
   return (
-    <Link to={href} className="block no-underline">
+    <Link to={href} className="block no-underline h-full">
       {children}
     </Link>
   );
