@@ -23,9 +23,9 @@ const ANIMATION_DURATION = 200;
 const toolGroupVariants = cva("aui-tool-group-root group/tool-group w-full", {
   variants: {
     variant: {
-      outline: "rounded-lg border py-3",
+      outline: "border-l-2 border-[color:var(--hairline)] pl-3 py-1",
       ghost: "",
-      muted: "rounded-lg border border-muted-foreground/30 bg-muted/30 py-3",
+      muted: "border-l-2 border-[color:var(--hairline)] pl-3 py-1",
     },
   },
   defaultVariants: { variant: "outline" },
@@ -109,9 +109,9 @@ function ToolGroupTrigger({
     <CollapsibleTrigger
       data-slot="tool-group-trigger"
       className={cn(
-        "aui-tool-group-trigger group/trigger flex items-center gap-2 text-sm transition-colors",
-        "group-data-[variant=outline]/tool-group-root:w-full group-data-[variant=outline]/tool-group-root:px-4",
-        "group-data-[variant=muted]/tool-group-root:w-full group-data-[variant=muted]/tool-group-root:px-4",
+        "aui-tool-group-trigger group/trigger flex items-center gap-2 text-sm text-[color:var(--muted-foreground)] transition-colors hover:text-[color:var(--foreground)]",
+        "group-data-[variant=outline]/tool-group-root:w-full",
+        "group-data-[variant=muted]/tool-group-root:w-full",
         className
       )}
       {...props}
@@ -178,8 +178,8 @@ function ToolGroupContent({
       <div
         className={cn(
           "mt-2 flex flex-col gap-2",
-          "group-data-[variant=outline]/tool-group-root:mt-3 group-data-[variant=outline]/tool-group-root:border-t group-data-[variant=outline]/tool-group-root:px-4 group-data-[variant=outline]/tool-group-root:pt-3",
-          "group-data-[variant=muted]/tool-group-root:mt-3 group-data-[variant=muted]/tool-group-root:border-t group-data-[variant=muted]/tool-group-root:px-4 group-data-[variant=muted]/tool-group-root:pt-3"
+          "group-data-[variant=outline]/tool-group-root:mt-2 group-data-[variant=outline]/tool-group-root:pt-2",
+          "group-data-[variant=muted]/tool-group-root:mt-2 group-data-[variant=muted]/tool-group-root:pt-2"
         )}
       >
         {children}

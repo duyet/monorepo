@@ -22,9 +22,9 @@ const ANIMATION_DURATION = 200;
 const reasoningVariants = cva("aui-reasoning-root mb-4 w-full", {
   variants: {
     variant: {
-      outline: "rounded-lg border px-3 py-2",
+      outline: "border-l-2 border-[color:var(--hairline)] pl-3",
       ghost: "",
-      muted: "rounded-lg bg-muted/50 px-3 py-2",
+      muted: "border-l-2 border-[color:var(--hairline)] pl-3",
     },
   },
   defaultVariants: {
@@ -131,7 +131,7 @@ function ReasoningTrigger({
     <CollapsibleTrigger
       data-slot="reasoning-trigger"
       className={cn(
-        "aui-reasoning-trigger group/trigger flex max-w-[75%] items-center gap-2 py-1 text-muted-foreground text-sm transition-colors hover:text-foreground",
+        "aui-reasoning-trigger group/trigger flex max-w-[75%] items-center gap-2 py-1 text-[color:var(--muted-foreground)] text-sm transition-colors hover:text-[color:var(--foreground)]",
         className
       )}
       {...props}
@@ -177,7 +177,7 @@ function ReasoningContent({
     <CollapsibleContent
       data-slot="reasoning-content"
       className={cn(
-        "aui-reasoning-content relative overflow-hidden text-muted-foreground text-sm outline-none",
+        "aui-reasoning-content relative overflow-hidden text-[color:var(--muted-foreground)] text-sm outline-none",
         "group/collapsible-content ease-out",
         "data-[state=closed]:animate-collapsible-up",
         "data-[state=open]:animate-collapsible-down",

@@ -8,13 +8,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState, useEffect } from "react";
 import { Thread } from "@/components/assistant-ui/thread";
 import { createClient } from "@/lib/chatApi";
-import {
-  PanelLeftClose,
-  PanelLeftOpen,
-  Plus,
-  Trash2,
-  MessageSquare,
-} from "lucide-react";
+import { PanelLeftClose, PanelLeftOpen, Plus, Trash2 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: AssistantPage,
@@ -28,41 +22,46 @@ interface SavedThread {
   updatedAt: string;
 }
 
+function formatRelative(iso: string): string {
+  const then = new Date(iso).getTime();
+  if (Number.isNaN(then)) return "";
+  const diffMs = Date.now() - then;
+  const minute = 60_000;
+  const hour = 60 * minute;
+  const day = 24 * hour;
+  if (diffMs < minute) return "just now";
+  if (diffMs < hour) return `${Math.floor(diffMs / minute)}m ago`;
+  if (diffMs < day) return `${Math.floor(diffMs / hour)}h ago`;
+  if (diffMs < 7 * day) return `${Math.floor(diffMs / day)}d ago`;
+  return new Date(iso).toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+  });
+}
+
 function AssistantPage() {
   const client = useMemo(() => createClient(), []);
 
-  // State for active thread ID
   const [activeThreadId, setActiveThreadId] = useState<string | null>(null);
-
-  // State for thread history list
   const [threads, setThreads] = useState<SavedThread[]>([]);
-
-  // Sidebar visibility
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  // Initialize state from local storage on mount
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedThreads = localStorage.getItem("duyetbot_threads");
-      if (storedThreads) {
-        try {
-          const parsed = JSON.parse(storedThreads);
-          setThreads(parsed);
-        } catch (e) {
-          console.error("Failed to parse threads", e);
-        }
-      }
+    if (typeof window === "undefined") return;
 
-      const storedActive = localStorage.getItem("duyetbot_active_thread_id");
-      if (storedActive) {
-        setActiveThreadId(storedActive);
-      }
-
-      // Auto-hide sidebar on small screens
-      if (window.innerWidth < 768) {
-        setSidebarOpen(false);
+    const storedThreads = localStorage.getItem("duyetbot_threads");
+    if (storedThreads) {
+      try {
+        setThreads(JSON.parse(storedThreads));
+      } catch (e) {
+        console.error("Failed to parse threads", e);
       }
     }
+
+    const storedActive = localStorage.getItem("duyetbot_active_thread_id");
+    if (storedActive) setActiveThreadId(storedActive);
+
+    if (window.innerWidth < 768) setSidebarOpen(false);
   }, []);
 
   const stream = useMemo(
@@ -83,11 +82,10 @@ function AssistantPage() {
       const now = new Date();
       const newThread: SavedThread = {
         id: thread_id,
-        title: `Chat ${now.toLocaleDateString()} ${now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`,
+        title: `New conversation`,
         updatedAt: now.toISOString(),
       };
 
-      // Add to list and set active
       setTimeout(() => {
         setThreads((prev) => {
           const updated = [newThread, ...prev];
@@ -105,14 +103,14 @@ function AssistantPage() {
         messages: LangChainMessage[];
       }>(externalId);
 
-      // Update thread title if first message exists
       if (state.values.messages && state.values.messages.length > 0) {
         const firstMessage = state.values.messages[0];
-        let title = "Chat Thread";
+        let title = "Conversation";
         if (firstMessage && typeof firstMessage === "object") {
-          const content = (firstMessage as any).content || "";
+          const content =
+            (firstMessage as { content?: unknown }).content ?? "";
           if (content && typeof content === "string") {
-            title = content.slice(0, 30) + (content.length > 30 ? "..." : "");
+            title = content.slice(0, 40) + (content.length > 40 ? "…" : "");
           }
         }
 
@@ -140,23 +138,21 @@ function AssistantPage() {
   const handleSelectThread = (id: string) => {
     setActiveThreadId(id);
     localStorage.setItem("duyetbot_active_thread_id", id);
-    if (window.innerWidth < 768) {
-      setSidebarOpen(false); // Auto-hide sidebar on mobile after choosing
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      setSidebarOpen(false);
     }
   };
 
   const handleNewChat = () => {
     setActiveThreadId(null);
     localStorage.removeItem("duyetbot_active_thread_id");
-    if (window.innerWidth < 768) {
-      setSidebarOpen(false); // Close sidebar on mobile
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      setSidebarOpen(false);
     }
   };
 
   const handleDeleteThread = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
-
-    // Delete thread
     const updated = threads.filter((t) => t.id !== id);
     setThreads(updated);
     localStorage.setItem("duyetbot_threads", JSON.stringify(updated));
@@ -166,107 +162,129 @@ function AssistantPage() {
       localStorage.removeItem("duyetbot_active_thread_id");
     }
 
-    // Try deleting from backend (fire-and-forget or swallow error)
     client.threads.delete(id).catch((err) => {
       console.warn("Could not delete thread on backend", err);
     });
   };
 
   return (
-    <div className="flex flex-1 flex-row relative h-[calc(100vh-140px)] min-h-[600px] max-w-full overflow-hidden border rounded-2xl bg-card text-card-foreground shadow-sm dark:border-zinc-800">
-      {/* Sidebar */}
-      <div
-        className={`absolute md:relative z-20 h-full flex flex-col bg-zinc-50 border-r dark:bg-zinc-950 dark:border-zinc-800 transition-all duration-300 ${
-          sidebarOpen ? "w-64 translate-x-0" : "w-0 -translate-x-full md:w-0"
+    <div className="flex flex-1 flex-row relative h-[calc(100vh-3.5rem-4rem)] min-h-[560px] max-w-6xl mx-auto w-full overflow-hidden">
+      {/* Sidebar: borderless editorial column */}
+      <aside
+        className={`absolute md:relative z-20 h-full flex flex-col bg-[color:var(--background)] transition-[width,transform] duration-200 ease-out ${
+          sidebarOpen
+            ? "w-64 translate-x-0 border-r border-[color:var(--hairline)]"
+            : "w-0 -translate-x-full md:w-0 border-r-0"
         } overflow-hidden`}
       >
-        <div className="flex items-center justify-between p-3 border-b dark:border-zinc-800 shrink-0">
+        <div className="flex items-center justify-between px-4 py-3 shrink-0">
           <button
+            type="button"
             onClick={handleNewChat}
-            className="flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg border bg-background hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors w-full justify-start text-foreground cursor-pointer"
+            className="group inline-flex items-center gap-2 text-sm text-[color:var(--foreground)] transition-transform duration-150 ease-out hover:-translate-y-px"
           >
-            <Plus className="size-4" />
-            <span>New Chat</span>
+            <Plus className="size-4 text-[color:var(--muted-foreground)] transition-colors group-hover:text-[color:var(--accent)]" />
+            <span className="underline-offset-4 group-hover:underline group-hover:decoration-[color:var(--accent)]">
+              New conversation
+            </span>
           </button>
 
           <button
+            type="button"
             onClick={() => setSidebarOpen(false)}
-            className="md:hidden ml-2 p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg text-muted-foreground cursor-pointer"
+            className="md:hidden ml-2 p-1.5 text-[color:var(--muted-foreground)] transition-colors hover:text-[color:var(--foreground)]"
             title="Collapse sidebar"
+            aria-label="Collapse sidebar"
           >
             <PanelLeftClose className="size-4" />
           </button>
         </div>
 
-        {/* Thread History list */}
-        <div className="flex-1 overflow-y-auto p-2 space-y-1 scrollbar-thin">
+        <div className="flex-1 overflow-y-auto px-2 pb-4 scrollbar-thin">
           {threads.length === 0 ? (
-            <div className="text-xs text-muted-foreground text-center py-8">
-              No chat history yet
-            </div>
+            <p className="px-3 py-6 text-xs italic text-[color:var(--muted-foreground)]">
+              No conversations yet.
+            </p>
           ) : (
-            threads.map((t) => {
-              const isActive = activeThreadId === t.id;
-              return (
-                <div
-                  key={t.id}
-                  onClick={() => handleSelectThread(t.id)}
-                  className={`group flex items-center justify-between px-3 py-2.5 rounded-lg text-sm cursor-pointer transition-colors relative ${
-                    isActive
-                      ? "bg-zinc-200/60 dark:bg-zinc-800 text-foreground font-medium"
-                      : "hover:bg-zinc-100 dark:hover:bg-zinc-900/50 text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  <div className="flex items-center gap-2 min-w-0 pr-6">
-                    <MessageSquare className="size-4 shrink-0 text-muted-foreground/75" />
-                    <span className="truncate text-xs">{t.title}</span>
-                  </div>
-
-                  <button
-                    onClick={(e) => handleDeleteThread(t.id, e)}
-                    className="absolute right-2 opacity-0 group-hover:opacity-100 hover:text-destructive transition-opacity p-1 rounded hover:bg-zinc-200 dark:hover:bg-zinc-800 cursor-pointer"
-                    title="Delete chat"
+            <ul className="flex flex-col">
+              {threads.map((t) => {
+                const isActive = activeThreadId === t.id;
+                return (
+                  <li
+                    key={t.id}
+                    className="group/row relative transition-transform duration-150 ease-out hover:-translate-y-px"
                   >
-                    <Trash2 className="size-3.5" />
-                  </button>
-                </div>
-              );
-            })
+                    <button
+                      type="button"
+                      onClick={() => handleSelectThread(t.id)}
+                      className={`relative block w-full text-left pl-4 pr-9 py-2.5 text-sm transition-colors duration-150 ease-out ${
+                        isActive
+                          ? "text-[color:var(--foreground)]"
+                          : "text-[color:var(--muted-foreground)] hover:text-[color:var(--foreground)]"
+                      }`}
+                    >
+                      {isActive ? (
+                        <span
+                          aria-hidden
+                          className="absolute left-0 top-1.5 bottom-1.5 w-[2px] bg-[color:var(--accent)]"
+                        />
+                      ) : null}
+                      <span
+                        className={`block truncate ${
+                          isActive ? "font-medium" : "font-normal"
+                        }`}
+                      >
+                        {t.title}
+                      </span>
+                      <time
+                        dateTime={t.updatedAt}
+                        className="mt-0.5 block text-[11px] tabular-nums text-[color:var(--muted-foreground)] opacity-0 transition-opacity duration-150 group-hover/row:opacity-100"
+                      >
+                        {formatRelative(t.updatedAt)}
+                      </time>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={(e) => handleDeleteThread(t.id, e)}
+                      className="absolute right-2 top-2.5 -translate-x-2 opacity-0 p-1 text-[color:var(--muted-foreground)] transition-[transform,opacity,color] duration-150 ease-out hover:text-[color:var(--accent)] group-hover/row:translate-x-0 group-hover/row:opacity-100 focus-visible:translate-x-0 focus-visible:opacity-100"
+                      title="Delete conversation"
+                      aria-label={`Delete ${t.title}`}
+                    >
+                      <Trash2 className="size-3.5" />
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
           )}
         </div>
-      </div>
+      </aside>
 
-      {/* Main Chat Canvas */}
-      <div className="flex-1 flex flex-col h-full bg-background relative overflow-hidden">
-        {/* Top Navbar overlay */}
-        <div className="absolute top-3 left-3 z-10 flex items-center gap-2">
-          {!sidebarOpen && (
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className="p-2.5 rounded-lg border bg-background hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-foreground shadow-sm cursor-pointer"
-              title="Expand sidebar"
-            >
-              <PanelLeftOpen className="size-4" />
-            </button>
-          )}
-        </div>
-
-        {/* Floating panel toggle button inside sidebar open mode (on Desktop) */}
-        {sidebarOpen && (
-          <div className="absolute top-3 left-3 z-10 hidden md:block">
-            <button
-              onClick={() => setSidebarOpen(false)}
-              className="p-2.5 rounded-lg border bg-background hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-foreground shadow-sm cursor-pointer"
-              title="Collapse sidebar"
-            >
+      {/* Main canvas */}
+      <div className="flex-1 flex flex-col h-full relative overflow-hidden">
+        {/* Top-left sidebar toggle (no border, ghost) */}
+        <div className="absolute top-3 left-3 z-10">
+          <button
+            type="button"
+            onClick={() => setSidebarOpen((v) => !v)}
+            className="p-1.5 text-[color:var(--muted-foreground)] transition-colors hover:text-[color:var(--foreground)]"
+            title={sidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
+            aria-label={sidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
+          >
+            {sidebarOpen ? (
               <PanelLeftClose className="size-4" />
-            </button>
-          </div>
-        )}
+            ) : (
+              <PanelLeftOpen className="size-4" />
+            )}
+          </button>
+        </div>
 
-        {/* Chat Widget Wrapper */}
         <div className="flex-1 h-full flex flex-col overflow-hidden">
-          <AssistantRuntimeProvider key={activeThreadId || "new"} runtime={runtime}>
+          <AssistantRuntimeProvider
+            key={activeThreadId || "new"}
+            runtime={runtime}
+          >
             <Thread />
           </AssistantRuntimeProvider>
         </div>

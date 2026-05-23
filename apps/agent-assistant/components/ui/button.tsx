@@ -5,20 +5,22 @@ import type * as React from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-[background-color,color,border-color,transform,opacity] duration-150 ease-out outline-none focus-visible:ring-1 focus-visible:ring-[color:var(--ring)] disabled:pointer-events-none disabled:opacity-50 aria-invalid:ring-1 aria-invalid:ring-[color:var(--destructive)] [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        default:
+          "bg-[color:var(--primary)] text-[color:var(--primary-foreground)] hover:bg-[color:color-mix(in_oklch,var(--primary)_92%,transparent)]",
         destructive:
-          "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:bg-destructive/60 dark:focus-visible:ring-destructive/40",
+          "bg-[color:var(--destructive)] text-white hover:opacity-90",
         outline:
-          "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
+          "border border-[color:var(--hairline)] bg-transparent text-[color:var(--foreground)] hover:bg-[color:var(--faint)]",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+          "bg-[color:var(--secondary)] text-[color:var(--secondary-foreground)] hover:bg-[color:color-mix(in_oklch,var(--secondary)_70%,transparent)]",
         ghost:
-          "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
-        link: "text-primary underline-offset-4 hover:underline",
+          "bg-transparent hover:bg-[color:var(--faint)] hover:text-[color:var(--foreground)]",
+        link:
+          "text-[color:var(--foreground)] underline-offset-4 decoration-[color:var(--accent)] hover:underline",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
