@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap");
 @import "tailwindcss";
 
 @source "../../../packages/components";
@@ -6,54 +7,61 @@
 
 @layer base {
   :root {
+    /* Editorial v2 tokens — aligned with home app */
     --background: #ffffff;
-    --foreground: #171717;
+    --foreground: #0a0a0a;
+    --muted: color-mix(in oklch, #0a0a0a 60%, transparent);
+    --subtle: color-mix(in oklch, #0a0a0a 35%, transparent);
+    --faint: color-mix(in oklch, #0a0a0a 4%, transparent);
+    --hairline: color-mix(in oklch, #0a0a0a 8%, transparent);
+    --accent: oklch(70.5% .213 47.604); /* Cloudflare Orange */
+
     --card: #ffffff;
-    --card-foreground: #171717;
+    --card-foreground: #0a0a0a;
     --popover: #ffffff;
-    --popover-foreground: #171717;
-    --primary: #171717;
+    --popover-foreground: #0a0a0a;
+    --primary: #0a0a0a;
     --primary-foreground: #ffffff;
-    --secondary: #f4f4f5;
-    --secondary-foreground: #171717;
-    --muted: #f4f4f5;
-    --muted-foreground: #71717a;
-    --accent: #f4f4f5;
-    --accent-foreground: #171717;
+    --secondary: color-mix(in oklch, #0a0a0a 6%, transparent);
+    --secondary-foreground: #0a0a0a;
+    --muted-foreground: color-mix(in oklch, #0a0a0a 55%, transparent);
+    --accent-foreground: #0a0a0a;
     --destructive: #dc2626;
     --destructive-foreground: #ffffff;
-    --border: #e4e4e7;
-    --input: #e4e4e7;
-    --ring: #171717;
+    --border: color-mix(in oklch, #0a0a0a 10%, transparent);
+    --input: color-mix(in oklch, #0a0a0a 10%, transparent);
+    --ring: #0a0a0a;
     --radius: 0.5rem;
     --surface-card: #ffffff;
-    --hairline: rgba(23, 23, 23, 0.12);
-    --on-dark: #f8f8f2;
+    --on-dark: #fafafa;
   }
 
   .dark {
-    --background: #0d0e0c;
-    --foreground: #f8f8f2;
-    --card: #171815;
-    --card-foreground: #f8f8f2;
-    --popover: #171815;
-    --popover-foreground: #f8f8f2;
-    --primary: #f8f8f2;
-    --primary-foreground: #0d0e0c;
-    --secondary: #242420;
-    --secondary-foreground: #f8f8f2;
-    --muted: #242420;
-    --muted-foreground: #b7b7aa;
-    --accent: #242420;
-    --accent-foreground: #f8f8f2;
+    --background: #0a0a0a;
+    --foreground: #fafafa;
+    --muted: color-mix(in oklch, #fafafa 55%, transparent);
+    --subtle: color-mix(in oklch, #fafafa 30%, transparent);
+    --faint: color-mix(in oklch, #fafafa 4%, transparent);
+    --hairline: color-mix(in oklch, #fafafa 8%, transparent);
+    --accent: oklch(70.5% .213 47.604); /* Cloudflare Orange */
+
+    --card: #141414;
+    --card-foreground: #fafafa;
+    --popover: #141414;
+    --popover-foreground: #fafafa;
+    --primary: #fafafa;
+    --primary-foreground: #0a0a0a;
+    --secondary: color-mix(in oklch, #fafafa 6%, transparent);
+    --secondary-foreground: #fafafa;
+    --muted-foreground: color-mix(in oklch, #fafafa 50%, transparent);
+    --accent-foreground: #fafafa;
     --destructive: #f87171;
-    --destructive-foreground: #0d0e0c;
-    --border: rgba(248, 248, 242, 0.14);
-    --input: rgba(248, 248, 242, 0.14);
-    --ring: #f8f8f2;
-    --surface-card: #171815;
-    --hairline: rgba(248, 248, 242, 0.14);
-    --on-dark: #f8f8f2;
+    --destructive-foreground: #0a0a0a;
+    --border: color-mix(in oklch, #fafafa 10%, transparent);
+    --input: color-mix(in oklch, #fafafa 10%, transparent);
+    --ring: #fafafa;
+    --surface-card: #141414;
+    --on-dark: #fafafa;
   }
 
   @theme inline {
@@ -92,8 +100,8 @@
     margin: 0;
     background: var(--background);
     color: var(--foreground);
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", sans-serif;
+    font-family: "Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      sans-serif;
     letter-spacing: 0;
   }
 
