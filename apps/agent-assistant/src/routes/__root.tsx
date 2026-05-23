@@ -1,6 +1,7 @@
 import "@duyet/components/styles.css";
 import "../styles.css";
 
+import { SiteNavLink, SiteNav as SiteNavV2 } from "@duyet/components";
 import Analytics from "@duyet/components/Analytics";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import {
@@ -58,50 +59,13 @@ export const Route = createRootRoute({
       {
         rel: "preload",
         as: "style",
-        href: "https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap",
       },
     ],
   }),
   notFoundComponent: NotFoundComponent,
   component: RootComponent,
 });
-
-function TopBar() {
-  return (
-    <header className="sticky top-0 z-30 h-14 w-full backdrop-blur-sm bg-[color:var(--background)]/80 border-b border-transparent transition-colors duration-150">
-      <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4 md:px-6">
-        <a
-          href="/"
-          className="group inline-flex items-baseline gap-2 text-[color:var(--foreground)]"
-        >
-          <span
-            className="font-serif text-xl tracking-tight"
-            style={{ fontFamily: "var(--font-serif)" }}
-          >
-            duyetbot
-          </span>
-          <span className="text-xs text-[color:var(--muted-foreground)]">
-            assistant
-          </span>
-        </a>
-        <nav className="flex items-center gap-5 text-sm">
-          <a
-            href="/"
-            className="relative text-[color:var(--foreground)] transition-colors hover:text-[color:var(--foreground)] after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full after:scale-x-100 after:bg-[color:var(--accent)]"
-          >
-            Chat
-          </a>
-          <a
-            href="https://duyet.net"
-            className="text-[color:var(--muted-foreground)] transition-colors hover:text-[color:var(--foreground)]"
-          >
-            duyet.net
-          </a>
-        </nav>
-      </div>
-    </header>
-  );
-}
 
 function CreditFooter() {
   return (
@@ -129,7 +93,7 @@ function RootComponent() {
         <HeadContent />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap"
           media="print"
           // @ts-expect-error onLoad is valid on link elements
           onLoad="this.media='all'"
@@ -138,7 +102,32 @@ function RootComponent() {
       <body className="bg-[color:var(--background)] text-[color:var(--foreground)]">
         <ThemeProvider>
           <div className="flex min-h-screen flex-col">
-            <TopBar />
+            <SiteNavV2
+              brand={
+                <a
+                  href="/"
+                  className="group inline-flex items-baseline gap-2 text-[color:var(--foreground)]"
+                >
+                  <span
+                    className="font-serif text-xl tracking-tight"
+                    style={{ fontFamily: "var(--font-serif)" }}
+                  >
+                    duyetbot
+                  </span>
+                  <span className="text-xs text-[color:var(--muted-foreground)]">
+                    assistant
+                  </span>
+                </a>
+              }
+              links={
+                <>
+                  <SiteNavLink href="/" active>
+                    Chat
+                  </SiteNavLink>
+                  <SiteNavLink href="https://duyet.net">duyet.net</SiteNavLink>
+                </>
+              }
+            />
             <main className="flex-1 flex flex-col relative">
               <Outlet />
             </main>

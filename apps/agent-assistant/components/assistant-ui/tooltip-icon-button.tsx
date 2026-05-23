@@ -1,6 +1,6 @@
 "use client";
 
-import { Slottable, Slot } from "@radix-ui/react-slot";
+import { Slottable } from "@radix-ui/react-slot";
 import { type ComponentPropsWithRef, forwardRef } from "react";
 import { Button } from "@/components/ui/button";
 import {

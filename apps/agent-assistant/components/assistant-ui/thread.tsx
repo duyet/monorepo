@@ -12,8 +12,16 @@ import {
   useAuiState,
 } from "@assistant-ui/react";
 import {
+  CaretDown,
+  Code,
+  Compass,
+  Cpu,
+  FileText,
+  PaperPlaneTilt,
+  Sparkle,
+} from "@phosphor-icons/react";
+import {
   ArrowDownIcon,
-  ArrowUpIcon,
   CheckIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -24,7 +32,7 @@ import {
   RefreshCwIcon,
   SquareIcon,
 } from "lucide-react";
-import type { FC } from "react";
+import { type FC, useState } from "react";
 import {
   ComposerAddAttachment,
   ComposerAttachments,
@@ -110,23 +118,54 @@ const ThreadScrollToBottom: FC = () => {
   );
 };
 
+const getSuggestionIcon = (title: string) => {
+  const t = title.toLowerCase();
+  if (
+    t.includes("code") ||
+    t.includes("refactor") ||
+    t.includes("write") ||
+    t.includes("lint")
+  ) {
+    return <Code className="size-4 text-[color:var(--accent)]" />;
+  }
+  if (
+    t.includes("audit") ||
+    t.includes("explain") ||
+    t.includes("readme") ||
+    t.includes("document")
+  ) {
+    return <FileText className="size-4 text-[color:var(--accent)]" />;
+  }
+  if (t.includes("explore") || t.includes("search") || t.includes("find")) {
+    return <Compass className="size-4 text-[color:var(--accent)]" />;
+  }
+  return <Sparkle className="size-4 text-[color:var(--accent)]" />;
+};
+
 const ThreadWelcome: FC = () => {
   return (
-    <div className="aui-thread-welcome-root my-auto flex grow flex-col justify-center items-center py-6">
-      <div className="aui-thread-welcome-center flex w-full grow flex-col items-center justify-center text-center">
-        <div className="aui-thread-welcome-message flex size-full flex-col justify-center px-4 items-center">
-          <h1
-            className="aui-thread-welcome-message-inner fade-slide-up font-serif text-5xl md:text-6xl tracking-tight text-[color:var(--foreground)]"
-            style={{ fontFamily: "var(--font-serif)" }}
-          >
-            Hello.
-          </h1>
-          <p className="aui-thread-welcome-message-inner fade-slide-up mt-4 max-w-md text-base text-[color:var(--muted-foreground)]">
-            A stateful, personal engineering assistant. Ask anything.
-          </p>
+    <div className="aui-thread-welcome-root flex flex-col justify-center items-start py-12 md:py-16 px-4 md:px-6 max-w-xl mx-auto w-full">
+      <header className="fade-slide-up flex flex-col items-start text-left">
+        <div className="text-[10px] uppercase tracking-widest font-mono text-[color:var(--accent)] mb-2 font-semibold">
+          duyetbot v2
         </div>
-      </div>
-      <div className="w-full max-w-xl mt-10">
+        <h1
+          className="font-serif text-4xl md:text-5xl tracking-tight text-[color:var(--foreground)] font-light leading-none"
+          style={{ fontFamily: "var(--font-serif)" }}
+        >
+          Hello, Duyet.
+        </h1>
+        <p className="mt-3.5 text-xs text-[color:var(--muted-foreground)] max-w-md leading-relaxed font-sans">
+          Your stateful personal engineering companion. Run codebase audits,
+          sync metrics, and debug workflows in a clean, quiet, high-performance
+          sandbox.
+        </p>
+      </header>
+
+      <div className="w-full mt-10">
+        <h2 className="text-[9px] uppercase tracking-wider font-mono text-[color:var(--muted-foreground)] mb-3 font-semibold">
+          Suggested Actions
+        </h2>
         <ThreadSuggestions />
       </div>
     </div>
@@ -135,7 +174,7 @@ const ThreadWelcome: FC = () => {
 
 const ThreadSuggestions: FC = () => {
   return (
-    <div className="aui-thread-welcome-suggestions flex w-full flex-col items-center gap-3 pb-4 @md:flex-row @md:flex-wrap @md:justify-center">
+    <div className="aui-thread-welcome-suggestions flex flex-col sm:flex-row sm:flex-wrap gap-3 pb-4 w-full">
       <ThreadPrimitive.Suggestions>
         {() => <ThreadSuggestionItem />}
       </ThreadPrimitive.Suggestions>
@@ -144,15 +183,26 @@ const ThreadSuggestions: FC = () => {
 };
 
 const ThreadSuggestionItem: FC = () => {
+  const [title, setTitle] = useState("");
   return (
-    <div className="aui-thread-welcome-suggestion-display fade-slide-up nth-[n+3]:hidden @md:nth-[n+3]:block @md:nth-[n+5]:hidden">
+    <div className="aui-thread-welcome-suggestion-display fade-slide-up w-full sm:w-[calc(50%-0.375rem)]">
       <SuggestionPrimitive.Trigger send asChild>
         <button
           type="button"
-          className="aui-thread-welcome-suggestion inline-flex items-baseline gap-1.5 bg-transparent px-1 py-1 text-sm text-[color:var(--muted-foreground)] underline-offset-4 transition-colors hover:text-[color:var(--foreground)] hover:underline hover:decoration-[color:var(--accent)] focus-visible:underline focus-visible:decoration-[color:var(--accent)] outline-none"
+          className="w-full text-left p-3.5 rounded-lg border border-[color:var(--hairline)] bg-[color:var(--background)] hover:border-[color:var(--accent)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs flex flex-col gap-2 group cursor-pointer"
         >
-          <SuggestionPrimitive.Title className="aui-thread-welcome-suggestion-text-1" />
-          <SuggestionPrimitive.Description className="aui-thread-welcome-suggestion-text-2 text-[color:var(--muted-foreground)] empty:hidden" />
+          <div className="flex items-center gap-2">
+            {getSuggestionIcon(title)}
+            <SuggestionPrimitive.Title
+              className="font-sans font-medium text-xs text-[color:var(--foreground)] group-hover:text-[color:var(--accent)] transition-colors"
+              ref={(el) => {
+                if (el?.textContent && el.textContent !== title) {
+                  setTitle(el.textContent);
+                }
+              }}
+            />
+          </div>
+          <SuggestionPrimitive.Description className="font-sans text-[10px] text-[color:var(--muted-foreground)] leading-snug empty:hidden line-clamp-2" />
         </button>
       </SuggestionPrimitive.Trigger>
     </div>
@@ -160,22 +210,75 @@ const ThreadSuggestionItem: FC = () => {
 };
 
 const Composer: FC = () => {
+  const [model, setModel] = useState("Claude 3.5 Sonnet");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const models = [
+    { name: "Claude 3.5 Sonnet", desc: "Most intelligent model" },
+    { name: "Gemini 1.5 Pro", desc: "Large context window" },
+    { name: "GPT-4o", desc: "Fast & versatile" },
+  ];
+
   return (
-    <ComposerPrimitive.Root className="aui-composer-root relative flex w-full flex-col border-t border-[color:var(--hairline)] pt-3">
+    <ComposerPrimitive.Root className="aui-composer-root relative flex w-full flex-col pt-3 bg-transparent">
       <ComposerPrimitive.AttachmentDropzone asChild>
         <div
           data-slot="aui_composer-shell"
-          className="flex w-full flex-col gap-2 bg-transparent px-1 py-1 data-[dragging=true]:bg-[color:var(--faint)]"
+          className="flex w-full flex-col gap-2.5 p-3.5 bg-[color:var(--card)] border border-[color:var(--hairline)] rounded-xl shadow-xs transition-shadow focus-within:shadow-md focus-within:border-[color:var(--accent)]"
         >
           <ComposerAttachments />
           <ComposerPrimitive.Input
             placeholder="Message duyetbot…"
-            className="aui-composer-input min-h-10 w-full resize-none bg-transparent px-1.5 py-1.5 text-base text-[color:var(--foreground)] outline-none placeholder:text-[color:var(--muted-foreground)] placeholder:transition-opacity focus:placeholder:opacity-60"
+            className="aui-composer-input min-h-[4rem] w-full resize-none bg-transparent px-1.5 py-1 text-sm text-[color:var(--foreground)] outline-none placeholder:text-[color:var(--muted-foreground)] focus:placeholder:opacity-60"
             rows={1}
             autoFocus
             aria-label="Message input"
           />
-          <ComposerAction />
+
+          <div className="flex items-center justify-between border-t border-[color:var(--hairline)] pt-3 mt-1">
+            {/* Model Selector */}
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[10px] font-mono text-[color:var(--muted-foreground)] hover:text-[color:var(--foreground)] hover:bg-[color:var(--faint)] transition-colors cursor-pointer"
+              >
+                <Cpu className="size-3.5 text-[color:var(--accent)]" />
+                <span>{model}</span>
+                <CaretDown className="size-3" />
+              </button>
+
+              {dropdownOpen && (
+                <>
+                  <div
+                    className="fixed inset-0 z-30"
+                    onClick={() => setDropdownOpen(false)}
+                  />
+                  <div className="absolute left-0 bottom-full mb-1 z-40 w-48 rounded-lg border border-[color:var(--hairline)] bg-[color:var(--popover)] p-1 shadow-sm text-[11px]">
+                    {models.map((m) => (
+                      <button
+                        key={m.name}
+                        type="button"
+                        onClick={() => {
+                          setModel(m.name);
+                          setDropdownOpen(false);
+                        }}
+                        className="w-full text-left px-2.5 py-2 rounded-md hover:bg-[color:var(--faint)] text-[color:var(--foreground)] transition-colors cursor-pointer flex flex-col"
+                      >
+                        <span className="font-medium">{m.name}</span>
+                        <span className="text-[9px] text-[color:var(--muted-foreground)]">
+                          {m.desc}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Actions */}
+            <ComposerAction />
+          </div>
         </div>
       </ComposerPrimitive.AttachmentDropzone>
     </ComposerPrimitive.Root>
@@ -184,34 +287,30 @@ const Composer: FC = () => {
 
 const ComposerAction: FC = () => {
   return (
-    <div className="aui-composer-action-wrapper relative flex items-center justify-between">
+    <div className="aui-composer-action-wrapper relative flex items-center gap-2">
       <ComposerAddAttachment />
+
       <AuiIf condition={(s) => !s.thread.isRunning}>
         <ComposerPrimitive.Send asChild>
-          <TooltipIconButton
-            tooltip="Send message"
-            side="bottom"
-            type="button"
-            variant="default"
-            size="icon-sm"
-            className="aui-composer-send size-8 rounded-md transition-transform duration-150 ease-out enabled:hover:scale-100 disabled:scale-[0.98]"
+          <button
+            type="submit"
+            className="aui-composer-send size-8 rounded-lg bg-[color:var(--accent)] text-white hover:opacity-95 active:scale-95 transition-all flex items-center justify-center cursor-pointer disabled:opacity-50 disabled:scale-100 disabled:cursor-not-allowed shadow-[0_2px_4px_rgba(204,120,92,0.2)]"
             aria-label="Send message"
           >
-            <ArrowUpIcon className="aui-composer-send-icon size-4" />
-          </TooltipIconButton>
+            <PaperPlaneTilt className="size-4 weight-fill" />
+          </button>
         </ComposerPrimitive.Send>
       </AuiIf>
+
       <AuiIf condition={(s) => s.thread.isRunning}>
         <ComposerPrimitive.Cancel asChild>
-          <Button
+          <button
             type="button"
-            variant="default"
-            size="icon-sm"
-            className="aui-composer-cancel size-8 rounded-md"
+            className="aui-composer-cancel size-8 rounded-lg bg-[color:var(--foreground)] text-[color:var(--background)] hover:opacity-90 active:scale-95 transition-all flex items-center justify-center cursor-pointer"
             aria-label="Stop generating"
           >
-            <SquareIcon className="aui-composer-cancel-icon size-3 fill-current" />
-          </Button>
+            <SquareIcon className="size-3 fill-current" />
+          </button>
         </ComposerPrimitive.Cancel>
       </AuiIf>
     </div>
