@@ -1,4 +1,10 @@
-import { AppCommandPalette, SiteNav, siteNavLinkClassName } from "@duyet/components";
+import {
+  AppCommandPalette,
+  AppsDrawer,
+  SiteNav,
+  siteNavLinkClassName,
+} from "@duyet/components";
+import { DotsNine } from "@phosphor-icons/react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { useState } from "react";
 import { addUtmParams } from "../../app/lib/utm";
@@ -19,16 +25,28 @@ const navigationItems: NavItem[] = [
     href: addUtmParams("https://cv.duyet.net", "site_header", "cv"),
     external: true,
   },
+  {
+    name: "Insights",
+    href: addUtmParams(
+      "https://insights.duyet.net",
+      "site_header",
+      "insights",
+    ),
+    external: true,
+  },
 ];
 
 export function SiteHeader() {
   const [paletteOpen, setPaletteOpen] = useState(false);
+  const [appsOpen, setAppsOpen] = useState(false);
   const location = useLocation();
 
   const isActive = (href: string) => {
     if (href.startsWith("http") || href.startsWith("mailto")) return false;
     if (href === "/") return location.pathname === "/";
-    return location.pathname === href || location.pathname.startsWith(`${href}/`);
+    return (
+      location.pathname === href || location.pathname.startsWith(`${href}/`)
+    );
   };
 
   const brandSlot = (
@@ -69,6 +87,15 @@ export function SiteHeader() {
       })}
       <button
         type="button"
+        onClick={() => setAppsOpen(true)}
+        className="relative text-sm font-medium tracking-tight text-[color:var(--editorial-muted)] hover:text-[color:var(--editorial-fg)] transition-colors cursor-pointer flex items-center gap-1"
+        aria-label="Open apps menu"
+      >
+        <DotsNine size={16} weight="bold" />
+        <span className="hidden lg:inline">Apps</span>
+      </button>
+      <button
+        type="button"
         onClick={() => setPaletteOpen(true)}
         className={`${siteNavLinkClassName(false)} flex items-center gap-1.5 cursor-pointer`}
         aria-label="Open command palette"
@@ -86,7 +113,12 @@ export function SiteHeader() {
       <SiteNav
         brand={brandSlot}
         links={linksSlot}
-        onMobileMenuClick={() => setPaletteOpen(true)}
+        onMobileMenuClick={() => setAppsOpen(true)}
+      />
+      <AppsDrawer
+        isOpen={appsOpen}
+        onClose={() => setAppsOpen(false)}
+        activeApp="home"
       />
       <AppCommandPalette
         open={paletteOpen}
@@ -103,10 +135,10 @@ export function SiteFooter() {
     <footer className="mt-24 border-t border-[color:var(--hairline)]">
       <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-10 text-sm text-[color:var(--muted)] md:flex-row md:items-center md:justify-between md:px-8">
         <p className="tabular-nums text-[color:var(--muted)]">
-          © {year} Duyet Le · duyet.net
+          &copy; {year} Duyet Le &middot; duyet.net
         </p>
-        <small className="italic text-[color:var(--muted)]">
-          This site is auto-driven and auto-designed by{" "}
+        <small className="text-[color:var(--muted)]">
+          Auto-driven and auto-designed by{" "}
           <a
             href="https://github.com/duyetbot"
             target="_blank"
@@ -115,7 +147,6 @@ export function SiteFooter() {
           >
             duyetbot
           </a>
-          .
         </small>
       </div>
     </footer>

@@ -18,7 +18,6 @@ type ProjectRowItem = AppItem & {
   status: string;
 };
 
-// Editorial meta enrichment
 const rowMeta: Record<string, { year: string; stack: string; status: string }> =
   {
     AnyRouter: { year: "2026", stack: "Cloudflare · TS", status: "Live" },
@@ -51,12 +50,33 @@ const statusDot: Record<string, string> = {
 
 const featured: ProjectRowItem[] = apps.slice(0, 5).map((item) => ({
   ...item,
-  ...(rowMeta[item.name] ?? {
-    year: "—",
-    stack: "—",
-    status: "Live",
-  }),
+  ...(rowMeta[item.name] ?? { year: "—", stack: "—", status: "Live" }),
 }));
+
+const metrics = [
+  { value: "10+", label: "Years building" },
+  { value: "12", label: "Projects shipped" },
+  { value: "7", label: "Open source" },
+  { value: "79x", label: "WASM speedup" },
+];
+
+const expertise = [
+  {
+    title: "Data Infrastructure",
+    description:
+      "Real-time analytics with ClickHouse, observability pipelines, and monitoring dashboards that handle production traffic at scale.",
+  },
+  {
+    title: "AI & Agent Tools",
+    description:
+      "LLM-powered agents, MCP servers, Claude plugins, and streaming tool-use interfaces built on Cloudflare's edge.",
+  },
+  {
+    title: "Edge Computing",
+    description:
+      "Cloudflare Workers, Durable Objects, and Rust-to-WASM modules compiled for near-zero cold starts at the edge.",
+  },
+];
 
 function HomePage() {
   return (
@@ -65,41 +85,55 @@ function HomePage() {
         <KeyboardFeatures />
       </Suspense>
 
-      <div className="min-h-screen bg-[color:var(--background)] text-[color:var(--foreground)]">
+      <div className="min-h-screen overflow-x-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
         <SiteHeader />
 
         <main className="mx-auto max-w-[1200px] px-6 md:px-8">
-          {/* Asymmetric Hero Section */}
-          <section className="pt-24 pb-20 md:pt-36 md:pb-28">
-            <div className="flex flex-col items-start text-left max-w-2xl">
-                <span className="text-xs font-bold uppercase tracking-wider text-[color:var(--accent)] mb-4">
-                  Data & AI Engineer
-                </span>
-                <h1 className="font-medium text-5xl md:text-7xl tracking-tight leading-[1.05] text-[color:var(--foreground)]">
-                  Duyet Le
-                </h1>
-                <p className="mt-6 max-w-xl text-lg text-[color:var(--muted)] leading-relaxed">
-                  I build practical infrastructure, robust AI integrations, and lightweight tools that remain simple and effective in production.
-                </p>
-                <div className="mt-8 flex flex-wrap gap-4">
-                  <a
-                    href="mailto:me@duyet.net"
-                    className="inline-flex items-center justify-center rounded-lg bg-[color:var(--accent)] px-5 py-2.5 text-sm font-medium text-white hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer shadow-sm shadow-[color:var(--accent)]/10"
-                  >
-                    Get in touch
-                  </a>
-                  <Link
-                    to="/projects"
-                    className="inline-flex items-center justify-center rounded-lg border border-[color:var(--hairline)] bg-transparent px-5 py-2.5 text-sm font-medium text-[color:var(--muted)] hover:text-[color:var(--foreground)] hover:bg-[color:var(--faint)] transition-all cursor-pointer"
-                  >
-                    View Projects
-                  </Link>
-                </div>
+          {/* ── Hero ── */}
+          <section className="pt-28 pb-16 md:pt-40 md:pb-24">
+            <div className="max-w-3xl">
+              <h1 className="font-medium text-5xl md:text-7xl tracking-tight leading-[1.05] text-[color:var(--foreground)]">
+                Duyet Le
+              </h1>
+              <p className="mt-6 max-w-xl text-lg md:text-xl text-[color:var(--muted)] leading-relaxed">
+                Building data systems, AI agents, and lightweight tools that
+                stay simple in production.
+              </p>
+              <div className="mt-10 flex flex-wrap gap-4">
+                <a
+                  href="mailto:me@duyet.net"
+                  className="inline-flex items-center justify-center rounded-lg bg-[color:var(--accent)] px-6 py-3 text-sm font-medium text-white hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer"
+                >
+                  Get in touch
+                </a>
+                <Link
+                  to="/projects"
+                  className="inline-flex items-center justify-center rounded-lg border border-[color:var(--hairline)] px-6 py-3 text-sm font-medium text-[color:var(--muted)] hover:text-[color:var(--foreground)] hover:bg-[color:var(--faint)] transition-all cursor-pointer"
+                >
+                  View projects
+                </Link>
               </div>
+            </div>
           </section>
 
-          {/* Premium Grid Project Section */}
-          <section className="py-16 md:py-28">
+          {/* ── Metrics ── */}
+          <section className="py-10 md:py-14 border-y border-[color:var(--hairline)]">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+              {metrics.map((m) => (
+                <div key={m.label}>
+                  <p className="text-3xl md:text-4xl font-medium tracking-tight tabular-nums text-[color:var(--foreground)]">
+                    {m.value}
+                  </p>
+                  <p className="mt-1 text-sm text-[color:var(--muted)]">
+                    {m.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ── Selected Work ── */}
+          <section className="py-20 md:py-32">
             <div className="mb-10 flex items-baseline justify-between">
               <h2 className="text-3xl font-medium tracking-tight md:text-4xl text-[color:var(--foreground)]">
                 Selected work
@@ -124,23 +158,39 @@ function HomePage() {
             </div>
           </section>
 
-          {/* Sites Section — sibling apps in the monorepo */}
-          <section
-            id="sites"
-            className="py-16 md:py-28"
-          >
+          {/* ── What I Build ── */}
+          <section className="py-20 md:py-32">
+            <h2 className="text-3xl font-medium tracking-tight md:text-4xl text-[color:var(--foreground)] mb-12">
+              What I build
+            </h2>
+            <div className="border-t border-[color:var(--hairline)]">
+              {expertise.map((area) => (
+                <div
+                  key={area.title}
+                  className="group py-8 border-b border-[color:var(--hairline)] flex flex-col md:flex-row md:items-baseline gap-2 md:gap-12"
+                >
+                  <h3 className="text-lg font-semibold tracking-tight text-[color:var(--foreground)] md:w-56 shrink-0 group-hover:text-[color:var(--accent)] transition-colors duration-150">
+                    {area.title}
+                  </h3>
+                  <p className="text-base text-[color:var(--muted)] leading-relaxed max-w-2xl">
+                    {area.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ── Sites ── */}
+          <section id="sites" className="py-20 md:py-32">
             <div className="mb-10">
-              <span className="text-xs font-bold uppercase tracking-wider text-[color:var(--accent)] mb-3 block">
-                Monorepo Directory
-              </span>
               <h2 className="text-3xl font-medium tracking-tight md:text-4xl text-[color:var(--foreground)]">
                 Sites
               </h2>
               <p className="mt-4 max-w-2xl text-base text-[color:var(--muted)] leading-relaxed">
-                Live applications deployed from this monorepo. Each ships directly to its own production domain.
+                Live applications deployed from this monorepo. Each ships
+                directly to its own production domain.
               </p>
             </div>
-
             <div className="border-t border-[color:var(--hairline)]">
               {siblingApps.map((item) => (
                 <SiteRow key={item.domain} item={item} />
@@ -148,13 +198,14 @@ function HomePage() {
             </div>
           </section>
 
-          {/* Contact Section */}
-          <section className="py-16 md:py-28">
+          {/* ── Contact ── */}
+          <section className="py-20 md:py-32">
             <h2 className="text-3xl font-medium tracking-tight md:text-4xl text-[color:var(--foreground)]">
               Get in touch
             </h2>
             <p className="mt-4 max-w-2xl text-base text-[color:var(--muted)] leading-relaxed">
-              Open to work on data infrastructure, AI agents, and open-source software.
+              Open to work on data infrastructure, AI agents, and open-source
+              software.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-6 text-sm">
               <a
@@ -212,14 +263,22 @@ function ProjectCard({
       <ProjectLink item={item}>
         <div className="flex flex-col gap-3">
           <div className="flex items-start justify-between gap-3">
-            <h3 className={`font-semibold tracking-tight text-[color:var(--foreground)] group-hover:text-[color:var(--accent)] transition-colors duration-150 ${featured ? "text-xl md:text-2xl" : "text-lg"}`}>
+            <h3
+              className={`font-semibold tracking-tight text-[color:var(--foreground)] group-hover:text-[color:var(--accent)] transition-colors duration-150 ${
+                featured ? "text-xl md:text-2xl" : "text-lg"
+              }`}
+            >
               {item.name}
             </h3>
             <span className="text-[color:var(--muted)] group-hover:text-[color:var(--accent)] transition-colors duration-150">
               <ArrowSquareOut size={18} weight="bold" />
             </span>
           </div>
-          <p className={`text-[color:var(--muted)] leading-relaxed ${featured ? "text-base" : "text-sm"} ${featured ? "line-clamp-4" : "line-clamp-3"}`}>
+          <p
+            className={`text-[color:var(--muted)] leading-relaxed ${
+              featured ? "text-base" : "text-sm"
+            } ${featured ? "line-clamp-4" : "line-clamp-3"}`}
+          >
             {item.description}
           </p>
         </div>
@@ -230,7 +289,11 @@ function ProjectCard({
             <span>{item.stack}</span>
             <span className="h-1 w-1 rounded-full bg-[color:var(--hairline)]" />
             <span className="flex items-center gap-1.5">
-              <span className={`h-1.5 w-1.5 rounded-full ${statusDot[item.status] ?? "bg-[color:var(--hairline)]"}`} />
+              <span
+                className={`h-1.5 w-1.5 rounded-full ${
+                  statusDot[item.status] ?? "bg-[color:var(--hairline)]"
+                }`}
+              />
               <span className="font-semibold">{item.status}</span>
             </span>
           </div>
