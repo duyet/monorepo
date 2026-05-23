@@ -5,6 +5,7 @@ import type { UrlsConfig } from "@duyet/urls";
 import { duyetUrls } from "@duyet/urls";
 import { Link } from "@tanstack/react-router";
 import type { ReactElement, ReactNode } from "react";
+import { AutoDesignedBadge } from "./auto-designed-badge";
 import Container from "./Container";
 import Logo from "./Logo";
 import Social from "./Social";
@@ -155,6 +156,10 @@ export function FooterContent({
             {profile.personal.title} | {localDate}
           </p>
           <ThemeToggle />
+        </div>
+
+        <div className="mt-6">
+          <AutoDesignedBadge />
         </div>
       </div>
     </Container>
