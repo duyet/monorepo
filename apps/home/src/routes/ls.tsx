@@ -12,7 +12,6 @@ export const Route = createFileRoute("/ls")({
   component: ListPage,
 });
 
-// Computed once at module load — urls and categories are static
 const publicUrls = Object.entries(urls)
   .filter(([_, value]) => {
     if (typeof value === "string") return true;
@@ -37,17 +36,17 @@ function ListPage() {
     <div className="min-h-screen bg-[color:var(--background)] text-[color:var(--foreground)]">
       <SiteHeader />
 
-      <main className="mx-auto max-w-6xl px-6 pt-24 pb-20 md:px-8 md:pt-32 md:pb-32">
+      <main className="mx-auto max-w-[1200px] px-6 pt-24 pb-20 md:px-8 md:pt-32 md:pb-32">
         <header className="max-w-3xl">
           <div className="flex items-baseline gap-4">
-            <h1 className="font-serif text-5xl tracking-tight md:text-6xl">
+            <h1 className="text-4xl font-medium tracking-tight md:text-5xl text-[color:var(--foreground)]">
               Short URLs
             </h1>
             <span className="font-mono text-sm tabular-nums text-[color:var(--subtle)]">
               {publicUrls.length}
             </span>
           </div>
-          <p className="mt-6 max-w-2xl text-lg text-[color:var(--muted)]">
+          <p className="mt-6 max-w-2xl text-lg text-[color:var(--muted)] leading-relaxed">
             Quick links and redirects for duyet.net.
           </p>
         </header>

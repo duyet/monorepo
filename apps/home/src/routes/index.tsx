@@ -1,3 +1,4 @@
+import { ArrowSquareOut } from "@phosphor-icons/react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Suspense } from "react";
 import type { ReactNode } from "react";
@@ -16,8 +17,7 @@ type ProjectRowItem = AppItem & {
   status: string;
 };
 
-// Lightweight meta enrichment for the home row. Year/stack/status are editorial,
-// kept here so we don't widen the shared AppItem type for adjacent apps.
+// Editorial meta enrichment
 const rowMeta: Record<string, { year: string; stack: string; status: string }> =
   {
     AnyRouter: { year: "2026", stack: "Cloudflare · TS", status: "Live" },
@@ -61,51 +61,99 @@ function HomePage() {
       <div className="min-h-screen bg-[color:var(--background)] text-[color:var(--foreground)]">
         <SiteHeader />
 
-        <main className="mx-auto max-w-6xl px-6 md:px-8">
-          {/* Hero */}
-          <section className="pt-24 pb-20 md:pt-32 md:pb-32">
-            <h1 className="font-serif text-6xl tracking-tight md:text-7xl">
-              Duyet Le
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg text-[color:var(--muted)]">
-              Data & AI engineer. I build practical infrastructure and small
-              tools that stay useful in production.
-            </p>
+        <main className="mx-auto max-w-[1200px] px-6 md:px-8">
+          {/* Asymmetric Hero Section */}
+          <section className="pt-20 pb-16 md:pt-28 md:pb-24">
+            <div className="grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-10 lg:gap-16 items-center">
+              {/* Left Side: Editorial Content */}
+              <div className="flex flex-col items-start text-left">
+                <span className="text-xs font-bold uppercase tracking-wider text-[color:var(--accent)] mb-4">
+                  Data & AI Engineer
+                </span>
+                <h1 className="font-medium text-5xl md:text-7xl tracking-tight leading-[1.05] text-[color:var(--foreground)]">
+                  Duyet Le
+                </h1>
+                <p className="mt-6 max-w-xl text-lg text-[color:var(--muted)] leading-relaxed">
+                  I build practical infrastructure, robust AI integrations, and lightweight tools that remain simple and effective in production.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-4">
+                  <a
+                    href="mailto:me@duyet.net"
+                    className="inline-flex items-center justify-center rounded-lg bg-[color:var(--accent)] px-5 py-2.5 text-sm font-medium text-white hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer shadow-sm shadow-[color:var(--accent)]/10"
+                  >
+                    Get in touch
+                  </a>
+                  <Link
+                    to="/projects"
+                    className="inline-flex items-center justify-center rounded-lg border border-[color:var(--hairline)] bg-transparent px-5 py-2.5 text-sm font-medium text-[color:var(--muted)] hover:text-[color:var(--foreground)] hover:bg-[color:var(--faint)] transition-all cursor-pointer"
+                  >
+                    View Projects
+                  </Link>
+                </div>
+              </div>
+
+              {/* Right Side: Elegant Live-Activity Card */}
+              <div className="w-full max-w-md lg:max-w-none">
+                <div className="card-v2 p-6 flex flex-col gap-4 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-radial from-[color:var(--accent)]/10 to-transparent pointer-events-none" />
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-[color:var(--accent)] bg-[color:var(--accent)]/10 px-2.5 py-0.5 rounded-full font-semibold">
+                      Live Status
+                    </span>
+                    <span className="flex h-2 w-2 relative">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[color:var(--accent)] opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-[color:var(--accent)]"></span>
+                    </span>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold tracking-tight text-[color:var(--foreground)]">Active Worktree</h4>
+                    <p className="mt-1 text-xs text-[color:var(--muted)] font-mono">v2/home-refresh</p>
+                  </div>
+                  <div className="border-t border-[color:var(--hairline)] pt-3 flex items-center justify-between text-[11px] font-mono text-[color:var(--subtle)]">
+                    <span className="flex items-center gap-1">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                      <span>Sync: 100% OK</span>
+                    </span>
+                    <span className="tabular-nums">2026-05-23</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
 
-          {/* Projects — borderless rows */}
+          {/* Premium Grid Project Section */}
           <section className="pb-20 md:pb-32">
             <div className="mb-10 flex items-baseline justify-between">
-              <h2 className="font-serif text-3xl tracking-tight md:text-4xl">
+              <h2 className="text-3xl font-medium tracking-tight md:text-4xl text-[color:var(--foreground)]">
                 Selected work
               </h2>
               <Link
                 to="/projects"
-                className="link-underline text-sm text-[color:var(--muted)] hover:text-[color:var(--foreground)]"
+                className="link-underline text-sm font-medium text-[color:var(--muted)] hover:text-[color:var(--foreground)]"
               >
                 All projects
               </Link>
             </div>
 
-            <ul className="flex flex-col">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {featured.map((item, i) => (
-                <ProjectRow key={item.name} item={item} index={i} />
+                <ProjectCard key={item.name} item={item} index={i} />
               ))}
-            </ul>
+            </div>
           </section>
 
-          {/* Contact — single primary CTA */}
+          {/* Contact Section */}
           <section className="pb-20 md:pb-32">
-            <h2 className="font-serif text-3xl tracking-tight md:text-4xl">
+            <h2 className="text-3xl font-medium tracking-tight md:text-4xl text-[color:var(--foreground)]">
               Get in touch
             </h2>
-            <p className="mt-4 max-w-2xl text-base text-[color:var(--muted)]">
-              Open to work on data infrastructure, AI agents, and OSS.
+            <p className="mt-4 max-w-2xl text-base text-[color:var(--muted)] leading-relaxed">
+              Open to work on data infrastructure, AI agents, and open-source software.
             </p>
-            <div className="mt-6 flex flex-wrap items-center gap-6 text-sm">
+            <div className="mt-8 flex flex-wrap items-center gap-6 text-sm">
               <a
                 href="mailto:me@duyet.net"
-                className="link-underline text-[color:var(--foreground)]"
+                className="link-underline text-[color:var(--foreground)] font-medium"
               >
                 me@duyet.net
               </a>
@@ -113,7 +161,7 @@ function HomePage() {
                 href="https://linkedin.com/in/duyet"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link-underline text-[color:var(--muted)] hover:text-[color:var(--foreground)]"
+                className="link-underline text-[color:var(--muted)] hover:text-[color:var(--foreground)] font-medium"
               >
                 LinkedIn
               </a>
@@ -121,13 +169,13 @@ function HomePage() {
                 href="https://github.com/duyet"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link-underline text-[color:var(--muted)] hover:text-[color:var(--foreground)]"
+                className="link-underline text-[color:var(--muted)] hover:text-[color:var(--foreground)] font-medium"
               >
                 GitHub
               </a>
               <Link
                 to="/ls"
-                className="link-underline text-[color:var(--muted)] hover:text-[color:var(--foreground)]"
+                className="link-underline text-[color:var(--muted)] hover:text-[color:var(--foreground)] font-medium"
               >
                 Short URLs
               </Link>
@@ -141,7 +189,7 @@ function HomePage() {
   );
 }
 
-function ProjectRow({
+function ProjectCard({
   item,
   index,
 }: {
@@ -149,24 +197,35 @@ function ProjectRow({
   index: number;
 }) {
   return (
-    <li
-      className="group animate-fade-in py-6 md:py-7"
+    <div
+      className="card-v2 p-5 flex flex-col justify-between h-full group animate-fade-in relative"
       style={{ animationDelay: `${index * 50}ms` }}
     >
       <ProjectLink item={item}>
-        <div className="grid items-baseline gap-2 md:grid-cols-[1fr_auto]">
-          <h3 className="font-serif text-2xl tracking-tight text-[color:var(--foreground)] transition-transform duration-150 ease-out group-hover:-translate-y-px">
-            <span className="link-underline">{item.name}</span>
-          </h3>
-          <p className="font-mono text-xs tabular-nums text-[color:var(--subtle)] md:text-right">
-            {item.year} · {item.stack} · {item.status}
+        <div className="flex flex-col gap-3">
+          <div className="flex items-start justify-between gap-3">
+            <h3 className="font-semibold text-lg tracking-tight text-[color:var(--foreground)] group-hover:text-[color:var(--accent)] transition-colors duration-150">
+              {item.name}
+            </h3>
+            <span className="text-[color:var(--muted)] group-hover:text-[color:var(--accent)] transition-colors duration-150">
+              <ArrowSquareOut size={18} weight="bold" />
+            </span>
+          </div>
+          <p className="text-sm text-[color:var(--muted)] leading-relaxed line-clamp-3">
+            {item.description}
           </p>
         </div>
-        <p className="mt-2 max-w-3xl text-base text-[color:var(--muted)]">
-          {item.description}
-        </p>
+
+        <div className="mt-6 border-t border-[color:var(--hairline)] pt-3 flex items-center justify-between text-[11px] font-mono text-[color:var(--subtle)]">
+          <span className="tabular-nums font-semibold">{item.year}</span>
+          <div className="flex items-center gap-2">
+            <span>{item.stack}</span>
+            <span className="h-1 w-1 rounded-full bg-[color:var(--hairline)]" />
+            <span className="text-[color:var(--accent)] font-semibold">{item.status}</span>
+          </div>
+        </div>
       </ProjectLink>
-    </li>
+    </div>
   );
 }
 
@@ -183,7 +242,7 @@ function ProjectLink({
     return (
       <a
         href={href}
-        className="block no-underline"
+        className="block no-underline h-full"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -193,7 +252,7 @@ function ProjectLink({
   }
 
   return (
-    <Link to={href} className="block no-underline">
+    <Link to={href} className="block no-underline h-full">
       {children}
     </Link>
   );

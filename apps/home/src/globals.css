@@ -1,29 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap");
 @import "tailwindcss";
-
-@custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
   :root {
-    /* ── Editorial monochrome tokens (canonical) ───────────────────── */
+    /* ── Editorial v2 tokens (canonical orange accents) ──────────────── */
     --background: #ffffff;
     --foreground: #0a0a0a;
     --muted: color-mix(in oklch, #0a0a0a 60%, transparent);
     --subtle: color-mix(in oklch, #0a0a0a 35%, transparent);
-    --faint: color-mix(in oklch, #0a0a0a 8%, transparent);
+    --faint: color-mix(in oklch, #0a0a0a 4%, transparent);
     --hairline: color-mix(in oklch, #0a0a0a 8%, transparent);
-    --accent: #cc785c;
+    --accent: oklch(70.5% .213 47.604); /* Cloudflare Orange accent */
 
-    /* Typography stacks */
-    --font-serif: "EB Garamond", Garamond, "Apple Garamond", ui-serif, serif;
-    --font-sans: "Inter Variable", Inter, -apple-system, BlinkMacSystemFont,
-      ui-sans-serif, system-ui, sans-serif;
-    --font-inter: var(--font-sans);
+    /* Typography stacks (Geist enforced, no serif) */
+    --font-geist: "Geist", -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, sans-serif;
+    --font-geist-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --font-sans: var(--font-geist);
+    --font-serif: var(--font-geist); /* Enforce absolutely no serif fonts anywhere */
+    --font-inter: var(--font-geist);
+    --font-mono: var(--font-geist-mono);
+
+    /* Shared components override tokens */
+    --editorial-bg: var(--background);
+    --editorial-fg: var(--foreground);
+    --editorial-muted: var(--muted);
+    --editorial-subtle: var(--subtle);
+    --editorial-faint: var(--faint);
+    --editorial-hairline: var(--hairline);
+    --editorial-accent: var(--accent);
+    --editorial-font-sans: var(--font-sans);
+    --editorial-font-serif: var(--font-sans);
+    --editorial-font-mono: var(--font-mono);
+
+    /* Premium card-v2 tokens */
+    --card-bg: #ffffff;
+    --card-border: rgba(246, 130, 31, 0.08);
+    --card-border-hover: rgba(246, 130, 31, 0.22);
+    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(246, 130, 31, 0.01);
+    --card-shadow-hover: 0 8px 24px rgba(246, 130, 31, 0.06), 0 2px 6px rgba(0, 0, 0, 0.02);
 
     /* Spacing & Radius Scale */
     --radius-xs: 4px;
-    --radius-sm: 6px;
-    --radius-md: 6px;
-    --radius-lg: 8px;
+    --radius-sm: 8px;
+    --radius-md: 10px;
+    --radius-lg: 12px; /* Soft-bordered panels */
     --radius-max: 1000px;
 
     --gap-xxs: 8px;
@@ -57,7 +77,7 @@
     --body-3: 15px;
     --body-4: 12px;
 
-    /* ── Legacy tokens (kept for backward compat with shared chrome) ── */
+    /* ── Legacy tokens ── */
     --foreground-primary: var(--foreground);
     --foreground-secondary: var(--foreground);
     --foreground-tertiary: var(--muted);
@@ -87,7 +107,7 @@
     --body-strong: var(--foreground);
     --body: var(--foreground);
 
-    /* Legacy color utilities (still referenced by some packages) */
+    /* Legacy color utilities */
     --bg-clay: var(--faint);
     --bg-oat: var(--faint);
     --bg-olive: var(--faint);
@@ -105,9 +125,28 @@
     --foreground: #fafafa;
     --muted: color-mix(in oklch, #fafafa 55%, transparent);
     --subtle: color-mix(in oklch, #fafafa 30%, transparent);
-    --faint: color-mix(in oklch, #fafafa 8%, transparent);
+    --faint: color-mix(in oklch, #fafafa 4%, transparent);
     --hairline: color-mix(in oklch, #fafafa 8%, transparent);
-    --accent: #e8926e;
+    --accent: oklch(70.5% .213 47.604); /* Cloudflare Orange accent */
+
+    /* Shared components override tokens */
+    --editorial-bg: var(--background);
+    --editorial-fg: var(--foreground);
+    --editorial-muted: var(--muted);
+    --editorial-subtle: var(--subtle);
+    --editorial-faint: var(--faint);
+    --editorial-hairline: var(--hairline);
+    --editorial-accent: var(--accent);
+    --editorial-font-sans: var(--font-sans);
+    --editorial-font-serif: var(--font-sans);
+    --editorial-font-mono: var(--font-mono);
+
+    /* Premium card-v2 tokens - Dark */
+    --card-bg: #121212;
+    --card-border: rgba(246, 130, 31, 0.12);
+    --card-border-hover: rgba(246, 130, 31, 0.32);
+    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --card-shadow-hover: 0 8px 24px rgba(246, 130, 31, 0.08);
 
     --foreground-primary: var(--foreground);
     --foreground-secondary: var(--foreground);
@@ -196,6 +235,8 @@
   }
 }
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer utilities {
   .line-clamp-2 {
     display: -webkit-box;
@@ -235,5 +276,20 @@
     width: 100%;
     background: var(--accent);
     margin-top: 2px;
+  }
+
+  /* Premium v2 card styling */
+  .card-v2 {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--card-shadow);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .card-v2:hover {
+    border-color: var(--card-border-hover);
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-2px);
   }
 }
