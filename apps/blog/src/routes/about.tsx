@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import type { CSSProperties, ReactElement } from "react";
 import {
   BlogIcon,
   GithubIcon,
@@ -23,137 +24,147 @@ interface LinkItem {
   url: string;
 }
 
-function About() {
-  const links: LinkItem[] = [
-    {
-      icon: ResumeIcon,
-      title: "Resume",
-      description:
-        "Experience building scalable data infrastructure and leading engineering teams.",
-      url: "https://cv.duyet.net",
-    },
-    {
-      icon: GithubIcon,
-      title: "GitHub",
-      description:
-        "Open source contributions and personal projects in Python, Rust, and TypeScript.",
-      url: "https://github.com/duyet",
-    },
-    {
-      icon: LinkedInIcon,
-      title: "LinkedIn",
-      description:
-        "Professional network and career highlights in data engineering.",
-      url: "https://linkedin.com/in/duyet",
-    },
-    {
-      icon: BlogIcon,
-      title: "Blog Home",
-      description:
-        "Technical writings on data engineering, distributed systems, and open source.",
-      url: "/",
-    },
-  ];
+const links: LinkItem[] = [
+  {
+    icon: ResumeIcon,
+    title: "Resume",
+    description:
+      "Experience building scalable data infrastructure and leading engineering teams.",
+    url: "https://cv.duyet.net",
+  },
+  {
+    icon: GithubIcon,
+    title: "GitHub",
+    description:
+      "Open source contributions and personal projects in Python, Rust, and TypeScript.",
+    url: "https://github.com/duyet",
+  },
+  {
+    icon: LinkedInIcon,
+    title: "LinkedIn",
+    description:
+      "Professional network and career highlights in data engineering.",
+    url: "https://linkedin.com/in/duyet",
+  },
+  {
+    icon: BlogIcon,
+    title: "Blog home",
+    description:
+      "Technical writing on data engineering, distributed systems, and open source.",
+    url: "/",
+  },
+];
 
-  const skills = [
-    {
-      name: "Python",
-      link: "https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=python",
-    },
-    {
-      name: "Rust",
-      link: "https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=rust",
-    },
-    {
-      name: "Javascript",
-      link: "https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=javascript",
-    },
-    { name: "Spark" },
-    { name: "Airflow", link: "https://blog.duyet.net/tag/airflow/" },
-    { name: "AWS" },
-    { name: "GCP" },
-  ];
+const skills = [
+  {
+    name: "Python",
+    link: "https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=python",
+  },
+  {
+    name: "Rust",
+    link: "https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=rust",
+  },
+  {
+    name: "Javascript",
+    link: "https://github.com/duyet?utf8=%E2%9C%93&tab=repositories&q=&type=public&language=javascript",
+  },
+  { name: "Spark" },
+  { name: "Airflow", link: "https://blog.duyet.net/tag/airflow/" },
+  { name: "AWS" },
+  { name: "GCP" },
+];
 
+function About(): ReactElement {
   return (
-    <div className="mx-auto max-w-[1180px] px-5 py-12 sm:px-8 sm:py-16 lg:px-10">
-      <div className="blog-page-head mb-12 max-w-[760px]">
-        <h1>
-          About
-        </h1>
-        <p>
-          <strong className="font-medium text-[var(--body-strong)] dark:text-[var(--on-dark)]">
-            Data Engineer
-          </strong>{" "}
-          with 6+ years of experience. I am confident in my knowledge of Data
-          Engineering concepts, best practices and state-of-the-art data and
-          Cloud technologies.
+    <div className="px-6 md:px-8">
+      <header className="em-masthead">
+        <span className="em-masthead__eyebrow">Colophon</span>
+        <h1 className="em-masthead__title">About</h1>
+        <p className="em-masthead__dek">
+          Data engineer with 6+ years of experience. Comfortable across data
+          engineering concepts, best practices, and modern cloud platforms.
         </p>
-      </div>
+      </header>
 
-      <div className="blog-link-grid mb-16">
-        {links.map((link, index) => {
+      <section
+        className="mx-auto max-w-2xl"
+        aria-label="Profile links"
+      >
+        {links.map((link, i) => {
           const Icon = link.icon;
           const isExternal = link.url.startsWith("http");
+          const style: CSSProperties = { animationDelay: `${i * 50}ms` };
+          const content = (
+            <>
+              <div className="flex items-baseline justify-between gap-3">
+                <span className="em-index__name flex items-center gap-3">
+                  <Icon />
+                  {link.title}
+                </span>
+                <span className="em-index__count">
+                  {isExternal ? "External →" : "Open →"}
+                </span>
+              </div>
+              <p className="mt-1 text-[13px] leading-relaxed text-[color:var(--em-muted)]">
+                {link.description}
+              </p>
+            </>
+          );
           return isExternal ? (
             <a
-              key={index}
+              key={link.title}
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
+              className="em-index__row editorial-enter block"
+              style={style}
             >
-              <div>
-                <div className="mb-6 text-[#1a1a1a] dark:text-[#f8f8f2]">
-                  <Icon />
-                </div>
-                <h3>{link.title}</h3>
-                <p>{link.description}</p>
-              </div>
-              <span className="meta">Open →</span>
+              {content}
             </a>
           ) : (
             <Link
-              key={index}
+              key={link.title}
               to={link.url as "/"}
+              className="em-index__row editorial-enter block"
+              style={style}
             >
-              <div>
-                <div className="mb-6 text-[#1a1a1a] dark:text-[#f8f8f2]">
-                  <Icon />
-                </div>
-                <h3>{link.title}</h3>
-                <p>{link.description}</p>
-              </div>
-              <span className="meta">Open →</span>
+              {content}
             </Link>
           );
         })}
-      </div>
+      </section>
 
-      <div className="border-y border-[var(--border-faint)] py-8">
-        <h2 className="mb-6 text-2xl font-semibold tracking-[-0.02em] text-[var(--ink)] dark:text-[var(--on-dark)]">
-          Skills & Stacks
+      <section
+        className="mx-auto mt-16 max-w-2xl"
+        aria-label="Skills and stacks"
+      >
+        <h2 className="font-editorial-serif mb-4 text-2xl font-medium text-[color:var(--em-foreground)]">
+          Skills &amp; stacks
         </h2>
-        <div className="flex flex-wrap gap-3">
-          {skills.map(({ name, link }) => (
-            <span
-              key={name}
-              className="inline-block rounded-lg border border-[var(--border-faint)] px-3 py-2 text-sm font-medium text-[var(--ink)] dark:bg-white/10 dark:text-[var(--on-dark-soft)]"
-            >
-              {link ? (
+        <p className="text-sm leading-relaxed text-[color:var(--em-muted)]">
+          {skills.map((s, i) => (
+            <span key={s.name}>
+              {s.link ? (
                 <a
-                  href={link}
+                  href={s.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[var(--muted)] dark:hover:text-[var(--on-dark)]"
+                  className="text-[color:var(--em-foreground)] underline decoration-[color:var(--em-hairline)] decoration-1 underline-offset-4 transition-colors hover:decoration-[color:var(--em-accent)]"
                 >
-                  {name}
+                  {s.name}
                 </a>
               ) : (
-                name
+                <span className="text-[color:var(--em-foreground)]">
+                  {s.name}
+                </span>
+              )}
+              {i < skills.length - 1 && (
+                <span className="text-[color:var(--em-subtle)]"> · </span>
               )}
             </span>
           ))}
-        </div>
-      </div>
+        </p>
+      </section>
     </div>
   );
 }

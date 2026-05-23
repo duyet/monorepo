@@ -1,7 +1,7 @@
-import Container from "@duyet/components/Container";
 import type { TagCount } from "@duyet/interfaces";
 import { getSlug } from "@duyet/libs/getSlug";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import type { CSSProperties, ReactElement } from "react";
 import { getAllTags } from "@/lib/posts";
 
 export const Route = createFileRoute("/tags")({
@@ -18,41 +18,42 @@ export const Route = createFileRoute("/tags")({
   component: Tags,
 });
 
-function Tags() {
+function Tags(): ReactElement {
   const { tags } = Route.useLoaderData() as { tags: TagCount };
-  const tagEntries = Object.entries(tags).sort(([, a], [, b]) => b - a);
-  const totalPosts = Object.values(tags).reduce((sum, count) => sum + count, 0);
+  const entries = Object.entries(tags).sort(([, a], [, b]) => b - a);
+  const totalPosts = entries.reduce((sum, [, c]) => sum + c, 0);
 
   return (
-    <Container className="max-w-[1280px] px-5 sm:px-8 lg:px-10">
-      <div className="blog-page-head mb-12 max-w-[820px]">
-        <h1>
-          Topics
-        </h1>
-        <p>
-          Explore my writing organized by{" "}
-          <strong className="font-semibold text-[#1a1a1a] dark:text-[#f8f8f2]">
-            {tagEntries.length} diverse topics
-          </strong>
-          , spanning programming languages, frameworks, data engineering,
-          cloud infrastructure, and career development. {totalPosts} posts
-          tagged and organized for you.
+    <div className="px-6 md:px-8">
+      <header className="em-masthead">
+        <span className="em-masthead__eyebrow">Index</span>
+        <h1 className="em-masthead__title">Topics</h1>
+        <p className="em-masthead__dek">
+          {entries.length} tags across {totalPosts} posts.
         </p>
-      </div>
+      </header>
 
-      <div className="blog-link-grid">
-        {tagEntries.map(([tag, count]) => (
-          <Link key={tag} to="/tag/$tag/" params={{ tag: getSlug(tag) }}>
-            <div>
-              <h2>{tag}</h2>
-              <p>Posts filed under this topic.</p>
-            </div>
-            <span className="meta">
-              {count} {count === 1 ? "post" : "posts"}
-            </span>
-          </Link>
-        ))}
+      <div className="em-index">
+        {entries.map(([tag, count], i) => {
+          const style: CSSProperties = {
+            animationDelay: `${Math.min(i, 20) * 20}ms`,
+          };
+          return (
+            <Link
+              key={tag}
+              to="/tag/$tag/"
+              params={{ tag: getSlug(tag) }}
+              className="em-index__row editorial-enter"
+              style={style}
+            >
+              <span className="em-index__name">{tag}</span>
+              <span className="em-index__count">
+                {count} {count === 1 ? "post" : "posts"}
+              </span>
+            </Link>
+          );
+        })}
       </div>
-    </Container>
+    </div>
   );
 }

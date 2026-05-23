@@ -1,14 +1,15 @@
-import Container from "@duyet/components/Container";
 import type { Post, TagCount } from "@duyet/interfaces";
+import { dateFormat } from "@duyet/libs/date";
 import { getSlug } from "@duyet/libs/getSlug";
-import { createFileRoute, notFound } from "@tanstack/react-router";
-import { TagHero } from "@/components/layout";
-import { YearPost } from "@/components/post";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import type { CSSProperties, ReactElement } from "react";
 import { getAllTags, getPostsByTag } from "@/lib/posts";
 
 function findTagBySlug(tags: TagCount, slug: string): string | undefined {
-  return Object.keys(tags).find((t) => getSlug(t) === slug) ||
-    Object.keys(tags).find((t) => getSlug(t).endsWith(`-${slug}`));
+  return (
+    Object.keys(tags).find((t) => getSlug(t) === slug) ||
+    Object.keys(tags).find((t) => getSlug(t).endsWith(`-${slug}`))
+  );
 }
 
 function slugToDisplay(slug: string): string {
@@ -20,10 +21,7 @@ function slugToDisplay(slug: string): string {
 
 export const Route = createFileRoute("/tag/$tag")({
   head: ({ params }) => {
-    const display = params.tag
-      .split("-")
-      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-      .join(" ");
+    const display = slugToDisplay(params.tag);
     return {
       meta: [
         { title: `${display} | Tôi là Duyệt` },
@@ -42,7 +40,12 @@ export const Route = createFileRoute("/tag/$tag")({
   component: PostsByTag,
 });
 
-function PostsByTag() {
+function postParams(post: Post) {
+  const [, year, month, slug] = post.slug.split("/");
+  return { year, month, slug };
+}
+
+function PostsByTag(): ReactElement {
   const { tag } = Route.useParams();
   const { posts } = Route.useLoaderData() as {
     posts: Post[];
@@ -53,44 +56,71 @@ function PostsByTag() {
 
   const postsByYear = posts.reduce((acc: Record<number, Post[]>, post) => {
     const year = new Date(post.date).getFullYear();
-    if (!acc[year]) {
-      acc[year] = [];
-    }
+    if (!acc[year]) acc[year] = [];
     acc[year].push(post);
     return acc;
   }, {});
 
-  const postCount = posts.length;
-  const yearCount = Object.keys(postsByYear).length;
-
   return (
-    <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
-      <TagHero
-        tagName={displayName}
-        colorClass=""
-        postCount={postCount}
-        yearCount={yearCount}
-      />
+    <div className="px-6 md:px-8">
+      <header className="em-masthead">
+        <span className="em-masthead__eyebrow">
+          <Link
+            to="/tags/"
+            className="transition-colors hover:text-[color:var(--em-foreground)]"
+          >
+            Tag
+          </Link>
+        </span>
+        <h1 className="em-masthead__title">{displayName}</h1>
+        <div className="em-masthead__meta">
+          <span>
+            {posts.length} {posts.length === 1 ? "post" : "posts"}
+          </span>
+          <span>
+            {Object.keys(postsByYear).length}{" "}
+            {Object.keys(postsByYear).length === 1 ? "year" : "years"}
+          </span>
+        </div>
+      </header>
 
-      <div className="mx-auto max-w-[820px] flex flex-col gap-8">
-        {Object.entries(postsByYear)
-          .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
-          .map(([year, yearPosts]) => (
-            <YearPost
-              key={year}
-              year={Number.parseInt(year, 10)}
-              posts={yearPosts}
-            />
-          ))}
-      </div>
+      {Object.entries(postsByYear)
+        .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
+        .map(([year, yearPosts]) => (
+          <div key={year}>
+            <h2 className="em-year">{year}</h2>
+            <section className="em-list" aria-label={`Posts from ${year}`}>
+              {yearPosts.map((post, i) => {
+                const style: CSSProperties = {
+                  animationDelay: `${Math.min(i, 8) * 40}ms`,
+                };
+                return (
+                  <Link
+                    key={post.slug}
+                    to="/$year/$month/$slug/"
+                    params={postParams(post)}
+                    className="em-list__row editorial-enter"
+                    style={style}
+                  >
+                    <h3 className="em-list__title">{post.title}</h3>
+                    <div className="em-list__meta">
+                      <time dateTime={new Date(post.date).toISOString()}>
+                        {dateFormat(post.date, "MMM d, yyyy")}
+                      </time>
+                      {post.category && <span>{post.category}</span>}
+                    </div>
+                  </Link>
+                );
+              })}
+            </section>
+          </div>
+        ))}
 
       {posts.length === 0 && (
-        <div className="py-12 text-center">
-          <p className="text-lg text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70">
-            No posts found with this tag yet.
-          </p>
-        </div>
+        <p className="mx-auto mt-12 max-w-2xl text-center text-sm text-[color:var(--em-muted)]">
+          No posts found with this tag yet.
+        </p>
       )}
-    </Container>
+    </div>
   );
 }

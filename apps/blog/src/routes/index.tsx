@@ -1,11 +1,8 @@
-import Container from "@duyet/components/Container";
 import { dateFormat } from "@duyet/libs/date";
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { FeaturedPost } from "@/components/post/FeaturedPost";
-import { YearPost } from "@/components/post/YearPost";
-import { getPostsByAllYear } from "@/lib/posts";
 import type { Post } from "@duyet/interfaces";
-import type { ReactElement } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import type { CSSProperties, ReactElement } from "react";
+import { getPostsByAllYear } from "@/lib/posts";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
@@ -15,6 +12,28 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
+const WORDS_PER_MINUTE = 220;
+
+function readingTime(post: Post): string {
+  if (typeof post.readingTime === "number" && post.readingTime > 0) {
+    return `${post.readingTime} min read`;
+  }
+  const raw = (post.content ?? post.excerpt ?? "") as string;
+  const words = raw.trim() ? raw.trim().split(/\s+/).length : 0;
+  const minutes = Math.max(1, Math.round(words / WORDS_PER_MINUTE));
+  return `${minutes} min read`;
+}
+
+function postParams(post: Post) {
+  const [, year, month, slug] = post.slug.split("/");
+  return { year, month, slug };
+}
+
+function formatPostDate(date: Date | string): string {
+  const d = date instanceof Date ? date : new Date(date);
+  return dateFormat(d, "MMM d, yyyy");
+}
+
 function HomePage(): ReactElement {
   const { postsByYear } = Route.useLoaderData();
 
@@ -23,108 +42,80 @@ function HomePage(): ReactElement {
     .flatMap(([, posts]) => posts);
 
   const featured = allPosts[0];
-  const railPosts = allPosts.slice(1, 5);
-  const allByYear = groupByYear(allPosts);
+  const rest = allPosts.slice(1, 25);
 
   return (
-    <Container className="blog-home-shell mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
-      <section className="blog-focus-grid" aria-label="Blog focus areas">
-        {focusAreas.map((area) => (
-          <Link key={area.title} to={area.href} className="blog-focus-card">
-            <h2>{area.title}</h2>
-            <p>{area.description}</p>
-          </Link>
+    <div className="px-6 md:px-8">
+      {featured && <HeroRow post={featured} />}
+
+      <section className="em-list" aria-label="Recent writing">
+        {rest.map((post, index) => (
+          <ListRow key={post.slug} post={post} index={index} />
         ))}
       </section>
 
-      {featured && (
-        <section className="blog-home-feature" aria-label="Latest writing">
-          <FeaturedPost post={featured} />
-
-          {railPosts.length > 0 && (
-            <aside className="blog-recent-rail" aria-label="Recent posts">
-              {railPosts.map((post) => (
-                <RecentPostLink key={post.slug} post={post} />
-              ))}
-            </aside>
-          )}
-        </section>
-      )}
-
-      <section className="blog-archive-section" aria-label="All posts">
-        <div className="blog-section-heading">
-          <p>{allPosts.length} published notes</p>
-          <h2>Archive</h2>
-        </div>
-
-        <div className="blog-archive-years">
-          {allByYear.map(([year, posts]) => (
-            <YearPost key={year} year={year} posts={posts} />
-          ))}
-        </div>
-      </section>
-
-      <div className="pb-24" />
-    </Container>
+      <div className="mx-auto mt-12 max-w-2xl text-sm">
+        <Link
+          to="/archives/"
+          className="inline-flex items-center gap-2 text-[color:var(--em-muted)] underline decoration-[color:var(--em-hairline)] decoration-1 underline-offset-4 transition-colors hover:text-[color:var(--em-foreground)] hover:decoration-[color:var(--em-accent)]"
+        >
+          See full archive →
+        </Link>
+      </div>
+    </div>
   );
 }
 
-const focusAreas = [
-  {
-    title: "AI Systems",
-    description:
-      "Agents, model tooling, and the practical edges of building with LLMs.",
-    href: "/category/ai/",
-  },
-  {
-    title: "Data Engineering",
-    description:
-      "Pipelines, warehouses, data platforms, and the operational work around them.",
-    href: "/category/data-engineering/",
-  },
-  {
-    title: "ClickHouse",
-    description:
-      "Notes from running analytical databases, Kubernetes, UDFs, and observability.",
-    href: "/tag/clickhouse/",
-  },
-  {
-    title: "Rust & Tools",
-    description:
-      "Systems programming, developer workflows, and small tools that survive real use.",
-    href: "/category/rust/",
-  },
-];
-
-function RecentPostLink({ post }: { post: Post }): ReactElement {
-  const [, year, month, slug] = post.slug.split("/");
-
+function HeroRow({ post }: { post: Post }): ReactElement {
   return (
     <Link
       to="/$year/$month/$slug/"
-      params={{ year, month, slug }}
-      className="blog-recent-item"
+      params={postParams(post)}
+      className="em-hero editorial-enter"
+      aria-label={`Read: ${post.title}`}
     >
-      <div className="blog-recent-meta">
-        <span>{post.category}</span>
-        <time>{formatPostDate(post.date)}</time>
+      <span className="em-hero__eyebrow">Latest</span>
+      <h1 className="em-hero__title">{post.title}</h1>
+      {post.excerpt && (
+        <p className="em-hero__dek">{post.excerpt}</p>
+      )}
+      <div className="em-hero__meta">
+        <time dateTime={new Date(post.date).toISOString()}>
+          {formatPostDate(post.date)}
+        </time>
+        <span>{readingTime(post)}</span>
+        {post.category && <span>{post.category}</span>}
       </div>
-      <h3>{post.title}</h3>
-      {post.excerpt && <p>{post.excerpt}</p>}
     </Link>
   );
 }
 
-function groupByYear(posts: Post[]): [number, Post[]][] {
-  const map = new Map<number, Post[]>();
-  for (const post of posts) {
-    const y = new Date(post.date).getFullYear();
-    if (!map.has(y)) map.set(y, []);
-    map.get(y)!.push(post);
-  }
-  return [...map.entries()].sort(([a], [b]) => b - a);
+interface ListRowProps {
+  post: Post;
+  index: number;
 }
 
-function formatPostDate(date: Date | string): string {
-  return dateFormat(date instanceof Date ? date : new Date(date), "MMM d, yyyy");
+function ListRow({ post, index }: ListRowProps): ReactElement {
+  const style: CSSProperties = {
+    animationDelay: `${Math.min(index, 8) * 50}ms`,
+  };
+
+  return (
+    <Link
+      to="/$year/$month/$slug/"
+      params={postParams(post)}
+      className="em-list__row editorial-enter"
+      style={style}
+    >
+      <h2 className="em-list__title">{post.title}</h2>
+      {post.excerpt && <p className="em-list__dek">{post.excerpt}</p>}
+      <div className="em-list__meta">
+        <time dateTime={new Date(post.date).toISOString()}>
+          {formatPostDate(post.date)}
+        </time>
+        <span>{readingTime(post)}</span>
+        {post.category && <span>{post.category}</span>}
+      </div>
+    </Link>
+  );
 }
