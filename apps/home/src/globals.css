@@ -4,17 +4,28 @@
 
 @layer base {
   :root {
-    --font-inter: "Inter Variable", "Inter", -apple-system, BlinkMacDesktopFont,
+    /* ── Editorial monochrome tokens (canonical) ───────────────────── */
+    --background: #ffffff;
+    --foreground: #0a0a0a;
+    --muted: color-mix(in oklch, #0a0a0a 60%, transparent);
+    --subtle: color-mix(in oklch, #0a0a0a 35%, transparent);
+    --faint: color-mix(in oklch, #0a0a0a 8%, transparent);
+    --hairline: color-mix(in oklch, #0a0a0a 8%, transparent);
+    --accent: #cc785c;
+
+    /* Typography stacks */
+    --font-serif: "EB Garamond", Garamond, "Apple Garamond", ui-serif, serif;
+    --font-sans: "Inter Variable", Inter, -apple-system, BlinkMacSystemFont,
       ui-sans-serif, system-ui, sans-serif;
-    --font-serif: var(--font-inter);
+    --font-inter: var(--font-sans);
 
     /* Spacing & Radius Scale */
-    --radius-xs: 8px;
-    --radius-sm: 12px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
+    --radius-xs: 4px;
+    --radius-sm: 6px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
     --radius-max: 1000px;
-    
+
     --gap-xxs: 8px;
     --gap-xs: 16px;
     --gap-sm: 24px;
@@ -23,9 +34,9 @@
     --gap-xl: 64px;
 
     /* Container & Media */
-    --container-max-width: 1400px;
-    --page-margins: 64px;
-    --gutter: 32px;
+    --container-max-width: 1280px;
+    --page-margins: 32px;
+    --gutter: 24px;
     --section-spacer-lg: 96px;
     --section-spacer-sm: 48px;
     --text-column-max-width: 680px;
@@ -46,90 +57,83 @@
     --body-3: 15px;
     --body-4: 12px;
 
-    /* Base Palette */
-    --background: #fbfbfa;
-    --foreground: #141413;
+    /* ── Legacy tokens (kept for backward compat with shared chrome) ── */
+    --foreground-primary: var(--foreground);
+    --foreground-secondary: var(--foreground);
+    --foreground-tertiary: var(--muted);
+    --background-primary: var(--background);
+    --background-secondary: var(--background);
+    --background-tertiary: var(--faint);
+    --background-clay: var(--faint);
+    --background-oat: var(--faint);
 
-    --foreground-primary: #141413;
-    --foreground-secondary: #30302e;
-    --foreground-tertiary: #5e5d59;
-    --background-primary: #fbfbfa;
-    --background-secondary: #f4f4f1;
-    --background-tertiary: #ecebe6;
-    --background-clay: #e7e1d5;
-    --background-oat: #f0ede6;
+    --border-strong: var(--foreground);
+    --border-subtle: var(--hairline);
+    --border-faint: var(--hairline);
+    --border: var(--hairline);
 
-    --border-strong: #141413;
-    --border-subtle: #d1cfc5;
-    --border-faint: #f0eee6;
+    --muted-foreground: var(--muted);
+    --muted-soft: var(--subtle);
+    --primary: var(--foreground);
+    --primary-active: var(--foreground);
+    --primary-disabled: var(--faint);
+    --surface-card: var(--background);
+    --surface-dark: #0a0a0a;
+    --surface-dark-elevated: #161616;
+    --surface-dark-soft: #111111;
+    --surface-soft: var(--faint);
+    --on-dark: #fafafa;
+    --on-dark-soft: color-mix(in oklch, #fafafa 55%, transparent);
+    --body-strong: var(--foreground);
+    --body: var(--foreground);
 
-    /* Semantic Surface Variables */
-    --muted: #f0f0ed;
-    --muted-foreground: #66645f;
-    --border: #e2e0da;
-    --accent: #c06f4f;
-    --primary: #1f1f1d;
-    --primary-active: #3a3935;
-    --primary-disabled: #e2e0da;
-    --surface-card: #ffffff;
-    --surface-dark: #181715;
-    --surface-dark-elevated: #252320;
-    --surface-dark-soft: #1f1e1b;
-    --surface-soft: #f5f5f2;
-    --on-dark: #faf9f5;
-    --on-dark-soft: #a09d96;
-    --hairline: rgba(20, 20, 19, 0.08);
-    --body-strong: #252523;
-    --body: #3d3d3a;
-    --muted-soft: #8e8b82;
-
-    /* Legacy color utilities */
-    --bg-clay: #ebe5da;
-    --bg-oat: #f2eee7;
-    --bg-olive: #e6ebdf;
-    --bg-cactus: #e5efec;
-    --bg-sky: #e7eef5;
-    --bg-heather: #ecebf3;
-    --bg-fig: #eee6ea;
-    --bg-coral: #f2e7e4;
+    /* Legacy color utilities (still referenced by some packages) */
+    --bg-clay: var(--faint);
+    --bg-oat: var(--faint);
+    --bg-olive: var(--faint);
+    --bg-cactus: var(--faint);
+    --bg-sky: var(--faint);
+    --bg-heather: var(--faint);
+    --bg-fig: var(--faint);
+    --bg-coral: var(--faint);
   }
 
+  :root.dark,
+  .dark,
   html.dark {
-    --background: #0d0e0c;
-    --foreground: #f8f8f2;
-    
-    --foreground-primary: #faf9f5;
-    --foreground-secondary: #b0aea5;
-    --foreground-tertiary: #87867f;
-    --background-primary: #141413;
-    --background-secondary: #1f1e1d;
-    --background-tertiary: #30302e;
-    
-    --border-strong: #faf9f5;
-    --border-subtle: #5e5d59;
-    --border-faint: #1f1e1d;
+    --background: #0a0a0a;
+    --foreground: #fafafa;
+    --muted: color-mix(in oklch, #fafafa 55%, transparent);
+    --subtle: color-mix(in oklch, #fafafa 30%, transparent);
+    --faint: color-mix(in oklch, #fafafa 8%, transparent);
+    --hairline: color-mix(in oklch, #fafafa 8%, transparent);
+    --accent: #e8926e;
 
-    --muted: #242420;
-    --muted-foreground: #a09d96;
-    --border: rgba(248, 248, 242, 0.12);
-    --accent: #cc785c;
-    --primary: #cc785c;
-    --primary-active: #e8926e;
-    --primary-disabled: rgba(248, 248, 242, 0.12);
-    --surface-dark: #181715;
-    --surface-dark-elevated: #252320;
-    --surface-dark-soft: #1f1e1b;
-    --surface-soft: #1a1918;
-    --on-dark: #faf9f5;
-    --on-dark-soft: #a09d96;
-    --hairline: rgba(248, 248, 242, 0.12);
-    --body-strong: #f0efe9;
-    --body: #c8c5bc;
-    --muted-soft: #7a776e;
+    --foreground-primary: var(--foreground);
+    --foreground-secondary: var(--foreground);
+    --foreground-tertiary: var(--muted);
+    --background-primary: var(--background);
+    --background-secondary: var(--background);
+    --background-tertiary: var(--faint);
+
+    --border-strong: var(--foreground);
+    --border-subtle: var(--hairline);
+    --border-faint: var(--hairline);
+    --border: var(--hairline);
+
+    --muted-foreground: var(--muted);
+    --muted-soft: var(--subtle);
+    --primary: var(--foreground);
+    --primary-active: var(--accent);
+    --primary-disabled: var(--faint);
+    --surface-card: var(--background);
+    --surface-soft: var(--faint);
+    --body-strong: var(--foreground);
+    --body: var(--foreground);
   }
 
   html {
-    font-family: var(--font-inter);
+    font-family: var(--font-sans);
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
   }
@@ -144,59 +148,45 @@
     line-height: 1.55;
   }
 
-  h1, h2, h3, h4, h5, .font-serif {
-    font-family: var(--font-inter);
-    font-weight: 600;
-    color: var(--foreground);
-  }
-
-  h1, h2, h3, h4 { letter-spacing: 0; }
-
-  /* Legacy utility classes */
-  .bg-slate-1000 { background-color: #0f0f0e!important }
-  .bg-slate-950 { background-color: #141413!important }
-  .bg-slate-900 { background-color: #1a1918!important }
-  .bg-slate-150 { background-color: #f0eee6!important }
-  .bg-slate-100 { background-color: #f5f4ed!important }
-  .bg-slate-050 { background-color: #faf9f5!important }
-  
-  .bg-clay { background-color: var(--bg-clay)!important }
-  .bg-oat { background-color: var(--bg-oat)!important }
-  .bg-olive { background-color: var(--bg-olive)!important }
-  .bg-cactus { background-color: var(--bg-cactus)!important }
-  .bg-sky { background-color: var(--bg-sky)!important }
-  .bg-heather { background-color: var(--bg-heather)!important }
-  .bg-fig { background-color: var(--bg-fig)!important }
-  .bg-coral { background-color: var(--bg-coral)!important }
-
-  /* Target Header branding text from @duyet/components */
-  header a span[class*="font-semibold"] {
-    font-family: var(--font-inter);
-    font-weight: 600;
-    font-size: 1rem;
-    letter-spacing: 0;
-  }
-
-  /* Target Header navigation links */
-  header nav a {
+  /* Serif is opt-in via `.font-serif` or explicit utility — body stays sans */
+  .font-serif {
+    font-family: var(--font-serif);
     font-weight: 500;
-    font-size: 0.875rem;
-    color: var(--muted-foreground);
-    transition: color 0.2s;
+    letter-spacing: -0.005em;
   }
 
-  header nav a:hover {
+  h1, h2, h3, h4, h5, h6 {
     color: var(--foreground);
+    letter-spacing: -0.01em;
   }
 
-  header nav a[aria-current="page"], 
-  header nav a.active {
-    color: var(--foreground);
+  /* Tabular numerals for dates, counts, metrics */
+  .tabular-nums,
+  time,
+  .font-mono {
+    font-variant-numeric: tabular-nums;
   }
+
+  /* Legacy utility classes — collapse to faint */
+  .bg-slate-1000 { background-color: var(--background)!important }
+  .bg-slate-950 { background-color: var(--background)!important }
+  .bg-slate-900 { background-color: var(--faint)!important }
+  .bg-slate-150 { background-color: var(--faint)!important }
+  .bg-slate-100 { background-color: var(--faint)!important }
+  .bg-slate-050 { background-color: var(--background)!important }
+
+  .bg-clay { background-color: var(--faint)!important }
+  .bg-oat { background-color: var(--faint)!important }
+  .bg-olive { background-color: var(--faint)!important }
+  .bg-cactus { background-color: var(--faint)!important }
+  .bg-sky { background-color: var(--faint)!important }
+  .bg-heather { background-color: var(--faint)!important }
+  .bg-fig { background-color: var(--faint)!important }
+  .bg-coral { background-color: var(--faint)!important }
 
   ::selection {
-    background-color: var(--primary);
-    color: white;
+    background-color: var(--foreground);
+    color: var(--background);
   }
 
   html.dark body {
@@ -219,5 +209,31 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  /* Accent underline that grows on hover */
+  .link-underline {
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    transition: background-size 200ms ease-out;
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+
+  /* Active route accent mark */
+  .nav-link[data-active="true"] {
+    color: var(--foreground);
+  }
+  .nav-link[data-active="true"]::after {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 100%;
+    background: var(--accent);
+    margin-top: 2px;
   }
 }
