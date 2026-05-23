@@ -79,6 +79,7 @@
         "@langchain/langgraph-checkpoint": "latest",
         "@langchain/langgraph-sdk": "^1.9.4",
         "@langchain/openai": "^1.4.6",
+        "@phosphor-icons/react": "^2.1.10",
         "@radix-ui/react-avatar": "^1.1.8",
         "@radix-ui/react-collapsible": "^1.1.10",
         "@radix-ui/react-dialog": "^1.1.13",

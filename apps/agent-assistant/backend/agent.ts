@@ -108,15 +108,24 @@ Would you like me to tell you more about Duyet's **blog**, **resume (CV)**, or h
 export function getCompiledGraph(checkpointer?: any, env?: any) {
   const anyrouterApiKey =
     env?.ANYROUTER_API_KEY ||
-    (typeof process !== "undefined" ? process.env.ANYROUTER_API_KEY : undefined);
+    (typeof process !== "undefined"
+      ? process.env.ANYROUTER_API_KEY
+      : undefined);
   const anyrouterBaseUrl =
     env?.ANYROUTER_BASE_URL ||
-    (typeof process !== "undefined" ? process.env.ANYROUTER_BASE_URL : undefined) ||
+    (typeof process !== "undefined"
+      ? process.env.ANYROUTER_BASE_URL
+      : undefined) ||
     "https://anyrouter.dev/api/v1";
   const anyrouterModel =
     env?.ANYROUTER_MODEL ||
     env?.ANYROUTER_PRESET ||
-    (typeof process !== "undefined" ? env?.ANYROUTER_MODEL || env?.ANYROUTER_PRESET || process.env.ANYROUTER_MODEL || process.env.ANYROUTER_PRESET : undefined) ||
+    (typeof process !== "undefined"
+      ? env?.ANYROUTER_MODEL ||
+        env?.ANYROUTER_PRESET ||
+        process.env.ANYROUTER_MODEL ||
+        process.env.ANYROUTER_PRESET
+      : undefined) ||
     "@preset/duyetbot";
 
   const openaiApiKey =
@@ -140,7 +149,10 @@ export function getCompiledGraph(checkpointer?: any, env?: any) {
         baseURL: anyrouterBaseUrl,
       },
     });
-  } else if (googleApiKey && !googleApiKey.startsWith("AIzaSyBfJXU8rnLS1btLv")) {
+  } else if (
+    googleApiKey &&
+    !googleApiKey.startsWith("AIzaSyBfJXU8rnLS1btLv")
+  ) {
     try {
       if (typeof process !== "undefined" && process.env) {
         process.env.GOOGLE_API_KEY = googleApiKey;
@@ -185,7 +197,11 @@ export function getCompiledGraph(checkpointer?: any, env?: any) {
         !openaiApiKey || openaiApiKey.startsWith("sk-proj-epynv");
       const isPlaceholderGemini =
         !googleApiKey || googleApiKey.startsWith("AIzaSyBfJXU8rnLS1btLv");
-      if (isPlaceholderAnyRouter && isPlaceholderOpenAI && isPlaceholderGemini) {
+      if (
+        isPlaceholderAnyRouter &&
+        isPlaceholderOpenAI &&
+        isPlaceholderGemini
+      ) {
         throw new Error(
           "Local fallback triggered due to placeholder API credentials."
         );
@@ -200,12 +216,11 @@ export function getCompiledGraph(checkpointer?: any, env?: any) {
         err.message || err
       );
 
-      const lastUserMessage = [...state.messages]
-        .reverse()
-        .find((m) => {
-          const type = typeof m._getType === "function" ? m._getType() : (m as any).type;
-          return type === "human" || type === "user";
-        });
+      const lastUserMessage = [...state.messages].reverse().find((m) => {
+        const type =
+          typeof m._getType === "function" ? m._getType() : (m as any).type;
+        return type === "human" || type === "user";
+      });
       const userContent = lastUserMessage
         ? typeof lastUserMessage.content === "string"
           ? lastUserMessage.content

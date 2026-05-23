@@ -40,16 +40,18 @@ const env = {
 console.log("Injecting ThreadStateDO into compiled server.js bundle...");
 if (existsSync(serverBundlePath)) {
   let content = readFileSync(serverBundlePath, "utf-8");
-  
+
   // Patch createServerEntry to capture the env bindings object and assign to globalThis.CF_ENV
   if (content.includes("return await entry.fetch(...args);")) {
-     console.log("Patching createServerEntry to capture global environment bindings...");
-     content = content.replace(
-       "return await entry.fetch(...args);",
-       "if (args[1]) { globalThis.CF_ENV = args[1]; }\n\t\treturn await entry.fetch(...args);"
-     );
+    console.log(
+      "Patching createServerEntry to capture global environment bindings..."
+    );
+    content = content.replace(
+      "return await entry.fetch(...args);",
+      "if (args[1]) { globalThis.CF_ENV = args[1]; }\n\t\treturn await entry.fetch(...args);"
+    );
   }
-  
+
   // Define self-contained Durable Object class to append
   const doClassCode = `
 import { DurableObject } from "cloudflare:workers";
@@ -207,9 +209,11 @@ export class ThreadStateDO extends DurableObject {
 
   // Make sure we only inject once
   if (content.includes("class ThreadStateDO")) {
-    console.log("ThreadStateDO already injected in server bundle, skipping DO injection.");
+    console.log(
+      "ThreadStateDO already injected in server bundle, skipping DO injection."
+    );
   } else {
-    writeFileSync(serverBundlePath, content + "\n\n" + doClassCode, "utf-8");
+    writeFileSync(serverBundlePath, `${content}\n\n${doClassCode}`, "utf-8");
     console.log("Injection completed successfully!");
   }
 } else {
@@ -257,29 +261,49 @@ const parsedEnv = {
   ...localProdEnv,
   ...appEnv,
   ...appLocalEnv,
-  ...(process.env.ANYROUTER_API_KEY ? { ANYROUTER_API_KEY: process.env.ANYROUTER_API_KEY } : {}),
-  ...(process.env.ANYROUTER_PRESET ? { ANYROUTER_PRESET: process.env.ANYROUTER_PRESET } : {}),
-  ...(process.env.ANYROUTER_MODEL ? { ANYROUTER_MODEL: process.env.ANYROUTER_MODEL } : {}),
+  ...(process.env.ANYROUTER_API_KEY
+    ? { ANYROUTER_API_KEY: process.env.ANYROUTER_API_KEY }
+    : {}),
+  ...(process.env.ANYROUTER_PRESET
+    ? { ANYROUTER_PRESET: process.env.ANYROUTER_PRESET }
+    : {}),
+  ...(process.env.ANYROUTER_MODEL
+    ? { ANYROUTER_MODEL: process.env.ANYROUTER_MODEL }
+    : {}),
 };
 
-const wranglerJsonPath = join(appPath, "dist/duyet_agent_assistant/wrangler.json");
+const wranglerJsonPath = join(
+  appPath,
+  "dist/duyet_agent_assistant/wrangler.json"
+);
 if (existsSync(wranglerJsonPath)) {
   const wranglerJson = JSON.parse(readFileSync(wranglerJsonPath, "utf-8"));
   wranglerJson.vars = {
     ...wranglerJson.vars,
-    ...parsedEnv
+    ...parsedEnv,
   };
-  writeFileSync(wranglerJsonPath, JSON.stringify(wranglerJson, null, 2), "utf-8");
-  console.log("Injected environment variables into wrangler.json vars:", Object.keys(parsedEnv));
+  writeFileSync(
+    wranglerJsonPath,
+    JSON.stringify(wranglerJson, null, 2),
+    "utf-8"
+  );
+  console.log(
+    "Injected environment variables into wrangler.json vars:",
+    Object.keys(parsedEnv)
+  );
 } else {
   console.error("wrangler.json not found at:", wranglerJsonPath);
 }
 
 console.log("Deploying via wrangler...");
-const result = spawnSync("bunx", ["wrangler", "deploy", "--config", "wrangler.json"], {
-  cwd: join(appPath, "dist/duyet_agent_assistant"),
-  env,
-  stdio: "inherit",
-});
+const result = spawnSync(
+  "bunx",
+  ["wrangler", "deploy", "--config", "wrangler.json"],
+  {
+    cwd: join(appPath, "dist/duyet_agent_assistant"),
+    env,
+    stdio: "inherit",
+  }
+);
 
 process.exit(result.status ?? 0);

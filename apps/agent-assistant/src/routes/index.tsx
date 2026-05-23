@@ -5,16 +5,47 @@ import {
   useLangGraphRuntime,
 } from "@assistant-ui/react-langgraph";
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState, useEffect } from "react";
+import { PanelLeftClose, PanelLeftOpen, Plus, Trash2 } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 import { Thread } from "@/components/assistant-ui/thread";
 import { createClient } from "@/lib/chatApi";
-import { PanelLeftClose, PanelLeftOpen, Plus, Trash2 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: AssistantPage,
 });
 
 const ASSISTANT_ID = "agent";
+
+function groupThreads(threads: SavedThread[]) {
+  const groups: {
+    today: SavedThread[];
+    yesterday: SavedThread[];
+    older: SavedThread[];
+  } = {
+    today: [],
+    yesterday: [],
+    older: [],
+  };
+
+  const startOfToday = new Date();
+  startOfToday.setHours(0, 0, 0, 0);
+
+  const startOfYesterday = new Date(startOfToday);
+  startOfYesterday.setDate(startOfYesterday.getDate() - 1);
+
+  for (const t of threads) {
+    const threadDate = new Date(t.updatedAt);
+    if (threadDate >= startOfToday) {
+      groups.today.push(t);
+    } else if (threadDate >= startOfYesterday) {
+      groups.yesterday.push(t);
+    } else {
+      groups.older.push(t);
+    }
+  }
+
+  return groups;
+}
 
 interface SavedThread {
   id: string;
@@ -45,6 +76,52 @@ function AssistantPage() {
   const [activeThreadId, setActiveThreadId] = useState<string | null>(null);
   const [threads, setThreads] = useState<SavedThread[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  const grouped = useMemo(() => groupThreads(threads), [threads]);
+
+  const renderThreadRow = (t: SavedThread) => {
+    const isActive = activeThreadId === t.id;
+    return (
+      <li
+        key={t.id}
+        className="group/row relative transition-transform duration-150 ease-out hover:-translate-y-px"
+      >
+        <button
+          type="button"
+          onClick={() => handleSelectThread(t.id)}
+          className={`relative block w-full text-left pl-4 pr-9 py-2 text-xs transition-colors duration-150 ease-out ${
+            isActive
+              ? "text-[color:var(--foreground)] font-medium"
+              : "text-[color:var(--muted-foreground)] hover:text-[color:var(--foreground)]"
+          }`}
+        >
+          {isActive ? (
+            <span
+              aria-hidden
+              className="absolute left-0 top-1 bottom-1 w-[2px] bg-[color:var(--accent)]"
+            />
+          ) : null}
+          <span className="block truncate">{t.title}</span>
+          <time
+            dateTime={t.updatedAt}
+            className="mt-0.5 block text-[10px] tabular-nums text-[color:var(--muted-foreground)] opacity-0 transition-opacity duration-150 group-hover/row:opacity-100"
+          >
+            {formatRelative(t.updatedAt)}
+          </time>
+        </button>
+
+        <button
+          type="button"
+          onClick={(e) => handleDeleteThread(t.id, e)}
+          className="absolute right-2 top-1.5 -translate-x-2 opacity-0 p-1 text-[color:var(--muted-foreground)] transition-[transform,opacity,color] duration-150 ease-out hover:text-[color:var(--accent)] group-hover/row:translate-x-0 group-hover/row:opacity-100 focus-visible:translate-x-0 focus-visible:opacity-100"
+          title="Delete conversation"
+          aria-label={`Delete ${t.title}`}
+        >
+          <Trash2 className="size-3.5" />
+        </button>
+      </li>
+    );
+  };
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -107,8 +184,7 @@ function AssistantPage() {
         const firstMessage = state.values.messages[0];
         let title = "Conversation";
         if (firstMessage && typeof firstMessage === "object") {
-          const content =
-            (firstMessage as { content?: unknown }).content ?? "";
+          const content = (firstMessage as { content?: unknown }).content ?? "";
           if (content && typeof content === "string") {
             title = content.slice(0, 40) + (content.length > 40 ? "…" : "");
           }
@@ -200,63 +276,44 @@ function AssistantPage() {
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-2 pb-4 scrollbar-thin">
+        <div className="flex-1 overflow-y-auto px-2 pb-4 scrollbar-thin space-y-4">
           {threads.length === 0 ? (
             <p className="px-3 py-6 text-xs italic text-[color:var(--muted-foreground)]">
               No conversations yet.
             </p>
           ) : (
-            <ul className="flex flex-col">
-              {threads.map((t) => {
-                const isActive = activeThreadId === t.id;
-                return (
-                  <li
-                    key={t.id}
-                    className="group/row relative transition-transform duration-150 ease-out hover:-translate-y-px"
-                  >
-                    <button
-                      type="button"
-                      onClick={() => handleSelectThread(t.id)}
-                      className={`relative block w-full text-left pl-4 pr-9 py-2.5 text-sm transition-colors duration-150 ease-out ${
-                        isActive
-                          ? "text-[color:var(--foreground)]"
-                          : "text-[color:var(--muted-foreground)] hover:text-[color:var(--foreground)]"
-                      }`}
-                    >
-                      {isActive ? (
-                        <span
-                          aria-hidden
-                          className="absolute left-0 top-1.5 bottom-1.5 w-[2px] bg-[color:var(--accent)]"
-                        />
-                      ) : null}
-                      <span
-                        className={`block truncate ${
-                          isActive ? "font-medium" : "font-normal"
-                        }`}
-                      >
-                        {t.title}
-                      </span>
-                      <time
-                        dateTime={t.updatedAt}
-                        className="mt-0.5 block text-[11px] tabular-nums text-[color:var(--muted-foreground)] opacity-0 transition-opacity duration-150 group-hover/row:opacity-100"
-                      >
-                        {formatRelative(t.updatedAt)}
-                      </time>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={(e) => handleDeleteThread(t.id, e)}
-                      className="absolute right-2 top-2.5 -translate-x-2 opacity-0 p-1 text-[color:var(--muted-foreground)] transition-[transform,opacity,color] duration-150 ease-out hover:text-[color:var(--accent)] group-hover/row:translate-x-0 group-hover/row:opacity-100 focus-visible:translate-x-0 focus-visible:opacity-100"
-                      title="Delete conversation"
-                      aria-label={`Delete ${t.title}`}
-                    >
-                      <Trash2 className="size-3.5" />
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
+            <div className="space-y-4">
+              {grouped.today.length > 0 && (
+                <div>
+                  <h3 className="px-3 text-[10px] font-semibold tracking-wider text-[color:var(--muted-foreground)] uppercase mb-1.5 font-mono">
+                    Today
+                  </h3>
+                  <ul className="flex flex-col">
+                    {grouped.today.map((t) => renderThreadRow(t))}
+                  </ul>
+                </div>
+              )}
+              {grouped.yesterday.length > 0 && (
+                <div>
+                  <h3 className="px-3 text-[10px] font-semibold tracking-wider text-[color:var(--muted-foreground)] uppercase mb-1.5 font-mono">
+                    Yesterday
+                  </h3>
+                  <ul className="flex flex-col">
+                    {grouped.yesterday.map((t) => renderThreadRow(t))}
+                  </ul>
+                </div>
+              )}
+              {grouped.older.length > 0 && (
+                <div>
+                  <h3 className="px-3 text-[10px] font-semibold tracking-wider text-[color:var(--muted-foreground)] uppercase mb-1.5 font-mono">
+                    Older
+                  </h3>
+                  <ul className="flex flex-col">
+                    {grouped.older.map((t) => renderThreadRow(t))}
+                  </ul>
+                </div>
+              )}
+            </div>
           )}
         </div>
       </aside>
