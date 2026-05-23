@@ -7,6 +7,7 @@ import { KeyboardFeatures } from "../components/KeyboardFeatures";
 import { SiteFooter, SiteHeader } from "../components/SiteChrome";
 import { WorkStackSection } from "../components/WorkStackSection";
 import { type AppItem, apps } from "../data/projects";
+import { type SiblingApp, siblingApps } from "../data/sibling-apps";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -146,6 +147,27 @@ function HomePage() {
             </div>
           </section>
 
+          {/* Sites Section — sibling apps in the monorepo */}
+          <section
+            id="sites"
+            className="mx-auto max-w-[1180px] px-5 py-8 sm:px-8 lg:px-10 lg:py-10"
+          >
+            <div className="mb-6">
+              <h2 className="text-2xl font-semibold sm:text-3xl">Sites</h2>
+              <p className="mt-3 max-w-xl text-sm leading-6 text-[var(--muted-foreground)] sm:text-base">
+                Live apps in this monorepo. Each one ships from{" "}
+                <span className="text-[var(--foreground)]">duyet/monorepo</span>{" "}
+                to its own production domain on Cloudflare.
+              </p>
+            </div>
+
+            <div className="border-y border-[var(--hairline)]">
+              {siblingApps.map((item) => (
+                <SiteRow key={item.domain} item={item} />
+              ))}
+            </div>
+          </section>
+
           {/* Apps Section */}
           <section
             id="apps"
@@ -261,9 +283,40 @@ function AppRow({
         {item.description}
       </p>
       <p className="truncate font-mono text-xs tabular-nums text-[var(--muted-soft)] sm:text-right">
-        {item.host}
+        <span>{item.host}</span>
+        {item.domain && item.domain !== item.host ? (
+          <>
+            <span aria-hidden="true"> · </span>
+            <span className="text-[var(--muted-foreground)] transition-colors duration-200 ease-out group-hover:text-[var(--accent)]">
+              {item.domain}
+            </span>
+          </>
+        ) : null}
       </p>
     </AppLink>
+  );
+}
+
+function SiteRow({ item }: { item: SiblingApp }) {
+  return (
+    <a
+      href={`https://${item.domain}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group grid gap-2 border-t border-[var(--hairline)] py-4 text-[var(--foreground)] transition-colors duration-200 ease-out first:border-t-0 hover:text-[var(--muted-foreground)] sm:grid-cols-[180px_1fr_220px] sm:gap-8"
+    >
+      <div className="min-w-0">
+        <h3 className="text-base font-semibold leading-snug transition-transform duration-200 ease-out group-hover:translate-x-0.5">
+          {item.name}
+        </h3>
+      </div>
+      <p className="text-sm leading-6 text-[var(--muted-foreground)] sm:max-w-2xl">
+        {item.description}
+      </p>
+      <p className="truncate font-mono text-xs tabular-nums text-[var(--muted-soft)] transition-colors duration-200 ease-out group-hover:text-[var(--accent)] sm:text-right">
+        {item.domain}
+      </p>
+    </a>
   );
 }
 

@@ -63,7 +63,15 @@ function ProjectIndexItem({
           {item.description}
         </p>
         <p className="mt-3 truncate font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-[var(--muted-soft)]">
-          {item.host}
+          <span>{item.host}</span>
+          {item.domain && item.domain !== item.host ? (
+            <>
+              <span aria-hidden="true"> · </span>
+              <span className="text-[var(--muted-foreground)] transition-colors duration-200 ease-out group-hover:text-[var(--accent)]">
+                {item.domain}
+              </span>
+            </>
+          ) : null}
         </p>
       </article>
     </ProjectLink>
