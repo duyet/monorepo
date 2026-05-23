@@ -2,6 +2,7 @@ export { default as Analytics } from "./Analytics";
 export { AppCommandPalette } from "./AppCommandPalette";
 // AI Components
 export * from "./ai";
+export * from "./auto-designed-badge";
 export { default as ClerkAuthProvider } from "./ClerkAuthProvider";
 export { default as Container } from "./Container";
 // Card Components
@@ -31,6 +32,7 @@ export {
   SkeletonCard,
 } from "./LoadingState";
 export { default as Menu } from "./Menu";
+export * from "./site-nav";
 export { default as ThemeProvider } from "./ThemeProvider";
 export { default as ThemeToggle } from "./ThemeToggle";
 export * from "./Tremor";

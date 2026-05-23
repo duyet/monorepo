@@ -63,6 +63,17 @@ describe("FooterContent", () => {
     expect(githubLink).toBeDefined();
   });
 
+  it("renders the auto-designed credit badge", () => {
+    const { container } = render(<FooterContent />);
+    expect(container.textContent).toContain(
+      "auto-driven and auto-designed by"
+    );
+    const credit = container.querySelector(
+      'a[href="https://github.com/duyetbot"]'
+    );
+    expect(credit).not.toBeNull();
+  });
+
   it("renders external links with target=_blank", () => {
     const { container } = render(<FooterContent />);
     const externalLinks = container.querySelectorAll('a[target="_blank"]');

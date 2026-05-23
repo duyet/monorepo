@@ -79,6 +79,36 @@
     --muted: #a09d96;
     --muted-soft: #8e8b82;
   }
+
+  /*
+   * Editorial monochrome tokens — additive design system for the
+   * site-wide redesign. These do NOT replace the Anthropic tokens
+   * above; existing consumers continue to read --background, --ink,
+   * etc. New surfaces should opt in via --editorial-*.
+   */
+  :root {
+    --editorial-bg: #ffffff;
+    --editorial-fg: #0a0a0a;
+    --editorial-muted: color-mix(in oklch, #0a0a0a 60%, transparent);
+    --editorial-subtle: color-mix(in oklch, #0a0a0a 35%, transparent);
+    --editorial-faint: color-mix(in oklch, #0a0a0a 8%, transparent);
+    --editorial-hairline: color-mix(in oklch, #0a0a0a 8%, transparent);
+    --editorial-accent: #cc785c;
+    --editorial-font-serif: "EB Garamond", Garamond, "Apple Garamond", ui-serif, serif;
+    --editorial-font-sans: "Inter Variable", Inter, ui-sans-serif, system-ui, sans-serif;
+    --editorial-font-mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+
+  :root.dark,
+  .dark {
+    --editorial-bg: #0a0a0a;
+    --editorial-fg: #fafafa;
+    --editorial-muted: color-mix(in oklch, #fafafa 55%, transparent);
+    --editorial-subtle: color-mix(in oklch, #fafafa 30%, transparent);
+    --editorial-faint: color-mix(in oklch, #fafafa 8%, transparent);
+    --editorial-hairline: color-mix(in oklch, #fafafa 8%, transparent);
+    --editorial-accent: #e8926e;
+  }
 }
 
 @layer components {
