@@ -45,7 +45,10 @@ function HtmlSitemapPage(): ReactElement {
           </h2>
           <ul className="space-y-2 text-[15px] leading-relaxed">
             {posts.map((post) => (
-              <li key={post.slug} className="flex flex-wrap items-baseline gap-3">
+              <li
+                key={post.slug}
+                className="flex flex-wrap items-baseline gap-3"
+              >
                 <a href={post.slug} className={linkClass}>
                   {post.title}
                 </a>

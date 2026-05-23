@@ -21,9 +21,11 @@ interface TimelineProps {
 export function Timeline({ items, className = "" }: TimelineProps) {
   const statusStyles = {
     completed: "bg-[var(--primary)] border-[var(--primary)]",
-    "in-progress": "bg-[var(--background-primary)] border-[var(--primary)] border-2",
+    "in-progress":
+      "bg-[var(--background-primary)] border-[var(--primary)] border-2",
     planned: "bg-[var(--surface-card)] border-[var(--border-subtle)]",
-    cancelled: "bg-[var(--background-secondary)] border-[var(--border-faint)] opacity-50",
+    cancelled:
+      "bg-[var(--background-secondary)] border-[var(--border-faint)] opacity-50",
   };
 
   return (
@@ -42,7 +44,11 @@ export function Timeline({ items, className = "" }: TimelineProps) {
               )}
             >
               {item.status === "completed" && (
-                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
                   <path
                     fillRule="evenodd"
                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -96,10 +102,14 @@ export function StatusBadge({
   className = "",
 }: StatusBadgeProps) {
   const statusStyles = {
-    completed: "bg-[var(--primary)]/10 text-[var(--primary)] border-[var(--primary)]/20",
-    "in-progress": "bg-blue-50 text-blue-600 border-blue-200 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800",
-    planned: "bg-[var(--surface-card)] text-[var(--muted)] border-[var(--border-subtle)]",
-    cancelled: "bg-[var(--background-secondary)] text-[var(--muted)] border-[var(--border-faint)] line-through",
+    completed:
+      "bg-[var(--primary)]/10 text-[var(--primary)] border-[var(--primary)]/20",
+    "in-progress":
+      "bg-blue-50 text-blue-600 border-blue-200 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800",
+    planned:
+      "bg-[var(--surface-card)] text-[var(--muted)] border-[var(--border-subtle)]",
+    cancelled:
+      "bg-[var(--background-secondary)] text-[var(--muted)] border-[var(--border-faint)] line-through",
   };
 
   return (

@@ -1,6 +1,6 @@
 import type { CategoryCount, Post, TagCount } from "@duyet/interfaces";
-import { useMemo } from "react";
 import { useSearch } from "@tanstack/react-router";
+import { useMemo } from "react";
 import { SearchBar, SearchFilters, SearchResultItem } from "@/components/blog";
 
 const DEFAULT_INITIAL_POST_COUNT = 20;

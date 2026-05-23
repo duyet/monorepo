@@ -118,15 +118,15 @@ export function StatCard({
         <span className="text-2xl font-serif text-[var(--ink)] dark:text-[var(--on-dark)]">
           {value}
         </span>
-        {unit && (
-          <span className="text-sm text-[var(--muted)]">{unit}</span>
-        )}
+        {unit && <span className="text-sm text-[var(--muted)]">{unit}</span>}
       </div>
       {change !== undefined && (
         <div
           className={cn(
             "text-xs font-medium mt-1",
-            change > 0 ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"
+            change > 0
+              ? "text-green-600 dark:text-green-400"
+              : "text-red-600 dark:text-red-400"
           )}
         >
           {change > 0 ? "+" : ""}
@@ -153,10 +153,7 @@ interface StatGridProps {
 export function StatGrid({ stats, className = "" }: StatGridProps) {
   return (
     <div
-      className={cn(
-        "my-8 grid grid-cols-2 lg:grid-cols-4 gap-4",
-        className
-      )}
+      className={cn("my-8 grid grid-cols-2 lg:grid-cols-4 gap-4", className)}
     >
       {stats.map((stat, index) => (
         <StatCard key={index} {...stat} />

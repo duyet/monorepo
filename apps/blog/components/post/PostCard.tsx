@@ -23,14 +23,8 @@ export function PostCard({ post, className }: PostCardProps) {
           <span>·</span>
           <time>{dateFormat(post.date, "MMM d, yyyy")}</time>
         </div>
-        <h3 className="card-title mt-3">
-          {post.title}
-        </h3>
-        {post.excerpt && (
-          <p className="card-desc mt-2">
-            {post.excerpt}
-          </p>
-        )}
+        <h3 className="card-title mt-3">{post.title}</h3>
+        {post.excerpt && <p className="card-desc mt-2">{post.excerpt}</p>}
         <div className="card-footer">
           <span>{post.readingTime || "Article"}</span>
           <span className="card-arrow">→</span>

@@ -2,13 +2,13 @@ import type { Post } from "@duyet/interfaces";
 import type { TOCItem } from "@duyet/libs/extractHeadings";
 import { cn } from "@duyet/libs/utils";
 import { compile, run } from "@mdx-js/mdx";
+import { Fragment, use } from "react";
+import * as runtime from "react/jsx-runtime";
 import rehypeHighlight from "rehype-highlight";
 import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
-import { Fragment, use } from "react";
-import * as runtime from "react/jsx-runtime";
 
 import "katex/dist/contrib/mhchem.min.js";
 import "katex/dist/katex.min.css";

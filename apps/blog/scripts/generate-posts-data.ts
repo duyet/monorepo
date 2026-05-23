@@ -16,10 +16,10 @@
 
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import type { Post, Series } from "@duyet/interfaces";
 import { getAllPosts } from "@duyet/libs/getPost";
 import { getAllSeries } from "@duyet/libs/getSeries";
 import { markdownToHtml } from "@duyet/libs/markdownToHtml";
-import type { Post, Series } from "@duyet/interfaces";
 
 const PUBLIC_DIR = join(import.meta.dir, "..", "public");
 const CONTENT_DIR = join(PUBLIC_DIR, "posts-content");
@@ -108,8 +108,12 @@ for (const post of allPostsWithContent) {
 }
 
 // Count how many have html pre-converted
-const withHtml = allPostsWithContent.filter((p) => !p.isMDX && p.content).length;
-console.log(`  ✓ posts-content/ (${written} files, ${withHtml} pre-converted to HTML)`);
+const withHtml = allPostsWithContent.filter(
+  (p) => !p.isMDX && p.content
+).length;
+console.log(
+  `  ✓ posts-content/ (${written} files, ${withHtml} pre-converted to HTML)`
+);
 
 // ── series-data.json ───────────────────────────────────────────────────────────
 const seriesList = getAllSeries() as Series[];

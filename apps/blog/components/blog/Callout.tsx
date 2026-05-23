@@ -1,7 +1,13 @@
 "use client";
 
 import { cn } from "@duyet/libs/utils";
-import { AlertCircle, Info, Lightbulb, CheckCircle, AlertTriangle } from "lucide-react";
+import {
+  AlertCircle,
+  AlertTriangle,
+  CheckCircle,
+  Info,
+  Lightbulb,
+} from "lucide-react";
 
 type CalloutVariant = "info" | "warning" | "error" | "success" | "tip";
 
@@ -24,28 +30,32 @@ export function Callout({
 }: CalloutProps) {
   const variantStyles = {
     info: {
-      container: "bg-blue-50/50 dark:bg-blue-900/10 border-blue-200 dark:border-blue-800",
+      container:
+        "bg-blue-50/50 dark:bg-blue-900/10 border-blue-200 dark:border-blue-800",
       icon: "text-blue-600 dark:text-blue-400",
       title: "text-blue-800 dark:text-blue-300",
       text: "text-blue-700 dark:text-blue-300",
       Icon: Info,
     },
     warning: {
-      container: "bg-yellow-50/50 dark:bg-yellow-900/10 border-yellow-200 dark:border-yellow-800",
+      container:
+        "bg-yellow-50/50 dark:bg-yellow-900/10 border-yellow-200 dark:border-yellow-800",
       icon: "text-yellow-600 dark:text-yellow-400",
       title: "text-yellow-800 dark:text-yellow-300",
       text: "text-yellow-700 dark:text-yellow-300",
       Icon: AlertTriangle,
     },
     error: {
-      container: "bg-red-50/50 dark:bg-red-900/10 border-red-200 dark:border-red-800",
+      container:
+        "bg-red-50/50 dark:bg-red-900/10 border-red-200 dark:border-red-800",
       icon: "text-red-600 dark:text-red-400",
       title: "text-red-800 dark:text-red-300",
       text: "text-red-700 dark:text-red-300",
       Icon: AlertCircle,
     },
     success: {
-      container: "bg-green-50/50 dark:bg-green-900/10 border-green-200 dark:border-green-800",
+      container:
+        "bg-green-50/50 dark:bg-green-900/10 border-green-200 dark:border-green-800",
       icon: "text-green-600 dark:text-green-400",
       title: "text-green-800 dark:text-green-300",
       text: "text-green-700 dark:text-green-300",

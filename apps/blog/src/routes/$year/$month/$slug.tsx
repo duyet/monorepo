@@ -1,7 +1,7 @@
 import Container from "@duyet/components/Container";
 import type { Post, Series } from "@duyet/interfaces";
-import { extractHeadings } from "@duyet/libs/extractHeadings";
 import type { TOCItem } from "@duyet/libs/extractHeadings";
+import { extractHeadings } from "@duyet/libs/extractHeadings";
 import { markdownToHtml } from "@duyet/libs/markdownToHtml";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { SeriesBox } from "@/components/layout/SeriesBox";
@@ -29,9 +29,7 @@ export const Route = createFileRoute("/$year/$month/$slug")({
           property: "og:url",
           content: `https://blog.duyet.net/${year}/${month}/${slug}`,
         },
-        ...(post?.title
-          ? [{ property: "og:title", content: post.title }]
-          : []),
+        ...(post?.title ? [{ property: "og:title", content: post.title }] : []),
         ...(post?.excerpt
           ? [
               { name: "description", content: post.excerpt },
@@ -120,15 +118,13 @@ function PostPage() {
       <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
         <ReadingProgress />
 
-        <div className="mx-auto flex justify-center gap-10 xl:max-w-[1280px]">
-          <div className="post-body min-w-0 flex-1">
+        <div className="mx-auto grid grid-cols-1 lg:grid-cols-[8fr_4fr] gap-10 xl:max-w-[1280px]">
+          <div className="post-body min-w-0">
             <Content post={post} />
 
             <Meta post={post} series={series} className="post-meta mt-12" />
 
-            {series && (
-              <SeriesBox series={series} current={post.slug} />
-            )}
+            {series && <SeriesBox series={series} current={post.slug} />}
           </div>
 
           <TableOfContents headings={post.headings || []} />

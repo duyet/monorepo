@@ -3,8 +3,8 @@ import type { Post, Series } from "@duyet/interfaces";
 import { distanceToNow, formatReadingTime } from "@duyet/libs/date";
 import { getSlug } from "@duyet/libs/getSlug";
 import { cn } from "@duyet/libs/utils";
-import { Calendar, Clock, Folder, Tag } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { Calendar, Clock, Folder, Tag } from "lucide-react";
 import { MarkdownMenuWrapper } from "./-markdown-menu-wrapper";
 
 interface ContentProps {
