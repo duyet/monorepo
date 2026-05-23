@@ -49,7 +49,7 @@ const statusDot: Record<string, string> = {
   OSS: "bg-[color:var(--subtle)]",
 };
 
-const featured: ProjectRowItem[] = apps.slice(0, 6).map((item) => ({
+const featured: ProjectRowItem[] = apps.slice(0, 5).map((item) => ({
   ...item,
   ...(rowMeta[item.name] ?? {
     year: "—",
@@ -70,7 +70,7 @@ function HomePage() {
 
         <main className="mx-auto max-w-[1200px] px-6 md:px-8">
           {/* Asymmetric Hero Section */}
-          <section className="pt-20 pb-16 md:pt-28 md:pb-24">
+          <section className="pt-24 pb-20 md:pt-36 md:pb-28">
             <div className="flex flex-col items-start text-left max-w-2xl">
                 <span className="text-xs font-bold uppercase tracking-wider text-[color:var(--accent)] mb-4">
                   Data & AI Engineer
@@ -99,7 +99,7 @@ function HomePage() {
           </section>
 
           {/* Premium Grid Project Section */}
-          <section className="pb-20 md:pb-32">
+          <section className="py-16 md:py-28">
             <div className="mb-10 flex items-baseline justify-between">
               <h2 className="text-3xl font-medium tracking-tight md:text-4xl text-[color:var(--foreground)]">
                 Selected work
@@ -112,7 +112,7 @@ function HomePage() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-flow-dense grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {featured.map((item, i) => (
                 <div
                   key={item.name}
@@ -127,7 +127,7 @@ function HomePage() {
           {/* Sites Section — sibling apps in the monorepo */}
           <section
             id="sites"
-            className="pb-20 md:pb-32"
+            className="py-16 md:py-28"
           >
             <div className="mb-10">
               <span className="text-xs font-bold uppercase tracking-wider text-[color:var(--accent)] mb-3 block">
@@ -149,7 +149,7 @@ function HomePage() {
           </section>
 
           {/* Contact Section */}
-          <section className="pb-20 md:pb-32">
+          <section className="py-16 md:py-28">
             <h2 className="text-3xl font-medium tracking-tight md:text-4xl text-[color:var(--foreground)]">
               Get in touch
             </h2>
