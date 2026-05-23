@@ -106,6 +106,19 @@ Would you like me to tell you more about Duyet's **blog**, **resume (CV)**, or h
 }
 
 export function getCompiledGraph(checkpointer?: any, env?: any) {
+  const anyrouterApiKey =
+    env?.ANYROUTER_API_KEY ||
+    (typeof process !== "undefined" ? process.env.ANYROUTER_API_KEY : undefined);
+  const anyrouterBaseUrl =
+    env?.ANYROUTER_BASE_URL ||
+    (typeof process !== "undefined" ? process.env.ANYROUTER_BASE_URL : undefined) ||
+    "https://anyrouter.dev/api/v1";
+  const anyrouterModel =
+    env?.ANYROUTER_MODEL ||
+    env?.ANYROUTER_PRESET ||
+    (typeof process !== "undefined" ? env.ANYROUTER_MODEL || env.ANYROUTER_PRESET || process.env.ANYROUTER_MODEL || process.env.ANYROUTER_PRESET : undefined) ||
+    "@preset/duyetbot";
+
   const openaiApiKey =
     env?.OPENAI_API_KEY ||
     (typeof process !== "undefined" ? process.env.OPENAI_API_KEY : undefined);
@@ -118,7 +131,16 @@ export function getCompiledGraph(checkpointer?: any, env?: any) {
 
   let model: any;
 
-  if (googleApiKey && !googleApiKey.startsWith("AIzaSyBfJXU8rnLS1btLv")) {
+  if (anyrouterApiKey && !anyrouterApiKey.startsWith("placeholder")) {
+    model = new ChatOpenAI({
+      model: anyrouterModel,
+      temperature: 0,
+      apiKey: anyrouterApiKey,
+      configuration: {
+        baseURL: anyrouterBaseUrl,
+      },
+    });
+  } else if (googleApiKey && !googleApiKey.startsWith("AIzaSyBfJXU8rnLS1btLv")) {
     try {
       if (typeof process !== "undefined" && process.env) {
         process.env.GOOGLE_API_KEY = googleApiKey;
@@ -157,11 +179,13 @@ export function getCompiledGraph(checkpointer?: any, env?: any) {
   const callModel = async (state: typeof MessagesAnnotation.State) => {
     try {
       // Check if we are using placeholder credentials to avoid wasting network requests
+      const isPlaceholderAnyRouter =
+        !anyrouterApiKey || anyrouterApiKey.startsWith("placeholder");
       const isPlaceholderOpenAI =
         !openaiApiKey || openaiApiKey.startsWith("sk-proj-epynv");
       const isPlaceholderGemini =
         !googleApiKey || googleApiKey.startsWith("AIzaSyBfJXU8rnLS1btLv");
-      if (isPlaceholderOpenAI && isPlaceholderGemini) {
+      if (isPlaceholderAnyRouter && isPlaceholderOpenAI && isPlaceholderGemini) {
         throw new Error(
           "Local fallback triggered due to placeholder API credentials."
         );
