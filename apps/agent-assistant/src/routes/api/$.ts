@@ -26,15 +26,21 @@ async function handleRequest(
   const THREAD_STORE = cfEnv.THREAD_STORE;
 
   if (!THREAD_STORE) {
-    return Response.json(
-      {
+    return new Response(
+      JSON.stringify({
         error: "THREAD_STORE Durable Object binding not configured.",
         debug: {
           contextKeys: Object.keys(context || {}),
           cfEnvKeys: Object.keys(cfEnv || {}),
         },
-      },
-      { status: 500, headers: getCorsHeaders() }
+      }),
+      {
+        status: 500,
+        headers: {
+          ...getCorsHeaders(),
+          "Content-Type": "application/json",
+        },
+      }
     );
   }
 
@@ -43,14 +49,19 @@ async function handleRequest(
     if (method === "POST" && splat === "threads") {
       const threadId = crypto.randomUUID();
 
-      return Response.json(
-        {
+      return new Response(
+        JSON.stringify({
           thread_id: threadId,
           created_at: new Date().toISOString(),
           status: "idle",
           metadata: {},
-        },
-        { headers: getCorsHeaders() }
+        }),
+        {
+          headers: {
+            ...getCorsHeaders(),
+            "Content-Type": "application/json",
+          },
+        }
       );
     }
 
@@ -66,8 +77,8 @@ async function handleRequest(
         configurable: { thread_id: threadId },
       });
 
-      return Response.json(
-        {
+      return new Response(
+        JSON.stringify({
           values: state.values || {},
           next: state.next || [],
           checkpoint: state.config?.configurable || {},
@@ -75,8 +86,13 @@ async function handleRequest(
           created_at: state.createdAt || new Date().toISOString(),
           parent_checkpoint: state.parentConfig?.configurable || null,
           tasks: state.tasks || [],
-        },
-        { headers: getCorsHeaders() }
+        }),
+        {
+          headers: {
+            ...getCorsHeaders(),
+            "Content-Type": "application/json",
+          },
+        }
       );
     }
 
@@ -93,9 +109,9 @@ async function handleRequest(
       const graph = getCompiledGraph(checkpointer, cfEnv);
 
       // Create a readable stream that yields SSE
-      const { readable, writable } = new TransformStream();
+      const { readable, writable } = new globalThis.TransformStream();
       const writer = writable.getWriter();
-      const encoder = new TextEncoder();
+      const encoder = new globalThis.TextEncoder();
 
       // Launch execution in the background and pipe to stream
       (async () => {
@@ -163,15 +179,27 @@ async function handleRequest(
       });
     }
 
-    return Response.json(
-      { error: `Endpoint ${method} /api/${splat} not found.` },
-      { status: 404, headers: getCorsHeaders() }
+    return new Response(
+      JSON.stringify({ error: `Endpoint ${method} /api/${splat} not found.` }),
+      {
+        status: 404,
+        headers: {
+          ...getCorsHeaders(),
+          "Content-Type": "application/json",
+        },
+      }
     );
   } catch (err: any) {
     console.error("API handler error:", err);
-    return Response.json(
-      { error: err.message || "Internal Server Error" },
-      { status: 500, headers: getCorsHeaders() }
+    return new Response(
+      JSON.stringify({ error: err.message || "Internal Server Error" }),
+      {
+        status: 500,
+        headers: {
+          ...getCorsHeaders(),
+          "Content-Type": "application/json",
+        },
+      }
     );
   }
 }

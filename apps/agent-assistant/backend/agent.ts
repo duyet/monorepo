@@ -116,7 +116,7 @@ export function getCompiledGraph(checkpointer?: any, env?: any) {
   const anyrouterModel =
     env?.ANYROUTER_MODEL ||
     env?.ANYROUTER_PRESET ||
-    (typeof process !== "undefined" ? env.ANYROUTER_MODEL || env.ANYROUTER_PRESET || process.env.ANYROUTER_MODEL || process.env.ANYROUTER_PRESET : undefined) ||
+    (typeof process !== "undefined" ? env?.ANYROUTER_MODEL || env?.ANYROUTER_PRESET || process.env.ANYROUTER_MODEL || process.env.ANYROUTER_PRESET : undefined) ||
     "@preset/duyetbot";
 
   const openaiApiKey =
@@ -202,7 +202,10 @@ export function getCompiledGraph(checkpointer?: any, env?: any) {
 
       const lastUserMessage = [...state.messages]
         .reverse()
-        .find((m) => m._getType() === "human" || (m as any).type === "human");
+        .find((m) => {
+          const type = typeof m._getType === "function" ? m._getType() : (m as any).type;
+          return type === "human" || type === "user";
+        });
       const userContent = lastUserMessage
         ? typeof lastUserMessage.content === "string"
           ? lastUserMessage.content

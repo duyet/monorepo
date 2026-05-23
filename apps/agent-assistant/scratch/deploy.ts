@@ -250,7 +250,17 @@ const prodEnv = parseEnvFile(join(rootDir, ".env.production"));
 const localProdEnv = parseEnvFile(join(rootDir, ".env.production.local"));
 const appEnv = parseEnvFile(join(appPath, ".env"));
 const appLocalEnv = parseEnvFile(join(appPath, ".env.local"));
-const parsedEnv = { ...prodEnv, ...localProdEnv, ...appEnv, ...appLocalEnv };
+
+// Gather and merge variables, specifically forwarding ANYROUTER keys if present in process.env
+const parsedEnv = {
+  ...prodEnv,
+  ...localProdEnv,
+  ...appEnv,
+  ...appLocalEnv,
+  ...(process.env.ANYROUTER_API_KEY ? { ANYROUTER_API_KEY: process.env.ANYROUTER_API_KEY } : {}),
+  ...(process.env.ANYROUTER_PRESET ? { ANYROUTER_PRESET: process.env.ANYROUTER_PRESET } : {}),
+  ...(process.env.ANYROUTER_MODEL ? { ANYROUTER_MODEL: process.env.ANYROUTER_MODEL } : {}),
+};
 
 const wranglerJsonPath = join(appPath, "dist/duyet_agent_assistant/wrangler.json");
 if (existsSync(wranglerJsonPath)) {
