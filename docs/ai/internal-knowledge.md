@@ -43,7 +43,7 @@ This repository is the Bun/Turborepo monorepo for duyet.net public apps, shared 
 - `apps/api`: Hono API on Cloudflare Workers for `https://api.duyet.net`.
 - `apps/ai-percentage`: AI-written-code dashboard for `https://ai-percentage.duyet.net`; data comes from `apps/data-sync`.
 - `apps/data-sync`: operational CLI for ClickHouse analytics/activity syncs and migrations.
-- `apps/agent-assistant`: Next.js App Router workspace with assistant-ui + LangGraph (OpenAI/Ollama integration) serving as a local agent interface. Deployed to Cloudflare Pages (`duyet-agent-assistant`) for `https://agent-assistant.duyet.net`.
+- `apps/agent-assistant`: Vite-powered TanStack Start application with assistant-ui + LangGraph serving as a local agent interface. Deployed directly serverless on Cloudflare Workers/Pages (`duyet-agent-assistant`) for `https://agent-assistant.duyet.net` utilizing a native Cloudflare Durable Object (`ThreadStateDO`) backed by SQLite for checkpoint persistence.
 
 ## Shared Packages
 
@@ -64,7 +64,7 @@ This repository is the Bun/Turborepo monorepo for duyet.net public apps, shared 
 - `apps/insights` deploys `dist/client` to the `duyet-insights` Pages project.
 - `apps/api` uses Wrangler as a Worker, not a Pages app.
 - `apps/agent-api` uses Wrangler as a Worker, not a Pages app.
-- `apps/agent-assistant` deploys to the `duyet-agent-assistant` Pages project for `https://agent-assistant.duyet.net` using the `--webpack` flag to ensure monorepo hoisting compatibility.
+- `apps/agent-assistant` compiles via Vite/TanStack Start into a unified Worker + Assets bundle and deploys to the `duyet-agent-assistant` project. Features an automated deployment processor (`deploy.ts`) that injects `ThreadStateDO` SQLite schemas and patches browser-incompatible `createRequire` and `import.meta.url` hooks in compiled server chunks.
 
 ## App-Specific Command Notes
 
