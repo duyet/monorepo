@@ -6,6 +6,7 @@ import {
   useAuth,
 } from "@clerk/clerk-react";
 import { useChat } from "@ai-sdk/react";
+import { AppsDrawer } from "@duyet/components";
 import ThemeToggle from "@duyet/components/ThemeToggle";
 import {
   Card,
@@ -21,7 +22,7 @@ import { ScrollArea } from "@duyet/components/ui/scroll-area";
 import { Separator } from "@duyet/components/ui/separator";
 import { Textarea } from "@duyet/components/ui/textarea";
 import type { UIMessage } from "ai";
-import { RotateCcw, Send, Sparkles } from "lucide-react";
+import { LayoutGrid, RotateCcw, Send, Sparkles } from "lucide-react";
 import { type FormEvent, useCallback, useMemo, useState } from "react";
 import {
   AgentApiTransport,
@@ -128,6 +129,7 @@ function ChatScreen() {
   const [lastResponse, setLastResponse] = useState<AgentChatResponse | null>(
     null
   );
+  const [appsOpen, setAppsOpen] = useState(false);
 
   const transport = useMemo(
     () =>
@@ -184,6 +186,14 @@ function ChatScreen() {
             <div className="hidden items-center gap-2 sm:flex">
               <ResponseStatus response={lastResponse} />
             </div>
+            <button
+              type="button"
+              onClick={() => setAppsOpen(true)}
+              className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-secondary/50 text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+              aria-label="Open apps menu"
+            >
+              <LayoutGrid size={16} />
+            </button>
             <ThemeToggle />
             <Button
               aria-label="Reset conversation"
@@ -288,6 +298,10 @@ function ChatScreen() {
           </CardFooter>
         </Card>
       </div>
+      <AppsDrawer
+        isOpen={appsOpen}
+        onClose={() => setAppsOpen(false)}
+      />
     </main>
   );
 }
