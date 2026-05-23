@@ -73,18 +73,21 @@ function AiPage() {
   } = Route.useLoaderData();
 
   return (
-    <div className="space-y-6">
+    <div>
       <InsightsPageHeader
         badge="AI"
-        title="AI usage analytics"
+        title="The tokens, the models, and what they cost."
         description="Claude Code usage patterns, token consumption, model mix, and estimated spend trends."
       />
-      <InsightsNotice
-        title="Cost note"
-        body="This is a token-based simulation view. It does not represent direct billing totals."
-      />
 
-      <div className="space-y-6">
+      <div className="editorial-fade-up mb-12">
+        <InsightsNotice
+          title="Cost note"
+          body="This is a token-based simulation view. It does not represent direct billing totals."
+        />
+      </div>
+
+      <div>
         <InsightsSection
           title="Usage overview"
           description="Token consumption and activity summary."
@@ -123,9 +126,9 @@ function AiPage() {
           <CCUsageDailyTableView activity={activityRaw} days={days} />
         </InsightsSection>
 
-        <p className="text-xs text-muted-foreground">
-          Data Source: Claude Code | Last updated:{" "}
-          {new Date().toISOString().slice(0, 10)}
+        <p className="border-t border-[color:var(--hairline)] pt-6 text-xs italic text-[color:var(--muted)]">
+          Source: Claude Code &middot; updated{" "}
+          {new Date().toISOString().slice(0, 10)}.
         </p>
       </div>
     </div>

@@ -72,14 +72,14 @@ function GithubPage() {
     Route.useLoaderData();
 
   return (
-    <div className="space-y-6">
+    <div>
       <InsightsPageHeader
         badge="GitHub"
-        title="Repository analytics"
+        title="Repositories, languages, and the shape of the commits."
         description="Repository trends, commit activity, language mix, and profile-level development signals."
       />
 
-      <div className="space-y-6">
+      <div>
         <InsightsSection
           title="Language distribution"
           description="Programming languages and repository statistics."

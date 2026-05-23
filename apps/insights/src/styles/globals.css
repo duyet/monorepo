@@ -15,14 +15,17 @@
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
+    border-color: var(--hairline, currentcolor);
   }
 
   body {
-    font-family: var(--font-inter);
+    font-family: var(--font-sans);
     background-color: var(--background);
     color: var(--foreground);
     line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "ss01", "cv11";
   }
 
   h1, h2, h3, h4, h5, .font-serif {
@@ -34,12 +37,48 @@
   h2 { letter-spacing: -1px; }
   h3 { letter-spacing: -0.5px; }
   h4 { letter-spacing: -0.3px; }
+
+  .tabular-nums,
+  .font-mono,
+  [data-tabular] {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@keyframes editorial-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .editorial-fade-up {
+    animation: editorial-fade-up 360ms cubic-bezier(0.2, 0.65, 0.2, 1) both;
+  }
+  .editorial-stagger > * {
+    animation: editorial-fade-up 360ms cubic-bezier(0.2, 0.65, 0.2, 1) both;
+  }
+  .editorial-stagger > *:nth-child(1) { animation-delay: 0ms; }
+  .editorial-stagger > *:nth-child(2) { animation-delay: 50ms; }
+  .editorial-stagger > *:nth-child(3) { animation-delay: 100ms; }
+  .editorial-stagger > *:nth-child(4) { animation-delay: 150ms; }
+  .editorial-stagger > *:nth-child(5) { animation-delay: 200ms; }
+  .editorial-stagger > *:nth-child(6) { animation-delay: 250ms; }
+  .editorial-stagger > *:nth-child(7) { animation-delay: 300ms; }
+  .editorial-stagger > *:nth-child(8) { animation-delay: 350ms; }
 }
 
 :root {
-  --font-inter: "Inter Variable", "Inter", -apple-system, BlinkMacSystemFont,
+  --font-sans: "Inter Variable", "Inter", -apple-system, BlinkMacSystemFont,
     ui-sans-serif, system-ui, sans-serif;
-  --font-serif: Garamond, "Apple Garamond", "EB Garamond", serif;
+  --font-inter: var(--font-sans);
+  --font-serif: "EB Garamond", Garamond, "Apple Garamond", ui-serif, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* Spacing & Radius Scale */
   --radius-xs: 8px;
@@ -78,136 +117,139 @@
   --body-3: 15px;
   --body-4: 12px;
 
-  /* Base Palette */
-  --background: #faf9f5;
-  --foreground: #141413;
-  
-  /* Anthropic Ivory Theme */
-  --foreground-primary: #141413;
-  --foreground-secondary: #30302e;
-  --foreground-tertiary: #5e5d59;
-  --background-primary: #faf9f5;
-  --background-secondary: #f0eee6;
-  --background-tertiary: #e8e6dc;
-  --background-clay: #d97757;
-  --background-oat: #e3dacc;
-  
-  --border-strong: #141413;
-  --border-subtle: #d1cfc5;
-  --border-faint: #f0eee6;
-
-  /* Semantic Surface Variables */
-  --muted: #efe9de;
-  --muted-foreground: #6c6a64;
-  --border: #e6dfd8;
+  /* Editorial monochrome — light */
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --muted: color-mix(in oklch, #0a0a0a 60%, transparent);
+  --subtle: color-mix(in oklch, #0a0a0a 35%, transparent);
+  --faint: color-mix(in oklch, #0a0a0a 8%, transparent);
+  --hairline: color-mix(in oklch, #0a0a0a 8%, transparent);
   --accent: #cc785c;
-  --primary: #cc785c;
-  --primary-active: #a9583e;
-  --primary-disabled: #e6dfd8;
-  --surface-card: #efe9de;
-  --surface-dark: #181715;
-  --surface-dark-elevated: #252320;
-  --surface-dark-soft: #1f1e1b;
-  --surface-soft: #f5f0e8;
-  --on-dark: #faf9f5;
-  --on-dark-soft: #a09d96;
-  --hairline: rgba(20, 20, 19, 0.08);
-  --body-strong: #252523;
-  --body: #3d3d3a;
-  --muted-soft: #8e8b82;
 
-  /* Card Backgrounds */
-  --bg-clay: #d97757;
-  --bg-oat: #e3dacc;
-  --bg-olive: #788c5d;
-  --bg-cactus: #bcd1ca;
-  --bg-sky: #6a9bcc;
-  --bg-heather: #cbcadb;
-  --bg-fig: #c46686;
-  --bg-coral: #ebcece;
+  /* Preserve legacy semantic names (mapped to editorial monochrome) */
+  --foreground-primary: var(--foreground);
+  --foreground-secondary: var(--muted);
+  --foreground-tertiary: var(--subtle);
+  --background-primary: var(--background);
+  --background-secondary: var(--background);
+  --background-tertiary: var(--faint);
+  --background-clay: var(--accent);
+  --background-oat: var(--faint);
 
-  /* Chart Colors */
-  --chart-1: #cc785c;
-  --chart-2: #788c5d;
-  --chart-3: #6a9bcc;
-  --chart-4: #e8a55a;
-  --chart-5: #8e8b82;
+  --border-strong: var(--foreground);
+  --border-subtle: var(--hairline);
+  --border-faint: var(--hairline);
 
-  /* Insights-specific chart tokens */
-  --insights-chart-accent: #cc785c;
-  --insights-chart-ink: #141413;
-  --insights-chart-grid: rgba(20, 20, 19, 0.08);
-  --insights-chart-tooltip-bg: #141413;
-  --insights-chart-tooltip-text: #faf9f5;
-  --insights-chart-placeholder-bg: rgba(20, 20, 19, 0.03);
-  --insights-chart-placeholder-text: rgba(20, 20, 19, 0.55);
-  --insights-card-blue: #dceafa;
-  --insights-card-emerald: #dcefe7;
-  --insights-card-coral: #f2dedb;
-  --insights-panel-blue: #6a9bcc;
-  --insights-panel-emerald: #788c5d;
-  --insights-panel-coral: #d97757;
-  --insights-panel-orange: #e8a55a;
-  --insights-panel-lilac: #9a8fc5;
+  --muted-foreground: var(--muted);
+  --border: var(--hairline);
+  --primary: var(--foreground);
+  --primary-active: var(--accent);
+  --primary-disabled: var(--faint);
+  --surface-card: transparent;
+  --surface-dark: var(--foreground);
+  --surface-dark-elevated: var(--foreground);
+  --surface-dark-soft: var(--foreground);
+  --surface-soft: var(--background);
+  --on-dark: var(--background);
+  --on-dark-soft: color-mix(in oklch, #ffffff 60%, transparent);
+  --body-strong: var(--foreground);
+  --body: var(--foreground);
+  --muted-soft: var(--subtle);
+
+  /* Card Backgrounds (kept as no-ops for legacy classes) */
+  --bg-clay: var(--accent);
+  --bg-oat: var(--faint);
+  --bg-olive: var(--muted);
+  --bg-cactus: var(--faint);
+  --bg-sky: var(--muted);
+  --bg-heather: var(--faint);
+  --bg-fig: var(--accent);
+  --bg-coral: var(--faint);
+
+  /* Chart palette: monochrome with accent as the highlight slot */
+  --chart-1: #0a0a0a;
+  --chart-2: color-mix(in oklch, #0a0a0a 60%, transparent);
+  --chart-3: color-mix(in oklch, #0a0a0a 35%, transparent);
+  --chart-4: color-mix(in oklch, #0a0a0a 20%, transparent);
+  --chart-5: #cc785c;
+
+  /* Insights-specific chart tokens (editorial) */
+  --insights-chart-accent: var(--accent);
+  --insights-chart-ink: var(--foreground);
+  --insights-chart-grid: transparent;
+  --insights-chart-tooltip-bg: var(--foreground);
+  --insights-chart-tooltip-text: var(--background);
+  --insights-chart-placeholder-bg: transparent;
+  --insights-chart-placeholder-text: var(--subtle);
+  --insights-card-blue: var(--faint);
+  --insights-card-emerald: var(--faint);
+  --insights-card-coral: var(--faint);
+  --insights-panel-blue: var(--foreground);
+  --insights-panel-emerald: var(--muted);
+  --insights-panel-coral: var(--accent);
+  --insights-panel-orange: var(--subtle);
+  --insights-panel-lilac: var(--faint);
 }
 
+:root.dark,
 .dark {
-  --background: #0d0e0c;
-  --foreground: #f8f8f2;
-  
-  /* Anthropic Slate Theme */
-  --foreground-primary: #faf9f5;
-  --foreground-secondary: #b0aea5;
-  --foreground-tertiary: #87867f;
-  --background-primary: #141413;
-  --background-secondary: #1f1e1d;
-  --background-tertiary: #30302e;
-  
-  --border-strong: #faf9f5;
-  --border-subtle: #5e5d59;
-  --border-faint: #1f1e1d;
+  /* Editorial monochrome — dark */
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+  --muted: color-mix(in oklch, #fafafa 55%, transparent);
+  --subtle: color-mix(in oklch, #fafafa 30%, transparent);
+  --faint: color-mix(in oklch, #fafafa 8%, transparent);
+  --hairline: color-mix(in oklch, #fafafa 8%, transparent);
+  --accent: #e8926e;
 
-  --muted: #242420;
-  --muted-foreground: #a09d96;
-  --border: rgba(248, 248, 242, 0.12);
-  --accent: #cc785c;
-  --primary: #cc785c;
-  --primary-active: #e8926e;
-  --primary-disabled: rgba(248, 248, 242, 0.12);
-  --surface-dark: #181715;
-  --surface-dark-elevated: #252320;
-  --surface-dark-soft: #1f1e1b;
-  --surface-soft: #1a1918;
-  --on-dark: #faf9f5;
-  --on-dark-soft: #a09d96;
-  --hairline: rgba(248, 248, 242, 0.12);
-  --body-strong: #f0efe9;
-  --body: #c8c5bc;
-  --muted-soft: #7a776e;
+  --foreground-primary: var(--foreground);
+  --foreground-secondary: var(--muted);
+  --foreground-tertiary: var(--subtle);
+  --background-primary: var(--background);
+  --background-secondary: var(--background);
+  --background-tertiary: var(--faint);
 
-  /* Chart Colors (dark) */
-  --chart-1: #d98d73;
-  --chart-2: #96a67a;
-  --chart-3: #89b1d9;
-  --chart-4: #e8a55a;
-  --chart-5: #a09d96;
+  --border-strong: var(--foreground);
+  --border-subtle: var(--hairline);
+  --border-faint: var(--hairline);
 
-  /* Insights-specific chart tokens (dark) */
-  --insights-chart-accent: #d98d73;
-  --insights-chart-ink: #faf9f5;
-  --insights-chart-grid: rgba(248, 248, 242, 0.12);
-  --insights-chart-tooltip-bg: #252320;
-  --insights-chart-tooltip-text: #faf9f5;
-  --insights-chart-placeholder-bg: rgba(248, 248, 242, 0.06);
-  --insights-chart-placeholder-text: rgba(248, 248, 242, 0.62);
-  --insights-card-blue: #1a2a3f;
-  --insights-card-emerald: #163425;
-  --insights-card-coral: #3a2422;
-  --insights-panel-blue: #89b1d9;
-  --insights-panel-emerald: #96a67a;
-  --insights-panel-coral: #d98d73;
-  --insights-panel-orange: #e8a55a;
-  --insights-panel-lilac: #b6aadf;
+  --muted-foreground: var(--muted);
+  --border: var(--hairline);
+  --primary: var(--foreground);
+  --primary-active: var(--accent);
+  --primary-disabled: var(--faint);
+  --surface-card: transparent;
+  --surface-dark: var(--foreground);
+  --surface-dark-elevated: var(--foreground);
+  --surface-dark-soft: var(--foreground);
+  --surface-soft: var(--background);
+  --on-dark: var(--background);
+  --on-dark-soft: color-mix(in oklch, #0a0a0a 60%, transparent);
+  --body-strong: var(--foreground);
+  --body: var(--foreground);
+  --muted-soft: var(--subtle);
+
+  --chart-1: #fafafa;
+  --chart-2: color-mix(in oklch, #fafafa 55%, transparent);
+  --chart-3: color-mix(in oklch, #fafafa 30%, transparent);
+  --chart-4: color-mix(in oklch, #fafafa 15%, transparent);
+  --chart-5: #e8926e;
+
+  --insights-chart-accent: var(--accent);
+  --insights-chart-ink: var(--foreground);
+  --insights-chart-grid: transparent;
+  --insights-chart-tooltip-bg: var(--foreground);
+  --insights-chart-tooltip-text: var(--background);
+  --insights-chart-placeholder-bg: transparent;
+  --insights-chart-placeholder-text: var(--subtle);
+  --insights-card-blue: var(--faint);
+  --insights-card-emerald: var(--faint);
+  --insights-card-coral: var(--faint);
+  --insights-panel-blue: var(--foreground);
+  --insights-panel-emerald: var(--muted);
+  --insights-panel-coral: var(--accent);
+  --insights-panel-orange: var(--subtle);
+  --insights-panel-lilac: var(--faint);
 }
 
 /* Anthropic Utility Classes */

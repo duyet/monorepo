@@ -3,6 +3,7 @@ import { CloudflareView, fetchCloudflareData } from "@/app/blog/cloudflare";
 import { fetchPostHogData, PostHogView } from "@/app/blog/posthog";
 import type { PeriodDays } from "@/lib/periods";
 import { getPeriodConfig, getPeriodDays } from "@/lib/periods";
+import { PeriodSwitcher } from "@/components/PeriodSwitcher";
 import {
   InsightsPageHeader,
   InsightsSection,
@@ -47,14 +48,22 @@ function BlogPeriodPage() {
   const { config, cloudflare, posthog } = Route.useLoaderData();
 
   return (
-    <div className="space-y-6">
+    <div>
       <InsightsPageHeader
-        badge={`Blog • ${config?.label ?? "Period"}`}
-        title="Blog analytics"
+        badge={`Blog · ${config?.label ?? "Period"}`}
+        title="Who came by, and what they read."
         description="Traffic and behavior insights from Cloudflare and PostHog."
       />
 
-      <div className="space-y-6">
+      <div className="editorial-fade-up mb-12">
+        <PeriodSwitcher
+          current={config?.value ?? "30"}
+          route="/blog/$period"
+          eyebrow="Period"
+        />
+      </div>
+
+      <div>
         {cloudflare && (
           <InsightsSection
             title="Traffic analytics"

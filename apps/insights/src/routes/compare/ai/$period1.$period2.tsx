@@ -75,7 +75,7 @@ function AIComparisonPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div>
       <InsightsPageHeader
         badge={`Compare • AI`}
         title="AI usage comparison"
@@ -121,7 +121,7 @@ function AIComparisonPage() {
               },
             ]}
           />
-          <p className="mt-4 text-xs text-muted-foreground">
+          <p className="mt-6 text-xs italic text-[color:var(--muted)]">
             Data from ClickHouse • Positive values indicate increase in{" "}
             {days1 === "all" ? "All time" : `${days1} days`} compared to{" "}
             {days2 === "all" ? "All time" : `${days2} days`}

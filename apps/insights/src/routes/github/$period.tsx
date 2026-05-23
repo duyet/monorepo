@@ -13,6 +13,7 @@ import {
 import { fetchTrendStats, RepoTrendsView } from "@/app/github/repo-trends";
 import { fetchGithubRepos, ReposView } from "@/app/github/repos";
 import { getPeriodConfig } from "@/lib/periods";
+import { PeriodSwitcher } from "@/components/PeriodSwitcher";
 import {
   InsightsPageHeader,
   InsightsSection,
@@ -82,14 +83,22 @@ function GitHubPeriodPage() {
     Route.useLoaderData();
 
   return (
-    <div className="space-y-6">
+    <div>
       <InsightsPageHeader
-        badge={`GitHub • ${config.label}`}
-        title="Repository analytics"
+        badge={`GitHub · ${config.label}`}
+        title="Repositories, languages, and the shape of the commits."
         description="Repository insights and development activity for the selected period."
       />
 
-      <div className="space-y-6">
+      <div className="editorial-fade-up mb-12">
+        <PeriodSwitcher
+          current={config.value}
+          route="/github/$period"
+          eyebrow="Period"
+        />
+      </div>
+
+      <div>
         <InsightsSection
           title="Language distribution"
           description="Programming languages and repository statistics."

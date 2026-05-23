@@ -74,7 +74,7 @@ function WakaTimeComparisonPage() {
   const period2Label = days2 === "all" ? "All time" : `${days2} days`;
 
   return (
-    <div className="space-y-6">
+    <div>
       <InsightsPageHeader
         badge="Compare • WakaTime"
         title="Coding analytics comparison"
@@ -120,7 +120,7 @@ function WakaTimeComparisonPage() {
               },
             ]}
           />
-          <p className="mt-4 text-xs text-muted-foreground">
+          <p className="mt-6 text-xs italic text-[color:var(--muted)]">
             Data from WakaTime • Positive values indicate increase in{" "}
             {period1Label} compared to {period2Label}
           </p>

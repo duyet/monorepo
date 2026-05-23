@@ -14,6 +14,7 @@ import {
   getCCUsageModels,
 } from "@/app/ai/utils/data-fetchers";
 import { getPeriodConfig, getPeriodDays } from "@/lib/periods";
+import { PeriodSwitcher } from "@/components/PeriodSwitcher";
 import {
   InsightsPageHeader,
   InsightsSection,
@@ -84,14 +85,22 @@ function AiPeriodPage() {
   const tableTitle = isLong ? "Monthly Usage Detail" : "Daily Usage Detail";
 
   return (
-    <div className="space-y-6">
+    <div>
       <InsightsPageHeader
-        badge={`AI • ${config?.label ?? "Period"}`}
-        title="AI usage analytics"
+        badge={`AI · ${config?.label ?? "Period"}`}
+        title="The tokens, the models, and what they cost."
         description="Token usage and model activity across the selected period."
       />
 
-      <div className="space-y-6">
+      <div className="editorial-fade-up mb-12">
+        <PeriodSwitcher
+          current={config?.value ?? "30"}
+          route="/ai/$period"
+          eyebrow="Period"
+        />
+      </div>
+
+      <div>
         <InsightsSection
           title="Usage overview"
           description={
@@ -138,8 +147,8 @@ function AiPeriodPage() {
           <CCUsageDailyTableView activity={activityRaw} days={days} />
         </InsightsSection>
 
-        <p className="text-xs text-muted-foreground">
-          Claude Code Usage Analytics
+        <p className="border-t border-[color:var(--hairline)] pt-6 text-xs italic text-[color:var(--muted)]">
+          Claude Code usage analytics.
         </p>
       </div>
     </div>

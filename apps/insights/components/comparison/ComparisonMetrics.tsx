@@ -1,12 +1,11 @@
 /**
- * Comparison metrics display component
- * Shows side-by-side metrics with delta calculations
+ * Comparison metrics display component.
+ * Editorial side-by-side diff: `value1 → value2` with a small delta below.
  */
 
 "use client";
 
 import { cn } from "@duyet/libs/utils";
-import { Minus, TrendingDown, TrendingUp } from "lucide-react";
 import type { ComparisonDelta } from "@/lib/comparison";
 
 export interface ComparisonMetricItem {
@@ -24,28 +23,20 @@ export interface ComparisonMetricsProps {
   className?: string;
 }
 
-function DeltaBadge({ delta }: { delta: ComparisonDelta }) {
-  const Icon =
-    delta.trend === "up"
-      ? TrendingUp
-      : delta.trend === "down"
-        ? TrendingDown
-        : Minus;
-  const colorClass =
-    delta.trend === "up"
-      ? "text-green-600 dark:text-green-400"
-      : delta.trend === "down"
-        ? "text-red-600 dark:text-red-400"
-        : "text-muted-foreground";
-
+function Delta({ delta }: { delta: ComparisonDelta }) {
+  const sign =
+    delta.trend === "up" ? "+" : delta.trend === "down" ? "−" : "±";
+  const color =
+    delta.trend === "neutral"
+      ? "text-[color:var(--muted)]"
+      : delta.trend === "up"
+        ? "text-[color:var(--foreground)]"
+        : "text-[color:var(--accent)]";
   return (
-    <div className={cn("flex items-center gap-1 text-xs", colorClass)}>
-      <Icon className="h-3 w-3" />
-      <span>
-        {delta.trend === "up" ? "+" : delta.trend === "down" ? "" : ""}
-        {delta.percentageChange.toFixed(1)}%
-      </span>
-    </div>
+    <span className={cn("font-mono text-xs tabular-nums", color)}>
+      {sign}
+      {Math.abs(delta.percentageChange).toFixed(1)}%
+    </span>
   );
 }
 
@@ -56,37 +47,43 @@ export function ComparisonMetrics({
   className,
 }: ComparisonMetricsProps) {
   return (
-    <div className={cn("rounded-xl p-6", className)}>
-      <table className="w-full">
-        <thead>
-          <tr className="border-b">
-            <th className="pb-3 text-left text-sm font-medium">Metric</th>
-            <th className="pb-3 text-right text-sm font-medium">
-              {period1Label}
-            </th>
-            <th className="pb-3 text-right text-sm font-medium">
-              {period2Label}
-            </th>
-            <th className="pb-3 text-right text-sm font-medium">Change</th>
-          </tr>
-        </thead>
-        <tbody>
-          {metrics.map((metric, i) => (
-            <tr key={i} className="border-b last:border-0">
-              <td className="py-3 text-sm">{metric.label}</td>
-              <td className="py-3 text-right text-sm font-medium tabular-nums">
+    <div className={cn("editorial-stagger flex flex-col", className)}>
+      <div className="flex items-baseline gap-3 pb-4 text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">
+        <span>{period1Label}</span>
+        <span aria-hidden="true">&rarr;</span>
+        <span>{period2Label}</span>
+      </div>
+      {metrics.map((metric, i) => (
+        <div
+          key={metric.label}
+          className={cn(
+            "grid grid-cols-1 gap-4 py-6 md:grid-cols-[1fr_2fr]",
+            i === 0 ? "border-t border-[color:var(--hairline)]" : "",
+            "border-b border-[color:var(--hairline)]"
+          )}
+        >
+          <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">
+            {metric.label}
+          </p>
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-wrap items-baseline gap-3 font-mono tabular-nums">
+              <span className="text-3xl tracking-tight text-[color:var(--foreground)]">
                 {metric.value1}
-              </td>
-              <td className="py-3 text-right text-sm text-muted-foreground tabular-nums">
+              </span>
+              <span
+                aria-hidden="true"
+                className="text-xl text-[color:var(--subtle)]"
+              >
+                &rarr;
+              </span>
+              <span className="text-3xl tracking-tight text-[color:var(--muted)]">
                 {metric.value2}
-              </td>
-              <td className="py-3 text-right">
-                {metric.delta ? <DeltaBadge delta={metric.delta} /> : "-"}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+              </span>
+            </div>
+            {metric.delta ? <Delta delta={metric.delta} /> : null}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

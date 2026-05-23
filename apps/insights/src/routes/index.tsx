@@ -1,26 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
-  BarChart3,
-  Bot,
-  Clock3,
-  Code2,
-  Eye,
-  Globe2,
-  Sparkles,
-  Zap,
-} from "lucide-react";
-import {
   Area,
   AreaChart,
   Bar,
   BarChart,
-  CartesianGrid,
-  Cell,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
+import { EditorialPanel } from "@/components/EditorialPanel";
 import { InsightsPageHeader } from "@/components/layouts/InsightsPageShell";
 
 interface AiActivity {
@@ -158,16 +147,9 @@ const EMPTY_POSTHOG: PostHogSummary = {
   totalVisitors: 0,
 };
 
-const PANEL_COLORS = [
-  "var(--insights-panel-blue)",
-  "var(--insights-panel-emerald)",
-  "var(--insights-panel-coral)",
-  "var(--insights-panel-orange)",
-  "var(--insights-panel-lilac)",
-];
-const CHART_ORANGE = "var(--insights-chart-accent)";
-const CHART_BLACK = "var(--insights-chart-ink)";
-const CHART_GRID = "var(--insights-chart-grid)";
+const CHART_FOREGROUND = "var(--foreground)";
+const CHART_SUBTLE = "var(--subtle)";
+const CHART_ACCENT = "var(--accent)";
 const CHART_TOOLTIP_BACKGROUND = "var(--insights-chart-tooltip-bg)";
 const CHART_TOOLTIP_TEXT = "var(--insights-chart-tooltip-text)";
 const API_BASE_URL =
@@ -250,11 +232,11 @@ export const Route = createFileRoute("/")({
       : fetchOverviewDataFromApi(),
   head: () => ({
     meta: [
-      { title: "@duyet Insights Dashboard" },
+      { title: "@duyet Insights" },
       {
         name: "description",
         content:
-          "Operational analytics for duyet.net across traffic, AI usage, coding activity, and content.",
+          "Editorial dashboard for duyet.net across traffic, AI usage, coding activity, and content.",
       },
     ],
   }),
@@ -289,74 +271,53 @@ function IndexPage() {
     name: language.name,
     percent: language.percent,
   }));
-  const aiVsHuman = [
-    { label: "AI tokens (K)", value: Number((data.aiMetrics.totalTokens / 1000).toFixed(1)) },
-    { label: "Coding hours", value: Number(data.wakaMetrics.totalHours.toFixed(1)) },
-  ];
   const topPosts = data.posthog.paths.slice(0, 5);
 
+  const pageViews = data.cloudflare.totalPageviews || data.posthog.totalViews;
+
   return (
-    <div className="space-y-8">
+    <div>
       <InsightsPageHeader
-        badge="Overview"
-        title="AI vs human coding insights."
-        description="Operational view focused on AI token usage, model/tool mix, coding hours, and supporting traffic context."
+        badge="Overview · last 30 days"
+        title="A quiet view of what shipped, what ran, and what was read."
+        description="One editorial page across traffic, AI usage, human coding, and the most-read posts. No dashboards, no chrome — just the numbers and what they meant this month."
       />
 
-      <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <MetricTile
-          icon={Eye}
-          label="Page views"
-          value={formatNumber(
-            data.cloudflare.totalPageviews || data.posthog.totalViews
-          )}
+      <section className="editorial-stagger editorial-fade-up grid grid-cols-2 gap-x-8 gap-y-12 border-t border-[color:var(--hairline)] pt-12 md:grid-cols-4">
+        <EditorialPanel
+          label="Page views · 30d"
+          value={formatNumber(pageViews)}
+          sparkline={
+            <Sparkline
+              data={traffic.map((t) => Number(t.pageViews) || 0)}
+              accent={false}
+            />
+          }
         />
-        <MetricTile
-          icon={Bot}
-          label="AI tokens"
+        <EditorialPanel
+          label="AI tokens · 30d"
           value={formatCompact(data.aiMetrics.totalTokens)}
+          caption={`${data.aiMetrics.activeDays} active days`}
         />
-        <MetricTile
-          icon={Clock3}
-          label="Coding hours"
+        <EditorialPanel
+          label="Coding hours · 30d"
           value={formatNumber(data.wakaMetrics.totalHours)}
+          caption={`${formatNumber(data.wakaMetrics.avgDailyHours)} avg per active day`}
         />
-        <MetricTile
-          icon={Zap}
-          label="AI cost"
+        <EditorialPanel
+          label="AI cost · 30d"
           value={formatCurrency(data.aiMetrics.totalCost)}
+          caption={`top model: ${compactName(data.aiMetrics.topModel)}`}
         />
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-        <FlatStatusCard
-          icon={Sparkles}
-          label="AI top model"
-          metric={data.aiMetrics.topModel}
-          summary={`${formatCompact(data.aiMetrics.cacheTokens)} cache tokens across ${data.aiMetrics.activeDays} active days.`}
-        />
-        <FlatStatusCard
-          icon={Code2}
-          label="Human coding"
-          metric={data.wakaMetrics.topLanguage}
-          summary={`${formatNumber(data.wakaMetrics.avgDailyHours)} average hours per active day.`}
-        />
-        <FlatStatusCard
-          icon={BarChart3}
-          label="Traffic requests"
-          metric={formatNumber(data.cloudflare.totalRequests)}
-          summary="Cloudflare request volume for current overview period."
-        />
-      </section>
-
-      <section className="grid gap-5 xl:grid-cols-[1.35fr_0.65fr]">
-        <ChartPanel
-          eyebrow="Traffic"
-          subtitle="Requests, page views, and unique visitors from Cloudflare."
-          title="Public site pulse"
+      <section className="editorial-fade-up mt-20 grid grid-cols-1 gap-12 border-t border-[color:var(--hairline)] pt-12 xl:grid-cols-[1.4fr_0.6fr]">
+        <EditorialChart
+          eyebrow="Traffic · Cloudflare"
+          title="Public site pulse."
+          subtitle="Requests, page views, and unique visitors over the last 30 days."
         >
           <InsightAreaChart
-            colors={[CHART_BLACK, CHART_ORANGE, "#4f83b8"]}
             data={traffic}
             keys={["requests", "pageViews", "visitors"]}
             labelMap={{
@@ -364,87 +325,86 @@ function IndexPage() {
               requests: "Requests",
               visitors: "Visitors",
             }}
+            accentKey="requests"
           />
-        </ChartPanel>
+        </EditorialChart>
 
-        <ListPanel
-          eyebrow="Tools"
-          emptyLabel="PostHog data is not configured for this build."
+        <EditorialList
+          eyebrow="Reading · PostHog"
+          title="Most-read pages."
           items={topPosts.map((path) => ({
             label: path.path,
             meta: `${formatNumber(path.visitors)} visitors`,
             value: formatNumber(path.views),
           }))}
-          title="Most-used pages"
+          emptyLabel="PostHog data is not configured for this build."
         />
       </section>
 
-      <section className="grid gap-5 xl:grid-cols-2">
-        <ChartPanel
-          eyebrow="AI vs Human"
-          subtitle="Relative scale between AI token volume and human coding time."
-          title="AI vs human coding volume"
-        >
-          <InsightBarChart
-            data={aiVsHuman}
-            nameKey="label"
-            valueKey="value"
-          />
-        </ChartPanel>
-
-        <ChartPanel
-          eyebrow="AI"
-          subtitle="Token volume and cost from the cached ccusage warehouse."
-          title="AI work trend"
+      <section className="editorial-fade-up mt-20 grid grid-cols-1 gap-12 border-t border-[color:var(--hairline)] pt-12 xl:grid-cols-2">
+        <EditorialChart
+          eyebrow="AI · ccusage"
+          title="AI work, day by day."
+          subtitle="Token volume and estimated cost from the cached ccusage warehouse."
         >
           <InsightAreaChart
-            colors={[CHART_ORANGE, CHART_BLACK]}
             data={aiActivity}
             keys={["tokens", "cost"]}
-            labelMap={{ cost: "Cost", tokens: "K tokens" }}
+            labelMap={{ cost: "Cost", tokens: "Tokens" }}
+            accentKey="tokens"
           />
-        </ChartPanel>
+        </EditorialChart>
+
+        <EditorialChart
+          eyebrow="Models · share"
+          title="Where the tokens went."
+          subtitle="Most active model families by token share over the last 30 days."
+        >
+          <InsightBarChart
+            data={topModels}
+            nameKey="name"
+            valueKey="percent"
+          />
+        </EditorialChart>
       </section>
 
-      <section className="grid gap-5 xl:grid-cols-2">
-        <ChartPanel
-          eyebrow="Models / Tools"
-          subtitle="Most active model families by token share."
-          title="Model and tool mix"
-        >
-          <InsightBarChart data={topModels} nameKey="name" valueKey="percent" />
-        </ChartPanel>
-
-        <ChartPanel
-          eyebrow="Languages"
-          subtitle="Language mix from the current coding period."
-          title="Code attention"
+      <section className="editorial-fade-up mt-20 grid grid-cols-1 gap-12 border-t border-[color:var(--hairline)] pt-12 xl:grid-cols-2">
+        <EditorialChart
+          eyebrow="Coding · WakaTime"
+          title="Where the human hours went."
+          subtitle="Language mix from the current 30-day coding window."
         >
           <InsightBarChart
             data={topLanguages}
             nameKey="name"
             valueKey="percent"
           />
-        </ChartPanel>
+        </EditorialChart>
+
+        <div className="grid grid-cols-1 gap-10 self-start">
+          <EditorialPanel
+            label="AI cache tokens · 30d"
+            value={formatCompact(data.aiMetrics.cacheTokens)}
+            caption="Cached prompt re-use across recent sessions."
+          />
+          <EditorialPanel
+            label="Cloudflare requests · 30d"
+            value={formatNumber(data.cloudflare.totalRequests)}
+            caption="Total edge requests for the period."
+          />
+          <EditorialPanel
+            label="Top language"
+            value={data.wakaMetrics.topLanguage}
+            caption={`${formatNumber(data.wakaMetrics.daysActive)} active days at the keyboard.`}
+          />
+        </div>
       </section>
 
-      <section className="grid gap-4 rounded-xl bg-[var(--surface-card)] border border-[var(--border)] p-6 md:grid-cols-3">
-        <SourceNote
-          icon={Globe2}
-          label="Cloudflare + PostHog"
-          text="Traffic and content queries degrade to empty states when credentials are absent."
-        />
-        <SourceNote
-          icon={Bot}
-          label="ClickHouse + DuckDB"
-          text="AI metrics try server-only ClickHouse first, then use cached DuckDB snapshots."
-        />
-        <SourceNote
-          icon={Code2}
-          label="WakaTime"
-          text="Human coding totals come from WakaTime stats and insights endpoints."
-        />
-      </section>
+      <p className="editorial-fade-up mt-24 max-w-3xl border-t border-[color:var(--hairline)] pt-8 font-serif text-sm italic leading-7 text-[color:var(--muted)]">
+        Sources: Cloudflare and PostHog for traffic, ClickHouse and DuckDB for
+        AI usage, WakaTime for coding hours. Missing credentials degrade to
+        empty states.
+      </p>
     </div>
   );
 }
@@ -453,60 +413,7 @@ function settled<T>(result: PromiseSettledResult<T>, fallback: T): T {
   return result.status === "fulfilled" ? result.value : fallback;
 }
 
-function MetricTile({
-  icon: Icon,
-  label,
-  value,
-}: {
-  icon: typeof Eye;
-  label: string;
-  value: string;
-}) {
-  return (
-    <div
-      className="min-w-0 rounded-xl bg-[var(--surface-card)] p-5 text-[var(--foreground)] transition-transform hover:-translate-y-0.5 border border-[var(--border)]"
-    >
-      <div className="flex items-center justify-between gap-3">
-        <p className="text-sm font-medium text-[var(--muted-foreground)]">{label}</p>
-        <Icon className="h-4 w-4 shrink-0 opacity-40" />
-      </div>
-      <p className="mt-8 truncate text-3xl font-serif tracking-tight">
-        {value}
-      </p>
-    </div>
-  );
-}
-
-function FlatStatusCard({
-  icon: Icon,
-  label,
-  metric,
-  summary,
-}: {
-  icon: typeof Eye;
-  label: string;
-  metric: string;
-  summary: string;
-}) {
-  return (
-    <div
-      className="flex min-h-44 flex-col rounded-xl bg-[var(--surface-dark)] p-6 text-[var(--on-dark)] transition-transform hover:-translate-y-0.5 border border-white/5 shadow-md"
-    >
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="text-sm font-medium text-[var(--on-dark-soft)]">{label}</p>
-          <h2 className="mt-3 break-words text-3xl font-serif tracking-tight">
-            {metric}
-          </h2>
-        </div>
-        <Icon className="h-6 w-6 shrink-0 opacity-50" />
-      </div>
-      <p className="mt-auto pt-4 text-sm leading-6 text-[var(--on-dark-soft)] opacity-80">{summary}</p>
-    </div>
-  );
-}
-
-function ChartPanel({
+function EditorialChart({
   children,
   eyebrow,
   subtitle,
@@ -518,15 +425,15 @@ function ChartPanel({
   title: string;
 }) {
   return (
-    <div className="rounded-xl bg-[var(--surface-card)] border border-[var(--border)] p-6 shadow-sm">
-      <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-        <div className="min-w-0">
-          <p className="font-serif text-lg italic text-[var(--primary)]">{eyebrow}</p>
-          <h2 className="mt-1 text-3xl font-serif tracking-tight text-[var(--foreground)]">
-            {title}
-          </h2>
-        </div>
-        <p className="max-w-md text-base leading-snug text-[var(--muted-foreground)]">
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-2">
+        <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">
+          {eyebrow}
+        </p>
+        <h2 className="font-serif text-3xl leading-tight tracking-tight md:text-4xl">
+          {title}
+        </h2>
+        <p className="max-w-xl text-sm leading-6 text-[color:var(--muted)]">
           {subtitle}
         </p>
       </div>
@@ -535,7 +442,7 @@ function ChartPanel({
   );
 }
 
-function ListPanel({
+function EditorialList({
   emptyLabel,
   eyebrow,
   items,
@@ -547,23 +454,39 @@ function ListPanel({
   title: string;
 }) {
   return (
-    <div className="rounded-xl bg-[var(--surface-card)] border border-[var(--border)] p-6 shadow-sm text-[var(--foreground)]">
-      <p className="font-serif text-lg italic text-[var(--primary)]">{eyebrow}</p>
-      <h2 className="mt-1 text-3xl font-serif tracking-tight text-[var(--foreground)]">{title}</h2>
-      <div className="mt-8 space-y-5">
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-2">
+        <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">
+          {eyebrow}
+        </p>
+        <h2 className="font-serif text-3xl leading-tight tracking-tight md:text-4xl">
+          {title}
+        </h2>
+      </div>
+      <div className="flex flex-col">
         {items.length === 0 ? (
-          <p className="text-base leading-snug text-[var(--muted-foreground)]">{emptyLabel}</p>
+          <p className="text-sm leading-6 text-[color:var(--muted)]">
+            {emptyLabel}
+          </p>
         ) : (
-          items.map((item) => (
+          items.map((item, idx) => (
             <div
-              className="grid grid-cols-[1fr_auto] gap-4 border-t border-[var(--border)] pt-5 first:border-t-0 first:pt-0"
               key={item.label}
+              className={`grid grid-cols-[1fr_auto] items-baseline gap-4 py-3 ${
+                idx === 0 ? "" : "border-t border-[color:var(--hairline)]"
+              }`}
             >
               <div className="min-w-0">
-                <p className="truncate text-base font-medium">{item.label}</p>
-                <p className="mt-1 text-sm text-[var(--muted-foreground)]">{item.meta}</p>
+                <p className="truncate text-sm text-[color:var(--foreground)]">
+                  {item.label}
+                </p>
+                <p className="mt-1 text-xs text-[color:var(--muted)]">
+                  {item.meta}
+                </p>
               </div>
-              <p className="text-base font-serif font-semibold text-[var(--foreground)]">{item.value}</p>
+              <p className="font-mono text-base tabular-nums text-[color:var(--foreground)]">
+                {item.value}
+              </p>
             </div>
           ))
         )}
@@ -573,15 +496,16 @@ function ListPanel({
 }
 
 function InsightAreaChart({
-  colors,
   data,
   keys,
   labelMap,
+  accentKey,
 }: {
-  colors: string[];
   data: Array<Record<string, number | string>>;
   keys: string[];
   labelMap: Record<string, string>;
+  /** Which key gets the accent color; others stay monochrome. */
+  accentKey?: string;
 }) {
   const isHydrated = useHydrated();
   const { ref, width } = useElementWidth();
@@ -590,18 +514,23 @@ function InsightAreaChart({
     return <EmptyChart label="No data available for this period." />;
   }
 
+  const colorFor = (key: string, index: number) => {
+    if (accentKey && key === accentKey) return CHART_ACCENT;
+    return index === 0 ? CHART_FOREGROUND : CHART_SUBTLE;
+  };
+
   return (
-    <div className="h-[280px] min-w-0" ref={ref}>
+    <div className="h-[260px] min-w-0" ref={ref}>
       {(!isHydrated || width === 0) && (
-        <div className="flex h-full items-center justify-center rounded-lg bg-[var(--insights-chart-placeholder-bg)] text-sm text-[var(--insights-chart-placeholder-text)]">
-          Chart loading.
+        <div className="flex h-full items-center text-xs text-[color:var(--insights-chart-placeholder-text)]">
+          Loading.
         </div>
       )}
       {isHydrated && width > 0 && (
         <AreaChart
           data={data}
-          height={280}
-          margin={{ bottom: 0, left: -16, right: 8, top: 8 }}
+          height={260}
+          margin={{ bottom: 0, left: -12, right: 4, top: 8 }}
           width={width}
         >
           <defs>
@@ -616,44 +545,42 @@ function InsightAreaChart({
               >
                 <stop
                   offset="5%"
-                  stopColor={colors[index % colors.length]}
-                  stopOpacity={0.28}
+                  stopColor={colorFor(key, index)}
+                  stopOpacity={0.18}
                 />
                 <stop
                   offset="95%"
-                  stopColor={colors[index % colors.length]}
-                  stopOpacity={0.02}
+                  stopColor={colorFor(key, index)}
+                  stopOpacity={0}
                 />
               </linearGradient>
             ))}
           </defs>
-          <CartesianGrid
-            stroke={CHART_GRID}
-            strokeDasharray="3 3"
-            strokeOpacity={1}
-          />
           <XAxis
             axisLine={false}
             dataKey="date"
-            fontSize={12}
-            tick={{ fill: "var(--muted-foreground)" }}
+            fontSize={11}
+            tick={{ fill: "var(--muted)" }}
             tickLine={false}
             tickMargin={10}
           />
           <YAxis
             axisLine={false}
-            fontSize={12}
-            tick={{ fill: "var(--muted-foreground)" }}
+            fontSize={11}
+            tick={{ fill: "var(--muted)" }}
             tickLine={false}
             tickMargin={8}
+            width={36}
           />
           <Tooltip
+            cursor={{ stroke: "var(--subtle)", strokeWidth: 1 }}
             contentStyle={{
               background: CHART_TOOLTIP_BACKGROUND,
               border: "0",
-              borderRadius: "8px",
+              borderRadius: "2px",
               color: CHART_TOOLTIP_TEXT,
               fontSize: "12px",
+              padding: "8px 10px",
             }}
             formatter={(value, name) => [
               typeof value === "number" ? formatNumber(value) : value,
@@ -666,8 +593,8 @@ function InsightAreaChart({
               fill={`url(#fill-${key})`}
               key={key}
               name={labelMap[key] ?? key}
-              stroke={colors[index % colors.length]}
-              strokeWidth={2.5}
+              stroke={colorFor(key, index)}
+              strokeWidth={1.5}
               type="monotone"
             />
           ))}
@@ -694,29 +621,24 @@ function InsightBarChart({
   }
 
   return (
-    <div className="h-[280px] min-w-0" ref={ref}>
+    <div className="h-[260px] min-w-0" ref={ref}>
       {(!isHydrated || width === 0) && (
-        <div className="flex h-full items-center justify-center rounded-lg bg-[var(--insights-chart-placeholder-bg)] text-sm text-[var(--insights-chart-placeholder-text)]">
-          Chart loading.
+        <div className="flex h-full items-center text-xs text-[color:var(--insights-chart-placeholder-text)]">
+          Loading.
         </div>
       )}
       {isHydrated && width > 0 && (
         <BarChart
           data={data}
-          height={280}
+          height={260}
           layout="vertical"
-          margin={{ bottom: 0, left: 8, right: 16, top: 8 }}
+          margin={{ bottom: 0, left: 0, right: 16, top: 8 }}
           width={width}
         >
-          <CartesianGrid
-            horizontal={false}
-            stroke={CHART_GRID}
-            strokeOpacity={1}
-          />
           <XAxis
             axisLine={false}
-            fontSize={12}
-            tick={{ fill: "var(--muted-foreground)" }}
+            fontSize={11}
+            tick={{ fill: "var(--muted)" }}
             tickLine={false}
             type="number"
             unit="%"
@@ -724,30 +646,29 @@ function InsightBarChart({
           <YAxis
             axisLine={false}
             dataKey={nameKey}
-            fontSize={12}
-            tick={{ fill: "var(--muted-foreground)" }}
+            fontSize={11}
+            tick={{ fill: "var(--muted)" }}
             tickLine={false}
             type="category"
-            width={112}
+            width={120}
           />
           <Tooltip
+            cursor={{ fill: "var(--faint)" }}
             contentStyle={{
               background: CHART_TOOLTIP_BACKGROUND,
               border: "0",
-              borderRadius: "8px",
+              borderRadius: "2px",
               color: CHART_TOOLTIP_TEXT,
               fontSize: "12px",
+              padding: "8px 10px",
             }}
             formatter={(value) => [`${formatNumber(Number(value))}%`, "Share"]}
           />
-          <Bar dataKey={valueKey} radius={[0, 8, 8, 0]}>
-            {data.map((item, index) => (
-              <Cell
-                fill={PANEL_COLORS[index % PANEL_COLORS.length]}
-                key={String(item[nameKey])}
-              />
-            ))}
-          </Bar>
+          <Bar
+            dataKey={valueKey}
+            fill={CHART_FOREGROUND}
+            radius={[0, 1, 1, 0]}
+          />
         </BarChart>
       )}
     </div>
@@ -756,31 +677,49 @@ function InsightBarChart({
 
 function EmptyChart({ label }: { label: string }) {
   return (
-    <div className="flex h-[280px] items-center justify-center rounded-lg bg-[var(--insights-chart-placeholder-bg)] text-sm text-[var(--insights-chart-placeholder-text)]">
+    <div className="flex h-[200px] items-center text-sm text-[color:var(--insights-chart-placeholder-text)]">
       {label}
     </div>
   );
 }
 
-function SourceNote({
-  icon: Icon,
-  label,
-  text,
+function Sparkline({
+  data,
+  accent = false,
 }: {
-  icon: typeof Eye;
-  label: string;
-  text: string;
+  data: number[];
+  accent?: boolean;
 }) {
+  if (data.length < 2) return null;
+  const max = Math.max(...data, 1);
+  const min = Math.min(...data, 0);
+  const range = Math.max(max - min, 1);
+  const w = 100;
+  const h = 24;
+  const points = data
+    .map((v, i) => {
+      const x = (i / (data.length - 1)) * w;
+      const y = h - ((v - min) / range) * h;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    })
+    .join(" ");
   return (
-    <div className="flex gap-3">
-      <Icon className="mt-1 h-5 w-5 shrink-0 text-[#ff6a00]" />
-      <div>
-        <h3 className="font-semibold">{label}</h3>
-        <p className="mt-1 text-sm leading-6 text-[var(--muted-foreground)]">
-          {text}
-        </p>
-      </div>
-    </div>
+    <svg
+      viewBox={`0 0 ${w} ${h}`}
+      preserveAspectRatio="none"
+      className="h-full w-full"
+      aria-hidden="true"
+    >
+      <polyline
+        fill="none"
+        stroke={accent ? "var(--accent)" : "var(--foreground)"}
+        strokeWidth="1"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        points={points}
+        opacity={accent ? 1 : 0.6}
+      />
+    </svg>
   );
 }
 
