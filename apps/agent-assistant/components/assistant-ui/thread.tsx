@@ -63,7 +63,7 @@ export const Thread: FC = () => {
         data-slot="aui_thread-viewport"
         className="relative flex flex-1 flex-col overflow-x-auto overflow-y-scroll scroll-smooth"
       >
-        <div className="mx-auto flex w-full max-w-(--thread-max-width) flex-1 flex-col px-4 pt-4">
+        <div className="mx-auto flex w-full max-w-(--thread-max-width) flex-1 flex-col px-4 pt-16 md:pt-14">
           <AuiIf condition={(s) => s.thread.isEmpty}>
             <ThreadWelcome />
           </AuiIf>
@@ -112,18 +112,25 @@ const ThreadScrollToBottom: FC = () => {
 
 const ThreadWelcome: FC = () => {
   return (
-    <div className="aui-thread-welcome-root my-auto flex grow flex-col">
-      <div className="aui-thread-welcome-center flex w-full grow flex-col items-center justify-center">
-        <div className="aui-thread-welcome-message flex size-full flex-col justify-center px-4">
+    <div className="aui-thread-welcome-root my-auto flex grow flex-col justify-center items-center py-6">
+      <div className="aui-thread-welcome-center flex w-full grow flex-col items-center justify-center text-center">
+        <div className="aui-thread-welcome-message flex size-full flex-col justify-center px-4 items-center">
+          <div className="mb-4 flex size-12 items-center justify-center rounded-2xl bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 shadow-sm animate-pulse">
+            <svg className="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 21l8.982-11.795H14l1-6.105-8.982 11.795H9.813z" />
+            </svg>
+          </div>
           <h1 className="aui-thread-welcome-message-inner fade-in slide-in-from-bottom-1 animate-in fill-mode-both font-semibold text-2xl duration-200">
-            Hello there!
+            Hello, I am duyetbot!
           </h1>
-          <p className="aui-thread-welcome-message-inner fade-in slide-in-from-bottom-1 animate-in fill-mode-both text-muted-foreground text-xl delay-75 duration-200">
-            How can I help you today?
+          <p className="aui-thread-welcome-message-inner fade-in slide-in-from-bottom-1 animate-in fill-mode-both text-muted-foreground text-sm max-w-sm mt-2 delay-75 duration-200">
+            Your personal, stateful engineering assistant. How can I help you today?
           </p>
         </div>
       </div>
-      <ThreadSuggestions />
+      <div className="w-full max-w-lg mt-6">
+        <ThreadSuggestions />
+      </div>
     </div>
   );
 };
