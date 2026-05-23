@@ -16,3 +16,7 @@ bindings = [
 [[migrations]]
 tag = "v1"
 new_sqlite_classes = ["ThreadStateDO"]
+
+[[routes]]
+pattern = "agent-assistant.duyet.net"
+custom_domain = true
