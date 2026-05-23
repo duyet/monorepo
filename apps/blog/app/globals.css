@@ -31,8 +31,8 @@
   --font-mono: "Geist Mono", ui-monospace, monospace;
 
   /* Editorial monochrome tokens (shared across home/blog/insights/agents) */
-  --em-background: #ffffff;
-  --em-foreground: #0a0a0a;
+  --em-background: #faf9f7;
+  --em-foreground: #0d0d0d;
   --em-muted: color-mix(in oklch, #0a0a0a 60%, transparent);
   --em-subtle: color-mix(in oklch, #0a0a0a 35%, transparent);
   --em-faint: color-mix(in oklch, #0a0a0a 8%, transparent);
@@ -81,25 +81,25 @@
   --body-4: 12px;
 
   /* Base Palette */
-  --background: #ffffff;
-  --foreground: #141413;
+  --background: #faf9f7;
+  --foreground: #0d0d0d;
 
   /* Neutral light theme */
-  --foreground-primary: #141413;
+  --foreground-primary: #0d0d0d;
   --foreground-secondary: #30302e;
   --foreground-tertiary: #5e5d59;
-  --background-primary: #ffffff;
-  --background-secondary: #f7f7f5;
-  --background-tertiary: #efefec;
+  --background-primary: #faf9f7;
+  --background-secondary: #f3f2ef;
+  --background-tertiary: #eae9e5;
   --background-clay: #d97757;
   --background-oat: #ededeb;
 
-  --border-strong: #141413;
+  --border-strong: #0d0d0d;
   --border-subtle: #d8d8d3;
-  --border-faint: #eeeeea;
+  --border-faint: #eeece9;
 
   /* Surface hierarchy */
-  --surface-soft: #f7f7f5;
+  --surface-soft: #f3f2ef;
   --surface-card: #ffffff;
   --surface-dark: #181715;
   --surface-dark-elevated: #252320;

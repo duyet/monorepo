@@ -7,61 +7,61 @@
 
 @layer base {
   :root {
-    /* Editorial v2 tokens — aligned with home app */
-    --background: #ffffff;
-    --foreground: #0a0a0a;
-    --muted: color-mix(in oklch, #0a0a0a 60%, transparent);
-    --subtle: color-mix(in oklch, #0a0a0a 35%, transparent);
-    --faint: color-mix(in oklch, #0a0a0a 4%, transparent);
-    --hairline: color-mix(in oklch, #0a0a0a 8%, transparent);
+    /* Warm editorial tokens — Anthropic-informed */
+    --background: #faf9f7;
+    --foreground: #0d0d0d;
+    --muted: color-mix(in oklch, #0d0d0d 55%, transparent);
+    --subtle: color-mix(in oklch, #0d0d0d 30%, transparent);
+    --faint: color-mix(in oklch, #0d0d0d 5%, transparent);
+    --hairline: color-mix(in oklch, #0d0d0d 7%, transparent);
     --accent: oklch(70.5% .213 47.604); /* Cloudflare Orange */
 
     --card: #ffffff;
-    --card-foreground: #0a0a0a;
+    --card-foreground: #0d0d0d;
     --popover: #ffffff;
     --popover-foreground: #0a0a0a;
-    --primary: #0a0a0a;
+    --primary: #0d0d0d;
     --primary-foreground: #ffffff;
-    --secondary: color-mix(in oklch, #0a0a0a 6%, transparent);
-    --secondary-foreground: #0a0a0a;
-    --muted-foreground: color-mix(in oklch, #0a0a0a 55%, transparent);
-    --accent-foreground: #0a0a0a;
+    --secondary: color-mix(in oklch, #0d0d0d 5%, transparent);
+    --secondary-foreground: #0d0d0d;
+    --muted-foreground: color-mix(in oklch, #0d0d0d 50%, transparent);
+    --accent-foreground: #0d0d0d;
     --destructive: #dc2626;
     --destructive-foreground: #ffffff;
-    --border: color-mix(in oklch, #0a0a0a 10%, transparent);
-    --input: color-mix(in oklch, #0a0a0a 10%, transparent);
-    --ring: #0a0a0a;
+    --border: color-mix(in oklch, #0d0d0d 8%, transparent);
+    --input: color-mix(in oklch, #0d0d0d 8%, transparent);
+    --ring: #0d0d0d;
     --radius: 0.5rem;
     --surface-card: #ffffff;
     --on-dark: #fafafa;
   }
 
   .dark {
-    --background: #0a0a0a;
-    --foreground: #fafafa;
-    --muted: color-mix(in oklch, #fafafa 55%, transparent);
-    --subtle: color-mix(in oklch, #fafafa 30%, transparent);
-    --faint: color-mix(in oklch, #fafafa 4%, transparent);
-    --hairline: color-mix(in oklch, #fafafa 8%, transparent);
+    --background: #1a1a1a;
+    --foreground: #f5f5f4;
+    --muted: color-mix(in oklch, #f5f5f4 50%, transparent);
+    --subtle: color-mix(in oklch, #f5f5f4 28%, transparent);
+    --faint: color-mix(in oklch, #f5f5f4 5%, transparent);
+    --hairline: color-mix(in oklch, #f5f5f4 7%, transparent);
     --accent: oklch(70.5% .213 47.604); /* Cloudflare Orange */
 
-    --card: #141414;
-    --card-foreground: #fafafa;
-    --popover: #141414;
-    --popover-foreground: #fafafa;
-    --primary: #fafafa;
-    --primary-foreground: #0a0a0a;
-    --secondary: color-mix(in oklch, #fafafa 6%, transparent);
-    --secondary-foreground: #fafafa;
-    --muted-foreground: color-mix(in oklch, #fafafa 50%, transparent);
-    --accent-foreground: #fafafa;
+    --card: #242424;
+    --card-foreground: #f5f5f4;
+    --popover: #242424;
+    --popover-foreground: #f5f5f4;
+    --primary: #f5f5f4;
+    --primary-foreground: #1a1a1a;
+    --secondary: color-mix(in oklch, #f5f5f4 5%, transparent);
+    --secondary-foreground: #f5f5f4;
+    --muted-foreground: color-mix(in oklch, #f5f5f4 45%, transparent);
+    --accent-foreground: #f5f5f4;
     --destructive: #f87171;
     --destructive-foreground: #0a0a0a;
-    --border: color-mix(in oklch, #fafafa 10%, transparent);
-    --input: color-mix(in oklch, #fafafa 10%, transparent);
-    --ring: #fafafa;
-    --surface-card: #141414;
-    --on-dark: #fafafa;
+    --border: color-mix(in oklch, #f5f5f4 8%, transparent);
+    --input: color-mix(in oklch, #f5f5f4 8%, transparent);
+    --ring: #f5f5f4;
+    --surface-card: #242424;
+    --on-dark: #f5f5f4;
   }
 
   @theme inline {

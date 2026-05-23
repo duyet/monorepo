@@ -3,13 +3,13 @@
 
 @layer base {
   :root {
-    /* ── Editorial v2 tokens (canonical orange accents) ──────────────── */
-    --background: #ffffff;
-    --foreground: #0a0a0a;
-    --muted: color-mix(in oklch, #0a0a0a 60%, transparent);
-    --subtle: color-mix(in oklch, #0a0a0a 35%, transparent);
-    --faint: color-mix(in oklch, #0a0a0a 4%, transparent);
-    --hairline: color-mix(in oklch, #0a0a0a 8%, transparent);
+    /* ── Warm editorial tokens (Anthropic-informed) ──────────────── */
+    --background: #faf9f7;
+    --foreground: #0d0d0d;
+    --muted: color-mix(in oklch, #0d0d0d 55%, transparent);
+    --subtle: color-mix(in oklch, #0d0d0d 30%, transparent);
+    --faint: color-mix(in oklch, #0d0d0d 5%, transparent);
+    --hairline: color-mix(in oklch, #0d0d0d 7%, transparent);
     --accent: oklch(70.5% .213 47.604); /* Cloudflare Orange accent */
 
     /* Typography stacks (Geist enforced, no serif) */
@@ -34,16 +34,16 @@
 
     /* Premium card-v2 tokens */
     --card-bg: #ffffff;
-    --card-border: rgba(246, 130, 31, 0.18);
-    --card-border-hover: rgba(246, 130, 31, 0.22);
-    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(246, 130, 31, 0.01);
-    --card-shadow-hover: 0 8px 24px rgba(246, 130, 31, 0.06), 0 2px 6px rgba(0, 0, 0, 0.02);
+    --card-border: rgba(0, 0, 0, 0.06);
+    --card-border-hover: rgba(0, 0, 0, 0.12);
+    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.06);
 
     /* Spacing & Radius Scale */
     --radius-xs: 4px;
     --radius-sm: 8px;
     --radius-md: 10px;
-    --radius-lg: 12px; /* Soft-bordered panels */
+    --radius-lg: 16px; /* Anthropic-style generous radius */
     --radius-max: 1000px;
 
     --gap-xxs: 8px;
@@ -121,12 +121,12 @@
   :root.dark,
   .dark,
   html.dark {
-    --background: #0a0a0a;
-    --foreground: #fafafa;
-    --muted: color-mix(in oklch, #fafafa 55%, transparent);
-    --subtle: color-mix(in oklch, #fafafa 30%, transparent);
-    --faint: color-mix(in oklch, #fafafa 4%, transparent);
-    --hairline: color-mix(in oklch, #fafafa 8%, transparent);
+    --background: #1a1a1a;
+    --foreground: #f5f5f4;
+    --muted: color-mix(in oklch, #f5f5f4 50%, transparent);
+    --subtle: color-mix(in oklch, #f5f5f4 28%, transparent);
+    --faint: color-mix(in oklch, #f5f5f4 5%, transparent);
+    --hairline: color-mix(in oklch, #f5f5f4 7%, transparent);
     --accent: oklch(70.5% .213 47.604); /* Cloudflare Orange accent */
 
     /* Shared components override tokens */
@@ -142,11 +142,11 @@
     --editorial-font-mono: var(--font-mono);
 
     /* Premium card-v2 tokens - Dark */
-    --card-bg: #121212;
-    --card-border: rgba(246, 130, 31, 0.22);
-    --card-border-hover: rgba(246, 130, 31, 0.32);
-    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    --card-shadow-hover: 0 8px 24px rgba(246, 130, 31, 0.08);
+    --card-bg: #242424;
+    --card-border: rgba(255, 255, 255, 0.06);
+    --card-border-hover: rgba(255, 255, 255, 0.12);
+    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.2);
 
     --foreground-primary: var(--foreground);
     --foreground-secondary: var(--foreground);
