@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap');
 @import "tailwindcss";
 
 @config "./tailwind.config.mjs";
@@ -65,9 +66,14 @@
     --border: #e6dfd8;
 
     /* Font stacks */
-    --font-serif: 'Cormorant Garamond', Garamond, 'Times New Roman', serif;
-    --font-sans: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    --font-serif: "Geist", ui-sans-serif, system-ui, sans-serif;
+    --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "Geist Mono", ui-monospace, monospace;
+
+    /* Editorial Redesign v2 CSS Variables */
+    --cf-orange: oklch(70.5% 0.213 47.6);
+    --card-border: 1px solid rgba(0, 0, 0, 0.08);
+    --card-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
   }
 
   .dark {
@@ -78,6 +84,10 @@
     --surface-card: #252320;
     --muted: #a09d96;
     --muted-soft: #8e8b82;
+
+    /* Editorial Redesign v2 dark overrides */
+    --card-border: 1px solid rgba(255, 255, 255, 0.08);
+    --card-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
 
   /*
@@ -93,10 +103,10 @@
     --editorial-subtle: color-mix(in oklch, #0a0a0a 35%, transparent);
     --editorial-faint: color-mix(in oklch, #0a0a0a 8%, transparent);
     --editorial-hairline: color-mix(in oklch, #0a0a0a 8%, transparent);
-    --editorial-accent: #cc785c;
-    --editorial-font-serif: "EB Garamond", Garamond, "Apple Garamond", ui-serif, serif;
-    --editorial-font-sans: "Inter Variable", Inter, ui-sans-serif, system-ui, sans-serif;
-    --editorial-font-mono: "JetBrains Mono", ui-monospace, monospace;
+    --editorial-accent: var(--cf-orange);
+    --editorial-font-serif: "Geist", ui-sans-serif, system-ui, sans-serif;
+    --editorial-font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+    --editorial-font-mono: "Geist Mono", ui-monospace, monospace;
   }
 
   :root.dark,
@@ -107,7 +117,7 @@
     --editorial-subtle: color-mix(in oklch, #fafafa 30%, transparent);
     --editorial-faint: color-mix(in oklch, #fafafa 8%, transparent);
     --editorial-hairline: color-mix(in oklch, #fafafa 8%, transparent);
-    --editorial-accent: #e8926e;
+    --editorial-accent: var(--cf-orange);
   }
 }
 
@@ -220,4 +230,15 @@ html.dark .prose pre {
 
 .dark .prose a:hover {
   color: #f8fafc; /* slate-50 */
+}
+
+
+/* Editorial Redesign v2 global card class */
+.card-v2 {
+  padding: 1.25rem;
+  border: var(--card-border);
+  border-radius: 0.5rem;
+  background-color: var(--editorial-bg);
+  box-shadow: var(--card-shadow);
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }

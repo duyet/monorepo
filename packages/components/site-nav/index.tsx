@@ -2,11 +2,7 @@
 
 import { cn } from "@duyet/libs/utils";
 import { Menu as MenuIcon } from "lucide-react";
-import type {
-  AnchorHTMLAttributes,
-  ReactElement,
-  ReactNode,
-} from "react";
+import type { AnchorHTMLAttributes, ReactElement, ReactNode } from "react";
 import { useEffect, useState } from "react";
 
 export interface SiteNavProps {
@@ -84,10 +80,7 @@ export function SiteNav({
         </div>
 
         {/* Desktop links */}
-        <nav
-          aria-label="Primary"
-          className="hidden items-center gap-6 md:flex"
-        >
+        <nav aria-label="Primary" className="hidden items-center gap-6 md:flex">
           {links}
         </nav>
 
@@ -143,10 +136,7 @@ export function SiteNavLink({
  * Tailwind recipe for a SiteNav link. Exposed so consumers can
  * apply the same look to framework-specific Link components.
  */
-export function siteNavLinkClassName(
-  active: boolean,
-  extra?: string
-): string {
+export function siteNavLinkClassName(active: boolean, extra?: string): string {
   return cn(
     "relative text-sm font-medium tracking-tight transition-colors",
     "text-[color:var(--editorial-muted)] hover:text-[color:var(--editorial-fg)]",
@@ -163,3 +153,11 @@ export function siteNavLinkClassName(
 }
 
 export default SiteNav;
+
+// V2 Editorial Redesign exports
+export { SiteNavV2 } from "./SiteNavV2";
+export type { SiteNavV2Props } from "./SiteNavV2";
+export { AppsDrawer } from "./AppsDrawer";
+export type { AppsDrawerProps } from "./AppsDrawer";
+export { BreadcrumbBar } from "./BreadcrumbBar";
+export type { BreadcrumbBarProps, BreadcrumbItem } from "./BreadcrumbBar";
