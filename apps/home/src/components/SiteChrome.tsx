@@ -180,7 +180,8 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
   return (
     <footer className="mt-20 border-t border-[color:var(--hairline)] py-10">
-      <div className="mx-auto max-w-[1040px] px-6 md:px-8 flex flex-col md:flex-row md:items-center justify-between gap-6 text-sm text-[color:var(--muted)]">
+      <div className="mx-auto max-w-[1040px] px-6 md:px-8 flex flex-col gap-6 text-sm text-[color:var(--muted)]">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-normal text-xs sm:text-[13px]">
           <span>&copy; {year} Duyet Le.</span>
           <span className="text-[color:var(--hairline)] hidden sm:inline">|</span>
@@ -240,6 +241,20 @@ export function SiteFooter() {
             <Icons.Github className="w-[18px] h-[18px]" />
           </a>
         </div>
+        </div>
+
+        <p className="max-w-2xl text-xs leading-relaxed text-[color:var(--subtle)]">
+          This site's codebase, look-and-feel, and deployment are managed by{" "}
+          <Link
+            to="/duyetbot"
+            className="underline underline-offset-4 hover:text-[color:var(--foreground)]"
+          >
+            duyetbot
+          </Link>
+          , an autonomous agent — layout and copy are subject to change at
+          any time without notice. Editorial content on the blog is written
+          by Duyet Le.
+        </p>
       </div>
     </footer>
   );
