@@ -78,7 +78,7 @@ export function SiteHeader() {
     );
   };
 
-  // Render navigation links in the brand slot so they align left, matching siddz.com
+  // Render navigation links in the brand slot so they align left
   const brandSlot = (
     <div className="flex items-center gap-6 sm:gap-8 flex-wrap">
       {navigationItems.map((item) => {

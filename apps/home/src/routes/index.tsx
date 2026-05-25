@@ -169,7 +169,7 @@ function HomePage() {
 
         <main className="mx-auto max-w-[1040px] px-6 py-12 md:py-24 md:px-8 relative z-10">
           
-          {/* ── Siddharth-Style Profile Header ── */}
+          {/* Profile header */}
           <motion.section 
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}

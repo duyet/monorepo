@@ -43,7 +43,7 @@
     --radius-xs: 2px;
     --radius-sm: 6px;
     --radius-md: 12px;
-    --radius-lg: 24px; /* Matches the x.ai signature generous radius */
+    --radius-lg: 24px;
     --radius-max: 9999px;
 
     --gap-xxs: 8px;
@@ -303,7 +303,7 @@
     background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
   }
 
-  /* Clean full square-grid pattern (matching siddz.com screenshots) */
+  /* Clean full square-grid background pattern */
   .bg-grid-pattern {
     background-image: 
       linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
@@ -333,27 +333,6 @@
 
   .project-glow-green {
     background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.12) 0%, transparent 60%);
-  }
-
-  /* Signature x.ai Underline (kept for compatibility/style fallback) */
-  .xai-underline {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .xai-underline::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 2px;
-    width: 100%;
-    height: 4px;
-    background-color: rgba(0, 0, 0, 0.15);
-    border-radius: 999px;
-  }
-
-  html.dark .xai-underline::after {
-    background-color: rgba(255, 255, 255, 0.25);
   }
 
   /* Spotify soundwave keyframes and utility animations */
