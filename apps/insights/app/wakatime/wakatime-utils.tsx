@@ -1,22 +1,31 @@
 import { wakatimeConfig } from "@duyet/config";
 
+interface WakaTimeBreakdownItem {
+  name: string;
+  percent: number;
+  total_seconds: number;
+  digital?: string;
+  text?: string;
+  hours?: number;
+  minutes?: number;
+}
+
+interface WakaTimeBestDay {
+  date?: string;
+  text?: string;
+  total_seconds?: number;
+}
+
 interface WakaTimeStats {
   data: {
-    languages: Array<{
-      name: string;
-      percent: number;
-      total_seconds: number;
-    }>;
-    editors: Array<{
-      name: string;
-      percent: number;
-      total_seconds: number;
-    }>;
-    operating_systems: Array<{
-      name: string;
-      percent: number;
-      total_seconds: number;
-    }>;
+    languages: WakaTimeBreakdownItem[];
+    editors: WakaTimeBreakdownItem[];
+    operating_systems: WakaTimeBreakdownItem[];
+    categories?: WakaTimeBreakdownItem[];
+    machines?: WakaTimeBreakdownItem[];
+    projects?: WakaTimeBreakdownItem[];
+    dependencies?: WakaTimeBreakdownItem[];
+    best_day?: WakaTimeBestDay;
     days_including_holidays?: number;
     days_minus_holidays?: number;
     total_seconds: number;
@@ -24,6 +33,37 @@ interface WakaTimeStats {
     human_readable_daily_average: string;
     daily_average: number;
   };
+}
+
+export interface WakaTimeBreakdown {
+  name: string;
+  percent: number;
+  total_seconds: number;
+  hours: number;
+}
+
+export interface WakaTimeBestDayInsight {
+  date: string;
+  text: string;
+  totalSeconds: number;
+  hours: number;
+}
+
+export interface WakaTimeOverview {
+  metrics: WakaMetrics;
+  editors: WakaTimeBreakdown[];
+  operatingSystems: WakaTimeBreakdown[];
+  categories: WakaTimeBreakdown[];
+  machines: WakaTimeBreakdown[];
+  projects: WakaTimeBreakdown[];
+  bestDay: WakaTimeBestDayInsight | null;
+}
+
+export interface WakaMetrics {
+  totalHours: number;
+  avgDailyHours: number;
+  daysActive: number;
+  topLanguage: string;
 }
 
 // Using stats endpoint instead of summaries (summaries requires premium)
@@ -437,7 +477,9 @@ async function getFallbackActivityData(_days: number) {
   return [];
 }
 
-export async function getWakaTimeMetrics(days: number | "all" = 30) {
+export async function getWakaTimeMetrics(
+  days: number | "all" = 30
+): Promise<WakaMetrics> {
   const stats = await getWakaTimeStats(days);
   if (!stats?.data) {
     return {
@@ -459,6 +501,122 @@ export async function getWakaTimeMetrics(days: number | "all" = 30) {
     avgDailyHours: Math.round(avgDailyHours * 10) / 10,
     daysActive,
     topLanguage,
+  };
+}
+
+function normalizeBreakdown(
+  items: WakaTimeBreakdownItem[] | undefined,
+  limit = 8
+): WakaTimeBreakdown[] {
+  if (!items || !Array.isArray(items)) return [];
+  return items
+    .filter((item) => (item?.total_seconds || 0) > 0)
+    .slice(0, limit)
+    .map((item) => ({
+      name: item?.name || "Unknown",
+      percent: Math.round((item?.percent || 0) * 100) / 100,
+      total_seconds: item?.total_seconds || 0,
+      hours: Math.round(((item?.total_seconds || 0) / 3600) * 10) / 10,
+    }));
+}
+
+export async function getWakaTimeEditors(
+  days: number | "all" = 30
+): Promise<WakaTimeBreakdown[]> {
+  const stats = await getWakaTimeStats(days);
+  return normalizeBreakdown(stats?.data?.editors);
+}
+
+export async function getWakaTimeOperatingSystems(
+  days: number | "all" = 30
+): Promise<WakaTimeBreakdown[]> {
+  const stats = await getWakaTimeStats(days);
+  return normalizeBreakdown(stats?.data?.operating_systems);
+}
+
+export async function getWakaTimeCategories(
+  days: number | "all" = 30
+): Promise<WakaTimeBreakdown[]> {
+  const stats = await getWakaTimeStats(days);
+  return normalizeBreakdown(stats?.data?.categories);
+}
+
+export async function getWakaTimeMachines(
+  days: number | "all" = 30
+): Promise<WakaTimeBreakdown[]> {
+  const stats = await getWakaTimeStats(days);
+  return normalizeBreakdown(stats?.data?.machines, 6);
+}
+
+export async function getWakaTimeProjects(
+  days: number | "all" = 30
+): Promise<WakaTimeBreakdown[]> {
+  const stats = await getWakaTimeStats(days);
+  return normalizeBreakdown(stats?.data?.projects, 10);
+}
+
+function extractBestDay(
+  stats: WakaTimeStats | null
+): WakaTimeBestDayInsight | null {
+  const best = stats?.data?.best_day;
+  if (!best || !best.date || !best.total_seconds) return null;
+  return {
+    date: best.date,
+    text: best.text || "",
+    totalSeconds: best.total_seconds,
+    hours: Math.round((best.total_seconds / 3600) * 10) / 10,
+  };
+}
+
+export async function getWakaTimeBestDayInsight(
+  days: number | "all" = 30
+): Promise<WakaTimeBestDayInsight | null> {
+  const stats = await getWakaTimeStats(days);
+  return extractBestDay(stats);
+}
+
+/**
+ * Fetch the full overview from a single stats call to avoid redundant API hits.
+ */
+export async function getWakaTimeOverview(
+  days: number | "all" = 30
+): Promise<WakaTimeOverview> {
+  const stats = await getWakaTimeStats(days);
+
+  const empty: WakaTimeOverview = {
+    metrics: {
+      totalHours: 0,
+      avgDailyHours: 0,
+      daysActive: 0,
+      topLanguage: "N/A",
+    },
+    editors: [],
+    operatingSystems: [],
+    categories: [],
+    machines: [],
+    projects: [],
+    bestDay: null,
+  };
+
+  if (!stats?.data) return empty;
+
+  const { data } = stats;
+  const totalHours = (data.total_seconds || 0) / 3600;
+  const avgDailyHours = (data.daily_average || 0) / 3600;
+
+  return {
+    metrics: {
+      totalHours: Math.round(totalHours * 10) / 10,
+      avgDailyHours: Math.round(avgDailyHours * 10) / 10,
+      daysActive: data.days_minus_holidays || 0,
+      topLanguage: data.languages?.[0]?.name || "N/A",
+    },
+    editors: normalizeBreakdown(data.editors),
+    operatingSystems: normalizeBreakdown(data.operating_systems),
+    categories: normalizeBreakdown(data.categories),
+    machines: normalizeBreakdown(data.machines, 6),
+    projects: normalizeBreakdown(data.projects, 10),
+    bestDay: extractBestDay(stats),
   };
 }
 
