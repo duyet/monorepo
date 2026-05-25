@@ -80,9 +80,24 @@ function MDXRenderer({ source }: { source: string }) {
 }
 
 export default function Content({ post }: { post: ContentPost }) {
+  const eyebrowParts = [
+    post.category,
+    post.date
+      ? new Date(post.date).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })
+      : null,
+  ].filter(Boolean);
+
   return (
     <>
       <header className="post-header">
+        {eyebrowParts.length > 0 && (
+          <p className="eyebrow-mono mb-4">{eyebrowParts.join(" · ")}</p>
+        )}
+
         <h1 className="post-title">{post.title}</h1>
 
         {post.excerpt ? <p className="post-dek">{post.excerpt}</p> : null}

@@ -158,6 +158,20 @@ export function FooterContent({
           <ThemeToggle />
         </div>
 
+        <p className="mt-4 max-w-2xl text-xs leading-relaxed text-[var(--on-dark-soft)]">
+          This website is managed by{" "}
+          <a
+            href="https://github.com/duyetbot"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-4 hover:text-[var(--on-dark)]"
+          >
+            duyetbot
+          </a>
+          , an autonomous agent. Layout, copy, and content are subject to
+          change at any time without notice.
+        </p>
+
         <div className="mt-6">
           <AutoDesignedBadge />
         </div>

@@ -28,7 +28,7 @@ export function InsightsPageHeader({
   return (
     <header className="editorial-fade-up mb-16">
       {badge ? <p className="eyebrow-mono">{badge}</p> : null}
-      <h1 className="display-tight mt-4 text-5xl sm:text-6xl md:text-7xl">
+      <h1 className="display-tight mt-4 text-3xl sm:text-4xl md:text-5xl">
         {title}
       </h1>
       <p className="mt-6 max-w-2xl text-base leading-7 text-[color:var(--muted)]">
