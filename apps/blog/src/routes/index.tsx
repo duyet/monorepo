@@ -1,7 +1,7 @@
 import type { Post } from "@duyet/interfaces";
 import { dateFormat } from "@duyet/libs/date";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import type { CSSProperties, ReactElement } from "react";
+import type { ReactElement } from "react";
 import { getPostsByAllYear } from "@/lib/posts";
 
 export const Route = createFileRoute("/")({
@@ -34,6 +34,60 @@ function formatPostDate(date: Date | string): string {
   return dateFormat(d, "MMM d, yyyy");
 }
 
+function PostThumbnail({ post, size = "grid" }: { post: Post; size?: "hero" | "grid" }) {
+  if (post.thumbnail) {
+    return (
+      <div className={`relative overflow-hidden w-full ${size === "hero" ? "aspect-[16/9] rounded-[24px]" : "aspect-[16/10] rounded-[16px]"} bg-neutral-100 dark:bg-neutral-900 border border-[color:var(--em-hairline)] group`}>
+        <img
+          src={post.thumbnail}
+          alt={post.title}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+        />
+      </div>
+    );
+  }
+
+  // Replicates x.ai/news Grok Skills and OpenCode blur graphics perfectly
+  const getGlowStyles = (category: string, slug: string) => {
+    const text = (category + slug).toLowerCase();
+    let hash = 0;
+    for (let i = 0; i < text.length; i++) {
+      hash = text.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    
+    const h1 = Math.abs(hash % 360);
+    const h2 = (h1 + 60) % 360;
+    
+    return {
+      background: `radial-gradient(circle at 75% 25%, hsla(${h1}, 75%, 55%, 0.3) 0%, transparent 60%), radial-gradient(circle at 25% 75%, hsla(${h2}, 80%, 45%, 0.2) 0%, transparent 65%), #0c0c0e`,
+      borderColor: `hsla(${h1}, 40%, 40%, 0.12)`
+    };
+  };
+
+  const style = getGlowStyles(post.category || "Tech", post.slug);
+
+  return (
+    <div 
+      className={`relative overflow-hidden w-full ${size === "hero" ? "aspect-[16/9] rounded-[24px]" : "aspect-[16/10] rounded-[16px]"} border border-[#1b1b1f] flex flex-col items-center justify-center p-6 group select-none transition-all duration-300`}
+      style={{ background: style.background, borderColor: style.borderColor }}
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(#ffffff03_1px,transparent_1px)] dark:bg-[radial-gradient(#ffffff02_1px,transparent_1px)] bg-[size:16px_16px] opacity-80" />
+
+      <div className="relative z-10 flex flex-col items-center gap-2">
+        <div className="px-5 py-2.5 rounded-lg border border-white/5 bg-black/40 backdrop-blur-md flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-[1.03]">
+          <span className="font-mono text-xs md:text-sm font-bold tracking-widest text-white/90 uppercase">
+            {post.category || "ENGINEERING"}
+          </span>
+        </div>
+      </div>
+
+      <span className="absolute bottom-3 right-4 font-mono text-[9px] text-white/20 select-none uppercase tracking-wider">
+        sys {"//"} verified
+      </span>
+    </div>
+  );
+}
+
 function HomePage(): ReactElement {
   const { postsByYear } = Route.useLoaderData();
 
@@ -42,78 +96,118 @@ function HomePage(): ReactElement {
     .flatMap(([, posts]) => posts);
 
   const featured = allPosts[0];
-  const rest = allPosts.slice(1, 25);
+  const gridPosts = allPosts.slice(1, 5); // 4-column latest news grid
+  const listPosts = allPosts.slice(5, 30); // Older posts row list
 
   return (
-    <div className="px-6 md:px-8">
-      {featured && <HeroRow post={featured} />}
+    <div className="mx-auto max-w-[1040px] px-6 py-8 md:py-16 md:px-8 selection:bg-[color:var(--em-foreground)] selection:text-[color:var(--em-background)]">
+      {/* ── x.ai Hero Featured Post ── */}
+      {featured && (
+        <section className="mb-16 md:mb-24">
+          <Link
+            to="/$year/$month/$slug/"
+            params={postParams(featured)}
+            className="group grid grid-cols-1 lg:grid-cols-[1.1fr_1.5fr] gap-8 md:gap-12 items-center text-decoration-none text-inherit cursor-pointer"
+          >
+            <div className="flex flex-col items-start">
+              <div className="flex items-center">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/40 px-3 py-1 text-[11px] font-medium text-emerald-700 dark:text-emerald-400">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  Latest post
+                </span>
+                <span className="text-xs font-mono text-[color:var(--em-muted)] ml-3">
+                  {formatPostDate(featured.date)}
+                </span>
+              </div>
 
-      <section className="em-list" aria-label="Recent writing">
-        {rest.map((post, index) => (
-          <ListRow key={post.slug} post={post} index={index} />
-        ))}
+              <h1 className="font-bold text-3xl md:text-5xl tracking-tight leading-[1.1] text-[color:var(--em-foreground)] mt-6 group-hover:underline decoration-1 underline-offset-4">
+                {featured.title}
+              </h1>
+
+              <p className="mt-4 text-sm md:text-base text-[color:var(--em-muted)] leading-relaxed font-light">
+                {featured.excerpt || featured.snippet}
+              </p>
+
+              <span className="inline-flex items-center justify-center rounded-full bg-[color:var(--em-foreground)] text-[color:var(--em-background)] px-6 py-2.5 text-xs font-medium hover:opacity-95 hover:shadow-md transition-all mt-6 cursor-pointer gap-1">
+                Read More
+                <span className="font-mono">→</span>
+              </span>
+            </div>
+
+            <div>
+              <PostThumbnail post={featured} size="hero" />
+            </div>
+          </Link>
+        </section>
+      )}
+
+      {/* ── x.ai Latest News Grid (4 columns, borderless) ── */}
+      {gridPosts.length > 0 && (
+        <section className="mb-20 md:mb-28">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            {gridPosts.map((post) => (
+              <Link
+                key={post.slug}
+                to="/$year/$month/$slug/"
+                params={postParams(post)}
+                className="group flex flex-col text-decoration-none text-inherit cursor-pointer"
+              >
+                <PostThumbnail post={post} size="grid" />
+                
+                <p className="text-[10px] font-mono text-[color:var(--em-subtle)] uppercase tracking-wider mt-4">
+                  {formatPostDate(post.date)} · {readingTime(post)}
+                </p>
+                
+                <h3 className="text-sm font-semibold tracking-tight text-[color:var(--em-foreground)] mt-2 group-hover:underline leading-snug">
+                  {post.title}
+                </h3>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ── x.ai "All posts" Feed (Minimalist Rows) ── */}
+      <section className="border-t border-[color:var(--em-hairline)] pt-12 md:pt-16">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[color:var(--em-foreground)] mb-8">
+          All posts
+        </h2>
+
+        <div className="flex flex-col">
+          {listPosts.map((post) => (
+            <Link
+              key={post.slug}
+              to="/$year/$month/$slug/"
+              params={postParams(post)}
+              className="group grid grid-cols-1 md:grid-cols-[1fr_120px] gap-2 border-b border-[color:var(--em-hairline)] py-5 text-decoration-none text-inherit hover:bg-[color:var(--em-faint)] px-3 transition-colors duration-150 items-start cursor-pointer"
+            >
+              <div>
+                <h3 className="text-sm md:text-base font-semibold text-[color:var(--em-foreground)] group-hover:underline leading-snug">
+                  {post.title}
+                </h3>
+                {post.excerpt && (
+                  <p className="text-xs text-[color:var(--em-muted)] leading-relaxed font-light mt-1 max-w-3xl">
+                    {post.excerpt}
+                  </p>
+                )}
+              </div>
+              <div className="md:text-right text-xs font-mono text-[color:var(--em-subtle)] md:pt-1">
+                {formatPostDate(post.date)}
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        <div className="flex justify-center mt-12">
+          <Link
+            to="/archives/"
+            className="inline-flex items-center gap-2 rounded-full border border-[color:var(--em-hairline)] hover:border-[color:var(--em-foreground)] px-6 py-2.5 text-xs font-mono uppercase tracking-widest text-[color:var(--em-foreground)] hover:bg-[color:var(--em-faint)] transition-all group"
+          >
+            <span>See full archive</span>
+            <span className="group-hover:translate-x-0.5 transition-transform duration-200">→</span>
+          </Link>
+        </div>
       </section>
-
-      <div className="mx-auto mt-12 max-w-2xl text-sm">
-        <Link
-          to="/archives/"
-          className="inline-flex items-center gap-2 text-[color:var(--em-muted)] underline decoration-[color:var(--em-hairline)] decoration-1 underline-offset-4 transition-colors hover:text-[color:var(--em-foreground)] hover:decoration-[color:var(--em-accent)]"
-        >
-          See full archive →
-        </Link>
-      </div>
     </div>
-  );
-}
-
-function HeroRow({ post }: { post: Post }): ReactElement {
-  return (
-    <Link
-      to="/$year/$month/$slug/"
-      params={postParams(post)}
-      className="em-hero editorial-enter"
-      aria-label={`Read: ${post.title}`}
-    >
-      <span className="em-hero__eyebrow">Latest</span>
-      <h1 className="em-hero__title">{post.title}</h1>
-      {post.excerpt && <p className="em-hero__dek">{post.excerpt}</p>}
-      <div className="em-hero__meta">
-        <time dateTime={new Date(post.date).toISOString()}>
-          {formatPostDate(post.date)}
-        </time>
-        <span>{readingTime(post)}</span>
-        {post.category && <span>{post.category}</span>}
-      </div>
-    </Link>
-  );
-}
-
-interface ListRowProps {
-  post: Post;
-  index: number;
-}
-
-function ListRow({ post, index }: ListRowProps): ReactElement {
-  const style: CSSProperties = {
-    animationDelay: `${Math.min(index, 8) * 50}ms`,
-  };
-
-  return (
-    <Link
-      to="/$year/$month/$slug/"
-      params={postParams(post)}
-      className="em-list__row editorial-enter"
-      style={style}
-    >
-      <h2 className="em-list__title">{post.title}</h2>
-      {post.excerpt && <p className="em-list__dek">{post.excerpt}</p>}
-      <div className="em-list__meta">
-        <time dateTime={new Date(post.date).toISOString()}>
-          {formatPostDate(post.date)}
-        </time>
-        <span>{readingTime(post)}</span>
-        {post.category && <span>{post.category}</span>}
-      </div>
-    </Link>
   );
 }

@@ -61,14 +61,13 @@ interface BlogNavItem {
 }
 
 const blogNavItems: BlogNavItem[] = [
-  { name: "Latest", href: "/", matchPrefix: "/" },
-  { name: "Archives", href: "/archives/", matchPrefix: "/archives" },
-  { name: "Featured", href: "/featured/", matchPrefix: "/featured" },
-  { name: "Series", href: "/series/", matchPrefix: "/series" },
-  { name: "Tags", href: "/tags/", matchPrefix: "/tags" },
-  { name: "Search", href: "/search/", matchPrefix: "/search" },
-  { name: "About", href: "/about/", matchPrefix: "/about" },
-  { name: "Duyet.net", href: duyetUrls.apps.home, external: true },
+  { name: "Home", href: "https://duyet.net", external: true },
+  { name: "Projects", href: "https://duyet.net/projects", external: true },
+  { name: "About", href: "https://duyet.net/about", external: true },
+  { name: "Blog", href: "/", matchPrefix: "/" },
+  { name: "CV", href: "https://cv.duyet.net", external: true },
+  { name: "Insights", href: "https://insights.duyet.net", external: true },
+  { name: "Agent", href: "https://agents.duyet.net", external: true },
 ];
 
 function EditorialNav() {
@@ -76,14 +75,7 @@ function EditorialNav() {
 
   const isActive = (item: BlogNavItem) => {
     if (item.external) return false;
-    if (item.matchPrefix === "/") {
-      return pathname === "/" || pathname === "";
-    }
-    if (!item.matchPrefix) return false;
-    return (
-      pathname === item.matchPrefix ||
-      pathname.startsWith(`${item.matchPrefix}/`)
-    );
+    return true; // Blog is the active route on this app
   };
 
   const navLinks = blogNavItems.map((item) => ({
@@ -176,9 +168,15 @@ function RootComponent() {
       </head>
       <body>
         <ThemeProvider>
-          <div className="blog-editorial-shell min-h-screen subpixel-antialiased">
-            <EditorialNav />
-            <main className="relative z-10 pb-12">
+          <div className="blog-editorial-shell min-h-screen relative bg-[color:var(--background)] text-[color:var(--foreground)] selection:bg-[color:var(--foreground)] selection:text-[color:var(--background)] overflow-x-hidden flex flex-col justify-between subpixel-antialiased">
+            {/* Clean full grid background overlay */}
+            <div className="absolute inset-0 bg-grid-pattern pointer-events-none z-0 opacity-[0.8] dark:opacity-[0.4]" />
+
+            <div className="w-full flex flex-col relative z-20">
+              <EditorialNav />
+            </div>
+
+            <main className="relative z-10 pb-12 flex-grow">
               <Outlet />
             </main>
             <BotCredit />

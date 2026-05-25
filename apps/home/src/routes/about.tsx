@@ -108,42 +108,54 @@ const links = [
 
 function AboutPage() {
   return (
-    <div className="min-h-screen bg-[color:var(--background)] text-[color:var(--foreground)]">
+    <div className="min-h-screen relative bg-[color:var(--background)] text-[color:var(--foreground)] selection:bg-[color:var(--foreground)] selection:text-[color:var(--background)] overflow-x-hidden">
+      {/* Clean full grid background overlay */}
+      <div className="absolute inset-0 bg-grid-pattern pointer-events-none z-0 opacity-[0.8] dark:opacity-[0.4]" />
+
       <SiteHeader />
 
-      <main className="mx-auto max-w-2xl px-6 pt-24 pb-20 md:px-8 md:pt-32 md:pb-32">
+      <main className="mx-auto max-w-2xl px-6 py-12 md:py-24 relative z-10">
         <article className="flex flex-col gap-6">
-          <h1 className="text-4xl font-medium tracking-tight md:text-5xl text-[color:var(--foreground)]">
-            About
-          </h1>
+          <header className="mb-4">
+            <span className="font-mono text-xs uppercase tracking-widest text-[color:var(--subtle)]">
+              BIOGRAPHY / CONTEXT
+            </span>
+            <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-[color:var(--foreground)] mt-2">
+              About
+            </h1>
+          </header>
 
-          <p className="mt-4 text-lg leading-relaxed text-[color:var(--foreground)]">
+          <p className="text-lg leading-relaxed text-[color:var(--foreground)] font-light">
             I’m a Senior Data &amp; AI Engineer with {experienceYears} of
             experience across modern data infrastructure, AI/ML platforms, and
             distributed systems.
           </p>
 
-          <p className="text-base leading-relaxed text-[color:var(--muted)]">
+          <p className="text-base leading-relaxed text-[color:var(--muted)] font-light">
             I care about systems that are easy to operate, easy to explain, and
             boring in the places where reliability matters. Most of my work sits
             where data products, AI tools, and engineering platforms meet.
           </p>
 
-          <h2 className="mt-8 text-2xl font-semibold tracking-tight text-[color:var(--foreground)]">Focus</h2>
-          <p className="text-base leading-relaxed text-[color:var(--muted)]">
+          <h2 className="mt-8 text-xl font-bold tracking-tight text-[color:var(--foreground)] border-b border-[color:var(--hairline)] pb-2">
+            Focus
+          </h2>
+          <p className="text-base leading-relaxed text-[color:var(--muted)] font-light">
             Data pipelines, warehouses, observability. Agent workflows, model
             routing, evaluation, and usage analytics. Small tools and clean
             interfaces.
           </p>
 
-          <h2 className="mt-8 text-2xl font-semibold tracking-tight text-[color:var(--foreground)]">Stack</h2>
-          <p className="text-base leading-relaxed text-[color:var(--muted)]">
+          <h2 className="mt-8 text-xl font-bold tracking-tight text-[color:var(--foreground)] border-b border-[color:var(--hairline)] pb-2">
+            Stack
+          </h2>
+          <p className="text-base leading-relaxed text-[color:var(--muted)] font-light">
             Python, Rust, TypeScript. Spark, Airflow, ClickHouse, BigQuery,
             Kafka. Kubernetes, AWS, GCP, Cloudflare. LlamaIndex, AI SDK,
             LangGraph.
           </p>
 
-          <h2 className="mt-8 text-2xl font-semibold tracking-tight text-[color:var(--foreground)]">
+          <h2 className="mt-8 text-xl font-bold tracking-tight text-[color:var(--foreground)] border-b border-[color:var(--hairline)] pb-2">
             Elsewhere
           </h2>
           <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -153,12 +165,12 @@ function AboutPage() {
                 href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="card-v2 p-5 block no-underline group"
+                className="border border-[color:var(--hairline)] rounded-2xl p-5 block no-underline bg-[color:var(--card-bg)] hover:border-[color:var(--foreground)] hover:shadow-xs transition-all duration-300 relative group"
               >
-                <h3 className="font-semibold text-lg tracking-tight text-[color:var(--foreground)] group-hover:text-[color:var(--accent)] transition-colors duration-150">
+                <h3 className="font-bold text-base tracking-tight text-[color:var(--foreground)] group-hover:text-[color:var(--foreground)] transition-colors duration-150">
                   {item.title}
                 </h3>
-                <p className="mt-2 text-sm text-[color:var(--muted)] leading-relaxed">
+                <p className="mt-2 text-xs text-[color:var(--muted)] leading-relaxed font-light">
                   {item.description}
                 </p>
               </a>

@@ -1,6 +1,17 @@
-import { ArrowSquareOut } from "@phosphor-icons/react";
+import {
+  ArrowSquareOut,
+  MapPin,
+  User,
+  GithubLogo,
+  LinkedinLogo,
+  TwitterLogo,
+  FileText,
+  ArrowUpRight,
+  EnvelopeSimple
+} from "@phosphor-icons/react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Suspense } from "react";
+import { motion, type Variants } from "framer-motion";
+import { Suspense, useMemo } from "react";
 import type { ReactNode } from "react";
 import { addUtmParams } from "../../app/lib/utm";
 import { KeyboardFeatures } from "../components/KeyboardFeatures";
@@ -18,65 +29,133 @@ type ProjectRowItem = AppItem & {
   status: string;
 };
 
-const rowMeta: Record<string, { year: string; stack: string; status: string }> =
-  {
-    AnyRouter: { year: "2026", stack: "Cloudflare · TS", status: "Live" },
-    "ClickHouse Monitoring": {
-      year: "2026",
-      stack: "Next.js · ClickHouse",
-      status: "Live",
-    },
-    ShareHTML: { year: "2025", stack: "Workers · TS", status: "Live" },
-    "AI Agents": { year: "2026", stack: "Agents SDK", status: "Beta" },
-    "Agent State": { year: "2026", stack: "Durable Objects", status: "Beta" },
-    "MCP Tools": { year: "2025", stack: "MCP · TS", status: "Live" },
-    "Claude Codex Plugins": {
-      year: "2026",
-      stack: "Claude · TS",
-      status: "OSS",
-    },
-    Stamps: { year: "2024", stack: "Workers · KV", status: "Live" },
-    PageView: { year: "2024", stack: "Workers · D1", status: "Live" },
-    "LLM Timeline": { year: "2026", stack: "TanStack Start", status: "Live" },
-    "Rust Tieng Viet": { year: "2022", stack: "mdBook · Rust", status: "OSS" },
-    "Duyet Serif": { year: "2024", stack: "Fonts", status: "OSS" },
-  };
-
-const statusDot: Record<string, string> = {
-  Live: "bg-emerald-500",
-  Beta: "bg-amber-500",
-  OSS: "bg-[color:var(--subtle)]",
+const rowMeta: Record<string, { year: string; stack: string; status: string; glow: string; techs: string[] }> = {
+  AnyRouter: {
+    year: "2026",
+    stack: "Cloudflare · TS",
+    status: "Live",
+    glow: "project-glow-blue",
+    techs: ["CF", "TS", "Rs", "Ob"]
+  },
+  "ClickHouse Monitoring": {
+    year: "2026",
+    stack: "Next.js · ClickHouse",
+    status: "Live",
+    glow: "project-glow-orange",
+    techs: ["CH", "Nx", "AI", "TS"]
+  },
+  ShareHTML: {
+    year: "2025",
+    stack: "Workers · TS",
+    status: "Live",
+    glow: "project-glow-purple",
+    techs: ["CF", "TS", "Md", "KV"]
+  },
+  "AI Agents": {
+    year: "2026",
+    stack: "Agents SDK",
+    status: "Beta",
+    glow: "project-glow-green",
+    techs: ["AI", "Nx", "St", "CF"]
+  },
+  "Agent State": {
+    year: "2026",
+    stack: "Durable Objects",
+    status: "Beta",
+    glow: "project-glow-blue",
+    techs: ["Db", "DO", "Rs", "TS"]
+  },
+  "MCP Tools": {
+    year: "2025",
+    stack: "MCP · TS",
+    status: "Live",
+    glow: "project-glow-purple",
+    techs: ["MC", "TS", "Is", "CF"]
+  },
+  "Claude Codex Plugins": {
+    year: "2026",
+    stack: "Claude · TS",
+    status: "OSS",
+    glow: "project-glow-green",
+    techs: ["Cl", "TS", "Pl", "Co"]
+  },
+  Stamps: {
+    year: "2024",
+    stack: "Workers · KV",
+    status: "Live",
+    glow: "project-glow-orange",
+    techs: ["CF", "KV", "TS", "Db"]
+  },
+  PageView: {
+    year: "2024",
+    stack: "Workers · D1",
+    status: "Live",
+    glow: "project-glow-blue",
+    techs: ["CF", "D1", "TS", "An"]
+  },
+  "LLM Timeline": {
+    year: "2026",
+    stack: "TanStack Start",
+    status: "Live",
+    glow: "project-glow-green",
+    techs: ["Nx", "TS", "TL", "Vn"]
+  },
+  "Rust Tieng Viet": {
+    year: "2022",
+    stack: "mdBook · Rust",
+    status: "OSS",
+    glow: "project-glow-purple",
+    techs: ["Rs", "Md", "Bk", "Vn"]
+  },
+  "Duyet Serif": {
+    year: "2024",
+    stack: "Fonts",
+    status: "OSS",
+    glow: "project-glow-orange",
+    techs: ["Ft", "Vn", "Op", "Sf"]
+  },
 };
 
-const featured: ProjectRowItem[] = apps.slice(0, 5).map((item) => ({
-  ...item,
-  ...(rowMeta[item.name] ?? { year: "—", stack: "—", status: "Live" }),
-}));
+const featured: (ProjectRowItem & { glow: string; techs: string[] })[] = apps.slice(0, 6).map((item) => {
+  const meta = rowMeta[item.name] ?? {
+    year: "—",
+    stack: "—",
+    status: "Live",
+    glow: "project-glow-blue",
+    techs: ["TS"]
+  };
+  return {
+    ...item,
+    year: meta.year,
+    stack: meta.stack,
+    status: meta.status,
+    glow: meta.glow,
+    techs: meta.techs,
+  };
+});
 
-const metrics = [
-  { value: "10+", label: "Years building" },
-  { value: "12", label: "Projects shipped" },
-  { value: "7", label: "Open source" },
-  { value: "79x", label: "WASM speedup" },
-];
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
 
-const expertise = [
-  {
-    title: "Data Infrastructure",
-    description:
-      "Real-time analytics with ClickHouse, observability pipelines, and monitoring dashboards that handle production traffic at scale.",
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 70,
+      damping: 15,
+    },
   },
-  {
-    title: "AI & Agent Tools",
-    description:
-      "LLM-powered agents, MCP servers, Claude plugins, and streaming tool-use interfaces built on Cloudflare's edge.",
-  },
-  {
-    title: "Edge Computing",
-    description:
-      "Cloudflare Workers, Durable Objects, and Rust-to-WASM modules compiled for near-zero cold starts at the edge.",
-  },
-];
+};
 
 function HomePage() {
   return (
@@ -85,159 +164,231 @@ function HomePage() {
         <KeyboardFeatures />
       </Suspense>
 
-      <div className="min-h-screen overflow-x-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
+      <div className="min-h-screen relative bg-[color:var(--background)] text-[color:var(--foreground)] selection:bg-[color:var(--foreground)] selection:text-[color:var(--background)] overflow-x-hidden">
+        {/* Clean full grid background overlay */}
+        <div className="absolute inset-0 bg-grid-pattern pointer-events-none z-0 opacity-[0.8] dark:opacity-[0.4]" />
+
         <SiteHeader />
 
-        <main className="mx-auto max-w-[1200px] px-6 md:px-8">
-          {/* ── Hero ── */}
-          <section className="pt-16 pb-10 md:pt-20 md:pb-12">
-            <div className="max-w-2xl">
-              <h1 className="font-medium text-4xl md:text-6xl tracking-tight leading-[1.1] text-[color:var(--foreground)]">
-                Duyet Le
-              </h1>
-              <p className="mt-4 max-w-lg text-base md:text-lg text-[color:var(--muted)] leading-relaxed">
-                Data engineer and AI engineer building infrastructure,
-                agents, and lightweight tools that stay simple in production.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <a
-                  href="mailto:me@duyet.net"
-                  className="inline-flex items-center justify-center rounded-lg bg-[color:var(--accent)] px-5 py-2.5 text-sm font-medium text-white hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer"
-                >
-                  Get in touch
-                </a>
-                <Link
-                  to="/projects"
-                  className="inline-flex items-center justify-center rounded-lg border border-[color:var(--hairline)] px-5 py-2.5 text-sm font-medium text-[color:var(--muted)] hover:text-[color:var(--foreground)] hover:bg-[color:var(--faint)] transition-all cursor-pointer"
-                >
-                  View projects
-                </Link>
+        <main className="mx-auto max-w-[1040px] px-6 py-12 md:py-24 md:px-8 relative z-10">
+          
+          {/* ── Siddharth-Style Profile Header ── */}
+          <motion.section 
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-16 md:mb-24"
+          >
+            <div className="flex flex-col sm:flex-row gap-6 md:gap-8 items-start sm:items-center">
+              <img
+                src="https://github.com/duyet.png"
+                alt="Duyet Le"
+                className="h-16 w-16 md:h-20 md:w-20 rounded-2xl border border-[color:var(--hairline)] hover:scale-105 transition-transform duration-300 shadow-xs bg-[color:var(--faint)]"
+              />
+              <div>
+                <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-[color:var(--foreground)]">
+                  Duyet Le
+                </h1>
+                <p className="text-sm font-normal text-[color:var(--muted)] mt-1">
+                  Senior AI Engineer & Data Platform Architect
+                </p>
               </div>
             </div>
-          </section>
 
-          {/* ── Metrics ── */}
-          <section className="py-6 md:py-8 border-y border-[color:var(--hairline)]">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-              {metrics.map((m) => (
-                <div key={m.label}>
-                  <p className="text-2xl md:text-3xl font-medium tracking-tight tabular-nums text-[color:var(--foreground)]">
-                    {m.value}
-                  </p>
-                  <p className="mt-0.5 text-xs text-[color:var(--muted)]">
-                    {m.label}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* ── Selected Work ── */}
-          <section className="py-12 md:py-16">
-            <div className="mb-6 flex items-baseline justify-between">
-              <h2 className="text-2xl font-medium tracking-tight md:text-3xl text-[color:var(--foreground)]">
-                Selected work
-              </h2>
-              <Link
-                to="/projects"
-                className="link-underline text-sm font-medium text-[color:var(--muted)] hover:text-[color:var(--foreground)]"
-              >
-                All projects
-              </Link>
-            </div>
-
-            <div className="grid grid-flow-dense grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {featured.map((item, i) => (
-                <div
-                  key={item.name}
-                  className={i === 0 ? "md:col-span-2 lg:col-span-2" : ""}
+            {/* 3-Column Metadata Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8 border-b border-[color:var(--hairline)] pb-6">
+              <div>
+                <span className="block text-[10px] font-mono uppercase tracking-widest text-[color:var(--subtle)] mb-1">
+                  Location
+                </span>
+                <span className="text-sm text-[color:var(--muted)] flex items-center gap-1.5 font-light">
+                  <MapPin size={14} className="text-[color:var(--subtle)]" /> Ho Chi Minh City, VN
+                </span>
+              </div>
+              <div>
+                <span className="block text-[10px] font-mono uppercase tracking-widest text-[color:var(--subtle)] mb-1">
+                  Email
+                </span>
+                <a
+                  href="mailto:me@duyet.net"
+                  className="text-sm text-[color:var(--muted)] hover:text-[color:var(--foreground)] transition-colors flex items-center gap-1.5 font-light"
                 >
-                  <ProjectCard item={item} index={i} featured={i === 0} />
-                </div>
-              ))}
+                  <EnvelopeSimple size={14} className="text-[color:var(--subtle)]" /> me@duyet.net
+                </a>
+              </div>
+              <div>
+                <span className="block text-[10px] font-mono uppercase tracking-widest text-[color:var(--subtle)] mb-1">
+                  Pronouns
+                </span>
+                <span className="text-sm text-[color:var(--muted)] flex items-center gap-1.5 font-light">
+                  <User size={14} className="text-[color:var(--subtle)]" /> he/him
+                </span>
+              </div>
             </div>
-          </section>
 
-          {/* ── What I Build ── */}
-          <section className="py-12 md:py-16">
-            <h2 className="text-2xl font-medium tracking-tight md:text-3xl text-[color:var(--foreground)] mb-6">
-              What I build
-            </h2>
-            <div className="border-t border-[color:var(--hairline)]">
-              {expertise.map((area) => (
-                <div
-                  key={area.title}
-                  className="group py-5 border-b border-[color:var(--hairline)] flex flex-col md:flex-row md:items-baseline gap-1 md:gap-8"
-                >
-                  <h3 className="text-base font-semibold tracking-tight text-[color:var(--foreground)] md:w-48 shrink-0 group-hover:text-[color:var(--accent)] transition-colors duration-150">
-                    {area.title}
-                  </h3>
-                  <p className="text-sm text-[color:var(--muted)] leading-relaxed max-w-2xl">
-                    {area.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* ── Sites ── */}
-          <section id="sites" className="py-12 md:py-16">
-            <div className="mb-6">
-              <h2 className="text-2xl font-medium tracking-tight md:text-3xl text-[color:var(--foreground)]">
-                Sites
-              </h2>
-              <p className="mt-2 max-w-2xl text-sm text-[color:var(--muted)] leading-relaxed">
-                Live applications deployed from this monorepo. Each ships
-                directly to its own production domain.
+            {/* Real Data Bio Introduction */}
+            <div className="mt-8 space-y-3">
+              <p className="text-lg md:text-xl text-[color:var(--foreground)] leading-relaxed font-light">
+                I am a <span className="font-semibold text-[color:var(--foreground)]">Senior AI Engineer & Data Platform Architect</span> specializing in stateful agent systems, high-throughput analytics lakes, and optimized cloud platforms.
+              </p>
+              <p className="text-base md:text-lg text-[color:var(--muted)] leading-relaxed font-light">
+                Currently building autonomous <a href="https://agents.duyet.net" target="_blank" rel="noopener noreferrer" className="font-semibold text-[color:var(--foreground)] hover:underline underline-offset-4 decoration-emerald-500 decoration-2 transition-all">AI Agents</a>, migrating 350TB+ data lakes into active ClickHouse pools, developing <a href="/projects" className="font-semibold text-[color:var(--foreground)] hover:underline underline-offset-4 decoration-purple-500 decoration-2 transition-all">Featured Projects</a>, sharing telemetry insights on the <a href="https://insights.duyet.net" target="_blank" rel="noopener noreferrer" className="font-semibold text-[color:var(--foreground)] hover:underline underline-offset-4 decoration-amber-500 decoration-2 transition-all">Insights Dashboard</a>, and writing deep-dives in my <a href="https://blog.duyet.net" target="_blank" rel="noopener noreferrer" className="font-semibold text-[color:var(--foreground)] hover:underline underline-offset-4 decoration-blue-500 decoration-2 transition-all">Technical Blog</a>.
               </p>
             </div>
-            <div className="border-t border-[color:var(--hairline)]">
+
+            {/* Aligned Spotify Player Status */}
+            <div className="mt-6 flex items-center gap-2 text-xs md:text-sm text-[color:var(--muted)] font-light">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              </span>
+              <span>Now Playing &mdash; Build Optimizer (79x speedup)</span>
+            </div>
+
+            {/* Profile Social Row */}
+            <div className="flex items-center gap-5 mt-6">
+              <a
+                href="https://x.com/_duyet"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[color:var(--subtle)] hover:text-[color:var(--foreground)] transition-colors"
+                aria-label="Twitter / X"
+              >
+                <TwitterLogo size={20} weight="bold" />
+              </a>
+              <a
+                href="https://github.com/duyet"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[color:var(--subtle)] hover:text-[color:var(--foreground)] transition-colors"
+                aria-label="GitHub"
+              >
+                <GithubLogo size={20} weight="bold" />
+              </a>
+              <a
+                href="https://blog.duyet.net"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[color:var(--subtle)] hover:text-[color:var(--foreground)] transition-colors"
+                aria-label="Blog"
+              >
+                <ArrowSquareOut size={20} weight="bold" />
+              </a>
+              <a
+                href="mailto:me@duyet.net"
+                className="text-[color:var(--subtle)] hover:text-[color:var(--foreground)] transition-colors"
+                aria-label="Email"
+              >
+                <EnvelopeSimple size={20} weight="bold" />
+              </a>
+            </div>
+          </motion.section>
+
+          {/* ── Mock GitHub Contribution Calendar ── */}
+          <motion.section
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="mb-20 md:mb-32 border border-[color:var(--hairline)] rounded-2xl p-6 bg-[color:var(--card-bg)] shadow-xs"
+          >
+            {/* Month labels above the calendar grid */}
+            <div className="flex items-center justify-between mb-3 text-[10px] font-mono text-[color:var(--subtle)] select-none">
+              <span>Jun</span>
+              <span>Jul</span>
+              <span>Aug</span>
+              <span>Sep</span>
+              <span>Oct</span>
+              <span>Nov</span>
+              <span>Dec</span>
+              <span>Jan</span>
+              <span>Feb</span>
+              <span>Mar</span>
+              <span>Apr</span>
+              <span>May</span>
+            </div>
+
+            {/* Simulated Contribution Calendar Grid */}
+            <div className="overflow-x-auto scrollbar-none pb-2 select-none">
+              <MockContributionCalendar />
+            </div>
+
+            {/* Telemetry statistics and legend at the bottom */}
+            <div className="flex items-center justify-between mt-4 text-[10px] font-mono text-[color:var(--subtle)] select-none">
+              <span className="uppercase tracking-wider">
+                1,492 contributions &middot; {new Date().getFullYear() - 1}&ndash;{String(new Date().getFullYear()).slice(2)}
+              </span>
+              <div className="flex items-center gap-1.5">
+                <span>LESS</span>
+                <span className="w-2.5 h-2.5 rounded-[1px] bg-neutral-100 dark:bg-neutral-900/60" />
+                <span className="w-2.5 h-2.5 rounded-[1px] bg-emerald-100 dark:bg-emerald-950/30" />
+                <span className="w-2.5 h-2.5 rounded-[1px] bg-emerald-300 dark:bg-emerald-800/50" />
+                <span className="w-2.5 h-2.5 rounded-[1px] bg-emerald-400 dark:bg-emerald-600/70" />
+                <span className="w-2.5 h-2.5 rounded-[1px] bg-emerald-500" />
+                <span>MORE</span>
+              </div>
+            </div>
+          </motion.section>
+
+          {/* ── Curated Projects (Featured Mockups with Radial Glows) ── */}
+          <section className="mb-20 md:mb-32">
+            <div className="mb-12">
+              <span className="font-mono text-xs uppercase tracking-widest text-[color:var(--subtle)]">
+                01 / SHIPPED & MAINTAINED
+              </span>
+              <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-[color:var(--foreground)] mt-2">
+                Featured Projects
+              </h2>
+              <p className="text-sm text-[color:var(--muted)] font-light mt-1 max-w-xl">
+                Open-source systems, AI router protocols, and analytics software compiled and optimized for high scale.
+              </p>
+            </div>
+
+            <motion.div 
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            >
+              {featured.map((item) => (
+                <motion.div variants={itemVariants} key={item.name} className="relative group">
+                  <ProjectCard item={item} />
+                </motion.div>
+              ))}
+            </motion.div>
+
+            <div className="flex justify-center mt-12">
+              <Link
+                to="/projects"
+                className="inline-flex items-center gap-2 rounded-full border border-[color:var(--hairline)] hover:border-[color:var(--foreground)] px-6 py-2.5 text-xs font-mono uppercase tracking-widest text-[color:var(--foreground)] hover:bg-[color:var(--faint)] transition-all group cursor-pointer"
+              >
+                <span>View All Projects</span>
+                <span className="group-hover:translate-x-0.5 transition-transform duration-200">→</span>
+              </Link>
+            </div>
+          </section>
+
+          {/* ── Sibling Monorepo Applications ── */}
+          <section id="sites" className="mb-20 md:mb-32 border-t border-[color:var(--hairline)] pt-16">
+            <div className="mb-10">
+              <span className="font-mono text-xs uppercase tracking-widest text-[color:var(--subtle)]">
+                02 / INDEPENDENT SERVICES
+              </span>
+              <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-[color:var(--foreground)] mt-2">
+                Monorepo Sibling Sites
+              </h2>
+              <p className="mt-2 text-sm text-[color:var(--muted)] font-light leading-relaxed max-w-xl">
+                Companion utilities and databases built, integrated, and deployed dynamically on independent domains.
+              </p>
+            </div>
+
+            <div className="border border-[color:var(--hairline)] rounded-2xl overflow-hidden bg-[color:var(--card-bg)] shadow-xs">
               {siblingApps.map((item) => (
                 <SiteRow key={item.domain} item={item} />
               ))}
             </div>
           </section>
 
-          {/* ── Contact ── */}
-          <section className="py-12 md:py-16">
-            <h2 className="text-2xl font-medium tracking-tight md:text-3xl text-[color:var(--foreground)]">
-              Get in touch
-            </h2>
-            <p className="mt-2 max-w-2xl text-sm text-[color:var(--muted)] leading-relaxed">
-              Open to work on data infrastructure, AI agents, and open-source
-              software.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-6 text-sm">
-              <a
-                href="mailto:me@duyet.net"
-                className="link-underline text-[color:var(--foreground)] font-medium"
-              >
-                me@duyet.net
-              </a>
-              <a
-                href="https://linkedin.com/in/duyet"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-underline text-[color:var(--muted)] hover:text-[color:var(--foreground)] font-medium"
-              >
-                LinkedIn
-              </a>
-              <a
-                href="https://github.com/duyet"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-underline text-[color:var(--muted)] hover:text-[color:var(--foreground)] font-medium"
-              >
-                GitHub
-              </a>
-              <Link
-                to="/ls"
-                className="link-underline text-[color:var(--muted)] hover:text-[color:var(--foreground)] font-medium"
-              >
-                Short URLs
-              </Link>
-            </div>
-          </section>
         </main>
 
         <SiteFooter />
@@ -246,59 +397,101 @@ function HomePage() {
   );
 }
 
-function ProjectCard({
-  item,
-  index,
-  featured = false,
-}: {
-  item: ProjectRowItem;
-  index: number;
-  featured?: boolean;
-}) {
+function MockContributionCalendar() {
+  const cells = useMemo(() => {
+    return Array.from({ length: 371 }, (_, i) => {
+      // Create clustered green densities mimicking realistic commit calendars
+      const factor = Math.sin(i * 0.05) * Math.cos(i * 0.09) + Math.sin(i * 0.018) + (i % 7 === 0 ? 0.3 : 0);
+      let level = 0;
+      if (factor > 0.85) level = 4;
+      else if (factor > 0.45) level = 3;
+      else if (factor > 0.1) level = 2;
+      else if (factor > -0.3) level = 1;
+      return { id: i, level };
+    });
+  }, []);
+
   return (
-    <div
-      className="card-v2 p-4 md:p-5 flex flex-col justify-between h-full group animate-fade-in relative"
-      style={{ animationDelay: `${index * 60}ms` }}
-    >
-      <ProjectLink item={item}>
-        <div className="flex flex-col gap-3">
-          <div className="flex items-start justify-between gap-3">
-            <h3
-              className={`font-semibold tracking-tight text-[color:var(--foreground)] group-hover:text-[color:var(--accent)] transition-colors duration-150 ${
-                featured ? "text-xl md:text-2xl" : "text-lg"
-              }`}
-            >
-              {item.name}
-            </h3>
-            <span className="text-[color:var(--muted)] group-hover:text-[color:var(--accent)] transition-colors duration-150">
-              <ArrowSquareOut size={18} weight="bold" />
-            </span>
+    <div className="grid grid-flow-col grid-rows-7 gap-[3px] min-w-[760px]">
+      {cells.map((cell) => {
+        const colorClass = [
+          "bg-neutral-100 dark:bg-neutral-900/60",
+          "bg-emerald-100 dark:bg-emerald-950/30",
+          "bg-emerald-300 dark:bg-emerald-800/50",
+          "bg-emerald-400 dark:bg-emerald-600/70",
+          "bg-emerald-500",
+        ][cell.level];
+        return (
+          <div
+            key={cell.id}
+            className={`w-[10px] h-[10px] rounded-[1.5px] transition-colors duration-300 ${colorClass}`}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+function ProjectCard({ item }: { item: ProjectRowItem & { glow: string; techs: string[] } }) {
+  return (
+    <div className="border border-[color:var(--hairline)] rounded-2xl overflow-hidden bg-[color:var(--card-bg)] shadow-xs relative group/card hover:border-[color:var(--foreground)] hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full min-h-[380px]">
+      
+      {/* Dynamic Glowing Radial Backdrop Layer */}
+      <div className={`absolute inset-0 pointer-events-none z-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ${item.glow}`} />
+
+      <div className="relative z-10 flex flex-col flex-grow">
+        
+        {/* Browser Top Bar Mockup */}
+        <div className="bg-[color:var(--faint)] px-4 py-2.5 border-b border-[color:var(--hairline)] flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-red-400 dark:bg-red-500/80" />
+            <span className="w-2 h-2 rounded-full bg-yellow-400 dark:bg-yellow-500/80" />
+            <span className="w-2 h-2 rounded-full bg-emerald-400 dark:bg-emerald-500/80" />
           </div>
-          <p
-            className={`text-[color:var(--muted)] leading-relaxed ${
-              featured ? "text-base" : "text-sm"
-            } ${featured ? "line-clamp-4" : "line-clamp-3"}`}
-          >
-            {item.description}
-          </p>
+          <div className="text-[10px] font-mono text-[color:var(--subtle)] bg-[color:var(--background)] border border-[color:var(--hairline)] rounded px-2.5 py-0.5 truncate max-w-[60%] select-none">
+            {item.domain || item.host}
+          </div>
+          <div className="w-6" /> {/* Balance spacer */}
         </div>
 
-        <div className="mt-6 border-t border-[color:var(--hairline)] pt-3 flex items-center justify-between text-[11px] font-mono text-[color:var(--subtle)]">
-          <span className="tabular-nums font-semibold">{item.year}</span>
-          <div className="flex items-center gap-2">
-            <span>{item.stack}</span>
-            <span className="h-1 w-1 rounded-full bg-[color:var(--hairline)]" />
-            <span className="flex items-center gap-1.5">
-              <span
-                className={`h-1.5 w-1.5 rounded-full ${
-                  statusDot[item.status] ?? "bg-[color:var(--hairline)]"
-                }`}
-              />
-              <span className="font-semibold">{item.status}</span>
-            </span>
+        {/* Browser Page body */}
+        <div className="p-6 flex-grow flex flex-col justify-between gap-6">
+          <div className="space-y-3">
+            <div className="flex items-start justify-between gap-3">
+              <h3 className="text-base font-bold tracking-tight text-[color:var(--foreground)]">
+                {item.name}
+              </h3>
+              <ProjectLink item={item}>
+                <span className="text-[color:var(--subtle)] group-hover/card:text-[color:var(--foreground)] transition-colors duration-200 cursor-pointer">
+                  <ArrowSquareOut size={16} weight="bold" />
+                </span>
+              </ProjectLink>
+            </div>
+            <p className="text-sm text-[color:var(--muted)] leading-relaxed font-light line-clamp-4">
+              {item.description}
+            </p>
           </div>
+
+          <div className="flex items-end justify-between border-t border-[color:var(--hairline)] pt-4 mt-auto">
+            <div className="flex items-center gap-1.5">
+              {item.techs.map((tech) => (
+                <span key={tech} className="h-6 w-6 rounded-full bg-[color:var(--faint)] border border-[color:var(--hairline)] flex items-center justify-center text-[9px] font-mono text-[color:var(--muted)] font-semibold select-none">
+                  {tech}
+                </span>
+              ))}
+            </div>
+            
+            <div className="flex items-center gap-2 text-[10px] font-mono text-[color:var(--subtle)]">
+              <span>{item.year}</span>
+              <span className="h-1 w-1 rounded-full bg-[color:var(--hairline)]" />
+              <span className="uppercase font-semibold tracking-wider text-[9px] px-1.5 py-0.5 rounded bg-[color:var(--faint)] border border-[color:var(--hairline)]">
+                {item.status}
+              </span>
+            </div>
+          </div>
+
         </div>
-      </ProjectLink>
+      </div>
     </div>
   );
 }
@@ -307,7 +500,7 @@ function ProjectLink({
   item,
   children,
 }: {
-  item: ProjectRowItem;
+  item: AppItem;
   children: ReactNode;
 }) {
   const href = addUtmParams(item.href, "homepage", item.utmContent, item.host);
@@ -316,7 +509,7 @@ function ProjectLink({
     return (
       <a
         href={href}
-        className="block no-underline h-full"
+        className="no-underline cursor-pointer"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -326,7 +519,7 @@ function ProjectLink({
   }
 
   return (
-    <Link to={href} className="block no-underline h-full">
+    <Link to={href} className="no-underline cursor-pointer">
       {children}
     </Link>
   );
@@ -338,19 +531,24 @@ function SiteRow({ item }: { item: SiblingApp }) {
       href={`https://${item.domain}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="group grid gap-3 border-b border-[color:var(--hairline)] py-3.5 text-[color:var(--foreground)] transition-colors duration-150 ease-out hover:text-[color:var(--accent)] sm:grid-cols-[160px_1fr_200px] sm:gap-6 items-center"
+      className="group grid grid-cols-1 sm:grid-cols-[160px_1fr_200px] gap-3 border-b border-[color:var(--hairline)] py-5 text-[color:var(--foreground)] hover:bg-[color:var(--faint)] px-6 transition-all duration-200 items-center last:border-b-0"
     >
-      <div className="min-w-0">
-        <h3 className="text-base font-semibold leading-snug transition-transform duration-150 ease-out group-hover:translate-x-0.5 text-[color:var(--foreground)] group-hover:text-[color:var(--accent)]">
+      <div>
+        <h3 className="text-sm font-semibold text-[color:var(--foreground)] group-hover:pl-1 transition-all duration-200 flex items-center gap-1.5">
           {item.name}
+          <ArrowSquareOut size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
         </h3>
       </div>
-      <p className="text-sm leading-relaxed text-[color:var(--muted)] sm:max-w-2xl">
-        {item.description}
-      </p>
-      <p className="truncate font-mono text-xs tabular-nums text-[color:var(--subtle)] transition-colors duration-150 ease-out group-hover:text-[color:var(--accent)] sm:text-right">
-        {item.domain}
-      </p>
+      <div>
+        <p className="text-xs text-[color:var(--muted)] font-light leading-relaxed">
+          {item.description}
+        </p>
+      </div>
+      <div className="sm:text-right">
+        <span className="font-mono text-xs text-[color:var(--subtle)] group-hover:text-[color:var(--foreground)] transition-colors duration-200">
+          {item.domain}
+        </span>
+      </div>
     </a>
   );
 }

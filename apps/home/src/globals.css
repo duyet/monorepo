@@ -3,14 +3,14 @@
 
 @layer base {
   :root {
-    /* ── Warm editorial tokens (Anthropic-informed) ──────────────── */
-    --background: #faf9f7;
-    --foreground: #0d0d0d;
-    --muted: color-mix(in oklch, #0d0d0d 55%, transparent);
-    --subtle: color-mix(in oklch, #0d0d0d 30%, transparent);
-    --faint: color-mix(in oklch, #0d0d0d 5%, transparent);
-    --hairline: color-mix(in oklch, #0d0d0d 7%, transparent);
-    --accent: oklch(70.5% .213 47.604); /* Cloudflare Orange accent */
+    /* ── Strict Minimalist Monochrome Tokens ──────────────── */
+    --background: #ffffff;
+    --foreground: #000000;
+    --muted: rgba(0, 0, 0, 0.6);
+    --subtle: rgba(0, 0, 0, 0.35);
+    --faint: rgba(0, 0, 0, 0.03);
+    --hairline: rgba(0, 0, 0, 0.08);
+    --accent: #000000;
 
     /* Typography stacks (Geist enforced, no serif) */
     --font-geist: "Geist", -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, sans-serif;
@@ -34,17 +34,17 @@
 
     /* Premium card-v2 tokens */
     --card-bg: #ffffff;
-    --card-border: rgba(0, 0, 0, 0.06);
-    --card-border-hover: rgba(0, 0, 0, 0.12);
-    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
-    --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.06);
+    --card-border: rgba(0, 0, 0, 0.08);
+    --card-border-hover: #000000;
+    --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.04);
 
     /* Spacing & Radius Scale */
-    --radius-xs: 4px;
-    --radius-sm: 8px;
-    --radius-md: 10px;
-    --radius-lg: 16px; /* Anthropic-style generous radius */
-    --radius-max: 1000px;
+    --radius-xs: 2px;
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 24px; /* Matches the x.ai signature generous radius */
+    --radius-max: 9999px;
 
     --gap-xxs: 8px;
     --gap-xs: 16px;
@@ -54,27 +54,27 @@
     --gap-xl: 64px;
 
     /* Container & Media */
-    --container-max-width: 1280px;
-    --page-margins: 32px;
+    --container-max-width: 1200px;
+    --page-margins: 24px;
     --gutter: 24px;
-    --section-spacer-lg: 96px;
-    --section-spacer-sm: 48px;
+    --section-spacer-lg: 80px;
+    --section-spacer-sm: 40px;
     --text-column-max-width: 680px;
 
     /* Font Sizes */
-    --display-1: 72px;
-    --display-2: 64px;
-    --headline-1: 52px;
-    --headline-2: 44px;
-    --headline-3: 36px;
-    --headline-4: 32px;
-    --headline-5: 25px;
-    --headline-6: 19px;
-    --body-large-1: 25px;
-    --body-large-2: 23px;
-    --body-1: 20px;
-    --body-2: 17px;
-    --body-3: 15px;
+    --display-1: 64px;
+    --display-2: 56px;
+    --headline-1: 44px;
+    --headline-2: 36px;
+    --headline-3: 30px;
+    --headline-4: 24px;
+    --headline-5: 20px;
+    --headline-6: 16px;
+    --body-large-1: 20px;
+    --body-large-2: 18px;
+    --body-1: 16px;
+    --body-2: 15px;
+    --body-3: 14px;
     --body-4: 12px;
 
     /* ── Legacy tokens ── */
@@ -98,12 +98,12 @@
     --primary-active: var(--foreground);
     --primary-disabled: var(--faint);
     --surface-card: var(--background);
-    --surface-dark: #0a0a0a;
-    --surface-dark-elevated: #161616;
-    --surface-dark-soft: #111111;
+    --surface-dark: #000000;
+    --surface-dark-elevated: #121212;
+    --surface-dark-soft: #0a0a0a;
     --surface-soft: var(--faint);
-    --on-dark: #fafafa;
-    --on-dark-soft: color-mix(in oklch, #fafafa 55%, transparent);
+    --on-dark: #ffffff;
+    --on-dark-soft: rgba(255, 255, 255, 0.6);
     --body-strong: var(--foreground);
     --body: var(--foreground);
 
@@ -121,13 +121,13 @@
   :root.dark,
   .dark,
   html.dark {
-    --background: #1a1a1a;
-    --foreground: #f5f5f4;
-    --muted: color-mix(in oklch, #f5f5f4 50%, transparent);
-    --subtle: color-mix(in oklch, #f5f5f4 28%, transparent);
-    --faint: color-mix(in oklch, #f5f5f4 5%, transparent);
-    --hairline: color-mix(in oklch, #f5f5f4 7%, transparent);
-    --accent: oklch(70.5% .213 47.604); /* Cloudflare Orange accent */
+    --background: #000000;
+    --foreground: #ffffff;
+    --muted: rgba(255, 255, 255, 0.6);
+    --subtle: rgba(255, 255, 255, 0.35);
+    --faint: rgba(255, 255, 255, 0.04);
+    --hairline: rgba(255, 255, 255, 0.12);
+    --accent: #ffffff;
 
     /* Shared components override tokens */
     --editorial-bg: var(--background);
@@ -142,11 +142,11 @@
     --editorial-font-mono: var(--font-mono);
 
     /* Premium card-v2 tokens - Dark */
-    --card-bg: #242424;
-    --card-border: rgba(255, 255, 255, 0.06);
-    --card-border-hover: rgba(255, 255, 255, 0.12);
-    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-    --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.2);
+    --card-bg: #000000;
+    --card-border: rgba(255, 255, 255, 0.12);
+    --card-border-hover: #ffffff;
+    --card-shadow: none;
+    --card-shadow-hover: none;
 
     --foreground-primary: var(--foreground);
     --foreground-secondary: var(--foreground);
@@ -284,16 +284,106 @@
     border: 1px solid var(--card-border);
     border-radius: var(--radius-lg);
     box-shadow: var(--card-shadow);
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .card-v2:hover {
     border-color: var(--card-border-hover);
     box-shadow: var(--card-shadow-hover);
-    transform: translateY(-1px);
   }
 
-  .card-v2:active {
-    transform: translateY(0);
+  /* Clean vertical grid lines */
+  .bg-grid-vertical {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+    background-size: min(10vw, 80px) 100%;
+    background-position: center top;
+  }
+  
+  html.dark .bg-grid-vertical {
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  }
+
+  /* Clean full square-grid pattern (matching siddz.com screenshots) */
+  .bg-grid-pattern {
+    background-image: 
+      linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: center top;
+  }
+  
+  html.dark .bg-grid-pattern {
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  }
+
+  /* Mock Browser/App radial glow backdrops */
+  .project-glow-blue {
+    background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.12) 0%, transparent 60%);
+  }
+
+  .project-glow-orange {
+    background: radial-gradient(circle at 50% 50%, rgba(249, 115, 22, 0.12) 0%, transparent 60%);
+  }
+
+  .project-glow-purple {
+    background: radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.12) 0%, transparent 60%);
+  }
+
+  .project-glow-green {
+    background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.12) 0%, transparent 60%);
+  }
+
+  /* Signature x.ai Underline (kept for compatibility/style fallback) */
+  .xai-underline {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .xai-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    width: 100%;
+    height: 4px;
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 999px;
+  }
+
+  html.dark .xai-underline::after {
+    background-color: rgba(255, 255, 255, 0.25);
+  }
+
+  /* Spotify soundwave keyframes and utility animations */
+  @keyframes spotify-bar-1 {
+    0%, 100% { height: 4px; }
+    50% { height: 16px; }
+  }
+  @keyframes spotify-bar-2 {
+    0%, 100% { height: 12px; }
+    50% { height: 6px; }
+  }
+  @keyframes spotify-bar-3 {
+    0%, 100% { height: 8px; }
+    50% { height: 18px; }
+  }
+  @keyframes spotify-bar-4 {
+    0%, 100% { height: 14px; }
+    50% { height: 4px; }
+  }
+
+  .animate-spotify-1 {
+    animation: spotify-bar-1 1.2s ease-in-out infinite;
+  }
+  .animate-spotify-2 {
+    animation: spotify-bar-2 0.8s ease-in-out infinite;
+  }
+  .animate-spotify-3 {
+    animation: spotify-bar-3 1.0s ease-in-out infinite;
+  }
+  .animate-spotify-4 {
+    animation: spotify-bar-4 1.4s ease-in-out infinite;
   }
 }

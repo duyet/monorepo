@@ -67,7 +67,7 @@ export function SiteNav({
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 h-14 w-full transition-[background-color,border-color] duration-200",
+        "relative z-40 h-14 w-full transition-[background-color,border-color] duration-200",
         scrolled
           ? "border-b border-[color:var(--editorial-hairline)] bg-[color-mix(in_oklch,_var(--editorial-bg)_80%,_transparent)] backdrop-blur-sm"
           : "border-b border-transparent bg-transparent",

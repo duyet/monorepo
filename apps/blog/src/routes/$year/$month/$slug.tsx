@@ -115,10 +115,10 @@ function PostPage() {
 
   return (
     <div className="post-reader overflow-x-hidden pb-24">
-      <Container className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-10">
+      <Container className="mx-auto max-w-[1040px] px-5 sm:px-8 lg:px-10">
         <ReadingProgress />
 
-        <div className="mx-auto grid grid-cols-1 lg:grid-cols-[8fr_4fr] gap-10 xl:max-w-[1280px]">
+        <div className="mx-auto grid grid-cols-1 lg:grid-cols-[8fr_4fr] gap-10 xl:max-w-[1040px]">
           <div className="post-body min-w-0">
             <Content post={post} />
 

@@ -6,17 +6,16 @@ import ThemeProvider from "@duyet/components/ThemeProvider";
 import {
   createRootRoute,
   HeadContent,
+  Link,
   Outlet,
   Scripts,
-  Link,
   useRouterState,
 } from "@tanstack/react-router";
-import { SiteNav as SiteNavV2, siteNavLinkClassName, AppCommandPalette } from "@duyet/components";
-import { useState } from "react";
+import { SiteNavV2 } from "@duyet/components";
 
 function NotFoundComponent() {
   return (
-    <main className="mx-auto flex min-h-[60vh] w-full max-w-6xl flex-col items-start justify-center px-6 md:px-8">
+    <main className="mx-auto flex min-h-[60vh] w-full max-w-[1040px] flex-col items-start justify-center px-6 md:px-8">
       <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--muted)]">
         404
       </p>
@@ -51,7 +50,7 @@ export const Route = createRootRoute({
       {
         rel: "preload",
         as: "style",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap",
       },
     ],
   }),
@@ -61,40 +60,16 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const [paletteOpen, setPaletteOpen] = useState(false);
 
-  const brandNode = (
-    <Link
-      to="/"
-      className="font-sans text-base font-semibold tracking-tight text-[color:var(--foreground)] transition-colors hover:text-[color:var(--accent)]"
-    >
-      <span>Insights</span>{" "}
-      <span className="text-[color:var(--muted)]">/ duyet</span>
-    </Link>
-  );
-
-  const linksNode = (
-    <>
-      {[
-        { text: "Overview", href: "/" },
-        { text: "Blog", href: "/blog" },
-        { text: "GitHub", href: "/github" },
-        { text: "WakaTime", href: "/wakatime" },
-        { text: "AI", href: "/ai" },
-      ].map((item) => {
-        const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
-        return (
-          <Link
-            key={item.href}
-            to={item.href}
-            className={siteNavLinkClassName(active)}
-          >
-            {item.text}
-          </Link>
-        );
-      })}
-    </>
-  );
+  const globalNavLinks = [
+    { name: "Home", href: "https://duyet.net" },
+    { name: "Projects", href: "https://duyet.net/projects" },
+    { name: "About", href: "https://duyet.net/about" },
+    { name: "Blog", href: "https://blog.duyet.net" },
+    { name: "CV", href: "https://cv.duyet.net" },
+    { name: "Insights", href: "/", active: true },
+    { name: "Agent", href: "https://agents.duyet.net" },
+  ];
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -106,33 +81,58 @@ function RootComponent() {
           onLoad={(event) => {
             event.currentTarget.media = "all";
           }}
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
         />
       </head>
       <body>
         <ThemeProvider>
-          <div className="flex min-h-screen flex-col bg-[var(--background)] text-[var(--foreground)]">
-            <SiteNavV2
-              brand={brandNode}
-              links={linksNode}
-              onMobileMenuClick={() => setPaletteOpen(true)}
-            />
+          <div className="min-h-screen relative bg-[color:var(--background)] text-[color:var(--foreground)] selection:bg-[color:var(--foreground)] selection:text-[color:var(--background)] overflow-x-hidden flex flex-col justify-between">
+            {/* Clean full grid background overlay */}
+            <div className="absolute inset-0 bg-grid-pattern pointer-events-none z-0 opacity-[0.8] dark:opacity-[0.4]" />
 
-            <main className="flex-1 pt-10 pb-20">
-              <div className="mx-auto w-full max-w-6xl px-6 md:px-8">
-                <Outlet />
+            <div className="w-full flex flex-col relative z-20">
+              <SiteNavV2
+                brandText="Duyet Le"
+                brandHref="https://duyet.net"
+                activeApp="insights"
+                links={globalNavLinks}
+              />
+            </div>
+
+            <main className="mx-auto w-full max-w-[1040px] px-6 py-12 md:py-16 md:px-8 relative z-10 flex-grow">
+              {/* Local Insights Sub-Navigation Pill Bar */}
+              <div className="flex items-center gap-2 border-b border-[color:var(--hairline)] pb-4 mb-8 overflow-x-auto scrollbar-none font-mono text-[10px] uppercase tracking-wider select-none">
+                {[
+                  { name: "Overview", href: "/" },
+                  { name: "Blog", href: "/blog" },
+                  { name: "GitHub", href: "/github" },
+                  { name: "WakaTime", href: "/wakatime" },
+                  { name: "AI", href: "/ai" },
+                ].map((subLink) => {
+                  const active = subLink.href === "/" ? pathname === "/" : pathname.startsWith(subLink.href);
+                  return (
+                    <Link
+                      key={subLink.href}
+                      to={subLink.href}
+                      className={`px-3 py-1 rounded-full transition-all duration-200 border cursor-pointer ${
+                        active
+                          ? "bg-[color:var(--foreground)] text-[color:var(--background)] border-transparent font-medium"
+                          : "text-[color:var(--muted)] border-[color:var(--hairline)] hover:border-[color:var(--foreground)] hover:text-[color:var(--foreground)]"
+                      }`}
+                    >
+                      {subLink.name}
+                    </Link>
+                  );
+                })}
               </div>
+
+              <Outlet />
             </main>
 
             <EditorialFooter />
           </div>
 
           <Analytics />
-          <AppCommandPalette
-            open={paletteOpen}
-            onOpenChange={setPaletteOpen}
-            hideDefaultTrigger
-          />
         </ThemeProvider>
         <Scripts />
       </body>
@@ -143,23 +143,18 @@ function RootComponent() {
 function EditorialFooter() {
   const year = new Date().getFullYear();
   return (
-    <footer className="border-t border-[color:var(--hairline)]">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-6 py-10 text-xs text-[color:var(--muted)] md:flex-row md:items-center md:justify-between md:px-8">
-        <p className="font-serif italic">
-          &copy; {year} Duyet Le &middot; insights.duyet.net
-        </p>
-        <p className="font-serif italic">
-          This site is auto-driven and auto-designed by the{" "}
-          <a
-            href="https://github.com/duyetbot"
-            target="_blank"
-            rel="noreferrer noopener"
-            className="underline decoration-[color:var(--accent)] decoration-1 underline-offset-4 transition-colors hover:text-[color:var(--accent)]"
-          >
-            duyetbot
-          </a>{" "}
-          agent.
-        </p>
+    <footer className="mt-20 border-t border-[color:var(--hairline)] py-10 relative z-10">
+      <div className="mx-auto max-w-[1040px] px-6 md:px-8 flex flex-col md:flex-row md:items-center justify-between gap-6 text-xs sm:text-[13px] text-[color:var(--muted)]">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+          <span>&copy; {year} Duyet Le.</span>
+          <span className="text-[color:var(--hairline)]">|</span>
+          <span>insights.duyet.net</span>
+        </div>
+        <div className="flex items-center gap-4">
+          <a href="https://github.com/duyet" target="_blank" rel="noopener noreferrer" className="hover:text-[color:var(--foreground)] transition-colors">GitHub</a>
+          <a href="https://linkedin.com/in/duyet" target="_blank" rel="noopener noreferrer" className="hover:text-[color:var(--foreground)] transition-colors">LinkedIn</a>
+          <a href="https://x.com/_duyet" target="_blank" rel="noopener noreferrer" className="hover:text-[color:var(--foreground)] transition-colors">Twitter</a>
+        </div>
       </div>
     </footer>
   );
