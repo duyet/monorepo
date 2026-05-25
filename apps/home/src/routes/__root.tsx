@@ -18,11 +18,11 @@ export const Route = createRootRoute({
       { charSet: "UTF-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
       { name: "robots", content: "follow, index" },
-      { title: "Duyet Le - Data & AI Engineer" },
+      { title: "Duyet Le — AI engineer" },
       {
         name: "description",
         content:
-          "Data & AI Engineer. I build data infrastructure, AI-powered systems, and love Rust, TypeScript, and open source.",
+          "I build AI agents and the data platforms that keep them honest — end-to-end, obsessing over the small details that make software feel right to use.",
       },
       {
         name: "theme-color",

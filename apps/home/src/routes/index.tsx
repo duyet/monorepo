@@ -3,10 +3,7 @@ import {
   MapPin,
   User,
   GithubLogo,
-  LinkedinLogo,
   TwitterLogo,
-  FileText,
-  ArrowUpRight,
   EnvelopeSimple
 } from "@phosphor-icons/react";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -190,7 +187,7 @@ function HomePage() {
                   Duyet Le
                 </h1>
                 <p className="text-sm font-normal text-[color:var(--muted)] mt-1">
-                  Senior AI Engineer & Data Platform Architect
+                  AI engineer · building agents, data platforms, and small useful things
                 </p>
               </div>
             </div>
@@ -226,13 +223,13 @@ function HomePage() {
               </div>
             </div>
 
-            {/* Real Data Bio Introduction */}
+            {/* Bio — builder-voice, links to every surface */}
             <div className="mt-8 space-y-3">
               <p className="text-lg md:text-xl text-[color:var(--foreground)] leading-relaxed font-light">
-                I am a <span className="font-semibold text-[color:var(--foreground)]">Senior AI Engineer & Data Platform Architect</span> specializing in stateful agent systems, high-throughput analytics lakes, and optimized cloud platforms.
+                I build AI agents and the data platforms that keep them honest — end-to-end, obsessing over the small details that make software feel right to use.
               </p>
               <p className="text-base md:text-lg text-[color:var(--muted)] leading-relaxed font-light">
-                Currently building autonomous <a href="https://agents.duyet.net" target="_blank" rel="noopener noreferrer" className="font-semibold text-[color:var(--foreground)] hover:underline underline-offset-4 decoration-emerald-500 decoration-2 transition-all">AI Agents</a>, migrating 350TB+ data lakes into active ClickHouse pools, developing <a href="/projects" className="font-semibold text-[color:var(--foreground)] hover:underline underline-offset-4 decoration-purple-500 decoration-2 transition-all">Featured Projects</a>, sharing telemetry insights on the <a href="https://insights.duyet.net" target="_blank" rel="noopener noreferrer" className="font-semibold text-[color:var(--foreground)] hover:underline underline-offset-4 decoration-amber-500 decoration-2 transition-all">Insights Dashboard</a>, and writing deep-dives in my <a href="https://blog.duyet.net" target="_blank" rel="noopener noreferrer" className="font-semibold text-[color:var(--foreground)] hover:underline underline-offset-4 decoration-blue-500 decoration-2 transition-all">Technical Blog</a>.
+                Right now I'm shipping autonomous <a href="https://agents.duyet.net" target="_blank" rel="noopener noreferrer" className="font-semibold text-[color:var(--foreground)] hover:underline underline-offset-4 decoration-emerald-500 decoration-2 transition-all">agents</a>, moving petabyte-scale lakes into ClickHouse, writing in the <a href="https://blog.duyet.net" target="_blank" rel="noopener noreferrer" className="font-semibold text-[color:var(--foreground)] hover:underline underline-offset-4 decoration-blue-500 decoration-2 transition-all">blog</a>, publishing live telemetry in <a href="https://insights.duyet.net" target="_blank" rel="noopener noreferrer" className="font-semibold text-[color:var(--foreground)] hover:underline underline-offset-4 decoration-amber-500 decoration-2 transition-all">insights</a>, and open-sourcing whatever else I make in <a href="/projects" className="font-semibold text-[color:var(--foreground)] hover:underline underline-offset-4 decoration-purple-500 decoration-2 transition-all">projects</a>.
               </p>
             </div>
 
