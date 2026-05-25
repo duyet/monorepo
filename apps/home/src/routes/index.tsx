@@ -183,7 +183,8 @@ function HomePage() {
                 className="h-16 w-16 md:h-20 md:w-20 rounded-2xl border border-[color:var(--hairline)] hover:scale-105 transition-transform duration-300 shadow-xs bg-[color:var(--faint)]"
               />
               <div>
-                <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-[color:var(--foreground)]">
+                <p className="eyebrow-mono mb-2">Profile · 2026</p>
+                <h1 className="display-tight text-4xl md:text-5xl text-[color:var(--foreground)]">
                   Duyet Le
                 </h1>
                 <p className="text-sm font-normal text-[color:var(--muted)] mt-1">
@@ -195,7 +196,7 @@ function HomePage() {
             {/* 3-Column Metadata Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8 border-b border-[color:var(--hairline)] pb-6">
               <div>
-                <span className="block text-[10px] font-mono uppercase tracking-widest text-[color:var(--subtle)] mb-1">
+                <span className="eyebrow-mono block mb-1">
                   Location
                 </span>
                 <span className="text-sm text-[color:var(--muted)] flex items-center gap-1.5 font-light">
@@ -203,7 +204,7 @@ function HomePage() {
                 </span>
               </div>
               <div>
-                <span className="block text-[10px] font-mono uppercase tracking-widest text-[color:var(--subtle)] mb-1">
+                <span className="eyebrow-mono block mb-1">
                   Email
                 </span>
                 <a
@@ -214,7 +215,7 @@ function HomePage() {
                 </a>
               </div>
               <div>
-                <span className="block text-[10px] font-mono uppercase tracking-widest text-[color:var(--subtle)] mb-1">
+                <span className="eyebrow-mono block mb-1">
                   Pronouns
                 </span>
                 <span className="text-sm text-[color:var(--muted)] flex items-center gap-1.5 font-light">
@@ -231,6 +232,29 @@ function HomePage() {
               <p className="text-base md:text-lg text-[color:var(--muted)] leading-relaxed font-light">
                 Right now I'm shipping autonomous <a href="https://agents.duyet.net" target="_blank" rel="noopener noreferrer" className="font-semibold text-[color:var(--foreground)] hover:underline underline-offset-4 decoration-emerald-500 decoration-2 transition-all">agents</a>, moving petabyte-scale lakes into ClickHouse, writing in the <a href="https://blog.duyet.net" target="_blank" rel="noopener noreferrer" className="font-semibold text-[color:var(--foreground)] hover:underline underline-offset-4 decoration-blue-500 decoration-2 transition-all">blog</a>, publishing live telemetry in <a href="https://insights.duyet.net" target="_blank" rel="noopener noreferrer" className="font-semibold text-[color:var(--foreground)] hover:underline underline-offset-4 decoration-amber-500 decoration-2 transition-all">insights</a>, and open-sourcing whatever else I make in <a href="/projects" className="font-semibold text-[color:var(--foreground)] hover:underline underline-offset-4 decoration-purple-500 decoration-2 transition-all">projects</a>.
               </p>
+            </div>
+
+            {/* Primary CTAs — minimal pill outlines */}
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <a
+                href="https://blog.duyet.net"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pill-outline"
+              >
+                Read the blog
+              </a>
+              <Link to="/projects" className="pill-outline">
+                Browse projects
+              </Link>
+              <a
+                href="https://agents.duyet.net"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pill-outline"
+              >
+                Try the agent
+              </a>
             </div>
 
             {/* Aligned Spotify Player Status */}
