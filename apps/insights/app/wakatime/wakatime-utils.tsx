@@ -120,6 +120,42 @@ export async function getWakaTimeLanguages(days: number | "all" = 30) {
     }));
 }
 
+export interface WakaTimeBreakdownItem {
+  name: string;
+  percent: number;
+  total_seconds: number;
+}
+
+export async function getWakaTimeEditors(
+  days: number | "all" = 30,
+): Promise<WakaTimeBreakdownItem[]> {
+  const stats = await getWakaTimeStats(days);
+  if (!stats?.data?.editors || !Array.isArray(stats.data.editors)) return [];
+
+  return stats.data.editors.slice(0, 8).map((row) => ({
+    name: row?.name || "Unknown",
+    percent: Math.round((row?.percent || 0) * 100) / 100,
+    total_seconds: row?.total_seconds || 0,
+  }));
+}
+
+export async function getWakaTimeOperatingSystems(
+  days: number | "all" = 30,
+): Promise<WakaTimeBreakdownItem[]> {
+  const stats = await getWakaTimeStats(days);
+  if (
+    !stats?.data?.operating_systems ||
+    !Array.isArray(stats.data.operating_systems)
+  )
+    return [];
+
+  return stats.data.operating_systems.slice(0, 6).map((row) => ({
+    name: row?.name || "Unknown",
+    percent: Math.round((row?.percent || 0) * 100) / 100,
+    total_seconds: row?.total_seconds || 0,
+  }));
+}
+
 export async function getWakaTimeActivity(days: number | "all" = 30) {
   // Activity chart - using aggregated stats since daily summaries require premium
   const stats = await getWakaTimeStats(days);

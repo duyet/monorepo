@@ -1,15 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { WakaTimeActivityView } from "@/app/wakatime/activity";
+import { WakaTimeBreakdownList } from "@/app/wakatime/breakdown";
 import { WakaTimeHourlyHeatmapView } from "@/app/wakatime/hourly-heatmap";
 import { WakaTimeLanguagesView } from "@/app/wakatime/languages";
 import { WakaTimeMetricsView } from "@/app/wakatime/metrics";
 import { WakaTimeMonthlyTrendView } from "@/app/wakatime/monthly-trend";
 import {
   getWakaTimeActivityWithAI,
+  getWakaTimeEditors,
   getWakaTimeHourlyHeatmap,
   getWakaTimeLanguages,
   getWakaTimeMetrics,
   getWakaTimeMonthlyTrend,
+  getWakaTimeOperatingSystems,
 } from "@/app/wakatime/wakatime-utils";
 import { StaticCard } from "@/components/StaticCard";
 import type { PeriodDays } from "@/lib/periods";
@@ -29,14 +32,23 @@ const WAKATIME_HEATMAP_URLS = {
 export const Route = createFileRoute("/wakatime/")({
   loader: async () => {
     const days = STATIC_DAYS;
-    const [metrics, activity, languages, monthlyTrend, heatmap] =
-      await Promise.allSettled([
-        getWakaTimeMetrics(days),
-        getWakaTimeActivityWithAI(days),
-        getWakaTimeLanguages(days),
-        getWakaTimeMonthlyTrend(),
-        getWakaTimeHourlyHeatmap(),
-      ]);
+    const [
+      metrics,
+      activity,
+      languages,
+      editors,
+      operatingSystems,
+      monthlyTrend,
+      heatmap,
+    ] = await Promise.allSettled([
+      getWakaTimeMetrics(days),
+      getWakaTimeActivityWithAI(days),
+      getWakaTimeLanguages(days),
+      getWakaTimeEditors(days),
+      getWakaTimeOperatingSystems(days),
+      getWakaTimeMonthlyTrend(),
+      getWakaTimeHourlyHeatmap(),
+    ]);
 
     return {
       days,
@@ -51,6 +63,9 @@ export const Route = createFileRoute("/wakatime/")({
             },
       activity: activity.status === "fulfilled" ? activity.value : [],
       languages: languages.status === "fulfilled" ? languages.value : [],
+      editors: editors.status === "fulfilled" ? editors.value : [],
+      operatingSystems:
+        operatingSystems.status === "fulfilled" ? operatingSystems.value : [],
       monthlyTrend:
         monthlyTrend.status === "fulfilled" ? monthlyTrend.value : [],
       heatmap: heatmap.status === "fulfilled" ? heatmap.value : [],
@@ -70,8 +85,15 @@ export const Route = createFileRoute("/wakatime/")({
 });
 
 function WakatimePage() {
-  const { metrics, activity, languages, monthlyTrend, heatmap } =
-    Route.useLoaderData();
+  const {
+    metrics,
+    activity,
+    languages,
+    editors,
+    operatingSystems,
+    monthlyTrend,
+    heatmap,
+  } = Route.useLoaderData();
 
   return (
     <div>
@@ -101,6 +123,20 @@ function WakatimePage() {
           description="Language usage and distribution."
         >
           <WakaTimeLanguagesView languages={languages} />
+        </InsightsSection>
+
+        <InsightsSection
+          title="Editors"
+          description="Where the typing happened — top editors by share of coding time."
+        >
+          <WakaTimeBreakdownList items={editors} />
+        </InsightsSection>
+
+        <InsightsSection
+          title="Operating systems"
+          description="Which OS the keyboard hours landed on."
+        >
+          <WakaTimeBreakdownList items={operatingSystems} />
         </InsightsSection>
 
         <InsightsSection
