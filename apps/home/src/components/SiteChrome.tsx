@@ -3,7 +3,8 @@ import {
   AppsDrawer,
   SiteNav,
 } from "@duyet/components";
-import { DotsNine, Sun, Moon, TwitterLogo, EnvelopeSimple, GithubLogo } from "@phosphor-icons/react";
+import Icons from "@duyet/components/Icons";
+import { LayoutGrid, Sun, Moon, Mail } from "lucide-react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { addUtmParams } from "../../app/lib/utm";
@@ -136,7 +137,7 @@ export function SiteHeader() {
         className="text-[14px] font-normal text-[color:var(--muted)] hover:text-[color:var(--foreground)] transition-colors cursor-pointer flex items-center"
         aria-label="Open apps menu"
       >
-        <DotsNine size={18} weight="bold" />
+        <LayoutGrid size={18} />
       </button>
 
       <button
@@ -146,9 +147,9 @@ export function SiteHeader() {
         aria-label="Toggle theme"
       >
         {theme === "light" ? (
-          <Moon size={18} weight="bold" />
+          <Moon size={18} />
         ) : (
-          <Sun size={18} weight="bold" />
+          <Sun size={18} />
         )}
       </button>
     </div>
@@ -220,14 +221,14 @@ export function SiteFooter() {
             className="hover:text-[color:var(--foreground)] transition-colors"
             aria-label="Twitter / X"
           >
-            <TwitterLogo size={18} weight="bold" />
+            <Icons.Twitter className="w-[18px] h-[18px]" />
           </a>
           <a
             href="mailto:me@duyet.net"
             className="hover:text-[color:var(--foreground)] transition-colors"
             aria-label="Email"
           >
-            <EnvelopeSimple size={18} weight="bold" />
+            <Mail size={18} />
           </a>
           <a
             href="https://github.com/duyet"
@@ -236,7 +237,7 @@ export function SiteFooter() {
             className="hover:text-[color:var(--foreground)] transition-colors"
             aria-label="GitHub"
           >
-            <GithubLogo size={18} weight="bold" />
+            <Icons.Github className="w-[18px] h-[18px]" />
           </a>
         </div>
       </div>

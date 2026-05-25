@@ -1,11 +1,5 @@
-import {
-  ArrowSquareOut,
-  MapPin,
-  User,
-  GithubLogo,
-  TwitterLogo,
-  EnvelopeSimple
-} from "@phosphor-icons/react";
+import Icons from "@duyet/components/Icons";
+import { ExternalLink, MapPin, User, Mail } from "lucide-react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, type Variants } from "framer-motion";
 import { Suspense, useMemo } from "react";
@@ -211,7 +205,7 @@ function HomePage() {
                   href="mailto:me@duyet.net"
                   className="text-sm text-[color:var(--muted)] hover:text-[color:var(--foreground)] transition-colors flex items-center gap-1.5 font-light"
                 >
-                  <EnvelopeSimple size={14} className="text-[color:var(--subtle)]" /> me@duyet.net
+                  <Mail size={14} className="text-[color:var(--subtle)]" /> me@duyet.net
                 </a>
               </div>
               <div>
@@ -275,7 +269,7 @@ function HomePage() {
                 className="text-[color:var(--subtle)] hover:text-[color:var(--foreground)] transition-colors"
                 aria-label="Twitter / X"
               >
-                <TwitterLogo size={20} weight="bold" />
+                <Icons.Twitter className="w-5 h-5" />
               </a>
               <a
                 href="https://github.com/duyet"
@@ -284,7 +278,7 @@ function HomePage() {
                 className="text-[color:var(--subtle)] hover:text-[color:var(--foreground)] transition-colors"
                 aria-label="GitHub"
               >
-                <GithubLogo size={20} weight="bold" />
+                <Icons.Github className="w-5 h-5" />
               </a>
               <a
                 href="https://blog.duyet.net"
@@ -293,14 +287,14 @@ function HomePage() {
                 className="text-[color:var(--subtle)] hover:text-[color:var(--foreground)] transition-colors"
                 aria-label="Blog"
               >
-                <ArrowSquareOut size={20} weight="bold" />
+                <ExternalLink size={20} />
               </a>
               <a
                 href="mailto:me@duyet.net"
                 className="text-[color:var(--subtle)] hover:text-[color:var(--foreground)] transition-colors"
                 aria-label="Email"
               >
-                <EnvelopeSimple size={20} weight="bold" />
+                <Mail size={20} />
               </a>
             </div>
           </motion.section>
@@ -484,7 +478,7 @@ function ProjectCard({ item }: { item: ProjectRowItem & { glow: string; techs: s
               </h3>
               <ProjectLink item={item}>
                 <span className="text-[color:var(--subtle)] group-hover/card:text-[color:var(--foreground)] transition-colors duration-200 cursor-pointer">
-                  <ArrowSquareOut size={16} weight="bold" />
+                  <ExternalLink size={16} />
                 </span>
               </ProjectLink>
             </div>
@@ -557,7 +551,7 @@ function SiteRow({ item }: { item: SiblingApp }) {
       <div>
         <h3 className="text-sm font-semibold text-[color:var(--foreground)] group-hover:pl-1 transition-all duration-200 flex items-center gap-1.5">
           {item.name}
-          <ArrowSquareOut size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+          <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
         </h3>
       </div>
       <div>
