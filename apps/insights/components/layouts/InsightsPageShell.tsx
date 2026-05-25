@@ -27,12 +27,8 @@ export function InsightsPageHeader({
 }: InsightsPageHeaderProps): JSX.Element {
   return (
     <header className="editorial-fade-up mb-16">
-      {badge ? (
-        <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">
-          {badge}
-        </p>
-      ) : null}
-      <h1 className="mt-4 font-sans font-semibold text-5xl leading-[1.05] tracking-tight sm:text-6xl md:text-7xl">
+      {badge ? <p className="eyebrow-mono">{badge}</p> : null}
+      <h1 className="display-tight mt-4 text-5xl sm:text-6xl md:text-7xl">
         {title}
       </h1>
       <p className="mt-6 max-w-2xl text-base leading-7 text-[color:var(--muted)]">
@@ -51,11 +47,9 @@ export function InsightsSection({
   return (
     <section className={cn("editorial-fade-up py-12", className)}>
       <div className="mb-8 flex flex-col gap-1 border-t border-[color:var(--hairline)] pt-8">
-        <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">
-          {title}
-        </p>
+        <p className="eyebrow-mono">{title}</p>
         {description ? (
-          <p className="font-sans font-medium text-2xl leading-snug tracking-tight text-[color:var(--foreground)] md:text-3xl">
+          <p className="display-tight text-2xl leading-snug text-[color:var(--foreground)] md:text-3xl">
             {description}
           </p>
         ) : null}

@@ -47,7 +47,6 @@ function PostThumbnail({ post, size = "grid" }: { post: Post; size?: "hero" | "g
     );
   }
 
-  // Replicates x.ai/news Grok Skills and OpenCode blur graphics perfectly
   const getGlowStyles = (category: string, slug: string) => {
     const text = (category + slug).toLowerCase();
     let hash = 0;
@@ -101,7 +100,7 @@ function HomePage(): ReactElement {
 
   return (
     <div className="mx-auto max-w-[1040px] px-6 py-8 md:py-16 md:px-8 selection:bg-[color:var(--em-foreground)] selection:text-[color:var(--em-background)]">
-      {/* ── x.ai Hero Featured Post ── */}
+      {/* Hero featured post */}
       {featured && (
         <section className="mb-16 md:mb-24">
           <Link
@@ -120,7 +119,7 @@ function HomePage(): ReactElement {
                 </span>
               </div>
 
-              <h1 className="font-bold text-3xl md:text-5xl tracking-tight leading-[1.1] text-[color:var(--em-foreground)] mt-6 group-hover:underline decoration-1 underline-offset-4">
+              <h1 className="display-tight text-3xl md:text-5xl text-[color:var(--em-foreground)] mt-6 group-hover:underline decoration-1 underline-offset-4">
                 {featured.title}
               </h1>
 
@@ -141,7 +140,7 @@ function HomePage(): ReactElement {
         </section>
       )}
 
-      {/* ── x.ai Latest News Grid (4 columns, borderless) ── */}
+      {/* Latest posts grid (4 columns, borderless) */}
       {gridPosts.length > 0 && (
         <section className="mb-20 md:mb-28">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
@@ -154,7 +153,7 @@ function HomePage(): ReactElement {
               >
                 <PostThumbnail post={post} size="grid" />
                 
-                <p className="text-[10px] font-mono text-[color:var(--em-subtle)] uppercase tracking-wider mt-4">
+                <p className="eyebrow-mono mt-4">
                   {formatPostDate(post.date)} · {readingTime(post)}
                 </p>
                 
@@ -167,9 +166,9 @@ function HomePage(): ReactElement {
         </section>
       )}
 
-      {/* ── x.ai "All posts" Feed (Minimalist Rows) ── */}
+      {/* All posts list */}
       <section className="border-t border-[color:var(--em-hairline)] pt-12 md:pt-16">
-        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[color:var(--em-foreground)] mb-8">
+        <h2 className="display-tight text-2xl md:text-3xl text-[color:var(--em-foreground)] mb-8">
           All posts
         </h2>
 
