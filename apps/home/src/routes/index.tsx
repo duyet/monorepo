@@ -174,7 +174,7 @@ function HomePage() {
               <img
                 src="https://github.com/duyet.png"
                 alt="Duyet Le"
-                className="h-16 w-16 md:h-20 md:w-20 rounded-2xl border border-[color:var(--hairline)] hover:scale-105 transition-transform duration-300 shadow-xs bg-[color:var(--faint)]"
+                className="h-16 w-16 md:h-20 md:w-20 rounded-md border border-[color:var(--hairline)] hover:scale-105 transition-transform duration-300  bg-[color:var(--faint)]"
               />
               <div>
                 <p className="eyebrow-mono mb-2">Profile · 2026</p>
@@ -304,7 +304,7 @@ function HomePage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="mb-20 md:mb-32 border border-[color:var(--hairline)] rounded-2xl p-6 bg-[color:var(--card-bg)] shadow-xs"
+            className="mb-20 md:mb-32 border border-[color:var(--hairline)] rounded-md p-6 bg-[color:var(--card-bg)] "
           >
             {/* Month labels above the calendar grid */}
             <div className="flex items-center justify-between mb-3 text-[10px] font-mono text-[color:var(--subtle)] select-none">
@@ -397,7 +397,7 @@ function HomePage() {
               </p>
             </div>
 
-            <div className="border border-[color:var(--hairline)] rounded-2xl overflow-hidden bg-[color:var(--card-bg)] shadow-xs">
+            <div className="border border-[color:var(--hairline)] rounded-md overflow-hidden bg-[color:var(--card-bg)] ">
               {siblingApps.map((item) => (
                 <SiteRow key={item.domain} item={item} />
               ))}
@@ -449,7 +449,7 @@ function MockContributionCalendar() {
 
 function ProjectCard({ item }: { item: ProjectRowItem & { glow: string; techs: string[] } }) {
   return (
-    <div className="border border-[color:var(--hairline)] rounded-2xl overflow-hidden bg-[color:var(--card-bg)] shadow-xs relative group/card hover:border-[color:var(--foreground)] hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full min-h-[380px]">
+    <div className="border border-[color:var(--hairline)] rounded-md overflow-hidden bg-[color:var(--card-bg)]  relative group/card hover:border-[color:var(--foreground)] hover: transition-all duration-300 flex flex-col justify-between h-full min-h-[380px]">
       
       {/* Dynamic Glowing Radial Backdrop Layer */}
       <div className={`absolute inset-0 pointer-events-none z-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 ${item.glow}`} />
