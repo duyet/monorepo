@@ -6,8 +6,7 @@ import {
   useAuth,
 } from "@clerk/clerk-react";
 import { useChat } from "@ai-sdk/react";
-import { AppsDrawer } from "@duyet/components";
-import ThemeToggle from "@duyet/components/ThemeToggle";
+import { SiteNavV2 } from "@duyet/components";
 import {
   Card,
   CardContent,
@@ -22,7 +21,7 @@ import { ScrollArea } from "@duyet/components/ui/scroll-area";
 import { Separator } from "@duyet/components/ui/separator";
 import { Textarea } from "@duyet/components/ui/textarea";
 import type { UIMessage } from "ai";
-import { LayoutGrid, RotateCcw, Send, Sparkles } from "lucide-react";
+import { RotateCcw, Send, Sparkles } from "lucide-react";
 import { type FormEvent, useCallback, useMemo, useState } from "react";
 import {
   AgentApiTransport,
@@ -129,7 +128,16 @@ function ChatScreen() {
   const [lastResponse, setLastResponse] = useState<AgentChatResponse | null>(
     null
   );
-  const [appsOpen, setAppsOpen] = useState(false);
+
+  const globalNavLinks = [
+    { name: "Home", href: "https://duyet.net" },
+    { name: "Projects", href: "https://duyet.net/projects" },
+    { name: "About", href: "https://duyet.net/about" },
+    { name: "Blog", href: "https://blog.duyet.net" },
+    { name: "CV", href: "https://cv.duyet.net" },
+    { name: "Insights", href: "https://insights.duyet.net" },
+    { name: "Agent", href: "/", active: true },
+  ];
 
   const transport = useMemo(
     () =>
@@ -171,8 +179,14 @@ function ChatScreen() {
 
   return (
     <main className="min-h-dvh bg-background text-foreground">
-      <div className="mx-auto flex min-h-dvh w-full max-w-5xl flex-col gap-4 px-4 py-4 sm:px-6">
-        <header className="flex min-h-14 items-center justify-between gap-4">
+      <SiteNavV2
+        brandText="Duyet Le"
+        brandHref="https://duyet.net"
+        activeApp="agent"
+        links={globalNavLinks}
+      />
+      <div className="mx-auto flex min-h-[calc(100dvh-3rem)] w-full max-w-5xl flex-col gap-4 px-4 py-4 sm:px-6">
+        <header className="flex min-h-12 items-center justify-between gap-4">
           <div className="flex min-w-0 items-center gap-3">
             <Sparkles aria-hidden="true" className="size-5 shrink-0" />
             <div className="min-w-0">
@@ -186,15 +200,6 @@ function ChatScreen() {
             <div className="hidden items-center gap-2 sm:flex">
               <ResponseStatus response={lastResponse} />
             </div>
-            <button
-              type="button"
-              onClick={() => setAppsOpen(true)}
-              className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-secondary/50 text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
-              aria-label="Open apps menu"
-            >
-              <LayoutGrid size={16} />
-            </button>
-            <ThemeToggle />
             <Button
               aria-label="Reset conversation"
               onClick={resetSession}
@@ -298,10 +303,6 @@ function ChatScreen() {
           </CardFooter>
         </Card>
       </div>
-      <AppsDrawer
-        isOpen={appsOpen}
-        onClose={() => setAppsOpen(false)}
-      />
     </main>
   );
 }
