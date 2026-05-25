@@ -7,7 +7,12 @@ interface BestDayProps {
 }
 
 function formatDate(input: string): string {
-  const date = new Date(input);
+  // Parse YYYY-MM-DD as a local calendar date (not UTC midnight) so the
+  // rendered weekday/day matches WakaTime's calendar even in negative-UTC zones.
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(input);
+  const date = match
+    ? new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]))
+    : new Date(input);
   if (Number.isNaN(date.getTime())) return input;
   return date.toLocaleDateString("en-US", {
     weekday: "long",

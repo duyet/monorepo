@@ -8,12 +8,12 @@ import { WakaTimeLanguagesView } from "@/app/wakatime/languages";
 import { WakaTimeMetricsView } from "@/app/wakatime/metrics";
 import { WakaTimeMonthlyTrendView } from "@/app/wakatime/monthly-trend";
 import {
+  EMPTY_WAKATIME_OVERVIEW,
   getWakaTimeActivityWithAI,
   getWakaTimeHourlyHeatmap,
   getWakaTimeLanguages,
   getWakaTimeMonthlyTrend,
   getWakaTimeOverview,
-  type WakaTimeOverview,
 } from "@/app/wakatime/wakatime-utils";
 import {
   InsightsPageHeader,
@@ -28,21 +28,6 @@ const WAKATIME_BADGE_URL = "/wakatime-assets/badge.svg";
 const WAKATIME_HEATMAP_URLS = {
   light: "/wakatime-assets/heatmap-light.svg",
   dark: "/wakatime-assets/heatmap-dark.svg",
-};
-
-const EMPTY_OVERVIEW: WakaTimeOverview = {
-  metrics: {
-    totalHours: 0,
-    avgDailyHours: 0,
-    daysActive: 0,
-    topLanguage: "N/A",
-  },
-  editors: [],
-  operatingSystems: [],
-  categories: [],
-  machines: [],
-  projects: [],
-  bestDay: null,
 };
 
 export const Route = createFileRoute("/wakatime/")({
@@ -60,7 +45,9 @@ export const Route = createFileRoute("/wakatime/")({
     return {
       days,
       overview:
-        overview.status === "fulfilled" ? overview.value : EMPTY_OVERVIEW,
+        overview.status === "fulfilled"
+          ? overview.value
+          : EMPTY_WAKATIME_OVERVIEW,
       activity: activity.status === "fulfilled" ? activity.value : [],
       languages: languages.status === "fulfilled" ? languages.value : [],
       monthlyTrend:

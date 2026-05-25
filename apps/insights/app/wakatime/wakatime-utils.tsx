@@ -504,6 +504,17 @@ export async function getWakaTimeMetrics(
   };
 }
 
+// Strip directory structure so machine/project labels can't leak absolute
+// paths or user-identifying directory names when rendered on the dashboard.
+function sanitizeBreakdownName(name: string): string {
+  if (!name) return "Unknown";
+  if (name.includes("/") || name.includes("\\")) {
+    const parts = name.split(/[\\/]/).filter(Boolean);
+    return parts[parts.length - 1] || "Unknown";
+  }
+  return name;
+}
+
 function normalizeBreakdown(
   items: WakaTimeBreakdownItem[] | undefined,
   limit = 8
@@ -513,12 +524,27 @@ function normalizeBreakdown(
     .filter((item) => (item?.total_seconds || 0) > 0)
     .slice(0, limit)
     .map((item) => ({
-      name: item?.name || "Unknown",
+      name: sanitizeBreakdownName(item?.name || "Unknown"),
       percent: Math.round((item?.percent || 0) * 100) / 100,
       total_seconds: item?.total_seconds || 0,
       hours: Math.round(((item?.total_seconds || 0) / 3600) * 10) / 10,
     }));
 }
+
+export const EMPTY_WAKATIME_OVERVIEW: WakaTimeOverview = {
+  metrics: {
+    totalHours: 0,
+    avgDailyHours: 0,
+    daysActive: 0,
+    topLanguage: "N/A",
+  },
+  editors: [],
+  operatingSystems: [],
+  categories: [],
+  machines: [],
+  projects: [],
+  bestDay: null,
+};
 
 export async function getWakaTimeEditors(
   days: number | "all" = 30

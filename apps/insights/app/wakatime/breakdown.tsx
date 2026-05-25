@@ -66,7 +66,7 @@ export function WakaTimeBreakdownView({
           const color = CHART_COLOR_VARS[index % CHART_COLOR_VARS.length];
 
           return (
-            <li key={item.name} className="space-y-1.5">
+            <li key={`${item.name}-${index}`} className="space-y-1.5">
               <div className="flex items-center justify-between gap-3 text-sm">
                 <span className="flex min-w-0 items-center gap-2">
                   <span
