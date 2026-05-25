@@ -119,6 +119,85 @@
     --editorial-hairline: color-mix(in oklch, #fafafa 8%, transparent);
     --editorial-accent: var(--cf-orange);
   }
+
+  /*
+   * Minimal design language — additive token layer.
+   * Near-black canvas, hairline cards, white-translucent pill outlines,
+   * and a sans/mono pairing. Opt-in via --minimal-* tokens or the
+   * .pill-outline / .eyebrow-mono / .display-tight utility classes;
+   * coexists with the Anthropic warm palette and editorial layer.
+   */
+  :root {
+    --minimal-canvas: #0a0a0a;
+    --minimal-canvas-soft: #1a1c20;
+    --minimal-canvas-card: #191919;
+    --minimal-canvas-mid: #363a3f;
+    --minimal-hairline: #212327;
+    --minimal-ink: #ffffff;
+    --minimal-body: #dadbdf;
+    --minimal-body-mid: #7d8187;
+    --minimal-accent-sunset: #ff7a17;
+    --pill-border: rgba(255, 255, 255, 0.25);
+  }
+}
+
+@layer components {
+  /* Outline pill — universal interactive shape */
+  .pill-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    border: 1px solid var(--pill-border);
+    background: transparent;
+    color: var(--foreground);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+    transition: background-color 150ms ease, border-color 150ms ease;
+  }
+  .pill-outline:hover {
+    background: color-mix(in oklch, var(--foreground) 6%, transparent);
+    border-color: color-mix(in oklch, var(--foreground) 40%, transparent);
+  }
+  .dark .pill-outline,
+  :root.dark .pill-outline {
+    border-color: var(--pill-border);
+    color: var(--minimal-ink);
+  }
+  .dark .pill-outline:hover,
+  :root.dark .pill-outline:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  .pill-solid {
+    background: var(--foreground);
+    color: var(--background);
+    border-color: var(--foreground);
+  }
+  .pill-solid:hover {
+    background: color-mix(in oklch, var(--foreground) 92%, transparent);
+  }
+
+  /* Uppercase tracked Geist Mono section label */
+  .eyebrow-mono {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  /* Negative-tracked weight-400 display headline */
+  .display-tight {
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
 }
 
 @layer components {

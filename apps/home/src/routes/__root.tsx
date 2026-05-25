@@ -18,7 +18,7 @@ export const Route = createRootRoute({
       { charSet: "UTF-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
       { name: "robots", content: "follow, index" },
-      { title: "Duyet Le — AI engineer" },
+      { title: "Duyet — building AI agents and data platforms" },
       {
         name: "description",
         content:
