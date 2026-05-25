@@ -90,7 +90,7 @@ jobs:
         run: bun install
 
       - name: Tailscale
-        uses: tailscale/github-action@2976a889fced77bb9d364be5297d56cbd6f178d8  # v4.0.0
+        uses: tailscale/github-action@306e68a486fd2350f2bfc3b19fcd143891a4a2d8  # v4.1.2
         with:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
@@ -154,7 +154,7 @@ jobs:
         run: bun install
 
       - name: Tailscale
-        uses: tailscale/github-action@2976a889fced77bb9d364be5297d56cbd6f178d8  # v4.0.0
+        uses: tailscale/github-action@306e68a486fd2350f2bfc3b19fcd143891a4a2d8  # v4.1.2
         with:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
