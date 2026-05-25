@@ -7,6 +7,9 @@ import {
 } from "@clerk/clerk-react";
 import { useChat } from "@ai-sdk/react";
 import { SiteNavV2 } from "@duyet/components";
+import { Button } from "@duyet/components/ui/button";
+import { Separator } from "@duyet/components/ui/separator";
+import { Textarea } from "@duyet/components/ui/textarea";
 import type { UIMessage } from "ai";
 import { ArrowUp, RotateCcw } from "lucide-react";
 import {
@@ -78,7 +81,7 @@ function Message({ message }: { message: UIMessage }) {
   return (
     <div className="flex flex-col gap-1.5">
       <span className="eyebrow-mono">{isUser ? "You" : "Agent"}</span>
-      <p className="whitespace-pre-wrap break-words text-[15px] leading-7 text-[color:var(--foreground)]">
+      <p className="whitespace-pre-wrap break-words text-[15px] leading-7 text-foreground">
         {text}
       </p>
     </div>
@@ -90,9 +93,9 @@ function TypingDots() {
     <div className="flex flex-col gap-1.5">
       <span className="eyebrow-mono">Agent</span>
       <div className="flex items-center gap-1.5 py-1" aria-label="Thinking">
-        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[color:var(--muted)] [animation-delay:-0.3s]" />
-        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[color:var(--muted)] [animation-delay:-0.15s]" />
-        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[color:var(--muted)]" />
+        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground [animation-delay:-0.3s]" />
+        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground [animation-delay:-0.15s]" />
+        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground" />
       </div>
     </div>
   );
@@ -109,10 +112,10 @@ function Hero({
     <section className="flex flex-col gap-8 py-12 sm:py-20">
       <div className="flex flex-col gap-3">
         <span className="eyebrow-mono">AI assistant · 2026</span>
-        <h1 className="display-tight text-4xl sm:text-5xl text-[color:var(--foreground)]">
+        <h1 className="display-tight text-4xl sm:text-5xl text-foreground">
           Ask Duyet anything.
         </h1>
-        <p className="max-w-xl text-[15px] leading-7 text-[color:var(--muted)]">
+        <p className="max-w-xl text-[15px] leading-7 text-muted-foreground">
           An agent that knows my blog, projects, public data, and the work I'm
           shipping right now. Conversational, streaming, grounded in real
           sources.
@@ -120,15 +123,17 @@ function Hero({
       </div>
       <div className="flex flex-wrap gap-2">
         {SUGGESTIONS.map((prompt) => (
-          <button
+          <Button
             key={prompt}
             type="button"
+            variant="outline"
+            size="sm"
             onClick={() => onPick(prompt)}
             disabled={disabled}
-            className="pill-outline disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-full"
           >
             {prompt}
-          </button>
+          </Button>
         ))}
       </div>
     </section>
@@ -199,7 +204,7 @@ function ChatScreen() {
   const empty = messages.length === 0;
 
   return (
-    <main className="min-h-dvh bg-[color:var(--background)] text-[color:var(--foreground)]">
+    <main className="min-h-dvh bg-background text-foreground">
       <SiteNavV2
         brandText="Duyet Le"
         brandHref="https://duyet.net"
@@ -215,70 +220,73 @@ function ChatScreen() {
             <div className="flex items-center justify-between pb-6">
               <span className="eyebrow-mono">Conversation</span>
               <div className="flex items-center gap-2">
-                <button
+                <Button
                   type="button"
+                  variant="outline"
+                  size="sm"
                   onClick={resetSession}
-                  className="pill-outline text-xs"
-                  aria-label="New conversation"
+                  className="rounded-full"
                 >
-                  <RotateCcw size={12} aria-hidden="true" />
+                  <RotateCcw aria-hidden="true" />
                   New
-                </button>
+                </Button>
                 <SignedIn>
                   <UserButton />
                 </SignedIn>
               </div>
             </div>
+            <Separator className="mb-8" />
             <div className="flex flex-col gap-8">
               {messages.map((message) => (
                 <Message key={message.id} message={message} />
               ))}
               {isBusy ? <TypingDots /> : null}
               {error ? (
-                <p className="text-sm text-red-500">{error.message}</p>
+                <p className="text-sm text-destructive">{error.message}</p>
               ) : null}
               <div ref={messagesEndRef} />
             </div>
           </div>
         )}
 
-        <div className="sticky bottom-0 mt-auto pb-6 pt-4 bg-gradient-to-t from-[color:var(--background)] via-[color:var(--background)] to-transparent">
+        <div className="sticky bottom-0 mt-auto pb-6 pt-4 bg-gradient-to-t from-background via-background to-transparent">
           {!isSignedIn ? (
             <SignedOut>
-              <div className="flex flex-col items-start gap-3 rounded-2xl border border-[color:var(--hairline,#e6dfd8)] p-4">
-                <p className="text-sm text-[color:var(--muted)]">
+              <div className="flex flex-col items-start gap-3 rounded-2xl border p-4">
+                <p className="text-sm text-muted-foreground">
                   Sign in to send a message. The chat surface above stays
                   visible either way.
                 </p>
                 <SignInButton mode="modal">
-                  <button type="button" className="pill-outline">
+                  <Button variant="outline" className="rounded-full">
                     Sign in to continue
-                  </button>
+                  </Button>
                 </SignInButton>
               </div>
             </SignedOut>
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="flex items-end gap-2 rounded-full border border-[color:var(--hairline,#e6dfd8)] bg-[color:var(--background)] py-2 pl-5 pr-2"
+              className="flex items-end gap-2 rounded-full border bg-background py-2 pl-5 pr-2 focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2"
             >
-              <textarea
+              <Textarea
                 aria-label="Message"
                 value={input}
                 onChange={(e) => setInput(e.currentTarget.value)}
                 onKeyDown={handleKeyDown}
                 rows={1}
                 placeholder="Ask Duyet anything…"
-                className="flex-1 resize-none bg-transparent py-1.5 text-[15px] leading-6 text-[color:var(--foreground)] placeholder:text-[color:var(--muted)] focus:outline-none"
+                className="min-h-9 flex-1 resize-none border-0 bg-transparent p-0 py-1.5 text-[15px] leading-6 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
               />
-              <button
+              <Button
                 type="submit"
                 disabled={!input.trim() || isBusy}
+                size="icon"
                 aria-label="Send"
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[color:var(--foreground)] text-[color:var(--background)] transition-opacity disabled:opacity-40"
+                className="h-9 w-9 shrink-0 rounded-full"
               >
-                <ArrowUp size={16} aria-hidden="true" />
-              </button>
+                <ArrowUp aria-hidden="true" />
+              </Button>
             </form>
           )}
         </div>
