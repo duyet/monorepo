@@ -1,4 +1,5 @@
 import type { Post } from "@duyet/interfaces";
+import { Badge } from "@duyet/components";
 import { dateFormat, distanceToNow } from "@duyet/libs/date";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { ReactElement } from "react";
@@ -160,20 +161,30 @@ function HomePage(): ReactElement {
                   {posts.map((post) => (
                     <li
                       key={post.slug}
-                      className="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr_120px] items-baseline gap-4 py-4"
+                      className="grid grid-cols-[1fr_auto] md:grid-cols-[1fr_auto_auto_auto] items-center gap-x-4 md:gap-x-8 py-5"
                     >
-                      <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground tabular-nums">
-                        {formatPostDate(post.date).replace(/, \d{4}$/, "")}
-                      </span>
                       <Link
                         to="/$year/$month/$slug/"
                         params={postParams(post)}
-                        className="text-base font-medium tracking-tight hover:text-muted-foreground transition-colors"
+                        className="text-base md:text-lg font-medium tracking-tight hover:text-muted-foreground transition-colors"
                       >
                         {post.title}
                       </Link>
-                      <span className="hidden md:block text-xs text-muted-foreground text-right truncate">
+                      <Badge
+                        variant="secondary"
+                        className="hidden md:inline-flex"
+                      >
                         {post.category}
+                      </Badge>
+                      {post.readingTime ? (
+                        <span className="hidden md:block text-sm text-muted-foreground tabular-nums">
+                          {Math.max(1, Math.round(post.readingTime))} min
+                        </span>
+                      ) : (
+                        <span className="hidden md:block" />
+                      )}
+                      <span className="text-sm text-muted-foreground tabular-nums whitespace-nowrap">
+                        {formatPostDate(post.date)}
                       </span>
                     </li>
                   ))}
