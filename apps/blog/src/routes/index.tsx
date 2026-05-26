@@ -25,9 +25,12 @@ function formatPostDate(date: Date | string): string {
 function HomePage(): ReactElement {
   const { postsByYear } = Route.useLoaderData();
 
-  const filteredPosts: Post[] = Object.entries(postsByYear)
+  const allPosts: Post[] = Object.entries(postsByYear)
     .sort(([a], [b]) => Number(b) - Number(a))
     .flatMap(([, posts]) => posts);
+
+  const featured = allPosts[0];
+  const restPosts = allPosts.slice(1);
 
   return (
     <div>
@@ -45,37 +48,132 @@ function HomePage(): ReactElement {
         </p>
       </header>
 
-      {/* 2-col post grid */}
-      <div className="border-t">
-        <ul className="mx-auto max-w-[1200px] grid grid-cols-1 md:grid-cols-2 gap-0 divide-y md:divide-y-0 md:[&>li:nth-child(odd)]:border-r">
-          {filteredPosts.map((post, idx) => (
-            <li key={post.slug} className="p-6 md:p-10">
-              {idx === 0 && post.thumbnail && (
-                <div className="aspect-[4/3] overflow-hidden bg-muted mb-6">
+      {/* Featured first post */}
+      {featured && (
+        <section className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 py-12 md:py-16 border-t">
+          <article>
+            <Link
+              to="/$year/$month/$slug/"
+              params={postParams(featured)}
+              className="block aspect-[21/9] overflow-hidden rounded-lg bg-muted group"
+            >
+              {featured.thumbnail && (
+                <img
+                  src={featured.thumbnail}
+                  alt={featured.title}
+                  className="h-full w-full object-cover transition-transform group-hover:scale-[1.02]"
+                />
+              )}
+            </Link>
+            <div className="mt-6 flex flex-wrap items-center gap-3 text-sm">
+              <span className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium">
+                {featured.category}
+              </span>
+              <span className="text-muted-foreground">
+                {formatPostDate(featured.date)}
+              </span>
+            </div>
+            <h2 className="mt-4 text-2xl md:text-3xl font-bold tracking-tight">
+              <Link to="/$year/$month/$slug/" params={postParams(featured)}>
+                {featured.title}
+              </Link>
+            </h2>
+            {featured.excerpt && (
+              <p className="mt-3 text-base text-muted-foreground leading-relaxed max-w-3xl">
+                {featured.excerpt}
+              </p>
+            )}
+            <div className="mt-6 flex items-center gap-3">
+              <img
+                src="https://github.com/duyet.png"
+                alt="Duyet Le"
+                className="h-10 w-10 rounded-full bg-muted border"
+              />
+              <div>
+                <p className="text-sm font-medium">Duyet Le</p>
+                <p className="text-xs text-muted-foreground">
+                  Data & AI Engineer
+                </p>
+              </div>
+            </div>
+          </article>
+        </section>
+      )}
+
+      {/* 3-col post grid */}
+      <section className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 py-12 md:py-16 border-t">
+        <div className="mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+            Latest Posts
+          </h2>
+          <p className="mt-2 text-base text-muted-foreground">
+            Field notes from the workshop — data infrastructure, AI agents, and
+            the small details.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+          {restPosts.map((post) => (
+            <article key={post.slug}>
+              {post.thumbnail ? (
+                <Link
+                  to="/$year/$month/$slug/"
+                  params={postParams(post)}
+                  className="block aspect-video overflow-hidden rounded-lg bg-muted group"
+                >
                   <img
                     src={post.thumbnail}
                     alt={post.title}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover transition-transform group-hover:scale-[1.02]"
                   />
-                </div>
+                </Link>
+              ) : (
+                <Link
+                  to="/$year/$month/$slug/"
+                  params={postParams(post)}
+                  className="block aspect-video bg-muted rounded-lg"
+                />
               )}
-              <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                {post.category} · {formatPostDate(post.date)}
-              </p>
-              <h2 className="mt-3 text-xl md:text-2xl font-semibold tracking-tight">
+              <div className="mt-5 flex items-center gap-3 text-sm">
+                <span className="font-medium">{post.category}</span>
+                {post.readingTime && (
+                  <>
+                    <span className="text-muted-foreground" aria-hidden>
+                      ·
+                    </span>
+                    <span className="text-muted-foreground">
+                      {Math.max(1, Math.round(post.readingTime))} min
+                    </span>
+                  </>
+                )}
+              </div>
+              <h3 className="mt-3 text-xl font-semibold tracking-tight leading-snug">
                 <Link to="/$year/$month/$slug/" params={postParams(post)}>
                   {post.title}
                 </Link>
-              </h2>
+              </h3>
               {post.excerpt && (
-                <p className="mt-3 text-sm text-muted-foreground line-clamp-3">
+                <p className="mt-2 text-sm text-muted-foreground line-clamp-2">
                   {post.excerpt}
                 </p>
               )}
-            </li>
+              <div className="mt-5 flex items-center gap-3">
+                <img
+                  src="https://github.com/duyet.png"
+                  alt="Duyet Le"
+                  className="h-7 w-7 rounded-full bg-muted border"
+                />
+                <span className="text-sm">Duyet Le</span>
+                <span className="text-muted-foreground" aria-hidden>
+                  ·
+                </span>
+                <span className="text-sm text-muted-foreground">
+                  {formatPostDate(post.date)}
+                </span>
+              </div>
+            </article>
           ))}
-        </ul>
-      </div>
+        </div>
+      </section>
 
       {/* Archive link */}
       <div className="flex justify-center py-12 border-t">

@@ -4,7 +4,7 @@ import { extractHeadings } from "@duyet/libs/extractHeadings";
 import { formatReadingTime } from "@duyet/libs/date";
 import { markdownToHtml } from "@duyet/libs/markdownToHtml";
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { ArrowRight, Link2 } from "lucide-react";
+import { ArrowRight, Calendar, ChevronRight, Clock, Link2 } from "lucide-react";
 import { SeriesBox } from "@/components/layout/SeriesBox";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
 import { TableOfContents } from "@/components/post/TableOfContents";
@@ -116,31 +116,60 @@ function PostHero({ post }: { post: LoadedPost }) {
   const readingTime = post.readingTime
     ? formatReadingTime(post.readingTime)
     : null;
-  const metaParts = ["ARTICLE", date, readingTime].filter(Boolean).join(" · ");
+  const categorySlug =
+    (post as Post & { category_slug?: string }).category_slug ||
+    post.category?.toLowerCase().replace(/\s+/g, "-");
 
   return (
-    <header className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 pt-16 md:pt-24 pb-12 text-center">
-      <a
-        href="/"
-        className="text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
-      >
-        BLOG
-      </a>
+    <header className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-10">
+      {/* Breadcrumb */}
+      <nav className="flex items-center gap-2 text-sm text-muted-foreground">
+        <a href="/" className="hover:text-foreground transition-colors">
+          Blog
+        </a>
+        <ChevronRight className="h-3.5 w-3.5" />
+        <a
+          href={`/category/${categorySlug}/`}
+          className="hover:text-foreground transition-colors"
+        >
+          {post.category}
+        </a>
+        <ChevronRight className="h-3.5 w-3.5" />
+        <span className="text-foreground truncate">{post.title}</span>
+      </nav>
 
-      <h1 className="mt-4 text-4xl md:text-5xl font-bold tracking-tight max-w-3xl mx-auto">
+      {/* Title */}
+      <h1 className="mt-8 text-3xl md:text-4xl font-bold tracking-tight">
         {post.title}
       </h1>
 
+      {/* Description */}
       {post.excerpt && (
-        <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+        <p className="mt-4 text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
           {post.excerpt}
         </p>
       )}
 
-      <p className="mt-6 text-xs font-mono uppercase tracking-widest text-muted-foreground">
-        {metaParts}
-      </p>
+      {/* Author + date + reading time row */}
+      <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+        <span>Duyet Le</span>
+        <span aria-hidden>·</span>
+        <span className="inline-flex items-center gap-1.5">
+          <Calendar className="h-3.5 w-3.5" />
+          {date}
+        </span>
+        {readingTime && (
+          <>
+            <span aria-hidden>·</span>
+            <span className="inline-flex items-center gap-1.5">
+              <Clock className="h-3.5 w-3.5" />
+              {readingTime}
+            </span>
+          </>
+        )}
+      </div>
 
+      {/* Thumbnail */}
       {post.thumbnail && (
         <div className="mt-10 aspect-[21/9] w-full overflow-hidden rounded-lg bg-muted">
           <img
