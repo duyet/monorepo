@@ -5,6 +5,7 @@ import {
   Bot,
   Box,
   BookOpen,
+  Check,
   Clock,
   Cloud,
   Cpu,
@@ -18,11 +19,13 @@ import {
   Mail,
   Plug,
   Puzzle,
+  Rocket,
   Save,
   Sparkles,
   Terminal,
   Type,
   User,
+  Users,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -41,6 +44,16 @@ import {
 } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
+import {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@duyet/components";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -352,6 +365,13 @@ function HomePage() {
           </section>
 
         </main>
+
+        {/* Role Switcher — Who is it for? */}
+        <RoleTabsSection />
+
+        {/* FAQ */}
+        <FaqSection />
+
       </div>
     </>
   );
@@ -439,5 +459,268 @@ function SiteRow({ item }: { item: SiblingApp }) {
         </p>
       </div>
     </a>
+  );
+}
+
+type RoleTab = {
+  value: string;
+  label: string;
+  icon: typeof Database;
+  roleTitle: string;
+  bullets: string[];
+  quote: string;
+  attributionName: string;
+  attributionRole: string;
+};
+
+const roleTabs: RoleTab[] = [
+  {
+    value: "data",
+    label: "Data Engineer",
+    icon: Database,
+    roleTitle: "Data Engineer",
+    bullets: [
+      "Move petabyte-scale data into ClickHouse",
+      "Real-time streaming + batch via Airflow",
+      "Open-source ClickHouse monitoring tools",
+      "Write about data infra weekly on the blog",
+    ],
+    quote: "I read Duyet's ClickHouse Monitor source when I was scoping our own observability — saved us a quarter of work.",
+    attributionName: "Reader feedback",
+    attributionRole: "Senior data engineer",
+  },
+  {
+    value: "ai",
+    label: "AI Engineer",
+    icon: Bot,
+    roleTitle: "AI Engineer",
+    bullets: [
+      "Ship autonomous agents on Cloudflare",
+      "Route models with AnyRouter (BYOK + fallback)",
+      "Track human vs AI commit share over time",
+      "Build agent UIs with TanStack + shadcn",
+    ],
+    quote: "Honest writing about what works and what doesn't with agent loops. No vendor hype.",
+    attributionName: "AI engineering newsletter",
+    attributionRole: "Subscriber",
+  },
+  {
+    value: "indie",
+    label: "Indie Hacker",
+    icon: Rocket,
+    roleTitle: "Indie Hacker",
+    bullets: [
+      "Eight live products, all open source",
+      "Cloudflare-only stack — no infra surprises",
+      "Static SSG with TanStack Start",
+      "Edge SQL with D1 + KV",
+    ],
+    quote: "I cloned the homelab dashboard pattern and shipped my own in an afternoon.",
+    attributionName: "Indie dev",
+    attributionRole: "Side-project shipper",
+  },
+  {
+    value: "teams",
+    label: "Teams",
+    icon: Users,
+    roleTitle: "Teams",
+    bullets: [
+      "Reference implementations for shadcn + TanStack",
+      "Shared design tokens across 8 sibling apps",
+      "Public roadmap and changelog",
+      "Open-source repos with real production usage",
+    ],
+    quote: "We mirrored the apps directory pattern when standardizing our company landing pages.",
+    attributionName: "Platform team lead",
+    attributionRole: "B2B SaaS",
+  },
+];
+
+function RoleTabsSection() {
+  return (
+    <section className="border-t py-16 md:py-24">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 text-center">
+        <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+          WHO IS IT FOR?
+        </p>
+        <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">
+          Built for engineers and tinkerers
+        </h2>
+        <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+          Data engineers, AI engineers, indie hackers — whatever you're shipping, the toolkit here is the one I use every day.
+        </p>
+
+        <Tabs defaultValue="data" className="mt-12 max-w-3xl mx-auto">
+          <TabsList>
+            {roleTabs.map((tab) => {
+              const Icon = tab.icon;
+              return (
+                <TabsTrigger key={tab.value} value={tab.value} className="gap-1.5">
+                  <Icon size={14} />
+                  {tab.label}
+                </TabsTrigger>
+              );
+            })}
+          </TabsList>
+
+          {roleTabs.map((tab) => (
+            <TabsContent key={tab.value} value={tab.value}>
+              <div className="grid gap-8 md:grid-cols-2 mt-8 text-left">
+                <div className="text-left">
+                  <h3 className="text-2xl font-semibold tracking-tight">{tab.roleTitle}</h3>
+                  <ul className="mt-4 space-y-3">
+                    {tab.bullets.map((bullet) => (
+                      <li key={bullet} className="flex items-start gap-2 text-sm text-muted-foreground">
+                        <Check size={16} className="mt-0.5 shrink-0 text-foreground" />
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <Card>
+                  <CardContent className="p-8">
+                    <blockquote className="text-base">"{tab.quote}"</blockquote>
+                    <p className="mt-6 text-sm font-medium">{tab.attributionName}</p>
+                    <p className="text-xs text-muted-foreground">{tab.attributionRole}</p>
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
+          ))}
+        </Tabs>
+      </div>
+    </section>
+  );
+}
+
+type FaqItem = { q: string; a: string };
+type FaqTab = { value: string; label: string; items: FaqItem[] };
+
+const faqTabs: FaqTab[] = [
+  {
+    value: "products",
+    label: "Products",
+    items: [
+      {
+        q: "Which app should I look at first?",
+        a: "Start with the blog at blog.duyet.net for context, then explore agents.duyet.net if you're into AI agents, or the ClickHouse Monitor if you work with data infrastructure.",
+      },
+      {
+        q: "Are the apps open source?",
+        a: "Yes — most are open source on GitHub at github.com/duyet. The monorepo contains the source for all the sibling sites listed on this page.",
+      },
+      {
+        q: "Can I self-host these?",
+        a: "Yes. The stack is Cloudflare-first (Workers, Pages, D1, KV), so you can fork the repo and deploy to your own Cloudflare account.",
+      },
+      {
+        q: "What stack do they share?",
+        a: "All apps share TanStack Start (or Vite SPA), Tailwind + shadcn/ui design tokens, TypeScript, and deploy to Cloudflare Pages.",
+      },
+    ],
+  },
+  {
+    value: "opensource",
+    label: "Open source",
+    items: [
+      {
+        q: "Where's the code?",
+        a: "github.com/duyet — all repos are public. The monorepo at github.com/duyet/monorepo contains this site and all sibling apps.",
+      },
+      {
+        q: "Can I contribute?",
+        a: "Open a GitHub issue or pull request. Smaller, focused PRs are easiest to review. Check existing issues before starting large changes.",
+      },
+      {
+        q: "What's the license?",
+        a: "Most repos are MIT licensed. Check the individual repo's LICENSE file to confirm before using code in production.",
+      },
+      {
+        q: "Are pull requests welcome?",
+        a: "Yes, especially bug fixes, documentation improvements, and performance work. Open an issue first for larger feature additions.",
+      },
+    ],
+  },
+  {
+    value: "hiring",
+    label: "Hiring",
+    items: [
+      {
+        q: "Are you open to work?",
+        a: "I'm open to select senior data engineering and AI engineering roles. The best way to reach me is email at me@duyet.net.",
+      },
+      {
+        q: "What do you focus on?",
+        a: "Data platforms, AI agents, Cloudflare infrastructure, and open-source tooling. I write about all of it on the blog.",
+      },
+      {
+        q: "Where are you based?",
+        a: "I work remotely. My current location and availability are on my CV at cv.duyet.net.",
+      },
+      {
+        q: "How do I reach you?",
+        a: "Email me@duyet.net is best. I try to respond to direct, specific inquiries within a few days.",
+      },
+    ],
+  },
+  {
+    value: "contact",
+    label: "Contact",
+    items: [
+      {
+        q: "Best way to email you?",
+        a: "me@duyet.net. Keep it short and specific — a sentence or two on what you're working on and why you're reaching out.",
+      },
+      {
+        q: "Do you mentor?",
+        a: "Occasionally, through informal conversations. I don't have a structured mentorship programme at the moment.",
+      },
+      {
+        q: "Do you do contract work?",
+        a: "Sometimes — it depends on scope and timing. Email me@duyet.net with a brief description of the project.",
+      },
+      {
+        q: "How long until you reply?",
+        a: "Usually within a few days for direct emails. I don't monitor social DMs consistently.",
+      },
+    ],
+  },
+];
+
+function FaqSection() {
+  return (
+    <section className="border-t py-16 md:py-24">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+          FAQ
+        </p>
+        <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">
+          Frequently asked questions
+        </h2>
+
+        <Tabs defaultValue="products" className="mt-8">
+          <TabsList>
+            {faqTabs.map((tab) => (
+              <TabsTrigger key={tab.value} value={tab.value}>
+                {tab.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+
+          {faqTabs.map((tab) => (
+            <TabsContent key={tab.value} value={tab.value}>
+              <Accordion type="single" collapsible>
+                {tab.items.map((item) => (
+                  <AccordionItem key={item.q} value={item.q}>
+                    <AccordionTrigger>{item.q}</AccordionTrigger>
+                    <AccordionContent>{item.a}</AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </TabsContent>
+          ))}
+        </Tabs>
+      </div>
+    </section>
   );
 }

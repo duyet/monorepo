@@ -18,6 +18,12 @@ import {
   Globe,
   Code
 } from "@phosphor-icons/react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@duyet/components";
 
 interface BentoPanelProps {
   icon: ReactNode;
@@ -95,8 +101,6 @@ function BentoPanel({
     </div>
   );
 }
-
-import { InsightsPageHeader } from "@/components/layouts/InsightsPageShell";
 
 interface AiActivity {
   "Total Cost": number;
@@ -363,12 +367,21 @@ function IndexPage() {
 
   return (
     <div>
-      <InsightsPageHeader
-        badge="Overview · last 30 days"
-        title="A quiet view of what shipped, what ran, and what was read."
-        description="One editorial page across traffic, AI usage, human coding, and the most-read posts. No dashboards, no chrome — just the numbers and what they meant this month."
-      />
+      <header className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16 md:py-24 text-center">
+        <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+          INSIGHTS · LAST 30 DAYS
+        </p>
+        <h1 className="mt-4 text-4xl md:text-5xl font-bold tracking-tight max-w-3xl mx-auto">
+          A quiet view of what shipped, what ran, and what was read.
+        </h1>
+        <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+          One editorial page across traffic, AI usage, human coding, and the
+          most-read posts. No dashboards, no chrome — just the numbers and what
+          they meant this month.
+        </p>
+      </header>
 
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pb-16">
       <section className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-6 border-t border-border pt-12">
         <BentoPanel
           icon={<ChartLine size={18} weight="bold" />}
@@ -525,6 +538,71 @@ function IndexPage() {
         AI usage, WakaTime for coding hours. Missing credentials degrade to
         empty states.
       </p>
+      </div>
+
+      <section className="border-t py-16 md:py-24">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+            FAQ
+          </p>
+          <h2 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight">
+            How does this data come together?
+          </h2>
+          <Accordion type="single" collapsible className="mt-10">
+            <AccordionItem value="traffic">
+              <AccordionTrigger>
+                What&apos;s the data source for traffic?
+              </AccordionTrigger>
+              <AccordionContent>
+                Cloudflare Analytics — anonymized request counts aggregated per
+                day.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="ai-usage">
+              <AccordionTrigger>
+                How is &apos;AI usage&apos; measured?
+              </AccordionTrigger>
+              <AccordionContent>
+                ClickHouse stores Claude Code usage logs from{" "}
+                <code>ccusage</code> — token counts and model splits, no prompt
+                content.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="wakatime">
+              <AccordionTrigger>
+                Where does the WakaTime data come from?
+              </AccordionTrigger>
+              <AccordionContent>
+                WakaTime API + a <code>monorepo_wakatime_activity</code> table
+                in ClickHouse for historical depth.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="realtime">
+              <AccordionTrigger>Is any of this real-time?</AccordionTrigger>
+              <AccordionContent>
+                Recent windows (&le;7d) hit the source APIs directly; older
+                windows read from cached ClickHouse tables. The page rebuilds
+                nightly.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="per-post">
+              <AccordionTrigger>
+                Why no per-post breakdown?
+              </AccordionTrigger>
+              <AccordionContent>
+                Privacy. The page aggregates and never shows individual reader
+                sessions.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="code">
+              <AccordionTrigger>Where can I read the code?</AccordionTrigger>
+              <AccordionContent>
+                github.com/duyet/monorepo, under apps/insights.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      </section>
     </div>
   );
 }
