@@ -95,7 +95,7 @@ export default function Content({ post }: { post: ContentPost }) {
     <>
       <header className="post-header">
         {eyebrowParts.length > 0 && (
-          <p className="eyebrow-mono mb-4">{eyebrowParts.join(" · ")}</p>
+          <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-4">{eyebrowParts.join(" · ")}</p>
         )}
 
         <h1 className="post-title">{post.title}</h1>

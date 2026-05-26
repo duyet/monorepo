@@ -115,7 +115,7 @@ export function GitHubLanguageStatsView({
                   <div
                     className="h-2 w-12 rounded-full bg-muted"
                     style={{
-                      background: `linear-gradient(to right, hsl(var(--chart-${(index % 5) + 1})) ${lang.percentage}%, hsl(var(--muted)) ${lang.percentage}%)`,
+                      background: `linear-gradient(to right, var(--chart-${(index % 5) + 1}) ${lang.percentage}%, var(--muted) ${lang.percentage}%)`,
                     }}
                   />
                 </div>

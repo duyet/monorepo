@@ -26,28 +26,23 @@ export function EditorialPanel({
   className,
 }: EditorialPanelProps) {
   return (
-    <div
-      className={cn(
-        "flex min-w-0 flex-col gap-3 py-2",
-        className
-      )}
-    >
-      <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">
+    <div className={cn("flex min-w-0 flex-col gap-3 py-2", className)}>
+      <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
         {label}
       </p>
       <p className="flex items-baseline gap-2">
-        <span className="font-mono text-5xl tabular-nums tracking-tight text-[color:var(--foreground)] md:text-6xl">
+        <span className="font-mono text-5xl tabular-nums tracking-tight md:text-6xl">
           {value}
         </span>
         {unit ? (
-          <span className="text-sm text-[color:var(--muted)]">{unit}</span>
+          <span className="text-sm text-muted-foreground">{unit}</span>
         ) : null}
       </p>
       {sparkline ? (
-        <div className="h-10 w-full text-[color:var(--subtle)]">{sparkline}</div>
+        <div className="h-10 w-full text-muted-foreground">{sparkline}</div>
       ) : null}
       {caption ? (
-        <p className="text-xs leading-5 text-[color:var(--muted)]">{caption}</p>
+        <p className="text-xs leading-5 text-muted-foreground">{caption}</p>
       ) : null}
     </div>
   );

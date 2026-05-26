@@ -16,13 +16,13 @@ import { SiteNavV2 } from "@duyet/components";
 function NotFoundComponent() {
   return (
     <main className="mx-auto flex min-h-[60vh] w-full max-w-[1040px] flex-col items-start justify-center px-6 md:px-8">
-      <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--muted)]">
+      <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
         404
       </p>
-      <h1 className="mt-4 font-serif text-5xl tracking-tight">Page not found.</h1>
+      <h1 className="mt-4 text-5xl font-semibold tracking-tight">Page not found.</h1>
       <a
         href="/"
-        className="mt-6 text-sm underline decoration-[color:var(--accent)] underline-offset-4 hover:text-[color:var(--accent)]"
+        className="mt-6 text-sm underline underline-offset-4 hover:text-foreground"
       >
         Return home
       </a>
@@ -41,17 +41,6 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "icon", href: "/favicon.ico" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
-      },
-      {
-        rel: "preload",
-        as: "style",
-        href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap",
-      },
     ],
   }),
   notFoundComponent: NotFoundComponent,
@@ -75,22 +64,11 @@ function RootComponent() {
     <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
-        <link
-          rel="stylesheet"
-          media="print"
-          onLoad={(event) => {
-            event.currentTarget.media = "all";
-          }}
-          href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
-        />
       </head>
       <body>
         <ThemeProvider>
-          <div className="min-h-screen relative bg-[color:var(--background)] text-[color:var(--foreground)] selection:bg-[color:var(--foreground)] selection:text-[color:var(--background)] overflow-x-hidden flex flex-col justify-between">
-            {/* Clean full grid background overlay */}
-            <div className="absolute inset-0 bg-grid-pattern pointer-events-none z-0 opacity-[0.8] dark:opacity-[0.4]" />
-
-            <div className="w-full flex flex-col relative z-20">
+          <div className="min-h-screen bg-background text-foreground overflow-x-hidden flex flex-col">
+            <div className="w-full flex flex-col">
               <SiteNavV2
                 brandText="Duyet Le"
                 brandHref="https://duyet.net"
@@ -99,9 +77,9 @@ function RootComponent() {
               />
             </div>
 
-            <main className="mx-auto w-full max-w-[1040px] px-6 py-12 md:py-16 md:px-8 relative z-10 flex-grow">
-              {/* Local Insights Sub-Navigation Pill Bar */}
-              <div className="flex items-center gap-2 border-b border-[color:var(--hairline)] pb-4 mb-8 overflow-x-auto scrollbar-none font-mono text-[10px] uppercase tracking-wider select-none">
+            <main className="mx-auto w-full max-w-[1040px] px-6 py-12 md:py-16 md:px-8 flex-grow">
+              {/* Insights Sub-Navigation */}
+              <div className="flex items-center gap-2 border-b pb-4 mb-8 overflow-x-auto scrollbar-none font-mono text-[10px] uppercase tracking-wider select-none">
                 {[
                   { name: "Overview", href: "/" },
                   { name: "Blog", href: "/blog" },
@@ -116,8 +94,8 @@ function RootComponent() {
                       to={subLink.href}
                       className={`px-3 py-1 rounded-full transition-all duration-200 border cursor-pointer ${
                         active
-                          ? "bg-[color:var(--foreground)] text-[color:var(--background)] border-transparent font-medium"
-                          : "text-[color:var(--muted)] border-[color:var(--hairline)] hover:border-[color:var(--foreground)] hover:text-[color:var(--foreground)]"
+                          ? "bg-foreground text-background border-transparent font-medium"
+                          : "text-muted-foreground border-border hover:border-foreground hover:text-foreground"
                       }`}
                     >
                       {subLink.name}
@@ -129,7 +107,7 @@ function RootComponent() {
               <Outlet />
             </main>
 
-            <EditorialFooter />
+            <SiteFooter />
           </div>
 
           <Analytics />
@@ -140,20 +118,20 @@ function RootComponent() {
   );
 }
 
-function EditorialFooter() {
+function SiteFooter() {
   const year = new Date().getFullYear();
   return (
-    <footer className="mt-20 border-t border-[color:var(--hairline)] py-10 relative z-10">
-      <div className="mx-auto max-w-[1040px] px-6 md:px-8 flex flex-col md:flex-row md:items-center justify-between gap-6 text-xs sm:text-[13px] text-[color:var(--muted)]">
+    <footer className="mt-20 border-t py-10">
+      <div className="mx-auto max-w-[1040px] px-6 md:px-8 flex flex-col md:flex-row md:items-center justify-between gap-6 text-xs sm:text-[13px] text-muted-foreground">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
           <span>&copy; {year} Duyet Le.</span>
-          <span className="text-[color:var(--hairline)]">|</span>
+          <span className="text-border">|</span>
           <span>insights.duyet.net</span>
         </div>
         <div className="flex items-center gap-4">
-          <a href="https://github.com/duyet" target="_blank" rel="noopener noreferrer" className="hover:text-[color:var(--foreground)] transition-colors">GitHub</a>
-          <a href="https://linkedin.com/in/duyet" target="_blank" rel="noopener noreferrer" className="hover:text-[color:var(--foreground)] transition-colors">LinkedIn</a>
-          <a href="https://x.com/_duyet" target="_blank" rel="noopener noreferrer" className="hover:text-[color:var(--foreground)] transition-colors">Twitter</a>
+          <a href="https://github.com/duyet" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">GitHub</a>
+          <a href="https://linkedin.com/in/duyet" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">LinkedIn</a>
+          <a href="https://x.com/_duyet" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Twitter</a>
         </div>
       </div>
     </footer>

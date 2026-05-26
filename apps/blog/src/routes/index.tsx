@@ -99,35 +99,35 @@ function HomePage(): ReactElement {
   const listPosts = allPosts.slice(5, 30); // Older posts row list
 
   return (
-    <div className="mx-auto max-w-[1040px] px-6 py-8 md:py-16 md:px-8 selection:bg-[color:var(--em-foreground)] selection:text-[color:var(--em-background)]">
+    <div className="mx-auto max-w-[1040px] px-6 py-8 md:py-16 md:px-8">
       {/* Hero featured post */}
       {featured && (
         <section className="mb-16 md:mb-24">
           <Link
             to="/$year/$month/$slug/"
             params={postParams(featured)}
-            className="group grid grid-cols-1 lg:grid-cols-[1.1fr_1.5fr] gap-8 md:gap-12 items-center text-decoration-none text-inherit cursor-pointer"
+            className="group grid grid-cols-1 lg:grid-cols-[1.1fr_1.5fr] gap-8 md:gap-12 items-center cursor-pointer"
           >
             <div className="flex flex-col items-start">
               <div className="flex items-center">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/40 px-3 py-1 text-[11px] font-medium text-emerald-700 dark:text-emerald-400">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-secondary border border-border px-3 py-1 text-[11px] font-medium text-secondary-foreground">
+                  <span className="w-1.5 h-1.5 rounded-full bg-foreground/40 animate-pulse" />
                   Latest post
                 </span>
-                <span className="text-xs font-mono text-[color:var(--em-muted)] ml-3">
+                <span className="text-xs font-mono text-muted-foreground ml-3">
                   {formatPostDate(featured.date)}
                 </span>
               </div>
 
-              <h1 className="display-tight text-3xl md:text-5xl text-[color:var(--em-foreground)] mt-6 group-hover:underline decoration-1 underline-offset-4">
+              <h1 className="text-foreground font-semibold tracking-tight text-3xl md:text-5xl mt-6 group-hover:underline decoration-1 underline-offset-4">
                 {featured.title}
               </h1>
 
-              <p className="mt-4 text-sm md:text-base text-[color:var(--em-muted)] leading-relaxed font-light">
+              <p className="mt-4 text-sm md:text-base text-muted-foreground leading-relaxed font-light">
                 {featured.excerpt || featured.snippet}
               </p>
 
-              <span className="inline-flex items-center justify-center rounded-full bg-[color:var(--em-foreground)] text-[color:var(--em-background)] px-6 py-2.5 text-xs font-medium hover:opacity-95 hover:shadow-md transition-all mt-6 cursor-pointer gap-1">
+              <span className="inline-flex items-center justify-center rounded-full bg-foreground text-background px-6 py-2.5 text-xs font-medium hover:opacity-90 transition-all mt-6 cursor-pointer gap-1">
                 Read More
                 <span className="font-mono">→</span>
               </span>
@@ -149,15 +149,15 @@ function HomePage(): ReactElement {
                 key={post.slug}
                 to="/$year/$month/$slug/"
                 params={postParams(post)}
-                className="group flex flex-col text-decoration-none text-inherit cursor-pointer"
+                className="group flex flex-col cursor-pointer"
               >
                 <PostThumbnail post={post} size="grid" />
-                
-                <p className="eyebrow-mono mt-4">
+
+                <p className="text-xs font-mono text-muted-foreground mt-4">
                   {formatPostDate(post.date)} · {readingTime(post)}
                 </p>
-                
-                <h3 className="text-sm font-semibold tracking-tight text-[color:var(--em-foreground)] mt-2 group-hover:underline leading-snug">
+
+                <h3 className="text-sm font-semibold tracking-tight text-foreground mt-2 group-hover:underline leading-snug">
                   {post.title}
                 </h3>
               </Link>
@@ -167,8 +167,8 @@ function HomePage(): ReactElement {
       )}
 
       {/* All posts list */}
-      <section className="border-t border-[color:var(--em-hairline)] pt-12 md:pt-16">
-        <h2 className="display-tight text-2xl md:text-3xl text-[color:var(--em-foreground)] mb-8">
+      <section className="border-t border-border pt-12 md:pt-16">
+        <h2 className="text-foreground font-semibold tracking-tight text-2xl md:text-3xl mb-8">
           All posts
         </h2>
 
@@ -178,19 +178,19 @@ function HomePage(): ReactElement {
               key={post.slug}
               to="/$year/$month/$slug/"
               params={postParams(post)}
-              className="group grid grid-cols-1 md:grid-cols-[1fr_120px] gap-2 border-b border-[color:var(--em-hairline)] py-5 text-decoration-none text-inherit hover:bg-[color:var(--em-faint)] px-3 transition-colors duration-150 items-start cursor-pointer"
+              className="group grid grid-cols-1 md:grid-cols-[1fr_120px] gap-2 border-b border-border py-5 hover:bg-muted px-3 transition-colors duration-150 items-start cursor-pointer"
             >
               <div>
-                <h3 className="text-sm md:text-base font-semibold text-[color:var(--em-foreground)] group-hover:underline leading-snug">
+                <h3 className="text-sm md:text-base font-semibold text-foreground group-hover:underline leading-snug">
                   {post.title}
                 </h3>
                 {post.excerpt && (
-                  <p className="text-xs text-[color:var(--em-muted)] leading-relaxed font-light mt-1 max-w-3xl">
+                  <p className="text-xs text-muted-foreground leading-relaxed font-light mt-1 max-w-3xl">
                     {post.excerpt}
                   </p>
                 )}
               </div>
-              <div className="md:text-right text-xs font-mono text-[color:var(--em-subtle)] md:pt-1">
+              <div className="md:text-right text-xs font-mono text-muted-foreground md:pt-1">
                 {formatPostDate(post.date)}
               </div>
             </Link>
@@ -200,7 +200,7 @@ function HomePage(): ReactElement {
         <div className="flex justify-center mt-12">
           <Link
             to="/archives/"
-            className="inline-flex items-center gap-2 rounded-full border border-[color:var(--em-hairline)] hover:border-[color:var(--em-foreground)] px-6 py-2.5 text-xs font-mono uppercase tracking-widest text-[color:var(--em-foreground)] hover:bg-[color:var(--em-faint)] transition-all group"
+            className="inline-flex items-center gap-2 rounded-full border border-border hover:border-foreground px-6 py-2.5 text-xs font-mono uppercase tracking-widest text-foreground hover:bg-muted transition-all group"
           >
             <span>See full archive</span>
             <span className="group-hover:translate-x-0.5 transition-transform duration-200">→</span>

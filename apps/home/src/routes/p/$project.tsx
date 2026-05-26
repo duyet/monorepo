@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { addUtmParams } from "../../../app/lib/utm";
 import { SiteFooter, SiteHeader } from "../../components/SiteChrome";
+import { Card, CardContent } from "../../components/ui/card";
 
 type Product = {
   slug: string;
@@ -105,34 +106,34 @@ function ProductPage() {
   const related = products.filter((item) => item.slug !== product.slug);
 
   return (
-    <div className="min-h-screen bg-[color:var(--background)] text-[color:var(--foreground)]">
+    <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
 
       <main className="mx-auto max-w-2xl px-6 pt-24 pb-20 md:px-8 md:pt-32 md:pb-32">
         <Link
           to="/projects"
-          className="link-underline text-sm text-[color:var(--muted)] hover:text-[color:var(--foreground)]"
+          className="text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
         >
           ← Projects
         </Link>
 
         <header className="mt-10">
-          <p className="font-mono text-xs uppercase tracking-[0.12em] text-[color:var(--subtle)]">
+          <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
             {product.eyebrow}
           </p>
-          <h1 className="mt-3 text-4xl font-medium tracking-tight md:text-5xl text-[color:var(--foreground)]">
+          <h1 className="mt-3 text-4xl font-semibold tracking-tight md:text-5xl">
             {product.name}
           </h1>
-          <p className="mt-6 text-lg leading-relaxed text-[color:var(--muted)]">
+          <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
             {product.summary}
           </p>
         </header>
 
-        <p className="mt-12 text-base leading-relaxed text-[color:var(--foreground)]">
+        <p className="mt-12 text-base leading-relaxed">
           {product.overview}
         </p>
 
-        <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-4 font-mono text-sm tabular-nums">
+        <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-4 font-mono text-sm">
           <Meta label="Year" value={product.year} />
           <Meta label="Industry" value={product.industry} />
           <Meta label="Role" value={product.role} />
@@ -140,13 +141,13 @@ function ProductPage() {
         </dl>
 
         <section className="mt-14">
-          <h2 className="text-2xl font-semibold tracking-tight text-[color:var(--foreground)]">Highlights</h2>
-          <ul className="mt-4 flex flex-col gap-3 text-base leading-relaxed text-[color:var(--foreground)]">
+          <h2 className="text-2xl font-semibold tracking-tight">Highlights</h2>
+          <ul className="mt-4 flex flex-col gap-3 text-base leading-relaxed">
             {product.highlights.map((highlight) => (
               <li key={highlight} className="flex gap-3">
                 <span
                   aria-hidden="true"
-                  className="mt-3 h-px w-4 shrink-0 bg-[color:var(--accent)]"
+                  className="mt-3 h-px w-4 shrink-0 bg-foreground"
                 />
                 <span>{highlight}</span>
               </li>
@@ -163,15 +164,15 @@ function ProductPage() {
             )}
             target="_blank"
             rel="noopener noreferrer"
-            className="link-underline text-base text-[color:var(--foreground)] font-medium"
+            className="text-base font-medium underline underline-offset-4 hover:text-muted-foreground transition-colors"
           >
             Visit {product.name} →
           </a>
         </div>
 
         {related.length > 0 && (
-          <section className="mt-20 border-t border-[color:var(--hairline)] pt-10">
-            <h2 className="text-2xl font-semibold tracking-tight text-[color:var(--foreground)] mb-6">
+          <section className="mt-20 border-t pt-10">
+            <h2 className="text-2xl font-semibold tracking-tight mb-6">
               More projects
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -180,14 +181,18 @@ function ProductPage() {
                   key={item.slug}
                   to="/p/$project"
                   params={{ project: item.slug }}
-                  className="card-v2 p-5 block no-underline group"
+                  className="block no-underline"
                 >
-                  <h3 className="font-semibold text-lg tracking-tight text-[color:var(--foreground)] group-hover:text-[color:var(--accent)] transition-colors duration-150">
-                    {item.name}
-                  </h3>
-                  <p className="mt-1 text-sm text-[color:var(--muted)]">
-                    {item.eyebrow}
-                  </p>
+                  <Card className="hover:border-foreground/30 transition-colors">
+                    <CardContent className="pt-5">
+                      <h3 className="font-semibold text-lg tracking-tight">
+                        {item.name}
+                      </h3>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {item.eyebrow}
+                      </p>
+                    </CardContent>
+                  </Card>
                 </Link>
               ))}
             </div>
@@ -203,10 +208,10 @@ function ProductPage() {
 function Meta({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <dt className="text-[color:var(--subtle)] uppercase tracking-[0.08em] text-[11px]">
+      <dt className="text-muted-foreground uppercase tracking-[0.08em] text-[11px]">
         {label}
       </dt>
-      <dd className="mt-1 text-[color:var(--foreground)] font-medium">{value}</dd>
+      <dd className="mt-1 font-medium">{value}</dd>
     </div>
   );
 }

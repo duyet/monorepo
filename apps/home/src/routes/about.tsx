@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { addUtmParams } from "../../app/lib/utm";
 import { SiteFooter, SiteHeader } from "../components/SiteChrome";
+import { Card, CardContent } from "../components/ui/card";
 
 const experienceYears = "8+ years";
 const contentLastModified = "2026-05-02";
@@ -108,54 +109,51 @@ const links = [
 
 function AboutPage() {
   return (
-    <div className="min-h-screen relative bg-[color:var(--background)] text-[color:var(--foreground)] selection:bg-[color:var(--foreground)] selection:text-[color:var(--background)] overflow-x-hidden">
-      {/* Clean full grid background overlay */}
-      <div className="absolute inset-0 bg-grid-pattern pointer-events-none z-0 opacity-[0.8] dark:opacity-[0.4]" />
-
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SiteHeader />
 
-      <main className="mx-auto max-w-2xl px-6 py-12 md:py-24 relative z-10">
+      <main className="mx-auto max-w-2xl px-6 py-12 md:py-24">
         <article className="flex flex-col gap-6">
           <header className="mb-4">
-            <span className="font-mono text-xs uppercase tracking-widest text-[color:var(--subtle)]">
+            <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
               BIOGRAPHY / CONTEXT
             </span>
-            <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-[color:var(--foreground)] mt-2">
+            <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mt-2">
               About
             </h1>
           </header>
 
-          <p className="text-lg leading-relaxed text-[color:var(--foreground)] font-light">
-            I’m a Senior Data &amp; AI Engineer with {experienceYears} of
+          <p className="text-lg leading-relaxed font-light">
+            I'm a Senior Data &amp; AI Engineer with {experienceYears} of
             experience across modern data infrastructure, AI/ML platforms, and
             distributed systems.
           </p>
 
-          <p className="text-base leading-relaxed text-[color:var(--muted)] font-light">
+          <p className="text-base leading-relaxed text-muted-foreground font-light">
             I care about systems that are easy to operate, easy to explain, and
             boring in the places where reliability matters. Most of my work sits
             where data products, AI tools, and engineering platforms meet.
           </p>
 
-          <h2 className="mt-8 text-xl font-bold tracking-tight text-[color:var(--foreground)] border-b border-[color:var(--hairline)] pb-2">
+          <h2 className="mt-8 text-xl font-semibold tracking-tight border-b pb-2">
             Focus
           </h2>
-          <p className="text-base leading-relaxed text-[color:var(--muted)] font-light">
+          <p className="text-base leading-relaxed text-muted-foreground font-light">
             Data pipelines, warehouses, observability. Agent workflows, model
             routing, evaluation, and usage analytics. Small tools and clean
             interfaces.
           </p>
 
-          <h2 className="mt-8 text-xl font-bold tracking-tight text-[color:var(--foreground)] border-b border-[color:var(--hairline)] pb-2">
+          <h2 className="mt-8 text-xl font-semibold tracking-tight border-b pb-2">
             Stack
           </h2>
-          <p className="text-base leading-relaxed text-[color:var(--muted)] font-light">
+          <p className="text-base leading-relaxed text-muted-foreground font-light">
             Python, Rust, TypeScript. Spark, Airflow, ClickHouse, BigQuery,
             Kafka. Kubernetes, AWS, GCP, Cloudflare. LlamaIndex, AI SDK,
             LangGraph.
           </p>
 
-          <h2 className="mt-8 text-xl font-bold tracking-tight text-[color:var(--foreground)] border-b border-[color:var(--hairline)] pb-2">
+          <h2 className="mt-8 text-xl font-semibold tracking-tight border-b pb-2">
             Elsewhere
           </h2>
           <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -165,14 +163,18 @@ function AboutPage() {
                 href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="border border-[color:var(--hairline)] rounded-2xl p-5 block no-underline bg-[color:var(--card-bg)] hover:border-[color:var(--foreground)] hover:shadow-xs transition-all duration-300 relative group"
+                className="block no-underline group"
               >
-                <h3 className="font-bold text-base tracking-tight text-[color:var(--foreground)] group-hover:text-[color:var(--foreground)] transition-colors duration-150">
-                  {item.title}
-                </h3>
-                <p className="mt-2 text-xs text-[color:var(--muted)] leading-relaxed font-light">
-                  {item.description}
-                </p>
+                <Card className="hover:border-foreground/30 transition-colors h-full">
+                  <CardContent className="pt-5">
+                    <h3 className="font-semibold text-base tracking-tight">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
+                      {item.description}
+                    </p>
+                  </CardContent>
+                </Card>
               </a>
             ))}
           </div>

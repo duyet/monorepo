@@ -1,6 +1,5 @@
 import "@duyet/components/styles.css";
 import "../globals.css";
-import "../animations.css";
 
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { ClerkAuthProvider } from "@duyet/components";
@@ -37,16 +36,6 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "icon", href: "/icon.svg", sizes: "any" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
-      },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap",
-      },
     ],
   }),
   notFoundComponent: NotFound,

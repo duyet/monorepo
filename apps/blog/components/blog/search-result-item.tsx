@@ -46,19 +46,19 @@ export function SearchResultItem({
   return (
     <article
       className={cn(
-        "group flex flex-col gap-1 py-3 border-t border-[color:var(--em-hairline)] first:border-t-0 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6",
+        "group flex flex-col gap-1 py-3 border-t border-border first:border-t-0 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6",
         className
       )}
     >
       <a
-        className="font-editorial-serif min-w-0 text-lg font-medium text-[color:var(--em-foreground)] underline decoration-transparent decoration-1 underline-offset-4 transition-colors hover:decoration-[color:var(--em-accent)]"
+        className="min-w-0 text-lg font-medium text-foreground underline decoration-transparent decoration-1 underline-offset-4 transition-colors hover:decoration-foreground"
         href={post.slug}
       >
         {highlightText(post.title)}
         <IsNewPost date={post.date} />
         <IsFeatured featured={post.featured} />
       </a>
-      <time className="flex-shrink-0 whitespace-nowrap text-xs tabular-nums text-[color:var(--em-muted)]">
+      <time className="flex-shrink-0 whitespace-nowrap text-xs tabular-nums text-muted-foreground">
         {post.date.toLocaleDateString("en-US", {
           year: "numeric",
           month: "short",

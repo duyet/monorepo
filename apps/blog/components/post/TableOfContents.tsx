@@ -155,7 +155,7 @@ export function TableOfContents({
                 heading.level === 2 && "pl-4",
                 heading.level === 3 && "pl-6 text-xs",
                 activeId === heading.id
-                  ? "border-[var(--cf-orange)] text-[var(--cf-orange)] dark:text-[var(--cf-orange)] font-medium"
+                  ? "border-[var(--foreground)] text-[var(--foreground)] dark:text-[var(--foreground)] font-medium"
                   : "border-transparent text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55 hover:text-[#1a1a1a] dark:hover:text-[#f8f8f2] hover:border-[#1a1a1a]/15 dark:hover:border-white/15"
               )}
             >
@@ -176,10 +176,10 @@ export function TableOfContents({
           "xl:hidden",
           "fixed bottom-6 right-6 z-40",
           "w-12 h-12 rounded-full",
-          "bg-[var(--background)] dark:bg-[var(--surface-dark)]",
+          "bg-[var(--card)] dark:bg-[var(--card)]",
           "shadow-lg border border-[var(--hairline)] dark:border-white/10",
           "flex items-center justify-center",
-          "hover:bg-[var(--surface-soft)] dark:hover:bg-[var(--surface-dark-elevated)]",
+          "hover:bg-[var(--muted)] dark:hover:bg-[var(--muted)]",
           "transition-all duration-200",
           "hover:scale-105 active:scale-95"
         )}
@@ -198,7 +198,7 @@ export function TableOfContents({
           "xl:hidden",
           "fixed top-20 right-0 z-30",
           "w-72 max-w-[80vw]",
-          "bg-[var(--background)]/95 dark:bg-[var(--surface-dark)]/95 backdrop-blur-sm",
+          "bg-[var(--card)]/95 dark:bg-[var(--card)]/95 backdrop-blur-sm",
           "shadow-xl border-l border-[var(--hairline)] dark:border-white/10",
           "p-4 pt-4",
           "max-h-[70vh] overflow-y-auto",
@@ -225,7 +225,7 @@ export function TableOfContents({
         {/* Active vertical orange reading progress line */}
         <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-neutral-200 dark:bg-neutral-800 rounded-full">
           <div
-            className="w-full bg-[var(--cf-orange)] transition-all duration-150 ease-out rounded-full"
+            className="w-full bg-[var(--foreground)] transition-all duration-150 ease-out rounded-full"
             style={{ height: `${progress}%` }}
           />
         </div>

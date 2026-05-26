@@ -1,67 +1,49 @@
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap");
 @import "tailwindcss";
-
-@source "../../../packages/components";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
   :root {
-    /* Warm editorial tokens — Anthropic-informed */
-    --background: #faf9f7;
-    --foreground: #0d0d0d;
-    --muted: color-mix(in oklch, #0d0d0d 55%, transparent);
-    --subtle: color-mix(in oklch, #0d0d0d 30%, transparent);
-    --faint: color-mix(in oklch, #0d0d0d 5%, transparent);
-    --hairline: color-mix(in oklch, #0d0d0d 7%, transparent);
-    --accent: oklch(70.5% .213 47.604); /* Cloudflare Orange */
-
-    --card: #ffffff;
-    --card-foreground: #0d0d0d;
-    --popover: #ffffff;
-    --popover-foreground: #0a0a0a;
-    --primary: #0d0d0d;
-    --primary-foreground: #ffffff;
-    --secondary: color-mix(in oklch, #0d0d0d 5%, transparent);
-    --secondary-foreground: #0d0d0d;
-    --muted-foreground: color-mix(in oklch, #0d0d0d 50%, transparent);
-    --accent-foreground: #0d0d0d;
-    --destructive: #dc2626;
-    --destructive-foreground: #ffffff;
-    --border: color-mix(in oklch, #0d0d0d 8%, transparent);
-    --input: color-mix(in oklch, #0d0d0d 8%, transparent);
-    --ring: #0d0d0d;
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: oklch(0.708 0 0);
     --radius: 0.5rem;
-    --surface-card: #ffffff;
-    --on-dark: #fafafa;
   }
 
   .dark {
-    --background: #1a1a1a;
-    --foreground: #f5f5f4;
-    --muted: color-mix(in oklch, #f5f5f4 50%, transparent);
-    --subtle: color-mix(in oklch, #f5f5f4 28%, transparent);
-    --faint: color-mix(in oklch, #f5f5f4 5%, transparent);
-    --hairline: color-mix(in oklch, #f5f5f4 7%, transparent);
-    --accent: oklch(70.5% .213 47.604); /* Cloudflare Orange */
-
-    --card: #242424;
-    --card-foreground: #f5f5f4;
-    --popover: #242424;
-    --popover-foreground: #f5f5f4;
-    --primary: #f5f5f4;
-    --primary-foreground: #1a1a1a;
-    --secondary: color-mix(in oklch, #f5f5f4 5%, transparent);
-    --secondary-foreground: #f5f5f4;
-    --muted-foreground: color-mix(in oklch, #f5f5f4 45%, transparent);
-    --accent-foreground: #f5f5f4;
-    --destructive: #f87171;
-    --destructive-foreground: #0a0a0a;
-    --border: color-mix(in oklch, #f5f5f4 8%, transparent);
-    --input: color-mix(in oklch, #f5f5f4 8%, transparent);
-    --ring: #f5f5f4;
-    --surface-card: #242424;
-    --on-dark: #f5f5f4;
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.985 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
   }
 
   @theme inline {
@@ -80,7 +62,6 @@
     --color-accent: var(--accent);
     --color-accent-foreground: var(--accent-foreground);
     --color-destructive: var(--destructive);
-    --color-destructive-foreground: var(--destructive-foreground);
     --color-border: var(--border);
     --color-input: var(--input);
     --color-ring: var(--ring);
@@ -88,6 +69,7 @@
 
   * {
     border-color: var(--border);
+    outline-color: var(--ring);
   }
 
   html {
@@ -100,9 +82,7 @@
     margin: 0;
     background: var(--background);
     color: var(--foreground);
-    font-family: "Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-      sans-serif;
-    letter-spacing: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
   button:not(:disabled),

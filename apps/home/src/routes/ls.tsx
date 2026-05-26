@@ -33,20 +33,20 @@ const publicUrls = Object.entries(urls)
 
 function ListPage() {
   return (
-    <div className="min-h-screen bg-[color:var(--background)] text-[color:var(--foreground)]">
+    <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
 
       <main className="mx-auto max-w-[1200px] px-6 pt-24 pb-20 md:px-8 md:pt-32 md:pb-32">
         <header className="max-w-3xl">
           <div className="flex items-baseline gap-4">
-            <h1 className="text-4xl font-medium tracking-tight md:text-5xl text-[color:var(--foreground)]">
+            <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
               Short URLs
             </h1>
-            <span className="font-mono text-sm tabular-nums text-[color:var(--subtle)]">
+            <span className="font-mono text-sm tabular-nums text-muted-foreground">
               {publicUrls.length}
             </span>
           </div>
-          <p className="mt-6 max-w-2xl text-lg text-[color:var(--muted)] leading-relaxed">
+          <p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
             Quick links and redirects for duyet.net.
           </p>
         </header>

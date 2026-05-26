@@ -18,32 +18,32 @@ import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center px-6 bg-[var(--em-background)]">
+    <div className="flex min-h-screen items-center justify-center px-6 bg-background">
       <div className="max-w-md text-center">
-        <p className="mb-4 text-xs uppercase tracking-[0.16em] text-[color:var(--em-muted)]">
+        <p className="mb-4 text-xs uppercase tracking-[0.16em] text-muted-foreground">
           404
         </p>
-        <h1 className="font-editorial-serif mb-3 text-4xl font-medium tracking-tight text-[color:var(--em-foreground)] sm:text-5xl">
+        <h1 className="mb-3 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
           Page not found
         </h1>
-        <p className="mb-8 text-sm text-[color:var(--em-muted)]">
+        <p className="mb-8 text-sm text-muted-foreground">
           The page you're looking for has moved or never existed.
         </p>
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <a
             href="/"
-            className="text-sm font-medium text-[color:var(--em-foreground)] underline decoration-[color:var(--em-accent)] decoration-1 underline-offset-4 transition-colors hover:text-[color:var(--em-accent)]"
+            className="text-sm font-medium text-foreground underline decoration-border decoration-1 underline-offset-4 transition-colors hover:text-muted-foreground"
           >
             Back to blog
           </a>
-          <span aria-hidden className="text-[color:var(--em-subtle)]">
+          <span aria-hidden className="text-muted-foreground">
             ·
           </span>
           <a
             href="https://duyet.net"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-[color:var(--em-muted)] transition-colors hover:text-[color:var(--em-foreground)]"
+            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             duyet.net
           </a>
@@ -127,19 +127,6 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "icon", href: "/favicon.ico" },
-      { rel: "dns-prefetch", href: "https://fonts.googleapis.com" },
-      { rel: "dns-prefetch", href: "https://fonts.gstatic.com" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
-      },
-      {
-        rel: "preload",
-        as: "style",
-        href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-      },
       {
         rel: "alternate",
         type: "application/rss+xml",
@@ -157,20 +144,10 @@ function RootComponent() {
     <html lang="en">
       <head>
         <HeadContent />
-        {/* Non-blocking Google Fonts: preloaded above, applied here */}
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-          media="print"
-          // @ts-expect-error onLoad is valid on link elements
-          onLoad="this.media='all'"
-        />
       </head>
       <body>
         <ThemeProvider>
-          <div className="blog-editorial-shell min-h-screen relative bg-[color:var(--background)] text-[color:var(--foreground)] selection:bg-[color:var(--foreground)] selection:text-[color:var(--background)] overflow-x-hidden flex flex-col justify-between subpixel-antialiased">
-            {/* Clean full grid background overlay */}
-            <div className="absolute inset-0 bg-grid-pattern pointer-events-none z-0 opacity-[0.8] dark:opacity-[0.4]" />
+          <div className="blog-editorial-shell min-h-screen relative bg-background text-foreground overflow-x-hidden flex flex-col justify-between subpixel-antialiased">
 
             <div className="w-full flex flex-col relative z-20">
               <EditorialNav />

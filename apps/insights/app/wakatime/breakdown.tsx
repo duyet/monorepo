@@ -21,7 +21,7 @@ export function WakaTimeBreakdownList({
 }) {
   if (items.length === 0) {
     return (
-      <p className="text-sm text-[color:var(--muted)]">{emptyLabel}</p>
+      <p className="text-sm text-muted-foreground">{emptyLabel}</p>
     );
   }
 
@@ -32,23 +32,23 @@ export function WakaTimeBreakdownList({
       {items.map((item) => (
         <li
           key={item.name}
-          className="grid grid-cols-[1fr_auto_auto] items-center gap-4 border-b border-[color:var(--hairline)] py-3 last:border-b-0"
+          className="grid grid-cols-[1fr_auto_auto] items-center gap-4 border-b py-3 last:border-b-0"
         >
           <div className="min-w-0">
-            <p className="text-sm text-[color:var(--foreground)] truncate">
+            <p className="text-sm truncate">
               {item.name}
             </p>
-            <div className="mt-1.5 h-[2px] w-full overflow-hidden bg-[color:var(--hairline)]">
+            <div className="mt-1.5 h-[2px] w-full overflow-hidden bg-border">
               <div
-                className="h-full bg-[color:var(--foreground)]"
+                className="h-full bg-foreground"
                 style={{ width: `${(item.percent / max) * 100}%` }}
               />
             </div>
           </div>
-          <span className="font-mono tabular-nums text-xs text-[color:var(--muted)]">
+          <span className="font-mono tabular-nums text-xs text-muted-foreground">
             {item.percent.toFixed(1)}%
           </span>
-          <span className="font-mono tabular-nums text-xs text-[color:var(--muted)] w-12 text-right">
+          <span className="font-mono tabular-nums text-xs text-muted-foreground w-12 text-right">
             {formatHours(item.total_seconds)}
           </span>
         </li>

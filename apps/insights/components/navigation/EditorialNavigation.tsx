@@ -49,17 +49,17 @@ export function EditorialNavigation() {
       className={cn(
         "sticky top-0 z-40 h-14 w-full transition-colors",
         scrolled
-          ? "border-b border-[color:var(--hairline)] bg-[color:var(--background)]/80 backdrop-blur-sm"
-          : "bg-[color:var(--background)]"
+          ? "border-b bg-background/80 backdrop-blur-sm"
+          : "bg-background"
       )}
     >
       <div className="mx-auto flex h-full w-full max-w-6xl items-center justify-between px-6 md:px-8">
         <Link
           to="/"
-          className="font-serif text-base tracking-tight text-[color:var(--foreground)] transition-colors hover:text-[color:var(--accent)]"
+          className="text-base font-semibold tracking-tight transition-colors hover:text-primary"
         >
-          <span className="italic">Insights</span>{" "}
-          <span className="text-[color:var(--muted)]">/ duyet</span>
+          Insights{" "}
+          <span className="text-muted-foreground font-normal">/ duyet</span>
         </Link>
 
         <nav className="hidden items-center gap-7 text-[13px] md:flex">
@@ -72,15 +72,15 @@ export function EditorialNavigation() {
                 className={cn(
                   "relative transition-colors",
                   active
-                    ? "text-[color:var(--foreground)]"
-                    : "text-[color:var(--muted)] hover:text-[color:var(--foreground)]"
+                    ? "text-foreground font-medium"
+                    : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 {item.text}
                 {active ? (
                   <span
                     aria-hidden="true"
-                    className="absolute left-0 right-0 -bottom-1 h-px bg-[color:var(--accent)]"
+                    className="absolute left-0 right-0 -bottom-1 h-px bg-foreground"
                   />
                 ) : null}
               </Link>
@@ -88,21 +88,20 @@ export function EditorialNavigation() {
           })}
         </nav>
 
-        <nav className="hidden items-center gap-5 text-[12px] text-[color:var(--muted)] lg:flex">
+        <nav className="hidden items-center gap-5 text-[12px] text-muted-foreground lg:flex">
           {externalItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
               target="_blank"
               rel="noreferrer noopener"
-              className="transition-colors hover:text-[color:var(--foreground)]"
+              className="transition-colors hover:text-foreground"
             >
               {item.text}
             </a>
           ))}
         </nav>
 
-        {/* Mobile in-page anchor scroll */}
         <nav className="flex items-center gap-4 text-[12px] md:hidden">
           {navItems.slice(0, 4).map((item) => {
             const active = isActive(pathname, item.href);
@@ -112,9 +111,7 @@ export function EditorialNavigation() {
                 to={item.href}
                 className={cn(
                   "transition-colors",
-                  active
-                    ? "text-[color:var(--foreground)]"
-                    : "text-[color:var(--muted)]"
+                  active ? "text-foreground font-medium" : "text-muted-foreground"
                 )}
               >
                 {item.text}

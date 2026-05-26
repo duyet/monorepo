@@ -90,7 +90,7 @@ function GitHubPeriodPage() {
         description="Repository insights and development activity for the selected period."
       />
 
-      <div className="editorial-fade-up mb-12">
+      <div className="mb-12">
         <PeriodSwitcher
           current={config.value}
           route="/github/$period"

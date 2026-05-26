@@ -120,7 +120,7 @@ function WakaTimeComparisonPage() {
               },
             ]}
           />
-          <p className="mt-6 text-xs italic text-[color:var(--muted)]">
+          <p className="mt-6 text-xs italic text-muted-foreground">
             Data from WakaTime • Positive values indicate increase in{" "}
             {period1Label} compared to {period2Label}
           </p>

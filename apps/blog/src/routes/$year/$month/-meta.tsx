@@ -42,7 +42,7 @@ export default function Meta({ post, className }: ContentProps) {
         <Link
           to="/category/$category/"
           params={{ category: post.category_slug || getSlug(post.category) }}
-          className="flex items-center gap-1.5 transition-colors hover:text-[var(--accent)]"
+          className="flex items-center gap-1.5 transition-colors hover:text-[var(--foreground)]"
         >
           <Folder className="h-3.5 w-3.5" />
           <span>{post.category}</span>
@@ -57,7 +57,7 @@ export default function Meta({ post, className }: ContentProps) {
                   to="/tag/$tag/"
                   params={{ tag: getSlug(tag) }}
                   key={tag}
-                  className="transition-colors hover:text-[var(--accent)]"
+                  className="transition-colors hover:text-[var(--foreground)]"
                 >
                   #{tag.toLowerCase()}
                 </Link>
@@ -72,7 +72,7 @@ export default function Meta({ post, className }: ContentProps) {
         )}
 
         <a
-          className="flex items-center gap-1.5 transition-colors hover:text-[var(--accent)]"
+          className="flex items-center gap-1.5 transition-colors hover:text-[var(--foreground)]"
           href={post.edit_url || "#"}
           rel="noopener noreferrer"
           target="_blank"

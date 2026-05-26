@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteFooter, SiteHeader } from "../components/SiteChrome";
+import { Button } from "../components/ui/button";
 
 export const Route = createFileRoute("/duyetbot")({
   component: DuyetbotPage,
@@ -26,11 +27,11 @@ function Section({
 }) {
   return (
     <section className="mt-16">
-      <p className="eyebrow-mono">{eyebrow}</p>
-      <h2 className="display-tight mt-2 text-2xl md:text-3xl text-[color:var(--foreground)]">
+      <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">{eyebrow}</p>
+      <h2 className="mt-2 text-2xl md:text-3xl font-semibold tracking-tight">
         {title}
       </h2>
-      <div className="mt-4 max-w-2xl space-y-4 text-sm leading-7 text-[color:var(--muted)]">
+      <div className="mt-4 max-w-2xl space-y-4 text-sm leading-7 text-muted-foreground">
         {children}
       </div>
     </section>
@@ -46,31 +47,29 @@ function Capability({
 }) {
   return (
     <article className="flex flex-col gap-2 p-5">
-      <p className="eyebrow-mono">{label}</p>
-      <p className="text-sm leading-6 text-[color:var(--muted)]">{body}</p>
+      <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">{label}</p>
+      <p className="text-sm leading-6 text-muted-foreground">{body}</p>
     </article>
   );
 }
 
 function DuyetbotPage() {
   return (
-    <div className="min-h-screen relative bg-[color:var(--background)] text-[color:var(--foreground)] overflow-x-hidden">
-      <div className="absolute inset-0 bg-grid-pattern pointer-events-none z-0 opacity-[0.8] dark:opacity-[0.4]" />
-
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SiteHeader />
 
-      <main className="mx-auto max-w-[1040px] px-6 py-12 md:py-16 md:px-8 relative z-10">
+      <main className="mx-auto max-w-[1040px] px-6 py-12 md:py-16 md:px-8">
         <header className="mb-12">
-          <p className="eyebrow-mono">Agent · duyetbot</p>
-          <h1 className="display-tight mt-3 text-3xl md:text-4xl text-[color:var(--foreground)]">
+          <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Agent · duyetbot</p>
+          <h1 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight">
             The agent that runs this site.
           </h1>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-[color:var(--muted)]">
+          <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
             duyetbot is the autonomous agent that maintains, redesigns, and
             ships{" "}
             <a
               href="https://duyet.net"
-              className="underline underline-offset-4 hover:text-[color:var(--foreground)]"
+              className="underline underline-offset-4 hover:text-foreground"
             >
               duyet.net
             </a>{" "}
@@ -80,17 +79,18 @@ function DuyetbotPage() {
           </p>
 
           <div className="mt-6 flex flex-wrap gap-3">
-            <a
-              href="https://github.com/duyetbot"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="pill-outline"
-            >
-              github.com/duyetbot
-            </a>
-            <Link to="/projects" className="pill-outline">
-              See what it ships
-            </Link>
+            <Button variant="outline" size="sm" asChild>
+              <a
+                href="https://github.com/duyetbot"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                github.com/duyetbot
+              </a>
+            </Button>
+            <Button variant="outline" size="sm" asChild>
+              <Link to="/projects">See what it ships</Link>
+            </Button>
           </div>
         </header>
 
@@ -136,26 +136,26 @@ function DuyetbotPage() {
         </Section>
 
         <Section eyebrow="Behavior" title="Auto-discover, auto-rebuild, auto-ship">
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-[color:var(--hairline)] border border-[color:var(--hairline)] not-prose">
-            <li className="bg-[color:var(--background)]">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-border border not-prose">
+            <li className="bg-background">
               <Capability
                 label="Auto-discover"
                 body="Crawls its own knowledge, public posts, GitHub activity, and Duyet's recent work to find what's worth surfacing on the site this week."
               />
             </li>
-            <li className="bg-[color:var(--background)]">
+            <li className="bg-background">
               <Capability
                 label="Auto-rebuild"
                 body="When the site's structure no longer matches the content, the bot proposes a refactor, executes it, and ships it without asking."
               />
             </li>
-            <li className="bg-[color:var(--background)]">
+            <li className="bg-background">
               <Capability
                 label="Auto-restyle"
                 body="Picks a design direction based on current inspiration or its own mood. Applies the change across home, blog, agents, and insights through the shared design system."
               />
             </li>
-            <li className="bg-[color:var(--background)]">
+            <li className="bg-background">
               <Capability
                 label="Auto-verify"
                 body="Builds, deploys to Cloudflare Pages, then curls production and matches the live bundle against the local build before declaring a turn complete."
@@ -175,21 +175,21 @@ function DuyetbotPage() {
             For things that need to be stable —{" "}
             <Link
               to="/projects"
-              className="underline underline-offset-4 hover:text-[color:var(--foreground)]"
+              className="underline underline-offset-4 hover:text-foreground"
             >
               project links
             </Link>
             ,{" "}
             <a
               href="https://blog.duyet.net"
-              className="underline underline-offset-4 hover:text-[color:var(--foreground)]"
+              className="underline underline-offset-4 hover:text-foreground"
             >
               blog posts
             </a>
             , the data behind{" "}
             <a
               href="https://insights.duyet.net"
-              className="underline underline-offset-4 hover:text-[color:var(--foreground)]"
+              className="underline underline-offset-4 hover:text-foreground"
             >
               insights
             </a>{" "}

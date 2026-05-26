@@ -26,12 +26,16 @@ export function InsightsPageHeader({
   badge,
 }: InsightsPageHeaderProps): JSX.Element {
   return (
-    <header className="editorial-fade-up mb-16">
-      {badge ? <p className="eyebrow-mono">{badge}</p> : null}
-      <h1 className="display-tight mt-4 text-3xl sm:text-4xl md:text-5xl">
+    <header className="mb-16">
+      {badge ? (
+        <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+          {badge}
+        </p>
+      ) : null}
+      <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
         {title}
       </h1>
-      <p className="mt-6 max-w-2xl text-base leading-7 text-[color:var(--muted)]">
+      <p className="mt-6 max-w-2xl text-base leading-7 text-muted-foreground">
         {description}
       </p>
     </header>
@@ -45,11 +49,13 @@ export function InsightsSection({
   className,
 }: InsightsSectionProps): JSX.Element {
   return (
-    <section className={cn("editorial-fade-up py-12", className)}>
-      <div className="mb-8 flex flex-col gap-1 border-t border-[color:var(--hairline)] pt-8">
-        <p className="eyebrow-mono">{title}</p>
+    <section className={cn("py-12", className)}>
+      <div className="mb-8 flex flex-col gap-1 border-t pt-8">
+        <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+          {title}
+        </p>
         {description ? (
-          <p className="display-tight text-2xl leading-snug text-[color:var(--foreground)] md:text-3xl">
+          <p className="text-2xl font-semibold leading-snug tracking-tight md:text-3xl">
             {description}
           </p>
         ) : null}
@@ -67,19 +73,15 @@ export function InsightsNotice({
   return (
     <div
       className={cn(
-        "editorial-fade-up flex flex-col gap-2 border-l-2 py-3 pl-5",
-        tone === "error"
-          ? "border-[color:var(--accent)]"
-          : "border-[color:var(--muted)]"
+        "flex flex-col gap-2 border-l-2 py-3 pl-5",
+        tone === "error" ? "border-destructive" : "border-muted-foreground"
       )}
     >
-      <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">
+      <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
         {tone === "error" ? "Error" : "Notice"}
       </p>
-      <h2 className="font-sans font-medium text-2xl tracking-tight">{title}</h2>
-      <p className="max-w-2xl text-sm leading-6 text-[color:var(--muted)]">
-        {body}
-      </p>
+      <h2 className="text-2xl font-medium tracking-tight">{title}</h2>
+      <p className="max-w-2xl text-sm leading-6 text-muted-foreground">{body}</p>
     </div>
   );
 }

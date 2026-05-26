@@ -107,7 +107,7 @@ export function CloudflareView({
       {/* Chart */}
       <div className="rounded-xl p-4">
         <div className="mb-4">
-          <h3 className="font-medium text-[var(--foreground)]">Traffic Trends</h3>
+          <h3 className="font-medium">Traffic Trends</h3>
           <p className="text-xs text-muted-foreground">
             {days === "all" ? "All time" : `${days}-day`} overview
           </p>

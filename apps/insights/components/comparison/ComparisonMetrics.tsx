@@ -1,6 +1,6 @@
 /**
  * Comparison metrics display component.
- * Editorial side-by-side diff: `value1 → value2` with a small delta below.
+ * Side-by-side diff: `value1 → value2` with a small delta below.
  */
 
 "use client";
@@ -28,10 +28,10 @@ function Delta({ delta }: { delta: ComparisonDelta }) {
     delta.trend === "up" ? "+" : delta.trend === "down" ? "−" : "±";
   const color =
     delta.trend === "neutral"
-      ? "text-[color:var(--muted)]"
+      ? "text-muted-foreground"
       : delta.trend === "up"
-        ? "text-[color:var(--foreground)]"
-        : "text-[color:var(--accent)]";
+        ? "text-foreground"
+        : "text-muted-foreground";
   return (
     <span className={cn("font-mono text-xs tabular-nums", color)}>
       {sign}
@@ -47,8 +47,8 @@ export function ComparisonMetrics({
   className,
 }: ComparisonMetricsProps) {
   return (
-    <div className={cn("editorial-stagger flex flex-col", className)}>
-      <div className="flex items-baseline gap-3 pb-4 text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">
+    <div className={cn("flex flex-col", className)}>
+      <div className="flex items-baseline gap-3 pb-4 text-xs font-mono uppercase tracking-widest text-muted-foreground">
         <span>{period1Label}</span>
         <span aria-hidden="true">&rarr;</span>
         <span>{period2Label}</span>
@@ -58,25 +58,25 @@ export function ComparisonMetrics({
           key={metric.label}
           className={cn(
             "grid grid-cols-1 gap-4 py-6 md:grid-cols-[1fr_2fr]",
-            i === 0 ? "border-t border-[color:var(--hairline)]" : "",
-            "border-b border-[color:var(--hairline)]"
+            i === 0 ? "border-t" : "",
+            "border-b"
           )}
         >
-          <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">
+          <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
             {metric.label}
           </p>
           <div className="flex flex-col gap-2">
             <div className="flex flex-wrap items-baseline gap-3 font-mono tabular-nums">
-              <span className="text-3xl tracking-tight text-[color:var(--foreground)]">
+              <span className="text-3xl tracking-tight">
                 {metric.value1}
               </span>
               <span
                 aria-hidden="true"
-                className="text-xl text-[color:var(--subtle)]"
+                className="text-xl text-muted-foreground"
               >
                 &rarr;
               </span>
-              <span className="text-3xl tracking-tight text-[color:var(--muted)]">
+              <span className="text-3xl tracking-tight text-muted-foreground">
                 {metric.value2}
               </span>
             </div>

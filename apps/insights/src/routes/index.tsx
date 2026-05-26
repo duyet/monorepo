@@ -44,7 +44,7 @@ function BentoPanel({
   return (
     <div
       className={[
-        "relative flex flex-col justify-between overflow-hidden rounded-xl border border-[color:var(--hairline)] bg-[color:var(--faint)]/20 p-6 transition-all duration-300 hover:border-[color:var(--subtle)] hover:bg-[color:var(--faint)]/40 hover:shadow-sm",
+        "relative flex flex-col justify-between overflow-hidden rounded-lg border bg-card p-6 transition-all duration-200 hover:bg-secondary/50",
         className,
       ]
         .filter(Boolean)
@@ -52,8 +52,8 @@ function BentoPanel({
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="text-[color:var(--accent)]">{icon}</div>
-          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--muted)]">
+          <div className="text-muted-foreground">{icon}</div>
+          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
             {label}
           </span>
         </div>
@@ -73,7 +73,7 @@ function BentoPanel({
       </div>
 
       <div className="mt-5 flex items-baseline gap-2">
-        <span className="font-mono text-4xl font-normal tracking-tight text-[color:var(--foreground)] sm:text-5xl">
+        <span className="font-mono text-4xl font-normal tracking-tight text-foreground sm:text-5xl">
           {value}
         </span>
       </div>
@@ -87,7 +87,7 @@ function BentoPanel({
           <div className="h-6" />
         )}
         {caption && (
-          <span className="text-[11px] text-[color:var(--muted)] truncate max-w-[180px]">
+          <span className="text-[11px] text-muted-foreground truncate max-w-[180px]">
             {caption}
           </span>
         )}
@@ -234,8 +234,8 @@ const EMPTY_POSTHOG: PostHogSummary = {
 };
 
 const CHART_FOREGROUND = "var(--foreground)";
-const CHART_SUBTLE = "var(--subtle)";
-const CHART_ACCENT = "var(--accent)";
+const CHART_SUBTLE = "var(--muted-foreground)";
+const CHART_ACCENT = "var(--chart-1)";
 const CHART_TOOLTIP_BACKGROUND = "var(--insights-chart-tooltip-bg)";
 const CHART_TOOLTIP_TEXT = "var(--insights-chart-tooltip-text)";
 const API_BASE_URL =
@@ -369,7 +369,7 @@ function IndexPage() {
         description="One editorial page across traffic, AI usage, human coding, and the most-read posts. No dashboards, no chrome — just the numbers and what they meant this month."
       />
 
-      <section className="editorial-stagger editorial-fade-up grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-6 border-t border-[color:var(--hairline)] pt-12">
+      <section className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-6 border-t border-border pt-12">
         <BentoPanel
           icon={<ChartLine size={18} weight="bold" />}
           label="Page views · 30d"
@@ -428,7 +428,7 @@ function IndexPage() {
         />
       </section>
 
-      <section className="editorial-fade-up mt-20 grid grid-cols-1 gap-12 border-t border-[color:var(--hairline)] pt-12 xl:grid-cols-[1.4fr_0.6fr]">
+      <section className="mt-20 grid grid-cols-1 gap-12 border-t border-border pt-12 xl:grid-cols-[1.4fr_0.6fr]">
         <EditorialChart
           eyebrow="Traffic · Cloudflare"
           title="Public site pulse."
@@ -458,7 +458,7 @@ function IndexPage() {
         />
       </section>
 
-      <section className="editorial-fade-up mt-20 grid grid-cols-1 gap-12 border-t border-[color:var(--hairline)] pt-12 xl:grid-cols-2">
+      <section className="mt-20 grid grid-cols-1 gap-12 border-t border-border pt-12 xl:grid-cols-2">
         <EditorialChart
           eyebrow="AI · ccusage"
           title="AI work, day by day."
@@ -485,7 +485,7 @@ function IndexPage() {
         </EditorialChart>
       </section>
 
-      <section className="editorial-fade-up mt-20 grid grid-cols-1 gap-12 border-t border-[color:var(--hairline)] pt-12 xl:grid-cols-2">
+      <section className="mt-20 grid grid-cols-1 gap-12 border-t border-border pt-12 xl:grid-cols-2">
         <EditorialChart
           eyebrow="Coding · WakaTime"
           title="Where the human hours went."
@@ -520,7 +520,7 @@ function IndexPage() {
         </div>
       </section>
 
-      <p className="editorial-fade-up mt-24 max-w-3xl border-t border-[color:var(--hairline)] pt-8 font-sans text-xs tracking-tight leading-7 text-[color:var(--muted)]">
+      <p className="mt-24 max-w-3xl border-t border-border pt-8 font-sans text-xs tracking-tight leading-7 text-muted-foreground">
         Sources: Cloudflare and PostHog for traffic, ClickHouse and DuckDB for
         AI usage, WakaTime for coding hours. Missing credentials degrade to
         empty states.
@@ -547,13 +547,13 @@ function EditorialChart({
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">
+        <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
           {eyebrow}
         </p>
         <h2 className="font-sans font-semibold text-3xl leading-tight tracking-tight md:text-4xl">
           {title}
         </h2>
-        <p className="max-w-xl text-sm leading-6 text-[color:var(--muted)]">
+        <p className="max-w-xl text-sm leading-6 text-muted-foreground">
           {subtitle}
         </p>
       </div>
@@ -576,7 +576,7 @@ function EditorialList({
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">
+        <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
           {eyebrow}
         </p>
         <h2 className="font-sans font-semibold text-3xl leading-tight tracking-tight md:text-4xl">
@@ -585,7 +585,7 @@ function EditorialList({
       </div>
       <div className="flex flex-col">
         {items.length === 0 ? (
-          <p className="text-sm leading-6 text-[color:var(--muted)]">
+          <p className="text-sm leading-6 text-muted-foreground">
             {emptyLabel}
           </p>
         ) : (
@@ -593,18 +593,18 @@ function EditorialList({
             <div
               key={item.label}
               className={`grid grid-cols-[1fr_auto] items-baseline gap-4 py-3 ${
-                idx === 0 ? "" : "border-t border-[color:var(--hairline)]"
+                idx === 0 ? "" : "border-t border-border"
               }`}
             >
               <div className="min-w-0">
-                <p className="truncate text-sm text-[color:var(--foreground)]">
+                <p className="truncate text-sm text-foreground">
                   {item.label}
                 </p>
-                <p className="mt-1 text-xs text-[color:var(--muted)]">
+                <p className="mt-1 text-xs text-muted-foreground">
                   {item.meta}
                 </p>
               </div>
-              <p className="font-mono text-base tabular-nums text-[color:var(--foreground)]">
+              <p className="font-mono text-base tabular-nums text-foreground">
                 {item.value}
               </p>
             </div>
@@ -642,7 +642,7 @@ function InsightAreaChart({
   return (
     <div className="h-[260px] min-w-0" ref={ref}>
       {(!isHydrated || width === 0) && (
-        <div className="flex h-full items-center text-xs text-[color:var(--insights-chart-placeholder-text)]">
+        <div className="flex h-full items-center text-xs text-muted-foreground">
           Loading.
         </div>
       )}
@@ -680,20 +680,20 @@ function InsightAreaChart({
             axisLine={false}
             dataKey="date"
             fontSize={11}
-            tick={{ fill: "var(--muted)" }}
+            tick={{ fill: "var(--muted-foreground)" }}
             tickLine={false}
             tickMargin={10}
           />
           <YAxis
             axisLine={false}
             fontSize={11}
-            tick={{ fill: "var(--muted)" }}
+            tick={{ fill: "var(--muted-foreground)" }}
             tickLine={false}
             tickMargin={8}
             width={36}
           />
           <Tooltip
-            cursor={{ stroke: "var(--subtle)", strokeWidth: 1 }}
+            cursor={{ stroke: "var(--muted-foreground)", strokeWidth: 1 }}
             contentStyle={{
               background: CHART_TOOLTIP_BACKGROUND,
               border: "0",
@@ -743,7 +743,7 @@ function InsightBarChart({
   return (
     <div className="h-[260px] min-w-0" ref={ref}>
       {(!isHydrated || width === 0) && (
-        <div className="flex h-full items-center text-xs text-[color:var(--insights-chart-placeholder-text)]">
+        <div className="flex h-full items-center text-xs text-muted-foreground">
           Loading.
         </div>
       )}
@@ -758,7 +758,7 @@ function InsightBarChart({
           <XAxis
             axisLine={false}
             fontSize={11}
-            tick={{ fill: "var(--muted)" }}
+            tick={{ fill: "var(--muted-foreground)" }}
             tickLine={false}
             type="number"
             unit="%"
@@ -767,13 +767,13 @@ function InsightBarChart({
             axisLine={false}
             dataKey={nameKey}
             fontSize={11}
-            tick={{ fill: "var(--muted)" }}
+            tick={{ fill: "var(--muted-foreground)" }}
             tickLine={false}
             type="category"
             width={120}
           />
           <Tooltip
-            cursor={{ fill: "var(--faint)" }}
+            cursor={{ fill: "var(--secondary)" }}
             contentStyle={{
               background: CHART_TOOLTIP_BACKGROUND,
               border: "0",
@@ -797,7 +797,7 @@ function InsightBarChart({
 
 function EmptyChart({ label }: { label: string }) {
   return (
-    <div className="flex h-[200px] items-center text-sm text-[color:var(--insights-chart-placeholder-text)]">
+    <div className="flex h-[200px] items-center text-sm text-muted-foreground">
       {label}
     </div>
   );
@@ -832,7 +832,7 @@ function Sparkline({
     >
       <polyline
         fill="none"
-        stroke={accent ? "var(--accent)" : "var(--foreground)"}
+        stroke={accent ? "var(--chart-1)" : "var(--foreground)"}
         strokeWidth="1"
         strokeLinecap="round"
         strokeLinejoin="round"

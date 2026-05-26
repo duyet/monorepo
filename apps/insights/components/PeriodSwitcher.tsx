@@ -33,7 +33,7 @@ export function PeriodSwitcher({
       )}
     >
       {eyebrow ? (
-        <span className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">
+        <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
           {eyebrow}
         </span>
       ) : null}
@@ -42,10 +42,7 @@ export function PeriodSwitcher({
         return (
           <Fragment key={period.value}>
             {index > 0 ? (
-              <span
-                aria-hidden="true"
-                className="text-[color:var(--subtle)]"
-              >
+              <span aria-hidden="true" className="text-muted-foreground/40">
                 &middot;
               </span>
             ) : null}
@@ -55,15 +52,15 @@ export function PeriodSwitcher({
               className={cn(
                 "relative transition-colors",
                 isActive
-                  ? "text-[color:var(--foreground)]"
-                  : "text-[color:var(--muted)] hover:text-[color:var(--foreground)]"
+                  ? "text-foreground font-medium"
+                  : "text-muted-foreground hover:text-foreground"
               )}
             >
               {period.label}
               {isActive ? (
                 <span
                   aria-hidden="true"
-                  className="absolute -bottom-1 left-0 right-0 h-px bg-[color:var(--accent)]"
+                  className="absolute -bottom-1 left-0 right-0 h-px bg-foreground"
                 />
               ) : null}
             </Link>

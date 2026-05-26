@@ -6,10 +6,10 @@ import {
   useAuth,
 } from "@clerk/clerk-react";
 import { useChat } from "@ai-sdk/react";
-import { SiteNavV2 } from "@duyet/components";
-import { Button } from "@duyet/components/ui/button";
-import { Separator } from "@duyet/components/ui/separator";
-import { Textarea } from "@duyet/components/ui/textarea";
+import { Button } from "~/components/ui/button";
+import { Separator } from "~/components/ui/separator";
+import { Textarea } from "~/components/ui/textarea";
+import { SiteNav } from "~/components/SiteNav";
 import type { UIMessage } from "ai";
 import { ArrowUp, RotateCcw } from "lucide-react";
 import {
@@ -80,7 +80,9 @@ function Message({ message }: { message: UIMessage }) {
   const isUser = message.role === "user";
   return (
     <div className="flex flex-col gap-1.5">
-      <span className="eyebrow-mono">{isUser ? "You" : "Agent"}</span>
+      <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+        {isUser ? "You" : "Agent"}
+      </span>
       <p className="whitespace-pre-wrap break-words text-[15px] leading-7 text-foreground">
         {text}
       </p>
@@ -91,7 +93,9 @@ function Message({ message }: { message: UIMessage }) {
 function TypingDots() {
   return (
     <div className="flex flex-col gap-1.5">
-      <span className="eyebrow-mono">Agent</span>
+      <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+        Agent
+      </span>
       <div className="flex items-center gap-1.5 py-1" aria-label="Thinking">
         <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground [animation-delay:-0.3s]" />
         <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground [animation-delay:-0.15s]" />
@@ -111,8 +115,10 @@ function Hero({
   return (
     <section className="flex flex-col gap-8 py-12 sm:py-20">
       <div className="flex flex-col gap-3">
-        <span className="eyebrow-mono">AI assistant · 2026</span>
-        <h1 className="display-tight text-4xl sm:text-5xl text-foreground">
+        <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+          AI assistant · 2026
+        </span>
+        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
           Ask Duyet anything.
         </h1>
         <p className="max-w-xl text-[15px] leading-7 text-muted-foreground">
@@ -205,10 +211,9 @@ function ChatScreen() {
 
   return (
     <main className="min-h-dvh bg-background text-foreground">
-      <SiteNavV2
+      <SiteNav
         brandText="Duyet Le"
         brandHref="https://duyet.net"
-        activeApp="agent"
         links={GLOBAL_NAV_LINKS}
       />
 
@@ -218,7 +223,9 @@ function ChatScreen() {
         ) : (
           <div className="flex-1 py-8">
             <div className="flex items-center justify-between pb-6">
-              <span className="eyebrow-mono">Conversation</span>
+              <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+                Conversation
+              </span>
               <div className="flex items-center gap-2">
                 <Button
                   type="button"
@@ -252,7 +259,7 @@ function ChatScreen() {
         <div className="sticky bottom-0 mt-auto pb-6 pt-4 bg-gradient-to-t from-background via-background to-transparent">
           {!isSignedIn ? (
             <SignedOut>
-              <div className="flex flex-col items-start gap-3 rounded-2xl border p-4">
+              <div className="flex flex-col items-start gap-3 rounded-lg border p-4">
                 <p className="text-sm text-muted-foreground">
                   Sign in to send a message. The chat surface above stays
                   visible either way.

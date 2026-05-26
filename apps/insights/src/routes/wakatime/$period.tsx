@@ -93,7 +93,7 @@ function WakaTimePeriodPage() {
         description="Programming activity and language statistics for the selected period."
       />
 
-      <div className="editorial-fade-up mb-12">
+      <div className="mb-12">
         <PeriodSwitcher
           current={config.value}
           route="/wakatime/$period"
@@ -140,7 +140,7 @@ function WakaTimePeriodPage() {
           />
         </InsightsSection>
 
-        <p className="border-t border-[color:var(--hairline)] pt-6 text-xs italic text-[color:var(--muted)]">
+        <p className="border-t pt-6 text-xs italic text-muted-foreground">
           Data from WakaTime · updated daily.
         </p>
       </div>
