@@ -1,4 +1,16 @@
 export { default as Analytics } from "./Analytics";
+export {
+  AreasOfExpertise,
+  DEFAULT_AREAS,
+  default as AreasOfExpertiseDefault,
+} from "./AreasOfExpertise";
+export type { Area } from "./AreasOfExpertise";
+export {
+  OpenSourceGrid,
+  fetchGitHubRepos,
+  default as OpenSourceGridDefault,
+} from "./OpenSourceGrid";
+export type { Repo } from "./OpenSourceGrid";
 export { AppCommandPalette } from "./AppCommandPalette";
 // AI Components
 export * from "./ai";

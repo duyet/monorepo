@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { AreasOfExpertise, DEFAULT_AREAS } from "@duyet/components";
 import { addUtmParams } from "../../app/lib/utm";
 
 const experienceYears = "8+ years";
@@ -109,7 +110,7 @@ function AboutPage() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
 
-      <main className="mx-auto max-w-2xl px-6 py-12 md:py-20">
+      <main className="mx-auto max-w-5xl px-6 py-12 md:py-20">
         <article className="flex flex-col gap-6">
           <header>
             <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
@@ -172,6 +173,10 @@ function AboutPage() {
               </li>
             ))}
           </ul>
+
+          <div className="mt-12 pt-12 border-t">
+            <AreasOfExpertise areas={DEFAULT_AREAS} />
+          </div>
         </article>
       </main>
 
