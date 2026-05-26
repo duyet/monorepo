@@ -598,90 +598,94 @@ type FaqTab = { value: string; label: string; items: FaqItem[] };
 
 const faqTabs: FaqTab[] = [
   {
-    value: "products",
-    label: "Products",
+    value: "site",
+    label: "This site",
     items: [
       {
-        q: "Which app should I look at first?",
-        a: "Start with the blog at blog.duyet.net for context, then explore agents.duyet.net if you're into AI agents, or the ClickHouse Monitor if you work with data infrastructure.",
+        q: "What is duyet.net?",
+        a: "A personal homepage that doubles as the front door for eight sibling apps (blog, insights, llm-timeline, homelab, photos, cv, ai-percentage). Press ⌘K anywhere to jump between them.",
       },
       {
-        q: "Are the apps open source?",
-        a: "Yes — most are open source on GitHub at github.com/duyet. The monorepo contains the source for all the sibling sites listed on this page.",
+        q: "Why so many sub-domains?",
+        a: "Each surface has different latency, caching, and content needs. Splitting them keeps deploys independent — blog rebuilds don't touch insights, agent updates don't touch the homelab dashboard.",
       },
       {
-        q: "Can I self-host these?",
-        a: "Yes. The stack is Cloudflare-first (Workers, Pages, D1, KV), so you can fork the repo and deploy to your own Cloudflare account.",
+        q: "Is this in production or a sandbox?",
+        a: "Production. Live traffic, real WakaTime / ClickHouse / Cloudflare data behind insights, and a homelab cluster I actually run.",
       },
       {
-        q: "What stack do they share?",
-        a: "All apps share TanStack Start (or Vite SPA), Tailwind + shadcn/ui design tokens, TypeScript, and deploy to Cloudflare Pages.",
+        q: "Is there a roadmap?",
+        a: "The roadmap lives in the monorepo at github.com/duyet/monorepo/issues. Public, lightly labelled, no Notion board.",
       },
     ],
   },
   {
-    value: "opensource",
+    value: "stack",
+    label: "Stack",
+    items: [
+      {
+        q: "What framework runs the front-end?",
+        a: "TanStack Start with SSG. Most apps pre-render every route at build time and serve static HTML + .md via Cloudflare Pages ASSETS — no worker runtime hit for content.",
+      },
+      {
+        q: "Why Cloudflare end-to-end?",
+        a: "Pages for static, Workers + Durable Objects for stateful agents, D1 for SQL, KV for cache, R2 for blobs. One billing surface, one auth, one global edge — fewer moving parts than splitting across clouds.",
+      },
+      {
+        q: "Why ClickHouse for analytics?",
+        a: "Time-series queries over millions of rows in sub-second time, columnar storage, and a clean SQL dialect. WakaTime activity, AI token usage, and GitHub commits all land in one cluster.",
+      },
+      {
+        q: "Why shadcn/ui instead of a component library?",
+        a: "Source ownership. The primitives live in this repo at packages/components/ui, not in node_modules. I can read every line, patch behaviour without forks, and the design system is genuinely portable.",
+      },
+    ],
+  },
+  {
+    value: "open-source",
     label: "Open source",
     items: [
       {
-        q: "Where's the code?",
-        a: "github.com/duyet — all repos are public. The monorepo at github.com/duyet/monorepo contains this site and all sibling apps.",
-      },
-      {
-        q: "Can I contribute?",
-        a: "Open a GitHub issue or pull request. Smaller, focused PRs are easiest to review. Check existing issues before starting large changes.",
+        q: "Can I copy this whole site?",
+        a: "Yes — fork github.com/duyet/monorepo, replace the content under apps/blog/_posts and apps/home/src/data, and deploy. Attribution appreciated but not required for the layout.",
       },
       {
         q: "What's the license?",
-        a: "Most repos are MIT licensed. Check the individual repo's LICENSE file to confirm before using code in production.",
+        a: "MIT on the code. Blog posts and photos are copyrighted to me unless noted; please don't republish without asking.",
       },
       {
-        q: "Are pull requests welcome?",
-        a: "Yes, especially bug fixes, documentation improvements, and performance work. Open an issue first for larger feature additions.",
-      },
-    ],
-  },
-  {
-    value: "hiring",
-    label: "Hiring",
-    items: [
-      {
-        q: "Are you open to work?",
-        a: "I'm open to select senior data engineering and AI engineering roles. The best way to reach me is email at me@duyet.net.",
+        q: "Are PRs welcome?",
+        a: "Bug fixes, accessibility improvements, doc tweaks — yes, please. For larger features open an issue first so we can agree on scope before code lands.",
       },
       {
-        q: "What do you focus on?",
-        a: "Data platforms, AI agents, Cloudflare infrastructure, and open-source tooling. I write about all of it on the blog.",
-      },
-      {
-        q: "Where are you based?",
-        a: "I work remotely. My current location and availability are on my CV at cv.duyet.net.",
-      },
-      {
-        q: "How do I reach you?",
-        a: "Email me@duyet.net is best. I try to respond to direct, specific inquiries within a few days.",
+        q: "How do I learn the codebase?",
+        a: "Start at the root CLAUDE.md, then apps/<name>/CLAUDE.md for per-app architecture. The packages/components README documents the shared primitives.",
       },
     ],
   },
   {
     value: "contact",
-    label: "Contact",
+    label: "Hiring & contact",
     items: [
       {
-        q: "Best way to email you?",
-        a: "me@duyet.net. Keep it short and specific — a sentence or two on what you're working on and why you're reaching out.",
+        q: "Are you open to work?",
+        a: "Selectively — senior data / AI engineering roles, mostly remote, EU or APAC hours. Email me@duyet.net with the role and a short pitch on why.",
+      },
+      {
+        q: "Do you take contract work?",
+        a: "Occasionally, for ClickHouse, Cloudflare, or agent-infra projects. Scoped engagements only — no open-ended retainers.",
+      },
+      {
+        q: "Where are you based?",
+        a: "Ho Chi Minh City, working remotely. The CV at cv.duyet.net has the latest availability and timezone.",
+      },
+      {
+        q: "Fastest way to reach you?",
+        a: "Email me@duyet.net for anything that needs a thoughtful reply. Telegram for time-sensitive pings — handle and approval flow are on the contact page.",
       },
       {
         q: "Do you mentor?",
-        a: "Occasionally, through informal conversations. I don't have a structured mentorship programme at the moment.",
-      },
-      {
-        q: "Do you do contract work?",
-        a: "Sometimes — it depends on scope and timing. Email me@duyet.net with a brief description of the project.",
-      },
-      {
-        q: "How long until you reply?",
-        a: "Usually within a few days for direct emails. I don't monitor social DMs consistently.",
+        a: "Yes, informally and unpaid, when the calendar allows. Email a one-paragraph intro and what you're trying to learn — I reply when I can.",
       },
     ],
   },

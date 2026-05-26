@@ -1,8 +1,7 @@
 import type { Post } from "@duyet/interfaces";
 import { dateFormat } from "@duyet/libs/date";
-import { Button } from "@duyet/components";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, type ReactElement } from "react";
+import type { ReactElement } from "react";
 import { getPostsByAllYear } from "@/lib/posts";
 
 export const Route = createFileRoute("/")({
@@ -26,56 +25,25 @@ function formatPostDate(date: Date | string): string {
 function HomePage(): ReactElement {
   const { postsByYear } = Route.useLoaderData();
 
-  const allPosts: Post[] = Object.entries(postsByYear)
+  const filteredPosts: Post[] = Object.entries(postsByYear)
     .sort(([a], [b]) => Number(b) - Number(a))
     .flatMap(([, posts]) => posts);
-
-  // Derive unique categories from post data, preserving insertion order
-  const categories = ["All", ...Array.from(new Set(allPosts.map((p) => p.category).filter(Boolean)))];
-
-  const [activeCategory, setActiveCategory] = useState<string>("All");
-
-  const filteredPosts =
-    activeCategory === "All"
-      ? allPosts
-      : allPosts.filter((p) => p.category === activeCategory);
 
   return (
     <div>
       {/* Centered hero block */}
       <header className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16 md:py-24 text-center">
         <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-          BLOG &amp; UPDATES
+          duyet · blog
         </p>
         <h1 className="mt-4 text-4xl md:text-5xl font-bold tracking-tight">
-          Blog, news and updates
+          Notes from the workshop
         </h1>
         <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-          Writing on data, AI infrastructure, agents, ClickHouse, Rust, and the
-          small details that make software feel right.
+          Field notes on ClickHouse, Cloudflare, AI agents, and the small
+          engineering details that ship to production.
         </p>
       </header>
-
-      {/* Filter row */}
-      <div className="border-t">
-        <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 py-6 flex items-center justify-between gap-4">
-          <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground shrink-0">
-            SORT BY CATEGORY
-          </p>
-          <div className="flex flex-wrap gap-2 justify-end">
-            {categories.map((cat) => (
-              <Button
-                key={cat}
-                variant={activeCategory === cat ? "default" : "outline"}
-                size="sm"
-                onClick={() => setActiveCategory(cat)}
-              >
-                {cat}
-              </Button>
-            ))}
-          </div>
-        </div>
-      </div>
 
       {/* 2-col post grid */}
       <div className="border-t">

@@ -1,0 +1,33 @@
+{
+  "name": "kb",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "check-types": "tsc --noEmit",
+    "dev": "vite dev --port 3009",
+    "fmt": "bun run fix",
+    "lint": "biome lint .",
+    "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh kb duyet-kb"
+  },
+  "dependencies": {
+    "@duyet/components": "*",
+    "@duyet/config": "*",
+    "@tanstack/react-router": "^1.0.0",
+    "@tanstack/react-start": "^1.0.0",
+    "lucide-react": "^1.0.0",
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
+  },
+  "devDependencies": {
+    "@duyet/tailwind-config": "*",
+    "@duyet/tsconfig": "*",
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/react": "^19.1.4",
+    "@types/react-dom": "^19.1.5",
+    "typescript": "*",
+    "vite": "^8.0.0",
+    "vite-tsconfig-paths": "^6.0.0"
+  }
+}

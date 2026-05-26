@@ -52,7 +52,7 @@ const homeSubnavLinks = [
   { label: "Home", href: "/" },
   { label: "Projects", href: "/projects" },
   { label: "About", href: "/about" },
-  { label: "DuyetBot", href: "/duyetbot" },
+  { label: "About DuyetBot", href: "/about-duyetbot" },
   { label: "LS", href: "/ls" },
 ];
 

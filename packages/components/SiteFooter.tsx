@@ -26,10 +26,11 @@ const DEFAULT_SECTIONS: FooterSection[] = [
       { label: "Projects", href: "https://duyet.net/projects" },
       { label: "About", href: "https://duyet.net/about" },
       { label: "DuyetBot", href: "https://duyet.net/duyetbot" },
+      { label: "LS", href: "https://duyet.net/ls" },
     ],
   },
   {
-    heading: "Products",
+    heading: "Apps",
     items: [
       { label: "Blog", href: "https://blog.duyet.net" },
       { label: "Insights", href: "https://insights.duyet.net" },
@@ -41,12 +42,33 @@ const DEFAULT_SECTIONS: FooterSection[] = [
     ],
   },
   {
-    heading: "Resources",
+    heading: "Open source",
     items: [
-      { label: "GitHub", href: "https://github.com/duyet" },
       { label: "ClickHouse Monitor", href: "https://chmonitor.dev" },
       { label: "AnyRouter", href: "https://anyrouter.dev" },
-      { label: "RSS", href: "https://blog.duyet.net/rss.xml" },
+      { label: "ShareHTML", href: "https://html.duyet.net" },
+      { label: "Agents", href: "https://agents.duyet.net" },
+      { label: "Agent State", href: "https://agentstate.app" },
+      { label: "MCP", href: "https://mcp.duyet.net" },
+    ],
+  },
+  {
+    heading: "Writing",
+    items: [
+      { label: "All posts", href: "https://blog.duyet.net" },
+      { label: "AI", href: "https://blog.duyet.net/ai" },
+      { label: "Series", href: "https://blog.duyet.net/series" },
+      { label: "Archives", href: "https://blog.duyet.net/archives" },
+      { label: "RSS feed", href: "https://blog.duyet.net/rss.xml" },
+    ],
+  },
+  {
+    heading: "Connect",
+    items: [
+      { label: "GitHub", href: "https://github.com/duyet" },
+      { label: "LinkedIn", href: "https://linkedin.com/in/duyet" },
+      { label: "X (Twitter)", href: "https://x.com/duyet" },
+      { label: "Email", href: "mailto:me@duyet.net" },
     ],
   },
   {
