@@ -147,7 +147,7 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
           <DropdownMenuItem
             key={app.key}
             className="flex items-center gap-3 py-2"
-            onClick={() => {
+            onSelect={() => {
               window.location.href = app.href;
             }}
           >
