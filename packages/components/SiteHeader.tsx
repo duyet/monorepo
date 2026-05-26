@@ -13,6 +13,7 @@ import {
   Server,
   Sun,
   User,
+  X,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
@@ -104,33 +105,41 @@ function AppsDialog() {
         <Search className="h-4 w-4" />
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="sm:max-w-3xl">
-          <DialogHeader>
+        <DialogContent className="sm:max-w-xl max-h-[85vh] overflow-y-auto p-0 gap-0 [&>button[type=button]:last-of-type]:hidden">
+          <div className="flex items-center justify-between px-6 py-4 border-b sticky top-0 bg-background z-10">
+            <span className="text-sm font-semibold tracking-tight">duyet.net</span>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8"
+              aria-label="Close"
+              onClick={() => setOpen(false)}
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
+          <DialogHeader className="sr-only">
             <DialogTitle>Apps</DialogTitle>
             <DialogDescription>duyet.net properties</DialogDescription>
           </DialogHeader>
-          <div className="grid auto-rows-[7rem] grid-cols-4 gap-3">
-            {APPS.map(({ name, href, icon: Icon, description, span }) => (
+          <nav className="px-6 py-8 flex flex-col">
+            {APPS.map(({ name, href, description }) => (
               <a
                 key={href}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={cn(
-                  "flex flex-col justify-between rounded-md border bg-card p-4 transition-colors hover:bg-muted",
-                  span,
-                )}
+                className="group block py-5 border-b last:border-b-0 transition-colors hover:bg-muted -mx-6 px-6"
               >
-                <Icon className="h-5 w-5 text-muted-foreground" />
-                <div>
-                  <h3 className="text-sm font-medium leading-tight">{name}</h3>
-                  <p className="mt-1 text-xs text-muted-foreground leading-snug">
-                    {description}
-                  </p>
-                </div>
+                <h3 className="text-lg md:text-xl font-semibold tracking-tight group-hover:text-foreground">
+                  {name}
+                </h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {description}
+                </p>
               </a>
             ))}
-          </div>
+          </nav>
         </DialogContent>
       </Dialog>
     </>

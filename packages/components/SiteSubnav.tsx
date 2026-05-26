@@ -26,7 +26,7 @@ export function SiteSubnav({
 
   return (
     <div className={cn("border-b bg-background", className)}>
-      <div className="mx-auto flex h-10 max-w-[1200px] items-center overflow-x-auto px-2 sm:px-4 lg:px-6">
+      <div className="mx-auto flex h-12 max-w-[1200px] items-center gap-1 overflow-x-auto px-2 sm:px-4 lg:px-6">
         {links?.map((link) => {
           const active = activeHref === link.href;
           return (
@@ -37,8 +37,10 @@ export function SiteSubnav({
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}
               className={cn(
-                "shrink-0 px-2 py-1.5 text-sm transition-colors hover:text-foreground",
-                active ? "text-foreground" : "text-muted-foreground"
+                "shrink-0 rounded-full px-3 py-1.5 text-sm transition-colors",
+                active
+                  ? "bg-muted text-foreground"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
               )}
             >
               {link.label}
