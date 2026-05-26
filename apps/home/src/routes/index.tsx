@@ -8,7 +8,13 @@ import { KeyboardFeatures } from "../components/KeyboardFeatures";
 import { SiteFooter, SiteHeader } from "../components/SiteChrome";
 import { type AppItem, apps } from "../data/projects";
 import { type SiblingApp, siblingApps } from "../data/sibling-apps";
-import { Card, CardContent } from "../components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
 
@@ -388,49 +394,31 @@ function MockContributionCalendar() {
 
 function ProjectCard({ item }: { item: ProjectRowItem & { techs: string[] } }) {
   return (
-    <Card className="overflow-hidden flex flex-col h-full min-h-[320px] hover:border-foreground/30 transition-colors">
-      {/* Browser Top Bar Mockup */}
-      <div className="bg-muted px-4 py-2.5 border-b flex items-center justify-between">
-        <div className="flex items-center gap-1.5">
-          <span className="w-2 h-2 rounded-full bg-red-400" />
-          <span className="w-2 h-2 rounded-full bg-yellow-400" />
-          <span className="w-2 h-2 rounded-full bg-emerald-400" />
+    <Card className="flex h-full flex-col">
+      <CardHeader className="flex-row items-start justify-between gap-3 space-y-0">
+        <div className="space-y-1.5">
+          <CardTitle className="text-base">{item.name}</CardTitle>
+          <CardDescription>{item.domain || item.host}</CardDescription>
         </div>
-        <div className="text-[10px] font-mono text-muted-foreground bg-background border rounded px-2.5 py-0.5 truncate max-w-[60%] select-none">
-          {item.domain || item.host}
-        </div>
-        <div className="w-6" />
-      </div>
-
-      <CardContent className="flex-1 flex flex-col justify-between gap-4 pt-5">
-        <div className="space-y-2">
-          <div className="flex items-start justify-between gap-3">
-            <h3 className="text-base font-semibold tracking-tight">{item.name}</h3>
-            <ProjectLink item={item}>
-              <ExternalLink size={16} className="text-muted-foreground shrink-0" />
-            </ProjectLink>
-          </div>
-          <p className="text-sm text-muted-foreground leading-relaxed line-clamp-4">
-            {item.description}
-          </p>
-        </div>
-
-        <div className="flex items-end justify-between border-t pt-4 mt-auto">
-          <div className="flex items-center gap-1.5">
+        <ProjectLink item={item}>
+          <ExternalLink size={16} className="shrink-0 text-muted-foreground" />
+        </ProjectLink>
+      </CardHeader>
+      <CardContent className="flex flex-1 flex-col justify-between gap-6">
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          {item.description}
+        </p>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex flex-wrap gap-1.5">
             {item.techs.map((tech) => (
-              <span
-                key={tech}
-                className="h-6 w-6 rounded-full bg-muted border flex items-center justify-center text-[9px] font-mono text-muted-foreground font-semibold select-none"
-              >
+              <Badge key={tech} variant="secondary">
                 {tech}
-              </span>
+              </Badge>
             ))}
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono text-muted-foreground">{item.year}</span>
-            <Badge variant="outline" className="text-[9px] px-1.5 py-0.5 h-auto">
-              {item.status}
-            </Badge>
+            <span className="text-xs text-muted-foreground">{item.year}</span>
+            <Badge variant="outline">{item.status}</Badge>
           </div>
         </div>
       </CardContent>
