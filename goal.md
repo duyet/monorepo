@@ -56,3 +56,52 @@ global header menu: move cross app link into Bento Grid inside Dialog. Click to 
 - **Deterministic 20-tone series palette** (commit `ac093836`): cheap string hash on `series.slug` → one of 20 Tailwind tints. Same series always renders same color; no hydration mismatch.
 - **No custom font files anywhere** (across-session): all `--font-inter`, `--font-serif`, Geist/Libre Baskerville imports removed. System sans/mono fall through to OS defaults.
 - **`max-w-[1200px]` shared gutter** for SiteHeader, SiteSubnav, SiteFooter (and blog post container) for visual alignment.
+
+---
+
+# Findings — 2026-05-26 (later session)
+
+## What shipped this wave
+
+| Commit | Scope | Files |
+|---|---|---|
+| `145f1e5b` | year-grouped archive table on blog | `apps/blog/src/routes/archives.tsx` |
+| `7e076601` | app switcher uses lucide per-app logos + subdomain captions; OSS pill dropped | `packages/components/SiteHeader.tsx` |
+| `82b290ad` | insights KPI strip (5-col) + bento grid (3-col) hero | `apps/insights/src/routes/index.tsx` |
+| `8d5885ee` | shared `AreasOfExpertise` + `OpenSourceGrid` components; FAQ + role-tabs deleted from home; from-the-blog shrunk; stats trimmed to 3 verifiable tiles | home/index, home/about, insights/index, packages/components/{AreasOfExpertise,OpenSourceGrid,index} |
+
+## Alignment vs rules
+
+| # | Rule | Status this wave | Notes |
+|---|------|------|------|
+| 1 | shadcn-only | done | All new components use `Card`, `Badge`, lucide-react. No custom CSS, no arbitrary hex. |
+| 2 | global header + per-app menu | done | App switcher now visually richer (lucide glyph per app, subdomain caption); behavior unchanged. |
+| 3 | dark mode | done | Untouched; still wired via `next-themes`. |
+| 4 | cp + deploy each loop | done | 4 commits pushed; deploys `bjkvfao39`, `b4edx07qe`, `bmztpj0zw`, `brwo8jbto`, `b9ajno2wj` all exit 0. |
+| 5 | smaller shadcn-only components | done | `AreasOfExpertise` and `OpenSourceGrid` are reusable, prop-light (Areas: 3 props; OSS: 3 props). |
+| 6 | no shadcn customisation | done | Only consumed primitives. |
+| 7 | simple design | done (improved) | FAQ + role-tabs deleted. Stats: 9 fabricated tiles → 3 honest (Blog 299, Projects 24, Apps 9). From-the-blog: heavy card + filters → 3-line list. |
+| 8 | SSG | done | `OpenSourceGrid.fetchGitHubRepos` runs at build-time only via TanStack route loader; falls back to `[]` so prerender never fails on network blips. No runtime API. |
+| 9 | Clerk | still partial | Unchanged. Blog/insights still unauthenticated. |
+| 10 | shadcn charts + recharts | n/a this wave | No chart work. |
+| 11 | commit + push + deploy | done | All 4 commits at origin/master; both prod deploys served. |
+| 12 | write findings to goal.md | done | This block. |
+| 13 | subagents (no build) | done | Two senior-engineer subagents ran; neither invoked `bun build` or `cf:deploy`. Main thread shipped. |
+| 14 | browser QA | **skipped this wave** | Need to screenshot `duyet.net`, `insights.duyet.net`, `blog.duyet.net` in light + dark, verify Apps dropdown, AoE rendering, OSS grid populated with real github.com/duyet repos, archives year groups. |
+
+## Outstanding next steps (refreshed)
+
+1. **R14 browser QA on this wave's surfaces** — screenshot `duyet.net` (AoE, OSS grid, shrunken From-the-Blog, 3-stat strip), `insights.duyet.net` (KPI strip + bento + narrative), `blog.duyet.net/archives/` (year-grouped table). Light + dark. Verify the OSS grid actually rendered repos from the GitHub API and didn't fall back to `[]`.
+2. **Honest-stats wiring (deferred)** — the 3 stats on home are static literals (299, 24, 9). To stay honest as content evolves, derive these at build time: `posts-data.json.length`, count of `projects.ts` entries, count of `apps/` directories. Currently they're hand-typed — will silently drift.
+3. **GitHub OSS fetch hardening** — add a `User-Agent` header to the unauthenticated GitHub API call (some edge runtimes reject UA-less requests) and a 5-second timeout.
+4. **`OpenSourceGrid` re-render on every prerender** — if the GitHub API rate-limits the build IP, all pages show fallback. Consider caching to a checked-in JSON like `posts-data.json` pattern and refreshing on a schedule.
+5. Still open from prior session: R9 Clerk in blog/insights, R10 llm-timeline charts audit, R5 insights chart component splits, duplicate `apps/home/{app,src}/globals.css` cleanup.
+
+## Notable decisions this wave
+
+- **Build-time GitHub fetch** over runtime: prerender pulls `api.github.com/users/duyet/repos` once during `bun run build`, bakes the data into HTML. Zero runtime cost, zero rate-limit risk in browsers. Trade-off: data stales until next deploy. Acceptable for a personal site.
+- **Lucide glyph per app over initials avatar**: `House`, `BookOpen`, `Activity`, `Sparkles`, `Server`, `Camera`, `Percent`, `GraduationCap`. Encodes function, not first letter. Stays within the "lucide-react only" icon rule from `feedback_icons_lucide.md`.
+- **Subdomain caption over tagline**: `duyet.net` / `blog.duyet.net` in monospace, replacing "Personal homepage" / "Writing and notes". A power-user index belongs to URLs, not marketing copy.
+- **Delete-rather-than-mock for stats**: when a tile couldn't be sourced from a real file or directory, deleted the tile. 9 → 3 is a real density loss but a real credibility gain for a "Notes from the workshop" site.
+- **Year-grouped archives over search**: image #40's design is typographic, calm, no filter chrome. Search would conflict with that — if filtering is needed later, a separate `/search` route is the right home.
+
