@@ -105,3 +105,41 @@ global header menu: move cross app link into Bento Grid inside Dialog. Click to 
 - **Delete-rather-than-mock for stats**: when a tile couldn't be sourced from a real file or directory, deleted the tile. 9 → 3 is a real density loss but a real credibility gain for a "Notes from the workshop" site.
 - **Year-grouped archives over search**: image #40's design is typographic, calm, no filter chrome. Search would conflict with that — if filtering is needed later, a separate `/search` route is the right home.
 
+---
+
+# Audit — 2026-05-26 (later, after redesign sprint)
+
+## Production health
+
+| URL | Code | Notes |
+|---|---|---|
+| duyet.net | 200 | home — AoE bento + OSS bento + 3-stat strip live |
+| blog.duyet.net | 200 | post header simplified, year-grouped index, TOC right rail, per-note pages live |
+| insights.duyet.net | 200 | fresh chunks (resolves prior 404 cascade after atomic redeploy) |
+| llm-timeline.duyet.net | 200 | clerk crash eliminated — html no longer references SignedIn/ClerkProvider |
+| homelab.duyet.net | 200 | shared chrome refreshed |
+| photos.duyet.net | 200 | shared chrome refreshed |
+| ai-percentage.duyet.net | 200 | shared chrome refreshed |
+| cv.duyet.net | 200 | intentionally untouched (Computer Modern kept by design) |
+| kb.duyet.net | 000 | DNS or CF Pages project unconfigured — infra task, not code |
+
+## Bugs fixed this audit pass
+
+1. **Clerk crash in 7 apps** — `ClerkUserArea` in shared `SiteHeader` rendered `<SignedIn>` outside any `<ClerkProvider>` whenever `VITE_CLERK_PUBLISHABLE_KEY` leaked into a non-home build via root `.env`. **Fix**: removed `ClerkUserArea` from `SiteHeader` entirely. Auth UI is an app-level concern; shared chrome must not assume a provider that only home mounts.
+2. **insights chunk 404 cascade** — old HTML was referencing old chunk hashes after a partial-state deploy. **Fix**: atomic redeploy uploaded fresh HTML pointing at fresh chunk hashes in one batch.
+3. **AoE oversized billboard look** — `<Card>` chrome + `text-4xl` featured numeral was 2× the density needed. **Fix**: bento layout (`gap-px bg-border`), smaller title, inline `<projectCount> projects` line.
+4. **OSS "double grid"** — featured 2-col row + 6-card 3-col below read as two stacked grids. **Fix**: single uniform 3-col bento, every cell equal weight.
+
+## Known issues left
+
+1. **Cloudflare Rocket Loader** (zone level) is rewriting `type="module"` scripts → client JS never executes → app switcher dropdown + theme toggle inert. **Action needed**: Cloudflare dashboard → Speed → Optimization → Content Optimization → Rocket Loader: Off. Or scope a Page Rule to `*.duyet.net/*`. Cannot be fixed from code.
+2. **kb.duyet.net** — app scaffolded in earlier session, never wired to a CF Pages project + DNS record. Needs zone setup, not code.
+3. **"What ships, what runs" stat values** — currently 3 honest literals (Blog 299, Projects 24, Apps 9). Could be derived at build time from `posts-data.json.length`, `projects.ts` entries, and `apps/*` dir count. Currently hand-typed → will drift silently as content evolves.
+4. **Reading time on posts-by-year list** — uses `Math.max(1, Math.round(post.readingTime))`. Some legacy posts have unreasonable `readingTime` values (161 min on a JS style guide post) that would benefit from a per-post audit. Out of scope for chrome audit.
+
+## Notable decisions
+
+- **Drop ClerkUserArea from shared chrome over conditional rendering**: a "render Clerk if provider is mounted" guard would require introspecting React context across an MFE-style 8-app boundary. Simpler: auth UI lives in the apps that mount the provider. If multiple apps eventually need Clerk, each mounts its own provider in its own `__root.tsx` and renders the auth components in app-level chrome, not shared chrome.
+- **Single bento for OSS over Featured/Compact split**: the user reads this as one bento (the "double grid" complaint). Visual hierarchy by spotlight cards isn't worth the layout complexity for a personal repo list — `popularity` order already does the hierarchy job through positioning.
+- **`User-Agent: duyet.net` on the GitHub fetch**: some edge runtimes (and GitHub's API itself in rare cases) reject UA-less requests. Build-time fetch ran from local dev OK, but a CF Pages build runner could behave differently. Cheap defense.
+
