@@ -62,7 +62,7 @@ export function Callout({
       Icon: CheckCircle,
     },
     tip: {
-      container: "bg-[var(--surface-card)] border-[var(--hairline)]",
+      container: "bg-card border-border",
       icon: "text-[var(--primary)]",
       title: "text-[var(--ink)] dark:text-[var(--on-dark)]",
       text: "text-[var(--body)]",

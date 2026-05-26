@@ -398,7 +398,7 @@ export function ClaudeCard({ title, items, className }: ClaudeCardProps) {
                 className={cn(
                   "flex items-baseline gap-3 sm:gap-4 py-3 sm:py-4",
                   index !== items.length - 1 &&
-                    "border-b border-[var(--hairline)]"
+                    "border-b border-border"
                 )}
               >
                 <span
@@ -666,7 +666,7 @@ export function ClaudeCardGrid({ cards, className }: ClaudeCardGridProps) {
             key={index}
             {...cardProps}
             className={cn(
-              "flex flex-col gap-1 p-4 rounded-2xl border border-[var(--hairline)] dark:border-white/10 no-underline",
+              "flex flex-col gap-1 p-4 rounded-2xl border border-border dark:border-white/10 no-underline",
               "hover:bg-[var(--surface-soft)] dark:hover:bg-[var(--surface-dark)] hover:no-underline transition-colors"
             )}
           >

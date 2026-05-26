@@ -40,7 +40,7 @@ export function Collapsible({
   };
 
   const variantStyles = {
-    default: "bg-[var(--surface-card)] border-[var(--hairline)]",
+    default: "bg-card border-border",
     muted: "bg-[var(--background-secondary)] border-[var(--border-faint)]",
     accent: "bg-[var(--primary)]/5 border-[var(--primary)]/20",
   };

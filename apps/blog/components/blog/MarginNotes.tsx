@@ -48,7 +48,7 @@ export function MarginBlock({
   return (
     <aside
       className={cn(
-        "my-6 p-4 rounded-lg bg-[var(--surface-soft)] border border-[var(--hairline)] text-sm text-[var(--muted)]",
+        "my-6 p-4 rounded-lg bg-muted border border-border text-sm text-muted-foreground",
         position === "right" && "lg:ml-auto lg:max-w-xs",
         position === "left" && "lg:mr-auto lg:max-w-xs",
         className
@@ -73,7 +73,7 @@ export function InlineNote({
   return (
     <span
       className={cn(
-        "inline-block px-2 py-0.5 text-sm rounded bg-[var(--surface-card)] text-[var(--muted)] border border-[var(--hairline)]",
+        "inline-block px-2 py-0.5 text-sm rounded bg-card text-muted-foreground border border-border",
         className
       )}
     >

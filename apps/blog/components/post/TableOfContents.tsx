@@ -143,7 +143,7 @@ export function TableOfContents({
         </div>
       )}
 
-      <ul className="space-y-1 border-l border-[var(--hairline)] dark:border-white/10">
+      <ul className="space-y-1 border-l border-border dark:border-white/10">
         {headings.map((heading) => (
           <li key={heading.id}>
             <a
@@ -177,7 +177,7 @@ export function TableOfContents({
           "fixed bottom-6 right-6 z-40",
           "w-12 h-12 rounded-full",
           "bg-[var(--card)] dark:bg-[var(--card)]",
-          "border border-[var(--hairline)] dark:border-white/10",
+          "border border-border dark:border-white/10",
           "flex items-center justify-center",
           "hover:bg-[var(--muted)] dark:hover:bg-[var(--muted)]",
           "transition-all duration-200",
@@ -199,7 +199,7 @@ export function TableOfContents({
           "fixed top-20 right-0 z-30",
           "w-72 max-w-[80vw]",
           "bg-[var(--card)]/95 dark:bg-[var(--card)]/95 backdrop-blur-sm",
-          "border-l border-[var(--hairline)] dark:border-white/10",
+          "border-l border-border dark:border-white/10",
           "p-4 pt-4",
           "max-h-[70vh] overflow-y-auto",
           "text-sm rounded-l-xl",
