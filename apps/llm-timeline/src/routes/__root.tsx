@@ -3,9 +3,8 @@ import "../globals.css";
 import "../animations.css";
 
 import Analytics from "@duyet/components/Analytics";
-import { SiteFooter, SiteHeader, SiteSubnav } from "@duyet/components";
+import { SiteFooter, SiteHeader } from "@duyet/components";
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import { llmTimelineConfig } from "@duyet/config";
 import {
   createRootRoute,
   HeadContent,
@@ -96,7 +95,7 @@ export const Route = createRootRoute({
   component: RootComponent,
 });
 
-const llmSubnavLinks = [
+const llmLocalNav = [
   { label: "Timeline", href: "/" },
   { label: "Companies", href: "/org" },
   { label: "Compare", href: "/compare" },
@@ -119,8 +118,11 @@ function RootComponent() {
       <body>
         <ThemeProvider>
           <div className="min-h-screen bg-background text-foreground">
-            <SiteHeader brand="llm timeline" brandHref="/" />
-            <SiteSubnav links={llmSubnavLinks} activeHref={pathname} />
+            <SiteHeader
+              currentApp="llm-timeline"
+              localNav={llmLocalNav}
+              activeHref={pathname}
+            />
             <main className="relative z-10">
               <div className="mx-auto max-w-[1280px] px-5 pb-16 pt-6 sm:px-8 lg:px-10">
                 <Outlet />

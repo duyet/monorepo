@@ -65,7 +65,7 @@ function RootComponent() {
       <body>
         <ThemeProvider>
           <div className="min-h-screen bg-background text-foreground">
-            <SiteHeader brand="ai-percentage" />
+            <SiteHeader currentApp="ai-percentage" />
             <main className="relative z-10">
               <div className="mx-auto max-w-[1280px] px-5 pb-16 pt-6 sm:px-8 lg:px-10">
                 <Outlet />

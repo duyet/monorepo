@@ -58,7 +58,7 @@ function RootComponent() {
       <body>
         <ThemeProvider>
           <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
-            <SiteHeader brand="homelab" brandHref="https://homelab.duyet.net" />
+            <SiteHeader currentApp="homelab" />
             <main className="relative z-10 bg-white pb-16 dark:bg-[#0d0e0c]">
               <Container className="mb-20 max-w-[1280px] px-5 pb-16 pt-8 sm:px-8 lg:px-10">
                 <Outlet />

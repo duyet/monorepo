@@ -73,7 +73,7 @@ function RootComponent() {
       <body>
         <ThemeProvider>
           <div className="min-h-screen bg-background text-foreground">
-            <SiteHeader brand="kb" />
+            <SiteHeader currentApp="kb" />
             <Outlet />
             <SiteFooter />
           </div>

@@ -48,9 +48,9 @@ function HomePage(): ReactElement {
       {/* 2-col post grid */}
       <div className="border-t">
         <ul className="mx-auto max-w-[1200px] grid grid-cols-1 md:grid-cols-2 gap-0 divide-y md:divide-y-0 md:[&>li:nth-child(odd)]:border-r">
-          {filteredPosts.map((post) => (
+          {filteredPosts.map((post, idx) => (
             <li key={post.slug} className="p-6 md:p-10">
-              {post.thumbnail && (
+              {idx === 0 && post.thumbnail && (
                 <div className="aspect-[4/3] overflow-hidden bg-muted mb-6">
                   <img
                     src={post.thumbnail}

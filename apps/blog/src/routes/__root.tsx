@@ -2,7 +2,7 @@ import "@duyet/components/styles.css";
 import "../../app/globals.css";
 import "../../styles/blog-design.css";
 
-import { SiteHeader, SiteFooter, SiteSubnav } from "@duyet/components";
+import { SiteHeader, SiteFooter } from "@duyet/components";
 import Analytics from "@duyet/components/Analytics";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import {
@@ -103,7 +103,7 @@ export const Route = createRootRoute({
   component: RootComponent,
 });
 
-const blogSubnavLinks = [
+const blogLocalNav = [
   { label: "Latest", href: "/" },
   { label: "Archives", href: "/archives" },
   { label: "Categories", href: "/category" },
@@ -125,8 +125,11 @@ function RootComponent() {
         <ThemeProvider>
           <div className="blog-editorial-shell min-h-screen relative bg-background text-foreground overflow-x-hidden flex flex-col justify-between subpixel-antialiased">
 
-            <SiteHeader brand="blog" />
-            <SiteSubnav links={blogSubnavLinks} activeHref={pathname} />
+            <SiteHeader
+              currentApp="blog"
+              localNav={blogLocalNav}
+              activeHref={pathname}
+            />
 
             <main className="relative z-10 pb-12 flex-grow">
               <Outlet />

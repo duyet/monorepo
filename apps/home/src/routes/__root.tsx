@@ -6,7 +6,6 @@ import {
   ClerkAuthProvider,
   SiteFooter,
   SiteHeader,
-  SiteSubnav,
 } from "@duyet/components";
 import {
   createRootRoute,
@@ -48,7 +47,7 @@ export const Route = createRootRoute({
   component: RootComponent,
 });
 
-const homeSubnavLinks = [
+const homeLocalNav = [
   { label: "Home", href: "/" },
   { label: "Projects", href: "/projects" },
   { label: "About", href: "/about" },
@@ -67,8 +66,11 @@ function RootComponent() {
       <body>
         <ClerkAuthProvider>
           <ThemeProvider>
-            <SiteHeader />
-            <SiteSubnav links={homeSubnavLinks} activeHref={pathname} />
+            <SiteHeader
+              currentApp="home"
+              localNav={homeLocalNav}
+              activeHref={pathname}
+            />
             <Outlet />
             <SiteFooter />
           </ThemeProvider>

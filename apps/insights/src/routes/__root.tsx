@@ -3,7 +3,7 @@ import "../styles/globals.css";
 
 import Analytics from "@duyet/components/Analytics";
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import { SiteHeader, SiteFooter, SiteSubnav } from "@duyet/components";
+import { SiteHeader, SiteFooter } from "@duyet/components";
 import {
   createRootRoute,
   HeadContent,
@@ -58,11 +58,8 @@ function RootComponent() {
         <ThemeProvider>
           <div className="min-h-screen bg-background text-foreground overflow-x-hidden flex flex-col">
             <SiteHeader
-              brand="insights"
-              brandHref="https://duyet.net"
-            />
-            <SiteSubnav
-              links={[
+              currentApp="insights"
+              localNav={[
                 { label: "Overview", href: "/" },
                 { label: "Blog", href: "/blog" },
                 { label: "GitHub", href: "/github" },
