@@ -26,7 +26,7 @@ export function SiteSubnav({
 
   return (
     <div className={cn("border-b bg-background", className)}>
-      <div className="mx-auto flex h-10 max-w-[1200px] items-center gap-1 overflow-x-auto px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-10 max-w-[1200px] items-center overflow-x-auto px-2 sm:px-4 lg:px-6">
         {links?.map((link) => {
           const active = activeHref === link.href;
           return (
