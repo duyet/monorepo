@@ -1,10 +1,23 @@
 "use client";
 
 import { cn } from "@duyet/libs/utils";
-import { Check, ChevronsUpDown, Moon, Sun } from "lucide-react";
+import {
+  Activity,
+  BookOpen,
+  Camera,
+  Check,
+  ChevronsUpDown,
+  GraduationCap,
+  House,
+  type LucideIcon,
+  Moon,
+  Percent,
+  Server,
+  Sparkles,
+  Sun,
+} from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -44,8 +57,8 @@ type AppDef = {
   key: AppKey;
   name: string;
   href: string;
-  initials: string;
-  description: string;
+  subdomain: string;
+  Icon: LucideIcon;
 };
 
 const APPS: AppDef[] = [
@@ -53,64 +66,64 @@ const APPS: AppDef[] = [
     key: "home",
     name: "Home",
     href: "https://duyet.net",
-    initials: "HM",
-    description: "Personal homepage",
+    subdomain: "duyet.net",
+    Icon: House,
   },
   {
     key: "blog",
     name: "Blog",
     href: "https://blog.duyet.net",
-    initials: "BL",
-    description: "Writing and notes",
+    subdomain: "blog.duyet.net",
+    Icon: BookOpen,
   },
   {
     key: "insights",
     name: "Insights",
     href: "https://insights.duyet.net",
-    initials: "IN",
-    description: "Live telemetry",
+    subdomain: "insights.duyet.net",
+    Icon: Activity,
   },
   {
     key: "llm-timeline",
     name: "LLM Timeline",
     href: "https://llm-timeline.duyet.net",
-    initials: "LT",
-    description: "LLM release timeline",
+    subdomain: "llm-timeline.duyet.net",
+    Icon: Sparkles,
   },
   {
     key: "homelab",
     name: "Homelab",
     href: "https://homelab.duyet.net",
-    initials: "HL",
-    description: "Cluster & devices",
+    subdomain: "homelab.duyet.net",
+    Icon: Server,
   },
   {
     key: "photos",
     name: "Photos",
     href: "https://photos.duyet.net",
-    initials: "PH",
-    description: "Photography",
+    subdomain: "photos.duyet.net",
+    Icon: Camera,
   },
   {
     key: "ai-percentage",
     name: "AI Percentage",
     href: "https://ai-percentage.duyet.net",
-    initials: "AI",
-    description: "AI commit share",
+    subdomain: "ai-percentage.duyet.net",
+    Icon: Percent,
   },
   {
     key: "kb",
     name: "KB",
     href: "https://kb.duyet.net",
-    initials: "KB",
-    description: "Knowledge base",
+    subdomain: "kb.duyet.net",
+    Icon: GraduationCap,
   },
 ];
 
-function AppInitialsAvatar({ initials }: { initials: string }) {
+function AppLogo({ Icon }: { Icon: LucideIcon }) {
   return (
-    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-muted text-[10px] font-semibold">
-      {initials}
+    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-muted">
+      <Icon className="h-3.5 w-3.5" strokeWidth={2} />
     </div>
   );
 }
@@ -122,11 +135,8 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="sm" className="gap-2 px-2">
-          <AppInitialsAvatar initials={current.initials} />
+          <AppLogo Icon={current.Icon} />
           <span className="text-sm font-semibold">{current.name}</span>
-          <Badge variant="secondary" className="text-[10px]">
-            OSS
-          </Badge>
           <ChevronsUpDown className="h-3.5 w-3.5 text-muted-foreground" />
         </Button>
       </DropdownMenuTrigger>
@@ -141,11 +151,11 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
               window.location.href = app.href;
             }}
           >
-            <AppInitialsAvatar initials={app.initials} />
+            <AppLogo Icon={app.Icon} />
             <div className="flex min-w-0 flex-1 flex-col">
               <span className="text-sm font-medium">{app.name}</span>
-              <span className="text-xs text-muted-foreground">
-                {app.description}
+              <span className="text-xs font-mono text-muted-foreground">
+                {app.subdomain}
               </span>
             </div>
             {app.key === currentApp && (
