@@ -14,26 +14,25 @@ interface PageLayoutProps {
 
 export function PageLayout({ children, description }: PageLayoutProps) {
   return (
-    <main className="relative z-10 rounded-b-3xl bg-[#f8f8f2] text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2] 2xl:rounded-b-[4rem]">
+    <main className="relative z-10">
       <div className="mx-auto max-w-[1360px] overflow-hidden px-5 pb-16 pt-8 sm:px-8 lg:px-10">
         <header className="mb-8 pt-8 lg:pt-12">
           <div className="grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
             <div className="animate-fade-in">
-              <div className="mb-5 inline-flex animate-fade-in items-center gap-2 rounded-md bg-[#1a1a1a] px-3 py-2 text-sm font-medium text-white">
-                <span className="flex h-2 w-2 rounded-full bg-[#ff6a00]" />
-                <span>Interactive LLM Release History</span>
-              </div>
+              <p className="mb-5 text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                Interactive LLM Release History
+              </p>
 
               <Link
                 to="/"
                 className="group inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded"
               >
-                <h1 className="max-w-5xl text-balance text-5xl font-semibold tracking-tight text-[#1a1a1a] transition-opacity group-hover:opacity-80 dark:text-[#f8f8f2] sm:text-6xl lg:text-7xl">
+                <h1 className="max-w-5xl text-balance text-3xl font-semibold tracking-tight transition-opacity group-hover:opacity-80 md:text-4xl">
                   LLM Timeline
                 </h1>
               </Link>
               {description && (
-                <p className="mt-6 max-w-3xl animate-fade-in animate-fade-in-delay-1 text-pretty text-lg leading-8 text-[#4d4d4d] dark:text-[#cfcfc8]">
+                <p className="mt-6 max-w-3xl animate-fade-in animate-fade-in-delay-1 text-pretty text-lg leading-8 text-muted-foreground">
                   {description}
                 </p>
               )}
