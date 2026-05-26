@@ -9,6 +9,7 @@ import {
   HeadContent,
   Outlet,
   Scripts,
+  useRouterState,
 } from "@tanstack/react-router";
 
 function NotFoundComponent() {
@@ -37,43 +38,48 @@ export const Route = createRootRoute({
         content:
           "Documentation and knowledge base for duyet.net — apps, architecture, and references.",
       },
+      {
+        name: "theme-color",
+        content: "#ffffff",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        name: "theme-color",
+        content: "#0a0a0a",
+        media: "(prefers-color-scheme: dark)",
+      },
     ],
     links: [
-      { rel: "icon", href: "/favicon.ico" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
-      },
-      {
-        rel: "preload",
-        as: "style",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap",
-      },
+      { rel: "icon", href: "/icon.svg", sizes: "any" },
+      { rel: "sitemap", type: "application/xml", href: "/sitemap.xml" },
     ],
   }),
   notFoundComponent: NotFoundComponent,
   component: RootComponent,
 });
 
+const kbLocalNav = [
+  { label: "Home", href: "/" },
+  { label: "Categories", href: "/c" },
+  { label: "Graph", href: "/graph" },
+];
+
 function RootComponent() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-          media="print"
-          // @ts-expect-error onLoad is valid on link elements
-          onLoad="this.media='all'"
-        />
       </head>
       <body>
         <ThemeProvider>
           <div className="min-h-screen bg-background text-foreground">
-            <SiteHeader currentApp="kb" />
+            <SiteHeader
+              currentApp="kb"
+              localNav={kbLocalNav}
+              activeHref={pathname}
+            />
             <Outlet />
             <SiteFooter />
           </div>

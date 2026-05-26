@@ -4,6 +4,7 @@
     "ignoreDeprecations": "6.0",
     "strictNullChecks": true,
     "baseUrl": ".",
+    "types": ["bun", "node", "vite/client"],
     "paths": {
       "~/*": ["./src/*"]
     }
@@ -11,6 +12,7 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "vite.config.ts"
+    "lib/**/*.ts",
+    "scripts/**/*.ts"
   ]
 }

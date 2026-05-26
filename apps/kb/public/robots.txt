@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kb.duyet.net/sitemap.xml
+
+# LLM and AI agent resources
+# llms.txt: https://kb.duyet.net/llms.txt
+# llms-full.txt: https://kb.duyet.net/llms-full.txt

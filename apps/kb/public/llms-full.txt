@@ -1,0 +1,1717 @@
+# duyet.net Knowledge Base — Full Content
+
+URL: https://kb.duyet.net
+
+---
+
+# Dead Code Cleanup Workflow
+URL: https://kb.duyet.net/k/dead-code-cleanup
+Category: workflows
+Updated: 2026-05-26
+Summary: Before removing a symbol, verify zero non-test references with rg; use git log --since to scope reviews to recent changes.
+
+# Dead Code Cleanup Workflow
+
+Removing dead code safely requires verifying that no live references exist before deletion. These are the standard commands.
+
+## Verify zero references
+
+```bash
+rg -n "<symbol>" apps packages \
+  --glob '!**/*.test.*' \
+  --glob '!**/*.spec.*'
+```
+
+If the output is empty, the symbol has no non-test references and is safe to remove.
+
+## Scoped review after a time window
+
+To review changes since a specific timestamp:
+
+```bash
+# List commits since a date
+git log --since='2026-05-15 21:01:30 +0000' \
+  --no-merges --name-only \
+  --pretty=format:'%H%n%s%n%b'
+
+# List touched files only
+git log --since='2026-05-15 21:01:30 +0000' \
+  --no-merges --name-only --pretty=format: \
+  | sed '/^$/d' | sort -u
+```
+
+Pass an explicit UTC offset when the timestamp is in UTC (`...Z`) to avoid local-time drift.
+
+## Inspect a specific commit
+
+```bash
+git show --unified=3 <commit_sha>
+```
+
+## Verify dependency overrides
+
+```bash
+bun pm why <package>
+```
+
+## Common scoped searches
+
+```bash
+# Catch duplicate branches in parser-style switch/if chains
+rg -n "if (field ===" packages/libs --glob '*.ts'
+
+# Verify action pins in CI workflows
+rg -n "setup-bun@" .github/workflows -g'*.yml'
+rg -n "dtolnay/rust-toolchain@|jetli/wasm-pack-action@" .github/workflows -g'*.yml'
+```
+
+## Notable dead code removed in improvement cycles
+
+| Cycle | Item |
+|-------|------|
+| 4 | `getLicenseColor()`, `getTypeColor()`, `getSourceColor()` (llm-timeline) |
+| 4 | `getLicenseAccent()` (llm-timeline, left-border accent) |
+| 4 | Lucide wildcard import → ~200 KB reduction (blog) |
+| 5 | `listAnonymousConversations` (agents, privacy) |
+| 9 | Custom `line-clamp` CSS (built into Tailwind v4) |
+
+## Where to record findings
+
+Keep durable findings in `docs/ai/core-memory.md`. Do NOT create dated review files like `docs/reviews/code-smell-<DATE>.md`.
+
+---
+
+# Test Coverage by App
+URL: https://kb.duyet.net/k/test-coverage
+Category: workflows
+Updated: 2026-05-26
+Summary: Test counts per package; agents leads at 142, libs at 117; total ~14 packages run in ~100ms cached via bun run test.
+
+# Test Coverage by App
+
+Tests run via `bun run test` at the monorepo root, covering all 14 packages. Cached runs take ~100 ms.
+
+## Current test counts
+
+| Package | Tests |
+|---------|-------|
+| agents | 142 |
+| libs | 117 |
+| insights | 60 |
+| blog | 50 |
+| ai | 45 |
+| llm-timeline | 42 |
+| photos | 40 |
+| homelab | 31 |
+| urls | 29 |
+| home | 24 |
+| components | 24 |
+| config | 15 |
+| data-sync | 13 |
+| api | 8 |
+| cv | 3 |
+
+## Pre-commit behavior
+
+The pre-commit hook runs `bun run test`. An uncached run can cause a pipe buffer overflow that returns exit code 1 despite all tests passing.
+
+**Mitigation:** run `bun run test` manually before committing to warm the Bun cache. Then commit. The hook's cached run will complete cleanly.
+
+## Adding tests
+
+Tests should encode WHY behavior matters, not just WHAT it does. A test that doesn't fail when business logic changes is wrong.
+
+Priorities by risk:
+1. Security-adjacent logic (auth, credential handling)
+2. Data transformation (normalizers, slug handling, markdown conversion)
+3. Component rendering correctness
+4. Edge cases in post loading / slug normalization
+
+## Test growth history
+
+Cycle 9 added 104 new tests, primarily in llm-timeline (42), home (24 added from 0), and homelab (31 added from 0). These came alongside the design system unification pass.
+
+---
+
+# Commit, Push, and Deploy Convention
+URL: https://kb.duyet.net/k/commit-push-deploy
+Category: workflows
+Updated: 2026-05-26
+Summary: After every task: semantic commit, push to master, then background-deploy the changed app to Cloudflare Pages.
+
+# Commit, Push, and Deploy Convention
+
+Every completed task ends with three steps: commit, push, deploy.
+
+```bash
+git commit -m "feat(blog): add copy dropdown"
+git push origin master
+cd apps/blog && bun run cf:deploy:prod  # run in background
+```
+
+## Commit format
+
+Semantic commits with a scope matching the changed app or package:
+
+```
+<type>(<scope>): <description in lowercase>
+```
+
+- `type`: `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `perf`
+- `scope`: app name (`blog`, `home`, `agents`) or package (`components`, `config`, `libs`)
+- `description`: lowercase, imperative mood, ≤72 chars
+
+## commitlint constraints
+
+The `commit-msg` hook runs `bun commitlint` with two enforced rules:
+
+- **body-max-line-length: 100** — body lines must be ≤100 characters
+- **subject-case: lowercase** — description must be lowercase
+
+## Pre-commit hook
+
+`bun run test` runs across all 14 packages before every commit. Cached runs take ~100 ms; uncached runs can cause a pipe buffer overflow that returns exit code 1 even when tests pass.
+
+**Always warm the cache before committing:**
+
+```bash
+bun run test  # warm cache
+git commit ...
+```
+
+## Co-authors
+
+Every commit must include:
+
+```
+Co-Authored-By: duyet <me@duyet.net>
+Co-Authored-By: duyetbot <duyetbot@users.noreply.github.com>
+```
+
+## Verification commands
+
+```bash
+# After deploy notification, verify production
+curl -s -o /dev/null -w "%{http_code}" https://<app>.duyet.net/
+
+# Check CI on master
+gh run list --branch master --event push --limit 5 \
+  --json databaseId,status,conclusion,name,updatedAt
+```
+
+## Root quality checks
+
+Run these before marking a multi-file task complete:
+
+```bash
+bun run lint         # Biome lint
+bun run check-types  # TypeScript
+bun run test         # all packages
+```
+
+For single-file changes:
+
+```bash
+bunx biome lint <path>
+```
+
+---
+
+# Welcome to the Knowledge Base
+URL: https://kb.duyet.net/k/welcome
+Category: meta
+Updated: 2026-05-26
+Summary: An introduction to the duyet.net knowledge base — what it covers, how it is organized, and how to navigate it.
+
+# Welcome to the Knowledge Base
+
+This knowledge base documents the [duyet/monorepo](https://github.com/duyet/monorepo) — a Bun + Turborepo monorepo hosting all personal web apps and shared packages.
+
+## What is here
+
+Articles are organized by category. Each article includes:
+
+- A **summary** shown in listings
+- **Links** to related articles (forming a knowledge graph)
+- A raw `.md` file served at `/k/<slug>.md` for LLM consumption
+
+## Navigation
+
+- Browse by category at `/c/<category>`
+- Read any article at `/k/<slug>`
+- Explore the full graph at `/graph`
+- Machine-readable index at `/llms.txt`
+- Full content dump at `/llms-full.txt`
+
+---
+
+# KB Content Conventions
+URL: https://kb.duyet.net/k/kb-content-conventions
+Category: meta
+Updated: 2026-05-26
+Summary: Frontmatter schema, category slugs, tag rules, and article length guidelines for apps/kb/content articles.
+
+# KB Content Conventions
+
+These rules govern how articles in `apps/kb/content/` are written and structured.
+
+## Frontmatter schema
+
+```yaml
+---
+title: "string"
+category: "category-slug"
+tags: ["tag1", "tag2"]
+links: ["other-article-slug", ...]
+summary: "one-sentence summary for index + llms.txt"
+updated: "YYYY-MM-DD"
+---
+```
+
+All fields are required.
+
+## Categories (exact slugs)
+
+| Slug | Covers |
+|------|--------|
+| `infrastructure` | Cloudflare, deploy, WASM build, CI |
+| `design-system` | design tokens, dark mode, shadcn migration |
+| `apps` | per-app overviews |
+| `agents` | duyetbot scope, agent refactor, autonomous workflows |
+| `data-pipeline` | data sync, ClickHouse, CCUsage |
+| `workflows` | commit/push/deploy, commitlint, test cache |
+| `decisions` | architectural decisions |
+| `meta` | about the KB, how to contribute |
+
+## Tags
+
+- Lowercase single words or hyphenated: `dark-mode`, `wasm`, `cloudflare`
+- 2–5 tags per article
+- Match to the concrete tools, patterns, or app names involved
+
+## `links`
+
+- List slugs of related articles (filename without `.md`)
+- Each article should link to 2–5 others
+- Bidirectional links are not required on both ends — the pipeline computes incoming links from outgoing
+
+## `summary`
+
+- Single sentence, ≤140 characters
+- Goes into `/llms.txt` — make it scannable and specific
+- Bad: "An article about the blog."
+- Good: "apps/blog uses WASM markdown rendering and isomorphic readPublicJson for 393 SSG pages."
+
+## Article length
+
+50–200 lines. Lead with `# Title`, then a 2–3 sentence intro, then sections. Cite concrete file paths and commit SHAs when useful.
+
+## Slugs
+
+Lowercase kebab-case. Filename = slug. Example: `infrastructure/cloudflare-rocket-loader.md`.
+
+## Tone
+
+Terse and technical. No marketing language. No "comprehensive", "elaborate", "extensive". Write like internal documentation.
+
+---
+
+# About This Knowledge Base
+URL: https://kb.duyet.net/k/about-this-kb
+Category: meta
+Updated: 2026-05-26
+Summary: apps/kb stores durable monorepo knowledge as markdown articles with frontmatter; generated from agent memory, maintained by duyetbot.
+
+# About This Knowledge Base
+
+`apps/kb` is the knowledge base for the duyet.net monorepo. It stores durable architectural knowledge, design decisions, and workflow patterns as static markdown articles.
+
+## Purpose
+
+Unlike `docs/ai/core-memory.md` (raw agent memory dumps) or `memory/*.md` (session notes), the KB articles are:
+
+- **Synthesized:** each article covers one topic end-to-end, merging multiple memory sources where relevant
+- **Structured:** consistent frontmatter with categories, tags, links, and a one-sentence summary
+- **Graph-connected:** `links` in frontmatter form a graph; the build pipeline computes incoming links from outgoing
+
+## Structure
+
+```
+apps/kb/content/
+  infrastructure/    # Cloudflare, deploy, WASM, CI
+  design-system/     # tokens, dark mode, shadcn, icons
+  apps/              # per-app overviews
+  agents/            # duyetbot scope, autonomous workflows
+  data-pipeline/     # data sync, ClickHouse, CCUsage
+  workflows/         # commit/push/deploy, dead code, tests
+  decisions/         # architectural decisions
+  meta/              # about the KB itself
+```
+
+## llms.txt
+
+Each article's `summary` field (≤140 chars) feeds the `/llms.txt` endpoint — a machine-readable index of the KB for LLM context injection. The summary must be a single sentence.
+
+## Seeding history
+
+The initial KB content was seeded on 2026-05-26 by synthesizing all `.md` files in the agent memory directory (`~/.claude/projects/-Users-duet-project-monorepo/memory/`). Memory files are point-in-time snapshots; KB articles are the distilled, durable form.
+
+## Who maintains it
+
+duyetbot adds and updates articles as part of its normal workflow. When a significant architectural decision is made or a new pattern is established, it should be captured here — not just in a commit message or memory file. Blog post content and LLM Timeline curated data remain out of scope.
+
+---
+
+# Autonomous Workflow Patterns
+URL: https://kb.duyet.net/k/autonomous-workflow
+Category: agents
+Updated: 2026-05-26
+Summary: Patterns for running duyetbot autonomously — /loop for recurring tasks, background deploys, memory checkpoints before context compaction.
+
+# Autonomous Workflow Patterns
+
+duyetbot can run autonomously within a session (via `/loop`) or as a one-shot task (via `claude -p`). These patterns reduce human-in-the-loop friction for routine maintenance.
+
+## Context compaction
+
+Auto-compaction is explicitly welcomed when the conversation grows long. The user confirmed on 2026-05-25: "remember -> can compact to save tokens when needed."
+
+Before compaction happens, save anything future turns will need into a memory file or commit body. Never repeat goal text verbatim in responses — the goal hook re-surfaces it on every stop. Commit messages are the most durable form of session memory.
+
+## Background deploys
+
+Always run `cf:deploy:prod` in the background after pushing. Continue with the next task immediately. The harness notifies when the deploy completes; verify production after the notification.
+
+Do NOT run two background deploys in parallel — `cf-deploy-prod.sh` renames `.env.local` → `.env.local.deploy-bak` during execution. Parallel invocations collide on that rename and lose `CLOUDFLARE_API_TOKEN` propagation.
+
+## Recurring task pattern (`/loop`)
+
+```
+/loop 1h "run PLAN.md maintenance: benchmark → assess → act → verify → ship"
+```
+
+Each iteration:
+1. Measure current state
+2. Fix the highest-priority issue
+3. Verify (lint + test + build pass)
+4. Commit and push
+5. Deploy in background
+6. Log to `memory/maintenance-log.md`
+
+## Autonomous decision priority
+
+When running unattended, address issues in this order:
+
+1. Build fails → fix immediately
+2. Tests fail → fix immediately
+3. Lint errors → auto-fix
+4. Deploy needed → verify then ship
+5. Code quality → improve if no higher-priority issues open
+6. New features → only from `memory/roadmap.md`
+
+## Improvement rotation
+
+Nine improvement cycles completed as of March 2026 (~155 total fixes). A cycle typically runs as a scoped `/loop` targeting one category (security, dead code, design, tests). Cycle 9 added 104 new tests and unified the design system across llm-timeline, cv, and homelab.
+
+---
+
+# Agent Memory System
+URL: https://kb.duyet.net/k/agent-memory-system
+Category: agents
+Updated: 2026-05-26
+Summary: Agent memory lives in ~/.claude/projects/.../memory/ as point-in-time .md snapshots; the KB is the synthesized durable form.
+
+# Agent Memory System
+
+The Claude Code agent maintains cross-session memory via markdown files in `~/.claude/projects/-Users-duet-project-monorepo/memory/`. These files are point-in-time snapshots — not live state.
+
+## Memory file types
+
+| File | Purpose |
+|------|---------|
+| `MEMORY.md` | Master index of active context |
+| `tanstack-start-migration.md` | SSG migration pattern reference |
+| `blog-wasm-prerender.md` | WASM CI dependency warning |
+| `wasm-benchmark-results.md` | WASM vs TS benchmark numbers |
+| `plan_blog_design_refresh.md` | Blog design decisions |
+| `llm-timeline-shadcn-refactor.md` | LLM Timeline PR #1003 details |
+| `project_duyetbot_scope.md` | Editorial boundary definition |
+| `roadmap-cycle-10.md` | Cycle 10 work tracking |
+| `improvement-history.md` | Cycles 1–9 summary |
+| `feedback_*.md` | User-stated behavioral rules |
+
+## Memory vs KB
+
+**Memory files** are raw, timestamped observations. They may be stale — "memories are point-in-time observations, not live state — claims about code behavior or file:line citations may be outdated."
+
+**KB articles** (this directory) are synthesized, curated, and maintained as the durable source of truth. When memory and KB conflict, verify against the current codebase.
+
+## Feedback files
+
+`feedback_*.md` files capture specific behavioral rules stated by the user during sessions:
+
+- `feedback_design_no_box_shadow.md` — flat hairline borders only
+- `feedback_deploy_in_background.md` — never block on cf:deploy
+- `feedback_icons_lucide.md` — standardize on lucide-react
+- `feedback_compact_when_needed.md` — auto-compact when context grows
+
+These rules are incorporated into KB articles in the `design-system` and `workflows` categories.
+
+## Context compaction
+
+The user explicitly welcomes auto-compaction during long sessions. Before compaction, save anything future turns will need into memory files or commit bodies. The goal hook re-surfaces task context on every stop — don't repeat it verbatim.
+
+## Durable storage hierarchy
+
+1. Commit messages — most durable, tied to code changes
+2. KB articles (`apps/kb/content/`) — synthesized knowledge
+3. `docs/ai/core-memory.md` — raw durable findings
+4. Memory files — session context, may be stale
+5. Conversation transcript — compacted, not durable
+
+---
+
+# Data Sync Overview
+URL: https://kb.duyet.net/k/data-sync-overview
+Category: data-pipeline
+Updated: 2026-05-26
+Summary: data-sync ingests external data; CCUsage feeds insights, LLM models sync via bun run sync, blog posts are local markdown files.
+
+# Data Sync Overview
+
+The monorepo has a `packages/data-sync` package (13 tests) responsible for pulling external data into the build pipeline. Different apps have different data sources.
+
+## LLM Timeline data sync
+
+```bash
+bun run sync
+```
+
+Pulls from two sources:
+- **Curated:** 785 models from a Google Sheets source (maintained by Duyet)
+- **Epoch AI:** 3156 models from the Epoch AI dataset
+
+The last sync ran 2026-03-25, producing 3937 unique models after deduplication (4 duplicates removed). Year range expanded to 1950–2026.
+
+Data lands in `apps/llm-timeline/lib/data.ts`. That file is out of scope for duyetbot — it contains research facts.
+
+## CCUsage (insights)
+
+The insights app shows Claude API usage statistics sourced from CCUsage. Data is synced to a static JSON or API that the insights app reads at build time.
+
+In Cycle 4, `ccusage-utils` was a 674-line file with extensive duplication. It was deduplicated as part of the improvement sweep.
+
+## Blog posts
+
+Blog posts are not synced — they live as local `.md` files in `apps/blog/_posts/`. The `packages/libs` post-loading utilities (`readPublicJson()`, `getPostBySlug()`) process them at build time.
+
+## Wakatime
+
+Wakatime coding activity data is referenced in the monorepo but specific sync details are not captured in current memory. It likely feeds `apps/insights` or `apps/ai-percentage`.
+
+## Test coverage
+
+`packages/data-sync` has 13 tests. The `packages/api` package (8 tests) handles external API calls used by some data sync flows.
+
+---
+
+# Cloudflare Rocket Loader
+URL: https://kb.duyet.net/k/cloudflare-rocket-loader
+Category: infrastructure
+Updated: 2026-05-26
+Summary: Rocket Loader rewrites type=module scripts, breaking Vite SPA initialization — the only fix is SSG or disabling it in the CF dashboard.
+
+# Cloudflare Rocket Loader
+
+Rocket Loader is a Cloudflare optimization that defers JavaScript loading by rewriting `type="module"` script tags. That deferral breaks Vite SPA initialization: the app bundle never bootstraps, and users see a blank page.
+
+## What it does
+
+Cloudflare intercepts the HTML response and rewrites `<script type="module" src="...">` to a deferred non-module script. The Vite SPA entry point never executes, leaving the `<div id="root">` empty.
+
+## The two fixes
+
+**Option 1 — SSG (preferred):** pre-render HTML at build time so the page has real content before any JS executes. Rocket Loader can't break what's already in the HTML. This is the path the monorepo took in March 2026 — every app except `agents` was migrated to TanStack Start with `prerender: { enabled: true }`.
+
+**Option 2 — Disable Rocket Loader:** turn it off in the Cloudflare dashboard per domain. This is still recommended as a belt-and-suspenders measure even after SSG migration, since Rocket Loader may affect other third-party scripts.
+
+## Status in this repo
+
+| App | Fix applied |
+|-----|-------------|
+| blog | SSG (393 pages) |
+| insights | SSG (22 pages) |
+| llm-timeline | SSG (3700+ pages) |
+| home, cv, photos, homelab, ai-percentage | SSG |
+| agents | Still on Vite SPA — Rocket Loader still a risk |
+
+Dashboard disablement across all domains was flagged as a remaining Cycle 10 task but not confirmed done.
+
+## Why agents is special
+
+`apps/agents` uses Cloudflare Pages Functions for D1 database access. The function integration complicates static pre-rendering because route handlers run at the edge, not at build time. Until that's resolved, agents remains a Vite SPA.
+
+---
+
+# Deploy Workflow
+URL: https://kb.duyet.net/k/deploy-workflow
+Category: infrastructure
+Updated: 2026-05-26
+Summary: Apps deploy to Cloudflare Pages via cf-deploy-prod.sh; blog CI builds WASM first; run deploys in background to avoid blocking.
+
+# Deploy Workflow
+
+Every app in the monorepo deploys to Cloudflare Pages. The deploy script is `scripts/cf-deploy-prod.sh`, invoked per-app as `bun run cf:deploy:prod`.
+
+## Manual deploy pattern
+
+After committing and pushing:
+
+```bash
+cd apps/<app> && bun run cf:deploy:prod
+```
+
+Always run deploys with `run_in_background: true` (in agent sessions) so the next task isn't blocked on Cloudflare's ~30–60 s upload time. Do NOT run two background deploys in parallel — `cf-deploy-prod.sh` renames `.env.local` to `.env.local.deploy-bak` during the run; parallel invocations collide on that rename and lose `CLOUDFLARE_API_TOKEN`.
+
+## CI pipeline (`cf-deploy.yml`)
+
+The GitHub Actions workflow deploys on push to `master` using a matrix over all apps. The blog matrix entry has additional steps:
+
+1. `dtolnay/rust-toolchain@stable`
+2. `jetli/wasm-pack-action`
+3. `bun run wasm:build:release`
+4. `bun build` + deploy
+
+All other apps skip the Rust/WASM steps.
+
+## CI validation commands
+
+```bash
+# Check recent master CI runs
+gh run list --branch master --event push --limit 10 \
+  --json databaseId,headSha,status,conclusion,name,updatedAt
+
+# Inspect a failed job
+gh run view <run-id> --job <job-id> --log-failed
+```
+
+## Output directories
+
+All TanStack Start apps build to `dist/client/`. The `wrangler.toml` for each app sets:
+
+```toml
+pages_build_output_dir = "dist/client"
+```
+
+## Verification
+
+After a deploy notification, confirm the production URL returns 200 and the expected content. A blog deploy is healthy if `dist/client/` contains 700+ `index.html` files. If every post URL serves the homepage, WASM was likely missing during the build — see the WASM prerender CI article.
+
+---
+
+# Other Apps Overview
+URL: https://kb.duyet.net/k/other-apps
+Category: apps
+Updated: 2026-05-26
+Summary: home, cv, photos, homelab, and ai-percentage — all TanStack Start SSG on Cloudflare Pages; home uses minimal token layer and warm palette.
+
+# Other Apps Overview
+
+Five smaller apps round out the monorepo alongside blog, insights, llm-timeline, and agents.
+
+## home
+
+`apps/home` — 4 pre-rendered pages. The landing page for duyet.net. Uses the warm palette (`#fbf7f0`) with the minimal token layer (hero, projects grid). The 2026-05-25 redesign applied pill-outline tags, eyebrow-mono labels, and the display-tight heading style.
+
+Still uses `@phosphor-icons/react` in `SiteChrome` and `index.tsx` — migrate to lucide-react when next touching those files.
+
+Test count: 24.
+
+## cv
+
+`apps/cv` — 2 pre-rendered pages. Résumé / curriculum vitae. Refreshed in Cycle 9 alongside the LLM Timeline redesign.
+
+Test count: 3.
+
+## photos
+
+`apps/photos` — 2 pre-rendered pages. Photo gallery. EXIF parsing uses the WASM exif crate (parity speed with TypeScript, no regression).
+
+Test count: 40.
+
+## homelab
+
+`apps/homelab` — 1 pre-rendered page. Infrastructure overview / status page.
+
+Test count: 31 (added in Cycle 9 with the design system unification pass).
+
+## ai-percentage
+
+`apps/ai-percentage` — 1 pre-rendered page. Shows the percentage of commits in this repo attributed to AI tooling.
+
+## kb (this app)
+
+`apps/kb` — the knowledge base you're reading. Content lives in `apps/kb/content/` as markdown files with frontmatter. Currently being seeded with synthesized memory content.
+
+## Palette summary
+
+| App | Background |
+|-----|-----------|
+| blog | white `#ffffff` |
+| llm-timeline | warm cream `#fbf7f0` |
+| home | warm cream `#fbf7f0` |
+| insights | different palette (refresh pending) |
+| photos | different palette |
+| homelab | different palette |
+
+---
+
+# Blog App
+URL: https://kb.duyet.net/k/blog-app
+Category: apps
+Updated: 2026-05-26
+Summary: apps/blog — TanStack Start SSG, 393 static pages, WASM markdown rendering, isomorphic data loading via readPublicJson.
+
+# Blog App
+
+`apps/blog` is a TanStack Start application deployed to Cloudflare Pages. It pre-renders 393 static pages at build time.
+
+## Isomorphic data loading
+
+The blog uses `readPublicJson()` in `apps/blog/lib/posts.ts` for loading post data:
+
+- **During SSR / prerender:** reads directly from the filesystem (`fs.readFile`)
+- **During client navigation:** uses `fetch()` against the deployed URL
+
+This is unique to the blog. Other apps use absolute external API URLs, which work in both SSR and client contexts without special handling.
+
+## Markdown rendering
+
+Markdown is converted to HTML by the Rust-backed WASM crate at `packages/wasm/`. The exported `markdownToHtml` function from `@duyet/libs` delegates to the WASM binary. This gives an 79x speedup (6.3 ms → 0.08 ms) over the pure-TypeScript unified/remark pipeline it replaced.
+
+The WASM binary is gitignored and must be built in CI before the blog build step. Absence of the binary causes silent prerender failures.
+
+## Slug normalization
+
+Post frontmatter slugs historically had a `.html` suffix (Jekyll legacy). These are stripped at data generation time. `getPostBySlug()` includes defensive normalization to handle both formats.
+
+## Test coverage
+
+50 tests as of last count — covers post loading, slug normalization, and rendering utilities.
+
+## Design
+
+White `#ffffff` background (distinct from the warm cream `#fbf7f0` used by other apps). Dark mode uses 20% opacity card tints. See blog design article for full conventions.
+
+## Copy dropdown
+
+Post pages have a copy dropdown offering:
+- Copy (clipboard)
+- View as Markdown
+- Open in ChatGPT
+- Open in Claude
+
+## Series support
+
+`SeriesBox` is rendered on post pages to show series context. It was removed briefly in the March 2026 cleanup but restored on 2026-03-28 after the user confirmed series context is useful.
+
+## Plain-text access
+
+Individual `.md` files are generated alongside each post's HTML for plain-text access (useful for LLM ingestion and `llms.txt` pipelines).
+
+---
+
+# LLM Timeline App
+URL: https://kb.duyet.net/k/llm-timeline-app
+Category: apps
+Updated: 2026-05-26
+Summary: apps/llm-timeline — 3700+ SSG pages, shadcn UI, semantic tokens, warm cream palette, Epoch AI + curated Google Sheets data.
+
+# LLM Timeline App
+
+`apps/llm-timeline` is a TanStack Start app that renders a timeline of LLM models from 1950 to 2026. It pre-renders 3700+ static pages.
+
+## Data sources
+
+- **Curated:** 785 models from Google Sheets (manually maintained by Duyet)
+- **Epoch AI:** 3156 models from the Epoch AI dataset
+- **Deduplication:** 4 duplicates removed, giving 3937 unique models as of the March 2026 sync
+
+The curated data in `apps/llm-timeline/lib/data.ts` is out of scope for duyetbot — it contains research facts, paper authors, and citations that only Duyet should edit.
+
+## Design
+
+The app uses the warm cream palette (`#fbf7f0 / #1f1f1f`) with a full semantic token system. The PR #1003 refactor (2026-03-25) migrated all 15 component files to semantic tokens — zero hardcoded `neutral-*` or `dark:` classes remain.
+
+Stat cards are vertical grids (icon → value → label), matching a dashboard reference. No drop shadows. Badge variants replace color-lookup functions.
+
+## Normalizers
+
+`apps/llm-timeline/lib/normalizers.ts` calls the WASM normalizer crate via `initSync`. This is one of the few places where WASM is used even though it's not faster than TypeScript — the architecture decision was to keep all WASM crates consistent, and future batch APIs may help.
+
+## Virtual scroll
+
+The timeline uses `useWindowVirtualizer` from `@tanstack/react-virtual`. A bug was fixed in PR #1003 where `scrollMargin` was counted twice, creating a ~400 px gap. The fix subtracts `scrollMargin` from `translateY`.
+
+## Filter UX
+
+- **Desktop:** license filter pills rendered inline
+- **Mobile:** `<select>` fallback
+- `SearchAutocomplete` wired into the filter bar (was a plain `<input>` before the refactor)
+
+## Year navigation
+
+Sticky year headers use `backdrop-blur-sm` to remain readable over the scrolling list.
+
+## Test coverage
+
+42 tests as of last count.
+
+---
+
+# Insights App
+URL: https://kb.duyet.net/k/insights-app
+Category: apps
+Updated: 2026-05-26
+Summary: apps/insights — TanStack Start SSG, 22 pages, AI usage analytics, CCUsage data; design refresh deferred from Cycle 10.
+
+# Insights App
+
+`apps/insights` is a TanStack Start SSG app deployed to Cloudflare Pages. It pre-renders 22 pages covering AI usage analytics and other data views.
+
+## Data
+
+The app shows AI usage data sourced from CCUsage (Claude usage stats). Data syncing is handled by the data pipeline; the app itself reads pre-built JSON at build time.
+
+In Cycle 4, a 674-line deduplication was applied to `ccusage-utils` — the original file had extensive duplication that was consolidated.
+
+## Pages analytics
+
+An agents analytics page was removed in PR #1008 (2026-03-29) — it was tracking an endpoint that no longer existed.
+
+AI usage page data fetching was fixed on 2026-03-29 as well.
+
+## Design status
+
+The minimal token layer (2026-05-25) was applied to the insights shell. A full design refresh was a Cycle 10 goal but was deprioritized in favor of the SSG migration and agents refactor work.
+
+The app currently has a different palette from the blog (white) and LLM Timeline (warm cream). Alignment is a future task.
+
+## Pending shadcn work
+
+- WU-13: Migrate insights tables to shadcn primitives
+- WU-15: Implement TanStack Table for insights data grids
+
+## Test coverage
+
+60 tests as of last count.
+
+---
+
+# Agents App
+URL: https://kb.duyet.net/k/agents-app
+Category: apps
+Updated: 2026-05-26
+Summary: apps/agents — Vite SPA blocked from SSG by D1 Pages Functions; refactor underway covering sidebar, artifacts, and streaming.
+
+# Agents App
+
+`apps/agents` is the only app still on a Vite SPA — it has not been migrated to TanStack Start SSG. It uses Cloudflare Pages Functions for D1 database access, which complicates static pre-rendering.
+
+## Why not SSG
+
+Cloudflare Pages Functions run at the edge at request time. They can't run at build time, so routes that depend on D1 queries can't be pre-rendered. Migrating agents to TanStack Start would require either:
+
+- Switching D1 access to a Worker with a REST API (so the frontend can fetch at runtime)
+- Or accepting that D1-dependent routes won't be pre-rendered and handling the SPA fallback explicitly
+
+This decision was deferred in Cycle 10.
+
+## Refactor status (as of March 2026)
+
+A major refactor is in progress:
+
+- **Sidebar:** PR #1007 (new navigation structure)
+- **Artifacts:** CodeMirror editor, ProseMirror rich-text, react-data-grid
+- **State management:** reworked
+- **ai-elements:** integrated
+- **Streaming API:** updated
+- **Design tokens:** being applied
+
+The minimal token layer (added 2026-05-25) was applied to the agents shell as part of the full rebuild.
+
+## Rocket Loader risk
+
+Because agents is still a Vite SPA, Cloudflare Rocket Loader can break it. This is an active risk. The mitigation is to disable Rocket Loader in the CF dashboard for the agents domain.
+
+## Test coverage
+
+142 tests — the highest test count of any app in the monorepo.
+
+## Security history
+
+Cycle 3–5 improvement sweeps addressed:
+- SSRF credential bypass
+- `listAnonymousConversations` privacy leak (removed)
+- Rate limiting gaps
+
+---
+
+# duyetbot Scope and Boundaries
+URL: https://kb.duyet.net/k/duyetbot-scope
+Category: agents
+Updated: 2026-05-25
+Summary: duyetbot controls codebase, style, and deployment — not blog post content or LLM Timeline curated data; those belong to Duyet Le.
+
+# duyetbot Scope and Boundaries
+
+duyetbot (the autonomous agent persona operating this monorepo) is authorized to modify the **codebase, look-and-feel, and deployment** of duyet.net. It does not touch editorial content.
+
+This boundary was stated explicitly by the user on 2026-05-25: "duyetbot is not control blog content - it is on Duyet Le" and "duyetbot only control the codebase, looks and style and deployment."
+
+## In scope (can change without asking)
+
+- Layout, typography, navigation, design tokens
+- React components, route structure, app shells
+- Tailwind / CSS / shared styles in `packages/components`
+- Dependency upgrades, build config, deploy pipeline
+- Landing-page copy on home / about / projects / duyetbot / agents pages
+- Meta tags, SEO titles, page descriptions on non-blog pages
+
+## Out of scope (requires explicit human direction)
+
+- `apps/blog/_posts/**` — all `.md` / `.mdx` blog post content
+- Post titles, excerpts, bodies, frontmatter authored by Duyet
+- LLM Timeline curated data in `apps/llm-timeline/lib/data.ts` — research facts, paper authors, citations
+
+## How to apply
+
+If a task seems to require rewriting blog post content, surface the boundary back to the user and stop. The bot can change how a post is **rendered** (typography, code blocks, math, layout) — never the words themselves.
+
+The same applies to LLM Timeline curated entries: updating the rendering, filtering, or UI is fine; editing model facts or paper citations is not.
+
+## Why this matters
+
+The blog is Duyet's published writing. Autonomous rewrites would put words in his mouth. The LLM Timeline data is research with external citations — errors here would be factually wrong, not just stylistically different.
+
+---
+
+# Decision: Flat Design Adoption
+URL: https://kb.duyet.net/k/flat-design-adoption
+Category: decisions
+Updated: 2026-05-25
+Summary: Hairline borders replace shadows across all surfaces; no chunky rounded boxes; xAI interface language is the reference.
+
+# Decision: Flat Design Adoption
+
+**Date:** 2026-05-25  
+**Status:** Applied to home, agents, blog, insights; propagating to remaining surfaces
+
+## Problem
+
+The monorepo had inconsistent elevation treatment — some components used `shadow-md`, `shadow-xs`, `rounded-2xl`, and hover shadow lifts. The visual result was heavy and inconsistent across surfaces.
+
+## Decision
+
+Remove all drop shadows, glow effects, and chunky rounded boxes. Use hairline 1px borders as the sole elevation cue. Hover states change background tint, not shadow.
+
+The reference design is xAI's interface language: flat planes, 1px dividers, no visual weight beyond the content itself.
+
+## What changed
+
+- All `shadow-*` Tailwind utilities removed from card and list components
+- `rounded-2xl` replaced with `rounded-md` or `rounded-none`
+- Hover state: `var(--faint)` background tint instead of `box-shadow` lift
+- Card borders: `border border-[var(--hairline)]` (1px)
+- Grid patterns: `gap-px bg-[var(--hairline)]` container, `bg-[var(--background)]` cells
+
+## The LLM Timeline as reference
+
+PR #1003 (March 2026) already applied these rules to llm-timeline: all `shadow-*` classes removed, stat cards redesigned as vertical grids, semantic token colors throughout. That app is the reference implementation for flat cards.
+
+## Concurrent decisions
+
+This decision was made alongside:
+- Standardizing on `lucide-react` over `@phosphor-icons/react`
+- Adopting the minimal token layer (`--minimal-*` tokens + utility classes)
+- Enabling background deploys per turn
+
+All four were confirmed on 2026-05-25.
+
+---
+
+# Flat Design Rules
+URL: https://kb.duyet.net/k/flat-design-rules
+Category: design-system
+Updated: 2026-05-25
+Summary: Use hairline borders as the only elevation cue — no drop shadows, no chunky rounded boxes, no glow effects.
+
+# Flat Design Rules
+
+The visual language across duyet.net uses hairline borders as the sole elevation cue. No shadows, no glows, no `rounded-2xl` blobs.
+
+This was established during the 2026-05-25 redesign session. The reference design is xAI's interface style: 1px dividers, flat planes, subtle background tints on hover.
+
+## What to use
+
+```css
+/* borders */
+border: 1px solid var(--hairline);
+/* or */
+border: 1px solid var(--em-hairline);
+
+/* backgrounds */
+background: var(--background);
+/* or */
+background: var(--em-background);
+
+/* hover state */
+background: var(--faint);   /* NOT shadow lift */
+```
+
+## What to avoid
+
+- `shadow-xs`, `shadow-md`, `shadow-lg`, `drop-shadow-*`
+- `rounded-2xl` (use `rounded-none` or `rounded-md` at most)
+- animated backdrop blurs or glow halos
+
+## Divider grid pattern
+
+```html
+<div class="gap-px bg-[var(--hairline)] border border-[var(--hairline)]">
+  <div class="bg-[var(--background)]">cell</div>
+  <div class="bg-[var(--background)]">cell</div>
+</div>
+```
+
+This produces a hairline grid where the gaps between cells show the container's border color — a common pattern in the home page project grid and blog card lists.
+
+## LLM Timeline exception
+
+The LLM Timeline shadcn refactor (PR #1003) removed all `shadow-*` classes from that app's components. The stat cards are vertical grids (icon → value → label) with no shadow. Cards use `border-border` (semantic token) not a hardcoded color. This is the reference implementation.
+
+## Rationale
+
+Shadows imply depth and physicality. The preferred aesthetic is flat editorial — documents and data, not material surfaces. Consistent use of hairline borders makes the hierarchy legible without visual noise.
+
+---
+
+# Minimal Token Layer
+URL: https://kb.duyet.net/k/minimal-token-layer
+Category: design-system
+Updated: 2026-05-25
+Summary: Third additive CSS layer in packages/components/styles.css adds --minimal-* tokens and utility classes used across four surfaces.
+
+# Minimal Token Layer
+
+A third additive layer was added to `packages/components/styles.css` on 2026-05-25. It extends the base token system with a minimal editorial palette and three utility classes.
+
+## Tokens
+
+The `--minimal-*` namespace provides semantic editorial tokens:
+
+- `--minimal-*` color and spacing tokens (see `packages/components/styles.css`)
+
+These sit on top of the existing warm-token layer (`#fbf7f0 / #1f1f1f`) without replacing it.
+
+## Utility classes
+
+Three utility classes were added:
+
+| Class | Use |
+|-------|-----|
+| `.pill-outline` | Small outlined pill badge, typically used for tags |
+| `.eyebrow-mono` | Monospace uppercase eyebrow text above headings |
+| `.display-tight` | Display-size heading with tighter letter-spacing |
+
+## Applied across four surfaces
+
+One CSS file, four deployment surfaces:
+
+| App | Usage |
+|-----|-------|
+| `apps/home` | Hero section, projects grid |
+| `apps/agents` | Full shell rebuild |
+| `apps/blog` | Index page, post lede section |
+| `apps/insights` | App shell |
+
+## Design philosophy
+
+The layer is additive — it doesn't modify existing tokens or break existing surfaces. Apps that haven't adopted it yet continue to work unchanged. When touching a component in a new surface, apply the minimal tokens alongside any other edits.
+
+## Relationship to other layers
+
+1. **Base layer** — Tailwind v4 CSS variables, `@theme` block
+2. **Warm layer** — `#fbf7f0 / #1f1f1f` palette tokens for most apps
+3. **Minimal layer** — editorial tokens + pill/eyebrow/display utilities (added 2026-05-25)
+
+The blog uses white `#ffffff` instead of warm cream, so it effectively bypasses layer 2 for background colors while still using the shared component tokens.
+
+---
+
+# Icon Standardization (lucide-react)
+URL: https://kb.duyet.net/k/icon-standardization
+Category: design-system
+Updated: 2026-05-25
+Summary: Use lucide-react for all icons; migrate @phosphor-icons/react imports when touching files that use them.
+
+# Icon Standardization (lucide-react)
+
+All icon usage should use `lucide-react`. When editing a file that imports from `@phosphor-icons/react`, migrate it in the same change.
+
+This was decided on 2026-05-25 during the xAI-style redesign session. shadcn also defaults to lucide, so a single icon library across the full stack.
+
+## Import pattern
+
+```ts
+import { Mail, Github, ExternalLink } from "lucide-react"
+```
+
+Not:
+
+```ts
+import { EnvelopeSimple, GithubLogo, ArrowSquareOut } from "@phosphor-icons/react"
+```
+
+## Migration mapping
+
+| Phosphor | Lucide |
+|----------|--------|
+| `EnvelopeSimple` | `Mail` |
+| `GithubLogo` | `Github` |
+| `TwitterLogo` | `Twitter` |
+| `LinkedinLogo` | `Linkedin` |
+| `ArrowSquareOut` | `ExternalLink` |
+| `MapPin` | `MapPin` |
+| `User` | `User` |
+| `Sun` | `Sun` |
+| `Moon` | `Moon` |
+| `DotsNine` | `Grid3x3` or `LayoutGrid` |
+| `SquaresFour` | `LayoutGrid` |
+| `List` | `Menu` |
+| `Sparkle` | `Sparkles` |
+
+## Prop differences
+
+Lucide icons don't accept `weight="bold"`. Drop the prop — the default stroke weight is fine. If a heavier stroke is needed, use `strokeWidth={2.25}`.
+
+The `size` prop works the same way: `<Mail size={20} />`.
+
+## Status
+
+- `apps/agents` and `apps/blog/-meta`: already on lucide
+- `apps/home/SiteChrome` and `apps/home/index.tsx`: still on phosphor (migrate when touching)
+
+---
+
+# Blog WASM Prerender CI Dependency
+URL: https://kb.duyet.net/k/blog-wasm-prerender-ci
+Category: infrastructure
+Updated: 2026-05-15
+Summary: WASM must be built before the blog step in CI — missing binary causes silent prerender failures; CF Pages serves homepage at every post URL.
+
+# Blog WASM Prerender CI Dependency
+
+The blog's markdown rendering pipeline uses a Rust-backed WASM crate (`packages/wasm/`). WASM artifacts are gitignored, so CI must build them before running `bun build` for the blog — or the prerender step silently skips most post routes.
+
+## The failure mode
+
+TanStack Start's prerender runs with `failOnError: false`. When `markdownToHtml` throws (because the WASM binary isn't present), the prerender swallows the error and skips that route. No `index.html` gets written for the post. Cloudflare Pages then serves the SPA fallback — the homepage HTML — at every missing path.
+
+The symptom looks like a routing bug (every post URL shows the homepage), not a build error. The deploy log reports green.
+
+In the incident that surfaced this (before the fix), only 106 out of 720 pages were successfully prerendered.
+
+## Why this happens
+
+`packages/wasm/pkg/` is excluded by the root `.gitignore` at line 57 (`**/pkg/`). The Rust/WASM migration in May 2026 introduced the dependency but the CI workflow (`/.github/workflows/cf-deploy.yml`) had no Rust toolchain step.
+
+## The fix in CI
+
+The deploy job for `matrix.app == 'blog'` now runs three extra steps before `bun build`:
+
+1. `dtolnay/rust-toolchain@stable` — install Rust
+2. `jetli/wasm-pack-action` — install wasm-pack
+3. `bun run wasm:build:release` — compile all cdylib crates to `pkg/`
+
+If a future app starts importing `@duyet/libs/markdownToHtml` at build time, extend the `matrix.app == 'blog'` guard to include it.
+
+## Crate filtering
+
+`scripts/wasm-build.ts` already inspects each crate's `Cargo.toml` and skips crates that are not `crate-type = ["cdylib"]`. Binary-only crates in `crates/` are automatically excluded — keep that filter in place.
+
+## Diagnosing prerender failures
+
+If a future deploy produces homepage-on-404 symptoms:
+1. Check the build log for "Failed to convert" or `markdownToHtml` errors
+2. Count `index.html` files in `dist/client/` — a healthy blog build produces 700+ files
+3. Verify that `packages/wasm/pkg/*.wasm` exists before the blog build step runs
+
+---
+
+# Decision: WASM Strategy
+URL: https://kb.duyet.net/k/wasm-strategy
+Category: decisions
+Updated: 2026-05-01
+Summary: Only operations >1ms benefit from WASM; markdown-to-html (79x) justifies it; slower modules kept for future batch APIs.
+
+# Decision: WASM Strategy
+
+**Date:** 2026-05-01  
+**Status:** Phase 1–2 complete; remaining work units pending
+
+## What was decided
+
+Seven Rust crates were compiled to WASM and replace TypeScript implementations in `@duyet/libs`. All seven are kept even where WASM is slower than TypeScript.
+
+## Benchmark-driven migration rule
+
+Don't migrate a TypeScript function to WASM unless its TypeScript mean exceeds ~1 ms.
+
+For sub-100 µs operations, JS↔WASM string marshaling costs 30–40 µs per call — exceeding the computation time itself. The WASM boundary is only beneficial when compute dominates marshaling.
+
+Only `markdown-to-html` cleared this bar: 6.3 ms → 0.08 ms (79x speedup). All other modules are at parity or slower.
+
+## Why keep slower WASM modules
+
+- Consistency: all modules are already Rust — removing some would split the maintenance surface
+- Future batch APIs: processing N items in a single WASM call amortizes the marshal cost; slower single-call modules may become winners under batch workloads
+- Cloudflare Workers: WASM boundary cost in a Worker runtime may differ from Bun; benchmarking there is pending
+
+## Gitignore consequence
+
+`**/pkg/` is gitignored at the root. WASM artifacts must be built from source in CI. The blog's CI job now has the Rust toolchain and `wasm-pack` steps gated on `matrix.app == 'blog'`. If other apps start using `markdownToHtml` at build time, extend the gate.
+
+## Architecture
+
+```
+crates/<name>/         # Rust source, crate-type = ["cdylib"]
+packages/wasm/pkg/     # compiled WASM + JS bindings (gitignored)
+packages/libs/         # re-exports WASM bindings as @duyet/libs
+apps/*/                # import from @duyet/libs, not WASM directly
+```
+
+`scripts/wasm-build.ts` inspects each crate's `Cargo.toml` and skips non-cdylib targets.
+
+## Remaining concerns
+
+- `unified`/`remark`/`rehype`, `exifreader`, and `diff-match-patch` are superseded but not yet removed (WU-19)
+- TanStack Query was added as a dependency (WU-14) but SWR hasn't been removed from agents and ai-percentage yet
+
+---
+
+# Rust/WASM Migration
+URL: https://kb.duyet.net/k/rust-wasm-migration
+Category: infrastructure
+Updated: 2026-05-01
+Summary: 7 Rust crates compiled to WASM; markdown 79x faster, others parity or slower due to JS↔WASM marshaling cost.
+
+# Rust/WASM Migration
+
+Phase 1 and 2 of the Rust/WASM migration completed 2026-05-01. Seven Rust crates were built as `cdylib` targets and compiled to WASM, replacing TypeScript implementations in `@duyet/libs`.
+
+## Benchmark results
+
+| Module | TS mean | WASM mean | Speedup | Verdict |
+|--------|---------|-----------|---------|---------|
+| markdown-to-html | 6.3 ms | 0.08 ms | **79x** | Use WASM |
+| diff-text | 0.11 ms | 0.11 ms | ~1x | Parity |
+| string-utils | 0.14 ms | 0.14 ms | ~1x | Parity |
+| exif-parse | 0.001 ms | 0.001 ms | ~1x | Parity |
+| csv-parse | 0.08 ms | 0.16 ms | 0.5x | WASM slower |
+| normalizers | 0.01 ms | 0.04 ms | 0.23x | WASM slower |
+| dedup | 0.01 ms | 0.04 ms | 0.29x | WASM slower |
+
+## Why some modules are slower
+
+For sub-100 µs operations, JS↔WASM string marshaling (30–40 µs per call) exceeds the actual computation time. The boundary cost dominates. Only `markdown-to-html` — which takes ~6 ms in pure TypeScript — has enough computation to justify the marshal cost.
+
+**Rule of thumb:** don't migrate a TypeScript function to WASM unless its TS mean exceeds ~1 ms.
+
+## Completed work units
+
+- WU-01: Rust/WASM toolchain foundation
+- WU-02–08: All 7 modules (markdown, csv, normalizers, exif, diff, utils, dedup)
+- WU-09: Benchmark harness with real WASM imports (not mocked)
+
+## Remaining work units
+
+- WU-10: CI benchmark workflow (not yet wired)
+- WU-19: Remove superseded TS dependencies (unified/remark/rehype, exifreader, diff-match-patch)
+
+## Important notes
+
+- All `pkg/` directories are gitignored — WASM must be built from source in CI
+- `scripts/wasm-build.ts` filters crates by `crate-type = ["cdylib"]` — keep this filter
+- Normalizers in `apps/llm-timeline/lib/normalizers.ts` already call WASM via `initSync`
+- Cloudflare Workers WASM boundary cost may differ from Bun runtime — benchmark separately if Workers usage is added
+- Keep slower WASM crates: batch APIs may benefit future use cases
+
+## Integration
+
+WASM artifacts land in `packages/wasm/pkg/`. The `@duyet/libs` package re-exports the bindings. Apps import via `@duyet/libs/markdownToHtml` (and similar) — they don't import WASM directly.
+
+---
+
+# Blog Design & Dark Mode
+URL: https://kb.duyet.net/k/blog-design-dark-mode
+Category: design-system
+Updated: 2026-03-31
+Summary: Blog uses white #ffffff background; dark mode uses 20% opacity tints for cards and inverted shade pairs for badges.
+
+# Blog Design & Dark Mode
+
+The blog's visual design was refreshed in March 2026. Key decisions:
+
+- **Background:** white `#ffffff` (changed from warm cream `#fbf7f0` on 2026-03-23)
+- **Post pages:** no card wrapper, no Related Posts section (removed)
+- **SeriesBox:** restored on post pages 2026-03-28 — series context is valuable
+- **Metadata bar:** no border, clean layout
+- **Copy dropdown:** Copy, View as Markdown, Open in ChatGPT, Open in Claude
+
+## Dark mode conventions
+
+### Card backgrounds
+
+Use `dark:bg-{color}/20` — 20% opacity tint — for colored cards in dark mode. This prevents full-saturation color blocks on dark backgrounds.
+
+### Badges
+
+Invert the shade pair:
+
+```
+light:  bg-{color}-100 text-{color}-800
+dark:   dark:bg-{color}-900 dark:text-{color}-200
+```
+
+### Labels on colored cards
+
+```
+bg-white/70 dark:bg-white/10
+```
+
+### Body and heading text
+
+```
+body:     text-neutral-700 dark:text-neutral-300
+headings: text-neutral-900 dark:text-neutral-100
+```
+
+## Dark mode fix history
+
+| Date | Change |
+|------|--------|
+| 2026-03-29 | PR #1012 (xuancanh) — fixed dimmed text across 13 files |
+| 2026-03-31 | Fixed `AiFeaturedCard` colorClasses, `PostBadges`, `ContentCard` category label |
+
+## Infrastructure
+
+- Service worker replaced with a self-unregistering stub (old SW was caching stale builds)
+- Cache headers: `HTML → must-revalidate`, `assets → immutable`
+- Individual `.md` files generated alongside each post for plain-text access
+- `.html` slug suffix stripped from all 297 posts (Jekyll legacy — see blog slug fix)
+
+---
+
+# LLM Timeline Data Sources
+URL: https://kb.duyet.net/k/llm-timeline-data
+Category: data-pipeline
+Updated: 2026-03-25
+Summary: LLM Timeline sources 785 curated models from Google Sheets and 3156 from Epoch AI; total 3937 unique models covering 1950–2026.
+
+# LLM Timeline Data Sources
+
+`apps/llm-timeline` aggregates LLM model data from two sources into a single dataset covering 1950–2026.
+
+## Sources
+
+### Curated (Google Sheets)
+
+785 models manually curated and maintained by Duyet Le. These entries have higher fidelity — paper authors, release dates, and organizational attribution are verified against primary sources.
+
+This data lives in `apps/llm-timeline/lib/data.ts`. It is **out of scope for duyetbot** — research facts and citations belong to the human author.
+
+### Epoch AI
+
+3156 models from the Epoch AI dataset, covering a broader historical range. The Epoch AI data extended the timeline back to 1950 (was 2017–2026 before).
+
+## Sync
+
+```bash
+bun run sync
+```
+
+The last sync: 2026-03-25. Result: 3937 unique models (4 duplicates removed from the union of both sources).
+
+## Deduplication
+
+The `packages/libs` dedup crate handles cross-source deduplication. The WASM benchmark showed dedup runs at 0.01 ms in TypeScript and 0.04 ms in WASM — WASM is slower due to JSON marshaling overhead. The WASM version is kept for consistency.
+
+## Build-time usage
+
+During `bun build`, the LLM Timeline app reads the data from `lib/data.ts` (compiled-in) rather than fetching at runtime. There's no runtime API call for model data — it's baked into the pre-rendered pages.
+
+## Badge classification
+
+Models are classified into badge variants by license, type, and source — done in the normalizer layer (`apps/llm-timeline/lib/normalizers.ts`), which calls the WASM normalizer crate via `initSync`.
+
+---
+
+# shadcn UI Migration
+URL: https://kb.duyet.net/k/shadcn-migration
+Category: design-system
+Updated: 2026-03-25
+Summary: shadcn primitives (badge, button, input, card) added to llm-timeline in PR #1003; semantic CSS tokens replace all hardcoded color classes.
+
+# shadcn UI Migration
+
+The LLM Timeline app was the first to receive a full shadcn refactor (PR #1003, merged 2026-03-25). The pattern established there is the reference for future shadcn work.
+
+## Components created
+
+| Component | Variants |
+|-----------|----------|
+| `badge.tsx` | open / closed / partial / milestone / curated / epoch / outline |
+| `button.tsx` | default / secondary / ghost / outline / icon |
+| `input.tsx` | consistent input with semantic tokens |
+| `card.tsx` | Card / CardHeader / CardTitle / CardContent |
+
+All variants use `class-variance-authority` (CVA). Button uses `@radix-ui/react-slot` for the `asChild` pattern.
+
+## Semantic token migration
+
+Every component file and `__root.tsx` was migrated to semantic CSS tokens:
+
+```css
+/* before */
+text-neutral-800 dark:text-neutral-200
+
+/* after */
+text-foreground
+```
+
+After the migration, zero hardcoded `neutral-*` or `dark:` color classes remain in LLM Timeline. All coloring flows through `bg-card`, `text-foreground`, `border-border`, etc.
+
+## Dead code removed
+
+| Removed | Replaced by |
+|---------|-------------|
+| `getLicenseColor()` | Badge variant |
+| `getTypeColor()` | Badge variant |
+| `getSourceColor()` | Badge variant |
+| `getLicenseAccent()` | Removed (was for left-border accent, which flat design drops) |
+| Custom `line-clamp` CSS | Built into Tailwind v4 |
+
+## Dependencies added
+
+```json
+"class-variance-authority": "*",
+"@radix-ui/react-slot": "*"
+```
+
+## Pending shadcn work
+
+- WU-12: Consolidate agents shadcn components
+- WU-13: Migrate insights tables to shadcn
+- WU-15: TanStack Table for insights
+- WU-16: TanStack Table for agents sheet editor
+
+## Virtual scroll fix (bundled with this PR)
+
+`useWindowVirtualizer`'s `scrollMargin` was included in `virtualRow.start` but not subtracted in the `translateY` transform, creating a ~400 px gap between the filter bar and the first year header.
+
+Fix applied to `virtual-timeline.tsx` and `virtual-org-timeline.tsx`:
+
+```ts
+// before
+style={{ transform: `translateY(${virtualRow.start}px)` }}
+
+// after
+style={{ transform: `translateY(${virtualRow.start - rowVirtualizer.options.scrollMargin}px)` }}
+```
+
+---
+
+# Decision: TanStack Start Adoption
+URL: https://kb.duyet.net/k/tanstack-start-adoption
+Category: decisions
+Updated: 2026-03-24
+Summary: Migrated from Vite SPA to TanStack Start SSG to survive Cloudflare Rocket Loader; agents deferred due to Pages Functions complexity.
+
+# Decision: TanStack Start Adoption
+
+**Date:** 2026-03-23 to 2026-03-24  
+**Status:** Complete for 8 apps; deferred for `agents`
+
+## Problem
+
+Cloudflare Rocket Loader rewrites `type="module"` script attributes, preventing Vite SPA initialization. Users saw blank pages. The fix required either disabling Rocket Loader per domain (a dashboard setting with no code path) or pre-rendering HTML at build time so the page had content before JS executed.
+
+## Decision
+
+Migrate all apps to TanStack Start with `prerender: { enabled: true, crawlLinks: true }`.
+
+TanStack Start was chosen over alternatives (Remix, Next.js) because:
+- The monorepo already used TanStack Router for client-side navigation
+- Start is the natural server-side complement — same router, same file conventions
+- Lower migration cost vs. switching frameworks entirely
+- Works on Cloudflare Pages without a Worker runtime requirement for most apps
+
+## Tradeoffs
+
+| Aspect | Before (Vite SPA) | After (TanStack Start SSG) |
+|--------|-------------------|---------------------------|
+| Rocket Loader | Broken | Works (HTML pre-rendered) |
+| Build complexity | Simple | Added entry-client/server files |
+| WASM dependency (blog) | None | Must build WASM before blog |
+| Local file fetches | Fetch works | Needs isomorphic handling |
+| agents app | Works | Deferred — D1 Pages Functions block |
+
+## agents exception
+
+`apps/agents` uses Cloudflare Pages Functions to query a D1 database. Pages Functions run at the edge, not at build time, so routes depending on D1 can't be pre-rendered. Migrating agents would require extracting D1 access into a separate Worker with a REST API — a larger architectural change that was deferred.
+
+## Outcome
+
+All apps except agents are SSG. ~3700+ pages pre-rendered for llm-timeline alone, 393 for blog. Rocket Loader no longer a risk on those surfaces.
+
+---
+
+# TanStack Start SSG Migration
+URL: https://kb.duyet.net/k/tanstack-start-ssg-migration
+Category: infrastructure
+Updated: 2026-03-24
+Summary: All apps migrated from Vite SPA to TanStack Start static pre-rendering in March 2026 to survive Cloudflare Rocket Loader.
+
+# TanStack Start SSG Migration
+
+All production apps except `agents` were migrated from Vite SPA to TanStack Start with static pre-rendering. The work started 2026-03-23 with the blog and insights apps, then completed 2026-03-24 via parallel worktree agents for the remaining six apps.
+
+**Root cause:** Cloudflare Rocket Loader rewrites `type="module"` script attributes, preventing Vite SPA initialization and producing blank pages.
+
+## Migration pattern (~8 files per app)
+
+### 1. `vite.config.ts`
+
+Replace `TanStackRouterVite()` plugin with `tanstackStart()`:
+
+```ts
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+
+tanstackStart({
+  router: {
+    routesDirectory: "./routes",
+    generatedRouteTree: "./routeTree.gen.ts",
+  },
+  prerender: { enabled: true, crawlLinks: true, failOnError: false },
+})
+```
+
+Remove `@vitejs/plugin-react` — TanStack Start handles React transforms internally. Do NOT pass `autoCodeSplitting` (it's not in the Start schema and causes a config error).
+
+### 2. Delete `index.html` + `src/main.tsx`
+
+These are replaced by the Start entry points.
+
+### 3. `src/entry-client.tsx`
+
+```tsx
+import { StartClient } from "@tanstack/react-start/client";
+import { hydrateRoot } from "react-dom/client";
+hydrateRoot(document, <StartClient />);
+```
+
+### 4. `src/entry-server.tsx`
+
+```tsx
+import { createStartHandler, defaultStreamHandler } from "@tanstack/react-start/server";
+export default createStartHandler(defaultStreamHandler);
+```
+
+### 5. `src/router.tsx`
+
+Must export a `getRouter()` function — not a const export. Start calls this factory function.
+
+### 6. `src/routes/__root.tsx`
+
+Render the full HTML document:
+
+```tsx
+<html>
+  <head><HeadContent /></head>
+  <body>
+    <Outlet />
+    <Scripts />
+  </body>
+</html>
+```
+
+Move `<meta>` and `<link>` tags that were in `index.html` into the route's `head()` config. Remove any `Head` component import — it conflicts with the document root structure.
+
+### 7. `package.json`
+
+- Add `@tanstack/react-start` to dependencies
+- Remove `@tanstack/router-plugin` and `@vitejs/plugin-react` from devDependencies
+- Change deploy output path: `dist` → `dist/client`
+
+### 8. `wrangler.toml`
+
+```toml
+pages_build_output_dir = "dist/client"
+```
+
+## Key gotchas
+
+- CSS imports in `__root.tsx` are relative to `src/routes/` because Start's `srcDirectory` defaults to `src`
+- `routesDirectory` and `generatedRouteTree` paths are relative to `srcDirectory`, not the project root
+- Local file fetches (`fetch('/data.json')`) need isomorphic handling — they fail during SSR because there's no server to handle relative URLs. The blog uses `readPublicJson()` which switches between `fs.readFile` (SSR) and `fetch()` (client navigation)
+- External API fetches with absolute URLs work in both SSR and client contexts without changes
+- Google Fonts: use `rel="preload" as="style"` to avoid render blocking during prerender
+
+## Deployed page counts
+
+| App | Pages |
+|-----|-------|
+| blog | 393 |
+| insights | 22 |
+| llm-timeline | 3700+ |
+| home | 4 |
+| cv | 2 |
+| photos | 2 |
+| homelab | 1 |
+| ai-percentage | 1 |
+| agents | ⏳ still Vite SPA |
+
+---
+
+# Decision: Jekyll Slug Migration
+URL: https://kb.duyet.net/k/jekyll-slug-migration
+Category: decisions
+Updated: 2026-03-23
+Summary: .html suffix stripped from all 297 blog post slugs at generation time during the March 2026 blog migration.
+
+# Decision: Jekyll Slug Migration
+
+**Date:** 2026-03-23  
+**Status:** Complete
+
+## Problem
+
+The blog was migrated from Jekyll. Post frontmatter slugs retained a `.html` suffix (e.g. `my-post.html`) from the Jekyll era. TanStack Router expects clean slugs without extensions.
+
+## What was done
+
+The `.html` suffix is stripped at data generation time — when `posts.ts` loads the frontmatter, it removes the `.html` before the slug is used in routing or navigation.
+
+`getPostBySlug()` includes defensive normalization: it tries both the raw slug and the `.html`-stripped version. This handles any edge case where old links or data might pass in a suffixed slug.
+
+## Scope
+
+All 297 posts had their slugs normalized. No post URLs broke — the clean slug matches the new routes, and the `.html` suffix in old links would 404 at the Cloudflare Pages level (expected behavior; no redirect rules were added since there was no existing production traffic on the old domain).
+
+## Why not strip in frontmatter directly
+
+Stripping at generation time rather than editing 297 `.md` frontmatter files keeps the source files clean and avoids a massive diff. The blog post content files in `apps/blog/_posts/**` are out of scope for duyetbot anyway — they belong to Duyet Le.
+
+---
+
+# Decision: Blog White Background
+URL: https://kb.duyet.net/k/blog-white-background
+Category: decisions
+Updated: 2026-03-23
+Summary: Blog background changed from warm cream #fbf7f0 to white #ffffff on 2026-03-23 to give it a distinct editorial identity from other apps.
+
+# Decision: Blog White Background
+
+**Date:** 2026-03-23  
+**Status:** Active
+
+## What changed
+
+The blog's background color was changed from warm cream (`#fbf7f0`) to white (`#ffffff`) during the March 2026 design refresh.
+
+## Why
+
+Other apps in the monorepo (home, llm-timeline) use the warm cream palette. The blog is primarily a reading surface — a white background gives it a distinct, editorial feel closer to a publication than an app. It also improves code block contrast and reduces visual noise around long-form prose.
+
+## Implications
+
+The blog and other apps now use different base palettes:
+
+| Surface | Background |
+|---------|-----------|
+| blog | `#ffffff` |
+| home | `#fbf7f0` |
+| llm-timeline | `#fbf7f0` |
+| others | various (alignment pending) |
+
+This is intentional divergence, not a mistake. The design system accommodates it — the warm token layer is the default, and the blog simply overrides the background token.
+
+## Dark mode
+
+In dark mode, the blog uses `#1f1f1f` (same as warm-palette apps). Card tints use `dark:bg-{color}/20` (20% opacity). See the blog design article for full dark mode conventions.
+
+---
+
+# Improvement Rotation Cycles
+URL: https://kb.duyet.net/k/improvement-cycles
+Category: workflows
+Updated: 2026-03-16
+Summary: Nine improvement cycles completed as of March 2026 — ~155 total fixes across security, dead code, design, and test coverage.
+
+# Improvement Rotation Cycles
+
+The monorepo runs periodic improvement cycles — focused sweeps targeting one category of technical debt. Nine cycles completed as of 2026-03-16 (~155 total fixes). Cycle 10 roadmap tracks ongoing work.
+
+## Cycle summary
+
+| Cycle | Focus | Notable items |
+|-------|-------|---------------|
+| 1–2 | Initial sweeps | bug fixes across agents, blog, insights, home, photos, llm-timeline |
+| 3 | Security + a11y | SSRF credential bypass, SQL fixes, accessibility, timer leaks, dead code |
+| 4 | Dedup + shadcn | ccusage-utils 674-line dedup, shadcn migration start, Lucide tree-shake (~200 KB reduction) |
+| 5 | Privacy + cache | `context.waitUntil` fixes, privacy risks removed, cache bugs |
+| 6 | Data sync | credential sanitize in data-sync, dead code cleanup |
+| 7 | Database | SQL schema fixes, rate limiting gaps |
+| 8 | Health check | 2 fixes, codebase declared clean |
+| 9 | Design + tests | llm-timeline full redesign, cv refresh, turbo 2.8.17, 104 new tests |
+
+## Cycle 9 test additions
+
+104 tests added across three apps:
+- `llm-timeline`: 42 tests (from ~0)
+- `home`: 24 tests (from 0)
+- `homelab`: 31 tests (from 0)
+
+These came alongside the design system unification sweep.
+
+## Cycle 10 status (as of 2026-03-31)
+
+Key completions:
+- TanStack Start SSG migration (all apps except agents)
+- Blog design refresh + dark mode
+- LLM Timeline shadcn refactor (PR #1003)
+- TypeScript v6 upgrade (PR #1010)
+- Biome formatting applied codebase-wide
+
+Remaining:
+- Agents app SSG migration
+- Design system alignment (insights, photos, homelab palettes)
+- Insights design refresh
+
+## How to run a cycle
+
+A cycle typically starts with a scoped sweep:
+
+```bash
+# Find all issues in a category
+git log --since='<last-cycle-date>' --name-only --pretty=format:
+  | sed '/^$/d' | sort -u
+
+# Check each touched file for dead code / issues
+rg -n "<symbol>" apps packages --glob '!**/*.test.*'
+```
+
+Run tests before and after each fix to confirm no regression. Commit each logical change separately with a semantic message.
+
+---

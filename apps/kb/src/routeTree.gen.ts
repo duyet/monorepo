@@ -9,34 +9,142 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as GraphRouteImport } from './routes/graph'
+import { Route as SitemapXmlRouteImport } from './routes/sitemap.xml'
+import { Route as RobotsTxtRouteImport } from './routes/robots.txt'
+import { Route as LlmsFullTxtRouteImport } from './routes/llms-full.txt'
+import { Route as LlmsTxtRouteImport } from './routes/llms.txt'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as KSlugRouteImport } from './routes/k/$slug'
+import { Route as CCategoryRouteImport } from './routes/c/$category'
+import { Route as CIndexRouteImport } from './routes/c/index'
 
+const GraphRoute = GraphRouteImport.update({
+  id: '/graph',
+  path: '/graph',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapXmlRoute = SitemapXmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsTxtRoute = RobotsTxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LlmsFullTxtRoute = LlmsFullTxtRouteImport.update({
+  id: '/llms-full.txt',
+  path: '/llms-full.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LlmsTxtRoute = LlmsTxtRouteImport.update({
+  id: '/llms.txt',
+  path: '/llms.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KSlugRoute = KSlugRouteImport.update({
+  id: '/k/$slug',
+  path: '/k/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CCategoryRoute = CCategoryRouteImport.update({
+  id: '/c/$category',
+  path: '/c/$category',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CIndexRoute = CIndexRouteImport.update({
+  id: '/c/',
+  path: '/c/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/graph': typeof GraphRoute
+  '/sitemap.xml': typeof SitemapXmlRoute
+  '/robots.txt': typeof RobotsTxtRoute
+  '/llms-full.txt': typeof LlmsFullTxtRoute
+  '/llms.txt': typeof LlmsTxtRoute
+  '/k/$slug': typeof KSlugRoute
+  '/c/$category': typeof CCategoryRoute
+  '/c/': typeof CIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/graph': typeof GraphRoute
+  '/sitemap.xml': typeof SitemapXmlRoute
+  '/robots.txt': typeof RobotsTxtRoute
+  '/llms-full.txt': typeof LlmsFullTxtRoute
+  '/llms.txt': typeof LlmsTxtRoute
+  '/k/$slug': typeof KSlugRoute
+  '/c/$category': typeof CCategoryRoute
+  '/c': typeof CIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/graph': typeof GraphRoute
+  '/sitemap.xml': typeof SitemapXmlRoute
+  '/robots.txt': typeof RobotsTxtRoute
+  '/llms-full.txt': typeof LlmsFullTxtRoute
+  '/llms.txt': typeof LlmsTxtRoute
+  '/k/$slug': typeof KSlugRoute
+  '/c/$category': typeof CCategoryRoute
+  '/c/': typeof CIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/graph'
+    | '/sitemap.xml'
+    | '/robots.txt'
+    | '/llms-full.txt'
+    | '/llms.txt'
+    | '/k/$slug'
+    | '/c/$category'
+    | '/c/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/graph'
+    | '/sitemap.xml'
+    | '/robots.txt'
+    | '/llms-full.txt'
+    | '/llms.txt'
+    | '/k/$slug'
+    | '/c/$category'
+    | '/c'
+  id:
+    | '__root__'
+    | '/'
+    | '/graph'
+    | '/sitemap.xml'
+    | '/robots.txt'
+    | '/llms-full.txt'
+    | '/llms.txt'
+    | '/k/$slug'
+    | '/c/$category'
+    | '/c/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GraphRoute: typeof GraphRoute
+  SitemapXmlRoute: typeof SitemapXmlRoute
+  RobotsTxtRoute: typeof RobotsTxtRoute
+  LlmsFullTxtRoute: typeof LlmsFullTxtRoute
+  LlmsTxtRoute: typeof LlmsTxtRoute
+  KSlugRoute: typeof KSlugRoute
+  CCategoryRoute: typeof CCategoryRoute
+  CIndexRoute: typeof CIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +156,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/graph': {
+      id: '/graph'
+      path: '/graph'
+      fullPath: '/graph'
+      preLoaderRoute: typeof GraphRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapXmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsTxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/llms-full.txt': {
+      id: '/llms-full.txt'
+      path: '/llms-full.txt'
+      fullPath: '/llms-full.txt'
+      preLoaderRoute: typeof LlmsFullTxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/llms.txt': {
+      id: '/llms.txt'
+      path: '/llms.txt'
+      fullPath: '/llms.txt'
+      preLoaderRoute: typeof LlmsTxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/k/$slug': {
+      id: '/k/$slug'
+      path: '/k/$slug'
+      fullPath: '/k/$slug'
+      preLoaderRoute: typeof KSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/c/$category': {
+      id: '/c/$category'
+      path: '/c/$category'
+      fullPath: '/c/$category'
+      preLoaderRoute: typeof CCategoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/c/': {
+      id: '/c/'
+      path: '/c/'
+      fullPath: '/c/'
+      preLoaderRoute: typeof CIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GraphRoute: GraphRoute,
+  SitemapXmlRoute: SitemapXmlRoute,
+  RobotsTxtRoute: RobotsTxtRoute,
+  LlmsFullTxtRoute: LlmsFullTxtRoute,
+  LlmsTxtRoute: LlmsTxtRoute,
+  KSlugRoute: KSlugRoute,
+  CCategoryRoute: CCategoryRoute,
+  CIndexRoute: CIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
