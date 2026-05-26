@@ -230,55 +230,6 @@ function ThemeButton() {
   );
 }
 
-function ClerkUserArea() {
-  const [clerkModule, setClerkModule] = useState<{
-    SignedIn: React.ComponentType<{ children: React.ReactNode }>;
-    SignedOut: React.ComponentType<{ children: React.ReactNode }>;
-    UserButton: React.ComponentType<{ afterSignOutUrl?: string }>;
-    SignInButton: React.ComponentType<{
-      mode?: string;
-      children: React.ReactNode;
-    }>;
-  } | null>(null);
-
-  const publishableKey =
-    typeof import.meta !== "undefined"
-      ? (
-          (import.meta as unknown as Record<string, unknown>).env as
-            | Record<string, string>
-            | undefined
-        )?.VITE_CLERK_PUBLISHABLE_KEY
-      : undefined;
-
-  useEffect(() => {
-    if (!publishableKey) return;
-    import("@clerk/clerk-react")
-      .then((mod) => setClerkModule(mod as typeof clerkModule))
-      .catch(() => {
-        // Clerk unavailable — render nothing
-      });
-  }, [publishableKey]);
-
-  if (!clerkModule) return null;
-
-  const { SignedIn, SignedOut, UserButton, SignInButton } = clerkModule;
-
-  return (
-    <>
-      <SignedIn>
-        <UserButton afterSignOutUrl="/" />
-      </SignedIn>
-      <SignedOut>
-        <SignInButton mode="modal">
-          <Button variant="ghost" size="sm">
-            Sign in
-          </Button>
-        </SignInButton>
-      </SignedOut>
-    </>
-  );
-}
-
 export function SiteHeader({
   currentApp = "home",
   localNav,
@@ -299,7 +250,6 @@ export function SiteHeader({
         )}
         <div className="ml-auto flex items-center gap-1">
           <ThemeButton />
-          <ClerkUserArea />
         </div>
       </div>
     </header>

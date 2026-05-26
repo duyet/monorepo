@@ -1,6 +1,4 @@
 import { Badge } from "./ui/badge";
-import { Card, CardContent } from "./ui/card";
-import { cn } from "@duyet/libs/utils";
 
 export type Area = {
   title: string;
@@ -81,55 +79,34 @@ export const DEFAULT_AREAS: Area[] = [
 
 function AreaCard({ area }: { area: Area }) {
   return (
-    <Card className="flex h-full flex-col">
-      <CardContent className="flex flex-col gap-4 p-6 h-full">
-        <div className="flex items-start justify-between gap-3">
-          <h3
-            className={cn(
-              "font-semibold tracking-tight",
-              area.featured ? "text-xl md:text-2xl" : "text-base",
-            )}
-          >
-            {area.title}
-          </h3>
-          <span className="shrink-0 font-mono text-xs text-muted-foreground">
-            {area.years}yr
+    <div className="flex h-full flex-col gap-3 bg-background p-5">
+      <div className="flex items-start justify-between gap-3">
+        <h3 className="text-base font-semibold tracking-tight">
+          {area.title}
+        </h3>
+        <span className="shrink-0 font-mono text-xs text-muted-foreground tabular-nums">
+          {area.years}yr
+        </span>
+      </div>
+      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-4">
+        {area.description}
+      </p>
+      <div className="mt-auto space-y-2 pt-2">
+        <p className="text-sm tabular-nums">
+          <span className="font-semibold tracking-tight">
+            {area.projectCount.toLocaleString()}
           </span>
-        </div>
-
-        <p
-          className={cn(
-            "text-muted-foreground leading-relaxed",
-            area.featured ? "text-sm md:text-base" : "text-sm",
-          )}
-        >
-          {area.description}
+          <span className="ml-1.5 text-muted-foreground">projects</span>
         </p>
-
-        <div className="mt-auto space-y-3 pt-2">
-          <p className="tabular-nums">
-            <span
-              className={cn(
-                "font-semibold tracking-tight",
-                area.featured ? "text-4xl" : "text-2xl",
-              )}
-            >
-              {area.projectCount.toLocaleString()}
-            </span>
-            <span className="ml-1.5 text-sm text-muted-foreground">
-              projects
-            </span>
-          </p>
-          <div className="flex flex-wrap gap-1.5">
-            {area.tags.map((tag) => (
-              <Badge key={tag} variant="secondary" className="text-xs">
-                {tag}
-              </Badge>
-            ))}
-          </div>
+        <div className="flex flex-wrap gap-1.5">
+          {area.tags.map((tag) => (
+            <Badge key={tag} variant="secondary" className="text-xs">
+              {tag}
+            </Badge>
+          ))}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
 
@@ -152,11 +129,8 @@ export function AreasOfExpertise({
 
   return (
     <section>
-      <div className="mb-8">
-        <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
-          Expertise
-        </p>
-        <h2 className="mt-2 text-2xl md:text-4xl font-semibold tracking-tight">
+      <div className="mb-6">
+        <h2 className="text-xl md:text-2xl font-semibold tracking-tight">
           {heading}
         </h2>
         <p className="mt-1 text-sm text-muted-foreground max-w-xl">
@@ -164,20 +138,19 @@ export function AreasOfExpertise({
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-border border border-border">
         {featured && (
           <div className="md:col-span-2 lg:col-span-2">
             <AreaCard area={featured} />
           </div>
         )}
         {rest.map((area) => (
-          <div key={area.title}>
-            <AreaCard area={area} />
-          </div>
+          <AreaCard key={area.title} area={area} />
         ))}
       </div>
     </section>
   );
 }
+
 
 export default AreasOfExpertise;
