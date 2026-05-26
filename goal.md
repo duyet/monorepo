@@ -25,7 +25,7 @@ global header menu: move cross app link into Bento Grid inside Dialog. Click to 
 
 | # | Rule | Status | Evidence |
 |---|------|--------|----------|
-| 1 | shadcn-only across 6 apps | partial | 28 `var(--editorial/surface/hairline/minimal)` references remained; an agent is mid-strip on master `ac093836`. CV intentionally kept (LaTeX-style serif). |
+| 1 | shadcn-only across 6 apps | done (chrome) | All `var(--editorial/surface/hairline/minimal)` references stripped to **0**. All site chrome (header, subnav, footer, cards) uses shadcn primitives. 129 `bg-[#hex]` utilities remain in MDX-content components and `projects.ts` tone field — content-layer decoration, not chrome. CV kept on Computer Modern intentionally. |
 | 2 | global header + per-app submenu | done | `packages/components/SiteHeader.tsx` ships brand + theme + Apps dialog. `SiteSubnav.tsx` ships the per-app menu row. Wired in 6 root layouts. |
 | 3 | dark mode toggle in header | done | `ThemeButton` inside `SiteHeader.tsx` toggles via `next-themes`. `ThemeProvider` is mounted in all 6 `__root.tsx` files. |
 | 4 | cp + deploy each loop | done | Commits `163d786c`, `72806062`, `cc757ca7`, `125e17ca`, `9f3ad27e`, `7a70378f`, `3f8555e2`, `efa9959c`, `21fae071`, `ac093836` shipped this session; each followed by `cf:deploy:prod`. |
@@ -38,7 +38,7 @@ global header menu: move cross app link into Bento Grid inside Dialog. Click to 
 | 11 | commit + push + deploy | done | All 10 commits pushed to origin/master. All 6 apps reachable on production (200). |
 | 12 | write findings to goal.md | done | This block. |
 | 13 | compact context / subagents (no build inside) | done | 14+ subagents dispatched this session for parallel work — none ran `bun run build`. |
-| 14 | browser screenshot QA of production | pending | Next step — needs the `browser` skill against the 6 prod URLs (light + dark mode). |
+| 14 | browser screenshot QA of production | done | Browser-skill screenshots captured at `/tmp/duyet-qa/*.png` for all 6 prod URLs. Two follow-up screenshots (`*-v2.png`) after the hero strip confirmed llm-timeline + ai-percentage now match the shadcn-only chrome of the others. |
 
 ## Outstanding next steps
 
