@@ -1,13 +1,16 @@
 import type { Post } from "@duyet/interfaces";
-import { dateFormat } from "@duyet/libs/date";
+import { dateFormat, distanceToNow } from "@duyet/libs/date";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { ReactElement } from "react";
 import { getPostsByAllYear } from "@/lib/posts";
+import { getShortforms } from "@/lib/shortforms";
+import type { Shortform } from "@/lib/shortforms";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
     const postsByYear = await getPostsByAllYear();
-    return { postsByYear };
+    const shortforms = getShortforms(3);
+    return { postsByYear, shortforms };
   },
   component: HomePage,
 });
@@ -23,7 +26,7 @@ function formatPostDate(date: Date | string): string {
 }
 
 function HomePage(): ReactElement {
-  const { postsByYear } = Route.useLoaderData();
+  const { postsByYear, shortforms } = Route.useLoaderData();
 
   const allPosts: Post[] = Object.entries(postsByYear)
     .sort(([a], [b]) => Number(b) - Number(a))
@@ -97,6 +100,32 @@ function HomePage(): ReactElement {
               </div>
             </div>
           </article>
+        </section>
+      )}
+
+      {/* Quick Notes */}
+      {shortforms.length > 0 && (
+        <section className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 py-12 md:py-16 border-t">
+          <div className="mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Quick Notes</h2>
+            <p className="mt-2 text-base text-muted-foreground">Short-form thoughts and updates.</p>
+          </div>
+          <ul className="max-w-3xl space-y-10">
+            {shortforms.map((note: Shortform) => (
+              <li key={note.id} className="flex items-start gap-4">
+                <div className="shrink-0 inline-flex h-10 w-10 items-center justify-center rounded-full bg-muted text-xs font-semibold">
+                  DL
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2 text-sm">
+                    <span className="font-medium">Duyet Le</span>
+                    <span className="text-muted-foreground">{distanceToNow(note.date)}</span>
+                  </div>
+                  <p className="mt-2 text-base leading-relaxed">{note.body}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
         </section>
       )}
 

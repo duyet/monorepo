@@ -17,6 +17,7 @@ import { Route as HtmlSitemapRouteImport } from './routes/html-sitemap'
 import { Route as FeedRouteImport } from './routes/feed'
 import { Route as FeaturedRouteImport } from './routes/featured'
 import { Route as CategoryRouteImport } from './routes/category'
+import { Route as NotesRouteImport } from './routes/notes'
 import { Route as ArchivesRouteImport } from './routes/archives'
 import { Route as AiRouteImport } from './routes/ai'
 import { Route as AboutRouteImport } from './routes/about'
@@ -66,6 +67,11 @@ const CategoryRoute = CategoryRouteImport.update({
   path: '/category',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NotesRoute = NotesRouteImport.update({
+  id: '/notes',
+  path: '/notes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ArchivesRoute = ArchivesRouteImport.update({
   id: '/archives',
   path: '/archives',
@@ -112,6 +118,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/ai': typeof AiRoute
   '/archives': typeof ArchivesRoute
+  '/notes': typeof NotesRoute
   '/category': typeof CategoryRouteWithChildren
   '/featured': typeof FeaturedRoute
   '/feed': typeof FeedRoute
@@ -130,6 +137,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/ai': typeof AiRoute
   '/archives': typeof ArchivesRoute
+  '/notes': typeof NotesRoute
   '/category': typeof CategoryRouteWithChildren
   '/featured': typeof FeaturedRoute
   '/feed': typeof FeedRoute
@@ -149,6 +157,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/ai': typeof AiRoute
   '/archives': typeof ArchivesRoute
+  '/notes': typeof NotesRoute
   '/category': typeof CategoryRouteWithChildren
   '/featured': typeof FeaturedRoute
   '/feed': typeof FeedRoute
@@ -169,6 +178,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/ai'
     | '/archives'
+    | '/notes'
     | '/category'
     | '/featured'
     | '/feed'
@@ -187,6 +197,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/ai'
     | '/archives'
+    | '/notes'
     | '/category'
     | '/featured'
     | '/feed'
@@ -205,6 +216,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/ai'
     | '/archives'
+    | '/notes'
     | '/category'
     | '/featured'
     | '/feed'
@@ -224,6 +236,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AiRoute: typeof AiRoute
   ArchivesRoute: typeof ArchivesRoute
+  NotesRoute: typeof NotesRoute
   CategoryRoute: typeof CategoryRouteWithChildren
   FeaturedRoute: typeof FeaturedRoute
   FeedRoute: typeof FeedRoute
@@ -299,6 +312,13 @@ declare module '@tanstack/react-router' {
       path: '/archives'
       fullPath: '/archives'
       preLoaderRoute: typeof ArchivesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notes': {
+      id: '/notes'
+      path: '/notes'
+      fullPath: '/notes'
+      preLoaderRoute: typeof NotesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ai': {
@@ -381,6 +401,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AiRoute: AiRoute,
   ArchivesRoute: ArchivesRoute,
+  NotesRoute: NotesRoute,
   CategoryRoute: CategoryRouteWithChildren,
   FeaturedRoute: FeaturedRoute,
   FeedRoute: FeedRoute,

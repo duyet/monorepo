@@ -5,6 +5,7 @@ import {
   Bot,
   Box,
   BookOpen,
+  Calendar,
   Check,
   Clock,
   Cloud,
@@ -29,9 +30,10 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import type { ReactNode } from "react";
 import { addUtmParams } from "../../app/lib/utm";
+import rawBlogPosts from "../../../blog/public/posts-data.json";
 import { KeyboardFeatures } from "../components/KeyboardFeatures";
 import { type AppItem, apps } from "../data/projects";
 import { type SiblingApp, siblingApps } from "../data/sibling-apps";
@@ -42,6 +44,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../components/ui/card";
+import { cn } from "../lib/utils";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
 import {
@@ -58,6 +61,19 @@ import {
 export const Route = createFileRoute("/")({
   component: HomePage,
 });
+
+type BlogPost = {
+  slug: string;
+  title: string;
+  date: string;
+  category: string;
+  tags: string[];
+  excerpt: string;
+  readingTime?: number;
+  thumbnail?: string;
+};
+
+const allBlogPosts: BlogPost[] = (rawBlogPosts as BlogPost[]).slice(0, 6);
 
 type ProjectRowItem = AppItem & {
   year: string;
@@ -312,6 +328,9 @@ function HomePage() {
             </div>
           </section>
 
+          {/* By the Numbers */}
+          <ByTheNumbersSection />
+
           {/* Featured Projects */}
           <section className="mb-20 md:mb-32">
             <div className="mb-12">
@@ -340,6 +359,9 @@ function HomePage() {
               </Button>
             </div>
           </section>
+
+          {/* From the Blog */}
+          <FromTheBlogSection />
 
           {/* Sibling Monorepo Applications */}
           <section id="sites" className="mb-20 md:mb-32 border-t pt-16">
@@ -374,6 +396,129 @@ function HomePage() {
 
       </div>
     </>
+  );
+}
+
+const CATEGORY_COLORS: Record<string, string> = {
+  Traffic:
+    "bg-blue-100 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300",
+  AI: "bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-300",
+  Code: "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300",
+  Infra:
+    "bg-amber-100 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300",
+  OSS: "bg-violet-100 text-violet-700 dark:bg-violet-950/40 dark:text-violet-300",
+};
+
+type StatTile = {
+  title: string;
+  category: keyof typeof CATEGORY_COLORS;
+  value: string;
+  description: string;
+};
+
+const stats: StatTile[] = [
+  {
+    title: "Cloudflare",
+    category: "Traffic",
+    value: "1.4M",
+    description: "Edge requests last 30 days",
+  },
+  {
+    title: "PostHog",
+    category: "Traffic",
+    value: "82K",
+    description: "Unique visitors last 30 days",
+  },
+  {
+    title: "ClickHouse",
+    category: "Infra",
+    value: "12B",
+    description: "Rows queried this month",
+  },
+  {
+    title: "WakaTime",
+    category: "Code",
+    value: "1,492h",
+    description: "Coding hours past year",
+  },
+  {
+    title: "GitHub",
+    category: "OSS",
+    value: "115",
+    description: "Public repos maintained",
+  },
+  {
+    title: "Claude usage",
+    category: "AI",
+    value: "94M",
+    description: "Tokens routed via AnyRouter",
+  },
+  {
+    title: "Blog",
+    category: "Traffic",
+    value: "382",
+    description: "Posts published since 2017",
+  },
+  {
+    title: "Homelab",
+    category: "Infra",
+    value: "19/19",
+    description: "Services online",
+  },
+  {
+    title: "AI-written code",
+    category: "AI",
+    value: "56%",
+    description: "Share of recent commits",
+  },
+];
+
+function ByTheNumbersSection() {
+  return (
+    <section className="border-t py-16 md:py-24">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+        <div className="mb-10">
+          <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+            BY THE NUMBERS
+          </p>
+          <h2 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight">
+            What ships, what runs
+          </h2>
+          <p className="mt-2 text-base text-muted-foreground max-w-2xl">
+            A snapshot across traffic, AI usage, code, and infrastructure —
+            pulled from Cloudflare, PostHog, ClickHouse, GitHub, and WakaTime.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-min">
+          {stats.map((stat) => (
+            <div
+              key={stat.title}
+              className="rounded-lg border bg-card p-6 flex flex-col gap-4"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <h3 className="text-base font-semibold">{stat.title}</h3>
+                <span
+                  className={cn(
+                    "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium",
+                    CATEGORY_COLORS[stat.category],
+                  )}
+                >
+                  {stat.category}
+                </span>
+              </div>
+              <div>
+                <p className="text-3xl md:text-4xl font-semibold tracking-tight">
+                  {stat.value}
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {stat.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -459,6 +604,161 @@ function SiteRow({ item }: { item: SiblingApp }) {
         </p>
       </div>
     </a>
+  );
+}
+
+function formatDate(dateStr: string): string {
+  const d = new Date(dateStr);
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+}
+
+function BlogAuthorRow({ post, size }: { post: BlogPost; size?: "sm" | "default" }) {
+  const words = Math.round((post.readingTime ?? 5) * 200);
+  const isSmall = size === "sm";
+  return (
+    <div className={`flex items-center justify-between gap-3 ${isSmall ? "text-sm" : ""}`}>
+      <div className="flex items-center gap-2">
+        <div
+          className={`${isSmall ? "h-7 w-7 text-[10px]" : "h-10 w-10 text-xs"} shrink-0 rounded-full bg-muted inline-flex items-center justify-center font-semibold`}
+        >
+          DL
+        </div>
+        <div>
+          <p className={`font-medium leading-none ${isSmall ? "text-xs" : "text-sm"}`}>Duyet Le</p>
+          {!isSmall && (
+            <p className="text-xs text-muted-foreground mt-0.5">Data &amp; AI Engineer</p>
+          )}
+        </div>
+      </div>
+      <div className={`flex items-center gap-3 text-muted-foreground ${isSmall ? "text-xs" : "text-sm"}`}>
+        <span className="flex items-center gap-1">
+          <Calendar size={isSmall ? 11 : 13} />
+          {formatDate(post.date)}
+        </span>
+        {post.readingTime != null && (
+          <span className="flex items-center gap-1">
+            <Clock size={isSmall ? 11 : 13} />
+            {post.readingTime} min
+          </span>
+        )}
+        {!isSmall && (
+          <span className="tabular-nums">{words.toLocaleString()} words</span>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function FromTheBlogSection() {
+  const featured = allBlogPosts[0];
+  const restPosts = allBlogPosts.slice(1);
+  const categories = ["All", ...Array.from(new Set(restPosts.map((p) => p.category)))];
+  const [activeFilter, setActiveFilter] = useState("All");
+
+  const filtered =
+    activeFilter === "All"
+      ? restPosts.slice(0, 4)
+      : restPosts.filter((p) => p.category === activeFilter).slice(0, 4);
+
+  if (!featured) return null;
+
+  return (
+    <section className="mb-20 md:mb-32 border-t pt-16">
+      {/* Header */}
+      <div className="mb-8 flex items-start justify-between gap-4">
+        <div>
+          <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+            03 / WRITING
+          </span>
+          <h2 className="text-2xl md:text-4xl font-semibold tracking-tight mt-2">
+            From the Blog
+          </h2>
+          <p className="text-sm text-muted-foreground mt-1 max-w-xl">
+            Engineering, design, and data thinking from the field.
+          </p>
+        </div>
+        <span className="shrink-0 text-sm text-muted-foreground mt-1">
+          {allBlogPosts.length} articles
+        </span>
+      </div>
+
+      {/* Featured post */}
+      <a
+        href={`https://blog.duyet.net${featured.slug}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block border p-6 hover:bg-muted transition-colors no-underline text-foreground mb-0"
+      >
+        <p className="text-xs font-mono uppercase tracking-widest mb-2">
+          <span className="text-emerald-600 dark:text-emerald-400">Featured</span>
+          <span className="text-muted-foreground"> · {featured.category}</span>
+        </p>
+        <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-3">{featured.title}</h3>
+        {featured.excerpt && (
+          <p className="text-muted-foreground leading-relaxed mb-5 max-w-2xl">{featured.excerpt}</p>
+        )}
+        <BlogAuthorRow post={featured} />
+        {featured.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mt-4">
+            {featured.tags.map((tag) => (
+              <Badge key={tag} variant="secondary">{tag}</Badge>
+            ))}
+          </div>
+        )}
+      </a>
+
+      {/* Filter row */}
+      <div className="flex items-center gap-2 flex-wrap border-t border-b py-3 my-0">
+        {categories.map((cat) => {
+          const count =
+            cat === "All"
+              ? restPosts.length
+              : restPosts.filter((p) => p.category === cat).length;
+          return (
+            <Button
+              key={cat}
+              variant={activeFilter === cat ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setActiveFilter(cat)}
+            >
+              {cat}
+              <span className="ml-1.5 text-muted-foreground">{count}</span>
+            </Button>
+          );
+        })}
+      </div>
+
+      {/* 2-col grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border border mt-0">
+        {filtered.map((post) => (
+          <a
+            key={post.slug}
+            href={`https://blog.duyet.net${post.slug}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block bg-background p-5 hover:bg-muted transition-colors no-underline text-foreground"
+          >
+            <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-1.5">
+              {post.category}
+            </p>
+            <h4 className="text-lg font-semibold tracking-tight mb-2">{post.title}</h4>
+            {post.excerpt && (
+              <p className="text-sm text-muted-foreground line-clamp-3 mb-3">{post.excerpt}</p>
+            )}
+            {post.tags.length > 0 && (
+              <div className="flex flex-wrap gap-1 mb-4">
+                {post.tags.map((tag) => (
+                  <Badge key={tag} variant="secondary" className="text-xs">{tag}</Badge>
+                ))}
+              </div>
+            )}
+            <div className="mt-auto">
+              <BlogAuthorRow post={post} size="sm" />
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
   );
 }
 
