@@ -28,7 +28,7 @@ export function PageLayout({ children, description }: PageLayoutProps) {
                 to="/"
                 className="group inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded"
               >
-                <h1 className="max-w-5xl text-balance font-[family-name:var(--font-sans)] text-5xl font-semibold tracking-tight text-[#1a1a1a] transition-opacity group-hover:opacity-80 dark:text-[#f8f8f2] sm:text-6xl lg:text-7xl">
+                <h1 className="max-w-5xl text-balance text-5xl font-semibold tracking-tight text-[#1a1a1a] transition-opacity group-hover:opacity-80 dark:text-[#f8f8f2] sm:text-6xl lg:text-7xl">
                   LLM Timeline
                 </h1>
               </Link>
@@ -105,7 +105,7 @@ export function PageLayout({ children, description }: PageLayoutProps) {
                 duyet
               </a>
             </p>
-            <p className="font-[family-name:var(--font-mono)] text-xs">
+            <p className="font-mono text-xs">
               Updated {lastSynced}
             </p>
           </div>

@@ -18,7 +18,7 @@ export default function Meta({ post, className }: ContentProps) {
 
   return (
     <div className={cn(className)}>
-      <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm font-medium text-[var(--muted)] dark:text-[#f8f8f2]/55 [font-variant-numeric:tabular-nums]">
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm font-medium text-muted-foreground [font-variant-numeric:tabular-nums]">
         <div className="flex items-center gap-1.5">
           <Calendar className="h-3.5 w-3.5" />
           <time dateTime={new Date(post.date).toISOString()}>
@@ -28,7 +28,7 @@ export default function Meta({ post, className }: ContentProps) {
               day: "numeric",
             })}
           </time>
-          <span className="text-[var(--hairline)] dark:text-white/20">·</span>
+          <span className="text-border">·</span>
           <span>{distanceToNow(new Date(post.date))}</span>
         </div>
 
@@ -42,7 +42,7 @@ export default function Meta({ post, className }: ContentProps) {
         <Link
           to="/category/$category/"
           params={{ category: post.category_slug || getSlug(post.category) }}
-          className="flex items-center gap-1.5 transition-colors hover:text-[var(--foreground)]"
+          className="flex items-center gap-1.5 transition-colors hover:text-foreground"
         >
           <Folder className="h-3.5 w-3.5" />
           <span>{post.category}</span>
@@ -72,7 +72,7 @@ export default function Meta({ post, className }: ContentProps) {
         )}
 
         <a
-          className="flex items-center gap-1.5 transition-colors hover:text-[var(--foreground)]"
+          className="flex items-center gap-1.5 transition-colors hover:text-foreground"
           href={post.edit_url || "#"}
           rel="noopener noreferrer"
           target="_blank"

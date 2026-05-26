@@ -2,9 +2,6 @@
 
 @layer base {
   :root {
-    --font-sans: "Inter", system-ui, sans-serif;
-    --font-display: "Libre Baskerville", Georgia, serif;
-    --font-mono: "Inter", ui-monospace, monospace;
     --radius: 0.5rem;
     --background: #ffffff;
     --foreground: #1a1a1a;
@@ -22,10 +19,6 @@
     --input: #e5e5e5;
     --ring: #a3a3a3;
     --year-watermark: #e5e5e5;
-    /* Alias variables for component consistency */
-    --text: #1a1a1a;
-    --text-muted: #737373;
-    --bg-card: #ffffff;
   }
 
   .dark {
@@ -45,10 +38,6 @@
     --input: rgba(255, 255, 255, 0.1);
     --ring: #737373;
     --year-watermark: #404040;
-    /* Alias variables for component consistency */
-    --text: #f8f8f2;
-    --text-muted: #a3a3a3;
-    --bg-card: #111111;
   }
 
   @theme inline {
@@ -68,14 +57,5 @@
     --color-input: var(--input);
     --color-ring: var(--ring);
     --color-radius: var(--radius);
-  }
-
-  html {
-    font-family: var(--font-sans), system-ui, sans-serif;
-  }
-
-  body {
-    background-color: var(--background);
-    color: var(--foreground);
   }
 }

@@ -62,7 +62,7 @@ export function AIPercentageHero() {
       </div>
 
       <div className="grid gap-3 sm:grid-cols-3">
-        <div className="rounded-xl bg-[var(--panel-blue)] p-4 text-[#1a1a1a] dark:text-[#f8f8f2]">
+        <div className="rounded-xl bg-blue-100 p-4 text-[#1a1a1a] dark:bg-blue-950/40 dark:text-[#f8f8f2]">
           <div className="text-xs text-black/60 dark:text-white/60">
             Total Lines
           </div>
@@ -71,7 +71,7 @@ export function AIPercentageHero() {
           </div>
         </div>
 
-        <div className="rounded-xl bg-[var(--panel-orange)] p-4 text-[#1a1a1a] dark:text-[#f8f8f2]">
+        <div className="rounded-xl bg-orange-100 p-4 text-[#1a1a1a] dark:bg-orange-950/40 dark:text-[#f8f8f2]">
           <div className="text-xs text-black/60 dark:text-white/60">
             AI Lines
           </div>
@@ -80,7 +80,7 @@ export function AIPercentageHero() {
           </div>
         </div>
 
-        <div className="rounded-xl bg-[var(--panel-emerald)] p-4 text-[#1a1a1a] dark:text-[#f8f8f2]">
+        <div className="rounded-xl bg-emerald-100 p-4 text-[#1a1a1a] dark:bg-emerald-950/40 dark:text-[#f8f8f2]">
           <div className="text-xs text-black/60 dark:text-white/60">
             Human Lines
           </div>

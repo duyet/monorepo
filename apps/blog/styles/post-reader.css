@@ -59,7 +59,7 @@
 .post-reader .prose {
   font-size: 1.0625rem;
   line-height: 1.85;
-  color: var(--body, var(--foreground));
+  color: var(--muted-foreground);
 }
 
 .post-reader .prose p {
