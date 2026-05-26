@@ -10,20 +10,23 @@ import {
   YAxis,
 } from "recharts";
 import {
-  ChartLine,
-  Cpu,
-  Clock,
-  Coins,
-  Database,
-  Globe,
-  Code
-} from "@phosphor-icons/react";
+  ArrowUpRight,
+  Minus,
+  Quote,
+} from "lucide-react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@duyet/components";
+import { Badge } from "@duyet/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+} from "@duyet/components/ui/card";
+import rawBlogPosts from "../../../blog/public/posts-data.json";
 
 interface BentoPanelProps {
   icon: ReactNode;
@@ -344,6 +347,268 @@ const EMPTY_LOADER_DATA: LoaderData = {
   wakaTrend: [],
 };
 
+const BLOG_POST_COUNT = (rawBlogPosts as unknown[]).length;
+
+function KpiStrip({ data }: { data: LoaderData }) {
+  const generatedAt = data.cloudflare.generatedAt
+    ? new Date(data.cloudflare.generatedAt).toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })
+    : null;
+
+  const kpis: Array<{
+    value: string;
+    label: string;
+    sublabel: string;
+    trend: "up" | "flat" | null;
+  }> = [
+    {
+      value: formatCompact(data.aiMetrics.totalTokens),
+      label: "Tokens this month",
+      sublabel: `${data.aiMetrics.activeDays} active days · Claude Code`,
+      trend: data.aiMetrics.totalTokens > 0 ? "up" : "flat",
+    },
+    {
+      value: formatCompact(
+        data.cloudflare.totalPageviews || data.posthog.totalViews
+      ),
+      label: "Page views · 30d",
+      sublabel: "Cloudflare edge, all zones",
+      trend: "up",
+    },
+    {
+      value: `${formatNumber(data.wakaMetrics.totalHours)}h`,
+      label: "Coding hours · 30d",
+      sublabel: `${formatNumber(data.wakaMetrics.avgDailyHours)}h avg/day · ${data.wakaMetrics.topLanguage}`,
+      trend: "flat",
+    },
+    {
+      value: formatCurrency(data.aiMetrics.totalCost),
+      label: "AI spend · 30d",
+      sublabel: `Top model: ${compactName(data.aiMetrics.topModel)}`,
+      trend: data.aiMetrics.totalCost > 0 ? "up" : "flat",
+    },
+    {
+      value: String(BLOG_POST_COUNT),
+      label: "Blog posts published",
+      // TODO: wire to GitHub commit count for a dynamic "commits this month" stat
+      sublabel: "All-time, duyet.net/blog",
+      trend: "up",
+    },
+  ];
+
+  return (
+    <section>
+      <div className="grid grid-cols-2 md:grid-cols-5 divide-x divide-border border-t border-b border-border">
+        {kpis.map((kpi) => (
+          <div key={kpi.label} className="relative p-6 md:p-8">
+            {kpi.trend !== null && (
+              <span className="absolute top-4 right-4">
+                {kpi.trend === "up" ? (
+                  <ArrowUpRight
+                    size={16}
+                    className="text-green-600 dark:text-green-400"
+                  />
+                ) : (
+                  <Minus size={16} className="text-muted-foreground" />
+                )}
+              </span>
+            )}
+            <p className="text-4xl md:text-5xl font-semibold tracking-tight tabular-nums text-foreground">
+              {kpi.value}
+            </p>
+            <p className="mt-2 text-sm font-medium text-foreground">
+              {kpi.label}
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">{kpi.sublabel}</p>
+          </div>
+        ))}
+      </div>
+      {generatedAt && (
+        <p className="mt-2 text-right text-xs text-muted-foreground">
+          Last updated: {generatedAt}
+        </p>
+      )}
+    </section>
+  );
+}
+
+function BentoGrid({ data }: { data: LoaderData }) {
+  const pageViews = data.cloudflare.totalPageviews || data.posthog.totalViews;
+
+  return (
+    <section className="mt-12">
+      <div className="mb-6">
+        <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+          By the numbers
+        </p>
+        <h2 className="mt-2 text-2xl md:text-3xl font-semibold tracking-tight">
+          One developer, many data streams.
+        </h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Aggregated across traffic, AI usage, coding time, and published work — last 30 days unless noted.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Tall pullquote card — spans 2 rows */}
+        <Card className="md:row-span-2 flex flex-col justify-between border-border">
+          <CardContent className="pt-6 flex flex-col h-full gap-6">
+            <div>
+              <p className="text-4xl md:text-5xl font-semibold tracking-tight tabular-nums text-foreground">
+                {formatCompact(data.aiMetrics.totalTokens)}
+              </p>
+              <p className="mt-2 text-sm font-medium text-foreground">
+                AI tokens consumed
+              </p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                Claude Code · last 30 days
+              </p>
+            </div>
+            <div className="mt-auto">
+              <Quote
+                size={20}
+                className="text-muted-foreground mb-3 opacity-50"
+              />
+              <p className="text-sm leading-relaxed text-muted-foreground italic">
+                Every token here represents a real decision — a diff reviewed, a
+                test written, a refactor weighed. The pipeline runs nightly from
+                ClickHouse; no prompt content is stored, only aggregated
+                per-model counts.
+              </p>
+              <p className="mt-3 text-xs text-muted-foreground">
+                — ccusage → ClickHouse → insights
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Page views */}
+        <Card className="border-border">
+          <CardHeader className="pb-1 flex flex-row items-start justify-between">
+            <Badge className="bg-indigo-100 text-indigo-700 dark:bg-indigo-950/30 dark:text-indigo-300 hover:bg-indigo-100">
+              Traffic
+            </Badge>
+          </CardHeader>
+          <CardContent>
+            <p className="text-4xl font-semibold tracking-tight tabular-nums text-foreground">
+              {formatCompact(pageViews)}
+            </p>
+            <p className="mt-1 text-sm font-medium text-foreground">
+              Page views
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Cloudflare · 30 days
+            </p>
+          </CardContent>
+        </Card>
+
+        {/* Coding hours */}
+        <Card className="border-border">
+          <CardHeader className="pb-1 flex flex-row items-start justify-between">
+            <Badge className="bg-violet-100 text-violet-700 dark:bg-violet-950/30 dark:text-violet-300 hover:bg-violet-100">
+              Code
+            </Badge>
+          </CardHeader>
+          <CardContent>
+            <p className="text-4xl font-semibold tracking-tight tabular-nums text-foreground">
+              {formatNumber(data.wakaMetrics.totalHours)}h
+            </p>
+            <p className="mt-1 text-sm font-medium text-foreground">
+              Coding hours
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              WakaTime · 30 days
+            </p>
+          </CardContent>
+        </Card>
+
+        {/* AI cost */}
+        <Card className="border-border">
+          <CardHeader className="pb-1 flex flex-row items-start justify-between">
+            <Badge className="bg-amber-100 text-amber-700 dark:bg-amber-950/30 dark:text-amber-300 hover:bg-amber-100">
+              AI
+            </Badge>
+          </CardHeader>
+          <CardContent>
+            <p className="text-4xl font-semibold tracking-tight tabular-nums text-foreground">
+              {formatCurrency(data.aiMetrics.totalCost)}
+            </p>
+            <p className="mt-1 text-sm font-medium text-foreground">
+              AI spend
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Claude Code · 30 days
+            </p>
+          </CardContent>
+        </Card>
+
+        {/* Cache tokens */}
+        <Card className="border-border">
+          <CardHeader className="pb-1 flex flex-row items-start justify-between">
+            <Badge className="bg-green-100 text-green-700 dark:bg-green-950/30 dark:text-green-300 hover:bg-green-100">
+              Infra
+            </Badge>
+          </CardHeader>
+          <CardContent>
+            <p className="text-4xl font-semibold tracking-tight tabular-nums text-foreground">
+              {formatCompact(data.aiMetrics.cacheTokens)}
+            </p>
+            <p className="mt-1 text-sm font-medium text-foreground">
+              Cache tokens
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Prompt re-use · 30 days
+            </p>
+          </CardContent>
+        </Card>
+
+        {/* Blog posts */}
+        <Card className="border-border">
+          <CardHeader className="pb-1 flex flex-row items-start justify-between">
+            <Badge className="bg-rose-100 text-rose-700 dark:bg-rose-950/30 dark:text-rose-300 hover:bg-rose-100">
+              Writing
+            </Badge>
+          </CardHeader>
+          <CardContent>
+            <p className="text-4xl font-semibold tracking-tight tabular-nums text-foreground">
+              {BLOG_POST_COUNT}
+            </p>
+            <p className="mt-1 text-sm font-medium text-foreground">
+              Blog posts
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              All-time · duyet.net/blog
+            </p>
+          </CardContent>
+        </Card>
+
+        {/* CF requests */}
+        <Card className="border-border">
+          <CardHeader className="pb-1 flex flex-row items-start justify-between">
+            <Badge className="bg-indigo-100 text-indigo-700 dark:bg-indigo-950/30 dark:text-indigo-300 hover:bg-indigo-100">
+              Telemetry
+            </Badge>
+          </CardHeader>
+          <CardContent>
+            <p className="text-4xl font-semibold tracking-tight tabular-nums text-foreground">
+              {formatCompact(data.cloudflare.totalRequests)}
+            </p>
+            <p className="mt-1 text-sm font-medium text-foreground">
+              Edge requests
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Cloudflare · 30 days
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    </section>
+  );
+}
+
 function IndexPage() {
   const data = Route.useLoaderData();
   const traffic = getTrafficData(data.cloudflare);
@@ -382,7 +647,10 @@ function IndexPage() {
       </header>
 
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pb-16">
-      <section className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-6 border-t border-border pt-12">
+      <KpiStrip data={data} />
+      <BentoGrid data={data} />
+
+      <section className="mt-20 grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-6 border-t border-border pt-12">
         <BentoPanel
           icon={<ChartLine size={18} weight="bold" />}
           label="Page views · 30d"
