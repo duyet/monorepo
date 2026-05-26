@@ -1,4 +1,3 @@
-import Icons from "@duyet/components/Icons";
 import {
   Activity,
   BarChart3,
@@ -15,14 +14,12 @@ import {
   HardDrive,
   Languages,
   Layers,
-  Mail,
   Plug,
   Puzzle,
   Save,
   Sparkles,
   Terminal,
   Type,
-  User,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -206,168 +203,8 @@ function HomePage() {
 
       <div className="bg-background text-foreground">
         <main className="mx-auto max-w-[1200px] px-4 py-12 md:py-20 sm:px-6 lg:px-8">
-          {/* Profile header */}
-          <section className="mb-16 md:mb-24">
-            <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-              Profile · 2026
-            </p>
-            <h1 className="mt-2 text-3xl md:text-5xl font-semibold tracking-tight">
-              Duyet Le
-            </h1>
-            <p className="mt-2 text-sm md:text-base text-muted-foreground max-w-xl">
-              Data Engineer and AI Engineer · building agents, data platforms,
-              and small useful things
-            </p>
-            <div className="mt-4 flex flex-wrap gap-1.5">
-              <Badge variant="secondary">AI Agents</Badge>
-              <Badge variant="secondary">Cloudflare</Badge>
-              <Badge variant="secondary">React</Badge>
-              <Badge variant="secondary">ClickHouse</Badge>
-              <Badge variant="secondary">Rust</Badge>
-              <Badge variant="secondary">TypeScript</Badge>
-            </div>
+          <ProfileHero />
 
-            {/* Metadata Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8 border-b pb-6">
-              <div>
-                <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground block mb-1">
-                  Email
-                </span>
-                <a
-                  href="mailto:me@duyet.net"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5"
-                >
-                  <Mail size={14} /> me@duyet.net
-                </a>
-              </div>
-              <div>
-                <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground block mb-1">
-                  Pronouns
-                </span>
-                <span className="text-sm text-muted-foreground flex items-center gap-1.5">
-                  <User size={14} /> he/him
-                </span>
-              </div>
-            </div>
-
-            {/* Bio */}
-            <div className="mt-8 space-y-3">
-              <p className="text-lg md:text-xl leading-relaxed font-light">
-                I build AI agents and the data platforms that keep them honest —
-                end-to-end, obsessing over the small details that make software
-                feel right to use.
-              </p>
-              <p className="text-base md:text-lg text-muted-foreground leading-relaxed font-light">
-                Right now I'm shipping autonomous{" "}
-                <a
-                  href="https://agents.duyet.net"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-semibold text-foreground hover:underline underline-offset-4"
-                >
-                  agents
-                </a>
-                , moving petabyte-scale lakes into ClickHouse, writing in the{" "}
-                <a
-                  href="https://blog.duyet.net"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-semibold text-foreground hover:underline underline-offset-4"
-                >
-                  blog
-                </a>
-                , publishing live telemetry in{" "}
-                <a
-                  href="https://insights.duyet.net"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-semibold text-foreground hover:underline underline-offset-4"
-                >
-                  insights
-                </a>
-                , and open-sourcing whatever else I make in{" "}
-                <a
-                  href="/projects"
-                  className="font-semibold text-foreground hover:underline underline-offset-4"
-                >
-                  projects
-                </a>
-                .
-              </p>
-            </div>
-
-            {/* Primary CTAs */}
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <Button variant="outline" size="sm" asChild>
-                <a
-                  href="https://blog.duyet.net"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Read the blog
-                </a>
-              </Button>
-              <Button variant="outline" size="sm" asChild>
-                <Link to="/projects">Browse projects</Link>
-              </Button>
-              <Button variant="outline" size="sm" asChild>
-                <a
-                  href="https://agents.duyet.net"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Try the agent
-                </a>
-              </Button>
-            </div>
-
-            {/* Status indicator */}
-            <div className="mt-6 flex items-center gap-2 text-xs text-muted-foreground">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-              </span>
-              <span>Now Playing &mdash; Build Optimizer (79x speedup)</span>
-            </div>
-
-            {/* Social Row */}
-            <div className="flex items-center gap-5 mt-6">
-              <a
-                href="https://x.com/_duyet"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="Twitter / X"
-              >
-                <Icons.Twitter className="w-5 h-5" />
-              </a>
-              <a
-                href="https://github.com/duyet"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="GitHub"
-              >
-                <Icons.Github className="w-5 h-5" />
-              </a>
-              <a
-                href="https://blog.duyet.net"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="Blog"
-              >
-                <ExternalLink size={20} />
-              </a>
-              <a
-                href="mailto:me@duyet.net"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="Email"
-              >
-                <Mail size={20} />
-              </a>
-            </div>
-          </section>
 
           {/* By the Numbers */}
           <ByTheNumbersSection />
@@ -476,6 +313,117 @@ const stats: StatTile[] = [
     description: "Production apps in the monorepo",
   },
 ];
+
+const STACK_TAGS: { label: string; icon: LucideIcon }[] = [
+  { label: "AI Agents", icon: Bot },
+  { label: "Cloudflare", icon: Cloud },
+  { label: "ClickHouse", icon: Database },
+  { label: "Rust", icon: Cpu },
+  { label: "TypeScript", icon: FileCode },
+];
+
+function ProfileHero() {
+  return (
+    <section className="mb-16 md:mb-24 border-b pb-10 md:pb-14">
+      <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+        duyet.net · 2026
+      </p>
+      <h1 className="mt-3 text-4xl md:text-6xl font-semibold tracking-tight">
+        Duyet Le
+      </h1>
+      <p className="mt-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">
+        Data &amp; AI Engineer · Ho Chi Minh City
+      </p>
+
+      <p className="mt-8 max-w-2xl text-lg md:text-xl leading-relaxed">
+        I build autonomous{" "}
+        <a
+          href="https://agents.duyet.net"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-semibold underline underline-offset-4 decoration-muted-foreground/40 hover:decoration-foreground"
+        >
+          agents
+        </a>{" "}
+        and the petabyte-scale data platforms that keep them honest — then write
+        about it in the{" "}
+        <a
+          href="https://blog.duyet.net"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-semibold underline underline-offset-4 decoration-muted-foreground/40 hover:decoration-foreground"
+        >
+          blog
+        </a>
+        , ship live telemetry to{" "}
+        <a
+          href="https://insights.duyet.net"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-semibold underline underline-offset-4 decoration-muted-foreground/40 hover:decoration-foreground"
+        >
+          insights
+        </a>
+        , and open-source the rest in{" "}
+        <Link
+          to="/projects"
+          className="font-semibold underline underline-offset-4 decoration-muted-foreground/40 hover:decoration-foreground"
+        >
+          projects
+        </Link>
+        .
+      </p>
+
+      <ul className="mt-6 flex flex-wrap gap-2">
+        {STACK_TAGS.map(({ label, icon: Icon }) => (
+          <li key={label}>
+            <Badge
+              variant="outline"
+              className="gap-1.5 px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider"
+            >
+              <Icon size={12} />
+              {label}
+            </Badge>
+          </li>
+        ))}
+      </ul>
+
+      <div className="mt-8 flex flex-wrap items-center gap-2">
+        <Button size="sm" asChild>
+          <a
+            href="https://blog.duyet.net"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Read the blog
+          </a>
+        </Button>
+        <Button variant="outline" size="sm" asChild>
+          <Link to="/projects">Browse projects</Link>
+        </Button>
+        <Button variant="ghost" size="sm" asChild>
+          <a
+            href="https://agents.duyet.net"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Try the agent <ExternalLink size={12} className="ml-1" />
+          </a>
+        </Button>
+        <span
+          className="ml-auto flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground"
+          aria-live="polite"
+        >
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/70" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+          </span>
+          shipping &mdash; build optimizer (79× faster)
+        </span>
+      </div>
+    </section>
+  );
+}
 
 function ByTheNumbersSection() {
   return (
