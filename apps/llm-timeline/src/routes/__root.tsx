@@ -3,7 +3,7 @@ import "../globals.css";
 import "../animations.css";
 
 import Analytics from "@duyet/components/Analytics";
-import { SiteFooter, SiteHeader } from "@duyet/components";
+import { SiteFooter, SiteHeader, SiteSubnav } from "@duyet/components";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import { llmTimelineConfig } from "@duyet/config";
 import {
@@ -11,6 +11,7 @@ import {
   HeadContent,
   Outlet,
   Scripts,
+  useRouterState,
 } from "@tanstack/react-router";
 
 function NotFoundComponent() {
@@ -95,7 +96,15 @@ export const Route = createRootRoute({
   component: RootComponent,
 });
 
+const llmSubnavLinks = [
+  { label: "Timeline", href: "/" },
+  { label: "Companies", href: "/org" },
+  { label: "Compare", href: "/compare" },
+];
+
 function RootComponent() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -111,6 +120,7 @@ function RootComponent() {
         <ThemeProvider>
           <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
             <SiteHeader brand="llm timeline" brandHref="/" />
+            <SiteSubnav links={llmSubnavLinks} activeHref={pathname} />
             <main className="relative z-10 bg-white dark:bg-[#0d0e0c]">
               <div className="mx-auto max-w-[1280px] px-5 pb-16 pt-6 sm:px-8 lg:px-10">
                 <Outlet />

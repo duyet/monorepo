@@ -2,12 +2,13 @@ import "@duyet/components/styles.css";
 import "../globals.css";
 
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import { ClerkAuthProvider } from "@duyet/components";
+import { ClerkAuthProvider, SiteSubnav } from "@duyet/components";
 import {
   createRootRoute,
   HeadContent,
   Outlet,
   Scripts,
+  useRouterState,
 } from "@tanstack/react-router";
 import { NotFound } from "../components/NotFound";
 
@@ -42,7 +43,17 @@ export const Route = createRootRoute({
   component: RootComponent,
 });
 
+const homeSubnavLinks = [
+  { label: "Home", href: "/" },
+  { label: "Projects", href: "/projects" },
+  { label: "About", href: "/about" },
+  { label: "DuyetBot", href: "/duyetbot" },
+  { label: "LS", href: "/ls" },
+];
+
 function RootComponent() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -51,6 +62,7 @@ function RootComponent() {
       <body>
         <ClerkAuthProvider>
           <ThemeProvider>
+            <SiteSubnav links={homeSubnavLinks} activeHref={pathname} />
             <Outlet />
           </ThemeProvider>
         </ClerkAuthProvider>

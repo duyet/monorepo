@@ -2,7 +2,7 @@ import "@duyet/components/styles.css";
 import "../../app/globals.css";
 import "../../styles/blog-design.css";
 
-import { SiteHeader, SiteFooter } from "@duyet/components";
+import { SiteHeader, SiteFooter, SiteSubnav } from "@duyet/components";
 import Analytics from "@duyet/components/Analytics";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import {
@@ -10,6 +10,7 @@ import {
   HeadContent,
   Outlet,
   Scripts,
+  useRouterState,
 } from "@tanstack/react-router";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
@@ -112,7 +113,19 @@ export const Route = createRootRoute({
   component: RootComponent,
 });
 
+const blogSubnavLinks = [
+  { label: "Latest", href: "/" },
+  { label: "Archives", href: "/archives" },
+  { label: "Categories", href: "/category" },
+  { label: "Tags", href: "/tags" },
+  { label: "Series", href: "/series" },
+  { label: "AI", href: "/ai" },
+  { label: "RSS", href: "/rss.xml", external: true },
+];
+
 function RootComponent() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
   return (
     <html lang="en">
       <head>
@@ -123,6 +136,7 @@ function RootComponent() {
           <div className="blog-editorial-shell min-h-screen relative bg-background text-foreground overflow-x-hidden flex flex-col justify-between subpixel-antialiased">
 
             <SiteHeader brand="blog" links={siteHeaderLinks} activeHref="https://blog.duyet.net" />
+            <SiteSubnav links={blogSubnavLinks} activeHref={pathname} />
 
             <main className="relative z-10 pb-12 flex-grow">
               <Outlet />

@@ -3,11 +3,10 @@ import "../styles/globals.css";
 
 import Analytics from "@duyet/components/Analytics";
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import { SiteHeader, SiteFooter } from "@duyet/components";
+import { SiteHeader, SiteFooter, SiteSubnav } from "@duyet/components";
 import {
   createRootRoute,
   HeadContent,
-  Link,
   Outlet,
   Scripts,
   useRouterState,
@@ -63,34 +62,18 @@ function RootComponent() {
               brandHref="https://duyet.net"
               activeHref="https://insights.duyet.net"
             />
+            <SiteSubnav
+              links={[
+                { label: "Overview", href: "/" },
+                { label: "Blog", href: "/blog" },
+                { label: "GitHub", href: "/github" },
+                { label: "WakaTime", href: "/wakatime" },
+                { label: "AI", href: "/ai" },
+              ]}
+              activeHref={pathname}
+            />
 
             <main className="mx-auto w-full max-w-[1040px] px-6 py-12 md:py-16 md:px-8 flex-grow">
-              {/* Insights Sub-Navigation */}
-              <div className="flex items-center gap-2 border-b pb-4 mb-8 overflow-x-auto scrollbar-none font-mono text-[10px] uppercase tracking-wider select-none">
-                {[
-                  { name: "Overview", href: "/" },
-                  { name: "Blog", href: "/blog" },
-                  { name: "GitHub", href: "/github" },
-                  { name: "WakaTime", href: "/wakatime" },
-                  { name: "AI", href: "/ai" },
-                ].map((subLink) => {
-                  const active = subLink.href === "/" ? pathname === "/" : pathname.startsWith(subLink.href);
-                  return (
-                    <Link
-                      key={subLink.href}
-                      to={subLink.href}
-                      className={`px-3 py-1 rounded-full transition-all duration-200 border cursor-pointer ${
-                        active
-                          ? "bg-foreground text-background border-transparent font-medium"
-                          : "text-muted-foreground border-border hover:border-foreground hover:text-foreground"
-                      }`}
-                    >
-                      {subLink.name}
-                    </Link>
-                  );
-                })}
-              </div>
-
               <Outlet />
             </main>
 
