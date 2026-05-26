@@ -4,7 +4,7 @@ import { extractHeadings } from "@duyet/libs/extractHeadings";
 import { formatReadingTime } from "@duyet/libs/date";
 import { markdownToHtml } from "@duyet/libs/markdownToHtml";
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { ArrowRight, Calendar, Clock, Link2 } from "lucide-react";
+import { ArrowRight, Link2 } from "lucide-react";
 import { SeriesBox } from "@/components/layout/SeriesBox";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
 import { TableOfContents } from "@/components/post/TableOfContents";
@@ -123,28 +123,14 @@ function PostHero({ post }: { post: LoadedPost }) {
         {post.title}
       </h1>
 
-      {/* Description */}
-      {post.excerpt && (
-        <p className="mt-4 text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
-          {post.excerpt}
-        </p>
-      )}
-
-      {/* Author + date + reading time row */}
-      <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+      <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
         <span>Duyet Le</span>
         <span aria-hidden>·</span>
-        <span className="inline-flex items-center gap-1.5">
-          <Calendar className="h-3.5 w-3.5" />
-          {date}
-        </span>
+        <span>{date}</span>
         {readingTime && (
           <>
             <span aria-hidden>·</span>
-            <span className="inline-flex items-center gap-1.5">
-              <Clock className="h-3.5 w-3.5" />
-              {readingTime}
-            </span>
+            <span>{readingTime}</span>
           </>
         )}
       </div>

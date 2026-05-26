@@ -24,6 +24,18 @@ function parseFrontmatter(raw: string): { date: string; body: string } {
   };
 }
 
+export function getShortformById(id: string): Shortform | null {
+  const entry = Object.entries(FILES).find(
+    ([path]) => path.split("/").pop()!.replace(/\.md$/, "") === id,
+  );
+  if (!entry) return null;
+  const [, raw] = entry;
+  const { date, body } = parseFrontmatter(raw);
+  const d = new Date(date);
+  if (Number.isNaN(d.getTime())) return null;
+  return { id, date: d, body };
+}
+
 export function getShortforms(limit?: number): Shortform[] {
   const all: Shortform[] = Object.entries(FILES)
     .map(([path, raw]) => {

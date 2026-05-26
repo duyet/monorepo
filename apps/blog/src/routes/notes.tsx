@@ -1,5 +1,5 @@
 import { distanceToNow } from "@duyet/libs/date";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import type { ReactElement } from "react";
 import { getShortforms } from "@/lib/shortforms";
 import type { Shortform } from "@/lib/shortforms";
@@ -43,19 +43,27 @@ function NotesPage(): ReactElement {
         ) : (
           <ul className="max-w-3xl space-y-10">
             {shortforms.map((note) => (
-              <li key={note.id} className="flex items-start gap-4">
-                <div className="shrink-0 inline-flex h-10 w-10 items-center justify-center rounded-full bg-muted text-xs font-semibold">
-                  DL
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2 text-sm">
-                    <span className="font-medium">Duyet Le</span>
-                    <span className="text-muted-foreground">
-                      {distanceToNow(note.date)}
-                    </span>
+              <li key={note.id}>
+                <Link
+                  to="/notes/$id"
+                  params={{ id: note.id }}
+                  className="flex items-start gap-4 group"
+                >
+                  <div className="shrink-0 inline-flex h-10 w-10 items-center justify-center rounded-full bg-muted text-xs font-semibold">
+                    DL
                   </div>
-                  <p className="mt-2 text-base leading-relaxed">{note.body}</p>
-                </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2 text-sm">
+                      <span className="font-medium">Duyet Le</span>
+                      <span className="text-muted-foreground">
+                        {distanceToNow(note.date)}
+                      </span>
+                    </div>
+                    <p className="mt-2 text-base leading-relaxed group-hover:text-muted-foreground transition-colors line-clamp-3">
+                      {note.body}
+                    </p>
+                  </div>
+                </Link>
               </li>
             ))}
           </ul>
