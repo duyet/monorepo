@@ -22,12 +22,6 @@ import {
   Minus,
   Quote,
 } from "lucide-react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@duyet/components";
 import { Badge } from "@duyet/components/ui/badge";
 import {
   Card,
@@ -839,69 +833,6 @@ function IndexPage() {
       </p>
       </div>
 
-      <section className="border-t py-16 md:py-24">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-            FAQ
-          </p>
-          <h2 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight">
-            How does this data come together?
-          </h2>
-          <Accordion type="single" collapsible className="mt-10">
-            <AccordionItem value="traffic">
-              <AccordionTrigger>
-                What&apos;s the data source for traffic?
-              </AccordionTrigger>
-              <AccordionContent>
-                Cloudflare Analytics — anonymized request counts aggregated per
-                day.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="ai-usage">
-              <AccordionTrigger>
-                How is &apos;AI usage&apos; measured?
-              </AccordionTrigger>
-              <AccordionContent>
-                ClickHouse stores Claude Code usage logs from{" "}
-                <code>ccusage</code> — token counts and model splits, no prompt
-                content.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="wakatime">
-              <AccordionTrigger>
-                Where does the WakaTime data come from?
-              </AccordionTrigger>
-              <AccordionContent>
-                WakaTime API + a <code>monorepo_wakatime_activity</code> table
-                in ClickHouse for historical depth.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="realtime">
-              <AccordionTrigger>Is any of this real-time?</AccordionTrigger>
-              <AccordionContent>
-                Recent windows (&le;7d) hit the source APIs directly; older
-                windows read from cached ClickHouse tables. The page rebuilds
-                nightly.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="per-post">
-              <AccordionTrigger>
-                Why no per-post breakdown?
-              </AccordionTrigger>
-              <AccordionContent>
-                Privacy. The page aggregates and never shows individual reader
-                sessions.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="code">
-              <AccordionTrigger>Where can I read the code?</AccordionTrigger>
-              <AccordionContent>
-                github.com/duyet/monorepo, under apps/insights.
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </div>
-      </section>
     </div>
   );
 }

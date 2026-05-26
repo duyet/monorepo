@@ -26,18 +26,20 @@ export async function fetchGitHubRepos(user: string): Promise<Repo[]> {
     if (!res.ok) return [];
     const raw = await res.json();
     if (!Array.isArray(raw)) return [];
-    return (raw as Array<Record<string, unknown>>).map((r) => ({
-      name: String(r.name ?? ""),
-      description: r.description ? String(r.description) : null,
-      stars: Number(r.stargazers_count ?? 0),
-      forks: Number(r.forks_count ?? 0),
-      watchers: Number(r.watchers_count ?? 0),
-      language: r.language ? String(r.language) : null,
-      license: r.license
-        ? String((r.license as Record<string, unknown>).spdx_id ?? "")
-        : null,
-      updatedAt: String(r.pushed_at ?? r.updated_at ?? ""),
-    }));
+    return (raw as Array<Record<string, unknown>>)
+      .filter((r) => r.fork !== true)
+      .map((r) => ({
+        name: String(r.name ?? ""),
+        description: r.description ? String(r.description) : null,
+        stars: Number(r.stargazers_count ?? 0),
+        forks: Number(r.forks_count ?? 0),
+        watchers: Number(r.watchers_count ?? 0),
+        language: r.language ? String(r.language) : null,
+        license: r.license
+          ? String((r.license as Record<string, unknown>).spdx_id ?? "")
+          : null,
+        updatedAt: String(r.pushed_at ?? r.updated_at ?? ""),
+      }));
   } catch {
     return [];
   }

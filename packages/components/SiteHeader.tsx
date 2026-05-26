@@ -177,12 +177,19 @@ function LocalNav({
 }) {
   if (items.length === 0) return null;
 
+  const matches = (href: string) => {
+    if (!activeHref) return false;
+    if (activeHref === href) return true;
+    if (href === "/") return false;
+    return activeHref.startsWith(`${href}/`);
+  };
+
   return (
     <>
       <Separator orientation="vertical" className="mx-2 h-6" />
       <nav className="flex items-center gap-0.5">
         {items.map((item) => {
-          const isActive = activeHref === item.href;
+          const isActive = matches(item.href);
           return (
             <Button
               key={item.href}

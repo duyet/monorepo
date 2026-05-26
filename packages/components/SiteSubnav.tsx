@@ -16,6 +16,13 @@ export interface SiteSubnavProps {
   children?: ReactNode;
 }
 
+function isActive(current: string | undefined, href: string): boolean {
+  if (!current) return false;
+  if (current === href) return true;
+  if (href === "/") return false;
+  return current.startsWith(`${href}/`);
+}
+
 export function SiteSubnav({
   links,
   activeHref,
@@ -28,7 +35,7 @@ export function SiteSubnav({
     <div className={cn("border-b bg-background", className)}>
       <div className="mx-auto flex h-12 max-w-[1200px] items-center gap-1 overflow-x-auto px-2 sm:px-4 lg:px-6">
         {links?.map((link) => {
-          const active = activeHref === link.href;
+          const active = isActive(activeHref, link.href);
           return (
             <a
               key={link.href}

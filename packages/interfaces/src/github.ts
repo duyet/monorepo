@@ -13,6 +13,7 @@ export interface GithubRepo {
   archived: boolean;
   disabled: boolean;
   owner: GithubUser;
+  fork: boolean;
   forks_count: number;
   watchers_count: number;
   updated_at: string;
