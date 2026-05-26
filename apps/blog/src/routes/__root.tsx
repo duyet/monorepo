@@ -2,7 +2,7 @@ import "@duyet/components/styles.css";
 import "../../app/globals.css";
 import "../../styles/blog-design.css";
 
-import { SiteHeader, SiteFooter } from "@duyet/components";
+import { SiteFooter, SiteHeader } from "@duyet/components";
 import Analytics from "@duyet/components/Analytics";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import {
@@ -58,24 +58,6 @@ const siteFooterLinks = [
   { label: "Insights", href: "https://insights.duyet.net" },
 ];
 
-function BotCredit() {
-  return (
-    <div className="em-bot-credit" role="contentinfo">
-      <em>
-        This site is auto-driven and auto-designed by the{" "}
-        <a
-          href="https://github.com/duyetbot"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          duyetbot
-        </a>{" "}
-        agent.
-      </em>
-    </div>
-  );
-}
-
 export const Route = createRootRoute({
   head: () => ({
     meta: [
@@ -124,7 +106,6 @@ function RootComponent() {
       <body>
         <ThemeProvider>
           <div className="blog-editorial-shell min-h-screen relative bg-background text-foreground overflow-x-hidden flex flex-col justify-between subpixel-antialiased">
-
             <SiteHeader
               currentApp="blog"
               localNav={blogLocalNav}
@@ -134,7 +115,7 @@ function RootComponent() {
             <main className="relative z-10 pb-12 flex-grow">
               <Outlet />
             </main>
-            <BotCredit />
+
             <SiteFooter links={siteFooterLinks} />
             <Analytics />
             <ServiceWorkerRegister />

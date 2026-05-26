@@ -210,17 +210,22 @@ function HomePage() {
 
           {/* Featured Projects */}
           <section className="mb-20 md:mb-32">
-            <div className="mb-12">
-              <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
-                01 / SHIPPED & MAINTAINED
-              </span>
-              <h2 className="text-2xl md:text-4xl font-semibold tracking-tight mt-2">
-                Featured Projects
-              </h2>
-              <p className="text-sm text-muted-foreground mt-1 max-w-xl">
-                Open-source systems, AI router protocols, and analytics software
-                compiled and optimized for high scale.
-              </p>
+            <div className="mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+              <div>
+                <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                  01 / SHIPPED & MAINTAINED
+                </span>
+                <h2 className="text-2xl md:text-4xl font-semibold tracking-tight mt-2">
+                  Featured Projects
+                </h2>
+                <p className="text-sm text-muted-foreground mt-1 max-w-xl">
+                  Open-source systems, AI router protocols, and analytics software
+                  compiled and optimized for high scale.
+                </p>
+              </div>
+              <Button variant="outline" size="sm" asChild className="shrink-0">
+                <Link to="/projects">View All Projects</Link>
+              </Button>
             </div>
 
             <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border border">
@@ -230,21 +235,15 @@ function HomePage() {
                 </li>
               ))}
             </ul>
-
-            <div className="flex justify-center mt-12">
-              <Button variant="outline" asChild>
-                <Link to="/projects">View All Projects</Link>
-              </Button>
-            </div>
           </section>
 
           {/* Areas of Expertise */}
-          <section className="mb-20 md:mb-32 border-t pt-16">
+          <section className="mb-20 md:mb-32">
             <AreasOfExpertise areas={DEFAULT_AREAS} />
           </section>
 
           {/* Open Source */}
-          <section className="mb-20 md:mb-32 border-t pt-16">
+          <section className="mb-20 md:mb-32">
             <OpenSourceGrid
               repos={githubRepos}
               user="duyet"
@@ -256,7 +255,7 @@ function HomePage() {
           <FromTheBlogSection />
 
           {/* Sibling Monorepo Applications */}
-          <section id="sites" className="mb-20 md:mb-32 border-t pt-16">
+          <section id="sites" className="mb-20 md:mb-32">
             <div className="mb-10">
               <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
                 02 / INDEPENDENT SERVICES
@@ -323,7 +322,7 @@ const STACK_TAGS: { label: string; icon: LucideIcon }[] = [
 
 function ProfileHero() {
   return (
-    <section className="mb-16 md:mb-24 border-b pb-10 md:pb-14">
+    <section className="mb-16 md:mb-24">
       <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
         duyet.net · 2026
       </p>
@@ -547,7 +546,7 @@ function formatDateShort(dateStr: string): string {
 
 function FromTheBlogSection() {
   return (
-    <section className="mb-20 md:mb-32 border-t pt-16">
+    <section className="mb-20 md:mb-32">
       <div className="mb-6 flex items-baseline justify-between gap-4">
         <div>
           <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
@@ -557,6 +556,14 @@ function FromTheBlogSection() {
             From the Blog
           </h2>
         </div>
+        <a
+          href="https://blog.duyet.net"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm text-muted-foreground hover:text-foreground transition-colors shrink-0"
+        >
+          Browse the blog &rarr;
+        </a>
       </div>
 
       <ul className="divide-y border">
@@ -583,17 +590,6 @@ function FromTheBlogSection() {
           </li>
         ))}
       </ul>
-
-      <div className="mt-4">
-        <a
-          href="https://blog.duyet.net"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-        >
-          Browse the blog &rarr;
-        </a>
-      </div>
     </section>
   );
 }

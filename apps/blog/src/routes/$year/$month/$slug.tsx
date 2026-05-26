@@ -1,13 +1,12 @@
 import type { Post, Series } from "@duyet/interfaces";
+import { formatReadingTime } from "@duyet/libs/date";
 import type { TOCItem } from "@duyet/libs/extractHeadings";
 import { extractHeadings } from "@duyet/libs/extractHeadings";
-import { formatReadingTime } from "@duyet/libs/date";
 import { markdownToHtml } from "@duyet/libs/markdownToHtml";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { ArrowRight, Link2 } from "lucide-react";
 import { SeriesBox } from "@/components/layout/SeriesBox";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
-import { TableOfContents } from "@/components/post/TableOfContents";
 import { getPostBySlug, getRelatedPosts, getSeries } from "@/lib/posts";
 import "@/styles/post-reader.css";
 import Content from "./-content";
@@ -118,7 +117,7 @@ function PostHero({ post }: { post: LoadedPost }) {
     : null;
 
   return (
-    <header className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-10">
+    <header className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-10">
       <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
         {post.title}
       </h1>
@@ -159,15 +158,6 @@ function RelatedPostCard({ post }: { post: Post }) {
 
   return (
     <a href={href} className="block group">
-      {post.thumbnail && (
-        <div className="aspect-video overflow-hidden rounded-md bg-muted mb-4">
-          <img
-            src={post.thumbnail}
-            alt={post.title}
-            className="h-full w-full object-cover transition-transform group-hover:scale-105"
-          />
-        </div>
-      )}
       <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
         {metaParts}
       </p>
@@ -218,26 +208,20 @@ function PostPage() {
       {/* Hero */}
       <PostHero post={post} />
 
-      {/* Body: 2-col grid */}
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,760px)_240px] lg:gap-12 lg:justify-center">
-          <div className="post-body min-w-0">
-            <Content post={post} />
+      {/* Body */}
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <div className="post-body min-w-0">
+          <Content post={post} />
 
-            <Meta post={post} series={series} className="post-meta mt-12" />
+          <Meta post={post} series={series} className="post-meta mt-12" />
 
-            {series && <SeriesBox series={series} current={post.slug} />}
-          </div>
-
-          <aside className="hidden lg:block sticky top-20 self-start">
-            <TableOfContents headings={post.headings || []} />
-          </aside>
+          {series && <SeriesBox series={series} current={post.slug} />}
         </div>
       </div>
 
       {/* Author bio strip */}
       <div className="border-t pt-8 mt-16">
-        <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-6">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <img
               src="https://github.com/duyet.png"
@@ -257,7 +241,7 @@ function PostPage() {
 
       {/* Related articles */}
       {related.length > 0 && (
-        <section className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 mt-20 mb-24">
+        <section className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 mt-20 mb-24">
           <div className="flex items-end justify-between mb-8">
             <div>
               <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">

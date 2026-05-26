@@ -1,11 +1,11 @@
-import type { Post } from "@duyet/interfaces";
 import { Badge } from "@duyet/components";
+import type { Post } from "@duyet/interfaces";
 import { dateFormat, distanceToNow } from "@duyet/libs/date";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { ReactElement } from "react";
 import { getPostsByAllYear } from "@/lib/posts";
-import { getShortforms } from "@/lib/shortforms";
 import type { Shortform } from "@/lib/shortforms";
+import { getShortforms } from "@/lib/shortforms";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
@@ -99,8 +99,12 @@ function HomePage(): ReactElement {
       {/* Quick Notes */}
       <section className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 py-12 md:py-16 border-t">
         <div className="mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Quick Notes</h2>
-          <p className="mt-2 text-base text-muted-foreground">Short-form thoughts and updates.</p>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+            Quick Notes
+          </h2>
+          <p className="mt-2 text-base text-muted-foreground">
+            Short-form thoughts and updates.
+          </p>
         </div>
         {shortforms.length > 0 ? (
           <ul className="max-w-3xl space-y-10">
@@ -112,7 +116,9 @@ function HomePage(): ReactElement {
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2 text-sm">
                     <span className="font-medium">Duyet Le</span>
-                    <span className="text-muted-foreground">{distanceToNow(note.date)}</span>
+                    <span className="text-muted-foreground">
+                      {distanceToNow(note.date)}
+                    </span>
                   </div>
                   <p className="mt-2 text-base leading-relaxed">{note.body}</p>
                 </div>
@@ -129,7 +135,7 @@ function HomePage(): ReactElement {
       </section>
 
       {/* Posts by year */}
-      <section className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 py-12 md:py-16 border-t">
+      <section className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12 md:py-16 border-t">
         <div className="mb-10">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
             Posts by year
@@ -138,7 +144,7 @@ function HomePage(): ReactElement {
             {allPosts.length} posts across {years.length} years.
           </p>
         </div>
-        <div className="max-w-3xl">
+        <div>
           {years.map((year) => {
             const posts = [...postsByYear[year]]
               .sort(
