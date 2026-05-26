@@ -22,7 +22,6 @@ import {
   Type,
 } from "lucide-react";
 import { addUtmParams } from "../../app/lib/utm";
-import { SiteFooter, SiteHeader } from "@duyet/components";
 import { apps, type AppItem } from "../data/projects";
 
 export const Route = createFileRoute("/projects")({
@@ -74,7 +73,6 @@ function projectIcon(item: AppItem): ReactNode {
 function ProjectsPage() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <SiteHeader />
 
       <main className="mx-auto max-w-[1040px] px-6 py-12 md:py-16 md:px-8">
         <header className="mb-12">
@@ -114,7 +112,6 @@ function ProjectsPage() {
         </ul>
       </main>
 
-      <SiteFooter />
     </div>
   );
 }

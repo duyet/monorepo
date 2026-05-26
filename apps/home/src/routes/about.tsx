@@ -1,7 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { addUtmParams } from "../../app/lib/utm";
-import { SiteFooter, SiteHeader } from "@duyet/components";
-import { Card, CardContent } from "../components/ui/card";
 
 const experienceYears = "8+ years";
 const contentLastModified = "2026-05-02";
@@ -110,7 +108,6 @@ const links = [
 function AboutPage() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <SiteHeader />
 
       <main className="mx-auto max-w-2xl px-6 py-12 md:py-20">
         <article className="flex flex-col gap-6">
@@ -178,7 +175,6 @@ function AboutPage() {
         </article>
       </main>
 
-      <SiteFooter />
     </div>
   );
 }

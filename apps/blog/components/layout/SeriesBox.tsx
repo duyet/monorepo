@@ -8,11 +8,42 @@ import {
   CardTitle,
 } from "@duyet/components/ui/card";
 
+const SERIES_TONES = [
+  "bg-blue-50 dark:bg-blue-950/30",
+  "bg-emerald-50 dark:bg-emerald-950/30",
+  "bg-amber-50 dark:bg-amber-950/30",
+  "bg-rose-50 dark:bg-rose-950/30",
+  "bg-violet-50 dark:bg-violet-950/30",
+  "bg-cyan-50 dark:bg-cyan-950/30",
+  "bg-orange-50 dark:bg-orange-950/30",
+  "bg-lime-50 dark:bg-lime-950/30",
+  "bg-pink-50 dark:bg-pink-950/30",
+  "bg-indigo-50 dark:bg-indigo-950/30",
+  "bg-teal-50 dark:bg-teal-950/30",
+  "bg-yellow-50 dark:bg-yellow-950/30",
+  "bg-fuchsia-50 dark:bg-fuchsia-950/30",
+  "bg-sky-50 dark:bg-sky-950/30",
+  "bg-red-50 dark:bg-red-950/30",
+  "bg-green-50 dark:bg-green-950/30",
+  "bg-purple-50 dark:bg-purple-950/30",
+  "bg-slate-50 dark:bg-slate-900/50",
+  "bg-stone-50 dark:bg-stone-900/50",
+  "bg-zinc-50 dark:bg-zinc-900/50",
+];
+
+function toneFor(seed: string): string {
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
+  }
+  return SERIES_TONES[hash % SERIES_TONES.length];
+}
+
 export function SeriesBox({
   series,
   current,
   className,
-  tone = "light",
+  tone,
   showTitle = true,
 }: {
   series: Series | null;
@@ -27,10 +58,12 @@ export function SeriesBox({
   // Tone parameter kept for API compatibility with downstream consumers.
   void tone;
 
+  const toneClass = toneFor(series.slug || name);
+
   return (
     <Card
       aria-label={`Series: ${name}`}
-      className={cn("mt-14", className)}
+      className={cn("mt-14", toneClass, className)}
     >
       <CardHeader className="pb-3">
         <CardDescription>Part of the series</CardDescription>

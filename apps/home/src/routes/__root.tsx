@@ -2,7 +2,12 @@ import "@duyet/components/styles.css";
 import "../globals.css";
 
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import { ClerkAuthProvider, SiteSubnav } from "@duyet/components";
+import {
+  ClerkAuthProvider,
+  SiteFooter,
+  SiteHeader,
+  SiteSubnav,
+} from "@duyet/components";
 import {
   createRootRoute,
   HeadContent,
@@ -62,8 +67,10 @@ function RootComponent() {
       <body>
         <ClerkAuthProvider>
           <ThemeProvider>
+            <SiteHeader />
             <SiteSubnav links={homeSubnavLinks} activeHref={pathname} />
             <Outlet />
+            <SiteFooter />
           </ThemeProvider>
         </ClerkAuthProvider>
         <Scripts />

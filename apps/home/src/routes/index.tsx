@@ -30,7 +30,6 @@ import { Suspense } from "react";
 import type { ReactNode } from "react";
 import { addUtmParams } from "../../app/lib/utm";
 import { KeyboardFeatures } from "../components/KeyboardFeatures";
-import { SiteFooter, SiteHeader } from "@duyet/components";
 import { type AppItem, apps } from "../data/projects";
 import { type SiblingApp, siblingApps } from "../data/sibling-apps";
 import {
@@ -179,10 +178,8 @@ function HomePage() {
         <KeyboardFeatures />
       </Suspense>
 
-      <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-        <SiteHeader />
-
-        <main className="mx-auto max-w-[1040px] px-6 py-12 md:py-24 md:px-8">
+      <div className="bg-background text-foreground">
+        <main className="mx-auto max-w-[1200px] px-4 py-12 md:py-20 sm:px-6 lg:px-8">
 
           {/* Profile header */}
           <section className="mb-16 md:mb-24">
@@ -355,8 +352,6 @@ function HomePage() {
           </section>
 
         </main>
-
-        <SiteFooter />
       </div>
     </>
   );

@@ -5,7 +5,6 @@ import {
   DEFAULT_CATEGORY,
 } from "../../app/config/categories";
 import { urls } from "../../app/config/urls";
-import { SiteFooter, SiteHeader } from "@duyet/components";
 import UrlsList from "../components/UrlsList";
 
 export const Route = createFileRoute("/ls")({
@@ -34,7 +33,6 @@ const publicUrls = Object.entries(urls)
 function ListPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <SiteHeader />
 
       <main className="mx-auto max-w-[1200px] px-6 pt-24 pb-20 md:px-8 md:pt-32 md:pb-32">
         <header className="max-w-3xl">
@@ -56,7 +54,6 @@ function ListPage() {
         </div>
       </main>
 
-      <SiteFooter />
     </div>
   );
 }

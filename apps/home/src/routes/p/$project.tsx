@@ -1,6 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { addUtmParams } from "../../../app/lib/utm";
-import { SiteFooter, SiteHeader } from "@duyet/components";
 import { Card, CardContent } from "../../components/ui/card";
 
 type Product = {
@@ -107,7 +106,6 @@ function ProductPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <SiteHeader />
 
       <main className="mx-auto max-w-2xl px-6 pt-24 pb-20 md:px-8 md:pt-32 md:pb-32">
         <Link
@@ -200,7 +198,6 @@ function ProductPage() {
         )}
       </main>
 
-      <SiteFooter />
     </div>
   );
 }

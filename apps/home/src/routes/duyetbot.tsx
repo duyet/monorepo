@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteFooter, SiteHeader } from "@duyet/components";
 import { Button } from "../components/ui/button";
 
 export const Route = createFileRoute("/duyetbot")({
@@ -56,7 +55,6 @@ function Capability({
 function DuyetbotPage() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <SiteHeader />
 
       <main className="mx-auto max-w-[1040px] px-6 py-12 md:py-16 md:px-8">
         <header className="mb-12">
@@ -199,7 +197,6 @@ function DuyetbotPage() {
         </Section>
       </main>
 
-      <SiteFooter />
     </div>
   );
 }
