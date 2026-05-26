@@ -21,7 +21,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
 
   return (
     <article
-      className="rounded-lg border border-[#e8e0d4] bg-white p-4 shadow-sm dark:border-white/12 dark:bg-[#1a1a1a]"
+      className="rounded-lg border border-[#e8e0d4] bg-white p-4 dark:border-white/12 dark:bg-[#1a1a1a]"
       aria-label={`Service ${service.name}`}
     >
       <div className="flex items-start justify-between">

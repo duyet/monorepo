@@ -73,7 +73,7 @@ function PostThumbnail({ post, size = "grid" }: { post: Post; size?: "hero" | "g
       <div className="absolute inset-0 bg-[radial-gradient(#ffffff03_1px,transparent_1px)] dark:bg-[radial-gradient(#ffffff02_1px,transparent_1px)] bg-[size:16px_16px] opacity-80" />
 
       <div className="relative z-10 flex flex-col items-center gap-2">
-        <div className="px-5 py-2.5 rounded-lg border border-white/5 bg-black/40 backdrop-blur-md flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-[1.03]">
+        <div className="px-5 py-2.5 rounded-lg border border-white/5 bg-black/40 backdrop-blur-md flex items-center justify-center transition-transform duration-300 group-hover:scale-[1.03]">
           <span className="font-mono text-xs md:text-sm font-bold tracking-widest text-white/90 uppercase">
             {post.category || "ENGINEERING"}
           </span>

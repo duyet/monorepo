@@ -13,7 +13,7 @@ export function ClusterTopology() {
         {nodes.map((node) => (
           <div
             key={node.id}
-            className="rounded-xl border border-[#e8e0d4] bg-white p-4 shadow-sm dark:border-white/12 dark:bg-[#1a1a1a]"
+            className="rounded-xl border border-[#e8e0d4] bg-white p-4 dark:border-white/12 dark:bg-[#1a1a1a]"
           >
             {/* Line 1: Status indicator and node name */}
             <div className="mb-3 flex items-center gap-2">

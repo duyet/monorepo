@@ -32,7 +32,7 @@ export function ProgressiveDisclosure({
   const variantStyles = {
     default: "rounded-xl",
     subtle: "border-b",
-    card: "rounded-xl shadow-sm",
+    card: "rounded-xl",
   };
 
   return (

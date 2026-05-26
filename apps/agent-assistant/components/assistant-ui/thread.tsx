@@ -224,7 +224,7 @@ const Composer: FC = () => {
       <ComposerPrimitive.AttachmentDropzone asChild>
         <div
           data-slot="aui_composer-shell"
-          className="flex w-full flex-col gap-2.5 p-3.5 bg-[color:var(--card)] border border-[color:var(--hairline)] rounded-xl shadow-xs transition-shadow focus-within:shadow-md focus-within:border-[color:var(--accent)]"
+          className="flex w-full flex-col gap-2.5 p-3.5 bg-[color:var(--card)] border border-[color:var(--hairline)] rounded-xl transition-shadow focus-within:border-[color:var(--accent)]"
         >
           <ComposerAttachments />
           <ComposerPrimitive.Input
@@ -254,7 +254,7 @@ const Composer: FC = () => {
                     className="fixed inset-0 z-30"
                     onClick={() => setDropdownOpen(false)}
                   />
-                  <div className="absolute left-0 bottom-full mb-1 z-40 w-48 rounded-lg border border-[color:var(--hairline)] bg-[color:var(--popover)] p-1 shadow-sm text-[11px]">
+                  <div className="absolute left-0 bottom-full mb-1 z-40 w-48 rounded-lg border border-[color:var(--hairline)] bg-[color:var(--popover)] p-1 text-[11px]">
                     {models.map((m) => (
                       <button
                         key={m.name}

@@ -142,7 +142,7 @@ export function SearchBar({
       {showHistory && isInitialized && history.length > 0 && !query && (
         <div
           data-search-history
-          className="absolute z-10 mt-2 w-full rounded-md border border-border bg-card shadow-sm"
+          className="absolute z-10 mt-2 w-full rounded-md border border-border bg-card"
         >
           <div className="flex items-center justify-between border-b border-border px-4 py-2">
             <span className="text-xs font-medium text-muted-foreground">

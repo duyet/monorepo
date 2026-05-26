@@ -28,7 +28,7 @@ export function SiteFooter({
   const year = new Date().getFullYear();
   return (
     <footer className={cn("border-t", className)}>
-      <div className="mx-auto flex h-14 max-w-screen-2xl flex-col items-center justify-between gap-2 px-4 text-sm text-muted-foreground sm:flex-row sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-2 px-4 py-4 text-sm text-muted-foreground sm:h-14 sm:flex-row sm:py-0 sm:px-6 lg:px-8">
         <p>
           © {year} {owner}
         </p>

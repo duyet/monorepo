@@ -1,5 +1,30 @@
 import Icons from "@duyet/components/Icons";
-import { ExternalLink, User, Mail } from "lucide-react";
+import {
+  Activity,
+  BarChart3,
+  Bot,
+  Box,
+  BookOpen,
+  Clock,
+  Cloud,
+  Cpu,
+  Database,
+  ExternalLink,
+  FileCode,
+  FileText,
+  HardDrive,
+  Languages,
+  Layers,
+  Mail,
+  Plug,
+  Puzzle,
+  Save,
+  Sparkles,
+  Terminal,
+  Type,
+  User,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Suspense } from "react";
 import type { ReactNode } from "react";
@@ -103,6 +128,34 @@ const rowMeta: Record<string, { year: string; stack: string; status: string; tec
   },
 };
 
+const TECH_ICONS: Record<string, { icon: LucideIcon; label: string }> = {
+  CF: { icon: Cloud, label: "Cloudflare" },
+  TS: { icon: FileCode, label: "TypeScript" },
+  Rs: { icon: Cpu, label: "Rust" },
+  Ob: { icon: Activity, label: "Observability" },
+  CH: { icon: Database, label: "ClickHouse" },
+  Nx: { icon: Layers, label: "Next.js" },
+  AI: { icon: Bot, label: "AI" },
+  Md: { icon: FileText, label: "Markdown" },
+  KV: { icon: Box, label: "KV" },
+  St: { icon: Save, label: "State" },
+  Db: { icon: Database, label: "Database" },
+  DO: { icon: HardDrive, label: "Durable Objects" },
+  MC: { icon: Plug, label: "MCP" },
+  Is: { icon: Cpu, label: "Isolates" },
+  Cl: { icon: Sparkles, label: "Claude" },
+  Pl: { icon: Puzzle, label: "Plugins" },
+  Co: { icon: Terminal, label: "Code" },
+  D1: { icon: Database, label: "D1" },
+  An: { icon: BarChart3, label: "Analytics" },
+  TL: { icon: Clock, label: "Timeline" },
+  Vn: { icon: Languages, label: "Vietnamese" },
+  Bk: { icon: BookOpen, label: "Book" },
+  Ft: { icon: Type, label: "Fonts" },
+  Op: { icon: Type, label: "OpenType" },
+  Sf: { icon: Type, label: "Serif" },
+};
+
 const featured: (ProjectRowItem & { techs: string[] })[] = apps.slice(0, 6).map((item) => {
   const meta = rowMeta[item.name] ?? {
     year: "—",
@@ -133,29 +186,22 @@ function HomePage() {
 
           {/* Profile header */}
           <section className="mb-16 md:mb-24">
-            <div className="flex flex-col sm:flex-row gap-6 md:gap-8 items-start sm:items-center">
-              <img
-                src="https://github.com/duyet.png"
-                alt="Duyet Le"
-                className="h-16 w-16 md:h-20 md:w-20 rounded-md border bg-muted"
-              />
-              <div>
-                <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-2">Profile · 2026</p>
-                <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
-                  Duyet Le
-                </h1>
-                <p className="text-sm text-muted-foreground mt-1">
-                  Data Engineer and AI Engineer · building agents, data platforms, and small useful things
-                </p>
-                <div className="mt-3 flex flex-wrap gap-1.5">
-                  <Badge variant="secondary">AI Agents</Badge>
-                  <Badge variant="secondary">Cloudflare</Badge>
-                  <Badge variant="secondary">React</Badge>
-                  <Badge variant="secondary">ClickHouse</Badge>
-                  <Badge variant="secondary">Rust</Badge>
-                  <Badge variant="secondary">TypeScript</Badge>
-                </div>
-              </div>
+            <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+              Profile · 2026
+            </p>
+            <h1 className="mt-2 text-3xl md:text-5xl font-semibold tracking-tight">
+              Duyet Le
+            </h1>
+            <p className="mt-2 text-sm md:text-base text-muted-foreground max-w-xl">
+              Data Engineer and AI Engineer · building agents, data platforms, and small useful things
+            </p>
+            <div className="mt-4 flex flex-wrap gap-1.5">
+              <Badge variant="secondary">AI Agents</Badge>
+              <Badge variant="secondary">Cloudflare</Badge>
+              <Badge variant="secondary">React</Badge>
+              <Badge variant="secondary">ClickHouse</Badge>
+              <Badge variant="secondary">Rust</Badge>
+              <Badge variant="secondary">TypeScript</Badge>
             </div>
 
             {/* Metadata Grid */}
@@ -328,12 +374,19 @@ function ProjectCard({ item }: { item: ProjectRowItem & { techs: string[] } }) {
           {item.description}
         </p>
         <div className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-3">
-          <div className="flex flex-wrap gap-1.5">
-            {item.techs.map((tech) => (
-              <Badge key={tech} variant="secondary">
-                {tech}
-              </Badge>
-            ))}
+          <div className="flex flex-wrap items-center gap-2 text-muted-foreground">
+            {item.techs.map((tech) => {
+              const entry = TECH_ICONS[tech];
+              if (!entry) return null;
+              const Icon = entry.icon;
+              return (
+                <Icon
+                  key={tech}
+                  size={14}
+                  aria-label={entry.label}
+                />
+              );
+            })}
           </div>
           <Badge variant="outline">{item.status}</Badge>
         </div>

@@ -112,7 +112,7 @@ export function ServiceWorkerProvider() {
     <>
       {/* Offline Indicator */}
       {!isOnline && (
-        <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-lg border border-orange-200 bg-orange-50 px-4 py-2 text-sm text-orange-800 shadow-lg dark:border-orange-800 dark:bg-orange-950 dark:text-orange-200">
+        <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-lg border border-orange-200 bg-orange-50 px-4 py-2 text-sm text-orange-800 dark:border-orange-800 dark:bg-orange-950 dark:text-orange-200">
           <WifiOff className="h-4 w-4" />
           <span>You are offline. Some features may be limited.</span>
         </div>
@@ -120,7 +120,7 @@ export function ServiceWorkerProvider() {
 
       {/* Update Available Banner */}
       {updateAvailable && (
-        <div className="fixed bottom-4 right-4 z-50 max-w-md rounded-lg border border-blue-200 bg-blue-50 p-4 shadow-lg dark:border-blue-800 dark:bg-blue-950">
+        <div className="fixed bottom-4 right-4 z-50 max-w-md rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-950">
           <div className="flex items-start gap-3">
             <RefreshCw className="mt-0.5 h-5 w-5 shrink-0 text-blue-600 dark:text-blue-400" />
             <div className="flex-1">

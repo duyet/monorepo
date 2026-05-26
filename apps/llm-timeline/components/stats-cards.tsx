@@ -31,7 +31,7 @@ function StatCard({
         "group relative overflow-hidden rounded-xl p-5 transition-all duration-300",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
         active
-          ? "bg-card border border-foreground/10 shadow-sm"
+          ? "bg-card border border-foreground/10"
           : "bg-muted/30 hover:bg-muted/50 border border-transparent"
       )}
       {...props}

@@ -112,72 +112,69 @@ function AboutPage() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SiteHeader />
 
-      <main className="mx-auto max-w-2xl px-6 py-12 md:py-24">
+      <main className="mx-auto max-w-2xl px-6 py-12 md:py-20">
         <article className="flex flex-col gap-6">
-          <header className="mb-4">
-            <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
-              BIOGRAPHY / CONTEXT
-            </span>
-            <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mt-2">
+          <header>
+            <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+              Biography
+            </p>
+            <h1 className="mt-2 text-3xl md:text-4xl font-semibold tracking-tight">
               About
             </h1>
           </header>
 
-          <p className="text-lg leading-relaxed font-light">
+          <p className="text-base md:text-lg leading-relaxed">
             I'm a Senior Data &amp; AI Engineer with {experienceYears} of
             experience across modern data infrastructure, AI/ML platforms, and
             distributed systems.
           </p>
 
-          <p className="text-base leading-relaxed text-muted-foreground font-light">
+          <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
             I care about systems that are easy to operate, easy to explain, and
             boring in the places where reliability matters. Most of my work sits
             where data products, AI tools, and engineering platforms meet.
           </p>
 
-          <h2 className="mt-8 text-xl font-semibold tracking-tight border-b pb-2">
+          <h2 className="mt-6 text-lg font-semibold tracking-tight border-b pb-2">
             Focus
           </h2>
-          <p className="text-base leading-relaxed text-muted-foreground font-light">
+          <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
             Data pipelines, warehouses, observability. Agent workflows, model
             routing, evaluation, and usage analytics. Small tools and clean
             interfaces.
           </p>
 
-          <h2 className="mt-8 text-xl font-semibold tracking-tight border-b pb-2">
+          <h2 className="mt-6 text-lg font-semibold tracking-tight border-b pb-2">
             Stack
           </h2>
-          <p className="text-base leading-relaxed text-muted-foreground font-light">
+          <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
             Python, Rust, TypeScript. Spark, Airflow, ClickHouse, BigQuery,
             Kafka. Kubernetes, AWS, GCP, Cloudflare. LlamaIndex, AI SDK,
             LangGraph.
           </p>
 
-          <h2 className="mt-8 text-xl font-semibold tracking-tight border-b pb-2">
+          <h2 className="mt-6 text-lg font-semibold tracking-tight border-b pb-2">
             Elsewhere
           </h2>
-          <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-border border">
             {links.map((item) => (
-              <a
-                key={item.title}
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block no-underline group"
-              >
-                <Card className="hover:border-foreground/30 transition-colors h-full">
-                  <CardContent className="pt-5">
-                    <h3 className="font-semibold text-base tracking-tight">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
-                      {item.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </a>
+              <li key={item.title} className="bg-background">
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block h-full p-5 no-underline transition-colors hover:bg-muted"
+                >
+                  <h3 className="text-base font-medium tracking-tight">
+                    {item.title}
+                  </h3>
+                  <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">
+                    {item.description}
+                  </p>
+                </a>
+              </li>
             ))}
-          </div>
+          </ul>
         </article>
       </main>
 

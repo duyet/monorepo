@@ -41,7 +41,7 @@ export function DesignSwatches({
         {swatches.map((swatch) => (
           <div
             key={swatch.name}
-            className="group relative overflow-hidden rounded-lg bg-white dark:bg-[var(--surface-dark)] border border-[var(--hairline)] transition-shadow hover:shadow-md"
+            className="group relative overflow-hidden rounded-lg bg-white dark:bg-[var(--surface-dark)] border border-[var(--hairline)]"
           >
             {variant === "colors" ? (
               <>

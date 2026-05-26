@@ -15,6 +15,7 @@ import "katex/dist/katex.min.css";
 import "@/styles/highlight.css";
 import { mdxComponents } from "@/components/MdxComponents";
 import { OldPostWarning } from "./-old-post-warning";
+import { MarkdownMenuWrapper } from "./-markdown-menu-wrapper";
 import { Snippet } from "./-snippet";
 
 interface ContentPost extends Post {
@@ -80,27 +81,33 @@ function MDXRenderer({ source }: { source: string }) {
 }
 
 export default function Content({ post }: { post: ContentPost }) {
-  const eyebrowParts = [
-    post.category,
-    post.date
-      ? new Date(post.date).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        })
-      : null,
-  ].filter(Boolean);
+  const markdownUrl = `${post.slug.replace(/\.html$/, "")}.md`;
 
   return (
     <>
-      <header className="post-header">
-        {eyebrowParts.length > 0 && (
-          <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-4">{eyebrowParts.join(" · ")}</p>
-        )}
+      <header className="mb-8">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
+              {post.title}
+            </h1>
 
-        <h1 className="post-title">{post.title}</h1>
+            {post.excerpt && (
+              <p className="mt-3 text-base leading-relaxed text-muted-foreground md:text-lg">
+                {post.excerpt}
+              </p>
+            )}
+          </div>
 
-        {post.excerpt ? <p className="post-dek">{post.excerpt}</p> : null}
+          {post.markdown_content && (
+            <div className="shrink-0">
+              <MarkdownMenuWrapper
+                markdownUrl={markdownUrl}
+                markdownContent={post.markdown_content}
+              />
+            </div>
+          )}
+        </div>
 
         <OldPostWarning post={post} year={5} className="mt-6" />
       </header>
