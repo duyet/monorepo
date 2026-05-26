@@ -205,7 +205,6 @@ function HomePage() {
         <main className="mx-auto max-w-[1200px] px-4 py-12 md:py-20 sm:px-6 lg:px-8">
           <ProfileHero />
 
-
           {/* By the Numbers */}
           <ByTheNumbersSection />
 
@@ -427,34 +426,30 @@ function ProfileHero() {
 
 function ByTheNumbersSection() {
   return (
-    <section className="border-t py-12 md:py-16">
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
-        <div className="mb-6">
-          <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-            BY THE NUMBERS
-          </p>
-          <h2 className="mt-2 text-2xl md:text-3xl font-semibold tracking-tight">
-            What ships, what runs
-          </h2>
-        </div>
-        <div className="grid grid-cols-3 gap-3">
-          {stats.map((stat) => (
-            <div
-              key={stat.title}
-              className="border bg-card p-4 flex flex-col gap-2"
-            >
-              <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                {stat.title}
-              </p>
-              <p className="text-3xl font-semibold tracking-tight">
-                {stat.value}
-              </p>
-              <p className="text-xs text-muted-foreground">
-                {stat.description}
-              </p>
-            </div>
-          ))}
-        </div>
+    <section className="mb-20 md:mb-32">
+      <div className="mb-6">
+        <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+          BY THE NUMBERS
+        </p>
+        <h2 className="mt-2 text-2xl md:text-3xl font-semibold tracking-tight">
+          What ships, what runs
+        </h2>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        {stats.map((stat) => (
+          <div
+            key={stat.title}
+            className="border bg-card p-4 flex flex-col gap-2"
+          >
+            <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+              {stat.title}
+            </p>
+            <p className="text-3xl font-semibold tracking-tight">
+              {stat.value}
+            </p>
+            <p className="text-xs text-muted-foreground">{stat.description}</p>
+          </div>
+        ))}
       </div>
     </section>
   );

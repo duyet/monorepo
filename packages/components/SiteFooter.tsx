@@ -70,7 +70,7 @@ export function SiteFooter({
   return (
     <footer className={cn("border-t bg-background", className)}>
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_repeat(4,1fr)] gap-10 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-12">
           <div className="max-w-md">
             <p className="text-base font-semibold tracking-tight">duyet.net</p>
             <p className="mt-1 text-sm text-muted-foreground">
@@ -85,32 +85,14 @@ export function SiteFooter({
               <a href="https://blog.duyet.net">Read the blog</a>
             </Button>
           </div>
-          {SECTIONS.map((section) => (
-            <div key={section.heading}>
-              <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                {section.heading}
-              </p>
-              <ul className="mt-4 space-y-3">
-                {section.items.map((item) => (
-                  <li key={item.href}>
-                    <a
-                      href={item.href}
-                      className="text-sm transition-colors hover:text-foreground"
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-          {links && links.length > 0 && (
+
+          <div className="space-y-8">
             <div>
               <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                Links
+                Apps
               </p>
               <ul className="mt-4 space-y-3">
-                {links.map((item) => (
+                {SECTIONS[0].items.map((item) => (
                   <li key={item.href}>
                     <a
                       href={item.href}
@@ -122,17 +104,96 @@ export function SiteFooter({
                 ))}
               </ul>
             </div>
-          )}
+            <div>
+              <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                Tools
+              </p>
+              <ul className="mt-4 space-y-3">
+                {SECTIONS[1].items.map((item) => (
+                  <li key={item.href}>
+                    <a
+                      href={item.href}
+                      className="text-sm transition-colors hover:text-foreground"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="space-y-8">
+            <div>
+              <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                Resources
+              </p>
+              <ul className="mt-4 space-y-3">
+                {SECTIONS[2].items.map((item) => (
+                  <li key={item.href}>
+                    <a
+                      href={item.href}
+                      className="text-sm transition-colors hover:text-foreground"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                Company
+              </p>
+              <ul className="mt-4 space-y-3">
+                {SECTIONS[3].items.map((item) => (
+                  <li key={item.href}>
+                    <a
+                      href={item.href}
+                      className="text-sm transition-colors hover:text-foreground"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {links && links.length > 0 && (
+              <div>
+                <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                  Links
+                </p>
+                <ul className="mt-4 space-y-3">
+                  {links.map((item) => (
+                    <li key={item.href}>
+                      <a
+                        href={item.href}
+                        className="text-sm transition-colors hover:text-foreground"
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
         <div className="mt-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-muted-foreground">
           <p>
             © {year} {owner}. All rights reserved.
           </p>
           <div className="flex items-center gap-5">
-            <a href="/privacy" className="hover:text-foreground transition-colors">
+            <a
+              href="/privacy"
+              className="hover:text-foreground transition-colors"
+            >
               Privacy
             </a>
-            <a href="/terms" className="hover:text-foreground transition-colors">
+            <a
+              href="/terms"
+              className="hover:text-foreground transition-colors"
+            >
               Terms
             </a>
             {children}
