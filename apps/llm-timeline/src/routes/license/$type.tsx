@@ -47,10 +47,7 @@ function LicensePage() {
   const licenseType = type as LicenseType;
 
   return (
-    <PageLayout
-      title={`${LICENSE_LABELS[licenseType]} Models`}
-      description={LICENSE_DESCRIPTIONS[licenseType]}
-    >
+    <PageLayout description={LICENSE_DESCRIPTIONS[licenseType]}>
       <TimelinePage view="models" license={licenseType} />
     </PageLayout>
   );

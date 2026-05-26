@@ -92,9 +92,9 @@ export function Timeline({
           >
             {/* Sticky Year Header */}
             <div className="sticky top-0 z-20 -mx-1 px-1 pb-4 pt-2">
-              <div className="flex items-end gap-4 bg-background/95 backdrop-blur-sm rounded-xl px-3 py-2 -mx-3">
+              <div className="flex items-end gap-4 bg-background rounded-xl px-3 py-2 -mx-3">
                 <span
-                  className="select-none text-5xl sm:text-6xl font-bold leading-none text-foreground/10 font-[family-name:var(--font-display)]"
+                  className="select-none text-5xl sm:text-6xl font-bold leading-none text-foreground/10 font-[family-name:var(--font-sans)]"
                   aria-hidden="true"
                 >
                   {year}

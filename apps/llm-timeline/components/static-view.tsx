@@ -294,7 +294,7 @@ export function StaticView({
         <>
           {/* Floating comparison bar */}
           {selectedModels.length > 0 && (
-            <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-background/95 backdrop-blur-sm p-3 animate-in slide-in-from-bottom">
+            <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-background p-3 animate-in slide-in-from-bottom">
               <div className="mx-auto max-w-4xl">
                 <div className="flex items-center gap-3">
                   <div className="flex flex-1 flex-wrap gap-1.5">
@@ -372,7 +372,7 @@ function ComparisonModalContent({
 
   return (
     <>
-      <div className="sticky top-0 z-10 border-b border-border p-6 bg-background/95 backdrop-blur-sm">
+      <div className="sticky top-0 z-10 border-b border-border p-6 bg-background">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-xl font-semibold text-foreground">

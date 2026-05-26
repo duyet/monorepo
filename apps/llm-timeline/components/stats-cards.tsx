@@ -28,7 +28,7 @@ function StatCard({
     // @ts-expect-error -- polymorphic component
     <Comp
       className={cn(
-        "group relative overflow-hidden rounded-xl p-5 transition-all duration-300",
+        "rounded-xl p-5 transition-all",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
         active
           ? "bg-card border border-foreground/10"
@@ -36,10 +36,7 @@ function StatCard({
       )}
       {...props}
     >
-      {/* Decorative gradient accent */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-      <div className="relative">
+      <div>
         <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-background/50 border border-border/50">
           {icon}
         </div>
