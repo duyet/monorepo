@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { addUtmParams } from "../../app/lib/utm";
-import { SiteFooter, SiteHeader } from "../components/SiteChrome";
+import { SiteFooter, SiteHeader } from "@duyet/components";
 import { apps, type AppItem } from "../data/projects";
 
 export const Route = createFileRoute("/projects")({

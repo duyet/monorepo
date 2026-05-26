@@ -5,7 +5,7 @@ import {
   DEFAULT_CATEGORY,
 } from "../../app/config/categories";
 import { urls } from "../../app/config/urls";
-import { SiteFooter, SiteHeader } from "../components/SiteChrome";
+import { SiteFooter, SiteHeader } from "@duyet/components";
 import UrlsList from "../components/UrlsList";
 
 export const Route = createFileRoute("/ls")({

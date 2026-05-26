@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteFooter, SiteHeader } from "../components/SiteChrome";
+import { SiteFooter, SiteHeader } from "@duyet/components";
 import { Button } from "../components/ui/button";
 
 export const Route = createFileRoute("/duyetbot")({

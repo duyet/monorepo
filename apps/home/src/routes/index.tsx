@@ -5,7 +5,7 @@ import { Suspense, useMemo } from "react";
 import type { ReactNode } from "react";
 import { addUtmParams } from "../../app/lib/utm";
 import { KeyboardFeatures } from "../components/KeyboardFeatures";
-import { SiteFooter, SiteHeader } from "../components/SiteChrome";
+import { SiteFooter, SiteHeader } from "@duyet/components";
 import { type AppItem, apps } from "../data/projects";
 import { type SiblingApp, siblingApps } from "../data/sibling-apps";
 import {
@@ -127,7 +127,7 @@ function HomePage() {
       </Suspense>
 
       <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-        <SiteHeader />
+        <SiteHeader activeHref="https://duyet.net" />
 
         <main className="mx-auto max-w-[1040px] px-6 py-12 md:py-24 md:px-8">
 

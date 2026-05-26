@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { addUtmParams } from "../../../app/lib/utm";
-import { SiteFooter, SiteHeader } from "../../components/SiteChrome";
+import { SiteFooter, SiteHeader } from "@duyet/components";
 import { Card, CardContent } from "../../components/ui/card";
 
 type Product = {

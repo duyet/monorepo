@@ -2,17 +2,14 @@ import "@duyet/components/styles.css";
 import "../../app/globals.css";
 import "../../styles/blog-design.css";
 
-import { SiteNavV2 } from "@duyet/components";
+import { SiteHeader, SiteFooter } from "@duyet/components";
 import Analytics from "@duyet/components/Analytics";
-import Footer from "@duyet/components/Footer";
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import { duyetUrls } from "@duyet/urls";
 import {
   createRootRoute,
   HeadContent,
   Outlet,
   Scripts,
-  useRouterState,
 } from "@tanstack/react-router";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
@@ -53,46 +50,22 @@ function NotFoundComponent() {
   );
 }
 
-interface BlogNavItem {
-  name: string;
-  href: string;
-  external?: boolean;
-  matchPrefix?: string;
-}
-
-const blogNavItems: BlogNavItem[] = [
-  { name: "Home", href: "https://duyet.net", external: true },
-  { name: "Projects", href: "https://duyet.net/projects", external: true },
-  { name: "About", href: "https://duyet.net/about", external: true },
-  { name: "Blog", href: "/", matchPrefix: "/" },
-  { name: "CV", href: "https://cv.duyet.net", external: true },
-  { name: "Insights", href: "https://insights.duyet.net", external: true },
-  { name: "Agent", href: "https://agents.duyet.net", external: true },
+const siteHeaderLinks = [
+  { label: "Home", href: "https://duyet.net" },
+  { label: "Projects", href: "https://duyet.net/projects" },
+  { label: "About", href: "https://duyet.net/about" },
+  { label: "Blog", href: "https://blog.duyet.net" },
+  { label: "CV", href: "https://cv.duyet.net" },
+  { label: "Insights", href: "https://insights.duyet.net" },
+  { label: "Agent", href: "https://agents.duyet.net" },
 ];
 
-function EditorialNav() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
-
-  const isActive = (item: BlogNavItem) => {
-    if (item.external) return false;
-    return true; // Blog is the active route on this app
-  };
-
-  const navLinks = blogNavItems.map((item) => ({
-    name: item.name,
-    href: item.href,
-    active: isActive(item),
-  }));
-
-  return (
-    <SiteNavV2
-      brandText="Duyet Le"
-      brandHref="/"
-      activeApp="blog"
-      links={navLinks}
-    />
-  );
-}
+const siteFooterLinks = [
+  { label: "Home", href: "https://duyet.net" },
+  { label: "Blog", href: "https://blog.duyet.net" },
+  { label: "CV", href: "https://cv.duyet.net" },
+  { label: "Insights", href: "https://insights.duyet.net" },
+];
 
 function BotCredit() {
   return (
@@ -149,15 +122,13 @@ function RootComponent() {
         <ThemeProvider>
           <div className="blog-editorial-shell min-h-screen relative bg-background text-foreground overflow-x-hidden flex flex-col justify-between subpixel-antialiased">
 
-            <div className="w-full flex flex-col relative z-20">
-              <EditorialNav />
-            </div>
+            <SiteHeader brand="blog" links={siteHeaderLinks} activeHref="https://blog.duyet.net" />
 
             <main className="relative z-10 pb-12 flex-grow">
               <Outlet />
             </main>
             <BotCredit />
-            <Footer />
+            <SiteFooter links={siteFooterLinks} />
             <Analytics />
             <ServiceWorkerRegister />
           </div>

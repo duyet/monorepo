@@ -33,6 +33,10 @@ export {
 } from "./LoadingState";
 export { default as Menu } from "./Menu";
 export * from "./site-nav";
+export { SiteHeader, default as SiteHeaderDefault } from "./SiteHeader";
+export type { SiteHeaderLink, SiteHeaderProps } from "./SiteHeader";
+export { SiteFooter, default as SiteFooterDefault } from "./SiteFooter";
+export type { SiteFooterLink, SiteFooterProps } from "./SiteFooter";
 export { default as ThemeProvider } from "./ThemeProvider";
 export { default as ThemeToggle } from "./ThemeToggle";
 export * from "./Tremor";
