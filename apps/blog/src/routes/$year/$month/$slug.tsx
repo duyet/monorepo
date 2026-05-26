@@ -4,7 +4,7 @@ import { extractHeadings } from "@duyet/libs/extractHeadings";
 import { formatReadingTime } from "@duyet/libs/date";
 import { markdownToHtml } from "@duyet/libs/markdownToHtml";
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { ArrowRight, Calendar, ChevronRight, Clock, Link2 } from "lucide-react";
+import { ArrowRight, Calendar, Clock, Link2 } from "lucide-react";
 import { SeriesBox } from "@/components/layout/SeriesBox";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
 import { TableOfContents } from "@/components/post/TableOfContents";
@@ -116,30 +116,10 @@ function PostHero({ post }: { post: LoadedPost }) {
   const readingTime = post.readingTime
     ? formatReadingTime(post.readingTime)
     : null;
-  const categorySlug =
-    (post as Post & { category_slug?: string }).category_slug ||
-    post.category?.toLowerCase().replace(/\s+/g, "-");
 
   return (
     <header className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-10">
-      {/* Breadcrumb */}
-      <nav className="flex items-center gap-2 text-sm text-muted-foreground">
-        <a href="/" className="hover:text-foreground transition-colors">
-          Blog
-        </a>
-        <ChevronRight className="h-3.5 w-3.5" />
-        <a
-          href={`/category/${categorySlug}/`}
-          className="hover:text-foreground transition-colors"
-        >
-          {post.category}
-        </a>
-        <ChevronRight className="h-3.5 w-3.5" />
-        <span className="text-foreground truncate">{post.title}</span>
-      </nav>
-
-      {/* Title */}
-      <h1 className="mt-8 text-3xl md:text-4xl font-bold tracking-tight">
+      <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
         {post.title}
       </h1>
 

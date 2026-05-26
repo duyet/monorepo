@@ -1,7 +1,7 @@
+import { Badge } from "@duyet/components";
 import type { Post } from "@duyet/interfaces";
-import { distanceToNow } from "@duyet/libs/date";
+import { dateFormat } from "@duyet/libs/date";
 import { cn } from "@duyet/libs/utils";
-import { ArrowRight } from "lucide-react";
 
 interface RelatedPostsProps {
   posts: Post[];
@@ -14,93 +14,62 @@ export function RelatedPosts({ posts, className }: RelatedPostsProps) {
   }
 
   return (
-    <div className={cn("mt-16", className)}>
-      <h2
-        className={cn(
-          "flex items-center gap-2",
-          "text-xl font-bold",
-          "text-gray-900 dark:text-gray-100",
-          "mb-6"
-        )}
-      >
-        Related Posts
-      </h2>
+    <section className={cn("mt-16 border-t pt-12", className)}>
+      <header className="mb-10">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
+          Related Posts
+        </h2>
+        <p className="mt-2 text-base text-muted-foreground">
+          Articles you might enjoy next
+        </p>
+      </header>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <ul className="divide-y">
         {posts.map((post) => {
           const url = post.slug.replace(/\.md$/, "").replace(/^\//, "");
-          const excerpt = post.excerpt || "";
+          const readMin = post.readingTime
+            ? Math.max(1, Math.round(post.readingTime))
+            : null;
 
           return (
-            <a
-              key={post.slug}
-              href={`/${url}`}
-              className={cn(
-                "group block",
-                "p-4 rounded-xl",
-                "bg-neutral-50 dark:bg-neutral-900",
-                "hover:bg-neutral-100 dark:hover:bg-neutral-800",
-                "transition-all duration-200"
-              )}
-            >
-              <article>
-                <h3
-                  className={cn(
-                    "font-semibold text-base",
-                    "text-gray-900 dark:text-gray-100",
-                    "group-hover:text-blue-600 dark:group-hover:text-blue-400",
-                    "transition-colors duration-200",
-                    "line-clamp-2 mb-2"
-                  )}
-                >
-                  {post.title}
-                </h3>
-
-                {excerpt && (
-                  <p
-                    className={cn(
-                      "text-sm text-gray-600 dark:text-gray-400",
-                      "line-clamp-2 mb-3"
+            <li key={post.slug}>
+              <a
+                href={`/${url}`}
+                className="grid grid-cols-[1fr_auto] items-start gap-x-6 md:gap-x-10 py-6 group"
+              >
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <h3 className="text-base md:text-lg font-semibold tracking-tight group-hover:text-muted-foreground transition-colors">
+                      {post.title}
+                    </h3>
+                    {post.category && (
+                      <Badge variant="secondary">{post.category}</Badge>
                     )}
+                  </div>
+                  {post.excerpt && (
+                    <p className="mt-2 text-sm text-muted-foreground line-clamp-2">
+                      {post.excerpt}
+                    </p>
+                  )}
+                </div>
+                <div className="flex flex-col items-end text-right shrink-0">
+                  <time
+                    dateTime={post.date.toISOString()}
+                    className="text-sm text-muted-foreground tabular-nums whitespace-nowrap"
                   >
-                    {excerpt}
-                  </p>
-                )}
-
-                <div
-                  className={cn(
-                    "flex items-center gap-2",
-                    "text-xs text-gray-500 dark:text-gray-500"
-                  )}
-                >
-                  <time dateTime={post.date.toISOString()}>
-                    {post.date.toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })}
+                    {dateFormat(post.date, "MMM d, yyyy")}
                   </time>
-                  <span>·</span>
-                  <span>{distanceToNow(post.date)}</span>
-                </div>
-
-                <div
-                  className={cn(
-                    "flex items-center gap-1 mt-3",
-                    "text-sm font-medium",
-                    "text-blue-600 dark:text-blue-400",
-                    "opacity-0 group-hover:opacity-100",
-                    "transition-opacity duration-200"
+                  {readMin && (
+                    <span className="mt-1 text-sm text-muted-foreground tabular-nums whitespace-nowrap">
+                      {readMin} min read
+                    </span>
                   )}
-                >
-                  Read more
-                  <ArrowRight className="h-4 w-4" />
                 </div>
-              </article>
-            </a>
+              </a>
+            </li>
           );
         })}
-      </div>
-    </div>
+      </ul>
+    </section>
   );
 }

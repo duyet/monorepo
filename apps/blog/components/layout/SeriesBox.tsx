@@ -46,7 +46,7 @@ export function SeriesBox({
           )}
         </header>
       )}
-      <ol className="list-none m-0 p-0 space-y-6">
+      <ol className="list-none m-0 p-0 space-y-10">
         {posts.map(({ slug, title, excerpt }, index) => {
           const isCurrent = current === slug;
           const num = index + 1;
@@ -54,33 +54,31 @@ export function SeriesBox({
             <li
               key={slug}
               aria-current={isCurrent ? "page" : undefined}
-              className="flex items-start gap-5"
+              className="grid grid-cols-[3rem_1fr] items-start gap-6"
             >
               <span
                 className={cn(
-                  "shrink-0 inline-flex h-8 w-8 items-center justify-center rounded-full text-xs font-medium tabular-nums",
-                  isCurrent
-                    ? "bg-foreground text-background"
-                    : "bg-muted text-muted-foreground"
+                  "text-4xl md:text-5xl font-semibold tabular-nums leading-none",
+                  isCurrent ? "text-foreground" : "text-muted-foreground/40"
                 )}
               >
                 {num}
               </span>
-              <div className="min-w-0 flex-1">
+              <div className="min-w-0 pt-1">
                 {isCurrent ? (
-                  <p className="text-base font-semibold tracking-tight">
+                  <p className="text-lg font-semibold tracking-tight">
                     {title}
                   </p>
                 ) : (
                   <a
                     href={`${slug}/`}
-                    className="text-base font-semibold tracking-tight hover:text-muted-foreground transition-colors"
+                    className="text-lg font-semibold tracking-tight hover:text-muted-foreground transition-colors"
                   >
                     {title}
                   </a>
                 )}
                 {excerpt && (
-                  <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed line-clamp-2">
+                  <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed line-clamp-1">
                     {excerpt}
                   </p>
                 )}

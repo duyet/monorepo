@@ -22,13 +22,21 @@ interface FooterSection {
 
 const SECTIONS: FooterSection[] = [
   {
-    heading: "Product",
+    heading: "Apps",
     items: [
+      { label: "Home", href: "https://duyet.net" },
       { label: "Blog", href: "https://blog.duyet.net" },
       { label: "Insights", href: "https://insights.duyet.net" },
       { label: "LLM Timeline", href: "https://llm-timeline.duyet.net" },
+    ],
+  },
+  {
+    heading: "Tools",
+    items: [
       { label: "Homelab", href: "https://homelab.duyet.net" },
       { label: "Photos", href: "https://photos.duyet.net" },
+      { label: "AI Percentage", href: "https://ai-percentage.duyet.net" },
+      { label: "Knowledge base", href: "https://kb.duyet.net" },
     ],
   },
   {
@@ -37,7 +45,6 @@ const SECTIONS: FooterSection[] = [
       { label: "GitHub", href: "https://github.com/duyet" },
       { label: "ClickHouse Monitor", href: "https://chmonitor.dev" },
       { label: "AnyRouter", href: "https://anyrouter.dev" },
-      { label: "Knowledge base", href: "https://kb.duyet.net" },
       { label: "RSS feed", href: "https://blog.duyet.net/rss.xml" },
     ],
   },
@@ -63,7 +70,7 @@ export function SiteFooter({
   return (
     <footer className={cn("border-t bg-background", className)}>
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_repeat(3,1fr)] gap-10 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_repeat(4,1fr)] gap-10 lg:gap-12">
           <div className="max-w-md">
             <p className="text-base font-semibold tracking-tight">duyet.net</p>
             <p className="mt-1 text-sm text-muted-foreground">
