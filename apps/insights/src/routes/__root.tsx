@@ -3,6 +3,7 @@ import "../styles/globals.css";
 
 import Analytics from "@duyet/components/Analytics";
 import ThemeProvider from "@duyet/components/ThemeProvider";
+import { SiteHeader, SiteFooter } from "@duyet/components";
 import {
   createRootRoute,
   HeadContent,
@@ -11,7 +12,6 @@ import {
   Scripts,
   useRouterState,
 } from "@tanstack/react-router";
-import { SiteNavV2 } from "@duyet/components";
 
 function NotFoundComponent() {
   return (
@@ -50,16 +50,6 @@ export const Route = createRootRoute({
 function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
-  const globalNavLinks = [
-    { name: "Home", href: "https://duyet.net" },
-    { name: "Projects", href: "https://duyet.net/projects" },
-    { name: "About", href: "https://duyet.net/about" },
-    { name: "Blog", href: "https://blog.duyet.net" },
-    { name: "CV", href: "https://cv.duyet.net" },
-    { name: "Insights", href: "/", active: true },
-    { name: "Agent", href: "https://agents.duyet.net" },
-  ];
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -68,14 +58,11 @@ function RootComponent() {
       <body>
         <ThemeProvider>
           <div className="min-h-screen bg-background text-foreground overflow-x-hidden flex flex-col">
-            <div className="w-full flex flex-col">
-              <SiteNavV2
-                brandText="Duyet Le"
-                brandHref="https://duyet.net"
-                activeApp="insights"
-                links={globalNavLinks}
-              />
-            </div>
+            <SiteHeader
+              brand="insights"
+              brandHref="https://duyet.net"
+              activeHref="https://insights.duyet.net"
+            />
 
             <main className="mx-auto w-full max-w-[1040px] px-6 py-12 md:py-16 md:px-8 flex-grow">
               {/* Insights Sub-Navigation */}
@@ -107,7 +94,7 @@ function RootComponent() {
               <Outlet />
             </main>
 
-            <SiteFooter />
+            <SiteFooter owner="Duyet Le" />
           </div>
 
           <Analytics />
@@ -115,25 +102,5 @@ function RootComponent() {
         <Scripts />
       </body>
     </html>
-  );
-}
-
-function SiteFooter() {
-  const year = new Date().getFullYear();
-  return (
-    <footer className="mt-20 border-t py-10">
-      <div className="mx-auto max-w-[1040px] px-6 md:px-8 flex flex-col md:flex-row md:items-center justify-between gap-6 text-xs sm:text-[13px] text-muted-foreground">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-          <span>&copy; {year} Duyet Le.</span>
-          <span className="text-border">|</span>
-          <span>insights.duyet.net</span>
-        </div>
-        <div className="flex items-center gap-4">
-          <a href="https://github.com/duyet" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">GitHub</a>
-          <a href="https://linkedin.com/in/duyet" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">LinkedIn</a>
-          <a href="https://x.com/_duyet" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Twitter</a>
-        </div>
-      </div>
-    </footer>
   );
 }
