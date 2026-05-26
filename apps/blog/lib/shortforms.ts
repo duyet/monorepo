@@ -25,15 +25,13 @@ function parseFrontmatter(raw: string): { date: string; body: string } {
 }
 
 export function getShortforms(limit?: number): Shortform[] {
-  const all: Shortform[] = Object.entries(FILES).map(([path, raw]) => {
-    const id = path.split("/").pop()!.replace(/\.md$/, "");
-    const { date, body } = parseFrontmatter(raw);
-    return {
-      id,
-      date: new Date(date),
-      body,
-    };
-  });
+  const all: Shortform[] = Object.entries(FILES)
+    .map(([path, raw]) => {
+      const id = path.split("/").pop()!.replace(/\.md$/, "");
+      const { date, body } = parseFrontmatter(raw);
+      return { id, date: new Date(date), body };
+    })
+    .filter((s) => !Number.isNaN(s.date.getTime()));
   all.sort((a, b) => b.date.getTime() - a.date.getTime());
   return limit ? all.slice(0, limit) : all;
 }
