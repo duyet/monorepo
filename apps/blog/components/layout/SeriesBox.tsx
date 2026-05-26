@@ -1,6 +1,12 @@
 import type { Series } from "@duyet/interfaces";
 import { cn } from "@duyet/libs/utils";
-import "@/styles/post-reader.css";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@duyet/components/ui/card";
 
 export function SeriesBox({
   series,
@@ -22,36 +28,55 @@ export function SeriesBox({
   void tone;
 
   return (
-    <aside
+    <Card
       aria-label={`Series: ${name}`}
-      className={cn("series-block", className)}
+      className={cn("mt-14", className)}
     >
-      <p className="series-label">Part of the series</p>
-
-      {showTitle && (
-        <h2 className="series-title">
-          <a href={`/series/${series.slug}/`}>{name}</a>
-        </h2>
-      )}
-
-      <ol>
-        {posts.map(({ slug, title }) => {
-          const isCurrent = current === slug;
-          return (
-            <li
-              className={cn(isCurrent && "is-current")}
-              key={slug}
-              aria-current={isCurrent ? "page" : undefined}
+      <CardHeader className="pb-3">
+        <CardDescription>Part of the series</CardDescription>
+        {showTitle && (
+          <CardTitle className="text-xl">
+            <a
+              href={`/series/${series.slug}/`}
+              className="underline underline-offset-4 decoration-border hover:decoration-foreground transition-[text-decoration-color]"
             >
-              {isCurrent ? (
-                <span>{title}</span>
-              ) : (
-                <a href={`${slug}/`}>{title}</a>
-              )}
-            </li>
-          );
-        })}
-      </ol>
-    </aside>
+              {name}
+            </a>
+          </CardTitle>
+        )}
+      </CardHeader>
+      <CardContent className="pt-0">
+        <ol className="list-none m-0 p-0 space-y-0.5">
+          {posts.map(({ slug, title }, index) => {
+            const isCurrent = current === slug;
+            const num = String(index + 1).padStart(2, "0");
+            return (
+              <li
+                key={slug}
+                aria-current={isCurrent ? "page" : undefined}
+                className="grid gap-x-1 py-1.5 text-sm leading-snug"
+                style={{ gridTemplateColumns: "2.25rem 1fr" }}
+              >
+                <span className="text-xs text-muted-foreground tabular-nums pt-0.5">
+                  {num}
+                </span>
+                {isCurrent ? (
+                  <span className="font-semibold text-foreground">
+                    {title}
+                  </span>
+                ) : (
+                  <a
+                    href={`${slug}/`}
+                    className="text-muted-foreground no-underline hover:text-foreground transition-colors"
+                  >
+                    {title}
+                  </a>
+                )}
+              </li>
+            );
+          })}
+        </ol>
+      </CardContent>
+    </Card>
   );
 }

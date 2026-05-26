@@ -60,7 +60,6 @@ function RootComponent() {
             <SiteHeader
               brand="insights"
               brandHref="https://duyet.net"
-              activeHref="https://insights.duyet.net"
             />
             <SiteSubnav
               links={[

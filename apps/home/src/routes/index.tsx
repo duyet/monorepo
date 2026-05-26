@@ -180,7 +180,7 @@ function HomePage() {
       </Suspense>
 
       <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-        <SiteHeader activeHref="https://duyet.net" />
+        <SiteHeader />
 
         <main className="mx-auto max-w-[1040px] px-6 py-12 md:py-24 md:px-8">
 

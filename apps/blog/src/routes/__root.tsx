@@ -51,16 +51,6 @@ function NotFoundComponent() {
   );
 }
 
-const siteHeaderLinks = [
-  { label: "Home", href: "https://duyet.net" },
-  { label: "Projects", href: "https://duyet.net/projects" },
-  { label: "About", href: "https://duyet.net/about" },
-  { label: "Blog", href: "https://blog.duyet.net" },
-  { label: "CV", href: "https://cv.duyet.net" },
-  { label: "Insights", href: "https://insights.duyet.net" },
-  { label: "Agent", href: "https://agents.duyet.net" },
-];
-
 const siteFooterLinks = [
   { label: "Home", href: "https://duyet.net" },
   { label: "Blog", href: "https://blog.duyet.net" },
@@ -135,7 +125,7 @@ function RootComponent() {
         <ThemeProvider>
           <div className="blog-editorial-shell min-h-screen relative bg-background text-foreground overflow-x-hidden flex flex-col justify-between subpixel-antialiased">
 
-            <SiteHeader brand="blog" links={siteHeaderLinks} activeHref="https://blog.duyet.net" />
+            <SiteHeader brand="blog" />
             <SiteSubnav links={blogSubnavLinks} activeHref={pathname} />
 
             <main className="relative z-10 pb-12 flex-grow">

@@ -5,7 +5,6 @@ import { getSlug } from "@duyet/libs/getSlug";
 import { cn } from "@duyet/libs/utils";
 import { Link } from "@tanstack/react-router";
 import { Calendar, Clock, Folder, Tag } from "lucide-react";
-import { MarkdownMenuWrapper } from "./-markdown-menu-wrapper";
 
 interface ContentProps {
   post: Post & { markdown_content?: string; edit_url?: string };
@@ -14,11 +13,9 @@ interface ContentProps {
 }
 
 export default function Meta({ post, className }: ContentProps) {
-  const markdownUrl = `${post.slug.replace(/\.html$/, "")}.md`;
-
   return (
     <div className={cn(className)}>
-      <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm font-medium text-muted-foreground [font-variant-numeric:tabular-nums]">
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm text-muted-foreground [font-variant-numeric:tabular-nums]">
         <div className="flex items-center gap-1.5">
           <Calendar className="h-3.5 w-3.5" />
           <time dateTime={new Date(post.date).toISOString()}>
@@ -57,36 +54,29 @@ export default function Meta({ post, className }: ContentProps) {
                   to="/tag/$tag/"
                   params={{ tag: getSlug(tag) }}
                   key={tag}
-                  className="transition-colors hover:text-[var(--foreground)]"
+                  className="transition-colors hover:text-foreground"
                 >
                   #{tag.toLowerCase()}
                 </Link>
               ))}
               {post.tags.length > 5 && (
-                <span className="text-[var(--muted-foreground)] dark:text-white/35">
-                  +{post.tags.length - 5}
-                </span>
+                <span>+{post.tags.length - 5}</span>
               )}
             </div>
           </div>
         )}
 
-        <a
-          className="flex items-center gap-1.5 transition-colors hover:text-foreground"
-          href={post.edit_url || "#"}
-          rel="noopener noreferrer"
-          target="_blank"
-          title="Edit on GitHub"
-        >
-          <Icons.Github className="h-3.5 w-3.5" />
-          <span>Edit</span>
-        </a>
-
-        {post.markdown_content && (
-          <MarkdownMenuWrapper
-            markdownUrl={markdownUrl}
-            markdownContent={post.markdown_content}
-          />
+        {post.edit_url && (
+          <a
+            className="flex items-center gap-1.5 transition-colors hover:text-foreground"
+            href={post.edit_url}
+            rel="noopener noreferrer"
+            target="_blank"
+            title="Edit on GitHub"
+          >
+            <Icons.Github className="h-3.5 w-3.5" />
+            <span>Edit</span>
+          </a>
         )}
       </div>
     </div>

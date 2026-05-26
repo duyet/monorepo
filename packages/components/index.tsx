@@ -34,7 +34,7 @@ export {
 export { default as Menu } from "./Menu";
 export * from "./site-nav";
 export { SiteHeader, default as SiteHeaderDefault } from "./SiteHeader";
-export type { SiteHeaderLink, SiteHeaderProps } from "./SiteHeader";
+export type { SiteHeaderProps } from "./SiteHeader";
 export { SiteFooter, default as SiteFooterDefault } from "./SiteFooter";
 export type { SiteFooterLink, SiteFooterProps } from "./SiteFooter";
 export { SiteSubnav, default as SiteSubnavDefault } from "./SiteSubnav";
