@@ -17,12 +17,32 @@ interface WakaTimeStats {
       percent: number;
       total_seconds: number;
     }>;
+    categories: Array<{
+      name: string;
+      percent: number;
+      total_seconds: number;
+    }>;
+    machines: Array<{
+      machine_name_id: string;
+      name: string;
+      percent: number;
+      total_seconds: number;
+    }>;
+    projects: Array<{
+      name: string;
+      percent: number;
+      total_seconds: number;
+    }>;
     days_including_holidays?: number;
     days_minus_holidays?: number;
     total_seconds: number;
     human_readable_total: string;
     human_readable_daily_average: string;
     daily_average: number;
+    best_day?: {
+      date: string;
+      total_seconds: number;
+    };
   };
 }
 
@@ -154,6 +174,83 @@ export async function getWakaTimeOperatingSystems(
     percent: Math.round((row?.percent || 0) * 100) / 100,
     total_seconds: row?.total_seconds || 0,
   }));
+}
+
+export async function getWakaTimeCategories(
+  days: number | "all" = 30,
+): Promise<WakaTimeBreakdownItem[]> {
+  const stats = await getWakaTimeStats(days);
+  if (!stats?.data?.categories || !Array.isArray(stats.data.categories))
+    return [];
+
+  return stats.data.categories.slice(0, 8).map((row) => ({
+    name: row?.name || "Unknown",
+    percent: Math.round((row?.percent || 0) * 100) / 100,
+    total_seconds: row?.total_seconds || 0,
+  }));
+}
+
+export async function getWakaTimeMachines(
+  days: number | "all" = 30,
+): Promise<WakaTimeBreakdownItem[]> {
+  const stats = await getWakaTimeStats(days);
+  if (!stats?.data?.machines || !Array.isArray(stats.data.machines)) return [];
+
+  return stats.data.machines.slice(0, 8).map((row) => ({
+    name: row?.name || row?.machine_name_id || "Unknown",
+    percent: Math.round((row?.percent || 0) * 100) / 100,
+    total_seconds: row?.total_seconds || 0,
+  }));
+}
+
+export async function getWakaTimeProjects(
+  days: number | "all" = 30,
+): Promise<WakaTimeBreakdownItem[]> {
+  const stats = await getWakaTimeStats(days);
+  if (!stats?.data?.projects || !Array.isArray(stats.data.projects)) return [];
+
+  return stats.data.projects.slice(0, 10).map((row) => ({
+    name: row?.name || "Unknown",
+    percent: Math.round((row?.percent || 0) * 100) / 100,
+    total_seconds: row?.total_seconds || 0,
+  }));
+}
+
+export interface WakaTimeBestDay {
+  date: string;
+  total: {
+    decimal: string;
+    text: string;
+  };
+}
+
+export async function getBestDayWakaTime(): Promise<WakaTimeBestDay | null> {
+  try {
+    const bestDayInsights = await wakaTimeRequest(
+      wakatimeConfig.endpoints.insights.bestDay(wakatimeConfig.ranges.last_year)
+    );
+
+    if (!bestDayInsights?.data) return null;
+
+    const d = bestDayInsights.data as {
+      date?: string;
+      total_seconds?: number;
+      text?: string;
+      decimal?: string;
+    };
+
+    if (!d.date) return null;
+
+    const totalSeconds = d.total_seconds ?? 0;
+    const hours = totalSeconds / 3600;
+    const text = d.text ?? `${hours.toFixed(1)} hrs`;
+    const decimal = d.decimal ?? hours.toFixed(2);
+
+    return { date: d.date, total: { decimal, text } };
+  } catch (error) {
+    console.error("Error fetching WakaTime best day:", error);
+    return null;
+  }
 }
 
 export async function getWakaTimeActivity(days: number | "all" = 30) {

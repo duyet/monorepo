@@ -1,5 +1,26 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import {
+  BarChart2,
+  Bot,
+  BookOpen,
+  BrainCircuit,
+  Cloud,
+  Code2,
+  Database,
+  GitBranch,
+  GitFork,
+  Globe,
+  Link as LinkIcon,
+  Package,
+  Plug,
+  Puzzle,
+  Rss,
+  Share2,
+  Star,
+  Terminal,
+  Type,
+} from "lucide-react";
 import { addUtmParams } from "../../app/lib/utm";
 import { SiteFooter, SiteHeader } from "@duyet/components";
 import { apps, type AppItem } from "../data/projects";
@@ -17,6 +38,38 @@ export const Route = createFileRoute("/projects")({
     ],
   }),
 });
+
+const ICON_MAP: Record<string, ReactNode> = {
+  BarChart2: <BarChart2 size={18} />,
+  Bot: <Bot size={18} />,
+  BookOpen: <BookOpen size={18} />,
+  BrainCircuit: <BrainCircuit size={18} />,
+  Cloud: <Cloud size={18} />,
+  Code2: <Code2 size={18} />,
+  Database: <Database size={18} />,
+  GitBranch: <GitBranch size={18} />,
+  Github: <GitFork size={18} />,
+  Globe: <Globe size={18} />,
+  Link: <LinkIcon size={18} />,
+  Package: <Package size={18} />,
+  Plug: <Plug size={18} />,
+  Puzzle: <Puzzle size={18} />,
+  Rss: <Rss size={18} />,
+  Share2: <Share2 size={18} />,
+  Star: <Star size={18} />,
+  Terminal: <Terminal size={18} />,
+  Type: <Type size={18} />,
+};
+
+function projectIcon(item: AppItem): ReactNode {
+  if (item.iconName && ICON_MAP[item.iconName]) {
+    return ICON_MAP[item.iconName];
+  }
+  if (item.host === "github.com") {
+    return ICON_MAP.Github;
+  }
+  return ICON_MAP.Globe;
+}
 
 function ProjectsPage() {
   return (
@@ -42,6 +95,9 @@ function ProjectsPage() {
             <li key={item.name} className="bg-background">
               <ProjectLink item={item}>
                 <article className="flex h-full flex-col gap-2 p-5 transition-colors hover:bg-muted">
+                  <span className="text-muted-foreground">
+                    {projectIcon(item)}
+                  </span>
                   <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
                     {item.domain || item.host}
                   </p>

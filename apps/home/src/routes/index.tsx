@@ -1,7 +1,7 @@
 import Icons from "@duyet/components/Icons";
-import { ExternalLink, MapPin, User, Mail } from "lucide-react";
+import { ExternalLink, User, Mail } from "lucide-react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Suspense, useMemo } from "react";
+import { Suspense } from "react";
 import type { ReactNode } from "react";
 import { addUtmParams } from "../../app/lib/utm";
 import { KeyboardFeatures } from "../components/KeyboardFeatures";
@@ -145,21 +145,21 @@ function HomePage() {
                   Duyet Le
                 </h1>
                 <p className="text-sm text-muted-foreground mt-1">
-                  AI engineer · building agents, data platforms, and small useful things
+                  Data Engineer and AI Engineer · building agents, data platforms, and small useful things
                 </p>
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  <Badge variant="secondary">AI Agents</Badge>
+                  <Badge variant="secondary">Cloudflare</Badge>
+                  <Badge variant="secondary">React</Badge>
+                  <Badge variant="secondary">ClickHouse</Badge>
+                  <Badge variant="secondary">Rust</Badge>
+                  <Badge variant="secondary">TypeScript</Badge>
+                </div>
               </div>
             </div>
 
-            {/* 3-Column Metadata Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8 border-b pb-6">
-              <div>
-                <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground block mb-1">
-                  Location
-                </span>
-                <span className="text-sm text-muted-foreground flex items-center gap-1.5">
-                  <MapPin size={14} /> Ho Chi Minh City, VN
-                </span>
-              </div>
+            {/* Metadata Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8 border-b pb-6">
               <div>
                 <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground block mb-1">
                   Email
@@ -256,50 +256,6 @@ function HomePage() {
             </div>
           </section>
 
-          {/* GitHub Contribution Calendar */}
-          <section className="mb-20 md:mb-32">
-            <Card>
-              <CardContent className="pt-6">
-                {/* Month labels */}
-                <div className="flex items-center justify-between mb-3 text-[10px] font-mono text-muted-foreground select-none">
-                  <span>Jun</span>
-                  <span>Jul</span>
-                  <span>Aug</span>
-                  <span>Sep</span>
-                  <span>Oct</span>
-                  <span>Nov</span>
-                  <span>Dec</span>
-                  <span>Jan</span>
-                  <span>Feb</span>
-                  <span>Mar</span>
-                  <span>Apr</span>
-                  <span>May</span>
-                </div>
-
-                {/* Contribution Calendar Grid */}
-                <div className="overflow-x-auto pb-2 select-none">
-                  <MockContributionCalendar />
-                </div>
-
-                {/* Telemetry statistics */}
-                <div className="flex items-center justify-between mt-4 text-[10px] font-mono text-muted-foreground select-none">
-                  <span className="uppercase tracking-wider">
-                    1,492 contributions &middot; {new Date().getFullYear() - 1}&ndash;{String(new Date().getFullYear()).slice(2)}
-                  </span>
-                  <div className="flex items-center gap-1.5">
-                    <span>LESS</span>
-                    <span className="w-2.5 h-2.5 rounded-[1px] bg-neutral-100 dark:bg-neutral-900/60" />
-                    <span className="w-2.5 h-2.5 rounded-[1px] bg-emerald-100 dark:bg-emerald-950/30" />
-                    <span className="w-2.5 h-2.5 rounded-[1px] bg-emerald-300 dark:bg-emerald-800/50" />
-                    <span className="w-2.5 h-2.5 rounded-[1px] bg-emerald-400 dark:bg-emerald-600/70" />
-                    <span className="w-2.5 h-2.5 rounded-[1px] bg-emerald-500" />
-                    <span>MORE</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </section>
-
           {/* Featured Projects */}
           <section className="mb-20 md:mb-32">
             <div className="mb-12">
@@ -314,11 +270,13 @@ function HomePage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border border">
               {featured.map((item) => (
-                <ProjectCard key={item.name} item={item} />
+                <li key={item.name} className="bg-background">
+                  <ProjectCard item={item} />
+                </li>
               ))}
-            </div>
+            </ul>
 
             <div className="flex justify-center mt-12">
               <Button variant="outline" asChild>
@@ -358,57 +316,18 @@ function HomePage() {
   );
 }
 
-function MockContributionCalendar() {
-  const cells = useMemo(() => {
-    return Array.from({ length: 371 }, (_, i) => {
-      const factor = Math.sin(i * 0.05) * Math.cos(i * 0.09) + Math.sin(i * 0.018) + (i % 7 === 0 ? 0.3 : 0);
-      let level = 0;
-      if (factor > 0.85) level = 4;
-      else if (factor > 0.45) level = 3;
-      else if (factor > 0.1) level = 2;
-      else if (factor > -0.3) level = 1;
-      return { id: i, level };
-    });
-  }, []);
-
-  return (
-    <div className="grid grid-flow-col grid-rows-7 gap-[3px] min-w-[760px]">
-      {cells.map((cell) => {
-        const colorClass = [
-          "bg-neutral-100 dark:bg-neutral-900/60",
-          "bg-emerald-100 dark:bg-emerald-950/30",
-          "bg-emerald-300 dark:bg-emerald-800/50",
-          "bg-emerald-400 dark:bg-emerald-600/70",
-          "bg-emerald-500",
-        ][cell.level];
-        return (
-          <div
-            key={cell.id}
-            className={`w-[10px] h-[10px] rounded-[1.5px] ${colorClass}`}
-          />
-        );
-      })}
-    </div>
-  );
-}
-
 function ProjectCard({ item }: { item: ProjectRowItem & { techs: string[] } }) {
   return (
-    <Card className="flex h-full flex-col">
-      <CardHeader className="flex-row items-start justify-between gap-3 space-y-0">
-        <div className="space-y-1.5">
-          <CardTitle className="text-base">{item.name}</CardTitle>
-          <CardDescription>{item.domain || item.host}</CardDescription>
-        </div>
-        <ProjectLink item={item}>
-          <ExternalLink size={16} className="shrink-0 text-muted-foreground" />
-        </ProjectLink>
-      </CardHeader>
-      <CardContent className="flex flex-1 flex-col justify-between gap-6">
-        <p className="text-sm leading-relaxed text-muted-foreground">
+    <ProjectLink item={item}>
+      <article className="flex h-full flex-col gap-2 p-5 transition-colors hover:bg-muted">
+        <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
+          {item.domain || item.host}
+        </p>
+        <h3 className="text-base font-medium tracking-tight">{item.name}</h3>
+        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
           {item.description}
         </p>
-        <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-3">
           <div className="flex flex-wrap gap-1.5">
             {item.techs.map((tech) => (
               <Badge key={tech} variant="secondary">
@@ -416,13 +335,10 @@ function ProjectCard({ item }: { item: ProjectRowItem & { techs: string[] } }) {
               </Badge>
             ))}
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-muted-foreground">{item.year}</span>
-            <Badge variant="outline">{item.status}</Badge>
-          </div>
+          <Badge variant="outline">{item.status}</Badge>
         </div>
-      </CardContent>
-    </Card>
+      </article>
+    </ProjectLink>
   );
 }
 
@@ -439,7 +355,7 @@ function ProjectLink({
     return (
       <a
         href={href}
-        className="no-underline cursor-pointer"
+        className="block h-full no-underline"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -449,7 +365,7 @@ function ProjectLink({
   }
 
   return (
-    <Link to={href} className="no-underline cursor-pointer">
+    <Link to={href} className="block h-full no-underline">
       {children}
     </Link>
   );
@@ -461,23 +377,18 @@ function SiteRow({ item }: { item: SiblingApp }) {
       href={`https://${item.domain}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="group grid grid-cols-1 sm:grid-cols-[160px_1fr_200px] gap-3 border-b py-4 text-foreground hover:bg-muted px-6 transition-colors last:border-b-0"
+      className="group grid grid-cols-1 sm:grid-cols-[1fr_2fr] gap-3 border-b py-4 text-foreground hover:bg-muted px-6 transition-colors last:border-b-0"
     >
-      <div>
-        <h3 className="text-sm font-semibold flex items-center gap-1.5">
-          {item.name}
-          <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-        </h3>
+      <div className="flex items-center gap-1.5">
+        <span className="font-mono text-sm text-foreground">
+          {item.domain}
+        </span>
+        <ExternalLink size={12} className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
       </div>
       <div>
         <p className="text-xs text-muted-foreground leading-relaxed">
-          {item.description}
+          <span className="text-foreground">{item.name}</span> — {item.description}
         </p>
-      </div>
-      <div className="sm:text-right">
-        <span className="font-mono text-xs text-muted-foreground group-hover:text-foreground transition-colors">
-          {item.domain}
-        </span>
       </div>
     </a>
   );

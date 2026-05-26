@@ -6,13 +6,17 @@ import { WakaTimeLanguagesView } from "@/app/wakatime/languages";
 import { WakaTimeMetricsView } from "@/app/wakatime/metrics";
 import { WakaTimeMonthlyTrendView } from "@/app/wakatime/monthly-trend";
 import {
+  getBestDayWakaTime,
   getWakaTimeActivityWithAI,
+  getWakaTimeCategories,
   getWakaTimeEditors,
   getWakaTimeHourlyHeatmap,
   getWakaTimeLanguages,
+  getWakaTimeMachines,
   getWakaTimeMetrics,
   getWakaTimeMonthlyTrend,
   getWakaTimeOperatingSystems,
+  getWakaTimeProjects,
 } from "@/app/wakatime/wakatime-utils";
 import { StaticCard } from "@/components/StaticCard";
 import type { PeriodDays } from "@/lib/periods";
@@ -21,6 +25,8 @@ import {
   InsightsPageHeader,
   InsightsSection,
 } from "@/components/layouts/InsightsPageShell";
+import { Badge } from "@duyet/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@duyet/components/ui/card";
 
 const STATIC_DAYS: PeriodDays = getPeriodDays(DEFAULT_PERIOD) as PeriodDays;
 const WAKATIME_BADGE_URL = "/wakatime-assets/badge.svg";
@@ -40,6 +46,10 @@ export const Route = createFileRoute("/wakatime/")({
       operatingSystems,
       monthlyTrend,
       heatmap,
+      bestDay,
+      categories,
+      machines,
+      projects,
     ] = await Promise.allSettled([
       getWakaTimeMetrics(days),
       getWakaTimeActivityWithAI(days),
@@ -48,6 +58,10 @@ export const Route = createFileRoute("/wakatime/")({
       getWakaTimeOperatingSystems(days),
       getWakaTimeMonthlyTrend(),
       getWakaTimeHourlyHeatmap(),
+      getBestDayWakaTime(),
+      getWakaTimeCategories(days),
+      getWakaTimeMachines(days),
+      getWakaTimeProjects(days),
     ]);
 
     return {
@@ -69,6 +83,10 @@ export const Route = createFileRoute("/wakatime/")({
       monthlyTrend:
         monthlyTrend.status === "fulfilled" ? monthlyTrend.value : [],
       heatmap: heatmap.status === "fulfilled" ? heatmap.value : [],
+      bestDay: bestDay.status === "fulfilled" ? bestDay.value : null,
+      categories: categories.status === "fulfilled" ? categories.value : [],
+      machines: machines.status === "fulfilled" ? machines.value : [],
+      projects: projects.status === "fulfilled" ? projects.value : [],
     };
   },
   head: () => ({
@@ -93,6 +111,10 @@ function WakatimePage() {
     operatingSystems,
     monthlyTrend,
     heatmap,
+    bestDay,
+    categories,
+    machines,
+    projects,
   } = Route.useLoaderData();
 
   return (
@@ -138,6 +160,54 @@ function WakatimePage() {
         >
           <WakaTimeBreakdownList items={operatingSystems} />
         </InsightsSection>
+
+        {bestDay && (
+          <InsightsSection
+            title="Personal best"
+            description="Best single coding day on record."
+          >
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm font-medium text-muted-foreground">
+                  Best day
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="flex items-center gap-3">
+                <Badge variant="outline">{bestDay.date}</Badge>
+                <span className="text-2xl font-semibold tabular-nums">
+                  {bestDay.total.text}
+                </span>
+              </CardContent>
+            </Card>
+          </InsightsSection>
+        )}
+
+        {categories.length > 0 && (
+          <InsightsSection
+            title="Categories"
+            description="Coding, debugging, building — time by activity type."
+          >
+            <WakaTimeBreakdownList items={categories} />
+          </InsightsSection>
+        )}
+
+        {machines.length > 0 && (
+          <InsightsSection
+            title="Machines"
+            description="Which machines the coding hours landed on."
+          >
+            <WakaTimeBreakdownList items={machines} />
+          </InsightsSection>
+        )}
+
+        {projects.length > 0 && (
+          <InsightsSection
+            title="Top projects"
+            description="Most active projects by coding time."
+          >
+            <WakaTimeBreakdownList items={projects} />
+          </InsightsSection>
+        )}
 
         <InsightsSection
           title="Long-term trends"
