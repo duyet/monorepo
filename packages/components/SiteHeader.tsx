@@ -8,8 +8,8 @@ import {
   FileText,
   Home,
   Image,
-  LayoutGrid,
   Moon,
+  Search,
   Server,
   Sun,
   User,
@@ -18,13 +18,14 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "./ui/dialog";
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "./ui/command";
+import { Dialog, DialogContent } from "./ui/dialog";
 
 export interface SiteHeaderProps {
   brand?: string;
@@ -37,66 +38,17 @@ type App = {
   href: string;
   icon: typeof Home;
   description: string;
-  span: string;
 };
 
 const APPS: App[] = [
-  {
-    name: "Home",
-    href: "https://duyet.net",
-    icon: Home,
-    description: "Personal homepage and project directory",
-    span: "col-span-2 row-span-2",
-  },
-  {
-    name: "Blog",
-    href: "https://blog.duyet.net",
-    icon: FileText,
-    description: "Writing on data, AI, and infrastructure",
-    span: "col-span-2",
-  },
-  {
-    name: "Insights",
-    href: "https://insights.duyet.net",
-    icon: BarChart3,
-    description: "Live telemetry and dashboards",
-    span: "col-span-2",
-  },
-  {
-    name: "LLM Timeline",
-    href: "https://llm-timeline.duyet.net",
-    icon: Clock,
-    description: "Every LLM release, charted",
-    span: "col-span-2",
-  },
-  {
-    name: "Homelab",
-    href: "https://homelab.duyet.net",
-    icon: Server,
-    description: "Cluster, services, devices",
-    span: "col-span-2",
-  },
-  {
-    name: "CV",
-    href: "https://cv.duyet.net",
-    icon: User,
-    description: "Resume and career",
-    span: "col-span-2 sm:col-span-1",
-  },
-  {
-    name: "Photos",
-    href: "https://photos.duyet.net",
-    icon: Image,
-    description: "Photography archive",
-    span: "col-span-2 sm:col-span-1",
-  },
-  {
-    name: "AI Percentage",
-    href: "https://ai-percentage.duyet.net",
-    icon: Bot,
-    description: "AI-generated commit share",
-    span: "col-span-2",
-  },
+  { name: "Home", href: "https://duyet.net", icon: Home, description: "Personal homepage and project directory" },
+  { name: "Blog", href: "https://blog.duyet.net", icon: FileText, description: "Writing on data, AI, and infrastructure" },
+  { name: "Insights", href: "https://insights.duyet.net", icon: BarChart3, description: "Live telemetry and dashboards" },
+  { name: "LLM Timeline", href: "https://llm-timeline.duyet.net", icon: Clock, description: "Every LLM release, charted" },
+  { name: "Homelab", href: "https://homelab.duyet.net", icon: Server, description: "Cluster, services, devices" },
+  { name: "CV", href: "https://cv.duyet.net", icon: User, description: "Resume and career" },
+  { name: "Photos", href: "https://photos.duyet.net", icon: Image, description: "Photography archive" },
+  { name: "AI Percentage", href: "https://ai-percentage.duyet.net", icon: Bot, description: "AI-generated commit share" },
 ];
 
 export function SiteHeader({
@@ -142,45 +94,51 @@ function AppsDialog() {
   }, []);
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="ghost" size="sm" aria-label="Open apps">
-          <LayoutGrid className="h-4 w-4" />
-          <span className="ml-1.5 text-sm">Apps</span>
-          <kbd className="ml-2 hidden items-center gap-0.5 rounded border bg-muted px-1.5 py-0.5 text-[10px] font-mono text-muted-foreground sm:inline-flex">
-            ⌘K
-          </kbd>
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-3xl">
-        <DialogHeader>
-          <DialogTitle>Apps</DialogTitle>
-          <DialogDescription>duyet.net properties</DialogDescription>
-        </DialogHeader>
-        <div className="grid auto-rows-[7rem] grid-cols-4 gap-3">
-          {APPS.map(({ name, href, icon: Icon, description, span }) => (
-            <a
-              key={href}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                "flex flex-col justify-between rounded-md border bg-card p-4 transition-colors hover:bg-muted",
-                span,
-              )}
-            >
-              <Icon className="h-5 w-5 text-muted-foreground" />
-              <div>
-                <h3 className="text-sm font-medium leading-tight">{name}</h3>
-                <p className="mt-1 text-xs text-muted-foreground leading-snug">
-                  {description}
-                </p>
-              </div>
-            </a>
-          ))}
-        </div>
-      </DialogContent>
-    </Dialog>
+    <>
+      <Button
+        variant="outline"
+        size="sm"
+        aria-label="Open apps menu"
+        onClick={() => setOpen(true)}
+        className="gap-2"
+      >
+        <Search className="h-4 w-4" />
+        <span className="hidden sm:inline text-sm text-muted-foreground">Search…</span>
+        <kbd className="ml-2 hidden items-center gap-0.5 rounded border bg-muted px-1.5 py-0.5 text-[10px] font-mono text-muted-foreground sm:inline-flex">
+          ⌘K
+        </kbd>
+      </Button>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="p-0 sm:max-w-lg">
+          <Command>
+            <CommandInput placeholder="Search apps…" />
+            <CommandList>
+              <CommandEmpty>No results found.</CommandEmpty>
+              <CommandGroup heading="Apps">
+                {APPS.map(({ name, href, icon: Icon, description }) => (
+                  <CommandItem
+                    key={href}
+                    value={`${name} ${description}`}
+                    onSelect={() => {
+                      window.location.href = href;
+                    }}
+                    className="gap-3"
+                  >
+                    <Icon className="h-4 w-4 text-muted-foreground" />
+                    <div className="flex flex-col">
+                      <span className="text-sm font-medium">{name}</span>
+                      <span className="text-xs text-muted-foreground">
+                        {description}
+                      </span>
+                    </div>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 
