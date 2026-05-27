@@ -7,11 +7,9 @@ import {
   Camera,
   Check,
   ChevronsUpDown,
-  GraduationCap,
   House,
   type LucideIcon,
   Moon,
-  Percent,
   Server,
   Sparkles,
   Sun,
@@ -41,9 +39,7 @@ type AppKey =
   | "insights"
   | "llm-timeline"
   | "homelab"
-  | "photos"
-  | "ai-percentage"
-  | "kb";
+  | "photos";
 
 type AppDef = {
   key: AppKey;
@@ -96,27 +92,15 @@ const APPS: AppDef[] = [
     subdomain: "photos.duyet.net",
     Icon: Camera,
   },
-  {
-    key: "ai-percentage",
-    name: "AI Percentage",
-    href: "https://ai-percentage.duyet.net",
-    subdomain: "ai-percentage.duyet.net",
-    Icon: Percent,
-  },
-  {
-    key: "kb",
-    name: "KB",
-    href: "https://kb.duyet.net",
-    subdomain: "kb.duyet.net",
-    Icon: GraduationCap,
-  },
 ];
 
 function AppLogo({ Icon }: { Icon: LucideIcon }) {
   return (
-    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-muted">
-      <Icon className="h-3.5 w-3.5" strokeWidth={2} />
-    </div>
+    <Icon
+      className="h-4 w-4 shrink-0 text-foreground"
+      strokeWidth={1.75}
+      aria-hidden
+    />
   );
 }
 
@@ -301,7 +285,7 @@ export function SiteHeader({
         className,
       )}
     >
-      <div className="mx-auto flex h-14 max-w-[1200px] items-center px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-14 max-w-[1080px] items-center px-4 sm:px-6 lg:px-8">
         <AppSwitcher currentApp={currentApp} />
         {localNav && localNav.length > 0 && (
           <LocalNav items={localNav} activeHref={activeHref} />

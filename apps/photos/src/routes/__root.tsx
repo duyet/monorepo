@@ -2,8 +2,7 @@ import "@duyet/components/styles.css";
 import "../../app/globals.css";
 
 import Analytics from "@duyet/components/Analytics";
-import Footer from "@duyet/components/Footer";
-import Header from "@duyet/components/Header";
+import { SiteFooter, SiteHeader } from "@duyet/components";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import {
   createRootRoute,
@@ -11,6 +10,7 @@ import {
   Link,
   Outlet,
   Scripts,
+  useRouterState,
 } from "@tanstack/react-router";
 
 function NotFoundComponent() {
@@ -88,7 +88,13 @@ export const Route = createRootRoute({
   component: RootComponent,
 });
 
+const photosLocalNav = [
+  { label: "Gallery", href: "/" },
+  { label: "Feed", href: "/feed" },
+];
+
 function RootComponent() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -105,13 +111,17 @@ function RootComponent() {
       <body>
         <ThemeProvider>
           <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
-            <Header longText="Photos" shortText="Photos" />
-            <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+            <SiteHeader
+              currentApp="photos"
+              localNav={photosLocalNav}
+              activeHref={pathname}
+            />
+            <main className="relative z-10 bg-white pb-16 dark:bg-[#0d0e0c]">
               <div className="mx-auto px-5 pb-16 pt-6 sm:px-8 lg:px-4 xl:px-6 2xl:px-8">
                 <Outlet />
               </div>
             </main>
-            <Footer className="bg-white dark:bg-[#1a1a1a]" />
+            <SiteFooter />
           </div>
           <Analytics />
         </ThemeProvider>

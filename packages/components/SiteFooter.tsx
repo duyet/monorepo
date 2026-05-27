@@ -1,6 +1,5 @@
 import { cn } from "@duyet/libs/utils";
 import type { ReactNode } from "react";
-import { Button } from "./ui/button";
 
 export interface SiteFooterLink {
   label: string;
@@ -8,7 +7,7 @@ export interface SiteFooterLink {
 }
 
 export interface SiteFooterProps {
-  /** Legacy escape hatch — appended as an extra "Links" column when present. */
+  /** Legacy escape hatch — appended as an extra column when present. */
   links?: SiteFooterLink[];
   owner?: string;
   className?: string;
@@ -28,40 +27,55 @@ const SECTIONS: FooterSection[] = [
       { label: "Blog", href: "https://blog.duyet.net" },
       { label: "Insights", href: "https://insights.duyet.net" },
       { label: "LLM Timeline", href: "https://llm-timeline.duyet.net" },
-    ],
-  },
-  {
-    heading: "Tools",
-    items: [
       { label: "Homelab", href: "https://homelab.duyet.net" },
       { label: "Photos", href: "https://photos.duyet.net" },
-      { label: "AI Percentage", href: "https://ai-percentage.duyet.net" },
-      { label: "Knowledge base", href: "https://kb.duyet.net" },
     ],
   },
   {
-    heading: "Resources",
+    heading: "Projects",
     items: [
       { label: "GitHub", href: "https://github.com/duyet" },
       { label: "ClickHouse Monitor", href: "https://chmonitor.dev" },
       { label: "AnyRouter", href: "https://anyrouter.dev" },
-      { label: "RSS feed", href: "https://blog.duyet.net/rss.xml" },
+      { label: "Knowledge base", href: "https://kb.duyet.net" },
     ],
   },
   {
-    heading: "Company",
+    heading: "About",
     items: [
       { label: "About", href: "https://duyet.net/about" },
       { label: "CV", href: "https://cv.duyet.net" },
       { label: "DuyetBot", href: "https://duyet.net/about-duyetbot" },
-      { label: "Email", href: "mailto:me@duyet.net" },
+      { label: "RSS", href: "https://blog.duyet.net/rss.xml" },
     ],
   },
 ];
 
+function FooterColumn({ section }: { section: FooterSection }) {
+  return (
+    <div>
+      <p className="text-[11px] font-mono uppercase tracking-[0.16em] text-muted-foreground">
+        {section.heading}
+      </p>
+      <ul className="mt-4 space-y-2.5">
+        {section.items.map((item) => (
+          <li key={item.href}>
+            <a
+              href={item.href}
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export function SiteFooter({
   links,
-  owner = "duyet",
+  owner = "Duyet Le",
   className,
   children,
 }: SiteFooterProps) {
@@ -69,135 +83,52 @@ export function SiteFooter({
 
   return (
     <footer className={cn("border-t bg-background", className)}>
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-12">
-          <div className="max-w-md">
-            <p className="text-base font-semibold tracking-tight">duyet.net</p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Notes from the workshop.
+      <div className="mx-auto max-w-[1080px] px-4 sm:px-6 lg:px-8 py-14 md:py-16">
+        <div className="grid grid-cols-2 gap-10 md:grid-cols-4 lg:gap-12">
+          <div className="col-span-2 md:col-span-1 max-w-sm">
+            <p className="text-sm font-semibold tracking-tight text-foreground">
+              duyet.net
             </p>
-            <p className="mt-6 text-sm text-muted-foreground leading-relaxed">
-              I build AI agents and the data platforms that keep them honest —
-              open-source tools, telemetry dashboards, and writing on what
-              actually ships to production.
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              Personal site of Duyet Le — Data &amp; AI Engineer in Ho Chi
+              Minh City. Writing, side projects, and open source.
             </p>
-            <Button asChild variant="outline" size="sm" className="mt-6">
-              <a href="https://blog.duyet.net">Read the blog</a>
-            </Button>
+            <a
+              href="mailto:me@duyet.net"
+              className="mt-4 inline-block font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
+            >
+              me@duyet.net
+            </a>
           </div>
 
-          <div className="space-y-8">
-            <div>
-              <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                Apps
-              </p>
-              <ul className="mt-4 space-y-3">
-                {SECTIONS[0].items.map((item) => (
-                  <li key={item.href}>
-                    <a
-                      href={item.href}
-                      className="text-sm transition-colors hover:text-foreground"
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                Tools
-              </p>
-              <ul className="mt-4 space-y-3">
-                {SECTIONS[1].items.map((item) => (
-                  <li key={item.href}>
-                    <a
-                      href={item.href}
-                      className="text-sm transition-colors hover:text-foreground"
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+          {SECTIONS.map((section) => (
+            <FooterColumn key={section.heading} section={section} />
+          ))}
 
-          <div className="space-y-8">
-            <div>
-              <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                Resources
-              </p>
-              <ul className="mt-4 space-y-3">
-                {SECTIONS[2].items.map((item) => (
-                  <li key={item.href}>
-                    <a
-                      href={item.href}
-                      className="text-sm transition-colors hover:text-foreground"
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                Company
-              </p>
-              <ul className="mt-4 space-y-3">
-                {SECTIONS[3].items.map((item) => (
-                  <li key={item.href}>
-                    <a
-                      href={item.href}
-                      className="text-sm transition-colors hover:text-foreground"
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            {links && links.length > 0 && (
-              <div>
-                <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                  Links
-                </p>
-                <ul className="mt-4 space-y-3">
-                  {links.map((item) => (
-                    <li key={item.href}>
-                      <a
-                        href={item.href}
-                        className="text-sm transition-colors hover:text-foreground"
-                      >
-                        {item.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
+          {links && links.length > 0 && (
+            <FooterColumn
+              section={{ heading: "Links", items: links }}
+            />
+          )}
         </div>
-        <div className="mt-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-muted-foreground">
-          <p>
-            © {year} {owner}. All rights reserved.
+
+        <div className="mt-14 flex flex-col-reverse items-start gap-4 border-t pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <p className="font-mono">
+            © {year} {owner}
           </p>
-          <div className="flex items-center gap-5">
+          <p className="max-w-md leading-relaxed sm:text-right">
+            This site is continuously maintained by{" "}
             <a
-              href="/privacy"
-              className="hover:text-foreground transition-colors"
+              href="https://duyet.net/about-duyetbot"
+              className="underline decoration-muted-foreground/40 underline-offset-2 transition-colors hover:text-foreground hover:decoration-foreground"
             >
-              Privacy
+              duyetbot
             </a>
-            <a
-              href="/terms"
-              className="hover:text-foreground transition-colors"
-            >
-              Terms
-            </a>
-            {children}
-          </div>
+            , an autonomous agent — UI &amp; copy may change at any time.
+          </p>
+          {children && (
+            <div className="flex items-center gap-5">{children}</div>
+          )}
         </div>
       </div>
     </footer>
