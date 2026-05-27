@@ -6,6 +6,7 @@
   "scripts": {
     "test": "bun test",
     "config": "bun ../../scripts/sync-app-secrets.ts duyet-home",
+    "prebuild": "cd ../blog && bun scripts/generate-posts-data.ts",
     "build": "bun --bun vite build",
     "check-types": "tsc --noEmit",
     "dev": "bun --bun vite dev --port 3001",
