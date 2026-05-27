@@ -12,6 +12,7 @@
     "config": "bun ../../scripts/sync-app-secrets.ts duyet-insights",
     "sync:cache": "bun --env-file=.env.local scripts/sync-analytics-cache.ts",
     "sync:motherduck": "bun --env-file=.env.local scripts/sync-to-motherduck.ts",
+    "prebuild": "cd ../blog && bun scripts/generate-posts-data.ts",
     "build": "bun --bun vite build",
     "check-types": "tsc --noEmit",
     "dev": "vite dev --port 3001",

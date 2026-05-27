@@ -4,12 +4,14 @@ import { cn } from "@duyet/libs/utils";
 import {
   Activity,
   BookOpen,
+  Brain,
   Camera,
   Check,
   ChevronsUpDown,
   House,
   type LucideIcon,
   Moon,
+  Percent,
   Server,
   Sparkles,
   Sun,
@@ -26,7 +28,10 @@ export interface SiteHeaderProps {
   brandHref?: string;
   /** One of the known app keys. Defaults to "home". */
   currentApp?: AppKey;
-  /** Inline nav items rendered after the app switcher separator. */
+  /**
+   * Local navigation items within the current app scope.
+   * Highlighted, flat, inline navigation for page-subviews.
+   */
   localNav?: { label: string; href: string; external?: boolean }[];
   /** The href that should be highlighted in localNav. */
   activeHref?: string;
@@ -39,7 +44,9 @@ type AppKey =
   | "insights"
   | "llm-timeline"
   | "homelab"
-  | "photos";
+  | "photos"
+  | "kb"
+  | "ai-percentage";
 
 type AppDef = {
   key: AppKey;
@@ -91,6 +98,20 @@ const APPS: AppDef[] = [
     href: "https://photos.duyet.net",
     subdomain: "photos.duyet.net",
     Icon: Camera,
+  },
+  {
+    key: "kb",
+    name: "Knowledge base",
+    href: "https://kb.duyet.net",
+    subdomain: "kb.duyet.net",
+    Icon: Brain,
+  },
+  {
+    key: "ai-percentage",
+    name: "AI Percentage",
+    href: "https://ai-percentage.duyet.net",
+    subdomain: "ai-percentage.duyet.net",
+    Icon: Percent,
   },
 ];
 

@@ -45,7 +45,7 @@ function NotesPage(): ReactElement {
             {shortforms.map((note) => (
               <li key={note.id}>
                 <Link
-                  to="/notes/$id"
+                  to="/notes/$id/"
                   params={{ id: note.id }}
                   className="flex items-start gap-4 group"
                 >

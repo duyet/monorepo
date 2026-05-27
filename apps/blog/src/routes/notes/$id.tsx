@@ -2,6 +2,7 @@ import { dateFormat } from "@duyet/libs/date";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import type { ReactElement } from "react";
 import { getShortformById } from "@/lib/shortforms";
+import type { Shortform } from "@/lib/shortforms";
 
 export const Route = createFileRoute("/notes/$id")({
   head: ({ loaderData }) => ({
@@ -14,18 +15,18 @@ export const Route = createFileRoute("/notes/$id")({
   loader: ({ params }) => {
     const note = getShortformById(params.id);
     if (!note) throw notFound();
-    return note;
+    return note as Shortform;
   },
   component: NotePage,
 });
 
 function NotePage(): ReactElement {
-  const note = Route.useLoaderData();
+  const note = Route.useLoaderData() as Shortform;
 
   return (
     <article className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16 md:py-24">
       <Link
-        to="/notes"
+        to="/notes/"
         className="text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
       >
         ← Quick Notes

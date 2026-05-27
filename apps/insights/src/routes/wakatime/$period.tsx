@@ -1,30 +1,25 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Cpu, Folder, Monitor, Terminal } from "lucide-react";
 import { WakaTimeActivityView } from "@/app/wakatime/activity";
+import { WakaTimeBestDayCard } from "@/app/wakatime/best-day";
+import { WakaTimeBreakdownView } from "@/app/wakatime/breakdown";
 import { WakaTimeLanguagesView } from "@/app/wakatime/languages";
 import { WakaTimeMetricsView } from "@/app/wakatime/metrics";
 import {
-  getBestDayWakaTime,
+  EMPTY_WAKATIME_OVERVIEW,
   getWakaTimeActivityWithAI,
-  getWakaTimeCategories,
-  getWakaTimeEditors,
   getWakaTimeLanguages,
-  getWakaTimeMachines,
-  getWakaTimeMetrics,
   getWakaTimeMonthlyActivity,
-  getWakaTimeOperatingSystems,
-  getWakaTimeProjects,
+  getWakaTimeOverview,
 } from "@/app/wakatime/wakatime-utils";
-import { WakaTimeBreakdownList } from "@/app/wakatime/breakdown";
+import { PeriodSwitcher } from "@/components/PeriodSwitcher";
 import { StaticCard } from "@/components/StaticCard";
 import type { PeriodDays } from "@/lib/periods";
 import { getPeriodConfig, getPeriodDays } from "@/lib/periods";
-import { PeriodSwitcher } from "@/components/PeriodSwitcher";
 import {
   InsightsPageHeader,
   InsightsSection,
 } from "@/components/layouts/InsightsPageShell";
-import { Badge } from "@duyet/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@duyet/components/ui/card";
 
 const WAKATIME_BADGE_URL = "/wakatime-assets/badge.svg";
 const WAKATIME_HEATMAP_URLS = {
@@ -39,52 +34,24 @@ export const Route = createFileRoute("/wakatime/$period")({
     const days = getPeriodDays(period) as PeriodDays;
     const isAllTime = days === "all";
 
-    const [
-      metrics,
-      activity,
-      languages,
-      editors,
-      operatingSystems,
-      bestDay,
-      categories,
-      machines,
-      projects,
-    ] = await Promise.allSettled([
-      getWakaTimeMetrics(days),
+    const [overview, activity, languages] = await Promise.allSettled([
+      getWakaTimeOverview(days),
       isAllTime
         ? getWakaTimeMonthlyActivity()
         : getWakaTimeActivityWithAI(days),
       getWakaTimeLanguages(days),
-      getWakaTimeEditors(days),
-      getWakaTimeOperatingSystems(days),
-      getBestDayWakaTime(),
-      getWakaTimeCategories(days),
-      getWakaTimeMachines(days),
-      getWakaTimeProjects(days),
     ]);
 
     return {
       config,
       days,
       isAllTime,
-      metrics:
-        metrics.status === "fulfilled"
-          ? metrics.value
-          : {
-              totalHours: 0,
-              avgDailyHours: 0,
-              daysActive: 0,
-              topLanguage: "N/A",
-            },
+      overview:
+        overview.status === "fulfilled"
+          ? overview.value
+          : EMPTY_WAKATIME_OVERVIEW,
       activity: activity.status === "fulfilled" ? activity.value : [],
       languages: languages.status === "fulfilled" ? languages.value : [],
-      editors: editors.status === "fulfilled" ? editors.value : [],
-      operatingSystems:
-        operatingSystems.status === "fulfilled" ? operatingSystems.value : [],
-      bestDay: bestDay.status === "fulfilled" ? bestDay.value : null,
-      categories: categories.status === "fulfilled" ? categories.value : [],
-      machines: machines.status === "fulfilled" ? machines.value : [],
-      projects: projects.status === "fulfilled" ? projects.value : [],
     };
   },
   head: ({ loaderData }) => {
@@ -106,19 +73,17 @@ export const Route = createFileRoute("/wakatime/$period")({
 });
 
 function WakaTimePeriodPage() {
+  const { config, isAllTime, overview, activity, languages } =
+    Route.useLoaderData();
   const {
-    config,
-    isAllTime,
     metrics,
-    activity,
-    languages,
     editors,
     operatingSystems,
-    bestDay,
     categories,
     machines,
     projects,
-  } = Route.useLoaderData();
+    bestDay,
+  } = overview;
 
   const activityTitle = isAllTime ? "Monthly Activity" : "Daily Activity";
   const activityDescription = isAllTime
@@ -128,12 +93,18 @@ function WakaTimePeriodPage() {
     ? "All-time programming activity summary"
     : `Programming activity summary for the last ${config.label}`;
 
+  const hasEnvironment =
+    editors.length > 0 ||
+    operatingSystems.length > 0 ||
+    categories.length > 0 ||
+    machines.length > 0;
+
   return (
     <div>
       <InsightsPageHeader
         badge={`WakaTime · ${config.label}`}
         title="Where the hours at the keyboard went."
-        description="Programming activity and language statistics for the selected period."
+        description="Programming activity, languages, editors, operating systems, and project breakdown for the selected period."
       />
 
       <div className="mb-12">
@@ -149,6 +120,15 @@ function WakaTimePeriodPage() {
           <WakaTimeMetricsView metrics={metrics} />
         </InsightsSection>
 
+        {bestDay ? (
+          <InsightsSection
+            title="Personal best"
+            description="The day you logged the most coding time in this window."
+          >
+            <WakaTimeBestDayCard bestDay={bestDay} periodLabel={config.label} />
+          </InsightsSection>
+        ) : null}
+
         <InsightsSection title={activityTitle} description={activityDescription}>
           <WakaTimeActivityView
             codingActivity={activity}
@@ -163,71 +143,58 @@ function WakaTimePeriodPage() {
           <WakaTimeLanguagesView languages={languages} />
         </InsightsSection>
 
-        {editors.length > 0 && (
+        {hasEnvironment ? (
           <InsightsSection
-            title="Editors"
-            description="Where the typing happened — top editors by share of coding time."
+            title="Tools & environment"
+            description="Editors, operating systems, categories, and machines behind the keyboard."
           >
-            <WakaTimeBreakdownList items={editors} />
+            <div className="grid gap-6 lg:grid-cols-2">
+              <WakaTimeBreakdownView
+                title="Editors"
+                description="Where the code gets written."
+                data={editors}
+                icon={<Terminal className="h-4 w-4" />}
+                emptyMessage="No editor data for this period."
+              />
+              <WakaTimeBreakdownView
+                title="Operating systems"
+                description="Platforms used while coding."
+                data={operatingSystems}
+                icon={<Monitor className="h-4 w-4" />}
+                emptyMessage="No OS data for this period."
+              />
+              <WakaTimeBreakdownView
+                title="Categories"
+                description="What the keyboard time looked like (coding, debugging, building)."
+                data={categories}
+                icon={<Folder className="h-4 w-4" />}
+                emptyMessage="No category data for this period."
+              />
+              <WakaTimeBreakdownView
+                title="Machines"
+                description="Devices logging coding activity."
+                data={machines}
+                icon={<Cpu className="h-4 w-4" />}
+                emptyMessage="No machine data for this period."
+              />
+            </div>
           </InsightsSection>
-        )}
+        ) : null}
 
-        {operatingSystems.length > 0 && (
-          <InsightsSection
-            title="Operating systems"
-            description="Which OS the keyboard hours landed on."
-          >
-            <WakaTimeBreakdownList items={operatingSystems} />
-          </InsightsSection>
-        )}
-
-        {bestDay && (
-          <InsightsSection
-            title="Personal best"
-            description="Best single coding day on record."
-          >
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Best day
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="flex items-center gap-3">
-                <Badge variant="outline">{bestDay.date}</Badge>
-                <span className="text-2xl font-semibold tabular-nums">
-                  {bestDay.total.text}
-                </span>
-              </CardContent>
-            </Card>
-          </InsightsSection>
-        )}
-
-        {categories.length > 0 && (
-          <InsightsSection
-            title="Categories"
-            description="Coding, debugging, building — time by activity type."
-          >
-            <WakaTimeBreakdownList items={categories} />
-          </InsightsSection>
-        )}
-
-        {machines.length > 0 && (
-          <InsightsSection
-            title="Machines"
-            description="Which machines the coding hours landed on."
-          >
-            <WakaTimeBreakdownList items={machines} />
-          </InsightsSection>
-        )}
-
-        {projects.length > 0 && (
+        {projects.length > 0 ? (
           <InsightsSection
             title="Top projects"
-            description="Most active projects by coding time."
+            description="Where the hours went, project by project."
           >
-            <WakaTimeBreakdownList items={projects} />
+            <WakaTimeBreakdownView
+              title="Projects"
+              description="Top projects by coding hours in this window."
+              data={projects}
+              icon={<Folder className="h-4 w-4" />}
+              emptyMessage="Project visibility may be private — no project breakdown available."
+            />
           </InsightsSection>
-        )}
+        ) : null}
 
         <InsightsSection
           title="Yearly activity"
