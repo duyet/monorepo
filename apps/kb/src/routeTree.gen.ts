@@ -10,43 +10,48 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as GraphRouteImport } from './routes/graph'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as CIndexRouteImport } from './routes/c/index'
 import { Route as SitemapXmlRouteImport } from './routes/sitemap.xml'
 import { Route as RobotsTxtRouteImport } from './routes/robots.txt'
-import { Route as LlmsFullTxtRouteImport } from './routes/llms-full.txt'
 import { Route as LlmsTxtRouteImport } from './routes/llms.txt'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as LlmsFullTxtRouteImport } from './routes/llms-full.txt'
 import { Route as KSlugRouteImport } from './routes/k/$slug'
 import { Route as CCategoryRouteImport } from './routes/c/$category'
-import { Route as CIndexRouteImport } from './routes/c/index'
 
 const GraphRoute = GraphRouteImport.update({
   id: '/graph',
   path: '/graph',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SitemapXmlRoute = SitemapXmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RobotsTxtRoute = RobotsTxtRouteImport.update({
-  id: '/robots.txt',
-  path: '/robots.txt',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LlmsFullTxtRoute = LlmsFullTxtRouteImport.update({
-  id: '/llms-full.txt',
-  path: '/llms-full.txt',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LlmsTxtRoute = LlmsTxtRouteImport.update({
-  id: '/llms.txt',
-  path: '/llms.txt',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CIndexRoute = CIndexRouteImport.update({
+  id: '/c/',
+  path: '/c/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapXmlRoute = SitemapXmlRouteImport.update({
+  id: '/sitemap/xml',
+  path: '/sitemap/xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsTxtRoute = RobotsTxtRouteImport.update({
+  id: '/robots/txt',
+  path: '/robots/txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LlmsTxtRoute = LlmsTxtRouteImport.update({
+  id: '/llms/txt',
+  path: '/llms/txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LlmsFullTxtRoute = LlmsFullTxtRouteImport.update({
+  id: '/llms-full/txt',
+  path: '/llms-full/txt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KSlugRoute = KSlugRouteImport.update({
@@ -59,44 +64,39 @@ const CCategoryRoute = CCategoryRouteImport.update({
   path: '/c/$category',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CIndexRoute = CIndexRouteImport.update({
-  id: '/c/',
-  path: '/c/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/graph': typeof GraphRoute
-  '/sitemap.xml': typeof SitemapXmlRoute
-  '/robots.txt': typeof RobotsTxtRoute
-  '/llms-full.txt': typeof LlmsFullTxtRoute
-  '/llms.txt': typeof LlmsTxtRoute
-  '/k/$slug': typeof KSlugRoute
   '/c/$category': typeof CCategoryRoute
+  '/k/$slug': typeof KSlugRoute
+  '/llms-full/txt': typeof LlmsFullTxtRoute
+  '/llms/txt': typeof LlmsTxtRoute
+  '/robots/txt': typeof RobotsTxtRoute
+  '/sitemap/xml': typeof SitemapXmlRoute
   '/c/': typeof CIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/graph': typeof GraphRoute
-  '/sitemap.xml': typeof SitemapXmlRoute
-  '/robots.txt': typeof RobotsTxtRoute
-  '/llms-full.txt': typeof LlmsFullTxtRoute
-  '/llms.txt': typeof LlmsTxtRoute
-  '/k/$slug': typeof KSlugRoute
   '/c/$category': typeof CCategoryRoute
+  '/k/$slug': typeof KSlugRoute
+  '/llms-full/txt': typeof LlmsFullTxtRoute
+  '/llms/txt': typeof LlmsTxtRoute
+  '/robots/txt': typeof RobotsTxtRoute
+  '/sitemap/xml': typeof SitemapXmlRoute
   '/c': typeof CIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/graph': typeof GraphRoute
-  '/sitemap.xml': typeof SitemapXmlRoute
-  '/robots.txt': typeof RobotsTxtRoute
-  '/llms-full.txt': typeof LlmsFullTxtRoute
-  '/llms.txt': typeof LlmsTxtRoute
-  '/k/$slug': typeof KSlugRoute
   '/c/$category': typeof CCategoryRoute
+  '/k/$slug': typeof KSlugRoute
+  '/llms-full/txt': typeof LlmsFullTxtRoute
+  '/llms/txt': typeof LlmsTxtRoute
+  '/robots/txt': typeof RobotsTxtRoute
+  '/sitemap/xml': typeof SitemapXmlRoute
   '/c/': typeof CIndexRoute
 }
 export interface FileRouteTypes {
@@ -104,58 +104,51 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/graph'
-    | '/sitemap.xml'
-    | '/robots.txt'
-    | '/llms-full.txt'
-    | '/llms.txt'
-    | '/k/$slug'
     | '/c/$category'
+    | '/k/$slug'
+    | '/llms-full/txt'
+    | '/llms/txt'
+    | '/robots/txt'
+    | '/sitemap/xml'
     | '/c/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/graph'
-    | '/sitemap.xml'
-    | '/robots.txt'
-    | '/llms-full.txt'
-    | '/llms.txt'
-    | '/k/$slug'
     | '/c/$category'
+    | '/k/$slug'
+    | '/llms-full/txt'
+    | '/llms/txt'
+    | '/robots/txt'
+    | '/sitemap/xml'
     | '/c'
   id:
     | '__root__'
     | '/'
     | '/graph'
-    | '/sitemap.xml'
-    | '/robots.txt'
-    | '/llms-full.txt'
-    | '/llms.txt'
-    | '/k/$slug'
     | '/c/$category'
+    | '/k/$slug'
+    | '/llms-full/txt'
+    | '/llms/txt'
+    | '/robots/txt'
+    | '/sitemap/xml'
     | '/c/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   GraphRoute: typeof GraphRoute
-  SitemapXmlRoute: typeof SitemapXmlRoute
-  RobotsTxtRoute: typeof RobotsTxtRoute
+  CCategoryRoute: typeof CCategoryRoute
+  KSlugRoute: typeof KSlugRoute
   LlmsFullTxtRoute: typeof LlmsFullTxtRoute
   LlmsTxtRoute: typeof LlmsTxtRoute
-  KSlugRoute: typeof KSlugRoute
-  CCategoryRoute: typeof CCategoryRoute
+  RobotsTxtRoute: typeof RobotsTxtRoute
+  SitemapXmlRoute: typeof SitemapXmlRoute
   CIndexRoute: typeof CIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/graph': {
       id: '/graph'
       path: '/graph'
@@ -163,32 +156,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GraphRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/c/': {
+      id: '/c/'
+      path: '/c'
+      fullPath: '/c/'
+      preLoaderRoute: typeof CIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap/xml': {
+      id: '/sitemap/xml'
+      path: '/sitemap/xml'
+      fullPath: '/sitemap/xml'
       preLoaderRoute: typeof SitemapXmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/robots.txt': {
-      id: '/robots.txt'
-      path: '/robots.txt'
-      fullPath: '/robots.txt'
+    '/robots/txt': {
+      id: '/robots/txt'
+      path: '/robots/txt'
+      fullPath: '/robots/txt'
       preLoaderRoute: typeof RobotsTxtRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/llms-full.txt': {
-      id: '/llms-full.txt'
-      path: '/llms-full.txt'
-      fullPath: '/llms-full.txt'
-      preLoaderRoute: typeof LlmsFullTxtRouteImport
+    '/llms/txt': {
+      id: '/llms/txt'
+      path: '/llms/txt'
+      fullPath: '/llms/txt'
+      preLoaderRoute: typeof LlmsTxtRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/llms.txt': {
-      id: '/llms.txt'
-      path: '/llms.txt'
-      fullPath: '/llms.txt'
-      preLoaderRoute: typeof LlmsTxtRouteImport
+    '/llms-full/txt': {
+      id: '/llms-full/txt'
+      path: '/llms-full/txt'
+      fullPath: '/llms-full/txt'
+      preLoaderRoute: typeof LlmsFullTxtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/k/$slug': {
@@ -205,25 +212,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CCategoryRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/c/': {
-      id: '/c/'
-      path: '/c/'
-      fullPath: '/c/'
-      preLoaderRoute: typeof CIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   GraphRoute: GraphRoute,
-  SitemapXmlRoute: SitemapXmlRoute,
-  RobotsTxtRoute: RobotsTxtRoute,
+  CCategoryRoute: CCategoryRoute,
+  KSlugRoute: KSlugRoute,
   LlmsFullTxtRoute: LlmsFullTxtRoute,
   LlmsTxtRoute: LlmsTxtRoute,
-  KSlugRoute: KSlugRoute,
-  CCategoryRoute: CCategoryRoute,
+  RobotsTxtRoute: RobotsTxtRoute,
+  SitemapXmlRoute: SitemapXmlRoute,
   CIndexRoute: CIndexRoute,
 }
 export const routeTree = rootRouteImport
@@ -231,6 +231,7 @@ export const routeTree = rootRouteImport
   ._addFileTypes<FileRouteTypes>()
 
 import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
 declare module '@tanstack/react-start' {
   interface Register {
     ssr: true

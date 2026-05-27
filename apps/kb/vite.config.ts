@@ -1,9 +1,12 @@
 import { readdirSync, statSync } from "node:fs";
-import { basename, extname, join } from "node:path";
+import { basename, extname, join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 /** Derive all KB routes that must be pre-rendered. */
 function getKbRoutes(): string[] {

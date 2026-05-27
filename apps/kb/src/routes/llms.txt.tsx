@@ -10,7 +10,7 @@ import { getAllArticles, getAllCategories } from "../../lib/content";
 
 const SITE_URL = "https://kb.duyet.net";
 
-export const Route = createFileRoute("/llms.txt")({
+export const Route = createFileRoute("/llms/txt")({
   loader: () => {
     const articles = getAllArticles();
     const categories = getAllCategories();

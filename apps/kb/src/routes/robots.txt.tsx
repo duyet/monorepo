@@ -19,7 +19,7 @@ Sitemap: ${SITE_URL}/sitemap.xml
 # llms-full.txt: ${SITE_URL}/llms-full.txt
 `;
 
-export const Route = createFileRoute("/robots.txt")({
+export const Route = createFileRoute("/robots/txt")({
   head: () => ({
     meta: [{ title: "robots.txt | Knowledge Base | duyet.net" }],
   }),

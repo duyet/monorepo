@@ -1,15 +1,12 @@
 /**
- * Build-time content loader for the KB.
+ * Content loader for the KB.
  *
- * Reads all content/**\/*.md files synchronously, parses frontmatter with
- * gray-matter, and builds derived data structures used by routes.
- *
- * This module is imported at route loader time (prerender / SSR). It must
- * only run in a Node/Bun environment — never in the browser bundle.
+ * Dual-mode: when running inside the Vite bundle (browser/prerender)
+ * markdown is bundled via `import.meta.glob`. When running under Bun
+ * (prebuild scripts), it falls back to a filesystem walk.
  */
 
-import { readdirSync, readFileSync, statSync } from "node:fs";
-import { basename, extname, join } from "node:path";
+import { basename, extname, join, dirname } from "node:path";
 import matter from "gray-matter";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -47,55 +44,14 @@ let _cache: KbContent | null = null;
 
 // ── Loader ────────────────────────────────────────────────────────────────────
 
-function resolveContentDir(): string {
-  // Works from both apps/kb (dev) and apps/kb/src/* (build/prerender context)
-  // __dirname is the lib/ directory, so go up one level to apps/kb/
-  const candidates = [
-    join(import.meta.dirname ?? __dirname, "..", "content"),
-    join(process.cwd(), "content"),
-  ];
-  for (const dir of candidates) {
-    try {
-      readdirSync(dir);
-      return dir;
-    } catch {
-      // try next
-    }
-  }
-  return candidates[0];
-}
+// Bundle every .md file under content/ at build time — works in Node and browser.
+const RAW_CONTENT = import.meta.glob("../content/**/*.md", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+}) as Record<string, string>;
 
-function walkMd(dir: string): string[] {
-  const paths: string[] = [];
-  let entries: string[];
-  try {
-    entries = readdirSync(dir);
-  } catch {
-    return paths;
-  }
-  for (const entry of entries) {
-    const full = join(dir, entry);
-    try {
-      if (statSync(full).isDirectory()) {
-        paths.push(...walkMd(full));
-      } else if (extname(entry) === ".md") {
-        paths.push(full);
-      }
-    } catch {
-      // skip inaccessible entries
-    }
-  }
-  return paths;
-}
-
-function parseArticle(filePath: string, _contentDir: string): Article | null {
-  let raw: string;
-  try {
-    raw = readFileSync(filePath, "utf-8");
-  } catch {
-    return null;
-  }
-
+function parseArticle(filePath: string, raw: string): Article | null {
   const { data, content } = matter(raw);
 
   // Derive slug from filename (no extension)
@@ -118,12 +74,9 @@ function parseArticle(filePath: string, _contentDir: string): Article | null {
 export function loadContent(): KbContent {
   if (_cache) return _cache;
 
-  const contentDir = resolveContentDir();
-  const filePaths = walkMd(contentDir);
-
   const articles: Article[] = [];
-  for (const filePath of filePaths) {
-    const article = parseArticle(filePath, contentDir);
+  for (const [filePath, raw] of Object.entries(RAW_CONTENT)) {
+    const article = parseArticle(filePath, raw);
     if (article) articles.push(article);
   }
 
