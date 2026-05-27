@@ -85,13 +85,10 @@ export function MobileTOCButton({
           "lg:hidden",
           "inline-flex items-center gap-2",
           "px-3 py-1.5 rounded-lg",
-          "bg-[var(--surface-soft)] dark:bg-[var(--surface-dark)]",
-          "hover:bg-[var(--surface-card)] dark:hover:bg-[var(--surface-dark-elevated)]",
-          "text-sm font-medium",
-          "text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70",
-          "transition-all duration-200",
-          "active:scale-95",
-          "border border-[var(--hairline)] dark:border-white/10"
+          "bg-muted hover:bg-card",
+          "text-sm font-medium text-muted-foreground",
+          "transition-all duration-200 active:scale-95",
+          "border border-border"
         )}
         aria-label={
           isMobileOpen ? "Close table of contents" : "Open table of contents"

@@ -1,14 +1,18 @@
 import "@duyet/components/styles.css";
 import "../globals.css";
-import "../animations.css";
 
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import { ClerkAuthProvider } from "@duyet/components";
+import {
+  ClerkAuthProvider,
+  SiteFooter,
+  SiteHeader,
+} from "@duyet/components";
 import {
   createRootRoute,
   HeadContent,
   Outlet,
   Scripts,
+  useRouterState,
 } from "@tanstack/react-router";
 import { NotFound } from "../components/NotFound";
 
@@ -18,11 +22,11 @@ export const Route = createRootRoute({
       { charSet: "UTF-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
       { name: "robots", content: "follow, index" },
-      { title: "Duyet Le - Data & AI Engineer" },
+      { title: "Duyet — building AI agents and data platforms" },
       {
         name: "description",
         content:
-          "Data & AI Engineer. I build data infrastructure, AI-powered systems, and love Rust, TypeScript, and open source.",
+          "I build AI agents and the data platforms that keep them honest — end-to-end, obsessing over the small details that make software feel right to use.",
       },
       {
         name: "theme-color",
@@ -37,23 +41,20 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "icon", href: "/icon.svg", sizes: "any" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
-      },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap",
-      },
     ],
   }),
   notFoundComponent: NotFound,
   component: RootComponent,
 });
 
+const homeLocalNav = [
+  { label: "Projects", href: "/projects" },
+  { label: "About", href: "/about" },
+];
+
 function RootComponent() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -62,7 +63,13 @@ function RootComponent() {
       <body>
         <ClerkAuthProvider>
           <ThemeProvider>
+            <SiteHeader
+              currentApp="home"
+              localNav={homeLocalNav}
+              activeHref={pathname}
+            />
             <Outlet />
+            <SiteFooter />
           </ThemeProvider>
         </ClerkAuthProvider>
         <Scripts />

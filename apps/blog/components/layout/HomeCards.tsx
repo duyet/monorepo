@@ -7,10 +7,10 @@ interface HomeCardsProps {
 }
 
 const CARD_SURFACES = [
-  "bg-[var(--surface-card)] dark:bg-[var(--surface-dark-elevated)]",
-  "bg-[var(--surface-card)] dark:bg-[var(--surface-dark-elevated)]",
-  "bg-[var(--surface-card)] dark:bg-[var(--surface-dark-elevated)]",
-  "bg-[var(--surface-card)] dark:bg-[var(--surface-dark-elevated)]",
+  "bg-card",
+  "bg-card",
+  "bg-card",
+  "bg-card",
 ];
 
 export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
@@ -47,15 +47,15 @@ export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
         <Link
           key={card.href}
           to={card.href}
-          className={`surface-card-base ${CARD_SURFACES[index % CARD_SURFACES.length]} group flex min-h-[180px] flex-col p-5 transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--foreground)] lg:p-6`}
+          className={`${CARD_SURFACES[index % CARD_SURFACES.length]} group flex min-h-[180px] flex-col border border-border rounded-md p-5 transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground lg:p-6`}
         >
-          <span className="text-sm font-medium text-[#1a1a1a]/65 dark:text-[#f8f8f2]/65">
+          <span className="text-sm font-medium text-muted-foreground">
             {card.category}
           </span>
-          <h3 className="mt-5 text-lg font-semibold tracking-tight text-[var(--foreground)] dark:text-[var(--on-dark)] md:text-xl">
+          <h3 className="mt-5 text-lg font-semibold tracking-tight text-foreground md:text-xl">
             {card.title}
           </h3>
-          <p className="mt-2 text-sm font-medium leading-snug text-[#1a1a1a]/80 dark:text-[#f8f8f2]/80">
+          <p className="mt-2 text-sm font-medium leading-snug text-foreground/80">
             {card.description}
           </p>
           {card.tags.length > 0 ? (
@@ -63,7 +63,7 @@ export function HomeCards({ seriesList, topTags }: HomeCardsProps) {
               {card.tags.slice(0, 5).map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-lg border border-[var(--hairline)] bg-[var(--surface-card)]/50 px-2.5 py-1 text-xs font-medium text-[#1a1a1a]/85 dark:border-white/20 dark:bg-white/8 dark:text-[#f8f8f2]/85"
+                  className="rounded border border-border bg-muted px-2.5 py-1 text-xs font-medium text-foreground"
                 >
                   {tag}
                 </span>

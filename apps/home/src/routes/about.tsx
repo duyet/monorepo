@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { AreasOfExpertise, DEFAULT_AREAS } from "@duyet/components";
 import { addUtmParams } from "../../app/lib/utm";
-import { SiteFooter, SiteHeader } from "../components/SiteChrome";
 
 const experienceYears = "8+ years";
 const contentLastModified = "2026-05-02";
@@ -108,66 +108,78 @@ const links = [
 
 function AboutPage() {
   return (
-    <div className="min-h-screen bg-[color:var(--background)] text-[color:var(--foreground)]">
-      <SiteHeader />
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
 
-      <main className="mx-auto max-w-2xl px-6 pt-24 pb-20 md:px-8 md:pt-32 md:pb-32">
+      <main className="mx-auto max-w-5xl px-6 py-12 md:py-20">
         <article className="flex flex-col gap-6">
-          <h1 className="text-4xl font-medium tracking-tight md:text-5xl text-[color:var(--foreground)]">
-            About
-          </h1>
+          <header>
+            <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+              Biography
+            </p>
+            <h1 className="mt-2 text-3xl md:text-4xl font-semibold tracking-tight">
+              About
+            </h1>
+          </header>
 
-          <p className="mt-4 text-lg leading-relaxed text-[color:var(--foreground)]">
-            I’m a Senior Data &amp; AI Engineer with {experienceYears} of
+          <p className="text-base md:text-lg leading-relaxed">
+            I'm a Senior Data &amp; AI Engineer with {experienceYears} of
             experience across modern data infrastructure, AI/ML platforms, and
             distributed systems.
           </p>
 
-          <p className="text-base leading-relaxed text-[color:var(--muted)]">
+          <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
             I care about systems that are easy to operate, easy to explain, and
             boring in the places where reliability matters. Most of my work sits
             where data products, AI tools, and engineering platforms meet.
           </p>
 
-          <h2 className="mt-8 text-2xl font-semibold tracking-tight text-[color:var(--foreground)]">Focus</h2>
-          <p className="text-base leading-relaxed text-[color:var(--muted)]">
+          <h2 className="mt-6 text-lg font-semibold tracking-tight border-b pb-2">
+            Focus
+          </h2>
+          <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
             Data pipelines, warehouses, observability. Agent workflows, model
             routing, evaluation, and usage analytics. Small tools and clean
             interfaces.
           </p>
 
-          <h2 className="mt-8 text-2xl font-semibold tracking-tight text-[color:var(--foreground)]">Stack</h2>
-          <p className="text-base leading-relaxed text-[color:var(--muted)]">
+          <h2 className="mt-6 text-lg font-semibold tracking-tight border-b pb-2">
+            Stack
+          </h2>
+          <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
             Python, Rust, TypeScript. Spark, Airflow, ClickHouse, BigQuery,
             Kafka. Kubernetes, AWS, GCP, Cloudflare. LlamaIndex, AI SDK,
             LangGraph.
           </p>
 
-          <h2 className="mt-8 text-2xl font-semibold tracking-tight text-[color:var(--foreground)]">
+          <h2 className="mt-6 text-lg font-semibold tracking-tight border-b pb-2">
             Elsewhere
           </h2>
-          <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-border border">
             {links.map((item) => (
-              <a
-                key={item.title}
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="card-v2 p-5 block no-underline group"
-              >
-                <h3 className="font-semibold text-lg tracking-tight text-[color:var(--foreground)] group-hover:text-[color:var(--accent)] transition-colors duration-150">
-                  {item.title}
-                </h3>
-                <p className="mt-2 text-sm text-[color:var(--muted)] leading-relaxed">
-                  {item.description}
-                </p>
-              </a>
+              <li key={item.title} className="bg-background">
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block h-full p-5 no-underline transition-colors hover:bg-muted"
+                >
+                  <h3 className="text-base font-medium tracking-tight">
+                    {item.title}
+                  </h3>
+                  <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">
+                    {item.description}
+                  </p>
+                </a>
+              </li>
             ))}
+          </ul>
+
+          <div className="mt-12 pt-12 border-t">
+            <AreasOfExpertise areas={DEFAULT_AREAS} />
           </div>
         </article>
       </main>
 
-      <SiteFooter />
     </div>
   );
 }

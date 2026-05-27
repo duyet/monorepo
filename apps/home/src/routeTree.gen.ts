@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as LsRouteImport } from './routes/ls'
+import { Route as AboutDuyetbotRouteImport } from './routes/about-duyetbot'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PProjectRouteImport } from './routes/p/$project'
@@ -23,6 +24,11 @@ const ProjectsRoute = ProjectsRouteImport.update({
 const LsRoute = LsRouteImport.update({
   id: '/ls',
   path: '/ls',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutDuyetbotRoute = AboutDuyetbotRouteImport.update({
+  id: '/about-duyetbot',
+  path: '/about-duyetbot',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -44,6 +50,7 @@ const PProjectRoute = PProjectRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/about-duyetbot': typeof AboutDuyetbotRoute
   '/ls': typeof LsRoute
   '/projects': typeof ProjectsRoute
   '/p/$project': typeof PProjectRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/about-duyetbot': typeof AboutDuyetbotRoute
   '/ls': typeof LsRoute
   '/projects': typeof ProjectsRoute
   '/p/$project': typeof PProjectRoute
@@ -59,21 +67,36 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/about-duyetbot': typeof AboutDuyetbotRoute
   '/ls': typeof LsRoute
   '/projects': typeof ProjectsRoute
   '/p/$project': typeof PProjectRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/ls' | '/projects' | '/p/$project'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/about-duyetbot'
+    | '/ls'
+    | '/projects'
+    | '/p/$project'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/ls' | '/projects' | '/p/$project'
-  id: '__root__' | '/' | '/about' | '/ls' | '/projects' | '/p/$project'
+  to: '/' | '/about' | '/about-duyetbot' | '/ls' | '/projects' | '/p/$project'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/about-duyetbot'
+    | '/ls'
+    | '/projects'
+    | '/p/$project'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AboutDuyetbotRoute: typeof AboutDuyetbotRoute
   LsRoute: typeof LsRoute
   ProjectsRoute: typeof ProjectsRoute
   PProjectRoute: typeof PProjectRoute
@@ -93,6 +116,13 @@ declare module '@tanstack/react-router' {
       path: '/ls'
       fullPath: '/ls'
       preLoaderRoute: typeof LsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about-duyetbot': {
+      id: '/about-duyetbot'
+      path: '/about-duyetbot'
+      fullPath: '/about-duyetbot'
+      preLoaderRoute: typeof AboutDuyetbotRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -122,6 +152,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AboutDuyetbotRoute: AboutDuyetbotRoute,
   LsRoute: LsRoute,
   ProjectsRoute: ProjectsRoute,
   PProjectRoute: PProjectRoute,

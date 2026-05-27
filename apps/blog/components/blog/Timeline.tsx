@@ -23,7 +23,7 @@ export function Timeline({ items, className = "" }: TimelineProps) {
     completed: "bg-[var(--primary)] border-[var(--primary)]",
     "in-progress":
       "bg-[var(--background-primary)] border-[var(--primary)] border-2",
-    planned: "bg-[var(--surface-card)] border-[var(--border-subtle)]",
+    planned: "bg-card border-border",
     cancelled:
       "bg-[var(--background-secondary)] border-[var(--border-faint)] opacity-50",
   };
@@ -32,7 +32,7 @@ export function Timeline({ items, className = "" }: TimelineProps) {
     <div className={cn("my-8", className)}>
       <div className="relative">
         {/* Vertical line */}
-        <div className="absolute left-[15px] top-2 bottom-2 w-px bg-[var(--hairline)]" />
+        <div className="absolute left-[15px] top-2 bottom-2 w-px bg-border" />
 
         {items.map((item, index) => (
           <div key={index} className="relative pl-12 pb-8 last:pb-0">
@@ -107,7 +107,7 @@ export function StatusBadge({
     "in-progress":
       "bg-blue-50 text-blue-600 border-blue-200 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800",
     planned:
-      "bg-[var(--surface-card)] text-[var(--muted)] border-[var(--border-subtle)]",
+      "bg-card text-muted-foreground border-border",
     cancelled:
       "bg-[var(--background-secondary)] text-[var(--muted)] border-[var(--border-faint)] line-through",
   };

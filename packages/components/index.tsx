@@ -1,4 +1,16 @@
 export { default as Analytics } from "./Analytics";
+export {
+  AreasOfExpertise,
+  DEFAULT_AREAS,
+  default as AreasOfExpertiseDefault,
+} from "./AreasOfExpertise";
+export type { Area } from "./AreasOfExpertise";
+export {
+  OpenSourceGrid,
+  fetchGitHubRepos,
+  default as OpenSourceGridDefault,
+} from "./OpenSourceGrid";
+export type { Repo } from "./OpenSourceGrid";
 export { AppCommandPalette } from "./AppCommandPalette";
 // AI Components
 export * from "./ai";
@@ -33,6 +45,12 @@ export {
 } from "./LoadingState";
 export { default as Menu } from "./Menu";
 export * from "./site-nav";
+export { SiteHeader, default as SiteHeaderDefault } from "./SiteHeader";
+export type { SiteHeaderProps } from "./SiteHeader";
+export { SiteFooter, default as SiteFooterDefault } from "./SiteFooter";
+export type { SiteFooterLink, SiteFooterProps } from "./SiteFooter";
+export { SiteSubnav, default as SiteSubnavDefault } from "./SiteSubnav";
+export type { SiteSubnavLink, SiteSubnavProps } from "./SiteSubnav";
 export { default as ThemeProvider } from "./ThemeProvider";
 export { default as ThemeToggle } from "./ThemeToggle";
 export * from "./Tremor";

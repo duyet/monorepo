@@ -41,10 +41,7 @@ function YearPage() {
   const yearNum = parseInt(year, 10);
 
   return (
-    <PageLayout
-      title={`LLM Models Released in ${year}`}
-      description={`Timeline of Large Language Model releases from ${year}`}
-    >
+    <PageLayout description={`Timeline of Large Language Model releases from ${year}`}>
       <TimelinePage view="models" license="all" year={yearNum} />
     </PageLayout>
   );

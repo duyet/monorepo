@@ -2,43 +2,17 @@
 
 import type { TOCItem } from "@duyet/libs/extractHeadings";
 import { cn } from "@duyet/libs/utils";
-import { useCallback, useEffect, useState } from "react";
-
-// TOC Icon SVG
-const TOCIcon = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    aria-hidden="true"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M4 6h16M4 12h16M4 18h7"
-    />
-  </svg>
-);
+import { List } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface TableOfContentsProps {
-  /** Pre-extracted headings from build time for static rendering */
   headings?: TOCItem[];
-  /** External control for mobile TOC open state */
-  isMobileOpen?: boolean;
-  /** Callback when mobile TOC open state changes */
-  onMobileOpenChange?: (isOpen: boolean) => void;
 }
 
 export function TableOfContents({
   headings: initialHeadings = [],
-  isMobileOpen: externalIsMobileOpen,
-  onMobileOpenChange,
 }: TableOfContentsProps) {
-  const [headings] = useState<TOCItem[]>(initialHeadings);
   const [activeId, setActiveId] = useState<string>("");
-  const [internalIsMobileOpen, setInternalIsMobileOpen] = useState(false);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -46,13 +20,12 @@ export function TableOfContents({
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
       const scrollTop = window.scrollY;
-      const scrollableHeight = documentHeight - windowHeight;
-      if (scrollableHeight <= 0) {
-        setProgress(0);
-        return;
-      }
-      const scrollProgress = (scrollTop / scrollableHeight) * 100;
-      setProgress(Math.min(Math.max(scrollProgress, 0), 100));
+      const scrollable = documentHeight - windowHeight;
+      setProgress(
+        scrollable <= 0
+          ? 0
+          : Math.min(Math.max((scrollTop / scrollable) * 100, 0), 100),
+      );
     };
 
     let ticking = false;
@@ -68,169 +41,70 @@ export function TableOfContents({
 
     window.addEventListener("scroll", onScroll, { passive: true });
     handleScroll();
-
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Use external state if provided, otherwise use internal state
-  const isMobileOpen =
-    externalIsMobileOpen !== undefined
-      ? externalIsMobileOpen
-      : internalIsMobileOpen;
-
-  const handleMobileToggle = useCallback(() => {
-    const newState = !isMobileOpen;
-    if (onMobileOpenChange) {
-      onMobileOpenChange(newState);
-    } else {
-      setInternalIsMobileOpen(newState);
-    }
-  }, [isMobileOpen, onMobileOpenChange]);
-
   useEffect(() => {
-    if (headings.length === 0) return;
-
+    if (initialHeadings.length === 0) return;
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
-          }
-        });
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActiveId(entry.target.id);
+        }
       },
-      { rootMargin: "-80px 0px -80% 0px", threshold: 0 }
+      { rootMargin: "-80px 0px -80% 0px", threshold: 0 },
     );
-
-    headings.forEach(({ id }) => {
-      const element = document.getElementById(id);
-      if (element) observer.observe(element);
-    });
-
+    for (const { id } of initialHeadings) {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    }
     return () => observer.disconnect();
-  }, [headings]);
+  }, [initialHeadings]);
 
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isMobileOpen) handleMobileToggle();
-    };
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, [handleMobileToggle, isMobileOpen]);
-
-  if (headings.length === 0) {
-    return null;
-  }
+  if (initialHeadings.length === 0) return null;
 
   const handleLinkClick = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setActiveId(id);
-      // Close mobile panel after clicking
-      if (window.innerWidth < 1280) {
-        handleMobileToggle();
-      }
-    }
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setActiveId(id);
   };
 
-  const TOCContent = ({ showHeader = true }: { showHeader?: boolean }) => (
-    <>
-      {showHeader && (
-        <div className="flex items-center gap-2 mb-4 font-medium text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
-          <TOCIcon className="w-4 h-4" />
-          On this page
-        </div>
-      )}
-
-      <ul className="space-y-1 border-l border-[var(--hairline)] dark:border-white/10">
-        {headings.map((heading) => (
-          <li key={heading.id}>
-            <a
-              href={`#${heading.id}`}
-              onClick={(e) => handleLinkClick(e, heading.id)}
-              className={cn(
-                "block py-1.5 border-l-2 -ml-px transition-all duration-200",
-                heading.level === 1 && "pl-3",
-                heading.level === 2 && "pl-4",
-                heading.level === 3 && "pl-6 text-xs",
-                activeId === heading.id
-                  ? "border-[var(--cf-orange)] text-[var(--cf-orange)] dark:text-[var(--cf-orange)] font-medium"
-                  : "border-transparent text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55 hover:text-[#1a1a1a] dark:hover:text-[#f8f8f2] hover:border-[#1a1a1a]/15 dark:hover:border-white/15"
-              )}
-            >
-              {heading.text}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </>
-  );
-
   return (
-    <>
-      {/* Mobile/Tablet: Floating toggle button (fallback) */}
-      <button
-        onClick={handleMobileToggle}
-        className={cn(
-          "xl:hidden",
-          "fixed bottom-6 right-6 z-40",
-          "w-12 h-12 rounded-full",
-          "bg-[var(--background)] dark:bg-[var(--surface-dark)]",
-          "shadow-lg border border-[var(--hairline)] dark:border-white/10",
-          "flex items-center justify-center",
-          "hover:bg-[var(--surface-soft)] dark:hover:bg-[var(--surface-dark-elevated)]",
-          "transition-all duration-200",
-          "hover:scale-105 active:scale-95"
-        )}
-        aria-label={
-          isMobileOpen ? "Close table of contents" : "Open table of contents"
-        }
-      >
-        <TOCIcon className="w-5 h-5 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70" />
-      </button>
+    <div className="text-sm">
+      <div className="mb-4 flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">
+        <List className="h-3.5 w-3.5" />
+        On this page
+      </div>
 
-      {/* Mobile/Tablet: Slide-out panel */}
-      <nav
-        aria-hidden={!isMobileOpen}
-        inert={!isMobileOpen ? true : undefined}
-        className={cn(
-          "xl:hidden",
-          "fixed top-20 right-0 z-30",
-          "w-72 max-w-[80vw]",
-          "bg-[var(--background)]/95 dark:bg-[var(--surface-dark)]/95 backdrop-blur-sm",
-          "shadow-xl border-l border-[var(--hairline)] dark:border-white/10",
-          "p-4 pt-4",
-          "max-h-[70vh] overflow-y-auto",
-          "text-sm rounded-l-xl",
-          "transition-transform duration-300 ease-out",
-          isMobileOpen ? "translate-x-0" : "translate-x-full"
-        )}
-      >
-        <TOCContent />
-      </nav>
-
-      {/* Desktop: Inline sticky sidebar with vertical active orange reading-progress indicator */}
-      <aside
-        className={cn(
-          "hidden lg:block",
-          "w-60 shrink-0",
-          "sticky top-24",
-          "self-start",
-          "max-h-[calc(100vh-8rem)] overflow-y-auto",
-          "text-sm",
-          "pl-6 relative"
-        )}
-      >
-        {/* Active vertical orange reading progress line */}
-        <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-neutral-200 dark:bg-neutral-800 rounded-full">
+      <div className="relative pl-4">
+        <div className="absolute left-0 top-0 bottom-0 w-px bg-border">
           <div
-            className="w-full bg-[var(--cf-orange)] transition-all duration-150 ease-out rounded-full"
+            className="absolute left-0 top-0 w-px bg-foreground transition-all duration-150 ease-out"
             style={{ height: `${progress}%` }}
           />
         </div>
-        <TOCContent />
-      </aside>
-    </>
+
+        <ul className="space-y-1">
+          {initialHeadings.map((heading) => (
+            <li key={heading.id}>
+              <a
+                href={`#${heading.id}`}
+                onClick={(e) => handleLinkClick(e, heading.id)}
+                className={cn(
+                  "block py-1 leading-snug transition-colors",
+                  heading.level === 3 && "pl-3 text-xs",
+                  heading.level === 4 && "pl-6 text-xs",
+                  activeId === heading.id
+                    ? "text-foreground font-medium"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                {heading.text}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }

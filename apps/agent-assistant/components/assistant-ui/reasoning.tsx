@@ -1,9 +1,7 @@
 "use client";
 
 import {
-  type ReasoningGroupComponent,
   type ReasoningMessagePartComponent,
-  useAuiState,
   useScrollLock,
 } from "@assistant-ui/react";
 import { cva, type VariantProps } from "class-variance-authority";
@@ -219,30 +217,6 @@ function ReasoningText({ className, ...props }: React.ComponentProps<"div">) {
 
 const ReasoningImpl: ReasoningMessagePartComponent = () => <MarkdownText />;
 
-const ReasoningGroupImpl: ReasoningGroupComponent = ({
-  children,
-  startIndex,
-  endIndex,
-}) => {
-  const isReasoningStreaming = useAuiState((s) => {
-    if (s.message.status?.type !== "running") return false;
-    const lastIndex = s.message.parts.length - 1;
-    if (lastIndex < 0) return false;
-    const lastType = s.message.parts[lastIndex]?.type;
-    if (lastType !== "reasoning") return false;
-    return lastIndex >= startIndex && lastIndex <= endIndex;
-  });
-
-  return (
-    <ReasoningRoot defaultOpen={isReasoningStreaming}>
-      <ReasoningTrigger active={isReasoningStreaming} />
-      <ReasoningContent aria-busy={isReasoningStreaming}>
-        <ReasoningText>{children}</ReasoningText>
-      </ReasoningContent>
-    </ReasoningRoot>
-  );
-};
-
 const Reasoning = memo(
   ReasoningImpl
 ) as unknown as ReasoningMessagePartComponent & {
@@ -260,21 +234,10 @@ Reasoning.Content = ReasoningContent;
 Reasoning.Text = ReasoningText;
 Reasoning.Fade = ReasoningFade;
 
-/**
- * @deprecated This wrapper targets the legacy `components.ReasoningGroup`
- * prop on `<MessagePrimitive.Parts>`. Use `<MessagePrimitive.GroupedParts>`
- * with a `groupBy` returning `"group-reasoning"` and compose `ReasoningRoot`
- * / `ReasoningTrigger` / `ReasoningContent` / `ReasoningText` directly.
- * See `thread.tsx` for an example.
- */
-const ReasoningGroup = memo(ReasoningGroupImpl);
-ReasoningGroup.displayName = "ReasoningGroup";
-
 export {
   Reasoning,
   ReasoningContent,
   ReasoningFade,
-  ReasoningGroup,
   ReasoningRoot,
   ReasoningText,
   ReasoningTrigger,

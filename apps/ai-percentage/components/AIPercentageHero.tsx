@@ -32,16 +32,16 @@ export function AIPercentageHero() {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-56 items-center justify-center rounded-xl bg-white shadow-[0_1px_0_rgba(0,0,0,0.08),0_22px_60px_rgba(0,0,0,0.06)] dark:bg-[#171815]">
-        <div className="h-16 w-16 animate-pulse rounded-xl bg-[#eeeee5] dark:bg-[#242420]" />
+      <div className="flex min-h-56 items-center justify-center rounded-xl border bg-card p-5">
+        <div className="h-16 w-16 animate-pulse rounded-xl bg-muted" />
       </div>
     );
   }
 
   if (error || !data) {
     return (
-      <div className="flex min-h-56 items-center justify-center rounded-xl bg-white p-5 dark:bg-[#171815]">
-        <p className="text-[#686862] dark:text-[#b7b7aa]">
+      <div className="flex min-h-56 items-center justify-center rounded-xl border bg-card p-5">
+        <p className="text-muted-foreground">
           Failed to load AI code percentage data
         </p>
       </div>
@@ -51,19 +51,19 @@ export function AIPercentageHero() {
   const { total_lines_added, ai_lines_added, human_lines_added } = data;
 
   return (
-    <div className="grid gap-5 rounded-xl bg-white p-5 shadow-[0_1px_0_rgba(0,0,0,0.08),0_22px_60px_rgba(0,0,0,0.06)] dark:bg-[#171815] sm:p-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-end">
+    <div className="grid gap-5 rounded-xl border bg-card p-5 sm:p-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-end">
       <div className="space-y-3">
-        <div className="text-6xl font-semibold tracking-tight text-[#1a1a1a] dark:text-[#f8f8f2] sm:text-7xl">
+        <div className="text-6xl font-semibold tracking-tight sm:text-7xl">
           {displayPercentage.toFixed(1)}%
         </div>
-        <div className="text-sm font-medium text-[#686862] dark:text-[#b7b7aa]">
+        <div className="text-sm font-medium text-muted-foreground">
           Code written by AI
         </div>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-3">
-        <div className="rounded-xl bg-[var(--panel-blue)] p-4 text-[#1a1a1a] dark:text-[#f8f8f2]">
-          <div className="text-xs text-black/60 dark:text-white/60">
+        <div className="rounded-xl bg-blue-100 p-4 dark:bg-blue-950/40">
+          <div className="text-xs text-muted-foreground">
             Total Lines
           </div>
           <div className="mt-2 text-xl font-semibold tabular-nums">
@@ -71,8 +71,8 @@ export function AIPercentageHero() {
           </div>
         </div>
 
-        <div className="rounded-xl bg-[var(--panel-orange)] p-4 text-[#1a1a1a] dark:text-[#f8f8f2]">
-          <div className="text-xs text-black/60 dark:text-white/60">
+        <div className="rounded-xl bg-orange-100 p-4 dark:bg-orange-950/40">
+          <div className="text-xs text-muted-foreground">
             AI Lines
           </div>
           <div className="mt-2 text-xl font-semibold tabular-nums">
@@ -80,8 +80,8 @@ export function AIPercentageHero() {
           </div>
         </div>
 
-        <div className="rounded-xl bg-[var(--panel-emerald)] p-4 text-[#1a1a1a] dark:text-[#f8f8f2]">
-          <div className="text-xs text-black/60 dark:text-white/60">
+        <div className="rounded-xl bg-emerald-100 p-4 dark:bg-emerald-950/40">
+          <div className="text-xs text-muted-foreground">
             Human Lines
           </div>
           <div className="mt-2 text-xl font-semibold tabular-nums">

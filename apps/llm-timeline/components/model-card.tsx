@@ -27,9 +27,9 @@ interface ModelCardProps {
 
 // License color mapping for visual indicator
 const LICENSE_COLORS = {
-  open: "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]",
-  closed: "bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.4)]",
-  partial: "bg-indigo-500 shadow-[0_0_8px_rgba(99,102,241,0.4)]",
+  open: "bg-emerald-500",
+  closed: "bg-rose-500",
+  partial: "bg-indigo-500",
 };
 
 export function ModelCard({
@@ -126,8 +126,8 @@ export function ModelCard({
               "flex items-center justify-center transition-all rounded-lg p-1.5",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
               isSelected
-                ? "bg-foreground shadow-lg"
-                : "bg-card border border-border hover:border-foreground/40 hover:shadow-md"
+                ? "bg-foreground"
+                : "bg-card border border-border hover:border-foreground/40"
             )}
             aria-label={
               isSelected
@@ -144,12 +144,7 @@ export function ModelCard({
         </div>
       ) : (
         <div className="relative z-10 shrink-0">
-          {/* Glow effect behind avatar */}
-          <div className={cn(
-            "absolute inset-0 rounded-full blur-md opacity-50 transition-opacity duration-300",
-            LICENSE_COLORS[model.license as keyof typeof LICENSE_COLORS] || "bg-muted-foreground"
-          )} style={{ transform: "scale(1.5)" }} />
-          <div className="relative rounded-lg p-1.5 bg-background">
+          <div className="rounded-lg p-1.5 bg-background">
             <OrgAvatar org={model.org} size="sm" />
           </div>
         </div>
@@ -158,17 +153,17 @@ export function ModelCard({
       {/* Enhanced Card */}
       <div
         className={cn(
-          "flex-1 rounded-xl border transition-all duration-300 bg-card/50 backdrop-blur-sm",
-          "hover:border-foreground/15 hover:shadow-lg hover:bg-card",
+          "flex-1 rounded-xl border transition-all bg-card",
+          "hover:border-foreground/15 hover:bg-card",
           isSelectable && isSelected
-            ? "ring-2 ring-ring ring-offset-2 ring-offset-background border-foreground/20 shadow-md"
+            ? "ring-2 ring-ring ring-offset-2 ring-offset-background border-foreground/20"
             : "border-border/50"
         )}
       >
         {/* Header row with improved hierarchy */}
         <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0 flex-1 space-y-1">
-            <h3 className="text-lg font-semibold font-[family-name:var(--font-display)] tracking-tight text-foreground leading-tight">
+            <h3 className="text-lg font-semibold font-[family-name:var(--font-sans)] tracking-tight text-foreground leading-tight">
               {model.name}
             </h3>
             <p className="text-sm text-muted-foreground">
@@ -323,7 +318,7 @@ function RelatedModelsSection({ model }: RelatedModelsSectionProps) {
             <a
               key={related.name}
               href={`#${related.name}`}
-              className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 transition-all hover:bg-accent hover:shadow-sm"
+              className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 transition-all hover:bg-accent"
               title={related.desc}
             >
               <OrgAvatar org={related.org} size="sm" />

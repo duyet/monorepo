@@ -55,7 +55,7 @@ function BlogPeriodPage() {
         description="Traffic and behavior insights from Cloudflare and PostHog."
       />
 
-      <div className="editorial-fade-up mb-12">
+      <div className="mb-12">
         <PeriodSwitcher
           current={config?.value ?? "30"}
           route="/blog/$period"

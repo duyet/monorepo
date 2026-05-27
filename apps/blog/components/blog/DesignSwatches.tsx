@@ -28,12 +28,12 @@ export function DesignSwatches({
   return (
     <div
       className={cn(
-        "my-8 p-6 rounded-lg bg-[var(--surface-soft)] border border-[var(--hairline)]",
+        "my-8 p-6 rounded-lg bg-muted border border-border",
         className
       )}
     >
       {title && (
-        <h4 className="mb-4 font-serif text-lg text-[var(--ink)] dark:text-[var(--on-dark)]">
+        <h4 className="mb-4 font-serif text-lg text-foreground">
           {title}
         </h4>
       )}
@@ -41,7 +41,7 @@ export function DesignSwatches({
         {swatches.map((swatch) => (
           <div
             key={swatch.name}
-            className="group relative overflow-hidden rounded-lg bg-white dark:bg-[var(--surface-dark)] border border-[var(--hairline)] transition-shadow hover:shadow-md"
+            className="group relative overflow-hidden rounded-lg bg-card border border-border"
           >
             {variant === "colors" ? (
               <>
@@ -50,14 +50,14 @@ export function DesignSwatches({
                   style={{ backgroundColor: swatch.value }}
                 />
                 <div className="p-3">
-                  <div className="font-mono text-sm font-medium text-[var(--ink)] dark:text-[var(--on-dark)]">
+                  <div className="font-mono text-sm font-medium text-foreground">
                     {swatch.name}
                   </div>
-                  <div className="font-mono text-xs text-[var(--muted)] mt-0.5">
+                  <div className="font-mono text-xs text-muted-foreground mt-0.5">
                     {swatch.value}
                   </div>
                   {swatch.description && (
-                    <div className="text-xs text-[var(--body)] mt-2">
+                    <div className="text-xs text-foreground mt-2">
                       {swatch.description}
                     </div>
                   )}
@@ -65,14 +65,14 @@ export function DesignSwatches({
               </>
             ) : (
               <div className="p-4">
-                <div className="font-mono text-sm font-medium text-[var(--ink)] dark:text-[var(--on-dark)]">
+                <div className="font-mono text-sm font-medium text-foreground">
                   {swatch.name}
                 </div>
-                <div className="font-mono text-xs text-[var(--muted)] mt-0.5">
+                <div className="font-mono text-xs text-muted-foreground mt-0.5">
                   {swatch.value}
                 </div>
                 {swatch.description && (
-                  <div className="text-xs text-[var(--body)] mt-2">
+                  <div className="text-xs text-foreground mt-2">
                     {swatch.description}
                   </div>
                 )}
@@ -108,14 +108,14 @@ export function ColorPalette({
   return (
     <div
       className={cn(
-        "my-8 p-6 rounded-lg bg-[var(--surface-soft)] border border-[var(--hairline)]",
+        "my-8 p-6 rounded-lg bg-muted border border-border",
         className
       )}
     >
-      <h4 className="mb-4 font-serif text-lg text-[var(--ink)] dark:text-[var(--on-dark)]">
+      <h4 className="mb-4 font-serif text-lg text-foreground">
         {name}
       </h4>
-      <div className="flex gap-1 rounded-lg overflow-hidden border border-[var(--hairline)]">
+      <div className="flex gap-1 rounded-lg overflow-hidden border border-border">
         {colors.map(({ shade, value }) => (
           <div
             key={shade}

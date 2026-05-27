@@ -12,14 +12,14 @@ import {
   getWakaTimeMonthlyActivity,
   getWakaTimeOverview,
 } from "@/app/wakatime/wakatime-utils";
-import {
-  InsightsPageHeader,
-  InsightsSection,
-} from "@/components/layouts/InsightsPageShell";
 import { PeriodSwitcher } from "@/components/PeriodSwitcher";
 import { StaticCard } from "@/components/StaticCard";
 import type { PeriodDays } from "@/lib/periods";
 import { getPeriodConfig, getPeriodDays } from "@/lib/periods";
+import {
+  InsightsPageHeader,
+  InsightsSection,
+} from "@/components/layouts/InsightsPageShell";
 
 const WAKATIME_BADGE_URL = "/wakatime-assets/badge.svg";
 const WAKATIME_HEATMAP_URLS = {
@@ -107,7 +107,7 @@ function WakaTimePeriodPage() {
         description="Programming activity, languages, editors, operating systems, and project breakdown for the selected period."
       />
 
-      <div className="editorial-fade-up mb-12">
+      <div className="mb-12">
         <PeriodSwitcher
           current={config.value}
           route="/wakatime/$period"
@@ -116,10 +116,7 @@ function WakaTimePeriodPage() {
       </div>
 
       <div>
-        <InsightsSection
-          title="Coding overview"
-          description={overviewDescription}
-        >
+        <InsightsSection title="Coding overview" description={overviewDescription}>
           <WakaTimeMetricsView metrics={metrics} />
         </InsightsSection>
 
@@ -132,10 +129,7 @@ function WakaTimePeriodPage() {
           </InsightsSection>
         ) : null}
 
-        <InsightsSection
-          title={activityTitle}
-          description={activityDescription}
-        >
+        <InsightsSection title={activityTitle} description={activityDescription}>
           <WakaTimeActivityView
             codingActivity={activity}
             isAllTime={isAllTime}
@@ -222,7 +216,7 @@ function WakaTimePeriodPage() {
           />
         </InsightsSection>
 
-        <p className="border-t border-[color:var(--hairline)] pt-6 text-xs italic text-[color:var(--muted)]">
+        <p className="border-t pt-6 text-xs italic text-muted-foreground">
           Data from WakaTime · updated daily.
         </p>
       </div>

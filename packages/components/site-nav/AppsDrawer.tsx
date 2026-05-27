@@ -11,12 +11,13 @@ import {
   Camera,
   Code,
   X,
+  Robot,
 } from "@phosphor-icons/react";
 
 export interface AppsDrawerProps {
   isOpen: boolean;
   onClose: () => void;
-  activeApp?: "home" | "blog" | "cv" | "insights" | "photos" | "homelab";
+  activeApp?: "home" | "blog" | "cv" | "insights" | "photos" | "homelab" | "agent";
 }
 
 export function AppsDrawer({ isOpen, onClose, activeApp }: AppsDrawerProps) {
@@ -59,6 +60,13 @@ export function AppsDrawer({ isOpen, onClose, activeApp }: AppsDrawerProps) {
       href: duyetUrls.apps.insights,
       icon: ChartBar,
       desc: "Analytics & operational dashboards",
+    },
+    {
+      name: "Agent",
+      key: "agent" as const,
+      href: "https://agents.duyet.net",
+      icon: Robot,
+      desc: "Personal AI assistant (duyetbot)",
     },
     {
       name: "CV",

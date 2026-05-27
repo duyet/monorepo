@@ -1,6 +1,6 @@
 import { ClerkProvider } from "@clerk/clerk-react";
-import ThemeProvider from "@duyet/components/ThemeProvider";
-import ThemeToggle from "@duyet/components/ThemeToggle";
+import { ThemeProvider } from "~/components/ThemeProvider";
+import { ThemeToggle } from "~/components/ThemeToggle";
 import {
   Card,
   CardContent,
@@ -8,11 +8,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@duyet/components/ui/card";
-import { Button } from "@duyet/components/ui/button";
-import { ScrollArea } from "@duyet/components/ui/scroll-area";
-import { Separator } from "@duyet/components/ui/separator";
-import { Textarea } from "@duyet/components/ui/textarea";
+} from "~/components/ui/card";
+import { Button } from "~/components/ui/button";
+import { Separator } from "~/components/ui/separator";
+import { Textarea } from "~/components/ui/textarea";
 import { Send, Sparkles } from "lucide-react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
@@ -52,7 +51,7 @@ function AuthUnavailable() {
           </div>
         </header>
 
-        <Card className="flex min-h-0 flex-1 flex-col overflow-hidden shadow-none">
+        <Card className="flex min-h-0 flex-1 flex-col overflow-hidden">
           <CardHeader className="p-4">
             <CardTitle className="text-base">Chat</CardTitle>
             <CardDescription>
@@ -61,17 +60,15 @@ function AuthUnavailable() {
           </CardHeader>
           <Separator />
           <CardContent className="min-h-0 flex-1 p-0">
-            <ScrollArea className="h-full">
-              <div className="flex min-h-[calc(100dvh-17rem)] flex-col items-center justify-center gap-3 p-4 text-center">
-                <Sparkles aria-hidden="true" className="size-5" />
-                <div className="flex flex-col gap-1">
-                  <h2 className="text-xl font-semibold">Duyet Agents</h2>
-                  <p className="max-w-md text-sm text-muted-foreground">
-                    Ask about Duyet Le, duyet.net, projects, posts, and data work.
-                  </p>
-                </div>
+            <div className="flex min-h-[calc(100dvh-17rem)] flex-col items-center justify-center gap-3 p-4 text-center">
+              <Sparkles aria-hidden="true" className="size-5" />
+              <div className="flex flex-col gap-1">
+                <h2 className="text-xl font-semibold">Duyet Agents</h2>
+                <p className="max-w-md text-sm text-muted-foreground">
+                  Ask about Duyet Le, duyet.net, projects, posts, and data work.
+                </p>
               </div>
-            </ScrollArea>
+            </div>
           </CardContent>
           <Separator />
           <CardFooter className="p-4">
@@ -84,7 +81,7 @@ function AuthUnavailable() {
                 rows={1}
               />
               <Button aria-label="Send message" disabled size="icon" type="button">
-                <Send aria-hidden="true" data-icon="inline-start" />
+                <Send aria-hidden="true" />
               </Button>
             </form>
           </CardFooter>

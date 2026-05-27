@@ -123,7 +123,7 @@ export function VirtualTimeline({
                 <div className="mb-6">
                   <div className="flex items-end gap-4">
                     <span
-                      className="select-none text-5xl sm:text-6xl font-bold leading-none text-foreground/10 font-[family-name:var(--font-display)]"
+                      className="select-none text-5xl sm:text-6xl font-bold leading-none text-foreground/10 font-[family-name:var(--font-sans)]"
                       aria-hidden="true"
                     >
                       {groupItem.year}

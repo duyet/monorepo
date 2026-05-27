@@ -65,26 +65,26 @@ export function MarkdownMenu({
       icon: copied ? (
         <Check className="h-5 w-5 text-green-500" />
       ) : (
-        <Copy className="h-5 w-5 text-[var(--muted-foreground)]" />
+        <Copy className="h-5 w-5 text-muted-foreground" />
       ),
       label: copied ? "Copied!" : "Copy page",
       description: "Copy page as Markdown for LLMs",
       onClick: handleCopy,
     },
     {
-      icon: <FileText className="h-5 w-5 text-[var(--muted-foreground)]" />,
+      icon: <FileText className="h-5 w-5 text-muted-foreground" />,
       label: "View as Markdown",
       description: "View this page as plain text",
       href: markdownUrl,
     },
     {
-      icon: <ChatGPTIcon className="h-5 w-5 text-[var(--muted-foreground)]" />,
+      icon: <ChatGPTIcon className="h-5 w-5 text-muted-foreground" />,
       label: "Open in ChatGPT",
       description: "Ask questions about this page",
       href: `https://chatgpt.com/?q=${encodeURIComponent(`Read and summarize this blog post: ${pageUrl}`)}`,
     },
     {
-      icon: <ClaudeIcon className="h-5 w-5 text-[var(--muted-foreground)]" />,
+      icon: <ClaudeIcon className="h-5 w-5 text-muted-foreground" />,
       label: "Open in Claude",
       description: "Ask questions about this page",
       href: `https://claude.ai/new?q=${encodeURIComponent(`Read and summarize this blog post: ${pageUrl}`)}`,
@@ -98,8 +98,8 @@ export function MarkdownMenu({
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
           "flex items-center gap-1.5 text-sm",
-          "text-[var(--muted)] dark:text-[#f8f8f2]/55",
-          "hover:text-[var(--ink)] dark:hover:text-[var(--on-dark)]",
+          "text-muted-foreground",
+          "hover:text-foreground",
           "transition-colors"
         )}
       >
@@ -117,8 +117,8 @@ export function MarkdownMenu({
         <div
           className={cn(
             "absolute right-0 bottom-full mb-2 w-72 z-[9999]",
-            "rounded-md border border-[var(--hairline)] dark:border-white/10",
-            "bg-[var(--background)] dark:bg-[#1a1a1a]",
+            "rounded-md border border-border",
+            "bg-background",
             "overflow-hidden",
             "py-1"
           )}
@@ -128,15 +128,15 @@ export function MarkdownMenu({
               <div className="flex items-start gap-3 px-4 py-3">
                 <div className="mt-0.5 flex-shrink-0">{item.icon}</div>
                 <div>
-                  <div className="text-sm font-medium text-[var(--foreground)] flex items-center gap-1">
+                  <div className="text-sm font-medium text-foreground flex items-center gap-1">
                     {item.label}
                     {item.href && (
-                      <span className="text-[var(--muted-foreground)]/50 text-xs">
+                      <span className="text-muted-foreground/50 text-xs">
                         &#x2197;
                       </span>
                     )}
                   </div>
-                  <div className="text-xs text-[var(--muted-foreground)] mt-0.5">
+                  <div className="text-xs text-muted-foreground mt-0.5">
                     {item.description}
                   </div>
                 </div>
@@ -149,7 +149,7 @@ export function MarkdownMenu({
                   type="button"
                   key={item.label}
                   onClick={item.onClick}
-                  className="w-full text-left hover:bg-[var(--muted)] dark:hover:bg-white/5 transition-colors"
+                  className="w-full text-left hover:bg-muted transition-colors"
                 >
                   {content}
                 </button>
@@ -162,7 +162,7 @@ export function MarkdownMenu({
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block hover:bg-[var(--muted)] dark:hover:bg-white/5 transition-colors"
+                className="block hover:bg-muted transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 {content}

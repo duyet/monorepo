@@ -8,6 +8,7 @@ interface WakaTimeBreakdownItem {
   text?: string;
   hours?: number;
   minutes?: number;
+  machine_name_id?: string;
 }
 
 interface WakaTimeBestDay {

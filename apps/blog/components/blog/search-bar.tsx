@@ -131,7 +131,7 @@ export function SearchBar({
           className={cn("em-search-input", inputClassName)}
           autoComplete="off"
         />
-        <div className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 text-xs text-[color:var(--em-subtle)]">
+        <div className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">
           <kbd className="hidden font-mono text-[10px] uppercase tracking-wider sm:inline-block">
             press /
           </kbd>
@@ -142,16 +142,16 @@ export function SearchBar({
       {showHistory && isInitialized && history.length > 0 && !query && (
         <div
           data-search-history
-          className="absolute z-10 mt-2 w-full rounded-lg border border-[#1a1a1a]/10 dark:border-white/10 bg-white dark:bg-[#1a1a1a] shadow-lg"
+          className="absolute z-10 mt-2 w-full rounded-md border border-border bg-card"
         >
-          <div className="flex items-center justify-between border-b border-[#1a1a1a]/10 dark:border-white/10 px-4 py-2">
-            <span className="text-xs font-medium text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
+          <div className="flex items-center justify-between border-b border-border px-4 py-2">
+            <span className="text-xs font-medium text-muted-foreground">
               Recent searches
             </span>
             <button
               type="button"
               onClick={clear}
-              className="text-xs text-[#1a1a1a]/55 hover:text-[#1a1a1a] dark:text-[#f8f8f2]/55 dark:hover:text-[#f8f8f2] transition-colors"
+              className="text-xs text-muted-foreground hover:text-foreground transition-colors"
             >
               Clear
             </button>
@@ -162,10 +162,10 @@ export function SearchBar({
                 <button
                   type="button"
                   onClick={() => handleHistoryClick(historyQuery)}
-                  className="w-full px-4 py-2 text-left text-sm text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70 hover:bg-[#f7f7f7] dark:hover:bg-[#1a1a1a] transition-colors flex items-center gap-2"
+                  className="w-full px-4 py-2 text-left text-sm text-foreground hover:bg-muted transition-colors flex items-center gap-2"
                 >
                   <svg
-                    className="w-4 h-4 text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55 shrink-0"
+                    className="w-4 h-4 text-muted-foreground shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

@@ -17,7 +17,7 @@ const Card = React.forwardRef<
   <SharedCard
     ref={ref}
     className={cn(
-      "rounded-xl border border-[#e8e0d4] bg-white shadow-sm dark:border-white/12 dark:bg-[#1a1a1a]",
+      "rounded-xl border border-[#e8e0d4] bg-white dark:border-white/12 dark:bg-[#1a1a1a]",
       className
     )}
     {...props}

@@ -13,6 +13,7 @@ import { Route as TagsRouteImport } from './routes/tags'
 import { Route as SeriesRouteImport } from './routes/series'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as RobotsRouteImport } from './routes/robots'
+import { Route as NotesRouteImport } from './routes/notes'
 import { Route as HtmlSitemapRouteImport } from './routes/html-sitemap'
 import { Route as FeedRouteImport } from './routes/feed'
 import { Route as FeaturedRouteImport } from './routes/featured'
@@ -23,6 +24,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TagTagRouteImport } from './routes/tag/$tag'
 import { Route as SeriesSlugRouteImport } from './routes/series/$slug'
+import { Route as NotesIdRouteImport } from './routes/notes/$id'
 import { Route as CategoryCategoryRouteImport } from './routes/category/$category'
 import { Route as YearMonthSlugRouteImport } from './routes/$year/$month/$slug'
 
@@ -44,6 +46,11 @@ const SearchRoute = SearchRouteImport.update({
 const RobotsRoute = RobotsRouteImport.update({
   id: '/robots',
   path: '/robots',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotesRoute = NotesRouteImport.update({
+  id: '/notes',
+  path: '/notes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HtmlSitemapRoute = HtmlSitemapRouteImport.update({
@@ -96,6 +103,11 @@ const SeriesSlugRoute = SeriesSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => SeriesRoute,
 } as any)
+const NotesIdRoute = NotesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => NotesRoute,
+} as any)
 const CategoryCategoryRoute = CategoryCategoryRouteImport.update({
   id: '/$category',
   path: '/$category',
@@ -116,11 +128,13 @@ export interface FileRoutesByFullPath {
   '/featured': typeof FeaturedRoute
   '/feed': typeof FeedRoute
   '/html-sitemap': typeof HtmlSitemapRoute
+  '/notes': typeof NotesRouteWithChildren
   '/robots': typeof RobotsRoute
   '/search': typeof SearchRoute
   '/series': typeof SeriesRouteWithChildren
   '/tags': typeof TagsRoute
   '/category/$category': typeof CategoryCategoryRoute
+  '/notes/$id': typeof NotesIdRoute
   '/series/$slug': typeof SeriesSlugRoute
   '/tag/$tag': typeof TagTagRoute
   '/$year/$month/$slug': typeof YearMonthSlugRoute
@@ -134,11 +148,13 @@ export interface FileRoutesByTo {
   '/featured': typeof FeaturedRoute
   '/feed': typeof FeedRoute
   '/html-sitemap': typeof HtmlSitemapRoute
+  '/notes': typeof NotesRouteWithChildren
   '/robots': typeof RobotsRoute
   '/search': typeof SearchRoute
   '/series': typeof SeriesRouteWithChildren
   '/tags': typeof TagsRoute
   '/category/$category': typeof CategoryCategoryRoute
+  '/notes/$id': typeof NotesIdRoute
   '/series/$slug': typeof SeriesSlugRoute
   '/tag/$tag': typeof TagTagRoute
   '/$year/$month/$slug': typeof YearMonthSlugRoute
@@ -153,11 +169,13 @@ export interface FileRoutesById {
   '/featured': typeof FeaturedRoute
   '/feed': typeof FeedRoute
   '/html-sitemap': typeof HtmlSitemapRoute
+  '/notes': typeof NotesRouteWithChildren
   '/robots': typeof RobotsRoute
   '/search': typeof SearchRoute
   '/series': typeof SeriesRouteWithChildren
   '/tags': typeof TagsRoute
   '/category/$category': typeof CategoryCategoryRoute
+  '/notes/$id': typeof NotesIdRoute
   '/series/$slug': typeof SeriesSlugRoute
   '/tag/$tag': typeof TagTagRoute
   '/$year/$month/$slug': typeof YearMonthSlugRoute
@@ -173,11 +191,13 @@ export interface FileRouteTypes {
     | '/featured'
     | '/feed'
     | '/html-sitemap'
+    | '/notes'
     | '/robots'
     | '/search'
     | '/series'
     | '/tags'
     | '/category/$category'
+    | '/notes/$id'
     | '/series/$slug'
     | '/tag/$tag'
     | '/$year/$month/$slug'
@@ -191,11 +211,13 @@ export interface FileRouteTypes {
     | '/featured'
     | '/feed'
     | '/html-sitemap'
+    | '/notes'
     | '/robots'
     | '/search'
     | '/series'
     | '/tags'
     | '/category/$category'
+    | '/notes/$id'
     | '/series/$slug'
     | '/tag/$tag'
     | '/$year/$month/$slug'
@@ -209,11 +231,13 @@ export interface FileRouteTypes {
     | '/featured'
     | '/feed'
     | '/html-sitemap'
+    | '/notes'
     | '/robots'
     | '/search'
     | '/series'
     | '/tags'
     | '/category/$category'
+    | '/notes/$id'
     | '/series/$slug'
     | '/tag/$tag'
     | '/$year/$month/$slug'
@@ -228,6 +252,7 @@ export interface RootRouteChildren {
   FeaturedRoute: typeof FeaturedRoute
   FeedRoute: typeof FeedRoute
   HtmlSitemapRoute: typeof HtmlSitemapRoute
+  NotesRoute: typeof NotesRouteWithChildren
   RobotsRoute: typeof RobotsRoute
   SearchRoute: typeof SearchRoute
   SeriesRoute: typeof SeriesRouteWithChildren
@@ -264,6 +289,13 @@ declare module '@tanstack/react-router' {
       path: '/robots'
       fullPath: '/robots'
       preLoaderRoute: typeof RobotsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notes': {
+      id: '/notes'
+      path: '/notes'
+      fullPath: '/notes'
+      preLoaderRoute: typeof NotesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/html-sitemap': {
@@ -336,6 +368,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SeriesSlugRouteImport
       parentRoute: typeof SeriesRoute
     }
+    '/notes/$id': {
+      id: '/notes/$id'
+      path: '/$id'
+      fullPath: '/notes/$id'
+      preLoaderRoute: typeof NotesIdRouteImport
+      parentRoute: typeof NotesRoute
+    }
     '/category/$category': {
       id: '/category/$category'
       path: '/$category'
@@ -365,6 +404,16 @@ const CategoryRouteWithChildren = CategoryRoute._addFileChildren(
   CategoryRouteChildren,
 )
 
+interface NotesRouteChildren {
+  NotesIdRoute: typeof NotesIdRoute
+}
+
+const NotesRouteChildren: NotesRouteChildren = {
+  NotesIdRoute: NotesIdRoute,
+}
+
+const NotesRouteWithChildren = NotesRoute._addFileChildren(NotesRouteChildren)
+
 interface SeriesRouteChildren {
   SeriesSlugRoute: typeof SeriesSlugRoute
 }
@@ -385,6 +434,7 @@ const rootRouteChildren: RootRouteChildren = {
   FeaturedRoute: FeaturedRoute,
   FeedRoute: FeedRoute,
   HtmlSitemapRoute: HtmlSitemapRoute,
+  NotesRoute: NotesRouteWithChildren,
   RobotsRoute: RobotsRoute,
   SearchRoute: SearchRoute,
   SeriesRoute: SeriesRouteWithChildren,

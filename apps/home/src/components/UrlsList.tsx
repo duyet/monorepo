@@ -42,20 +42,20 @@ function UrlRow({ path, target, desc }: UrlEntry) {
       href={target}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
-      className="flex flex-col gap-2 border-t border-[var(--hairline)] py-4 text-[var(--foreground)] no-underline transition-colors first:border-t-0 hover:text-[var(--muted-foreground)]"
+      className="flex flex-col gap-2 border-t py-4 text-foreground no-underline transition-colors first:border-t-0 hover:text-muted-foreground"
     >
       <div className="flex items-center justify-between">
-        <code className="font-mono text-[15px] font-semibold text-[var(--foreground)]">
+        <code className="font-mono text-[15px] font-semibold">
           {path}
         </code>
-        {isExternal && <ExternalIcon className="h-3.5 w-3.5 shrink-0 text-[var(--muted-soft)]" />}
+        {isExternal && <ExternalIcon className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />}
       </div>
       {desc ? (
-        <p className="m-0 text-[13px] leading-snug text-[var(--muted-foreground)]">{desc}</p>
+        <p className="m-0 text-[13px] leading-snug text-muted-foreground">{desc}</p>
       ) : (
-        <p className="m-0 text-[13px] text-[var(--muted-soft)]">&mdash;</p>
+        <p className="m-0 text-[13px] text-muted-foreground">&mdash;</p>
       )}
-      <p className="m-0 truncate font-mono text-[11px] text-[var(--muted-soft)]">
+      <p className="m-0 truncate font-mono text-[11px] text-muted-foreground">
         {target}
       </p>
     </a>
@@ -65,11 +65,11 @@ function UrlRow({ path, target, desc }: UrlEntry) {
 function CategoryHeader({ category, count }: { category: string; count: number }) {
   return (
     <div className="mb-3 flex items-center gap-3">
-      <h2 className="m-0 text-[11px] font-semibold uppercase tracking-widest text-[var(--muted-soft)]">
+      <h2 className="m-0 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
         {category}
       </h2>
-      <div className="flex-1 border-t border-[var(--hairline)]" />
-      <span className="text-[11px] text-[var(--muted-soft)]">{count}</span>
+      <div className="flex-1 border-t" />
+      <span className="text-[11px] text-muted-foreground">{count}</span>
     </div>
   );
 }
@@ -127,11 +127,11 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
             placeholder="Search URLs..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full border-b border-[var(--hairline)] bg-transparent px-10 py-3.5 pr-[100px] text-sm text-[var(--foreground)] outline-none transition-colors placeholder:text-[var(--muted-soft)] focus:border-[var(--foreground)]/30"
+            className="w-full border-b bg-transparent px-10 py-3.5 pr-[100px] text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-foreground/30"
           />
           <svg
             aria-hidden="true"
-            className="absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[var(--muted-soft)]"
+            className="absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-muted-foreground"
             fill="none" viewBox="0 0 24 24" stroke="currentColor"
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -142,14 +142,14 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                 type="button"
                 aria-label="Clear search"
                 onClick={() => setSearchQuery("")}
-                className="cursor-pointer border-none bg-transparent p-1 text-[var(--muted-soft)]"
+                className="cursor-pointer border-none bg-transparent p-1 text-muted-foreground"
               >
                 <svg aria-hidden="true" className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                 </svg>
               </button>
             )}
-            <div className="flex rounded-md bg-[var(--muted)] p-0.5">
+            <div className="flex rounded-md bg-muted p-0.5">
               <button
                 type="button"
                 aria-label="List view"
@@ -157,8 +157,8 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                 className={cn(
                   "cursor-pointer rounded border-none p-[5px] transition-colors duration-150",
                   view === "list"
-                    ? "bg-[var(--background)] text-[var(--foreground)]"
-                    : "bg-transparent text-[var(--muted-soft)]"
+                    ? "bg-background text-foreground"
+                    : "bg-transparent text-muted-foreground"
                 )}
               >
                 <ListIcon className="h-4 w-4" />
@@ -170,8 +170,8 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                 className={cn(
                   "cursor-pointer rounded border-none p-[5px] transition-colors duration-150",
                   view === "grid"
-                    ? "bg-[var(--background)] text-[var(--foreground)]"
-                    : "bg-transparent text-[var(--muted-soft)]"
+                    ? "bg-background text-foreground"
+                    : "bg-transparent text-muted-foreground"
                 )}
               >
                 <GridIcon className="h-4 w-4" />
@@ -179,7 +179,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
             </div>
           </div>
         </div>
-        <div className="mt-2.5 text-[13px] text-[var(--muted-foreground)]">
+        <div className="mt-2.5 text-[13px] text-muted-foreground">
           {filteredUrls.length === urls.length
             ? `Showing all ${urls.length} short URLs`
             : `Showing ${filteredUrls.length} of ${urls.length} URLs`}
@@ -188,12 +188,12 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
 
       {/* No results */}
       {filteredUrls.length === 0 && (
-        <div className="border-y border-[var(--hairline)] py-12 text-center">
-          <p className="text-sm text-[var(--muted-foreground)]">No URLs found matching &ldquo;{searchQuery}&rdquo;</p>
+        <div className="border-y py-12 text-center">
+          <p className="text-sm text-muted-foreground">No URLs found matching &ldquo;{searchQuery}&rdquo;</p>
           <button
             type="button"
             onClick={() => setSearchQuery("")}
-            className="mt-3 cursor-pointer border-none bg-transparent text-[13px] text-[var(--foreground)] underline"
+            className="mt-3 cursor-pointer border-none bg-transparent text-[13px] text-foreground underline"
           >
             Clear search
           </button>
@@ -206,7 +206,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
           {Array.from(grouped.entries()).map(([category, entries]) => (
             <div key={category} className="mb-8">
               <CategoryHeader category={category} count={entries.length} />
-              <div className="border-y border-[var(--hairline)]">
+              <div className="border-y">
                 {entries.map((entry) => (
                   <UrlRow key={entry.path} {...entry} />
                 ))}
@@ -218,7 +218,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
 
       {/* List view — search: flat rows */}
       {filteredUrls.length > 0 && view === "list" && searchQuery && (
-        <div className="border-y border-[var(--hairline)]">
+        <div className="border-y">
           {filteredUrls.map(({ path, target, desc }) => {
             const isExternal = target.startsWith("http");
             return (
@@ -227,20 +227,20 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                 href={target}
                 target={isExternal ? "_blank" : undefined}
                 rel={isExternal ? "noopener noreferrer" : undefined}
-                className="flex flex-col gap-1.5 border-t border-[var(--hairline)] py-4 text-[var(--foreground)] no-underline first:border-t-0"
+                className="flex flex-col gap-1.5 border-t py-4 text-foreground no-underline first:border-t-0"
               >
                 <div className="flex items-center gap-2">
-                  <code className="font-mono text-[13px] font-semibold text-[var(--foreground)]">
+                  <code className="font-mono text-[13px] font-semibold">
                     {path}
                   </code>
-                  {isExternal && <ExternalIcon className="h-3.5 w-3.5 text-[var(--muted-soft)]" />}
+                  {isExternal && <ExternalIcon className="h-3.5 w-3.5 text-muted-foreground" />}
                 </div>
-                {desc && <p className="m-0 text-[13px] text-[var(--muted-foreground)]">{desc}</p>}
+                {desc && <p className="m-0 text-[13px] text-muted-foreground">{desc}</p>}
                 <div className="mt-1 flex items-center gap-1.5">
-                  <svg aria-hidden="true" className="h-3 w-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="var(--muted-soft)">
+                  <svg aria-hidden="true" className="h-3 w-3 shrink-0 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
-                  <span className="truncate font-mono text-[11px] text-[var(--muted-soft)]">{target}</span>
+                  <span className="truncate font-mono text-[11px] text-muted-foreground">{target}</span>
                 </div>
               </a>
             );
@@ -254,7 +254,7 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
           {Array.from(grouped.entries()).map(([category, entries]) => (
             <div key={category} className="mb-8">
               <CategoryHeader category={category} count={entries.length} />
-              <div className="border-y border-[var(--hairline)]">
+              <div className="border-y">
                 {entries.map(({ path, target, desc }, i) => {
                   const isExternal = target.startsWith("http");
                   return (
@@ -264,22 +264,20 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
                       target={isExternal ? "_blank" : undefined}
                       rel={isExternal ? "noopener noreferrer" : undefined}
                       className={cn(
-                        "flex items-center gap-4 px-5 py-3 no-underline text-[var(--foreground)] transition-colors duration-150",
-                        i === 0 ? "" : "border-t border-[var(--hairline)]"
+                        "flex items-center gap-4 px-5 py-3 no-underline text-foreground transition-colors hover:bg-muted duration-150",
+                        i === 0 ? "" : "border-t"
                       )}
-                      onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-soft)"; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
                     >
-                      <code className="w-[120px] shrink-0 font-mono text-[13px] font-semibold text-[var(--foreground)]">
+                      <code className="w-[120px] shrink-0 font-mono text-[13px] font-semibold">
                         {path}
                       </code>
-                      <p className="m-0 hidden flex-1 truncate text-[13px] text-[var(--muted-foreground)] sm:block">
-                        {desc ?? <span className="text-[var(--muted-soft)]">&mdash;</span>}
+                      <p className="m-0 hidden flex-1 truncate text-[13px] text-muted-foreground sm:block">
+                        {desc ?? <span className="text-muted-foreground">&mdash;</span>}
                       </p>
-                      <span className="hidden max-w-[200px] truncate font-mono text-[11px] text-[var(--muted-soft)] sm:block">
+                      <span className="hidden max-w-[200px] truncate font-mono text-[11px] text-muted-foreground sm:block">
                         {target}
                       </span>
-                      <svg aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-[var(--muted-soft)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </a>

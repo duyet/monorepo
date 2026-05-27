@@ -213,7 +213,7 @@ function WakatimePage() {
           />
         </InsightsSection>
 
-        <p className="border-t border-[color:var(--hairline)] pt-6 text-xs italic text-[color:var(--muted)]">
+        <p className="border-t pt-6 text-xs italic text-muted-foreground">
           Source: WakaTime.
         </p>
       </div>

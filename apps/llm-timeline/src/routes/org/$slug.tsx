@@ -43,10 +43,7 @@ function OrgPage() {
   if (!org) return null;
 
   return (
-    <PageLayout
-      title={`${org} LLM Models`}
-      description={`Timeline of Large Language Model releases from ${org}`}
-    >
+    <PageLayout description={`Timeline of Large Language Model releases from ${org}`}>
       <TimelinePage view="models" license="all" orgSlug={slug} />
     </PageLayout>
   );

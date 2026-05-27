@@ -1,16 +1,67 @@
-import { ArrowSquareOut } from "@phosphor-icons/react";
+import {
+  Activity,
+  BarChart3,
+  BookOpen,
+  Bot,
+  Box,
+  Clock,
+  Cloud,
+  Cpu,
+  Database,
+  ExternalLink,
+  FileCode,
+  FileText,
+  HardDrive,
+  Languages,
+  Layers,
+  Plug,
+  Puzzle,
+  Save,
+  Sparkles,
+  Terminal,
+  Type,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Suspense } from "react";
 import type { ReactNode } from "react";
 import { addUtmParams } from "../../app/lib/utm";
+import rawBlogPosts from "../../../blog/public/posts-data.json";
 import { KeyboardFeatures } from "../components/KeyboardFeatures";
-import { SiteFooter, SiteHeader } from "../components/SiteChrome";
 import { type AppItem, apps } from "../data/projects";
 import { type SiblingApp, siblingApps } from "../data/sibling-apps";
+import { Card, CardContent } from "../components/ui/card";
+import { Badge } from "../components/ui/badge";
+import { Button } from "../components/ui/button";
+import {
+  AreasOfExpertise,
+  DEFAULT_AREAS,
+  OpenSourceGrid,
+  fetchGitHubRepos,
+} from "@duyet/components";
 
 export const Route = createFileRoute("/")({
+  loader: async () => {
+    const githubRepos = await fetchGitHubRepos("duyet");
+    return { githubRepos };
+  },
   component: HomePage,
 });
+
+type BlogPost = {
+  slug: string;
+  title: string;
+  date: string;
+  category: string;
+  tags: string[];
+  excerpt: string;
+  readingTime?: number;
+  thumbnail?: string;
+};
+
+const allBlogPosts: BlogPost[] = rawBlogPosts as BlogPost[];
+// 3 latest posts for the compact blog row
+const latestBlogPosts = allBlogPosts.slice(0, 3);
 
 type ProjectRowItem = AppItem & {
   year: string;
@@ -18,288 +69,371 @@ type ProjectRowItem = AppItem & {
   status: string;
 };
 
-const rowMeta: Record<string, { year: string; stack: string; status: string }> =
-  {
-    AnyRouter: { year: "2026", stack: "Cloudflare · TS", status: "Live" },
-    "ClickHouse Monitoring": {
-      year: "2026",
-      stack: "Next.js · ClickHouse",
-      status: "Live",
-    },
-    ShareHTML: { year: "2025", stack: "Workers · TS", status: "Live" },
-    "AI Agents": { year: "2026", stack: "Agents SDK", status: "Beta" },
-    "Agent State": { year: "2026", stack: "Durable Objects", status: "Beta" },
-    "MCP Tools": { year: "2025", stack: "MCP · TS", status: "Live" },
-    "Claude Codex Plugins": {
-      year: "2026",
-      stack: "Claude · TS",
-      status: "OSS",
-    },
-    Stamps: { year: "2024", stack: "Workers · KV", status: "Live" },
-    PageView: { year: "2024", stack: "Workers · D1", status: "Live" },
-    "LLM Timeline": { year: "2026", stack: "TanStack Start", status: "Live" },
-    "Rust Tieng Viet": { year: "2022", stack: "mdBook · Rust", status: "OSS" },
-    "Duyet Serif": { year: "2024", stack: "Fonts", status: "OSS" },
-  };
-
-const statusDot: Record<string, string> = {
-  Live: "bg-emerald-500",
-  Beta: "bg-amber-500",
-  OSS: "bg-[color:var(--subtle)]",
+const rowMeta: Record<
+  string,
+  { year: string; stack: string; status: string; techs: string[] }
+> = {
+  AnyRouter: {
+    year: "2026",
+    stack: "Cloudflare · TS",
+    status: "Live",
+    techs: ["CF", "TS", "Rs", "Ob"],
+  },
+  "ClickHouse Monitoring": {
+    year: "2026",
+    stack: "Next.js · ClickHouse",
+    status: "Live",
+    techs: ["CH", "Nx", "AI", "TS"],
+  },
+  ShareHTML: {
+    year: "2025",
+    stack: "Workers · TS",
+    status: "Live",
+    techs: ["CF", "TS", "Md", "KV"],
+  },
+  "AI Agents": {
+    year: "2026",
+    stack: "Agents SDK",
+    status: "Beta",
+    techs: ["AI", "Nx", "St", "CF"],
+  },
+  "Agent State": {
+    year: "2026",
+    stack: "Durable Objects",
+    status: "Beta",
+    techs: ["Db", "DO", "Rs", "TS"],
+  },
+  "MCP Tools": {
+    year: "2025",
+    stack: "MCP · TS",
+    status: "Live",
+    techs: ["MC", "TS", "Is", "CF"],
+  },
+  "Claude Codex Plugins": {
+    year: "2026",
+    stack: "Claude · TS",
+    status: "OSS",
+    techs: ["Cl", "TS", "Pl", "Co"],
+  },
+  Stamps: {
+    year: "2024",
+    stack: "Workers · KV",
+    status: "Live",
+    techs: ["CF", "KV", "TS", "Db"],
+  },
+  PageView: {
+    year: "2024",
+    stack: "Workers · D1",
+    status: "Live",
+    techs: ["CF", "D1", "TS", "An"],
+  },
+  "LLM Timeline": {
+    year: "2026",
+    stack: "TanStack Start",
+    status: "Live",
+    techs: ["Nx", "TS", "TL", "Vn"],
+  },
+  "Rust Tieng Viet": {
+    year: "2022",
+    stack: "mdBook · Rust",
+    status: "OSS",
+    techs: ["Rs", "Md", "Bk", "Vn"],
+  },
+  "Duyet Serif": {
+    year: "2024",
+    stack: "Fonts",
+    status: "OSS",
+    techs: ["Ft", "Vn", "Op", "Sf"],
+  },
 };
 
-const featured: ProjectRowItem[] = apps.slice(0, 5).map((item) => ({
-  ...item,
-  ...(rowMeta[item.name] ?? { year: "—", stack: "—", status: "Live" }),
-}));
+const TECH_ICONS: Record<string, { icon: LucideIcon; label: string }> = {
+  CF: { icon: Cloud, label: "Cloudflare" },
+  TS: { icon: FileCode, label: "TypeScript" },
+  Rs: { icon: Cpu, label: "Rust" },
+  Ob: { icon: Activity, label: "Observability" },
+  CH: { icon: Database, label: "ClickHouse" },
+  Nx: { icon: Layers, label: "Next.js" },
+  AI: { icon: Bot, label: "AI" },
+  Md: { icon: FileText, label: "Markdown" },
+  KV: { icon: Box, label: "KV" },
+  St: { icon: Save, label: "State" },
+  Db: { icon: Database, label: "Database" },
+  DO: { icon: HardDrive, label: "Durable Objects" },
+  MC: { icon: Plug, label: "MCP" },
+  Is: { icon: Cpu, label: "Isolates" },
+  Cl: { icon: Sparkles, label: "Claude" },
+  Pl: { icon: Puzzle, label: "Plugins" },
+  Co: { icon: Terminal, label: "Code" },
+  D1: { icon: Database, label: "D1" },
+  An: { icon: BarChart3, label: "Analytics" },
+  TL: { icon: Clock, label: "Timeline" },
+  Vn: { icon: Languages, label: "Vietnamese" },
+  Bk: { icon: BookOpen, label: "Book" },
+  Ft: { icon: Type, label: "Fonts" },
+  Op: { icon: Type, label: "OpenType" },
+  Sf: { icon: Type, label: "Serif" },
+};
 
-const metrics = [
-  { value: "10+", label: "Years building" },
-  { value: "12", label: "Projects shipped" },
-  { value: "7", label: "Open source" },
-  { value: "79x", label: "WASM speedup" },
-];
-
-const expertise = [
-  {
-    title: "Data Infrastructure",
-    description:
-      "Real-time analytics with ClickHouse, observability pipelines, and monitoring dashboards that handle production traffic at scale.",
-  },
-  {
-    title: "AI & Agent Tools",
-    description:
-      "LLM-powered agents, MCP servers, Claude plugins, and streaming tool-use interfaces built on Cloudflare's edge.",
-  },
-  {
-    title: "Edge Computing",
-    description:
-      "Cloudflare Workers, Durable Objects, and Rust-to-WASM modules compiled for near-zero cold starts at the edge.",
-  },
-];
+const featured: (ProjectRowItem & { techs: string[] })[] = apps
+  .slice(0, 6)
+  .map((item) => {
+    const meta = rowMeta[item.name] ?? {
+      year: "—",
+      stack: "—",
+      status: "Live",
+      techs: ["TS"],
+    };
+    return {
+      ...item,
+      year: meta.year,
+      stack: meta.stack,
+      status: meta.status,
+      techs: meta.techs,
+    };
+  });
 
 function HomePage() {
+  const { githubRepos } = Route.useLoaderData();
   return (
     <>
       <Suspense fallback={null}>
         <KeyboardFeatures />
       </Suspense>
 
-      <div className="min-h-screen overflow-x-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
-        <SiteHeader />
+      <div className="bg-background text-foreground">
+        <main className="mx-auto max-w-[1080px] px-4 py-12 md:py-20 sm:px-6 lg:px-8">
+          <ProfileHero />
 
-        <main className="mx-auto max-w-[1200px] px-6 md:px-8">
-          {/* ── Hero ── */}
-          <section className="pt-16 pb-10 md:pt-20 md:pb-12">
-            <div className="max-w-2xl">
-              <h1 className="font-medium text-4xl md:text-6xl tracking-tight leading-[1.1] text-[color:var(--foreground)]">
-                Duyet Le
-              </h1>
-              <p className="mt-4 max-w-lg text-base md:text-lg text-[color:var(--muted)] leading-relaxed">
-                Data engineer and AI engineer building infrastructure,
-                agents, and lightweight tools that stay simple in production.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <a
-                  href="mailto:me@duyet.net"
-                  className="inline-flex items-center justify-center rounded-lg bg-[color:var(--accent)] px-5 py-2.5 text-sm font-medium text-white hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer"
-                >
-                  Get in touch
-                </a>
-                <Link
-                  to="/projects"
-                  className="inline-flex items-center justify-center rounded-lg border border-[color:var(--hairline)] px-5 py-2.5 text-sm font-medium text-[color:var(--muted)] hover:text-[color:var(--foreground)] hover:bg-[color:var(--faint)] transition-all cursor-pointer"
-                >
-                  View projects
-                </Link>
+          {/* By the Numbers */}
+          <ByTheNumbersSection />
+
+          {/* Featured Projects */}
+          <section className="mb-20 md:mb-32">
+            <div className="mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+              <div>
+                <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                  01 / SHIPPED & MAINTAINED
+                </span>
+                <h2 className="text-2xl md:text-4xl font-semibold tracking-tight mt-2">
+                  Featured Projects
+                </h2>
+                <p className="text-sm text-muted-foreground mt-1 max-w-xl">
+                  Open-source systems, AI router protocols, and analytics software
+                  compiled and optimized for high scale.
+                </p>
               </div>
+              <Button variant="outline" size="sm" asChild className="shrink-0">
+                <Link to="/projects">View All Projects</Link>
+              </Button>
             </div>
-          </section>
 
-          {/* ── Metrics ── */}
-          <section className="py-6 md:py-8 border-y border-[color:var(--hairline)]">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-              {metrics.map((m) => (
-                <div key={m.label}>
-                  <p className="text-2xl md:text-3xl font-medium tracking-tight tabular-nums text-[color:var(--foreground)]">
-                    {m.value}
-                  </p>
-                  <p className="mt-0.5 text-xs text-[color:var(--muted)]">
-                    {m.label}
-                  </p>
-                </div>
+            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border border">
+              {featured.map((item) => (
+                <li key={item.name} className="bg-background">
+                  <ProjectCard item={item} />
+                </li>
               ))}
-            </div>
+            </ul>
           </section>
 
-          {/* ── Selected Work ── */}
-          <section className="py-12 md:py-16">
-            <div className="mb-6 flex items-baseline justify-between">
-              <h2 className="text-2xl font-medium tracking-tight md:text-3xl text-[color:var(--foreground)]">
-                Selected work
+          {/* Areas of Expertise */}
+          <section className="mb-20 md:mb-32">
+            <AreasOfExpertise areas={DEFAULT_AREAS} />
+          </section>
+
+          {/* Open Source */}
+          <section className="mb-20 md:mb-32">
+            <OpenSourceGrid
+              repos={githubRepos}
+              user="duyet"
+              featured={["monorepo", "clickhouse-monitoring"]}
+            />
+          </section>
+
+          {/* From the Blog */}
+          <FromTheBlogSection />
+
+          {/* Sibling Monorepo Applications */}
+          <section id="sites" className="mb-20 md:mb-32">
+            <div className="mb-10">
+              <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                02 / INDEPENDENT SERVICES
+              </span>
+              <h2 className="text-2xl md:text-4xl font-semibold tracking-tight mt-2">
+                Monorepo Sibling Sites
               </h2>
-              <Link
-                to="/projects"
-                className="link-underline text-sm font-medium text-[color:var(--muted)] hover:text-[color:var(--foreground)]"
-              >
-                All projects
-              </Link>
-            </div>
-
-            <div className="grid grid-flow-dense grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {featured.map((item, i) => (
-                <div
-                  key={item.name}
-                  className={i === 0 ? "md:col-span-2 lg:col-span-2" : ""}
-                >
-                  <ProjectCard item={item} index={i} featured={i === 0} />
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* ── What I Build ── */}
-          <section className="py-12 md:py-16">
-            <h2 className="text-2xl font-medium tracking-tight md:text-3xl text-[color:var(--foreground)] mb-6">
-              What I build
-            </h2>
-            <div className="border-t border-[color:var(--hairline)]">
-              {expertise.map((area) => (
-                <div
-                  key={area.title}
-                  className="group py-5 border-b border-[color:var(--hairline)] flex flex-col md:flex-row md:items-baseline gap-1 md:gap-8"
-                >
-                  <h3 className="text-base font-semibold tracking-tight text-[color:var(--foreground)] md:w-48 shrink-0 group-hover:text-[color:var(--accent)] transition-colors duration-150">
-                    {area.title}
-                  </h3>
-                  <p className="text-sm text-[color:var(--muted)] leading-relaxed max-w-2xl">
-                    {area.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* ── Sites ── */}
-          <section id="sites" className="py-12 md:py-16">
-            <div className="mb-6">
-              <h2 className="text-2xl font-medium tracking-tight md:text-3xl text-[color:var(--foreground)]">
-                Sites
-              </h2>
-              <p className="mt-2 max-w-2xl text-sm text-[color:var(--muted)] leading-relaxed">
-                Live applications deployed from this monorepo. Each ships
-                directly to its own production domain.
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed max-w-xl">
+                Companion utilities and databases built, integrated, and
+                deployed dynamically on independent domains.
               </p>
             </div>
-            <div className="border-t border-[color:var(--hairline)]">
-              {siblingApps.map((item) => (
-                <SiteRow key={item.domain} item={item} />
-              ))}
-            </div>
-          </section>
 
-          {/* ── Contact ── */}
-          <section className="py-12 md:py-16">
-            <h2 className="text-2xl font-medium tracking-tight md:text-3xl text-[color:var(--foreground)]">
-              Get in touch
-            </h2>
-            <p className="mt-2 max-w-2xl text-sm text-[color:var(--muted)] leading-relaxed">
-              Open to work on data infrastructure, AI agents, and open-source
-              software.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-6 text-sm">
-              <a
-                href="mailto:me@duyet.net"
-                className="link-underline text-[color:var(--foreground)] font-medium"
-              >
-                me@duyet.net
-              </a>
-              <a
-                href="https://linkedin.com/in/duyet"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-underline text-[color:var(--muted)] hover:text-[color:var(--foreground)] font-medium"
-              >
-                LinkedIn
-              </a>
-              <a
-                href="https://github.com/duyet"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-underline text-[color:var(--muted)] hover:text-[color:var(--foreground)] font-medium"
-              >
-                GitHub
-              </a>
-              <Link
-                to="/ls"
-                className="link-underline text-[color:var(--muted)] hover:text-[color:var(--foreground)] font-medium"
-              >
-                Short URLs
-              </Link>
-            </div>
+            <Card>
+              <CardContent className="p-0">
+                {siblingApps.map((item) => (
+                  <SiteRow key={item.domain} item={item} />
+                ))}
+              </CardContent>
+            </Card>
           </section>
         </main>
-
-        <SiteFooter />
       </div>
     </>
   );
 }
 
-function ProjectCard({
-  item,
-  index,
-  featured = false,
-}: {
-  item: ProjectRowItem;
-  index: number;
-  featured?: boolean;
-}) {
-  return (
-    <div
-      className="card-v2 p-4 md:p-5 flex flex-col justify-between h-full group animate-fade-in relative"
-      style={{ animationDelay: `${index * 60}ms` }}
-    >
-      <ProjectLink item={item}>
-        <div className="flex flex-col gap-3">
-          <div className="flex items-start justify-between gap-3">
-            <h3
-              className={`font-semibold tracking-tight text-[color:var(--foreground)] group-hover:text-[color:var(--accent)] transition-colors duration-150 ${
-                featured ? "text-xl md:text-2xl" : "text-lg"
-              }`}
-            >
-              {item.name}
-            </h3>
-            <span className="text-[color:var(--muted)] group-hover:text-[color:var(--accent)] transition-colors duration-150">
-              <ArrowSquareOut size={18} weight="bold" />
-            </span>
-          </div>
-          <p
-            className={`text-[color:var(--muted)] leading-relaxed ${
-              featured ? "text-base" : "text-sm"
-            } ${featured ? "line-clamp-4" : "line-clamp-3"}`}
-          >
-            {item.description}
-          </p>
-        </div>
+// Only verifiable-from-codebase stats:
+// - Blog: apps/blog/public/posts-data.json has 299 entries
+// - Projects: apps/home/src/data/projects.ts has 24 named entries
+// - Apps: 9 user-facing production apps in apps/ directory
+//   (agent-ui, ai-percentage, blog, cv, home, homelab, insights, llm-timeline, photos)
+type StatTile = {
+  title: string;
+  value: string;
+  description: string;
+};
 
-        <div className="mt-6 border-t border-[color:var(--hairline)] pt-3 flex items-center justify-between text-[11px] font-mono text-[color:var(--subtle)]">
-          <span className="tabular-nums font-semibold">{item.year}</span>
-          <div className="flex items-center gap-2">
-            <span>{item.stack}</span>
-            <span className="h-1 w-1 rounded-full bg-[color:var(--hairline)]" />
-            <span className="flex items-center gap-1.5">
-              <span
-                className={`h-1.5 w-1.5 rounded-full ${
-                  statusDot[item.status] ?? "bg-[color:var(--hairline)]"
-                }`}
-              />
-              <span className="font-semibold">{item.status}</span>
-            </span>
+const stats: StatTile[] = [
+  {
+    title: "Blog",
+    value: "299",
+    description: "Posts published since 2017",
+  },
+  {
+    title: "Projects",
+    value: "24",
+    description: "Open-source projects listed",
+  },
+  {
+    title: "Apps",
+    value: "9",
+    description: "Production apps in the monorepo",
+  },
+];
+
+function ProfileHero() {
+  return (
+    <section className="mb-16 md:mb-24">
+      <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+        Data &amp; AI Engineer · Ho Chi Minh City
+      </p>
+      <h1 className="mt-4 text-4xl md:text-6xl font-semibold tracking-tight">
+        Duyet Le
+      </h1>
+
+      <p className="mt-6 max-w-2xl text-lg md:text-xl leading-relaxed text-foreground/90">
+        I build autonomous{" "}
+        <a
+          href="https://agents.duyet.net"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium underline underline-offset-4 decoration-muted-foreground/40 hover:decoration-foreground"
+        >
+          agents
+        </a>{" "}
+        and the petabyte-scale data platforms that keep them honest — then write
+        about it in the{" "}
+        <a
+          href="https://blog.duyet.net"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium underline underline-offset-4 decoration-muted-foreground/40 hover:decoration-foreground"
+        >
+          blog
+        </a>
+        , ship live telemetry to{" "}
+        <a
+          href="https://insights.duyet.net"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium underline underline-offset-4 decoration-muted-foreground/40 hover:decoration-foreground"
+        >
+          insights
+        </a>
+        , and open-source the rest in{" "}
+        <Link
+          to="/projects"
+          className="font-medium underline underline-offset-4 decoration-muted-foreground/40 hover:decoration-foreground"
+        >
+          projects
+        </Link>
+        .
+      </p>
+
+      <div className="mt-8 flex flex-wrap items-center gap-2">
+        <Button size="sm" asChild>
+          <a
+            href="https://blog.duyet.net"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Read the blog
+          </a>
+        </Button>
+        <Button variant="outline" size="sm" asChild>
+          <Link to="/projects">Browse projects</Link>
+        </Button>
+      </div>
+    </section>
+  );
+}
+
+function ByTheNumbersSection() {
+  return (
+    <section className="mb-20 md:mb-32">
+      <div className="mb-6">
+        <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+          BY THE NUMBERS
+        </p>
+        <h2 className="mt-2 text-2xl md:text-3xl font-semibold tracking-tight">
+          What ships, what runs
+        </h2>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        {stats.map((stat) => (
+          <div
+            key={stat.title}
+            className="border bg-card p-4 flex flex-col gap-2"
+          >
+            <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+              {stat.title}
+            </p>
+            <p className="text-3xl font-semibold tracking-tight">
+              {stat.value}
+            </p>
+            <p className="text-xs text-muted-foreground">{stat.description}</p>
           </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ProjectCard({ item }: { item: ProjectRowItem & { techs: string[] } }) {
+  return (
+    <ProjectLink item={item}>
+      <article className="flex h-full flex-col gap-2 p-5 transition-colors hover:bg-muted">
+        <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
+          {item.domain || item.host}
+        </p>
+        <h3 className="text-base font-medium tracking-tight">{item.name}</h3>
+        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+          {item.description}
+        </p>
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-3">
+          <div className="flex flex-wrap items-center gap-2 text-muted-foreground">
+            {item.techs.map((tech) => {
+              const entry = TECH_ICONS[tech];
+              if (!entry) return null;
+              const Icon = entry.icon;
+              return <Icon key={tech} size={14} aria-label={entry.label} />;
+            })}
+          </div>
+          <Badge variant="outline">{item.status}</Badge>
         </div>
-      </ProjectLink>
-    </div>
+      </article>
+    </ProjectLink>
   );
 }
 
@@ -307,7 +441,7 @@ function ProjectLink({
   item,
   children,
 }: {
-  item: ProjectRowItem;
+  item: AppItem;
   children: ReactNode;
 }) {
   const href = addUtmParams(item.href, "homepage", item.utmContent, item.host);
@@ -316,7 +450,7 @@ function ProjectLink({
     return (
       <a
         href={href}
-        className="block no-underline h-full"
+        className="block h-full no-underline"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -326,7 +460,7 @@ function ProjectLink({
   }
 
   return (
-    <Link to={href} className="block no-underline h-full">
+    <Link to={href} className="block h-full no-underline">
       {children}
     </Link>
   );
@@ -338,19 +472,80 @@ function SiteRow({ item }: { item: SiblingApp }) {
       href={`https://${item.domain}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="group grid gap-3 border-b border-[color:var(--hairline)] py-3.5 text-[color:var(--foreground)] transition-colors duration-150 ease-out hover:text-[color:var(--accent)] sm:grid-cols-[160px_1fr_200px] sm:gap-6 items-center"
+      className="group grid grid-cols-1 sm:grid-cols-[1fr_2fr] gap-3 border-b py-4 text-foreground hover:bg-muted px-6 transition-colors last:border-b-0"
     >
-      <div className="min-w-0">
-        <h3 className="text-base font-semibold leading-snug transition-transform duration-150 ease-out group-hover:translate-x-0.5 text-[color:var(--foreground)] group-hover:text-[color:var(--accent)]">
-          {item.name}
-        </h3>
+      <div className="flex items-center gap-1.5">
+        <span className="font-mono text-sm text-foreground">{item.domain}</span>
+        <ExternalLink
+          size={12}
+          className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity"
+        />
       </div>
-      <p className="text-sm leading-relaxed text-[color:var(--muted)] sm:max-w-2xl">
-        {item.description}
-      </p>
-      <p className="truncate font-mono text-xs tabular-nums text-[color:var(--subtle)] transition-colors duration-150 ease-out group-hover:text-[color:var(--accent)] sm:text-right">
-        {item.domain}
-      </p>
+      <div>
+        <p className="text-xs text-muted-foreground leading-relaxed">
+          <span className="text-foreground">{item.name}</span> —{" "}
+          {item.description}
+        </p>
+      </div>
     </a>
+  );
+}
+
+function formatDateShort(dateStr: string): string {
+  const d = new Date(dateStr);
+  return d.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+function FromTheBlogSection() {
+  return (
+    <section className="mb-20 md:mb-32">
+      <div className="mb-6 flex items-baseline justify-between gap-4">
+        <div>
+          <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+            03 / WRITING
+          </span>
+          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight mt-2">
+            From the Blog
+          </h2>
+        </div>
+        <a
+          href="https://blog.duyet.net"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm text-muted-foreground hover:text-foreground transition-colors shrink-0"
+        >
+          Browse the blog &rarr;
+        </a>
+      </div>
+
+      <ul className="divide-y border">
+        {latestBlogPosts.map((post) => (
+          <li key={post.slug}>
+            <a
+              href={`https://blog.duyet.net${post.slug}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 px-4 py-3 hover:bg-muted transition-colors no-underline text-foreground group"
+            >
+              <span className="shrink-0 text-xs tabular-nums text-muted-foreground w-28">
+                {formatDateShort(post.date)}
+              </span>
+              <span className="flex-1 text-sm font-medium group-hover:underline underline-offset-4 truncate">
+                {post.title}
+              </span>
+              {post.readingTime != null && (
+                <span className="shrink-0 text-xs text-muted-foreground">
+                  {post.readingTime} min
+                </span>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }

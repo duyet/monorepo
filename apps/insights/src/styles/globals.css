@@ -4,267 +4,118 @@
 
 @plugin "@tailwindcss/typography";
 
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-*/
 @layer base {
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--hairline, currentcolor);
+    border-color: var(--border);
   }
-
-  body {
-    font-family: var(--font-sans);
-    background-color: var(--background);
-    color: var(--foreground);
-    line-height: 1.55;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-feature-settings: "ss01", "cv11";
-  }
-
-  h1, h2, h3, h4, h5, .font-serif {
-    font-family: var(--font-sans);
-    font-weight: 500;
-  }
-
-  h1 { letter-spacing: -1.5px; }
-  h2 { letter-spacing: -1px; }
-  h3 { letter-spacing: -0.5px; }
-  h4 { letter-spacing: -0.3px; }
-
-  .tabular-nums,
-  .font-mono,
-  [data-tabular] {
-    font-variant-numeric: tabular-nums;
-  }
-}
-
-@keyframes editorial-fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@layer utilities {
-  .editorial-fade-up {
-    animation: editorial-fade-up 360ms cubic-bezier(0.2, 0.65, 0.2, 1) both;
-  }
-  .editorial-stagger > * {
-    animation: editorial-fade-up 360ms cubic-bezier(0.2, 0.65, 0.2, 1) both;
-  }
-  .editorial-stagger > *:nth-child(1) { animation-delay: 0ms; }
-  .editorial-stagger > *:nth-child(2) { animation-delay: 50ms; }
-  .editorial-stagger > *:nth-child(3) { animation-delay: 100ms; }
-  .editorial-stagger > *:nth-child(4) { animation-delay: 150ms; }
-  .editorial-stagger > *:nth-child(5) { animation-delay: 200ms; }
-  .editorial-stagger > *:nth-child(6) { animation-delay: 250ms; }
-  .editorial-stagger > *:nth-child(7) { animation-delay: 300ms; }
-  .editorial-stagger > *:nth-child(8) { animation-delay: 350ms; }
 }
 
 :root {
-  --font-sans: "Geist Sans", "Inter Variable", "Inter", -apple-system, BlinkMacSystemFont,
-    ui-sans-serif, system-ui, sans-serif;
-  --font-inter: var(--font-sans);
-  --font-serif: var(--font-sans);
-  --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --radius: 0.5rem;
 
-  /* Spacing & Radius Scale */
-  --radius-xs: 8px;
-  --radius-sm: 12px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --radius-max: 1000px;
-  
-  --gap-xxs: 8px;
-  --gap-xs: 16px;
-  --gap-sm: 24px;
-  --gap-md: 32px;
-  --gap-lg: 48px;
-  --gap-xl: 64px;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
 
-  /* Container & Media */
-  --container-max-width: 1400px;
-  --page-margins: 64px;
-  --gutter: 32px;
-  --section-spacer-lg: 96px;
-  --section-spacer-sm: 48px;
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
 
-  /* Font Sizes */
-  --display-1: 72px;
-  --display-2: 64px;
-  --headline-1: 52px;
-  --headline-2: 44px;
-  --headline-3: 36px;
-  --headline-4: 32px;
-  --headline-5: 25px;
-  --headline-6: 19px;
-  --body-large-1: 25px;
-  --body-large-2: 23px;
-  --body-1: 20px;
-  --body-2: 17px;
-  --body-3: 15px;
-  --body-4: 12px;
-
-  /* Editorial monochrome — light */
-  --background: #ffffff;
-  --foreground: #0a0a0a;
-  --muted: color-mix(in oklch, #0a0a0a 60%, transparent);
-  --subtle: color-mix(in oklch, #0a0a0a 35%, transparent);
-  --faint: color-mix(in oklch, #0a0a0a 8%, transparent);
-  --hairline: color-mix(in oklch, #0a0a0a 8%, transparent);
-  --accent: #cc785c;
-
-  /* Preserve legacy semantic names (mapped to editorial monochrome) */
-  --foreground-primary: var(--foreground);
-  --foreground-secondary: var(--muted);
-  --foreground-tertiary: var(--subtle);
-  --background-primary: var(--background);
-  --background-secondary: var(--background);
-  --background-tertiary: var(--faint);
-  --background-clay: var(--accent);
-  --background-oat: var(--faint);
-
-  --border-strong: var(--foreground);
-  --border-subtle: var(--hairline);
-  --border-faint: var(--hairline);
-
-  --muted-foreground: var(--muted);
-  --border: var(--hairline);
-  --primary: var(--foreground);
-  --primary-active: var(--accent);
-  --primary-disabled: var(--faint);
-  --surface-card: transparent;
-  --surface-dark: var(--foreground);
-  --surface-dark-elevated: var(--foreground);
-  --surface-dark-soft: var(--foreground);
-  --surface-soft: var(--background);
-  --on-dark: var(--background);
-  --on-dark-soft: color-mix(in oklch, #ffffff 60%, transparent);
-  --body-strong: var(--foreground);
-  --body: var(--foreground);
-  --muted-soft: var(--subtle);
-
-  /* Card Backgrounds (kept as no-ops for legacy classes) */
-  --bg-clay: var(--accent);
-  --bg-oat: var(--faint);
-  --bg-olive: var(--muted);
-  --bg-cactus: var(--faint);
-  --bg-sky: var(--muted);
-  --bg-heather: var(--faint);
-  --bg-fig: var(--accent);
-  --bg-coral: var(--faint);
-
-  /* Chart palette: monochrome with accent as the highlight slot */
-  --chart-1: #0a0a0a;
-  --chart-2: color-mix(in oklch, #0a0a0a 60%, transparent);
-  --chart-3: color-mix(in oklch, #0a0a0a 35%, transparent);
-  --chart-4: color-mix(in oklch, #0a0a0a 20%, transparent);
-  --chart-5: #cc785c;
-
-  /* Insights-specific chart tokens (editorial) */
-  --insights-chart-accent: var(--accent);
-  --insights-chart-ink: var(--foreground);
-  --insights-chart-grid: transparent;
+  /* Legacy tokens mapped to standard tokens so existing var() refs keep working */
+  --hairline: var(--border);
+  --subtle: var(--muted-foreground);
+  --faint: var(--muted);
+  --surface-card: var(--card);
   --insights-chart-tooltip-bg: var(--foreground);
   --insights-chart-tooltip-text: var(--background);
-  --insights-chart-placeholder-bg: transparent;
-  --insights-chart-placeholder-text: var(--subtle);
-  --insights-card-blue: var(--faint);
-  --insights-card-emerald: var(--faint);
-  --insights-card-coral: var(--faint);
-  --insights-panel-blue: var(--foreground);
-  --insights-panel-emerald: var(--muted);
-  --insights-panel-coral: var(--accent);
-  --insights-panel-orange: var(--subtle);
-  --insights-panel-lilac: var(--faint);
+  --insights-chart-placeholder-text: var(--muted-foreground);
+  --insights-chart-accent: oklch(0.646 0.222 41.116);
+  --insights-chart-ink: var(--foreground);
+  --insights-chart-grid: transparent;
 }
 
-:root.dark,
 .dark {
-  /* Editorial monochrome — dark */
-  --background: #0a0a0a;
-  --foreground: #fafafa;
-  --muted: color-mix(in oklch, #fafafa 55%, transparent);
-  --subtle: color-mix(in oklch, #fafafa 30%, transparent);
-  --faint: color-mix(in oklch, #fafafa 8%, transparent);
-  --hairline: color-mix(in oklch, #fafafa 8%, transparent);
-  --accent: #e8926e;
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
 
-  --foreground-primary: var(--foreground);
-  --foreground-secondary: var(--muted);
-  --foreground-tertiary: var(--subtle);
-  --background-primary: var(--background);
-  --background-secondary: var(--background);
-  --background-tertiary: var(--faint);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
 
-  --border-strong: var(--foreground);
-  --border-subtle: var(--hairline);
-  --border-faint: var(--hairline);
-
-  --muted-foreground: var(--muted);
-  --border: var(--hairline);
-  --primary: var(--foreground);
-  --primary-active: var(--accent);
-  --primary-disabled: var(--faint);
-  --surface-card: transparent;
-  --surface-dark: var(--foreground);
-  --surface-dark-elevated: var(--foreground);
-  --surface-dark-soft: var(--foreground);
-  --surface-soft: var(--background);
-  --on-dark: var(--background);
-  --on-dark-soft: color-mix(in oklch, #0a0a0a 60%, transparent);
-  --body-strong: var(--foreground);
-  --body: var(--foreground);
-  --muted-soft: var(--subtle);
-
-  --chart-1: #fafafa;
-  --chart-2: color-mix(in oklch, #fafafa 55%, transparent);
-  --chart-3: color-mix(in oklch, #fafafa 30%, transparent);
-  --chart-4: color-mix(in oklch, #fafafa 15%, transparent);
-  --chart-5: #e8926e;
-
-  --insights-chart-accent: var(--accent);
-  --insights-chart-ink: var(--foreground);
-  --insights-chart-grid: transparent;
+  --hairline: var(--border);
+  --subtle: var(--muted-foreground);
+  --faint: var(--muted);
+  --surface-card: var(--card);
   --insights-chart-tooltip-bg: var(--foreground);
   --insights-chart-tooltip-text: var(--background);
-  --insights-chart-placeholder-bg: transparent;
-  --insights-chart-placeholder-text: var(--subtle);
-  --insights-card-blue: var(--faint);
-  --insights-card-emerald: var(--faint);
-  --insights-card-coral: var(--faint);
-  --insights-panel-blue: var(--foreground);
-  --insights-panel-emerald: var(--muted);
-  --insights-panel-coral: var(--accent);
-  --insights-panel-orange: var(--subtle);
-  --insights-panel-lilac: var(--faint);
+  --insights-chart-placeholder-text: var(--muted-foreground);
+  --insights-chart-accent: oklch(0.488 0.243 264.376);
+  --insights-chart-ink: var(--foreground);
+  --insights-chart-grid: transparent;
 }
 
-/* Anthropic Utility Classes */
-.bg-slate-1000 { background-color: #0f0f0e!important }
-.bg-slate-950 { background-color: #141413!important }
-.bg-slate-900 { background-color: #1a1918!important }
-.bg-slate-150 { background-color: #f0eee6!important }
-.bg-slate-100 { background-color: #f5f4ed!important }
-.bg-slate-050 { background-color: #faf9f5!important }
-
-.bg-clay { background-color: var(--bg-clay)!important }
-.bg-oat { background-color: var(--bg-oat)!important }
-.bg-olive { background-color: var(--bg-olive)!important }
-.bg-cactus { background-color: var(--bg-cactus)!important }
-.bg-sky { background-color: var(--bg-sky)!important }
-.bg-heather { background-color: var(--bg-heather)!important }
-.bg-fig { background-color: var(--bg-fig)!important }
-.bg-coral { background-color: var(--bg-coral)!important }
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius: var(--radius);
+}

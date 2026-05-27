@@ -92,7 +92,7 @@ function AiPeriodPage() {
         description="Token usage and model activity across the selected period."
       />
 
-      <div className="editorial-fade-up mb-12">
+      <div className="mb-12">
         <PeriodSwitcher
           current={config?.value ?? "30"}
           route="/ai/$period"
@@ -147,7 +147,7 @@ function AiPeriodPage() {
           <CCUsageDailyTableView activity={activityRaw} days={days} />
         </InsightsSection>
 
-        <p className="border-t border-[color:var(--hairline)] pt-6 text-xs italic text-[color:var(--muted)]">
+        <p className="border-t pt-6 text-xs italic text-muted-foreground">
           Claude Code usage analytics.
         </p>
       </div>

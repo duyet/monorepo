@@ -124,7 +124,7 @@ export function FilterInfo({
 
       {/* Expandable Filters */}
       {filtersExpanded && onLicenseChange && (
-        <div className="rounded-xl border border-border bg-card/50 backdrop-blur-sm p-4 animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="rounded-xl border border-border bg-card p-4 animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="flex flex-wrap gap-2">
             <Select
               variant="filter"

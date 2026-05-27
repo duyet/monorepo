@@ -1,7 +1,7 @@
 import type { Post } from "@duyet/interfaces";
 import { dateFormat } from "@duyet/libs/date";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import type { CSSProperties, ReactElement } from "react";
+import type { ReactElement } from "react";
 import { getPostsByAllYear } from "@/lib/posts";
 
 export const Route = createFileRoute("/archives")({
@@ -28,77 +28,73 @@ function Archives(): ReactElement {
     postsByYear: Record<number, Post[]>;
   };
 
-  const yearEntries = Object.entries(postsByYear).sort(
-    ([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10)
-  );
-  const postCount = Object.values(postsByYear).reduce(
-    (acc, p) => acc + p.length,
+  const years = Object.keys(postsByYear)
+    .map((y) => Number.parseInt(y, 10))
+    .sort((a, b) => b - a);
+
+  const totalPosts = years.reduce(
+    (sum, y) => sum + postsByYear[y].length,
     0
   );
-  const years = Object.keys(postsByYear).map(Number);
-  const pastYears = years.length
-    ? new Date().getFullYear() - Math.min(...years)
-    : 0;
 
   return (
-    <div className="px-6 md:px-8">
-      <header className="em-masthead">
-        <span className="em-masthead__eyebrow">Archive</span>
-        <h1 className="em-masthead__title">Everything written</h1>
-        <p className="em-masthead__dek">
-          {postCount} posts across the last {pastYears} years. Or explore{" "}
-          <Link
-            to="/tags/"
-            className="underline decoration-[color:var(--em-hairline)] decoration-1 underline-offset-4 transition-colors hover:text-[color:var(--em-foreground)] hover:decoration-[color:var(--em-accent)]"
-          >
-            by topic
-          </Link>
-          .
+    <div>
+      {/* Hero */}
+      <header className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16 md:py-24 text-center">
+        <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+          ARCHIVE
+        </p>
+        <h1 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight">
+          Articles by year
+        </h1>
+        <p className="mt-4 text-base text-muted-foreground">
+          {totalPosts} posts across {years.length} years.
         </p>
       </header>
 
-      {yearEntries.map(([year, posts]) => (
-        <YearBlock key={year} year={Number(year)} posts={posts} />
-      ))}
-    </div>
-  );
-}
-
-function YearBlock({
-  year,
-  posts,
-}: {
-  year: number;
-  posts: Post[];
-}): ReactElement | null {
-  if (!posts.length) return null;
-  return (
-    <>
-      <h2 className="em-year">{year}</h2>
-      <section className="em-list" aria-label={`Posts from ${year}`}>
-        {posts.map((post, i) => {
-          const style: CSSProperties = {
-            animationDelay: `${Math.min(i, 8) * 30}ms`,
-          };
+      {/* Year-grouped tables */}
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pb-24">
+        {years.map((year) => {
+          const posts = [...postsByYear[year]].sort(
+            (a, b) =>
+              new Date(b.date).getTime() - new Date(a.date).getTime()
+          );
           return (
-            <Link
-              key={post.slug}
-              to="/$year/$month/$slug/"
-              params={postParams(post)}
-              className="em-list__row editorial-enter"
-              style={style}
-            >
-              <h3 className="em-list__title">{post.title}</h3>
-              <div className="em-list__meta">
-                <time dateTime={new Date(post.date).toISOString()}>
-                  {dateFormat(post.date, "MMM d")}
-                </time>
-                {post.category && <span>{post.category}</span>}
+            <section key={year} className="mt-12 first:mt-0">
+              <div className="flex items-baseline justify-between border-b pb-3">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight tabular-nums">
+                  {year}
+                </h2>
+                <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                  {posts.length} {posts.length === 1 ? "post" : "posts"}
+                </span>
               </div>
-            </Link>
+              <ul className="divide-y">
+                {posts.map((post) => (
+                  <li
+                    key={post.slug}
+                    className="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr_120px] items-baseline gap-4 py-4"
+                  >
+                    <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground tabular-nums">
+                      {dateFormat(new Date(post.date), "MMM d")}
+                    </span>
+                    <Link
+                      to="/$year/$month/$slug/"
+                      params={postParams(post)}
+                      className="text-base font-medium tracking-tight hover:text-muted-foreground transition-colors"
+                    >
+                      {post.title}
+                    </Link>
+                    <span className="hidden md:block text-xs text-muted-foreground text-right truncate">
+                      {post.category}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </section>
           );
         })}
-      </section>
-    </>
+      </div>
+    </div>
   );
 }

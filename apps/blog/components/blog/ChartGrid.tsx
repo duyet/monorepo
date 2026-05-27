@@ -32,12 +32,12 @@ export function ChartGrid({
   return (
     <div
       className={cn(
-        "my-8 p-6 rounded-lg bg-[var(--surface-soft)] border border-[var(--hairline)]",
+        "my-8 p-6 rounded-lg bg-muted border border-border",
         className
       )}
     >
       {title && (
-        <h4 className="mb-4 font-serif text-lg text-[var(--ink)] dark:text-[var(--on-dark)]">
+        <h4 className="mb-4 font-serif text-lg text-foreground">
           {title}
         </h4>
       )}
@@ -49,10 +49,10 @@ export function ChartGrid({
           return (
             <div key={index} className="group">
               <div className="flex justify-between items-baseline mb-1">
-                <span className="text-sm font-medium text-[var(--ink)] dark:text-[var(--on-dark)]">
+                <span className="text-sm font-medium text-foreground">
                   {item.label}
                 </span>
-                <span className="font-mono text-sm text-[var(--muted)]">
+                <span className="font-mono text-sm text-muted-foreground">
                   {item.value}
                   {item.unit || ""}
                 </span>
@@ -107,18 +107,18 @@ export function StatCard({
   return (
     <div
       className={cn(
-        "p-4 rounded-lg bg-[var(--surface-card)] border border-[var(--hairline)]",
+        "p-4 rounded-lg bg-card border border-border",
         className
       )}
     >
-      <div className="text-xs text-[var(--muted)] uppercase tracking-wider mb-1">
+      <div className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
         {label}
       </div>
       <div className="flex items-baseline gap-2">
-        <span className="text-2xl font-serif text-[var(--ink)] dark:text-[var(--on-dark)]">
+        <span className="text-2xl font-serif text-foreground">
           {value}
         </span>
-        {unit && <span className="text-sm text-[var(--muted)]">{unit}</span>}
+        {unit && <span className="text-sm text-muted-foreground">{unit}</span>}
       </div>
       {change !== undefined && (
         <div

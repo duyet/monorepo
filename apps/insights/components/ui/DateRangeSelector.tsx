@@ -90,7 +90,7 @@ export function DateRangeSelector({
             className="fixed inset-0 z-40"
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute right-0 z-50 mt-2 w-48 rounded-lg border bg-card shadow-lg">
+          <div className="absolute right-0 z-50 mt-2 w-48 rounded-lg border bg-card">
             <div className="p-2">
               {dateRangeOptions.map((option) => (
                 <button

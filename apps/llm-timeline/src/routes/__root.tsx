@@ -3,34 +3,33 @@ import "../globals.css";
 import "../animations.css";
 
 import Analytics from "@duyet/components/Analytics";
-import Footer from "@duyet/components/Footer";
-import Header from "@duyet/components/Header";
+import { SiteFooter, SiteHeader } from "@duyet/components";
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import { llmTimelineConfig } from "@duyet/config";
 import {
   createRootRoute,
   HeadContent,
   Outlet,
   Scripts,
+  useRouterState,
 } from "@tanstack/react-router";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center px-4 bg-white dark:bg-[#0d0e0c]">
+    <div className="flex min-h-screen items-center justify-center px-4 bg-background">
       <div className="max-w-md text-center">
-        <h1 className="mb-4 text-6xl font-bold font-[family-name:var(--font-display)] text-[#1a1a1a] dark:text-[#f8f8f2]">
+        <h1 className="mb-4 text-6xl font-bold text-foreground">
           404
         </h1>
-        <h2 className="mb-4 text-xl font-semibold text-[#4d4d4d] dark:text-[#cfcfc8]">
+        <h2 className="mb-4 text-xl font-semibold text-foreground">
           Page not found
         </h2>
-        <p className="mb-8 text-sm text-[#4d4d4d] dark:text-[#cfcfc8]">
+        <p className="mb-8 text-sm text-muted-foreground">
           The page you are looking for does not exist or has been moved.
         </p>
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
           <a
             href="/"
-            className="rounded-xl px-6 py-2 font-medium transition-all hover:opacity-90 bg-[#1a1a1a] text-[#f8f8f2] dark:bg-white dark:text-[#1a1a1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="rounded-xl px-6 py-2 font-medium transition-all hover:opacity-90 bg-foreground text-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             Go to timeline
           </a>
@@ -38,7 +37,7 @@ function NotFoundComponent() {
             href="https://duyet.net"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-xl border border-[#e5e5e5] dark:border-white/10 px-6 py-2 font-medium transition-all hover:opacity-80 text-[#1a1a1a] dark:text-[#f8f8f2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="rounded-xl border border-border px-6 py-2 font-medium transition-all hover:opacity-80 text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             duyet.net
           </a>
@@ -73,17 +72,6 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "icon", href: "/favicon.svg", sizes: "any" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
-      },
-      {
-        rel: "preload",
-        as: "style",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap",
-      },
       {
         rel: "alternate",
         type: "application/rss+xml",
@@ -96,34 +84,34 @@ export const Route = createRootRoute({
   component: RootComponent,
 });
 
+const llmLocalNav = [
+  { label: "Timeline", href: "/" },
+  { label: "Companies", href: "/org" },
+  { label: "Compare", href: "/compare" },
+];
+
 function RootComponent() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
-        {/* Non-blocking Google Fonts: preloaded above, applied here */}
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap"
-          media="all"
-        />
       </head>
       <body>
         <ThemeProvider>
-          <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
-            <Header
-              longText="LLM Timeline"
-              shortText={llmTimelineConfig.metadata.title.replace(
-                " | duyet.net",
-                ""
-              )}
+          <div className="min-h-screen bg-background text-foreground">
+            <SiteHeader
+              currentApp="llm-timeline"
+              localNav={llmLocalNav}
+              activeHref={pathname}
             />
-            <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+            <main className="relative z-10">
               <div className="mx-auto max-w-[1280px] px-5 pb-16 pt-6 sm:px-8 lg:px-10">
                 <Outlet />
               </div>
             </main>
-            <Footer className="bg-white dark:bg-[#1a1a1a]" />
+            <SiteFooter />
           </div>
         </ThemeProvider>
         <Analytics />

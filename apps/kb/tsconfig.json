@@ -1,0 +1,18 @@
+{
+  "extends": "@duyet/tsconfig/vite.json",
+  "compilerOptions": {
+    "ignoreDeprecations": "6.0",
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "types": ["bun", "node", "vite/client"],
+    "paths": {
+      "~/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "lib/**/*.ts",
+    "scripts/**/*.ts"
+  ]
+}

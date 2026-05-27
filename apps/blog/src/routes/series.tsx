@@ -1,4 +1,5 @@
 import type { Series } from "@duyet/interfaces";
+import { Card, CardContent } from "@duyet/components";
 import {
   createFileRoute,
   Link,
@@ -31,7 +32,7 @@ function SeriesPage(): ReactElement {
   const { seriesList } = Route.useLoaderData() as { seriesList: Series[] };
 
   return (
-    <div className="px-6 md:px-8">
+    <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
       <header className="em-masthead">
         <span className="em-masthead__eyebrow">Reading paths</span>
         <h1 className="em-masthead__title">Series</h1>
@@ -40,7 +41,10 @@ function SeriesPage(): ReactElement {
         </p>
       </header>
 
-      <div className="em-index">
+      <div
+        className="grid grid-cols-1 gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3"
+        aria-label="All series"
+      >
         {seriesList.map((series, i) => {
           const style: CSSProperties = {
             animationDelay: `${Math.min(i, 12) * 40}ms`,
@@ -50,14 +54,28 @@ function SeriesPage(): ReactElement {
               key={series.slug}
               to="/series/$slug/"
               params={{ slug: series.slug }}
-              className="em-index__row editorial-enter"
+              className="editorial-enter group block bg-background transition-colors hover:bg-muted/60 focus-visible:bg-muted/60 focus-visible:outline-none"
               style={style}
             >
-              <span className="em-index__name">{series.name}</span>
-              <span className="em-index__count">
-                {series.posts.length}{" "}
-                {series.posts.length === 1 ? "post" : "posts"}
-              </span>
+              <Card className="h-full rounded-none border-0 bg-transparent">
+                <CardContent className="flex h-full flex-col gap-3 p-5">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                    Series
+                  </span>
+                  <h3 className="text-base font-semibold tracking-tight text-foreground">
+                    {series.name}
+                  </h3>
+                  <div className="mt-auto flex items-center justify-between pt-2 text-xs text-muted-foreground">
+                    <span className="font-mono tabular-nums">
+                      {String(series.posts.length).padStart(2, "0")}{" "}
+                      {series.posts.length === 1 ? "post" : "posts"}
+                    </span>
+                    <span className="opacity-60 transition-opacity group-hover:opacity-100">
+                      →
+                    </span>
+                  </div>
+                </CardContent>
+              </Card>
             </Link>
           );
         })}

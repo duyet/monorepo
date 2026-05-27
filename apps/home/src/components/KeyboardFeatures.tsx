@@ -1,13 +1,8 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import {
-  KeyboardHelpButton,
-  KeyboardHelpTooltip,
-} from "../../components/KeyboardShortcuts";
 
 export function KeyboardFeatures() {
   const [showBadges, setShowBadges] = useState(false);
-  const [showHelp, setShowHelp] = useState(false);
 
   const navigate = useNavigate();
 
@@ -36,12 +31,6 @@ export function KeyboardFeatures() {
           }
         }
       }
-
-      // Question mark for help
-      if (e.key === "?") {
-        e.preventDefault();
-        setShowHelp((prev) => !prev);
-      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -63,48 +52,32 @@ export function KeyboardFeatures() {
     }
   }, [showBadges]);
 
+  if (!showBadges) return null;
+
   return (
-    <>
-      {showBadges && (
-        <style>{`
-          [data-shortcut-number]::before {
-            content: attr(data-shortcut-number);
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 20px;
-            height: 20px;
-            border-radius: 6px;
-            background: rgba(0, 0, 0, 0.1);
-            color: #666;
-            font-size: 11px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            transition: all 0.15s ease;
-          }
-          .dark [data-shortcut-number]::before {
-            background: rgba(255, 255, 255, 0.1);
-            color: #999;
-            border-color: rgba(255, 255, 255, 0.1);
-          }
-          [data-shortcut-number]:hover::before {
-            background: rgba(0, 0, 0, 0.15);
-            color: #333;
-          }
-          .dark [data-shortcut-number]:hover::before {
-            background: rgba(255, 255, 255, 0.15);
-            color: #ccc;
-          }
-        `}</style>
-      )}
-      <KeyboardHelpTooltip
-        isOpen={showHelp}
-        onClose={() => setShowHelp(false)}
-      />
-      <KeyboardHelpButton onClick={() => setShowHelp(true)} />
-    </>
+    <style>{`
+      [data-shortcut-number]::before {
+        content: attr(data-shortcut-number);
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        background: rgba(0, 0, 0, 0.07);
+        color: #666;
+        font-size: 11px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+      }
+      .dark [data-shortcut-number]::before {
+        background: rgba(255, 255, 255, 0.08);
+        color: #999;
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+    `}</style>
   );
 }

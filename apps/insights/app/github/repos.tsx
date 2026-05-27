@@ -154,6 +154,7 @@ export async function fetchGithubRepos(
       repo.stargazers_count > 0 &&
       !repo.archived &&
       !repo.disabled &&
+      !repo.fork &&
       !ignoredProjects.includes(repo.name)
   );
 

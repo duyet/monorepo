@@ -1,8 +1,8 @@
 import "@/app/globals.css";
 
 import Container from "@duyet/components/Container";
-import Footer from "@duyet/components/Footer";
-import Header from "@duyet/components/Header";
+import { SiteHeader } from "@duyet/components/SiteHeader";
+import { SiteFooter } from "@duyet/components/SiteFooter";
 import { homelabConfig } from "@duyet/config";
 import {
   createRootRoute,
@@ -58,16 +58,13 @@ function RootComponent() {
       <body>
         <ThemeProvider>
           <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
-            <Header
-              longText={homelabConfig.header.longText}
-              shortText={homelabConfig.header.shortText}
-            />
-            <main className="relative z-10 rounded-b-3xl bg-white pb-16 dark:bg-[#0d0e0c] 2xl:rounded-b-[4rem]">
+            <SiteHeader currentApp="homelab" />
+            <main className="relative z-10 bg-white pb-16 dark:bg-[#0d0e0c]">
               <Container className="mb-20 max-w-[1280px] px-5 pb-16 pt-8 sm:px-8 lg:px-10">
                 <Outlet />
               </Container>
             </main>
-            <Footer className="bg-white dark:bg-[#1a1a1a]" />
+            <SiteFooter />
           </div>
           <Analytics />
         </ThemeProvider>

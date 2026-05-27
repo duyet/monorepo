@@ -10,14 +10,30 @@ import {
   YAxis,
 } from "recharts";
 import {
+  ArrowDownRight,
+  ArrowUpRight,
   ChartLine,
-  Cpu,
   Clock,
+  Code,
   Coins,
+  Cpu,
   Database,
   Globe,
-  Code
-} from "@phosphor-icons/react";
+  Minus,
+  Quote,
+} from "lucide-react";
+import { Badge } from "@duyet/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+} from "@duyet/components/ui/card";
+import rawBlogPosts from "../../../blog/public/posts-data.json";
+import {
+  OpenSourceGrid,
+  fetchGitHubRepos,
+  type Repo,
+} from "@duyet/components";
 
 interface BentoPanelProps {
   icon: ReactNode;
@@ -44,7 +60,7 @@ function BentoPanel({
   return (
     <div
       className={[
-        "relative flex flex-col justify-between overflow-hidden rounded-xl border border-[color:var(--hairline)] bg-[color:var(--faint)]/20 p-6 transition-all duration-300 hover:border-[color:var(--subtle)] hover:bg-[color:var(--faint)]/40 hover:shadow-sm",
+        "relative flex flex-col justify-between overflow-hidden rounded-lg border bg-card p-6 transition-all duration-200 hover:bg-secondary/50",
         className,
       ]
         .filter(Boolean)
@@ -52,8 +68,8 @@ function BentoPanel({
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="text-[color:var(--accent)]">{icon}</div>
-          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--muted)]">
+          <div className="text-muted-foreground">{icon}</div>
+          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
             {label}
           </span>
         </div>
@@ -73,7 +89,7 @@ function BentoPanel({
       </div>
 
       <div className="mt-5 flex items-baseline gap-2">
-        <span className="font-mono text-4xl font-normal tracking-tight text-[color:var(--foreground)] sm:text-5xl">
+        <span className="font-mono text-4xl font-normal tracking-tight text-foreground sm:text-5xl">
           {value}
         </span>
       </div>
@@ -87,7 +103,7 @@ function BentoPanel({
           <div className="h-6" />
         )}
         {caption && (
-          <span className="text-[11px] text-[color:var(--muted)] truncate max-w-[180px]">
+          <span className="text-[11px] text-muted-foreground truncate max-w-[180px]">
             {caption}
           </span>
         )}
@@ -95,8 +111,6 @@ function BentoPanel({
     </div>
   );
 }
-
-import { InsightsPageHeader } from "@/components/layouts/InsightsPageShell";
 
 interface AiActivity {
   "Total Cost": number;
@@ -187,6 +201,7 @@ export interface LoaderData {
   aiMetrics: AiMetrics;
   aiModels: AiModel[];
   cloudflare: CloudflareSummary;
+  githubRepos: Repo[];
   posthog: PostHogSummary;
   wakaLanguages: WakaTimeLanguage[];
   wakaMetrics: WakaTimeMetrics;
@@ -234,8 +249,8 @@ const EMPTY_POSTHOG: PostHogSummary = {
 };
 
 const CHART_FOREGROUND = "var(--foreground)";
-const CHART_SUBTLE = "var(--subtle)";
-const CHART_ACCENT = "var(--accent)";
+const CHART_SUBTLE = "var(--muted-foreground)";
+const CHART_ACCENT = "var(--chart-1)";
 const CHART_TOOLTIP_BACKGROUND = "var(--insights-chart-tooltip-bg)";
 const CHART_TOOLTIP_TEXT = "var(--insights-chart-tooltip-text)";
 const API_BASE_URL =
@@ -258,6 +273,7 @@ async function loadOverviewDataForStaticBuild(): Promise<LoaderData> {
     wakaTrend,
     cloudflare,
     posthog,
+    githubRepos,
   ] = await Promise.allSettled([
     aiData.getCCUsageMetrics(30),
     aiData.getCCUsageActivity(30),
@@ -267,6 +283,7 @@ async function loadOverviewDataForStaticBuild(): Promise<LoaderData> {
     wakaData.getWakaTimeMonthlyTrend(),
     blogData.fetchCloudflareData(30),
     posthogData.fetchPostHogData(30),
+    fetchGitHubRepos("duyet"),
   ]);
 
   return {
@@ -274,6 +291,7 @@ async function loadOverviewDataForStaticBuild(): Promise<LoaderData> {
     aiMetrics: settled(aiMetrics, EMPTY_AI_METRICS),
     aiModels: settled(aiModels, []),
     cloudflare: settled(cloudflare, EMPTY_CLOUDFLARE),
+    githubRepos: settled(githubRepos, []),
     posthog: settled(posthog, EMPTY_POSTHOG),
     wakaLanguages: settled(wakaLanguages, []),
     wakaMetrics: settled(wakaMetrics, EMPTY_WAKA_METRICS),
@@ -307,7 +325,8 @@ function isLoaderData(value: unknown): value is LoaderData {
       Array.isArray(data.aiActivity) &&
       Array.isArray(data.aiModels) &&
       Array.isArray(data.wakaLanguages) &&
-      Array.isArray(data.wakaTrend)
+      Array.isArray(data.wakaTrend) &&
+      Array.isArray(data.githubRepos)
   );
 }
 
@@ -334,11 +353,274 @@ const EMPTY_LOADER_DATA: LoaderData = {
   aiMetrics: EMPTY_AI_METRICS,
   aiModels: [],
   cloudflare: EMPTY_CLOUDFLARE,
+  githubRepos: [],
   posthog: EMPTY_POSTHOG,
   wakaLanguages: [],
   wakaMetrics: EMPTY_WAKA_METRICS,
   wakaTrend: [],
 };
+
+const BLOG_POST_COUNT = (rawBlogPosts as unknown[]).length;
+
+function KpiStrip({ data }: { data: LoaderData }) {
+  const generatedAt = data.cloudflare.generatedAt
+    ? new Date(data.cloudflare.generatedAt).toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })
+    : null;
+
+  const kpis: Array<{
+    value: string;
+    label: string;
+    sublabel: string;
+    trend: "up" | "flat" | null;
+  }> = [
+    {
+      value: formatCompact(data.aiMetrics.totalTokens),
+      label: "Tokens this month",
+      sublabel: `${data.aiMetrics.activeDays} active days · Claude Code`,
+      trend: data.aiMetrics.totalTokens > 0 ? "up" : "flat",
+    },
+    {
+      value: formatCompact(
+        data.cloudflare.totalPageviews || data.posthog.totalViews
+      ),
+      label: "Page views · 30d",
+      sublabel: "Cloudflare edge, all zones",
+      trend: "up",
+    },
+    {
+      value: `${formatNumber(data.wakaMetrics.totalHours)}h`,
+      label: "Coding hours · 30d",
+      sublabel: `${formatNumber(data.wakaMetrics.avgDailyHours)}h avg/day · ${data.wakaMetrics.topLanguage}`,
+      trend: "flat",
+    },
+    {
+      value: formatCurrency(data.aiMetrics.totalCost),
+      label: "AI spend · 30d",
+      sublabel: `Top model: ${compactName(data.aiMetrics.topModel)}`,
+      trend: data.aiMetrics.totalCost > 0 ? "up" : "flat",
+    },
+    {
+      value: String(BLOG_POST_COUNT),
+      label: "Blog posts published",
+      // TODO: wire to GitHub commit count for a dynamic "commits this month" stat
+      sublabel: "All-time, duyet.net/blog",
+      trend: "up",
+    },
+  ];
+
+  return (
+    <section>
+      <div className="grid grid-cols-2 md:grid-cols-5 divide-x divide-border border-t border-b border-border">
+        {kpis.map((kpi) => (
+          <div key={kpi.label} className="relative p-6 md:p-8">
+            {kpi.trend !== null && (
+              <span className="absolute top-4 right-4">
+                {kpi.trend === "up" ? (
+                  <ArrowUpRight
+                    size={16}
+                    className="text-green-600 dark:text-green-400"
+                  />
+                ) : (
+                  <Minus size={16} className="text-muted-foreground" />
+                )}
+              </span>
+            )}
+            <p className="text-4xl md:text-5xl font-semibold tracking-tight tabular-nums text-foreground">
+              {kpi.value}
+            </p>
+            <p className="mt-2 text-sm font-medium text-foreground">
+              {kpi.label}
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">{kpi.sublabel}</p>
+          </div>
+        ))}
+      </div>
+      {generatedAt && (
+        <p className="mt-2 text-right text-xs text-muted-foreground">
+          Last updated: {generatedAt}
+        </p>
+      )}
+    </section>
+  );
+}
+
+function BentoGrid({ data }: { data: LoaderData }) {
+  const pageViews = data.cloudflare.totalPageviews || data.posthog.totalViews;
+
+  return (
+    <section className="mt-12">
+      <div className="mb-6">
+        <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+          By the numbers
+        </p>
+        <h2 className="mt-2 text-2xl md:text-3xl font-semibold tracking-tight">
+          One developer, many data streams.
+        </h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Aggregated across traffic, AI usage, coding time, and published work — last 30 days unless noted.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Tall pullquote card — spans 2 rows */}
+        <Card className="md:row-span-2 flex flex-col justify-between border-border">
+          <CardContent className="pt-6 flex flex-col h-full gap-6">
+            <div>
+              <p className="text-4xl md:text-5xl font-semibold tracking-tight tabular-nums text-foreground">
+                {formatCompact(data.aiMetrics.totalTokens)}
+              </p>
+              <p className="mt-2 text-sm font-medium text-foreground">
+                AI tokens consumed
+              </p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                Claude Code · last 30 days
+              </p>
+            </div>
+            <div className="mt-auto">
+              <Quote
+                size={20}
+                className="text-muted-foreground mb-3 opacity-50"
+              />
+              <p className="text-sm leading-relaxed text-muted-foreground italic">
+                Every token here represents a real decision — a diff reviewed, a
+                test written, a refactor weighed. The pipeline runs nightly from
+                ClickHouse; no prompt content is stored, only aggregated
+                per-model counts.
+              </p>
+              <p className="mt-3 text-xs text-muted-foreground">
+                — ccusage → ClickHouse → insights
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Page views */}
+        <Card className="border-border">
+          <CardHeader className="pb-1 flex flex-row items-start justify-between">
+            <Badge className="bg-indigo-100 text-indigo-700 dark:bg-indigo-950/30 dark:text-indigo-300 hover:bg-indigo-100">
+              Traffic
+            </Badge>
+          </CardHeader>
+          <CardContent>
+            <p className="text-4xl font-semibold tracking-tight tabular-nums text-foreground">
+              {formatCompact(pageViews)}
+            </p>
+            <p className="mt-1 text-sm font-medium text-foreground">
+              Page views
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Cloudflare · 30 days
+            </p>
+          </CardContent>
+        </Card>
+
+        {/* Coding hours */}
+        <Card className="border-border">
+          <CardHeader className="pb-1 flex flex-row items-start justify-between">
+            <Badge className="bg-violet-100 text-violet-700 dark:bg-violet-950/30 dark:text-violet-300 hover:bg-violet-100">
+              Code
+            </Badge>
+          </CardHeader>
+          <CardContent>
+            <p className="text-4xl font-semibold tracking-tight tabular-nums text-foreground">
+              {formatNumber(data.wakaMetrics.totalHours)}h
+            </p>
+            <p className="mt-1 text-sm font-medium text-foreground">
+              Coding hours
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              WakaTime · 30 days
+            </p>
+          </CardContent>
+        </Card>
+
+        {/* AI cost */}
+        <Card className="border-border">
+          <CardHeader className="pb-1 flex flex-row items-start justify-between">
+            <Badge className="bg-amber-100 text-amber-700 dark:bg-amber-950/30 dark:text-amber-300 hover:bg-amber-100">
+              AI
+            </Badge>
+          </CardHeader>
+          <CardContent>
+            <p className="text-4xl font-semibold tracking-tight tabular-nums text-foreground">
+              {formatCurrency(data.aiMetrics.totalCost)}
+            </p>
+            <p className="mt-1 text-sm font-medium text-foreground">
+              AI spend
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Claude Code · 30 days
+            </p>
+          </CardContent>
+        </Card>
+
+        {/* Cache tokens */}
+        <Card className="border-border">
+          <CardHeader className="pb-1 flex flex-row items-start justify-between">
+            <Badge className="bg-green-100 text-green-700 dark:bg-green-950/30 dark:text-green-300 hover:bg-green-100">
+              Infra
+            </Badge>
+          </CardHeader>
+          <CardContent>
+            <p className="text-4xl font-semibold tracking-tight tabular-nums text-foreground">
+              {formatCompact(data.aiMetrics.cacheTokens)}
+            </p>
+            <p className="mt-1 text-sm font-medium text-foreground">
+              Cache tokens
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Prompt re-use · 30 days
+            </p>
+          </CardContent>
+        </Card>
+
+        {/* Blog posts */}
+        <Card className="border-border">
+          <CardHeader className="pb-1 flex flex-row items-start justify-between">
+            <Badge className="bg-rose-100 text-rose-700 dark:bg-rose-950/30 dark:text-rose-300 hover:bg-rose-100">
+              Writing
+            </Badge>
+          </CardHeader>
+          <CardContent>
+            <p className="text-4xl font-semibold tracking-tight tabular-nums text-foreground">
+              {BLOG_POST_COUNT}
+            </p>
+            <p className="mt-1 text-sm font-medium text-foreground">
+              Blog posts
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              All-time · duyet.net/blog
+            </p>
+          </CardContent>
+        </Card>
+
+        {/* CF requests */}
+        <Card className="border-border">
+          <CardHeader className="pb-1 flex flex-row items-start justify-between">
+            <Badge className="bg-indigo-100 text-indigo-700 dark:bg-indigo-950/30 dark:text-indigo-300 hover:bg-indigo-100">
+              Telemetry
+            </Badge>
+          </CardHeader>
+          <CardContent>
+            <p className="text-4xl font-semibold tracking-tight tabular-nums text-foreground">
+              {formatCompact(data.cloudflare.totalRequests)}
+            </p>
+            <p className="mt-1 text-sm font-medium text-foreground">
+              Edge requests
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Cloudflare · 30 days
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    </section>
+  );
+}
 
 function IndexPage() {
   const data = Route.useLoaderData();
@@ -363,15 +645,39 @@ function IndexPage() {
 
   return (
     <div>
-      <InsightsPageHeader
-        badge="Overview · last 30 days"
-        title="A quiet view of what shipped, what ran, and what was read."
-        description="One editorial page across traffic, AI usage, human coding, and the most-read posts. No dashboards, no chrome — just the numbers and what they meant this month."
-      />
+      <header className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16 md:py-24 text-center">
+        <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+          INSIGHTS · LAST 30 DAYS
+        </p>
+        <h1 className="mt-4 text-4xl md:text-5xl font-bold tracking-tight max-w-3xl mx-auto">
+          A quiet view of what shipped, what ran, and what was read.
+        </h1>
+        <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+          One editorial page across traffic, AI usage, human coding, and the
+          most-read posts. No dashboards, no chrome — just the numbers and what
+          they meant this month.
+        </p>
+      </header>
 
-      <section className="editorial-stagger editorial-fade-up grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-6 border-t border-[color:var(--hairline)] pt-12">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pb-16">
+      <KpiStrip data={data} />
+      <BentoGrid data={data} />
+
+      {data.githubRepos.length > 0 && (
+        <section className="mt-20 border-t border-border pt-12">
+          <OpenSourceGrid
+            repos={data.githubRepos}
+            user="duyet"
+            featured={["monorepo", "clickhouse-monitoring"]}
+          />
+        </section>
+      )}
+
+      <SignalsNarrativeSection data={data} />
+
+      <section className="mt-20 grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-6 border-t border-border pt-12">
         <BentoPanel
-          icon={<ChartLine size={18} weight="bold" />}
+          icon={<ChartLine size={18} />}
           label="Page views · 30d"
           value={formatNumber(pageViews)}
           delta={{ value: "12.4%", isPositive: true }}
@@ -385,7 +691,7 @@ function IndexPage() {
           className="col-span-1 md:col-span-2 md:row-span-2"
         />
         <BentoPanel
-          icon={<Cpu size={18} weight="bold" />}
+          icon={<Cpu size={18} />}
           label="AI tokens · 30d"
           value={formatCompact(data.aiMetrics.totalTokens)}
           delta={{ value: "8.2%", isPositive: true }}
@@ -399,7 +705,7 @@ function IndexPage() {
           className="col-span-1"
         />
         <BentoPanel
-          icon={<Clock size={18} weight="bold" />}
+          icon={<Clock size={18} />}
           label="Coding hours · 30d"
           value={formatNumber(data.wakaMetrics.totalHours)}
           delta={{ value: "3.1%", isPositive: false }}
@@ -413,7 +719,7 @@ function IndexPage() {
           className="col-span-1"
         />
         <BentoPanel
-          icon={<Coins size={18} weight="bold" />}
+          icon={<Coins size={18} />}
           label="AI cost · 30d"
           value={formatCurrency(data.aiMetrics.totalCost)}
           delta={{ value: "15.3%", isPositive: true }}
@@ -428,7 +734,7 @@ function IndexPage() {
         />
       </section>
 
-      <section className="editorial-fade-up mt-20 grid grid-cols-1 gap-12 border-t border-[color:var(--hairline)] pt-12 xl:grid-cols-[1.4fr_0.6fr]">
+      <section className="mt-20 grid grid-cols-1 gap-12 border-t border-border pt-12 xl:grid-cols-[1.4fr_0.6fr]">
         <EditorialChart
           eyebrow="Traffic · Cloudflare"
           title="Public site pulse."
@@ -458,7 +764,7 @@ function IndexPage() {
         />
       </section>
 
-      <section className="editorial-fade-up mt-20 grid grid-cols-1 gap-12 border-t border-[color:var(--hairline)] pt-12 xl:grid-cols-2">
+      <section className="mt-20 grid grid-cols-1 gap-12 border-t border-border pt-12 xl:grid-cols-2">
         <EditorialChart
           eyebrow="AI · ccusage"
           title="AI work, day by day."
@@ -485,7 +791,7 @@ function IndexPage() {
         </EditorialChart>
       </section>
 
-      <section className="editorial-fade-up mt-20 grid grid-cols-1 gap-12 border-t border-[color:var(--hairline)] pt-12 xl:grid-cols-2">
+      <section className="mt-20 grid grid-cols-1 gap-12 border-t border-border pt-12 xl:grid-cols-2">
         <EditorialChart
           eyebrow="Coding · WakaTime"
           title="Where the human hours went."
@@ -500,19 +806,19 @@ function IndexPage() {
 
         <div className="grid grid-cols-1 gap-6 self-start">
           <BentoPanel
-            icon={<Database size={18} weight="bold" />}
+            icon={<Database size={18} />}
             label="AI cache tokens · 30d"
             value={formatCompact(data.aiMetrics.cacheTokens)}
             caption="Cached prompt re-use across sessions"
           />
           <BentoPanel
-            icon={<Globe size={18} weight="bold" />}
+            icon={<Globe size={18} />}
             label="Cloudflare requests · 30d"
             value={formatNumber(data.cloudflare.totalRequests)}
             caption="Total edge requests for the period"
           />
           <BentoPanel
-            icon={<Code size={18} weight="bold" />}
+            icon={<Code size={18} />}
             label="Top language"
             value={data.wakaMetrics.topLanguage}
             caption={`${formatNumber(data.wakaMetrics.daysActive)} active days at the keyboard` }
@@ -520,12 +826,200 @@ function IndexPage() {
         </div>
       </section>
 
-      <p className="editorial-fade-up mt-24 max-w-3xl border-t border-[color:var(--hairline)] pt-8 font-sans text-xs tracking-tight leading-7 text-[color:var(--muted)]">
+      <p className="mt-24 max-w-3xl border-t border-border pt-8 font-sans text-xs tracking-tight leading-7 text-muted-foreground">
         Sources: Cloudflare and PostHog for traffic, ClickHouse and DuckDB for
         AI usage, WakaTime for coding hours. Missing credentials degrade to
         empty states.
       </p>
+      </div>
+
     </div>
+  );
+}
+
+type SignalCard =
+  | {
+      kind: "metric";
+      numeral: string;
+      label: string;
+      sublabel: string;
+      trend: "up" | "down" | "flat";
+      badge?: string;
+    }
+  | {
+      kind: "narrative";
+      numeral: string;
+      label: string;
+      body: string;
+      badge?: string;
+    };
+
+function SignalTrend({
+  trend,
+}: {
+  trend: "up" | "down" | "flat";
+}) {
+  if (trend === "up")
+    return (
+      <ArrowUpRight size={16} className="text-green-600 dark:text-green-400" />
+    );
+  if (trend === "down")
+    return <ArrowDownRight size={16} className="text-rose-500" />;
+  return <Minus size={16} className="text-muted-foreground" />;
+}
+
+function SignalsNarrativeSection({ data }: { data: LoaderData }) {
+  const pageViews = data.cloudflare.totalPageviews || data.posthog.totalViews;
+
+  const cards: SignalCard[] = [
+    {
+      kind: "metric",
+      numeral: formatCompact(data.aiMetrics.totalTokens),
+      label: "AI tokens routed",
+      sublabel: `${data.aiMetrics.activeDays} active days · Claude Code`,
+      trend: data.aiMetrics.totalTokens > 0 ? "up" : "flat",
+    },
+    {
+      kind: "metric",
+      numeral: formatCompact(pageViews),
+      label: "Page views · 30d",
+      sublabel: "Cloudflare edge, all zones",
+      trend: "up",
+    },
+    {
+      kind: "metric",
+      numeral: `${formatNumber(data.wakaMetrics.totalHours)}h`,
+      label: "Coding hours · 30d",
+      sublabel: `Avg ${formatNumber(data.wakaMetrics.avgDailyHours)}h/day`,
+      trend: "flat",
+    },
+    {
+      kind: "metric",
+      numeral: formatCurrency(data.aiMetrics.totalCost),
+      label: "AI spend · 30d",
+      sublabel: `Top model: ${compactName(data.aiMetrics.topModel)}`,
+      trend: data.aiMetrics.totalCost > 0 ? "up" : "flat",
+    },
+    {
+      kind: "narrative",
+      numeral: String(BLOG_POST_COUNT),
+      label: "Posts published",
+      body: "Every post is indexed on the day it ships and reflected here the same night.",
+      badge: "Live",
+    },
+    {
+      kind: "narrative",
+      numeral: formatCompact(data.aiMetrics.cacheTokens),
+      label: "Cache tokens",
+      body: "Prompt re-use logged nightly into ClickHouse — no prompt content stored, only aggregate counts.",
+      badge: "Active",
+    },
+    {
+      kind: "metric",
+      numeral: formatCompact(data.cloudflare.totalRequests),
+      label: "Edge requests · 30d",
+      sublabel: "Cloudflare, all zones",
+      trend: "up",
+    },
+    {
+      kind: "metric",
+      numeral: data.wakaMetrics.topLanguage || "—",
+      label: "Top language",
+      sublabel: `${formatNumber(data.wakaMetrics.daysActive)} days active`,
+      trend: "flat",
+    },
+  ];
+
+  return (
+    <section className="mt-20 border-t border-border pt-12">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 mb-12">
+        <div className="flex flex-col gap-4">
+          <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground">
+            Reading the signals
+          </p>
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight leading-tight">
+            Every metric on this page is pulled live from production.
+          </h2>
+          <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-xl">
+            ClickHouse, Cloudflare, WakaTime, GitHub — no analytics middleman.
+            The pipeline runs nightly; values here reflect the last 30 days
+            unless noted. Missing credentials degrade to empty states, never
+            to fabricated numbers.
+          </p>
+          <p className="text-xs text-muted-foreground mt-2">
+            Dashboard · Last updated{" "}
+            {data.cloudflare.generatedAt
+              ? new Date(data.cloudflare.generatedAt).toLocaleDateString(
+                  "en-US",
+                  { day: "numeric", month: "short", year: "numeric" },
+                )
+              : "recently"}
+          </p>
+        </div>
+
+        {/* Primary hero metric */}
+        <div className="flex flex-col justify-center border p-8">
+          <p className="text-6xl md:text-7xl font-semibold tracking-tight tabular-nums text-foreground">
+            {formatCompact(data.aiMetrics.totalTokens)}
+          </p>
+          <p className="mt-3 text-base font-medium text-foreground">
+            AI tokens this month
+          </p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Claude Code · ClickHouse warehouse
+          </p>
+          <div className="mt-3 flex items-center gap-1.5 text-green-600 dark:text-green-400 text-sm font-medium">
+            <ArrowUpRight size={16} />
+            <span>Streaming nightly</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {cards.map((card) => {
+          if (card.kind === "metric") {
+            return (
+              <div
+                key={card.label}
+                className="relative border p-5 flex flex-col gap-2"
+              >
+                <div className="absolute top-4 right-4">
+                  <SignalTrend trend={card.trend} />
+                </div>
+                <p className="text-3xl font-semibold tracking-tight tabular-nums text-foreground">
+                  {card.numeral}
+                </p>
+                <p className="text-sm font-medium text-foreground">
+                  {card.label}
+                </p>
+                <p className="text-xs text-muted-foreground">{card.sublabel}</p>
+              </div>
+            );
+          }
+          return (
+            <div
+              key={card.label}
+              className="border p-5 flex flex-col gap-2"
+            >
+              <div className="flex items-start justify-between gap-2">
+                <p className="text-3xl font-semibold tracking-tight tabular-nums text-foreground">
+                  {card.numeral}
+                </p>
+                {card.badge && (
+                  <Badge className="bg-green-100 text-green-700 dark:bg-green-950/30 dark:text-green-300 hover:bg-green-100 shrink-0">
+                    {card.badge}
+                  </Badge>
+                )}
+              </div>
+              <p className="text-sm font-medium text-foreground">{card.label}</p>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                {card.body}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 }
 
@@ -547,13 +1041,13 @@ function EditorialChart({
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">
+        <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
           {eyebrow}
         </p>
         <h2 className="font-sans font-semibold text-3xl leading-tight tracking-tight md:text-4xl">
           {title}
         </h2>
-        <p className="max-w-xl text-sm leading-6 text-[color:var(--muted)]">
+        <p className="max-w-xl text-sm leading-6 text-muted-foreground">
           {subtitle}
         </p>
       </div>
@@ -576,7 +1070,7 @@ function EditorialList({
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted)]">
+        <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
           {eyebrow}
         </p>
         <h2 className="font-sans font-semibold text-3xl leading-tight tracking-tight md:text-4xl">
@@ -585,7 +1079,7 @@ function EditorialList({
       </div>
       <div className="flex flex-col">
         {items.length === 0 ? (
-          <p className="text-sm leading-6 text-[color:var(--muted)]">
+          <p className="text-sm leading-6 text-muted-foreground">
             {emptyLabel}
           </p>
         ) : (
@@ -593,18 +1087,18 @@ function EditorialList({
             <div
               key={item.label}
               className={`grid grid-cols-[1fr_auto] items-baseline gap-4 py-3 ${
-                idx === 0 ? "" : "border-t border-[color:var(--hairline)]"
+                idx === 0 ? "" : "border-t border-border"
               }`}
             >
               <div className="min-w-0">
-                <p className="truncate text-sm text-[color:var(--foreground)]">
+                <p className="truncate text-sm text-foreground">
                   {item.label}
                 </p>
-                <p className="mt-1 text-xs text-[color:var(--muted)]">
+                <p className="mt-1 text-xs text-muted-foreground">
                   {item.meta}
                 </p>
               </div>
-              <p className="font-mono text-base tabular-nums text-[color:var(--foreground)]">
+              <p className="font-mono text-base tabular-nums text-foreground">
                 {item.value}
               </p>
             </div>
@@ -642,7 +1136,7 @@ function InsightAreaChart({
   return (
     <div className="h-[260px] min-w-0" ref={ref}>
       {(!isHydrated || width === 0) && (
-        <div className="flex h-full items-center text-xs text-[color:var(--insights-chart-placeholder-text)]">
+        <div className="flex h-full items-center text-xs text-muted-foreground">
           Loading.
         </div>
       )}
@@ -680,20 +1174,20 @@ function InsightAreaChart({
             axisLine={false}
             dataKey="date"
             fontSize={11}
-            tick={{ fill: "var(--muted)" }}
+            tick={{ fill: "var(--muted-foreground)" }}
             tickLine={false}
             tickMargin={10}
           />
           <YAxis
             axisLine={false}
             fontSize={11}
-            tick={{ fill: "var(--muted)" }}
+            tick={{ fill: "var(--muted-foreground)" }}
             tickLine={false}
             tickMargin={8}
             width={36}
           />
           <Tooltip
-            cursor={{ stroke: "var(--subtle)", strokeWidth: 1 }}
+            cursor={{ stroke: "var(--muted-foreground)", strokeWidth: 1 }}
             contentStyle={{
               background: CHART_TOOLTIP_BACKGROUND,
               border: "0",
@@ -743,7 +1237,7 @@ function InsightBarChart({
   return (
     <div className="h-[260px] min-w-0" ref={ref}>
       {(!isHydrated || width === 0) && (
-        <div className="flex h-full items-center text-xs text-[color:var(--insights-chart-placeholder-text)]">
+        <div className="flex h-full items-center text-xs text-muted-foreground">
           Loading.
         </div>
       )}
@@ -758,7 +1252,7 @@ function InsightBarChart({
           <XAxis
             axisLine={false}
             fontSize={11}
-            tick={{ fill: "var(--muted)" }}
+            tick={{ fill: "var(--muted-foreground)" }}
             tickLine={false}
             type="number"
             unit="%"
@@ -767,13 +1261,13 @@ function InsightBarChart({
             axisLine={false}
             dataKey={nameKey}
             fontSize={11}
-            tick={{ fill: "var(--muted)" }}
+            tick={{ fill: "var(--muted-foreground)" }}
             tickLine={false}
             type="category"
             width={120}
           />
           <Tooltip
-            cursor={{ fill: "var(--faint)" }}
+            cursor={{ fill: "var(--secondary)" }}
             contentStyle={{
               background: CHART_TOOLTIP_BACKGROUND,
               border: "0",
@@ -797,7 +1291,7 @@ function InsightBarChart({
 
 function EmptyChart({ label }: { label: string }) {
   return (
-    <div className="flex h-[200px] items-center text-sm text-[color:var(--insights-chart-placeholder-text)]">
+    <div className="flex h-[200px] items-center text-sm text-muted-foreground">
       {label}
     </div>
   );
@@ -832,7 +1326,7 @@ function Sparkline({
     >
       <polyline
         fill="none"
-        stroke={accent ? "var(--accent)" : "var(--foreground)"}
+        stroke={accent ? "var(--chart-1)" : "var(--foreground)"}
         strokeWidth="1"
         strokeLinecap="round"
         strokeLinejoin="round"

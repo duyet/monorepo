@@ -1,0 +1,8 @@
+feat(agents): migrate agent-assistant from Next.js to TanStack Start with Durable Objects
+
+- Replace Next.js with TanStack Start (Vite-powered) for Cloudflare Workers compatibility
+- Add Cloudflare Durable Object (ThreadStateDO) for stateful thread storage
+- Implement DurableObjectSaver custom checkpointer extending BaseCheckpointSaver
+- Create catch-all API server route for LangGraph streaming execution
+- Configure wrangler.toml with DO bindings and SQLite migrations
+- Wire up assistant-ui React components with SSE streaming

@@ -121,7 +121,7 @@ function AIComparisonPage() {
               },
             ]}
           />
-          <p className="mt-6 text-xs italic text-[color:var(--muted)]">
+          <p className="mt-6 text-xs italic text-muted-foreground">
             Data from ClickHouse • Positive values indicate increase in{" "}
             {days1 === "all" ? "All time" : `${days1} days`} compared to{" "}
             {days2 === "all" ? "All time" : `${days2} days`}

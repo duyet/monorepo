@@ -11,7 +11,7 @@ export interface SiteNavV2Props {
   brandText?: string;
   brandHref?: string;
   links?: { name: string; href: string; active?: boolean }[];
-  activeApp?: "home" | "blog" | "cv" | "insights" | "photos" | "homelab";
+  activeApp?: "home" | "blog" | "cv" | "insights" | "photos" | "homelab" | "agent";
   className?: string;
   alwaysScrolled?: boolean;
 }
@@ -48,19 +48,19 @@ export function SiteNavV2({
     <>
       <header
         className={cn(
-          "sticky top-0 z-40 h-12 w-full border-b transition-all duration-200",
+          "relative z-40 h-12 w-full border-b transition-all duration-200",
           scrolled
             ? "border-neutral-200/50 bg-white/70 backdrop-blur-md dark:border-white/5 dark:bg-[#0a0a0a]/70 shadow-sm"
             : "border-transparent bg-transparent",
           className
         )}
       >
-        <div className="mx-auto flex h-full max-w-[1200px] items-center justify-between px-5 sm:px-8 lg:px-10">
-          {/* Brand slot */}
-          <div className="flex items-center">
+        <div className="mx-auto flex h-full max-w-[1040px] items-center justify-between px-5 sm:px-8">
+          {/* Brand & Left Links */}
+          <div className="flex items-center gap-8 h-full">
             <a
               href={brandHref}
-              className="flex items-center gap-1.5 text-sm font-bold tracking-tight text-neutral-900 dark:text-white"
+              className="flex items-center gap-1.5 text-sm font-bold tracking-tight text-neutral-900 dark:text-white animate-fade-in"
             >
               <span>{brandText}</span>
               <span
@@ -68,33 +68,33 @@ export function SiteNavV2({
                 aria-hidden="true"
               />
             </a>
-          </div>
 
-          {/* Desktop Links (Center) */}
-          {links.length > 0 && (
-            <nav
-              aria-label="Primary"
-              className="hidden items-center gap-6 md:flex h-full"
-            >
-              {links.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  aria-current={link.active ? "page" : undefined}
-                  className={cn(
-                    "relative flex h-full items-center text-xs font-semibold tracking-tight transition-colors py-1.5",
-                    "text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white",
-                    "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-[var(--cf-orange)] after:transition-all after:duration-200",
-                    link.active
-                      ? "text-neutral-900 dark:text-white after:scale-x-100 after:opacity-100"
-                      : "after:scale-x-0 after:opacity-0"
-                  )}
-                >
-                  {link.name}
-                </a>
-              ))}
-            </nav>
-          )}
+            {/* Desktop Links (Left Adjacent) */}
+            {links.length > 0 && (
+              <nav
+                aria-label="Primary"
+                className="hidden items-center gap-6 md:flex h-full"
+              >
+                {links.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    aria-current={link.active ? "page" : undefined}
+                    className={cn(
+                      "relative flex h-full items-center text-xs font-semibold tracking-tight transition-colors py-1.5 cursor-pointer",
+                      "text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white",
+                      "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-[var(--cf-orange)] after:transition-all after:duration-200",
+                      link.active
+                        ? "text-neutral-900 dark:text-white after:scale-x-100 after:opacity-100"
+                        : "after:scale-x-0 after:opacity-0"
+                    )}
+                  >
+                    {link.name}
+                  </a>
+                ))}
+              </nav>
+            )}
+          </div>
 
           {/* Right Controls */}
           <div className="flex items-center gap-2 sm:gap-3">

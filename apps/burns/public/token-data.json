@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T08:51:49.864Z",
+  "generatedAt": "2026-05-25T14:57:57.971Z",
   "firstDate": "2025-08-02",
   "sources": [
     "Claude Code",
@@ -7,22 +7,121 @@
     "OpenCode"
   ],
   "totals": {
-    "input_tokens": 5811039172,
-    "output_tokens": 86949675,
-    "cache_creation_tokens": 903773480,
-    "cache_read_tokens": 34237688333,
-    "total_tokens": 36435366948,
-    "total_cost": 12079.45
+    "input_tokens": 7250827129,
+    "output_tokens": 101402208,
+    "cache_creation_tokens": 932892488,
+    "cache_read_tokens": 39568786218,
+    "total_tokens": 41909786827,
+    "total_cost": 14255.1
   },
   "daily": [
     {
-      "date": "2026-05-06",
-      "input_tokens": 4422805221,
-      "output_tokens": 10503611,
+      "date": "2026-05-17",
+      "input_tokens": 39033876,
+      "output_tokens": 130263,
       "cache_creation_tokens": 0,
-      "cache_read_tokens": 4611294080,
-      "total_tokens": 4720983328,
-      "cost": 858.88
+      "cache_read_tokens": 37862016,
+      "total_tokens": 39164139,
+      "cost": 12.08
+    },
+    {
+      "date": "2026-05-16",
+      "input_tokens": 519074597,
+      "output_tokens": 2758748,
+      "cache_creation_tokens": 10028381,
+      "cache_read_tokens": 1133067498,
+      "total_tokens": 1169740488,
+      "cost": 665.81
+    },
+    {
+      "date": "2026-05-15",
+      "input_tokens": 262577626,
+      "output_tokens": 4049475,
+      "cache_creation_tokens": 11862310,
+      "cache_read_tokens": 1304174876,
+      "total_tokens": 1344483167,
+      "cost": 612.16
+    },
+    {
+      "date": "2026-05-14",
+      "input_tokens": 313632753,
+      "output_tokens": 2427433,
+      "cache_creation_tokens": 11774124,
+      "cache_read_tokens": 1150302813,
+      "total_tokens": 1178339107,
+      "cost": 614.54
+    },
+    {
+      "date": "2026-05-13",
+      "input_tokens": 4335933,
+      "output_tokens": 1035803,
+      "cache_creation_tokens": 7863155,
+      "cache_read_tokens": 320494168,
+      "total_tokens": 331983139,
+      "cost": 202.08
+    },
+    {
+      "date": "2026-05-12",
+      "input_tokens": 687591,
+      "output_tokens": 1295926,
+      "cache_creation_tokens": 9904328,
+      "cache_read_tokens": 597918831,
+      "total_tokens": 609599444,
+      "cost": 361.9
+    },
+    {
+      "date": "2026-05-11",
+      "input_tokens": 146180337,
+      "output_tokens": 3612152,
+      "cache_creation_tokens": 10977954,
+      "cache_read_tokens": 1319803445,
+      "total_tokens": 1362620480,
+      "cost": 310.77
+    },
+    {
+      "date": "2026-05-10",
+      "input_tokens": 92777145,
+      "output_tokens": 2879991,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 1063040384,
+      "total_tokens": 1083428528,
+      "cost": 24.9
+    },
+    {
+      "date": "2026-05-09",
+      "input_tokens": 13483322,
+      "output_tokens": 1255865,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 210871040,
+      "total_tokens": 225610227,
+      "cost": 5.4
+    },
+    {
+      "date": "2026-05-08",
+      "input_tokens": 233186429,
+      "output_tokens": 2273972,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 612510720,
+      "total_tokens": 654915889,
+      "cost": 142.18
+    },
+    {
+      "date": "2026-05-07",
+      "input_tokens": 16235348,
+      "output_tokens": 1374432,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 247656000,
+      "total_tokens": 265265780,
+      "cost": 0.44
+    },
+    {
+      "date": "2026-05-06",
+      "input_tokens": 4296883884,
+      "output_tokens": 10232771,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 4501468224,
+      "total_tokens": 4604188463,
+      "cost": 786.28
     },
     {
       "date": "2026-05-05",
@@ -197,66 +296,66 @@
     },
     {
       "date": "2026-04-16",
-      "input_tokens": 15948276,
-      "output_tokens": 2292598,
-      "cache_creation_tokens": 5562120,
-      "cache_read_tokens": 793674758,
-      "total_tokens": 817477752,
-      "cost": 165.61
+      "input_tokens": 357587,
+      "output_tokens": 329533,
+      "cache_creation_tokens": 1985045,
+      "cache_read_tokens": 97761092,
+      "total_tokens": 100433257,
+      "cost": 61.35
     },
     {
       "date": "2026-04-15",
-      "input_tokens": 2559625,
-      "output_tokens": 278848,
+      "input_tokens": 991569,
+      "output_tokens": 46263,
       "cache_creation_tokens": 0,
-      "cache_read_tokens": 103075328,
-      "total_tokens": 105913801,
-      "cost": 6.53
+      "cache_read_tokens": 38447872,
+      "total_tokens": 39485704,
+      "cost": 2.36
     },
     {
       "date": "2026-04-14",
-      "input_tokens": 22606108,
-      "output_tokens": 2483936,
-      "cache_creation_tokens": 6263089,
-      "cache_read_tokens": 680406487,
-      "total_tokens": 711759620,
-      "cost": 153.18
+      "input_tokens": 105254,
+      "output_tokens": 608,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 1024,
+      "total_tokens": 106886,
+      "cost": 0.24
     },
     {
       "date": "2026-04-13",
-      "input_tokens": 11113012,
-      "output_tokens": 1164889,
-      "cache_creation_tokens": 4481382,
-      "cache_read_tokens": 297469656,
-      "total_tokens": 314228939,
-      "cost": 125.72
+      "input_tokens": 225898,
+      "output_tokens": 75310,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 10335744,
+      "total_tokens": 10636952,
+      "cost": 0.72
     },
     {
       "date": "2026-04-11",
-      "input_tokens": 4381177,
-      "output_tokens": 710885,
-      "cache_creation_tokens": 3927763,
-      "cache_read_tokens": 221237097,
-      "total_tokens": 230256922,
-      "cost": 64.99
+      "input_tokens": 39645,
+      "output_tokens": 18268,
+      "cache_creation_tokens": 328305,
+      "cache_read_tokens": 4438304,
+      "total_tokens": 4824522,
+      "cost": 2.45
     },
     {
       "date": "2026-04-10",
-      "input_tokens": 12335157,
-      "output_tokens": 1216365,
-      "cache_creation_tokens": 6920306,
-      "cache_read_tokens": 375784602,
-      "total_tokens": 396256430,
-      "cost": 142.32
+      "input_tokens": 5843608,
+      "output_tokens": 454214,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 159338368,
+      "total_tokens": 165636190,
+      "cost": 14.4
     },
     {
       "date": "2026-04-09",
-      "input_tokens": 17059945,
-      "output_tokens": 1959364,
-      "cache_creation_tokens": 8548765,
-      "cache_read_tokens": 542108929,
-      "total_tokens": 569677003,
-      "cost": 137.06
+      "input_tokens": 2944076,
+      "output_tokens": 812002,
+      "cache_creation_tokens": 98831,
+      "cache_read_tokens": 146656403,
+      "total_tokens": 150511312,
+      "cost": 9.87
     },
     {
       "date": "2026-04-08",

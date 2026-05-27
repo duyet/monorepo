@@ -75,7 +75,7 @@ export function PeriodSelector({
       </Button>
 
       {isOpen && (
-        <div className="absolute right-0 z-50 mt-1 min-w-[140px] origin-top-right rounded-md border bg-popover p-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <div className="absolute right-0 z-50 mt-1 min-w-[140px] origin-top-right rounded-md border bg-popover p-1 ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1" role="menu" aria-orientation="vertical">
             {TIME_PERIODS.map((period) => (
               <button

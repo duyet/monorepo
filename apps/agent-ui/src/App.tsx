@@ -6,30 +6,44 @@ import {
   useAuth,
 } from "@clerk/clerk-react";
 import { useChat } from "@ai-sdk/react";
-import { AppsDrawer } from "@duyet/components";
-import ThemeToggle from "@duyet/components/ThemeToggle";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@duyet/components/ui/card";
-import { Badge } from "@duyet/components/ui/badge";
-import { Button } from "@duyet/components/ui/button";
-import { ScrollArea } from "@duyet/components/ui/scroll-area";
-import { Separator } from "@duyet/components/ui/separator";
-import { Textarea } from "@duyet/components/ui/textarea";
+import { Button } from "~/components/ui/button";
+import { Separator } from "~/components/ui/separator";
+import { Textarea } from "~/components/ui/textarea";
+import { SiteNav } from "~/components/SiteNav";
 import type { UIMessage } from "ai";
-import { LayoutGrid, RotateCcw, Send, Sparkles } from "lucide-react";
-import { type FormEvent, useCallback, useMemo, useState } from "react";
+import { ArrowUp, RotateCcw } from "lucide-react";
+import {
+  type FormEvent,
+  type KeyboardEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   AgentApiTransport,
   type AgentChatResponse,
 } from "./agent-api-transport";
 
 const SESSION_STORAGE_KEY = "duyet-agent-ui-session-id";
+
+const GLOBAL_NAV_LINKS = [
+  { name: "Home", href: "https://duyet.net" },
+  { name: "Projects", href: "https://duyet.net/projects" },
+  { name: "About", href: "https://duyet.net/about" },
+  { name: "Blog", href: "https://blog.duyet.net" },
+  { name: "CV", href: "https://cv.duyet.net" },
+  { name: "Insights", href: "https://insights.duyet.net" },
+  { name: "Agent", href: "/", active: true },
+];
+
+const SUGGESTIONS = [
+  "What is Duyet working on right now?",
+  "Show me the most recent blog posts",
+  "Summarize the LLM Timeline project",
+  "Which projects use ClickHouse?",
+];
 
 function createSessionId(): string {
   return `web-${crypto.randomUUID()}`;
@@ -38,7 +52,6 @@ function createSessionId(): string {
 function readSessionId(): string {
   const stored = localStorage.getItem(SESSION_STORAGE_KEY);
   if (stored) return stored;
-
   const sessionId = createSessionId();
   localStorage.setItem(SESSION_STORAGE_KEY, sessionId);
   return sessionId;
@@ -48,13 +61,10 @@ function agentApiUrl(): string {
   const configured =
     import.meta.env.VITE_DUYET_AGENTS_API_URL ??
     import.meta.env.VITE_AGENT_API_URL;
-
   if (configured) return configured;
-
   if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
     return "http://localhost:8788";
   }
-
   return location.origin;
 }
 
@@ -65,60 +75,74 @@ function textParts(message: UIMessage): string {
     .join("");
 }
 
-function MessageBubble({ message }: { message: UIMessage }) {
+function Message({ message }: { message: UIMessage }) {
   const text = textParts(message);
   const isUser = message.role === "user";
-
   return (
-    <div className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
-      <article
-        className={`flex w-[min(100%,42rem)] flex-col gap-2 rounded-lg border p-4 text-sm leading-6 ${
-          isUser
-            ? "border-primary bg-primary text-primary-foreground"
-            : "bg-background text-foreground"
-        }`}
-      >
-        <Badge
-          className="w-fit"
-          variant={isUser ? "secondary" : "outline"}
-        >
-          {isUser ? "You" : "Agent"}
-        </Badge>
-        <p className="whitespace-pre-wrap break-words">{text}</p>
-      </article>
+    <div className="flex flex-col gap-1.5">
+      <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+        {isUser ? "You" : "Agent"}
+      </span>
+      <p className="whitespace-pre-wrap break-words text-[15px] leading-7 text-foreground">
+        {text}
+      </p>
     </div>
   );
 }
 
-function EmptyState() {
+function TypingDots() {
   return (
-    <div className="flex min-h-[18rem] flex-col items-center justify-center gap-3 text-center">
-      <Sparkles aria-hidden="true" className="size-5" />
-      <div className="flex flex-col gap-1">
-        <h2 className="text-xl font-semibold">Duyet Agents</h2>
-        <p className="max-w-md text-sm text-muted-foreground">
-          Ask about Duyet Le, duyet.net, projects, posts, and data work.
-        </p>
+    <div className="flex flex-col gap-1.5">
+      <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+        Agent
+      </span>
+      <div className="flex items-center gap-1.5 py-1" aria-label="Thinking">
+        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground [animation-delay:-0.3s]" />
+        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground [animation-delay:-0.15s]" />
+        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground" />
       </div>
     </div>
   );
 }
 
-function ResponseStatus({ response }: { response: AgentChatResponse | null }) {
-  if (!response) {
-    return <Badge variant="outline">ready</Badge>;
-  }
-
-  const pendingCount = response.pendingInteractions?.length ?? 0;
-
+function Hero({
+  onPick,
+  disabled,
+}: {
+  onPick: (prompt: string) => void;
+  disabled: boolean;
+}) {
   return (
-    <>
-      <Badge variant="outline">{response.authMode ?? "clerk"}</Badge>
-      <Badge variant="secondary">{response.status ?? "ready"}</Badge>
-      {pendingCount > 0 ? (
-        <Badge variant="secondary">{pendingCount} pending</Badge>
-      ) : null}
-    </>
+    <section className="flex flex-col gap-8 py-12 sm:py-20">
+      <div className="flex flex-col gap-3">
+        <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+          AI assistant · 2026
+        </span>
+        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+          Ask Duyet anything.
+        </h1>
+        <p className="max-w-xl text-[15px] leading-7 text-muted-foreground">
+          An agent that knows my blog, projects, public data, and the work I'm
+          shipping right now. Conversational, streaming, grounded in real
+          sources.
+        </p>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {SUGGESTIONS.map((prompt) => (
+          <Button
+            key={prompt}
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => onPick(prompt)}
+            disabled={disabled}
+            className="rounded-full"
+          >
+            {prompt}
+          </Button>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -126,10 +150,8 @@ function ChatScreen() {
   const { getToken, isSignedIn } = useAuth();
   const [input, setInput] = useState("");
   const [sessionId, setSessionId] = useState(readSessionId);
-  const [lastResponse, setLastResponse] = useState<AgentChatResponse | null>(
-    null
-  );
-  const [appsOpen, setAppsOpen] = useState(false);
+  const [, setLastResponse] = useState<AgentChatResponse | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const transport = useMemo(
     () =>
@@ -140,7 +162,7 @@ function ChatScreen() {
         getToken,
         onResponse: setLastResponse,
       }),
-    [getToken, sessionId]
+    [getToken, sessionId],
   );
 
   const { error, messages, sendMessage, setMessages, status } =
@@ -151,6 +173,10 @@ function ChatScreen() {
 
   const isBusy = status === "submitted" || status === "streaming";
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages.length, status]);
+
   const resetSession = useCallback(() => {
     const nextSessionId = createSessionId();
     localStorage.setItem(SESSION_STORAGE_KEY, nextSessionId);
@@ -159,149 +185,119 @@ function ChatScreen() {
     setMessages([]);
   }, [setMessages]);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  const submit = useCallback(
+    (text: string) => {
+      const trimmed = text.trim();
+      if (!trimmed || isBusy || !isSignedIn) return;
+      setInput("");
+      void sendMessage({ text: trimmed });
+    },
+    [isBusy, isSignedIn, sendMessage],
+  );
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    submit(input);
+  };
 
-    const text = input.trim();
-    if (!text || isBusy || !isSignedIn) return;
+  const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      submit(input);
+    }
+  };
 
-    setInput("");
-    void sendMessage({ text });
-  }
+  const empty = messages.length === 0;
 
   return (
     <main className="min-h-dvh bg-background text-foreground">
-      <div className="mx-auto flex min-h-dvh w-full max-w-5xl flex-col gap-4 px-4 py-4 sm:px-6">
-        <header className="flex min-h-14 items-center justify-between gap-4">
-          <div className="flex min-w-0 items-center gap-3">
-            <Sparkles aria-hidden="true" className="size-5 shrink-0" />
-            <div className="min-w-0">
-              <h1 className="truncate text-base font-semibold">Duyet Agents</h1>
-              <p className="truncate text-xs text-muted-foreground">
-                Simple chat over duyet.net context
-              </p>
-            </div>
-          </div>
-          <div className="flex shrink-0 items-center gap-2">
-            <div className="hidden items-center gap-2 sm:flex">
-              <ResponseStatus response={lastResponse} />
-            </div>
-            <button
-              type="button"
-              onClick={() => setAppsOpen(true)}
-              className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-secondary/50 text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
-              aria-label="Open apps menu"
-            >
-              <LayoutGrid size={16} />
-            </button>
-            <ThemeToggle />
-            <Button
-              aria-label="Reset conversation"
-              onClick={resetSession}
-              size="icon"
-              type="button"
-              variant="outline"
-            >
-              <RotateCcw aria-hidden="true" data-icon="inline-start" />
-            </Button>
-            <SignedOut>
-              <SignInButton mode="modal">
-                <Button type="button" variant="outline">
-                  Sign in
-                </Button>
-              </SignInButton>
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </div>
-        </header>
+      <SiteNav
+        brandText="Duyet Le"
+        brandHref="https://duyet.net"
+        links={GLOBAL_NAV_LINKS}
+      />
 
-        <Card className="flex min-h-0 flex-1 flex-col overflow-hidden shadow-none">
-          <CardHeader className="p-4">
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div className="flex min-w-0 flex-col gap-1">
-                <CardTitle className="text-base">Chat</CardTitle>
-                <CardDescription>
-                  {isSignedIn
-                    ? "Ask a question and keep the session in this browser."
-                    : "You can view the full chat surface. Sign in to send a message."}
-                </CardDescription>
-              </div>
-              <Badge variant={isSignedIn ? "secondary" : "outline"}>
-                {isSignedIn ? "signed in" : "signed out"}
-              </Badge>
-            </div>
-          </CardHeader>
-
-          <Separator />
-
-          <CardContent className="min-h-0 flex-1 p-0">
-            <ScrollArea className="h-full">
-              <div className="flex min-h-[calc(100dvh-17rem)] flex-col gap-3 p-4">
-                {messages.length === 0 ? (
-                  <EmptyState />
-                ) : (
-                  messages.map((message) => (
-                    <MessageBubble key={message.id} message={message} />
-                  ))
-                )}
-                {error ? (
-                  <Badge
-                    className="w-fit max-w-full whitespace-normal rounded-md py-2"
-                    variant="destructive"
-                  >
-                    {error.message}
-                  </Badge>
-                ) : null}
-              </div>
-            </ScrollArea>
-          </CardContent>
-
-          <Separator />
-
-          <CardFooter className="p-4">
-            <form className="flex w-full items-end gap-2" onSubmit={handleSubmit}>
-              <Textarea
-                aria-label="Message"
-                className="min-h-11 resize-none"
-                onChange={(event) => setInput(event.currentTarget.value)}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter" && !event.shiftKey) {
-                    event.preventDefault();
-                    event.currentTarget.form?.requestSubmit();
-                  }
-                }}
-                placeholder={
-                  isSignedIn ? "Ask Duyet Agents" : "Sign in to send a message"
-                }
-                rows={1}
-                value={input}
-              />
-              {isSignedIn ? (
+      <div className="mx-auto flex min-h-[calc(100dvh-3rem)] w-full max-w-[760px] flex-col px-5 sm:px-8">
+        {empty ? (
+          <Hero onPick={submit} disabled={!isSignedIn || isBusy} />
+        ) : (
+          <div className="flex-1 py-8">
+            <div className="flex items-center justify-between pb-6">
+              <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+                Conversation
+              </span>
+              <div className="flex items-center gap-2">
                 <Button
-                  aria-label="Send message"
-                  disabled={!input.trim() || isBusy}
-                  size="icon"
-                  type="submit"
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={resetSession}
+                  className="rounded-full"
                 >
-                  <Send aria-hidden="true" data-icon="inline-start" />
+                  <RotateCcw aria-hidden="true" />
+                  New
                 </Button>
-              ) : (
+                <SignedIn>
+                  <UserButton />
+                </SignedIn>
+              </div>
+            </div>
+            <Separator className="mb-8" />
+            <div className="flex flex-col gap-8">
+              {messages.map((message) => (
+                <Message key={message.id} message={message} />
+              ))}
+              {isBusy ? <TypingDots /> : null}
+              {error ? (
+                <p className="text-sm text-destructive">{error.message}</p>
+              ) : null}
+              <div ref={messagesEndRef} />
+            </div>
+          </div>
+        )}
+
+        <div className="sticky bottom-0 mt-auto pb-6 pt-4 bg-gradient-to-t from-background via-background to-transparent">
+          {!isSignedIn ? (
+            <SignedOut>
+              <div className="flex flex-col items-start gap-3 rounded-lg border p-4">
+                <p className="text-sm text-muted-foreground">
+                  Sign in to send a message. The chat surface above stays
+                  visible either way.
+                </p>
                 <SignInButton mode="modal">
-                  <Button aria-label="Sign in to send" size="icon" type="button">
-                    <Send aria-hidden="true" data-icon="inline-start" />
+                  <Button variant="outline" className="rounded-full">
+                    Sign in to continue
                   </Button>
                 </SignInButton>
-              )}
+              </div>
+            </SignedOut>
+          ) : (
+            <form
+              onSubmit={handleSubmit}
+              className="flex items-end gap-2 rounded-full border bg-background py-2 pl-5 pr-2 focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2"
+            >
+              <Textarea
+                aria-label="Message"
+                value={input}
+                onChange={(e) => setInput(e.currentTarget.value)}
+                onKeyDown={handleKeyDown}
+                rows={1}
+                placeholder="Ask Duyet anything…"
+                className="min-h-9 flex-1 resize-none border-0 bg-transparent p-0 py-1.5 text-[15px] leading-6 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+              />
+              <Button
+                type="submit"
+                disabled={!input.trim() || isBusy}
+                size="icon"
+                aria-label="Send"
+                className="h-9 w-9 shrink-0 rounded-full"
+              >
+                <ArrowUp aria-hidden="true" />
+              </Button>
             </form>
-          </CardFooter>
-        </Card>
+          )}
+        </div>
       </div>
-      <AppsDrawer
-        isOpen={appsOpen}
-        onClose={() => setAppsOpen(false)}
-      />
     </main>
   );
 }

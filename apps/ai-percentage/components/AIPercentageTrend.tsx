@@ -13,16 +13,16 @@ export function AIPercentageTrend({ days = 365 }: AIPercentageTrendProps) {
 
   if (isLoading) {
     return (
-      <div className="flex h-64 items-center justify-center rounded-xl bg-white p-5 dark:bg-[#171815]">
-        <div className="h-8 w-8 animate-pulse rounded-lg bg-[#eeeee5] dark:bg-[#242420]" />
+      <div className="flex h-64 items-center justify-center rounded-xl border bg-card p-5">
+        <div className="h-8 w-8 animate-pulse rounded-lg bg-muted" />
       </div>
     );
   }
 
   if (error || !data || data.length === 0) {
     return (
-      <div className="flex h-64 items-center justify-center rounded-xl bg-white p-5 dark:bg-[#171815]">
-        <p className="text-[#686862] dark:text-[#b7b7aa]">
+      <div className="flex h-64 items-center justify-center rounded-xl border bg-card p-5">
+        <p className="text-muted-foreground">
           {error ? "Failed to load data" : "No data available"}
         </p>
       </div>
@@ -38,10 +38,10 @@ export function AIPercentageTrend({ days = 365 }: AIPercentageTrendProps) {
   }));
 
   return (
-    <div className="rounded-xl bg-white p-5 shadow-[0_1px_0_rgba(0,0,0,0.08),0_22px_60px_rgba(0,0,0,0.06)] dark:bg-[#171815]">
+    <div className="rounded-xl border bg-card p-5">
       <div className="mb-4">
         <h3 className="text-sm font-semibold">AI Code Percentage Trend</h3>
-        <p className="text-xs text-[#686862] dark:text-[#b7b7aa]">
+        <p className="text-xs text-muted-foreground">
           Percentage of AI-written code over time
         </p>
       </div>
@@ -77,7 +77,7 @@ export function AIPercentageTrend({ days = 365 }: AIPercentageTrendProps) {
         </svg>
       </div>
 
-      <div className="mt-2 text-right text-xs text-[#686862] dark:text-[#b7b7aa]">
+      <div className="mt-2 text-right text-xs text-muted-foreground">
         Trend:{" "}
         {data.length > 1 &&
         data[data.length - 1].ai_percentage > data[0].ai_percentage

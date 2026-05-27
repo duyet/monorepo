@@ -1,178 +1,57 @@
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap");
 @import "tailwindcss";
 
 @layer base {
   :root {
-    /* ── Warm editorial tokens (Anthropic-informed) ──────────────── */
-    --background: #faf9f7;
-    --foreground: #0d0d0d;
-    --muted: color-mix(in oklch, #0d0d0d 55%, transparent);
-    --subtle: color-mix(in oklch, #0d0d0d 30%, transparent);
-    --faint: color-mix(in oklch, #0d0d0d 5%, transparent);
-    --hairline: color-mix(in oklch, #0d0d0d 7%, transparent);
-    --accent: oklch(70.5% .213 47.604); /* Cloudflare Orange accent */
-
-    /* Typography stacks (Geist enforced, no serif) */
-    --font-geist: "Geist", -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, sans-serif;
-    --font-geist-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    --font-sans: var(--font-geist);
-    --font-serif: var(--font-geist); /* Enforce absolutely no serif fonts anywhere */
-    --font-inter: var(--font-geist);
-    --font-mono: var(--font-geist-mono);
-
-    /* Shared components override tokens */
-    --editorial-bg: var(--background);
-    --editorial-fg: var(--foreground);
-    --editorial-muted: var(--muted);
-    --editorial-subtle: var(--subtle);
-    --editorial-faint: var(--faint);
-    --editorial-hairline: var(--hairline);
-    --editorial-accent: var(--accent);
-    --editorial-font-sans: var(--font-sans);
-    --editorial-font-serif: var(--font-sans);
-    --editorial-font-mono: var(--font-mono);
-
-    /* Premium card-v2 tokens */
-    --card-bg: #ffffff;
-    --card-border: rgba(0, 0, 0, 0.06);
-    --card-border-hover: rgba(0, 0, 0, 0.12);
-    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
-    --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.06);
-
-    /* Spacing & Radius Scale */
-    --radius-xs: 4px;
-    --radius-sm: 8px;
-    --radius-md: 10px;
-    --radius-lg: 16px; /* Anthropic-style generous radius */
-    --radius-max: 1000px;
-
-    --gap-xxs: 8px;
-    --gap-xs: 16px;
-    --gap-sm: 24px;
-    --gap-md: 32px;
-    --gap-lg: 48px;
-    --gap-xl: 64px;
-
-    /* Container & Media */
-    --container-max-width: 1280px;
-    --page-margins: 32px;
-    --gutter: 24px;
-    --section-spacer-lg: 96px;
-    --section-spacer-sm: 48px;
-    --text-column-max-width: 680px;
-
-    /* Font Sizes */
-    --display-1: 72px;
-    --display-2: 64px;
-    --headline-1: 52px;
-    --headline-2: 44px;
-    --headline-3: 36px;
-    --headline-4: 32px;
-    --headline-5: 25px;
-    --headline-6: 19px;
-    --body-large-1: 25px;
-    --body-large-2: 23px;
-    --body-1: 20px;
-    --body-2: 17px;
-    --body-3: 15px;
-    --body-4: 12px;
-
-    /* ── Legacy tokens ── */
-    --foreground-primary: var(--foreground);
-    --foreground-secondary: var(--foreground);
-    --foreground-tertiary: var(--muted);
-    --background-primary: var(--background);
-    --background-secondary: var(--background);
-    --background-tertiary: var(--faint);
-    --background-clay: var(--faint);
-    --background-oat: var(--faint);
-
-    --border-strong: var(--foreground);
-    --border-subtle: var(--hairline);
-    --border-faint: var(--hairline);
-    --border: var(--hairline);
-
-    --muted-foreground: var(--muted);
-    --muted-soft: var(--subtle);
-    --primary: var(--foreground);
-    --primary-active: var(--foreground);
-    --primary-disabled: var(--faint);
-    --surface-card: var(--background);
-    --surface-dark: #0a0a0a;
-    --surface-dark-elevated: #161616;
-    --surface-dark-soft: #111111;
-    --surface-soft: var(--faint);
-    --on-dark: #fafafa;
-    --on-dark-soft: color-mix(in oklch, #fafafa 55%, transparent);
-    --body-strong: var(--foreground);
-    --body: var(--foreground);
-
-    /* Legacy color utilities */
-    --bg-clay: var(--faint);
-    --bg-oat: var(--faint);
-    --bg-olive: var(--faint);
-    --bg-cactus: var(--faint);
-    --bg-sky: var(--faint);
-    --bg-heather: var(--faint);
-    --bg-fig: var(--faint);
-    --bg-coral: var(--faint);
+    --background: #ffffff;
+    --foreground: #0a0a0a;
+    --card: #ffffff;
+    --card-foreground: #0a0a0a;
+    --popover: #ffffff;
+    --popover-foreground: #0a0a0a;
+    --primary: #171717;
+    --primary-foreground: #fafafa;
+    --secondary: #f5f5f5;
+    --secondary-foreground: #171717;
+    --muted: #f5f5f5;
+    --muted-foreground: #737373;
+    --accent: #f5f5f5;
+    --accent-foreground: #171717;
+    --destructive: #ef4444;
+    --destructive-foreground: #fafafa;
+    --border: #e5e5e5;
+    --input: #e5e5e5;
+    --ring: #171717;
+    --radius: 0.5rem;
   }
 
-  :root.dark,
-  .dark,
-  html.dark {
-    --background: #1a1a1a;
-    --foreground: #f5f5f4;
-    --muted: color-mix(in oklch, #f5f5f4 50%, transparent);
-    --subtle: color-mix(in oklch, #f5f5f4 28%, transparent);
-    --faint: color-mix(in oklch, #f5f5f4 5%, transparent);
-    --hairline: color-mix(in oklch, #f5f5f4 7%, transparent);
-    --accent: oklch(70.5% .213 47.604); /* Cloudflare Orange accent */
+  .dark {
+    --background: #0a0a0a;
+    --foreground: #fafafa;
+    --card: #0a0a0a;
+    --card-foreground: #fafafa;
+    --popover: #0a0a0a;
+    --popover-foreground: #fafafa;
+    --primary: #fafafa;
+    --primary-foreground: #171717;
+    --secondary: #262626;
+    --secondary-foreground: #fafafa;
+    --muted: #262626;
+    --muted-foreground: #a3a3a3;
+    --accent: #262626;
+    --accent-foreground: #fafafa;
+    --destructive: #7f1d1d;
+    --destructive-foreground: #fafafa;
+    --border: #262626;
+    --input: #262626;
+    --ring: #d4d4d4;
+  }
 
-    /* Shared components override tokens */
-    --editorial-bg: var(--background);
-    --editorial-fg: var(--foreground);
-    --editorial-muted: var(--muted);
-    --editorial-subtle: var(--subtle);
-    --editorial-faint: var(--faint);
-    --editorial-hairline: var(--hairline);
-    --editorial-accent: var(--accent);
-    --editorial-font-sans: var(--font-sans);
-    --editorial-font-serif: var(--font-sans);
-    --editorial-font-mono: var(--font-mono);
-
-    /* Premium card-v2 tokens - Dark */
-    --card-bg: #242424;
-    --card-border: rgba(255, 255, 255, 0.06);
-    --card-border-hover: rgba(255, 255, 255, 0.12);
-    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-    --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.2);
-
-    --foreground-primary: var(--foreground);
-    --foreground-secondary: var(--foreground);
-    --foreground-tertiary: var(--muted);
-    --background-primary: var(--background);
-    --background-secondary: var(--background);
-    --background-tertiary: var(--faint);
-
-    --border-strong: var(--foreground);
-    --border-subtle: var(--hairline);
-    --border-faint: var(--hairline);
-    --border: var(--hairline);
-
-    --muted-foreground: var(--muted);
-    --muted-soft: var(--subtle);
-    --primary: var(--foreground);
-    --primary-active: var(--accent);
-    --primary-disabled: var(--faint);
-    --surface-card: var(--background);
-    --surface-soft: var(--faint);
-    --body-strong: var(--foreground);
-    --body: var(--foreground);
+  * {
+    border-color: var(--border);
   }
 
   html {
-    font-family: var(--font-sans);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
   }
@@ -180,58 +59,9 @@
   body {
     background-color: var(--background);
     color: var(--foreground);
-    font-feature-settings: "ss01", "ss02", "cv01", "zero";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
     line-height: 1.55;
-  }
-
-  /* Serif is opt-in via `.font-serif` or explicit utility — body stays sans */
-  .font-serif {
-    font-family: var(--font-serif);
-    font-weight: 500;
-    letter-spacing: -0.005em;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    color: var(--foreground);
-    letter-spacing: -0.01em;
-  }
-
-  /* Tabular numerals for dates, counts, metrics */
-  .tabular-nums,
-  time,
-  .font-mono {
-    font-variant-numeric: tabular-nums;
-  }
-
-  /* Legacy utility classes — collapse to faint */
-  .bg-slate-1000 { background-color: var(--background)!important }
-  .bg-slate-950 { background-color: var(--background)!important }
-  .bg-slate-900 { background-color: var(--faint)!important }
-  .bg-slate-150 { background-color: var(--faint)!important }
-  .bg-slate-100 { background-color: var(--faint)!important }
-  .bg-slate-050 { background-color: var(--background)!important }
-
-  .bg-clay { background-color: var(--faint)!important }
-  .bg-oat { background-color: var(--faint)!important }
-  .bg-olive { background-color: var(--faint)!important }
-  .bg-cactus { background-color: var(--faint)!important }
-  .bg-sky { background-color: var(--faint)!important }
-  .bg-heather { background-color: var(--faint)!important }
-  .bg-fig { background-color: var(--faint)!important }
-  .bg-coral { background-color: var(--faint)!important }
-
-  ::selection {
-    background-color: var(--foreground);
-    color: var(--background);
-  }
-
-  html.dark body {
-    background-color: var(--background);
-    color: var(--foreground);
-    color-scheme: dark;
   }
 }
 
@@ -252,48 +82,26 @@
     overflow: hidden;
   }
 
-  /* Accent underline that grows on hover */
-  .link-underline {
-    background-image: linear-gradient(var(--accent), var(--accent));
-    background-position: 0 100%;
-    background-repeat: no-repeat;
-    background-size: 0% 1px;
-    transition: background-size 200ms ease-out;
+  /* Spotify soundwave keyframes */
+  @keyframes spotify-bar-1 {
+    0%, 100% { height: 4px; }
+    50% { height: 16px; }
   }
-  .link-underline:hover,
-  .link-underline:focus-visible {
-    background-size: 100% 1px;
+  @keyframes spotify-bar-2 {
+    0%, 100% { height: 12px; }
+    50% { height: 6px; }
   }
-
-  /* Active route accent mark */
-  .nav-link[data-active="true"] {
-    color: var(--foreground);
+  @keyframes spotify-bar-3 {
+    0%, 100% { height: 8px; }
+    50% { height: 18px; }
   }
-  .nav-link[data-active="true"]::after {
-    content: "";
-    display: block;
-    height: 1px;
-    width: 100%;
-    background: var(--accent);
-    margin-top: 2px;
+  @keyframes spotify-bar-4 {
+    0%, 100% { height: 14px; }
+    50% { height: 4px; }
   }
 
-  /* Premium v2 card styling */
-  .card-v2 {
-    background-color: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--card-shadow);
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .card-v2:hover {
-    border-color: var(--card-border-hover);
-    box-shadow: var(--card-shadow-hover);
-    transform: translateY(-1px);
-  }
-
-  .card-v2:active {
-    transform: translateY(0);
-  }
+  .animate-spotify-1 { animation: spotify-bar-1 1.2s ease-in-out infinite; }
+  .animate-spotify-2 { animation: spotify-bar-2 0.8s ease-in-out infinite; }
+  .animate-spotify-3 { animation: spotify-bar-3 1.0s ease-in-out infinite; }
+  .animate-spotify-4 { animation: spotify-bar-4 1.4s ease-in-out infinite; }
 }

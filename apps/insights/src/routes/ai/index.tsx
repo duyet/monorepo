@@ -80,7 +80,7 @@ function AiPage() {
         description="Claude Code usage patterns, token consumption, model mix, and estimated spend trends."
       />
 
-      <div className="editorial-fade-up mb-12">
+      <div className="mb-12">
         <InsightsNotice
           title="Cost note"
           body="This is a token-based simulation view. It does not represent direct billing totals."
@@ -126,7 +126,7 @@ function AiPage() {
           <CCUsageDailyTableView activity={activityRaw} days={days} />
         </InsightsSection>
 
-        <p className="border-t border-[color:var(--hairline)] pt-6 text-xs italic text-[color:var(--muted)]">
+        <p className="border-t pt-6 text-xs italic text-muted-foreground">
           Source: Claude Code &middot; updated{" "}
           {new Date().toISOString().slice(0, 10)}.
         </p>

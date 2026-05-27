@@ -2,11 +2,9 @@ import "@duyet/components/styles.css";
 import "../../app/globals.css";
 import "../../styles/blog-design.css";
 
-import { SiteNavV2 } from "@duyet/components";
+import { SiteFooter, SiteHeader } from "@duyet/components";
 import Analytics from "@duyet/components/Analytics";
-import Footer from "@duyet/components/Footer";
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import { duyetUrls } from "@duyet/urls";
 import {
   createRootRoute,
   HeadContent,
@@ -18,32 +16,32 @@ import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center px-6 bg-[var(--em-background)]">
+    <div className="flex min-h-screen items-center justify-center px-6 bg-background">
       <div className="max-w-md text-center">
-        <p className="mb-4 text-xs uppercase tracking-[0.16em] text-[color:var(--em-muted)]">
+        <p className="mb-4 text-xs uppercase tracking-[0.16em] text-muted-foreground">
           404
         </p>
-        <h1 className="font-editorial-serif mb-3 text-4xl font-medium tracking-tight text-[color:var(--em-foreground)] sm:text-5xl">
+        <h1 className="mb-3 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
           Page not found
         </h1>
-        <p className="mb-8 text-sm text-[color:var(--em-muted)]">
+        <p className="mb-8 text-sm text-muted-foreground">
           The page you're looking for has moved or never existed.
         </p>
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <a
             href="/"
-            className="text-sm font-medium text-[color:var(--em-foreground)] underline decoration-[color:var(--em-accent)] decoration-1 underline-offset-4 transition-colors hover:text-[color:var(--em-accent)]"
+            className="text-sm font-medium text-foreground underline decoration-border decoration-1 underline-offset-4 transition-colors hover:text-muted-foreground"
           >
             Back to blog
           </a>
-          <span aria-hidden className="text-[color:var(--em-subtle)]">
+          <span aria-hidden className="text-muted-foreground">
             ·
           </span>
           <a
             href="https://duyet.net"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-[color:var(--em-muted)] transition-colors hover:text-[color:var(--em-foreground)]"
+            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             duyet.net
           </a>
@@ -53,72 +51,12 @@ function NotFoundComponent() {
   );
 }
 
-interface BlogNavItem {
-  name: string;
-  href: string;
-  external?: boolean;
-  matchPrefix?: string;
-}
-
-const blogNavItems: BlogNavItem[] = [
-  { name: "Latest", href: "/", matchPrefix: "/" },
-  { name: "Archives", href: "/archives/", matchPrefix: "/archives" },
-  { name: "Featured", href: "/featured/", matchPrefix: "/featured" },
-  { name: "Series", href: "/series/", matchPrefix: "/series" },
-  { name: "Tags", href: "/tags/", matchPrefix: "/tags" },
-  { name: "Search", href: "/search/", matchPrefix: "/search" },
-  { name: "About", href: "/about/", matchPrefix: "/about" },
-  { name: "Duyet.net", href: duyetUrls.apps.home, external: true },
+const siteFooterLinks = [
+  { label: "Home", href: "https://duyet.net" },
+  { label: "Blog", href: "https://blog.duyet.net" },
+  { label: "CV", href: "https://cv.duyet.net" },
+  { label: "Insights", href: "https://insights.duyet.net" },
 ];
-
-function EditorialNav() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
-
-  const isActive = (item: BlogNavItem) => {
-    if (item.external) return false;
-    if (item.matchPrefix === "/") {
-      return pathname === "/" || pathname === "";
-    }
-    if (!item.matchPrefix) return false;
-    return (
-      pathname === item.matchPrefix ||
-      pathname.startsWith(`${item.matchPrefix}/`)
-    );
-  };
-
-  const navLinks = blogNavItems.map((item) => ({
-    name: item.name,
-    href: item.href,
-    active: isActive(item),
-  }));
-
-  return (
-    <SiteNavV2
-      brandText="Duyet Le"
-      brandHref="/"
-      activeApp="blog"
-      links={navLinks}
-    />
-  );
-}
-
-function BotCredit() {
-  return (
-    <div className="em-bot-credit" role="contentinfo">
-      <em>
-        This site is auto-driven and auto-designed by the{" "}
-        <a
-          href="https://github.com/duyetbot"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          duyetbot
-        </a>{" "}
-        agent.
-      </em>
-    </div>
-  );
-}
 
 export const Route = createRootRoute({
   head: () => ({
@@ -135,19 +73,6 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "icon", href: "/favicon.ico" },
-      { rel: "dns-prefetch", href: "https://fonts.googleapis.com" },
-      { rel: "dns-prefetch", href: "https://fonts.gstatic.com" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
-      },
-      {
-        rel: "preload",
-        as: "style",
-        href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-      },
       {
         rel: "alternate",
         type: "application/rss+xml",
@@ -160,29 +85,38 @@ export const Route = createRootRoute({
   component: RootComponent,
 });
 
+const blogLocalNav = [
+  { label: "Latest", href: "/" },
+  { label: "Archives", href: "/archives" },
+  { label: "Categories", href: "/category" },
+  { label: "Tags", href: "/tags" },
+  { label: "Series", href: "/series" },
+  { label: "AI", href: "/ai" },
+  { label: "RSS", href: "/rss.xml", external: true },
+];
+
 function RootComponent() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
   return (
     <html lang="en">
       <head>
         <HeadContent />
-        {/* Non-blocking Google Fonts: preloaded above, applied here */}
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-          media="print"
-          // @ts-expect-error onLoad is valid on link elements
-          onLoad="this.media='all'"
-        />
       </head>
       <body>
         <ThemeProvider>
-          <div className="blog-editorial-shell min-h-screen subpixel-antialiased">
-            <EditorialNav />
-            <main className="relative z-10 pb-12">
+          <div className="blog-editorial-shell min-h-screen relative bg-background text-foreground overflow-x-hidden flex flex-col justify-between subpixel-antialiased">
+            <SiteHeader
+              currentApp="blog"
+              localNav={blogLocalNav}
+              activeHref={pathname}
+            />
+
+            <main className="relative z-10 pb-12 flex-grow">
               <Outlet />
             </main>
-            <BotCredit />
-            <Footer />
+
+            <SiteFooter links={siteFooterLinks} />
             <Analytics />
             <ServiceWorkerRegister />
           </div>

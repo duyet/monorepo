@@ -1,8 +1,27 @@
-import { ArrowSquareOut } from "@phosphor-icons/react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import {
+  BarChart2,
+  Bot,
+  BookOpen,
+  BrainCircuit,
+  Cloud,
+  Code2,
+  Database,
+  GitBranch,
+  GitFork,
+  Globe,
+  Link as LinkIcon,
+  Package,
+  Plug,
+  Puzzle,
+  Rss,
+  Share2,
+  Star,
+  Terminal,
+  Type,
+} from "lucide-react";
 import { addUtmParams } from "../../app/lib/utm";
-import { SiteFooter, SiteHeader } from "../components/SiteChrome";
 import { apps, type AppItem } from "../data/projects";
 
 export const Route = createFileRoute("/projects")({
@@ -19,71 +38,80 @@ export const Route = createFileRoute("/projects")({
   }),
 });
 
+const ICON_MAP: Record<string, ReactNode> = {
+  BarChart2: <BarChart2 size={18} />,
+  Bot: <Bot size={18} />,
+  BookOpen: <BookOpen size={18} />,
+  BrainCircuit: <BrainCircuit size={18} />,
+  Cloud: <Cloud size={18} />,
+  Code2: <Code2 size={18} />,
+  Database: <Database size={18} />,
+  GitBranch: <GitBranch size={18} />,
+  Github: <GitFork size={18} />,
+  Globe: <Globe size={18} />,
+  Link: <LinkIcon size={18} />,
+  Package: <Package size={18} />,
+  Plug: <Plug size={18} />,
+  Puzzle: <Puzzle size={18} />,
+  Rss: <Rss size={18} />,
+  Share2: <Share2 size={18} />,
+  Star: <Star size={18} />,
+  Terminal: <Terminal size={18} />,
+  Type: <Type size={18} />,
+};
+
+function projectIcon(item: AppItem): ReactNode {
+  if (item.iconName && ICON_MAP[item.iconName]) {
+    return ICON_MAP[item.iconName];
+  }
+  if (item.host === "github.com") {
+    return ICON_MAP.Github;
+  }
+  return ICON_MAP.Globe;
+}
+
 function ProjectsPage() {
   return (
-    <div className="min-h-screen bg-[color:var(--background)] text-[color:var(--foreground)]">
-      <SiteHeader />
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
 
-      <main className="mx-auto max-w-[1200px] px-6 pt-24 pb-20 md:px-8 md:pt-32 md:pb-32">
-        <header className="max-w-3xl mb-16">
-          <h1 className="text-4xl font-medium tracking-tight md:text-5xl text-[color:var(--foreground)]">
+      <main className="mx-auto max-w-[1040px] px-6 py-12 md:py-16 md:px-8">
+        <header className="mb-12">
+          <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+            Directory · {apps.length} projects
+          </p>
+          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight mt-3">
             Projects
           </h1>
-          <p className="mt-6 max-w-2xl text-lg text-[color:var(--muted)] leading-relaxed">
+          <p className="mt-3 max-w-xl text-sm text-muted-foreground leading-relaxed">
             A complete list of public project surfaces across data engineering,
             AI infrastructure, analytics, and developer tooling.
           </p>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {apps.map((item, i) => (
-            <ProjectCard key={item.name} item={item} index={i} />
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border border">
+          {apps.map((item) => (
+            <li key={item.name} className="bg-background">
+              <ProjectLink item={item}>
+                <article className="flex h-full flex-col gap-2 p-5 transition-colors hover:bg-muted">
+                  <span className="text-muted-foreground">
+                    {projectIcon(item)}
+                  </span>
+                  <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
+                    {item.domain || item.host}
+                  </p>
+                  <h2 className="text-base font-medium tracking-tight">
+                    {item.name}
+                  </h2>
+                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                    {item.description}
+                  </p>
+                </article>
+              </ProjectLink>
+            </li>
           ))}
-        </div>
+        </ul>
       </main>
-      <SiteFooter />
-    </div>
-  );
-}
 
-function ProjectCard({ item, index }: { item: AppItem; index: number }) {
-  return (
-    <div
-      className="card-v2 p-5 flex flex-col justify-between h-full group animate-fade-in relative"
-      style={{ animationDelay: `${index * 20}ms` }}
-    >
-      <ProjectLink item={item}>
-        <div className="flex flex-col gap-3">
-          <div className="flex items-start justify-between gap-3">
-            <h2 className="font-semibold text-lg tracking-tight text-[color:var(--foreground)] group-hover:text-[color:var(--accent)] transition-colors duration-150">
-              {item.name}
-            </h2>
-            <span className="text-[color:var(--muted)] group-hover:text-[color:var(--accent)] transition-colors duration-150">
-              <ArrowSquareOut size={18} weight="bold" />
-            </span>
-          </div>
-          <p className="text-sm text-[color:var(--muted)] leading-relaxed line-clamp-3">
-            {item.description}
-          </p>
-        </div>
-
-        <div className="mt-6 border-t border-[color:var(--hairline)] pt-3 flex items-center justify-between text-[11px] font-mono text-[color:var(--subtle)]">
-          <span className="truncate max-w-[200px]" title={item.host}>
-            <span>{item.host}</span>
-            {item.domain && item.domain !== item.host ? (
-              <>
-                <span aria-hidden="true"> · </span>
-                <span className="text-[color:var(--muted)] transition-colors duration-200 ease-out group-hover:text-[color:var(--accent)]">
-                  {item.domain}
-                </span>
-              </>
-            ) : null}
-          </span>
-          <span className="text-[color:var(--accent)] font-semibold uppercase tracking-wider text-[9px] bg-[color:var(--accent)]/10 px-2 py-0.5 rounded-full">
-            Live
-          </span>
-        </div>
-      </ProjectLink>
     </div>
   );
 }
@@ -101,7 +129,7 @@ function ProjectLink({
     return (
       <a
         href={href}
-        className="block no-underline h-full"
+        className="block h-full no-underline"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -111,7 +139,7 @@ function ProjectLink({
   }
 
   return (
-    <Link to={href} className="block no-underline h-full">
+    <Link to={href} className="block h-full no-underline">
       {children}
     </Link>
   );

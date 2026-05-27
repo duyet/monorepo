@@ -1,12 +1,11 @@
 import type { Series } from "@duyet/interfaces";
 import { cn } from "@duyet/libs/utils";
-import "@/styles/post-reader.css";
 
 export function SeriesBox({
   series,
   current,
   className,
-  tone = "light",
+  tone,
   showTitle = true,
 }: {
   series: Series | null;
@@ -22,36 +21,72 @@ export function SeriesBox({
   void tone;
 
   return (
-    <aside
+    <section
       aria-label={`Series: ${name}`}
-      className={cn("series-block", className)}
+      className={cn("mt-16 border-t pt-12", className)}
     >
-      <p className="series-label">Part of the series</p>
-
       {showTitle && (
-        <h2 className="series-title">
-          <a href={`/series/${series.slug}/`}>{name}</a>
-        </h2>
+        <header className="mb-10">
+          <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+            Part of the series
+          </p>
+          <h2 className="mt-2 text-2xl md:text-3xl font-bold tracking-tight">
+            <a
+              href={`/series/${series.slug}/`}
+              className="hover:text-muted-foreground transition-colors"
+            >
+              {name}
+            </a>
+          </h2>
+          {posts.length > 0 && (
+            <p className="mt-2 text-sm text-muted-foreground">
+              {posts.length} {posts.length === 1 ? "article" : "articles"} in
+              this series.
+            </p>
+          )}
+        </header>
       )}
-
-      <ol>
-        {posts.map(({ slug, title }) => {
+      <ol className="list-none m-0 p-0 space-y-10">
+        {posts.map(({ slug, title, excerpt }, index) => {
           const isCurrent = current === slug;
+          const num = index + 1;
           return (
             <li
-              className={cn(isCurrent && "is-current")}
               key={slug}
               aria-current={isCurrent ? "page" : undefined}
+              className="grid grid-cols-[3rem_1fr] items-start gap-6"
             >
-              {isCurrent ? (
-                <span>{title}</span>
-              ) : (
-                <a href={`${slug}/`}>{title}</a>
-              )}
+              <span
+                className={cn(
+                  "text-4xl md:text-5xl font-semibold tabular-nums leading-none",
+                  isCurrent ? "text-foreground" : "text-muted-foreground/40"
+                )}
+              >
+                {num}
+              </span>
+              <div className="min-w-0 pt-1">
+                {isCurrent ? (
+                  <p className="text-lg font-semibold tracking-tight">
+                    {title}
+                  </p>
+                ) : (
+                  <a
+                    href={`${slug}/`}
+                    className="text-lg font-semibold tracking-tight hover:text-muted-foreground transition-colors"
+                  >
+                    {title}
+                  </a>
+                )}
+                {excerpt && (
+                  <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed line-clamp-1">
+                    {excerpt}
+                  </p>
+                )}
+              </div>
             </li>
           );
         })}
       </ol>
-    </aside>
+    </section>
   );
 }
