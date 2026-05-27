@@ -17,15 +17,8 @@ import {
   Sun,
 } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "./ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
 import { Separator } from "./ui/separator";
 
 export interface SiteHeaderProps {
@@ -129,47 +122,78 @@ function AppLogo({ Icon }: { Icon: LucideIcon }) {
 
 function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
   const current = APPS.find((a) => a.key === currentApp) ?? APPS[0];
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function onDocPointerDown(e: PointerEvent) {
+      if (!containerRef.current) return;
+      if (!containerRef.current.contains(e.target as Node)) setOpen(false);
+    }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("pointerdown", onDocPointerDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onDocPointerDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="h-9 gap-2 px-2 -ml-1 hover:bg-muted/60"
-        >
-          <AppLogo Icon={current.Icon} />
-          <span className="text-sm font-semibold tracking-tight">
-            {current.name}
-          </span>
-          <ChevronsUpDown
-            aria-hidden
-            className="h-3.5 w-3.5 text-muted-foreground/70"
-          />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent
-        align="start"
-        sideOffset={6}
-        className="w-72 rounded-md border bg-popover p-1.5"
+    <div ref={containerRef} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        className={cn(
+          "inline-flex h-9 items-center gap-2 -ml-1 rounded-md px-2 text-sm font-medium",
+          "transition-colors hover:bg-muted/60 focus-visible:outline-hidden",
+          "focus-visible:ring-2 focus-visible:ring-ring",
+          open && "bg-muted/60",
+        )}
       >
-        <DropdownMenuLabel className="px-2 pt-1.5 pb-2 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
-          Switch app
-        </DropdownMenuLabel>
-        <div className="flex flex-col gap-0.5">
-          {APPS.map((app) => {
-            const isCurrent = app.key === currentApp;
-            return (
-              <DropdownMenuItem
-                key={app.key}
-                asChild
-                className={cn(
-                  "group flex items-center gap-3 rounded-sm px-2 py-2 outline-none cursor-pointer",
-                  "focus:bg-muted/70 data-[highlighted]:bg-muted/70",
-                  isCurrent && "bg-muted/40",
-                )}
-              >
-                <a href={app.href} aria-current={isCurrent ? "page" : undefined}>
+        <AppLogo Icon={current.Icon} />
+        <span className="font-semibold tracking-tight">{current.name}</span>
+        <ChevronsUpDown
+          aria-hidden
+          className={cn(
+            "h-3.5 w-3.5 text-muted-foreground/70 transition-transform",
+            open && "rotate-180",
+          )}
+        />
+      </button>
+
+      {open && (
+        <div
+          role="menu"
+          className={cn(
+            "absolute left-0 top-full z-50 mt-1.5 w-72 rounded-md border bg-popover p-1.5",
+            "shadow-none",
+          )}
+        >
+          <p className="px-2 pt-1.5 pb-2 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+            Switch app
+          </p>
+          <div className="flex flex-col gap-0.5">
+            {APPS.map((app) => {
+              const isCurrent = app.key === currentApp;
+              return (
+                <a
+                  key={app.key}
+                  href={app.href}
+                  role="menuitem"
+                  aria-current={isCurrent ? "page" : undefined}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "group flex items-center gap-3 rounded-sm px-2 py-2 outline-none",
+                    "hover:bg-muted/70 focus-visible:bg-muted/70",
+                    isCurrent && "bg-muted/40",
+                  )}
+                >
                   <AppLogo Icon={app.Icon} />
                   <div className="flex min-w-0 flex-1 flex-col leading-tight">
                     <span className="truncate text-sm font-medium text-foreground">
@@ -186,12 +210,12 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
                     />
                   )}
                 </a>
-              </DropdownMenuItem>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-      </DropdownMenuContent>
-    </DropdownMenu>
+      )}
+    </div>
   );
 }
 

@@ -1,9 +1,9 @@
 import {
   Activity,
   BarChart3,
+  BookOpen,
   Bot,
   Box,
-  BookOpen,
   Clock,
   Cloud,
   Cpu,
@@ -312,34 +312,23 @@ const stats: StatTile[] = [
   },
 ];
 
-const STACK_TAGS: { label: string; icon: LucideIcon }[] = [
-  { label: "AI Agents", icon: Bot },
-  { label: "Cloudflare", icon: Cloud },
-  { label: "ClickHouse", icon: Database },
-  { label: "Rust", icon: Cpu },
-  { label: "TypeScript", icon: FileCode },
-];
-
 function ProfileHero() {
   return (
     <section className="mb-16 md:mb-24">
-      <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
-        duyet.net · 2026
-      </p>
-      <h1 className="mt-3 text-4xl md:text-6xl font-semibold tracking-tight">
-        Duyet Le
-      </h1>
-      <p className="mt-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">
+      <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
         Data &amp; AI Engineer · Ho Chi Minh City
       </p>
+      <h1 className="mt-4 text-4xl md:text-6xl font-semibold tracking-tight">
+        Duyet Le
+      </h1>
 
-      <p className="mt-8 max-w-2xl text-lg md:text-xl leading-relaxed">
+      <p className="mt-6 max-w-2xl text-lg md:text-xl leading-relaxed text-foreground/90">
         I build autonomous{" "}
         <a
           href="https://agents.duyet.net"
           target="_blank"
           rel="noopener noreferrer"
-          className="font-semibold underline underline-offset-4 decoration-muted-foreground/40 hover:decoration-foreground"
+          className="font-medium underline underline-offset-4 decoration-muted-foreground/40 hover:decoration-foreground"
         >
           agents
         </a>{" "}
@@ -349,7 +338,7 @@ function ProfileHero() {
           href="https://blog.duyet.net"
           target="_blank"
           rel="noopener noreferrer"
-          className="font-semibold underline underline-offset-4 decoration-muted-foreground/40 hover:decoration-foreground"
+          className="font-medium underline underline-offset-4 decoration-muted-foreground/40 hover:decoration-foreground"
         >
           blog
         </a>
@@ -358,33 +347,19 @@ function ProfileHero() {
           href="https://insights.duyet.net"
           target="_blank"
           rel="noopener noreferrer"
-          className="font-semibold underline underline-offset-4 decoration-muted-foreground/40 hover:decoration-foreground"
+          className="font-medium underline underline-offset-4 decoration-muted-foreground/40 hover:decoration-foreground"
         >
           insights
         </a>
         , and open-source the rest in{" "}
         <Link
           to="/projects"
-          className="font-semibold underline underline-offset-4 decoration-muted-foreground/40 hover:decoration-foreground"
+          className="font-medium underline underline-offset-4 decoration-muted-foreground/40 hover:decoration-foreground"
         >
           projects
         </Link>
         .
       </p>
-
-      <ul className="mt-6 flex flex-wrap gap-2">
-        {STACK_TAGS.map(({ label, icon: Icon }) => (
-          <li key={label}>
-            <Badge
-              variant="outline"
-              className="gap-1.5 px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider"
-            >
-              <Icon size={12} />
-              {label}
-            </Badge>
-          </li>
-        ))}
-      </ul>
 
       <div className="mt-8 flex flex-wrap items-center gap-2">
         <Button size="sm" asChild>
@@ -399,25 +374,6 @@ function ProfileHero() {
         <Button variant="outline" size="sm" asChild>
           <Link to="/projects">Browse projects</Link>
         </Button>
-        <Button variant="ghost" size="sm" asChild>
-          <a
-            href="https://agents.duyet.net"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Try the agent <ExternalLink size={12} className="ml-1" />
-          </a>
-        </Button>
-        <span
-          className="ml-auto flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground"
-          aria-live="polite"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/70" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-          </span>
-          shipping &mdash; build optimizer (79× faster)
-        </span>
       </div>
     </section>
   );
