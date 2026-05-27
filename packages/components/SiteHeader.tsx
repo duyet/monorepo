@@ -24,7 +24,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Separator } from "./ui/separator";
@@ -134,35 +133,63 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="gap-2 px-2">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-9 gap-2 px-2 -ml-1 hover:bg-muted/60"
+        >
           <AppLogo Icon={current.Icon} />
-          <span className="text-sm font-semibold">{current.name}</span>
-          <ChevronsUpDown className="h-3.5 w-3.5 text-muted-foreground" />
+          <span className="text-sm font-semibold tracking-tight">
+            {current.name}
+          </span>
+          <ChevronsUpDown
+            aria-hidden
+            className="h-3.5 w-3.5 text-muted-foreground/70"
+          />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-72">
-        <DropdownMenuLabel>Apps</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        {APPS.map((app) => (
-          <DropdownMenuItem
-            key={app.key}
-            className="flex items-center gap-3 py-2"
-            onSelect={() => {
-              window.location.href = app.href;
-            }}
-          >
-            <AppLogo Icon={app.Icon} />
-            <div className="flex min-w-0 flex-1 flex-col">
-              <span className="text-sm font-medium">{app.name}</span>
-              <span className="text-xs font-mono text-muted-foreground">
-                {app.subdomain}
-              </span>
-            </div>
-            {app.key === currentApp && (
-              <Check className="h-4 w-4 shrink-0" />
-            )}
-          </DropdownMenuItem>
-        ))}
+      <DropdownMenuContent
+        align="start"
+        sideOffset={6}
+        className="w-72 rounded-md border bg-popover p-1.5"
+      >
+        <DropdownMenuLabel className="px-2 pt-1.5 pb-2 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+          Switch app
+        </DropdownMenuLabel>
+        <div className="flex flex-col gap-0.5">
+          {APPS.map((app) => {
+            const isCurrent = app.key === currentApp;
+            return (
+              <DropdownMenuItem
+                key={app.key}
+                asChild
+                className={cn(
+                  "group flex items-center gap-3 rounded-sm px-2 py-2 outline-none cursor-pointer",
+                  "focus:bg-muted/70 data-[highlighted]:bg-muted/70",
+                  isCurrent && "bg-muted/40",
+                )}
+              >
+                <a href={app.href} aria-current={isCurrent ? "page" : undefined}>
+                  <AppLogo Icon={app.Icon} />
+                  <div className="flex min-w-0 flex-1 flex-col leading-tight">
+                    <span className="truncate text-sm font-medium text-foreground">
+                      {app.name}
+                    </span>
+                    <span className="truncate text-[11px] font-mono text-muted-foreground/80">
+                      {app.subdomain}
+                    </span>
+                  </div>
+                  {isCurrent && (
+                    <Check
+                      aria-hidden
+                      className="h-3.5 w-3.5 shrink-0 text-foreground"
+                    />
+                  )}
+                </a>
+              </DropdownMenuItem>
+            );
+          })}
+        </div>
       </DropdownMenuContent>
     </DropdownMenu>
   );

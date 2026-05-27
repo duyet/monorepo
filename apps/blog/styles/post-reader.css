@@ -50,8 +50,12 @@
 
 /* ----------- Prose: narrow measure, generous leading -------------- */
 
+/* The body wrapper spans the wider track; text stays at ~68ch through
+ * the CSS-grid below, while figures/images/tables can break out to fill
+ * the full available width. Keeps a reading-friendly column without
+ * starving wide media of space. */
 .post-reader .post-body {
-  max-width: 68ch;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -60,6 +64,84 @@
   font-size: 1.0625rem;
   line-height: 1.85;
   color: var(--muted-foreground);
+
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(0, 1fr)
+    [main-start] min(68ch, 100%) [main-end]
+    minmax(0, 1fr) [full-end];
+  column-gap: 0;
+}
+
+/* Every prose child defaults to the narrow text track. */
+.post-reader .prose > * {
+  grid-column: main;
+  min-width: 0;
+}
+
+/* Wide media takes the full track and centers within it. */
+.post-reader .prose > :where(figure, table, img, video, iframe, .full-bleed),
+.post-reader .prose > p:has(> img:only-child),
+.post-reader .prose > p:has(> a > img:only-child),
+.post-reader .prose > div:has(> table) {
+  grid-column: full;
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.post-reader .prose > :is(figure, table, img, video, iframe) {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.post-reader .prose img,
+.post-reader .prose video {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  border-radius: 4px;
+}
+
+.post-reader .prose figure > img,
+.post-reader .prose figure > video {
+  margin: 0 auto;
+}
+
+.post-reader .prose figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--reader-muted);
+  text-align: center;
+}
+
+/* Tables fill the wide track; cells use compact rhythm. */
+.post-reader .prose table {
+  display: block;
+  overflow-x: auto;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.post-reader .prose table thead {
+  border-bottom: 1px solid var(--reader-hairline);
+}
+
+.post-reader .prose table th,
+.post-reader .prose table td {
+  padding: 0.625rem 0.875rem;
+  text-align: left;
+  border-bottom: 1px solid var(--reader-hairline);
+}
+
+.post-reader .prose table th {
+  font-weight: 600;
+  color: var(--reader-ink);
 }
 
 .post-reader .prose p {

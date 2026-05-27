@@ -1,4 +1,5 @@
 import type { TagCount } from "@duyet/interfaces";
+import { Card, CardContent } from "@duyet/components";
 import { getSlug } from "@duyet/libs/getSlug";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactElement } from "react";
@@ -24,7 +25,7 @@ function Tags(): ReactElement {
   const totalPosts = entries.reduce((sum, [, c]) => sum + c, 0);
 
   return (
-    <div className="px-6 md:px-8">
+    <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
       <header className="em-masthead">
         <span className="em-masthead__eyebrow">Index</span>
         <h1 className="em-masthead__title">Topics</h1>
@@ -33,7 +34,10 @@ function Tags(): ReactElement {
         </p>
       </header>
 
-      <div className="em-index">
+      <div
+        className="grid grid-cols-2 gap-px border border-border bg-border sm:grid-cols-3 lg:grid-cols-4"
+        aria-label="All tags"
+      >
         {entries.map(([tag, count], i) => {
           const style: CSSProperties = {
             animationDelay: `${Math.min(i, 20) * 20}ms`,
@@ -43,13 +47,19 @@ function Tags(): ReactElement {
               key={tag}
               to="/tag/$tag/"
               params={{ tag: getSlug(tag) }}
-              className="em-index__row editorial-enter"
+              className="editorial-enter group block bg-background transition-colors hover:bg-muted/60 focus-visible:bg-muted/60 focus-visible:outline-none"
               style={style}
             >
-              <span className="em-index__name">{tag}</span>
-              <span className="em-index__count">
-                {count} {count === 1 ? "post" : "posts"}
-              </span>
+              <Card className="h-full rounded-none border-0 bg-transparent">
+                <CardContent className="flex h-full items-center justify-between gap-3 p-4">
+                  <span className="truncate text-sm font-medium tracking-tight text-foreground group-hover:text-foreground">
+                    {tag}
+                  </span>
+                  <span className="shrink-0 font-mono text-[11px] tabular-nums text-muted-foreground">
+                    {String(count).padStart(2, "0")}
+                  </span>
+                </CardContent>
+              </Card>
             </Link>
           );
         })}

@@ -208,8 +208,8 @@ function PostPage() {
       {/* Hero */}
       <PostHero post={post} />
 
-      {/* Body */}
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      {/* Body — text stays at narrow measure (~68ch); images & tables break out to a wider track */}
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="post-body min-w-0">
           <Content post={post} />
 
