@@ -50,7 +50,7 @@ export interface SubmitApiMessageResult {
   interactionRequired: boolean;
   messages: UIMessage[];
   pendingInteractions: PendingInteraction[];
-  status: "aborted" | "completed" | "skipped";
+  status: "aborted" | "completed" | "error" | "skipped";
 }
 
 export class SessionOwnerMismatchError extends Error {

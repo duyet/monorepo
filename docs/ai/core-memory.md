@@ -153,6 +153,8 @@ This file stores durable outcomes from code-smell and dead-code automation runs.
 - Fixes applied:
   - added `links` parsing + serialization in `apps/kb/scripts/generate-static-files.ts` so generated raw markdown stays graph-complete.
   - removed stale unused imports from `apps/kb/lib/content.ts` left by the isomorphic loader refactor.
+- CI follow-up (warning -> fixed): PR validation exposed a pre-existing `apps/agent-api` type drift where `saveMessages()` can return `"error"` but `SubmitApiMessageResult["status"]` did not allow it.
+  - Evidence: GitHub Actions run `26602389118`, job `78389062594`, `src/agent.ts(273,7): error TS2322 ... Type '"error"' is not assignable`.
 - Dead-code review (confident): no zero-reference code removal was justified in the recent-change window.
   - Evidence: the touched KB generator and loader files are directly referenced by `apps/kb/package.json` and KB routes; no additional non-test zero-reference symbols were confirmed.
 - Performance audit: no measurements or traces changed in this window, so no grounded performance regression claim was made.
