@@ -7,7 +7,6 @@ import { Link } from "@tanstack/react-router";
 import type { ReactElement, ReactNode } from "react";
 import { AutoDesignedBadge } from "./auto-designed-badge";
 import Container from "./Container";
-import Logo from "./Logo";
 import Social from "./Social";
 import ThemeToggle from "./ThemeToggle";
 
@@ -46,14 +45,6 @@ function FooterLink({ href, children }: { href: string; children: ReactNode }) {
     <Link to={href} className={classes}>
       {children}
     </Link>
-  );
-}
-
-function FooterHeader({ children }: { children: ReactNode }) {
-  return (
-    <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--on-dark)]/55">
-      {children}
-    </h3>
   );
 }
 
@@ -97,84 +88,43 @@ export function FooterContent({
   urls = duyetUrls,
 }: FooterContentProps = {}) {
   const navigation = createFooterNavigation(urls, profile);
-  const localDate = new Date().toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
+  const links = [...navigation.general, ...navigation.profile];
+
   return (
     <Container>
-      <div aria-labelledby="footer-heading">
-        <h2 id="footer-heading" className="sr-only">
-          Footer
-        </h2>
+      <h2 id="footer-heading" className="sr-only">
+        Footer
+      </h2>
+      <h3 className="sr-only">Resources</h3>
 
-        <div className="grid gap-12 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1.9fr)] md:gap-14 py-8 md:py-10">
-          <div className="space-y-5">
-            <Logo className="p-0" />
-            <p className="max-w-sm text-sm leading-6 text-[var(--on-dark-soft)]">
-              Build useful systems, then explain them clearly.
-            </p>
-            <div className="pt-2">
-              <FooterLink href={`mailto:${profile.personal.email}`}>
-                Contact via email
-              </FooterLink>
-            </div>
-          </div>
+      <div className="flex flex-col items-center gap-4 text-center">
+        <p className="text-base font-semibold text-[var(--on-dark)]">
+          {profile.personal.name}
+        </p>
+        <p className="max-w-md text-sm text-[var(--on-dark-soft)]">
+          {profile.personal.bio}
+        </p>
 
-          <div className="grid gap-8 sm:grid-cols-2">
-            <div>
-              <FooterHeader>Resources</FooterHeader>
-              <ul className="ml-0 mt-4 list-none space-y-2.5">
-                {navigation.general.map((item) => (
-                  <li key={item.name}>
-                    <FooterLink href={item.href}>{item.name}</FooterLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <FooterHeader>{profile.personal.email}</FooterHeader>
-              <div className="mt-4 text-sm text-[var(--on-dark-soft)]">
-                <Social profile={profile} />
-              </div>
-              <ul className="ml-0 mt-4 list-none space-y-2.5">
-                {navigation.profile.map((item) => (
-                  <li key={item.name}>
-                    <FooterLink href={item.href}>{item.name}</FooterLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+        <div className="flex items-center gap-4 text-[var(--on-dark-soft)]">
+          <Social profile={profile} />
         </div>
 
-        <div className="flex flex-col gap-4 text-xs text-[var(--on-dark-soft)] sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            &copy; {new Date().getFullYear()} {urls.apps.home.replace(/^https?:\/\//, "")} | {" "}
-            {profile.personal.title} | {localDate}
-          </p>
+        <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+          {links.map((item) => (
+            <FooterLink key={item.name} href={item.href}>
+              {item.name}
+            </FooterLink>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-3 text-xs text-[var(--on-dark-soft)]">
+          <span>
+            &copy; {new Date().getFullYear()} {profile.personal.name}
+          </span>
           <ThemeToggle />
         </div>
 
-        <p className="mt-4 max-w-2xl text-xs leading-relaxed text-[var(--on-dark-soft)]">
-          This website is managed by{" "}
-          <a
-            href="https://github.com/duyetbot"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline underline-offset-4 hover:text-[var(--on-dark)]"
-          >
-            duyetbot
-          </a>
-          , an autonomous agent. Layout, copy, and content are subject to
-          change at any time without notice.
-        </p>
-
-        <div className="mt-6">
-          <AutoDesignedBadge />
-        </div>
+        <AutoDesignedBadge />
       </div>
     </Container>
   );
@@ -215,7 +165,7 @@ export default function Footer({
   return (
     <footer
       className={cn(
-        "bg-[var(--surface-dark)] text-[var(--on-dark)] px-5 pb-8 pt-10 sm:px-8 lg:px-10 lg:pb-10 lg:pt-12",
+        "bg-[var(--surface-dark)] text-[var(--on-dark)] px-5 py-10 sm:px-8 lg:px-10",
         className
       )}
     >
