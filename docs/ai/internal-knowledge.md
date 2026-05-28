@@ -44,6 +44,7 @@ This repository is the Bun/Turborepo monorepo for duyet.net public apps, shared 
 - `apps/ai-percentage`: AI-written-code dashboard for `https://ai-percentage.duyet.net`; data comes from `apps/data-sync`.
 - `apps/data-sync`: operational CLI for ClickHouse analytics/activity syncs and migrations.
 - `apps/agent-assistant`: Vite-powered TanStack Start application with assistant-ui + LangGraph serving as a local agent interface. Deployed directly serverless on Cloudflare Workers/Pages (`duyet-agent-assistant`) for `https://agent-assistant.duyet.net` utilizing a native Cloudflare Durable Object (`ThreadStateDO`) backed by SQLite for checkpoint persistence.
+- `apps/kb`: static TanStack Start knowledge base for `https://kb.duyet.net`, bundling `content/**/*.md` at build time and generating `llms.txt`, `llms-full.txt`, `sitemap.xml`, `robots.txt`, and raw `public/k/*.md` article endpoints.
 
 ## Shared Packages
 
@@ -73,6 +74,7 @@ This repository is the Bun/Turborepo monorepo for duyet.net public apps, shared 
 - `apps/api`: `bun run dev` uses Wrangler; `bun run deploy` builds then deploys the Worker.
 - `apps/cv`: `bun run preview` validates production output locally.
 - `apps/data-sync`: use `bun run sync <name>`, `bun run sync:all`, `bun run migrate:*`, and `bun run cleanup:dry-run`.
+- `apps/kb`: `bun run build` runs the content prebuild and must preserve article `links` frontmatter in `public/k/*.md` for knowledge-graph and LLM consumers.
 - `apps/llm-timeline`: use `bun run sync`, `bun run sync:dry`, `bun run rss`, `bun run llms-txt`, and `bun run sitemap` for content generation.
 - `apps/ai-percentage`: refresh data through `apps/data-sync` with `bun run sync ai-code-percentage`.
 

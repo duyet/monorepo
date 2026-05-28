@@ -144,3 +144,15 @@ This file stores durable outcomes from code-smell and dead-code automation runs.
   - Evidence: `bunx bun pm view @langchain/langgraph-sdk versions --json | tail -n 20` plus CI reinstall logs after re-trigger.
 - Dead-code review (needs-review): no dead code candidates were added by this follow-up; these files are now referenced by app UI runtime paths.
   - Evidence: `rg -n "from \"@radix-ui/(react-avatar|react-slot|react-collapsible|react-dialog|react-tooltip)\"|tool-fallback.tsx" apps/agent-assistant`.
+
+### 2026-05-29
+
+- Commit window scan since the last automation timestamp found no new non-merge commits after `2026-05-28T06:13:19Z`, so the review widened to the repo-approved `7 days ago` fallback.
+- Code smell review (warning -> fixed): `apps/kb/scripts/generate-static-files.ts` rebuilt `public/k/*.md` without carrying article `links` frontmatter even though KB source files and graph consumers rely on it.
+  - Evidence: source markdown under `apps/kb/content/**/*.md` includes `links: [...]`, while `generate-static-files.ts` only serialized `title`, `category`, `tags`, `summary`, and `updated` before this fix.
+- Fixes applied:
+  - added `links` parsing + serialization in `apps/kb/scripts/generate-static-files.ts` so generated raw markdown stays graph-complete.
+  - removed stale unused imports from `apps/kb/lib/content.ts` left by the isomorphic loader refactor.
+- Dead-code review (confident): no zero-reference code removal was justified in the recent-change window.
+  - Evidence: the touched KB generator and loader files are directly referenced by `apps/kb/package.json` and KB routes; no additional non-test zero-reference symbols were confirmed.
+- Performance audit: no measurements or traces changed in this window, so no grounded performance regression claim was made.
