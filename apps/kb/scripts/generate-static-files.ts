@@ -35,6 +35,7 @@ interface Article {
   title: string;
   category: string;
   tags: string[];
+  links: string[];
   summary: string;
   updated: string;
   raw: string;
@@ -76,6 +77,7 @@ for (const filePath of walkMd(CONTENT_DIR)) {
     title: typeof data.title === "string" ? data.title : slug,
     category: typeof data.category === "string" ? data.category : "uncategorized",
     tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
+    links: Array.isArray(data.links) ? data.links.map(String) : [],
     summary: typeof data.summary === "string" ? data.summary : "",
     updated: typeof data.updated === "string" ? data.updated : "",
     raw: content.trim(),
@@ -204,6 +206,7 @@ for (const article of articles) {
     `title: ${JSON.stringify(article.title)}`,
     `category: ${JSON.stringify(article.category)}`,
     article.tags.length ? `tags: [${article.tags.map((t) => JSON.stringify(t)).join(", ")}]` : "",
+    `links: [${article.links.map((link) => JSON.stringify(link)).join(", ")}]`,
     article.summary ? `summary: ${JSON.stringify(article.summary)}` : "",
     article.updated ? `updated: ${JSON.stringify(article.updated)}` : "",
     "---",

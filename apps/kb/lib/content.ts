@@ -6,7 +6,7 @@
  * (prebuild scripts), it falls back to a filesystem walk.
  */
 
-import { basename, extname, join, dirname } from "node:path";
+import { basename } from "node:path";
 import matter from "gray-matter";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
