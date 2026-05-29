@@ -20,18 +20,16 @@ async function executeServerClickHouseQuery(
   timeoutMs: number,
   maxRetries: number
 ) {
-  if (typeof window !== "undefined") {
+  if (!import.meta.env.SSR) {
     return { success: false, data: [], error: "ClickHouse is server-only" };
   }
 
-  const { executeClickHouseQuery } = await import(
-    /* @vite-ignore */ "./database"
-  );
+  const { executeClickHouseQuery } = await import("./database");
   return executeClickHouseQuery(query, timeoutMs, maxRetries);
 }
 
 async function testServerClickHouseConnection() {
-  if (typeof window !== "undefined") {
+  if (!import.meta.env.SSR) {
     return {
       success: false,
       message: "ClickHouse health check is server-only",
@@ -39,22 +37,18 @@ async function testServerClickHouseConnection() {
     };
   }
 
-  const { testClickHouseConnection } = await import(
-    /* @vite-ignore */ "./database"
-  );
+  const { testClickHouseConnection } = await import("./database");
   return testClickHouseConnection();
 }
 
 async function executeDuckDBCacheQuery(
   query: string
 ): Promise<Record<string, unknown>[]> {
-  if (typeof window !== "undefined") {
+  if (!import.meta.env.SSR) {
     return [];
   }
 
-  const { executeDuckDBQuery } = await import(
-    /* @vite-ignore */ "./duckdb-cache"
-  );
+  const { executeDuckDBQuery } = await import("./duckdb-cache");
   return executeDuckDBQuery(query);
 }
 
