@@ -62,8 +62,9 @@ export default function LazyImage({
         }
       },
       {
-        // Load images when they're 200px away from entering viewport
-        rootMargin: "200px",
+        // Load images well before they enter the viewport so fast scrolling
+        // doesn't leave large dark gaps of unloaded skeletons.
+        rootMargin: "1200px",
         threshold: 0.01,
       }
     );
