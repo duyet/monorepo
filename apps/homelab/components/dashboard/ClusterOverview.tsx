@@ -24,7 +24,7 @@ export function ClusterOverview() {
             <p className="mt-2 text-2xl font-semibold text-neutral-950 dark:text-foreground">
               {clusterStats.totalNodes}
             </p>
-            <p className="mt-1 text-xs text-emerald-700 dark:text-emerald-700">
+            <p className="mt-1 text-xs text-emerald-700 dark:text-emerald-400">
               {clusterStats.onlineNodes} online
             </p>
           </div>
@@ -42,7 +42,7 @@ export function ClusterOverview() {
             <p className="mt-2 text-2xl font-semibold text-neutral-950 dark:text-foreground">
               {clusterStats.totalServices}
             </p>
-            <p className="mt-1 text-xs text-emerald-700 dark:text-emerald-700">
+            <p className="mt-1 text-xs text-emerald-700 dark:text-emerald-400">
               {clusterStats.runningServices} running
             </p>
           </div>

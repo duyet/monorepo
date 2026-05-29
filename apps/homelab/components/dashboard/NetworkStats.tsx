@@ -64,8 +64,8 @@ export function NetworkStats() {
           {/* Ping — violet */}
           <div className="rounded-xl border border-[#dddafe] bg-[#f3f2ff] p-4 dark:border-violet-900/40 dark:bg-violet-950/30">
             <div className="flex items-center gap-2">
-              <Gauge className="h-4 w-4 text-violet-600 dark:text-violet-600" />
-              <p className="text-xs font-medium text-violet-700 dark:text-violet-700">
+              <Gauge className="h-4 w-4 text-violet-600 dark:text-violet-400" />
+              <p className="text-xs font-medium text-violet-700 dark:text-violet-300">
                 Ping
               </p>
             </div>
@@ -117,9 +117,10 @@ export function NetworkStats() {
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: "rgba(255, 255, 255, 0.95)",
-                border: "1px solid #e5e5e5",
+                backgroundColor: "var(--card)",
+                border: "1px solid var(--border)",
                 borderRadius: "8px",
+                color: "var(--card-foreground)",
                 fontSize: "12px",
               }}
               formatter={(value) => formatTrafficValue(value)}
