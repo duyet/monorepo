@@ -17,7 +17,7 @@
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
+    border-color: var(--border, currentcolor);
   }
 
   /* Unified dark mode CSS variables for consistent theming across all apps */
