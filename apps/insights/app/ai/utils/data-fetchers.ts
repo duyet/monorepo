@@ -455,10 +455,14 @@ export async function getCCUsageProjects(
   days: DateRangeDays = 30
 ): Promise<CCUsageProjectData[]> {
   const safeDays = validateDaysParameter(days);
+  // Table-qualify the column: the SELECT aliases MAX(last_activity) AS
+  // last_activity, which shadows the raw column. ClickHouse resolves an
+  // unqualified WHERE reference to that aggregate alias and rejects it
+  // ("aggregate function ... found in WHERE"). Qualifying forces the column.
   const intervalClause =
     safeDays === "all"
       ? ""
-      : `WHERE last_activity >= today() - INTERVAL ${safeDays} DAY`;
+      : `WHERE ccusage_usage_sessions.last_activity >= today() - INTERVAL ${safeDays} DAY`;
   const query = `
     SELECT
       session_id,
@@ -481,7 +485,7 @@ export async function getCCUsageProjects(
       SUM(total_cost) as total_cost,
       MAX(last_activity) as last_activity
     FROM ccusage_usage_sessions
-    ${getDuckDBDateCondition(days, "last_activity")}
+    ${getDuckDBDateCondition(days, "ccusage_usage_sessions.last_activity")}
     GROUP BY session_id, project_path
     ORDER BY total_tokens DESC
     LIMIT 15
