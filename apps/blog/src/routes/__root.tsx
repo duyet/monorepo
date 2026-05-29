@@ -91,8 +91,6 @@ const blogLocalNav = [
   { label: "Categories", href: "/category" },
   { label: "Tags", href: "/tags" },
   { label: "Series", href: "/series" },
-  { label: "AI", href: "/ai" },
-  { label: "RSS", href: "/rss.xml", external: true },
 ];
 
 function RootComponent() {
