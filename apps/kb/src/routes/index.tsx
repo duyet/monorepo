@@ -89,7 +89,10 @@ function IndexPage() {
           </div>
           <ul className="divide-y divide-border">
             {recent.map((article) => (
-              <li key={article.slug} className="py-3">
+              <li
+                key={article.slug}
+                className="py-3 px-2 -mx-2 rounded-md hover:bg-muted/60 transition-colors"
+              >
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <Link

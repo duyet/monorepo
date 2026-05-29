@@ -6,6 +6,7 @@
  * requires the async unified().process() path.
  */
 
+import rehypeHighlight from "rehype-highlight";
 import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
 import remarkGfm from "remark-gfm";
@@ -18,6 +19,7 @@ const processor = unified()
   .use(remarkGfm)
   .use(remarkRehype, { allowDangerousHtml: false })
   .use(rehypeSlug)
+  .use(rehypeHighlight, { detect: true, ignoreMissing: true })
   .use(rehypeStringify);
 
 export async function markdownToHtml(markdown: string): Promise<string> {

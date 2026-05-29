@@ -5,9 +5,7 @@ tags: ["getting-started", "overview"]
 links: []
 summary: "An introduction to the duyet.net knowledge base — what it covers, how it is organized, and how to navigate it."
 updated: "2026-05-26"
----
-
-# Welcome to the Knowledge Base
+---# Welcome to the Knowledge Base
 
 This knowledge base documents the [duyet/monorepo](https://github.com/duyet/monorepo) — a Bun + Turborepo monorepo hosting all personal web apps and shared packages.
 
