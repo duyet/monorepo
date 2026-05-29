@@ -69,15 +69,15 @@ export function FilterInfo({
         <div className="flex items-center gap-2">
           {/* Filter toggle */}
           {onLicenseChange && (
-            <button
-              onClick={() => setFiltersExpanded(!filtersExpanded)}
-              className={cn(
-                "flex h-10 items-center gap-2 rounded-lg border px-3 text-sm font-medium transition-all",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+            <Button
+              variant={
                 filtersExpanded || activeFilterCount > 0
-                  ? "border-foreground/20 bg-accent text-foreground"
-                  : "border-border bg-card text-muted-foreground hover:border-foreground/20 hover:bg-accent/50"
-              )}
+                  ? "secondary"
+                  : "outline"
+              }
+              onClick={() => setFiltersExpanded(!filtersExpanded)}
+              className="h-10 rounded-lg"
+              aria-expanded={filtersExpanded}
             >
               <SlidersHorizontal className="h-4 w-4" />
               <span className="hidden sm:inline">Filters</span>
@@ -95,19 +95,14 @@ export function FilterInfo({
                   filtersExpanded && "rotate-180"
                 )}
               />
-            </button>
+            </Button>
           )}
 
           {/* View toggle */}
-          <button
+          <Button
+            variant={liteMode ? "secondary" : "outline"}
             onClick={toggleLiteMode}
-            className={cn(
-              "flex h-10 items-center gap-2 rounded-lg border px-3 text-sm font-medium transition-all",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-              liteMode
-                ? "border-foreground/20 bg-accent text-foreground"
-                : "border-border bg-card text-muted-foreground hover:border-foreground/20 hover:bg-accent/50"
-            )}
+            className="h-10 rounded-lg"
             title={liteMode ? "Switch to full view" : "Switch to compact view"}
           >
             {liteMode ? (
@@ -118,7 +113,7 @@ export function FilterInfo({
             <span className="hidden sm:inline">
               {liteMode ? "Compact" : "Full"}
             </span>
-          </button>
+          </Button>
         </div>
       </div>
 

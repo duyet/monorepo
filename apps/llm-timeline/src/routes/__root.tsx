@@ -12,6 +12,7 @@ import {
   Scripts,
   useRouterState,
 } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
 
 function NotFoundComponent() {
   return (
@@ -27,20 +28,14 @@ function NotFoundComponent() {
           The page you are looking for does not exist or has been moved.
         </p>
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-          <a
-            href="/"
-            className="rounded-xl px-6 py-2 font-medium transition-all hover:opacity-90 bg-foreground text-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-          >
-            Go to timeline
-          </a>
-          <a
-            href="https://duyet.net"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-xl border border-border px-6 py-2 font-medium transition-all hover:opacity-80 text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-          >
-            duyet.net
-          </a>
+          <Button asChild size="lg">
+            <a href="/">Go to timeline</a>
+          </Button>
+          <Button asChild variant="outline" size="lg">
+            <a href="https://duyet.net" target="_blank" rel="noopener noreferrer">
+              duyet.net
+            </a>
+          </Button>
         </div>
       </div>
     </div>

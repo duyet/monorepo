@@ -87,15 +87,13 @@ export function Filters({
 
         <div className="flex items-center gap-2">
           {/* Filter toggle */}
-          <button
+          <Button
+            variant={
+              filtersExpanded || activeFilterCount > 0 ? "secondary" : "outline"
+            }
             onClick={() => setFiltersExpanded(!filtersExpanded)}
-            className={cn(
-              "flex h-10 items-center gap-2 rounded-lg border px-3 text-sm font-medium transition-all",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-              filtersExpanded || activeFilterCount > 0
-                ? "border-foreground/20 bg-accent text-foreground"
-                : "border-border bg-card text-muted-foreground hover:border-foreground/20 hover:bg-accent/50"
-            )}
+            className="h-10 rounded-lg"
+            aria-expanded={filtersExpanded}
           >
             <SlidersHorizontal className="h-4 w-4" />
             <span className="hidden sm:inline">Filters</span>
@@ -113,7 +111,7 @@ export function Filters({
                 filtersExpanded && "rotate-180"
               )}
             />
-          </button>
+          </Button>
 
           {/* View toggle */}
           {onLiteModeToggle && (
@@ -211,14 +209,15 @@ export function Filters({
             </Select>
 
             {hasActiveFilters && (
-              <button
+              <Button
+                variant="outline"
                 onClick={onClearFilters || clearFilters}
-                className="flex h-9 items-center justify-center gap-1.5 rounded-lg border border-border bg-card px-3 text-sm text-muted-foreground transition-all hover:text-foreground hover:border-foreground/20"
+                className="h-9 rounded-lg text-muted-foreground"
                 aria-label="Clear all filters"
               >
                 <X className="h-3.5 w-3.5" />
                 Clear
-              </button>
+              </Button>
             )}
           </div>
         </div>
@@ -240,15 +239,21 @@ export function Filters({
             </span>
           )}
         </div>
-        <a
-          href="/data.json"
-          download="llm-timeline-data.json"
-          className="flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
-          title="Download all model data as JSON"
+        <Button
+          asChild
+          variant="ghost"
+          size="sm"
+          className="h-auto gap-1.5 px-0 text-xs text-muted-foreground hover:bg-transparent hover:text-foreground [&_svg]:size-3"
         >
-          <Download className="h-3 w-3" />
-          Export JSON
-        </a>
+          <a
+            href="/data.json"
+            download="llm-timeline-data.json"
+            title="Download all model data as JSON"
+          >
+            <Download className="h-3 w-3" />
+            Export JSON
+          </a>
+        </Button>
       </div>
     </div>
   );

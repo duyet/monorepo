@@ -9,6 +9,16 @@ import { useMemo, useState } from "react";
 import { PageLayout } from "@/components/page-layout";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import type { Model } from "@/lib/data";
 import { models } from "@/lib/data";
 import {
@@ -158,165 +168,168 @@ function ComparePage() {
             {sortedModels.map((model) => (
               <div
                 key={model.name}
-                className="flex items-center gap-2 px-3 py-2 rounded-xl border border-border bg-card text-foreground"
+                className="flex items-center gap-2 rounded-xl border border-border bg-card py-1.5 pl-3 pr-1.5 text-foreground"
               >
                 <span className="font-medium">{model.name}</span>
-                <button
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-7 w-7 text-muted-foreground"
                   onClick={() => removeModel(model.name)}
-                  className="p-1 rounded text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
                   aria-label={`Remove ${model.name}`}
                 >
                   <X className="h-4 w-4" />
-                </button>
+                </Button>
               </div>
             ))}
             {selectedModels.length < MAX_COMPARE && (
-              <button
+              <Button
+                variant="outline"
                 onClick={() => setShowSelector(!showSelector)}
-                className="flex items-center gap-2 px-3 py-2 rounded-xl border border-dashed border-border hover:bg-accent transition-colors text-muted-foreground"
+                className="border-dashed text-muted-foreground"
               >
                 <Plus className="h-4 w-4" />
-                <span>
-                  {selectedModels.length === 0
-                    ? "Add models to compare"
-                    : "Add another"}
-                </span>
-              </button>
+                {selectedModels.length === 0
+                  ? "Add models to compare"
+                  : "Add another"}
+              </Button>
             )}
           </div>
 
           {showSelector && (
-            <div className="mb-4 p-4 rounded-xl border border-border bg-card">
-              <div className="flex items-center gap-2 mb-3">
-                <Search className="h-4 w-4 text-muted-foreground" />
-                <input
-                  type="text"
-                  placeholder="Search models by name or organization..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="flex-1 px-3 py-2 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground"
-                />
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setShowSelector(false)}
-                >
-                  Cancel
-                </Button>
-              </div>
-              <div className="max-h-64 overflow-y-auto space-y-0.5">
-                {availableModels.length === 0 ? (
-                  <p className="text-center py-4 text-muted-foreground">
-                    No matching models found
-                  </p>
-                ) : (
-                  availableModels.slice(0, 50).map((model) => (
-                    <button
-                      key={model.name}
-                      onClick={() => addModel(model)}
-                      className="w-full text-left px-3 py-2 rounded-lg hover:bg-accent transition-colors flex items-center justify-between text-foreground"
-                    >
-                      <div className="flex-1 min-w-0">
-                        <div className="font-medium truncate">{model.name}</div>
-                        <div className="text-sm truncate text-muted-foreground">
-                          {model.org}
-                          {model.params && ` · ${model.params}`}
+            <Card className="mb-4">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
+                  <Input
+                    type="text"
+                    placeholder="Search models by name or organization..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="h-9 flex-1 rounded-lg"
+                  />
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowSelector(false)}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+                <div className="max-h-64 overflow-y-auto space-y-0.5">
+                  {availableModels.length === 0 ? (
+                    <p className="text-center py-4 text-muted-foreground">
+                      No matching models found
+                    </p>
+                  ) : (
+                    availableModels.slice(0, 50).map((model) => (
+                      <Button
+                        key={model.name}
+                        variant="ghost"
+                        onClick={() => addModel(model)}
+                        className="h-auto w-full justify-between rounded-lg px-3 py-2 text-left font-normal"
+                      >
+                        <div className="flex-1 min-w-0">
+                          <div className="font-medium truncate">
+                            {model.name}
+                          </div>
+                          <div className="text-sm truncate text-muted-foreground">
+                            {model.org}
+                            {model.params && ` · ${model.params}`}
+                          </div>
                         </div>
-                      </div>
-                      <Plus className="h-4 w-4 flex-shrink-0 ml-2 text-muted-foreground" />
-                    </button>
-                  ))
-                )}
-              </div>
-            </div>
+                        <Plus className="h-4 w-4 flex-shrink-0 ml-2 text-muted-foreground" />
+                      </Button>
+                    ))
+                  )}
+                </div>
+              </CardContent>
+            </Card>
           )}
         </div>
 
         {sortedModels.length > 0 ? (
           <div className="space-y-6">
-            <div className="rounded-xl border border-border overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-border bg-muted/50">
-                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground w-32">
-                      Metric
-                    </th>
-                    {sortedModels.map((model) => (
-                      <th
-                        key={model.name}
-                        className="px-4 py-3 text-left font-semibold text-foreground"
-                      >
-                        {model.name}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b border-border">
-                    <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                      Organization
-                    </td>
-                    {sortedModels.map((model) => (
-                      <td key={model.name} className="px-4 py-3 text-foreground">
-                        {model.org}
-                      </td>
-                    ))}
-                  </tr>
-                  <tr className="border-b border-border">
-                    <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                      Release Date
-                    </td>
-                    {sortedModels.map((model) => (
-                      <td key={model.name} className="px-4 py-3 font-[family-name:var(--font-mono)] text-sm text-foreground">
-                        {formatDate(model.date)}
-                      </td>
-                    ))}
-                  </tr>
-                  <tr className="border-b border-border">
-                    <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                      Parameters
-                    </td>
-                    {sortedModels.map((model) => (
-                      <td key={model.name} className="px-4 py-3 font-[family-name:var(--font-mono)] text-sm text-foreground">
-                        {model.params || "Unknown"}
-                      </td>
-                    ))}
-                  </tr>
-                  <tr className="border-b border-border">
-                    <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                      License
-                    </td>
-                    {sortedModels.map((model) => (
-                      <td key={model.name} className="px-4 py-3">
-                        <Badge variant={getLicenseBadgeVariant(model.license)}>
-                          {model.license}
-                        </Badge>
-                      </td>
-                    ))}
-                  </tr>
-                  <tr className="border-b border-border">
-                    <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                      Type
-                    </td>
-                    {sortedModels.map((model) => (
-                      <td key={model.name} className="px-4 py-3 capitalize text-foreground">
-                        {model.type}
-                      </td>
-                    ))}
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground align-top">
-                      Description
-                    </td>
-                    {sortedModels.map((model) => (
-                      <td key={model.name} className="px-4 py-3 text-sm text-foreground">
-                        {model.desc}
-                      </td>
-                    ))}
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-muted/50">
+                  <TableHead className="w-32 text-xs uppercase tracking-wider text-muted-foreground">
+                    Metric
+                  </TableHead>
+                  {sortedModels.map((model) => (
+                    <TableHead key={model.name}>{model.name}</TableHead>
+                  ))}
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                    Organization
+                  </TableCell>
+                  {sortedModels.map((model) => (
+                    <TableCell key={model.name}>{model.org}</TableCell>
+                  ))}
+                </TableRow>
+                <TableRow>
+                  <TableCell className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                    Release Date
+                  </TableCell>
+                  {sortedModels.map((model) => (
+                    <TableCell
+                      key={model.name}
+                      className="font-[family-name:var(--font-mono)] text-sm"
+                    >
+                      {formatDate(model.date)}
+                    </TableCell>
+                  ))}
+                </TableRow>
+                <TableRow>
+                  <TableCell className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                    Parameters
+                  </TableCell>
+                  {sortedModels.map((model) => (
+                    <TableCell
+                      key={model.name}
+                      className="font-[family-name:var(--font-mono)] text-sm"
+                    >
+                      {model.params || "Unknown"}
+                    </TableCell>
+                  ))}
+                </TableRow>
+                <TableRow>
+                  <TableCell className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                    License
+                  </TableCell>
+                  {sortedModels.map((model) => (
+                    <TableCell key={model.name}>
+                      <Badge variant={getLicenseBadgeVariant(model.license)}>
+                        {model.license}
+                      </Badge>
+                    </TableCell>
+                  ))}
+                </TableRow>
+                <TableRow>
+                  <TableCell className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                    Type
+                  </TableCell>
+                  {sortedModels.map((model) => (
+                    <TableCell key={model.name} className="capitalize">
+                      {model.type}
+                    </TableCell>
+                  ))}
+                </TableRow>
+                <TableRow className="border-b-0">
+                  <TableCell className="align-top text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                    Description
+                  </TableCell>
+                  {sortedModels.map((model) => (
+                    <TableCell key={model.name} className="text-sm">
+                      {model.desc}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableBody>
+            </Table>
 
             {sortedModels.some((m) => m.params) && (
               <div>
@@ -362,42 +375,48 @@ function ComparePage() {
 
             {hasComparison && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-4 rounded-xl border border-border bg-card">
-                  <p className="text-sm mb-2 text-muted-foreground">
-                    Share this comparison:
-                  </p>
-                  <code className="text-sm px-2 py-1 rounded bg-muted border border-border text-foreground">
-                    {typeof window !== "undefined"
-                      ? window.location.href
-                      : "/compare"}
-                  </code>
-                </div>
-                <div className="p-4 rounded-xl border border-border bg-card">
-                  <p className="text-sm mb-2 text-muted-foreground">
-                    Export comparison data:
-                  </p>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={exportToCSV}
-                    className="gap-2"
-                  >
-                    <Download className="h-4 w-4" />
-                    Download CSV
-                  </Button>
-                </div>
+                <Card>
+                  <CardContent className="p-4">
+                    <p className="text-sm mb-2 text-muted-foreground">
+                      Share this comparison:
+                    </p>
+                    <code className="text-sm px-2 py-1 rounded bg-muted border border-border text-foreground">
+                      {typeof window !== "undefined"
+                        ? window.location.href
+                        : "/compare"}
+                    </code>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent className="p-4">
+                    <p className="text-sm mb-2 text-muted-foreground">
+                      Export comparison data:
+                    </p>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={exportToCSV}
+                      className="gap-2"
+                    >
+                      <Download className="h-4 w-4" />
+                      Download CSV
+                    </Button>
+                  </CardContent>
+                </Card>
               </div>
             )}
           </div>
         ) : (
-          <div className="text-center py-12 rounded-xl border border-border bg-card">
-            <p className="text-lg mb-2 text-muted-foreground">
-              Select 2-4 models to compare
-            </p>
-            <p className="text-sm text-muted-foreground">
-              Click the "Add models" button above to get started
-            </p>
-          </div>
+          <Card>
+            <CardContent className="py-12 text-center">
+              <p className="text-lg mb-2 text-muted-foreground">
+                Select 2-4 models to compare
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Click the "Add models" button above to get started
+              </p>
+            </CardContent>
+          </Card>
         )}
       </div>
     </PageLayout>

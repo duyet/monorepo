@@ -1,5 +1,6 @@
 import { cn } from "@duyet/libs/utils";
 import { Building2, Sparkles } from "lucide-react";
+import { Card } from "./ui/card";
 
 type View = "models" | "organizations";
 
@@ -41,13 +42,11 @@ export function StatsHeader({
           const isClickable = view !== undefined;
 
           return (
-            <div
+            <Card
               key={label}
               className={cn(
-                "rounded-xl border bg-card p-5 transition-all",
-                isActive
-                  ? "border-border"
-                  : "border-border hover:-translate-y-0.5",
+                "p-5",
+                isActive ? "" : "hover:-translate-y-0.5",
                 isClickable
                   ? "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   : "cursor-default"
@@ -73,7 +72,7 @@ export function StatsHeader({
               <div className="mt-1 text-sm font-medium text-muted-foreground">
                 {label}
               </div>
-            </div>
+            </Card>
           );
         })}
       </div>

@@ -13,6 +13,14 @@ import { StatsCards } from "@/components/stats-cards";
 import { Timeline } from "@/components/timeline";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { VirtualOrgTimeline } from "@/components/virtual-org-timeline";
 import { VirtualTimeline } from "@/components/virtual-timeline";
 import type { Model } from "@/lib/data";
@@ -306,13 +314,15 @@ export function StaticView({
                         <span className="font-medium text-foreground">
                           {model.name}
                         </span>
-                        <button
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-5 w-5 p-0 text-muted-foreground [&_svg]:size-3"
                           onClick={() => removeModel(model.name)}
-                          className="rounded p-0.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
                           aria-label={`Remove ${model.name} from comparison`}
                         >
                           <X className="h-3 w-3" />
-                        </button>
+                        </Button>
                       </div>
                     ))}
                   </div>
@@ -395,91 +405,76 @@ function ComparisonModalContent({
       </div>
 
       <div className="p-6 space-y-6">
-        <div className="overflow-x-auto rounded-xl border border-border">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-border bg-muted/50">
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground w-32">
-                  Metric
-                </th>
-                {sortedModels.map((model) => (
-                  <th
-                    key={model.name}
-                    className="px-4 py-3 text-left font-semibold text-foreground"
-                  >
-                    {model.name}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-b border-border">
-                <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  Organization
-                </td>
-                {sortedModels.map((model) => (
-                  <td
-                    key={model.name}
-                    className="px-4 py-3 text-foreground"
-                  >
-                    {model.org}
-                  </td>
-                ))}
-              </tr>
-              <tr className="border-b border-border">
-                <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  Release Date
-                </td>
-                {sortedModels.map((model) => (
-                  <td
-                    key={model.name}
-                    className="px-4 py-3 font-[family-name:var(--font-mono)] text-sm text-foreground"
-                  >
-                    {formatDate(model.date)}
-                  </td>
-                ))}
-              </tr>
-              <tr className="border-b border-border">
-                <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  Parameters
-                </td>
-                {sortedModels.map((model) => (
-                  <td
-                    key={model.name}
-                    className="px-4 py-3 font-[family-name:var(--font-mono)] text-sm text-foreground"
-                  >
-                    {model.params || "Unknown"}
-                  </td>
-                ))}
-              </tr>
-              <tr className="border-b border-border">
-                <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  License
-                </td>
-                {sortedModels.map((model) => (
-                  <td key={model.name} className="px-4 py-3">
-                    <Badge variant={getLicenseBadgeVariant(model.license)}>
-                      {model.license}
-                    </Badge>
-                  </td>
-                ))}
-              </tr>
-              <tr>
-                <td className="px-4 py-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  Type
-                </td>
-                {sortedModels.map((model) => (
-                  <td
-                    key={model.name}
-                    className="px-4 py-3 capitalize text-foreground"
-                  >
-                    {model.type}
-                  </td>
-                ))}
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <Table>
+          <TableHeader>
+            <TableRow className="bg-muted/50">
+              <TableHead className="w-32 text-xs uppercase tracking-wider text-muted-foreground">
+                Metric
+              </TableHead>
+              {sortedModels.map((model) => (
+                <TableHead key={model.name}>{model.name}</TableHead>
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow>
+              <TableCell className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                Organization
+              </TableCell>
+              {sortedModels.map((model) => (
+                <TableCell key={model.name}>{model.org}</TableCell>
+              ))}
+            </TableRow>
+            <TableRow>
+              <TableCell className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                Release Date
+              </TableCell>
+              {sortedModels.map((model) => (
+                <TableCell
+                  key={model.name}
+                  className="font-[family-name:var(--font-mono)] text-sm"
+                >
+                  {formatDate(model.date)}
+                </TableCell>
+              ))}
+            </TableRow>
+            <TableRow>
+              <TableCell className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                Parameters
+              </TableCell>
+              {sortedModels.map((model) => (
+                <TableCell
+                  key={model.name}
+                  className="font-[family-name:var(--font-mono)] text-sm"
+                >
+                  {model.params || "Unknown"}
+                </TableCell>
+              ))}
+            </TableRow>
+            <TableRow>
+              <TableCell className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                License
+              </TableCell>
+              {sortedModels.map((model) => (
+                <TableCell key={model.name}>
+                  <Badge variant={getLicenseBadgeVariant(model.license)}>
+                    {model.license}
+                  </Badge>
+                </TableCell>
+              ))}
+            </TableRow>
+            <TableRow className="border-b-0">
+              <TableCell className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                Type
+              </TableCell>
+              {sortedModels.map((model) => (
+                <TableCell key={model.name} className="capitalize">
+                  {model.type}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableBody>
+        </Table>
 
         {sortedModels.some((m) => m.params) && (
           <div>

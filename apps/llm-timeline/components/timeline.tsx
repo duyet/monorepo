@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useTimelineKeyboardNavigation } from "@/hooks/useKeyboardNavigation";
 import type { Model } from "@/lib/data";
 import { ModelCard } from "./model-card";
+import { Card } from "./ui/card";
 
 interface TimelineProps {
   modelsByYear: Map<number, Model[]>;
@@ -61,14 +62,14 @@ export function Timeline({
 
   if (sortedYears.length === 0) {
     return (
-      <div className="rounded-xl border border-border bg-card p-12 text-center">
+      <Card className="p-12 text-center">
         <p className="text-lg font-medium text-muted-foreground">
           No models found
         </p>
         <p className="mt-1 text-sm text-muted-foreground">
           Try adjusting your filters
         </p>
-      </div>
+      </Card>
     );
   }
 

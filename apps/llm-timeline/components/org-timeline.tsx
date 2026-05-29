@@ -1,6 +1,7 @@
 import type { Model } from "@/lib/data";
 import { ModelCard } from "./model-card";
 import { OrgAvatar } from "./org-avatar";
+import { Card } from "./ui/card";
 
 interface OrgTimelineProps {
   modelsByOrg: Map<string, Model[]>;
@@ -12,11 +13,11 @@ export function OrgTimeline({ modelsByOrg, liteMode }: OrgTimelineProps) {
 
   if (sortedOrgs.length === 0) {
     return (
-      <div className="rounded-xl border border-border bg-card p-8 text-center">
+      <Card className="p-8 text-center">
         <p className="text-muted-foreground">
           No models found matching your filters.
         </p>
-      </div>
+      </Card>
     );
   }
 
