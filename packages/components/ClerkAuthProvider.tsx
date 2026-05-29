@@ -58,10 +58,10 @@ function ClientClerkProvider({
     return <>{children}</>;
   }
 
-  // Don't render children until ClerkProvider is ready
-  // This prevents SignedOut/SignedIn from rendering without context
+  // Render children while Clerk loads so content stays mounted (no flash /
+  // layout shift). Clerk context is added once the dynamic import resolves.
   if (!isReady || !ClerkProvider) {
-    return null;
+    return <>{children}</>;
   }
 
   return (
@@ -98,9 +98,12 @@ export default function ClerkAuthProvider(props: ClerkAuthProviderProps) {
     return <>{props.children}</>;
   }
 
-  // Only render ClerkProvider on client side to avoid SSR issues
+  // During SSR/prerender, render children directly so static content is
+  // emitted (not a blank shell). The first client render also has
+  // isClient=false, so it matches the SSR output — no hydration mismatch —
+  // then a client-only transition wraps children in the Clerk provider.
   if (!isClient) {
-    return null;
+    return <>{props.children}</>;
   }
 
   return (
