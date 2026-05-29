@@ -106,80 +106,113 @@ const links = [
   },
 ];
 
+const facts = [
+  { label: "Role", value: "Senior Data & AI Engineer" },
+  { label: "Experience", value: experienceYears },
+  { label: "Based in", value: "Ho Chi Minh City" },
+  { label: "Now", value: "Cartrack" },
+];
+
+const blocks = [
+  {
+    heading: "Focus",
+    body: "Data pipelines, warehouses, observability. Agent workflows, model routing, evaluation, and usage analytics. Small tools and clean interfaces.",
+  },
+  {
+    heading: "Stack",
+    body: "Python, Rust, TypeScript. Spark, Airflow, ClickHouse, BigQuery, Kafka. Kubernetes, AWS, GCP, Cloudflare. LlamaIndex, AI SDK, LangGraph.",
+  },
+];
+
 function AboutPage() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-
-      <main className="mx-auto max-w-5xl px-6 py-12 md:py-20">
-        <article className="flex flex-col gap-6">
-          <header>
+      <main className="mx-auto max-w-[1040px] px-6 py-12 md:py-16 md:px-8">
+        <article className="flex flex-col gap-3">
+          {/* Intro block */}
+          <header className="rounded-lg border bg-background p-6 md:p-8">
             <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-              Biography
-            </p>
-            <h1 className="mt-2 text-3xl md:text-4xl font-semibold tracking-tight">
               About
+            </p>
+            <h1 className="mt-3 max-w-2xl text-2xl md:text-3xl font-semibold tracking-tight leading-snug">
+              I'm Duyet — a Senior Data &amp; AI Engineer with {experienceYears}{" "}
+              building data infrastructure, AI/ML platforms, and distributed
+              systems.
             </h1>
+            <p className="mt-4 max-w-2xl text-sm md:text-base leading-relaxed text-muted-foreground">
+              I care about systems that are easy to operate, easy to explain,
+              and boring in the places where reliability matters. Most of my
+              work sits where data products, AI tools, and engineering platforms
+              meet.
+            </p>
+
+            {/* Inline fact pills — block, no dividers */}
+            <dl className="mt-6 flex flex-wrap gap-2">
+              {facts.map((f) => (
+                <div
+                  key={f.label}
+                  className="rounded-md border px-3 py-1.5 leading-tight"
+                >
+                  <dt className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
+                    {f.label}
+                  </dt>
+                  <dd className="text-sm font-medium tracking-tight">
+                    {f.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </header>
 
-          <p className="text-base md:text-lg leading-relaxed">
-            I'm a Senior Data &amp; AI Engineer with {experienceYears} of
-            experience across modern data infrastructure, AI/ML platforms, and
-            distributed systems.
-          </p>
-
-          <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
-            I care about systems that are easy to operate, easy to explain, and
-            boring in the places where reliability matters. Most of my work sits
-            where data products, AI tools, and engineering platforms meet.
-          </p>
-
-          <h2 className="mt-6 text-lg font-semibold tracking-tight border-b pb-2">
-            Focus
-          </h2>
-          <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
-            Data pipelines, warehouses, observability. Agent workflows, model
-            routing, evaluation, and usage analytics. Small tools and clean
-            interfaces.
-          </p>
-
-          <h2 className="mt-6 text-lg font-semibold tracking-tight border-b pb-2">
-            Stack
-          </h2>
-          <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
-            Python, Rust, TypeScript. Spark, Airflow, ClickHouse, BigQuery,
-            Kafka. Kubernetes, AWS, GCP, Cloudflare. LlamaIndex, AI SDK,
-            LangGraph.
-          </p>
-
-          <h2 className="mt-6 text-lg font-semibold tracking-tight border-b pb-2">
-            Elsewhere
-          </h2>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-border border">
-            {links.map((item) => (
-              <li key={item.title} className="bg-background">
-                <a
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block h-full p-5 no-underline transition-colors hover:bg-muted"
-                >
-                  <h3 className="text-base font-medium tracking-tight">
-                    {item.title}
-                  </h3>
-                  <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">
-                    {item.description}
-                  </p>
-                </a>
-              </li>
+          {/* Focus + Stack blocks */}
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {blocks.map((b) => (
+              <section
+                key={b.heading}
+                className="rounded-lg border bg-background p-6"
+              >
+                <h2 className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                  {b.heading}
+                </h2>
+                <p className="mt-3 text-sm md:text-base leading-relaxed">
+                  {b.body}
+                </p>
+              </section>
             ))}
-          </ul>
-
-          <div className="mt-12 pt-12 border-t">
-            <AreasOfExpertise areas={DEFAULT_AREAS} />
           </div>
+
+          {/* Elsewhere — link blocks */}
+          <section className="rounded-lg border bg-background p-6">
+            <h2 className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+              Elsewhere
+            </h2>
+            <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {links.map((item) => (
+                <li key={item.title}>
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block h-full rounded-md border p-4 no-underline transition-colors hover:bg-muted"
+                  >
+                    <h3 className="text-sm font-medium tracking-tight">
+                      {item.title}
+                    </h3>
+                    <p className="mt-1.5 text-xs text-muted-foreground leading-relaxed">
+                      {item.description}
+                    </p>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Areas of expertise block */}
+          <section className="rounded-lg border bg-background p-6 md:p-8">
+            <AreasOfExpertise areas={DEFAULT_AREAS} />
+          </section>
         </article>
       </main>
-
     </div>
   );
 }

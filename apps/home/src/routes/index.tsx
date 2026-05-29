@@ -45,6 +45,9 @@ const selectedProjects = SELECTED.map(({ name, status }) => {
   return item ? { item, status } : null;
 }).filter((x): x is { item: AppItem; status: string } => x !== null);
 
+const totalProjects = apps.length;
+const githubProjects = apps.filter((a) => a.host === "github.com").length;
+
 // Footer link row — keeps every sibling site reachable in compact form.
 const footerLinks = [
   { label: "duyet.net", href: "https://duyet.net" },
@@ -181,12 +184,22 @@ function SelectedWork() {
         eyebrow="01 / Selected Work"
         title="Things I've shipped"
         action={
-          <Link
-            to="/projects"
-            className="shrink-0 text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            All 25 projects &rarr;
-          </Link>
+          <div className="flex shrink-0 items-baseline gap-4">
+            <Link
+              to="/projects"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              All {totalProjects} projects &rarr;
+            </Link>
+            <a
+              href="https://github.com/duyet"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden text-sm text-muted-foreground hover:text-foreground transition-colors sm:inline"
+            >
+              {githubProjects} on GitHub &rarr;
+            </a>
+          </div>
         }
       />
       <ul className="divide-y border">
@@ -315,7 +328,7 @@ function FooterLinks() {
   return (
     <section className="border-t pt-6">
       <p className="font-mono text-xs text-muted-foreground tabular-nums">
-        299 posts · 25 projects · 9 apps
+        {allBlogPosts.length} posts · {totalProjects} projects · 9 apps
       </p>
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 font-mono text-xs text-muted-foreground">
         {footerLinks.map((link) => (
