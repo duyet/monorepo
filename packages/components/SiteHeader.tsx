@@ -151,6 +151,75 @@ const APPS: AppDef[] = [
   },
 ];
 
+/**
+ * Top-level cross-app menu. Always visible, independent of the per-app
+ * `localNav`. Links point at absolute production URLs so the menu works
+ * identically from any sub-app. `match` decides the active highlight:
+ * `app` keys compare against `currentApp`; `path` keys compare against the
+ * current pathname (only meaningful on the home app).
+ */
+const GLOBAL_NAV: {
+  label: string;
+  href: string;
+  match: { app?: AppKey; path?: string };
+}[] = [
+  { label: "Home", href: "https://duyet.net", match: { app: "home", path: "/" } },
+  {
+    label: "Projects",
+    href: "https://duyet.net/projects",
+    match: { path: "/projects" },
+  },
+  { label: "Blog", href: "https://blog.duyet.net", match: { app: "blog" } },
+  { label: "CV", href: "https://cv.duyet.net", match: {} },
+  { label: "Photos", href: "https://photos.duyet.net", match: { app: "photos" } },
+  {
+    label: "About",
+    href: "https://duyet.net/about",
+    match: { path: "/about" },
+  },
+];
+
+function GlobalNav({ currentApp }: { currentApp: AppKey }) {
+  // Pathname is only known on the client; resolve after mount to avoid an
+  // SSR/prerender hydration mismatch on the active highlight.
+  const [pathname, setPathname] = useState<string | null>(null);
+  useEffect(() => {
+    setPathname(window.location.pathname.replace(/\/+$/, "") || "/");
+  }, []);
+
+  const isActive = (m: { app?: AppKey; path?: string }) => {
+    if (m.app && m.app === currentApp) {
+      // For the home app, a bare `app` match would light up every home route;
+      // defer to the path check when one is provided.
+      if (m.app === "home" && m.path) return pathname === m.path;
+      return true;
+    }
+    if (m.path && currentApp === "home" && pathname != null) {
+      return m.path === "/" ? pathname === "/" : pathname.startsWith(m.path);
+    }
+    return false;
+  };
+
+  return (
+    <nav className="hidden items-center gap-0.5 md:flex">
+      {GLOBAL_NAV.map((item) => (
+        <Button
+          key={item.href}
+          variant="ghost"
+          size="sm"
+          className={cn(
+            "h-8 px-2.5 text-sm font-normal text-muted-foreground hover:text-foreground",
+            isActive(item.match) && "bg-muted font-medium text-foreground",
+          )}
+          asChild
+        >
+          <a href={item.href}>{item.label}</a>
+        </Button>
+      ))}
+    </nav>
+  );
+}
+
 function AppLogo({ Icon }: { Icon: LucideIcon }) {
   return (
     <Icon
@@ -212,14 +281,14 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
         <div
           role="menu"
           className={cn(
-            "absolute left-0 top-full z-50 mt-1.5 w-72 rounded-md border bg-popover p-1.5",
-            "shadow-none",
+            "absolute left-0 top-full z-50 mt-1.5 w-[min(92vw,32rem)] rounded-lg border bg-popover p-2 shadow-none",
           )}
         >
-          <p className="px-2 pt-1.5 pb-2 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+          <p className="px-1.5 pt-1 pb-2 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
             Switch app
           </p>
-          <div className="flex flex-col gap-0.5">
+          {/* Bento grid of app cards — flat hairline cells, two columns */}
+          <div className="grid grid-cols-2 gap-1.5">
             {APPS.map((app) => {
               const isCurrent = app.key === currentApp;
               return (
@@ -230,13 +299,21 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
                   aria-current={isCurrent ? "page" : undefined}
                   onClick={() => setOpen(false)}
                   className={cn(
-                    "group flex items-center gap-3 rounded-sm px-2 py-2 outline-none",
-                    "hover:bg-muted/70 focus-visible:bg-muted/70",
-                    isCurrent && "bg-muted/40",
+                    "group relative flex flex-col gap-1.5 rounded-md border p-3 outline-none transition-colors",
+                    "hover:bg-muted/60 focus-visible:bg-muted/60 focus-visible:ring-2 focus-visible:ring-ring",
+                    isCurrent ? "border-foreground/30 bg-muted/40" : "border-border",
                   )}
                 >
-                  <AppLogo Icon={app.Icon} />
-                  <div className="flex min-w-0 flex-1 flex-col leading-tight">
+                  <div className="flex items-center justify-between">
+                    <AppLogo Icon={app.Icon} />
+                    {isCurrent && (
+                      <Check
+                        aria-hidden
+                        className="h-3.5 w-3.5 shrink-0 text-foreground"
+                      />
+                    )}
+                  </div>
+                  <div className="flex min-w-0 flex-col leading-tight">
                     <span className="truncate text-sm font-medium text-foreground">
                       {app.name}
                     </span>
@@ -244,12 +321,6 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
                       {app.subdomain}
                     </span>
                   </div>
-                  {isCurrent && (
-                    <Check
-                      aria-hidden
-                      className="h-3.5 w-3.5 shrink-0 text-foreground"
-                    />
-                  )}
                 </a>
               );
             })}
@@ -352,6 +423,8 @@ export function SiteHeader({
           <LocalNav items={localNav} activeHref={activeHref} />
         )}
         <div className="ml-auto flex items-center gap-1">
+          <GlobalNav currentApp={currentApp} />
+          <Separator orientation="vertical" className="mx-1 hidden h-6 md:block" />
           <ThemeButton />
         </div>
       </div>

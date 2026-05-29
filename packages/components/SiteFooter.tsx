@@ -7,19 +7,19 @@ export interface SiteFooterLink {
 }
 
 export interface SiteFooterProps {
-  /** Legacy escape hatch — appended as an extra column when present. */
+  /** Legacy escape hatch — appended as an extra group when present. */
   links?: SiteFooterLink[];
   owner?: string;
   className?: string;
   children?: ReactNode;
 }
 
-interface FooterSection {
+interface FooterGroup {
   heading: string;
   items: SiteFooterLink[];
 }
 
-const SECTIONS: FooterSection[] = [
+const GROUPS: FooterGroup[] = [
   {
     heading: "Apps",
     items: [
@@ -51,24 +51,21 @@ const SECTIONS: FooterSection[] = [
   },
 ];
 
-function FooterColumn({ section }: { section: FooterSection }) {
+function FooterGroupRow({ group }: { group: FooterGroup }) {
   return (
-    <div>
-      <p className="text-[11px] font-mono uppercase tracking-[0.16em] text-muted-foreground">
-        {section.heading}
-      </p>
-      <ul className="mt-4 space-y-2.5">
-        {section.items.map((item) => (
-          <li key={item.href}>
-            <a
-              href={item.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
+    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+      <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-muted-foreground/70">
+        {group.heading}
+      </span>
+      {group.items.map((item) => (
+        <a
+          key={item.href}
+          href={item.href}
+          className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+        >
+          {item.label}
+        </a>
+      ))}
     </div>
   );
 }
@@ -80,55 +77,42 @@ export function SiteFooter({
   children,
 }: SiteFooterProps) {
   const year = new Date().getFullYear();
+  const groups =
+    links && links.length > 0
+      ? [...GROUPS, { heading: "Links", items: links }]
+      : GROUPS;
 
   return (
     <footer className={cn("border-t bg-background", className)}>
-      <div className="mx-auto max-w-[1080px] px-4 sm:px-6 lg:px-8 py-14 md:py-16">
-        <div className="grid grid-cols-2 gap-10 md:grid-cols-4 lg:gap-12">
-          <div className="col-span-2 md:col-span-1 max-w-sm">
-            <p className="text-sm font-semibold tracking-tight text-foreground">
-              duyet.net
-            </p>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              Personal site of Duyet Le — Data &amp; AI Engineer in Ho Chi
-              Minh City. Writing, side projects, and open source.
-            </p>
-            <a
-              href="mailto:me@duyet.net"
-              className="mt-4 inline-block font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
-            >
-              me@duyet.net
-            </a>
-          </div>
-
-          {SECTIONS.map((section) => (
-            <FooterColumn key={section.heading} section={section} />
+      <div className="mx-auto max-w-[1080px] px-4 sm:px-6 lg:px-8 py-8">
+        {/* Single compact row: brand · Apps · Projects · About */}
+        <div className="flex flex-col gap-x-8 gap-y-4 lg:flex-row lg:flex-wrap lg:items-baseline">
+          <a
+            href="https://duyet.net"
+            className="text-sm font-semibold tracking-tight text-foreground transition-colors hover:text-muted-foreground"
+          >
+            duyet.net
+          </a>
+          {groups.map((group) => (
+            <FooterGroupRow key={group.heading} group={group} />
           ))}
-
-          {links && links.length > 0 && (
-            <FooterColumn
-              section={{ heading: "Links", items: links }}
-            />
-          )}
         </div>
 
-        <div className="mt-14 flex flex-col-reverse items-start gap-4 border-t pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-6 flex flex-col-reverse items-start gap-2 border-t pt-4 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p className="font-mono">
             © {year} {owner}
           </p>
-          <p className="max-w-md leading-relaxed sm:text-right">
-            This site is continuously maintained by{" "}
+          <p className="leading-relaxed sm:text-right">
+            Continuously maintained by{" "}
             <a
               href="https://duyet.net/about-duyetbot"
               className="underline decoration-muted-foreground/40 underline-offset-2 transition-colors hover:text-foreground hover:decoration-foreground"
             >
               duyetbot
             </a>
-            , an autonomous agent — UI &amp; copy may change at any time.
+            , an autonomous agent.
           </p>
-          {children && (
-            <div className="flex items-center gap-5">{children}</div>
-          )}
+          {children && <div className="flex items-center gap-5">{children}</div>}
         </div>
       </div>
     </footer>
