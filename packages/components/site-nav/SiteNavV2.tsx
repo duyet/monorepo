@@ -50,7 +50,7 @@ export function SiteNavV2({
         className={cn(
           "relative z-40 h-12 w-full border-b transition-all duration-200",
           scrolled
-            ? "border-neutral-200/50 bg-white/70 backdrop-blur-md dark:border-white/5 dark:bg-[#0a0a0a]/70 shadow-sm"
+            ? "border-neutral-200/50 bg-white/70 backdrop-blur-md dark:border-white/5 dark:bg-[#0a0a0a]/70"
             : "border-transparent bg-transparent",
           className
         )}

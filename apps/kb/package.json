@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "prebuild": "bun scripts/copy-content-md.ts && bun scripts/generate-static-files.ts",
-    "build": "vite build",
+    "build": "vite build && bun ../../scripts/patch-html-for-cloudflare.ts",
     "check-types": "tsc --noEmit",
     "dev": "vite dev --port 3009",
     "fmt": "bun run fix",

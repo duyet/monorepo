@@ -7,7 +7,7 @@
     "test": "bun test",
     "config": "bun ../../scripts/sync-app-secrets.ts duyet-home",
     "prebuild": "cd ../blog && bun scripts/generate-posts-data.ts",
-    "build": "bun --bun vite build",
+    "build": "bun --bun vite build && bun ../../scripts/patch-html-for-cloudflare.ts",
     "check-types": "tsc --noEmit",
     "dev": "bun --bun vite dev --port 3001",
     "fmt": "bun run fix",

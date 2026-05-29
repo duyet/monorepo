@@ -4,14 +4,18 @@ import { cn } from "@duyet/libs/utils";
 import {
   Activity,
   BookOpen,
+  Bot,
   Brain,
   Camera,
   Check,
   ChevronsUpDown,
+  Code2,
+  Flame,
   House,
   type LucideIcon,
   Moon,
   Percent,
+  Plug,
   Server,
   Sparkles,
   Sun,
@@ -46,7 +50,11 @@ type AppKey =
   | "homelab"
   | "photos"
   | "kb"
-  | "ai-percentage";
+  | "ai-percentage"
+  | "agents"
+  | "burn"
+  | "html"
+  | "mcp";
 
 type AppDef = {
   key: AppKey;
@@ -112,6 +120,34 @@ const APPS: AppDef[] = [
     href: "https://ai-percentage.duyet.net",
     subdomain: "ai-percentage.duyet.net",
     Icon: Percent,
+  },
+  {
+    key: "agents",
+    name: "Agents",
+    href: "https://agents.duyet.net",
+    subdomain: "agents.duyet.net",
+    Icon: Bot,
+  },
+  {
+    key: "burn",
+    name: "Burn",
+    href: "https://burn.duyet.net",
+    subdomain: "burn.duyet.net",
+    Icon: Flame,
+  },
+  {
+    key: "html",
+    name: "HTML",
+    href: "https://html.duyet.net",
+    subdomain: "html.duyet.net",
+    Icon: Code2,
+  },
+  {
+    key: "mcp",
+    name: "MCP",
+    href: "https://mcp.duyet.net",
+    subdomain: "mcp.duyet.net",
+    Icon: Plug,
   },
 ];
 
@@ -235,9 +271,13 @@ function LocalNav({
 
   const matches = (href: string) => {
     if (!activeHref) return false;
-    if (activeHref === href) return true;
-    if (href === "/") return false;
-    return activeHref.startsWith(`${href}/`);
+    // Normalize: drop query/hash and trailing slash so "/archives",
+    // "/archives/", and "/archives?page=2" all match the "/archives" tab.
+    const path = activeHref.split(/[?#]/)[0].replace(/\/+$/, "") || "/";
+    const target = href.split(/[?#]/)[0].replace(/\/+$/, "") || "/";
+    if (path === target) return true;
+    if (target === "/") return false;
+    return path.startsWith(`${target}/`);
   };
 
   return (

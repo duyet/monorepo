@@ -46,7 +46,7 @@ function HomePage(): ReactElement {
     <div>
       {/* Featured first post */}
       {featured && (
-        <section className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <section className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12 md:py-16">
           <article>
             <Link
               to="/$year/$month/$slug/"
@@ -97,7 +97,7 @@ function HomePage(): ReactElement {
       )}
 
       {/* Quick Notes */}
-      <section className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 py-12 md:py-16 border-t">
+      <section className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12 md:py-16 border-t">
         <div className="mb-10">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
             Quick Notes
