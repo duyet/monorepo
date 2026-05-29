@@ -1,6 +1,3 @@
-import { readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
 import rehypeHighlight from "rehype-highlight";
 import rehypeKatex from "rehype-katex";
 import rehypeParse from "rehype-parse";
@@ -8,12 +5,18 @@ import rehypeStringify from "rehype-stringify";
 import sanitizeHtml from "sanitize-html";
 import { unified } from "unified";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
 let _markdownToHtml: ((input: string) => string) | null = null;
 
 async function ensureWasmInit() {
   if (_markdownToHtml) return;
+  // Node-only WASM bootstrap. Imports are dynamic and live inside this
+  // function so the module never touches node:fs/path/url at load time —
+  // otherwise the client bundle throws `fileURLToPath is not a function`
+  // at import and aborts hydration. markdownToHtml runs at prerender only.
+  const { readFileSync } = await import("node:fs");
+  const { dirname, join } = await import("node:path");
+  const { fileURLToPath } = await import("node:url");
+  const __dirname = dirname(fileURLToPath(import.meta.url));
   const { initSync, markdown_to_html } = await import(
     /* @vite-ignore */
     "@duyet/wasm/pkg/markdown/markdown.js"
