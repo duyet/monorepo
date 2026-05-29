@@ -36,11 +36,11 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
             </p>
             <h1
               id="intro-heading"
-              className="mb-4 text-4xl font-semibold leading-[0.98] tracking-tight text-neutral-950 sm:text-5xl lg:text-6xl"
+              className="mb-4 text-4xl font-semibold leading-[0.98] tracking-tight text-neutral-950 dark:text-neutral-50 sm:text-5xl lg:text-6xl"
             >
               Photography Collection
             </h1>
-            <p className="mb-6 max-w-2xl text-sm leading-6 text-neutral-600 sm:text-base">
+            <p className="mb-6 max-w-2xl text-sm leading-6 text-neutral-600 dark:text-neutral-300 sm:text-base">
               {isFallback ? (
                 <>
                   A selection of{" "}
@@ -57,7 +57,7 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
                     href="https://unsplash.com/@_duyet"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-medium text-neutral-950 underline underline-offset-4 transition-colors hover:text-neutral-600"
+                    className="font-medium text-neutral-950 dark:text-neutral-100 underline underline-offset-4 transition-colors hover:text-neutral-600 dark:hover:text-neutral-400"
                   >
                     Unsplash
                   </a>{" "}
@@ -68,7 +68,7 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
               Prefer a narrative experience?{" "}
               <a
                 href="/feed"
-                className="font-medium text-neutral-950 underline underline-offset-4 transition-colors hover:text-neutral-600"
+                className="font-medium text-neutral-950 dark:text-neutral-100 underline underline-offset-4 transition-colors hover:text-neutral-600 dark:hover:text-neutral-400"
               >
                 View the photo stream
               </a>
