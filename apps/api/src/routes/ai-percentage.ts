@@ -102,7 +102,7 @@ aiPercentageRouter.get("/current", async (c) => {
         total_lines_added,
         human_lines_added,
         ai_lines_added
-      FROM monorepo_ai_code_percentage_v2_v2
+      FROM monorepo_ai_code_percentage_v2
       ORDER BY date DESC
       LIMIT 1
       FORMAT JSONEachRow
