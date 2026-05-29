@@ -203,21 +203,24 @@ function SelectedWork() {
 function ProjectRow({ item, status }: { item: AppItem; status: string }) {
   return (
     <ProjectLink item={item}>
-      <div className="grid grid-cols-[1fr_auto] sm:grid-cols-[10rem_1fr_auto] items-center gap-x-4 gap-y-1 px-4 py-3 hover:bg-muted transition-colors group">
-        <span className="font-mono text-xs text-muted-foreground truncate">
+      <div className="group flex flex-wrap items-baseline gap-x-4 gap-y-0.5 px-4 py-3.5 sm:flex-nowrap sm:py-3 hover:bg-muted transition-colors">
+        {/* Domain leads on desktop; the least-useful field on a phone, so hidden there */}
+        <span className="hidden sm:block w-36 shrink-0 font-mono text-xs text-muted-foreground truncate">
           {item.domain || item.host}
         </span>
-        <span className="col-span-2 sm:col-span-1 min-w-0 flex items-baseline gap-2">
-          <span className="text-sm font-medium shrink-0 group-hover:underline underline-offset-4">
-            {item.name}
-          </span>
-          <span className="text-sm text-muted-foreground truncate hidden sm:inline">
-            {item.description}
-          </span>
+        <span className="order-1 shrink-0 text-sm font-medium group-hover:underline underline-offset-4 sm:order-none">
+          {item.name}
         </span>
-        <Badge variant="outline" className="shrink-0">
+        <Badge
+          variant="outline"
+          className="order-2 ml-auto shrink-0 sm:order-last sm:ml-0"
+        >
           {status}
         </Badge>
+        {/* Description: full row on mobile, inline with the name on desktop */}
+        <span className="order-3 w-full min-w-0 basis-full truncate text-sm text-muted-foreground sm:order-none sm:w-auto sm:flex-1 sm:basis-auto">
+          {item.description}
+        </span>
       </div>
     </ProjectLink>
   );
@@ -231,12 +234,14 @@ function ProjectLink({
   children: ReactNode;
 }) {
   const href = addUtmParams(item.href, "homepage", item.utmContent, item.host);
+  const className =
+    "block no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset";
 
   if (href.startsWith("http")) {
     return (
       <a
         href={href}
-        className="block no-underline"
+        className={className}
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -246,7 +251,7 @@ function ProjectLink({
   }
 
   return (
-    <Link to={href} className="block no-underline">
+    <Link to={href} className={className}>
       {children}
     </Link>
   );
@@ -285,7 +290,7 @@ function LatestWriting() {
               href={`https://blog.duyet.net${post.slug}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 px-4 py-3 hover:bg-muted transition-colors no-underline text-foreground group"
+              className="flex items-center gap-4 px-4 py-3 hover:bg-muted transition-colors no-underline text-foreground group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
             >
               <span className="shrink-0 text-xs tabular-nums text-muted-foreground w-24 sm:w-28">
                 {formatDateShort(post.date)}
