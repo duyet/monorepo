@@ -10,8 +10,6 @@ import {
   YAxis,
 } from "recharts";
 import {
-  ArrowDownRight,
-  ArrowUpRight,
   ChartLine,
   Clock,
   Code,
@@ -19,21 +17,18 @@ import {
   Cpu,
   Database,
   Globe,
-  Minus,
-  Quote,
 } from "lucide-react";
-import { Badge } from "@duyet/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-} from "@duyet/components/ui/card";
 import rawBlogPosts from "../../../blog/public/posts-data.json";
 import {
   OpenSourceGrid,
   fetchGitHubRepos,
   type Repo,
 } from "@duyet/components";
+import type {
+  CCUsageActivityByModelData,
+  CCUsageEfficiencyData,
+  CCUsageProjectData,
+} from "@/app/ai/types";
 
 interface BentoPanelProps {
   icon: ReactNode;
@@ -200,6 +195,9 @@ export interface LoaderData {
   aiActivity: AiActivity[];
   aiMetrics: AiMetrics;
   aiModels: AiModel[];
+  ccByModel: CCUsageActivityByModelData[];
+  ccEfficiency: CCUsageEfficiencyData[];
+  ccProjects: CCUsageProjectData[];
   cloudflare: CloudflareSummary;
   githubRepos: Repo[];
   posthog: PostHogSummary;
@@ -268,6 +266,9 @@ async function loadOverviewDataForStaticBuild(): Promise<LoaderData> {
     aiMetrics,
     aiActivity,
     aiModels,
+    ccByModel,
+    ccEfficiency,
+    ccProjects,
     wakaMetrics,
     wakaLanguages,
     wakaTrend,
@@ -278,6 +279,9 @@ async function loadOverviewDataForStaticBuild(): Promise<LoaderData> {
     aiData.getCCUsageMetrics(30),
     aiData.getCCUsageActivity(30),
     aiData.getCCUsageModels(30),
+    aiData.getCCUsageActivityByModel(30),
+    aiData.getCCUsageEfficiency(),
+    aiData.getCCUsageProjects(30),
     wakaData.getWakaTimeMetrics(30),
     wakaData.getWakaTimeLanguages(30),
     wakaData.getWakaTimeMonthlyTrend(),
@@ -290,6 +294,9 @@ async function loadOverviewDataForStaticBuild(): Promise<LoaderData> {
     aiActivity: settled(aiActivity, []),
     aiMetrics: settled(aiMetrics, EMPTY_AI_METRICS),
     aiModels: settled(aiModels, []),
+    ccByModel: settled(ccByModel, []),
+    ccEfficiency: settled(ccEfficiency, []),
+    ccProjects: settled(ccProjects, []),
     cloudflare: settled(cloudflare, EMPTY_CLOUDFLARE),
     githubRepos: settled(githubRepos, []),
     posthog: settled(posthog, EMPTY_POSTHOG),
@@ -324,6 +331,9 @@ function isLoaderData(value: unknown): value is LoaderData {
       data.posthog &&
       Array.isArray(data.aiActivity) &&
       Array.isArray(data.aiModels) &&
+      Array.isArray(data.ccByModel) &&
+      Array.isArray(data.ccEfficiency) &&
+      Array.isArray(data.ccProjects) &&
       Array.isArray(data.wakaLanguages) &&
       Array.isArray(data.wakaTrend) &&
       Array.isArray(data.githubRepos)
@@ -352,6 +362,9 @@ const EMPTY_LOADER_DATA: LoaderData = {
   aiActivity: [],
   aiMetrics: EMPTY_AI_METRICS,
   aiModels: [],
+  ccByModel: [],
+  ccEfficiency: [],
+  ccProjects: [],
   cloudflare: EMPTY_CLOUDFLARE,
   githubRepos: [],
   posthog: EMPTY_POSTHOG,
@@ -362,7 +375,8 @@ const EMPTY_LOADER_DATA: LoaderData = {
 
 const BLOG_POST_COUNT = (rawBlogPosts as unknown[]).length;
 
-function KpiStrip({ data }: { data: LoaderData }) {
+function MetricGrid({ data }: { data: LoaderData }) {
+  const pageViews = data.cloudflare.totalPageviews || data.posthog.totalViews;
   const generatedAt = data.cloudflare.generatedAt
     ? new Date(data.cloudflare.generatedAt).toLocaleDateString("en-US", {
         day: "numeric",
@@ -371,71 +385,61 @@ function KpiStrip({ data }: { data: LoaderData }) {
       })
     : null;
 
-  const kpis: Array<{
-    value: string;
-    label: string;
-    sublabel: string;
-    trend: "up" | "flat" | null;
-  }> = [
+  const metrics: Array<{ label: string; value: string; sub: string }> = [
     {
+      label: "AI tokens",
       value: formatCompact(data.aiMetrics.totalTokens),
-      label: "Tokens this month",
-      sublabel: `${data.aiMetrics.activeDays} active days · Claude Code`,
-      trend: data.aiMetrics.totalTokens > 0 ? "up" : "flat",
+      sub: `${data.aiMetrics.activeDays} active days`,
     },
     {
-      value: formatCompact(
-        data.cloudflare.totalPageviews || data.posthog.totalViews
-      ),
-      label: "Page views · 30d",
-      sublabel: "Cloudflare edge, all zones",
-      trend: "up",
+      label: "Page views",
+      value: formatCompact(pageViews),
+      sub: "Cloudflare · 30d",
     },
     {
+      label: "Edge requests",
+      value: formatCompact(data.cloudflare.totalRequests),
+      sub: "Cloudflare · 30d",
+    },
+    {
+      label: "Coding hours",
       value: `${formatNumber(data.wakaMetrics.totalHours)}h`,
-      label: "Coding hours · 30d",
-      sublabel: `${formatNumber(data.wakaMetrics.avgDailyHours)}h avg/day · ${data.wakaMetrics.topLanguage}`,
-      trend: "flat",
+      sub: `${formatNumber(data.wakaMetrics.avgDailyHours)}h avg/day`,
     },
     {
+      label: "AI spend",
       value: formatCurrency(data.aiMetrics.totalCost),
-      label: "AI spend · 30d",
-      sublabel: `Top model: ${compactName(data.aiMetrics.topModel)}`,
-      trend: data.aiMetrics.totalCost > 0 ? "up" : "flat",
+      sub: `Top: ${compactName(data.aiMetrics.topModel)}`,
     },
     {
+      label: "Cache tokens",
+      value: formatCompact(data.aiMetrics.cacheTokens),
+      sub: "Prompt re-use · 30d",
+    },
+    {
+      label: "Blog posts",
       value: String(BLOG_POST_COUNT),
-      label: "Blog posts published",
-      // TODO: wire to GitHub commit count for a dynamic "commits this month" stat
-      sublabel: "All-time, duyet.net/blog",
-      trend: "up",
+      sub: "All-time · duyet.net/blog",
+    },
+    {
+      label: "Active days",
+      value: String(data.aiMetrics.activeDays),
+      sub: "At the keyboard · 30d",
     },
   ];
 
   return (
     <section>
-      <div className="grid grid-cols-2 md:grid-cols-5 divide-x divide-border border-t border-b border-border">
-        {kpis.map((kpi) => (
-          <div key={kpi.label} className="relative p-6 md:p-8">
-            {kpi.trend !== null && (
-              <span className="absolute top-4 right-4">
-                {kpi.trend === "up" ? (
-                  <ArrowUpRight
-                    size={16}
-                    className="text-green-600 dark:text-green-400"
-                  />
-                ) : (
-                  <Minus size={16} className="text-muted-foreground" />
-                )}
-              </span>
-            )}
-            <p className="text-4xl md:text-5xl font-semibold tracking-tight tabular-nums text-foreground">
-              {kpi.value}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-x divide-y divide-border border border-border">
+        {metrics.map((metric) => (
+          <div key={metric.label} className="p-4">
+            <p className="font-mono text-2xl md:text-3xl font-semibold tabular-nums text-foreground">
+              {metric.value}
             </p>
-            <p className="mt-2 text-sm font-medium text-foreground">
-              {kpi.label}
+            <p className="mt-1 text-xs font-medium text-foreground">
+              {metric.label}
             </p>
-            <p className="mt-1 text-xs text-muted-foreground">{kpi.sublabel}</p>
+            <p className="text-[11px] text-muted-foreground">{metric.sub}</p>
           </div>
         ))}
       </div>
@@ -444,180 +448,6 @@ function KpiStrip({ data }: { data: LoaderData }) {
           Last updated: {generatedAt}
         </p>
       )}
-    </section>
-  );
-}
-
-function BentoGrid({ data }: { data: LoaderData }) {
-  const pageViews = data.cloudflare.totalPageviews || data.posthog.totalViews;
-
-  return (
-    <section className="mt-12">
-      <div className="mb-6">
-        <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-          By the numbers
-        </p>
-        <h2 className="mt-2 text-2xl md:text-3xl font-semibold tracking-tight">
-          One developer, many data streams.
-        </h2>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Aggregated across traffic, AI usage, coding time, and published work — last 30 days unless noted.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {/* Tall pullquote card — spans 2 rows */}
-        <Card className="md:row-span-2 flex flex-col justify-between border-border">
-          <CardContent className="pt-6 flex flex-col h-full gap-6">
-            <div>
-              <p className="text-4xl md:text-5xl font-semibold tracking-tight tabular-nums text-foreground">
-                {formatCompact(data.aiMetrics.totalTokens)}
-              </p>
-              <p className="mt-2 text-sm font-medium text-foreground">
-                AI tokens consumed
-              </p>
-              <p className="mt-1 text-xs text-muted-foreground">
-                Claude Code · last 30 days
-              </p>
-            </div>
-            <div className="mt-auto">
-              <Quote
-                size={20}
-                className="text-muted-foreground mb-3 opacity-50"
-              />
-              <p className="text-sm leading-relaxed text-muted-foreground italic">
-                Every token here represents a real decision — a diff reviewed, a
-                test written, a refactor weighed. The pipeline runs nightly from
-                ClickHouse; no prompt content is stored, only aggregated
-                per-model counts.
-              </p>
-              <p className="mt-3 text-xs text-muted-foreground">
-                — ccusage → ClickHouse → insights
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Page views */}
-        <Card className="border-border">
-          <CardHeader className="pb-1 flex flex-row items-start justify-between">
-            <Badge className="bg-indigo-100 text-indigo-700 dark:bg-indigo-950/30 dark:text-indigo-300 hover:bg-indigo-100">
-              Traffic
-            </Badge>
-          </CardHeader>
-          <CardContent>
-            <p className="text-4xl font-semibold tracking-tight tabular-nums text-foreground">
-              {formatCompact(pageViews)}
-            </p>
-            <p className="mt-1 text-sm font-medium text-foreground">
-              Page views
-            </p>
-            <p className="mt-1 text-xs text-muted-foreground">
-              Cloudflare · 30 days
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* Coding hours */}
-        <Card className="border-border">
-          <CardHeader className="pb-1 flex flex-row items-start justify-between">
-            <Badge className="bg-violet-100 text-violet-700 dark:bg-violet-950/30 dark:text-violet-300 hover:bg-violet-100">
-              Code
-            </Badge>
-          </CardHeader>
-          <CardContent>
-            <p className="text-4xl font-semibold tracking-tight tabular-nums text-foreground">
-              {formatNumber(data.wakaMetrics.totalHours)}h
-            </p>
-            <p className="mt-1 text-sm font-medium text-foreground">
-              Coding hours
-            </p>
-            <p className="mt-1 text-xs text-muted-foreground">
-              WakaTime · 30 days
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* AI cost */}
-        <Card className="border-border">
-          <CardHeader className="pb-1 flex flex-row items-start justify-between">
-            <Badge className="bg-amber-100 text-amber-700 dark:bg-amber-950/30 dark:text-amber-300 hover:bg-amber-100">
-              AI
-            </Badge>
-          </CardHeader>
-          <CardContent>
-            <p className="text-4xl font-semibold tracking-tight tabular-nums text-foreground">
-              {formatCurrency(data.aiMetrics.totalCost)}
-            </p>
-            <p className="mt-1 text-sm font-medium text-foreground">
-              AI spend
-            </p>
-            <p className="mt-1 text-xs text-muted-foreground">
-              Claude Code · 30 days
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* Cache tokens */}
-        <Card className="border-border">
-          <CardHeader className="pb-1 flex flex-row items-start justify-between">
-            <Badge className="bg-green-100 text-green-700 dark:bg-green-950/30 dark:text-green-300 hover:bg-green-100">
-              Infra
-            </Badge>
-          </CardHeader>
-          <CardContent>
-            <p className="text-4xl font-semibold tracking-tight tabular-nums text-foreground">
-              {formatCompact(data.aiMetrics.cacheTokens)}
-            </p>
-            <p className="mt-1 text-sm font-medium text-foreground">
-              Cache tokens
-            </p>
-            <p className="mt-1 text-xs text-muted-foreground">
-              Prompt re-use · 30 days
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* Blog posts */}
-        <Card className="border-border">
-          <CardHeader className="pb-1 flex flex-row items-start justify-between">
-            <Badge className="bg-rose-100 text-rose-700 dark:bg-rose-950/30 dark:text-rose-300 hover:bg-rose-100">
-              Writing
-            </Badge>
-          </CardHeader>
-          <CardContent>
-            <p className="text-4xl font-semibold tracking-tight tabular-nums text-foreground">
-              {BLOG_POST_COUNT}
-            </p>
-            <p className="mt-1 text-sm font-medium text-foreground">
-              Blog posts
-            </p>
-            <p className="mt-1 text-xs text-muted-foreground">
-              All-time · duyet.net/blog
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* CF requests */}
-        <Card className="border-border">
-          <CardHeader className="pb-1 flex flex-row items-start justify-between">
-            <Badge className="bg-indigo-100 text-indigo-700 dark:bg-indigo-950/30 dark:text-indigo-300 hover:bg-indigo-100">
-              Telemetry
-            </Badge>
-          </CardHeader>
-          <CardContent>
-            <p className="text-4xl font-semibold tracking-tight tabular-nums text-foreground">
-              {formatCompact(data.cloudflare.totalRequests)}
-            </p>
-            <p className="mt-1 text-sm font-medium text-foreground">
-              Edge requests
-            </p>
-            <p className="mt-1 text-xs text-muted-foreground">
-              Cloudflare · 30 days
-            </p>
-          </CardContent>
-        </Card>
-      </div>
     </section>
   );
 }
@@ -645,7 +475,7 @@ function IndexPage() {
 
   return (
     <div>
-      <header className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16 md:py-24 text-center">
+      <header className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-10 md:py-14 text-center">
         <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
           INSIGHTS · LAST 30 DAYS
         </p>
@@ -660,11 +490,10 @@ function IndexPage() {
       </header>
 
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pb-16">
-      <KpiStrip data={data} />
-      <BentoGrid data={data} />
+      <MetricGrid data={data} />
 
       {data.githubRepos.length > 0 && (
-        <section className="mt-20 border-t border-border pt-12">
+        <section className="mt-10 border-t border-border pt-8">
           <OpenSourceGrid
             repos={data.githubRepos}
             user="duyet"
@@ -673,9 +502,7 @@ function IndexPage() {
         </section>
       )}
 
-      <SignalsNarrativeSection data={data} />
-
-      <section className="mt-20 grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-6 border-t border-border pt-12">
+      <section className="mt-10 grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-6 border-t border-border pt-8">
         <BentoPanel
           icon={<ChartLine size={18} />}
           label="Page views · 30d"
@@ -734,7 +561,7 @@ function IndexPage() {
         />
       </section>
 
-      <section className="mt-20 grid grid-cols-1 gap-12 border-t border-border pt-12 xl:grid-cols-[1.4fr_0.6fr]">
+      <section className="mt-10 grid grid-cols-1 gap-8 border-t border-border pt-8 xl:grid-cols-[1.4fr_0.6fr]">
         <EditorialChart
           eyebrow="Traffic · Cloudflare"
           title="Public site pulse."
@@ -764,7 +591,7 @@ function IndexPage() {
         />
       </section>
 
-      <section className="mt-20 grid grid-cols-1 gap-12 border-t border-border pt-12 xl:grid-cols-2">
+      <section className="mt-10 grid grid-cols-1 gap-8 border-t border-border pt-8 xl:grid-cols-2">
         <EditorialChart
           eyebrow="AI · ccusage"
           title="AI work, day by day."
@@ -780,7 +607,7 @@ function IndexPage() {
 
         <EditorialChart
           eyebrow="Models · share"
-          title="Where the tokens went."
+          title="Model share."
           subtitle="Most active model families by token share over the last 30 days."
         >
           <InsightBarChart
@@ -791,7 +618,9 @@ function IndexPage() {
         </EditorialChart>
       </section>
 
-      <section className="mt-20 grid grid-cols-1 gap-12 border-t border-border pt-12 xl:grid-cols-2">
+      <TokenAttributionSection data={data} />
+
+      <section className="mt-10 grid grid-cols-1 gap-8 border-t border-border pt-8 xl:grid-cols-2">
         <EditorialChart
           eyebrow="Coding · WakaTime"
           title="Where the human hours went."
@@ -826,7 +655,7 @@ function IndexPage() {
         </div>
       </section>
 
-      <p className="mt-24 max-w-3xl border-t border-border pt-8 font-sans text-xs tracking-tight leading-7 text-muted-foreground">
+      <p className="mt-12 max-w-3xl border-t border-border pt-8 font-sans text-xs tracking-tight leading-7 text-muted-foreground">
         Sources: Cloudflare and PostHog for traffic, ClickHouse and DuckDB for
         AI usage, WakaTime for coding hours. Missing credentials degrade to
         empty states.
@@ -837,188 +666,56 @@ function IndexPage() {
   );
 }
 
-type SignalCard =
-  | {
-      kind: "metric";
-      numeral: string;
-      label: string;
-      sublabel: string;
-      trend: "up" | "down" | "flat";
-      badge?: string;
-    }
-  | {
-      kind: "narrative";
-      numeral: string;
-      label: string;
-      body: string;
-      badge?: string;
-    };
+function TokenAttributionSection({ data }: { data: LoaderData }) {
+  const efficiency = [...data.ccEfficiency].reverse().map((d) => ({
+    date: shortDate(d.date),
+    score: d["Efficiency Score"],
+  }));
 
-function SignalTrend({
-  trend,
-}: {
-  trend: "up" | "down" | "flat";
-}) {
-  if (trend === "up")
-    return (
-      <ArrowUpRight size={16} className="text-green-600 dark:text-green-400" />
-    );
-  if (trend === "down")
-    return <ArrowDownRight size={16} className="text-rose-500" />;
-  return <Minus size={16} className="text-muted-foreground" />;
-}
+  const byModel = data.ccByModel.map((d) => ({
+    ...d,
+    date: shortDate(String(d.date)),
+  }));
 
-function SignalsNarrativeSection({ data }: { data: LoaderData }) {
-  const pageViews = data.cloudflare.totalPageviews || data.posthog.totalViews;
-
-  const cards: SignalCard[] = [
-    {
-      kind: "metric",
-      numeral: formatCompact(data.aiMetrics.totalTokens),
-      label: "AI tokens routed",
-      sublabel: `${data.aiMetrics.activeDays} active days · Claude Code`,
-      trend: data.aiMetrics.totalTokens > 0 ? "up" : "flat",
-    },
-    {
-      kind: "metric",
-      numeral: formatCompact(pageViews),
-      label: "Page views · 30d",
-      sublabel: "Cloudflare edge, all zones",
-      trend: "up",
-    },
-    {
-      kind: "metric",
-      numeral: `${formatNumber(data.wakaMetrics.totalHours)}h`,
-      label: "Coding hours · 30d",
-      sublabel: `Avg ${formatNumber(data.wakaMetrics.avgDailyHours)}h/day`,
-      trend: "flat",
-    },
-    {
-      kind: "metric",
-      numeral: formatCurrency(data.aiMetrics.totalCost),
-      label: "AI spend · 30d",
-      sublabel: `Top model: ${compactName(data.aiMetrics.topModel)}`,
-      trend: data.aiMetrics.totalCost > 0 ? "up" : "flat",
-    },
-    {
-      kind: "narrative",
-      numeral: String(BLOG_POST_COUNT),
-      label: "Posts published",
-      body: "Every post is indexed on the day it ships and reflected here the same night.",
-      badge: "Live",
-    },
-    {
-      kind: "narrative",
-      numeral: formatCompact(data.aiMetrics.cacheTokens),
-      label: "Cache tokens",
-      body: "Prompt re-use logged nightly into ClickHouse — no prompt content stored, only aggregate counts.",
-      badge: "Active",
-    },
-    {
-      kind: "metric",
-      numeral: formatCompact(data.cloudflare.totalRequests),
-      label: "Edge requests · 30d",
-      sublabel: "Cloudflare, all zones",
-      trend: "up",
-    },
-    {
-      kind: "metric",
-      numeral: data.wakaMetrics.topLanguage || "—",
-      label: "Top language",
-      sublabel: `${formatNumber(data.wakaMetrics.daysActive)} days active`,
-      trend: "flat",
-    },
-  ];
+  const projects = data.ccProjects.slice(0, 6).map((project) => ({
+    label: project.projectName,
+    meta: `${formatNumber(project.relativeUsage)}% share`,
+    value: formatCompact(project.tokens),
+  }));
 
   return (
-    <section className="mt-20 border-t border-border pt-12">
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 mb-12">
-        <div className="flex flex-col gap-4">
-          <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground">
-            Reading the signals
-          </p>
-          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight leading-tight">
-            Every metric on this page is pulled live from production.
-          </h2>
-          <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-xl">
-            ClickHouse, Cloudflare, WakaTime, GitHub — no analytics middleman.
-            The pipeline runs nightly; values here reflect the last 30 days
-            unless noted. Missing credentials degrade to empty states, never
-            to fabricated numbers.
-          </p>
-          <p className="text-xs text-muted-foreground mt-2">
-            Dashboard · Last updated{" "}
-            {data.cloudflare.generatedAt
-              ? new Date(data.cloudflare.generatedAt).toLocaleDateString(
-                  "en-US",
-                  { day: "numeric", month: "short", year: "numeric" },
-                )
-              : "recently"}
-          </p>
-        </div>
+    <section className="mt-10 grid grid-cols-1 gap-8 border-t border-border pt-8 xl:grid-cols-2">
+      <div className="flex flex-col gap-8">
+        <EditorialChart
+          eyebrow="AI · ccusage"
+          title="Where the tokens went."
+          subtitle="Daily token volume by model (thousands), last 30 days."
+        >
+          <InsightStackedBarChart data={byModel} />
+        </EditorialChart>
 
-        {/* Primary hero metric */}
-        <div className="flex flex-col justify-center border p-8">
-          <p className="text-6xl md:text-7xl font-semibold tracking-tight tabular-nums text-foreground">
-            {formatCompact(data.aiMetrics.totalTokens)}
-          </p>
-          <p className="mt-3 text-base font-medium text-foreground">
-            AI tokens this month
-          </p>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Claude Code · ClickHouse warehouse
-          </p>
-          <div className="mt-3 flex items-center gap-1.5 text-green-600 dark:text-green-400 text-sm font-medium">
-            <ArrowUpRight size={16} />
-            <span>Streaming nightly</span>
-          </div>
-        </div>
+        {projects.length > 0 && (
+          <EditorialList
+            eyebrow="Projects · ccusage"
+            title="Top sessions by tokens."
+            items={projects}
+            emptyLabel="No project breakdown available."
+          />
+        )}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {cards.map((card) => {
-          if (card.kind === "metric") {
-            return (
-              <div
-                key={card.label}
-                className="relative border p-5 flex flex-col gap-2"
-              >
-                <div className="absolute top-4 right-4">
-                  <SignalTrend trend={card.trend} />
-                </div>
-                <p className="text-3xl font-semibold tracking-tight tabular-nums text-foreground">
-                  {card.numeral}
-                </p>
-                <p className="text-sm font-medium text-foreground">
-                  {card.label}
-                </p>
-                <p className="text-xs text-muted-foreground">{card.sublabel}</p>
-              </div>
-            );
-          }
-          return (
-            <div
-              key={card.label}
-              className="border p-5 flex flex-col gap-2"
-            >
-              <div className="flex items-start justify-between gap-2">
-                <p className="text-3xl font-semibold tracking-tight tabular-nums text-foreground">
-                  {card.numeral}
-                </p>
-                {card.badge && (
-                  <Badge className="bg-green-100 text-green-700 dark:bg-green-950/30 dark:text-green-300 hover:bg-green-100 shrink-0">
-                    {card.badge}
-                  </Badge>
-                )}
-              </div>
-              <p className="text-sm font-medium text-foreground">{card.label}</p>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                {card.body}
-              </p>
-            </div>
-          );
-        })}
-      </div>
+      <EditorialChart
+        eyebrow="Efficiency · ccusage"
+        title="Tokens per dollar."
+        subtitle="Cost efficiency trend — higher is cheaper output."
+      >
+        <InsightAreaChart
+          data={efficiency}
+          keys={["score"]}
+          labelMap={{ score: "Tokens/$" }}
+          accentKey="score"
+        />
+      </EditorialChart>
     </section>
   );
 }
@@ -1134,7 +831,7 @@ function InsightAreaChart({
   };
 
   return (
-    <div className="h-[260px] min-w-0" ref={ref}>
+    <div className="h-[200px] min-w-0" ref={ref}>
       {(!isHydrated || width === 0) && (
         <div className="flex h-full items-center text-xs text-muted-foreground">
           Loading.
@@ -1143,7 +840,7 @@ function InsightAreaChart({
       {isHydrated && width > 0 && (
         <AreaChart
           data={data}
-          height={260}
+          height={200}
           margin={{ bottom: 0, left: -12, right: 4, top: 8 }}
           width={width}
         >
@@ -1235,7 +932,7 @@ function InsightBarChart({
   }
 
   return (
-    <div className="h-[260px] min-w-0" ref={ref}>
+    <div className="h-[200px] min-w-0" ref={ref}>
       {(!isHydrated || width === 0) && (
         <div className="flex h-full items-center text-xs text-muted-foreground">
           Loading.
@@ -1244,7 +941,7 @@ function InsightBarChart({
       {isHydrated && width > 0 && (
         <BarChart
           data={data}
-          height={260}
+          height={200}
           layout="vertical"
           margin={{ bottom: 0, left: 0, right: 16, top: 8 }}
           width={width}
@@ -1283,6 +980,89 @@ function InsightBarChart({
             fill={CHART_FOREGROUND}
             radius={[0, 1, 1, 0]}
           />
+        </BarChart>
+      )}
+    </div>
+  );
+}
+
+const STACK_COLORS = [
+  "var(--chart-1)",
+  "var(--chart-2)",
+  "var(--chart-3)",
+  "var(--chart-4)",
+  "var(--chart-5)",
+];
+
+function InsightStackedBarChart({
+  data,
+}: {
+  data: CCUsageActivityByModelData[];
+}) {
+  const isHydrated = useHydrated();
+  const { ref, width } = useElementWidth();
+
+  if (data.length === 0) {
+    return <EmptyChart label="No model breakdown available." />;
+  }
+
+  const modelKeys = Array.from(
+    new Set(data.flatMap((d) => Object.keys(d).filter((k) => k !== "date")))
+  );
+
+  return (
+    <div className="h-[200px] min-w-0" ref={ref}>
+      {(!isHydrated || width === 0) && (
+        <div className="flex h-full items-center text-xs text-muted-foreground">
+          Loading.
+        </div>
+      )}
+      {isHydrated && width > 0 && (
+        <BarChart
+          data={data}
+          height={200}
+          margin={{ bottom: 0, left: -12, right: 4, top: 8 }}
+          width={width}
+        >
+          <XAxis
+            axisLine={false}
+            dataKey="date"
+            fontSize={11}
+            tick={{ fill: "var(--muted-foreground)" }}
+            tickLine={false}
+            tickMargin={10}
+          />
+          <YAxis
+            axisLine={false}
+            fontSize={11}
+            tick={{ fill: "var(--muted-foreground)" }}
+            tickLine={false}
+            tickMargin={8}
+            width={36}
+          />
+          <Tooltip
+            cursor={{ fill: "var(--secondary)" }}
+            contentStyle={{
+              background: CHART_TOOLTIP_BACKGROUND,
+              border: "0",
+              borderRadius: "2px",
+              color: CHART_TOOLTIP_TEXT,
+              fontSize: "12px",
+              padding: "8px 10px",
+            }}
+            formatter={(value, name) => [
+              `${formatNumber(Number(value))}K`,
+              compactName(String(name)),
+            ]}
+          />
+          {modelKeys.map((key, index) => (
+            <Bar
+              dataKey={key}
+              fill={STACK_COLORS[index % STACK_COLORS.length]}
+              key={key}
+              stackId="tokens"
+            />
+          ))}
         </BarChart>
       )}
     </div>

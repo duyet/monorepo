@@ -61,10 +61,10 @@ function RootComponent() {
               currentApp="insights"
               localNav={[
                 { label: "Overview", href: "/" },
-                { label: "Blog", href: "/blog" },
-                { label: "GitHub", href: "/github" },
-                { label: "WakaTime", href: "/wakatime" },
-                { label: "AI", href: "/ai" },
+                { label: "Blog Insights", href: "/blog" },
+                { label: "GitHub Insights", href: "/github" },
+                { label: "WakaTime Insights", href: "/wakatime" },
+                { label: "AI Insights", href: "/ai" },
               ]}
               activeHref={pathname}
             />
