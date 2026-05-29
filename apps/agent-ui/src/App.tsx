@@ -9,7 +9,7 @@ import { useChat } from "@ai-sdk/react";
 import { Button } from "~/components/ui/button";
 import { Separator } from "~/components/ui/separator";
 import { Textarea } from "~/components/ui/textarea";
-import { SiteNav } from "~/components/SiteNav";
+import { SiteFooter, SiteHeader } from "@duyet/components";
 import type { UIMessage } from "ai";
 import { ArrowUp, RotateCcw } from "lucide-react";
 import {
@@ -28,14 +28,10 @@ import {
 
 const SESSION_STORAGE_KEY = "duyet-agent-ui-session-id";
 
-const GLOBAL_NAV_LINKS = [
-  { name: "Home", href: "https://duyet.net" },
-  { name: "Projects", href: "https://duyet.net/projects" },
-  { name: "About", href: "https://duyet.net/about" },
-  { name: "Blog", href: "https://blog.duyet.net" },
-  { name: "CV", href: "https://cv.duyet.net" },
-  { name: "Insights", href: "https://insights.duyet.net" },
-  { name: "Agent", href: "/", active: true },
+// Custom in-app menu shown next to the shared app switcher in the header.
+const AGENT_NAV = [
+  { label: "Chat", href: "/" },
+  { label: "API", href: "https://api.duyet.net", external: true },
 ];
 
 const SUGGESTIONS = [
@@ -210,14 +206,10 @@ function ChatScreen() {
   const empty = messages.length === 0;
 
   return (
-    <main className="min-h-dvh bg-background text-foreground">
-      <SiteNav
-        brandText="Duyet Le"
-        brandHref="https://duyet.net"
-        links={GLOBAL_NAV_LINKS}
-      />
+    <div className="flex min-h-dvh flex-col bg-background text-foreground">
+      <SiteHeader currentApp="agents" localNav={AGENT_NAV} activeHref="/" />
 
-      <div className="mx-auto flex min-h-[calc(100dvh-3rem)] w-full max-w-[760px] flex-col px-5 sm:px-8">
+      <main className="mx-auto flex w-full max-w-[760px] flex-1 flex-col px-5 sm:px-8">
         {empty ? (
           <Hero onPick={submit} disabled={!isSignedIn || isBusy} />
         ) : (
@@ -297,8 +289,10 @@ function ChatScreen() {
             </form>
           )}
         </div>
-      </div>
-    </main>
+      </main>
+
+      <SiteFooter />
+    </div>
   );
 }
 
