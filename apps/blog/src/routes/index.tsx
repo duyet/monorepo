@@ -3,7 +3,8 @@ import {
   Reveal,
   SecHead,
 } from "@duyet/components";
-import type { Post } from "@duyet/interfaces";
+import type { Post, Series } from "@duyet/interfaces";
+import { getSlug } from "@duyet/libs/getSlug";
 import { dateFormat } from "@duyet/libs/date";
 import {
   ArrowRight,
@@ -15,6 +16,7 @@ import {
   Database,
   FolderKanban,
   GitBranch,
+  Layers,
   Newspaper,
   Server,
   Wrench,
@@ -22,17 +24,25 @@ import {
 } from "lucide-react";
 import { useMemo, useState, type ReactElement } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { getPostsByAllYear } from "@/lib/posts";
+import {
+  getAllSeries,
+  getAllTags,
+  getPostsByAllYear,
+} from "@/lib/posts";
 import { getShortforms } from "@/lib/shortforms";
 
 // ---------------------------------------------------------------------------
-// Route & loader (unchanged)
+// Route & loader (unchanged data contract; added tags + series)
 // ---------------------------------------------------------------------------
 export const Route = createFileRoute("/")({
   loader: async () => {
-    const postsByYear = await getPostsByAllYear();
-    const shortforms = getShortforms(3);
-    return { postsByYear, shortforms };
+    const [postsByYear, shortforms, allTags, allSeries] = await Promise.all([
+      getPostsByAllYear(),
+      Promise.resolve(getShortforms(3)),
+      getAllTags(),
+      getAllSeries(),
+    ]);
+    return { postsByYear, shortforms, allTags, allSeries };
   },
   component: HomePage,
 });
@@ -157,9 +167,7 @@ function FeaturedPost({ post }: { post: Post }) {
         <div
           className="rd-mono rd-dim"
           style={{ fontSize: 12, marginTop: 18 }}
-        >
-          {/* {post.category} */}
-        </div>
+        />
       </div>
 
       {/* Post details */}
@@ -223,10 +231,137 @@ function FeaturedPost({ post }: { post: Post }) {
 }
 
 // ---------------------------------------------------------------------------
+// Category bento tile
+// ---------------------------------------------------------------------------
+function CategoryBentoTile({
+  name,
+  count,
+  maxCount,
+  samplePosts,
+  isFeatured,
+  isWide,
+  onSelect,
+}: {
+  name: string;
+  count: number;
+  maxCount: number;
+  samplePosts: Post[];
+  isFeatured: boolean;
+  isWide: boolean;
+  onSelect: () => void;
+}) {
+  const Ic = getCategoryIcon(name);
+  const meterPct = Math.round((count / maxCount) * 100);
+  const tileClass = [
+    "rd-card rd-card-hover rd-card-pad rd-cat-tile",
+    isFeatured ? "rd-feat" : "",
+    isWide ? "rd-wide" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return (
+    <button
+      type="button"
+      className={tileClass}
+      onClick={onSelect}
+      style={{ textAlign: "left" }}
+    >
+      <div className="rd-cat-head">
+        <span className="rd-cat-ic">
+          <Ic size={isFeatured ? 22 : 18} />
+        </span>
+        <span className="rd-rowarrow">
+          <ArrowUpRight size={14} />
+        </span>
+      </div>
+
+      <div
+        className="rd-bigstat"
+        style={{ marginTop: isFeatured ? 20 : 14 }}
+      >
+        {count}
+      </div>
+      <div style={{ fontWeight: 600, marginTop: 3 }}>{name}</div>
+
+      {/* Proportional meter */}
+      <div className="rd-cat-meter" style={{ marginTop: 14 }}>
+        <i style={{ width: `${meterPct}%` }} />
+      </div>
+
+      {/* Sample post links — only for featured + wide tiles */}
+      {(isFeatured || isWide) && samplePosts.length > 0 && (
+        <div className="rd-cat-sample">
+          {samplePosts.map((p) => (
+            <Link
+              key={p.slug}
+              to="/$year/$month/$slug/"
+              params={postParams(p)}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <span className="rd-dot" />
+              {p.title}
+            </Link>
+          ))}
+        </div>
+      )}
+    </button>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Series card
+// ---------------------------------------------------------------------------
+function SeriesCard({ series }: { series: Series }) {
+  const sorted = [...series.posts].sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+  );
+  const preview = sorted.slice(0, 3);
+
+  return (
+    <Link
+      to="/series/$slug/"
+      params={{ slug: series.slug }}
+      className="rd-card rd-card-hover rd-series-card"
+      style={{ textDecoration: "none", color: "inherit" }}
+    >
+      <div className="rd-sc-top">
+        <div className="rd-sc-ic">
+          <Layers size={20} />
+        </div>
+        <div className="rd-sc-meta">
+          <div className="rd-sc-name">{series.name}</div>
+          <div className="rd-sc-count">
+            {series.posts.length}{" "}
+            {series.posts.length === 1 ? "post" : "posts"}
+          </div>
+        </div>
+      </div>
+
+      {preview.length > 0 && (
+        <div className="rd-sc-list">
+          {preview.map((p, i) => (
+            <Link
+              key={p.slug}
+              to="/$year/$month/$slug/"
+              params={postParams(p)}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <span className="rd-sn">{String(i + 1).padStart(2, "0")}</span>
+              {p.title}
+            </Link>
+          ))}
+        </div>
+      )}
+    </Link>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Home page
 // ---------------------------------------------------------------------------
 function HomePage(): ReactElement {
-  const { postsByYear } = Route.useLoaderData();
+  const { postsByYear, allTags, allSeries } = Route.useLoaderData();
 
   const years = useMemo(
     () =>
@@ -260,10 +395,42 @@ function HomePage(): ReactElement {
       .map(([name, count]) => ({ name, count }));
   }, [allPosts]);
 
+  // Per-category sample posts (latest 2)
+  const categorySamples = useMemo(() => {
+    const map: Record<string, Post[]> = {};
+    for (const { name } of categories) {
+      map[name] = allPosts
+        .filter((p) => p.category === name)
+        .slice(0, 2);
+    }
+    return map;
+  }, [allPosts, categories]);
+
+  const maxCatCount = categories[0]?.count ?? 1;
+
   // Stats
   const totalPosts = allPosts.length;
   const totalYears = years.length;
   const sinceYear = years[years.length - 1];
+
+  // Top tags for cloud (max 30 by count)
+  const topTags = useMemo(
+    () =>
+      Object.entries(allTags)
+        .sort(([, a], [, b]) => b - a)
+        .slice(0, 30),
+    [allTags],
+  );
+
+  // Series with at least 2 posts, sorted by count desc
+  const featuredSeries = useMemo(
+    () =>
+      [...allSeries]
+        .filter((s) => s.posts.length >= 2)
+        .sort((a, b) => b.posts.length - a.posts.length)
+        .slice(0, 4),
+    [allSeries],
+  );
 
   // Category filter state
   const [activeCategory, setActiveCategory] = useState("All");
@@ -280,7 +447,13 @@ function HomePage(): ReactElement {
   return (
     <div>
       {/* ── Blog header ─────────────────────────────────────────────── */}
-      <section className="rd-wrap" style={{ paddingTop: "clamp(44px, 6vw, 76px)", paddingBottom: "clamp(28px, 4vw, 44px)" }}>
+      <section
+        className="rd-wrap"
+        style={{
+          paddingTop: "clamp(44px, 6vw, 76px)",
+          paddingBottom: "clamp(28px, 4vw, 44px)",
+        }}
+      >
         <Eyebrow>BLOG &middot; blog.duyet.net</Eyebrow>
         <h1
           className="rd-display"
@@ -329,62 +502,81 @@ function HomePage(): ReactElement {
 
       {/* ── Featured post ────────────────────────────────────────────── */}
       {featured && (
-        <section className="rd-wrap rd-section-tight" style={{ paddingTop: 0 }}>
+        <section
+          className="rd-wrap rd-section-tight"
+          style={{ paddingTop: 0 }}
+        >
           <Reveal>
             <FeaturedPost post={featured} />
           </Reveal>
         </section>
       )}
 
-      {/* ── Browse by category ───────────────────────────────────────── */}
+      {/* ── Browse by category — bento grid ─────────────────────────── */}
       <section id="topics" className="rd-wrap rd-section-tight">
         <SecHead num="—" eyebrow="Topics" title="Browse by category" />
-        <div className="rd-g4">
-          {categories.map((cat) => {
-            const Ic = getCategoryIcon(cat.name);
-            return (
-              <button
-                key={cat.name}
-                type="button"
-                className="rd-card rd-card-hover rd-card-pad rd-cat-tile"
-                onClick={() => {
-                  setActiveCategory(cat.name);
-                  setTimeout(() => {
-                    document
-                      .getElementById("latest")
-                      ?.scrollIntoView({ behavior: "smooth" });
-                  }, 30);
-                }}
-                style={{ textAlign: "left" }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <span className="rd-cat-ic">
-                    <Ic size={18} />
-                  </span>
-                  <span className="rd-rowarrow">
-                    <ArrowUpRight size={14} />
-                  </span>
-                </div>
-                <div
-                  className="rd-bigstat"
-                  style={{ fontSize: "1.7rem", marginTop: 16 }}
-                >
-                  {cat.count}
-                </div>
-                <div style={{ fontWeight: 600, marginTop: 3 }}>
-                  {cat.name}
-                </div>
-              </button>
-            );
-          })}
+        <div className="rd-cat-bento">
+          {categories.map((cat, i) => (
+            <CategoryBentoTile
+              key={cat.name}
+              name={cat.name}
+              count={cat.count}
+              maxCount={maxCatCount}
+              samplePosts={categorySamples[cat.name] ?? []}
+              isFeatured={i === 0}
+              isWide={i === 1}
+              onSelect={() => {
+                setActiveCategory(cat.name);
+                setTimeout(() => {
+                  document
+                    .getElementById("latest")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }, 30);
+              }}
+            />
+          ))}
         </div>
       </section>
+
+      {/* ── Series ───────────────────────────────────────────────────── */}
+      {featuredSeries.length > 0 && (
+        <section className="rd-wrap rd-section-tight">
+          <SecHead num="—" eyebrow="Reading paths" title="Series" />
+          <div className="rd-series-grid">
+            {featuredSeries.map((s) => (
+              <SeriesCard key={s.slug} series={s} />
+            ))}
+          </div>
+          <Link
+            to="/series/"
+            className="rd-btn rd-btn-ghost"
+            style={{ marginTop: 20 }}
+          >
+            All series <ArrowRight size={16} />
+          </Link>
+        </section>
+      )}
+
+      {/* ── Tag cloud ────────────────────────────────────────────────── */}
+      {topTags.length > 0 && (
+        <section className="rd-wrap rd-section-tight">
+          <SecHead num="—" eyebrow="Index" title="Tags" />
+          <div className="rd-tag-cloud">
+            {topTags.map(([tag, count]) => (
+              <Link
+                key={tag}
+                to="/tag/$tag/"
+                params={{ tag: getSlug(tag) }}
+                className="rd-tag-pill"
+              >
+                <span className="rd-hash">#</span>
+                {tag}
+                <span className="rd-tc">{count}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* ── Recent posts ─────────────────────────────────────────────── */}
       <section
