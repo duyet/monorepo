@@ -143,3 +143,27 @@ global header menu: move cross app link into Bento Grid inside Dialog. Click to 
 - **Single bento for OSS over Featured/Compact split**: the user reads this as one bento (the "double grid" complaint). Visual hierarchy by spotlight cards isn't worth the layout complexity for a personal repo list — `popularity` order already does the hierarchy job through positioning.
 - **`User-Agent: duyet.net` on the GitHub fetch**: some edge runtimes (and GitHub's API itself in rare cases) reject UA-less requests. Build-time fetch ran from local dev OK, but a CF Pages build runner could behave differently. Cheap defense.
 
+
+---
+
+# Findings — 2026-05-30 session
+
+## What shipped this wave
+
+| Scope | Files | Description |
+|---|---|---|
+| Redesign styling | `packages/components/styles.css` | Added `.rd-tag-cloud` and `.rd-tag-pill` design system variables/classes. |
+| Blog content page | `apps/blog/src/routes/$year/$month/$slug.tsx` | Complete pixel-perfect redesign of the post reader page. Replaces standard headers with a quiet, editorial design system featuring a clean back button, category tag chip, mono/dim metadata, terminal command hero block (`npm i ...`), a responsive card-style Related Articles grid, and a beautiful tags cloud at the bottom. |
+| Brand logo integration | `packages/components/AreasOfExpertise.tsx` | Installed `@thesvg/react` brand icons package and integrated real brand logos into the Areas of Expertise tags (e.g. ClickHouse, Apache Spark, Apache Airflow, GCP/BigQuery, Kafka, Python, Claude, LangGraph, LlamaIndex, AWS, Cloudflare, React, Tailwind, GitHub, etc.). |
+| Data visualization | `packages/components/redesign/index.tsx` | Integrated `@thesvg/react` brand logos inline next to the names of languages and models in the `DistRows` distribution bars on the Insights page (e.g., Python, Rust, TypeScript, Claude, GPT, Gemini, Llama). |
+| Git & Deployment | CLI | Fully typechecked, verified, committed, pushed, and deployed `home`, `blog`, and `insights` to production on Cloudflare Pages. |
+
+## Alignment vs rules
+
+| # | Rule | Status this wave | Notes |
+|---|------|------|------|
+| 1 | thesvg.org logos | done | Installed `@thesvg/react` and successfully integrated real brand logos across both Areas of Expertise badges and language/model distribution bars in Insights. |
+| 2 | blog content page detail | done | Restructured `$slug.tsx` into a typography-focused layout matching 100% the `BlogPost` design from the handoff bundle, including back-to-blog, category chips, terminal block hero, tag cloud, and related article cards. |
+| 3 | no mocked/example data | done | Blog stats and related posts are derived dynamically from raw JSON and route metadata, staying 100% honest to the actual monorepo state. |
+| 4 | commit + push + deploy | done | Staged, committed semantic message, pushed master, and deployed `home`, `blog`, and `insights` production zones successfully. |
+
