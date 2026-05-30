@@ -26,7 +26,6 @@ const GROUPS: FooterGroup[] = [
       { label: "Home", href: "https://duyet.net" },
       { label: "Blog", href: "https://blog.duyet.net" },
       { label: "Insights", href: "https://insights.duyet.net" },
-      { label: "LLM Timeline", href: "https://llm-timeline.duyet.net" },
       { label: "Homelab", href: "https://homelab.duyet.net" },
       { label: "Photos", href: "https://photos.duyet.net" },
     ],
@@ -45,23 +44,56 @@ const GROUPS: FooterGroup[] = [
     items: [
       { label: "About", href: "https://duyet.net/about" },
       { label: "CV", href: "https://cv.duyet.net" },
-      { label: "DuyetBot", href: "https://duyet.net/about-duyetbot" },
+      { label: "Projects", href: "https://duyet.net/projects" },
       { label: "RSS", href: "https://blog.duyet.net/rss.xml" },
+    ],
+  },
+  {
+    heading: "For agents",
+    items: [
+      { label: "DuyetBot", href: "https://duyet.net/about-duyetbot" },
+      { label: "MCP server", href: "https://mcp.duyet.net" },
+      { label: "llms.txt", href: "https://duyet.net/ls" },
     ],
   },
 ];
 
-function FooterGroupRow({ group }: { group: FooterGroup }) {
+function FooterCol({ group }: { group: FooterGroup }) {
   return (
-    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-      <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-muted-foreground/70">
+    <div>
+      <h4
+        style={{
+          fontFamily: "var(--font-mono)",
+          fontSize: 11,
+          letterSpacing: "0.14em",
+          textTransform: "uppercase" as const,
+          color: "var(--rd-accent-ink)",
+          margin: "0 0 13px",
+          fontWeight: 500,
+        }}
+      >
         {group.heading}
-      </span>
+      </h4>
       {group.items.map((item) => (
         <a
           key={item.href}
           href={item.href}
-          className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+          target={item.href.startsWith("http") ? "_blank" : undefined}
+          rel={item.href.startsWith("http") ? "noreferrer" : undefined}
+          style={{
+            display: "block",
+            fontSize: 14,
+            color: "var(--rd-text-2)",
+            padding: "4px 0",
+            transition: "color .15s",
+            textDecoration: "none",
+          }}
+          onMouseEnter={(e) => {
+            (e.target as HTMLElement).style.color = "var(--rd-accent-ink)";
+          }}
+          onMouseLeave={(e) => {
+            (e.target as HTMLElement).style.color = "var(--rd-text-2)";
+          }}
         >
           {item.label}
         </a>
@@ -83,36 +115,87 @@ export function SiteFooter({
       : GROUPS;
 
   return (
-    <footer className={cn("border-t bg-background", className)}>
-      <div className="mx-auto max-w-[1080px] px-4 sm:px-6 lg:px-8 py-8">
-        {/* Single compact row: brand · Apps · Projects · About */}
-        <div className="flex flex-col gap-x-8 gap-y-4 lg:flex-row lg:flex-wrap lg:items-baseline">
-          <a
-            href="https://duyet.net"
-            className="text-sm font-semibold tracking-tight text-foreground transition-colors hover:text-muted-foreground"
+    <footer
+      className={cn("border-t", className)}
+      style={{
+        background: "var(--rd-bg-sub)",
+        borderColor: "var(--rd-border)",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "var(--rd-maxw)",
+          margin: "0 auto",
+          padding: "54px var(--rd-pad) 40px",
+        }}
+      >
+        {/* Top: brand + column grid */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            gap: "40px 64px",
+            flexWrap: "wrap",
+          }}
+        >
+          <div style={{ maxWidth: 300 }}>
+            <div
+              style={{
+                fontSize: 22,
+                fontWeight: 600,
+                letterSpacing: "-0.03em",
+              }}
+            >
+              duyet<span style={{ color: "var(--rd-accent)" }}>.net</span>
+            </div>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              gap: 56,
+              flexWrap: "wrap",
+            }}
           >
-            duyet.net
-          </a>
-          {groups.map((group) => (
-            <FooterGroupRow key={group.heading} group={group} />
-          ))}
+            {groups.map((group) => (
+              <FooterCol key={group.heading} group={group} />
+            ))}
+          </div>
         </div>
 
-        <div className="mt-6 flex flex-col-reverse items-start gap-2 border-t pt-4 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-mono">
-            © {year} {owner}
-          </p>
-          <p className="leading-relaxed sm:text-right">
+        {/* Bottom bar */}
+        <div
+          style={{
+            marginTop: 44,
+            paddingTop: 22,
+            borderTop: "1px solid var(--rd-border)",
+            display: "flex",
+            justifyContent: "space-between",
+            gap: 16,
+            flexWrap: "wrap",
+            fontSize: 13,
+            color: "var(--rd-text-3)",
+          }}
+        >
+          <span>© {year} {owner}</span>
+          <span
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 12,
+            }}
+          >
             Continuously maintained by{" "}
             <a
               href="https://duyet.net/about-duyetbot"
-              className="underline decoration-muted-foreground/40 underline-offset-2 transition-colors hover:text-foreground hover:decoration-foreground"
+              style={{
+                color: "var(--rd-accent-ink)",
+                textDecoration: "none",
+              }}
             >
               duyetbot
             </a>
-            , an autonomous agent.
-          </p>
-          {children && <div className="flex items-center gap-5">{children}</div>}
+            .
+          </span>
+          {children && <div>{children}</div>}
         </div>
       </div>
     </footer>
