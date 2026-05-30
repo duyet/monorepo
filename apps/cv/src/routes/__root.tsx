@@ -3,7 +3,7 @@ import "../../app/globals.css";
 
 import Analytics from "@duyet/components/Analytics";
 import Container from "@duyet/components/Container";
-import Footer from "@duyet/components/Footer";
+import SiteFooter from "@duyet/components/SiteFooter";
 import Header from "@duyet/components/Header";
 import { ABOUT, BLOG, HOME, INSIGHTS, PHOTOS } from "@duyet/components/Menu";
 import ThemeProvider from "@duyet/components/ThemeProvider";
@@ -121,7 +121,7 @@ function RootComponent() {
               shortText="CV"
             />
           </div>
-          <Footer className="print:hidden" containerClassName="max-w-3xl" />
+          <SiteFooter className="print:hidden" owner="Duyet Le" />
           <Analytics />
         </ThemeProvider>
         <Scripts />
