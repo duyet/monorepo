@@ -14,9 +14,7 @@ import {
   Network,
   Server,
   Smartphone,
-  Wifi,
 } from "lucide-react";
-import { Badge } from "@duyet/components";
 import { DashboardTabs } from "@/components/DashboardTabs";
 import { ClusterOverview } from "@/components/dashboard/ClusterOverview";
 import { ClusterTopology } from "@/components/dashboard/ClusterTopology";
@@ -37,12 +35,49 @@ import {
 
 const snapshotDate = new Date().toLocaleString();
 
-// Flat bento tile — hairline border, semantic tokens, no shadow
-const TILE = "rounded-xl border border-border bg-card p-4 sm:p-5";
-
 export const Route = createFileRoute("/")({
   component: HomelabPage,
 });
+
+// ------------------------------------------------------------------
+// Small presentational helpers
+// ------------------------------------------------------------------
+
+function StatusDot({ status }: { status: string }) {
+  const cls =
+    status === "online"
+      ? "rd-dot rd-ok rd-pulse"
+      : status === "degraded"
+        ? "rd-dot rd-warn"
+        : "rd-dot rd-down";
+  return <span className={cls} />;
+}
+
+function MeterBar({
+  value,
+  warn = 55,
+  danger = 75,
+}: {
+  value: number;
+  warn?: number;
+  danger?: number;
+}) {
+  const bg =
+    value > danger
+      ? "var(--rd-down)"
+      : value > warn
+        ? "var(--rd-warn)"
+        : "var(--rd-ok)";
+  return (
+    <div className="rd-meter" style={{ marginTop: 6 }}>
+      <i style={{ width: `${Math.min(value, 100)}%`, background: bg }} />
+    </div>
+  );
+}
+
+// ------------------------------------------------------------------
+// Main page
+// ------------------------------------------------------------------
 
 function HomelabPage() {
   const { nodes, onlineCount, totalNodes } = useNodes();
@@ -105,395 +140,502 @@ function HomelabPage() {
   );
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <section className="pt-6">
-        <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
-          Infrastructure
-        </p>
-        <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">
+    <div style={{ paddingTop: "clamp(32px,4vw,56px)", paddingBottom: "clamp(48px,6vw,80px)" }}>
+      {/* Page header */}
+      <div style={{ marginBottom: 32 }}>
+        <div className="rd-eyebrow" style={{ marginBottom: 12 }}>
+          <StatusDot status={onlineCount === totalNodes ? "online" : "degraded"} />
+          Infrastructure · homelab.duyet.net
+        </div>
+        <h1 className="rd-display" style={{ fontSize: "clamp(2.2rem,5vw,3.4rem)", marginTop: 0 }}>
           Homelab
         </h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Cluster health, running services, and smart home devices.
+        <p className="rd-lead" style={{ marginTop: 14 }}>
+          Cluster health, running services, and smart-home devices. Data captured by AI agent.
         </p>
-      </section>
+      </div>
 
-      {/* Bento grid — flat token tiles, hairline borders, no shadow.
-          12-col layout (desktop), varied spans:
-          [Nodes 5 / row-span-2 ][Services 4][Devices 3]
-          [Nodes cont.          ][Node types 4][Top svc 3]
-          [Cluster stats 8                    ][Network 4]
-          [Service memory 4][Recent incidents 8         ]
-      */}
-      <div className="grid grid-cols-12 gap-3 auto-rows-min">
-        {/* Nodes — tall tile with per-node uptime + memory */}
-        <div className={`${TILE} col-span-12 md:col-span-5 md:row-span-2`}>
-          <div className="mb-2 flex items-center justify-between">
-            <span className="text-sm font-medium text-muted-foreground">
+      {/* ── Summary stat strip ──────────────────────────────────── */}
+      <div
+        className="signalbar"
+        style={{
+          gridTemplateColumns: "repeat(5,1fr)",
+          marginBottom: 28,
+        }}
+      >
+        {/* Nodes online */}
+        <div className="signal-tile">
+          <div className="rd-eyebrow" style={{ gap: 6 }}>
+            <Server size={13} style={{ color: "var(--rd-text-3)" }} />
+            Nodes
+          </div>
+          <div className="rd-bigstat" style={{ marginTop: 10 }}>
+            {onlineCount}
+            <span className="rd-unit">/ {totalNodes}</span>
+          </div>
+          <div className="rd-mono rd-dim" style={{ fontSize: 11 }}>online</div>
+        </div>
+
+        {/* Services running */}
+        <div className="signal-tile">
+          <div className="rd-eyebrow" style={{ gap: 6 }}>
+            <Layers size={13} style={{ color: "var(--rd-text-3)" }} />
+            Services
+          </div>
+          <div className="rd-bigstat" style={{ marginTop: 10 }}>
+            {runningServices}
+            <span className="rd-unit">/ {totalServices}</span>
+          </div>
+          <div className="rd-mono rd-dim" style={{ fontSize: 11 }}>{namespaceCount} namespaces</div>
+        </div>
+
+        {/* Avg CPU */}
+        <div className="signal-tile">
+          <div className="rd-eyebrow" style={{ gap: 6 }}>
+            <Cpu size={13} style={{ color: "var(--rd-text-3)" }} />
+            Avg CPU
+          </div>
+          <div className="rd-bigstat" style={{ marginTop: 10 }}>
+            {clusterStats.avgCpu.toFixed(1)}
+            <span className="rd-unit">%</span>
+          </div>
+          <MeterBar value={clusterStats.avgCpu} />
+        </div>
+
+        {/* Memory */}
+        <div className="signal-tile">
+          <div className="rd-eyebrow" style={{ gap: 6 }}>
+            <MemoryStick size={13} style={{ color: "var(--rd-text-3)" }} />
+            Memory
+          </div>
+          <div className="rd-bigstat" style={{ marginTop: 10 }}>
+            {clusterStats.usedMemory.toFixed(0)}
+            <span className="rd-unit">/ {clusterStats.totalMemory} GB</span>
+          </div>
+          <MeterBar value={memPercent} />
+        </div>
+
+        {/* Smart devices */}
+        <div className="signal-tile">
+          <div className="rd-eyebrow" style={{ gap: 6 }}>
+            <Smartphone size={13} style={{ color: "var(--rd-text-3)" }} />
+            Devices
+          </div>
+          <div className="rd-bigstat" style={{ marginTop: 10 }}>
+            {onlineDevices.length}
+            <span className="rd-unit">/ {devices.length}</span>
+          </div>
+          <div className="rd-mono rd-dim" style={{ fontSize: 11 }}>online</div>
+        </div>
+      </div>
+
+      {/* ── Bento grid ─────────────────────────────────────────── */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(12,1fr)",
+          gap: 12,
+          alignItems: "start",
+        }}
+      >
+        {/* ── Nodes tile (tall, left) ─ */}
+        <div
+          className="rd-card rd-card-pad"
+          style={{ gridColumn: "span 12" }}
+          data-md-col="span 5"
+        >
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+            <span className="rd-eyebrow">
+              <Server size={13} />
               Nodes
             </span>
-            <Server className="h-4 w-4 text-muted-foreground" />
-          </div>
-          <div className="text-3xl font-semibold tabular-nums tracking-tight">
-            {onlineCount}
-            <span className="text-lg font-normal text-muted-foreground">
-              /{totalNodes}
+            <span className="rd-chip rd-mono" style={{ fontSize: 11 }}>
+              {onlineCount}/{totalNodes} online
             </span>
           </div>
-          <p className="mt-0.5 mb-4 text-xs text-muted-foreground">online</p>
-          <ul className="space-y-2.5">
+
+          {/* Node chip strip */}
+          <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 18 }}>
             {nodes.map((node) => (
-              <li key={node.id} className="text-xs">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span
-                      className={`h-1.5 w-1.5 rounded-full ${
-                        node.status === "online"
-                          ? "bg-green-500"
-                          : node.status === "degraded"
-                            ? "bg-yellow-500"
-                            : "bg-red-500"
-                      }`}
-                    />
-                    <span className="font-mono text-foreground">
+              <span
+                key={node.id}
+                className="rd-chip rd-mono"
+                style={{
+                  fontSize: 10.5,
+                  gap: 5,
+                  opacity: node.status === "offline" ? 0.5 : 1,
+                }}
+              >
+                <StatusDot status={node.status} />
+                {node.name}
+              </span>
+            ))}
+          </div>
+
+          {/* Per-node rows */}
+          <div className="rd-rows" style={{ borderTop: "1px solid var(--rd-line)" }}>
+            {nodes.map((node) => (
+              <div
+                key={node.id}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr auto",
+                  gap: 12,
+                  padding: "14px 0",
+                  borderBottom: "1px solid var(--rd-line)",
+                }}
+              >
+                {/* Left: name + meta */}
+                <div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+                    <StatusDot status={node.status} />
+                    <span className="rd-mono" style={{ fontWeight: 600, fontSize: 13.5 }}>
                       {node.name}
                     </span>
+                    <span className="rd-chip rd-mono" style={{ fontSize: 10 }}>
+                      {typeLabels[node.type] ?? node.type}
+                    </span>
                   </div>
-                  <Badge variant="outline" className="px-1.5 py-0 text-[10px]">
-                    {node.status}
-                  </Badge>
+                  <div className="rd-mono rd-dim" style={{ fontSize: 11, marginBottom: 10 }}>
+                    {node.ip} · up {node.uptime}
+                  </div>
+                  {/* CPU meter */}
+                  <div style={{ marginBottom: 6 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, marginBottom: 4 }}>
+                      <span className="rd-mono rd-dim">CPU</span>
+                      <span className="rd-mono" style={{ fontWeight: 600 }}>{node.cpu}%</span>
+                    </div>
+                    <MeterBar value={node.cpu} />
+                  </div>
+                  {/* RAM meter */}
+                  <div>
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, marginBottom: 4 }}>
+                      <span className="rd-mono rd-dim">RAM</span>
+                      <span className="rd-mono" style={{ fontWeight: 600 }}>{node.memory}%</span>
+                    </div>
+                    <MeterBar value={node.memory} />
+                  </div>
                 </div>
-                <div className="mt-1 flex items-center justify-between pl-3.5 font-mono text-[10px] text-muted-foreground">
-                  <span>{node.uptime}</span>
-                  <span className="tabular-nums">
-                    {node.memoryUsed}/{node.memoryTotal}GB
+                {/* Right: mem GB */}
+                <div style={{ textAlign: "right", alignSelf: "start" }}>
+                  <div className="rd-mono rd-dim" style={{ fontSize: 11 }}>
+                    {node.memoryUsed}/{node.memoryTotal} GB
+                  </div>
+                  <div className="rd-mono rd-dim" style={{ fontSize: 11, marginTop: 4 }}>
+                    {node.services} svc
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Services tile ─ */}
+        <div className="rd-card rd-card-pad" style={{ gridColumn: "span 12" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+            <span className="rd-eyebrow">
+              <Activity size={13} />
+              Running services
+            </span>
+            <span className="rd-chip rd-mono" style={{ fontSize: 11 }}>
+              {runningServices}/{totalServices}
+            </span>
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill,minmax(220px,1fr))",
+              gap: 8,
+            }}
+          >
+            {allServices.map((svc) => (
+              <div
+                key={`${svc.name}-${svc.node}`}
+                className="rd-card"
+                style={{ padding: "13px 15px" }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 8 }}>
+                  <span className="rd-dot rd-ok" />
+                  <span className="rd-mono" style={{ fontWeight: 600, fontSize: 13, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                    {svc.name}
                   </span>
                 </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Services */}
-        <div className={`${TILE} col-span-6 md:col-span-4`}>
-          <div className="mb-2 flex items-center justify-between">
-            <span className="text-sm font-medium text-muted-foreground">
-              Services
-            </span>
-            <Wifi className="h-4 w-4 text-muted-foreground" />
-          </div>
-          <div className="text-3xl font-semibold tabular-nums tracking-tight">
-            {runningServices}
-            <span className="text-lg font-normal text-muted-foreground">
-              /{totalServices}
-            </span>
-          </div>
-          <p className="mt-0.5 text-xs text-muted-foreground">
-            running · {namespaceCount} namespaces
-          </p>
-          <ul className="mt-3 space-y-1">
-            {allServices.slice(0, 5).map((svc) => (
-              <li
-                key={`${svc.name}-${svc.node}`}
-                className="flex items-center gap-1.5 text-xs text-muted-foreground"
-              >
-                <span className="h-1 w-1 flex-shrink-0 rounded-full bg-green-500" />
-                <span className="truncate font-mono">{svc.name}</span>
-              </li>
-            ))}
-            {allServices.length > 5 && (
-              <li className="pl-2.5 text-xs text-muted-foreground">
-                +{allServices.length - 5} more
-              </li>
-            )}
-          </ul>
-        </div>
-
-        {/* Devices */}
-        <div className={`${TILE} col-span-6 md:col-span-3`}>
-          <div className="mb-2 flex items-center justify-between">
-            <span className="text-sm font-medium text-muted-foreground">
-              Devices
-            </span>
-            <Smartphone className="h-4 w-4 text-muted-foreground" />
-          </div>
-          <div className="text-3xl font-semibold tabular-nums tracking-tight">
-            {onlineDevices.length}
-            <span className="text-lg font-normal text-muted-foreground">
-              /{devices.length}
-            </span>
-          </div>
-          <p className="mt-0.5 text-xs text-muted-foreground">online</p>
-          <ul className="mt-3 space-y-1.5">
-            {devices.map((d) => (
-              <li
-                key={d.id}
-                className="flex items-center justify-between text-xs"
-              >
-                <span className="truncate text-foreground">{d.name}</span>
-                <Badge
-                  variant="outline"
-                  className="ml-2 flex-shrink-0 px-1.5 py-0 text-[10px]"
-                >
-                  {d.status}
-                </Badge>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Node types — count by hardware type */}
-        <div className={`${TILE} col-span-6 md:col-span-4`}>
-          <div className="mb-2 flex items-center justify-between">
-            <span className="text-sm font-medium text-muted-foreground">
-              Node types
-            </span>
-            <Layers className="h-4 w-4 text-muted-foreground" />
-          </div>
-          <ul className="space-y-1.5">
-            {Object.entries(typeCounts).map(([type, count]) => (
-              <li
-                key={type}
-                className="flex items-center justify-between text-xs"
-              >
-                <span className="font-mono text-foreground">
-                  {typeLabels[type] ?? type}
-                </span>
-                <span className="tabular-nums text-muted-foreground">
-                  {count}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Top service by CPU */}
-        <div className={`${TILE} col-span-6 md:col-span-3`}>
-          <div className="mb-2 flex items-center justify-between">
-            <span className="text-sm font-medium text-muted-foreground">
-              Top service
-            </span>
-            <Cpu className="h-4 w-4 text-muted-foreground" />
-          </div>
-          {busiestSvc ? (
-            <>
-              <div className="truncate font-mono text-base font-semibold text-foreground">
-                {busiestSvc.name}
+                <div style={{ display: "flex", gap: 6, marginBottom: 8, flexWrap: "wrap" }}>
+                  <span className="rd-chip rd-mono" style={{ fontSize: 10 }}>{svc.namespace}</span>
+                  <span className="rd-chip rd-mono" style={{ fontSize: 10 }}>:{svc.port}</span>
+                </div>
+                <div className="rd-mono rd-dim" style={{ fontSize: 11, marginBottom: 6 }}>
+                  {svc.node}
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11.5 }}>
+                  <span className="rd-mono rd-dim">
+                    CPU <span style={{ color: "var(--rd-text)", fontWeight: 600 }}>{svc.cpu}%</span>
+                  </span>
+                  <span className="rd-mono rd-dim">{svc.memory} MB</span>
+                </div>
               </div>
-              <p className="mt-1 text-2xl font-semibold tabular-nums tracking-tight">
-                {busiestSvc.cpu.toFixed(1)}
-                <span className="text-sm font-normal text-muted-foreground">
-                  % CPU
-                </span>
-              </p>
-            </>
-          ) : (
-            <p className="text-xs text-muted-foreground">No services.</p>
-          )}
+            ))}
+          </div>
         </div>
 
-        {/* Cluster stats — wide tile with 6 metrics */}
-        <div className={`${TILE} col-span-12 md:col-span-8`}>
-          <div className="mb-3 flex items-center gap-1.5 text-sm font-medium text-muted-foreground">
-            <Activity className="h-4 w-4" />
-            Cluster
+        {/* ── Cluster stats ─ */}
+        <div className="rd-card rd-card-pad" style={{ gridColumn: "span 12" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 18 }}>
+            <Activity size={14} style={{ color: "var(--rd-text-3)" }} />
+            <span className="rd-eyebrow">Cluster</span>
           </div>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill,minmax(140px,1fr))",
+              gap: 20,
+            }}
+          >
+            {/* Avg CPU */}
             <div>
-              <p className="flex items-center gap-1 text-xs text-muted-foreground">
-                <Activity className="h-3 w-3" />
+              <div className="rd-eyebrow" style={{ marginBottom: 8 }}>
+                <Activity size={12} />
                 Avg CPU
-              </p>
-              <p className="mt-1 text-xl font-semibold tabular-nums">
+              </div>
+              <div className="rd-bigstat" style={{ fontSize: "1.65rem" }}>
                 {clusterStats.avgCpu.toFixed(1)}
-                <span className="text-sm font-normal text-muted-foreground">
-                  %
-                </span>
-              </p>
+                <span className="rd-unit">%</span>
+              </div>
+              <MeterBar value={clusterStats.avgCpu} />
             </div>
+
+            {/* Memory */}
             <div>
-              <p className="flex items-center gap-1 text-xs text-muted-foreground">
-                <HardDrive className="h-3 w-3" />
+              <div className="rd-eyebrow" style={{ marginBottom: 8 }}>
+                <HardDrive size={12} />
                 Memory
-              </p>
-              <p className="mt-1 text-xl font-semibold tabular-nums">
+              </div>
+              <div className="rd-bigstat" style={{ fontSize: "1.65rem" }}>
                 {clusterStats.usedMemory.toFixed(0)}
-                <span className="text-sm font-normal text-muted-foreground">
-                  /{clusterStats.totalMemory}GB
-                </span>
-              </p>
+                <span className="rd-unit">/ {clusterStats.totalMemory} GB</span>
+              </div>
+              <MeterBar value={memPercent} />
             </div>
+
+            {/* Storage */}
             <div>
-              <p className="flex items-center gap-1 text-xs text-muted-foreground">
-                <Gauge className="h-3 w-3" />
-                Mem used
-              </p>
-              <p className="mt-1 text-xl font-semibold tabular-nums">
-                {memPercent.toFixed(0)}
-                <span className="text-sm font-normal text-muted-foreground">
-                  %
-                </span>
-              </p>
-            </div>
-            <div>
-              <p className="flex items-center gap-1 text-xs text-muted-foreground">
-                <Database className="h-3 w-3" />
+              <div className="rd-eyebrow" style={{ marginBottom: 8 }}>
+                <Database size={12} />
                 Storage
-              </p>
-              <p className="mt-1 text-xl font-semibold tabular-nums">
+              </div>
+              <div className="rd-bigstat" style={{ fontSize: "1.65rem" }}>
                 {(clusterStats.totalStorage / 1024).toFixed(1)}
-                <span className="text-sm font-normal text-muted-foreground">
-                  TB
-                </span>
-              </p>
+                <span className="rd-unit">TB</span>
+              </div>
             </div>
+
+            {/* Incidents */}
             <div>
-              <p className="flex items-center gap-1 text-xs text-muted-foreground">
-                <Server className="h-3 w-3" />
-                Online
-              </p>
-              <p className="mt-1 text-xl font-semibold tabular-nums">
-                {onlineCount}
-                <span className="text-sm font-normal text-muted-foreground">
-                  /{totalNodes} nodes
-                </span>
-              </p>
-            </div>
-            <div>
-              <p className="flex items-center gap-1 text-xs text-muted-foreground">
-                <AlertCircle className="h-3 w-3" />
+              <div className="rd-eyebrow" style={{ marginBottom: 8 }}>
+                <AlertCircle size={12} />
                 Incidents
-              </p>
-              <p className="mt-1 text-xl font-semibold tabular-nums">
+              </div>
+              <div className="rd-bigstat" style={{ fontSize: "1.65rem" }}>
                 {downtimeHistory.length}
-                <span className="text-sm font-normal text-muted-foreground">
-                  {" "}
-                  recent
-                </span>
-              </p>
+                <span className="rd-unit">recent</span>
+              </div>
             </div>
+
+            {/* Svc memory */}
+            <div>
+              <div className="rd-eyebrow" style={{ marginBottom: 8 }}>
+                <MemoryStick size={12} />
+                Svc memory
+              </div>
+              <div className="rd-bigstat" style={{ fontSize: "1.65rem" }}>
+                {(totalServiceMem / 1024).toFixed(1)}
+                <span className="rd-unit">GB</span>
+              </div>
+              <div className="rd-mono rd-dim" style={{ fontSize: 11, marginTop: 6 }}>
+                {allServices.length} services
+              </div>
+            </div>
+
+            {/* Top service by CPU */}
+            {busiestSvc ? (
+              <div>
+                <div className="rd-eyebrow" style={{ marginBottom: 8 }}>
+                  <Cpu size={12} />
+                  Top service
+                </div>
+                <div
+                  className="rd-mono"
+                  style={{ fontWeight: 600, fontSize: 13.5, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
+                >
+                  {busiestSvc.name}
+                </div>
+                <div className="rd-bigstat" style={{ fontSize: "1.65rem", marginTop: 4 }}>
+                  {busiestSvc.cpu.toFixed(1)}
+                  <span className="rd-unit">% CPU</span>
+                </div>
+              </div>
+            ) : null}
           </div>
         </div>
 
-        {/* Network speed */}
-        <div className={`${TILE} col-span-12 md:col-span-4`}>
-          <div className="mb-2 flex items-center justify-between">
-            <span className="text-sm font-medium text-muted-foreground">
+        {/* ── Network speed ─ */}
+        <div className="rd-card rd-card-pad" style={{ gridColumn: "span 12" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+            <span className="rd-eyebrow">
+              <Network size={13} />
               Network
             </span>
-            <Network className="h-4 w-4 text-muted-foreground" />
+            <Gauge size={14} style={{ color: "var(--rd-text-3)" }} />
           </div>
-          <div className="grid grid-cols-3 gap-2">
+          <div style={{ display: "flex", gap: 32, flexWrap: "wrap" }}>
             <div>
-              <p className="flex items-center gap-0.5 text-xs text-muted-foreground">
-                <ArrowDown className="h-3 w-3" />
-                Down
-              </p>
-              <p className="mt-1 text-base font-semibold tabular-nums">
+              <div className="rd-mono rd-dim" style={{ fontSize: 11.5, display: "flex", alignItems: "center", gap: 4, marginBottom: 6 }}>
+                <ArrowDown size={12} /> Down
+              </div>
+              <div className="rd-bigstat" style={{ fontSize: "1.65rem" }}>
                 {speedTest.download}
-                <span className="text-xs font-normal text-muted-foreground">
-                  {" "}
-                  Mbps
-                </span>
-              </p>
+                <span className="rd-unit">Mbps</span>
+              </div>
             </div>
             <div>
-              <p className="flex items-center gap-0.5 text-xs text-muted-foreground">
-                <ArrowUp className="h-3 w-3" />
-                Up
-              </p>
-              <p className="mt-1 text-base font-semibold tabular-nums">
+              <div className="rd-mono rd-dim" style={{ fontSize: 11.5, display: "flex", alignItems: "center", gap: 4, marginBottom: 6 }}>
+                <ArrowUp size={12} /> Up
+              </div>
+              <div className="rd-bigstat" style={{ fontSize: "1.65rem" }}>
                 {speedTest.upload}
-                <span className="text-xs font-normal text-muted-foreground">
-                  {" "}
-                  Mbps
-                </span>
-              </p>
+                <span className="rd-unit">Mbps</span>
+              </div>
             </div>
             <div>
-              <p className="flex items-center gap-0.5 text-xs text-muted-foreground">
-                <Gauge className="h-3 w-3" />
-                Ping
-              </p>
-              <p className="mt-1 text-base font-semibold tabular-nums">
+              <div className="rd-mono rd-dim" style={{ fontSize: 11.5, display: "flex", alignItems: "center", gap: 4, marginBottom: 6 }}>
+                <Gauge size={12} /> Ping
+              </div>
+              <div className="rd-bigstat" style={{ fontSize: "1.65rem" }}>
                 {speedTest.ping}
-                <span className="text-xs font-normal text-muted-foreground">
-                  {" "}
-                  ms
-                </span>
-              </p>
+                <span className="rd-unit">ms</span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Service memory footprint */}
-        <div className={`${TILE} col-span-12 md:col-span-4`}>
-          <div className="mb-2 flex items-center justify-between">
-            <span className="text-sm font-medium text-muted-foreground">
-              Service memory
+        {/* ── Node type breakdown ─ */}
+        <div className="rd-card rd-card-pad" style={{ gridColumn: "span 12" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+            <span className="rd-eyebrow">
+              <Layers size={13} />
+              Node types
             </span>
-            <MemoryStick className="h-4 w-4 text-muted-foreground" />
           </div>
-          <p className="text-3xl font-semibold tabular-nums tracking-tight">
-            {(totalServiceMem / 1024).toFixed(1)}
-            <span className="text-lg font-normal text-muted-foreground">
-              {" "}
-              GB
-            </span>
-          </p>
-          <p className="mt-0.5 text-xs text-muted-foreground">
-            across {allServices.length} services
-          </p>
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+            {Object.entries(typeCounts).map(([type, count]) => (
+              <div
+                key={type}
+                className="rd-card"
+                style={{ padding: "12px 16px", display: "flex", flexDirection: "column", gap: 4, minWidth: 90 }}
+              >
+                <div className="rd-mono rd-dim" style={{ fontSize: 11 }}>{typeLabels[type] ?? type}</div>
+                <div className="rd-bigstat" style={{ fontSize: "1.5rem" }}>
+                  {count}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Recent incidents */}
-        <div className={`${TILE} col-span-12 md:col-span-8`}>
-          <div className="mb-2 flex items-center justify-between">
-            <span className="text-sm font-medium text-muted-foreground">
-              Recent Incidents
+        {/* ── Smart devices ─ */}
+        <div className="rd-card rd-card-pad" style={{ gridColumn: "span 12" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+            <span className="rd-eyebrow">
+              <Smartphone size={13} />
+              Smart devices
             </span>
-            <AlertCircle className="h-4 w-4 text-muted-foreground" />
+            <span className="rd-chip rd-mono" style={{ fontSize: 11 }}>
+              {onlineDevices.length}/{devices.length} online
+            </span>
+          </div>
+          <div className="rd-g2" style={{ gap: 8 }}>
+            {devices.map((d) => (
+              <div
+                key={d.id}
+                className="rd-card"
+                style={{ padding: "14px 16px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}
+              >
+                <div>
+                  <div className="rd-mono rd-dim" style={{ fontSize: 10.5, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 4 }}>
+                    {d.type.replace(/-/g, " ")}
+                  </div>
+                  <div style={{ fontWeight: 600, fontSize: 14, letterSpacing: "-0.01em" }}>{d.name}</div>
+                  <div className="rd-mono rd-dim" style={{ fontSize: 11, marginTop: 2 }}>{d.brand}</div>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 7 }} className="rd-chip rd-mono">
+                  <StatusDot status={d.status} />
+                  {d.status}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Recent incidents ─ */}
+        <div className="rd-card rd-card-pad" style={{ gridColumn: "span 12" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+            <span className="rd-eyebrow">
+              <AlertCircle size={13} />
+              Recent incidents
+            </span>
+            <span className="rd-chip rd-mono" style={{ fontSize: 11 }}>
+              {downtimeHistory.length} logged
+            </span>
           </div>
           {downtimeHistory.length === 0 ? (
-            <p className="text-xs text-muted-foreground">
+            <p className="rd-mono rd-dim" style={{ fontSize: 12.5 }}>
               No incidents in the last 30 days.
             </p>
           ) : (
-            <ul className="space-y-2">
+            <div className="rd-rows">
               {downtimeHistory.map((inc, i) => (
-                <li
+                <div
                   key={i}
-                  className="flex items-start justify-between gap-3 border-b border-border pb-2 text-xs last:border-0 last:pb-0"
+                  className="rd-row"
+                  style={{ gridTemplateColumns: "auto 1fr auto", padding: "14px 4px" }}
                 >
+                  <AlertCircle size={15} style={{ color: "var(--rd-warn)" }} />
                   <div>
-                    <span className="font-mono font-medium text-foreground">
-                      {inc.service}
-                    </span>
-                    <span className="ml-1.5 text-muted-foreground">
-                      — {inc.reason}
-                    </span>
-                    <p className="mt-0.5 text-muted-foreground">{inc.start}</p>
+                    <div>
+                      <span className="rd-mono" style={{ fontWeight: 600, fontSize: 13 }}>{inc.service}</span>
+                      <span className="rd-muted" style={{ marginLeft: 8, fontSize: 12.5 }}>— {inc.reason}</span>
+                    </div>
+                    <div className="rd-mono rd-dim" style={{ fontSize: 11, marginTop: 3 }}>{inc.start}</div>
                   </div>
-                  <div className="flex flex-shrink-0 items-center gap-0.5 whitespace-nowrap text-muted-foreground">
-                    <Clock className="h-3 w-3" />
+                  <div className="rd-mono rd-dim" style={{ fontSize: 12, display: "flex", alignItems: "center", gap: 4 }}>
+                    <Clock size={12} />
                     {inc.duration}
                   </div>
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           )}
         </div>
       </div>
 
-      {/* Detailed tabs */}
-      <DashboardTabs
-        infrastructure={infrastructure}
-        smartDevices={smartDevices}
-      />
+      {/* ── Detailed tabs ─────────────────────────────────────── */}
+      <div style={{ marginTop: "clamp(40px,5vw,64px)" }}>
+        <DashboardTabs
+          infrastructure={infrastructure}
+          smartDevices={smartDevices}
+        />
+      </div>
 
-      <div className="border-t pt-4">
-        <p className="text-xs text-muted-foreground">
+      {/* Footer note */}
+      <div
+        style={{
+          marginTop: 40,
+          paddingTop: 16,
+          borderTop: "1px solid var(--rd-line)",
+        }}
+      >
+        <p className="rd-mono rd-dim" style={{ fontSize: 11.5 }}>
           Not a realtime dashboard. Data is captured by AI Agent and committed
           to source code. Snapshot taken at {snapshotDate}.
         </p>
