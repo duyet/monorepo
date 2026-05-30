@@ -32,6 +32,12 @@ module.exports = {
         "agents",
         // LLM Timeline app
         "llm-timeline",
+        // Homelab app
+        "homelab",
+        // Knowledge Base app
+        "kb",
+        // Shared packages (components, libs, etc.)
+        "ui",
       ],
     ],
     "scope-empty": [1, "never"],
