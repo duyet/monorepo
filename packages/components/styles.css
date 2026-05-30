@@ -596,3 +596,206 @@ html.dark .prose pre {
     .rd-flow, .rd-hd-pulse, .rd-hd-ring, .rd-orbit, .rd-pulse { animation: none !important; }
   }
 }
+
+/* ============================================================
+   duyet.net 2026 redesign — page component classes
+   signal bar · vibe flag/bento · category bento · series ·
+   duyetbot chat. Ported from the design prototype; flat
+   (no box-shadow) per the site design rule.
+   ============================================================ */
+@layer components {
+  /* ---------- signal bar (home stat strip) — unprefixed to match home ---------- */
+  .signalbar {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px;
+    background: var(--rd-border); border: 1px solid var(--rd-border);
+    border-radius: var(--rd-r); overflow: hidden;
+  }
+  .signal-tile {
+    text-align: left; background: var(--rd-surface); border: none; padding: 18px 20px;
+    display: flex; flex-direction: column; gap: 8px; min-width: 0;
+    transition: background .16s, transform .16s;
+  }
+  .signal-tile:hover { background: var(--rd-surface-2); }
+  .signal-tile .rd-eyebrow { gap: 7px; }
+
+  /* ---------- vibe flag (home hero) — unprefixed to match home ---------- */
+  .vibe-flag {
+    display: inline-flex; align-items: center; gap: 11px; margin-top: 18px;
+    padding: 11px 15px; border-radius: var(--rd-r); background: var(--rd-accent-bg);
+    border: 1px solid color-mix(in srgb, var(--rd-accent) 22%, var(--rd-border));
+    cursor: pointer; max-width: 56ch; font-size: 13.5px; color: var(--rd-text);
+    line-height: 1.45; transition: all .16s;
+  }
+  .vibe-flag:hover {
+    border-color: color-mix(in srgb, var(--rd-accent) 50%, var(--rd-border));
+    transform: translateY(-2px);
+  }
+  .vibe-flag .vf-ic {
+    display: grid; place-items: center; width: 26px; height: 26px; border-radius: 8px;
+    background: var(--rd-accent); color: #fff; flex-shrink: 0;
+  }
+  .vibe-flag .vf-arr { color: var(--rd-accent); flex-shrink: 0; transition: transform .16s; }
+  .vibe-flag:hover .vf-arr { transform: translateX(3px); }
+
+  /* ---------- category bento grid (blog) ---------- */
+  .rd-cat-bento {
+    display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 1fr; gap: 12px;
+  }
+  .rd-cat-bento .rd-cat-tile { display: flex; flex-direction: column; min-height: 150px; }
+  .rd-cat-bento .rd-cat-tile.rd-feat {
+    grid-column: span 2; grid-row: span 2; min-height: 312px; background: var(--rd-bg-sub);
+  }
+  .rd-cat-bento .rd-cat-tile.rd-wide { grid-column: span 2; }
+  .rd-cat-head { display: flex; align-items: center; justify-content: space-between; }
+  .rd-cat-meter {
+    height: 4px; border-radius: 999px; background: var(--rd-surface-2);
+    overflow: hidden; margin-top: 14px;
+  }
+  .rd-cat-meter > i { display: block; height: 100%; background: var(--rd-accent); border-radius: 999px; }
+  .rd-cat-tile.rd-feat .rd-cat-ic { width: 52px; height: 52px; border-radius: 14px; }
+  .rd-cat-tile.rd-feat .rd-bigstat { font-size: 3rem; }
+  .rd-cat-sample { margin-top: auto; padding-top: 16px; display: grid; gap: 7px; }
+  .rd-cat-sample a {
+    font-size: 13.5px; color: var(--rd-text-2); display: flex; gap: 8px;
+    align-items: center; transition: color .15s; text-decoration: none;
+  }
+  .rd-cat-sample a:hover { color: var(--rd-accent-ink); }
+  .rd-cat-sample a .rd-dot { width: 5px; height: 5px; background: var(--rd-text-4); }
+
+  /* ---------- series cards (blog) ---------- */
+  .rd-series-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .rd-series-card { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
+  .rd-series-card .rd-sc-top { display: flex; align-items: flex-start; gap: 14px; padding: 24px 26px 18px; }
+  .rd-series-card .rd-sc-ic {
+    display: grid; place-items: center; width: 46px; height: 46px; border-radius: 13px;
+    background: var(--rd-accent-bg); color: var(--rd-accent-ink); flex-shrink: 0; transition: .18s;
+  }
+  .rd-series-card:hover .rd-sc-ic { background: var(--rd-accent); color: #fff; }
+  .rd-series-card .rd-sc-meta { min-width: 0; flex: 1; }
+  .rd-series-card .rd-sc-name { font-size: 1.25rem; letter-spacing: -0.03em; }
+  .rd-series-card .rd-sc-count { font-family: var(--font-mono); font-size: 11.5px; color: var(--rd-text-3); margin-top: 4px; }
+  .rd-series-card .rd-sc-desc { padding: 0 26px; color: var(--rd-text-2); font-size: 14px; line-height: 1.55; }
+  .rd-series-card .rd-sc-list { margin-top: 16px; border-top: 1px solid var(--rd-line); }
+  .rd-series-card .rd-sc-list a {
+    display: flex; align-items: center; gap: 12px; padding: 12px 26px;
+    border-bottom: 1px solid var(--rd-line); font-size: 13.5px; transition: background .14s;
+    text-decoration: none; color: var(--rd-text-2);
+  }
+  .rd-series-card .rd-sc-list a:last-child { border-bottom: none; }
+  .rd-series-card .rd-sc-list a:hover { background: var(--rd-surface-2); color: var(--rd-accent-ink); }
+  .rd-series-card .rd-sc-list .rd-sn { font-family: var(--font-mono); font-size: 11px; color: var(--rd-text-4); width: 22px; flex-shrink: 0; }
+
+  /* ---------- about — vibe + stack bento ---------- */
+  .rd-vibe-bento { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(0,1fr); gap: 12px; align-items: stretch; }
+  .rd-vibe-lead {
+    display: flex; flex-direction: column; padding: clamp(24px,3vw,34px); position: relative; overflow: hidden;
+    background: radial-gradient(120% 120% at 100% 0%, color-mix(in srgb, var(--rd-accent) 10%, transparent), transparent 55%), var(--rd-surface);
+  }
+  .rd-vibe-badge {
+    display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; font-family: var(--font-mono);
+    font-size: 11px; letter-spacing: .04em; color: var(--rd-accent-ink); background: var(--rd-accent-bg);
+    border-radius: 999px; padding: 5px 12px; align-self: flex-start; font-weight: 600;
+  }
+  .rd-vibe-stat { margin-top: auto; padding-top: 24px; display: flex; align-items: baseline; gap: 14px; }
+  .rd-vibe-stat .rd-bigstat { font-size: clamp(2.2rem, 4vw, 3rem); }
+  .rd-vibe-agents { display: grid; gap: 10px; align-content: start; }
+  .rd-agent-card { padding: 16px 18px; }
+  .rd-agent-card .rd-ac-top { display: flex; align-items: center; gap: 10px; }
+  .rd-agent-card .rd-ac-ic {
+    display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px;
+    background: var(--rd-accent-bg); color: var(--rd-accent-ink); flex-shrink: 0;
+  }
+  .rd-agent-card .rd-ac-name { font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+  .rd-agent-card .rd-ac-role { font-family: var(--font-mono); font-size: 11px; color: var(--rd-text-3); margin-left: auto; }
+  .rd-agent-card .rd-ac-desc { color: var(--rd-text-2); font-size: 13px; line-height: 1.5; margin-top: 10px; }
+  .rd-stack-ic {
+    display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px;
+    background: var(--rd-accent-bg); color: var(--rd-accent-ink); transition: .18s;
+  }
+  .rd-card-hover:hover .rd-stack-ic { transform: scale(1.06) rotate(-3deg); }
+
+  /* ---------- agents — duyetbot chat ---------- */
+  .rd-chat-shell { display: grid; grid-template-columns: minmax(0,1fr) 300px; gap: 20px; align-items: start; }
+  .rd-chat-window {
+    border: 1px solid var(--rd-border); border-radius: var(--rd-r-lg); background: var(--rd-surface);
+    overflow: hidden; display: flex; flex-direction: column; min-height: 560px;
+  }
+  .rd-chat-head { display: flex; align-items: center; gap: 13px; padding: 16px 20px; border-bottom: 1px solid var(--rd-border); background: var(--rd-bg-sub); }
+  .rd-chat-avatar { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: var(--rd-accent); color: #fff; flex-shrink: 0; position: relative; }
+  .rd-chat-avatar .rd-live-ping { position: absolute; right: -1px; bottom: -1px; width: 12px; height: 12px; border-radius: 50%; background: var(--rd-ok); border: 2.5px solid var(--rd-bg-sub); }
+  .rd-chat-head .rd-ch-name { font-weight: 600; font-size: 15.5px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px; }
+  .rd-chat-head .rd-ch-model { font-family: var(--font-mono); font-size: 11.5px; color: var(--rd-text-3); margin-top: 2px; }
+  .rd-chat-body { flex: 1; overflow-y: auto; padding: 22px 20px; display: flex; flex-direction: column; gap: 16px; }
+  .rd-msg { display: flex; gap: 11px; max-width: 88%; }
+  .rd-msg.rd-user { align-self: flex-end; flex-direction: row-reverse; }
+  .rd-msg-ic { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; }
+  .rd-msg.rd-bot .rd-msg-ic { background: var(--rd-accent); color: #fff; }
+  .rd-msg.rd-user .rd-msg-ic { background: var(--rd-surface-2); color: var(--rd-text-2); }
+  .rd-msg-bubble { border-radius: 14px; padding: 12px 15px; font-size: 14.5px; line-height: 1.55; }
+  .rd-msg.rd-bot .rd-msg-bubble { background: var(--rd-surface-2); border-bottom-left-radius: 5px; color: var(--rd-text); }
+  .rd-msg.rd-user .rd-msg-bubble { background: var(--rd-text); color: var(--rd-bg); border-bottom-right-radius: 5px; }
+  .rd-tool-call {
+    display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11.5px;
+    color: var(--rd-accent-ink); background: var(--rd-accent-bg);
+    border: 1px solid color-mix(in srgb, var(--rd-accent) 22%, var(--rd-border));
+    padding: 5px 10px; border-radius: 8px; margin-bottom: 10px;
+  }
+  .rd-tool-call .rd-tc-spin {
+    width: 11px; height: 11px; border-radius: 50%;
+    border: 2px solid color-mix(in srgb, var(--rd-accent) 35%, transparent); border-top-color: var(--rd-accent);
+    animation: rd-spin .7s linear infinite;
+  }
+  @keyframes rd-spin { to { transform: rotate(360deg); } }
+  .rd-chat-cards { display: grid; gap: 8px; margin-top: 12px; }
+  .rd-chat-card {
+    display: flex; align-items: center; gap: 12px; padding: 11px 13px; border: 1px solid var(--rd-border);
+    border-radius: 10px; background: var(--rd-surface); cursor: pointer; transition: .15s; text-decoration: none; color: inherit;
+  }
+  .rd-chat-card:hover { border-color: color-mix(in srgb, var(--rd-accent) 45%, var(--rd-border)); transform: translateX(2px); }
+  .rd-chat-card .rd-cc-t { font-weight: 600; font-size: 13.5px; }
+  .rd-chat-card .rd-cc-m { font-family: var(--font-mono); font-size: 11px; color: var(--rd-text-3); margin-top: 2px; }
+  .rd-follow-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .rd-follow-chip {
+    font-size: 13px; padding: 7px 13px; border-radius: 999px; border: 1px solid var(--rd-border);
+    background: var(--rd-surface); color: var(--rd-text-2); cursor: pointer; transition: .15s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .rd-follow-chip:hover { border-color: color-mix(in srgb, var(--rd-accent) 50%, var(--rd-border)); color: var(--rd-accent-ink); background: var(--rd-accent-bg); }
+  .rd-follow-chip .rd-fc-arr { color: var(--rd-accent); }
+  .rd-typing { display: inline-flex; gap: 4px; align-items: center; padding: 4px 2px; }
+  .rd-typing i { width: 7px; height: 7px; border-radius: 50%; background: var(--rd-text-4); animation: rd-bounce 1.2s ease-in-out infinite; }
+  .rd-typing i:nth-child(2) { animation-delay: .15s; }
+  .rd-typing i:nth-child(3) { animation-delay: .3s; }
+  @keyframes rd-bounce { 0%,60%,100% { transform: translateY(0); opacity: .5; } 30% { transform: translateY(-5px); opacity: 1; } }
+  .rd-chat-input { display: flex; gap: 10px; padding: 14px 16px; border-top: 1px solid var(--rd-border); background: var(--rd-bg-sub); }
+  .rd-chat-input input {
+    flex: 1; font-family: var(--font-sans); font-size: 14.5px; padding: 12px 16px; border: 1px solid var(--rd-border);
+    border-radius: 999px; background: var(--rd-surface); color: var(--rd-text); transition: border-color .15s, box-shadow .15s;
+  }
+  .rd-chat-input input:focus { outline: none; border-color: var(--rd-accent); box-shadow: 0 0 0 3px var(--rd-ring); }
+  .rd-chat-send {
+    display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+    background: var(--rd-text); color: var(--rd-bg); border: none; flex-shrink: 0; transition: .15s;
+  }
+  .rd-chat-send:hover { background: var(--rd-accent); transform: scale(1.05); }
+  .rd-chat-side { display: grid; gap: 12px; }
+  .rd-tool-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 10px; transition: background .15s; }
+  .rd-tool-item:hover { background: var(--rd-surface-2); }
+  .rd-tool-item .rd-ti-ic { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; background: var(--rd-accent-bg); color: var(--rd-accent-ink); flex-shrink: 0; }
+  .rd-tool-item .rd-ti-name { font-family: var(--font-mono); font-size: 13px; font-weight: 600; }
+  .rd-tool-item .rd-ti-desc { font-size: 12.5px; color: var(--rd-text-3); line-height: 1.45; margin-top: 3px; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 980px) { .signalbar { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 920px) { .rd-chat-shell { grid-template-columns: 1fr; } }
+  @media (max-width: 860px) {
+    .rd-cat-bento { grid-template-columns: 1fr 1fr; }
+    .rd-cat-bento .rd-cat-tile.rd-feat { grid-column: span 2; grid-row: auto; min-height: 200px; }
+  }
+  @media (max-width: 760px) { .rd-series-grid { grid-template-columns: 1fr; } .rd-vibe-bento { grid-template-columns: 1fr; } }
+  @media (max-width: 560px) {
+    .signalbar { grid-template-columns: repeat(2, 1fr); }
+    .rd-cat-bento { grid-template-columns: 1fr; }
+    .rd-cat-bento .rd-cat-tile.rd-feat, .rd-cat-bento .rd-cat-tile.rd-wide { grid-column: auto; }
+  }
+}

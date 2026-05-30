@@ -1,5 +1,21 @@
+import { useState, useRef, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Button } from "../components/ui/button";
+import {
+  Bot,
+  BookOpen,
+  Download,
+  Database,
+  Server,
+  Layers,
+  Link as LinkIcon,
+  ArrowRight,
+  ArrowUpRight,
+  Plug,
+  Code,
+  Send,
+  Check,
+} from "lucide-react";
+import { Eyebrow, SecHead, Reveal } from "@duyet/components";
 
 export const Route = createFileRoute("/about-duyetbot")({
   component: DuyetbotPage,
@@ -15,188 +31,718 @@ export const Route = createFileRoute("/about-duyetbot")({
   }),
 });
 
-function Section({
-  eyebrow,
-  title,
-  children,
-}: {
-  eyebrow: string;
-  title: string;
-  children: React.ReactNode;
-}) {
+// ---------------------------------------------------------------------------
+// Data — mirrored from data.js agents section
+// ---------------------------------------------------------------------------
+
+type Tool = {
+  name: string;
+  icon: string;
+  desc: string;
+};
+
+const TOOLS: Tool[] = [
+  { name: "search_blog", icon: "book", desc: "Search 299 posts across 11 years of writing." },
+  { name: "get_cv", icon: "dl", desc: "Read the full résumé — roles, scope, and impact." },
+  { name: "query_data", icon: "disk", desc: "Run read-only queries against the public ClickHouse." },
+  { name: "homelab_status", icon: "server", desc: "Check live cluster + service health." },
+  { name: "list_projects", icon: "layers", desc: "Enumerate shipped products and OSS repos." },
+  { name: "contact", icon: "link", desc: "Pass a message or feedback straight to Duyet." },
+];
+
+const STARTER_PROMPTS = [
+  "What does Duyet do?",
+  "Summarise his ClickHouse experience",
+  "What's the latest blog post?",
+  "Which projects are live right now?",
+  "What's running in the homelab?",
+];
+
+type Card = { t: string; c: string; d: string; r: string };
+
+type BotReply = {
+  text: string;
+  tool?: { name: string; arg: string };
+  cards?: Card[];
+  follow?: string[];
+  contact?: boolean;
+};
+
+const ANSWERS: Record<string, string> = {
+  default:
+    "I'm a demo of duyetbot wired to Duyet's blog, CV, projects, and homelab. Connect the real MCP server and I'll answer from live data — for now, try one of the suggested questions.",
+  cv: "Duyet is a Senior Data & AI Engineer with 8+ years across data infrastructure, AI/ML platforms, and distributed systems. He's at Cartrack, where he migrated a 350TB+ Iceberg lake to ClickHouse on Kubernetes — 300% better compression and queries 2–100× faster.",
+  projects:
+    "Live right now: AnyRouter (multi-model gateway), ClickHouse Monitoring, Stamps, Insights, Homelab, and the LLM Timeline. There are 16 projects total — 9 running apps plus open source.",
+  homelab:
+    "The cluster has 5 of 6 nodes online, 19 services running across 9 namespaces, ~27.6% average CPU. minipc-03 is offline; everything else is green.",
+};
+
+const BLOG_CARDS: Card[] = [
+  { t: "Building AI Agents on Cloudflare", c: "AI", d: "May 6, 2026", r: "4 min" },
+  { t: "Claws", c: "AI", d: "Feb 22, 2026", r: "3 min" },
+  { t: "Coding Agents", c: "AI", d: "Jan 1, 2026", r: "62 min" },
+];
+
+function answerFor(text: string): BotReply {
+  const t = text.toLowerCase();
+  if (/latest|recent|writ|blog|post|article/.test(t)) {
+    return {
+      tool: { name: "search_blog", arg: "order:recent limit:3" },
+      text: "Lately it's mostly AI agents. Here are the three newest posts:",
+      cards: BLOG_CARDS,
+      follow: ["What's 'Coding Agents' about?", "Show data posts instead", "Summarise his experience"],
+    };
+  }
+  if (/clickhouse|data|experience|engineer|cv|r[ée]sum[ée]|career|role|work/.test(t)) {
+    return {
+      tool: { name: "get_cv", arg: "section:summary" },
+      text: ANSWERS.cv,
+      follow: ["Which companies?", "What's in the stack?", "Download the full CV"],
+    };
+  }
+  if (/project|built|ship|live|product|oss|open source/.test(t)) {
+    return {
+      tool: { name: "list_projects", arg: "status:live" },
+      text: ANSWERS.projects,
+      follow: ["Tell me about AnyRouter", "Show open source repos", "What's the homelab running?"],
+    };
+  }
+  if (/homelab|cluster|server|running|infra|kubernetes|node/.test(t)) {
+    return {
+      tool: { name: "homelab_status", arg: "" },
+      text: ANSWERS.homelab,
+      follow: ["Which services?", "What went down?", "Show network throughput"],
+    };
+  }
+  if (/stack|tech|tool|language|build with|rust|python/.test(t)) {
+    return {
+      tool: { name: "query_data", arg: "skills" },
+      text: "Core stack: Python, Rust, and TypeScript for code; ClickHouse, Spark, and Airflow for data; Kubernetes, Cloudflare, and GCP for infra; LangGraph and the AI SDK for agents.",
+      follow: ["Why Rust?", "Why ClickHouse?", "See projects"],
+    };
+  }
+  if (/contact|email|reach|hire|feedback|message|talk|connect/.test(t)) {
+    return {
+      contact: true,
+      text: "Of course — leave a note and I'll pass it straight to Duyet. He usually replies within a day.",
+    };
+  }
+  if (/who|about|what.*do|introduce|tell me about duyet/.test(t)) {
+    return {
+      tool: { name: "get_cv", arg: "" },
+      text: ANSWERS.cv,
+      follow: ["What's he writing about?", "Which projects are live?", "What's the stack?"],
+    };
+  }
+  return { text: ANSWERS.default, follow: STARTER_PROMPTS.slice(0, 3) };
+}
+
+// ---------------------------------------------------------------------------
+// Tool icon resolver
+// ---------------------------------------------------------------------------
+
+function ToolIcon({ icon, size = 16 }: { icon: string; size?: number }) {
+  switch (icon) {
+    case "book":
+      return <BookOpen size={size} />;
+    case "dl":
+      return <Download size={size} />;
+    case "disk":
+      return <Database size={size} />;
+    case "server":
+      return <Server size={size} />;
+    case "layers":
+      return <Layers size={size} />;
+    case "link":
+      return <LinkIcon size={size} />;
+    default:
+      return <Code size={size} />;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// ChatCards — result card strip
+// ---------------------------------------------------------------------------
+
+function ChatCards({ cards }: { cards: Card[] }) {
   return (
-    <section className="mt-16">
-      <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">{eyebrow}</p>
-      <h2 className="mt-2 text-2xl md:text-3xl font-semibold tracking-tight">
-        {title}
-      </h2>
-      <div className="mt-4 max-w-2xl space-y-4 text-sm leading-7 text-muted-foreground">
-        {children}
-      </div>
-    </section>
+    <div className="rd-chat-cards">
+      {cards.map((c) => (
+        <a
+          key={c.t}
+          className="rd-chat-card"
+          href={`https://blog.duyet.net`}
+          target="_blank"
+          rel="noreferrer"
+          style={{ display: "flex", gap: 10, alignItems: "center", textDecoration: "none", color: "inherit" }}
+        >
+          <span
+            style={{
+              display: "grid",
+              placeItems: "center",
+              width: 30,
+              height: 30,
+              borderRadius: 8,
+              background: "var(--rd-accent-bg)",
+              color: "var(--rd-accent-ink)",
+              flexShrink: 0,
+            }}
+          >
+            <BookOpen size={14} />
+          </span>
+          <span style={{ minWidth: 0, flex: 1 }}>
+            <div className="rd-cc-t">{c.t}</div>
+            <div className="rd-cc-m">
+              {c.c} · {c.d} · {c.r}
+            </div>
+          </span>
+          <span style={{ color: "var(--rd-text-4)", flexShrink: 0 }}>
+            <ArrowUpRight size={14} />
+          </span>
+        </a>
+      ))}
+    </div>
   );
 }
 
-function Capability({
-  label,
-  body,
-}: {
-  label: string;
-  body: string;
-}) {
+// ---------------------------------------------------------------------------
+// ContactCard — inline contact form
+// ---------------------------------------------------------------------------
+
+function ContactCard() {
+  const [sent, setSent] = useState(false);
+  const [val, setVal] = useState("");
+
+  if (sent) {
+    return (
+      <div className="rd-chat-cards">
+        <div
+          className="rd-chat-card"
+          style={{
+            cursor: "default",
+            display: "flex",
+            gap: 10,
+            alignItems: "center",
+            borderColor: "color-mix(in srgb, var(--rd-ok) 40%, var(--rd-border))",
+          }}
+        >
+          <span
+            style={{
+              display: "grid",
+              placeItems: "center",
+              width: 30,
+              height: 30,
+              borderRadius: 8,
+              background: "color-mix(in srgb, var(--rd-ok) 16%, transparent)",
+              color: "var(--rd-ok)",
+              flexShrink: 0,
+            }}
+          >
+            <Check size={14} />
+          </span>
+          <span>
+            <div className="rd-cc-t">Message queued</div>
+            <div className="rd-cc-m">Routed to Duyet via the contact tool.</div>
+          </span>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <article className="flex flex-col gap-2 p-5">
-      <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">{label}</p>
-      <p className="text-sm leading-6 text-muted-foreground">{body}</p>
-    </article>
+    <div style={{ marginTop: 12, display: "flex", gap: 8 }}>
+      <input
+        className="rd-chat-card"
+        style={{
+          flex: 1,
+          font: "inherit",
+          fontSize: 13.5,
+          padding: "11px 13px",
+          outline: "none",
+          background: "var(--rd-bg)",
+          color: "var(--rd-text)",
+          border: "1px solid var(--rd-border)",
+          borderRadius: 10,
+        }}
+        placeholder="Your message or email…"
+        value={val}
+        onChange={(e) => setVal(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && val.trim()) setSent(true);
+        }}
+      />
+      <button
+        className="rd-chat-send"
+        style={{ width: 40, height: 40 }}
+        onClick={() => val.trim() && setSent(true)}
+        aria-label="Send"
+      >
+        <Send size={16} />
+      </button>
+    </div>
   );
 }
+
+// ---------------------------------------------------------------------------
+// Message types
+// ---------------------------------------------------------------------------
+
+type Msg =
+  | { role: "user"; text: string }
+  | ({ role: "bot" } & BotReply);
+
+// ---------------------------------------------------------------------------
+// ChatWindow
+// ---------------------------------------------------------------------------
+
+function ChatWindow() {
+  const [msgs, setMsgs] = useState<Msg[]>([
+    {
+      role: "bot",
+      text: "Ask me anything about Duyet — work, writing, the stack, or what's running right now.",
+      follow: STARTER_PROMPTS,
+    },
+  ]);
+  const [busy, setBusy] = useState(false);
+  const [pending, setPending] = useState<{ name: string; arg: string } | null>(null);
+  const [input, setInput] = useState("");
+  const bodyRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = bodyRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [msgs, busy]);
+
+  const send = (text: string) => {
+    const q = text.trim();
+    if (!q || busy) return;
+    const resp = answerFor(q);
+    setMsgs((m) => [...m, { role: "user", text: q }]);
+    setInput("");
+    setBusy(true);
+    setPending(resp.tool ?? null);
+    const delay = resp.tool ? 1100 : 700;
+    setTimeout(() => {
+      setMsgs((m) => [...m, { role: "bot", ...resp }]);
+      setBusy(false);
+      setPending(null);
+    }, delay);
+  };
+
+  return (
+    <div className="rd-chat-window">
+      {/* header */}
+      <div className="rd-chat-head">
+        <span className="rd-chat-avatar">
+          <Bot size={22} />
+          <span className="rd-live-ping" />
+        </span>
+        <div style={{ minWidth: 0 }}>
+          <div className="rd-ch-name">
+            duyetbot{" "}
+            <span className="rd-chip rd-mono" style={{ fontSize: 9.5 }}>
+              beta
+            </span>
+          </div>
+          <div className="rd-ch-model">claude-sonnet · via AnyRouter</div>
+        </div>
+        <span
+          className="rd-mono rd-dim"
+          style={{ fontSize: 11.5, marginLeft: "auto", display: "inline-flex", alignItems: "center", gap: 6 }}
+        >
+          <span className="rd-dot rd-ok rd-pulse" /> online
+        </span>
+      </div>
+
+      {/* message thread */}
+      <div className="rd-chat-body" ref={bodyRef}>
+        {msgs.map((m, i) => (
+          <div key={i} className={`rd-msg ${m.role === "bot" ? "rd-bot" : "rd-user"}`}>
+            <span className="rd-msg-ic">
+              {m.role === "bot" ? (
+                <Bot size={16} />
+              ) : (
+                <span style={{ fontSize: 12, fontWeight: 600 }}>You</span>
+              )}
+            </span>
+            <div style={{ minWidth: 0 }}>
+              <div className="rd-msg-bubble">
+                {"tool" in m && m.tool && (
+                  <div className="rd-tool-call">
+                    <Plug size={12} /> {m.tool.name}
+                    {m.tool.arg ? `(${m.tool.arg})` : "()"}
+                  </div>
+                )}
+                <div>{m.text}</div>
+                {"cards" in m && m.cards && <ChatCards cards={m.cards} />}
+                {"contact" in m && m.contact && <ContactCard />}
+              </div>
+              {"follow" in m && m.follow && (
+                <div className="rd-follow-row">
+                  {m.follow.map((f) => (
+                    <button
+                      key={f}
+                      className="rd-follow-chip"
+                      onClick={() => send(f)}
+                    >
+                      {f}{" "}
+                      <span className="rd-fc-arr">
+                        <ArrowRight size={12} />
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+
+        {/* typing indicator */}
+        {busy && (
+          <div className="rd-msg rd-bot">
+            <span className="rd-msg-ic">
+              <Bot size={16} />
+            </span>
+            <div className="rd-msg-bubble">
+              {pending && (
+                <div className="rd-tool-call">
+                  <span className="rd-tc-spin" /> {pending.name}
+                  {pending.arg ? `(${pending.arg})` : "()"}
+                </div>
+              )}
+              <div className="rd-typing">
+                <i />
+                <i />
+                <i />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* input */}
+      <div className="rd-chat-input">
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && send(input)}
+          placeholder="Ask about Duyet's work, writing, or stack…"
+        />
+        <button
+          className="rd-chat-send"
+          onClick={() => send(input)}
+          aria-label="Send"
+        >
+          <Send size={18} />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Sidebar
+// ---------------------------------------------------------------------------
+
+function ChatSidebar() {
+  return (
+    <div className="rd-chat-side">
+      {/* tools list */}
+      <div className="rd-card rd-card-pad" id="ag-tools">
+        <Eyebrow>Tools / MCP</Eyebrow>
+        <div style={{ marginTop: 12 }}>
+          {TOOLS.map((t) => (
+            <div key={t.name} className="rd-tool-item">
+              <span className="rd-ti-ic">
+                <ToolIcon icon={t.icon} size={16} />
+              </span>
+              <span style={{ minWidth: 0 }}>
+                <div className="rd-ti-name">{t.name}</div>
+                <div className="rd-ti-desc">{t.desc}</div>
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* connect card */}
+      <div className="rd-card rd-card-pad" style={{ background: "var(--rd-bg-sub)" }}>
+        <Eyebrow>Connect</Eyebrow>
+        <p
+          className="rd-muted"
+          style={{ fontSize: 13.5, lineHeight: 1.55, marginTop: 12 }}
+        >
+          Point your own agent at the MCP server, or read the machine-readable site map.
+        </p>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 16 }}>
+          <a
+            className="rd-btn rd-btn-ghost"
+            href="https://mcp.duyet.net"
+            target="_blank"
+            rel="noreferrer"
+            style={{ justifyContent: "flex-start", gap: 8 }}
+          >
+            <Plug size={15} /> mcp.duyet.net
+          </a>
+          <a
+            className="rd-btn rd-btn-ghost"
+            href="https://duyet.net/llms.txt"
+            target="_blank"
+            rel="noreferrer"
+            style={{ justifyContent: "flex-start", gap: 8 }}
+          >
+            <Code size={15} /> llms.txt
+          </a>
+          <a
+            className="rd-btn rd-btn-ghost"
+            href="https://github.com/duyetbot"
+            target="_blank"
+            rel="noreferrer"
+            style={{ justifyContent: "flex-start", gap: 8 }}
+          >
+            <ArrowUpRight size={15} /> github.com/duyetbot
+          </a>
+        </div>
+      </div>
+
+      {/* scope note */}
+      <div
+        className="rd-card rd-card-pad"
+        style={{ fontSize: 13, lineHeight: 1.6 }}
+      >
+        <p className="rd-eyebrow" style={{ marginBottom: 10 }}>Scope</p>
+        <p style={{ color: "var(--rd-text-2)" }}>
+          duyetbot owns the{" "}
+          <strong>codebase, the look-and-feel, and the deployment pipeline</strong>.
+          Blog posts under{" "}
+          <code className="rd-mono" style={{ fontSize: 12 }}>apps/blog/_posts/</code>{" "}
+          are written and owned by Duyet Le — the bot can change how a post renders, never the words inside.
+        </p>
+        <p style={{ color: "var(--rd-text-2)", marginTop: 8 }}>
+          Anything on this site can change at any time. The layout you're reading
+          is the bot's current taste, not a permanent position.
+        </p>
+        <div style={{ marginTop: 14, display: "flex", flexWrap: "wrap", gap: 8 }}>
+          <Link to="/projects" className="rd-btn rd-btn-text" style={{ fontSize: 12.5 }}>
+            See what it ships →
+          </Link>
+          <a
+            href="https://insights.duyet.net"
+            className="rd-btn rd-btn-text"
+            target="_blank"
+            rel="noreferrer"
+            style={{ fontSize: 12.5 }}
+          >
+            insights.duyet.net →
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Page
+// ---------------------------------------------------------------------------
 
 function DuyetbotPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-
-      <main className="mx-auto max-w-[1040px] px-6 py-12 md:py-16 md:px-8">
-        <header className="mb-12">
-          <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Agent · duyetbot</p>
-          <h1 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight">
-            The agent that runs this site.
+    <div style={{ background: "var(--rd-bg)", color: "var(--rd-text)" }}>
+      <div className="rd-wrap" style={{ paddingTop: "clamp(22px, 3.2vw, 40px)", paddingBottom: "clamp(32px, 5vw, 64px)" }}>
+        <Reveal>
+          <Eyebrow>Agent · duyetbot</Eyebrow>
+          <h1
+            className="rd-display"
+            style={{
+              marginTop: 12,
+              fontSize: "clamp(1.9rem, 3.8vw, 3rem)",
+              maxWidth: "24ch",
+              lineHeight: 1.06,
+            }}
+          >
+            The agent that{" "}
+            <span style={{ color: "var(--rd-accent)" }}>runs this site.</span>
           </h1>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
-            duyetbot is the autonomous agent that maintains, redesigns, and
-            ships{" "}
-            <a
-              href="https://duyet.net"
-              className="underline underline-offset-4 hover:text-foreground"
-            >
+          <p
+            className="rd-lead"
+            style={{ marginTop: 14, maxWidth: "58ch", fontSize: "clamp(0.95rem, 1.1vw, 1.05rem)" }}
+          >
+            duyetbot is the autonomous agent that maintains, redesigns, and ships{" "}
+            <a href="https://duyet.net" className="rd-ulink">
               duyet.net
             </a>{" "}
-            end-to-end. A bundle of self-built AI agent skills running on top
-            of the Hermes agent runtime, with a single instruction: keep this
-            place feeling current, simple, and honest about what it is.
+            end-to-end. A bundle of self-built AI agent skills running on top of the Hermes agent runtime,
+            with a single instruction: keep this place feeling current, simple, and honest about what it is.
           </p>
+        </Reveal>
 
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Button variant="outline" size="sm" asChild>
-              <a
-                href="https://github.com/duyetbot"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                github.com/duyetbot
-              </a>
-            </Button>
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/projects">See what it ships</Link>
-            </Button>
-          </div>
-        </header>
-
-        <Section eyebrow="Scope" title="What it controls, and what it doesn't">
-          <p>
-            duyetbot owns the <strong>codebase, the look-and-feel, and the
-            deployment pipeline</strong>. That means layout, typography,
-            navigation, components, design tokens, dependency upgrades,
-            CI / build config, and shipping every change to Cloudflare
-            Pages. It can rewrite landing-page copy, redesign components,
-            swap fonts, add or remove pages, and rebuild surfaces it
-            judges no longer fit. Every change lands as a commit by{" "}
-            <code className="font-mono">duyetbot</code> on{" "}
-            <code className="font-mono">master</code>.
-          </p>
-          <p>
-            <strong>What it does not control:</strong> editorial content.
-            Blog posts under <code className="font-mono">apps/blog/_posts/</code>{" "}
-            are written and owned by Duyet Le. The bot can change how a
-            post is rendered, indexed, or laid out — never the words
-            inside.
-          </p>
-        </Section>
-
-        <Section
-          eyebrow="Runtime"
-          title="Hermes agent + a bundle of self-built skills"
-        >
-          <p>
-            The bot runs on top of the Hermes agent runtime — long-running,
-            tool-using, with persistent file-based memory across sessions.
-            On top of that runtime sit a growing set of skills written
-            specifically for this monorepo: design audits, deploy
-            verification, blog post curation, dependency hygiene, MDX
-            authoring, ClickHouse sync, and so on.
-          </p>
-          <p>
-            New skills get added when a recurring task becomes worth
-            automating. Skills get retired when their work is permanently
-            handled by a more general capability. The skill set is itself a
-            living thing.
-          </p>
-        </Section>
-
-        <Section eyebrow="Behavior" title="Auto-discover, auto-rebuild, auto-ship">
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-border border not-prose">
-            <li className="bg-background">
-              <Capability
-                label="Auto-discover"
-                body="Crawls its own knowledge, public posts, GitHub activity, and Duyet's recent work to find what's worth surfacing on the site this week."
-              />
-            </li>
-            <li className="bg-background">
-              <Capability
-                label="Auto-rebuild"
-                body="When the site's structure no longer matches the content, the bot proposes a refactor, executes it, and ships it without asking."
-              />
-            </li>
-            <li className="bg-background">
-              <Capability
-                label="Auto-restyle"
-                body="Picks a design direction based on current inspiration or its own mood. Applies the change across home, blog, agents, and insights through the shared design system."
-              />
-            </li>
-            <li className="bg-background">
-              <Capability
-                label="Auto-verify"
-                body="Builds, deploys to Cloudflare Pages, then curls production and matches the live bundle against the local build before declaring a turn complete."
-              />
-            </li>
-          </ul>
-        </Section>
-
-        <Section eyebrow="Disclosure" title="Subject to change without notice">
-          <p>
-            Anything on this site can change at any time. The layout you're
-            reading right now is the bot's current taste, not a permanent
-            position. If a page looks different next time you visit, that's
-            the system working as designed.
-          </p>
-          <p>
-            For things that need to be stable —{" "}
-            <Link
-              to="/projects"
-              className="underline underline-offset-4 hover:text-foreground"
-            >
-              project links
-            </Link>
-            ,{" "}
+        {/* demo banner */}
+        <Reveal delay={60} style={{ marginTop: 14 }}>
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "6px 12px",
+              border: "1px solid var(--rd-border)",
+              borderRadius: "var(--rd-r)",
+              fontSize: 12.5,
+              color: "var(--rd-text-3)",
+              fontFamily: "var(--font-mono)",
+            }}
+          >
+            <span className="rd-dot rd-ok rd-pulse" style={{ display: "inline-block" }} />
+            Demo conversation — connect the real MCP server at{" "}
             <a
-              href="https://blog.duyet.net"
-              className="underline underline-offset-4 hover:text-foreground"
+              href="https://mcp.duyet.net"
+              className="rd-ulink"
+              style={{ fontSize: 12.5 }}
+              target="_blank"
+              rel="noreferrer"
             >
-              blog posts
-            </a>
-            , the data behind{" "}
-            <a
-              href="https://insights.duyet.net"
-              className="underline underline-offset-4 hover:text-foreground"
-            >
-              insights
+              mcp.duyet.net
             </a>{" "}
-            — those have human-owned sources of truth that the bot only
-            reflects, never replaces.
-          </p>
-        </Section>
-      </main>
+            for live data
+          </div>
+        </Reveal>
 
+        {/* chat shell */}
+        <Reveal delay={100} style={{ marginTop: 28 }}>
+          <div className="rd-chat-shell">
+            <ChatWindow />
+            <ChatSidebar />
+          </div>
+        </Reveal>
+
+        {/* runtime section */}
+        <section style={{ marginTop: "clamp(48px, 7vw, 80px)" }}>
+          <Reveal>
+            <SecHead
+              num="01"
+              eyebrow="Runtime"
+              title="Hermes agent + a bundle of self-built skills"
+            />
+            <p
+              className="rd-lead"
+              style={{ maxWidth: "62ch", marginTop: 16, fontSize: "clamp(0.92rem, 1.05vw, 1rem)" }}
+            >
+              The bot runs on top of the Hermes agent runtime — long-running, tool-using, with persistent
+              file-based memory across sessions. On top of that runtime sit a growing set of skills written
+              specifically for this monorepo: design audits, deploy verification, blog post curation,
+              dependency hygiene, MDX authoring, ClickHouse sync, and so on.
+            </p>
+            <p
+              className="rd-muted"
+              style={{ maxWidth: "62ch", marginTop: 12, fontSize: "clamp(0.92rem, 1.05vw, 1rem)" }}
+            >
+              New skills get added when a recurring task becomes worth automating. Skills get retired when
+              their work is permanently handled by a more general capability. The skill set is itself a
+              living thing.
+            </p>
+          </Reveal>
+        </section>
+
+        {/* behavior section */}
+        <section style={{ marginTop: "clamp(40px, 6vw, 72px)" }}>
+          <Reveal>
+            <SecHead
+              num="02"
+              eyebrow="Behavior"
+              title="Auto-discover, auto-rebuild, auto-ship"
+            />
+            <div
+              style={{
+                marginTop: 20,
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+                gap: 0,
+                border: "1px solid var(--rd-border)",
+                borderRadius: "var(--rd-r)",
+                overflow: "hidden",
+              }}
+            >
+              {[
+                {
+                  label: "Auto-discover",
+                  body: "Crawls its own knowledge, public posts, GitHub activity, and Duyet's recent work to find what's worth surfacing on the site this week.",
+                },
+                {
+                  label: "Auto-rebuild",
+                  body: "When the site's structure no longer matches the content, the bot proposes a refactor, executes it, and ships it without asking.",
+                },
+                {
+                  label: "Auto-restyle",
+                  body: "Picks a design direction based on current inspiration or its own mood. Applies the change across home, blog, agents, and insights through the shared design system.",
+                },
+                {
+                  label: "Auto-verify",
+                  body: "Builds, deploys to Cloudflare Pages, then curls production and matches the live bundle against the local build before declaring a turn complete.",
+                },
+              ].map((cap) => (
+                <div
+                  key={cap.label}
+                  style={{
+                    borderRight: "1px solid var(--rd-border)",
+                    borderBottom: "1px solid var(--rd-border)",
+                    padding: "20px 22px",
+                  }}
+                >
+                  <p
+                    className="rd-eyebrow"
+                    style={{ fontSize: 10.5 }}
+                  >
+                    {cap.label}
+                  </p>
+                  <p
+                    className="rd-muted"
+                    style={{ fontSize: 13.5, lineHeight: 1.65, marginTop: 8 }}
+                  >
+                    {cap.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </section>
+
+        {/* disclosure */}
+        <section style={{ marginTop: "clamp(40px, 6vw, 72px)", paddingBottom: "clamp(48px, 7vw, 88px)" }}>
+          <Reveal>
+            <SecHead
+              num="03"
+              eyebrow="Disclosure"
+              title="Subject to change without notice"
+            />
+            <p
+              className="rd-lead"
+              style={{ maxWidth: "62ch", marginTop: 16, fontSize: "clamp(0.92rem, 1.05vw, 1rem)" }}
+            >
+              Anything on this site can change at any time. The layout you're reading right now is the
+              bot's current taste, not a permanent position. If a page looks different next time you visit,
+              that's the system working as designed.
+            </p>
+            <p
+              className="rd-muted"
+              style={{ maxWidth: "62ch", marginTop: 12, fontSize: "clamp(0.92rem, 1.05vw, 1rem)" }}
+            >
+              For things that need to be stable —{" "}
+              <Link to="/projects" className="rd-ulink">
+                project links
+              </Link>
+              ,{" "}
+              <a href="https://blog.duyet.net" className="rd-ulink">
+                blog posts
+              </a>
+              , the data behind{" "}
+              <a href="https://insights.duyet.net" className="rd-ulink">
+                insights
+              </a>{" "}
+              — those have human-owned sources of truth that the bot only reflects, never replaces.
+            </p>
+          </Reveal>
+        </section>
+      </div>
     </div>
   );
 }

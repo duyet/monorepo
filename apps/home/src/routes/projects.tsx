@@ -1,28 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import type { ReactNode } from "react";
-import {
-  BarChart2,
-  Bot,
-  BookOpen,
-  BrainCircuit,
-  Cloud,
-  Code2,
-  Database,
-  GitBranch,
-  GitFork,
-  Globe,
-  Link as LinkIcon,
-  Package,
-  Plug,
-  Puzzle,
-  Rss,
-  Share2,
-  Star,
-  Terminal,
-  Type,
-} from "lucide-react";
+import { useState } from "react";
+import { ArrowUpRight, Layers, AlignJustify } from "lucide-react";
 import { addUtmParams } from "../../app/lib/utm";
 import { apps, type AppItem } from "../data/projects";
+import { SecHead, Eyebrow, Reveal } from "@duyet/components";
 
 export const Route = createFileRoute("/projects")({
   component: ProjectsPage,
@@ -38,109 +19,313 @@ export const Route = createFileRoute("/projects")({
   }),
 });
 
-const ICON_MAP: Record<string, ReactNode> = {
-  BarChart2: <BarChart2 size={18} />,
-  Bot: <Bot size={18} />,
-  BookOpen: <BookOpen size={18} />,
-  BrainCircuit: <BrainCircuit size={18} />,
-  Cloud: <Cloud size={18} />,
-  Code2: <Code2 size={18} />,
-  Database: <Database size={18} />,
-  GitBranch: <GitBranch size={18} />,
-  Github: <GitFork size={18} />,
-  Globe: <Globe size={18} />,
-  Link: <LinkIcon size={18} />,
-  Package: <Package size={18} />,
-  Plug: <Plug size={18} />,
-  Puzzle: <Puzzle size={18} />,
-  Rss: <Rss size={18} />,
-  Share2: <Share2 size={18} />,
-  Star: <Star size={18} />,
-  Terminal: <Terminal size={18} />,
-  Type: <Type size={18} />,
-};
+// ---------------------------------------------------------------------------
+// Category derivation — "Live" vs "OSS" based on host
+// ---------------------------------------------------------------------------
 
-function projectIcon(item: AppItem): ReactNode {
-  if (item.iconName && ICON_MAP[item.iconName]) {
-    return ICON_MAP[item.iconName];
-  }
-  if (item.host === "github.com") {
-    return ICON_MAP.Github;
-  }
-  return ICON_MAP.Globe;
+type Category = "All" | "Live" | "OSS";
+
+function categoryOf(item: AppItem): Omit<Category, "All"> {
+  return item.host === "github.com" ? "OSS" : "Live";
 }
 
+const CATEGORIES: Category[] = ["All", "Live", "OSS"];
+
+const liveCount = apps.filter((a) => a.host !== "github.com").length;
+
+// ---------------------------------------------------------------------------
+// Page
+// ---------------------------------------------------------------------------
+
 function ProjectsPage() {
+  const [filter, setFilter] = useState<Category>("All");
+  const [view, setView] = useState<"grid" | "list">("grid");
+
+  const list =
+    filter === "All" ? apps : apps.filter((a) => categoryOf(a) === filter);
+
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-
-      <main className="mx-auto max-w-[1040px] px-6 py-12 md:py-16 md:px-8">
-        <header className="mb-12">
-          <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-            Directory · {apps.length} projects
+    <div style={{ background: "var(--rd-bg)", color: "var(--rd-text)" }}>
+      <section
+        className="rd-wrap"
+        style={{
+          paddingTop: "clamp(44px, 6vw, 76px)",
+          paddingBottom: "clamp(56px, 8vw, 96px)",
+        }}
+      >
+        <Reveal>
+          <SecHead
+            eyebrow={`Projects · ${apps.length} total`}
+            title="Everything I've built & kept running."
+            links={[
+              {
+                label: "GitHub",
+                href: "https://github.com/duyet",
+              },
+            ]}
+          />
+          <p
+            className="rd-lead"
+            style={{ marginTop: 16, maxWidth: "60ch" }}
+          >
+            Products, small tools, and open source — most of it live on a
+            subdomain or a GitHub repo. {liveCount} are running right now.
           </p>
-          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight mt-3">
-            Projects
-          </h1>
-          <p className="mt-3 max-w-xl text-sm text-muted-foreground leading-relaxed">
-            A complete list of public project surfaces across data engineering,
-            AI infrastructure, analytics, and developer tooling.
-          </p>
-        </header>
+        </Reveal>
 
-        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border border">
-          {apps.map((item) => (
-            <li key={item.name} className="bg-background">
-              <ProjectLink item={item}>
-                <article className="flex h-full flex-col gap-2 p-5 transition-colors hover:bg-muted">
-                  <span className="text-muted-foreground">
-                    {projectIcon(item)}
-                  </span>
-                  <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
-                    {item.domain || item.host}
-                  </p>
-                  <h2 className="text-base font-medium tracking-tight">
-                    {item.name}
-                  </h2>
-                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
-                    {item.description}
-                  </p>
-                </article>
-              </ProjectLink>
-            </li>
-          ))}
-        </ul>
-      </main>
+        {/* filter + view toggle toolbar */}
+        <Reveal delay={60}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: 16,
+              flexWrap: "wrap",
+              marginTop: 32,
+              marginBottom: 20,
+            }}
+          >
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  className={`rd-chip-btn rd-mono${filter === cat ? " rd-on" : ""}`}
+                  onClick={() => setFilter(cat)}
+                  style={{ fontSize: 13, cursor: "pointer" }}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+            <div style={{ display: "flex", gap: 6 }}>
+              <button
+                type="button"
+                aria-label="Grid view"
+                onClick={() => setView("grid")}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 32,
+                  height: 32,
+                  border: "1px solid",
+                  borderColor:
+                    view === "grid"
+                      ? "var(--rd-text)"
+                      : "var(--rd-border)",
+                  borderRadius: "var(--rd-r-sm)",
+                  background: "transparent",
+                  color:
+                    view === "grid"
+                      ? "var(--rd-text)"
+                      : "var(--rd-text-3)",
+                  cursor: "pointer",
+                }}
+              >
+                <Layers size={15} />
+              </button>
+              <button
+                type="button"
+                aria-label="List view"
+                onClick={() => setView("list")}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 32,
+                  height: 32,
+                  border: "1px solid",
+                  borderColor:
+                    view === "list"
+                      ? "var(--rd-text)"
+                      : "var(--rd-border)",
+                  borderRadius: "var(--rd-r-sm)",
+                  background: "transparent",
+                  color:
+                    view === "list"
+                      ? "var(--rd-text)"
+                      : "var(--rd-text-3)",
+                  cursor: "pointer",
+                }}
+              >
+                <AlignJustify size={15} />
+              </button>
+            </div>
+          </div>
+        </Reveal>
 
+        {view === "grid" ? (
+          <ProjectGrid items={list} />
+        ) : (
+          <ProjectList items={list} />
+        )}
+      </section>
     </div>
   );
 }
 
-function ProjectLink({
-  item,
-  children,
-}: {
-  item: AppItem;
-  children: ReactNode;
-}) {
-  const href = addUtmParams(item.href, "projects", item.utmContent, item.host);
+// ---------------------------------------------------------------------------
+// Grid view — rd-work-grid / rd-work-card pattern
+// ---------------------------------------------------------------------------
 
-  if (href.startsWith("http")) {
-    return (
-      <a
-        href={href}
-        className="block h-full no-underline"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {children}
-      </a>
-    );
-  }
-
+function ProjectGrid({ items }: { items: AppItem[] }) {
   return (
-    <Link to={href} className="block h-full no-underline">
-      {children}
-    </Link>
+    <div className="rd-work-grid">
+      {items.map((item, i) => {
+        const href = addUtmParams(
+          item.href,
+          "projects",
+          item.utmContent,
+          item.host,
+        );
+        const cat = categoryOf(item);
+        const isExternal = href.startsWith("http");
+
+        return (
+          <Reveal key={item.name} delay={i * 25}>
+            {isExternal ? (
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rd-card rd-card-hover rd-work-card"
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  display: "flex",
+                  flexDirection: "column",
+                  height: "100%",
+                }}
+              >
+                <WorkCardBody item={item} cat={String(cat)} />
+              </a>
+            ) : (
+              <Link
+                to={href}
+                className="rd-card rd-card-hover rd-work-card"
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  display: "flex",
+                  flexDirection: "column",
+                  height: "100%",
+                }}
+              >
+                <WorkCardBody item={item} cat={String(cat)} />
+              </Link>
+            )}
+          </Reveal>
+        );
+      })}
+    </div>
+  );
+}
+
+function WorkCardBody({ item, cat }: { item: AppItem; cat: string }) {
+  return (
+    <>
+      <div className="rd-work-top">
+        <span className="rd-mono rd-work-dom">
+          {item.domain || item.host}
+        </span>
+      </div>
+      <h3 className="rd-work-name">{item.name}</h3>
+      <p className="rd-work-desc">{item.description}</p>
+      <div className="rd-work-foot">
+        <span className="rd-chip rd-mono rd-work-tag">{cat}</span>
+        <span style={{ color: "var(--rd-text-4)" }}>
+          <ArrowUpRight size={15} />
+        </span>
+      </div>
+    </>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// List view — rd-rows / rd-row pattern
+// ---------------------------------------------------------------------------
+
+function ProjectList({ items }: { items: AppItem[] }) {
+  return (
+    <div className="rd-rows">
+      {items.map((item) => {
+        const href = addUtmParams(
+          item.href,
+          "projects",
+          item.utmContent,
+          item.host,
+        );
+        const cat = categoryOf(item);
+        const isExternal = href.startsWith("http");
+        const inner = (
+          <>
+            <span
+              className="rd-mono rd-dim"
+              style={{
+                fontSize: 12.5,
+                width: 200,
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                flexShrink: 0,
+              }}
+            >
+              {item.domain || item.host}
+            </span>
+            <span style={{ minWidth: 0, flex: 1 }}>
+              <span
+                style={{
+                  fontWeight: 600,
+                  marginRight: 12,
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                {item.name}
+              </span>
+              <span
+                className="rd-muted"
+                style={{ fontSize: 14 }}
+              >
+                {item.description}
+              </span>
+            </span>
+            <Eyebrow>{cat}</Eyebrow>
+          </>
+        );
+
+        const rowStyle = {
+          display: "flex",
+          alignItems: "center",
+          gap: 16,
+          textDecoration: "none",
+          color: "inherit",
+          cursor: "pointer",
+        } as const;
+
+        return isExternal ? (
+          <a
+            key={item.name}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rd-row"
+            style={rowStyle}
+          >
+            {inner}
+          </a>
+        ) : (
+          <Link
+            key={item.name}
+            to={href}
+            className="rd-row"
+            style={rowStyle}
+          >
+            {inner}
+          </Link>
+        );
+      })}
+    </div>
   );
 }

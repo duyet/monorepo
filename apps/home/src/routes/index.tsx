@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ArrowRight, Flame } from "lucide-react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Suspense } from "react";
 import { addUtmParams } from "../../app/lib/utm";
@@ -36,7 +36,6 @@ const sinceYear = allBlogPosts.length
   ? new Date(allBlogPosts[allBlogPosts.length - 1].date).getFullYear()
   : 2015;
 const yearsWriting = new Date().getFullYear() - sinceYear;
-const totalApps = siblingApps.length + 1; // +1 for home itself
 
 // Hand-picked to show breadth: AI infra, data, agents, DevOps, craft, type.
 const SELECTED: { name: string; tag: string }[] = [
@@ -81,7 +80,7 @@ function HomePage() {
           <Reveal>
             <div className="rd-hero-grid">
               <div>
-                <Eyebrow>DATA &amp; AI ENGINEER &nbsp;·&nbsp; HO CHI MINH CITY</Eyebrow>
+                <Eyebrow>DATA &amp; AI ENGINEER</Eyebrow>
                 <h1
                   className="rd-display"
                   style={{
@@ -119,6 +118,21 @@ function HomePage() {
                   </a>{" "}
                   most of what I build.
                 </p>
+                <Link
+                  to="/about"
+                  className="vibe-flag"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <span className="vf-ic" style={{ display: "grid", placeItems: "center" }}>
+                    <Flame size={13} fill="#fff" />
+                  </span>
+                  <span>
+                    <strong>Deep in vibe-coding mode</strong> — most of what ships here is written alongside coding agents, with me steering.
+                  </span>
+                  <span className="vf-arr" style={{ display: "inline-flex" }}>
+                    <ArrowRight size={14} />
+                  </span>
+                </Link>
                 <div
                   style={{
                     display: "flex",
@@ -273,12 +287,22 @@ function SignalBar() {
       big: String(totalPosts),
       unit: "posts",
       sub: `${yearsWriting} years, since ${sinceYear}`,
+      to: "https://blog.duyet.net",
     },
     {
       k: "Shipping",
       big: String(apps.length),
       unit: "projects",
-      sub: `${totalApps} live apps`,
+      sub: `${siblingApps.length} live apps`,
+      to: "/projects",
+    },
+    {
+      k: "Token burn",
+      big: "1.24",
+      unit: "B",
+      sub: "all-time agent burn",
+      flame: true,
+      to: "/about",
     },
     {
       k: "Cluster",
@@ -286,6 +310,7 @@ function SignalBar() {
       unit: "online",
       sub: `${h.services} services · ${h.avgCpu}% CPU`,
       live: true,
+      to: "https://homelab.duyet.net",
     },
     {
       k: "Coding",
@@ -293,70 +318,78 @@ function SignalBar() {
       unit: "h/30d",
       sub: "11h avg / active day",
       spark: codingSparkline,
+      to: "https://insights.duyet.net",
     },
   ];
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(4, 1fr)",
-        gap: 0,
-        border: "1px solid var(--rd-border)",
-        borderRadius: "var(--rd-r)",
-        overflow: "hidden",
-      }}
-    >
-      {tiles.map((t, i) => (
-        <div
-          key={t.k}
-          style={{
-            textAlign: "left",
-            background: "var(--rd-surface)",
-            border: "none",
-            borderRight:
-              i < 3 ? "1px solid var(--rd-border)" : "none",
-            padding: "18px 20px",
-            display: "flex",
-            flexDirection: "column",
-            gap: 8,
-            minWidth: 0,
-          }}
-        >
-          <div
-            className="rd-eyebrow"
-            style={{ fontSize: 10.5 }}
-          >
-            {t.live && (
-              <span
-                className="rd-dot rd-ok rd-pulse"
-                style={{ display: "inline-block" }}
-              />
-            )}{" "}
-            {t.k}
-          </div>
-          <div className="rd-bigstat" style={{ fontSize: "1.9rem" }}>
-            {t.big}
-            <span className="rd-unit">{t.unit}</span>
-          </div>
-          {t.spark ? (
-            <Sparkline data={t.spark} h={22} />
-          ) : (
-            <div style={{ height: 22 }} />
-          )}
-          <div
-            className="rd-mono rd-dim"
+    <div className="signalbar">
+      {tiles.map((t) => {
+        const isExternal = t.to.startsWith("http");
+        const Component = isExternal ? "a" : Link;
+        const linkProps = isExternal
+          ? { href: t.to, target: "_blank", rel: "noreferrer" }
+          : { to: t.to };
+
+        return (
+          <Component
+            key={t.k}
+            {...linkProps}
+            className="signal-tile"
             style={{
-              fontSize: 11,
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
+              textDecoration: "none",
+              color: "inherit",
+              textAlign: "left",
+              background: "var(--rd-surface)",
+              border: "none",
+              padding: "18px 20px",
+              display: "flex",
+              flexDirection: "column",
+              gap: 8,
+              minWidth: 0,
+              cursor: "pointer",
             }}
           >
-            {t.sub}
-          </div>
-        </div>
-      ))}
+            <div
+              className="rd-eyebrow"
+              style={{ fontSize: 10.5, display: "flex", alignItems: "center", gap: 6 }}
+            >
+              {t.live && (
+                <span
+                  className="rd-dot rd-ok rd-pulse"
+                  style={{ display: "inline-block" }}
+                />
+              )}
+              {t.flame && (
+                <span style={{ color: "var(--rd-accent)", display: "inline-flex" }}>
+                  <Flame size={12} fill="var(--rd-accent)" />
+                </span>
+              )}
+              {t.k}
+            </div>
+            <div className="rd-bigstat" style={{ fontSize: "1.9rem", color: t.flame ? "var(--rd-accent-ink)" : undefined }}>
+              {t.big}
+              <span className="rd-unit">{t.unit}</span>
+            </div>
+            {t.spark ? (
+              <Sparkline data={t.spark} h={22} />
+            ) : (
+              <div style={{ height: 22 }} />
+            )}
+            <div
+              className="rd-mono rd-dim"
+              style={{
+                fontSize: 11,
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {t.sub}
+            </div>
+          </Component>
+        );
+      })}
     </div>
   );
 }
@@ -553,9 +586,29 @@ function BlogTeaser() {
 // ---------------------------------------------------------------------------
 
 function HeroDiagram() {
+  const cx = 210, cy = 188, rx = 150, ry = 122, core = 33;
+  // tech ring — tools + models + data + infra, named
+  const nodes = [
+    { t: "LangGraph", a: 270, kind: "ai", slug: "langchain" },
+    { t: "Claude", a: 318, kind: "ai", slug: "claude" },
+    { t: "Kafka", a: 6, kind: "data", slug: "apachekafka", lc: "222222" },
+    { t: "Cloudflare", a: 48, kind: "infra", slug: "cloudflare" },
+    { t: "Kubernetes", a: 90, kind: "infra", slug: "kubernetes" },
+    { t: "Airflow", a: 132, kind: "data", slug: "apacheairflow" },
+    { t: "Spark", a: 174, kind: "data", slug: "apachespark" },
+    { t: "ClickHouse", a: 222, kind: "data", slug: "clickhouse", lc: "C28800" },
+  ];
+  const pt = (a: number, fx = rx, fy = ry) => {
+    const r = (a * Math.PI) / 180;
+    return [cx + fx * Math.cos(r), cy + fy * Math.sin(r)];
+  };
+  const kindColor = { ai: "var(--rd-accent)", data: "var(--rd-text)", infra: "var(--rd-text-3)" };
+  const lite = (n: any) => `https://cdn.simpleicons.org/${n.slug}${n.lc ? "/" + n.lc : ""}`;
+  const dark = (n: any) => `https://cdn.simpleicons.org/${n.slug}/${n.dc || "f0f0f0"}`;
+
   return (
     <div className="rd-hero-art" aria-hidden="true">
-      <svg viewBox="0 0 384 360" preserveAspectRatio="xMidYMid meet">
+      <svg viewBox="0 0 420 380" preserveAspectRatio="xMidYMid meet">
         <defs>
           <pattern
             id="hd-dots"
@@ -569,164 +622,84 @@ function HeroDiagram() {
         <rect
           x="0"
           y="0"
-          width="384"
-          height="360"
+          width="420"
+          height="380"
           fill="url(#hd-dots)"
-          opacity="0.5"
+          opacity="0.45"
         />
 
-        {/* vertical data bus */}
-        <line
-          x1="192"
-          y1="280"
-          x2="192"
-          y2="132"
-          stroke="var(--rd-border-2)"
-          strokeWidth="1.4"
-        />
-        <line
-          x1="192"
-          y1="280"
-          x2="192"
-          y2="132"
-          stroke="var(--rd-accent)"
-          strokeWidth="1.6"
-          strokeDasharray="2 7"
-          className="rd-flow"
-        />
+        {/* connectors */}
+        {nodes.map((n, i) => {
+          const [px, py] = pt(n.a);
+          const r = (n.a * Math.PI) / 180;
+          const sx = cx + core * Math.cos(r), sy = cy + core * Math.sin(r);
+          return (
+            <g key={"c" + i}>
+              <line x1={sx} y1={sy} x2={px} y2={py} stroke="var(--rd-border-2)" strokeWidth="1.2" />
+              <line x1={sx} y1={sy} x2={px} y2={py} stroke="var(--rd-accent)" strokeWidth="1.4" strokeDasharray="2 8" className="rd-flow" style={{ animationDelay: `${i * 0.12}s`, opacity: n.kind === "ai" ? 0.9 : 0.45 }} />
+              <circle cx={px} cy={py} r="2.6" fill={kindColor[n.kind as keyof typeof kindColor]} />
+            </g>
+          );
+        })}
 
-        {/* orbit + satellites */}
+        {/* orbit guide */}
         <ellipse
-          cx="192"
-          cy="104"
-          rx="98"
-          ry="30"
+          cx={cx}
+          cy={cy}
+          rx={rx}
+          ry={ry}
           fill="none"
           stroke="var(--rd-border-2)"
-          strokeWidth="1.2"
-          strokeDasharray="3 6"
+          strokeWidth="1"
+          strokeDasharray="3 7"
           className="rd-orbit"
+          opacity="0.6"
         />
-        <g stroke="var(--rd-border-2)" strokeWidth="1.1">
-          <line x1="94" y1="104" x2="168" y2="104" />
-          <line x1="290" y1="104" x2="216" y2="104" />
-        </g>
-        <circle
-          cx="94"
-          cy="104"
-          r="7"
-          fill="var(--rd-surface)"
-          stroke="var(--rd-text-3)"
-          strokeWidth="1.3"
-        />
-        <circle
-          cx="290"
-          cy="104"
-          r="7"
-          fill="var(--rd-surface)"
-          stroke="var(--rd-text-3)"
-          strokeWidth="1.3"
-        />
+
+        {/* tech pills */}
+        {nodes.map((n, i) => {
+          const [px, py] = pt(n.a);
+          const w = n.t.length * 6.5 + 46, h = 26;
+          const x0 = px - w / 2;
+          return (
+            <g key={"p" + i}>
+              <rect x={x0} y={py - h / 2} width={w} height={h} rx="13" fill="var(--rd-surface)" stroke="var(--rd-border-2)" strokeWidth="1.1" />
+              <image className="hd-logo-lite" href={lite(n)} x={x0 + 11} y={py - 7.5} width="15" height="15" />
+              <image className="hd-logo-dark" href={dark(n)} x={x0 + 11} y={py - 7.5} width="15" height="15" />
+              <text x={x0 + 33} y={py + 3.7} className="rd-chip" style={{ fontSize: 10.5, fontVariantNumeric: "tabular-nums", fill: n.kind === "ai" ? "var(--rd-accent-ink)" : "var(--rd-text-2)" }}>{n.t}</text>
+            </g>
+          );
+        })}
 
         {/* agent core */}
         <circle
-          cx="192"
-          cy="104"
-          r="30"
+          cx={cx}
+          cy={cy}
+          r={core}
           fill="none"
           stroke="var(--rd-accent)"
           strokeWidth="1.3"
           className="rd-hd-ring"
         />
-        <circle cx="192" cy="104" r="23" fill="var(--rd-accent)" />
+        <circle cx={cx} cy={cy} r="25" fill="var(--rd-accent)" />
         <circle
-          cx="192"
-          cy="104"
-          r="8.5"
+          cx={cx}
+          cy={cy}
+          r="9.5"
           fill="none"
           stroke="#fff"
           strokeWidth="1.6"
           opacity="0.95"
         />
-        <circle cx="192" cy="104" r="2.6" fill="#fff" className="rd-hd-pulse" />
-
-        {/* processing node */}
-        <g transform="rotate(45 192 200)">
-          <rect
-            x="181"
-            y="189"
-            width="22"
-            height="22"
-            rx="4"
-            fill="var(--rd-surface)"
-            stroke="var(--rd-text)"
-            strokeWidth="1.4"
-          />
-        </g>
-        <circle
-          cx="192"
-          cy="200"
-          r="3.4"
-          fill="var(--rd-accent)"
-          className="rd-hd-pulse"
-        />
-
-        {/* data platform cylinder */}
-        <g fill="var(--rd-surface)" stroke="var(--rd-text-3)" strokeWidth="1.3">
-          <path d="M138 282 V322 A54 13 0 0 0 246 322 V282" />
-          <ellipse cx="192" cy="282" rx="54" ry="13" />
-        </g>
-        <path
-          d="M138 302 A54 13 0 0 0 246 302"
-          fill="none"
-          stroke="var(--rd-border-2)"
-          strokeWidth="1.1"
-        />
-
-        {/* labels */}
+        <circle cx={cx} cy={cy} r="3" fill="#fff" className="rd-hd-pulse" />
         <text
-          x="192"
-          y="48"
+          x={cx}
+          y={cy + 52}
           textAnchor="middle"
           className="rd-mono"
-          style={{ fontSize: 11, fill: "var(--rd-accent)", letterSpacing: "0.06em" }}
+          style={{ fontSize: 9, fill: "var(--rd-accent-ink)", letterSpacing: "0.1em", textTransform: "uppercase" }}
         >
-          agent
-        </text>
-        <text
-          x="94"
-          y="129"
-          textAnchor="middle"
-          className="rd-mono"
-          style={{ fontSize: 10, fill: "var(--rd-text-3)" }}
-        >
-          tools
-        </text>
-        <text
-          x="290"
-          y="129"
-          textAnchor="middle"
-          className="rd-mono"
-          style={{ fontSize: 10, fill: "var(--rd-text-3)" }}
-        >
-          models
-        </text>
-        <text
-          x="214"
-          y="204"
-          className="rd-mono"
-          style={{ fontSize: 10, fill: "var(--rd-text-3)" }}
-        >
-          router
-        </text>
-        <text
-          x="192"
-          y="347"
-          textAnchor="middle"
-          className="rd-mono"
-          style={{ fontSize: 10, fill: "var(--rd-text-3)" }}
-        >
-          data platform
+          agent core
         </text>
       </svg>
     </div>
