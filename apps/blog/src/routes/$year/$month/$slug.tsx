@@ -155,20 +155,39 @@ function PostHero({ post }: { post: LoadedPost }) {
         {post.title}
       </h1>
 
-      {/* Terminal block hero */}
-      <div className="rd-card" style={{ overflow: "hidden", marginBottom: 30, marginTop: 30 }}>
-        <div className="rd-termblock" style={{ padding: "24px 26px" }}>
-          <div className="rd-term-dots">
-            <i />
-            <i />
-            <i />
-          </div>
-          <div className="rd-mono" style={{ marginTop: 18, fontSize: 20, color: "var(--rd-accent)" }}>
-            <span style={{ opacity: 0.55 }}>$</span> npm i {post.category_slug || getSlug(post.category)}
-            <span className="rd-caret" />
+      {/* Hero: post thumbnail when available, terminal block as fallback */}
+      {post.thumbnail ? (
+        <div
+          className="rd-card"
+          style={{ overflow: "hidden", marginBottom: 30, marginTop: 30 }}
+        >
+          <img
+            src={post.thumbnail}
+            alt={post.title}
+            loading="eager"
+            style={{
+              display: "block",
+              width: "100%",
+              aspectRatio: "16 / 8",
+              objectFit: "cover",
+            }}
+          />
+        </div>
+      ) : (
+        <div className="rd-card" style={{ overflow: "hidden", marginBottom: 30, marginTop: 30 }}>
+          <div className="rd-termblock" style={{ padding: "24px 26px" }}>
+            <div className="rd-term-dots">
+              <i />
+              <i />
+              <i />
+            </div>
+            <div className="rd-mono" style={{ marginTop: 18, fontSize: 20, color: "var(--rd-accent)" }}>
+              <span style={{ opacity: 0.55 }}>$</span> npm i {post.category_slug || getSlug(post.category)}
+              <span className="rd-caret" />
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </header>
   );
 }
