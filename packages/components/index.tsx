@@ -76,3 +76,6 @@ export * from "./ui/tabs";
 export * from "./ui/textarea";
 export * from "./ui/tooltip";
 export { default as YearList } from "./YearList";
+
+// Redesign components (2026 duyet.net redesign)
+export * from "./redesign";
