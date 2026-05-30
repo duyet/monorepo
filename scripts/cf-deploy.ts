@@ -478,6 +478,7 @@ async function buildAllApps(): Promise<boolean> {
 
   // Determine which apps actually need to be built
   const appsToBuild = getChangedApps();
+  const appsWithBuildScript = appsToBuild.filter((app) => app !== "agent-api");
 
   if (appsToBuild.length === 0) {
     console.log("[INFO] No apps need to be built. Skipping build phase.\n");
@@ -485,7 +486,7 @@ async function buildAllApps(): Promise<boolean> {
   }
 
   console.log(
-    `[INFO] Building ${appsToBuild.length} app(s) for deployment: ${appsToBuild.join(", ")}`
+    `[INFO] Building ${appsWithBuildScript.length} app(s) for deployment: ${appsWithBuildScript.join(", ")}`
   );
   console.log(`[INFO] Loading environment from: .env.production`);
   console.log(`[INFO] Production URLs:`);
@@ -498,22 +499,21 @@ async function buildAllApps(): Promise<boolean> {
   console.log(`       NODE_ENV=${PRODUCTION_ENV.NODE_ENV || "(not set)"}`);
 
   // Build each app individually to handle failures gracefully
-  // Pass PRODUCTION_ENV which sets process.env values directly
-  // process.env has highest precedence and overrides .env.local localhost URLs
+  // Pass DEPLOY_ENV which sets process.env values directly (including secrets from .env.production.local)
   const buildResults = await Promise.all(
-    appsToBuild.map((app) =>
+    appsWithBuildScript.map((app) =>
       runCommand(
         ["bun", "run", "build"],
         join(rootDir, "apps", app),
         `Build ${app}`,
         true, // Allow failure to continue
-        PRODUCTION_ENV
+        DEPLOY_ENV
       )
     )
   );
 
-  const failed = appsToBuild.filter((_, i) => !buildResults[i].success);
-  const succeeded = appsToBuild.filter((_, i) => buildResults[i].success);
+  const failed = appsWithBuildScript.filter((_, i) => !buildResults[i].success);
+  const succeeded = appsWithBuildScript.filter((_, i) => buildResults[i].success);
 
   if (failed.length > 0) {
     console.error(
@@ -522,10 +522,15 @@ async function buildAllApps(): Promise<boolean> {
     return false;
   }
 
-  console.log(`[✓] All ${appsToBuild.length} app(s) built successfully\n`);
+  if (appsWithBuildScript.length > 0) {
+    console.log(`[✓] All ${appsWithBuildScript.length} app(s) built successfully\n`);
+  }
 
   // Store successfully built apps for deployment phase
   appsToDeploy = succeeded;
+  if (appsToBuild.includes("agent-api")) {
+    appsToDeploy.push("agent-api");
+  }
 
   return true;
 }
@@ -604,6 +609,48 @@ async function deployApp(appName: string): Promise<{
   const appConfig = APPS_CONFIG[appName];
   const appDir = join(rootDir, "apps", appName);
   const deployTarget = isProd ? "production" : "preview";
+
+  if (appName === "agent-api") {
+    const cmd = isProd
+      ? ["bun", "run", "cf:deploy:prod"]
+      : ["bun", "run", "deploy"];
+
+    console.log(`  📦 ${appName}`);
+    console.log(`     → Project: ${appConfig.projectName}`);
+    console.log(`     → Target: ${deployTarget}`);
+
+    if (dryRun) {
+      console.log(`     [DRY RUN] Would run: ${cmd.join(" ")}`);
+      return { success: true, app: appName };
+    }
+
+    const result = await runCommand(
+      cmd,
+      appDir,
+      `Deploy Worker ${appName}`,
+      true,
+      CLOUDFLARE_ENV
+    );
+
+    if (result.success) {
+      console.log(`     ✓ Deployed successfully to ${deployTarget}`);
+    } else {
+      console.log(`     ✗ Deployment failed`);
+      if (result.stdout.trim()) {
+        console.log(`     ↳ stdout: ${result.stdout.trim()}`);
+      }
+      if (result.stderr.trim()) {
+        console.log(`     ↳ stderr: ${result.stderr.trim()}`);
+      }
+    }
+
+    const errorOutput = (result.stderr || result.stdout).trim() || undefined;
+    return {
+      success: result.success,
+      app: appName,
+      error: errorOutput,
+    };
+  }
 
   console.log(`  📦 ${appName}`);
   console.log(`     → Project: ${appConfig.projectName}`);
