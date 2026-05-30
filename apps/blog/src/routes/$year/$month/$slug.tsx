@@ -157,22 +157,18 @@ function PostHero({ post }: { post: LoadedPost }) {
 
       {/* Hero: post thumbnail when available, terminal block as fallback */}
       {post.thumbnail ? (
-        <div
-          className="rd-card"
-          style={{ overflow: "hidden", marginBottom: 30, marginTop: 30 }}
-        >
-          <img
-            src={post.thumbnail}
-            alt={post.title}
-            loading="eager"
-            style={{
-              display: "block",
-              width: "100%",
-              aspectRatio: "16 / 8",
-              objectFit: "cover",
-            }}
-          />
-        </div>
+        <img
+          src={post.thumbnail}
+          alt={post.title}
+          loading="eager"
+          style={{
+            display: "block",
+            width: "100%",
+            marginBottom: 30,
+            marginTop: 30,
+            borderRadius: "var(--rd-r)",
+          }}
+        />
       ) : (
         <div className="rd-card" style={{ overflow: "hidden", marginBottom: 30, marginTop: 30 }}>
           <div className="rd-termblock" style={{ padding: "24px 26px" }}>

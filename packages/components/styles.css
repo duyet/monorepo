@@ -258,9 +258,13 @@
   line-height: 1.5;
 }
 
-/* Remove pre padding when hljs handles it */
+/* hljs code blocks: keep padding on the inner .hljs element */
 .prose pre:has(.hljs) {
   padding: 0;
+}
+.prose pre .hljs {
+  padding: 1em;
+  overflow-x: auto;
 }
 
 .prose code {
