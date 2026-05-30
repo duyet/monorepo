@@ -60,3 +60,6 @@ Cargo.lock
 
 # Antigravity CLI
 .antigravitycli/
+
+# Design handoff bundles (reference only)
+scratch/
