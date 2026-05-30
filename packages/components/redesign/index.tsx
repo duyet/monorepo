@@ -193,6 +193,45 @@ export function Sparkline({
   )
 }
 
+import * as SVGLogos from "@thesvg/react";
+
+const NAME_LOGOS: Record<string, any> = {
+  // Languages
+  "typescript": SVGLogos.Typescript,
+  "javascript": SVGLogos.Typescript,
+  "python": SVGLogos.Python,
+  "rust": SVGLogos.Rust,
+  "go": SVGLogos.Go,
+  "shell": SVGLogos.GnuBash,
+  "bash": SVGLogos.GnuBash,
+  "markdown": SVGLogos.Markdown,
+  "css": SVGLogos.Css3,
+  "html": SVGLogos.Html5,
+  "sql": SVGLogos.Postgresql,
+  "clickhouse": SVGLogos.Clickhouse,
+
+  // Models / Vendors
+  "claude 3.5 sonnet": SVGLogos.Claude,
+  "claude": SVGLogos.Claude,
+  "gpt-4o": SVGLogos.Openai,
+  "gpt-4o-mini": SVGLogos.Openai,
+  "openai": SVGLogos.Openai,
+  "gemini": SVGLogos.GoogleGemini,
+  "llama": SVGLogos.Metaai,
+  "ollama": SVGLogos.Ollama,
+  "deepseek": SVGLogos.Deepseek,
+};
+
+function getLogo(name: string) {
+  const norm = name.toLowerCase().trim();
+  for (const k of Object.keys(NAME_LOGOS)) {
+    if (norm.includes(k) || k.includes(norm)) {
+      return NAME_LOGOS[k];
+    }
+  }
+  return null;
+}
+
 // ---------------------------------------------------------------------------
 // DistRows — horizontal labelled distribution bars
 // ---------------------------------------------------------------------------
@@ -206,52 +245,56 @@ export function DistRows({
   const max = Math.max(...rows.map((r) => r.pct))
   return (
     <div style={{ display: "grid", gap: 11 }}>
-      {rows.map((r, i) => (
-        <div
-          key={i}
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr auto",
-            gap: 12,
-            alignItems: "center",
-          }}
-        >
-          <div style={{ minWidth: 0 }}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                fontSize: 13,
-                marginBottom: 5,
-              }}
-            >
-              <span
-                className="rd-mono"
+      {rows.map((r, i) => {
+        const Logo = getLogo(r.name);
+        return (
+          <div
+            key={i}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr auto",
+              gap: 12,
+              alignItems: "center",
+            }}
+          >
+            <div style={{ minWidth: 0 }}>
+              <div
                 style={{
-                  color: "var(--rd-text-2)",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  fontSize: 13,
+                  marginBottom: 5,
                 }}
               >
-                {r.name}
-              </span>
-              <span className="rd-mono rd-dim" style={{ fontSize: 12 }}>
-                {r.pct}%
-              </span>
-            </div>
-            <div className="rd-meter">
-              <i
-                style={{
-                  width: `${(r.pct / max) * 100}%`,
-                  background: i === 0 ? color : "var(--rd-text-3)",
-                  opacity: i === 0 ? 1 : 0.55,
-                }}
-              />
+                <span
+                  className="rd-mono inline-flex items-center gap-1.5"
+                  style={{
+                    color: "var(--rd-text-2)",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {Logo && <Logo size={12} className="shrink-0" />}
+                  {r.name}
+                </span>
+                <span className="rd-mono rd-dim" style={{ fontSize: 12 }}>
+                  {r.pct}%
+                </span>
+              </div>
+              <div className="rd-meter">
+                <i
+                  style={{
+                    width: `${(r.pct / max) * 100}%`,
+                    background: i === 0 ? color : "var(--rd-text-3)",
+                    opacity: i === 0 ? 1 : 0.55,
+                  }}
+                />
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   )
 }

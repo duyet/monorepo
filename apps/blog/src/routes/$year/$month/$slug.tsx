@@ -3,11 +3,12 @@ import { formatReadingTime } from "@duyet/libs/date";
 import type { TOCItem } from "@duyet/libs/extractHeadings";
 import { extractHeadings } from "@duyet/libs/extractHeadings";
 import { markdownToHtml } from "@duyet/libs/markdownToHtml";
-import { createFileRoute, notFound } from "@tanstack/react-router";
-import { ArrowRight, Link2 } from "lucide-react";
+import { createFileRoute, notFound, Link } from "@tanstack/react-router";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Link2 } from "lucide-react";
 import { SeriesBox } from "@/components/layout/SeriesBox";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
 import { getPostBySlug, getRelatedPosts, getSeries } from "@/lib/posts";
+import { getSlug } from "@duyet/libs/getSlug";
 import "@/styles/post-reader.css";
 import Content from "./-content";
 import Meta from "./-meta";
@@ -117,59 +118,109 @@ function PostHero({ post }: { post: LoadedPost }) {
     : null;
 
   return (
-    <header className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-10">
-      <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
+    <header className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-6">
+      <Link
+        to="/"
+        className="rd-btn-text"
+        style={{
+          cursor: "pointer",
+          paddingLeft: 0,
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 6,
+          color: "var(--rd-text-3)",
+          textDecoration: "none",
+        }}
+      >
+        <ArrowLeft size={14} /> All posts
+      </Link>
+      <div style={{ display: "flex", gap: 10, alignItems: "center", marginTop: 18, flexWrap: "wrap" }}>
+        <span className="rd-chip rd-mono" style={{ fontSize: 10.5 }}>
+          {post.category}
+        </span>
+        <span className="rd-mono rd-dim" style={{ fontSize: 12.5 }}>
+          {date} {readingTime && `· ${readingTime}`}
+        </span>
+      </div>
+      <h1
+        className="rd-display"
+        style={{
+          fontSize: "clamp(2.1rem, 4.4vw, 3.2rem)",
+          marginTop: 18,
+          lineHeight: 1.04,
+          letterSpacing: "-0.04em",
+          fontWeight: 600,
+        }}
+      >
         {post.title}
       </h1>
 
-      <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
-        <span>Duyet Le</span>
-        <span aria-hidden>·</span>
-        <span>{date}</span>
-        {readingTime && (
-          <>
-            <span aria-hidden>·</span>
-            <span>{readingTime}</span>
-          </>
-        )}
-      </div>
-
-      {/* Thumbnail */}
-      {post.thumbnail && (
-        <div className="mt-10 aspect-[21/9] w-full overflow-hidden rounded-lg bg-muted">
-          <img
-            src={post.thumbnail}
-            alt={post.title}
-            className="h-full w-full object-cover"
-          />
+      {/* Terminal block hero */}
+      <div className="rd-card" style={{ overflow: "hidden", marginBottom: 30, marginTop: 30 }}>
+        <div className="rd-termblock" style={{ padding: "24px 26px" }}>
+          <div className="rd-term-dots">
+            <i />
+            <i />
+            <i />
+          </div>
+          <div className="rd-mono" style={{ marginTop: 18, fontSize: 20, color: "var(--rd-accent)" }}>
+            <span style={{ opacity: 0.55 }}>$</span> npm i {post.category_slug || getSlug(post.category)}
+            <span className="rd-caret" />
+          </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }
 
 function RelatedPostCard({ post }: { post: Post }) {
   const [, year, month, slug] = post.slug.split("/");
-  const href = `/${year}/${month}/${slug}/`;
   const readingTime = post.readingTime
     ? formatReadingTime(post.readingTime)
     : null;
-  const metaParts = ["ARTICLE", readingTime].filter(Boolean).join(" · ");
 
   return (
-    <a href={href} className="block group">
-      <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-        {metaParts}
-      </p>
-      <h3 className="mt-2 text-base font-semibold tracking-tight line-clamp-2">
+    <Link
+      to="/$year/$month/$slug/"
+      params={{ year, month, slug }}
+      className="rd-card rd-card-hover rd-card-pad"
+      style={{
+        cursor: "pointer",
+        display: "flex",
+        flexDirection: "column",
+        minHeight: 170,
+        height: "100%",
+        textDecoration: "none",
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <span className="rd-chip rd-mono" style={{ fontSize: 10.5 }}>
+          {post.category}
+        </span>
+        <span className="rd-mono rd-dim" style={{ fontSize: 11.5 }}>
+          {readingTime}
+        </span>
+      </div>
+      <h3
+        style={{
+          fontSize: "1.18rem",
+          letterSpacing: "-0.03em",
+          marginTop: 16,
+          color: "var(--rd-text)",
+          fontWeight: 600,
+        }}
+      >
         {post.title}
       </h3>
       {post.excerpt && (
-        <p className="mt-2 text-sm text-muted-foreground line-clamp-2">
+        <p className="rd-muted" style={{ fontSize: 13.5, marginTop: 9, lineHeight: 1.5, flex: 1 }}>
           {post.excerpt}
         </p>
       )}
-    </a>
+      <span className="rd-rowarrow" style={{ alignSelf: "flex-end", marginTop: 12, color: "var(--rd-text-3)" }}>
+        <ArrowUpRight size={15} />
+      </span>
+    </Link>
   );
 }
 
@@ -214,6 +265,28 @@ function PostPage() {
           <Content post={post} />
 
           <Meta post={post} series={series} className="post-meta mt-12" />
+
+          {/* Tags cloud */}
+          {post.tags && post.tags.length > 0 && (
+            <div style={{ marginTop: 34 }}>
+              <div className="rd-eyebrow" style={{ fontSize: 10, marginBottom: 14 }}>
+                Tagged
+              </div>
+              <div className="rd-tag-cloud">
+                {post.tags.map((tag) => (
+                  <Link
+                    key={tag}
+                    to="/tag/$tag/"
+                    params={{ tag: getSlug(tag) }}
+                    className="rd-tag-pill"
+                    style={{ fontSize: 13, textDecoration: "none" }}
+                  >
+                    <span className="rd-hash">#</span>{tag.toLowerCase()}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
 
           {series && <SeriesBox series={series} current={post.slug} />}
         </div>

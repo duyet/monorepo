@@ -548,6 +548,18 @@ html.dark .prose pre {
   .rd-work-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; }
   .rd-work-tag { font-size: 10.5px; }
 
+  /* tag cloud / tag pills */
+  .rd-tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; }
+  .rd-tag-pill {
+    display: inline-flex; align-items: center; gap: 4px; font-size: 14.5px;
+    padding: 5px 12px; border: 1px solid var(--rd-border); border-radius: var(--rd-r-sm);
+    background: var(--rd-surface); color: var(--rd-text-2); font-weight: 555;
+    transition: all .16s; cursor: pointer;
+  }
+  .rd-tag-pill:hover { border-color: color-mix(in srgb, var(--rd-accent) 50%, var(--rd-border)); color: var(--rd-accent-ink); transform: translateY(-2px); }
+  .rd-tag-pill .rd-hash { color: var(--rd-accent); font-family: var(--font-mono); }
+  .rd-tag-pill .rd-tc { font-family: var(--font-mono); font-size: 11px; color: var(--rd-text-3); }
+
   /* category tile */
   .rd-cat-ic { display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid var(--rd-border); border-radius: 10px; color: var(--rd-accent); background: var(--rd-bg-sub); transition: .18s; }
   .rd-cat-tile:hover .rd-cat-ic { border-color: var(--rd-accent); background: var(--rd-accent-bg); }
