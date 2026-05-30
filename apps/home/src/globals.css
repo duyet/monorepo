@@ -2,48 +2,48 @@
 
 @layer base {
   :root {
-    --background: #ffffff;
-    --foreground: #0a0a0a;
-    --card: #ffffff;
-    --card-foreground: #0a0a0a;
-    --popover: #ffffff;
-    --popover-foreground: #0a0a0a;
-    --primary: #171717;
-    --primary-foreground: #fafafa;
-    --secondary: #f5f5f5;
-    --secondary-foreground: #171717;
-    --muted: #f5f5f5;
-    --muted-foreground: #737373;
-    --accent: #f5f5f5;
-    --accent-foreground: #171717;
-    --destructive: #ef4444;
-    --destructive-foreground: #fafafa;
-    --border: #e5e5e5;
-    --input: #e5e5e5;
-    --ring: #171717;
-    --radius: 0.5rem;
+    --background: var(--rd-bg, #ffffff);
+    --foreground: var(--rd-text, #0c0c0c);
+    --card: var(--rd-surface, #ffffff);
+    --card-foreground: var(--rd-text, #0c0c0c);
+    --popover: var(--rd-surface, #ffffff);
+    --popover-foreground: var(--rd-text, #0c0c0c);
+    --primary: var(--rd-text, #0c0c0c);
+    --primary-foreground: var(--rd-bg, #ffffff);
+    --secondary: var(--rd-surface-2, #f6f6f5);
+    --secondary-foreground: var(--rd-text, #0c0c0c);
+    --muted: var(--rd-surface-2, #f6f6f5);
+    --muted-foreground: var(--rd-text-3, #8c8b85);
+    --accent: var(--rd-accent-bg, #fbeee7);
+    --accent-foreground: var(--rd-accent-ink, #b54a1f);
+    --destructive: var(--rd-down, #d23b3b);
+    --destructive-foreground: #ffffff;
+    --border: var(--rd-border, #e8e8e6);
+    --input: var(--rd-border, #e8e8e6);
+    --ring: var(--rd-ring, rgba(216,96,47,.32));
+    --radius: var(--rd-r, 11px);
   }
 
   .dark {
-    --background: #0a0a0a;
-    --foreground: #fafafa;
-    --card: #0a0a0a;
-    --card-foreground: #fafafa;
-    --popover: #0a0a0a;
-    --popover-foreground: #fafafa;
-    --primary: #fafafa;
-    --primary-foreground: #171717;
-    --secondary: #262626;
-    --secondary-foreground: #fafafa;
-    --muted: #262626;
-    --muted-foreground: #a3a3a3;
-    --accent: #262626;
-    --accent-foreground: #fafafa;
-    --destructive: #7f1d1d;
-    --destructive-foreground: #fafafa;
-    --border: #262626;
-    --input: #262626;
-    --ring: #d4d4d4;
+    --background: var(--rd-bg, #0a0a0a);
+    --foreground: var(--rd-text, #f4f3f1);
+    --card: var(--rd-surface, #111111);
+    --card-foreground: var(--rd-text, #f4f3f1);
+    --popover: var(--rd-surface, #111111);
+    --popover-foreground: var(--rd-text, #f4f3f1);
+    --primary: var(--rd-text, #f4f3f1);
+    --primary-foreground: var(--rd-bg, #0a0a0a);
+    --secondary: var(--rd-surface-2, #161616);
+    --secondary-foreground: var(--rd-text, #f4f3f1);
+    --muted: var(--rd-surface-2, #161616);
+    --muted-foreground: var(--rd-text-3, #74736e);
+    --accent: var(--rd-accent-bg, #2a1810);
+    --accent-foreground: var(--rd-accent-ink, #f59568);
+    --destructive: var(--rd-down, #f06464);
+    --destructive-foreground: #ffffff;
+    --border: var(--rd-border, #242424);
+    --input: var(--rd-border, #242424);
+    --ring: var(--rd-ring, rgba(240,116,63,.4));
   }
 
   * {
@@ -51,7 +51,7 @@
   }
 
   html {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
   }
@@ -62,6 +62,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.55;
+    transition: background-color .35s ease, color .35s ease;
   }
 }
 
