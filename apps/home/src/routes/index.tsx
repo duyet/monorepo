@@ -1,6 +1,7 @@
 import { ArrowUpRight, ArrowRight, Flame } from "lucide-react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Suspense } from "react";
+import { cn } from "../lib/utils";
 import { addUtmParams } from "../../app/lib/utm";
 import rawBlogPosts from "../../../blog/public/posts-data.json";
 import { KeyboardFeatures } from "../components/KeyboardFeatures";
@@ -68,39 +69,24 @@ function HomePage() {
         <KeyboardFeatures />
       </Suspense>
 
-      <div style={{ background: "var(--rd-bg)", color: "var(--rd-text)" }}>
+      <div className="bg-[var(--rd-bg)] text-[var(--rd-text)]">
         {/* hero */}
         <section
-          className="rd-wrap"
-          style={{
-            paddingTop: "clamp(22px, 3.2vw, 40px)",
-            paddingBottom: "clamp(26px, 3.5vw, 40px)",
-          }}
+          className="rd-wrap pt-[clamp(22px,3.2vw,40px)] pb-[clamp(26px,3.5vw,40px)]"
         >
           <Reveal>
             <div className="rd-hero-grid">
               <div>
                 <Eyebrow>DATA &amp; AI ENGINEER</Eyebrow>
                 <h1
-                  className="rd-display"
-                  style={{
-                    marginTop: 13,
-                    maxWidth: "17ch",
-                    fontSize: "clamp(2.05rem, 4.2vw, 3.3rem)",
-                    lineHeight: 1.02,
-                  }}
+                  className="rd-display mt-[13px] max-w-[17ch] text-[clamp(2.05rem,4.2vw,3.3rem)] leading-[1.02]"
                 >
                   I build data platforms, and the{" "}
-                  <span style={{ color: "var(--rd-accent)" }}>AI agents</span>{" "}
+                  <span className="text-[var(--rd-accent)]">AI agents</span>{" "}
                   that run on top of them.
                 </h1>
                 <p
-                  className="rd-lead"
-                  style={{
-                    marginTop: 16,
-                    maxWidth: "56ch",
-                    fontSize: "clamp(0.96rem, 1.15vw, 1.06rem)",
-                  }}
+                  className="rd-lead mt-4 max-w-[56ch] text-[clamp(0.96rem,1.15vw,1.06rem)]"
                 >
                   I'm Duyet — a Senior Data &amp; AI Engineer. I spend my time
                   on the load-bearing parts of software: pipelines that move
@@ -120,27 +106,20 @@ function HomePage() {
                 </p>
                 <Link
                   to="/about"
-                  className="vibe-flag"
-                  style={{ textDecoration: "none", color: "inherit" }}
+                  className="vibe-flag no-underline text-inherit"
                 >
-                  <span className="vf-ic" style={{ display: "grid", placeItems: "center" }}>
+                  <span className="vf-ic grid place-items-center">
                     <Flame size={13} fill="#fff" />
                   </span>
                   <span>
                     <strong>Deep in vibe-coding mode</strong> — most of what ships here is written alongside coding agents, with me steering.
                   </span>
-                  <span className="vf-arr" style={{ display: "inline-flex" }}>
+                  <span className="vf-arr inline-flex">
                     <ArrowRight size={14} />
                   </span>
                 </Link>
                 <div
-                  style={{
-                    display: "flex",
-                    gap: 12,
-                    alignItems: "center",
-                    flexWrap: "wrap",
-                    marginTop: 20,
-                  }}
+                  className="flex flex-wrap items-center gap-3 mt-5"
                 >
                   <a
                     className="rd-btn rd-btn-primary"
@@ -172,7 +151,7 @@ function HomePage() {
             </div>
           </Reveal>
 
-          <Reveal delay={100} style={{ marginTop: "clamp(22px, 3vw, 36px)" }}>
+          <Reveal delay={100} className="mt-[clamp(22px,3vw,36px)]">
             <SignalBar />
           </Reveal>
         </section>
@@ -219,38 +198,22 @@ function HomePage() {
 
         {/* now band */}
         <section
-          className="rd-wrap rd-section-tight"
-          style={{ paddingBottom: "clamp(56px, 8vw, 96px)" }}
+          className="rd-wrap rd-section-tight pb-[clamp(56px,8vw,96px)]"
         >
           <Reveal>
             <div
-              className="rd-card rd-card-pad"
-              style={{
-                display: "grid",
-                gridTemplateColumns: "minmax(0, 1fr) auto",
-                gap: 24,
-                alignItems: "center",
-                position: "relative",
-                overflow: "hidden",
-              }}
+              className="rd-card rd-card-pad relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6 overflow-hidden"
             >
               <NowDeco />
-              <div style={{ position: "relative" }}>
+              <div className="relative">
                 <Eyebrow>
                   <span
-                    className="rd-dot rd-ok rd-pulse"
-                    style={{ display: "inline-block" }}
+                    className="rd-dot rd-ok rd-pulse inline-block"
                   />{" "}
                   NOW
                 </Eyebrow>
                 <p
-                  style={{
-                    fontSize: "clamp(1.15rem, 2vw, 1.5rem)",
-                    letterSpacing: "-0.02em",
-                    marginTop: 14,
-                    maxWidth: "42ch",
-                    lineHeight: 1.35,
-                  }}
+                  className="mt-[14px] max-w-[42ch] text-[clamp(1.15rem,2vw,1.5rem)] tracking-[-0.02em] leading-[1.35]"
                 >
                   Building agent workflows and the data platform underneath them
                   — writing, open-sourcing, and letting{" "}
@@ -262,8 +225,7 @@ function HomePage() {
               </div>
               <Link
                 to="/about"
-                className="rd-btn rd-btn-ghost"
-                style={{ cursor: "pointer", position: "relative" }}
+                className="rd-btn rd-btn-ghost relative cursor-pointer"
               >
                 About me <ArrowUpRight size={16} />
               </Link>
@@ -335,55 +297,34 @@ function SignalBar() {
           <Component
             key={t.k}
             {...linkProps}
-            className="signal-tile"
-            style={{
-              textDecoration: "none",
-              color: "inherit",
-              textAlign: "left",
-              background: "var(--rd-surface)",
-              border: "none",
-              padding: "18px 20px",
-              display: "flex",
-              flexDirection: "column",
-              gap: 8,
-              minWidth: 0,
-              cursor: "pointer",
-            }}
+            className="signal-tile flex min-w-0 cursor-pointer flex-col gap-2 border-none bg-[var(--rd-surface)] p-[18px_20px] text-left text-inherit no-underline"
           >
             <div
-              className="rd-eyebrow"
-              style={{ fontSize: 10.5, display: "flex", alignItems: "center", gap: 6 }}
+              className="rd-eyebrow flex items-center gap-1.5 text-[10.5px]"
             >
               {t.live && (
                 <span
-                  className="rd-dot rd-ok rd-pulse"
-                  style={{ display: "inline-block" }}
+                  className="rd-dot rd-ok rd-pulse inline-block"
                 />
               )}
               {t.flame && (
-                <span style={{ color: "var(--rd-accent)", display: "inline-flex" }}>
+                <span className="inline-flex text-[var(--rd-accent)]">
                   <Flame size={12} fill="var(--rd-accent)" />
                 </span>
               )}
               {t.k}
             </div>
-            <div className="rd-bigstat" style={{ fontSize: "1.9rem", color: t.flame ? "var(--rd-accent-ink)" : undefined }}>
+            <div className={cn("rd-bigstat text-[1.9rem]", t.flame && "text-[var(--rd-accent-ink)]")}>
               {t.big}
               <span className="rd-unit">{t.unit}</span>
             </div>
             {t.spark ? (
               <Sparkline data={t.spark} h={22} />
             ) : (
-              <div style={{ height: 22 }} />
+              <div className="h-[22px]" />
             )}
             <div
-              className="rd-mono rd-dim"
-              style={{
-                fontSize: 11,
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap",
-              }}
+              className="rd-mono rd-dim overflow-hidden text-ellipsis whitespace-nowrap text-[11px]"
             >
               {t.sub}
             </div>
@@ -414,8 +355,7 @@ function WorkBento() {
             href={href}
             target="_blank"
             rel="noreferrer"
-            className="rd-card rd-card-hover rd-work-card"
-            style={{ textDecoration: "none", color: "inherit" }}
+            className="rd-card rd-card-hover rd-work-card no-underline text-inherit"
           >
             <div className="rd-work-top">
               <span className="rd-mono rd-work-dom">
@@ -426,7 +366,7 @@ function WorkBento() {
             <p className="rd-work-desc">{item.description}</p>
             <div className="rd-work-foot">
               <span className="rd-chip rd-mono rd-work-tag">{tag}</span>
-              <span style={{ color: "var(--rd-text-4)" }}>
+              <span className="text-[var(--rd-text-4)]">
                 <ArrowUpRight size={15} />
               </span>
             </div>
@@ -448,75 +388,48 @@ function BlogTeaser() {
 
   return (
     <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "minmax(0, 1.05fr) minmax(0, .95fr)",
-        gap: 18,
-        alignItems: "stretch",
-      }}
+      className="grid grid-cols-[minmax(0,1.05fr)_minmax(0,.95fr)] items-stretch gap-[18px]"
     >
       {/* featured post card */}
       <a
-        className="rd-card rd-card-hover"
+        className="rd-card rd-card-hover flex cursor-pointer flex-col overflow-hidden no-underline text-inherit"
         href={`https://blog.duyet.net${featuredPost.slug}`}
         target="_blank"
         rel="noreferrer"
-        style={{
-          cursor: "pointer",
-          overflow: "hidden",
-          display: "flex",
-          flexDirection: "column",
-          textDecoration: "none",
-          color: "inherit",
-        }}
       >
-        <div className="rd-termblock" style={{ padding: "26px 26px 30px" }}>
+        <div className="rd-termblock p-[26px_26px_30px]">
           <div className="rd-term-dots">
             <i />
             <i />
             <i />
           </div>
           <div
-            className="rd-mono"
-            style={{
-              marginTop: 20,
-              fontSize: 22,
-              color: "var(--rd-accent)",
-            }}
+            className="rd-mono mt-5 text-[22px] text-[var(--rd-accent)]"
           >
-            <span style={{ opacity: 0.6 }}>$</span> {featuredCode}
+            <span className="opacity-60">$</span> {featuredCode}
             <span className="rd-caret" />
           </div>
         </div>
-        <div style={{ padding: "20px 26px 24px" }}>
+        <div className="p-[20px_26px_24px]">
           <div
-            style={{
-              display: "flex",
-              gap: 10,
-              alignItems: "center",
-              marginBottom: 12,
-            }}
+            className="flex items-center gap-[10px] mb-3"
           >
-            <span className="rd-chip rd-mono" style={{ fontSize: 10.5 }}>
+            <span className="rd-chip rd-mono text-[10.5px]">
               {featuredPost.category}
             </span>
-            <span className="rd-mono rd-dim" style={{ fontSize: 12 }}>
+            <span className="rd-mono rd-dim text-xs">
               {formatBlogDate(featuredPost.date)} · {featuredPost.readingTime}{" "}
               min
             </span>
           </div>
           <h3
-            style={{
-              fontSize: "1.5rem",
-              letterSpacing: "-0.03em",
-            }}
+            className="text-[1.5rem] tracking-[-0.03em]"
           >
             {featuredPost.title}
           </h3>
           {featuredPost.excerpt && (
             <p
-              className="rd-muted"
-              style={{ marginTop: 10, fontSize: 14.5 }}
+              className="rd-muted mt-[10px] text-[14.5px]"
             >
               {featuredPost.excerpt}
             </p>
@@ -525,68 +438,46 @@ function BlogTeaser() {
       </a>
 
       {/* recent posts list */}
-      <div className="rd-card" style={{ padding: 0 }}>
-        <div className="rd-rows" style={{ borderTop: "none" }}>
+      <div className="rd-card p-0">
+        <div className="rd-rows border-t-0">
           {recentPosts.slice(0, 5).map((post) => (
             <a
               key={post.slug}
-              className="rd-row"
+              className="rd-row cursor-pointer grid-cols-[1fr_auto] p-[15px_8px] no-underline text-inherit"
               href={`https://blog.duyet.net${post.slug}`}
               target="_blank"
               rel="noreferrer"
-              style={{
-                gridTemplateColumns: "1fr auto",
-                cursor: "pointer",
-                padding: "15px 8px",
-                textDecoration: "none",
-                color: "inherit",
-              }}
             >
-              <div style={{ minWidth: 0 }}>
+              <div className="min-w-0">
                 <div
-                  style={{
-                    fontWeight: 550,
-                    fontSize: 15,
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                  }}
+                  className="overflow-hidden text-ellipsis whitespace-nowrap text-[15px] font-[550]"
                 >
                   {post.title}
                 </div>
                 <div
-                  className="rd-mono rd-dim"
-                  style={{ fontSize: 11.5, marginTop: 4 }}
+                  className="rd-mono rd-dim mt-1 text-[11.5px]"
                 >
                   {post.category} · {formatBlogDate(post.date)}
                 </div>
                 {post.excerpt && (
                   <div
-                    className="rd-muted"
-                    style={{
-                      fontSize: 13,
-                      marginTop: 5,
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                    }}
+                    className="rd-muted mt-[5px] overflow-hidden text-ellipsis whitespace-nowrap text-[13px]"
                   >
                     {post.excerpt}
                   </div>
                 )}
               </div>
-              <span className="rd-mono rd-dim" style={{ fontSize: 12 }}>
+              <span className="rd-mono rd-dim text-xs">
                 {post.readingTime} min
               </span>
             </a>
           ))}
         </div>
         <a
-          className="rd-btn rd-btn-text"
+          className="rd-btn rd-btn-text inline-flex ml-[22px] mt-1.5 mb-[14px]"
           href="https://blog.duyet.net"
           target="_blank"
           rel="noreferrer"
-          style={{ display: "inline-flex", marginTop: 6, marginLeft: 22, marginBottom: 14 }}
         >
           Browse all {totalPosts} posts &rarr;
         </a>
@@ -729,15 +620,7 @@ function NowDeco() {
     <svg
       viewBox="0 0 200 200"
       aria-hidden="true"
-      style={{
-        position: "absolute",
-        right: -20,
-        top: -30,
-        width: 180,
-        height: 180,
-        opacity: 0.45,
-        pointerEvents: "none",
-      }}
+      className="pointer-events-none absolute -right-5 -top-[30px] h-[180px] w-[180px] opacity-45"
     >
       <circle
         cx="160"
