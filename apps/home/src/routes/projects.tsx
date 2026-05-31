@@ -4,6 +4,7 @@ import { ArrowUpRight, Layers, AlignJustify } from "lucide-react";
 import { addUtmParams } from "../../app/lib/utm";
 import { apps, type AppItem } from "../data/projects";
 import { SecHead, Reveal } from "@duyet/components";
+import { cn } from "../lib/utils";
 
 export const Route = createFileRoute("/projects")({
   component: ProjectsPage,
@@ -51,13 +52,9 @@ function ProjectsPage() {
       : apps.filter((a) => a.tags?.includes(filter));
 
   return (
-    <div style={{ background: "var(--rd-bg)", color: "var(--rd-text)" }}>
+    <div className="bg-[var(--rd-bg)] text-[var(--rd-text)]">
       <section
-        className="rd-wrap"
-        style={{
-          paddingTop: "clamp(44px, 6vw, 76px)",
-          paddingBottom: "clamp(56px, 8vw, 96px)",
-        }}
+        className="rd-wrap pt-[clamp(44px,6vw,76px)] pb-[clamp(56px,8vw,96px)]"
       >
         <Reveal>
           <SecHead
@@ -70,10 +67,7 @@ function ProjectsPage() {
               },
             ]}
           />
-          <p
-            className="rd-lead"
-            style={{ marginTop: 16, maxWidth: "60ch" }}
-          >
+          <p className="rd-lead mt-4 max-w-[60ch]">
             Products, small tools, and open source — most of it live on a
             subdomain or a GitHub repo. {liveCount} are running right now.
           </p>
@@ -81,84 +75,23 @@ function ProjectsPage() {
 
         {/* filter + view toggle toolbar */}
         <Reveal delay={60}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              gap: 16,
-              flexWrap: "wrap",
-              marginTop: 32,
-              marginBottom: 20,
-            }}
-          >
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          <div className="flex items-center justify-between gap-4 flex-wrap mt-8 mb-5">
+            <div className="flex gap-2 flex-wrap">
               {FILTER_KEYS.map((key) => (
                 <button
                   key={key}
                   type="button"
-                  className={`rd-chip-btn rd-mono${filter === key ? " rd-on" : ""}`}
+                  className={cn(
+                    "rd-chip-btn rd-mono text-[13px] cursor-pointer",
+                    filter === key && "rd-on",
+                  )}
                   onClick={() => setFilter(key)}
-                  style={{ fontSize: 13, cursor: "pointer" }}
                 >
                   {key}
                 </button>
               ))}
             </div>
-            <div style={{ display: "flex", gap: 6 }}>
-              <button
-                type="button"
-                aria-label="Grid view"
-                onClick={() => setView("grid")}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: 32,
-                  height: 32,
-                  border: "1px solid",
-                  borderColor:
-                    view === "grid"
-                      ? "var(--rd-text)"
-                      : "var(--rd-border)",
-                  borderRadius: "var(--rd-r-sm)",
-                  background: "transparent",
-                  color:
-                    view === "grid"
-                      ? "var(--rd-text)"
-                      : "var(--rd-text-3)",
-                  cursor: "pointer",
-                }}
-              >
-                <Layers size={15} />
-              </button>
-              <button
-                type="button"
-                aria-label="List view"
-                onClick={() => setView("list")}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: 32,
-                  height: 32,
-                  border: "1px solid",
-                  borderColor:
-                    view === "list"
-                      ? "var(--rd-text)"
-                      : "var(--rd-border)",
-                  borderRadius: "var(--rd-r-sm)",
-                  background: "transparent",
-                  color:
-                    view === "list"
-                      ? "var(--rd-text)"
-                      : "var(--rd-text-3)",
-                  cursor: "pointer",
-                }}
-              >
-                <AlignJustify size={15} />
-              </button>
-            </div>
+            <ViewToggle view={view} setView={setView} />
           </div>
         </Reveal>
 
@@ -168,6 +101,52 @@ function ProjectsPage() {
           <ProjectList items={list} />
         )}
       </section>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// View toggle
+// ---------------------------------------------------------------------------
+
+function ViewToggle({
+  view,
+  setView,
+}: {
+  view: "grid" | "list";
+  setView: (v: "grid" | "list") => void;
+}) {
+  const btnBase =
+    "inline-flex items-center justify-center w-8 h-8 border rounded-[var(--rd-r-sm)] bg-transparent cursor-pointer";
+
+  return (
+    <div className="flex gap-1.5">
+      <button
+        type="button"
+        aria-label="Grid view"
+        onClick={() => setView("grid")}
+        className={cn(
+          btnBase,
+          view === "grid"
+            ? "border-[var(--rd-text)] text-[var(--rd-text)]"
+            : "border-[var(--rd-border)] text-[var(--rd-text-3)]",
+        )}
+      >
+        <Layers size={15} />
+      </button>
+      <button
+        type="button"
+        aria-label="List view"
+        onClick={() => setView("list")}
+        className={cn(
+          btnBase,
+          view === "list"
+            ? "border-[var(--rd-text)] text-[var(--rd-text)]"
+            : "border-[var(--rd-border)] text-[var(--rd-text-3)]",
+        )}
+      >
+        <AlignJustify size={15} />
+      </button>
     </div>
   );
 }
@@ -189,6 +168,9 @@ function ProjectGrid({ items }: { items: AppItem[] }) {
         const cat = categoryOf(item);
         const isExternal = href.startsWith("http");
 
+        const cardClass =
+          "rd-card rd-card-hover rd-work-card no-underline text-inherit flex flex-col h-full";
+
         return (
           <Reveal key={item.name} delay={i * 25}>
             {isExternal ? (
@@ -196,29 +178,12 @@ function ProjectGrid({ items }: { items: AppItem[] }) {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rd-card rd-card-hover rd-work-card"
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  display: "flex",
-                  flexDirection: "column",
-                  height: "100%",
-                }}
+                className={cardClass}
               >
                 <WorkCardBody item={item} cat={String(cat)} />
               </a>
             ) : (
-              <Link
-                to={href}
-                className="rd-card rd-card-hover rd-work-card"
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  display: "flex",
-                  flexDirection: "column",
-                  height: "100%",
-                }}
-              >
+              <Link to={href} className={cardClass}>
                 <WorkCardBody item={item} cat={String(cat)} />
               </Link>
             )}
@@ -240,13 +205,13 @@ function WorkCardBody({ item, cat }: { item: AppItem; cat: string }) {
       <h3 className="rd-work-name">{item.name}</h3>
       <p className="rd-work-desc">{item.description}</p>
       <div className="rd-work-foot">
-        <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+        <div className="flex gap-1 flex-wrap">
           {item.tags?.map((tag) => (
             <span key={tag} className="rd-chip rd-mono rd-work-tag">{tag}</span>
           ))}
           <span className="rd-chip rd-mono rd-work-tag">{cat}</span>
         </div>
-        <span style={{ color: "var(--rd-text-4)" }}>
+        <span className="text-[var(--rd-text-4)]">
           <ArrowUpRight size={15} />
         </span>
       </div>
@@ -272,51 +237,27 @@ function ProjectList({ items }: { items: AppItem[] }) {
         const inner = (
           <>
             <span
-              className="rd-mono rd-dim"
-              style={{
-                fontSize: 12.5,
-                width: 200,
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap",
-                flexShrink: 0,
-              }}
+              className="rd-mono rd-dim text-[12.5px] w-[200px] overflow-hidden text-ellipsis whitespace-nowrap shrink-0"
             >
               {item.domain || item.host}
             </span>
-            <span style={{ minWidth: 0, flex: 1 }}>
-              <span
-                style={{
-                  fontWeight: 600,
-                  marginRight: 12,
-                  letterSpacing: "-0.02em",
-                }}
-              >
+            <span className="min-w-0 flex-1">
+              <span className="font-semibold mr-3 tracking-[-0.02em]">
                 {item.name}
               </span>
-              <span
-                className="rd-muted"
-                style={{ fontSize: 14 }}
-              >
+              <span className="rd-muted text-sm">
                 {item.description}
               </span>
             </span>
-            <div style={{ display: "flex", gap: 4, flexShrink: 0 }}>
+            <div className="flex gap-1 shrink-0">
               {item.tags?.map((tag) => (
-                <span key={tag} className="rd-chip rd-mono" style={{ fontSize: 10.5 }}>{tag}</span>
+                <span key={tag} className="rd-chip rd-mono text-[10.5px]">{tag}</span>
               ))}
             </div>
           </>
         );
 
-        const rowStyle = {
-          display: "flex",
-          alignItems: "center",
-          gap: 16,
-          textDecoration: "none",
-          color: "inherit",
-          cursor: "pointer",
-        } as const;
+        const rowClass = "rd-row flex items-center gap-4 no-underline text-inherit cursor-pointer";
 
         return isExternal ? (
           <a
@@ -324,8 +265,7 @@ function ProjectList({ items }: { items: AppItem[] }) {
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="rd-row"
-            style={rowStyle}
+            className={rowClass}
           >
             {inner}
           </a>
@@ -333,8 +273,7 @@ function ProjectList({ items }: { items: AppItem[] }) {
           <Link
             key={item.name}
             to={href}
-            className="rd-row"
-            style={rowStyle}
+            className={rowClass}
           >
             {inner}
           </Link>
