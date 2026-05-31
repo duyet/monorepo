@@ -6,6 +6,7 @@ import {
   SecHead,
 } from "@duyet/components";
 import { DEFAULT_AREAS } from "@duyet/components";
+import { Badge } from "../components/ui/badge";
 import { addUtmParams } from "../../app/lib/utm";
 
 const experienceYears = "8+ years";
@@ -296,12 +297,13 @@ function AboutPage() {
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {group.items.map((item) => (
-                  <span
+                  <Badge
                     key={item}
-                    className="rd-chip rd-mono text-[11.5px]"
+                    variant="outline"
+                    className="rd-mono text-[11.5px] px-2 py-0"
                   >
                     {item}
-                  </span>
+                  </Badge>
                 ))}
               </div>
             </div>
@@ -367,9 +369,9 @@ function AboutPage() {
                 </p>
                 <div className="mt-[18px] flex flex-wrap gap-[7px]">
                   {e.tools.map((t) => (
-                    <span key={t} className="rd-chip text-xs">
+                    <Badge key={t} variant="outline" className="rd-mono text-[11.5px] px-2 py-0">
                       {t}
-                    </span>
+                    </Badge>
                   ))}
                 </div>
               </Reveal>
