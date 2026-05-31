@@ -4,7 +4,7 @@ import type { TOCItem } from "@duyet/libs/extractHeadings";
 import { extractHeadings } from "@duyet/libs/extractHeadings";
 import { markdownToHtml } from "@duyet/libs/markdownToHtml";
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
-import { ArrowLeft, Link2 } from "lucide-react";
+import { Link2 } from "lucide-react";
 import { SeriesBox } from "@/components/layout/SeriesBox";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
 import { getPostBySlug, getRelatedPosts, getSeries } from "@/lib/posts";
@@ -120,21 +120,6 @@ function PostHero({ post }: { post: LoadedPost }) {
 
   return (
     <header className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-6">
-      <Link
-        to="/"
-        className="rd-btn-text"
-        style={{
-          cursor: "pointer",
-          paddingLeft: 0,
-          display: "inline-flex",
-          alignItems: "center",
-          gap: 6,
-          color: "var(--rd-text-3)",
-          textDecoration: "none",
-        }}
-      >
-        <ArrowLeft size={14} /> All posts
-      </Link>
       <div style={{ display: "flex", gap: 10, alignItems: "center", marginTop: 18, flexWrap: "wrap" }}>
         <span className="rd-chip rd-mono" style={{ fontSize: 10.5 }}>
           {post.category}

@@ -1126,3 +1126,19 @@
   padding: 28px 24px;
   min-height: 140px;
 }
+
+/* ── Extended post row (multi-line) ──────────── */
+
+.rd-row-extended {
+  display: block;
+  border-bottom: 1px solid var(--rd-border-2);
+  transition: background 0.15s;
+}
+
+.rd-row-extended:last-child {
+  border-bottom: none;
+}
+
+.rd-row-extended:hover {
+  background: color-mix(in srgb, var(--rd-text) 3%, var(--rd-surface, var(--background)));
+}

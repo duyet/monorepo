@@ -393,34 +393,48 @@ function HomePage(): ReactElement {
 
         {/* Post rows */}
         <div className="rd-rows">
-          {filteredPosts.map((post) => (
-            <Link
-              key={post.slug}
-              to="/$year/$month/$slug/"
-              params={postParams(post)}
-              className="rd-row grid-cols-[auto_1fr_auto_auto] cursor-pointer no-underline text-inherit"
-            >
-              <span
-                className="rd-mono text-[12.5px] w-[46px]"
-                style={{ color: yearColor(new Date(post.date).getFullYear()) }}
+          {filteredPosts.map((post) => {
+            const tokens = post.tokenCount ?? 0;
+            const tokenLabel = tokens >= 1000
+              ? `${(tokens / 1000).toFixed(1)}k`
+              : tokens;
+            const tags = post.tags?.slice(0, 3) ?? [];
+            return (
+              <Link
+                key={post.slug}
+                to="/$year/$month/$slug/"
+                params={postParams(post)}
+                className="rd-row-extended cursor-pointer no-underline text-inherit py-3"
               >
-                {new Date(post.date).getFullYear()}
-              </span>
-              <span
-                className="font-[550] text-[clamp(15px,1.6vw,17px)] min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
-              >
-                {post.title}
-              </span>
-              <span className="rd-chip rd-mono text-[10.5px]">
-                {post.category}
-              </span>
-              <span
-                className="rd-mono rd-dim text-xs w-[56px] text-right"
-              >
-                {Math.max(1, Math.round(post.readingTime ?? 1))} min
-              </span>
-            </Link>
-          ))}
+                <div className="flex gap-3.5 items-baseline">
+                  <span
+                    className="rd-mono text-xl font-bold leading-none shrink-0 w-[52px]"
+                    style={{ color: yearColor(new Date(post.date).getFullYear()) }}
+                  >
+                    {new Date(post.date).getFullYear()}
+                  </span>
+                  <span className="font-[550] text-[clamp(15px,1.5vw,17px)] tracking-tight leading-snug">
+                    {post.title}
+                  </span>
+                </div>
+                {post.excerpt && (
+                  <p className="rd-muted mt-1.5 ml-[66px] text-[13px] leading-snug max-w-[60ch] truncate">
+                    {post.excerpt}
+                  </p>
+                )}
+                <div className="mt-1.5 ml-[66px] flex items-center gap-2 flex-wrap">
+                  {tags.map((tag) => (
+                    <span key={tag} className="rd-tag-pill text-[11px] !py-[2px] !px-2">
+                      <span className="rd-hash">#</span>{tag.toLowerCase()}
+                    </span>
+                  ))}
+                  <span className="rd-mono rd-dim text-[11px]">
+                    {tokenLabel} tokens
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
         </div>
 
         {/* Archive link */}
