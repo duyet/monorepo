@@ -325,31 +325,13 @@ function KpiTile({ t }: { t: KpiTileData }) {
   const up = t.trend.startsWith("+");
   const goodTrend = t.good ? !up : up;
   return (
-    <div
-      className="rd-card rd-card-pad"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 12,
-        minHeight: 168,
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <span className="rd-eyebrow" style={{ fontSize: 10.5 }}>
+    <div className="rd-card rd-card-pad flex flex-col gap-3 min-h-[168px]">
+      <div className="flex justify-between items-center">
+        <span className="rd-eyebrow text-[10.5px]">
           {t.k}
         </span>
         <span
-          className="rd-mono"
-          style={{
-            fontSize: 11.5,
-            color: goodTrend ? "var(--rd-ok)" : "var(--rd-text-3)",
-          }}
+          className={`rd-mono text-[11.5px] ${goodTrend ? "text-[var(--rd-ok)]" : "text-[var(--rd-text-3)]"}`}
         >
           {t.trend}
         </span>
@@ -363,7 +345,7 @@ function KpiTile({ t }: { t: KpiTileData }) {
         h={34}
         stroke={t.good ? "var(--rd-ok)" : "var(--rd-accent)"}
       />
-      <div className="rd-mono rd-dim" style={{ fontSize: 11.5 }}>
+      <div className="rd-mono rd-dim text-[11.5px]">
         {t.sub}
       </div>
     </div>
@@ -451,37 +433,21 @@ function IndexPage() {
   const displayRepos = data.githubRepos.slice(0, 6);
 
   return (
-    <div
-      className="rd-wrap"
-      style={{
-        paddingTop: "clamp(44px,6vw,76px)",
-        paddingBottom: "clamp(56px,8vw,96px)",
-      }}
-    >
+    <div className="rd-wrap pt-[clamp(44px,6vw,76px)] pb-[clamp(56px,8vw,96px)]">
       {/* ---- Header ---- */}
       <Eyebrow>Insights · Last 30 days</Eyebrow>
-      <h1
-        style={{
-          fontSize: "clamp(2rem,4.6vw,3.4rem)",
-          fontWeight: 600,
-          letterSpacing: "-0.04em",
-          marginTop: 18,
-          maxWidth: "20ch",
-        }}
-      >
+      <h1 className="text-[clamp(2rem,4.6vw,3.4rem)] font-semibold tracking-[-0.04em] mt-[18px] max-w-[20ch]">
         A quiet view of what shipped, what ran, and what was read.
       </h1>
       <p
-        className="rd-lead"
-        style={{ marginTop: 20, maxWidth: "64ch" }}
+        className="rd-lead mt-5 max-w-[64ch]"
       >
         One editorial page across coding time, AI usage, traffic, and the
         most-read posts. No dashboards, no chrome — just the numbers and
         what they meant this month.
       </p>
       <div
-        className="rd-mono rd-dim"
-        style={{ fontSize: 12, marginTop: 16 }}
+        className="rd-mono rd-dim text-xs mt-4"
       >
         {generatedAt
           ? `Last updated ${generatedAt}`
@@ -490,7 +456,7 @@ function IndexPage() {
       </div>
 
       {/* ---- KPI tiles ---- */}
-      <div className="rd-g4" style={{ marginTop: 34 }}>
+      <div className="rd-g4 mt-[34px]">
         {kpis.map((t, i) => (
           <Reveal key={i} delay={i * 50}>
             <KpiTile t={t} />
@@ -500,57 +466,35 @@ function IndexPage() {
 
       {/* ---- Editorial note ---- */}
       <div
-        className="rd-card rd-card-pad"
-        style={{
-          marginTop: 12,
-          padding: "clamp(24px,3vw,34px)",
-          background: "var(--rd-bg-sub)",
-        }}
+        className="rd-card rd-card-pad mt-3 p-[clamp(24px,3vw,34px)] bg-[var(--rd-bg-sub)]"
       >
         <Eyebrow>What it meant</Eyebrow>
         <p
-          style={{
-            fontSize: "clamp(1.1rem,1.8vw,1.45rem)",
-            lineHeight: 1.45,
-            letterSpacing: "-0.015em",
-            marginTop: 14,
-            maxWidth: "58ch",
-            textWrap: "pretty",
-          }}
+          className="text-[clamp(1.1rem,1.8vw,1.45rem)] leading-[1.45] tracking-[-0.015em] mt-[14px] max-w-[58ch] text-pretty"
         >
           {editorialNote}
         </p>
       </div>
 
       {/* ---- Coding + AI split ---- */}
-      <div className="rd-g2" style={{ marginTop: 12 }}>
+      <div className="rd-g2 mt-3">
         {/* Languages */}
         <div
           id="ins-coding"
-          className="rd-card rd-card-pad"
-          style={{ padding: "clamp(22px,2.6vw,30px)" }}
+          className="rd-card rd-card-pad p-[clamp(22px,2.6vw,30px)]"
         >
           <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: 20,
-            }}
+            className="flex justify-between items-center mb-5"
           >
             <div>
               <Eyebrow>Coding · WakaTime</Eyebrow>
               <h3
-                style={{
-                  fontSize: "1.35rem",
-                  marginTop: 10,
-                  letterSpacing: "-0.03em",
-                }}
+                className="text-[1.35rem] mt-[10px] tracking-[-0.03em]"
               >
                 Where the hours went
               </h3>
             </div>
-            <span className="rd-chip rd-mono" style={{ fontSize: 11 }}>
+            <span className="rd-chip rd-mono text-[11px]">
               30d
             </span>
           </div>
@@ -560,30 +504,20 @@ function IndexPage() {
         {/* Models */}
         <div
           id="ins-models"
-          className="rd-card rd-card-pad"
-          style={{ padding: "clamp(22px,2.6vw,30px)" }}
+          className="rd-card rd-card-pad p-[clamp(22px,2.6vw,30px)]"
         >
           <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: 20,
-            }}
+            className="flex justify-between items-center mb-5"
           >
             <div>
               <Eyebrow>AI · model share</Eyebrow>
               <h3
-                style={{
-                  fontSize: "1.35rem",
-                  marginTop: 10,
-                  letterSpacing: "-0.03em",
-                }}
+                className="text-[1.35rem] mt-[10px] tracking-[-0.03em]"
               >
                 Where the tokens went
               </h3>
             </div>
-            <span className="rd-chip rd-mono" style={{ fontSize: 11 }}>
+            <span className="rd-chip rd-mono text-[11px]">
               {formatCompact(data.aiMetrics.totalTokens)}
             </span>
           </div>
@@ -595,33 +529,20 @@ function IndexPage() {
       {topPosts.length > 0 && (
         <div
           id="ins-reading"
-          className="rd-card rd-card-pad"
-          style={{
-            marginTop: 12,
-            padding: "clamp(22px,2.6vw,30px)",
-          }}
+          className="rd-card rd-card-pad mt-3 p-[clamp(22px,2.6vw,30px)]"
         >
           <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-end",
-              marginBottom: 8,
-            }}
+            className="flex justify-between items-end mb-2"
           >
             <div>
               <Eyebrow>Reading · PostHog</Eyebrow>
               <h3
-                style={{
-                  fontSize: "1.35rem",
-                  marginTop: 10,
-                  letterSpacing: "-0.03em",
-                }}
+                className="text-[1.35rem] mt-[10px] tracking-[-0.03em]"
               >
                 Most-read pages
               </h3>
             </div>
-            <span className="rd-mono rd-dim" style={{ fontSize: 12 }}>
+            <span className="rd-mono rd-dim text-xs">
               unique visitors · 30d
             </span>
           </div>
@@ -631,36 +552,22 @@ function IndexPage() {
               return (
                 <a
                   key={i}
-                  className="rd-row"
+                  className="rd-row grid-cols-[auto_1fr_auto] no-underline text-inherit"
                   href={`${data.posthog.blogUrl || "https://blog.duyet.net"}${r.path}`}
-                  style={{
-                    gridTemplateColumns: "auto 1fr auto",
-                    textDecoration: "none",
-                    color: "inherit",
-                  }}
                 >
                   <span
-                    className="rd-mono rd-dim"
-                    style={{ fontSize: 12, width: 22 }}
+                    className="rd-mono rd-dim text-xs w-[22px]"
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span style={{ minWidth: 0 }}>
+                  <span className="min-w-0">
                     <span
-                      className="rd-mono"
-                      style={{
-                        fontSize: 13.5,
-                        display: "block",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
+                      className="rd-mono text-[13.5px] block truncate"
                     >
                       {r.path}
                     </span>
                     <div
-                      className="rd-meter"
-                      style={{ marginTop: 8, maxWidth: 360 }}
+                      className="rd-meter mt-2 max-w-[360px]"
                     >
                       <i
                         style={{
@@ -670,8 +577,7 @@ function IndexPage() {
                     </div>
                   </span>
                   <span
-                    className="rd-mono"
-                    style={{ fontSize: 14, fontWeight: 600 }}
+                    className="rd-mono text-sm font-semibold"
                   >
                     {formatNumber(r.visitors)}
                   </span>
@@ -686,38 +592,24 @@ function IndexPage() {
       {displayRepos.length > 0 && (
         <div
           id="ins-repos"
-          className="rd-card rd-card-pad"
-          style={{
-            marginTop: 12,
-            padding: "clamp(22px,2.6vw,30px)",
-          }}
+          className="rd-card rd-card-pad mt-3 p-[clamp(22px,2.6vw,30px)]"
         >
           <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-end",
-              marginBottom: 18,
-            }}
+            className="flex justify-between items-end mb-[18px]"
           >
             <div>
               <Eyebrow>Open source · GitHub</Eyebrow>
               <h3
-                style={{
-                  fontSize: "1.35rem",
-                  marginTop: 10,
-                  letterSpacing: "-0.03em",
-                }}
+                className="text-[1.35rem] mt-[10px] tracking-[-0.03em]"
               >
                 Public repositories
               </h3>
             </div>
             <a
-              className="rd-mono rd-dim rd-ulink"
+              className="rd-mono rd-dim rd-ulink text-[12.5px]"
               href="https://github.com/duyet"
               target="_blank"
               rel="noreferrer"
-              style={{ fontSize: 12.5 }}
             >
               {displayRepos.length} repos · {totalStars} stars
             </a>
@@ -726,56 +618,31 @@ function IndexPage() {
             {displayRepos.map((r) => (
               <a
                 key={r.name}
-                className="rd-card rd-card-hover rd-card-pad"
+                className="rd-card rd-card-hover rd-card-pad bg-[var(--rd-bg-sub)] px-[18px] py-[16px] no-underline text-inherit"
                 href={`https://github.com/duyet/${r.name}`}
                 target="_blank"
                 rel="noreferrer"
-                style={{
-                  background: "var(--rd-bg-sub)",
-                  padding: "16px 18px",
-                  textDecoration: "none",
-                  color: "inherit",
-                }}
               >
                 <div
-                  className="rd-mono"
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 600,
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                  }}
+                  className="rd-mono text-sm font-semibold truncate"
                 >
                   {r.name}
                 </div>
                 <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 12,
-                    marginTop: 12,
-                  }}
+                  className="flex items-center gap-3 mt-3"
                 >
                   {r.language && (
-                    <span className="rd-chip" style={{ fontSize: 11 }}>
+                    <span className="rd-chip text-[11px]">
                       {r.language}
                     </span>
                   )}
                   {r.license && (
-                    <span className="rd-mono rd-dim" style={{ fontSize: 11.5 }}>
+                    <span className="rd-mono rd-dim text-[11.5px]">
                       {r.license}
                     </span>
                   )}
                   <span
-                    className="rd-mono rd-dim"
-                    style={{
-                      fontSize: 11.5,
-                      marginLeft: "auto",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: 4,
-                    }}
+                    className="rd-mono rd-dim text-[11.5px] ml-auto inline-flex items-center gap-1"
                   >
                     <Star size={12} /> {r.stars}
                   </span>
@@ -817,39 +684,31 @@ function TokenAttributionSection({ data }: { data: LoaderData }) {
   return (
     <>
       {/* Stacked bar chart: daily tokens by model */}
-      <div className="rd-g2" style={{ marginTop: 12 }}>
-        <div className="rd-card rd-card-pad" style={{ padding: "clamp(22px,2.6vw,30px)" }}>
-          <div style={{ marginBottom: 20 }}>
+      <div className="rd-g2 mt-3">
+        <div className="rd-card rd-card-pad p-[clamp(22px,2.6vw,30px)]">
+          <div className="mb-5">
             <Eyebrow>AI · ccusage</Eyebrow>
             <h3
-              style={{
-                fontSize: "1.35rem",
-                marginTop: 10,
-                letterSpacing: "-0.03em",
-              }}
+              className="text-[1.35rem] mt-[10px] tracking-[-0.03em]"
             >
               Where the tokens went
             </h3>
-            <p className="rd-mono rd-dim" style={{ fontSize: 12, marginTop: 4 }}>
+            <p className="rd-mono rd-dim text-xs mt-1">
               Daily token volume by model (thousands), last 30 days.
             </p>
           </div>
           <InsightStackedBarChart data={byModel} />
         </div>
 
-        <div className="rd-card rd-card-pad" style={{ padding: "clamp(22px,2.6vw,30px)" }}>
-          <div style={{ marginBottom: 20 }}>
+        <div className="rd-card rd-card-pad p-[clamp(22px,2.6vw,30px)]">
+          <div className="mb-5">
             <Eyebrow>Efficiency · ccusage</Eyebrow>
             <h3
-              style={{
-                fontSize: "1.35rem",
-                marginTop: 10,
-                letterSpacing: "-0.03em",
-              }}
+              className="text-[1.35rem] mt-[10px] tracking-[-0.03em]"
             >
               Tokens per dollar
             </h3>
-            <p className="rd-mono rd-dim" style={{ fontSize: 12, marginTop: 4 }}>
+            <p className="rd-mono rd-dim text-xs mt-1">
               Cost efficiency trend — higher is cheaper output.
             </p>
           </div>
@@ -865,20 +724,12 @@ function TokenAttributionSection({ data }: { data: LoaderData }) {
       {/* Top sessions by tokens */}
       {projects.length > 0 && (
         <div
-          className="rd-card rd-card-pad"
-          style={{
-            marginTop: 12,
-            padding: "clamp(22px,2.6vw,30px)",
-          }}
+          className="rd-card rd-card-pad mt-3 p-[clamp(22px,2.6vw,30px)]"
         >
-          <div style={{ marginBottom: 8 }}>
+          <div className="mb-2">
             <Eyebrow>Projects · ccusage</Eyebrow>
             <h3
-              style={{
-                fontSize: "1.35rem",
-                marginTop: 10,
-                letterSpacing: "-0.03em",
-              }}
+              className="text-[1.35rem] mt-[10px] tracking-[-0.03em]"
             >
               Top sessions by tokens
             </h3>
@@ -887,34 +738,21 @@ function TokenAttributionSection({ data }: { data: LoaderData }) {
             {projects.map((item) => (
               <div
                 key={item.label}
-                className="rd-row"
-                style={{
-                  gridTemplateColumns: "1fr auto",
-                  gap: 18,
-                  alignItems: "center",
-                }}
+                className="rd-row grid-cols-[1fr_auto] gap-[18px] items-center"
               >
-                <div style={{ minWidth: 0 }}>
+                <div className="min-w-0">
                   <span
-                    className="rd-mono"
-                    style={{
-                      fontSize: 13.5,
-                      display: "block",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                    }}
+                    className="rd-mono text-[13.5px] block truncate"
                   >
                     {item.label}
                   </span>
                   <span
-                    className="rd-mono rd-dim"
-                    style={{ fontSize: 12 }}
+                    className="rd-mono rd-dim text-xs"
                   >
                     {item.meta}
                   </span>
                 </div>
-                <span className="rd-mono" style={{ fontSize: 14, fontWeight: 600 }}>
+                <span className="rd-mono text-sm font-semibold">
                   {item.value}
                 </span>
               </div>
