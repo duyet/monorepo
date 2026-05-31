@@ -69,7 +69,7 @@ function MeterBar({
         ? "var(--rd-warn)"
         : "var(--rd-ok)";
   return (
-    <div className="rd-meter" style={{ marginTop: 6 }}>
+    <div className="rd-meter mt-[6px]">
       <i style={{ width: `${Math.min(value, 100)}%`, background: bg }} />
     </div>
   );
@@ -140,62 +140,58 @@ function HomelabPage() {
   );
 
   return (
-    <div style={{ paddingTop: "clamp(32px,4vw,56px)", paddingBottom: "clamp(48px,6vw,80px)" }}>
+    <div className="pt-[clamp(32px,4vw,56px)] pb-[clamp(48px,6vw,80px)]">
       {/* Page header */}
-      <div style={{ marginBottom: 32 }}>
-        <div className="rd-eyebrow" style={{ marginBottom: 12 }}>
+      <div className="mb-8">
+        <div className="rd-eyebrow mb-3">
           <StatusDot status={onlineCount === totalNodes ? "online" : "degraded"} />
           Infrastructure · homelab.duyet.net
         </div>
-        <h1 className="rd-display" style={{ fontSize: "clamp(2.2rem,5vw,3.4rem)", marginTop: 0 }}>
+        <h1 className="rd-display text-[clamp(2.2rem,5vw,3.4rem)] mt-0">
           Homelab
         </h1>
-        <p className="rd-lead" style={{ marginTop: 14 }}>
+        <p className="rd-lead mt-[14px]">
           Cluster health, running services, and smart-home devices. Data captured by AI agent.
         </p>
       </div>
 
       {/* ── Summary stat strip ──────────────────────────────────── */}
       <div
-        className="signalbar"
-        style={{
-          gridTemplateColumns: "repeat(5,1fr)",
-          marginBottom: 28,
-        }}
+        className="signalbar grid-cols-[repeat(5,1fr)] mb-7"
       >
         {/* Nodes online */}
         <div className="signal-tile">
-          <div className="rd-eyebrow" style={{ gap: 6 }}>
+          <div className="rd-eyebrow gap-[6px]">
             <Server size={13} style={{ color: "var(--rd-text-3)" }} />
             Nodes
           </div>
-          <div className="rd-bigstat" style={{ marginTop: 10 }}>
+          <div className="rd-bigstat mt-[10px]">
             {onlineCount}
             <span className="rd-unit">/ {totalNodes}</span>
           </div>
-          <div className="rd-mono rd-dim" style={{ fontSize: 11 }}>online</div>
+          <div className="rd-mono rd-dim text-[11px]">online</div>
         </div>
 
         {/* Services running */}
         <div className="signal-tile">
-          <div className="rd-eyebrow" style={{ gap: 6 }}>
+          <div className="rd-eyebrow gap-[6px]">
             <Layers size={13} style={{ color: "var(--rd-text-3)" }} />
             Services
           </div>
-          <div className="rd-bigstat" style={{ marginTop: 10 }}>
+          <div className="rd-bigstat mt-[10px]">
             {runningServices}
             <span className="rd-unit">/ {totalServices}</span>
           </div>
-          <div className="rd-mono rd-dim" style={{ fontSize: 11 }}>{namespaceCount} namespaces</div>
+          <div className="rd-mono rd-dim text-[11px]">{namespaceCount} namespaces</div>
         </div>
 
         {/* Avg CPU */}
         <div className="signal-tile">
-          <div className="rd-eyebrow" style={{ gap: 6 }}>
+          <div className="rd-eyebrow gap-[6px]">
             <Cpu size={13} style={{ color: "var(--rd-text-3)" }} />
             Avg CPU
           </div>
-          <div className="rd-bigstat" style={{ marginTop: 10 }}>
+          <div className="rd-bigstat mt-[10px]">
             {clusterStats.avgCpu.toFixed(1)}
             <span className="rd-unit">%</span>
           </div>
@@ -204,11 +200,11 @@ function HomelabPage() {
 
         {/* Memory */}
         <div className="signal-tile">
-          <div className="rd-eyebrow" style={{ gap: 6 }}>
+          <div className="rd-eyebrow gap-[6px]">
             <MemoryStick size={13} style={{ color: "var(--rd-text-3)" }} />
             Memory
           </div>
-          <div className="rd-bigstat" style={{ marginTop: 10 }}>
+          <div className="rd-bigstat mt-[10px]">
             {clusterStats.usedMemory.toFixed(0)}
             <span className="rd-unit">/ {clusterStats.totalMemory} GB</span>
           </div>
@@ -217,54 +213,44 @@ function HomelabPage() {
 
         {/* Smart devices */}
         <div className="signal-tile">
-          <div className="rd-eyebrow" style={{ gap: 6 }}>
+          <div className="rd-eyebrow gap-[6px]">
             <Smartphone size={13} style={{ color: "var(--rd-text-3)" }} />
             Devices
           </div>
-          <div className="rd-bigstat" style={{ marginTop: 10 }}>
+          <div className="rd-bigstat mt-[10px]">
             {onlineDevices.length}
             <span className="rd-unit">/ {devices.length}</span>
           </div>
-          <div className="rd-mono rd-dim" style={{ fontSize: 11 }}>online</div>
+          <div className="rd-mono rd-dim text-[11px]">online</div>
         </div>
       </div>
 
       {/* ── Bento grid ─────────────────────────────────────────── */}
       <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(12,1fr)",
-          gap: 12,
-          alignItems: "start",
-        }}
+        className="grid grid-cols-[repeat(12,1fr)] gap-3 items-start"
       >
         {/* ── Nodes tile (tall, left) ─ */}
         <div
-          className="rd-card rd-card-pad"
-          style={{ gridColumn: "span 12" }}
+          className="rd-card rd-card-pad col-span-12"
           data-md-col="span 5"
         >
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+          <div className="flex items-center justify-between mb-[14px]">
             <span className="rd-eyebrow">
               <Server size={13} />
               Nodes
             </span>
-            <span className="rd-chip rd-mono" style={{ fontSize: 11 }}>
+            <span className="rd-chip rd-mono text-[11px]">
               {onlineCount}/{totalNodes} online
             </span>
           </div>
 
           {/* Node chip strip */}
-          <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 18 }}>
+          <div className="flex flex-wrap gap-[6px] mb-[18px]">
             {nodes.map((node) => (
               <span
                 key={node.id}
-                className="rd-chip rd-mono"
-                style={{
-                  fontSize: 10.5,
-                  gap: 5,
-                  opacity: node.status === "offline" ? 0.5 : 1,
-                }}
+                className="rd-chip rd-mono text-[10.5px] gap-[5px]"
+                style={{ opacity: node.status === "offline" ? 0.5 : 1 }}
               >
                 <StatusDot status={node.status} />
                 {node.name}
@@ -273,55 +259,49 @@ function HomelabPage() {
           </div>
 
           {/* Per-node rows */}
-          <div className="rd-rows" style={{ borderTop: "1px solid var(--rd-line)" }}>
+          <div className="rd-rows border-t border-[var(--rd-line)]">
             {nodes.map((node) => (
               <div
                 key={node.id}
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr auto",
-                  gap: 12,
-                  padding: "14px 0",
-                  borderBottom: "1px solid var(--rd-line)",
-                }}
+                className="grid grid-cols-[1fr_auto] gap-3 py-[14px] border-b border-[var(--rd-line)]"
               >
                 {/* Left: name + meta */}
                 <div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+                  <div className="flex items-center gap-2 mb-[6px]">
                     <StatusDot status={node.status} />
-                    <span className="rd-mono" style={{ fontWeight: 600, fontSize: 13.5 }}>
+                    <span className="rd-mono font-semibold text-[13.5px]">
                       {node.name}
                     </span>
-                    <span className="rd-chip rd-mono" style={{ fontSize: 10 }}>
+                    <span className="rd-chip rd-mono text-[10px]">
                       {typeLabels[node.type] ?? node.type}
                     </span>
                   </div>
-                  <div className="rd-mono rd-dim" style={{ fontSize: 11, marginBottom: 10 }}>
+                  <div className="rd-mono rd-dim text-[11px] mb-[10px]">
                     {node.ip} · up {node.uptime}
                   </div>
                   {/* CPU meter */}
-                  <div style={{ marginBottom: 6 }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, marginBottom: 4 }}>
+                  <div className="mb-[6px]">
+                    <div className="flex justify-between text-[11px] mb-1">
                       <span className="rd-mono rd-dim">CPU</span>
-                      <span className="rd-mono" style={{ fontWeight: 600 }}>{node.cpu}%</span>
+                      <span className="rd-mono font-semibold">{node.cpu}%</span>
                     </div>
                     <MeterBar value={node.cpu} />
                   </div>
                   {/* RAM meter */}
                   <div>
-                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, marginBottom: 4 }}>
+                    <div className="flex justify-between text-[11px] mb-1">
                       <span className="rd-mono rd-dim">RAM</span>
-                      <span className="rd-mono" style={{ fontWeight: 600 }}>{node.memory}%</span>
+                      <span className="rd-mono font-semibold">{node.memory}%</span>
                     </div>
                     <MeterBar value={node.memory} />
                   </div>
                 </div>
                 {/* Right: mem GB */}
-                <div style={{ textAlign: "right", alignSelf: "start" }}>
-                  <div className="rd-mono rd-dim" style={{ fontSize: 11 }}>
+                <div className="text-right self-start">
+                  <div className="rd-mono rd-dim text-[11px]">
                     {node.memoryUsed}/{node.memoryTotal} GB
                   </div>
-                  <div className="rd-mono rd-dim" style={{ fontSize: 11, marginTop: 4 }}>
+                  <div className="rd-mono rd-dim text-[11px] mt-1">
                     {node.services} svc
                   </div>
                 </div>
@@ -331,46 +311,41 @@ function HomelabPage() {
         </div>
 
         {/* ── Services tile ─ */}
-        <div className="rd-card rd-card-pad" style={{ gridColumn: "span 12" }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+        <div className="rd-card rd-card-pad col-span-12">
+          <div className="flex items-center justify-between mb-[14px]">
             <span className="rd-eyebrow">
               <Activity size={13} />
               Running services
             </span>
-            <span className="rd-chip rd-mono" style={{ fontSize: 11 }}>
+            <span className="rd-chip rd-mono text-[11px]">
               {runningServices}/{totalServices}
             </span>
           </div>
 
           <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill,minmax(220px,1fr))",
-              gap: 8,
-            }}
+            className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-2"
           >
             {allServices.map((svc) => (
               <div
                 key={`${svc.name}-${svc.node}`}
-                className="rd-card"
-                style={{ padding: "13px 15px" }}
+                className="rd-card px-[15px] py-[13px]"
               >
-                <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 8 }}>
+                <div className="flex items-center gap-[7px] mb-2">
                   <span className="rd-dot rd-ok" />
-                  <span className="rd-mono" style={{ fontWeight: 600, fontSize: 13, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  <span className="rd-mono font-semibold text-[13px] truncate">
                     {svc.name}
                   </span>
                 </div>
-                <div style={{ display: "flex", gap: 6, marginBottom: 8, flexWrap: "wrap" }}>
-                  <span className="rd-chip rd-mono" style={{ fontSize: 10 }}>{svc.namespace}</span>
-                  <span className="rd-chip rd-mono" style={{ fontSize: 10 }}>:{svc.port}</span>
+                <div className="flex flex-wrap gap-[6px] mb-2">
+                  <span className="rd-chip rd-mono text-[10px]">{svc.namespace}</span>
+                  <span className="rd-chip rd-mono text-[10px]">:{svc.port}</span>
                 </div>
-                <div className="rd-mono rd-dim" style={{ fontSize: 11, marginBottom: 6 }}>
+                <div className="rd-mono rd-dim text-[11px] mb-[6px]">
                   {svc.node}
                 </div>
-                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11.5 }}>
+                <div className="flex justify-between text-[11.5px]">
                   <span className="rd-mono rd-dim">
-                    CPU <span style={{ color: "var(--rd-text)", fontWeight: 600 }}>{svc.cpu}%</span>
+                    CPU <span className="text-[var(--rd-text)] font-semibold">{svc.cpu}%</span>
                   </span>
                   <span className="rd-mono rd-dim">{svc.memory} MB</span>
                 </div>
@@ -380,25 +355,21 @@ function HomelabPage() {
         </div>
 
         {/* ── Cluster stats ─ */}
-        <div className="rd-card rd-card-pad" style={{ gridColumn: "span 12" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 18 }}>
+        <div className="rd-card rd-card-pad col-span-12">
+          <div className="flex items-center gap-2 mb-[18px]">
             <Activity size={14} style={{ color: "var(--rd-text-3)" }} />
             <span className="rd-eyebrow">Cluster</span>
           </div>
           <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill,minmax(140px,1fr))",
-              gap: 20,
-            }}
+            className="grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-5"
           >
             {/* Avg CPU */}
             <div>
-              <div className="rd-eyebrow" style={{ marginBottom: 8 }}>
+              <div className="rd-eyebrow mb-2">
                 <Activity size={12} />
                 Avg CPU
               </div>
-              <div className="rd-bigstat" style={{ fontSize: "1.65rem" }}>
+              <div className="rd-bigstat text-[1.65rem]">
                 {clusterStats.avgCpu.toFixed(1)}
                 <span className="rd-unit">%</span>
               </div>
@@ -407,11 +378,11 @@ function HomelabPage() {
 
             {/* Memory */}
             <div>
-              <div className="rd-eyebrow" style={{ marginBottom: 8 }}>
+              <div className="rd-eyebrow mb-2">
                 <HardDrive size={12} />
                 Memory
               </div>
-              <div className="rd-bigstat" style={{ fontSize: "1.65rem" }}>
+              <div className="rd-bigstat text-[1.65rem]">
                 {clusterStats.usedMemory.toFixed(0)}
                 <span className="rd-unit">/ {clusterStats.totalMemory} GB</span>
               </div>
@@ -420,11 +391,11 @@ function HomelabPage() {
 
             {/* Storage */}
             <div>
-              <div className="rd-eyebrow" style={{ marginBottom: 8 }}>
+              <div className="rd-eyebrow mb-2">
                 <Database size={12} />
                 Storage
               </div>
-              <div className="rd-bigstat" style={{ fontSize: "1.65rem" }}>
+              <div className="rd-bigstat text-[1.65rem]">
                 {(clusterStats.totalStorage / 1024).toFixed(1)}
                 <span className="rd-unit">TB</span>
               </div>
@@ -432,11 +403,11 @@ function HomelabPage() {
 
             {/* Incidents */}
             <div>
-              <div className="rd-eyebrow" style={{ marginBottom: 8 }}>
+              <div className="rd-eyebrow mb-2">
                 <AlertCircle size={12} />
                 Incidents
               </div>
-              <div className="rd-bigstat" style={{ fontSize: "1.65rem" }}>
+              <div className="rd-bigstat text-[1.65rem]">
                 {downtimeHistory.length}
                 <span className="rd-unit">recent</span>
               </div>
@@ -444,15 +415,15 @@ function HomelabPage() {
 
             {/* Svc memory */}
             <div>
-              <div className="rd-eyebrow" style={{ marginBottom: 8 }}>
+              <div className="rd-eyebrow mb-2">
                 <MemoryStick size={12} />
                 Svc memory
               </div>
-              <div className="rd-bigstat" style={{ fontSize: "1.65rem" }}>
+              <div className="rd-bigstat text-[1.65rem]">
                 {(totalServiceMem / 1024).toFixed(1)}
                 <span className="rd-unit">GB</span>
               </div>
-              <div className="rd-mono rd-dim" style={{ fontSize: 11, marginTop: 6 }}>
+              <div className="rd-mono rd-dim text-[11px] mt-[6px]">
                 {allServices.length} services
               </div>
             </div>
@@ -460,17 +431,16 @@ function HomelabPage() {
             {/* Top service by CPU */}
             {busiestSvc ? (
               <div>
-                <div className="rd-eyebrow" style={{ marginBottom: 8 }}>
+                <div className="rd-eyebrow mb-2">
                   <Cpu size={12} />
                   Top service
                 </div>
                 <div
-                  className="rd-mono"
-                  style={{ fontWeight: 600, fontSize: 13.5, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
+                  className="rd-mono font-semibold text-[13.5px] truncate"
                 >
                   {busiestSvc.name}
                 </div>
-                <div className="rd-bigstat" style={{ fontSize: "1.65rem", marginTop: 4 }}>
+                <div className="rd-bigstat text-[1.65rem] mt-1">
                   {busiestSvc.cpu.toFixed(1)}
                   <span className="rd-unit">% CPU</span>
                 </div>
@@ -480,38 +450,38 @@ function HomelabPage() {
         </div>
 
         {/* ── Network speed ─ */}
-        <div className="rd-card rd-card-pad" style={{ gridColumn: "span 12" }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+        <div className="rd-card rd-card-pad col-span-12">
+          <div className="flex items-center justify-between mb-[14px]">
             <span className="rd-eyebrow">
               <Network size={13} />
               Network
             </span>
             <Gauge size={14} style={{ color: "var(--rd-text-3)" }} />
           </div>
-          <div style={{ display: "flex", gap: 32, flexWrap: "wrap" }}>
+          <div className="flex flex-wrap gap-8">
             <div>
-              <div className="rd-mono rd-dim" style={{ fontSize: 11.5, display: "flex", alignItems: "center", gap: 4, marginBottom: 6 }}>
+              <div className="rd-mono rd-dim text-[11.5px] flex items-center gap-1 mb-[6px]">
                 <ArrowDown size={12} /> Down
               </div>
-              <div className="rd-bigstat" style={{ fontSize: "1.65rem" }}>
+              <div className="rd-bigstat text-[1.65rem]">
                 {speedTest.download}
                 <span className="rd-unit">Mbps</span>
               </div>
             </div>
             <div>
-              <div className="rd-mono rd-dim" style={{ fontSize: 11.5, display: "flex", alignItems: "center", gap: 4, marginBottom: 6 }}>
+              <div className="rd-mono rd-dim text-[11.5px] flex items-center gap-1 mb-[6px]">
                 <ArrowUp size={12} /> Up
               </div>
-              <div className="rd-bigstat" style={{ fontSize: "1.65rem" }}>
+              <div className="rd-bigstat text-[1.65rem]">
                 {speedTest.upload}
                 <span className="rd-unit">Mbps</span>
               </div>
             </div>
             <div>
-              <div className="rd-mono rd-dim" style={{ fontSize: 11.5, display: "flex", alignItems: "center", gap: 4, marginBottom: 6 }}>
+              <div className="rd-mono rd-dim text-[11.5px] flex items-center gap-1 mb-[6px]">
                 <Gauge size={12} /> Ping
               </div>
-              <div className="rd-bigstat" style={{ fontSize: "1.65rem" }}>
+              <div className="rd-bigstat text-[1.65rem]">
                 {speedTest.ping}
                 <span className="rd-unit">ms</span>
               </div>
@@ -520,22 +490,21 @@ function HomelabPage() {
         </div>
 
         {/* ── Node type breakdown ─ */}
-        <div className="rd-card rd-card-pad" style={{ gridColumn: "span 12" }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+        <div className="rd-card rd-card-pad col-span-12">
+          <div className="flex items-center justify-between mb-[14px]">
             <span className="rd-eyebrow">
               <Layers size={13} />
               Node types
             </span>
           </div>
-          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+          <div className="flex flex-wrap gap-[10px]">
             {Object.entries(typeCounts).map(([type, count]) => (
               <div
                 key={type}
-                className="rd-card"
-                style={{ padding: "12px 16px", display: "flex", flexDirection: "column", gap: 4, minWidth: 90 }}
+                className="rd-card flex flex-col gap-1 min-w-[90px] px-4 py-3"
               >
-                <div className="rd-mono rd-dim" style={{ fontSize: 11 }}>{typeLabels[type] ?? type}</div>
-                <div className="rd-bigstat" style={{ fontSize: "1.5rem" }}>
+                <div className="rd-mono rd-dim text-[11px]">{typeLabels[type] ?? type}</div>
+                <div className="rd-bigstat text-[1.5rem]">
                   {count}
                 </div>
               </div>
@@ -544,31 +513,30 @@ function HomelabPage() {
         </div>
 
         {/* ── Smart devices ─ */}
-        <div className="rd-card rd-card-pad" style={{ gridColumn: "span 12" }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+        <div className="rd-card rd-card-pad col-span-12">
+          <div className="flex items-center justify-between mb-[14px]">
             <span className="rd-eyebrow">
               <Smartphone size={13} />
               Smart devices
             </span>
-            <span className="rd-chip rd-mono" style={{ fontSize: 11 }}>
+            <span className="rd-chip rd-mono text-[11px]">
               {onlineDevices.length}/{devices.length} online
             </span>
           </div>
-          <div className="rd-g2" style={{ gap: 8 }}>
+          <div className="rd-g2 gap-2">
             {devices.map((d) => (
               <div
                 key={d.id}
-                className="rd-card"
-                style={{ padding: "14px 16px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}
+                className="rd-card flex items-center justify-between gap-3 px-4 py-[14px]"
               >
                 <div>
-                  <div className="rd-mono rd-dim" style={{ fontSize: 10.5, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 4 }}>
+                  <div className="rd-mono rd-dim text-[10.5px] uppercase tracking-[0.1em] mb-1">
                     {d.type.replace(/-/g, " ")}
                   </div>
-                  <div style={{ fontWeight: 600, fontSize: 14, letterSpacing: "-0.01em" }}>{d.name}</div>
-                  <div className="rd-mono rd-dim" style={{ fontSize: 11, marginTop: 2 }}>{d.brand}</div>
+                  <div className="font-semibold text-sm tracking-[-0.01em]">{d.name}</div>
+                  <div className="rd-mono rd-dim text-[11px] mt-[2px]">{d.brand}</div>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 7 }} className="rd-chip rd-mono">
+                <div className="rd-chip rd-mono flex items-center gap-[7px]">
                   <StatusDot status={d.status} />
                   {d.status}
                 </div>
@@ -578,18 +546,18 @@ function HomelabPage() {
         </div>
 
         {/* ── Recent incidents ─ */}
-        <div className="rd-card rd-card-pad" style={{ gridColumn: "span 12" }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+        <div className="rd-card rd-card-pad col-span-12">
+          <div className="flex items-center justify-between mb-[14px]">
             <span className="rd-eyebrow">
               <AlertCircle size={13} />
               Recent incidents
             </span>
-            <span className="rd-chip rd-mono" style={{ fontSize: 11 }}>
+            <span className="rd-chip rd-mono text-[11px]">
               {downtimeHistory.length} logged
             </span>
           </div>
           {downtimeHistory.length === 0 ? (
-            <p className="rd-mono rd-dim" style={{ fontSize: 12.5 }}>
+            <p className="rd-mono rd-dim text-[12.5px]">
               No incidents in the last 30 days.
             </p>
           ) : (
@@ -597,18 +565,17 @@ function HomelabPage() {
               {downtimeHistory.map((inc, i) => (
                 <div
                   key={i}
-                  className="rd-row"
-                  style={{ gridTemplateColumns: "auto 1fr auto", padding: "14px 4px" }}
+                  className="rd-row grid-cols-[auto_1fr_auto] px-1 py-[14px]"
                 >
                   <AlertCircle size={15} style={{ color: "var(--rd-warn)" }} />
                   <div>
                     <div>
-                      <span className="rd-mono" style={{ fontWeight: 600, fontSize: 13 }}>{inc.service}</span>
-                      <span className="rd-muted" style={{ marginLeft: 8, fontSize: 12.5 }}>— {inc.reason}</span>
+                      <span className="rd-mono font-semibold text-[13px]">{inc.service}</span>
+                      <span className="rd-muted ml-2 text-[12.5px]">— {inc.reason}</span>
                     </div>
-                    <div className="rd-mono rd-dim" style={{ fontSize: 11, marginTop: 3 }}>{inc.start}</div>
+                    <div className="rd-mono rd-dim text-[11px] mt-[3px]">{inc.start}</div>
                   </div>
-                  <div className="rd-mono rd-dim" style={{ fontSize: 12, display: "flex", alignItems: "center", gap: 4 }}>
+                  <div className="rd-mono rd-dim text-xs flex items-center gap-1">
                     <Clock size={12} />
                     {inc.duration}
                   </div>
@@ -620,7 +587,7 @@ function HomelabPage() {
       </div>
 
       {/* ── Detailed tabs ─────────────────────────────────────── */}
-      <div style={{ marginTop: "clamp(40px,5vw,64px)" }}>
+      <div className="mt-[clamp(40px,5vw,64px)]">
         <DashboardTabs
           infrastructure={infrastructure}
           smartDevices={smartDevices}
@@ -629,13 +596,9 @@ function HomelabPage() {
 
       {/* Footer note */}
       <div
-        style={{
-          marginTop: 40,
-          paddingTop: 16,
-          borderTop: "1px solid var(--rd-line)",
-        }}
+        className="mt-10 pt-4 border-t border-[var(--rd-line)]"
       >
-        <p className="rd-mono rd-dim" style={{ fontSize: 11.5 }}>
+        <p className="rd-mono rd-dim text-[11.5px]">
           Not a realtime dashboard. Data is captured by AI Agent and committed
           to source code. Snapshot taken at {snapshotDate}.
         </p>
