@@ -1,7 +1,7 @@
 import type { Post, Series } from "@duyet/interfaces";
 import { dateFormat } from "@duyet/libs/date";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import type { CSSProperties, ReactElement } from "react";
+import type { ReactElement } from "react";
 import { getAllSeries, getSeries } from "@/lib/posts";
 
 export const Route = createFileRoute("/series/$slug")({
@@ -59,35 +59,35 @@ function SeriesDetailPage(): ReactElement {
         </div>
       </header>
 
-      <section className="em-list" aria-label="Series posts">
-        {series.posts.map((post, i) => {
-          const style: CSSProperties = {
-            animationDelay: `${Math.min(i, 8) * 40}ms`,
-          };
-          return (
-            <Link
-              key={post.slug}
-              to="/$year/$month/$slug/"
-              params={postParams(post)}
-              className="em-list__row editorial-enter"
-              style={style}
-            >
-              <h3 className="em-list__title">
-                <span className="mr-3 text-sm text-[color:var(--em-subtle)] tabular-nums">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+      <div className="rd-rows" aria-label="Series posts">
+        {series.posts.map((post, i) => (
+          <Link
+            key={post.slug}
+            to="/$year/$month/$slug/"
+            params={postParams(post)}
+            className="rd-row cursor-pointer no-underline text-inherit"
+            style={{ gridTemplateColumns: "auto 1fr auto" }}
+          >
+            <span className="rd-mono rd-dim text-base leading-none tabular-nums w-[28px]">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <span className="truncate">
+              <span className="font-[550] text-[clamp(14px,1.4vw,16px)] tracking-tight">
                 {post.title}
-              </h3>
-              {post.excerpt && <p className="em-list__dek">{post.excerpt}</p>}
-              <div className="em-list__meta">
-                <time dateTime={new Date(post.date).toISOString()}>
-                  {dateFormat(post.date, "MMM d, yyyy")}
-                </time>
-              </div>
-            </Link>
-          );
-        })}
-      </section>
+              </span>
+              {post.excerpt && (
+                <>
+                  <span className="rd-dim mx-1.5">—</span>
+                  <span className="rd-muted text-[13px]">{post.excerpt}</span>
+                </>
+              )}
+            </span>
+            <span className="rd-muted text-[13px] shrink-0 ml-2 tabular-nums">
+              {dateFormat(post.date, "MMM d, yyyy")}
+            </span>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }
