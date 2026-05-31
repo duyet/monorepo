@@ -1,28 +1,39 @@
 {
-  "generatedAt": "2026-05-30T10:34:55.069Z",
+  "generatedAt": "2026-05-31T13:43:18.958Z",
   "firstDate": "2025-08-02",
+  "lastDate": "2026-05-31",
   "sources": [
+    "agy",
+    "opencode",
     "Claude Code",
-    "Codex",
-    "OpenCode"
+    "Codex"
   ],
   "totals": {
-    "input_tokens": 3033568895,
-    "output_tokens": 120513445,
-    "cache_creation_tokens": 1023462408,
-    "cache_read_tokens": 43546293595,
-    "total_tokens": 46264577671,
-    "total_cost": 23068.9
+    "input_tokens": 3041520709,
+    "output_tokens": 122965810,
+    "cache_creation_tokens": 1037341028,
+    "cache_read_tokens": 44178392023,
+    "total_tokens": 46920958898,
+    "total_cost": 23718.13
   },
   "daily": [
     {
+      "date": "2026-05-31",
+      "input_tokens": 699049,
+      "output_tokens": 77038,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 66985856,
+      "total_tokens": 67761943,
+      "cost": 93.12
+    },
+    {
       "date": "2026-05-30",
-      "input_tokens": 2138037,
-      "output_tokens": 1024447,
-      "cache_creation_tokens": 3032172,
-      "cache_read_tokens": 301542891,
-      "total_tokens": 307737547,
-      "cost": 348.95
+      "input_tokens": 9390802,
+      "output_tokens": 3399774,
+      "cache_creation_tokens": 16910792,
+      "cache_read_tokens": 866655463,
+      "total_tokens": 896356831,
+      "cost": 905.06
     },
     {
       "date": "2026-05-29",

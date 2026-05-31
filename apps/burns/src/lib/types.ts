@@ -20,6 +20,7 @@ export interface DailyEntry {
 export interface TokenData {
   generatedAt: string;
   firstDate: string | null;
+  lastDate: string | null;
   sources: readonly string[];
   totals: TokenTotals;
   daily: DailyEntry[];

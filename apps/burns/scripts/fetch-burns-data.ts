@@ -61,11 +61,15 @@ async function main() {
   const firstDate = dailyRows.length > 0
     ? formatDate(dailyRows[dailyRows.length - 1].date)
     : null;
+  const lastDate = dailyRows.length > 0
+    ? formatDate(dailyRows[0].date)
+    : null;
 
   const data = {
     generatedAt: new Date().toISOString(),
     firstDate,
-    sources: ["Claude Code", "Codex", "OpenCode"] as const,
+    lastDate,
+    sources: ["agy", "opencode", "Claude Code", "Codex"] as const,
     totals: {
       input_tokens: parseNum(totals.input_tokens),
       output_tokens: parseNum(totals.output_tokens),
@@ -91,7 +95,7 @@ async function main() {
   console.log(`\nTotal tokens: ${data.totals.total_tokens.toLocaleString()}`);
   console.log(`Total cost:   $${data.totals.total_cost.toLocaleString()}`);
   console.log(`Days:         ${data.daily.length}`);
-  console.log(`Since:        ${firstDate ?? "N/A"}`);
+  console.log(`Range:        ${firstDate ?? "N/A"} → ${lastDate ?? "N/A"}`);
   console.log(`Written to:   ${OUTPUT_FILE}`);
 
   await db.close();
