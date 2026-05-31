@@ -65,6 +65,26 @@ function SeriesPage(): ReactElement {
                   <h3 className="text-base font-semibold tracking-tight text-foreground">
                     {series.name}
                   </h3>
+                  {series.posts.length > 0 && (
+                    <ul className="list-none p-0 m-0 flex flex-col gap-1.5 mt-1">
+                      {series.posts.slice(0, 4).map((post, pi) => (
+                        <li
+                          key={post.slug}
+                          className="text-[13px] text-muted-foreground truncate flex items-center gap-1.5"
+                        >
+                          <span className="font-mono text-[10px] text-muted-foreground/50 tabular-nums">
+                            {String(pi + 1).padStart(2, "0")}
+                          </span>
+                          {post.title}
+                        </li>
+                      ))}
+                      {series.posts.length > 4 && (
+                        <li className="text-[11px] text-muted-foreground/60 font-mono">
+                          +{series.posts.length - 4} more
+                        </li>
+                      )}
+                    </ul>
+                  )}
                   <div className="mt-auto flex items-center justify-between pt-2 text-xs text-muted-foreground">
                     <span className="font-mono tabular-nums">
                       {String(series.posts.length).padStart(2, "0")}{" "}

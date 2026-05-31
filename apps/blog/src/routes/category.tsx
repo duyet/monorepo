@@ -7,7 +7,21 @@ import {
   useMatches,
 } from "@tanstack/react-router";
 import type { ReactElement } from "react";
+import { getCategoryMetadata } from "@/lib/category-metadata";
 import { getAllCategories } from "@/lib/posts";
+
+const CAT_COLORS = [
+  "#6366f1",
+  "#0ea5e9",
+  "#8b5cf6",
+  "#10b981",
+  "#f59e0b",
+  "#ec4899",
+  "#14b8a6",
+  "#ef4444",
+  "#84cc16",
+  "#f97316",
+];
 
 export const Route = createFileRoute("/category")({
   head: () => ({
@@ -59,30 +73,37 @@ function Categories(): ReactElement {
       <div className="bento-grid">
         {entries.map(([category, count], i) => {
           const featured = i < 2;
+          const color = CAT_COLORS[i % CAT_COLORS.length];
+          const meta = getCategoryMetadata(category, count, i);
           return (
             <Link
               key={category}
               to="/category/$category/"
               params={{ category: getSlug(category) }}
               className={`bento-cell${featured ? " bento-cell--featured" : ""}`}
+              style={{ borderLeft: `3px solid ${color}` }}
             >
               <div>
-                <h2
-                  style={{
-                    fontSize: featured ? "1.25rem" : "1rem",
-                    fontWeight: 600,
-                    letterSpacing: "-0.02em",
-                    color: "var(--rd-text)",
-                    lineHeight: 1.2,
-                  }}
-                >
-                  {category}
-                </h2>
-                {featured && (
-                  <p className="rd-muted" style={{ marginTop: 8, fontSize: 13, lineHeight: 1.5 }}>
-                    Explore {count} {count === 1 ? "post" : "posts"} about {category.toLowerCase()}
-                  </p>
-                )}
+                <div className="flex items-center gap-2">
+                  <span
+                    className="h-2.5 w-2.5 rounded-full shrink-0"
+                    style={{ backgroundColor: color }}
+                  />
+                  <h2
+                    style={{
+                      fontSize: featured ? "1.25rem" : "1rem",
+                      fontWeight: 600,
+                      letterSpacing: "-0.02em",
+                      color: "var(--rd-text)",
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    {category}
+                  </h2>
+                </div>
+                <p className="rd-muted" style={{ marginTop: 8, fontSize: 13, lineHeight: 1.5 }}>
+                  {meta.description}
+                </p>
               </div>
               <span
                 className="rd-mono"

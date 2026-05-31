@@ -14,6 +14,24 @@ import Content from "./-content";
 import { MarkdownMenuWrapper } from "./-markdown-menu-wrapper";
 import Meta from "./-meta";
 
+const YEAR_COLORS = [
+  "var(--rd-accent)",
+  "#6366f1",
+  "#0ea5e9",
+  "#8b5cf6",
+  "#10b981",
+  "#f59e0b",
+  "#ec4899",
+  "#14b8a6",
+  "#ef4444",
+  "#84cc16",
+];
+
+function yearColor(year: number): string {
+  const idx = (year - 2015) % YEAR_COLORS.length;
+  return YEAR_COLORS[Math.abs(idx)] ?? YEAR_COLORS[0];
+}
+
 export const Route = createFileRoute("/$year/$month/$slug")({
   head: ({ params, loaderData }) => {
     const { year, month, slug: rawSlug } = params;
@@ -239,27 +257,42 @@ function PostPage() {
           <p className="rd-mono rd-dim text-[11px] mb-4">
             Related
           </p>
-          <ul className="list-none p-0 m-0 flex flex-col gap-3">
+          <div className="rd-rows">
             {related.map((relPost) => {
               const [, year, month, slug] = relPost.slug.split("/");
+              const yr = new Date(relPost.date).getFullYear();
               return (
-                <li key={relPost.slug}>
-                  <Link
-                    to="/$year/$month/$slug/"
-                    params={{ year, month, slug }}
-                    className="no-underline flex items-baseline gap-2.5 text-[var(--rd-text)] text-[15px]"
+                <Link
+                  key={relPost.slug}
+                  to="/$year/$month/$slug/"
+                  params={{ year, month, slug }}
+                  className="rd-row cursor-pointer no-underline text-inherit"
+                  style={{ gridTemplateColumns: "auto 1fr auto" }}
+                >
+                  <span
+                    className="rd-mono text-base font-bold leading-none shrink-0"
+                    style={{ color: yearColor(yr) }}
                   >
-                    <span className="rd-mono rd-dim text-xs whitespace-nowrap">
-                      {new Date(relPost.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
-                    </span>
-                    <span className="font-medium">
+                    {yr}
+                  </span>
+                  <span className="truncate">
+                    <span className="font-[550] text-[clamp(14px,1.4vw,16px)] tracking-tight">
                       {relPost.title}
                     </span>
-                  </Link>
-                </li>
+                    {relPost.excerpt && (
+                      <>
+                        <span className="rd-dim mx-1.5">—</span>
+                        <span className="rd-muted text-[13px]">{relPost.excerpt}</span>
+                      </>
+                    )}
+                  </span>
+                  <span className="rd-tag-pill text-[10.5px] !py-[1px] !px-1.5 shrink-0 ml-2">
+                    {relPost.category}
+                  </span>
+                </Link>
               );
             })}
-          </ul>
+          </div>
         </section>
       )}
     </div>

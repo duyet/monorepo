@@ -4,6 +4,24 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import type { ReactElement } from "react";
 import { getPostsByAllYear } from "@/lib/posts";
 
+const YEAR_COLORS = [
+  "#6366f1",
+  "#0ea5e9",
+  "#8b5cf6",
+  "#10b981",
+  "#f59e0b",
+  "#ec4899",
+  "#14b8a6",
+  "#ef4444",
+  "#84cc16",
+  "#f97316",
+];
+
+function yearColor(year: number): string {
+  const idx = (year - 2015) % YEAR_COLORS.length;
+  return YEAR_COLORS[Math.abs(idx)] ?? YEAR_COLORS[0];
+}
+
 export const Route = createFileRoute("/archives")({
   head: () => ({
     meta: [
@@ -62,7 +80,10 @@ function Archives(): ReactElement {
           return (
             <section key={year} className="mt-12 first:mt-0">
               <div className="flex items-baseline justify-between border-b pb-3">
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight tabular-nums">
+                <h2
+                  className="text-3xl md:text-4xl font-bold tracking-tight tabular-nums"
+                  style={{ color: yearColor(year) }}
+                >
                   {year}
                 </h2>
                 <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">

@@ -5,6 +5,19 @@ import type { CSSProperties, ReactElement } from "react";
 import { getAllTags } from "@/lib/posts";
 import { getTagMetadata } from "@/lib/tag-metadata";
 
+const TAG_COLORS = [
+  "#6366f1",
+  "#0ea5e9",
+  "#8b5cf6",
+  "#10b981",
+  "#f59e0b",
+  "#ec4899",
+  "#14b8a6",
+  "#ef4444",
+  "#84cc16",
+  "#f97316",
+];
+
 export const Route = createFileRoute("/tags")({
   head: () => ({
     meta: [
@@ -50,6 +63,7 @@ function Tags(): ReactElement {
             const isFeature =
               i < FEATURE_LIMIT && count >= maxCount * FEATURE_RATIO;
             const meta = isFeature ? getTagMetadata(tag, count, i) : null;
+            const color = TAG_COLORS[i % TAG_COLORS.length];
             const style: CSSProperties = {
               animationDelay: `${Math.min(i, 20) * 20}ms`,
             };
@@ -69,9 +83,15 @@ function Tags(): ReactElement {
                 {isFeature ? (
                   <div className="flex h-full flex-col justify-between gap-3 p-5">
                     <div className="flex items-start justify-between gap-3">
-                      <span className="truncate text-lg font-medium tracking-tight text-foreground">
-                        {tag}
-                      </span>
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <span
+                          className="h-2.5 w-2.5 rounded-full shrink-0"
+                          style={{ backgroundColor: color }}
+                        />
+                        <span className="truncate text-lg font-medium tracking-tight text-foreground">
+                          {tag}
+                        </span>
+                      </div>
                       <span className="shrink-0 font-mono text-lg tabular-nums text-foreground">
                         {count}
                       </span>
@@ -87,9 +107,15 @@ function Tags(): ReactElement {
                   </div>
                 ) : (
                   <div className="flex h-full items-center justify-between gap-3 p-4">
-                    <span className="truncate text-sm font-medium tracking-tight text-foreground">
-                      {tag}
-                    </span>
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span
+                        className="h-2 w-2 rounded-full shrink-0"
+                        style={{ backgroundColor: color }}
+                      />
+                      <span className="truncate text-sm font-medium tracking-tight text-foreground">
+                        {tag}
+                      </span>
+                    </div>
                     <span className="shrink-0 font-mono text-[11px] tabular-nums text-muted-foreground">
                       {String(count).padStart(2, "0")}
                     </span>
