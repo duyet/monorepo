@@ -146,7 +146,7 @@
 
 .post-reader .prose p {
   line-height: 1.85;
-  margin-bottom: 1.25em;
+  margin-bottom: 1.5rem;
 }
 
 /* Headings inside the article body */
@@ -201,14 +201,14 @@
   margin-right: 0.35em;
   font-weight: 400;
   text-decoration: none;
-  opacity: 0;
-  transition: opacity 150ms ease-out;
+  display: none;
 }
 
 .post-reader .prose :where(h1, h2, h3, h4, h5, h6):hover > a.heading-link,
 .post-reader .prose :where(h1, h2, h3, h4, h5, h6):hover > a[aria-hidden="true"],
 .post-reader .prose :where(h1, h2, h3, h4, h5, h6):hover > a.header-anchor,
 .post-reader .prose :where(h1, h2, h3, h4, h5, h6):hover > a.anchor {
+  display: inline;
   opacity: 0.5;
 }
 
@@ -254,7 +254,7 @@
   border: 1px solid var(--reader-hairline) !important;
   border-radius: 6px !important;
   box-shadow: none !important;
-  padding: 1.25em 1.5em;
+  padding: 1.25em 1.75em;
   margin: 2em 0;
   font-family: var(--reader-mono);
   font-size: 0.875em;
@@ -265,7 +265,7 @@
 @media (min-width: 768px) {
   .post-reader .prose :where(pre),
   .post-reader article pre {
-    padding: 1.5em 1.75em;
+    padding: 1.5em 2em;
   }
 }
 
