@@ -540,7 +540,6 @@ function BlogTeaser() {
                 padding: "15px 8px",
                 textDecoration: "none",
                 color: "inherit",
-                borderRadius: "var(--rd-r-sm)",
               }}
             >
               <div style={{ minWidth: 0 }}>
