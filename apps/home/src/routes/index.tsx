@@ -2,6 +2,9 @@ import { ArrowUpRight, ArrowRight, Flame } from "lucide-react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Suspense } from "react";
 import { cn } from "../lib/utils";
+import { Badge } from "../components/ui/badge";
+import { Button } from "../components/ui/button";
+import { Card } from "../components/ui/card";
 import { addUtmParams } from "../../app/lib/utm";
 import rawBlogPosts from "../../../blog/public/posts-data.json";
 import { KeyboardFeatures } from "../components/KeyboardFeatures";
@@ -121,30 +124,33 @@ function HomePage() {
                 <div
                   className="flex flex-wrap items-center gap-3 mt-5"
                 >
-                  <a
-                    className="rd-btn rd-btn-primary"
-                    href="https://blog.duyet.net"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Read the blog
-                  </a>
-                  <a
-                    className="rd-btn rd-btn-ghost"
-                    href="https://cv.duyet.net"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    R&eacute;sum&eacute;
-                  </a>
-                  <a
-                    className="rd-btn rd-btn-text"
-                    href="https://github.com/duyet"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    github.com/duyet
-                  </a>
+                  <Button variant="default" size="sm" asChild>
+                    <a
+                      href="https://blog.duyet.net"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Read the blog
+                    </a>
+                  </Button>
+                  <Button variant="ghost" size="sm" asChild>
+                    <a
+                      href="https://cv.duyet.net"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      R&eacute;sum&eacute;
+                    </a>
+                  </Button>
+                  <Button variant="link" size="sm" asChild>
+                    <a
+                      href="https://github.com/duyet"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      github.com/duyet
+                    </a>
+                  </Button>
                 </div>
               </div>
               <HeroDiagram />
@@ -223,12 +229,14 @@ function HomePage() {
                   keep the rest running.
                 </p>
               </div>
-              <Link
-                to="/about"
-                className="rd-btn rd-btn-ghost relative cursor-pointer"
-              >
-                About me <ArrowUpRight size={16} />
-              </Link>
+              <Button variant="ghost" size="sm" asChild>
+                <Link
+                  to="/about"
+                  className="relative cursor-pointer no-underline"
+                >
+                  About me <ArrowUpRight size={16} />
+                </Link>
+              </Button>
             </div>
           </Reveal>
         </section>
@@ -365,7 +373,7 @@ function WorkBento() {
             <h3 className="rd-work-name">{item.name}</h3>
             <p className="rd-work-desc">{item.description}</p>
             <div className="rd-work-foot">
-              <span className="rd-chip rd-mono rd-work-tag">{tag}</span>
+              <Badge variant="outline" className="rd-mono text-[10.5px] px-2 py-0">{tag}</Badge>
               <span className="text-[var(--rd-text-4)]">
                 <ArrowUpRight size={15} />
               </span>
@@ -414,9 +422,9 @@ function BlogTeaser() {
           <div
             className="flex items-center gap-[10px] mb-3"
           >
-            <span className="rd-chip rd-mono text-[10.5px]">
+            <Badge variant="outline" className="rd-mono text-[10.5px] px-2 py-0">
               {featuredPost.category}
-            </span>
+            </Badge>
             <span className="rd-mono rd-dim text-xs">
               {formatBlogDate(featuredPost.date)} · {featuredPost.readingTime}{" "}
               min
@@ -438,7 +446,7 @@ function BlogTeaser() {
       </a>
 
       {/* recent posts list */}
-      <div className="rd-card p-0">
+      <Card className="p-0 border-0">
         <div className="rd-rows border-t-0">
           {recentPosts.slice(0, 5).map((post) => (
             <a
@@ -473,15 +481,16 @@ function BlogTeaser() {
             </a>
           ))}
         </div>
-        <a
-          className="rd-btn rd-btn-text inline-flex ml-[22px] mt-1.5 mb-[14px]"
-          href="https://blog.duyet.net"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Browse all {totalPosts} posts &rarr;
-        </a>
-      </div>
+        <Button variant="link" size="sm" asChild className="inline-flex ml-[22px] mt-1.5 mb-[14px]">
+          <a
+            href="https://blog.duyet.net"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Browse all {totalPosts} posts &rarr;
+          </a>
+        </Button>
+      </Card>
     </div>
   );
 }
