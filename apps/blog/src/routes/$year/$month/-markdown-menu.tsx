@@ -26,7 +26,8 @@ function ClaudeIcon({ className }: { className?: string }) {
 export function MarkdownMenu({
   markdownUrl,
   onCopyMarkdown,
-}: MarkdownMenuProps) {
+  dropUp = true,
+}: MarkdownMenuProps & { dropUp?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -116,11 +117,12 @@ export function MarkdownMenu({
       {isOpen && (
         <div
           className={cn(
-            "absolute right-0 bottom-full mb-2 w-72 z-[9999]",
+            "absolute right-0 w-72 z-[9999]",
             "rounded-md border border-border",
             "bg-background",
             "overflow-hidden",
-            "py-1"
+            "py-1",
+            dropUp ? "bottom-full mb-2" : "top-full mt-2"
           )}
         >
           {menuItems.map((item) => {

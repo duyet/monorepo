@@ -11,6 +11,7 @@ import { getPostBySlug, getRelatedPosts, getSeries } from "@/lib/posts";
 import { getSlug } from "@duyet/libs/getSlug";
 import "@/styles/post-reader.css";
 import Content from "./-content";
+import { MarkdownMenuWrapper } from "./-markdown-menu-wrapper";
 import Meta from "./-meta";
 
 export const Route = createFileRoute("/$year/$month/$slug")({
@@ -141,6 +142,15 @@ function PostHero({ post }: { post: LoadedPost }) {
         <span className="rd-mono rd-dim" style={{ fontSize: 12.5 }}>
           {date} {readingTime && `· ${readingTime}`}
         </span>
+        {post.markdown_content && (
+          <div style={{ marginLeft: "auto" }}>
+            <MarkdownMenuWrapper
+              markdownUrl={`${post.slug.replace(/\.html$/, "")}.md`}
+              markdownContent={post.markdown_content}
+              dropUp={false}
+            />
+          </div>
+        )}
       </div>
       <h1
         className="rd-display"

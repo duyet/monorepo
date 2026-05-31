@@ -8,7 +8,8 @@ interface MarkdownMenuWrapperProps {
 export function MarkdownMenuWrapper({
   markdownUrl,
   markdownContent,
-}: MarkdownMenuWrapperProps) {
+  dropUp = true,
+}: MarkdownMenuWrapperProps & { dropUp?: boolean }) {
   const handleCopyMarkdown = async () => {
     try {
       await navigator.clipboard.writeText(markdownContent);
@@ -28,6 +29,7 @@ export function MarkdownMenuWrapper({
     <MarkdownMenu
       markdownUrl={markdownUrl}
       onCopyMarkdown={handleCopyMarkdown}
+      dropUp={dropUp}
     />
   );
 }

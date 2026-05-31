@@ -15,7 +15,6 @@ import "katex/dist/katex.min.css";
 import "@/styles/highlight.css";
 import { mdxComponents } from "@/components/MdxComponents";
 import { OldPostWarning } from "./-old-post-warning";
-import { MarkdownMenuWrapper } from "./-markdown-menu-wrapper";
 import { Snippet } from "./-snippet";
 
 interface ContentPost extends Post {
@@ -81,19 +80,8 @@ function MDXRenderer({ source }: { source: string }) {
 }
 
 export default function Content({ post }: { post: ContentPost }) {
-  const markdownUrl = `${post.slug.replace(/\.html$/, "")}.md`;
-
   return (
     <>
-      {post.markdown_content && (
-        <div className="mb-6 flex justify-end">
-          <MarkdownMenuWrapper
-            markdownUrl={markdownUrl}
-            markdownContent={post.markdown_content}
-          />
-        </div>
-      )}
-
       <OldPostWarning post={post} year={5} className="mb-6" />
 
       {post.isMDX && post.mdxSource ? (
