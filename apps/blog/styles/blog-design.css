@@ -1095,3 +1095,34 @@
     gap: 4px;
   }
 }
+
+/* ── Bento grid (category index) ────────────── */
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1px;
+  background: var(--rd-border-2);
+  border: 1px solid var(--rd-border-2);
+}
+
+.bento-cell {
+  background: var(--rd-surface, var(--background));
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 110px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.bento-cell:hover {
+  background: color-mix(in srgb, var(--rd-text) 3%, var(--rd-surface, var(--background)));
+}
+
+.bento-cell--featured {
+  grid-column: span 2;
+  padding: 28px 24px;
+  min-height: 140px;
+}
