@@ -176,12 +176,12 @@ export const apps: AppItem[] = [
   // ── GitHub-only projects ──────────────────────────────────────────────────
   {
     name: "LLM over DNS",
-    href: "https://github.com/duyet/llm-over-dns",
-    host: "github.com",
+    href: "https://duyet.github.io/llm-over-dns",
+    host: "duyet.github.io",
     utmContent: "llm_over_dns_bento",
     description:
       "Query an LLM directly via DNS TXT records — `dig @llm.duyet.net 'explain quantum computing' TXT +short`",
-    domain: "github.com/duyet/llm-over-dns",
+    domain: "duyet.github.io/llm-over-dns",
     iconName: "Terminal",
   },
   {
