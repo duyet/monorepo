@@ -120,7 +120,18 @@ function PostHero({ post }: { post: LoadedPost }) {
 
   return (
     <header className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-6">
-      <div style={{ display: "flex", gap: 10, alignItems: "center", marginTop: 18, flexWrap: "wrap" }}>
+      <h1
+        className="rd-display text-center"
+        style={{
+          fontSize: "clamp(2.1rem, 4.4vw, 3.2rem)",
+          lineHeight: 1.04,
+          letterSpacing: "-0.04em",
+          fontWeight: 600,
+        }}
+      >
+        {post.title}
+      </h1>
+      <div style={{ display: "flex", gap: 10, alignItems: "center", justifyContent: "center", marginTop: 12, flexWrap: "wrap" }}>
         <span className="rd-chip rd-mono" style={{ fontSize: 10.5 }}>
           {post.category}
         </span>
@@ -128,7 +139,7 @@ function PostHero({ post }: { post: LoadedPost }) {
           {date} {readingTime && `· ${readingTime}`}
         </span>
         {post.markdown_content && (
-          <div style={{ marginLeft: "auto" }}>
+          <div>
             <MarkdownMenuWrapper
               markdownUrl={`${post.slug.replace(/\.html$/, "")}.md`}
               markdownContent={post.markdown_content}
@@ -137,18 +148,6 @@ function PostHero({ post }: { post: LoadedPost }) {
           </div>
         )}
       </div>
-      <h1
-        className="rd-display"
-        style={{
-          fontSize: "clamp(2.1rem, 4.4vw, 3.2rem)",
-          marginTop: 18,
-          lineHeight: 1.04,
-          letterSpacing: "-0.04em",
-          fontWeight: 600,
-        }}
-      >
-        {post.title}
-      </h1>
 
       {/* Hero image */}
       {post.thumbnail && (
