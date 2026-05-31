@@ -4,7 +4,7 @@ import type { TOCItem } from "@duyet/libs/extractHeadings";
 import { extractHeadings } from "@duyet/libs/extractHeadings";
 import { markdownToHtml } from "@duyet/libs/markdownToHtml";
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Link2 } from "lucide-react";
+import { ArrowLeft, Link2 } from "lucide-react";
 import { SeriesBox } from "@/components/layout/SeriesBox";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
 import { getPostBySlug, getRelatedPosts, getSeries } from "@/lib/posts";
@@ -155,8 +155,8 @@ function PostHero({ post }: { post: LoadedPost }) {
         {post.title}
       </h1>
 
-      {/* Hero: post thumbnail when available, terminal block as fallback */}
-      {post.thumbnail ? (
+      {/* Hero image */}
+      {post.thumbnail && (
         <img
           src={post.thumbnail}
           alt={post.title}
@@ -169,73 +169,8 @@ function PostHero({ post }: { post: LoadedPost }) {
             borderRadius: "var(--rd-r)",
           }}
         />
-      ) : (
-        <div className="rd-card" style={{ overflow: "hidden", marginBottom: 30, marginTop: 30 }}>
-          <div className="rd-termblock" style={{ padding: "24px 26px" }}>
-            <div className="rd-term-dots">
-              <i />
-              <i />
-              <i />
-            </div>
-            <div className="rd-mono" style={{ marginTop: 18, fontSize: 20, color: "var(--rd-accent)" }}>
-              <span style={{ opacity: 0.55 }}>$</span> npm i {post.category_slug || getSlug(post.category)}
-              <span className="rd-caret" />
-            </div>
-          </div>
-        </div>
       )}
     </header>
-  );
-}
-
-function RelatedPostCard({ post }: { post: Post }) {
-  const [, year, month, slug] = post.slug.split("/");
-  const readingTime = post.readingTime
-    ? formatReadingTime(post.readingTime)
-    : null;
-
-  return (
-    <Link
-      to="/$year/$month/$slug/"
-      params={{ year, month, slug }}
-      className="rd-card rd-card-hover rd-card-pad"
-      style={{
-        cursor: "pointer",
-        display: "flex",
-        flexDirection: "column",
-        minHeight: 170,
-        height: "100%",
-        textDecoration: "none",
-      }}
-    >
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <span className="rd-chip rd-mono" style={{ fontSize: 10.5 }}>
-          {post.category}
-        </span>
-        <span className="rd-mono rd-dim" style={{ fontSize: 11.5 }}>
-          {readingTime}
-        </span>
-      </div>
-      <h3
-        style={{
-          fontSize: "1.18rem",
-          letterSpacing: "-0.03em",
-          marginTop: 16,
-          color: "var(--rd-text)",
-          fontWeight: 600,
-        }}
-      >
-        {post.title}
-      </h3>
-      {post.excerpt && (
-        <p className="rd-muted" style={{ fontSize: 13.5, marginTop: 9, lineHeight: 1.5, flex: 1 }}>
-          {post.excerpt}
-        </p>
-      )}
-      <span className="rd-rowarrow" style={{ alignSelf: "flex-end", marginTop: 12, color: "var(--rd-text-3)" }}>
-        <ArrowUpRight size={15} />
-      </span>
-    </Link>
   );
 }
 
@@ -307,50 +242,50 @@ function PostPage() {
         </div>
       </div>
 
-      {/* Author bio strip */}
-      <div className="border-t pt-8 mt-16">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <img
-              src="https://github.com/duyet.png"
-              alt="Duyet Le"
-              className="h-12 w-12 rounded-full border bg-muted"
-            />
-            <div>
-              <p className="text-sm font-medium">Duyet Le</p>
-              <p className="text-xs text-muted-foreground">
-                Founder @ duyet.net
-              </p>
-            </div>
-          </div>
+      {/* Author + share */}
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-8 mt-16" style={{ borderTop: "1px solid var(--rd-border)" }}>
+        <div className="flex items-center justify-between">
+          <p className="text-sm" style={{ color: "var(--rd-text-3)" }}>
+            Duyet Le
+          </p>
           <ShareButton />
         </div>
       </div>
 
       {/* Related articles */}
       {related.length > 0 && (
-        <section className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 mt-20 mb-24">
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                CONTINUE READING
-              </p>
-              <h2 className="mt-2 text-2xl md:text-3xl font-semibold tracking-tight">
-                Related articles
-              </h2>
-            </div>
-            <a
-              href="/"
-              className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              View all articles <ArrowRight className="h-4 w-4" />
-            </a>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {related.map((relPost) => (
-              <RelatedPostCard key={relPost.slug} post={relPost} />
-            ))}
-          </div>
+        <section className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 mt-16 mb-24">
+          <p className="rd-mono rd-dim" style={{ fontSize: 11, marginBottom: 16 }}>
+            Related
+          </p>
+          <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 12 }}>
+            {related.map((relPost) => {
+              const [, year, month, slug] = relPost.slug.split("/");
+              return (
+                <li key={relPost.slug}>
+                  <Link
+                    to="/$year/$month/$slug/"
+                    params={{ year, month, slug }}
+                    style={{
+                      textDecoration: "none",
+                      display: "flex",
+                      alignItems: "baseline",
+                      gap: 10,
+                      color: "var(--rd-text)",
+                      fontSize: 15,
+                    }}
+                  >
+                    <span className="rd-mono rd-dim" style={{ fontSize: 12, whiteSpace: "nowrap" }}>
+                      {new Date(relPost.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                    </span>
+                    <span style={{ fontWeight: 500 }}>
+                      {relPost.title}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
         </section>
       )}
     </div>
