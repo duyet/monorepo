@@ -48,6 +48,7 @@ export const Route = createRootRoute({
 });
 
 const homeLocalNav = [
+  { label: "Home", href: "/" },
   { label: "Projects", href: "/projects" },
   { label: "About", href: "/about" },
 ];

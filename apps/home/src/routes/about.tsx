@@ -207,15 +207,17 @@ function AboutPage() {
         <div className="rd-card rd-card-pad" style={{ padding: "clamp(28px,4vw,52px)" }}>
           <Eyebrow>About</Eyebrow>
           <h1
+            className="rd-display"
             style={{
-              fontSize: "clamp(2rem,4.4vw,3.3rem)",
-              letterSpacing: "-0.04em",
-              lineHeight: 1.04,
-              marginTop: 18,
-              maxWidth: "18ch",
+              marginTop: 13,
+              maxWidth: "17ch",
+              fontSize: "clamp(2.05rem, 4.2vw, 3.3rem)",
+              lineHeight: 1.02,
             }}
           >
-            I build data platforms, and the AI agents that run on top of them.
+            I build data platforms, and the{" "}
+            <span style={{ color: "var(--rd-accent)" }}>AI agents</span>{" "}
+            that run on top of them.
           </h1>
           <p
             className="rd-lead"
