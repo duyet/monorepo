@@ -500,21 +500,25 @@ function BlogTeaser() {
 // ---------------------------------------------------------------------------
 
 function HeroDiagram() {
-  const cx = 210, cy = 190;
+  const cx = 260, cy = 220;
 
   // Nodes grouped by category at different orbital distances
   const nodes = [
-    // AI — inner orbit (r≈80)
-    { t: "Claude", kind: "ai", slug: "claude", a: 290, orbit: 78 },
-    { t: "LangGraph", kind: "ai", slug: "langchain", a: 225, orbit: 82 },
-    // Data — middle orbit (r≈132)
-    { t: "ClickHouse", kind: "data", slug: "clickhouse", lc: "C28800", a: 188, orbit: 134 },
-    { t: "Kafka", kind: "data", slug: "apachekafka", lc: "222222", a: 248, orbit: 128 },
-    { t: "Airflow", kind: "data", slug: "apacheairflow", a: 318, orbit: 138 },
-    { t: "Spark", kind: "data", slug: "apachespark", a: 155, orbit: 132 },
-    // Infra — outer orbit (r≈170)
-    { t: "Kubernetes", kind: "infra", slug: "kubernetes", a: 72, orbit: 170 },
-    { t: "Cloudflare", kind: "infra", slug: "cloudflare", a: 20, orbit: 168 },
+    // AI — inner orbit (r≈82)
+    { t: "Claude", kind: "ai", slug: "anthropic", a: 310, orbit: 78 },
+    { t: "LangGraph", kind: "ai", slug: "langchain", a: 215, orbit: 82 },
+    { t: "AI SDK", kind: "ai", slug: "vercel", a: 130, orbit: 80 },
+    { t: "OpenCode", kind: "ai", slug: "opencode", a: 40, orbit: 85 },
+    // Data — middle orbit (r≈140)
+    { t: "ClickHouse", kind: "data", slug: "clickhouse", lc: "C28800", a: 190, orbit: 142 },
+    { t: "DuckDB", kind: "data", slug: "duckdb", a: 260, orbit: 138 },
+    { t: "Kafka", kind: "data", slug: "apachekafka", lc: "231F20", a: 325, orbit: 140 },
+    { t: "Airflow", kind: "data", slug: "apacheairflow", a: 20, orbit: 138 },
+    { t: "Spark", kind: "data", slug: "apachespark", a: 130, orbit: 136 },
+    // Infra — outer orbit (r≈190)
+    { t: "Kubernetes", kind: "infra", slug: "kubernetes", a: 95, orbit: 190 },
+    { t: "Cloudflare", kind: "infra", slug: "cloudflare", a: 25, orbit: 188 },
+    { t: "Workers", kind: "infra", slug: "cloudflareworkers", a: 160, orbit: 190 },
   ];
 
   const kindColor = { ai: "var(--rd-accent)", data: "var(--rd-text)", infra: "var(--rd-text-3)" };
@@ -532,7 +536,6 @@ function HeroDiagram() {
     const [px, py] = pos(a, orbit);
     const midR = orbit * 0.5;
     const rad = (a * Math.PI) / 180;
-    // Perpendicular offset for a gentle curve
     const offset = 18;
     const cpx = cx + midR * Math.cos(rad) + offset * Math.sin(rad);
     const cpy = cy + midR * Math.sin(rad) - offset * Math.cos(rad);
@@ -541,28 +544,28 @@ function HeroDiagram() {
 
   return (
     <div className="rd-hero-art" aria-hidden="true">
-      <svg viewBox="0 0 420 380" preserveAspectRatio="xMidYMid meet">
+      <svg viewBox="0 0 520 440" preserveAspectRatio="xMidYMid meet">
         <defs>
-          {/* Radial glow behind core */}
           <radialGradient id="hd-glow" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="var(--rd-accent)" stopOpacity="0.18" />
             <stop offset="50%" stopColor="var(--rd-accent)" stopOpacity="0.04" />
             <stop offset="100%" stopColor="var(--rd-accent)" stopOpacity="0" />
           </radialGradient>
+          <style>{`.hd-id{display:none}.dark .hd-id{display:inline}.dark .hd-il{display:none}`}</style>
         </defs>
 
         {/* Background glow */}
-        <circle cx={cx} cy={cy} r="185" fill="url(#hd-glow)" />
+        <circle cx={cx} cy={cy} r="200" fill="url(#hd-glow)" />
 
-        {/* Orbit guides — one per category */}
-        <circle cx={cx} cy={cy} r="80" fill="none" stroke="var(--rd-border-2)" strokeWidth="0.6" strokeDasharray="2 6" opacity="0.5" />
-        <circle cx={cx} cy={cy} r="133" fill="none" stroke="var(--rd-border-2)" strokeWidth="0.6" strokeDasharray="2 6" opacity="0.4" />
-        <circle cx={cx} cy={cy} r="170" fill="none" stroke="var(--rd-border-2)" strokeWidth="0.6" strokeDasharray="2 6" opacity="0.3" />
+        {/* Orbit guides */}
+        <circle cx={cx} cy={cy} r="82" fill="none" stroke="var(--rd-border-2)" strokeWidth="0.6" strokeDasharray="2 6" opacity="0.5" />
+        <circle cx={cx} cy={cy} r="140" fill="none" stroke="var(--rd-border-2)" strokeWidth="0.6" strokeDasharray="2 6" opacity="0.4" />
+        <circle cx={cx} cy={cy} r="190" fill="none" stroke="var(--rd-border-2)" strokeWidth="0.6" strokeDasharray="2 6" opacity="0.3" />
 
         {/* Orbit ring labels */}
-        <text x={cx + 80 + 6} y={cy - 4} className="rd-mono" style={{ fontSize: 7.5, fill: "var(--rd-accent-ink)", opacity: 0.5, letterSpacing: "0.08em" }}>AI</text>
-        <text x={cx + 133 + 6} y={cy - 4} className="rd-mono" style={{ fontSize: 7.5, fill: "var(--rd-text-3)", opacity: 0.4, letterSpacing: "0.08em" }}>DATA</text>
-        <text x={cx + 170 + 6} y={cy - 4} className="rd-mono" style={{ fontSize: 7.5, fill: "var(--rd-text-3)", opacity: 0.3, letterSpacing: "0.08em" }}>INFRA</text>
+        <text x={cx + 82 + 6} y={cy - 4} className="rd-mono" style={{ fontSize: 7.5, fill: "var(--rd-accent-ink)", opacity: 0.5, letterSpacing: "0.08em" }}>AI</text>
+        <text x={cx + 140 + 6} y={cy - 4} className="rd-mono" style={{ fontSize: 7.5, fill: "var(--rd-text-3)", opacity: 0.4, letterSpacing: "0.08em" }}>DATA</text>
+        <text x={cx + 190 + 6} y={cy - 4} className="rd-mono" style={{ fontSize: 7.5, fill: "var(--rd-text-3)", opacity: 0.3, letterSpacing: "0.08em" }}>INFRA</text>
 
         {/* Curved connections */}
         {nodes.map((n, i) => {
@@ -583,39 +586,18 @@ function HeroDiagram() {
           );
         })}
 
-        {/* Node endpoint dots at orbit intersection */}
+        {/* Tech pills with logos */}
         {nodes.map((n, i) => {
           const [px, py] = pos(n.a, n.orbit);
-          return (
-            <circle
-              key={`d${i}`}
-              cx={px}
-              cy={py}
-              r="2.4"
-              fill={kindColor[n.kind as keyof typeof kindColor]}
-              opacity={n.kind === "ai" ? 0.9 : 0.5}
-            />
-          );
-        })}
-
-        {/* Tech pills */}
-        {nodes.map((n, i) => {
-          const [px, py] = pos(n.a, n.orbit);
-          const w = n.t.length * 6.5 + 46, h = 26;
+          const w = n.t.length * 6.5 + 40, h = 24;
           const x0 = px - w / 2;
           return (
             <g key={`p${i}`}>
-              <rect x={x0} y={py - h / 2} width={w} height={h} rx="13" fill="var(--rd-surface)" stroke="var(--rd-border-2)" strokeWidth="1.1" />
-              {/* Category indicator dot */}
-              <circle
-                cx={x0 + 12}
-                cy={py}
-                r="3"
-                fill={kindColor[n.kind as keyof typeof kindColor]}
-                opacity={n.kind === "ai" ? 0.8 : 0.4}
-              />
+              <rect x={x0} y={py - h / 2} width={w} height={h} rx="12" fill="var(--rd-surface)" stroke="var(--rd-border-2)" strokeWidth="1.1" />
+              <image href={_lite(n)} x={x0 + 7} y={py - 5} width={10} height={10} className="hd-il" />
+              <image href={_dark(n)} x={x0 + 7} y={py - 5} width={10} height={10} className="hd-id" />
               <text
-                x={x0 + 22}
+                x={x0 + 21}
                 y={py + 3.5}
                 className="rd-chip"
                 style={{ fontSize: 10.5, fontVariantNumeric: "tabular-nums", fill: n.kind === "ai" ? "var(--rd-accent-ink)" : "var(--rd-text-2)" }}
@@ -626,25 +608,13 @@ function HeroDiagram() {
           );
         })}
 
-        {/* Agent core */}
+        {/* Agent core (visual only, no label) */}
         <circle cx={cx} cy={cy} r="36" fill="none" stroke="var(--rd-accent)" strokeWidth="1.3" className="rd-hd-ring" />
         <circle cx={cx} cy={cy} r="25" fill="var(--rd-accent)" />
-        {/* Crosshair */}
         <line x1={cx - 7} y1={cy} x2={cx + 7} y2={cy} stroke="#fff" strokeWidth="0.8" opacity="0.5" />
         <line x1={cx} y1={cy - 7} x2={cx} y2={cy + 7} stroke="#fff" strokeWidth="0.8" opacity="0.5" />
-        {/* Inner ring */}
         <circle cx={cx} cy={cy} r="10" fill="none" stroke="#fff" strokeWidth="1.4" opacity="0.85" />
         <circle cx={cx} cy={cy} r="3" fill="#fff" className="rd-hd-pulse" />
-        {/* Core label */}
-        <text
-          x={cx}
-          y={cy + 54}
-          textAnchor="middle"
-          className="rd-mono"
-          style={{ fontSize: 9, fill: "var(--rd-accent-ink)", letterSpacing: "0.1em", textTransform: "uppercase" }}
-        >
-          agent core
-        </text>
       </svg>
     </div>
   );
