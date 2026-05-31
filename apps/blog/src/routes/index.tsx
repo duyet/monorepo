@@ -258,28 +258,18 @@ function CategoryBentoTile({
   onSelect: () => void;
 }) {
   const Ic = getCategoryIcon(name);
-  const meterPct = Math.round((count / maxCount) * 100);
 
   return (
     <button
       type="button"
-      className="rd-card rd-card-hover rd-card-pad"
+      className="rd-card rd-card-hover flex items-center gap-3 text-left cursor-pointer px-4 py-3"
       onClick={onSelect}
-      style={{ textAlign: "left", display: "flex", flexDirection: "column", gap: 6 }}
     >
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <span className="rd-cat-ic">
-          <Ic size={16} />
-        </span>
-        <span className="rd-rowarrow">
-          <ArrowUpRight size={14} />
-        </span>
-      </div>
-      <div style={{ fontWeight: 600, marginTop: 6, fontSize: 15 }}>{name}</div>
-      <div className="rd-cat-meter">
-        <i style={{ width: `${meterPct}%` }} />
-      </div>
-      <div className="rd-mono rd-dim" style={{ fontSize: 11 }}>{count} posts</div>
+      <span className="rd-cat-ic">
+        <Ic size={15} />
+      </span>
+      <span className="font-semibold text-sm tracking-[-0.01em]">{name}</span>
+      <span className="rd-mono rd-dim text-[11px] ml-auto">{count}</span>
     </button>
   );
 }
@@ -408,7 +398,7 @@ function HomePage(): ReactElement {
       {/* ── Browse by category — compact grid ─────────────────────── */}
       <section id="topics" className="rd-wrap rd-section-tight">
         <SecHead eyebrow="Topics" title="Browse by category" />
-        <div className="rd-g4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
           {categories.map((cat) => (
             <CategoryBentoTile
               key={cat.name}
