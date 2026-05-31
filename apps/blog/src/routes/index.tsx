@@ -279,14 +279,12 @@ function HomePage(): ReactElement {
   // Category filter state
   const [activeCategory, setActiveCategory] = useState("All");
 
-  // Filtered posts for the list (exclude featured from the top)
+  // Filtered posts for the list
   const filteredPosts = useMemo(() => {
-    const posts =
-      activeCategory === "All"
-        ? allPosts
-        : allPosts.filter((p) => p.category === activeCategory);
-    return posts.filter((p) => p.slug !== featured?.slug);
-  }, [allPosts, activeCategory, featured?.slug]);
+    return activeCategory === "All"
+      ? allPosts
+      : allPosts.filter((p) => p.category === activeCategory);
+  }, [allPosts, activeCategory]);
 
   return (
     <div>
@@ -404,7 +402,7 @@ function HomePage(): ReactElement {
                 to="/$year/$month/$slug/"
                 params={postParams(post)}
                 className="rd-row cursor-pointer no-underline text-inherit"
-                style={{ gridTemplateColumns: "52px 1fr auto auto" }}
+                style={{ gridTemplateColumns: "52px 1fr minmax(0, 1fr) auto auto" }}
               >
                 <span
                   className="rd-mono text-base font-bold leading-none"
@@ -415,7 +413,13 @@ function HomePage(): ReactElement {
                 <span className="font-[550] text-[clamp(14px,1.4vw,16px)] tracking-tight truncate">
                   {post.title}
                 </span>
-                <span className="rd-tag-pill text-[10.5px] !py-[1px] !px-1.5">
+                {post.excerpt && (
+                  <span className="rd-muted text-[13px] truncate">
+                    {post.excerpt}
+                  </span>
+                )}
+                {!post.excerpt && <span />}
+                <span className="rd-tag-pill text-[10.5px] !py-[1px] !px-1.5 shrink-0">
                   {post.category}
                 </span>
                 <span className="rd-mono rd-dim text-[11px] w-[64px] text-right shrink-0">
