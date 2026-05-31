@@ -3,8 +3,7 @@ import {
   Reveal,
   SecHead,
 } from "@duyet/components";
-import type { Post, Series } from "@duyet/interfaces";
-import { getSlug } from "@duyet/libs/getSlug";
+import type { Post } from "@duyet/interfaces";
 import { dateFormat } from "@duyet/libs/date";
 import {
   ArrowRight,
@@ -16,7 +15,6 @@ import {
   Database,
   FolderKanban,
   GitBranch,
-  Layers,
   Newspaper,
   Server,
   Wrench,
@@ -25,8 +23,6 @@ import {
 import { useMemo, useState, type ReactElement } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
-  getAllSeries,
-  getAllTags,
   getPostsByAllYear,
 } from "@/lib/posts";
 import { getShortforms } from "@/lib/shortforms";
@@ -36,13 +32,11 @@ import { getShortforms } from "@/lib/shortforms";
 // ---------------------------------------------------------------------------
 export const Route = createFileRoute("/")({
   loader: async () => {
-    const [postsByYear, shortforms, allTags, allSeries] = await Promise.all([
+    const [postsByYear, shortforms] = await Promise.all([
       getPostsByAllYear(),
       Promise.resolve(getShortforms(3)),
-      getAllTags(),
-      getAllSeries(),
     ]);
-    return { postsByYear, shortforms, allTags, allSeries };
+    return { postsByYear, shortforms };
   },
   component: HomePage,
 });
@@ -85,6 +79,25 @@ const CATEGORY_ICONS: Record<string, typeof Database> = {
 
 function getCategoryIcon(category: string) {
   return CATEGORY_ICONS[category] ?? BookOpen;
+}
+
+// Distinct color per year — cycles through a curated palette
+const YEAR_COLORS = [
+  "var(--rd-accent)",     // orange
+  "#6366f1",              // indigo
+  "#0ea5e9",              // sky
+  "#8b5cf6",              // violet
+  "#10b981",              // emerald
+  "#f59e0b",              // amber
+  "#ec4899",              // pink
+  "#14b8a6",              // teal
+  "#ef4444",              // red
+  "#84cc16",              // lime
+];
+
+function yearColor(year: number): string {
+  const idx = (year - 2015) % YEAR_COLORS.length;
+  return YEAR_COLORS[Math.abs(idx)] ?? YEAR_COLORS[0];
 }
 
 // ---------------------------------------------------------------------------
@@ -237,123 +250,37 @@ function CategoryBentoTile({
   name,
   count,
   maxCount,
-  samplePosts,
-  isFeatured,
-  isWide,
   onSelect,
 }: {
   name: string;
   count: number;
   maxCount: number;
-  samplePosts: Post[];
-  isFeatured: boolean;
-  isWide: boolean;
   onSelect: () => void;
 }) {
   const Ic = getCategoryIcon(name);
   const meterPct = Math.round((count / maxCount) * 100);
-  const tileClass = [
-    "rd-card rd-card-hover rd-card-pad rd-cat-tile",
-    isFeatured ? "rd-feat" : "",
-    isWide ? "rd-wide" : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
 
   return (
     <button
       type="button"
-      className={tileClass}
+      className="rd-card rd-card-hover rd-card-pad"
       onClick={onSelect}
-      style={{ textAlign: "left" }}
+      style={{ textAlign: "left", display: "flex", flexDirection: "column", gap: 6 }}
     >
-      <div className="rd-cat-head">
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <span className="rd-cat-ic">
-          <Ic size={isFeatured ? 22 : 18} />
+          <Ic size={16} />
         </span>
         <span className="rd-rowarrow">
           <ArrowUpRight size={14} />
         </span>
       </div>
-
-      <div
-        className="rd-bigstat"
-        style={{ marginTop: isFeatured ? 20 : 14 }}
-      >
-        {count}
-      </div>
-      <div style={{ fontWeight: 600, marginTop: 3 }}>{name}</div>
-
-      {/* Proportional meter */}
-      <div className="rd-cat-meter" style={{ marginTop: 14 }}>
+      <div style={{ fontWeight: 600, marginTop: 6, fontSize: 15 }}>{name}</div>
+      <div className="rd-cat-meter">
         <i style={{ width: `${meterPct}%` }} />
       </div>
-
-      {/* Sample post links — only for featured + wide tiles */}
-      {(isFeatured || isWide) && samplePosts.length > 0 && (
-        <div className="rd-cat-sample">
-          {samplePosts.map((p) => (
-            <Link
-              key={p.slug}
-              to="/$year/$month/$slug/"
-              params={postParams(p)}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <span className="rd-dot" />
-              {p.title}
-            </Link>
-          ))}
-        </div>
-      )}
+      <div className="rd-mono rd-dim" style={{ fontSize: 11 }}>{count} posts</div>
     </button>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Series card
-// ---------------------------------------------------------------------------
-function SeriesCard({ series }: { series: Series }) {
-  const sorted = [...series.posts].sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
-  );
-  const preview = sorted.slice(0, 3);
-
-  return (
-    <Link
-      to="/series/$slug/"
-      params={{ slug: series.slug }}
-      className="rd-card rd-card-hover rd-series-card"
-      style={{ textDecoration: "none", color: "inherit" }}
-    >
-      <div className="rd-sc-top">
-        <div className="rd-sc-ic">
-          <Layers size={20} />
-        </div>
-        <div className="rd-sc-meta">
-          <div className="rd-sc-name">{series.name}</div>
-          <div className="rd-sc-count">
-            {series.posts.length}{" "}
-            {series.posts.length === 1 ? "post" : "posts"}
-          </div>
-        </div>
-      </div>
-
-      {preview.length > 0 && (
-        <div className="rd-sc-list">
-          {preview.map((p, i) => (
-            <Link
-              key={p.slug}
-              to="/$year/$month/$slug/"
-              params={postParams(p)}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <span className="rd-sn">{String(i + 1).padStart(2, "0")}</span>
-              {p.title}
-            </Link>
-          ))}
-        </div>
-      )}
-    </Link>
   );
 }
 
@@ -361,7 +288,7 @@ function SeriesCard({ series }: { series: Series }) {
 // Home page
 // ---------------------------------------------------------------------------
 function HomePage(): ReactElement {
-  const { postsByYear, allTags, allSeries } = Route.useLoaderData();
+  const { postsByYear } = Route.useLoaderData();
 
   const years = useMemo(
     () =>
@@ -395,42 +322,12 @@ function HomePage(): ReactElement {
       .map(([name, count]) => ({ name, count }));
   }, [allPosts]);
 
-  // Per-category sample posts (latest 2)
-  const categorySamples = useMemo(() => {
-    const map: Record<string, Post[]> = {};
-    for (const { name } of categories) {
-      map[name] = allPosts
-        .filter((p) => p.category === name)
-        .slice(0, 2);
-    }
-    return map;
-  }, [allPosts, categories]);
-
   const maxCatCount = categories[0]?.count ?? 1;
 
   // Stats
   const totalPosts = allPosts.length;
   const totalYears = years.length;
   const sinceYear = years[years.length - 1];
-
-  // Top tags for cloud (max 30 by count)
-  const topTags = useMemo(
-    () =>
-      Object.entries(allTags)
-        .sort(([, a], [, b]) => b - a)
-        .slice(0, 30),
-    [allTags],
-  );
-
-  // Series with at least 2 posts, sorted by count desc
-  const featuredSeries = useMemo(
-    () =>
-      [...allSeries]
-        .filter((s) => s.posts.length >= 2)
-        .sort((a, b) => b.posts.length - a.posts.length)
-        .slice(0, 4),
-    [allSeries],
-  );
 
   // Category filter state
   const [activeCategory, setActiveCategory] = useState("All");
@@ -490,13 +387,9 @@ function HomePage(): ReactElement {
             years
           </span>
           <span>since {sinceYear}</span>
-          <Link
-            to="/archives/"
-            className="rd-ulink"
-            style={{ cursor: "pointer" }}
-          >
-            full archive &rarr;
-          </Link>
+          <Link to="/archives/" className="rd-ulink" style={{ cursor: "pointer" }}>archive</Link>
+          <Link to="/series/" className="rd-ulink" style={{ cursor: "pointer" }}>series</Link>
+          <Link to="/tags/" className="rd-ulink" style={{ cursor: "pointer" }}>tags</Link>
         </div>
       </section>
 
@@ -512,19 +405,16 @@ function HomePage(): ReactElement {
         </section>
       )}
 
-      {/* ── Browse by category — bento grid ─────────────────────────── */}
+      {/* ── Browse by category — compact grid ─────────────────────── */}
       <section id="topics" className="rd-wrap rd-section-tight">
-        <SecHead num="—" eyebrow="Topics" title="Browse by category" />
-        <div className="rd-cat-bento">
-          {categories.map((cat, i) => (
+        <SecHead eyebrow="Topics" title="Browse by category" />
+        <div className="rd-g4">
+          {categories.map((cat) => (
             <CategoryBentoTile
               key={cat.name}
               name={cat.name}
               count={cat.count}
               maxCount={maxCatCount}
-              samplePosts={categorySamples[cat.name] ?? []}
-              isFeatured={i === 0}
-              isWide={i === 1}
               onSelect={() => {
                 setActiveCategory(cat.name);
                 setTimeout(() => {
@@ -538,45 +428,6 @@ function HomePage(): ReactElement {
         </div>
       </section>
 
-      {/* ── Series ───────────────────────────────────────────────────── */}
-      {featuredSeries.length > 0 && (
-        <section className="rd-wrap rd-section-tight">
-          <SecHead num="—" eyebrow="Reading paths" title="Series" />
-          <div className="rd-series-grid">
-            {featuredSeries.map((s) => (
-              <SeriesCard key={s.slug} series={s} />
-            ))}
-          </div>
-          <Link
-            to="/series/"
-            className="rd-btn rd-btn-ghost"
-            style={{ marginTop: 20 }}
-          >
-            All series <ArrowRight size={16} />
-          </Link>
-        </section>
-      )}
-
-      {/* ── Tag cloud ────────────────────────────────────────────────── */}
-      {topTags.length > 0 && (
-        <section className="rd-wrap rd-section-tight">
-          <SecHead num="—" eyebrow="Index" title="Tags" />
-          <div className="rd-tag-cloud">
-            {topTags.map(([tag, count]) => (
-              <Link
-                key={tag}
-                to="/tag/$tag/"
-                params={{ tag: getSlug(tag) }}
-                className="rd-tag-pill"
-              >
-                <span className="rd-hash">#</span>
-                {tag}
-                <span className="rd-tc">{count}</span>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
 
       {/* ── Recent posts ─────────────────────────────────────────────── */}
       <section
@@ -634,8 +485,8 @@ function HomePage(): ReactElement {
               }}
             >
               <span
-                className="rd-mono rd-dim"
-                style={{ fontSize: 12.5, width: 46 }}
+                className="rd-mono"
+                style={{ fontSize: 12.5, width: 46, color: yearColor(new Date(post.date).getFullYear()) }}
               >
                 {new Date(post.date).getFullYear()}
               </span>
