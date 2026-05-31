@@ -189,67 +189,32 @@ function StackGroupIcon({ icon }: { icon: string }) {
 
 function AboutPage() {
   return (
-    <div
-      className="page-enter"
-      style={{
-        background: "var(--rd-bg)",
-        color: "var(--rd-text)",
-      }}
-    >
-      <div
-        className="rd-wrap"
-        style={{
-          paddingTop: "clamp(40px,5vw,64px)",
-          paddingBottom: "clamp(56px,8vw,96px)",
-        }}
-      >
+    <div className="page-enter bg-[var(--rd-bg)] text-[var(--rd-text)]">
+      <div className="rd-wrap pt-[clamp(40px,5vw,64px)] pb-[clamp(56px,8vw,96px)]">
         {/* Intro block */}
-        <div className="rd-card rd-card-pad" style={{ padding: "clamp(28px,4vw,52px)" }}>
+        <div className="rd-card rd-card-pad p-[clamp(28px,4vw,52px)]">
           <Eyebrow>About</Eyebrow>
-          <h1
-            className="rd-display"
-            style={{
-              marginTop: 13,
-              maxWidth: "17ch",
-              fontSize: "clamp(2.05rem, 4.2vw, 3.3rem)",
-              lineHeight: 1.02,
-            }}
-          >
+          <h1 className="rd-display mt-[13px] max-w-[17ch] text-[clamp(2.05rem,4.2vw,3.3rem)] leading-[1.02]">
             I build data platforms, and the{" "}
-            <span style={{ color: "var(--rd-accent)" }}>AI agents</span>{" "}
+            <span className="text-[var(--rd-accent)]">AI agents</span>{" "}
             that run on top of them.
           </h1>
-          <p
-            className="rd-lead"
-            style={{
-              marginTop: 24,
-              maxWidth: "60ch",
-              fontSize: "clamp(1.05rem,1.5vw,1.22rem)",
-            }}
-          >
+          <p className="rd-lead mt-6 max-w-[60ch] text-[clamp(1.05rem,1.5vw,1.22rem)]">
             I care about systems that are easy to operate, easy to explain, and
             boring in the places where reliability matters. Most of my work sits
             where data products, AI tooling, and engineering platforms meet —
             and most of it ends up open source.
           </p>
-          <div className="rd-g4" style={{ marginTop: 34, gap: 10 }}>
+          <div className="rd-g4 mt-[34px] gap-[10px]">
             {facts.map((f) => (
               <div
                 key={f.label}
-                className="rd-card rd-card-pad"
-                style={{ background: "var(--rd-bg-sub)", padding: "16px 18px" }}
+                className="rd-card rd-card-pad bg-[var(--rd-bg-sub)] px-[18px] py-4"
               >
-                <div className="rd-eyebrow" style={{ fontSize: 10 }}>
+                <div className="rd-eyebrow text-[10px]">
                   {f.label}
                 </div>
-                <div
-                  style={{
-                    fontWeight: 600,
-                    fontSize: 16,
-                    marginTop: 8,
-                    letterSpacing: "-0.02em",
-                  }}
-                >
+                <div className="mt-2 text-[16px] font-semibold tracking-[-0.02em]">
                   {f.value}
                 </div>
               </div>
@@ -258,22 +223,14 @@ function AboutPage() {
         </div>
 
         {/* Vibe-coding bento + agents */}
-        <div className="rd-vibe-bento" style={{ marginTop: 12 }}>
+        <div className="rd-vibe-bento mt-3">
           {/* Left: vibe-coding lead card */}
           <div className="rd-card rd-vibe-lead">
             <div className="rd-vibe-badge">
               <Flame size={12} />
               Deep in vibe-coding mode
             </div>
-            <p
-              style={{
-                marginTop: 20,
-                fontSize: "clamp(0.95rem,1.3vw,1.08rem)",
-                lineHeight: 1.6,
-                color: "var(--rd-text-2)",
-                maxWidth: "40ch",
-              }}
-            >
+            <p className="mt-5 max-w-[40ch] text-[clamp(0.95rem,1.3vw,1.08rem)] leading-[1.6] text-[var(--rd-text-2)]">
               These days most of what ships here is written alongside coding
               agents, with me steering. I describe intent, review diffs, and
               keep the architecture honest — the agents do the typing, the
@@ -283,7 +240,7 @@ function AboutPage() {
               <div className="rd-bigstat">
                 1.24<span className="rd-unit">B</span>
               </div>
-              <span className="rd-mono rd-dim" style={{ fontSize: 12 }}>
+              <span className="rd-mono rd-dim text-xs">
                 tokens burned all-time
               </span>
             </div>
@@ -307,81 +264,41 @@ function AboutPage() {
         </div>
 
         {/* Focus + Stack */}
-        <div className="rd-g2" style={{ marginTop: 12 }}>
-          <div
-            className="rd-card rd-card-pad"
-            style={{ padding: "clamp(24px,3vw,34px)" }}
-          >
+        <div className="rd-g2 mt-3">
+          <div className="rd-card rd-card-pad p-[clamp(24px,3vw,34px)]">
             <Eyebrow>Focus</Eyebrow>
-            <p
-              style={{
-                fontSize: "clamp(1.05rem,1.6vw,1.3rem)",
-                lineHeight: 1.5,
-                letterSpacing: "-0.01em",
-                marginTop: 16,
-                maxWidth: "34ch",
-                color: "var(--rd-text-2)",
-              }}
-            >
+            <p className="mt-4 max-w-[34ch] text-[clamp(1.05rem,1.6vw,1.3rem)] leading-[1.5] tracking-[-0.01em] text-[var(--rd-text-2)]">
               {focus}
             </p>
           </div>
-          <div
-            className="rd-card rd-card-pad"
-            style={{ padding: "clamp(24px,3vw,34px)" }}
-          >
+          <div className="rd-card rd-card-pad p-[clamp(24px,3vw,34px)]">
             <Eyebrow>Stack</Eyebrow>
-            <p
-              style={{
-                fontSize: "clamp(1.05rem,1.6vw,1.3rem)",
-                lineHeight: 1.5,
-                letterSpacing: "-0.01em",
-                marginTop: 16,
-                color: "var(--rd-text-2)",
-              }}
-            >
+            <p className="mt-4 text-[clamp(1.05rem,1.6vw,1.3rem)] leading-[1.5] tracking-[-0.01em] text-[var(--rd-text-2)]">
               {stack}
             </p>
           </div>
         </div>
 
         {/* Tech stack groups */}
-        <div className="rd-g4" style={{ marginTop: 12, gap: 10 }}>
+        <div className="rd-g4 mt-3 gap-[10px]">
           {techStack.map((group) => (
             <div
               key={group.g}
-              className="rd-card rd-card-hover rd-card-pad"
-              style={{ padding: "20px 22px" }}
+              className="rd-card rd-card-hover rd-card-pad px-[22px] py-5"
             >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 10,
-                  marginBottom: 14,
-                }}
-              >
+              <div className="mb-[14px] flex items-center gap-[10px]">
                 <div className="rd-stack-ic">
                   <StackGroupIcon icon={group.icon} />
                 </div>
-                <span
-                  style={{
-                    fontWeight: 600,
-                    fontSize: 14,
-                    letterSpacing: "-0.01em",
-                  }}
-                >
+                <span className="text-[14px] font-semibold tracking-[-0.01em]">
                   {group.g}
                 </span>
               </div>
-              <div
-                style={{ display: "flex", flexWrap: "wrap", gap: 6 }}
-              >
+              <div className="flex flex-wrap gap-1.5">
                 {group.items.map((item) => (
                   <span
                     key={item}
-                    className="rd-chip rd-mono"
-                    style={{ fontSize: 11.5 }}
+                    className="rd-chip rd-mono text-[11.5px]"
                   >
                     {item}
                   </span>
@@ -392,47 +309,26 @@ function AboutPage() {
         </div>
 
         {/* Elsewhere */}
-        <div
-          className="rd-card rd-card-pad"
-          style={{ marginTop: 12, padding: "clamp(24px,3vw,34px)" }}
-        >
+        <div className="rd-card rd-card-pad mt-3 p-[clamp(24px,3vw,34px)]">
           <Eyebrow>Elsewhere</Eyebrow>
-          <div className="rd-g4" style={{ marginTop: 18, gap: 10 }}>
+          <div className="rd-g4 mt-[18px] gap-[10px]">
             {elsewhere.map((e) => (
               <a
                 key={e.title}
-                className="rd-card rd-card-hover rd-card-pad"
+                className="rd-card rd-card-hover rd-card-pad flex flex-col gap-2 bg-[var(--rd-bg-sub)] min-h-[120px] text-inherit no-underline"
                 href={e.url}
                 target="_blank"
                 rel="noreferrer"
-                style={{
-                  background: "var(--rd-bg-sub)",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 8,
-                  minHeight: 120,
-                  textDecoration: "none",
-                  color: "inherit",
-                }}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <span style={{ fontWeight: 600, fontSize: 16 }}>
+                <div className="flex items-center justify-between">
+                  <span className="text-[16px] font-semibold">
                     {e.title}
                   </span>
                   <span className="rd-rowarrow">
                     <ArrowUpRight size={15} />
                   </span>
                 </div>
-                <p
-                  className="rd-muted"
-                  style={{ fontSize: 13.5, lineHeight: 1.5 }}
-                >
+                <p className="rd-muted text-[13.5px] leading-[1.5]">
                   {e.description}
                 </p>
               </a>
@@ -441,78 +337,37 @@ function AboutPage() {
         </div>
 
         {/* Expertise */}
-        <div style={{ marginTop: "clamp(48px,6vw,72px)" }}>
+        <div className="mt-[clamp(48px,6vw,72px)]">
           <SecHead
             eyebrow="Capabilities"
             title="Areas of expertise"
             links={[{ label: "See projects", href: "/projects" }]}
           />
-          <p
-            className="rd-muted"
-            style={{
-              marginTop: -16,
-              marginBottom: 26,
-              maxWidth: "52ch",
-            }}
-          >
+          <p className="rd-muted -mt-4 mb-[26px] max-w-[52ch]">
             {experienceYears} of delivery across data, AI, and platform
             engineering — here's where the time actually went.
           </p>
-          <div className="rd-g2" style={{ gap: 12 }}>
+          <div className="rd-g2 gap-3">
             {expertise.map((e, i) => (
               <Reveal
                 key={e.area}
                 delay={i * 50}
-                className="rd-card rd-card-pad"
-                style={{
-                  padding: "clamp(22px,2.6vw,30px)",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
+                className="rd-card rd-card-pad flex flex-col p-[clamp(22px,2.6vw,30px)]"
               >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "baseline",
-                  }}
-                >
-                  <h3
-                    style={{
-                      fontSize: "1.35rem",
-                      letterSpacing: "-0.03em",
-                    }}
-                  >
+                <div className="flex items-baseline justify-between">
+                  <h3 className="text-[1.35rem] tracking-[-0.03em]">
                     {e.area}
                   </h3>
-                  <span
-                    className="rd-mono rd-dim"
-                    style={{ fontSize: 12.5 }}
-                  >
+                  <span className="rd-mono rd-dim text-[12.5px]">
                     {e.yr}
                   </span>
                 </div>
-                <p
-                  className="rd-muted"
-                  style={{
-                    marginTop: 12,
-                    fontSize: 14.5,
-                    lineHeight: 1.55,
-                    flex: 1,
-                  }}
-                >
+                <p className="rd-muted mt-3 flex-1 text-[14.5px] leading-[1.55]">
                   {e.desc}
                 </p>
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: 7,
-                    marginTop: 18,
-                  }}
-                >
+                <div className="mt-[18px] flex flex-wrap gap-[7px]">
                   {e.tools.map((t) => (
-                    <span key={t} className="rd-chip" style={{ fontSize: 12 }}>
+                    <span key={t} className="rd-chip text-xs">
                       {t}
                     </span>
                   ))}
