@@ -121,21 +121,15 @@ function PostHero({ post }: { post: LoadedPost }) {
   return (
     <header className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-6">
       <h1
-        className="rd-display text-center"
-        style={{
-          fontSize: "clamp(2.1rem, 4.4vw, 3.2rem)",
-          lineHeight: 1.04,
-          letterSpacing: "-0.04em",
-          fontWeight: 600,
-        }}
+        className="rd-display text-center text-[clamp(2.1rem,4.4vw,3.2rem)] leading-[1.04] tracking-[-0.04em] font-semibold"
       >
         {post.title}
       </h1>
-      <div style={{ display: "flex", gap: 10, alignItems: "center", justifyContent: "center", marginTop: 12, flexWrap: "wrap" }}>
-        <span className="rd-chip rd-mono" style={{ fontSize: 10.5 }}>
+      <div className="flex gap-2.5 items-center justify-center mt-3 flex-wrap">
+        <span className="rd-chip rd-mono text-[10.5px]">
           {post.category}
         </span>
-        <span className="rd-mono rd-dim" style={{ fontSize: 12.5 }}>
+        <span className="rd-mono rd-dim text-[12.5px]">
           {date} {readingTime && `· ${readingTime}`}
         </span>
         {post.markdown_content && (
@@ -155,13 +149,7 @@ function PostHero({ post }: { post: LoadedPost }) {
           src={post.thumbnail}
           alt={post.title}
           loading="eager"
-          style={{
-            display: "block",
-            width: "100%",
-            marginBottom: 30,
-            marginTop: 30,
-            borderRadius: "var(--rd-r)",
-          }}
+          className="block w-full my-[30px] rounded-[var(--rd-r)]"
         />
       )}
     </header>
@@ -212,8 +200,8 @@ function PostPage() {
 
           {/* Tags cloud */}
           {post.tags && post.tags.length > 0 && (
-            <div style={{ marginTop: 34 }}>
-              <div className="rd-eyebrow" style={{ fontSize: 10, marginBottom: 14 }}>
+            <div className="mt-[34px]">
+              <div className="rd-eyebrow text-[10px] mb-[14px]">
                 Tagged
               </div>
               <div className="rd-tag-cloud">
@@ -222,8 +210,7 @@ function PostPage() {
                     key={tag}
                     to="/tag/$tag/"
                     params={{ tag: getSlug(tag) }}
-                    className="rd-tag-pill"
-                    style={{ fontSize: 13, textDecoration: "none" }}
+                    className="rd-tag-pill text-[13px] no-underline"
                   >
                     <span className="rd-hash">#</span>{tag.toLowerCase()}
                   </Link>
@@ -237,9 +224,9 @@ function PostPage() {
       </div>
 
       {/* Author + share */}
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-8 mt-16" style={{ borderTop: "1px solid var(--rd-border)" }}>
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-8 mt-16 border-t border-[var(--rd-border)]">
         <div className="flex items-center justify-between">
-          <p className="text-sm" style={{ color: "var(--rd-text-3)" }}>
+          <p className="text-sm text-[var(--rd-text-3)]">
             Duyet Le
           </p>
           <ShareButton />
@@ -249,10 +236,10 @@ function PostPage() {
       {/* Related articles */}
       {related.length > 0 && (
         <section className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 mt-16 mb-24">
-          <p className="rd-mono rd-dim" style={{ fontSize: 11, marginBottom: 16 }}>
+          <p className="rd-mono rd-dim text-[11px] mb-4">
             Related
           </p>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 12 }}>
+          <ul className="list-none p-0 m-0 flex flex-col gap-3">
             {related.map((relPost) => {
               const [, year, month, slug] = relPost.slug.split("/");
               return (
@@ -260,19 +247,12 @@ function PostPage() {
                   <Link
                     to="/$year/$month/$slug/"
                     params={{ year, month, slug }}
-                    style={{
-                      textDecoration: "none",
-                      display: "flex",
-                      alignItems: "baseline",
-                      gap: 10,
-                      color: "var(--rd-text)",
-                      fontSize: 15,
-                    }}
+                    className="no-underline flex items-baseline gap-2.5 text-[var(--rd-text)] text-[15px]"
                   >
-                    <span className="rd-mono rd-dim" style={{ fontSize: 12, whiteSpace: "nowrap" }}>
+                    <span className="rd-mono rd-dim text-xs whitespace-nowrap">
                       {new Date(relPost.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
                     </span>
-                    <span style={{ fontWeight: 500 }}>
+                    <span className="font-medium">
                       {relPost.title}
                     </span>
                   </Link>

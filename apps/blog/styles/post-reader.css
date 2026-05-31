@@ -293,28 +293,7 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* ----------- Fade-up on first paint ------------------------------- */
-
-@keyframes post-fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .post-reader .post-header,
-  .post-reader .post-body {
-    animation: post-fade-up 320ms ease-out both;
-  }
-  .post-reader .post-body {
-    animation-delay: 60ms;
-  }
-}
+/* ----------- Fade-up on first paint (disabled) ------------------- */
 
 /* ----------- Series block ----------------------------------------- */
 

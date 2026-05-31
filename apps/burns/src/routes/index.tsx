@@ -36,7 +36,7 @@ function Page() {
         justifyContent: "center",
         gap: 28,
       }}>
-        <div className="animate-fade-in">
+        <div>
           <AnimatedCounter target={data.totals.total_tokens} />
           <div style={{
             marginTop: 12,
@@ -55,7 +55,7 @@ function Page() {
           </div>
         </div>
 
-        <div className="animate-fade-in-delay">
+        <div>
           <TokenBreakdown totals={data.totals} />
         </div>
 

@@ -26,7 +26,7 @@ export function DailyChart({ daily, firstDate, lastDate }: DailyChartProps) {
   const hoveredDay = hovered !== null ? recent[hovered] : null;
 
   return (
-    <div className="animate-fade-in-delay" style={{ width: "100%", maxWidth: 640, margin: "0 auto" }}>
+    <div style={{ width: "100%", maxWidth: 640, margin: "0 auto" }}>
       <p style={{
         marginBottom: 8,
         textAlign: "center",
