@@ -20,6 +20,11 @@ export interface AppItem {
    * Fallback: "Github" for GitHub-only projects, "Globe" otherwise.
    */
   iconName?: string;
+  /**
+   * Short domain/tech labels (1–2 per project). Shown on the projects page
+   * to give visitors a quick sense of what each thing is about.
+   */
+  tags?: string[];
 }
 
 const hostOf = (url: string) => new URL(url).host;
@@ -51,6 +56,7 @@ export const apps: AppItem[] = [
     tone: "bg-[#536f91]",
     domain: "anyrouter.dev",
     iconName: "Cloud",
+    tags: ["AI", "Infra"],
   },
   {
     name: "ClickHouse Monitoring",
@@ -63,6 +69,7 @@ export const apps: AppItem[] = [
     tone: "bg-[#8b633f]",
     domain: "chmonitor.dev",
     iconName: "Database",
+    tags: ["Data", "AI"],
   },
   {
     name: "ShareHTML",
@@ -74,6 +81,7 @@ export const apps: AppItem[] = [
     tone: "bg-[#5f6257]",
     domain: "html.duyet.net",
     iconName: "Share2",
+    tags: ["Tool"],
   },
   {
     name: "AI Agents",
@@ -85,6 +93,7 @@ export const apps: AppItem[] = [
     tone: "bg-[#536f91]",
     domain: "agents.duyet.net",
     iconName: "Bot",
+    tags: ["AI"],
   },
   {
     name: "Agent State",
@@ -96,6 +105,7 @@ export const apps: AppItem[] = [
     tone: "bg-[#536f91]",
     domain: "agentstate.app",
     iconName: "Bot",
+    tags: ["AI"],
   },
   {
     name: "MCP Tools",
@@ -107,6 +117,7 @@ export const apps: AppItem[] = [
     tone: "bg-[#5f6257]",
     domain: "mcp.duyet.net",
     iconName: "Plug",
+    tags: ["AI", "Tool"],
   },
   {
     name: "Claude Codex Plugins",
@@ -117,6 +128,7 @@ export const apps: AppItem[] = [
     screenshot: "/screenshots/claude-plugins-art.png",
     tone: "bg-[#4f6f62]",
     iconName: "Puzzle",
+    tags: ["AI", "TypeScript"],
   },
   {
     name: "Stamps",
@@ -128,6 +140,7 @@ export const apps: AppItem[] = [
     tone: "bg-[#7f524e]",
     domain: "stamp.duyet.net",
     iconName: "Link",
+    tags: ["Tool"],
   },
   {
     name: "PageView",
@@ -139,6 +152,7 @@ export const apps: AppItem[] = [
     tone: "bg-[#7a705d]",
     domain: "pageview.duyet.net",
     iconName: "BarChart2",
+    tags: ["Tool"],
   },
   {
     name: "LLM Timeline",
@@ -150,6 +164,7 @@ export const apps: AppItem[] = [
     tone: "bg-[#4f6f62]",
     domain: "llm-timeline.duyet.net",
     iconName: "BrainCircuit",
+    tags: ["Data", "AI"],
   },
   {
     name: "Rust Tieng Viet",
@@ -162,6 +177,7 @@ export const apps: AppItem[] = [
     screenshot: "/screenshots/rust-art.png",
     tone: "bg-[#6a5578]",
     iconName: "BookOpen",
+    tags: ["Rust"],
   },
   {
     name: "Duyet Serif",
@@ -171,6 +187,7 @@ export const apps: AppItem[] = [
     description: "Curated collection of beautiful Vietnamese-compatible fonts",
     tone: "bg-[#7a705d]",
     iconName: "Type",
+    tags: ["FE"],
   },
 
   // ── GitHub-only projects ──────────────────────────────────────────────────
@@ -183,6 +200,7 @@ export const apps: AppItem[] = [
       "Query an LLM directly via DNS TXT records — `dig @llm.duyet.net 'explain quantum computing' TXT +short`",
     domain: "duyet.github.io/llm-over-dns",
     iconName: "Terminal",
+    tags: ["AI", "Infra"],
   },
   {
     name: "CCR",
@@ -193,6 +211,7 @@ export const apps: AppItem[] = [
       "Claude Code + OpenRouter — route Claude Code sessions through OpenRouter for model flexibility.",
     domain: "github.com/duyet/ccr",
     iconName: "Bot",
+    tags: ["AI", "TypeScript"],
   },
   {
     name: "Codex & Claude Plugins",
@@ -202,6 +221,7 @@ export const apps: AppItem[] = [
     description: "Codex and Claude Code plugins for AI-powered development workflows.",
     domain: "github.com/duyet/codex-claude-plugins",
     iconName: "Puzzle",
+    tags: ["AI", "TypeScript"],
   },
   {
     name: "duyet MCP Server",
@@ -211,6 +231,7 @@ export const apps: AppItem[] = [
     description: "Remote Model Context Protocol server for duyet.net — exposes blog, analytics, and personal data.",
     domain: "github.com/duyet/duyet-mcp-server",
     iconName: "Plug",
+    tags: ["AI", "TypeScript"],
   },
   {
     name: "ClickHouse UDFs (Rust)",
@@ -221,6 +242,7 @@ export const apps: AppItem[] = [
       "Collection of useful User-Defined Functions for ClickHouse written in Rust.",
     domain: "github.com/duyet/clickhouse-udf-rs",
     iconName: "Database",
+    tags: ["Data", "Rust"],
   },
   {
     name: "Helm Charts",
@@ -231,16 +253,7 @@ export const apps: AppItem[] = [
       "Collection of useful Helm Charts, well-tested with KinD and Kubeconform.",
     domain: "github.com/duyet/charts",
     iconName: "Package",
-  },
-  {
-    name: "Awesome LLMOps",
-    href: "https://github.com/duyet/Awesome-LLMOps",
-    host: "github.com",
-    utmContent: "awesome_llmops_bento",
-    description:
-      "Curated list of best LLMOps tools for developers — deployment, monitoring, fine-tuning, and evaluation.",
-    domain: "github.com/duyet/Awesome-LLMOps",
-    iconName: "Star",
+    tags: ["Infra"],
   },
   {
     name: "ccusage → ClickHouse",
@@ -251,6 +264,7 @@ export const apps: AppItem[] = [
       "Import Claude Code usage data (ccusage) into ClickHouse for long-term analytics.",
     domain: "github.com/duyet/ccusage-import",
     iconName: "Database",
+    tags: ["Data"],
   },
   {
     name: "Clauduck",
@@ -261,6 +275,7 @@ export const apps: AppItem[] = [
       "Analyze your Claude Code usage with DuckDB — query session stats, token costs, and model breakdown.",
     domain: "github.com/duyet/clauduck",
     iconName: "BarChart2",
+    tags: ["Data"],
   },
   {
     name: "Git Insights (Rust)",
@@ -271,6 +286,7 @@ export const apps: AppItem[] = [
       "Generate commit insights from local or remote Git repositories — authors, churn, and hotspots.",
     domain: "github.com/duyet/git-insights-rs",
     iconName: "GitBranch",
+    tags: ["Rust", "Tool"],
   },
   {
     name: "Glossary API (Rust)",
@@ -281,6 +297,7 @@ export const apps: AppItem[] = [
       "Glossary API service written in Rust, powered by actix-web and Diesel.",
     domain: "github.com/duyet/glossary-rs",
     iconName: "Code2",
+    tags: ["Rust"],
   },
   {
     name: "LLM Daily",
@@ -291,5 +308,94 @@ export const apps: AppItem[] = [
       "Daily digest of LLM papers, releases, and community highlights — auto-generated and published.",
     domain: "github.com/duyet/llm-daily",
     iconName: "Rss",
+    tags: ["AI"],
+  },
+  {
+    name: "Bruteforce Database",
+    href: "https://github.com/duyet/bruteforce-database",
+    host: "github.com",
+    utmContent: "bruteforce_db_bento",
+    description:
+      "Collection of breach datasets for security research and password analysis — 1.7k stars.",
+    domain: "github.com/duyet/bruteforce-database",
+    iconName: "Shield",
+    tags: ["Security", "Data"],
+  },
+  {
+    name: "PriceTrack",
+    href: "https://github.com/duyet/pricetrack",
+    host: "github.com",
+    utmContent: "pricetrack_bento",
+    description:
+      "Price tracker for Vietnamese e-commerce (Tiki, Shopee, Lotte) with Firebase and price-drop alerts.",
+    domain: "github.com/duyet/pricetrack",
+    iconName: "ShoppingCart",
+    tags: ["FE"],
+  },
+  {
+    name: "Vietnamese Namedb",
+    href: "https://github.com/duyet/vietnamese-namedb",
+    host: "github.com",
+    utmContent: "vn_namedb_bento",
+    description:
+      "Vietnamese name dictionary — comprehensive dataset of family and given names in Việt Nam.",
+    domain: "github.com/duyet/vietnamese-namedb",
+    iconName: "BookOpen",
+    tags: ["Data"],
+  },
+  {
+    name: "Skill2Vec",
+    href: "https://github.com/duyet/skill2vec",
+    host: "github.com",
+    utmContent: "skill2vec_bento",
+    description:
+      "Skill Representations in Vector Space — pre-trained model and dataset for skill similarity and matching.",
+    domain: "github.com/duyet/skill2vec",
+    iconName: "BrainCircuit",
+    tags: ["AI"],
+  },
+  {
+    name: "Skill2Vec Dataset",
+    href: "https://github.com/duyet/skill2vec-dataset",
+    host: "github.com",
+    utmContent: "skill2vec_dataset_bento",
+    description:
+      "Dataset and pre-trained vectors for Skill2Vec — job skill embeddings for NLP and recommendation systems.",
+    domain: "github.com/duyet/skill2vec-dataset",
+    iconName: "Database",
+    tags: ["AI", "Data"],
+  },
+  {
+    name: "Gaxy",
+    href: "https://github.com/duyet/gaxy",
+    host: "github.com",
+    utmContent: "gaxy_bento",
+    description:
+      "Google Analytics / Google Tag Manager proxy — self-hosted for performance and privacy.",
+    domain: "github.com/duyet/gaxy",
+    iconName: "Globe",
+    tags: ["FE", "Tool"],
+  },
+  {
+    name: "Athena RS",
+    href: "https://github.com/duyet/athena-rs",
+    host: "github.com",
+    utmContent: "athena_rs_bento",
+    description:
+      "Manage AWS Athena schemas as Code in GitOps style — written in Rust.",
+    domain: "github.com/duyet/athena-rs",
+    iconName: "Database",
+    tags: ["Rust", "Infra"],
+  },
+  {
+    name: "Coding Agent Insights",
+    href: "https://github.com/duyet/coding-agent-insights",
+    host: "github.com",
+    utmContent: "coding_agent_insights_bento",
+    description:
+      "Analytics and insights from coding agent usage patterns — token costs, model breakdowns, and productivity metrics.",
+    domain: "github.com/duyet/coding-agent-insights",
+    iconName: "BarChart2",
+    tags: ["AI"],
   },
 ];

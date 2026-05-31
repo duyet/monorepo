@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ArrowUpRight, Layers, AlignJustify } from "lucide-react";
 import { addUtmParams } from "../../app/lib/utm";
 import { apps, type AppItem } from "../data/projects";
-import { SecHead, Eyebrow, Reveal } from "@duyet/components";
+import { SecHead, Reveal } from "@duyet/components";
 
 export const Route = createFileRoute("/projects")({
   component: ProjectsPage,
@@ -234,7 +234,12 @@ function WorkCardBody({ item, cat }: { item: AppItem; cat: string }) {
       <h3 className="rd-work-name">{item.name}</h3>
       <p className="rd-work-desc">{item.description}</p>
       <div className="rd-work-foot">
-        <span className="rd-chip rd-mono rd-work-tag">{cat}</span>
+        <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+          {item.tags?.map((tag) => (
+            <span key={tag} className="rd-chip rd-mono rd-work-tag">{tag}</span>
+          ))}
+          <span className="rd-chip rd-mono rd-work-tag">{cat}</span>
+        </div>
         <span style={{ color: "var(--rd-text-4)" }}>
           <ArrowUpRight size={15} />
         </span>
@@ -257,7 +262,6 @@ function ProjectList({ items }: { items: AppItem[] }) {
           item.utmContent,
           item.host,
         );
-        const cat = categoryOf(item);
         const isExternal = href.startsWith("http");
         const inner = (
           <>
@@ -291,7 +295,11 @@ function ProjectList({ items }: { items: AppItem[] }) {
                 {item.description}
               </span>
             </span>
-            <Eyebrow>{cat}</Eyebrow>
+            <div style={{ display: "flex", gap: 4, flexShrink: 0 }}>
+              {item.tags?.map((tag) => (
+                <span key={tag} className="rd-chip rd-mono" style={{ fontSize: 10.5 }}>{tag}</span>
+              ))}
+            </div>
           </>
         );
 
