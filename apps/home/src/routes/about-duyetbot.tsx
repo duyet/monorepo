@@ -171,33 +171,23 @@ function ChatCards({ cards }: { cards: Card[] }) {
       {cards.map((c) => (
         <a
           key={c.t}
-          className="rd-chat-card"
+          className="rd-chat-card flex items-center gap-[10px] no-underline text-inherit"
           href={`https://blog.duyet.net`}
           target="_blank"
           rel="noreferrer"
-          style={{ display: "flex", gap: 10, alignItems: "center", textDecoration: "none", color: "inherit" }}
         >
           <span
-            style={{
-              display: "grid",
-              placeItems: "center",
-              width: 30,
-              height: 30,
-              borderRadius: 8,
-              background: "var(--rd-accent-bg)",
-              color: "var(--rd-accent-ink)",
-              flexShrink: 0,
-            }}
+            className="grid place-items-center w-[30px] h-[30px] rounded-lg bg-[var(--rd-accent-bg)] text-[var(--rd-accent-ink)] shrink-0"
           >
             <BookOpen size={14} />
           </span>
-          <span style={{ minWidth: 0, flex: 1 }}>
+          <span className="min-w-0 flex-1">
             <div className="rd-cc-t">{c.t}</div>
             <div className="rd-cc-m">
               {c.c} · {c.d} · {c.r}
             </div>
           </span>
-          <span style={{ color: "var(--rd-text-4)", flexShrink: 0 }}>
+          <span className="text-[var(--rd-text-4)] shrink-0">
             <ArrowUpRight size={14} />
           </span>
         </a>
@@ -218,26 +208,10 @@ function ContactCard() {
     return (
       <div className="rd-chat-cards">
         <div
-          className="rd-chat-card"
-          style={{
-            cursor: "default",
-            display: "flex",
-            gap: 10,
-            alignItems: "center",
-            borderColor: "color-mix(in srgb, var(--rd-ok) 40%, var(--rd-border))",
-          }}
+          className="rd-chat-card cursor-default flex items-center gap-[10px] border-[color-mix(in_srgb,var(--rd-ok)_40%,var(--rd-border))]"
         >
           <span
-            style={{
-              display: "grid",
-              placeItems: "center",
-              width: 30,
-              height: 30,
-              borderRadius: 8,
-              background: "color-mix(in srgb, var(--rd-ok) 16%, transparent)",
-              color: "var(--rd-ok)",
-              flexShrink: 0,
-            }}
+            className="grid place-items-center w-[30px] h-[30px] rounded-lg bg-[color-mix(in_srgb,var(--rd-ok)_16%,transparent)] text-[var(--rd-ok)] shrink-0"
           >
             <Check size={14} />
           </span>
@@ -251,20 +225,9 @@ function ContactCard() {
   }
 
   return (
-    <div style={{ marginTop: 12, display: "flex", gap: 8 }}>
+    <div className="mt-[12px] flex gap-[8px]">
       <input
-        className="rd-chat-card"
-        style={{
-          flex: 1,
-          font: "inherit",
-          fontSize: 13.5,
-          padding: "11px 13px",
-          outline: "none",
-          background: "var(--rd-bg)",
-          color: "var(--rd-text)",
-          border: "1px solid var(--rd-border)",
-          borderRadius: 10,
-        }}
+        className="rd-chat-card flex-1 font-inherit text-[13.5px] px-[13px] py-[11px] outline-none bg-[var(--rd-bg)] text-[var(--rd-text)] border border-[var(--rd-border)] rounded-[10px]"
         placeholder="Your message or email…"
         value={val}
         onChange={(e) => setVal(e.target.value)}
@@ -273,8 +236,7 @@ function ContactCard() {
         }}
       />
       <button
-        className="rd-chat-send"
-        style={{ width: 40, height: 40 }}
+        className="rd-chat-send w-[40px] h-[40px]"
         onClick={() => val.trim() && setSent(true)}
         aria-label="Send"
       >
@@ -338,18 +300,17 @@ function ChatWindow() {
           <Bot size={22} />
           <span className="rd-live-ping" />
         </span>
-        <div style={{ minWidth: 0 }}>
+        <div className="min-w-0">
           <div className="rd-ch-name">
             duyetbot{" "}
-            <span className="rd-chip rd-mono" style={{ fontSize: 9.5 }}>
+            <span className="rd-chip rd-mono text-[9.5px]">
               beta
             </span>
           </div>
           <div className="rd-ch-model">claude-sonnet · via AnyRouter</div>
         </div>
         <span
-          className="rd-mono rd-dim"
-          style={{ fontSize: 11.5, marginLeft: "auto", display: "inline-flex", alignItems: "center", gap: 6 }}
+          className="rd-mono rd-dim text-[11.5px] ml-auto inline-flex items-center gap-[6px]"
         >
           <span className="rd-dot rd-ok rd-pulse" /> online
         </span>
@@ -363,10 +324,10 @@ function ChatWindow() {
               {m.role === "bot" ? (
                 <Bot size={16} />
               ) : (
-                <span style={{ fontSize: 12, fontWeight: 600 }}>You</span>
+                <span className="text-[12px] font-semibold">You</span>
               )}
             </span>
-            <div style={{ minWidth: 0 }}>
+            <div className="min-w-0">
               <div className="rd-msg-bubble">
                 {"tool" in m && m.tool && (
                   <div className="rd-tool-call">
@@ -451,13 +412,13 @@ function ChatSidebar() {
       {/* tools list */}
       <div className="rd-card rd-card-pad" id="ag-tools">
         <Eyebrow>Tools / MCP</Eyebrow>
-        <div style={{ marginTop: 12 }}>
+        <div className="mt-[12px]">
           {TOOLS.map((t) => (
             <div key={t.name} className="rd-tool-item">
               <span className="rd-ti-ic">
                 <ToolIcon icon={t.icon} size={16} />
               </span>
-              <span style={{ minWidth: 0 }}>
+              <span className="min-w-0">
                 <div className="rd-ti-name">{t.name}</div>
                 <div className="rd-ti-desc">{t.desc}</div>
               </span>
@@ -467,39 +428,35 @@ function ChatSidebar() {
       </div>
 
       {/* connect card */}
-      <div className="rd-card rd-card-pad" style={{ background: "var(--rd-bg-sub)" }}>
+      <div className="rd-card rd-card-pad bg-[var(--rd-bg-sub)]">
         <Eyebrow>Connect</Eyebrow>
         <p
-          className="rd-muted"
-          style={{ fontSize: 13.5, lineHeight: 1.55, marginTop: 12 }}
+          className="rd-muted text-[13.5px] leading-[1.55] mt-[12px]"
         >
           Point your own agent at the MCP server, or read the machine-readable site map.
         </p>
-        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 16 }}>
+        <div className="flex flex-col gap-[8px] mt-[16px]">
           <a
-            className="rd-btn rd-btn-ghost"
+            className="rd-btn rd-btn-ghost justify-start gap-[8px]"
             href="https://mcp.duyet.net"
             target="_blank"
             rel="noreferrer"
-            style={{ justifyContent: "flex-start", gap: 8 }}
           >
             <Plug size={15} /> mcp.duyet.net
           </a>
           <a
-            className="rd-btn rd-btn-ghost"
+            className="rd-btn rd-btn-ghost justify-start gap-[8px]"
             href="https://duyet.net/llms.txt"
             target="_blank"
             rel="noreferrer"
-            style={{ justifyContent: "flex-start", gap: 8 }}
           >
             <Code size={15} /> llms.txt
           </a>
           <a
-            className="rd-btn rd-btn-ghost"
+            className="rd-btn rd-btn-ghost justify-start gap-[8px]"
             href="https://github.com/duyetbot"
             target="_blank"
             rel="noreferrer"
-            style={{ justifyContent: "flex-start", gap: 8 }}
           >
             <ArrowUpRight size={15} /> github.com/duyetbot
           </a>
@@ -508,31 +465,29 @@ function ChatSidebar() {
 
       {/* scope note */}
       <div
-        className="rd-card rd-card-pad"
-        style={{ fontSize: 13, lineHeight: 1.6 }}
+        className="rd-card rd-card-pad text-[13px] leading-[1.6]"
       >
-        <p className="rd-eyebrow" style={{ marginBottom: 10 }}>Scope</p>
-        <p style={{ color: "var(--rd-text-2)" }}>
+        <p className="rd-eyebrow mb-[10px]">Scope</p>
+        <p className="text-[var(--rd-text-2)]">
           duyetbot owns the{" "}
           <strong>codebase, the look-and-feel, and the deployment pipeline</strong>.
           Blog posts under{" "}
-          <code className="rd-mono" style={{ fontSize: 12 }}>apps/blog/_posts/</code>{" "}
+          <code className="rd-mono text-[12px]">apps/blog/_posts/</code>{" "}
           are written and owned by Duyet Le — the bot can change how a post renders, never the words inside.
         </p>
-        <p style={{ color: "var(--rd-text-2)", marginTop: 8 }}>
+        <p className="text-[var(--rd-text-2)] mt-[8px]">
           Anything on this site can change at any time. The layout you're reading
           is the bot's current taste, not a permanent position.
         </p>
-        <div style={{ marginTop: 14, display: "flex", flexWrap: "wrap", gap: 8 }}>
-          <Link to="/projects" className="rd-btn rd-btn-text" style={{ fontSize: 12.5 }}>
+        <div className="mt-[14px] flex flex-wrap gap-[8px]">
+          <Link to="/projects" className="rd-btn rd-btn-text text-[12.5px]">
             See what it ships →
           </Link>
           <a
             href="https://insights.duyet.net"
-            className="rd-btn rd-btn-text"
+            className="rd-btn rd-btn-text text-[12.5px]"
             target="_blank"
             rel="noreferrer"
-            style={{ fontSize: 12.5 }}
           >
             insights.duyet.net →
           </a>
@@ -548,25 +503,18 @@ function ChatSidebar() {
 
 function DuyetbotPage() {
   return (
-    <div style={{ background: "var(--rd-bg)", color: "var(--rd-text)" }}>
-      <div className="rd-wrap" style={{ paddingTop: "clamp(22px, 3.2vw, 40px)", paddingBottom: "clamp(32px, 5vw, 64px)" }}>
+    <div className="bg-[var(--rd-bg)] text-[var(--rd-text)]">
+      <div className="rd-wrap pt-[clamp(22px,3.2vw,40px)] pb-[clamp(32px,5vw,64px)]">
         <Reveal>
           <Eyebrow>Agent · duyetbot</Eyebrow>
           <h1
-            className="rd-display"
-            style={{
-              marginTop: 12,
-              fontSize: "clamp(1.9rem, 3.8vw, 3rem)",
-              maxWidth: "24ch",
-              lineHeight: 1.06,
-            }}
+            className="rd-display mt-[12px] text-[clamp(1.9rem,3.8vw,3rem)] max-w-[24ch] leading-[1.06]"
           >
             The agent that{" "}
-            <span style={{ color: "var(--rd-accent)" }}>runs this site.</span>
+            <span className="text-[var(--rd-accent)]">runs this site.</span>
           </h1>
           <p
-            className="rd-lead"
-            style={{ marginTop: 14, maxWidth: "58ch", fontSize: "clamp(0.95rem, 1.1vw, 1.05rem)" }}
+            className="rd-lead mt-[14px] max-w-[58ch] text-[clamp(0.95rem,1.1vw,1.05rem)]"
           >
             duyetbot is the autonomous agent that maintains, redesigns, and ships{" "}
             <a href="https://duyet.net" className="rd-ulink">
@@ -578,26 +526,15 @@ function DuyetbotPage() {
         </Reveal>
 
         {/* demo banner */}
-        <Reveal delay={60} style={{ marginTop: 14 }}>
+        <Reveal delay={60} className="mt-[14px]">
           <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              padding: "6px 12px",
-              border: "1px solid var(--rd-border)",
-              borderRadius: "var(--rd-r)",
-              fontSize: 12.5,
-              color: "var(--rd-text-3)",
-              fontFamily: "var(--font-mono)",
-            }}
+            className="inline-flex items-center gap-[8px] px-[12px] py-[6px] border border-[var(--rd-border)] rounded-[var(--rd-r)] text-[12.5px] text-[var(--rd-text-3)] font-[var(--font-mono)]"
           >
-            <span className="rd-dot rd-ok rd-pulse" style={{ display: "inline-block" }} />
+            <span className="rd-dot rd-ok rd-pulse inline-block" />
             Demo conversation — connect the real MCP server at{" "}
             <a
               href="https://mcp.duyet.net"
-              className="rd-ulink"
-              style={{ fontSize: 12.5 }}
+              className="rd-ulink text-[12.5px]"
               target="_blank"
               rel="noreferrer"
             >
@@ -608,7 +545,7 @@ function DuyetbotPage() {
         </Reveal>
 
         {/* chat shell */}
-        <Reveal delay={100} style={{ marginTop: 28 }}>
+        <Reveal delay={100} className="mt-[28px]">
           <div className="rd-chat-shell">
             <ChatWindow />
             <ChatSidebar />
@@ -616,7 +553,7 @@ function DuyetbotPage() {
         </Reveal>
 
         {/* runtime section */}
-        <section style={{ marginTop: "clamp(48px, 7vw, 80px)" }}>
+        <section className="mt-[clamp(48px,7vw,80px)]">
           <Reveal>
             <SecHead
               num="01"
@@ -624,8 +561,7 @@ function DuyetbotPage() {
               title="Hermes agent + a bundle of self-built skills"
             />
             <p
-              className="rd-lead"
-              style={{ maxWidth: "62ch", marginTop: 16, fontSize: "clamp(0.92rem, 1.05vw, 1rem)" }}
+              className="rd-lead max-w-[62ch] mt-[16px] text-[clamp(0.92rem,1.05vw,1rem)]"
             >
               The bot runs on top of the Hermes agent runtime — long-running, tool-using, with persistent
               file-based memory across sessions. On top of that runtime sit a growing set of skills written
@@ -633,8 +569,7 @@ function DuyetbotPage() {
               dependency hygiene, MDX authoring, ClickHouse sync, and so on.
             </p>
             <p
-              className="rd-muted"
-              style={{ maxWidth: "62ch", marginTop: 12, fontSize: "clamp(0.92rem, 1.05vw, 1rem)" }}
+              className="rd-muted max-w-[62ch] mt-[12px] text-[clamp(0.92rem,1.05vw,1rem)]"
             >
               New skills get added when a recurring task becomes worth automating. Skills get retired when
               their work is permanently handled by a more general capability. The skill set is itself a
@@ -644,7 +579,7 @@ function DuyetbotPage() {
         </section>
 
         {/* behavior section */}
-        <section style={{ marginTop: "clamp(40px, 6vw, 72px)" }}>
+        <section className="mt-[clamp(40px,6vw,72px)]">
           <Reveal>
             <SecHead
               num="02"
@@ -652,15 +587,7 @@ function DuyetbotPage() {
               title="Auto-discover, auto-rebuild, auto-ship"
             />
             <div
-              style={{
-                marginTop: 20,
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-                gap: 0,
-                border: "1px solid var(--rd-border)",
-                borderRadius: "var(--rd-r)",
-                overflow: "hidden",
-              }}
+              className="mt-[20px] grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-0 border border-[var(--rd-border)] rounded-[var(--rd-r)] overflow-hidden"
             >
               {[
                 {
@@ -682,21 +609,15 @@ function DuyetbotPage() {
               ].map((cap) => (
                 <div
                   key={cap.label}
-                  style={{
-                    borderRight: "1px solid var(--rd-border)",
-                    borderBottom: "1px solid var(--rd-border)",
-                    padding: "20px 22px",
-                  }}
+                  className="border-r border-b border-[var(--rd-border)] px-[22px] py-[20px]"
                 >
                   <p
-                    className="rd-eyebrow"
-                    style={{ fontSize: 10.5 }}
+                    className="rd-eyebrow text-[10.5px]"
                   >
                     {cap.label}
                   </p>
                   <p
-                    className="rd-muted"
-                    style={{ fontSize: 13.5, lineHeight: 1.65, marginTop: 8 }}
+                    className="rd-muted text-[13.5px] leading-[1.65] mt-[8px]"
                   >
                     {cap.body}
                   </p>
@@ -707,7 +628,7 @@ function DuyetbotPage() {
         </section>
 
         {/* disclosure */}
-        <section style={{ marginTop: "clamp(40px, 6vw, 72px)", paddingBottom: "clamp(48px, 7vw, 88px)" }}>
+        <section className="mt-[clamp(40px,6vw,72px)] pb-[clamp(48px,7vw,88px)]">
           <Reveal>
             <SecHead
               num="03"
@@ -715,16 +636,14 @@ function DuyetbotPage() {
               title="Subject to change without notice"
             />
             <p
-              className="rd-lead"
-              style={{ maxWidth: "62ch", marginTop: 16, fontSize: "clamp(0.92rem, 1.05vw, 1rem)" }}
+              className="rd-lead max-w-[62ch] mt-[16px] text-[clamp(0.92rem,1.05vw,1rem)]"
             >
               Anything on this site can change at any time. The layout you're reading right now is the
               bot's current taste, not a permanent position. If a page looks different next time you visit,
               that's the system working as designed.
             </p>
             <p
-              className="rd-muted"
-              style={{ maxWidth: "62ch", marginTop: 12, fontSize: "clamp(0.92rem, 1.05vw, 1rem)" }}
+              className="rd-muted max-w-[62ch] mt-[12px] text-[clamp(0.92rem,1.05vw,1rem)]"
             >
               For things that need to be stable —{" "}
               <Link to="/projects" className="rd-ulink">
