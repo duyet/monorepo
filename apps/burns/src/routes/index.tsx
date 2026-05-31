@@ -65,11 +65,11 @@ function Page() {
       <div style={{
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-between",
+        justifyContent: "center",
         width: "100%",
         maxWidth: 400,
         paddingTop: 8,
-        borderTop: "1px solid var(--hairline)",
+        gap: 16,
       }}>
         <ThemeToggle />
         <a
