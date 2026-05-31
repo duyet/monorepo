@@ -1,3 +1,4 @@
+import { Separator } from "@duyet/components/ui/separator";
 import { createFileRoute } from "@tanstack/react-router";
 import { Education } from "@/components/education";
 import { ExperienceItem } from "@/components/experience";
@@ -18,6 +19,19 @@ function Page() {
     <div className="m-auto flex min-h-screen flex-col gap-0 text-[15px] text-foreground">
       <Profile personal={personal} />
 
+      <Section title="Education">
+        {education.map((edu) => (
+          <Education
+            key={edu.id}
+            major={edu.major}
+            thesis={edu.thesis}
+            thesisUrl={edu.thesisUrl}
+            university={edu.university}
+            period={edu.period}
+          />
+        ))}
+      </Section>
+
       <Section title="Experience">
         {experience.map((exp) => (
           <ExperienceItem
@@ -34,23 +48,11 @@ function Page() {
         ))}
       </Section>
 
-      <Section title="Education">
-        {education.map((edu) => (
-          <Education
-            key={edu.id}
-            major={edu.major}
-            thesis={edu.thesis}
-            thesisUrl={edu.thesisUrl}
-            university={edu.university}
-            period={edu.period}
-          />
-        ))}
-      </Section>
-
       <SkillsSection />
 
-      <footer className="cv-print-footer hidden print:block mt-6">
-        <p className="text-[8px] text-neutral-400">
+      <footer className="cv-print-footer hidden print:block">
+        <Separator className="cv-footer-separator my-2" />
+        <p className="text-xs text-muted-foreground">
           Live version at{" "}
           <a
             href="https://cv.duyet.net"
