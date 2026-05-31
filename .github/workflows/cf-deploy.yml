@@ -30,6 +30,7 @@ on:
           - photos
           - ai-percentage
           - agent-ui
+          - burns
 
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
@@ -75,6 +76,8 @@ jobs:
               - 'apps/photos/**'
             ai-percentage:
               - 'apps/ai-percentage/**'
+            burns:
+              - 'apps/burns/**'
             packages:
               - 'packages/**'
 
@@ -92,13 +95,14 @@ jobs:
           APPS[llm-timeline]='{"app":"llm-timeline","project":"duyet-llm-timeline","url":"https://llm-timeline.duyet.net"}'
           APPS[photos]='{"app":"photos","project":"duyet-photos","url":"https://photos.duyet.net"}'
           APPS[ai-percentage]='{"app":"ai-percentage","project":"duyet-ai-percentage","url":"https://ai-percentage.duyet.net"}'
+          APPS[burns]='{"app":"burns","project":"duyet-burns","url":"https://duyet-burns.pages.dev"}'
 
           DEPLOY_APPS=()
 
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             INPUT_APP="${{ github.event.inputs.app }}"
             if [[ "$INPUT_APP" == "all" ]]; then
-              for app in agent-ui blog cv home homelab insights llm-timeline photos ai-percentage; do
+              for app in agent-ui blog cv home homelab insights llm-timeline photos ai-percentage burns; do
                 DEPLOY_APPS+=("${APPS[$app]}")
               done
             elif [[ -n "$INPUT_APP" ]]; then
@@ -112,7 +116,7 @@ jobs:
             PACKAGES_CHANGED="${{ steps.filter.outputs.packages }}"
             FILTER_OUTPUTS='${{ toJson(steps.filter.outputs) }}'
 
-            for app in agent-ui blog cv home homelab insights llm-timeline photos ai-percentage; do
+            for app in agent-ui blog cv home homelab insights llm-timeline photos ai-percentage burns; do
               APP_CHANGED=$(echo "$FILTER_OUTPUTS" | jq -r --arg app "$app" '.[$app]')
               if [[ "$APP_CHANGED" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
                 DEPLOY_APPS+=("${APPS[$app]}")
@@ -356,6 +360,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
           CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
           CLOUDFLARE_EMAIL: ${{ secrets.CLOUDFLARE_EMAIL }}
+          MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           POSTHOG_API_KEY: ${{ secrets.POSTHOG_API_KEY }}
           POSTHOG_PROJECT_ID: ${{ vars.POSTHOG_PROJECT_ID }}
