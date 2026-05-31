@@ -537,9 +537,10 @@ function BlogTeaser() {
               style={{
                 gridTemplateColumns: "1fr auto",
                 cursor: "pointer",
-                padding: "15px 0",
+                padding: "15px 8px",
                 textDecoration: "none",
                 color: "inherit",
+                borderRadius: "var(--rd-r-sm)",
               }}
             >
               <div style={{ minWidth: 0 }}>
@@ -560,6 +561,20 @@ function BlogTeaser() {
                 >
                   {post.category} · {formatBlogDate(post.date)}
                 </div>
+                {post.excerpt && (
+                  <div
+                    className="rd-muted"
+                    style={{
+                      fontSize: 13,
+                      marginTop: 5,
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {post.excerpt}
+                  </div>
+                )}
               </div>
               <span className="rd-mono rd-dim" style={{ fontSize: 12 }}>
                 {post.readingTime} min
