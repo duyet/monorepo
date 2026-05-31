@@ -11,7 +11,6 @@
 
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
 import type { Post } from "@duyet/interfaces";
 import { getAllCategories, getAllPosts } from "@duyet/libs/getPost";
 import { getSlug } from "@duyet/libs/getSlug";

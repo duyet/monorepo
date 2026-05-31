@@ -519,8 +519,8 @@ function HeroDiagram() {
 
   const kindColor = { ai: "var(--rd-accent)", data: "var(--rd-text)", infra: "var(--rd-text-3)" };
   const kindOp = { ai: 0.85, data: 0.5, infra: 0.35 };
-  const lite = (n: any) => `https://cdn.simpleicons.org/${n.slug}${n.lc ? "/" + n.lc : ""}`;
-  const dark = (n: any) => `https://cdn.simpleicons.org/${n.slug}/${n.dc || "f0f0f0"}`;
+  const _lite = (n: any) => `https://cdn.simpleicons.org/${n.slug}${n.lc ? `/${n.lc}` : ""}`;
+  const _dark = (n: any) => `https://cdn.simpleicons.org/${n.slug}/${n.dc || "f0f0f0"}`;
 
   const pos = (a: number, r: number) => {
     const rad = (a * Math.PI) / 180;

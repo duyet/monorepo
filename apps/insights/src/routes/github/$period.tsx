@@ -117,7 +117,7 @@ function GitHubPeriodPage() {
           title="Repository overview"
           description="Public repositories and statistics."
         >
-          <ReposView owner={OWNER} repos={repos} />
+          <ReposView repos={repos} />
         </InsightsSection>
 
         <InsightsSection

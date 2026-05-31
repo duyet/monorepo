@@ -98,7 +98,7 @@ function GithubPage() {
           title="Repository overview"
           description="Public repositories and key metrics."
         >
-          <ReposView owner={OWNER} repos={repos} />
+          <ReposView repos={repos} />
         </InsightsSection>
 
         <InsightsSection

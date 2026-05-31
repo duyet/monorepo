@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs"
 import { join, dirname } from "node:path"
-import { initSync, diff_text, align_blocks } from "../../../packages/wasm/pkg/diff/diff.js"
+import { initSync, align_blocks } from "../../../packages/wasm/pkg/diff/diff.js"
 
 // Initialize WASM module
 const wasmPath = join(dirname(import.meta.url.replace("file://", "")), "..", "..", "..", "packages", "wasm", "pkg", "diff", "diff_bg.wasm")
@@ -74,7 +74,7 @@ export function tsFn(input: unknown): DiffOp[] {
   for (let k = 1; k < ops.length; k++) {
     const last = merged[merged.length - 1]
     if (last.type === ops[k].type) {
-      last.text += "\n" + ops[k].text
+      last.text += `\n${ops[k].text}`
     } else {
       merged.push({ ...ops[k] })
     }

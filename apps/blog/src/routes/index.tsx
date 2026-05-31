@@ -7,7 +7,6 @@ import type { Post } from "@duyet/interfaces";
 import { dateFormat } from "@duyet/libs/date";
 import {
   ArrowRight,
-  ArrowUpRight,
   BookOpen,
   Bot,
   Code,
@@ -209,12 +208,10 @@ function FeaturedPost({ post }: { post: Post }) {
 function CategoryBentoTile({
   name,
   count,
-  maxCount,
   onSelect,
 }: {
   name: string;
   count: number;
-  maxCount: number;
   onSelect: () => void;
 }) {
   const Ic = getCategoryIcon(name);
@@ -272,7 +269,7 @@ function HomePage(): ReactElement {
       .map(([name, count]) => ({ name, count }));
   }, [allPosts]);
 
-  const maxCatCount = categories[0]?.count ?? 1;
+  
 
   // Stats
   const totalPosts = allPosts.length;
@@ -346,7 +343,6 @@ function HomePage(): ReactElement {
               key={cat.name}
               name={cat.name}
               count={cat.count}
-              maxCount={maxCatCount}
               onSelect={() => {
                 setActiveCategory(cat.name);
                 setTimeout(() => {

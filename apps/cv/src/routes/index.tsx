@@ -21,14 +21,13 @@ function Page() {
 
       <Section title="Education">
         {education.map((edu) => (
-          <Education
-            key={edu.id}
-            major={edu.major}
-            thesis={edu.thesis}
-            thesisUrl={edu.thesisUrl}
-            university={edu.university}
-            period={edu.period}
-          />
+            <Education
+              key={edu.id}
+              major={edu.major}
+              thesisUrl={edu.thesisUrl}
+              university={edu.university}
+              period={edu.period}
+            />
         ))}
       </Section>
 

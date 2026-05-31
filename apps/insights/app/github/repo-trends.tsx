@@ -2,7 +2,7 @@ import { Eye, GitFork, Star, TrendingUp } from "lucide-react";
 import { CompactMetric } from "@/components/ui/CompactMetric";
 import { fetchAllRepositories, type GitHubRepository } from "./github-utils";
 
-const owner = "duyet";
+const _owner = "duyet";
 
 interface RepoTrend {
   name: string;

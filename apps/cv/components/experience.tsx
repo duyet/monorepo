@@ -1,4 +1,4 @@
-import { cn, distanceFormat } from "@duyet/libs";
+import { cn, } from "@duyet/libs";
 import type { ReactNode } from "react";
 import { ResumeLink } from "./resume-link";
 

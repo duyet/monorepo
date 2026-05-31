@@ -60,9 +60,9 @@ export function SecHead({
                 {l.label} <span style={{ color: "var(--rd-text-4)" }}>→</span>
               </a>
             ) : (
-              <a key={i} onClick={l.onClick} style={{ cursor: "pointer" }}>
+              <button key={i} onClick={l.onClick} type="button" style={{ cursor: "pointer", background: "none", border: "none", padding: 0, font: "inherit", color: "inherit" }}>
                 {l.label} <span style={{ color: "var(--rd-text-4)" }}>→</span>
-              </a>
+              </button>
             ),
           )}
         </div>
@@ -165,7 +165,7 @@ export function Sparkline({
     .map((p, i) => `${i ? "L" : "M"}${p[0].toFixed(1)} ${p[1].toFixed(1)}`)
     .join(" ")
   const area = `${line} L${w} ${h} L0 ${h} Z`
-  const gid = "sg" + Math.round(Math.random() * 1e6)
+  const gid = `sg${Math.round(Math.random() * 1e6)}`
 
   return (
     <svg

@@ -249,7 +249,7 @@ const getData = async (days: number | "all" = 30) => {
 
   const zone = data.viewer.zones[0];
 
-  if (!zone || !zone.httpRequests1dGroups) {
+  if (!zone?.httpRequests1dGroups) {
     console.error("No zone data returned from Cloudflare API");
     return {
       data: {

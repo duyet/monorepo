@@ -586,7 +586,7 @@ function extractBestDay(
   stats: WakaTimeStats | null
 ): WakaTimeBestDayInsight | null {
   const best = stats?.data?.best_day;
-  if (!best || !best.date || !best.total_seconds) return null;
+  if (!best?.date || !best.total_seconds) return null;
   return {
     date: best.date,
     text: best.text || "",

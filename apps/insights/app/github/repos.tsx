@@ -10,11 +10,9 @@ interface RepoProps {
 
 /** Sync view component — receives pre-fetched repos */
 export function ReposView({
-  owner,
   repos,
   className,
 }: {
-  owner: string;
   repos: GithubRepo[];
   className?: string;
 }) {
@@ -94,7 +92,7 @@ export async function Repos({
   className,
 }: RepoProps) {
   const repos = await fetchGithubRepos(owner);
-  return <ReposView owner={owner} repos={repos} className={className} />;
+  return <ReposView repos={repos} className={className} />;
 }
 
 /**

@@ -27,7 +27,7 @@ export function CloudflareClient({ data }: CloudflareClientProps) {
   const currentData = data[activePeriod];
   const activePeriodInfo = TIME_PERIODS.find((p) => p.value === activePeriod);
 
-  if (!currentData || !currentData.data.viewer.zones[0]) {
+  if (!currentData?.data.viewer.zones[0]) {
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">

@@ -64,7 +64,7 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const _pathname = useRouterState({ select: (s) => s.location.pathname });
 
   const globalNavLinks = [
     { name: "Home", href: "https://duyet.net" },

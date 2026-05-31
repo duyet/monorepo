@@ -3,11 +3,6 @@ import { cn } from "@duyet/libs/utils";
 import { StarIcon } from "@radix-ui/react-icons";
 import { getGithubToken } from "./github-utils";
 
-interface JustStarsProps {
-  owner: string;
-  className?: string;
-}
-
 /** Sync view component — receives pre-fetched repos */
 export function GithubActivityView({
   owner,

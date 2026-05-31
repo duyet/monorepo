@@ -183,16 +183,16 @@ export function tsFn(input: unknown): Record<string, unknown> {
   const ifdPos = tiffStart + ifdOffset
   const numEntries = le ? view.getUint16(ifdPos, true) : view.getUint16(ifdPos)
   const tagNames: Record<number, string> = {
-    0x0100: "ImageWidth",
-    0x0101: "ImageHeight",
-    0x010f: "Make",
-    0x0110: "Model",
-    0x0112: "Orientation",
-    0x011a: "XResolution",
-    0x011b: "YResolution",
-    0x0131: "Software",
-    0x0132: "DateTime",
-    0x8769: "ExifIFD",
+    256: "ImageWidth",
+    257: "ImageHeight",
+    271: "Make",
+    272: "Model",
+    274: "Orientation",
+    282: "XResolution",
+    283: "YResolution",
+    305: "Software",
+    306: "DateTime",
+    34665: "ExifIFD",
   }
 
   for (let i = 0; i < numEntries; i++) {

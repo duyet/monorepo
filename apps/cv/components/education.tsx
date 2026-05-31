@@ -5,7 +5,6 @@ interface EducationProps {
   major: string;
   university: string;
   period?: string;
-  thesis: string;
   thesisUrl: string;
   className?: string;
 }
@@ -13,7 +12,6 @@ interface EducationProps {
 export function Education({
   major,
   university,
-  thesis,
   thesisUrl,
   className,
 }: EducationProps) {

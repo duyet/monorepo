@@ -53,7 +53,7 @@ function toCamelCase(str: string): string {
 }
 
 function truncate(str: string, len: number): string {
-  return str.length <= len ? str : str.slice(0, len) + "..."
+  return str.length <= len ? str : `${str.slice(0, len)}...`
 }
 
 export function wasmFn(input: unknown): unknown[] {

@@ -3,7 +3,7 @@ import { AreaChart } from "@/components/charts";
 import { CompactMetric } from "@/components/ui/CompactMetric";
 import { fetchAllEvents } from "./utils/github-api";
 
-const owner = "duyet";
+const _owner = "duyet";
 
 interface CommitActivity extends Record<string, unknown> {
   date: string;

@@ -113,18 +113,18 @@ export const input = {
 
 // TS implementations matching the Rust/WASM normalizers
 function tsNormalizeDate(raw: string): string {
-  let s = raw.trim()
+  const s = raw.trim()
   if (!s || /^(tba|tbd)$/i.test(s) || s === "-") return ""
 
   if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s
   const isoMatch = s.match(/^(\d{4}-\d{2}-\d{2})T/)
   if (isoMatch) return isoMatch[1]
-  if (/^\d{4}-\d{2}$/.test(s)) return s + "-01"
-  if (/^\d{4}$/.test(s)) return s + "-01-01"
+  if (/^\d{4}-\d{2}$/.test(s)) return `${s}-01`
+  if (/^\d{4}$/.test(s)) return `${s}-01-01`
 
   const qMatch = s.match(/Q([1-4])[\s/]+(20\d{2})/i)
   if (qMatch) {
-    const q = parseInt(qMatch[1])
+    const q = parseInt(qMatch[1], 10)
     const y = qMatch[2]
     return `${y}-${String((q - 1) * 3 + 1).padStart(2, "0")}-01`
   }
@@ -212,7 +212,7 @@ function tsNormalizeText(raw: string): string {
 function tsConvertNumericParams(floatValue: string): string {
   if (!floatValue || floatValue === "0") return ""
   const num = parseFloat(floatValue)
-  if (isNaN(num) || num === 0) return ""
+  if (Number.isNaN(num) || num === 0) return ""
 
   if (num >= 1e12) {
     const t = num / 1e12

@@ -51,7 +51,7 @@ export function tsFn(input: unknown): unknown {
 }
 
 export function wasmFn(input: unknown): unknown {
-  const { items, strings } = input as { items: Array<{ id: number; name: string; value: number; category: string }>; strings: string[] }
+  const { items } = input as { items: Array<{ id: number; name: string; value: number; category: string }>; strings: string[] }
   const wasmInput = JSON.stringify([items])
   return JSON.parse(merge_all_sources(wasmInput))
 }

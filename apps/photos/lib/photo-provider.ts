@@ -163,8 +163,7 @@ export function filterByEXIF(
         photo.exif.name ||
         [photo.exif.make, photo.exif.model].filter(Boolean).join(" ");
       if (
-        !camera ||
-        !camera.toLowerCase().includes(exifFilters.camera.toLowerCase())
+        !camera?.toLowerCase().includes(exifFilters.camera.toLowerCase())
       ) {
         return false;
       }

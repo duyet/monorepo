@@ -5,7 +5,6 @@ import {
   describe,
   expect,
   it,
-  mock,
   render,
 } from "../test-setup";
 

@@ -3,7 +3,7 @@ import { DonutChart } from "@/components/charts";
 import { CompactMetric } from "@/components/ui/CompactMetric";
 import { fetchAllRepositories, getGithubToken } from "./github-utils";
 
-const owner = "duyet";
+const _owner = "duyet";
 
 export interface GitHubLanguageStatsData {
   languages: { name: string; percentage: number; bytes: number }[];

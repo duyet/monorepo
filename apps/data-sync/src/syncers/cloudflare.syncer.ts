@@ -165,7 +165,7 @@ export class CloudflareSyncer extends BaseSyncer<
 
     for (const response of data) {
       const zone = response.viewer.zones[0];
-      if (!zone || !zone.httpRequests1dGroups) {
+      if (!zone?.httpRequests1dGroups) {
         continue;
       }
 
