@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AlertTriangle, MapPin, RefreshCw, Timer } from "lucide-react";
-import { Eyebrow, Reveal } from "@duyet/components/redesign";
 import PhotoGallery from "@/components/PhotoGallery";
 import { usePhotos } from "@/hooks/usePhotos";
 import { LoadingGrid } from "@/components/LoadingStates";
@@ -22,71 +21,34 @@ function PhotosPage() {
   }
 
   return (
-    <div
-      style={{
-        background: "var(--rd-bg)",
-        color: "var(--rd-text)",
-      }}
-    >
-      {/* hero header */}
+    <div>
+      {/* Stats strip */}
       <div
+        className="rd-mono rd-dim"
         style={{
-          paddingTop: "clamp(16px, 3vw, 40px)",
-          paddingBottom: "clamp(20px, 3vw, 36px)",
+          fontSize: 12.5,
+          marginBottom: 20,
+          display: "flex",
+          gap: 18,
         }}
       >
-        <Reveal>
-          <Eyebrow>Photos - photos.duyet.net</Eyebrow>
-          <h1
-            className="rd-display"
-            style={{
-              fontSize: "clamp(2.2rem, 5vw, 3.6rem)",
-              marginTop: 16,
-            }}
-          >
-            Photography Collection
-          </h1>
-          <p className="rd-lead" style={{ marginTop: 18, maxWidth: "56ch" }}>
-            A curated selection of {photos.length} photos from{" "}
-            <a
-              href="https://unsplash.com/@_duyet"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rd-ulink"
-            >
-              Unsplash
-            </a>{" "}
-            and Cloudinary. Landscapes, architecture, and moments captured
-            through the lens.
-          </p>
-          <div
-            className="rd-mono rd-dim"
-            style={{
-              fontSize: 12.5,
-              marginTop: 16,
-              display: "flex",
-              gap: 18,
-            }}
-          >
-            <span>
-              <strong style={{ color: "var(--rd-text)" }}>{photos.length}</strong>{" "}
-              photos
-            </span>
-            {photos.length > 0 && (
-              <span>
-                <MapPin size={12} style={{ display: "inline", verticalAlign: -1 }} />{" "}
-                <strong style={{ color: "var(--rd-text)" }}>
-                  {new Set(
-                    photos
-                      .map((p) => p.location?.country)
-                      .filter(Boolean),
-                  ).size}
-                </strong>{" "}
-                locations
-              </span>
-            )}
-          </div>
-        </Reveal>
+        <span>
+          <strong style={{ color: "var(--rd-text)" }}>{photos.length}</strong>{" "}
+          photos
+        </span>
+        {photos.length > 0 && (
+          <span>
+            <MapPin size={12} style={{ display: "inline", verticalAlign: -1 }} />{" "}
+            <strong style={{ color: "var(--rd-text)" }}>
+              {new Set(
+                photos
+                  .map((p) => p.location?.country)
+                  .filter(Boolean),
+              ).size}
+            </strong>{" "}
+            locations
+          </span>
+        )}
       </div>
 
       {/* gallery */}
@@ -103,8 +65,6 @@ function ErrorState({ error }: { error: Error }) {
   return (
     <div
       style={{
-        background: "var(--rd-bg)",
-        color: "var(--rd-text)",
         display: "flex",
         minHeight: 400,
         alignItems: "center",
