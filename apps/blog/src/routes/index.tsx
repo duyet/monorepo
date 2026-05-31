@@ -402,28 +402,32 @@ function HomePage(): ReactElement {
                 to="/$year/$month/$slug/"
                 params={postParams(post)}
                 className="rd-row cursor-pointer no-underline text-inherit"
-                style={{ gridTemplateColumns: "52px 1fr minmax(0, 1fr) auto auto" }}
+                style={{ gridTemplateColumns: "auto 1fr auto" }}
               >
                 <span
-                  className="rd-mono text-base font-bold leading-none"
+                  className="rd-mono text-base font-bold leading-none shrink-0"
                   style={{ color: yearColor(new Date(post.date).getFullYear()) }}
                 >
                   {new Date(post.date).getFullYear()}
                 </span>
-                <span className="font-[550] text-[clamp(14px,1.4vw,16px)] tracking-tight truncate">
-                  {post.title}
-                </span>
-                {post.excerpt && (
-                  <span className="rd-muted text-[13px] truncate">
-                    {post.excerpt}
+                <span className="truncate">
+                  <span className="font-[550] text-[clamp(14px,1.4vw,16px)] tracking-tight">
+                    {post.title}
                   </span>
-                )}
-                {!post.excerpt && <span />}
-                <span className="rd-tag-pill text-[10.5px] !py-[1px] !px-1.5 shrink-0">
-                  {post.category}
+                  {post.excerpt && (
+                    <>
+                      <span className="rd-dim mx-1.5">—</span>
+                      <span className="rd-muted text-[13px]">{post.excerpt}</span>
+                    </>
+                  )}
                 </span>
-                <span className="rd-mono rd-dim text-[11px] w-[64px] text-right shrink-0">
-                  {tokenLabel} tok
+                <span className="flex items-center gap-2 shrink-0 ml-2">
+                  <span className="rd-tag-pill text-[10.5px] !py-[1px] !px-1.5">
+                    {post.category}
+                  </span>
+                  <span className="rd-mono rd-dim text-[11px] w-[52px] text-right">
+                    {tokenLabel} tok
+                  </span>
                 </span>
               </Link>
             );
