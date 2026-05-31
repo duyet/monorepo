@@ -128,7 +128,7 @@ function CatChip({
     >
       {name}
       {count != null && (
-        <span style={{ opacity: 0.55, marginLeft: 2 }}>{count}</span>
+        <span className="opacity-[0.55] ml-[2px]">{count}</span>
       )}
     </button>
   );
@@ -144,22 +144,11 @@ function FeaturedPost({ post }: { post: Post }) {
     <Link
       to="/$year/$month/$slug/"
       params={postParams(post)}
-      className="rd-card rd-card-hover"
-      style={{
-        overflow: "hidden",
-        display: "grid",
-        gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)",
-      }}
+      className="rd-card rd-card-hover overflow-hidden grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)]"
     >
       {/* Terminal block */}
       <div
-        className="rd-termblock"
-        style={{
-          padding: "30px 32px",
-          display: "flex",
-          flexDirection: "column",
-          minHeight: 260,
-        }}
+        className="rd-termblock py-[30px] px-[32px] flex flex-col min-h-[260px]"
       >
         <div className="rd-term-dots">
           <i />
@@ -167,74 +156,45 @@ function FeaturedPost({ post }: { post: Post }) {
           <i />
         </div>
         <div
-          className="rd-mono"
-          style={{
-            marginTop: "auto",
-            fontSize: "clamp(20px, 2.4vw, 30px)",
-            color: "var(--rd-accent)",
-          }}
+          className="rd-mono mt-auto text-[clamp(20px,2.4vw,30px)] text-[var(--rd-accent)]"
         >
-          <span style={{ opacity: 0.55 }}>$</span> {code}
+          <span className="opacity-[0.55]">$</span> {code}
           <span className="rd-caret" />
         </div>
         <div
-          className="rd-mono rd-dim"
-          style={{ fontSize: 12, marginTop: 18 }}
+          className="rd-mono rd-dim text-xs mt-[18px]"
         />
       </div>
 
       {/* Post details */}
       <div
-        style={{
-          padding: "clamp(26px, 3vw, 38px)",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
+        className="p-[clamp(26px,3vw,38px)] flex flex-col justify-center"
       >
         <div
-          style={{
-            display: "flex",
-            gap: 10,
-            alignItems: "center",
-            marginBottom: 16,
-          }}
+          className="flex gap-[10px] items-center mb-4"
         >
-          <span className="rd-chip rd-mono" style={{ fontSize: 10.5 }}>
+          <span className="rd-chip rd-mono text-[10.5px]">
             {post.category}
           </span>
-          <span className="rd-mono rd-dim" style={{ fontSize: 12 }}>
+          <span className="rd-mono rd-dim text-xs">
             {formatPostDate(post.date)} &middot;{" "}
             {Math.max(1, Math.round(post.readingTime ?? 1))} min
           </span>
         </div>
         <h2
-          style={{
-            fontSize: "clamp(1.5rem, 2.6vw, 2rem)",
-            letterSpacing: "-0.035em",
-            lineHeight: 1.08,
-          }}
+          className="text-[clamp(1.5rem,2.6vw,2rem)] tracking-[-0.035em] leading-[1.08]"
         >
           {post.title}
         </h2>
         {post.excerpt && (
           <p
-            className="rd-muted"
-            style={{ marginTop: 14, fontSize: 15.5, maxWidth: "44ch" }}
+            className="rd-muted mt-[14px] text-[15.5px] max-w-[44ch]"
           >
             {post.excerpt}
           </p>
         )}
         <div
-          style={{
-            marginTop: 22,
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-            color: "var(--rd-accent-ink)",
-            fontSize: 14,
-            fontWeight: 550,
-          }}
+          className="mt-[22px] flex items-center gap-2 text-[var(--rd-accent-ink)] text-sm font-[550]"
         >
           Read the post <ArrowRight size={16} />
         </div>
@@ -335,59 +295,41 @@ function HomePage(): ReactElement {
     <div>
       {/* ── Blog header ─────────────────────────────────────────────── */}
       <section
-        className="rd-wrap"
-        style={{
-          paddingTop: "clamp(44px, 6vw, 76px)",
-          paddingBottom: "clamp(28px, 4vw, 44px)",
-        }}
+        className="rd-wrap pt-[clamp(44px,6vw,76px)] pb-[clamp(28px,4vw,44px)]"
       >
         <Eyebrow>BLOG &middot; blog.duyet.net</Eyebrow>
         <h1
-          className="rd-display"
-          style={{ fontSize: "clamp(2.4rem, 5.5vw, 4rem)", marginTop: 20 }}
+          className="rd-display text-[clamp(2.4rem,5.5vw,4rem)] mt-5"
         >
           Notes, mostly on data &amp; agents.
         </h1>
         <p
-          className="rd-lead"
-          style={{
-            marginTop: 22,
-            maxWidth: "64ch",
-            fontSize: "clamp(1.02rem, 1.4vw, 1.18rem)",
-          }}
+          className="rd-lead mt-[22px] max-w-[64ch] text-[clamp(1.02rem,1.4vw,1.18rem)]"
         >
           {BLOG_INTRO}
         </p>
         <div
-          className="rd-mono rd-dim"
-          style={{
-            fontSize: 13,
-            marginTop: 22,
-            display: "flex",
-            gap: 20,
-            flexWrap: "wrap",
-          }}
+          className="rd-mono rd-dim text-[13px] mt-[22px] flex gap-5 flex-wrap"
         >
           <span>
-            <strong style={{ color: "var(--rd-text)" }}>{totalPosts}</strong>{" "}
+            <strong className="text-[var(--rd-text)]">{totalPosts}</strong>{" "}
             posts
           </span>
           <span>
-            <strong style={{ color: "var(--rd-text)" }}>{totalYears}</strong>{" "}
+            <strong className="text-[var(--rd-text)]">{totalYears}</strong>{" "}
             years
           </span>
           <span>since {sinceYear}</span>
-          <Link to="/archives/" className="rd-ulink" style={{ cursor: "pointer" }}>archive</Link>
-          <Link to="/series/" className="rd-ulink" style={{ cursor: "pointer" }}>series</Link>
-          <Link to="/tags/" className="rd-ulink" style={{ cursor: "pointer" }}>tags</Link>
+          <Link to="/archives/" className="rd-ulink cursor-pointer">archive</Link>
+          <Link to="/series/" className="rd-ulink cursor-pointer">series</Link>
+          <Link to="/tags/" className="rd-ulink cursor-pointer">tags</Link>
         </div>
       </section>
 
       {/* ── Featured post ────────────────────────────────────────────── */}
       {featured && (
         <section
-          className="rd-wrap rd-section-tight"
-          style={{ paddingTop: 0 }}
+          className="rd-wrap rd-section-tight pt-0"
         >
           <Reveal>
             <FeaturedPost post={featured} />
@@ -422,13 +364,12 @@ function HomePage(): ReactElement {
       {/* ── Recent posts ─────────────────────────────────────────────── */}
       <section
         id="latest"
-        className="rd-wrap rd-section-tight"
-        style={{ paddingBottom: "clamp(56px, 8vw, 96px)" }}
+        className="rd-wrap rd-section-tight pb-[clamp(56px,8vw,96px)]"
       >
         <div className="rd-sechead">
           <div>
             <Eyebrow>Latest</Eyebrow>
-            <h2 className="rd-h-sec" style={{ marginTop: 12 }}>
+            <h2 className="rd-h-sec mt-3">
               Recent posts
             </h2>
           </div>
@@ -436,12 +377,7 @@ function HomePage(): ReactElement {
 
         {/* Category filter chips */}
         <div
-          style={{
-            display: "flex",
-            gap: 8,
-            flexWrap: "wrap",
-            marginBottom: 18,
-          }}
+          className="flex gap-2 flex-wrap mb-[18px]"
         >
           <CatChip
             name="All"
@@ -466,38 +402,24 @@ function HomePage(): ReactElement {
               key={post.slug}
               to="/$year/$month/$slug/"
               params={postParams(post)}
-              className="rd-row"
-              style={{
-                gridTemplateColumns: "auto 1fr auto auto",
-                cursor: "pointer",
-                textDecoration: "none",
-                color: "inherit",
-              }}
+              className="rd-row grid-cols-[auto_1fr_auto_auto] cursor-pointer no-underline text-inherit"
             >
               <span
-                className="rd-mono"
-                style={{ fontSize: 12.5, width: 46, color: yearColor(new Date(post.date).getFullYear()) }}
+                className="rd-mono text-[12.5px] w-[46px]"
+                style={{ color: yearColor(new Date(post.date).getFullYear()) }}
               >
                 {new Date(post.date).getFullYear()}
               </span>
               <span
-                style={{
-                  fontWeight: 550,
-                  fontSize: "clamp(15px, 1.6vw, 17px)",
-                  minWidth: 0,
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                }}
+                className="font-[550] text-[clamp(15px,1.6vw,17px)] min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
               >
                 {post.title}
               </span>
-              <span className="rd-chip rd-mono" style={{ fontSize: 10.5 }}>
+              <span className="rd-chip rd-mono text-[10.5px]">
                 {post.category}
               </span>
               <span
-                className="rd-mono rd-dim"
-                style={{ fontSize: 12, width: 56, textAlign: "right" }}
+                className="rd-mono rd-dim text-xs w-[56px] text-right"
               >
                 {Math.max(1, Math.round(post.readingTime ?? 1))} min
               </span>
@@ -508,8 +430,7 @@ function HomePage(): ReactElement {
         {/* Archive link */}
         <Link
           to="/archives/"
-          className="rd-btn rd-btn-ghost"
-          style={{ marginTop: 26 }}
+          className="rd-btn rd-btn-ghost mt-[26px]"
         >
           See all {totalPosts} posts <ArrowRight size={16} />
         </Link>
