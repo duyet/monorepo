@@ -487,119 +487,149 @@ function BlogTeaser() {
 }
 
 // ---------------------------------------------------------------------------
-// HeroDiagram — orbital agent schematic (inline SVG)
+// HeroDiagram — "Data Gravity Well" — concentric rings by category
 // ---------------------------------------------------------------------------
 
 function HeroDiagram() {
-  const cx = 210, cy = 188, rx = 150, ry = 122, core = 33;
-  // tech ring — tools + models + data + infra, named
+  const cx = 210, cy = 190;
+
+  // Nodes grouped by category at different orbital distances
   const nodes = [
-    { t: "LangGraph", a: 270, kind: "ai", slug: "langchain" },
-    { t: "Claude", a: 318, kind: "ai", slug: "claude" },
-    { t: "Kafka", a: 6, kind: "data", slug: "apachekafka", lc: "222222" },
-    { t: "Cloudflare", a: 48, kind: "infra", slug: "cloudflare" },
-    { t: "Kubernetes", a: 90, kind: "infra", slug: "kubernetes" },
-    { t: "Airflow", a: 132, kind: "data", slug: "apacheairflow" },
-    { t: "Spark", a: 174, kind: "data", slug: "apachespark" },
-    { t: "ClickHouse", a: 222, kind: "data", slug: "clickhouse", lc: "C28800" },
+    // AI — inner orbit (r≈80)
+    { t: "Claude", kind: "ai", slug: "claude", a: 290, orbit: 78 },
+    { t: "LangGraph", kind: "ai", slug: "langchain", a: 225, orbit: 82 },
+    // Data — middle orbit (r≈132)
+    { t: "ClickHouse", kind: "data", slug: "clickhouse", lc: "C28800", a: 188, orbit: 134 },
+    { t: "Kafka", kind: "data", slug: "apachekafka", lc: "222222", a: 248, orbit: 128 },
+    { t: "Airflow", kind: "data", slug: "apacheairflow", a: 318, orbit: 138 },
+    { t: "Spark", kind: "data", slug: "apachespark", a: 155, orbit: 132 },
+    // Infra — outer orbit (r≈170)
+    { t: "Kubernetes", kind: "infra", slug: "kubernetes", a: 72, orbit: 170 },
+    { t: "Cloudflare", kind: "infra", slug: "cloudflare", a: 20, orbit: 168 },
   ];
-  const pt = (a: number, fx = rx, fy = ry) => {
-    const r = (a * Math.PI) / 180;
-    return [cx + fx * Math.cos(r), cy + fy * Math.sin(r)];
-  };
+
   const kindColor = { ai: "var(--rd-accent)", data: "var(--rd-text)", infra: "var(--rd-text-3)" };
+  const kindOp = { ai: 0.85, data: 0.5, infra: 0.35 };
   const lite = (n: any) => `https://cdn.simpleicons.org/${n.slug}${n.lc ? "/" + n.lc : ""}`;
   const dark = (n: any) => `https://cdn.simpleicons.org/${n.slug}/${n.dc || "f0f0f0"}`;
+
+  const pos = (a: number, r: number) => {
+    const rad = (a * Math.PI) / 180;
+    return [cx + r * Math.cos(rad), cy + r * Math.sin(rad)] as const;
+  };
+
+  // Curved bezier path from node to core
+  const curvePath = (a: number, orbit: number) => {
+    const [px, py] = pos(a, orbit);
+    const midR = orbit * 0.5;
+    const rad = (a * Math.PI) / 180;
+    // Perpendicular offset for a gentle curve
+    const offset = 18;
+    const cpx = cx + midR * Math.cos(rad) + offset * Math.sin(rad);
+    const cpy = cy + midR * Math.sin(rad) - offset * Math.cos(rad);
+    return `M ${px} ${py} Q ${cpx} ${cpy} ${cx} ${cy}`;
+  };
 
   return (
     <div className="rd-hero-art" aria-hidden="true">
       <svg viewBox="0 0 420 380" preserveAspectRatio="xMidYMid meet">
         <defs>
-          <pattern
-            id="hd-dots"
-            width="20"
-            height="20"
-            patternUnits="userSpaceOnUse"
-          >
-            <circle cx="1.4" cy="1.4" r="1.3" fill="var(--rd-border-2)" />
-          </pattern>
+          {/* Radial glow behind core */}
+          <radialGradient id="hd-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="var(--rd-accent)" stopOpacity="0.18" />
+            <stop offset="50%" stopColor="var(--rd-accent)" stopOpacity="0.04" />
+            <stop offset="100%" stopColor="var(--rd-accent)" stopOpacity="0" />
+          </radialGradient>
         </defs>
-        <rect
-          x="0"
-          y="0"
-          width="420"
-          height="380"
-          fill="url(#hd-dots)"
-          opacity="0.45"
-        />
 
-        {/* connectors */}
+        {/* Background glow */}
+        <circle cx={cx} cy={cy} r="185" fill="url(#hd-glow)" />
+
+        {/* Orbit guides — one per category */}
+        <circle cx={cx} cy={cy} r="80" fill="none" stroke="var(--rd-border-2)" strokeWidth="0.6" strokeDasharray="2 6" opacity="0.5" />
+        <circle cx={cx} cy={cy} r="133" fill="none" stroke="var(--rd-border-2)" strokeWidth="0.6" strokeDasharray="2 6" opacity="0.4" />
+        <circle cx={cx} cy={cy} r="170" fill="none" stroke="var(--rd-border-2)" strokeWidth="0.6" strokeDasharray="2 6" opacity="0.3" />
+
+        {/* Orbit ring labels */}
+        <text x={cx + 80 + 6} y={cy - 4} className="rd-mono" style={{ fontSize: 7.5, fill: "var(--rd-accent-ink)", opacity: 0.5, letterSpacing: "0.08em" }}>AI</text>
+        <text x={cx + 133 + 6} y={cy - 4} className="rd-mono" style={{ fontSize: 7.5, fill: "var(--rd-text-3)", opacity: 0.4, letterSpacing: "0.08em" }}>DATA</text>
+        <text x={cx + 170 + 6} y={cy - 4} className="rd-mono" style={{ fontSize: 7.5, fill: "var(--rd-text-3)", opacity: 0.3, letterSpacing: "0.08em" }}>INFRA</text>
+
+        {/* Curved connections */}
         {nodes.map((n, i) => {
-          const [px, py] = pt(n.a);
-          const r = (n.a * Math.PI) / 180;
-          const sx = cx + core * Math.cos(r), sy = cy + core * Math.sin(r);
+          const path = curvePath(n.a, n.orbit);
           return (
-            <g key={"c" + i}>
-              <line x1={sx} y1={sy} x2={px} y2={py} stroke="var(--rd-border-2)" strokeWidth="1.2" />
-              <line x1={sx} y1={sy} x2={px} y2={py} stroke="var(--rd-accent)" strokeWidth="1.4" strokeDasharray="2 8" className="rd-flow" style={{ animationDelay: `${i * 0.12}s`, opacity: n.kind === "ai" ? 0.9 : 0.45 }} />
-              <circle cx={px} cy={py} r="2.6" fill={kindColor[n.kind as keyof typeof kindColor]} />
+            <g key={`c${i}`}>
+              <path d={path} fill="none" stroke="var(--rd-border-2)" strokeWidth="0.8" />
+              <path
+                d={path}
+                fill="none"
+                stroke={kindColor[n.kind as keyof typeof kindColor]}
+                strokeWidth="1.2"
+                strokeDasharray="2 8"
+                className="rd-flow"
+                style={{ animationDelay: `${i * 0.14}s`, opacity: kindOp[n.kind as keyof typeof kindOp] }}
+              />
             </g>
           );
         })}
 
-        {/* orbit guide */}
-        <ellipse
-          cx={cx}
-          cy={cy}
-          rx={rx}
-          ry={ry}
-          fill="none"
-          stroke="var(--rd-border-2)"
-          strokeWidth="1"
-          strokeDasharray="3 7"
-          className="rd-orbit"
-          opacity="0.6"
-        />
-
-        {/* tech pills */}
+        {/* Node endpoint dots at orbit intersection */}
         {nodes.map((n, i) => {
-          const [px, py] = pt(n.a);
+          const [px, py] = pos(n.a, n.orbit);
+          return (
+            <circle
+              key={`d${i}`}
+              cx={px}
+              cy={py}
+              r="2.4"
+              fill={kindColor[n.kind as keyof typeof kindColor]}
+              opacity={n.kind === "ai" ? 0.9 : 0.5}
+            />
+          );
+        })}
+
+        {/* Tech pills */}
+        {nodes.map((n, i) => {
+          const [px, py] = pos(n.a, n.orbit);
           const w = n.t.length * 6.5 + 46, h = 26;
           const x0 = px - w / 2;
           return (
-            <g key={"p" + i}>
+            <g key={`p${i}`}>
               <rect x={x0} y={py - h / 2} width={w} height={h} rx="13" fill="var(--rd-surface)" stroke="var(--rd-border-2)" strokeWidth="1.1" />
-              <image className="hd-logo-lite" href={lite(n)} x={x0 + 11} y={py - 7.5} width="15" height="15" />
-              <image className="hd-logo-dark" href={dark(n)} x={x0 + 11} y={py - 7.5} width="15" height="15" />
-              <text x={x0 + 33} y={py + 3.7} className="rd-chip" style={{ fontSize: 10.5, fontVariantNumeric: "tabular-nums", fill: n.kind === "ai" ? "var(--rd-accent-ink)" : "var(--rd-text-2)" }}>{n.t}</text>
+              {/* Category indicator dot */}
+              <circle
+                cx={x0 + 12}
+                cy={py}
+                r="3"
+                fill={kindColor[n.kind as keyof typeof kindColor]}
+                opacity={n.kind === "ai" ? 0.8 : 0.4}
+              />
+              <text
+                x={x0 + 22}
+                y={py + 3.5}
+                className="rd-chip"
+                style={{ fontSize: 10.5, fontVariantNumeric: "tabular-nums", fill: n.kind === "ai" ? "var(--rd-accent-ink)" : "var(--rd-text-2)" }}
+              >
+                {n.t}
+              </text>
             </g>
           );
         })}
 
-        {/* agent core */}
-        <circle
-          cx={cx}
-          cy={cy}
-          r={core}
-          fill="none"
-          stroke="var(--rd-accent)"
-          strokeWidth="1.3"
-          className="rd-hd-ring"
-        />
+        {/* Agent core */}
+        <circle cx={cx} cy={cy} r="36" fill="none" stroke="var(--rd-accent)" strokeWidth="1.3" className="rd-hd-ring" />
         <circle cx={cx} cy={cy} r="25" fill="var(--rd-accent)" />
-        <circle
-          cx={cx}
-          cy={cy}
-          r="9.5"
-          fill="none"
-          stroke="#fff"
-          strokeWidth="1.6"
-          opacity="0.95"
-        />
+        {/* Crosshair */}
+        <line x1={cx - 7} y1={cy} x2={cx + 7} y2={cy} stroke="#fff" strokeWidth="0.8" opacity="0.5" />
+        <line x1={cx} y1={cy - 7} x2={cx} y2={cy + 7} stroke="#fff" strokeWidth="0.8" opacity="0.5" />
+        {/* Inner ring */}
+        <circle cx={cx} cy={cy} r="10" fill="none" stroke="#fff" strokeWidth="1.4" opacity="0.85" />
         <circle cx={cx} cy={cy} r="3" fill="#fff" className="rd-hd-pulse" />
+        {/* Core label */}
         <text
           x={cx}
-          y={cy + 52}
+          y={cy + 54}
           textAnchor="middle"
           className="rd-mono"
           style={{ fontSize: 9, fill: "var(--rd-accent-ink)", letterSpacing: "0.1em", textTransform: "uppercase" }}
