@@ -5,6 +5,8 @@ import { addUtmParams } from "../../app/lib/utm";
 import { apps, type AppItem } from "../data/projects";
 import { SecHead, Reveal } from "@duyet/components";
 import { cn } from "../lib/utils";
+import { Badge } from "../components/ui/badge";
+import { Button } from "../components/ui/button";
 
 export const Route = createFileRoute("/projects")({
   component: ProjectsPage,
@@ -78,17 +80,18 @@ function ProjectsPage() {
           <div className="flex items-center justify-between gap-4 flex-wrap mt-8 mb-5">
             <div className="flex gap-2 flex-wrap">
               {FILTER_KEYS.map((key) => (
-                <button
+                <Button
                   key={key}
-                  type="button"
+                  variant="ghost"
+                  size="sm"
                   className={cn(
-                    "rd-chip-btn rd-mono text-[13px] cursor-pointer",
-                    filter === key && "rd-on",
+                    "rd-mono text-[13px]",
+                    filter === key && "bg-muted font-medium",
                   )}
                   onClick={() => setFilter(key)}
                 >
                   {key}
-                </button>
+                </Button>
               ))}
             </div>
             <ViewToggle view={view} setView={setView} />
@@ -207,9 +210,9 @@ function WorkCardBody({ item, cat }: { item: AppItem; cat: string }) {
       <div className="rd-work-foot">
         <div className="flex gap-1 flex-wrap">
           {item.tags?.map((tag) => (
-            <span key={tag} className="rd-chip rd-mono rd-work-tag">{tag}</span>
+            <Badge key={tag} variant="outline" className="rd-mono text-[10.5px] px-2 py-0">{tag}</Badge>
           ))}
-          <span className="rd-chip rd-mono rd-work-tag">{cat}</span>
+          <Badge variant="outline" className="rd-mono text-[10.5px] px-2 py-0">{cat}</Badge>
         </div>
         <span className="text-[var(--rd-text-4)]">
           <ArrowUpRight size={15} />
@@ -251,7 +254,7 @@ function ProjectList({ items }: { items: AppItem[] }) {
             </span>
             <div className="flex gap-1 shrink-0">
               {item.tags?.map((tag) => (
-                <span key={tag} className="rd-chip rd-mono text-[10.5px]">{tag}</span>
+                <Badge key={tag} variant="outline" className="rd-mono text-[10.5px] px-2 py-0">{tag}</Badge>
               ))}
             </div>
           </>
