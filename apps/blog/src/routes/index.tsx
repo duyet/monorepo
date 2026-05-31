@@ -394,44 +394,33 @@ function HomePage(): ReactElement {
         {/* Post rows */}
         <div className="rd-rows">
           {filteredPosts.map((post) => {
-            const tokens = post.tokenCount ?? 0;
+            const tokens = post.tokenCount || Math.round((post.readingTime ?? 1) * 200);
             const tokenLabel = tokens >= 1000
               ? `${(tokens / 1000).toFixed(1)}k`
               : tokens;
-            const tags = post.tags?.slice(0, 3) ?? [];
             return (
               <Link
                 key={post.slug}
                 to="/$year/$month/$slug/"
                 params={postParams(post)}
-                className="rd-row-extended cursor-pointer no-underline text-inherit py-3"
+                className="rd-row cursor-pointer no-underline text-inherit"
+                style={{ gridTemplateColumns: "52px 1fr auto auto" }}
               >
-                <div className="flex gap-3.5 items-baseline">
-                  <span
-                    className="rd-mono text-xl font-bold leading-none shrink-0 w-[52px]"
-                    style={{ color: yearColor(new Date(post.date).getFullYear()) }}
-                  >
-                    {new Date(post.date).getFullYear()}
-                  </span>
-                  <span className="font-[550] text-[clamp(15px,1.5vw,17px)] tracking-tight leading-snug">
-                    {post.title}
-                  </span>
-                </div>
-                {post.excerpt && (
-                  <p className="rd-muted mt-1.5 ml-[66px] text-[13px] leading-snug max-w-[60ch] truncate">
-                    {post.excerpt}
-                  </p>
-                )}
-                <div className="mt-1.5 ml-[66px] flex items-center gap-2 flex-wrap">
-                  {tags.map((tag) => (
-                    <span key={tag} className="rd-tag-pill text-[11px] !py-[2px] !px-2">
-                      <span className="rd-hash">#</span>{tag.toLowerCase()}
-                    </span>
-                  ))}
-                  <span className="rd-mono rd-dim text-[11px]">
-                    {tokenLabel} tokens
-                  </span>
-                </div>
+                <span
+                  className="rd-mono text-base font-bold leading-none"
+                  style={{ color: yearColor(new Date(post.date).getFullYear()) }}
+                >
+                  {new Date(post.date).getFullYear()}
+                </span>
+                <span className="font-[550] text-[clamp(14px,1.4vw,16px)] tracking-tight truncate">
+                  {post.title}
+                </span>
+                <span className="rd-tag-pill text-[10.5px] !py-[1px] !px-1.5">
+                  {post.category}
+                </span>
+                <span className="rd-mono rd-dim text-[11px] w-[64px] text-right shrink-0">
+                  {tokenLabel} tok
+                </span>
               </Link>
             );
           })}
