@@ -4,6 +4,7 @@ import { DailyChart } from "../components/DailyChart";
 import { TokenBreakdown } from "../components/TokenBreakdown";
 import { readPublicJson } from "../lib/read-public-json";
 import type { TokenData } from "../lib/types";
+import { SourceIcons } from "../components/SourceIcons";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
@@ -19,32 +20,35 @@ function Page() {
   return (
     <div style={{
       display: "flex",
-      minHeight: "90vh",
+      height: "100dvh",
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      gap: 32,
-      padding: "80px 24px",
+      gap: 16,
+      padding: "24px",
+      boxSizing: "border-box",
+      overflow: "hidden",
     }}>
       <div className="animate-fade-in">
         <AnimatedCounter target={data.totals.total_tokens} />
         <p style={{
-          marginTop: 12,
+          marginTop: 8,
           textAlign: "center",
-          fontSize: 13,
-          letterSpacing: "0.02em",
+          fontSize: 11,
+          letterSpacing: "0.04em",
           color: "var(--muted)",
-          lineHeight: 1.6,
+          lineHeight: 1.4,
         }}>
-          tokens consumed by {data.sources.join(", ")}
+          tokens consumed by
         </p>
+        <SourceIcons sources={data.sources} />
       </div>
 
       <div className="animate-fade-in-delay">
         <TokenBreakdown totals={data.totals} />
       </div>
 
-      <DailyChart daily={data.daily} firstDate={data.firstDate} />
+      <DailyChart daily={data.daily} firstDate={data.firstDate} lastDate={data.lastDate} />
     </div>
   );
 }

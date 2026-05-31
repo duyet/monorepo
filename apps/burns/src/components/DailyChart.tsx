@@ -3,18 +3,21 @@ import type { DailyEntry } from "../lib/types";
 interface DailyChartProps {
   daily: DailyEntry[];
   firstDate: string | null;
+  lastDate: string | null;
 }
 
-export function DailyChart({ daily, firstDate }: DailyChartProps) {
+export function DailyChart({ daily, firstDate, lastDate }: DailyChartProps) {
   if (daily.length === 0) return null;
 
   const recent = daily.slice(0, 60);
   const maxTokens = Math.max(...recent.map((d) => d.total_tokens));
   const barWidth = 100 / recent.length;
-  const chartHeight = 80;
+  const chartHeight = 60;
 
-  const sinceLabel = firstDate
-    ? `Since ${new Date(firstDate).toLocaleDateString("en-US", { month: "short", year: "numeric" })}`
+  const format = (d: string) =>
+    new Date(d).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  const sinceLabel = firstDate && lastDate
+    ? `Since ${format(firstDate)} — ${format(lastDate)}`
     : `Last ${recent.length} days`;
 
   return (

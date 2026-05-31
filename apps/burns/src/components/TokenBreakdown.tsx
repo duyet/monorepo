@@ -18,10 +18,10 @@ export function TokenBreakdown({ totals }: TokenBreakdownProps) {
   return (
     <p style={{
       textAlign: "center",
-      fontSize: 13,
+      fontSize: 11,
       color: "var(--muted)",
       fontVariantNumeric: "tabular-nums",
-      lineHeight: 1.8,
+      lineHeight: 1.6,
     }}>
       Input {fmt(totals.input_tokens)}
       <Sep />

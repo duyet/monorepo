@@ -37,6 +37,8 @@ body {
   font-family: var(--sans);
   color: var(--ink);
   background: var(--canvas);
+  overflow: hidden;
+  margin: 0;
 }
 
 @keyframes fade-in {
