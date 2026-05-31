@@ -44,7 +44,7 @@ const SELECTED: { name: string; tag: string }[] = [
   { name: "AI Agents", tag: "AI" },
   { name: "Stamps", tag: "Tool" },
   { name: "Helm Charts", tag: "Infra" },
-  { name: "Duyet Serif", tag: "Type" },
+  { name: "MCP Tools", tag: "AI" },
 ];
 
 const byName = new Map(apps.map((a) => [a.name, a]));

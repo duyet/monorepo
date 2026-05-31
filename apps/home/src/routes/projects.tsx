@@ -20,16 +20,19 @@ export const Route = createFileRoute("/projects")({
 });
 
 // ---------------------------------------------------------------------------
-// Category derivation — "Live" vs "OSS" based on host
+// Filter derivation — category (Live/OSS) + tag-based
 // ---------------------------------------------------------------------------
 
-type Category = "All" | "Live" | "OSS";
+type FilterKey = "All" | "Live" | "OSS" | string;
 
-function categoryOf(item: AppItem): Omit<Category, "All"> {
+function categoryOf(item: AppItem): "Live" | "OSS" {
   return item.host === "github.com" ? "OSS" : "Live";
 }
 
-const CATEGORIES: Category[] = ["All", "Live", "OSS"];
+/** Unique tags across all projects, sorted alphabetically. */
+const ALL_TAGS = [...new Set(apps.flatMap((a) => a.tags ?? []))].sort();
+
+const FILTER_KEYS: FilterKey[] = ["All", "Live", "OSS", ...ALL_TAGS];
 
 const liveCount = apps.filter((a) => a.host !== "github.com").length;
 
@@ -38,11 +41,14 @@ const liveCount = apps.filter((a) => a.host !== "github.com").length;
 // ---------------------------------------------------------------------------
 
 function ProjectsPage() {
-  const [filter, setFilter] = useState<Category>("All");
+  const [filter, setFilter] = useState<FilterKey>("All");
   const [view, setView] = useState<"grid" | "list">("grid");
 
-  const list =
-    filter === "All" ? apps : apps.filter((a) => categoryOf(a) === filter);
+  const list = filter === "All"
+    ? apps
+    : filter === "Live" || filter === "OSS"
+      ? apps.filter((a) => categoryOf(a) === filter)
+      : apps.filter((a) => a.tags?.includes(filter));
 
   return (
     <div style={{ background: "var(--rd-bg)", color: "var(--rd-text)" }}>
@@ -87,15 +93,15 @@ function ProjectsPage() {
             }}
           >
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-              {CATEGORIES.map((cat) => (
+              {FILTER_KEYS.map((key) => (
                 <button
-                  key={cat}
+                  key={key}
                   type="button"
-                  className={`rd-chip-btn rd-mono${filter === cat ? " rd-on" : ""}`}
-                  onClick={() => setFilter(cat)}
+                  className={`rd-chip-btn rd-mono${filter === key ? " rd-on" : ""}`}
+                  onClick={() => setFilter(key)}
                   style={{ fontSize: 13, cursor: "pointer" }}
                 >
-                  {cat}
+                  {key}
                 </button>
               ))}
             </div>
