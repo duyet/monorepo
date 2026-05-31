@@ -525,7 +525,7 @@ function BlogTeaser() {
       </a>
 
       {/* recent posts list */}
-      <div className="rd-card" style={{ padding: "8px 22px" }}>
+      <div className="rd-card" style={{ padding: 0 }}>
         <div className="rd-rows" style={{ borderTop: "none" }}>
           {recentPosts.slice(0, 5).map((post) => (
             <a
@@ -587,7 +587,7 @@ function BlogTeaser() {
           href="https://blog.duyet.net"
           target="_blank"
           rel="noreferrer"
-          style={{ display: "inline-flex", marginTop: 6 }}
+          style={{ display: "inline-flex", marginTop: 6, marginLeft: 22, marginBottom: 14 }}
         >
           Browse all {totalPosts} posts &rarr;
         </a>
