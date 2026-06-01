@@ -54,7 +54,7 @@ function WorkCardBody({ item, cat }: { item: AppItem; cat: string }) {
           <img
             src={item.logo}
             alt=""
-            className="shrink-0 rounded row-span-2 self-stretch object-contain"
+            className="shrink-0 rounded row-span-2 self-start w-[36px] h-auto max-h-[40px] object-contain"
           />
         )}
         <span className="font-[var(--font-mono)] text-[11px]">
