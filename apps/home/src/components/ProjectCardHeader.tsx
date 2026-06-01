@@ -1,18 +1,36 @@
 import { type AppItem } from "../data/projects";
 import { ColoredDomain } from "../components.projects/ColoredDomain";
+import { addUtmParams } from "../../app/lib/utm";
 
 interface ProjectCardHeaderProps {
   item: AppItem;
-  /** Title font size. Defaults to "text-[1.1rem]". */
-  titleClass?: string;
+  titleClass: string;
+  /** UTM params: source, content, medium host. */
+  utm?: { source: string; content?: string; medium?: string };
 }
 
 export function ProjectCardHeader({
   item,
-  titleClass = "text-[1.1rem]",
+  titleClass,
+  utm,
 }: ProjectCardHeaderProps) {
+  const href = utm
+    ? addUtmParams(item.href, utm.source, utm.content, utm.medium)
+    : item.href;
+  const isExternal = href.startsWith("http");
+
+  const linkProps = isExternal
+    ? { href, target: "_blank" as const, rel: "noopener noreferrer" }
+    : { href };
+
   return (
-    <div className={item.logo ? "grid grid-cols-[auto_1fr] gap-x-3 items-center" : ""}>
+    <div
+      className={
+        item.logo
+          ? "grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 items-center"
+          : "flex flex-col gap-1"
+      }
+    >
       {item.logo && (
         <img
           src={item.logo}
@@ -20,12 +38,18 @@ export function ProjectCardHeader({
           className="shrink-0 rounded row-span-2 self-start w-[50px] h-auto max-h-[50px] object-contain"
         />
       )}
-      <span className="font-[var(--font-mono)] text-[13px]">
+      <a
+        {...linkProps}
+        className="font-[var(--font-mono)] text-[13px] font-medium tracking-[-0.01em] min-w-0 overflow-hidden text-ellipsis whitespace-nowrap no-underline text-inherit hover:opacity-70 transition-opacity"
+      >
         <ColoredDomain domain={item.domain || item.host} />
-      </span>
-      <h3 className={`${titleClass} tracking-[-0.03em] leading-tight`}>
+      </a>
+      <a
+        {...linkProps}
+        className={`${titleClass} tracking-[-0.03em] leading-tight no-underline text-inherit hover:opacity-70 transition-opacity`}
+      >
         {item.name}
-      </h3>
+      </a>
     </div>
   );
 }
