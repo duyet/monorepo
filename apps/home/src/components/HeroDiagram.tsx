@@ -17,7 +17,7 @@ export function HeroDiagram() {
   }[] = [
     // AI / agents
     { id: "claude", t: "Claude", kind: "ai", slug: "anthropic", a: 256, r: 92 },
-    { id: "mcp", t: "Duyet MCP", kind: "ai", a: 292, r: 120 },
+    { id: "mcp", t: "Duyet MCP", kind: "ai", slug: "modelcontextprotocol", a: 292, r: 120 },
     { id: "langgraph", t: "LangGraph", kind: "ai", slug: "langchain", a: 216, r: 134 },
     { id: "llamaindex", t: "LlamaIndex", kind: "ai", a: 198, r: 182 },
     { id: "opencode", t: "OpenCode", kind: "ai", a: 234, r: 182 },
@@ -31,8 +31,8 @@ export function HeroDiagram() {
     { id: "spark", t: "Spark", kind: "data", slug: "apachespark", a: 52, r: 178 },
     { id: "clickhouse", t: "ClickHouse", kind: "data", slug: "clickhouse", lc: "C28800", a: 84, r: 182 },
     { id: "kafka", t: "Kafka", kind: "data", slug: "apachekafka", lc: "231F20", a: 110, r: 170 },
-    { id: "qdrant", t: "Qdrant", kind: "data", slug: "qdrant", a: 68, r: 155 },
-    { id: "firecrawl", t: "Firecrawl", kind: "data", a: 136, r: 158 },
+    { id: "qdrant", t: "Qdrant", kind: "data", slug: "qdrant", a: 74, r: 116 },
+    { id: "firecrawl", t: "Firecrawl", kind: "data", a: 128, r: 156 },
     // Infra
     { id: "k8s", t: "Kubernetes", kind: "infra", slug: "kubernetes", a: 122, r: 112 },
     { id: "cloudflare", t: "Cloudflare", kind: "infra", slug: "cloudflare", a: 165, r: 120 },
