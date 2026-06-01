@@ -202,10 +202,34 @@ function PostPage() {
       {/* Hero */}
       <PostHero post={post} />
 
-      {/* Body — text stays at narrow measure (~68ch); images & tables break out to a wider track */}
+      {/* Body + TOC sidebar */}
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <div className="post-body min-w-0">
-          <Content post={post} />
+        <div className="flex gap-8">
+          <div className="post-body min-w-0 flex-1">
+            <Content post={post} />
+          </div>
+          {post.headings && post.headings.length > 0 && (
+            <aside className="hidden lg:block w-[200px] shrink-0">
+              <div className="sticky top-20">
+                <p className="rd-mono rd-dim text-[11px] uppercase tracking-[0.06em]">
+                  On this page
+                </p>
+                <nav className="mt-3 flex flex-col gap-1.5">
+                  {post.headings.map((h) => (
+                    <a
+                      key={h.id}
+                      href={`#${h.id}`}
+                      className={`block text-[13px] leading-snug no-underline text-[var(--rd-text-3)] hover:text-[var(--rd-text)] transition-colors ${
+                        h.level === 3 ? "pl-3" : ""
+                      }`}
+                    >
+                      {h.text}
+                    </a>
+                  ))}
+                </nav>
+              </div>
+            </aside>
+          )}
         </div>
       </div>
 
