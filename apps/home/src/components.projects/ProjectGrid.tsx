@@ -5,7 +5,7 @@ import { type AppItem } from "../data/projects";
 import { addUtmParams } from "../../app/lib/utm";
 import { Badge } from "../components/ui/badge";
 import { categoryOf } from "./filter-utils";
-import { ColoredDomain } from "./ColoredDomain";
+import { ProjectCardHeader } from "../components/ProjectCardHeader";
 
 export function ProjectGrid({ items }: { items: AppItem[] }) {
   return (
@@ -49,19 +49,7 @@ export function ProjectGrid({ items }: { items: AppItem[] }) {
 function WorkCardBody({ item, cat }: { item: AppItem; cat: string }) {
   return (
     <>
-      <div className={item.logo ? "grid grid-cols-[auto_1fr] gap-x-3 items-center" : ""}>
-        {item.logo && (
-          <img
-            src={item.logo}
-            alt=""
-            className="shrink-0 rounded row-span-2 self-start w-[50px] h-auto max-h-[50px] object-contain"
-          />
-        )}
-        <span className="font-[var(--font-mono)] text-[13px]">
-          <ColoredDomain domain={item.domain || item.host} />
-        </span>
-        <h3 className="text-[1.18rem] tracking-[-0.03em] mt-0.5 leading-tight">{item.name}</h3>
-      </div>
+      <ProjectCardHeader item={item} titleClass="text-[1.18rem]" />
       <p className="rd-work-desc">{item.description}</p>
       <div className="flex items-center justify-between mt-4">
         <div className="flex gap-1 flex-wrap">

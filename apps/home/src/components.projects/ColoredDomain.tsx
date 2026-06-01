@@ -8,14 +8,18 @@
  *   duyet.github.io/llm…    → <muted>duyet.github.io</muted>/llm…
  */
 export function ColoredDomain({ domain }: { domain: string }) {
-  // github.com/path — color the host, mute the path
+  // github.com/owner/repo — highlight the repo name
   if (domain.startsWith("github.com")) {
-    const [host, ...rest] = domain.split("/");
+    const parts = domain.split("/");
+    const host = parts[0]; // github.com
+    const owner = parts[1]; // duyet
+    const repo = parts.slice(2).join("/"); // repo name(s)
     return (
       <>
         <span className="text-[var(--rd-text-2)]">{host}</span>
-        {rest.length > 0 && (
-          <span className="text-[var(--rd-text-4)]">/{rest.join("/")}</span>
+        {owner && <span className="text-[var(--rd-text-4)]">/{owner}</span>}
+        {repo && (
+          <span className="text-[var(--rd-accent-ink)]">/{repo}</span>
         )}
       </>
     );

@@ -2,7 +2,7 @@ import { ArrowUpRight } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { addUtmParams } from "../../app/lib/utm";
 import { type AppItem } from "../data/projects";
-import { ColoredDomain } from "../components.projects/ColoredDomain";
+import { ProjectCardHeader } from "./ProjectCardHeader";
 
 interface WorkBentoProps {
   selectedProjects: { item: AppItem; tag: string }[];
@@ -26,19 +26,7 @@ export function WorkBento({ selectedProjects }: WorkBentoProps) {
             rel="noreferrer"
             className="rd-card flex flex-col p-4 min-h-[128px] no-underline text-inherit"
           >
-            <div className={item.logo ? "grid grid-cols-[auto_1fr] gap-x-3 items-center" : ""}>
-              {item.logo && (
-                <img
-                  src={item.logo}
-                  alt=""
-                  className="shrink-0 rounded row-span-2 self-start w-[50px] h-auto max-h-[50px] object-contain"
-                />
-              )}
-              <span className="font-[var(--font-mono)] text-[13px]">
-                <ColoredDomain domain={item.domain || item.host} />
-              </span>
-              <h3 className="text-[1.02rem] tracking-[-0.03em] leading-tight">{item.name}</h3>
-            </div>
+            <ProjectCardHeader item={item} titleClass="text-[1.02rem]" />
             <p className="rd-work-desc">{item.description}</p>
             <div className="flex items-center justify-between mt-3">
               <Badge variant="outline" className="font-[var(--font-mono)] text-[10.5px] px-2 py-0">{tag}</Badge>
