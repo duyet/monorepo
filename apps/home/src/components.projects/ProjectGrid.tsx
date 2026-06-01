@@ -49,19 +49,23 @@ function WorkCardBody({ item, cat }: { item: AppItem; cat: string }) {
   return (
     <>
       <div className="flex items-center justify-between gap-2.5">
-        <span className="flex items-center gap-2 font-[var(--font-mono)] rd-work-dom">
-          {item.logo && (
-            <img
-              src={item.logo}
-              alt=""
-              width={16}
-              height={16}
-              className="shrink-0"
-            />
-          )}
-          {item.domain || item.host}
-        </span>
+        {item.logo ? (
+          <img
+            src={item.logo}
+            alt=""
+            width={32}
+            height={32}
+            className="shrink-0 rounded"
+          />
+        ) : (
+          <span className="font-[var(--font-mono)] rd-work-dom">
+            {item.domain || item.host}
+          </span>
+        )}
       </div>
+      <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11px] mt-1">
+        {item.domain || item.host}
+      </span>
       <h3 className="text-[1.18rem] tracking-[-0.03em] mt-[15px]">{item.name}</h3>
       <p className="rd-work-desc">{item.description}</p>
       <div className="flex items-center justify-between mt-4">
