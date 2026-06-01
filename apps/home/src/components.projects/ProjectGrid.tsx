@@ -58,11 +58,7 @@ function WorkCardBody({ item, cat }: { item: AppItem; cat: string }) {
             height={32}
             className="shrink-0 rounded"
           />
-        ) : (
-          <span className="font-[var(--font-mono)] rd-work-dom">
-            {item.domain || item.host}
-          </span>
-        )}
+        ) : null}
       </div>
       <span className="font-[var(--font-mono)] text-[11px] mt-1">
         <ColoredDomain domain={item.domain || item.host} />
