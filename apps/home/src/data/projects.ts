@@ -184,6 +184,7 @@ export const apps: AppItem[] = [
     screenshot: "/screenshots/rust-art.png",
     tone: "bg-[#6a5578]",
     iconName: "BookOpen",
+    logo: "https://rust-lang.org/logos/rust-logo-blk.svg",
     tags: ["Rust"],
   },
   {
