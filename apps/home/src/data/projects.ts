@@ -84,7 +84,7 @@ export const apps: AppItem[] = [
     tone: "bg-[#5f6257]",
     domain: "html.duyet.net",
     iconName: "Share2",
-    logo: "https://stamp.duyet.net/api/stamps/rugGCgcyhER6/image",
+    logo: "https://stamp.duyet.net/api/stamps/EzFmilcUpdI9/image",
     tags: ["Tool"],
   },
   {
