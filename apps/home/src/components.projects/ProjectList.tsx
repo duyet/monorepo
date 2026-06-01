@@ -18,8 +18,17 @@ export function ProjectList({ items }: { items: AppItem[] }) {
         const inner = (
           <>
             <span
-              className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[12.5px] w-[200px] overflow-hidden text-ellipsis whitespace-nowrap shrink-0"
+              className="flex items-center gap-2 font-[var(--font-mono)] text-[var(--rd-text-3)] text-[12.5px] w-[200px] overflow-hidden text-ellipsis whitespace-nowrap shrink-0"
             >
+              {item.logo && (
+                <img
+                  src={item.logo}
+                  alt=""
+                  width={14}
+                  height={14}
+                  className="shrink-0"
+                />
+              )}
               {item.domain || item.host}
             </span>
             <span className="min-w-0 flex-1">

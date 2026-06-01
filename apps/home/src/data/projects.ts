@@ -25,6 +25,8 @@ export interface AppItem {
    * to give visitors a quick sense of what each thing is about.
    */
   tags?: string[];
+  /** Optional logo URL. Rendered as a small image next to the domain. */
+  logo?: string;
 }
 
 const hostOf = (url: string) => new URL(url).host;
@@ -56,6 +58,7 @@ export const apps: AppItem[] = [
     tone: "bg-[#536f91]",
     domain: "anyrouter.dev",
     iconName: "Cloud",
+    logo: "https://anyrouter.dev/anyrouter-logo.svg",
     tags: ["AI", "Infra"],
   },
   {
@@ -132,7 +135,7 @@ export const apps: AppItem[] = [
   },
   {
     name: "Stamps",
-    href: "/stamp",
+    href: projectUrls.stamp,
     host: hostOf(projectUrls.stamp),
     utmContent: "stamp_bento",
     description: "URL shortener with analytics and custom domains",
