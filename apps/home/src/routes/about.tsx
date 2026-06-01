@@ -89,8 +89,7 @@ export const Route = createFileRoute("/about")({
 const facts = [
   { label: "Role", value: "Senior Data & AI Engineer" },
   { label: "Experience", value: experienceYears },
-  { label: "Based in", value: "Ho Chi Minh City" },
-  { label: "Now", value: "Cartrack" },
+  { label: "Posts", value: "299" },
 ];
 
 const focus =
@@ -193,7 +192,7 @@ function AboutPage() {
     <div className="page-enter bg-[var(--rd-bg)] text-[var(--rd-text)]">
       <div className="rd-wrap pt-[clamp(40px,5vw,64px)] pb-[clamp(56px,8vw,96px)]">
         {/* Intro block */}
-        <div className="rd-card rd-card-pad p-[clamp(28px,4vw,52px)]">
+        <div>
           <Eyebrow>About</Eyebrow>
           <h1 className="rd-display mt-[13px] max-w-[17ch] text-[clamp(2.05rem,4.2vw,3.3rem)] leading-[1.02]">
             I build data platforms, and the{" "}
@@ -229,7 +228,12 @@ function AboutPage() {
           <div className="rd-card rd-vibe-lead">
             <div className="rd-vibe-badge">
               <Flame size={12} />
-              Deep in vibe-coding mode
+              <a
+                href="https://blog.duyet.net/2026/01/coding-agent/"
+                className="no-underline text-inherit hover:text-[var(--rd-accent)] transition-colors"
+              >
+                Deep in vibe-coding mode
+              </a>
             </div>
             <p className="mt-5 max-w-[40ch] text-[clamp(0.95rem,1.3vw,1.08rem)] leading-[1.6] text-[var(--rd-text-2)]">
               These days most of what ships here is written alongside coding

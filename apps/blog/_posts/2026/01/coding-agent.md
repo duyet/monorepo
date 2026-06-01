@@ -5,7 +5,7 @@ category: AI
 series: AI Harness Engineering
 tags:
  - AI
-slug: /2026/01/ai
+slug: /2026/01/coding-agent
 thumbnail: /media/2026/01/ai/ai-banner.png
 description: Reflect on what I'm thinking and doing in this LLM era
 featured: true

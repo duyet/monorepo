@@ -2,5 +2,9 @@
 /category/data-engineer /category/data-engineering 301
 /category/bigdata /category/data 301
 
+# Post slug renames
+/2026/01/ai /2026/01/coding-agent/ 301
+/2026/01/ai/ /2026/01/coding-agent/ 301
+
 # Redirect .html to clean URLs
 /:year/:month/:slug.html /:year/:month/:slug/ 301
