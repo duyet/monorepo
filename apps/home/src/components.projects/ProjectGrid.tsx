@@ -12,14 +12,14 @@ export function ProjectGrid({ items }: { items: AppItem[] }) {
 
         return (
           <Reveal key={item.name} delay={i * 25}>
-            <div className="rd-card flex flex-col p-5 min-h-[176px] text-inherit h-full">
+            <div className="rd-card flex flex-col p-4 min-h-[176px] text-inherit h-full">
               <ProjectCardHeader
                 item={item}
                 titleClass="text-[1.18rem]"
                 utm={{ source: "projects", content: item.utmContent, medium: item.host }}
               />
               <p className="rd-work-desc">{item.description}</p>
-              <div className="flex items-center justify-between mt-4">
+              <div className="flex items-center justify-between pt-2">
                 <div className="flex gap-1 flex-wrap">
                   {item.tags?.map((tag) => (
                     <Badge key={tag} variant="outline" className="font-[var(--font-mono)] text-[10.5px] px-2 py-0">{tag}</Badge>

@@ -11,6 +11,7 @@ export function HeroDiagram() {
     slug?: string;
     lc?: string;
     dc?: string;
+    icon?: string;
     a: number;
     r: number;
   }[] = [
@@ -20,8 +21,8 @@ export function HeroDiagram() {
     { id: "langgraph", t: "LangGraph", kind: "ai", slug: "langchain", a: 216, r: 134 },
     { id: "llamaindex", t: "LlamaIndex", kind: "ai", a: 198, r: 182 },
     { id: "opencode", t: "OpenCode", kind: "ai", a: 234, r: 182 },
-    { id: "anyrouter", t: "AnyRouter", kind: "ai", a: 272, r: 168 },
-    { id: "openrouter", t: "OpenRouter", kind: "ai", a: 312, r: 184 },
+    { id: "anyrouter", t: "AnyRouter", kind: "ai", icon: "https://anyrouter.dev/anyrouter-logo.svg", a: 272, r: 168 },
+    { id: "openrouter", t: "OpenRouter", kind: "ai", slug: "openrouter", a: 312, r: 184 },
     { id: "aisdk", t: "AI SDK", kind: "ai", slug: "vercel", a: 336, r: 138 },
     // Data
     { id: "dataplatform", t: "Data Platform", kind: "data", a: 95, r: 72 },
@@ -30,6 +31,8 @@ export function HeroDiagram() {
     { id: "spark", t: "Spark", kind: "data", slug: "apachespark", a: 52, r: 178 },
     { id: "clickhouse", t: "ClickHouse", kind: "data", slug: "clickhouse", lc: "C28800", a: 84, r: 182 },
     { id: "kafka", t: "Kafka", kind: "data", slug: "apachekafka", lc: "231F20", a: 110, r: 170 },
+    { id: "qdrant", t: "Qdrant", kind: "data", slug: "qdrant", a: 68, r: 155 },
+    { id: "firecrawl", t: "Firecrawl", kind: "data", a: 136, r: 158 },
     // Infra
     { id: "k8s", t: "Kubernetes", kind: "infra", slug: "kubernetes", a: 122, r: 112 },
     { id: "cloudflare", t: "Cloudflare", kind: "infra", slug: "cloudflare", a: 165, r: 120 },
@@ -57,6 +60,8 @@ export function HeroDiagram() {
     ["dataplatform", "airflow"], ["dataplatform", "duckdb"], ["dataplatform", "spark"],
     ["dataplatform", "clickhouse"], ["dataplatform", "kafka"], ["dataplatform", "k8s"],
     ["airflow", "spark"], ["kafka", "clickhouse"], ["spark", "clickhouse"],
+    ["dataplatform", "qdrant"], ["qdrant", "clickhouse"], ["qdrant", "duckdb"],
+    ["dataplatform", "firecrawl"], ["firecrawl", "langgraph"], ["firecrawl", "qdrant"],
     // Cloudflare → infra
     ["cloudflare", "workers"], ["cloudflare", "cfagents"], ["cfagents", "workers"],
     ["cloudflare", "k8s"], ["workers", "aisdk"],
@@ -64,8 +69,8 @@ export function HeroDiagram() {
 
   const kindColor = { ai: "var(--rd-accent)", data: "var(--rd-text)", infra: "var(--rd-text-3)" };
   const kindOp = { ai: 0.8, data: 0.5, infra: 0.42 };
-  const _lite = (n: any) => `https://cdn.simpleicons.org/${n.slug}${n.lc ? `/${n.lc}` : ""}`;
-  const _dark = (n: any) => `https://cdn.simpleicons.org/${n.slug}/${n.dc || "f0f0f0"}`;
+  const _lite = (n: any) => n.icon || `https://cdn.simpleicons.org/${n.slug}${n.lc ? `/${n.lc}` : ""}`;
+  const _dark = (n: any) => n.icon || `https://cdn.simpleicons.org/${n.slug}/${n.dc || "f0f0f0"}`;
 
   const pos = (a: number, r: number): [number, number] => {
     const rad = (a * Math.PI) / 180;
@@ -147,15 +152,16 @@ export function HeroDiagram() {
           {/* Tech pills with logos */}
           {nodes.map((n, i) => {
             const [px, py] = pos(n.a, n.r);
-            const hasIcon = !!n.slug;
+            const hasIcon = !!n.slug || !!n.icon;
             const w = n.t.length * 6.4 + (hasIcon ? 38 : 22);
             const h = 24;
             const x0 = px - w / 2;
             return (
               <g key={`p${i}`}>
                 <rect x={x0} y={py - h / 2} width={w} height={h} rx="12" fill="var(--rd-surface)" stroke="var(--rd-border-2)" strokeWidth="1.1" />
-                {hasIcon && <image href={_lite(n)} x={x0 + 8} y={py - 5} width={10} height={10} className="hd-il" />}
-                {hasIcon && <image href={_dark(n)} x={x0 + 8} y={py - 5} width={10} height={10} className="hd-id" />}
+                {hasIcon && n.icon && <image href={n.icon} x={x0 + 8} y={py - 5} width={10} height={10} />}
+                {hasIcon && !n.icon && <image href={_lite(n)} x={x0 + 8} y={py - 5} width={10} height={10} className="hd-il" />}
+                {hasIcon && !n.icon && <image href={_dark(n)} x={x0 + 8} y={py - 5} width={10} height={10} className="hd-id" />}
                 <text
                   x={x0 + (hasIcon ? 22 : 11)}
                   y={py + 3.5}
