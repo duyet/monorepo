@@ -5,6 +5,7 @@ import { type AppItem } from "../data/projects";
 import { addUtmParams } from "../../app/lib/utm";
 import { Badge } from "../components/ui/badge";
 import { categoryOf } from "./filter-utils";
+import { ColoredDomain } from "./ColoredDomain";
 
 export function ProjectGrid({ items }: { items: AppItem[] }) {
   return (
@@ -63,8 +64,8 @@ function WorkCardBody({ item, cat }: { item: AppItem; cat: string }) {
           </span>
         )}
       </div>
-      <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11px] mt-1">
-        {item.domain || item.host}
+      <span className="font-[var(--font-mono)] text-[11px] mt-1">
+        <ColoredDomain domain={item.domain || item.host} />
       </span>
       <h3 className="text-[1.18rem] tracking-[-0.03em] mt-[15px]">{item.name}</h3>
       <p className="rd-work-desc">{item.description}</p>

@@ -3,6 +3,7 @@ import { type AppItem } from "../data/projects";
 import { addUtmParams } from "../../app/lib/utm";
 import { Badge } from "../components/ui/badge";
 import { categoryOf } from "./filter-utils";
+import { ColoredDomain } from "./ColoredDomain";
 
 export function ProjectList({ items }: { items: AppItem[] }) {
   return (
@@ -29,8 +30,8 @@ export function ProjectList({ items }: { items: AppItem[] }) {
                   className="shrink-0 rounded"
                 />
               ) : null}
-              <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[12.5px] overflow-hidden text-ellipsis whitespace-nowrap">
-                {item.domain || item.host}
+              <span className="font-[var(--font-mono)] text-[12.5px] overflow-hidden text-ellipsis whitespace-nowrap">
+                <ColoredDomain domain={item.domain || item.host} />
               </span>
             </span>
             <span className="min-w-0 flex-1">
