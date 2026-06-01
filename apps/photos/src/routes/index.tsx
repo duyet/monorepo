@@ -23,7 +23,7 @@ function PhotosPage() {
   return (
     <div>
       {/* Stats strip */}
-      <div className="rd-mono rd-dim text-[12.5px] mb-5 flex gap-[18px]">
+      <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[12.5px] mb-5 flex gap-[18px]">
         <span>
           <strong className="text-[var(--rd-text)]">{photos.length}</strong>{" "}
           photos
@@ -56,7 +56,7 @@ function ErrorState({ error }: { error: Error }) {
 
   return (
     <div className="flex min-h-[400px] items-center justify-center p-10">
-      <div className="rd-card rd-card-pad max-w-[420px] text-center">
+      <div className="rd-card p-[clamp(18px,2.2vw,26px)] max-w-[420px] text-center">
         <div className="flex justify-center mb-4">
           {isRateLimit ? (
             <Timer size={36} style={{ color: "var(--rd-warn)" }} />
@@ -73,7 +73,7 @@ function ErrorState({ error }: { error: Error }) {
                 ? "Service Configuration Error"
                 : "Unable to Load Photos"}
         </h3>
-        <p className="rd-muted text-sm mt-2 leading-[1.5]">
+        <p className="text-[var(--rd-text-2)] text-sm mt-2 leading-[1.5]">
           {error.message}
         </p>
         <button

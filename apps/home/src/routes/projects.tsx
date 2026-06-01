@@ -56,7 +56,7 @@ function ProjectsPage() {
   return (
     <div className="bg-[var(--rd-bg)] text-[var(--rd-text)]">
       <section
-        className="rd-wrap pt-[clamp(44px,6vw,76px)] pb-[clamp(56px,8vw,96px)]"
+        className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(44px,6vw,76px)] pb-[clamp(56px,8vw,96px)]"
       >
         <Reveal>
           <SecHead
@@ -85,7 +85,7 @@ function ProjectsPage() {
                   variant="ghost"
                   size="sm"
                   className={cn(
-                    "rd-mono text-[13px]",
+                    "font-[var(--font-mono)] text-[13px]",
                     filter === key && "bg-muted font-medium",
                   )}
                   onClick={() => setFilter(key)}
@@ -172,7 +172,7 @@ function ProjectGrid({ items }: { items: AppItem[] }) {
         const isExternal = href.startsWith("http");
 
         const cardClass =
-          "rd-card rd-card-hover rd-work-card no-underline text-inherit flex flex-col h-full";
+          "rd-card flex flex-col p-5 min-h-[176px] no-underline text-inherit h-full";
 
         return (
           <Reveal key={item.name} delay={i * 25}>
@@ -200,19 +200,19 @@ function ProjectGrid({ items }: { items: AppItem[] }) {
 function WorkCardBody({ item, cat }: { item: AppItem; cat: string }) {
   return (
     <>
-      <div className="rd-work-top">
-        <span className="rd-mono rd-work-dom">
+      <div className="flex items-center justify-between gap-2.5">
+        <span className="font-[var(--font-mono)] rd-work-dom">
           {item.domain || item.host}
         </span>
       </div>
-      <h3 className="rd-work-name">{item.name}</h3>
+      <h3 className="text-[1.18rem] tracking-[-0.03em] mt-[15px]">{item.name}</h3>
       <p className="rd-work-desc">{item.description}</p>
-      <div className="rd-work-foot">
+      <div className="flex items-center justify-between mt-4">
         <div className="flex gap-1 flex-wrap">
           {item.tags?.map((tag) => (
-            <Badge key={tag} variant="outline" className="rd-mono text-[10.5px] px-2 py-0">{tag}</Badge>
+            <Badge key={tag} variant="outline" className="font-[var(--font-mono)] text-[10.5px] px-2 py-0">{tag}</Badge>
           ))}
-          <Badge variant="outline" className="rd-mono text-[10.5px] px-2 py-0">{cat}</Badge>
+          <Badge variant="outline" className="font-[var(--font-mono)] text-[10.5px] px-2 py-0">{cat}</Badge>
         </div>
         <span className="text-[var(--rd-text-4)]">
           <ArrowUpRight size={15} />
@@ -240,7 +240,7 @@ function ProjectList({ items }: { items: AppItem[] }) {
         const inner = (
           <>
             <span
-              className="rd-mono rd-dim text-[12.5px] w-[200px] overflow-hidden text-ellipsis whitespace-nowrap shrink-0"
+              className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[12.5px] w-[200px] overflow-hidden text-ellipsis whitespace-nowrap shrink-0"
             >
               {item.domain || item.host}
             </span>
@@ -248,13 +248,13 @@ function ProjectList({ items }: { items: AppItem[] }) {
               <span className="font-semibold mr-3 tracking-[-0.02em]">
                 {item.name}
               </span>
-              <span className="rd-muted text-sm">
+              <span className="text-[var(--rd-text-2)] text-sm">
                 {item.description}
               </span>
             </span>
             <div className="flex gap-1 shrink-0">
               {item.tags?.map((tag) => (
-                <Badge key={tag} variant="outline" className="rd-mono text-[10.5px] px-2 py-0">{tag}</Badge>
+                <Badge key={tag} variant="outline" className="font-[var(--font-mono)] text-[10.5px] px-2 py-0">{tag}</Badge>
               ))}
             </div>
           </>

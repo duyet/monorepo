@@ -165,11 +165,11 @@ function HomelabPage() {
             <Server size={13} style={{ color: "var(--rd-text-3)" }} />
             Nodes
           </div>
-          <div className="rd-bigstat mt-[10px]">
+          <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none mt-[10px]">
             {onlineCount}
             <span className="rd-unit">/ {totalNodes}</span>
           </div>
-          <div className="rd-mono rd-dim text-[11px]">online</div>
+          <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11px]">online</div>
         </div>
 
         {/* Services running */}
@@ -178,11 +178,11 @@ function HomelabPage() {
             <Layers size={13} style={{ color: "var(--rd-text-3)" }} />
             Services
           </div>
-          <div className="rd-bigstat mt-[10px]">
+          <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none mt-[10px]">
             {runningServices}
             <span className="rd-unit">/ {totalServices}</span>
           </div>
-          <div className="rd-mono rd-dim text-[11px]">{namespaceCount} namespaces</div>
+          <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11px]">{namespaceCount} namespaces</div>
         </div>
 
         {/* Avg CPU */}
@@ -191,7 +191,7 @@ function HomelabPage() {
             <Cpu size={13} style={{ color: "var(--rd-text-3)" }} />
             Avg CPU
           </div>
-          <div className="rd-bigstat mt-[10px]">
+          <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none mt-[10px]">
             {clusterStats.avgCpu.toFixed(1)}
             <span className="rd-unit">%</span>
           </div>
@@ -204,7 +204,7 @@ function HomelabPage() {
             <MemoryStick size={13} style={{ color: "var(--rd-text-3)" }} />
             Memory
           </div>
-          <div className="rd-bigstat mt-[10px]">
+          <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none mt-[10px]">
             {clusterStats.usedMemory.toFixed(0)}
             <span className="rd-unit">/ {clusterStats.totalMemory} GB</span>
           </div>
@@ -217,11 +217,11 @@ function HomelabPage() {
             <Smartphone size={13} style={{ color: "var(--rd-text-3)" }} />
             Devices
           </div>
-          <div className="rd-bigstat mt-[10px]">
+          <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none mt-[10px]">
             {onlineDevices.length}
             <span className="rd-unit">/ {devices.length}</span>
           </div>
-          <div className="rd-mono rd-dim text-[11px]">online</div>
+          <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11px]">online</div>
         </div>
       </div>
 
@@ -231,7 +231,7 @@ function HomelabPage() {
       >
         {/* ── Nodes tile (tall, left) ─ */}
         <div
-          className="rd-card rd-card-pad col-span-12"
+          className="rd-card p-[clamp(18px,2.2vw,26px)] col-span-12"
           data-md-col="span 5"
         >
           <div className="flex items-center justify-between mb-[14px]">
@@ -239,7 +239,7 @@ function HomelabPage() {
               <Server size={13} />
               Nodes
             </span>
-            <span className="rd-chip rd-mono text-[11px]">
+            <span className="rd-chip font-[var(--font-mono)] text-[11px]">
               {onlineCount}/{totalNodes} online
             </span>
           </div>
@@ -249,7 +249,7 @@ function HomelabPage() {
             {nodes.map((node) => (
               <span
                 key={node.id}
-                className="rd-chip rd-mono text-[10.5px] gap-[5px]"
+                className="rd-chip font-[var(--font-mono)] text-[10.5px] gap-[5px]"
                 style={{ opacity: node.status === "offline" ? 0.5 : 1 }}
               >
                 <StatusDot status={node.status} />
@@ -269,39 +269,39 @@ function HomelabPage() {
                 <div>
                   <div className="flex items-center gap-2 mb-[6px]">
                     <StatusDot status={node.status} />
-                    <span className="rd-mono font-semibold text-[13.5px]">
+                    <span className="font-[var(--font-mono)] font-semibold text-[13.5px]">
                       {node.name}
                     </span>
-                    <span className="rd-chip rd-mono text-[10px]">
+                    <span className="rd-chip font-[var(--font-mono)] text-[10px]">
                       {typeLabels[node.type] ?? node.type}
                     </span>
                   </div>
-                  <div className="rd-mono rd-dim text-[11px] mb-[10px]">
+                  <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11px] mb-[10px]">
                     {node.ip} · up {node.uptime}
                   </div>
                   {/* CPU meter */}
                   <div className="mb-[6px]">
                     <div className="flex justify-between text-[11px] mb-1">
-                      <span className="rd-mono rd-dim">CPU</span>
-                      <span className="rd-mono font-semibold">{node.cpu}%</span>
+                      <span className="font-[var(--font-mono)] text-[var(--rd-text-3)]">CPU</span>
+                      <span className="font-[var(--font-mono)] font-semibold">{node.cpu}%</span>
                     </div>
                     <MeterBar value={node.cpu} />
                   </div>
                   {/* RAM meter */}
                   <div>
                     <div className="flex justify-between text-[11px] mb-1">
-                      <span className="rd-mono rd-dim">RAM</span>
-                      <span className="rd-mono font-semibold">{node.memory}%</span>
+                      <span className="font-[var(--font-mono)] text-[var(--rd-text-3)]">RAM</span>
+                      <span className="font-[var(--font-mono)] font-semibold">{node.memory}%</span>
                     </div>
                     <MeterBar value={node.memory} />
                   </div>
                 </div>
                 {/* Right: mem GB */}
                 <div className="text-right self-start">
-                  <div className="rd-mono rd-dim text-[11px]">
+                  <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11px]">
                     {node.memoryUsed}/{node.memoryTotal} GB
                   </div>
-                  <div className="rd-mono rd-dim text-[11px] mt-1">
+                  <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11px] mt-1">
                     {node.services} svc
                   </div>
                 </div>
@@ -311,13 +311,13 @@ function HomelabPage() {
         </div>
 
         {/* ── Services tile ─ */}
-        <div className="rd-card rd-card-pad col-span-12">
+        <div className="rd-card p-[clamp(18px,2.2vw,26px)] col-span-12">
           <div className="flex items-center justify-between mb-[14px]">
             <span className="rd-eyebrow">
               <Activity size={13} />
               Running services
             </span>
-            <span className="rd-chip rd-mono text-[11px]">
+            <span className="rd-chip font-[var(--font-mono)] text-[11px]">
               {runningServices}/{totalServices}
             </span>
           </div>
@@ -332,22 +332,22 @@ function HomelabPage() {
               >
                 <div className="flex items-center gap-[7px] mb-2">
                   <span className="rd-dot rd-ok" />
-                  <span className="rd-mono font-semibold text-[13px] truncate">
+                  <span className="font-[var(--font-mono)] font-semibold text-[13px] truncate">
                     {svc.name}
                   </span>
                 </div>
                 <div className="flex flex-wrap gap-[6px] mb-2">
-                  <span className="rd-chip rd-mono text-[10px]">{svc.namespace}</span>
-                  <span className="rd-chip rd-mono text-[10px]">:{svc.port}</span>
+                  <span className="rd-chip font-[var(--font-mono)] text-[10px]">{svc.namespace}</span>
+                  <span className="rd-chip font-[var(--font-mono)] text-[10px]">:{svc.port}</span>
                 </div>
-                <div className="rd-mono rd-dim text-[11px] mb-[6px]">
+                <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11px] mb-[6px]">
                   {svc.node}
                 </div>
                 <div className="flex justify-between text-[11.5px]">
-                  <span className="rd-mono rd-dim">
+                  <span className="font-[var(--font-mono)] text-[var(--rd-text-3)]">
                     CPU <span className="text-[var(--rd-text)] font-semibold">{svc.cpu}%</span>
                   </span>
-                  <span className="rd-mono rd-dim">{svc.memory} MB</span>
+                  <span className="font-[var(--font-mono)] text-[var(--rd-text-3)]">{svc.memory} MB</span>
                 </div>
               </div>
             ))}
@@ -355,7 +355,7 @@ function HomelabPage() {
         </div>
 
         {/* ── Cluster stats ─ */}
-        <div className="rd-card rd-card-pad col-span-12">
+        <div className="rd-card p-[clamp(18px,2.2vw,26px)] col-span-12">
           <div className="flex items-center gap-2 mb-[18px]">
             <Activity size={14} style={{ color: "var(--rd-text-3)" }} />
             <span className="rd-eyebrow">Cluster</span>
@@ -369,7 +369,7 @@ function HomelabPage() {
                 <Activity size={12} />
                 Avg CPU
               </div>
-              <div className="rd-bigstat text-[1.65rem]">
+              <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none text-[1.65rem]">
                 {clusterStats.avgCpu.toFixed(1)}
                 <span className="rd-unit">%</span>
               </div>
@@ -382,7 +382,7 @@ function HomelabPage() {
                 <HardDrive size={12} />
                 Memory
               </div>
-              <div className="rd-bigstat text-[1.65rem]">
+              <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none text-[1.65rem]">
                 {clusterStats.usedMemory.toFixed(0)}
                 <span className="rd-unit">/ {clusterStats.totalMemory} GB</span>
               </div>
@@ -395,7 +395,7 @@ function HomelabPage() {
                 <Database size={12} />
                 Storage
               </div>
-              <div className="rd-bigstat text-[1.65rem]">
+              <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none text-[1.65rem]">
                 {(clusterStats.totalStorage / 1024).toFixed(1)}
                 <span className="rd-unit">TB</span>
               </div>
@@ -407,7 +407,7 @@ function HomelabPage() {
                 <AlertCircle size={12} />
                 Incidents
               </div>
-              <div className="rd-bigstat text-[1.65rem]">
+              <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none text-[1.65rem]">
                 {downtimeHistory.length}
                 <span className="rd-unit">recent</span>
               </div>
@@ -419,11 +419,11 @@ function HomelabPage() {
                 <MemoryStick size={12} />
                 Svc memory
               </div>
-              <div className="rd-bigstat text-[1.65rem]">
+              <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none text-[1.65rem]">
                 {(totalServiceMem / 1024).toFixed(1)}
                 <span className="rd-unit">GB</span>
               </div>
-              <div className="rd-mono rd-dim text-[11px] mt-[6px]">
+              <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11px] mt-[6px]">
                 {allServices.length} services
               </div>
             </div>
@@ -436,11 +436,11 @@ function HomelabPage() {
                   Top service
                 </div>
                 <div
-                  className="rd-mono font-semibold text-[13.5px] truncate"
+                  className="font-[var(--font-mono)] font-semibold text-[13.5px] truncate"
                 >
                   {busiestSvc.name}
                 </div>
-                <div className="rd-bigstat text-[1.65rem] mt-1">
+                <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none text-[1.65rem] mt-1">
                   {busiestSvc.cpu.toFixed(1)}
                   <span className="rd-unit">% CPU</span>
                 </div>
@@ -450,7 +450,7 @@ function HomelabPage() {
         </div>
 
         {/* ── Network speed ─ */}
-        <div className="rd-card rd-card-pad col-span-12">
+        <div className="rd-card p-[clamp(18px,2.2vw,26px)] col-span-12">
           <div className="flex items-center justify-between mb-[14px]">
             <span className="rd-eyebrow">
               <Network size={13} />
@@ -460,28 +460,28 @@ function HomelabPage() {
           </div>
           <div className="flex flex-wrap gap-8">
             <div>
-              <div className="rd-mono rd-dim text-[11.5px] flex items-center gap-1 mb-[6px]">
+              <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11.5px] flex items-center gap-1 mb-[6px]">
                 <ArrowDown size={12} /> Down
               </div>
-              <div className="rd-bigstat text-[1.65rem]">
+              <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none text-[1.65rem]">
                 {speedTest.download}
                 <span className="rd-unit">Mbps</span>
               </div>
             </div>
             <div>
-              <div className="rd-mono rd-dim text-[11.5px] flex items-center gap-1 mb-[6px]">
+              <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11.5px] flex items-center gap-1 mb-[6px]">
                 <ArrowUp size={12} /> Up
               </div>
-              <div className="rd-bigstat text-[1.65rem]">
+              <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none text-[1.65rem]">
                 {speedTest.upload}
                 <span className="rd-unit">Mbps</span>
               </div>
             </div>
             <div>
-              <div className="rd-mono rd-dim text-[11.5px] flex items-center gap-1 mb-[6px]">
+              <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11.5px] flex items-center gap-1 mb-[6px]">
                 <Gauge size={12} /> Ping
               </div>
-              <div className="rd-bigstat text-[1.65rem]">
+              <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none text-[1.65rem]">
                 {speedTest.ping}
                 <span className="rd-unit">ms</span>
               </div>
@@ -490,7 +490,7 @@ function HomelabPage() {
         </div>
 
         {/* ── Node type breakdown ─ */}
-        <div className="rd-card rd-card-pad col-span-12">
+        <div className="rd-card p-[clamp(18px,2.2vw,26px)] col-span-12">
           <div className="flex items-center justify-between mb-[14px]">
             <span className="rd-eyebrow">
               <Layers size={13} />
@@ -503,8 +503,8 @@ function HomelabPage() {
                 key={type}
                 className="rd-card flex flex-col gap-1 min-w-[90px] px-4 py-3"
               >
-                <div className="rd-mono rd-dim text-[11px]">{typeLabels[type] ?? type}</div>
-                <div className="rd-bigstat text-[1.5rem]">
+                <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11px]">{typeLabels[type] ?? type}</div>
+                <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none text-[1.5rem]">
                   {count}
                 </div>
               </div>
@@ -513,13 +513,13 @@ function HomelabPage() {
         </div>
 
         {/* ── Smart devices ─ */}
-        <div className="rd-card rd-card-pad col-span-12">
+        <div className="rd-card p-[clamp(18px,2.2vw,26px)] col-span-12">
           <div className="flex items-center justify-between mb-[14px]">
             <span className="rd-eyebrow">
               <Smartphone size={13} />
               Smart devices
             </span>
-            <span className="rd-chip rd-mono text-[11px]">
+            <span className="rd-chip font-[var(--font-mono)] text-[11px]">
               {onlineDevices.length}/{devices.length} online
             </span>
           </div>
@@ -530,13 +530,13 @@ function HomelabPage() {
                 className="rd-card flex items-center justify-between gap-3 px-4 py-[14px]"
               >
                 <div>
-                  <div className="rd-mono rd-dim text-[10.5px] uppercase tracking-[0.1em] mb-1">
+                  <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[10.5px] uppercase tracking-[0.1em] mb-1">
                     {d.type.replace(/-/g, " ")}
                   </div>
                   <div className="font-semibold text-sm tracking-[-0.01em]">{d.name}</div>
-                  <div className="rd-mono rd-dim text-[11px] mt-[2px]">{d.brand}</div>
+                  <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11px] mt-[2px]">{d.brand}</div>
                 </div>
-                <div className="rd-chip rd-mono flex items-center gap-[7px]">
+                <div className="rd-chip font-[var(--font-mono)] flex items-center gap-[7px]">
                   <StatusDot status={d.status} />
                   {d.status}
                 </div>
@@ -546,18 +546,18 @@ function HomelabPage() {
         </div>
 
         {/* ── Recent incidents ─ */}
-        <div className="rd-card rd-card-pad col-span-12">
+        <div className="rd-card p-[clamp(18px,2.2vw,26px)] col-span-12">
           <div className="flex items-center justify-between mb-[14px]">
             <span className="rd-eyebrow">
               <AlertCircle size={13} />
               Recent incidents
             </span>
-            <span className="rd-chip rd-mono text-[11px]">
+            <span className="rd-chip font-[var(--font-mono)] text-[11px]">
               {downtimeHistory.length} logged
             </span>
           </div>
           {downtimeHistory.length === 0 ? (
-            <p className="rd-mono rd-dim text-[12.5px]">
+            <p className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[12.5px]">
               No incidents in the last 30 days.
             </p>
           ) : (
@@ -570,12 +570,12 @@ function HomelabPage() {
                   <AlertCircle size={15} style={{ color: "var(--rd-warn)" }} />
                   <div>
                     <div>
-                      <span className="rd-mono font-semibold text-[13px]">{inc.service}</span>
-                      <span className="rd-muted ml-2 text-[12.5px]">— {inc.reason}</span>
+                      <span className="font-[var(--font-mono)] font-semibold text-[13px]">{inc.service}</span>
+                      <span className="text-[var(--rd-text-2)] ml-2 text-[12.5px]">— {inc.reason}</span>
                     </div>
-                    <div className="rd-mono rd-dim text-[11px] mt-[3px]">{inc.start}</div>
+                    <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11px] mt-[3px]">{inc.start}</div>
                   </div>
-                  <div className="rd-mono rd-dim text-xs flex items-center gap-1">
+                  <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs flex items-center gap-1">
                     <Clock size={12} />
                     {inc.duration}
                   </div>
@@ -598,7 +598,7 @@ function HomelabPage() {
       <div
         className="mt-10 pt-4 border-t border-[var(--rd-line)]"
       >
-        <p className="rd-mono rd-dim text-[11.5px]">
+        <p className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11.5px]">
           Not a realtime dashboard. Data is captured by AI Agent and committed
           to source code. Snapshot taken at {snapshotDate}.
         </p>

@@ -267,7 +267,7 @@ export function DistRows({
                 }}
               >
                 <span
-                  className="rd-mono inline-flex items-center gap-1.5"
+                  className="font-[var(--font-mono)] inline-flex items-center gap-1.5"
                   style={{
                     color: "var(--rd-text-2)",
                     overflow: "hidden",
@@ -278,7 +278,7 @@ export function DistRows({
                   {Logo && <Logo size={12} className="shrink-0" />}
                   {r.name}
                 </span>
-                <span className="rd-mono rd-dim" style={{ fontSize: 12 }}>
+                <span className="font-[var(--font-mono)] text-[var(--rd-text-3)]" style={{ fontSize: 12 }}>
                   {r.pct}%
                 </span>
               </div>

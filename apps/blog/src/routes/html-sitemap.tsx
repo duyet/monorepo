@@ -30,9 +30,13 @@ function HtmlSitemapPage(): ReactElement {
 
   return (
     <div className="px-6 md:px-8">
-      <header className="em-masthead">
-        <span className="em-masthead__eyebrow">Index</span>
-        <h1 className="em-masthead__title">HTML sitemap</h1>
+      <header className="pt-24 md:pt-28 pb-10 mx-auto">
+        <span className="inline-block text-[0.6875rem] font-medium tracking-[0.16em] uppercase text-muted-foreground mb-3.5">
+          Index
+        </span>
+        <h1 className="text-[clamp(2.25rem,4.5vw,3.25rem)] font-semibold leading-[1.08] tracking-[-0.018em] text-foreground m-0">
+          HTML sitemap
+        </h1>
       </header>
 
       <div className="mx-auto grid max-w-2xl gap-12 md:max-w-4xl md:grid-cols-2">

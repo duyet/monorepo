@@ -190,7 +190,7 @@ function StackGroupIcon({ icon }: { icon: string }) {
 function AboutPage() {
   return (
     <div className="page-enter bg-[var(--rd-bg)] text-[var(--rd-text)]">
-      <div className="rd-wrap pt-[clamp(40px,5vw,64px)] pb-[clamp(56px,8vw,96px)]">
+      <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(40px,5vw,64px)] pb-[clamp(56px,8vw,96px)]">
         {/* Intro block */}
         <div>
           <Eyebrow>About</Eyebrow>
@@ -209,7 +209,7 @@ function AboutPage() {
             {facts.map((f) => (
               <div
                 key={f.label}
-                className="rd-card rd-card-pad bg-[var(--rd-bg-sub)] px-[18px] py-4"
+                className="rd-card p-[clamp(18px,2.2vw,26px)] bg-[var(--rd-bg-sub)] px-[18px] py-4"
               >
                 <div className="rd-eyebrow text-[10px]">
                   {f.label}
@@ -242,10 +242,10 @@ function AboutPage() {
               searching, and a lot of the grunt work.
             </p>
             <div className="rd-vibe-stat">
-              <div className="rd-bigstat">
+              <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none">
                 1.24<span className="rd-unit">B</span>
               </div>
-              <span className="rd-mono rd-dim text-xs">
+              <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs">
                 tokens burned all-time
               </span>
             </div>
@@ -270,13 +270,13 @@ function AboutPage() {
 
         {/* Focus + Stack */}
         <div className="rd-g2 mt-3">
-          <div className="rd-card rd-card-pad p-[clamp(24px,3vw,34px)]">
+          <div className="rd-card p-[clamp(18px,2.2vw,26px)] p-[clamp(24px,3vw,34px)]">
             <Eyebrow>Focus</Eyebrow>
             <p className="mt-4 max-w-[34ch] text-[clamp(1.05rem,1.6vw,1.3rem)] leading-[1.5] tracking-[-0.01em] text-[var(--rd-text-2)]">
               {focus}
             </p>
           </div>
-          <div className="rd-card rd-card-pad p-[clamp(24px,3vw,34px)]">
+          <div className="rd-card p-[clamp(18px,2.2vw,26px)] p-[clamp(24px,3vw,34px)]">
             <Eyebrow>Stack</Eyebrow>
             <p className="mt-4 text-[clamp(1.05rem,1.6vw,1.3rem)] leading-[1.5] tracking-[-0.01em] text-[var(--rd-text-2)]">
               {stack}
@@ -289,7 +289,7 @@ function AboutPage() {
           {techStack.map((group) => (
             <div
               key={group.g}
-              className="rd-card rd-card-hover rd-card-pad px-[22px] py-5"
+              className="rd-card p-[clamp(18px,2.2vw,26px)] px-[22px] py-5"
             >
               <div className="mb-[14px] flex items-center gap-[10px]">
                 <div className="rd-stack-ic">
@@ -304,7 +304,7 @@ function AboutPage() {
                   <Badge
                     key={item}
                     variant="outline"
-                    className="rd-mono text-[11.5px] px-2 py-0"
+                    className="font-[var(--font-mono)] text-[11.5px] px-2 py-0"
                   >
                     {item}
                   </Badge>
@@ -315,13 +315,13 @@ function AboutPage() {
         </div>
 
         {/* Elsewhere */}
-        <div className="rd-card rd-card-pad mt-3 p-[clamp(24px,3vw,34px)]">
+        <div className="rd-card p-[clamp(18px,2.2vw,26px)] mt-3 p-[clamp(24px,3vw,34px)]">
           <Eyebrow>Elsewhere</Eyebrow>
           <div className="rd-g4 mt-[18px] gap-[10px]">
             {elsewhere.map((e) => (
               <a
                 key={e.title}
-                className="rd-card rd-card-hover rd-card-pad flex flex-col gap-2 bg-[var(--rd-bg-sub)] min-h-[120px] text-inherit no-underline"
+                className="rd-card p-[clamp(18px,2.2vw,26px)] flex flex-col gap-2 bg-[var(--rd-bg-sub)] min-h-[120px] text-inherit no-underline"
                 href={e.url}
                 target="_blank"
                 rel="noreferrer"
@@ -334,7 +334,7 @@ function AboutPage() {
                     <ArrowUpRight size={15} />
                   </span>
                 </div>
-                <p className="rd-muted text-[13.5px] leading-[1.5]">
+                <p className="text-[var(--rd-text-2)] text-[13.5px] leading-[1.5]">
                   {e.description}
                 </p>
               </a>
@@ -349,7 +349,7 @@ function AboutPage() {
             title="Areas of expertise"
             links={[{ label: "See projects", href: "/projects" }]}
           />
-          <p className="rd-muted -mt-4 mb-[26px] max-w-[52ch]">
+          <p className="text-[var(--rd-text-2)] -mt-4 mb-[26px] max-w-[52ch]">
             {experienceYears} of delivery across data, AI, and platform
             engineering — here's where the time actually went.
           </p>
@@ -358,22 +358,22 @@ function AboutPage() {
               <Reveal
                 key={e.area}
                 delay={i * 50}
-                className="rd-card rd-card-pad flex flex-col p-[clamp(22px,2.6vw,30px)]"
+                className="rd-card p-[clamp(18px,2.2vw,26px)] flex flex-col p-[clamp(22px,2.6vw,30px)]"
               >
                 <div className="flex items-baseline justify-between">
                   <h3 className="text-[1.35rem] tracking-[-0.03em]">
                     {e.area}
                   </h3>
-                  <span className="rd-mono rd-dim text-[12.5px]">
+                  <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[12.5px]">
                     {e.yr}
                   </span>
                 </div>
-                <p className="rd-muted mt-3 flex-1 text-[14.5px] leading-[1.55]">
+                <p className="text-[var(--rd-text-2)] mt-3 flex-1 text-[14.5px] leading-[1.55]">
                   {e.desc}
                 </p>
                 <div className="mt-[18px] flex flex-wrap gap-[7px]">
                   {e.tools.map((t) => (
-                    <Badge key={t} variant="outline" className="rd-mono text-[11.5px] px-2 py-0">
+                    <Badge key={t} variant="outline" className="font-[var(--font-mono)] text-[11.5px] px-2 py-0">
                       {t}
                     </Badge>
                   ))}

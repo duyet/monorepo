@@ -75,7 +75,7 @@ function HomePage() {
       <div className="bg-[var(--rd-bg)] text-[var(--rd-text)]">
         {/* hero */}
         <section
-          className="rd-wrap pt-[clamp(22px,3.2vw,40px)] pb-[clamp(26px,3.5vw,40px)]"
+          className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(22px,3.2vw,40px)] pb-[clamp(26px,3.5vw,40px)]"
         >
           <Reveal>
             <div className="rd-hero-grid">
@@ -163,7 +163,7 @@ function HomePage() {
         </section>
 
         {/* selected work */}
-        <section className="rd-wrap rd-section-tight">
+        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)]">
           <Reveal>
             <SecHead
               num="01"
@@ -185,7 +185,7 @@ function HomePage() {
         </section>
 
         {/* blog */}
-        <section className="rd-wrap rd-section-tight">
+        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)]">
           <Reveal>
             <SecHead
               num="02"
@@ -204,11 +204,11 @@ function HomePage() {
 
         {/* now band */}
         <section
-          className="rd-wrap rd-section-tight pb-[clamp(56px,8vw,96px)]"
+          className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)] pb-[clamp(56px,8vw,96px)]"
         >
           <Reveal>
             <div
-              className="rd-card rd-card-pad relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6 overflow-hidden"
+              className="rd-card p-[clamp(18px,2.2vw,26px)] relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6 overflow-hidden"
             >
               <NowDeco />
               <div className="relative">
@@ -322,7 +322,7 @@ function SignalBar() {
               )}
               {t.k}
             </div>
-            <div className={cn("rd-bigstat text-[1.9rem]", t.flame && "text-[var(--rd-accent-ink)]")}>
+            <div className={cn("text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none text-[1.9rem]", t.flame && "text-[var(--rd-accent-ink)]")}>
               {t.big}
               <span className="rd-unit">{t.unit}</span>
             </div>
@@ -332,7 +332,7 @@ function SignalBar() {
               <div className="h-[22px]" />
             )}
             <div
-              className="rd-mono rd-dim overflow-hidden text-ellipsis whitespace-nowrap text-[11px]"
+              className="font-[var(--font-mono)] text-[var(--rd-text-3)] overflow-hidden text-ellipsis whitespace-nowrap text-[11px]"
             >
               {t.sub}
             </div>
@@ -363,17 +363,17 @@ function WorkBento() {
             href={href}
             target="_blank"
             rel="noreferrer"
-            className="rd-card rd-card-hover rd-work-card no-underline text-inherit"
+            className="rd-card flex flex-col p-5 min-h-[176px] no-underline text-inherit"
           >
-            <div className="rd-work-top">
-              <span className="rd-mono rd-work-dom">
+            <div className="flex items-center justify-between gap-2.5">
+              <span className="font-[var(--font-mono)] rd-work-dom">
                 {item.domain || item.host}
               </span>
             </div>
-            <h3 className="rd-work-name">{item.name}</h3>
+            <h3 className="text-[1.18rem] tracking-[-0.03em] mt-[15px]">{item.name}</h3>
             <p className="rd-work-desc">{item.description}</p>
-            <div className="rd-work-foot">
-              <Badge variant="outline" className="rd-mono text-[10.5px] px-2 py-0">{tag}</Badge>
+            <div className="flex items-center justify-between mt-4">
+              <Badge variant="outline" className="font-[var(--font-mono)] text-[10.5px] px-2 py-0">{tag}</Badge>
               <span className="text-[var(--rd-text-4)]">
                 <ArrowUpRight size={15} />
               </span>
@@ -400,19 +400,19 @@ function BlogTeaser() {
     >
       {/* featured post card */}
       <a
-        className="rd-card rd-card-hover flex cursor-pointer flex-col overflow-hidden no-underline text-inherit"
+        className="rd-card flex cursor-pointer flex-col overflow-hidden no-underline text-inherit"
         href={`https://blog.duyet.net${featuredPost.slug}`}
         target="_blank"
         rel="noreferrer"
       >
         <div className="rd-termblock p-[26px_26px_30px]">
-          <div className="rd-term-dots">
+          <div className="flex gap-[7px]">
             <i />
             <i />
             <i />
           </div>
           <div
-            className="rd-mono mt-5 text-[22px] text-[var(--rd-accent)]"
+            className="font-[var(--font-mono)] mt-5 text-[22px] text-[var(--rd-accent)]"
           >
             <span className="opacity-60">$</span> {featuredCode}
             <span className="rd-caret" />
@@ -422,10 +422,10 @@ function BlogTeaser() {
           <div
             className="flex items-center gap-[10px] mb-3"
           >
-            <Badge variant="outline" className="rd-mono text-[10.5px] px-2 py-0">
+            <Badge variant="outline" className="font-[var(--font-mono)] text-[10.5px] px-2 py-0">
               {featuredPost.category}
             </Badge>
-            <span className="rd-mono rd-dim text-xs">
+            <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs">
               {formatBlogDate(featuredPost.date)} · {featuredPost.readingTime}{" "}
               min
             </span>
@@ -437,7 +437,7 @@ function BlogTeaser() {
           </h3>
           {featuredPost.excerpt && (
             <p
-              className="rd-muted mt-[10px] text-[14.5px]"
+              className="text-[var(--rd-text-2)] mt-[10px] text-[14.5px]"
             >
               {featuredPost.excerpt}
             </p>
@@ -463,19 +463,19 @@ function BlogTeaser() {
                   {post.title}
                 </div>
                 <div
-                  className="rd-mono rd-dim mt-1 text-[11.5px]"
+                  className="font-[var(--font-mono)] text-[var(--rd-text-3)] mt-1 text-[11.5px]"
                 >
                   {post.category} · {formatBlogDate(post.date)}
                 </div>
                 {post.excerpt && (
                   <div
-                    className="rd-muted mt-[5px] overflow-hidden text-ellipsis whitespace-nowrap text-[13px]"
+                    className="text-[var(--rd-text-2)] mt-[5px] overflow-hidden text-ellipsis whitespace-nowrap text-[13px]"
                   >
                     {post.excerpt}
                   </div>
                 )}
               </div>
-              <span className="rd-mono rd-dim text-xs">
+              <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs">
                 {post.readingTime} min
               </span>
             </a>
@@ -563,9 +563,9 @@ function HeroDiagram() {
         <circle cx={cx} cy={cy} r="190" fill="none" stroke="var(--rd-border-2)" strokeWidth="0.6" strokeDasharray="2 6" opacity="0.3" />
 
         {/* Orbit ring labels */}
-        <text x={cx + 82 + 6} y={cy - 4} className="rd-mono" style={{ fontSize: 7.5, fill: "var(--rd-accent-ink)", opacity: 0.5, letterSpacing: "0.08em" }}>AI</text>
-        <text x={cx + 140 + 6} y={cy - 4} className="rd-mono" style={{ fontSize: 7.5, fill: "var(--rd-text-3)", opacity: 0.4, letterSpacing: "0.08em" }}>DATA</text>
-        <text x={cx + 190 + 6} y={cy - 4} className="rd-mono" style={{ fontSize: 7.5, fill: "var(--rd-text-3)", opacity: 0.3, letterSpacing: "0.08em" }}>INFRA</text>
+        <text x={cx + 82 + 6} y={cy - 4} className="font-[var(--font-mono)]" style={{ fontSize: 7.5, fill: "var(--rd-accent-ink)", opacity: 0.5, letterSpacing: "0.08em" }}>AI</text>
+        <text x={cx + 140 + 6} y={cy - 4} className="font-[var(--font-mono)]" style={{ fontSize: 7.5, fill: "var(--rd-text-3)", opacity: 0.4, letterSpacing: "0.08em" }}>DATA</text>
+        <text x={cx + 190 + 6} y={cy - 4} className="font-[var(--font-mono)]" style={{ fontSize: 7.5, fill: "var(--rd-text-3)", opacity: 0.3, letterSpacing: "0.08em" }}>INFRA</text>
 
         {/* Curved connections */}
         {nodes.map((n, i) => {

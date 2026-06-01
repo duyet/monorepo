@@ -39,11 +39,11 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - **URL**: https://blog.duyet.net/2026/02/claws
 - **Description**: OpenClaw, NanoBot, PicoClaw, ZeroClaw, NullClaw, NemoClaw, ...
 
-### [Coding Agents](https://blog.duyet.net/2026/01/ai)
+### [Coding Agents](https://blog.duyet.net/2026/01/coding-agent)
 - **Date**: 2026-01-01
 - **Category**: AI
 - **Tags**: Ai
-- **URL**: https://blog.duyet.net/2026/01/ai
+- **URL**: https://blog.duyet.net/2026/01/coding-agent
 - **Description**: Reflect on what I'm thinking and doing in this LLM era
 
 ### [ClickHouse Rust UDFs](https://blog.duyet.net/2024/11/clickhouse-rust-udf)
@@ -172,7 +172,7 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 
 - [Building AI Agents on Cloudflare](https://blog.duyet.net/2026/05/building-ai-agents-cloudflare) - 2026-05-06
 - [Claws](https://blog.duyet.net/2026/02/claws) - 2026-02-22
-- [Coding Agents](https://blog.duyet.net/2026/01/ai) - 2026-01-01
+- [Coding Agents](https://blog.duyet.net/2026/01/coding-agent) - 2026-01-01
 
 ### 2024 (8 posts)
 

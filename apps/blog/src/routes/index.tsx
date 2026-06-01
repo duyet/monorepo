@@ -126,25 +126,25 @@ function FeaturedPost({ post }: { post: Post }) {
     <Link
       to="/$year/$month/$slug/"
       params={postParams(post)}
-      className="rd-card rd-card-hover overflow-hidden grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)]"
+      className="rd-card overflow-hidden grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)]"
     >
       {/* Terminal block */}
       <div
         className="rd-termblock py-[30px] px-[32px] flex flex-col min-h-[260px]"
       >
-        <div className="rd-term-dots">
+        <div className="flex gap-[7px]">
           <i />
           <i />
           <i />
         </div>
         <div
-          className="rd-mono mt-auto text-[clamp(20px,2.4vw,30px)] text-[var(--rd-accent)]"
+          className="font-[var(--font-mono)] mt-auto text-[clamp(20px,2.4vw,30px)] text-[var(--rd-accent)]"
         >
           <span className="opacity-[0.55]">$</span> {code}
           <span className="rd-caret" />
         </div>
         <div
-          className="rd-mono rd-dim text-xs mt-[18px]"
+          className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs mt-[18px]"
         />
       </div>
 
@@ -155,10 +155,10 @@ function FeaturedPost({ post }: { post: Post }) {
         <div
           className="flex gap-[10px] items-center mb-4"
         >
-          <span className="rd-chip rd-mono text-[10.5px]">
+          <span className="rd-chip font-[var(--font-mono)] text-[10.5px]">
             {post.category}
           </span>
-          <span className="rd-mono rd-dim text-xs">
+          <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs">
             {formatPostDate(post.date)} &middot;{" "}
             {Math.max(1, Math.round(post.readingTime ?? 1))} min
           </span>
@@ -170,7 +170,7 @@ function FeaturedPost({ post }: { post: Post }) {
         </h2>
         {post.excerpt && (
           <p
-            className="rd-muted mt-[14px] text-[15.5px] max-w-[44ch]"
+            className="text-[var(--rd-text-2)] mt-[14px] text-[15.5px] max-w-[44ch]"
           >
             {post.excerpt}
           </p>
@@ -202,14 +202,14 @@ function CategoryBentoTile({
   return (
     <button
       type="button"
-      className="rd-card rd-card-hover flex items-center gap-3 text-left cursor-pointer px-4 py-3"
+      className="rd-card flex items-center gap-3 text-left cursor-pointer px-4 py-3"
       onClick={onSelect}
     >
       <span className="rd-cat-ic">
         <Ic size={15} />
       </span>
       <span className="font-semibold text-sm tracking-[-0.01em]">{name}</span>
-      <span className="rd-mono rd-dim text-[11px] ml-auto">{count}</span>
+      <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11px] ml-auto">{count}</span>
     </button>
   );
 }
@@ -273,7 +273,7 @@ function HomePage(): ReactElement {
     <div>
       {/* ── Blog header ─────────────────────────────────────────────── */}
       <section
-        className="rd-wrap pt-[clamp(44px,6vw,76px)] pb-[clamp(28px,4vw,44px)]"
+        className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(44px,6vw,76px)] pb-[clamp(28px,4vw,44px)]"
       >
         <Eyebrow>BLOG &middot; blog.duyet.net</Eyebrow>
         <h1
@@ -287,7 +287,7 @@ function HomePage(): ReactElement {
           {BLOG_INTRO}
         </p>
         <div
-          className="rd-mono rd-dim text-[13px] mt-[22px] flex gap-5 flex-wrap"
+          className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[13px] mt-[22px] flex gap-5 flex-wrap"
         >
           <span>
             <strong className="text-[var(--rd-text)]">{totalPosts}</strong>{" "}
@@ -307,7 +307,7 @@ function HomePage(): ReactElement {
       {/* ── Featured post ────────────────────────────────────────────── */}
       {featured && (
         <section
-          className="rd-wrap rd-section-tight pt-0"
+          className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)] pt-0"
         >
           <Reveal>
             <FeaturedPost post={featured} />
@@ -316,7 +316,7 @@ function HomePage(): ReactElement {
       )}
 
       {/* ── Browse by category — compact grid ─────────────────────── */}
-      <section id="topics" className="rd-wrap rd-section-tight">
+      <section id="topics" className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)]">
         <SecHead eyebrow="Topics" title="Browse by category" />
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
           {categories.map((cat) => (
@@ -341,7 +341,7 @@ function HomePage(): ReactElement {
       {/* ── Recent posts ─────────────────────────────────────────────── */}
       <section
         id="latest"
-        className="rd-wrap rd-section-tight pb-[clamp(56px,8vw,96px)]"
+        className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)] pb-[clamp(56px,8vw,96px)]"
       >
         <div className="rd-sechead">
           <div>
@@ -388,7 +388,7 @@ function HomePage(): ReactElement {
                 style={{ gridTemplateColumns: "auto 1fr auto" }}
               >
                 <span
-                  className="rd-mono text-base font-bold leading-none shrink-0"
+                  className="font-[var(--font-mono)] text-base font-bold leading-none shrink-0"
                   style={{ color: yearColor(new Date(post.date).getFullYear()) }}
                 >
                   {new Date(post.date).getFullYear()}
@@ -399,8 +399,8 @@ function HomePage(): ReactElement {
                   </span>
                   {post.excerpt && (
                     <>
-                      <span className="rd-dim mx-1.5">—</span>
-                      <span className="rd-muted text-[13px]">{post.excerpt}</span>
+                      <span className="text-[var(--rd-text-3)] mx-1.5">—</span>
+                      <span className="text-[var(--rd-text-2)] text-[13px]">{post.excerpt}</span>
                     </>
                   )}
                 </span>
@@ -408,7 +408,7 @@ function HomePage(): ReactElement {
                   <span className="rd-tag-pill text-[10.5px] !py-[1px] !px-1.5">
                     {post.category}
                   </span>
-                  <span className="rd-mono rd-dim text-[11px] w-[52px] text-right">
+                  <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11px] w-[52px] text-right">
                     {tokenLabel} tok
                   </span>
                 </span>

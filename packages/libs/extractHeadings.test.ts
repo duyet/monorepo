@@ -46,19 +46,22 @@ describe("extractHeadings", () => {
     expect(result).toEqual([{ id: "section", text: "Section", level: 2 }]);
   });
 
-  test("generates slugs from text", async () => {
+  test("generates slugs matching the WASM renderer", async () => {
+    // The renderer slugifies HTML-escaped text, so `&` survives as "amp".
+    // These ids MUST equal crates/markdown's inject_heading_ids output.
     const md = `## Hello World\n## TypeScript & React`;
     const result = await extractHeadings(md);
     expect(result[0].id).toBe("hello-world");
-    expect(result[1].id).toBe("typescript--react");
+    expect(result[1].id).toBe("typescript-amp-react");
   });
 
   test("handles duplicate heading text with unique slugs", async () => {
+    // Matches the Rust dedup scheme: base, then base-2, base-3 (no base-1).
     const md = `## Section\n## Section\n## Section`;
     const result = await extractHeadings(md);
     expect(result[0].id).toBe("section");
-    expect(result[1].id).toBe("section-1");
-    expect(result[2].id).toBe("section-2");
+    expect(result[1].id).toBe("section-2");
+    expect(result[2].id).toBe("section-3");
   });
 
   test("handles only an h1 (first h1 skipped, returns empty)", async () => {

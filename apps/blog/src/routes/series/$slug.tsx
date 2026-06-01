@@ -31,10 +31,16 @@ function SeriesDetailPage(): ReactElement {
   if (!series) {
     return (
       <div className="px-6 md:px-8">
-        <header className="em-masthead">
-          <span className="em-masthead__eyebrow">Series</span>
-          <h1 className="em-masthead__title">Not found</h1>
-          <p className="em-masthead__dek">This series doesn't exist (yet).</p>
+        <header className="pt-24 md:pt-28 pb-10 mx-auto">
+          <span className="inline-block text-[0.6875rem] font-medium tracking-[0.16em] uppercase text-muted-foreground mb-3.5">
+            Series
+          </span>
+          <h1 className="text-[clamp(2.25rem,4.5vw,3.25rem)] font-semibold leading-[1.08] tracking-[-0.018em] text-foreground m-0">
+            Not found
+          </h1>
+          <p className="mt-4 text-base leading-[1.6] text-muted-foreground max-w-xl">
+            This series doesn't exist (yet).
+          </p>
         </header>
       </div>
     );
@@ -42,8 +48,8 @@ function SeriesDetailPage(): ReactElement {
 
   return (
     <div className="px-6 md:px-8">
-      <header className="em-masthead">
-        <span className="em-masthead__eyebrow">
+      <header className="pt-24 md:pt-28 pb-10 mx-auto">
+        <span className="inline-block text-[0.6875rem] font-medium tracking-[0.16em] uppercase text-muted-foreground mb-3.5">
           <Link
             to="/series/"
             className="transition-colors hover:text-[color:var(--em-foreground)]"
@@ -51,8 +57,10 @@ function SeriesDetailPage(): ReactElement {
             Series
           </Link>
         </span>
-        <h1 className="em-masthead__title">{series.name}</h1>
-        <div className="em-masthead__meta">
+        <h1 className="text-[clamp(2.25rem,4.5vw,3.25rem)] font-semibold leading-[1.08] tracking-[-0.018em] text-foreground m-0">
+          {series.name}
+        </h1>
+        <div className="mt-5 flex flex-wrap items-center gap-y-2 gap-x-3 text-[0.8125rem] text-muted-foreground tabular-nums [&>*+*]:before:content-['·'] [&>*+*]:before:mr-3 [&>*+*]:before:text-muted-foreground">
           <span>
             {series.posts.length} {series.posts.length === 1 ? "post" : "posts"}
           </span>
@@ -68,7 +76,7 @@ function SeriesDetailPage(): ReactElement {
             className="rd-row cursor-pointer no-underline text-inherit"
             style={{ gridTemplateColumns: "auto 1fr auto" }}
           >
-            <span className="rd-mono rd-dim text-base leading-none tabular-nums w-[28px]">
+            <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-base leading-none tabular-nums w-[28px]">
               {String(i + 1).padStart(2, "0")}
             </span>
             <span className="truncate">
@@ -77,12 +85,12 @@ function SeriesDetailPage(): ReactElement {
               </span>
               {post.excerpt && (
                 <>
-                  <span className="rd-dim mx-1.5">—</span>
-                  <span className="rd-muted text-[13px]">{post.excerpt}</span>
+                  <span className="text-[var(--rd-text-3)] mx-1.5">—</span>
+                  <span className="text-[var(--rd-text-2)] text-[13px]">{post.excerpt}</span>
                 </>
               )}
             </span>
-            <span className="rd-muted text-[13px] shrink-0 ml-2 tabular-nums">
+            <span className="text-[var(--rd-text-2)] text-[13px] shrink-0 ml-2 tabular-nums">
               {dateFormat(post.date, "MMM d, yyyy")}
             </span>
           </Link>

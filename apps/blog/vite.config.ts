@@ -2,8 +2,8 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 function getPostRoutes(): string[] {
   const dataPath = resolve(__dirname, "public/posts-data.json");
@@ -15,6 +15,8 @@ function getPostRoutes(): string[] {
 
 export default defineConfig({
   server: { port: 3000 },
+  // Native tsconfig `paths` resolution (replaces the vite-tsconfig-paths plugin).
+  resolve: { tsconfigPaths: true },
   plugins: [
     tanstackStart({
       router: {
@@ -28,8 +30,9 @@ export default defineConfig({
         failOnError: false,
       },
     }),
+    // Required by TanStack Start dev mode for the React Refresh runtime.
+    viteReact(),
     tailwindcss(),
-    tsconfigPaths(),
     {
       name: "wasm-resolve",
       enforce: "pre",

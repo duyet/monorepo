@@ -1,3 +1,8 @@
+export type ChangelogEntry = {
+  date: string;
+  note: string;
+};
+
 export type Post = {
   slug: string;
   title: string;
@@ -19,6 +24,7 @@ export type Post = {
   mdxCode?: string;
   readingTime?: number;
   tokenCount?: number;
+  changelog?: ChangelogEntry[];
 };
 
 export interface TagCount {

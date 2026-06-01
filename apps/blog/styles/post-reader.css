@@ -61,9 +61,13 @@
 }
 
 .post-reader .prose {
+  font-family: var(--reader-sans);
   font-size: 1.0625rem;
-  line-height: 1.85;
-  color: var(--muted-foreground);
+  line-height: 1.75;
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 
   display: grid;
   grid-template-columns:
@@ -79,8 +83,9 @@
   min-width: 0;
 }
 
-/* Wide media takes the full track and centers within it. */
-.post-reader .prose > :where(figure, table, img, video, iframe, .full-bleed),
+/* Wide media + code blocks take the full track and center within it. Giving
+ * <pre> the wider track lets long lines fit without a horizontal scrollbar. */
+.post-reader .prose > :where(figure, table, img, video, iframe, pre, .full-bleed),
 .post-reader .prose > p:has(> img:only-child),
 .post-reader .prose > p:has(> a > img:only-child),
 .post-reader .prose > div:has(> table) {
@@ -103,11 +108,43 @@
   height: auto;
   max-width: 100%;
   border-radius: 4px;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Images are wrapped in <p> by the renderer; zero that wrapper's vertical
+ * rhythm too so the request to remove image top/bottom spacing is effective. */
+.post-reader .prose > p:has(> img:only-child),
+.post-reader .prose > p:has(> a > img:only-child) {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .post-reader .prose figure > img,
 .post-reader .prose figure > video {
   margin: 0 auto;
+}
+
+/* Side-by-side image row: <div class="img-row"> wrapping multiple <img>.
+ * Takes the full track and lays the images out as equal flex columns that
+ * wrap to a stack on narrow viewports. `width: auto` overrides the global
+ * `.prose img { width: 100% }` so flex-basis controls sizing instead. */
+.post-reader .prose .img-row {
+  grid-column: full;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%;
+  margin: 2rem 0;
+}
+.post-reader .prose .img-row img {
+  flex: 1 1 300px;
+  width: auto;
+  min-width: 0;
+  margin: 0 !important;
+  border-radius: 0.5rem;
 }
 
 .post-reader .prose figcaption {
@@ -145,8 +182,8 @@
 }
 
 .post-reader .prose p {
-  line-height: 1.65;
-  margin-bottom: 1.25rem;
+  line-height: 1.8;
+  margin-bottom: 0;
 }
 
 /* Headings inside the article body */
@@ -157,28 +194,28 @@
 }
 
 .post-reader .prose h1 {
-  font-size: 1.625rem;
+  font-size: 1.875rem;
   font-weight: 600;
   line-height: 1.2;
   margin-top: 1em;
-  margin-bottom: 0.6em;
+  margin-bottom: 1em;
 }
 
 .post-reader .prose h2 {
-  font-size: 1.375rem;
+  font-size: 1.625rem;
   font-weight: 600;
   line-height: 1.25;
-  margin-top: 1em;
-  margin-bottom: 0.6em;
+  margin-top: 2.4em;
+  margin-bottom: 0.7em;
   border-bottom: 0 !important;
   padding-bottom: 0 !important;
 }
 
 .post-reader .prose h3 {
-  font-size: 1.125rem;
-  font-weight: 500;
+  font-size: 1.3rem;
+  font-weight: 600;
   line-height: 1.3;
-  margin-top: 1em;
+  margin-top: 1.9em;
   margin-bottom: 0.5em;
 }
 
@@ -196,23 +233,34 @@
  *     <a href="#..." class="heading-link" aria-hidden="true">#</a>...
  *   </h2>
  * Show it subtly on hover so the deep-link affordance is still discoverable. */
+.post-reader .prose :where(h1, h2, h3, h4, h5, h6) {
+  position: relative;
+}
+
+/* Anchor hangs in the left margin so the heading text stays aligned with body
+ * copy and nothing reflows on hover. Hidden via opacity (not display) so the
+ * box is reserved and the fade is smooth. */
 .post-reader .prose :where(h1, h2, h3, h4, h5, h6) > a.heading-link,
 .post-reader .prose :where(h1, h2, h3, h4, h5, h6) > a[aria-hidden="true"],
 .post-reader .prose :where(h1, h2, h3, h4, h5, h6) > a.header-anchor,
 .post-reader .prose :where(h1, h2, h3, h4, h5, h6) > a.anchor {
+  position: absolute;
+  left: -0.85em;
+  top: 0;
+  transform: translateX(-100%);
   color: var(--reader-muted);
-  margin-right: 0.35em;
   font-weight: 400;
   text-decoration: none;
-  display: none;
+  opacity: 0;
+  transition: opacity 120ms ease-out;
 }
 
 .post-reader .prose :where(h1, h2, h3, h4, h5, h6):hover > a.heading-link,
 .post-reader .prose :where(h1, h2, h3, h4, h5, h6):hover > a[aria-hidden="true"],
 .post-reader .prose :where(h1, h2, h3, h4, h5, h6):hover > a.header-anchor,
-.post-reader .prose :where(h1, h2, h3, h4, h5, h6):hover > a.anchor {
-  display: inline;
-  opacity: 0.5;
+.post-reader .prose :where(h1, h2, h3, h4, h5, h6):hover > a.anchor,
+.post-reader .prose :where(h1, h2, h3, h4, h5, h6) > a.heading-link:hover {
+  opacity: 0.55;
 }
 
 /* Links */
@@ -229,13 +277,34 @@
   text-decoration-color: var(--reader-accent);
 }
 
-/* Blockquote */
+/* Blockquote — prominent pull-quote: larger, crisp, accent rule. Left-aligned
+ * (not centered) so it works for inline citations as well as standalone quotes. */
 .post-reader .prose blockquote {
-  border-left: 1px solid var(--reader-hairline);
-  padding-left: 1.25em;
-  margin: 1.5em 0;
-  color: var(--reader-muted);
+  margin: 2.5em auto;
+  max-width: 90%;
+  text-align: center;
+  color: var(--foreground);
   font-style: normal;
+  font-size: 1.35em;
+  line-height: 1.5;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.post-reader .prose blockquote p {
+  font-size: inherit;
+  line-height: 1.55;
+  margin-bottom: 0.6em;
+}
+
+.post-reader .prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* Tighter, dimmer text for nested links/citations inside quotes */
+.post-reader .prose blockquote a {
+  font-size: 0.85em;
+  font-weight: 400;
 }
 
 /* Footnotes / asides */
@@ -257,7 +326,7 @@
   border: 1px solid var(--reader-hairline) !important;
   border-radius: 6px !important;
   box-shadow: none !important;
-  padding: 1.25em 1.75em;
+  padding: 1em !important;
   margin: 2em 0;
   font-family: var(--reader-mono);
   font-size: 0.875em;
@@ -265,21 +334,13 @@
   overflow-x: auto;
 }
 
-@media (min-width: 768px) {
-  .post-reader .prose :where(pre),
-  .post-reader article pre {
-    padding: 1.5em 2em;
-  }
-}
-
-.post-reader .prose :where(pre) code {
+/* Inner <code> carries no padding of its own; the <pre> owns all inset so
+ * scrolled long lines keep a consistent left edge. */
+.post-reader .prose :where(pre) code,
+.post-reader .prose pre code.hljs {
   background: transparent !important;
   padding: 0 !important;
   font-size: inherit;
-}
-
-.post-reader .prose pre code.hljs {
-  padding: 1.25em 1.75em;
 }
 
 /* Inline code */

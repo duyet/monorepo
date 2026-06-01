@@ -9,6 +9,15 @@ slug: /2026/01/coding-agent
 thumbnail: /media/2026/01/ai/ai-banner.png
 description: Reflect on what I'm thinking and doing in this LLM era
 featured: true
+changelog:
+  - date: "2026-06"
+    note: "Claude Design and Open Design alternative. Refreshed Top on my list (Opus 4.8, GLM 5.1, AnyRouter)."
+  - date: "2026-03"
+    note: "Parallel Sub-Agents / Teams with the native Agent Teams note, and the Ralph Loop + cron scheduling sections."
+  - date: "2026-02"
+    note: "opencode and the OpenClaw note on long-running autonomous agents."
+  - date: "2026-01"
+    note: "Claude Code setup, plugins, Plan Mode, CLAUDE.md, GitHub Actions, provider wrappers (z_claude, ar_claude, etc)."
 ---
 
 My last post was more than 14 months ago. Right around the time when the LLM hype exploded, AI workflows, AI agents, ... I stayed silent for a while busy watching everyone blowing mind about how LLMs could solve LeetCode problems to 80% hard problem, or how RAG could change how traditional chatbots work. People with ML backgrounds didn't quite accept that AI building is now just OpenAI API integration - something any developer can do. The beauty of data science used to lie in playing with data, feature engineering, model tuning, etc. 
@@ -33,20 +42,22 @@ While people are still scared of vibe coding, I ship it to production. For me, A
 
 I didn't stop writing, tons of drafts in my [obsidian](https://obsidian.md/), none published because they became outdated before I could finish them. I want to kick off this first 2026 post as my [digital garden](https://joelhooks.com/digital-garden/) - a place to reflect on what I'm thinking and doing in this LLM era. This post will be updated from time to time.
 
-<div class="not-prose my-8 rounded-2xl border border-border dark:border-white/10 p-6">
-  <p class="text-2xl font-serif text-foreground">Top on my list</p>
-  <p class="text-sm text-foreground/60 mt-1">Updated Jan 2026</p>
-  <div class="mt-4 rounded-xl border border-border dark:border-white/10 p-4 grid grid-cols-1 sm:grid-cols-[8rem_1fr] gap-1 sm:gap-3">
-    <span class="text-xs uppercase tracking-wide text-foreground/60">Coding Agent</span>
-    <span class="text-foreground"><a href="#claude-code" class="underline underline-offset-2">Claude Code</a>, <a href="#opencode" class="underline underline-offset-2">opencode</a></span>
-  </div>
-  <div class="mt-3 rounded-xl border border-border dark:border-white/10 p-4 grid grid-cols-1 sm:grid-cols-[8rem_1fr] gap-1 sm:gap-3">
-    <span class="text-xs uppercase tracking-wide text-foreground/60">Model</span>
-    <span class="text-foreground"><a href="#z-claude-mi-claude-amp-or-claude" class="underline underline-offset-2">Opus 4.6</a>, <a href="#z-claude-mi-claude-amp-or-claude" class="underline underline-offset-2">GLM 4.7 (GLM 5.1 is too slow)</a></span>
-  </div>
-  <div class="mt-3 rounded-xl border border-border dark:border-white/10 p-4 grid grid-cols-1 sm:grid-cols-[8rem_1fr] gap-1 sm:gap-3">
-    <span class="text-xs uppercase tracking-wide text-foreground/60">Provider</span>
-    <span class="text-foreground"><a href="#claude-code-openrouter-on-github-actions" class="underline underline-offset-2">OpenRouter</a>, <span class="text-foreground">Cloudflare AI Gateway</span></span>
+<div class="not-prose my-8 rounded-2xl border border-border dark:border-white/10 p-6 sm:p-8">
+  <p class="text-[0.7rem] uppercase tracking-[0.2em] font-mono text-terracotta">Updated Jun 2026</p>
+  <p class="text-2xl font-serif text-foreground mt-2">Top on my list</p>
+  <div class="mt-5 border-t border-border dark:border-white/10 divide-y divide-border dark:divide-white/10">
+    <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 py-3.5">
+      <span class="text-xs uppercase tracking-wide font-mono text-terracotta">Coding Agent</span>
+      <span class="text-foreground"><a href="#claude-code" class="underline underline-offset-2">Claude Code</a>, <a href="#opencode" class="underline underline-offset-2">opencode</a></span>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 py-3.5">
+      <span class="text-xs uppercase tracking-wide font-mono text-terracotta">Model</span>
+      <span class="text-foreground"><a href="#z-claude-mi-claude-amp-or-claude" class="underline underline-offset-2">Opus 4.8</a>, <a href="#z-claude-mi-claude-amp-or-claude" class="underline underline-offset-2">GLM 5.1</a></span>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 py-3.5">
+      <span class="text-xs uppercase tracking-wide font-mono text-terracotta">Provider</span>
+      <span class="text-foreground"><a href="#claude-code-openrouter-on-github-actions" class="underline underline-offset-2">OpenRouter</a>, <a href="https://anyrouter.dev" class="underline underline-offset-2">AnyRouter</a>, Cloudflare AI Gateway</span>
+    </div>
   </div>
 </div>
 
@@ -171,6 +182,20 @@ Plan mode performs significantly better than just prompting directly. When you g
     </div>
   </div>
 </div>
+
+## Claude Design
+
+I wasn't paying attention to this one at first. Then I tried [Claude Design](https://www.anthropic.com/news/claude-design-anthropic-labs) (Anthropic Labs) and realized it comes up with genuinely good design - not the usual generic AI look. It reads your codebase during onboarding, builds a design system from your colors, typography, and components, then every prototype after that just uses them.
+
+![Claude Design](/media/2026/01/ai/claude_design_1.png)
+
+This makes frontend work so much more accurate and beautiful. You describe what you want in plain language, tweak inline - comments, live spacing/color knobs - and it produces a complete, self-contained artifact. The dashboards below took a few prompts each.
+
+![Claude Design](/media/2026/01/ai/claude_design_2.png)
+
+The best part: when a design is ready, Claude packages it into a handoff bundle you pass to Claude Code with a single instruction. The hand-off is seamless - Claude Code reads the bundle and builds the real thing from it. Design → code with almost no translation loss.
+
+One thing if you don't want to get locked into a vendor cloud: [Open Design](https://github.com/nexu-io/open-design) is the local-first, open-source alternative (BYOK, Apache-2.0). It drives your *local* CLI instead - opencode, Claude Code, Gemini CLI, Codex, Qwen - so generated artifacts land in your project directory, not someone's cloud. It's still a bit behind Claude Design, but somehow already very good.
 
 ## CLAUDE.md, AGENTS.md
 
@@ -450,45 +475,3 @@ opencode serve
 
 ![opencode](/media/2026/01/ai/opencode_serve.png)
 
-## On the list
-
-Things I want to test or build when I have more time:
-
-<div class="not-prose my-8 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-  <a href="https://github.com/kaiban-ai/KaibanJS" target="_blank" rel="noopener noreferrer" class="flex flex-col gap-1 p-4 rounded-2xl border border-border dark:border-white/10 no-underline hover:bg-background">
-    <span class="font-semibold text-foreground">KaibanJS</span>
-    <span class="text-sm text-foreground/70">Like Trello or Asana, but for AI Agents and humans</span>
-  </a>
-  <a href="https://github.com/infiniflow/ragflow" target="_blank" rel="noopener noreferrer" class="flex flex-col gap-1 p-4 rounded-2xl border border-border dark:border-white/10 no-underline hover:bg-background">
-    <span class="font-semibold text-foreground">RAGFlow</span>
-    <span class="text-sm text-foreground/70">Open-source RAG engine with deep document understanding</span>
-  </a>
-  <a href="https://github.com/OpenHands/OpenHands" target="_blank" rel="noopener noreferrer" class="flex flex-col gap-1 p-4 rounded-2xl border border-border dark:border-white/10 no-underline hover:bg-background">
-    <span class="font-semibold text-foreground">OpenHands</span>
-    <span class="text-sm text-foreground/70">AI software development agents that write and execute code</span>
-  </a>
-  <a href="https://github.com/elizaos/eliza" target="_blank" rel="noopener noreferrer" class="flex flex-col gap-1 p-4 rounded-2xl border border-border dark:border-white/10 no-underline hover:bg-background">
-    <span class="font-semibold text-foreground">elizaOS</span>
-    <span class="text-sm text-foreground/70">Build autonomous AI agents with the most popular agentic framework</span>
-  </a>
-  <a href="https://openclaw.ai" target="_blank" rel="noopener noreferrer" class="flex flex-col gap-1 p-4 rounded-2xl border border-border dark:border-white/10 no-underline hover:bg-background">
-    <span class="font-semibold text-foreground">OpenClaw</span>
-    <span class="text-sm text-foreground/70">Personal AI agent — any OS, any platform. The lobster way 🦞</span>
-  </a>
-  <a href="https://github.com/HKUDS/nanobot" target="_blank" rel="noopener noreferrer" class="flex flex-col gap-1 p-4 rounded-2xl border border-border dark:border-white/10 no-underline hover:bg-background">
-    <span class="font-semibold text-foreground">NanoBot</span>
-    <span class="text-sm text-foreground/70">Ultra-lightweight OpenClaw alternative in Python, ~4k LOC</span>
-  </a>
-  <a href="https://picoclaw.net" target="_blank" rel="noopener noreferrer" class="flex flex-col gap-1 p-4 rounded-2xl border border-border dark:border-white/10 no-underline hover:bg-background">
-    <span class="font-semibold text-foreground">PicoClaw</span>
-    <span class="text-sm text-foreground/70">Go single binary, &lt;10 MB RAM, runs on a $10 board</span>
-  </a>
-  <a href="https://zeroclaw.org" target="_blank" rel="noopener noreferrer" class="flex flex-col gap-1 p-4 rounded-2xl border border-border dark:border-white/10 no-underline hover:bg-background">
-    <span class="font-semibold text-foreground">ZeroClaw</span>
-    <span class="text-sm text-foreground/70">Rust-based, 3.4 MB, 22+ providers. Zero overhead, zero compromise</span>
-  </a>
-  <a href="https://nullclaw.org" target="_blank" rel="noopener noreferrer" class="flex flex-col gap-1 p-4 rounded-2xl border border-border dark:border-white/10 no-underline hover:bg-background">
-    <span class="font-semibold text-foreground">NullClaw</span>
-    <span class="text-sm text-foreground/70">Zig static binary, 678 KB, ~1 MB RAM, fits on any $5 board</span>
-  </a>
-</div>

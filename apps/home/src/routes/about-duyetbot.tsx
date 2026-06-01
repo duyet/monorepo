@@ -303,14 +303,14 @@ function ChatWindow() {
         <div className="min-w-0">
           <div className="rd-ch-name">
             duyetbot{" "}
-            <span className="rd-chip rd-mono text-[9.5px]">
+            <span className="rd-chip font-[var(--font-mono)] text-[9.5px]">
               beta
             </span>
           </div>
           <div className="rd-ch-model">claude-sonnet · via AnyRouter</div>
         </div>
         <span
-          className="rd-mono rd-dim text-[11.5px] ml-auto inline-flex items-center gap-[6px]"
+          className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11.5px] ml-auto inline-flex items-center gap-[6px]"
         >
           <span className="rd-dot rd-ok rd-pulse" /> online
         </span>
@@ -410,7 +410,7 @@ function ChatSidebar() {
   return (
     <div className="rd-chat-side">
       {/* tools list */}
-      <div className="rd-card rd-card-pad" id="ag-tools">
+      <div className="rd-card p-[clamp(18px,2.2vw,26px)]" id="ag-tools">
         <Eyebrow>Tools / MCP</Eyebrow>
         <div className="mt-[12px]">
           {TOOLS.map((t) => (
@@ -428,10 +428,10 @@ function ChatSidebar() {
       </div>
 
       {/* connect card */}
-      <div className="rd-card rd-card-pad bg-[var(--rd-bg-sub)]">
+      <div className="rd-card p-[clamp(18px,2.2vw,26px)] bg-[var(--rd-bg-sub)]">
         <Eyebrow>Connect</Eyebrow>
         <p
-          className="rd-muted text-[13.5px] leading-[1.55] mt-[12px]"
+          className="text-[var(--rd-text-2)] text-[13.5px] leading-[1.55] mt-[12px]"
         >
           Point your own agent at the MCP server, or read the machine-readable site map.
         </p>
@@ -465,14 +465,14 @@ function ChatSidebar() {
 
       {/* scope note */}
       <div
-        className="rd-card rd-card-pad text-[13px] leading-[1.6]"
+        className="rd-card p-[clamp(18px,2.2vw,26px)] text-[13px] leading-[1.6]"
       >
         <p className="rd-eyebrow mb-[10px]">Scope</p>
         <p className="text-[var(--rd-text-2)]">
           duyetbot owns the{" "}
           <strong>codebase, the look-and-feel, and the deployment pipeline</strong>.
           Blog posts under{" "}
-          <code className="rd-mono text-[12px]">apps/blog/_posts/</code>{" "}
+          <code className="font-[var(--font-mono)] text-[12px]">apps/blog/_posts/</code>{" "}
           are written and owned by Duyet Le — the bot can change how a post renders, never the words inside.
         </p>
         <p className="text-[var(--rd-text-2)] mt-[8px]">
@@ -504,7 +504,7 @@ function ChatSidebar() {
 function DuyetbotPage() {
   return (
     <div className="bg-[var(--rd-bg)] text-[var(--rd-text)]">
-      <div className="rd-wrap pt-[clamp(22px,3.2vw,40px)] pb-[clamp(32px,5vw,64px)]">
+      <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(22px,3.2vw,40px)] pb-[clamp(32px,5vw,64px)]">
         <Reveal>
           <Eyebrow>Agent · duyetbot</Eyebrow>
           <h1
@@ -569,7 +569,7 @@ function DuyetbotPage() {
               dependency hygiene, MDX authoring, ClickHouse sync, and so on.
             </p>
             <p
-              className="rd-muted max-w-[62ch] mt-[12px] text-[clamp(0.92rem,1.05vw,1rem)]"
+              className="text-[var(--rd-text-2)] max-w-[62ch] mt-[12px] text-[clamp(0.92rem,1.05vw,1rem)]"
             >
               New skills get added when a recurring task becomes worth automating. Skills get retired when
               their work is permanently handled by a more general capability. The skill set is itself a
@@ -617,7 +617,7 @@ function DuyetbotPage() {
                     {cap.label}
                   </p>
                   <p
-                    className="rd-muted text-[13.5px] leading-[1.65] mt-[8px]"
+                    className="text-[var(--rd-text-2)] text-[13.5px] leading-[1.65] mt-[8px]"
                   >
                     {cap.body}
                   </p>
@@ -643,7 +643,7 @@ function DuyetbotPage() {
               that's the system working as designed.
             </p>
             <p
-              className="rd-muted max-w-[62ch] mt-[12px] text-[clamp(0.92rem,1.05vw,1rem)]"
+              className="text-[var(--rd-text-2)] max-w-[62ch] mt-[12px] text-[clamp(0.92rem,1.05vw,1rem)]"
             >
               For things that need to be stable —{" "}
               <Link to="/projects" className="rd-ulink">

@@ -1,4 +1,3 @@
-import GithubSlugger from "github-slugger";
 import type { Heading, PhrasingContent, Root } from "mdast";
 import remarkParse from "remark-parse";
 import { unified } from "unified";
@@ -9,6 +8,41 @@ export interface TOCItem {
   id: string;
   text: string;
   level: number;
+}
+
+/**
+ * Replicate the heading-id slug produced by the Rust/WASM markdown renderer
+ * (crates/markdown `slugify` + `inject_heading_ids`). The TOC ids MUST match
+ * the rendered heading ids exactly, or anchor links and the scroll-spy
+ * highlight break.
+ *
+ * Two non-obvious details mirror the Rust path:
+ *  1. The renderer slugifies the *HTML-escaped* heading text, so `&` becomes
+ *     `&amp;` and survives as the literal "amp" (e.g. "a & b" -> "a-amp-b").
+ *  2. Only ASCII alphanumerics are kept; space/`-`/`_` map to `-`; everything
+ *     else is dropped; runs of `-` collapse to one.
+ */
+function htmlEscape(text: string): string {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function slugify(text: string): string {
+  return htmlEscape(text.trim())
+    .toLowerCase()
+    .split("")
+    .map((c) => {
+      if (/[a-z0-9]/.test(c)) return c;
+      if (c === " " || c === "-" || c === "_") return "-";
+      return "";
+    })
+    .join("")
+    .split("-")
+    .filter((part) => part.length > 0)
+    .join("-");
 }
 
 /**
@@ -32,7 +66,7 @@ export async function extractHeadings(
   markdown: VFileCompatible
 ): Promise<TOCItem[]> {
   const headings: TOCItem[] = [];
-  const slugger = new GithubSlugger();
+  const slugCounts = new Map<string, number>();
   let isFirstH1 = true;
 
   const tree = unified().use(remarkParse).parse(markdown) as Root;
@@ -54,8 +88,20 @@ export async function extractHeadings(
       return;
     }
 
-    // Generate slug ID using github-slugger (same as rehype-slug)
-    const id = slugger.slug(text);
+    // Generate slug ID matching crates/markdown's inject_heading_ids. Duplicate
+    // base slugs get a numeric suffix the same way the Rust renderer does:
+    // first occurrence keeps the base, later ones become `base-2`, `base-3`, …
+    const baseSlug = slugify(text);
+    const seen = slugCounts.get(baseSlug);
+    let id: string;
+    if (seen === undefined) {
+      slugCounts.set(baseSlug, 1);
+      id = baseSlug;
+    } else {
+      const next = seen + 1;
+      slugCounts.set(baseSlug, next);
+      id = `${baseSlug}-${next}`;
+    }
 
     headings.push({ id, text, level });
   });

@@ -63,8 +63,8 @@ function PostsByTag(): ReactElement {
 
   return (
     <div className="px-6 md:px-8">
-      <header className="em-masthead">
-        <span className="em-masthead__eyebrow">
+      <header className="pt-24 md:pt-28 pb-10 mx-auto">
+        <span className="inline-block text-[0.6875rem] font-medium tracking-[0.16em] uppercase text-muted-foreground mb-3.5">
           <Link
             to="/tags/"
             className="transition-colors hover:text-[color:var(--em-foreground)]"
@@ -72,8 +72,10 @@ function PostsByTag(): ReactElement {
             Tag
           </Link>
         </span>
-        <h1 className="em-masthead__title">{displayName}</h1>
-        <div className="em-masthead__meta">
+        <h1 className="text-[clamp(2.25rem,4.5vw,3.25rem)] font-semibold leading-[1.08] tracking-[-0.018em] text-foreground m-0">
+          {displayName}
+        </h1>
+        <div className="mt-5 flex flex-wrap items-center gap-y-2 gap-x-3 text-[0.8125rem] text-muted-foreground tabular-nums [&>*+*]:before:content-['·'] [&>*+*]:before:mr-3 [&>*+*]:before:text-muted-foreground">
           <span>
             {posts.length} {posts.length === 1 ? "post" : "posts"}
           </span>
@@ -88,8 +90,13 @@ function PostsByTag(): ReactElement {
         .sort(([a], [b]) => Number.parseInt(b, 10) - Number.parseInt(a, 10))
         .map(([year, yearPosts]) => (
           <div key={year}>
-            <h2 className="em-year">{year}</h2>
-            <section className="em-list" aria-label={`Posts from ${year}`}>
+            <h2 className="max-w-2xl mx-auto mt-12 pb-2 text-lg font-medium text-muted-foreground tabular-nums tracking-[0.04em]">
+              {year}
+            </h2>
+            <section
+              className="max-w-2xl mx-auto pt-6"
+              aria-label={`Posts from ${year}`}
+            >
               {yearPosts.map((post, i) => {
                 const style: CSSProperties = {
                   animationDelay: `${Math.min(i, 8) * 40}ms`,
@@ -99,11 +106,13 @@ function PostsByTag(): ReactElement {
                     key={post.slug}
                     to="/$year/$month/$slug/"
                     params={postParams(post)}
-                    className="em-list__row editorial-enter"
+                    className="block px-4 py-5 mb-3 bg-card border border-border rounded-[var(--radius)] no-underline text-inherit transition-colors hover:border-foreground hover:bg-muted focus-visible:outline-none focus-visible:border-foreground focus-visible:bg-muted editorial-enter"
                     style={style}
                   >
-                    <h3 className="em-list__title">{post.title}</h3>
-                    <div className="em-list__meta">
+                    <h3 className="text-lg font-semibold leading-tight tracking-[-0.01em] text-foreground m-0">
+                      {post.title}
+                    </h3>
+                    <div className="mt-2 flex flex-wrap items-center gap-y-1.5 gap-x-2.5 text-xs text-muted-foreground tabular-nums [&>*+*]:before:content-['·'] [&>*+*]:before:mr-2.5 [&>*+*]:before:text-muted-foreground [&_a]:text-muted-foreground [&_a]:no-underline [&_a]:hover:text-foreground">
                       <time dateTime={new Date(post.date).toISOString()}>
                         {dateFormat(post.date, "MMM d, yyyy")}
                       </time>

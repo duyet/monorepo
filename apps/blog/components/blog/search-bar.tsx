@@ -128,7 +128,10 @@ export function SearchBar({
           onFocus={handleFocus}
           onBlur={handleBlur}
           placeholder={placeholder}
-          className={cn("em-search-input", inputClassName)}
+          className={cn(
+            "w-full bg-transparent border-0 border-b border-border rounded-none py-3 text-lg text-foreground transition-colors placeholder:text-muted-foreground focus:outline-none focus:border-b-foreground",
+            inputClassName,
+          )}
           autoComplete="off"
         />
         <div className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">

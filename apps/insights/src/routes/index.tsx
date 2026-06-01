@@ -325,18 +325,18 @@ function KpiTile({ t }: { t: KpiTileData }) {
   const up = t.trend.startsWith("+");
   const goodTrend = t.good ? !up : up;
   return (
-    <div className="rd-card rd-card-pad flex flex-col gap-3 min-h-[168px]">
+    <div className="rd-card p-[clamp(18px,2.2vw,26px)] flex flex-col gap-3 min-h-[168px]">
       <div className="flex justify-between items-center">
         <span className="rd-eyebrow text-[10.5px]">
           {t.k}
         </span>
         <span
-          className={`rd-mono text-[11.5px] ${goodTrend ? "text-[var(--rd-ok)]" : "text-[var(--rd-text-3)]"}`}
+          className={`font-[var(--font-mono)] text-[11.5px] ${goodTrend ? "text-[var(--rd-ok)]" : "text-[var(--rd-text-3)]"}`}
         >
           {t.trend}
         </span>
       </div>
-      <div className="rd-bigstat">
+      <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none">
         {t.v}
         <span className="rd-unit">{t.unit}</span>
       </div>
@@ -345,7 +345,7 @@ function KpiTile({ t }: { t: KpiTileData }) {
         h={34}
         stroke={t.good ? "var(--rd-ok)" : "var(--rd-accent)"}
       />
-      <div className="rd-mono rd-dim text-[11.5px]">
+      <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11.5px]">
         {t.sub}
       </div>
     </div>
@@ -433,7 +433,7 @@ function IndexPage() {
   const displayRepos = data.githubRepos.slice(0, 6);
 
   return (
-    <div className="rd-wrap pt-[clamp(44px,6vw,76px)] pb-[clamp(56px,8vw,96px)]">
+    <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(44px,6vw,76px)] pb-[clamp(56px,8vw,96px)]">
       {/* ---- Header ---- */}
       <Eyebrow>Insights · Last 30 days</Eyebrow>
       <h1 className="text-[clamp(2rem,4.6vw,3.4rem)] font-semibold tracking-[-0.04em] mt-[18px] max-w-[20ch]">
@@ -447,7 +447,7 @@ function IndexPage() {
         what they meant this month.
       </p>
       <div
-        className="rd-mono rd-dim text-xs mt-4"
+        className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs mt-4"
       >
         {generatedAt
           ? `Last updated ${generatedAt}`
@@ -466,7 +466,7 @@ function IndexPage() {
 
       {/* ---- Editorial note ---- */}
       <div
-        className="rd-card rd-card-pad mt-3 p-[clamp(24px,3vw,34px)] bg-[var(--rd-bg-sub)]"
+        className="rd-card p-[clamp(18px,2.2vw,26px)] mt-3 p-[clamp(24px,3vw,34px)] bg-[var(--rd-bg-sub)]"
       >
         <Eyebrow>What it meant</Eyebrow>
         <p
@@ -481,7 +481,7 @@ function IndexPage() {
         {/* Languages */}
         <div
           id="ins-coding"
-          className="rd-card rd-card-pad p-[clamp(22px,2.6vw,30px)]"
+          className="rd-card p-[clamp(18px,2.2vw,26px)] p-[clamp(22px,2.6vw,30px)]"
         >
           <div
             className="flex justify-between items-center mb-5"
@@ -494,7 +494,7 @@ function IndexPage() {
                 Where the hours went
               </h3>
             </div>
-            <span className="rd-chip rd-mono text-[11px]">
+            <span className="rd-chip font-[var(--font-mono)] text-[11px]">
               30d
             </span>
           </div>
@@ -504,7 +504,7 @@ function IndexPage() {
         {/* Models */}
         <div
           id="ins-models"
-          className="rd-card rd-card-pad p-[clamp(22px,2.6vw,30px)]"
+          className="rd-card p-[clamp(18px,2.2vw,26px)] p-[clamp(22px,2.6vw,30px)]"
         >
           <div
             className="flex justify-between items-center mb-5"
@@ -517,7 +517,7 @@ function IndexPage() {
                 Where the tokens went
               </h3>
             </div>
-            <span className="rd-chip rd-mono text-[11px]">
+            <span className="rd-chip font-[var(--font-mono)] text-[11px]">
               {formatCompact(data.aiMetrics.totalTokens)}
             </span>
           </div>
@@ -529,7 +529,7 @@ function IndexPage() {
       {topPosts.length > 0 && (
         <div
           id="ins-reading"
-          className="rd-card rd-card-pad mt-3 p-[clamp(22px,2.6vw,30px)]"
+          className="rd-card p-[clamp(18px,2.2vw,26px)] mt-3 p-[clamp(22px,2.6vw,30px)]"
         >
           <div
             className="flex justify-between items-end mb-2"
@@ -542,7 +542,7 @@ function IndexPage() {
                 Most-read pages
               </h3>
             </div>
-            <span className="rd-mono rd-dim text-xs">
+            <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs">
               unique visitors · 30d
             </span>
           </div>
@@ -556,13 +556,13 @@ function IndexPage() {
                   href={`${data.posthog.blogUrl || "https://blog.duyet.net"}${r.path}`}
                 >
                   <span
-                    className="rd-mono rd-dim text-xs w-[22px]"
+                    className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs w-[22px]"
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="min-w-0">
                     <span
-                      className="rd-mono text-[13.5px] block truncate"
+                      className="font-[var(--font-mono)] text-[13.5px] block truncate"
                     >
                       {r.path}
                     </span>
@@ -577,7 +577,7 @@ function IndexPage() {
                     </div>
                   </span>
                   <span
-                    className="rd-mono text-sm font-semibold"
+                    className="font-[var(--font-mono)] text-sm font-semibold"
                   >
                     {formatNumber(r.visitors)}
                   </span>
@@ -592,7 +592,7 @@ function IndexPage() {
       {displayRepos.length > 0 && (
         <div
           id="ins-repos"
-          className="rd-card rd-card-pad mt-3 p-[clamp(22px,2.6vw,30px)]"
+          className="rd-card p-[clamp(18px,2.2vw,26px)] mt-3 p-[clamp(22px,2.6vw,30px)]"
         >
           <div
             className="flex justify-between items-end mb-[18px]"
@@ -606,7 +606,7 @@ function IndexPage() {
               </h3>
             </div>
             <a
-              className="rd-mono rd-dim rd-ulink text-[12.5px]"
+              className="font-[var(--font-mono)] text-[var(--rd-text-3)] rd-ulink text-[12.5px]"
               href="https://github.com/duyet"
               target="_blank"
               rel="noreferrer"
@@ -618,13 +618,13 @@ function IndexPage() {
             {displayRepos.map((r) => (
               <a
                 key={r.name}
-                className="rd-card rd-card-hover rd-card-pad bg-[var(--rd-bg-sub)] px-[18px] py-[16px] no-underline text-inherit"
+                className="rd-card p-[clamp(18px,2.2vw,26px)] bg-[var(--rd-bg-sub)] px-[18px] py-[16px] no-underline text-inherit"
                 href={`https://github.com/duyet/${r.name}`}
                 target="_blank"
                 rel="noreferrer"
               >
                 <div
-                  className="rd-mono text-sm font-semibold truncate"
+                  className="font-[var(--font-mono)] text-sm font-semibold truncate"
                 >
                   {r.name}
                 </div>
@@ -637,12 +637,12 @@ function IndexPage() {
                     </span>
                   )}
                   {r.license && (
-                    <span className="rd-mono rd-dim text-[11.5px]">
+                    <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11.5px]">
                       {r.license}
                     </span>
                   )}
                   <span
-                    className="rd-mono rd-dim text-[11.5px] ml-auto inline-flex items-center gap-1"
+                    className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11.5px] ml-auto inline-flex items-center gap-1"
                   >
                     <Star size={12} /> {r.stars}
                   </span>
@@ -685,7 +685,7 @@ function TokenAttributionSection({ data }: { data: LoaderData }) {
     <>
       {/* Stacked bar chart: daily tokens by model */}
       <div className="rd-g2 mt-3">
-        <div className="rd-card rd-card-pad p-[clamp(22px,2.6vw,30px)]">
+        <div className="rd-card p-[clamp(18px,2.2vw,26px)] p-[clamp(22px,2.6vw,30px)]">
           <div className="mb-5">
             <Eyebrow>AI · ccusage</Eyebrow>
             <h3
@@ -693,14 +693,14 @@ function TokenAttributionSection({ data }: { data: LoaderData }) {
             >
               Where the tokens went
             </h3>
-            <p className="rd-mono rd-dim text-xs mt-1">
+            <p className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs mt-1">
               Daily token volume by model (thousands), last 30 days.
             </p>
           </div>
           <InsightStackedBarChart data={byModel} />
         </div>
 
-        <div className="rd-card rd-card-pad p-[clamp(22px,2.6vw,30px)]">
+        <div className="rd-card p-[clamp(18px,2.2vw,26px)] p-[clamp(22px,2.6vw,30px)]">
           <div className="mb-5">
             <Eyebrow>Efficiency · ccusage</Eyebrow>
             <h3
@@ -708,7 +708,7 @@ function TokenAttributionSection({ data }: { data: LoaderData }) {
             >
               Tokens per dollar
             </h3>
-            <p className="rd-mono rd-dim text-xs mt-1">
+            <p className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs mt-1">
               Cost efficiency trend — higher is cheaper output.
             </p>
           </div>
@@ -724,7 +724,7 @@ function TokenAttributionSection({ data }: { data: LoaderData }) {
       {/* Top sessions by tokens */}
       {projects.length > 0 && (
         <div
-          className="rd-card rd-card-pad mt-3 p-[clamp(22px,2.6vw,30px)]"
+          className="rd-card p-[clamp(18px,2.2vw,26px)] mt-3 p-[clamp(22px,2.6vw,30px)]"
         >
           <div className="mb-2">
             <Eyebrow>Projects · ccusage</Eyebrow>
@@ -742,17 +742,17 @@ function TokenAttributionSection({ data }: { data: LoaderData }) {
               >
                 <div className="min-w-0">
                   <span
-                    className="rd-mono text-[13.5px] block truncate"
+                    className="font-[var(--font-mono)] text-[13.5px] block truncate"
                   >
                     {item.label}
                   </span>
                   <span
-                    className="rd-mono rd-dim text-xs"
+                    className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs"
                   >
                     {item.meta}
                   </span>
                 </div>
-                <span className="rd-mono text-sm font-semibold">
+                <span className="font-[var(--font-mono)] text-sm font-semibold">
                   {item.value}
                 </span>
               </div>

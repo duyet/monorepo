@@ -442,10 +442,6 @@ html.dark .prose pre {
     max-width: 46ch;
     text-wrap: pretty;
   }
-  .rd-mono { @apply font-[var(--font-mono)]; }
-  .rd-muted { @apply text-[var(--rd-text-2)]; }
-  .rd-dim { @apply text-[var(--rd-text-3)]; }
-
   /* link with accent underline */
   .rd-ulink {
     color: var(--rd-text);
@@ -456,9 +452,7 @@ html.dark .prose pre {
   .rd-ulink:hover { border-color: var(--rd-accent); color: var(--rd-accent-ink); }
 
   /* ---------- layout ---------- */
-  .rd-wrap { @apply mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)]; }
   .rd-section { @apply py-[clamp(56px,8vw,104px)]; }
-  .rd-section-tight { @apply py-[clamp(40px,5vw,64px)]; }
 
   .rd-sechead {
     @apply flex items-end justify-between gap-6 flex-wrap mb-7;
@@ -472,14 +466,11 @@ html.dark .prose pre {
     @apply border border-[var(--rd-border)] rounded-[var(--rd-r)] bg-[var(--rd-surface)];
     transition: border-color .18s, transform .18s, background .18s;
   }
-  .rd-card-pad { @apply p-[clamp(18px,2.2vw,26px)]; }
-  .rd-card-hover:hover { @apply border-[var(--rd-border-2)] -translate-y-0.5; }
 
   /* tag / chip / badge */
   .rd-chip {
     @apply inline-flex items-center gap-1.5 text-[12.5px] px-2.5 py-1 border border-[var(--rd-border)] rounded-full text-[var(--rd-text-2)] bg-[var(--rd-surface)] font-medium whitespace-nowrap;
   }
-  .rd-chip.rd-mono { @apply font-[var(--font-mono)] text-[11.5px]; }
   .rd-chip-btn { @apply cursor-pointer transition-all duration-150; }
   .rd-chip-btn:hover { @apply border-[var(--rd-border-2)] text-[var(--rd-text)]; }
   .rd-chip-btn.rd-on { @apply bg-[var(--rd-text)] text-[var(--rd-bg)] border-[var(--rd-text)]; }
@@ -493,9 +484,10 @@ html.dark .prose pre {
   .rd-pulse { animation: rd-pulse 2.4s ease-in-out infinite; }
 
   /* ---------- list rows ---------- */
-  .rd-rows { @apply border-t border-[var(--rd-line)]; }
+  /* No dividers — rows separated by spacing only. */
+  .rd-rows { @apply border-0; }
   .rd-row {
-    @apply grid items-center gap-[18px] py-[17px] px-1 border-b border-[var(--rd-line)] relative;
+    @apply grid items-center gap-[18px] py-[17px] px-1 relative;
     transition: background .15s;
   }
   .rd-row:hover { @apply bg-[var(--rd-surface-2)]; }
@@ -517,8 +509,7 @@ html.dark .prose pre {
   /* ---------- data viz helpers ---------- */
   .rd-meter { @apply h-1.5 rounded-full bg-[var(--rd-surface-2)] overflow-hidden; }
   .rd-meter > i { @apply block h-full bg-[var(--rd-accent)] rounded-full; }
-  .rd-bigstat { @apply text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none; }
-  .rd-bigstat .rd-unit { @apply text-[.42em] text-[var(--rd-text-3)] font-medium tracking-normal ml-1; }
+  .rd-unit { @apply text-[.42em] text-[var(--rd-text-3)] font-medium tracking-normal ml-1; }
 
   /* terminal / code block */
   .rd-termblock {

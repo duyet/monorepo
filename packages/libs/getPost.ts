@@ -207,6 +207,12 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
 
       post.readingTime = getReadingTime(wordCount, codeBlockCount);
     }
+
+    if (field === "changelog") {
+      post.changelog = Array.isArray(data.changelog)
+        ? data.changelog
+        : undefined;
+    }
   });
 
   return post;

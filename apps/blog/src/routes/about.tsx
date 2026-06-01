@@ -77,10 +77,14 @@ const skills = [
 function About(): ReactElement {
   return (
     <div className="px-6 md:px-8">
-      <header className="em-masthead">
-        <span className="em-masthead__eyebrow">Colophon</span>
-        <h1 className="em-masthead__title">About</h1>
-        <p className="em-masthead__dek">
+      <header className="pt-24 md:pt-28 pb-10 mx-auto">
+        <span className="inline-block text-[0.6875rem] font-medium tracking-[0.16em] uppercase text-muted-foreground mb-3.5">
+          Colophon
+        </span>
+        <h1 className="text-[clamp(2.25rem,4.5vw,3.25rem)] font-semibold leading-[1.08] tracking-[-0.018em] text-foreground m-0">
+          About
+        </h1>
+        <p className="mt-4 text-base leading-[1.6] text-muted-foreground max-w-xl">
           Data engineer with 6+ years of experience. Comfortable across data
           engineering concepts, best practices, and modern cloud platforms.
         </p>
@@ -94,11 +98,11 @@ function About(): ReactElement {
           const content = (
             <>
               <div className="flex items-baseline justify-between gap-3">
-                <span className="em-index__name flex items-center gap-3">
+                <span className="text-base font-medium text-foreground tracking-[-0.005em] flex items-center gap-3">
                   <Icon />
                   {link.title}
                 </span>
-                <span className="em-index__count">
+                <span className="text-xs text-muted-foreground tabular-nums whitespace-nowrap">
                   {isExternal ? "External →" : "Open →"}
                 </span>
               </div>
@@ -113,7 +117,7 @@ function About(): ReactElement {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="em-index__row editorial-enter block"
+              className="flex items-center justify-between gap-4 px-5 py-4 mb-3 bg-card border border-border rounded-[var(--radius)] no-underline text-inherit text-[0.9375rem] transition-colors hover:border-foreground hover:bg-muted focus-visible:outline-none focus-visible:border-foreground focus-visible:bg-muted editorial-enter"
               style={style}
             >
               {content}
@@ -122,7 +126,7 @@ function About(): ReactElement {
             <Link
               key={link.title}
               to={link.url as "/"}
-              className="em-index__row editorial-enter block"
+              className="flex items-center justify-between gap-4 px-5 py-4 mb-3 bg-card border border-border rounded-[var(--radius)] no-underline text-inherit text-[0.9375rem] transition-colors hover:border-foreground hover:bg-muted focus-visible:outline-none focus-visible:border-foreground focus-visible:bg-muted editorial-enter"
               style={style}
             >
               {content}

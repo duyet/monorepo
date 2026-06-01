@@ -32,10 +32,14 @@ function Tags(): ReactElement {
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
-      <header className="em-masthead">
-        <span className="em-masthead__eyebrow">Index</span>
-        <h1 className="em-masthead__title">Topics</h1>
-        <p className="em-masthead__dek">
+      <header className="pt-24 md:pt-28 pb-10 mx-auto">
+        <span className="inline-block text-[0.6875rem] font-medium tracking-[0.16em] uppercase text-muted-foreground mb-3.5">
+          Index
+        </span>
+        <h1 className="text-[clamp(2.25rem,4.5vw,3.25rem)] font-semibold leading-[1.08] tracking-[-0.018em] text-foreground m-0">
+          Topics
+        </h1>
+        <p className="mt-4 text-base leading-[1.6] text-muted-foreground max-w-xl">
           {entries.length} tags across {totalPosts} posts.
         </p>
       </header>

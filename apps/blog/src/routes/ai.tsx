@@ -13,9 +13,13 @@ export const Route = createFileRoute("/ai")({
 function AI() {
   return (
     <div className="px-6 md:px-8">
-      <header className="em-masthead">
-        <span className="em-masthead__eyebrow">Editorial note</span>
-        <h1 className="em-masthead__title">On AI</h1>
+      <header className="pt-24 md:pt-28 pb-10 mx-auto">
+        <span className="inline-block text-[0.6875rem] font-medium tracking-[0.16em] uppercase text-muted-foreground mb-3.5">
+          Editorial note
+        </span>
+        <h1 className="text-[clamp(2.25rem,4.5vw,3.25rem)] font-semibold leading-[1.08] tracking-[-0.018em] text-foreground m-0">
+          On AI
+        </h1>
       </header>
 
       <div className="mx-auto max-w-2xl space-y-5 text-[15px] leading-7 text-[color:var(--em-muted)]">
