@@ -121,6 +121,7 @@ export const apps: AppItem[] = [
     tone: "bg-[#5f6257]",
     domain: "mcp.duyet.net",
     iconName: "Plug",
+    logo: "https://cdn.simpleicons.org/modelcontextprotocol",
     tags: ["AI", "Tool"],
   },
   {
