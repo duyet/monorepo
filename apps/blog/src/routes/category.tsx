@@ -69,7 +69,6 @@ function Categories(): ReactElement {
               to="/category/$category/"
               params={{ category: getSlug(category) }}
               className={`bento-cell${featured ? " bento-cell--featured" : ""}`}
-              style={{ borderLeft: `3px solid ${color}` }}
             >
               <div>
                 <div className="flex items-center gap-2">
