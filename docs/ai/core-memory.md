@@ -10,6 +10,16 @@ This file stores durable outcomes from code-smell and dead-code automation runs.
 
 ## Durable Findings
 
+### 2026-06-01
+
+- Deploy orchestrator fix (warning -> fixed): `scripts/cf-deploy.ts` now treats `bun.lock` as the repo's core dependency lockfile when deciding whether to rebuild all apps; the previous `bun.lockb` checks missed lockfile-only dependency updates in this Bun text-lockfile repo.
+  - Evidence: `rg -n "bun\\.lock|bun\\.lockb" scripts/cf-deploy.ts`, plus `git show 2587eaad7780d87d75c6e45d2b77377735486aa6 -- package.json` confirmed recent dependency-only changes in the same scan window.
+- Deploy orchestrator hardening (warning -> fixed): the "no deployable apps discovered" path in `scripts/cf-deploy.ts` referenced undefined `rawOutput`, which would raise `ReferenceError` and hide the real discovery failure.
+  - Evidence: `rg -n "rawOutput|No deployable apps discovered" scripts/cf-deploy.ts`.
+- Dead-code review (confident): no zero-reference removals were justified in the scanned non-test files after targeted repo-wide checks on the newly extracted blog/home components and recent deploy surfaces.
+  - Evidence: targeted import/reference scans across `apps/blog`, `apps/home`, `apps/burns`, and `scripts/cf-deploy.ts` found live consumers or pure file moves rather than orphaned code.
+- Performance audit: no grounded runtime regression claim from this window; no measurements or traces changed in the reviewed commits.
+
 ### 2026-05-12
 
 - Removed redundant boolean cast in `apps/blog/scripts/generate-posts-data.ts` (`!Boolean(p.isMDX)` -> `!p.isMDX`).

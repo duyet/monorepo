@@ -179,8 +179,7 @@ function discoverApps(): Record<string, AppConfig> {
   if (Object.keys(config).length === 0) {
     console.error(
       `[ERROR] No deployable apps discovered in ${appsDir}. ` +
-        `Ensure apps have both wrangler.toml and a "cf:deploy:prod" script in package.json. ` +
-        `Raw ls output: ${rawOutput}`
+        `Ensure apps have both wrangler.toml and a "cf:deploy:prod" script in package.json.`
     );
     process.exit(1);
   }
@@ -355,7 +354,7 @@ function getChangedApps(baseBranch = "origin/master"): string[] {
       "packages/",
       "turbo.json",
       "package.json",
-      "bun.lockb",
+      "bun.lock",
       ".env.production",
       "scripts/",
     ],
@@ -394,7 +393,7 @@ function getChangedApps(baseBranch = "origin/master"): string[] {
     [
       "turbo.json",
       "package.json",
-      "bun.lockb",
+      "bun.lock",
       ".env.production",
       "scripts/cf-deploy.ts",
     ].includes(file)
@@ -405,7 +404,7 @@ function getChangedApps(baseBranch = "origin/master"): string[] {
     sharedPackageChanges.length > 0 ||
     configChanges.some(
       (file) =>
-        file === "turbo.json" || file === "package.json" || file === "bun.lockb"
+        file === "turbo.json" || file === "package.json" || file === "bun.lock"
     );
 
   if (buildAllApps) {
@@ -417,7 +416,7 @@ function getChangedApps(baseBranch = "origin/master"): string[] {
     }
     if (
       configChanges.some((f) =>
-        ["turbo.json", "package.json", "bun.lockb"].includes(f)
+        ["turbo.json", "package.json", "bun.lock"].includes(f)
       )
     ) {
       reasons.push("core config changed");
