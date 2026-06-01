@@ -31,7 +31,7 @@ export function WorkBento({ selectedProjects }: WorkBentoProps) {
                 <img
                   src={item.logo}
                   alt=""
-                  className="shrink-0 rounded row-span-2 self-start mt-0.5 w-[24px] h-[24px] object-contain"
+                  className="shrink-0 rounded row-span-2 self-stretch object-contain"
                 />
               )}
               <span className="font-[var(--font-mono)] text-[11px]">
