@@ -127,21 +127,26 @@ function PostHero({ post }: { post: LoadedPost }) {
       >
         {post.title}
       </h1>
-      <div className="flex gap-2.5 items-center justify-between mt-3 flex-wrap">
-        <span className="rd-chip rd-mono text-[10.5px]">
-          {post.category}
-        </span>
-        <span className="rd-mono rd-dim text-[12.5px]">
-          {date} {readingTime && `· ${readingTime}`}
-        </span>
+      <div className="flex items-center justify-between mt-3 gap-2">
+        <div className="flex items-center gap-2.5 flex-wrap">
+          <span className="rd-chip rd-mono text-[10.5px]">
+            {post.category}
+          </span>
+          <span className="rd-mono rd-dim text-[12.5px]">
+            {date}
+          </span>
+          {readingTime && (
+            <span className="rd-mono rd-dim text-[12.5px]">
+              · {readingTime}
+            </span>
+          )}
+        </div>
         {post.markdown_content && (
-          <div>
-            <MarkdownMenuWrapper
-              markdownUrl={`${post.slug.replace(/\.html$/, "")}.md`}
-              markdownContent={post.markdown_content}
-              dropUp={false}
-            />
-          </div>
+          <MarkdownMenuWrapper
+            markdownUrl={`${post.slug.replace(/\.html$/, "")}.md`}
+            markdownContent={post.markdown_content}
+            dropUp={false}
+          />
         )}
       </div>
 
