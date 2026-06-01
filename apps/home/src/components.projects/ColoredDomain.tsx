@@ -13,7 +13,7 @@ export function ColoredDomain({ domain }: { domain: string }) {
     const [host, ...rest] = domain.split("/");
     return (
       <>
-        <span className="text-[var(--rd-text-3)]">{host}</span>
+        <span className="text-[var(--rd-text-2)]">{host}</span>
         {rest.length > 0 && (
           <span className="text-[var(--rd-text-4)]">/{rest.join("/")}</span>
         )}

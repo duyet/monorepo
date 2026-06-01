@@ -34,7 +34,7 @@ export function WorkBento({ selectedProjects }: WorkBentoProps) {
                   className="shrink-0 rounded row-span-2 self-start w-[50px] h-auto max-h-[50px] object-contain"
                 />
               )}
-              <span className="font-[var(--font-mono)] text-[11px]">
+              <span className="font-[var(--font-mono)] text-[13px]">
                 <ColoredDomain domain={item.domain || item.host} />
               </span>
               <h3 className="text-[1.02rem] tracking-[-0.03em] leading-tight">{item.name}</h3>
