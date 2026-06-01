@@ -5,9 +5,9 @@
 
 ---
 
-# Building AI Agents on Cloudflare
+# Cloudflare is all you need
 
-- **URL**: https://blog.duyet.net/2026/05/building-ai-agents-cloudflare
+- **URL**: https://blog.duyet.net/2026/05/cloudflare-is-all-you-need
 - **Date**: 2026-05-06
 - **Category**: AI
 - **Tags**: Ai, Agents, Cloudflare
