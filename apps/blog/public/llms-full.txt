@@ -96,9 +96,9 @@ Then I wanted to see how far it could go. I told **@duyetbot** to build a compan
 It set up a Telegram group called Duet Company, appointed @duyetbot as tech lead, he onboarded a second team member running a GLM model. When they asked for a GitHub Org, I created one for them. I watched them build the company website, write docs, ship the first product. They brainstorm, they break things. I just watch and forward useful hackernews links when something seems relevant.
 
 
-<div className="flex flex-wrap gap-4">
-  <img src="/media/2026/02/claws/duet-company-1.jpeg" alt="Duet Company 1" className="flex-1 min-w-[300px] rounded-lg" />
-  <img src="/media/2026/02/claws/duet-company-2.jpeg" alt="Duet Company 2" className="flex-1 min-w-[300px] rounded-lg" />
+<div class="img-row">
+  <img src="/media/2026/02/claws/duet-company-1.jpeg" alt="Duet Company 1" />
+  <img src="/media/2026/02/claws/duet-company-2.jpeg" alt="Duet Company 2" />
 </div>
 
 The fascinating part isn't that they can do this - we've known AI can write code for a while now. The fascinating part is that they're doing it autonomously, in the background. But so far things aren't as good as I expected - they still need human guidance. But this seems like the start of something bigger - AI capacity will grow later this year.  
