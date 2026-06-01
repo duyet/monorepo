@@ -123,7 +123,7 @@ function PostHero({ post }: { post: LoadedPost }) {
   return (
     <header className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-6">
       <h1
-        className="rd-display text-center text-[clamp(2.1rem,4.4vw,3.2rem)] leading-[1.04] tracking-[-0.04em] font-semibold"
+        className="rd-display text-center text-[clamp(2.1rem,4.4vw,3.2rem)] leading-[1.04] tracking-[-0.04em] font-semibold mb-8"
       >
         {post.title}
       </h1>
