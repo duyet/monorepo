@@ -127,7 +127,7 @@ function PostHero({ post }: { post: LoadedPost }) {
       >
         {post.title}
       </h1>
-      <div className="flex gap-2.5 items-center justify-center mt-3 flex-wrap">
+      <div className="flex gap-2.5 items-center justify-between mt-3 flex-wrap">
         <span className="rd-chip rd-mono text-[10.5px]">
           {post.category}
         </span>
