@@ -4,6 +4,7 @@
  */
 import {
   useEffect,
+  useId,
   useRef,
   useState,
   type CSSProperties,
@@ -152,6 +153,9 @@ export function Sparkline({
   stroke?: string
   fill?: boolean
 }) {
+  // Stable id across SSR + client so the gradient ref doesn't cause a
+  // hydration mismatch (Math.random() would differ between passes).
+  const reactId = useId()
   if (data.length < 2) return <div style={{ height: h }} />
   const w = 120
   const max = Math.max(...data)
@@ -165,7 +169,7 @@ export function Sparkline({
     .map((p, i) => `${i ? "L" : "M"}${p[0].toFixed(1)} ${p[1].toFixed(1)}`)
     .join(" ")
   const area = `${line} L${w} ${h} L0 ${h} Z`
-  const gid = `sg${Math.round(Math.random() * 1e6)}`
+  const gid = `sg${reactId.replace(/:/g, "")}`
 
   return (
     <svg

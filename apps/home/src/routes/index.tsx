@@ -1,6 +1,6 @@
 import { ArrowUpRight, ArrowRight, Flame } from "lucide-react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Suspense } from "react";
+import { Suspense, useEffect, useRef, useState, type MouseEvent } from "react";
 import { cn } from "../lib/utils";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
@@ -43,12 +43,18 @@ const yearsWriting = new Date().getFullYear() - sinceYear;
 
 // Hand-picked to show breadth: AI infra, data, agents, DevOps, craft, type.
 const SELECTED: { name: string; tag: string }[] = [
+  { name: "Codex & Claude Plugins", tag: "AI" },
   { name: "AnyRouter", tag: "AI Infra" },
   { name: "ClickHouse Monitoring", tag: "Data" },
   { name: "AI Agents", tag: "AI" },
+  { name: "MCP Tools", tag: "AI" },
+  { name: "LLM over DNS", tag: "AI Infra" },
+  { name: "ccusage → ClickHouse", tag: "Data" },
+  { name: "Clauduck", tag: "Data" },
+  { name: "Rust Tieng Viet", tag: "Rust" },
+  { name: "LLM Timeline", tag: "AI" },
   { name: "Stamps", tag: "Tool" },
   { name: "Helm Charts", tag: "Infra" },
-  { name: "MCP Tools", tag: "AI" },
 ];
 
 const byName = new Map(apps.map((a) => [a.name, a]));
@@ -363,16 +369,16 @@ function WorkBento() {
             href={href}
             target="_blank"
             rel="noreferrer"
-            className="rd-card flex flex-col p-5 min-h-[176px] no-underline text-inherit"
+            className="rd-card flex flex-col p-4 min-h-[128px] no-underline text-inherit"
           >
             <div className="flex items-center justify-between gap-2.5">
               <span className="font-[var(--font-mono)] rd-work-dom">
                 {item.domain || item.host}
               </span>
             </div>
-            <h3 className="text-[1.18rem] tracking-[-0.03em] mt-[15px]">{item.name}</h3>
+            <h3 className="text-[1.02rem] tracking-[-0.03em] mt-2.5">{item.name}</h3>
             <p className="rd-work-desc">{item.description}</p>
-            <div className="flex items-center justify-between mt-4">
+            <div className="flex items-center justify-between mt-3">
               <Badge variant="outline" className="font-[var(--font-mono)] text-[10.5px] px-2 py-0">{tag}</Badge>
               <span className="text-[var(--rd-text-4)]">
                 <ArrowUpRight size={15} />
@@ -502,119 +508,171 @@ function BlogTeaser() {
 function HeroDiagram() {
   const cx = 260, cy = 220;
 
-  // Nodes grouped by category at different orbital distances
-  const nodes = [
-    // AI — inner orbit (r≈82)
-    { t: "Claude", kind: "ai", slug: "anthropic", a: 310, orbit: 78 },
-    { t: "LangGraph", kind: "ai", slug: "langchain", a: 215, orbit: 82 },
-    { t: "AI SDK", kind: "ai", slug: "vercel", a: 130, orbit: 80 },
-    { t: "OpenCode", kind: "ai", slug: "opencode", a: 40, orbit: 85 },
-    // Data — middle orbit (r≈140)
-    { t: "ClickHouse", kind: "data", slug: "clickhouse", lc: "C28800", a: 190, orbit: 142 },
-    { t: "DuckDB", kind: "data", slug: "duckdb", a: 260, orbit: 138 },
-    { t: "Kafka", kind: "data", slug: "apachekafka", lc: "231F20", a: 325, orbit: 140 },
-    { t: "Airflow", kind: "data", slug: "apacheairflow", a: 20, orbit: 138 },
-    { t: "Spark", kind: "data", slug: "apachespark", a: 130, orbit: 136 },
-    // Infra — outer orbit (r≈190)
-    { t: "Kubernetes", kind: "infra", slug: "kubernetes", a: 95, orbit: 190 },
-    { t: "Cloudflare", kind: "infra", slug: "cloudflare", a: 25, orbit: 188 },
-    { t: "Workers", kind: "infra", slug: "cloudflareworkers", a: 160, orbit: 190 },
+  // Nodes positioned around the core; angle (a) + radius (r) are layout-only.
+  const nodes: {
+    id: string;
+    t: string;
+    kind: "ai" | "data" | "infra";
+    slug?: string;
+    lc?: string;
+    dc?: string;
+    a: number;
+    r: number;
+  }[] = [
+    // AI / agents
+    { id: "claude", t: "Claude", kind: "ai", slug: "anthropic", a: 256, r: 92 },
+    { id: "mcp", t: "Duyet MCP", kind: "ai", a: 292, r: 120 },
+    { id: "langgraph", t: "LangGraph", kind: "ai", slug: "langchain", a: 216, r: 134 },
+    { id: "llamaindex", t: "LlamaIndex", kind: "ai", a: 198, r: 182 },
+    { id: "opencode", t: "OpenCode", kind: "ai", a: 234, r: 182 },
+    { id: "anyrouter", t: "AnyRouter", kind: "ai", a: 272, r: 168 },
+    { id: "openrouter", t: "OpenRouter", kind: "ai", a: 312, r: 184 },
+    { id: "aisdk", t: "AI SDK", kind: "ai", slug: "vercel", a: 336, r: 138 },
+    // Data
+    { id: "dataplatform", t: "Data Platform", kind: "data", a: 95, r: 72 },
+    { id: "airflow", t: "Airflow", kind: "data", slug: "apacheairflow", a: 36, r: 150 },
+    { id: "duckdb", t: "DuckDB", kind: "data", slug: "duckdb", a: 16, r: 178 },
+    { id: "spark", t: "Spark", kind: "data", slug: "apachespark", a: 52, r: 178 },
+    { id: "clickhouse", t: "ClickHouse", kind: "data", slug: "clickhouse", lc: "C28800", a: 84, r: 182 },
+    { id: "kafka", t: "Kafka", kind: "data", slug: "apachekafka", lc: "231F20", a: 110, r: 170 },
+    // Infra
+    { id: "k8s", t: "Kubernetes", kind: "infra", slug: "kubernetes", a: 122, r: 112 },
+    { id: "cloudflare", t: "Cloudflare", kind: "infra", slug: "cloudflare", a: 165, r: 120 },
+    { id: "workers", t: "Workers", kind: "infra", slug: "cloudflareworkers", a: 148, r: 182 },
+    { id: "cfagents", t: "CF Agents", kind: "infra", slug: "cloudflare", a: 186, r: 150 },
+  ];
+
+  const byId = Object.fromEntries(
+    nodes.map((n) => [n.id, n] as const)
+  ) as Record<string, (typeof nodes)[number]>;
+
+  // Related-node connections (not radial spokes). "core" = the agent hub.
+  // 1→n hub fan-out + meaningful cross-links between related tools.
+  const edges: [string, string][] = [
+    // Claude → its agent ecosystem
+    ["claude", "mcp"], ["claude", "langgraph"], ["claude", "llamaindex"],
+    ["claude", "anyrouter"], ["claude", "opencode"], ["claude", "aisdk"],
+    ["claude", "dataplatform"],
+    // Duyet MCP → the runtimes that consume it
+    ["mcp", "opencode"], ["mcp", "langgraph"], ["mcp", "aisdk"],
+    // model routing
+    ["anyrouter", "openrouter"], ["openrouter", "aisdk"], ["anyrouter", "aisdk"],
+    ["langgraph", "aisdk"], ["langgraph", "llamaindex"],
+    // Data Platform → data tooling + internal data flow
+    ["dataplatform", "airflow"], ["dataplatform", "duckdb"], ["dataplatform", "spark"],
+    ["dataplatform", "clickhouse"], ["dataplatform", "kafka"], ["dataplatform", "k8s"],
+    ["airflow", "spark"], ["kafka", "clickhouse"], ["spark", "clickhouse"],
+    // Cloudflare → infra
+    ["cloudflare", "workers"], ["cloudflare", "cfagents"], ["cfagents", "workers"],
+    ["cloudflare", "k8s"], ["workers", "aisdk"],
   ];
 
   const kindColor = { ai: "var(--rd-accent)", data: "var(--rd-text)", infra: "var(--rd-text-3)" };
-  const kindOp = { ai: 0.85, data: 0.5, infra: 0.35 };
+  const kindOp = { ai: 0.8, data: 0.5, infra: 0.42 };
   const _lite = (n: any) => `https://cdn.simpleicons.org/${n.slug}${n.lc ? `/${n.lc}` : ""}`;
   const _dark = (n: any) => `https://cdn.simpleicons.org/${n.slug}/${n.dc || "f0f0f0"}`;
 
-  const pos = (a: number, r: number) => {
+  const pos = (a: number, r: number): [number, number] => {
     const rad = (a * Math.PI) / 180;
-    return [cx + r * Math.cos(rad), cy + r * Math.sin(rad)] as const;
+    return [cx + r * Math.cos(rad), cy + r * Math.sin(rad)];
+  };
+  const ptOf = (id: string): [number, number] =>
+    id === "core" ? [cx, cy] : pos(byId[id].a, byId[id].r);
+
+  // Gentle arc between two points: control point offset perpendicular to mid.
+  const edgePath = (p1: [number, number], p2: [number, number]) => {
+    const [x1, y1] = p1;
+    const [x2, y2] = p2;
+    const mx = (x1 + x2) / 2;
+    const my = (y1 + y2) / 2;
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    const curv = 0.13;
+    return `M ${x1.toFixed(1)} ${y1.toFixed(1)} Q ${(mx - dy * curv).toFixed(1)} ${(my + dx * curv).toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`;
   };
 
-  // Curved bezier path from node to core
-  const curvePath = (a: number, orbit: number) => {
-    const [px, py] = pos(a, orbit);
-    const midR = orbit * 0.5;
-    const rad = (a * Math.PI) / 180;
-    const offset = 18;
-    const cpx = cx + midR * Math.cos(rad) + offset * Math.sin(rad);
-    const cpy = cy + midR * Math.sin(rad) - offset * Math.cos(rad);
-    return `M ${px} ${py} Q ${cpx} ${cpy} ${cx} ${cy}`;
+  // Pointer parallax — depth via different translate rates per layer.
+  const [par, setPar] = useState({ x: 0, y: 0 });
+  const rafRef = useRef<number | null>(null);
+  const reduceRef = useRef(false);
+  useEffect(() => {
+    reduceRef.current =
+      typeof window !== "undefined" &&
+      !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+  const onMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (reduceRef.current) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const nx = (e.clientX - rect.left) / rect.width - 0.5;
+    const ny = (e.clientY - rect.top) / rect.height - 0.5;
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => setPar({ x: nx, y: ny }));
   };
+  const onLeave = () => setPar({ x: 0, y: 0 });
+  const layer = (depth: number) => ({
+    transform: `translate(${(par.x * depth).toFixed(2)}px, ${(par.y * depth).toFixed(2)}px)`,
+    transition: "transform .35s cubic-bezier(.22,.61,.36,1)",
+  });
 
   return (
-    <div className="rd-hero-art" aria-hidden="true">
+    <div
+      className="rd-hero-art"
+      aria-hidden="true"
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+    >
       <svg viewBox="0 0 520 440" preserveAspectRatio="xMidYMid meet">
         <defs>
-          <radialGradient id="hd-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="var(--rd-accent)" stopOpacity="0.18" />
-            <stop offset="50%" stopColor="var(--rd-accent)" stopOpacity="0.04" />
-            <stop offset="100%" stopColor="var(--rd-accent)" stopOpacity="0" />
-          </radialGradient>
           <style>{`.hd-id{display:none}.dark .hd-id{display:inline}.dark .hd-il{display:none}`}</style>
         </defs>
 
-        {/* Background glow */}
-        <circle cx={cx} cy={cy} r="200" fill="url(#hd-glow)" />
+        {/* Decorative rings — back parallax layer */}
+        <g style={layer(4)}>
+          <circle cx={cx} cy={cy} r="112" fill="none" stroke="var(--rd-border-2)" strokeWidth="0.6" strokeDasharray="2 7" opacity="0.36" />
+          <circle cx={cx} cy={cy} r="184" fill="none" stroke="var(--rd-border-2)" strokeWidth="0.6" strokeDasharray="2 7" opacity="0.24" />
+        </g>
 
-        {/* Orbit guides */}
-        <circle cx={cx} cy={cy} r="82" fill="none" stroke="var(--rd-border-2)" strokeWidth="0.6" strokeDasharray="2 6" opacity="0.5" />
-        <circle cx={cx} cy={cy} r="140" fill="none" stroke="var(--rd-border-2)" strokeWidth="0.6" strokeDasharray="2 6" opacity="0.4" />
-        <circle cx={cx} cy={cy} r="190" fill="none" stroke="var(--rd-border-2)" strokeWidth="0.6" strokeDasharray="2 6" opacity="0.3" />
+        {/* Graph (edges + nodes + core) — foreground parallax layer */}
+        <g style={layer(15)}>
+          {/* Connections between related nodes */}
+          {edges.map(([s, d], i) => {
+            const dd = edgePath(ptOf(s), ptOf(d));
+            const k = byId[d]?.kind || byId[s]?.kind || "infra";
+            return (
+              <g key={`e${i}`}>
+                <path d={dd} fill="none" stroke="var(--rd-border-2)" strokeWidth="0.8" />
+                <path d={dd} fill="none" stroke={kindColor[k as keyof typeof kindColor]} strokeWidth="1.1" strokeDasharray="2 8" className="rd-flow" style={{ animationDelay: `${i * 0.11}s`, opacity: kindOp[k as keyof typeof kindOp] }} />
+              </g>
+            );
+          })}
 
-        {/* Orbit ring labels */}
-        <text x={cx + 82 + 6} y={cy - 4} className="font-[var(--font-mono)]" style={{ fontSize: 7.5, fill: "var(--rd-accent-ink)", opacity: 0.5, letterSpacing: "0.08em" }}>AI</text>
-        <text x={cx + 140 + 6} y={cy - 4} className="font-[var(--font-mono)]" style={{ fontSize: 7.5, fill: "var(--rd-text-3)", opacity: 0.4, letterSpacing: "0.08em" }}>DATA</text>
-        <text x={cx + 190 + 6} y={cy - 4} className="font-[var(--font-mono)]" style={{ fontSize: 7.5, fill: "var(--rd-text-3)", opacity: 0.3, letterSpacing: "0.08em" }}>INFRA</text>
-
-        {/* Curved connections */}
-        {nodes.map((n, i) => {
-          const path = curvePath(n.a, n.orbit);
-          return (
-            <g key={`c${i}`}>
-              <path d={path} fill="none" stroke="var(--rd-border-2)" strokeWidth="0.8" />
-              <path
-                d={path}
-                fill="none"
-                stroke={kindColor[n.kind as keyof typeof kindColor]}
-                strokeWidth="1.2"
-                strokeDasharray="2 8"
-                className="rd-flow"
-                style={{ animationDelay: `${i * 0.14}s`, opacity: kindOp[n.kind as keyof typeof kindOp] }}
-              />
-            </g>
-          );
-        })}
-
-        {/* Tech pills with logos */}
-        {nodes.map((n, i) => {
-          const [px, py] = pos(n.a, n.orbit);
-          const w = n.t.length * 6.5 + 40, h = 24;
-          const x0 = px - w / 2;
-          return (
-            <g key={`p${i}`}>
-              <rect x={x0} y={py - h / 2} width={w} height={h} rx="12" fill="var(--rd-surface)" stroke="var(--rd-border-2)" strokeWidth="1.1" />
-              <image href={_lite(n)} x={x0 + 7} y={py - 5} width={10} height={10} className="hd-il" />
-              <image href={_dark(n)} x={x0 + 7} y={py - 5} width={10} height={10} className="hd-id" />
-              <text
-                x={x0 + 21}
-                y={py + 3.5}
-                className="rd-chip"
-                style={{ fontSize: 10.5, fontVariantNumeric: "tabular-nums", fill: n.kind === "ai" ? "var(--rd-accent-ink)" : "var(--rd-text-2)" }}
-              >
-                {n.t}
-              </text>
-            </g>
-          );
-        })}
-
-        {/* Agent core (visual only, no label) */}
-        <circle cx={cx} cy={cy} r="36" fill="none" stroke="var(--rd-accent)" strokeWidth="1.3" className="rd-hd-ring" />
-        <circle cx={cx} cy={cy} r="25" fill="var(--rd-accent)" />
-        <line x1={cx - 7} y1={cy} x2={cx + 7} y2={cy} stroke="#fff" strokeWidth="0.8" opacity="0.5" />
-        <line x1={cx} y1={cy - 7} x2={cx} y2={cy + 7} stroke="#fff" strokeWidth="0.8" opacity="0.5" />
-        <circle cx={cx} cy={cy} r="10" fill="none" stroke="#fff" strokeWidth="1.4" opacity="0.85" />
-        <circle cx={cx} cy={cy} r="3" fill="#fff" className="rd-hd-pulse" />
+          {/* Tech pills with logos */}
+          {nodes.map((n, i) => {
+            const [px, py] = pos(n.a, n.r);
+            const hasIcon = !!n.slug;
+            const w = n.t.length * 6.4 + (hasIcon ? 38 : 22);
+            const h = 24;
+            const x0 = px - w / 2;
+            return (
+              <g key={`p${i}`}>
+                <rect x={x0} y={py - h / 2} width={w} height={h} rx="12" fill="var(--rd-surface)" stroke="var(--rd-border-2)" strokeWidth="1.1" />
+                {hasIcon && <image href={_lite(n)} x={x0 + 8} y={py - 5} width={10} height={10} className="hd-il" />}
+                {hasIcon && <image href={_dark(n)} x={x0 + 8} y={py - 5} width={10} height={10} className="hd-id" />}
+                <text
+                  x={x0 + (hasIcon ? 22 : 11)}
+                  y={py + 3.5}
+                  className="rd-chip"
+                  style={{ fontSize: 10.5, fontVariantNumeric: "tabular-nums", fill: n.kind === "ai" ? "var(--rd-accent-ink)" : "var(--rd-text-2)" }}
+                >
+                  {n.t}
+                </text>
+              </g>
+            );
+          })}
+        </g>
       </svg>
     </div>
   );
