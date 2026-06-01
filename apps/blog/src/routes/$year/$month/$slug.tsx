@@ -14,23 +14,7 @@ import Content from "./-content";
 import { MarkdownMenuWrapper } from "./-markdown-menu-wrapper";
 import Meta from "./-meta";
 
-const YEAR_COLORS = [
-  "var(--rd-accent)",
-  "#6366f1",
-  "#0ea5e9",
-  "#8b5cf6",
-  "#10b981",
-  "#f59e0b",
-  "#ec4899",
-  "#14b8a6",
-  "#ef4444",
-  "#84cc16",
-];
-
-function yearColor(year: number): string {
-  const idx = (year - 2015) % YEAR_COLORS.length;
-  return YEAR_COLORS[Math.abs(idx)] ?? YEAR_COLORS[0];
-}
+import { yearColor } from "@/lib/colors";
 
 export const Route = createFileRoute("/$year/$month/$slug")({
   head: ({ params, loaderData }) => {

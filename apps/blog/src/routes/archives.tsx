@@ -2,25 +2,8 @@ import type { Post } from "@duyet/interfaces";
 import { dateFormat } from "@duyet/libs/date";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { ReactElement } from "react";
+import { yearColor } from "@/lib/colors";
 import { getPostsByAllYear } from "@/lib/posts";
-
-const YEAR_COLORS = [
-  "#6366f1",
-  "#0ea5e9",
-  "#8b5cf6",
-  "#10b981",
-  "#f59e0b",
-  "#ec4899",
-  "#14b8a6",
-  "#ef4444",
-  "#84cc16",
-  "#f97316",
-];
-
-function yearColor(year: number): string {
-  const idx = (year - 2015) % YEAR_COLORS.length;
-  return YEAR_COLORS[Math.abs(idx)] ?? YEAR_COLORS[0];
-}
 
 export const Route = createFileRoute("/archives")({
   head: () => ({

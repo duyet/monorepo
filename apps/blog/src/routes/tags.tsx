@@ -2,21 +2,9 @@ import type { TagCount } from "@duyet/interfaces";
 import { getSlug } from "@duyet/libs/getSlug";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactElement } from "react";
+import { PALETTE } from "@/lib/colors";
 import { getAllTags } from "@/lib/posts";
 import { getTagMetadata } from "@/lib/tag-metadata";
-
-const TAG_COLORS = [
-  "#6366f1",
-  "#0ea5e9",
-  "#8b5cf6",
-  "#10b981",
-  "#f59e0b",
-  "#ec4899",
-  "#14b8a6",
-  "#ef4444",
-  "#84cc16",
-  "#f97316",
-];
 
 export const Route = createFileRoute("/tags")({
   head: () => ({
@@ -63,7 +51,7 @@ function Tags(): ReactElement {
             const isFeature =
               i < FEATURE_LIMIT && count >= maxCount * FEATURE_RATIO;
             const meta = isFeature ? getTagMetadata(tag, count, i) : null;
-            const color = TAG_COLORS[i % TAG_COLORS.length];
+            const color = PALETTE[i % PALETTE.length];
             const style: CSSProperties = {
               animationDelay: `${Math.min(i, 20) * 20}ms`,
             };

@@ -80,24 +80,7 @@ function getCategoryIcon(category: string) {
   return CATEGORY_ICONS[category] ?? BookOpen;
 }
 
-// Distinct color per year — cycles through a curated palette
-const YEAR_COLORS = [
-  "var(--rd-accent)",     // orange
-  "#6366f1",              // indigo
-  "#0ea5e9",              // sky
-  "#8b5cf6",              // violet
-  "#10b981",              // emerald
-  "#f59e0b",              // amber
-  "#ec4899",              // pink
-  "#14b8a6",              // teal
-  "#ef4444",              // red
-  "#84cc16",              // lime
-];
-
-function yearColor(year: number): string {
-  const idx = (year - 2015) % YEAR_COLORS.length;
-  return YEAR_COLORS[Math.abs(idx)] ?? YEAR_COLORS[0];
-}
+import { yearColor } from "@/lib/colors";
 
 // ---------------------------------------------------------------------------
 // Blog intro text
