@@ -49,21 +49,21 @@ export function ProjectGrid({ items }: { items: AppItem[] }) {
 function WorkCardBody({ item, cat }: { item: AppItem; cat: string }) {
   return (
     <>
-      <div className="flex items-center justify-between gap-2.5">
-        {item.logo ? (
+      <div className={item.logo ? "grid grid-cols-[auto_1fr] gap-x-3 items-center" : ""}>
+        {item.logo && (
           <img
             src={item.logo}
             alt=""
             width={32}
             height={32}
-            className="shrink-0 rounded"
+            className="shrink-0 rounded row-span-2 self-start mt-0.5"
           />
-        ) : null}
+        )}
+        <span className="font-[var(--font-mono)] text-[11px]">
+          <ColoredDomain domain={item.domain || item.host} />
+        </span>
+        <h3 className="text-[1.18rem] tracking-[-0.03em] mt-0.5 leading-tight">{item.name}</h3>
       </div>
-      <span className="font-[var(--font-mono)] text-[11px] mt-1">
-        <ColoredDomain domain={item.domain || item.host} />
-      </span>
-      <h3 className="text-[1.18rem] tracking-[-0.03em] mt-[15px]">{item.name}</h3>
       <p className="rd-work-desc">{item.description}</p>
       <div className="flex items-center justify-between mt-4">
         <div className="flex gap-1 flex-wrap">
