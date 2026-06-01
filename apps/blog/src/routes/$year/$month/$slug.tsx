@@ -5,7 +5,11 @@ import { extractHeadings } from "@duyet/libs/extractHeadings";
 import { markdownToHtml } from "@duyet/libs/markdownToHtml";
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { Link2 } from "lucide-react";
-import { SeriesBox } from "@/components/layout/SeriesBox";
+
+function postParams(post: Post) {
+  const [, year, month, slug] = post.slug.split("/");
+  return { year, month, slug };
+}
 import { ReadingProgress } from "@/components/post/ReadingProgress";
 import { getPostBySlug, getRelatedPosts, getSeries } from "@/lib/posts";
 import { getSlug } from "@duyet/libs/getSlug";
@@ -202,31 +206,6 @@ function PostPage() {
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="post-body min-w-0">
           <Content post={post} />
-
-          <Meta post={post} series={series} className="post-meta mt-12" />
-
-          {/* Tags cloud */}
-          {post.tags && post.tags.length > 0 && (
-            <div className="mt-[34px]">
-              <div className="rd-eyebrow text-[10px] mb-[14px]">
-                Tagged
-              </div>
-              <div className="rd-tag-cloud">
-                {post.tags.map((tag) => (
-                  <Link
-                    key={tag}
-                    to="/tag/$tag/"
-                    params={{ tag: getSlug(tag) }}
-                    className="rd-tag-pill text-[13px] no-underline"
-                  >
-                    <span className="rd-hash">#</span>{tag.toLowerCase()}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {series && <SeriesBox series={series} current={post.slug} />}
         </div>
       </div>
 
@@ -240,49 +219,89 @@ function PostPage() {
         </div>
       </div>
 
-      {/* Related articles */}
-      {related.length > 0 && (
-        <section className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 mt-16 mb-24">
-          <p className="rd-mono rd-dim text-[11px] mb-4">
-            Related
-          </p>
-          <div className="rd-rows">
-            {related.map((relPost) => {
-              const [, year, month, slug] = relPost.slug.split("/");
-              const yr = new Date(relPost.date).getFullYear();
-              return (
-                <Link
-                  key={relPost.slug}
-                  to="/$year/$month/$slug/"
-                  params={{ year, month, slug }}
-                  className="rd-row cursor-pointer no-underline text-inherit"
-                  style={{ gridTemplateColumns: "auto 1fr auto" }}
-                >
-                  <span
-                    className="rd-mono text-base font-bold leading-none shrink-0"
-                    style={{ color: yearColor(yr) }}
+      {/* Series + Related bento grid */}
+      {(series || related.length > 0) && (
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mt-16 mb-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-12">
+            {/* Series */}
+            {series && (
+              <div>
+                <p className="rd-mono rd-dim text-[11px] mb-4">
+                  <Link
+                    to="/series/$slug/"
+                    params={{ slug: series.slug }}
+                    className="hover:text-[var(--rd-text)] transition-colors no-underline text-inherit"
                   >
-                    {yr}
-                  </span>
-                  <span className="truncate">
-                    <span className="font-[550] text-[clamp(14px,1.4vw,16px)] tracking-tight">
-                      {relPost.title}
-                    </span>
-                    {relPost.excerpt && (
-                      <>
-                        <span className="rd-dim mx-1.5">—</span>
-                        <span className="rd-muted text-[13px]">{relPost.excerpt}</span>
-                      </>
-                    )}
-                  </span>
-                  <span className="rd-tag-pill text-[10.5px] !py-[1px] !px-1.5 shrink-0 ml-2">
-                    {relPost.category}
-                  </span>
-                </Link>
-              );
-            })}
+                    Part of the series
+                  </Link>
+                </p>
+                <h3 className="font-[550] text-[clamp(14px,1.4vw,16px)] tracking-tight mb-3">
+                  {series.name}
+                </h3>
+                <div className="rd-rows">
+                  {series.posts.map((sPost, i) => {
+                    const isCurrent = sPost.slug === post.slug;
+                    return (
+                      <Link
+                        key={sPost.slug}
+                        to="/$year/$month/$slug/"
+                        params={postParams(sPost)}
+                        className={`rd-row cursor-pointer no-underline text-inherit${isCurrent ? " bg-[var(--rd-surface-2)]" : ""}`}
+                        style={{ gridTemplateColumns: "auto 1fr" }}
+                      >
+                        <span className="rd-mono rd-dim text-base leading-none tabular-nums w-[28px]">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className="truncate">
+                          <span className={`font-[550] text-[clamp(14px,1.4vw,16px)] tracking-tight${isCurrent ? " text-[var(--rd-accent)]" : ""}`}>
+                            {sPost.title}
+                          </span>
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Related */}
+            {related.length > 0 && (
+              <div>
+                <p className="rd-mono rd-dim text-[11px] mb-4">Related</p>
+                <div className="rd-rows">
+                  {related.map((relPost) => {
+                    const [, year, month, slug] = relPost.slug.split("/");
+                    const yr = new Date(relPost.date).getFullYear();
+                    return (
+                      <Link
+                        key={relPost.slug}
+                        to="/$year/$month/$slug/"
+                        params={{ year, month, slug }}
+                        className="rd-row cursor-pointer no-underline text-inherit"
+                        style={{ gridTemplateColumns: "auto 1fr auto" }}
+                      >
+                        <span
+                          className="rd-mono text-base font-bold leading-none shrink-0"
+                          style={{ color: yearColor(yr) }}
+                        >
+                          {yr}
+                        </span>
+                        <span className="truncate">
+                          <span className="font-[550] text-[clamp(14px,1.4vw,16px)] tracking-tight">
+                            {relPost.title}
+                          </span>
+                        </span>
+                        <span className="rd-tag-pill text-[10.5px] !py-[1px] !px-1.5 shrink-0 ml-2">
+                          {relPost.category}
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
-        </section>
+        </div>
       )}
     </div>
   );
