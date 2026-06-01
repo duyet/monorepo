@@ -65,7 +65,7 @@ export function DailyChart({ daily, firstDate, lastDate }: DailyChartProps) {
           })}
         </svg>
 
-        {hoveredDay && (() => {
+        {hovered !== null && hoveredDay && (() => {
           const barCenter = (hovered * barWidth) + barWidth / 2;
           const pct = barCenter;
           const flip = pct > 70;

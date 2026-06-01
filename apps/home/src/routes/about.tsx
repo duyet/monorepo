@@ -1,15 +1,20 @@
-import { ArrowUpRight, Bot, Code, Database, Server, Flame } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
+import { Eyebrow } from "@duyet/components";
 import {
-  Eyebrow,
-  Reveal,
-  SecHead,
-} from "@duyet/components";
-import { DEFAULT_AREAS } from "@duyet/components";
-import { Badge } from "../components/ui/badge";
-import { addUtmParams } from "../../app/lib/utm";
+  facts,
+  focus,
+  stack,
+  elsewhere,
+  expertise,
+  agentsList,
+  techStack,
+  experienceYears,
+} from "../components/about/about-data";
+import { VibeCodingBento } from "../components/about/VibeCodingBento";
+import { TechStackGrid } from "../components/about/TechStackGrid";
+import { ElsewhereCards } from "../components/about/ElsewhereCards";
+import { ExpertiseGrid } from "../components/about/ExpertiseGrid";
 
-const experienceYears = "8+ years";
 const contentLastModified = "2026-05-02";
 
 const profilePageJsonLd = JSON.stringify({
@@ -86,107 +91,6 @@ export const Route = createFileRoute("/about")({
   }),
 });
 
-const facts = [
-  { label: "Role", value: "Senior Data & AI Engineer" },
-  { label: "Experience", value: experienceYears },
-  { label: "Posts", value: "299" },
-];
-
-const focus =
-  "Data pipelines, warehouses, and observability. Agent workflows, model routing, evaluation, and usage analytics. Small, sharp tools with clean interfaces.";
-
-const stack =
-  "Python, Rust, TypeScript · Spark, Airflow, ClickHouse, BigQuery, Kafka · Kubernetes, AWS, GCP, Cloudflare · LlamaIndex, AI SDK, LangGraph.";
-
-const elsewhere = [
-  {
-    title: "Résumé",
-    description: "Roles, references, and the long-form story.",
-    url: addUtmParams("https://cv.duyet.net", "about_page", "resume_card"),
-  },
-  {
-    title: "GitHub",
-    description: "Open source across Python, Rust, and TypeScript.",
-    url: addUtmParams(
-      "https://github.com/duyet",
-      "about_page",
-      "github_card",
-    ),
-  },
-  {
-    title: "LinkedIn",
-    description: "Professional history and career context.",
-    url: addUtmParams(
-      "https://linkedin.com/in/duyet",
-      "about_page",
-      "linkedin_card",
-    ),
-  },
-  {
-    title: "Blog",
-    description: "Writing on data engineering, AI, and OSS.",
-    url: addUtmParams("https://blog.duyet.net", "about_page", "blog_card"),
-  },
-];
-
-// Expertise areas derived from DEFAULT_AREAS, mapped to the design's card shape.
-const expertise = DEFAULT_AREAS.map((a) => ({
-  area: a.title,
-  yr: `${a.years} yr`,
-  desc: a.description,
-  tools: a.tags,
-}));
-
-const agentsList = [
-  {
-    name: "Claude Code",
-    role: "Architecture & review",
-    desc: "My default pair — reads the whole tree, reasons about design, and writes the load-bearing code.",
-  },
-  {
-    name: "Codex",
-    role: "Long-horizon refactors",
-    desc: "Hand it a goal and a repo; it plans, edits across files, and runs the tests until green.",
-  },
-  {
-    name: "opencode",
-    role: "Local & offline",
-    desc: "Open-source TUI agent wired to homelab models for quick, private edits without the cloud.",
-  },
-];
-
-const techStack = [
-  {
-    g: "Languages",
-    icon: "code",
-    items: ["Python", "Rust", "TypeScript", "SQL"],
-  },
-  {
-    g: "Data",
-    icon: "disk",
-    items: ["ClickHouse", "Spark", "Airflow", "BigQuery", "Kafka", "dbt", "DuckDB"],
-  },
-  {
-    g: "Cloud & Infra",
-    icon: "server",
-    items: ["Kubernetes", "AWS", "GCP", "Cloudflare", "Terraform"],
-  },
-  {
-    g: "AI & Agents",
-    icon: "bot",
-    items: ["LangGraph", "LlamaIndex", "AI SDK", "Claude API"],
-  },
-];
-
-function StackGroupIcon({ icon }: { icon: string }) {
-  const size = 18;
-  if (icon === "code") return <Code size={size} />;
-  if (icon === "server") return <Server size={size} />;
-  if (icon === "bot") return <Bot size={size} />;
-  // disk / default
-  return <Database size={size} />;
-}
-
 function AboutPage() {
   return (
     <div className="page-enter bg-[var(--rd-bg)] text-[var(--rd-text)]">
@@ -222,51 +126,7 @@ function AboutPage() {
           </div>
         </div>
 
-        {/* Vibe-coding bento + agents */}
-        <div className="rd-vibe-bento mt-3">
-          {/* Left: vibe-coding lead card */}
-          <div className="rd-card rd-vibe-lead">
-            <div className="rd-vibe-badge">
-              <Flame size={12} />
-              <a
-                href="https://blog.duyet.net/2026/01/coding-agent/"
-                className="no-underline text-inherit hover:text-[var(--rd-accent)] transition-colors"
-              >
-                Deep in vibe-coding mode
-              </a>
-            </div>
-            <p className="mt-5 max-w-[40ch] text-[clamp(0.95rem,1.3vw,1.08rem)] leading-[1.6] text-[var(--rd-text-2)]">
-              These days most of what ships here is written alongside coding
-              agents, with me steering. I describe intent, review diffs, and
-              keep the architecture honest — the agents do the typing, the
-              searching, and a lot of the grunt work.
-            </p>
-            <div className="rd-vibe-stat">
-              <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none">
-                1.24<span className="rd-unit">B</span>
-              </div>
-              <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs">
-                tokens burned all-time
-              </span>
-            </div>
-          </div>
-
-          {/* Right: agent cards */}
-          <div className="rd-vibe-agents">
-            {agentsList.map((agent) => (
-              <div key={agent.name} className="rd-card rd-agent-card">
-                <div className="rd-ac-top">
-                  <div className="rd-ac-ic">
-                    <Bot size={15} />
-                  </div>
-                  <span className="rd-ac-name">{agent.name}</span>
-                  <span className="rd-ac-role">{agent.role}</span>
-                </div>
-                <p className="rd-ac-desc">{agent.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        <VibeCodingBento agentsList={agentsList} />
 
         {/* Focus + Stack */}
         <div className="rd-g2 mt-3">
@@ -284,104 +144,9 @@ function AboutPage() {
           </div>
         </div>
 
-        {/* Tech stack groups */}
-        <div className="rd-g4 mt-3 gap-[10px]">
-          {techStack.map((group) => (
-            <div
-              key={group.g}
-              className="rd-card p-[clamp(18px,2.2vw,26px)] px-[22px] py-5"
-            >
-              <div className="mb-[14px] flex items-center gap-[10px]">
-                <div className="rd-stack-ic">
-                  <StackGroupIcon icon={group.icon} />
-                </div>
-                <span className="text-[14px] font-semibold tracking-[-0.01em]">
-                  {group.g}
-                </span>
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {group.items.map((item) => (
-                  <Badge
-                    key={item}
-                    variant="outline"
-                    className="font-[var(--font-mono)] text-[11.5px] px-2 py-0"
-                  >
-                    {item}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Elsewhere */}
-        <div className="rd-card p-[clamp(18px,2.2vw,26px)] mt-3 p-[clamp(24px,3vw,34px)]">
-          <Eyebrow>Elsewhere</Eyebrow>
-          <div className="rd-g4 mt-[18px] gap-[10px]">
-            {elsewhere.map((e) => (
-              <a
-                key={e.title}
-                className="rd-card p-[clamp(18px,2.2vw,26px)] flex flex-col gap-2 bg-[var(--rd-bg-sub)] min-h-[120px] text-inherit no-underline"
-                href={e.url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-[16px] font-semibold">
-                    {e.title}
-                  </span>
-                  <span className="rd-rowarrow">
-                    <ArrowUpRight size={15} />
-                  </span>
-                </div>
-                <p className="text-[var(--rd-text-2)] text-[13.5px] leading-[1.5]">
-                  {e.description}
-                </p>
-              </a>
-            ))}
-          </div>
-        </div>
-
-        {/* Expertise */}
-        <div className="mt-[clamp(48px,6vw,72px)]">
-          <SecHead
-            eyebrow="Capabilities"
-            title="Areas of expertise"
-            links={[{ label: "See projects", href: "/projects" }]}
-          />
-          <p className="text-[var(--rd-text-2)] -mt-4 mb-[26px] max-w-[52ch]">
-            {experienceYears} of delivery across data, AI, and platform
-            engineering — here's where the time actually went.
-          </p>
-          <div className="rd-g2 gap-3">
-            {expertise.map((e, i) => (
-              <Reveal
-                key={e.area}
-                delay={i * 50}
-                className="rd-card p-[clamp(18px,2.2vw,26px)] flex flex-col p-[clamp(22px,2.6vw,30px)]"
-              >
-                <div className="flex items-baseline justify-between">
-                  <h3 className="text-[1.35rem] tracking-[-0.03em]">
-                    {e.area}
-                  </h3>
-                  <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[12.5px]">
-                    {e.yr}
-                  </span>
-                </div>
-                <p className="text-[var(--rd-text-2)] mt-3 flex-1 text-[14.5px] leading-[1.55]">
-                  {e.desc}
-                </p>
-                <div className="mt-[18px] flex flex-wrap gap-[7px]">
-                  {e.tools.map((t) => (
-                    <Badge key={t} variant="outline" className="font-[var(--font-mono)] text-[11.5px] px-2 py-0">
-                      {t}
-                    </Badge>
-                  ))}
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
+        <TechStackGrid techStack={techStack} />
+        <ElsewhereCards elsewhere={elsewhere} />
+        <ExpertiseGrid expertise={expertise} experienceYears={experienceYears} />
       </div>
     </div>
   );

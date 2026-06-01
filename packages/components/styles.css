@@ -524,8 +524,8 @@ html.dark .prose pre {
   .rd-caret { @apply inline-block w-[10px] bg-[var(--rd-accent)] ml-1; height: 1.1em; vertical-align: -2px; animation: rd-blink 1.1s step-end infinite; }
 
   /* hero art */
-  .rd-hero-grid { @apply grid grid-cols-[minmax(0,1.06fr)_minmax(0,.94fr)] gap-[clamp(28px,4vw,56px)] items-start; }
-  .rd-hero-art { @apply relative border border-[var(--rd-border)] rounded-[var(--rd-r-lg)] bg-[var(--rd-bg-sub)] overflow-hidden w-full; aspect-ratio: 1 / .9; max-height: clamp(300px, 34vw, 372px); }
+  .rd-hero-grid { @apply grid grid-cols-[minmax(0,1.06fr)_minmax(0,.94fr)] gap-[clamp(28px,4vw,56px)] items-stretch; }
+  .rd-hero-art { @apply relative w-full h-full; }
   .rd-hero-art svg { @apply absolute inset-0 w-full h-full; }
 
   /* compact work grid */
@@ -534,7 +534,7 @@ html.dark .prose pre {
   .rd-work-top { @apply flex items-center justify-between gap-2.5; }
   .rd-work-dom { @apply text-[13px] font-medium text-[var(--rd-accent-ink)] tracking-[-0.01em] min-w-0 overflow-hidden text-ellipsis whitespace-nowrap; }
   .rd-work-name { @apply text-[1.18rem] tracking-[-0.03em] mt-[15px]; }
-  .rd-work-desc { @apply text-[var(--rd-text-2)] text-[13.5px] leading-[1.5] mt-2 flex-1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .rd-work-desc { @apply text-[var(--rd-text-2)] text-[13px] leading-[1.45] mt-1.5 flex-1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .rd-work-foot { @apply flex items-center justify-between mt-4; }
   .rd-work-tag { @apply text-[10.5px]; }
 
@@ -580,7 +580,7 @@ html.dark .prose pre {
     .rd-g2, .rd-g3, .rd-g4 { grid-template-columns: 1fr; }
     .rd-work-grid { grid-template-columns: 1fr; }
   }
-  @media (max-width: 980px) { .rd-hero-grid { grid-template-columns: 1fr; } .rd-hero-art { max-width: 420px; } }
+  @media (max-width: 980px) { .rd-hero-grid { grid-template-columns: 1fr; } .rd-hero-art { max-width: 420px; height: auto; aspect-ratio: 1 / .82; } }
   @media (max-width: 600px) { .rd-hero-art { display: none; } }
   @media (prefers-reduced-motion: reduce) {
     .rd-flow, .rd-hd-pulse, .rd-hd-ring, .rd-orbit, .rd-pulse { animation: none !important; }

@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Override v3-style darkMode from @duyet/tailwind-config to prevent v4 from emitting an unconditional .dark\:... fallback rule. */
+@custom-variant dark (&:is(html[class~="dark"] *));
+
 @plugin "@tailwindcss/typography";
 
 /*

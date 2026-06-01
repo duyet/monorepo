@@ -1,0 +1,135 @@
+import { Badge } from "./ui/badge";
+import { Button } from "./ui/button";
+import { Card } from "./ui/card";
+
+interface BlogPost {
+  slug: string;
+  title: string;
+  date: string;
+  category: string;
+  tags: string[];
+  excerpt: string;
+  readingTime?: number;
+  thumbnail?: string;
+}
+
+interface BlogTeaserProps {
+  featuredPost: BlogPost;
+  recentPosts: BlogPost[];
+  totalPosts: number;
+}
+
+export function BlogTeaser({ featuredPost, recentPosts, totalPosts }: BlogTeaserProps) {
+  if (!featuredPost) return null;
+
+  const featuredCode = "npm i agents";
+
+  return (
+    <div
+      className="grid grid-cols-[minmax(0,1.05fr)_minmax(0,.95fr)] items-stretch gap-[18px]"
+    >
+      {/* featured post card */}
+      <a
+        className="rd-card flex cursor-pointer flex-col overflow-hidden no-underline text-inherit"
+        href={`https://blog.duyet.net${featuredPost.slug}`}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <div className="rd-termblock p-[26px_26px_30px]">
+          <div className="flex gap-[7px]">
+            <i />
+            <i />
+            <i />
+          </div>
+          <div
+            className="font-[var(--font-mono)] mt-5 text-[22px] text-[var(--rd-accent)]"
+          >
+            <span className="opacity-60">$</span> {featuredCode}
+            <span className="rd-caret" />
+          </div>
+        </div>
+        <div className="p-[20px_26px_24px]">
+          <div
+            className="flex items-center gap-[10px] mb-3"
+          >
+            <Badge variant="outline" className="font-[var(--font-mono)] text-[10.5px] px-2 py-0">
+              {featuredPost.category}
+            </Badge>
+            <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs">
+              {formatBlogDate(featuredPost.date)} · {featuredPost.readingTime}{" "}
+              min
+            </span>
+          </div>
+          <h3
+            className="text-[1.5rem] tracking-[-0.03em]"
+          >
+            {featuredPost.title}
+          </h3>
+          {featuredPost.excerpt && (
+            <p
+              className="text-[var(--rd-text-2)] mt-[10px] text-[14.5px]"
+            >
+              {featuredPost.excerpt}
+            </p>
+          )}
+        </div>
+      </a>
+
+      {/* recent posts list */}
+      <Card className="p-0 border-0">
+        <div className="rd-rows border-t-0">
+          {recentPosts.slice(0, 5).map((post) => (
+            <a
+              key={post.slug}
+              className="rd-row cursor-pointer grid-cols-[1fr_auto] p-[15px_8px] no-underline text-inherit"
+              href={`https://blog.duyet.net${post.slug}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div className="min-w-0">
+                <div
+                  className="overflow-hidden text-ellipsis whitespace-nowrap text-[15px] font-[550]"
+                >
+                  {post.title}
+                </div>
+                <div
+                  className="font-[var(--font-mono)] text-[var(--rd-text-3)] mt-1 text-[11.5px]"
+                >
+                  {post.category} · {formatBlogDate(post.date)}
+                </div>
+                {post.excerpt && (
+                  <div
+                    className="text-[var(--rd-text-2)] mt-[5px] overflow-hidden text-ellipsis whitespace-nowrap text-[13px]"
+                  >
+                    {post.excerpt}
+                  </div>
+                )}
+              </div>
+              <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs">
+                {post.readingTime} min
+              </span>
+            </a>
+          ))}
+        </div>
+        <Button variant="link" size="sm" asChild className="inline-flex ml-[22px] mt-1.5 mb-[14px]">
+          <a
+            href="https://blog.duyet.net"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Browse all {totalPosts} posts &rarr;
+          </a>
+        </Button>
+      </Card>
+    </div>
+  );
+}
+
+function formatBlogDate(dateStr: string): string {
+  const d = new Date(dateStr);
+  return d.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}

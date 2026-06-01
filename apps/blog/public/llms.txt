@@ -25,11 +25,11 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 
 ## Recent Posts
 
-### [Building AI Agents on Cloudflare](https://blog.duyet.net/2026/05/building-ai-agents-cloudflare)
+### [Cloudflare is all you need](https://blog.duyet.net/2026/05/cloudflare-is-all-you-need)
 - **Date**: 2026-05-06
 - **Category**: AI
 - **Tags**: Ai, Agents, Cloudflare
-- **URL**: https://blog.duyet.net/2026/05/building-ai-agents-cloudflare
+- **URL**: https://blog.duyet.net/2026/05/cloudflare-is-all-you-need
 - **Description**: Cloudflare's Agents SDK runs stateful TypeScript agents on Durable Objects, with Workers AI, AI Gateway, AI Search, Vectorize, Browser Run, Queues, Workflows, Email, Dynamic Workers, and Sandboxes around it.
 
 ### [Claws](https://blog.duyet.net/2026/02/claws)
@@ -170,7 +170,7 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 
 ### 2026 (3 posts)
 
-- [Building AI Agents on Cloudflare](https://blog.duyet.net/2026/05/building-ai-agents-cloudflare) - 2026-05-06
+- [Cloudflare is all you need](https://blog.duyet.net/2026/05/cloudflare-is-all-you-need) - 2026-05-06
 - [Claws](https://blog.duyet.net/2026/02/claws) - 2026-02-22
 - [Coding Agents](https://blog.duyet.net/2026/01/coding-agent) - 2026-01-01
 

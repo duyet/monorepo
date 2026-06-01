@@ -1,5 +1,5 @@
 ---
-title: Building AI Agents on Cloudflare
+title: Cloudflare is all you need
 date: 2026-05-06
 author: Duyet
 category: AI
@@ -8,8 +8,8 @@ tags:
   - AI
   - Agents
   - Cloudflare
-slug: /2026/05/building-ai-agents-cloudflare
-thumbnail: /media/2026/05/building-ai-agents-cloudflare/npm-i-agents.svg
+slug: /2026/05/cloudflare-is-all-you-need
+thumbnail: /media/2026/05/cloudflare-is-all-you-need/npm-i-agents.svg
 description: Cloudflare's Agents SDK runs stateful TypeScript agents on Durable Objects, with Workers AI, AI Gateway, AI Search, Vectorize, Browser Run, Queues, Workflows, Email, Dynamic Workers, and Sandboxes around it.
 ---
 
