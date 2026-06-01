@@ -72,6 +72,7 @@ export const apps: AppItem[] = [
     tone: "bg-[#8b633f]",
     domain: "chmonitor.dev",
     iconName: "Database",
+    logo: "https://chmonitor.dev/clickhouse.svg",
     tags: ["Data", "AI"],
   },
   {
