@@ -1,4 +1,5 @@
 import type { Post, Series } from "@duyet/interfaces";
+import { useEffect, useState } from "react";
 import { formatReadingTime } from "@duyet/libs/date";
 import type { TOCItem } from "@duyet/libs/extractHeadings";
 import { extractHeadings } from "@duyet/libs/extractHeadings";
@@ -9,6 +10,55 @@ import { Link2 } from "lucide-react";
 function postParams(post: Post) {
   const [, year, month, slug] = post.slug.split("/");
   return { year, month, slug };
+}
+
+function TableOfContents({ headings }: { headings: TOCItem[] }) {
+  const [activeId, setActiveId] = useState<string>("");
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: "-80px 0px -60% 0px" }
+    );
+
+    for (const h of headings) {
+      const el = document.getElementById(h.id);
+      if (el) observer.observe(el);
+    }
+
+    return () => observer.disconnect();
+  }, [headings]);
+
+  return (
+    <aside className="hidden xl:block fixed right-[max(16px,calc((100vw-1080px)/2-220px))] top-24 w-[200px]">
+      <p className="rd-mono rd-dim text-[11px] uppercase tracking-[0.06em]">
+        On this page
+      </p>
+      <nav className="mt-3 flex flex-col gap-1.5 border-l border-[var(--rd-border)]">
+        {headings.map((h) => (
+          <a
+            key={h.id}
+            href={`#${h.id}`}
+            className={`block text-[13px] leading-snug no-underline transition-colors truncate pl-3 -ml-px ${
+              h.level === 3 ? "pl-6" : ""
+            } ${
+              activeId === h.id
+                ? "text-[var(--rd-text)] border-l-2 border-[var(--rd-accent)]"
+                : "text-[var(--rd-text-3)] hover:text-[var(--rd-text)]"
+            }`}
+          >
+            {h.text}
+          </a>
+        ))}
+      </nav>
+    </aside>
+  );
 }
 import { ReadingProgress } from "@/components/post/ReadingProgress";
 import { getPostBySlug, getRelatedPosts, getSeries } from "@/lib/posts";
@@ -211,24 +261,7 @@ function PostPage() {
 
       {/* Floating TOC — right side of viewport, outside content flow */}
       {post.headings && post.headings.length > 0 && (
-        <aside className="hidden xl:block fixed right-[max(16px,calc((100vw-1080px)/2-220px))] top-24 w-[200px]">
-          <p className="rd-mono rd-dim text-[11px] uppercase tracking-[0.06em]">
-            On this page
-          </p>
-          <nav className="mt-3 flex flex-col gap-1.5">
-            {post.headings.map((h) => (
-              <a
-                key={h.id}
-                href={`#${h.id}`}
-                className={`block text-[13px] leading-snug no-underline text-[var(--rd-text-3)] hover:text-[var(--rd-text)] transition-colors truncate ${
-                  h.level === 3 ? "pl-3" : ""
-                }`}
-              >
-                {h.text}
-              </a>
-            ))}
-          </nav>
-        </aside>
+        <TableOfContents headings={post.headings} />
       )}
 
       {/* Author + share */}
