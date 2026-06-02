@@ -2,6 +2,7 @@ import { describe, expect, test } from "vitest";
 // duyetUrls evaluates env at module load time, so we test the shape
 // and hardcoded fallbacks directly from the cached module.
 import { duyetUrls } from "./duyet.urls";
+import { createNavigation } from "./utils";
 
 describe("duyetUrls", () => {
   test("has apps sub-object", () => {
@@ -51,8 +52,7 @@ describe("duyetUrls", () => {
 });
 
 describe("duyetUrls navigation via createNavigation", () => {
-  test("produces valid navigation from duyetUrls", async () => {
-    const { createNavigation } = await import("./utils");
+  test("produces valid navigation from duyetUrls", () => {
     const profile = {
       personal: {
         name: "Duyet",

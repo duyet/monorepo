@@ -10,6 +10,18 @@ This file stores durable outcomes from code-smell and dead-code automation runs.
 
 ## Durable Findings
 
+### 2026-06-03
+
+- Pnpm migration follow-up (warning -> fixed): Husky hooks still invoked Bun after the repo switched to pnpm, which would break local commits on machines without Bun.
+  - Fixed `.husky/commit-msg` to use `pnpm exec commitlint --edit "$1"` and `.husky/pre-commit` to use `pnpm run test`.
+  - Evidence: `.husky/commit-msg` contained `bun commitlint --edit $1`; `.husky/pre-commit` contained `bun run test`.
+- Workflow/doc drift cleanup (warning -> fixed): user-facing command/help surfaces still told contributors to use Bun in current pnpm-only paths.
+  - Fixed current instructions in `CLAUDE.md`, `apps/data-sync/src/{index.ts,commands/migrate.ts}`, `packages/{libs/native-cli.ts,wasm/index.ts,wasm/package.json}`, app READMEs/CLAUDE entrypoints, and KB workflow articles under `apps/kb/content/**`.
+  - Evidence: repo-wide scoped search over touched docs/code returned stale `bun run`, `bun install`, `bun build`, `bun pm why`, and `bunx biome` references before the patch; post-patch search on the edited surfaces left only the intentional `setup-bun` cleanup command in `CLAUDE.md`.
+- Dead-code review (confident): no new zero-reference code removal was justified in the scanned recent-change window.
+  - Evidence: migration-era `apps/photos/bun-test-setup.ts` is already gone on disk, and targeted non-test searches did not surface additional orphaned symbols in the touched code files.
+- Performance audit: no measured runtime or CI regression signal was available in this window, so no grounded performance fix was proposed.
+
 ### 2026-06-01
 
 - Deploy orchestrator fix (warning -> fixed): `scripts/cf-deploy.ts` now treats `bun.lock` as the repo's core dependency lockfile when deciding whether to rebuild all apps; the previous `bun.lockb` checks missed lockfile-only dependency updates in this Bun text-lockfile repo.

@@ -15,7 +15,7 @@ interface CliResult<T> {
 function ensureBinary(): void {
   if (!existsSync(BINARY_PATH)) {
     throw new Error(
-      `duyet-cli binary not found at ${BINARY_PATH}. Run 'bun run rust:build' first.`
+      `duyet-cli binary not found at ${BINARY_PATH}. Run 'pnpm run rust:build' first.`
     )
   }
 }

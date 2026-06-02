@@ -14,7 +14,7 @@ The data-sync CLI provides three main commands:
 
 ```bash
 cd apps/data-sync
-bun install
+pnpm install
 ```
 
 ## Environment Variables
@@ -39,21 +39,21 @@ Sync data from external sources to ClickHouse.
 
 ```bash
 # Show help
-bun run start
+pnpm run start
 
 # Sync all enabled sources
-bun run sync all
-bun run sync:all
+pnpm run sync -- all
+pnpm run sync:all
 
 # Sync specific source
-bun run sync wakatime
-bun run sync:wakatime
+pnpm run sync -- wakatime
+pnpm run sync:wakatime
 
 # Sync multiple sources
-bun run sync wakatime cloudflare github
+pnpm run sync -- wakatime cloudflare github
 
 # Preview sync without writing data
-bun run sync all --dry-run
+pnpm run sync -- all --dry-run
 ```
 
 #### Available Sources
@@ -93,26 +93,26 @@ Manage database schema migrations using SQL files.
 
 ```bash
 # Apply pending migrations
-bun run migrate up
-bun run migrate:up
+pnpm run migrate -- up
+pnpm run migrate:up
 
 # Rollback last migration
-bun run migrate down
-bun run migrate:down
+pnpm run migrate -- down
+pnpm run migrate:down
 
 # Rollback multiple migrations
-bun run migrate down --count 2
+pnpm run migrate -- down --count 2
 
 # Show migration status
-bun run migrate status
-bun run migrate:status
+pnpm run migrate -- status
+pnpm run migrate:status
 
 # Verify migration checksums
-bun run migrate verify
-bun run migrate:verify
+pnpm run migrate -- verify
+pnpm run migrate:verify
 
 # Show help
-bun run migrate help
+pnpm run migrate -- help
 ```
 
 #### Migration Files
@@ -161,11 +161,11 @@ Apply retention policies to delete old data from tables.
 
 ```bash
 # Run cleanup
-bun run cleanup
+pnpm run cleanup
 
 # Preview cleanup without deleting data
-bun run cleanup --dry-run
-bun run cleanup:dry-run
+pnpm run cleanup -- --dry-run
+pnpm run cleanup:dry-run
 ```
 
 #### Retention Policies
@@ -220,10 +220,10 @@ All commands:
 
 ```bash
 # Run type checking
-bun run check-types
+pnpm run check-types
 
 # Run tests
-bun run test
+pnpm run test
 ```
 
 ## Architecture
@@ -266,7 +266,7 @@ If you get ClickHouse connection errors:
 
 If migration checksums don't match:
 
-1. Run `bun run migrate verify` to see which migrations failed
+1. Run `pnpm run migrate -- verify` to see which migrations failed
 2. DO NOT modify applied migrations (this breaks checksum validation)
 3. Create a new migration to fix issues instead
 

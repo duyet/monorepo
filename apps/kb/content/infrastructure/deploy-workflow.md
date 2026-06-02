@@ -9,14 +9,14 @@ updated: "2026-05-26"
 
 # Deploy Workflow
 
-Every app in the monorepo deploys to Cloudflare Pages. The deploy script is `scripts/cf-deploy-prod.sh`, invoked per-app as `bun run cf:deploy:prod`.
+Every app in the monorepo deploys to Cloudflare Pages. The deploy script is `scripts/cf-deploy-prod.sh`, invoked per-app as `pnpm run cf:deploy:prod`.
 
 ## Manual deploy pattern
 
 After committing and pushing:
 
 ```bash
-cd apps/<app> && bun run cf:deploy:prod
+cd apps/<app> && pnpm run cf:deploy:prod
 ```
 
 Always run deploys with `run_in_background: true` (in agent sessions) so the next task isn't blocked on Cloudflare's ~30–60 s upload time. Do NOT run two background deploys in parallel — `cf-deploy-prod.sh` renames `.env.local` to `.env.local.deploy-bak` during the run; parallel invocations collide on that rename and lose `CLOUDFLARE_API_TOKEN`.
@@ -27,8 +27,8 @@ The GitHub Actions workflow deploys on push to `master` using a matrix over all 
 
 1. `dtolnay/rust-toolchain@stable`
 2. `jetli/wasm-pack-action`
-3. `bun run wasm:build:release`
-4. `bun build` + deploy
+3. `pnpm run wasm:build:release`
+4. `pnpm run build` + deploy
 
 All other apps skip the Rust/WASM steps.
 

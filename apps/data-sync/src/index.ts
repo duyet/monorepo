@@ -5,7 +5,7 @@ function printHelp() {
 Data Sync CLI
 
 Usage:
-  bun run <command> [options]
+  pnpm run start -- <command> [options]
 
 Commands:
   sync [sources...]    Sync data from external sources
@@ -13,21 +13,21 @@ Commands:
   cleanup              Run retention cleanup
 
 Sync Command:
-  bun run sync all                    Sync all enabled sources
-  bun run sync wakatime               Sync specific source
-  bun run sync wakatime cloudflare    Sync multiple sources
-  bun run sync all --dry-run          Preview without writing
+  pnpm run sync -- all                    Sync all enabled sources
+  pnpm run sync -- wakatime               Sync specific source
+  pnpm run sync -- wakatime cloudflare    Sync multiple sources
+  pnpm run sync -- all --dry-run          Preview without writing
 
 Migration Commands:
-  bun run migrate up                  Apply pending migrations
-  bun run migrate down                Rollback last migration
-  bun run migrate down --count 2      Rollback N migrations
-  bun run migrate status              Show migration status
-  bun run migrate verify              Verify checksums
+  pnpm run migrate -- up                  Apply pending migrations
+  pnpm run migrate -- down                Rollback last migration
+  pnpm run migrate -- down --count 2      Rollback N migrations
+  pnpm run migrate -- status              Show migration status
+  pnpm run migrate -- verify              Verify checksums
 
 Cleanup Command:
-  bun run cleanup                     Run retention cleanup
-  bun run cleanup --dry-run           Preview cleanup
+  pnpm run cleanup                     Run retention cleanup
+  pnpm run cleanup -- --dry-run       Preview cleanup
 
 Available Sources:
   - wakatime      WakaTime coding activity stats
@@ -36,9 +36,9 @@ Available Sources:
   - unsplash      Unsplash photo statistics
 
 Examples:
-  bun run sync all
-  bun run migrate up
-  bun run cleanup --dry-run
+  pnpm run sync -- all
+  pnpm run migrate -- up
+  pnpm run cleanup -- --dry-run
 
 For more information, visit: https://github.com/duyet/monorepo
 `);

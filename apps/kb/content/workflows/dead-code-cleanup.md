@@ -48,7 +48,7 @@ git show --unified=3 <commit_sha>
 ## Verify dependency overrides
 
 ```bash
-bun pm why <package>
+pnpm why <package>
 ```
 
 ## Common scoped searches
@@ -58,7 +58,7 @@ bun pm why <package>
 rg -n "if (field ===" packages/libs --glob '*.ts'
 
 # Verify action pins in CI workflows
-rg -n "setup-bun@" .github/workflows -g'*.yml'
+rg -n "pnpm/action-setup@" .github/workflows -g'*.yml'
 rg -n "dtolnay/rust-toolchain@|jetli/wasm-pack-action@" .github/workflows -g'*.yml'
 ```
 

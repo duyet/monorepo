@@ -25,16 +25,16 @@ A beautiful monitoring dashboard for a 3-node minipc cluster, styled with Claude
 
 ```bash
 # Install dependencies
-bun install
+pnpm install
 
 # Run development server (port 3002)
-bun run dev
+pnpm run dev
 
 # Build for production
-bun run build
+pnpm run build
 
 # Start production server
-bun run start
+pnpm run start
 ```
 
 ## Color Palette
@@ -59,4 +59,3 @@ Currently displays mock data for demonstration purposes. To integrate with real 
 ---
 
 **This repository is maintained by [@duyetbot](https://github.com/duyetbot).**
-

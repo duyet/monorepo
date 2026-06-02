@@ -18,22 +18,22 @@ Personal blog with MDX posts, KaTeX math rendering, and static pre-rendering.
 
 ```bash
 # Install dependencies
-bun install
+pnpm install
 
 # Start development server
-bun run dev
+pnpm run dev
 
 # Build for production
-bun run build
+pnpm run build
 
 # Run tests
-bun run test
+pnpm run test
 
 # Type checking
-bun run check-types
+pnpm run check-types
 
 # Linting
-bun run lint
+pnpm run lint
 ```
 
 ## Deployment
@@ -44,10 +44,10 @@ The blog is deployed to Cloudflare Pages via GitHub Actions.
 
 ```bash
 # Deploy to preview
-bun run cf:deploy
+pnpm run cf:deploy
 
 # Deploy to production
-bun run cf:deploy:prod
+pnpm run cf:deploy:prod
 ```
 
 ### Environment Variables
@@ -95,7 +95,7 @@ series: "series-name"
 - **Framework**: Vite + TanStack Router + TanStack Start
 - **Styling**: Tailwind CSS v4
 - **Content**: MDX posts with KaTeX math and syntax highlighting
-- **Package Manager**: Bun
+- **Package Manager**: pnpm
 - **Deployment**: Cloudflare Pages (static pre-rendering)
 
 ## Documentation

@@ -1,6 +1,6 @@
 // @duyet/wasm - Rust/WASM modules compiled via wasm-pack
 //
-// Build first: `bun run wasm:build` at repo root
+// Build first: `pnpm run wasm:build` at repo root
 //
 // Each crate under crates/ produces bindings in ./pkg/<crate-name>/
 // Import directly from the generated module:
