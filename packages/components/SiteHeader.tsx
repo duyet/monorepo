@@ -10,6 +10,7 @@ import {
   Check,
   ChevronsUpDown,
   Code2,
+  FileText,
   Flame,
   House,
   type LucideIcon,
@@ -19,6 +20,7 @@ import {
   Server,
   Sparkles,
   Sun,
+  User,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useRef, useState } from "react";
@@ -44,6 +46,7 @@ export interface SiteHeaderProps {
 
 type AppKey =
   | "home"
+  | "about"
   | "blog"
   | "insights"
   | "llm-timeline"
@@ -53,6 +56,7 @@ type AppKey =
   | "ai-percentage"
   | "agents"
   | "burn"
+  | "cv"
   | "html"
   | "mcp";
 
@@ -104,6 +108,24 @@ const APPS: AppDef[] = [
     Icon: Camera,
     category: "Personal",
     blurb: "Photography",
+  },
+  {
+    key: "about",
+    name: "About",
+    href: "https://duyet.net/about",
+    subdomain: "duyet.net",
+    Icon: User,
+    category: "Personal",
+    blurb: "Bio & background",
+  },
+  {
+    key: "cv",
+    name: "CV",
+    href: "https://cv.duyet.net",
+    subdomain: "cv.duyet.net",
+    Icon: FileText,
+    category: "Personal",
+    blurb: "Resume",
   },
   {
     key: "insights",
