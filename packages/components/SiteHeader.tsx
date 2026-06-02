@@ -318,63 +318,66 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
         <div
           role="menu"
           className={cn(
-            "absolute left-0 top-full z-50 mt-1.5 w-[min(92vw,20rem)] overflow-hidden rounded-lg border bg-popover shadow-none",
+            "absolute left-0 top-full z-50 mt-1.5 w-[min(92vw,26rem)] overflow-hidden rounded-lg border bg-popover shadow-none",
           )}
         >
-          <div className="max-h-[min(70vh,32rem)] overflow-y-auto p-1.5">
+          <div className="max-h-[min(72vh,34rem)] overflow-y-auto p-1.5">
             {CATEGORY_ORDER.map((category) => {
               const apps = APPS.filter((a) => a.category === category);
               if (apps.length === 0) return null;
               return (
-                <div key={category} className="mb-1 last:mb-0">
-                  <p className="px-2 pt-1.5 pb-1 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground/70">
+                <div key={category} className="mb-1.5 last:mb-0">
+                  <p className="px-1.5 pt-1 pb-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground/70">
                     {category}
                   </p>
-                  {apps.map((app) => {
-                    const isCurrent = app.key === currentApp;
-                    return (
-                      <a
-                        key={app.key}
-                        href={app.href}
-                        role="menuitem"
-                        aria-current={isCurrent ? "page" : undefined}
-                        onClick={() => setOpen(false)}
-                        className={cn(
-                          "group flex items-center gap-2.5 rounded-md px-2 py-1.5 outline-none transition-colors",
-                          "hover:bg-muted focus-visible:bg-muted",
-                          isCurrent && "bg-muted/60",
-                        )}
-                      >
-                        <span
+                  {/* Compact two-column grid of app tiles */}
+                  <div className="grid grid-cols-2 gap-1">
+                    {apps.map((app) => {
+                      const isCurrent = app.key === currentApp;
+                      return (
+                        <a
+                          key={app.key}
+                          href={app.href}
+                          role="menuitem"
+                          aria-current={isCurrent ? "page" : undefined}
+                          onClick={() => setOpen(false)}
                           className={cn(
-                            "flex h-7 w-7 shrink-0 items-center justify-center rounded-md border transition-colors",
-                            "border-border bg-background group-hover:border-foreground/20",
-                            isCurrent && "border-foreground/20",
+                            "group flex items-center gap-2.5 rounded-md border px-2 py-2 outline-none transition-colors",
+                            "hover:bg-muted focus-visible:bg-muted",
+                            isCurrent
+                              ? "border-foreground/20 bg-muted/60"
+                              : "border-transparent hover:border-border",
                           )}
                         >
-                          <AppLogo Icon={app.Icon} />
-                        </span>
-                        <span className="flex min-w-0 flex-1 flex-col leading-tight">
-                          <span className="truncate text-sm font-medium text-foreground">
-                            {app.name}
+                          <span
+                            className={cn(
+                              "flex h-7 w-7 shrink-0 items-center justify-center rounded-md border transition-colors",
+                              "border-border bg-background group-hover:border-foreground/20",
+                              isCurrent && "border-foreground/20",
+                            )}
+                          >
+                            <AppLogo Icon={app.Icon} />
                           </span>
-                          <span className="truncate text-[11px] text-muted-foreground/80">
-                            {app.blurb}
+                          <span className="flex min-w-0 flex-1 flex-col leading-tight">
+                            <span className="flex items-center gap-1">
+                              <span className="truncate text-[13px] font-medium text-foreground">
+                                {app.name}
+                              </span>
+                              {isCurrent && (
+                                <Check
+                                  aria-hidden
+                                  className="h-3 w-3 shrink-0 text-foreground"
+                                />
+                              )}
+                            </span>
+                            <span className="truncate text-[11px] text-muted-foreground/80">
+                              {app.blurb}
+                            </span>
                           </span>
-                        </span>
-                        {isCurrent ? (
-                          <Check
-                            aria-hidden
-                            className="h-3.5 w-3.5 shrink-0 text-foreground"
-                          />
-                        ) : (
-                          <span className="hidden shrink-0 truncate font-mono text-[10px] text-muted-foreground/50 group-hover:inline sm:inline">
-                            {app.subdomain.replace(".duyet.net", "")}
-                          </span>
-                        )}
-                      </a>
-                    );
-                  })}
+                        </a>
+                      );
+                    })}
+                  </div>
                 </div>
               );
             })}
