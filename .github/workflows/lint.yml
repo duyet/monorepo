@@ -29,7 +29,6 @@ jobs:
           node-version: "24"
 
       - uses: pnpm/action-setup@v4
-        with:
 
       - name: Get pnpm store directory
         shell: bash
