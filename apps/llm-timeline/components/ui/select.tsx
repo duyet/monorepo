@@ -10,13 +10,13 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <select
         className={cn(
-          "h-9 rounded-lg px-2.5 text-sm transition-all",
-          "focus:outline-none focus:ring-2 focus:ring-ring/50",
+          "h-9 rounded-[var(--rd-r-sm)] px-2.5 text-sm transition-all",
+          "focus:outline-none focus:ring-2 focus:ring-[var(--rd-ring)]",
           "appearance-none cursor-pointer",
           "disabled:cursor-not-allowed disabled:opacity-50",
           variant === "filter"
-            ? "border border-border bg-card text-foreground hover:border-foreground/20"
-            : "border border-input bg-background",
+            ? "border border-[var(--rd-border)] bg-[var(--rd-surface)] text-[var(--rd-text)] hover:border-[var(--rd-border-2)]"
+            : "border border-[var(--rd-border)] bg-[var(--rd-bg)]",
           className
         )}
         ref={ref}

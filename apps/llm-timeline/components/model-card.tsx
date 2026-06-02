@@ -27,9 +27,9 @@ interface ModelCardProps {
 
 // License color mapping for visual indicator
 const LICENSE_COLORS = {
-  open: "bg-emerald-500",
-  closed: "bg-rose-500",
-  partial: "bg-indigo-500",
+  open: "bg-[var(--rd-ok)]",
+  closed: "bg-[var(--rd-down)]",
+  partial: "bg-[var(--rd-accent)]",
 };
 
 export function ModelCard({
@@ -53,10 +53,10 @@ export function ModelCard({
             className={cn(
               "shrink-0 relative flex items-center justify-center transition-all",
               "w-5 h-5 rounded border-2",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rd-ring)]",
               isSelected
                 ? "bg-foreground border-foreground"
-                : "bg-card border-border hover:border-foreground/60"
+                : "bg-card border-[var(--rd-border)] hover:border-foreground/60"
             )}
             aria-label={
               isSelected
@@ -89,7 +89,7 @@ export function ModelCard({
         </div>
 
         {/* Elegant separator */}
-        <div className="flex-1 h-px bg-gradient-to-r from-border/50 to-transparent mx-2" />
+        <div className="flex-1 h-px bg-gradient-to-r from-[var(--rd-line)] to-transparent mx-2" />
 
         {/* Year and metadata on right */}
         <div className="flex shrink-0 items-center gap-2">
@@ -114,7 +114,7 @@ export function ModelCard({
     <div className="relative flex items-start gap-4 pb-6 group">
       {/* Enhanced Timeline Line with gradient */}
       {!isLast && (
-        <div className="absolute left-[15px] top-8 h-full w-px bg-gradient-to-b from-border via-border/50 to-transparent" />
+        <div className="absolute left-[15px] top-8 h-full w-px bg-gradient-to-b from-[var(--rd-border)] via-[var(--rd-line)] to-transparent" />
       )}
 
       {/* Org logo with enhanced styling or selection checkbox */}
@@ -124,10 +124,10 @@ export function ModelCard({
             onClick={() => onSelectionChange?.(!isSelected)}
             className={cn(
               "flex items-center justify-center transition-all rounded-lg p-1.5",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rd-ring)] focus-visible:ring-offset-2",
               isSelected
                 ? "bg-foreground"
-                : "bg-card border border-border hover:border-foreground/40"
+                : "bg-card border border-[var(--rd-border)] hover:border-foreground/40"
             )}
             aria-label={
               isSelected
@@ -153,11 +153,11 @@ export function ModelCard({
       {/* Enhanced Card */}
       <div
         className={cn(
-          "flex-1 rounded-xl border transition-all bg-card",
-          "hover:border-foreground/15 hover:bg-card",
+          "flex-1 rounded-[var(--rd-r)] border transition-all bg-card",
+          "hover:border-[var(--rd-border-2)] hover:bg-card",
           isSelectable && isSelected
-            ? "ring-2 ring-ring ring-offset-2 ring-offset-background border-foreground/20"
-            : "border-border/50"
+            ? "ring-2 ring-[var(--rd-ring)] ring-offset-2 ring-offset-background border-foreground/20"
+            : "border-[var(--rd-border)]"
         )}
       >
         {/* Header row with improved hierarchy */}
@@ -216,7 +216,7 @@ export function ModelCard({
           model.trainingCompute ||
           model.trainingHardware ||
           model.authors) && (
-          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 border-t border-border/50 pt-3 text-xs text-muted-foreground">
+          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 border-t border-[var(--rd-line)] pt-3 text-xs text-muted-foreground">
             {model.domain && (
               <span className="flex items-center gap-1.5">
                 {model.link ? (
@@ -224,7 +224,7 @@ export function ModelCard({
                     href={model.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline decoration-border/50 underline-offset-2 text-foreground/70 hover:text-foreground transition-colors inline-flex items-center gap-1"
+                    className="underline decoration-[var(--rd-line)] underline-offset-2 text-foreground/70 hover:text-foreground transition-colors inline-flex items-center gap-1"
                   >
                     {model.domain}
                     <ExternalLink className="h-3 w-3" />
@@ -239,7 +239,7 @@ export function ModelCard({
                 href={model.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline decoration-border/50 underline-offset-2 text-foreground/70 hover:text-foreground inline-flex items-center gap-1"
+                className="underline decoration-[var(--rd-line)] underline-offset-2 text-foreground/70 hover:text-foreground inline-flex items-center gap-1"
               >
                 Paper
                 <ExternalLink className="h-3 w-3" />
@@ -288,7 +288,7 @@ function RelatedModelsSection({ model }: RelatedModelsSectionProps) {
   };
 
   return (
-    <div className="mt-4 border-t border-border/50 pt-3">
+    <div className="mt-4 border-t border-[var(--rd-line)] pt-3">
       <div className="flex items-center justify-between gap-2">
         <button
           onClick={() => setIsExpanded(!isExpanded)}

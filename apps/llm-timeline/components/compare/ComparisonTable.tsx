@@ -18,7 +18,7 @@ export function ComparisonTable({ sortedModels }: ComparisonTableProps) {
   return (
     <Table>
       <TableHeader>
-        <TableRow className="bg-muted/50">
+        <TableRow className="bg-[var(--rd-surface-2)]">
           <TableHead className="w-32 text-xs uppercase tracking-wider text-muted-foreground">
             Metric
           </TableHead>

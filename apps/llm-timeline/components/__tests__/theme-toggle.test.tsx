@@ -28,10 +28,10 @@ describe("ThemeToggle", () => {
     expect(btn.tagName.toLowerCase()).toBe("button");
   });
 
-  it("has rounded-lg border class on the button", () => {
+  it("has rounded border class on the button", () => {
     const { getByRole } = render(<ThemeToggle />);
     const btn = getByRole("button");
-    expect(btn.className).toContain("rounded-lg");
+    expect(btn.className).toContain("rounded-[var(--rd-r-sm)]");
     expect(btn.className).toContain("border");
   });
 

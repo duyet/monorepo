@@ -58,7 +58,7 @@ export function VirtualOrgTimeline({
 
   if (virtualItems.length === 0) {
     return (
-      <div className="rounded-xl border border-border bg-card p-8 text-center">
+      <div className="rounded-[var(--rd-r)] border border-[var(--rd-border)] bg-card p-8 text-center">
         <p className="text-muted-foreground">
           No models found matching your filters.
         </p>
@@ -114,13 +114,13 @@ export function VirtualOrgTimeline({
                 <div className="mb-6 flex items-center gap-4 overflow-hidden">
                   <div className="shrink-0 overflow-hidden">
                     <span
-                      className="select-none text-3xl font-bold leading-none block font-[family-name:var(--font-mono)] whitespace-nowrap text-foreground/10"
+                      className="select-none text-3xl font-bold leading-none block font-[family-name:var(--font-mono)] whitespace-nowrap text-[var(--rd-text-4)]"
                       aria-hidden="true"
                     >
                       {groupItem.org}
                     </span>
                   </div>
-                  <div className="h-px flex-1 min-w-0 shrink bg-gradient-to-r from-border to-transparent" />
+                  <div className="h-px flex-1 min-w-0 shrink bg-gradient-to-r from-[var(--rd-border)] to-transparent" />
                   <div className="flex shrink-0 items-center gap-2">
                     <OrgAvatar org={groupItem.org!} size="sm" />
                     <span className="text-sm font-medium truncate max-w-[12rem] text-foreground">

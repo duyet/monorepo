@@ -10,7 +10,7 @@ interface ParameterChartProps {
 export function ParameterChart({ sortedModels, maxParams }: ParameterChartProps) {
   return (
     <div>
-      <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">
+      <h3 className="text-sm font-semibold uppercase tracking-wider text-[var(--rd-text-2)] mb-4">
         Parameter Count Comparison
       </h3>
       <div className="space-y-3">
@@ -24,11 +24,11 @@ export function ParameterChart({ sortedModels, maxParams }: ParameterChartProps)
                 <span className="font-medium text-foreground">
                   {model.name}
                 </span>
-                <span className="font-[family-name:var(--font-mono)] text-muted-foreground">
+                <span className="font-[family-name:var(--font-mono)] text-[var(--rd-text-2)]">
                   {model.params}
                 </span>
               </div>
-              <div className="h-7 rounded-lg overflow-hidden relative bg-muted">
+              <div className="h-7 rounded-lg overflow-hidden relative bg-[var(--rd-surface-2)]">
                 <div
                   className="h-full rounded-lg transition-all duration-500"
                   style={{
@@ -41,7 +41,7 @@ export function ParameterChart({ sortedModels, maxParams }: ParameterChartProps)
           );
         })}
       </div>
-      <p className="text-xs mt-3 text-muted-foreground">
+      <p className="text-xs mt-3 text-[var(--rd-text-3)]">
         * Models with unknown parameter counts are excluded from the chart
       </p>
     </div>

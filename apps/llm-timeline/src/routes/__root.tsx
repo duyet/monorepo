@@ -102,7 +102,7 @@ function RootComponent() {
               activeHref={pathname}
             />
             <main className="relative z-10">
-              <div className="mx-auto max-w-[1280px] px-5 pb-16 pt-6 sm:px-8 lg:px-10">
+              <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pb-16 pt-6">
                 <Outlet />
               </div>
             </main>

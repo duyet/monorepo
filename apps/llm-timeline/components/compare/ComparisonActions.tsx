@@ -55,7 +55,7 @@ export function ComparisonActions({ sortedModels }: ComparisonActionsProps) {
           <p className="text-sm mb-2 text-muted-foreground">
             Share this comparison:
           </p>
-          <code className="text-sm px-2 py-1 rounded bg-muted border border-border text-foreground">
+          <code className="text-sm px-2 py-1 rounded-[var(--rd-r-sm)] bg-[var(--rd-surface-2)] border border-border text-foreground">
             {typeof window !== "undefined"
               ? window.location.href
               : "/compare"}

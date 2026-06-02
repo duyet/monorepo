@@ -95,7 +95,7 @@ export function Timeline({
             <div className="sticky top-0 z-20 -mx-1 px-1 pb-4 pt-2">
               <div className="flex items-end gap-4 bg-background rounded-xl px-3 py-2 -mx-3">
                 <span
-                  className="select-none text-5xl sm:text-6xl font-bold leading-none text-foreground/10 font-[family-name:var(--font-sans)]"
+                  className="select-none text-5xl sm:text-6xl font-bold leading-none text-[var(--rd-text-4)] font-[family-name:var(--font-sans)]"
                   aria-hidden="true"
                 >
                   {year}
@@ -107,7 +107,7 @@ export function Timeline({
                   </span>
                 </div>
               </div>
-              <div className="mt-1 h-px bg-gradient-to-r from-border to-transparent" />
+              <div className="mt-1 h-px bg-gradient-to-r from-[var(--rd-border)] to-transparent" />
             </div>
 
             {/* Models for this year */}
@@ -126,9 +126,9 @@ export function Timeline({
                         onFocusChange?.(globalIndex);
                       }
                     }}
-                    className={`transition-all rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+                    className={`transition-all rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rd-ring)] focus-visible:ring-offset-2 ${
                       isFocused && !comparisonMode
-                        ? "ring-2 ring-ring ring-offset-2"
+                        ? "ring-2 ring-[var(--rd-ring)] ring-offset-2"
                         : ""
                     }`}
                     role="option"

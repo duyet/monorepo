@@ -67,7 +67,7 @@ export function VirtualTimeline({
 
   if (virtualItems.length === 0) {
     return (
-      <div className="rounded-xl border border-border bg-card p-8 text-center">
+      <div className="rounded-[var(--rd-r)] border border-[var(--rd-border)] bg-card p-8 text-center">
         <p className="text-muted-foreground">
           No models found matching your filters.
         </p>
@@ -123,7 +123,7 @@ export function VirtualTimeline({
                 <div className="mb-6">
                   <div className="flex items-end gap-4">
                     <span
-                      className="select-none text-5xl sm:text-6xl font-bold leading-none text-foreground/10 font-[family-name:var(--font-sans)]"
+                      className="select-none text-5xl sm:text-6xl font-bold leading-none text-[var(--rd-text-4)] font-[family-name:var(--font-sans)]"
                       aria-hidden="true"
                     >
                       {groupItem.year}
@@ -135,7 +135,7 @@ export function VirtualTimeline({
                       </span>
                     </div>
                   </div>
-                  <div className="mt-1 h-px bg-gradient-to-r from-border to-transparent" />
+                  <div className="mt-1 h-px bg-gradient-to-r from-[var(--rd-border)] to-transparent" />
                 </div>
               </div>
             );

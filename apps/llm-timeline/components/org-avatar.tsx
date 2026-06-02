@@ -26,7 +26,7 @@ export function OrgAvatar({ org, size = "sm" }: OrgAvatarProps) {
         alt={`${org} logo`}
         width={px}
         height={px}
-        className={cn("rounded-md object-contain", sizeClass)}
+        className={cn("rounded-[var(--rd-r-sm)] object-contain", sizeClass)}
         onError={() => setLogoError(true)}
       />
     );
@@ -35,7 +35,7 @@ export function OrgAvatar({ org, size = "sm" }: OrgAvatarProps) {
   return (
     <div
       className={cn(
-        "flex shrink-0 items-center justify-center rounded-md font-semibold",
+        "flex shrink-0 items-center justify-center rounded-[var(--rd-r-sm)] font-semibold",
         sizeClass,
         colorClass
       )}

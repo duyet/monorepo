@@ -117,18 +117,18 @@ export function formatDate(dateStr: string): string {
 }
 
 /**
- * Get CSS hex color for license type, suitable for inline style={{ backgroundColor }}.
+ * Get CSS color for license type, suitable for inline style={{ backgroundColor }}.
  */
 export function getLicenseBarColor(license: Model["license"]): string {
   switch (license) {
     case "open":
-      return "#8B9F83"; // sage green
+      return "var(--rd-ok)";
     case "closed":
-      return "#A0616A"; // rose/coral
+      return "var(--rd-down)";
     case "partial":
-      return "#7B8DB8"; // lavender blue
+      return "var(--rd-accent)";
     default:
-      return "#9CA3AF"; // neutral gray
+      return "var(--rd-text-4)";
   }
 }
 

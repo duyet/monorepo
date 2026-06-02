@@ -137,7 +137,7 @@ export function Filters({
 
       {/* Expandable Filters */}
       {filtersExpanded && (
-        <div className="rounded-xl border border-border bg-card p-4 animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="rounded-[var(--rd-r)] border border-border bg-card p-4 animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
             <Select
               variant="filter"

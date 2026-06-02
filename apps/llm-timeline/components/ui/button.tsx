@@ -10,14 +10,14 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl",
+          "bg-[var(--rd-text)] text-[var(--rd-bg)] hover:bg-[var(--rd-accent)] rounded-[var(--rd-r-sm)]",
         secondary:
-          "bg-secondary text-secondary-foreground border border-border hover:bg-accent rounded-xl",
+          "bg-[var(--rd-surface-2)] text-[var(--rd-text)] border border-[var(--rd-border)] hover:bg-[var(--rd-accent-bg)] rounded-[var(--rd-r-sm)]",
         ghost:
-          "hover:bg-accent hover:text-accent-foreground rounded-xl",
+          "hover:bg-[var(--rd-accent-bg)] hover:text-[var(--rd-accent-ink)] rounded-[var(--rd-r-sm)]",
         outline:
-          "border border-border bg-card hover:bg-accent hover:text-accent-foreground rounded-xl",
-        icon: "border border-border bg-card text-muted-foreground hover:bg-accent hover:border-border/80 rounded-lg",
+          "border border-[var(--rd-border)] bg-[var(--rd-surface)] hover:bg-[var(--rd-accent-bg)] hover:text-[var(--rd-accent-ink)] rounded-[var(--rd-r-sm)]",
+        icon: "border border-[var(--rd-border)] bg-[var(--rd-surface)] text-[var(--rd-text-3)] hover:bg-[var(--rd-accent-bg)] hover:border-[var(--rd-border-2)] rounded-[var(--rd-r-sm)]",
       },
       size: {
         default: "h-9 px-4 py-2",

@@ -10,7 +10,7 @@ const Table = forwardRef<
   HTMLTableElement,
   HTMLAttributes<HTMLTableElement>
 >(({ className, ...props }, ref) => (
-  <div className="w-full overflow-x-auto rounded-xl border border-border">
+  <div className="w-full overflow-x-auto rounded-[var(--rd-r)] border border-[var(--rd-border)]">
     <table ref={ref} className={cn("w-full", className)} {...props} />
   </div>
 ));
@@ -36,7 +36,7 @@ const TableRow = forwardRef<
   HTMLTableRowElement,
   HTMLAttributes<HTMLTableRowElement>
 >(({ className, ...props }, ref) => (
-  <tr ref={ref} className={cn("border-b border-border", className)} {...props} />
+  <tr ref={ref} className={cn("border-b border-[var(--rd-line)]", className)} {...props} />
 ));
 TableRow.displayName = "TableRow";
 

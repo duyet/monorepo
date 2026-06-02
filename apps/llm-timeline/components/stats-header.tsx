@@ -48,7 +48,7 @@ export function StatsHeader({
                 "p-5",
                 isActive ? "" : "hover:-translate-y-0.5",
                 isClickable
-                  ? "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  ? "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rd-ring)] focus-visible:ring-offset-2"
                   : "cursor-default"
               )}
               onClick={isClickable ? () => onViewChange(view) : undefined}
@@ -63,13 +63,13 @@ export function StatsHeader({
                   : undefined
               }
             >
-              <div className="mb-8 inline-flex rounded-lg bg-muted p-2.5">
-                <Icon className="h-4 w-4 text-foreground" />
+              <div className="mb-8 inline-flex rounded-[var(--rd-r-sm)] bg-[var(--rd-surface-2)] p-2.5">
+                <Icon className="h-4 w-4 text-[var(--rd-text)]" />
               </div>
               <div className="text-3xl font-semibold">
                 {value.toLocaleString()}
               </div>
-              <div className="mt-1 text-sm font-medium text-muted-foreground">
+              <div className="mt-1 font-[family-name:var(--font-mono)] text-[11.5px] uppercase tracking-[0.14em] text-[var(--rd-text-3)]">
                 {label}
               </div>
             </Card>
@@ -79,12 +79,12 @@ export function StatsHeader({
 
       {/* Source breakdown */}
       {sourceStats && Object.keys(sourceStats).length > 0 && (
-        <div className="mt-3 text-xs text-muted-foreground">
+        <div className="mt-3 text-xs text-[var(--rd-text-2)]">
           Data sources:{" "}
           {Object.entries(sourceStats).map(([name, count], i) => (
             <span key={name}>
               {i > 0 && " + "}
-              <span className="font-medium text-foreground">
+              <span className="font-medium text-[var(--rd-text)]">
                 {count.toLocaleString()}
               </span>{" "}
               {name === "epoch" ? (
@@ -94,7 +94,7 @@ export function StatsHeader({
                     href="https://epoch.ai/data"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline decoration-border underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    className="underline decoration-[var(--rd-border)] underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rd-ring)] focus-visible:ring-offset-2"
                   >
                     Epoch AI
                   </a>

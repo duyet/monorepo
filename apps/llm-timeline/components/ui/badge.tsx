@@ -8,20 +8,20 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default:
-          "border-border bg-muted text-muted-foreground",
-        open: "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300",
+          "border-[var(--rd-border)] bg-[var(--rd-surface-2)] text-[var(--rd-text-2)]",
+        open: "border-[color-mix(in_srgb,var(--rd-ok)_25%,var(--rd-border))] bg-[color-mix(in_srgb,var(--rd-ok)_12%,var(--rd-surface))] text-[var(--rd-ok)]",
         closed:
-          "border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300",
+          "border-[color-mix(in_srgb,var(--rd-down)_25%,var(--rd-border))] bg-[color-mix(in_srgb,var(--rd-down)_12%,var(--rd-surface))] text-[var(--rd-down)]",
         partial:
-          "border-indigo-200 bg-indigo-50 text-indigo-700 dark:border-indigo-800 dark:bg-indigo-950 dark:text-indigo-300",
+          "border-[color-mix(in_srgb,var(--rd-accent)_25%,var(--rd-border))] bg-[var(--rd-accent-bg)] text-[var(--rd-accent-ink)]",
         milestone:
-          "border-orange-200 bg-orange-50 text-orange-700 dark:border-orange-800 dark:bg-orange-950 dark:text-orange-300",
+          "border-[color-mix(in_srgb,var(--rd-warn)_25%,var(--rd-border))] bg-[color-mix(in_srgb,var(--rd-warn)_12%,var(--rd-surface))] text-[var(--rd-warn)]",
         curated:
-          "border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300",
+          "border-[var(--rd-border)] bg-[var(--rd-surface-2)] text-[var(--rd-text-2)]",
         epoch:
-          "border-purple-200 bg-purple-50 text-purple-700 dark:border-purple-800 dark:bg-purple-950 dark:text-purple-300",
+          "border-[var(--rd-border)] bg-[var(--rd-surface-2)] text-[var(--rd-text-3)]",
         outline:
-          "border-border text-foreground",
+          "border-[var(--rd-border)] text-[var(--rd-text)]",
       },
     },
     defaultVariants: {

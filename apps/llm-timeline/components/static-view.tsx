@@ -302,14 +302,14 @@ export function StaticView({
         <>
           {/* Floating comparison bar */}
           {selectedModels.length > 0 && (
-            <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-background p-3 animate-in slide-in-from-bottom">
+            <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-[var(--rd-border)] bg-background p-3 animate-in slide-in-from-bottom">
               <div className="mx-auto max-w-4xl">
                 <div className="flex items-center gap-3">
                   <div className="flex flex-1 flex-wrap gap-1.5">
                     {selectedModels.map((model) => (
                       <div
                         key={model.name}
-                        className="flex items-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-1.5 text-sm"
+                        className="flex items-center gap-1.5 rounded-lg border border-[var(--rd-border)] bg-card px-2.5 py-1.5 text-sm"
                       >
                         <span className="font-medium text-foreground">
                           {model.name}
@@ -346,7 +346,7 @@ export function StaticView({
               onClick={() => setIsModalOpen(false)}
             >
               <div
-                className="max-h-[90vh] w-full max-w-5xl overflow-auto rounded-xl border border-border bg-background"
+                className="max-h-[90vh] w-full max-w-5xl overflow-auto rounded-[var(--rd-r-lg)] border border-[var(--rd-border)] bg-background"
                 onClick={(e) => e.stopPropagation()}
               >
                 <ComparisonModalContent
@@ -382,7 +382,7 @@ function ComparisonModalContent({
 
   return (
     <>
-      <div className="sticky top-0 z-10 border-b border-border p-6 bg-background">
+      <div className="sticky top-0 z-10 border-b border-[var(--rd-border)] p-6 bg-background">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-xl font-semibold text-foreground">
@@ -407,7 +407,7 @@ function ComparisonModalContent({
       <div className="p-6 space-y-6">
         <Table>
           <TableHeader>
-            <TableRow className="bg-muted/50">
+            <TableRow className="bg-[var(--rd-surface-2)]">
               <TableHead className="w-32 text-xs uppercase tracking-wider text-muted-foreground">
                 Metric
               </TableHead>
@@ -496,7 +496,7 @@ function ComparisonModalContent({
                         {model.params}
                       </span>
                     </div>
-                    <div className="relative h-7 overflow-hidden rounded-lg bg-muted">
+                    <div className="relative h-7 overflow-hidden rounded-lg bg-[var(--rd-surface-2)]">
                       <div
                         className="h-full rounded-lg transition-all duration-500"
                         style={{

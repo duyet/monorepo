@@ -36,7 +36,7 @@ export function ModelSelector({
         {selectedModels.map((model) => (
           <div
             key={model.name}
-            className="flex items-center gap-2 rounded-xl border border-border bg-card py-1.5 pl-3 pr-1.5 text-foreground"
+            className="flex items-center gap-2 rounded-[var(--rd-r)] border border-border bg-card py-1.5 pl-3 pr-1.5 text-foreground"
           >
             <span className="font-medium">{model.name}</span>
             <Button

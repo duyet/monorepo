@@ -28,23 +28,23 @@ function StatCard({
     // @ts-expect-error -- polymorphic component
     <Comp
       className={cn(
-        "rounded-xl p-5 transition-all",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        "rounded-[var(--rd-r)] p-5 transition-all",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rd-ring)] focus-visible:ring-offset-2",
         active
-          ? "bg-card border border-foreground/10"
-          : "bg-muted/30 hover:bg-muted/50 border border-transparent"
+          ? "bg-[var(--rd-surface)] border border-[var(--rd-border)]"
+          : "bg-[var(--rd-surface-2)] hover:bg-[var(--rd-surface)] border border-transparent"
       )}
       {...props}
     >
       <div>
-        <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-background/50 border border-border/50">
+        <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-[var(--rd-r-sm)] bg-[var(--rd-surface-2)] border border-[var(--rd-border)]">
           {icon}
         </div>
         <div className="space-y-0.5">
-          <div className="text-2xl font-bold font-[family-name:var(--font-mono)] tracking-tight text-foreground tabular-nums">
+          <div className="text-2xl font-bold font-[family-name:var(--font-mono)] tracking-tight text-[var(--rd-text)] tabular-nums">
             {typeof value === "number" ? value.toLocaleString() : value}
           </div>
-          <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+          <div className="font-[family-name:var(--font-mono)] text-[11.5px] uppercase tracking-[0.14em] text-[var(--rd-text-3)]">
             {label}
           </div>
         </div>
@@ -68,7 +68,7 @@ export function StatsCards({
       <StatCard
         as={Link}
         to="/"
-        icon={<Sparkles className="h-5 w-5 text-foreground" />}
+        icon={<Sparkles className="h-5 w-5 text-[var(--rd-text)]" />}
         value={models.toLocaleString()}
         label="Models"
         active={activeView === "models"}
@@ -76,18 +76,18 @@ export function StatsCards({
       <StatCard
         as={Link}
         to="/org"
-        icon={<Building2 className="h-5 w-5 text-foreground" />}
+        icon={<Building2 className="h-5 w-5 text-[var(--rd-text)]" />}
         value={organizations.toLocaleString()}
         label="Organizations"
         active={activeView === "organizations"}
       />
       <StatCard
-        icon={<Database className="h-5 w-5 text-foreground" />}
+        icon={<Database className="h-5 w-5 text-[var(--rd-text)]" />}
         value={totalSources > 0 ? totalSources.toLocaleString() : "—"}
         label="Sources"
       />
       <StatCard
-        icon={<TrendingUp className="h-5 w-5 text-foreground" />}
+        icon={<TrendingUp className="h-5 w-5 text-[var(--rd-text)]" />}
         value="76"
         label="Years"
       />
