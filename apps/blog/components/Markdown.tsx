@@ -86,7 +86,7 @@ function renderImageRow(imgs: string[]): string {
     .join('')
   return (
     '<div class="not-prose relative left-1/2 my-8 w-screen -translate-x-1/2 ' +
-    'grid items-start gap-2 px-4 ' +
+    'grid items-start gap-6 px-8 ' +
     'grid-cols-[repeat(auto-fit,minmax(min(100%,16rem),1fr))]">' +
     `${cells}</div>`
   )
