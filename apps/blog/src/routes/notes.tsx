@@ -1,25 +1,25 @@
-import { distanceToNow } from "@duyet/libs/date";
-import { createFileRoute, Link } from "@tanstack/react-router";
-import type { ReactElement } from "react";
-import { getShortforms } from "@/lib/shortforms";
-import type { Shortform } from "@/lib/shortforms";
+import { distanceToNow } from '@duyet/libs/date'
+import { createFileRoute, Link } from '@tanstack/react-router'
+import type { ReactElement } from 'react'
+import { getShortforms } from '@/lib/shortforms'
+import type { Shortform } from '@/lib/shortforms'
 
-export const Route = createFileRoute("/notes")({
+export const Route = createFileRoute('/notes')({
   head: () => ({
     meta: [
-      { title: "Quick Notes | Tôi là Duyệt" },
-      { name: "description", content: "Short-form thoughts and updates." },
+      { title: 'Quick Notes | Tôi là Duyệt' },
+      { name: 'description', content: 'Short-form thoughts and updates.' },
     ],
   }),
   loader: () => {
-    const shortforms = getShortforms();
-    return { shortforms };
+    const shortforms = getShortforms()
+    return { shortforms }
   },
   component: NotesPage,
-});
+})
 
 function NotesPage(): ReactElement {
-  const { shortforms } = Route.useLoaderData() as { shortforms: Shortform[] };
+  const { shortforms } = Route.useLoaderData() as { shortforms: Shortform[] }
 
   return (
     <div>
@@ -45,7 +45,7 @@ function NotesPage(): ReactElement {
             {shortforms.map((note) => (
               <li key={note.id}>
                 <Link
-                  to="/notes/$id/"
+                  to="/note/$id"
                   params={{ id: note.id }}
                   className="flex items-start gap-4 group"
                 >
@@ -60,7 +60,7 @@ function NotesPage(): ReactElement {
                       </span>
                     </div>
                     <p className="mt-2 text-base leading-relaxed group-hover:text-muted-foreground transition-colors line-clamp-3">
-                      {note.body}
+                      {note.excerpt || note.title}
                     </p>
                   </div>
                 </Link>
@@ -70,5 +70,5 @@ function NotesPage(): ReactElement {
         )}
       </section>
     </div>
-  );
+  )
 }

@@ -1,18 +1,18 @@
-import "@duyet/components/styles.css";
-import "../../app/globals.css";
-import "../../styles/blog-design.css";
+import '@duyet/components/styles.css'
+import '../../app/globals.css'
+import '../../styles/blog-design.css'
 
-import { SiteFooter, SiteHeader } from "@duyet/components";
-import Analytics from "@duyet/components/Analytics";
-import ThemeProvider from "@duyet/components/ThemeProvider";
+import { SiteFooter, SiteHeader } from '@duyet/components'
+import Analytics from '@duyet/components/Analytics'
+import ThemeProvider from '@duyet/components/ThemeProvider'
 import {
   createRootRoute,
   HeadContent,
   Outlet,
   Scripts,
   useRouterState,
-} from "@tanstack/react-router";
-import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
+} from '@tanstack/react-router'
+import { ServiceWorkerRegister } from '@/components/ServiceWorkerRegister'
 
 function NotFoundComponent() {
   return (
@@ -48,53 +48,54 @@ function NotFoundComponent() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 const siteFooterLinks = [
-  { label: "Home", href: "https://duyet.net" },
-  { label: "Blog", href: "https://blog.duyet.net" },
-  { label: "CV", href: "https://cv.duyet.net" },
-  { label: "Insights", href: "https://insights.duyet.net" },
-];
+  { label: 'Home', href: 'https://duyet.net' },
+  { label: 'Blog', href: 'https://blog.duyet.net' },
+  { label: 'CV', href: 'https://cv.duyet.net' },
+  { label: 'Insights', href: 'https://insights.duyet.net' },
+]
 
 export const Route = createRootRoute({
   head: () => ({
     meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1.0" },
-      { name: "robots", content: "follow, index" },
-      { title: "Tôi là Duyệt | blog.duyet.net" },
+      { charSet: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
+      { name: 'robots', content: 'follow, index' },
+      { title: 'Tôi là Duyệt | blog.duyet.net' },
       {
-        name: "description",
+        name: 'description',
         content:
-          "Sr. Data Engineer. Rustacean at night. Technical blog on data engineering, distributed systems, and open source.",
+          'Sr. Data Engineer. Rustacean at night. Technical blog on data engineering, distributed systems, and open source.',
       },
     ],
     links: [
-      { rel: "icon", href: "/favicon.ico" },
+      { rel: 'icon', href: '/favicon.ico' },
       {
-        rel: "alternate",
-        type: "application/rss+xml",
-        href: "/rss.xml",
-        title: "Tôi là Duyệt - RSS Feed",
+        rel: 'alternate',
+        type: 'application/rss+xml',
+        href: '/rss.xml',
+        title: 'Tôi là Duyệt - RSS Feed',
       },
     ],
   }),
   notFoundComponent: NotFoundComponent,
   component: RootComponent,
-});
+})
 
 const blogLocalNav = [
-  { label: "Latest", href: "/" },
-  { label: "Archives", href: "/archives" },
-  { label: "Categories", href: "/category" },
-  { label: "Tags", href: "/tags" },
-  { label: "Series", href: "/series" },
-];
+  { label: 'Latest', href: '/' },
+  { label: 'Notes', href: '/notes' },
+  { label: 'Archives', href: '/archives' },
+  { label: 'Categories', href: '/category' },
+  { label: 'Tags', href: '/tags' },
+  { label: 'Series', href: '/series' },
+]
 
 function RootComponent() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const pathname = useRouterState({ select: (s) => s.location.pathname })
 
   return (
     <html lang="en">
@@ -122,5 +123,5 @@ function RootComponent() {
         <Scripts />
       </body>
     </html>
-  );
+  )
 }
