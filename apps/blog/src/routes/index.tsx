@@ -9,6 +9,8 @@ import {
   getPostsByAllYear,
 } from "@/lib/posts";
 import { getShortforms } from "@/lib/shortforms";
+import type { Shortform } from "@/lib/shortforms";
+import { distanceToNow } from "@duyet/libs/date";
 import { FeaturedPost } from "@/components/home/FeaturedPost";
 import { CategoryBentoTile } from "@/components/home/CategoryBentoTile";
 import { PostList } from "@/components/home/PostList";
@@ -37,7 +39,10 @@ const BLOG_INTRO =
 // Home page
 // ---------------------------------------------------------------------------
 function HomePage(): ReactElement {
-  const { postsByYear } = Route.useLoaderData();
+  const { postsByYear, shortforms } = Route.useLoaderData() as {
+    postsByYear: Record<string, any[]>;
+    shortforms: Shortform[];
+  };
 
   const years = useMemo(
     () =>
@@ -155,6 +160,67 @@ function HomePage(): ReactElement {
           ))}
         </div>
       </section>
+
+      {/* ── Quick Notes ────────────────────────────────────────────── */}
+      {shortforms && shortforms.length > 0 && (
+        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)] border-t">
+          <div className="flex justify-between items-baseline mb-8">
+            <SecHead eyebrow="Notes" title="Quick Thoughts" />
+            <Link
+              to="/notes/"
+              className="text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+            >
+              View all notes →
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {shortforms.map((note) => (
+              <article
+                key={note.id}
+                className="relative group flex flex-col justify-between p-6 bg-card border rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-foreground/30 transition-all duration-300 ease-out"
+              >
+                <Link
+                  to="/note/$id/"
+                  params={{ id: note.id }}
+                  className="absolute inset-0 z-10"
+                  aria-label={note.title || note.excerpt}
+                />
+                <div>
+                  <time className="text-[11px] font-mono text-muted-foreground">
+                    {distanceToNow(note.date)}
+                  </time>
+                  {note.title && (
+                    <h3 className="mt-2 text-base font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
+                      {note.title}
+                    </h3>
+                  )}
+                  <p className="mt-2 text-sm text-muted-foreground line-clamp-3 leading-relaxed">
+                    {note.excerpt}
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t flex justify-end relative z-20">
+                  <span className="text-[11px] font-semibold text-primary group-hover:underline flex items-center gap-0.5">
+                    Read note
+                    <svg
+                      className="w-3 h-3 transition-transform duration-200 transform group-hover:translate-x-0.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* ── Recent posts ─────────────────────────────────────────────── */}
       <PostList

@@ -22,51 +22,92 @@ function NotesPage(): ReactElement {
   const { shortforms } = Route.useLoaderData() as { shortforms: Shortform[] }
 
   return (
-    <div>
-      <header className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16 md:py-24 text-center">
-        <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-          NOTES
-        </p>
-        <h1 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight">
+    <div className="min-h-screen bg-gradient-to-b from-background via-background/95 to-muted/20">
+      <header className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-16 md:py-24 text-center md:text-left">
+        <p className="text-xs font-mono uppercase tracking-widest text-primary/80 font-bold">
           Quick Notes
+        </p>
+        <h1 className="mt-4 text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-foreground">
+          Thoughts &amp; Snippets
         </h1>
-        <p className="mt-4 text-base text-muted-foreground">
-          Short-form thoughts and updates.
+        <p className="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
+          Real-time updates, micro-blogs, reference code blocks, and reflections.
         </p>
       </header>
 
-      <section className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pb-16 border-t pt-12">
+      <section className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pb-24">
         {shortforms.length === 0 ? (
-          <p className="text-center py-12 text-muted-foreground">
-            No notes yet.
-          </p>
+          <div className="text-center py-20 border rounded-2xl bg-card/50 backdrop-blur-sm">
+            <p className="text-lg text-muted-foreground">No notes found.</p>
+          </div>
         ) : (
-          <ul className="max-w-3xl space-y-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {shortforms.map((note) => (
-              <li key={note.id}>
+              <article
+                key={note.id}
+                className="relative group flex flex-col justify-between p-6 sm:p-8 bg-card border rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-foreground/30 transition-all duration-300 ease-out"
+              >
+                {/* Clickable link covering the whole card */}
                 <Link
-                  to="/note/$id"
+                  to="/note/$id/"
                   params={{ id: note.id }}
-                  className="flex items-start gap-4 group"
-                >
-                  <div className="shrink-0 inline-flex h-10 w-10 items-center justify-center rounded-full bg-muted text-xs font-semibold">
-                    DL
+                  className="absolute inset-0 z-10"
+                  aria-label={note.title || note.excerpt}
+                />
+                
+                <div>
+                  <div className="flex items-center justify-between mb-5">
+                    <time
+                      dateTime={note.date.toISOString()}
+                      className="text-xs font-mono text-muted-foreground"
+                    >
+                      {distanceToNow(note.date)}
+                    </time>
+                    <span className="inline-flex items-center justify-center rounded-full bg-primary/10 px-3 py-1 text-[11px] font-semibold text-primary">
+                      NOTE
+                    </span>
                   </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2 text-sm">
-                      <span className="font-medium">Duyet Le</span>
-                      <span className="text-muted-foreground">
-                        {distanceToNow(note.date)}
-                      </span>
+
+                  {note.title ? (
+                    <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors duration-200 mb-3">
+                      {note.title}
+                    </h2>
+                  ) : null}
+
+                  <p className="text-muted-foreground leading-relaxed text-sm sm:text-base line-clamp-4">
+                    {note.excerpt}
+                  </p>
+                </div>
+
+                <div className="mt-8 pt-4 border-t flex items-center justify-between relative z-20">
+                  <div className="flex items-center gap-2">
+                    <div className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-muted border font-mono text-[10px] font-bold text-muted-foreground">
+                      DL
                     </div>
-                    <p className="mt-2 text-base leading-relaxed group-hover:text-muted-foreground transition-colors line-clamp-3">
-                      {note.excerpt || note.title}
-                    </p>
+                    <span className="text-xs font-semibold text-foreground/80">
+                      Duyet Le
+                    </span>
                   </div>
-                </Link>
-              </li>
+                  <span className="text-xs font-semibold text-primary flex items-center gap-1 group-hover:underline">
+                    Read full note
+                    <svg
+                      className="w-3.5 h-3.5 transition-transform duration-200 transform group-hover:translate-x-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </article>
             ))}
-          </ul>
+          </div>
         )}
       </section>
     </div>
