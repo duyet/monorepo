@@ -1,4 +1,4 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, test } from "vitest";
 import { anonymizeProjects, distributePercentages } from "../data-processing";
 
 describe("anonymizeProjects", () => {

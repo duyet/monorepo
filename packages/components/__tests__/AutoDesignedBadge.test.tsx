@@ -1,14 +1,7 @@
+import { describe, expect, it } from "vitest";
+import { render } from "@testing-library/react";
 import { AutoDesignedBadge } from "../auto-designed-badge";
-import {
-  afterEach,
-  cleanup,
-  describe,
-  expect,
-  it,
-  render,
-} from "../test-setup";
 
-afterEach(cleanup);
 
 describe("AutoDesignedBadge", () => {
   it("renders the credit text", () => {

@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 /**
  * generate-rss.ts — Generate RSS feeds for LLM Timeline
  * Outputs to public/ (included in static export)

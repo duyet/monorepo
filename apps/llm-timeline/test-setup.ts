@@ -1,16 +1,13 @@
-import { afterEach, describe, expect, it, mock } from "bun:test";
-import { GlobalRegistrator } from "@happy-dom/global-registrator";
+import "@testing-library/jest-dom/vitest";
+import React from "react";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, render } from "@testing-library/react";
 
-// Register GlobalRegistrator once for all test files
-try {
-  GlobalRegistrator.register();
-} catch {
-  // Already registered by another test file in the same process
-}
+// Auto-cleanup after each test
+afterEach(() => cleanup());
 
 // Mock @tanstack/react-router — must be before component imports
-mock.module("@tanstack/react-router", () => ({
+vi.mock("@tanstack/react-router", () => ({
   useNavigate: () => () => {},
   useSearch: () => ({}),
   useParams: () => ({}),
@@ -27,7 +24,6 @@ mock.module("@tanstack/react-router", () => ({
     to: string;
     [key: string]: unknown;
   }) => {
-    const React = require("react");
     return React.createElement("a", { href: to, ...props }, children);
   },
   createRootRoute: (opts: unknown) => opts,
@@ -39,7 +35,7 @@ mock.module("@tanstack/react-router", () => ({
 }));
 
 // Mock next-themes
-mock.module("next-themes", () => ({
+vi.mock("next-themes", () => ({
   useTheme: () => ({ resolvedTheme: "light", setTheme: () => {} }),
 }));
 
@@ -58,4 +54,4 @@ expect.extend({
 });
 
 // Export for test files
-export { afterEach, cleanup, describe, expect, it, mock, render };
+export { afterEach, cleanup, describe, expect, it, vi as mock, render };

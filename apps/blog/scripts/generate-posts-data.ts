@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 /**
  * Prebuild script: Read all posts from _posts/ and write to:
  * - public/posts-data.json  (all post metadata, no content)
@@ -21,7 +21,7 @@ import { getAllPosts } from "@duyet/libs/getPost";
 import { getAllSeries } from "@duyet/libs/getSeries";
 import { markdownToHtml } from "@duyet/libs/markdownToHtml";
 
-const PUBLIC_DIR = join(import.meta.dir, "..", "public");
+const PUBLIC_DIR = join(import.meta.dirname!, "..", "public");
 const CONTENT_DIR = join(PUBLIC_DIR, "posts-content");
 
 mkdirSync(PUBLIC_DIR, { recursive: true });

@@ -12,14 +12,14 @@ Dashboard showing the percentage of code written by AI across all repositories, 
 ## Development Commands
 
 ```bash
-bun run dev          # Start dev server on port 3002
-bun run build        # Build for production
-bun run lint         # Run Biome linter
-bun run check-types  # TypeScript type check
-bun run fmt          # Format code with Biome
+pnpm run dev          # Start dev server on port 3002
+pnpm run build        # Build for production
+pnpm run lint         # Run Biome linter
+pnpm run check-types  # TypeScript type check
+pnpm run fmt          # Format code with Biome
 
 # Deploy to Cloudflare Pages
-bun run deploy       # Build + deploy with Wrangler
+pnpm run deploy       # Build + deploy with Wrangler
 ```
 
 ## Architecture
@@ -29,7 +29,7 @@ bun run deploy       # Build + deploy with Wrangler
 - **Framework**: Vite + TanStack Router (SPA, file-based routing)
 - **Data Source**: External REST API at `api.duyet.net`
 - **Styling**: Tailwind CSS
-- **Package Manager**: Bun
+- **Package Manager**: pnpm
 
 ### Project Structure
 

@@ -4,11 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "prebuild": "bun scripts/copy-content-md.ts && bun scripts/generate-static-files.ts",
-    "build": "vite build && bun ../../scripts/patch-html-for-cloudflare.ts",
+    "prebuild": "tsx scripts/copy-content-md.ts && tsx scripts/generate-static-files.ts",
+    "build": "vite build && tsx ../../scripts/patch-html-for-cloudflare.ts",
     "check-types": "tsc --noEmit",
     "dev": "vite dev --port 3009",
-    "fmt": "bun run fix",
+    "fmt": "pnpm run fix",
     "lint": "biome lint .",
     "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh kb duyet-kb"
   },
@@ -33,7 +33,6 @@
     "@duyet/tailwind-config": "*",
     "@duyet/tsconfig": "*",
     "@tailwindcss/vite": "^4.0.0",
-    "@types/bun": "latest",
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.5",
     "typescript": "*",

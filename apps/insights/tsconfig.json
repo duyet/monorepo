@@ -5,7 +5,7 @@
     "strictNullChecks": true,
     "allowJs": true,
     "baseUrl": ".",
-    "types": ["@types/bun", "vite/client"],
+    "types": ["vite/client"],
     "paths": {
       "@/*": ["./*"]
     }

@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, mock, test } from "bun:test";
+import { beforeEach, describe, expect, vi, test } from "vitest";
 import { NetworkError } from "./errors";
 import { fetcher } from "./fetcher";
 
@@ -10,7 +10,7 @@ beforeEach(() => {
 describe("fetcher", () => {
   test("returns parsed JSON on success", async () => {
     const data = { id: 1, name: "Alice" };
-    globalThis.fetch = mock(() =>
+    globalThis.fetch = vi.fn(() =>
       Promise.resolve(new Response(JSON.stringify(data), { status: 200 }))
     ) as typeof fetch;
 
@@ -20,7 +20,7 @@ describe("fetcher", () => {
 
   test("throws NetworkError on non-OK status with JSON body", async () => {
     const errorBody = { error: "Not Found", detail: "Resource missing" };
-    globalThis.fetch = mock(() =>
+    globalThis.fetch = vi.fn(() =>
       Promise.resolve(
         new Response(JSON.stringify(errorBody), {
           status: 404,
@@ -42,7 +42,7 @@ describe("fetcher", () => {
 
   test("error body parsed as JSON and stored in context.info", async () => {
     const errorBody = { code: "FORBIDDEN", reason: "Access denied" };
-    globalThis.fetch = mock(() =>
+    globalThis.fetch = vi.fn(() =>
       Promise.resolve(
         new Response(JSON.stringify(errorBody), {
           status: 403,
@@ -64,7 +64,7 @@ describe("fetcher", () => {
       json: () => Promise.reject(new Error("JSON parse error")),
       text: () => Promise.resolve("Internal Server Error"),
     };
-    globalThis.fetch = mock(() =>
+    globalThis.fetch = vi.fn(() =>
       Promise.resolve(mockResponse as Response)
     ) as typeof fetch;
 
@@ -81,7 +81,7 @@ describe("fetcher", () => {
       json: () => Promise.reject(new Error("JSON parse error")),
       text: () => Promise.reject(new Error("Text read error")),
     };
-    globalThis.fetch = mock(() =>
+    globalThis.fetch = vi.fn(() =>
       Promise.resolve(mockResponse as Response)
     ) as typeof fetch;
 
@@ -95,7 +95,7 @@ describe("fetcher", () => {
   test("passes options to fetch", async () => {
     const data = { ok: true };
     let capturedOptions: RequestInit | undefined;
-    globalThis.fetch = mock((_url: string, options?: RequestInit) => {
+    globalThis.fetch = vi.fn((_url: string, options?: RequestInit) => {
       capturedOptions = options;
       return Promise.resolve(
         new Response(JSON.stringify(data), { status: 200 })
@@ -107,7 +107,7 @@ describe("fetcher", () => {
   });
 
   test("error message includes status code and URL", async () => {
-    globalThis.fetch = mock(() =>
+    globalThis.fetch = vi.fn(() =>
       Promise.resolve(
         new Response(JSON.stringify({}), {
           status: 401,

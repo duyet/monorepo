@@ -1,8 +1,8 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { describe, expect, test } from "bun:test";
+import { describe, expect, test } from "vitest";
 
-const photosDataPath = join(import.meta.dir, "..", "public", "photos-data.json");
+const photosDataPath = join(import.meta.dirname!, "..", "public", "photos-data.json");
 
 describe("photos-data.json", () => {
   test("contains the generated gallery dataset", () => {

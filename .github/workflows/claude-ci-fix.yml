@@ -38,11 +38,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           submodules: false
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2.2.0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
       - name: Install dependencies
-        run: bun install
+        run: pnpm install --frozen-lockfile
 
       - name: Sanitize branch name
         id: sanitize
@@ -81,8 +82,8 @@ jobs:
                 ```
 
             3. **Reproduce the failure locally** to confirm you understand it:
-                - If "Lint" failed: `bun run lint`
-                - If "Test" failed: `bun run turbo check-types` and/or `bun run test`
+                - If "Lint" failed: `pnpm run lint`
+                - If "Test" failed: `pnpm run turbo check-types` and/or `pnpm run test`
 
             4. **Fix the root cause** by editing source files. Rules:
                 - Fix the actual code — do not disable lint rules or skip tests

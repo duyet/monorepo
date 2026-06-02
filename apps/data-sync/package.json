@@ -5,21 +5,21 @@
   "type": "module",
   "main": "src/index.ts",
   "scripts": {
-    "start": "bun run src/index.ts",
-    "sync": "bun run src/commands/sync.ts",
-    "sync:all": "bun run src/commands/sync.ts all",
-    "sync:wakatime": "bun run src/commands/sync.ts wakatime",
-    "sync:cloudflare": "bun run src/commands/sync.ts cloudflare",
-    "sync:github": "bun run src/commands/sync.ts github",
-    "sync:unsplash": "bun run src/commands/sync.ts unsplash",
-    "migrate": "bun run src/commands/migrate.ts",
-    "migrate:up": "bun run src/commands/migrate.ts up",
-    "migrate:down": "bun run src/commands/migrate.ts down",
-    "migrate:status": "bun run src/commands/migrate.ts status",
-    "migrate:verify": "bun run src/commands/migrate.ts verify",
-    "cleanup": "bun run src/commands/cleanup.ts",
-    "cleanup:dry-run": "bun run src/commands/cleanup.ts --dry-run",
-    "test": "bun test",
+    "start": "tsx src/index.ts",
+    "sync": "tsx src/commands/sync.ts",
+    "sync:all": "tsx src/commands/sync.ts all",
+    "sync:wakatime": "tsx src/commands/sync.ts wakatime",
+    "sync:cloudflare": "tsx src/commands/sync.ts cloudflare",
+    "sync:github": "tsx src/commands/sync.ts github",
+    "sync:unsplash": "tsx src/commands/sync.ts unsplash",
+    "migrate": "tsx src/commands/migrate.ts",
+    "migrate:up": "tsx src/commands/migrate.ts up",
+    "migrate:down": "tsx src/commands/migrate.ts down",
+    "migrate:status": "tsx src/commands/migrate.ts status",
+    "migrate:verify": "tsx src/commands/migrate.ts verify",
+    "cleanup": "tsx src/commands/cleanup.ts",
+    "cleanup:dry-run": "tsx src/commands/cleanup.ts --dry-run",
+    "test": "vitest run",
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
@@ -29,7 +29,6 @@
   },
   "devDependencies": {
     "@duyet/tsconfig": "*",
-    "@types/bun": "latest",
     "typescript": "^6.0.0"
   }
 }

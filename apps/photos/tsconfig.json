@@ -25,7 +25,7 @@
     "**/__tests__/**",
     "**/*.test.ts",
     "**/*.test.tsx",
-    "bun-test-setup.ts",
+    "test-setup.ts",
     "scripts",
     "lib/localPhotos.ts",
     "lib/exifExtractor.ts"

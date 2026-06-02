@@ -4,12 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "config": "bun ../../scripts/sync-app-secrets.ts duyet-agent-api",
-    "dev": "bunx wrangler dev --env development --config wrangler.toml --port 8788",
-    "deploy": "bun run check-types && bunx wrangler deploy --env=\"\" --config wrangler.toml",
-    "cf:deploy:prod": "bun run --env-file=../../.env.production --env-file=../../.env.production.local deploy",
+    "config": "tsx ../../scripts/sync-app-secrets.ts duyet-agent-api",
+    "dev": "pnpm dlx wrangler dev --env development --config wrangler.toml --port 8788",
+    "deploy": "pnpm run check-types && pnpm dlx wrangler deploy --env=\"\" --config wrangler.toml",
+    "cf:deploy:prod": "dotenv -e ../../.env.production -e ../../.env.production.local -- pnpm run deploy",
     "check-types": "tsc --noEmit",
-    "test": "bun test",
+    "test": "vitest run",
     "lint": "biome lint .",
     "fmt": "biome format --write ."
   },
@@ -25,7 +25,6 @@
     "@cloudflare/workers-types": "^4.20260511.1",
     "@duyet/tsconfig": "*",
     "@types/node": "^25.7.0",
-    "bun-types": "^1.3.4",
     "typescript": "^6.0.3"
   }
 }

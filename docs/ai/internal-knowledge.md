@@ -1,6 +1,6 @@
 # Internal Knowledge
 
-This repository is the Bun/Turborepo monorepo for duyet.net public apps, shared packages, data sync jobs, and Cloudflare/Vercel deployment workflows.
+This repository is the pnpm/Turborepo monorepo for duyet.net public apps, shared packages, data sync jobs, and Cloudflare/Vercel deployment workflows.
 
 ## Working Rules
 
@@ -8,26 +8,26 @@ This repository is the Bun/Turborepo monorepo for duyet.net public apps, shared 
 - Use semantic commit messages. Prefer a scope from `.commitlintrc.js` when one exists.
 - Keep changes surgical. Do not reformat or refactor unrelated code.
 - Preserve existing UX and public routes unless the request explicitly changes them.
-- Use Bun commands from the relevant package or app directory. Check the local `package.json` before assuming a script exists.
+- Use pnpm commands from the relevant package or app directory. Check the local `package.json` before assuming a script exists.
 - Verify with the narrowest useful command first, then broaden only when needed.
 - If a linked worktree reports `Operation not permitted` under `.git/worktrees/...`, use the canonical checkout after `git status --short --branch`; stage only touched paths so unrelated local edits stay out of commits.
 
 ## Root Commands
 
-- `bun run build` builds all apps and packages through Turbo.
-- `bun run dev` starts workspace development servers through Turbo.
-- `bun run lint` runs Biome linting.
-- `bun run fmt` formats TypeScript, TSX, and Markdown through Biome.
-- `bun run test` runs Turbo tests.
-- `bun run config` runs workspace config tasks, including app secret syncs where defined.
-- `bun run deploy` builds deployable apps, then runs workspace config.
-- `bun run cf:deploy` deploys changed Cloudflare Pages apps.
-- `bun run cf:deploy:prod` runs production Cloudflare deploy tasks through Turbo.
-- `bun run wasm:build` builds all Rust crates to WASM via `wasm-pack`.
-- `bun run wasm:build:release` builds WASM with optimizations.
-- `bun run wasm:test` runs `cargo test` across the Rust workspace.
-- `bun run wasm:clippy` lints Rust code.
-- `bun run bench:wasm` benchmarks TS vs WASM for all modules.
+- `pnpm run build` builds all apps and packages through Turbo.
+- `pnpm run dev` starts workspace development servers through Turbo.
+- `pnpm run lint` runs Biome linting.
+- `pnpm run fmt` formats TypeScript, TSX, and Markdown through Biome.
+- `pnpm run test` runs Turbo tests.
+- `pnpm run config` runs workspace config tasks, including app secret syncs where defined.
+- `pnpm run deploy` builds deployable apps, then runs workspace config.
+- `pnpm run cf:deploy` deploys changed Cloudflare Pages apps.
+- `pnpm run cf:deploy:prod` runs production Cloudflare deploy tasks through Turbo.
+- `pnpm run wasm:build` builds all Rust crates to WASM via `wasm-pack`.
+- `pnpm run wasm:build:release` builds WASM with optimizations.
+- `pnpm run wasm:test` runs `cargo test` across the Rust workspace.
+- `pnpm run wasm:clippy` lints Rust code.
+- `pnpm run bench:wasm` benchmarks TS vs WASM for all modules.
 
 ## Apps
 
@@ -69,14 +69,14 @@ This repository is the Bun/Turborepo monorepo for duyet.net public apps, shared 
 
 ## App-Specific Command Notes
 
-- `apps/agent-ui`: `bun run dev` uses Vite on port 3008; local chat expects `apps/agent-api` on port 8788 unless `VITE_DUYET_AGENTS_API_URL` or `VITE_AGENT_API_URL` is set. Production chat uses the same-origin `/api/v1/chat` Pages Function proxy so browsers do not need to resolve `agents-api.duyet.net`.
-- `apps/agent-api`: `bun run dev` uses Wrangler on port 8788; `bun run deploy` type-checks then deploys the Worker; `bun run cf:deploy:prod` loads production env files before deploy; `bun run config` syncs `AGENT_API_TOKEN` plus Clerk verification secrets.
-- `apps/api`: `bun run dev` uses Wrangler; `bun run deploy` builds then deploys the Worker.
-- `apps/cv`: `bun run preview` validates production output locally.
-- `apps/data-sync`: use `bun run sync <name>`, `bun run sync:all`, `bun run migrate:*`, and `bun run cleanup:dry-run`.
-- `apps/kb`: `bun run build` runs the content prebuild and must preserve article `links` frontmatter in `public/k/*.md` for knowledge-graph and LLM consumers.
-- `apps/llm-timeline`: use `bun run sync`, `bun run sync:dry`, `bun run rss`, `bun run llms-txt`, and `bun run sitemap` for content generation.
-- `apps/ai-percentage`: refresh data through `apps/data-sync` with `bun run sync ai-code-percentage`.
+- `apps/agent-ui`: `pnpm run dev` uses Vite on port 3008; local chat expects `apps/agent-api` on port 8788 unless `VITE_DUYET_AGENTS_API_URL` or `VITE_AGENT_API_URL` is set. Production chat uses the same-origin `/api/v1/chat` Pages Function proxy so browsers do not need to resolve `agents-api.duyet.net`.
+- `apps/agent-api`: `pnpm run dev` uses Wrangler on port 8788; `pnpm run deploy` type-checks then deploys the Worker; `pnpm run cf:deploy:prod` loads production env files before deploy; `pnpm run config` syncs `AGENT_API_TOKEN` plus Clerk verification secrets.
+- `apps/api`: `pnpm run dev` uses Wrangler; `pnpm run deploy` builds then deploys the Worker.
+- `apps/cv`: `pnpm run preview` validates production output locally.
+- `apps/data-sync`: use `pnpm run sync <name>`, `pnpm run sync:all`, `pnpm run migrate:*`, and `pnpm run cleanup:dry-run`.
+- `apps/kb`: `pnpm run build` runs the content prebuild and must preserve article `links` frontmatter in `public/k/*.md` for knowledge-graph and LLM consumers.
+- `apps/llm-timeline`: use `pnpm run sync`, `pnpm run sync:dry`, `pnpm run rss`, `pnpm run llms-txt`, and `pnpm run sitemap` for content generation.
+- `apps/ai-percentage`: refresh data through `apps/data-sync` with `pnpm run sync ai-code-percentage`.
 
 ## Rust/WASM Modules
 
@@ -86,11 +86,11 @@ Rust crates in `crates/` serve two purposes:
 
 ### Build & Test
 
-- `bun run rust:build` — build native CLI binary (`target/release/duyet-cli`)
-- `bun run wasm:build` — build runtime crates to WASM
-- `bun run wasm:test` — `cargo test` across workspace
-- `bun run wasm:clippy` — lint Rust code
-- `bun run bench:wasm` — run TS vs WASM benchmarks
+- `pnpm run rust:build` — build native CLI binary (`target/release/duyet-cli`)
+- `pnpm run wasm:build` — build runtime crates to WASM
+- `pnpm run wasm:test` — `cargo test` across workspace
+- `pnpm run wasm:clippy` — lint Rust code
+- `pnpm run bench:wasm` — run TS vs WASM benchmarks
 
 ### Crates
 

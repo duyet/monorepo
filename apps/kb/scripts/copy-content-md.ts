@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 /**
  * Prebuild script: copy all content/**\/*.md to public/k/<slug>.md
  * so Cloudflare Pages ASSETS can serve the raw markdown files.
@@ -11,8 +11,8 @@
 import { cpSync, mkdirSync, readdirSync, statSync } from "node:fs";
 import { basename, extname, join } from "node:path";
 
-const CONTENT_DIR = join(import.meta.dir, "..", "content");
-const OUTPUT_DIR = join(import.meta.dir, "..", "public", "k");
+const CONTENT_DIR = join(import.meta.dirname!, "..", "content");
+const OUTPUT_DIR = join(import.meta.dirname!, "..", "public", "k");
 
 mkdirSync(OUTPUT_DIR, { recursive: true });
 

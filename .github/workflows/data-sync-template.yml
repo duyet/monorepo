@@ -106,11 +106,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6  # v3  # v1  # v6.0.2
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2.2.0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
       - name: Install dependencies
-        run: bun install
+        run: pnpm install --frozen-lockfile
 
       - name: Tailscale
         uses: tailscale/github-action@v4
@@ -134,7 +135,7 @@ jobs:
       - name: Run migrations
         if: inputs.run_migrations
         working-directory: apps/data-sync
-        run: bun run migrate:up
+        run: pnpm run migrate:up
 
       - name: Sync sources
         working-directory: apps/data-sync
@@ -150,7 +151,7 @@ jobs:
             echo "::group::Syncing $source"
 
             # Build sync command with optional flags
-            SYNC_CMD="bun run sync $source"
+            SYNC_CMD="pnpm run sync $source"
 
             # Add dry run flag
             if [ "$DRY_RUN" = "true" ]; then
@@ -202,11 +203,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6  # v3  # v1  # v6.0.2
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2.2.0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
       - name: Install dependencies
-        run: bun install
+        run: pnpm install --frozen-lockfile
 
       - name: Tailscale
         uses: tailscale/github-action@v4
@@ -231,9 +233,9 @@ jobs:
         working-directory: apps/data-sync
         run: |
           if [ "$DRY_RUN" = "true" ]; then
-            bun run cleanup --dry-run
+            pnpm run cleanup --dry-run
           else
-            bun run cleanup
+            pnpm run cleanup
           fi
 
       - name: Upload cleanup logs

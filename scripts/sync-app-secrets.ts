@@ -1,9 +1,9 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 /**
  * Sync secrets and environment variables for a single app to Cloudflare
- * Usage: bun sync-app-secrets.ts <app-name> [--dry-run]
+ * Usage: tsx sync-app-secrets.ts <app-name> [--dry-run]
  *
- * This script is called by each app's `bun run config` script
+ * This script is called by each app's `pnpm run config` script
  *
  * For Pages projects:
  * - Syncs secrets (private vars) via wrangler pages secret bulk
@@ -19,8 +19,9 @@
  */
 
 import { existsSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { spawnSync } from "node:child_process";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -375,15 +376,15 @@ async function setSecretsBulk(
 
     // Use different commands for Pages vs Workers
     const cmd = isPagesProject
-      ? ["bunx", "wrangler", "pages", "secret", "bulk", tmpFile]
-      : ["bunx", "wrangler", "secret", "bulk", tmpFile, "--env="];
+      ? ["pnpm", "dlx", "wrangler", "pages", "secret", "bulk", tmpFile]
+      : ["pnpm", "dlx", "wrangler", "secret", "bulk", tmpFile, "--env="];
 
     // Run wrangler from the app directory so it finds wrangler.toml
-    const result = Bun.spawnSync({
-      cmd,
+    const result = spawnSync(cmd[0], cmd.slice(1), {
       cwd: appDir,
       stdio: ["inherit", "pipe", "pipe"],
       env: { ...process.env, ...env },
+      encoding: "utf-8",
     });
 
     // Clean up temp file
@@ -393,8 +394,8 @@ async function setSecretsBulk(
       // Ignore cleanup errors
     }
 
-    if (result.exitCode !== 0) {
-      const stderr = result.stderr.toString();
+    if (result.status !== 0) {
+      const stderr = result.stderr ?? "";
       console.error(`  [ERROR] Failed to sync secrets: ${stderr}`);
       return false;
     }
@@ -429,18 +430,18 @@ async function setBuildVarsForPages(
 
     // Set each build var individually
     for (const [key, value] of Object.entries(buildVars)) {
-      const cmd = ["bunx", "wrangler", "pages", "secret", "put", key];
+      const cmd = ["pnpm", "dlx", "wrangler", "pages", "secret", "put", key];
 
-      const result = Bun.spawnSync({
-        cmd,
+      const result = spawnSync(cmd[0], cmd.slice(1), {
         cwd: appDir,
         stdio: ["pipe", "pipe", "pipe"],
         env: { ...process.env, ...env },
         input: value,
+        encoding: "utf-8",
       });
 
-      if (result.exitCode !== 0) {
-        const stderr = result.stderr.toString();
+      if (result.status !== 0) {
+        const stderr = result.stderr ?? "";
         console.error(`  [ERROR] Failed to set ${key}: ${stderr}`);
         return false;
       }
@@ -529,10 +530,13 @@ async function main() {
   console.log(`  [OK] All vars synced successfully for ${appName}`);
 }
 
-if (import.meta.main) {
+if (
+  process.argv[1] &&
+  resolve(process.argv[1]) === resolve(__filename)
+) {
   if (!appName) {
     console.error(
-      "[ERROR] App name required. Usage: bun sync-app-secrets.ts <app-name> [--dry-run]"
+      "[ERROR] App name required. Usage: tsx sync-app-secrets.ts <app-name> [--dry-run]"
     );
     process.exit(1);
   }

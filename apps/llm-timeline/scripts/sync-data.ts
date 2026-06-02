@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 
 /**
  * sync-data.ts — Pull LLM model data from registered sources and regenerate lib/data.ts

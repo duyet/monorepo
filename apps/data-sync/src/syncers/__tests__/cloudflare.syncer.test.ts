@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, mock, test } from "bun:test";
+import { beforeEach, describe, expect, vi, test } from "vitest";
 import type { ClickHouseClient } from "@clickhouse/client";
 import { CloudflareSyncer } from "../cloudflare.syncer";
 
@@ -7,9 +7,9 @@ describe("CloudflareSyncer", () => {
 
   beforeEach(() => {
     mockClient = {
-      insert: mock(() => Promise.resolve()),
-      query: mock(() => Promise.resolve()),
-      close: mock(() => Promise.resolve()),
+      insert: vi.fn(() => Promise.resolve()),
+      query: vi.fn(() => Promise.resolve()),
+      close: vi.fn(() => Promise.resolve()),
     } as unknown as ClickHouseClient;
   });
 

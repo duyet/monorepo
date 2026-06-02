@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "bun scripts/fetch-burns-data.ts && vite build",
+    "build": "tsx scripts/fetch-burns-data.ts && vite build",
     "check-types": "tsc --noEmit",
     "dev": "vite dev --port 3010",
     "fmt": "biome format --write .",

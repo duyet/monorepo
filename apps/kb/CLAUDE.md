@@ -14,11 +14,11 @@ time via Vite and served as prerendered HTML on Cloudflare Pages.
 ## Development Commands
 
 ```bash
-bun run dev          # Start dev server on port 3009
-bun run build        # Build static site to dist/client/
-bun run check-types  # TypeScript type check
-bun run lint         # Biome
-bun run cf:deploy:prod   # Production deployment
+pnpm run dev          # Start dev server on port 3009
+pnpm run build        # Build static site to dist/client/
+pnpm run check-types  # TypeScript type check
+pnpm run lint         # Biome
+pnpm run cf:deploy:prod   # Production deployment
 ```
 
 ## Architecture
@@ -28,8 +28,8 @@ bun run cf:deploy:prod   # Production deployment
 - **Runtime loader** (`lib/content.ts`): uses `import.meta.glob` to bundle
   every .md at build time. Runs in both prerender (Node) and after
   hydration (browser).
-- **Prebuild** (`scripts/generate-static-files.ts`): self-contained Bun
-  script. Walks `content/` itself, emits:
+- **Prebuild** (`scripts/generate-static-files.ts`): self-contained script.
+  Walks `content/` itself, emits:
   - `public/robots.txt`
   - `public/sitemap.xml`
   - `public/llms.txt` and `public/llms-full.txt`
@@ -47,16 +47,16 @@ bun run cf:deploy:prod   # Production deployment
 
 ## First-time Cloudflare Pages setup
 
-`bun run cf:deploy:prod` requires the Pages project to already exist on
+`pnpm run cf:deploy:prod` requires the Pages project to already exist on
 Cloudflare. For a brand-new app:
 
 ```bash
 # 1) Create the project (one-time)
 set -a && source ../../.env.production.local && set +a
-bunx wrangler pages project create duyet-kb --production-branch master
+pnpm dlx wrangler pages project create duyet-kb --production-branch master
 
 # 2) Deploy
-bun run cf:deploy:prod
+pnpm run cf:deploy:prod
 
 # 3) Attach the custom domain (one-time, when zone is in same CF account)
 curl -X POST \
@@ -84,4 +84,4 @@ CF auto-provisions the DNS CNAME + ACME cert for same-account zones.
    links: ["related-slug"]
    ---
    ```
-3. `bun run build` regenerates sitemap, llms.txt, and raw .md endpoints.
+3. `pnpm run build` regenerates sitemap, llms.txt, and raw .md endpoints.

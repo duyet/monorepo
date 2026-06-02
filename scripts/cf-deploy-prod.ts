@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 
 import { spawnSync } from "node:child_process";
 import { existsSync, readFileSync, renameSync } from "node:fs";
@@ -74,7 +74,7 @@ function runCommand(cmd: string[], cwd: string, env: Record<string, string>) {
 
 function usage(): never {
   console.error(
-    "Usage: bun scripts/cf-deploy-prod.ts <app-dir> <project-name> [output-dir]"
+    "Usage: tsx scripts/cf-deploy-prod.ts <app-dir> <project-name> [output-dir]"
   );
   process.exit(1);
 }
@@ -105,10 +105,11 @@ try {
     movedEnvLocal = true;
   }
 
-  runCommand(["bun", "run", "build"], appPath, env);
+  runCommand(["pnpm", "run", "build"], appPath, env);
   runCommand(
     [
-      "bunx",
+      "pnpm",
+      "dlx",
       "wrangler@4.20.0",
       "pages",
       "deploy",

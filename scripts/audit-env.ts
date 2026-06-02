@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 /**
  * Environment Variable Audit
  * Reviews all env vars and categorizes as public (NEXT_PUBLIC_*) or secret

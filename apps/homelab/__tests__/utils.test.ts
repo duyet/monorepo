@@ -1,4 +1,4 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it } from "vitest";
 import { UPTIME_RANGES } from "../lib/constants";
 import { generateUptime, getHistoricalTime, random } from "../lib/data/utils";
 

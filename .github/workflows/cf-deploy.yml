@@ -9,9 +9,8 @@ on:
       - 'apps/**'
       - 'packages/**'
       - 'package.json'
-      - 'bun.lock'
+      - 'pnpm-lock.yaml'
       - '.npmrc'
-      - 'bunfig.toml'
   workflow_dispatch:
     inputs:
       app:
@@ -146,21 +145,27 @@ jobs:
         with:
           node-version: 24
 
-      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2.2.0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
-      - name: Restore cache
+      - name: Get pnpm store directory
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
         uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae  # v5.0.5
         with:
-          path: ~/.bun/install/cache
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-bun-
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: bun install
+        run: pnpm install --frozen-lockfile
 
       - name: Type check
-        run: bun run turbo check-types
+        run: pnpm run turbo check-types
 
   unittest:
     name: Unit tests
@@ -174,21 +179,27 @@ jobs:
         with:
           node-version: 24
 
-      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2.2.0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
-      - name: Restore cache
+      - name: Get pnpm store directory
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
         uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae  # v5.0.5
         with:
-          path: ~/.bun/install/cache
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-bun-
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: bun install
+        run: pnpm install --frozen-lockfile
 
       - name: Test
-        run: bun run test
+        run: pnpm run test
         env:
           NODE_ENV: test
           CI: true
@@ -205,21 +216,27 @@ jobs:
         with:
           node-version: 24
 
-      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2.2.0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
-      - name: Restore cache
+      - name: Get pnpm store directory
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
         uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae  # v5.0.5
         with:
-          path: ~/.bun/install/cache
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-bun-
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: bun install
+        run: pnpm install --frozen-lockfile
 
       - name: Lint
-        run: bun run lint
+        run: pnpm run lint
 
   deploy:
     name: Deploy ${{ matrix.app }}
@@ -241,20 +258,24 @@ jobs:
         with:
           node-version: 24
 
-      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2.2.0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
-      - name: Restore cache
+      - name: Get pnpm store directory
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
         uses: actions/cache@v5
         with:
-          path: |
-            ~/.bun/install/cache
-            node_modules
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-bun-
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: bun install
+        run: pnpm install --frozen-lockfile
 
       - name: Setup Rust toolchain (blog WASM markdown)
         if: matrix.app == 'blog'
@@ -282,7 +303,7 @@ jobs:
 
       - name: Build WASM packages (markdown converter)
         if: matrix.app == 'blog'
-        run: bun run wasm:build:release
+        run: pnpm run wasm:build:release
 
       - name: Tailscale
         continue-on-error: true
@@ -334,7 +355,7 @@ jobs:
       - name: Deploy to Cloudflare Pages
         run: |
           cd apps/${{ matrix.app }}
-          bun run cf:deploy:prod
+          pnpm run cf:deploy:prod
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

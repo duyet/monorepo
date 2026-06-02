@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 import { DuckDBInstance } from "@duckdb/node-api";
 import { ANALYTICS_CACHE_PATH } from "../lib/analytics-cache-path";
 

@@ -1,14 +1,6 @@
-import {
-  afterEach,
-  cleanup,
-  describe,
-  expect,
-  it,
-  render,
-} from "../../test-setup";
+import { render } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import { VirtualTimeline } from "../virtual-timeline";
-
-afterEach(cleanup);
 
 describe("VirtualTimeline", () => {
   it("renders without crashing", () => {

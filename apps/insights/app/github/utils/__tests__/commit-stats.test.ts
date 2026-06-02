@@ -1,4 +1,4 @@
-import { describe, expect, mock, test } from "bun:test";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import type { GitHubEvent } from "../types";
 
 function makePushEvent(isoDate: string, commitCount: number = 1): GitHubEvent {
@@ -15,11 +15,20 @@ function daysAgo(n: number): string {
   return new Date(Date.now() - n * 24 * 60 * 60 * 1000).toISOString();
 }
 
+// Single top-level mock with mutable implementation
+const mockFetchAllEvents = vi.fn();
+vi.mock("../github-api", () => ({
+  fetchAllEvents: mockFetchAllEvents,
+}));
+
 describe("getCommitStats", () => {
+  beforeEach(() => {
+    vi.resetModules();
+    mockFetchAllEvents.mockReset();
+  });
+
   test("returns empty stats when fetchAllEvents returns no events", async () => {
-    mock.module("../github-api", () => ({
-      fetchAllEvents: mock(() => Promise.resolve([])),
-    }));
+    mockFetchAllEvents.mockResolvedValue([]);
 
     const { getCommitStats } = await import("../commit-stats");
     const stats = await getCommitStats("testuser");
@@ -37,9 +46,7 @@ describe("getCommitStats", () => {
       makePushEvent(daysAgo(10), 1),
     ];
 
-    mock.module("../github-api", () => ({
-      fetchAllEvents: mock(() => Promise.resolve(events)),
-    }));
+    mockFetchAllEvents.mockResolvedValue(events);
 
     const { getCommitStats } = await import("../commit-stats");
     const stats = await getCommitStats("testuser");
@@ -54,9 +61,7 @@ describe("getCommitStats", () => {
       makePushEvent(daysAgo(3), 2),
     ];
 
-    mock.module("../github-api", () => ({
-      fetchAllEvents: mock(() => Promise.resolve(events)),
-    }));
+    mockFetchAllEvents.mockResolvedValue(events);
 
     const { getCommitStats } = await import("../commit-stats");
     const stats = await getCommitStats("testuser");
@@ -70,9 +75,7 @@ describe("getCommitStats", () => {
       makePushEvent(daysAgo(90), 10), // older than 12 weeks (84 days)
     ];
 
-    mock.module("../github-api", () => ({
-      fetchAllEvents: mock(() => Promise.resolve(events)),
-    }));
+    mockFetchAllEvents.mockResolvedValue(events);
 
     const { getCommitStats } = await import("../commit-stats");
     const stats = await getCommitStats("testuser");
@@ -81,9 +84,7 @@ describe("getCommitStats", () => {
   });
 
   test("groups commits into 12 weekly history entries", async () => {
-    mock.module("../github-api", () => ({
-      fetchAllEvents: mock(() => Promise.resolve([])),
-    }));
+    mockFetchAllEvents.mockResolvedValue([]);
 
     const { getCommitStats } = await import("../commit-stats");
     const stats = await getCommitStats("testuser");
@@ -99,9 +100,7 @@ describe("getCommitStats", () => {
   test("calculates avgCommitsPerWeek as totalCommits / 12", async () => {
     const events: GitHubEvent[] = [makePushEvent(daysAgo(1), 12)];
 
-    mock.module("../github-api", () => ({
-      fetchAllEvents: mock(() => Promise.resolve(events)),
-    }));
+    mockFetchAllEvents.mockResolvedValue(events);
 
     const { getCommitStats } = await import("../commit-stats");
     const stats = await getCommitStats("testuser");
@@ -111,13 +110,11 @@ describe("getCommitStats", () => {
   });
 
   test("returns empty stats on error from fetchAllEvents", async () => {
-    mock.module("../github-api", () => ({
-      fetchAllEvents: mock(() => Promise.reject(new Error("Network error"))),
-    }));
+    mockFetchAllEvents.mockRejectedValue(new Error("Network error"));
 
     // Suppress console.error during this test since we're testing error handling
     const originalError = console.error;
-    console.error = mock(() => {});
+    console.error = vi.fn(() => {});
 
     try {
       const { getCommitStats } = await import("../commit-stats");

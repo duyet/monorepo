@@ -1,14 +1,6 @@
+import { describe, expect, it } from "vitest";
+import { render } from "@testing-library/react";
 import ThemeToggle from "../ThemeToggle";
-import {
-  afterEach,
-  cleanup,
-  describe,
-  expect,
-  it,
-  render,
-} from "../test-setup";
-
-afterEach(cleanup);
 
 describe("ThemeToggle", () => {
   it("renders after mount", () => {

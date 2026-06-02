@@ -1,9 +1,9 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 
 /**
  * Comprehensive Cloudflare Pages Deployment Orchestrator
  *
- * Usage: bun cf-deploy.ts [app-name] [--prod] [--dry-run]
+ * Usage: tsx cf-deploy.ts [app-name] [--prod] [--dry-run]
  *
  * Options:
  *   --prod     Deploy to production (main branch, custom domains)
@@ -27,6 +27,7 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { spawnSync } from "node:child_process";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -95,16 +96,16 @@ const DEPLOY_ENV = loadEnvFiles([
 
 const CLOUDFLARE_ENV = {
   CLOUDFLARE_API_TOKEN:
-    Bun.env.CLOUDFLARE_API_TOKEN || DEPLOY_ENV.CLOUDFLARE_API_TOKEN || "",
+    process.env.CLOUDFLARE_API_TOKEN || DEPLOY_ENV.CLOUDFLARE_API_TOKEN || "",
   CLOUDFLARE_ACCOUNT_ID:
-    Bun.env.CLOUDFLARE_ACCOUNT_ID || DEPLOY_ENV.CLOUDFLARE_ACCOUNT_ID || "",
+    process.env.CLOUDFLARE_ACCOUNT_ID || DEPLOY_ENV.CLOUDFLARE_ACCOUNT_ID || "",
   CLOUDFLARE_API_KEY:
-    Bun.env.CLOUDFLARE_API_KEY || DEPLOY_ENV.CLOUDFLARE_API_KEY || "",
+    process.env.CLOUDFLARE_API_KEY || DEPLOY_ENV.CLOUDFLARE_API_KEY || "",
   CLOUDFLARE_EMAIL:
-    Bun.env.CLOUDFLARE_EMAIL || DEPLOY_ENV.CLOUDFLARE_EMAIL || "",
+    process.env.CLOUDFLARE_EMAIL || DEPLOY_ENV.CLOUDFLARE_EMAIL || "",
 };
 const PRODUCTION_BRANCH =
-  Bun.env.CF_PAGES_PRODUCTION_BRANCH ||
+  process.env.CF_PAGES_PRODUCTION_BRANCH ||
   DEPLOY_ENV.CF_PAGES_PRODUCTION_BRANCH ||
   "master";
 
@@ -253,16 +254,16 @@ async function runCommand(
   stderr: string;
 }> {
   return new Promise((resolve) => {
-    const processResult = Bun.spawnSync({
-      cmd,
+    const processResult = spawnSync(cmd[0], cmd.slice(1), {
       cwd,
       stdio: ["inherit", "pipe", "pipe"],
-      env: env ? { ...Bun.env, ...env } : undefined,
+      env: env ? { ...process.env, ...env } : process.env,
+      encoding: "utf-8",
     });
 
-    const stdout = processResult.stdout.toString();
-    const stderr = processResult.stderr.toString();
-    const success = processResult.exitCode === 0;
+    const stdout = processResult.stdout ?? "";
+    const stderr = processResult.stderr ?? "";
+    const success = processResult.status === 0;
 
     if (!success && !ignoreError) {
       console.error(`  [ERROR] ${description} failed`);
@@ -272,7 +273,7 @@ async function runCommand(
 
     resolve({
       success,
-      code: processResult.exitCode || 1,
+      code: processResult.status ?? 1,
       stdout,
       stderr,
     });
@@ -289,7 +290,7 @@ async function preflightCloudflareAuth(): Promise<boolean> {
   if (hasToken || hasApiKeyPair) return true;
 
   const whoami = await runCommand(
-    ["bunx", "wrangler", "whoami"],
+    ["pnpm", "dlx", "wrangler", "whoami"],
     rootDir,
     "Cloudflare auth preflight",
     true,
@@ -342,33 +343,32 @@ function getChangedApps(baseBranch = "origin/master"): string[] {
   }
 
   // Get all changed files including deletions and renames
-  const gitResult = Bun.spawnSync({
-    cmd: [
-      "git",
-      "diff",
-      "--name-only",
-      "--diff-filter=d", // Exclude deleted files from triggering rebuilds
-      `${baseBranch}...HEAD`,
-      "--",
-      "apps/",
-      "packages/",
-      "turbo.json",
-      "package.json",
-      "bun.lock",
-      ".env.production",
-      "scripts/",
-    ],
+  const gitResult = spawnSync("git", [
+    "diff",
+    "--name-only",
+    "--diff-filter=d", // Exclude deleted files from triggering rebuilds
+    `${baseBranch}...HEAD`,
+    "--",
+    "apps/",
+    "packages/",
+    "turbo.json",
+    "package.json",
+    "pnpm-lock.yaml",
+    ".env.production",
+    "scripts/",
+  ], {
     cwd: rootDir,
+    encoding: "utf-8",
   });
 
-  if (gitResult.exitCode !== 0) {
+  if (gitResult.status !== 0) {
     console.warn(
       `[WARN] Could not determine changed apps (git diff failed), building all requested apps`
     );
     return appsToDeployList;
   }
 
-  const changedFiles = gitResult.stdout.toString().split("\n").filter(Boolean);
+  const changedFiles = (gitResult.stdout ?? "").split("\n").filter(Boolean);
 
   // Extract app names from changed files
   const changedAppsSet = new Set<string>();
@@ -393,7 +393,7 @@ function getChangedApps(baseBranch = "origin/master"): string[] {
     [
       "turbo.json",
       "package.json",
-      "bun.lock",
+      "pnpm-lock.yaml",
       ".env.production",
       "scripts/cf-deploy.ts",
     ].includes(file)
@@ -404,7 +404,7 @@ function getChangedApps(baseBranch = "origin/master"): string[] {
     sharedPackageChanges.length > 0 ||
     configChanges.some(
       (file) =>
-        file === "turbo.json" || file === "package.json" || file === "bun.lock"
+        file === "turbo.json" || file === "package.json" || file === "pnpm-lock.yaml"
     );
 
   if (buildAllApps) {
@@ -416,7 +416,7 @@ function getChangedApps(baseBranch = "origin/master"): string[] {
     }
     if (
       configChanges.some((f) =>
-        ["turbo.json", "package.json", "bun.lock"].includes(f)
+        ["turbo.json", "package.json", "pnpm-lock.yaml"].includes(f)
       )
     ) {
       reasons.push("core config changed");
@@ -502,7 +502,7 @@ async function buildAllApps(): Promise<boolean> {
   const buildResults = await Promise.all(
     appsWithBuildScript.map((app) =>
       runCommand(
-        ["bun", "run", "build"],
+        ["pnpm", "run", "build"],
         join(rootDir, "apps", app),
         `Build ${app}`,
         true, // Allow failure to continue
@@ -549,7 +549,7 @@ async function syncAppSecrets(appName: string): Promise<boolean> {
   }
 
   const result = await runCommand(
-    ["bun", "../../scripts/sync-app-secrets.ts", appConfig.projectName],
+    ["tsx", "../../scripts/sync-app-secrets.ts", appConfig.projectName],
     join(rootDir, "apps", appName),
     `Sync secrets for ${appName}`,
     true // Don't fail on error here, we'll handle it gracefully
@@ -611,8 +611,8 @@ async function deployApp(appName: string): Promise<{
 
   if (appName === "agent-api") {
     const cmd = isProd
-      ? ["bun", "run", "cf:deploy:prod"]
-      : ["bun", "run", "deploy"];
+      ? ["pnpm", "run", "cf:deploy:prod"]
+      : ["pnpm", "run", "deploy"];
 
     console.log(`  📦 ${appName}`);
     console.log(`     → Project: ${appConfig.projectName}`);
@@ -660,7 +660,8 @@ async function deployApp(appName: string): Promise<{
 
   // Build wrangler command using output directory from wrangler.toml
   const wranglerCmd = [
-    "bunx",
+    "pnpm",
+    "dlx",
     "wrangler",
     "pages",
     "deploy",
@@ -673,11 +674,11 @@ async function deployApp(appName: string): Promise<{
   } else {
     // For preview deployments, use current git branch.
     // Get current git branch for preview deployment alias
-    const gitBranch = Bun.spawnSync({
-      cmd: ["git", "branch", "--show-current"],
+    const gitBranch = spawnSync("git", ["branch", "--show-current"], {
       cwd: rootDir,
+      encoding: "utf-8",
     });
-    const branch = gitBranch.stdout.toString().trim();
+    const branch = (gitBranch.stdout ?? "").trim();
     if (branch && branch !== "main" && branch !== "master") {
       wranglerCmd.push(`--branch=${branch}`);
     }

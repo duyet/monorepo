@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 import { createClient } from "@clickhouse/client";
 import { DuckDBInstance } from "@duckdb/node-api";
 import { spawnSync } from "node:child_process";
@@ -6,6 +6,7 @@ import {
   existsSync,
   mkdirSync,
   mkdtempSync,
+  renameSync,
   rmSync,
   writeFileSync,
 } from "node:fs";
@@ -399,7 +400,7 @@ async function main() {
     if (existsSync(cachePath)) {
       rmSync(cachePath);
     }
-    await Bun.write(cachePath, Bun.file(tempPath));
+    renameSync(tempPath, cachePath);
     rmSync(tempPath);
   } finally {
     if (rowSource.mode === "direct") {

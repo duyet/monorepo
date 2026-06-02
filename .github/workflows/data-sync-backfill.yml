@@ -83,11 +83,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6  # v3  # v1  # v6.0.2
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2.2.0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
       - name: Install dependencies
-        run: bun install
+        run: pnpm install --frozen-lockfile
 
       - name: Tailscale
         uses: tailscale/github-action@306e68a486fd2350f2bfc3b19fcd143891a4a2d8  # v4.1.2
@@ -110,7 +111,7 @@ jobs:
 
       - name: Run migrations
         working-directory: apps/data-sync
-        run: bun run migrate:up
+        run: pnpm run migrate:up
 
   # Backfill jobs - run in parallel for each source
   backfill:
@@ -147,11 +148,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6  # v3  # v1  # v6.0.2
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2.2.0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
       - name: Install dependencies
-        run: bun install
+        run: pnpm install --frozen-lockfile
 
       - name: Tailscale
         uses: tailscale/github-action@306e68a486fd2350f2bfc3b19fcd143891a4a2d8  # v4.1.2
@@ -163,7 +165,7 @@ jobs:
       - name: Sync ${{ matrix.source }}
         working-directory: apps/data-sync
         run: |
-          SYNC_CMD="bun run sync ${{ matrix.source }}"
+          SYNC_CMD="pnpm run sync ${{ matrix.source }}"
           if [ "$DRY_RUN" = "true" ]; then
             SYNC_CMD="$SYNC_CMD --dry-run"
           fi

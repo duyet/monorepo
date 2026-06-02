@@ -3,9 +3,9 @@
  * Tests the RSS generation logic used by scripts/generate-static-files.ts
  */
 
-import { mock } from "bun:test";
+import { vi } from "vitest";
 
-mock.module("@duyet/libs/getPost", () => ({
+vi.mock("@duyet/libs/getPost", () => ({
   getAllPosts: () => [
     {
       slug: "/2024/01/test-post",
@@ -22,7 +22,7 @@ mock.module("@duyet/libs/getPost", () => ({
   ],
 }));
 
-import { describe, expect, test } from "bun:test";
+import { describe, expect, test } from "vitest";
 import type { Post } from "@duyet/interfaces";
 import { getAllPosts } from "@duyet/libs/getPost";
 import RSS from "rss";

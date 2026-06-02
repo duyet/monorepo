@@ -1,15 +1,12 @@
-import { afterEach, describe, expect, it, mock } from "bun:test";
-import { GlobalRegistrator } from "@happy-dom/global-registrator";
+import "@testing-library/jest-dom/vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, render } from "@testing-library/react";
 
-try {
-  GlobalRegistrator.register();
-} catch {
-  // Already registered by another test file in the same process
-}
+// Auto-cleanup after each test
+afterEach(() => cleanup());
 
 // Mock @tanstack/react-router Link component
-mock.module("@tanstack/react-router", () => ({
+vi.mock("@tanstack/react-router", () => ({
   Link: ({
     children,
     to,
@@ -41,7 +38,7 @@ mock.module("@tanstack/react-router", () => ({
 }));
 
 // Mock next-themes if used
-mock.module("next-themes", () => ({
+vi.mock("next-themes", () => ({
   useTheme: () => ({
     theme: "light",
     resolvedTheme: "light",
@@ -52,4 +49,4 @@ mock.module("next-themes", () => ({
   ),
 }));
 
-export { afterEach, cleanup, describe, expect, it, mock, render };
+export { afterEach, cleanup, describe, expect, it, vi as mock, render };

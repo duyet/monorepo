@@ -21,8 +21,8 @@ import {
   toExcerpt,
 } from "../lib/shortform-parse";
 
-const PUBLIC_DIR = join(import.meta.dir, "..", "public");
-const SHORTFORMS_DIR = join(import.meta.dir, "..", "_shortforms");
+const PUBLIC_DIR = join(import.meta.dirname!, "..", "public");
+const SHORTFORMS_DIR = join(import.meta.dirname!, "..", "_shortforms");
 const SITE_URL = "https://blog.duyet.net";
 
 // ── shortform notes ───────────────────────────────────────────────────────────

@@ -1,15 +1,8 @@
+import { vi } from "vitest";
+import { render } from "@testing-library/react";
 import type { Post } from "@duyet/interfaces";
-import {
-  afterEach,
-  cleanup,
-  describe,
-  expect,
-  it,
-  mock,
-  render,
-} from "../../../test-setup";
 
-mock.module("@tanstack/react-router", () => ({
+vi.mock("@tanstack/react-router", () => ({
   Link: ({
     children,
     to,
@@ -36,9 +29,8 @@ mock.module("@tanstack/react-router", () => ({
   },
 }));
 
+const { describe, expect, it } = await import("vitest");
 const { FeaturedPost } = await import("../FeaturedPost");
-
-afterEach(cleanup);
 
 function makePost(overrides: Partial<Post> = {}): Post {
   return {

@@ -1,4 +1,4 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, test } from "vitest";
 import type { Profile } from "@duyet/profile";
 import type { UrlsConfig } from "./types";
 import { createNavigation, createUrls, getAppUrl, getAppUrls } from "./utils";

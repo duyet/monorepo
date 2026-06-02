@@ -1,14 +1,7 @@
+import { describe, expect, it } from "vitest";
+import { render } from "@testing-library/react";
 import Footer, { FooterContent } from "../Footer";
-import {
-  afterEach,
-  cleanup,
-  describe,
-  expect,
-  it,
-  render,
-} from "../test-setup";
 
-afterEach(cleanup);
 
 describe("Footer", () => {
   it("renders as a footer element", () => {

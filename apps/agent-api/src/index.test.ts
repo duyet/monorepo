@@ -1,4 +1,4 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, test } from "vitest";
 import type { AuthContext } from "./auth";
 import { toPublicMessageMetadata } from "./public-messages";
 import { scopedAgentRequest } from "./routing";

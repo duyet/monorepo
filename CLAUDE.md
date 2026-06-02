@@ -3,11 +3,11 @@
 Read [docs/ai/internal-knowledge.md](docs/ai/internal-knowledge.md) before changing this repository.
 
 Use semantic commit messages. Keep changes surgical and verify with the narrowest useful command for the touched app or package.
-For single-file verification, use `bunx biome lint <path>` before broader app checks.
+For single-file verification, use `pnpm dlx biome lint <path>` before broader app checks.
 For dead-code cleanup, verify zero non-test references first with `rg -n "<symbol>" apps packages --glob '!**/*.test.*' --glob '!**/*.spec.*'`.
-For root quality checks, use `bun run lint`, `bun run check-types`, and `bun run test`.
-For deploy/config workflows, use root scripts (`bun run config`, `bun run deploy`, `bun run cf:deploy`, `bun run cf:deploy:prod`) when needed.
-For Rust/WASM workflows, use the documented root commands (`bun run rust:build`, `bun run wasm:build`, `bun run wasm:test`, `bun run wasm:clippy`, `bun run bench:wasm`) only when the touched change requires them.
+For root quality checks, use `pnpm run lint`, `pnpm run check-types`, and `pnpm run test`.
+For deploy/config workflows, use root scripts (`pnpm run config`, `pnpm run deploy`, `pnpm run cf:deploy`, `pnpm run cf:deploy:prod`) when needed.
+For Rust/WASM workflows, use the documented root commands (`pnpm run rust:build`, `pnpm run wasm:build`, `pnpm run wasm:test`, `pnpm run wasm:clippy`, `pnpm run bench:wasm`) only when the touched change requires them.
 `AGENTS.md` is a symlink to this file; update `CLAUDE.md` as the canonical instruction entrypoint.
 
 Put durable repository knowledge in `docs/ai/internal-knowledge.md` instead of expanding this file.
@@ -23,14 +23,14 @@ For scoped reviews after the last run timestamp:
 - `git symbolic-ref --short -q HEAD || echo "DETACHED"` before PR work so automation can branch off detached worktrees safely
 - See `docs/ai/internal-knowledge.md` for linked-worktree permission fallback details
 - `git show --unified=3 <commit_sha>`
-- `bun pm why <package>` to verify dependency overrides resolve to the intended package version
-- `rg -n "bun\\.lock|bun\\.lockb" scripts/cf-deploy.ts` to verify deploy-orchestrator full-rebuild detection matches the repo's real lockfile
+- `pnpm why <package>` to verify dependency overrides resolve to the intended package version
+- `rg -n "pnpm-lock\\.yaml" scripts/cf-deploy.ts` to verify deploy-orchestrator full-rebuild detection matches the repo's real lockfile
 - `rg -n "<symbol>" <file-or-dir> --glob '!**/*.test.*' --glob '!**/__tests__/**'` for dead-reference evidence
-- `rg -n "setup-bun@" .github/workflows -g'*.yml'` to verify valid action pins after CI workflow updates
-- `rg -n "setup-bun@v" .github/workflows -g'*.yml'` to catch unpinned Bun setup actions
+- `rg -n "pnpm/action-setup@" .github/workflows -g'*.yml'` to verify valid action pins after CI workflow updates
+- `rg -n "setup-bun" .github/workflows -g'*.yml'` to catch leftover Bun setup actions
 - `rg -n "dtolnay/rust-toolchain@|jetli/wasm-pack-action@|version: latest" .github/workflows -g'*.yml'` to verify Rust/WASM action refs and wasm-pack version pins after deploy-workflow changes
 - `rg -n "if \\(field ===" packages/libs --glob '*.ts'` to catch duplicate field branches in parser-style switch/if chains before cleanup
-- `cd apps/kb && bun run build` regenerates `public/{robots,sitemap,llms,llms-full}.txt` plus `public/k/*.md`; keep article `links` frontmatter intact for raw markdown consumers
+- `cd apps/kb && pnpm run build` regenerates `public/{robots,sitemap,llms,llms-full}.txt` plus `public/k/*.md`; keep article `links` frontmatter intact for raw markdown consumers
 - Keep durable findings in `docs/ai/core-memory.md` and list reference docs in `docs/INDEX.md`
 - Do not create dated `docs/reviews/code-smell-dead-code-<DATE>.md` files
 - `gh run list --branch master --event push --limit 10 --json databaseId,headSha,status,conclusion,name,updatedAt` to confirm post-merge `master` CI is green

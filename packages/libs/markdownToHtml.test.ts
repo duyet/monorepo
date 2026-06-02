@@ -1,13 +1,16 @@
 import { existsSync } from "node:fs";
-import { join, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
-import { describe, expect, test } from "bun:test";
+import { join } from "node:path";
+import { beforeAll, describe, expect, test } from "vitest";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const WASM_EXISTS = existsSync(join(__dirname, "../wasm/pkg/markdown/markdown_bg.wasm"));
+const WASM_EXISTS = existsSync(join(import.meta.dirname!, "../wasm/pkg/markdown/markdown_bg.wasm"));
 
 describe.skipIf(!WASM_EXISTS)("markdownToHtml", () => {
-  const { markdownToHtml } = require("./markdownToHtml") as typeof import("./markdownToHtml");
+  let markdownToHtml: typeof import("./markdownToHtml").markdownToHtml;
+
+  beforeAll(async () => {
+    const mod = await import("./markdownToHtml");
+    markdownToHtml = mod.markdownToHtml;
+  });
 
   test("converts basic markdown paragraph", async () => {
     const result = await markdownToHtml("Hello **world**");

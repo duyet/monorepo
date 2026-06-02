@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 /**
  * Mirror the local DuckDB analytics cache to MotherDuck.
  *

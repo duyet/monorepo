@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 /**
  * generate-sitemap.ts — Generate XML sitemap for LLM Timeline
  * Outputs to public/sitemap.xml (included in static export)

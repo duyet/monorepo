@@ -1,9 +1,9 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 import { join } from "node:path";
 import { logger } from "../lib";
 import { closeClient, MigrationRunner } from "../lib/clickhouse";
 
-const MIGRATIONS_DIR = join(import.meta.dir, "../../migrations");
+const MIGRATIONS_DIR = join(import.meta.dirname!, "../../migrations");
 
 function printHelp() {
   console.log(`

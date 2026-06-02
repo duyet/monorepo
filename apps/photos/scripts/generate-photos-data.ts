@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 /**
  * Prebuild script: Fetch photos from all providers and write to public/photos-data.json.
  * This runs at build time so the Vite SPA can load photo data as a static JSON file.
@@ -9,7 +9,7 @@ import { writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 import { getAllPhotos } from "../lib/photo-provider";
 
-const outputDir = join(import.meta.dir, "../public");
+const outputDir = join(import.meta.dirname!, "../public");
 const outputPath = join(outputDir, "photos-data.json");
 
 console.log("Generating photos data...");

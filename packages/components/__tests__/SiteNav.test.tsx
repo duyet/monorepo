@@ -1,14 +1,7 @@
+import { describe, expect, it } from "vitest";
+import { render } from "@testing-library/react";
 import { SiteNav, SiteNavLink, siteNavLinkClassName } from "../site-nav";
-import {
-  afterEach,
-  cleanup,
-  describe,
-  expect,
-  it,
-  render,
-} from "../test-setup";
 
-afterEach(cleanup);
 
 describe("SiteNav", () => {
   it("renders brand and links slots", () => {

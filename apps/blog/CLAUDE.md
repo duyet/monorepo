@@ -14,15 +14,15 @@ Personal blog with MDX posts, KaTeX math rendering, and comment system.
 
 ```bash
 # From apps/blog or monorepo root
-bun run dev          # Start dev server on port 3000
-bun run build        # Build static export to 'out/'
-bun run lint         # Run Biome linter
-bun run check-types  # TypeScript type check
-bun run test         # Run tests
+pnpm run dev          # Start dev server on port 3000
+pnpm run build        # Build static export to 'out/'
+pnpm run lint         # Run Biome linter
+pnpm run check-types  # TypeScript type check
+pnpm run test         # Run tests
 
 # Deploy to Cloudflare Pages
-bun run cf:deploy        # Preview deployment
-bun run cf:deploy:prod   # Production deployment
+pnpm run cf:deploy        # Preview deployment
+pnpm run cf:deploy:prod   # Production deployment
 ```
 
 ## Architecture
@@ -34,7 +34,7 @@ bun run cf:deploy:prod   # Production deployment
 - **Math**: KaTeX via `rehype-katex` + `remark-math`
 - **Code**: `rehype-highlight` for syntax highlighting
 - **Styling**: Tailwind CSS
-- **Package Manager**: Bun
+- **Package Manager**: pnpm
 
 ### Project Structure
 

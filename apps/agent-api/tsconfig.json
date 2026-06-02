@@ -7,7 +7,7 @@
     "module": "ES2022",
     "lib": ["ES2022"],
     "moduleResolution": "bundler",
-    "types": ["@cloudflare/workers-types", "@types/node", "bun-types"],
+    "types": ["@cloudflare/workers-types", "@types/node"],
     "noEmit": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

@@ -1,15 +1,7 @@
+import { render } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import { testModel, testModel2 } from "../../test-fixtures";
-import {
-  afterEach,
-  cleanup,
-  describe,
-  expect,
-  it,
-  render,
-} from "../../test-setup";
 import { OrgTimeline } from "../org-timeline";
-
-afterEach(cleanup);
 
 describe("OrgTimeline", () => {
   it("renders empty state when no orgs provided", () => {

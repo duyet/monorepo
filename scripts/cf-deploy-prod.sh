@@ -2,4 +2,4 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-exec bun "$SCRIPT_DIR/cf-deploy-prod.ts" "$@"
+exec pnpm exec tsx "$SCRIPT_DIR/cf-deploy-prod.ts" "$@"

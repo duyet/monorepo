@@ -14,7 +14,7 @@
  * not into our static files), so tagging all of them is safe and preserves the
  * inline-bootstrap -> module execution order.
  *
- * Run from an app directory: `bun ../../scripts/patch-html-for-cloudflare.ts`
+ * Run from an app directory: `tsx ../../scripts/patch-html-for-cloudflare.ts`
  * (operates on `<cwd>/dist/client`). See apps/kb cloudflare-rocket-loader note.
  */
 

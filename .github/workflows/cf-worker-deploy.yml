@@ -47,10 +47,12 @@ jobs:
         with:
           node-version: 24
 
-      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2.2.0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
       - name: Install dependencies
-        run: bun install
+        run: pnpm install --frozen-lockfile
 
       - name: Validate required secrets
         run: |
@@ -88,15 +90,15 @@ jobs:
           cd apps/agent-api
 
           echo "Setting Worker secrets..."
-          printf '%s' "$AGENT_API_TOKEN" | bunx wrangler@4.20.0 secret put AGENT_API_TOKEN
+          printf '%s' "$AGENT_API_TOKEN" | pnpm dlx wrangler@4.20.0 secret put AGENT_API_TOKEN
           if [ -n "$CLERK_JWT_KEY" ]; then
-            printf '%s' "$CLERK_JWT_KEY" | bunx wrangler@4.20.0 secret put CLERK_JWT_KEY
+            printf '%s' "$CLERK_JWT_KEY" | pnpm dlx wrangler@4.20.0 secret put CLERK_JWT_KEY
           fi
           if [ -n "$CLERK_SECRET_KEY" ]; then
-            printf '%s' "$CLERK_SECRET_KEY" | bunx wrangler@4.20.0 secret put CLERK_SECRET_KEY
+            printf '%s' "$CLERK_SECRET_KEY" | pnpm dlx wrangler@4.20.0 secret put CLERK_SECRET_KEY
           fi
 
-          bun run deploy
+          pnpm run deploy
         env:
           AGENT_API_TOKEN: ${{ secrets.AGENT_API_TOKEN }}
           CLERK_JWT_KEY: ${{ secrets.CLERK_JWT_KEY }}
@@ -115,7 +117,7 @@ jobs:
       - name: Health check
         run: |
           # Get worker URL from wrangler
-          WORKER_URL=$(bunx wrangler@4.20.0 deployments list --name duyet-agents-api --json 2>/dev/null | jq -r '.[0].url // empty')
+          WORKER_URL=$(pnpm dlx wrangler@4.20.0 deployments list --name duyet-agents-api --json 2>/dev/null | jq -r '.[0].url // empty')
 
           if [ -n "$WORKER_URL" ]; then
             echo "Checking $WORKER_URL/health..."
@@ -156,15 +158,17 @@ jobs:
         with:
           node-version: 24
 
-      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2.2.0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
       - name: Install dependencies
-        run: bun install
+        run: pnpm install --frozen-lockfile
 
       - name: Deploy Worker to Cloudflare
         run: |
           cd apps/api
-          bun run deploy
+          pnpm run deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -179,7 +183,7 @@ jobs:
       - name: Health check
         run: |
           # Get worker URL from wrangler
-          WORKER_URL=$(bunx wrangler@4.20.0 deployments list --name duyet-api --json 2>/dev/null | jq -r '.[0].url // empty')
+          WORKER_URL=$(pnpm dlx wrangler@4.20.0 deployments list --name duyet-api --json 2>/dev/null | jq -r '.[0].url // empty')
 
           if [ -n "$WORKER_URL" ]; then
             echo "Checking $WORKER_URL..."

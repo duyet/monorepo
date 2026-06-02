@@ -1,14 +1,7 @@
+import { describe, expect, it } from "vitest";
+import { render } from "@testing-library/react";
 import Social from "../Social";
-import {
-  afterEach,
-  cleanup,
-  describe,
-  expect,
-  it,
-  render,
-} from "../test-setup";
 
-afterEach(cleanup);
 
 const mockProfile = {
   personal: {

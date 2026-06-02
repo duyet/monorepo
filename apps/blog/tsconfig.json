@@ -2,7 +2,7 @@
   "extends": "@duyet/tsconfig/vite.json",
   "compilerOptions": {
     "strictNullChecks": true,
-    "types": ["bun", "node", "vite/client"],
+    "types": ["node", "vite/client"],
     "paths": {
       "@/*": ["./*"]
     }

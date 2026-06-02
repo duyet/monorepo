@@ -13,14 +13,14 @@ Beautiful monitoring dashboard for a 3-node minipc cluster, styled with Claude-i
 ## Development Commands
 
 ```bash
-bun run dev          # Start dev server on port 3002
-bun run build        # Build static SPA to 'out/'
-bun run lint         # Run Biome linter
-bun run check-types  # TypeScript type check
+pnpm run dev          # Start dev server on port 3002
+pnpm run build        # Build static SPA to 'out/'
+pnpm run lint         # Run Biome linter
+pnpm run check-types  # TypeScript type check
 
 # Deploy to Cloudflare Pages
-bun run cf:deploy        # Preview deployment
-bun run cf:deploy:prod   # Production deployment
+pnpm run cf:deploy        # Preview deployment
+pnpm run cf:deploy:prod   # Production deployment
 ```
 
 ## Architecture
@@ -32,7 +32,7 @@ bun run cf:deploy:prod   # Production deployment
 - **Charts**: Recharts for data visualization
 - **Icons**: Lucide React
 - **Deployment**: Cloudflare Pages (static SPA)
-- **Package Manager**: Bun
+- **Package Manager**: pnpm
 
 ### Project Structure
 

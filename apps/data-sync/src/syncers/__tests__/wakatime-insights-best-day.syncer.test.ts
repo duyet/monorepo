@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
+import { beforeEach, describe, expect, vi, test } from "vitest";
 import type { ClickHouseClient } from "@clickhouse/client";
 import { WakaTimeInsightsBestDaySyncer } from "../wakatime-insights-best-day.syncer";
 
@@ -7,9 +7,9 @@ describe("WakaTimeInsightsBestDaySyncer", () => {
 
   beforeEach(() => {
     mockClient = {
-      insert: mock(() => Promise.resolve()),
-      query: mock(() => Promise.resolve()),
-      close: mock(() => Promise.resolve()),
+      insert: vi.fn(() => Promise.resolve()),
+      query: vi.fn(() => Promise.resolve()),
+      close: vi.fn(() => Promise.resolve()),
     } as unknown as ClickHouseClient;
   });
 
@@ -78,7 +78,7 @@ describe("WakaTimeInsightsBestDaySyncer", () => {
       json: () => Promise.resolve({ data: { date, total_seconds: seconds } }),
     });
 
-    const fetchSpy = spyOn(global, "fetch")
+    const fetchSpy = vi.spyOn(global, "fetch")
       .mockResolvedValueOnce(makeMockResponse("2026-05-24", 10000) as Response)
       .mockResolvedValueOnce(makeMockResponse("2026-04-15", 20000) as Response)
       .mockResolvedValueOnce(makeMockResponse("2025-09-10", 30000) as Response)

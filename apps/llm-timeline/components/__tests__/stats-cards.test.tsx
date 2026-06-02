@@ -1,7 +1,7 @@
-import { mock } from "bun:test";
+import { vi } from "vitest";
 
 // Ensure router mock is registered before any component import
-mock.module("@tanstack/react-router", () => ({
+vi.mock("@tanstack/react-router", () => ({
   useNavigate: () => () => {},
   useSearch: () => ({}),
   useParams: () => ({}),
@@ -22,17 +22,9 @@ mock.module("@tanstack/react-router", () => ({
   notFound: () => new Error("not found"),
 }));
 
-import {
-  afterEach,
-  cleanup,
-  describe,
-  expect,
-  it,
-  render,
-} from "../../test-setup";
+import { render } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import { StatsCards } from "../stats-cards";
-
-afterEach(cleanup);
 
 describe("StatsCards", () => {
   it("renders without crashing", () => {

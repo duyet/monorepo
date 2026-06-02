@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, spyOn, test } from "bun:test";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 
 describe("ClickHouse Config", () => {
   const originalEnv = { ...process.env };
@@ -7,21 +7,16 @@ describe("ClickHouse Config", () => {
   let consoleErrorSpy: any;
 
   beforeEach(() => {
-    consoleLogSpy = spyOn(console, "log").mockImplementation(() => {});
-    consoleWarnSpy = spyOn(console, "warn").mockImplementation(() => {});
-    consoleErrorSpy = spyOn(console, "error").mockImplementation(() => {});
+    vi.resetModules();
+    consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+    consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
 
     // Clear both CH_* and CLICKHOUSE_* variables
-    process.env.CH_HOST = undefined;
-    process.env.CH_PORT = undefined;
-    process.env.CH_USER = undefined;
-    process.env.CH_PASSWORD = undefined;
-    process.env.CH_DATABASE = undefined;
-    process.env.CLICKHOUSE_HOST = undefined;
-    process.env.CLICKHOUSE_PORT = undefined;
-    process.env.CLICKHOUSE_USER = undefined;
-    process.env.CLICKHOUSE_PASSWORD = undefined;
-    process.env.CLICKHOUSE_DATABASE = undefined;
+    for (const key of ["CH_HOST", "CH_PORT", "CH_USER", "CH_PASSWORD", "CH_DATABASE",
+      "CLICKHOUSE_HOST", "CLICKHOUSE_PORT", "CLICKHOUSE_USER", "CLICKHOUSE_PASSWORD", "CLICKHOUSE_DATABASE"]) {
+      delete process.env[key];
+    }
 
     // Set test values using CLICKHOUSE_* prefix
     process.env.CLICKHOUSE_HOST = "localhost:8124";
@@ -36,16 +31,14 @@ describe("ClickHouse Config", () => {
     consoleWarnSpy.mockRestore();
     consoleErrorSpy.mockRestore();
     // Restore original environment
-    process.env.CH_HOST = originalEnv.CH_HOST;
-    process.env.CH_PORT = originalEnv.CH_PORT;
-    process.env.CH_USER = originalEnv.CH_USER;
-    process.env.CH_PASSWORD = originalEnv.CH_PASSWORD;
-    process.env.CH_DATABASE = originalEnv.CH_DATABASE;
-    process.env.CLICKHOUSE_HOST = originalEnv.CLICKHOUSE_HOST;
-    process.env.CLICKHOUSE_PORT = originalEnv.CLICKHOUSE_PORT;
-    process.env.CLICKHOUSE_USER = originalEnv.CLICKHOUSE_USER;
-    process.env.CLICKHOUSE_PASSWORD = originalEnv.CLICKHOUSE_PASSWORD;
-    process.env.CLICKHOUSE_DATABASE = originalEnv.CLICKHOUSE_DATABASE;
+    for (const key of ["CH_HOST", "CH_PORT", "CH_USER", "CH_PASSWORD", "CH_DATABASE",
+      "CLICKHOUSE_HOST", "CLICKHOUSE_PORT", "CLICKHOUSE_USER", "CLICKHOUSE_PASSWORD", "CLICKHOUSE_DATABASE"]) {
+      if (key in originalEnv) {
+        process.env[key] = originalEnv[key as keyof typeof originalEnv];
+      } else {
+        delete process.env[key];
+      }
+    }
   });
 
   test("should return config when all env vars are set", async () => {
@@ -63,8 +56,8 @@ describe("ClickHouse Config", () => {
   });
 
   test("should return null when HOST is missing", async () => {
-    process.env.CH_HOST = undefined;
-    process.env.CLICKHOUSE_HOST = undefined;
+    delete process.env.CH_HOST;
+    delete process.env.CLICKHOUSE_HOST;
     const { getClickHouseConfig } = await import("../../lib/clickhouse/client");
     const config = getClickHouseConfig();
     expect(config).toBeNull();
@@ -72,8 +65,8 @@ describe("ClickHouse Config", () => {
 
   test("should return null when PASSWORD is missing", async () => {
     process.env.CLICKHOUSE_HOST = "localhost:8124";
-    process.env.CH_PASSWORD = undefined;
-    process.env.CLICKHOUSE_PASSWORD = undefined;
+    delete process.env.CH_PASSWORD;
+    delete process.env.CLICKHOUSE_PASSWORD;
 
     const { getClickHouseConfig } = await import("../../lib/clickhouse/client");
     const config = getClickHouseConfig();
@@ -108,21 +101,22 @@ describe("ClickHouse Client", () => {
   let consoleErrorSpy: any;
 
   beforeEach(() => {
-    consoleLogSpy = spyOn(console, "log").mockImplementation(() => {});
-    consoleWarnSpy = spyOn(console, "warn").mockImplementation(() => {});
-    consoleErrorSpy = spyOn(console, "error").mockImplementation(() => {});
+    vi.resetModules();
+    consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+    consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
 
     // Clear both CH_* and CLICKHOUSE_* variables
-    process.env.CH_HOST = undefined;
-    process.env.CH_PORT = undefined;
-    process.env.CH_USER = undefined;
-    process.env.CH_PASSWORD = undefined;
-    process.env.CH_DATABASE = undefined;
-    process.env.CLICKHOUSE_HOST = undefined;
-    process.env.CLICKHOUSE_PORT = undefined;
-    process.env.CLICKHOUSE_USER = undefined;
-    process.env.CLICKHOUSE_PASSWORD = undefined;
-    process.env.CLICKHOUSE_DATABASE = undefined;
+    delete process.env.CH_HOST;
+    delete process.env.CH_PORT;
+    delete process.env.CH_USER;
+    delete process.env.CH_PASSWORD;
+    delete process.env.CH_DATABASE;
+    delete process.env.CLICKHOUSE_HOST;
+    delete process.env.CLICKHOUSE_PORT;
+    delete process.env.CLICKHOUSE_USER;
+    delete process.env.CLICKHOUSE_PASSWORD;
+    delete process.env.CLICKHOUSE_DATABASE;
 
     // Set test values using CLICKHOUSE_* prefix
     process.env.CLICKHOUSE_HOST = "localhost:8124";
@@ -167,8 +161,8 @@ describe("ClickHouse Client", () => {
   });
 
   test("should return null when config is invalid", async () => {
-    process.env.CH_PASSWORD = undefined;
-    process.env.CLICKHOUSE_PASSWORD = undefined;
+    delete process.env.CH_PASSWORD;
+    delete process.env.CLICKHOUSE_PASSWORD;
 
     const { getClient } = await import("../../lib/clickhouse/client");
     const client = getClient();

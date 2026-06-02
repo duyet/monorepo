@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 import { ALL_SOURCES, sourceConfigs } from "../config";
 import { logger } from "../lib";
 import { closeClient, getClient } from "../lib/clickhouse";

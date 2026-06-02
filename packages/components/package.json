@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "test": "bun test"
+    "test": "vitest run"
   },
   "dependencies": {
     "@duyet/libs": "*",
@@ -59,8 +59,8 @@
   "peerDependencies": {
     "@clerk/clerk-react": "^5",
     "@tanstack/react-router": "^1",
-    "react": "^18 | ^19",
-    "react-dom": "^18 | ^19"
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19"
   },
   "peerDependenciesMeta": {
     "@clerk/clerk-react": {

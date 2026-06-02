@@ -4,7 +4,7 @@
  * @module index.test
  */
 
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it } from "vitest";
 import app from "./index";
 
 interface ApiInfoResponse {

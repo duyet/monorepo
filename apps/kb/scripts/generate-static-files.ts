@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 /**
  * Prebuild script: walks content/ and generates static files served as-is
  * by Cloudflare Pages.
@@ -18,7 +18,7 @@ import { mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "n
 import { basename, extname, join } from "node:path";
 import matter from "gray-matter";
 
-const SCRIPT_DIR = import.meta.dir;
+const SCRIPT_DIR = import.meta.dirname!;
 const APP_DIR = join(SCRIPT_DIR, "..");
 const CONTENT_DIR = join(APP_DIR, "content");
 const PUBLIC_DIR = join(APP_DIR, "public");

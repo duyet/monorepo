@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 /**
  * generate-llms-txt.ts — Generate llms.txt for LLM Timeline
  * Outputs to public/llms.txt (included in static export)

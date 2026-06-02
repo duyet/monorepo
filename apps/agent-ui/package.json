@@ -4,15 +4,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "bun --bun vite build",
+    "build": "vite build",
     "check-types": "tsc --noEmit",
-    "dev": "bun --bun vite dev --port 3008",
-    "fmt": "bun run fix",
+    "dev": "vite dev --port 3008",
+    "fmt": "pnpm run fix",
     "lint": "biome lint .",
-    "start": "bun --bun vite preview --port 3008",
-    "deploy": "bun run build && bunx wrangler pages deploy dist/client --project-name=duyet-agents",
-    "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy dist/client --project-name=duyet-agents --commit-dirty=true",
-    "cf:deploy:prod": "bun ../../scripts/cf-deploy-prod.ts agent-ui duyet-agents"
+    "start": "vite preview --port 3008",
+    "deploy": "pnpm run build && pnpm dlx wrangler pages deploy dist/client --project-name=duyet-agents",
+    "cf:deploy": "dotenv -e ../../.env.production -e ../../.env.production.local -- pnpm run build && pnpm dlx wrangler pages deploy dist/client --project-name=duyet-agents --commit-dirty=true",
+    "cf:deploy:prod": "tsx ../../scripts/cf-deploy-prod.ts agent-ui duyet-agents"
   },
   "dependencies": {
     "@ai-sdk/react": "^3.0.118",

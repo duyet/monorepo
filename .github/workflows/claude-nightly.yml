@@ -57,9 +57,9 @@ jobs:
           - Update documentation as needed
 
         ### 3. Test Phase
-        - Run `bun run lint` to verify code quality
-        - Run `bun run test` to verify tests pass
-        - Check for TypeScript errors with `bun run check-types` (if available)
+        - Run `pnpm run lint` to verify code quality
+        - Run `pnpm run test` to verify tests pass
+        - Check for TypeScript errors with `pnpm run check-types` (if available)
 
         ### 4. PR Creation Phase
         - Create a pull request with your changes

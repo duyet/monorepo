@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
+import { beforeEach, describe, expect, vi, test } from "vitest";
 import type { ClickHouseClient } from "@clickhouse/client";
 import { WakaTimeInsightsWeekdaySyncer } from "../wakatime-insights-weekday.syncer";
 
@@ -7,9 +7,9 @@ describe("WakaTimeInsightsWeekdaySyncer", () => {
 
   beforeEach(() => {
     mockClient = {
-      insert: mock(() => Promise.resolve()),
-      query: mock(() => Promise.resolve()),
-      close: mock(() => Promise.resolve()),
+      insert: vi.fn(() => Promise.resolve()),
+      query: vi.fn(() => Promise.resolve()),
+      close: vi.fn(() => Promise.resolve()),
     } as unknown as ClickHouseClient;
   });
 
@@ -109,7 +109,7 @@ describe("WakaTimeInsightsWeekdaySyncer", () => {
         }),
     });
 
-    const fetchSpy = spyOn(global, "fetch")
+    const fetchSpy = vi.spyOn(global, "fetch")
       .mockResolvedValueOnce(makeWeekdayPayload() as Response)
       .mockResolvedValueOnce(makeWeekdayPayload() as Response)
       .mockResolvedValueOnce(makeWeekdayPayload() as Response)

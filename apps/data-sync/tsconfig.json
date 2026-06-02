@@ -6,7 +6,6 @@
     "module": "ESNext",
     "lib": ["ESNext"],
     "moduleResolution": "bundler",
-    "types": ["@types/bun"],
     "outDir": "./dist",
     "rootDir": "./src",
     "resolveJsonModule": true,

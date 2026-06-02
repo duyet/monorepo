@@ -13,14 +13,14 @@ Personal homepage / landing page with links to all personal projects and apps.
 ## Development Commands
 
 ```bash
-bun run dev          # Start dev server on port 3001
-bun run build        # Build static SPA to 'out/'
-bun run lint         # Run Biome linter
-bun run check-types  # TypeScript type check
+pnpm run dev          # Start dev server on port 3001
+pnpm run build        # Build static SPA to 'out/'
+pnpm run lint         # Run Biome linter
+pnpm run check-types  # TypeScript type check
 
 # Deploy to Cloudflare Pages
-bun run cf:deploy        # Preview deployment
-bun run cf:deploy:prod   # Production deployment
+pnpm run cf:deploy        # Preview deployment
+pnpm run cf:deploy:prod   # Production deployment
 ```
 
 ## Architecture
@@ -30,7 +30,7 @@ bun run cf:deploy:prod   # Production deployment
 - **Framework**: Vite + TanStack Router (SPA, file-based routing)
 - **Styling**: Tailwind CSS
 - **Components**: `@duyet/components` (ContentCard, LinkCard, AiContentCard)
-- **Package Manager**: Bun
+- **Package Manager**: pnpm
 
 ### Project Structure
 

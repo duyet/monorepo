@@ -14,7 +14,7 @@
   "scripts": {
     "lint": "biome lint .",
     "check-types": "tsc --noEmit",
-    "test": "bun test"
+    "test": "vitest run"
   },
   "devDependencies": {
     "@duyet/tsconfig": "*",

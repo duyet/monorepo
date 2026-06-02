@@ -25,21 +25,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6  # v3  # v1  # v6.0.2
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2.2.0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
       - name: Install dependencies
-        run: bun install
+        run: pnpm install --frozen-lockfile
 
       - name: Sync data (dry run)
         if: ${{ inputs.dry_run == true }}
         working-directory: apps/llm-timeline
-        run: bun scripts/sync-data.ts --dry-run --verbose
+        run: pnpm exec tsx scripts/sync-data.ts --dry-run --verbose
 
       - name: Sync data
         if: ${{ inputs.dry_run != true }}
         working-directory: apps/llm-timeline
-        run: bun scripts/sync-data.ts
+        run: pnpm exec tsx scripts/sync-data.ts
 
       - name: Create data sync pull request
         if: ${{ inputs.dry_run != true }}

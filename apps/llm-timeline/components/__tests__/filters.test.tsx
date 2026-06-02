@@ -1,15 +1,7 @@
-import {
-  afterEach,
-  cleanup,
-  describe,
-  expect,
-  it,
-  render,
-} from "../../test-setup";
+import { render } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import { DEFAULT_FILTERS } from "../../lib/utils";
 import { Filters } from "../filters";
-
-afterEach(cleanup);
 
 describe("Filters", () => {
   it("shows total result context when resultCount is below totalCount", () => {

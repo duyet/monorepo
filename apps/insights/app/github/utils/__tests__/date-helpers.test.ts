@@ -1,4 +1,4 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, test } from "vitest";
 import { getWeekStart } from "../date-helpers";
 
 describe("getWeekStart", () => {

@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
+import { beforeEach, describe, expect, vi, test } from "vitest";
 import type { ClickHouseClient } from "@clickhouse/client";
 import { WakaTimeGoalsSyncer } from "../wakatime-goals.syncer";
 
@@ -7,9 +7,9 @@ describe("WakaTimeGoalsSyncer", () => {
 
   beforeEach(() => {
     mockClient = {
-      insert: mock(() => Promise.resolve()),
-      query: mock(() => Promise.resolve()),
-      close: mock(() => Promise.resolve()),
+      insert: vi.fn(() => Promise.resolve()),
+      query: vi.fn(() => Promise.resolve()),
+      close: vi.fn(() => Promise.resolve()),
     } as unknown as ClickHouseClient;
   });
 
@@ -122,7 +122,7 @@ describe("WakaTimeGoalsSyncer", () => {
       ],
     };
 
-    const fetchSpy = spyOn(global, "fetch").mockResolvedValueOnce({
+    const fetchSpy = vi.spyOn(global, "fetch").mockResolvedValueOnce({
       ok: true,
       json: () => Promise.resolve(mockResponse),
     } as Response);

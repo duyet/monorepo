@@ -1,8 +1,11 @@
-import { describe, expect, test } from "bun:test";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { describe, expect, test } from "vitest";
 
-const rootSource = await Bun.file(
-  new URL("../src/routes/__root.tsx", import.meta.url).pathname
-).text();
+const rootSource = readFileSync(
+  join(import.meta.dirname!, "../src/routes/__root.tsx"),
+  "utf-8",
+);
 
 describe("CV App Configuration", () => {
   test("root route has correct metadata title and description", () => {

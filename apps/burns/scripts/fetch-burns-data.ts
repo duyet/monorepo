@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 
 import { Database } from "duckdb-async";
 import { mkdirSync, writeFileSync } from "node:fs";

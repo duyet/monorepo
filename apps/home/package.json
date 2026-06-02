@@ -4,16 +4,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "bun test",
-    "config": "bun ../../scripts/sync-app-secrets.ts duyet-home",
-    "prebuild": "cd ../blog && bun scripts/generate-posts-data.ts",
-    "build": "bun --bun vite build && bun ../../scripts/patch-html-for-cloudflare.ts",
+    "test": "vitest run",
+    "config": "tsx ../../scripts/sync-app-secrets.ts duyet-home",
+    "prebuild": "cd ../blog && tsx scripts/generate-posts-data.ts",
+    "build": "vite build && tsx ../../scripts/patch-html-for-cloudflare.ts",
     "check-types": "tsc --noEmit",
-    "dev": "bun --bun vite dev --port 3001",
-    "fmt": "bun run fix",
+    "dev": "vite dev --port 3001",
+    "fmt": "pnpm run fix",
     "lint": "biome lint .",
-    "deploy": "bun run build && bunx wrangler pages deploy dist/client --project-name=duyet-home",
-    "cf:deploy": "bun run --env-file=../../.env.production --env-file=../../.env.production.local build && bunx wrangler pages deploy dist/client --project-name=duyet-home --commit-dirty=true",
+    "deploy": "pnpm run build && pnpm dlx wrangler pages deploy dist/client --project-name=duyet-home",
+    "cf:deploy": "dotenv -e ../../.env.production -e ../../.env.production.local -- pnpm run build && pnpm dlx wrangler pages deploy dist/client --project-name=duyet-home --commit-dirty=true",
     "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh home duyet-home"
   },
   "dependencies": {
@@ -35,7 +35,6 @@
   },
   "devDependencies": {
     "@duyet/tailwind-config": "*",
-    "@types/bun": "latest",
     "@duyet/tsconfig": "*",
     "@tailwindcss/vite": "^4.0.0",
     "@types/react": "^19.2.14",

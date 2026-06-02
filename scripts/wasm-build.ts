@@ -1,10 +1,10 @@
-import { $ } from "bun"
 import { readFileSync, readdirSync, statSync } from "node:fs"
 import { join } from "node:path"
+import { spawnSync } from "node:child_process"
 
-const CRATES_DIR = join(import.meta.dir, "..", "crates")
-const OUT_DIR = join(import.meta.dir, "..", "packages", "wasm", "pkg")
-const release = Bun.argv.includes("--release")
+const CRATES_DIR = join(import.meta.dirname!, "..", "crates")
+const OUT_DIR = join(import.meta.dirname!, "..", "packages", "wasm", "pkg")
+const release = process.argv.includes("--release")
 
 const crates = readdirSync(CRATES_DIR).filter((name) => {
   const p = join(CRATES_DIR, name)
@@ -26,7 +26,15 @@ console.log(`Building ${crates.length} crate(s): ${crates.join(", ")}`)
 const cargoArgs = release ? ["--release"] : []
 
 // Build all crates for WASM target
-await $`cargo build --target wasm32-unknown-unknown ${cargoArgs}`.cwd(join(import.meta.dir, ".."))
+const cargoResult = spawnSync(
+  "cargo",
+  ["build", "--target", "wasm32-unknown-unknown", ...cargoArgs],
+  { cwd: join(import.meta.dirname!, ".."), stdio: "inherit" },
+)
+if (cargoResult.status !== 0) {
+  console.error("cargo build failed")
+  process.exit(1)
+}
 
 // Run wasm-pack for each crate
 for (const crate of crates) {
@@ -47,10 +55,9 @@ for (const crate of crates) {
     cratePath,
   ]
 
-  const proc = Bun.spawn(args, { stdout: "inherit", stderr: "inherit" })
-  const exitCode = await proc.exited
-  if (exitCode !== 0) {
-    console.error(`wasm-pack failed for ${crate} (exit ${exitCode})`)
+  const proc = spawnSync(args[0], args.slice(1), { stdio: "inherit" })
+  if (proc.status !== 0) {
+    console.error(`wasm-pack failed for ${crate} (exit ${proc.status})`)
     process.exit(1)
   }
 }

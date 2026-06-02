@@ -13,8 +13,8 @@ import {
 } from "node:fs";
 import { join } from "node:path";
 
-const DIST_TAG_DIR = join(import.meta.dir, "..", "dist", "client", "tag");
-const PUBLIC_DATA = join(import.meta.dir, "..", "public", "posts-data.json");
+const DIST_TAG_DIR = join(import.meta.dirname!, "..", "dist", "client", "tag");
+const PUBLIC_DATA = join(import.meta.dirname!, "..", "public", "posts-data.json");
 
 if (!existsSync(DIST_TAG_DIR)) {
   console.log("  skipping tag aliases (no dist/client/tag)");

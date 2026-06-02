@@ -72,7 +72,7 @@ apps/photos/
 
 ### Build-Time Photo Scanning
 
-When you run `bun run build`, the application:
+When you run `pnpm run build`, the application:
 
 1. **Scans** `public/photos/` directory for image files (JPEG, PNG, WebP)
 2. **Extracts** comprehensive EXIF metadata from each photo
@@ -89,7 +89,7 @@ Simply place your photos in the `public/photos/` directory:
 cp ~/my-photos/*.jpg apps/photos/public/photos/
 
 # Rebuild the site to scan and extract metadata
-bun run build
+pnpm run build
 
 # The photos will now appear in your gallery with full metadata!
 ```
@@ -193,17 +193,17 @@ Each scanned photo generates:
 # Start development server
 # Photos are scanned on each page load
 cd apps/photos
-bun run dev
+pnpm run dev
 ```
 
 ### Production Build
 ```bash
 # Build static site
 # Photos are scanned once during build
-bun run build
+pnpm run build
 
 # Preview the static build
-bun run start
+pnpm run start
 
 # Deploy the 'out' directory
 ```
@@ -217,7 +217,7 @@ bun run start
 
 2. Rebuild the site:
    ```bash
-   bun run build
+   pnpm run build
    ```
 
 3. Photos appear in your gallery with full metadata!
@@ -370,7 +370,7 @@ Just deploy the `out/` directory after running `yarn build`.
 - Use a EXIF viewer to check if data exists in the file
 
 ### Build errors?
-- Ensure Sharp is properly installed: `bun install`
+- Ensure Sharp is properly installed: `pnpm install`
 - Check that photos are not corrupted
 - Verify file permissions on the photos directory
 

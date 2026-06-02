@@ -1,15 +1,7 @@
+import { render } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import { testModel } from "../../test-fixtures";
-import {
-  afterEach,
-  cleanup,
-  describe,
-  expect,
-  it,
-  render,
-} from "../../test-setup";
 import { ModelCard } from "../model-card";
-
-afterEach(cleanup);
 
 describe("ModelCard", () => {
   it("renders full mode without crashing", () => {

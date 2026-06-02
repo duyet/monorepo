@@ -13,16 +13,16 @@ Photo gallery with masonry layout, lightbox viewer, and multiple photo provider 
 ## Development Commands
 
 ```bash
-bun run dev          # Start dev server on port 3003
-bun run build        # Fetch photo data + build to out/
-bun run check-types  # TypeScript type check
-bun run lint         # Run Biome linter
-bun run test         # Run tests
-bun run test:watch   # Run tests in watch mode
+pnpm run dev          # Start dev server on port 3003
+pnpm run build        # Fetch photo data + build to out/
+pnpm run check-types  # TypeScript type check
+pnpm run lint         # Run Biome linter
+pnpm run test         # Run tests
+pnpm run test:watch   # Run tests in watch mode
 
 # Deploy to Cloudflare Pages
-bun run cf:deploy        # Preview deployment
-bun run cf:deploy:prod   # Production deployment
+pnpm run cf:deploy        # Preview deployment
+pnpm run cf:deploy:prod   # Production deployment
 ```
 
 ## Architecture
@@ -34,7 +34,7 @@ bun run cf:deploy:prod   # Production deployment
 - **Images**: Cloudinary + Unsplash + ClickHouse as photo providers
 - **EXIF**: `exifreader` for photo metadata extraction
 - **Styling**: Tailwind CSS v4
-- **Package Manager**: Bun
+- **Package Manager**: pnpm
 
 ### Project Structure
 
@@ -145,4 +145,4 @@ Not all photos have EXIF data. `exifreader` returns empty for photos without met
 
 ### Route tree out of date
 
-Run `bun --bun vite build` or `bun run dev` to regenerate `src/routeTree.gen.ts`.
+Run `vite build` or `pnpm run dev` to regenerate `src/routeTree.gen.ts`.

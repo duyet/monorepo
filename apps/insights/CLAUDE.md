@@ -86,7 +86,7 @@ User Request (90 days)
 - **Recent data (≤7 days)**: Always fetched fresh from WakaTime API
 - **Fallback chain**: Hybrid → ClickHouse-only → API-only (graceful degradation)
 
-**Data Sync**: Write operations are handled by `apps/data-sync` via `WakaTimeActivitySyncer`. Run `bun run sync wakatime-activity` to populate/update ClickHouse data.
+**Data Sync**: Write operations are handled by `apps/data-sync` via `WakaTimeActivitySyncer`. Run `pnpm run sync wakatime-activity` to populate/update ClickHouse data.
 
 **Key Features**:
 
@@ -205,20 +205,20 @@ CLICKHOUSE_DATABASE=analytics_db
 
 ```bash
 # Development
-bun run dev          # Start dev server on http://localhost:3000
-bun run build        # Build for production
-bun run check-types  # TypeScript type check
-bun run lint         # Run Biome linter
-bun run fmt          # Format code
-bun run analyze      # Analyze bundle size
+pnpm run dev          # Start dev server on http://localhost:3000
+pnpm run build        # Build for production
+pnpm run check-types  # TypeScript type check
+pnpm run lint         # Run Biome linter
+pnpm run fmt          # Format code
+pnpm run analyze      # Analyze bundle size
 
 # Testing
-bun run test         # Run all unit tests
-bun run test ccusage # Test specific module
+pnpm run test         # Run all unit tests
+pnpm run test ccusage # Test specific module
 
 # Deploy to Cloudflare Pages
-bun run cf:deploy        # Preview deployment
-bun run cf:deploy:prod   # Production deployment
+pnpm run cf:deploy        # Preview deployment
+pnpm run cf:deploy:prod   # Production deployment
 ```
 
 ## Code Quality Guidelines
@@ -239,7 +239,7 @@ bun run cf:deploy:prod   # Production deployment
 
 - **Memoization**: Use useMemo/useCallback for expensive calculations
 - **Code Splitting**: Lazy load non-critical components
-- **Bundle Analysis**: Monitor bundle size with `bun run analyze`
+- **Bundle Analysis**: Monitor bundle size with `pnpm run analyze`
 
 ### Data Privacy & Security
 

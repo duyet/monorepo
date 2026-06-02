@@ -10,7 +10,7 @@ The **data-sync** app is a CLI tool for syncing data from various external APIs 
 
 ### Core Technologies
 
-- **Runtime**: Bun
+- **Runtime**: Node.js
 - **Database**: ClickHouse (HTTP protocol)
 - **Language**: TypeScript
 - **Pattern**: BaseSyncer abstract class for consistent syncer implementation
@@ -55,32 +55,32 @@ apps/data-sync/
 
 | Syncer | Command | Description | ClickHouse Table |
 |--------|---------|-------------|------------------|
-| `wakatime` | `bun run sync wakatime` | Aggregate coding stats | `monorepo_wakatime` |
-| `wakatime-activity` | `bun run sync wakatime-activity` | Daily granular activity with AI breakdown | `monorepo_wakatime_activity` |
-| `cloudflare` | `bun run sync cloudflare` | Website analytics | `monorepo_cloudflare` |
-| `github` | `bun run sync github` | Repository statistics | `monorepo_github` |
-| `posthog` | `bun run sync posthog` | Product analytics | `monorepo_posthog` |
-| `unsplash` | `bun run sync unsplash` | Photo statistics | `monorepo_unsplash` |
-| `unsplash-photos` | `bun run sync unsplash-photos` | Individual photo data | `monorepo_unsplash_photos` |
-| `ai-code-percentage` | `bun run sync ai-code-percentage` | AI vs human code metrics | `monorepo_ai_code_percentage` |
+| `wakatime` | `pnpm run sync wakatime` | Aggregate coding stats | `monorepo_wakatime` |
+| `wakatime-activity` | `pnpm run sync wakatime-activity` | Daily granular activity with AI breakdown | `monorepo_wakatime_activity` |
+| `cloudflare` | `pnpm run sync cloudflare` | Website analytics | `monorepo_cloudflare` |
+| `github` | `pnpm run sync github` | Repository statistics | `monorepo_github` |
+| `posthog` | `pnpm run sync posthog` | Product analytics | `monorepo_posthog` |
+| `unsplash` | `pnpm run sync unsplash` | Photo statistics | `monorepo_unsplash` |
+| `unsplash-photos` | `pnpm run sync unsplash-photos` | Individual photo data | `monorepo_unsplash_photos` |
+| `ai-code-percentage` | `pnpm run sync ai-code-percentage` | AI vs human code metrics | `monorepo_ai_code_percentage` |
 
 ## Development Commands
 
 ```bash
 # Run a specific syncer
-bun run sync <syncer-name>
+pnpm run sync <syncer-name>
 
 # Run with date range
-bun run sync wakatime-activity --start-date 2025-01-01 --end-date 2025-01-31
+pnpm run sync wakatime-activity --start-date 2025-01-01 --end-date 2025-01-31
 
 # Run all syncers
-bun run sync all
+pnpm run sync all
 
 # Run migrations
-bun run migrate
+pnpm run migrate
 
 # Cleanup old data (retention policies)
-bun run cleanup
+pnpm run cleanup
 ```
 
 ## Creating a New Syncer
@@ -190,13 +190,13 @@ The `wakatime-activity` syncer implements a hybrid storage strategy:
 
 ```bash
 # Sync last 30 days (default)
-bun run sync wakatime-activity
+pnpm run sync wakatime-activity
 
 # Sync specific range
-bun run sync wakatime-activity --start-date 2025-01-01 --end-date 2025-06-30
+pnpm run sync wakatime-activity --start-date 2025-01-01 --end-date 2025-06-30
 
 # Initial backfill (all history)
-bun run sync wakatime-activity --start-date 2020-01-01
+pnpm run sync wakatime-activity --start-date 2020-01-01
 ```
 
 ## Environment Variables
@@ -251,11 +251,11 @@ The `BaseSyncer` abstract class provides:
 
 ```bash
 # Run all tests
-bun test
+pnpm run test
 
 # Run specific syncer tests
-bun test wakatime
-bun test cloudflare
+pnpm run test wakatime
+pnpm run test cloudflare
 ```
 
 ## Troubleshooting
@@ -272,5 +272,5 @@ bun test cloudflare
 Set `LOG_LEVEL=debug` for verbose output:
 
 ```bash
-LOG_LEVEL=debug bun run sync wakatime-activity
+LOG_LEVEL=debug pnpm run sync wakatime-activity
 ```

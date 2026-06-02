@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 import { retentionPolicies } from "../config";
 import { logger } from "../lib";
 import {

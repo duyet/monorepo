@@ -1,14 +1,6 @@
-import {
-  afterEach,
-  cleanup,
-  describe,
-  expect,
-  it,
-  render,
-} from "../../test-setup";
+import { render } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import { ThemeToggle } from "../theme-toggle";
-
-afterEach(cleanup);
 
 describe("ThemeToggle", () => {
   it("renders without crashing", () => {

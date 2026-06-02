@@ -1,10 +1,6 @@
 {
   "name": "duyet",
   "private": true,
-  "workspaces": [
-    "packages/*",
-    "apps/*"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/duyet/monorepo.git"
@@ -19,14 +15,14 @@
     "start": "dotenv -- turbo start",
     "test": "dotenv -- turbo test",
     "config": "turbo run config",
-    "deploy": "turbo deploy && bun run config",
-    "cf:deploy": "bun scripts/cf-deploy.ts",
+    "deploy": "turbo deploy && pnpm run config",
+    "cf:deploy": "tsx scripts/cf-deploy.ts",
     "cf:deploy:prod": "turbo run cf:deploy:prod",
-    "wasm:build": "bun scripts/wasm-build.ts",
-    "wasm:build:release": "bun scripts/wasm-build.ts --release",
+    "wasm:build": "tsx scripts/wasm-build.ts",
+    "wasm:build:release": "tsx scripts/wasm-build.ts --release",
     "wasm:test": "cargo test --workspace",
     "wasm:clippy": "cargo clippy --workspace --target wasm32-unknown-unknown",
-    "bench:wasm": "bun benchmarks/wasm/runner.ts",
+    "bench:wasm": "tsx benchmarks/wasm/runner.ts",
     "rust:build": "cargo build --release -p duyet-cli"
   },
   "lint-staged": {
@@ -58,6 +54,7 @@
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "@types/node": "^25.5.0",
+    "@vitest/coverage-v8": "^3.2.1",
     "@vitejs/plugin-react": "^6.0.0",
     "deepmerge": "^4.3.1",
     "dotenv-cli": "^11.0.0",
@@ -65,15 +62,17 @@
     "lint-staged": "^16.4.0",
     "tailwind-highlightjs": "^2.0.1",
     "tailwindcss-animate": "^1.0.7",
+    "tsx": "^4.19.0",
     "turbo": "^2.8.17",
     "tw-animate-css": "^1.3.0",
     "typescript": "^6.0.0",
     "vite": "^8.0.0",
-    "vite-tsconfig-paths": "^6.0.0"
+    "vite-tsconfig-paths": "^6.0.0",
+    "vitest": "^3.2.1"
   },
-  "packageManager": "bun@1.3.9",
-  "patchedDependencies": {
-    "workers-ai-provider@3.1.2": "patches/workers-ai-provider@3.1.2.patch"
+  "packageManager": "pnpm@10.12.1",
+  "pnpm": {
+    "patchedDependencies": {}
   },
   "overrides": {
     "@clerk/shared": "3.47.7",
