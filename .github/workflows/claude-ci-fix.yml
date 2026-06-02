@@ -81,7 +81,7 @@ jobs:
 
             3. **Reproduce the failure locally** to confirm you understand it:
                 - If "Lint" failed: `pnpm run lint`
-                - If "Test" failed: `pnpm run turbo check-types` and/or `pnpm run test`
+                - If "Test" failed: `pnpm exec turbo check-types` and/or `pnpm run test`
 
             4. **Fix the root cause** by editing source files. Rules:
                 - Fix the actual code — do not disable lint rules or skip tests

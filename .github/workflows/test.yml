@@ -49,7 +49,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Type check
-        run: pnpm run turbo check-types
+        run: pnpm exec turbo check-types
 
   unittest:
     runs-on: ubuntu-latest
