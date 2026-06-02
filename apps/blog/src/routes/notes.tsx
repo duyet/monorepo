@@ -1,9 +1,8 @@
 import { distanceToNow } from '@duyet/libs/date'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { type ReactElement, Suspense } from 'react'
+import type { ReactElement } from 'react'
 import { getShortforms } from '@/lib/shortforms'
 import type { Shortform } from '@/lib/shortforms'
-import { Markdown } from '@/components/Markdown'
 
 export const Route = createFileRoute('/notes')({
   head: () => ({
@@ -23,81 +22,65 @@ function NotesPage(): ReactElement {
   const { shortforms } = Route.useLoaderData() as { shortforms: Shortform[] }
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="mx-auto max-w-3xl px-6 pt-16 pb-12 md:pt-24 md:pb-16 border-b border-border/40">
-        <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground font-semibold">
-          LOGBOOK
+    <div className="min-h-screen bg-[var(--rd-bg)]">
+      <header className="mx-auto max-w-2xl px-6 pt-16 pb-10 md:pt-24 md:pb-12">
+        <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-[var(--rd-text-3)]">
+          Logbook
         </p>
-        <h1 className="mt-2 text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">
+        <h1 className="mt-3 text-3xl font-bold tracking-[-0.03em] text-[var(--rd-text)] sm:text-4xl">
           Quick Notes
         </h1>
-        <p className="mt-3 text-base text-muted-foreground max-w-xl">
-          A stream of short-form updates, software learnings, code snippets, and daily thoughts.
+        <p className="mt-3 text-[15px] leading-relaxed text-[var(--rd-text-2)]">
+          A stream of short-form updates, software learnings, code snippets, and
+          daily thoughts.
         </p>
       </header>
 
-      <main className="mx-auto max-w-3xl px-6 py-16">
+      <div className="mx-auto max-w-2xl px-6 pb-24">
         {shortforms.length === 0 ? (
-          <div className="text-center py-20 border border-dashed rounded-lg bg-muted/20">
-            <p className="text-sm text-muted-foreground">No notes log found.</p>
-          </div>
+          <p className="py-20 text-center text-sm text-[var(--rd-text-3)]">
+            No notes log found.
+          </p>
         ) : (
-          <div className="relative border-l border-border/60 ml-4 space-y-12 pb-8">
+          <div className="flex flex-col">
             {shortforms.map((note) => (
-              <article key={note.id} className="relative pl-8 sm:pl-10 group">
-                {/* Timeline Dot */}
-                <div className="absolute -left-4 top-1.5 flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background shadow-sm transition-all group-hover:border-foreground/30">
-                  <svg className="h-4 w-4 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                  </svg>
-                </div>
-
-                {/* Content Container (No Card, No Border, No Shadow) */}
-                <div className="space-y-3 pb-4">
-                  {/* Header Info */}
-                  <div className="flex items-center justify-between gap-4 text-xs font-mono text-muted-foreground pb-2 border-b border-border/20">
-                    <div className="flex items-center gap-2">
-                      <span className="font-semibold text-foreground">Duyet Le</span>
-                      <span>•</span>
-                      <span>{distanceToNow(note.date)}</span>
-                    </div>
-                    <Link
-                      to="/note/$id/"
-                      params={{ id: note.id }}
-                      className="inline-flex items-center gap-1 hover:text-foreground transition-colors hover:underline"
-                    >
-                      #{note.id}
-                    </Link>
-                  </div>
-
-                  {/* Title */}
+              <Link
+                key={note.id}
+                to="/note/$id/"
+                params={{ id: note.id }}
+                className="group -mx-3 flex items-start gap-4 rounded-[var(--rd-r)] px-3 py-5 no-underline transition-colors hover:bg-[var(--rd-surface-2)]"
+              >
+                <div className="min-w-0 flex-1">
+                  <time className="block text-[11.5px] font-mono uppercase tracking-[0.12em] text-[var(--rd-text-3)]">
+                    {distanceToNow(note.date)}
+                  </time>
+                  <h2 className="mt-1.5 text-[1.05rem] font-[560] leading-snug tracking-[-0.02em] text-[var(--rd-text)] transition-colors group-hover:text-[var(--rd-accent-ink)]">
+                    {note.title || note.excerpt}
+                  </h2>
                   {note.title ? (
-                    <h2 className="text-xl font-bold tracking-tight text-foreground">
-                      {note.title}
-                    </h2>
+                    <p className="mt-1.5 line-clamp-2 text-[13.5px] leading-[1.55] text-[var(--rd-text-2)]">
+                      {note.excerpt}
+                    </p>
                   ) : null}
-
-                  {/* Markdown Content */}
-                  <div className="prose dark:prose-invert max-w-none text-sm md:text-base leading-relaxed text-foreground/90">
-                    <Suspense
-                      fallback={
-                        <p className="whitespace-pre-wrap">{note.body}</p>
-                      }
-                    >
-                      <Markdown source={note.body} />
-                    </Suspense>
-                  </div>
-
-                  {/* Date Footer */}
-                  <div className="text-[11px] font-mono text-muted-foreground pt-1">
-                    {note.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-                  </div>
                 </div>
-              </article>
+                <svg
+                  className="mt-1 h-3.5 w-3.5 shrink-0 text-[var(--rd-text-4)] transition-all duration-200 group-hover:translate-x-[3px] group-hover:text-[var(--rd-accent)]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </Link>
             ))}
           </div>
         )}
-      </main>
+      </div>
     </div>
   )
 }

@@ -173,50 +173,41 @@ function HomePage(): ReactElement {
               View all notes →
             </Link>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="flex flex-col">
             {shortforms.map((note) => (
-              <article
+              <Link
                 key={note.id}
-                className="relative group flex flex-col justify-between p-6 bg-card border rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-foreground/30 transition-all duration-300 ease-out"
+                to="/note/$id/"
+                params={{ id: note.id }}
+                className="group -mx-3 flex items-start gap-4 rounded-[var(--rd-r)] px-3 py-5 no-underline transition-colors hover:bg-[var(--rd-surface-2)]"
               >
-                <Link
-                  to="/note/$id/"
-                  params={{ id: note.id }}
-                  className="absolute inset-0 z-10"
-                  aria-label={note.title || note.excerpt}
-                />
-                <div>
-                  <time className="text-[11px] font-mono text-muted-foreground">
+                <div className="min-w-0 flex-1">
+                  <time className="block text-[11.5px] font-mono uppercase tracking-[0.12em] text-[var(--rd-text-3)]">
                     {distanceToNow(note.date)}
                   </time>
-                  {note.title && (
-                    <h3 className="mt-2 text-base font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
-                      {note.title}
-                    </h3>
-                  )}
-                  <p className="mt-2 text-sm text-muted-foreground line-clamp-3 leading-relaxed">
-                    {note.excerpt}
-                  </p>
+                  <h3 className="mt-1.5 text-[1.05rem] font-[560] leading-snug tracking-[-0.02em] text-[var(--rd-text)] transition-colors group-hover:text-[var(--rd-accent-ink)]">
+                    {note.title || note.excerpt}
+                  </h3>
+                  {note.title ? (
+                    <p className="mt-1.5 line-clamp-2 text-[13.5px] leading-[1.55] text-[var(--rd-text-2)]">
+                      {note.excerpt}
+                    </p>
+                  ) : null}
                 </div>
-                <div className="mt-4 pt-3 border-t flex justify-end relative z-20">
-                  <span className="text-[11px] font-semibold text-primary group-hover:underline flex items-center gap-0.5">
-                    Read note
-                    <svg
-                      className="w-3 h-3 transition-transform duration-200 transform group-hover:translate-x-0.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </span>
-                </div>
-              </article>
+                <svg
+                  className="mt-1 h-3.5 w-3.5 shrink-0 text-[var(--rd-text-4)] transition-all duration-200 group-hover:translate-x-[3px] group-hover:text-[var(--rd-accent)]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </Link>
             ))}
           </div>
         </section>
