@@ -56,13 +56,26 @@ type AppKey =
   | "html"
   | "mcp";
 
+type AppCategory = "Personal" | "AI & Data" | "Build" | "Infra";
+
 type AppDef = {
   key: AppKey;
   name: string;
   href: string;
   subdomain: string;
   Icon: LucideIcon;
+  category: AppCategory;
+  /** One-line insight shown under the name in the switcher. */
+  blurb: string;
 };
+
+/** Render order for the grouped switcher sections. */
+const CATEGORY_ORDER: AppCategory[] = [
+  "Personal",
+  "AI & Data",
+  "Build",
+  "Infra",
+];
 
 const APPS: AppDef[] = [
   {
@@ -71,6 +84,8 @@ const APPS: AppDef[] = [
     href: "https://duyet.net",
     subdomain: "duyet.net",
     Icon: House,
+    category: "Personal",
+    blurb: "Profile & projects",
   },
   {
     key: "blog",
@@ -78,27 +93,8 @@ const APPS: AppDef[] = [
     href: "https://blog.duyet.net",
     subdomain: "blog.duyet.net",
     Icon: BookOpen,
-  },
-  {
-    key: "insights",
-    name: "Insights",
-    href: "https://insights.duyet.net",
-    subdomain: "insights.duyet.net",
-    Icon: Activity,
-  },
-  {
-    key: "llm-timeline",
-    name: "LLM Timeline",
-    href: "https://llm-timeline.duyet.net",
-    subdomain: "llm-timeline.duyet.net",
-    Icon: Sparkles,
-  },
-  {
-    key: "homelab",
-    name: "Homelab",
-    href: "https://homelab.duyet.net",
-    subdomain: "homelab.duyet.net",
-    Icon: Server,
+    category: "Personal",
+    blurb: "Notes & posts",
   },
   {
     key: "photos",
@@ -106,13 +102,26 @@ const APPS: AppDef[] = [
     href: "https://photos.duyet.net",
     subdomain: "photos.duyet.net",
     Icon: Camera,
+    category: "Personal",
+    blurb: "Photography",
   },
   {
-    key: "kb",
-    name: "Knowledge base",
-    href: "https://kb.duyet.net",
-    subdomain: "kb.duyet.net",
-    Icon: Brain,
+    key: "insights",
+    name: "Insights",
+    href: "https://insights.duyet.net",
+    subdomain: "insights.duyet.net",
+    Icon: Activity,
+    category: "AI & Data",
+    blurb: "Usage analytics",
+  },
+  {
+    key: "llm-timeline",
+    name: "LLM Timeline",
+    href: "https://llm-timeline.duyet.net",
+    subdomain: "llm-timeline.duyet.net",
+    Icon: Sparkles,
+    category: "AI & Data",
+    blurb: "3,900+ models",
   },
   {
     key: "ai-percentage",
@@ -120,13 +129,8 @@ const APPS: AppDef[] = [
     href: "https://ai-percentage.duyet.net",
     subdomain: "ai-percentage.duyet.net",
     Icon: Percent,
-  },
-  {
-    key: "agents",
-    name: "Agents",
-    href: "https://agents.duyet.net",
-    subdomain: "agents.duyet.net",
-    Icon: Bot,
+    category: "AI & Data",
+    blurb: "AI-written share",
   },
   {
     key: "burn",
@@ -134,6 +138,26 @@ const APPS: AppDef[] = [
     href: "https://burn.duyet.net",
     subdomain: "burn.duyet.net",
     Icon: Flame,
+    category: "AI & Data",
+    blurb: "Token spend",
+  },
+  {
+    key: "agents",
+    name: "Agents",
+    href: "https://agents.duyet.net",
+    subdomain: "agents.duyet.net",
+    Icon: Bot,
+    category: "Build",
+    blurb: "AI chat & tools",
+  },
+  {
+    key: "kb",
+    name: "Knowledge base",
+    href: "https://kb.duyet.net",
+    subdomain: "kb.duyet.net",
+    Icon: Brain,
+    category: "Build",
+    blurb: "Second brain",
   },
   {
     key: "html",
@@ -141,6 +165,8 @@ const APPS: AppDef[] = [
     href: "https://html.duyet.net",
     subdomain: "html.duyet.net",
     Icon: Code2,
+    category: "Build",
+    blurb: "HTML artifacts",
   },
   {
     key: "mcp",
@@ -148,6 +174,17 @@ const APPS: AppDef[] = [
     href: "https://mcp.duyet.net",
     subdomain: "mcp.duyet.net",
     Icon: Plug,
+    category: "Build",
+    blurb: "MCP server",
+  },
+  {
+    key: "homelab",
+    name: "Homelab",
+    href: "https://homelab.duyet.net",
+    subdomain: "homelab.duyet.net",
+    Icon: Server,
+    category: "Infra",
+    blurb: "Cluster status",
   },
 ];
 
@@ -281,47 +318,64 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
         <div
           role="menu"
           className={cn(
-            "absolute left-0 top-full z-50 mt-1.5 w-[min(92vw,32rem)] rounded-lg border bg-popover p-2 shadow-none",
+            "absolute left-0 top-full z-50 mt-1.5 w-[min(92vw,20rem)] overflow-hidden rounded-lg border bg-popover shadow-none",
           )}
         >
-          <p className="px-1.5 pt-1 pb-2 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
-            Switch app
-          </p>
-          {/* Bento grid of app cards — flat hairline cells, two columns */}
-          <div className="grid grid-cols-2 gap-1.5">
-            {APPS.map((app) => {
-              const isCurrent = app.key === currentApp;
+          <div className="max-h-[min(70vh,32rem)] overflow-y-auto p-1.5">
+            {CATEGORY_ORDER.map((category) => {
+              const apps = APPS.filter((a) => a.category === category);
+              if (apps.length === 0) return null;
               return (
-                <a
-                  key={app.key}
-                  href={app.href}
-                  role="menuitem"
-                  aria-current={isCurrent ? "page" : undefined}
-                  onClick={() => setOpen(false)}
-                  className={cn(
-                    "group relative flex flex-col gap-1.5 rounded-md border p-3 outline-none transition-colors",
-                    "hover:bg-muted/60 focus-visible:bg-muted/60 focus-visible:ring-2 focus-visible:ring-ring",
-                    isCurrent ? "border-foreground/30 bg-muted/40" : "border-border",
-                  )}
-                >
-                  <div className="flex items-center justify-between">
-                    <AppLogo Icon={app.Icon} />
-                    {isCurrent && (
-                      <Check
-                        aria-hidden
-                        className="h-3.5 w-3.5 shrink-0 text-foreground"
-                      />
-                    )}
-                  </div>
-                  <div className="flex min-w-0 flex-col leading-tight">
-                    <span className="truncate text-sm font-medium text-foreground">
-                      {app.name}
-                    </span>
-                    <span className="truncate text-[11px] font-mono text-muted-foreground/80">
-                      {app.subdomain}
-                    </span>
-                  </div>
-                </a>
+                <div key={category} className="mb-1 last:mb-0">
+                  <p className="px-2 pt-1.5 pb-1 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground/70">
+                    {category}
+                  </p>
+                  {apps.map((app) => {
+                    const isCurrent = app.key === currentApp;
+                    return (
+                      <a
+                        key={app.key}
+                        href={app.href}
+                        role="menuitem"
+                        aria-current={isCurrent ? "page" : undefined}
+                        onClick={() => setOpen(false)}
+                        className={cn(
+                          "group flex items-center gap-2.5 rounded-md px-2 py-1.5 outline-none transition-colors",
+                          "hover:bg-muted focus-visible:bg-muted",
+                          isCurrent && "bg-muted/60",
+                        )}
+                      >
+                        <span
+                          className={cn(
+                            "flex h-7 w-7 shrink-0 items-center justify-center rounded-md border transition-colors",
+                            "border-border bg-background group-hover:border-foreground/20",
+                            isCurrent && "border-foreground/20",
+                          )}
+                        >
+                          <AppLogo Icon={app.Icon} />
+                        </span>
+                        <span className="flex min-w-0 flex-1 flex-col leading-tight">
+                          <span className="truncate text-sm font-medium text-foreground">
+                            {app.name}
+                          </span>
+                          <span className="truncate text-[11px] text-muted-foreground/80">
+                            {app.blurb}
+                          </span>
+                        </span>
+                        {isCurrent ? (
+                          <Check
+                            aria-hidden
+                            className="h-3.5 w-3.5 shrink-0 text-foreground"
+                          />
+                        ) : (
+                          <span className="hidden shrink-0 truncate font-mono text-[10px] text-muted-foreground/50 group-hover:inline sm:inline">
+                            {app.subdomain.replace(".duyet.net", "")}
+                          </span>
+                        )}
+                      </a>
+                    );
+                  })}
+                </div>
               );
             })}
           </div>
