@@ -6,6 +6,7 @@ import {
   BookOpen,
   Bot,
   Brain,
+  Briefcase,
   Camera,
   Check,
   ChevronsUpDown,
@@ -47,6 +48,7 @@ export interface SiteHeaderProps {
 type AppKey =
   | "home"
   | "about"
+  | "projects"
   | "blog"
   | "insights"
   | "llm-timeline"
@@ -117,6 +119,15 @@ const APPS: AppDef[] = [
     Icon: User,
     category: "Personal",
     blurb: "Bio & background",
+  },
+  {
+    key: "projects",
+    name: "Projects",
+    href: "https://duyet.net/projects",
+    subdomain: "duyet.net",
+    Icon: Briefcase,
+    category: "Personal",
+    blurb: "Work & experiments",
   },
   {
     key: "cv",
