@@ -36,8 +36,11 @@ function parseMarkdownToHtml(markdown: string): string {
   // 8. Italics (*text*)
   html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>')
 
-  // 9. Unordered lists (- item or * item)
-  html = html.replace(/^\s*[-*]\s*(.+)$/gm, '<li>$1</li>')
+  // 9. Unordered lists (- item or * item). Use horizontal whitespace only:
+  //    `\s*` would let `^` start the match on a preceding blank line and eat its
+  //    newline, gluing the list onto the previous paragraph and turning the
+  //    inter-item `\n`s into `<br />`.
+  html = html.replace(/^[ \t]*[-*][ \t]+(.+)$/gm, '<li>$1</li>')
   html = html.replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>')
   html = html.replace(/<\/ul>\s*<ul>/g, '\n')
 
