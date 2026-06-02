@@ -4,6 +4,7 @@ import type { DataSourceAdapter, MergeStats, Model } from "./types";
  * Escape a string for embedding in a TypeScript single-quoted literal.
  */
 export function singleQuote(s: string): string {
+  if (s == null) return "";
   return s
     .replace(/\\/g, "\\\\")
     .replace(/'/g, "\\'")
@@ -47,21 +48,21 @@ export function generateDataTs(
       lines.push(`    type: '${m.type}'`);
       lines.push(`    license: '${m.license}'`);
       lines.push(`    desc: '${singleQuote(m.desc)}'`);
-      if (m.source !== undefined)
+      if (m.source != null)
         lines.push(`    source: '${singleQuote(m.source)}'`);
-      if (m.domain !== undefined)
+      if (m.domain != null)
         lines.push(`    domain: '${singleQuote(m.domain)}'`);
-      if (m.link !== undefined)
+      if (m.link != null)
         lines.push(`    link: '${singleQuote(m.link)}'`);
-      if (m.trainingCompute !== undefined)
+      if (m.trainingCompute != null)
         lines.push(`    trainingCompute: '${singleQuote(m.trainingCompute)}'`);
-      if (m.trainingHardware !== undefined)
+      if (m.trainingHardware != null)
         lines.push(
           `    trainingHardware: '${singleQuote(m.trainingHardware)}'`
         );
-      if (m.trainingDataset !== undefined)
+      if (m.trainingDataset != null)
         lines.push(`    trainingDataset: '${singleQuote(m.trainingDataset)}'`);
-      if (m.authors !== undefined)
+      if (m.authors != null)
         lines.push(`    authors: '${singleQuote(m.authors)}'`);
       return `  {\n${lines.join(",\n")},\n  }`;
     })
