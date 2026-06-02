@@ -344,7 +344,7 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
           "inline-flex h-9 items-center gap-2 -ml-1 rounded-md px-2 text-sm font-medium",
           "transition-colors hover:bg-muted/60 focus-visible:outline-hidden",
           "focus-visible:ring-2 focus-visible:ring-ring",
-          open && "bg-muted/60",
+          open && "bg-muted/60 relative z-50",
         )}
       >
         <AppLogo Icon={current.Icon} />
@@ -357,6 +357,13 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
           )}
         />
       </button>
+
+      {open && (
+        <div
+          className="fixed inset-0 z-40 bg-black/20 dark:bg-black/40 backdrop-blur-xs transition-opacity"
+          onClick={() => setOpen(false)}
+        />
+      )}
 
       {open && (
         <div
