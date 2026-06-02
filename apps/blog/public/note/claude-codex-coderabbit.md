@@ -1,0 +1,24 @@
+---
+title: "Claude + Codex Review + CodeRabbit"
+date: 2026-05-31
+url: https://blog.duyet.net/note/claude-codex-coderabbit
+---
+
+This is the best combo I am using now.
+
+I am on both Claude Max and Codex Pro. **Claude Code + Codex Review + CodeRabbit** feel like the right pairing, both comment natively inside the PR and give different views of the same problem. The fun part is watching whether they agree or not.
+
+Opus 4.8 feels more honest now. I can see it push back, and sometimes it just rejects a change instead of nodding along.
+
+CodeRabbit is still the best at *finding* the bug, it auto-fix is still a bit off, though.
+
+How I run it:
+
+- **On demand** → Claude Code with `/github:babysit-pr`. It reads through all the review comments and auto-fixes the CI for me.
+- **Scheduled** → a Codex automation that reviews daily, merges or resolves issues, and can also fold in CodeRabbit's comments.
+
+![[claude-codex-coderabbit-1.jpeg]]
+
+![[claude-codex-coderabbit-2.jpeg]]
+
+![[claude-codex-coderabbit-3.jpeg]]

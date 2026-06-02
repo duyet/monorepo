@@ -9,15 +9,60 @@
  * These replace the Next.js route.ts API handlers.
  */
 
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import type { Post } from "@duyet/interfaces";
 import { getAllCategories, getAllPosts } from "@duyet/libs/getPost";
 import { getSlug } from "@duyet/libs/getSlug";
 import RSS from "rss";
+import {
+  parseFrontmatter,
+  shortformId,
+  toExcerpt,
+} from "../lib/shortform-parse";
 
 const PUBLIC_DIR = join(import.meta.dir, "..", "public");
+const SHORTFORMS_DIR = join(import.meta.dir, "..", "_shortforms");
 const SITE_URL = "https://blog.duyet.net";
+
+// ── shortform notes ───────────────────────────────────────────────────────────
+// Read the Obsidian-style notes straight off disk (the Vite loader in
+// lib/shortforms.ts uses import.meta.glob, which isn't available in this Bun
+// script) using the shared parser so ids match the live /note/$id routes.
+interface NoteEntry {
+  id: string;
+  title?: string;
+  date: Date;
+  body: string;
+  excerpt: string;
+}
+
+function getNotes(): NoteEntry[] {
+  let files: string[];
+  try {
+    files = readdirSync(SHORTFORMS_DIR).filter(
+      (f) => f.endsWith(".md") && f.toLowerCase() !== "readme.md"
+    );
+  } catch {
+    return [];
+  }
+  return files
+    .map((file) => {
+      const raw = readFileSync(join(SHORTFORMS_DIR, file), "utf-8");
+      const { date, title, slug, body } = parseFrontmatter(raw);
+      return {
+        id: shortformId(file.replace(/\.md$/, ""), slug),
+        title,
+        date: new Date(date),
+        body,
+        excerpt: toExcerpt(body),
+      };
+    })
+    .filter((n) => !Number.isNaN(n.date.getTime()))
+    .sort((a, b) => b.date.getTime() - a.date.getTime());
+}
+
+const notes = getNotes();
 
 // Ensure public directory exists
 mkdirSync(PUBLIC_DIR, { recursive: true });
@@ -140,6 +185,22 @@ ${yearPosts
   })
   .join("\n")}
 
+## Quick Notes
+
+Short-form thoughts and notes. Full list: ${SITE_URL}/notes
+
+${notes
+  .map((note) => {
+    const date = note.date.toISOString().split("T")[0];
+    const url = `${SITE_URL}/note/${note.id}`;
+    return `### [${note.title || note.id}](${url})
+- **Date**: ${date}
+- **URL**: ${url}
+- **Markdown**: ${url}.md
+${note.excerpt ? `- **Description**: ${note.excerpt}` : ""}`;
+  })
+  .join("\n")}
+
 ---
 
 **Blog Statistics:**
@@ -187,6 +248,21 @@ ${post.content || ""}
 ---`;
   })
   .join("\n\n")}
+
+${notes
+  .map((note) => {
+    const url = `${SITE_URL}/note/${note.id}`;
+    const date = note.date.toISOString().split("T")[0];
+    return `# ${(note.title || note.id).replace(/\n/g, " ")}
+
+- **URL**: ${url}
+- **Date**: ${date}
+
+${note.body}
+
+---`;
+  })
+  .join("\n\n")}
 `;
 
 writeFileSync(join(PUBLIC_DIR, "llms-full.txt"), llmsFullContent, "utf-8");
@@ -217,6 +293,29 @@ for (const post of fullPosts) {
   mdWritten++;
 }
 console.log(`  ✓ individual .md files (${mdWritten} posts)`);
+
+// ── individual note .md files ─────────────────────────────────────────────────
+// Serve raw markdown for notes at /note/{slug}.md (e.g.
+// /note/coding-agents-that-talk.md) alongside the SPA-rendered /note/{slug}.
+const NOTE_DIR = join(PUBLIC_DIR, "note");
+mkdirSync(NOTE_DIR, { recursive: true });
+let noteMdWritten = 0;
+for (const note of notes) {
+  const frontmatter = [
+    "---",
+    `title: "${(note.title || "").replace(/"/g, '\\"')}"`,
+    `date: ${note.date.toISOString().split("T")[0]}`,
+    `url: ${SITE_URL}/note/${note.id}`,
+    "---",
+  ].join("\n");
+  writeFileSync(
+    join(NOTE_DIR, `${note.id}.md`),
+    `${frontmatter}\n\n${note.body}\n`,
+    "utf-8"
+  );
+  noteMdWritten++;
+}
+console.log(`  ✓ individual note .md files (${noteMdWritten} notes)`);
 
 // ── sitemap.xml ───────────────────────────────────────────────────────────────
 const sitemapPosts = (getAllPosts(["slug", "date"], 100000) as Post[]).map(
@@ -270,6 +369,18 @@ ${categories
     <loc>${SITE_URL}/series</loc>
     <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
   </url>
+  <url>
+    <loc>${SITE_URL}/notes</loc>
+    <lastmod>${notes[0] ? notes[0].date.toISOString().split("T")[0] : new Date().toISOString().split("T")[0]}</lastmod>
+  </url>
+${notes
+  .map(
+    (note) => `  <url>
+    <loc>${SITE_URL}/note/${note.id}</loc>
+    <lastmod>${note.date.toISOString().split("T")[0]}</lastmod>
+  </url>`
+  )
+  .join("\n")}
 </urlset>
 `;
 

@@ -32658,3 +32658,80 @@ Open the browser and go to: [http://localhost:8080](http://localhost:8080/)
 
 
 ---
+
+# Coding agents talk to me now
+
+- **URL**: https://blog.duyet.net/note/coding-agents-that-talk
+- **Date**: 2026-06-02
+
+I gave Codex and Claude Code a voice with [sag.sh](https://sag.sh). When it is stuck and need me, say it out loud.
+
+Now every once in a while I hear the voice talk to me:
+
+> Đây là Claude, có 2 câu hỏi cần bạn trả lời ở project clickhouse monitoring.
+> (This is Claude, 2 questions for you on the clickhouse monitoring project.)
+
+or when something's done:
+
+> Hey, this is Claude, the plugins now support English and Vietnamese, pushed to GitHub.
+
+
+I am wrapped into https://github.com/duyet/codex-claude-plugins/tree/master/sag-notify you can give it a try:
+
+```
+/plugin install sag-notify@duyet-claude-plugins
+/reload-plugins
+/sag-notify:setup
+```
+
+Install `sag` with `brew install steipete/tap/sag` and set `ELEVENLABS_API_KEY`.
+
+Coolest thing ever.
+
+---
+
+# Chrome Devtools MCP
+
+- **URL**: https://blog.duyet.net/note/chrome-devtools-mcp
+- **Date**: 2026-06-01
+
+![[claude-chrome-devtools-mcp.png]]
+
+There are three ways to let an agent touch the browser right now: [Chrome DevTools MCP](https://github.com/ChromeDevTools/chrome-devtools-mcp), [Playwright MCP](https://github.com/microsoft/playwright-mcp), and Claude in Chrome. They look similar but they are not the same tool.
+
+For me **Chrome DevTools MCP is the better one for debugging**. It speaks the language of the DevTools — console messages, network requests, performance traces, the actual DOM and computed styles. When something is broken on a page, that is exactly what I want the agent to read.
+
+Playwright MCP feels more about *driving* a browser: click here, fill that, assert this. It is great for automation and end-to-end test flows, less so for "why is this layout broken / why is this request failing".
+
+> Chrome DevTools MCP → inspect and debug.
+> Playwright MCP → automate and test.
+
+Different jobs. I keep Chrome DevTools MCP around when I am hunting a bug, and reach for Playwright when I actually want to script the browser.
+
+---
+
+# Claude + Codex Review + CodeRabbit
+
+- **URL**: https://blog.duyet.net/note/claude-codex-coderabbit
+- **Date**: 2026-05-31
+
+This is the best combo I am using now.
+
+I am on both Claude Max and Codex Pro. **Claude Code + Codex Review + CodeRabbit** feel like the right pairing, both comment natively inside the PR and give different views of the same problem. The fun part is watching whether they agree or not.
+
+Opus 4.8 feels more honest now. I can see it push back, and sometimes it just rejects a change instead of nodding along.
+
+CodeRabbit is still the best at *finding* the bug, it auto-fix is still a bit off, though.
+
+How I run it:
+
+- **On demand** → Claude Code with `/github:babysit-pr`. It reads through all the review comments and auto-fixes the CI for me.
+- **Scheduled** → a Codex automation that reviews daily, merges or resolves issues, and can also fold in CodeRabbit's comments.
+
+![[claude-codex-coderabbit-1.jpeg]]
+
+![[claude-codex-coderabbit-2.jpeg]]
+
+![[claude-codex-coderabbit-3.jpeg]]
+
+---

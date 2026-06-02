@@ -2,27 +2,69 @@ import { dateFormat } from '@duyet/libs/date'
 import { createFileRoute, Link, notFound } from '@tanstack/react-router'
 import { type ReactElement, Suspense } from 'react'
 import { Markdown } from '@/components/Markdown'
-import { getShortformById } from '@/lib/shortforms'
+import { getShortformById, getShortforms } from '@/lib/shortforms'
 import type { Shortform } from '@/lib/shortforms'
 
+type NeighborNote = { id: string; title?: string; excerpt: string }
+
+interface NoteData {
+  note: Shortform
+  newer: NeighborNote | null
+  older: NeighborNote | null
+}
+
 export const Route = createFileRoute('/note/$id')({
-  head: ({ loaderData }) => ({
-    meta: [
-      {
-        title: `${(loaderData as { id?: string } | undefined)?.id ?? 'Note'} | Quick Notes`,
-      },
-    ],
-  }),
+  head: ({ loaderData }) => {
+    const note = (loaderData as NoteData | undefined)?.note
+    return {
+      meta: [{ title: `${note?.title ?? note?.id ?? 'Note'} | Quick Notes` }],
+    }
+  },
   loader: ({ params }) => {
     const note = getShortformById(params.id)
     if (!note) throw notFound()
-    return note as Shortform
+    const all = getShortforms()
+    const idx = all.findIndex((n) => n.id === note.id)
+    const toNeighbor = (n: Shortform): NeighborNote => ({
+      id: n.id,
+      title: n.title,
+      excerpt: n.excerpt,
+    })
+    // `all` is sorted newest-first, so idx-1 is the newer note, idx+1 the older.
+    const newer = idx > 0 ? toNeighbor(all[idx - 1]) : null
+    const older =
+      idx >= 0 && idx < all.length - 1 ? toNeighbor(all[idx + 1]) : null
+    return { note, newer, older } satisfies NoteData
   },
   component: NotePage,
 })
 
+function NeighborCard({
+  note,
+  direction,
+}: {
+  note: NeighborNote
+  direction: 'newer' | 'older'
+}): ReactElement {
+  const older = direction === 'older'
+  return (
+    <Link
+      to="/note/$id/"
+      params={{ id: note.id }}
+      className={`group flex flex-col gap-1.5 rounded-[var(--rd-r)] border p-4 no-underline transition-colors hover:bg-[var(--rd-surface-2)] ${older ? 'sm:items-end sm:text-right' : ''}`}
+    >
+      <span className="text-[11px] font-mono uppercase tracking-[0.14em] text-[var(--rd-text-3)]">
+        {older ? 'Older →' : '← Newer'}
+      </span>
+      <span className="line-clamp-2 text-[0.95rem] font-[560] leading-snug tracking-[-0.01em] text-[var(--rd-text)] transition-colors group-hover:text-[var(--rd-accent-ink)]">
+        {note.title || note.excerpt}
+      </span>
+    </Link>
+  )
+}
+
 function NotePage(): ReactElement {
-  const note = Route.useLoaderData() as Shortform
+  const { note, newer, older } = Route.useLoaderData() as NoteData
 
   return (
     <article className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16 md:py-24">
@@ -55,6 +97,16 @@ function NotePage(): ReactElement {
       >
         <Markdown source={note.body} className="mt-6" />
       </Suspense>
+      {newer || older ? (
+        <nav className="mt-16 grid gap-3 border-t pt-8 sm:grid-cols-2">
+          {newer ? (
+            <NeighborCard note={newer} direction="newer" />
+          ) : (
+            <span className="hidden sm:block" />
+          )}
+          {older ? <NeighborCard note={older} direction="older" /> : null}
+        </nav>
+      ) : null}
     </article>
   )
 }

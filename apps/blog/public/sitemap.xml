@@ -1284,4 +1284,20 @@
     <loc>https://blog.duyet.net/series</loc>
     <lastmod>2026-06-02</lastmod>
   </url>
+  <url>
+    <loc>https://blog.duyet.net/notes</loc>
+    <lastmod>2026-06-02</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/note/coding-agents-that-talk</loc>
+    <lastmod>2026-06-02</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/note/chrome-devtools-mcp</loc>
+    <lastmod>2026-06-01</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/note/claude-codex-coderabbit</loc>
+    <lastmod>2026-05-31</lastmod>
+  </url>
 </urlset>
