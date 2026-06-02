@@ -52,23 +52,27 @@ function NotesPage(): ReactElement {
                   </svg>
                 </div>
 
-                {/* Card Container */}
-                <div className="rounded-lg border border-border bg-card text-card-foreground shadow-sm hover:border-foreground/20 hover:shadow-md transition-all duration-200 p-6">
-                  {/* Card Header Info */}
-                  <div className="flex items-center justify-between gap-4 mb-4 pb-3 border-b border-border/40 text-xs font-mono text-muted-foreground">
+                {/* Content Container (No Card, No Border, No Shadow) */}
+                <div className="space-y-3 pb-4">
+                  {/* Header Info */}
+                  <div className="flex items-center justify-between gap-4 text-xs font-mono text-muted-foreground pb-2 border-b border-border/20">
                     <div className="flex items-center gap-2">
                       <span className="font-semibold text-foreground">Duyet Le</span>
                       <span>•</span>
                       <span>{distanceToNow(note.date)}</span>
                     </div>
-                    <span className="text-[10px] bg-muted px-2 py-0.5 rounded text-muted-foreground font-semibold uppercase">
-                      Note
-                    </span>
+                    <Link
+                      to="/note/$id/"
+                      params={{ id: note.id }}
+                      className="inline-flex items-center gap-1 hover:text-foreground transition-colors hover:underline"
+                    >
+                      #{note.id}
+                    </Link>
                   </div>
 
                   {/* Title */}
                   {note.title ? (
-                    <h2 className="text-xl font-bold tracking-tight text-foreground mb-3">
+                    <h2 className="text-xl font-bold tracking-tight text-foreground">
                       {note.title}
                     </h2>
                   ) : null}
@@ -84,19 +88,9 @@ function NotesPage(): ReactElement {
                     </Suspense>
                   </div>
 
-                  {/* Card Footer Link */}
-                  <div className="mt-6 pt-4 border-t border-border/40 flex justify-between items-center text-xs font-mono text-muted-foreground">
-                    <span>{note.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
-                    <Link
-                      to="/note/$id/"
-                      params={{ id: note.id }}
-                      className="inline-flex items-center gap-1.5 hover:text-foreground transition-colors hover:underline"
-                    >
-                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
-                      </svg>
-                      Permalink
-                    </Link>
+                  {/* Date Footer */}
+                  <div className="text-[11px] font-mono text-muted-foreground pt-1">
+                    {note.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
                   </div>
                 </div>
               </article>
