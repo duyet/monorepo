@@ -24,10 +24,10 @@ Interactive timeline of Large Language Model releases from 2017 to present.
 
 ```bash
 cd apps/llm-timeline
-bun run dev      # Start dev server on port 3005
-bun run build    # Build for production
-bun run lint     # Run linter
-bun run check-types  # TypeScript type check
+pnpm run dev      # Start dev server on port 3005
+pnpm run build    # Build for production
+pnpm run lint     # Run linter
+pnpm run check-types  # TypeScript type check
 ```
 
 ## Adding Models
@@ -49,7 +49,7 @@ Edit `lib/data.ts` and add models to the `models` array following the type struc
 ## Deployment
 
 ```bash
-bun run cf:deploy:prod  # Deploy to Cloudflare Pages production
+pnpm run cf:deploy:prod  # Deploy to Cloudflare Pages production
 ```
 
 GitHub Actions automatically deploy on push to `master`.

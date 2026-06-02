@@ -8,7 +8,7 @@ Lightweight API built with Hono and deployed to Cloudflare Workers.
 - **Cloudflare Workers**: Serverless deployment with global edge network
 - **AI-Powered Descriptions**: Generate witty blog descriptions using OpenRouter API
 - **TypeScript**: Full type safety with strict mode
-- **Testing**: Built-in test support with Bun test runner
+- **Testing**: Built-in test support with Vitest
 
 ## Endpoints
 
@@ -49,19 +49,19 @@ curl "https://api.duyet.net/api/ai-description?source=featured&posts=post1,post2
 
 ```bash
 # Install dependencies
-bun install
+pnpm install
 
 # Run type checking
-bun run check-types
+pnpm run check-types
 
 # Run tests
-bun run test
+pnpm run test
 
 # Start local development server
-bun run dev
+pnpm run dev
 
 # Deploy to Cloudflare Workers
-bun run deploy
+pnpm run deploy
 ```
 
 ## Environment Variables
@@ -80,7 +80,7 @@ npx wrangler login
 npx wrangler secret put OPENROUTER_API_KEY
 
 # Deploy
-bun run deploy
+pnpm run deploy
 ```
 
 ## Project Structure
@@ -105,4 +105,3 @@ MIT
 ---
 
 **This repository is maintained by [@duyetbot](https://github.com/duyetbot).**
-

@@ -15,16 +15,16 @@ This service syncs data from multiple external sources into ClickHouse for analy
 
 ```bash
 # Show help
-bun run start
+pnpm run start
 
 # Initialize database
-bun run migrate:up
+pnpm run migrate:up
 
 # Sync all data sources
-bun run sync:all
+pnpm run sync:all
 
 # Run cleanup
-bun run cleanup
+pnpm run cleanup
 ```
 
 ## Usage
@@ -35,71 +35,71 @@ For detailed command documentation, see [COMMANDS.md](./COMMANDS.md).
 
 ```bash
 # Show help and available commands
-bun run start
-bun run start --help
+pnpm run start
+pnpm run start -- --help
 
 # Run specific commands
-bun run start sync all
-bun run start migrate status
-bun run start cleanup --dry-run
+pnpm run start -- sync all
+pnpm run start -- migrate status
+pnpm run start -- cleanup --dry-run
 ```
 
 ### Sync Commands
 
 ```bash
 # Sync all sources
-bun run sync all
-bun run sync:all
+pnpm run sync -- all
+pnpm run sync:all
 
 # Sync specific source
-bun run sync wakatime
-bun run sync:wakatime
-bun run sync:cloudflare
-bun run sync:github
-bun run sync:unsplash
+pnpm run sync -- wakatime
+pnpm run sync:wakatime
+pnpm run sync:cloudflare
+pnpm run sync:github
+pnpm run sync:unsplash
 
 # Sync multiple sources
-bun run sync wakatime cloudflare
+pnpm run sync -- wakatime cloudflare
 
 # Dry run (preview without writing)
-bun run sync all --dry-run
+pnpm run sync -- all --dry-run
 ```
 
 ### Migration Commands
 
 ```bash
 # Show migration help
-bun run migrate help
+pnpm run migrate -- help
 
 # Apply pending migrations
-bun run migrate up
-bun run migrate:up
+pnpm run migrate -- up
+pnpm run migrate:up
 
 # Rollback last migration
-bun run migrate down
-bun run migrate:down
+pnpm run migrate -- down
+pnpm run migrate:down
 
 # Rollback multiple migrations
-bun run migrate down --count 2
+pnpm run migrate -- down --count 2
 
 # Check migration status
-bun run migrate status
-bun run migrate:status
+pnpm run migrate -- status
+pnpm run migrate:status
 
 # Verify migration checksums
-bun run migrate verify
-bun run migrate:verify
+pnpm run migrate -- verify
+pnpm run migrate:verify
 ```
 
 ### Cleanup Commands
 
 ```bash
 # Run data retention cleanup
-bun run cleanup
+pnpm run cleanup
 
 # Preview cleanup (dry run)
-bun run cleanup --dry-run
-bun run cleanup:dry-run
+pnpm run cleanup -- --dry-run
+pnpm run cleanup:dry-run
 ```
 
 ## Configuration
@@ -123,10 +123,10 @@ Data retention policies are defined in `src/config/retention.config.ts`:
 
 ```bash
 # Type checking
-bun run check-types
+pnpm run check-types
 
 # Run tests
-bun run test
+pnpm run test
 ```
 
 ## Environment Variables
@@ -158,4 +158,3 @@ migrations/          # Database migrations
 ---
 
 **This repository is maintained by [@duyetbot](https://github.com/duyetbot).**
-

@@ -15,21 +15,21 @@ Personal CV / resume hosting with TanStack Start and static pre-rendering. Displ
 ## Development
 
 ```bash
-bun run dev          # Start dev server on port 3002
-bun run build        # Build static site to 'dist/client/'
-bun run lint         # Run Biome linter
-bun run check-types  # TypeScript type check
-bun run preview      # Preview production build locally
+pnpm run dev          # Start dev server on port 3002
+pnpm run build        # Build static site to 'dist/client/'
+pnpm run lint         # Run Biome linter
+pnpm run check-types  # TypeScript type check
+pnpm run preview      # Preview production build locally
 ```
 
 ## Deployment
 
 ```bash
 # Deploy to Cloudflare Pages (preview)
-bun run cf:deploy
+pnpm run cf:deploy
 
 # Deploy to Cloudflare Pages (production)
-bun run cf:deploy:prod
+pnpm run cf:deploy:prod
 ```
 
 See [CLAUDE.md](../../CLAUDE.md) for detailed documentation on architecture, development patterns, and common tasks.
@@ -37,4 +37,3 @@ See [CLAUDE.md](../../CLAUDE.md) for detailed documentation on architecture, dev
 ---
 
 **This repository is maintained by [@duyetbot](https://github.com/duyetbot).**
-

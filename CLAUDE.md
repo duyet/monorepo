@@ -3,7 +3,7 @@
 Read [docs/ai/internal-knowledge.md](docs/ai/internal-knowledge.md) before changing this repository.
 
 Use semantic commit messages. Keep changes surgical and verify with the narrowest useful command for the touched app or package.
-For single-file verification, use `pnpm dlx biome lint <path>` before broader app checks.
+For single-file verification, use `pnpm exec biome lint <path>` before broader app checks.
 For dead-code cleanup, verify zero non-test references first with `rg -n "<symbol>" apps packages --glob '!**/*.test.*' --glob '!**/*.spec.*'`.
 For root quality checks, use `pnpm run lint`, `pnpm run check-types`, and `pnpm run test`.
 For deploy/config workflows, use root scripts (`pnpm run config`, `pnpm run deploy`, `pnpm run cf:deploy`, `pnpm run cf:deploy:prod`) when needed.

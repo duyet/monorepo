@@ -26,7 +26,7 @@ This data lives in `apps/llm-timeline/lib/data.ts`. It is **out of scope for duy
 ## Sync
 
 ```bash
-bun run sync
+pnpm run sync
 ```
 
 The last sync: 2026-03-25. Result: 3937 unique models (4 duplicates removed from the union of both sources).
@@ -37,7 +37,7 @@ The `packages/libs` dedup crate handles cross-source deduplication. The WASM ben
 
 ## Build-time usage
 
-During `bun build`, the LLM Timeline app reads the data from `lib/data.ts` (compiled-in) rather than fetching at runtime. There's no runtime API call for model data — it's baked into the pre-rendered pages.
+During `pnpm run build`, the LLM Timeline app reads the data from `lib/data.ts` (compiled-in) rather than fetching at runtime. There's no runtime API call for model data — it's baked into the pre-rendered pages.
 
 ## Badge classification
 

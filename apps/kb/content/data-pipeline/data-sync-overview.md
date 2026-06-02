@@ -3,7 +3,7 @@ title: "Data Sync Overview"
 category: "data-pipeline"
 tags: ["data-sync", "ccusage", "wakatime", "pipeline"]
 links: ["insights-app", "llm-timeline-app", "blog-app"]
-summary: "data-sync ingests external data; CCUsage feeds insights, LLM models sync via bun run sync, blog posts are local markdown files."
+summary: "data-sync ingests external data; CCUsage feeds insights, LLM models sync via pnpm run sync, blog posts are local markdown files."
 updated: "2026-05-26"
 ---
 
@@ -14,7 +14,7 @@ The monorepo has a `packages/data-sync` package (13 tests) responsible for pulli
 ## LLM Timeline data sync
 
 ```bash
-bun run sync
+pnpm run sync
 ```
 
 Pulls from two sources:

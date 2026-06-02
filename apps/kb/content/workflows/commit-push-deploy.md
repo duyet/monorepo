@@ -14,7 +14,7 @@ Every completed task ends with three steps: commit, push, deploy.
 ```bash
 git commit -m "feat(blog): add copy dropdown"
 git push origin master
-cd apps/blog && bun run cf:deploy:prod  # run in background
+cd apps/blog && pnpm run cf:deploy:prod  # run in background
 ```
 
 ## Commit format
@@ -31,19 +31,19 @@ Semantic commits with a scope matching the changed app or package:
 
 ## commitlint constraints
 
-The `commit-msg` hook runs `bun commitlint` with two enforced rules:
+The `commit-msg` hook runs `pnpm exec commitlint` with two enforced rules:
 
 - **body-max-line-length: 100** — body lines must be ≤100 characters
 - **subject-case: lowercase** — description must be lowercase
 
 ## Pre-commit hook
 
-`bun run test` runs across all 14 packages before every commit. Cached runs take ~100 ms; uncached runs can cause a pipe buffer overflow that returns exit code 1 even when tests pass.
+`pnpm run test` runs the workspace test suite before every commit.
 
-**Always warm the cache before committing:**
+**If you want an early failure signal, run the suite manually before committing:**
 
 ```bash
-bun run test  # warm cache
+pnpm run test
 git commit ...
 ```
 
@@ -72,13 +72,13 @@ gh run list --branch master --event push --limit 5 \
 Run these before marking a multi-file task complete:
 
 ```bash
-bun run lint         # Biome lint
-bun run check-types  # TypeScript
-bun run test         # all packages
+pnpm run lint         # Biome lint
+pnpm run check-types  # TypeScript
+pnpm run test         # all packages
 ```
 
 For single-file changes:
 
 ```bash
-bunx biome lint <path>
+pnpm exec biome lint <path>
 ```

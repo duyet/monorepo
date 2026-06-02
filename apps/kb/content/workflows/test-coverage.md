@@ -1,15 +1,15 @@
 ---
 title: "Test Coverage by App"
 category: "workflows"
-tags: ["tests", "coverage", "bun", "quality"]
+tags: ["tests", "coverage", "pnpm", "quality"]
 links: ["commit-push-deploy", "dead-code-cleanup"]
-summary: "Test counts per package; agents leads at 142, libs at 117; total ~14 packages run in ~100ms cached via bun run test."
+summary: "Test counts per package; run the workspace suite from the repo root with pnpm."
 updated: "2026-05-26"
 ---
 
 # Test Coverage by App
 
-Tests run via `bun run test` at the monorepo root, covering all 14 packages. Cached runs take ~100 ms.
+Tests run via `pnpm run test` at the monorepo root.
 
 ## Current test counts
 
@@ -33,9 +33,9 @@ Tests run via `bun run test` at the monorepo root, covering all 14 packages. Cac
 
 ## Pre-commit behavior
 
-The pre-commit hook runs `bun run test`. An uncached run can cause a pipe buffer overflow that returns exit code 1 despite all tests passing.
+The pre-commit hook runs `pnpm run test`.
 
-**Mitigation:** run `bun run test` manually before committing to warm the Bun cache. Then commit. The hook's cached run will complete cleanly.
+If you want to validate before committing, run `pnpm run test` manually first.
 
 ## Adding tests
 

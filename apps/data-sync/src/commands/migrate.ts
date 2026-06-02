@@ -10,7 +10,7 @@ function printHelp() {
 Database Migration Tool
 
 Usage:
-  bun run migrate <command> [options]
+  pnpm run migrate -- <command> [options]
 
 Commands:
   up              Apply pending migrations
@@ -22,11 +22,11 @@ Options:
   --count N       Number of migrations to rollback (use with down)
 
 Examples:
-  bun run migrate up
-  bun run migrate down
-  bun run migrate down --count 2
-  bun run migrate status
-  bun run migrate verify
+  pnpm run migrate -- up
+  pnpm run migrate -- down
+  pnpm run migrate -- down --count 2
+  pnpm run migrate -- status
+  pnpm run migrate -- verify
 `);
 }
 

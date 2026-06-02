@@ -13,14 +13,14 @@ Personal CV / resume hosting with TanStack Start and static pre-rendering. Displ
 ## Development Commands
 
 ```bash
-bun run dev          # Start dev server on port 3002
-bun run build        # Build static site to 'dist/client/'
-bun run lint         # Run Biome linter
-bun run check-types  # TypeScript type check
+pnpm run dev          # Start dev server on port 3002
+pnpm run build        # Build static site to 'dist/client/'
+pnpm run lint         # Run Biome linter
+pnpm run check-types  # TypeScript type check
 
 # Deploy to Cloudflare Pages
-bun run cf:deploy        # Preview deployment
-bun run cf:deploy:prod   # Production deployment
+pnpm run cf:deploy        # Preview deployment
+pnpm run cf:deploy:prod   # Production deployment
 ```
 
 ## Architecture
@@ -30,7 +30,7 @@ bun run cf:deploy:prod   # Production deployment
 - **Framework**: TanStack Start (SSR + static pre-rendering), TanStack Router
 - **Styling**: Tailwind CSS + Radix UI Separator
 - **Icons**: `@icons-pack/react-simple-icons` for tech stack icons
-- **Package Manager**: Bun
+- **Package Manager**: pnpm
 
 ### Project Structure
 
