@@ -365,7 +365,7 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
             "absolute left-0 top-full z-50 mt-1.5 w-[min(92vw,26rem)] overflow-hidden rounded-lg border bg-popover shadow-none",
           )}
         >
-          <div className="max-h-[min(72vh,34rem)] overflow-y-auto p-1.5">
+          <div className="max-h-[min(85vh,45rem)] overflow-y-auto p-1.5">
             {CATEGORY_ORDER.map((category) => {
               const apps = APPS.filter((a) => a.category === category);
               if (apps.length === 0) return null;
