@@ -163,8 +163,8 @@ function HomePage(): ReactElement {
 
       {/* ── Quick Notes ────────────────────────────────────────────── */}
       {shortforms && shortforms.length > 0 && (
-        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)] border-t">
-          <div className="flex justify-between items-baseline mb-8">
+        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(32px,4vw,52px)] border-t">
+          <div className="flex justify-between items-baseline mb-5">
             <SecHead eyebrow="Notes" title="Quick Thoughts" />
             <Link
               to="/notes/"
@@ -179,17 +179,17 @@ function HomePage(): ReactElement {
                 key={note.id}
                 to="/note/$id/"
                 params={{ id: note.id }}
-                className="group -mx-3 flex items-start gap-4 rounded-[var(--rd-r)] px-3 py-5 no-underline transition-colors hover:bg-[var(--rd-surface-2)]"
+                className="group -mx-3 flex items-start gap-4 rounded-[var(--rd-r)] px-3 py-3 no-underline transition-colors hover:bg-[var(--rd-surface-2)]"
               >
                 <div className="min-w-0 flex-1">
                   <time className="block text-[11.5px] font-mono uppercase tracking-[0.12em] text-[var(--rd-text-3)]">
                     {distanceToNow(note.date)}
                   </time>
-                  <h3 className="mt-1.5 text-[1.05rem] font-[560] leading-snug tracking-[-0.02em] text-[var(--rd-text)] transition-colors group-hover:text-[var(--rd-accent-ink)]">
+                  <h3 className="mt-1 text-[1rem] font-[560] leading-snug tracking-[-0.02em] text-[var(--rd-text)] transition-colors group-hover:text-[var(--rd-accent-ink)]">
                     {note.title || note.excerpt}
                   </h3>
                   {note.title ? (
-                    <p className="mt-1.5 line-clamp-2 text-[13.5px] leading-[1.55] text-[var(--rd-text-2)]">
+                    <p className="mt-1 line-clamp-1 text-[13px] leading-[1.5] text-[var(--rd-text-2)]">
                       {note.excerpt}
                     </p>
                   ) : null}
