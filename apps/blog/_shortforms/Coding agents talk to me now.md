@@ -15,4 +15,15 @@ or when something's done:
 
 > Hey, this is Claude, the plugins now support English and Vietnamese, pushed to GitHub.
 
+
+I am wrapped into https://github.com/duyet/codex-claude-plugins/tree/master/sag-notify you can give it a try:
+
+```
+/plugin install sag-notify@duyet-claude-plugins
+/reload-plugins
+/sag-notify:setup
+```
+
+Install `sag` with `brew install steipete/tap/sag` and set `ELEVENLABS_API_KEY`.
+
 Coolest thing ever.

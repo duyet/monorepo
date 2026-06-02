@@ -41,16 +41,55 @@ function parseMarkdownToHtml(markdown: string): string {
   html = html.replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>')
   html = html.replace(/<\/ul>\s*<ul>/g, '\n')
 
-  // 10. Paragraphs (double line breaks)
-  const paragraphs = html.split(/\n\n+/)
-  return paragraphs
-    .map((p) => {
-      p = p.trim()
-      if (!p) return ''
-      if (/^(<pre|<h|<blockquote|<ul|<li|<img)/.test(p)) return p
-      return `<p>${p.replace(/\n/g, '<br />')}</p>`
-    })
+  // 10. Group adjacent image-only blocks into one full-bleed row; wrap the rest
+  //     as paragraphs. Two or more consecutive `![[img]]` embeds become a wide
+  //     gallery that breaks out of the prose column; a lone image is unchanged.
+  const blocks = html
+    .split(/\n\n+/)
+    .map((p) => p.trim())
+    .filter(Boolean)
+  const isImageOnly = (p: string) => /^<img\b[^>]*>$/.test(p)
+
+  const out: string[] = []
+  for (let i = 0; i < blocks.length; i++) {
+    const block = blocks[i]
+    if (isImageOnly(block)) {
+      const run: string[] = []
+      while (i < blocks.length && isImageOnly(blocks[i])) run.push(blocks[i++])
+      i-- // step back: the for-loop will re-increment
+      out.push(run.length > 1 ? renderImageRow(run) : run[0])
+      continue
+    }
+    if (/^(<pre|<h|<blockquote|<ul|<li)/.test(block)) {
+      out.push(block)
+    } else {
+      out.push(`<p>${block.replace(/\n/g, '<br />')}</p>`)
+    }
+  }
+  return out.join('')
+}
+
+/**
+ * Render >=2 adjacent images as a full-bleed gallery that breaks out of the
+ * prose column. Column count is decided by CSS, not JS: `auto-fit` + `minmax`
+ * packs as many >=16rem columns as the viewport allows and wraps the rest onto
+ * new rows — so three shots sit on one row on desktop and stack on a phone.
+ *
+ * Tailwind classes (not inline styles) work here because this `.tsx` file is in
+ * the Tailwind content globs; the class strings below are scanned verbatim.
+ */
+function renderImageRow(imgs: string[]): string {
+  const cells = imgs
+    .map((img) =>
+      img.replace(/\sclass="[^"]*"/, ' class="m-0 block h-auto w-full rounded-lg"')
+    )
     .join('')
+  return (
+    '<div class="not-prose relative left-1/2 my-8 w-screen -translate-x-1/2 ' +
+    'grid items-start gap-2 px-4 ' +
+    'grid-cols-[repeat(auto-fit,minmax(min(100%,16rem),1fr))]">' +
+    `${cells}</div>`
+  )
 }
 
 export function Markdown({
