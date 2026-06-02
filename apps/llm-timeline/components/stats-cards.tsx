@@ -28,16 +28,16 @@ function StatCard({
     // @ts-expect-error -- polymorphic component
     <Comp
       className={cn(
-        "rounded-[var(--rd-r)] p-5 transition-all",
+        "rounded-[var(--rd-r)] p-4 transition-all",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rd-ring)] focus-visible:ring-offset-2",
         active
           ? "bg-[var(--rd-surface)] border border-[var(--rd-border)]"
-          : "bg-[var(--rd-surface-2)] hover:bg-[var(--rd-surface)] border border-transparent"
+          : "border border-transparent hover:bg-[var(--rd-surface-2)]"
       )}
       {...props}
     >
       <div>
-        <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-[var(--rd-r-sm)] bg-[var(--rd-surface-2)] border border-[var(--rd-border)]">
+        <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-[var(--rd-r-sm)] bg-[var(--rd-surface-2)]">
           {icon}
         </div>
         <div className="space-y-0.5">

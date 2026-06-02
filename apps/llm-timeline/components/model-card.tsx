@@ -153,7 +153,7 @@ export function ModelCard({
       {/* Enhanced Card */}
       <div
         className={cn(
-          "flex-1 rounded-[var(--rd-r)] border transition-all bg-card",
+          "flex-1 rounded-[var(--rd-r)] border p-4 transition-all bg-card",
           "hover:border-[var(--rd-border-2)] hover:bg-card",
           isSelectable && isSelected
             ? "ring-2 ring-[var(--rd-ring)] ring-offset-2 ring-offset-background border-foreground/20"
