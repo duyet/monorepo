@@ -58,7 +58,7 @@ export const apps: AppItem[] = [
     tone: "bg-[#536f91]",
     domain: "anyrouter.dev",
     iconName: "Cloud",
-    logo: "https://anyrouter.dev/anyrouter-logo.svg",
+    logo: "https://anyrouter.dev/brand/anyrouter-logo.svg",
     tags: ["AI", "Infra"],
   },
   {

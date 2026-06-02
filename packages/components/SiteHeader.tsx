@@ -251,7 +251,7 @@ const GLOBAL_NAV: {
     match: { path: "/projects" },
   },
   { label: "Blog", href: "https://blog.duyet.net", match: { app: "blog" } },
-  { label: "CV", href: "https://cv.duyet.net", match: {} },
+  { label: "CV", href: "https://cv.duyet.net", match: { app: "cv" } },
   { label: "Photos", href: "https://photos.duyet.net", match: { app: "photos" } },
   {
     label: "About",

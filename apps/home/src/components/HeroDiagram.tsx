@@ -21,7 +21,7 @@ export function HeroDiagram() {
     { id: "langgraph", t: "LangGraph", kind: "ai", slug: "langchain", a: 216, r: 134 },
     { id: "llamaindex", t: "LlamaIndex", kind: "ai", a: 198, r: 182 },
     { id: "opencode", t: "OpenCode", kind: "ai", a: 234, r: 182 },
-    { id: "anyrouter", t: "AnyRouter", kind: "ai", icon: "https://anyrouter.dev/anyrouter-logo.svg", a: 272, r: 168 },
+    { id: "anyrouter", t: "AnyRouter", kind: "ai", icon: "https://anyrouter.dev/brand/anyrouter-logo.svg", a: 272, r: 168 },
     { id: "openrouter", t: "OpenRouter", kind: "ai", slug: "openrouter", a: 312, r: 184 },
     { id: "aisdk", t: "AI SDK", kind: "ai", slug: "vercel", a: 336, r: 138 },
     // Data

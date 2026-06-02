@@ -13,7 +13,7 @@ interface ElsewhereCardsProps {
 
 function ElsewhereCards({ elsewhere }: ElsewhereCardsProps) {
   return (
-    <div className="rd-card p-[clamp(18px,2.2vw,26px)] mt-3 p-[clamp(24px,3vw,34px)]">
+    <div className="mt-[clamp(48px,6vw,72px)]">
       <Eyebrow>Elsewhere</Eyebrow>
       <div className="rd-g4 mt-[18px] gap-[10px]">
         {elsewhere.map((e) => (

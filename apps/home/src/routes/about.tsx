@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Eyebrow } from "@duyet/components";
 import {
-  facts,
   focus,
   stack,
   elsewhere,
@@ -109,21 +108,6 @@ function AboutPage() {
             where data products, AI tooling, and engineering platforms meet —
             and most of it ends up open source.
           </p>
-          <div className="rd-g4 mt-[34px] gap-[10px]">
-            {facts.map((f) => (
-              <div
-                key={f.label}
-                className="rd-card p-[clamp(18px,2.2vw,26px)] bg-[var(--rd-bg-sub)] px-[18px] py-4"
-              >
-                <div className="rd-eyebrow text-[10px]">
-                  {f.label}
-                </div>
-                <div className="mt-2 text-[16px] font-semibold tracking-[-0.02em]">
-                  {f.value}
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
 
         <VibeCodingBento agentsList={agentsList} />

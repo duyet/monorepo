@@ -3,11 +3,6 @@ import { addUtmParams } from "../../../app/lib/utm";
 
 const experienceYears = "8+ years";
 
-const facts = [
-  { label: "Role", value: "Senior Data & AI Engineer" },
-  { label: "Experience", value: experienceYears },
-  { label: "Posts", value: "299" },
-];
 
 const focus =
   "Data pipelines, warehouses, and observability. Agent workflows, model routing, evaluation, and usage analytics. Small, sharp tools with clean interfaces.";
@@ -94,4 +89,4 @@ const techStack = [
   },
 ];
 
-export { facts, focus, stack, elsewhere, expertise, agentsList, techStack, experienceYears };
+export { focus, stack, elsewhere, expertise, agentsList, techStack, experienceYears };

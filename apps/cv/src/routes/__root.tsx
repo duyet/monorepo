@@ -5,7 +5,7 @@ import Analytics from "@duyet/components/Analytics";
 import Container from "@duyet/components/Container";
 import SiteFooter from "@duyet/components/SiteFooter";
 import Header from "@duyet/components/Header";
-import { ABOUT, BLOG, HOME, INSIGHTS, PHOTOS } from "@duyet/components/Menu";
+import { ABOUT, BLOG, CV, HOME, INSIGHTS, PHOTOS } from "@duyet/components/Menu";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import {
   createRootRoute,
@@ -117,7 +117,7 @@ function RootComponent() {
               logo={false}
               containerClassName="max-w-3xl"
               longText="Resume"
-              navigationItems={[HOME, BLOG, PHOTOS, INSIGHTS, ABOUT]}
+              navigationItems={[HOME, BLOG, CV, PHOTOS, INSIGHTS, ABOUT]}
               shortText="CV"
             />
           </div>
