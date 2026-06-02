@@ -14,6 +14,7 @@ import {
   FileText,
   Flame,
   House,
+  List,
   type LucideIcon,
   Moon,
   Percent,
@@ -49,6 +50,7 @@ type AppKey =
   | "home"
   | "about"
   | "projects"
+  | "ls"
   | "blog"
   | "insights"
   | "llm-timeline"
@@ -128,6 +130,15 @@ const APPS: AppDef[] = [
     Icon: Briefcase,
     category: "Personal",
     blurb: "Work & experiments",
+  },
+  {
+    key: "ls",
+    name: "ls",
+    href: "https://duyet.net/ls",
+    subdomain: "duyet.net",
+    Icon: List,
+    category: "Personal",
+    blurb: "Directory listing",
   },
   {
     key: "cv",
