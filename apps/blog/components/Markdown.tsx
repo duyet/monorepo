@@ -12,21 +12,33 @@ import type { ReactElement } from 'react'
 const GALLERY_CLASS =
   'not-prose relative left-1/2 my-8 w-screen -translate-x-1/2 grid items-start gap-6 px-8 grid-cols-[repeat(auto-fit,minmax(min(100%,16rem),1fr))]'
 
+// A lone image breaks out of the prose column a little on large screens
+// (negative x-margins widen the box past the text width); on small screens it
+// stays at text width to avoid horizontal overflow.
+const SINGLE_CLASS = 'not-prose my-6 lg:-mx-12'
+
+function imgWithClass(img: string, cls: string): string {
+  return img.replace(/\sclass="[^"]*"/, '').replace(/^<img\s/, `<img class="${cls}" `)
+}
+
 /**
- * Group >=2 adjacent standalone images (each emitted by marked as
- * `<p><img></p>`) into one full-bleed, responsive gallery row. `auto-fit` lets
- * CSS decide same-row vs multi-row by viewport width; a lone image is untouched.
+ * Wrap runs of standalone images (each emitted by marked as `<p><img></p>`):
+ * >=2 adjacent images become one full-bleed responsive gallery row (`auto-fit`
+ * decides same-row vs multi-row by viewport width); a single image gets a
+ * modest breakout so it reads a bit wider than the surrounding text.
  */
 function groupImageRows(html: string): string {
-  return html.replace(/(?:<p>\s*<img[^>]*>\s*<\/p>\s*){2,}/g, (block) => {
-    const cells = (block.match(/<img[^>]*>/g) ?? [])
-      .map((img) =>
-        img
-          .replace(/\sclass="[^"]*"/, '')
-          .replace(/^<img\s/, '<img class="m-0 block h-auto w-full rounded-lg" ')
-      )
-      .join('')
-    return `<div class="${GALLERY_CLASS}">${cells}</div>`
+  return html.replace(/(?:<p>\s*<img[^>]*>\s*<\/p>\s*){1,}/g, (block) => {
+    const imgs = block.match(/<img[^>]*>/g) ?? []
+    if (imgs.length >= 2) {
+      const cells = imgs
+        .map((img) => imgWithClass(img, 'm-0 block h-auto w-full rounded-lg'))
+        .join('')
+      return `<div class="${GALLERY_CLASS}">${cells}</div>`
+    }
+    const single = imgs[0]
+    if (!single) return block
+    return `<div class="${SINGLE_CLASS}">${imgWithClass(single, 'block w-full rounded-lg')}</div>`
   })
 }
 

@@ -12,6 +12,13 @@ For me **Chrome DevTools MCP is the better one for debugging**. It speaks the la
 Playwright MCP feels more about *driving* a browser: click here, fill that, assert this. It is great for automation and end-to-end test flows, less so for "why is this layout broken / why is this request failing".
 
 > Chrome DevTools MCP → inspect and debug.
+> 
 > Playwright MCP → automate and test.
 
 Different jobs. I keep Chrome DevTools MCP around when I am hunting a bug, and reach for Playwright when I actually want to script the browser.
+
+```
+/plugin marketplace add ChromeDevTools/chrome-devtools-mcp
+/plugin install chrome-devtools-mcp@chrome-devtools-plugins
+/reload-skills
+```

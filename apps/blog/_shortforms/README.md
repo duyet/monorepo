@@ -8,9 +8,11 @@ Filename: `YYYY-MM-DD-slug.md`. Frontmatter only needs `date:`.
 ```
 ---
 date: 2026-05-26
+title: xxx
+slug: yyy
 ---
 
-Your note body here. Markdown not required — plain text renders.
+Your note body here. Markdown or plain text renders.
 ```
 
 The `import.meta.glob` loader matches `*.md` files at the top level of

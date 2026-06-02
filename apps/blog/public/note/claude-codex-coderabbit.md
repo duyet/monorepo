@@ -17,6 +17,11 @@ How I run it:
 - **On demand** → Claude Code with `/github:babysit-pr`. It reads through all the review comments and auto-fixes the CI for me.
 - **Scheduled** → a Codex automation that reviews daily, merges or resolves issues, and can also fold in CodeRabbit's comments.
 
+Some PRs run long — a lot of back and forth between them until it finally gets the thumbs up:
+
+- [clickhouse-monitoring#1349](https://github.com/duyet/clickhouse-monitoring/pull/1349)
+- [clickhouse-monitoring#1355](https://github.com/duyet/clickhouse-monitoring/pull/1355)
+
 ![[claude-codex-coderabbit-1.jpeg]]
 
 ![[claude-codex-coderabbit-2.jpeg]]
