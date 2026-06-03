@@ -39,24 +39,17 @@ I have no much idea with its plan. I noticed I had only 30% left of my 5-hour us
 It got through the refactoring workflows and built the new landing page to move and redeploy everything (mcp, docs, etc). At 
 `00:12`, since local-`ScheduleWakeup` caps at one hour, it pre-schedule a Remote Cloud Agent to continue with the current context, also flagged a concern: because this wasn't a local wake-up, some memory and context would be lost. I thought local session can auto recover after usage limit resolved.
 
-![Workflows running with auto-scheduled wake-ups](/media/2026/06/coding-agent/coding-agent-chm-autonomous-2-workflows-and-auto-schedule.png)
-
-```
-※ Now, continuing non-stop. The landing-build workflow is running in the background ...
-```
-
 <div class="img-row">
+<img src="/media/2026/06/coding-agent/coding-agent-chm-autonomous-2-workflows-and-auto-schedule.png" alt="" />
 <img src="/media/2026/06/coding-agent/coding-agent-chm-autonomous-3-workflows.png" alt="The set of workflows in flight" />
-<img src="/media/2026/06/coding-agent/coding-agent-chm-autonomous-4-cloud-schedule.png" alt="The cloud schedule keeping the work alive overnight" />
 </div>
 
 It was a very long conversation next morning. The session limit was hit three times, which I think maps to three one hour capped local wake-ups. The remote trigger did fire, but the local session also recovered. It noted that the remote trigger had run, so it was checking status by pulling the PRs.
 
-![Reviewing the overnight run from the Claude iPhone app](/media/2026/06/coding-agent/coding-agent-chm-autonomous-5-claude-iphone.png)
-
 The one snag was the **https://dash.chmonitor.dev** deploy, but it found a way to recover. It left two hand-off items for me - which I'm going to pass to a fresh Claude session anyway 🗿.
  
 <div class="img-row">
+<img src="/media/2026/06/coding-agent/coding-agent-chm-autonomous-5-claude-iphone.png" alt="Reviewing the overnight run from the Claude iPhone app" />
 <img src="/media/2026/06/coding-agent/coding-agent-chm-autonomous-6-claude-iphone.png" alt="The two hand-off items, viewed on mobile" />
 <img src="/media/2026/06/coding-agent/coding-agent-chm-autonomous-7-summary.png" alt="The final summary of the overnight work" />
 </div>
