@@ -151,13 +151,20 @@
 }
 
 /* Side-by-side image row: <div class="img-row"> wrapping multiple <img>.
- * Takes the full track and lays the images out as equal flex columns that
- * wrap to a stack on narrow viewports. `width: auto` overrides the global
- * `.prose img { width: 100% }` so flex-basis controls sizing instead. */
+ * Takes the full track and lays the images out as flex columns. `width: auto`
+ * overrides the global `.prose img { width: 100% }` so flex sizing controls
+ * the layout instead.
+ *
+ * `nowrap` is deliberate: with `flex-wrap: wrap`, flexbox decides line breaks
+ * from each image's intrinsic width *before* shrinking, so a row of wide
+ * screenshots (e.g. 2000px shots in a ~1300px track) wraps to a vertical
+ * stack and never shrinks back. `nowrap` keeps them on one line and lets
+ * `flex-shrink` size them down to fit. The mobile query below restores
+ * stacking so the shrunk images don't become unreadable slivers. */
 .post-reader .prose .img-row {
   grid-column: full;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
   align-items: flex-start;
   gap: 1rem;
@@ -178,6 +185,19 @@
   max-width: 100%;
   margin: 0 !important;
   border-radius: 0.5rem;
+}
+
+/* On phones a single row of two wide screenshots shrinks to unreadable
+ * slivers, so fall back to a vertical stack. */
+@media (max-width: 640px) {
+  .post-reader .prose .img-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .post-reader .prose .img-row img {
+    width: 100%;
+    max-width: 1024px;
+  }
 }
 
 .post-reader .prose figcaption {
