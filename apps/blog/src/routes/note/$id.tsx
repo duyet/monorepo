@@ -4,6 +4,7 @@ import { type ReactElement, Suspense } from 'react'
 import { Markdown } from '@/components/Markdown'
 import { getShortformById, getShortforms } from '@/lib/shortforms'
 import type { Shortform } from '@/lib/shortforms'
+import '@/styles/post-reader.css'
 
 type NeighborNote = { id: string; title?: string; excerpt: string }
 
@@ -67,46 +68,50 @@ function NotePage(): ReactElement {
   const { note, newer, older } = Route.useLoaderData() as NoteData
 
   return (
-    <article className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-      <Link
-        to="/notes/"
-        className="text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
-      >
-        ← Quick Notes
-      </Link>
-      <div className="mt-8 flex items-center gap-3">
-        <div className="shrink-0 inline-flex h-10 w-10 items-center justify-center rounded-full bg-muted text-xs font-semibold">
-          DL
+    <article className="post-reader mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div className="mx-auto max-w-3xl">
+        <Link
+          to="/notes/"
+          className="text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+        >
+          ← Quick Notes
+        </Link>
+        <div className="mt-8 flex items-center gap-3">
+          <div className="shrink-0 inline-flex h-10 w-10 items-center justify-center rounded-full bg-muted text-xs font-semibold">
+            DL
+          </div>
+          <div>
+            <p className="text-sm font-medium">Duyet Le</p>
+            <p className="text-xs text-muted-foreground tabular-nums">
+              {dateFormat(note.date, 'MMM d, yyyy')}
+            </p>
+          </div>
         </div>
-        <div>
-          <p className="text-sm font-medium">Duyet Le</p>
-          <p className="text-xs text-muted-foreground tabular-nums">
-            {dateFormat(note.date, 'MMM d, yyyy')}
-          </p>
-        </div>
+        {note.title ? (
+          <h1 className="mt-8 text-2xl font-bold tracking-tight">{note.title}</h1>
+        ) : null}
       </div>
-      {note.title ? (
-        <h1 className="mt-8 text-2xl font-bold tracking-tight">{note.title}</h1>
-      ) : null}
       <Suspense
         fallback={
-          <p className="mt-6 text-lg leading-relaxed whitespace-pre-wrap">
+          <p className="mx-auto max-w-3xl mt-6 text-lg leading-relaxed whitespace-pre-wrap">
             {note.body}
           </p>
         }
       >
         <Markdown source={note.body} className="mt-6" />
       </Suspense>
-      {newer || older ? (
-        <nav className="mt-16 grid gap-3 border-t pt-8 sm:grid-cols-2">
-          {newer ? (
-            <NeighborCard note={newer} direction="newer" />
-          ) : (
-            <span className="hidden sm:block" />
-          )}
-          {older ? <NeighborCard note={older} direction="older" /> : null}
-        </nav>
-      ) : null}
+      <div className="mx-auto max-w-3xl">
+        {newer || older ? (
+          <nav className="mt-16 grid gap-3 border-t pt-8 sm:grid-cols-2">
+            {newer ? (
+              <NeighborCard note={newer} direction="newer" />
+            ) : (
+              <span className="hidden sm:block" />
+            )}
+            {older ? <NeighborCard note={older} direction="older" /> : null}
+          </nav>
+        ) : null}
+      </div>
     </article>
   )
 }
