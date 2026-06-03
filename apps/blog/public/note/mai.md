@@ -23,7 +23,7 @@ url: https://blog.duyet.net/note/mai
 |IF Bench|-|**75.0**|46.1|-|-|-|-|
 |Advanced IF|-|**71.4**|56.9|-|-|-|-|
 |Robust IF Bench|-|**61.2**|45.0|-|-|-|-|
-|$\tau^2$-Bench|-|**71.7**|54.7|-|-|-|-|
+|τ²-Bench|-|**71.7**|54.7|-|-|-|-|
 
 ## Sources
 
