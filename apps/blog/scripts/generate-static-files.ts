@@ -9,7 +9,7 @@
  * These replace the Next.js route.ts API handlers.
  */
 
-import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, readdirSync, writeFileSync, copyFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import type { Post } from "@duyet/interfaces";
 import { getAllCategories, getAllPosts } from "@duyet/libs/getPost";
@@ -23,7 +23,34 @@ import {
 
 const PUBLIC_DIR = join(import.meta.dirname!, "..", "public");
 const SHORTFORMS_DIR = join(import.meta.dirname!, "..", "_shortforms");
+const ATTACHMENTS_DIR = join(SHORTFORMS_DIR, "attachments");
 const SITE_URL = "https://blog.duyet.net";
+
+// ── shortform notes ───────────────────────────────────────────────────────────
+// Obsidian `![[file.png]]` embeds need resolution to markdown images. The static
+// generator runs in Bun (no Vite import.meta.glob), so we read attachments from
+// the filesystem and map them to public/media/ URLs.
+const ATTACHMENTS_CACHE = new Map<string, string>();
+try {
+  const files = readdirSync(ATTACHMENTS_DIR);
+  for (const file of files) {
+    ATTACHMENTS_CACHE.set(file, `/media/notes/${file}`);
+  }
+} catch {
+  // attachments dir may not exist
+}
+
+/** Convert Obsidian embeds `![[file.png]]` / `![[file.png|alt]]` to markdown images. */
+function resolveEmbeds(body: string): string {
+  return body.replace(
+    /!\[\[([^\]|]+?)(?:\|([^\]]+))?\]\]/g,
+    (whole, file: string, alt?: string) => {
+      const url = ATTACHMENTS_CACHE.get(file.trim());
+      if (!url) return whole;
+      return `![${(alt ?? file).trim()}](${url})`;
+    }
+  );
+}
 
 // ── shortform notes ───────────────────────────────────────────────────────────
 // Read the Obsidian-style notes straight off disk (the Vite loader in
@@ -50,12 +77,13 @@ function getNotes(): NoteEntry[] {
     .map((file) => {
       const raw = readFileSync(join(SHORTFORMS_DIR, file), "utf-8");
       const { date, title, slug, body } = parseFrontmatter(raw);
+      const resolved = resolveEmbeds(body);
       return {
         id: shortformId(file.replace(/\.md$/, ""), slug),
         title,
         date: new Date(date),
-        body,
-        excerpt: toExcerpt(body),
+        body: resolved,
+        excerpt: toExcerpt(resolved),
       };
     })
     .filter((n) => !Number.isNaN(n.date.getTime()))
@@ -66,6 +94,18 @@ const notes = getNotes();
 
 // Ensure public directory exists
 mkdirSync(PUBLIC_DIR, { recursive: true });
+
+// ── copy attachments to public/media/notes ──────────────────────────────────────
+// Attachments are referenced by /note/$id.md files via /media/notes/$file URLs.
+const MEDIA_NOTES_DIR = join(PUBLIC_DIR, "media", "notes");
+mkdirSync(MEDIA_NOTES_DIR, { recursive: true });
+let attachmentsCopied = 0;
+for (const [file, url] of ATTACHMENTS_CACHE) {
+  copyFileSync(join(ATTACHMENTS_DIR, file), join(MEDIA_NOTES_DIR, file));
+  attachmentsCopied++;
+}
+console.log(`  ✓ attachments copied to public/media/notes (${attachmentsCopied} files)`);
+
 
 console.log("Generating static files...");
 

@@ -22,8 +22,8 @@ Some PRs run long — a lot of back and forth between them until it finally gets
 - [clickhouse-monitoring#1349](https://github.com/duyet/clickhouse-monitoring/pull/1349)
 - [clickhouse-monitoring#1355](https://github.com/duyet/clickhouse-monitoring/pull/1355)
 
-![[claude-codex-coderabbit-1.jpeg]]
+![claude-codex-coderabbit-1.jpeg](/media/notes/claude-codex-coderabbit-1.jpeg)
 
-![[claude-codex-coderabbit-2.jpeg]]
+![claude-codex-coderabbit-2.jpeg](/media/notes/claude-codex-coderabbit-2.jpeg)
 
-![[claude-codex-coderabbit-3.jpeg]]
+![claude-codex-coderabbit-3.jpeg](/media/notes/claude-codex-coderabbit-3.jpeg)

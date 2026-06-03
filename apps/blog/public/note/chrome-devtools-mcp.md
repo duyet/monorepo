@@ -4,7 +4,7 @@ date: 2026-06-01
 url: https://blog.duyet.net/note/chrome-devtools-mcp
 ---
 
-![[claude-chrome-devtools-mcp.png]]
+![claude-chrome-devtools-mcp.png](/media/notes/claude-chrome-devtools-mcp.png)
 
 There are three ways to let an agent touch the browser right now: [Chrome DevTools MCP](https://github.com/ChromeDevTools/chrome-devtools-mcp), [Playwright MCP](https://github.com/microsoft/playwright-mcp), and Claude in Chrome. They look similar but they are not the same tool.
 

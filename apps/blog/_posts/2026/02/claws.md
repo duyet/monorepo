@@ -8,6 +8,11 @@ tags:
  - Agents
 slug: /2026/02/claws
 description: OpenClaw, NanoBot, PicoClaw, ZeroClaw, NullClaw, NemoClaw, ...
+changelog:
+  - date: "2026-06"
+    note: "@duyetbot is now powered by Hermes Agent"
+  - date: "2026-02"
+    note: "Original post"
 ---
 
 I mentioned [OpenClaw](https://openclaw.ai) in my last post as something that finally achieved what I was trying to build with long-running autonomous agents. I've been running ~~Clawdbot~~ → ~~BoltBot~~ → OpenClaw since those early days. It's similar to my `duyetbot-agent` but much better executed - I still can't believe one person built something this complete, with proper design and documentation.
@@ -43,4 +48,4 @@ The claws family is interesting because it shows something happening in AI right
 | **Cost**          | $599                                | ~$50                                            | $10                                  | $10                                  | $5                                      | Enterprise pricing                                         |
 
 
-> 2026-04: [@duyetbot is now running on Hermes Agent](/note/duyetbot-hermes-agent).
+> **2026-06**: [@duyetbot is now powered by Hermes Agent](/note/duyetbot-hermes-agent).

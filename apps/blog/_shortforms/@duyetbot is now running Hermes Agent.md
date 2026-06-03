@@ -4,6 +4,10 @@ title: "@duyetbot is now running Hermes Agent"
 slug: duyetbot-hermes-agent
 ---
 
-duyetbot was running on Claude Agent SDK, then OpenClaw, but now running on Hermes Agent. 
+@duyetbot started on Claude Agent SDK, moved to OpenClaw, and now runs on Hermes Agent.
 
-OpenClaw as far keep actively working, it is more good day to day, but I am found it no more automation, going to sleep most of the time now and lose motivation. Hermes Agent rapidly gained immense popularity that I would try it next. Migrate pretty easy and fast in 15 minutes. The good one is Hermes automatically **writes, refines, and stores its own "skills"** based on tasks. Let's see.
+OpenClaw was solid day-to-day, but I found it lacking in automation — it mostly went to sleep and I lost motivation. Hermes has been gaining traction, so I gave it a shot. The migration took 15 minutes.
+
+The standout feature: Hermes automatically **writes, refines, and stores its own "skills"** from tasks. Let's see how it goes.
+
+<img src="/media/notes/hermes-agent.png" alt="Hermes Agent dashboard showing the skills system" width="600" />
