@@ -135,13 +135,16 @@
   margin: 0 auto;
 }
 
-/* A single image shouldn't span the full wide media track — that reads too
- * big. Keep standalone images to a comfortable measure and center them.
+/* A single image / code block / table shouldn't span the full wide media
+ * track — that reads too big. Keep them to a comfortable measure and center.
  * Side-by-side groups (.img-row) still use the full width. */
 .post-reader .prose > p:has(> img:only-child) > img,
 .post-reader .prose > p:has(> a > img:only-child) img,
 .post-reader .prose > img,
-.post-reader .prose > figure > img {
+.post-reader .prose > figure > img,
+.post-reader .prose > pre,
+.post-reader .prose > table,
+.post-reader .prose > div:has(> table) {
   max-width: 1024px;
   margin-left: auto;
   margin-right: auto;
