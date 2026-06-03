@@ -8,47 +8,12 @@ Raw Markdown: https://kb.duyet.net/k/<slug>.md
 
 ## Articles
 
-### Dead Code Cleanup Workflow
-URL: https://kb.duyet.net/k/dead-code-cleanup
-Markdown: https://kb.duyet.net/k/dead-code-cleanup.md
-Category: workflows
+### Agent Memory System
+URL: https://kb.duyet.net/k/agent-memory-system
+Markdown: https://kb.duyet.net/k/agent-memory-system.md
+Category: agents
 Updated: 2026-05-26
-Summary: Before removing a symbol, verify zero non-test references with rg; use git log --since to scope reviews to recent changes.
-
-### Test Coverage by App
-URL: https://kb.duyet.net/k/test-coverage
-Markdown: https://kb.duyet.net/k/test-coverage.md
-Category: workflows
-Updated: 2026-05-26
-Summary: Test counts per package; agents leads at 142, libs at 117; total ~14 packages run in ~100ms cached via bun run test.
-
-### Commit, Push, and Deploy Convention
-URL: https://kb.duyet.net/k/commit-push-deploy
-Markdown: https://kb.duyet.net/k/commit-push-deploy.md
-Category: workflows
-Updated: 2026-05-26
-Summary: After every task: semantic commit, push to master, then background-deploy the changed app to Cloudflare Pages.
-
-### Welcome to the Knowledge Base
-URL: https://kb.duyet.net/k/welcome
-Markdown: https://kb.duyet.net/k/welcome.md
-Category: meta
-Updated: 2026-05-26
-Summary: An introduction to the duyet.net knowledge base — what it covers, how it is organized, and how to navigate it.
-
-### KB Content Conventions
-URL: https://kb.duyet.net/k/kb-content-conventions
-Markdown: https://kb.duyet.net/k/kb-content-conventions.md
-Category: meta
-Updated: 2026-05-26
-Summary: Frontmatter schema, category slugs, tag rules, and article length guidelines for apps/kb/content articles.
-
-### About This Knowledge Base
-URL: https://kb.duyet.net/k/about-this-kb
-Markdown: https://kb.duyet.net/k/about-this-kb.md
-Category: meta
-Updated: 2026-05-26
-Summary: apps/kb stores durable monorepo knowledge as markdown articles with frontmatter; generated from agent memory, maintained by duyetbot.
+Summary: Agent memory lives in ~/.claude/projects/.../memory/ as point-in-time .md snapshots; the KB is the synthesized durable form.
 
 ### Autonomous Workflow Patterns
 URL: https://kb.duyet.net/k/autonomous-workflow
@@ -57,19 +22,47 @@ Category: agents
 Updated: 2026-05-26
 Summary: Patterns for running duyetbot autonomously — /loop for recurring tasks, background deploys, memory checkpoints before context compaction.
 
-### Agent Memory System
-URL: https://kb.duyet.net/k/agent-memory-system
-Markdown: https://kb.duyet.net/k/agent-memory-system.md
-Category: agents
+### Agents App
+URL: https://kb.duyet.net/k/agents-app
+Markdown: https://kb.duyet.net/k/agents-app.md
+Category: apps
 Updated: 2026-05-26
-Summary: Agent memory lives in ~/.claude/projects/.../memory/ as point-in-time .md snapshots; the KB is the synthesized durable form.
+Summary: apps/agents — Vite SPA blocked from SSG by D1 Pages Functions; refactor underway covering sidebar, artifacts, and streaming.
+
+### Blog App
+URL: https://kb.duyet.net/k/blog-app
+Markdown: https://kb.duyet.net/k/blog-app.md
+Category: apps
+Updated: 2026-05-26
+Summary: apps/blog — TanStack Start SSG, 393 static pages, WASM markdown rendering, isomorphic data loading via readPublicJson.
+
+### Insights App
+URL: https://kb.duyet.net/k/insights-app
+Markdown: https://kb.duyet.net/k/insights-app.md
+Category: apps
+Updated: 2026-05-26
+Summary: apps/insights — TanStack Start SSG, 22 pages, AI usage analytics, CCUsage data; design refresh deferred from Cycle 10.
+
+### LLM Timeline App
+URL: https://kb.duyet.net/k/llm-timeline-app
+Markdown: https://kb.duyet.net/k/llm-timeline-app.md
+Category: apps
+Updated: 2026-05-26
+Summary: apps/llm-timeline — 3700+ SSG pages, shadcn UI, semantic tokens, warm cream palette, Epoch AI + curated Google Sheets data.
+
+### Other Apps Overview
+URL: https://kb.duyet.net/k/other-apps
+Markdown: https://kb.duyet.net/k/other-apps.md
+Category: apps
+Updated: 2026-05-26
+Summary: home, cv, photos, homelab, and ai-percentage — all TanStack Start SSG on Cloudflare Pages; home uses minimal token layer and warm palette.
 
 ### Data Sync Overview
 URL: https://kb.duyet.net/k/data-sync-overview
 Markdown: https://kb.duyet.net/k/data-sync-overview.md
 Category: data-pipeline
 Updated: 2026-05-26
-Summary: data-sync ingests external data; CCUsage feeds insights, LLM models sync via bun run sync, blog posts are local markdown files.
+Summary: data-sync ingests external data; CCUsage feeds insights, LLM models sync via pnpm run sync, blog posts are local markdown files.
 
 ### Cloudflare Rocket Loader
 URL: https://kb.duyet.net/k/cloudflare-rocket-loader
@@ -85,40 +78,47 @@ Category: infrastructure
 Updated: 2026-05-26
 Summary: Apps deploy to Cloudflare Pages via cf-deploy-prod.sh; blog CI builds WASM first; run deploys in background to avoid blocking.
 
-### Other Apps Overview
-URL: https://kb.duyet.net/k/other-apps
-Markdown: https://kb.duyet.net/k/other-apps.md
-Category: apps
+### About This Knowledge Base
+URL: https://kb.duyet.net/k/about-this-kb
+Markdown: https://kb.duyet.net/k/about-this-kb.md
+Category: meta
 Updated: 2026-05-26
-Summary: home, cv, photos, homelab, and ai-percentage — all TanStack Start SSG on Cloudflare Pages; home uses minimal token layer and warm palette.
+Summary: apps/kb stores durable monorepo knowledge as markdown articles with frontmatter; generated from agent memory, maintained by duyetbot.
 
-### Blog App
-URL: https://kb.duyet.net/k/blog-app
-Markdown: https://kb.duyet.net/k/blog-app.md
-Category: apps
+### KB Content Conventions
+URL: https://kb.duyet.net/k/kb-content-conventions
+Markdown: https://kb.duyet.net/k/kb-content-conventions.md
+Category: meta
 Updated: 2026-05-26
-Summary: apps/blog — TanStack Start SSG, 393 static pages, WASM markdown rendering, isomorphic data loading via readPublicJson.
+Summary: Frontmatter schema, category slugs, tag rules, and article length guidelines for apps/kb/content articles.
 
-### LLM Timeline App
-URL: https://kb.duyet.net/k/llm-timeline-app
-Markdown: https://kb.duyet.net/k/llm-timeline-app.md
-Category: apps
+### Welcome to the Knowledge Base
+URL: https://kb.duyet.net/k/welcome
+Markdown: https://kb.duyet.net/k/welcome.md
+Category: meta
 Updated: 2026-05-26
-Summary: apps/llm-timeline — 3700+ SSG pages, shadcn UI, semantic tokens, warm cream palette, Epoch AI + curated Google Sheets data.
+Summary: An introduction to the duyet.net knowledge base — what it covers, how it is organized, and how to navigate it.
 
-### Insights App
-URL: https://kb.duyet.net/k/insights-app
-Markdown: https://kb.duyet.net/k/insights-app.md
-Category: apps
+### Commit, Push, and Deploy Convention
+URL: https://kb.duyet.net/k/commit-push-deploy
+Markdown: https://kb.duyet.net/k/commit-push-deploy.md
+Category: workflows
 Updated: 2026-05-26
-Summary: apps/insights — TanStack Start SSG, 22 pages, AI usage analytics, CCUsage data; design refresh deferred from Cycle 10.
+Summary: After every task: semantic commit, push to master, then background-deploy the changed app to Cloudflare Pages.
 
-### Agents App
-URL: https://kb.duyet.net/k/agents-app
-Markdown: https://kb.duyet.net/k/agents-app.md
-Category: apps
+### Dead Code Cleanup Workflow
+URL: https://kb.duyet.net/k/dead-code-cleanup
+Markdown: https://kb.duyet.net/k/dead-code-cleanup.md
+Category: workflows
 Updated: 2026-05-26
-Summary: apps/agents — Vite SPA blocked from SSG by D1 Pages Functions; refactor underway covering sidebar, artifacts, and streaming.
+Summary: Before removing a symbol, verify zero non-test references with rg; use git log --since to scope reviews to recent changes.
+
+### Test Coverage by App
+URL: https://kb.duyet.net/k/test-coverage
+Markdown: https://kb.duyet.net/k/test-coverage.md
+Category: workflows
+Updated: 2026-05-26
+Summary: Test counts per package; run the workspace suite from the repo root with pnpm.
 
 ### duyetbot Scope and Boundaries
 URL: https://kb.duyet.net/k/duyetbot-scope
@@ -141,19 +141,19 @@ Category: design-system
 Updated: 2026-05-25
 Summary: Use hairline borders as the only elevation cue — no drop shadows, no chunky rounded boxes, no glow effects.
 
-### Minimal Token Layer
-URL: https://kb.duyet.net/k/minimal-token-layer
-Markdown: https://kb.duyet.net/k/minimal-token-layer.md
-Category: design-system
-Updated: 2026-05-25
-Summary: Third additive CSS layer in packages/components/styles.css adds --minimal-* tokens and utility classes used across four surfaces.
-
 ### Icon Standardization (lucide-react)
 URL: https://kb.duyet.net/k/icon-standardization
 Markdown: https://kb.duyet.net/k/icon-standardization.md
 Category: design-system
 Updated: 2026-05-25
 Summary: Use lucide-react for all icons; migrate @phosphor-icons/react imports when touching files that use them.
+
+### Minimal Token Layer
+URL: https://kb.duyet.net/k/minimal-token-layer
+Markdown: https://kb.duyet.net/k/minimal-token-layer.md
+Category: design-system
+Updated: 2026-05-25
+Summary: Third additive CSS layer in packages/components/styles.css adds --minimal-* tokens and utility classes used across four surfaces.
 
 ### Blog WASM Prerender CI Dependency
 URL: https://kb.duyet.net/k/blog-wasm-prerender-ci
@@ -211,19 +211,19 @@ Category: infrastructure
 Updated: 2026-03-24
 Summary: All apps migrated from Vite SPA to TanStack Start static pre-rendering in March 2026 to survive Cloudflare Rocket Loader.
 
-### Decision: Jekyll Slug Migration
-URL: https://kb.duyet.net/k/jekyll-slug-migration
-Markdown: https://kb.duyet.net/k/jekyll-slug-migration.md
-Category: decisions
-Updated: 2026-03-23
-Summary: .html suffix stripped from all 297 blog post slugs at generation time during the March 2026 blog migration.
-
 ### Decision: Blog White Background
 URL: https://kb.duyet.net/k/blog-white-background
 Markdown: https://kb.duyet.net/k/blog-white-background.md
 Category: decisions
 Updated: 2026-03-23
 Summary: Blog background changed from warm cream #fbf7f0 to white #ffffff on 2026-03-23 to give it a distinct editorial identity from other apps.
+
+### Decision: Jekyll Slug Migration
+URL: https://kb.duyet.net/k/jekyll-slug-migration
+Markdown: https://kb.duyet.net/k/jekyll-slug-migration.md
+Category: decisions
+Updated: 2026-03-23
+Summary: .html suffix stripped from all 297 blog post slugs at generation time during the March 2026 blog migration.
 
 ### Improvement Rotation Cycles
 URL: https://kb.duyet.net/k/improvement-cycles
