@@ -42,3 +42,5 @@ The claws family is interesting because it shows something happening in AI right
 | **Min hardware**  | Mac Mini                            | Linux SBC                                       | Linux board                          | Any $10 hardware                     | Any $5 hardware                         | NVIDIA GPU server                                          |
 | **Cost**          | $599                                | ~$50                                            | $10                                  | $10                                  | $5                                      | Enterprise pricing                                         |
 
+
+> 2026-04: [@duyetbot is now running on Hermes Agent](/note/duyetbot-hermes-agent).

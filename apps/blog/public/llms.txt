@@ -12,7 +12,7 @@ A comprehensive collection of technical blog posts covering Data Engineering, So
 
 ## About This Blog
 
-299+ technical articles covering topics including:
+300+ technical articles covering topics including:
 - Data Engineering & Big Data
 - Apache Spark, ClickHouse, Apache Airflow
 - Cloud Computing (AWS, GCP, Azure)
@@ -24,6 +24,13 @@ A comprehensive collection of technical blog posts covering Data Engineering, So
 Articles span from 2015 to 2026, documenting the evolution of modern data engineering and software development practices.
 
 ## Recent Posts
+
+### [Letting Claude Code work overnight, 2026](https://blog.duyet.net/2026/06/coding-agent-2026)
+- **Date**: 2026-06-03
+- **Category**: AI
+- **Tags**: Ai, Agents, Claude Code
+- **URL**: https://blog.duyet.net/2026/06/coding-agent-2026
+- **Description**: A quick snapshot of where coding agents are in 2026: you can hand one a real, multi-part task, walk away, and come back to merged PRs, a live deploy, and a few issues it worked around on its own.
 
 ### [Cloudflare is all you need](https://blog.duyet.net/2026/05/cloudflare-is-all-you-need)
 - **Date**: 2026-05-06
@@ -158,18 +165,12 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - **URL**: https://blog.duyet.net/2023/05/migrate-blog-to-nextjs
 - **Description**: I've been using Gatsby since 2019 and while it's great that I can write my blogs in NeoVim, commit and push to Github, and have Cloudflare Pages build and publish to CDN, but I was becoming frustrated with the slow building times and the overall maintenance requirements.
 
-### [Why does Helm Charts interpret 0777 as 511?](https://blog.duyet.net/2023/04/helm-charts-problem)
-- **Date**: 2023-04-15
-- **Category**: Data
-- **Tags**: Kubernetes
-- **URL**: https://blog.duyet.net/2023/04/helm-charts-problem
-- **Description**: Why does Helm Charts interpret 0777 to 511? It took me quite some time to debug it.
-
 
 ## All Blog Posts by Year
 
-### 2026 (3 posts)
+### 2026 (4 posts)
 
+- [Letting Claude Code work overnight, 2026](https://blog.duyet.net/2026/06/coding-agent-2026) - 2026-06-03
 - [Cloudflare is all you need](https://blog.duyet.net/2026/05/cloudflare-is-all-you-need) - 2026-05-06
 - [Claws](https://blog.duyet.net/2026/02/claws) - 2026-02-22
 - [Coding Agents](https://blog.duyet.net/2026/01/coding-agent) - 2026-01-01
@@ -520,13 +521,18 @@ Short-form thoughts and notes. Full list: https://blog.duyet.net/notes
 - **URL**: https://blog.duyet.net/note/claude-codex-coderabbit
 - **Markdown**: https://blog.duyet.net/note/claude-codex-coderabbit.md
 - **Description**: This is the best combo I am using now. I am on both Claude Max and Codex Pro. Claude Code + Codex Review + CodeRabbit feel like the right pairing, both comment natively inside the PR and give different views of the same problem. The fun part is watching whether they agree or not. Opus 4.8 feels more honest now. I can see it push back, and sometimes it just rejects a change instead of nodding along. CodeRabbit is still the best at finding the bug, it auto-fix is still a bit off, though. How I run it: On demand → Claude Code with /github:babysit-pr. It reads through all the review comments and auto-fixes the CI for me. Scheduled → a Codex automation that reviews daily, merges or resolves issues, and can also fold in CodeRabbit's comments. Some PRs run long — a lot of back and forth between them until it finally gets the thumbs up: clickhouse-monitoring#1349 clickhouse-monitoring#1355
+### ["@duyetbot is now running Hermes Agent"](https://blog.duyet.net/note/duyetbot-hermes-agent)
+- **Date**: 2026-04-01
+- **URL**: https://blog.duyet.net/note/duyetbot-hermes-agent
+- **Markdown**: https://blog.duyet.net/note/duyetbot-hermes-agent.md
+- **Description**: duyetbot was running on Claude Agent SDK, then OpenClaw, but now running on Hermes Agent. OpenClaw as far keep actively working, it is more good day to day, but I am found it no more automation, going to sleep most of the time now and lose motivation. Hermes Agent rapidly gained immense popularity that I would try it next. Migrate pretty easy and fast in 15 minutes. The good one is Hermes automatically writes, refines, and stores its own "skills" based on tasks. Let's see.
 
 ---
 
 **Blog Statistics:**
-- Total Posts: 299
+- Total Posts: 300
 - Years Active: 2015-2026
 - Categories: 15
-- Tags: 60
+- Tags: 61
 
 Generated from: https://blog.duyet.net

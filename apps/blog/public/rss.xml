@@ -4,8 +4,15 @@
         <description><![CDATA[Sr. Data Engineer. Rustacean at night]]></description>
         <link>https://blog.duyet.net</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 02 Jun 2026 13:02:42 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 03 Jun 2026 07:26:51 GMT</lastBuildDate>
         <atom:link href="https://blog.duyet.net/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Letting Claude Code work overnight, 2026]]></title>
+            <description><![CDATA[A quick snapshot of where coding agents are in 2026: you can hand one a real, multi-part task, walk away, and come back to merged PRs, a live deploy, and a few issues it worked around on its own.]]></description>
+            <link>https://blog.duyet.net/2026/06/coding-agent-2026</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/06/coding-agent-2026</guid>
+            <pubDate>Wed, 03 Jun 2026 00:00:00 GMT</pubDate>
+        </item>
         <item>
             <title><![CDATA[Cloudflare is all you need]]></title>
             <description><![CDATA[Cloudflare's Agents SDK runs stateful TypeScript agents on Durable Objects, with Workers AI, AI Gateway, AI Search, Vectorize, Browser Run, Queues, Workflows, Email, Dynamic Workers, and Sandboxes around it.]]></description>
@@ -347,13 +354,6 @@
             <description><![CDATA[Strategy design pattern là một technique nhằm mục đích phân tách nhiều vấn đề, tách software modules thông qua Dependency Inversion.]]></description>
             <link>https://blog.duyet.net/2021/12/rust-strategy-design-pattern</link>
             <guid isPermaLink="true">https://blog.duyet.net/2021/12/rust-strategy-design-pattern</guid>
-            <pubDate>Sun, 19 Dec 2021 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Rust: Ownership]]></title>
-            <description><![CDATA[Ownership là một trong những tính năng đặc trưng của Rust, đây là cách giúp Rust đảm bảo memory safety mà không cần đến garbage collector.]]></description>
-            <link>https://blog.duyet.net/2021/12/rust-ownership</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2021/12/rust-ownership</guid>
             <pubDate>Sun, 19 Dec 2021 00:00:00 GMT</pubDate>
         </item>
     </channel>
