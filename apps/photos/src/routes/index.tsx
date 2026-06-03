@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { AlertTriangle, MapPin, RefreshCw, Timer } from "lucide-react";
+import { AlertTriangle, RefreshCw, Timer } from "lucide-react";
 import PhotoGallery from "@/components/PhotoGallery";
 import { usePhotos } from "@/hooks/usePhotos";
 import { LoadingGrid } from "@/components/LoadingStates";
@@ -22,27 +22,6 @@ function PhotosPage() {
 
   return (
     <div>
-      {/* Stats strip */}
-      <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[12.5px] mb-5 flex gap-[18px]">
-        <span>
-          <strong className="text-[var(--rd-text)]">{photos.length}</strong>{" "}
-          photos
-        </span>
-        {photos.length > 0 && (
-          <span>
-            <MapPin size={12} style={{ display: "inline", verticalAlign: -1 }} />{" "}
-            <strong className="text-[var(--rd-text)]">
-              {new Set(
-                photos
-                  .map((p) => p.location?.country)
-                  .filter(Boolean),
-              ).size}
-            </strong>{" "}
-            locations
-          </span>
-        )}
-      </div>
-
       {/* gallery */}
       <PhotoGallery photos={photos} />
     </div>
