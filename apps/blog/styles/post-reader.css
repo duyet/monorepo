@@ -150,6 +150,12 @@
   margin-right: auto;
 }
 
+.post-reader .prose > pre {
+  width: fit-content;
+  min-width: min(68ch, 100%);
+}
+
+
 /* Side-by-side image row: <div class="img-row"> wrapping multiple <img>.
  * Takes the full track and lays the images out as flex columns. `width: auto`
  * overrides the global `.prose img { width: 100% }` so flex sizing controls

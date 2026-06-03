@@ -5,9 +5,13 @@ import { FileSystemError, ValidationError } from "./errors";
 import getSlug from "./getSlug";
 import { normalizeTag } from "./tags";
 
-const nodeFs = () => require("node:fs");
-const nodeJoin = () => require("node:path").join;
+import { createRequire } from "node:module";
+const customRequire = createRequire(import.meta.url);
+
+const nodeFs = () => customRequire("node:fs");
+const nodeJoin = () => customRequire("node:path").join;
 const getPostsDirectory = () => nodeJoin()(process.cwd(), "_posts");
+
 
 const CACHED = new Map<string, string>();
 const MAX_CACHE_SIZE = 500;
