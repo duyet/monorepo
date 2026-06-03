@@ -42,7 +42,7 @@ const posts: Post[] = [
 
 const roles: Role[] = [
   {
-    title: "Senior Data Engineer",
+    title: "Senior Data/AI Engineer",
     period: "Oct 2023 — Present",
     body: "Leading the data platform transformation from Spark + Iceberg + Trino to ClickHouse on Kubernetes. Simplified the data stack to be as lean and stable as possible. Designed internal ClickHouse table transformations, implemented custom User-Defined Functions with clickhouse-udf-rs, integrated DuckDB for fast ad-hoc processing, and built AI Agents utilizing LangGraph, LlamaIndex, Qdrant, Next.js, and TanStack.",
   },
@@ -54,8 +54,8 @@ const journey: Milestone[] = [
     body: "Began by addressing the limitations of Spark, Trino, and Iceberg. Tuned Spark parameters and optimized metadata footprint by cleaning up Iceberg snapshots to improve query performance.",
   },
   {
-    label: "On-premise Kubernetes cluster",
-    body: "Wired up a Rancher Kubernetes (k8s) cluster from scratch using on-prem VM machines, deploying namespaces, resource limits, and ingress policies as a team of two.",
+    label: "On-premise Kubernetes (RKE) cluster",
+    body: "Wired up a Rancher Kubernetes Engine (RKE) cluster from scratch using on-prem VM machines, deploying namespaces, resource limits, and ingress policies as a team of two. Learned to resolve complex infrastructure and networking issues independently without cloud services.",
   },
   {
     label: "ClickHouse migration & simplification",
