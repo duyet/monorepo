@@ -15,6 +15,7 @@ function formatPostDate(date: Date | string): string {
 
 function FeaturedPost({ post }: { post: Post }) {
   const code = `npm i ${post.category_slug}`;
+  const thumbnail = post.thumbnail?.trim();
 
   return (
     <Link
@@ -22,25 +23,36 @@ function FeaturedPost({ post }: { post: Post }) {
       params={postParams(post)}
       className="rd-card overflow-hidden grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)]"
     >
-      {/* Terminal block */}
-      <div
-        className="rd-termblock py-[30px] px-[32px] flex flex-col min-h-[260px]"
-      >
-        <div className="flex gap-[7px]">
-          <i />
-          <i />
-          <i />
+      {/* Thumbnail when set, otherwise the terminal block fallback */}
+      {thumbnail ? (
+        <div className="overflow-hidden min-h-[260px]">
+          <img
+            src={thumbnail}
+            alt={post.title}
+            loading="lazy"
+            className="h-full w-full object-cover"
+          />
         </div>
+      ) : (
         <div
-          className="font-[var(--font-mono)] mt-auto text-[clamp(20px,2.4vw,30px)] text-[var(--rd-accent)]"
+          className="rd-termblock py-[30px] px-[32px] flex flex-col min-h-[260px]"
         >
-          <span className="opacity-[0.55]">$</span> {code}
-          <span className="rd-caret" />
+          <div className="flex gap-[7px]">
+            <i />
+            <i />
+            <i />
+          </div>
+          <div
+            className="font-[var(--font-mono)] mt-auto text-[clamp(20px,2.4vw,30px)] text-[var(--rd-accent)]"
+          >
+            <span className="opacity-[0.55]">$</span> {code}
+            <span className="rd-caret" />
+          </div>
+          <div
+            className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs mt-[18px]"
+          />
         </div>
-        <div
-          className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs mt-[18px]"
-        />
-      </div>
+      )}
 
       {/* Post details */}
       <div
