@@ -85,6 +85,10 @@ const journey: Milestone[] = [
     label: "Dynamic UI & CI/CD",
     body: "Empowered AI agents to dynamically generate charts, dashboards, and explorer interfaces. Improved agentic software engineering practices to confidently deploy generated code directly to production.",
   },
+  {
+    label: "Global remote collaboration",
+    body: "Collaborated seamlessly with Cartrack's worldwide team, keeping the data platform stable and shipping features while traveling across different countries.",
+  },
 ];
 
 export const Route = createFileRoute("/cartrack")({
@@ -112,13 +116,13 @@ function CartrackPage() {
           <span className="text-[var(--rd-accent)]">Cartrack</span>
         </h1>
         <p className="rd-lead mt-5 text-[clamp(1.02rem,1.4vw,1.15rem)] text-[var(--rd-text-2)]">
-          Join the team at Cartrack, managing terabyte-scale data lakes and building AI agents. 
-          The journey started with tuning Spark, Trino, and Iceberg performance, then transitioned 
-          to setting up an on-premise Rancher Kubernetes cluster, and migrating legacy storage to 
-          a highly optimized 3-node ClickHouse cluster. By designing internal table transformations, 
-          using custom Rust UDFs (clickhouse-udf-rs), and integrating DuckDB, we made the data stack 
-          as simple and stable as possible. Later, the work expanded to building fully agentic 
-          multi-agent systems using LangGraph, Qdrant, Cube.js, and Firecrawl.
+          Joined the global team at Cartrack, managing terabyte-scale data lakes and building AI agents 
+          fully remotely while traveling across different countries. The journey started with tuning 
+          Spark, Trino, and Iceberg performance, then transitioned to setting up an on-premise Rancher 
+          Kubernetes cluster, and migrating legacy storage to a highly optimized 3-node ClickHouse cluster. 
+          By designing internal table transformations, using custom Rust UDFs (clickhouse-udf-rs), and 
+          integrating DuckDB, we made the data stack as simple and stable as possible. Later, the work 
+          expanded to building fully agentic multi-agent systems using LangGraph, Qdrant, Cube.js, and Firecrawl.
         </p>
 
         <div className="mt-9 flex flex-col gap-5 border-t border-[var(--rd-border)] pt-7">
