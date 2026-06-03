@@ -34,5 +34,5 @@ url: https://blog.duyet.net/note/mai
 - Anthropic, **Claude Sonnet 4.6 System Card**, for Sonnet 4.6 SWE-Bench Verified and SWE-Bench Multilingual values. ([Anthropic](https://anthropic.com/claude-sonnet-4-6-system-card?utm_source=chatgpt.com "Claude Sonnet 4.6 System Card"))
 - Anthropic, **Claude Opus 4.6 System Card**, for Opus 4.6 SWE-Bench Verified and SWE-Bench Multilingual values. ([Anthropic](https://www-cdn.anthropic.com/0dd865075ad3132672ee0ab40b05a53f14cf5288.pdf?utm_source=chatgpt.com "Claude Opus 4.6 System Card"))
 - Moonshot AI, **Kimi K2.6 Tech Blog / Model Card**, for Kimi K2.6 benchmark values. ([Kimi](https://www.kimi.com/blog/kimi-k2-6?utm_source=chatgpt.com "Kimi K2.6 Tech Blog: Advancing Open-Source Coding"))
-- Z.ai, **GLM-5.1: Towards Long-Horizon Tasks**, and ModelScope GLM-5.1 card, for GLM-5.1 values. ([Z.ai](https://z.ai/blog/glm-5.1?utm_source=chatgpt.com "GLM-5.1: Towards Long-Horizon Tasks"))
+	- Z.ai, **GLM-5.1: Towards Long-Horizon Tasks**, and ModelScope GLM-5.1 card, for GLM-5.1 values. ([Z.ai](https://z.ai/blog/glm-5.1?utm_source=chatgpt.com "GLM-5.1: Towards Long-Horizon Tasks"))
 - Terminal-Bench official leaderboard, for Terminal-Bench 2.0 reference leaderboard context. ([tbench.ai](https://www.tbench.ai/leaderboard/terminal-bench/2.0?utm_source=chatgpt.com "terminal-bench@2.0 Leaderboard"))

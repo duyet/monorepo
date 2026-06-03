@@ -150,6 +150,15 @@
   margin-right: auto;
 }
 
+.post-reader .prose > pre,
+.post-reader .prose > table,
+.post-reader .prose > div:has(> table) {
+  width: fit-content;
+  min-width: 0;
+  max-width: min(1100px, 100%);
+}
+
+
 /* Side-by-side image row: <div class="img-row"> wrapping multiple <img>.
  * Takes the full track and lays the images out as flex columns. `width: auto`
  * overrides the global `.prose img { width: 100% }` so flex sizing controls
@@ -208,11 +217,14 @@
   text-align: center;
 }
 
-/* Tables fill the wide track; cells use compact rhythm. */
+/* Tables fit the content; cells use compact rhythm. */
 .post-reader .prose table {
   display: block;
   overflow-x: auto;
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
   border-collapse: collapse;
   font-size: 0.9375rem;
   line-height: 1.55;

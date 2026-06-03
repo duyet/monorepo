@@ -31,27 +31,7 @@
     <loc>https://kb.duyet.net/c/workflows</loc>
   </url>
   <url>
-    <loc>https://kb.duyet.net/k/dead-code-cleanup</loc>
-    <lastmod>2026-05-26</lastmod>
-  </url>
-  <url>
-    <loc>https://kb.duyet.net/k/test-coverage</loc>
-    <lastmod>2026-05-26</lastmod>
-  </url>
-  <url>
-    <loc>https://kb.duyet.net/k/commit-push-deploy</loc>
-    <lastmod>2026-05-26</lastmod>
-  </url>
-  <url>
-    <loc>https://kb.duyet.net/k/welcome</loc>
-    <lastmod>2026-05-26</lastmod>
-  </url>
-  <url>
-    <loc>https://kb.duyet.net/k/kb-content-conventions</loc>
-    <lastmod>2026-05-26</lastmod>
-  </url>
-  <url>
-    <loc>https://kb.duyet.net/k/about-this-kb</loc>
+    <loc>https://kb.duyet.net/k/agent-memory-system</loc>
     <lastmod>2026-05-26</lastmod>
   </url>
   <url>
@@ -59,7 +39,23 @@
     <lastmod>2026-05-26</lastmod>
   </url>
   <url>
-    <loc>https://kb.duyet.net/k/agent-memory-system</loc>
+    <loc>https://kb.duyet.net/k/agents-app</loc>
+    <lastmod>2026-05-26</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/k/blog-app</loc>
+    <lastmod>2026-05-26</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/k/insights-app</loc>
+    <lastmod>2026-05-26</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/k/llm-timeline-app</loc>
+    <lastmod>2026-05-26</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/k/other-apps</loc>
     <lastmod>2026-05-26</lastmod>
   </url>
   <url>
@@ -75,23 +71,27 @@
     <lastmod>2026-05-26</lastmod>
   </url>
   <url>
-    <loc>https://kb.duyet.net/k/other-apps</loc>
+    <loc>https://kb.duyet.net/k/about-this-kb</loc>
     <lastmod>2026-05-26</lastmod>
   </url>
   <url>
-    <loc>https://kb.duyet.net/k/blog-app</loc>
+    <loc>https://kb.duyet.net/k/kb-content-conventions</loc>
     <lastmod>2026-05-26</lastmod>
   </url>
   <url>
-    <loc>https://kb.duyet.net/k/llm-timeline-app</loc>
+    <loc>https://kb.duyet.net/k/welcome</loc>
     <lastmod>2026-05-26</lastmod>
   </url>
   <url>
-    <loc>https://kb.duyet.net/k/insights-app</loc>
+    <loc>https://kb.duyet.net/k/commit-push-deploy</loc>
     <lastmod>2026-05-26</lastmod>
   </url>
   <url>
-    <loc>https://kb.duyet.net/k/agents-app</loc>
+    <loc>https://kb.duyet.net/k/dead-code-cleanup</loc>
+    <lastmod>2026-05-26</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/k/test-coverage</loc>
     <lastmod>2026-05-26</lastmod>
   </url>
   <url>
@@ -107,11 +107,11 @@
     <lastmod>2026-05-25</lastmod>
   </url>
   <url>
-    <loc>https://kb.duyet.net/k/minimal-token-layer</loc>
+    <loc>https://kb.duyet.net/k/icon-standardization</loc>
     <lastmod>2026-05-25</lastmod>
   </url>
   <url>
-    <loc>https://kb.duyet.net/k/icon-standardization</loc>
+    <loc>https://kb.duyet.net/k/minimal-token-layer</loc>
     <lastmod>2026-05-25</lastmod>
   </url>
   <url>
@@ -147,11 +147,11 @@
     <lastmod>2026-03-24</lastmod>
   </url>
   <url>
-    <loc>https://kb.duyet.net/k/jekyll-slug-migration</loc>
+    <loc>https://kb.duyet.net/k/blog-white-background</loc>
     <lastmod>2026-03-23</lastmod>
   </url>
   <url>
-    <loc>https://kb.duyet.net/k/blog-white-background</loc>
+    <loc>https://kb.duyet.net/k/jekyll-slug-migration</loc>
     <lastmod>2026-03-23</lastmod>
   </url>
   <url>
