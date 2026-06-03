@@ -1,3 +1,0 @@
-[submodule "apps/monorepo-checkpoint-persistence"]
-	path = apps/monorepo-checkpoint-persistence
-	url = https://github.com/duyet/monorepo-checkpoint-persistence.git

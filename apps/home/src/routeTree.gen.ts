@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as LsRouteImport } from './routes/ls'
 import { Route as FossilRouteImport } from './routes/fossil'
+import { Route as CartrackRouteImport } from './routes/cartrack'
 import { Route as AboutDuyetbotRouteImport } from './routes/about-duyetbot'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -30,6 +31,11 @@ const LsRoute = LsRouteImport.update({
 const FossilRoute = FossilRouteImport.update({
   id: '/fossil',
   path: '/fossil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CartrackRoute = CartrackRouteImport.update({
+  id: '/cartrack',
+  path: '/cartrack',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutDuyetbotRoute = AboutDuyetbotRouteImport.update({
@@ -57,6 +63,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/about-duyetbot': typeof AboutDuyetbotRoute
+  '/cartrack': typeof CartrackRoute
   '/fossil': typeof FossilRoute
   '/ls': typeof LsRoute
   '/projects': typeof ProjectsRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/about-duyetbot': typeof AboutDuyetbotRoute
+  '/cartrack': typeof CartrackRoute
   '/fossil': typeof FossilRoute
   '/ls': typeof LsRoute
   '/projects': typeof ProjectsRoute
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/about-duyetbot': typeof AboutDuyetbotRoute
+  '/cartrack': typeof CartrackRoute
   '/fossil': typeof FossilRoute
   '/ls': typeof LsRoute
   '/projects': typeof ProjectsRoute
@@ -87,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/about-duyetbot'
+    | '/cartrack'
     | '/fossil'
     | '/ls'
     | '/projects'
@@ -96,6 +106,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/about-duyetbot'
+    | '/cartrack'
     | '/fossil'
     | '/ls'
     | '/projects'
@@ -105,6 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/about-duyetbot'
+    | '/cartrack'
     | '/fossil'
     | '/ls'
     | '/projects'
@@ -115,6 +127,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AboutDuyetbotRoute: typeof AboutDuyetbotRoute
+  CartrackRoute: typeof CartrackRoute
   FossilRoute: typeof FossilRoute
   LsRoute: typeof LsRoute
   ProjectsRoute: typeof ProjectsRoute
@@ -142,6 +155,13 @@ declare module '@tanstack/react-router' {
       path: '/fossil'
       fullPath: '/fossil'
       preLoaderRoute: typeof FossilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cartrack': {
+      id: '/cartrack'
+      path: '/cartrack'
+      fullPath: '/cartrack'
+      preLoaderRoute: typeof CartrackRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about-duyetbot': {
@@ -179,6 +199,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AboutDuyetbotRoute: AboutDuyetbotRoute,
+  CartrackRoute: CartrackRoute,
   FossilRoute: FossilRoute,
   LsRoute: LsRoute,
   ProjectsRoute: ProjectsRoute,

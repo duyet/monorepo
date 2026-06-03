@@ -40,12 +40,12 @@ const roles: Role[] = [
   {
     title: "Senior Data Engineer",
     period: "Jan 2020 — Aug 2023",
-    body: "Data leader for a team of eight — five engineers and three analysts. Owned the platform end to end, drove the re-platforming for scale and cost, and cut Data Platform expenses by 55%.",
+    body: "Data leader for a team of eight — five engineers and three analysts. Owned the platform end to end, drove the re-platforming for scale and cost, and cut Data Platform expenses by 55%. Automated deployments using Kubernetes (k8s) and Helm charts. Maintained a suite of data tools including Apache Airflow, Datahub, Spark UI, and built Fossil Insights for internal metrics tracking.",
   },
   {
     title: "Data Engineer",
     period: "Nov 2018 — Jan 2020",
-    body: "Built and ran the core data platform on AWS, and proposed the data warehouse that became the foundation for product insights.",
+    body: "Built and ran the core data platform on AWS, and proposed the data warehouse that became the foundation for product insights. Developed and maintained data visualization dashboards, transitioning from Redash and Google Data Studio to Tableau.",
   },
 ];
 
@@ -56,12 +56,20 @@ const journey: Milestone[] = [
     body: "Node.js collectors streaming through Kinesis into S3, Lambda transforming data between zones, and serving queries from Athena and Redshift.",
   },
   {
+    label: "Data visualization evolution",
+    body: "Set up the initial reporting layer using Redash and Google Data Studio, later migrating to Tableau for unified enterprise analytics.",
+  },
+  {
     label: "Streaming & storage upgrades",
     body: "Moved ingestion from Kinesis Firehose to Kafka, and retuned data types for far better compression — real storage and cost savings.",
   },
   {
-    label: "Compute on Kubernetes",
-    body: "Migrated the batch workers onto EKS, processing at scale with Spark.",
+    label: "Compute on Kubernetes (k8s)",
+    body: "Migrated batch workers onto EKS, deploying and managing applications with Helm charts. Orchestrated workflows using Apache Airflow and cataloged data assets with Datahub.",
+  },
+  {
+    label: "Platform visibility & Spark",
+    body: "Processed large-scale datasets with Spark, monitoring job performance with Spark UI, and launched Fossil Insights (our internal monitoring portal).",
   },
   {
     label: "Rewritten in Rust",
@@ -107,9 +115,9 @@ function FossilPage() {
         </h1>
         <p className="rd-lead mt-5 text-[clamp(1.02rem,1.4vw,1.15rem)] text-[var(--rd-text-2)]">
           Nearly five years at Fossil Group, growing from Data Engineer to
-          leading the data team. I started on a Node.js data-collection platform
+          leading the data team. The Data Platform started on a Node.js data-collection platform
           on AWS — Kinesis into S3, Lambda transforms, Athena and Redshift — and
-          spent the next few years making it faster, cheaper, and more reliable:
+          we spent the next few years making it faster, cheaper, and more reliable:
           Kafka and Spark on Kubernetes, a full rewrite in Rust, and a move to
           ClickHouse. Costs came down by more than half along the way. A good
           place, a good team, and the chapter where I learned to scale data —
