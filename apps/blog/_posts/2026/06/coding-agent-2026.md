@@ -9,7 +9,7 @@ tags:
   - Agents
   - Claude Code
 slug: /2026/06/coding-agent-2026
-thumbnail: /media/2026/06/coding-agent/coding-agent-chm-autonomous-8-summary-screenshot-new-landing-page.png
+thumbnail: /media/2026/06/coding-agent/thumbnail.png
 description: "A quick snapshot of where coding agents are in 2026: you can hand one a real, multi-part task, walk away, and come back to merged PRs and a live deploy and workaround issues."
 ---
 
