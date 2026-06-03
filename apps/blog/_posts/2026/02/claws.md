@@ -48,4 +48,4 @@ The claws family is interesting because it shows something happening in AI right
 | **Cost**          | $599                                | ~$50                                            | $10                                  | $10                                  | $5                                      | Enterprise pricing                                         |
 
 
-> **2026-06**: [@duyetbot is now powered by Hermes Agent](/note/duyetbot-hermes-agent).
+**2026-06**: [@duyetbot is now powered by Hermes Agent](/note/duyetbot-hermes-agent).
