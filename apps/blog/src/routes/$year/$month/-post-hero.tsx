@@ -48,13 +48,14 @@ export function PostHero({ post }: { post: LoadedPost }) {
         )}
       </div>
 
-      {/* Hero image */}
+      {/* Hero image — breaks out of the narrow header to the body media
+          width, capped to the viewport height like in-body images. */}
       {post.thumbnail && (
         <img
           src={post.thumbnail}
           alt={post.title}
           loading="eager"
-          className="block w-full my-[30px] rounded-[var(--rd-r)]"
+          className="relative left-1/2 -translate-x-1/2 block w-[92vw] max-w-[1024px] max-h-[88vh] object-contain my-[30px] rounded-[var(--rd-r)]"
         />
       )}
     </header>
