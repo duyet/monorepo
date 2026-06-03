@@ -5,8 +5,13 @@ import { FileSystemError, ValidationError } from "./errors";
 import getSlug from "./getSlug";
 import { normalizeTag } from "./tags";
 
-const nodeFs = () => require("node:fs");
-const nodeJoin = () => require("node:path").join;
+// Access Node built-ins lazily and without a literal `require(...)` call.
+// Using `process.getBuiltinModule` keeps `node:fs`/`node:path` out of the
+// static import graph (so this module stays safe to include in browser
+// bundles), while avoiding the `require` token that makes Node's ESM/CJS
+// detector throw ERR_AMBIGUOUS_MODULE_SYNTAX under Node 24.
+const nodeFs = () => process.getBuiltinModule("node:fs");
+const nodeJoin = () => process.getBuiltinModule("node:path").join;
 const getPostsDirectory = () => nodeJoin()(process.cwd(), "_posts");
 
 const CACHED = new Map<string, string>();
