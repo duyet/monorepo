@@ -68,7 +68,7 @@ function NotePage(): ReactElement {
   const { note, newer, older } = Route.useLoaderData() as NoteData
 
   return (
-    <article className="post-reader mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <article className="post-reader mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24">
       <div className="mx-auto max-w-3xl">
         <Link
           to="/notes/"

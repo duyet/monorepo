@@ -145,7 +145,7 @@
 .post-reader .prose > pre,
 .post-reader .prose > table,
 .post-reader .prose > div:has(> table) {
-  max-width: 1024px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
