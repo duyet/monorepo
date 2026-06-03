@@ -114,12 +114,14 @@
   padding-bottom: 0 !important;
 }
 
-/* Images are wrapped in <p> by the renderer; zero that wrapper's vertical
- * rhythm too so the request to remove image top/bottom spacing is effective. */
+/* Images are wrapped in <p> by the renderer; the <img> itself is zeroed
+ * above, so this wrapper carries the vertical rhythm — keep breathing room
+ * between an image and the surrounding text. Side-by-side groups use
+ * `.img-row` (a <div>, not a <p>) and set their own margin below. */
 .post-reader .prose > p:has(> img:only-child),
 .post-reader .prose > p:has(> a > img:only-child) {
-  margin-top: 0;
-  margin-bottom: 0;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .post-reader .prose figure > img,

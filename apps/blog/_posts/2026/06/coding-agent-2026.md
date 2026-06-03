@@ -45,9 +45,10 @@ It got through the refactoring workflows and built the new landing page to move 
 ※ Now, continuing non-stop. The landing-build workflow is running in the background ...
 ```
 
-![The set of workflows in flight](/media/2026/06/coding-agent/coding-agent-chm-autonomous-3-workflows.png)
-
-![The cloud schedule keeping the work alive overnight](/media/2026/06/coding-agent/coding-agent-chm-autonomous-4-cloud-schedule.png)
+<div class="img-row">
+<img src="/media/2026/06/coding-agent/coding-agent-chm-autonomous-3-workflows.png" alt="The set of workflows in flight" />
+<img src="/media/2026/06/coding-agent/coding-agent-chm-autonomous-4-cloud-schedule.png" alt="The cloud schedule keeping the work alive overnight" />
+</div>
 
 It was a very long conversation next morning. The session limit was hit three times, which I think maps to three one hour capped local wake-ups. The remote trigger did fire, but the local session also recovered. It noted that the remote trigger had run, so it was checking status by pulling the PRs.
 
@@ -55,15 +56,17 @@ It was a very long conversation next morning. The session limit was hit three ti
 
 The one snag was the **https://dash.chmonitor.dev** deploy, but it found a way to recover. It left two hand-off items for me - which I'm going to pass to a fresh Claude session anyway 🗿.
  
-![The two hand-off items, viewed on mobile](/media/2026/06/coding-agent/coding-agent-chm-autonomous-6-claude-iphone.png)
-
-![The final summary of the overnight work](/media/2026/06/coding-agent/coding-agent-chm-autonomous-7-summary.png)
+<div class="img-row">
+<img src="/media/2026/06/coding-agent/coding-agent-chm-autonomous-6-claude-iphone.png" alt="The two hand-off items, viewed on mobile" />
+<img src="/media/2026/06/coding-agent/coding-agent-chm-autonomous-7-summary.png" alt="The final summary of the overnight work" />
+</div>
 
 Everything just worked, and I never looked at the code as always. It all deployed correctly:
 
-![The new landing page, live](/media/2026/06/coding-agent/coding-agent-chm-autonomous-8-summary-screenshot-new-landing-page.png)
-
-![The dashboard moved to its new domain](/media/2026/06/coding-agent/coding-agent-chm-autonomous-9-summary-screenshot-new-dash.png)
+<div class="img-row">
+<img src="/media/2026/06/coding-agent/coding-agent-chm-autonomous-8-summary-screenshot-new-landing-page.png" alt="The new landing page, live" />
+<img src="/media/2026/06/coding-agent/coding-agent-chm-autonomous-9-summary-screenshot-new-dash.png" alt="The dashboard moved to its new domain" />
+</div>
 
 That is roughly the state of coding agents in mid-2026: long-running and mostly autonomous. The interesting question is no longer "can it write the code" but how it manages itself over hours — planning, splitting work into PRs, merging them, and routing around its own token limits with scheduled wake-ups and cloud agents. I reviewed the whole run from my phone and never opened the editor.
 
