@@ -68,3 +68,5 @@ Everything just worked, and I never looked at the code as always. It all deploye
 That is roughly the state of coding agents in mid-2026: long-running and mostly autonomous. The interesting question is no longer "can it write the code" but how it manages itself over hours — planning, splitting work into PRs, merging them, and routing around its own token limits with scheduled wake-ups and cloud agents. I reviewed the whole run from my phone and never opened the editor.
 
 What stands out to me is the harness, not just the model. I spent a good while in Codex but Claude Code still does the most of any of them for this kind of long, self-managing run. It is still good enough that it holds up even when I swap in a different model like GLM 5.1. That is the part that feels ahead right now.
+
+![Session usage for the overnight run: \$58.69 total, 10h 18m wall time, 616 lines added](/media/2026/06/coding-agent/coding-agent-chm-autonomous-10-session-usage.png)
