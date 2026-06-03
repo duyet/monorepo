@@ -2,6 +2,7 @@
   "name": "@duyet/libs",
   "version": "0.1.0",
   "license": "MIT",
+  "type": "module",
   "main": "./index.ts",
   "types": "./index.ts",
   "exports": {
@@ -13,6 +14,7 @@
     "./getSlug": "./getSlug.ts",
     "./markdownToHtml": "./markdownToHtml.ts",
     "./native-cli": "./native-cli.ts",
+    "./parseModelParams": "./parseModelParams.ts",
     "./string": "./string.ts",
     "./utils": "./utils.ts"
   },
