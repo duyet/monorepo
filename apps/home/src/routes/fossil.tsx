@@ -16,6 +16,11 @@ interface Role {
   body: string;
 }
 
+interface Milestone {
+  label: string;
+  body: string;
+}
+
 const posts: Post[] = [
   {
     title: "Fossil Data Platform Rewritten in Rust 🦀",
@@ -35,12 +40,44 @@ const roles: Role[] = [
   {
     title: "Senior Data Engineer",
     period: "Jan 2020 — Aug 2023",
-    body: "Led the data team — five engineers and three analysts. Cut Data Platform costs by 55% and started rebuilding the next generation in Rust.",
+    body: "Data leader for a team of eight — five engineers and three analysts. Owned the platform end to end, drove the re-platforming for scale and cost, and cut Data Platform expenses by 55%.",
   },
   {
     title: "Data Engineer",
     period: "Nov 2018 — Jan 2020",
-    body: "Built core Data Platform components on Kubernetes, Airflow, and Spark, and proposed the Data Warehouse behind product insights.",
+    body: "Built and ran the core data platform on AWS, and proposed the data warehouse that became the foundation for product insights.",
+  },
+];
+
+// The technical story, oldest first.
+const journey: Milestone[] = [
+  {
+    label: "Collection on AWS",
+    body: "Node.js collectors streaming through Kinesis into S3, Lambda transforming data between zones, and serving queries from Athena and Redshift.",
+  },
+  {
+    label: "Streaming & storage upgrades",
+    body: "Moved ingestion from Kinesis Firehose to Kafka, and retuned data types for far better compression — real storage and cost savings.",
+  },
+  {
+    label: "Compute on Kubernetes",
+    body: "Migrated the batch workers onto EKS, processing at scale with Spark.",
+  },
+  {
+    label: "Rewritten in Rust",
+    body: "Re-built the platform end to end in Rust for another massive cost cut — faster, leaner, and cheaper to run.",
+  },
+  {
+    label: "Redshift → ClickHouse",
+    body: "Swapped the warehouse to ClickHouse on Kubernetes for fast serving, with Next.js dashboards on top.",
+  },
+  {
+    label: "A second platform on GCP",
+    body: "Stood up a parallel data platform on GCP to meet specific requirements.",
+  },
+  {
+    label: "Leading the team",
+    body: "Grew from engineer into leading the data team — hiring, mentoring, and setting the technical direction.",
   },
 ];
 
@@ -51,7 +88,7 @@ export const Route = createFileRoute("/fossil")({
       { title: "Fossil Group, Inc. — Duyet's chapter | duyet.net" },
       {
         name: "description",
-        content: `My ${TENURE} at Fossil Group, Inc. (${PERIOD}): from Data Engineer to leading the data team — cutting platform costs 55% and rebuilding it in Rust.`,
+        content: `My ${TENURE} at Fossil Group, Inc. (${PERIOD}): building the data platform from AWS collection to a Rust rewrite and ClickHouse, cutting costs 55%, and leading the team.`,
       },
     ],
     links: [{ rel: "canonical", href: "https://duyet.net/fossil" }],
@@ -70,11 +107,13 @@ function FossilPage() {
         </h1>
         <p className="rd-lead mt-5 text-[clamp(1.02rem,1.4vw,1.15rem)] text-[var(--rd-text-2)]">
           Nearly five years at Fossil Group, growing from Data Engineer to
-          leading the data team. I built and ran the Data Platform — Kubernetes,
-          Airflow, Spark, and ClickHouse — cut its running costs by more than
-          half, and started rebuilding the next generation in Rust. A good
-          place, a good team, and the chapter where I learned to scale data for
-          real.
+          leading the data team. I started on a Node.js data-collection platform
+          on AWS — Kinesis into S3, Lambda transforms, Athena and Redshift — and
+          spent the next few years making it faster, cheaper, and more reliable:
+          Kafka and Spark on Kubernetes, a full rewrite in Rust, and a move to
+          ClickHouse. Costs came down by more than half along the way. A good
+          place, a good team, and the chapter where I learned to scale data —
+          and to lead — for real.
         </p>
 
         <div className="mt-9 flex flex-col gap-5 border-t border-[var(--rd-border)] pt-7">
@@ -91,6 +130,27 @@ function FossilPage() {
               </p>
             </div>
           ))}
+        </div>
+
+        <div className="mt-9 border-t border-[var(--rd-border)] pt-7">
+          <Eyebrow>How the platform evolved</Eyebrow>
+          <ol className="mt-4 flex flex-col gap-4">
+            {journey.map((m, i) => (
+              <li key={m.label} className="flex gap-3">
+                <span className="font-[var(--font-mono)] text-[12px] text-[var(--rd-text-3)] pt-[3px] tabular-nums">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h3 className="text-[14.5px] font-medium tracking-[-0.01em]">
+                    {m.label}
+                  </h3>
+                  <p className="mt-1 text-[14px] leading-[1.55] text-[var(--rd-text-2)]">
+                    {m.body}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
 
         <div className="mt-9 border-t border-[var(--rd-border)] pt-7">
