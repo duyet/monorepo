@@ -113,7 +113,7 @@ function PostPage() {
       <PostHero post={post} />
 
       {/* Body + floating TOC */}
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1680px] px-4 sm:px-6 lg:px-8">
         <div className="post-body min-w-0">
           <Content post={post} />
         </div>

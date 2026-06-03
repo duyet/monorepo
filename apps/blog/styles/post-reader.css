@@ -107,11 +107,11 @@
   width: 100%;
   height: auto;
   max-width: 100%;
-  /* Cap tall images (e.g. long portrait phone screenshots) so they don't
-   * overflow the viewport or dwarf the text. object-fit keeps the aspect
-   * ratio and centers them; landscape images never hit the cap so they are
-   * unaffected. */
-  max-height: 80vh;
+  /* Cap image height to the viewport so nothing is taller than the screen,
+   * even as the container widens. object-fit keeps the aspect ratio and
+   * centers the image within the capped box (tall portrait shots letterbox
+   * horizontally; wide shots fill the width up to the cap). */
+  max-height: 88vh;
   object-fit: contain;
   border-radius: 4px;
   margin-top: 0 !important;
@@ -152,8 +152,8 @@
   width: auto;
   min-width: 0;
   /* Shorter cap inside a row — a tall phone screenshot beside a wide one
-   * shouldn't stretch the whole row. */
-  max-height: 60vh;
+   * shouldn't stretch the whole row past the screen. */
+  max-height: 78vh;
   object-fit: contain;
   margin: 0 !important;
   border-radius: 0.5rem;
