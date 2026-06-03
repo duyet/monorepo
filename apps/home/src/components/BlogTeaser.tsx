@@ -23,6 +23,14 @@ export function BlogTeaser({ featuredPost, recentPosts, totalPosts }: BlogTeaser
   if (!featuredPost) return null;
 
   const featuredCode = "npm i agents";
+  // Thumbnails are root-relative blog paths; home is a different domain, so
+  // resolve them against the blog origin.
+  const rawThumb = featuredPost.thumbnail?.trim();
+  const thumbUrl = rawThumb
+    ? rawThumb.startsWith("http")
+      ? rawThumb
+      : `https://blog.duyet.net${rawThumb}`
+    : null;
 
   return (
     <div
@@ -35,19 +43,30 @@ export function BlogTeaser({ featuredPost, recentPosts, totalPosts }: BlogTeaser
         target="_blank"
         rel="noreferrer"
       >
-        <div className="rd-termblock p-[26px_26px_30px]">
-          <div className="flex gap-[7px]">
-            <i />
-            <i />
-            <i />
+        {thumbUrl ? (
+          <div className="flex h-[180px] items-center overflow-hidden bg-[var(--rd-surface)]">
+            <img
+              src={thumbUrl}
+              alt={featuredPost.title}
+              loading="lazy"
+              className="w-full h-auto max-h-full object-contain"
+            />
           </div>
-          <div
-            className="font-[var(--font-mono)] mt-5 text-[22px] text-[var(--rd-accent)]"
-          >
-            <span className="opacity-60">$</span> {featuredCode}
-            <span className="rd-caret" />
+        ) : (
+          <div className="rd-termblock p-[26px_26px_30px]">
+            <div className="flex gap-[7px]">
+              <i />
+              <i />
+              <i />
+            </div>
+            <div
+              className="font-[var(--font-mono)] mt-5 text-[22px] text-[var(--rd-accent)]"
+            >
+              <span className="opacity-60">$</span> {featuredCode}
+              <span className="rd-caret" />
+            </div>
           </div>
-        </div>
+        )}
         <div className="p-[20px_26px_24px]">
           <div
             className="flex items-center gap-[10px] mb-3"
