@@ -158,18 +158,24 @@
   grid-column: full;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
   gap: 1rem;
   width: 100%;
   margin: 2rem 0;
 }
 .post-reader .prose .img-row img {
-  flex: 1 1 300px;
+  /* Size each box to its image, don't stretch it to a fixed fraction. A
+   * stretched box + object-fit centered portrait shots with big side gaps
+   * (two images shoved to opposite ends). With flex 0 1 auto + height:auto,
+   * wide images shrink to fill the row while portrait ones keep their
+   * natural width and sit close together (justify-content centers the set). */
+  flex: 0 1 auto;
   width: auto;
+  height: auto;
   min-width: 0;
-  /* Shorter cap inside a row — a tall phone screenshot beside a wide one
-   * shouldn't stretch the whole row past the screen. */
   max-height: 78vh;
-  object-fit: contain;
+  max-width: 100%;
   margin: 0 !important;
   border-radius: 0.5rem;
 }
