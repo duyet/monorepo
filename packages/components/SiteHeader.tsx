@@ -360,7 +360,7 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
 
       {open && (
         <div
-          className="fixed inset-0 z-40 bg-black/20 dark:bg-black/40 backdrop-blur-xs transition-opacity"
+          className="fixed inset-0 z-40"
           onClick={() => setOpen(false)}
         />
       )}
@@ -369,7 +369,7 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
         <div
           role="menu"
           className={cn(
-            "absolute left-0 top-full z-50 mt-1.5 w-[min(92vw,26rem)] overflow-hidden rounded-lg border bg-popover/95 backdrop-blur-md shadow-xl dark:shadow-black/30",
+            "absolute left-0 top-full z-50 mt-1.5 w-[min(92vw,26rem)] overflow-hidden rounded-lg border bg-popover shadow-xl dark:shadow-black/30",
           )}
         >
           <div className="max-h-[min(85vh,45rem)] overflow-y-auto p-1.5">
