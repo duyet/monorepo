@@ -1,10 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Eyebrow } from "@duyet/components";
+import { addUtmParams } from "../../app/lib/utm";
 
 const PERIOD = "Nov 2018 — Aug 2023";
 const TENURE = "4 yrs 10 mos";
 
-const posts = [
+interface Post {
+  title: string;
+  href: string;
+}
+
+interface Role {
+  title: string;
+  period: string;
+  body: string;
+}
+
+const posts: Post[] = [
   {
     title: "Fossil Data Platform Rewritten in Rust 🦀",
     href: "https://blog.duyet.net/2023/06/fossil-data-platform-written-rust",
@@ -19,7 +31,7 @@ const posts = [
   },
 ];
 
-const roles = [
+const roles: Role[] = [
   {
     title: "Senior Data Engineer",
     period: "Jan 2020 — Aug 2023",
@@ -87,9 +99,9 @@ function FossilPage() {
             {posts.map((p) => (
               <li key={p.href}>
                 <a
-                  href={p.href}
+                  href={addUtmParams(p.href, "fossil_page", "related_writing")}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="rd-ulink text-[14.5px] text-[var(--rd-text-2)]"
                 >
                   {p.title}
