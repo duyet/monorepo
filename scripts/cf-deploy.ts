@@ -197,6 +197,7 @@ console.log(
 // CLI args
 const dryRun = process.argv.includes("--dry-run");
 const isProd = process.argv.includes("--prod");
+const force = process.argv.includes("--force");
 // Filter out node/bun executable and script path, keep only actual arguments
 const args = process.argv.slice(2);
 const targetApp = args.find((arg) => !arg.startsWith("--"));
@@ -337,6 +338,10 @@ async function preflightCloudflareAuth(): Promise<boolean> {
  * @returns Array of app names that need to be built
  */
 function getChangedApps(baseBranch = "origin/master"): string[] {
+  if (force) {
+    console.log("[INFO] Force mode enabled, building all apps");
+    return appsToDeployList;
+  }
   if (dryRun) {
     console.log(`[DRY RUN] Would check for changed apps against ${baseBranch}`);
     return appsToDeployList;

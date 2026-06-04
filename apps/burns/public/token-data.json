@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-06-03T11:57:46.695Z",
+  "generatedAt": "2026-06-03T16:19:28.365Z",
   "firstDate": "2025-08-02",
-  "lastDate": "2026-05-29",
+  "lastDate": "2026-06-03",
   "sources": [
     "agy",
     "opencode",
@@ -9,14 +9,59 @@
     "Codex"
   ],
   "totals": {
-    "input_tokens": 3031430858,
-    "output_tokens": 119488998,
-    "cache_creation_tokens": 1020430236,
-    "cache_read_tokens": 43244750704,
-    "total_tokens": 45956840124,
-    "total_cost": 22719.95
+    "input_tokens": 3072229510,
+    "output_tokens": 131077686,
+    "cache_creation_tokens": 1073077479,
+    "cache_read_tokens": 46088229396,
+    "total_tokens": 48905353399,
+    "total_cost": 25557.09
   },
   "daily": [
+    {
+      "date": "2026-06-03",
+      "input_tokens": 7208728,
+      "output_tokens": 3280491,
+      "cache_creation_tokens": 18497904,
+      "cache_read_tokens": 754539679,
+      "total_tokens": 783526802,
+      "cost": 690.77
+    },
+    {
+      "date": "2026-06-02",
+      "input_tokens": 8357323,
+      "output_tokens": 1971787,
+      "cache_creation_tokens": 6653728,
+      "cache_read_tokens": 457935534,
+      "total_tokens": 474918372,
+      "cost": 450.33
+    },
+    {
+      "date": "2026-06-01",
+      "input_tokens": 8171560,
+      "output_tokens": 1443044,
+      "cache_creation_tokens": 3698942,
+      "cache_read_tokens": 355425820,
+      "total_tokens": 368739366,
+      "cost": 397.14
+    },
+    {
+      "date": "2026-05-31",
+      "input_tokens": 11014248,
+      "output_tokens": 1908471,
+      "cache_creation_tokens": 6885877,
+      "cache_read_tokens": 536188500,
+      "total_tokens": 555997096,
+      "cost": 568.63
+    },
+    {
+      "date": "2026-05-30",
+      "input_tokens": 9390802,
+      "output_tokens": 3399774,
+      "cache_creation_tokens": 16910792,
+      "cache_read_tokens": 866655463,
+      "total_tokens": 896356831,
+      "cost": 905.06
+    },
     {
       "date": "2026-05-29",
       "input_tokens": 7007491,
@@ -244,12 +289,12 @@
     },
     {
       "date": "2026-05-04",
-      "input_tokens": 10467437,
-      "output_tokens": 811895,
+      "input_tokens": 7123428,
+      "output_tokens": 397016,
       "cache_creation_tokens": 971002,
-      "cache_read_tokens": 254407369,
-      "total_tokens": 266657703,
-      "cost": 190.87
+      "cache_read_tokens": 127141065,
+      "total_tokens": 135632511,
+      "cost": 16.1
     },
     {
       "date": "2026-05-03",

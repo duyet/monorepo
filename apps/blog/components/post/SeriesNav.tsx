@@ -1,7 +1,7 @@
 import { cn } from "@duyet/libs/utils";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-import type { SeriesNavItem } from "@/lib/getSeriesNav";
+import type { SeriesNavItem } from "@/lib/posts";
 
 interface SeriesNavProps {
   prev: SeriesNavItem | null;

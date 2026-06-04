@@ -10,6 +10,7 @@
     "./date": "./date.ts",
     "./extractHeadings": "./extractHeadings.ts",
     "./getPost": "./getPost.ts",
+    "./getRelatedPosts": "./getRelatedPosts.ts",
     "./getSeries": "./getSeries.ts",
     "./getSlug": "./getSlug.ts",
     "./markdownToHtml": "./markdownToHtml.ts",

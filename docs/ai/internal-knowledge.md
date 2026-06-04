@@ -59,6 +59,7 @@ This repository is the pnpm/Turborepo monorepo for duyet.net public apps, shared
 ## Deployment Notes
 
 - Cloudflare Pages production deploys happen on pushes to `master` or `main`; PRs receive preview deploys.
+- A scheduled daily job (cron `0 0 * * *` in `.github/workflows/cf-deploy.yml`) rebuilds and redeploys the `burns` app to refresh its prerendered stats from MotherDuck.
 - Deploy workflows run type checks, tests, and lint before deploy jobs.
 - App-level `cf:deploy:prod` scripts are authoritative when present.
 - `apps/agent-ui` deploys `dist/client` to the `duyet-agents` Pages project for `https://agents.duyet.net`.

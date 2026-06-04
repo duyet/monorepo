@@ -22,7 +22,8 @@ Late at night, just before bed, I handed Claude Code a task in `ultrawork` mode:
 ```
 Create a workflow:
 
-- Refactor chmonitor.dev into a monorepo and add a landing page from the design: https://api.anthropic.com/v1/design/h/xxxxxx?open_file=chmonitor+Landing.html
+- Refactor chmonitor.dev into a monorepo and add a landing page 
+  from the design: https://api.anthropic.com/v1/design/h/xxxxxx?open_file=chmonitor+Landing.html
 - Move the current main app from https://chmonitor.dev to https://dash.chmonitor.dev.
   - Rename apps/web to apps/dashboard.
   - Support cloud.chmonitor.dev but redirect to dash.chmonitor.dev.
@@ -75,9 +76,14 @@ What stands out to me is the harness, not just the model. I spent a good while i
 The second large `ultrawork` run used **dynamic workflows** to migrate chmonitor from Next.js to TanStack Start.
 
 ```
-Plan to migrate to TanStack: research to see is it good or bad? Write a detailed plan and create issues for another agent to pick up.
+Plan to migrate to TanStack: research to see is it good or bad?
+Write a detailed plan and create issues for another agent to pick up.
 
-The plan should ask agents to use the Claude Code Dynamic Workflows to spawn parallel and multiple steps, including self-development, self-PR, self-babysit PR, self-merge, and self-deploy. Verify production with all end-to-end tests, aiming for 100% automation without me.
+The plan should ask agents to use the Claude Code Dynamic Workflows
+to spawn parallel and multiple steps, including self-development,
+self-PR, self-babysit PR, self-merge, and self-deploy.
+Verify production with all end-to-end tests, aiming for 100% automation without me.
+I am going to sleep now, you have 30m to ask me anything.
 ```
 
 The approach here is different: I asked it to create issue tickets, then spawn workflows for more agents to pick up with more detail: https://github.com/duyet/clickhouse-monitoring/issues/1392
@@ -108,11 +114,15 @@ Issue breakdown (epic + 13 issues) with dependency DAG
                                            ▼
                               #13 Production cutover (canary → 100% → bake → decommission)
 
-Parallelizable waves: after #2, issues #3, #5, #6, #9 start together. #5 (API routes) and #10 (pages) are themselves fanned out internally via the Workflow tool by category / route group.
+Parallelizable waves: after #2, issues #3, #5, #6, #9 start together.
+#5 (API routes) and #10 (pages) are themselves fanned out internally
+via the Workflow tool by category / route group.
 
 My honest assessment: this is a bad trade right now
 
-Not because it's infeasible — the exploration shows it's ~2–4 weeks of mechanical work (83 pages, 56 API routes, one middleware, redo the OpenNext/wrangler substrate). It's bad because: ...
+Not because it's infeasible — the exploration shows it's ~2–4 weeks of 
+mechanical work (83 pages, 56 API routes, one middleware, redo the OpenNext/wrangler substrate).
+It's bad because: ...
 ```
 
 ![Claude Code's plan and honest assessment of the Next.js to TanStack migration](/media/2026/06/coding-agent/coding-agent-chm-migrate-tanstack-1.png)
