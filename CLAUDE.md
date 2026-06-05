@@ -25,6 +25,7 @@ For scoped reviews after the last run timestamp:
 - `git show --unified=3 <commit_sha>`
 - `pnpm why <package>` to verify dependency overrides resolve to the intended package version
 - `rg -n "pnpm-lock\\.yaml" scripts/cf-deploy.ts` to verify deploy-orchestrator full-rebuild detection matches the repo's real lockfile
+- `pnpm run cf:deploy -- --force` to rebuild all requested Cloudflare Pages apps when change detection is intentionally bypassed
 - `rg -n "<symbol>" <file-or-dir> --glob '!**/*.test.*' --glob '!**/__tests__/**'` for dead-reference evidence
 - `rg -n "pnpm/action-setup@" .github/workflows -g'*.yml'` to verify valid action pins after CI workflow updates
 - `rg -n "setup-bun" .github/workflows -g'*.yml'` to catch leftover Bun setup actions

@@ -10,6 +10,18 @@ This file stores durable outcomes from code-smell and dead-code automation runs.
 
 ## Durable Findings
 
+### 2026-06-05
+
+- Blog prebuild regression (warning -> fixed): `packages/libs/getPost.ts` had reverted from the earlier `process.getBuiltinModule(...)` Node 24-safe loader back to `createRequire(import.meta.url)`, reintroducing the same browser-bundle/ESM ambiguity path that `3caa801620d5e1d4216c8afb41ef49bb583d52df` had already fixed.
+  - Fixed `packages/libs/getPost.ts` by restoring the lazy `process.getBuiltinModule("node:fs" | "node:path")` access pattern.
+  - Evidence: `git show 3caa801620d5e1d4216c8afb41ef49bb583d52df -- packages/libs/getPost.ts`, `git show a581c86db4e0d0e0174b4cc07f34c9f8ac736382 -- packages/libs/getPost.ts`, and current `HEAD` file contents showed the regression.
+- Workflow/docs drift cleanup (info -> fixed): `scripts/cf-deploy.ts` supports `--force`, but its usage block and the repo automation docs did not mention it; `apps/llm-timeline/scripts/sync-data.ts` still advertised Bun commands after the repo moved to pnpm/tsx.
+  - Fixed the `cf-deploy` usage comments plus `CLAUDE.md`/`docs/ai/internal-knowledge.md`, and updated the `llm-timeline` sync script docstring/help text to match current pnpm/tsx usage.
+  - Evidence: `rg -n -- '--force|cf-deploy\\.ts \\[app-name\\]' scripts/cf-deploy.ts CLAUDE.md docs/ai/internal-knowledge.md` and `sed -n '1,120p' apps/llm-timeline/scripts/sync-data.ts`.
+- Dead-code review (confident): no new zero-reference dead-code candidates were justified in non-test files modified since the last run.
+  - Evidence: repo-wide non-test searches on the removal candidates from `091150f` showed live replacements for `SeriesNav` and zero remaining imports for removed `YearList`; no additional touched symbols collapsed to declaration-only references.
+- Performance audit: no measured runtime or CI-duration regression signal was available in this scan window, so no grounded performance fix was proposed.
+
 ### 2026-06-03
 
 - Pnpm migration follow-up (warning -> fixed): Husky hooks still invoked Bun after the repo switched to pnpm, which would break local commits on machines without Bun.

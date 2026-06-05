@@ -3,11 +3,12 @@
 /**
  * Comprehensive Cloudflare Pages Deployment Orchestrator
  *
- * Usage: tsx cf-deploy.ts [app-name] [--prod] [--dry-run]
+ * Usage: tsx cf-deploy.ts [app-name] [--prod] [--dry-run] [--force]
  *
  * Options:
  *   --prod     Deploy to production (main branch, custom domains)
  *   --dry-run  Show what would be deployed without making changes
+ *   --force    Skip change detection and rebuild all requested deploy targets
  *
  * Deploys all apps (or specific app) to Cloudflare Pages with proper orchestration:
  * 1. Build phase: Build all apps in parallel

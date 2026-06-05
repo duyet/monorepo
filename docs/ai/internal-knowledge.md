@@ -23,6 +23,7 @@ This repository is the pnpm/Turborepo monorepo for duyet.net public apps, shared
 - `pnpm run deploy` builds deployable apps, then runs workspace config.
 - `pnpm run cf:deploy` deploys changed Cloudflare Pages apps.
 - `pnpm run cf:deploy:prod` runs production Cloudflare deploy tasks through Turbo.
+- `pnpm run cf:deploy -- --force` bypasses git-based change detection and rebuilds all requested Cloudflare Pages apps.
 - `pnpm run wasm:build` builds all Rust crates to WASM via `wasm-pack`.
 - `pnpm run wasm:build:release` builds WASM with optimizations.
 - `pnpm run wasm:test` runs `cargo test` across the Rust workspace.
