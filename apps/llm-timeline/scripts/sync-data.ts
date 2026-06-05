@@ -4,11 +4,11 @@
  * sync-data.ts — Pull LLM model data from registered sources and regenerate lib/data.ts
  *
  * Usage:
- *   bun scripts/sync-data.ts              # Fetch from all sources and write lib/data.ts
- *   bun scripts/sync-data.ts --dry-run    # Preview changes, don't write
- *   bun scripts/sync-data.ts --verbose    # Show column mapping and row details
- *   bun scripts/sync-data.ts --no-epoch   # Skip a source (auto-generated per source)
- *   bun scripts/sync-data.ts --help       # Show this help
+ *   pnpm run sync                         # Fetch from all sources and write lib/data.ts
+ *   pnpm run sync:dry                     # Preview changes and show verbose details
+ *   tsx scripts/sync-data.ts --verbose    # Show column mapping and row details
+ *   tsx scripts/sync-data.ts --no-epoch   # Skip a source (auto-generated per source)
+ *   tsx scripts/sync-data.ts --help       # Show this help
  */
 
 import { writeFileSync } from "node:fs";
@@ -44,7 +44,7 @@ if (showHelp) {
 sync-data.ts — Sync LLM model data to lib/data.ts
 
 Usage:
-  bun scripts/sync-data.ts [flags]
+  tsx scripts/sync-data.ts [flags]
 
 Flags:
   --dry-run         Print the generated output without writing the file

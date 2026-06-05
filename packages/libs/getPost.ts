@@ -5,13 +5,12 @@ import { FileSystemError, ValidationError } from "./errors";
 import getSlug from "./getSlug";
 import { normalizeTag } from "./tags";
 
-import { createRequire } from "node:module";
-const customRequire = createRequire(import.meta.url);
-
-const nodeFs = () => customRequire("node:fs");
-const nodeJoin = () => customRequire("node:path").join;
+// Access Node built-ins lazily without a literal require() token.
+// This keeps the module browser-bundle safe and avoids Node 24's
+// ESM/CJS ambiguity detection that previously broke blog prebuilds.
+const nodeFs = () => process.getBuiltinModule("node:fs");
+const nodeJoin = () => process.getBuiltinModule("node:path").join;
 const getPostsDirectory = () => nodeJoin()(process.cwd(), "_posts");
-
 
 const CACHED = new Map<string, string>();
 const MAX_CACHE_SIZE = 500;
