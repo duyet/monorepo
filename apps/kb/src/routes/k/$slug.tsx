@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ExternalLink, Tag } from "lucide-react";
+import { MiniGraph } from "../../components/MiniGraph";
 import { getArticleBySlug, getLinkedArticles } from "../../../lib/content";
 import { markdownToHtml } from "../../../lib/markdown";
 
@@ -115,7 +116,7 @@ function ArticlePage() {
           </div>
         </article>
 
-        {/* Sidebar — linked articles */}
+        {/* Sidebar — linked articles + mini graph */}
         {hasLinks && (
           <aside className="space-y-6">
             {linked.outgoing.length > 0 && (
@@ -158,6 +159,13 @@ function ArticlePage() {
                 </ul>
               </div>
             )}
+
+            <MiniGraph
+              currentSlug={article.slug}
+              currentTitle={article.title}
+              outgoing={linked.outgoing}
+              incoming={linked.incoming}
+            />
           </aside>
         )}
       </div>

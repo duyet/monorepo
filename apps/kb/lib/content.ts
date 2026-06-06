@@ -88,6 +88,23 @@ let _cache: KbContent | null = null;
 
 // ── Loaders ───────────────────────────────────────────────────────────────────
 
+const RAW_DREAM = import.meta.glob("../kb/DREAM.md", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+}) as Record<string, string>;
+
+const RAW_STATE = import.meta.glob("../kb/.agent/state.json", {
+  import: "default",
+  eager: true,
+}) as Record<string, { last_dream?: string }>;
+
+export function getDreamContent(): { raw: string; lastDream: string } {
+  const raw = Object.values(RAW_DREAM)[0] ?? "";
+  const state = Object.values(RAW_STATE)[0] ?? {};
+  return { raw, lastDream: state.last_dream ?? "" };
+}
+
 const RAW_ARTICLES = import.meta.glob("../kb/raw/kb-content/**/*.md", {
   query: "?raw",
   import: "default",
