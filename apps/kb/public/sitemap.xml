@@ -4,9 +4,6 @@
     <loc>https://kb.duyet.net/</loc>
   </url>
   <url>
-    <loc>https://kb.duyet.net/graph</loc>
-  </url>
-  <url>
     <loc>https://kb.duyet.net/c/agents</loc>
   </url>
   <url>
@@ -157,5 +154,65 @@
   <url>
     <loc>https://kb.duyet.net/k/improvement-cycles</loc>
     <lastmod>2026-03-16</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/feedback-cheap-models-subagents</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/feedback-docs-driven-development</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/feedback-working-style</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-duyet-net</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-duyetbot</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-kb-duyet-net</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-llm-timeline</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/reference-duyet-blog</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/reference-duyet-github</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-ai-agent-stack</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-cloudflare-pages-deploy</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-codebase-maintenance-loop</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-flat-design-system</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-rust-wasm-prerender</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-tanstack-start-ssg</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/user-duyet-ai-stance</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/user-duyet-profile</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/user-duyet-stack</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/user-duyet-web-presence</loc>
   </url>
 </urlset>

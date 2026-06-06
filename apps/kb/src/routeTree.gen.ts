@@ -9,24 +9,25 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as GraphRouteImport } from './routes/graph'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MIndexRouteImport } from './routes/m/index'
 import { Route as CIndexRouteImport } from './routes/c/index'
 import { Route as SitemapXmlRouteImport } from './routes/sitemap.xml'
 import { Route as RobotsTxtRouteImport } from './routes/robots.txt'
+import { Route as MSlugRouteImport } from './routes/m/$slug'
 import { Route as LlmsTxtRouteImport } from './routes/llms.txt'
 import { Route as LlmsFullTxtRouteImport } from './routes/llms-full.txt'
 import { Route as KSlugRouteImport } from './routes/k/$slug'
 import { Route as CCategoryRouteImport } from './routes/c/$category'
 
-const GraphRoute = GraphRouteImport.update({
-  id: '/graph',
-  path: '/graph',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MIndexRoute = MIndexRouteImport.update({
+  id: '/m/',
+  path: '/m/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CIndexRoute = CIndexRouteImport.update({
@@ -42,6 +43,11 @@ const SitemapXmlRoute = SitemapXmlRouteImport.update({
 const RobotsTxtRoute = RobotsTxtRouteImport.update({
   id: '/robots/txt',
   path: '/robots/txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MSlugRoute = MSlugRouteImport.update({
+  id: '/m/$slug',
+  path: '/m/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LlmsTxtRoute = LlmsTxtRouteImport.update({
@@ -67,100 +73,107 @@ const CCategoryRoute = CCategoryRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/graph': typeof GraphRoute
   '/c/$category': typeof CCategoryRoute
   '/k/$slug': typeof KSlugRoute
   '/llms-full/txt': typeof LlmsFullTxtRoute
   '/llms/txt': typeof LlmsTxtRoute
+  '/m/$slug': typeof MSlugRoute
   '/robots/txt': typeof RobotsTxtRoute
   '/sitemap/xml': typeof SitemapXmlRoute
   '/c/': typeof CIndexRoute
+  '/m/': typeof MIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/graph': typeof GraphRoute
   '/c/$category': typeof CCategoryRoute
   '/k/$slug': typeof KSlugRoute
   '/llms-full/txt': typeof LlmsFullTxtRoute
   '/llms/txt': typeof LlmsTxtRoute
+  '/m/$slug': typeof MSlugRoute
   '/robots/txt': typeof RobotsTxtRoute
   '/sitemap/xml': typeof SitemapXmlRoute
   '/c': typeof CIndexRoute
+  '/m': typeof MIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/graph': typeof GraphRoute
   '/c/$category': typeof CCategoryRoute
   '/k/$slug': typeof KSlugRoute
   '/llms-full/txt': typeof LlmsFullTxtRoute
   '/llms/txt': typeof LlmsTxtRoute
+  '/m/$slug': typeof MSlugRoute
   '/robots/txt': typeof RobotsTxtRoute
   '/sitemap/xml': typeof SitemapXmlRoute
   '/c/': typeof CIndexRoute
+  '/m/': typeof MIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/graph'
     | '/c/$category'
     | '/k/$slug'
     | '/llms-full/txt'
     | '/llms/txt'
+    | '/m/$slug'
     | '/robots/txt'
     | '/sitemap/xml'
     | '/c/'
+    | '/m/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/graph'
     | '/c/$category'
     | '/k/$slug'
     | '/llms-full/txt'
     | '/llms/txt'
+    | '/m/$slug'
     | '/robots/txt'
     | '/sitemap/xml'
     | '/c'
+    | '/m'
   id:
     | '__root__'
     | '/'
-    | '/graph'
     | '/c/$category'
     | '/k/$slug'
     | '/llms-full/txt'
     | '/llms/txt'
+    | '/m/$slug'
     | '/robots/txt'
     | '/sitemap/xml'
     | '/c/'
+    | '/m/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  GraphRoute: typeof GraphRoute
   CCategoryRoute: typeof CCategoryRoute
   KSlugRoute: typeof KSlugRoute
   LlmsFullTxtRoute: typeof LlmsFullTxtRoute
   LlmsTxtRoute: typeof LlmsTxtRoute
+  MSlugRoute: typeof MSlugRoute
   RobotsTxtRoute: typeof RobotsTxtRoute
   SitemapXmlRoute: typeof SitemapXmlRoute
   CIndexRoute: typeof CIndexRoute
+  MIndexRoute: typeof MIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/graph': {
-      id: '/graph'
-      path: '/graph'
-      fullPath: '/graph'
-      preLoaderRoute: typeof GraphRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/m/': {
+      id: '/m/'
+      path: '/m'
+      fullPath: '/m/'
+      preLoaderRoute: typeof MIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/c/': {
@@ -182,6 +195,13 @@ declare module '@tanstack/react-router' {
       path: '/robots/txt'
       fullPath: '/robots/txt'
       preLoaderRoute: typeof RobotsTxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/m/$slug': {
+      id: '/m/$slug'
+      path: '/m/$slug'
+      fullPath: '/m/$slug'
+      preLoaderRoute: typeof MSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/llms/txt': {
@@ -217,14 +237,15 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  GraphRoute: GraphRoute,
   CCategoryRoute: CCategoryRoute,
   KSlugRoute: KSlugRoute,
   LlmsFullTxtRoute: LlmsFullTxtRoute,
   LlmsTxtRoute: LlmsTxtRoute,
+  MSlugRoute: MSlugRoute,
   RobotsTxtRoute: RobotsTxtRoute,
   SitemapXmlRoute: SitemapXmlRoute,
   CIndexRoute: CIndexRoute,
+  MIndexRoute: MIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

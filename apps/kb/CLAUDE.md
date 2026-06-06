@@ -4,12 +4,38 @@ This file provides guidance to Claude Code when working with the knowledge base 
 
 ## Overview
 
-Static knowledge base. Markdown content under `content/` is bundled at build
+Static knowledge base. Content comes from the **`~/kb` git submodule** mounted
+at `apps/kb/kb/` (`git@github.com:duyet/kb.git`). Markdown is bundled at build
 time via Vite and served as prerendered HTML on Cloudflare Pages.
 
 - **Live**: https://kb.duyet.net | https://duyet-kb.pages.dev
 - **Port**: 3009 (development)
 - **Output**: Static SPA (`dist/client/`)
+
+### Submodule
+
+On a fresh clone, populate the submodule first:
+
+```bash
+git submodule update --init apps/kb/kb
+```
+
+CI must check out with `submodules: true` or `apps/kb/kb/` will be empty and the
+build will produce zero pages. The `kb/` path lives inside `apps/kb/` so the
+pnpm workspace globs (`apps/*`) don't match it as a package.
+
+### Two content types
+
+Both live in the submodule and render through `lib/content.ts`:
+
+| Type | Source | Routes | Frontmatter |
+|------|--------|--------|-------------|
+| **Articles** | `kb/raw/kb-content/**/*.md` | `/k/<slug>`, `/c/<category>` | title, category, tags, links, summary, updated |
+| **Memory notes** | `kb/memory/**/*.md` | `/m/<slug>`, `/m` | name, type, description, related (`[[wikilinks]]`), sources, aliases, created |
+
+Files whose slug starts with `_` (e.g. `_TEMPLATE.md`) are skipped. The 3D
+knowledge graph on the homepage spans both types; edges come from `links`/`related`
+frontmatter (strong) plus shared tags (weak).
 
 ## Development Commands
 
@@ -24,16 +50,19 @@ pnpm run cf:deploy:prod   # Production deployment
 ## Architecture
 
 - **Framework**: Vite + TanStack Start (prerendered SSG)
-- **Content**: `content/**/*.md` parsed with `gray-matter`
-- **Runtime loader** (`lib/content.ts`): uses `import.meta.glob` to bundle
+- **Content**: submodule `kb/raw/kb-content/**/*.md` (articles) and
+  `kb/memory/**/*.md` (memory notes), parsed with `gray-matter`
+- **Runtime loader** (`lib/content.ts`): two `import.meta.glob` calls bundle
   every .md at build time. Runs in both prerender (Node) and after
   hydration (browser).
 - **Prebuild** (`scripts/generate-static-files.ts`): self-contained script.
-  Walks `content/` itself, emits:
+  Walks both submodule dirs, emits:
   - `public/robots.txt`
   - `public/sitemap.xml`
   - `public/llms.txt` and `public/llms-full.txt`
   - `public/k/<slug>.md` — raw markdown per article (LLM/agent friendly)
+  - `public/m/<slug>.md` — raw markdown per memory note
+  - `public/graph-data.json` — nodes/edges for the homepage 3D graph
 - **Build-time only**: content is loaded at build/prerender time; no
   runtime fs / `__dirname` access. Vite bundles all .md as raw strings
   through `import.meta.glob`.
@@ -72,8 +101,10 @@ CF auto-provisions the DNS CNAME + ACME cert for same-account zones.
 
 ### Add a new article
 
-1. Drop a markdown file under `content/<category>/<slug>.md`
-2. Frontmatter:
+Articles live in the `~/kb` repo, not in this app. To add one:
+
+1. In `~/kb`, drop a markdown file under `raw/kb-content/<category>/<slug>.md`
+   with frontmatter:
    ```markdown
    ---
    title: "Article Title"
@@ -84,4 +115,10 @@ CF auto-provisions the DNS CNAME + ACME cert for same-account zones.
    links: ["related-slug"]
    ---
    ```
-3. `pnpm run build` regenerates sitemap, llms.txt, and raw .md endpoints.
+2. Commit & push in `~/kb`, then bump the submodule pointer here:
+   ```bash
+   cd apps/kb/kb && git pull origin main
+   cd ../.. && git add apps/kb/kb && git commit -m "chore(kb): update content submodule"
+   ```
+3. `pnpm run build` regenerates sitemap, llms.txt, graph-data.json, and raw
+   `.md` endpoints.

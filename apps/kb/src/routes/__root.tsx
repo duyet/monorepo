@@ -61,7 +61,7 @@ export const Route = createRootRoute({
 const kbLocalNav = [
   { label: "Home", href: "/" },
   { label: "Categories", href: "/c" },
-  { label: "Graph", href: "/graph" },
+  { label: "Memory", href: "/m" },
 ];
 
 function RootComponent() {

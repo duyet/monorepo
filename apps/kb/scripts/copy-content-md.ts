@@ -1,42 +1,67 @@
 #!/usr/bin/env tsx
 /**
- * Prebuild script: copy all content/**\/*.md to public/k/<slug>.md
+ * Prebuild script: copy markdown files from the git submodule to public/
  * so Cloudflare Pages ASSETS can serve the raw markdown files.
  *
- * Slug = basename without extension (no path segments — flat layout).
+ * - articles from kb/raw/kb-content/ to public/k/
+ * - memory notes from kb/memory/ to public/m/ (skips _TEMPLATE)
  *
- * Usage: bun scripts/copy-content-md.ts
+ * Slug = basename without extension (flat layout).
  */
 
 import { cpSync, mkdirSync, readdirSync, statSync } from "node:fs";
 import { basename, extname, join } from "node:path";
 
-const CONTENT_DIR = join(import.meta.dirname!, "..", "content");
-const OUTPUT_DIR = join(import.meta.dirname!, "..", "public", "k");
+const SCRIPT_DIR = import.meta.dirname!;
+const APP_DIR = join(SCRIPT_DIR, "..");
+const ARTICLES_DIR = join(APP_DIR, "kb", "raw", "kb-content");
+const MEMORY_DIR = join(APP_DIR, "kb", "memory");
+const OUTPUT_K_DIR = join(APP_DIR, "public", "k");
+const OUTPUT_M_DIR = join(APP_DIR, "public", "m");
 
-mkdirSync(OUTPUT_DIR, { recursive: true });
+mkdirSync(OUTPUT_K_DIR, { recursive: true });
+mkdirSync(OUTPUT_M_DIR, { recursive: true });
 
 function walkMd(dir: string): string[] {
   const paths: string[] = [];
-  for (const entry of readdirSync(dir)) {
+  let entries: string[];
+  try {
+    entries = readdirSync(dir);
+  } catch {
+    return paths;
+  }
+  for (const entry of entries) {
     const full = join(dir, entry);
-    if (statSync(full).isDirectory()) {
-      paths.push(...walkMd(full));
-    } else if (extname(entry) === ".md") {
-      paths.push(full);
+    try {
+      if (statSync(full).isDirectory()) {
+        paths.push(...walkMd(full));
+      } else if (extname(entry) === ".md") {
+        paths.push(full);
+      }
+    } catch {
+      // skip
     }
   }
   return paths;
 }
 
-const files = walkMd(CONTENT_DIR);
-let copied = 0;
-
-for (const src of files) {
+// Articles → public/k/
+let articlesCopied = 0;
+for (const src of walkMd(ARTICLES_DIR)) {
   const slug = basename(src, ".md");
-  const dest = join(OUTPUT_DIR, `${slug}.md`);
-  cpSync(src, dest);
-  copied++;
+  cpSync(src, join(OUTPUT_K_DIR, `${slug}.md`));
+  articlesCopied++;
 }
 
-console.log(`copy-content-md: copied ${copied} files to public/k/`);
+// Memory notes → public/m/ (skip _TEMPLATE)
+let memoryCopied = 0;
+for (const src of walkMd(MEMORY_DIR)) {
+  const slug = basename(src, ".md");
+  if (slug.startsWith("_")) continue;
+  cpSync(src, join(OUTPUT_M_DIR, `${slug}.md`));
+  memoryCopied++;
+}
+
+console.log(
+  `copy-content-md: ${articlesCopied} articles to public/k/, ${memoryCopied} notes to public/m/`,
+);

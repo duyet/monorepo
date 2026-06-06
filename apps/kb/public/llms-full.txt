@@ -1715,3 +1715,466 @@ rg -n "<symbol>" apps packages --glob '!**/*.test.*'
 Run tests before and after each fix to confirm no regression. Commit each logical change separately with a semantic message.
 
 ---
+
+# Use cheap models for sub-agents
+URL: https://kb.duyet.net/m/feedback-cheap-models-subagents
+Type: feedback
+Description: Default fan-out sub-agents/workflow agents to Sonnet or Haiku, not Opus, to control cost
+
+When dispatching sub-agents (Agent tool) or Workflow agents — especially in
+batch/parallel fan-out (e.g. babysitting/fixing/merging many PRs at once) —
+default them to a **cheaper model** (`sonnet`, or `haiku` for trivial/mechanical
+work) rather than inheriting Opus.
+
+**Why:** Opus across many concurrent agents is expensive and usually overkill for
+mechanical, well-scoped work (fix-CI-then-merge, search, refactor-to-spec). Duyet
+flagged cost during a 13-agent parallel PR batch.
+
+**How to apply:**
+- Pass `model: "sonnet"` on `Agent` calls; `opts.model` in Workflow scripts.
+- Use `haiku` for trivial/mechanical tasks; reserve **Opus** for genuinely complex
+  reasoning the main loop handles.
+- Don't restart already-running agents just to switch model — only apply to new
+  dispatches.
+
+---
+
+# Docs-Driven Development
+URL: https://kb.duyet.net/m/feedback-docs-driven-development
+Type: feedback
+Description: Duyet's pattern — tiny CLAUDE.md/AGENTS.md router + a docs/kb "brain"; agents auto-read in, auto-write out
+
+Duyet's core agent-collaboration pattern (from his blog, "Docs-Driven Development"):
+
+- **`CLAUDE.md`/`AGENTS.md` stays tiny** — short, stable rules + a router pointing
+  at the right doc. Cramming architecture/feature contracts in there rots the file.
+- **A versioned, grep-able `kb` is the brain** — structured by the question being
+  asked; the same docs serve Duyet, teammates, and every coding agent.
+- **Make read/write reflexive, phrased as triggers not requests:** read the index
+  on the way *in* (before answering anything non-trivial), write back on the way
+  *out* (before forgetting). "Remember to write docs" doesn't work — triggers do.
+
+**Why:** rules-in-prompt evaporate between sessions; a structured external brain
+persists and is reviewable in a PR.
+
+**How to apply:** this is exactly the model this repo implements — read `MEMORY.md`
+first, grep `memory/`, write durable facts back automatically. Don't bloat the
+router files; put knowledge in notes.
+
+---
+
+# Working style preferences
+URL: https://kb.duyet.net/m/feedback-working-style
+Type: feedback
+Description: How Duyet wants agents to work — concise English, semantic commits, simple solutions
+
+Working preferences for agents collaborating with [[user-duyet-profile]].
+
+- **Language:** respond in English. (Vietnamese is native, but English is the
+  default for work.)
+- **Communication:** concise, evidence over assumption, no filler words like
+  "comprehensive/extensive". Surface tradeoffs and uncertainty; don't hide confusion.
+- **Code:** simplest solution that works. No speculative abstractions, no
+  features beyond what was asked. Surgical changes — touch only what's needed.
+- **Commits:** semantic format, consistent scope, simple English.
+- **Autonomy:** comfortable with `/loop` for recurring maintenance; values
+  non-disruptive operations (never destructive actions without explicit ask).
+
+**Why:** Duyet is a senior engineer who optimizes for maintainability and low
+noise; over-engineering and verbosity waste his time.
+
+**How to apply:** default to less code and fewer words; ask before big or
+irreversible moves; match the existing codebase's conventions.
+
+---
+
+# duyet.net monorepo
+URL: https://kb.duyet.net/m/project-duyet-net
+Type: project
+Description: Bun + Turborepo monorepo behind duyet.net — ~9 web apps on TanStack Start SSG, deployed to Cloudflare Pages
+
+`duyet/monorepo` — Bun + Turborepo hosting all of [[user-duyet-profile]]'s public
+web apps + shared packages. Most apps are TanStack Start SSG on Cloudflare Pages
+(see [[tech-tanstack-start-ssg]], [[tech-cloudflare-pages-deploy]]).
+
+**Apps** (subdomains of duyet.net), with pre-rendered page counts:
+- `blog` (393) — TanStack Start SSG, WASM markdown, isomorphic `readPublicJson`.
+- `llm-timeline` (3700+) — see [[project-llm-timeline]].
+- `insights` (22) — AI/Claude usage analytics from CCUsage data.
+- `home` (4), `cv` (2), `photos` (2), `homelab` (1), `ai-percentage` (1).
+- `agents` — the **only** Vite SPA left; D1 Pages Functions block SSG. See [[project-duyetbot]].
+
+**Shared packages:** `components` (design system), `libs` (WASM bindings re-export),
+`wasm` (compiled Rust crates), `data-sync`, `api`, `config`, `urls`.
+
+**Design:** flat/hairline design system — see [[tech-flat-design-system]]. Palette
+varies per app (blog white `#ffffff`, others warm cream `#fbf7f0`).
+WASM strategy: [[tech-rust-wasm-prerender]]. Maintained autonomously by [[project-duyetbot]].
+
+---
+
+# duyetbot — autonomous agent
+URL: https://kb.duyet.net/m/project-duyetbot
+Type: project
+Description: Autonomous Claude Code agent that maintains the duyet.net monorepo — scope, autonomous loop, and memory hierarchy
+
+duyetbot — the autonomous Claude Code agent persona that maintains [[project-duyet-net]].
+
+**Scope (can change without asking):** codebase, look-and-feel, deployment —
+layout, components, design tokens, deps, build/deploy config, landing-page copy.
+**Out of scope (needs human direction):** blog post content (`apps/blog/_posts/**`)
+and LLM Timeline curated data — those are Duyet's authored words/research facts.
+
+**Autonomous loop** (`/loop` or one-shot `claude -p`): measure → fix top-priority
+issue → verify (lint+test+build) → commit → background-deploy → log. Priority order:
+build > tests > lint > deploy > code quality > features. See [[tech-cloudflare-pages-deploy]].
+
+**Memory hierarchy** (most→least durable): commit messages → kb articles → durable
+findings doc → session memory `.md` snapshots → transcript. Memory files are
+point-in-time, may be stale — verify against code before acting. This is the
+[[feedback-docs-driven-development]] model. Auto-compaction welcomed; save
+to-remember context before it. Commits add a duyetbot co-author trailer.
+
+---
+
+# kb.duyet.net knowledge base
+URL: https://kb.duyet.net/m/project-kb-duyet-net
+Type: project
+Description: kb.duyet.net — public KB site; migrating from the old monorepo app to this shared-brain repo, also serves bootstrap.sh
+
+kb.duyet.net — Duyet's public knowledge base, the rendered front-end of this
+shared brain.
+
+- **Old form:** an `apps/kb` app inside [[project-duyet-net]] — markdown articles
+  with frontmatter (category/tags/links/summary), graph view at `/graph`, machine
+  index at `/llms.txt` + `/llms-full.txt`, raw article at `/k/<slug>.md`.
+- **Now:** that monorepo app is being **replaced by THIS repo** (the shared brain).
+  The site renders the kb (including client-side full-text search, RSS, and sitemap)
+  and also serves `/scripts/bootstrap.sh` for new-device setup.
+
+Embodies [[feedback-docs-driven-development]]: synthesized, graph-connected,
+grep-able notes — the durable form of agent memory, distinct from point-in-time
+session snapshots. Maintained by [[project-duyetbot]]. The 32 long-form source
+articles seeding this brain came from the old monorepo `apps/kb`.
+
+---
+
+# LLM Timeline app
+URL: https://kb.duyet.net/m/project-llm-timeline
+Type: project
+Description: llm-timeline.duyet.net — TanStack Start SSG timeline of LLM models 1950–2026, shadcn UI, dual data sources
+
+`apps/llm-timeline` ([[project-duyet-net]]) — timeline of LLM models 1950–2026,
+3700+ pre-rendered pages. Reference implementation for the flat/shadcn design
+(PR #1003): all `shadow-*` removed, semantic tokens only, vertical stat-card grids.
+
+**Data** (built into pages at build time, `pnpm run sync`, no runtime API):
+- Curated: ~785 models from Google Sheets, hand-maintained by Duyet (out of
+  scope for [[project-duyetbot]] — research facts + citations).
+- Epoch AI: ~3156 models (extended range back to 1950).
+- Deduped to ~3937 unique (last sync 2026-03-25).
+
+**Tech:** warm cream palette; `@tanstack/react-virtual` `useWindowVirtualizer`
+for the scroll; WASM normalizer crate via `initSync` (kept for consistency though
+not faster — see [[tech-rust-wasm-prerender]]); badge variants replace
+color-lookup functions. Design conventions: [[tech-flat-design-system]].
+
+---
+
+# Duyet — blog content & themes
+URL: https://kb.duyet.net/m/reference-duyet-blog
+Type: reference
+Description: What blog.duyet.net covers — a digital garden on Rust, ClickHouse, AI agents, data eng, personal analytics
+
+blog.duyet.net — Duyet runs it as a **digital garden** (evolving notes, not
+polished essays), drafted in Obsidian.
+
+Recurring themes (by volume):
+- **ClickHouse** (largest): MergeTree/Replacing/Replicated engines, mutations,
+  replication topologies, UDFs, Keeper, monitoring on Kubernetes, cheatsheets.
+- **Rust**: async, building libraries (incl. for Next.js / WASM), language-model
+  from scratch, ownership types (`Rc<T>`, `Saturating<T>`), dependency tooling.
+- **AI agents / LLMs**: a leveled "build an agent" portfolio series — push-frontier
+  AI, self-improving coding agent, personal life-OS agent, enterprise workflow
+  agent — plus MCP, Ollama, workflow-vs-agents, `duyetbot`.
+- **Data engineering**: Airflow (deferrable operators), DuckDB, OpenDAL.
+- **Tooling & life**: homelab, Obsidian, personal analytics / life-logging.
+
+See [[user-duyet-web-presence]] for all links.
+
+---
+
+# Duyet — notable GitHub projects
+URL: https://kb.duyet.net/m/reference-duyet-github
+Type: reference
+Description: Duyet's main public repos — ClickHouse tooling, Rust data tools, AI-agent projects, infra
+
+github.com/duyet — ~100 non-fork repos. Notable ones by area:
+
+- **ClickHouse:** `clickhouse-monitoring` (flagship, ~240★, Next.js UI over system
+  tables), `clickhouse-udf-rs` (Rust UDFs).
+- **Rust data/infra tooling (GitOps style):** `grant-rs` (Redshift/Postgres
+  privileges), `athena-rs` (AWS Athena schema), `glossary-rs` (actix API),
+  `cov-rs` (coverage).
+- **AI agents:** `duyetbot-agent` (TS), `coding-agent-insights` (Rust, analyzes
+  coding-agent history), `ccr` (Rust, Claude Code + OpenRouter), `codex-claude-plugins`
+  (Python), `okie.one` (Next.js all-in-one chat assistant).
+- **Infra:** `charts` (Helm charts, tested with KinD), `gaxy` (Go GA/GTM proxy).
+- **Web/personal:** `monorepo` (blog, cv, …), `api.duyet.net`, `saveto`, `feedback`.
+- **Most-starred (older):** `bruteforce-database` (~1.7k★), `pricetrack` (~140★).
+
+Languages skew Rust + TypeScript + Python. See [[user-duyet-stack]].
+
+---
+
+# AI agent building — tech stack
+URL: https://kb.duyet.net/m/tech-ai-agent-stack
+Type: tech
+Description: Frameworks/SDKs for building LLM agents (LangGraph, AI SDK, Claude/OpenAI Agents SDK, MCP) + what Duyet uses
+
+The 2026 stack for building LLM agents, by layer:
+
+- **Orchestration (Python):** LangGraph (graph/state machines), LlamaIndex
+  (RAG + agents), PydanticAI, CrewAI, AutoGen, OpenAI Agents SDK, Google ADK.
+- **Orchestration (TS/JS):** Vercel **AI SDK** (streaming, tools, `ToolLoopAgent`),
+  Mastra, LangGraph.js, Cloudflare Agents (Durable Objects), OpenAI Agents SDK,
+  Claude Agent SDK.
+- **Model gateways:** OpenRouter, AnyRouter, LiteLLM — swap providers without code churn.
+- **Interop protocol:** **MCP** (Model Context Protocol) for tools/resources; A2A
+  for agent-to-agent.
+- **Memory / RAG:** vector stores (Qdrant, pgvector), LlamaIndex; explicit
+  short/long-term + reflection memory for agentic loops.
+- **Eval / observability:** LangSmith, Langfuse, Braintrust.
+- **Runtime / deploy:** Cloudflare Workers + Durable Objects, Vercel.
+
+**Duyet uses** (see [[user-duyet-ai-stance]]): Claude Code as driver; Claude Agent
+SDK, OpenAI Agents SDK, Cloudflare Agents, Vercel AI SDK, LlamaIndex, LangChain;
+OpenRouter/AnyRouter for routing; MCP (mcp.duyet.net). Core pattern: plan →
+execute → test → reflect with persistent memory.
+
+---
+
+# Cloudflare Pages deploy workflow
+URL: https://kb.duyet.net/m/tech-cloudflare-pages-deploy
+Type: tech
+Description: Commit→push→background-deploy convention for duyet.net apps on Cloudflare Pages, plus the parallel-deploy hazard
+
+Each [[project-duyet-net]] app deploys to Cloudflare Pages
+(`scripts/cf-deploy-prod.sh`, per-app `pnpm run cf:deploy:prod`,
+`pages_build_output_dir = "dist/client"`).
+
+**Per-task convention:** semantic commit → push to `master` → background-deploy
+the changed app, then continue; verify production (`curl` → 200) after the
+completion notification.
+
+**Hazard:** never run two background deploys in parallel — the script renames
+`.env.local` → `.env.local.deploy-bak` mid-run, so parallel runs collide and lose
+the CF API token.
+
+**CI (`cf-deploy.yml`):** matrix over apps on push to `master`; the blog entry
+adds rust-toolchain + wasm-pack + `wasm:build:release` before build (see
+[[tech-rust-wasm-prerender]]); other apps skip it.
+
+**commitlint:** `subject-case` lowercase, `body-max-line-length` 100. Pre-commit
+hook runs `pnpm run test`. Root checks before completing a multi-file task:
+`pnpm run lint` (Biome) + `pnpm run check-types` + `pnpm run test`. Aligns with
+[[feedback-working-style]]; run autonomously by [[project-duyetbot]].
+
+---
+
+# Codebase maintenance loop
+URL: https://kb.duyet.net/m/tech-codebase-maintenance-loop
+Type: tech
+Description: Improvement-cycle sweeps, safe dead-code removal, and test discipline used to keep duyet.net low-debt
+
+How [[project-duyetbot]] keeps [[project-duyet-net]] low-debt — extends
+[[feedback-working-style]] with concrete tooling.
+
+**Improvement cycles:** periodic scoped sweeps, one debt category each (security,
+dedup/shadcn, privacy/cache, data-sync, DB, design, tests). ~9 cycles / ~155
+fixes by early 2026; cycle 9 added 104 tests + unified the design system. Run a
+cycle: `git log --since=<date> --name-only` to scope → fix → test before/after →
+one semantic commit per logical change.
+
+**Safe dead-code removal:** before deleting a symbol, prove zero non-test refs:
+`rg -n "<symbol>" apps packages --glob '!**/*.test.*' --glob '!**/*.spec.*'`.
+Empty output = safe. `pnpm why <pkg>` to check dep overrides. Record durable
+findings in the core-memory doc — do NOT create dated review files.
+
+**Tests:** `pnpm run test` from root (also the pre-commit hook). A test must fail
+when business logic changes (encode WHY, not just WHAT). Priority by risk:
+security/credentials → data transforms (normalizers, slugs, markdown) → render
+correctness → edge cases.
+
+---
+
+# Flat editorial design system
+URL: https://kb.duyet.net/m/tech-flat-design-system
+Type: tech
+Description: duyet.net design rules — hairline borders not shadows, lucide icons, shadcn + semantic tokens, minimal token layer, dark mode
+
+Flat editorial visual language across [[project-duyet-net]] (xAI-style reference,
+set 2026-05-25). [[project-llm-timeline]] PR #1003 is the reference implementation.
+
+**Flat rules:** hairline 1px border (`var(--hairline)`) is the only elevation cue.
+No `shadow-*`, no glow, no `rounded-2xl` (use `rounded-none`/`rounded-md`). Hover
+= background tint (`var(--faint)`), not shadow. Divider grid: `gap-px
+bg-[var(--hairline)]` container with `bg-[var(--background)]` cells.
+
+**Tokens (3 additive CSS layers in `packages/components/styles.css`):** base
+(Tailwind v4 `@theme`) → warm (`#fbf7f0 / #1f1f1f`) → minimal (`--minimal-*` +
+utilities `.pill-outline`, `.eyebrow-mono`, `.display-tight`). shadcn primitives
+(badge/button/input/card, CVA + radix slot) use semantic tokens (`bg-card`,
+`text-foreground`, `border-border`) — zero hardcoded `neutral-*`/`dark:`.
+
+**Icons:** `lucide-react` everywhere (drop `weight` prop); migrate
+`@phosphor-icons/react` when touching a file. **Dark mode:** card tints
+`dark:bg-{color}/20`; badges invert shade pair; blog uses white `#ffffff` bg
+(distinct editorial identity) over the warm cream others use.
+
+---
+
+# Rust→WASM strategy + prerender CI trap
+URL: https://kb.duyet.net/m/tech-rust-wasm-prerender
+Type: tech
+Description: When WASM beats TS (>1ms compute only), and the silent-prerender CI trap when the gitignored WASM binary is missing
+
+7 Rust crates compiled to WASM (`crate-type=["cdylib"]`) replace TS in
+`@duyet/libs` ([[project-duyet-net]]). Apps import `@duyet/libs/*`, never WASM directly.
+
+**Migration rule:** only migrate a TS function to WASM if its TS mean > ~1 ms.
+JS↔WASM string marshaling costs ~30–40 µs/call, so sub-100 µs ops are parity or
+slower. Only `markdown-to-html` cleared it: 6.3 ms → 0.08 ms (~79x). Slower
+crates (normalizers, dedup, csv, exif, diff, string-utils) kept for consistency
++ future batch APIs that amortize marshal cost.
+
+**CI trap:** `**/pkg/` is gitignored → WASM must be built in CI before the build
+step. With `prerender.failOnError:false`, a missing binary makes `markdownToHtml`
+throw, the route is silently skipped, no `index.html` written, and CF Pages
+serves the homepage at every post URL (looks like a routing bug; deploy logs green).
+**Fix:** CI runs rust-toolchain + wasm-pack + `wasm:build:release` before build,
+gated on the blog app. **Diagnose:** healthy blog build = 700+ `index.html` in
+`dist/client/`; grep build log for `markdownToHtml`/"Failed to convert".
+See [[tech-tanstack-start-ssg]], [[tech-cloudflare-pages-deploy]].
+
+---
+
+# TanStack Start SSG (Cloudflare)
+URL: https://kb.duyet.net/m/tech-tanstack-start-ssg
+Type: tech
+Description: Why + how to prerender a Vite app with TanStack Start SSG to survive Cloudflare Rocket Loader
+
+**Problem:** Cloudflare Rocket Loader rewrites `<script type="module">` to a
+deferred non-module script → Vite SPA entry never bootstraps → blank page.
+**Fix:** pre-render HTML so content exists before JS runs. (Also disable Rocket
+Loader per domain in the CF dashboard as belt-and-suspenders.)
+
+**Migrate Vite SPA → TanStack Start SSG** (~8 files/app):
+- `vite.config.ts`: swap `TanStackRouterVite()` for `tanstackStart({ prerender:
+  { enabled: true, crawlLinks: true, failOnError: false } })`; drop
+  `@vitejs/plugin-react`; do NOT pass `autoCodeSplitting` (not in schema).
+- Delete `index.html` + `main.tsx`; add `entry-client.tsx` (`hydrateRoot`),
+  `entry-server.tsx` (`createStartHandler`).
+- `router.tsx` must export a `getRouter()` factory, not a const.
+- `__root.tsx` renders full `<html>` doc; move `<meta>`/`<link>` into route `head()`.
+- Build output `dist` → `dist/client`; set `pages_build_output_dir` in `wrangler.toml`.
+
+**Gotchas:** paths in config are relative to `srcDirectory` (`src`); local
+`fetch('/data.json')` fails in SSR — use isomorphic loading (`fs.readFile` on
+SSR, `fetch()` on client); absolute API URLs work in both. `failOnError:false`
+hides prerender errors — see [[tech-rust-wasm-prerender]]. Deploy: [[tech-cloudflare-pages-deploy]].
+
+---
+
+# Duyet — AI & coding-agent stance
+URL: https://kb.duyet.net/m/user-duyet-ai-stance
+Type: user
+Description: How Duyet works with AI today — vibe-codes production, Claude Code as daily driver, fast-moving-field view
+
+Duyet's current AI practice (from his blog, ~2026):
+
+- **Vibe-codes for production.** Top Wakatime language is now **Markdown** —
+  he drives agents more than he hand-writes code.
+- **Claude Code is his daily driver** and stated favorite ("king") after trying
+  100+ tools (Cursor, Codex, Copilot, Windsurf, Antigravity, opencode, etc.). He
+  treats specific tools as disposable — the field moves too fast to pick "the best".
+- **Builds with agent SDKs:** OpenAI Agents SDK, Claude Agent SDK, Cloudflare
+  Agents, Vercel AI SDK, LlamaIndex, LangChain. Deploys RAG for enterprise.
+- **Recurring interests:** self-improving/agentic loops (plan→execute→test→reflect),
+  agent memory & consolidation, privacy-first personal agents, personal analytics
+  / life-logging. Personal agent project: `duyetbot`.
+
+See [[user-duyet-stack]] for the broader toolset.
+
+---
+
+# Duyet Le — profile
+URL: https://kb.duyet.net/m/user-duyet-profile
+Type: user
+Description: Duyet Le (@duyet) — senior data engineer in Vietnam, the owner of this shared brain
+
+**Duyet Le** (handle `@duyet`) — senior data engineer and technology enthusiast,
+based in Vietnam. Owner of this knowledge base.
+
+Focus areas: large-scale data platforms, real-time analytics, ClickHouse, the
+data-engineering ecosystem (Kafka, Spark, Airflow), Kubernetes/cloud infra, and
+LLM agents / AI integration. Active open-source contributor.
+
+Public links and stack live in [[user-duyet-web-presence]] and [[user-duyet-stack]].
+Working preferences in [[feedback-working-style]].
+
+---
+
+# Duyet — tech stack
+URL: https://kb.duyet.net/m/user-duyet-stack
+Type: user
+Description: Languages, tools, and platforms Duyet works in (public, from blog + GitHub)
+
+Technical stack for [[user-duyet-profile]], drawn from public blog & GitHub.
+
+**Languages:** Rust (extensive), Python, TypeScript/JavaScript, SQL. Also R, PHP
+in older posts. Notably interested in data-engineering tools written in Rust.
+
+**Data & big data:** ClickHouse (deep expertise), Apache Spark, Apache Airflow,
+DuckDB, Kafka; PostgreSQL, MongoDB, Redis.
+
+**Cloud & infra:** Kubernetes, Docker, AWS, GCP, Azure, Cloudflare, GitHub Actions.
+
+**AI/ML:** LLM agents & coding agents (Claude, Codex, Hermes), PyTorch/TensorFlow,
+NLP, MCP servers.
+
+**Frontend/web:** Next.js, React, TypeScript (e.g. `clickhouse-monitoring`).
+
+**Local dev environment:** macOS (Apple Silicon), Homebrew, `bun`, `uv`, neovim,
+Obsidian. Prefers semantic commits and simple, plain English in writing.
+
+Blog series worth knowing: ClickHouse on Kubernetes, Rust Fundamentals, Spark on
+Kubernetes, Apache Airflow, Coding Agents. See [[user-duyet-web-presence]].
+
+---
+
+# Duyet — web presence & llms.txt sources
+URL: https://kb.duyet.net/m/user-duyet-web-presence
+Type: reference
+Description: Duyet's public sites, profiles, and LLM-friendly (llms.txt) knowledge sources
+
+Public web presence for [[user-duyet-profile]]. Sites ending in `/llms.txt`
+serve an LLM-friendly profile — prefer those for fresh facts.
+
+| What        | URL                          | llms.txt                         |
+|-------------|------------------------------|----------------------------------|
+| Profile     | https://duyet.net            | https://duyet.net/llms.txt       |
+| Blog        | https://blog.duyet.net       | https://blog.duyet.net/llms.txt  |
+| CV / Resume | https://cv.duyet.net         | https://cv.duyet.net/llms.txt    |
+| GitHub      | https://github.com/duyet     | —                                |
+| LinkedIn    | https://duyet.net/in         | —                                |
+| X (Twitter) | https://x.com/_duyet          | —                                |
+| Insights    | https://insights.duyet.net   | —                                |
+| Homelab     | https://homelab.duyet.net    | —                                |
+| LLM Timeline| https://llm-timeline.duyet.net | —                              |
+| MCP tools   | https://mcp.duyet.net        | —                                |
+| Agents API  | https://agents.duyet.net     | —                                |
+
+Contact: `me@duyet.net`. Blog feed: https://blog.duyet.net/feed.
+
+---

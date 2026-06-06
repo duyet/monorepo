@@ -4,7 +4,7 @@ URL: https://kb.duyet.net
 Sitemap: https://kb.duyet.net/sitemap.xml
 Raw Markdown: https://kb.duyet.net/k/<slug>.md
 
-32 articles across 8 categories.
+32 articles across 8 categories, 19 memory notes.
 
 ## Articles
 
@@ -231,3 +231,119 @@ Markdown: https://kb.duyet.net/k/improvement-cycles.md
 Category: workflows
 Updated: 2026-03-16
 Summary: Nine improvement cycles completed as of March 2026 — ~155 total fixes across security, dead code, design, and test coverage.
+
+## Memory
+
+### Use cheap models for sub-agents
+URL: https://kb.duyet.net/m/feedback-cheap-models-subagents
+Markdown: https://kb.duyet.net/m/feedback-cheap-models-subagents.md
+Type: feedback
+Description: Default fan-out sub-agents/workflow agents to Sonnet or Haiku, not Opus, to control cost
+
+### Docs-Driven Development
+URL: https://kb.duyet.net/m/feedback-docs-driven-development
+Markdown: https://kb.duyet.net/m/feedback-docs-driven-development.md
+Type: feedback
+Description: Duyet's pattern — tiny CLAUDE.md/AGENTS.md router + a docs/kb "brain"; agents auto-read in, auto-write out
+
+### Working style preferences
+URL: https://kb.duyet.net/m/feedback-working-style
+Markdown: https://kb.duyet.net/m/feedback-working-style.md
+Type: feedback
+Description: How Duyet wants agents to work — concise English, semantic commits, simple solutions
+
+### duyet.net monorepo
+URL: https://kb.duyet.net/m/project-duyet-net
+Markdown: https://kb.duyet.net/m/project-duyet-net.md
+Type: project
+Description: Bun + Turborepo monorepo behind duyet.net — ~9 web apps on TanStack Start SSG, deployed to Cloudflare Pages
+
+### duyetbot — autonomous agent
+URL: https://kb.duyet.net/m/project-duyetbot
+Markdown: https://kb.duyet.net/m/project-duyetbot.md
+Type: project
+Description: Autonomous Claude Code agent that maintains the duyet.net monorepo — scope, autonomous loop, and memory hierarchy
+
+### kb.duyet.net knowledge base
+URL: https://kb.duyet.net/m/project-kb-duyet-net
+Markdown: https://kb.duyet.net/m/project-kb-duyet-net.md
+Type: project
+Description: kb.duyet.net — public KB site; migrating from the old monorepo app to this shared-brain repo, also serves bootstrap.sh
+
+### LLM Timeline app
+URL: https://kb.duyet.net/m/project-llm-timeline
+Markdown: https://kb.duyet.net/m/project-llm-timeline.md
+Type: project
+Description: llm-timeline.duyet.net — TanStack Start SSG timeline of LLM models 1950–2026, shadcn UI, dual data sources
+
+### Duyet — blog content & themes
+URL: https://kb.duyet.net/m/reference-duyet-blog
+Markdown: https://kb.duyet.net/m/reference-duyet-blog.md
+Type: reference
+Description: What blog.duyet.net covers — a digital garden on Rust, ClickHouse, AI agents, data eng, personal analytics
+
+### Duyet — notable GitHub projects
+URL: https://kb.duyet.net/m/reference-duyet-github
+Markdown: https://kb.duyet.net/m/reference-duyet-github.md
+Type: reference
+Description: Duyet's main public repos — ClickHouse tooling, Rust data tools, AI-agent projects, infra
+
+### AI agent building — tech stack
+URL: https://kb.duyet.net/m/tech-ai-agent-stack
+Markdown: https://kb.duyet.net/m/tech-ai-agent-stack.md
+Type: tech
+Description: Frameworks/SDKs for building LLM agents (LangGraph, AI SDK, Claude/OpenAI Agents SDK, MCP) + what Duyet uses
+
+### Cloudflare Pages deploy workflow
+URL: https://kb.duyet.net/m/tech-cloudflare-pages-deploy
+Markdown: https://kb.duyet.net/m/tech-cloudflare-pages-deploy.md
+Type: tech
+Description: Commit→push→background-deploy convention for duyet.net apps on Cloudflare Pages, plus the parallel-deploy hazard
+
+### Codebase maintenance loop
+URL: https://kb.duyet.net/m/tech-codebase-maintenance-loop
+Markdown: https://kb.duyet.net/m/tech-codebase-maintenance-loop.md
+Type: tech
+Description: Improvement-cycle sweeps, safe dead-code removal, and test discipline used to keep duyet.net low-debt
+
+### Flat editorial design system
+URL: https://kb.duyet.net/m/tech-flat-design-system
+Markdown: https://kb.duyet.net/m/tech-flat-design-system.md
+Type: tech
+Description: duyet.net design rules — hairline borders not shadows, lucide icons, shadcn + semantic tokens, minimal token layer, dark mode
+
+### Rust→WASM strategy + prerender CI trap
+URL: https://kb.duyet.net/m/tech-rust-wasm-prerender
+Markdown: https://kb.duyet.net/m/tech-rust-wasm-prerender.md
+Type: tech
+Description: When WASM beats TS (>1ms compute only), and the silent-prerender CI trap when the gitignored WASM binary is missing
+
+### TanStack Start SSG (Cloudflare)
+URL: https://kb.duyet.net/m/tech-tanstack-start-ssg
+Markdown: https://kb.duyet.net/m/tech-tanstack-start-ssg.md
+Type: tech
+Description: Why + how to prerender a Vite app with TanStack Start SSG to survive Cloudflare Rocket Loader
+
+### Duyet — AI & coding-agent stance
+URL: https://kb.duyet.net/m/user-duyet-ai-stance
+Markdown: https://kb.duyet.net/m/user-duyet-ai-stance.md
+Type: user
+Description: How Duyet works with AI today — vibe-codes production, Claude Code as daily driver, fast-moving-field view
+
+### Duyet Le — profile
+URL: https://kb.duyet.net/m/user-duyet-profile
+Markdown: https://kb.duyet.net/m/user-duyet-profile.md
+Type: user
+Description: Duyet Le (@duyet) — senior data engineer in Vietnam, the owner of this shared brain
+
+### Duyet — tech stack
+URL: https://kb.duyet.net/m/user-duyet-stack
+Markdown: https://kb.duyet.net/m/user-duyet-stack.md
+Type: user
+Description: Languages, tools, and platforms Duyet works in (public, from blog + GitHub)
+
+### Duyet — web presence & llms.txt sources
+URL: https://kb.duyet.net/m/user-duyet-web-presence
+Markdown: https://kb.duyet.net/m/user-duyet-web-presence.md
+Type: reference
+Description: Duyet's public sites, profiles, and LLM-friendly (llms.txt) knowledge sources

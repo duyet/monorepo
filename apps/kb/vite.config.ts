@@ -14,14 +14,15 @@ function getKbRoutes(): string[] {
     "/",
     "/c",
     "/c/",
-    "/graph",
     "/llms.txt",
     "/llms-full.txt",
     "/sitemap.xml",
     "/robots.txt",
+    "/m",
   ];
 
-  const contentDir = join(__dirname, "content");
+  const articlesDir = join(__dirname, "kb", "raw", "kb-content");
+  const memoryDir = join(__dirname, "kb", "memory");
   const categories = new Set<string>();
 
   function walk(dir: string) {
@@ -33,28 +34,48 @@ function getKbRoutes(): string[] {
     }
     for (const entry of entries) {
       const full = join(dir, entry);
-      if (statSync(full).isDirectory()) {
-        walk(full);
-      } else if (extname(entry) === ".md") {
-        const slug = basename(entry, ".md");
-        routes.push(`/k/${slug}`);
+      try {
+        if (statSync(full).isDirectory()) {
+          walk(full);
+        } else if (extname(entry) === ".md") {
+          const slug = basename(entry, ".md");
+          if (!slug.startsWith("_")) {
+            routes.push(`/k/${slug}`);
+          }
+        }
+      } catch {
+        // skip
       }
     }
   }
 
-  // Collect categories from top-level subdirs in content/
+  // Collect categories from top-level subdirs in articles/
   try {
-    for (const entry of readdirSync(contentDir)) {
-      const full = join(contentDir, entry);
+    for (const entry of readdirSync(articlesDir)) {
+      const full = join(articlesDir, entry);
       if (statSync(full).isDirectory()) {
         categories.add(entry);
       }
     }
   } catch {
-    // content dir may not exist yet
+    // dir may not exist
   }
 
-  walk(contentDir);
+  walk(articlesDir);
+
+  // Walk memory notes and discover types
+  try {
+    for (const entry of readdirSync(memoryDir)) {
+      const full = join(memoryDir, entry);
+      if (statSync(full).isFile() && extname(entry) === ".md") {
+        const slug = basename(entry, ".md");
+        if (slug.startsWith("_")) continue;
+        routes.push(`/m/${slug}`);
+      }
+    }
+  } catch {
+    // dir may not exist
+  }
 
   for (const cat of categories) {
     routes.push(`/c/${cat}`);
