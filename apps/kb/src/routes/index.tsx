@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
-import { BookOpen, FolderOpen, Tag } from "lucide-react";
+import { BookOpen, ChevronRight, FolderOpen } from "lucide-react";
 import {
   getAllArticles,
   getAllCategories,
@@ -19,12 +19,15 @@ export const Route = createFileRoute("/")({
     const articles = getAllArticles();
     const categories = getAllCategories();
     const memory = getAllMemory();
-    const recent = articles.slice(0, 8);
     const categoryStats = categories.map((cat) => ({
       name: cat,
       count: getArticlesByCategory(cat).length,
     }));
-    return { articles, categories, memory, recent, categoryStats };
+    const tree = categories.map((cat) => ({
+      category: cat,
+      articles: getArticlesByCategory(cat),
+    }));
+    return { articles, categories, memory, categoryStats, tree };
   },
   head: () => ({
     meta: [
@@ -40,8 +43,7 @@ export const Route = createFileRoute("/")({
 });
 
 function IndexPage() {
-  const { recent, categoryStats, articles, memory } =
-    Route.useLoaderData();
+  const { categoryStats, articles, memory, tree } = Route.useLoaderData();
   const totalCount = articles.length + memory.length;
 
   return (
@@ -111,75 +113,63 @@ function IndexPage() {
           </section>
         )}
 
-        {/* Recent articles */}
-        {recent.length > 0 && (
+        {/* Articles by category (tree) */}
+        {tree.length > 0 && (
           <section>
             <div className="flex items-center gap-2 mb-4">
               <BookOpen className="size-4 text-muted-foreground" />
               <h2 className="text-sm font-mono uppercase tracking-widest text-muted-foreground">
-                Recent articles
+                Articles
               </h2>
             </div>
-            <ul className="divide-y divide-border">
-              {recent.map((article) => (
-                <li
-                  key={article.slug}
-                  className="py-3 px-2 -mx-2 rounded-md hover:bg-muted/60 transition-colors"
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="min-w-0">
-                      <Link
-                        to="/k/$slug"
-                        params={{ slug: article.slug }}
-                        className="font-medium text-sm hover:underline underline-offset-4"
-                      >
-                        {article.title}
-                      </Link>
-                      {article.summary && (
-                        <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
-                          {article.summary}
-                        </p>
-                      )}
-                      {article.tags.length > 0 && (
-                        <div className="flex items-center gap-1 mt-1 flex-wrap">
-                          <Tag className="size-3 text-muted-foreground shrink-0" />
-                          {article.tags.slice(0, 3).map((tag) => (
-                            <span
-                              key={tag}
-                              className="text-xs text-muted-foreground"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                    <div className="shrink-0 text-right">
-                      <Link
-                        to="/c/$category"
-                        params={{ category: article.category }}
-                        className="text-xs text-muted-foreground hover:text-foreground transition-colors capitalize"
-                      >
-                        {article.category}
-                      </Link>
-                      {article.updated && (
-                        <p className="text-xs text-muted-foreground mt-0.5">
-                          {article.updated}
-                        </p>
-                      )}
-                    </div>
+            <div className="space-y-8">
+              {tree.map(({ category, articles: catArticles }) => (
+                <section key={category}>
+                  <div className="flex items-center gap-2 mb-3">
+                    <Link
+                      to="/c/$category"
+                      params={{ category }}
+                      className="text-sm font-mono font-semibold uppercase tracking-widest capitalize hover:underline underline-offset-4"
+                    >
+                      {category}
+                    </Link>
+                    <span className="text-xs text-muted-foreground">
+                      ({catArticles.length})
+                    </span>
                   </div>
-                </li>
+                  <ul className="space-y-1 pl-4 border-l border-border">
+                    {catArticles.map((article) => (
+                      <li
+                        key={article.slug}
+                        className="flex items-start gap-1.5"
+                      >
+                        <ChevronRight className="size-3.5 text-muted-foreground mt-0.5 shrink-0" />
+                        <div>
+                          <Link
+                            to="/k/$slug"
+                            params={{ slug: article.slug }}
+                            className="text-sm hover:underline underline-offset-4"
+                          >
+                            {article.title}
+                          </Link>
+                          {article.links.length > 0 && (
+                            <p className="text-xs text-muted-foreground mt-0.5">
+                              links: {article.links.join(", ")}
+                            </p>
+                          )}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
               ))}
-            </ul>
-            {articles.length > 8 && (
-              <Link
-                to="/m"
-                className="mt-4 inline-block text-xs text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
-              >
-                Browse all {totalCount} entries &rarr;
-              </Link>
-            )}
+            </div>
+            <Link
+              to="/m"
+              className="mt-8 inline-block text-xs text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
+            >
+              Browse all {totalCount} entries &rarr;
+            </Link>
           </section>
         )}
       </div>

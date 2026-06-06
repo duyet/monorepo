@@ -62,7 +62,6 @@ const kbLocalNav = [
   { label: "Home", href: "/" },
   { label: "Categories", href: "/c" },
   { label: "Memory", href: "/m" },
-  { label: "Graph", href: "/graph" },
 ];
 
 function RootComponent() {

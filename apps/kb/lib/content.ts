@@ -9,8 +9,13 @@
  * and browser hydration.
  */
 
-import { basename } from "node:path";
 import yaml from "js-yaml";
+
+// Browser-safe basename: `node:path` is undefined in the client bundle, so the
+// loader (which re-runs on client-side navigation) must not depend on it.
+function slugFromPath(filePath: string): string {
+  return (filePath.split("/").pop() ?? "").replace(/\.md$/, "");
+}
 
 // Browser-safe frontmatter parser. Replaces `gray-matter`, which pulls in
 // Node's `Buffer` and crashes during client-side navigation. js-yaml is the
@@ -99,7 +104,7 @@ const RAW_MEMORY = import.meta.glob("../kb/memory/**/*.md", {
 
 function parseArticle(filePath: string, raw: string): Article | null {
   const { data, content } = parseFrontmatter(raw);
-  const slug = basename(filePath, ".md");
+  const slug = slugFromPath(filePath);
   if (slug.startsWith("_")) return null;
 
   return {
@@ -117,7 +122,7 @@ function parseArticle(filePath: string, raw: string): Article | null {
 
 function parseMemory(filePath: string, raw: string): MemoryNote | null {
   const { data, content } = parseFrontmatter(raw);
-  const slug = basename(filePath, ".md");
+  const slug = slugFromPath(filePath);
   if (slug.startsWith("_")) return null;
 
   // Strip [[wikilink]] brackets from related slugs

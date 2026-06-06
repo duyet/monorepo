@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as GraphRouteImport } from './routes/graph'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MIndexRouteImport } from './routes/m/index'
 import { Route as CIndexRouteImport } from './routes/c/index'
@@ -21,11 +20,6 @@ import { Route as LlmsFullTxtRouteImport } from './routes/llms-full.txt'
 import { Route as KSlugRouteImport } from './routes/k/$slug'
 import { Route as CCategoryRouteImport } from './routes/c/$category'
 
-const GraphRoute = GraphRouteImport.update({
-  id: '/graph',
-  path: '/graph',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -79,7 +73,6 @@ const CCategoryRoute = CCategoryRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/graph': typeof GraphRoute
   '/c/$category': typeof CCategoryRoute
   '/k/$slug': typeof KSlugRoute
   '/llms-full/txt': typeof LlmsFullTxtRoute
@@ -92,7 +85,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/graph': typeof GraphRoute
   '/c/$category': typeof CCategoryRoute
   '/k/$slug': typeof KSlugRoute
   '/llms-full/txt': typeof LlmsFullTxtRoute
@@ -106,7 +98,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/graph': typeof GraphRoute
   '/c/$category': typeof CCategoryRoute
   '/k/$slug': typeof KSlugRoute
   '/llms-full/txt': typeof LlmsFullTxtRoute
@@ -121,7 +112,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/graph'
     | '/c/$category'
     | '/k/$slug'
     | '/llms-full/txt'
@@ -134,7 +124,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/graph'
     | '/c/$category'
     | '/k/$slug'
     | '/llms-full/txt'
@@ -147,7 +136,6 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/graph'
     | '/c/$category'
     | '/k/$slug'
     | '/llms-full/txt'
@@ -161,7 +149,6 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  GraphRoute: typeof GraphRoute
   CCategoryRoute: typeof CCategoryRoute
   KSlugRoute: typeof KSlugRoute
   LlmsFullTxtRoute: typeof LlmsFullTxtRoute
@@ -175,13 +162,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/graph': {
-      id: '/graph'
-      path: '/graph'
-      fullPath: '/graph'
-      preLoaderRoute: typeof GraphRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -257,7 +237,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  GraphRoute: GraphRoute,
   CCategoryRoute: CCategoryRoute,
   KSlugRoute: KSlugRoute,
   LlmsFullTxtRoute: LlmsFullTxtRoute,
