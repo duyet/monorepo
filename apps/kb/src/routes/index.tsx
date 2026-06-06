@@ -71,7 +71,7 @@ function IndexPage() {
           <p className="text-muted-foreground leading-relaxed max-w-xl">
             {totalCount} entries ({articles.length} articles +{" "}
             {memory.length} memory notes) across {categoryStats.length}{" "}
-            categories. Machine-readable at{" "}
+            categories. If you are an AI agent, read{" "}
             <a
               href="/llms.txt"
               className="underline underline-offset-4 hover:no-underline"

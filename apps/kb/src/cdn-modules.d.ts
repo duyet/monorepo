@@ -9,3 +9,10 @@ declare module "https://esm.sh/three-spritetext@1.9.4" {
   const SpriteText: any;
   export default SpriteText;
 }
+
+// js-yaml ships no types and @types/js-yaml isn't installed; we only use load().
+declare module "js-yaml" {
+  export function load(input: string): unknown;
+  const _default: { load: typeof load };
+  export default _default;
+}

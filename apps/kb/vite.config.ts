@@ -19,6 +19,7 @@ function getKbRoutes(): string[] {
     "/sitemap.xml",
     "/robots.txt",
     "/m",
+    "/graph",
   ];
 
   const articlesDir = join(__dirname, "kb", "raw", "kb-content");

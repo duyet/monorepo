@@ -386,6 +386,8 @@ interface GraphNode {
   label: string;
   url: string;
   type: "article" | "memory";
+  // Coloring group: article category, or `memory:<type>` for memory notes.
+  group: string;
   tags: string[];
   degree: number;
 }
@@ -413,6 +415,7 @@ const nodes: (GraphNode & {
       label: a.title,
       url: `/k/${a.slug}`,
       type: "article" as const,
+      group: a.category,
       tags: a.tags,
       _related: a.links,
       _aliases: [a.title],
@@ -430,6 +433,7 @@ const nodes: (GraphNode & {
       label: n.title,
       url: `/m/${n.slug}`,
       type: "memory" as const,
+      group: `memory:${n.memoryType}`,
       tags: n.tags,
       _related: n.related,
       _aliases: [n.name, ...n.aliases],

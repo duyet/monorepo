@@ -10,7 +10,19 @@
  */
 
 import { basename } from "node:path";
-import matter from "gray-matter";
+import yaml from "js-yaml";
+
+// Browser-safe frontmatter parser. Replaces `gray-matter`, which pulls in
+// Node's `Buffer` and crashes during client-side navigation. js-yaml is the
+// same engine gray-matter uses, so parsed output is identical.
+// Frontmatter shape is dynamic; callers guard each field with typeof/Array.isArray.
+type Frontmatter = Record<string, any>;
+function parseFrontmatter(raw: string): { data: Frontmatter; content: string } {
+  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+  if (!match) return { data: {}, content: raw };
+  const data = (yaml.load(match[1]) as Frontmatter) ?? {};
+  return { data, content: match[2] };
+}
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -86,7 +98,7 @@ const RAW_MEMORY = import.meta.glob("../kb/memory/**/*.md", {
 // ── Parsers ───────────────────────────────────────────────────────────────────
 
 function parseArticle(filePath: string, raw: string): Article | null {
-  const { data, content } = matter(raw);
+  const { data, content } = parseFrontmatter(raw);
   const slug = basename(filePath, ".md");
   if (slug.startsWith("_")) return null;
 
@@ -104,7 +116,7 @@ function parseArticle(filePath: string, raw: string): Article | null {
 }
 
 function parseMemory(filePath: string, raw: string): MemoryNote | null {
-  const { data, content } = matter(raw);
+  const { data, content } = parseFrontmatter(raw);
   const slug = basename(filePath, ".md");
   if (slug.startsWith("_")) return null;
 

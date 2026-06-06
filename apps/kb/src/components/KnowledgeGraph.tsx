@@ -13,6 +13,7 @@ interface GraphNode {
   label: string;
   url: string;
   type: "article" | "memory";
+  group: string;
   tags: string[];
   degree: number;
   // Simulation coordinates injected at runtime by 3d-force-graph
@@ -39,6 +40,7 @@ export function KnowledgeGraph() {
     node: GraphNode;
     neighbors: GraphNode[];
   } | null>(null);
+  const [legend, setLegend] = useState<{ label: string; color: string }[]>([]);
   const graphRef = useRef<any>(null);
   const nodeByIdRef = useRef<Map<string, GraphNode>>(new Map());
   const adjacencyRef = useRef<Map<string, Set<string>>>(new Map());
@@ -137,8 +139,44 @@ export function KnowledgeGraph() {
       };
 
       let C = colors();
-      const baseColor = (n: any) =>
-        n.type === "memory" ? C.memory : C.node;
+
+      // Per-group palette: each article category and each memory type gets a
+      // stable distinct hue. Groups are sorted so colors don't shuffle between
+      // builds. Falls back to the theme foreground if a group is unmapped.
+      const palette = [
+        "#197ca8", // teal-blue
+        "#d9822b", // amber
+        "#5b8c5a", // green
+        "#b5524a", // brick
+        "#7e6bb0", // violet
+        "#c79a3a", // gold
+        "#3f8f9b", // cyan
+        "#a8537e", // magenta
+        "#6a8caf", // slate-blue
+        "#8a8f3a", // olive
+        "#b0683a", // rust
+        "#4f7a8c", // steel
+        "#9a5ba8", // purple
+      ];
+      const groups = [...new Set(nodes.map((n: GraphNode) => n.group))].sort();
+      const groupColor = new Map<string, string>(
+        groups.map((g, i) => [g, palette[i % palette.length]]),
+      );
+      const baseColor = (n: any) => groupColor.get(n.group) ?? C.node;
+
+      // Human-readable legend: strip the `memory:` prefix for display.
+      setLegend(
+        groups.map((g) => ({
+          label: g.replace(/^memory:/, ""),
+          color: groupColor.get(g) as string,
+        })),
+      );
+
+      // Focuses a node: aims the camera at it, opens the detail panel, and
+      // locks auto-rotate so the view stays put. Shared by clicks, panel
+      // neighbor buttons, and the initial auto-focus. Assigned after Graph
+      // is constructed (it closes over Graph).
+      let focusOn: (n: any) => void = () => {};
 
       const Graph = ForceGraph3D({ controlType: "orbit" })(mount)
         .graphData({ nodes, links })
@@ -180,39 +218,52 @@ export function KnowledgeGraph() {
         })
         .linkOpacity(0.34)
         .linkWidth((l: any) => (l.strong ? 0.6 : 0.3))
-        .onNodeClick((n: any) => {
-          selectedRef.current = n.id;
-          // Open panel via React state
-          const neigh = [...(adjacency.get(n.id) || [])]
-            .map((id) => nodeById.get(id))
-            .filter(Boolean) as GraphNode[];
-          setPanel({ node: n, neighbors: neigh });
-
-          // Aim camera
-          Graph.controls().autoRotate = false;
-          const d = 140;
-          const dist = Math.hypot(n.x, n.y, n.z) || 1;
-          const r = 1 + d / dist;
-          Graph.cameraPosition(
-            { x: n.x * r, y: n.y * r, z: n.z * r },
-            n,
-            900,
-          );
-
-          // Refresh styling
-          Graph.nodeColor(Graph.nodeColor());
-          Graph.linkColor(Graph.linkColor());
-        })
+        .onNodeClick((n: any) => focusOn(n))
         .onNodeHover((n: any) => {
           mount.style.cursor = n ? "pointer" : "grab";
         })
         .onBackgroundClick(() => closePanel());
 
+      focusOn = (n: any) => {
+        selectedRef.current = n.id;
+        Graph.controls().autoRotate = false;
+        const nx = n.x ?? 0;
+        const ny = n.y ?? 0;
+        const nz = n.z ?? 0;
+        const dist = Math.hypot(nx, ny, nz) || 1;
+        const r = 1 + 140 / dist;
+        Graph.cameraPosition({ x: nx * r, y: ny * r, z: nz * r }, n, 900);
+        Graph.nodeColor(Graph.nodeColor());
+        Graph.linkColor(Graph.linkColor());
+        const neigh = [...(adjacency.get(n.id) || [])]
+          .map((id) => nodeById.get(id))
+          .filter(Boolean) as GraphNode[];
+        setPanel({ node: n, neighbors: neigh });
+      };
+      // Expose for the React-side focusNode callback (panel neighbor buttons)
+      (Graph as any).__focusOn = focusOn;
+
       Graph.d3Force("charge").strength(-90).distanceMax(220);
       Graph.cooldownTicks(prefersReduced ? 0 : 120);
 
       const fitFilter = (n: any) => (n.degree || 0) > 0;
-      Graph.onEngineStop(() => Graph.zoomToFit(700, 40, fitFilter));
+      // The "welcome" article is the canonical entry point — focus it once the
+      // layout settles. After that, keep the camera put: only re-fit when
+      // nothing is selected (so a click-focused node doesn't get yanked back).
+      const welcomeNode =
+        nodeById.get("welcome") ??
+        nodes.find((n: GraphNode) => /welcome/i.test(n.label));
+      let didInitialFocus = false;
+      Graph.onEngineStop(() => {
+        if (!didInitialFocus) {
+          didInitialFocus = true;
+          if (welcomeNode && !prefersReduced) {
+            focusOn(welcomeNode);
+            return;
+          }
+        }
+        if (!selectedRef.current) Graph.zoomToFit(700, 40, fitFilter);
+      });
 
       const controls = Graph.controls();
       controls.autoRotate = !prefersReduced;
@@ -263,33 +314,15 @@ export function KnowledgeGraph() {
     };
   }, [closePanel]);
 
-  const focusNode = useCallback(
-    (node: GraphNode) => {
-      const Graph = graphRef.current;
-      selectedRef.current = node.id;
-      if (Graph) {
-        Graph.controls().autoRotate = false;
-        const d = 140;
-        const nx = node.x ?? 0;
-        const ny = node.y ?? 0;
-        const nz = node.z ?? 0;
-        const dist = Math.hypot(nx, ny, nz) || 1;
-        const r = 1 + d / dist;
-        Graph.cameraPosition(
-          { x: nx * r, y: ny * r, z: nz * r },
-          node,
-          900,
-        );
-        Graph.nodeColor(Graph.nodeColor());
-        Graph.linkColor(Graph.linkColor());
-      }
-      const neigh = [...(adjacencyRef.current.get(node.id) || [])]
-        .map((id) => nodeByIdRef.current.get(id))
-        .filter(Boolean) as GraphNode[];
-      setPanel({ node, neighbors: neigh });
-    },
-    [],
-  );
+  const focusNode = useCallback((node: GraphNode) => {
+    const Graph = graphRef.current;
+    // Delegate to the graph-side focus (camera + panel + sticky rotation).
+    // The live node object (with x/y/z) lives in the graph, so look it up there.
+    const live = Graph?.graphData?.().nodes.find(
+      (n: GraphNode) => n.id === node.id,
+    );
+    Graph?.__focusOn?.(live ?? node);
+  }, []);
 
   return (
     <div
@@ -305,6 +338,24 @@ export function KnowledgeGraph() {
       <p className="absolute left-2 bottom-2 m-0 font-mono text-[10px] tracking-wider text-muted-foreground pointer-events-none select-none">
         drag to rotate &middot; click a node
       </p>
+
+      {/* Color legend (by category / memory type) */}
+      {legend.length > 0 && (
+        <ul className="absolute left-2 top-2 m-0 p-0 list-none flex flex-col gap-1 pointer-events-none select-none">
+          {legend.map((g) => (
+            <li
+              key={g.label}
+              className="flex items-center gap-1.5 font-mono text-[10px] tracking-wider text-muted-foreground capitalize"
+            >
+              <span
+                className="inline-block w-2 h-2 rounded-full"
+                style={{ backgroundColor: g.color }}
+              />
+              {g.label}
+            </li>
+          ))}
+        </ul>
+      )}
 
       {/* Detail panel */}
       {panel && (
