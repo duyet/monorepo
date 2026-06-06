@@ -10,7 +10,7 @@ import { SecHead, Eyebrow, Reveal } from "@duyet/components";
 import { SignalBar } from "../components/SignalBar";
 import { WorkBento } from "../components/WorkBento";
 import { BlogTeaser } from "../components/BlogTeaser";
-import { HeroDiagram } from "../components/HeroDiagram";
+import { HeroDiagram3D as HeroDiagram } from "../components/HeroDiagram3D";
 import { NowDeco } from "../components/NowDeco";
 
 export const Route = createFileRoute("/")({

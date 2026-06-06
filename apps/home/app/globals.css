@@ -15,3 +15,20 @@
     overflow: hidden;
   }
 }
+
+@layer components {
+  /* 3D HeroDiagram — the R3F <Canvas> should fill .rd-hero-art */
+  .rd-hero-art canvas {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  /* Make the existing .rd-hero-art absolute-SVG rule not collide with the 3D canvas. */
+  .rd-hero-art > svg.hd-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
