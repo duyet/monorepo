@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "highlight.js/styles/github.min.css";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -75,4 +77,99 @@
   * {
     border-color: var(--border);
   }
+
+  html {
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Prose customizations — match blog reading experience */
+@layer components {
+  .prose {
+    --tw-prose-body: var(--foreground);
+    --tw-prose-headings: var(--foreground);
+    --tw-prose-lead: var(--muted-foreground);
+    --tw-prose-links: var(--foreground);
+    --tw-prose-bold: var(--foreground);
+    --tw-prose-counters: var(--muted-foreground);
+    --tw-prose-bullets: var(--muted-foreground);
+    --tw-prose-hr: var(--border);
+    --tw-prose-quotes: var(--foreground);
+    --tw-prose-quote-borders: var(--border);
+    --tw-prose-captions: var(--muted-foreground);
+    --tw-prose-code: var(--foreground);
+    --tw-prose-pre-code: #f8f8f2;
+    --tw-prose-pre-bg: #1e1e1e;
+    --tw-prose-th-borders: var(--border);
+    --tw-prose-td-borders: var(--border);
+
+    --tw-prose-invert-body: var(--foreground);
+    --tw-prose-invert-headings: var(--foreground);
+    --tw-prose-invert-links: var(--foreground);
+    --tw-prose-invert-bold: var(--foreground);
+    --tw-prose-invert-code: var(--foreground);
+  }
+
+  .prose a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--border);
+    font-weight: inherit;
+  }
+  .prose a:hover {
+    text-decoration-color: var(--foreground);
+  }
+
+  .prose code:not(pre code) {
+    background: var(--muted);
+    border-radius: 0.25rem;
+    padding: 0.1em 0.35em;
+    font-size: 0.875em;
+    font-weight: 400;
+  }
+  .prose code:not(pre code)::before,
+  .prose code:not(pre code)::after {
+    content: "";
+  }
+
+  .prose pre {
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+  }
+
+  /* rehype-highlight classes inherit from hljs; keep bg consistent */
+  .prose pre code.hljs {
+    background: transparent;
+  }
+}
+
+/* hljs dark mode — github-dark palette */
+.dark pre code.hljs,
+.dark code.hljs,
+.dark .hljs {
+  color: #c9d1d9;
+  background: #161b22;
+}
+.dark .hljs-keyword,
+.dark .hljs-built_in,
+.dark .hljs-type {
+  color: #ff7b72;
+}
+.dark .hljs-string,
+.dark .hljs-attr {
+  color: #a5d6ff;
+}
+.dark .hljs-number,
+.dark .hljs-literal {
+  color: #79c0ff;
+}
+.dark .hljs-comment {
+  color: #8b949e;
+}
+.dark .hljs-title,
+.dark .hljs-function .hljs-title {
+  color: #d2a8ff;
 }
