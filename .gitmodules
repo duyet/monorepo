@@ -1,3 +1,4 @@
 [submodule "apps/kb/kb"]
 	path = apps/kb/kb
 	url = git@github.com:duyet/kb.git
+	branch = main

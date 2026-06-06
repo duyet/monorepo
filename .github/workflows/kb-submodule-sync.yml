@@ -1,0 +1,101 @@
+name: Sync kb content submodule
+
+# Keeps apps/kb/kb pinned to the latest duyet/kb@main. Git submodules pin a
+# fixed commit by design, so this hourly job bumps the pointer and, when it
+# changes, rebuilds + deploys kb.duyet.net. Self-contained: it does not rely on
+# the push triggering cf-deploy (a GITHUB_TOKEN push wouldn't anyway).
+
+on:
+  schedule:
+    - cron: "0 * * * *" # hourly
+  workflow_dispatch: {}
+
+concurrency:
+  group: kb-submodule-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    name: Bump kb submodule + deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          submodules: recursive
+          fetch-depth: 0
+          token: ${{ secrets.GH_TOKEN || github.token }}
+
+      - name: Fetch submodule over HTTPS (no SSH key in CI)
+        run: git config --global url."https://github.com/".insteadOf "git@github.com:"
+
+      - name: Update submodule to latest main
+        id: bump
+        run: |
+          git submodule update --remote --recursive apps/kb/kb
+          if git diff --quiet apps/kb/kb; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "kb submodule already at latest main — nothing to do"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git -C apps/kb/kb log -1 --oneline
+          fi
+
+      - name: Commit pointer bump
+        if: steps.bump.outputs.changed == 'true'
+        run: |
+          git config user.name "duyetbot"
+          git config user.email "duyetbot@users.noreply.github.com"
+          new=$(git -C apps/kb/kb rev-parse --short HEAD)
+          git add apps/kb/kb
+          git commit -m "chore(kb): sync content submodule to duyet/kb@${new}"
+          git push origin HEAD:master
+
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        if: steps.bump.outputs.changed == 'true'
+        with:
+          node-version: 24
+
+      - uses: pnpm/action-setup@v4
+        if: steps.bump.outputs.changed == 'true'
+
+      - name: Install dependencies
+        if: steps.bump.outputs.changed == 'true'
+        run: pnpm install --frozen-lockfile
+
+      - name: Deploy kb to Cloudflare Pages
+        if: steps.bump.outputs.changed == 'true'
+        run: |
+          cd apps/kb
+          pnpm run cf:deploy:prod
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+          CLOUDFLARE_EMAIL: ${{ secrets.CLOUDFLARE_EMAIL }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
+          NODE_ENV: production
+          # Shared SiteHeader app-switcher links (baked at build time)
+          VITE_DUYET_HOME_URL: https://duyet.net
+          VITE_DUYET_BLOG_URL: https://blog.duyet.net
+          VITE_DUYET_CV_URL: https://cv.duyet.net
+          VITE_DUYET_INSIGHTS_URL: https://insights.duyet.net
+          VITE_DUYET_PHOTOS_URL: https://photos.duyet.net
+          VITE_DUYET_HOMELAB_URL: https://homelab.duyet.net
+          VITE_DUYET_LLM_TIMELINE_URL: https://llm-timeline.duyet.net
+          VITE_DUYET_AGENTS_URL: https://agents.duyet.net
+          VITE_DUYET_AI_URL: https://ai.duyet.net
+          VITE_DUYET_AI_PERCENTAGE_URL: https://ai-percentage.duyet.net
+
+      - name: Health check
+        if: steps.bump.outputs.changed == 'true'
+        run: |
+          for i in 1 2 3 4 5; do
+            if curl -sf -o /dev/null https://kb.duyet.net; then
+              echo "✅ kb.duyet.net healthy"; exit 0
+            fi
+            echo "attempt $i failed, waiting 10s..."; sleep 10
+          done
+          echo "❌ health check failed"; exit 1
