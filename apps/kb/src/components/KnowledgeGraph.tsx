@@ -144,19 +144,19 @@ export function KnowledgeGraph() {
       // stable distinct hue. Groups are sorted so colors don't shuffle between
       // builds. Falls back to the theme foreground if a group is unmapped.
       const palette = [
-        "#197ca8", // teal-blue
-        "#d9822b", // amber
-        "#5b8c5a", // green
-        "#b5524a", // brick
-        "#7e6bb0", // violet
-        "#c79a3a", // gold
-        "#3f8f9b", // cyan
-        "#a8537e", // magenta
-        "#6a8caf", // slate-blue
-        "#8a8f3a", // olive
-        "#b0683a", // rust
-        "#4f7a8c", // steel
-        "#9a5ba8", // purple
+        "#6cb2e0", // pastel blue
+        "#f2b06a", // pastel amber
+        "#8fd49b", // pastel green
+        "#ef9a9a", // pastel coral
+        "#b9a5e0", // pastel violet
+        "#f0d58a", // pastel gold
+        "#86d2d6", // pastel teal
+        "#f0a8cf", // pastel pink
+        "#9fc3ea", // pastel periwinkle
+        "#cdd98a", // pastel lime
+        "#f0b59a", // pastel peach
+        "#a8c7d6", // pastel steel
+        "#c9a8e0", // pastel purple
       ];
       const groups = [...new Set(nodes.map((n: GraphNode) => n.group))].sort();
       const groupColor = new Map<string, string>(
@@ -196,13 +196,17 @@ export function KnowledgeGraph() {
         .nodeThreeObjectExtend(true)
         .nodeThreeObject((n: any) => {
           const showAlways = (n.degree || 0) >= 4;
-          const sprite = new SpriteText(n.label.toUpperCase());
+          const sprite = new SpriteText(n.label);
           sprite.material.depthWrite = false;
           sprite.color =
             selectedRef.current && isNear(n) ? C.accent : C.label;
-          sprite.textHeight = 4;
+          // Higher fontSize = sharper canvas texture; textHeight is world size.
+          sprite.fontSize = 130;
+          sprite.textHeight = 3.4;
           sprite.fontFace = "JetBrains Mono, monospace";
-          sprite.fontWeight = "600";
+          sprite.fontWeight = "700";
+          sprite.padding = 1;
+          sprite.strokeWidth = 0;
           sprite.position.y = -8 - (1 + (n.degree || 0) * 1.4);
           sprite.visible =
             showAlways || (selectedRef.current && isNear(n));
@@ -216,8 +220,8 @@ export function KnowledgeGraph() {
               idOf(l.target) === selectedRef.current);
           return lit ? C.accent : C.edge;
         })
-        .linkOpacity(0.34)
-        .linkWidth((l: any) => (l.strong ? 0.6 : 0.3))
+        .linkOpacity(0.45)
+        .linkWidth((l: any) => (l.strong ? 1.1 : 0.6))
         .onNodeClick((n: any) => focusOn(n))
         .onNodeHover((n: any) => {
           mount.style.cursor = n ? "pointer" : "grab";
@@ -271,6 +275,17 @@ export function KnowledgeGraph() {
       controls.enableDamping = true;
       controls.dampingFactor = 0.12;
       controls.enableZoom = false;
+
+      // Flat look: drop directional lighting and use full ambient so nodes
+      // render as uniform flat discs (no 3D sphere shading) — matches the
+      // flat design system.
+      for (const obj of Graph.scene().children) {
+        if (obj.type === "DirectionalLight") obj.intensity = 0;
+        if (obj.type === "AmbientLight") {
+          obj.intensity = 1;
+          obj.color.set("#ffffff");
+        }
+      }
 
       const sizeToContainer = (fit: boolean) => {
         const r = root.getBoundingClientRect();
