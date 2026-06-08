@@ -71,6 +71,8 @@ Model Haiku: glm-4.7 | Model Sonnet: glm-5.1 | Model Opus: glm-5.1
 
 The migration is technically complete. 82/82 pages, 32/32 API routes, agent chat + MCP live.
 
+![Next.js vs TanStack Start comparison](/media/2026/06/migrate-tanstack/nextjs-vs-tanstack-results.png)
+
 | | Next.js | TanStack Start | Δ |
 |---|---|---|---|
 | Build time | 116s | ~10-14s | **−88%** |
