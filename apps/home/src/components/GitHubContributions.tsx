@@ -51,10 +51,14 @@ function levelToColor(level: string): string {
 }
 
 export function GitHubContributions() {
-  const [data, setData] = useState<Day[][] | null>(getCached());
+  const [data, setData] = useState<Day[][] | null>(null);
 
   useEffect(() => {
-    if (data) return;
+    const cached = getCached();
+    if (cached) {
+      setData(cached);
+      return;
+    }
     fetch(API)
       .then((r) => r.json())
       .then((json) => {
@@ -63,9 +67,9 @@ export function GitHubContributions() {
         setData(weeks);
       })
       .catch(() => {});
-  }, [data]);
+  }, []);
 
-  if (!data) return null;
+  if (!data) return <div className="mt-4" />;
 
   const total = data.flat().reduce((s, d) => s + d.contributionCount, 0);
 
