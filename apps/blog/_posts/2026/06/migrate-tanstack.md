@@ -9,7 +9,7 @@ tags:
   - Agents
   - Claude Code
 slug: /2026/06/migrate-tanstack
-thumbnail: /media/2026/06/migrate-tanstack/thumbnail.png
+thumbnail: /media/2026/06/migrate-tanstack/hero.png
 description: "The second ultrawork run: I asked Claude Code to migrate chmonitor.dev from Next.js to TanStack Start and went to sleep. It planned the work, spawned parallel agents, and kept going for days."
 ---
 
