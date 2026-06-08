@@ -15,7 +15,7 @@ const GALLERY_CLASS =
 // A lone image breaks out of the prose column a little on large screens
 // (negative x-margins widen the box past the text width); on small screens it
 // stays at text width to avoid horizontal overflow.
-const SINGLE_CLASS = 'not-prose my-6 lg:-mx-12'
+const SINGLE_CLASS = 'not-prose mt-8 mb-6 lg:-mx-12'
 
 function imgWithClass(img: string, cls: string): string {
   return img.replace(/\sclass="[^"]*"/, '').replace(/^<img\s/, `<img class="${cls}" `)
