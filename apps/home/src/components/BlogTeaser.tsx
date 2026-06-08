@@ -47,7 +47,7 @@ export function BlogTeaser({ featuredPost, recentPosts, totalPosts, notes }: Blo
       {/* featured post card */}
       <div className="flex flex-col gap-[18px]">
         <a
-          className="rd-card flex cursor-pointer flex-col overflow-hidden no-underline text-inherit"
+          className="rd-card flex cursor-pointer flex-col overflow-hidden no-underline text-inherit border-0"
           href={`https://blog.duyet.net${featuredPost.slug}`}
           target="_blank"
           rel="noreferrer"
@@ -106,10 +106,19 @@ export function BlogTeaser({ featuredPost, recentPosts, totalPosts, notes }: Blo
         {/* recent notes */}
         {notes && notes.length > 0 && (
           <Card className="p-0 border-0">
-            <div className="px-[22px] pt-[18px] pb-[6px]">
+            <div className="flex items-center justify-between px-[22px] pt-[18px] pb-[6px]">
               <span className="font-[var(--font-mono)] text-[10.5px] uppercase tracking-[0.14em] text-[var(--rd-text-3)]">
                 Quick notes
               </span>
+              <Button variant="link" size="sm" asChild className="inline-flex mt-0 p-0 h-auto text-[12px]">
+                <a
+                  href="https://blog.duyet.net/notes/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  All notes &rarr;
+                </a>
+              </Button>
             </div>
             <div className="rd-rows">
               {notes.slice(0, 5).map((note) => (
@@ -131,15 +140,6 @@ export function BlogTeaser({ featuredPost, recentPosts, totalPosts, notes }: Blo
                 </a>
               ))}
             </div>
-            <Button variant="link" size="sm" asChild className="inline-flex ml-[22px] mt-0 mb-[14px]">
-              <a
-                href="https://blog.duyet.net/notes/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                All notes &rarr;
-              </a>
-            </Button>
           </Card>
         )}
       </div>
@@ -180,15 +180,6 @@ export function BlogTeaser({ featuredPost, recentPosts, totalPosts, notes }: Blo
             </a>
           ))}
         </div>
-        <Button variant="link" size="sm" asChild className="inline-flex ml-[22px] mt-1.5 mb-[14px]">
-          <a
-            href="https://blog.duyet.net"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Browse all {totalPosts} posts &rarr;
-          </a>
-        </Button>
       </Card>
     </div>
   );
