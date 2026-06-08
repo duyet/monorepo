@@ -41,11 +41,6 @@ Over the next couple of days, Codex, Coderabbit and Claude Code kept working tog
 
 The [$100 Claude Code Max](https://docs.anthropic.com/en/docs/claude-code/max) window limit kept hitting, but the epic issue held everything together as a source of truth. Each time it recovered, it picked up where it left off.
 
-<div class="img-row">
-<img src="/media/2026/06/migrate-tanstack/test-coverage-comparison.png" alt="Test coverage comparison" />
-<img src="/media/2026/06/migrate-tanstack/test-coverage-detail.png" alt="Test coverage detail" />
-</div>
-
 It was not fully autonomous — it woke me up a few times for Cloudflare API permissions and the production cutover. Claude also pushed back on migrating a live system without a proper notice period, which is a fair point.
 
 ## Dynamic workflows
@@ -54,10 +49,10 @@ The interesting part was the optimization loop. After the initial migration, it 
 
 <div class="img-row">
 <img src="/media/2026/06/migrate-tanstack/workflow-optimization-cycle.png" alt="Dynamic workflow running" />
-<img src="/media/2026/06/migrate-tanstack/workflow-progress.png" alt="Workflow progress" />
+<img src="/media/2026/06/migrate-tanstack/token-usage-breakdown.png" alt="Token usage across models" />
 </div>
 
-![Token usage across models](/media/2026/06/migrate-tanstack/token-usage-breakdown.png)
+<img src="/media/2026/06/migrate-tanstack/workflow-progress.png" alt="Workflow progress" />
 
 It consumed ~1.2M tokens across all models. When the Claude Code Max window ran out, I continued on GLM 5.1 through Z.AI:
 
