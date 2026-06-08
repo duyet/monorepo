@@ -13,13 +13,21 @@ interface BlogPost {
   thumbnail?: string;
 }
 
+interface Note {
+  id: string;
+  title: string;
+  date: string;
+  excerpt: string;
+}
+
 interface BlogTeaserProps {
   featuredPost: BlogPost;
   recentPosts: BlogPost[];
   totalPosts: number;
+  notes?: Note[];
 }
 
-export function BlogTeaser({ featuredPost, recentPosts, totalPosts }: BlogTeaserProps) {
+export function BlogTeaser({ featuredPost, recentPosts, totalPosts, notes }: BlogTeaserProps) {
   if (!featuredPost) return null;
 
   const featuredCode = "npm i agents";
@@ -37,62 +45,104 @@ export function BlogTeaser({ featuredPost, recentPosts, totalPosts }: BlogTeaser
       className="grid grid-cols-[minmax(0,1.05fr)_minmax(0,.95fr)] items-stretch gap-[18px]"
     >
       {/* featured post card */}
-      <a
-        className="rd-card flex cursor-pointer flex-col overflow-hidden no-underline text-inherit"
-        href={`https://blog.duyet.net${featuredPost.slug}`}
-        target="_blank"
-        rel="noreferrer"
-      >
-        {thumbUrl ? (
-          <div className="flex h-[180px] items-center overflow-hidden bg-[var(--rd-surface)]">
-            <img
-              src={thumbUrl}
-              alt={featuredPost.title}
-              loading="lazy"
-              className="w-full h-auto max-h-full object-contain"
-            />
-          </div>
-        ) : (
-          <div className="rd-termblock p-[26px_26px_30px]">
-            <div className="flex gap-[7px]">
-              <i />
-              <i />
-              <i />
+      <div className="flex flex-col gap-[18px]">
+        <a
+          className="rd-card flex cursor-pointer flex-col overflow-hidden no-underline text-inherit"
+          href={`https://blog.duyet.net${featuredPost.slug}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {thumbUrl ? (
+            <div className="flex h-[180px] items-center overflow-hidden bg-[var(--rd-surface)]">
+              <img
+                src={thumbUrl}
+                alt={featuredPost.title}
+                loading="lazy"
+                className="w-full h-auto max-h-full object-contain"
+              />
             </div>
-            <div
-              className="font-[var(--font-mono)] mt-5 text-[22px] text-[var(--rd-accent)]"
-            >
-              <span className="opacity-60">$</span> {featuredCode}
-              <span className="rd-caret" />
+          ) : (
+            <div className="rd-termblock p-[26px_26px_30px]">
+              <div className="flex gap-[7px]">
+                <i />
+                <i />
+                <i />
+              </div>
+              <div
+                className="font-[var(--font-mono)] mt-5 text-[22px] text-[var(--rd-accent)]"
+              >
+                <span className="opacity-60">$</span> {featuredCode}
+                <span className="rd-caret" />
+              </div>
             </div>
-          </div>
-        )}
-        <div className="p-[20px_26px_24px]">
-          <div
-            className="flex items-center gap-[10px] mb-3"
-          >
-            <Badge variant="outline" className="font-[var(--font-mono)] text-[10.5px] px-2 py-0">
-              {featuredPost.category}
-            </Badge>
-            <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs">
-              {formatBlogDate(featuredPost.date)} · {featuredPost.readingTime}{" "}
-              min
-            </span>
-          </div>
-          <h3
-            className="text-[1.5rem] tracking-[-0.03em]"
-          >
-            {featuredPost.title}
-          </h3>
-          {featuredPost.excerpt && (
-            <p
-              className="text-[var(--rd-text-2)] mt-[10px] text-[14.5px]"
-            >
-              {featuredPost.excerpt}
-            </p>
           )}
-        </div>
-      </a>
+          <div className="p-[20px_26px_24px]">
+            <div
+              className="flex items-center gap-[10px] mb-3"
+            >
+              <Badge variant="outline" className="font-[var(--font-mono)] text-[10.5px] px-2 py-0">
+                {featuredPost.category}
+              </Badge>
+              <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs">
+                {formatBlogDate(featuredPost.date)} · {featuredPost.readingTime}{" "}
+                min
+              </span>
+            </div>
+            <h3
+              className="text-[1.5rem] tracking-[-0.03em]"
+            >
+              {featuredPost.title}
+            </h3>
+            {featuredPost.excerpt && (
+              <p
+                className="text-[var(--rd-text-2)] mt-[10px] text-[14.5px]"
+              >
+                {featuredPost.excerpt}
+              </p>
+            )}
+          </div>
+        </a>
+
+        {/* recent notes */}
+        {notes && notes.length > 0 && (
+          <Card className="p-0 border-0">
+            <div className="px-[22px] pt-[18px] pb-[6px]">
+              <span className="font-[var(--font-mono)] text-[10.5px] uppercase tracking-[0.14em] text-[var(--rd-text-3)]">
+                Quick notes
+              </span>
+            </div>
+            <div className="rd-rows">
+              {notes.slice(0, 5).map((note) => (
+                <a
+                  key={`${note.id}-${note.date}`}
+                  className="rd-row cursor-pointer grid-cols-[1fr_auto] p-[12px_8px] no-underline text-inherit"
+                  href={`https://blog.duyet.net/note/${note.id}/`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <div className="min-w-0">
+                    <div className="overflow-hidden text-ellipsis whitespace-nowrap text-[14px] font-[540]">
+                      {note.title}
+                    </div>
+                  </div>
+                  <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11px]">
+                    {formatBlogDate(note.date)}
+                  </span>
+                </a>
+              ))}
+            </div>
+            <Button variant="link" size="sm" asChild className="inline-flex ml-[22px] mt-0 mb-[14px]">
+              <a
+                href="https://blog.duyet.net/notes/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                All notes &rarr;
+              </a>
+            </Button>
+          </Card>
+        )}
+      </div>
 
       {/* recent posts list */}
       <Card className="p-0 border-0">

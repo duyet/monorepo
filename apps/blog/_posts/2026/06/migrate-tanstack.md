@@ -91,7 +91,6 @@ The honest framing is that the direct product value is ~zero — the dashboard w
 
 ### Claude Code usage
 
-Across 13 sessions over ~3 days:
 
 | | |
 |---|---|
@@ -103,10 +102,6 @@ Across 13 sessions over ~3 days:
 
 Opus did 90.7% of the work (~$661) — the migration was reasoning-heavy. Cache reads were >100M tokens; prompt caching is what kept the bill from being multiples higher.
 
-| Model | Cost | Share |
-|---|---|---|
-| claude-opus-4-8 | ~$661 | 90.7% |
-| claude-sonnet-4-6 | ~$42 | 5.7% |
-| glm-5.1 / glm-4.7 | ~$24 | 3.2% |
-| claude-haiku-4-5 | ~$2 | 0.3% |
+### Honest take
 
+Using issues is good for keeping track and working across coding agents with different models. But you might not need dynamic workflows — they cost a lot of tokens. Keeping it simple and consistent with a smaller number of sub-agents is the best approach. Slower, but the same quality.

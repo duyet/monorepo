@@ -1,0 +1,44 @@
+[
+  {
+    "id": "ax",
+    "title": "AX",
+    "date": "2026-06-08",
+    "excerpt": "Dries Buytaert's regarding AX (Agent Experience): In the era of AI coding agents, software adoption depends on how easily these agents can \"consume\" your project. AI agents prioritize the cheapest path to completion; if your software is difficult to use, they will simply reject it without notice. To ensure your project is chosen, you must reduce three specific costs: Friction: The effort required to get the system running (installation, setup, environment configuration, and access/credentials). Abstraction: The effort required to understand what to do next (providing clear recipes, templates, scaffolds, and logical defaults). Verification: The effort required to confirm the work was successful (reliable tests, clear error messages, and inspectable system states). What helps AI agents (AX) also helps human developers (DX). By making your project easy for an agent to install, modify, and verify, you make it better for everyone."
+  },
+  {
+    "id": "mai",
+    "title": "Dynamic Workflows with GLM 5.1",
+    "date": "2026-06-04",
+    "excerpt": "I am using more a lot of differrent models with Claude Code, this here is reazied We can also asking Claude to customize model and budget for each step in workflows."
+  },
+  {
+    "id": "mai",
+    "title": "MAI-Thinking-1, MAI-Code-1-Flash",
+    "date": "2026-06-03",
+    "excerpt": "| Benchmark | MAI-Thinking-1 | MAI-Code-1-Flash | Claude Haiku 4.5 | Sonnet 4.6 | Opus 4.6 | Kimi K2.6 | GLM-5.1 | | ---------------------- | -----------------: | -------------------: | --------------------------: | -------------------------: | -------------------------: | -----------------------------: | ---------------------------------------: | | SWE-Bench Pro | 52.8 | 51.2 | 35.2 | - | 53.4 | 58.6 | 58.4 | | SWE-Bench Verified | 73.5 | 71.6 | 66.6 | 79.6 | 80.8 | 80.2 | - | | SWE-Bench Multilingual | - | 65.5 | 62.7 | 75.9 | 77.8 | 76.7 | - | | AIME 2025 | 97.0 | - | 80.7 no tools / 96.3 Python | 95.6 | 99.8 | - | - | | AIME 2026 | 94.5 | 92.5 | 83.3 | - | - | 96.4 | 95.3 | | HMMT Feb 2026 | 84.9 | - | - | - | - | 92.7 | 82.6 | | GPQA Diamond | 84.2 | 84.6 | 73.2 | 89.9 | 91.3 | 90.5 | 86.2 | | LCB v6 | 87.7 | - | - | - | - | 89.6 | - | | AMO Bench | - | 40.0 | 16.0 | - | - | - | - | | Frontier Math | - | 6.3 | 2.8 | - | - | - | - | | HLE | - | 18.0 | 9.5 | 33.2 no tools / 49.0 tools | 40.0 no tools / 53.0 tools | 34.7 no tools / 54.0 tools | 31.0 no tools / 52.3 tools | | Frontier Science | - | 58.2 | 42.3 | - | - | - | - | | Artifacts Bench | - | 36.4 | 36.6 | - | - | - | - | | Terminal-Bench 2.0 | 46.0 | 54.8 | 41.6 | 59.1 | 65.4 | 66.7 | 63.5 Terminus-2 / 69.0 self-reported | | IF Bench | - | 75.0 | 46.1 | - | - | - | - | | Advanced IF | - | 71.4 | 56.9 | - | - | - | - | | Robust IF Bench | - | 61.2 | 45.0 | - | - | - | - | | τ²-Bench | - | 71.7 | 54.7 | - | - | - | - | Sources Microsoft AI, MAI-Thinking-1 technical report, for MAI-Thinking-1 scores and several comparison values. (Microsoft AI) Microsoft AI, Introducing MAI-Thinking-1, for headline AIME 2025 and AIME 2026 values. (Microsoft AI Microsoft AI, Introducing MAI-Code-1-Flash, for MAI-Code-1-Flash vs Claude Haiku 4.5 benchmark values. (Microsoft AI) Anthropic, Claude Haiku 4.5 announcement, for official Haiku context and Anthropic-reported SWE-Bench Verified score caveat. (Anthropic) Anthropic, Claude Sonnet 4.6 System Card, for Sonnet 4.6 SWE-Bench Verified and SWE-Bench Multilingual values. (Anthropic) Anthropic, Claude Opus 4.6 System Card, for Opus 4.6 SWE-Bench Verified and SWE-Bench Multilingual values. (Anthropic) Moonshot AI, Kimi K2.6 Tech Blog / Model Card, for Kimi K2.6 benchmark values. (Kimi) Z.ai, GLM-5.1: Towards Long-Horizon Tasks, and ModelScope GLM-5.1 card, for GLM-5.1 values. (Z.ai) Terminal-Bench official leaderboard, for Terminal-Bench 2.0 reference leaderboard context. (tbench.ai)"
+  },
+  {
+    "id": "coding-agents-that-talk",
+    "title": "Coding agents talk to me now",
+    "date": "2026-06-02",
+    "excerpt": "I gave Codex and Claude Code a voice with sag.sh. When it is stuck and need me, say it out loud. Now every once in a while I hear the voice talk to me: Đây là Claude, có 2 câu hỏi cần bạn trả lời ở project clickhouse monitoring. (This is Claude, 2 questions for you on the clickhouse monitoring project.) or when something's done: Hey, this is Claude, the plugins now support English and Vietnamese, pushed to GitHub. I am wrapped into https://github.com/duyet/codex-claude-plugins/tree/master/sag-notify you can give it a try: /plugin install sag-notify@duyet-claude-plugins /reload-plugins /sag-notify:setup Install sag with brew install steipete/tap/sag and set ELEVENLABSAPIKEY. Coolest thing ever."
+  },
+  {
+    "id": "chrome-devtools-mcp",
+    "title": "Chrome Devtools MCP",
+    "date": "2026-06-01",
+    "excerpt": "There are three ways to let an agent touch the browser right now: Chrome DevTools MCP, Playwright MCP, and Claude in Chrome. They look similar but they are not the same tool. For me Chrome DevTools MCP is the better one for debugging. It speaks the language of the DevTools — console messages, network requests, performance traces, the actual DOM and computed styles. When something is broken on a page, that is exactly what I want the agent to read. Playwright MCP feels more about driving a browser: click here, fill that, assert this. It is great for automation and end-to-end test flows, less so for \"why is this layout broken / why is this request failing\". Chrome DevTools MCP → inspect and debug. Playwright MCP → automate and test. Different jobs. I keep Chrome DevTools MCP around when I am hunting a bug, and reach for Playwright when I actually want to script the browser. /plugin marketplace add ChromeDevTools/chrome-devtools-mcp /plugin install chrome-devtools-mcp@chrome-devtools-plugins /reload-skills"
+  },
+  {
+    "id": "claude-codex-coderabbit",
+    "title": "Claude + Codex Review + CodeRabbit",
+    "date": "2026-05-31",
+    "excerpt": "This is the best combo I am using now. I am on both Claude Max and Codex Pro. Claude Code + Codex Review + CodeRabbit feel like the right pairing, both comment natively inside the PR and give different views of the same problem. The fun part is watching whether they agree or not. Opus 4.8 feels more honest now. I can see it push back, and sometimes it just rejects a change instead of nodding along. CodeRabbit is still the best at finding the bug, it auto-fix is still a bit off, though. How I run it: On demand → Claude Code with /github:babysit-pr. It reads through all the review comments and auto-fixes the CI for me. Scheduled → a Codex automation that reviews daily, merges or resolves issues, and can also fold in CodeRabbit's comments. Some PRs run long — a lot of back and forth between them until it finally gets the thumbs up: clickhouse-monitoring#1349 clickhouse-monitoring#1355"
+  },
+  {
+    "id": "duyetbot-hermes-agent",
+    "title": "\"@duyetbot is now running Hermes Agent\"",
+    "date": "2026-04-01",
+    "excerpt": "@duyetbot started on Claude Agent SDK, moved to OpenClaw, and now runs on Hermes Agent. OpenClaw was solid day-to-day, but I found it lacking in automation — it mostly went to sleep and I lost motivation. Hermes has been gaining traction, so I gave it a shot. The migration took 15 minutes. The standout feature: Hermes automatically writes, refines, and stores its own \"skills\" from tasks. Let's see how it goes. <img src=\"/media/notes/hermes-agent.png\" alt=\"Hermes Agent dashboard showing the skills system\" width=\"600\" />"
+  }
+]

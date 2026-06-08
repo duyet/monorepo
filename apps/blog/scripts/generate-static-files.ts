@@ -435,4 +435,18 @@ writeFileSync(
 );
 console.log("  ✓ ping.json");
 
+// ── notes-data.json ────────────────────────────────────────────────────────
+const notesData = notes.map((n) => ({
+  id: n.id,
+  title: n.title || n.id,
+  date: n.date.toISOString().split("T")[0],
+  excerpt: n.excerpt,
+}));
+writeFileSync(
+  join(PUBLIC_DIR, "notes-data.json"),
+  JSON.stringify(notesData, null, 2),
+  "utf-8"
+);
+console.log(`  ✓ notes-data.json (${notesData.length} notes)`);
+
 console.log("Static file generation complete.");

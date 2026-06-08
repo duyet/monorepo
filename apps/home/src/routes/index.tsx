@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Suspense } from "react";
 import { Button } from "../components/ui/button";
 import rawBlogPosts from "../../../blog/public/posts-data.json";
+import rawNotes from "../../../blog/public/notes-data.json";
 import { KeyboardFeatures } from "../components/KeyboardFeatures";
 import { type AppItem, apps } from "../data/projects";
 import { siblingApps } from "../data/sibling-apps";
@@ -37,6 +38,7 @@ const featuredPost = allBlogPosts[0];
 const recentPosts = allBlogPosts.slice(1, 6);
 
 const totalPosts = allBlogPosts.length;
+const recentNotes = (rawNotes as { id: string; title: string; date: string; excerpt: string }[]).slice(0, 5);
 const sinceYear = allBlogPosts.length
   ? new Date(allBlogPosts[allBlogPosts.length - 1].date).getFullYear()
   : 2015;
@@ -217,6 +219,7 @@ function HomePage() {
               featuredPost={featuredPost}
               recentPosts={recentPosts}
               totalPosts={totalPosts}
+              notes={recentNotes}
             />
           </Reveal>
         </section>
