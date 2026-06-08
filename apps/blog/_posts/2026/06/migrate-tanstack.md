@@ -13,7 +13,7 @@ thumbnail: /media/2026/06/migrate-tanstack/thumbnail.png
 description: "The second ultrawork run: I asked Claude Code to migrate chmonitor.dev from Next.js to TanStack Start and went to sleep. It planned the work, spawned parallel agents, and kept going for days."
 ---
 
-The second `ultrawork` run, right after the [overnight refactor](/2026/06/coding-agent-2026). This time: migrate chmonitor.dev from Next.js to TanStack Start, fully autonomous.
+The second `ultrawork` run, right after the [overnight refactor](/2026/06/coding-agent-2026). I am trying to see how possible to make it fully autonomous — without checking a single line of code. The task: migrate chmonitor.dev from Next.js to TanStack Start.
 
 ```
 Plan to migrate to TanStack: research to see is it good or bad?
