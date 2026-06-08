@@ -104,4 +104,4 @@ Opus did 90.7% of the work (~$661) — the migration was reasoning-heavy. Cache 
 | glm-5.1 / glm-4.7 | ~$24 | 3.2% |
 | claude-haiku-4-5 | ~$2 | 0.3% |
 
-Full comparison and cost breakdown: [Epic #1392 — latest rollup](https://github.com/duyet/clickhouse-monitoring/issues/1392#issuecomment-4637921173)
+Full comparison and cost breakdown: [issues #1392](https://github.com/duyet/clickhouse-monitoring/issues/1392#issuecomment-4637921173)
