@@ -76,9 +76,13 @@ The migration is technically complete. 82/82 pages, 32/32 API routes, agent chat
 | | Next.js | TanStack Start | Δ |
 |---|---|---|---|
 | Build time | 116s | ~10-14s | **−88%** |
+| Build peak memory | 2,724 MB | 1,925 MB | **−29%** |
+| Intermediate artifacts | 1.5 GB (.next) | 27 MB (dist) | **−98%** |
+| Deploy output | 122 MB (.open-next) | 27 MB (.output) | **−78%** |
 | Worker bundle (gzip) | 2,708 KiB | ~1,800 KiB | **−33.5%** |
-| Deploy output | 122 MB | 27 MB | **−78%** |
 | Dependencies | 142 | 85 | **−40%** |
+| Source LOC (excl. tests) | 145,475 | 133,705 | **−8.1%** |
+| Chart components | 142 | 101 | **−29%** |
 | Line coverage | 81.9% | 88.07% | **+6.2 pts** |
 | TBT /overview | 4,012ms | 941ms | **−77%** |
 | LCP /overview | 18,951ms | 14,321ms | **−24%** |
@@ -106,4 +110,3 @@ Opus did 90.7% of the work (~$661) — the migration was reasoning-heavy. Cache 
 | glm-5.1 / glm-4.7 | ~$24 | 3.2% |
 | claude-haiku-4-5 | ~$2 | 0.3% |
 
-Full comparison and cost breakdown: [issues #1392](https://github.com/duyet/clickhouse-monitoring/issues/1392#issuecomment-4637921173)
