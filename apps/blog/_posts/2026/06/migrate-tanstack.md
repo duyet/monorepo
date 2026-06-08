@@ -142,24 +142,6 @@ After 11 optimization cycles, the migration reached technical completion. Full c
 | **LCP /overview** | 18,951ms | 14,321ms | **−24%** |
 | **TTFB** | 193ms | 191ms | parity |
 
-### Sub-issues status
-
-| Issue | Description | Status |
-|---|---|---|
-| [#1393](https://github.com/duyet/clickhouse-monitoring/issues/1393) | Substrate spike (scaffold + CF deploy) | ✅ |
-| [#1394](https://github.com/duyet/clickhouse-monitoring/issues/1394) | Shared config + env bridge | ✅ |
-| [#1395](https://github.com/duyet/clickhouse-monitoring/issues/1395) | Routing skeleton | ✅ |
-| [#1396](https://github.com/duyet/clickhouse-monitoring/issues/1396) | Data/SWR wiring | ✅ |
-| [#1397](https://github.com/duyet/clickhouse-monitoring/issues/1397) | API routes (×56) | ✅ |
-| [#1398](https://github.com/duyet/clickhouse-monitoring/issues/1398) | Middleware / auth guards | ✅ |
-| [#1399](https://github.com/duyet/clickhouse-monitoring/issues/1399) | Clerk port | ✅ |
-| [#1400](https://github.com/duyet/clickhouse-monitoring/issues/1400) | Agent stream | ✅ |
-| [#1401](https://github.com/duyet/clickhouse-monitoring/issues/1401) | MCP in-proc route | ✅ |
-| [#1402](https://github.com/duyet/clickhouse-monitoring/issues/1402) | Pages (×83) | ✅ |
-| [#1403](https://github.com/duyet/clickhouse-monitoring/issues/1403) | CI/CD rewire | 🟢 |
-| [#1404](https://github.com/duyet/clickhouse-monitoring/issues/1404) | e2e + smoke parity | 🟡 |
-| [#1405](https://github.com/duyet/clickhouse-monitoring/issues/1405) | Production cutover | 🔴 owner-gated |
-
 ### Cost
 
 | Metric | Value |
