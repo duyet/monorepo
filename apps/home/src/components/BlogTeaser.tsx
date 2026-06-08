@@ -76,7 +76,7 @@ export function BlogTeaser({ featuredPost, recentPosts, totalPosts, notes }: Blo
               </div>
             </div>
           )}
-          <div className="p-[20px_26px_24px]">
+          <div className="p-0">
             <div
               className="flex items-center gap-[10px] mb-3"
             >
