@@ -64,24 +64,22 @@ Model Haiku: glm-4.7 | Model Sonnet: glm-5.1 | Model Opus: glm-5.1
 
 <div class="img-row">
 <img src="/media/2026/06/migrate-tanstack/glm-51-continue-session.png" alt="Continuing with GLM 5.1" />
-<img src="/media/2026/06/migrate-tanstack/glm-51-optimization.png" alt="GLM 5.1 optimization" />
+<img src="/media/2026/06/migrate-tanstack/final-results.png" alt="GLM 5.1 optimization" />
 </div>
-
-![Final results after the optimization cycles](/media/2026/06/migrate-tanstack/final-results.png)
 
 ## Where it landed
 
 The migration is technically complete. 82/82 pages, 32/32 API routes, agent chat + MCP live.
 
-| | Next.js | TanStack Start |
-|---|---|---|
-| Build time | 116s | ~10-14s |
-| Worker bundle (gzip) | 2,708 KiB | ~1,800 KiB |
-| Deploy output | 122 MB | 27 MB |
-| Dependencies | 142 | 85 |
-| Line coverage | 81.9% | 88.07% |
-| TBT /overview | 4,012ms | 941ms |
-| LCP /overview | 18,951ms | 14,321ms |
+| | Next.js | TanStack Start | Δ |
+|---|---|---|---|
+| Build time | 116s | ~10-14s | **−88%** |
+| Worker bundle (gzip) | 2,708 KiB | ~1,800 KiB | **−33.5%** |
+| Deploy output | 122 MB | 27 MB | **−78%** |
+| Dependencies | 142 | 85 | **−40%** |
+| Line coverage | 81.9% | 88.07% | **+6.2 pts** |
+| TBT /overview | 4,012ms | 941ms | **−77%** |
+| LCP /overview | 18,951ms | 14,321ms | **−24%** |
 
 The honest framing is that the direct product value is ~zero — the dashboard was and remains a client-fetched SPA, so no SSR was gained. The payoff is entirely build and infra.
 
