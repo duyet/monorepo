@@ -13,6 +13,7 @@ import { WorkBento } from "../components/WorkBento";
 import { BlogTeaser } from "../components/BlogTeaser";
 import { HeroDiagram3D as HeroDiagram } from "../components/HeroDiagram3D";
 import { NowDeco } from "../components/NowDeco";
+import { GitHubContributions } from "../components/GitHubContributions";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -250,6 +251,7 @@ function HomePage() {
                   </Link>{" "}
                   keep the rest running.
                 </p>
+                <GitHubContributions />
               </div>
               <Button variant="ghost" size="sm" asChild>
                 <Link
