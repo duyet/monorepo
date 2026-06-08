@@ -102,6 +102,7 @@ The honest framing is that the direct product value is ~zero — the dashboard w
 
 Opus did 90.7% of the work (~$661) — the migration was reasoning-heavy. Cache reads were >100M tokens; prompt caching is what kept the bill from being multiples higher.
 
-### Honest take
+### My take
 
-Using issues is good for keeping track and working across coding agents with different models. But you might not need dynamic workflows — they cost a lot of tokens. Keeping it simple and consistent with a smaller number of sub-agents is the best approach. Slower, but the same quality.
+- Using github issues or a TODO.md file is good for keeping track and working across coding agents with different models.
+- You might not need dynamic workflows - they burns a lot of tokens. Keeping it simple and consistent with a smaller number of sub-agents is the best approach. Slower, but the same quality.
