@@ -8,7 +8,6 @@ import {
   AgentActionsTile,
   StatusDot,
 } from "@/components/tiles";
-import { DashboardTabs } from "@/components/DashboardTabs";
 import { ClusterOverview } from "@/components/dashboard/ClusterOverview";
 import { ClusterTopology } from "@/components/dashboard/ClusterTopology";
 import { K8sInfo } from "@/components/dashboard/K8sInfo";
@@ -19,6 +18,7 @@ import { ServicesStatus } from "@/components/dashboard/ServicesStatus";
 import { SmartDevicesOverview } from "@/components/smart-devices/SmartDevicesOverview";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { useNodes } from "@/hooks/useDashboard";
+import type { RootSearch } from "./__root";
 
 const snapshotDate = new Date().toLocaleString();
 
@@ -28,35 +28,8 @@ export const Route = createFileRoute("/")({
 
 function HomelabPage() {
   const { onlineCount, totalNodes } = useNodes();
-
-  const infrastructure = (
-    <div className="space-y-8">
-      <ErrorBoundary>
-        <ClusterTopology />
-      </ErrorBoundary>
-      <ErrorBoundary>
-        <ClusterOverview />
-      </ErrorBoundary>
-      <ErrorBoundary>
-        <ResourceMetrics />
-      </ErrorBoundary>
-      <ErrorBoundary>
-        <ServicesStatus />
-      </ErrorBoundary>
-      <ErrorBoundary>
-        <NetworkStats />
-      </ErrorBoundary>
-      <ErrorBoundary>
-        <ServiceDowntime />
-      </ErrorBoundary>
-    </div>
-  );
-
-  const smartDevices = (
-    <ErrorBoundary>
-      <SmartDevicesOverview />
-    </ErrorBoundary>
-  );
+  const search = Route.useSearch() as RootSearch;
+  const tab = search?.tab;
 
   return (
     <div className="bg-[var(--rd-bg)] text-[var(--rd-text)]">
@@ -75,36 +48,11 @@ function HomelabPage() {
           </p>
         </div>
 
-        {/* ── Compact bento grid ──────────────────────────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <div className="md:col-span-2">
-            <NodesTile />
-          </div>
-          <div className="md:col-span-1">
-            <ClusterStatsTile />
-          </div>
-          <div className="md:col-span-2">
-            <ServicesTile />
-          </div>
-          <div className="md:col-span-1">
-            <NetworkTile />
-          </div>
-          <div className="md:col-span-1">
-            <SmartDevicesTile />
-          </div>
-          <div className="md:col-span-2">
-            <AgentActionsTile />
-          </div>
-        </div>
-
-        {/* ── Detailed tabs ─────────────────────────────────────── */}
-        <div className="mt-[clamp(40px,5vw,64px)]">
-          <DashboardTabs
-            infrastructure={infrastructure}
-            k8s={<K8sInfo />}
-            smartDevices={smartDevices}
-          />
-        </div>
+        {/* Tab content */}
+        {!tab && <OverviewTab />}
+        {tab === "infrastructure" && <InfrastructureTab />}
+        {tab === "k8s" && <K8sTab />}
+        {tab === "smart-devices" && <SmartDevicesTab />}
 
         {/* Footer note */}
         <div className="mt-8 pt-4 border-t border-[var(--rd-line)]">
@@ -116,5 +64,47 @@ function HomelabPage() {
         </div>
       </section>
     </div>
+  );
+}
+
+/** Overview — compact bento grid */
+function OverviewTab() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div className="md:col-span-2"><NodesTile /></div>
+      <div className="md:col-span-1"><ClusterStatsTile /></div>
+      <div className="md:col-span-2"><ServicesTile /></div>
+      <div className="md:col-span-1"><NetworkTile /></div>
+      <div className="md:col-span-1"><SmartDevicesTile /></div>
+      <div className="md:col-span-2"><AgentActionsTile /></div>
+    </div>
+  );
+}
+
+/** Infrastructure — detailed cluster metrics */
+function InfrastructureTab() {
+  return (
+    <div className="space-y-8">
+      <ErrorBoundary><ClusterTopology /></ErrorBoundary>
+      <ErrorBoundary><ClusterOverview /></ErrorBoundary>
+      <ErrorBoundary><ResourceMetrics /></ErrorBoundary>
+      <ErrorBoundary><ServicesStatus /></ErrorBoundary>
+      <ErrorBoundary><NetworkStats /></ErrorBoundary>
+      <ErrorBoundary><ServiceDowntime /></ErrorBoundary>
+    </div>
+  );
+}
+
+/** Kubernetes — pod and namespace details */
+function K8sTab() {
+  return (
+    <ErrorBoundary><K8sInfo /></ErrorBoundary>
+  );
+}
+
+/** Smart Devices — Dyson + Bosch detailed metrics */
+function SmartDevicesTab() {
+  return (
+    <ErrorBoundary><SmartDevicesOverview /></ErrorBoundary>
   );
 }
