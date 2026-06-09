@@ -1,47 +1,67 @@
 import { Smartphone } from "lucide-react";
-import type { SmartDevice } from "@/lib/data/types";
-import { StatusDot } from "./StatusDot";
+import { useSmartDevices } from "@/hooks/useDashboard";
 
-function SmartDevicesTile({
-  devices,
-  onlineDevices,
-}: {
-  devices: SmartDevice[];
-  onlineDevices: SmartDevice[];
-}) {
+export function SmartDevicesTile() {
+  const { devices, boschWashingMachine, dysonAirPurifier } = useSmartDevices();
+
+  const onlineCount = devices.filter(
+    (d) => d.status === "online" || d.status === "idle",
+  ).length;
+
   return (
-    <div className="rd-card p-[clamp(18px,2.2vw,26px)] col-span-12">
-      <div className="flex items-center justify-between mb-[14px]">
+    <div className="rd-card md:col-span-1 p-[clamp(14px,1.8vw,22px)]">
+      <div className="flex items-center justify-between mb-3">
         <span className="rd-eyebrow">
           <Smartphone size={13} />
           Smart devices
         </span>
         <span className="rd-chip font-[var(--font-mono)] text-[11px]">
-          {onlineDevices.length}/{devices.length} online
+          {onlineCount}/{devices.length} online
         </span>
       </div>
-      <div className="rd-g2 gap-2">
-        {devices.map((d) => (
-          <div
-            key={d.id}
-            className="rd-card flex items-center justify-between gap-3 px-4 py-[14px]"
-          >
-            <div>
-              <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[10.5px] uppercase tracking-[0.1em] mb-1">
-                {d.type.replace(/-/g, " ")}
-              </div>
-              <div className="font-semibold text-sm tracking-[-0.01em]">{d.name}</div>
-              <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11px] mt-[2px]">{d.brand}</div>
+
+      <div className="rd-rows">
+        {/* Dyson Air Purifier */}
+        <div className="rd-row grid-cols-[auto_1fr] gap-3">
+          <span
+            className={`rd-dot ${
+              dysonAirPurifier.status === "online" ? "rd-ok" : "rd-down"
+            }`}
+          />
+          <div className="min-w-0">
+            <div className="font-[var(--font-mono)] text-[13px] font-medium text-[var(--rd-text)] truncate">
+              Dyson TP09
             </div>
-            <div className="rd-chip font-[var(--font-mono)] flex items-center gap-[7px]">
-              <StatusDot status={d.status} />
-              {d.status}
+            <div className="font-[var(--font-mono)] text-[11px] text-[var(--rd-text-3)] mt-0.5">
+              {dysonAirPurifier.airQuality} ·{" "}
+              {dysonAirPurifier.currentTemperature}°C ·{" "}
+              {dysonAirPurifier.currentHumidity}%
             </div>
           </div>
-        ))}
+        </div>
+
+        {/* Bosch Washer */}
+        <div className="rd-row grid-cols-[auto_1fr] gap-3">
+          <span
+            className={`rd-dot ${
+              boschWashingMachine.status === "online"
+                ? "rd-ok"
+                : boschWashingMachine.status === "idle"
+                  ? "rd-idle"
+                  : "rd-down"
+            }`}
+          />
+          <div className="min-w-0">
+            <div className="font-[var(--font-mono)] text-[13px] font-medium text-[var(--rd-text)] truncate">
+              Bosch Series 6
+            </div>
+            <div className="font-[var(--font-mono)] text-[11px] text-[var(--rd-text-3)] mt-0.5">
+              {boschWashingMachine.status} ·{" "}
+              {boschWashingMachine.lifetimeCycles} cycles
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
-
-export { SmartDevicesTile };

@@ -5,6 +5,7 @@
 
 import { useMemo } from "react"; // useMemo kept for hooks with real deps (useServices, useServiceSearch, useNode)
 import {
+  agentActions,
   boschWashingMachine,
   type ClusterStats,
   clusterStats,
@@ -172,4 +173,11 @@ export function useSmartDevices(): {
   dysonAirPurifier: typeof dysonAirPurifier;
 } {
   return _smartDevicesResult;
+}
+
+/**
+ * Hook for duyetbot-agent automated actions
+ */
+export function useAgentActions() {
+  return agentActions;
 }

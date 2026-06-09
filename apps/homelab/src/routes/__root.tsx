@@ -10,16 +10,9 @@ import {
   Outlet,
   Scripts,
 } from "@tanstack/react-router";
-import { z } from "zod";
 import ErrorPage from "@/app/error";
 import NotFoundPage from "@/app/not-found";
 import ThemeProvider from "@duyet/components/ThemeProvider";
-
-const rootSearchSchema = z.object({
-  tab: z.enum(["infrastructure", "smart-devices"]).optional(),
-});
-
-export type RootSearch = z.infer<typeof rootSearchSchema>;
 
 export const Route = createRootRoute({
   head: () => ({
@@ -34,7 +27,6 @@ export const Route = createRootRoute({
       { rel: "icon", href: "/favicon.svg", sizes: "any" },
     ],
   }),
-  validateSearch: (search) => rootSearchSchema.parse(search),
   errorComponent: ({ error, reset }) => (
     <ErrorPage error={error} reset={reset} />
   ),

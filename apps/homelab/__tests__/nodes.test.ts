@@ -3,9 +3,9 @@ import { clusterStats, nodes } from "../lib/data/nodes";
 
 describe("nodes", () => {
   describe("nodes array", () => {
-    it("is an array with 6 nodes", () => {
+    it("is an array with 7 nodes", () => {
       expect(Array.isArray(nodes)).toBe(true);
-      expect(nodes.length).toBe(6);
+      expect(nodes.length).toBe(7);
     });
 
     it("each node has required fields", () => {
@@ -44,6 +44,22 @@ describe("nodes", () => {
       expect(offlineNode!.cpu).toBe(0);
       expect(offlineNode!.memory).toBe(0);
       expect(offlineNode!.services).toBe(0);
+    });
+
+    it("offline node (openclaw) has cpu=0, memory=0, services=0", () => {
+      const offlineNode = nodes.find((n) => n.name === "openclaw");
+      expect(offlineNode).toBeDefined();
+      expect(offlineNode!.status).toBe("offline");
+      expect(offlineNode!.cpu).toBe(0);
+      expect(offlineNode!.memory).toBe(0);
+      expect(offlineNode!.services).toBe(0);
+    });
+
+    it("hermes-agent node is online", () => {
+      const node = nodes.find((n) => n.name === "hermes-agent");
+      expect(node).toBeDefined();
+      expect(node!.status).toBe("online");
+      expect(node!.cpu).toBeGreaterThan(0);
     });
   });
 

@@ -12,6 +12,7 @@ interface ServiceConfig {
   port: number;
   cpuRange: [number, number];
   memRange: [number, number];
+  stopped?: boolean;
 }
 
 const serviceConfigs: ServiceConfig[] = [
@@ -84,8 +85,9 @@ const serviceConfigs: ServiceConfig[] = [
     namespace: "llm",
     node: "minipc-02",
     port: 8081,
-    cpuRange: [2, 4],
-    memRange: [400, 700],
+    cpuRange: [0, 0],
+    memRange: [0, 0],
+    stopped: true,
   },
   {
     name: "clickhouse",
@@ -164,8 +166,25 @@ const serviceConfigs: ServiceConfig[] = [
     namespace: "openclaw",
     node: "openclaw",
     port: 18789,
-    cpuRange: [2, 4],
-    memRange: [500, 800],
+    cpuRange: [0, 0],
+    memRange: [0, 0],
+    stopped: true,
+  },
+  {
+    name: "hermes-agent",
+    namespace: "agents",
+    node: "hermes-agent",
+    port: 8100,
+    cpuRange: [3, 6],
+    memRange: [600, 1000],
+  },
+  {
+    name: "hermes-redis-1",
+    namespace: "agents",
+    node: "hermes-agent",
+    port: 6381,
+    cpuRange: [0.5, 1.5],
+    memRange: [200, 400],
   },
 ];
 
@@ -175,10 +194,10 @@ const serviceConfigs: ServiceConfig[] = [
 export const services: Service[] = serviceConfigs.map((config) => ({
   name: config.name,
   namespace: config.namespace,
-  status: "running" as const,
+  status: config.stopped ? ("stopped" as const) : ("running" as const),
   node: config.node,
   port: config.port,
-  uptime: generateUptime(),
-  cpu: Number(random(config.cpuRange[0], config.cpuRange[1]).toFixed(1)),
-  memory: Math.floor(random(config.memRange[0], config.memRange[1])),
+  uptime: config.stopped ? "0d 0h 0m" : generateUptime(),
+  cpu: config.stopped ? 0 : Number(random(config.cpuRange[0], config.cpuRange[1]).toFixed(1)),
+  memory: config.stopped ? 0 : Math.floor(random(config.memRange[0], config.memRange[1])),
 }));

@@ -1,61 +1,66 @@
 import { Activity } from "lucide-react";
-import type { Service } from "@/lib/data/types";
+import { useServices } from "@/hooks/useDashboard";
 
-function ServicesTile({
-  allServices,
-  runningServices,
-  totalServices,
-  namespaceCount,
-}: {
-  allServices: Service[];
-  runningServices: number;
-  totalServices: number;
-  namespaceCount: number;
-}) {
+export function ServicesTile() {
+  const {
+    namespaces,
+    servicesByNamespace,
+    runningServices,
+    totalServices,
+  } = useServices();
+
   return (
-    <div className="rd-card p-[clamp(18px,2.2vw,26px)] col-span-12">
-      <div className="flex items-center justify-between mb-[14px]">
+    <div className="rd-card md:col-span-2 p-[clamp(14px,1.8vw,22px)]">
+      <div className="flex items-center justify-between mb-3">
         <span className="rd-eyebrow">
           <Activity size={13} />
-          Running services
+          Services
         </span>
         <span className="rd-chip font-[var(--font-mono)] text-[11px]">
-          {runningServices}/{totalServices}
+          {runningServices}/{totalServices} running
         </span>
       </div>
 
-      <div
-        className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-2"
-      >
-        {allServices.map((svc) => (
-          <div
-            key={`${svc.name}-${svc.node}`}
-            className="rd-card px-[15px] py-[13px]"
-          >
-            <div className="flex items-center gap-[7px] mb-2">
-              <span className="rd-dot rd-ok" />
-              <span className="font-[var(--font-mono)] font-semibold text-[13px] truncate">
-                {svc.name}
-              </span>
+      <div className="max-h-[340px] overflow-y-auto rd-rows">
+        {namespaces.map((ns) => (
+          <div key={ns}>
+            <div
+              className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.12em] text-[var(--rd-text-4)] px-1 pt-3 pb-1"
+            >
+              {ns}
             </div>
-            <div className="flex flex-wrap gap-[6px] mb-2">
-              <span className="rd-chip font-[var(--font-mono)] text-[10px]">{svc.namespace}</span>
-              <span className="rd-chip font-[var(--font-mono)] text-[10px]">:{svc.port}</span>
-            </div>
-            <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11px] mb-[6px]">
-              {svc.node}
-            </div>
-            <div className="flex justify-between text-[11.5px]">
-              <span className="font-[var(--font-mono)] text-[var(--rd-text-3)]">
-                CPU <span className="text-[var(--rd-text)] font-semibold">{svc.cpu}%</span>
-              </span>
-              <span className="font-[var(--font-mono)] text-[var(--rd-text-3)]">{svc.memory} MB</span>
-            </div>
+            {(servicesByNamespace[ns] ?? []).map((svc) => (
+              <div
+                key={`${svc.name}-${svc.port}-${svc.node}`}
+                className={`rd-row grid-cols-[auto_1fr_auto_auto_auto_auto] gap-3 text-sm ${
+                  svc.status !== "running" ? "opacity-40" : ""
+                }`}
+              >
+                <span
+                  className={`rd-dot ${
+                    svc.status === "running" ? "rd-ok" : "rd-down"
+                  }`}
+                />
+                <span className="font-[var(--font-mono)] text-[13px] truncate text-[var(--rd-text)]">
+                  {svc.name}
+                </span>
+                <span className="rd-chip font-[var(--font-mono)] text-[10px]">
+                  {svc.namespace}:{svc.port}
+                </span>
+                <span className="font-[var(--font-mono)] text-[11px] text-[var(--rd-text-3)]">
+                  {svc.node}
+                </span>
+                <span className="font-[var(--font-mono)] text-[11px] text-[var(--rd-text-3)]">
+                  {svc.cpu}%
+                </span>
+                <span className="font-[var(--font-mono)] text-[11px] text-[var(--rd-text-3)]">
+                  {svc.memory}MB
+                </span>
+              </div>
+            ))}
           </div>
         ))}
       </div>
     </div>
   );
 }
-
-export { ServicesTile };

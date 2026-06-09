@@ -146,6 +146,21 @@ export interface AirQualityReport {
   dominantPollutant: string;
 }
 
+export interface AgentAction {
+  id: string;
+  timestamp: string;
+  type:
+    | "health-check"
+    | "auto-restart"
+    | "log-collection"
+    | "version-upgrade"
+    | "security-fix"
+    | "config-update";
+  description: string;
+  target: string;
+  status: "success" | "running" | "failed";
+}
+
 export interface DysonAirPurifierData {
   model: string;
   modelCode: string;

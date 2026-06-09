@@ -51,8 +51,29 @@ describe("services", () => {
       });
     });
 
-    it("has at least 19 expected services", () => {
-      expect(services.length).toBeGreaterThanOrEqual(19);
+    it("has at least 21 expected services", () => {
+      expect(services.length).toBeGreaterThanOrEqual(21);
+    });
+
+    it("duyetbot service has stopped status", () => {
+      const svc = services.find((s) => s.name === "duyetbot");
+      expect(svc).toBeDefined();
+      expect(svc!.status).toBe("stopped");
+      expect(svc!.cpu).toBe(0);
+    });
+
+    it("openclaw service has stopped status", () => {
+      const svc = services.find((s) => s.name === "openclaw");
+      expect(svc).toBeDefined();
+      expect(svc!.status).toBe("stopped");
+      expect(svc!.cpu).toBe(0);
+    });
+
+    it("hermes-agent service exists and is running", () => {
+      const svc = services.find((s) => s.name === "hermes-agent");
+      expect(svc).toBeDefined();
+      expect(svc!.status).toBe("running");
+      expect(svc!.cpu).toBeGreaterThan(0);
     });
   });
 });

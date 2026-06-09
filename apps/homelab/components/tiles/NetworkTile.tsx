@@ -1,47 +1,66 @@
-import { ArrowDown, ArrowUp, Gauge, Network } from "lucide-react";
-import type { NetworkSpeedTest } from "@/lib/data/types";
+import { Network } from "lucide-react";
+import { Sparkline } from "@duyet/components";
+import { useNetworkStats } from "@/hooks/useDashboard";
 
-function NetworkTile({ speedTest }: { speedTest: NetworkSpeedTest }) {
+export function NetworkTile() {
+  const { speedTest, networkTraffic } = useNetworkStats();
+
+  const trafficInData = networkTraffic.map((d) => d.in);
+
   return (
-    <div className="rd-card p-[clamp(18px,2.2vw,26px)] col-span-12">
-      <div className="flex items-center justify-between mb-[14px]">
+    <div className="rd-card md:col-span-1 p-[clamp(14px,1.8vw,22px)]">
+      <div className="flex items-center justify-between mb-3">
         <span className="rd-eyebrow">
           <Network size={13} />
           Network
         </span>
-        <Gauge size={14} style={{ color: "var(--rd-text-3)" }} />
       </div>
-      <div className="flex flex-wrap gap-8">
-        <div>
-          <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11.5px] flex items-center gap-1 mb-[6px]">
-            <ArrowDown size={12} /> Down
-          </div>
-          <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none text-[1.65rem]">
-            {speedTest.download}
-            <span className="rd-unit">Mbps</span>
-          </div>
-        </div>
-        <div>
-          <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11.5px] flex items-center gap-1 mb-[6px]">
-            <ArrowUp size={12} /> Up
-          </div>
-          <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none text-[1.65rem]">
-            {speedTest.upload}
-            <span className="rd-unit">Mbps</span>
-          </div>
-        </div>
-        <div>
-          <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11.5px] flex items-center gap-1 mb-[6px]">
-            <Gauge size={12} /> Ping
-          </div>
-          <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none text-[1.65rem]">
-            {speedTest.ping}
-            <span className="rd-unit">ms</span>
-          </div>
-        </div>
+
+      {/* Download */}
+      <div className="flex items-center justify-between py-2 border-b border-[var(--rd-line)]">
+        <span className="text-[11px] text-[var(--rd-text-3)] font-medium">
+          Download
+        </span>
+        <span className="font-[var(--font-mono)] text-lg font-semibold tracking-[-0.02em] text-[var(--rd-text)]">
+          {speedTest.download}
+          <span className="rd-unit">Mbps</span>
+        </span>
+      </div>
+
+      {/* Upload */}
+      <div className="flex items-center justify-between py-2 border-b border-[var(--rd-line)]">
+        <span className="text-[11px] text-[var(--rd-text-3)] font-medium">
+          Upload
+        </span>
+        <span className="font-[var(--font-mono)] text-lg font-semibold tracking-[-0.02em] text-[var(--rd-text)]">
+          {speedTest.upload}
+          <span className="rd-unit">Mbps</span>
+        </span>
+      </div>
+
+      {/* Ping */}
+      <div className="flex items-center justify-between py-2 border-b border-[var(--rd-line)]">
+        <span className="text-[11px] text-[var(--rd-text-3)] font-medium">
+          Ping
+        </span>
+        <span className="font-[var(--font-mono)] text-lg font-semibold tracking-[-0.02em] text-[var(--rd-text)]">
+          {speedTest.ping}
+          <span className="rd-unit">ms</span>
+        </span>
+      </div>
+
+      {/* Traffic sparkline */}
+      <div className="mt-3">
+        <Sparkline
+          data={trafficInData}
+          h={28}
+          stroke="var(--rd-accent)"
+        />
+      </div>
+
+      <div className="text-[10px] text-[var(--rd-text-4)] font-[var(--font-mono)] mt-1.5">
+        {speedTest.timestamp}
       </div>
     </div>
   );
 }
-
-export { NetworkTile };

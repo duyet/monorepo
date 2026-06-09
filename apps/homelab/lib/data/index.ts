@@ -3,6 +3,8 @@
  * Central export point for all mock data modules
  */
 
+// Export agent action data
+export { agentActions } from "./agent-actions";
 // Export downtime data
 export { downtimeHistory } from "./downtime";
 // Export network data
@@ -19,6 +21,7 @@ export {
 } from "./smart-devices";
 // Export types
 export type {
+  AgentAction,
   AirQualityHistoryPoint,
   AirQualityLevel,
   AirQualityReport,

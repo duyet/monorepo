@@ -144,30 +144,44 @@ export const nodes: Node[] = [
     id: "node-6",
     name: "openclaw",
     ip: "192.168.1.140",
+    status: "offline",
+    type: "server",
+    cpu: 0,
+    memory: 0,
+    memoryUsed: 0,
+    memoryTotal: 16,
+    storage: 1024,
+    uptime: "0d 0h 0m",
+    services: 0,
+  },
+  {
+    id: "node-7",
+    name: "hermes-agent",
+    ip: "192.168.1.150",
     status: "online",
     type: "server",
     cpu: Number(
       random(
-        NODE_RESOURCE_RANGES.OPENCLAW.CPU.min,
-        NODE_RESOURCE_RANGES.OPENCLAW.CPU.max
+        NODE_RESOURCE_RANGES.HERMES_AGENT.CPU.min,
+        NODE_RESOURCE_RANGES.HERMES_AGENT.CPU.max
       ).toFixed(1)
     ),
     memory: Number(
       random(
-        NODE_RESOURCE_RANGES.OPENCLAW.MEMORY.min,
-        NODE_RESOURCE_RANGES.OPENCLAW.MEMORY.max
+        NODE_RESOURCE_RANGES.HERMES_AGENT.MEMORY.min,
+        NODE_RESOURCE_RANGES.HERMES_AGENT.MEMORY.max
       ).toFixed(1)
     ),
     memoryUsed: Number(
       random(
-        NODE_RESOURCE_RANGES.OPENCLAW.MEMORY_USED.min,
-        NODE_RESOURCE_RANGES.OPENCLAW.MEMORY_USED.max
+        NODE_RESOURCE_RANGES.HERMES_AGENT.MEMORY_USED.min,
+        NODE_RESOURCE_RANGES.HERMES_AGENT.MEMORY_USED.max
       ).toFixed(2)
     ),
     memoryTotal: 16,
     storage: 1024,
     uptime: generateUptime(),
-    services: 1,
+    services: 2,
   },
 ];
 
