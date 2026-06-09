@@ -9,25 +9,10 @@ import {
   HeadContent,
   Outlet,
   Scripts,
-  useRouterState,
 } from "@tanstack/react-router";
-import { z } from "zod";
 import ErrorPage from "@/app/error";
 import NotFoundPage from "@/app/not-found";
 import ThemeProvider from "@duyet/components/ThemeProvider";
-
-const rootSearchSchema = z.object({
-  tab: z.enum(["infrastructure", "k8s", "smart-devices"]).optional(),
-});
-
-export type RootSearch = z.infer<typeof rootSearchSchema>;
-
-const localNav = [
-  { label: "Overview", href: "/" },
-  { label: "Infrastructure", href: "/?tab=infrastructure" },
-  { label: "Kubernetes", href: "/?tab=k8s" },
-  { label: "Smart Devices", href: "/?tab=smart-devices" },
-];
 
 export const Route = createRootRoute({
   head: () => ({
@@ -42,7 +27,6 @@ export const Route = createRootRoute({
       { rel: "icon", href: "/favicon.svg", sizes: "any" },
     ],
   }),
-  validateSearch: (search) => rootSearchSchema.parse(search),
   errorComponent: ({ error, reset }) => (
     <ErrorPage error={error} reset={reset} />
   ),
@@ -51,9 +35,6 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
-  const { search } = useRouterState({ select: (s) => s.location });
-  const activeHref = search?.tab ? `/?tab=${search.tab}` : "/";
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -61,11 +42,7 @@ function RootComponent() {
       </head>
       <body>
         <ThemeProvider>
-          <SiteHeader
-            currentApp="homelab"
-            localNav={localNav}
-            activeHref={activeHref}
-          />
+          <SiteHeader currentApp="homelab" />
           <Outlet />
           <SiteFooter />
         </ThemeProvider>

@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useCallback, useRef, useState } from "react";
+import { Box, Server, Smartphone, Zap } from "lucide-react";
 import {
   NodesTile,
   ServicesTile,
@@ -18,9 +20,17 @@ import { ServicesStatus } from "@/components/dashboard/ServicesStatus";
 import { SmartDevicesOverview } from "@/components/smart-devices/SmartDevicesOverview";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { useNodes } from "@/hooks/useDashboard";
-import type { RootSearch } from "./__root";
 
 const snapshotDate = new Date().toLocaleString();
+
+const tabs = [
+  { id: "overview", label: "Overview", icon: Zap },
+  { id: "infrastructure", label: "Infrastructure", icon: Server },
+  { id: "k8s", label: "Kubernetes", icon: Box },
+  { id: "smart-devices", label: "Smart Devices", icon: Smartphone },
+] as const;
+
+type TabId = (typeof tabs)[number]["id"];
 
 export const Route = createFileRoute("/")({
   component: HomelabPage,
@@ -28,8 +38,33 @@ export const Route = createFileRoute("/")({
 
 function HomelabPage() {
   const { onlineCount, totalNodes } = useNodes();
-  const search = Route.useSearch() as RootSearch;
-  const tab = search?.tab;
+  const [activeTab, setActiveTab] = useState<TabId>("overview");
+  const tabRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      const currentIndex = tabs.findIndex((t) => t.id === activeTab);
+      let nextIndex: number | null = null;
+
+      if (e.key === "ArrowRight") {
+        nextIndex = (currentIndex + 1) % tabs.length;
+      } else if (e.key === "ArrowLeft") {
+        nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+      } else if (e.key === "Home") {
+        nextIndex = 0;
+      } else if (e.key === "End") {
+        nextIndex = tabs.length - 1;
+      }
+
+      if (nextIndex !== null) {
+        e.preventDefault();
+        const nextTab = tabs[nextIndex];
+        setActiveTab(nextTab.id);
+        tabRefs.current.get(nextTab.id)?.focus();
+      }
+    },
+    [activeTab]
+  );
 
   return (
     <div className="bg-[var(--rd-bg)] text-[var(--rd-text)]">
@@ -48,11 +83,65 @@ function HomelabPage() {
           </p>
         </div>
 
+        {/* Tab navigation */}
+        <div
+          className="flex flex-wrap gap-2 mb-6"
+          role="tablist"
+          onKeyDown={handleKeyDown}
+        >
+          {tabs.map((tab) => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                ref={(el) => { if (el) tabRefs.current.set(tab.id, el); }}
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setActiveTab(tab.id)}
+                className={`inline-flex items-center gap-2 rounded-[var(--rd-r-sm)] px-4 py-2 text-sm font-medium transition-colors ${
+                  isActive
+                    ? "bg-[var(--rd-text)] text-[var(--rd-bg)]"
+                    : "bg-[var(--rd-surface)] text-[var(--rd-text-2)] ring-1 ring-[var(--rd-border)] hover:bg-[var(--rd-surface-2)]"
+                }`}
+              >
+                <Icon className="h-4 w-4" />
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+
         {/* Tab content */}
-        {!tab && <OverviewTab />}
-        {tab === "infrastructure" && <InfrastructureTab />}
-        {tab === "k8s" && <K8sTab />}
-        {tab === "smart-devices" && <SmartDevicesTab />}
+        {activeTab === "overview" && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="md:col-span-2"><NodesTile /></div>
+            <div className="md:col-span-1"><ClusterStatsTile /></div>
+            <div className="md:col-span-2"><ServicesTile /></div>
+            <div className="md:col-span-1"><NetworkTile /></div>
+            <div className="md:col-span-1"><SmartDevicesTile /></div>
+            <div className="md:col-span-2"><AgentActionsTile /></div>
+          </div>
+        )}
+
+        {activeTab === "infrastructure" && (
+          <div className="space-y-8">
+            <ErrorBoundary><ClusterTopology /></ErrorBoundary>
+            <ErrorBoundary><ClusterOverview /></ErrorBoundary>
+            <ErrorBoundary><ResourceMetrics /></ErrorBoundary>
+            <ErrorBoundary><ServicesStatus /></ErrorBoundary>
+            <ErrorBoundary><NetworkStats /></ErrorBoundary>
+            <ErrorBoundary><ServiceDowntime /></ErrorBoundary>
+          </div>
+        )}
+
+        {activeTab === "k8s" && (
+          <ErrorBoundary><K8sInfo /></ErrorBoundary>
+        )}
+
+        {activeTab === "smart-devices" && (
+          <ErrorBoundary><SmartDevicesOverview /></ErrorBoundary>
+        )}
 
         {/* Footer note */}
         <div className="mt-8 pt-4 border-t border-[var(--rd-line)]">
@@ -64,47 +153,5 @@ function HomelabPage() {
         </div>
       </section>
     </div>
-  );
-}
-
-/** Overview — compact bento grid */
-function OverviewTab() {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-      <div className="md:col-span-2"><NodesTile /></div>
-      <div className="md:col-span-1"><ClusterStatsTile /></div>
-      <div className="md:col-span-2"><ServicesTile /></div>
-      <div className="md:col-span-1"><NetworkTile /></div>
-      <div className="md:col-span-1"><SmartDevicesTile /></div>
-      <div className="md:col-span-2"><AgentActionsTile /></div>
-    </div>
-  );
-}
-
-/** Infrastructure — detailed cluster metrics */
-function InfrastructureTab() {
-  return (
-    <div className="space-y-8">
-      <ErrorBoundary><ClusterTopology /></ErrorBoundary>
-      <ErrorBoundary><ClusterOverview /></ErrorBoundary>
-      <ErrorBoundary><ResourceMetrics /></ErrorBoundary>
-      <ErrorBoundary><ServicesStatus /></ErrorBoundary>
-      <ErrorBoundary><NetworkStats /></ErrorBoundary>
-      <ErrorBoundary><ServiceDowntime /></ErrorBoundary>
-    </div>
-  );
-}
-
-/** Kubernetes — pod and namespace details */
-function K8sTab() {
-  return (
-    <ErrorBoundary><K8sInfo /></ErrorBoundary>
-  );
-}
-
-/** Smart Devices — Dyson + Bosch detailed metrics */
-function SmartDevicesTab() {
-  return (
-    <ErrorBoundary><SmartDevicesOverview /></ErrorBoundary>
   );
 }
