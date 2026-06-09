@@ -12,6 +12,9 @@ import {
   cpuHistory,
   downtimeHistory,
   dysonAirPurifier,
+  k8sNamespaces,
+  k8sPods,
+  k8sSummary,
   memoryHistory,
   type Node,
   networkTraffic,
@@ -180,4 +183,11 @@ export function useSmartDevices(): {
  */
 export function useAgentActions() {
   return agentActions;
+}
+
+/**
+ * Hook for Kubernetes cluster data
+ */
+export function useK8s() {
+  return { namespaces: k8sNamespaces, pods: k8sPods, summary: k8sSummary };
 }

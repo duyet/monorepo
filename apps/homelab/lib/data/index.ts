@@ -7,6 +7,8 @@
 export { agentActions } from "./agent-actions";
 // Export downtime data
 export { downtimeHistory } from "./downtime";
+// Export k8s data
+export { k8sNamespaces, k8sPods, k8sSummary } from "./k8s";
 // Export network data
 export { networkTraffic, speedTest } from "./network";
 // Export node data
@@ -22,6 +24,8 @@ export {
 // Export types
 export type {
   AgentAction,
+  K8sNamespace,
+  K8sPod,
   AirQualityHistoryPoint,
   AirQualityLevel,
   AirQualityReport,

@@ -8,6 +8,16 @@ import {
   AgentActionsTile,
   StatusDot,
 } from "@/components/tiles";
+import { DashboardTabs } from "@/components/DashboardTabs";
+import { ClusterOverview } from "@/components/dashboard/ClusterOverview";
+import { ClusterTopology } from "@/components/dashboard/ClusterTopology";
+import { K8sInfo } from "@/components/dashboard/K8sInfo";
+import { NetworkStats } from "@/components/dashboard/NetworkStats";
+import { ResourceMetrics } from "@/components/dashboard/ResourceMetrics";
+import { ServiceDowntime } from "@/components/dashboard/ServiceDowntime";
+import { ServicesStatus } from "@/components/dashboard/ServicesStatus";
+import { SmartDevicesOverview } from "@/components/smart-devices/SmartDevicesOverview";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { useNodes } from "@/hooks/useDashboard";
 
 const snapshotDate = new Date().toLocaleString();
@@ -18,6 +28,35 @@ export const Route = createFileRoute("/")({
 
 function HomelabPage() {
   const { onlineCount, totalNodes } = useNodes();
+
+  const infrastructure = (
+    <div className="space-y-8">
+      <ErrorBoundary>
+        <ClusterTopology />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <ClusterOverview />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <ResourceMetrics />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <ServicesStatus />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <NetworkStats />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <ServiceDowntime />
+      </ErrorBoundary>
+    </div>
+  );
+
+  const smartDevices = (
+    <ErrorBoundary>
+      <SmartDevicesOverview />
+    </ErrorBoundary>
+  );
 
   return (
     <div className="bg-[var(--rd-bg)] text-[var(--rd-text)]">
@@ -56,6 +95,15 @@ function HomelabPage() {
           <div className="md:col-span-2">
             <AgentActionsTile />
           </div>
+        </div>
+
+        {/* ── Detailed tabs ─────────────────────────────────────── */}
+        <div className="mt-[clamp(40px,5vw,64px)]">
+          <DashboardTabs
+            infrastructure={infrastructure}
+            k8s={<K8sInfo />}
+            smartDevices={smartDevices}
+          />
         </div>
 
         {/* Footer note */}
