@@ -18,17 +18,17 @@ export function ClusterOverview() {
       <div className={BENTO_CELL}>
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs font-medium text-neutral-700 dark:text-muted-foreground">
+            <p className="text-xs font-medium text-[var(--rd-text-3)]">
               Total Nodes
             </p>
-            <p className="mt-2 text-2xl font-semibold text-neutral-950 dark:text-foreground">
+            <p className="mt-2 text-2xl font-semibold text-[var(--rd-text)]">
               {clusterStats.totalNodes}
             </p>
-            <p className="mt-1 text-xs text-emerald-700 dark:text-emerald-400">
+            <p className="mt-1 text-xs text-[var(--rd-ok)]">
               {clusterStats.onlineNodes} online
             </p>
           </div>
-          <Server className="h-9 w-9 text-[#b8b5ff] dark:text-[#b8b5ff]" />
+          <Server className="h-9 w-9 text-[var(--rd-accent)]" />
         </div>
       </div>
 
@@ -36,17 +36,17 @@ export function ClusterOverview() {
       <div className={BENTO_CELL}>
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs font-medium text-emerald-700 dark:text-emerald-300">
+            <p className="text-xs font-medium text-[var(--rd-ok)]">
               Services
             </p>
-            <p className="mt-2 text-2xl font-semibold text-neutral-950 dark:text-foreground">
+            <p className="mt-2 text-2xl font-semibold text-[var(--rd-text)]">
               {clusterStats.totalServices}
             </p>
-            <p className="mt-1 text-xs text-emerald-700 dark:text-emerald-400">
+            <p className="mt-1 text-xs text-[var(--rd-ok)]">
               {clusterStats.runningServices} running
             </p>
           </div>
-          <CheckCircle2 className="h-10 w-10 text-emerald-500 dark:text-emerald-400" />
+          <CheckCircle2 className="h-10 w-10 text-[var(--rd-ok)]" />
         </div>
       </div>
 
@@ -54,17 +54,17 @@ export function ClusterOverview() {
       <div className={BENTO_CELL}>
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs font-medium text-orange-700 dark:text-orange-300">
+            <p className="text-xs font-medium text-[var(--rd-accent)]">
               Avg CPU
             </p>
-            <p className="mt-2 text-2xl font-semibold text-neutral-950 dark:text-foreground">
+            <p className="mt-2 text-2xl font-semibold text-[var(--rd-text)]">
               {clusterStats.avgCpu.toFixed(1)}%
             </p>
-            <p className="mt-1 text-xs text-neutral-600 dark:text-muted-foreground">
+            <p className="mt-1 text-xs text-[var(--rd-text-3)]">
               Across all nodes
             </p>
           </div>
-          <Activity className="h-10 w-10 text-orange-500 dark:text-orange-400" />
+          <Activity className="h-10 w-10 text-[var(--rd-accent)]" />
         </div>
       </div>
 
@@ -72,20 +72,20 @@ export function ClusterOverview() {
       <div className={BENTO_CELL}>
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs font-medium text-amber-700 dark:text-amber-300">
+            <p className="text-xs font-medium text-[var(--rd-warn)]">
               Memory
             </p>
-            <p className="mt-2 text-2xl font-semibold text-neutral-950 dark:text-foreground">
+            <p className="mt-2 text-2xl font-semibold text-[var(--rd-text)]">
               {clusterStats.usedMemory.toFixed(0)}
-              <span className="text-base text-neutral-600 dark:text-muted-foreground">
+              <span className="text-base text-[var(--rd-text-3)]">
                 /{clusterStats.totalMemory}GB
               </span>
             </p>
-            <p className="mt-1 text-xs text-neutral-600 dark:text-muted-foreground">
+            <p className="mt-1 text-xs text-[var(--rd-text-3)]">
               {clusterStats.avgMemory.toFixed(1)}% used
             </p>
           </div>
-          <HardDrive className="h-10 w-10 text-amber-500 dark:text-amber-400" />
+          <HardDrive className="h-10 w-10 text-[var(--rd-warn)]" />
         </div>
       </div>
 
@@ -93,20 +93,20 @@ export function ClusterOverview() {
       <div className={BENTO_CELL}>
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs font-medium text-neutral-600 dark:text-muted-foreground">
+            <p className="text-xs font-medium text-[var(--rd-text-3)]">
               Storage
             </p>
-            <p className="mt-2 text-2xl font-semibold text-neutral-950 dark:text-foreground">
+            <p className="mt-2 text-2xl font-semibold text-[var(--rd-text)]">
               {(clusterStats.totalStorage / 1024).toFixed(1)}
-              <span className="text-base text-neutral-600 dark:text-muted-foreground">
+              <span className="text-base text-[var(--rd-text-3)]">
                 GiB
               </span>
             </p>
-            <p className="mt-1 text-xs text-neutral-600 dark:text-muted-foreground">
+            <p className="mt-1 text-xs text-[var(--rd-text-3)]">
               Total capacity
             </p>
           </div>
-          <Database className="h-10 w-10 text-neutral-500 dark:text-neutral-400" />
+          <Database className="h-10 w-10 text-[var(--rd-text-3)]" />
         </div>
       </div>
     </div>

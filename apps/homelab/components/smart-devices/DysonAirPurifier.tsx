@@ -58,10 +58,11 @@ const AQ_LABEL: Record<AirQualityLevel, string> = {
 };
 
 const TOOLTIP_STYLE = {
-  backgroundColor: "#FBF7F0",
-  border: "1px solid #E6D9C9",
+  backgroundColor: "var(--rd-surface)",
+  border: "1px solid var(--rd-border)",
   borderRadius: "8px",
   fontSize: "12px",
+  color: "var(--rd-text)",
 };
 
 function formatMetricValue(

@@ -12,16 +12,16 @@ interface ServiceCardProps {
 export function ServiceCard({ service }: ServiceCardProps) {
   const statusIcon =
     service.status === "running" ? (
-      <CheckCircle2 className="h-4 w-4 text-green-500" aria-label="Running" />
+      <CheckCircle2 className="h-4 w-4 text-[var(--rd-ok)]" aria-label="Running" />
     ) : service.status === "error" ? (
-      <XCircle className="h-4 w-4 text-red-500" aria-label="Error" />
+      <XCircle className="h-4 w-4 text-[var(--rd-down)]" aria-label="Error" />
     ) : (
-      <Activity className="h-4 w-4 text-yellow-500" aria-label="Stopped" />
+      <Activity className="h-4 w-4 text-[var(--rd-warn)]" aria-label="Stopped" />
     );
 
   return (
     <article
-      className="rounded-lg border border-[#e8e0d4] bg-white p-4 dark:border-white/12 dark:bg-[#1a1a1a]"
+      className="rd-card p-4"
       aria-label={`Service ${service.name}`}
     >
       <div className="flex items-start justify-between">
@@ -29,21 +29,21 @@ export function ServiceCard({ service }: ServiceCardProps) {
           {/* Service name and status */}
           <div className="mb-1 flex items-center gap-2">
             {statusIcon}
-            <h4 className="break-all font-mono text-sm font-semibold text-neutral-950 dark:text-foreground">
+            <h4 className="break-all font-[var(--font-mono)] text-sm font-semibold text-[var(--rd-text)]">
               {service.name}
             </h4>
           </div>
 
           {/* Namespace badge */}
           <div className="mb-2 flex items-center gap-2">
-            <span className="rounded-md bg-[#f1eee6] px-2 py-0.5 text-xs font-medium text-neutral-700 dark:bg-white/10 dark:text-muted-foreground">
+            <span className="rd-chip">
               {service.namespace}
             </span>
           </div>
 
           {/* Node and port info */}
-          <p className="text-xs text-neutral-600 dark:text-muted-foreground">
-            <span className="font-medium">{service.node}</span> • Port{" "}
+          <p className="text-xs text-[var(--rd-text-3)]">
+            <span className="font-medium">{service.node}</span> · Port{" "}
             {service.port}
           </p>
         </div>
@@ -55,9 +55,9 @@ export function ServiceCard({ service }: ServiceCardProps) {
           className="flex items-center justify-between text-xs"
           role="listitem"
         >
-          <span className="text-neutral-600 dark:text-muted-foreground">CPU</span>
+          <span className="text-[var(--rd-text-3)]">CPU</span>
           <span
-            className="font-medium text-neutral-950 dark:text-foreground"
+            className="font-medium text-[var(--rd-text)]"
             aria-label={`CPU usage: ${service.cpu} percent`}
           >
             {service.cpu}%
@@ -68,9 +68,9 @@ export function ServiceCard({ service }: ServiceCardProps) {
           className="flex items-center justify-between text-xs"
           role="listitem"
         >
-          <span className="text-neutral-600 dark:text-muted-foreground">Memory</span>
+          <span className="text-[var(--rd-text-3)]">Memory</span>
           <span
-            className="font-medium text-neutral-950 dark:text-foreground"
+            className="font-medium text-[var(--rd-text)]"
             aria-label={`Memory usage: ${service.memory} megabytes`}
           >
             {service.memory}MB
@@ -78,7 +78,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
         </div>
 
         <div
-          className="flex items-center gap-1 text-xs text-neutral-600 dark:text-muted-foreground"
+          className="flex items-center gap-1 text-xs text-[var(--rd-text-3)]"
           role="listitem"
         >
           <Activity className="h-3 w-3" aria-hidden="true" />

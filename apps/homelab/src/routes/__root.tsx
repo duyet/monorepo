@@ -1,6 +1,6 @@
+import "@duyet/components/styles.css";
 import "@/app/globals.css";
 
-import Container from "@duyet/components/Container";
 import { SiteHeader } from "@duyet/components/SiteHeader";
 import { SiteFooter } from "@duyet/components/SiteFooter";
 import { homelabConfig } from "@duyet/config";
@@ -13,7 +13,6 @@ import {
 import { z } from "zod";
 import ErrorPage from "@/app/error";
 import NotFoundPage from "@/app/not-found";
-import Analytics from "@duyet/components/Analytics";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 
 const rootSearchSchema = z.object({
@@ -33,12 +32,6 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "icon", href: "/favicon.svg", sizes: "any" },
-      { rel: "dns-prefetch", href: "https://fonts.googleapis.com" },
-      { rel: "dns-prefetch", href: "https://fonts.gstatic.com" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap",
-      },
     ],
   }),
   validateSearch: (search) => rootSearchSchema.parse(search),
@@ -57,16 +50,9 @@ function RootComponent() {
       </head>
       <body>
         <ThemeProvider>
-          <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
-            <SiteHeader currentApp="homelab" />
-            <main className="relative z-10 bg-white pb-16 dark:bg-[#0d0e0c]">
-              <Container className="mb-20 max-w-[1280px] px-5 pb-16 pt-8 sm:px-8 lg:px-10">
-                <Outlet />
-              </Container>
-            </main>
-            <SiteFooter />
-          </div>
-          <Analytics />
+          <SiteHeader currentApp="homelab" />
+          <Outlet />
+          <SiteFooter />
         </ThemeProvider>
         <Scripts />
       </body>

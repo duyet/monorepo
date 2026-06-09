@@ -35,14 +35,14 @@ export function ServicesStatus() {
 
   return (
     <div>
-      <h2 className="mb-4 text-base font-semibold tracking-tight text-neutral-950 dark:text-foreground">
+      <h2 className="mb-4 text-base font-semibold tracking-tight text-[var(--rd-text)]">
         Running Services
       </h2>
       {/* Search bar */}
       <div className="mb-4">
         <div className="relative">
           <Search
-            className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400"
+            className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--rd-text-3)]"
             aria-hidden="true"
           />
           <input
@@ -50,7 +50,7 @@ export function ServicesStatus() {
             placeholder="Search services by name, namespace, or node..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-lg border border-[#e8e0d4] bg-white py-2 pl-10 pr-4 text-sm text-neutral-950 placeholder:text-neutral-500 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-white/12 dark:bg-[#1a1a1a] dark:text-foreground dark:placeholder:text-muted-foreground"
+            className="w-full rounded-lg border border-[var(--rd-border)] bg-[var(--rd-surface)] py-2 pl-10 pr-4 text-sm text-[var(--rd-text)] placeholder:text-[var(--rd-text-3)] focus:border-[var(--rd-accent)] focus:outline-none focus:ring-2 focus:ring-[var(--rd-ring)]"
             aria-label="Search services"
           />
         </div>
@@ -69,8 +69,8 @@ export function ServicesStatus() {
           aria-controls="services-list"
           className={`rounded-lg px-3 py-1 text-xs font-medium transition-colors ${
             selectedNamespace === null
-              ? "bg-neutral-950 text-white dark:bg-neutral-950 dark:text-white"
-              : "bg-white text-neutral-700 ring-1 ring-[#e8e0d4] hover:bg-[#fffdf7] dark:bg-[#1a1a1a] dark:text-muted-foreground dark:ring-white/12 dark:hover:bg-[#242420]"
+              ? "bg-[var(--rd-text)] text-[var(--rd-bg)]"
+              : "bg-[var(--rd-surface)] text-[var(--rd-text-2)] ring-1 ring-[var(--rd-border)] hover:bg-[var(--rd-surface-2)]"
           }`}
         >
           All ({allServices.length})
@@ -84,8 +84,8 @@ export function ServicesStatus() {
             aria-controls="services-list"
             className={`rounded-lg px-3 py-1 text-xs font-medium transition-colors ${
               selectedNamespace === namespace
-                ? "bg-neutral-950 text-white dark:bg-neutral-950 dark:text-white"
-                : "bg-white text-neutral-700 ring-1 ring-[#e8e0d4] hover:bg-[#fffdf7] dark:bg-[#1a1a1a] dark:text-muted-foreground dark:ring-white/12 dark:hover:bg-[#242420]"
+                ? "bg-[var(--rd-text)] text-[var(--rd-bg)]"
+                : "bg-[var(--rd-surface)] text-[var(--rd-text-2)] ring-1 ring-[var(--rd-border)] hover:bg-[var(--rd-surface-2)]"
             }`}
           >
             {namespace} ({servicesByNamespace[namespace]?.length || 0})
@@ -110,7 +110,7 @@ export function ServicesStatus() {
           ))
         ) : (
           <div className="col-span-full py-12 text-center">
-            <p className="text-sm text-neutral-500 dark:text-muted-foreground">
+            <p className="text-sm text-[var(--rd-text-3)]">
               No services found matching &quot;{searchQuery}&quot;
             </p>
           </div>
@@ -120,7 +120,7 @@ export function ServicesStatus() {
       {/* Results summary */}
       {searchQuery && filteredServices.length > 0 && (
         <p
-          className="mt-4 text-xs text-neutral-500 dark:text-muted-foreground"
+          className="mt-4 text-xs text-[var(--rd-text-3)]"
           role="status"
         >
           Showing {filteredServices.length} of {allServices.length} services

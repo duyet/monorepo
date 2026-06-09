@@ -29,7 +29,7 @@ export function SmartDevicesOverview() {
       <DysonAirPurifier />
 
       {/* Separator */}
-      <div className="border-t border-[#e8e0d4] dark:border-white/12" />
+      <div className="border-t border-[var(--rd-border)]" />
 
       {/* Bosch Washing Machine */}
       <BoschWashingMachine />

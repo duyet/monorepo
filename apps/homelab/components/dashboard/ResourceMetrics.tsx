@@ -40,10 +40,10 @@ export function ResourceMetrics() {
               />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: "var(--card)",
-                  border: "1px solid var(--border)",
+                  backgroundColor: "var(--rd-surface)",
+                  border: "1px solid var(--rd-border)",
                   borderRadius: "8px",
-                  color: "var(--card-foreground)",
+                  color: "var(--rd-text)",
                   fontSize: "12px",
                 }}
               />
@@ -73,19 +73,19 @@ export function ResourceMetrics() {
           <div className="mt-4 flex justify-center gap-6 text-sm">
             <div className="flex items-center gap-2">
               <div className="h-3 w-3 rounded-full bg-claude-lavender" />
-              <span className="text-neutral-600 dark:text-neutral-400">
+              <span className="text-[var(--rd-text-3)]">
                 minipc-01
               </span>
             </div>
             <div className="flex items-center gap-2">
               <div className="h-3 w-3 rounded-full bg-claude-mint" />
-              <span className="text-neutral-600 dark:text-neutral-400">
+              <span className="text-[var(--rd-text-3)]">
                 minipc-02
               </span>
             </div>
             <div className="flex items-center gap-2">
               <div className="h-3 w-3 rounded-full bg-claude-yellow" />
-              <span className="text-neutral-600 dark:text-neutral-400">
+              <span className="text-[var(--rd-text-3)]">
                 minipc-03
               </span>
             </div>
@@ -116,10 +116,10 @@ export function ResourceMetrics() {
               />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: "var(--card)",
-                  border: "1px solid var(--border)",
+                  backgroundColor: "var(--rd-surface)",
+                  border: "1px solid var(--rd-border)",
                   borderRadius: "8px",
-                  color: "var(--card-foreground)",
+                  color: "var(--rd-text)",
                   fontSize: "12px",
                 }}
               />
@@ -149,19 +149,19 @@ export function ResourceMetrics() {
           <div className="mt-4 flex justify-center gap-6 text-sm">
             <div className="flex items-center gap-2">
               <div className="h-3 w-3 rounded-full bg-claude-lavender" />
-              <span className="text-neutral-600 dark:text-neutral-400">
+              <span className="text-[var(--rd-text-3)]">
                 minipc-01
               </span>
             </div>
             <div className="flex items-center gap-2">
               <div className="h-3 w-3 rounded-full bg-claude-mint" />
-              <span className="text-neutral-600 dark:text-neutral-400">
+              <span className="text-[var(--rd-text-3)]">
                 minipc-02
               </span>
             </div>
             <div className="flex items-center gap-2">
               <div className="h-3 w-3 rounded-full bg-claude-yellow" />
-              <span className="text-neutral-600 dark:text-neutral-400">
+              <span className="text-[var(--rd-text-3)]">
                 minipc-03
               </span>
             </div>

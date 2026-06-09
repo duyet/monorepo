@@ -25,66 +25,66 @@ export function NetworkStats() {
     <div className="space-y-6">
       {/* Speedtest Results */}
       <div>
-        <h2 className="mb-4 text-base font-semibold tracking-tight text-neutral-950 dark:text-foreground">
+        <h2 className="mb-4 text-base font-semibold tracking-tight text-[var(--rd-text)]">
           Internet Speed Test
         </h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          {/* Download — emerald */}
-          <div className="rounded-xl border border-[#d9ead0] bg-[#eef8e8] p-4 dark:border-emerald-900/40 dark:bg-emerald-950/30">
+          {/* Download */}
+          <div className="rd-card p-4">
             <div className="flex items-center gap-2">
-              <ArrowDown className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-              <p className="text-xs font-medium text-emerald-700 dark:text-emerald-300">
+              <ArrowDown className="h-4 w-4 text-[var(--rd-ok)]" />
+              <p className="text-xs font-medium text-[var(--rd-ok)]">
                 Download
               </p>
             </div>
-            <p className="mt-2 text-2xl font-semibold text-neutral-950 dark:text-foreground">
+            <p className="mt-2 text-2xl font-semibold text-[var(--rd-text)]">
               {speedTest.download}
             </p>
-            <p className="mt-1 text-sm text-neutral-600 dark:text-muted-foreground">
+            <p className="mt-1 text-sm text-[var(--rd-text-3)]">
               Mbps
             </p>
           </div>
 
-          {/* Upload — red */}
-          <div className="rounded-xl border border-[#f0d8c5] bg-[#fff1e4] p-4 dark:border-red-900/40 dark:bg-red-950/30">
+          {/* Upload */}
+          <div className="rd-card p-4">
             <div className="flex items-center gap-2">
-              <ArrowUp className="h-4 w-4 text-red-600 dark:text-red-400" />
-              <p className="text-xs font-medium text-red-700 dark:text-red-300">
+              <ArrowUp className="h-4 w-4 text-[var(--rd-accent)]" />
+              <p className="text-xs font-medium text-[var(--rd-accent)]">
                 Upload
               </p>
             </div>
-            <p className="mt-2 text-2xl font-semibold text-neutral-950 dark:text-foreground">
+            <p className="mt-2 text-2xl font-semibold text-[var(--rd-text)]">
               {speedTest.upload}
             </p>
-            <p className="mt-1 text-sm text-neutral-600 dark:text-muted-foreground">
+            <p className="mt-1 text-sm text-[var(--rd-text-3)]">
               Mbps
             </p>
           </div>
 
-          {/* Ping — violet */}
-          <div className="rounded-xl border border-[#dddafe] bg-[#f3f2ff] p-4 dark:border-violet-900/40 dark:bg-violet-950/30">
+          {/* Ping */}
+          <div className="rd-card p-4">
             <div className="flex items-center gap-2">
-              <Gauge className="h-4 w-4 text-violet-600 dark:text-violet-400" />
-              <p className="text-xs font-medium text-violet-700 dark:text-violet-300">
+              <Gauge className="h-4 w-4 text-[var(--rd-text-3)]" />
+              <p className="text-xs font-medium text-[var(--rd-text-3)]">
                 Ping
               </p>
             </div>
-            <p className="mt-2 text-2xl font-semibold text-neutral-950 dark:text-foreground">
+            <p className="mt-2 text-2xl font-semibold text-[var(--rd-text)]">
               {speedTest.ping}
             </p>
-            <p className="mt-1 text-sm text-neutral-600 dark:text-muted-foreground">
+            <p className="mt-1 text-sm text-[var(--rd-text-3)]">
               ms
             </p>
           </div>
         </div>
-        <p className="mt-4 text-xs text-neutral-600 dark:text-muted-foreground">
+        <p className="mt-4 text-xs text-[var(--rd-text-3)]">
           Last test: {speedTest.timestamp} (via speedtest-cli)
         </p>
       </div>
 
       {/* Network Traffic Chart */}
       <div>
-        <h2 className="mb-4 text-base font-semibold tracking-tight text-neutral-950 dark:text-foreground">
+        <h2 className="mb-4 text-base font-semibold tracking-tight text-[var(--rd-text)]">
           Network Traffic - Last 24 Hours
         </h2>
         <ResponsiveContainer width="100%" height={240}>
@@ -117,10 +117,10 @@ export function NetworkStats() {
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: "var(--card)",
-                border: "1px solid var(--border)",
+                backgroundColor: "var(--rd-surface)",
+                border: "1px solid var(--rd-border)",
                 borderRadius: "8px",
-                color: "var(--card-foreground)",
+                color: "var(--rd-text)",
                 fontSize: "12px",
               }}
               formatter={(value) => formatTrafficValue(value)}
@@ -147,13 +147,13 @@ export function NetworkStats() {
         <div className="mt-3 flex justify-center gap-6 text-xs">
           <div className="flex items-center gap-2">
             <div className="h-2 w-2 rounded-full bg-claude-sky" />
-            <span className="text-neutral-600 dark:text-muted-foreground">
+            <span className="text-[var(--rd-text-3)]">
               Incoming
             </span>
           </div>
           <div className="flex items-center gap-2">
             <div className="h-2 w-2 rounded-full bg-claude-coral" />
-            <span className="text-neutral-600 dark:text-muted-foreground">
+            <span className="text-[var(--rd-text-3)]">
               Outgoing
             </span>
           </div>
