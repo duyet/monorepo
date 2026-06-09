@@ -1,5 +1,14 @@
-import { Smartphone } from "lucide-react";
 import { useSmartDevices } from "@/hooks/useDashboard";
+
+const TYPE_ICONS: Record<string, string> = {
+  "washing-machine": "🫧",
+  dryer: "🌀",
+  "air-purifier": "💨",
+  light: "💡",
+  camera: "📷",
+  hub: "📡",
+  other: "🔌",
+};
 
 export function SmartDevicesTile() {
   const { devices, boschWashingMachine, dysonAirPurifier } = useSmartDevices();
@@ -8,58 +17,81 @@ export function SmartDevicesTile() {
     (d) => d.status === "online" || d.status === "idle",
   ).length;
 
+  // Group devices by type for compact summary
+  const byType = devices.reduce(
+    (acc, d) => {
+      if (!acc[d.type]) acc[d.type] = { total: 0, online: 0 };
+      acc[d.type].total++;
+      if (d.status === "online" || d.status === "idle") acc[d.type].online++;
+      return acc;
+    },
+    {} as Record<string, { total: number; online: number }>,
+  );
+
   return (
     <div className="rd-card md:col-span-1 p-[clamp(14px,1.8vw,22px)]">
       <div className="flex items-center justify-between mb-3">
         <span className="rd-eyebrow">
-          <Smartphone size={13} />
-          Smart devices
+          💡 Smart devices
         </span>
         <span className="rd-chip font-[var(--font-mono)] text-[11px]">
-          {onlineCount}/{devices.length} online
+          {onlineCount}/{devices.length}
         </span>
       </div>
 
-      <div className="rd-rows">
-        {/* Dyson Air Purifier */}
-        <div className="rd-row grid-cols-[auto_1fr] gap-3">
-          <span
-            className={`rd-dot ${
-              dysonAirPurifier.status === "online" ? "rd-ok" : "rd-down"
-            }`}
-          />
-          <div className="min-w-0">
-            <div className="font-[var(--font-mono)] text-[13px] font-medium text-[var(--rd-text)] truncate">
-              Dyson TP09
-            </div>
-            <div className="font-[var(--font-mono)] text-[11px] text-[var(--rd-text-3)] mt-0.5">
-              {dysonAirPurifier.airQuality} ·{" "}
-              {dysonAirPurifier.currentTemperature}°C ·{" "}
-              {dysonAirPurifier.currentHumidity}%
-            </div>
-          </div>
+      <div className="space-y-2">
+        {/* Dyson — key metrics */}
+        <div className="flex items-center gap-2 py-1">
+          <span className="rd-dot rd-ok rd-pulse" />
+          <span className="font-[var(--font-mono)] text-[12px] font-medium text-[var(--rd-text)]">
+            Dyson TP09
+          </span>
+          <span className="font-[var(--font-mono)] text-[11px] text-[var(--rd-text-3)] ml-auto">
+            {dysonAirPurifier.airQuality} · {dysonAirPurifier.currentTemperature}° · {dysonAirPurifier.currentHumidity}%
+          </span>
         </div>
 
-        {/* Bosch Washer */}
-        <div className="rd-row grid-cols-[auto_1fr] gap-3">
-          <span
-            className={`rd-dot ${
-              boschWashingMachine.status === "online"
-                ? "rd-ok"
-                : boschWashingMachine.status === "idle"
-                  ? "rd-idle"
-                  : "rd-down"
-            }`}
-          />
-          <div className="min-w-0">
-            <div className="font-[var(--font-mono)] text-[13px] font-medium text-[var(--rd-text)] truncate">
-              Bosch Series 6
-            </div>
-            <div className="font-[var(--font-mono)] text-[11px] text-[var(--rd-text-3)] mt-0.5">
-              {boschWashingMachine.status} ·{" "}
-              {boschWashingMachine.lifetimeCycles} cycles
-            </div>
-          </div>
+        {/* Bosch — key metrics */}
+        <div className="flex items-center gap-2 py-1">
+          <span className="rd-dot rd-idle" />
+          <span className="font-[var(--font-mono)] text-[12px] font-medium text-[var(--rd-text)]">
+            Bosch Washer
+          </span>
+          <span className="font-[var(--font-mono)] text-[11px] text-[var(--rd-text-3)] ml-auto">
+            {boschWashingMachine.status} · {boschWashingMachine.lifetimeCycles} cyc
+          </span>
+        </div>
+
+        {/* LG Washer + Dryer */}
+        <div className="flex items-center gap-2 py-1">
+          <span className="rd-dot rd-idle" />
+          <span className="font-[var(--font-mono)] text-[12px] font-medium text-[var(--rd-text)]">
+            LG WashTower
+          </span>
+          <span className="font-[var(--font-mono)] text-[11px] text-[var(--rd-text-3)] ml-auto">
+            washer + dryer
+          </span>
+        </div>
+
+        {/* DQSmart Hub */}
+        <div className="flex items-center gap-2 py-1">
+          <span className="rd-dot rd-ok" />
+          <span className="font-[var(--font-mono)] text-[12px] font-medium text-[var(--rd-text)]">
+            DQSmart Hub
+          </span>
+          <span className="font-[var(--font-mono)] text-[11px] text-[var(--rd-text-3)] ml-auto">
+            18 devices
+          </span>
+        </div>
+
+        {/* Type summary row */}
+        <div className="flex flex-wrap gap-1.5 pt-2 border-t border-[var(--rd-line)]">
+          {Object.entries(byType).map(([type, counts]) => (
+            <span key={type} className="rd-chip text-[10px] gap-1">
+              {TYPE_ICONS[type] ?? "🔌"}
+              {counts.online}/{counts.total}
+            </span>
+          ))}
         </div>
       </div>
     </div>

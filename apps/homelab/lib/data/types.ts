@@ -97,9 +97,12 @@ export interface SmartDevice {
   id: string;
   name: string;
   brand: string;
-  type: "washing-machine" | "vacuum" | "air-purifier" | "thermostat" | "other";
+  type: "washing-machine" | "dryer" | "air-purifier" | "light" | "camera" | "hub" | "other";
   status: "online" | "offline" | "idle";
   icon: string;
+  location?: string;
+  model?: string;
+  detail?: string;
 }
 
 /**
