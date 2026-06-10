@@ -52,8 +52,6 @@ The interesting part was the optimization loop. After the initial migration, it 
 <img src="/media/2026/06/migrate-tanstack/token-usage-breakdown.png" alt="Token usage across models" />
 </div>
 
-<img src="/media/2026/06/migrate-tanstack/workflow-progress.png" alt="Workflow progress" />
-
 It consumed ~1.2M tokens across all models. When the Claude Code Max window ran out, I continued on GLM 5.1 through Z.AI:
 
 ```bash

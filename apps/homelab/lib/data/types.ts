@@ -63,6 +63,18 @@ export interface ClusterStats {
   totalStorage: number;
 }
 
+export interface ClusterInfo {
+  platform: "k3s";
+  version: string;
+  clusterName: string;
+  region: string;
+  nodeRoles: Record<string, "control-plane" | "worker">;
+  cni: string;
+  csi: string;
+  ingress: string;
+  lastUpdated: string;
+}
+
 /**
  * Smart device types
  */

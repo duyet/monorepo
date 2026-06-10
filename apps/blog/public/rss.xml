@@ -4,8 +4,15 @@
         <description><![CDATA[Sr. Data Engineer. Rustacean at night]]></description>
         <link>https://blog.duyet.net</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 03 Jun 2026 16:18:32 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 08 Jun 2026 16:24:39 GMT</lastBuildDate>
         <atom:link href="https://blog.duyet.net/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Autonomous Claude Code Migrate Nextjs to Tanstack Start]]></title>
+            <description><![CDATA[The second ultrawork run: I asked Claude Code to migrate chmonitor.dev from Next.js to TanStack Start and went to sleep. It planned the work, spawned parallel agents, and kept going for days.]]></description>
+            <link>https://blog.duyet.net/2026/06/migrate-tanstack</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/06/migrate-tanstack</guid>
+            <pubDate>Wed, 03 Jun 2026 00:00:00 GMT</pubDate>
+        </item>
         <item>
             <title><![CDATA[Letting Claude Code work overnight, 2026]]></title>
             <description><![CDATA[A quick snapshot of where coding agents are in 2026: you can hand one a real, multi-part task, walk away, and come back to merged PRs, a live deploy, and a few issues it worked around on its own.]]></description>
@@ -348,13 +355,6 @@
             <link>https://blog.duyet.net/2022/01/rust-cheatsheet</link>
             <guid isPermaLink="true">https://blog.duyet.net/2022/01/rust-cheatsheet</guid>
             <pubDate>Sat, 01 Jan 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Rust Design Pattern: Strategy Pattern]]></title>
-            <description><![CDATA[Strategy design pattern là một technique nhằm mục đích phân tách nhiều vấn đề, tách software modules thông qua Dependency Inversion.]]></description>
-            <link>https://blog.duyet.net/2021/12/rust-strategy-design-pattern</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2021/12/rust-strategy-design-pattern</guid>
-            <pubDate>Sun, 19 Dec 2021 00:00:00 GMT</pubDate>
         </item>
     </channel>
 </rss>

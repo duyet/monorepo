@@ -1,7 +1,112 @@
 # Duyet Le - Technical Blog (Full Content)
 
-> This file contains the full markdown content of all 300 blog posts.
+> This file contains the full markdown content of all 301 blog posts.
 > For a summary index, see https://blog.duyet.net/llms.txt
+
+---
+
+# Autonomous Claude Code Migrate Nextjs to Tanstack Start
+
+- **URL**: https://blog.duyet.net/2026/06/migrate-tanstack
+- **Date**: 2026-06-03
+- **Category**: AI
+- **Tags**: Ai, Agents, Claude Code
+
+
+The second `ultrawork` run, right after the [overnight refactor](/2026/06/coding-agent-2026). I am trying to see how possible to make it fully autonomous — without checking a single line of code. The task: migrate chmonitor.dev from Next.js to TanStack Start.
+
+```
+Plan to migrate to TanStack: research to see is it good or bad?
+Write a detailed plan and create issues for another agent to pick up.
+
+The plan should ask agents to use the Claude Code Dynamic Workflows
+to spawn parallel and multiple steps, including self-development,
+self-PR, self-babysit PR, self-merge, and self-deploy.
+
+I am going to sleep now, you have 30m to ask me anything.
+```
+
+This time the approach was different. Instead of doing everything itself, it created an epic with 13 sub-issues and a dependency DAG, then spawned workflows for more agents to pick them up in parallel: [Epic #1392](https://github.com/duyet/clickhouse-monitoring/issues/1392)
+
+![Claude Code's plan and honest assessment of the migration](/media/2026/06/coding-agent/coding-agent-chm-migrate-tanstack-1.png)
+
+It also gave an honest assessment: this is a bad trade right now. Not because it's infeasible — it mapped it to ~2–4 weeks of mechanical work — but the return on a live production system is questionable. I told it I don't care about 2 weeks or 2 months.
+
+<div class="img-row">
+<img src="/media/2026/06/migrate-tanstack/agent-substrate-spike-workflow.png" alt="Agent kicking off the substrate spike" />
+<img src="/media/2026/06/migrate-tanstack/github-epic-issue-checklist.png" alt="GitHub epic with live issue checklist" />
+</div>
+
+Over the next couple of days, Codex, Coderabbit and Claude Code kept working together. Claude was driving — commenting on PRs, updating the epic, even [debating its reasoning with other agents](https://github.com/duyet/clickhouse-monitoring/pull/1444#issuecomment-4619786220).
+
+The [$100 Claude Code Max](https://docs.anthropic.com/en/docs/claude-code/max) window limit kept hitting, but the epic issue held everything together as a source of truth. Each time it recovered, it picked up where it left off.
+
+It was not fully autonomous — it woke me up a few times for Cloudflare API permissions and the production cutover. Claude also pushed back on migrating a live system without a proper notice period, which is a fair point.
+
+## Dynamic workflows
+
+The interesting part was the optimization loop. After the initial migration, it ran 11 cycles of: measure → optimize → PR → babysit → recompute → repeat. Model-tiered: Opus for reasoning, Sonnet for implementation, Haiku for trivial work. ~1.3M tokens per workflow.
+
+<div class="img-row">
+<img src="/media/2026/06/migrate-tanstack/workflow-optimization-cycle.png" alt="Dynamic workflow running" />
+<img src="/media/2026/06/migrate-tanstack/token-usage-breakdown.png" alt="Token usage across models" />
+</div>
+
+<img src="/media/2026/06/migrate-tanstack/workflow-progress.png" alt="Workflow progress" />
+
+It consumed ~1.2M tokens across all models. When the Claude Code Max window ran out, I continued on GLM 5.1 through Z.AI:
+
+```bash
+$ z_claude
+⚡ Running Claude Code with Z.AI config...
+Model Haiku: glm-4.7 | Model Sonnet: glm-5.1 | Model Opus: glm-5.1
+```
+
+<div class="img-row">
+<img src="/media/2026/06/migrate-tanstack/glm-51-continue-session.png" alt="Continuing with GLM 5.1" />
+<img src="/media/2026/06/migrate-tanstack/final-results.png" alt="GLM 5.1 optimization" />
+</div>
+
+## Where it landed
+
+The migration is technically complete. 82/82 pages, 32/32 API routes, agent chat + MCP live.
+
+![Next.js vs TanStack Start comparison](/media/2026/06/migrate-tanstack/nextjs-vs-tanstack-results.png)
+
+| | Next.js | TanStack Start | Δ |
+|---|---|---|---|
+| Build time | 116s | ~10-14s | **−88%** |
+| Build peak memory | 2,724 MB | 1,925 MB | **−29%** |
+| Intermediate artifacts | 1.5 GB (.next) | 27 MB (dist) | **−98%** |
+| Deploy output | 122 MB (.open-next) | 27 MB (.output) | **−78%** |
+| Worker bundle (gzip) | 2,708 KiB | ~1,800 KiB | **−33.5%** |
+| Dependencies | 142 | 85 | **−40%** |
+| Source LOC (excl. tests) | 145,475 | 133,705 | **−8.1%** |
+| Chart components | 142 | 101 | **−29%** |
+| Line coverage | 81.9% | 88.07% | **+6.2 pts** |
+| TBT /overview | 4,012ms | 941ms | **−77%** |
+| LCP /overview | 18,951ms | 14,321ms | **−24%** |
+
+The honest framing is that the direct product value is ~zero — the dashboard was and remains a client-fetched SPA, so no SSR was gained. The payoff is entirely build and infra.
+
+### Claude Code usage
+
+
+| | |
+|---|---|
+| Total cost | **$728.52** |
+| API duration | ~20h |
+| Wall duration | ~37h |
+| Code changes | +31,243 / −6,466 lines |
+| Cost per added line | ~$0.023 |
+
+Opus did 90.7% of the work (~$661) — the migration was reasoning-heavy. Cache reads were >100M tokens; prompt caching is what kept the bill from being multiples higher.
+
+### My take
+
+- Using github issues or a TODO.md file is good for keeping track and working across coding agents with different models.
+- You might not need dynamic workflows - they burns a lot of tokens. Keeping it simple and consistent with a smaller number of sub-agents is the best approach. Slower, but the same quality.
+
 
 ---
 
@@ -22,7 +127,8 @@ Late at night, just before bed, I handed Claude Code a task in `ultrawork` mode:
 ```
 Create a workflow:
 
-- Refactor chmonitor.dev into a monorepo and add a landing page from the design: https://api.anthropic.com/v1/design/h/xxxxxx?open_file=chmonitor+Landing.html
+- Refactor chmonitor.dev into a monorepo and add a landing page 
+  from the design: https://api.anthropic.com/v1/design/h/xxxxxx?open_file=chmonitor+Landing.html
 - Move the current main app from https://chmonitor.dev to https://dash.chmonitor.dev.
   - Rename apps/web to apps/dashboard.
   - Support cloud.chmonitor.dev but redirect to dash.chmonitor.dev.
@@ -68,61 +174,7 @@ What stands out to me is the harness, not just the model. I spent a good while i
 
 ![Session usage for the overnight run: \$58.69 total, 10h 18m wall time, 616 lines added](/media/2026/06/coding-agent/coding-agent-chm-autonomous-10-session-usage.png)
 
----
 
-## Migrate Nextjs to Tanstack Start
-
-The second large `ultrawork` run used **dynamic workflows** to migrate chmonitor from Next.js to TanStack Start.
-
-```
-Plan to migrate to TanStack: research to see is it good or bad? Write a detailed plan and create issues for another agent to pick up.
-
-The plan should ask agents to use the Claude Code Dynamic Workflows to spawn parallel and multiple steps, including self-development, self-PR, self-babysit PR, self-merge, and self-deploy. Verify production with all end-to-end tests, aiming for 100% automation without me.
-```
-
-The approach here is different: I asked it to create issue tickets, then spawn workflows for more agents to pick up with more detail: https://github.com/duyet/clickhouse-monitoring/issues/1392
-
-```
-Issue breakdown (epic + 13 issues) with dependency DAG
-
-        ┌────────────────────────────────────────────┐
-        │ #0 Epic + baselines + create all issues    │  (bootstrap, sequential)
-        └───────────────┬────────────────────────────┘
-                        ▼
-        #1 Substrate spike (scaffold + CF deploy)         ← CRITICAL PATH, blocks all
-                        ▼
-        #2 Shared config + env bridge (NEXT_PUBLIC_→VITE_)
-            ├──────────────┬───────────────┬─────────────────┐
-            ▼              ▼               ▼                 ▼
-        #3 Routing      #5 API routes    #6 middleware     (these 4 fan out in parallel)
-           skeleton        (×56, fan)       →auth guards
-            ▼              ▼               ▼
-        #4 Data/SWR     #7 Clerk port    #8 Agent stream   #9 MCP in-proc route
-           wiring          (clerk-tsr)      (verify)          (thin re-point)
-            ▼
-        #10 Pages (×83, fan out by route group)
-            └──────────────┬─────────────────────────────────┐
-                           ▼                                  ▼
-                  #11 CI/CD rewire                    #12 e2e + smoke parity
-                           └───────────────┬──────────────────┘
-                                           ▼
-                              #13 Production cutover (canary → 100% → bake → decommission)
-
-Parallelizable waves: after #2, issues #3, #5, #6, #9 start together. #5 (API routes) and #10 (pages) are themselves fanned out internally via the Workflow tool by category / route group.
-
-My honest assessment: this is a bad trade right now
-
-Not because it's infeasible — the exploration shows it's ~2–4 weeks of mechanical work (83 pages, 56 API routes, one middleware, redo the OpenNext/wrangler substrate). It's bad because: ...
-```
-
-![Claude Code's plan and honest assessment of the Next.js to TanStack migration](/media/2026/06/coding-agent/coding-agent-chm-migrate-tanstack-1.png)
-
-I don't care about 2 weeks or 2 months.
-
-<div class="img-row">
-<img src="/media/2026/06/coding-agent/coding-agent-chm-migrate-tanstack-2.png" alt="The agent kicking off the critical-path substrate spike via a dynamic workflow" />
-<img src="/media/2026/06/coding-agent/coding-agent-chm-migrate-tanstack-3.png" alt="The resulting GitHub epic with the live issue checklist in DAG order" />
-</div>
 
 ---
 
@@ -32781,31 +32833,61 @@ Open the browser and go to: [http://localhost:8080](http://localhost:8080/)
 
 ---
 
+# AX
+
+- **URL**: https://blog.duyet.net/note/ax
+- **Date**: 2026-06-08
+
+[Dries Buytaert's](https://dri.es/friction-abstraction-and-verification?utm_source=blog.duyet.net&utm_medium=website) regarding **AX (Agent Experience)**:
+
+In the era of AI coding agents, software adoption depends on how easily these agents can "consume" your project. AI agents prioritize the **cheapest path** to completion; if your software is difficult to use, they will simply reject it without notice.
+
+To ensure your project is chosen, you must reduce three specific costs:
+- **Friction:** The effort required to get the system running (installation, setup, environment configuration, and access/credentials).
+- **Abstraction:** The effort required to understand what to do next (providing clear recipes, templates, scaffolds, and logical defaults).
+- **Verification:** The effort required to confirm the work was successful (reliable tests, clear error messages, and inspectable system states).
+
+What helps AI agents (**AX**) also helps human developers (**DX**). By making your project easy for an agent to install, modify, and verify, you make it better for everyone.
+
+---
+
+# Dynamic Workflows with GLM 5.1
+
+- **URL**: https://blog.duyet.net/note/mai
+- **Date**: 2026-06-04
+
+![Pasted image 20260604194529.png](/media/notes/Pasted image 20260604194529.png)
+
+I am using more a lot of differrent models with Claude Code, this here is  reazied 
+We can also asking Claude to customize model and budget for each step in workflows.
+
+---
+
 # MAI-Thinking-1, MAI-Code-1-Flash
 
 - **URL**: https://blog.duyet.net/note/mai
 - **Date**: 2026-06-03
 
-|**Benchmark**|**MAI-Thinking-1**|**MAI-Code-1-Flash**|**Claude Haiku 4.5**|**Sonnet 4.6**|**Opus 4.6**|**Kimi K2.6**|**GLM-5.1**|
-|---|--:|--:|--:|--:|--:|--:|--:|
-|SWE-Bench Pro|52.8|51.2|35.2|-|53.4|**58.6**|58.4|
-|SWE-Bench Verified|73.5|71.6|66.6|79.6|**80.8**|80.2|-|
-|SWE-Bench Multilingual|-|65.5|62.7|75.9|**77.8**|76.7|-|
-|AIME 2025|97.0|-|80.7 no tools / 96.3 Python|95.6|**99.8**|-|-|
-|AIME 2026|94.5|92.5|83.3|-|-|**96.4**|95.3|
-|HMMT Feb 2026|84.9|-|-|-|-|**92.7**|82.6|
-|GPQA Diamond|84.2|84.6|73.2|89.9|**91.3**|90.5|86.2|
-|LCB v6|87.7|-|-|-|-|**89.6**|-|
-|AMO Bench|-|**40.0**|16.0|-|-|-|-|
-|Frontier Math|-|**6.3**|2.8|-|-|-|-|
-|HLE|-|18.0|9.5|33.2 no tools / 49.0 tools|40.0 no tools / 53.0 tools|34.7 no tools / **54.0 tools**|31.0 no tools / 52.3 tools|
-|Frontier Science|-|**58.2**|42.3|-|-|-|-|
-|Artifacts Bench|-|36.4|**36.6**|-|-|-|-|
-|Terminal-Bench 2.0|46.0|54.8|41.6|59.1|65.4|66.7|63.5 Terminus-2 / **69.0 self-reported**|
-|IF Bench|-|**75.0**|46.1|-|-|-|-|
-|Advanced IF|-|**71.4**|56.9|-|-|-|-|
-|Robust IF Bench|-|**61.2**|45.0|-|-|-|-|
-|τ²-Bench|-|**71.7**|54.7|-|-|-|-|
+| **Benchmark**          | **MAI-Thinking-1** | **MAI-Code-1-Flash** |        **Claude Haiku 4.5** |             **Sonnet 4.6** |               **Opus 4.6** |                  **Kimi K2.6** |                              **GLM-5.1** |
+| ---------------------- | -----------------: | -------------------: | --------------------------: | -------------------------: | -------------------------: | -----------------------------: | ---------------------------------------: |
+| SWE-Bench Pro          |               52.8 |                 51.2 |                        35.2 |                          - |                       53.4 |                       **58.6** |                                     58.4 |
+| SWE-Bench Verified     |               73.5 |                 71.6 |                        66.6 |                       79.6 |                   **80.8** |                           80.2 |                                        - |
+| SWE-Bench Multilingual |                  - |                 65.5 |                        62.7 |                       75.9 |                   **77.8** |                           76.7 |                                        - |
+| AIME 2025              |               97.0 |                    - | 80.7 no tools / 96.3 Python |                       95.6 |                   **99.8** |                              - |                                        - |
+| AIME 2026              |               94.5 |                 92.5 |                        83.3 |                          - |                          - |                       **96.4** |                                     95.3 |
+| HMMT Feb 2026          |               84.9 |                    - |                           - |                          - |                          - |                       **92.7** |                                     82.6 |
+| GPQA Diamond           |               84.2 |                 84.6 |                        73.2 |                       89.9 |                   **91.3** |                           90.5 |                                     86.2 |
+| LCB v6                 |               87.7 |                    - |                           - |                          - |                          - |                       **89.6** |                                        - |
+| AMO Bench              |                  - |             **40.0** |                        16.0 |                          - |                          - |                              - |                                        - |
+| Frontier Math          |                  - |              **6.3** |                         2.8 |                          - |                          - |                              - |                                        - |
+| HLE                    |                  - |                 18.0 |                         9.5 | 33.2 no tools / 49.0 tools | 40.0 no tools / 53.0 tools | 34.7 no tools / **54.0 tools** |               31.0 no tools / 52.3 tools |
+| Frontier Science       |                  - |             **58.2** |                        42.3 |                          - |                          - |                              - |                                        - |
+| Artifacts Bench        |                  - |                 36.4 |                    **36.6** |                          - |                          - |                              - |                                        - |
+| Terminal-Bench 2.0     |               46.0 |                 54.8 |                        41.6 |                       59.1 |                       65.4 |                           66.7 | 63.5 Terminus-2 / **69.0 self-reported** |
+| IF Bench               |                  - |             **75.0** |                        46.1 |                          - |                          - |                              - |                                        - |
+| Advanced IF            |                  - |             **71.4** |                        56.9 |                          - |                          - |                              - |                                        - |
+| Robust IF Bench        |                  - |             **61.2** |                        45.0 |                          - |                          - |                              - |                                        - |
+| τ²-Bench               |                  - |             **71.7** |                        54.7 |                          - |                          - |                              - |                                        - |
 
 ## Sources
 

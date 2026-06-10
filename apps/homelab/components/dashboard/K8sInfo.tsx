@@ -11,20 +11,20 @@ const STATUS_STYLES: Record<string, string> = {
 };
 
 export function K8sInfo() {
-  const { namespaces, pods, summary } = useK8s();
+  const { pods, summary } = useK8s();
 
   return (
     <div className="space-y-6">
       {/* Summary cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="rd-card p-4">
+        <div className="p-4 rounded-[var(--rd-r-sm)] bg-[var(--rd-surface-2)]">
           <div className="flex items-center gap-2 text-[var(--rd-text-3)]">
             <Cuboid size={14} />
             <p className="text-xs font-medium">Namespaces</p>
           </div>
           <p className="mt-2 text-2xl font-semibold text-[var(--rd-text)]">{summary.namespaces}</p>
         </div>
-        <div className="rd-card p-4">
+        <div className="p-4 rounded-[var(--rd-r-sm)] bg-[var(--rd-surface-2)]">
           <div className="flex items-center gap-2 text-[var(--rd-ok)]">
             <Box size={14} />
             <p className="text-xs font-medium">Pods</p>
@@ -34,14 +34,14 @@ export function K8sInfo() {
           </p>
           <p className="text-xs text-[var(--rd-text-3)]">running</p>
         </div>
-        <div className="rd-card p-4">
+        <div className="p-4 rounded-[var(--rd-r-sm)] bg-[var(--rd-surface-2)]">
           <div className="flex items-center gap-2 text-[var(--rd-accent)]">
             <Layers size={14} />
             <p className="text-xs font-medium">Deployments</p>
           </div>
           <p className="mt-2 text-2xl font-semibold text-[var(--rd-text)]">{summary.deployments}</p>
         </div>
-        <div className="rd-card p-4">
+        <div className="p-4 rounded-[var(--rd-r-sm)] bg-[var(--rd-surface-2)]">
           <div className="flex items-center gap-2 text-[var(--rd-warn)]">
             <RotateCcw size={14} />
             <p className="text-xs font-medium">Restarts</p>

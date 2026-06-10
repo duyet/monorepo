@@ -34,31 +34,30 @@ export function ServicesStatus() {
   }, [selectedNamespace, searchQuery, allServices, servicesByNamespace]);
 
   return (
-    <div>
-      <h2 className="mb-4 text-base font-semibold tracking-tight text-[var(--rd-text)]">
+    <div className="space-y-6">
+      <h2 className="text-base font-semibold tracking-tight text-[var(--rd-text)]">
         Running Services
       </h2>
+
       {/* Search bar */}
-      <div className="mb-4">
-        <div className="relative">
-          <Search
-            className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--rd-text-3)]"
-            aria-hidden="true"
-          />
-          <input
-            type="search"
-            placeholder="Search services by name, namespace, or node..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-lg border border-[var(--rd-border)] bg-[var(--rd-surface)] py-2 pl-10 pr-4 text-sm text-[var(--rd-text)] placeholder:text-[var(--rd-text-3)] focus:border-[var(--rd-accent)] focus:outline-none focus:ring-2 focus:ring-[var(--rd-ring)]"
-            aria-label="Search services"
-          />
-        </div>
+      <div className="relative">
+        <Search
+          className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--rd-text-3)]"
+          aria-hidden="true"
+        />
+        <input
+          type="search"
+          placeholder="Search services by name, namespace, or node..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full rounded-lg border border-[var(--rd-border)] bg-[var(--rd-surface)] py-2 pl-10 pr-4 text-sm text-[var(--rd-text)] placeholder:text-[var(--rd-text-3)] focus:border-[var(--rd-accent)] focus:outline-none focus:ring-2 focus:ring-[var(--rd-ring)]"
+          aria-label="Search services"
+        />
       </div>
 
       {/* Namespace filters */}
       <div
-        className="mb-4 flex flex-wrap gap-2"
+        className="flex flex-wrap gap-2"
         role="tablist"
         aria-label="Service namespace filters"
       >

@@ -28,7 +28,7 @@ function NodesTile() {
           return (
             <div
               key={node.id}
-              className={`rd-card p-3${isOffline ? " opacity-50" : ""}`}
+              className={`p-3 rounded-[var(--rd-r-sm)] bg-[var(--rd-surface-2)] transition-colors ${isOffline ? "opacity-50" : "hover:bg-[var(--rd-surface)]"}`}
             >
               {/* Row 1: status + name + type chip */}
               <div className="flex items-center gap-1.5 mb-1.5">

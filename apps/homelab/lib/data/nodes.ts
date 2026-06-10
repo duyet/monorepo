@@ -3,7 +3,7 @@
  */
 
 import { HISTORICAL_DATA, NODE_RESOURCE_RANGES } from "../constants";
-import type { Node } from "./types";
+import type { Node, ClusterInfo } from "./types";
 import { generateUptime, getHistoricalTime, random } from "./utils";
 
 /**
@@ -386,4 +386,26 @@ export const clusterStats = {
     nodes.reduce((acc, n) => acc + n.memoryUsed, 0).toFixed(1)
   ),
   totalStorage: nodes.reduce((acc, n) => acc + n.storage, 0), // in GB
+};
+
+/**
+ * Kubernetes cluster info (k3s)
+ */
+export const clusterInfo: ClusterInfo = {
+  platform: "k3s",
+  version: "v1.30.5+k3s1",
+  clusterName: "homelab",
+  region: "home",
+  nodeRoles: {
+    "minipc-01": "control-plane",
+    "minipc-02": "worker",
+    "minipc-03": "worker",
+    "rp-01": "worker",
+    "dienquangsmart": "worker",
+    "hermes-agent": "worker",
+  },
+  cni: "flannel",
+  csi: "local-path-provisioner",
+  ingress: "traefik",
+  lastUpdated: new Date().toISOString(),
 };

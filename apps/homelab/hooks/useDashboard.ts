@@ -7,7 +7,9 @@ import { useMemo } from "react"; // useMemo kept for hooks with real deps (useSe
 import {
   agentActions,
   boschWashingMachine,
+  type ClusterInfo,
   type ClusterStats,
+  clusterInfo,
   clusterStats,
   cpuHistory,
   downtimeHistory,
@@ -190,4 +192,11 @@ export function useAgentActions() {
  */
 export function useK8s() {
   return { namespaces: k8sNamespaces, pods: k8sPods, summary: k8sSummary };
+}
+
+/**
+ * Hook for cluster info (k3s platform details)
+ */
+export function useClusterInfo(): ClusterInfo {
+  return clusterInfo;
 }

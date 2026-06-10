@@ -12,7 +12,7 @@ export { k8sNamespaces, k8sPods, k8sSummary } from "./k8s";
 // Export network data
 export { networkTraffic, speedTest } from "./network";
 // Export node data
-export { clusterStats, cpuHistory, memoryHistory, nodes } from "./nodes";
+export { clusterStats, clusterInfo, cpuHistory, memoryHistory, nodes } from "./nodes";
 // Export service data
 export { services } from "./services";
 // Export smart device data
@@ -24,8 +24,7 @@ export {
 // Export types
 export type {
   AgentAction,
-  K8sNamespace,
-  K8sPod,
+  ClusterInfo,
   AirQualityHistoryPoint,
   AirQualityLevel,
   AirQualityReport,
@@ -44,6 +43,8 @@ export type {
   SmartDevice,
   WashingMachineData,
 } from "./types";
+
+export type { K8sNamespace, K8sPod } from "./k8s";
 
 // Re-export utilities for convenience
 export { generateUptime, getHistoricalTime, random } from "./utils";
