@@ -164,7 +164,7 @@ importers:
         specifier: ^0.14.5
         version: 0.14.13(@types/react-dom@19.2.3(@types/react@19.2.16))(@types/react@19.2.16)(immer@11.1.8)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(use-sync-external-store@1.6.0(react@19.2.6))
       '@assistant-ui/react-langgraph':
-        specifier: latest
+        specifier: ^0.14.5
         version: 0.14.7(@assistant-ui/tap@0.5.14(@types/react@19.2.16)(react@19.2.6))(@langchain/langgraph-sdk@1.9.12(@langchain/core@1.1.48(@opentelemetry/api@1.9.1)(openai@6.41.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(@types/react@19.2.16)(react@19.2.6)(zustand@5.0.14(@types/react@19.2.16)(immer@11.1.8)(react@19.2.6)(use-sync-external-store@1.6.0(react@19.2.6)))
       '@assistant-ui/react-markdown':
         specifier: ^0.14.0
@@ -8075,7 +8075,7 @@ snapshots:
     dependencies:
       '@assistant-ui/store': 0.2.13(@assistant-ui/tap@0.5.14(@types/react@19.2.16)(react@19.2.6))(@types/react@19.2.16)(react@19.2.6)
       '@assistant-ui/tap': 0.5.14(@types/react@19.2.16)(react@19.2.6)
-      assistant-stream: 0.3.19
+      assistant-stream: 0.3.21
       nanoid: 5.1.11
     optionalDependencies:
       '@types/react': 19.2.16
@@ -11176,7 +11176,7 @@ snapshots:
 
   assistant-cloud@0.1.30:
     dependencies:
-      assistant-stream: 0.3.19
+      assistant-stream: 0.3.21
     transitivePeerDependencies:
       - ioredis
       - redis
