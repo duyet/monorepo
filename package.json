@@ -82,6 +82,7 @@
     ]
   },
   "overrides": {
+    "@assistant-ui/core": "0.2.11",
     "@clerk/shared": "3.47.7",
     "@tanstack/history": "1.162.0",
     "@tanstack/react-router": "1.170.10",
