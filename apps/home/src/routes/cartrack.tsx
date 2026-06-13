@@ -82,12 +82,8 @@ const journey: Milestone[] = [
     body: "Evolved the LLM systems into multi-agent workflows using LangGraph in fast/agent modes. Equipped agents with skills, tool calling, Firecrawl, Qdrant vector database, and Cube.js.",
   },
   {
-    label: "Dynamic UI & CI/CD",
-    body: "Empowered AI agents to dynamically generate charts, dashboards, and explorer interfaces. Improved agentic software engineering practices to confidently deploy generated code directly to production.",
-  },
-  {
-    label: "Global remote collaboration",
-    body: "Collaborated seamlessly with Cartrack's worldwide team, keeping the data platform stable and shipping features while traveling across different countries.",
+    label: "Automated AI agents working 24/7",
+    body: "Moved from scary vibe-coding to real agentic engineering — coding agents now ship most of the work without me touching the codebase. Every change runs through 3,000–5,000 unit and end-to-end tests before it reaches production, and a sandboxed agent listens for runtime exceptions and patches them on its own.",
   },
 ];
 
@@ -116,13 +112,10 @@ function CartrackPage() {
           <span className="text-[var(--rd-accent)]">Cartrack</span>
         </h1>
         <p className="rd-lead mt-5 text-[clamp(1.02rem,1.4vw,1.15rem)] text-[var(--rd-text-2)]">
-          Joined the global team at Cartrack, managing terabyte-scale data lakes and building AI agents 
-          fully remotely while traveling across different countries. The journey started with tuning 
-          Spark, Trino, and Iceberg performance, then transitioned to setting up an on-premise Rancher 
-          Kubernetes cluster, and migrating legacy storage to a highly optimized 3-node ClickHouse cluster. 
-          By designing internal table transformations, using custom Rust UDFs (clickhouse-udf-rs), and 
-          integrating DuckDB, we made the data stack as simple and stable as possible. Later, the work 
-          expanded to building fully agentic multi-agent systems using LangGraph, Qdrant, Cube.js, and Firecrawl.
+          Two-plus years building Cartrack's data platform from the ground up — migrating terabyte-scale
+          data lakes off Spark, Trino, and Iceberg onto a lean, high-throughput ClickHouse cluster on
+          Kubernetes. The work started in data engineering and grew into fully agentic AI systems that
+          now write, test, and ship their own code.
         </p>
 
         <div className="mt-9 flex flex-col gap-5 border-t border-[var(--rd-border)] pt-7">
