@@ -111,7 +111,7 @@ export function ModelCard({
   }
 
   return (
-    <div className="relative flex items-start gap-4 pb-6 group">
+    <div className="relative flex items-start gap-4 pb-4 group">
       {/* Enhanced Timeline Line with gradient */}
       {!isLast && (
         <div className="absolute left-[15px] top-8 h-full w-px bg-gradient-to-b from-[var(--rd-border)] via-[var(--rd-line)] to-transparent" />
@@ -153,7 +153,7 @@ export function ModelCard({
       {/* Enhanced Card */}
       <div
         className={cn(
-          "flex-1 rounded-[var(--rd-r)] border p-4 transition-all bg-card",
+          "flex-1 rounded-[var(--rd-r)] border p-3 transition-all bg-card",
           "hover:border-[var(--rd-border-2)] hover:bg-card",
           isSelectable && isSelected
             ? "ring-2 ring-[var(--rd-ring)] ring-offset-2 ring-offset-background border-foreground/20"
@@ -161,7 +161,7 @@ export function ModelCard({
         )}
       >
         {/* Header row with improved hierarchy */}
-        <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
+        <div className="mb-2 flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0 flex-1 space-y-1">
             <h3 className="text-lg font-semibold font-[family-name:var(--font-sans)] tracking-tight text-foreground leading-tight">
               {model.name}
@@ -216,7 +216,7 @@ export function ModelCard({
           model.trainingCompute ||
           model.trainingHardware ||
           model.authors) && (
-          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 border-t border-[var(--rd-line)] pt-3 text-xs text-muted-foreground">
+          <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 border-t border-[var(--rd-line)] pt-3 text-xs text-muted-foreground">
             {model.domain && (
               <span className="flex items-center gap-1.5">
                 {model.link ? (

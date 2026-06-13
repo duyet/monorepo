@@ -2,8 +2,8 @@ name: Data Sync (LLM Timeline)
 
 on:
   schedule:
-    # Every Monday 6am UTC
-    - cron: '0 6 * * 1'
+    # Daily at 6am UTC to keep model data fresh
+    - cron: '0 6 * * *'
   workflow_dispatch:
     inputs:
       dry_run:
@@ -19,7 +19,6 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: write
-      pull-requests: write
 
     steps:
       - name: Checkout
@@ -40,7 +39,7 @@ jobs:
         working-directory: apps/llm-timeline
         run: pnpm exec tsx scripts/sync-data.ts
 
-      - name: Create data sync pull request
+      - name: Commit and push data sync
         if: ${{ inputs.dry_run != true }}
         env:
           GH_TOKEN: ${{ secrets.DUYETBOT_GITHUB_TOKEN != '' && secrets.DUYETBOT_GITHUB_TOKEN || github.token }}
@@ -52,29 +51,9 @@ jobs:
             exit 0
           fi
 
-          branch="chore/llm-timeline-data-sync"
-          head="${{ github.repository_owner }}:$branch"
-          pr_title="chore(llm-timeline): sync model data from Google Sheets + Epoch AI"
-          pr_body="Automated LLM Timeline data sync from Google Sheets and Epoch AI."
-
           git config user.name "duyetbot"
           git config user.email "duyetbot@users.noreply.github.com"
-          git switch "$branch" 2>/dev/null || git switch --create "$branch"
-          git commit -m "$pr_title" \
+          git commit -m "chore(llm-timeline): sync model data from Google Sheets + Epoch AI" \
             -m "Co-Authored-By: duyet <me@duyet.net>" \
             -m "Co-Authored-By: duyetbot <duyetbot@users.noreply.github.com>"
-          git push --force-with-lease "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" "$branch"
-
-          pr_number="$(gh pr list --head "$head" --state open --json number --jq '.[0].number // empty')"
-
-          if [ -n "$pr_number" ]; then
-            gh pr edit "$pr_number" \
-              --title "$pr_title" \
-              --body "$pr_body"
-          else
-            gh pr create \
-              --base "${{ github.ref_name }}" \
-              --head "$head" \
-              --title "$pr_title" \
-              --body "$pr_body"
-          fi
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" HEAD:master

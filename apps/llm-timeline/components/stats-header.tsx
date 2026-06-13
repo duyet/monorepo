@@ -45,7 +45,7 @@ export function StatsHeader({
             <Card
               key={label}
               className={cn(
-                "p-5",
+                "p-3.5",
                 isActive ? "" : "hover:-translate-y-0.5",
                 isClickable
                   ? "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rd-ring)] focus-visible:ring-offset-2"
@@ -63,10 +63,10 @@ export function StatsHeader({
                   : undefined
               }
             >
-              <div className="mb-8 inline-flex rounded-[var(--rd-r-sm)] bg-[var(--rd-surface-2)] p-2.5">
+              <div className="mb-3 inline-flex rounded-[var(--rd-r-sm)] bg-[var(--rd-surface-2)] p-2.5">
                 <Icon className="h-4 w-4 text-[var(--rd-text)]" />
               </div>
-              <div className="text-3xl font-semibold">
+              <div className="text-2xl font-semibold">
                 {value.toLocaleString()}
               </div>
               <div className="mt-1 font-[family-name:var(--font-mono)] text-[11.5px] uppercase tracking-[0.14em] text-[var(--rd-text-3)]">
