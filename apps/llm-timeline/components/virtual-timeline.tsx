@@ -81,7 +81,7 @@ export function VirtualTimeline({
     estimateSize: (index) => {
       const item = virtualItems[index];
       if (item.type === "group") return 80;
-      return liteMode ? 56 : 280;
+      return liteMode ? 56 : 238;
     },
     overscan: 8,
   });

@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { Button } from "../components/ui/button";
 import rawBlogPosts from "../../../blog/public/posts-data.json";
 import rawNotes from "../../../blog/public/notes-data.json";
+import rawTokenData from "../../../burns/public/token-data.json";
 import { KeyboardFeatures } from "../components/KeyboardFeatures";
 import { type AppItem, apps } from "../data/projects";
 import { siblingApps } from "../data/sibling-apps";
@@ -50,7 +51,7 @@ const SELECTED: { name: string; tag: string }[] = [
   { name: "Codex & Claude Plugins", tag: "AI" },
   { name: "AnyRouter", tag: "AI Infra" },
   { name: "ClickHouse Monitoring", tag: "Data" },
-  { name: "AI Agents", tag: "AI" },
+  { name: "Agent State", tag: "AI" },
   { name: "MCP Tools", tag: "AI" },
   { name: "LLM over DNS", tag: "AI Infra" },
   { name: "ccusage → ClickHouse", tag: "Data" },
@@ -66,6 +67,13 @@ const selectedProjects = SELECTED.map(({ name, tag }) => {
   const item = byName.get(name);
   return item ? { item, tag } : null;
 }).filter((x): x is { item: AppItem; tag: string } => x !== null);
+
+const tokenBurnBig = (() => {
+  const t = (rawTokenData as { totals: { total_tokens: number } }).totals.total_tokens;
+  if (t >= 1e12) return `${(t / 1e12).toFixed(2)}T`;
+  if (t >= 1e9) return `${(t / 1e9).toFixed(1)}B`;
+  return `${(t / 1e6).toFixed(0)}M`;
+})();
 
 // Hardcoded homelab and coding stats — real-ish values matching live cluster.
 const homelabSummary = { nodesOnline: 5, nodesTotal: 6, services: 19, avgCpu: 27.6 };
@@ -176,6 +184,7 @@ function HomePage() {
               siblingAppCount={siblingApps.length}
               homelabSummary={homelabSummary}
               codingSparkline={codingSparkline}
+              tokenBurn={tokenBurnBig}
             />
           </Reveal>
         </section>
