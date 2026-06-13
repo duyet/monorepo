@@ -105,7 +105,7 @@ export const apps: AppItem[] = [
     href: projectUrls.agentState,
     host: hostOf(projectUrls.agentState),
     utmContent: "agentstate_bento",
-    description: "AI agent state management and debugging tools",
+    description: "State store for AI agents — persistent memory and state management for agent workflows.",
     screenshot: "/screenshots/agentstate-art.svg",
     tone: "bg-[#536f91]",
     domain: "agentstate.app",
@@ -208,6 +208,7 @@ export const apps: AppItem[] = [
       "Query an LLM directly via DNS TXT records — `dig @llm.duyet.net 'explain quantum computing' TXT +short`",
     domain: "duyet.github.io/llm-over-dns",
     iconName: "Terminal",
+    logo: "https://cdn.simpleicons.org/cloudflare",
     tags: ["AI", "Infra"],
   },
   {
@@ -229,6 +230,7 @@ export const apps: AppItem[] = [
     description: "Codex and Claude Code plugins for AI-powered development workflows.",
     domain: "github.com/duyet/codex-claude-plugins",
     iconName: "Puzzle",
+    logo: "https://cdn.simpleicons.org/anthropic",
     tags: ["AI", "TypeScript"],
   },
   {
@@ -261,6 +263,7 @@ export const apps: AppItem[] = [
       "Collection of useful Helm Charts, well-tested with KinD and Kubeconform.",
     domain: "github.com/duyet/charts",
     iconName: "Package",
+    logo: "https://helm.sh/img/helm.svg",
     tags: ["Infra"],
   },
   {

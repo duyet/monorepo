@@ -11,6 +11,7 @@ interface SignalBarProps {
   siblingAppCount: number;
   homelabSummary: { nodesOnline: number; nodesTotal: number; services: number; avgCpu: number };
   codingSparkline: number[];
+  tokenBurn: string;
 }
 
 export function SignalBar({
@@ -21,6 +22,7 @@ export function SignalBar({
   siblingAppCount,
   homelabSummary: h,
   codingSparkline,
+  tokenBurn,
 }: SignalBarProps) {
   const tiles = [
     {
@@ -39,11 +41,11 @@ export function SignalBar({
     },
     {
       k: "Token burn",
-      big: "1.24",
-      unit: "B",
+      big: tokenBurn,
+      unit: "",
       sub: "all-time agent burn",
       flame: true,
-      to: "/about",
+      to: "https://burn.duyet.net",
     },
     {
       k: "Cluster",
