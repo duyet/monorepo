@@ -63,19 +63,31 @@ function getKbRoutes(): string[] {
 
   walk(articlesDir);
 
-  // Walk memory notes and discover types
-  try {
-    for (const entry of readdirSync(memoryDir)) {
-      const full = join(memoryDir, entry);
-      if (statSync(full).isFile() && extname(entry) === ".md") {
-        const slug = basename(entry, ".md");
-        if (slug.startsWith("_")) continue;
-        routes.push(`/m/${slug}`);
+  // Walk memory notes recursively (notes now live under memory/<topic>/ subdirs)
+  function walkMemory(dir: string) {
+    let entries: string[];
+    try {
+      entries = readdirSync(dir);
+    } catch {
+      return;
+    }
+    for (const entry of entries) {
+      const full = join(dir, entry);
+      try {
+        if (statSync(full).isDirectory()) {
+          walkMemory(full);
+        } else if (extname(entry) === ".md") {
+          const slug = basename(entry, ".md");
+          if (slug.startsWith("_") || slug === "index" || slug === "log")
+            continue;
+          routes.push(`/m/${slug}`);
+        }
+      } catch {
+        // skip
       }
     }
-  } catch {
-    // dir may not exist
   }
+  walkMemory(memoryDir);
 
   for (const cat of categories) {
     routes.push(`/c/${cat}`);

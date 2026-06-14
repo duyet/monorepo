@@ -67,6 +67,9 @@ function MemoryNotePage() {
               {note.memoryType}
             </span>
             {note.updated && <span>Updated {note.updated}</span>}
+            {note.timestamp && note.timestamp !== note.updated && (
+              <span>Timestamp {note.timestamp}</span>
+            )}
             {note.tags.length > 0 && (
               <div className="flex items-center gap-1.5 flex-wrap">
                 <Tag className="size-3" />

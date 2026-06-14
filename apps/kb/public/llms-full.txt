@@ -1788,6 +1788,189 @@ irreversible moves; match the existing codebase's conventions.
 
 ---
 
+# The Self-Driving Homelab
+URL: https://kb.duyet.net/m/project-self-driven-homelab
+Type: project
+Description: self-driving k3s homelab with Hermes/Minh — an AI agent that manages its own infrastructure
+
+# The Self-Driving Homelab
+
+A single-node k3s cluster that largely runs itself. An AI agent named Minh lives inside it, reachable by Telegram, and maintains the infrastructure it depends on.
+
+## The Setup
+
+**Hardware**: One machine — `duet-ubuntu`, 16 CPU, 13Gi RAM, 457G NVMe. Sitting in a home in Vietnam.
+
+**Stack**: k3s (single-node, containerd), Traefik ingress, Let's Encrypt TLS via Cloudflare DNS-01, GitHub OAuth for auth. 15 services across 14 namespaces. All config versioned in git.
+
+**Services**: n8n (workflows), LiteLLM (LLM proxy), Open WebUI (chat UI), Home Assistant (smart home), ClickHouse (analytics DB), Qdrant (vectors), PeerDB (CDC replication), Firecrawl (web scraping), Portainer, and others. All behind OAuth.
+
+Nothing exotic. Standard homelab stuff. The interesting part is *who runs it*.
+
+## Minh — The Agent That Lives Inside
+
+Minh is an instance of [Hermes](https://github.com/duyet/charts) — an open-source AI agent framework packaged as a Helm chart. She runs as a pod in the cluster with two containers: the agent itself and a Chromium sidecar for browser automation.
+
+**Reach**: You talk to Minh via Telegram (`@minh_duni_bot`). She speaks Vietnamese by default, switches to English when you write in English. One language per reply.
+
+**Brain**: Backed by `@preset/hermes-agent` through [AnyRouter](https://anyrouter.dev), with fallback to Gemini Flash and Claude Sonnet via OpenRouter. She has persistent memory (SOUL.md + session state on a PVC), so she remembers conversations and learns preferences.
+
+**Tools**: MCP servers give her filesystem access, web fetch, GitHub (official github-mcp-server), n8n workflow management, and browser automation via CDP. She can scrape the web (self-hosted Firecrawl), search (Tavily), read email (Himalaya + Gmail), and manage GitHub repos.
+
+**Personality**: Warm, concise, witty. Evidence over guesses. Honest about uncertainty. Proactive with obvious next steps. Calls the user "anh Duyệt" and refers to herself as "em" — Vietnamese familiar pronouns.
+
+## The Self-Management Loop
+
+Here's where it gets recursive. Minh has **cluster-admin** RBAC and the IaC repos (`duyet/infra`, `duyet/charts`) are mounted directly into her pod via hostPath. She can:
+
+1. **Read the cluster state** — `kubectl get pods -A`, `helm list`, check PVCs, view logs
+2. **Edit the infrastructure code** — modify `values.yaml`, manifests, secrets
+3. **Deploy changes** — `helm upgrade --install`, `kubectl apply`
+4. **Commit and push** — git commit with semantic messages, push to GitHub
+5. **Verify** — check pod health, test HTTP endpoints, confirm data integrity
+6. **Update herself** — even `helm upgrade hermes` to change her own deployment
+
+This is the full GitOps loop, but the agent *is* the operator. No ArgoCD. No Flux. Just an LLM with kubectl and a git client.
+
+### Example Workflows
+
+- **"The site is down"** → Minh checks pods, finds a crash, reads logs, identifies the config error, edits values.yaml, runs helm upgrade, verifies pods are Running, commits the fix.
+- **"Add a new service"** → Minh creates the namespace directory, writes values.yaml + secrets template, runs helm install, creates the ingress, tests the endpoint, updates docs.
+- **"How much disk do we have?"** → Zero-token shortcut command, instant response with `df -h` output.
+- **"Optimize resources"** → Minh profiles actual CPU/memory usage across all pods, compares to configured limits, adjusts requests/limits in all values files, deploys everything, verifies health, commits. (This actually happened — [[project-infra-optimization]])
+
+### Quick Commands
+
+Minh has 9 pre-built zero-token shortcuts for common ops: `k3s-status`, `k3s-nodes`, `top`, `disk`, `mem`, `uptime`, `helm`, `pvc`, `infra-diff`. These bypass the LLM entirely — instant shell output.
+
+## Security Model
+
+Yes, a Telegram-reachable LLM with cluster-admin is a high blast radius. This is intentional for a single-node, single-user homelab. Mitigations:
+
+- **`approvals: smart`** — Minh asks for confirmation before destructive operations (delete namespace, wipe PVC, `--force`)
+- **Persona guardrails** — her SOUL.md explicitly forbids destructive commands without confirmation
+- **GitHub App auth** — uses a short-lived installation token (60min), not a personal token
+- **OAuth everywhere** — all services behind GitHub OAuth via Traefik forwardAuth
+- **HostPath limitation** — ties the pod to one node. Acceptable for a homelab; multi-node would need RWX PVC or GitOps
+
+## What I Learned
+
+**Resource tuning is an LLM superpower**. Profiling 40+ pods, comparing actual vs configured resources, and adjusting 14 services in parallel is exactly the kind of tedious, systematic work agents excel at. The optimization pass freed 1.7Gi RAM and 9GB disk in one shot.
+
+**Self-reference is stable**. An agent managing its own deployment sounds like it should break, but in practice it's fine — Helm handles rolling updates, and the pod finishes its work before the new one takes over.
+
+**HostPath is the real constraint**. The IaC repos being mounted from the host means this pattern is single-node only. For multi-node, you'd need git-clone init containers or a proper GitOps tool.
+
+**Kubernetes is good infrastructure for agents**. RBAC, PVCs, init containers, health probes — all the K8s primitives that manage the agent also give it a rich environment to work with. The agent doesn't need special tooling; it just needs kubectl and helm.
+
+## Architecture
+
+```
+User (Telegram)
+    ↓
+Minh (@minh_duni_bot)
+    ↓ (LLM: @preset/hermes-agent via AnyRouter)
+Hermes Pod (k3s, namespace: hermes-agent)
+    ├── agent container (hermes-agent)
+    │   ├── MCP: filesystem, fetch, time, github, n8n
+    │   ├── kubectl + helm (cluster-admin SA)
+    │   ├── hostPath: ~/project/infra, ~/project/charts
+    │   └── git (GitHub App duyetbot, 60min tokens)
+    └── chromium container (CDP :9222)
+         ↓
+    k3s API → manages all namespaces
+    GitHub API → commits IaC changes
+```
+
+## Related
+
+- [[project-infra-optimization]] — the resource optimization pass Minh performed
+- [[tech-traefik-forwardauth-oauth2-proxy]] — auth layer protecting all services
+- [[tech-hermes-agent-custom-provider]] — custom LLM provider registration
+
+## Links
+
+- Hermes chart: [github.com/duyet/charts/hermes-agent](https://github.com/duyet/charts)
+- Infra repo: [github.com/duyet/infra](https://github.com/duyet/infra)
+- Hermes agent framework: [github.com/nicepkg/hermes](https://github.com/nicepkg/hermes)
+
+---
+
+# AnyRouter
+URL: https://kb.duyet.net/m/project-anyrouter
+Type: project
+Description: Universal LLM API gateway at anyrouter.dev — TanStack Start on CF Workers, Kumo UI, split web/API workers, prerendered marketing shells
+
+github.com/duyet/anyrouter — OpenAI-compatible LLM router: one API, many providers, BYOK, presets, failover.
+
+## Stack & deploy
+
+| Layer | Choice |
+|-------|--------|
+| App | TanStack Start + React, SSR on Cloudflare Workers |
+| UI | Kumo (`@cloudflare/kumo`) + Phosphor icons |
+| API | Separate `anyrouter-api` worker via service binding (3 MiB budget split) |
+| Deploy | `pnpm cf:deploy` → `pnpm ops deploy` (secrets, D1 migrate, build, deploy, prerender, purge) |
+| Docs | Customer docs in `src/content/docs/`; maintainer kb in `docs/kb/` |
+
+## Public routes (2026-06-14)
+
+- `/pricing` — Free / Pro / Team tiers (Kumo cards)
+- Homepage **LLM API Gateway** diagram: `src/components/home-sections/gateway-section.tsx` (clients → AnyRouter hub → providers)
+- Subdomain shortcuts: `pricing.anyrouter.dev` → `/pricing`, etc. (`src/worker.ts`)
+
+## Ops habits
+
+- Post-task: deploy + commit only touched paths (`git add` specific files, never `-A`)
+- Smoke: `pnpm e2e:test:prod` after deploy
+- Internal kb auto-updated under `docs/kb/` for non-trivial fixes
+
+**Why:** Agents working across repos need the deploy split, file locations, and stale-chunk trap without re-discovering from scratch.
+
+**How to apply:** Read `docs/kb/` + `AGENTS.md` in repo before coding; use Kumo docs-first; route all upstreams through CF AI Gateway.
+
+---
+
+# ClickHouse Monitor (chmonitor)
+URL: https://kb.duyet.net/m/project-clickhouse-monitor
+Type: project
+Description: Open-source ClickHouse monitoring dashboard — monorepo topology, domains, marketing/docs apps, design system
+
+github.com/duyet/clickhouse-monitoring — flagship ClickHouse ops UI (~240★, GPL-3.0).
+
+## Domains (Cloudflare Workers)
+
+| Worker | App | URL |
+|--------|-----|-----|
+| `chmonitor-landing` | `apps/landing` (Astro static) | chmonitor.dev |
+| `chmonitor-dash` | `apps/dashboard` (TanStack Start) | dash.chmonitor.dev |
+| `chmonitor-docs` | `apps/docs` (Astro custom theme) | docs.chmonitor.dev |
+| `chmonitor-mcp` | `apps/mcp` | dash.chmonitor.dev/api/mcp* |
+
+PR previews: `preview.chmonitor.dev`, `preview.docs.chmonitor.dev`, `preview.dash.chmonitor.dev`.
+
+`apps/landing` and `apps/docs` are **outside** the root bun workspace (isolated installs).
+
+## Marketing design system (2026-06-14)
+
+Shared landing + docs vibe:
+- **Display:** Bricolage Grotesque · **Body:** Source Sans 3 · **Mono:** JetBrains Mono
+- **Palette:** zinc fg (`#09090b`), amber `#f59e0b` → orange `#f97316` accent
+- **CTA copy:** nav/buttons say **Dashboard** / **Open dashboard** (not "Open Cloud")
+- Landing hero: browser-frame dashboard carousel + stats strip + lazy-loaded gallery marquee
+
+Docs: custom Astro theme (not Starlight); Pagefind search; versioned via `scripts/sync-docs.mjs`.
+
+## CI gotcha
+
+`component-test` (Cypress) fails on main when no `src/**/*.cy.{ts,tsx}` specs exist — needs `supportFile: false` in `cypress.config.ts` component block or actual component specs.
+
+**Why:** Agents editing marketing/docs need the right app paths and shared tokens — not the dashboard TanStack app.
+
+**How to apply:** Landing/docs changes → `apps/landing` + `apps/docs` only; build with `bun run build:landing` and `cd apps/docs && bun run build`; deploy via `landing.yml` / `docs.yml` / `cloudflare.yml`.
+
+---
+
 # duyet.net monorepo
 URL: https://kb.duyet.net/m/project-duyet-net
 Type: project
@@ -1834,6 +2017,62 @@ findings doc → session memory `.md` snapshots → transcript. Memory files are
 point-in-time, may be stale — verify against code before acting. This is the
 [[feedback-docs-driven-development]] model. Auto-compaction welcomed; save
 to-remember context before it. Commits add a duyetbot co-author trailer.
+
+---
+
+# Infra Optimization Baseline (2026-06-13)
+URL: https://kb.duyet.net/m/project-infra-optimization
+Type: project
+Description: k3s cluster resource optimization, security hardening, and host cleanup — baseline for future tuning
+
+# Infra Optimization Baseline (2026-06-13)
+
+**Goal**: optimize resources, reduce complexity, fix security issues on duet-ubuntu k3s cluster.
+
+## Results
+
+| Metric | Before | After | Delta |
+|--------|--------|-------|-------|
+| Memory | 10Gi (78%) | 9.2Gi (70%) | **-1.7Gi** |
+| Disk | 372G (86%) | 363G (84%) | **-9GB** |
+| Swap files | 2 (16G) | 1 (11G) | -4G file |
+| CrashLoop pods | 1 | 0 | fixed |
+| Services without limits | cert-manager | 0 | all limited |
+| Kubeconfig perms | 644 world-readable | 640/600 | secured |
+
+## What Changed
+
+### Resource optimization (all services)
+- Key principle: set requests based on actual usage, limits at 1.5-2x peak
+- Hermes: memory limit raised 1Gi → 2Gi (was being exceeded at 1212Mi)
+- PeerDB: massive over-provisioning fixed — temporal 512→128Mi, flow-worker 512→128Mi, total req ~1.9Gi → 736Mi
+- Home Assistant: CPU limit 2 → 500m (only using 10m actual)
+- Open-WebUI: memory limit 1536Mi → 1Gi, CPU limit 1 → 500m
+- LiteLLM: memory limit 1536 → 1200Mi
+- ClickHouse: memory limit 2Gi → 1536Mi, CPU limit 1 → 500m
+- n8n + worker: memory limits 1Gi → 512Mi
+- Portainer, Qdrant, Promptfoo, Vito, Chmonitor: all tightened
+- cert-manager: added limits to all 3 components (previously unlimited)
+
+### Security
+- Kubeconfig: `/etc/rancher/k3s/k3s.yaml` mode 640, user copy `$HOME/.kube/config.duet-homelab` mode 600
+- All Makefiles and docs updated to use new KUBECONFIG path
+- Docker daemon stopped, disabled, masked (k3s uses containerd)
+
+### Host cleanup
+- Journal logs vacuumed 876MB → 100MB cap
+- Old kernel 6.8.0-110-generic removed
+- Swap consolidated: removed `/swap.img` (4G), kept `/swapfile2` (11G)
+- Failed systemd units masked: NetworkManager-wait-online, systemd-networkd-wait-online
+
+### Firecrawl fix
+- nuq-worker disabled (CrashLoopBackOff — missing NUQ cloud config, not needed for homelab)
+- Added `{{- if .Values.nuqWorker.enabled }}` guard to deployment template
+
+## Repo: `~/project/infra` (duyet/infra)
+
+**Why**: baseline for future optimization rounds. Re-run `kubectl top pods -A` to compare.
+**How to apply**: resource tuning is iterative — always measure actual usage before adjusting.
 
 ---
 
@@ -1911,8 +2150,9 @@ Description: Duyet's main public repos — ClickHouse tooling, Rust data tools, 
 
 github.com/duyet — ~100 non-fork repos. Notable ones by area:
 
-- **ClickHouse:** `clickhouse-monitoring` (flagship, ~240★, Next.js UI over system
-  tables), `clickhouse-udf-rs` (Rust UDFs).
+- **ClickHouse:** `clickhouse-monitoring` (flagship, ~240★, TanStack Start dashboard
+  at dash.chmonitor.dev; Astro landing/docs — see [[project-clickhouse-monitor]]),
+  `clickhouse-udf-rs` (Rust UDFs).
 - **Rust data/infra tooling (GitOps style):** `grant-rs` (Redshift/Postgres
   privileges), `athena-rs` (AWS Athena schema), `glossary-rs` (actix API),
   `cov-rs` (coverage).
@@ -1927,30 +2167,98 @@ Languages skew Rust + TypeScript + Python. See [[user-duyet-stack]].
 
 ---
 
-# AI agent building — tech stack
-URL: https://kb.duyet.net/m/tech-ai-agent-stack
+# release-please + squash-merge release pipeline
+URL: https://kb.duyet.net/m/tech-release-please-squash-pipeline
+Type: reference
+Description: Conventional-commit release automation where squash-merge PR titles drive versioning; pre-1.0 bump rules and the PR-title guard that keeps it honest
+
+Pattern used in chmonitor (clickhouse-monitoring) to fully automate releases.
+
+- **release-please** watches `main`, keeps a standing `chore(main): release X.Y.Z`
+  PR + tracked `CHANGELOG.md`. Merging it tags + publishes a GitHub Release,
+  which fires a separate `release.yml` (on `release: published`, NOT tag push —
+  avoids duplicate runs) to build Docker/assets and generate AI release notes.
+- Config/manifest can live anywhere — pass `config-file` / `manifest-file` to
+  the action. Moving them out of repo root into `.github/` keeps root clean.
+
+**Pre-1.0 bump trap:** with `bump-patch-for-minor-pre-major: true`, in `0.x`
+a plain `feat` only bumps the **patch**. To cut a new **minor** (e.g. 0.2→0.3)
+the commit MUST be a breaking change (`feat!:` or `BREAKING CHANGE:` footer).
+
+**The key guard:** squash-merge makes the **PR title** the commit release-please
+reads. An invalid title is silently dropped from the bump + changelog. So add a
+`pr-title` workflow that validates the title against the SAME
+`commitlint.config.js` the husky hook uses (`echo "$PR_TITLE" | bunx commitlint`)
+— one source of truth, no third-party action.
+
+**CHANGELOG ownership:** release-please owns versioned blocks; keep a human
+`## [Unreleased]` section on top for a curated preview — it's left untouched and
+the generated block is inserted above it on release.
+
+**AI migration prompt:** ship a paste-able env-migration prompt
+(`.github/release-migration-prompt.md`) auto-appended to breaking releases and
+mirrored in README + docs — lets users hand their `.env`/compose/k8s to any LLM
+to upgrade.
+
+---
+
+# Pin GitHub Actions — the trivy-action March 2026 compromise
+URL: https://kb.duyet.net/m/tech-supply-chain-pin-github-actions
 Type: tech
-Description: Frameworks/SDKs for building LLM agents (LangGraph, AI SDK, Claude/OpenAI Agents SDK, MCP) + what Duyet uses
+Description: aquasecurity/trivy-action had 75 tags force-pushed in March 2026 — pin Actions to a version or commit SHA and use the two-phase Trivy scan (report then fail-on-severity)
 
-The 2026 stack for building LLM agents, by layer:
+GitHub Actions run with the repo's secrets, so a compromised action = a breach.
+Treat every `uses:` as untrusted third-party code that executes in your CI.
 
-- **Orchestration (Python):** LangGraph (graph/state machines), LlamaIndex
-  (RAG + agents), PydanticAI, CrewAI, AutoGen, OpenAI Agents SDK, Google ADK.
-- **Orchestration (TS/JS):** Vercel **AI SDK** (streaming, tools, `ToolLoopAgent`),
-  Mastra, LangGraph.js, Cloudflare Agents (Durable Objects), OpenAI Agents SDK,
-  Claude Agent SDK.
-- **Model gateways:** OpenRouter, AnyRouter, LiteLLM — swap providers without code churn.
-- **Interop protocol:** **MCP** (Model Context Protocol) for tools/resources; A2A
-  for agent-to-agent.
-- **Memory / RAG:** vector stores (Qdrant, pgvector), LlamaIndex; explicit
-  short/long-term + reflection memory for agentic loops.
-- **Eval / observability:** LangSmith, Langfuse, Braintrust.
-- **Runtime / deploy:** Cloudflare Workers + Durable Objects, Vercel.
+## The incident
 
-**Duyet uses** (see [[user-duyet-ai-stance]]): Claude Code as driver; Claude Agent
-SDK, OpenAI Agents SDK, Cloudflare Agents, Vercel AI SDK, LlamaIndex, LangChain;
-OpenRouter/AnyRouter for routing; MCP (mcp.duyet.net). Core pattern: plan →
-execute → test → reflect with persistent memory.
+In **March 2026**, `aquasecurity/trivy-action` had **75 tags force-pushed** — a
+known supply-chain attack pattern where a benign tag is silently moved to a
+malicious commit. Anyone referencing `@v0.x` (a moving tag) pulled the attacker's
+code on the next run. (`@v0.36.0` was the pin used here.)
+
+## How to apply
+
+- **Pin every Action** to a specific version tag (`@v0.36.0`, not `@v0.x`) or,
+  better, a **commit SHA** (`@<sha>#semver:`). Tags can be force-pushed; SHAs
+  can't (without repo history rewrite). Dependabot keeps SHA pins fresh.
+- **Two-phase Trivy scan** (report, then fail) — avoids re-running the expensive
+  setup and separates "show me the vulns" from "gate the build on them":
+  1. **Report job** — `trivy-action` with `exit-code: 0` (always succeeds, emits
+     the SARIF/JSON report).
+  2. **Fail-on-severity job** — `trivy-action` with `skip-setup: true` (reuses the
+     install) + `exit-code: 1` + `severity: CRITICAL,HIGH`.
+
+Related pipeline hygiene: see [[tech-release-please-squash-pipeline]] and
+[[tech-codebase-maintenance-loop]].
+
+---
+
+# Cloudflare AI Gateway is a transparent proxy for model names
+URL: https://kb.duyet.net/m/tech-cloudflare-ai-gateway-proxy
+Type: tech
+Description: AI Gateway does not validate model ids; it forwards them to the upstream — "invalid model ID" comes from the provider, not CF
+
+Cloudflare AI Gateway keeps **no per-model allow-list**. It never rejects a
+request because a model is "unsupported" by Cloudflare — it only resolves which
+**upstream/provider** to route to and forwards the model string unchanged. So you
+can serve a brand-new model the moment the **upstream provider** hosts it; no
+waiting on Cloudflare.
+
+- **Custom & per-provider endpoints** (`.../<gateway>/custom-{slug}/...`): the
+  model is never parsed — everything after `custom-{slug}/` is appended to the
+  registered `base_url` and forwarded verbatim. Creating a custom provider needs
+  only `name`/`slug`/`base_url` — no model registration.
+- **Universal / `compat` endpoint** (`model: "provider/model"`): AI Gateway parses
+  only the **provider prefix** to pick a route. The error `"X is not a valid model
+  ID"` here means an **unknown provider prefix**, never an unsupported model.
+- A `"... is not a valid model ID"` in the AIG dashboard is the **upstream's**
+  rejection (the model isn't hosted there), not AI Gateway's. Debug upstream
+  availability, not gateway config.
+
+**Proven:** routing `nvidia/cosmos3-nano-reasoner` through a custom NVIDIA provider
+reached `integrate.api.nvidia.com` and NVIDIA rejected it (model is self-host
+NIM/HF-weights only, not on the hosted API). AIG passed it through fine.
 
 ---
 
@@ -1982,29 +2290,197 @@ hook runs `pnpm run test`. Root checks before completing a multi-file task:
 
 ---
 
-# Codebase maintenance loop
-URL: https://kb.duyet.net/m/tech-codebase-maintenance-loop
+# Traefik forwardAuth + OAuth2 Proxy + nginx redirector pattern
+URL: https://kb.duyet.net/m/tech-traefik-forwardauth-oauth2-proxy
 Type: tech
-Description: Improvement-cycle sweeps, safe dead-code removal, and test discipline used to keep duyet.net low-debt
+Description: Traefik ErrorPages middleware preserves original status (won't pass 302 through), so forwardAuth with OAuth2 needs an nginx redirector to convert 401→302
 
-How [[project-duyetbot]] keeps [[project-duyet-net]] low-debt — extends
-[[feedback-working-style]] with concrete tooling.
+Pattern for protecting k8s services behind GitHub OAuth2 via Traefik forwardAuth.
 
-**Improvement cycles:** periodic scoped sweeps, one debt category each (security,
-dedup/shadcn, privacy/cache, data-sync, DB, design, tests). ~9 cycles / ~155
-fixes by early 2026; cycle 9 added 104 tests + unified the design system. Run a
-cycle: `git log --since=<date> --name-only` to scope → fix → test before/after →
-one semantic commit per logical change.
+## Architecture
 
-**Safe dead-code removal:** before deleting a symbol, prove zero non-test refs:
-`rg -n "<symbol>" apps packages --glob '!**/*.test.*' --glob '!**/*.spec.*'`.
-Empty output = safe. `pnpm why <pkg>` to check dep overrides. Record durable
-findings in the core-memory doc — do NOT create dated review files.
+```
+Request → Traefik IngressRoute
+  → forwardAuth middleware (points to auth-redirector:9190/auth)
+    → auth-redirector (nginx) proxies to oauth2-proxy:4180/oauth2/auth
+      → 200: pass through (authenticated)
+      → 401: nginx intercepts → 302 to oauth2-proxy login
+```
 
-**Tests:** `pnpm run test` from root (also the pre-commit hook). A test must fail
-when business logic changes (encode WHY, not just WHAT). Priority by risk:
-security/credentials → data transforms (normalizers, slugs, markdown) → render
-correctness → edge cases.
+## Key insight: why nginx redirector is needed
+
+Traefik's `ErrorPages` middleware replaces the response body but **keeps the original status code**. When oauth2-proxy returns 302 on unauthenticated requests, ErrorPages rewrites it — the redirect never reaches the browser. The nginx redirector intercepts the 401 from oauth2-proxy and returns its own 302 with the correct `Location` header. This is a known Traefik limitation, not a bug.
+
+## OAuth2 Proxy callback URL
+
+Must use the proxy prefix path `/oauth2/callback`, not `/callback`:
+
+```
+redirect-url: "https://auth.example.com/oauth2/callback"
+login URL:     "https://auth.example.com/oauth2/start?rd=<original-url>"
+```
+
+## Traefik Middleware config
+
+```yaml
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+spec:
+  forwardAuth:
+    address: http://auth-redirector.<ns>.svc.cluster.local:9190/auth
+    authResponseHeaders:
+      - X-Auth-Request-Email
+      - X-Auth-Request-User
+    trustForwardHeader: true
+```
+
+Apply to IngressRoute via `middlewares` annotation or CRD middleware chain.
+
+---
+
+# AI agent building — tech stack
+URL: https://kb.duyet.net/m/tech-ai-agent-stack
+Type: tech
+Description: Frameworks/SDKs for building LLM agents (LangGraph, AI SDK, Claude/OpenAI Agents SDK, MCP) + what Duyet uses
+
+The 2026 stack for building LLM agents, by layer:
+
+- **Orchestration (Python):** LangGraph (graph/state machines), LlamaIndex
+  (RAG + agents), PydanticAI, CrewAI, AutoGen, OpenAI Agents SDK, Google ADK.
+- **Orchestration (TS/JS):** Vercel **AI SDK** (streaming, tools, `ToolLoopAgent`),
+  Mastra, LangGraph.js, Cloudflare Agents (Durable Objects), OpenAI Agents SDK,
+  Claude Agent SDK.
+- **Model gateways:** OpenRouter, AnyRouter, LiteLLM — swap providers without code churn.
+- **Interop protocol:** **MCP** (Model Context Protocol) for tools/resources; A2A
+  for agent-to-agent.
+- **Memory / RAG:** vector stores (Qdrant, pgvector), LlamaIndex; explicit
+  short/long-term + reflection memory for agentic loops.
+- **Eval / observability:** LangSmith, Langfuse, Braintrust.
+- **Runtime / deploy:** Cloudflare Workers + Durable Objects, Vercel.
+
+**Duyet uses** (see [[user-duyet-ai-stance]]): Claude Code as driver; Claude Agent
+SDK, OpenAI Agents SDK, Cloudflare Agents, Vercel AI SDK, LlamaIndex, LangChain;
+OpenRouter/AnyRouter for routing; MCP (mcp.duyet.net). Core pattern: plan →
+execute → test → reflect with persistent memory.
+
+---
+
+# Hermes agent custom LLM provider config
+URL: https://kb.duyet.net/m/tech-hermes-agent-custom-provider
+Type: tech
+Description: Hermes (codingllm/hermes) uses custom_providers list + provider:custom to register non-built-in OpenAI-compatible endpoints
+
+Hermes agent configuration for custom OpenAI-compatible LLM providers.
+
+## Custom provider registration
+
+Two-part config in `hermes.yaml`:
+
+1. **`custom_providers` list** — registers the provider by name, base_url, model, and api_key
+2. **`model.provider: custom`** — tells Hermes to look up from custom_providers instead of built-in
+
+```yaml
+model:
+  api_key: ${API_KEY}
+  base_url: ${API_BASE}
+  default: 'provider-name/model-name'
+  provider: custom          # <-- required to use custom_providers
+custom_providers:
+  - api_key: ${API_KEY}
+    base_url: https://example.com/api/v1
+    model: actual-model-id
+    name: provider-name     # referenced in default as "provider-name/model"
+providers: {}               # clear built-in providers if not needed
+```
+
+**Gotcha:** `providers` must be set to `{}` if you don't want built-in providers loaded. Leaving it out may cause conflicts.
+
+## Steer mode (busy_input_mode)
+
+```yaml
+display:
+  busy_input_mode: steer
+  busy_ack_enabled: true
+```
+
+- `steer`: when the agent is busy processing, new user messages are queued and the agent adjusts its current task to incorporate them (rather than ignoring or queuing blindly)
+- `busy_ack_enabled: true`: sends a brief acknowledgment so the user knows the message was received
+- Alternative values: `reject`, `queue` (agent-specific)
+
+---
+
+# Open Knowledge Format (OKF) — the spec this KB already implements
+URL: https://kb.duyet.net/m/tech-okf-open-knowledge-format
+Type: tech
+Description: OKF v0.1 (Google, 2026-06) formalizes the markdown+frontmatter "LLM-wiki" pattern; this repo is now a strict-conformant bundle — nested topics, ISO-8601 timestamp, reserved index.md/log.md
+
+**Open Knowledge Format (OKF) v0.1** — Draft. Published by Google Cloud (Sam
+McVeety, Amir Hormati) 2026-06-13. Canonical spec: `GoogleCloudPlatform/knowledge-catalog/okf/SPEC.md`.
+
+An open, vendor-neutral standard for the **markdown + YAML-frontmatter
+"LLM-wiki"** pattern — the same pattern [[feedback-docs-driven-development]] and
+this repo already use. "Just markdown, just files, just YAML frontmatter." No
+runtime, no SDK, no compression.
+
+## Shape
+
+- **Bundle** = a directory tree of `.md` files. **Concept** = one `.md` file.
+  **Concept ID** = the file path with `.md` removed (the *path is the identity*).
+- **Reserved filenames** (MUST NOT be concepts): `index.md` (directory listing
+  for progressive disclosure), `log.md` (chronological change history, newest
+  first, ISO 8601).
+- Concepts link via **standard markdown links** (bundle-relative `/x.md` or
+  relative `x.md`) → a graph richer than the folder hierarchy. Consumers MUST
+  tolerate broken links.
+- **Frontmatter — REQUIRED: only `type`** (free-form string, not centrally
+  registered; e.g. `BigQuery Table`, `Metric`, `Playbook`, `Reference`).
+  Recommended: `title`, `description`, `resource` (URI of the asset), `tags`,
+  `timestamp` (ISO 8601). Producers MAY add custom keys; **consumers MUST
+  preserve unknown fields** and tolerate unknown `type`s.
+- Conventional body headings: `# Schema`, `# Examples`, `# Citations`.
+
+## Three design principles
+
+1. **Minimally opinionated** — only `type` is mandated; spec defines the
+   *interoperability surface*, not the content model.
+2. **Producer/consumer independence** — the format is the contract; tooling at
+   each end is swappable (human-authored ↔ agent-consumed).
+3. **Format, not platform** — no cloud / DB / model / agent-framework lock-in.
+
+## Gotcha: the reference validator is stricter than the prose
+
+The prose requires only `type`, but Google's reference `OKFDocument.validate()`
+rejects any doc missing **`type`, `title`, `description`, `timestamp`** (all four,
+non-empty), and Google's own sample bundles (GA4, Stack Overflow, Bitcoin) carry
+all four. So *de facto* OKF = those 4 fields. Reference tooling: a BigQuery
+enrichment agent (producer) + a self-contained static HTML graph visualizer
+(consumer).
+
+## How this repo aligns
+
+This repo **is** a strict-conformant OKF v0.1 bundle. `memory/` is the bundle
+root; each concept is one `.md` carrying the required `type`. Field map:
+
+| OKF field | this repo | status |
+|-----------|-----------|--------|
+| `type` | `type` (user/feedback/project/reference/tech) | ✅ |
+| `title` / `description` | same | ✅ |
+| `tags` | `tags` | ✅ |
+| `resource` | `sources` (URL array vs singular URI) | ≈ |
+| `timestamp` | `timestamp` (ISO 8601) + `created`/`updated` (dates) | ✅ |
+| path = ID | `name:` field (= filename) — permitted custom key | ✅ |
+| `index.md` | `memory/index.md` (generated) + `MEMORY.md` (root index) | ✅ |
+| `log.md` | `memory/log.md` (change history, newest-first) | ✅ |
+
+Concepts are grouped into **nested topic dirs** by domain
+(`topics/cloudflare/`, `topics/llm-agents/`, `topics/web/`, `topics/ci/`, …)
+alongside the memory-layer dirs (`user/`, `feedback/`, `reference/`,
+`projects/`). Cross-links use Obsidian wikilinks (the double-bracket form) — an
+OKF-compatible producer convention; the structured graph also rides in `related:`
+frontmatter. The official validator treats non-`/path.md` text as plain prose, so
+this is conformant with zero warnings. The monorepo `apps/kb` app is a live
+**consumer** — see [[project-kb-duyet-net]]; `kb viz` renders a self-contained
+graph viewer (the OKF reference consumer pattern).
 
 ---
 
@@ -2034,6 +2510,77 @@ utilities `.pill-outline`, `.eyebrow-mono`, `.display-tight`). shadcn primitives
 
 ---
 
+# Cloudflare Kumo UI + Next.js integration gotchas
+URL: https://kb.duyet.net/m/tech-kumo-ui-nextjs-integration
+Type: reference
+Description: Kumo (base-ui) + Phosphor crash RSC pre-render via createContext — every importer must be "use client"; plus Button/Tabs/Chart/Sidebar API differences
+
+Hard-won facts from migrating the AgentState dashboard (Next 16 + Turbopack + `output:"export"`) to `@cloudflare/kumo@2.5` from shadcn/ui. See [[project-agentstate-kumo-rebuild]].
+
+**`createContext is not a function` is THE blocker.** Kumo (base-ui) AND `@phosphor-icons/react` (`IconContext`) call `React.createContext` at module top-level. RSC pre-render has no `createContext`, so **every file importing either must start with `"use client"`** — not just the obvious ones. `transpilePackages: ["@cloudflare/kumo","@base-ui/react","@phosphor-icons/react","echarts"]` is necessary but NOT sufficient.
+
+**Tailwind v4 wiring** (`globals.css`): `@source "../../node_modules/@cloudflare/kumo/dist/**/*.{js,jsx,ts,tsx}";` then `@import "@cloudflare/kumo/styles/tailwind";` BEFORE `@import "tailwindcss";`. Without `@source`, Kumo utility classes silently vanish (e.g. dialogs not centered).
+
+**API differences vs shadcn:**
+- `Button` has **no `render`/`asChild`** → link buttons are `<Link href><Button>…</Button></Link>`. Default `variant` is `secondary` (map shadcn `default`→`primary`).
+- `Tabs` is **array-based** (`tabs={[{value,label}]}` + controlled `value`/`onValueChange`), no `Tabs.Content`.
+- **No `Chart`** → use `echarts` directly (it's a peer dep).
+- `Sidebar`: use named `SidebarProvider` (not `Sidebar.Provider`); `SidebarMenuButton` has `href`+`active`+`tooltip` but **no `render`**.
+- `Text` is a discriminated union: `heading1/2/3` REQUIRE matching `as="h1/2/3"`; **`className` is not accepted** on `Text` at all.
+
+**Tokens:** Kumo ships `--color-kumo-*` (base, hairline, fill, danger, brand…) AND the standard names (`muted`, `foreground`, `border`…) resolve from your own `globals.css :root`. Don't invent `kumo-line`/`kumo-tint`/`kumo-subtle`/`kumo-strong` — they don't exist; only `kumo-base` does among the common ones.
+
+**Phosphor:** `Activity` does NOT exist (use `Pulse`/`ChartLine`); both bare (`House`) and `*Icon` (`HouseIcon`) forms export. `lucide→phosphor`: Home→House, Settings→Gear, MessageSquare→ChatCircle, ChevronsUpDown→CaretUpDown, Building2→Buildings.
+
+**Dark mode:** Kumo uses `data-mode="dark"` attr; shadcn uses `.dark` class. During migration set BOTH. Local docs via `bunx kumo doc <Name>` / `kumo ls` (web docs often rate-limited).
+
+**Install:** `bun add @cloudflare/kumo @phosphor-icons/react echarts zod` (project uses Bun, not pnpm).
+
+---
+
+# Per-page OG images in a static-prerendered app
+URL: https://kb.duyet.net/m/tech-og-images-static-prerender
+Type: tech
+Description: Build-time Open Graph cards from one registry feeding both the generator and the route head; meta must be in prerendered HTML for crawlers
+
+**Goal:** unique 1200×630 social-share images per page on a static site, without
+adding a runtime image renderer.
+
+**Two flavours of "dynamic":**
+- *Build-time* — generate one committed `og-<slug>.png` per page; regenerate on
+  every deploy. No worker bundle cost. **Default choice** for static-first apps.
+- *Request-time* — a `/og?title=…` worker route rendering live (Satori + resvg
+  WASM). Truly dynamic but adds WASM weight to the worker bundle; avoid unless
+  needed.
+
+**Pipeline (build-time):** [Satori](https://github.com/vercel/satori) (HTML/CSS
+object tree → SVG) + `@resvg/resvg-js` (SVG → PNG). Make it **hermetic**: vendor
+the TTF fonts in-repo so no network access — safe inside CI deploy jobs. It's
+deterministic (no timestamps/random), so regenerating unchanged cards yields
+**byte-identical** PNGs — git diff = objective proof a refactor changed nothing.
+
+**Single registry = no drift.** One map `slug → {eyebrow, title, description}`
+feeds *both* consumers: (1) the generator loops it to emit `og-<slug>.png`, and
+(2) a `pageOgHead(slug)` helper builds the route `<head>` meta. A standalone bun
+script can import the app's TS registry directly — keep that file free of React /
+path-alias imports.
+
+**Crawler correctness — the check that matters:** social crawlers (Slack, X,
+Facebook) don't run JS. The OG meta MUST be in the *prerendered* HTML, not
+injected client-side. With TanStack Start SSG the route `head()` runs at build
+and bakes tags into `dist/client/<route>/index.html`. Verify by grepping the
+built HTML, and on prod check the image returns `200 image/png` with
+`cf-cache-status: MISS` right after deploy (proves fresh, not edge-cached).
+
+Root layout holds the shared defaults (`og:type`, `og:image:width/height`,
+`twitter:card=summary_large_image`); per-route `head()` overrides title + image.
+Pages without a registry entry fall back to the site-wide default image.
+
+Shipped in chmonitor [[project-clickhouse-monitor]] (PRs #1614/#1615 base,
+#1617 extended to per-page query pages).
+
+---
+
 # Rust→WASM strategy + prerender CI trap
 URL: https://kb.duyet.net/m/tech-rust-wasm-prerender
 Type: tech
@@ -2056,6 +2603,25 @@ serves the homepage at every post URL (looks like a routing bug; deploy logs gre
 gated on the blog app. **Diagnose:** healthy blog build = 700+ `index.html` in
 `dist/client/`; grep build log for `markdownToHtml`/"Failed to convert".
 See [[tech-tanstack-start-ssg]], [[tech-cloudflare-pages-deploy]].
+
+---
+
+# TanStack Router stale lazy route chunks
+URL: https://kb.duyet.net/m/tech-tanstack-stale-route-chunks
+Type: tech
+Description: After Vite hash rotation, missing lazy chunks surface as reading 'component' — reload guard + prerender marketing shells
+
+Post-deploy, users on an old main bundle may 404 a lazy route chunk (`pricing-*.js`). TanStack Router then throws **`Cannot read properties of undefined (reading 'component')`** — not caught by import-only preload handlers.
+
+## Fix pattern (AnyRouter 2026-06-14)
+
+1. Inline pre-import script: match import failures **and** router render errors; `sessionStorage` debounce (30s); listen `unhandledrejection`, `error`, `vite:preloadError`
+2. Root `errorComponent` calls same reload helper when patterns match
+3. Prerender public marketing routes so ASSETS HTML is hash-locked with current build (`<slug>.html`, not `index.html` — CF trailing-slash 307 trap)
+
+**Why:** Default TanStack error UI sticks; users blame the page, not their cached bundle.
+
+**How to apply:** On any TanStack Start + Vite code-split app with frequent deploys, extend stale-chunk recovery beyond dynamic-import strings; prerender high-traffic static shells in the two-deploy capture pass.
 
 ---
 
@@ -2083,6 +2649,32 @@ Loader per domain in the CF dashboard as belt-and-suspenders.)
 `fetch('/data.json')` fails in SSR — use isomorphic loading (`fs.readFile` on
 SSR, `fetch()` on client); absolute API URLs work in both. `failOnError:false`
 hides prerender errors — see [[tech-rust-wasm-prerender]]. Deploy: [[tech-cloudflare-pages-deploy]].
+
+---
+
+# Codebase maintenance loop
+URL: https://kb.duyet.net/m/tech-codebase-maintenance-loop
+Type: tech
+Description: Improvement-cycle sweeps, safe dead-code removal, and test discipline used to keep duyet.net low-debt
+
+How [[project-duyetbot]] keeps [[project-duyet-net]] low-debt — extends
+[[feedback-working-style]] with concrete tooling.
+
+**Improvement cycles:** periodic scoped sweeps, one debt category each (security,
+dedup/shadcn, privacy/cache, data-sync, DB, design, tests). ~9 cycles / ~155
+fixes by early 2026; cycle 9 added 104 tests + unified the design system. Run a
+cycle: `git log --since=<date> --name-only` to scope → fix → test before/after →
+one semantic commit per logical change.
+
+**Safe dead-code removal:** before deleting a symbol, prove zero non-test refs:
+`rg -n "<symbol>" apps packages --glob '!**/*.test.*' --glob '!**/*.spec.*'`.
+Empty output = safe. `pnpm why <pkg>` to check dep overrides. Record durable
+findings in the core-memory doc — do NOT create dated review files.
+
+**Tests:** `pnpm run test` from root (also the pre-commit hook). A test must fail
+when business logic changes (encode WHY, not just WHAT). Priority by risk:
+security/credentials → data transforms (normalizers, slugs, markdown) → render
+correctness → edge cases.
 
 ---
 

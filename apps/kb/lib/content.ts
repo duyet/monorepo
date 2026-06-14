@@ -60,6 +60,8 @@ export interface MemoryNote {
   aliases: string[];
   created: string;
   updated: string;
+  /** ISO 8601 creation/revision timestamp from frontmatter, if present. */
+  timestamp: string;
   /** Raw markdown body (without frontmatter). */
   raw: string;
 }
@@ -140,7 +142,7 @@ function parseArticle(filePath: string, raw: string): Article | null {
 function parseMemory(filePath: string, raw: string): MemoryNote | null {
   const { data, content } = parseFrontmatter(raw);
   const slug = slugFromPath(filePath);
-  if (slug.startsWith("_")) return null;
+  if (slug.startsWith("_") || slug === "index" || slug === "log") return null;
 
   // Strip [[wikilink]] brackets from related slugs
   const related = (Array.isArray(data.related) ? data.related : []).map(
@@ -169,6 +171,7 @@ function parseMemory(filePath: string, raw: string): MemoryNote | null {
     aliases: Array.isArray(data.aliases) ? data.aliases.map(String) : [],
     created: typeof data.created === "string" ? data.created : "",
     updated: typeof data.updated === "string" ? data.updated : "",
+    timestamp: typeof data.timestamp === "string" ? data.timestamp : "",
     raw: content.trim(),
   };
 }
@@ -210,6 +213,9 @@ export function loadContent(): KbContent {
     const ta = typeOrder[a.memoryType] ?? 5;
     const tb = typeOrder[b.memoryType] ?? 5;
     if (ta !== tb) return ta - tb;
+    // Within a type: newer timestamp first, then name as the stable fallback.
+    if (a.timestamp && b.timestamp)
+      return b.timestamp.localeCompare(a.timestamp);
     return a.name.localeCompare(b.name);
   });
 

@@ -65,6 +65,7 @@ interface MemoryNote {
   aliases: string[];
   created: string;
   updated: string;
+  timestamp: string;
   raw: string;
 }
 
@@ -137,7 +138,7 @@ const memoryTypes = new Set<string>();
 
 for (const filePath of walkMd(MEMORY_DIR)) {
   const slug = basename(filePath, ".md");
-  if (slug.startsWith("_")) continue;
+  if (slug.startsWith("_") || slug === "index" || slug === "log") continue;
 
   const raw = readFileSync(filePath, "utf-8");
   const { data, content } = matter(raw);
@@ -163,6 +164,7 @@ for (const filePath of walkMd(MEMORY_DIR)) {
     aliases: Array.isArray(data.aliases) ? data.aliases.map(String) : [],
     created: typeof data.created === "string" ? data.created : "",
     updated: typeof data.updated === "string" ? data.updated : "",
+    timestamp: typeof data.timestamp === "string" ? data.timestamp : "",
     raw: content.trim(),
   };
   memory.push(note);

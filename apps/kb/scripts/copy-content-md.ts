@@ -57,7 +57,7 @@ for (const src of walkMd(ARTICLES_DIR)) {
 let memoryCopied = 0;
 for (const src of walkMd(MEMORY_DIR)) {
   const slug = basename(src, ".md");
-  if (slug.startsWith("_")) continue;
+  if (slug.startsWith("_") || slug === "index" || slug === "log") continue;
   cpSync(src, join(OUTPUT_M_DIR, `${slug}.md`));
   memoryCopied++;
 }

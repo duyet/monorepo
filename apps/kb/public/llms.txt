@@ -4,7 +4,7 @@ URL: https://kb.duyet.net
 Sitemap: https://kb.duyet.net/sitemap.xml
 Raw Markdown: https://kb.duyet.net/k/<slug>.md
 
-32 articles across 8 categories, 19 memory notes.
+32 articles across 8 categories, 32 memory notes.
 
 ## Articles
 
@@ -252,6 +252,24 @@ Markdown: https://kb.duyet.net/m/feedback-working-style.md
 Type: feedback
 Description: How Duyet wants agents to work — concise English, semantic commits, simple solutions
 
+### The Self-Driving Homelab
+URL: https://kb.duyet.net/m/project-self-driven-homelab
+Markdown: https://kb.duyet.net/m/project-self-driven-homelab.md
+Type: project
+Description: self-driving k3s homelab with Hermes/Minh — an AI agent that manages its own infrastructure
+
+### AnyRouter
+URL: https://kb.duyet.net/m/project-anyrouter
+Markdown: https://kb.duyet.net/m/project-anyrouter.md
+Type: project
+Description: Universal LLM API gateway at anyrouter.dev — TanStack Start on CF Workers, Kumo UI, split web/API workers, prerendered marketing shells
+
+### ClickHouse Monitor (chmonitor)
+URL: https://kb.duyet.net/m/project-clickhouse-monitor
+Markdown: https://kb.duyet.net/m/project-clickhouse-monitor.md
+Type: project
+Description: Open-source ClickHouse monitoring dashboard — monorepo topology, domains, marketing/docs apps, design system
+
 ### duyet.net monorepo
 URL: https://kb.duyet.net/m/project-duyet-net
 Markdown: https://kb.duyet.net/m/project-duyet-net.md
@@ -263,6 +281,12 @@ URL: https://kb.duyet.net/m/project-duyetbot
 Markdown: https://kb.duyet.net/m/project-duyetbot.md
 Type: project
 Description: Autonomous Claude Code agent that maintains the duyet.net monorepo — scope, autonomous loop, and memory hierarchy
+
+### Infra Optimization Baseline (2026-06-13)
+URL: https://kb.duyet.net/m/project-infra-optimization
+Markdown: https://kb.duyet.net/m/project-infra-optimization.md
+Type: project
+Description: k3s cluster resource optimization, security hardening, and host cleanup — baseline for future tuning
 
 ### kb.duyet.net knowledge base
 URL: https://kb.duyet.net/m/project-kb-duyet-net
@@ -288,11 +312,23 @@ Markdown: https://kb.duyet.net/m/reference-duyet-github.md
 Type: reference
 Description: Duyet's main public repos — ClickHouse tooling, Rust data tools, AI-agent projects, infra
 
-### AI agent building — tech stack
-URL: https://kb.duyet.net/m/tech-ai-agent-stack
-Markdown: https://kb.duyet.net/m/tech-ai-agent-stack.md
+### release-please + squash-merge release pipeline
+URL: https://kb.duyet.net/m/tech-release-please-squash-pipeline
+Markdown: https://kb.duyet.net/m/tech-release-please-squash-pipeline.md
+Type: reference
+Description: Conventional-commit release automation where squash-merge PR titles drive versioning; pre-1.0 bump rules and the PR-title guard that keeps it honest
+
+### Pin GitHub Actions — the trivy-action March 2026 compromise
+URL: https://kb.duyet.net/m/tech-supply-chain-pin-github-actions
+Markdown: https://kb.duyet.net/m/tech-supply-chain-pin-github-actions.md
 Type: tech
-Description: Frameworks/SDKs for building LLM agents (LangGraph, AI SDK, Claude/OpenAI Agents SDK, MCP) + what Duyet uses
+Description: aquasecurity/trivy-action had 75 tags force-pushed in March 2026 — pin Actions to a version or commit SHA and use the two-phase Trivy scan (report then fail-on-severity)
+
+### Cloudflare AI Gateway is a transparent proxy for model names
+URL: https://kb.duyet.net/m/tech-cloudflare-ai-gateway-proxy
+Markdown: https://kb.duyet.net/m/tech-cloudflare-ai-gateway-proxy.md
+Type: tech
+Description: AI Gateway does not validate model ids; it forwards them to the upstream — "invalid model ID" comes from the provider, not CF
 
 ### Cloudflare Pages deploy workflow
 URL: https://kb.duyet.net/m/tech-cloudflare-pages-deploy
@@ -300,11 +336,29 @@ Markdown: https://kb.duyet.net/m/tech-cloudflare-pages-deploy.md
 Type: tech
 Description: Commit→push→background-deploy convention for duyet.net apps on Cloudflare Pages, plus the parallel-deploy hazard
 
-### Codebase maintenance loop
-URL: https://kb.duyet.net/m/tech-codebase-maintenance-loop
-Markdown: https://kb.duyet.net/m/tech-codebase-maintenance-loop.md
+### Traefik forwardAuth + OAuth2 Proxy + nginx redirector pattern
+URL: https://kb.duyet.net/m/tech-traefik-forwardauth-oauth2-proxy
+Markdown: https://kb.duyet.net/m/tech-traefik-forwardauth-oauth2-proxy.md
 Type: tech
-Description: Improvement-cycle sweeps, safe dead-code removal, and test discipline used to keep duyet.net low-debt
+Description: Traefik ErrorPages middleware preserves original status (won't pass 302 through), so forwardAuth with OAuth2 needs an nginx redirector to convert 401→302
+
+### AI agent building — tech stack
+URL: https://kb.duyet.net/m/tech-ai-agent-stack
+Markdown: https://kb.duyet.net/m/tech-ai-agent-stack.md
+Type: tech
+Description: Frameworks/SDKs for building LLM agents (LangGraph, AI SDK, Claude/OpenAI Agents SDK, MCP) + what Duyet uses
+
+### Hermes agent custom LLM provider config
+URL: https://kb.duyet.net/m/tech-hermes-agent-custom-provider
+Markdown: https://kb.duyet.net/m/tech-hermes-agent-custom-provider.md
+Type: tech
+Description: Hermes (codingllm/hermes) uses custom_providers list + provider:custom to register non-built-in OpenAI-compatible endpoints
+
+### Open Knowledge Format (OKF) — the spec this KB already implements
+URL: https://kb.duyet.net/m/tech-okf-open-knowledge-format
+Markdown: https://kb.duyet.net/m/tech-okf-open-knowledge-format.md
+Type: tech
+Description: OKF v0.1 (Google, 2026-06) formalizes the markdown+frontmatter "LLM-wiki" pattern; this repo is now a strict-conformant bundle — nested topics, ISO-8601 timestamp, reserved index.md/log.md
 
 ### Flat editorial design system
 URL: https://kb.duyet.net/m/tech-flat-design-system
@@ -312,17 +366,41 @@ Markdown: https://kb.duyet.net/m/tech-flat-design-system.md
 Type: tech
 Description: duyet.net design rules — hairline borders not shadows, lucide icons, shadcn + semantic tokens, minimal token layer, dark mode
 
+### Cloudflare Kumo UI + Next.js integration gotchas
+URL: https://kb.duyet.net/m/tech-kumo-ui-nextjs-integration
+Markdown: https://kb.duyet.net/m/tech-kumo-ui-nextjs-integration.md
+Type: reference
+Description: Kumo (base-ui) + Phosphor crash RSC pre-render via createContext — every importer must be "use client"; plus Button/Tabs/Chart/Sidebar API differences
+
+### Per-page OG images in a static-prerendered app
+URL: https://kb.duyet.net/m/tech-og-images-static-prerender
+Markdown: https://kb.duyet.net/m/tech-og-images-static-prerender.md
+Type: tech
+Description: Build-time Open Graph cards from one registry feeding both the generator and the route head; meta must be in prerendered HTML for crawlers
+
 ### Rust→WASM strategy + prerender CI trap
 URL: https://kb.duyet.net/m/tech-rust-wasm-prerender
 Markdown: https://kb.duyet.net/m/tech-rust-wasm-prerender.md
 Type: tech
 Description: When WASM beats TS (>1ms compute only), and the silent-prerender CI trap when the gitignored WASM binary is missing
 
+### TanStack Router stale lazy route chunks
+URL: https://kb.duyet.net/m/tech-tanstack-stale-route-chunks
+Markdown: https://kb.duyet.net/m/tech-tanstack-stale-route-chunks.md
+Type: tech
+Description: After Vite hash rotation, missing lazy chunks surface as reading 'component' — reload guard + prerender marketing shells
+
 ### TanStack Start SSG (Cloudflare)
 URL: https://kb.duyet.net/m/tech-tanstack-start-ssg
 Markdown: https://kb.duyet.net/m/tech-tanstack-start-ssg.md
 Type: tech
 Description: Why + how to prerender a Vite app with TanStack Start SSG to survive Cloudflare Rocket Loader
+
+### Codebase maintenance loop
+URL: https://kb.duyet.net/m/tech-codebase-maintenance-loop
+Markdown: https://kb.duyet.net/m/tech-codebase-maintenance-loop.md
+Type: tech
+Description: Improvement-cycle sweeps, safe dead-code removal, and test discipline used to keep duyet.net low-debt
 
 ### Duyet — AI & coding-agent stance
 URL: https://kb.duyet.net/m/user-duyet-ai-stance
