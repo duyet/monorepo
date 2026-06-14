@@ -79,7 +79,7 @@ jobs:
 
           # Open the PR if it doesn't exist; otherwise the force-push already
           # updated the existing one (same branch).
-          if ! gh pr view --repo "$GITHUB_REPOSITORY" --head "$branch" >/dev/null 2>&1; then
+          if [ -z "$(gh pr list --repo "$GITHUB_REPOSITORY" --head "$branch" --state open --json number --jq '.[0].number' 2>/dev/null)" ]; then
             gh pr create \
               --repo "$GITHUB_REPOSITORY" \
               --base master \
