@@ -12,7 +12,13 @@ export const Route = createFileRoute("/featured")({
     ],
   }),
   loader: async () => {
-    const postsByYear = await getPostsByAllYear(true);
+    const raw = await getPostsByAllYear(true);
+    // Children are nested under their parent; keep flat featured views to top-level.
+    const postsByYear: Record<number, Post[]> = {};
+    for (const [year, posts] of Object.entries(raw)) {
+      const filtered = posts.filter((p) => !p.parent);
+      if (filtered.length) postsByYear[Number(year)] = filtered;
+    }
     return { postsByYear };
   },
   component: Featured,

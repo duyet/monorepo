@@ -13,7 +13,14 @@ export const Route = createFileRoute("/archives")({
     ],
   }),
   loader: async () => {
-    const postsByYear = await getPostsByAllYear();
+    const raw = await getPostsByAllYear();
+    // Children are nested under their parent in Recent posts; keep the flat
+    // archive to top-level posts only.
+    const postsByYear: Record<number, Post[]> = {};
+    for (const [year, posts] of Object.entries(raw)) {
+      const filtered = posts.filter((p) => !p.parent);
+      if (filtered.length) postsByYear[Number(year)] = filtered;
+    }
     return { postsByYear };
   },
   component: Archives,

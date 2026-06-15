@@ -12,7 +12,7 @@ A comprehensive collection of technical blog posts covering Data Engineering, So
 
 ## About This Blog
 
-301+ technical articles covering topics including:
+313+ technical articles covering topics including:
 - Data Engineering & Big Data
 - Apache Spark, ClickHouse, Apache Airflow
 - Cloud Computing (AWS, GCP, Azure)
@@ -24,6 +24,13 @@ A comprehensive collection of technical blog posts covering Data Engineering, So
 Articles span from 2015 to 2026, documenting the evolution of modern data engineering and software development practices.
 
 ## Recent Posts
+
+### [First xcode app build AI Agent 0 knowledge](https://blog.duyet.net/2026/06/first-xcode-capp)
+- **Date**: 2026-06-10
+- **Category**: AI
+- **Tags**: Ai, Agents, Claude Code
+- **URL**: https://blog.duyet.net/2026/06/first-xcode-capp
+- **Description**: My first app ever without Swift knowledge
 
 ### [Autonomous Claude Code Migrate Nextjs to Tanstack Start](https://blog.duyet.net/2026/06/migrate-tanstack)
 - **Date**: 2026-06-03
@@ -53,12 +60,89 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - **URL**: https://blog.duyet.net/2026/02/claws
 - **Description**: OpenClaw, NanoBot, PicoClaw, ZeroClaw, NullClaw, NemoClaw, ...
 
+### [Claude Code](https://blog.duyet.net/2026/01/coding-agent/claude-code)
+- **Date**: 2026-01-01
+- **Category**: AI
+- **Tags**: Ai
+- **URL**: https://blog.duyet.net/2026/01/coding-agent/claude-code
+- **Description**: Why Claude Code is still the king among coding agents I've tried
+
+### [Claude Code Setup](https://blog.duyet.net/2026/01/coding-agent/claude-code-setup)
+- **Date**: 2026-01-01
+- **Category**: AI
+- **Tags**: Ai
+- **URL**: https://blog.duyet.net/2026/01/coding-agent/claude-code-setup
+- **Description**: How I configure Claude Code - auto-compact, permissions, MCPs, and skills
+
+### [Claude Design](https://blog.duyet.net/2026/01/coding-agent/claude-design)
+- **Date**: 2026-01-01
+- **Category**: AI
+- **Tags**: Ai
+- **URL**: https://blog.duyet.net/2026/01/coding-agent/claude-design
+- **Description**: Claude Design reads your codebase and builds a design system from your colors and typography
+
+### [CLAUDE.md, AGENTS.md](https://blog.duyet.net/2026/01/coding-agent/claude-md-agents-md)
+- **Date**: 2026-01-01
+- **Category**: AI
+- **Tags**: Ai
+- **URL**: https://blog.duyet.net/2026/01/coding-agent/claude-md-agents-md
+- **Description**: Keep your coding agent's project instructions consistent across sessions
+
 ### [Coding Agents](https://blog.duyet.net/2026/01/coding-agent)
 - **Date**: 2026-01-01
 - **Category**: AI
 - **Tags**: Ai
 - **URL**: https://blog.duyet.net/2026/01/coding-agent
 - **Description**: Reflect on what I'm thinking and doing in this LLM era
+
+### [duyet/claude-plugins](https://blog.duyet.net/2026/01/coding-agent/duyet-claude-plugins)
+- **Date**: 2026-01-01
+- **Category**: AI
+- **Tags**: Ai
+- **URL**: https://blog.duyet.net/2026/01/coding-agent/duyet-claude-plugins
+- **Description**: A collection of plugins, skills, MCPs, commands, and hooks I use for Claude Code
+
+### [Interview Mode](https://blog.duyet.net/2026/01/coding-agent/interview-mode)
+- **Date**: 2026-01-01
+- **Category**: AI
+- **Tags**: Ai
+- **URL**: https://blog.duyet.net/2026/01/coding-agent/interview-mode
+- **Description**: Ask clarifying questions before planning complex tasks
+
+### [Long-running and self-improving coding agent](https://blog.duyet.net/2026/01/coding-agent/long-running-agent)
+- **Date**: 2026-01-01
+- **Category**: AI
+- **Tags**: Ai
+- **URL**: https://blog.duyet.net/2026/01/coding-agent/long-running-agent
+- **Description**: Build a long-running autonomous coding agent that runs 24/7
+
+### [opencode](https://blog.duyet.net/2026/01/coding-agent/opencode)
+- **Date**: 2026-01-01
+- **Category**: AI
+- **Tags**: Ai
+- **URL**: https://blog.duyet.net/2026/01/coding-agent/opencode
+- **Description**: A coding agent with nice UI/UX that consolidates all your subscriptions
+
+### [Parallel Sub-Agents / Teams](https://blog.duyet.net/2026/01/coding-agent/parallel-sub-agents)
+- **Date**: 2026-01-01
+- **Category**: AI
+- **Tags**: Ai
+- **URL**: https://blog.duyet.net/2026/01/coding-agent/parallel-sub-agents
+- **Description**: Lead a team of parallel agents with leader delegation to senior and junior roles
+
+### [Plan Mode](https://blog.duyet.net/2026/01/coding-agent/plan-mode)
+- **Date**: 2026-01-01
+- **Category**: AI
+- **Tags**: Ai
+- **URL**: https://blog.duyet.net/2026/01/coding-agent/plan-mode
+- **Description**: Plan mode performs significantly better than just prompting directly
+
+### [z_claude, mi_claude & or_claude](https://blog.duyet.net/2026/01/coding-agent/z-claude-mi-claude-or-claude)
+- **Date**: 2026-01-01
+- **Category**: AI
+- **Tags**: Ai
+- **URL**: https://blog.duyet.net/2026/01/coding-agent/z-claude-mi-claude-or-claude
+- **Description**: Wrapper scripts to use Claude Code with alternative providers
 
 ### [ClickHouse Rust UDFs](https://blog.duyet.net/2024/11/clickhouse-rust-udf)
 - **Date**: 2024-11-01
@@ -81,100 +165,28 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - **URL**: https://blog.duyet.net/2024/06/clickhouse-replacingmergetree
 - **Description**: My favorite ClickHouse table engine is `ReplacingMergeTree`. The main reason is that it is similar to `MergeTree` but can automatically deduplicate based on columns in the `ORDER BY` clause, which is very useful.
 
-### [MergeTree](https://blog.duyet.net/2024/05/clickhouse-mergetree)
-- **Date**: 2024-05-31
-- **Category**: Data
-- **Tags**: Data, Clickhouse, Clickhouse On Kubernetes
-- **URL**: https://blog.duyet.net/2024/05/clickhouse-mergetree
-- **Description**: After starting this series ClickHouse on Kubernetes, you can now configure your first single-node ClickHouse server. Let's dive into creating your first table and understanding the basic concepts behind the ClickHouse engine, its data storage, and some cool features
-
-### [Monitoring ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-monitoring)
-- **Date**: 2024-03-27
-- **Category**: Data
-- **Tags**: Data, Clickhouse, Clickhouse On Kubernetes
-- **URL**: https://blog.duyet.net/2024/03/clickhouse-monitoring
-- **Description**: Complete guide to monitoring ClickHouse on Kubernetes. Learn about built-in dashboards, Prometheus + Grafana setup, powerful system tables for monitoring queries, and the ClickHouse Monitoring UI dashboard. Includes practical examples, essential monitoring queries, and best practices for production observability.
-
-### [ClickHouse SELECT Advances](https://blog.duyet.net/2024/03/clickhouse-select-advances)
-- **Date**: 2024-03-26
-- **Category**: Data
-- **Tags**: Data, Clickhouse, Clickhouse On Kubernetes
-- **URL**: https://blog.duyet.net/2024/03/clickhouse-select-advances
-- **Description**: Dynamic column selection (also known as a `COLUMNS` expression) allows you to match some columns in a result with a re2 regular expression.
-
-### [ClickHouse on Kubernetes](https://blog.duyet.net/2024/03/clickhouse-on-kubernetes)
-- **Date**: 2024-03-13
-- **Category**: Data
-- **Tags**: Data, Clickhouse, Clickhouse On Kubernetes
-- **URL**: https://blog.duyet.net/2024/03/clickhouse-on-kubernetes
-- **Description**: Complete guide to deploying ClickHouse on Kubernetes using the Altinity ClickHouse Operator. Learn how to set up your first single-node cluster, configure persistent storage, manage users, and customize ClickHouse versions. Includes practical examples and best practices from production experience managing clusters with trillions of rows.
-
-### [2023 - A Year of Moving](https://blog.duyet.net/2024/02/2023-summary)
-- **Date**: 2024-02-09
-- **Category**: Story
-- **Tags**: 
-- **URL**: https://blog.duyet.net/2024/02/2023-summary
-- **Description**: So, I hadn't really planned on writing a summary post for this year, as lazy as I am, but somehow, here we are.
-
-### [Rust: Processing JSON with serde](https://blog.duyet.net/2023/10/rust-json-serde)
-- **Date**: 2023-10-15
-- **Category**: Rust
-- **Tags**: Rust, Serde
-- **URL**: https://blog.duyet.net/2023/10/rust-json-serde
-- **Description**: Serialize and deserialize JSON in Rust using serde and serde_json — derive macros, field attributes, enum representations, file I/O, dynamic values, and error handling.
-
-### [Apache OpenDAL in Rust to Access Any Kind of Data Services](https://blog.duyet.net/2023/09/opendal)
-- **Date**: 2023-09-09
-- **Category**: Rust
-- **Tags**: Data, Rust, Data Engineering
-- **URL**: https://blog.duyet.net/2023/09/opendal
-- **Description**: OpenDAL is a data access layer that allows users to easily and efficiently retrieve data from various storage services in a unified way such as S3, FTP, FS, Google Drive, HDFS, etc. They has been rewritten in Rust for the Core and have a binding from many various language like Python, Node.js, C, etc..
-
-### [My Neovim Setup in 2023](https://blog.duyet.net/2023/09/nvim-setup-2023)
-- **Date**: 2023-09-04
-- **Category**: Productivity
-- **Tags**: Vim, Ide
-- **URL**: https://blog.duyet.net/2023/09/nvim-setup-2023
-- **Description**: It's been years since I first started using neovim and I've been updating it regularly ever since.
-
-### [DuckDB](https://blog.duyet.net/2023/09/duckdb)
-- **Date**: 2023-09-03
-- **Category**: Data
-- **Tags**: Data, Data Engineering
-- **URL**: https://blog.duyet.net/2023/09/duckdb
-- **Description**: In this post, I want to explore the features and capabilities of DuckDB, an open-source, in-process SQL OLAP database management system written in C++11 that has been gaining popularity recently. According to what people have said, DuckDB is designed to be easy to use and flexible, allowing you to run complex queries on relational datasets using either local, file-based DuckDB instances or the cloud service MotherDuck.
-
-### [Airflow control the parallelism and concurrency (draw)](https://blog.duyet.net/2023/07/airflow-control-parallelism-concurrency)
-- **Date**: 2023-07-16
-- **Category**: Data
-- **Tags**: Data, Data Engineering, Apache Airflow
-- **URL**: https://blog.duyet.net/2023/07/airflow-control-parallelism-concurrency
-- **Description**: How to control parallelism and concurrency
-
-### [Fossil Data Platform Rewritten in Rust 🦀](https://blog.duyet.net/2023/06/fossil-data-platform-written-rust)
-- **Date**: 2023-06-18
-- **Category**: Rust
-- **Tags**: Data, Data Engineering, Rust
-- **URL**: https://blog.duyet.net/2023/06/fossil-data-platform-written-rust
-- **Description**: My data engineering team at Fossil recently released some of Rust-based components of our Data Platform after faced performance and maintenance challenges of the old Python codebase. I would like to share the insights and lessons learned during the process of migrating Fossil's Data Platform from Python to Rust.
-
-### [Running Spark in GitHub Actions](https://blog.duyet.net/2023/05/spark-github-actions)
-- **Date**: 2023-05-07
-- **Category**: Data
-- **Tags**: Data, Data Engineering, Apache Spark, Github
-- **URL**: https://blog.duyet.net/2023/05/spark-github-actions
-- **Description**: This post provides a quick and easy guide on how to run Apache Spark in GitHub Actions for testing purposes
-
 
 ## All Blog Posts by Year
 
-### 2026 (5 posts)
+### 2026 (17 posts)
 
+- [First xcode app build AI Agent 0 knowledge](https://blog.duyet.net/2026/06/first-xcode-capp) - 2026-06-10
 - [Autonomous Claude Code Migrate Nextjs to Tanstack Start](https://blog.duyet.net/2026/06/migrate-tanstack) - 2026-06-03
 - [Letting Claude Code work overnight, 2026](https://blog.duyet.net/2026/06/coding-agent-2026) - 2026-06-03
 - [Cloudflare is all you need](https://blog.duyet.net/2026/05/cloudflare-is-all-you-need) - 2026-05-06
 - [Claws](https://blog.duyet.net/2026/02/claws) - 2026-02-22
+- [Claude Code](https://blog.duyet.net/2026/01/coding-agent/claude-code) - 2026-01-01
+- [Claude Code Setup](https://blog.duyet.net/2026/01/coding-agent/claude-code-setup) - 2026-01-01
+- [Claude Design](https://blog.duyet.net/2026/01/coding-agent/claude-design) - 2026-01-01
+- [CLAUDE.md, AGENTS.md](https://blog.duyet.net/2026/01/coding-agent/claude-md-agents-md) - 2026-01-01
 - [Coding Agents](https://blog.duyet.net/2026/01/coding-agent) - 2026-01-01
+- [duyet/claude-plugins](https://blog.duyet.net/2026/01/coding-agent/duyet-claude-plugins) - 2026-01-01
+- [Interview Mode](https://blog.duyet.net/2026/01/coding-agent/interview-mode) - 2026-01-01
+- [Long-running and self-improving coding agent](https://blog.duyet.net/2026/01/coding-agent/long-running-agent) - 2026-01-01
+- [opencode](https://blog.duyet.net/2026/01/coding-agent/opencode) - 2026-01-01
+- [Parallel Sub-Agents / Teams](https://blog.duyet.net/2026/01/coding-agent/parallel-sub-agents) - 2026-01-01
+- [Plan Mode](https://blog.duyet.net/2026/01/coding-agent/plan-mode) - 2026-01-01
+- [z_claude, mi_claude & or_claude](https://blog.duyet.net/2026/01/coding-agent/z-claude-mi-claude-or-claude) - 2026-01-01
 
 ### 2024 (8 posts)
 
@@ -507,11 +519,21 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 
 Short-form thoughts and notes. Full list: https://blog.duyet.net/notes
 
+### [Kubernetes Agent Sandbox](https://blog.duyet.net/note/kubernetes-agent-sandbox)
+- **Date**: 2026-06-13
+- **URL**: https://blog.duyet.net/note/kubernetes-agent-sandbox
+- **Markdown**: https://blog.duyet.net/note/kubernetes-agent-sandbox.md
+- **Description**: I am boring of fixing production bug on most recently weeks by just copy the markdown event exception log and paste to slash command of Claude Code then let it. I am looking for solution for automated that, safe and privacy, running Agent Sandbox on Kubernetes. The Google search dirctt me straight to Running Agents on Kubernetes with Agent Sandbox I am asking Minh (Hermes) to start research and doing POC on Homelab (she managed and k3s homelab her self) and to report back to me later: Research, install, test, and summarize the benefits of this: https://github.com/kubernetes-sigs/agent-sandbox How about building a sandbox for running DeepAgent (LangChain) or Claude Agent SDK (with a custom AnyRouter.dev API)? Build a sandbox that listens to GitHub issues, comments, or webhook triggers to self-fix code, pull from Git, fix, and push, with skills, etc. Refer to the Claude Agent SDK first. Research and build a demo. Use zread, web search, research subagent, and add deployment to the homelab infrastructure in a self-driven way. 1. What kubernetes-sandbox actually is (correcting the name) Despite "sandbox" in the name, it is not an isolation engine — no gVisor/Kata/Firecracker shipped. It's a lifecycle CRD + controller (agents.x-k8s.io/v1beta1, v0.4.6, SIG Apps, Google-backed) that turns "one stateful pod with stable identity" into a declarative object. The real benefits: Suspend/Resume (scale-to-0 keeping PVC) · TTL/expiry auto-cleanup · volumeClaimTemplates · stable headless-Service DNS · SandboxWarmPool (pre-warmed, ~sub-100ms cold start) · SandboxClaim (multi-tenant request flow) · auto-generated "secure-by-default" NetworkPolicy (egress to internet allowed, blocks RFC1918 + cloud-metadata 169.254.x). Strong isolation is delegated to runtimeClassName you install separately — gVisor (runsc) or Kata. Without it, a Sandbox = a normal runc pod. The demo architecture (webhook-server model = Sweep's runtime + claude-code-action's interaction) GitHub webhook → Traefik → webhook-receiver (FastAPI, verify HMAC) → verify X-GitHub-Event (issues/issuecomment "/fix") → mint GitHub App token (reuse duyetbot App 1064078 + mint-gh-token.py) → create Sandbox CR (securityContext/gVisor, clones repo, runs agent) agent = DeepAgents w/ custom API + .claude/skills/ fix → commit → push branch → open PR (GitHub API) → Sandbox TTL auto-cleans
 ### [AX](https://blog.duyet.net/note/ax)
 - **Date**: 2026-06-08
 - **URL**: https://blog.duyet.net/note/ax
 - **Markdown**: https://blog.duyet.net/note/ax.md
 - **Description**: Dries Buytaert's regarding AX (Agent Experience): In the era of AI coding agents, software adoption depends on how easily these agents can "consume" your project. AI agents prioritize the cheapest path to completion; if your software is difficult to use, they will simply reject it without notice. To ensure your project is chosen, you must reduce three specific costs: Friction: The effort required to get the system running (installation, setup, environment configuration, and access/credentials). Abstraction: The effort required to understand what to do next (providing clear recipes, templates, scaffolds, and logical defaults). Verification: The effort required to confirm the work was successful (reliable tests, clear error messages, and inspectable system states). What helps AI agents (AX) also helps human developers (DX). By making your project easy for an agent to install, modify, and verify, you make it better for everyone.
+### [Use Fable 5](https://blog.duyet.net/note/fable-5)
+- **Date**: 2026-06-08
+- **URL**: https://blog.duyet.net/note/fable-5
+- **Markdown**: https://blog.duyet.net/note/fable-5.md
+- **Description**: I am Claude $100 Max Plan but still hitting limit like ~30 minutes with Fable 5. I am regenerate the PRD.md + extra stuff you need to implement next on your repo product: Read all related documents and summarize the main PRD.md for this project repo. Include all features and the core value of XXX, which are .... Create parallel subagents to help explore and write the detailed PRD. Fable is so overpowered that you don't need its intelligence for every step. /goal Review this repo against PRD.md and produce a prioritized, evidence-backed report on where to reduce complexity and make the repo more faithful to the PRD's original vision. Run this as a dynamic workflow ultrawork using Opus or Sonnet. Summarize the report.
 ### [Dynamic Workflows with GLM 5.1](https://blog.duyet.net/note/mai)
 - **Date**: 2026-06-04
 - **URL**: https://blog.duyet.net/note/mai
@@ -546,7 +568,7 @@ Short-form thoughts and notes. Full list: https://blog.duyet.net/notes
 ---
 
 **Blog Statistics:**
-- Total Posts: 301
+- Total Posts: 313
 - Years Active: 2015-2026
 - Categories: 15
 - Tags: 61

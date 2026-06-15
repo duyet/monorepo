@@ -1,28 +1,28 @@
-import type { Post, Series } from "@duyet/interfaces";
+import type { Post } from "@duyet/interfaces";
 import { extractHeadings } from "@duyet/libs/extractHeadings";
 import { markdownToHtml } from "@duyet/libs/markdownToHtml";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
 import {
-  getChildren,
+  type ChildNavItem,
+  getChildNavigation,
   getPostBySlug,
   getRelatedPosts,
-  getSeries,
 } from "@/lib/posts";
 import "@/styles/post-reader.css";
-import { Chapters } from "./-chapters";
-import Content from "./-content";
-import { PostFooter } from "./-post-footer";
-import { PostHero } from "./-post-hero";
-import { TableOfContents } from "./-toc";
-import type { LoadedPost } from "./-types";
+import { ChildBreadcrumb } from "../-breadcrumb";
+import Content from "../-content";
+import { PostFooter } from "../-post-footer";
+import { PostHero } from "../-post-hero";
+import { TableOfContents } from "../-toc";
+import type { LoadedPost } from "../-types";
 
-export const Route = createFileRoute("/$year/$month/$slug")({
+export const Route = createFileRoute("/$year/$month/$slug/$child")({
   head: ({ params, loaderData }) => {
-    const { year, month, slug: rawSlug } = params;
-    const slug = rawSlug.replace(/\.(md|html)$/, "");
+    const { year, month, slug, child: rawChild } = params;
+    const child = rawChild.replace(/\.(md|html)$/, "");
     const post = (loaderData as { post?: Post } | undefined)?.post;
-    const title = post?.title || slug.replace(/-/g, " ");
+    const title = post?.title || child.replace(/-/g, " ");
     const ogImage = post?.thumbnail
       ? new URL(post.thumbnail, "https://blog.duyet.net").toString()
       : undefined;
@@ -32,7 +32,7 @@ export const Route = createFileRoute("/$year/$month/$slug")({
         { property: "og:type", content: "article" },
         {
           property: "og:url",
-          content: `https://blog.duyet.net/${year}/${month}/${slug}`,
+          content: `https://blog.duyet.net/${year}/${month}/${slug}/${child}`,
         },
         ...(post?.title ? [{ property: "og:title", content: post.title }] : []),
         ...(post?.excerpt
@@ -47,15 +47,16 @@ export const Route = createFileRoute("/$year/$month/$slug")({
         {
           rel: "alternate",
           type: "text/markdown",
-          href: `https://blog.duyet.net/${year}/${month}/${slug}.md`,
+          href: `https://blog.duyet.net/${year}/${month}/${slug}/${child}.md`,
         },
       ],
     };
   },
   loader: async ({ params }) => {
-    const { year, month, slug: rawSlug } = params;
+    const { year, month, slug: rawSlug, child: rawChild } = params;
     const slug = rawSlug.replace(/\.(md|html)$/, "");
-    const slugPath = `${year}/${month}/${slug}`;
+    const child = rawChild.replace(/\.(md|html)$/, "");
+    const slugPath = `${year}/${month}/${slug}/${child}`;
 
     let postWithContent;
     try {
@@ -70,7 +71,7 @@ export const Route = createFileRoute("/$year/$month/$slug")({
     const repoUrl =
       import.meta.env.VITE_GITHUB_REPO_URL ||
       "https://github.com/duyet/monorepo";
-    const file = `${year}/${month}/${slug}.md`;
+    const file = `${year}/${month}/${slug}/${child}.md`;
     const edit_url = `${repoUrl}/edit/master/apps/blog/_posts/${file}`;
 
     let htmlContent = "";
@@ -84,17 +85,22 @@ export const Route = createFileRoute("/$year/$month/$slug")({
       htmlContent = await markdownToHtml(markdownContent);
     }
 
-    const series = postWithContent.series
-      ? await getSeries({ name: postWithContent.series as string })
-      : null;
-
+    const { prev, next } = await getChildNavigation(postWithContent.slug);
     const related = await getRelatedPosts(postWithContent, 3);
 
-    // Chaptered posts: load children for the Chapters list. Cheap — filters
-    // an in-memory array and is empty for non-parent posts.
-    const children = await getChildren(postWithContent.slug);
+    // Parent title for the breadcrumb. Fall back gracefully if the parent
+    // post isn't in the index for some reason.
+    let parentTitle = "Overview";
+    if (postWithContent.parent) {
+      try {
+        const parent = await getPostBySlug(postWithContent.parent);
+        if (parent.title) parentTitle = parent.title;
+      } catch {
+        // keep fallback
+      }
+    }
 
-    const post = {
+    const post: LoadedPost = {
       ...postWithContent,
       content: htmlContent,
       mdxSource,
@@ -103,24 +109,32 @@ export const Route = createFileRoute("/$year/$month/$slug")({
       edit_url,
     };
 
-    return { post, series, related, children };
+    return { post, parentTitle, prev, next, related };
   },
-  component: PostPage,
+  component: ChildPostPage,
 });
 
-function PostPage() {
-  const { post, series, related, children } = Route.useLoaderData() as {
+function ChildPostPage() {
+  const { post, parentTitle, prev, next, related } = Route.useLoaderData() as {
     post: LoadedPost;
-    series: Series | null;
+    parentTitle: string;
+    prev: ChildNavItem | null;
+    next: ChildNavItem | null;
     related: Post[];
-    children: Post[];
   };
-
-  const hasChildren = children.length > 0;
 
   return (
     <div className="post-reader overflow-x-hidden pb-0">
       <ReadingProgress />
+
+      {/* Breadcrumb + sibling nav */}
+      <ChildBreadcrumb
+        parentTitle={parentTitle}
+        parentSlug={post.parent ?? ""}
+        currentTitle={post.title}
+        prev={prev}
+        next={next}
+      />
 
       {/* Hero */}
       <PostHero post={post} />
@@ -132,17 +146,13 @@ function PostPage() {
         </div>
       </div>
 
-      {/* Chapters list (parent posts with `parts:`) */}
-      {hasChildren && <Chapters chapters={children} parentSlug={post.slug} />}
-
-      {/* Floating TOC — right side of viewport, outside content flow.
-          Suppressed for chaptered parents (the Chapters list serves as nav). */}
-      {!hasChildren && post.headings && post.headings.length > 0 && (
+      {/* Floating TOC — right side of viewport, outside content flow */}
+      {post.headings && post.headings.length > 0 && (
         <TableOfContents headings={post.headings} />
       )}
 
-      {/* Series + Related + Changelog bento grid */}
-      <PostFooter post={post} series={series} related={related} />
+      {/* Related (no series nav for children — siblings live in the breadcrumb) */}
+      <PostFooter post={post} series={null} related={related} />
     </div>
   );
 }

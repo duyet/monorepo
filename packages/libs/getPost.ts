@@ -186,6 +186,14 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
       post.series = data.series || undefined;
     }
 
+    if (field === "parent") {
+      post.parent = data.parent || undefined;
+    }
+
+    if (field === "parts") {
+      post.parts = Array.isArray(data.parts) ? data.parts : undefined;
+    }
+
     if (field === "thumbnail") {
       const thumbnail = data.thumbnail;
       post.thumbnail =

@@ -20,7 +20,7 @@ export const Route = createFileRoute("/category/$category")({
     };
   },
   loader: async ({ params }) => {
-    const [posts, categories] = await Promise.all([
+    const [all, categories] = await Promise.all([
       getPostsByCategory(params.category),
       getAllCategories(),
     ]);
@@ -28,7 +28,8 @@ export const Route = createFileRoute("/category/$category")({
       (cat) => getSlug(cat) === params.category
     );
     if (!found) throw notFound();
-    return { posts, categories };
+    // Children are nested under their parent; keep flat category views to top-level.
+    return { posts: all.filter((p) => !p.parent), categories };
   },
   component: PostsByCategory,
 });

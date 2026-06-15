@@ -62,24 +62,62 @@ function HomePage(): ReactElement {
     [years, postsByYear],
   );
 
-  const featured = allPosts[0];
+  // Chaptered posts: top-level drives the flat listing; children nest under
+  // their parent in the Recent posts tree and are excluded from flat views.
+  const { topLevel, childrenByParent } = useMemo(() => {
+    const children = allPosts.filter((p) => p.parent);
+    const map: Record<string, typeof allPosts> = {};
+    for (const child of children) {
+      const parentSlug = child.parent as string;
+      if (!map[parentSlug]) map[parentSlug] = [];
+      map[parentSlug].push(child);
+    }
+    // Order each parent's children by the parent's `parts:` array.
+    const parentParts: Record<string, string[] | undefined> = {};
+    for (const p of allPosts) {
+      if (p.parts?.length) parentParts[p.slug] = p.parts;
+    }
+    for (const [parentSlug, list] of Object.entries(map)) {
+      const order = parentParts[parentSlug];
+      if (order && order.length > 0) {
+        list.sort((a, b) => {
+          const ta = a.slug.split("/").pop() ?? "";
+          const tb = b.slug.split("/").pop() ?? "";
+          const ra = order.indexOf(ta);
+          const rb = order.indexOf(tb);
+          return (ra === -1 ? Infinity : ra) - (rb === -1 ? Infinity : rb);
+        });
+      } else {
+        list.sort(
+          (a, b) =>
+            new Date(a.date).getTime() - new Date(b.date).getTime(),
+        );
+      }
+    }
+    return {
+      topLevel: allPosts.filter((p) => !p.parent),
+      childrenByParent: map,
+    };
+  }, [allPosts]);
+
+  const featured = topLevel[0];
 
   // Derive categories + counts dynamically from the loaded posts
   const categories = useMemo(() => {
     const counts: Record<string, number> = {};
-    for (const p of allPosts) {
+    for (const p of topLevel) {
       const c = p.category;
       counts[c] = (counts[c] ?? 0) + 1;
     }
     return Object.entries(counts)
       .sort((a, b) => b[1] - a[1])
       .map(([name, count]) => ({ name, count }));
-  }, [allPosts]);
+  }, [topLevel]);
 
 
 
   // Stats
-  const totalPosts = allPosts.length;
+  const totalPosts = topLevel.length;
   const totalYears = years.length;
   const sinceYear = years[years.length - 1];
 
@@ -89,9 +127,9 @@ function HomePage(): ReactElement {
   // Filtered posts for the list
   const filteredPosts = useMemo(() => {
     return activeCategory === "All"
-      ? allPosts
-      : allPosts.filter((p) => p.category === activeCategory);
-  }, [allPosts, activeCategory]);
+      ? topLevel
+      : topLevel.filter((p) => p.category === activeCategory);
+  }, [topLevel, activeCategory]);
 
   return (
     <div>
@@ -216,6 +254,7 @@ function HomePage(): ReactElement {
       {/* ── Recent posts ─────────────────────────────────────────────── */}
       <PostList
         filteredPosts={filteredPosts}
+        childrenByParent={childrenByParent}
         activeCategory={activeCategory}
         categories={categories}
         setActiveCategory={setActiveCategory}

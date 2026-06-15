@@ -27,6 +27,7 @@ import { Route as SeriesSlugRouteImport } from './routes/series/$slug'
 import { Route as NoteIdRouteImport } from './routes/note/$id'
 import { Route as CategoryCategoryRouteImport } from './routes/category/$category'
 import { Route as YearMonthSlugRouteImport } from './routes/$year/$month/$slug'
+import { Route as YearMonthSlugChildRouteImport } from './routes/$year/$month/$slug/$child'
 
 const TagsRoute = TagsRouteImport.update({
   id: '/tags',
@@ -118,6 +119,11 @@ const YearMonthSlugRoute = YearMonthSlugRouteImport.update({
   path: '/$year/$month/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const YearMonthSlugChildRoute = YearMonthSlugChildRouteImport.update({
+  id: '/$child',
+  path: '/$child',
+  getParentRoute: () => YearMonthSlugRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -137,7 +143,8 @@ export interface FileRoutesByFullPath {
   '/note/$id': typeof NoteIdRoute
   '/series/$slug': typeof SeriesSlugRoute
   '/tag/$tag': typeof TagTagRoute
-  '/$year/$month/$slug': typeof YearMonthSlugRoute
+  '/$year/$month/$slug': typeof YearMonthSlugRouteWithChildren
+  '/$year/$month/$slug/$child': typeof YearMonthSlugChildRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -157,7 +164,8 @@ export interface FileRoutesByTo {
   '/note/$id': typeof NoteIdRoute
   '/series/$slug': typeof SeriesSlugRoute
   '/tag/$tag': typeof TagTagRoute
-  '/$year/$month/$slug': typeof YearMonthSlugRoute
+  '/$year/$month/$slug': typeof YearMonthSlugRouteWithChildren
+  '/$year/$month/$slug/$child': typeof YearMonthSlugChildRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -178,7 +186,8 @@ export interface FileRoutesById {
   '/note/$id': typeof NoteIdRoute
   '/series/$slug': typeof SeriesSlugRoute
   '/tag/$tag': typeof TagTagRoute
-  '/$year/$month/$slug': typeof YearMonthSlugRoute
+  '/$year/$month/$slug': typeof YearMonthSlugRouteWithChildren
+  '/$year/$month/$slug/$child': typeof YearMonthSlugChildRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -201,6 +210,7 @@ export interface FileRouteTypes {
     | '/series/$slug'
     | '/tag/$tag'
     | '/$year/$month/$slug'
+    | '/$year/$month/$slug/$child'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -221,6 +231,7 @@ export interface FileRouteTypes {
     | '/series/$slug'
     | '/tag/$tag'
     | '/$year/$month/$slug'
+    | '/$year/$month/$slug/$child'
   id:
     | '__root__'
     | '/'
@@ -241,6 +252,7 @@ export interface FileRouteTypes {
     | '/series/$slug'
     | '/tag/$tag'
     | '/$year/$month/$slug'
+    | '/$year/$month/$slug/$child'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -259,7 +271,7 @@ export interface RootRouteChildren {
   TagsRoute: typeof TagsRoute
   NoteIdRoute: typeof NoteIdRoute
   TagTagRoute: typeof TagTagRoute
-  YearMonthSlugRoute: typeof YearMonthSlugRoute
+  YearMonthSlugRoute: typeof YearMonthSlugRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -390,6 +402,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof YearMonthSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$year/$month/$slug/$child': {
+      id: '/$year/$month/$slug/$child'
+      path: '/$child'
+      fullPath: '/$year/$month/$slug/$child'
+      preLoaderRoute: typeof YearMonthSlugChildRouteImport
+      parentRoute: typeof YearMonthSlugRoute
+    }
   }
 }
 
@@ -416,6 +435,18 @@ const SeriesRouteChildren: SeriesRouteChildren = {
 const SeriesRouteWithChildren =
   SeriesRoute._addFileChildren(SeriesRouteChildren)
 
+interface YearMonthSlugRouteChildren {
+  YearMonthSlugChildRoute: typeof YearMonthSlugChildRoute
+}
+
+const YearMonthSlugRouteChildren: YearMonthSlugRouteChildren = {
+  YearMonthSlugChildRoute: YearMonthSlugChildRoute,
+}
+
+const YearMonthSlugRouteWithChildren = YearMonthSlugRoute._addFileChildren(
+  YearMonthSlugRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -432,7 +463,7 @@ const rootRouteChildren: RootRouteChildren = {
   TagsRoute: TagsRoute,
   NoteIdRoute: NoteIdRoute,
   TagTagRoute: TagTagRoute,
-  YearMonthSlugRoute: YearMonthSlugRoute,
+  YearMonthSlugRoute: YearMonthSlugRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
