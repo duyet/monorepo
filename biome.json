@@ -23,7 +23,7 @@
       "!**/llm-timeline/lib/data.ts",
       "!**/.claude",
       "!**/routeTree.gen.ts",
-      "!apps/kb/kb/**"
+      "!apps/kb/kb"
     ]
   },
   "formatter": {

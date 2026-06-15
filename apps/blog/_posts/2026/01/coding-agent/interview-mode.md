@@ -12,11 +12,11 @@ description: Ask clarifying questions before planning complex tasks
 
 For complex tasks, try my [`/interview`](https://github.com/duyet/claude-plugins/tree/master/interview) plugin - it asks clarifying questions before you start planning. It helps catch missing requirements early.
 
-```
+```text
 /plugin install interview@duyet-claude-plugins
 ```
 
-```
+```text
 /interview:interview ~/.claude/plans/adaptive-dazzling-lamport.md
 ```
 

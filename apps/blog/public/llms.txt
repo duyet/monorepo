@@ -12,7 +12,7 @@ A comprehensive collection of technical blog posts covering Data Engineering, So
 
 ## About This Blog
 
-313+ technical articles covering topics including:
+312+ technical articles covering topics including:
 - Data Engineering & Big Data
 - Apache Spark, ClickHouse, Apache Airflow
 - Cloud Computing (AWS, GCP, Azure)
@@ -24,13 +24,6 @@ A comprehensive collection of technical blog posts covering Data Engineering, So
 Articles span from 2015 to 2026, documenting the evolution of modern data engineering and software development practices.
 
 ## Recent Posts
-
-### [First xcode app build AI Agent 0 knowledge](https://blog.duyet.net/2026/06/first-xcode-capp)
-- **Date**: 2026-06-10
-- **Category**: AI
-- **Tags**: Ai, Agents, Claude Code
-- **URL**: https://blog.duyet.net/2026/06/first-xcode-capp
-- **Description**: My first app ever without Swift knowledge
 
 ### [Autonomous Claude Code Migrate Nextjs to Tanstack Start](https://blog.duyet.net/2026/06/migrate-tanstack)
 - **Date**: 2026-06-03
@@ -165,12 +158,18 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - **URL**: https://blog.duyet.net/2024/06/clickhouse-replacingmergetree
 - **Description**: My favorite ClickHouse table engine is `ReplacingMergeTree`. The main reason is that it is similar to `MergeTree` but can automatically deduplicate based on columns in the `ORDER BY` clause, which is very useful.
 
+### [MergeTree](https://blog.duyet.net/2024/05/clickhouse-mergetree)
+- **Date**: 2024-05-31
+- **Category**: Data
+- **Tags**: Data, Clickhouse, Clickhouse On Kubernetes
+- **URL**: https://blog.duyet.net/2024/05/clickhouse-mergetree
+- **Description**: After starting this series ClickHouse on Kubernetes, you can now configure your first single-node ClickHouse server. Let's dive into creating your first table and understanding the basic concepts behind the ClickHouse engine, its data storage, and some cool features
+
 
 ## All Blog Posts by Year
 
-### 2026 (17 posts)
+### 2026 (16 posts)
 
-- [First xcode app build AI Agent 0 knowledge](https://blog.duyet.net/2026/06/first-xcode-capp) - 2026-06-10
 - [Autonomous Claude Code Migrate Nextjs to Tanstack Start](https://blog.duyet.net/2026/06/migrate-tanstack) - 2026-06-03
 - [Letting Claude Code work overnight, 2026](https://blog.duyet.net/2026/06/coding-agent-2026) - 2026-06-03
 - [Cloudflare is all you need](https://blog.duyet.net/2026/05/cloudflare-is-all-you-need) - 2026-05-06
@@ -519,21 +518,11 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 
 Short-form thoughts and notes. Full list: https://blog.duyet.net/notes
 
-### [Kubernetes Agent Sandbox](https://blog.duyet.net/note/kubernetes-agent-sandbox)
-- **Date**: 2026-06-13
-- **URL**: https://blog.duyet.net/note/kubernetes-agent-sandbox
-- **Markdown**: https://blog.duyet.net/note/kubernetes-agent-sandbox.md
-- **Description**: I am boring of fixing production bug on most recently weeks by just copy the markdown event exception log and paste to slash command of Claude Code then let it. I am looking for solution for automated that, safe and privacy, running Agent Sandbox on Kubernetes. The Google search dirctt me straight to Running Agents on Kubernetes with Agent Sandbox I am asking Minh (Hermes) to start research and doing POC on Homelab (she managed and k3s homelab her self) and to report back to me later: Research, install, test, and summarize the benefits of this: https://github.com/kubernetes-sigs/agent-sandbox How about building a sandbox for running DeepAgent (LangChain) or Claude Agent SDK (with a custom AnyRouter.dev API)? Build a sandbox that listens to GitHub issues, comments, or webhook triggers to self-fix code, pull from Git, fix, and push, with skills, etc. Refer to the Claude Agent SDK first. Research and build a demo. Use zread, web search, research subagent, and add deployment to the homelab infrastructure in a self-driven way. 1. What kubernetes-sandbox actually is (correcting the name) Despite "sandbox" in the name, it is not an isolation engine — no gVisor/Kata/Firecracker shipped. It's a lifecycle CRD + controller (agents.x-k8s.io/v1beta1, v0.4.6, SIG Apps, Google-backed) that turns "one stateful pod with stable identity" into a declarative object. The real benefits: Suspend/Resume (scale-to-0 keeping PVC) · TTL/expiry auto-cleanup · volumeClaimTemplates · stable headless-Service DNS · SandboxWarmPool (pre-warmed, ~sub-100ms cold start) · SandboxClaim (multi-tenant request flow) · auto-generated "secure-by-default" NetworkPolicy (egress to internet allowed, blocks RFC1918 + cloud-metadata 169.254.x). Strong isolation is delegated to runtimeClassName you install separately — gVisor (runsc) or Kata. Without it, a Sandbox = a normal runc pod. The demo architecture (webhook-server model = Sweep's runtime + claude-code-action's interaction) GitHub webhook → Traefik → webhook-receiver (FastAPI, verify HMAC) → verify X-GitHub-Event (issues/issuecomment "/fix") → mint GitHub App token (reuse duyetbot App 1064078 + mint-gh-token.py) → create Sandbox CR (securityContext/gVisor, clones repo, runs agent) agent = DeepAgents w/ custom API + .claude/skills/ fix → commit → push branch → open PR (GitHub API) → Sandbox TTL auto-cleans
 ### [AX](https://blog.duyet.net/note/ax)
 - **Date**: 2026-06-08
 - **URL**: https://blog.duyet.net/note/ax
 - **Markdown**: https://blog.duyet.net/note/ax.md
 - **Description**: Dries Buytaert's regarding AX (Agent Experience): In the era of AI coding agents, software adoption depends on how easily these agents can "consume" your project. AI agents prioritize the cheapest path to completion; if your software is difficult to use, they will simply reject it without notice. To ensure your project is chosen, you must reduce three specific costs: Friction: The effort required to get the system running (installation, setup, environment configuration, and access/credentials). Abstraction: The effort required to understand what to do next (providing clear recipes, templates, scaffolds, and logical defaults). Verification: The effort required to confirm the work was successful (reliable tests, clear error messages, and inspectable system states). What helps AI agents (AX) also helps human developers (DX). By making your project easy for an agent to install, modify, and verify, you make it better for everyone.
-### [Use Fable 5](https://blog.duyet.net/note/fable-5)
-- **Date**: 2026-06-08
-- **URL**: https://blog.duyet.net/note/fable-5
-- **Markdown**: https://blog.duyet.net/note/fable-5.md
-- **Description**: I am Claude $100 Max Plan but still hitting limit like ~30 minutes with Fable 5. I am regenerate the PRD.md + extra stuff you need to implement next on your repo product: Read all related documents and summarize the main PRD.md for this project repo. Include all features and the core value of XXX, which are .... Create parallel subagents to help explore and write the detailed PRD. Fable is so overpowered that you don't need its intelligence for every step. /goal Review this repo against PRD.md and produce a prioritized, evidence-backed report on where to reduce complexity and make the repo more faithful to the PRD's original vision. Run this as a dynamic workflow ultrawork using Opus or Sonnet. Summarize the report.
 ### [Dynamic Workflows with GLM 5.1](https://blog.duyet.net/note/mai)
 - **Date**: 2026-06-04
 - **URL**: https://blog.duyet.net/note/mai
@@ -568,7 +557,7 @@ Short-form thoughts and notes. Full list: https://blog.duyet.net/notes
 ---
 
 **Blog Statistics:**
-- Total Posts: 313
+- Total Posts: 312
 - Years Active: 2015-2026
 - Categories: 15
 - Tags: 61

@@ -1,6 +1,5 @@
 import type { Post, Series } from "@duyet/interfaces";
 import { extractHeadings } from "@duyet/libs/extractHeadings";
-import { markdownToHtml } from "@duyet/libs/markdownToHtml";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
 import {
@@ -81,7 +80,12 @@ export const Route = createFileRoute("/$year/$month/$slug")({
     } else if (postWithContent.html) {
       htmlContent = postWithContent.html;
     } else {
-      htmlContent = await markdownToHtml(markdownContent);
+      if (typeof window === "undefined") {
+        const { markdownToHtml } = await import("@duyet/libs/markdownToHtml");
+        htmlContent = await markdownToHtml(markdownContent);
+      } else {
+        console.error("markdownToHtml called on client for post:", slugPath);
+      }
     }
 
     const series = postWithContent.series

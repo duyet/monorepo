@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://blog.duyet.net/2026/06/first-xcode-capp</loc>
-    <lastmod>2026-06-10</lastmod>
-  </url>
-  <url>
     <loc>https://blog.duyet.net/2026/06/coding-agent-2026</loc>
     <lastmod>2026-06-03</lastmod>
   </url>
@@ -1342,18 +1338,10 @@
   </url>
   <url>
     <loc>https://blog.duyet.net/notes</loc>
-    <lastmod>2026-06-13</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.duyet.net/note/kubernetes-agent-sandbox</loc>
-    <lastmod>2026-06-13</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.duyet.net/note/ax</loc>
     <lastmod>2026-06-08</lastmod>
   </url>
   <url>
-    <loc>https://blog.duyet.net/note/fable-5</loc>
+    <loc>https://blog.duyet.net/note/ax</loc>
     <lastmod>2026-06-08</lastmod>
   </url>
   <url>

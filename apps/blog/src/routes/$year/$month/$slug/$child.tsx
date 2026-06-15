@@ -1,10 +1,10 @@
 import type { Post } from "@duyet/interfaces";
 import { extractHeadings } from "@duyet/libs/extractHeadings";
-import { markdownToHtml } from "@duyet/libs/markdownToHtml";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
 import {
   type ChildNavItem,
+  fetchAllPosts,
   getChildNavigation,
   getPostBySlug,
   getRelatedPosts,
@@ -47,7 +47,7 @@ export const Route = createFileRoute("/$year/$month/$slug/$child")({
         {
           rel: "alternate",
           type: "text/markdown",
-          href: `https://blog.duyet.net/${year}/${month}/${slug}/${child}.md`,
+          href: `https://blog.duyet.net/${year}/${month}/${slug}/${child}.${post?.isMDX ? "mdx" : "md"}`,
         },
       ],
     };
@@ -65,13 +65,18 @@ export const Route = createFileRoute("/$year/$month/$slug/$child")({
       throw notFound();
     }
 
+    if (!postWithContent.parent) {
+      throw notFound();
+    }
+
     const markdownContent = postWithContent.content || "";
     const headings = await extractHeadings(markdownContent);
 
     const repoUrl =
       import.meta.env.VITE_GITHUB_REPO_URL ||
       "https://github.com/duyet/monorepo";
-    const file = `${year}/${month}/${slug}/${child}.md`;
+    const sourceExt = postWithContent.isMDX ? "mdx" : "md";
+    const file = `${year}/${month}/${slug}/${child}.${sourceExt}`;
     const edit_url = `${repoUrl}/edit/master/apps/blog/_posts/${file}`;
 
     let htmlContent = "";
@@ -82,7 +87,12 @@ export const Route = createFileRoute("/$year/$month/$slug/$child")({
     } else if (postWithContent.html) {
       htmlContent = postWithContent.html;
     } else {
-      htmlContent = await markdownToHtml(markdownContent);
+      if (typeof window === "undefined") {
+        const { markdownToHtml } = await import("@duyet/libs/markdownToHtml");
+        htmlContent = await markdownToHtml(markdownContent);
+      } else {
+        console.error("markdownToHtml called on client for post:", slugPath);
+      }
     }
 
     const { prev, next } = await getChildNavigation(postWithContent.slug);
@@ -91,13 +101,12 @@ export const Route = createFileRoute("/$year/$month/$slug/$child")({
     // Parent title for the breadcrumb. Fall back gracefully if the parent
     // post isn't in the index for some reason.
     let parentTitle = "Overview";
-    if (postWithContent.parent) {
-      try {
-        const parent = await getPostBySlug(postWithContent.parent);
-        if (parent.title) parentTitle = parent.title;
-      } catch {
-        // keep fallback
-      }
+    try {
+      const posts = await fetchAllPosts();
+      const parent = posts.find((p) => p.slug === postWithContent.parent);
+      if (parent?.title) parentTitle = parent.title;
+    } catch {
+      // keep fallback
     }
 
     const post: LoadedPost = {

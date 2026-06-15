@@ -85,7 +85,12 @@ function HomePage(): ReactElement {
           const tb = b.slug.split("/").pop() ?? "";
           const ra = order.indexOf(ta);
           const rb = order.indexOf(tb);
-          return (ra === -1 ? Infinity : ra) - (rb === -1 ? Infinity : rb);
+          if (ra === -1 && rb === -1) {
+            return new Date(a.date).getTime() - new Date(b.date).getTime();
+          }
+          const indexA = ra === -1 ? Number.MAX_SAFE_INTEGER : ra;
+          const indexB = rb === -1 ? Number.MAX_SAFE_INTEGER : rb;
+          return indexA - indexB;
         });
       } else {
         list.sort(

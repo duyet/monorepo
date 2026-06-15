@@ -1,91 +1,7 @@
 # Duyet Le - Technical Blog (Full Content)
 
-> This file contains the full markdown content of all 313 blog posts.
+> This file contains the full markdown content of all 312 blog posts.
 > For a summary index, see https://blog.duyet.net/llms.txt
-
----
-
-# First xcode app build AI Agent 0 knowledge
-
-- **URL**: https://blog.duyet.net/2026/06/first-xcode-capp
-- **Date**: 2026-06-10
-- **Category**: AI
-- **Tags**: Ai, Agents, Claude Code
-
-
-This is WWDC 2026, I am seeing ton of AI is coming, some catching my attecnting is SiriAI and SDK that we can run model on local apple device or Cloud with some limited. There is a lot of simple tasks and automation I want to get it done in Mac and why not building something with that free model without worry about. The simple apps that capture the auto clipboard and trigger LLM tasks on it convinenct. I am doing like this with Monica but their free version having some limitation. I am also kind of lazy to think of what need to open, ChatGPT, Gemini, Grok, ... depends of each of tasks. I am having Coding Agent to generate commit message as I did not remember last time I am doing that, sometime very trivial file I need to generate for it without want wake up thoufsand of system prompt overhead. This is a native macos app that I can adding more myself.  But yes I am building this for myself.
-
-**Generate PRD with Gemini**: I am brainstorm with Gemini to help me write PRD, going thought my idea, pick the name, domain, ...
-
-```
-```
-
-**Prepare skill:** I am try to looking for all possible skills related to SwiftUI, building MacOS apps:
-
-```
-npx skills add https://github.com/dpearson2699/swift-ios-skills --skill apple-on-device-ai
-npx skills add https://github.com/petekp/agent-skills --skill macos-app-design
-npx skills add https://github.com/avdlee/swiftui-agent-skill --skill swiftui-expert-skill
-npx skills add https://github.com/affaan-m/everything-claude-code --skill foundation-models-on-device
-npx skills add https://github.com/ehmo/platform-design-skills --skill macos-design-guidelines
-...
-```
-
-**Antigravity:** It is back with very long PRD then I am paste into Antigravity in `/plan` mode, I am asking it to research all the concept
-
-
-![[Pasted image 20260610222955.png]]
-
-
-![[Screenshot 2026-06-10 at 22.29.43.png]]
-Not working yet, not good design and nothing worked! 
-After a lot of prompting until hit token limit, still not able to make it works.
-
-**Claude Code + GLM 5.1:** I am trying to burn more cheap GLM tokens. I am starting going thought some Swift Document and feeding them into it. Claude Code Harness always more far good, it is doing a lot of fix, refactor, ...  I am trying to ask it build iOS app as well.
-
-**Claude Design:** Now I am need a good design, throughing tthe PRD + bundle of example UI I want, simple like Codex and Claude Code Desktop App. As always back with my satisfy result.
-
-![[Pasted image 20260610224356.png]]
-
-XCode: Busy during Claude Design doing it jobs, I am watching some new video from WWDC released today. A lot of stuff coming to XCode and agent. Claude Code inside Xcode? Agentic Xcode, why not
-
-https://developer.apple.com/videos/play/wwdc2026/259/
-
-
-![[Pasted image 20260610224743.png]]
-
-I am installing XCode the first time. With Claude Code instruction.
-
-![[Pasted image 20260610225419.png]]
-
-![[Screenshot 2026-06-10 at 22.56.29.png]]
-
-![[Pasted image 20260610225954.png]]
-
-I think this is smart move as they take advantage of Coding Agent and expose XCode MCP.
-
-We can even adding more coding agent with path to that.
-![[Pasted image 20260610230144.png]]
-
-![[Pasted image 20260610230229.png]]
-
-
-
-
-**Design finish, Handoff back to Claude:**
-
-![[Pasted image 20260610225243.png]]
-
-
-After a few ... 
-
-![[Pasted image 20260611004834.png]]
-
-Later one found Codex have the Built MacOS and seem good bundle of skills:
- https://github.com/openai/plugins/tree/main/plugins/build-macos-apps/skills
-
-
-I am realized Gemini failed at first giving me the plan without notice about AppUI, ,,, 
 
 ---
 
@@ -489,7 +405,7 @@ ln -s CLAUDE.md AGENTS.md
 
 or put instructions in `AGENTS.md` (an open standard) and reference it from `CLAUDE.md`:
 
-```
+```text
 @AGENTS.md
 ```
 
@@ -596,7 +512,7 @@ https://github.com/duyet/claude-plugins: A collection of plugins I use for Claud
 
 I started seeing AI engineers on X sharing their commands. I have a list of my own to make the workflow faster. This saves me from repeated prompting - some of the commands I use most:
 
-```
+```text
 /fix:and-push
 /fix:and-create-pr
 /orchestration [complex task]
@@ -618,11 +534,11 @@ I started seeing AI engineers on X sharing their commands. I have a list of my o
 
 For complex tasks, try my [`/interview`](https://github.com/duyet/claude-plugins/tree/master/interview) plugin - it asks clarifying questions before you start planning. It helps catch missing requirements early.
 
-```
+```text
 /plugin install interview@duyet-claude-plugins
 ```
 
-```
+```text
 /interview:interview ~/.claude/plans/adaptive-dazzling-lamport.md
 ```
 
@@ -641,7 +557,7 @@ For complex tasks, try my [`/interview`](https://github.com/duyet/claude-plugins
 
 Long-running autonomous coding agents - this is something I've always wanted to achieve. From the beginning, I put them inside an interval bash script loop. Now I have a better version using Claude Agent SDK in TypeScript called *duyetbot-agent* (need a better name!) that runs 24/7, written by Claude Code, but you can plan to build something similar with some ideas:
 
-```
+```text
 Build a long-running autonomous coding agent using Claude Agent SDK 
 that continuously processes tasks, creates PRs, and manages its own backlog.
 
@@ -683,15 +599,15 @@ Good reads:
 
 Next: [Claws](/2026/02/claws.html)
 
-### Claude Code + Ralph Loop
+## Claude Code + Ralph Loop
 
 The [ralph-wiggum plugin](https://github.com/anthropics/claude-code/tree/main/plugins/ralph-wiggum) is my favorite for long-running tasks or vibe coding on fun projects while I'm asleep. You define a goal condition and let the agent loop until it verifiably reaches that goal. With cheap Z.AI GLM 4.7 tokens, I can let it run 24/7. Run it with `--permission-mode=dontAsk` or `--dangerously-skip-permissions`.
 
-```
+```text
 /plugin install ralph-wiggum@claude-plugins-official
 ```
 
-```
+```text
 /ralph-wiggum:ralph-loop "Implement feature X following TDD:
 1. Write failing tests
 2. Implement feature
@@ -708,27 +624,27 @@ Claude Code now has native [scheduled tasks](https://code.claude.com/docs/en/sch
 
 Tasks are session-scoped: they live in the current Claude Code process and are gone when you exit. For durable scheduling that survives restarts, use GitHub Actions (see below) or Desktop scheduled tasks.
 
-```
+```text
 /loop 5m check if the deployment finished and tell me what happened
 ```
 
-```
+```text
 /loop babysit all my PRs, fix issues based on code review comments, merge when they look good enough, every hour
 ```
 
 You can also loop over other commands or skills:
 
-```
+```text
 /loop 20m /review-pr 1234
 ```
 
 Ask Claude in natural language to list or cancel tasks, or reference the underlying tools directly:
 
-```
+```text
 what scheduled tasks do I have?
 ```
 
-```
+```text
 cancel the deploy check job
 ```
 
@@ -818,7 +734,7 @@ This way you can have Claude Code + OpenRouter free or cheap models running 24/7
 
 
 If you want to try a good coding agent with nice UI/UX - [opencode](https://github.com/sst/opencode) is really solid right now. Fast, simple, and it reads all your Claude config and plugins out of the box.
-It can consolidates all your subscriptions: ~Claude Code~, xAI, Z.AI, 
+It can consolidate all your subscriptions: ~Claude Code~, xAI, Z.AI, 
 [GitHub Copilot](https://x.com/github/status/2011822451613712646), Codex, OpenRouter, ...  seamlessly switch between all of the models + plus some free [Zen](https://opencode.ai/docs/zen/) models from their own provider.
 
 ![opencode](/media/2026/01/ai/opencode.png)
@@ -932,7 +848,7 @@ The good thing about Claude Code is that you can use it with alternative provide
 
 - [z_claude](https://gist.github.com/duyet/ad5971afe423cf992f519aa8a2ea10d5) - Uses Z.AI's GLM 4.7 model, which works great. Unbelievably cheap (starts at $3/mo). I use this a lot to burn their tokens instead of my Claude MAX subscription.
 - [mi_claude](https://gist.github.com/duyet/7f03bbcf392ca67c6d41bd221d4ab8fd) - Uses Xiaomi Mimo API.
-- [or_claude](https://gist.github.com/duyet/d9a9f9b6daa5b3ae4b9343e08743540d) - Uses [OpenRouter](https://openrouter.ai/docs/guides/guides/claude-code-integration) models. Plenty of good free models available, though with rate limits.
+- [or_claude](https://gist.github.com/duyet/d9a9f9b6daa5b3ae4b9343e08743540d) - Uses [OpenRouter](https://openrouter.ai/docs/guides/claude-code-integration) models. Plenty of good free models available, though with rate limits.
 
 You can start working with `claude` using Opus, then exit and continue the same session with `z_claude --continue`. Use `mi_claude` or `or_claude` the same way.
 
@@ -33015,51 +32931,6 @@ Open the browser and go to: [http://localhost:8080](http://localhost:8080/)
 
 ---
 
-# Kubernetes Agent Sandbox
-
-- **URL**: https://blog.duyet.net/note/kubernetes-agent-sandbox
-- **Date**: 2026-06-13
-
-I am boring of fixing production bug on most recently weeks by just copy the markdown event exception log and paste to slash command of Claude Code then let it. 
-I am looking for solution for automated that, safe and privacy, *running Agent Sandbox on Kubernetes*. The Google search dirctt me straight to [Running Agents on Kubernetes with Agent Sandbox](https://kubernetes.io/blog/2026/03/20/running-agents-on-kubernetes-with-agent-sandbox/ )
-
-I am asking Minh (Hermes) to start research and doing POC on Homelab (she managed and k3s homelab her self) and to report back to me later:
-
-```
-Research, install, test, and summarize the benefits of this: https://github.com/kubernetes-sigs/agent-sandbox
-
-How about building a sandbox for running DeepAgent (LangChain) or Claude Agent SDK (with a custom AnyRouter.dev API)?
-
-Build a sandbox that listens to GitHub issues, comments, or webhook triggers to self-fix code, pull from Git, fix, and push, with skills, etc.
-
-Refer to the Claude Agent SDK first. Research and build a demo.
-
-Use zread, web search, research subagent, and add deployment to the homelab infrastructure in a self-driven way.
-```
-
-
-**1. What kubernetes-sandbox actually is (correcting the name)**
-
-Despite "sandbox" in the name, it is not an isolation engine — no gVisor/Kata/Firecracker shipped. It's a lifecycle CRD + controller (`agents.x-k8s.io/v1beta1`, `v0.4.6`, SIG Apps, Google-backed) that turns "one stateful pod with stable identity" into a declarative object. The real benefits:
-
-- **Suspend/Resume** (scale-to-0 keeping PVC) · **TTL/expiry** auto-cleanup · **volumeClaimTemplates** · stable headless-Service DNS · **SandboxWarmPool** (pre-warmed, ~sub-100ms cold start) · **SandboxClaim** (multi-tenant request flow) · auto-**generated "secure-by-default"** NetworkPolicy (egress to internet allowed, blocks RFC1918 + cloud-metadata 169.254.x).
-- Strong isolation is delegated to **runtimeClassName** you install separately — gVisor (runsc) or **Kata**. Without it, a **Sandbox** = a normal runc pod.
-
-
-**The demo architecture (webhook-server model = Sweep's runtime + claude-code-action's interaction)**
-
-```
-GitHub webhook → Traefik → webhook-receiver (FastAPI, verify HMAC)
-   → verify X-GitHub-Event (issues/issue_comment "/fix")
-   → mint GitHub App token (reuse duyetbot App 1064078 + mint-gh-token.py)
-   → create Sandbox CR (securityContext/gVisor, clones repo, runs agent)
-        agent = DeepAgents w/ custom API + .claude/skills/
-        fix → commit → push branch → open PR (GitHub API)
-   → Sandbox TTL auto-cleans
-```
-
----
-
 # AX
 
 - **URL**: https://blog.duyet.net/note/ax
@@ -33075,28 +32946,6 @@ To ensure your project is chosen, you must reduce three specific costs:
 - **Verification:** The effort required to confirm the work was successful (reliable tests, clear error messages, and inspectable system states).
 
 What helps AI agents (**AX**) also helps human developers (**DX**). By making your project easy for an agent to install, modify, and verify, you make it better for everyone.
-
----
-
-# Use Fable 5
-
-- **URL**: https://blog.duyet.net/note/fable-5
-- **Date**: 2026-06-08
-
-I am Claude $100 Max Plan but still hitting limit like ~30 minutes with Fable 5.
-
-I am regenerate the PRD.md + extra stuff you need to implement next on your repo product:
-
-```
-Read all related documents and summarize the main PRD.md for this project repo. Include all features and the core value of XXX, which are ....
-Create parallel subagents to help explore and write the detailed PRD.
-```
-
-Fable is so overpowered that you don't need its intelligence for every step.
-
-```
-/goal Review this repo against PRD.md and produce a prioritized, evidence-backed report on where to reduce complexity and make the repo more faithful to the PRD's original vision. Run this as a dynamic workflow ultrawork using Opus or Sonnet. Summarize the report.
-```
 
 ---
 

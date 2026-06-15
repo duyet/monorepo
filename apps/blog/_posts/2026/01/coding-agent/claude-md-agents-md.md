@@ -26,7 +26,7 @@ ln -s CLAUDE.md AGENTS.md
 
 or put instructions in `AGENTS.md` (an open standard) and reference it from `CLAUDE.md`:
 
-```
+```text
 @AGENTS.md
 ```
 

@@ -6,7 +6,14 @@ import { CatChip } from "./CatChip";
 import { postParams } from "./FeaturedPost";
 import { Eyebrow } from "@duyet/components";
 
-function childParams(post: Post) {
+interface ChildParamsResult {
+  year: string;
+  month: string;
+  slug: string;
+  child: string;
+}
+
+function childParams(post: Post): ChildParamsResult {
   // child slug e.g. "/2026/01/coding-agent/claude-code"
   const parts = post.slug.replace(/^\//, "").split("/");
   return {
@@ -17,6 +24,15 @@ function childParams(post: Post) {
   };
 }
 
+interface PostListProps {
+  filteredPosts: Post[];
+  childrenByParent: Record<string, Post[]>;
+  activeCategory: string;
+  categories: { name: string; count: number }[];
+  setActiveCategory: (cat: string) => void;
+  totalPosts: number;
+}
+
 function PostList({
   filteredPosts,
   childrenByParent,
@@ -24,14 +40,7 @@ function PostList({
   categories,
   setActiveCategory,
   totalPosts,
-}: {
-  filteredPosts: Post[];
-  childrenByParent: Record<string, Post[]>;
-  activeCategory: string;
-  categories: { name: string; count: number }[];
-  setActiveCategory: (cat: string) => void;
-  totalPosts: number;
-}) {
+}: PostListProps) {
   return (
     <section
       id="latest"

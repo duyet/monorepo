@@ -19,19 +19,25 @@ export function ChildBreadcrumb({
   next: ChildNavItem | null;
 }) {
   // parentSlug e.g. "/2026/01/coding-agent"
-  const [, year, month, slug] = parentSlug.split("/");
+  const segments = parentSlug.replace(/^\//, "").split("/");
+  const [year, month, slug] = segments;
+  const hasValidParent = Boolean(year && month && slug);
 
   return (
     <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-10">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-1.5 text-[13px] font-[var(--font-mono)] text-[var(--rd-text-3)] flex-wrap">
-        <Link
-          to="/$year/$month/$slug/"
-          params={{ year, month, slug }}
-          className="hover:text-[var(--rd-text)] transition-colors no-underline"
-        >
-          {parentTitle}
-        </Link>
+        {hasValidParent ? (
+          <Link
+            to="/$year/$month/$slug/"
+            params={{ year, month, slug }}
+            className="hover:text-[var(--rd-text)] transition-colors no-underline"
+          >
+            {parentTitle}
+          </Link>
+        ) : (
+          <span>{parentTitle}</span>
+        )}
         <ChevronRight size={13} className="text-[var(--rd-text-4)]" />
         <span className="text-[var(--rd-text-2)] truncate max-w-[60vw]">
           {currentTitle}

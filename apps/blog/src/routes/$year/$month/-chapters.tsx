@@ -18,7 +18,11 @@ export function Chapters({
   if (chapters.length === 0) return null;
 
   // parentSlug e.g. "/2026/01/coding-agent"
-  const [, year, month, slug] = parentSlug.split("/");
+  const segments = parentSlug.replace(/^\//, "").split("/");
+  const [year, month, slug] = segments;
+  const hasValidParent = Boolean(year && month && slug);
+
+  if (!hasValidParent) return null;
 
   return (
     <section className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 mt-16 mb-8">

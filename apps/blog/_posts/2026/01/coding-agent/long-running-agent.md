@@ -12,7 +12,7 @@ description: Build a long-running autonomous coding agent that runs 24/7
 
 Long-running autonomous coding agents - this is something I've always wanted to achieve. From the beginning, I put them inside an interval bash script loop. Now I have a better version using Claude Agent SDK in TypeScript called *duyetbot-agent* (need a better name!) that runs 24/7, written by Claude Code, but you can plan to build something similar with some ideas:
 
-```
+```text
 Build a long-running autonomous coding agent using Claude Agent SDK 
 that continuously processes tasks, creates PRs, and manages its own backlog.
 
@@ -54,15 +54,15 @@ Good reads:
 
 Next: [Claws](/2026/02/claws.html)
 
-### Claude Code + Ralph Loop
+## Claude Code + Ralph Loop
 
 The [ralph-wiggum plugin](https://github.com/anthropics/claude-code/tree/main/plugins/ralph-wiggum) is my favorite for long-running tasks or vibe coding on fun projects while I'm asleep. You define a goal condition and let the agent loop until it verifiably reaches that goal. With cheap Z.AI GLM 4.7 tokens, I can let it run 24/7. Run it with `--permission-mode=dontAsk` or `--dangerously-skip-permissions`.
 
-```
+```text
 /plugin install ralph-wiggum@claude-plugins-official
 ```
 
-```
+```text
 /ralph-wiggum:ralph-loop "Implement feature X following TDD:
 1. Write failing tests
 2. Implement feature
@@ -79,27 +79,27 @@ Claude Code now has native [scheduled tasks](https://code.claude.com/docs/en/sch
 
 Tasks are session-scoped: they live in the current Claude Code process and are gone when you exit. For durable scheduling that survives restarts, use GitHub Actions (see below) or Desktop scheduled tasks.
 
-```
+```text
 /loop 5m check if the deployment finished and tell me what happened
 ```
 
-```
+```text
 /loop babysit all my PRs, fix issues based on code review comments, merge when they look good enough, every hour
 ```
 
 You can also loop over other commands or skills:
 
-```
+```text
 /loop 20m /review-pr 1234
 ```
 
 Ask Claude in natural language to list or cancel tasks, or reference the underlying tools directly:
 
-```
+```text
 what scheduled tasks do I have?
 ```
 
-```
+```text
 cancel the deploy check job
 ```
 

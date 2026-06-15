@@ -14,7 +14,7 @@ https://github.com/duyet/claude-plugins: A collection of plugins I use for Claud
 
 I started seeing AI engineers on X sharing their commands. I have a list of my own to make the workflow faster. This saves me from repeated prompting - some of the commands I use most:
 
-```
+```text
 /fix:and-push
 /fix:and-create-pr
 /orchestration [complex task]

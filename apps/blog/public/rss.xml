@@ -4,15 +4,8 @@
         <description><![CDATA[Sr. Data Engineer. Rustacean at night]]></description>
         <link>https://blog.duyet.net</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Mon, 15 Jun 2026 08:29:39 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 15 Jun 2026 11:54:56 GMT</lastBuildDate>
         <atom:link href="https://blog.duyet.net/rss.xml" rel="self" type="application/rss+xml"/>
-        <item>
-            <title><![CDATA[First xcode app build AI Agent 0 knowledge]]></title>
-            <description><![CDATA[My first app ever without Swift knowledge]]></description>
-            <link>https://blog.duyet.net/2026/06/first-xcode-capp</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2026/06/first-xcode-capp</guid>
-            <pubDate>Wed, 10 Jun 2026 00:00:00 GMT</pubDate>
-        </item>
         <item>
             <title><![CDATA[Autonomous Claude Code Migrate Nextjs to Tanstack Start]]></title>
             <description><![CDATA[The second ultrawork run: I asked Claude Code to migrate chmonitor.dev from Next.js to TanStack Start and went to sleep. It planned the work, spawned parallel agents, and kept going for days.]]></description>
@@ -355,6 +348,13 @@
             <link>https://blog.duyet.net/2022/02/grant-redshift-gitops</link>
             <guid isPermaLink="true">https://blog.duyet.net/2022/02/grant-redshift-gitops</guid>
             <pubDate>Thu, 24 Feb 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rust: Option & Result]]></title>
+            <description><![CDATA[Rust giới thiệu hai generic enums Option và Result để giải quyết các vấn đề null pointer exceptions, exception data leak, ...]]></description>
+            <link>https://blog.duyet.net/2022/02/rust-option-result</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-option-result</guid>
+            <pubDate>Tue, 15 Feb 2022 00:00:00 GMT</pubDate>
         </item>
     </channel>
 </rss>
