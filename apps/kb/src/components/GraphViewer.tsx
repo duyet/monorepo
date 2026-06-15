@@ -64,7 +64,8 @@ function buildGraph() {
         const key = `${it.slug}__${t}`;
         if (edgeKeys.has(key)) continue;
         edgeKeys.add(key);
-        (backlinks[t] ??= []).push(it.slug);
+        if (!backlinks[t]) backlinks[t] = [];
+        backlinks[t].push(it.slug);
         degree[it.slug] = (degree[it.slug] ?? 0) + 1;
         degree[t] = (degree[t] ?? 0) + 1;
       }
