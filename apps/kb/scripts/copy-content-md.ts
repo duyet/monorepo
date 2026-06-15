@@ -9,7 +9,7 @@
  * Slug = basename without extension (flat layout).
  */
 
-import { cpSync, mkdirSync, readdirSync, statSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, readdirSync, statSync } from "node:fs";
 import { basename, extname, join } from "node:path";
 
 const SCRIPT_DIR = import.meta.dirname!;
@@ -62,6 +62,15 @@ for (const src of walkMd(MEMORY_DIR)) {
   memoryCopied++;
 }
 
+// viz.html (the OKF graph viewer, generated in the kb repo by `kb gen`) → public/
+// Served at /viz.html — a self-contained, no-build viewer over the memory bundle.
+let vizCopied = false;
+const vizSrc = join(APP_DIR, "kb", "viz.html");
+if (existsSync(vizSrc)) {
+  cpSync(vizSrc, join(APP_DIR, "public", "viz.html"));
+  vizCopied = true;
+}
+
 console.log(
-  `copy-content-md: ${articlesCopied} articles to public/k/, ${memoryCopied} notes to public/m/`,
+  `copy-content-md: ${articlesCopied} articles to public/k/, ${memoryCopied} notes to public/m/${vizCopied ? ", viz.html → public/" : ""}`,
 );
