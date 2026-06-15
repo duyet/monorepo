@@ -1,4 +1,4 @@
-import { AssistantRuntimeProvider } from "@assistant-ui/react";
+import { AssistantRuntimeProvider, type AssistantRuntime } from "@assistant-ui/react";
 import {
   type LangChainMessage,
   unstable_createLangGraphStream,
@@ -340,7 +340,7 @@ function AssistantPage() {
         <div className="flex-1 h-full flex flex-col overflow-hidden">
           <AssistantRuntimeProvider
             key={activeThreadId || "new"}
-            runtime={runtime}
+            runtime={runtime as AssistantRuntime}
           >
             <Thread />
           </AssistantRuntimeProvider>
