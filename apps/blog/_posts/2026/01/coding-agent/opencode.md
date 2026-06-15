@@ -11,7 +11,7 @@ description: A coding agent with nice UI/UX that consolidates all your subscript
 ---
 
 If you want to try a good coding agent with nice UI/UX - [opencode](https://github.com/sst/opencode) is really solid right now. Fast, simple, and it reads all your Claude config and plugins out of the box.
-It can consolidates all your subscriptions: ~Claude Code~, xAI, Z.AI, 
+It can consolidate all your subscriptions: ~Claude Code~, xAI, Z.AI, 
 [GitHub Copilot](https://x.com/github/status/2011822451613712646), Codex, OpenRouter, ...  seamlessly switch between all of the models + plus some free [Zen](https://opencode.ai/docs/zen/) models from their own provider.
 
 ![opencode](/media/2026/01/ai/opencode.png)
