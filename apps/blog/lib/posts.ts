@@ -370,7 +370,7 @@ export async function getChildNavigation(
     const parts = post.slug.replace(/^\//, "").split("/");
     // e.g. ["2026", "01", "coding-agent", "claude-code"]
     return {
-      slug: post.slug,
+      slug: parts.slice(2, -1).join("/"),
       title: post.title,
       year: parts[0],
       month: parts[1],
