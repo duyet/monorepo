@@ -30,12 +30,13 @@ export const Route = createFileRoute("/tag/$tag")({
     };
   },
   loader: async ({ params }) => {
-    const [posts, tags] = await Promise.all([
+    const [all, tags] = await Promise.all([
       getPostsByTag(params.tag),
       getAllTags(),
     ]);
     if (!findTagBySlug(tags, params.tag)) throw notFound();
-    return { posts, tags };
+    // Children are nested under their parent; keep flat tag views to top-level.
+    return { posts: all.filter((p) => !p.parent), tags };
   },
   component: PostsByTag,
 });

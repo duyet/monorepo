@@ -47,13 +47,13 @@ export function BlogTeaser({ featuredPost, recentPosts, totalPosts, notes }: Blo
       {/* featured post card */}
       <div className="flex flex-col gap-[18px]">
         <a
-          className="rd-card flex cursor-pointer flex-col overflow-hidden no-underline text-inherit border-0"
+          className="flex cursor-pointer flex-col overflow-hidden no-underline text-inherit border-0"
           href={`https://blog.duyet.net${featuredPost.slug}`}
           target="_blank"
           rel="noreferrer"
         >
           {thumbUrl ? (
-            <div className="flex h-[180px] items-center overflow-hidden bg-[var(--rd-surface)]">
+            <div className="flex h-[180px] items-center overflow-hidden">
               <img
                 src={thumbUrl}
                 alt={featuredPost.title}

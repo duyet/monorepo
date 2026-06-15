@@ -2,7 +2,7 @@ import type { CategoryCount, Post, TagCount } from "@duyet/interfaces";
 import { createFileRoute } from "@tanstack/react-router";
 import type { ReactElement } from "react";
 import { SearchClient } from "@/components/blog/search-client";
-import { getAllCategories, getAllPosts, getAllTags } from "@/lib/posts";
+import { getTopLevelPosts } from "@/lib/posts";
 
 type SearchParams = {
   q?: string;
@@ -30,11 +30,17 @@ export const Route = createFileRoute("/search")({
     ],
   }),
   loader: async () => {
-    const [allPosts, categories, tags] = await Promise.all([
-      getAllPosts(),
-      getAllCategories(),
-      getAllTags(),
-    ]);
+    const allPosts = await getTopLevelPosts();
+    const categories: CategoryCount = allPosts.reduce((acc, post) => {
+      if (post.category) acc[post.category] = (acc[post.category] ?? 0) + 1;
+      return acc;
+    }, {} as CategoryCount);
+    const tags: TagCount = allPosts.reduce((acc, post) => {
+      for (const tag of post.tags ?? []) {
+        acc[tag] = (acc[tag] ?? 0) + 1;
+      }
+      return acc;
+    }, {} as TagCount);
     return { allPosts, categories, tags };
   },
   component: SearchPage,

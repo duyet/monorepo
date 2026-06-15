@@ -21,7 +21,9 @@
       "!**/.wrangler",
       "!**/.output",
       "!**/llm-timeline/lib/data.ts",
-      "!**/.claude"
+      "!**/.claude",
+      "!**/routeTree.gen.ts",
+      "!apps/kb/kb"
     ]
   },
   "formatter": {

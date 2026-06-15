@@ -25,6 +25,16 @@ export type Post = {
   readingTime?: number;
   tokenCount?: number;
   changelog?: ChangelogEntry[];
+  /**
+   * Set on a child post: the slug of its parent overview post
+   * (e.g. "/2026/01/coding-agent").
+   */
+  parent?: string;
+  /**
+   * Set on a parent post: the ordered last-segment slugs of its child posts
+   * (e.g. ["claude-code", "plan-mode", ...]).
+   */
+  parts?: string[];
 };
 
 export interface TagCount {

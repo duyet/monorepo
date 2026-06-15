@@ -54,6 +54,8 @@ interface RawPost {
   snippet?: string;
   readingTime?: number;
   isMDX?: boolean;
+  parent?: string;
+  parts?: string[];
 }
 
 /** Per-post content payload loaded from posts-content/<key>.json. */
@@ -86,6 +88,8 @@ function hydratePost(raw: RawPost): Post {
     date: new Date(raw.date),
     tags: raw.tags ?? [],
     tags_slug: raw.tags_slug ?? [],
+    parts: Array.isArray(raw.parts) ? raw.parts : undefined,
+    parent: raw.parent || undefined,
   };
 }
 
@@ -291,4 +295,93 @@ export async function getRelatedPosts(post: Post, limit = 4): Promise<Post[]> {
   return candidates
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, limit);
+}
+
+// ── Parent / child API ────────────────────────────────────────────────────────
+
+/**
+ * Posts that are not children of another post — the flat listing surface
+ * (home Recent posts, archives, tags, search, etc.).
+ */
+export async function getTopLevelPosts(): Promise<Post[]> {
+  const posts = await fetchAllPosts();
+  return posts.filter((p) => !p.parent);
+}
+
+/**
+ * Ordered children of a parent post. Ordering follows the parent's `parts:`
+ * frontmatter; children not listed in `parts` are appended at the end by date.
+ * If the parent declares no `parts`, children are returned by date ascending.
+ */
+export async function getChildren(parentSlug: string): Promise<Post[]> {
+  const posts = await fetchAllPosts();
+  const fullSlug = parentSlug.startsWith("/") ? parentSlug : `/${parentSlug}`;
+  const children = posts.filter((p) => p.parent === fullSlug);
+
+  const parent = posts.find((p) => p.slug === fullSlug);
+  const order = parent?.parts;
+
+  if (order && order.length > 0) {
+    const rank = (slug: string) => {
+      // child slug is /parent/child-tail — match on the last segment
+      const tail = slug.split("/").pop() ?? slug;
+      const idx = order.indexOf(tail);
+      return idx === -1 ? Number.POSITIVE_INFINITY : idx;
+    };
+    return [...children].sort((a, b) => {
+      const ra = rank(a.slug);
+      const rb = rank(b.slug);
+      if (ra !== rb) return ra - rb;
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
+    });
+  }
+
+  return children.sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  );
+}
+
+export interface ChildNavItem {
+  slug: string;
+  title: string;
+  year: string;
+  month: string;
+  parent: string;
+  child: string;
+}
+
+/**
+ * Previous / next siblings for a child post, following the parent's `parts`
+ * order (same ordering as {@link getChildren}).
+ */
+export async function getChildNavigation(
+  childSlug: string
+): Promise<{ prev: ChildNavItem | null; next: ChildNavItem | null }> {
+  const fullSlug = childSlug.startsWith("/") ? childSlug : `/${childSlug}`;
+  const posts = await fetchAllPosts();
+  const child = posts.find((p) => p.slug === fullSlug);
+  if (!child?.parent) return { prev: null, next: null };
+
+  const siblings = await getChildren(child.parent);
+  const index = siblings.findIndex((p) => p.slug === fullSlug);
+  if (index === -1) return { prev: null, next: null };
+
+  function toNavItem(post: Post): ChildNavItem {
+    const parts = post.slug.replace(/^\//, "").split("/");
+    // e.g. ["2026", "01", "coding-agent", "claude-code"]
+    return {
+      slug: post.slug,
+      title: post.title,
+      year: parts[0],
+      month: parts[1],
+      parent: parts.slice(2, -1).join("/"),
+      child: parts[parts.length - 1],
+    };
+  }
+
+  return {
+    prev: index > 0 ? toNavItem(siblings[index - 1]) : null,
+    next:
+      index < siblings.length - 1 ? toNavItem(siblings[index + 1]) : null,
+  };
 }

@@ -186,6 +186,27 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
       post.series = data.series || undefined;
     }
 
+    if (field === "parent") {
+      if (typeof data.parent === "string") {
+        const normalizedParent = data.parent
+          .trim()
+          .replace(/\.(md|mdx|html)$/, "")
+          .replace(/\/+$/, "");
+        post.parent = normalizedParent.length > 0 ? normalizedParent : undefined;
+      } else {
+        post.parent = undefined;
+      }
+    }
+
+    if (field === "parts") {
+      post.parts = Array.isArray(data.parts)
+        ? data.parts
+            .filter((p): p is string => typeof p === "string")
+            .map((p) => p.trim().replace(/\.(md|mdx|html)$/, ""))
+            .filter((p) => p.length > 0)
+        : undefined;
+    }
+
     if (field === "thumbnail") {
       const thumbnail = data.thumbnail;
       post.thumbnail =

@@ -4,7 +4,7 @@
         <description><![CDATA[Sr. Data Engineer. Rustacean at night]]></description>
         <link>https://blog.duyet.net</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Mon, 08 Jun 2026 16:24:39 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 15 Jun 2026 11:54:56 GMT</lastBuildDate>
         <atom:link href="https://blog.duyet.net/rss.xml" rel="self" type="application/rss+xml"/>
         <item>
             <title><![CDATA[Autonomous Claude Code Migrate Nextjs to Tanstack Start]]></title>
@@ -35,10 +35,87 @@
             <pubDate>Sun, 22 Feb 2026 00:00:00 GMT</pubDate>
         </item>
         <item>
+            <title><![CDATA[Claude Code]]></title>
+            <description><![CDATA[Why Claude Code is still the king among coding agents I've tried]]></description>
+            <link>https://blog.duyet.net/2026/01/coding-agent/claude-code</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/01/coding-agent/claude-code</guid>
+            <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Claude Code Setup]]></title>
+            <description><![CDATA[How I configure Claude Code - auto-compact, permissions, MCPs, and skills]]></description>
+            <link>https://blog.duyet.net/2026/01/coding-agent/claude-code-setup</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/01/coding-agent/claude-code-setup</guid>
+            <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Claude Design]]></title>
+            <description><![CDATA[Claude Design reads your codebase and builds a design system from your colors and typography]]></description>
+            <link>https://blog.duyet.net/2026/01/coding-agent/claude-design</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/01/coding-agent/claude-design</guid>
+            <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[CLAUDE.md, AGENTS.md]]></title>
+            <description><![CDATA[Keep your coding agent's project instructions consistent across sessions]]></description>
+            <link>https://blog.duyet.net/2026/01/coding-agent/claude-md-agents-md</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/01/coding-agent/claude-md-agents-md</guid>
+            <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
             <title><![CDATA[Coding Agents]]></title>
             <description><![CDATA[Reflect on what I'm thinking and doing in this LLM era]]></description>
             <link>https://blog.duyet.net/2026/01/coding-agent</link>
             <guid isPermaLink="true">https://blog.duyet.net/2026/01/coding-agent</guid>
+            <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[duyet/claude-plugins]]></title>
+            <description><![CDATA[A collection of plugins, skills, MCPs, commands, and hooks I use for Claude Code]]></description>
+            <link>https://blog.duyet.net/2026/01/coding-agent/duyet-claude-plugins</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/01/coding-agent/duyet-claude-plugins</guid>
+            <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Interview Mode]]></title>
+            <description><![CDATA[Ask clarifying questions before planning complex tasks]]></description>
+            <link>https://blog.duyet.net/2026/01/coding-agent/interview-mode</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/01/coding-agent/interview-mode</guid>
+            <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Long-running and self-improving coding agent]]></title>
+            <description><![CDATA[Build a long-running autonomous coding agent that runs 24/7]]></description>
+            <link>https://blog.duyet.net/2026/01/coding-agent/long-running-agent</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/01/coding-agent/long-running-agent</guid>
+            <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[opencode]]></title>
+            <description><![CDATA[A coding agent with nice UI/UX that consolidates all your subscriptions]]></description>
+            <link>https://blog.duyet.net/2026/01/coding-agent/opencode</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/01/coding-agent/opencode</guid>
+            <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Parallel Sub-Agents / Teams]]></title>
+            <description><![CDATA[Lead a team of parallel agents with leader delegation to senior and junior roles]]></description>
+            <link>https://blog.duyet.net/2026/01/coding-agent/parallel-sub-agents</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/01/coding-agent/parallel-sub-agents</guid>
+            <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Plan Mode]]></title>
+            <description><![CDATA[Plan mode performs significantly better than just prompting directly]]></description>
+            <link>https://blog.duyet.net/2026/01/coding-agent/plan-mode</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/01/coding-agent/plan-mode</guid>
+            <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[z_claude, mi_claude & or_claude]]></title>
+            <description><![CDATA[Wrapper scripts to use Claude Code with alternative providers]]></description>
+            <link>https://blog.duyet.net/2026/01/coding-agent/z-claude-mi-claude-or-claude</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/01/coding-agent/z-claude-mi-claude-or-claude</guid>
             <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
         </item>
         <item>
@@ -278,83 +355,6 @@
             <link>https://blog.duyet.net/2022/02/rust-option-result</link>
             <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-option-result</guid>
             <pubDate>Tue, 15 Feb 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Rust Design Pattern: Builder Pattern]]></title>
-            <description><![CDATA[Builder được sử dụng cực kỳ phổ biến trong Rust so với các ngôn ngữ khác, bởi vì Rust không có overloading.]]></description>
-            <link>https://blog.duyet.net/2022/02/rust-builder-design-pattern</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-builder-design-pattern</guid>
-            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Rust Design Pattern: Command Pattern]]></title>
-            <description><![CDATA[Ý tưởng cơ bản của Command Pattern là tách các actions thành các object riêng và gọi chúng thông qua parameters.]]></description>
-            <link>https://blog.duyet.net/2022/02/rust-command-design-pattern</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-command-design-pattern</guid>
-            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Rust Design Pattern: Prefer Small Crates]]></title>
-            <description><![CDATA[Prefer small crates that do one thing well. Để có được sự hiệu quả, mọi crate phải được thiết kế tốt, lựa chọn dependencies kỹ càng và càng độc lập càng tốt.]]></description>
-            <link>https://blog.duyet.net/2022/02/rust-small-crates-design-pattern</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-small-crates-design-pattern</guid>
-            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Rust: Copy & Clone Trait]]></title>
-            <description><![CDATA[Có một số kiểu dữ liệu trong Rust rất đơn giản (simple types), bao gồm integers, floats, booleans (true và false), và char. Các simple types này nằm trên stack bởi vì complier biết chính xác size của nó. Chúng được gọi là copy types. Bởi vì nó simple và nhỏ gọn nên dễ dàng để copy, do đó compiler luôn copy nếu bạn bỏ nó vào function.]]></description>
-            <link>https://blog.duyet.net/2022/02/rust-copy-clone-trait</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-copy-clone-trait</guid>
-            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Rust: Struct]]></title>
-            <description><![CDATA[Struct được sử dụng trong Rust rất nhiều, hầu như là mọi lúc. Với struct ta có thể định nghĩa một kiểu dữ liệu riêng.]]></description>
-            <link>https://blog.duyet.net/2022/02/rust-struct</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-struct</guid>
-            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Rust: Trait]]></title>
-            <description><![CDATA[Rust Trait là gì? Rust có nhiều loại data types như primitives (i8, i32, str, ...), struct, enum và các loại kết hợp (aggregate) như tuples và array. Mọi types không có mối liên hệ nào với nhau. Các data types có các phương thức (methods) để tính toán hay convert từ loại này sang loại khác, nhưng chỉ để cho tiện lợi hơn, method chỉ là các function. Trait trong Rust giúp chúng ta thực hiện những điều này.]]></description>
-            <link>https://blog.duyet.net/2022/02/rust-trait</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-trait</guid>
-            <pubDate>Sun, 13 Feb 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Rust: cargo-edit]]></title>
-            <description><![CDATA[cargo-edit là công cụ mở rộng của cargo cho phép có thêm một số tính năng quản lý dependencies giống như npm hoặc yarn.]]></description>
-            <link>https://blog.duyet.net/2022/02/cargo-edit</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/02/cargo-edit</guid>
-            <pubDate>Sun, 06 Feb 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Rust: Format Strings in 1.58]]></title>
-            <description><![CDATA[Bản cập nhật `Rust 1.58.0` vừa bổ sung một số tính năng mình thấy khá hay về format string.]]></description>
-            <link>https://blog.duyet.net/2022/01/rust-format-strings-1.58</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/01/rust-format-strings-1.58</guid>
-            <pubDate>Tue, 18 Jan 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Rust: FromStr trait]]></title>
-            <description><![CDATA[FromStr là một trait để khởi tạo instance từ string trong Rust, nó tương đương abstract class nếu bạn có background OOP.]]></description>
-            <link>https://blog.duyet.net/2022/01/rust-fromstr</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/01/rust-fromstr</guid>
-            <pubDate>Sun, 02 Jan 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Rust: Turbofish ::<> 🐠 ]]></title>
-            <description><![CDATA[Trong trường hợp bạn cần chỉ định kiểu dữ liệu cho một generic function, method, struct, hoặc enum, Rust có một cú pháp đặc biệt để làm điều này gọi là turbofish.]]></description>
-            <link>https://blog.duyet.net/2022/01/rust-turbofish</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/01/rust-turbofish</guid>
-            <pubDate>Sun, 02 Jan 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[cheats.rs]]></title>
-            <description><![CDATA[This is the best cheat sheet that I have ever seen. It breaks down the different categories, from language constructs, data layouts, types, tooling, etc.]]></description>
-            <link>https://blog.duyet.net/2022/01/rust-cheatsheet</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/01/rust-cheatsheet</guid>
-            <pubDate>Sat, 01 Jan 2022 00:00:00 GMT</pubDate>
         </item>
     </channel>
 </rss>

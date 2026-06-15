@@ -46,6 +46,8 @@ const metaFields = [
   "thumbnail",
   "author",
   "changelog",
+  "parent",
+  "parts",
 ];
 
 const allPosts = getAllPosts(metaFields, 0) as Post[];
