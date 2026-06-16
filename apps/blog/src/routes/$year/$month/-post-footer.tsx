@@ -124,9 +124,6 @@ export function PostFooter({
                     node.post.slug === post.slug ||
                     (!post.parent &&
                       node.post.slug === post.slug.replace(/\/$/, ""));
-                  const hasCurrentChild = node.children.some(
-                    (c) => c.slug === post.slug
-                  );
                   return (
                     <li key={node.post.slug}>
                       <Link
@@ -140,27 +137,27 @@ export function PostFooter({
                         <span className="text-[14px]">{node.post.title}</span>
                       </Link>
 
-                      {node.children.length > 0 &&
-                        (isCurrentParent || hasCurrentChild) && (
-                          <ul className="ml-7 mt-1 flex flex-col gap-0.5">
-                            {node.children.map((child) => {
-                              const isCurrent = child.slug === post.slug;
-                              return (
-                                <li key={child.slug}>
-                                  <Link
-                                    to="/$year/$month/$slug/$child/"
-                                    params={childParams(child)}
-                                    className={`no-underline text-inherit flex items-center gap-2 rounded px-1.5 py-0.5 hover:bg-[var(--rd-surface-2)] transition-colors${isCurrent ? " text-[var(--rd-accent)]" : " text-[var(--rd-text-2)]"}`}
-                                  >
-                                    <span className="text-[13.5px]">
-                                      {child.title}
-                                    </span>
-                                  </Link>
-                                </li>
-                              );
-                            })}
-                          </ul>
-                        )}
+                      {node.children.length > 0 && (
+                        <ul className="ml-7 mt-1 flex flex-col gap-0.5 border-l-2 border-[var(--rd-border)] pl-4">
+                          {node.children.map((child) => {
+                            const isCurrent = child.slug === post.slug;
+                            return (
+                              <li key={child.slug} className="relative">
+                                <span className="absolute left-[-18px] top-[9px] w-2 h-[2px] bg-[var(--rd-border)]" />
+                                <Link
+                                  to="/$year/$month/$slug/$child/"
+                                  params={childParams(child)}
+                                  className={`no-underline text-inherit flex items-center gap-2 rounded px-1.5 py-0.5 hover:bg-[var(--rd-surface-2)] transition-colors${isCurrent ? " text-[var(--rd-accent)]" : " text-[var(--rd-text-2)]"}`}
+                                >
+                                  <span className="text-[13.5px]">
+                                    {child.title}
+                                  </span>
+                                </Link>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      )}
                     </li>
                   );
                 })}
