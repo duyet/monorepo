@@ -133,6 +133,39 @@ export function getLicenseBarColor(license: Model["license"]): string {
 }
 
 /**
+ * Group models by year and month
+ * Returns Map<year, Map<month, Model[]>>
+ */
+export function groupByYearMonth(models: Model[]): Map<number, Map<string, Model[]>> {
+  const yearGroups = new Map<number, Map<string, Model[]>>();
+
+  for (const model of models) {
+    const date = new Date(model.date);
+    const year = date.getFullYear();
+    const month = model.date.slice(0, 7); // YYYY-MM
+
+    let monthGroups = yearGroups.get(year);
+    if (!monthGroups) {
+      monthGroups = new Map<string, Model[]>();
+      yearGroups.set(year, monthGroups);
+    }
+
+    const existing = monthGroups.get(month) || [];
+    existing.push(model);
+    monthGroups.set(month, existing);
+  }
+
+  // Sort each month group by date descending
+  yearGroups.forEach((monthGroups) => {
+    monthGroups.forEach((monthModels) => {
+      monthModels.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    });
+  });
+
+  return yearGroups;
+}
+
+/**
  * Group models by organization
  * Sorted by model count descending; within each org sorted by date descending
  */

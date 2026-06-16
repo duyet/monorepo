@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout } from "@/components/page-layout";
-import { StaticView } from "@/components/static-view";
+import { StaticView } from "@/components/StaticView";
 import { models, years } from "@/lib/data";
 import { getStats } from "@/lib/utils";
 

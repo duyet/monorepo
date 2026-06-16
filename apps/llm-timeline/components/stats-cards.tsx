@@ -10,46 +10,63 @@ interface StatsCardsProps {
   sourceStats?: Record<string, number>;
 }
 
-function StatCard({
-  icon,
-  value,
-  label,
-  active,
-  as: Comp = "div",
-  ...props
-}: {
+interface StatTileBaseProps {
   icon: ReactNode;
   value: string | number;
   label: string;
+  sublabel?: string;
   active?: boolean;
-  as?: "div" | typeof Link;
-} & Record<string, unknown>) {
+}
+
+function StatTileDiv({
+  _icon,
+  value,
+  label,
+  sublabel,
+  active,
+}: StatTileBaseProps) {
   return (
-    // @ts-expect-error -- polymorphic component
-    <Comp
+    <div
       className={cn(
-        "rounded-[var(--rd-r)] p-4 transition-all",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rd-ring)] focus-visible:ring-offset-2",
-        active
-          ? "bg-[var(--rd-surface)] border border-[var(--rd-border)]"
-          : "border border-transparent hover:bg-[var(--rd-surface-2)]"
+        "signal-tile flex min-w-0 cursor-pointer flex-col gap-2 border-none bg-[var(--rd-surface)] p-[18px_20px] text-left text-inherit no-underline",
+        active && "bg-[var(--rd-surface-2)]"
       )}
-      {...props}
     >
-      <div>
-        <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-[var(--rd-r-sm)] bg-[var(--rd-surface-2)]">
-          {icon}
-        </div>
-        <div className="space-y-0.5">
-          <div className="text-2xl font-bold font-[family-name:var(--font-mono)] tracking-tight text-[var(--rd-text)] tabular-nums">
-            {typeof value === "number" ? value.toLocaleString() : value}
-          </div>
-          <div className="font-[family-name:var(--font-mono)] text-[11.5px] uppercase tracking-[0.14em] text-[var(--rd-text-3)]">
-            {label}
-          </div>
-        </div>
+      <div className="rd-eyebrow flex items-center gap-1.5 text-[10.5px]">
+        {label}
       </div>
-    </Comp>
+      <div className={cn("text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none text-[1.9rem]", active && "text-[var(--rd-accent-ink)]")}>
+        {typeof value === "number" ? value.toLocaleString() : value}
+        {sublabel && <span className="rd-unit">{sublabel}</span>}
+      </div>
+    </div>
+  );
+}
+
+function StatTileLink({
+  _icon,
+  value,
+  label,
+  sublabel,
+  active,
+  to,
+}: StatTileBaseProps & { to: string }) {
+  return (
+    <Link
+      to={to}
+      className={cn(
+        "signal-tile flex min-w-0 cursor-pointer flex-col gap-2 border-none bg-[var(--rd-surface)] p-[18px_20px] text-left text-inherit no-underline",
+        active && "bg-[var(--rd-surface-2)]"
+      )}
+    >
+      <div className="rd-eyebrow flex items-center gap-1.5 text-[10.5px]">
+        {label}
+      </div>
+      <div className={cn("text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none text-[1.9rem]", active && "text-[var(--rd-accent-ink)]")}>
+        {typeof value === "number" ? value.toLocaleString() : value}
+        {sublabel && <span className="rd-unit">{sublabel}</span>}
+      </div>
+    </Link>
   );
 }
 
@@ -64,29 +81,27 @@ export function StatsCards({
     : 0;
 
   return (
-    <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-      <StatCard
-        as={Link}
+    <div className="signalbar">
+      <StatTileLink
         to="/"
         icon={<Sparkles className="h-5 w-5 text-[var(--rd-text)]" />}
         value={models.toLocaleString()}
         label="Models"
         active={activeView === "models"}
       />
-      <StatCard
-        as={Link}
+      <StatTileLink
         to="/org"
         icon={<Building2 className="h-5 w-5 text-[var(--rd-text)]" />}
         value={organizations.toLocaleString()}
         label="Organizations"
         active={activeView === "organizations"}
       />
-      <StatCard
+      <StatTileDiv
         icon={<Database className="h-5 w-5 text-[var(--rd-text)]" />}
         value={totalSources > 0 ? totalSources.toLocaleString() : "—"}
         label="Sources"
       />
-      <StatCard
+      <StatTileDiv
         icon={<TrendingUp className="h-5 w-5 text-[var(--rd-text)]" />}
         value="76"
         label="Years"

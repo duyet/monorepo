@@ -8,9 +8,10 @@ import {
   KeyboardHelpTooltip,
   useKeyboardShortcuts,
 } from "@/components/KeyboardShortcuts";
-import { OrgTimeline } from "@/components/org-timeline";
 import { StatsCards } from "@/components/stats-cards";
-import { Timeline } from "@/components/timeline";
+import { TimelineGrid } from "@/components/TimelineGrid";
+import { MonthGroupedTimeline } from "@/components/MonthGroupedTimeline";
+import { ModelCardGrid } from "@/components/ModelCardGrid";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,8 +22,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { VirtualOrgTimeline } from "@/components/virtual-org-timeline";
-import { VirtualTimeline } from "@/components/virtual-timeline";
 import type { Model } from "@/lib/data";
 import { organizations } from "@/lib/data";
 import {
@@ -37,6 +36,7 @@ import {
 } from "@/lib/utils";
 
 type View = "models" | "organizations";
+type Grouping = "year" | "month";
 
 interface StaticViewProps {
   models: Model[];
@@ -68,13 +68,12 @@ export function StaticView({
   >(license);
   const [orgFilter, setOrgFilter] = useState("");
   const [liteMode, setLiteMode] = useState(initialLiteMode);
+  const [grouping, setGrouping] = useState<Grouping>("year");
 
-  // Simple comparison state (no URL sync for filtered pages to avoid SSR issues)
   const [comparisonMode, setComparisonMode] = useState(false);
   const [selectedModels, setSelectedModels] = useState<Model[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Read lite mode and search from URL on mount
   useEffect(() => {
     const updateFromUrl = () => {
       const params = new URLSearchParams(window.location.search);
@@ -85,7 +84,6 @@ export function StaticView({
       setOrgFilter(initialOrg);
       setLiteMode(isLite);
 
-      // Parse comparison models from URL if available (only on main page)
       if (!year && !org) {
         const compareParam = params.get("compare");
         if (compareParam) {
@@ -110,7 +108,6 @@ export function StaticView({
     return () => window.removeEventListener("popstate", updateFromUrl);
   }, [year, org, allModels]);
 
-  // Filter models based on search, license, and org
   const filteredModels = useMemo(() => {
     const filters: FilterState = {
       ...DEFAULT_FILTERS,
@@ -130,13 +127,11 @@ export function StaticView({
     [filteredModels]
   );
 
-  // Selected model names set for efficient lookup
   const selectedModelNames = useMemo(
     () => new Set(selectedModels.map((m) => m.name)),
     [selectedModels]
   );
 
-  // Handle toggle selection
   const handleToggleSelection = (model: Model) => {
     const isSelected = selectedModelNames.has(model.name);
     if (isSelected) {
@@ -150,7 +145,6 @@ export function StaticView({
     setSelectedModels(selectedModels.filter((m) => m.name !== modelName));
   };
 
-  // Update URL when selection changes (only on main page)
   useEffect(() => {
     if (year || org || typeof window === "undefined") return;
 
@@ -169,7 +163,6 @@ export function StaticView({
     window.history.replaceState({}, "", newUrl);
   }, [selectedModels, year, org]);
 
-  // Keyboard shortcuts
   const { showBadges, showHelp, setShowHelp, shortcutOrgs } =
     useKeyboardShortcuts({
       organizations,
@@ -181,7 +174,6 @@ export function StaticView({
       },
     });
 
-  // Keyboard shortcut for comparison
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (
@@ -212,7 +204,6 @@ export function StaticView({
 
   return (
     <>
-      {/* Stats Cards */}
       <StatsCards
         models={stats.models}
         organizations={stats.organizations}
@@ -220,7 +211,6 @@ export function StaticView({
         sourceStats={sourceStats}
       />
 
-      {/* Filter Info with Search */}
       <FilterInfo
         resultCount={filteredModels.length}
         totalCount={allModels.length}
@@ -238,7 +228,6 @@ export function StaticView({
         }
       />
 
-      {/* Organization Shortcuts */}
       {view === "models" && showBadges && !comparisonMode && (
         <div className="mb-4 flex flex-wrap gap-1.5">
           {shortcutOrgs.map((shortcutOrg, index) => (
@@ -262,34 +251,76 @@ export function StaticView({
         </div>
       )}
 
-      {/* Timeline */}
-      <div>
-        {view === "organizations" ? (
-          filteredModels.length > 500 ? (
-            <VirtualOrgTimeline modelsByOrg={modelsByOrg} liteMode={liteMode} />
-          ) : (
-            <OrgTimeline modelsByOrg={modelsByOrg} liteMode={liteMode} />
-          )
-        ) : filteredModels.length > 500 ? (
-          <VirtualTimeline
-            modelsByYear={modelsByYear}
-            liteMode={liteMode}
-            comparisonMode={comparisonMode}
-            selectedModelNames={selectedModelNames}
-            onToggleSelection={handleToggleSelection}
-          />
-        ) : (
-          <Timeline
-            modelsByYear={modelsByYear}
-            liteMode={liteMode}
-            comparisonMode={comparisonMode}
-            selectedModelNames={selectedModelNames}
-            onToggleSelection={handleToggleSelection}
-          />
-        )}
+      <div className="mb-4 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <span className="rd-eyebrow">View</span>
+          <div className="flex gap-1 bg-[var(--rd-surface-2)] rounded-[var(--rd-r-sm)] p-1">
+            <button
+              onClick={() => setGrouping("year")}
+              className={cn(
+                "px-3 py-1.5 text-sm rounded-[var(--rd-r-sm)] transition-all font-medium",
+                grouping === "year"
+                  ? "bg-[var(--rd-text)] text-[var(--rd-bg)]"
+                  : "text-[var(--rd-text-3)] hover:text-[var(--rd-text)]"
+              )}
+            >
+              Year
+            </button>
+            <button
+              onClick={() => setGrouping("month")}
+              className={cn(
+                "px-3 py-1.5 text-sm rounded-[var(--rd-r-sm)] transition-all font-medium",
+                grouping === "month"
+                  ? "bg-[var(--rd-text)] text-[var(--rd-bg)]"
+                  : "text-[var(--rd-text-3)] hover:text-[var(--rd-text)]"
+              )}
+            >
+              Month
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* Keyboard Shortcuts Help */}
+      {view === "models" && (
+        grouping === "year" ? (
+          filteredModels.length > 500 ? (
+            <TimelineGrid
+              modelsByYear={modelsByYear}
+              comparisonMode={comparisonMode}
+              selectedModelNames={selectedModelNames}
+              onToggleSelection={handleToggleSelection}
+              grouping="year"
+            />
+          ) : (
+            <TimelineGrid
+              modelsByYear={modelsByYear}
+              comparisonMode={comparisonMode}
+              selectedModelNames={selectedModelNames}
+              onToggleSelection={handleToggleSelection}
+              grouping="year"
+            />
+          )
+        ) : (
+          <MonthGroupedTimeline
+            models={filteredModels}
+            comparisonMode={comparisonMode}
+            selectedModelNames={selectedModelNames}
+            onToggleSelection={handleToggleSelection}
+          />
+        )
+      )}
+
+      {view === "organizations" && (
+        <div className="rd-g3 gap-3">
+          {Array.from(modelsByOrg.entries()).map(([orgName, orgModels]) => (
+            <ModelCardGrid
+              key={orgName}
+              model={{ ...orgModels[0], name: orgName, desc: `${orgModels.length} models` } as Model}
+            />
+          ))}
+        </div>
+      )}
+
       <KeyboardHelpTooltip
         isOpen={showHelp}
         onClose={() => setShowHelp(false)}
@@ -297,10 +328,8 @@ export function StaticView({
       />
       <KeyboardHelpButton onClick={() => setShowHelp(true)} />
 
-      {/* Comparison UI - only on main page */}
       {enableComparisonToggle && (
         <>
-          {/* Floating comparison bar */}
           {selectedModels.length > 0 && (
             <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-[var(--rd-border)] bg-background p-3 animate-in slide-in-from-bottom">
               <div className="mx-auto max-w-4xl">
@@ -339,7 +368,6 @@ export function StaticView({
             </div>
           )}
 
-          {/* Comparison modal */}
           {isModalOpen && canCompare && (
             <div
               className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 animate-in fade-in"

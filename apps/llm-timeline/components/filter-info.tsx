@@ -55,7 +55,6 @@ export function FilterInfo({
 
   return (
     <div className="space-y-3">
-      {/* Search + Filter Toggle Row */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <div className="flex-1">
           <SearchAutocomplete
@@ -67,7 +66,6 @@ export function FilterInfo({
         </div>
 
         <div className="flex items-center gap-2">
-          {/* Filter toggle */}
           {onLicenseChange && (
             <Button
               variant={
@@ -98,7 +96,6 @@ export function FilterInfo({
             </Button>
           )}
 
-          {/* View toggle */}
           <Button
             variant={liteMode ? "secondary" : "outline"}
             onClick={toggleLiteMode}
@@ -117,7 +114,6 @@ export function FilterInfo({
         </div>
       </div>
 
-      {/* Expandable Filters */}
       {filtersExpanded && onLicenseChange && (
         <div className="rounded-[var(--rd-r)] border border-border bg-card p-4 animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="flex flex-wrap gap-2">
@@ -150,7 +146,6 @@ export function FilterInfo({
         </div>
       )}
 
-      {/* Result count with filtered indicator */}
       <div className="flex items-center justify-between text-sm">
         <div className="flex items-center gap-2">
           <span className={cn(
@@ -167,7 +162,6 @@ export function FilterInfo({
           )}
         </div>
 
-        {/* Compare button when applicable */}
         {comparisonMode !== undefined && onToggleComparisonMode && (
           <Button
             variant={comparisonMode ? "default" : "outline"}

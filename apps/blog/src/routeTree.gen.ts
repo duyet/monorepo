@@ -26,7 +26,7 @@ import { Route as TagTagRouteImport } from './routes/tag/$tag'
 import { Route as SeriesSlugRouteImport } from './routes/series/$slug'
 import { Route as NoteIdRouteImport } from './routes/note/$id'
 import { Route as CategoryCategoryRouteImport } from './routes/category/$category'
-import { Route as YearMonthSlugRouteImport } from './routes/$year/$month/$slug'
+import { Route as YearMonthSlugIndexRouteImport } from './routes/$year/$month/$slug/index'
 import { Route as YearMonthSlugChildRouteImport } from './routes/$year/$month/$slug/$child'
 
 const TagsRoute = TagsRouteImport.update({
@@ -114,15 +114,15 @@ const CategoryCategoryRoute = CategoryCategoryRouteImport.update({
   path: '/$category',
   getParentRoute: () => CategoryRoute,
 } as any)
-const YearMonthSlugRoute = YearMonthSlugRouteImport.update({
-  id: '/$year/$month/$slug',
-  path: '/$year/$month/$slug',
+const YearMonthSlugIndexRoute = YearMonthSlugIndexRouteImport.update({
+  id: '/$year/$month/$slug/',
+  path: '/$year/$month/$slug/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const YearMonthSlugChildRoute = YearMonthSlugChildRouteImport.update({
-  id: '/$child',
-  path: '/$child',
-  getParentRoute: () => YearMonthSlugRoute,
+  id: '/$year/$month/$slug/$child',
+  path: '/$year/$month/$slug/$child',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -143,8 +143,8 @@ export interface FileRoutesByFullPath {
   '/note/$id': typeof NoteIdRoute
   '/series/$slug': typeof SeriesSlugRoute
   '/tag/$tag': typeof TagTagRoute
-  '/$year/$month/$slug': typeof YearMonthSlugRouteWithChildren
   '/$year/$month/$slug/$child': typeof YearMonthSlugChildRoute
+  '/$year/$month/$slug/': typeof YearMonthSlugIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -164,8 +164,8 @@ export interface FileRoutesByTo {
   '/note/$id': typeof NoteIdRoute
   '/series/$slug': typeof SeriesSlugRoute
   '/tag/$tag': typeof TagTagRoute
-  '/$year/$month/$slug': typeof YearMonthSlugRouteWithChildren
   '/$year/$month/$slug/$child': typeof YearMonthSlugChildRoute
+  '/$year/$month/$slug': typeof YearMonthSlugIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -186,8 +186,8 @@ export interface FileRoutesById {
   '/note/$id': typeof NoteIdRoute
   '/series/$slug': typeof SeriesSlugRoute
   '/tag/$tag': typeof TagTagRoute
-  '/$year/$month/$slug': typeof YearMonthSlugRouteWithChildren
   '/$year/$month/$slug/$child': typeof YearMonthSlugChildRoute
+  '/$year/$month/$slug/': typeof YearMonthSlugIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -209,8 +209,8 @@ export interface FileRouteTypes {
     | '/note/$id'
     | '/series/$slug'
     | '/tag/$tag'
-    | '/$year/$month/$slug'
     | '/$year/$month/$slug/$child'
+    | '/$year/$month/$slug/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -230,8 +230,8 @@ export interface FileRouteTypes {
     | '/note/$id'
     | '/series/$slug'
     | '/tag/$tag'
-    | '/$year/$month/$slug'
     | '/$year/$month/$slug/$child'
+    | '/$year/$month/$slug'
   id:
     | '__root__'
     | '/'
@@ -251,8 +251,8 @@ export interface FileRouteTypes {
     | '/note/$id'
     | '/series/$slug'
     | '/tag/$tag'
-    | '/$year/$month/$slug'
     | '/$year/$month/$slug/$child'
+    | '/$year/$month/$slug/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -271,7 +271,8 @@ export interface RootRouteChildren {
   TagsRoute: typeof TagsRoute
   NoteIdRoute: typeof NoteIdRoute
   TagTagRoute: typeof TagTagRoute
-  YearMonthSlugRoute: typeof YearMonthSlugRouteWithChildren
+  YearMonthSlugChildRoute: typeof YearMonthSlugChildRoute
+  YearMonthSlugIndexRoute: typeof YearMonthSlugIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -395,19 +396,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategoryCategoryRouteImport
       parentRoute: typeof CategoryRoute
     }
-    '/$year/$month/$slug': {
-      id: '/$year/$month/$slug'
+    '/$year/$month/$slug/': {
+      id: '/$year/$month/$slug/'
       path: '/$year/$month/$slug'
-      fullPath: '/$year/$month/$slug'
-      preLoaderRoute: typeof YearMonthSlugRouteImport
+      fullPath: '/$year/$month/$slug/'
+      preLoaderRoute: typeof YearMonthSlugIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$year/$month/$slug/$child': {
       id: '/$year/$month/$slug/$child'
-      path: '/$child'
+      path: '/$year/$month/$slug/$child'
       fullPath: '/$year/$month/$slug/$child'
       preLoaderRoute: typeof YearMonthSlugChildRouteImport
-      parentRoute: typeof YearMonthSlugRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -435,18 +436,6 @@ const SeriesRouteChildren: SeriesRouteChildren = {
 const SeriesRouteWithChildren =
   SeriesRoute._addFileChildren(SeriesRouteChildren)
 
-interface YearMonthSlugRouteChildren {
-  YearMonthSlugChildRoute: typeof YearMonthSlugChildRoute
-}
-
-const YearMonthSlugRouteChildren: YearMonthSlugRouteChildren = {
-  YearMonthSlugChildRoute: YearMonthSlugChildRoute,
-}
-
-const YearMonthSlugRouteWithChildren = YearMonthSlugRoute._addFileChildren(
-  YearMonthSlugRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -463,7 +452,8 @@ const rootRouteChildren: RootRouteChildren = {
   TagsRoute: TagsRoute,
   NoteIdRoute: NoteIdRoute,
   TagTagRoute: TagTagRoute,
-  YearMonthSlugRoute: YearMonthSlugRouteWithChildren,
+  YearMonthSlugChildRoute: YearMonthSlugChildRoute,
+  YearMonthSlugIndexRoute: YearMonthSlugIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

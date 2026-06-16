@@ -16,7 +16,7 @@ import { PostHero } from "../-post-hero";
 import { TableOfContents } from "../-toc";
 import type { LoadedPost } from "../-types";
 
-export const Route = createFileRoute("/$year/$month/$slug")({
+export const Route = createFileRoute("/$year/$month/$slug/")({
   head: ({ params, loaderData }) => {
     const { year, month, slug: rawSlug } = params;
     const slug = rawSlug.replace(/\.(md|html)$/, "");

@@ -15,7 +15,6 @@ import { Badge } from "./ui/badge";
 import { Select } from "./ui/select";
 import { SearchAutocomplete } from "./SearchAutocomplete";
 
-// Compute unique sources for filter dropdown
 const uniqueSources = Array.from(
   new Set(allModels.filter((m) => m.source).map((m) => m.source!))
 );
@@ -74,7 +73,6 @@ export function Filters({
 
   return (
     <div className="mb-6 space-y-3">
-      {/* Search + Controls Row */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <div className="flex-1">
           <SearchAutocomplete
@@ -86,11 +84,8 @@ export function Filters({
         </div>
 
         <div className="flex items-center gap-2">
-          {/* Filter toggle */}
           <Button
-            variant={
-              filtersExpanded || activeFilterCount > 0 ? "secondary" : "outline"
-            }
+            variant={filtersExpanded || activeFilterCount > 0 ? "secondary" : "outline"}
             onClick={() => setFiltersExpanded(!filtersExpanded)}
             className="h-10 rounded-lg"
             aria-expanded={filtersExpanded}
@@ -113,7 +108,6 @@ export function Filters({
             />
           </Button>
 
-          {/* View toggle */}
           {onLiteModeToggle && (
             <Button
               variant={liteMode ? "default" : "outline"}
@@ -135,7 +129,6 @@ export function Filters({
         </div>
       </div>
 
-      {/* Expandable Filters */}
       {filtersExpanded && (
         <div className="rounded-[var(--rd-r)] border border-border bg-card p-4 animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
@@ -202,10 +195,10 @@ export function Filters({
             >
               <option value="all">All Sizes</option>
               <option value="unknown">Unknown</option>
-              <option value="small">{"Small (<1B)"}</option>
+              <option value="small">Small (&lt;1B)</option>
               <option value="medium">Medium (1-10B)</option>
               <option value="large">Large (10-100B)</option>
-              <option value="xl">{"XL (>100B)"}</option>
+              <option value="xl">XL (&gt;100B)</option>
             </Select>
 
             {hasActiveFilters && (
@@ -223,7 +216,6 @@ export function Filters({
         </div>
       )}
 
-      {/* Result count + download */}
       <div className="flex items-center justify-between text-sm">
         <div className="flex items-center gap-2">
           <span className={cn(

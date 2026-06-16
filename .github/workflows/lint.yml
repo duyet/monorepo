@@ -42,6 +42,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
+      - name: Install skills
+        run: npx skills add duyet/build-skill --yes
+
       - name: Lint
         run: |
           pnpm install --frozen-lockfile

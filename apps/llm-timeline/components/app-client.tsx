@@ -1,11 +1,9 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { Filters } from "@/components/filters";
-import { OrgTimeline } from "@/components/org-timeline";
 import { StatsHeader } from "@/components/stats-header";
-import { Timeline } from "@/components/timeline";
-import { VirtualOrgTimeline } from "@/components/virtual-org-timeline";
-import { VirtualTimeline } from "@/components/virtual-timeline";
+import { TimelineGrid } from "@/components/TimelineGrid";
+import { MonthGroupedTimeline } from "@/components/MonthGroupedTimeline";
 import type { Model } from "@/lib/data";
 import {
   DEFAULT_FILTERS,
@@ -35,8 +33,6 @@ export function AppClient({
   initialLicense = "all",
   initialLiteMode = false,
 }: AppClientProps) {
-  // Use window.location for search params since AppClient is used in a context
-  // where useSearch might not have the right route context
   const navigate = useNavigate();
   const [view, setView] = useState<View>(initialView);
   const [liteMode, setLiteMode] = useState(initialLiteMode);
@@ -46,8 +42,8 @@ export function AppClient({
   });
   const [isPending, startTransition] = useTransition();
   const isInitialized = useRef(false);
+  const [grouping, setGrouping] = useState<"year" | "month">("year");
 
-  // Sync initial state with URL params on mount
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const urlView = (searchParams.get("view") as View) || initialView;
@@ -72,7 +68,6 @@ export function AppClient({
     isInitialized.current = true;
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Update URL when filters change (skip until initial URL read is done)
   useEffect(() => {
     if (!isInitialized.current) return;
     const params: Record<string, string> = {};
@@ -127,16 +122,71 @@ export function AppClient({
           liteMode={liteMode}
           onLiteModeToggle={() => setLiteMode((prev) => !prev)}
         />
+        <div className="mb-4 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <span className="rd-eyebrow">View</span>
+            <div className="flex gap-1 bg-[var(--rd-surface-2)] rounded-[var(--rd-r-sm)] p-1">
+              <button
+                onClick={() => setGrouping("year")}
+                className={`px-3 py-1.5 text-sm rounded-[var(--rd-r-sm)] transition-all font-medium ${
+                  grouping === "year"
+                    ? "bg-[var(--rd-text)] text-[var(--rd-bg)]"
+                    : "text-[var(--rd-text-3)] hover:text-[var(--rd-text)]"
+                }`}
+              >
+                Year
+              </button>
+              <button
+                onClick={() => setGrouping("month")}
+                className={`px-3 py-1.5 text-sm rounded-[var(--rd-r-sm)] transition-all font-medium ${
+                  grouping === "month"
+                    ? "bg-[var(--rd-text)] text-[var(--rd-bg)]"
+                    : "text-[var(--rd-text-3)] hover:text-[var(--rd-text)]"
+                }`}
+              >
+                Month
+              </button>
+            </div>
+          </div>
+        </div>
+
         {view === "organizations" ? (
+          <div className="rd-g3 gap-3">
+            {Array.from(modelsByOrg.entries()).map(([orgName, orgModels]) => (
+              <div
+                key={orgName}
+                className="rd-card rd-work-card flex flex-col p-4 min-h-[128px]"
+              >
+                <div className="mb-3 flex items-start gap-2.5">
+                  <div className="shrink-0">
+                    <span className="text-2xl font-bold text-[var(--rd-accent-ink)]">{orgName.charAt(0)}</span>
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-base font-semibold font-[family-name:var(--font-sans)] tracking-tight text-foreground leading-snug truncate">
+                      {orgName}
+                    </h3>
+                    <p className="text-xs text-[var(--rd-text-3)] truncate">{orgModels.length} models</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : grouping === "year" ? (
           filteredModels.length > 500 ? (
-            <VirtualOrgTimeline modelsByOrg={modelsByOrg} liteMode={liteMode} />
+            <TimelineGrid
+              modelsByYear={modelsByYear}
+              grouping="year"
+            />
           ) : (
-            <OrgTimeline modelsByOrg={modelsByOrg} liteMode={liteMode} />
+            <TimelineGrid
+              modelsByYear={modelsByYear}
+              grouping="year"
+            />
           )
-        ) : filteredModels.length > 500 ? (
-          <VirtualTimeline modelsByYear={modelsByYear} liteMode={liteMode} />
         ) : (
-          <Timeline modelsByYear={modelsByYear} liteMode={liteMode} />
+          <MonthGroupedTimeline
+            models={filteredModels}
+          />
         )}
       </div>
     </>
