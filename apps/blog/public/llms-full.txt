@@ -1,7 +1,45 @@
 # Duyet Le - Technical Blog (Full Content)
 
-> This file contains the full markdown content of all 312 blog posts.
+> This file contains the full markdown content of all 313 blog posts.
 > For a summary index, see https://blog.duyet.net/llms.txt
+
+---
+
+# Widget Test Post
+
+- **URL**: https://blog.duyet.net/2026/06/widget-test
+- **Date**: 2026-06-16
+- **Category**: Development
+- **Tags**: Widgets, Test
+
+
+## Widget Test
+
+This is a test post for the new live HTML widget system.
+
+## Example Chart
+
+```widget
+path: ./widgets/example-chart.html
+```
+
+## How It Works
+
+Widgets are rendered in sandboxed iframes with:
+- Opaque origin (no `allow-same-origin`)
+- Strict CSP (`connect-src 'none'`)
+- Height auto-adjustment via postMessage
+
+## Security
+
+The widget cannot:
+- Access parent cookies or storage
+- Make external network requests
+- Navigate the parent page
+- Access parent DOM
+
+This ensures widgets are safe and isolated.
+
 
 ---
 
@@ -486,11 +524,11 @@ I didn't stop writing, tons of drafts in my [obsidian](https://obsidian.md/), no
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 py-3.5">
       <span class="text-xs uppercase tracking-wide font-mono text-terracotta">Model</span>
-      <span class="text-foreground"><a href="/2026/01/coding-agent/z-claude-mi-claude-or-claude" class="underline underline-offset-2">Opus 4.8</a>, <a href="/2026/01/coding-agent/z-claude-mi-claude-or-claude" class="underline underline-offset-2">GLM 5.1</a></span>
+      <span class="text-foreground"><a href="/2026/01/coding-agent/z-claude-mi-claude-or-claude" class="underline underline-offset-2">Fable 5</a>, <a href="/2026/01/coding-agent/z-claude-mi-claude-or-claude" class="underline underline-offset-2">Opus 4.8</a>, <a href="/2026/01/coding-agent/z-claude-mi-claude-or-claude" class="underline underline-offset-2">GLM 5.1</a></span>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 py-3.5">
       <span class="text-xs uppercase tracking-wide font-mono text-terracotta">Provider</span>
-      <span class="text-foreground"><a href="/2026/01/coding-agent/long-running-agent" class="underline underline-offset-2">OpenRouter</a>, <a href="https://astroflow.dev" class="underline underline-offset-2">Astro+PocketBase-Flow</a>, Cloudflare AI Gateway</span>
+      <span class="text-foreground"><a href="/2026/01/coding-agent/long-running-agent" class="underline underline-offset-2">OpenRouter</a>, <a href="https://anyrouter.dev" class="underline underline-offset-2">AnyRouter</a>, Cloudflare AI Gateway</span>
     </div>
   </div>
 </div>
