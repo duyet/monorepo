@@ -150,7 +150,12 @@
   margin-right: auto;
 }
 
-.post-reader .prose > pre,
+.post-reader .prose > pre {
+  width: fit-content;
+  min-width: 68ch;
+  max-width: min(1100px, 100%);
+}
+
 .post-reader .prose > table,
 .post-reader .prose > div:has(> table) {
   width: fit-content;
