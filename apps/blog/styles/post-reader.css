@@ -152,6 +152,8 @@
 
 .post-reader .prose > pre {
   width: fit-content;
+  /* Match the main column width (68ch) so code blocks span the same
+     measure as body text. */
   min-width: 68ch;
   max-width: min(1100px, 100%);
 }

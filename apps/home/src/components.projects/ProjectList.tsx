@@ -5,6 +5,19 @@ import { Badge } from "../components/ui/badge";
 import { categoryOf } from "./filter-utils";
 import { ColoredDomain } from "./ColoredDomain";
 
+function Logo({ logo, logoDark, size = 28 }: { logo?: string; logoDark?: string; size?: number }) {
+  if (!logo && !logoDark) return null;
+  if (logoDark) {
+    return (
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcSet={logoDark} />
+        <img src={logo} alt="" width={size} height={size} className="shrink-0 rounded" />
+      </picture>
+    );
+  }
+  return <img src={logo} alt="" width={size} height={size} className="shrink-0 rounded" />;
+}
+
 export function ProjectList({ items }: { items: AppItem[] }) {
   return (
     <div className="rd-rows">
@@ -21,15 +34,7 @@ export function ProjectList({ items }: { items: AppItem[] }) {
             <span
               className="flex flex-col gap-1 w-[200px] shrink-0"
             >
-              {item.logo ? (
-                <img
-                  src={item.logo}
-                  alt=""
-                  width={28}
-                  height={28}
-                  className="shrink-0 rounded"
-                />
-              ) : null}
+              <Logo logo={item.logo} logoDark={item.logoDark} size={28} />
               <span className="font-[var(--font-mono)] text-[12.5px] overflow-hidden text-ellipsis whitespace-nowrap">
                 <ColoredDomain domain={item.domain || item.host} />
               </span>

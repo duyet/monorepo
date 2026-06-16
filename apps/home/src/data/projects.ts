@@ -27,6 +27,8 @@ export interface AppItem {
   tags?: string[];
   /** Optional logo URL. Rendered as a small image next to the domain. */
   logo?: string;
+  /** Optional dark-mode logo URL. If provided, used when user prefers dark mode. */
+  logoDark?: string;
 }
 
 const hostOf = (url: string) => new URL(url).host;
@@ -110,6 +112,8 @@ export const apps: AppItem[] = [
     tone: "bg-[#536f91]",
     domain: "agentstate.app",
     iconName: "Bot",
+    logo: "https://agentstate.app/brand/agentstate-logo.svg",
+    logoDark: "https://agentstate.app/brand/agentstate-logo-dark.svg",
     tags: ["AI"],
   },
   {
