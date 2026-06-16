@@ -2,6 +2,7 @@ import type { Post, Series } from "@duyet/interfaces";
 import { Link } from "@tanstack/react-router";
 import { yearColor } from "@/lib/colors";
 import type { LoadedPost } from "./-types";
+import { useState } from "react";
 
 function postParams(post: Post) {
   const [, year, month, slug] = post.slug.split("/");
@@ -107,6 +108,30 @@ export function PostFooter({
         {/* Series */}
         {series && (() => {
           const tree = buildTree(series.posts);
+          const [expandedNodes, setExpandedNodes] = useState<Set<string>>(() => {
+            // Only expand the node containing the current page
+            const initial = new Set<string>();
+            for (const node of tree) {
+              if (node.children.some(child => child.slug === post.slug)) {
+                initial.add(node.post.slug);
+                break;
+              }
+            }
+            return initial;
+          });
+
+          const toggleNode = (slug: string) => {
+            setExpandedNodes(prev => {
+              const next = new Set(prev);
+              if (next.has(slug)) {
+                next.delete(slug);
+              } else {
+                next.add(slug);
+              }
+              return next;
+            });
+          };
+
           return (
             <div>
               <p className="font-[var(--font-mono)] text-xl font-semibold tracking-tight text-[var(--rd-text)] mb-4">
@@ -124,26 +149,52 @@ export function PostFooter({
                     node.post.slug === post.slug ||
                     (!post.parent &&
                       node.post.slug === post.slug.replace(/\/$/, ""));
+                  const hasChildren = node.children.length > 0;
+                  const isExpanded = expandedNodes.has(node.post.slug);
+
                   return (
                     <li key={node.post.slug}>
-                      <Link
-                        to="/$year/$month/$slug/"
-                        params={postParams(node.post)}
-                        className={`no-underline text-inherit flex items-center gap-2 rounded px-1.5 py-1 hover:bg-[var(--rd-surface-2)] transition-colors${isCurrentParent ? " text-[var(--rd-accent)]" : ""}`}
-                      >
-                        <span className="font-[var(--font-mono)] text-[13px] text-[var(--rd-text-3)] tabular-nums w-[22px] shrink-0">
-                          {String(i + 1).padStart(2, "0")}.
-                        </span>
-                        <span className="text-[14px]">{node.post.title}</span>
-                      </Link>
+                      <div className="flex items-center">
+                        <Link
+                          to="/$year/$month/$slug/"
+                          params={postParams(node.post)}
+                          className={`no-underline text-inherit flex items-center gap-2 rounded px-1.5 py-1 hover:bg-[var(--rd-surface-2)] transition-colors${isCurrentParent ? " text-[var(--rd-accent)]" : ""} flex-1`}
+                        >
+                          <span className="font-[var(--font-mono)] text-[13px] text-[var(--rd-text-3)] tabular-nums w-[22px] shrink-0">
+                            {String(i + 1).padStart(2, "0")}.
+                          </span>
+                          <span className="text-[14px]">{node.post.title}</span>
+                        </Link>
+                        {hasChildren && (
+                          <button
+                            onClick={() => toggleNode(node.post.slug)}
+                            className="ml-1 p-1 hover:bg-[var(--rd-surface-2)] rounded transition-colors text-[var(--rd-text-3)] hover:text-[var(--rd-text)]"
+                            aria-label={isExpanded ? "Collapse" : "Expand"}
+                          >
+                            <svg
+                              width="16"
+                              height="16"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className={`transition-transform ${isExpanded ? "rotate-90" : ""}`}
+                            >
+                              <polyline points="9 18 15 12 9 6" />
+                            </svg>
+                          </button>
+                        )}
+                      </div>
 
-                      {node.children.length > 0 && (
-                        <ul className="ml-7 mt-1 flex flex-col gap-0.5 border-l border-[var(--rd-border)] pl-4">
+                      {hasChildren && isExpanded && (
+                        <ul className="ml-[14px] mt-0 flex flex-col gap-0 border-l border-[var(--rd-border)] pl-4">
                           {node.children.map((child) => {
                             const isCurrent = child.slug === post.slug;
                             return (
                               <li key={child.slug} className="relative">
-                                <span className="absolute left-[-18px] top-[9px] w-2 h-[2px] bg-[var(--rd-border)]" />
+                                <span className="absolute left-[-16px] top-[9px] w-2 h-[1px] bg-[var(--rd-border)]" />
                                 <Link
                                   to="/$year/$month/$slug/$child/"
                                   params={childParams(child)}
