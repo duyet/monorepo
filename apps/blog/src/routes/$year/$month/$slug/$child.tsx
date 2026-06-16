@@ -1,13 +1,14 @@
-import type { Post } from "@duyet/interfaces";
+import type { Post, Series } from "@duyet/interfaces";
 import { extractHeadings } from "@duyet/libs/extractHeadings";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
 import {
   type ChildNavItem,
   fetchAllPosts,
-  getChildNavigation,
-  getPostBySlug,
+  getChildren,
   getRelatedPosts,
+  getPostBySlug,
+  getSeries,
 } from "@/lib/posts";
 import "@/styles/post-reader.css";
 import { ChildBreadcrumb } from "../-breadcrumb";
@@ -95,18 +96,35 @@ export const Route = createFileRoute("/$year/$month/$slug/$child")({
       }
     }
 
-    const { prev, next } = await getChildNavigation(postWithContent.slug);
     const related = await getRelatedPosts(postWithContent, 3);
 
-    // Parent title for the breadcrumb. Fall back gracefully if the parent
-    // post isn't in the index for some reason.
     let parentTitle = "Overview";
+    let series: Series | null = null;
     try {
       const posts = await fetchAllPosts();
       const parent = posts.find((p) => p.slug === postWithContent.parent);
       if (parent?.title) parentTitle = parent.title;
+      if (parent?.series) {
+        series = await getSeries({ name: parent.series as string });
+      }
     } catch {
       // keep fallback
+    }
+
+    const siblings = postWithContent.parent
+      ? await getChildren(postWithContent.parent)
+      : [];
+
+    function toNavItem(p: Post): ChildNavItem {
+      const parts = p.slug.replace(/^\//, "").split("/");
+      return {
+        slug: p.slug,
+        title: p.title,
+        year: parts[0],
+        month: parts[1],
+        parent: parts.slice(2, -1).join("/"),
+        child: parts[parts.length - 1],
+      };
     }
 
     const post: LoadedPost = {
@@ -118,31 +136,31 @@ export const Route = createFileRoute("/$year/$month/$slug/$child")({
       edit_url,
     };
 
-    return { post, parentTitle, prev, next, related };
+    return { post, parentTitle, siblings: siblings.map(toNavItem), series, related };
   },
   component: ChildPostPage,
 });
 
 function ChildPostPage() {
-  const { post, parentTitle, prev, next, related } = Route.useLoaderData() as {
-    post: LoadedPost;
-    parentTitle: string;
-    prev: ChildNavItem | null;
-    next: ChildNavItem | null;
-    related: Post[];
-  };
+  const { post, parentTitle, siblings, series, related } =
+    Route.useLoaderData() as {
+      post: LoadedPost;
+      parentTitle: string;
+      siblings: ChildNavItem[];
+      series: Series | null;
+      related: Post[];
+    };
 
   return (
     <div className="post-reader overflow-x-hidden pb-0">
       <ReadingProgress />
 
-      {/* Breadcrumb + sibling nav */}
+      {/* Breadcrumb + sibling dropdown */}
       <ChildBreadcrumb
         parentTitle={parentTitle}
         parentSlug={post.parent ?? ""}
         currentTitle={post.title}
-        prev={prev}
-        next={next}
+        siblings={siblings}
       />
 
       {/* Hero */}
@@ -160,8 +178,8 @@ function ChildPostPage() {
         <TableOfContents headings={post.headings} />
       )}
 
-      {/* Related (no series nav for children — siblings live in the breadcrumb) */}
-      <PostFooter post={post} series={null} related={related} />
+      {/* Series tree + related */}
+      <PostFooter post={post} series={series} related={related} />
     </div>
   );
 }
