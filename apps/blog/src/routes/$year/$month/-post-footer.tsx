@@ -138,7 +138,7 @@ export function PostFooter({
                       </Link>
 
                       {node.children.length > 0 && (
-                        <ul className="ml-7 mt-1 flex flex-col gap-0.5 border-l-2 border-[var(--rd-border)] pl-4">
+                        <ul className="ml-7 mt-1 flex flex-col gap-0.5 border-l border-[var(--rd-border)] pl-4">
                           {node.children.map((child) => {
                             const isCurrent = child.slug === post.slug;
                             return (
