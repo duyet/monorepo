@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- SECURITY: Restrictive CSP prevents data exfiltration and external requests -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob: https:; connect-src 'none';">
+  <style>
+    /* Base widget styles - customize for your widget */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #1a1a1a;
+    }
+
+    /* Widget-specific styles go here */
+  </style>
+</head>
+<body>
+  <!-- WIDGET CONTENT: Replace this with your widget HTML -->
+  <div id="widget-root">
+    <p>Your widget content goes here</p>
+  </div>
+
+  <!-- REQUIRED: Height synchronization script -->
+  <script>
+    (function() {
+      // Report initial height
+      function reportHeight() {
+        window.parent.postMessage({
+          type: 'height',
+          value: document.body.scrollHeight
+        }, '*')
+      }
+
+      // Report height on resize
+      const ro = new ResizeObserver(() => {
+        reportHeight()
+      })
+      ro.observe(document.body)
+
+      // Initial report
+      reportHeight()
+
+      // Report height after any dynamic content changes
+      // Call this function if your widget dynamically updates its content
+      window.widgetUpdate = reportHeight
+    })()
+  </script>
+</body>
+</html>

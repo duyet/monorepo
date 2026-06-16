@@ -7,6 +7,68 @@ import { unified } from "unified";
 
 let _markdownToHtml: ((input: string) => string) | null = null;
 
+/**
+ * Widget fence extraction result.
+ * Contains the pre-processed markdown and extracted widget metadata.
+ */
+export interface WidgetExtraction {
+  markdown: string;
+  widgets: Array<{
+    id: string;
+    path: string;
+    height?: number;
+  }>;
+}
+
+/**
+ * Extract widget fences from markdown and replace with placeholder divs.
+ *
+ * Input:  ```widget\npath: ./widgets/chart.html\nheight: 400\n```
+ * Output: <div data-widget-id="widget-0" data-widget-path="./widgets/chart.html" data-widget-height="400"></div>
+ *
+ * Widget fences are removed before WASM processing to avoid being converted
+ * to code blocks. The placeholder divs survive sanitization and are replaced
+ * with LiveWidget components during rendering.
+ */
+export function extractWidgetFences(markdown: string): WidgetExtraction {
+  const widgets: WidgetExtraction["widgets"] = [];
+  let widgetIndex = 0;
+
+  // Match widget fence blocks: ```widget\npath: ...\nheight: ...\n```
+  const widgetFenceRegex = /```widget\n([\s\S]*?)```/g;
+  const processedMarkdown = markdown.replace(widgetFenceRegex, (match, content) => {
+    const lines = content.trim().split("\n");
+    let path = "";
+    let height: number | undefined = undefined;
+
+    // Parse widget metadata
+    for (const line of lines) {
+      const keyMatch = line.match(/^(\w+):\s*(.+)$/);
+      if (keyMatch) {
+        const [, key, value] = keyMatch;
+        if (key === "path") path = value.trim();
+        if (key === "height") height = parseInt(value, 10);
+      }
+    }
+
+    if (!path) {
+      // Invalid widget fence, return as-is (will be rendered as code block)
+      return match;
+    }
+
+    const widgetId = `widget-${widgetIndex++}`;
+    widgets.push({ id: widgetId, path, height });
+
+    // Generate placeholder div with data attributes
+    const attrs = [`data-widget-id="${widgetId}"`, `data-widget-path="${path}"`];
+    if (height) attrs.push(`data-widget-height="${height}"`);
+
+    return `<div ${attrs.join(" ")}></div>`;
+  });
+
+  return { markdown: processedMarkdown, widgets };
+}
+
 async function ensureWasmInit() {
   if (_markdownToHtml) return;
   // Node-only WASM bootstrap. Imports are dynamic and live inside this

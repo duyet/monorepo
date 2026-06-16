@@ -14,20 +14,108 @@
  * Usage: bun scripts/generate-posts-data.ts
  */
 
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import type { Post, Series } from "@duyet/interfaces";
 import { getAllPosts } from "@duyet/libs/getPost";
 import { getAllSeries } from "@duyet/libs/getSeries";
-import { markdownToHtml } from "@duyet/libs/markdownToHtml";
+import { markdownToHtml, extractWidgetFences } from "@duyet/libs/markdownToHtml";
+import sanitizeHtml from "sanitize-html";
 
 const PUBLIC_DIR = join(import.meta.dirname!, "..", "public");
 const CONTENT_DIR = join(PUBLIC_DIR, "posts-content");
+const WIDGETS_DIR = join(import.meta.dirname!, "..", "public", "widgets");
 
 mkdirSync(PUBLIC_DIR, { recursive: true });
 mkdirSync(CONTENT_DIR, { recursive: true });
 
 console.log("Generating posts data...");
+
+// ── Widget HTML sanitization config ─────────────────────────────────────────────
+// Reuse the same config from markdownToHtml.ts for consistency
+function sanitizeWidgetHtml(html: string): string {
+  return sanitizeHtml(html, {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat([
+      "del",
+      "math",
+      "semantics",
+      "mrow",
+      "mi",
+      "mn",
+      "mo",
+      "mtext",
+      "mfrac",
+      "msup",
+      "msub",
+      "msubsup",
+      "img",
+      "svg",
+      "path",
+      "g",
+      "circle",
+      "rect",
+      "line",
+      "polyline",
+      "polygon",
+    ]),
+    allowedAttributes: {
+      ...sanitizeHtml.defaults.allowedAttributes,
+      "*": ["class", "id", "aria-hidden", "focusable", "xmlns"],
+      a: ["href", "name", "target", "rel", "class", "id"],
+      img: [
+        "src",
+        "alt",
+        "title",
+        "width",
+        "height",
+        "loading",
+        "class",
+      ],
+      svg: ["width", "height", "viewBox", "fill", "stroke", "class"],
+      path: ["d", "fill", "stroke", "stroke-width", "class"],
+    },
+    allowedSchemes: ["http", "https", "mailto"],
+  });
+}
+
+// ── Widget resolution ───────────────────────────────────────────────────────────
+/**
+ * Resolve widget path to actual HTML file content.
+ * Priority: post-local widgets → global widgets directory
+ */
+function resolveWidgetHtml(widgetPath: string, postKey: string): string | null {
+  // Try post-local first: _posts/year/month/widgets/widget.html
+  // Extract year/month from postKey: "2024-01-my-post" -> ["2024", "01"]
+  const keyParts = postKey.split("-");
+  if (keyParts.length >= 2) {
+    const [year, month] = keyParts;
+    const postLocalPath = join(
+      import.meta.dirname!,
+      "..",
+      "_posts",
+      year,
+      month,
+      widgetPath
+    );
+    try {
+      const html = readFileSync(postLocalPath, "utf-8");
+      console.log(`    → Loaded post-local widget: ${widgetPath}`);
+      return html;
+    } catch {
+      // Post-local widget not found, try global
+    }
+  }
+
+  // Try global widgets directory
+  const globalPath = join(WIDGETS_DIR, widgetPath.replace(/^\.\/widgets\//, ""));
+  try {
+    const html = readFileSync(globalPath, "utf-8");
+    return html;
+  } catch {
+    console.error(`  ✗ Widget not found: ${widgetPath} (tried post-local and global)`);
+    return null;
+  }
+}
 
 // ── posts-data.json ────────────────────────────────────────────────────────────
 // All post metadata (no content) for listing pages
@@ -79,6 +167,7 @@ const allPostsWithContent = getAllPosts(
 ) as Post[];
 
 let written = 0;
+let widgetCount = 0;
 for (const post of allPostsWithContent) {
   // Derive a safe filename from slug: "/2024/01/foo.html" -> "2024-01-foo"
   const key = post.slug
@@ -87,16 +176,42 @@ for (const post of allPostsWithContent) {
     .replace(/\//g, "-");
   const filePath = join(CONTENT_DIR, `${key}.json`);
 
-  const payload: { content: string; isMDX: boolean; html?: string } = {
-    content: post.content || "",
+  // Extract widget fences before markdown conversion
+  const { markdown: processedMarkdown, widgets } = extractWidgetFences(
+    post.content || ""
+  );
+
+  // Resolve and inline widget HTML
+  const resolvedWidgets: Record<string, string> = {};
+  for (const widget of widgets) {
+    const rawHtml = resolveWidgetHtml(widget.path, key);
+    if (rawHtml) {
+      // Sanitize widget HTML before inlining
+      resolvedWidgets[widget.id] = sanitizeWidgetHtml(rawHtml);
+      widgetCount++;
+    }
+  }
+
+  const payload: {
+    content: string;
+    isMDX: boolean;
+    html?: string;
+    widgets?: Record<string, string>;
+  } = {
+    content: processedMarkdown,
     isMDX: Boolean(post.isMDX),
   };
 
+  // Add widgets to payload if any were found
+  if (Object.keys(resolvedWidgets).length > 0) {
+    payload.widgets = resolvedWidgets;
+  }
+
   // Pre-convert .md content to HTML so the route loader can skip
   // markdownToHtml (WASM) during prerender/build.
-  if (!payload.isMDX && post.content) {
+  if (!payload.isMDX && processedMarkdown) {
     try {
-      payload.html = await markdownToHtml(post.content);
+      payload.html = await markdownToHtml(processedMarkdown);
     } catch (err) {
       console.error(
         `  ✗ Failed to convert ${key}: ${err instanceof Error ? err.message : err}`
@@ -115,7 +230,7 @@ const withHtml = allPostsWithContent.filter(
   (p) => !p.isMDX && p.content
 ).length;
 console.log(
-  `  ✓ posts-content/ (${written} files, ${withHtml} pre-converted to HTML)`
+  `  ✓ posts-content/ (${written} files, ${withHtml} pre-converted to HTML, ${widgetCount} widgets inlined)`
 );
 
 // ── series-data.json ───────────────────────────────────────────────────────────

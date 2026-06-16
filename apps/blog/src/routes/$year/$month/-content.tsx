@@ -14,6 +14,7 @@ import "katex/dist/contrib/mhchem.min.js";
 import "katex/dist/katex.min.css";
 import "@/styles/highlight.css";
 import { mdxComponents } from "@/components/MdxComponents";
+import { LiveWidget } from "../../../components/LiveWidget";
 import { OldPostWarning } from "./-old-post-warning";
 import { Snippet } from "./-snippet";
 
@@ -23,6 +24,7 @@ interface ContentPost extends Post {
   headings?: TOCItem[];
   markdown_content?: string;
   edit_url?: string;
+  widgets?: Record<string, string>;
 }
 
 interface MDXContentProps {
@@ -92,6 +94,17 @@ export default function Content({ post }: { post: ContentPost }) {
           dangerouslySetInnerHTML={{ __html: post.content || "No content" }}
         />
       )}
+
+      {/* Render inline widgets */}
+      {post.widgets &&
+        Object.entries(post.widgets).map(([widgetId, widgetHtml]) => (
+          <LiveWidget
+            key={widgetId}
+            html={widgetHtml}
+            title={`Widget: ${widgetId}`}
+            className="my-8"
+          />
+        ))}
 
       <Snippet html={post.snippet || ""} />
     </>
