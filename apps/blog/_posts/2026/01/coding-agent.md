@@ -23,7 +23,7 @@ parts:
   - opencode
 changelog:
   - date: "2026-06"
-    note: "Split into a chaptered overview — each topic is now its own page. Refreshed Top on my list (Opus 4.8, GLM 5.1, Astro+PocketBase-Flow). Added Open Design alternative, opencode and the OpenClaw note on long-running autonomous agents."
+    note: "Split into a chaptered overview — each topic is now its own page. Refreshed Top on my list (Opus 4.8, GLM 5.1, AnyRouter). Added Open Design alternative, opencode and the OpenClaw note on long-running autonomous agents."
   - date: "2026-03"
     note: "Parallel Sub-Agents / Teams with the native Agent Teams note, and the Ralph Loop + cron scheduling sections."
   - date: "2026-02"
@@ -68,7 +68,7 @@ I didn't stop writing, tons of drafts in my [obsidian](https://obsidian.md/), no
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 py-3.5">
       <span class="text-xs uppercase tracking-wide font-mono text-terracotta">Provider</span>
-      <span class="text-foreground"><a href="/2026/01/coding-agent/long-running-agent" class="underline underline-offset-2">OpenRouter</a>, <a href="https://astroflow.dev" class="underline underline-offset-2">Astro+PocketBase-Flow</a>, Cloudflare AI Gateway</span>
+      <span class="text-foreground"><a href="/2026/01/coding-agent/long-running-agent" class="underline underline-offset-2">OpenRouter</a>, <a href="https://anyrouter.dev" class="underline underline-offset-2">AnyRouter</a>, Cloudflare AI Gateway</span>
     </div>
   </div>
 </div>
