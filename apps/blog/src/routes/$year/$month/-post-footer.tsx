@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { yearColor } from "@/lib/colors";
 import type { LoadedPost } from "./-types";
 import { useState } from "react";
+import { cn } from "@duyet/libs/utils";
 
 function postParams(post: Post) {
   const [, year, month, slug] = post.slug.split("/");
@@ -158,7 +159,12 @@ export function PostFooter({
                         <Link
                           to="/$year/$month/$slug/"
                           params={postParams(node.post)}
-                          className={`no-underline text-inherit flex items-center gap-2 rounded px-1.5 py-1 hover:bg-[var(--rd-surface-2)] transition-colors${isCurrentParent ? " text-[var(--rd-accent)]" : ""} flex-1`}
+                          className={cn(
+                            "no-underline text-inherit flex items-center gap-2 rounded px-1.5 py-1 transition-colors flex-1",
+                            isCurrentParent
+                              ? "bg-[var(--rd-accent)]/10 text-[var(--rd-accent)] font-medium"
+                              : "hover:bg-[var(--rd-surface-2)]"
+                          )}
                         >
                           <span className="font-[var(--font-mono)] text-[13px] text-[var(--rd-text-3)] tabular-nums w-[22px] shrink-0">
                             {String(i + 1).padStart(2, "0")}.
@@ -198,7 +204,12 @@ export function PostFooter({
                                 <Link
                                   to="/$year/$month/$slug/$child/"
                                   params={childParams(child)}
-                                  className={`no-underline text-inherit flex items-center gap-2 rounded px-1.5 py-0.5 hover:bg-[var(--rd-surface-2)] transition-colors${isCurrent ? " text-[var(--rd-accent)]" : " text-[var(--rd-text-2)]"}`}
+                                  className={cn(
+                                    "no-underline text-inherit flex items-center gap-2 rounded px-1.5 py-0.5 transition-colors",
+                                    isCurrent
+                                      ? "bg-[var(--rd-accent)]/10 text-[var(--rd-accent)] font-medium"
+                                      : "hover:bg-[var(--rd-surface-2)] text-[var(--rd-text-2)]"
+                                  )}
                                 >
                                   <span className="text-[13.5px]">
                                     {child.title}
