@@ -1,9 +1,9 @@
-export interface ChangelogEntry {
+export type ChangelogEntry = {
   date: string;
   note: string;
-}
+};
 
-export interface Post {
+export type Post = {
   slug: string;
   title: string;
   date: Date;
@@ -35,7 +35,7 @@ export interface Post {
    * (e.g. ["claude-code", "plan-mode", ...]).
    */
   parts?: string[];
-}
+};
 
 export interface TagCount {
   [key: string]: number;
