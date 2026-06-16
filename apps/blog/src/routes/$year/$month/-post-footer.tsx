@@ -118,7 +118,7 @@ export function PostFooter({
                   Part of the series: {series.name}
                 </Link>
               </p>
-              <div className="rd-rows">
+              <ul className="flex flex-col gap-1">
                 {tree.map((node, i) => {
                   const isCurrentParent =
                     node.post.slug === post.slug ||
@@ -128,66 +128,43 @@ export function PostFooter({
                     (c) => c.slug === post.slug
                   );
                   return (
-                    <div key={node.post.slug}>
-                      {/* Parent row */}
+                    <li key={node.post.slug}>
                       <Link
                         to="/$year/$month/$slug/"
                         params={postParams(node.post)}
-                        className={`rd-row cursor-pointer no-underline text-inherit${isCurrentParent ? " bg-[var(--rd-surface-2)]" : ""}`}
-                        style={{ gridTemplateColumns: "auto 1fr" }}
+                        className={`no-underline text-inherit flex items-center gap-2 rounded px-1.5 py-1 hover:bg-[var(--rd-surface-2)] transition-colors${isCurrentParent ? " text-[var(--rd-accent)]" : ""}`}
                       >
-                        <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-base leading-none tabular-nums w-[28px]">
-                          {String(i + 1).padStart(2, "0")}
+                        <span className="font-[var(--font-mono)] text-[13px] text-[var(--rd-text-3)] tabular-nums w-[22px] shrink-0">
+                          {String(i + 1).padStart(2, "0")}.
                         </span>
-                        <span className="truncate">
-                          <span
-                            className={`font-[550] text-[clamp(14px,1.4vw,16px)] tracking-tight${isCurrentParent ? " text-[var(--rd-accent)]" : ""}`}
-                          >
-                            {node.post.title}
-                          </span>
-                        </span>
+                        <span className="text-[14px]">{node.post.title}</span>
                       </Link>
 
-                      {/* Children indented under parent, expanded if
-                          we're on this parent or one of its children */}
                       {node.children.length > 0 &&
                         (isCurrentParent || hasCurrentChild) && (
-                          <div className="border-l-2 border-[var(--rd-border)] ml-[34px] pl-4 mt-1 mb-1 space-y-1">
+                          <ul className="ml-7 mt-1 flex flex-col gap-0.5">
                             {node.children.map((child) => {
                               const isCurrent = child.slug === post.slug;
                               return (
-                                <Link
-                                  key={child.slug}
-                                  to="/$year/$month/$slug/$child/"
-                                  params={childParams(child)}
-                                  className={`rd-row cursor-pointer no-underline text-inherit${isCurrent ? " bg-[var(--rd-surface-2)]" : ""}`}
-                                  style={{
-                                    gridTemplateColumns: "1fr auto",
-                                    paddingTop: "6px",
-                                    paddingBottom: "6px",
-                                  }}
-                                >
-                                  <span className="truncate">
-                                    <span
-                                      className={`font-[500] text-[clamp(13px,1.3vw,14.5px)] tracking-tight${isCurrent ? " text-[var(--rd-accent)]" : " text-[var(--rd-text-2)]"}`}
-                                    >
+                                <li key={child.slug}>
+                                  <Link
+                                    to="/$year/$month/$slug/$child/"
+                                    params={childParams(child)}
+                                    className={`no-underline text-inherit flex items-center gap-2 rounded px-1.5 py-0.5 hover:bg-[var(--rd-surface-2)] transition-colors${isCurrent ? " text-[var(--rd-accent)]" : " text-[var(--rd-text-2)]"}`}
+                                  >
+                                    <span className="text-[13.5px]">
                                       {child.title}
                                     </span>
-                                  </span>
-                                  <span
-                                    className={`rd-tag-pill text-[10px] !py-[1px] !px-1.5 shrink-0 ml-2${isCurrent ? "" : " opacity-50"}`}
-                                  >
-                                    Chapter
-                                  </span>
-                                </Link>
+                                  </Link>
+                                </li>
                               );
                             })}
-                          </div>
+                          </ul>
                         )}
-                    </div>
+                    </li>
                   );
                 })}
-              </div>
+              </ul>
             </div>
           );
         })()}
