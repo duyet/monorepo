@@ -25,6 +25,43 @@ function postParams(post: Post) {
   return { year, month, slug };
 }
 
+function childParams(post: Post) {
+  const segments = post.slug.replace(/^\//, "").split("/");
+  return { year: segments[0], month: segments[1], slug: segments[2], child: segments[3] };
+}
+
+type TreeNode = {
+  post: Post;
+  children: Post[];
+};
+
+function buildTree(posts: Post[]): TreeNode[] {
+  const childrenByParent = new Map<string, Post[]>();
+  const parents: Post[] = [];
+
+  for (const post of posts) {
+    const segments = post.slug.split("/").filter(Boolean);
+    if (segments.length >= 4) {
+      const parentSlug = `/${segments.slice(0, 3).join("/")}`;
+      if (!childrenByParent.has(parentSlug)) {
+        childrenByParent.set(parentSlug, []);
+      }
+      childrenByParent.get(parentSlug)!.push(post);
+    } else {
+      parents.push(post);
+    }
+  }
+
+  parents.sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  );
+
+  return parents.map((post) => ({
+    post,
+    children: childrenByParent.get(post.slug) ?? [],
+  }));
+}
+
 function SeriesDetailPage(): ReactElement {
   const { series } = Route.useLoaderData() as { series: Series | null };
 
@@ -46,6 +83,9 @@ function SeriesDetailPage(): ReactElement {
     );
   }
 
+  const tree = buildTree(series.posts);
+  const childCount = tree.reduce((sum, n) => sum + n.children.length, 0);
+
   return (
     <div className="px-6 md:px-8">
       <header className="pt-24 md:pt-28 pb-10 mx-auto">
@@ -62,38 +102,79 @@ function SeriesDetailPage(): ReactElement {
         </h1>
         <div className="mt-5 flex flex-wrap items-center gap-y-2 gap-x-3 text-[0.8125rem] text-muted-foreground tabular-nums [&>*+*]:before:content-['·'] [&>*+*]:before:mr-3 [&>*+*]:before:text-muted-foreground">
           <span>
-            {series.posts.length} {series.posts.length === 1 ? "post" : "posts"}
+            {tree.length} {tree.length === 1 ? "post" : "posts"}
+            {childCount > 0 && (
+              <span className="text-muted-foreground/60">
+                {" "}(+{childCount} {childCount === 1 ? "child" : "children"})
+              </span>
+            )}
           </span>
         </div>
       </header>
 
       <div className="rd-rows" aria-label="Series posts">
-        {series.posts.map((post, i) => (
-          <Link
-            key={post.slug}
-            to="/$year/$month/$slug/"
-            params={postParams(post)}
-            className="rd-row cursor-pointer no-underline text-inherit"
-            style={{ gridTemplateColumns: "auto 1fr auto" }}
-          >
-            <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-base leading-none tabular-nums w-[28px]">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <span className="truncate">
-              <span className="font-[550] text-[clamp(14px,1.4vw,16px)] tracking-tight">
-                {post.title}
+        {tree.map((node, i) => (
+          <div key={node.post.slug}>
+            {/* Parent row */}
+            <Link
+              to="/$year/$month/$slug/"
+              params={postParams(node.post)}
+              className="rd-row cursor-pointer no-underline text-inherit"
+              style={{ gridTemplateColumns: "auto 1fr auto" }}
+            >
+              <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-base leading-none tabular-nums w-[28px]">
+                {String(i + 1).padStart(2, "0")}
               </span>
-              {post.excerpt && (
-                <>
-                  <span className="text-[var(--rd-text-3)] mx-1.5">—</span>
-                  <span className="text-[var(--rd-text-2)] text-[13px]">{post.excerpt}</span>
-                </>
-              )}
-            </span>
-            <span className="text-[var(--rd-text-2)] text-[13px] shrink-0 ml-2 tabular-nums">
-              {dateFormat(post.date, "MMM d, yyyy")}
-            </span>
-          </Link>
+              <span className="truncate">
+                <span className="font-[550] text-[clamp(14px,1.4vw,16px)] tracking-tight">
+                  {node.post.title}
+                </span>
+                {node.post.excerpt && (
+                  <>
+                    <span className="text-[var(--rd-text-3)] mx-1.5">—</span>
+                    <span className="text-[var(--rd-text-2)] text-[13px]">{node.post.excerpt}</span>
+                  </>
+                )}
+              </span>
+              <span className="text-[var(--rd-text-2)] text-[13px] shrink-0 ml-2 tabular-nums">
+                {dateFormat(node.post.date, "MMM d, yyyy")}
+              </span>
+            </Link>
+
+            {/* Children indented under parent */}
+            {node.children.length > 0 && (
+              <div className="border-l-2 border-[var(--rd-border)] ml-[34px] pl-5 mt-1 mb-1 space-y-1">
+                {node.children.map((child) => (
+                  <Link
+                    key={child.slug}
+                    to="/$year/$month/$slug/$child/"
+                    params={childParams(child)}
+                    className="rd-row cursor-pointer no-underline text-inherit"
+                    style={{
+                      gridTemplateColumns: "1fr auto",
+                      paddingTop: "6px",
+                      paddingBottom: "6px",
+                    }}
+                  >
+                    <span className="truncate">
+                      <span className="font-[500] text-[clamp(13px,1.3vw,14.5px)] tracking-tight text-[var(--rd-text-2)]">
+                        {child.title}
+                      </span>
+                      {child.excerpt && (
+                        <>
+                          <span className="text-[var(--rd-text-4)] mx-1.5">—</span>
+                          <span className="text-[var(--rd-text-3)] text-[12.5px]">{child.excerpt}</span>
+                        </>
+                      )}
+                    </span>
+                    <span className="text-[var(--rd-text-3)] text-[12px] shrink-0 ml-2 tabular-nums">
+                      {dateFormat(child.date, "MMM d, yyyy")}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
         ))}
       </div>
     </div>

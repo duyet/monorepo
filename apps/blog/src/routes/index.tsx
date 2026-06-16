@@ -12,7 +12,6 @@ import { getShortforms } from "@/lib/shortforms";
 import type { Shortform } from "@/lib/shortforms";
 import { distanceToNow } from "@duyet/libs/date";
 import { FeaturedPost } from "@/components/home/FeaturedPost";
-import { CategoryBentoTile } from "@/components/home/CategoryBentoTile";
 import { PostList } from "@/components/home/PostList";
 
 // ---------------------------------------------------------------------------
@@ -181,28 +180,6 @@ function HomePage(): ReactElement {
           </Reveal>
         </section>
       )}
-
-      {/* ── Browse by category ─────────────────────────────────────── */}
-      <section id="topics" className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)]">
-        <SecHead eyebrow="Topics" title="Browse by category" />
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-          {categories.map((cat) => (
-            <CategoryBentoTile
-              key={cat.name}
-              name={cat.name}
-              count={cat.count}
-              onSelect={() => {
-                setActiveCategory(cat.name);
-                setTimeout(() => {
-                  document
-                    .getElementById("latest")
-                    ?.scrollIntoView({ behavior: "smooth" });
-                }, 30);
-              }}
-            />
-          ))}
-        </div>
-      </section>
 
       {/* ── Quick Notes ────────────────────────────────────────────── */}
       {shortforms && shortforms.length > 0 && (
