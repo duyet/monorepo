@@ -64,7 +64,7 @@ I didn't stop writing, tons of drafts in my [obsidian](https://obsidian.md/), no
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 py-3.5">
       <span class="text-xs uppercase tracking-wide font-mono text-terracotta">Model</span>
-      <span class="text-foreground"><a href="/2026/01/coding-agent/z-claude-mi-claude-or-claude" class="underline underline-offset-2">Opus 4.8</a>, <a href="/2026/01/coding-agent/z-claude-mi-claude-or-claude" class="underline underline-offset-2">GLM 5.1</a></span>
+      <span class="text-foreground"><a href="/2026/01/coding-agent/z-claude-mi-claude-or-claude" class="underline underline-offset-2">Fable 5</a>, <a href="/2026/01/coding-agent/z-claude-mi-claude-or-claude" class="underline underline-offset-2">Opus 4.8</a>, <a href="/2026/01/coding-agent/z-claude-mi-claude-or-claude" class="underline underline-offset-2">GLM 5.1</a></span>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 py-3.5">
       <span class="text-xs uppercase tracking-wide font-mono text-terracotta">Provider</span>
