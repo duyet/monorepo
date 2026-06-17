@@ -13,10 +13,10 @@ function Logo({ logo, logoDark, className = "" }: { logo?: string; logoDark?: st
   if (!logo && !logoDark) return null;
   if (logoDark) {
     return (
-      <picture>
-        <source media="(prefers-color-scheme: dark)" srcSet={logoDark} />
-        <img src={logo} alt="" className={className} />
-      </picture>
+      <>
+        <img src={logo} alt="" className={`${className} dark:hidden`} />
+        <img src={logoDark} alt="" className={`hidden dark:block ${className}`} />
+      </>
     );
   }
   return <img src={logo} alt="" className={className} />;

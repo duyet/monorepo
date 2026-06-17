@@ -9,10 +9,10 @@ function Logo({ logo, logoDark, size = 28 }: { logo?: string; logoDark?: string;
   if (!logo && !logoDark) return null;
   if (logoDark) {
     return (
-      <picture>
-        <source media="(prefers-color-scheme: dark)" srcSet={logoDark} />
-        <img src={logo} alt="" width={size} height={size} className="shrink-0 rounded" />
-      </picture>
+      <>
+        <img src={logo} alt="" width={size} height={size} className="shrink-0 rounded dark:hidden" />
+        <img src={logoDark} alt="" width={size} height={size} className="hidden shrink-0 rounded dark:block" />
+      </>
     );
   }
   return <img src={logo} alt="" width={size} height={size} className="shrink-0 rounded" />;
