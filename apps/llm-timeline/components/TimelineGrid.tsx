@@ -185,7 +185,6 @@ export function TimelineGrid({
                     </span>
                   </div>
                 </div>
-                <div className="mt-1 h-px bg-gradient-to-r from-[var(--rd-border)] to-transparent" />
               </div>
             </div>
           );

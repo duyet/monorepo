@@ -1,5 +1,5 @@
 import { cn } from "@duyet/libs/utils";
-import { GitCompare, List, SlidersHorizontal, ChevronDown } from "lucide-react";
+import { Boxes, GitCompare, List, SlidersHorizontal, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { SearchAutocomplete } from "@/components/SearchAutocomplete";
 import { Badge } from "@/components/ui/badge";
@@ -148,6 +148,7 @@ export function FilterInfo({
 
       <div className="flex items-center justify-between text-sm">
         <div className="flex items-center gap-2">
+          <Boxes className="h-4 w-4 text-muted-foreground" />
           <span className={cn(
             "font-[family-name:var(--font-mono)] tabular-nums",
             isFiltered ? "text-foreground font-medium" : "text-muted-foreground"

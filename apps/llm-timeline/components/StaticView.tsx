@@ -1,6 +1,6 @@
 import { parseParamValue } from "@duyet/libs";
 import { cn } from "@duyet/libs/utils";
-import { X } from "lucide-react";
+import { Calendar, CalendarDays, LayoutGrid, type LucideIcon, Table2, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { FilterInfo } from "@/components/filter-info";
 import {
@@ -213,6 +213,8 @@ export function StaticView({
         sourceStats={sourceStats}
       />
 
+      <div className="mb-6" />
+
       <FilterInfo
         resultCount={filteredModels.length}
         totalCount={allModels.length}
@@ -257,19 +259,19 @@ export function StaticView({
         <div className="flex items-center gap-2">
           <span className="rd-eyebrow">Layout</span>
           <div className="flex gap-1 bg-[var(--rd-surface-2)] rounded-[var(--rd-r-sm)] p-1">
-            {(["grid", "table"] as const).map((mode) => (
-              <button
-                key={mode}
-                onClick={() => setViewMode(mode)}
-                className={cn(
-                  "px-3 py-1.5 text-sm rounded-[var(--rd-r-sm)] transition-all font-medium capitalize",
-                  viewMode === mode
-                    ? "bg-[var(--rd-text)] text-[var(--rd-bg)]"
-                    : "text-[var(--rd-text-3)] hover:text-[var(--rd-text)]"
-                )}
-              >
-                {mode}
-              </button>
+            {(
+              [
+                { value: "grid", Icon: LayoutGrid },
+                { value: "table", Icon: Table2 },
+              ] as const
+            ).map(({ value, Icon }) => (
+              <SegButton
+                key={value}
+                Icon={Icon}
+                label={value}
+                active={viewMode === value}
+                onClick={() => setViewMode(value)}
+              />
             ))}
           </div>
         </div>
@@ -278,19 +280,19 @@ export function StaticView({
           <div className="flex items-center gap-2">
             <span className="rd-eyebrow">Group</span>
             <div className="flex gap-1 bg-[var(--rd-surface-2)] rounded-[var(--rd-r-sm)] p-1">
-              {(["year", "month"] as const).map((g) => (
-                <button
-                  key={g}
-                  onClick={() => setGrouping(g)}
-                  className={cn(
-                    "px-3 py-1.5 text-sm rounded-[var(--rd-r-sm)] transition-all font-medium capitalize",
-                    grouping === g
-                      ? "bg-[var(--rd-text)] text-[var(--rd-bg)]"
-                      : "text-[var(--rd-text-3)] hover:text-[var(--rd-text)]"
-                  )}
-                >
-                  {g}
-                </button>
+              {(
+                [
+                  { value: "year", Icon: Calendar },
+                  { value: "month", Icon: CalendarDays },
+                ] as const
+              ).map(({ value, Icon }) => (
+                <SegButton
+                  key={value}
+                  Icon={Icon}
+                  label={value}
+                  active={grouping === value}
+                  onClick={() => setGrouping(value)}
+                />
               ))}
             </div>
           </div>
@@ -394,6 +396,33 @@ export function StaticView({
         </>
       )}
     </>
+  );
+}
+
+function SegButton({
+  Icon,
+  label,
+  active,
+  onClick,
+}: {
+  Icon: LucideIcon;
+  label: string;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={cn(
+        "flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-[var(--rd-r-sm)] transition-all font-medium capitalize",
+        active
+          ? "bg-[var(--rd-text)] text-[var(--rd-bg)]"
+          : "text-[var(--rd-text-3)] hover:text-[var(--rd-text)]"
+      )}
+    >
+      <Icon className="h-3.5 w-3.5" />
+      {label}
+    </button>
   );
 }
 
