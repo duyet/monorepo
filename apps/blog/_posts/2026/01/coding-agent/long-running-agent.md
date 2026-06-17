@@ -174,5 +174,7 @@ Some use cases:
 
 This way you can have Claude Code + OpenRouter free or cheap models running 24/7 for you. A lot of automation becomes possible: smart cronjobs, automated refactoring, documentation sync, etc. The AI does the boring stuff while you sleep.
 
-![Github Actions + OpenRouter](/media/2026/01/ai/github_actions.png)
-![Github Actions + OpenRouter](/media/2026/01/ai/github_actions_2.png)
+<div class="img-row">
+<img src="/media/2026/01/ai/github_actions.png" alt="Github Actions + OpenRouter" />
+<img src="/media/2026/01/ai/github_actions_2.png" alt="Github Actions + OpenRouter" />
+</div>
