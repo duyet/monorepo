@@ -83,9 +83,9 @@
   min-width: 0;
 }
 
-/* Wide media + code blocks take the full track and center within it. Giving
- * <pre> the wider track lets long lines fit without a horizontal scrollbar. */
-.post-reader .prose > :where(figure, table, img, video, iframe, pre, .full-bleed),
+/* Wide media take the full track and center within it. Code blocks stay in the
+ * main track so they share the body-text measure (long lines scroll). */
+.post-reader .prose > :where(figure, table, img, video, iframe, .full-bleed),
 .post-reader .prose > p:has(> img:only-child),
 .post-reader .prose > p:has(> a > img:only-child),
 .post-reader .prose > div:has(> table) {
@@ -142,7 +142,6 @@
 .post-reader .prose > p:has(> a > img:only-child) img,
 .post-reader .prose > img,
 .post-reader .prose > figure > img,
-.post-reader .prose > pre,
 .post-reader .prose > table,
 .post-reader .prose > div:has(> table) {
   max-width: 1100px;
@@ -150,12 +149,11 @@
   margin-right: auto;
 }
 
+/* Code blocks fill the main text track so they span the exact same measure as
+   body paragraphs; long lines scroll horizontally (overflow-x-auto). */
 .post-reader .prose > pre {
-  width: fit-content;
-  /* Match the main column width (68ch) so code blocks span the same
-     measure as body text. */
-  min-width: 68ch;
-  max-width: min(1100px, 100%);
+  width: 100%;
+  max-width: 100%;
 }
 
 .post-reader .prose > table,
