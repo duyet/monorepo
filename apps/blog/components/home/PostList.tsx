@@ -55,9 +55,9 @@ function PostList({
         </div>
       </div>
 
-      {/* Category filter chips */}
+      {/* Category filter — single-line, horizontal scroll, no scrollbar */}
       <div
-        className="flex gap-2 flex-wrap mb-[18px]"
+        className="flex gap-5 mb-[20px] overflow-x-auto whitespace-nowrap [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         <CatChip
           name="All"
