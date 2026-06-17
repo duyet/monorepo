@@ -19,7 +19,7 @@ interface StatTileBaseProps {
 }
 
 function StatTileDiv({
-  _icon,
+  icon: _icon,
   value,
   label,
   sublabel,
@@ -44,7 +44,7 @@ function StatTileDiv({
 }
 
 function StatTileLink({
-  _icon,
+  icon: _icon,
   value,
   label,
   sublabel,
