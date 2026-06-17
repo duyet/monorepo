@@ -1,5 +1,6 @@
-import { ChevronDown, ChevronRight } from "lucide-react";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
+import { Check, ChevronDown, ChevronRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import type { ChildNavItem } from "@/lib/posts";
 
 export function ChildBreadcrumb({
@@ -13,7 +14,6 @@ export function ChildBreadcrumb({
   currentTitle: string;
   siblings: ChildNavItem[];
 }) {
-  const navigate = useNavigate();
   const segments = parentSlug.replace(/^\//, "").split("/");
   const [year, month, slug] = segments;
   const hasValidParent = Boolean(year && month && slug);
@@ -34,44 +34,102 @@ export function ChildBreadcrumb({
         )}
         <ChevronRight size={13} className="text-[var(--rd-text-4)]" />
         {siblings.length > 0 ? (
-          <span className="relative">
-            <select
-              value={currentTitle}
-              onChange={(e) => {
-                const sibling = siblings.find(
-                  (s) => s.title === e.target.value
-                );
-                if (sibling) {
-                  navigate({
-                    to: "/$year/$month/$slug/$child/",
-                    params: {
-                      year: sibling.year,
-                      month: sibling.month,
-                      slug: sibling.parent,
-                      child: sibling.child,
-                    },
-                  });
-                }
-              }}
-              className="appearance-none bg-transparent text-[var(--rd-text-2)] pr-5 pl-1 py-0.5 rounded border border-[var(--rd-border)] hover:border-[var(--rd-accent)] cursor-pointer text-[13px] outline-none max-w-[60vw]"
-            >
-              {siblings.map((s) => (
-                <option key={s.child} value={s.title}>
-                  {s.title}
-                </option>
-              ))}
-            </select>
-            <ChevronDown
-              size={12}
-              className="absolute right-1 top-1/2 -translate-y-1/2 pointer-events-none text-[var(--rd-text-4)]"
-            />
-          </span>
+          <SiblingDropdown currentTitle={currentTitle} siblings={siblings} />
         ) : (
           <span className="text-[var(--rd-text-2)] truncate max-w-[60vw]">
             {currentTitle}
           </span>
         )}
       </nav>
+    </div>
+  );
+}
+
+function SiblingDropdown({
+  currentTitle,
+  siblings,
+}: {
+  currentTitle: string;
+  siblings: ChildNavItem[];
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onClick = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+        className={`group inline-flex items-center gap-1.5 rounded-md px-1.5 py-0.5 -mx-0.5 transition-colors cursor-pointer outline-none ${
+          open
+            ? "bg-[var(--rd-surface-2)] text-[var(--rd-text)]"
+            : "text-[var(--rd-text-2)] hover:bg-[var(--rd-surface-2)] hover:text-[var(--rd-text)]"
+        }`}
+      >
+        <span className="truncate max-w-[60vw]">{currentTitle}</span>
+        <ChevronDown
+          size={12}
+          className={`shrink-0 text-[var(--rd-text-4)] transition-transform ${
+            open ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+      {open && (
+        <div
+          role="listbox"
+          className="absolute left-0 top-[calc(100%+6px)] z-20 min-w-full w-max max-w-[80vw] max-h-[60vh] overflow-y-auto rounded-lg border border-[var(--rd-border-2)] bg-[var(--rd-surface)] py-1"
+        >
+          {siblings.map((s) => {
+            const isCurrent = s.title === currentTitle;
+            return (
+              <Link
+                key={s.child}
+                to="/$year/$month/$slug/$child/"
+                params={{
+                  year: s.year,
+                  month: s.month,
+                  slug: s.parent,
+                  child: s.child,
+                }}
+                role="option"
+                aria-selected={isCurrent}
+                onClick={() => setOpen(false)}
+                className={`flex items-center gap-2 px-3 py-1.5 no-underline transition-colors ${
+                  isCurrent
+                    ? "text-[var(--rd-accent)]"
+                    : "text-[var(--rd-text-2)] hover:bg-[var(--rd-surface-2)] hover:text-[var(--rd-text)]"
+                }`}
+              >
+                <Check
+                  size={13}
+                  className={`shrink-0 ${isCurrent ? "opacity-100" : "opacity-0"}`}
+                />
+                <span className="whitespace-nowrap">{s.title}</span>
+              </Link>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
