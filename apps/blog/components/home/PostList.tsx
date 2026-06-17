@@ -44,7 +44,7 @@ function PostList({
   return (
     <section
       id="latest"
-      className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)] pb-[clamp(56px,8vw,96px)]"
+      className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(28px,3.5vw,44px)] pb-[clamp(44px,6vw,72px)]"
     >
       <div className="rd-sechead">
         <div>
@@ -57,7 +57,7 @@ function PostList({
 
       {/* Category filter — single-line, horizontal scroll, no scrollbar */}
       <div
-        className="flex gap-5 mb-[20px] overflow-x-auto whitespace-nowrap [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex gap-5 mb-[14px] overflow-x-auto whitespace-nowrap [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         <CatChip
           name="All"

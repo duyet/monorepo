@@ -290,7 +290,8 @@ function GlobalNav({ currentApp }: { currentApp: AppKey }) {
           size="sm"
           className={cn(
             "h-8 px-2.5 text-sm font-normal text-muted-foreground hover:text-foreground",
-            isActive(item.match) && "bg-muted font-medium text-foreground",
+            isActive(item.match) &&
+              "bg-muted font-medium text-[var(--rd-accent)] hover:text-[var(--rd-accent)]",
           )}
           asChild
         >
@@ -470,7 +471,10 @@ function LocalNav({
               key={item.href}
               variant="ghost"
               size="sm"
-              className={cn("h-8 px-2.5 text-sm", isActive && "bg-muted")}
+              className={cn(
+                "h-8 px-2.5 text-sm",
+                isActive && "bg-muted font-medium text-[var(--rd-accent)]",
+              )}
               asChild
             >
               <a

@@ -1,5 +1,4 @@
 import {
-  Eyebrow,
   Reveal,
   SecHead,
 } from "@duyet/components";
@@ -139,28 +138,28 @@ function HomePage(): ReactElement {
     <div>
       {/* ── Blog header ─────────────────────────────────────────────── */}
       <section
-        className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(44px,6vw,76px)] pb-[clamp(28px,4vw,44px)]"
+        className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(32px,4.5vw,56px)] pb-[clamp(22px,3vw,36px)]"
       >
-        <Eyebrow>BLOG &middot; blog.duyet.net</Eyebrow>
         <h1
-          className="rd-display text-[clamp(2.4rem,5.5vw,4rem)] mt-5"
+          className="rd-display text-[clamp(2.4rem,5.5vw,4rem)]"
         >
-          Notes, mostly on data &amp; agents.
+          Notes, mostly on{" "}
+          <span className="text-[var(--rd-accent)]">data &amp; agents</span>.
         </h1>
         <p
-          className="rd-lead mt-[22px] max-w-[64ch] text-[clamp(1.02rem,1.4vw,1.18rem)]"
+          className="rd-lead mt-[16px] max-w-[64ch] text-[clamp(1.02rem,1.4vw,1.18rem)]"
         >
           {BLOG_INTRO}
         </p>
         <div
-          className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[13px] mt-[22px] flex gap-5 flex-wrap"
+          className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[13px] mt-[16px] flex gap-5 flex-wrap"
         >
           <span>
-            <strong className="text-[var(--rd-text)]">{totalPosts}</strong>{" "}
+            <strong className="text-[var(--rd-accent)]">{totalPosts}</strong>{" "}
             posts
           </span>
           <span>
-            <strong className="text-[var(--rd-text)]">{totalYears}</strong>{" "}
+            <strong className="text-[var(--rd-accent)]">{totalYears}</strong>{" "}
             years
           </span>
           <span>since {sinceYear}</span>
