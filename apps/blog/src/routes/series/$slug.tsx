@@ -1,7 +1,7 @@
 import type { Post, Series } from "@duyet/interfaces";
 import { dateFormat } from "@duyet/libs/date";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import type { ReactElement } from "react";
+import type { CSSProperties, ReactElement } from "react";
 import { getAllSeries, getSeries } from "@/lib/posts";
 
 export const Route = createFileRoute("/series/$slug")({
@@ -112,71 +112,84 @@ function SeriesDetailPage(): ReactElement {
         </div>
       </header>
 
-      <div className="rd-rows" aria-label="Series posts">
-        {tree.map((node, i) => (
-          <div key={node.post.slug}>
-            {/* Parent row */}
-            <Link
-              to="/$year/$month/$slug/"
-              params={postParams(node.post)}
-              className="rd-row cursor-pointer no-underline text-inherit"
-              style={{ gridTemplateColumns: "auto 1fr auto" }}
+      <section className="max-w-2xl mx-auto" aria-label="Series posts">
+        {tree.map((node, i) => {
+          const style: CSSProperties = {
+            animationDelay: `${Math.min(i, 8) * 40}ms`,
+          };
+          return (
+            <div
+              key={node.post.slug}
+              className="mb-3 bg-card border border-border rounded-[var(--radius)] overflow-hidden editorial-enter"
+              style={style}
             >
-              <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-base leading-none tabular-nums w-[28px]">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <span className="truncate">
-                <span className="font-[550] text-[clamp(14px,1.4vw,16px)] tracking-tight">
-                  {node.post.title}
-                </span>
-                {node.post.excerpt && (
-                  <>
-                    <span className="text-[var(--rd-text-3)] mx-1.5">—</span>
-                    <span className="text-[var(--rd-text-2)] text-[13px]">{node.post.excerpt}</span>
-                  </>
-                )}
-              </span>
-              <span className="text-[var(--rd-text-2)] text-[13px] shrink-0 ml-2 tabular-nums">
-                {dateFormat(node.post.date, "MMM d, yyyy")}
-              </span>
-            </Link>
+              {/* Parent post */}
+              <Link
+                to="/$year/$month/$slug/"
+                params={postParams(node.post)}
+                className="block px-4 py-5 no-underline text-inherit transition-colors hover:bg-muted focus-visible:outline-none focus-visible:bg-muted"
+              >
+                <div className="flex items-baseline gap-3">
+                  <span className="font-[var(--font-mono)] text-xs text-muted-foreground tabular-nums shrink-0 pt-0.5">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-lg font-semibold leading-tight tracking-[-0.01em] text-foreground m-0">
+                      {node.post.title}
+                    </h3>
+                    {node.post.excerpt && (
+                      <p className="mt-1 text-sm leading-[1.55] text-muted-foreground line-clamp-2">
+                        {node.post.excerpt}
+                      </p>
+                    )}
+                    <div className="mt-2 flex flex-wrap items-center gap-y-1.5 gap-x-2.5 text-xs text-muted-foreground tabular-nums [&>*+*]:before:content-['·'] [&>*+*]:before:mr-2.5">
+                      <time dateTime={new Date(node.post.date).toISOString()}>
+                        {dateFormat(node.post.date, "MMM d, yyyy")}
+                      </time>
+                      {node.children.length > 0 && (
+                        <span>
+                          {node.children.length}{" "}
+                          {node.children.length === 1 ? "part" : "parts"}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </Link>
 
-            {/* Children indented under parent */}
-            {node.children.length > 0 && (
-              <div className="border-l-2 border-[var(--rd-border)] ml-[34px] pl-5 mt-1 mb-1 space-y-1">
-                {node.children.map((child) => (
-                  <Link
-                    key={child.slug}
-                    to="/$year/$month/$slug/$child/"
-                    params={childParams(child)}
-                    className="rd-row cursor-pointer no-underline text-inherit"
-                    style={{
-                      gridTemplateColumns: "1fr auto",
-                      paddingTop: "6px",
-                      paddingBottom: "6px",
-                    }}
-                  >
-                    <span className="truncate">
-                      <span className="font-[500] text-[clamp(13px,1.3vw,14.5px)] tracking-tight text-[var(--rd-text-2)]">
+              {/* Child posts */}
+              {node.children.length > 0 && (
+                <div className="border-t border-border">
+                  {node.children.map((child) => (
+                    <Link
+                      key={child.slug}
+                      to="/$year/$month/$slug/$child/"
+                      params={childParams(child)}
+                      className="flex items-baseline gap-2.5 px-4 py-3 pl-[2.85rem] no-underline text-inherit border-b border-border last:border-b-0 transition-colors hover:bg-muted focus-visible:outline-none focus-visible:bg-muted"
+                    >
+                      <span className="min-w-0 flex-1 truncate text-sm font-medium tracking-[-0.005em] text-foreground/90">
                         {child.title}
                       </span>
-                      {child.excerpt && (
-                        <>
-                          <span className="text-[var(--rd-text-4)] mx-1.5">—</span>
-                          <span className="text-[var(--rd-text-3)] text-[12.5px]">{child.excerpt}</span>
-                        </>
-                      )}
-                    </span>
-                    <span className="text-[var(--rd-text-3)] text-[12px] shrink-0 ml-2 tabular-nums">
-                      {dateFormat(child.date, "MMM d, yyyy")}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
+                      <time
+                        dateTime={new Date(child.date).toISOString()}
+                        className="shrink-0 text-xs text-muted-foreground tabular-nums"
+                      >
+                        {dateFormat(child.date, "MMM d, yyyy")}
+                      </time>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+
+        {tree.length === 0 && (
+          <p className="mt-12 text-center text-sm text-muted-foreground">
+            No posts in this series yet.
+          </p>
+        )}
+      </section>
     </div>
   );
 }
