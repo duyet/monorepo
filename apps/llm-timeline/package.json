@@ -19,8 +19,8 @@
     "llms-txt": "tsx scripts/generate-llms-txt.ts",
     "sitemap": "tsx scripts/generate-sitemap.ts",
     "prebuild": "tsx scripts/generate-rss.ts && tsx scripts/generate-llms-txt.ts && tsx scripts/generate-data-json.ts",
-    "sync": "pnpm run --cwd \"$PWD/../..\" rust:build && tsx scripts/sync-data.ts",
-    "sync:dry": "pnpm run --cwd \"$PWD/../..\" rust:build && tsx scripts/sync-data.ts --dry-run --verbose"
+    "sync": "pnpm -C \"$PWD/../..\" run rust:build && tsx scripts/sync-data.ts",
+    "sync:dry": "pnpm -C \"$PWD/../..\" run rust:build && tsx scripts/sync-data.ts --dry-run --verbose"
   },
   "dependencies": {
     "@duyet/components": "*",

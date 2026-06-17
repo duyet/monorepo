@@ -23,8 +23,8 @@
  *   Epoch AI:
  *   https://epoch.ai/data/all_ai_models.csv
  *
- * Merge stats: 836 curated + 3443 epoch - 6 duplicates = 4273 total
- * Last synced: 2026-06-02
+ * Merge stats: 836 curated + 3451 epoch - 6 duplicates = 4281 total
+ * Last synced: 2026-06-17
  * ============================================================================
  */
 
@@ -55883,6 +55883,17 @@ export const models: Model[] = [
     domain: 'Language',
   },
   {
+    name: 'Gemma 4 26B A4B',
+    date: '2026-04-02',
+    org: 'Google DeepMind',
+    params: '25.2B',
+    type: 'model',
+    license: 'open',
+    desc: 'AI model by Google DeepMind',
+    source: 'epoch',
+    link: 'https://ai.google.dev/gemma/docs/core/model_card_4',
+  },
+  {
     name: 'GLM-5.1',
     date: '2026-04-07',
     org: 'Z.ai (Zhipu AI)',
@@ -56178,6 +56189,93 @@ export const models: Model[] = [
     source: 'epoch',
     domain: 'Language',
     link: 'https://qwen.ai/blog?id=qwen3.7',
+  },
+  {
+    name: 'MiniMax-M3',
+    date: '2026-06-01',
+    org: 'MiniMax',
+    params: null,
+    type: 'model',
+    license: 'closed',
+    desc: 'AI model by MiniMax',
+    source: 'epoch',
+    domain: 'Language,Multimodal',
+    link: 'https://www.minimax.io/blog/minimax-m3',
+  },
+  {
+    name: 'MAI-Image-2.5',
+    date: '2026-06-02',
+    org: 'Microsoft',
+    params: null,
+    type: 'model',
+    license: 'closed',
+    desc: 'AI model by Microsoft',
+    source: 'epoch',
+    domain: 'Image generation',
+    link: 'https://microsoft.ai/news/introducing-mai-image-2-5/',
+  },
+  {
+    name: 'Gemma 4 12B',
+    date: '2026-06-03',
+    org: 'Google DeepMind',
+    params: '11.9B',
+    type: 'model',
+    license: 'open',
+    desc: 'AI model by Google DeepMind',
+    source: 'epoch',
+    domain: 'Language,Multimodal,Audio',
+    link: 'https://ai.google.dev/gemma/docs/core/model_card_4',
+  },
+  {
+    name: 'Nemotron 3 Ultra',
+    date: '2026-06-04',
+    org: 'NVIDIA',
+    params: '550B',
+    type: 'model',
+    license: 'open',
+    desc: 'AI model by NVIDIA',
+    source: 'epoch',
+    domain: 'Language',
+    link: 'https://arxiv.org/abs/2512.20856\nhttps://research.nvidia.com/labs/nemotron/files/NVIDIA-Nemotron-3-Ultra-Technical-Report.pdf',
+    trainingCompute: '6.6e24',
+    authors: 'Aaron Blakeman, Aaron Grattafiori, Aarti Basant, Abhibha Gupta, Abhinav Khattar, Adi Renduchintala, Aditya Vavre, Akanksha Shukla, Akhiad Bercovich, Aleksander Ficek, Aleksandr Shaposhnikov, Alex Kondratenko, Alexander Bukharin, Alexandre Milesi, Ali Taghibakhshi, Alisa Liu, Amelia Barton, Ameya Sunil Mahabaleshwarkar, Amir Klein, Amit Zuker, Amnon Geifman, Amy Shen, Anahita Bhiwandiwalla, Andrew Tao, Anjulie Agrusa, Ankur Verma, Ann Guan, Anubhav Mandarwal, Arham Mehta, Ashwath Aithal, Ashwin Poojary, Asif Ahamed, Asit Mishra, Asma Kuriparambil Thekkumpate, Ayush Dattagupta, Banghua Zhu, Bardiya Sadeghi, Barnaby Simkin, Ben Lanir, Benedikt Schifferer, Besmira Nushi, Bilal Kartal, Bita Darvish Rouhani, Boris Ginsburg, Brandon Norick, Brandon Soubasis, Branislav Kisacanin, Brian Yu, Bryan Catanzaro, Carlo del Mundo, Chantal Hwang, Charles Wang, Cheng-Ping Hsieh, Chenghao Zhang, Chenhan Yu, Chetan Mungekar, Chintan Patel, Chris Alexiuk, Christopher Parisien, Collin Neale, Cyril Meurillon, Damon Mosk-Aoyama, Dan Su, Dane Corneil, Daniel Afrimi, Daniel Lo, Daniel Rohrer, Daniel Serebrenik, Daria Gitman, Daria Levy, Darko Stosic, David Mosallanezhad, Deepak Narayanan, Dhruv Nathawani, Dima Rekesh, Dina Yared, Divyanshu Kakwani, Dong Ahn, Duncan Riach, Dusan Stosic, Edgar Minasyan, Edward Lin, Eileen Long, Eileen Peters Long, Elad Segal, Elena Lantz, Ellie Evans, Elliott Ning, Eric Chung, Eric Harper, Eric Tramel, Erick Galinkin, Erik Pounds, Evan Briones, Evelina Bakhturina, Evgeny Tsykunov, Faisal Ladhak, Fay Wang, Fei Jia , Felipe Soares, Feng Chen, Ferenc Galko, Frank Sun, Frankie Siino, Gal Hubara Agam, Ganesh Ajjanagadde, Gantavya Bhatt, Gargi Prasad, George Armstrong, Gerald Shen, Gorkem Batmaz, Grigor Nalbandyan, Haifeng Qian, Harsh Sharma, Hayley Ross, Helen Ngo, Herbert Hum, Herman Sahota, Hexin Wang, Himanshu Soni, Hiren Upadhyay, Huizi Mao, Huy C Nguyen, Huy Q Nguyen, Iain Cunningham, Ido Galil, Ido Shahaf, Igor Gitman, Ilya Loshchilov, Itamar Schen, Itay Levy, Ivan Moshkov, Izik Golan, Izzy Putterman, Jan Kautz, Jane Polak Scowcroft, Jared Casper, Jatin Mitra, Jeffrey Glick, Jenny Chen, Jesse Oliver, Jian Zhang, Jiaqi Zeng, Jie Lou, Jimmy Zhang, Jinhang Choi, Jining Huang, Joey Conway, Joey Guman, John Kamalu, Johnny Greco, Jonathan Cohen, Joseph Jennings, Joyjit Daw, Julien Veron Vialard, Junkeun Yi, Jupinder Parmar, Kai Xu, Kan Zhu, Kari Briski, Katherine Cheung, Katherine Luna, Keith Wyss, Keshav Santhanam, Kevin Shih, Kezhi Kong, Khushi Bhardwaj, Kirthi Shankar, Krishna C. Puvvada, Krzysztof Pawelec, Kumar Anik, Lawrence McAfee, Laya Sleiman, Leon Derczynski, Li Ding, Lizzie Wei, Lucas Liebenwein, Luis Vega, Maanu Grover, Maarten Van Segbroeck, Maer Rodrigues de Melo, Mahdi Nazemi, Makesh Narsimhan Sreedhar, Manoj Kilaru, Maor Ashkenazi, Marc Romeijn, Marcin Chochowski, Mark Cai, Markus Kliegl, Maryam Moosaei, Matt Kulka, Matvei Novikov, Mehrzad Samadi, Melissa Corpuz, Mengru Wang, Meredith Price, Michael Andersch, Michael Boone, Michael Evans, Miguel Martinez, Mikail Khona, Mike Chrzanowski, Minseok Lee, Mohammad Dabbah, Mohammad Shoeybi, Mostofa Patwary, Nabin Mulepati, Najeeb Nabwani, Natalie Hereth, Nave Assaf, Negar Habibi, Neta Zmora, Netanel Haber, Nicola Sessions, Nidhi Bhatia, Nikhil Jukar, Nikki Pope, Nikolai Ludwig, Nima Tajbakhsh, Nir Ailon, Nirmal Juluru, Nishant Sharma, Oleksii Hrinchuk, Oleksii Kuchaiev, Olivier Delalleau, Oluwatobi Olabiyi, Omer Ullman Argov, Omri Puny, Oren Tropp, Ouye Xie, Parth Chadha, Pasha Shamis, Paul Gibbons, Pavlo Molchanov, Pawel Morkisz, Peter Dykas, Peter Jin, Pinky Xu, Piotr Januszewski, Pranav Prashant Thombre, Prasoon Varshney, Pritam Gundecha, Przemek Tredak, Qing Miao, Qiyu Wan, Rabeeh Karimi Mahabadi, Rachit Garg, Ran El-Yaniv, Ran Zilberstein, Rasoul Shafipour, Rich Harang, Rick Izzo, Rima Shahbazyan, Rishabh Garg, Ritika Borkar, Ritu Gala, Riyad Islam, Robert Hesse, Roger Waleffe, Rohit Watve, Roi Koren, Ruoxi Zhang, Russell Hewett, Russell J. Hewett, Ryan Prenger, Ryan Timbrook, Sadegh Mahdavi, Sahil Modi, Samuel Kriman, Sangkug Lim, Sanjay Kariyappa, Sanjeev Satheesh, Saori Kaji, Satish Pasumarthi, Saurav Muralidharan, Sean Narentharen, Sean Narenthiran, Seonmyeong Bak, Sergey Kashirsky, Seth Poulos, Shahar Mor, Shanmugam Ramasamy, Shantanu Acharya, Shaona Ghosh, Sharath Turuvekere Sreenivas, Shelby Thomas, Shiqing Fan, Shreya Gopal, Shrimai Prabhumoye, Shubham Pachori, Shubham Toshniwal, Shuoyang Ding, Siddharth Singh, Simeng Sun, Smita Ithape, Somshubra Majumdar, Soumye Singhal, Stas Sergienko, Stefania Alborghetti, Stephen Ge, Sugam Dipak Devare, Sumeet Kumar Barua, Suseella Panguluri, Suyog Gupta, Sweta Priyadarshi, Syeda Nahida Akter, Tan Bui, Teodor-Dumitru Ene, Terry Kong, Thanh Do, Tijmen Blankevoort, Tim Moon, Tom Balough, Tomer Asida, Tomer Bar Natan, Tomer Ronen, Tugrul Konuk, Twinkle Vashishth, Udi Karpas, Ushnish De, Vahid Noorozi, Vahid Noroozi, Venkat Srinivasan, Venmugil Elango, Victor Cui, Vijay Korthikanti, Vinay Rao, Vitaly Kurin, Vitaly Lavrukhin, Vladimir Anisimov, Wanli Jiang, Wasi Uddin Ahmad, Wei Du, Wei Ping, Wenfei Zhou, Will Jennings, William Zhang, Wojciech Prazuch, Xiaowei Ren, Yashaswi Karnati, Yejin Choi, Yev Meyer, Yi-Fu Wu, Yian Zhang, Yigong Qin, Ying Lin, Yonatan Geifman, Yonggan Fu, Yoshi Subara, Yoshi Suhara, Yubo Gao, Zach Moshe, Zhen Dong, Zhongbo Zhu, Zihan Liu, Zijia Chen, Zijie Yan',
+  },
+  {
+    name: 'Claude Mythos 5',
+    date: '2026-06-09',
+    org: 'Anthropic',
+    params: null,
+    type: 'model',
+    license: 'closed',
+    desc: 'AI model by Anthropic',
+    source: 'epoch',
+    domain: 'Language,Multimodal',
+    link: 'https://www.anthropic.com/news/claude-fable-5-mythos-5',
+  },
+  {
+    name: 'Claude Fable 5',
+    date: '2026-06-09',
+    org: 'Anthropic',
+    params: null,
+    type: 'model',
+    license: 'closed',
+    desc: 'AI model by Anthropic',
+    source: 'epoch',
+    domain: 'Language,Multimodal',
+    link: 'https://www.anthropic.com/news/claude-fable-5-mythos-5',
+  },
+  {
+    name: 'North Mini Code',
+    date: '2026-06-09',
+    org: 'Cohere',
+    params: '30B',
+    type: 'model',
+    license: 'open',
+    desc: 'AI model by Cohere',
+    source: 'epoch',
+    domain: 'Language',
+    link: 'https://cohere.com/blog/north-mini-code',
+    authors: 'Jay Alammar, Sophia Althammer, Dennis Aumiller, Leon Engländer, Yannis Flet-Berliac, Eden Gilbert, Sarra Habchi, Kylie He, Dhruti Joshi, Jozef Mokrý, David Mora, Josh Netto-Rosen, Deniz Qian, Lawrence Rodgers, Willem Röpke, Tom Sherborne, Ahmet Üstün, Minjie Xu, Diana Abagyan, Sammie Bae, Björn Bebensee, Walter Beller-Morales, Sepideh Shaterian Bidgoli, Bas Büller, David Cairuz, Kris Cao, Roman Castagné, Giannis Chatziveroglou, Tim Chung, Felipe Cruz, Rishit Dholakia, Ali Edalati, Nikolas Gritsch, Kilian Haefeli, Prashant Kumar, Simon Lehnerer, Tony Liu, Alex McKinney, Ekagra Ranjan, Dev Shah, Zewen Shen, Sylvie Shi, Dwarak Talupuru, Komal Teru, Robin Vaaler, Bharat Venkitesh, Donglu Wang, Terrence Zhao, Leo Zhou, Conway Zhu, Phil Blunsom, Nick Frosst, Aidan Gomez, Manoj Govindassamy, Nick Jakobi, Patrick Lewis, Acyr Locatelli, Joelle Pineau, Ivan Zhang',
   }
 ]
 
@@ -56192,4 +56290,4 @@ export const domains: string[] = Array.from(
 export const years: number[] = Array.from(new Set(models.map((m) => new Date(m.date).getFullYear()))).sort(
   (a, b) => b - a,
 )
-export const lastSynced = '2026-06-02'
+export const lastSynced = '2026-06-17'
