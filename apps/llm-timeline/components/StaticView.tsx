@@ -120,6 +120,12 @@ export function StaticView({
     return filterModels(allModels, filters);
   }, [allModels, searchQuery, licenseFilter, orgFilter]);
 
+  const yearCount = useMemo(
+    () =>
+      new Set(allModels.map((m) => new Date(m.date).getFullYear())).size,
+    [allModels]
+  );
+
   const modelsByYear = useMemo(
     () => groupByYear(filteredModels),
     [filteredModels]
@@ -209,6 +215,7 @@ export function StaticView({
       <StatsCards
         models={stats.models}
         organizations={stats.organizations}
+        years={yearCount}
         activeView={view}
         sourceStats={sourceStats}
       />

@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 interface StatsCardsProps {
   models: number;
   organizations: number;
+  years?: number;
   activeView?: "models" | "organizations";
   sourceStats?: Record<string, number>;
 }
@@ -73,12 +74,11 @@ function StatTileLink({
 export function StatsCards({
   models,
   organizations,
+  years,
   activeView,
   sourceStats,
 }: StatsCardsProps) {
-  const totalSources = sourceStats
-    ? Object.values(sourceStats).reduce((a, b) => a + b, 0)
-    : 0;
+  const sourceCount = sourceStats ? Object.keys(sourceStats).length : 0;
 
   return (
     <div className="signalbar">
@@ -98,12 +98,12 @@ export function StatsCards({
       />
       <StatTileDiv
         icon={<Database className="h-5 w-5 text-[var(--rd-text)]" />}
-        value={totalSources > 0 ? totalSources.toLocaleString() : "—"}
+        value={sourceCount > 0 ? sourceCount.toLocaleString() : "—"}
         label="Sources"
       />
       <StatTileDiv
         icon={<TrendingUp className="h-5 w-5 text-[var(--rd-text)]" />}
-        value="76"
+        value={years && years > 0 ? years.toLocaleString() : "—"}
         label="Years"
       />
     </div>

@@ -62,9 +62,9 @@ describe("StatsCards", () => {
 
   it("renders years covered as count", () => {
     const { getAllByText } = render(
-      <StatsCards models={250} organizations={42} />
+      <StatsCards models={250} organizations={42} years={66} />
     );
-    const elements = getAllByText("76");
+    const elements = getAllByText("66");
     expect(elements.length).toBeGreaterThan(0);
   });
 
@@ -76,7 +76,7 @@ describe("StatsCards", () => {
     expect(elements.length).toBeGreaterThan(0);
   });
 
-  it("renders data points count when sourceStats provided", () => {
+  it("renders distinct source provider count when sourceStats provided", () => {
     const { getAllByText } = render(
       <StatsCards
         models={250}
@@ -84,8 +84,8 @@ describe("StatsCards", () => {
         sourceStats={{ curated: 771, epoch: 3156 }}
       />
     );
-    // 771 + 3156 = 3927
-    const elements = getAllByText("3,927");
+    // 2 distinct providers: curated + epoch
+    const elements = getAllByText("2");
     expect(elements.length).toBeGreaterThan(0);
   });
 
