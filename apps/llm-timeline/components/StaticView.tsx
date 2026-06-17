@@ -10,6 +10,7 @@ import {
 } from "@/components/KeyboardShortcuts";
 import { StatsCards } from "@/components/stats-cards";
 import { TimelineGrid } from "@/components/TimelineGrid";
+import { TimelineTable } from "@/components/TimelineTable";
 import { MonthGroupedTimeline } from "@/components/MonthGroupedTimeline";
 import { ModelCardGrid } from "@/components/ModelCardGrid";
 import { Badge } from "@/components/ui/badge";
@@ -69,6 +70,7 @@ export function StaticView({
   const [orgFilter, setOrgFilter] = useState("");
   const [liteMode, setLiteMode] = useState(initialLiteMode);
   const [grouping, setGrouping] = useState<Grouping>("year");
+  const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
 
   const [comparisonMode, setComparisonMode] = useState(false);
   const [selectedModels, setSelectedModels] = useState<Model[]>([]);
@@ -251,55 +253,61 @@ export function StaticView({
         </div>
       )}
 
-      <div className="mb-4 flex items-center justify-between gap-2">
+      <div className="mb-4 flex flex-wrap items-center gap-x-6 gap-y-3">
         <div className="flex items-center gap-2">
-          <span className="rd-eyebrow">View</span>
+          <span className="rd-eyebrow">Layout</span>
           <div className="flex gap-1 bg-[var(--rd-surface-2)] rounded-[var(--rd-r-sm)] p-1">
-            <button
-              onClick={() => setGrouping("year")}
-              className={cn(
-                "px-3 py-1.5 text-sm rounded-[var(--rd-r-sm)] transition-all font-medium",
-                grouping === "year"
-                  ? "bg-[var(--rd-text)] text-[var(--rd-bg)]"
-                  : "text-[var(--rd-text-3)] hover:text-[var(--rd-text)]"
-              )}
-            >
-              Year
-            </button>
-            <button
-              onClick={() => setGrouping("month")}
-              className={cn(
-                "px-3 py-1.5 text-sm rounded-[var(--rd-r-sm)] transition-all font-medium",
-                grouping === "month"
-                  ? "bg-[var(--rd-text)] text-[var(--rd-bg)]"
-                  : "text-[var(--rd-text-3)] hover:text-[var(--rd-text)]"
-              )}
-            >
-              Month
-            </button>
+            {(["grid", "table"] as const).map((mode) => (
+              <button
+                key={mode}
+                onClick={() => setViewMode(mode)}
+                className={cn(
+                  "px-3 py-1.5 text-sm rounded-[var(--rd-r-sm)] transition-all font-medium capitalize",
+                  viewMode === mode
+                    ? "bg-[var(--rd-text)] text-[var(--rd-bg)]"
+                    : "text-[var(--rd-text-3)] hover:text-[var(--rd-text)]"
+                )}
+              >
+                {mode}
+              </button>
+            ))}
           </div>
         </div>
+
+        {viewMode === "grid" && (
+          <div className="flex items-center gap-2">
+            <span className="rd-eyebrow">Group</span>
+            <div className="flex gap-1 bg-[var(--rd-surface-2)] rounded-[var(--rd-r-sm)] p-1">
+              {(["year", "month"] as const).map((g) => (
+                <button
+                  key={g}
+                  onClick={() => setGrouping(g)}
+                  className={cn(
+                    "px-3 py-1.5 text-sm rounded-[var(--rd-r-sm)] transition-all font-medium capitalize",
+                    grouping === g
+                      ? "bg-[var(--rd-text)] text-[var(--rd-bg)]"
+                      : "text-[var(--rd-text-3)] hover:text-[var(--rd-text)]"
+                  )}
+                >
+                  {g}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
-      {view === "models" && (
-        grouping === "year" ? (
-          filteredModels.length > 500 ? (
-            <TimelineGrid
-              modelsByYear={modelsByYear}
-              comparisonMode={comparisonMode}
-              selectedModelNames={selectedModelNames}
-              onToggleSelection={handleToggleSelection}
-              grouping="year"
-            />
-          ) : (
-            <TimelineGrid
-              modelsByYear={modelsByYear}
-              comparisonMode={comparisonMode}
-              selectedModelNames={selectedModelNames}
-              onToggleSelection={handleToggleSelection}
-              grouping="year"
-            />
-          )
+      {view === "models" &&
+        (viewMode === "table" ? (
+          <TimelineTable modelsByYear={modelsByYear} />
+        ) : grouping === "year" ? (
+          <TimelineGrid
+            modelsByYear={modelsByYear}
+            comparisonMode={comparisonMode}
+            selectedModelNames={selectedModelNames}
+            onToggleSelection={handleToggleSelection}
+            grouping="year"
+          />
         ) : (
           <MonthGroupedTimeline
             models={filteredModels}
@@ -307,8 +315,7 @@ export function StaticView({
             selectedModelNames={selectedModelNames}
             onToggleSelection={handleToggleSelection}
           />
-        )
-      )}
+        ))}
 
       {view === "organizations" && (
         <div className="rd-g3 gap-3">
