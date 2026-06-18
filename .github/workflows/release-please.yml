@@ -1,0 +1,37 @@
+name: Release Please
+
+# release-please watches conventional commits landing on master and maintains a
+# standing "chore(master): release X.Y.Z" PR plus the tracked CHANGELOG.md.
+# Merging that PR tags the version and publishes a GitHub Release.
+#
+# Config + manifest live under .github/ to keep the repo root clean. Pre-1.0 bump
+# rules (see release-please-config.json): a plain feat bumps the PATCH; only a
+# breaking change (feat! / BREAKING CHANGE) cuts a new minor. bootstrap-sha pins
+# the changelog baseline so the first release only spans commits after setup.
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: release-please-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release-please:
+    name: release-please
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Run release-please
+        id: release
+        uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          config-file: .github/release-please-config.json
+          manifest-file: .github/.release-please-manifest.json
