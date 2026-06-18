@@ -1,45 +1,7 @@
 # Duyet Le - Technical Blog (Full Content)
 
-> This file contains the full markdown content of all 313 blog posts.
+> This file contains the full markdown content of all 312 blog posts.
 > For a summary index, see https://blog.duyet.net/llms.txt
-
----
-
-# Widget Test Post
-
-- **URL**: https://blog.duyet.net/2026/06/widget-test
-- **Date**: 2026-06-16
-- **Category**: Development
-- **Tags**: Widgets, Test
-
-
-## Widget Test
-
-This is a test post for the new live HTML widget system.
-
-## Example Chart
-
-```widget
-path: ./widgets/example-chart.html
-```
-
-## How It Works
-
-Widgets are rendered in sandboxed iframes with:
-- Opaque origin (no `allow-same-origin`)
-- Strict CSP (`connect-src 'none'`)
-- Height auto-adjustment via postMessage
-
-## Security
-
-The widget cannot:
-- Access parent cookies or storage
-- Make external network requests
-- Navigate the parent page
-- Access parent DOM
-
-This ensures widgets are safe and isolated.
-
 
 ---
 
@@ -757,8 +719,10 @@ Some use cases:
 
 This way you can have Claude Code + OpenRouter free or cheap models running 24/7 for you. A lot of automation becomes possible: smart cronjobs, automated refactoring, documentation sync, etc. The AI does the boring stuff while you sleep.
 
-![Github Actions + OpenRouter](/media/2026/01/ai/github_actions.png)
-![Github Actions + OpenRouter](/media/2026/01/ai/github_actions_2.png)
+<div class="img-row">
+<img src="/media/2026/01/ai/github_actions.png" alt="Github Actions + OpenRouter" />
+<img src="/media/2026/01/ai/github_actions_2.png" alt="Github Actions + OpenRouter" />
+</div>
 
 
 ---
