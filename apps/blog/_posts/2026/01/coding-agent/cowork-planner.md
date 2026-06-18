@@ -12,7 +12,7 @@ description: Using Claude Cowork as vision planner and market research
 
 ![Cowork as a vision planner](/media/2026/01/ai/cowork-vision-planner.png)
 
-I use Cowork for a lot more than Claude Code on its own. It works as a vision planner and a market research tool. I let it think through the product direction, then break the work into nightly tasks for Claude Code to run overnight. It keeps track of all the progress so the product stays on track.
+I use Cowork for a lot more than Claude Code for other stuffs. It works as a vision planner, a market research tool when working on projects. I let it think through the product direction, vision, then break the work into nightly tasks for Claude Code to run overnight. It keeps track of all the progress so the product stays on track.
 
 ![Cowork handing the plan to Claude Code](/media/2026/01/ai/cowork-claude-code-planner.png)
 
