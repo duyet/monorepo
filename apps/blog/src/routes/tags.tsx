@@ -33,13 +33,13 @@ function Tags(): ReactElement {
   return (
     <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
       <header className="pt-24 md:pt-28 pb-10 mx-auto">
-        <span className="inline-block text-[0.6875rem] font-medium tracking-[0.16em] uppercase text-muted-foreground mb-3.5">
+        <span className="inline-block text-[0.8125rem] font-medium tracking-[0.16em] uppercase text-muted-foreground mb-3.5">
           Index
         </span>
-        <h1 className="text-[clamp(2.25rem,4.5vw,3.25rem)] font-semibold leading-[1.08] tracking-[-0.018em] text-foreground m-0">
+        <h1 className="text-[clamp(2.5rem,5vw,3.5rem)] font-semibold leading-[1.08] tracking-[-0.018em] text-foreground m-0">
           Topics
         </h1>
-        <p className="mt-4 text-base leading-[1.6] text-muted-foreground max-w-xl">
+        <p className="mt-4 text-lg leading-[1.6] text-muted-foreground max-w-xl">
           {entries.length} tags across {totalPosts} posts.
         </p>
       </header>
@@ -80,19 +80,19 @@ function Tags(): ReactElement {
                           className="h-2.5 w-2.5 rounded-full shrink-0"
                           style={{ backgroundColor: color }}
                         />
-                        <span className="truncate text-lg font-medium tracking-tight text-foreground">
+                        <span className="truncate text-xl font-medium tracking-tight text-foreground">
                           {tag}
                         </span>
                       </div>
-                      <span className="shrink-0 font-mono text-lg tabular-nums text-foreground">
+                      <span className="shrink-0 font-mono text-xl tabular-nums text-foreground">
                         {count}
                       </span>
                     </div>
                     <div className="flex items-end justify-between gap-3">
-                      <p className="line-clamp-2 text-xs text-muted-foreground">
+                      <p className="line-clamp-2 text-sm text-muted-foreground">
                         {meta?.description}
                       </p>
-                      <span className="shrink-0 font-mono text-[11px] uppercase tracking-wide text-muted-foreground">
+                      <span className="shrink-0 font-mono text-[12px] uppercase tracking-wide text-muted-foreground">
                         posts
                       </span>
                     </div>
@@ -104,13 +104,13 @@ function Tags(): ReactElement {
                         className="h-2 w-2 rounded-full shrink-0"
                         style={{ backgroundColor: color }}
                       />
-                      <span className="truncate text-sm font-medium tracking-tight text-foreground">
-                        {tag}
+                        <span className="truncate text-[15px] font-medium tracking-tight text-foreground">
+                          {tag}
+                        </span>
+                      </div>
+                      <span className="shrink-0 font-mono text-[13px] tabular-nums text-muted-foreground">
+                        {String(count).padStart(2, "0")}
                       </span>
-                    </div>
-                    <span className="shrink-0 font-mono text-[11px] tabular-nums text-muted-foreground">
-                      {String(count).padStart(2, "0")}
-                    </span>
                   </div>
                 )}
               </Link>

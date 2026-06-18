@@ -6,7 +6,9 @@ import {
   Outlet,
   useMatches,
 } from "@tanstack/react-router";
+import { PALETTE } from "@/lib/colors";
 import { getAllCategories } from "@/lib/posts";
+import { getCategoryMetadata } from "@/lib/category-metadata";
 
 export const Route = createFileRoute("/category")({
   head: () => ({
@@ -44,7 +46,7 @@ function Categories() {
         <p
           className="font-[var(--font-mono)] text-[var(--rd-text-3)]"
           style={{
-            fontSize: 11,
+            fontSize: 13,
             letterSpacing: "0.08em",
             textTransform: "uppercase",
           }}
@@ -54,7 +56,7 @@ function Categories() {
         <h1
           className="rd-display"
           style={{
-            fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)",
+            fontSize: "clamp(2.5rem, 5vw, 3.5rem)",
             marginTop: 8,
             lineHeight: 1.05,
             letterSpacing: "-0.03em",
@@ -65,29 +67,47 @@ function Categories() {
         </h1>
         <p
           className="text-[var(--rd-text-2)]"
-          style={{ marginTop: 10, fontSize: 14 }}
+          style={{ marginTop: 10, fontSize: 16 }}
         >
           {sorted.length} categories across {total} posts.
         </p>
       </header>
 
-      <div className="rd-rows">
-        {sorted.map(([name, count]) => (
-          <Link
-            key={name}
-            to="/category/$category/"
-            params={{ category: getSlug(name) }}
-            className="rd-row cursor-pointer no-underline text-inherit px-2"
-            style={{ gridTemplateColumns: "1fr auto" }}
-          >
-            <span className="font-[550] text-[clamp(14px,1.4vw,16px)] tracking-tight">
-              {name}
-            </span>
-            <span className="rd-tag-pill text-[10.5px] !py-[1px] !px-1.5 shrink-0 ml-2">
-              {count}
-            </span>
-          </Link>
-        ))}
+      <div className="bento-grid">
+        {sorted.map(([name, count], i) => {
+          const isFeatured = i < 3;
+          const meta = getCategoryMetadata(name, count, i);
+          const color = PALETTE[i % PALETTE.length];
+
+          return (
+            <Link
+              key={name}
+              to="/category/$category/"
+              params={{ category: getSlug(name) }}
+              className={`bento-cell no-underline text-inherit${isFeatured ? " bento-cell--featured" : ""}`}
+            >
+              <div className="flex items-start justify-between gap-2">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <span
+                    className="h-2.5 w-2.5 rounded-full shrink-0"
+                    style={{ backgroundColor: color }}
+                  />
+                  <span className="truncate text-[17px] font-[530] tracking-tight text-[var(--rd-text)]">
+                    {name}
+                  </span>
+                </div>
+                <span className="shrink-0 font-mono text-[14px] tabular-nums text-[var(--rd-text-3)]">
+                  {String(count).padStart(2, "0")}
+                </span>
+              </div>
+              {isFeatured && meta.description && (
+                <p className="text-[14px] text-[var(--rd-text-3)] leading-[1.5] mt-2 line-clamp-2">
+                  {meta.description}
+                </p>
+              )}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
