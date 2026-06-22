@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.61.2",
-    "@cloudflare/ai-search-snippet": "^0.0.39",
+    "@cloudflare/ai-search-snippet": "^0.0.40",
     "@duyet/components": "*",
     "@duyet/libs": "*",
     "@duyet/urls": "*",
