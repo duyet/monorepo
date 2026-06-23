@@ -29,8 +29,6 @@ The plan mode is still very useful but I also stopped giving instructions and st
 
 Two parts: a goal the agent reads, and a loop that keeps going until the goal is met.
 
-![goal.md feeds a Plan, Act, Verify, Log loop that writes findings back to the goal file](/media/2026/06/goal-and-loop/loop.svg)
-
 The goal lives in a file — the target, the rules it can't break, an explicit *done when*, and a findings section it writes to on every pass:
 
 ```prompt
@@ -151,8 +149,6 @@ claude "/agent-loop:start"
 ```
 
 It takes the pile from there. One state file tracks where each project's loop.
-
-![Many projects: one agent-loop session starts in the top folder; a single state file lists every project and its state; the loop spawns a git worktree per project to fix or improve it, in sequence or parallel, writing back to the one state file; all share skills and kb from anyrouter.dev](/media/2026/06/goal-and-loop/harness-scale.svg)
 
 I didn't come up with this part. Waking every few minutes, holding a list of repos, handing work to parallel threads — that's Peter Steinberger's maintainer-orchestrator pattern, which the [agent-loop](https://github.com/duyet/codex-claude-plugins/tree/master/agent-loop) plugin is built on. He keeps a large set of projects shipping releases almost daily off it.
 
