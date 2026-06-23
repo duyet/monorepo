@@ -46,6 +46,9 @@ This repository is the pnpm/Turborepo monorepo for duyet.net public apps, shared
 - `apps/data-sync`: operational CLI for ClickHouse analytics/activity syncs and migrations.
 - `apps/agent-assistant`: Vite-powered TanStack Start application with assistant-ui + LangGraph serving as a local agent interface. Deployed directly serverless on Cloudflare Workers/Pages (`duyet-agent-assistant`) for `https://agent-assistant.duyet.net` utilizing a native Cloudflare Durable Object (`ThreadStateDO`) backed by SQLite for checkpoint persistence.
 - `apps/kb`: static TanStack Start knowledge base for `https://kb.duyet.net`, bundling `content/**/*.md` at build time and generating `llms.txt`, `llms-full.txt`, `sitemap.xml`, `robots.txt`, and raw `public/k/*.md` article endpoints.
+- `apps/burns`: Vite/Cloudflare Pages dashboard (`duyet-burns`) that prerenders Claude Code usage stats. `build` runs `scripts/fetch-burns-data.ts`, which pulls `ccusage` data from MotherDuck (`MOTHERDUCK_TOKEN`); a daily cron refreshes it.
+- `apps/mcp`: placeholder app directory (no active package; only `node_modules` present). Treat as inactive unless it is reinitialized.
+- `apps/home`: editorial homepage for `https://duyet.net`. `apps/cv`: CV host for `https://cv.duyet.net`. `apps/homelab`: 3-node minipc cluster monitoring dashboard for `https://homelab.duyet.net`.
 
 ## Shared Packages
 
@@ -180,6 +183,8 @@ Use no scope only when no listed scope fits.
 ## Documentation Direction
 
 This file is the root internal knowledge base for AI agents. Keep `AGENTS.md` and root `CLAUDE.md` as short entrypoints. Move durable duplicated workflow details here as docs are rewritten.
+
+For Claude Cowork / desktop-agent sessions (non-terminal use), see [`docs/ai/cowork-instructions.md`](cowork-instructions.md). For writing blog posts and notes in Duyet's voice, see [`docs/ai/writing-style.md`](writing-style.md).
 
 ## Public App UI Direction
 
