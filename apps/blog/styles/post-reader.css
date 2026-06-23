@@ -273,6 +273,12 @@
 
 .post-reader .prose p {
   line-height: 1.8;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.post-reader .prose :where(ul, ol) {
+  margin-top: 0;
   margin-bottom: 0;
 }
 
@@ -317,12 +323,6 @@
   margin-bottom: 0.4em;
 }
 
-/* Tighten the gap when a list directly follows a heading — Tailwind prose
- * adds a large margin-top on ul/ol that looks wrong after a heading already
- * provides visual separation. */
-.post-reader .prose :where(h2, h3, h4, h5, h6) + :where(ul, ol) {
-  margin-top: 0.35em;
-}
 
 /* Hide the auto-generated `#` anchor link that the WASM markdown renderer
  * (crates/markdown) prepends to every heading. Format:
