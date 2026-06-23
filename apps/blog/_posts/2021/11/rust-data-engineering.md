@@ -10,6 +10,7 @@ tags:
   - Rust
   - Vietnamese
   - Rust Tiếng Việt
+  - Fossil
 slug: /2021/11/rust-data-engineering
 thumbnail: https://1.bp.blogspot.com/-vMsrOjluhsk/YaEajTOjloI/AAAAAAACXhA/jPU7jYzICwgqE9pju-oDp0uFQLIzOsnqwCLcBGAsYHQ/s0/stackoverflow-surveys.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2021%2F11%2Frust-data-engineering.html

@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 600" font-family="Inter, ui-sans-serif, system-ui, sans-serif" role="img">
+  <title>An auto-generated release changelog for chmonitor v0.2.9: 51 commits across 43 pull requests over 3 days, 44 daytime and 7 night-time commits, 3 contributors, 222 review comments, 6 AI agents involved, with feature and fix highlights — the kind of summary I read instead of diffs.</title>
+  <rect width="860" height="600" fill="#f8f8f2"/>
+  <rect x="24" y="20" width="812" height="560" rx="14" fill="#ffffff" stroke="#1a1a1a" stroke-opacity="0.12" stroke-width="1.5"/>
+
+  <!-- header -->
+  <rect x="48" y="44" width="74" height="26" rx="13" fill="#1a1a1a"/>
+  <text x="85" y="62" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">v0.2.9</text>
+  <text x="134" y="62" font-size="12.5" fill="#1a1a1a" fill-opacity="0.5">auto-generated release · chmonitor · 3 days ago</text>
+
+  <!-- blurb -->
+  <rect x="48" y="84" width="6" height="78" rx="3" fill="#d97441"/>
+  <g font-size="12.5" fill="#1a1a1a" fill-opacity="0.78">
+    <text x="68" y="104">Released chmonitor v0.2.9 — 51 commits and 43 pull requests over just 3 days,</text>
+    <text x="68" y="124">averaging ~17 updates a day. 44 commits during the day, 7 at night. A shoutout to</text>
+    <text x="68" y="144">the most active AI assistant, which generated 76 comments and ran 33 reviews.</text>
+  </g>
+
+  <!-- features -->
+  <text x="48" y="194" font-size="14" font-weight="700" fill="#1a1a1a">✨ Features</text>
+  <line x1="48" y1="204" x2="812" y2="204" stroke="#1a1a1a" stroke-opacity="0.1"/>
+  <g font-size="12" fill="#1a1a1a" fill-opacity="0.8">
+    <text x="56" y="228">• AI insights panel on the overview with cached, dismissible suggestions</text>
+    <text x="56" y="250">• Collapse the root redirect to cut response time and avoid a TTFB regression</text>
+    <text x="56" y="272">• Host switcher with secure storage for added hosts</text>
+    <text x="56" y="294">• Per-page social cards for dashboard query pages</text>
+    <text x="56" y="316">• Marketing site redesign + docs theme aligned to it; static OG images</text>
+  </g>
+
+  <!-- fixes -->
+  <text x="48" y="352" font-size="14" font-weight="700" fill="#1a1a1a">🐛 Fixes</text>
+  <line x1="48" y1="362" x2="812" y2="362" stroke="#1a1a1a" stroke-opacity="0.1"/>
+  <g font-size="12" fill="#1a1a1a" fill-opacity="0.8">
+    <text x="56" y="386">• Fix a ClickHouse connection-pool leak by releasing the client properly</text>
+    <text x="56" y="408">• Stabilise flaky paths surfaced by the test loop</text>
+  </g>
+
+  <!-- recap -->
+  <text x="48" y="448" font-size="14" font-weight="700" fill="#1a1a1a">📊 Release recap</text>
+  <line x1="48" y1="458" x2="812" y2="458" stroke="#1a1a1a" stroke-opacity="0.1"/>
+  <g font-size="12">
+    <!-- stat chips -->
+    <g>
+      <rect x="48" y="472" width="150" height="40" rx="8" fill="#f8f8f2" stroke="#1a1a1a" stroke-opacity="0.12"/>
+      <text x="60" y="490" font-weight="700" fill="#1a1a1a">51 commits</text><text x="60" y="505" fill="#1a1a1a" fill-opacity="0.55">across 43 PRs</text>
+    </g>
+    <g>
+      <rect x="206" y="472" width="150" height="40" rx="8" fill="#f8f8f2" stroke="#1a1a1a" stroke-opacity="0.12"/>
+      <text x="218" y="490" font-weight="700" fill="#1a1a1a">3 days</text><text x="218" y="505" fill="#1a1a1a" fill-opacity="0.55">~17 commits/day</text>
+    </g>
+    <g>
+      <rect x="364" y="472" width="150" height="40" rx="8" fill="#f8f8f2" stroke="#1a1a1a" stroke-opacity="0.12"/>
+      <text x="376" y="490" font-weight="700" fill="#1a1a1a">44 ☀ · 7 🌙</text><text x="376" y="505" fill="#1a1a1a" fill-opacity="0.55">day / night commits</text>
+    </g>
+    <g>
+      <rect x="522" y="472" width="150" height="40" rx="8" fill="#f8f8f2" stroke="#1a1a1a" stroke-opacity="0.12"/>
+      <text x="534" y="490" font-weight="700" fill="#1a1a1a">222 comments</text><text x="534" y="505" fill="#1a1a1a" fill-opacity="0.55">across reviews</text>
+    </g>
+    <g>
+      <rect x="680" y="472" width="132" height="40" rx="8" fill="#fbeee7" stroke="#d97441" stroke-opacity="0.5"/>
+      <text x="692" y="490" font-weight="700" fill="#1a1a1a">6 AI agents</text><text x="692" y="505" fill="#d97441">involved</text>
+    </g>
+  </g>
+  <text x="48" y="540" font-size="11.5" fill="#1a1a1a" fill-opacity="0.6">3 contributors · top reviewer @gemini-code-assist[bot] — 76 comments, 33 code reviews</text>
+  <text x="48" y="562" font-size="11" fill="#1a1a1a" fill-opacity="0.4">Written by the loop, not by me — this is what I read instead of the diffs.</text>
+</svg>

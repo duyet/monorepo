@@ -9,6 +9,7 @@ tags:
   - Data
   - ClickHouse
   - ClickHouse on Kubernetes
+  - Fossil
 slug: /2024/03/clickhouse-on-kubernetes
 thumbnail: /media/2024/03/clickhouse-k8s/clickhouse-operator.png
 description: Complete guide to deploying ClickHouse on Kubernetes using the Altinity ClickHouse Operator. Learn how to set up your first single-node cluster, configure persistent storage, manage users, and customize ClickHouse versions. Includes practical examples and best practices from production experience managing clusters with trillions of rows.
