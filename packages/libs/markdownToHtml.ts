@@ -138,12 +138,42 @@ function sanitize(html: string): string {
 }
 
 /**
+ * Minimal highlight.js grammar for ```prompt fenced blocks.
+ *
+ * A "prompt" is the text you paste into a coding agent. We don't want it
+ * syntax-highlighted like code — that mis-colours ordinary words (e.g. `test`,
+ * `until`, `in`). The only token worth marking is the leading slash-command
+ * (`/goal`, `/agent-loop:start`); everything else stays plain body text.
+ *
+ * `disableAutodetect` keeps this grammar out of auto-detection so it only
+ * applies to blocks explicitly tagged ```prompt.
+ */
+function promptLanguage() {
+  return {
+    name: "prompt",
+    disableAutodetect: true,
+    case_insensitive: false,
+    contains: [
+      {
+        // A slash-command at the start of a line: /goal, /agent-loop:start.
+        // Anchored to line-start so file paths like @docs/business aren't hit.
+        scope: "built_in",
+        begin: /^\/[A-Za-z][\w:-]*/,
+      },
+    ],
+  };
+}
+
+/**
  * Post-process HTML with rehype for syntax highlighting and KaTeX rendering.
  */
 async function postProcessHtml(html: string): Promise<string> {
   const result = await unified()
     .use(rehypeParse, { fragment: true })
-    .use(rehypeHighlight, { detect: true })
+    .use(rehypeHighlight, {
+      detect: true,
+      languages: { prompt: promptLanguage },
+    })
     .use(rehypeKatex)
     .use(rehypeStringify)
     .process(html);

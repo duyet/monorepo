@@ -37,13 +37,25 @@ const mdxCache = new Map<
   Promise<React.ComponentType<MDXContentProps>>
 >();
 
+// Minimal hljs grammar for ```prompt blocks: highlights /slash-commands only.
+const promptLanguage = {
+  name: "prompt",
+  disableAutodetect: true,
+  case_insensitive: false,
+  contains: [{ scope: "built_in", begin: /^\/[A-Za-z][\w:-]*/ }],
+};
+
 async function compileMDX(
   source: string
 ): Promise<React.ComponentType<MDXContentProps>> {
   const code = await compile(source, {
     outputFormat: "function-body",
     remarkPlugins: [remarkGfm, remarkMath],
-    rehypePlugins: [rehypeSlug, rehypeKatex, rehypeHighlight],
+    rehypePlugins: [
+      rehypeSlug,
+      rehypeKatex,
+      [rehypeHighlight, { detect: true, languages: { prompt: promptLanguage } }],
+    ],
   });
 
   const { default: MDXContent } = await run(String(code), {
