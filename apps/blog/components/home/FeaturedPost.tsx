@@ -21,7 +21,7 @@ function FeaturedPost({ post }: { post: Post }) {
     <Link
       to="/$year/$month/$slug/"
       params={postParams(post)}
-      className={`overflow-hidden grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] ${
+      className={`overflow-hidden grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] ${
         thumbnail
           ? "rounded-[var(--rd-r)] bg-[var(--rd-surface)]"
           : "rd-card"
@@ -29,7 +29,7 @@ function FeaturedPost({ post }: { post: Post }) {
     >
       {/* Thumbnail when set, otherwise the terminal block fallback */}
       {thumbnail ? (
-        <div className="overflow-hidden min-h-[260px] flex items-center">
+        <div className="overflow-hidden min-h-[200px] md:min-h-[260px] max-h-[300px] md:max-h-none flex items-center">
           <img
             src={thumbnail}
             alt={post.title}
