@@ -139,6 +139,22 @@ Wake every 5m ──► Triage repos ──► Dispatch threads ──► Track 
 /agent-loop:start
 ```
 
+## Let main agent control its member
+
+The main session does more than execute — it coordinates. I run the main session (Opus) as the orchestrator, and it assigns work to child agents based on complexity, then rewrites my rough instructions into proper specs before handing them down. It has all the context — the codebase, the conventions, the current state — so the child gets a full brief, not my shorthand.
+
+I say something vague:
+
+```prompt
+Send the message to the one who implements billing: keep the number of subscriptions dynamic, not hard-coded. I will add more later.
+```
+
+Opus captures the intent, adds the context it already knows — the right files, the existing patterns, the constraints — and sends the child member a spec with enough detail to actually work without asking back.
+
+The main stays in the coordinator role: it knows the full picture, decides who handles what, and makes sure each handoff lands cleanly.
+
+![Opus translating a vague billing instruction into a full technical spec — dynamic PLAN_CONFIG, Polar product ID linkage — ready for the child agent to implement](/media/2026/06/goal-and-loop/main-agent-control-member.png)
+
 ## Working across a pile of projects
 
 The same agent-loop works when you have many projects, not just one. I start a single session in the folder that holds every repo:
