@@ -8,6 +8,7 @@ tags:
   - Data
   - Data Engineering
   - ClickHouse
+  - Fossil
 slug: /2023/01/clickhouse
 thumbnail: https://i.imgur.com/UhphBkE.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2023%2F01%2Fclickhouse.html

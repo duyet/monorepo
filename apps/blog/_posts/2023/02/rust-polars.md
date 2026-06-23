@@ -8,6 +8,7 @@ tags:
   - Data
   - Data Engineering
   - Rust
+  - Fossil
 slug: /2023/02/rust-polars
 thumbnail: https://i.imgur.com/9yixw8K.png
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2023%2F02%2Frust-polars.html

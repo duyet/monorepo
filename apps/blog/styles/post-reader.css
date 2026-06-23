@@ -251,6 +251,26 @@
   color: var(--reader-ink);
 }
 
+/* ```prompt blocks: agent prompts, not code. Wrap long lines instead of
+ * horizontal-scrolling, and let the leading slash-command (.hljs-built_in)
+ * carry the only colour — the rest renders as plain body text. */
+.post-reader .prose pre:has(> code.language-prompt) {
+  overflow-x: visible;
+}
+.post-reader .prose pre > code.language-prompt {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* The loop diagram is small and reads best at the body-text measure, not the
+ * wide media track every other image uses. Keep it in the main column. */
+.post-reader .prose > p:has(> img[src$="loop.svg"]) {
+  grid-column: main;
+}
+.post-reader .prose > p:has(> img[src$="loop.svg"]) > img {
+  max-width: 100%;
+}
+
 .post-reader .prose p {
   line-height: 1.8;
   margin-bottom: 0;
@@ -295,6 +315,13 @@
   line-height: 1.35;
   margin-top: 1em;
   margin-bottom: 0.4em;
+}
+
+/* Tighten the gap when a list directly follows a heading — Tailwind prose
+ * adds a large margin-top on ul/ol that looks wrong after a heading already
+ * provides visual separation. */
+.post-reader .prose :where(h2, h3, h4, h5, h6) + :where(ul, ol) {
+  margin-top: 0.35em;
 }
 
 /* Hide the auto-generated `#` anchor link that the WASM markdown renderer

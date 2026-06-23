@@ -9,6 +9,7 @@ tags:
   - Data Engineering
   - Apache Spark
   - Kubernetes
+  - Fossil
 slug: /2022/03/spark-kubernetes-at-fossil
 thumbnail: https://blogger.googleusercontent.com/img/a/AVvXsEggpb4U-cWkhLQo1R-OUORtAvLFPnn0LB22LJ9mOBSpWiC3yoqM3iOoo1BlilS5nxhnOmNs8JyUsVHFdA4dKOLGqRH9WoBXAJxn8v-cg18QFuJFbPHwg_5V6N_0gtgtRpy41fCLICGakuAayr9p5Bwlr02rrmDVjYxOBU4hwL6Oz4gWWXs0VFYDQK-lFw
 twitterCommentUrl: https://twitter.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2022%2F03%2Fspark-kubernetes-at-fossil.html

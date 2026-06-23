@@ -9,6 +9,7 @@ tags:
   - Data
   - Data Engineering
   - Rust
+  - Fossil
 slug: /2023/06/fossil-data-platform-written-rust
 thumbnail: /media/2023/06/fossil-data-platform-written-rust/bench-2.png
 description: My data engineering team at Fossil recently released some of Rust-based components of our Data Platform after faced performance and maintenance challenges of the old Python codebase. I would like to share the insights and lessons learned during the process of migrating Fossil's Data Platform from Python to Rust.
