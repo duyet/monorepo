@@ -100,7 +100,7 @@ export function TableOfContents({ headings }: { headings: TOCItem[] }) {
   if (headings.length === 0) return null;
 
   const showSidebar = !isSidebarDismissed && !isOverlapping && !hidden;
-  const showFloatingButton = isSidebarDismissed || isOverlapping;
+  const showFloatingButton = isSidebarDismissed || isOverlapping || hidden;
 
   const tocBgStyle = {
     background: "color-mix(in srgb, var(--background) 90%, transparent)",
