@@ -10,7 +10,7 @@ tags:
   - Cloudflare
 slug: /2026/05/cloudflare-is-all-you-need
 thumbnail: /media/2026/05/cloudflare-is-all-you-need/npm-i-agents.svg
-description: Cloudflare's Agents SDK runs stateful TypeScript agents on Durable Objects, with Workers AI, AI Gateway, AI Search, Vectorize, Browser Run, Queues, Workflows, Email, Dynamic Workers, and Sandboxes around it.
+description: Cloudflare's Agents SDK runs stateful TypeScript agents on Durable Objects, with Workers AI, AI Gateway, AI Search, Vectorize, Browser Run, Queues, Workflows, Email, Dynamic Workers, and Sandboxes around it. Plus Flue, the open agent harness from the Astro team Cloudflare acquired.
 ---
 
 Cloudflare has one of the most generous free plans I've seen for building websites in the last 10 years, and it is still true now that they are shifting focus to AI agents. With the free tier, you already get enough for personal projects and medium-scale workloads.
@@ -23,7 +23,29 @@ Each agent runs as a TypeScript class on a Durable Object, with its own SQL data
 
 The stack is simple: run agent logic on [Workers](https://developers.cloudflare.com/workers/), keep state in [Durable Objects](https://developers.cloudflare.com/durable-objects/), call models with [Workers AI](https://developers.cloudflare.com/workers-ai/) or [AI Gateway](https://developers.cloudflare.com/ai-gateway/), retrieve knowledge from [AI Search](https://developers.cloudflare.com/ai-search/) or [Vectorize](https://developers.cloudflare.com/vectorize/), and let agents act through [Browser Run](https://developers.cloudflare.com/browser-run/), [MCP](https://developers.cloudflare.com/agents/model-context-protocol/mcp-servers-for-cloudflare/), [Queues](https://developers.cloudflare.com/queues/), [Workflows](https://developers.cloudflare.com/workflows/), [Email](https://developers.cloudflare.com/email-service/), [Dynamic Workers](https://developers.cloudflare.com/dynamic-workers/), and [Sandboxes](https://developers.cloudflare.com/containers/).
 
-The starter for the Agents SDK also includes streaming chat, tools, human-in-the-loop approval, scheduling, and Workers AI by default.
+An agent is just a class. You extend `Agent`, keep state with `setState`, and route requests to it:
+
+```ts
+import { Agent, routeAgentRequest, callable } from "agents";
+
+export class Counter extends Agent<Env, { count: number }> {
+  initialState = { count: 0 };
+
+  @callable()
+  increment() {
+    this.setState({ count: this.state.count + 1 });
+    return this.state.count;
+  }
+}
+
+export default {
+  async fetch(request, env) {
+    return (await routeAgentRequest(request, env)) ?? new Response("Not found", { status: 404 });
+  },
+} satisfies ExportedHandler<Env>;
+```
+
+The starter for the Agents SDK also includes streaming chat, tools, human-in-the-loop approval, scheduling, and Workers AI by default. Scaffold it with `npm create cloudflare@latest -- --template cloudflare/agents-starter` ([cloudflare/agents-starter](https://github.com/cloudflare/agents-starter)).
 
 This is the free/pricing snapshot they offer today:
 
@@ -70,3 +92,25 @@ For a simple agent, I would start with:
 Then add:
 
 [Browser Run](https://developers.cloudflare.com/browser-run/) for web browsing, [Queues](https://developers.cloudflare.com/queues/) and [Workflows](https://developers.cloudflare.com/workflows/) for background jobs, [R2](https://developers.cloudflare.com/r2/) for files, [Email Service](https://developers.cloudflare.com/email-service/) for email agents, and [Sandboxes](https://developers.cloudflare.com/containers/) or [Dynamic Workers](https://developers.cloudflare.com/dynamic-workers/) for coding agents.
+
+# Flue, if you want a harness
+
+The Agents SDK gives you the runtime. [Flue](https://flueframework.com), an open agent framework from the team behind Astro — which [Cloudflare acquired in January 2026](https://blog.cloudflare.com/astro-joins-cloudflare/) — gives you the harness on top: sessions, tools, skills, and a secure sandbox. It's powered by the Pi harness and runs multi-cloud (write once, deploy anywhere, any LLM), but Cloudflare is the target it maps onto most cleanly. The idea is that you describe what an agent _knows_ instead of scripting what it _does_:
+
+```ts
+import { createAgent } from "@flue/runtime";
+
+export default createAgent(() => ({
+  model: "anthropic/claude-sonnet-4-6",
+  instructions: "Tell a funny hello-world engineering joke.",
+}));
+```
+
+```bash
+npm install @flue/runtime
+npx flue init --target cloudflare
+```
+
+When you target Cloudflare, each Flue agent becomes its own Durable Object — isolated storage, isolated compute, scales to as many agents as you spin up, costs nothing idle. Write once, run on whatever model you choose, deploy without lab lock-in.
+
+Example code: [withastro/flue](https://github.com/withastro/flue) · [Cloudflare's launch post](https://blog.cloudflare.com/agents-platform-flue-sdk/).

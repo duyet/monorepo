@@ -4,8 +4,22 @@
         <description><![CDATA[Sr. Data Engineer. Rustacean at night]]></description>
         <link>https://blog.duyet.net</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 17 Jun 2026 10:34:40 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 23 Jun 2026 08:51:17 GMT</lastBuildDate>
         <atom:link href="https://blog.duyet.net/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Goal and Loop]]></title>
+            <description><![CDATA[You've probably heard of the agent loop by now. This is just a quick note on how I actually use it day to day — a `goal` and a `loop` — to get a lot more shipped.]]></description>
+            <link>https://blog.duyet.net/2026/06/goal-and-loop</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/06/goal-and-loop</guid>
+            <pubDate>Sat, 20 Jun 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Cowork as Planner]]></title>
+            <description><![CDATA[Using Claude Cowork as vision planner and market research]]></description>
+            <link>https://blog.duyet.net/2026/01/coding-agent/cowork-planner</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/01/coding-agent/cowork-planner</guid>
+            <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+        </item>
         <item>
             <title><![CDATA[Autonomous Claude Code Migrate Nextjs to Tanstack Start]]></title>
             <description><![CDATA[The second ultrawork run: I asked Claude Code to migrate chmonitor.dev from Next.js to TanStack Start and went to sleep. It planned the work, spawned parallel agents, and kept going for days.]]></description>
@@ -22,7 +36,7 @@
         </item>
         <item>
             <title><![CDATA[Cloudflare is all you need]]></title>
-            <description><![CDATA[Cloudflare's Agents SDK runs stateful TypeScript agents on Durable Objects, with Workers AI, AI Gateway, AI Search, Vectorize, Browser Run, Queues, Workflows, Email, Dynamic Workers, and Sandboxes around it.]]></description>
+            <description><![CDATA[Cloudflare's Agents SDK runs stateful TypeScript agents on Durable Objects, with Workers AI, AI Gateway, AI Search, Vectorize, Browser Run, Queues, Workflows, Email, Dynamic Workers, and Sandboxes around it. Plus Flue, the open agent harness from the Astro team Cloudflare acquired.]]></description>
             <link>https://blog.duyet.net/2026/05/cloudflare-is-all-you-need</link>
             <guid isPermaLink="true">https://blog.duyet.net/2026/05/cloudflare-is-all-you-need</guid>
             <pubDate>Wed, 06 May 2026 00:00:00 GMT</pubDate>
@@ -341,20 +355,6 @@
             <link>https://blog.duyet.net/2022/03/rust-box</link>
             <guid isPermaLink="true">https://blog.duyet.net/2022/03/rust-box</guid>
             <pubDate>Sat, 05 Mar 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Manage Redshift/Postgres Privileges GitOps Style]]></title>
-            <description><![CDATA[The grant project aims to manage Postgres and Redshift database roles and privileges in GitOps style. Grant is the culmination of my learning of Rust for data engineering tools.]]></description>
-            <link>https://blog.duyet.net/2022/02/grant-redshift-gitops</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/02/grant-redshift-gitops</guid>
-            <pubDate>Thu, 24 Feb 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Rust: Option & Result]]></title>
-            <description><![CDATA[Rust giới thiệu hai generic enums Option và Result để giải quyết các vấn đề null pointer exceptions, exception data leak, ...]]></description>
-            <link>https://blog.duyet.net/2022/02/rust-option-result</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/02/rust-option-result</guid>
-            <pubDate>Tue, 15 Feb 2022 00:00:00 GMT</pubDate>
         </item>
     </channel>
 </rss>

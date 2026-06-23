@@ -12,7 +12,7 @@ A comprehensive collection of technical blog posts covering Data Engineering, So
 
 ## About This Blog
 
-312+ technical articles covering topics including:
+314+ technical articles covering topics including:
 - Data Engineering & Big Data
 - Apache Spark, ClickHouse, Apache Airflow
 - Cloud Computing (AWS, GCP, Azure)
@@ -24,6 +24,20 @@ A comprehensive collection of technical blog posts covering Data Engineering, So
 Articles span from 2015 to 2026, documenting the evolution of modern data engineering and software development practices.
 
 ## Recent Posts
+
+### [Goal and Loop](https://blog.duyet.net/2026/06/goal-and-loop)
+- **Date**: 2026-06-20
+- **Category**: AI
+- **Tags**: Ai, Agents, Claude Code
+- **URL**: https://blog.duyet.net/2026/06/goal-and-loop
+- **Description**: You've probably heard of the agent loop by now. This is just a quick note on how I actually use it day to day — a `goal` and a `loop` — to get a lot more shipped.
+
+### [Cowork as Planner](https://blog.duyet.net/2026/01/coding-agent/cowork-planner)
+- **Date**: 2026-06-18
+- **Category**: AI
+- **Tags**: Ai
+- **URL**: https://blog.duyet.net/2026/01/coding-agent/cowork-planner
+- **Description**: Using Claude Cowork as vision planner and market research
 
 ### [Autonomous Claude Code Migrate Nextjs to Tanstack Start](https://blog.duyet.net/2026/06/migrate-tanstack)
 - **Date**: 2026-06-03
@@ -44,7 +58,7 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - **Category**: AI
 - **Tags**: Ai, Agents, Cloudflare
 - **URL**: https://blog.duyet.net/2026/05/cloudflare-is-all-you-need
-- **Description**: Cloudflare's Agents SDK runs stateful TypeScript agents on Durable Objects, with Workers AI, AI Gateway, AI Search, Vectorize, Browser Run, Queues, Workflows, Email, Dynamic Workers, and Sandboxes around it.
+- **Description**: Cloudflare's Agents SDK runs stateful TypeScript agents on Durable Objects, with Workers AI, AI Gateway, AI Search, Vectorize, Browser Run, Queues, Workflows, Email, Dynamic Workers, and Sandboxes around it. Plus Flue, the open agent harness from the Astro team Cloudflare acquired.
 
 ### [Claws](https://blog.duyet.net/2026/02/claws)
 - **Date**: 2026-02-22
@@ -151,25 +165,13 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - **URL**: https://blog.duyet.net/2024/06/clickhouse-replicatedreplacingmergetree
 - **Description**: Learn how to set up and manage ReplicatedReplacingMergeTree in ClickHouse on Kubernetes. This comprehensive guide covers cluster setup with ClickHouse Operator, data replication, performance tuning, and best practices for high availability deployments.
 
-### [ReplacingMergeTree](https://blog.duyet.net/2024/06/clickhouse-replacingmergetree)
-- **Date**: 2024-06-01
-- **Category**: Data
-- **Tags**: Data, Clickhouse, Clickhouse On Kubernetes
-- **URL**: https://blog.duyet.net/2024/06/clickhouse-replacingmergetree
-- **Description**: My favorite ClickHouse table engine is `ReplacingMergeTree`. The main reason is that it is similar to `MergeTree` but can automatically deduplicate based on columns in the `ORDER BY` clause, which is very useful.
-
-### [MergeTree](https://blog.duyet.net/2024/05/clickhouse-mergetree)
-- **Date**: 2024-05-31
-- **Category**: Data
-- **Tags**: Data, Clickhouse, Clickhouse On Kubernetes
-- **URL**: https://blog.duyet.net/2024/05/clickhouse-mergetree
-- **Description**: After starting this series ClickHouse on Kubernetes, you can now configure your first single-node ClickHouse server. Let's dive into creating your first table and understanding the basic concepts behind the ClickHouse engine, its data storage, and some cool features
-
 
 ## All Blog Posts by Year
 
-### 2026 (16 posts)
+### 2026 (18 posts)
 
+- [Goal and Loop](https://blog.duyet.net/2026/06/goal-and-loop) - 2026-06-20
+- [Cowork as Planner](https://blog.duyet.net/2026/01/coding-agent/cowork-planner) - 2026-06-18
 - [Autonomous Claude Code Migrate Nextjs to Tanstack Start](https://blog.duyet.net/2026/06/migrate-tanstack) - 2026-06-03
 - [Letting Claude Code work overnight, 2026](https://blog.duyet.net/2026/06/coding-agent-2026) - 2026-06-03
 - [Cloudflare is all you need](https://blog.duyet.net/2026/05/cloudflare-is-all-you-need) - 2026-05-06
@@ -557,9 +559,9 @@ Short-form thoughts and notes. Full list: https://blog.duyet.net/notes
 ---
 
 **Blog Statistics:**
-- Total Posts: 312
+- Total Posts: 314
 - Years Active: 2015-2026
 - Categories: 15
-- Tags: 61
+- Tags: 62
 
 Generated from: https://blog.duyet.net

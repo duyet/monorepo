@@ -1,5 +1,5 @@
 ---
-title: Coworker as Planner
+title: Cowork as Planner
 date: 2026-06-18
 category: AI
 series: AI Harness Engineering
