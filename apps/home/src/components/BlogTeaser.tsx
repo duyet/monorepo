@@ -10,7 +10,6 @@ interface BlogPost {
   tags: string[];
   excerpt: string;
   readingTime?: number;
-  thumbnail?: string;
 }
 
 interface Note {
@@ -30,16 +29,6 @@ interface BlogTeaserProps {
 export function BlogTeaser({ featuredPost, recentPosts, totalPosts, notes }: BlogTeaserProps) {
   if (!featuredPost) return null;
 
-  const featuredCode = "npm i agents";
-  // Thumbnails are root-relative blog paths; home is a different domain, so
-  // resolve them against the blog origin.
-  const rawThumb = featuredPost.thumbnail?.trim();
-  const thumbUrl = rawThumb
-    ? rawThumb.startsWith("http")
-      ? rawThumb
-      : `https://blog.duyet.net${rawThumb}`
-    : null;
-
   return (
     <div
       className="grid grid-cols-[minmax(0,1.05fr)_minmax(0,.95fr)] items-stretch gap-[18px]"
@@ -52,30 +41,6 @@ export function BlogTeaser({ featuredPost, recentPosts, totalPosts, notes }: Blo
           target="_blank"
           rel="noreferrer"
         >
-          {thumbUrl ? (
-            <div className="flex h-[180px] items-center overflow-hidden">
-              <img
-                src={thumbUrl}
-                alt={featuredPost.title}
-                loading="lazy"
-                className="w-full h-auto max-h-full object-contain"
-              />
-            </div>
-          ) : (
-            <div className="rd-termblock p-[26px_26px_30px]">
-              <div className="flex gap-[7px]">
-                <i />
-                <i />
-                <i />
-              </div>
-              <div
-                className="font-[var(--font-mono)] mt-5 text-[22px] text-[var(--rd-accent)]"
-              >
-                <span className="opacity-60">$</span> {featuredCode}
-                <span className="rd-caret" />
-              </div>
-            </div>
-          )}
           <div className="p-0">
             <div
               className="flex items-center gap-[10px] mb-3"
