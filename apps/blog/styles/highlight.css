@@ -1,10 +1,15 @@
 /* Highlight.js theme with dark mode support for next-themes (.dark class)
- * Light: github theme (default)
+ * Light: atom-one-light (vivid colors, white-background friendly)
  * Dark: github-dark theme (via .dark class selector)
  */
 
 /* Import light theme as default */
-@import "highlight.js/styles/github.min.css";
+@import "highlight.js/styles/atom-one-light.min.css";
+
+/* Let post-reader.css control the background; strip atom-one-light's own bg */
+pre code.hljs, code.hljs {
+  background: transparent;
+}
 
 /* Dark mode overrides - using .dark class selector for next-themes compatibility */
 .dark pre code.hljs,

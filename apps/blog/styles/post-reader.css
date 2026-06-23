@@ -419,16 +419,22 @@
 
 .post-reader .prose :where(pre),
 .post-reader article pre {
-  background-color: var(--reader-faint) !important;
-  border: 1px solid var(--reader-hairline) !important;
-  border-radius: 6px !important;
+  background-color: #f6f8fa !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 10px !important;
   box-shadow: none !important;
-  padding: 1em !important;
-  margin: 2em 0;
+  padding: 1.25em 1.5em !important;
+  margin: 1.75em 0;
   font-family: var(--reader-mono);
   font-size: 0.875em;
-  line-height: 1.7;
+  line-height: 1.75;
   overflow-x: auto;
+}
+
+.dark .post-reader .prose :where(pre),
+.dark .post-reader article pre {
+  background-color: #0d1117 !important;
+  border-color: #30363d !important;
 }
 
 /* Inner <code> carries no padding of its own; the <pre> owns all inset so
@@ -442,13 +448,19 @@
 
 /* Inline code */
 .post-reader .prose :where(code):not(:where(pre code)) {
-  background-color: var(--reader-faint) !important;
+  background-color: #f3f4f6 !important;
   color: var(--reader-ink) !important;
-  border-radius: 2px !important;
-  padding: 0.1em 0.35em !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 4px !important;
+  padding: 0.15em 0.4em !important;
   font-family: var(--reader-mono);
-  font-size: 0.875em;
+  font-size: 0.85em;
   font-weight: 400;
+}
+
+.dark .post-reader .prose :where(code):not(:where(pre code)) {
+  background-color: #1e2530 !important;
+  border-color: #30363d !important;
 }
 
 /* ----------- Meta strip ------------------------------------------- */
