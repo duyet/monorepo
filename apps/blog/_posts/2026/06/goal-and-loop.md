@@ -25,6 +25,8 @@ The plan mode is still very useful but I also stopped giving instructions and st
 
 `Edit this file, add this test function` is an instruction. `Ship the refactor in small PRs, deploy each one, don't break master` is a goal. The first keeps me in the loop. The second lets me leave it — I write the goal, kick off a loop, and walk off. I'm not driving or reading code anymore. I decide what *done* means and check the result.
 
+ClickHouse Monitoring (Migrate Nextjs to Tanstack Start)[https://blog.duyet.net/2026/06/migrate-tanstack/] took ~37h of autonomous work to complete with a lot of improvements. There are ~50 PRs merged by daily on https://anyrouter.dev.
+
 ## A goal and a loop
 
 Two parts: a goal the agent reads, and a loop that keeps going until the goal is met.
@@ -139,23 +141,21 @@ Wake every 5m ──► Triage repos ──► Dispatch threads ──► Track 
 /agent-loop:start
 ```
 
-## Let main agent control its member
+## Let main agent control its teammate
 
 The main session does more than execute — it coordinates. I run the main session (Opus) as the orchestrator, and it assigns work to child agents based on complexity, then rewrites my rough instructions into proper specs before handing them down. It has all the context — the codebase, the conventions, the current state — so the child gets a full brief, not my shorthand.
 
-I say something vague:
+For example on main:
 
 ```prompt
-Send the message to the one who implements billing: keep the number of subscriptions dynamic, not hard-coded. I will add more later.
+Send the message to the one who implements billing: keep the number of subscriptions dynamic, not hard-coded as I will add more later.
 ```
 
-Opus captures the intent, adds the context it already knows — the right files, the existing patterns, the constraints — and sends the child member a spec with enough detail to actually work without asking back.
-
-The main stays in the coordinator role: it knows the full picture, decides who handles what, and makes sure each handoff lands cleanly.
+Opus captures the intent, adds the context it already knows and sends the right teammate more detailed spec. The main stays in the coordinator role and makes sure each handoff lands cleanly.
 
 ![Opus translating a vague billing instruction into a full technical spec — dynamic PLAN_CONFIG, Polar product ID linkage — ready for the child agent to implement](/media/2026/06/goal-and-loop/main-agent-control-member.png)
 
-## Working across a pile of projects
+## Agent loop across multiple of projects
 
 The same agent-loop works when you have many projects, not just one. I start a single session in the folder that holds every repo:
 
@@ -164,9 +164,7 @@ cd ~/project
 claude "/agent-loop:start"
 ```
 
-It takes the pile from there. One state file tracks where each project's loop.
-
-I didn't come up with this part. Waking every few minutes, holding a list of repos, handing work to parallel threads — that's Peter Steinberger's maintainer-orchestrator pattern, which the [agent-loop](https://github.com/duyet/codex-claude-plugins/tree/master/agent-loop) plugin is built on. He keeps a large set of projects shipping releases almost daily off it.
+One state file tracks where each project's loop. Waking every few minutes, holding a list of repos, handing work to parallel threads — that's Peter Steinberger's maintainer-orchestrator pattern, which the [agent-loop](https://github.com/duyet/codex-claude-plugins/tree/master/agent-loop) plugin is built on. He keeps a large set of projects shipping releases almost daily off it.
 
 On a busy night hundreds of these runs go at once. A year ago I'd not have read every diff anymore. I read the changelog and the short note each run leaves — what it changed, what it checked, what it left for me — and only dig in when a note says to.
 
@@ -174,7 +172,7 @@ On a busy night hundreds of these runs go at once. A year ago I'd not have read 
 
 A release note like this one writes itself at the end of a run — features, fixes, a recap of how it got there. That's how I keep up with the work now: the summary, not the commits.
 
-The goal also works when you're developing one project that needs to integrate with another one or more. You write a goal that targets the second project while making it fix the first one until integration succeeds — autonomous, self-improving:
+**The goal also works when you're developing one project that needs to integrate with another one or more.** You write a goal that targets the second project while making it fix the first one until integration succeeds — autonomous, self-improving:
 
 ```prompt
 /goal Integrate this eve agent ~/project/eve with anyrouter (~/project/anyrouter) for LLM routing (docs: https://anyrouter.dev/docs.md). If you hit any issues in upstream anyrouter, file an issue, fix it, and redeploy anyrouter until the integration succeeds.
@@ -195,9 +193,10 @@ Since it already knows the internal docs and how the thing works, it writes the 
 **The one I run most mornings**
 
 ```prompt
-/goal triage the open issues. For each: reproduce, fix, add a regression test,
-open a small PR, auto-merge when CI is green. Stop when the queue is empty.
+/goal triage the open issues. For each: reproduce, fix, add a regression test, open a small PR, auto-merge when CI is green. Stop when the queue is empty.
 ```
+
+and
 
 ```prompt
 /goal make this project better 1%
