@@ -372,7 +372,8 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
         <div
           role="menu"
           className={cn(
-            "absolute left-0 top-full z-50 mt-1.5 w-[min(92vw,26rem)] overflow-hidden rounded-lg border bg-popover shadow-xl dark:shadow-black/30",
+            "absolute left-0 top-full z-50 mt-1.5 w-[min(92vw,26rem)] overflow-hidden rounded-lg border bg-[var(--rd-bg)] shadow-xl",
+            "dark:shadow-black/30",
           )}
         >
           <div className="max-h-[min(85vh,45rem)] overflow-y-auto p-1.5">
