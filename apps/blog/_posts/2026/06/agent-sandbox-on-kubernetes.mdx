@@ -43,6 +43,7 @@ The extensions module adds CRDs and controllers to the core Sandbox API for adva
 
 The Architecture Diagram:
 
+<div className="full-bleed">
 <Mermaid>{`
 flowchart LR
     User[User]
@@ -68,6 +69,7 @@ flowchart LR
     Pod --> Runtime
     WarmPool -->|pre-warms sandboxes| Sandbox
 `}</Mermaid>
+</div>
 
 For most workloads, start with the Core Sandbox. The extensions are only needed when you manage many similar Sandboxes and want to avoid startup delays or boilerplate configuration.
 
@@ -82,7 +84,7 @@ The [examples directory][examples] contains projects you can build depending on 
 - [`chrome-sandbox`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/chrome-sandbox) (browser automation) and [`mcp-server-sandbox`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/mcp-server-sandbox) (running an MCP server inside a Sandbox).
 - [`sandbox-ksa`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/sandbox-ksa): Using a dedicated Kubernetes Service Account (KSA) inside a Sandbox.
 
-## Use Case: A Self-Fixing Agent
+## Use case: The Self-Fixing Agent
 
 I used to manually copy and paste Sentry errors or adhoc requests blindly into a Claude Code session with the `/fix-and-push` command without double checking. Most of the time, this only required one short prompt. Since my codebase context is now stable, I automated this process.
 
@@ -176,11 +178,15 @@ flowchart TD
 
 If you want a simpler option, [Claude Code GitHub Actions][cc-gha] is an easy alternative if you already use GitHub. It provides the same context and works in a similar way without needing a custom control plane.
 
+### Self-improving learning loop
+
 I want to remind you again: the most important factor is context. During a goal-and-loop run, you can configure the agent (or set up a `StopHook`) to automatically summarize its findings and learn to create or update existing skills related to the codebase, business logic, and internal concepts. For example, imagine running this prompt at the end of a complex session that required deep research to ensure Claude remembers the context for future sessions without having to re-do the research:
 
 ```prompt
 /skill-creator Analyze this entire conversation and extract the core workflow, formatting guidelines, and preferences we established, etc to create a custom Claude Skill (SKILL.md) that I can use in future sessions. Ask me for confirmation before finalizing the skill.
 ```
+
+### Example Code
 
 The Claude Agent Runner image is [public here][runner] with a detailed [architecture design][arch]. You can extend it further with custom code, the Antigravity SDK, and other agent frameworks.
 
