@@ -9,9 +9,15 @@ export function TableOfContents({ headings }: { headings: TOCItem[] }) {
   const [activeId, setActiveId] = useState<string>("");
   const [hidden, setHidden] = useState(false);
   const [isOverlapping, setIsOverlapping] = useState(false);
-  const [isOverlayOpen, setIsOverlayOpen] = useState(true);
+  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
   const [isSidebarDismissed, setIsSidebarDismissed] = useState(false);
   const asideRef = useRef<HTMLElement>(null);
+
+  // Auto-open overlay when sidebar is dismissed, hidden, or overlapping
+  useEffect(() => {
+    const shouldOpenOverlay = isSidebarDismissed || hidden || isOverlapping;
+    setIsOverlayOpen(shouldOpenOverlay);
+  }, [isSidebarDismissed, hidden, isOverlapping]);
 
   useEffect(() => {
     const ids = headings.map((h) => h.id);
