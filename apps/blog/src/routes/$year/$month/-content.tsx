@@ -38,12 +38,15 @@ const mdxCache = new Map<
 >();
 
 // Minimal hljs grammar for ```prompt blocks: highlights /slash-commands only.
-const promptLanguage = {
+// Factory: lowlight/highlight.js register a language by calling it as
+// `(hljs) => definition`, so a bare object throws at registration
+// ("languageDefinition is not a function") and crashes every .mdx post.
+const promptLanguage = () => ({
   name: "prompt",
   disableAutodetect: true,
   case_insensitive: false,
   contains: [{ scope: "built_in", begin: /^\/[A-Za-z][\w:-]*/ }],
-};
+});
 
 async function compileMDX(
   source: string

@@ -1,0 +1,138 @@
+---
+title: Agent Sandbox on Kubernetes
+date: 2026-06-25
+author: Duyet
+category: AI
+series: AI Harness Engineering
+tags:
+  - AI
+  - Agents
+  - Kubernetes
+  - Claude Code
+slug: /2026/06/agent-sandbox-on-kubernetes
+thumbnail: /media/2026/06/agent-sandbox-on-kubernetes/hero.svg
+description: "I run Claude inside agent sandboxes on a home Kubernetes cluster. One consumes issue tickets into PRs, another triggers on Sentry webhooks to diagnose and patch runtime bugs. Here is the bigger loop, and where the new Kubernetes Agent Sandbox CRD fits."
+---
+
+I run Claude inside agent sandboxes on a Kubernetes cluster to automatically fix errors, consume issue request tickets on [the loop][loop]. One sandbox consumes issue tickets and turns them into PRs and assign back to anther review agents. Another triggers on Sentry webhooks to diagnose and patch runtime bugs. You can also configure the agent to create follow-up issues or to-do tasks when it finds other areas to improve, allowing it to stay focused on the main task. This is **the bigger loop**, operating outside the [local Claude Code session loop](/2026/06/goal-and-loop/), and where the new Kubernetes Agent Sandbox CRD fits and still keep track with vision and internal kb docs.
+
+Many providers offer similar sandboxing environments, such as [Blackbox.ai](https://blackbox.ai/), [e2b.dev](https://e2b.dev), and Cloudflare Sandbox. However, running them on Kubernetes is a great fit if you work in an enterprise or use local models.
+
+That is the bigger loop: not one agent on one task, but a system that consumes work continuously — issues in, PRs out; errors in, fixes out. Doing this by hand meant setting up a StatefulSet, a headless Service, a PVC, and a pile of RBAC and NetworkPolicy rules for each agent. [Agent Sandbox][kb] is, roughly, that entire setup packaged as a single CRD.
+
+## Agent Sandbox Kubernetes: Core Components & Extensions
+
+The extensions module adds CRDs and controllers to the core Sandbox API for advanced workflows:
+
+- **SandboxTemplate**: Defines reusable templates to easily create similar Sandboxes.
+- **SandboxClaim**: Creates Sandboxes from a warm pool, hiding the underlying configuration details.
+- **SandboxWarmPool**: Manages a pool of pre-warmed Sandboxes to reduce start times.
+
+The Architecture Diagram:
+
+<Mermaid>{`
+flowchart LR
+    User[User]
+    Claim[SandboxClaim]
+    Template[SandboxTemplate]
+    Sandbox[Sandbox]
+    Pod[Pod]
+    Runtime[Sandbox Runtime]
+    WarmPool[SandboxWarmPool]
+
+    subgraph Extensions
+      Claim
+      Template
+      WarmPool
+    end
+
+    User -->|creates| Sandbox
+    User -->|creates| Claim
+    WarmPool -->|references| Template
+    Claim -->|adopts| Sandbox
+    Claim -->|adopts sandboxes from| WarmPool
+    Sandbox -->|creates Pod| Pod
+    Pod --> Runtime
+    WarmPool -->|pre-warms sandboxes| Sandbox
+`}</Mermaid>
+
+For most workloads, start with the Core Sandbox. The extensions are only needed when you manage many similar Sandboxes and want to avoid startup delays or boilerplate configuration.
+
+## Use Cases for Agent Sandbox
+
+The [examples directory][examples] contains projects you can build depending on your needs:
+
+- `code-interpreter-agent-on-adk`: A code interpreter built on the Antigravity SDK (ADK).
+- `hermes-agent`: Long-running agents.
+- `langchain`: Agents using the LangChain framework.
+- `jupyterlab` and `vscode-sandbox`: Interactive development environments.
+- `chrome-sandbox` (browser automation) and `mcp-server-sandbox` (running an MCP server inside a Sandbox).
+
+## Use Case: A Self-Fixing Agent
+
+I used to manually copy and paste Sentry errors into a Claude Code session with the `/fix-and-push` command. Most of the time, this only required one short prompt. Since my codebase context is now stable, I automated this process.
+
+Now, a Sentry runtime error triggers a FastAPI webhook. A sandbox boots, reads the stack trace, reproduces the failure, writes a fix, and opens a pull request. This PR triggers our build and test pipeline, where another agent reviews and auto-merges it. This allows the system to patch itself.
+
+To make this safe, you need strong CI/CD guards, smoke tests on staging, and controlled promotion to production. The Sandbox makes this secure because each run is isolated and temporary. The agent cannot access the Kubernetes cluster API, so an agent pushing a fix at 3:00 AM cannot damage the rest of the cluster.
+
+### How it works
+
+The `Sandbox` CRD is the core of `agent-sandbox`. It provides a declarative API to manage a single, stateful pod with a stable identity and persistent storage. Existing Kubernetes resources do not fit this pattern:
+- **Deployments** are stateless and replicated.
+- **StatefulSets** are stable and numbered, but designed for database fleets rather than one-off agent runs.
+
+The Sandbox fills this gap by offering three key features:
+- **Stable identity**: Each Sandbox gets a stable hostname and network identity.
+- **Persistent storage**: Disk storage can persist across restarts, so a crash does not wipe the agent's workspace.
+- **Lifecycle management**: The controller handles creation, deletion, pausing, and resuming. This means an idle agent can be suspended and resumed later exactly where it left off.
+
+In my runner setup, the FastAPI control plane creates a Sandbox for each task, and that Sandbox creates the Pod where Claude runs.
+
+<Mermaid>{`
+flowchart TD
+  GI(["<img src='/icons/github.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />GitHub issues"]) --> |assign| API["<img src='/icons/fastapi.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />FastAPI control plane"]
+  SE(["<img src='/icons/sentry.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sentry / Logs System"]) -->|triggers| API
+  PR(["<img src='/icons/github.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />PRs"]) -->|triggers| API
+  WH(["<img src='/icons/webhooks.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Webhooks"]) -->|triggers| API
+  API -->|creates| SB["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sandbox"]
+  SB -->|creates Pod| Pod["<strong><img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Pod (claude-agent-runner)</strong><br/>Claude Agent SDK, MCP, Skills, etc.<br/>"]
+  Pod -->|creates/updates| MorePRs(["<img src='/icons/github.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />More PRs"])
+  MorePRs -->|triggers| API
+
+  API@{ shape: processes }
+  Pod@{ shape: processes }
+  SB@{ shape: doc }
+`}</Mermaid>
+
+GitHub issues, Sentry errors, and assigned or tagged pull requests all route through the FastAPI control plane. The control plane creates a Sandbox, which then starts the Pod where the agent runs. I built an example, [claude-agent-runner][runner], using the Claude Agent SDK. It is configured with a system prompt, skills, and MCP tools so it has enough context to do the job correctly. It can post status updates, create PRs, or close issues. Context is important; I recommend checking out [Goal and Loop: The Knowledge Base](/2026/06/goal-and-loop/#the-knowledge-base) to learn how to build and use an internal knowledge base to keep track of it.
+
+If you want a simpler option, [Claude Code GitHub Actions][cc-gha] is an easy alternative if you already use GitHub. It provides the same context and works in a similar way without needing a custom control plane.
+
+<Mermaid>{`
+flowchart TD
+  SE(["<img src='/icons/sentry.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sentry / Logs"]) -->|runtime error| API["<img src='/icons/fastapi.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />FastAPI control plane"]
+  API -->|creates| SB["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sandbox"]
+  SB -->|creates Pod| Pod["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Pod (claude-agent-runner)"]
+  Pod -->|CI/CD| Deployment["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Deployment"]
+  Deployment -->|exception| SE
+
+  ClaudeLocal1["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Claude Local"] --> |loop| ClaudeLocal2["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Claude Local"]
+  ClaudeLocal2 --> |loop| ClaudeLocal1
+
+  API@{ shape: processes }
+  Pod@{ shape: processes }
+  SB@{ shape: doc }
+  Deployment@{ shape: processes }
+`}</Mermaid>
+
+{/* TODO before publishing: paste a real kubectl get sandbox and one end-to-end run (ticket to PR, or Sentry to fix). */}
+
+The Claude Agent Runner image is [public here][runner] with a detailed [architecture design][arch]. You can extending more with codex, AI SDK Agent, etc.
+
+[kb]: https://kubernetes.io/blog/2026/03/20/running-agents-on-kubernetes-with-agent-sandbox/
+[runner]: https://github.com/duyet/claude-agent-runner
+[arch]: https://github.com/duyet/claude-agent-runner/blob/main/docs/architecture.md
+[examples]: https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples
+[cc-gha]: https://code.claude.com/docs/en/github-actions
+[loop]: /2026/06/goal-and-loop/

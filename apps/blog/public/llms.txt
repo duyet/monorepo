@@ -12,7 +12,7 @@ A comprehensive collection of technical blog posts covering Data Engineering, So
 
 ## About This Blog
 
-314+ technical articles covering topics including:
+315+ technical articles covering topics including:
 - Data Engineering & Big Data
 - Apache Spark, ClickHouse, Apache Airflow
 - Cloud Computing (AWS, GCP, Azure)
@@ -24,6 +24,13 @@ A comprehensive collection of technical blog posts covering Data Engineering, So
 Articles span from 2015 to 2026, documenting the evolution of modern data engineering and software development practices.
 
 ## Recent Posts
+
+### [Agent Sandbox on Kubernetes](https://blog.duyet.net/2026/06/agent-sandbox-on-kubernetes)
+- **Date**: 2026-06-25
+- **Category**: AI
+- **Tags**: Ai, Agents, Kubernetes, Claude Code
+- **URL**: https://blog.duyet.net/2026/06/agent-sandbox-on-kubernetes
+- **Description**: I run Claude inside agent sandboxes on a home Kubernetes cluster. One consumes issue tickets into PRs, another triggers on Sentry webhooks to diagnose and patch runtime bugs. Here is the bigger loop, and where the new Kubernetes Agent Sandbox CRD fits.
 
 ### [Goal and Loop](https://blog.duyet.net/2026/06/goal-and-loop)
 - **Date**: 2026-06-20
@@ -158,18 +165,12 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - **URL**: https://blog.duyet.net/2024/11/clickhouse-rust-udf
 - **Description**: In Data Platform System with ClickHouse, rather than extracting data from ClickHouse for processing in external systems, we can perform transformations directly within ClickHouse itself. ClickHouse can call any external executable program or script to process data. My idea is using custom **User-Defined Functions (UDFs) written in Rust** to handle data transformations between tables.
 
-### [ReplicatedReplacingMergeTree](https://blog.duyet.net/2024/06/clickhouse-replicatedreplacingmergetree)
-- **Date**: 2024-06-23
-- **Category**: Data
-- **Tags**: Data, Clickhouse, Clickhouse On Kubernetes
-- **URL**: https://blog.duyet.net/2024/06/clickhouse-replicatedreplacingmergetree
-- **Description**: Learn how to set up and manage ReplicatedReplacingMergeTree in ClickHouse on Kubernetes. This comprehensive guide covers cluster setup with ClickHouse Operator, data replication, performance tuning, and best practices for high availability deployments.
-
 
 ## All Blog Posts by Year
 
-### 2026 (18 posts)
+### 2026 (19 posts)
 
+- [Agent Sandbox on Kubernetes](https://blog.duyet.net/2026/06/agent-sandbox-on-kubernetes) - 2026-06-25
 - [Goal and Loop](https://blog.duyet.net/2026/06/goal-and-loop) - 2026-06-20
 - [Cowork as Planner](https://blog.duyet.net/2026/01/coding-agent/cowork-planner) - 2026-06-18
 - [Autonomous Claude Code Migrate Nextjs to Tanstack Start](https://blog.duyet.net/2026/06/migrate-tanstack) - 2026-06-03
@@ -559,7 +560,7 @@ Short-form thoughts and notes. Full list: https://blog.duyet.net/notes
 ---
 
 **Blog Statistics:**
-- Total Posts: 314
+- Total Posts: 315
 - Years Active: 2015-2026
 - Categories: 15
 - Tags: 62
