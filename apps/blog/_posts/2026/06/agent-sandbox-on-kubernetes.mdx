@@ -115,36 +115,54 @@ GitHub issues, Sentry errors, and assigned or tagged pull requests all route thr
 Context is important: I recommend checking out [Goal and Loop: The Knowledge Base](/2026/06/goal-and-loop/#the-knowledge-base) to learn how to build and use an internal knowledge base to keep track of it.
 
 
-### Self-fixing and self-improvement loops
+### Self-fixing loop
 
 <Mermaid>{`
 flowchart TD
-  subgraph Loop1 ["Self-fixing loop"]
-    GH["<img src='/icons/github.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />GitHub Issues"] --> API1["<img src='/icons/fastapi.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />FastAPI control plane"]
-    API1 -->|creates| SB1["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sandbox"]
-    SB1 -->|creates Pod| Pod1["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Pod (claude-agent-runner)"]
-    
-    Pod1 -->|discover, take note, ...| GH
-  end
+  SE(["<img src='/icons/sentry.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sentry / Logs"]) -->|runtime error| API["<img src='/icons/fastapi.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />FastAPI control plane"]
+  API -->|creates| SB["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sandbox"]
+  SB -->|creates Pod| Pod["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Pod (claude-agent-runner)"]
+  Pod -->|CI/CD| Deployment["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Deployment"]
+  Deployment -->|exception| SE
 
-  subgraph Loop2 ["Self-improvement loop"]
-    SE(["<img src='/icons/sentry.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sentry / Logs"]) -->|runtime error| API2["<img src='/icons/fastapi.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />FastAPI control plane"]
-    API2 -->|creates| SB2["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sandbox"]
-    SB2 -->|creates Pod| Pod2["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Pod (claude-agent-runner)"]
-    Pod2 -->|CI/CD| Deployment["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Deployment"]
-    
-    Deployment -->|exception| SE
-  end
+  ClaudeLocal1["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Claude Local"] --> |loop| ClaudeLocal2["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Claude Local"]
+  ClaudeLocal2 --> |loop| ClaudeLocal1
+
+  API@{ shape: processes }
+  Pod@{ shape: processes }
+  SB@{ shape: doc }
+  Deployment@{ shape: processes }
+`}</Mermaid>
+
+### Self-improvement loop
+
+<Mermaid>{`
+flowchart TD
+  GH1["<img src='/icons/github.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />GitHub Issues"]
+  SE2(["<img src='/icons/sentry.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sentry / Logs"])
+
+  GH1 ~~~ SE2
+
+  GH1 --> API1["<img src='/icons/fastapi.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />FastAPI control plane"]
+  API1 -->|creates| SB1["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sandbox"]
+  SB1 -->|creates Pod| Pod1["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Pod (claude-agent-runner)"]
+  Pod1 -->|discover, take note, ...| GH1
+
+  SE2 -->|runtime error| API2["<img src='/icons/fastapi.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />FastAPI control plane"]
+  API2 -->|creates| SB2["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sandbox"]
+  SB2 -->|creates Pod| Pod2["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Pod (claude-agent-runner)"]
+  Pod2 -->|CI/CD| Deployment2["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Deployment"]
+  Deployment2 -->|exception| SE2
 
   API1@{ shape: processes }
   Pod1@{ shape: processes }
   SB1@{ shape: doc }
-  GH@{ shape: doc }
+  GH1@{ shape: doc }
 
   API2@{ shape: processes }
   Pod2@{ shape: processes }
   SB2@{ shape: doc }
-  Deployment@{ shape: processes }
+  Deployment2@{ shape: processes }
 `}</Mermaid>
 
 {/* TODO before publishing: paste a real kubectl get sandbox and one end-to-end run (ticket to PR, or Sentry to fix). */}

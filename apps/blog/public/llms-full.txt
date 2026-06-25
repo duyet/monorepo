@@ -118,32 +118,10 @@ Context is important: I recommend checking out [Goal and Loop: The Knowledge Bas
 
 <Mermaid>{`
 flowchart TD
-  GH["<img src='/icons/github.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />GitHub Issues"] --> API["<img src='/icons/fastapi.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />FastAPI control plane"]
-  API -->|creates| SB["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sandbox"]
-  SB -->|creates Pod| Pod["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Pod (claude-agent-runner)"]
-  
-  Pod -->|discover, take note, ...| GH
-
-  ClaudeLocal1["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Claude Local"] --> |loop| ClaudeLocal2["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Claude Local"]
-  ClaudeLocal2 --> |loop| ClaudeLocal1
-
-  API@{ shape: processes }
-  Pod@{ shape: processes }
-  SB@{ shape: doc }
-  GH@{ shape: doc }
-`}</Mermaid>
-
-{/* TODO before publishing: paste a real kubectl get sandbox and one end-to-end run (ticket to PR, or Sentry to fix). */}
-
-### Self-improvement loop
-
-<Mermaid>{`
-flowchart TD
   SE(["<img src='/icons/sentry.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sentry / Logs"]) -->|runtime error| API["<img src='/icons/fastapi.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />FastAPI control plane"]
   API -->|creates| SB["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sandbox"]
   SB -->|creates Pod| Pod["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Pod (claude-agent-runner)"]
   Pod -->|CI/CD| Deployment["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Deployment"]
-  
   Deployment -->|exception| SE
 
   ClaudeLocal1["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Claude Local"] --> |loop| ClaudeLocal2["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Claude Local"]
@@ -154,6 +132,40 @@ flowchart TD
   SB@{ shape: doc }
   Deployment@{ shape: processes }
 `}</Mermaid>
+
+### Self-improvement loop
+
+<Mermaid>{`
+flowchart TD
+  subgraph Loop1 ["GitHub Issues Loop"]
+    GH["<img src='/icons/github.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />GitHub Issues"] --> API1["<img src='/icons/fastapi.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />FastAPI control plane"]
+    API1 -->|creates| SB1["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sandbox"]
+    SB1 -->|creates Pod| Pod1["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Pod (claude-agent-runner)"]
+    
+    Pod1 -->|discover, take note, ...| GH
+  end
+
+  subgraph Loop2 ["Sentry Logs Loop"]
+    SE2(["<img src='/icons/sentry.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sentry / Logs"]) -->|runtime error| API2["<img src='/icons/fastapi.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />FastAPI control plane"]
+    API2 -->|creates| SB2["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sandbox"]
+    SB2 -->|creates Pod| Pod2["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Pod (claude-agent-runner)"]
+    Pod2 -->|CI/CD| Deployment2["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Deployment"]
+    
+    Deployment2 -->|exception| SE2
+  end
+
+  API1@{ shape: processes }
+  Pod1@{ shape: processes }
+  SB1@{ shape: doc }
+  GH@{ shape: doc }
+
+  API2@{ shape: processes }
+  Pod2@{ shape: processes }
+  SB2@{ shape: doc }
+  Deployment2@{ shape: processes }
+`}</Mermaid>
+
+{/* TODO before publishing: paste a real kubectl get sandbox and one end-to-end run (ticket to PR, or Sentry to fix). */}
 
 If you want a simpler option, [Claude Code GitHub Actions][cc-gha] is an easy alternative if you already use GitHub. It provides the same context and works in a similar way without needing a custom control plane.
 
