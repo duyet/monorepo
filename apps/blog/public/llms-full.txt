@@ -1,7 +1,203 @@
 # Duyet Le - Technical Blog (Full Content)
 
-> This file contains the full markdown content of all 314 blog posts.
+> This file contains the full markdown content of all 315 blog posts.
 > For a summary index, see https://blog.duyet.net/llms.txt
+
+---
+
+# Agent Sandbox on Kubernetes
+
+- **URL**: https://blog.duyet.net/2026/06/agent-sandbox-on-kubernetes
+- **Date**: 2026-06-25
+- **Category**: AI
+- **Tags**: Ai, Agents, Kubernetes, Claude Code
+
+
+I run Claude inside agent sandboxes on a Kubernetes cluster to automatically fix errors and consume issue request tickets on [the loop][loop]. One sandbox consumes issue tickets, turns them into PRs, and assigns them back to another review agent. Another triggers on Sentry webhooks to diagnose and patch runtime bugs. You can also configure the agent to create follow-up issues or to-do tasks when it finds other areas to improve, allowing it to stay focused on the main task. This is **the bigger loop**, operating outside the [local Claude Code session loop](/2026/06/goal-and-loop/), and where the new Kubernetes Agent Sandbox CRD fits while keeping track with product vision and internal knowledge base docs.
+
+Many providers offer similar sandboxing environments, such as [Blackbox.ai](https://blackbox.ai/), [e2b.dev](https://e2b.dev), Cloudflare Sandbox, and [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview). However, running them on Kubernetes is a great fit if you work in an enterprise or use local models.
+
+**That's the bigger loop**: not just one agent running a single task, but a pipeline that runs continuously—issues in, PRs out; errors in, fixes out. Doing this by hand means provisioning a StatefulSet, a headless Service, a PVC, and a pile of RBAC and NetworkPolicy rules for every agent runner. [Agent Sandbox][kb] wraps that entire boilerplate into a single CRD.
+
+# Agent Sandbox Kubernetes: Core Components
+
+**Agent Sandbox is designed to run AI agents securely and efficiently in isolated, short-lived environments on Kubernetes.**
+
+Instead of managing complex resources manually, it provides a single custom resource (CRD) to handle the lifecycle of agent containers. Existing Kubernetes objects aren't a good fit:
+- **Deployments** are stateless and designed for scaling web servers.
+- **StatefulSets** are stable but built for long-running database clusters, not quick, one-off agent tasks.
+
+The Sandbox CRD fills this gap by offering three key features:
+- **Stable identity**: Each Sandbox gets its own hostname and network identity.
+- **Persistent storage**: Your agent's files and workspaces stay intact even if the container crashes and restarts.
+- **Lifecycle management**: The controller lets you create, delete, pause, and resume sandboxes. If an agent is idle, you can freeze it and pick up exactly where it left off later.
+
+## Agent Sandbox Kubernetes: Core Components & Extensions
+
+The extensions module adds CRDs and controllers to the core Sandbox API for advanced workflows:
+
+- **SandboxTemplate**: Defines reusable templates to easily create similar Sandboxes.
+- **SandboxClaim**: Creates Sandboxes from a warm pool, hiding the underlying configuration details.
+- **SandboxWarmPool**: Manages a pool of pre-warmed Sandboxes to reduce start times.
+
+The Architecture Diagram:
+
+<div className="full-bleed">
+<Mermaid>{`
+flowchart LR
+    User[User]
+    Claim[SandboxClaim]
+    Template[SandboxTemplate]
+    Sandbox[Sandbox]
+    Pod[Pod]
+    Runtime[Sandbox Runtime]
+    WarmPool[SandboxWarmPool]
+
+    subgraph Extensions
+      Claim
+      Template
+      WarmPool
+    end
+
+    User -->|creates| Sandbox
+    User -->|creates| Claim
+    WarmPool -->|references| Template
+    Claim -->|adopts| Sandbox
+    Claim -->|adopts sandboxes from| WarmPool
+    Sandbox -->|creates Pod| Pod
+    Pod --> Runtime
+    WarmPool -->|pre-warms sandboxes| Sandbox
+`}</Mermaid>
+</div>
+
+For most workloads, start with the Core Sandbox. The extensions are only needed when you manage many similar Sandboxes and want to avoid startup delays or boilerplate configuration.
+
+## Use Cases for Agent Sandbox
+
+The [examples directory][examples] contains projects you can build depending on your needs:
+
+- [`code-interpreter-agent-on-adk`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/code-interpreter-agent-on-adk): A code interpreter built on the Antigravity SDK (ADK).
+- [`hermes-agent`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/hermes-agent): Long-running agents.
+- [`langchain`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/langchain): Agents using the LangChain framework.
+- [`jupyterlab`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/jupyterlab) and [`vscode-sandbox`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/vscode-sandbox): Interactive development environments.
+- [`chrome-sandbox`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/chrome-sandbox) (browser automation) and [`mcp-server-sandbox`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/mcp-server-sandbox) (running an MCP server inside a Sandbox).
+- [`sandbox-ksa`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/sandbox-ksa): Using a dedicated Kubernetes Service Account (KSA) inside a Sandbox.
+
+![Kubernetes Agent Sandbox running in production](/media/2026/06/agent-sandbox-on-kubernetes/agent-sandbox.png)
+
+## Use case: The Self-Fixing Agent
+
+I used to manually copy and paste Sentry errors or ad-hoc requests blindly into a Claude Code session with the `/fix-and-push` command without double-checking. Most of the time, this only required one short prompt. Since my codebase context is now stable, I automated this process.
+
+Now, a Sentry runtime error triggers a FastAPI webhook. A sandbox boots, reads the stack trace, reproduces the failure, writes a fix, and opens a pull request. This PR triggers our build and test pipeline, where another agent reviews and auto-merges it. This allows the system to patch itself.
+
+To make this safe, you need strong CI/CD guards, smoke tests on staging, and controlled promotion to production. The Sandbox makes this secure because each run is isolated and temporary. The agent cannot access the Kubernetes cluster API, so an agent pushing a fix at 3:00 AM cannot damage the rest of the cluster.
+
+### How it works
+
+In my runner setup, the FastAPI control plane creates a Sandbox for each task, and that Sandbox creates the Pod where Claude runs.
+
+<Mermaid>{`
+flowchart TD
+  GI(["<img src='/icons/github.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />GitHub issues"]) --> |assign| API["<img src='/icons/fastapi.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />FastAPI control plane"]
+  SE(["<img src='/icons/sentry.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sentry / Logs System"]) -->|triggers| API
+  PR(["<img src='/icons/github.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />PRs"]) -->|triggers| API
+  WH(["<img src='/icons/webhooks.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Webhooks"]) -->|triggers| API
+  API -->|creates| SB["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sandbox"]
+  SB -->|creates Pod| Pod["<br/><strong><img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Pod (claude-agent-runner)</strong><br/>Claude Agent SDK, MCP, Skills, etc.<br/><br/>"]
+  Pod -->|creates/updates| MorePRs(["<img src='/icons/github.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />More PRs"])
+  MorePRs -->|triggers| API
+
+  API@{ shape: processes }
+  Pod@{ shape: processes }
+  SB@{ shape: doc }
+`}</Mermaid>
+
+GitHub issues, Sentry errors, and assigned or tagged pull requests all route through the FastAPI control plane. The control plane creates a Sandbox, which then starts the Pod where the agent runs. I built an example, [claude-agent-runner][runner], using the Claude Agent SDK. It is configured with a system prompt, skills, and MCP tools so it has enough context to do the job correctly. It can post status updates, create PRs, or close issues.
+
+Context is important: I recommend checking out [Goal and Loop: The Knowledge Base](/2026/06/goal-and-loop/#the-knowledge-base) to learn how to build and use an internal knowledge base to keep track of it.
+
+
+### Self-fixing loop
+
+<Mermaid>{`
+flowchart TD
+  SE(["<img src='/icons/sentry.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sentry / Logs"]) -->|runtime error| API["<img src='/icons/fastapi.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />FastAPI control plane"]
+  API -->|creates| SB["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sandbox"]
+  SB -->|creates Pod| Pod["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Pod (claude-agent-runner)"]
+  Pod -->|CI/CD| Deployment["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Deployment"]
+  Deployment -->|exception| SE
+
+  CC1["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Claude Code"]
+  CC2["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Claude Code"]
+  CC1 -->|loop| CC2
+  CC2 -->|loop| CC1
+
+  API@{ shape: processes }
+  Pod@{ shape: processes }
+  SB@{ shape: doc }
+  Deployment@{ shape: processes }
+`}</Mermaid>
+
+### Self-improvement loop
+
+<Mermaid>{`
+flowchart TD
+  GH1["<img src='/icons/github.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />GitHub Issues"]
+  SE2(["<img src='/icons/sentry.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sentry / Logs"])
+
+  GH1 ~~~ SE2
+
+  GH1 --> API1["<img src='/icons/fastapi.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />FastAPI control plane"]
+  API1 -->|creates| SB1["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sandbox"]
+  SB1 -->|creates Pod| Pod1["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Pod (claude-agent-runner)"]
+  Pod1 -->|CI/CD| Deployment1["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Deployment"]
+  Pod1 -->|discover, take note, ...| GH1
+
+  SE2 -->|runtime error| API2["<img src='/icons/fastapi.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />FastAPI control plane"]
+  API2 -->|creates| SB2["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sandbox"]
+  SB2 -->|creates Pod| Pod2["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Pod (claude-agent-runner)"]
+  Pod2 -->|CI/CD| Deployment2["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Deployment"]
+  Deployment2 -->|exception| SE2
+
+  CC1["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Claude Code"]
+  CC2["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Claude Code"]
+  CC1 -->|loop| CC2
+  CC2 -->|loop| CC1
+
+  API1@{ shape: processes }
+  Pod1@{ shape: processes }
+  SB1@{ shape: doc }
+  GH1@{ shape: doc }
+
+  API2@{ shape: processes }
+  Pod2@{ shape: processes }
+  SB2@{ shape: doc }
+  Deployment1@{ shape: processes }
+  Deployment2@{ shape: processes }
+`}</Mermaid>
+
+If you want a simpler option, [Claude Code GitHub Actions][cc-gha] is an easy alternative if you already use GitHub. It provides the same context and works in a similar way without needing a custom control plane.
+
+### Self-improving learning loop
+
+I want to remind you again: the most important factor is context. During a goal-and-loop run, you can configure the agent (or set up a `StopHook`) to automatically summarize its findings and learn to create or update existing skills related to the codebase, business logic, and internal concepts. For example, imagine running this prompt at the end of a complex session that required deep research to ensure Claude remembers the context for future sessions without having to re-do the research:
+
+```prompt
+/skill-creator Analyze this entire conversation and extract the core workflow, formatting guidelines, and preferences we established, etc to create a custom Claude Skill (SKILL.md) that I can use in future sessions. Ask me for confirmation before finalizing the skill.
+```
+
+### Example Code
+
+The Claude Agent Runner image is [public here][runner] with a detailed [architecture design][arch]. You can extend it further with custom code, the Antigravity SDK, and other agent frameworks.
+
+[kb]: https://kubernetes.io/blog/2026/03/20/running-agents-on-kubernetes-with-agent-sandbox/
+[runner]: https://github.com/duyet/claude-agent-runner
+[arch]: https://github.com/duyet/claude-agent-runner/blob/main/docs/architecture.md
+[examples]: https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples
+[cc-gha]: https://code.claude.com/docs/en/github-actions
+[loop]: /2026/06/goal-and-loop/
+
 
 ---
 
@@ -23,6 +219,8 @@ When I start something new, I brainstorm or let the agent interview me first: wh
 The plan mode is still very useful but I also stopped giving instructions and started giving goals.
 
 `Edit this file, add this test function` is an instruction. `Ship the refactor in small PRs, deploy each one, don't break master` is a goal. The first keeps me in the loop. The second lets me leave it — I write the goal, kick off a loop, and walk off. I'm not driving or reading code anymore. I decide what *done* means and check the result.
+
+[ClickHouse Monitoring (Migrate Nextjs to Tanstack Start)](https://blog.duyet.net/2026/06/migrate-tanstack/) took ~37h of autonomous work to complete with a lot of improvements. There are ~50 PRs merged by daily on https://anyrouter.dev.
 
 ## A goal and a loop
 
@@ -138,23 +336,21 @@ Wake every 5m ──► Triage repos ──► Dispatch threads ──► Track 
 /agent-loop:start
 ```
 
-## Let main agent control its member
+## Let main agent control its teammate
 
 The main session does more than execute — it coordinates. I run the main session (Opus) as the orchestrator, and it assigns work to child agents based on complexity, then rewrites my rough instructions into proper specs before handing them down. It has all the context — the codebase, the conventions, the current state — so the child gets a full brief, not my shorthand.
 
-I say something vague:
+For example on main:
 
 ```prompt
-Send the message to the one who implements billing: keep the number of subscriptions dynamic, not hard-coded. I will add more later.
+Send the message to the one who implements billing: keep the number of subscriptions dynamic, not hard-coded as I will add more later.
 ```
 
-Opus captures the intent, adds the context it already knows — the right files, the existing patterns, the constraints — and sends the child member a spec with enough detail to actually work without asking back.
-
-The main stays in the coordinator role: it knows the full picture, decides who handles what, and makes sure each handoff lands cleanly.
+Opus captures the intent, adds the context it already knows and sends the right teammate more detailed spec. The main stays in the coordinator role and makes sure each handoff lands cleanly.
 
 ![Opus translating a vague billing instruction into a full technical spec — dynamic PLAN_CONFIG, Polar product ID linkage — ready for the child agent to implement](/media/2026/06/goal-and-loop/main-agent-control-member.png)
 
-## Working across a pile of projects
+## Agent loop across multiple of projects
 
 The same agent-loop works when you have many projects, not just one. I start a single session in the folder that holds every repo:
 
@@ -163,9 +359,7 @@ cd ~/project
 claude "/agent-loop:start"
 ```
 
-It takes the pile from there. One state file tracks where each project's loop.
-
-I didn't come up with this part. Waking every few minutes, holding a list of repos, handing work to parallel threads — that's Peter Steinberger's maintainer-orchestrator pattern, which the [agent-loop](https://github.com/duyet/codex-claude-plugins/tree/master/agent-loop) plugin is built on. He keeps a large set of projects shipping releases almost daily off it.
+One state file tracks where each project's loop. Waking every few minutes, holding a list of repos, handing work to parallel threads — that's Peter Steinberger's maintainer-orchestrator pattern, which the [agent-loop](https://github.com/duyet/codex-claude-plugins/tree/master/agent-loop) plugin is built on. He keeps a large set of projects shipping releases almost daily off it.
 
 On a busy night hundreds of these runs go at once. A year ago I'd not have read every diff anymore. I read the changelog and the short note each run leaves — what it changed, what it checked, what it left for me — and only dig in when a note says to.
 
@@ -173,7 +367,7 @@ On a busy night hundreds of these runs go at once. A year ago I'd not have read 
 
 A release note like this one writes itself at the end of a run — features, fixes, a recap of how it got there. That's how I keep up with the work now: the summary, not the commits.
 
-The goal also works when you're developing one project that needs to integrate with another one or more. You write a goal that targets the second project while making it fix the first one until integration succeeds — autonomous, self-improving:
+**The goal also works when you're developing one project that needs to integrate with another one or more.** You write a goal that targets the second project while making it fix the first one until integration succeeds — autonomous, self-improving:
 
 ```prompt
 /goal Integrate this eve agent ~/project/eve with anyrouter (~/project/anyrouter) for LLM routing (docs: https://anyrouter.dev/docs.md). If you hit any issues in upstream anyrouter, file an issue, fix it, and redeploy anyrouter until the integration succeeds.
@@ -194,9 +388,10 @@ Since it already knows the internal docs and how the thing works, it writes the 
 **The one I run most mornings**
 
 ```prompt
-/goal triage the open issues. For each: reproduce, fix, add a regression test,
-open a small PR, auto-merge when CI is green. Stop when the queue is empty.
+/goal triage the open issues. For each: reproduce, fix, add a regression test, open a small PR, auto-merge when CI is green. Stop when the queue is empty.
 ```
+
+and
 
 ```prompt
 /goal make this project better 1%
@@ -210,6 +405,10 @@ Done when every module is moved and prod smoke passes.
 ```
 
 All these I've shared at [anyrouter.dev/duyet](https://anyrouter.dev/duyet), take whatever's useful for you.
+
+## The bigger loop: Self-improvement loop in production
+
+The ultimate goal is a self-improving application. There are many ways and levels to architect this. To see how I run a self-fixing and self-improvement loop in production using isolated agent runners, continue reading [Agent Sandbox on Kubernetes](/2026/06/agent-sandbox-on-kubernetes/).
 
 
 ---
@@ -290,8 +489,8 @@ It was not fully autonomous — it woke me up a few times for Cloudflare API per
 The interesting part was the optimization loop. After the initial migration, it ran 11 cycles of: measure → optimize → PR → babysit → recompute → repeat. Model-tiered: Opus for reasoning, Sonnet for implementation, Haiku for trivial work. ~1.3M tokens per workflow.
 
 <div class="img-row">
-<img src="/media/2026/06/migrate-tanstack/workflow-optimization-cycle.png" alt="Dynamic workflow running" />
-<img src="/media/2026/06/migrate-tanstack/token-usage-breakdown.png" alt="Token usage across models" />
+<img src="/media/2026/06/migrate-tanstack/workflow-optimization-cycle.png" alt="Dynamic workflow running" style="height: 350px; max-height: 40vh; object-fit: contain; max-width: 100%;" />
+<img src="/media/2026/06/migrate-tanstack/token-usage-breakdown.png" alt="Token usage across models" style="height: 350px; max-height: 40vh; object-fit: contain; max-width: 100%;" />
 </div>
 
 It consumed ~1.2M tokens across all models. When the Claude Code Max window ran out, I continued on GLM 5.1 through Z.AI:
@@ -769,6 +968,12 @@ I didn't stop writing, tons of drafts in my [obsidian](https://obsidian.md/), no
     <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 py-3.5">
       <span class="text-xs uppercase tracking-wide font-mono text-terracotta">Coding Agent</span>
       <span class="text-foreground"><a href="/2026/01/coding-agent/claude-code" class="underline underline-offset-2">Claude Code</a>, <a href="/2026/01/coding-agent/opencode" class="underline underline-offset-2">opencode</a></span>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 py-3.5">
+      <span class="text-xs uppercase tracking-wide font-mono text-terracotta">Code Review</span>
+      <span class="text-foreground">
+        <a href="https://www.coderabbit.ai/" class="underline underline-offset-2">CodeRabbit</a>
+      </span>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 py-3.5">
       <span class="text-xs uppercase tracking-wide font-mono text-terracotta">Model</span>

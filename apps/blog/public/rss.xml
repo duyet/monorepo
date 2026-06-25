@@ -4,8 +4,15 @@
         <description><![CDATA[Sr. Data Engineer. Rustacean at night]]></description>
         <link>https://blog.duyet.net</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 23 Jun 2026 11:36:52 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 25 Jun 2026 15:33:29 GMT</lastBuildDate>
         <atom:link href="https://blog.duyet.net/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Agent Sandbox on Kubernetes]]></title>
+            <description><![CDATA[I run Claude inside agent sandboxes on a home Kubernetes cluster. One consumes issue tickets into PRs, another triggers on Sentry webhooks to diagnose and patch runtime bugs. Here is the bigger loop, and where the new Kubernetes Agent Sandbox CRD fits.]]></description>
+            <link>https://blog.duyet.net/2026/06/agent-sandbox-on-kubernetes</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/06/agent-sandbox-on-kubernetes</guid>
+            <pubDate>Thu, 25 Jun 2026 00:00:00 GMT</pubDate>
+        </item>
         <item>
             <title><![CDATA[Goal and Loop]]></title>
             <description><![CDATA[You've probably heard of the agent loop by now. This is just a quick note on how I actually use it day to day — a `goal` and a `loop` — to get a lot more shipped.]]></description>
@@ -348,13 +355,6 @@
             <link>https://blog.duyet.net/2022/03/spark-kubernetes-at-fossil</link>
             <guid isPermaLink="true">https://blog.duyet.net/2022/03/spark-kubernetes-at-fossil</guid>
             <pubDate>Wed, 09 Mar 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Rust: Box]]></title>
-            <description><![CDATA[Tất cả giá trị trên Rust mặc định đều được allocated trên stack. Giá trị có thể được boxed, allocated trên heap bằng cách sử dụng Box<T>. Box<T> là một smart pointer của Rust cho phép allocated trên heap giá trị có kiểu T, còn pointer trỏ đến giá trị đó sẽ nằm trên stack.]]></description>
-            <link>https://blog.duyet.net/2022/03/rust-box</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/03/rust-box</guid>
-            <pubDate>Sat, 05 Mar 2022 00:00:00 GMT</pubDate>
         </item>
     </channel>
 </rss>

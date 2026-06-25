@@ -25,7 +25,7 @@ The plan mode is still very useful but I also stopped giving instructions and st
 
 `Edit this file, add this test function` is an instruction. `Ship the refactor in small PRs, deploy each one, don't break master` is a goal. The first keeps me in the loop. The second lets me leave it — I write the goal, kick off a loop, and walk off. I'm not driving or reading code anymore. I decide what *done* means and check the result.
 
-ClickHouse Monitoring (Migrate Nextjs to Tanstack Start)[https://blog.duyet.net/2026/06/migrate-tanstack/] took ~37h of autonomous work to complete with a lot of improvements. There are ~50 PRs merged by daily on https://anyrouter.dev.
+[ClickHouse Monitoring (Migrate Nextjs to Tanstack Start)](https://blog.duyet.net/2026/06/migrate-tanstack/) took ~37h of autonomous work to complete with a lot of improvements. There are ~50 PRs merged by daily on https://anyrouter.dev.
 
 ## A goal and a loop
 
@@ -210,3 +210,7 @@ Done when every module is moved and prod smoke passes.
 ```
 
 All these I've shared at [anyrouter.dev/duyet](https://anyrouter.dev/duyet), take whatever's useful for you.
+
+## The bigger loop: Self-improvement loop in production
+
+The ultimate goal is a self-improving application. There are many ways and levels to architect this. To see how I run a self-fixing and self-improvement loop in production using isolated agent runners, continue reading [Agent Sandbox on Kubernetes](/2026/06/agent-sandbox-on-kubernetes/).

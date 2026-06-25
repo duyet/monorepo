@@ -22,6 +22,8 @@ parts:
   - z-claude-mi-claude-or-claude
   - opencode
 changelog:
+  - date: "2026-07"
+    note: "Add CodeRabbit"
   - date: "2026-06"
     note: "Split into a chaptered overview — each topic is now its own page. Refreshed Top on my list (Opus 4.8, GLM 5.1, AnyRouter). Added Open Design alternative, opencode and the OpenClaw note on long-running autonomous agents."
   - date: "2026-03"
@@ -61,6 +63,12 @@ I didn't stop writing, tons of drafts in my [obsidian](https://obsidian.md/), no
     <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 py-3.5">
       <span class="text-xs uppercase tracking-wide font-mono text-terracotta">Coding Agent</span>
       <span class="text-foreground"><a href="/2026/01/coding-agent/claude-code" class="underline underline-offset-2">Claude Code</a>, <a href="/2026/01/coding-agent/opencode" class="underline underline-offset-2">opencode</a></span>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 py-3.5">
+      <span class="text-xs uppercase tracking-wide font-mono text-terracotta">Code Review</span>
+      <span class="text-foreground">
+        <a href="https://www.coderabbit.ai/" class="underline underline-offset-2">CodeRabbit</a>
+      </span>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 py-3.5">
       <span class="text-xs uppercase tracking-wide font-mono text-terracotta">Model</span>
