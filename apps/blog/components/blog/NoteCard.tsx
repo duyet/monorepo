@@ -34,7 +34,7 @@ export function NoteCard({
     <Link
       to="/note/$id/"
       params={{ id: note.id }}
-      className={`group/bento relative flex items-center justify-between p-[12px_8px] overflow-hidden bg-[var(--rd-surface)] no-underline transition-colors hover:bg-[var(--rd-surface-2)] ${
+      className={`group/bento relative flex items-center justify-between ${paddingClass} overflow-hidden bg-[var(--rd-surface)] no-underline transition-colors hover:bg-[var(--rd-surface-2)] ${
         featured ? `${featuredClass} bg-[var(--rd-accent-bg)]` : ''
       }`}
     >
