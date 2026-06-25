@@ -499,8 +499,8 @@ function MobileNav({ currentApp }: { currentApp: AppKey }) {
                   className={cn(
                     "flex items-center h-10 px-3 rounded-md text-sm font-medium transition-colors",
                     isActive(item.match)
-                      ? "bg-muted text-[var(--rd-accent)]"
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                      ? "bg-[var(--rd-muted)] text-[var(--rd-accent)] hover:bg-[var(--rd-muted)]"
+                      : "text-[var(--rd-text-3)] hover:bg-[var(--rd-muted)] hover:text-[var(--rd-text)]",
                   )}
                 >
                   {item.label}
