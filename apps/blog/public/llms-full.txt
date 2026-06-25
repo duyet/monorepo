@@ -111,7 +111,6 @@ flowchart TD
 
 GitHub issues, Sentry errors, and assigned or tagged pull requests all route through the FastAPI control plane. The control plane creates a Sandbox, which then starts the Pod where the agent runs. I built an example, [claude-agent-runner][runner], using the Claude Agent SDK. It is configured with a system prompt, skills, and MCP tools so it has enough context to do the job correctly. It can post status updates, create PRs, or close issues. Context is important; I recommend checking out [Goal and Loop: The Knowledge Base](/2026/06/goal-and-loop/#the-knowledge-base) to learn how to build and use an internal knowledge base to keep track of it.
 
-If you want a simpler option, [Claude Code GitHub Actions][cc-gha] is an easy alternative if you already use GitHub. It provides the same context and works in a similar way without needing a custom control plane.
 
 <Mermaid>{`
 flowchart TD
@@ -131,6 +130,8 @@ flowchart TD
 `}</Mermaid>
 
 {/* TODO before publishing: paste a real kubectl get sandbox and one end-to-end run (ticket to PR, or Sentry to fix). */}
+
+If you want a simpler option, [Claude Code GitHub Actions][cc-gha] is an easy alternative if you already use GitHub. It provides the same context and works in a similar way without needing a custom control plane.
 
 The Claude Agent Runner image is [public here][runner] with a detailed [architecture design][arch]. You can extending more with codex, AI SDK Agent, etc.
 
