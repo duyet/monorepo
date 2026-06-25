@@ -30,15 +30,15 @@ type NodeDef = {
 // the camera (camera is at +z, so negative z = in front of center).
 // phi/theta are still filled in by the fibonacci block below for the shell nodes.
 const FRONT_FACING: Record<string, [number, number, number]> = {
-  mcp: [0, 2.6, -3.0],
-  langgraph: [-2.0, 1.3, -2.5],
-  llamaindex: [2.0, 1.3, -2.5],
-  cloudflare: [-2.2, -0.2, -3.5],
-  anyrouter: [0, 0.4, -4.0],
-  workers: [2.2, -0.2, -3.5],
-  workflow: [-1.4, -1.7, -3.0],
-  airflow: [1.4, -1.7, -3.0],
-  clickhouse: [0, -2.8, -2.5],
+  mcp: [0, 2.0, -2.2],
+  langgraph: [-1.5, 1.0, -1.8],
+  llamaindex: [1.5, 1.0, -1.8],
+  cloudflare: [-1.6, -0.2, -2.5],
+  anyrouter: [0, 0.3, -2.8],
+  workers: [1.6, -0.2, -2.5],
+  workflow: [-1.0, -1.2, -2.0],
+  airflow: [1.0, -1.2, -2.0],
+  clickhouse: [0, -2.0, -1.8],
 };
 
 const nodes: NodeDef[] = [
@@ -141,8 +141,8 @@ const TAU = Math.PI / 180;
     (n) => n.id !== "dataplatform" && !(n.id in FRONT_FACING),
   );
   const SHELL_N = shellNodes.length;
-  const OUTER_R = 6.5;
-  const JITTER = 0.25;
+  const OUTER_R = 4.8;
+  const JITTER = 0.2;
   const fibAngle = Math.PI * (3 - Math.sqrt(5));
   for (let i = 0; i < SHELL_N; i++) {
     const n = shellNodes[i];
