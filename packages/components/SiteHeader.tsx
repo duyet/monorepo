@@ -247,7 +247,16 @@ const GLOBAL_NAV: {
   match: { app?: AppKey; path?: string };
   children?: { label: string; href: string; match: { app?: AppKey; path?: string } }[];
 }[] = [
-  { label: "Home", href: "https://duyet.net", match: { app: "home", path: "/" } },
+  {
+    label: "Home",
+    href: "https://duyet.net",
+    match: { app: "home", path: "/" },
+    children: [
+      { label: "Home", href: "https://duyet.net", match: { app: "home", path: "/" } },
+      { label: "Projects", href: "https://duyet.net/projects", match: { app: "home", path: "/projects" } },
+      { label: "About", href: "https://duyet.net/about", match: { app: "home", path: "/about" } },
+    ],
+  },
   {
     label: "Projects",
     href: "https://duyet.net/projects",
@@ -267,7 +276,15 @@ const GLOBAL_NAV: {
     ],
   },
   { label: "CV", href: "https://cv.duyet.net", match: { app: "cv" } },
-  { label: "Photos", href: "https://photos.duyet.net", match: { app: "photos" } },
+  {
+    label: "Photos",
+    href: "https://photos.duyet.net",
+    match: { app: "photos" },
+    children: [
+      { label: "Gallery", href: "https://photos.duyet.net", match: { app: "photos", path: "/" } },
+      { label: "Feed", href: "https://photos.duyet.net/feed", match: { app: "photos", path: "/feed" } },
+    ],
+  },
   {
     label: "About",
     href: "https://duyet.net/about",
