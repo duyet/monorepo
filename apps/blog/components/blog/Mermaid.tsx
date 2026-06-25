@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTheme } from "next-themes";
 
 export function Mermaid({ children }: { children?: React.ReactNode }) {
+  const { resolvedTheme } = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
   const [svg, setSvg] = useState<string>("");
   const [error, setError] = useState<string>("");
-  const [isDark, setIsDark] = useState(false);
 
   const code =
     typeof children === "string"
@@ -14,24 +15,6 @@ export function Mermaid({ children }: { children?: React.ReactNode }) {
       : Array.isArray(children)
         ? children.join("")
         : "";
-
-  // Detect dark mode
-  useEffect(() => {
-    const checkDark = () => {
-      setIsDark(document.documentElement.classList.contains('dark'));
-    };
-
-    checkDark();
-
-    // Watch for class changes on html element (dark mode toggle)
-    const observer = new MutationObserver(checkDark);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    });
-
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     if (!code.trim()) return;
@@ -43,7 +26,7 @@ export function Mermaid({ children }: { children?: React.ReactNode }) {
 
       mermaid.default.initialize({
         startOnLoad: false,
-        theme: isDark ? "dark" : "default",
+        theme: resolvedTheme === "dark" ? "dark" : "default",
         securityLevel: "loose",
       });
 
@@ -62,7 +45,7 @@ export function Mermaid({ children }: { children?: React.ReactNode }) {
     return () => {
       cancelled = true;
     };
-  }, [code, isDark]);
+  }, [code, resolvedTheme]);
 
   if (error) {
     return (
