@@ -210,3 +210,7 @@ Done when every module is moved and prod smoke passes.
 ```
 
 All these I've shared at [anyrouter.dev/duyet](https://anyrouter.dev/duyet), take whatever's useful for you.
+
+## The bigger loop: Self-improvement loop in production
+
+The ultimate goal is a self-improving application. There are many ways and levels to architect this. To see how I run a self-fixing and self-improvement loop in production using isolated agent runners, continue reading [Agent Sandbox on Kubernetes](/2026/06/agent-sandbox-on-kubernetes/).
