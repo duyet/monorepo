@@ -34,36 +34,25 @@ export function NoteCard({
     <Link
       to="/note/$id/"
       params={{ id: note.id }}
-      className={`group/bento relative flex flex-col overflow-hidden bg-[var(--rd-surface)] ${paddingClass} no-underline transition-colors hover:bg-[var(--rd-surface-2)] ${
+      className={`group/bento relative flex items-center justify-between p-[12px_8px] overflow-hidden bg-[var(--rd-surface)] no-underline transition-colors hover:bg-[var(--rd-surface-2)] ${
         featured ? `${featuredClass} bg-[var(--rd-accent-bg)]` : ''
       }`}
     >
       {featured && <CornerDecoration />}
 
-      <div className={`mb-3 flex items-center ${padding === 'large' ? 'mb-4' : 'mb-3'}`}>
+      <div className="flex-1">
+        <Heading className="text-[var(--rd-text)] mb-1 text-sm font-medium leading-snug">
+          {note.title || note.excerpt}
+        </Heading>
         <time className="text-[var(--rd-text-3)] font-mono text-xs tabular-nums">
           {distanceToNow(note.date)}
         </time>
       </div>
 
-      <div className={`mb-4 flex-1 ${padding === 'large' ? 'mb-6' : 'mb-4'}`}>
-        <Heading className="text-[var(--rd-text)] mb-2 text-base font-medium leading-snug md:text-lg">
-          {note.title || note.excerpt}
-        </Heading>
-        {note.title && (
-          <p className="text-[var(--rd-text-2)] line-clamp-2 text-sm leading-relaxed">
-            {note.excerpt}
-          </p>
-        )}
-      </div>
-
-      <span className="text-[var(--rd-accent-ink)] inline-flex w-fit items-center gap-2 text-sm font-medium underline-offset-4 group-focus-within/bento:underline group-hover/bento:underline">
-        {note.title ? 'Read note' : 'View more'}
-        <ArrowRight
-          className="h-3.5 w-3.5 shrink-0 transition-transform duration-150 group-hover/bento:translate-x-0.5"
-          size={14}
-        />
-      </span>
+      <ArrowRight
+        className="h-4 w-4 shrink-0 text-[var(--rd-accent-ink)] transition-transform duration-150 group-hover/bento:translate-x-0.5"
+        size={16}
+      />
     </Link>
   )
 }
