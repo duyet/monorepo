@@ -245,6 +245,7 @@ const GLOBAL_NAV: {
   label: string;
   href: string;
   match: { app?: AppKey; path?: string };
+  children?: { label: string; href: string; match: { app?: AppKey; path?: string } }[];
 }[] = [
   { label: "Home", href: "https://duyet.net", match: { app: "home", path: "/" } },
   {
@@ -252,7 +253,19 @@ const GLOBAL_NAV: {
     href: "https://duyet.net/projects",
     match: { path: "/projects" },
   },
-  { label: "Blog", href: "https://blog.duyet.net", match: { app: "blog" } },
+  {
+    label: "Blog",
+    href: "https://blog.duyet.net",
+    match: { app: "blog" },
+    children: [
+      { label: "Latest", href: "https://blog.duyet.net", match: { app: "blog", path: "/" } },
+      { label: "Notes", href: "https://blog.duyet.net/notes", match: { app: "blog", path: "/notes" } },
+      { label: "Archives", href: "https://blog.duyet.net/archives", match: { app: "blog", path: "/archives" } },
+      { label: "Categories", href: "https://blog.duyet.net/categories", match: { app: "blog", path: "/categories" } },
+      { label: "Tags", href: "https://blog.duyet.net/tags", match: { app: "blog", path: "/tags" } },
+      { label: "Series", href: "https://blog.duyet.net/series", match: { app: "blog", path: "/series" } },
+    ],
+  },
   { label: "CV", href: "https://cv.duyet.net", match: { app: "cv" } },
   { label: "Photos", href: "https://photos.duyet.net", match: { app: "photos" } },
   {
@@ -266,9 +279,24 @@ function GlobalNav({ currentApp }: { currentApp: AppKey }) {
   // Pathname is only known on the client; resolve after mount to avoid an
   // SSR/prerender hydration mismatch on the active highlight.
   const [pathname, setPathname] = useState<string | null>(null);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     setPathname(window.location.pathname.replace(/\/+$/, "") || "/");
   }, []);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    if (!openDropdown) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (!containerRef.current || !containerRef.current.contains(e.target as Node)) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [openDropdown]);
 
   const isActive = (m: { app?: AppKey; path?: string }) => {
     if (m.app && m.app === currentApp) {
@@ -283,23 +311,65 @@ function GlobalNav({ currentApp }: { currentApp: AppKey }) {
     return false;
   };
 
+  const anyChildActive = (item: typeof GLOBAL_NAV[0]) => {
+    if (!item.children) return false;
+    return item.children.some(child => isActive(child.match));
+  };
+
   return (
-    <nav className="hidden items-center gap-0.5 md:flex">
-      {GLOBAL_NAV.map((item) => (
-        <Button
-          key={item.href}
-          variant="ghost"
-          size="sm"
-          className={cn(
-            "h-8 px-2.5 text-sm font-normal text-muted-foreground hover:text-foreground",
-            isActive(item.match) &&
-              "bg-muted font-medium text-[var(--rd-accent)] hover:text-[var(--rd-accent)]",
-          )}
-          asChild
-        >
-          <a href={item.href}>{item.label}</a>
-        </Button>
-      ))}
+    <nav ref={containerRef} className="hidden items-center gap-0.5 md:flex">
+      {GLOBAL_NAV.map((item) => {
+        const hasChildren = item.children && item.children.length > 0;
+        const isDropdownOpen = openDropdown === item.label;
+        const itemActive = isActive(item.match) || anyChildActive(item);
+
+        return (
+          <div key={item.href} className="relative">
+            <Button
+              variant="ghost"
+              size="sm"
+              className={cn(
+                "h-8 px-2.5 text-sm font-normal text-muted-foreground hover:text-foreground",
+                itemActive &&
+                  "bg-muted font-medium text-[var(--rd-accent)] hover:text-[var(--rd-accent)]",
+              )}
+              onClick={hasChildren ? () => setOpenDropdown(isDropdownOpen ? null : item.label) : undefined}
+              asChild={!hasChildren}
+            >
+              {hasChildren ? (
+                <span className="flex items-center gap-1">
+                  {item.label}
+                  <ChevronsUpDown aria-hidden className="h-3 w-3" />
+                </span>
+              ) : (
+                <a href={item.href}>{item.label}</a>
+              )}
+            </Button>
+
+            {/* Dropdown menu for child items */}
+            {hasChildren && isDropdownOpen && (
+              <div className="absolute left-0 top-full z-50 mt-1 min-w-[160px] overflow-hidden rounded-lg border bg-[var(--rd-bg)] shadow-xl dark:shadow-black/30">
+                <nav className="flex flex-col p-1">
+                  {item.children!.map((child) => (
+                    <a
+                      key={child.href}
+                      href={child.href}
+                      className={cn(
+                        "flex items-center h-8 px-3 rounded-md text-sm transition-colors",
+                        isActive(child.match)
+                          ? "bg-[var(--rd-muted)] text-[var(--rd-accent)] font-medium"
+                          : "text-[var(--rd-text-3)] hover:bg-[var(--rd-muted)] hover:text-[var(--rd-text)]",
+                      )}
+                    >
+                      {child.label}
+                    </a>
+                  ))}
+                </nav>
+              </div>
+            )}
+          </div>
+        );
+      })}
     </nav>
   );
 }
@@ -445,6 +515,7 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
 
 function MobileNav({ currentApp }: { currentApp: AppKey }) {
   const [open, setOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const isActive = (m: { app?: AppKey; path?: string }) => {
@@ -459,12 +530,18 @@ function MobileNav({ currentApp }: { currentApp: AppKey }) {
     return false;
   };
 
+  const anyChildActive = (item: typeof GLOBAL_NAV[0]) => {
+    if (!item.children) return false;
+    return item.children.some(child => isActive(child.match));
+  };
+
   // Close dropdown when clicking outside
   useEffect(() => {
     if (!open) return;
     const onPointerDown = (e: PointerEvent) => {
       if (!containerRef.current || !containerRef.current.contains(e.target as Node)) {
         setOpen(false);
+        setOpenDropdown(null);
       }
     };
     document.addEventListener("pointerdown", onPointerDown);
@@ -492,22 +569,63 @@ function MobileNav({ currentApp }: { currentApp: AppKey }) {
           )}
         >
           <nav className="flex flex-col p-1">
-            {GLOBAL_NAV.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                role="menuitem"
-                onClick={() => setOpen(false)}
-                className={cn(
-                  "flex items-center h-9 px-3 rounded-md text-sm font-medium transition-colors",
-                  isActive(item.match)
-                    ? "bg-[var(--rd-muted)] text-[var(--rd-accent)]"
-                    : "text-[var(--rd-text-3)] hover:bg-[var(--rd-muted)] hover:text-[var(--rd-text)]",
-                )}
-              >
-                {item.label}
-              </a>
-            ))}
+            {GLOBAL_NAV.map((item) => {
+              const hasChildren = item.children && item.children.length > 0;
+              const isDropdownOpen = openDropdown === item.label;
+              const itemActive = isActive(item.match) || anyChildActive(item);
+
+              return (
+                <div key={item.href}>
+                  <a
+                    href={hasChildren ? undefined : item.href}
+                    role="menuitem"
+                    onClick={(e) => {
+                      if (hasChildren) {
+                        e.preventDefault();
+                        setOpenDropdown(isDropdownOpen ? null : item.label);
+                      } else {
+                        setOpen(false);
+                      }
+                    }}
+                    className={cn(
+                      "flex items-center justify-between h-9 px-3 rounded-md text-sm font-medium transition-colors",
+                      itemActive
+                        ? "bg-[var(--rd-muted)] text-[var(--rd-accent)]"
+                        : "text-[var(--rd-text-3)] hover:bg-[var(--rd-muted)] hover:text-[var(--rd-text)]",
+                    )}
+                  >
+                    {item.label}
+                    {hasChildren && (
+                      <ChevronsUpDown
+                        aria-hidden
+                        className={cn("h-3 w-3 shrink-0 transition-transform", isDropdownOpen && "rotate-180")}
+                      />
+                    )}
+                  </a>
+                  {/* Dropdown menu for child items */}
+                  {hasChildren && isDropdownOpen && (
+                    <div className="mt-1 flex flex-col pl-3">
+                      {item.children!.map((child) => (
+                        <a
+                          key={child.href}
+                          href={child.href}
+                          role="menuitem"
+                          onClick={() => setOpen(false)}
+                          className={cn(
+                            "flex items-center h-8 px-3 rounded-md text-sm transition-colors",
+                            isActive(child.match)
+                              ? "text-[var(--rd-accent)] font-medium"
+                              : "text-[var(--rd-text-3)] hover:bg-[var(--rd-muted)] hover:text-[var(--rd-text)]",
+                          )}
+                        >
+                          {child.label}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </nav>
         </div>
       )}
