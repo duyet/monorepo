@@ -62,7 +62,7 @@ export function NoteCard({
         )}
       </div>
 
-      <span className="text-[var(--rd-text-3)] inline-flex w-fit items-center gap-2 text-sm font-medium underline-offset-4 group-focus-within/bento:underline group-hover/bento:underline">
+      <span className="text-[var(--rd-accent-ink)] inline-flex w-fit items-center gap-2 text-sm font-medium underline-offset-4 group-focus-within/bento:underline group-hover/bento:underline">
         {note.title ? 'Read note' : 'View more'}
         <ArrowRight
           className="h-3.5 w-3.5 shrink-0 transition-transform duration-150 group-hover/bento:translate-x-0.5"
