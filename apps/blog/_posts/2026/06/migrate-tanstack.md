@@ -48,8 +48,8 @@ It was not fully autonomous — it woke me up a few times for Cloudflare API per
 The interesting part was the optimization loop. After the initial migration, it ran 11 cycles of: measure → optimize → PR → babysit → recompute → repeat. Model-tiered: Opus for reasoning, Sonnet for implementation, Haiku for trivial work. ~1.3M tokens per workflow.
 
 <div class="img-row">
-<img src="/media/2026/06/migrate-tanstack/workflow-optimization-cycle.png" alt="Dynamic workflow running" />
-<img src="/media/2026/06/migrate-tanstack/token-usage-breakdown.png" alt="Token usage across models" />
+<img src="/media/2026/06/migrate-tanstack/workflow-optimization-cycle.png" alt="Dynamic workflow running" style="height: 350px; max-height: 40vh; object-fit: contain; max-width: 100%;" />
+<img src="/media/2026/06/migrate-tanstack/token-usage-breakdown.png" alt="Token usage across models" style="height: 350px; max-height: 40vh; object-fit: contain; max-width: 100%;" />
 </div>
 
 It consumed ~1.2M tokens across all models. When the Claude Code Max window ran out, I continued on GLM 5.1 through Z.AI:
