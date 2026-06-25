@@ -174,6 +174,32 @@ function HomePage() {
             </div>
           </Reveal>
 
+          {/* ── Navigation Menu ──────────────────────────────────────────────── */}
+          <Reveal delay={50} className="mt-[clamp(20px,3vw,32px)]">
+            <nav className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)]">
+              <div className="flex items-center gap-6 text-sm">
+                <Link
+                  to="/"
+                  className="text-[var(--rd-text)] hover:text-[var(--rd-accent)] transition-colors font-medium"
+                >
+                  Home
+                </Link>
+                <Link
+                  to="/projects"
+                  className="text-[var(--rd-text-2)] hover:text-[var(--rd-accent)] transition-colors"
+                >
+                  Projects
+                </Link>
+                <Link
+                  to="/about"
+                  className="text-[var(--rd-text-2)] hover:text-[var(--rd-accent)] transition-colors"
+                >
+                  About
+                </Link>
+              </div>
+            </nav>
+          </Reveal>
+
           <Reveal delay={100} className="mt-[clamp(22px,3vw,36px)]">
             <SignalBar
               totalPosts={totalPosts}
