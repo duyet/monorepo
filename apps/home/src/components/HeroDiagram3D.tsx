@@ -77,6 +77,7 @@ const nodes: NodeDef[] = [
   { id: "blog", t: "Blog", kind: "data", url: "https://blog.duyet.net", phi: 0, theta: 0, r: 0 },
   { id: "agentstate", t: "AgentState", kind: "ai", url: "https://github.com/anthropics/agent-state", phi: 0, theta: 0, r: 0 },
   { id: "chmonitor", t: "CHMonitor", kind: "data", slug: "clickhouse", lc: "C28800", url: "https://github.com/duyet/chmonitor", phi: 0, theta: 0, r: 0 },
+  { id: "stamps", t: "Stamps", kind: "infra", slug: "stamps", url: "https://github.com/feature/stamps", phi: 0, theta: 0, r: 0 },
 ];
 
 const byId = Object.fromEntries(nodes.map((n) => [n.id, n] as const));
@@ -144,6 +145,10 @@ const edges: [string, string][] = [
   ["chmonitor", "clickhouse"],
   ["chmonitor", "cloudflare"],
   ["chmonitor", "k8s"],
+  // Stamps
+  ["stamps", "rust"],
+  ["stamps", "wasm"],
+  ["stamps", "cloudflare"],
 ];
 
 // ---------------------------------------------------------------------------
