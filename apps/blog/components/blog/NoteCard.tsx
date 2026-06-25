@@ -7,7 +7,7 @@ import type { Shortform } from '@/lib/shortforms'
 interface NoteCardProps {
   note: Shortform
   featured: boolean
-  Link: LinkComponent
+  Link: LinkComponent<any>
   padding?: 'normal' | 'large'
   headingLevel?: 'h2' | 'h3'
   variant?: 'homepage' | 'notes'
@@ -40,15 +40,10 @@ export function NoteCard({
     >
       {featured && <CornerDecoration />}
 
-      <div className={`mb-3 flex items-center justify-between ${padding === 'large' ? 'mb-4' : 'mb-3'}`}>
+      <div className={`mb-3 flex items-center ${padding === 'large' ? 'mb-4' : 'mb-3'}`}>
         <time className="text-[var(--rd-text-3)] font-mono text-xs tabular-nums">
           {distanceToNow(note.date)}
         </time>
-        {note.tags?.[0] && (
-          <span className="text-[var(--rd-accent-ink)] font-mono text-xs tracking-widest uppercase">
-            {note.tags[0]}
-          </span>
-        )}
       </div>
 
       <div className={`mb-4 flex-1 ${padding === 'large' ? 'mb-6' : 'mb-4'}`}>
