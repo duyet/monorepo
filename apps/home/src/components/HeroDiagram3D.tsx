@@ -30,15 +30,15 @@ type NodeDef = {
 // the camera (camera is at +z, so negative z = in front of center).
 // phi/theta are still filled in by the fibonacci block below for the shell nodes.
 const FRONT_FACING: Record<string, [number, number, number]> = {
-  mcp: [0, 2.6, -3.0],
-  langgraph: [-2.0, 1.3, -2.5],
-  llamaindex: [2.0, 1.3, -2.5],
-  cloudflare: [-2.2, -0.2, -3.5],
-  anyrouter: [0, 0.4, -4.0],
-  workers: [2.2, -0.2, -3.5],
-  workflow: [-1.4, -1.7, -3.0],
-  airflow: [1.4, -1.7, -3.0],
-  clickhouse: [0, -2.8, -2.5],
+  mcp: [0, 2.0, -2.2],
+  langgraph: [-1.5, 1.0, -1.8],
+  llamaindex: [1.5, 1.0, -1.8],
+  cloudflare: [-1.6, -0.2, -2.5],
+  anyrouter: [0, 0.3, -2.8],
+  workers: [1.6, -0.2, -2.5],
+  workflow: [-1.0, -1.2, -2.0],
+  airflow: [1.0, -1.2, -2.0],
+  clickhouse: [0, -2.0, -1.8],
 };
 
 const nodes: NodeDef[] = [
@@ -59,6 +59,9 @@ const nodes: NodeDef[] = [
   { id: "workers", t: "Workers", kind: "infra", slug: "cloudflareworkers", url: "https://workers.cloudflare.com", phi: 0, theta: 0, r: 0 },
   { id: "cfagents", t: "CF Agents", kind: "infra", slug: "cloudflare", url: "https://developers.cloudflare.com/agents", phi: 0, theta: 0, r: 0 },
   { id: "workflow", t: "Workflow", kind: "infra", slug: "cloudflareworkers", url: "https://developers.cloudflare.com/workflows", phi: 0, theta: 0, r: 0 },
+  { id: "pages", t: "Pages", kind: "infra", slug: "cloudflarepages", url: "https://pages.cloudflare.com", phi: 0, theta: 0, r: 0 },
+  { id: "k3s", t: "K3s", kind: "infra", slug: "k3s", url: "https://k3s.io", phi: 0, theta: 0, r: 0 },
+  { id: "traefik", t: "Traefik", kind: "infra", slug: "traefik", lc: "5A5A5A", url: "https://traefik.io", phi: 0, theta: 0, r: 0 },
   // Data tooling
   { id: "airflow", t: "Airflow", kind: "data", slug: "apacheairflow", url: "https://airflow.apache.org", phi: 0, theta: 0, r: 0 },
   { id: "duckdb", t: "DuckDB", kind: "data", slug: "duckdb", url: "https://duckdb.org", phi: 0, theta: 0, r: 0 },
@@ -67,6 +70,14 @@ const nodes: NodeDef[] = [
   { id: "kafka", t: "Kafka", kind: "data", slug: "apachekafka", lc: "231F20", url: "https://kafka.apache.org", phi: 0, theta: 0, r: 0 },
   { id: "qdrant", t: "Qdrant", kind: "data", slug: "qdrant", url: "https://qdrant.tech", phi: 0, theta: 0, r: 0 },
   { id: "firecrawl", t: "Firecrawl", kind: "data", url: "https://firecrawl.dev", phi: 0, theta: 0, r: 0 },
+  // Frameworks & tools from KB
+  { id: "tanstack", t: "TanStack", kind: "infra", slug: "tanstack", url: "https://tanstack.com", phi: 0, theta: 0, r: 0 },
+  { id: "wasm", t: "WASM", kind: "data", slug: "webassembly", url: "https://webassembly.org", phi: 0, theta: 0, r: 0 },
+  { id: "rust", t: "Rust", kind: "infra", slug: "rust", url: "https://rust-lang.org", phi: 0, theta: 0, r: 0 },
+  { id: "blog", t: "Blog", kind: "data", url: "https://blog.duyet.net", phi: 0, theta: 0, r: 0 },
+  { id: "agentstate", t: "AgentState", kind: "ai", url: "https://github.com/anthropics/agent-state", phi: 0, theta: 0, r: 0 },
+  { id: "chmonitor", t: "CHMonitor", kind: "data", slug: "clickhouse", lc: "C28800", url: "https://github.com/duyet/chmonitor", phi: 0, theta: 0, r: 0 },
+  { id: "stamps", t: "Stamps", kind: "infra", icon: "https://raw.githubusercontent.com/feature/stamps/main/docs/stamps-logo.svg", url: "https://github.com/feature/stamps", phi: 0, theta: 0, r: 0 },
 ];
 
 const byId = Object.fromEntries(nodes.map((n) => [n.id, n] as const));
@@ -80,16 +91,20 @@ const edges: [string, string][] = [
   ["claude", "opencode"],
   ["claude", "aisdk"],
   ["claude", "dataplatform"],
+  ["claude", "agentstate"],
   // Duyet MCP → the runtimes that consume it
   ["mcp", "opencode"],
   ["mcp", "langgraph"],
   ["mcp", "aisdk"],
+  ["mcp", "agentstate"],
   // model routing
   ["anyrouter", "openrouter"],
   ["openrouter", "aisdk"],
   ["anyrouter", "aisdk"],
   ["langgraph", "aisdk"],
   ["langgraph", "llamaindex"],
+  ["langgraph", "agentstate"],
+  ["llamaindex", "qdrant"],
   // Data Platform → data tooling + internal data flow
   ["dataplatform", "airflow"],
   ["dataplatform", "duckdb"],
@@ -100,18 +115,62 @@ const edges: [string, string][] = [
   ["airflow", "spark"],
   ["kafka", "clickhouse"],
   ["spark", "clickhouse"],
+  ["spark", "duckdb"],
   ["dataplatform", "qdrant"],
   ["qdrant", "clickhouse"],
   ["qdrant", "duckdb"],
   ["dataplatform", "firecrawl"],
   ["firecrawl", "langgraph"],
   ["firecrawl", "qdrant"],
+  ["firecrawl", "llamaindex"],
   // Cloudflare → infra
   ["cloudflare", "workers"],
   ["cloudflare", "cfagents"],
+  ["cloudflare", "pages"],
+  ["cloudflare", "workflow"],
   ["cfagents", "workers"],
   ["cloudflare", "k8s"],
   ["workers", "aisdk"],
+  ["workers", "tanstack"],
+  ["workers", "wasm"],
+  ["pages", "tanstack"],
+  ["pages", "blog"],
+  ["pages", "wasm"],
+  ["pages", "chmonitor"],
+  // K8s ecosystem
+  ["k8s", "k3s"],
+  ["k8s", "traefik"],
+  ["k3s", "traefik"],
+  ["k3s", "chmonitor"],
+  // Blog & tooling
+  ["blog", "dataplatform"],
+  ["blog", "tanstack"],
+  ["blog", "wasm"],
+  ["blog", "cloudflare"],
+  ["blog", "claude"],
+  ["blog", "qdrant"],
+  ["wasm", "rust"],
+  ["wasm", "spark"],
+  ["rust", "duckdb"],
+  ["rust", "clickhouse"],
+  // Agent ecosystem
+  ["agentstate", "claude"],
+  ["agentstate", "mcp"],
+  ["agentstate", "langgraph"],
+  ["agentstate", "opencode"],
+  ["agentstate", "blog"],
+  // Monitoring
+  ["chmonitor", "clickhouse"],
+  ["chmonitor", "cloudflare"],
+  ["chmonitor", "k8s"],
+  ["chmonitor", "k3s"],
+  ["chmonitor", "blog"],
+  // Stamps
+  ["stamps", "rust"],
+  ["stamps", "wasm"],
+  ["stamps", "cloudflare"],
+  ["stamps", "workers"],
+  ["stamps", "pages"],
 ];
 
 // ---------------------------------------------------------------------------
@@ -141,8 +200,8 @@ const TAU = Math.PI / 180;
     (n) => n.id !== "dataplatform" && !(n.id in FRONT_FACING),
   );
   const SHELL_N = shellNodes.length;
-  const OUTER_R = 6.5;
-  const JITTER = 0.25;
+  const OUTER_R = 4.8;
+  const JITTER = 0.2;
   const fibAngle = Math.PI * (3 - Math.sqrt(5));
   for (let i = 0; i < SHELL_N; i++) {
     const n = shellNodes[i];
@@ -360,12 +419,12 @@ function Edge({
     <Line
       points={points}
       color={palette[kind].line}
-      lineWidth={1.4}
+      lineWidth={0.8}
       transparent
-      opacity={0.55}
+      opacity={0.5}
       dashed
-      dashSize={0.18}
-      gapSize={0.32}
+      dashSize={0.15}
+      gapSize={0.35}
     />
   );
 }
@@ -450,7 +509,7 @@ function Scene({ reduceMotion }: { reduceMotion: boolean }) {
         zoomSpeed={0.6}
         panSpeed={0.4}
         minDistance={4}
-        maxDistance={18}
+        maxDistance={25}
         autoRotate={false}
         makeDefault
       />
@@ -484,7 +543,7 @@ export function HeroDiagram3D() {
       style={{ position: "relative", width: "100%", height: "100%", minHeight: 360 }}
     >
       <Canvas
-        camera={{ position: [0, 3, 12], fov: 45, near: 0.1, far: 100 }}
+        camera={{ position: [0, 2, 14], fov: 50, near: 0.1, far: 100 }}
         dpr={[1, 1.75]}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         onCreated={() => setReady(true)}

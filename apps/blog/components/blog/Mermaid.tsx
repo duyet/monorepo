@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTheme } from "next-themes";
 
 export function Mermaid({ children }: { children?: React.ReactNode }) {
+  const { resolvedTheme } = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
   const [svg, setSvg] = useState<string>("");
   const [error, setError] = useState<string>("");
@@ -24,7 +26,7 @@ export function Mermaid({ children }: { children?: React.ReactNode }) {
 
       mermaid.default.initialize({
         startOnLoad: false,
-        theme: "default",
+        theme: resolvedTheme === "dark" ? "dark" : "default",
         securityLevel: "loose",
       });
 
@@ -43,7 +45,7 @@ export function Mermaid({ children }: { children?: React.ReactNode }) {
     return () => {
       cancelled = true;
     };
-  }, [code]);
+  }, [code, resolvedTheme]);
 
   if (error) {
     return (

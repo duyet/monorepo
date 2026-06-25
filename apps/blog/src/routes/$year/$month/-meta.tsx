@@ -15,7 +15,7 @@ interface ContentProps {
 export default function Meta({ post, className }: ContentProps) {
   return (
     <div className={cn(className)}>
-      <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm text-muted-foreground [font-variant-numeric:tabular-nums]">
+      <div className="w-full flex flex-wrap items-center justify-between gap-x-5 gap-y-3 text-sm text-muted-foreground [font-variant-numeric:tabular-nums]">
         <div className="flex items-center gap-1.5">
           <Calendar className="h-3.5 w-3.5" />
           <time dateTime={new Date(post.date).toISOString()}>

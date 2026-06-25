@@ -1,7 +1,4 @@
-import {
-  Reveal,
-  SecHead,
-} from "@duyet/components";
+import { SecHead } from "@duyet/components";
 import { useMemo, useState, type ReactElement } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
@@ -9,9 +6,9 @@ import {
 } from "@/lib/posts";
 import { getShortforms } from "@/lib/shortforms";
 import type { Shortform } from "@/lib/shortforms";
-import { distanceToNow } from "@duyet/libs/date";
 import { FeaturedPost } from "@/components/home/FeaturedPost";
 import { PostList } from "@/components/home/PostList";
+import { NoteCard } from "@/components/blog/NoteCard";
 
 // ---------------------------------------------------------------------------
 // Route & loader
@@ -20,7 +17,7 @@ export const Route = createFileRoute("/")({
   loader: async () => {
     const [postsByYear, shortforms] = await Promise.all([
       getPostsByAllYear(),
-      Promise.resolve(getShortforms(3)),
+      Promise.resolve(getShortforms(4)),
     ]);
     return { postsByYear, shortforms };
   },
@@ -174,16 +171,14 @@ function HomePage(): ReactElement {
         <section
           className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)] pt-0"
         >
-          <Reveal>
-            <FeaturedPost post={featured} />
-          </Reveal>
+          <FeaturedPost post={featured} />
         </section>
       )}
 
       {/* ── Quick Notes ────────────────────────────────────────────── */}
       {shortforms && shortforms.length > 0 && (
         <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(32px,4vw,52px)] border-t">
-          <div className="flex justify-between items-baseline mb-5">
+          <div className="flex justify-between items-baseline mb-5 ml-0">
             <SecHead eyebrow="Notes" title="Quick Thoughts" />
             <Link
               to="/notes/"
@@ -192,41 +187,17 @@ function HomePage(): ReactElement {
               View all notes →
             </Link>
           </div>
-          <div className="flex flex-col">
-            {shortforms.map((note) => (
-              <Link
+          <div className="grid grid-cols-1 gap-px overflow-visible border border-[var(--rd-border)] bg-[var(--rd-border)] md:grid-cols-3">
+            {shortforms.map((note, index) => (
+              <NoteCard
                 key={note.id}
-                to="/note/$id/"
-                params={{ id: note.id }}
-                className="group -mx-3 flex items-start gap-4 rounded-[var(--rd-r)] px-3 py-3 no-underline transition-colors hover:bg-[var(--rd-surface-2)]"
-              >
-                <div className="min-w-0 flex-1">
-                  <time className="block text-[11.5px] font-mono uppercase tracking-[0.12em] text-[var(--rd-text-3)]">
-                    {distanceToNow(note.date)}
-                  </time>
-                  <h3 className="mt-1 text-[1rem] font-[560] leading-snug tracking-[-0.02em] text-[var(--rd-text)] transition-colors group-hover:text-[var(--rd-accent-ink)]">
-                    {note.title || note.excerpt}
-                  </h3>
-                  {note.title ? (
-                    <p className="mt-1 line-clamp-1 text-[13px] leading-[1.5] text-[var(--rd-text-2)]">
-                      {note.excerpt}
-                    </p>
-                  ) : null}
-                </div>
-                <svg
-                  className="mt-1 h-3.5 w-3.5 shrink-0 text-[var(--rd-text-4)] transition-all duration-200 group-hover:translate-x-[3px] group-hover:text-[var(--rd-accent)]"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </Link>
+                note={note}
+                featured={index === 0}
+                Link={Link}
+                padding="normal"
+                headingLevel="h3"
+                variant="homepage"
+              />
             ))}
           </div>
         </section>

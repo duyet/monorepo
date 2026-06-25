@@ -1,0 +1,14 @@
+{
+  "name": "@examples/agentos-pi",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "run": "node --experimental-vm-modules index.mjs"
+  },
+  "dependencies": {
+    "@agentos-software/common": "latest",
+    "@agentos-software/pi": "latest",
+    "@rivet-dev/agentos-core": "latest"
+  }
+}

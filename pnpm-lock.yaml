@@ -63,7 +63,7 @@ importers:
         version: 2.5.0
       '@cloudflare/vite-plugin':
         specifier: ^1.0.0
-        version: 1.42.1(vite@8.0.16(@types/node@25.9.4)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0))(workerd@1.20260617.1)(wrangler@4.97.0(@cloudflare/workers-types@4.20260621.1))
+        version: 1.42.1(vite@8.0.16(@types/node@25.9.4)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0))(workerd@1.20260601.1)(wrangler@4.97.0(@cloudflare/workers-types@4.20260621.1))
       '@commitlint/cli':
         specifier: ^20.5.0
         version: 20.5.3(@types/node@25.9.4)(conventional-commits-parser@6.4.0)(typescript@6.0.3)
@@ -269,7 +269,7 @@ importers:
         version: 2.5.0
       '@cloudflare/vite-plugin':
         specifier: ^1.0.0
-        version: 1.42.1(vite@8.0.16(@types/node@25.9.4)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0))(workerd@1.20260601.1)(wrangler@4.97.0(@cloudflare/workers-types@4.20260621.1))
+        version: 1.42.1(vite@8.0.16(@types/node@25.9.4)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0))(workerd@1.20260617.1)(wrangler@4.97.0(@cloudflare/workers-types@4.20260621.1))
       '@cloudflare/workers-types':
         specifier: ^4.20260511.1
         version: 4.20260621.1
@@ -1147,6 +1147,9 @@ importers:
       '@radix-ui/react-hover-card':
         specifier: ^1.1.13
         version: 1.1.17(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@radix-ui/react-navigation-menu':
+        specifier: ^1.2.16
+        version: 1.2.16(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@radix-ui/react-progress':
         specifier: ^1.1.8
         version: 1.1.10(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
@@ -5769,6 +5772,7 @@ packages:
   git-raw-commits@5.0.1:
     resolution: {integrity: sha512-Y+csSm2GD/PCSh6Isd/WiMjNAydu0VBiG9J7EdQsNA5P9uXvLayqjmTsNlK5Gs9IhblFZqOU0yid5Il5JPoLiQ==}
     engines: {node: '>=18'}
+    deprecated: Deprecated and no longer maintained. Use @conventional-changelog/git-client instead.
     hasBin: true
 
   github-from-package@0.0.0:

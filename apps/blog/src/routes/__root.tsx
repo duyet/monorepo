@@ -88,15 +88,6 @@ export const Route = createRootRoute({
   component: RootComponent,
 })
 
-const blogLocalNav = [
-  { label: 'Latest', href: '/' },
-  { label: 'Notes', href: '/notes' },
-  { label: 'Archives', href: '/archives' },
-  { label: 'Categories', href: '/category' },
-  { label: 'Tags', href: '/tags' },
-  { label: 'Series', href: '/series' },
-]
-
 function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname })
 
@@ -108,11 +99,7 @@ function RootComponent() {
       <body>
         <ThemeProvider>
           <div className="blog-editorial-shell min-h-screen relative bg-background text-foreground overflow-x-hidden flex flex-col justify-between subpixel-antialiased">
-            <SiteHeader
-              currentApp="blog"
-              localNav={blogLocalNav}
-              activeHref={pathname}
-            />
+            <SiteHeader currentApp="blog" />
 
             <main className="relative z-10 pb-12 flex-grow">
               <Outlet />

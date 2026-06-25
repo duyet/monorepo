@@ -41,7 +41,7 @@ const mdxCache = new Map<
 // Factory: lowlight/highlight.js register a language by calling it as
 // `(hljs) => definition`, so a bare object throws at registration
 // ("languageDefinition is not a function") and crashes every .mdx post.
-const promptLanguage = () => ({
+const promptLanguage = (): { name: string; disableAutodetect: boolean; case_insensitive: boolean; contains: { scope: string; begin: RegExp }[] } => ({
   name: "prompt",
   disableAutodetect: true,
   case_insensitive: false,

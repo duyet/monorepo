@@ -102,19 +102,18 @@ function HomePage() {
                 <h1
                   className="rd-display mt-[13px] max-w-[17ch] text-[clamp(2.05rem,4.2vw,3.3rem)] leading-[1.02]"
                 >
-                  I build data platforms, and the{" "}
-                  <span className="text-[var(--rd-accent)]">AI agents</span>{" "}
-                  that run on top of them.
+                  Building agent workflows and the{" "}
+                  <span className="text-[var(--rd-accent)]">data platform</span>{" "}
+                  underneath them.
                 </h1>
                 <p
                   className="rd-lead mt-4 max-w-[56ch] text-[clamp(0.96rem,1.15vw,1.06rem)]"
                 >
-                  I'm Duyet — a Senior Data &amp; AI Engineer. I spend my time
-                  on the load-bearing parts of software: pipelines that move
-                  data at scale, platforms that stay calm under pressure, and
-                  the agents and tooling that make them genuinely useful. I like
-                  systems that are simple to operate and honest about what
-                  they're doing — and I{" "}
+                  I'm Duyet — a Senior Data &amp; AI Engineer. I focus on the
+                  foundational systems that make software work: data pipelines
+                  that scale, platforms that stay reliable, and AI agents that
+                  are actually useful. I build systems that are simple to operate
+                  and transparent about what they do — and I{" "}
                   <a
                     href="https://github.com/duyet"
                     target="_blank"
@@ -173,6 +172,32 @@ function HomePage() {
               </div>
               <HeroDiagram />
             </div>
+          </Reveal>
+
+          {/* ── Navigation Menu ──────────────────────────────────────────────── */}
+          <Reveal delay={50} className="mt-[clamp(20px,3vw,32px)]">
+            <nav className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)]">
+              <div className="flex items-center gap-6 text-sm">
+                <Link
+                  to="/"
+                  className="text-[var(--rd-text)] hover:text-[var(--rd-accent)] transition-colors font-medium"
+                >
+                  Home
+                </Link>
+                <Link
+                  to="/projects"
+                  className="text-[var(--rd-text-2)] hover:text-[var(--rd-accent)] transition-colors"
+                >
+                  Projects
+                </Link>
+                <Link
+                  to="/about"
+                  className="text-[var(--rd-text-2)] hover:text-[var(--rd-accent)] transition-colors"
+                >
+                  About
+                </Link>
+              </div>
+            </nav>
           </Reveal>
 
           <Reveal delay={100} className="mt-[clamp(22px,3vw,36px)]">
