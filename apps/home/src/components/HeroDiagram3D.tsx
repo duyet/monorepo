@@ -59,6 +59,9 @@ const nodes: NodeDef[] = [
   { id: "workers", t: "Workers", kind: "infra", slug: "cloudflareworkers", url: "https://workers.cloudflare.com", phi: 0, theta: 0, r: 0 },
   { id: "cfagents", t: "CF Agents", kind: "infra", slug: "cloudflare", url: "https://developers.cloudflare.com/agents", phi: 0, theta: 0, r: 0 },
   { id: "workflow", t: "Workflow", kind: "infra", slug: "cloudflareworkers", url: "https://developers.cloudflare.com/workflows", phi: 0, theta: 0, r: 0 },
+  { id: "pages", t: "Pages", kind: "infra", slug: "cloudflarepages", url: "https://pages.cloudflare.com", phi: 0, theta: 0, r: 0 },
+  { id: "k3s", t: "K3s", kind: "infra", slug: "k3s", url: "https://k3s.io", phi: 0, theta: 0, r: 0 },
+  { id: "traefik", t: "Traefik", kind: "infra", slug: "traefik", url: "https://traefik.io", phi: 0, theta: 0, r: 0 },
   // Data tooling
   { id: "airflow", t: "Airflow", kind: "data", slug: "apacheairflow", url: "https://airflow.apache.org", phi: 0, theta: 0, r: 0 },
   { id: "duckdb", t: "DuckDB", kind: "data", slug: "duckdb", url: "https://duckdb.org", phi: 0, theta: 0, r: 0 },
@@ -67,6 +70,12 @@ const nodes: NodeDef[] = [
   { id: "kafka", t: "Kafka", kind: "data", slug: "apachekafka", lc: "231F20", url: "https://kafka.apache.org", phi: 0, theta: 0, r: 0 },
   { id: "qdrant", t: "Qdrant", kind: "data", slug: "qdrant", url: "https://qdrant.tech", phi: 0, theta: 0, r: 0 },
   { id: "firecrawl", t: "Firecrawl", kind: "data", url: "https://firecrawl.dev", phi: 0, theta: 0, r: 0 },
+  // Frameworks & tools from KB
+  { id: "tanstack", t: "TanStack", kind: "infra", slug: "tanstack", url: "https://tanstack.com", phi: 0, theta: 0, r: 0 },
+  { id: "wasm", t: "WASM", kind: "data", slug: "webassembly", url: "https://webassembly.org", phi: 0, theta: 0, r: 0 },
+  { id: "rust", t: "Rust", kind: "infra", slug: "rust", url: "https://rust-lang.org", phi: 0, theta: 0, r: 0 },
+  { id: "shadcn", t: "shadcn", kind: "infra", icon: "https://www.shadcn-ui.com/favicon.ico", url: "https://ui.shadcn.com", phi: 0, theta: 0, r: 0 },
+  { id: "blog", t: "Blog", kind: "data", url: "https://blog.duyet.net", phi: 0, theta: 0, r: 0 },
 ];
 
 const byId = Object.fromEntries(nodes.map((n) => [n.id, n] as const));
@@ -109,9 +118,25 @@ const edges: [string, string][] = [
   // Cloudflare → infra
   ["cloudflare", "workers"],
   ["cloudflare", "cfagents"],
+  ["cloudflare", "pages"],
   ["cfagents", "workers"],
   ["cloudflare", "k8s"],
   ["workers", "aisdk"],
+  ["workers", "tanstack"],
+  ["pages", "tanstack"],
+  ["pages", "blog"],
+  ["pages", "wasm"],
+  // K8s ecosystem
+  ["k8s", "k3s"],
+  ["k8s", "traefik"],
+  ["k3s", "traefik"],
+  // Blog & tooling
+  ["blog", "dataplatform"],
+  ["blog", "tanstack"],
+  ["blog", "shadcn"],
+  ["blog", "wasm"],
+  ["wasm", "rust"],
+  ["shadcn", "tanstack"],
 ];
 
 // ---------------------------------------------------------------------------
