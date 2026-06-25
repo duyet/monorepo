@@ -109,12 +109,11 @@ function HomePage() {
                 <p
                   className="rd-lead mt-4 max-w-[56ch] text-[clamp(0.96rem,1.15vw,1.06rem)]"
                 >
-                  I'm Duyet — a Senior Data &amp; AI Engineer. I spend my time
-                  on the load-bearing parts of software: pipelines that move
-                  data at scale, platforms that stay calm under pressure, and
-                  the agents and tooling that make them genuinely useful. I like
-                  systems that are simple to operate and honest about what
-                  they're doing — and I{" "}
+                  I'm Duyet — a Senior Data &amp; AI Engineer. I focus on the
+                  foundational systems that make software work: data pipelines
+                  that scale, platforms that stay reliable, and AI agents that
+                  are actually useful. I build systems that are simple to operate
+                  and transparent about what they do — and I{" "}
                   <a
                     href="https://github.com/duyet"
                     target="_blank"
