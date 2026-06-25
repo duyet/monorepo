@@ -102,7 +102,7 @@ flowchart TD
   PR(["<img src='/icons/github.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />PRs"]) -->|triggers| API
   WH(["<img src='/icons/webhooks.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Webhooks"]) -->|triggers| API
   API -->|creates| SB["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sandbox"]
-  SB -->|creates Pod| Pod["<strong><img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Pod (claude-agent-runner)</strong><br/>Claude Agent SDK, MCP, Skills, etc.<br/>"]
+  SB -->|creates Pod| Pod["<br/><strong><img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Pod (claude-agent-runner)</strong><br/>Claude Agent SDK, MCP, Skills, etc.<br/><br/>"]
   Pod -->|creates/updates| MorePRs(["<img src='/icons/github.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />More PRs"])
   MorePRs -->|triggers| API
 
