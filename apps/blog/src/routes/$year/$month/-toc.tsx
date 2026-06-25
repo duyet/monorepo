@@ -9,7 +9,7 @@ export function TableOfContents({ headings }: { headings: TOCItem[] }) {
   const [activeId, setActiveId] = useState<string>("");
   const [hidden, setHidden] = useState(false);
   const [isOverlapping, setIsOverlapping] = useState(false);
-  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
+  const [isOverlayOpen, setIsOverlayOpen] = useState(true);
   const [isSidebarDismissed, setIsSidebarDismissed] = useState(false);
   const asideRef = useRef<HTMLElement>(null);
 
