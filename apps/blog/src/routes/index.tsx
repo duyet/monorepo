@@ -178,7 +178,7 @@ function HomePage(): ReactElement {
       {/* ── Quick Notes ────────────────────────────────────────────── */}
       {shortforms && shortforms.length > 0 && (
         <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(32px,4vw,52px)] border-t">
-          <div className="flex justify-between items-baseline mb-5">
+          <div className="flex justify-between items-baseline mb-5 ml-0">
             <SecHead eyebrow="Notes" title="Quick Thoughts" />
             <Link
               to="/notes/"

@@ -102,9 +102,9 @@ function HomePage() {
                 <h1
                   className="rd-display mt-[13px] max-w-[17ch] text-[clamp(2.05rem,4.2vw,3.3rem)] leading-[1.02]"
                 >
-                  I build data platforms, and the{" "}
-                  <span className="text-[var(--rd-accent)]">AI agents</span>{" "}
-                  that run on top of them.
+                  Building agent workflows and the{" "}
+                  <span className="text-[var(--rd-accent)]">data platform</span>{" "}
+                  underneath them.
                 </h1>
                 <p
                   className="rd-lead mt-4 max-w-[56ch] text-[clamp(0.96rem,1.15vw,1.06rem)]"
