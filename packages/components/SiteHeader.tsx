@@ -397,9 +397,9 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
                           onClick={() => setOpen(false)}
                           className={cn(
                             "group flex items-center gap-2.5 rounded-md border px-2 py-2 outline-none transition-colors",
-                            "hover:bg-muted focus-visible:bg-muted",
+                            "hover:bg-[var(--rd-muted)] focus-visible:bg-[var(--rd-muted)]",
                             isCurrent
-                              ? "border-foreground/20 bg-muted/60"
+                              ? "border-foreground/20 bg-[var(--rd-muted)]"
                               : "border-transparent hover:border-border",
                           )}
                         >
