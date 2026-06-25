@@ -110,8 +110,12 @@ flowchart TD
   SB@{ shape: doc }
 `}</Mermaid>
 
-GitHub issues, Sentry errors, and assigned or tagged pull requests all route through the FastAPI control plane. The control plane creates a Sandbox, which then starts the Pod where the agent runs. I built an example, [claude-agent-runner][runner], using the Claude Agent SDK. It is configured with a system prompt, skills, and MCP tools so it has enough context to do the job correctly. It can post status updates, create PRs, or close issues. Context is important; I recommend checking out [Goal and Loop: The Knowledge Base](/2026/06/goal-and-loop/#the-knowledge-base) to learn how to build and use an internal knowledge base to keep track of it.
+GitHub issues, Sentry errors, and assigned or tagged pull requests all route through the FastAPI control plane. The control plane creates a Sandbox, which then starts the Pod where the agent runs. I built an example, [claude-agent-runner][runner], using the Claude Agent SDK. It is configured with a system prompt, skills, and MCP tools so it has enough context to do the job correctly. It can post status updates, create PRs, or close issues.
 
+Context is important: I recommend checking out [Goal and Loop: The Knowledge Base](/2026/06/goal-and-loop/#the-knowledge-base) to learn how to build and use an internal knowledge base to keep track of it.
+
+
+### Self-fixing loop
 
 <Mermaid>{`
 flowchart TD
@@ -131,6 +135,29 @@ flowchart TD
 `}</Mermaid>
 
 {/* TODO before publishing: paste a real kubectl get sandbox and one end-to-end run (ticket to PR, or Sentry to fix). */}
+
+### Self-improvement loop
+
+<Mermaid>{`
+flowchart TD
+  SE(["<img src='/icons/sentry.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sentry / Logs"]) -->|runtime error| API["<img src='/icons/fastapi.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />FastAPI control plane"]
+  API -->|creates| SB["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sandbox"]
+  SB -->|creates Pod| Pod["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Pod (claude-agent-runner)"]
+  Pod -->|CI/CD| Deployment["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Deployment"]
+  Deployment -->|exception| SE
+
+  Pod -->|discover, take note, ...| GH["<img src='/icons/github.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />GitHub Issues"]
+  GH --> API
+
+  ClaudeLocal1["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Claude Local"] --> |loop| ClaudeLocal2["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Claude Local"]
+  ClaudeLocal2 --> |loop| ClaudeLocal1
+
+  API@{ shape: processes }
+  Pod@{ shape: processes }
+  SB@{ shape: doc }
+  Deployment@{ shape: processes }
+  GH@{ shape: doc }
+`}</Mermaid>
 
 If you want a simpler option, [Claude Code GitHub Actions][cc-gha] is an easy alternative if you already use GitHub. It provides the same context and works in a similar way without needing a custom control plane.
 
