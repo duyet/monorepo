@@ -15,6 +15,8 @@ import {
   Flame,
   House,
   List,
+  Menu,
+  X,
   type LucideIcon,
   Moon,
   Percent,
@@ -440,6 +442,78 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
   );
 }
 
+function MobileNav({ currentApp }: { currentApp: AppKey }) {
+  const [open, setOpen] = useState(false);
+
+  const isActive = (m: { app?: AppKey; path?: string }) => {
+    if (m.app && m.app === currentApp) {
+      if (m.app === "home" && m.path) return window.location.pathname === m.path;
+      return true;
+    }
+    if (m.path && currentApp === "home") {
+      const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
+      return m.path === "/" ? pathname === "/" : pathname.startsWith(m.path);
+    }
+    return false;
+  };
+
+  return (
+    <>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="md:hidden h-8 w-8"
+        onClick={() => setOpen(true)}
+        aria-label="Open menu"
+      >
+        <Menu className="h-5 w-5" />
+      </Button>
+
+      {open && (
+        <div
+          className="fixed inset-0 z-50 md:hidden"
+          onClick={() => setOpen(false)}
+        >
+          <div
+            className="fixed inset-y-0 right-0 z-50 w-full max-w-xs bg-background border-l shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex h-14 items-center justify-between border-b px-4">
+              <span className="font-semibold">Menu</span>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8"
+                onClick={() => setOpen(false)}
+                aria-label="Close menu"
+              >
+                <X className="h-5 w-5" />
+              </Button>
+            </div>
+            <nav className="flex flex-col p-4 gap-1">
+              {GLOBAL_NAV.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "flex items-center h-10 px-3 rounded-md text-sm font-medium transition-colors",
+                    isActive(item.match)
+                      ? "bg-muted text-[var(--rd-accent)]"
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                  )}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
 function LocalNav({
   items,
   activeHref,
@@ -535,6 +609,7 @@ export function SiteHeader({
           <LocalNav items={localNav} activeHref={activeHref} />
         )}
         <div className="ml-auto flex items-center gap-1">
+          <MobileNav currentApp={currentApp} />
           <GlobalNav currentApp={currentApp} />
           <Separator orientation="vertical" className="mx-1 hidden h-6 md:block" />
           <ThemeButton />
