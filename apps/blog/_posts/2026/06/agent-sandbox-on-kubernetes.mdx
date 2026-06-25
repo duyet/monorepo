@@ -43,7 +43,7 @@ The extensions module adds CRDs and controllers to the core Sandbox API for adva
 
 The Architecture Diagram:
 
-<div className="full-bleed">
+<div className="full-bleed max-w-[1200px]">
 <Mermaid>{`
 flowchart LR
     User[User]
@@ -84,7 +84,7 @@ The [examples directory][examples] contains projects you can build depending on 
 - [`chrome-sandbox`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/chrome-sandbox) (browser automation) and [`mcp-server-sandbox`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/mcp-server-sandbox) (running an MCP server inside a Sandbox).
 - [`sandbox-ksa`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/sandbox-ksa): Using a dedicated Kubernetes Service Account (KSA) inside a Sandbox.
 
-<img src="/media/2026/06/agent-sandbox-on-kubernetes/agent-sandbox.png" alt="Kubernetes Agent Sandbox running in production" style={{ maxWidth: '1300px', width: '100%', margin: '2rem auto', display: 'block', borderRadius: '0.5rem' }} />
+<img src="/media/2026/06/agent-sandbox-on-kubernetes/agent-sandbox.png" alt="Kubernetes Agent Sandbox running in production" style={{ maxWidth: '1200px', width: '100%', margin: '2rem auto', display: 'block', borderRadius: '1rem' }} />
 
 ## Use case: The Self-Fixing Agent
 
@@ -98,8 +98,9 @@ To make this safe, you need strong CI/CD guards, smoke tests on staging, and con
 
 In my runner setup, the FastAPI control plane creates a Sandbox for each task, and that Sandbox creates the Pod where Claude runs.
 
+<div className="full-bleed max-w-[1200px]">
 <Mermaid>{`
-flowchart TD
+flowchart LR
   GI(["<img src='/icons/github.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />GitHub issues"]) --> |assign| API["<img src='/icons/fastapi.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />FastAPI control plane"]
   SE(["<img src='/icons/sentry.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sentry / Logs System"]) -->|triggers| API
   PR(["<img src='/icons/github.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />PRs"]) -->|triggers| API
@@ -113,6 +114,7 @@ flowchart TD
   Pod@{ shape: processes }
   SB@{ shape: doc }
 `}</Mermaid>
+</div>
 
 GitHub issues, Sentry errors, and assigned or tagged pull requests all route through the FastAPI control plane. The control plane creates a Sandbox, which then starts the Pod where the agent runs. I built an example, [claude-agent-runner][runner], using the Claude Agent SDK. It is configured with a system prompt, skills, and MCP tools so it has enough context to do the job correctly. It can post status updates, create PRs, or close issues.
 
@@ -121,8 +123,9 @@ Context is important: I recommend checking out [Goal and Loop: The Knowledge Bas
 
 ### Self-fixing loop
 
+<div className="full-bleed max-w-[1200px]">
 <Mermaid>{`
-flowchart TD
+flowchart LR
   SE(["<img src='/icons/sentry.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sentry / Logs"]) -->|runtime error| API["<img src='/icons/fastapi.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />FastAPI control plane"]
   API -->|creates| SB["<img src='/icons/kubernetes.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sandbox"]
   SB -->|creates Pod| Pod["<img src='/icons/anthropic.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Pod (claude-agent-runner)"]
@@ -139,11 +142,13 @@ flowchart TD
   SB@{ shape: doc }
   Deployment@{ shape: processes }
 `}</Mermaid>
+</div>
 
 ### Self-improvement loop
 
+<div className="full-bleed max-w-[1200px]">
 <Mermaid>{`
-flowchart TD
+flowchart LR
   GH1["<img src='/icons/github.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />GitHub Issues"]
   SE2(["<img src='/icons/sentry.svg' style='display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 4px;' />Sentry / Logs"])
 
@@ -177,6 +182,7 @@ flowchart TD
   Deployment1@{ shape: processes }
   Deployment2@{ shape: processes }
 `}</Mermaid>
+</div>
 
 If you want a simpler option, [Claude Code GitHub Actions][cc-gha] is an easy alternative if you already use GitHub. It provides the same context and works in a similar way without needing a custom control plane.
 
