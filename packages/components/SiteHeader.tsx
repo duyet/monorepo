@@ -251,16 +251,16 @@ const GLOBAL_NAV: {
     label: "Home",
     href: "https://duyet.net",
     match: { app: "home", path: "/" },
-    children: [
-      { label: "Home", href: "https://duyet.net", match: { app: "home", path: "/" } },
-      { label: "Projects", href: "https://duyet.net/projects", match: { app: "home", path: "/projects" } },
-      { label: "About", href: "https://duyet.net/about", match: { app: "home", path: "/about" } },
-    ],
   },
   {
     label: "Projects",
     href: "https://duyet.net/projects",
-    match: { path: "/projects" },
+    match: { app: "home", path: "/projects" },
+  },
+  {
+    label: "About",
+    href: "https://duyet.net/about",
+    match: { app: "home", path: "/about" },
   },
   {
     label: "Blog",
