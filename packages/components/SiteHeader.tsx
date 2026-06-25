@@ -445,6 +445,7 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
 
 function MobileNav({ currentApp }: { currentApp: AppKey }) {
   const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const isActive = (m: { app?: AppKey; path?: string }) => {
     if (m.app && m.app === currentApp) {
@@ -458,60 +459,59 @@ function MobileNav({ currentApp }: { currentApp: AppKey }) {
     return false;
   };
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    if (!open) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (!containerRef.current || !containerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [open]);
+
   return (
-    <>
+    <div ref={containerRef} className="relative md:hidden">
       <Button
         variant="ghost"
         size="icon"
-        className="md:hidden h-8 w-8"
-        onClick={() => setOpen(true)}
+        className="h-8 w-8"
+        onClick={() => setOpen((v) => !v)}
         aria-label="Open menu"
+        aria-expanded={open}
       >
         <Menu className="h-5 w-5" />
       </Button>
 
       {open && (
         <div
-          className="fixed inset-0 z-50 md:hidden"
-          onClick={() => setOpen(false)}
+          role="menu"
+          className={cn(
+            "absolute right-0 top-full z-50 mt-1 w-40 overflow-hidden rounded-lg border bg-[var(--rd-bg)] shadow-xl dark:shadow-black/30",
+          )}
         >
-          <div
-            className="fixed inset-y-0 right-0 z-50 w-full max-w-xs bg-background border-l shadow-xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex h-14 items-center justify-between border-b px-4">
-              <span className="font-semibold">Menu</span>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8"
+          <nav className="flex flex-col p-1">
+            {GLOBAL_NAV.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                role="menuitem"
                 onClick={() => setOpen(false)}
-                aria-label="Close menu"
+                className={cn(
+                  "flex items-center h-9 px-3 rounded-md text-sm font-medium transition-colors",
+                  isActive(item.match)
+                    ? "bg-[var(--rd-muted)] text-[var(--rd-accent)]"
+                    : "text-[var(--rd-text-3)] hover:bg-[var(--rd-muted)] hover:text-[var(--rd-text)]",
+                )}
               >
-                <X className="h-5 w-5" />
-              </Button>
-            </div>
-            <nav className="flex flex-col p-4 gap-1">
-              {GLOBAL_NAV.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className={cn(
-                    "flex items-center h-10 px-3 rounded-md text-sm font-medium transition-colors",
-                    isActive(item.match)
-                      ? "bg-[var(--rd-muted)] text-[var(--rd-accent)] hover:bg-[var(--rd-muted)]"
-                      : "text-[var(--rd-text-3)] hover:bg-[var(--rd-muted)] hover:text-[var(--rd-text)]",
-                  )}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-          </div>
+                {item.label}
+              </a>
+            ))}
+          </nav>
         </div>
       )}
-    </>
+    </div>
   );
 }
 
