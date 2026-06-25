@@ -23,7 +23,7 @@ function FeaturedPost({ post }: { post: Post }) {
       params={postParams(post)}
       className={`overflow-hidden grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] ${
         thumbnail
-          ? "rounded-[var(--rd-r)] bg-[var(--rd-surface)]"
+          ? "rounded-[var(--rd-r)]"
           : "rd-card"
       }`}
     >
