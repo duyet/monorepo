@@ -192,42 +192,116 @@ function HomePage(): ReactElement {
               View all notes →
             </Link>
           </div>
-          <div className="flex flex-col">
-            {shortforms.map((note) => (
-              <Link
-                key={note.id}
-                to="/note/$id/"
-                params={{ id: note.id }}
-                className="group -mx-3 flex items-start gap-4 rounded-[var(--rd-r)] px-3 py-3 no-underline transition-colors hover:bg-[var(--rd-surface-2)]"
-              >
-                <div className="min-w-0 flex-1">
-                  <time className="block text-[11.5px] font-mono uppercase tracking-[0.12em] text-[var(--rd-text-3)]">
-                    {distanceToNow(note.date)}
-                  </time>
-                  <h3 className="mt-1 text-[1rem] font-[560] leading-snug tracking-[-0.02em] text-[var(--rd-text)] transition-colors group-hover:text-[var(--rd-accent-ink)]">
-                    {note.title || note.excerpt}
-                  </h3>
-                  {note.title ? (
-                    <p className="mt-1 line-clamp-1 text-[13px] leading-[1.5] text-[var(--rd-text-2)]">
-                      {note.excerpt}
-                    </p>
-                  ) : null}
-                </div>
-                <svg
-                  className="mt-1 h-3.5 w-3.5 shrink-0 text-[var(--rd-text-4)] transition-all duration-200 group-hover:translate-x-[3px] group-hover:text-[var(--rd-accent)]"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
+          <div className="grid grid-cols-1 gap-px overflow-visible border border-[var(--rd-border)] bg-[var(--rd-border)] md:grid-cols-3">
+            {shortforms.map((note, index) => {
+              const isFeatured = index === 0
+
+              return (
+                <Link
+                  key={note.id}
+                  to="/note/$id/"
+                  params={{ id: note.id }}
+                  className={`group/bento relative flex flex-col overflow-hidden bg-[var(--rd-bg)] p-5 no-underline transition-colors hover:bg-[var(--rd-surface-1)] ${
+                    isFeatured ? 'md:col-span-3' : ''
+                  }`}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </Link>
-            ))}
+                  {/* Corner decorations on featured card */}
+                  {isFeatured && (
+                    <>
+                      <div
+                        className="pointer-events-none absolute z-30 bg-[var(--rd-bg)]"
+                        style={{
+                          width: '14px',
+                          height: '14px',
+                          border: '1px solid var(--rd-border)',
+                          borderRadius: '3px',
+                          left: '-7px',
+                          top: '-7px',
+                        }}
+                        aria-hidden="true"
+                      />
+                      <div
+                        className="pointer-events-none absolute z-30 bg-[var(--rd-bg)]"
+                        style={{
+                          width: '14px',
+                          height: '14px',
+                          border: '1px solid var(--rd-border)',
+                          borderRadius: '3px',
+                          right: '-7px',
+                          top: '-7px',
+                        }}
+                        aria-hidden="true"
+                      />
+                      <div
+                        className="pointer-events-none absolute z-30 bg-[var(--rd-bg)]"
+                        style={{
+                          width: '14px',
+                          height: '14px',
+                          border: '1px solid var(--rd-border)',
+                          borderRadius: '3px',
+                          left: '-7px',
+                          bottom: '-7px',
+                        }}
+                        aria-hidden="true"
+                      />
+                      <div
+                        className="pointer-events-none absolute z-30 bg-[var(--rd-bg)]"
+                        style={{
+                          width: '14px',
+                          height: '14px',
+                          border: '1px solid var(--rd-border)',
+                          borderRadius: '3px',
+                          right: '-7px',
+                          bottom: '-7px',
+                        }}
+                        aria-hidden="true"
+                      />
+                    </>
+                  )}
+
+                  <div className="mb-3 flex items-center justify-between">
+                    <time className="text-[var(--rd-text-3)] font-mono text-xs tabular-nums">
+                      {distanceToNow(note.date)}
+                    </time>
+                    {note.tags?.[0] && (
+                      <span className="text-[var(--rd-accent-ink)] font-mono text-xs tracking-widest uppercase">
+                        {note.tags[0]}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="mb-4 flex-1">
+                    <h3 className="text-[var(--rd-text)] mb-2 text-base font-medium leading-snug">
+                      {note.title || note.excerpt}
+                    </h3>
+                    {note.title && (
+                      <p className="text-[var(--rd-text-2)] line-clamp-2 text-sm leading-relaxed">
+                        {note.excerpt}
+                      </p>
+                    )}
+                  </div>
+
+                  <span className="text-[var(--rd-text-3)] inline-flex w-fit items-center gap-2 text-sm font-medium underline-offset-4 group-focus-within/bento:underline group-hover/bento:underline">
+                    {note.title ? 'Read note' : 'View more'}
+                    <svg
+                      className="h-3.5 w-3.5 shrink-0 transition-transform duration-150 group-hover/bento:translate-x-0.5"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </span>
+                </Link>
+              )
+            })}
           </div>
         </section>
       )}
