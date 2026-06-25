@@ -300,6 +300,10 @@ function GlobalNav({ currentApp }: { currentApp: AppKey }) {
 
   const isActive = (m: { app?: AppKey; path?: string }) => {
     if (m.app && m.app === currentApp) {
+      // For blog app child items, check the path
+      if (m.app === "blog" && m.path && pathname != null) {
+        return m.path === "/" ? pathname === "/" : pathname.startsWith(m.path);
+      }
       // For the home app, a bare `app` match would light up every home route;
       // defer to the path check when one is provided.
       if (m.app === "home" && m.path) return pathname === m.path;
@@ -358,7 +362,7 @@ function GlobalNav({ currentApp }: { currentApp: AppKey }) {
                         "flex items-center h-8 px-3 rounded-md text-sm transition-colors",
                         isActive(child.match)
                           ? "bg-[var(--rd-muted)] text-[var(--rd-accent)] font-medium"
-                          : "text-[var(--rd-text-3)] hover:bg-[var(--rd-muted)] hover:text-[var(--rd-text)]",
+                          : "text-[var(--rd-text)] hover:bg-[var(--rd-muted)]",
                       )}
                     >
                       {child.label}
@@ -519,12 +523,16 @@ function MobileNav({ currentApp }: { currentApp: AppKey }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const isActive = (m: { app?: AppKey; path?: string }) => {
+    const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
     if (m.app && m.app === currentApp) {
-      if (m.app === "home" && m.path) return window.location.pathname === m.path;
+      // For blog app child items, check the path
+      if (m.app === "blog" && m.path) {
+        return m.path === "/" ? pathname === "/" : pathname.startsWith(m.path);
+      }
+      if (m.app === "home" && m.path) return pathname === m.path;
       return true;
     }
     if (m.path && currentApp === "home") {
-      const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
       return m.path === "/" ? pathname === "/" : pathname.startsWith(m.path);
     }
     return false;
@@ -615,7 +623,7 @@ function MobileNav({ currentApp }: { currentApp: AppKey }) {
                             "flex items-center h-8 px-3 rounded-md text-sm transition-colors",
                             isActive(child.match)
                               ? "text-[var(--rd-accent)] font-medium"
-                              : "text-[var(--rd-text-3)] hover:bg-[var(--rd-muted)] hover:text-[var(--rd-text)]",
+                              : "text-[var(--rd-text)] hover:bg-[var(--rd-muted)]",
                           )}
                         >
                           {child.label}
