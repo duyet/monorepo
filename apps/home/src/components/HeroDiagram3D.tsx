@@ -360,12 +360,12 @@ function Edge({
     <Line
       points={points}
       color={palette[kind].line}
-      lineWidth={1.4}
+      lineWidth={0.8}
       transparent
-      opacity={0.55}
+      opacity={0.5}
       dashed
-      dashSize={0.18}
-      gapSize={0.32}
+      dashSize={0.15}
+      gapSize={0.35}
     />
   );
 }
@@ -450,7 +450,7 @@ function Scene({ reduceMotion }: { reduceMotion: boolean }) {
         zoomSpeed={0.6}
         panSpeed={0.4}
         minDistance={4}
-        maxDistance={18}
+        maxDistance={25}
         autoRotate={false}
         makeDefault
       />
@@ -484,7 +484,7 @@ export function HeroDiagram3D() {
       style={{ position: "relative", width: "100%", height: "100%", minHeight: 360 }}
     >
       <Canvas
-        camera={{ position: [0, 3, 12], fov: 45, near: 0.1, far: 100 }}
+        camera={{ position: [0, 2, 14], fov: 50, near: 0.1, far: 100 }}
         dpr={[1, 1.75]}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         onCreated={() => setReady(true)}
