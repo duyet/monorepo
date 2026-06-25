@@ -83,6 +83,8 @@ The [examples directory][examples] contains projects you can build depending on 
 - [`chrome-sandbox`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/chrome-sandbox) (browser automation) and [`mcp-server-sandbox`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/mcp-server-sandbox) (running an MCP server inside a Sandbox).
 - [`sandbox-ksa`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/sandbox-ksa): Using a dedicated Kubernetes Service Account (KSA) inside a Sandbox.
 
+![Kubernetes Agent Sandbox running in production](/media/2026/06/agent-sandbox-on-kubernetes/agent-sandbox.png)
+
 ## Use case: The Self-Fixing Agent
 
 I used to manually copy and paste Sentry errors or ad-hoc requests blindly into a Claude Code session with the `/fix-and-push` command without double-checking. Most of the time, this only required one short prompt. Since my codebase context is now stable, I automated this process.
@@ -174,8 +176,6 @@ flowchart TD
   Deployment1@{ shape: processes }
   Deployment2@{ shape: processes }
 `}</Mermaid>
-
-![Kubernetes Agent Sandbox running in production](/media/2026/06/agent-sandbox-on-kubernetes/agent-sandbox.png)
 
 If you want a simpler option, [Claude Code GitHub Actions][cc-gha] is an easy alternative if you already use GitHub. It provides the same context and works in a similar way without needing a custom control plane.
 
