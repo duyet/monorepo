@@ -86,7 +86,7 @@ The [examples directory][examples] contains projects you can build depending on 
 
 ## Use case: The Self-Fixing Agent
 
-I used to manually copy and paste Sentry errors or adhoc requests blindly into a Claude Code session with the `/fix-and-push` command without double checking. Most of the time, this only required one short prompt. Since my codebase context is now stable, I automated this process.
+I used to manually copy and paste Sentry errors or ad-hoc requests blindly into a Claude Code session with the `/fix-and-push` command without double-checking. Most of the time, this only required one short prompt. Since my codebase context is now stable, I automated this process.
 
 Now, a Sentry runtime error triggers a FastAPI webhook. A sandbox boots, reads the stack trace, reproduces the failure, writes a fix, and opens a pull request. This PR triggers our build and test pipeline, where another agent reviews and auto-merges it. This allows the system to patch itself.
 

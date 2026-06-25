@@ -85,7 +85,7 @@ The [examples directory][examples] contains projects you can build depending on 
 
 ## Use case: The Self-Fixing Agent
 
-I used to manually copy and paste Sentry errors or adhoc requests blindly into a Claude Code session with the `/fix-and-push` command without double checking. Most of the time, this only required one short prompt. Since my codebase context is now stable, I automated this process.
+I used to manually copy and paste Sentry errors or ad-hoc requests blindly into a Claude Code session with the `/fix-and-push` command without double-checking. Most of the time, this only required one short prompt. Since my codebase context is now stable, I automated this process.
 
 Now, a Sentry runtime error triggers a FastAPI webhook. A sandbox boots, reads the stack trace, reproduces the failure, writes a fix, and opens a pull request. This PR triggers our build and test pipeline, where another agent reviews and auto-merges it. This allows the system to patch itself.
 
@@ -218,7 +218,7 @@ The plan mode is still very useful but I also stopped giving instructions and st
 
 `Edit this file, add this test function` is an instruction. `Ship the refactor in small PRs, deploy each one, don't break master` is a goal. The first keeps me in the loop. The second lets me leave it — I write the goal, kick off a loop, and walk off. I'm not driving or reading code anymore. I decide what *done* means and check the result.
 
-ClickHouse Monitoring (Migrate Nextjs to Tanstack Start)[https://blog.duyet.net/2026/06/migrate-tanstack/] took ~37h of autonomous work to complete with a lot of improvements. There are ~50 PRs merged by daily on https://anyrouter.dev.
+[ClickHouse Monitoring (Migrate Nextjs to Tanstack Start)](https://blog.duyet.net/2026/06/migrate-tanstack/) took ~37h of autonomous work to complete with a lot of improvements. There are ~50 PRs merged by daily on https://anyrouter.dev.
 
 ## A goal and a loop
 
