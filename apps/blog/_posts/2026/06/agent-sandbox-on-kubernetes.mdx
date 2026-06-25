@@ -174,11 +174,15 @@ flowchart TD
   Deployment2@{ shape: processes }
 `}</Mermaid>
 
-{/* TODO before publishing: paste a real kubectl get sandbox and one end-to-end run (ticket to PR, or Sentry to fix). */}
-
 If you want a simpler option, [Claude Code GitHub Actions][cc-gha] is an easy alternative if you already use GitHub. It provides the same context and works in a similar way without needing a custom control plane.
 
-The Claude Agent Runner image is [public here][runner] with a detailed [architecture design][arch]. You can extending more with codex, AI SDK Agent, etc.
+I want to remind you again: the most important factor is context. During a goal-and-loop run, you can configure the agent (or set up a `StopHook`) to automatically summarize its findings and learn to create or update existing skills related to the codebase, business logic, and internal concepts. For example, imagine running this prompt at the end of a complex session that required deep research to ensure Claude remembers the context for future sessions without having to re-do the research:
+
+```prompt
+/skill-creator Analyze this entire conversation and extract the core workflow, formatting guidelines, and preferences we established, etc to create a custom Claude Skill (SKILL.md) that I can use in future sessions. Ask me for confirmation before finalizing the skill.
+```
+
+The Claude Agent Runner image is [public here][runner] with a detailed [architecture design][arch]. You can extend it further with custom code, the Antigravity SDK, and other agent frameworks.
 
 [kb]: https://kubernetes.io/blog/2026/03/20/running-agents-on-kubernetes-with-agent-sandbox/
 [runner]: https://github.com/duyet/claude-agent-runner
