@@ -79,12 +79,6 @@ export const Route = createRootRoute({
   component: RootComponent,
 });
 
-const llmLocalNav = [
-  { label: "Timeline", href: "/" },
-  { label: "Companies", href: "/org" },
-  { label: "Compare", href: "/compare" },
-];
-
 function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
@@ -96,11 +90,7 @@ function RootComponent() {
       <body>
         <ThemeProvider>
           <div className="min-h-screen bg-background text-foreground">
-            <SiteHeader
-              currentApp="llm-timeline"
-              localNav={llmLocalNav}
-              activeHref={pathname}
-            />
+            <SiteHeader currentApp="llm-timeline" />
             <main className="relative z-10">
               <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pb-16 pt-6">
                 <Outlet />

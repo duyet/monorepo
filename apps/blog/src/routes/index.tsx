@@ -1,7 +1,4 @@
-import {
-  Reveal,
-  SecHead,
-} from "@duyet/components";
+import { SecHead } from "@duyet/components";
 import { useMemo, useState, type ReactElement } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
@@ -174,9 +171,7 @@ function HomePage(): ReactElement {
         <section
           className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)] pt-0"
         >
-          <Reveal>
-            <FeaturedPost post={featured} />
-          </Reveal>
+          <FeaturedPost post={featured} />
         </section>
       )}
 

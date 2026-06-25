@@ -57,17 +57,7 @@ function RootComponent() {
       <body>
         <ThemeProvider>
           <div className="min-h-screen bg-background text-foreground overflow-x-hidden flex flex-col">
-            <SiteHeader
-              currentApp="insights"
-              localNav={[
-                { label: "Overview", href: "/" },
-                { label: "Blog Insights", href: "/blog" },
-                { label: "GitHub Insights", href: "/github" },
-                { label: "WakaTime Insights", href: "/wakatime" },
-                { label: "AI Insights", href: "/ai" },
-              ]}
-              activeHref={pathname}
-            />
+            <SiteHeader currentApp="insights" />
 
             <main className="mx-auto w-full max-w-[1040px] px-6 py-12 md:py-16 md:px-8 flex-grow">
               <Outlet />

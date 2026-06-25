@@ -88,11 +88,6 @@ export const Route = createRootRoute({
   component: RootComponent,
 });
 
-const photosLocalNav = [
-  { label: "Gallery", href: "/" },
-  { label: "Feed", href: "/feed" },
-];
-
 function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   return (
@@ -111,11 +106,7 @@ function RootComponent() {
       <body>
         <ThemeProvider>
           <div className="min-h-screen bg-white text-[#1a1a1a] dark:bg-[#0d0e0c] dark:text-[#f8f8f2]">
-            <SiteHeader
-              currentApp="photos"
-              localNav={photosLocalNav}
-              activeHref={pathname}
-            />
+            <SiteHeader currentApp="photos" />
             <main className="relative z-10 bg-white pb-16 dark:bg-[#0d0e0c]">
               <div className="mx-auto px-5 pb-16 pt-6 sm:px-8 lg:px-4 xl:px-6 2xl:px-8">
                 <Outlet />

@@ -47,12 +47,6 @@ export const Route = createRootRoute({
   component: RootComponent,
 });
 
-const homeLocalNav = [
-  { label: "Home", href: "/" },
-  { label: "Projects", href: "/projects" },
-  { label: "About", href: "/about" },
-];
-
 function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
@@ -64,11 +58,7 @@ function RootComponent() {
       <body>
         <ClerkAuthProvider>
           <ThemeProvider>
-            <SiteHeader
-              currentApp="home"
-              localNav={homeLocalNav}
-              activeHref={pathname}
-            />
+            <SiteHeader currentApp="home" />
             <Outlet />
             <SiteFooter />
           </ThemeProvider>

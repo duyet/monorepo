@@ -15,13 +15,6 @@ import ErrorPage from "@/app/error";
 import NotFoundPage from "@/app/not-found";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 
-const localNav = [
-  { label: "Overview", href: "/" },
-  { label: "Infrastructure", href: "/?tab=infrastructure" },
-  { label: "Kubernetes", href: "/?tab=k8s" },
-  { label: "Smart Devices", href: "/?tab=smart-devices" },
-];
-
 export const Route = createRootRoute({
   head: () => ({
     meta: [
@@ -52,11 +45,7 @@ function RootComponent() {
       </head>
       <body>
         <ThemeProvider>
-          <SiteHeader
-            currentApp="homelab"
-            localNav={localNav}
-            activeHref={pathname}
-          />
+          <SiteHeader currentApp="homelab" />
           <Outlet />
           <SiteFooter />
         </ThemeProvider>

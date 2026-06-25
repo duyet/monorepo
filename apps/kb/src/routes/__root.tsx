@@ -58,13 +58,6 @@ export const Route = createRootRoute({
   component: RootComponent,
 });
 
-const kbLocalNav = [
-  { label: "Home", href: "/" },
-  { label: "Categories", href: "/c" },
-  { label: "Memory", href: "/m" },
-  { label: "Dream", href: "/dream" },
-];
-
 function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
@@ -76,11 +69,7 @@ function RootComponent() {
       <body>
         <ThemeProvider>
           <div className="min-h-screen bg-background text-foreground">
-            <SiteHeader
-              currentApp="kb"
-              localNav={kbLocalNav}
-              activeHref={pathname}
-            />
+            <SiteHeader currentApp="kb" />
             <Outlet />
             <SiteFooter />
           </div>
