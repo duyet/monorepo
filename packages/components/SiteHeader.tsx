@@ -339,7 +339,13 @@ function GlobalNav({ currentApp }: { currentApp: AppKey }) {
 
   return (
     <nav ref={containerRef} className="hidden items-center gap-0.5 md:flex">
-      {GLOBAL_NAV.map((item) => {
+      {GLOBAL_NAV.filter((item) => {
+        // Show items that match current app OR are external links (no app match)
+        // Home app shows all items for global navigation
+        if (currentApp === "home") return true;
+        // For other apps, only show items that match their app OR have no app specified
+        return item.match.app === currentApp || !item.match.app;
+      }).map((item) => {
         const hasChildren = item.children && item.children.length > 0;
         const isDropdownOpen = openDropdown === item.label;
         const itemActive = isActive(item.match) || anyChildActive(item);
