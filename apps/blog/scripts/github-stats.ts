@@ -19,7 +19,7 @@
  */
 
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { join } from "node:path";
 
 // ---- config ---------------------------------------------------------------
 const ACCOUNTS = ["duyet", "duyetbot"]; // contributions merged across these
@@ -56,10 +56,11 @@ async function fetchYearMonthly(user: string, year: number): Promise<number[]> {
   const html = await res.text();
   const out = new Array(12).fill(0);
   const re = /(\d+)\s+contributions?\s+on\s+(\w+)/g;
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(html))) {
+  let m = re.exec(html);
+  while (m !== null) {
     const idx = MONTHS.indexOf(m[2]);
     if (idx >= 0) out[idx] += Number(m[1]);
+    m = re.exec(html);
   }
   return out;
 }

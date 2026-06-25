@@ -100,7 +100,7 @@ mkdirSync(PUBLIC_DIR, { recursive: true });
 const MEDIA_NOTES_DIR = join(PUBLIC_DIR, "media", "notes");
 mkdirSync(MEDIA_NOTES_DIR, { recursive: true });
 let attachmentsCopied = 0;
-for (const [file, url] of ATTACHMENTS_CACHE) {
+for (const [file] of ATTACHMENTS_CACHE) {
   copyFileSync(join(ATTACHMENTS_DIR, file), join(MEDIA_NOTES_DIR, file));
   attachmentsCopied++;
 }

@@ -16,9 +16,22 @@ description: "I run Claude inside agent sandboxes on a home Kubernetes cluster. 
 
 I run Claude inside agent sandboxes on a Kubernetes cluster to automatically fix errors, consume issue request tickets on [the loop][loop]. One sandbox consumes issue tickets and turns them into PRs and assign back to anther review agents. Another triggers on Sentry webhooks to diagnose and patch runtime bugs. You can also configure the agent to create follow-up issues or to-do tasks when it finds other areas to improve, allowing it to stay focused on the main task. This is **the bigger loop**, operating outside the [local Claude Code session loop](/2026/06/goal-and-loop/), and where the new Kubernetes Agent Sandbox CRD fits and still keep track with vision and internal kb docs.
 
-Many providers offer similar sandboxing environments, such as [Blackbox.ai](https://blackbox.ai/), [e2b.dev](https://e2b.dev), and Cloudflare Sandbox. However, running them on Kubernetes is a great fit if you work in an enterprise or use local models.
+Many providers offer similar sandboxing environments, such as [Blackbox.ai](https://blackbox.ai/), [e2b.dev](https://e2b.dev), Cloudflare Sandbox, and [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview). However, running them on Kubernetes is a great fit if you work in an enterprise or use local models.
 
-That is the bigger loop: not one agent on one task, but a system that consumes work continuously — issues in, PRs out; errors in, fixes out. Doing this by hand meant setting up a StatefulSet, a headless Service, a PVC, and a pile of RBAC and NetworkPolicy rules for each agent. [Agent Sandbox][kb] is, roughly, that entire setup packaged as a single CRD.
+**That's the bigger loop**: not just one agent running a single task, but a pipeline that runs continuously—issues in, PRs out; errors in, fixes out. Doing this by hand means provisioning a StatefulSet, a headless Service, a PVC, and a pile of RBAC and NetworkPolicy rules for every agent runner. [Agent Sandbox][kb] wraps that entire boilerplate into a single CRD.
+
+# Agent Sandbox Kubernetes: Core Components
+
+**Agent Sandbox is designed to run AI agents securely and efficiently in isolated, short-lived environments on Kubernetes.**
+
+Instead of managing complex resources manually, it provides a single custom resource (CRD) to handle the lifecycle of agent containers. Existing Kubernetes objects aren't a good fit:
+- **Deployments** are stateless and designed for scaling web servers.
+- **StatefulSets** are stable but built for long-running database clusters, not quick, one-off agent tasks.
+
+The Sandbox CRD fills this gap by offering three key features:
+- **Stable identity**: Each Sandbox gets its own hostname and network identity.
+- **Persistent storage**: Your agent's files and workspaces stay intact even if the container crashes and restarts.
+- **Lifecycle management**: The controller lets you create, delete, pause, and resume sandboxes. If an agent is idle, you can freeze it and pick up exactly where it left off later.
 
 ## Agent Sandbox Kubernetes: Core Components & Extensions
 
@@ -62,30 +75,22 @@ For most workloads, start with the Core Sandbox. The extensions are only needed 
 
 The [examples directory][examples] contains projects you can build depending on your needs:
 
-- `code-interpreter-agent-on-adk`: A code interpreter built on the Antigravity SDK (ADK).
-- `hermes-agent`: Long-running agents.
-- `langchain`: Agents using the LangChain framework.
-- `jupyterlab` and `vscode-sandbox`: Interactive development environments.
-- `chrome-sandbox` (browser automation) and `mcp-server-sandbox` (running an MCP server inside a Sandbox).
+- [`code-interpreter-agent-on-adk`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/code-interpreter-agent-on-adk): A code interpreter built on the Antigravity SDK (ADK).
+- [`hermes-agent`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/hermes-agent): Long-running agents.
+- [`langchain`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/langchain): Agents using the LangChain framework.
+- [`jupyterlab`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/jupyterlab) and [`vscode-sandbox`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/vscode-sandbox): Interactive development environments.
+- [`chrome-sandbox`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/chrome-sandbox) (browser automation) and [`mcp-server-sandbox`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/mcp-server-sandbox) (running an MCP server inside a Sandbox).
+- [`sandbox-ksa`](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/sandbox-ksa): Using a dedicated Kubernetes Service Account (KSA) inside a Sandbox.
 
 ## Use Case: A Self-Fixing Agent
 
-I used to manually copy and paste Sentry errors into a Claude Code session with the `/fix-and-push` command. Most of the time, this only required one short prompt. Since my codebase context is now stable, I automated this process.
+I used to manually copy and paste Sentry errors or adhoc requests blindly into a Claude Code session with the `/fix-and-push` command without double checking. Most of the time, this only required one short prompt. Since my codebase context is now stable, I automated this process.
 
 Now, a Sentry runtime error triggers a FastAPI webhook. A sandbox boots, reads the stack trace, reproduces the failure, writes a fix, and opens a pull request. This PR triggers our build and test pipeline, where another agent reviews and auto-merges it. This allows the system to patch itself.
 
 To make this safe, you need strong CI/CD guards, smoke tests on staging, and controlled promotion to production. The Sandbox makes this secure because each run is isolated and temporary. The agent cannot access the Kubernetes cluster API, so an agent pushing a fix at 3:00 AM cannot damage the rest of the cluster.
 
 ### How it works
-
-The `Sandbox` CRD is the core of `agent-sandbox`. It provides a declarative API to manage a single, stateful pod with a stable identity and persistent storage. Existing Kubernetes resources do not fit this pattern:
-- **Deployments** are stateless and replicated.
-- **StatefulSets** are stable and numbered, but designed for database fleets rather than one-off agent runs.
-
-The Sandbox fills this gap by offering three key features:
-- **Stable identity**: Each Sandbox gets a stable hostname and network identity.
-- **Persistent storage**: Disk storage can persist across restarts, so a crash does not wipe the agent's workspace.
-- **Lifecycle management**: The controller handles creation, deletion, pausing, and resuming. This means an idle agent can be suspended and resumed later exactly where it left off.
 
 In my runner setup, the FastAPI control plane creates a Sandbox for each task, and that Sandbox creates the Pod where Claude runs.
 
