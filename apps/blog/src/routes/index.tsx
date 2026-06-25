@@ -20,7 +20,7 @@ export const Route = createFileRoute("/")({
   loader: async () => {
     const [postsByYear, shortforms] = await Promise.all([
       getPostsByAllYear(),
-      Promise.resolve(getShortforms(3)),
+      Promise.resolve(getShortforms(4)),
     ]);
     return { postsByYear, shortforms };
   },
