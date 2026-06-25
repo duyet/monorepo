@@ -50,6 +50,12 @@ export const Route = createRootRoute({
 function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
+  const homeLocalNav = [
+    { label: "Home", href: "/" },
+    { label: "Projects", href: "/projects" },
+    { label: "About", href: "/about" },
+  ];
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -58,7 +64,7 @@ function RootComponent() {
       <body>
         <ClerkAuthProvider>
           <ThemeProvider>
-            <SiteHeader currentApp="home" />
+            <SiteHeader currentApp="home" localNav={homeLocalNav} activeHref={pathname} />
             <Outlet />
             <SiteFooter />
           </ThemeProvider>
