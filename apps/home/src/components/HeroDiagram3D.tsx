@@ -61,7 +61,7 @@ const nodes: NodeDef[] = [
   { id: "workflow", t: "Workflow", kind: "infra", slug: "cloudflareworkers", url: "https://developers.cloudflare.com/workflows", phi: 0, theta: 0, r: 0 },
   { id: "pages", t: "Pages", kind: "infra", slug: "cloudflarepages", url: "https://pages.cloudflare.com", phi: 0, theta: 0, r: 0 },
   { id: "k3s", t: "K3s", kind: "infra", slug: "k3s", url: "https://k3s.io", phi: 0, theta: 0, r: 0 },
-  { id: "traefik", t: "Traefik", kind: "infra", slug: "traefik", url: "https://traefik.io", phi: 0, theta: 0, r: 0 },
+  { id: "traefik", t: "Traefik", kind: "infra", slug: "traefik", lc: "5A5A5A", url: "https://traefik.io", phi: 0, theta: 0, r: 0 },
   // Data tooling
   { id: "airflow", t: "Airflow", kind: "data", slug: "apacheairflow", url: "https://airflow.apache.org", phi: 0, theta: 0, r: 0 },
   { id: "duckdb", t: "DuckDB", kind: "data", slug: "duckdb", url: "https://duckdb.org", phi: 0, theta: 0, r: 0 },
