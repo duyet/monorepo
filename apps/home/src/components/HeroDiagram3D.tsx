@@ -74,10 +74,9 @@ const nodes: NodeDef[] = [
   { id: "tanstack", t: "TanStack", kind: "infra", slug: "tanstack", url: "https://tanstack.com", phi: 0, theta: 0, r: 0 },
   { id: "wasm", t: "WASM", kind: "data", slug: "webassembly", url: "https://webassembly.org", phi: 0, theta: 0, r: 0 },
   { id: "rust", t: "Rust", kind: "infra", slug: "rust", url: "https://rust-lang.org", phi: 0, theta: 0, r: 0 },
-  { id: "shadcn", t: "shadcn", kind: "infra", icon: "https://www.shadcn-ui.com/favicon.ico", url: "https://ui.shadcn.com", phi: 0, theta: 0, r: 0 },
   { id: "blog", t: "Blog", kind: "data", url: "https://blog.duyet.net", phi: 0, theta: 0, r: 0 },
   { id: "agentstate", t: "AgentState", kind: "ai", url: "https://github.com/anthropics/agent-state", phi: 0, theta: 0, r: 0 },
-  { id: "chmonitor", t: "CHMonitor", kind: "data", url: "https://github.com/duyet/chmonitor", phi: 0, theta: 0, r: 0 },
+  { id: "chmonitor", t: "CHMonitor", kind: "data", slug: "clickhouse", lc: "C28800", url: "https://github.com/duyet/chmonitor", phi: 0, theta: 0, r: 0 },
 ];
 
 const byId = Object.fromEntries(nodes.map((n) => [n.id, n] as const));
@@ -135,10 +134,8 @@ const edges: [string, string][] = [
   // Blog & tooling
   ["blog", "dataplatform"],
   ["blog", "tanstack"],
-  ["blog", "shadcn"],
   ["blog", "wasm"],
   ["wasm", "rust"],
-  ["shadcn", "tanstack"],
   // Agent ecosystem
   ["agentstate", "claude"],
   ["agentstate", "mcp"],
