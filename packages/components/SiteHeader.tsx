@@ -240,12 +240,17 @@ const APPS: AppDef[] = [
  * identically from any sub-app. `match` decides the active highlight:
  * `app` keys compare against `currentApp`; `path` keys compare against the
  * current pathname (only meaningful on the home app).
+ *
+ * `blogOnly` — only rendered when currentApp === "blog".
+ * `hideOnApps` — explicitly excluded from the listed apps.
  */
 const GLOBAL_NAV: {
   label: string;
   href: string;
   match: { app?: AppKey; path?: string };
   children?: { label: string; href: string; match: { app?: AppKey; path?: string } }[];
+  blogOnly?: boolean;
+  hideOnApps?: AppKey[];
 }[] = [
   {
     label: "Home",
@@ -265,14 +270,30 @@ const GLOBAL_NAV: {
   {
     label: "Blog",
     href: "https://blog.duyet.net",
-    match: { app: "blog" },
+    match: { app: "blog", path: "/" },
+  },
+  {
+    label: "Series",
+    href: "https://blog.duyet.net/series",
+    match: { app: "blog", path: "/series" },
+    blogOnly: true,
+  },
+  {
+    label: "Note",
+    href: "https://blog.duyet.net/notes",
+    match: { app: "blog", path: "/notes" },
+    blogOnly: true,
+  },
+  {
+    label: "More",
+    href: "https://blog.duyet.net/archives",
+    match: { app: "blog", path: "/more-menu" },
+    blogOnly: true,
     children: [
-      { label: "Latest", href: "https://blog.duyet.net", match: { app: "blog", path: "/" } },
-      { label: "Notes", href: "https://blog.duyet.net/notes", match: { app: "blog", path: "/notes" } },
       { label: "Archives", href: "https://blog.duyet.net/archives", match: { app: "blog", path: "/archives" } },
       { label: "Categories", href: "https://blog.duyet.net/categories", match: { app: "blog", path: "/categories" } },
       { label: "Tags", href: "https://blog.duyet.net/tags", match: { app: "blog", path: "/tags" } },
-      { label: "Series", href: "https://blog.duyet.net/series", match: { app: "blog", path: "/series" } },
+      { label: "About", href: "https://duyet.net/about", match: { path: "/about" } },
     ],
   },
   { label: "CV", href: "https://cv.duyet.net", match: { app: "cv" } },
@@ -289,6 +310,7 @@ const GLOBAL_NAV: {
     label: "About",
     href: "https://duyet.net/about",
     match: { path: "/about" },
+    hideOnApps: ["blog"],
   },
 ];
 
@@ -340,10 +362,9 @@ function GlobalNav({ currentApp }: { currentApp: AppKey }) {
   return (
     <nav ref={containerRef} className="hidden items-center gap-0.5 md:flex">
       {GLOBAL_NAV.filter((item) => {
-        // Show items that match current app OR are external links (no app match)
-        // Home app shows all items for global navigation
+        if (item.hideOnApps?.includes(currentApp)) return false;
+        if (item.blogOnly) return currentApp === "blog";
         if (currentApp === "home") return true;
-        // For other apps, only show items that match their app OR have no app specified
         return item.match.app === currentApp || !item.match.app;
       }).map((item) => {
         const hasChildren = item.children && item.children.length > 0;
@@ -600,7 +621,12 @@ function MobileNav({ currentApp }: { currentApp: AppKey }) {
           )}
         >
           <nav className="flex flex-col p-1">
-            {GLOBAL_NAV.map((item) => {
+            {GLOBAL_NAV.filter((item) => {
+              if (item.hideOnApps?.includes(currentApp)) return false;
+              if (item.blogOnly) return currentApp === "blog";
+              if (currentApp === "home") return true;
+              return item.match.app === currentApp || !item.match.app;
+            }).map((item) => {
               const hasChildren = item.children && item.children.length > 0;
               const isDropdownOpen = openDropdown === item.label;
               const itemActive = isActive(item.match) || anyChildActive(item);
