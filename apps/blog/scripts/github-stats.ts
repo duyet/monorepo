@@ -241,7 +241,6 @@ function shareCard(c: Cache, th: Theme): string {
   const x = (i: number) => L + slot * i + (slot - bw) / 2;
   const last = d[d.length - 1];
   const peak = d.reduce((a, b) => (b.v > a.v ? b : a));
-  const total = d.reduce((s, r) => s + r.v, 0);
   const p: string[] = [];
 
   p.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" font-family="Inter, ui-sans-serif, system-ui, sans-serif" role="img">`);
@@ -249,18 +248,8 @@ function shareCard(c: Cache, th: Theme): string {
   p.push(`<rect width="${W}" height="${H}" fill="${th.bg}"/>`);
 
   // title block
-  p.push(`<text x="${P}" y="118" font-size="62" font-weight="800" letter-spacing="-1.5"><tspan fill="${th.ink}">Goal and&#160;</tspan><tspan fill="${th.accent}">Loop</tspan></text>`);
-  p.push(`<text x="${P}" y="156" font-size="20" font-weight="600" ${op(th.ink, 0.78)}>@duyet · GitHub activity over the years</text>`);
-  p.push(`<text x="${P}" y="184" font-size="13" ${op(th.ink, 0.5)}>Monthly contributions by type — commits, PRs, reviews, issues &amp; private · ${d[0].ym} – ${d[d.length - 1].ym} · ${(total / 1000).toFixed(0)}k total · latest month partial</text>`);
-
-  // legend (top-right)
-  let lx = R;
-  for (let t = TYPES.length - 1; t >= 0; t--) {
-    const label = TYPES[t].label;
-    lx -= label.length * 6.4 + 28;
-    p.push(`<rect x="${lx.toFixed(1)}" y="92" width="11" height="11" rx="2" fill="${th.type[TYPES[t].key]}"/>`);
-    p.push(`<text x="${(lx + 16).toFixed(1)}" y="101.5" font-size="12" ${op(th.ink, 0.72)}>${label}</text>`);
-  }
+  p.push(`<text x="${P}" y="124" font-size="72" font-weight="800" letter-spacing="-2.5" xml:space="preserve"><tspan fill="${th.ink}">Goal and </tspan><tspan fill="${th.accent}">Loop</tspan></text>`);
+  p.push(`<text x="${P}" y="162" font-size="20" font-weight="600" ${op(th.ink, 0.72)}>@duyet · GitHub activity over the years</text>`);
 
   // gridlines
   const step = niceStep(mx / 4);
@@ -271,18 +260,13 @@ function shareCard(c: Cache, th: Theme): string {
   }
   p.push(`<line x1="${L}" y1="${BASE}" x2="${R}" y2="${BASE}" stroke="${th.ink}" stroke-opacity="0.25"/>`);
 
-  // stacked bars
+  // bars — all contributions merged into one bar per month. Bars from the
+  // Claude Code launch onward are accent-coloured to show the goal+loop era.
   let li = -1;
   d.forEach((row, i) => {
-    const bx = x(i);
-    let yc = BASE;
-    for (const t of TYPES) {
-      const seg = row[t.key];
-      if (seg <= 0) continue;
-      const h = seg * sc;
-      yc -= h;
-      p.push(`<rect x="${bx.toFixed(1)}" y="${yc.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" fill="${th.type[t.key]}"/>`);
-    }
+    const h = row.v * sc, bx = x(i), by = BASE - h;
+    const col = row.ym >= LAUNCH.ym ? th.accent : th.ink;
+    p.push(`<rect x="${bx.toFixed(1)}" y="${by.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" fill="${col}"/>`);
     if (row.ym === LAUNCH.ym) li = i;
   });
 
