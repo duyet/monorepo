@@ -159,6 +159,9 @@
     <loc>https://kb.duyet.net/m</loc>
   </url>
   <url>
+    <loc>https://kb.duyet.net/m/cloudflare-acquires-astro</loc>
+  </url>
+  <url>
     <loc>https://kb.duyet.net/m/feedback-cheap-models-subagents</loc>
   </url>
   <url>
@@ -192,6 +195,9 @@
     <loc>https://kb.duyet.net/m/project-llm-timeline</loc>
   </url>
   <url>
+    <loc>https://kb.duyet.net/m/reference-ai-sdk-history-uimessage-mapping</loc>
+  </url>
+  <url>
     <loc>https://kb.duyet.net/m/reference-duyet-blog</loc>
   </url>
   <url>
@@ -213,10 +219,19 @@
     <loc>https://kb.duyet.net/m/tech-traefik-forwardauth-oauth2-proxy</loc>
   </url>
   <url>
+    <loc>https://kb.duyet.net/m/tech-qdrant-hnsw-tuning</loc>
+  </url>
+  <url>
     <loc>https://kb.duyet.net/m/tech-ai-agent-stack</loc>
   </url>
   <url>
+    <loc>https://kb.duyet.net/m/tech-eve-framework</loc>
+  </url>
+  <url>
     <loc>https://kb.duyet.net/m/tech-hermes-agent-custom-provider</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-hermes-dashboard-auth</loc>
   </url>
   <url>
     <loc>https://kb.duyet.net/m/tech-okf-open-knowledge-format</loc>
@@ -240,7 +255,13 @@
     <loc>https://kb.duyet.net/m/tech-tanstack-start-ssg</loc>
   </url>
   <url>
+    <loc>https://kb.duyet.net/m/tech-agent-loop-autonomous-pr-management</loc>
+  </url>
+  <url>
     <loc>https://kb.duyet.net/m/tech-codebase-maintenance-loop</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-tmux-pane-status-labels</loc>
   </url>
   <url>
     <loc>https://kb.duyet.net/m/user-duyet-ai-stance</loc>

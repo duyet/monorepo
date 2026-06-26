@@ -4,7 +4,7 @@ URL: https://kb.duyet.net
 Sitemap: https://kb.duyet.net/sitemap.xml
 Raw Markdown: https://kb.duyet.net/k/<slug>.md
 
-32 articles across 8 categories, 32 memory notes.
+32 articles across 8 categories, 39 memory notes.
 
 ## Articles
 
@@ -234,6 +234,12 @@ Summary: Nine improvement cycles completed as of March 2026 — ~155 total fixes
 
 ## Memory
 
+### Cloudflare acquired Astro (January 2026)
+URL: https://kb.duyet.net/m/cloudflare-acquires-astro
+Markdown: https://kb.duyet.net/m/cloudflare-acquires-astro.md
+Type: reference
+Description: Cloudflare acquired The Astro Technology Company in Jan 2026; the Astro team (Fred Schott) now ships agent tooling like Flue on Cloudflare
+
 ### Use cheap models for sub-agents
 URL: https://kb.duyet.net/m/feedback-cheap-models-subagents
 Markdown: https://kb.duyet.net/m/feedback-cheap-models-subagents.md
@@ -300,6 +306,12 @@ Markdown: https://kb.duyet.net/m/project-llm-timeline.md
 Type: project
 Description: llm-timeline.duyet.net — TanStack Start SSG timeline of LLM models 1950–2026, shadcn UI, dual data sources
 
+### AI SDK chat history — map persisted parts to UIMessage at the client boundary
+URL: https://kb.duyet.net/m/reference-ai-sdk-history-uimessage-mapping
+Markdown: https://kb.duyet.net/m/reference-ai-sdk-history-uimessage-mapping.md
+Type: reference
+Description: Vercel AI SDK UIMessage rehydration pitfall — persisted tool/chart parts vanish on history reload unless translated to native dynamic-tool shape
+
 ### Duyet — blog content & themes
 URL: https://kb.duyet.net/m/reference-duyet-blog
 Markdown: https://kb.duyet.net/m/reference-duyet-blog.md
@@ -342,17 +354,35 @@ Markdown: https://kb.duyet.net/m/tech-traefik-forwardauth-oauth2-proxy.md
 Type: tech
 Description: Traefik ErrorPages middleware preserves original status (won't pass 302 through), so forwardAuth with OAuth2 needs an nginx redirector to convert 401→302
 
+### Qdrant HNSW + quantization tuning for high-dim vectors
+URL: https://kb.duyet.net/m/tech-qdrant-hnsw-tuning
+Markdown: https://kb.duyet.net/m/tech-qdrant-hnsw-tuning.md
+Type: reference
+Description: Why high-dim (e.g. 4096-d) Qdrant collections time out, and the HNSW + INT8 quantization config that fixes it
+
 ### AI agent building — tech stack
 URL: https://kb.duyet.net/m/tech-ai-agent-stack
 Markdown: https://kb.duyet.net/m/tech-ai-agent-stack.md
 Type: tech
 Description: Frameworks/SDKs for building LLM agents (LangGraph, AI SDK, Claude/OpenAI Agents SDK, MCP) + what Duyet uses
 
+### eve framework (Vercel durable agents)
+URL: https://kb.duyet.net/m/tech-eve-framework
+Markdown: https://kb.duyet.net/m/tech-eve-framework.md
+Type: reference
+Description: Filesystem-first durable-agent framework — file layout, extension model, and the Node-24 .ts-import gotcha
+
 ### Hermes agent custom LLM provider config
 URL: https://kb.duyet.net/m/tech-hermes-agent-custom-provider
 Markdown: https://kb.duyet.net/m/tech-hermes-agent-custom-provider.md
 Type: tech
 Description: Hermes (codingllm/hermes) uses custom_providers list + provider:custom to register non-built-in OpenAI-compatible endpoints
+
+### Hermes dashboard auth gate (nous OAuth plugin)
+URL: https://kb.duyet.net/m/tech-hermes-dashboard-auth
+Markdown: https://kb.duyet.net/m/tech-hermes-dashboard-auth.md
+Type: tech
+Description: How the Hermes web dashboard auth gate + nous Portal OAuth plugin actually engage — insecure/loopback precedence, redirect-URI tiers, localhost-allowlist gotcha
 
 ### Open Knowledge Format (OKF) — the spec this KB already implements
 URL: https://kb.duyet.net/m/tech-okf-open-knowledge-format
@@ -396,11 +426,23 @@ Markdown: https://kb.duyet.net/m/tech-tanstack-start-ssg.md
 Type: tech
 Description: Why + how to prerender a Vite app with TanStack Start SSG to survive Cloudflare Rocket Loader
 
+### Agent-loop autonomous PR management
+URL: https://kb.duyet.net/m/tech-agent-loop-autonomous-pr-management
+Markdown: https://kb.duyet.net/m/tech-agent-loop-autonomous-pr-management.md
+Type: tech
+Description: Continuous loop that monitors all open PRs, triages by status, dispatches cheap subagents for fixes/reviews, reduces manual context overhead
+
 ### Codebase maintenance loop
 URL: https://kb.duyet.net/m/tech-codebase-maintenance-loop
 Markdown: https://kb.duyet.net/m/tech-codebase-maintenance-loop.md
 Type: tech
 Description: Improvement-cycle sweeps, safe dead-code removal, and test discipline used to keep duyet.net low-debt
+
+### Tmux dynamic pane status labels
+URL: https://kb.duyet.net/m/tech-tmux-pane-status-labels
+Markdown: https://kb.duyet.net/m/tech-tmux-pane-status-labels.md
+Type: tech
+Description: Tmux automatic-rename-format using pane_current_command icons to distinguish active coding agents from idle shells at a glance
 
 ### Duyet — AI & coding-agent stance
 URL: https://kb.duyet.net/m/user-duyet-ai-stance

@@ -1716,6 +1716,26 @@ Run tests before and after each fix to confirm no regression. Commit each logica
 
 ---
 
+# Cloudflare acquired Astro (January 2026)
+URL: https://kb.duyet.net/m/cloudflare-acquires-astro
+Type: reference
+Description: Cloudflare acquired The Astro Technology Company in Jan 2026; the Astro team (Fred Schott) now ships agent tooling like Flue on Cloudflare
+
+Cloudflare acquired **The Astro Technology Company** (makers of the open-source
+Astro web framework) — announced **2026-01-16**. CEO **Fred Schott** and the Astro
+team joined Cloudflare; Astro stays open source.
+
+Why it matters for attribution:
+- **Flue** (open agent framework, `github.com/withastro/flue`, powered by the Pi
+  harness) is built by the Astro team — so it is correctly described as *both*
+  "from the Astro team" *and* "from Cloudflare" post-acquisition.
+- On Cloudflare, each Flue agent maps to a Durable Object via the [[flue-agent-framework]] / Agents SDK primitives.
+
+Gotcha: training cutoff (~Jan 2026) lands right on this date — verify against the
+live Cloudflare blog rather than memory.
+
+---
+
 # Use cheap models for sub-agents
 URL: https://kb.duyet.net/m/feedback-cheap-models-subagents
 Type: feedback
@@ -2008,9 +2028,9 @@ layout, components, design tokens, deps, build/deploy config, landing-page copy.
 **Out of scope (needs human direction):** blog post content (`apps/blog/_posts/**`)
 and LLM Timeline curated data — those are Duyet's authored words/research facts.
 
-**Autonomous loop** (`/loop` or one-shot `claude -p`): measure → fix top-priority
-issue → verify (lint+test+build) → commit → background-deploy → log. Priority order:
-build > tests > lint > deploy > code quality > features. See [[tech-cloudflare-pages-deploy]].
+**Autonomous loops:**
+- **Improvement loop** (`/loop` or one-shot `claude -p`): measure → fix top-priority issue → verify (lint+test+build) → commit → background-deploy → log. Priority order: build > tests > lint > deploy > code quality > features. See [[tech-cloudflare-pages-deploy]].
+- **PR management loop** (`/agent-loop:resume`): runs continuously every 15 min, triages all open PRs, dispatches cheap subagents (Sonnet/Haiku) for reviews/fixes/merges. See [[tech-agent-loop-autonomous-pr-management]].
 
 **Memory hierarchy** (most→least durable): commit messages → kb articles → durable
 findings doc → session memory `.md` snapshots → transcript. Memory files are
@@ -2117,6 +2137,42 @@ Description: llm-timeline.duyet.net — TanStack Start SSG timeline of LLM model
 for the scroll; WASM normalizer crate via `initSync` (kept for consistency though
 not faster — see [[tech-rust-wasm-prerender]]); badge variants replace
 color-lookup functions. Design conventions: [[tech-flat-design-system]].
+
+---
+
+# AI SDK chat history — map persisted parts to UIMessage at the client boundary
+URL: https://kb.duyet.net/m/reference-ai-sdk-history-uimessage-mapping
+Type: reference
+Description: Vercel AI SDK UIMessage rehydration pitfall — persisted tool/chart parts vanish on history reload unless translated to native dynamic-tool shape
+
+Building a chat UI on Vercel AI SDK (`useChat`, v5/v6/v7) backed by your own
+history API: a stored tool/chart part can render fine **live** but vanish on
+**history reload**. Live streaming feeds AI SDK its native SSE protocol, so parts
+arrive as the lib's own shape; history returns your DB's DTO shape, which AI SDK
+does not recognize.
+
+**Root cause.** AI SDK `UIMessage` = `{id, role, parts[], metadata?}`. Its
+renderer switches on each part's `type` and drops unknown types (`default: null`,
+silently). Native tool parts are `dynamic-tool` / `tool-${name}` with
+`{state, input, output}`. A neutral persistence DTO usually stores
+`{type:'tool-call', args, result}` + a parallel `annotations[]` array → none of
+which AI SDK reads.
+
+**Why a converter is needed.** Your API is a persistence/transport DTO, not a
+view-model. Translate at the client boundary:
+- tool parts: `tool-call`/`args`/`result` → `dynamic-tool` (`input`/`output`,
+  `state:'output-available'` when a result exists, else `input-available`)
+- side-channel `annotations[]` (token usage, reasoning, errors) → `data-${name}` parts
+- envelope: add `status:'ready'`, `id` fallback, normalize timestamps
+
+**Why not just fix the API?** Only safe if AI SDK is the *sole* consumer. One
+endpoint serving both a legacy custom renderer (reads `tool-call`) and an AI SDK
+renderer (needs `dynamic-tool`) can't emit one native shape without breaking the
+other — keep the API neutral, translate per client. Clean end-state once the
+legacy path retires: emit native `UIMessage` server-side, delete the shim.
+
+**Smell:** a response carrying `parts[]` AND `annotations[]` AND `toolInvocations[]`
+is three encodings of the same data — removable cruft once on one renderer.
 
 ---
 
@@ -2338,6 +2394,56 @@ Apply to IngressRoute via `middlewares` annotation or CRD middleware chain.
 
 ---
 
+# Qdrant HNSW + quantization tuning for high-dim vectors
+URL: https://kb.duyet.net/m/tech-qdrant-hnsw-tuning
+Type: reference
+Description: Why high-dim (e.g. 4096-d) Qdrant collections time out, and the HNSW + INT8 quantization config that fixes it
+
+## What Qdrant is
+Vector database: stores embeddings + payload (metadata), does approximate
+nearest-neighbour (ANN) search by vector similarity, optionally pre-filtered by
+payload. A "collection" = one vector space (fixed dimension + distance metric).
+
+## HNSW — the ANN index
+**Hierarchical Navigable Small World**: a multi-layer proximity graph. Each
+point links to its nearest neighbours; upper layers are sparse "express lanes",
+lower layers dense. Search greedily hops toward the query — **logarithmic**, not
+a full scan. Key params:
+- `m` — links per node (graph density). Higher = better recall, more RAM. 16 is a good default.
+- `ef_construct` — candidate list size at build time. Higher = better index quality, slower build. 200 is solid.
+- `full_scan_threshold` — below this many points (or post-filter subset), Qdrant does brute force instead of HNSW. **A tight payload filter can drop you under this → silent full scan.**
+
+## Why high-dim collections time out
+Cost scales with **dimension × points searched**. A 4096-d float32 vector is
+2.67× a 1536-d one. With default HNSW (`ef_construct=100`) **or** a filter that
+forces full scan, search over full-precision 4096-d vectors blows past a tool's
+timeout. Symptom: *some* queries return, others time out on the *same*
+collection (the slow ones are filtered/borderline → full scan).
+
+## The fix: quantization
+**INT8 scalar quantization** stores a 1-byte proxy per dimension (4× smaller
+than float32), kept in RAM (`always_ram=true`). HNSW traverses the cheap int8
+vectors, then **rescores** the top candidates at full precision (kept on disk).
+This is the dominant speedup at high dimensions. Combine with `on_disk=true`
+vectors so RAM holds only the quantized index.
+
+## Gotchas
+- **Config applies only at `create_collection`.** Changing creation code does
+  NOT retro-fit an existing collection. Apply in-place with `update_collection`
+  (sets `hnsw_config` / `quantization_config` — re-optimizes, **no re-embed**),
+  or recreate/reindex.
+- **Payload indexes are separate.** Filtered search (`language=en`, category…)
+  needs a payload index per field or it scans. Create explicitly.
+- **Centralize creation config** in one helper so every collection (and future
+  blue-green swaps) inherits HNSW + quantization, instead of bare `VectorParams`.
+
+## Verify / remediate a live collection
+- `client.get_collection(name)` → inspect `config.hnsw_config`, `quantization_config`.
+- `client.update_collection(name, quantization_config=..., hnsw_config=...)` — in-place.
+- List payload indexes via `get_collection(...).payload_schema`.
+
+---
+
 # AI agent building — tech stack
 URL: https://kb.duyet.net/m/tech-ai-agent-stack
 Type: tech
@@ -2362,6 +2468,50 @@ The 2026 stack for building LLM agents, by layer:
 SDK, OpenAI Agents SDK, Cloudflare Agents, Vercel AI SDK, LlamaIndex, LangChain;
 OpenRouter/AnyRouter for routing; MCP (mcp.duyet.net). Core pattern: plan →
 execute → test → reflect with persistent memory.
+
+---
+
+# eve framework (Vercel durable agents)
+URL: https://kb.duyet.net/m/tech-eve-framework
+Type: reference
+Description: Filesystem-first durable-agent framework — file layout, extension model, and the Node-24 .ts-import gotcha
+
+**eve** = Vercel's filesystem-first framework for durable backend AI agents (npm `eve`,
+Node 24+). An agent is a directory under `agent/`; eve compiles + runs it, persists every
+session, serves it over HTTP. Docs ship in `node_modules/eve/docs/` — read these, they
+match the installed version.
+
+## File layout (everything is a file)
+- `agent/agent.ts` — `defineAgent({ model, modelContextWindowTokens })`.
+- `agent/instructions.md` — always-on system prompt (identity/rules).
+- `agent/connections/<name>.ts` — `defineMcpClientConnection({url,description,auth?,tools?,approval?})`
+  or `defineOpenAPIConnection`. Name = filename. Model calls `connection__<name>__<tool>`
+  via `connection__search`; creds never reach the model.
+- `agent/skills/<name>/SKILL.md` (or flat `.md`) — load-on-demand procedures (`load_skill`);
+  `description` frontmatter is the routing hint. `defineSkill` for typed/packaged.
+- `agent/tools/<snake_case>.ts` — `defineTool({description, inputSchema: zod, execute})`.
+  Filename = tool name. Gate side effects with `needsApproval: always()/once()` (`eve/tools/approval`).
+- `agent/channels/eve.ts` — `eveChannel({ auth: [...] })`. Auth is **fail-closed**;
+  `placeholderAuth()` blocks browsers in prod — use `none()` (`eve/channels/auth`) as the
+  last entry for a public web chat.
+- State: `defineState(name, initial)` from `eve/context` — durable but **session-scoped**
+  (get/update). Cross-session data → a connection or external store.
+- HITL: built-in `ask_question` tool (model asks the user); approvals via `needsApproval`.
+
+## Gotchas (learned building eved)
+- **Imports between agent modules must use the real `.ts` extension** (`./model.ts`, not
+  `./model.js`). eve runs raw TS via Node 24 native type-stripping, which does NOT rewrite
+  `.js`→`.ts`; the docs' `.js` convention fails the dev runtime (`ERR_MODULE_NOT_FOUND`).
+  Set `allowImportingTsExtensions: true` so tsgo accepts it. eve's generated
+  `module-map.mjs` uses `.ts` — that's the tell.
+- Commands: `eve dev|build|start|info`; typecheck via `tsgo`. `eve info` = quick compile check.
+- **Frontend**: `eve/next` `withEve(nextConfig)` + `eve/react` `useEveAgent()`; same dir,
+  `agent/` at root. assistant-ui bridges cleanly via `useExternalStoreRuntime`.
+- `npx skills add <gh-repo>` vendors the WHOLE source repo (incl. its own CLAUDE.md/AGENTS.md
+  → pollutes your agent's context). Prefer a self-contained `.claude/skills/<n>/SKILL.md`.
+
+First used building **eved** (github.com/duyet/eved): a public Duyet-assistant agent on eve
++ AnyRouter, with duyet / firecrawl / clickhouse-monitor MCP connections.
 
 ---
 
@@ -2406,6 +2556,46 @@ display:
 - `steer`: when the agent is busy processing, new user messages are queued and the agent adjusts its current task to incorporate them (rather than ignoring or queuing blindly)
 - `busy_ack_enabled: true`: sends a brief acknowledgment so the user knows the message was received
 - Alternative values: `reject`, `queue` (agent-specific)
+
+---
+
+# Hermes dashboard auth gate (nous OAuth plugin)
+URL: https://kb.duyet.net/m/tech-hermes-dashboard-auth
+Type: tech
+Description: How the Hermes web dashboard auth gate + nous Portal OAuth plugin actually engage — insecure/loopback precedence, redirect-URI tiers, localhost-allowlist gotcha
+
+Hermes (`nousresearch/hermes-agent`) ships a bundled **`nous`** dashboard-auth
+plugin (OAuth 2.0 auth-code + PKCE vs Nous Portal `portal.nousresearch.com`).
+Source of truth when docs are scarce: read the bundled plugin at
+`/opt/hermes/plugins/dashboard_auth/nous/` inside the running image.
+
+- **Gate is independent of providers.** `web_server.should_require_auth(host, allow_public)`
+  decides if the in-app auth gate engages: **loopback host → off**; **non-loopback
+  + `insecure`/`--insecure` → off**; **non-loopback + not insecure → ON**. A
+  registered provider (nous/OIDC/basic) is only *consulted* when the gate is ON.
+  `allow_public` = `HERMES_DASHBOARD_INSECURE=1`.
+- **nous activation — two gates, both required (on the `main` build):**
+  (1) **opt-in allow-list** — `main` made bundled plugins opt-in; `nous` loads
+  only if listed in `plugins.enabled` (config.yaml; set via `hermes plugins enable`
+  OR, for chart-managed deploys, in `config.values`). (2) **client_id** — env
+  `HERMES_DASHBOARD_OAUTH_CLIENT_ID` (chart `dashboard.auth.oauthClientId`) wins
+  over config.yaml `dashboard.oauth.client_id`; shape `agent:{instance_id}`; empty
+  → provider skipped (no-op). See [[tech-hermes-agent-custom-provider]].
+- **Overwrite trap:** the chart's `config.overwrite: true` rewrites config.yaml
+  from the ConfigMap every boot, so a runtime `hermes plugins enable` is wiped on
+  restart. Put `plugins.enabled: [nous]` in `config.values` instead (deep-merge
+  keeps it over the default `[]`). Verified: log line
+  `dashboard-auth-nous: registered provider (client_id=…, portal=https://portal.nousresearch.com)`.
+- **Redirect-URI tiers** (`dashboard_auth/routes.py:_redirect_uri`):
+  `dashboard.public_url`/`HERMES_DASHBOARD_PUBLIC_URL` → else `X-Forwarded-Host`+`Proto`
+  → else request URL. The **Portal allowlist is authoritative** (plugin's local
+  check allows any `http(s)://…/auth/callback`).
+- **Homelab gotcha:** instance runs `insecure: true` behind Traefik forwardAuth
+  (see [[tech-traefik-forwardauth-oauth2-proxy]]), so the gate never engages →
+  registering nous is **dormant** (no effect). The default Portal allowlist is
+  `http://localhost:<port>/auth/callback` only, so it can't authenticate an
+  Ingress URL — to make nous the real dashboard auth you must: turn insecure OFF,
+  set `dashboard.public_url`, and add the public callback to the Portal allowlist.
 
 ---
 
@@ -2652,6 +2842,100 @@ hides prerender errors — see [[tech-rust-wasm-prerender]]. Deploy: [[tech-clou
 
 ---
 
+# Agent-loop autonomous PR management
+URL: https://kb.duyet.net/m/tech-agent-loop-autonomous-pr-management
+Type: tech
+Description: Continuous loop that monitors all open PRs, triages by status, dispatches cheap subagents for fixes/reviews, reduces manual context overhead
+
+**Agent-loop** is a continuous, self-paced autonomous system that manages all open PRs without human context overhead.
+
+## Cycle Structure
+
+Runs indefinitely on 15-minute intervals (configurable):
+
+1. **Wait** — sleep for cycle interval (15 min)
+2. **Triage** — scan all open PRs across all repos, classify by status
+3. **Dispatch** — route work to parallel subagent threads
+4. **Monitor** — track thread progress and outcomes
+5. **Report** — log cycle summary to `.agent-loop/` state files
+
+## What It Triages
+
+- **Merge-ready**: PR is passing, approved, no conflicts → dispatch merge agent
+- **Review-ready**: PR is passing, needs review → dispatch code-review subagent
+- **Needs-fix**: PR is failing tests/lint/type-check → dispatch fix subagent
+- **Merge-blocked**: conflicts, failing checks, waiting on approval → log and defer
+- **Deferred**: previously seen, no change → skip
+
+## Subagent Dispatch Strategy
+
+**Cheap models only** (Sonnet/Haiku) — preserves main context:
+
+- **Haiku** — test failures, lint fixes, simple refactors
+- **Sonnet** — code reviews, complex refactors, multi-file changes
+- **Main context** — strategic decisions only (scope conflicts, architectural questions)
+
+Max 3 parallel threads per cycle (prevents queue overflow).
+
+## State & Recovery
+
+- **Persisted to** `.agent-loop/state.json` in repo root
+- **Recovers** cycle count, items processed, PRs merged, active thread list, thread history
+- **Backups** kept in `.agent-loop/backups/` (timestamped) for recovery from corruption
+- **Commands**: `/agent-loop:status` (quick), `/agent-loop:inspect` (full), `/agent-loop:stop` (graceful)
+
+## Effectiveness & Cost Savings
+
+**What it eliminates:**
+- Manual PR reviews (triaged by subagents in parallel)
+- Manual fix cycles (test failures → fix → re-run → merge in one agent call)
+- Context-switching cost (loop runs in background, main context for decisions only)
+- Duplicate work (state tracking prevents re-triaging)
+
+**Why cheap subagents work:**
+- PRs have clear status (passing/failing) → less ambiguity
+- Fixes are scoped (fix this test file, not "improve the codebase")
+- Reviews use heuristics (no duplicated code, type safety, naming) → Sonnet sufficient
+- Merge/CI tasks are deterministic (run test suite, merge, revert if fail)
+
+**Cost vs. value:**
+- Haiku @ 80 tokens/request × 20 fixes/cycle = 1.6k tokens
+- Sonnet @ 200 tokens/request × 5 reviews/cycle = 1k tokens
+- Per 15-min cycle: ~3k tokens (vs. Opus main-loop @ 10x cost)
+- 4 cycles/hr × 6 hrs/day = 24 cycles/day = 72k tokens/day (sustainable)
+
+## Setup & Configuration
+
+```bash
+# Resume with all-repos scope, 15-min cycle
+/agent-loop:resume --scope all --interval 900
+
+# Check status
+/agent-loop:status
+
+# Stop gracefully
+/agent-loop:stop
+```
+
+Configuration persists in state.json; resume re-applies saved interval/scope.
+
+## Integration Points
+
+- **CI systems**: loop watches GitHub Actions status in real-time
+- **PR queue**: triages GitHub PR API endpoints (open, draft, status)
+- **Git operations**: merge via CLI, uses signed commits (GPG if configured)
+- **Logging**: appends to `.agent-loop/cycles/<YYYY-MM-DD>.log` + `state.json` metrics
+
+## Next: Scaling to Org Scope
+
+Currently monitoring single project. Roadmap:
+- Fan out to multiple repos (`--scope all --repos org/repo1,org/repo2`)
+- Route complex PRs to senior-engineer agents when heuristics are uncertain
+- Auto-create follow-up issues for deferred PRs (merge-blockers, architecture questions)
+- Dashboard showing cycle health, merge velocity, average review time
+
+---
+
 # Codebase maintenance loop
 URL: https://kb.duyet.net/m/tech-codebase-maintenance-loop
 Type: tech
@@ -2675,6 +2959,70 @@ findings in the core-memory doc — do NOT create dated review files.
 when business logic changes (encode WHY, not just WHAT). Priority by risk:
 security/credentials → data transforms (normalizers, slugs, markdown) → render
 correctness → edge cases.
+
+---
+
+# Tmux dynamic pane status labels
+URL: https://kb.duyet.net/m/tech-tmux-pane-status-labels
+Type: tech
+Description: Tmux automatic-rename-format using pane_current_command icons to distinguish active coding agents from idle shells at a glance
+
+## Problem
+
+When running multiple tmux windows with coding agents, you can't tell at a glance which tabs have an active agent session vs which are sitting idle at a shell prompt waiting for human review.
+
+## Solution
+
+Create a `~/.local/bin/tmux-pane-label` script that maps `#{pane_current_command}` to a descriptive icon+label, then wire it into tmux's `automatic-rename-format`.
+
+### Script location
+
+`~/.local/bin/tmux-pane-label` (chmod +x, must be in `$PATH`)
+
+### Command → label mapping
+
+| Command | Tab label | Meaning |
+|---|---|---|
+| `opencode`, `claude`, `codex`, `cursor` | `⟳ name` | Agent actively running |
+| `bash`, `sh`, `zsh`, `fish` | `⌄ name` | Idle at shell prompt |
+| `nvim`, `vim`, `nano` | `✎ name` | Editor open |
+| `node`, `npm`, `bun`, `deno` | `⚡ name` | Dev tool running |
+| `python`, `python3` | `🐍 python` | Python process |
+| `ssh` | `🌐 ssh` | Remote session |
+| `htop`, `top`, `btm` | `📊 name` | System monitor |
+| `docker` | `🐳 docker` | Container tool |
+| `sudo` | `🔒 sudo` | Privileged command |
+| `make`, `cargo`, `go` | `🔨 name` | Build tool |
+| `less`, `more`, `man` | `📄 name` | Pager |
+| `tail`, `tailf`, `watch` | `📋 name` | Log follow |
+| `tmux` | `⏎` | Tmux internal |
+| anything else | raw command name | Fallback |
+
+### Tmux config (`~/.tmux.conf.local` for gpakosz/.tmux)
+
+```tmux
+set -g automatic-rename-format \
+  "#{?pane_in_mode,[tmux],#(tmux-pane-label #{pane_id})}#{?pane_dead,[dead],}"
+
+# ⌃b + Shift+R re-enables dynamic naming on a manually-renamed window
+bind R set-window-option automatic-rename on \; display "Dynamic naming ON"
+```
+
+### How it works
+
+- `automatic-rename-format` dynamically sets window names based on the active pane
+- The script calls `tmux display -t <pane_id> -p '#{pane_current_command}'` and classifies the result
+- When a coding agent is the foreground process, the tab shows "⟳ agentname"
+- When the agent exits and the shell returns, the tab switches to "⌄ bash"
+- Previously renamed windows (`automatic-rename off` per-window) keep static names
+- **⌃b + Shift+R** re-enables dynamic naming on per-window basis
+
+### Notes
+
+- Script must handle panes that no longer exist (`tmux display` fails → returns `"?"`)
+- The `#()` format expansion is fast (<10ms per call, runs per status-interval)
+- Manual window names (via `⌃b + ,`) take precedence and disable automatic-rename
+- Tested with tmux 3.6a and gpakosz/.tmux config framework
 
 ---
 
