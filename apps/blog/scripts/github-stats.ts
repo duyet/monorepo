@@ -230,26 +230,30 @@ function niceStep(maxPerTick: number): number {
   return [500, 1000, 2000, 2500, 5000, 10000, 20000].find((c) => c >= maxPerTick) ?? 20000;
 }
 
-// 1200x630 share card: big "Goal and Loop" title + stacked monthly chart.
+// A vertical bar with rounded top corners (baseline corners stay square).
+function barPath(bx: number, by: number, w: number, h: number, r: number): string {
+  const rad = Math.max(0, Math.min(r, w / 2, h));
+  const base = by + h;
+  return `M${bx.toFixed(1)},${base.toFixed(1)} L${bx.toFixed(1)},${(by + rad).toFixed(1)} Q${bx.toFixed(1)},${by.toFixed(1)} ${(bx + rad).toFixed(1)},${by.toFixed(1)} L${(bx + w - rad).toFixed(1)},${by.toFixed(1)} Q${(bx + w).toFixed(1)},${by.toFixed(1)} ${(bx + w).toFixed(1)},${(by + rad).toFixed(1)} L${(bx + w).toFixed(1)},${base.toFixed(1)} Z`;
+}
+
+// 1200x630 share card: big serif "Goal and Loop" title + rounded monthly bars.
 function shareCard(c: Cache, th: Theme): string {
   const d = c.contributions.monthly;
   const W = 1200, H = 630, P = 64;
-  const L = P, R = W - P, TOP = 232, BASE = 548;
-  const n = d.length, slot = (R - L) / n, bw = slot * 0.74;
+  const L = P, R = W - P, TOP = 190, BASE = 538;
+  const n = d.length, slot = (R - L) / n, bw = slot * 0.62;
   const mx = Math.max(...d.map((x) => x.v), 1);
   const sc = (BASE - TOP) / mx;
   const x = (i: number) => L + slot * i + (slot - bw) / 2;
-  const last = d[d.length - 1];
-  const peak = d.reduce((a, b) => (b.v > a.v ? b : a));
   const p: string[] = [];
 
   p.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" font-family="Inter, ui-sans-serif, system-ui, sans-serif" role="img">`);
   p.push(`<title>Goal and Loop — @duyet GitHub activity over the years, ${d[0].ym} to ${d[d.length - 1].ym}.</title>`);
   p.push(`<rect width="${W}" height="${H}" fill="${th.bg}"/>`);
 
-  // title block
-  p.push(`<text x="${P}" y="124" font-size="72" font-weight="800" letter-spacing="-2.5" xml:space="preserve"><tspan fill="${th.ink}">Goal and </tspan><tspan fill="${th.accent}">Loop</tspan></text>`);
-  p.push(`<text x="${P}" y="162" font-size="20" font-weight="600" ${op(th.ink, 0.72)}>@duyet · GitHub activity over the years</text>`);
+  // title (serif display face for editorial contrast against the sans chrome)
+  p.push(`<text x="${P}" y="132" font-family="Georgia, 'Times New Roman', serif" font-size="80" font-weight="700" letter-spacing="-1" xml:space="preserve"><tspan fill="${th.ink}">Goal and </tspan><tspan fill="${th.accent}">Loop</tspan></text>`);
 
   // gridlines
   const step = niceStep(mx / 4);
@@ -260,44 +264,35 @@ function shareCard(c: Cache, th: Theme): string {
   }
   p.push(`<line x1="${L}" y1="${BASE}" x2="${R}" y2="${BASE}" stroke="${th.ink}" stroke-opacity="0.25"/>`);
 
-  // bars — all contributions merged into one bar per month. Bars from the
-  // Claude Code launch onward are accent-coloured to show the goal+loop era.
+  // bars — all contributions merged into one rounded bar per month. Bars from
+  // the Claude Code launch onward are accent-coloured to show the goal+loop era.
   let li = -1;
   d.forEach((row, i) => {
     const h = row.v * sc, bx = x(i), by = BASE - h;
     const col = row.ym >= LAUNCH.ym ? th.accent : th.ink;
-    p.push(`<rect x="${bx.toFixed(1)}" y="${by.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" fill="${col}"/>`);
+    p.push(`<path d="${barPath(bx, by, bw, h, 3.5)}" fill="${col}"/>`);
     if (row.ym === LAUNCH.ym) li = i;
   });
 
   // launch marker
   if (li >= 0) {
-    const mlx = x(li) - 1;
+    const mlx = x(li) - 2;
     p.push(`<line x1="${mlx.toFixed(1)}" y1="${TOP}" x2="${mlx.toFixed(1)}" y2="${BASE}" stroke="${th.accent}" stroke-width="1.2" stroke-dasharray="4 3"/>`);
     p.push(`<circle cx="${mlx.toFixed(1)}" cy="${TOP}" r="3.2" fill="${th.accent}"/>`);
-    p.push(`<text x="${(mlx - 7).toFixed(1)}" y="${TOP - 5}" font-size="12" fill="${th.accent}" font-weight="600" text-anchor="end">${esc(LAUNCH.label)}</text>`);
+    p.push(`<text x="${(mlx - 7).toFixed(1)}" y="${TOP - 5}" font-size="12.5" fill="${th.accent}" font-weight="600" text-anchor="end">${esc(LAUNCH.label)}</text>`);
   }
-
-  // peak callout on the latest bar (the goal-and-loop effect)
-  const isPeak = peak.ym === last.ym;
-  const lastTop = BASE - last.v * sc;
-  const px = Math.min(x(d.length - 1) + bw, R);
-  p.push(`<text x="${px.toFixed(1)}" y="${(lastTop - 24).toFixed(1)}" font-size="22" font-weight="800" fill="${th.accent}" text-anchor="end">${last.v.toLocaleString()}</text>`);
-  // small triangle marker (drawn, not a glyph, so it rasterizes in any font)
-  const tx = px - 86, ty = lastTop - 16;
-  p.push(`<polygon points="${tx},${ty} ${tx + 9},${ty} ${(tx + 4.5).toFixed(1)},${ty - 8}" fill="${th.accent}"/>`);
-  p.push(`<text x="${px.toFixed(1)}" y="${(lastTop - 9).toFixed(1)}" font-size="11" font-weight="600" fill="${th.accent}" fill-opacity="0.9" text-anchor="end">${isPeak ? "peak after goal + loop" : "latest"}</text>`);
 
   // year labels
   const years = [...new Set(d.map((r) => r.ym.slice(0, 4)))];
   for (const y of years) {
     const idx = d.map((r, i) => (r.ym.startsWith(y) ? i : -1)).filter((i) => i >= 0);
     const cx = (x(idx[0]) + x(idx[idx.length - 1]) + bw) / 2;
-    p.push(`<text x="${cx.toFixed(1)}" y="572" font-size="11.5" ${op(th.ink, 0.7)} text-anchor="middle">${y}</text>`);
+    p.push(`<text x="${cx.toFixed(1)}" y="566" font-size="11.5" ${op(th.ink, 0.7)} text-anchor="middle">${y}</text>`);
   }
-  // footer
-  p.push(`<text x="${P}" y="606" font-size="12" ${op(th.ink, 0.45)}>blog.duyet.net/2026/06/goal-and-loop</text>`);
-  p.push(`<text x="${R}" y="606" font-size="12" ${op(th.ink, 0.45)} text-anchor="end">give it a goal and a loop — it keeps shipping</text>`);
+
+  // footer — @duyet note moved here, with the post URL on the right
+  p.push(`<text x="${P}" y="602" font-size="13" font-weight="600" ${op(th.ink, 0.6)}>@duyet · GitHub activity over the years</text>`);
+  p.push(`<text x="${R}" y="602" font-size="12" ${op(th.ink, 0.45)} text-anchor="end">blog.duyet.net/2026/06/goal-and-loop</text>`);
   p.push(`</svg>`);
   return p.join("\n");
 }
