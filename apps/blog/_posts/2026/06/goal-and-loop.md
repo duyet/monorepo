@@ -9,7 +9,7 @@ tags:
   - Agents
   - Claude Code
 slug: /2026/06/goal-and-loop
-thumbnail: /media/2026/06/goal-and-loop/contributions.svg
+thumbnail: /media/2026/06/goal-and-loop/contributions-light.png
 description: "You've probably heard of the agent loop by now. This is just a quick note on how I actually use it day to day — a `goal` and a `loop` — to get a lot more shipped."
 
 ---
