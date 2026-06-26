@@ -59,27 +59,24 @@ type Cache = {
 
 type Theme = {
   name: string;
-  bgStart: string;
-  bgEnd: string;
+  bg: string;
   ink: string;
   sub: string;
   accent: string;
 };
 
-// Palette + gradient mirror the agent-sandbox-on-kubernetes hero card.
+// Solid backgrounds (no gradient); fonts/palette mirror the agent-sandbox hero.
 const THEMES: Theme[] = [
   {
     name: "light",
-    bgStart: "#ffffff",
-    bgEnd: "#eceffa",
+    bg: "#ffffff",
     ink: "#1a1a1a",
     sub: "#6b7280",
     accent: "#d97441",
   },
   {
     name: "dark",
-    bgStart: "#0f172a",
-    bgEnd: "#1e293b",
+    bg: "#0f172a",
     ink: "#f8fafc",
     sub: "#94a3b8",
     accent: "#e0875a",
@@ -258,8 +255,7 @@ function shareCard(c: Cache, th: Theme): string {
 
   p.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" font-family="${SANS}" role="img">`);
   p.push(`<title>Goal and Loop — @duyet GitHub activity over the years, ${d[0].ym} to ${d[d.length - 1].ym}.</title>`);
-  p.push(`<defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${th.bgStart}"/><stop offset="1" stop-color="${th.bgEnd}"/></linearGradient></defs>`);
-  p.push(`<rect width="${W}" height="${H}" fill="url(#bg)"/>`);
+  p.push(`<rect width="${W}" height="${H}" fill="${th.bg}"/>`);
 
   // title — Inter, matching the hero card's weight/tracking
   p.push(`<text x="${P}" y="128" font-size="64" font-weight="600" letter-spacing="-1.5" xml:space="preserve"><tspan fill="${th.ink}">Goal and </tspan><tspan fill="${th.accent}">Loop</tspan></text>`);

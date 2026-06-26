@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" font-family="Inter,system-ui,-apple-system,sans-serif" role="img">
 <title>Goal and Loop — @duyet GitHub activity over the years, 2018-01 to 2026-06.</title>
-<defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#eceffa"/></linearGradient></defs>
-<rect width="1200" height="630" fill="url(#bg)"/>
+<rect width="1200" height="630" fill="#ffffff"/>
 <text x="64" y="128" font-size="64" font-weight="600" letter-spacing="-1.5" xml:space="preserve"><tspan fill="#1a1a1a">Goal and </tspan><tspan fill="#d97441">Loop</tspan></text>
 <text x="64" y="160" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="20" fill="#6b7280">github.com/duyet</text>
 <line x1="64" y1="434.6" x2="1136" y2="434.6" stroke="#1a1a1a" stroke-opacity="0.10"/>
