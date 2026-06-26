@@ -1,5 +1,6 @@
 import type { Series } from "@duyet/interfaces";
-import { Card, CardContent, cn } from "@duyet/components";
+import { Card, CardContent } from "@duyet/components";
+import { cn } from "@duyet/libs/utils";
 import {
   createFileRoute,
   Link,
