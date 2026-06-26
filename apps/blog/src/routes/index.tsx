@@ -197,6 +197,7 @@ function HomePage(): ReactElement {
                 padding="normal"
                 headingLevel="h3"
                 variant="homepage"
+                showExcerpt
               />
             ))}
           </div>

@@ -11,6 +11,7 @@ interface NoteCardProps {
   padding?: 'normal' | 'large'
   headingLevel?: 'h2' | 'h3'
   variant?: 'homepage' | 'notes'
+  showExcerpt?: boolean
 }
 
 export function NoteCard({
@@ -20,6 +21,7 @@ export function NoteCard({
   padding = 'normal',
   headingLevel = 'h3',
   variant = 'homepage',
+  showExcerpt = false,
 }: NoteCardProps) {
   const Heading = headingLevel
   const paddingClass = padding === 'large' ? 'p-6' : 'p-5'
@@ -29,6 +31,14 @@ export function NoteCard({
     variant === 'homepage'
       ? 'md:col-span-3'
       : 'md:col-span-2 xl:col-span-1 xl:row-span-2'
+
+  const titleText = note.title || note.excerpt
+
+  // Excerpt: only show if it differs from the title and isn't redundant
+  const excerptText =
+    showExcerpt && note.excerpt && note.excerpt !== titleText
+      ? note.excerpt
+      : null
 
   return (
     <Link
@@ -40,17 +50,22 @@ export function NoteCard({
     >
       {featured && <CornerDecoration />}
 
-      <div className="flex-1">
-        <Heading className="text-[var(--rd-text)] mb-1 text-sm font-medium leading-snug">
-          {note.title || note.excerpt}
+      <div className="flex-1 min-w-0">
+        <Heading className="text-[var(--rd-text)] mb-1 text-base font-semibold leading-snug">
+          {titleText}
         </Heading>
+        {excerptText && (
+          <p className="mt-1.5 mb-1 text-[13px] leading-relaxed text-[var(--rd-text-2)] line-clamp-2">
+            {excerptText}
+          </p>
+        )}
         <time className="text-[var(--rd-text-3)] font-mono text-xs tabular-nums">
           {distanceToNow(note.date)}
         </time>
       </div>
 
       <ArrowRight
-        className="h-4 w-4 shrink-0 text-[var(--rd-accent-ink)] transition-transform duration-150 group-hover/bento:translate-x-0.5"
+        className="ml-3 h-4 w-4 shrink-0 text-[var(--rd-accent-ink)] transition-transform duration-150 group-hover/bento:translate-x-0.5"
         size={16}
       />
     </Link>
