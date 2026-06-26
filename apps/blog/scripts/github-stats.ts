@@ -59,26 +59,30 @@ type Cache = {
 
 type Theme = {
   name: string;
-  bg: string;
+  bgStart: string;
+  bgEnd: string;
   ink: string;
+  sub: string;
   accent: string;
-  type: Record<TypeKey, string>;
 };
 
+// Palette + gradient mirror the agent-sandbox-on-kubernetes hero card.
 const THEMES: Theme[] = [
   {
     name: "light",
-    bg: "#f8f8f2",
+    bgStart: "#ffffff",
+    bgEnd: "#eceffa",
     ink: "#1a1a1a",
+    sub: "#6b7280",
     accent: "#d97441",
-    type: { commits: "#1a1a1a", prs: "#d97441", reviews: "#5b7c99", issues: "#b8893a", private: "#cfc9bb" },
   },
   {
     name: "dark",
-    bg: "#1a1a1a",
-    ink: "#f5f3ec",
+    bgStart: "#0f172a",
+    bgEnd: "#1e293b",
+    ink: "#f8fafc",
+    sub: "#94a3b8",
     accent: "#e0875a",
-    type: { commits: "#d8d5cc", prs: "#e0875a", reviews: "#6f97b8", issues: "#c79a4f", private: "#57544c" },
   },
 ];
 
@@ -224,7 +228,6 @@ async function update(): Promise<Cache> {
 // ---- chart generators -----------------------------------------------------
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const kfmt = (v: number) => (v >= 1000 ? `${(v / 1000).toFixed(1)}k` : String(v));
-const op = (hex: string, o: number) => `fill="${hex}" fill-opacity="${o}"`;
 
 function niceStep(maxPerTick: number): number {
   return [500, 1000, 2000, 2500, 5000, 10000, 20000].find((c) => c >= maxPerTick) ?? 20000;
@@ -237,7 +240,12 @@ function barPath(bx: number, by: number, w: number, h: number, r: number): strin
   return `M${bx.toFixed(1)},${base.toFixed(1)} L${bx.toFixed(1)},${(by + rad).toFixed(1)} Q${bx.toFixed(1)},${by.toFixed(1)} ${(bx + rad).toFixed(1)},${by.toFixed(1)} L${(bx + w - rad).toFixed(1)},${by.toFixed(1)} Q${(bx + w).toFixed(1)},${by.toFixed(1)} ${(bx + w).toFixed(1)},${(by + rad).toFixed(1)} L${(bx + w).toFixed(1)},${base.toFixed(1)} Z`;
 }
 
-// 1200x630 share card: big serif "Goal and Loop" title + rounded monthly bars.
+// Fonts mirror the agent-sandbox-on-kubernetes hero card.
+const SANS = "Inter,system-ui,-apple-system,sans-serif";
+const MONO = "ui-monospace,SFMono-Regular,Menlo,monospace";
+
+// 1200x630 share card styled to match the agent-sandbox hero: gradient
+// background, Inter title, monospace meta. Rounded monthly contribution bars.
 function shareCard(c: Cache, th: Theme): string {
   const d = c.contributions.monthly;
   const W = 1200, H = 630, P = 64;
@@ -248,19 +256,21 @@ function shareCard(c: Cache, th: Theme): string {
   const x = (i: number) => L + slot * i + (slot - bw) / 2;
   const p: string[] = [];
 
-  p.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" font-family="Inter, ui-sans-serif, system-ui, sans-serif" role="img">`);
+  p.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" font-family="${SANS}" role="img">`);
   p.push(`<title>Goal and Loop — @duyet GitHub activity over the years, ${d[0].ym} to ${d[d.length - 1].ym}.</title>`);
-  p.push(`<rect width="${W}" height="${H}" fill="${th.bg}"/>`);
+  p.push(`<defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${th.bgStart}"/><stop offset="1" stop-color="${th.bgEnd}"/></linearGradient></defs>`);
+  p.push(`<rect width="${W}" height="${H}" fill="url(#bg)"/>`);
 
-  // title (serif display face for editorial contrast against the sans chrome)
-  p.push(`<text x="${P}" y="132" font-family="Georgia, 'Times New Roman', serif" font-size="80" font-weight="700" letter-spacing="-1" xml:space="preserve"><tspan fill="${th.ink}">Goal and </tspan><tspan fill="${th.accent}">Loop</tspan></text>`);
+  // title — Inter, matching the hero card's weight/tracking
+  p.push(`<text x="${P}" y="128" font-size="64" font-weight="600" letter-spacing="-1.5" xml:space="preserve"><tspan fill="${th.ink}">Goal and </tspan><tspan fill="${th.accent}">Loop</tspan></text>`);
+  p.push(`<text x="${P}" y="160" font-family="${MONO}" font-size="20" fill="${th.sub}">github.com/duyet</text>`);
 
   // gridlines
   const step = niceStep(mx / 4);
   for (let gv = step; gv <= mx; gv += step) {
     const gy = BASE - gv * sc;
     p.push(`<line x1="${L}" y1="${gy.toFixed(1)}" x2="${R}" y2="${gy.toFixed(1)}" stroke="${th.ink}" stroke-opacity="0.10"/>`);
-    p.push(`<text x="${L - 6}" y="${(gy + 3).toFixed(1)}" font-size="10" ${op(th.ink, 0.4)} text-anchor="end">${kfmt(gv)}</text>`);
+    p.push(`<text x="${L - 6}" y="${(gy + 3).toFixed(1)}" font-family="${MONO}" font-size="10" fill="${th.sub}" text-anchor="end">${kfmt(gv)}</text>`);
   }
   p.push(`<line x1="${L}" y1="${BASE}" x2="${R}" y2="${BASE}" stroke="${th.ink}" stroke-opacity="0.25"/>`);
 
@@ -279,7 +289,7 @@ function shareCard(c: Cache, th: Theme): string {
     const mlx = x(li) - 2;
     p.push(`<line x1="${mlx.toFixed(1)}" y1="${TOP}" x2="${mlx.toFixed(1)}" y2="${BASE}" stroke="${th.accent}" stroke-width="1.2" stroke-dasharray="4 3"/>`);
     p.push(`<circle cx="${mlx.toFixed(1)}" cy="${TOP}" r="3.2" fill="${th.accent}"/>`);
-    p.push(`<text x="${(mlx - 7).toFixed(1)}" y="${TOP - 5}" font-size="12.5" fill="${th.accent}" font-weight="600" text-anchor="end">${esc(LAUNCH.label)}</text>`);
+    p.push(`<text x="${(mlx - 7).toFixed(1)}" y="${TOP - 5}" font-family="${MONO}" font-size="12" fill="${th.accent}" text-anchor="end">${esc(LAUNCH.label)}</text>`);
   }
 
   // year labels
@@ -287,12 +297,12 @@ function shareCard(c: Cache, th: Theme): string {
   for (const y of years) {
     const idx = d.map((r, i) => (r.ym.startsWith(y) ? i : -1)).filter((i) => i >= 0);
     const cx = (x(idx[0]) + x(idx[idx.length - 1]) + bw) / 2;
-    p.push(`<text x="${cx.toFixed(1)}" y="566" font-size="11.5" ${op(th.ink, 0.7)} text-anchor="middle">${y}</text>`);
+    p.push(`<text x="${cx.toFixed(1)}" y="566" font-family="${MONO}" font-size="11" fill="${th.sub}" text-anchor="middle">${y}</text>`);
   }
 
-  // footer — @duyet note moved here, with the post URL on the right
-  p.push(`<text x="${P}" y="602" font-size="13" font-weight="600" ${op(th.ink, 0.6)}>@duyet · GitHub activity over the years</text>`);
-  p.push(`<text x="${R}" y="602" font-size="12" ${op(th.ink, 0.45)} text-anchor="end">blog.duyet.net/2026/06/goal-and-loop</text>`);
+  // footer — @duyet note and the post URL, in monospace like the hero subtitle
+  p.push(`<text x="${P}" y="602" font-family="${MONO}" font-size="13" fill="${th.sub}">@duyet · GitHub activity over the years</text>`);
+  p.push(`<text x="${R}" y="602" font-family="${MONO}" font-size="12" fill="${th.sub}" text-anchor="end">blog.duyet.net/2026/06/goal-and-loop</text>`);
   p.push(`</svg>`);
   return p.join("\n");
 }

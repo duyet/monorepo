@@ -1,13 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" font-family="Inter, ui-sans-serif, system-ui, sans-serif" role="img">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" font-family="Inter,system-ui,-apple-system,sans-serif" role="img">
 <title>Goal and Loop — @duyet GitHub activity over the years, 2018-01 to 2026-06.</title>
-<rect width="1200" height="630" fill="#f8f8f2"/>
-<text x="64" y="132" font-family="Georgia, 'Times New Roman', serif" font-size="80" font-weight="700" letter-spacing="-1" xml:space="preserve"><tspan fill="#1a1a1a">Goal and </tspan><tspan fill="#d97441">Loop</tspan></text>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#eceffa"/></linearGradient></defs>
+<rect width="1200" height="630" fill="url(#bg)"/>
+<text x="64" y="128" font-size="64" font-weight="600" letter-spacing="-1.5" xml:space="preserve"><tspan fill="#1a1a1a">Goal and </tspan><tspan fill="#d97441">Loop</tspan></text>
+<text x="64" y="160" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="20" fill="#6b7280">github.com/duyet</text>
 <line x1="64" y1="434.6" x2="1136" y2="434.6" stroke="#1a1a1a" stroke-opacity="0.10"/>
-<text x="58" y="437.6" font-size="10" fill="#1a1a1a" fill-opacity="0.4" text-anchor="end">2.0k</text>
+<text x="58" y="437.6" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" fill="#6b7280" text-anchor="end">2.0k</text>
 <line x1="64" y1="331.2" x2="1136" y2="331.2" stroke="#1a1a1a" stroke-opacity="0.10"/>
-<text x="58" y="334.2" font-size="10" fill="#1a1a1a" fill-opacity="0.4" text-anchor="end">4.0k</text>
+<text x="58" y="334.2" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" fill="#6b7280" text-anchor="end">4.0k</text>
 <line x1="64" y1="227.8" x2="1136" y2="227.8" stroke="#1a1a1a" stroke-opacity="0.10"/>
-<text x="58" y="230.8" font-size="10" fill="#1a1a1a" fill-opacity="0.4" text-anchor="end">6.0k</text>
+<text x="58" y="230.8" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" fill="#6b7280" text-anchor="end">6.0k</text>
 <line x1="64" y1="538" x2="1136" y2="538" stroke="#1a1a1a" stroke-opacity="0.25"/>
 <path d="M66.0,538.0 L66.0,538.0 Q66.0,536.1 67.9,536.1 L70.7,536.1 Q72.5,536.1 72.5,538.0 L72.5,538.0 Z" fill="#1a1a1a"/>
 <path d="M76.5,538.0 L76.5,538.0 Q76.5,537.4 77.1,537.4 L82.4,537.4 Q83.0,537.4 83.0,538.0 L83.0,538.0 Z" fill="#1a1a1a"/>
@@ -113,16 +115,16 @@
 <path d="M1127.5,538.0 L1127.5,193.3 Q1127.5,190.0 1130.7,190.0 L1130.7,190.0 Q1134.0,190.0 1134.0,193.3 L1134.0,538.0 Z" fill="#d97441"/>
 <line x1="957.3" y1="190" x2="957.3" y2="538" stroke="#d97441" stroke-width="1.2" stroke-dasharray="4 3"/>
 <circle cx="957.3" cy="190" r="3.2" fill="#d97441"/>
-<text x="950.3" y="185" font-size="12.5" fill="#d97441" font-weight="600" text-anchor="end">Claude Code launched</text>
-<text x="127.1" y="566" font-size="11.5" fill="#1a1a1a" fill-opacity="0.7" text-anchor="middle">2018</text>
-<text x="253.2" y="566" font-size="11.5" fill="#1a1a1a" fill-opacity="0.7" text-anchor="middle">2019</text>
-<text x="379.3" y="566" font-size="11.5" fill="#1a1a1a" fill-opacity="0.7" text-anchor="middle">2020</text>
-<text x="505.4" y="566" font-size="11.5" fill="#1a1a1a" fill-opacity="0.7" text-anchor="middle">2021</text>
-<text x="631.5" y="566" font-size="11.5" fill="#1a1a1a" fill-opacity="0.7" text-anchor="middle">2022</text>
-<text x="757.6" y="566" font-size="11.5" fill="#1a1a1a" fill-opacity="0.7" text-anchor="middle">2023</text>
-<text x="883.8" y="566" font-size="11.5" fill="#1a1a1a" fill-opacity="0.7" text-anchor="middle">2024</text>
-<text x="1009.9" y="566" font-size="11.5" fill="#1a1a1a" fill-opacity="0.7" text-anchor="middle">2025</text>
-<text x="1104.5" y="566" font-size="11.5" fill="#1a1a1a" fill-opacity="0.7" text-anchor="middle">2026</text>
-<text x="64" y="602" font-size="13" font-weight="600" fill="#1a1a1a" fill-opacity="0.6">@duyet · GitHub activity over the years</text>
-<text x="1136" y="602" font-size="12" fill="#1a1a1a" fill-opacity="0.45" text-anchor="end">blog.duyet.net/2026/06/goal-and-loop</text>
+<text x="950.3" y="185" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" fill="#d97441" text-anchor="end">Claude Code launched</text>
+<text x="127.1" y="566" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" fill="#6b7280" text-anchor="middle">2018</text>
+<text x="253.2" y="566" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" fill="#6b7280" text-anchor="middle">2019</text>
+<text x="379.3" y="566" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" fill="#6b7280" text-anchor="middle">2020</text>
+<text x="505.4" y="566" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" fill="#6b7280" text-anchor="middle">2021</text>
+<text x="631.5" y="566" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" fill="#6b7280" text-anchor="middle">2022</text>
+<text x="757.6" y="566" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" fill="#6b7280" text-anchor="middle">2023</text>
+<text x="883.8" y="566" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" fill="#6b7280" text-anchor="middle">2024</text>
+<text x="1009.9" y="566" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" fill="#6b7280" text-anchor="middle">2025</text>
+<text x="1104.5" y="566" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" fill="#6b7280" text-anchor="middle">2026</text>
+<text x="64" y="602" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13" fill="#6b7280">@duyet · GitHub activity over the years</text>
+<text x="1136" y="602" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" fill="#6b7280" text-anchor="end">blog.duyet.net/2026/06/goal-and-loop</text>
 </svg>
