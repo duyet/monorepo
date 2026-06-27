@@ -49,6 +49,11 @@ const promptLanguage = (): { name: string; disableAutodetect: boolean; case_inse
   contains: [{ scope: "built_in", begin: /^\/[A-Za-z][\w:-]*/ }],
 });
 
+// Built once: every common grammar (ts, bash, sh, …) plus the custom `prompt`.
+// `languages` overrides rehype-highlight's default set, so `common` must be
+// merged in rather than passed alone.
+const highlightLanguages = { ...common, prompt: promptLanguage };
+
 async function compileMDX(
   source: string
 ): Promise<React.ComponentType<MDXContentProps>> {
@@ -58,16 +63,10 @@ async function compileMDX(
     rehypePlugins: [
       rehypeSlug,
       rehypeKatex,
-      // Spread `common` so every built-in language (ts, bash, sh, …) keeps
-      // highlighting; `languages` overrides the default set, so the custom
-      // `prompt` grammar must be merged in rather than passed alone.
-      // Only highlight blocks with an explicit language. With every common
+      // Only highlight blocks with an explicit language: with every common
       // grammar registered, autodetect mis-colours plain blocks (an ascii tree
       // becomes "graphql"), so detection stays off.
-      [
-        rehypeHighlight,
-        { detect: false, languages: { ...common, prompt: promptLanguage } },
-      ],
+      [rehypeHighlight, { detect: false, languages: highlightLanguages }],
     ],
   });
 
