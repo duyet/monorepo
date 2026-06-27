@@ -3,7 +3,7 @@ import "../styles/globals.css";
 
 import Analytics from "@duyet/components/Analytics";
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import { SiteHeader, SiteFooter } from "@duyet/components";
+import { SiteHeader, SiteFooter, ExploreApps } from "@duyet/components";
 import {
   createRootRoute,
   HeadContent,
@@ -63,6 +63,7 @@ function RootComponent() {
               <Outlet />
             </main>
 
+            <ExploreApps currentApp="insights" />
             <SiteFooter owner="Duyet Le" />
           </div>
 

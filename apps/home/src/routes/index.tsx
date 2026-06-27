@@ -8,7 +8,7 @@ import rawTokenData from "../../../burns/public/token-data.json";
 import { KeyboardFeatures } from "../components/KeyboardFeatures";
 import { type AppItem, apps } from "../data/projects";
 import { siblingApps } from "../data/sibling-apps";
-import { SecHead, Eyebrow, Reveal } from "@duyet/components";
+import { SecHead, Eyebrow, Reveal, ExploreApps } from "@duyet/components";
 import { SignalBar } from "../components/SignalBar";
 import { WorkBento } from "../components/WorkBento";
 import { BlogTeaser } from "../components/BlogTeaser";
@@ -298,6 +298,8 @@ function HomePage() {
             </div>
           </Reveal>
         </section>
+
+        <ExploreApps currentApp="home" />
       </div>
     </>
   );

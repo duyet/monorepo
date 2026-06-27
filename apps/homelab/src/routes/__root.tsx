@@ -3,6 +3,7 @@ import "@/app/globals.css";
 
 import { SiteHeader } from "@duyet/components/SiteHeader";
 import { SiteFooter } from "@duyet/components/SiteFooter";
+import { ExploreApps } from "@duyet/components";
 import { homelabConfig } from "@duyet/config";
 import {
   createRootRoute,
@@ -47,6 +48,7 @@ function RootComponent() {
         <ThemeProvider>
           <SiteHeader currentApp="homelab" />
           <Outlet />
+          <ExploreApps currentApp="homelab" />
           <SiteFooter />
         </ThemeProvider>
         <Scripts />

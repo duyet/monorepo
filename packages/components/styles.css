@@ -783,6 +783,14 @@ html.dark .prose pre {
   .rd-tool-item .rd-ti-name { font-family: var(--font-mono); font-size: 13px; font-weight: 600; }
   .rd-tool-item .rd-ti-desc { font-size: 12.5px; color: var(--rd-text-3); line-height: 1.45; margin-top: 3px; }
 
+  /* ---------- explore apps (cross-app discovery grid) ---------- */
+  .rd-explore-card { transition: transform .18s ease, border-color .18s ease, background .18s ease; }
+  .rd-explore-card:hover { transform: translateY(-2px); border-color: var(--rd-border-2); background: var(--rd-surface-2); }
+  .rd-explore-glyph { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 11px; flex-shrink: 0; background: var(--rd-accent-bg); color: var(--rd-accent-ink); transition: background .18s ease, color .18s ease; }
+  .rd-explore-card:hover .rd-explore-glyph { background: var(--rd-accent); color: #fff; }
+  .rd-explore-arrow { transition: transform .18s ease, color .18s ease; }
+  .rd-explore-card:hover .rd-explore-arrow { transform: translateX(3px); color: var(--rd-accent-ink); }
+
   /* ---------- responsive ---------- */
   @media (max-width: 980px) { .signalbar { grid-template-columns: repeat(3, 1fr); } }
   @media (max-width: 920px) { .rd-chat-shell { grid-template-columns: 1fr; } }

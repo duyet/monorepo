@@ -20,6 +20,8 @@ export { default as Container } from "./Container";
 // Card Components
 export * from "./cards";
 export { default as Error } from "./Error";
+export { ExploreApps, default as ExploreAppsDefault } from "./ExploreApps";
+export type { ExploreAppsProps, ExploreAppKey } from "./ExploreApps";
 export {
   default as ErrorBoundary,
   ErrorDisplay,
