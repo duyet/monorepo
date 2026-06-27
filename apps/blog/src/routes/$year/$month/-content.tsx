@@ -7,6 +7,7 @@ import * as runtime from "react/jsx-runtime";
 import rehypeHighlight from "rehype-highlight";
 import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";
+import { common } from "lowlight";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 
@@ -57,7 +58,16 @@ async function compileMDX(
     rehypePlugins: [
       rehypeSlug,
       rehypeKatex,
-      [rehypeHighlight, { detect: true, languages: { prompt: promptLanguage } }],
+      // Spread `common` so every built-in language (ts, bash, sh, …) keeps
+      // highlighting; `languages` overrides the default set, so the custom
+      // `prompt` grammar must be merged in rather than passed alone.
+      // Only highlight blocks with an explicit language. With every common
+      // grammar registered, autodetect mis-colours plain blocks (an ascii tree
+      // becomes "graphql"), so detection stays off.
+      [
+        rehypeHighlight,
+        { detect: false, languages: { ...common, prompt: promptLanguage } },
+      ],
     ],
   });
 

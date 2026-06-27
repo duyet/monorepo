@@ -23,14 +23,24 @@ import { StepsList } from "./blog/StepsList";
 import { Tabs } from "./blog/Tabs";
 import { StatusBadge, Timeline } from "./blog/Timeline";
 
-// Custom Image component for MDX
+// Custom Image component for MDX.
+//
+// Images break out to the full content width by default. Width is tuned
+// per-image through the markdown title — the quoted string after the URL:
+// `![alt](/img.png "narrow")`.
+//   (no title)         → full content width (default)
+//   "narrow" / "text"  → stay in the body-text column
+//   "wide"             → full-bleed but capped (~900px), centered
+//   a number (px)      → full-bleed capped at that width, centered (e.g. "640")
 function Image({
   src,
   alt,
+  title,
   ...props
 }: {
   src?: string;
   alt?: string;
+  title?: string;
   [key: string]: unknown;
 }) {
   // Handle Obsidian-style image references
@@ -38,12 +48,23 @@ function Image({
     ? `/attachments/${src.replace(/^\[\[|\]\]$/g, "")}`
     : src;
 
+  // Interpret the title as a width directive; default is full breakout.
+  const directive = title?.trim().toLowerCase();
+  const inColumn =
+    directive === "narrow" || directive === "text" || directive === "inline";
+  const customPx =
+    directive && /^\d+$/.test(directive) ? Number(directive) : undefined;
+  const capPx = directive === "wide" ? 900 : customPx;
+
   return (
-    <span className="block my-4">
+    <span
+      className={cn("block my-2", !inColumn && "full-bleed")}
+      style={capPx ? { maxWidth: `${capPx}px`, marginInline: "auto" } : undefined}
+    >
       <img
         src={imageSrc || ""}
         alt={alt || ""}
-        className="rounded-xl border border-[#1a1a1a]/10 dark:border-white/10 max-w-full"
+        className="rounded-xl max-w-full"
         loading="lazy"
         {...props}
       />

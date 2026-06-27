@@ -70,7 +70,10 @@ export function CodeBlock({ children, className, ...props }: CodeBlockProps) {
   };
 
   return (
-    <div className="relative group">
+    // Spacing lives on this wrapper (not the inner <pre>) so the absolute copy
+    // button positions against the code box itself. A prose margin on the <pre>
+    // would push this positioning context up, floating the button above the box.
+    <div className="relative group my-6">
       {language && (
         <div
           className={cn(
@@ -93,6 +96,7 @@ export function CodeBlock({ children, className, ...props }: CodeBlockProps) {
           "bg-white dark:bg-[#1a1a1a]/50",
           "border border-[#1a1a1a]/10 dark:border-white/10",
           "rounded-xl py-3 px-3 pr-12",
+          "!my-0",
           "text-[#1a1a1a]/70 dark:text-[#f8f8f2]/70",
           "overflow-x-auto",
           "text-sm",

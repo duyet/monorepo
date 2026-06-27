@@ -5,6 +5,23 @@ import { useEffect, useRef, useState } from "react";
 const TOC_TOP = 96; // matches `top-24` (6rem)
 const TOC_GAP = 24; // breathing room before the TOC yields to the footer
 
+// Persist the reader's "hide the table of contents" choice for a year so the
+// sidebar stays dismissed across visits. The floating button still lets them
+// reopen it on demand.
+const TOC_COOKIE = "toc-dismissed";
+function readTocDismissed(): boolean {
+  if (typeof document === "undefined") return false;
+  return document.cookie
+    .split("; ")
+    .some((c) => c === `${TOC_COOKIE}=1`);
+}
+function writeTocDismissed(dismissed: boolean): void {
+  if (typeof document === "undefined") return;
+  const maxAge = 60 * 60 * 24 * 365;
+  // biome-ignore lint/suspicious/noDocumentCookie: tiny SSR-safe preference flag; async Cookie Store API isn't worth it here.
+  document.cookie = `${TOC_COOKIE}=${dismissed ? "1" : "0"}; path=/; max-age=${maxAge}; samesite=lax`;
+}
+
 export function TableOfContents({ headings }: { headings: TOCItem[] }) {
   const [activeId, setActiveId] = useState<string>("");
   const [hidden, setHidden] = useState(false);
@@ -13,9 +30,25 @@ export function TableOfContents({ headings }: { headings: TOCItem[] }) {
   const [isSidebarDismissed, setIsSidebarDismissed] = useState(false);
   const asideRef = useRef<HTMLElement>(null);
 
-  // Auto-open overlay when sidebar is dismissed, hidden, or overlapping
+  // Restore the persisted "dismissed" choice on mount (client-only, so SSR and
+  // the first render agree on `false` and there's no hydration mismatch).
   useEffect(() => {
-    const shouldOpenOverlay = isSidebarDismissed || hidden || isOverlapping;
+    if (readTocDismissed()) setIsSidebarDismissed(true);
+  }, []);
+
+  // Closing the TOC (sidebar or overlay) hides it and remembers the choice so
+  // it stays closed on the next visit; the floating button still reopens it.
+  const hideTOC = () => {
+    setIsSidebarDismissed(true);
+    setIsOverlayOpen(false);
+    writeTocDismissed(true);
+  };
+
+  // Auto-open the overlay only when the sidebar can't show because it would
+  // overlap or collide with the footer — NOT when the reader chose to hide it.
+  useEffect(() => {
+    const shouldOpenOverlay =
+      !isSidebarDismissed && (hidden || isOverlapping);
     setIsOverlayOpen(shouldOpenOverlay);
   }, [isSidebarDismissed, hidden, isOverlapping]);
 
@@ -135,7 +168,7 @@ export function TableOfContents({ headings }: { headings: TOCItem[] }) {
               On this page
             </p>
             <button
-              onClick={() => setIsSidebarDismissed(true)}
+              onClick={hideTOC}
               className="rounded p-1 hover:bg-[var(--rd-border)]/20 text-[var(--rd-text-3)] hover:text-[var(--rd-text)] transition-colors"
               title="Dismiss TOC sidebar"
               aria-label="Dismiss TOC sidebar"
@@ -179,7 +212,7 @@ export function TableOfContents({ headings }: { headings: TOCItem[] }) {
                   On this page
                 </div>
                 <button
-                  onClick={() => setIsOverlayOpen(false)}
+                  onClick={hideTOC}
                   className="rounded p-1 hover:bg-[var(--rd-border)]/20 text-[var(--rd-text-3)] hover:text-[var(--rd-text)] transition-colors"
                   aria-label="Close table of contents"
                 >

@@ -30,6 +30,7 @@
     "@tanstack/react-start": "^1.0.0",
     "@types/mdx": "^2.0.13",
     "katex": "^0.17.0",
+    "lowlight": "^3.3.0",
     "lucide-react": "^1.0.0",
     "marked": "^18.0.4",
     "mermaid": "^11.14.0",
