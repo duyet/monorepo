@@ -211,20 +211,35 @@ The Claude Agent Runner image is [public here][runner] with a detailed [architec
 
 You've probably heard of the agent loop by now. This is just a quick note on how I actually use it day to day — a `goal` and a `loop` — to get a lot more shipped.
 
-- You give your AI a prompt, the AI spits out an output. This is **Generative AI**.
-- You give your AI a goal and a loop, and it keeps working until it meets that goal, learns from it, proactively proposes next steps. This is **Agentic AI**.
+- You give your AI a prompt, the AI spits out an output. This is **Generative AI**. `Edit this file, add this test function` is an instruction prompt.
+- You give your AI a goal and a loop, and it keeps working until it meets that goal, learns from it, proactively proposes next steps. This is **Agentic AI**. `Ship the refactor in small PRs, deploy each one, don't break master` is a goal.
 
 When I start something new, I brainstorm or let the agent interview me first: what language, what framework, where it deploys, what I care about. It can already see my [kb.duyet.net](https://kb.duyet.net), so it knows my taste and rarely comes back with something I'd never have picked. Then it builds.
 
 The plan mode is still very useful but I also stopped giving instructions and started giving goals.
 
-`Edit this file, add this test function` is an instruction. `Ship the refactor in small PRs, deploy each one, don't break master` is a goal. The first keeps me in the loop. The second lets me leave it — I write the goal, kick off a loop, and walk off. I'm not driving or reading code anymore. I decide what *done* means and check the result.
 
-[ClickHouse Monitoring (Migrate Nextjs to Tanstack Start)](https://blog.duyet.net/2026/06/migrate-tanstack/) took ~37h of autonomous work to complete with a lot of improvements. There are ~50 PRs merged by daily on https://anyrouter.dev.
+[ClickHouse Monitoring (Migrate Nextjs to Tanstack Start)](https://blog.duyet.net/2026/06/migrate-tanstack/) took ~37h of autonomous work to complete with a lot of improvements. There are ~50 PRs merged by daily on [https://anyrouter.dev](https://anyrouter.dev).
 
 ## A goal and a loop
 
 Two parts: a goal the agent reads, and a loop that keeps going until the goal is met.
+
+<div className="full-bleed max-w-[560px]">
+<Mermaid>{`
+flowchart LR
+    Work["Work a pass"] --> Goal{"Goal<br/>met?"}
+    Goal -->|no| Work
+    Goal -->|yes| Done["Done ✓"]
+`}</Mermaid>
+</div>
+
+The two words pull in different directions, and that's the point:
+
+- A **goal** is a loop with a finish line. It has target conditions — a *done when* — so it works, checks itself, and stops the moment the conditions hold. `ship the refactor, tests green, deploy each PR` finishes.
+- A **loop** doesn't have to finish. Some work is a recurrence, not a target: `every 30m, babysit and review every open PR, merge what's green`.
+
+Most of what I run is the first kind. The second kind is for the maintenance that never really ends — watching PRs, triaging issues, keeping master green — where the schedule *is* the goal.
 
 The goal lives in a file — the target, the rules it can't break, an explicit *done when*, and a findings section it writes to on every pass:
 
@@ -240,6 +255,19 @@ The goal lives in a file — the target, the rules it can't break, an explicit *
 ## The knowledge base
 
 A run also keeps a knowledge base it reads before work and updates after ([kb.duyet.net](https://kb.duyet.net)), and folds its working memory into short-term and long-term memory between sessions — so the next run wakes up already knowing the place, even when you start a new session.
+
+The same loop, now with a memory wrapped around it — read the kb before a pass, write what it learned after:
+
+<div className="full-bleed max-w-[640px]">
+<Mermaid>{`
+flowchart LR
+    KB[("kb")] -. read before .-> Work["Work a pass"]
+    Work --> Goal{"Goal<br/>met?"}
+    Goal -->|"no · self-fix"| Work
+    Goal -->|yes| Done["Done ✓"]
+    Work -. write findings .-> KB
+`}</Mermaid>
+</div>
 
 There are two levels. The agent reads them before a task and adds to them on its own when it learns something — or when I tell it to remember:
 - Global `~/kb`: things that hold across every project.
@@ -292,7 +320,7 @@ The sharpest version is to write the docs before the product. I get the agent to
 Now the docs are the goal, and the prompt is just a pointer at the doc:
 
 ```prompt
-/goal Implement, test, and verify @docs/business/features until it is finished. Keep updating the progress in @docs/business/status.md.
+/goal implement, test, and verify @docs/business/features until it is finished. Keep updating the progress in @docs/business/status.md.
 ```
 
 The agent loops until the product matches the docs it wrote — API endpoints must return what the docs say, features must behave the way they're described. If the docs promise a response the code doesn't return, that's just a failing check, and it keeps going until the gap closes. Writing the spec as docs is the cleanest *done when* I've found: it reads well, it's the same thing the user sees, and you can check it line by line.
@@ -33444,10 +33472,10 @@ What helps AI agents (**AX**) also helps human developers (**DX**). By making yo
 
 # Dynamic Workflows with GLM 5.1
 
-- **URL**: https://blog.duyet.net/note/mai
+- **URL**: https://blog.duyet.net/note/dynamic-workflows-glm-5-1
 - **Date**: 2026-06-04
 
-![Pasted image 20260604194529.png](/media/notes/Pasted image 20260604194529.png)
+![dynamic-workflows-glm-5-1.png](/media/notes/dynamic-workflows-glm-5-1.png)
 
 I am using more a lot of differrent models with Claude Code, this here is  reazied 
 We can also asking Claude to customize model and budget for each step in workflows.

@@ -44,6 +44,8 @@ yarn-error.log*
 
 # Blog attachments (local drafts)
 **/attachments/
+# ...except published note images, which the blog build inlines at build time.
+!apps/blog/_shortforms/attachments/
 
 # Screenshot files
 *-app.png
