@@ -91,15 +91,17 @@ function NotePage(): ReactElement {
           <h1 className="mt-8 text-2xl font-bold tracking-tight">{note.title}</h1>
         ) : null}
       </div>
-      <Suspense
-        fallback={
-          <p className="mx-auto max-w-3xl mt-6 text-lg leading-relaxed whitespace-pre-wrap">
-            {note.body}
-          </p>
-        }
-      >
-        <Markdown source={note.body} className="mt-6" />
-      </Suspense>
+      <div className="mx-auto max-w-3xl">
+        <Suspense
+          fallback={
+            <p className="mt-6 text-lg leading-relaxed whitespace-pre-wrap">
+              {note.body}
+            </p>
+          }
+        >
+          <Markdown source={note.body} className="mt-6" />
+        </Suspense>
+      </div>
       <div className="mx-auto max-w-3xl">
         {newer || older ? (
           <nav className="mt-16 grid gap-3 border-t pt-8 sm:grid-cols-2">
