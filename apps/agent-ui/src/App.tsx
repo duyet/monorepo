@@ -7,20 +7,35 @@ import {
 } from "@clerk/clerk-react";
 import { useChat } from "@ai-sdk/react";
 import { Button } from "~/components/ui/button";
-import { Separator } from "~/components/ui/separator";
-import { Textarea } from "~/components/ui/textarea";
 import { SiteFooter, SiteHeader } from "@duyet/components";
 import type { UIMessage } from "ai";
-import { ArrowUp, RotateCcw } from "lucide-react";
+import { Sparkles } from "lucide-react";
+import { useCallback, useMemo, useState } from "react";
 import {
-  type FormEvent,
-  type KeyboardEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+  Conversation,
+  ConversationContent,
+  ConversationEmptyState,
+  ConversationScrollButton,
+} from "~/components/ai-elements/conversation";
+import {
+  Message,
+  MessageContent,
+  MessageResponse,
+} from "~/components/ai-elements/message";
+import {
+  PromptInput,
+  PromptInputBody,
+  PromptInputFooter,
+  PromptInputSubmit,
+  PromptInputTextarea,
+  type PromptInputMessage,
+} from "~/components/ai-elements/prompt-input";
+import {
+  Reasoning,
+  ReasoningContent,
+  ReasoningTrigger,
+} from "~/components/ai-elements/reasoning";
+import { Suggestion, Suggestions } from "~/components/ai-elements/suggestion";
 import {
   AgentApiTransport,
   type AgentChatResponse,
@@ -64,90 +79,46 @@ function agentApiUrl(): string {
   return location.origin;
 }
 
-function textParts(message: UIMessage): string {
-  return message.parts
-    .filter((part) => part.type === "text")
-    .map((part) => part.text)
-    .join("");
-}
-
-function Message({ message }: { message: UIMessage }) {
-  const text = textParts(message);
+/** Render a single UIMessage's parts as ai-elements (reasoning + markdown). */
+function MessageParts({ message }: { message: UIMessage }) {
   const isUser = message.role === "user";
   return (
-    <div className="flex flex-col gap-1.5">
-      <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
-        {isUser ? "You" : "Agent"}
-      </span>
-      <p className="whitespace-pre-wrap break-words text-[15px] leading-7 text-foreground">
-        {text}
-      </p>
-    </div>
-  );
-}
-
-function TypingDots() {
-  return (
-    <div className="flex flex-col gap-1.5">
-      <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
-        Agent
-      </span>
-      <div className="flex items-center gap-1.5 py-1" aria-label="Thinking">
-        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground [animation-delay:-0.3s]" />
-        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground [animation-delay:-0.15s]" />
-        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground" />
-      </div>
-    </div>
-  );
-}
-
-function Hero({
-  onPick,
-  disabled,
-}: {
-  onPick: (prompt: string) => void;
-  disabled: boolean;
-}) {
-  return (
-    <section className="flex flex-col gap-8 py-12 sm:py-20">
-      <div className="flex flex-col gap-3">
-        <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
-          AI assistant · 2026
-        </span>
-        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-          Ask Duyet anything.
-        </h1>
-        <p className="max-w-xl text-[15px] leading-7 text-muted-foreground">
-          An agent that knows my blog, projects, public data, and the work I'm
-          shipping right now. Conversational, streaming, grounded in real
-          sources.
-        </p>
-      </div>
-      <div className="flex flex-wrap gap-2">
-        {SUGGESTIONS.map((prompt) => (
-          <Button
-            key={prompt}
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={() => onPick(prompt)}
-            disabled={disabled}
-            className="rounded-full"
-          >
-            {prompt}
-          </Button>
-        ))}
-      </div>
-    </section>
+    <>
+      {message.parts.map((part, index) => {
+        if (part.type === "reasoning" && part.text) {
+          return (
+            <Reasoning
+              key={`r-${index}`}
+              className="mb-2 w-full"
+              isStreaming={false}
+            >
+              <ReasoningTrigger />
+              <ReasoningContent>{part.text}</ReasoningContent>
+            </Reasoning>
+          );
+        }
+        if (part.type === "text" && part.text) {
+          return isUser ? (
+            <span
+              key={`t-${index}`}
+              className="whitespace-pre-wrap break-words"
+            >
+              {part.text}
+            </span>
+          ) : (
+            <MessageResponse key={`t-${index}`}>{part.text}</MessageResponse>
+          );
+        }
+        return null;
+      })}
+    </>
   );
 }
 
 function ChatScreen() {
   const { getToken, isSignedIn } = useAuth();
-  const [input, setInput] = useState("");
   const [sessionId, setSessionId] = useState(readSessionId);
   const [, setLastResponse] = useState<AgentChatResponse | null>(null);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const transport = useMemo(
     () =>
@@ -158,7 +129,7 @@ function ChatScreen() {
         getToken,
         onResponse: setLastResponse,
       }),
-    [getToken, sessionId],
+    [getToken, sessionId]
   );
 
   const { error, messages, sendMessage, setMessages, status } =
@@ -168,10 +139,6 @@ function ChatScreen() {
     });
 
   const isBusy = status === "submitted" || status === "streaming";
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages.length, status]);
 
   const resetSession = useCallback(() => {
     const nextSessionId = createSessionId();
@@ -185,23 +152,17 @@ function ChatScreen() {
     (text: string) => {
       const trimmed = text.trim();
       if (!trimmed || isBusy || !isSignedIn) return;
-      setInput("");
       void sendMessage({ text: trimmed });
     },
-    [isBusy, isSignedIn, sendMessage],
+    [isBusy, isSignedIn, sendMessage]
   );
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submit(input);
-  };
-
-  const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      submit(input);
-    }
-  };
+  const handlePromptSubmit = useCallback(
+    (message: PromptInputMessage) => {
+      if (message.text) submit(message.text);
+    },
+    [submit]
+  );
 
   const empty = messages.length === 0;
 
@@ -209,49 +170,49 @@ function ChatScreen() {
     <div className="flex min-h-dvh flex-col bg-background text-foreground">
       <SiteHeader currentApp="agents" localNav={AGENT_NAV} activeHref="/" />
 
-      <main className="mx-auto flex w-full max-w-[760px] flex-1 flex-col px-5 sm:px-8">
-        {empty ? (
-          <Hero onPick={submit} disabled={!isSignedIn || isBusy} />
-        ) : (
-          <div className="flex-1 py-8">
-            <div className="flex items-center justify-between pb-6">
-              <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
-                Conversation
-              </span>
-              <div className="flex items-center gap-2">
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={resetSession}
-                  className="rounded-full"
-                >
-                  <RotateCcw aria-hidden="true" />
-                  New
-                </Button>
-                <SignedIn>
-                  <UserButton />
-                </SignedIn>
-              </div>
-            </div>
-            <Separator className="mb-8" />
-            <div className="flex flex-col gap-8">
-              {messages.map((message) => (
-                <Message key={message.id} message={message} />
-              ))}
-              {isBusy ? <TypingDots /> : null}
-              {error ? (
-                <p className="text-sm text-destructive">{error.message}</p>
-              ) : null}
-              <div ref={messagesEndRef} />
-            </div>
-          </div>
-        )}
+      <main className="mx-auto flex w-full max-w-[768px] flex-1 flex-col px-4 sm:px-6">
+        <Conversation className="flex-1">
+          <ConversationContent className="gap-6 py-8">
+            {empty ? (
+              <ConversationEmptyState
+                className="py-16"
+                icon={<Sparkles className="size-6" />}
+                title="Ask Duyet anything."
+                description="An agent grounded in my blog, projects, and public data — conversational and streaming."
+              >
+                <Suggestions className="mt-4 justify-center">
+                  {SUGGESTIONS.map((prompt) => (
+                    <Suggestion
+                      key={prompt}
+                      suggestion={prompt}
+                      onClick={submit}
+                      disabled={!isSignedIn || isBusy}
+                    />
+                  ))}
+                </Suggestions>
+              </ConversationEmptyState>
+            ) : (
+              <>
+                {messages.map((message) => (
+                  <Message key={message.id} from={message.role}>
+                    <MessageContent>
+                      <MessageParts message={message} />
+                    </MessageContent>
+                  </Message>
+                ))}
+                {error ? (
+                  <p className="text-sm text-destructive">{error.message}</p>
+                ) : null}
+              </>
+            )}
+          </ConversationContent>
+          <ConversationScrollButton />
+        </Conversation>
 
-        <div className="sticky bottom-0 mt-auto pb-6 pt-4 bg-gradient-to-t from-background via-background to-transparent">
+        <div className="sticky bottom-0 mt-auto pb-6 pt-2">
           {!isSignedIn ? (
             <SignedOut>
-              <div className="flex flex-col items-start gap-3 rounded-lg border p-4">
+              <div className="flex flex-col items-start gap-3 rounded-xl border p-4">
                 <p className="text-sm text-muted-foreground">
                   Sign in to send a message. The chat surface above stays
                   visible either way.
@@ -264,29 +225,28 @@ function ChatScreen() {
               </div>
             </SignedOut>
           ) : (
-            <form
-              onSubmit={handleSubmit}
-              className="flex items-end gap-2 rounded-full border bg-background py-2 pl-5 pr-2 focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2"
-            >
-              <Textarea
-                aria-label="Message"
-                value={input}
-                onChange={(e) => setInput(e.currentTarget.value)}
-                onKeyDown={handleKeyDown}
-                rows={1}
-                placeholder="Ask Duyet anything…"
-                className="min-h-9 flex-1 resize-none border-0 bg-transparent p-0 py-1.5 text-[15px] leading-6 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
-              />
-              <Button
-                type="submit"
-                disabled={!input.trim() || isBusy}
-                size="icon"
-                aria-label="Send"
-                className="h-9 w-9 shrink-0 rounded-full"
-              >
-                <ArrowUp aria-hidden="true" />
-              </Button>
-            </form>
+            <PromptInput onSubmit={handlePromptSubmit}>
+              <PromptInputBody>
+                <PromptInputTextarea placeholder="Ask Duyet anything…" />
+              </PromptInputBody>
+              <PromptInputFooter className="justify-between">
+                <div className="flex items-center gap-1">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={resetSession}
+                    className="rounded-full text-muted-foreground"
+                  >
+                    New chat
+                  </Button>
+                  <SignedIn>
+                    <UserButton />
+                  </SignedIn>
+                </div>
+                <PromptInputSubmit status={status} />
+              </PromptInputFooter>
+            </PromptInput>
           )}
         </div>
       </main>
