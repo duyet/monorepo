@@ -1,9 +1,8 @@
-import { distanceToNow } from '@duyet/libs/date'
+import { dateFormat, distanceToNow } from '@duyet/libs/date'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import type { ReactElement } from 'react'
 import { getShortforms } from '@/lib/shortforms'
 import type { Shortform } from '@/lib/shortforms'
-import { NoteCard } from '@/components/blog/NoteCard'
 
 export const Route = createFileRoute('/notes')({
   head: () => ({
@@ -37,29 +36,43 @@ function NotesPage(): ReactElement {
         </p>
       </header>
 
-      <div className="mx-auto max-w-6xl px-6 pb-24">
+      <div className="mx-auto max-w-3xl px-6 pb-24">
         {shortforms.length === 0 ? (
           <p className="py-20 text-center text-sm text-[var(--rd-text-3)]">
             No notes log found.
           </p>
         ) : (
-          <div className="grid grid-cols-1 gap-px overflow-visible border border-[var(--rd-border)] bg-[var(--rd-border)] md:grid-cols-2 xl:grid-cols-[5fr_3fr_3fr]">
-            {shortforms.map((note, index) => {
-              const isFeatured = index === 0
-
-              return (
-                <NoteCard
-                  key={note.id}
-                  note={note}
-                  featured={isFeatured}
-                  Link={Link}
-                  padding="large"
-                  headingLevel="h2"
-                  variant="notes"
-                />
-              )
-            })}
-          </div>
+          <ul className="border-t border-[var(--rd-border)]">
+            {shortforms.map((note) => (
+              <li key={note.id}>
+                <Link
+                  to="/note/$id/"
+                  params={{ id: note.id }}
+                  className="group flex flex-col gap-1.5 border-b border-[var(--rd-border)] py-5 no-underline transition-colors hover:bg-[var(--rd-surface,transparent)] sm:flex-row sm:items-baseline sm:gap-6"
+                >
+                  <time
+                    dateTime={new Date(note.date).toISOString()}
+                    className="shrink-0 font-mono text-xs tabular-nums text-[var(--rd-text-3)] sm:w-28 sm:pt-0.5"
+                  >
+                    {dateFormat(note.date, 'MMM d, yyyy')}
+                  </time>
+                  <div className="min-w-0 flex-1">
+                    <h2 className="m-0 text-base font-semibold leading-snug tracking-[-0.01em] text-[var(--rd-text)] transition-colors group-hover:text-orange-600 dark:group-hover:text-orange-400">
+                      {note.title ?? 'Note'}
+                    </h2>
+                    {note.excerpt && (
+                      <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-[var(--rd-text-2)]">
+                        {note.excerpt}
+                      </p>
+                    )}
+                    <span className="mt-1 inline-block text-xs text-[var(--rd-text-3)]">
+                      {distanceToNow(note.date)}
+                    </span>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
         )}
       </div>
     </div>
