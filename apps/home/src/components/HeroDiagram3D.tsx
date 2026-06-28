@@ -48,8 +48,8 @@ const nodes: NodeDef[] = [
   { id: "claude", t: "Claude", kind: "ai", slug: "anthropic", url: "https://anthropic.com", phi: 0, theta: 0, r: 0 },
   { id: "mcp", t: "Duyet MCP", kind: "ai", slug: "modelcontextprotocol", url: "https://modelcontextprotocol.io", phi: 0, theta: 0, r: 0 },
   { id: "langgraph", t: "LangGraph", kind: "ai", slug: "langchain", url: "https://langchain.com", phi: 0, theta: 0, r: 0 },
-  { id: "llamaindex", t: "LlamaIndex", kind: "ai", url: "https://llamaindex.ai", phi: 0, theta: 0, r: 0 },
-  { id: "opencode", t: "OpenCode", kind: "ai", url: "https://opencode.ai", phi: 0, theta: 0, r: 0 },
+  { id: "llamaindex", t: "LlamaIndex", kind: "ai", icon: "https://www.google.com/s2/favicons?domain=llamaindex.ai&sz=128", url: "https://llamaindex.ai", phi: 0, theta: 0, r: 0 },
+  { id: "opencode", t: "OpenCode", kind: "ai", slug: "opencode", url: "https://opencode.ai", phi: 0, theta: 0, r: 0 },
   { id: "anyrouter", t: "AnyRouter", kind: "ai", icon: "https://anyrouter.dev/brand/anyrouter-logo.svg", url: "https://anyrouter.dev", phi: 0, theta: 0, r: 0 },
   { id: "openrouter", t: "OpenRouter", kind: "ai", slug: "openrouter", url: "https://openrouter.ai", phi: 0, theta: 0, r: 0 },
   { id: "aisdk", t: "AI SDK", kind: "ai", slug: "vercel", url: "https://sdk.vercel.ai", phi: 0, theta: 0, r: 0 },
@@ -61,7 +61,7 @@ const nodes: NodeDef[] = [
   { id: "workflow", t: "Workflow", kind: "infra", slug: "cloudflareworkers", url: "https://developers.cloudflare.com/workflows", phi: 0, theta: 0, r: 0 },
   { id: "pages", t: "Pages", kind: "infra", slug: "cloudflarepages", url: "https://pages.cloudflare.com", phi: 0, theta: 0, r: 0 },
   { id: "k3s", t: "K3s", kind: "infra", slug: "k3s", url: "https://k3s.io", phi: 0, theta: 0, r: 0 },
-  { id: "traefik", t: "Traefik", kind: "infra", slug: "traefik", lc: "5A5A5A", url: "https://traefik.io", phi: 0, theta: 0, r: 0 },
+  { id: "traefik", t: "Traefik", kind: "infra", slug: "traefikproxy", lc: "5A5A5A", url: "https://traefik.io", phi: 0, theta: 0, r: 0 },
   // Data tooling
   { id: "airflow", t: "Airflow", kind: "data", slug: "apacheairflow", url: "https://airflow.apache.org", phi: 0, theta: 0, r: 0 },
   { id: "duckdb", t: "DuckDB", kind: "data", slug: "duckdb", url: "https://duckdb.org", phi: 0, theta: 0, r: 0 },
@@ -69,7 +69,7 @@ const nodes: NodeDef[] = [
   { id: "clickhouse", t: "ClickHouse", kind: "data", slug: "clickhouse", lc: "C28800", url: "https://clickhouse.com", phi: 0, theta: 0, r: 0 },
   { id: "kafka", t: "Kafka", kind: "data", slug: "apachekafka", lc: "231F20", url: "https://kafka.apache.org", phi: 0, theta: 0, r: 0 },
   { id: "qdrant", t: "Qdrant", kind: "data", slug: "qdrant", url: "https://qdrant.tech", phi: 0, theta: 0, r: 0 },
-  { id: "firecrawl", t: "Firecrawl", kind: "data", url: "https://firecrawl.dev", phi: 0, theta: 0, r: 0 },
+  { id: "firecrawl", t: "Firecrawl", kind: "data", icon: "https://www.firecrawl.dev/favicon.ico", url: "https://firecrawl.dev", phi: 0, theta: 0, r: 0 },
   // Frameworks & tools from KB
   { id: "tanstack", t: "TanStack", kind: "infra", slug: "tanstack", url: "https://tanstack.com", phi: 0, theta: 0, r: 0 },
   { id: "wasm", t: "WASM", kind: "data", slug: "webassembly", url: "https://webassembly.org", phi: 0, theta: 0, r: 0 },
@@ -77,7 +77,7 @@ const nodes: NodeDef[] = [
   { id: "blog", t: "Blog", kind: "data", url: "https://blog.duyet.net", phi: 0, theta: 0, r: 0 },
   { id: "agentstate", t: "AgentState", kind: "ai", url: "https://github.com/anthropics/agent-state", phi: 0, theta: 0, r: 0 },
   { id: "chmonitor", t: "CHMonitor", kind: "data", slug: "clickhouse", lc: "C28800", url: "https://github.com/duyet/chmonitor", phi: 0, theta: 0, r: 0 },
-  { id: "stamps", t: "Stamps", kind: "infra", icon: "https://raw.githubusercontent.com/feature/stamps/main/docs/stamps-logo.svg", url: "https://github.com/feature/stamps", phi: 0, theta: 0, r: 0 },
+  { id: "stamps", t: "Stamps", kind: "infra", icon: "https://stamp.duyet.net/api/stamps/EzFmilcUpdI9/image", url: "https://stamp.duyet.net", phi: 0, theta: 0, r: 0 },
 ];
 
 const byId = Object.fromEntries(nodes.map((n) => [n.id, n] as const));

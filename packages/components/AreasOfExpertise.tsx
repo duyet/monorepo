@@ -31,7 +31,7 @@ export const DEFAULT_AREAS: Area[] = [
     title: "AI & ML Systems",
     years: 4,
     description:
-      "Agent frameworks, model routing, and evaluation infrastructure. AnyRouter for multi-provider fallback and BYOK routing. LangGraph and LlamaIndex for workflow orchestration. WakaTime-level usage analytics baked in from day one.",
+      "Agent frameworks, model routing, and evaluation infrastructure. AnyRouter for multi-provider fallback and BYOK routing. LangGraph and LlamaIndex for workflow orchestration. Usage analytics baked in from day one.",
     projectCount: 87,
     tags: ["Claude API", "LangGraph", "LlamaIndex", "AI SDK", "TypeScript"],
   },
