@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useSearch } from "@tanstack/react-router";
 import { Box, Server, Smartphone, Zap } from "lucide-react";
 import {
   NodesTile,
@@ -22,57 +21,38 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { useNodes, useClusterInfo } from "@/hooks/useDashboard";
 import { SecHead, Reveal } from "@duyet/components";
 
-const tabs = [
+const sections = [
   { id: "overview", label: "Overview", icon: Zap },
   { id: "infrastructure", label: "Infrastructure", icon: Server },
   { id: "k8s", label: "Kubernetes", icon: Box },
   { id: "smart-devices", label: "Smart Devices", icon: Smartphone },
 ] as const;
 
-type TabId = (typeof tabs)[number]["id"];
-
 export const Route = createFileRoute("/")({
   component: HomelabPage,
 });
 
-const _snapshotDate = new Date().toLocaleString();
-
 function HomelabPage() {
   const { onlineCount, totalNodes } = useNodes();
   const clusterInfo = useClusterInfo();
-  const search = useSearch({ strict: false }) as { tab?: TabId };
-  const activeTab = search?.tab ?? "overview";
 
   return (
     <div className="bg-[var(--rd-bg)] text-[var(--rd-text)]">
-      {/* Hero section */}
-      <section
-        className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(32px,4vw,56px)] pb-[clamp(56px,8vw,96px)]"
-      >
+      {/* Hero — compact */}
+      <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(24px,3vw,40px)] pb-[clamp(16px,2vw,24px)]">
         <Reveal>
-          <div className="mb-6">
-            <div className="rd-eyebrow mb-3">
-              <StatusDot status={onlineCount === totalNodes ? "online" : "degraded"} />
-              Infrastructure · homelab.duyet.net
-            </div>
-            <h1 className="rd-display text-[clamp(2.2rem,5vw,3.4rem)] mt-0">
-              Homelab
-            </h1>
-            <p className="rd-lead mt-[14px]">
-              Cluster health, running services, and smart-home devices.
-            </p>
-          </div>
-        </Reveal>
-
-        <Reveal delay={100}>
-          <div
-            className="flex items-center justify-between py-4 border-t border-[var(--rd-line)]"
-          >
-            <div className="flex items-center gap-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[var(--rd-accent-bg)]">
-                <Server className="h-4 w-4 text-[var(--rd-accent)]" />
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <div className="rd-eyebrow mb-2">
+                <StatusDot status={onlineCount === totalNodes ? "online" : "degraded"} />
+                Infrastructure · homelab.duyet.net
               </div>
-              <div>
+              <h1 className="rd-display text-[clamp(1.8rem,3.6vw,2.6rem)] mt-0">
+                Homelab
+              </h1>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="text-right">
                 <p className="text-sm font-medium text-[var(--rd-text)]">
                   Kubernetes {clusterInfo.version}
                 </p>
@@ -80,34 +60,42 @@ function HomelabPage() {
                   {clusterInfo.platform} · {clusterInfo.cni} CNI · {clusterInfo.csi} CSI
                 </p>
               </div>
+              <span className="rd-chip inline-flex items-center gap-1.5">
+                <span
+                  className="inline-block w-[7px] h-[7px] rounded-full"
+                  style={{ background: "var(--rd-ok)" }}
+                />
+                k3s
+              </span>
             </div>
-            <span className="rd-chip inline-flex items-center gap-1.5">
-              <span
-                className="inline-block w-[7px] h-[7px] rounded-full"
-                style={{ background: "var(--rd-ok)" }}
-              />
-              k3s
-            </span>
           </div>
         </Reveal>
       </section>
 
-      {/* Tab content */}
-      {activeTab === "overview" && (
-        <OverviewTab />
-      )}
+      {/* Sticky in-page jump nav */}
+      <nav className="sticky top-[3.5rem] z-20 border-y border-[var(--rd-line)] bg-[var(--rd-bg)]/85 backdrop-blur">
+        <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] flex gap-1 overflow-x-auto">
+          {sections.map((s) => {
+            const Icon = s.icon;
+            return (
+              <a
+                key={s.id}
+                href={`#${s.id}`}
+                className="inline-flex items-center gap-1.5 whitespace-nowrap py-2.5 px-3 text-[13px] font-medium text-[var(--rd-text-2)] hover:text-[var(--rd-text)] transition-colors"
+              >
+                <Icon className="h-3.5 w-3.5" />
+                {s.label}
+              </a>
+            );
+          })}
+        </div>
+      </nav>
 
-      {activeTab === "infrastructure" && (
-        <InfrastructureTab />
-      )}
-
-      {activeTab === "k8s" && (
-        <K8sTab />
-      )}
-
-      {activeTab === "smart-devices" && (
-        <SmartDevicesTab />
-      )}
+      {/* All sections, stacked — nothing hidden behind tabs */}
+      <OverviewTab />
+      <InfrastructureTab />
+      <K8sTab />
+      <SmartDevicesTab />
     </div>
   );
 }
@@ -115,7 +103,8 @@ function HomelabPage() {
 function OverviewTab() {
   return (
     <Reveal>
-      <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)]">
+      <section id="overview" className="scroll-mt-28 mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(24px,3vw,36px)]">
+        <SecHead num="01" eyebrow="At a glance" title="Overview" />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div className="md:col-span-2"><NodesTile /></div>
           <div className="md:col-span-1"><ClusterStatsTile /></div>
@@ -132,7 +121,7 @@ function OverviewTab() {
 function InfrastructureTab() {
   return (
     <Reveal>
-      <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)]">
+      <section id="infrastructure" className="scroll-mt-28 mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(24px,3vw,36px)] border-t border-[var(--rd-line)]">
         <SecHead
           num="01"
           eyebrow="Cluster"
@@ -182,7 +171,7 @@ function InfrastructureTab() {
 function K8sTab() {
   return (
     <Reveal>
-      <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)]">
+      <section id="k8s" className="scroll-mt-28 mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(24px,3vw,36px)] border-t border-[var(--rd-line)]">
         <SecHead
           num="01"
           eyebrow="Kubernetes"
@@ -197,7 +186,7 @@ function K8sTab() {
 function SmartDevicesTab() {
   return (
     <Reveal>
-      <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)]">
+      <section id="smart-devices" className="scroll-mt-28 mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(24px,3vw,36px)] border-t border-[var(--rd-line)]">
         <SecHead
           num="01"
           eyebrow="Home"
