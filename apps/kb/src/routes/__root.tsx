@@ -71,7 +71,7 @@ function RootComponent() {
           <div className="min-h-screen bg-background text-foreground">
             <SiteHeader currentApp="kb" />
             <Outlet />
-            <SiteFooter />
+            {pathname !== "/" && <SiteFooter />}
           </div>
         </ThemeProvider>
         <Analytics />

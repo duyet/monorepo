@@ -220,11 +220,11 @@ export function ExploreApps({
       className={className}
       style={{ borderTop: "1px solid var(--rd-border)" }}
     >
-      <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,6vw,72px)]">
+      <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(28px,4vw,44px)]">
         <div className="flex items-end justify-between gap-4 flex-wrap">
           <div>
             <Eyebrow>{eyebrow}</Eyebrow>
-            <h2 className="rd-h-sec mt-[12px]">{title}</h2>
+            <h2 className="rd-h-sec mt-[10px]">{title}</h2>
           </div>
           <a
             href="https://duyet.net"
@@ -234,28 +234,26 @@ export function ExploreApps({
           </a>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[12px] mt-[clamp(20px,2.6vw,30px)]">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[8px] mt-[clamp(16px,2vw,22px)]">
           {apps.map((app) => (
             <a
               key={app.key}
               href={app.href}
-              className="rd-explore-card group rd-card flex items-start gap-[14px] p-[16px] no-underline text-inherit"
+              className="rd-explore-card group rd-card flex items-center gap-[10px] px-[12px] py-[10px] no-underline text-inherit"
+              title={app.blurb}
             >
-              <span className="rd-explore-glyph">{app.glyph}</span>
+              <span className="rd-explore-glyph shrink-0 [&_svg]:w-[18px] [&_svg]:h-[18px]">
+                {app.glyph}
+              </span>
               <span className="min-w-0 flex-1">
-                <span className="flex items-baseline gap-2">
-                  <span className="text-[15px] font-semibold tracking-[-0.01em]">
-                    {app.name}
-                  </span>
-                  <span className="font-[var(--font-mono)] text-[11px] text-[var(--rd-text-3)] truncate">
-                    {app.domain}
-                  </span>
+                <span className="block text-[13.5px] font-semibold tracking-[-0.01em] leading-tight truncate">
+                  {app.name}
                 </span>
-                <span className="block text-[13px] leading-[1.5] text-[var(--rd-text-2)] mt-[5px]">
-                  {app.blurb}
+                <span className="block font-[var(--font-mono)] text-[10.5px] text-[var(--rd-text-3)] truncate">
+                  {app.domain}
                 </span>
               </span>
-              <span className="rd-explore-arrow font-[var(--font-mono)] text-[var(--rd-text-4)] self-center">
+              <span className="rd-explore-arrow font-[var(--font-mono)] text-[var(--rd-text-4)] text-[12px]">
                 →
               </span>
             </a>
