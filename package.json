@@ -81,6 +81,8 @@
       "workerd"
     ],
     "overrides": {
+      "ai": "^7.0.4",
+      "@ai-sdk/react": "^4.0.5",
       "@assistant-ui/core": "^0.2.11",
       "@clerk/shared": "3.47.7",
       "@tanstack/history": "1.162.0",

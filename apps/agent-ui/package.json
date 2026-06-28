@@ -15,7 +15,7 @@
     "cf:deploy:prod": "tsx ../../scripts/cf-deploy-prod.ts agent-ui duyet-agents"
   },
   "dependencies": {
-    "@ai-sdk/react": "^3.0.118",
+    "@ai-sdk/react": "^4.0.5",
     "@clerk/clerk-react": "^5.61.2",
     "@duyet/components": "*",
     "@duyet/libs": "*",
@@ -33,7 +33,7 @@
     "@streamdown/code": "^1.1.1",
     "@streamdown/math": "^1.0.2",
     "@streamdown/mermaid": "^1.0.2",
-    "ai": "^6.0.180",
+    "ai": "^7.0.4",
     "class-variance-authority": "^0.7.1",
     "cmdk": "^1.1.1",
     "lucide-react": "^1.0.0",
