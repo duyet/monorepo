@@ -174,12 +174,19 @@ function ChatScreen() {
         <Conversation className="flex-1">
           <ConversationContent className="gap-6 py-8">
             {empty ? (
-              <ConversationEmptyState
-                className="py-16"
-                icon={<Sparkles className="size-6" />}
-                title="Ask Duyet anything."
-                description="An agent grounded in my blog, projects, and public data — conversational and streaming."
-              >
+              <ConversationEmptyState className="py-16">
+                <div className="grid size-11 place-items-center rounded-2xl bg-muted text-foreground">
+                  <Sparkles className="size-6" />
+                </div>
+                <div className="space-y-1.5">
+                  <h2 className="text-2xl font-semibold tracking-tight">
+                    Ask Duyet anything.
+                  </h2>
+                  <p className="max-w-md text-sm leading-6 text-muted-foreground">
+                    An agent grounded in my blog, projects, and public data —
+                    conversational and streaming.
+                  </p>
+                </div>
                 <Suggestions className="mt-4 justify-center">
                   {SUGGESTIONS.map((prompt) => (
                     <Suggestion
