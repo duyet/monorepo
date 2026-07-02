@@ -63,46 +63,62 @@ function IndexPage() {
       })
     : null;
 
-  /* ---- KPI data ---- */
+  /* ---- KPI data ----
+   * Trend is a real period-over-period delta: mean of the second half of the
+   * series vs the first half. Returns "—" when the series is too short. */
+  const trendPct = (series: number[]): string => {
+    const s = series.filter((n) => Number.isFinite(n));
+    if (s.length < 4) return "—";
+    const mid = Math.floor(s.length / 2);
+    const mean = (arr: number[]) =>
+      arr.reduce((a, b) => a + b, 0) / (arr.length || 1);
+    const first = mean(s.slice(0, mid));
+    const second = mean(s.slice(mid));
+    if (first === 0) return second > 0 ? "+100%" : "—";
+    const pct = Math.round(((second - first) / first) * 1000) / 10;
+    return `${pct >= 0 ? "+" : ""}${pct.toFixed(1)}%`;
+  };
+
+  const wakaSpark = data.wakaTrend.map((t) => Number(t.hours) || 0);
+  const viewsSpark = traffic.map((t) => Number(t.pageViews) || 0);
+  const tokensSpark = aiActivity.map((a) => Number(a.tokens) || 0);
+  const costSpark = aiActivity.map((a) => Number(a.cost) || 0);
+
   const kpis: KpiTileData[] = [
     {
       k: "Coding hours",
       v: formatNumber(data.wakaMetrics.totalHours),
       unit: "h",
       sub: `${formatNumber(data.wakaMetrics.avgDailyHours)}h avg / active day`,
-      trend: "+3.1%",
-      spark: data.wakaTrend.map((t) => Number(t.hours) || 0),
+      trend: trendPct(wakaSpark),
+      spark: wakaSpark,
     },
     {
       k: "Page views",
       v: formatCompact(pageViews),
       unit: "",
       sub: "Cloudflare · 30d",
-      trend: "+12.4%",
-      spark: traffic.map((t) => Number(t.pageViews) || 0),
+      trend: trendPct(viewsSpark),
+      spark: viewsSpark,
     },
     {
       k: "AI tokens",
       v: formatCompact(data.aiMetrics.totalTokens),
       unit: "",
       sub: `across ${data.aiMetrics.activeDays} active days`,
-      trend: "+8.2%",
-      spark: aiActivity.map((a) => Number(a.tokens) || 0),
+      trend: trendPct(tokensSpark),
+      spark: tokensSpark,
     },
     {
       k: "AI spend",
       v: formatNumber(data.aiMetrics.totalCost),
       unit: "$",
       sub: `top: ${compactName(data.aiMetrics.topModel)}`,
-      trend: "-6.5%",
+      trend: trendPct(costSpark),
       good: true,
-      spark: aiActivity.map((a) => Number(a.cost) || 0),
+      spark: costSpark,
     },
   ];
-
-  /* ---- Editorial note derived from data ---- */
-  const editorialNote =
-    "The pattern this month: coding hours climbed into agent work while spend fell — caching prompt re-use across sessions does most of that. Reading skews to the old reference posts, not the new ones.";
 
   /* ---- Repo data for grid ---- */
   const totalStars = data.githubRepos.reduce(
@@ -141,18 +157,6 @@ function IndexPage() {
             <KpiTile t={t} />
           </Reveal>
         ))}
-      </div>
-
-      {/* ---- Editorial note ---- */}
-      <div
-        className="rd-card p-[clamp(18px,2.2vw,26px)] mt-3 p-[clamp(24px,3vw,34px)] bg-[var(--rd-bg-sub)]"
-      >
-        <Eyebrow>What it meant</Eyebrow>
-        <p
-          className="text-[clamp(1.1rem,1.8vw,1.45rem)] leading-[1.45] tracking-[-0.015em] mt-[14px] max-w-[58ch] text-pretty"
-        >
-          {editorialNote}
-        </p>
       </div>
 
       {/* ---- Coding + AI split ---- */}
