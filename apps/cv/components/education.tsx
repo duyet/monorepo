@@ -17,11 +17,11 @@ export function Education({
 }: EducationProps) {
   return (
     <div className={cn("mt-2", className)}>
-      <div className="flex items-baseline justify-between">
-        <h3 className="text-[15px] font-bold text-neutral-900 dark:text-neutral-100">
+      <div className="flex items-baseline justify-between gap-x-3">
+        <h3 className="min-w-0 text-[15px] font-bold text-neutral-900 dark:text-neutral-100">
           {university}
         </h3>
-        <span className="text-[13px] italic text-black dark:text-neutral-200">
+        <span className="shrink-0 whitespace-nowrap text-[13px] italic text-neutral-500 dark:text-neutral-400">
           <ResumeLink
             href={thesisUrl}
             external
