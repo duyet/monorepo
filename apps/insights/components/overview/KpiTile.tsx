@@ -33,7 +33,7 @@ function KpiTile({ t }: { t: KpiTileData }) {
       <Sparkline
         data={t.spark}
         h={34}
-        label={`${t.k} trend over the period, latest change ${t.trend}`}
+        label={`${t.k} trend over the period${t.trend === "—" ? "" : `, latest change ${t.trend}`}`}
         stroke={t.good ? "var(--rd-ok)" : "var(--rd-accent)"}
       />
       <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11.5px]">

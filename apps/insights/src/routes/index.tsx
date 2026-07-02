@@ -65,7 +65,8 @@ function IndexPage() {
 
   /* ---- KPI data ----
    * Trend is a real period-over-period delta: mean of the second half of the
-   * series vs the first half. Returns "—" when the series is too short. */
+   * series vs the first half. Returns "—" when the series is too short or the
+   * baseline is zero (an undefined ratio, not a synthetic +100%). */
   const trendPct = (series: number[]): string => {
     const s = series.filter((n) => Number.isFinite(n));
     if (s.length < 4) return "—";
@@ -74,9 +75,11 @@ function IndexPage() {
       arr.reduce((a, b) => a + b, 0) / (arr.length || 1);
     const first = mean(s.slice(0, mid));
     const second = mean(s.slice(mid));
-    if (first === 0) return second > 0 ? "+100%" : "—";
-    const pct = Math.round(((second - first) / first) * 1000) / 10;
-    return `${pct >= 0 ? "+" : ""}${pct.toFixed(1)}%`;
+    if (first === 0) return "—";
+    // |first| in the denominator keeps the real sign for a negative baseline.
+    const pct = Math.round(((second - first) / Math.abs(first)) * 1000) / 10;
+    if (Math.abs(pct) < 0.05) return "0.0%";
+    return `${pct > 0 ? "+" : ""}${pct.toFixed(1)}%`;
   };
 
   const wakaSpark = data.wakaTrend.map((t) => Number(t.hours) || 0);

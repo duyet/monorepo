@@ -32,17 +32,19 @@ export function Sparkline({
   // Stable id across SSR + client so the gradient ref never mismatches.
   const reactId = useId();
 
-  // Fewer than two points cannot form a line; keep the layout height.
-  if (data.length < 2) {
+  // Ignore non-finite values (NaN/Infinity) so they never reach the SVG path
+  // and silently blank the chart. Fewer than two points cannot form a line.
+  const finite = data.filter(Number.isFinite);
+  if (finite.length < 2) {
     return <div aria-hidden="true" className={className} style={{ height: h }} />;
   }
 
   const w = 120;
-  const max = Math.max(...data);
-  const min = Math.min(...data);
+  const max = Math.max(...finite);
+  const min = Math.min(...finite);
   const rng = max - min || 1;
-  const step = w / (data.length - 1);
-  const pts = data.map(
+  const step = w / (finite.length - 1);
+  const pts = finite.map(
     (v, i) => [i * step, h - ((v - min) / rng) * (h - 4) - 2] as const,
   );
   const line = pts

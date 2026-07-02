@@ -84,10 +84,10 @@ export function GitHubContributions() {
       .catch(() => {});
   }, []);
 
-  if (!data) return <div className="mt-4" />;
+  if (!data || data.length === 0) return <div className="mt-4" />;
 
   const total = data.flat().reduce((s, d) => s + d.contributionCount, 0);
-  const width = data.length * PITCH - GAP;
+  const width = Math.max(0, data.length * PITCH - GAP);
   const height = 7 * PITCH - GAP;
   const totalLabel = total.toLocaleString();
 
