@@ -4,6 +4,32 @@ const API = "https://github-contributions-api.deno.dev/duyet.json";
 const CACHE_KEY = "gh-contrib";
 const CACHE_TTL = 86_400_000; // 24h
 
+// SVG geometry in viewBox units; the whole grid scales fluidly to the
+// container width via a viewBox, so cells stay crisp from 320px up.
+const CELL = 11;
+const GAP = 2.5;
+const PITCH = CELL + GAP;
+const RADIUS = 2.5;
+
+// Sequential 5-step ramp derived from the theme accent so the heatmap
+// respects light/dark tokens instead of hardcoded GitHub greens. Empty
+// days use the muted surface; density mixes more accent toward the top.
+const RAMP = [
+  "var(--rd-surface-2)",
+  "color-mix(in srgb, var(--rd-accent) 26%, var(--rd-surface-2))",
+  "color-mix(in srgb, var(--rd-accent) 50%, var(--rd-surface-2))",
+  "color-mix(in srgb, var(--rd-accent) 74%, var(--rd-surface-2))",
+  "var(--rd-accent)",
+];
+
+const LEVEL_INDEX: Record<string, number> = {
+  NONE: 0,
+  FIRST_QUARTILE: 1,
+  SECOND_QUARTILE: 2,
+  THIRD_QUARTILE: 3,
+  FOURTH_QUARTILE: 4,
+};
+
 interface Day {
   date: string;
   contributionCount: number;
@@ -35,19 +61,8 @@ function setCache(data: Day[][]) {
   }
 }
 
-function levelToColor(level: string): string {
-  switch (level) {
-    case "FIRST_QUARTILE":
-      return "#0e4429";
-    case "SECOND_QUARTILE":
-      return "#006d32";
-    case "THIRD_QUARTILE":
-      return "#26a641";
-    case "FOURTH_QUARTILE":
-      return "#39d353";
-    default:
-      return "var(--rd-border)";
-  }
+function levelColor(level: string): string {
+  return RAMP[LEVEL_INDEX[level] ?? 0];
 }
 
 export function GitHubContributions() {
@@ -72,34 +87,51 @@ export function GitHubContributions() {
   if (!data) return <div className="mt-4" />;
 
   const total = data.flat().reduce((s, d) => s + d.contributionCount, 0);
+  const width = data.length * PITCH - GAP;
+  const height = 7 * PITCH - GAP;
+  const totalLabel = total.toLocaleString();
 
   return (
     <div className="mt-4 select-none">
       <div className="font-[var(--font-mono)] text-[11px] text-[var(--rd-text-3)] mb-1.5">
-        {total.toLocaleString()} contributions in the last year
+        {totalLabel} contributions in the last year
       </div>
-      <div
-        className="grid"
-        style={{
-          gridTemplateRows: "repeat(7, 1fr)",
-          gridTemplateColumns: `repeat(${data.length}, 1fr)`,
-          gap: "1.5px",
-          width: "fit-content",
-        }}
+      <svg
+        viewBox={`0 0 ${width} ${height}`}
+        width="100%"
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-label={`GitHub contribution heatmap: ${totalLabel} contributions in the last year`}
+        style={{ display: "block", height: "auto" }}
       >
         {data.flatMap((week, wi) =>
           week.map((day, di) => (
-            <div
+            <rect
               key={`${wi}-${di}`}
-              style={{
-                width: 4,
-                height: 4,
-                borderRadius: 1,
-                backgroundColor: levelToColor(day.contributionLevel),
-              }}
-            />
+              x={wi * PITCH}
+              y={di * PITCH}
+              width={CELL}
+              height={CELL}
+              rx={RADIUS}
+              ry={RADIUS}
+              fill={levelColor(day.contributionLevel)}
+            >
+              <title>{`${day.contributionCount} on ${day.date}`}</title>
+            </rect>
           )),
         )}
+      </svg>
+      <div className="mt-2 flex items-center gap-1.5 font-[var(--font-mono)] text-[10px] text-[var(--rd-text-3)]">
+        <span>Less</span>
+        {RAMP.map((c) => (
+          <span
+            key={c}
+            aria-hidden="true"
+            className="inline-block h-2.5 w-2.5 rounded-[2px]"
+            style={{ backgroundColor: c }}
+          />
+        ))}
+        <span>More</span>
       </div>
     </div>
   );
