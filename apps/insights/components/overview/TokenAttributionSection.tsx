@@ -24,7 +24,7 @@ function TokenAttributionSection({ data }: { data: LoaderData }) {
     <>
       {/* Stacked bar chart: daily tokens by model */}
       <div className="rd-g2 mt-3">
-        <div className="rd-card p-[clamp(18px,2.2vw,26px)] p-[clamp(22px,2.6vw,30px)]">
+        <div className="rd-card p-[clamp(22px,2.6vw,30px)]">
           <div className="mb-5">
             <Eyebrow>AI · ccusage</Eyebrow>
             <h3
@@ -36,10 +36,13 @@ function TokenAttributionSection({ data }: { data: LoaderData }) {
               Daily token volume by model (thousands), last 30 days.
             </p>
           </div>
-          <InsightStackedBarChart data={byModel} />
+          <InsightStackedBarChart
+            ariaLabel="Daily token volume by model over the last 30 days"
+            data={byModel}
+          />
         </div>
 
-        <div className="rd-card p-[clamp(18px,2.2vw,26px)] p-[clamp(22px,2.6vw,30px)]">
+        <div className="rd-card p-[clamp(22px,2.6vw,30px)]">
           <div className="mb-5">
             <Eyebrow>Efficiency · ccusage</Eyebrow>
             <h3
@@ -52,10 +55,11 @@ function TokenAttributionSection({ data }: { data: LoaderData }) {
             </p>
           </div>
           <InsightAreaChart
+            accentKey="score"
+            ariaLabel="Cost efficiency trend, tokens produced per dollar"
             data={efficiency}
             keys={["score"]}
             labelMap={{ score: "Tokens/$" }}
-            accentKey="score"
           />
         </div>
       </div>
@@ -63,7 +67,7 @@ function TokenAttributionSection({ data }: { data: LoaderData }) {
       {/* Top sessions by tokens */}
       {projects.length > 0 && (
         <div
-          className="rd-card p-[clamp(18px,2.2vw,26px)] mt-3 p-[clamp(22px,2.6vw,30px)]"
+          className="rd-card p-[clamp(22px,2.6vw,30px)] mt-3"
         >
           <div className="mb-2">
             <Eyebrow>Projects · ccusage</Eyebrow>

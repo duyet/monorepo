@@ -23,11 +23,13 @@ function InsightAreaChart({
   keys,
   labelMap,
   accentKey,
+  ariaLabel,
 }: {
   data: Array<Record<string, number | string>>;
   keys: string[];
   labelMap: Record<string, string>;
   accentKey?: string;
+  ariaLabel?: string;
 }) {
   const isHydrated = useHydrated();
   const { ref, width } = useElementWidth();
@@ -42,7 +44,12 @@ function InsightAreaChart({
   };
 
   return (
-    <div className="h-[200px] min-w-0" ref={ref}>
+    <div
+      aria-label={ariaLabel}
+      className="h-[200px] min-w-0"
+      ref={ref}
+      role={ariaLabel ? "img" : undefined}
+    >
       {(!isHydrated || width === 0) && (
         <div className="flex h-full items-center text-xs text-muted-foreground">
           Loading.
@@ -136,8 +143,10 @@ const STACK_COLORS = [
 
 function InsightStackedBarChart({
   data,
+  ariaLabel,
 }: {
   data: CCUsageActivityByModelData[];
+  ariaLabel?: string;
 }) {
   const isHydrated = useHydrated();
   const { ref, width } = useElementWidth();
@@ -151,7 +160,12 @@ function InsightStackedBarChart({
   );
 
   return (
-    <div className="h-[200px] min-w-0" ref={ref}>
+    <div
+      aria-label={ariaLabel}
+      className="h-[200px] min-w-0"
+      ref={ref}
+      role={ariaLabel ? "img" : undefined}
+    >
       {(!isHydrated || width === 0) && (
         <div className="flex h-full items-center text-xs text-muted-foreground">
           Loading.
