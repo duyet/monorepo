@@ -37,11 +37,11 @@ export function ExperienceItem({
           />
         </h3>
       </div>
-      <div className="flex items-baseline justify-between">
-        <span className="text-[14px] italic text-neutral-700 dark:text-neutral-300">
+      <div className="flex items-baseline justify-between gap-x-3">
+        <span className="min-w-0 text-[14px] italic text-neutral-700 dark:text-neutral-300">
           {title}
         </span>
-        <span className="text-[13px] italic text-black dark:text-neutral-200">
+        <span className="shrink-0 whitespace-nowrap text-[13px] italic tabular-nums text-neutral-500 dark:text-neutral-400">
           <PeriodText from={from} to={to} />
         </span>
       </div>
