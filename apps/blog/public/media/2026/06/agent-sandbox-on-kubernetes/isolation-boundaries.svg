@@ -1,0 +1,71 @@
+<svg viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Isolation boundary comparison: runc shares the host kernel directly, gVisor mediates syscalls in userspace, Kata Containers runs a separate guest kernel in a microVM">
+  <style>
+    .surface { fill: #fcfcfb; }
+    .card { fill: #f5f4f0; stroke: #dedcd3; stroke-width: 1; }
+    .title { fill: #0b0b0b; font: 600 15px system-ui, sans-serif; }
+    .label { fill: #0b0b0b; font: 600 13px system-ui, sans-serif; }
+    .sub { fill: #52514e; font: 12px system-ui, sans-serif; }
+    .app { fill: #86b6ef; }
+    .kernel { fill: #6da7ec; }
+    .boundary-weak { fill: #cde2fb; stroke: #86b6ef; }
+    .boundary-mid { fill: #6da7ec; }
+    .boundary-strong { fill: #1c5cab; }
+    .txt-on-strong { fill: #ffffff; font: 600 12px system-ui, sans-serif; }
+    .txt-on-mid { fill: #0b0b0b; font: 600 12px system-ui, sans-serif; }
+    @media (prefers-color-scheme: dark) {
+      .surface { fill: #1a1a19; }
+      .card { fill: #232320; stroke: #3a3934; }
+      .title { fill: #ffffff; }
+      .label { fill: #ffffff; }
+      .sub { fill: #c3c2b7; }
+      .app { fill: #2a78d6; }
+      .kernel { fill: #184f95; }
+      .boundary-weak { fill: #184f95; stroke: #3987e5; }
+      .boundary-mid { fill: #3987e5; }
+      .boundary-strong { fill: #86b6ef; }
+      .txt-on-strong { fill: #0b0b0b; }
+    }
+  </style>
+  <rect class="surface" width="900" height="320"/>
+
+  <!-- runc -->
+  <g transform="translate(20,20)">
+    <rect class="card" x="0" y="0" width="266" height="280" rx="6"/>
+    <text class="title" x="133" y="28" text-anchor="middle">containerd + runc</text>
+    <rect class="app" x="83" y="55" width="100" height="36" rx="4"/>
+    <text class="label" x="133" y="78" text-anchor="middle">Agent</text>
+    <rect class="boundary-weak" x="20" y="115" width="226" height="20" rx="4"/>
+    <text class="sub" x="133" y="129" text-anchor="middle">namespaces + seccomp</text>
+    <rect class="kernel" x="20" y="155" width="226" height="90" rx="4"/>
+    <text class="label" x="133" y="205" text-anchor="middle">Host kernel (shared)</text>
+    <text class="sub" x="133" y="266" text-anchor="middle">Weak — one shared kernel</text>
+  </g>
+
+  <!-- gVisor -->
+  <g transform="translate(317,20)">
+    <rect class="card" x="0" y="0" width="266" height="280" rx="6"/>
+    <text class="title" x="133" y="28" text-anchor="middle">gVisor</text>
+    <rect class="app" x="83" y="55" width="100" height="36" rx="4"/>
+    <text class="label" x="133" y="78" text-anchor="middle">Agent</text>
+    <rect class="boundary-mid" x="20" y="115" width="226" height="45" rx="4"/>
+    <text class="txt-on-mid" x="133" y="142" text-anchor="middle">Sentry (userspace kernel)</text>
+    <rect class="kernel" x="20" y="180" width="226" height="65" rx="4"/>
+    <text class="label" x="133" y="217" text-anchor="middle">Host kernel</text>
+    <text class="sub" x="133" y="266" text-anchor="middle">Strong — no direct syscalls</text>
+  </g>
+
+  <!-- Kata -->
+  <g transform="translate(614,20)">
+    <rect class="card" x="0" y="0" width="266" height="280" rx="6"/>
+    <text class="title" x="133" y="28" text-anchor="middle">Kata Containers</text>
+    <rect class="app" x="83" y="55" width="100" height="36" rx="4"/>
+    <text class="label" x="133" y="78" text-anchor="middle">Agent</text>
+    <rect class="kernel" x="20" y="105" width="226" height="55" rx="4"/>
+    <text class="label" x="133" y="137" text-anchor="middle">Guest kernel</text>
+    <rect class="boundary-strong" x="20" y="170" width="226" height="30" rx="4"/>
+    <text class="txt-on-strong" x="133" y="190" text-anchor="middle">KVM (hardware isolation)</text>
+    <rect class="kernel" x="20" y="210" width="226" height="35" rx="4"/>
+    <text class="label" x="133" y="232" text-anchor="middle">Host kernel</text>
+    <text class="sub" x="133" y="266" text-anchor="middle">Strongest — full VM boundary</text>
+  </g>
+</svg>
