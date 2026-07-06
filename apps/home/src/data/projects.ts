@@ -128,6 +128,7 @@ export const apps: AppItem[] = [
     domain: "mcp.duyet.net",
     iconName: "Plug",
     logo: "https://cdn.simpleicons.org/modelcontextprotocol",
+    logoDark: "https://cdn.simpleicons.org/modelcontextprotocol/ffffff",
     tags: ["AI", "Tool"],
   },
   {
@@ -190,6 +191,7 @@ export const apps: AppItem[] = [
     tone: "bg-[#6a5578]",
     iconName: "BookOpen",
     logo: "https://rust-lang.org/logos/rust-logo-blk.svg",
+    logoDark: "https://cdn.simpleicons.org/rust/ffffff",
     tags: ["Rust"],
   },
   {
@@ -237,6 +239,7 @@ export const apps: AppItem[] = [
     domain: "github.com/duyet/codex-claude-plugins",
     iconName: "Puzzle",
     logo: "https://cdn.simpleicons.org/anthropic",
+    logoDark: "https://cdn.simpleicons.org/anthropic/ffffff",
     tags: ["AI", "TypeScript"],
   },
   {
