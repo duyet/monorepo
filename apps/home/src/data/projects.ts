@@ -274,6 +274,7 @@ export const apps: AppItem[] = [
     domain: "github.com/duyet/charts",
     iconName: "Package",
     logo: "https://helm.sh/img/helm.svg",
+    logoDark: "https://cdn.simpleicons.org/helm/ffffff",
     tags: ["Infra"],
   },
   {
