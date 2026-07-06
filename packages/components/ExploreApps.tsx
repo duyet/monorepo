@@ -9,7 +9,7 @@
  * Pass `currentApp` to drop the app the visitor is already on.
  */
 import type { ReactNode } from "react";
-import { Eyebrow } from "./redesign";
+import { Eyebrow, SecHead } from "./redesign";
 
 export type ExploreAppKey =
   | "home"
@@ -218,46 +218,58 @@ export function ExploreApps({
   return (
     <section
       className={className}
-      style={{ borderTop: "1px solid var(--rd-border)" }}
+      style={{
+        borderTop: "1px solid var(--rd-border)",
+      }}
     >
-      <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(28px,4vw,44px)]">
-        <div className="flex items-end justify-between gap-4 flex-wrap">
-          <div>
-            <Eyebrow>{eyebrow}</Eyebrow>
-            <h2 className="rd-h-sec mt-[10px]">{title}</h2>
-          </div>
-          <a
-            href="https://duyet.net"
-            className="rd-ulink font-[var(--font-mono)] text-[12.5px]"
-          >
-            duyet.net →
-          </a>
-        </div>
+      <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,6vw,72px)]">
+        <SecHead
+          eyebrow={eyebrow}
+          title={title}
+          links={[
+            {
+              label: "duyet.net",
+              href: "https://duyet.net",
+            },
+          ]}
+        />
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-[8px] mt-[clamp(16px,2vw,22px)]">
-          {apps.map((app) => (
-            <a
-              key={app.key}
-              href={app.href}
-              className="rd-explore-card group rd-card flex items-center gap-[8px] px-[10px] py-[8px] no-underline text-inherit"
-              title={app.blurb}
-            >
-              <span className="rd-explore-glyph shrink-0 [&_svg]:w-[15px] [&_svg]:h-[15px]">
-                {app.glyph}
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="block text-[12px] font-semibold tracking-[-0.01em] leading-tight truncate">
-                  {app.name}
-                </span>
-                <span className="block font-[var(--font-mono)] text-[10px] text-[var(--rd-text-3)] truncate">
-                  {app.domain}
-                </span>
-              </span>
-              <span className="rd-explore-arrow font-[var(--font-mono)] text-[var(--rd-text-4)] text-[11px]">
-                →
-              </span>
-            </a>
-          ))}
+        <div className="max-w-[860px] mt-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            {apps.map((app) => (
+              <a
+                key={app.key}
+                href={app.href}
+                className="group p-4 border border-[var(--rd-border)] rounded-[var(--rd-r)] bg-[var(--rd-surface)] hover:border-[var(--rd-accent)] hover:shadow-md hover:-translate-y-[2px] transition-all duration-200 flex items-start gap-3 no-underline text-inherit"
+                title={app.blurb}
+              >
+                {/* Icon wrapper */}
+                <div className="flex items-center justify-center w-8 h-8 rounded-md bg-[var(--rd-bg)] text-[var(--rd-text-3)] group-hover:text-[var(--rd-accent)] group-hover:bg-[color-mix(in_srgb,var(--rd-accent)_8%,var(--rd-bg))] shrink-0 transition-all duration-200">
+                  <span className="w-5 h-5 flex items-center justify-center [&_svg]:w-full [&_svg]:h-full">
+                    {app.glyph}
+                  </span>
+                </div>
+
+                {/* Content */}
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-1">
+                    <span className="block text-[13px] font-semibold tracking-[-0.01em] leading-snug truncate text-[var(--rd-text)]">
+                      {app.name}
+                    </span>
+                    <span className="opacity-0 group-hover:opacity-100 text-[10px] text-[var(--rd-accent)] transition-opacity duration-200 font-mono">
+                      →
+                    </span>
+                  </div>
+                  <span className="block font-[var(--font-mono)] text-[9.5px] text-[var(--rd-text-4)] truncate mt-0.5">
+                    {app.domain}
+                  </span>
+                  <p className="text-[11px] text-[var(--rd-text-3)] leading-normal mt-1.5 overflow-hidden text-ellipsis line-clamp-2 group-hover:text-[var(--rd-text-2)] transition-colors duration-200">
+                    {app.blurb}
+                  </p>
+                </div>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </section>
