@@ -419,4 +419,17 @@ export const apps: AppItem[] = [
     iconName: "BarChart2",
     tags: ["AI"],
   },
+  {
+    name: "build-agent",
+    href: "https://github.com/duyet/build-agent",
+    host: "github.com",
+    utmContent: "build_agent_bento",
+    description:
+      "An autonomous agent skill designed to help build, run, and scale downstream AI agent systems.",
+    domain: "github.com/duyet/build-agent",
+    iconName: "Cpu",
+    logo: "https://cdn.simpleicons.org/npm",
+    logoDark: "https://cdn.simpleicons.org/npm/ffffff",
+    tags: ["AI", "Tool"],
+  },
 ];

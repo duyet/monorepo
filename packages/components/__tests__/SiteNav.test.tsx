@@ -1,7 +1,6 @@
-import { describe, expect, it } from "vitest";
 import { render } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import { SiteNav, SiteNavLink, siteNavLinkClassName } from "../site-nav";
-
 
 describe("SiteNav", () => {
   it("renders brand and links slots", () => {
@@ -17,9 +16,7 @@ describe("SiteNav", () => {
 
   it("renders a mobile menu trigger with accessible label", () => {
     const { container } = render(<SiteNav />);
-    const trigger = container.querySelector(
-      'button[aria-label="Open menu"]'
-    );
+    const trigger = container.querySelector('button[aria-label="Open menu"]');
     expect(trigger).not.toBeNull();
   });
 
@@ -42,9 +39,7 @@ describe("SiteNavLink", () => {
   });
 
   it("does not mark inactive links with aria-current", () => {
-    const { container } = render(
-      <SiteNavLink href="/blog">Blog</SiteNavLink>
-    );
+    const { container } = render(<SiteNavLink href="/blog">Blog</SiteNavLink>);
     const link = container.querySelector("a");
     expect(link?.getAttribute("aria-current")).toBeNull();
   });

@@ -1,23 +1,30 @@
 "use client";
 
-import { useEffect } from "react";
 import { cn } from "@duyet/libs/utils";
 import { duyetUrls } from "@duyet/urls";
 import {
-  House,
-  Newspaper,
+  Camera,
   ChartBar,
   ChatCircle,
-  Camera,
   Code,
-  X,
+  House,
+  Newspaper,
   Robot,
+  X,
 } from "@phosphor-icons/react";
+import { useEffect } from "react";
 
 export interface AppsDrawerProps {
   isOpen: boolean;
   onClose: () => void;
-  activeApp?: "home" | "blog" | "cv" | "insights" | "photos" | "homelab" | "agent";
+  activeApp?:
+    | "home"
+    | "blog"
+    | "cv"
+    | "insights"
+    | "photos"
+    | "homelab"
+    | "agent";
 }
 
 export function AppsDrawer({ isOpen, onClose, activeApp }: AppsDrawerProps) {

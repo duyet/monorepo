@@ -154,10 +154,10 @@ export function siteNavLinkClassName(active: boolean, extra?: string): string {
 
 export default SiteNav;
 
+export type { AppsDrawerProps } from "./AppsDrawer";
+export { AppsDrawer } from "./AppsDrawer";
+export type { BreadcrumbBarProps, BreadcrumbItem } from "./BreadcrumbBar";
+export { BreadcrumbBar } from "./BreadcrumbBar";
+export type { SiteNavV2Props } from "./SiteNavV2";
 // V2 Editorial Redesign exports
 export { SiteNavV2 } from "./SiteNavV2";
-export type { SiteNavV2Props } from "./SiteNavV2";
-export { AppsDrawer } from "./AppsDrawer";
-export type { AppsDrawerProps } from "./AppsDrawer";
-export { BreadcrumbBar } from "./BreadcrumbBar";
-export type { BreadcrumbBarProps, BreadcrumbItem } from "./BreadcrumbBar";

@@ -1,7 +1,7 @@
 "use client";
 
-import * as React from "react";
 import { cn } from "@duyet/libs/utils";
+import * as React from "react";
 
 export interface BreadcrumbItem {
   name: string;

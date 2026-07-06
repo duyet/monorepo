@@ -1,11 +1,7 @@
 import { cn } from "@duyet/libs/utils";
 import type * as React from "react";
 
-function Input({
-  className,
-  type,
-  ...props
-}: React.ComponentProps<"input">) {
+function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (
     <input
       type={type}

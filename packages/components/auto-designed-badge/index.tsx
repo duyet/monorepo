@@ -20,12 +20,7 @@ export function AutoDesignedBadge({
   // 60% opacity gives the muted feel without locking us to a single
   // palette.
   return (
-    <p
-      className={cn(
-        "text-xs italic text-current opacity-60",
-        className
-      )}
-    >
+    <p className={cn("text-xs italic text-current opacity-60", className)}>
       This site is auto-driven and auto-designed by{" "}
       <a
         href="https://github.com/duyetbot"

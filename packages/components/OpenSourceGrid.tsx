@@ -21,7 +21,7 @@ export async function fetchGitHubRepos(user: string): Promise<Repo[]> {
           Accept: "application/vnd.github+json",
           "User-Agent": "duyet.net",
         },
-      },
+      }
     );
     if (!res.ok) return [];
     const raw = await res.json();

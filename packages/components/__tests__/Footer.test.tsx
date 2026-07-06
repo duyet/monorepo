@@ -1,7 +1,6 @@
-import { describe, expect, it } from "vitest";
 import { render } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import Footer, { FooterContent } from "../Footer";
-
 
 describe("Footer", () => {
   it("renders as a footer element", () => {
@@ -58,9 +57,7 @@ describe("FooterContent", () => {
 
   it("renders the auto-designed credit badge", () => {
     const { container } = render(<FooterContent />);
-    expect(container.textContent).toContain(
-      "auto-driven and auto-designed by"
-    );
+    expect(container.textContent).toContain("auto-driven and auto-designed by");
     const credit = container.querySelector(
       'a[href="https://github.com/duyetbot"]'
     );

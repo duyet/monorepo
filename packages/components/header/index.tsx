@@ -5,7 +5,7 @@ import type { Profile } from "@duyet/profile";
 import { duyetProfile } from "@duyet/profile";
 import type { UrlsConfig } from "@duyet/urls";
 import { duyetUrls } from "@duyet/urls";
-import { Menu as MenuIcon, X as CloseIcon } from "lucide-react";
+import { X as CloseIcon, Menu as MenuIcon } from "lucide-react";
 import type { CSSProperties, ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import MenuNav, { type NavigationItem } from "../Menu";

@@ -1,9 +1,8 @@
-import { describe, expect, it } from "vitest";
 import { render } from "@testing-library/react";
-import { SiteNavV2 } from "../site-nav/SiteNavV2";
+import { describe, expect, it } from "vitest";
 import { AppsDrawer } from "../site-nav/AppsDrawer";
 import { BreadcrumbBar } from "../site-nav/BreadcrumbBar";
-
+import { SiteNavV2 } from "../site-nav/SiteNavV2";
 
 describe("SiteNavV2", () => {
   it("renders brand text and links", () => {

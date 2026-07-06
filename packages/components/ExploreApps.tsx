@@ -234,7 +234,7 @@ export function ExploreApps({
           </a>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[8px] mt-[clamp(16px,2vw,22px)]">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-[8px] mt-[clamp(16px,2vw,22px)]">
           {apps.map((app) => (
             <a
               key={app.key}

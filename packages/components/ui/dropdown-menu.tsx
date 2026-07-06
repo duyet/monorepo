@@ -8,9 +8,7 @@ import type * as React from "react";
 function DropdownMenu({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Root>) {
-  return (
-    <DropdownMenuPrimitive.Root data-slot="dropdown-menu" {...props} />
-  );
+  return <DropdownMenuPrimitive.Root data-slot="dropdown-menu" {...props} />;
 }
 
 function DropdownMenuTrigger({
@@ -43,9 +41,7 @@ function DropdownMenuPortal({
 function DropdownMenuSub({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Sub>) {
-  return (
-    <DropdownMenuPrimitive.Sub data-slot="dropdown-menu-sub" {...props} />
-  );
+  return <DropdownMenuPrimitive.Sub data-slot="dropdown-menu-sub" {...props} />;
 }
 
 function DropdownMenuRadioGroup({

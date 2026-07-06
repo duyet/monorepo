@@ -49,7 +49,8 @@ export default function Menu({
   onItemClick,
 }: Props) {
   const items = navigationItems ?? createDefaultNavigation(urls);
-  const currentPath = typeof window === "undefined" ? "" : window.location.pathname;
+  const currentPath =
+    typeof window === "undefined" ? "" : window.location.pathname;
 
   function isActive(href: string): boolean {
     if (href.startsWith("http")) return false;
@@ -67,10 +68,7 @@ export default function Menu({
 
   return (
     <div
-      className={cn(
-        "flex flex-row gap-1 flex-wrap items-center",
-        className
-      )}
+      className={cn("flex flex-row gap-1 flex-wrap items-center", className)}
     >
       {items.map(({ name, href }) =>
         href.startsWith("http") ? (

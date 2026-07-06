@@ -3,13 +3,13 @@
  * Uses the `--rd-*` CSS token layer from styles.css.
  */
 import {
+  type CSSProperties,
+  type ReactNode,
   useEffect,
   useId,
   useRef,
   useState,
-  type CSSProperties,
-  type ReactNode,
-} from "react"
+} from "react";
 
 // ---------------------------------------------------------------------------
 // Eyebrow — uppercase mono section label
@@ -18,15 +18,15 @@ export function Eyebrow({
   children,
   num,
 }: {
-  children: ReactNode
-  num?: string
+  children: ReactNode;
+  num?: string;
 }) {
   return (
     <div className="rd-eyebrow">
       {num && <span className="rd-num">{num}</span>}
       {children}
     </div>
-  )
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -38,17 +38,15 @@ export function SecHead({
   title,
   links,
 }: {
-  eyebrow?: string
-  num?: string
-  title: string
-  links?: Array<{ label: string; onClick?: () => void; href?: string }>
+  eyebrow?: string;
+  num?: string;
+  title: string;
+  links?: Array<{ label: string; onClick?: () => void; href?: string }>;
 }) {
   return (
     <div className="rd-sechead">
       <div>
-        {eyebrow && (
-          <Eyebrow num={num}>{eyebrow}</Eyebrow>
-        )}
+        {eyebrow && <Eyebrow num={num}>{eyebrow}</Eyebrow>}
         <h2 className="rd-h-sec" style={{ marginTop: 12 }}>
           {title}
         </h2>
@@ -61,15 +59,27 @@ export function SecHead({
                 {l.label} <span style={{ color: "var(--rd-text-4)" }}>→</span>
               </a>
             ) : (
-              <button key={i} onClick={l.onClick} type="button" style={{ cursor: "pointer", background: "none", border: "none", padding: 0, font: "inherit", color: "inherit" }}>
+              <button
+                key={i}
+                onClick={l.onClick}
+                type="button"
+                style={{
+                  cursor: "pointer",
+                  background: "none",
+                  border: "none",
+                  padding: 0,
+                  font: "inherit",
+                  color: "inherit",
+                }}
+              >
                 {l.label} <span style={{ color: "var(--rd-text-4)" }}>→</span>
               </button>
-            ),
+            )
           )}
         </div>
       )}
     </div>
-  )
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -81,47 +91,47 @@ export function Reveal({
   className = "",
   style,
 }: {
-  children: ReactNode
-  delay?: number
-  className?: string
-  style?: CSSProperties
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+  style?: CSSProperties;
 }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [on, setOn] = useState(false)
+  const ref = useRef<HTMLDivElement>(null);
+  const [on, setOn] = useState(false);
 
   useEffect(() => {
-    const el = ref.current
+    const el = ref.current;
     if (!el) {
-      setOn(true)
-      return
+      setOn(true);
+      return;
     }
-    let done = false
+    let done = false;
     const show = () => {
       if (!done) {
-        done = true
-        setOn(true)
+        done = true;
+        setOn(true);
       }
-    }
-    const t = setTimeout(show, 700 + delay)
+    };
+    const t = setTimeout(show, 700 + delay);
     if ("IntersectionObserver" in window) {
       const io = new IntersectionObserver(
         ([e]) => {
           if (e.isIntersecting) {
-            show()
-            io.disconnect()
+            show();
+            io.disconnect();
           }
         },
-        { threshold: 0.1, rootMargin: "0px 0px -6% 0px" },
-      )
-      io.observe(el)
+        { threshold: 0.1, rootMargin: "0px 0px -6% 0px" }
+      );
+      io.observe(el);
       return () => {
-        clearTimeout(t)
-        io.disconnect()
-      }
+        clearTimeout(t);
+        io.disconnect();
+      };
     }
-    show()
-    return () => clearTimeout(t)
-  }, [delay])
+    show();
+    return () => clearTimeout(t);
+  }, [delay]);
 
   return (
     <div
@@ -136,7 +146,7 @@ export function Reveal({
     >
       {children}
     </div>
-  )
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -148,28 +158,28 @@ export function Sparkline({
   stroke = "var(--rd-accent)",
   fill = true,
 }: {
-  data: number[]
-  h?: number
-  stroke?: string
-  fill?: boolean
+  data: number[];
+  h?: number;
+  stroke?: string;
+  fill?: boolean;
 }) {
   // Stable id across SSR + client so the gradient ref doesn't cause a
   // hydration mismatch (Math.random() would differ between passes).
-  const reactId = useId()
-  if (data.length < 2) return <div style={{ height: h }} />
-  const w = 120
-  const max = Math.max(...data)
-  const min = Math.min(...data)
-  const rng = max - min || 1
-  const step = w / (data.length - 1)
+  const reactId = useId();
+  if (data.length < 2) return <div style={{ height: h }} />;
+  const w = 120;
+  const max = Math.max(...data);
+  const min = Math.min(...data);
+  const rng = max - min || 1;
+  const step = w / (data.length - 1);
   const pts = data.map(
-    (v, i) => [i * step, h - ((v - min) / rng) * (h - 4) - 2] as const,
-  )
+    (v, i) => [i * step, h - ((v - min) / rng) * (h - 4) - 2] as const
+  );
   const line = pts
     .map((p, i) => `${i ? "L" : "M"}${p[0].toFixed(1)} ${p[1].toFixed(1)}`)
-    .join(" ")
-  const area = `${line} L${w} ${h} L0 ${h} Z`
-  const gid = `sg${reactId.replace(/:/g, "")}`
+    .join(" ");
+  const area = `${line} L${w} ${h} L0 ${h} Z`;
+  const gid = `sg${reactId.replace(/:/g, "")}`;
 
   return (
     <svg
@@ -194,36 +204,36 @@ export function Sparkline({
         vectorEffect="non-scaling-stroke"
       />
     </svg>
-  )
+  );
 }
 
 import * as SVGLogos from "@thesvg/react";
 
 const NAME_LOGOS: Record<string, any> = {
   // Languages
-  "typescript": SVGLogos.Typescript,
-  "javascript": SVGLogos.Typescript,
-  "python": SVGLogos.Python,
-  "rust": SVGLogos.Rust,
-  "go": SVGLogos.Go,
-  "shell": SVGLogos.GnuBash,
-  "bash": SVGLogos.GnuBash,
-  "markdown": SVGLogos.Markdown,
-  "css": SVGLogos.Css3,
-  "html": SVGLogos.Html5,
-  "sql": SVGLogos.Postgresql,
-  "clickhouse": SVGLogos.Clickhouse,
+  typescript: SVGLogos.Typescript,
+  javascript: SVGLogos.Typescript,
+  python: SVGLogos.Python,
+  rust: SVGLogos.Rust,
+  go: SVGLogos.Go,
+  shell: SVGLogos.GnuBash,
+  bash: SVGLogos.GnuBash,
+  markdown: SVGLogos.Markdown,
+  css: SVGLogos.Css3,
+  html: SVGLogos.Html5,
+  sql: SVGLogos.Postgresql,
+  clickhouse: SVGLogos.Clickhouse,
 
   // Models / Vendors
   "claude 3.5 sonnet": SVGLogos.Claude,
-  "claude": SVGLogos.Claude,
+  claude: SVGLogos.Claude,
   "gpt-4o": SVGLogos.Openai,
   "gpt-4o-mini": SVGLogos.Openai,
-  "openai": SVGLogos.Openai,
-  "gemini": SVGLogos.GoogleGemini,
-  "llama": SVGLogos.Metaai,
-  "ollama": SVGLogos.Ollama,
-  "deepseek": SVGLogos.Deepseek,
+  openai: SVGLogos.Openai,
+  gemini: SVGLogos.GoogleGemini,
+  llama: SVGLogos.Metaai,
+  ollama: SVGLogos.Ollama,
+  deepseek: SVGLogos.Deepseek,
 };
 
 function getLogo(name: string) {
@@ -243,10 +253,10 @@ export function DistRows({
   rows,
   color = "var(--rd-accent)",
 }: {
-  rows: Array<{ name: string; pct: number }>
-  color?: string
+  rows: Array<{ name: string; pct: number }>;
+  color?: string;
 }) {
-  const max = Math.max(...rows.map((r) => r.pct))
+  const max = Math.max(...rows.map((r) => r.pct));
   return (
     <div style={{ display: "grid", gap: 11 }}>
       {rows.map((r, i) => {
@@ -279,10 +289,13 @@ export function DistRows({
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {Logo && <Logo size={12} className="shrink-0" />}
+                  {Logo && <Logo width={12} height={12} className="shrink-0" />}
                   {r.name}
                 </span>
-                <span className="font-[var(--font-mono)] text-[var(--rd-text-3)]" style={{ fontSize: 12 }}>
+                <span
+                  className="font-[var(--font-mono)] text-[var(--rd-text-3)]"
+                  style={{ fontSize: 12 }}
+                >
                   {r.pct}%
                 </span>
               </div>
@@ -300,5 +313,5 @@ export function DistRows({
         );
       })}
     </div>
-  )
+  );
 }

@@ -80,37 +80,40 @@ export const DEFAULT_AREAS: Area[] = [
 import * as SVGLogos from "@thesvg/react";
 
 const TAG_LOGOS: Record<string, any> = {
-  "ClickHouse": SVGLogos.Clickhouse,
+  ClickHouse: SVGLogos.Clickhouse,
   "Apache Spark": SVGLogos.ApacheSpark,
-  "Airflow": SVGLogos.ApacheAirflow,
-  "BigQuery": SVGLogos.GcpBigquery,
-  "Kafka": SVGLogos.ApacheKafka,
-  "Python": SVGLogos.Python,
+  Airflow: SVGLogos.ApacheAirflow,
+  BigQuery: SVGLogos.GcpBigquery,
+  Kafka: SVGLogos.ApacheKafka,
+  Python: SVGLogos.Python,
   "Claude API": SVGLogos.Claude,
-  "LangGraph": SVGLogos.Langgraph,
-  "LlamaIndex": SVGLogos.Llamaindex,
-  "TypeScript": SVGLogos.Typescript,
-  "Kubernetes": SVGLogos.Kubernetes,
-  "Terraform": SVGLogos.Terraform,
-  "AWS": SVGLogos.Aws,
-  "GCP": SVGLogos.GoogleCloud,
-  "Cloudflare": SVGLogos.Cloudflare,
-  "Rust": SVGLogos.Rust,
+  LangGraph: SVGLogos.Langgraph,
+  LlamaIndex: SVGLogos.Llamaindex,
+  TypeScript: SVGLogos.Typescript,
+  Kubernetes: SVGLogos.Kubernetes,
+  Terraform: SVGLogos.Terraform,
+  AWS: SVGLogos.Aws,
+  GCP: SVGLogos.GoogleCloud,
+  Cloudflare: SVGLogos.Cloudflare,
+  Rust: SVGLogos.Rust,
   "Cloudflare Workers": SVGLogos.CloudflareWorkers,
-  "React": SVGLogos.React,
+  React: SVGLogos.React,
   "Tailwind CSS": SVGLogos.TailwindCss,
   "GitHub Actions": SVGLogos.GithubActions,
-  "Turborepo": SVGLogos.Turborepo,
-  "OpenTelemetry": SVGLogos.Opentelemetry,
-  "Grafana": SVGLogos.Grafana,
-  "GitHub": SVGLogos.Github,
+  Turborepo: SVGLogos.Turborepo,
+  OpenTelemetry: SVGLogos.Opentelemetry,
+  Grafana: SVGLogos.Grafana,
+  GitHub: SVGLogos.Github,
 };
 
 function TagBadge({ tag }: { tag: string }) {
   const Logo = TAG_LOGOS[tag];
   return (
-    <Badge variant="secondary" className="text-xs inline-flex items-center gap-1.5 py-0.5">
-      {Logo && <Logo size={12} className="shrink-0" />}
+    <Badge
+      variant="secondary"
+      className="text-xs inline-flex items-center gap-1.5 py-0.5"
+    >
+      {Logo && <Logo width={12} height={12} className="shrink-0" />}
       {tag}
     </Badge>
   );
@@ -120,9 +123,7 @@ function AreaCard({ area }: { area: Area }) {
   return (
     <div className="flex h-full flex-col gap-3 bg-background p-5">
       <div className="flex items-start justify-between gap-3">
-        <h3 className="text-base font-semibold tracking-tight">
-          {area.title}
-        </h3>
+        <h3 className="text-base font-semibold tracking-tight">{area.title}</h3>
         <span className="shrink-0 font-mono text-xs text-muted-foreground tabular-nums">
           {area.years}yr
         </span>
@@ -192,6 +193,5 @@ export function AreasOfExpertise({
     </section>
   );
 }
-
 
 export default AreasOfExpertise;

@@ -15,9 +15,8 @@ import {
   Flame,
   House,
   List,
-  Menu,
-  X,
   type LucideIcon,
+  Menu,
   Moon,
   Percent,
   Plug,
@@ -25,6 +24,7 @@ import {
   Sparkles,
   Sun,
   User,
+  X,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useRef, useState } from "react";
@@ -248,7 +248,11 @@ const GLOBAL_NAV: {
   label: string;
   href: string;
   match: { app?: AppKey; path?: string };
-  children?: { label: string; href: string; match: { app?: AppKey; path?: string } }[];
+  children?: {
+    label: string;
+    href: string;
+    match: { app?: AppKey; path?: string };
+  }[];
   blogOnly?: boolean;
   hideOnApps?: AppKey[];
 }[] = [
@@ -290,10 +294,26 @@ const GLOBAL_NAV: {
     match: { app: "blog", path: "/more-menu" },
     blogOnly: true,
     children: [
-      { label: "Archives", href: "https://blog.duyet.net/archives", match: { app: "blog", path: "/archives" } },
-      { label: "Categories", href: "https://blog.duyet.net/categories", match: { app: "blog", path: "/categories" } },
-      { label: "Tags", href: "https://blog.duyet.net/tags", match: { app: "blog", path: "/tags" } },
-      { label: "About", href: "https://duyet.net/about", match: { path: "/about" } },
+      {
+        label: "Archives",
+        href: "https://blog.duyet.net/archives",
+        match: { app: "blog", path: "/archives" },
+      },
+      {
+        label: "Categories",
+        href: "https://blog.duyet.net/categories",
+        match: { app: "blog", path: "/categories" },
+      },
+      {
+        label: "Tags",
+        href: "https://blog.duyet.net/tags",
+        match: { app: "blog", path: "/tags" },
+      },
+      {
+        label: "About",
+        href: "https://duyet.net/about",
+        match: { path: "/about" },
+      },
     ],
   },
   { label: "CV", href: "https://cv.duyet.net", match: { app: "cv" } },
@@ -302,8 +322,16 @@ const GLOBAL_NAV: {
     href: "https://photos.duyet.net",
     match: { app: "photos" },
     children: [
-      { label: "Gallery", href: "https://photos.duyet.net", match: { app: "photos", path: "/" } },
-      { label: "Feed", href: "https://photos.duyet.net/feed", match: { app: "photos", path: "/feed" } },
+      {
+        label: "Gallery",
+        href: "https://photos.duyet.net",
+        match: { app: "photos", path: "/" },
+      },
+      {
+        label: "Feed",
+        href: "https://photos.duyet.net/feed",
+        match: { app: "photos", path: "/feed" },
+      },
     ],
   },
   {
@@ -329,7 +357,10 @@ function GlobalNav({ currentApp }: { currentApp: AppKey }) {
   useEffect(() => {
     if (!openDropdown) return;
     const onPointerDown = (e: PointerEvent) => {
-      if (!containerRef.current || !containerRef.current.contains(e.target as Node)) {
+      if (
+        !containerRef.current ||
+        !containerRef.current.contains(e.target as Node)
+      ) {
         setOpenDropdown(null);
       }
     };
@@ -354,9 +385,9 @@ function GlobalNav({ currentApp }: { currentApp: AppKey }) {
     return false;
   };
 
-  const anyChildActive = (item: typeof GLOBAL_NAV[0]) => {
+  const anyChildActive = (item: (typeof GLOBAL_NAV)[0]) => {
     if (!item.children) return false;
-    return item.children.some(child => isActive(child.match));
+    return item.children.some((child) => isActive(child.match));
   };
 
   return (
@@ -379,9 +410,13 @@ function GlobalNav({ currentApp }: { currentApp: AppKey }) {
               className={cn(
                 "h-8 px-2.5 text-sm font-normal text-muted-foreground hover:text-foreground",
                 itemActive &&
-                  "bg-muted font-medium text-[var(--rd-accent)] hover:text-[var(--rd-accent)]",
+                  "bg-muted font-medium text-[var(--rd-accent)] hover:text-[var(--rd-accent)]"
               )}
-              onClick={hasChildren ? () => setOpenDropdown(isDropdownOpen ? null : item.label) : undefined}
+              onClick={
+                hasChildren
+                  ? () => setOpenDropdown(isDropdownOpen ? null : item.label)
+                  : undefined
+              }
               asChild={!hasChildren}
             >
               {hasChildren ? (
@@ -406,7 +441,7 @@ function GlobalNav({ currentApp }: { currentApp: AppKey }) {
                         "flex items-center h-8 px-3 rounded-md text-sm transition-colors",
                         isActive(child.match)
                           ? "bg-[var(--rd-muted)] text-[var(--rd-accent)] font-medium"
-                          : "text-[var(--rd-text)] hover:bg-[var(--rd-muted)]",
+                          : "text-[var(--rd-text)] hover:bg-[var(--rd-muted)]"
                       )}
                     >
                       {child.label}
@@ -465,7 +500,7 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
           "inline-flex h-9 items-center gap-2 -ml-1 rounded-md px-2 text-sm font-medium",
           "transition-colors hover:bg-muted/60 focus-visible:outline-hidden",
           "focus-visible:ring-2 focus-visible:ring-ring",
-          open && "bg-muted/60 relative z-50",
+          open && "bg-muted/60 relative z-50"
         )}
       >
         <AppLogo Icon={current.Icon} />
@@ -474,16 +509,13 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
           aria-hidden
           className={cn(
             "h-3.5 w-3.5 text-muted-foreground/70 transition-transform",
-            open && "rotate-180",
+            open && "rotate-180"
           )}
         />
       </button>
 
       {open && (
-        <div
-          className="fixed inset-0 z-40"
-          onClick={() => setOpen(false)}
-        />
+        <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
       )}
 
       {open && (
@@ -491,7 +523,7 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
           role="menu"
           className={cn(
             "absolute left-0 top-full z-50 mt-1.5 w-[min(92vw,26rem)] overflow-hidden rounded-lg border bg-[var(--rd-bg)] shadow-xl",
-            "dark:shadow-black/30",
+            "dark:shadow-black/30"
           )}
         >
           <div className="max-h-[min(85vh,45rem)] overflow-y-auto p-1.5">
@@ -519,14 +551,14 @@ function AppSwitcher({ currentApp = "home" }: { currentApp?: AppKey }) {
                             "hover:bg-[var(--rd-muted)] focus-visible:bg-[var(--rd-muted)]",
                             isCurrent
                               ? "border-foreground/20 bg-[var(--rd-muted)]"
-                              : "border-transparent hover:border-border",
+                              : "border-transparent hover:border-border"
                           )}
                         >
                           <span
                             className={cn(
                               "flex h-7 w-7 shrink-0 items-center justify-center rounded-md border transition-colors",
                               "border-border bg-background group-hover:border-foreground/20",
-                              isCurrent && "border-foreground/20",
+                              isCurrent && "border-foreground/20"
                             )}
                           >
                             <AppLogo Icon={app.Icon} />
@@ -582,16 +614,19 @@ function MobileNav({ currentApp }: { currentApp: AppKey }) {
     return false;
   };
 
-  const anyChildActive = (item: typeof GLOBAL_NAV[0]) => {
+  const anyChildActive = (item: (typeof GLOBAL_NAV)[0]) => {
     if (!item.children) return false;
-    return item.children.some(child => isActive(child.match));
+    return item.children.some((child) => isActive(child.match));
   };
 
   // Close dropdown when clicking outside
   useEffect(() => {
     if (!open) return;
     const onPointerDown = (e: PointerEvent) => {
-      if (!containerRef.current || !containerRef.current.contains(e.target as Node)) {
+      if (
+        !containerRef.current ||
+        !containerRef.current.contains(e.target as Node)
+      ) {
         setOpen(false);
         setOpenDropdown(null);
       }
@@ -617,7 +652,7 @@ function MobileNav({ currentApp }: { currentApp: AppKey }) {
         <div
           role="menu"
           className={cn(
-            "absolute right-0 top-full z-50 mt-1 w-40 overflow-hidden rounded-lg border bg-[var(--rd-bg)] shadow-xl dark:shadow-black/30",
+            "absolute right-0 top-full z-50 mt-1 w-40 overflow-hidden rounded-lg border bg-[var(--rd-bg)] shadow-xl dark:shadow-black/30"
           )}
         >
           <nav className="flex flex-col p-1">
@@ -648,14 +683,17 @@ function MobileNav({ currentApp }: { currentApp: AppKey }) {
                       "flex items-center justify-between h-9 px-3 rounded-md text-sm font-medium transition-colors",
                       itemActive
                         ? "bg-[var(--rd-muted)] text-[var(--rd-accent)]"
-                        : "text-[var(--rd-text-3)] hover:bg-[var(--rd-muted)] hover:text-[var(--rd-text)]",
+                        : "text-[var(--rd-text-3)] hover:bg-[var(--rd-muted)] hover:text-[var(--rd-text)]"
                     )}
                   >
                     {item.label}
                     {hasChildren && (
                       <ChevronsUpDown
                         aria-hidden
-                        className={cn("h-3 w-3 shrink-0 transition-transform", isDropdownOpen && "rotate-180")}
+                        className={cn(
+                          "h-3 w-3 shrink-0 transition-transform",
+                          isDropdownOpen && "rotate-180"
+                        )}
                       />
                     )}
                   </a>
@@ -672,7 +710,7 @@ function MobileNav({ currentApp }: { currentApp: AppKey }) {
                             "flex items-center h-8 px-3 rounded-md text-sm transition-colors",
                             isActive(child.match)
                               ? "text-[var(--rd-accent)] font-medium"
-                              : "text-[var(--rd-text)] hover:bg-[var(--rd-muted)]",
+                              : "text-[var(--rd-text)] hover:bg-[var(--rd-muted)]"
                           )}
                         >
                           {child.label}
@@ -723,7 +761,7 @@ function LocalNav({
               size="sm"
               className={cn(
                 "h-8 px-2.5 text-sm",
-                isActive && "bg-muted font-medium text-[var(--rd-accent)]",
+                isActive && "bg-muted font-medium text-[var(--rd-accent)]"
               )}
               asChild
             >
@@ -776,7 +814,7 @@ export function SiteHeader({
     <header
       className={cn(
         "sticky top-0 z-[999] w-full border-b border-[var(--rd-border)] bg-[var(--rd-bg)]/95 backdrop-blur supports-[backdrop-filter]:bg-[var(--rd-bg)]/60",
-        className,
+        className
       )}
     >
       <div className="mx-auto flex h-14 max-w-[1080px] items-center px-4 sm:px-6 lg:px-8">
@@ -787,7 +825,10 @@ export function SiteHeader({
         <div className="ml-auto flex items-center gap-1">
           <MobileNav currentApp={currentApp} />
           <GlobalNav currentApp={currentApp} />
-          <Separator orientation="vertical" className="mx-1 hidden h-6 md:block" />
+          <Separator
+            orientation="vertical"
+            className="mx-1 hidden h-6 md:block"
+          />
           <ThemeButton />
         </div>
       </div>

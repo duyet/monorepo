@@ -1,17 +1,11 @@
 export { default as Analytics } from "./Analytics";
+export { AppCommandPalette } from "./AppCommandPalette";
+export type { Area } from "./AreasOfExpertise";
 export {
   AreasOfExpertise,
   DEFAULT_AREAS,
   default as AreasOfExpertiseDefault,
 } from "./AreasOfExpertise";
-export type { Area } from "./AreasOfExpertise";
-export {
-  OpenSourceGrid,
-  fetchGitHubRepos,
-  default as OpenSourceGridDefault,
-} from "./OpenSourceGrid";
-export type { Repo } from "./OpenSourceGrid";
-export { AppCommandPalette } from "./AppCommandPalette";
 // AI Components
 export * from "./ai";
 export * from "./auto-designed-badge";
@@ -20,13 +14,13 @@ export { default as Container } from "./Container";
 // Card Components
 export * from "./cards";
 export { default as Error } from "./Error";
-export { ExploreApps, default as ExploreAppsDefault } from "./ExploreApps";
-export type { ExploreAppsProps, ExploreAppKey } from "./ExploreApps";
 export {
   default as ErrorBoundary,
   ErrorDisplay,
   useErrorBoundary,
 } from "./ErrorBoundary";
+export type { ExploreAppKey, ExploreAppsProps } from "./ExploreApps";
+export { default as ExploreAppsDefault, ExploreApps } from "./ExploreApps";
 export { default as Feed } from "./Feed";
 export { default as Footer } from "./Footer";
 export { default as Head } from "./Head";
@@ -46,13 +40,21 @@ export {
   SkeletonCard,
 } from "./LoadingState";
 export { default as Menu } from "./Menu";
-export * from "./site-nav";
-export { SiteHeader, default as SiteHeaderDefault } from "./SiteHeader";
-export type { SiteHeaderProps } from "./SiteHeader";
-export { SiteFooter, default as SiteFooterDefault } from "./SiteFooter";
+export type { Repo } from "./OpenSourceGrid";
+export {
+  default as OpenSourceGridDefault,
+  fetchGitHubRepos,
+  OpenSourceGrid,
+} from "./OpenSourceGrid";
+// Redesign components (2026 duyet.net redesign)
+export * from "./redesign";
 export type { SiteFooterLink, SiteFooterProps } from "./SiteFooter";
-export { SiteSubnav, default as SiteSubnavDefault } from "./SiteSubnav";
+export { default as SiteFooterDefault, SiteFooter } from "./SiteFooter";
+export type { SiteHeaderProps } from "./SiteHeader";
+export { default as SiteHeaderDefault, SiteHeader } from "./SiteHeader";
 export type { SiteSubnavLink, SiteSubnavProps } from "./SiteSubnav";
+export { default as SiteSubnavDefault, SiteSubnav } from "./SiteSubnav";
+export * from "./site-nav";
 export { default as ThemeProvider } from "./ThemeProvider";
 export { default as ThemeToggle } from "./ThemeToggle";
 export * from "./Tremor";
@@ -77,6 +79,3 @@ export * from "./ui/table";
 export * from "./ui/tabs";
 export * from "./ui/textarea";
 export * from "./ui/tooltip";
-
-// Redesign components (2026 duyet.net redesign)
-export * from "./redesign";

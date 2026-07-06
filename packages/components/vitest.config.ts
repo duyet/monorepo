@@ -1,6 +1,6 @@
 import path from "node:path";
-import { defineConfig } from "vitest/config";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { defineConfig } from "vitest/config";
 
 const wasmStub = path.resolve(__dirname, "../wasm/stub.ts");
 

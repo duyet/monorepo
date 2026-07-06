@@ -176,7 +176,9 @@ export function SiteFooter({
             color: "var(--rd-text-3)",
           }}
         >
-          <span>© {year} {owner}</span>
+          <span>
+            © {year} {owner}
+          </span>
           <span
             style={{
               fontFamily: "var(--font-mono)",

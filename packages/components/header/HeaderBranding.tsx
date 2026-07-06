@@ -23,10 +23,7 @@ interface HeaderBrandingProps {
  */
 function DuyetMark() {
   return (
-    <span
-      className="grid h-5 w-5 grid-cols-2 gap-0.5"
-      aria-hidden="true"
-    >
+    <span className="grid h-5 w-5 grid-cols-2 gap-0.5" aria-hidden="true">
       <span className="bg-[#141413] dark:bg-[#f8f8f2]" />
       <span className="translate-y-1 bg-[#141413] dark:bg-[#f8f8f2]" />
       <span className="-translate-y-1 bg-[#141413] dark:bg-[#f8f8f2]" />
@@ -63,9 +60,7 @@ export function HeaderBranding({
     </>
   );
 
-  const linkClassName = cn(
-    "flex items-center gap-3 whitespace-nowrap",
-  );
+  const linkClassName = cn("flex items-center gap-3 whitespace-nowrap");
 
   if (homeUrl.startsWith("http")) {
     return (

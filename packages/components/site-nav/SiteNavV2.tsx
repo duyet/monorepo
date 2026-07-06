@@ -1,17 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { cn } from "@duyet/libs/utils";
-import { SquaresFour, List } from "@phosphor-icons/react";
-import ThemeToggle from "../ThemeToggle";
+import { List, SquaresFour } from "@phosphor-icons/react";
+import { useEffect, useState } from "react";
 import { AppCommandPalette } from "../AppCommandPalette";
+import ThemeToggle from "../ThemeToggle";
 import { AppsDrawer } from "./AppsDrawer";
 
 export interface SiteNavV2Props {
   brandText?: string;
   brandHref?: string;
   links?: { name: string; href: string; active?: boolean }[];
-  activeApp?: "home" | "blog" | "cv" | "insights" | "photos" | "homelab" | "agent";
+  activeApp?:
+    | "home"
+    | "blog"
+    | "cv"
+    | "insights"
+    | "photos"
+    | "homelab"
+    | "agent";
   className?: string;
   alwaysScrolled?: boolean;
 }

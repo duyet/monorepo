@@ -15,9 +15,11 @@ import {
   Images,
   LayoutDashboard,
   Link2,
-  Radio,
   type LucideIcon,
+  Radio,
+  Search,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 import {
   Command,
   CommandEmpty,
@@ -27,9 +29,13 @@ import {
   CommandList,
   CommandSeparator,
 } from "./ui/command";
-import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { Search } from "lucide-react";
-import { useEffect, useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
 
 type PaletteItem = {
   label: string;
@@ -172,7 +178,10 @@ export function AppCommandPalette({
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== "k") {
+      if (
+        !(event.metaKey || event.ctrlKey) ||
+        event.key.toLowerCase() !== "k"
+      ) {
         return;
       }
 
@@ -180,8 +189,7 @@ export function AppCommandPalette({
         event.target instanceof HTMLInputElement ||
         event.target instanceof HTMLTextAreaElement ||
         event.target instanceof HTMLSelectElement ||
-        event.target instanceof HTMLElement &&
-          event.target.isContentEditable
+        (event.target instanceof HTMLElement && event.target.isContentEditable)
       ) {
         return;
       }
@@ -238,7 +246,9 @@ export function AppCommandPalette({
                       <item.icon className="h-5 w-5 text-[#1a1a1a]/80" />
                     </span>
                     <div className="min-w-0">
-                      <div className="text-base font-semibold tracking-tight sm:text-lg">{item.label}</div>
+                      <div className="text-base font-semibold tracking-tight sm:text-lg">
+                        {item.label}
+                      </div>
                       <div className="truncate text-sm text-[#1a1a1a]/55 dark:text-[#1a1a1a]/55">
                         {item.description}
                       </div>
@@ -264,7 +274,9 @@ export function AppCommandPalette({
                       <item.icon className="h-5 w-5 text-[#1a1a1a]/80" />
                     </span>
                     <div className="min-w-0">
-                      <div className="text-base font-semibold tracking-tight sm:text-lg">{item.label}</div>
+                      <div className="text-base font-semibold tracking-tight sm:text-lg">
+                        {item.label}
+                      </div>
                       <div className="truncate text-sm text-[#1a1a1a]/55 dark:text-[#1a1a1a]/55">
                         {item.description}
                       </div>
