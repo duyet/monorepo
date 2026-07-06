@@ -239,21 +239,21 @@ export function ExploreApps({
             <a
               key={app.key}
               href={app.href}
-              className="rd-explore-card group rd-card flex items-center gap-[10px] px-[12px] py-[10px] no-underline text-inherit"
+              className="rd-explore-card group rd-card flex items-center gap-[8px] px-[10px] py-[8px] no-underline text-inherit"
               title={app.blurb}
             >
-              <span className="rd-explore-glyph shrink-0 [&_svg]:w-[18px] [&_svg]:h-[18px]">
+              <span className="rd-explore-glyph shrink-0 [&_svg]:w-[15px] [&_svg]:h-[15px]">
                 {app.glyph}
               </span>
               <span className="min-w-0 flex-1">
-                <span className="block text-[13.5px] font-semibold tracking-[-0.01em] leading-tight truncate">
+                <span className="block text-[12px] font-semibold tracking-[-0.01em] leading-tight truncate">
                   {app.name}
                 </span>
-                <span className="block font-[var(--font-mono)] text-[10.5px] text-[var(--rd-text-3)] truncate">
+                <span className="block font-[var(--font-mono)] text-[10px] text-[var(--rd-text-3)] truncate">
                   {app.domain}
                 </span>
               </span>
-              <span className="rd-explore-arrow font-[var(--font-mono)] text-[var(--rd-text-4)] text-[12px]">
+              <span className="rd-explore-arrow font-[var(--font-mono)] text-[var(--rd-text-4)] text-[11px]">
                 →
               </span>
             </a>

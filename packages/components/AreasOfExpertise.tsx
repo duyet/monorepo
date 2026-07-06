@@ -28,7 +28,7 @@ export const DEFAULT_AREAS: Area[] = [
     featured: true,
   },
   {
-    title: "AI & ML Systems",
+    title: "AI Agent Engineering",
     years: 4,
     description:
       "Agent frameworks, model routing, and evaluation infrastructure. AnyRouter for multi-provider fallback and BYOK routing. LangGraph and LlamaIndex for workflow orchestration. Usage analytics baked in from day one.",

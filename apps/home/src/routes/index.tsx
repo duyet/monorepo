@@ -14,7 +14,7 @@ import { BlogTeaser } from "../components/BlogTeaser";
 import { GitHubContributions } from "../components/GitHubContributions";
 import { KeyboardFeatures } from "../components/KeyboardFeatures";
 import { NowDeco } from "../components/NowDeco";
-import { TechStackRadar } from "../components/TechStackRadar";
+
 import { Button } from "../components/ui/button";
 import { WorkBento } from "../components/WorkBento";
 import { type AppItem, apps } from "../data/projects";
@@ -144,19 +144,11 @@ function HomePage() {
           </Reveal>
         </section>
 
-        {/* tech radar */}
-        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)] border-t border-[var(--rd-border)]">
-          <Reveal>
-            <SecHead num="03" eyebrow="Stack" title="Tech Stack & Model Mix" />
-            <TechStackRadar />
-          </Reveal>
-        </section>
-
         {/* blog */}
         <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)] border-t border-[var(--rd-border)]">
           <Reveal>
             <SecHead
-              num="04"
+              num="03"
               eyebrow="Writing"
               title="From the blog"
               links={[
