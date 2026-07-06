@@ -1,18 +1,18 @@
+import { Reveal, SecHead } from "@duyet/components";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { apps } from "../data/projects";
-import { SecHead, Reveal } from "@duyet/components";
-import { cn } from "../lib/utils";
 import { Button } from "../components/ui/button";
 import {
-  type FilterKey,
   categoryOf,
   FILTER_KEYS,
+  type FilterKey,
   liveCount,
 } from "../components.projects/filter-utils";
-import { ViewToggle } from "../components.projects/ViewToggle";
 import { ProjectGrid } from "../components.projects/ProjectGrid";
 import { ProjectList } from "../components.projects/ProjectList";
+import { ViewToggle } from "../components.projects/ViewToggle";
+import { apps } from "../data/projects";
+import { cn } from "../lib/utils";
 
 export const Route = createFileRoute("/projects")({
   component: ProjectsPage,
@@ -32,17 +32,16 @@ function ProjectsPage() {
   const [filter, setFilter] = useState<FilterKey>("All");
   const [view, setView] = useState<"grid" | "list">("grid");
 
-  const list = filter === "All"
-    ? apps
-    : filter === "Live" || filter === "OSS"
-      ? apps.filter((a) => categoryOf(a) === filter)
-      : apps.filter((a) => a.tags?.includes(filter));
+  const list =
+    filter === "All"
+      ? apps
+      : filter === "Live" || filter === "OSS"
+        ? apps.filter((a) => categoryOf(a) === filter)
+        : apps.filter((a) => a.tags?.includes(filter));
 
   return (
     <div className="bg-[var(--rd-bg)] text-[var(--rd-text)]">
-      <section
-        className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(44px,6vw,76px)] pb-[clamp(56px,8vw,96px)]"
-      >
+      <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(44px,6vw,76px)] pb-[clamp(56px,8vw,96px)]">
         <Reveal>
           <SecHead
             eyebrow={`Projects · ${apps.length} total`}
@@ -71,7 +70,7 @@ function ProjectsPage() {
                   size="sm"
                   className={cn(
                     "font-[var(--font-mono)] text-[13px]",
-                    filter === key && "bg-muted font-medium",
+                    filter === key && "bg-muted font-medium"
                   )}
                   onClick={() => setFilter(key)}
                 >

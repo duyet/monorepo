@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect } from "react";
-import { Bot, Plug, ArrowRight, Send } from "lucide-react";
-import type { Msg } from "./chat-data";
-import { STARTER_PROMPTS, answerFor } from "./chat-data";
-import { ContactCard } from "./ContactCard";
+import { ArrowRight, Bot, Plug, Send } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { ChatCards } from "./ChatCards";
+import { ContactCard } from "./ContactCard";
+import type { Msg } from "./chat-data";
+import { answerFor, STARTER_PROMPTS } from "./chat-data";
 
 function ChatWindow() {
   const [msgs, setMsgs] = useState<Msg[]>([
@@ -14,7 +14,9 @@ function ChatWindow() {
     },
   ]);
   const [busy, setBusy] = useState(false);
-  const [pending, setPending] = useState<{ name: string; arg: string } | null>(null);
+  const [pending, setPending] = useState<{ name: string; arg: string } | null>(
+    null
+  );
   const [input, setInput] = useState("");
   const bodyRef = useRef<HTMLDivElement>(null);
 
@@ -56,9 +58,7 @@ function ChatWindow() {
           </div>
           <div className="rd-ch-model">claude-sonnet · via AnyRouter</div>
         </div>
-        <span
-          className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11.5px] ml-auto inline-flex items-center gap-[6px]"
-        >
+        <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11.5px] ml-auto inline-flex items-center gap-[6px]">
           <span className="rd-dot rd-ok rd-pulse" /> online
         </span>
       </div>
@@ -66,7 +66,10 @@ function ChatWindow() {
       {/* message thread */}
       <div className="rd-chat-body" ref={bodyRef}>
         {msgs.map((m, i) => (
-          <div key={i} className={`rd-msg ${m.role === "bot" ? "rd-bot" : "rd-user"}`}>
+          <div
+            key={i}
+            className={`rd-msg ${m.role === "bot" ? "rd-bot" : "rd-user"}`}
+          >
             <span className="rd-msg-ic">
               {m.role === "bot" ? (
                 <Bot size={16} />

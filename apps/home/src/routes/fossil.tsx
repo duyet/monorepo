@@ -1,5 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Eyebrow } from "@duyet/components";
+import { createFileRoute } from "@tanstack/react-router";
 import { addUtmParams } from "../../app/lib/utm";
 
 const PERIOD = "Nov 2018 — Aug 2023";
@@ -115,13 +115,13 @@ function FossilPage() {
         </h1>
         <p className="rd-lead mt-5 text-[clamp(1.02rem,1.4vw,1.15rem)] text-[var(--rd-text-2)]">
           Nearly five years at Fossil Group, growing from Data Engineer to
-          leading the data team. The Data Platform started on a Node.js data-collection platform
-          on AWS — Kinesis into S3, Lambda transforms, Athena and Redshift — and
-          we spent the next few years making it faster, cheaper, and more reliable:
-          Kafka and Spark on Kubernetes, a full rewrite in Rust, and a move to
-          ClickHouse. Costs came down by more than half along the way. A good
-          place, a good team, and the chapter where I learned to scale data —
-          and to lead — for real.
+          leading the data team. The Data Platform started on a Node.js
+          data-collection platform on AWS — Kinesis into S3, Lambda transforms,
+          Athena and Redshift — and we spent the next few years making it
+          faster, cheaper, and more reliable: Kafka and Spark on Kubernetes, a
+          full rewrite in Rust, and a move to ClickHouse. Costs came down by
+          more than half along the way. A good place, a good team, and the
+          chapter where I learned to scale data — and to lead — for real.
         </p>
 
         <div className="mt-9 flex flex-col gap-5 border-t border-[var(--rd-border)] pt-7">

@@ -22,17 +22,18 @@ interface Note {
 interface BlogTeaserProps {
   featuredPost: BlogPost;
   recentPosts: BlogPost[];
-  totalPosts: number;
   notes?: Note[];
 }
 
-export function BlogTeaser({ featuredPost, recentPosts, totalPosts, notes }: BlogTeaserProps) {
+export function BlogTeaser({
+  featuredPost,
+  recentPosts,
+  notes,
+}: BlogTeaserProps) {
   if (!featuredPost) return null;
 
   return (
-    <div
-      className="grid grid-cols-[minmax(0,1.05fr)_minmax(0,.95fr)] items-stretch gap-[18px]"
-    >
+    <div className="grid grid-cols-[minmax(0,1.05fr)_minmax(0,.95fr)] items-stretch gap-[18px]">
       {/* featured post card */}
       <div className="flex flex-col gap-[18px]">
         <a
@@ -42,10 +43,11 @@ export function BlogTeaser({ featuredPost, recentPosts, totalPosts, notes }: Blo
           rel="noreferrer"
         >
           <div className="p-0">
-            <div
-              className="flex items-center gap-[10px] mb-3"
-            >
-              <Badge variant="outline" className="font-[var(--font-mono)] text-[10.5px] px-2 py-0">
+            <div className="flex items-center gap-[10px] mb-3">
+              <Badge
+                variant="outline"
+                className="font-[var(--font-mono)] text-[10.5px] px-2 py-0"
+              >
                 {featuredPost.category}
               </Badge>
               <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs">
@@ -53,15 +55,11 @@ export function BlogTeaser({ featuredPost, recentPosts, totalPosts, notes }: Blo
                 min
               </span>
             </div>
-            <h3
-              className="text-[1.5rem] tracking-[-0.03em]"
-            >
+            <h3 className="text-[1.5rem] tracking-[-0.03em]">
               {featuredPost.title}
             </h3>
             {featuredPost.excerpt && (
-              <p
-                className="text-[var(--rd-text-2)] mt-[10px] text-[14.5px]"
-              >
+              <p className="text-[var(--rd-text-2)] mt-[10px] text-[14.5px]">
                 {featuredPost.excerpt}
               </p>
             )}
@@ -75,7 +73,12 @@ export function BlogTeaser({ featuredPost, recentPosts, totalPosts, notes }: Blo
               <span className="font-[var(--font-mono)] text-[10.5px] uppercase tracking-[0.14em] text-[var(--rd-text-3)]">
                 Quick notes
               </span>
-              <Button variant="link" size="sm" asChild className="inline-flex mt-0 p-0 h-auto text-[12px]">
+              <Button
+                variant="link"
+                size="sm"
+                asChild
+                className="inline-flex mt-0 p-0 h-auto text-[12px]"
+              >
                 <a
                   href="https://blog.duyet.net/notes/"
                   target="_blank"
@@ -121,20 +124,14 @@ export function BlogTeaser({ featuredPost, recentPosts, totalPosts, notes }: Blo
               rel="noreferrer"
             >
               <div className="min-w-0">
-                <div
-                  className="overflow-hidden text-ellipsis whitespace-nowrap text-[15px] font-[550]"
-                >
+                <div className="overflow-hidden text-ellipsis whitespace-nowrap text-[15px] font-[550]">
                   {post.title}
                 </div>
-                <div
-                  className="font-[var(--font-mono)] text-[var(--rd-text-3)] mt-1 text-[11.5px]"
-                >
+                <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] mt-1 text-[11.5px]">
                   {post.category} · {formatBlogDate(post.date)}
                 </div>
                 {post.excerpt && (
-                  <div
-                    className="text-[var(--rd-text-2)] mt-[5px] overflow-hidden text-ellipsis whitespace-nowrap text-[13px]"
-                  >
+                  <div className="text-[var(--rd-text-2)] mt-[5px] overflow-hidden text-ellipsis whitespace-nowrap text-[13px]">
                     {post.excerpt}
                   </div>
                 )}

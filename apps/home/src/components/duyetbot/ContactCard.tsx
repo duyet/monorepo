@@ -1,5 +1,5 @@
+import { Check, Send } from "lucide-react";
 import { useState } from "react";
-import { Send, Check } from "lucide-react";
 
 function ContactCard() {
   const [sent, setSent] = useState(false);
@@ -8,12 +8,8 @@ function ContactCard() {
   if (sent) {
     return (
       <div className="rd-chat-cards">
-        <div
-          className="rd-chat-card cursor-default flex items-center gap-[10px] border-[color-mix(in_srgb,var(--rd-ok)_40%,var(--rd-border))]"
-        >
-          <span
-            className="grid place-items-center w-[30px] h-[30px] rounded-lg bg-[color-mix(in_srgb,var(--rd-ok)_16%,transparent)] text-[var(--rd-ok)] shrink-0"
-          >
+        <div className="rd-chat-card cursor-default flex items-center gap-[10px] border-[color-mix(in_srgb,var(--rd-ok)_40%,var(--rd-border))]">
+          <span className="grid place-items-center w-[30px] h-[30px] rounded-lg bg-[color-mix(in_srgb,var(--rd-ok)_16%,transparent)] text-[var(--rd-ok)] shrink-0">
             <Check size={14} />
           </span>
           <span>

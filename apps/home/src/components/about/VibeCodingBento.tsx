@@ -27,7 +27,11 @@ function AgentIcon({ name }: { name: string }) {
   }
   if (normalized === "codex") {
     return (
-      <svg className="h-[15px] w-[15px]" viewBox="0 0 24 24" fill="currentColor">
+      <svg
+        className="h-[15px] w-[15px]"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
         <title>Codex</title>
         <path
           clipRule="evenodd"
@@ -39,7 +43,12 @@ function AgentIcon({ name }: { name: string }) {
   }
   if (normalized === "opencode") {
     return (
-      <svg className="h-[15px] w-[15px]" viewBox="0 0 24 24" fill="currentColor" fillRule="evenodd">
+      <svg
+        className="h-[15px] w-[15px]"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        fillRule="evenodd"
+      >
         <title>opencode</title>
         <path d="M16 6H8v12h8V6zm4 16H4V2h16v20z" />
       </svg>
@@ -63,10 +72,10 @@ function VibeCodingBento({ agentsList }: VibeCodingBentoProps) {
           </a>
         </div>
         <p className="mt-5 max-w-[40ch] text-[clamp(0.95rem,1.3vw,1.08rem)] leading-[1.6] text-[var(--rd-text-2)]">
-          These days most of what ships here is written alongside coding
-          agents, with me steering. I describe intent, review diffs, and
-          keep the architecture honest — the agents do the typing, the
-          searching, and a lot of the grunt work.
+          These days most of what ships here is written alongside coding agents,
+          with me steering. I describe intent, review diffs, and keep the
+          architecture honest — the agents do the typing, the searching, and a
+          lot of the grunt work.
         </p>
         <div className="rd-vibe-stat">
           <div className="text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none">

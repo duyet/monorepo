@@ -3,7 +3,6 @@ import { addUtmParams } from "../../../app/lib/utm";
 
 const experienceYears = "8+ years";
 
-
 const focus =
   "Data pipelines, warehouses, and observability. Agent workflows, model routing, evaluation, and usage analytics. Small, sharp tools with clean interfaces.";
 
@@ -19,11 +18,7 @@ const elsewhere = [
   {
     title: "GitHub",
     description: "Open source across Python, Rust, and TypeScript.",
-    url: addUtmParams(
-      "https://github.com/duyet",
-      "about_page",
-      "github_card",
-    ),
+    url: addUtmParams("https://github.com/duyet", "about_page", "github_card"),
   },
   {
     title: "LinkedIn",
@@ -31,7 +26,7 @@ const elsewhere = [
     url: addUtmParams(
       "https://linkedin.com/in/duyet",
       "about_page",
-      "linkedin_card",
+      "linkedin_card"
     ),
   },
   {
@@ -75,7 +70,15 @@ const techStack = [
   {
     g: "Data",
     icon: "disk",
-    items: ["ClickHouse", "Spark", "Airflow", "BigQuery", "Kafka", "dbt", "DuckDB"],
+    items: [
+      "ClickHouse",
+      "Spark",
+      "Airflow",
+      "BigQuery",
+      "Kafka",
+      "dbt",
+      "DuckDB",
+    ],
   },
   {
     g: "Cloud & Infra",
@@ -89,4 +92,12 @@ const techStack = [
   },
 ];
 
-export { focus, stack, elsewhere, expertise, agentsList, techStack, experienceYears };
+export {
+  agentsList,
+  elsewhere,
+  experienceYears,
+  expertise,
+  focus,
+  stack,
+  techStack,
+};

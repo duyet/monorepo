@@ -1,6 +1,6 @@
-import { type AppItem } from "../data/projects";
-import { ColoredDomain } from "../components.projects/ColoredDomain";
 import { addUtmParams } from "../../app/lib/utm";
+import { ColoredDomain } from "../components.projects/ColoredDomain";
+import type { AppItem } from "../data/projects";
 
 interface ProjectCardHeaderProps {
   item: AppItem;
@@ -9,13 +9,25 @@ interface ProjectCardHeaderProps {
   utm?: { source: string; content?: string; medium?: string };
 }
 
-function Logo({ logo, logoDark, className = "" }: { logo?: string; logoDark?: string; className?: string }) {
+function Logo({
+  logo,
+  logoDark,
+  className = "",
+}: {
+  logo?: string;
+  logoDark?: string;
+  className?: string;
+}) {
   if (!logo && !logoDark) return null;
   if (logoDark) {
     return (
       <>
         <img src={logo} alt="" className={`${className} dark:hidden`} />
-        <img src={logoDark} alt="" className={`hidden dark:block ${className}`} />
+        <img
+          src={logoDark}
+          alt=""
+          className={`hidden dark:block ${className}`}
+        />
       </>
     );
   }

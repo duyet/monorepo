@@ -107,7 +107,8 @@ export const apps: AppItem[] = [
     href: projectUrls.agentState,
     host: hostOf(projectUrls.agentState),
     utmContent: "agentstate_bento",
-    description: "State store for AI agents — persistent memory and state management for agent workflows.",
+    description:
+      "State store for AI agents — persistent memory and state management for agent workflows.",
     screenshot: "/screenshots/agentstate-art.svg",
     tone: "bg-[#536f91]",
     domain: "agentstate.app",
@@ -231,7 +232,8 @@ export const apps: AppItem[] = [
     href: "https://github.com/duyet/codex-claude-plugins",
     host: "github.com",
     utmContent: "codex_claude_plugins_bento",
-    description: "Codex and Claude Code plugins for AI-powered development workflows.",
+    description:
+      "Codex and Claude Code plugins for AI-powered development workflows.",
     domain: "github.com/duyet/codex-claude-plugins",
     iconName: "Puzzle",
     logo: "https://cdn.simpleicons.org/anthropic",
@@ -242,7 +244,8 @@ export const apps: AppItem[] = [
     href: "https://github.com/duyet/duyet-mcp-server",
     host: "github.com",
     utmContent: "duyet_mcp_server_bento",
-    description: "Remote Model Context Protocol server for duyet.net — exposes blog, analytics, and personal data.",
+    description:
+      "Remote Model Context Protocol server for duyet.net — exposes blog, analytics, and personal data.",
     domain: "github.com/duyet/duyet-mcp-server",
     iconName: "Plug",
     tags: ["AI", "TypeScript"],

@@ -1,4 +1,4 @@
-import { apps, type AppItem } from "../data/projects";
+import { type AppItem, apps } from "../data/projects";
 
 export type FilterKey = "All" | "Live" | "OSS" | string;
 

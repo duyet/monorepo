@@ -20,7 +20,10 @@ export const urls: Urls = {
   },
   "/agents": { target: "https://agents.duyet.net", desc: "AI Agents" },
   "/okie": { target: "https://okie.one", desc: "okie.one - LLM chat UI" },
-  "/pageview": { target: "https://pageview.duyet.net", desc: "pageview - simple analytics" },
+  "/pageview": {
+    target: "https://pageview.duyet.net",
+    desc: "pageview - simple analytics",
+  },
   "/claude-plugins": {
     target: "https://github.com/duyet/claude-plugins",
     desc: "Claude Plugins",
@@ -33,7 +36,7 @@ export const urls: Urls = {
     target: "https://burns.duyet.net",
     desc: "Token burn counter",
   },
-"/claw": {
+  "/claw": {
     target: "https://claw.duyet.net",
     desc: "OpenClaw Mission Control",
   },

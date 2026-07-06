@@ -1,5 +1,5 @@
-import { ArrowUpRight } from "lucide-react";
 import { Eyebrow } from "@duyet/components";
+import { ArrowUpRight } from "lucide-react";
 
 interface ElsewhereLink {
   title: string;
@@ -25,9 +25,7 @@ function ElsewhereCards({ elsewhere }: ElsewhereCardsProps) {
             rel="noreferrer"
           >
             <div className="flex items-center justify-between">
-              <span className="text-[16px] font-semibold">
-                {e.title}
-              </span>
+              <span className="text-[16px] font-semibold">{e.title}</span>
               <span className="rd-rowarrow">
                 <ArrowUpRight size={15} />
               </span>

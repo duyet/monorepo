@@ -118,7 +118,7 @@ export function GitHubContributions() {
             >
               <title>{`${day.contributionCount} on ${day.date}`}</title>
             </rect>
-          )),
+          ))
         )}
       </svg>
       <div className="mt-2 flex items-center gap-1.5 font-[var(--font-mono)] text-[10px] text-[var(--rd-text-3)]">

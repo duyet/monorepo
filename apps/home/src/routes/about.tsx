@@ -1,18 +1,18 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Eyebrow } from "@duyet/components";
+import { createFileRoute } from "@tanstack/react-router";
 import {
+  agentsList,
+  elsewhere,
+  experienceYears,
+  expertise,
   focus,
   stack,
-  elsewhere,
-  expertise,
-  agentsList,
   techStack,
-  experienceYears,
 } from "../components/about/about-data";
-import { VibeCodingBento } from "../components/about/VibeCodingBento";
-import { TechStackGrid } from "../components/about/TechStackGrid";
 import { ElsewhereCards } from "../components/about/ElsewhereCards";
 import { ExpertiseGrid } from "../components/about/ExpertiseGrid";
+import { TechStackGrid } from "../components/about/TechStackGrid";
+import { VibeCodingBento } from "../components/about/VibeCodingBento";
 
 const contentLastModified = "2026-05-02";
 
@@ -99,8 +99,8 @@ function AboutPage() {
           <Eyebrow>About</Eyebrow>
           <h1 className="rd-display mt-[13px] max-w-[17ch] text-[clamp(2.05rem,4.2vw,3.3rem)] leading-[1.02]">
             I build data platforms, and the{" "}
-            <span className="text-[var(--rd-accent)]">AI agents</span>{" "}
-            that run on top of them.
+            <span className="text-[var(--rd-accent)]">AI agents</span> that run
+            on top of them.
           </h1>
           <p className="rd-lead mt-6 max-w-[60ch] text-[clamp(1.05rem,1.5vw,1.22rem)]">
             I care about systems that are easy to operate, easy to explain, and
@@ -130,7 +130,10 @@ function AboutPage() {
 
         <TechStackGrid techStack={techStack} />
         <ElsewhereCards elsewhere={elsewhere} />
-        <ExpertiseGrid expertise={expertise} experienceYears={experienceYears} />
+        <ExpertiseGrid
+          expertise={expertise}
+          experienceYears={experienceYears}
+        />
       </div>
     </div>
   );

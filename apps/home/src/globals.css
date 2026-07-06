@@ -20,7 +20,7 @@
     --destructive-foreground: #ffffff;
     --border: var(--rd-border, #e8e8e6);
     --input: var(--rd-border, #e8e8e6);
-    --ring: var(--rd-ring, rgba(216,96,47,.32));
+    --ring: var(--rd-ring, rgba(216, 96, 47, 0.32));
     --radius: var(--rd-r, 11px);
   }
 
@@ -43,7 +43,7 @@
     --destructive-foreground: #ffffff;
     --border: var(--rd-border, #242424);
     --input: var(--rd-border, #242424);
-    --ring: var(--rd-ring, rgba(240,116,63,.4));
+    --ring: var(--rd-ring, rgba(240, 116, 63, 0.4));
   }
 
   * {
@@ -62,7 +62,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.55;
-    transition: background-color .35s ease, color .35s ease;
+    transition:
+      background-color 0.35s ease,
+      color 0.35s ease;
   }
 }
 
@@ -85,24 +87,52 @@
 
   /* Spotify soundwave keyframes */
   @keyframes spotify-bar-1 {
-    0%, 100% { height: 4px; }
-    50% { height: 16px; }
+    0%,
+    100% {
+      height: 4px;
+    }
+    50% {
+      height: 16px;
+    }
   }
   @keyframes spotify-bar-2 {
-    0%, 100% { height: 12px; }
-    50% { height: 6px; }
+    0%,
+    100% {
+      height: 12px;
+    }
+    50% {
+      height: 6px;
+    }
   }
   @keyframes spotify-bar-3 {
-    0%, 100% { height: 8px; }
-    50% { height: 18px; }
+    0%,
+    100% {
+      height: 8px;
+    }
+    50% {
+      height: 18px;
+    }
   }
   @keyframes spotify-bar-4 {
-    0%, 100% { height: 14px; }
-    50% { height: 4px; }
+    0%,
+    100% {
+      height: 14px;
+    }
+    50% {
+      height: 4px;
+    }
   }
 
-  .animate-spotify-1 { animation: spotify-bar-1 1.2s ease-in-out infinite; }
-  .animate-spotify-2 { animation: spotify-bar-2 0.8s ease-in-out infinite; }
-  .animate-spotify-3 { animation: spotify-bar-3 1.0s ease-in-out infinite; }
-  .animate-spotify-4 { animation: spotify-bar-4 1.4s ease-in-out infinite; }
+  .animate-spotify-1 {
+    animation: spotify-bar-1 1.2s ease-in-out infinite;
+  }
+  .animate-spotify-2 {
+    animation: spotify-bar-2 0.8s ease-in-out infinite;
+  }
+  .animate-spotify-3 {
+    animation: spotify-bar-3 1s ease-in-out infinite;
+  }
+  .animate-spotify-4 {
+    animation: spotify-bar-4 1.4s ease-in-out infinite;
+  }
 }

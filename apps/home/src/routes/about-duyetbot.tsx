@@ -1,7 +1,7 @@
+import { Eyebrow, Reveal, SecHead } from "@duyet/components";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Eyebrow, SecHead, Reveal } from "@duyet/components";
-import { ChatWindow } from "../components/duyetbot/ChatWindow";
 import { ChatSidebar } from "../components/duyetbot/ChatSidebar";
+import { ChatWindow } from "../components/duyetbot/ChatWindow";
 
 export const Route = createFileRoute("/about-duyetbot")({
   component: DuyetbotPage,
@@ -23,29 +23,25 @@ function DuyetbotPage() {
       <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(22px,3.2vw,40px)] pb-[clamp(32px,5vw,64px)]">
         <Reveal>
           <Eyebrow>Agent · duyetbot</Eyebrow>
-          <h1
-            className="rd-display mt-[12px] text-[clamp(1.9rem,3.8vw,3rem)] max-w-[24ch] leading-[1.06]"
-          >
+          <h1 className="rd-display mt-[12px] text-[clamp(1.9rem,3.8vw,3rem)] max-w-[24ch] leading-[1.06]">
             The agent that{" "}
             <span className="text-[var(--rd-accent)]">runs this site.</span>
           </h1>
-          <p
-            className="rd-lead mt-[14px] max-w-[58ch] text-[clamp(0.95rem,1.1vw,1.05rem)]"
-          >
-            duyetbot is the autonomous agent that maintains, redesigns, and ships{" "}
+          <p className="rd-lead mt-[14px] max-w-[58ch] text-[clamp(0.95rem,1.1vw,1.05rem)]">
+            duyetbot is the autonomous agent that maintains, redesigns, and
+            ships{" "}
             <a href="https://duyet.net" className="rd-ulink">
               duyet.net
             </a>{" "}
-            end-to-end. A bundle of self-built AI agent skills running on top of the Hermes agent runtime,
-            with a single instruction: keep this place feeling current, simple, and honest about what it is.
+            end-to-end. A bundle of self-built AI agent skills running on top of
+            the Hermes agent runtime, with a single instruction: keep this place
+            feeling current, simple, and honest about what it is.
           </p>
         </Reveal>
 
         {/* demo banner */}
         <Reveal delay={60} className="mt-[14px]">
-          <div
-            className="inline-flex items-center gap-[8px] px-[12px] py-[6px] border border-[var(--rd-border)] rounded-[var(--rd-r)] text-[12.5px] text-[var(--rd-text-3)] font-[var(--font-mono)]"
-          >
+          <div className="inline-flex items-center gap-[8px] px-[12px] py-[6px] border border-[var(--rd-border)] rounded-[var(--rd-r)] text-[12.5px] text-[var(--rd-text-3)] font-[var(--font-mono)]">
             <span className="rd-dot rd-ok rd-pulse inline-block" />
             Demo conversation — connect the real MCP server at{" "}
             <a
@@ -76,19 +72,18 @@ function DuyetbotPage() {
               eyebrow="Runtime"
               title="Hermes agent + a bundle of self-built skills"
             />
-            <p
-              className="rd-lead max-w-[62ch] mt-[16px] text-[clamp(0.92rem,1.05vw,1rem)]"
-            >
-              The bot runs on top of the Hermes agent runtime — long-running, tool-using, with persistent
-              file-based memory across sessions. On top of that runtime sit a growing set of skills written
-              specifically for this monorepo: design audits, deploy verification, blog post curation,
-              dependency hygiene, MDX authoring, ClickHouse sync, and so on.
+            <p className="rd-lead max-w-[62ch] mt-[16px] text-[clamp(0.92rem,1.05vw,1rem)]">
+              The bot runs on top of the Hermes agent runtime — long-running,
+              tool-using, with persistent file-based memory across sessions. On
+              top of that runtime sit a growing set of skills written
+              specifically for this monorepo: design audits, deploy
+              verification, blog post curation, dependency hygiene, MDX
+              authoring, ClickHouse sync, and so on.
             </p>
-            <p
-              className="text-[var(--rd-text-2)] max-w-[62ch] mt-[12px] text-[clamp(0.92rem,1.05vw,1rem)]"
-            >
-              New skills get added when a recurring task becomes worth automating. Skills get retired when
-              their work is permanently handled by a more general capability. The skill set is itself a
+            <p className="text-[var(--rd-text-2)] max-w-[62ch] mt-[12px] text-[clamp(0.92rem,1.05vw,1rem)]">
+              New skills get added when a recurring task becomes worth
+              automating. Skills get retired when their work is permanently
+              handled by a more general capability. The skill set is itself a
               living thing.
             </p>
           </Reveal>
@@ -102,9 +97,7 @@ function DuyetbotPage() {
               eyebrow="Behavior"
               title="Auto-discover, auto-rebuild, auto-ship"
             />
-            <div
-              className="mt-[20px] grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-0 border border-[var(--rd-border)] rounded-[var(--rd-r)] overflow-hidden"
-            >
+            <div className="mt-[20px] grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-0 border border-[var(--rd-border)] rounded-[var(--rd-r)] overflow-hidden">
               {[
                 {
                   label: "Auto-discover",
@@ -127,14 +120,8 @@ function DuyetbotPage() {
                   key={cap.label}
                   className="border-r border-b border-[var(--rd-border)] px-[22px] py-[20px]"
                 >
-                  <p
-                    className="rd-eyebrow text-[10.5px]"
-                  >
-                    {cap.label}
-                  </p>
-                  <p
-                    className="text-[var(--rd-text-2)] text-[13.5px] leading-[1.65] mt-[8px]"
-                  >
+                  <p className="rd-eyebrow text-[10.5px]">{cap.label}</p>
+                  <p className="text-[var(--rd-text-2)] text-[13.5px] leading-[1.65] mt-[8px]">
                     {cap.body}
                   </p>
                 </div>
@@ -151,16 +138,13 @@ function DuyetbotPage() {
               eyebrow="Disclosure"
               title="Subject to change without notice"
             />
-            <p
-              className="rd-lead max-w-[62ch] mt-[16px] text-[clamp(0.92rem,1.05vw,1rem)]"
-            >
-              Anything on this site can change at any time. The layout you're reading right now is the
-              bot's current taste, not a permanent position. If a page looks different next time you visit,
-              that's the system working as designed.
+            <p className="rd-lead max-w-[62ch] mt-[16px] text-[clamp(0.92rem,1.05vw,1rem)]">
+              Anything on this site can change at any time. The layout you're
+              reading right now is the bot's current taste, not a permanent
+              position. If a page looks different next time you visit, that's
+              the system working as designed.
             </p>
-            <p
-              className="text-[var(--rd-text-2)] max-w-[62ch] mt-[12px] text-[clamp(0.92rem,1.05vw,1rem)]"
-            >
+            <p className="text-[var(--rd-text-2)] max-w-[62ch] mt-[12px] text-[clamp(0.92rem,1.05vw,1rem)]">
               For things that need to be stable —{" "}
               <Link to="/projects" className="rd-ulink">
                 project links
@@ -173,7 +157,8 @@ function DuyetbotPage() {
               <a href="https://insights.duyet.net" className="rd-ulink">
                 insights
               </a>{" "}
-              — those have human-owned sources of truth that the bot only reflects, never replaces.
+              — those have human-owned sources of truth that the bot only
+              reflects, never replaces.
             </p>
           </Reveal>
         </section>

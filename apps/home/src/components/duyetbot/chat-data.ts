@@ -5,12 +5,36 @@ type Tool = {
 };
 
 const TOOLS: Tool[] = [
-  { name: "search_blog", icon: "book", desc: "Search 299 posts across 11 years of writing." },
-  { name: "get_cv", icon: "dl", desc: "Read the full résumé — roles, scope, and impact." },
-  { name: "query_data", icon: "disk", desc: "Run read-only queries against the public ClickHouse." },
-  { name: "homelab_status", icon: "server", desc: "Check live cluster + service health." },
-  { name: "list_projects", icon: "layers", desc: "Enumerate shipped products and OSS repos." },
-  { name: "contact", icon: "link", desc: "Pass a message or feedback straight to Duyet." },
+  {
+    name: "search_blog",
+    icon: "book",
+    desc: "Search 299 posts across 11 years of writing.",
+  },
+  {
+    name: "get_cv",
+    icon: "dl",
+    desc: "Read the full résumé — roles, scope, and impact.",
+  },
+  {
+    name: "query_data",
+    icon: "disk",
+    desc: "Run read-only queries against the public ClickHouse.",
+  },
+  {
+    name: "homelab_status",
+    icon: "server",
+    desc: "Check live cluster + service health.",
+  },
+  {
+    name: "list_projects",
+    icon: "layers",
+    desc: "Enumerate shipped products and OSS repos.",
+  },
+  {
+    name: "contact",
+    icon: "link",
+    desc: "Pass a message or feedback straight to Duyet.",
+  },
 ];
 
 const STARTER_PROMPTS = [
@@ -42,7 +66,12 @@ const ANSWERS: Record<string, string> = {
 };
 
 const BLOG_CARDS: Card[] = [
-  { t: "Building AI Agents on Cloudflare", c: "AI", d: "May 6, 2026", r: "4 min" },
+  {
+    t: "Building AI Agents on Cloudflare",
+    c: "AI",
+    d: "May 6, 2026",
+    r: "4 min",
+  },
   { t: "Claws", c: "AI", d: "Feb 22, 2026", r: "3 min" },
   { t: "Coding Agents", c: "AI", d: "Jan 1, 2026", r: "62 min" },
 ];
@@ -54,21 +83,37 @@ function answerFor(text: string): BotReply {
       tool: { name: "search_blog", arg: "order:recent limit:3" },
       text: "Lately it's mostly AI agents. Here are the three newest posts:",
       cards: BLOG_CARDS,
-      follow: ["What's 'Coding Agents' about?", "Show data posts instead", "Summarise his experience"],
+      follow: [
+        "What's 'Coding Agents' about?",
+        "Show data posts instead",
+        "Summarise his experience",
+      ],
     };
   }
-  if (/clickhouse|data|experience|engineer|cv|r[ée]sum[ée]|career|role|work/.test(t)) {
+  if (
+    /clickhouse|data|experience|engineer|cv|r[ée]sum[ée]|career|role|work/.test(
+      t
+    )
+  ) {
     return {
       tool: { name: "get_cv", arg: "section:summary" },
       text: ANSWERS.cv,
-      follow: ["Which companies?", "What's in the stack?", "Download the full CV"],
+      follow: [
+        "Which companies?",
+        "What's in the stack?",
+        "Download the full CV",
+      ],
     };
   }
   if (/project|built|ship|live|product|oss|open source/.test(t)) {
     return {
       tool: { name: "list_projects", arg: "status:live" },
       text: ANSWERS.projects,
-      follow: ["Tell me about AnyRouter", "Show open source repos", "What's the homelab running?"],
+      follow: [
+        "Tell me about AnyRouter",
+        "Show open source repos",
+        "What's the homelab running?",
+      ],
     };
   }
   if (/homelab|cluster|server|running|infra|kubernetes|node/.test(t)) {
@@ -95,15 +140,17 @@ function answerFor(text: string): BotReply {
     return {
       tool: { name: "get_cv", arg: "" },
       text: ANSWERS.cv,
-      follow: ["What's he writing about?", "Which projects are live?", "What's the stack?"],
+      follow: [
+        "What's he writing about?",
+        "Which projects are live?",
+        "What's the stack?",
+      ],
     };
   }
   return { text: ANSWERS.default, follow: STARTER_PROMPTS.slice(0, 3) };
 }
 
-type Msg =
-  | { role: "user"; text: string }
-  | ({ role: "bot" } & BotReply);
+type Msg = { role: "user"; text: string } | ({ role: "bot" } & BotReply);
 
-export { TOOLS, STARTER_PROMPTS, ANSWERS, BLOG_CARDS, answerFor };
-export type { Tool, Card, BotReply, Msg };
+export type { BotReply, Card, Msg, Tool };
+export { ANSWERS, answerFor, BLOG_CARDS, STARTER_PROMPTS, TOOLS };

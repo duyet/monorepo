@@ -1,4 +1,4 @@
-import { Layers, AlignJustify } from "lucide-react";
+import { AlignJustify, Layers } from "lucide-react";
 import { cn } from "../lib/utils";
 
 export function ViewToggle({
@@ -21,7 +21,7 @@ export function ViewToggle({
           btnBase,
           view === "grid"
             ? "border-[var(--rd-text)] text-[var(--rd-text)]"
-            : "border-[var(--rd-border)] text-[var(--rd-text-3)]",
+            : "border-[var(--rd-border)] text-[var(--rd-text-3)]"
         )}
       >
         <Layers size={15} />
@@ -34,7 +34,7 @@ export function ViewToggle({
           btnBase,
           view === "list"
             ? "border-[var(--rd-text)] text-[var(--rd-text)]"
-            : "border-[var(--rd-border)] text-[var(--rd-text-3)]",
+            : "border-[var(--rd-border)] text-[var(--rd-text-3)]"
         )}
       >
         <AlignJustify size={15} />

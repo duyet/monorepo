@@ -1,6 +1,6 @@
-import { Link } from "@tanstack/react-router";
-import { Plug, Code, ArrowUpRight } from "lucide-react";
 import { Eyebrow } from "@duyet/components";
+import { Link } from "@tanstack/react-router";
+import { ArrowUpRight, Code, Plug } from "lucide-react";
 import { TOOLS } from "./chat-data";
 import { ToolIcon } from "./ToolIcon";
 
@@ -28,10 +28,9 @@ function ChatSidebar() {
       {/* connect card */}
       <div className="rd-card p-[clamp(18px,2.2vw,26px)] bg-[var(--rd-bg-sub)]">
         <Eyebrow>Connect</Eyebrow>
-        <p
-          className="text-[var(--rd-text-2)] text-[13.5px] leading-[1.55] mt-[12px]"
-        >
-          Point your own agent at the MCP server, or read the machine-readable site map.
+        <p className="text-[var(--rd-text-2)] text-[13.5px] leading-[1.55] mt-[12px]">
+          Point your own agent at the MCP server, or read the machine-readable
+          site map.
         </p>
         <div className="flex flex-col gap-[8px] mt-[16px]">
           <a
@@ -62,20 +61,23 @@ function ChatSidebar() {
       </div>
 
       {/* scope note */}
-      <div
-        className="rd-card p-[clamp(18px,2.2vw,26px)] text-[13px] leading-[1.6]"
-      >
+      <div className="rd-card p-[clamp(18px,2.2vw,26px)] text-[13px] leading-[1.6]">
         <p className="rd-eyebrow mb-[10px]">Scope</p>
         <p className="text-[var(--rd-text-2)]">
           duyetbot owns the{" "}
-          <strong>codebase, the look-and-feel, and the deployment pipeline</strong>.
-          Blog posts under{" "}
-          <code className="font-[var(--font-mono)] text-[12px]">apps/blog/_posts/</code>{" "}
-          are written and owned by Duyet Le — the bot can change how a post renders, never the words inside.
+          <strong>
+            codebase, the look-and-feel, and the deployment pipeline
+          </strong>
+          . Blog posts under{" "}
+          <code className="font-[var(--font-mono)] text-[12px]">
+            apps/blog/_posts/
+          </code>{" "}
+          are written and owned by Duyet Le — the bot can change how a post
+          renders, never the words inside.
         </p>
         <p className="text-[var(--rd-text-2)] mt-[8px]">
-          Anything on this site can change at any time. The layout you're reading
-          is the bot's current taste, not a permanent position.
+          Anything on this site can change at any time. The layout you're
+          reading is the bot's current taste, not a permanent position.
         </p>
         <div className="mt-[14px] flex flex-wrap gap-[8px]">
           <Link to="/projects" className="rd-btn rd-btn-text text-[12.5px]">

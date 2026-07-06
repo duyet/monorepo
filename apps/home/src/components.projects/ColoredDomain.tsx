@@ -18,9 +18,7 @@ export function ColoredDomain({ domain }: { domain: string }) {
       <>
         <span className="text-[var(--rd-text-2)]">{host}</span>
         {owner && <span className="text-[var(--rd-text-4)]">/{owner}</span>}
-        {repo && (
-          <span className="text-[var(--rd-accent-ink)]">/{repo}</span>
-        )}
+        {repo && <span className="text-[var(--rd-accent-ink)]">/{repo}</span>}
       </>
     );
   }

@@ -151,12 +151,14 @@ type AreasOfExpertiseProps = {
   heading?: string;
   subheading?: string;
   areas?: Area[];
+  hideHeader?: boolean;
 };
 
 export function AreasOfExpertise({
   heading = "Areas of Expertise",
   subheading,
   areas = DEFAULT_AREAS,
+  hideHeader = false,
 }: AreasOfExpertiseProps) {
   const featured = areas.find((a) => a.featured);
   const rest = areas.filter((a) => !a.featured);
@@ -166,14 +168,16 @@ export function AreasOfExpertise({
 
   return (
     <section>
-      <div className="mb-6">
-        <h2 className="text-xl md:text-2xl font-semibold tracking-tight">
-          {heading}
-        </h2>
-        <p className="mt-1 text-sm text-muted-foreground max-w-xl">
-          {subheading ?? defaultSubheading}
-        </p>
-      </div>
+      {!hideHeader && (
+        <div className="mb-6">
+          <h2 className="text-xl md:text-2xl font-semibold tracking-tight">
+            {heading}
+          </h2>
+          <p className="mt-1 text-sm text-muted-foreground max-w-xl">
+            {subheading ?? defaultSubheading}
+          </p>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-border border border-border">
         {featured && (

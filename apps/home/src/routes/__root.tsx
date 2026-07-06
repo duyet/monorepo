@@ -1,12 +1,8 @@
 import "@duyet/components/styles.css";
 import "../globals.css";
 
+import { ClerkAuthProvider, SiteFooter, SiteHeader } from "@duyet/components";
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import {
-  ClerkAuthProvider,
-  SiteFooter,
-  SiteHeader,
-} from "@duyet/components";
 import {
   createRootRoute,
   HeadContent,
@@ -39,9 +35,7 @@ export const Route = createRootRoute({
         media: "(prefers-color-scheme: dark)",
       },
     ],
-    links: [
-      { rel: "icon", href: "/icon.svg", sizes: "any" },
-    ],
+    links: [{ rel: "icon", href: "/icon.svg", sizes: "any" }],
   }),
   notFoundComponent: NotFound,
   component: RootComponent,
@@ -64,7 +58,11 @@ function RootComponent() {
       <body>
         <ClerkAuthProvider>
           <ThemeProvider>
-            <SiteHeader currentApp="home" localNav={homeLocalNav} activeHref={pathname} />
+            <SiteHeader
+              currentApp="home"
+              localNav={homeLocalNav}
+              activeHref={pathname}
+            />
             <Outlet />
             <SiteFooter />
           </ThemeProvider>

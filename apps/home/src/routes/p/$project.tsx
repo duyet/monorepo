@@ -106,7 +106,6 @@ function ProductPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-
       <main className="mx-auto max-w-2xl px-6 pt-24 pb-20 md:px-8 md:pt-32 md:pb-32">
         <Link
           to="/projects"
@@ -127,9 +126,7 @@ function ProductPage() {
           </p>
         </header>
 
-        <p className="mt-12 text-base leading-relaxed">
-          {product.overview}
-        </p>
+        <p className="mt-12 text-base leading-relaxed">{product.overview}</p>
 
         <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-4 font-mono text-sm">
           <Meta label="Year" value={product.year} />
@@ -197,7 +194,6 @@ function ProductPage() {
           </section>
         )}
       </main>
-
     </div>
   );
 }

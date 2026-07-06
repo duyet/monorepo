@@ -12,9 +12,7 @@ function ChatCards({ cards }: { cards: Card[] }) {
           target="_blank"
           rel="noreferrer"
         >
-          <span
-            className="grid place-items-center w-[30px] h-[30px] rounded-lg bg-[var(--rd-accent-bg)] text-[var(--rd-accent-ink)] shrink-0"
-          >
+          <span className="grid place-items-center w-[30px] h-[30px] rounded-lg bg-[var(--rd-accent-bg)] text-[var(--rd-accent-ink)] shrink-0">
             <BookOpen size={14} />
           </span>
           <span className="min-w-0 flex-1">

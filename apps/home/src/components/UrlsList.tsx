@@ -60,7 +60,9 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
 
       {filteredUrls.length === 0 && (
         <div className="border-y py-12 text-center">
-          <p className="text-sm text-muted-foreground">No URLs found matching &ldquo;{searchQuery}&rdquo;</p>
+          <p className="text-sm text-muted-foreground">
+            No URLs found matching &ldquo;{searchQuery}&rdquo;
+          </p>
           <button
             type="button"
             onClick={() => setSearchQuery("")}
@@ -76,7 +78,11 @@ export default function UrlsList({ urls }: { urls: UrlEntry[] }) {
       )}
 
       {filteredUrls.length > 0 && view === "list" && (
-        <UrlsListView filteredUrls={filteredUrls} grouped={grouped} searchQuery={searchQuery} />
+        <UrlsListView
+          filteredUrls={filteredUrls}
+          grouped={grouped}
+          searchQuery={searchQuery}
+        />
       )}
     </>
   );

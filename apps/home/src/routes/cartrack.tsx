@@ -1,5 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Eyebrow } from "@duyet/components";
+import { createFileRoute } from "@tanstack/react-router";
 import { addUtmParams } from "../../app/lib/utm";
 
 const PERIOD = "Oct 2023 — Present";
@@ -112,10 +112,11 @@ function CartrackPage() {
           <span className="text-[var(--rd-accent)]">Cartrack</span>
         </h1>
         <p className="rd-lead mt-5 text-[clamp(1.02rem,1.4vw,1.15rem)] text-[var(--rd-text-2)]">
-          Two-plus years building Cartrack's data platform from the ground up — migrating terabyte-scale
-          data lakes off Spark, Trino, and Iceberg onto a lean, high-throughput ClickHouse cluster on
-          Kubernetes. The work started in data engineering and grew into fully agentic AI systems that
-          now write, test, and ship their own code.
+          Two-plus years building Cartrack's data platform from the ground up —
+          migrating terabyte-scale data lakes off Spark, Trino, and Iceberg onto
+          a lean, high-throughput ClickHouse cluster on Kubernetes. The work
+          started in data engineering and grew into fully agentic AI systems
+          that now write, test, and ship their own code.
         </p>
 
         <div className="mt-9 flex flex-col gap-5 border-t border-[var(--rd-border)] pt-7">
@@ -161,7 +162,11 @@ function CartrackPage() {
             {posts.map((p) => (
               <li key={p.href}>
                 <a
-                  href={addUtmParams(p.href, "cartrack_page", "related_writing")}
+                  href={addUtmParams(
+                    p.href,
+                    "cartrack_page",
+                    "related_writing"
+                  )}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rd-ulink text-[14.5px] text-[var(--rd-text-2)]"

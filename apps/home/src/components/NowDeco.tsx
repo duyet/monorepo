@@ -31,7 +31,13 @@ export function NowDeco() {
         strokeDasharray="3 5"
         className="rd-flow"
       />
-      <circle cx="160" cy="40" r="5" fill="var(--rd-accent)" className="rd-hd-pulse" />
+      <circle
+        cx="160"
+        cy="40"
+        r="5"
+        fill="var(--rd-accent)"
+        className="rd-hd-pulse"
+      />
     </svg>
   );
 }

@@ -1,6 +1,6 @@
+import { Sparkline } from "@duyet/components";
 import { Link } from "@tanstack/react-router";
 import { Flame } from "lucide-react";
-import { Sparkline } from "@duyet/components";
 import { cn } from "../lib/utils";
 
 interface SignalBarProps {
@@ -9,7 +9,12 @@ interface SignalBarProps {
   sinceYear: number;
   projectCount: number;
   siblingAppCount: number;
-  homelabSummary: { nodesOnline: number; nodesTotal: number; services: number; avgCpu: number };
+  homelabSummary: {
+    nodesOnline: number;
+    nodesTotal: number;
+    services: number;
+    avgCpu: number;
+  };
   codingSparkline: number[];
   tokenBurn: string;
 }
@@ -80,13 +85,9 @@ export function SignalBar({
             {...linkProps}
             className="signal-tile flex min-w-0 cursor-pointer flex-col gap-2 border-none bg-[var(--rd-surface)] p-[18px_20px] text-left text-inherit no-underline"
           >
-            <div
-              className="rd-eyebrow flex items-center gap-1.5 text-[10.5px]"
-            >
+            <div className="rd-eyebrow flex items-center gap-1.5 text-[10.5px]">
               {t.live && (
-                <span
-                  className="rd-dot rd-ok rd-pulse inline-block"
-                />
+                <span className="rd-dot rd-ok rd-pulse inline-block" />
               )}
               {t.flame && (
                 <span className="inline-flex text-[var(--rd-accent)]">
@@ -95,7 +96,12 @@ export function SignalBar({
               )}
               {t.k}
             </div>
-            <div className={cn("text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none text-[1.9rem]", t.flame && "text-[var(--rd-accent-ink)]")}>
+            <div
+              className={cn(
+                "text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none text-[1.9rem]",
+                t.flame && "text-[var(--rd-accent-ink)]"
+              )}
+            >
               {t.big}
               <span className="rd-unit">{t.unit}</span>
             </div>
@@ -104,9 +110,7 @@ export function SignalBar({
             ) : (
               <div className="h-[22px]" />
             )}
-            <div
-              className="font-[var(--font-mono)] text-[var(--rd-text-3)] overflow-hidden text-ellipsis whitespace-nowrap text-[11px]"
-            >
+            <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] overflow-hidden text-ellipsis whitespace-nowrap text-[11px]">
               {t.sub}
             </div>
           </Component>

@@ -1,6 +1,6 @@
 import { CategoryHeader } from "./CategoryHeader";
-import { UrlRow } from "./UrlRow";
 import type { UrlEntry } from "./types";
+import { UrlRow } from "./UrlRow";
 
 interface UrlsGridViewProps {
   grouped: Map<string, UrlEntry[]>;

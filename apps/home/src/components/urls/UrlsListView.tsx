@@ -9,7 +9,11 @@ interface UrlsListViewProps {
   searchQuery: string;
 }
 
-export function UrlsListView({ filteredUrls, grouped, searchQuery }: UrlsListViewProps) {
+export function UrlsListView({
+  filteredUrls,
+  grouped,
+  searchQuery,
+}: UrlsListViewProps) {
   if (searchQuery) {
     return (
       <div className="border-y">
@@ -27,14 +31,31 @@ export function UrlsListView({ filteredUrls, grouped, searchQuery }: UrlsListVie
                 <code className="font-mono text-[13px] font-semibold">
                   {path}
                 </code>
-                {isExternal && <ExternalIcon className="h-3.5 w-3.5 text-muted-foreground" />}
+                {isExternal && (
+                  <ExternalIcon className="h-3.5 w-3.5 text-muted-foreground" />
+                )}
               </div>
-              {desc && <p className="m-0 text-[13px] text-muted-foreground">{desc}</p>}
+              {desc && (
+                <p className="m-0 text-[13px] text-muted-foreground">{desc}</p>
+              )}
               <div className="mt-1 flex items-center gap-1.5">
-                <svg aria-hidden="true" className="h-3 w-3 shrink-0 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                <svg
+                  aria-hidden="true"
+                  className="h-3 w-3 shrink-0 text-muted-foreground"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  />
                 </svg>
-                <span className="truncate font-mono text-[11px] text-muted-foreground">{target}</span>
+                <span className="truncate font-mono text-[11px] text-muted-foreground">
+                  {target}
+                </span>
               </div>
             </a>
           );
@@ -66,13 +87,26 @@ export function UrlsListView({ filteredUrls, grouped, searchQuery }: UrlsListVie
                     {path}
                   </code>
                   <p className="m-0 hidden flex-1 truncate text-[13px] text-muted-foreground sm:block">
-                    {desc ?? <span className="text-muted-foreground">&mdash;</span>}
+                    {desc ?? (
+                      <span className="text-muted-foreground">&mdash;</span>
+                    )}
                   </p>
                   <span className="hidden max-w-[200px] truncate font-mono text-[11px] text-muted-foreground sm:block">
                     {target}
                   </span>
-                  <svg aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  <svg
+                    aria-hidden="true"
+                    className="h-3.5 w-3.5 shrink-0 text-muted-foreground"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
                   </svg>
                 </a>
               );
