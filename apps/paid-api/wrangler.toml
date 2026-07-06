@@ -1,0 +1,26 @@
+name = "duyet-paid-api"
+main = "src/index.ts"
+compatibility_date = "2026-05-17"
+compatibility_flags = ["nodejs_compat"]
+
+# routes = [
+#   { pattern = "paid.duyet.net", custom_domain = true }
+# ]
+
+[observability]
+enabled = true
+
+[ai]
+binding = "AI"
+remote = true
+
+[vars]
+# x402 paid chat. PAY_TO is the EVM wallet that receives USDC. It is public by
+# design — every 402 response exposes it so the payer knows where to send funds.
+# (Only a wallet PRIVATE key would need `wrangler secret put` — never commit that.)
+# Testnet USDC (free) for eip155:84532: https://faucet.circle.com/
+# Switch to eip155:8453 (Base mainnet) when you want real revenue.
+PAY_TO = "0xb6BECF08DFd2E2B0F03ED6ea48b515d687DB034B"
+X402_NETWORK = "eip155:84532"
+X402_FACILITATOR_URL = "https://x402.org/facilitator"
+X402_PRICE = "$0.01"

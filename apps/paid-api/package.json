@@ -1,0 +1,26 @@
+{
+  "name": "paid-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm dlx wrangler dev --config wrangler.toml --port 8789",
+    "deploy": "pnpm run check-types && pnpm dlx wrangler deploy --config wrangler.toml",
+    "check-types": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "biome lint .",
+    "fmt": "biome format --write ."
+  },
+  "dependencies": {
+    "@x402/core": "^2.17.0",
+    "@x402/evm": "^2.17.0",
+    "@x402/hono": "^2.17.0",
+    "hono": "^4.12.27",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260511.1",
+    "@duyet/tsconfig": "*",
+    "typescript": "^6.0.3"
+  }
+}
