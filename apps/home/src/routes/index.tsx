@@ -58,7 +58,6 @@ const SELECTED: { name: string; tag: string }[] = [
   { name: "ccusage → ClickHouse", tag: "Data" },
   { name: "Clauduck", tag: "Data" },
   { name: "Rust Tieng Viet", tag: "Rust" },
-  { name: "LLM Timeline", tag: "AI" },
   { name: "Stamps", tag: "Tool" },
   { name: "Helm Charts", tag: "Infra" },
 ];
