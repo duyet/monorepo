@@ -1,0 +1,38 @@
+{
+  "issuer": "https://duyet.net",
+  "authorization_endpoint": "https://duyet.net/oauth/authorize",
+  "token_endpoint": "https://duyet.net/oauth/token",
+  "jwks_uri": "https://duyet.net/.well-known/jwks.json",
+  "grant_types_supported": [
+    "client_credentials",
+    "authorization_code"
+  ],
+  "response_types_supported": [
+    "code"
+  ],
+  "agent_auth": {
+    "skill": "https://duyet.net/auth.md",
+    "register_uri": "https://api.duyet.net/agent/register",
+    "claim_uri": "https://api.duyet.net/agent/claim",
+    "revocation_uri": "https://api.duyet.net/agent/revoke",
+    "identity_types_supported": [
+      "anonymous",
+      "identity_assertion"
+    ],
+    "anonymous": {
+      "credential_types_supported": [
+        "api_key"
+      ]
+    },
+    "identity_assertion": {
+      "assertion_types_supported": [
+        "urn:ietf:params:oauth:token-type:id-jag",
+        "verified_email"
+      ],
+      "credential_types_supported": [
+        "access_token",
+        "api_key"
+      ]
+    }
+  }
+}

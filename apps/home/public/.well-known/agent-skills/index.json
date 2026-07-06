@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "project-search",
+      "type": "skill-md",
+      "description": "Search the project repository for apps, utilities, and libraries developed by Duyet.",
+      "url": "https://duyet.net/.well-known/agent-skills/project-search/SKILL.md",
+      "digest": "sha256:b03cfba293aa8eb0876682b4724742cfbc0092d11a2a4ee929202b553a95d48d"
+    }
+  ]
+}

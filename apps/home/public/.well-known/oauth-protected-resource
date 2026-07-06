@@ -1,0 +1,13 @@
+{
+  "resource": "https://api.duyet.net",
+  "authorization_servers": [
+    "https://duyet.net"
+  ],
+  "scopes_supported": [
+    "read:profile",
+    "chat"
+  ],
+  "bearer_methods_supported": [
+    "header"
+  ]
+}

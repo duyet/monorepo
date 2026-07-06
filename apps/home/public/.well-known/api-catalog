@@ -1,0 +1,34 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://api.duyet.net",
+      "service-doc": [
+        {
+          "href": "https://github.com/duyet/monorepo/tree/master/apps/api",
+          "type": "text/html"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://api.duyet.net/health",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://agents-api.duyet.net",
+      "service-doc": [
+        {
+          "href": "https://agents-api.duyet.net/llms.txt",
+          "type": "text/plain"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://agents-api.duyet.net/health",
+          "type": "application/json"
+        }
+      ]
+    }
+  ]
+}

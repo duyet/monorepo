@@ -3,6 +3,7 @@ import "../globals.css";
 
 import { ClerkAuthProvider, SiteFooter, SiteHeader } from "@duyet/components";
 import ThemeProvider from "@duyet/components/ThemeProvider";
+import { useEffect } from "react";
 import {
   createRootRoute,
   HeadContent,
@@ -43,6 +44,89 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && "navigator" in window) {
+      const nav = navigator as any;
+      if (nav.modelContext) {
+        const tools = [
+          {
+            name: "search_projects",
+            description: "Search projects by keyword",
+            inputSchema: {
+              type: "object",
+              properties: {
+                query: { type: "string", description: "Search query" },
+              },
+              required: ["query"],
+            },
+            execute: async (params: { query: string }) => {
+              const q = (params.query || "").toLowerCase();
+              window.location.assign(`/projects?q=${encodeURIComponent(q)}`);
+              return { success: true, message: `Searching for ${q}` };
+            },
+          },
+          {
+            name: "navigate_to",
+            description: "Navigate to a specific page on the site",
+            inputSchema: {
+              type: "object",
+              properties: {
+                destination: {
+                  type: "string",
+                  enum: [
+                    "home",
+                    "projects",
+                    "about",
+                    "blog",
+                    "cv",
+                    "insights",
+                    "photos",
+                  ],
+                  description: "The page to navigate to",
+                },
+              },
+              required: ["destination"],
+            },
+            execute: async (params: { destination: string }) => {
+              const dest = params.destination;
+              if (dest === "home") window.location.assign("/");
+              else if (dest === "projects") window.location.assign("/projects");
+              else if (dest === "about") window.location.assign("/about");
+              else window.location.assign(`https://${dest}.duyet.net`);
+              return { success: true, message: `Navigated to ${dest}` };
+            },
+          },
+        ];
+
+        if (typeof nav.modelContext.provideContext === "function") {
+          try {
+            nav.modelContext.provideContext({ tools });
+          } catch (e) {
+            console.warn("WebMCP provideContext failed:", e);
+          }
+        }
+
+        if (typeof nav.modelContext.registerTool === "function") {
+          for (const tool of tools) {
+            try {
+              nav.modelContext.registerTool(
+                {
+                  name: tool.name,
+                  description: tool.description,
+                  inputSchema: tool.inputSchema,
+                },
+                tool.execute
+              );
+            } catch (e) {
+              console.warn(`WebMCP registerTool failed for ${tool.name}:`, e);
+            }
+          }
+        }
+      }
+    }
+  }, []);
+
 
   const homeLocalNav = [
     { label: "Home", href: "/" },

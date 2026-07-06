@@ -231,3 +231,26 @@ The current public-app visual direction is a Websmith-inspired Duyet system, not
 - `apps/insights`: keep dashboard density. Use the shared warm/near-black tokens and compact operational panels rather than a landing-page composition.
 - `apps/insights`: architecture is static HTML frontend plus backend Worker API calls. Do not use TanStack Start server functions for runtime data loading; client-side data refreshes should call `apps/api` Worker endpoints.
 - `apps/photos`: keep the photo-first white background. Text metadata such as location must truncate or wrap safely.
+
+## Agent Discovery and AI Readiness
+
+The project implements several standards to enable AI agent discovery and capabilities natively:
+
+### Discovery Endpoints (apps/home/public)
+- `/auth.md`: Serves human-readable and machine-readable agent authentication instructions.
+- `/.well-known/api-catalog`: Lists standard machine-readable links for APIs (status, description, and docs) conforming to RFC 9727.
+- `/.well-known/oauth-protected-resource`: Configures resource server metadata (RFC 9728).
+- `/.well-known/oauth-authorization-server` & `/.well-known/openid-configuration`: Serves authorization server metadata including the `agent_auth` block for auth.md onboarding.
+- `/.well-known/mcp/server-card.json`: Exposes the MCP Server Card configuration for Model Context Protocol integration.
+- `/.well-known/agent-skills/index.json`: Publishes the skills discovery index conforming to Agent Skills Discovery RFC v0.2.0.
+
+### Features
+- **Link Response Headers**: Served on the homepage (`/` and `/*.html`) pointing to `/.well-known/api-catalog` (rel="api-catalog") and `/auth.md` (rel="describedby").
+- **Markdown Content Negotiation**: Served via Cloudflare Pages middleware (`apps/home/functions/_middleware.ts`) which intercepts requests with `Accept: text/markdown` and serves `/llms.txt` with correct MIME types and token estimates.
+- **WebMCP**: Exposes browser-level actions to agents by registering `search_projects` and `navigate_to` via `navigator.modelContext.provideContext()` / `registerTool()` inside the React root layout (`apps/home/src/routes/__root.tsx`).
+
+### Recommended DNS-AID Records
+Add the following `HTTPS` / `SVCB` DNS records to Cloudflare DNS for DNS-based agent discovery:
+- `_index._agents.duyet.net. 3600 IN HTTPS 1 . alpn="index" port=443 mandatory=alpn,port`
+- `_a2a._agents.duyet.net. 3600 IN HTTPS 1 agents-api.duyet.net. alpn="a2a" port=443 mandatory=alpn,port`
+

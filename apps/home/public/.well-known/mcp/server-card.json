@@ -1,0 +1,12 @@
+{
+  "serverInfo": {
+    "name": "duyet-mcp-server",
+    "version": "0.1.0"
+  },
+  "endpoint": "https://api.duyet.net/mcp",
+  "capabilities": {
+    "tools": {},
+    "resources": {},
+    "prompts": {}
+  }
+}

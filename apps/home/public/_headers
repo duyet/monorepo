@@ -2,7 +2,13 @@
 # https://developers.cloudflare.com/pages/configuration/headers/
 
 # Root and HTML files - cache but revalidate
+/
+  Link: </.well-known/api-catalog>; rel="api-catalog", </auth.md>; rel="describedby"
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+
 /*.html
+  Link: </.well-known/api-catalog>; rel="api-catalog", </auth.md>; rel="describedby"
   Cache-Control: public, max-age=0, must-revalidate
   X-Content-Type-Options: nosniff
 
@@ -18,6 +24,36 @@
 /llms.txt
   Content-Type: text/plain; charset=utf-8
   X-Content-Type-Options: nosniff
+  Access-Control-Allow-Origin: *
+
+# Agent Discovery Metadata and Skills Endpoints
+/.well-known/api-catalog
+  Content-Type: application/linkset+json; charset=utf-8
+  Access-Control-Allow-Origin: *
+
+/.well-known/oauth-protected-resource
+  Content-Type: application/json; charset=utf-8
+  Access-Control-Allow-Origin: *
+
+/.well-known/oauth-authorization-server
+  Content-Type: application/json; charset=utf-8
+  Access-Control-Allow-Origin: *
+
+/.well-known/openid-configuration
+  Content-Type: application/json; charset=utf-8
+  Access-Control-Allow-Origin: *
+
+/.well-known/mcp/server-card.json
+  Content-Type: application/json; charset=utf-8
+  Access-Control-Allow-Origin: *
+
+/.well-known/agent-skills/index.json
+  Content-Type: application/json; charset=utf-8
+  Access-Control-Allow-Origin: *
+
+/auth.md
+  Content-Type: text/markdown; charset=utf-8
+  Access-Control-Allow-Origin: *
 
 # Security headers
 /*
@@ -27,3 +63,4 @@
   Permissions-Policy: geolocation=(), microphone=(), camera=()
   Referrer-Policy: strict-origin-when-cross-origin
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://clerk.duyet.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://cloudflareinsights.com https://*.search.ai.cloudflare.com https://84249c5c-c9b2-418d-8f03-ab3335997606.search.ai.cloudflare.com https://clerk.duyet.net https://api.clerk.com https://*.clerk.accounts.dev; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+
