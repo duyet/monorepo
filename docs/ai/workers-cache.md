@@ -5,12 +5,11 @@ Rollout notes for [Cloudflare Workers Cache](https://blog.cloudflare.com/workers
 
 ## What it is
 
-A tiered cache that sits **in front of** a Worker / Pages project. You enable it
-per-app in the wrangler config and then control it entirely with standard HTTP
-response headers.
+A tiered cache that sits **in front of a Worker**, enabled per-Worker in the
+wrangler config and controlled with standard HTTP response headers:
 
 ```toml
-# apps/<name>/wrangler.toml
+# apps/<worker>/wrangler.toml
 [cache]
 enabled = true
 ```
@@ -30,62 +29,67 @@ Key safety facts:
   background), plus `Cache-Tag` and `Vary`. Purge with `ctx.cache.purge({...})`
   from the owning entrypoint.
 
-For our static Pages apps, the response headers come from each app's
-`public/_headers` file (copied to the build output and read by Pages). A deploy
-purges the Pages cache, so edge content is never stale after a publish.
+## Workers vs Pages — `[cache]` is Workers-only
 
-## Where `[cache]` is enabled
+**Critical distinction.** `[cache]` is a **Workers** wrangler key. It is **not**
+a valid key for a Cloudflare **Pages** project (`pages_build_output_dir`) — the
+[Pages wrangler config](https://developers.cloudflare.com/pages/functions/wrangler-configuration/#inheritable-keys)
+recognizes only `name`, `pages_build_output_dir`, `compatibility_date`,
+`compatibility_flags`, `send_metrics`, `limits`, `placement`,
+`upload_source_maps`. Adding `[cache]` to a Pages config is meaningless at best
+and can be rejected at deploy. Pages caching is the **zone cache + each app's
+`public/_headers`** — a deploy purges the Pages cache, so edge content is never
+stale after a publish.
 
-`[cache] enabled = true` is set in every app's `wrangler.toml`.
+Classify with: `grep -q pages_build_output_dir apps/<app>/wrangler.toml`.
 
-### Public apps — cacheable public content
+| App | Kind | Cache surface |
+|-----|------|---------------|
+| `api` | **Worker** (`main`, `api.duyet.net`) | `[cache]` enabled |
+| `agent-api` | **Worker** (`main`) | `[cache]` enabled |
+| `agent-assistant` | **Worker** (`main`, Durable Objects) | `[cache]` enabled |
+| `agent-ui` | Pages | `_headers` only (no `[cache]`) |
+| `ai-percentage`, `blog`, `burns`, `cv`, `home`, `homelab`, `insights`, `kb`, `llm-timeline`, `photos` | Pages | `_headers` only (no `[cache]`) |
 
-| App | Kind | What gets `Cache-Control: public` | TTLs |
-|-----|------|-----------------------------------|------|
-| `blog` | Static SPA (Pages) | Pre-existing `_headers`: HTML `s-maxage=86400`, hashed `/assets/*` immutable, `/media/*`, `/posts-content/*`, `/*.md` | unchanged |
-| `home` | Static SPA (Pages) | Pre-existing `_headers`: `/*.html` revalidate, `/assets/*` + `/screenshots/*` immutable | unchanged |
-| `cv` | Static (Pages) | `_headers`: hashed `/assets/*` immutable (HTML left as-is) | assets 1y immutable |
-| `photos` | Static SPA (Pages) | `_headers`: hashed `/assets/*` immutable | assets 1y immutable |
-| `insights` | Static SPA (Pages) | `_headers`: hashed `/assets/*` immutable | assets 1y immutable |
-| `ai-percentage` | Static SPA (Pages) | `_headers`: hashed `/assets/*` immutable | assets 1y immutable |
-| `homelab` | Static SPA (Pages) | `_headers`: hashed `/assets/*` immutable | assets 1y immutable |
-| `burns` | Static (Pages) | `_headers` sets only security headers (no `public` cache) → assets rely on Pages defaults | — |
-| `kb` | Static SSG (Pages) | **New `_headers`:** HTML `max-age=300 swr=86400`; `/assets/*` immutable; `/*.md`, `/llms.txt`, `/llms-full.txt`, `/robots.txt`, `/sitemap.xml` `max-age=3600 swr=604800`; `/graph-data.json` `max-age=3600 swr=86400` | see file |
-| `llm-timeline` | Static SPA (Pages) | **New `_headers`:** HTML `max-age=300 swr=86400`; `/assets/*` immutable; `/data.json`, `/rss.xml`, `/sitemap.xml`, `/llms.txt` `max-age=3600 swr=86400`; `/favicon.svg` 7d | see file |
+## Workers — `[cache] enabled = true`
+
+Set on the three real Workers (`api`, `agent-api`, `agent-assistant`) as a
+documented **safe no-op**: they are dynamic/authed, so their responses set no
+`Cache-Control: public` and any `Authorization`-bearing request auto-bypasses.
+The flag is left on so a genuinely public GET endpoint can opt in later purely
+via response headers.
+
+**Rule:** never add `Cache-Control: public` to authed/per-user/dynamic/mutating
+responses. Enabling the `[cache]` flag on a Worker is fine; adding public cache
+headers to its data is not.
+
+## Pages — public content via `public/_headers`
+
+The static Pages apps carry their `Cache-Control` in each app's `public/_headers`
+(copied into the build output, applied by the Pages edge + zone cache). Most
+apps already ship `_headers` that mark hashed `/assets/*` immutable; those were
+left untouched (surgical). Two apps had **no `_headers` file** and generate
+genuinely-public endpoints, so one was added:
+
+| App | New `public/_headers` | TTLs |
+|-----|-----------------------|------|
+| `kb` | HTML; `/assets/*`; `/*.md`, `/llms.txt`, `/llms-full.txt`, `/robots.txt`, `/sitemap.xml`; `/graph-data.json` | HTML `max-age=300 swr=86400`; assets 1y immutable; text `max-age=3600 swr=604800`; json `max-age=3600 swr=86400` |
+| `llm-timeline` | HTML; `/assets/*`; `/data.json`, `/rss.xml`, `/sitemap.xml`, `/llms.txt`; `/favicon.svg` | HTML `max-age=300 swr=86400`; assets 1y immutable; feeds `max-age=3600 swr=86400`; favicon 7d |
 
 TTL rationale:
 
-- **HTML content pages** (`kb`, `llm-timeline`): `max-age=300,
-  stale-while-revalidate=86400` — short freshness, day-long stale window so the
-  edge serves instantly while revalidating.
-- **Hashed `/assets/*`**: `max-age=31536000, immutable` — the filename carries a
-  content hash, so it can cache forever.
+- **HTML content pages**: `max-age=300, stale-while-revalidate=86400` — short
+  freshness, day-long stale window so the edge serves instantly while revalidating.
+- **Hashed `/assets/*`**: `max-age=31536000, immutable` — content-hashed filename.
 - **Generated public data / feeds / LLM & SEO text** (`llms.txt`, `sitemap.xml`,
   `rss.xml`, `robots.txt`, raw `/*.md`, `data.json`, `graph-data.json`):
   `max-age=3600` with a long SWR — regenerated each build, stable in between.
 
-### Dynamic apps — flag enabled, no public cache headers
-
-`[cache] enabled = true` is also set on the dynamic Workers as a documented
-**safe no-op**: their responses set no `Cache-Control: public` and any
-`Authorization`-bearing request auto-bypasses, so nothing user-specific is ever
-cached. Only static SPA shell assets (hashed/immutable) are cacheable.
-
-| App | Why left header-untouched |
-|-----|---------------------------|
-| `api` | Dynamic Hono API (`api.duyet.net`). Left enabled so a genuinely public GET endpoint can opt in later purely via response headers. |
-| `agent-api` | Authed chat API (Clerk bearer / `AGENT_API_TOKEN`). |
-| `agent-ui` | Signed-in chat surface (Clerk). |
-| `agent-assistant` | SSR agent + Durable-Object `/api/*`; per-thread state. |
-
-**Rule:** never add `Cache-Control: public` to authed/per-user/dynamic/mutating
-responses. Enabling the `[cache]` flag on those apps is fine; adding public
-cache headers to their data is not.
-
 ## How to extend
 
-- New public GET endpoint on a static app → add a rule to that app's
-  `public/_headers` with `Cache-Control: public, max-age=..., stale-while-revalidate=...`.
-- New public GET endpoint on a Worker (`api`) → set the same header on the
-  `Response`; the already-enabled `[cache]` will pick it up.
+- New public GET endpoint on a **Pages** app → add a rule to that app's
+  `public/_headers` (`Cache-Control: public, max-age=..., stale-while-revalidate=...`).
+  Do **not** add `[cache]` to a Pages `wrangler.toml`.
+- New public GET endpoint on a **Worker** (`api`, `agent-*`) → set the same
+  header on the `Response`; the already-enabled `[cache]` picks it up.
 - Never cache anything gated by auth, cookies, or per-user/query state.

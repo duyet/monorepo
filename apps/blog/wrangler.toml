@@ -1,8 +1,2 @@
 name = "duyet-blog"
 pages_build_output_dir = "dist/client"
-
-# Cloudflare Workers Cache: tiered cache in front of the app. Only responses
-# with explicit `Cache-Control: public` are stored (see public/_headers), so
-# enabling this is safe by default and requests with `Authorization` bypass it.
-[cache]
-enabled = true
