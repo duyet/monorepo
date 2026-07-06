@@ -1,3 +1,10 @@
 name = "duyet-agents"
 compatibility_date = "2026-05-17"
 pages_build_output_dir = "dist/client"
+
+# Cloudflare Workers Cache: safe no-op here. This is a signed-in chat surface,
+# so its dynamic responses set no `Cache-Control: public` and are never cached;
+# `Authorization`-bearing requests auto-bypass. Only the static SPA shell assets
+# (hashed, immutable) are cacheable.
+[cache]
+enabled = true

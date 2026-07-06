@@ -6,6 +6,12 @@ compatibility_flags = ["nodejs_compat"]
 #   { pattern = "agents-api.duyet.net", custom_domain = true }
 # ]
 
+# Cloudflare Workers Cache: safe no-op. This is an authed chat API (Clerk bearer
+# / AGENT_API_TOKEN); responses set no `Cache-Control: public` and
+# `Authorization`-bearing requests auto-bypass, so nothing is cached.
+[cache]
+enabled = true
+
 [observability]
 enabled = true
 

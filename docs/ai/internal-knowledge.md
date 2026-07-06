@@ -71,6 +71,7 @@ This repository is the pnpm/Turborepo monorepo for duyet.net public apps, shared
 - `apps/api` uses Wrangler as a Worker, not a Pages app.
 - `apps/agent-api` uses Wrangler as a Worker, not a Pages app.
 - `apps/agent-assistant` compiles via Vite/TanStack Start into a unified Worker + Assets bundle and deploys to the `duyet-agent-assistant` project. Features an automated deployment processor (`deploy.ts`) that injects `ThreadStateDO` SQLite schemas and patches browser-incompatible `createRequire` and `import.meta.url` hooks in compiled server chunks.
+- **Cloudflare Workers Cache** (`[cache] enabled = true`) is set in every app's `wrangler.toml`. It only caches responses with an explicit `Cache-Control: public`, so it is safe by default; public content headers live in each static app's `public/_headers`, and the dynamic apps (`api`, `agent-api`, `agent-ui`, `agent-assistant`) enable the flag but add no public cache headers. See [`docs/ai/workers-cache.md`](workers-cache.md) for the per-app matrix, TTL rationale, and how to extend.
 
 ## App-Specific Command Notes
 
