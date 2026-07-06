@@ -3,13 +3,13 @@
 # the Workers/edge tiered cache store them; a deploy purges the Pages cache so
 # content is never stale after a publish.
 
+# SPA shell + filter pages: fresh briefly, served stale while revalidating.
+# Nested RSS feeds (/license/*/rss.xml, /org/*/rss.xml, /year/*/rss.xml)
+# inherit this policy.
 /*
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
-  # SPA shell + filter pages: fresh briefly, served stale while revalidating.
-  # Nested RSS feeds (/license/*/rss.xml, /org/*/rss.xml, /year/*/rss.xml)
-  # inherit this policy.
   Cache-Control: public, max-age=300, stale-while-revalidate=86400
 
 # Hashed JS/CSS: filename carries a content hash -> cache forever

@@ -3,12 +3,12 @@
 # Workers/edge tiered cache store them; a deploy purges the Pages cache so
 # content is never stale after a publish.
 
+# Prerendered article/category HTML: fresh briefly, served stale while it
+# revalidates in the background.
 /*
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
-  # Prerendered article/category HTML: fresh briefly, served stale while it
-  # revalidates in the background.
   Cache-Control: public, max-age=300, stale-while-revalidate=86400
 
 # Hashed JS/CSS: filename carries a content hash -> cache forever
