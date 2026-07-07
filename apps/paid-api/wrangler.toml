@@ -3,9 +3,9 @@ main = "src/index.ts"
 compatibility_date = "2026-05-17"
 compatibility_flags = ["nodejs_compat"]
 
-# routes = [
-#   { pattern = "paid.duyet.net", custom_domain = true }
-# ]
+routes = [
+  { pattern = "paid.duyet.net", custom_domain = true }
+]
 
 [observability]
 enabled = true
@@ -18,8 +18,11 @@ remote = true
 # x402 paid chat. PAY_TO is the EVM wallet that receives USDC. It is public by
 # design — every 402 response exposes it so the payer knows where to send funds.
 # (Only a wallet PRIVATE key would need `wrangler secret put` — never commit that.)
-# Testnet USDC (free) for eip155:84532: https://faucet.circle.com/
-# Switch to eip155:8453 (Base mainnet) when you want real revenue.
+#
+# NOTE: Base MAINNET (eip155:8453) is NOT supported by the public facilitator —
+# https://x402.org/facilitator/supported lists only eip155:84532 for EVM exact.
+# Mainnet needs a self-hosted facilitator Worker with a funded wallet (gas).
+# Until that exists, stay on testnet eip155:84532 (free USDC, faucet below).
 PAY_TO = "0xb6BECF08DFd2E2B0F03ED6ea48b515d687DB034B"
 X402_NETWORK = "eip155:84532"
 X402_FACILITATOR_URL = "https://x402.org/facilitator"
