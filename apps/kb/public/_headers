@@ -1,0 +1,41 @@
+# Cloudflare Pages headers for the knowledge base (all responses are public,
+# read-only, non-user-specific). Explicit `Cache-Control: public` lets the
+# Workers/edge tiered cache store them; a deploy purges the Pages cache so
+# content is never stale after a publish.
+
+# Prerendered article/category HTML: fresh briefly, served stale while it
+# revalidates in the background.
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+
+# Hashed JS/CSS: filename carries a content hash -> cache forever
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Raw markdown endpoints (/k/<slug>.md, /m/<slug>.md): plain text for LLM/agent
+# consumers, lightly cached with long edge SWR
+/*.md
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=3600, stale-while-revalidate=604800
+
+# LLM discovery indexes
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=3600, stale-while-revalidate=604800
+
+/llms-full.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=3600, stale-while-revalidate=604800
+
+# SEO + knowledge-graph data
+/robots.txt
+  Cache-Control: public, max-age=3600, stale-while-revalidate=604800
+
+/sitemap.xml
+  Cache-Control: public, max-age=3600, stale-while-revalidate=604800
+
+/graph-data.json
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400

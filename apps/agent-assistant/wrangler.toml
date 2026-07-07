@@ -3,6 +3,13 @@ main = "dist/server/server.js"
 compatibility_date = "2026-05-14"
 compatibility_flags = ["nodejs_compat"]
 
+# Cloudflare Workers Cache: safe no-op for the dynamic surface. The SSR agent
+# responses and `/api/*` (Durable Object backed) set no `Cache-Control: public`,
+# so they are never cached; only the static SPA shell assets (hashed, immutable)
+# are cacheable. `Authorization`-bearing requests auto-bypass.
+[cache]
+enabled = true
+
 [assets]
 directory = "dist/client"
 run_worker_first = ["/api/*"]
