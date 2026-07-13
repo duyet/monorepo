@@ -10,6 +10,11 @@ import { KpiTile } from "@/components/overview/KpiTile";
 import type { KpiTileData } from "@/components/overview/KpiTile";
 import { TokenAttributionSection } from "@/components/overview/TokenAttributionSection";
 import {
+  InsightAreaChart,
+  InsightDistributionChart,
+  InsightDonutChart,
+} from "@/components/overview/charts";
+import {
   getTrafficData,
   shortDate,
   compactName,
@@ -43,6 +48,123 @@ function IndexPage() {
     date: shortDate(item.date),
     tokens: item["Total Tokens"],
   }));
+  const cacheRatio = data.cacheRatio.map((d) => ({
+    date: shortDate(d.date),
+    pct: d.pct,
+    tokens: d.totalTokens,
+  }));
+  // ---- Derived breakdowns from daily activity ----
+  const tokenSums = data.aiActivity.reduce(
+    (acc, day) => {
+      acc.input += day["Input Tokens"] ?? 0;
+      acc.output += day["Output Tokens"] ?? 0;
+      acc.cache += day["Cache Tokens"] ?? 0;
+      return acc;
+    },
+    { input: 0, output: 0, cache: 0 },
+  );
+  const totalTokensDerived =
+    tokenSums.input + tokenSums.output + tokenSums.cache;
+  const inpPct =
+    totalTokensDerived > 0
+      ? Math.round((tokenSums.input / totalTokensDerived) * 1000) / 10
+      : 0;
+  const outPct =
+    totalTokensDerived > 0
+      ? Math.round((tokenSums.output / totalTokensDerived) * 1000) / 10
+      : 0;
+  const cachePct =
+    totalTokensDerived > 0
+      ? Math.round((tokenSums.cache / totalTokensDerived) * 1000) / 10
+      : 0;
+  const tokenTypeShares = [
+    { name: "Input", cost: tokenSums.input, pct: inpPct },
+    { name: "Output", cost: tokenSums.output, pct: outPct },
+    { name: "Cache", cost: tokenSums.cache, pct: cachePct },
+  ];
+  // Cost breakdown by token type (proportional using token ratios)
+  const totalAiCost = data.aiActivity.reduce(
+    (s, d) => s + (d["Total Cost"] ?? 0),
+    0,
+  );
+  const costTypeShares =
+    totalTokensDerived > 0
+      ? [
+          {
+            name: "Input Cost",
+            cost: (totalAiCost * tokenSums.input) / totalTokensDerived,
+            pct:
+              Math.round(
+                ((totalAiCost * tokenSums.input) / totalTokensDerived /
+                  totalAiCost) *
+                  1000,
+              ) / 10 || 0,
+          },
+          {
+            name: "Output Cost",
+            cost: (totalAiCost * tokenSums.output) / totalTokensDerived,
+            pct:
+              Math.round(
+                ((totalAiCost * tokenSums.output) / totalTokensDerived /
+                  totalAiCost) *
+                  1000,
+              ) / 10 || 0,
+          },
+          {
+            name: "Cache Cost",
+            cost: (totalAiCost * tokenSums.cache) / totalTokensDerived,
+            pct:
+              Math.round(
+                ((totalAiCost * tokenSums.cache) / totalTokensDerived /
+                  totalAiCost) *
+                  1000,
+              ) / 10 || 0,
+          },
+        ]
+      : [];
+  // Normalise cost pct to sum exactly 100
+  const costPctSum = costTypeShares.reduce((s, r) => s + r.pct, 0);
+  const costDrift = 100 - costPctSum;
+  if (costTypeShares.length > 0 && Math.abs(costDrift) > 0.01) {
+    costTypeShares[0].pct = Math.max(
+      0,
+      Math.round(costTypeShares[0].pct + costDrift),
+    );
+  }
+
+  // ---- Token burn metrics ----
+  const activeDays = data.aiMetrics.activeDays || 1;
+  const ioRatio =
+    tokenSums.output > 0
+      ? (tokenSums.input / tokenSums.output).toFixed(1)
+      : "—";
+  const avgTokensPerDay = formatCompact(
+    data.aiMetrics.totalTokens / activeDays,
+  );
+  const cacheRate =
+    data.aiMetrics.totalTokens > 0
+      ? `${Math.round((data.aiMetrics.cacheTokens / data.aiMetrics.totalTokens) * 100)}%`
+      : "—";
+  const projectCount = data.projectLeaderboard.length;
+
+  const weekday = data.activityByWeekday.map((d) => ({
+    label: d.label,
+    Tokens: d.tokens,
+    key: d.key,
+  }));
+  const hourly = data.activityByHour.map((d) => ({
+    label: d.label,
+    Tokens: d.tokens,
+    key: d.key,
+  }));
+  const projectLeaderboard = data.projectLeaderboard
+    .slice(0, 6)
+    .map((p) => ({
+      name: p.name,
+      pct: p.pct,
+      tokens: p.tokens,
+      cost: p.cost,
+    }));
   const topModels = data.aiModels.slice(0, 5).map((model) => ({
     name: compactName(model.name),
     pct: model.percent,
@@ -211,6 +333,147 @@ function IndexPage() {
         </div>
       </div>
 
+      {/* ---- Token burn metrics ---- */}
+      {data.aiActivity.length > 0 && (
+        <div className="rd-g4 mt-3">
+          {[
+            {
+              label: "Input / Output ratio",
+              value: ioRatio,
+              sub: `${formatCompact(tokenSums.input)} in · ${formatCompact(tokenSums.output)} out`,
+            },
+            {
+              label: "Avg tokens / active day",
+              value: avgTokensPerDay,
+              sub: `${data.aiMetrics.activeDays} active days`,
+            },
+            {
+              label: "Cache savings rate",
+              value: cacheRate,
+              sub: `${formatCompact(data.aiMetrics.cacheTokens)} of ${formatCompact(data.aiMetrics.totalTokens)} total`,
+            },
+            {
+              label: "Active projects",
+              value: String(projectCount),
+              sub: "distinct project directories",
+            },
+          ].map((m, i) => (
+            <div
+              key={i}
+              className="rd-card p-[clamp(18px,2.2vw,26px)] flex flex-col gap-2"
+            >
+              <span className="rd-eyebrow text-[10.5px]">{m.label}</span>
+              <div className="text-[clamp(1.6rem,3vw,2.4rem)] font-semibold tracking-[-0.04em] leading-none">
+                {m.value}
+              </div>
+              <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11.5px]">
+                {m.sub}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* ---- Cache efficiency + rhythm ---- */}
+      <div className="rd-g2 mt-3">
+        <div className="rd-card p-[clamp(22px,2.6vw,30px)]">
+          <div className="mb-5">
+            <Eyebrow>AI · caching</Eyebrow>
+            <h3
+              className="text-[1.35rem] mt-[10px] tracking-[-0.03em]"
+            >
+              Cache hit ratio
+            </h3>
+            <p className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs mt-1">
+              Share of tokens served from cache, last 30 days.
+            </p>
+          </div>
+          <InsightAreaChart
+            ariaLabel="Daily cache hit ratio over the last 30 days"
+            data={cacheRatio}
+            keys={["pct"]}
+            labelMap={{ pct: "Cache %" }}
+          />
+        </div>
+
+        <div className="rd-card p-[clamp(22px,2.6vw,30px)]">
+          <div className="mb-5">
+            <Eyebrow>AI · when</Eyebrow>
+            <h3
+              className="text-[1.35rem] mt-[10px] tracking-[-0.03em]"
+            >
+              Activity by weekday
+            </h3>
+            <p className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs mt-1">
+              Token volume per day of the week.
+            </p>
+          </div>
+          <InsightDistributionChart
+            ariaLabel="Token volume by day of week"
+            data={weekday}
+            dataKey="Tokens"
+          />
+        </div>
+      </div>
+
+      {/* ---- Hourly rhythm ---- */}
+      <div className="rd-card p-[clamp(22px,2.6vw,30px)] mt-3">
+        <div className="flex justify-between items-end mb-5">
+          <div>
+            <Eyebrow>AI · rhythm</Eyebrow>
+            <h3
+              className="text-[1.35rem] mt-[10px] tracking-[-0.03em]"
+            >
+              Activity by hour of day
+            </h3>
+          </div>
+          <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs">
+            UTC · token volume
+          </span>
+        </div>
+        <InsightDistributionChart
+          ariaLabel="Token volume by hour of day"
+          data={hourly}
+          dataKey="Tokens"
+        />
+      </div>
+
+      {/* ---- Token & cost breakdown (donuts) ---- */}
+      {data.aiActivity.length > 0 && (
+        <div className="rd-g2 mt-3">
+          <div className="rd-card p-[clamp(22px,2.6vw,30px)]">
+            <div className="mb-5">
+              <Eyebrow>AI · token composition</Eyebrow>
+              <h3 className="text-[1.35rem] mt-[10px] tracking-[-0.03em]">
+                How tokens are spent
+              </h3>
+              <p className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs mt-1">
+                Input vs output vs cache, as share of total tokens.
+              </p>
+            </div>
+            <InsightDonutChart
+              ariaLabel="Token type breakdown over the last 30 days"
+              data={tokenTypeShares}
+            />
+          </div>
+          <div className="rd-card p-[clamp(22px,2.6vw,30px)]">
+            <div className="mb-5">
+              <Eyebrow>AI · cost composition</Eyebrow>
+              <h3 className="text-[1.35rem] mt-[10px] tracking-[-0.03em]">
+                How the money was split
+              </h3>
+              <p className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs mt-1">
+                Share of cost by token type, derived from token ratios.
+              </p>
+            </div>
+            <InsightDonutChart
+              ariaLabel="Cost type breakdown over the last 30 days"
+              data={costTypeShares}
+            />
+          </div>
+        </div>
+      )}
+
       {/* ---- Most-read pages ---- */}
       {topPosts.length > 0 && (
         <div
@@ -335,6 +598,68 @@ function IndexPage() {
                 </div>
               </a>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* ---- Project leaderboard ---- */}
+      {projectLeaderboard.length > 0 && (
+        <div
+          id="ins-projects"
+          className="rd-card p-[clamp(18px,2.2vw,26px)] mt-3 p-[clamp(22px,2.6vw,30px)]"
+        >
+          <div
+            className="flex justify-between items-end mb-2"
+          >
+            <div>
+              <Eyebrow>AI · projects</Eyebrow>
+              <h3
+                className="text-[1.35rem] mt-[10px] tracking-[-0.03em]"
+              >
+                Where the work happened
+              </h3>
+            </div>
+            <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs">
+              top projects by tokens · 30d
+            </span>
+          </div>
+          <div className="rd-rows">
+            {projectLeaderboard.map((item, i) => {
+              const max = projectLeaderboard[0].tokens;
+              return (
+                <div
+                  key={i}
+                  className="rd-row grid-cols-[auto_1fr_auto] gap-[18px] items-center"
+                >
+                  <span
+                    className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs w-[22px]"
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="min-w-0">
+                    <span
+                      className="font-[var(--font-mono)] text-[13.5px] block truncate"
+                    >
+                      {item.name}
+                    </span>
+                    <div
+                      className="rd-meter mt-2 max-w-[360px]"
+                    >
+                      <i
+                        style={{
+                          width: `${(item.tokens / max) * 100}%`,
+                        }}
+                      />
+                    </div>
+                  </span>
+                  <span
+                    className="font-[var(--font-mono)] text-sm font-semibold"
+                  >
+                    {formatCompact(item.tokens)}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}

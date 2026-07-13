@@ -1,4 +1,5 @@
-import { Sparkline } from "@/components/charts/Sparkline";
+import { Sparkline as DitherSparkline } from "@/components/dither-kit";
+import { Sparkline as SvgSparkline } from "@/components/charts/Sparkline";
 
 interface KpiTileData {
   k: string;
@@ -14,6 +15,8 @@ interface KpiTileData {
 function KpiTile({ t }: { t: KpiTileData }) {
   const up = t.trend.startsWith("+");
   const goodTrend = t.good ? !up : up;
+  const sparkColor = t.good ? "green" : "blue";
+  const hasSpark = t.spark.filter(Number.isFinite).length >= 2;
   return (
     <div className="rd-card p-[clamp(18px,2.2vw,26px)] flex flex-col gap-3 min-h-[168px]">
       <div className="flex justify-between items-center">
@@ -30,12 +33,18 @@ function KpiTile({ t }: { t: KpiTileData }) {
         {t.v}
         <span className="rd-unit">{t.unit}</span>
       </div>
-      <Sparkline
-        data={t.spark}
-        h={34}
-        label={`${t.k} trend over the period${t.trend === "—" ? "" : `, latest change ${t.trend}`}`}
-        stroke={t.good ? "var(--rd-ok)" : "var(--rd-accent)"}
-      />
+      {hasSpark ? (
+        <div className="h-[34px] -mx-1">
+          <DitherSparkline
+            data={t.spark}
+            color={sparkColor}
+            bloom={goodTrend ? "low" : "off"}
+            bloomOnHover
+          />
+        </div>
+      ) : (
+        <SvgSparkline data={t.spark} h={34} label={`${t.k} trend`} />
+      )}
       <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11.5px]">
         {t.sub}
       </div>

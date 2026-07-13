@@ -9,7 +9,7 @@
  * Pass `currentApp` to drop the app the visitor is already on.
  */
 import type { ReactNode } from "react";
-import { Eyebrow, SecHead } from "./redesign";
+import { SecHead } from "./redesign";
 
 export type ExploreAppKey =
   | "home"
@@ -23,6 +23,9 @@ export type ExploreAppKey =
   | "agents"
   | "kb";
 
+/** Bento cell sizing for the grid view. */
+type BentoSize = "wide" | "big";
+
 interface AppEntry {
   key: ExploreAppKey;
   name: string;
@@ -31,6 +34,8 @@ interface AppEntry {
   href: string;
   blurb: string;
   glyph: ReactNode;
+  /** Optional bento emphasis: `wide` spans two columns, `big` spans two by two. */
+  bento?: BentoSize;
 }
 
 /* --- Pro glyphs: 24×24, currentColor stroke, no external deps --- */
@@ -138,6 +143,7 @@ const APPS: AppEntry[] = [
     href: "https://insights.duyet.net",
     blurb: "Live dashboards: coding hours, traffic, and token spend.",
     glyph: Glyph.insights,
+    bento: "wide",
   },
   {
     key: "homelab",
@@ -154,6 +160,7 @@ const APPS: AppEntry[] = [
     href: "https://duyet.net",
     blurb: "The index — who I am, what I ship, and where to find it.",
     glyph: Glyph.home,
+    bento: "big",
   },
   {
     key: "photos",
@@ -234,41 +241,50 @@ export function ExploreApps({
           ]}
         />
 
-        <div className="max-w-[860px] mt-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-            {apps.map((app) => (
-              <a
-                key={app.key}
-                href={app.href}
-                className="group p-4 border border-[var(--rd-border)] rounded-[var(--rd-r)] bg-[var(--rd-surface)] hover:border-[var(--rd-accent)] hover:shadow-md hover:-translate-y-[2px] transition-all duration-200 flex items-start gap-3 no-underline text-inherit"
-                title={app.blurb}
-              >
-                {/* Icon wrapper */}
-                <div className="flex items-center justify-center w-8 h-8 rounded-md bg-[var(--rd-bg)] text-[var(--rd-text-3)] group-hover:text-[var(--rd-accent)] group-hover:bg-[color-mix(in_srgb,var(--rd-accent)_8%,var(--rd-bg))] shrink-0 transition-all duration-200">
-                  <span className="w-5 h-5 flex items-center justify-center [&_svg]:w-full [&_svg]:h-full">
-                    {app.glyph}
-                  </span>
-                </div>
-
-                {/* Content */}
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center justify-between gap-1">
-                    <span className="block text-[13px] font-semibold tracking-[-0.01em] leading-snug truncate text-[var(--rd-text)]">
-                      {app.name}
-                    </span>
-                    <span className="opacity-0 group-hover:opacity-100 text-[10px] text-[var(--rd-accent)] transition-opacity duration-200 font-mono">
-                      →
+        <div className="max-w-[980px] mt-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 auto-rows-[minmax(108px,auto)] gap-3">
+            {apps.map((app) => {
+              const isBig = app.bento === "big";
+              const isWide = app.bento === "wide";
+              const span = isBig
+                ? "sm:col-span-2 sm:row-span-2"
+                : isWide
+                  ? "col-span-2"
+                  : "";
+              return (
+                <a
+                  key={app.key}
+                  href={app.href}
+                  className={`group p-4 border border-[var(--rd-border)] rounded-[var(--rd-r)] bg-[var(--rd-surface)] hover:border-[var(--rd-accent)] hover:shadow-md hover:-translate-y-[2px] transition-all duration-200 flex flex-col gap-3 no-underline text-inherit ${span}`}
+                  title={app.blurb}
+                >
+                  {/* Icon wrapper */}
+                  <div className="flex items-center justify-center w-8 h-8 rounded-md bg-[var(--rd-bg)] text-[var(--rd-text-3)] group-hover:text-[var(--rd-accent)] group-hover:bg-[color-mix(in_srgb,var(--rd-accent)_8%,var(--rd-bg))] shrink-0 transition-all duration-200">
+                    <span className={`w-5 h-5 flex items-center justify-center [&_svg]:w-full [&_svg]:h-full ${isBig ? "w-6 h-6" : ""}`}>
+                      {app.glyph}
                     </span>
                   </div>
-                  <span className="block font-[var(--font-mono)] text-[9.5px] text-[var(--rd-text-4)] truncate mt-0.5">
-                    {app.domain}
-                  </span>
-                  <p className="text-[11px] text-[var(--rd-text-3)] leading-normal mt-1.5 overflow-hidden text-ellipsis line-clamp-2 group-hover:text-[var(--rd-text-2)] transition-colors duration-200">
-                    {app.blurb}
-                  </p>
-                </div>
-              </a>
-            ))}
+
+                  {/* Content */}
+                  <div className="min-w-0 flex-1 flex flex-col">
+                    <div className="flex items-center justify-between gap-1">
+                      <span className={`block font-semibold tracking-[-0.01em] leading-snug truncate text-[var(--rd-text)] ${isBig ? "text-[15px]" : "text-[13px]"}`}>
+                        {app.name}
+                      </span>
+                      <span className="opacity-0 group-hover:opacity-100 text-[10px] text-[var(--rd-accent)] transition-opacity duration-200 font-mono">
+                        →
+                      </span>
+                    </div>
+                    <span className="block font-[var(--font-mono)] text-[9.5px] text-[var(--rd-text-4)] truncate mt-0.5">
+                      {app.domain}
+                    </span>
+                    <p className={`text-[11px] text-[var(--rd-text-3)] leading-normal mt-1.5 overflow-hidden text-ellipsis group-hover:text-[var(--rd-text-2)] transition-colors duration-200 ${isBig ? "line-clamp-4" : "line-clamp-2"}`}>
+                      {app.blurb}
+                    </p>
+                  </div>
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>

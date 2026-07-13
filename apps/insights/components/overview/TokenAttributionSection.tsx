@@ -1,6 +1,10 @@
 import { Eyebrow } from "@duyet/components";
 import type { LoaderData } from "./types";
-import { InsightAreaChart, InsightStackedBarChart } from "./charts";
+import {
+  InsightAreaChart,
+  InsightStackedBarChart,
+  InsightDonutChart,
+} from "./charts";
 import { shortDate, formatNumber, formatCompact } from "./helpers";
 
 function TokenAttributionSection({ data }: { data: LoaderData }) {
@@ -13,6 +17,14 @@ function TokenAttributionSection({ data }: { data: LoaderData }) {
     ...d,
     date: shortDate(String(d.date)),
   }));
+
+  const modelCost = data.modelCostShare
+    .map((m) => ({
+      name: m.name,
+      cost: Math.round(m.cost * 100) / 100,
+      pct: m.pct,
+    }))
+    .sort((a, b) => b.pct - a.pct);
 
   const projects = data.ccProjects.slice(0, 6).map((project) => ({
     label: project.projectName,
@@ -55,11 +67,29 @@ function TokenAttributionSection({ data }: { data: LoaderData }) {
             </p>
           </div>
           <InsightAreaChart
-            accentKey="score"
             ariaLabel="Cost efficiency trend, tokens produced per dollar"
             data={efficiency}
             keys={["score"]}
             labelMap={{ score: "Tokens/$" }}
+          />
+        </div>
+
+        {/* Model cost donut */}
+        <div className="rd-card p-[clamp(22px,2.6vw,30px)]">
+          <div className="mb-5">
+            <Eyebrow>AI · spend share</Eyebrow>
+            <h3
+              className="text-[1.35rem] mt-[10px] tracking-[-0.03em]"
+            >
+              Where the money went
+            </h3>
+            <p className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs mt-1">
+              Share of total cost by model, last 30 days.
+            </p>
+          </div>
+          <InsightDonutChart
+            ariaLabel="Model cost share over the last 30 days"
+            data={modelCost}
           />
         </div>
       </div>

@@ -95,7 +95,7 @@ async function executeAnalyticsQuery(
   return cacheResults;
 }
 
-function getDuckDBDateCondition(days: DateRangeDays, column: string): string {
+export function getDuckDBDateCondition(days: DateRangeDays, column: string): string {
   const safeDays = validateDaysParameter(days);
   if (safeDays === "all") return "";
   return `WHERE ${column} > current_date - INTERVAL ${safeDays} DAY`;

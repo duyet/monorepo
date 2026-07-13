@@ -8,6 +8,9 @@ import type {
 interface AiActivity {
   "Total Cost": number;
   "Total Tokens": number;
+  "Input Tokens": number;
+  "Output Tokens": number;
+  "Cache Tokens": number;
   date: string;
 }
 
@@ -27,6 +30,35 @@ interface AiModel {
   percent: number;
   tokens: number;
   usageCount?: number;
+}
+
+interface CacheRatioPoint {
+  date: string;
+  pct: number;
+  totalTokens: number;
+  cacheTokens: number;
+}
+
+interface ModelCostShare {
+  name: string;
+  cost: number;
+  tokens: number;
+  pct: number;
+}
+
+interface BucketedActivity {
+  label: string;
+  key: number;
+  tokens: number;
+  cost: number;
+  days: number;
+}
+
+interface ProjectLeaderboardEntry {
+  name: string;
+  tokens: number;
+  cost: number;
+  pct: number;
 }
 
 interface WakaTimeMetrics {
@@ -96,6 +128,11 @@ export interface LoaderData {
   ccByModel: CCUsageActivityByModelData[];
   ccEfficiency: CCUsageEfficiencyData[];
   ccProjects: CCUsageProjectData[];
+  cacheRatio: CacheRatioPoint[];
+  modelCostShare: ModelCostShare[];
+  activityByWeekday: BucketedActivity[];
+  activityByHour: BucketedActivity[];
+  projectLeaderboard: ProjectLeaderboardEntry[];
   cloudflare: CloudflareSummary;
   githubRepos: Repo[];
   posthog: PostHogSummary;

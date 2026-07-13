@@ -11,12 +11,14 @@ import {
 import { settled } from "./helpers";
 
 async function loadOverviewDataForStaticBuild(): Promise<LoaderData> {
-  const [aiData, blogData, wakaData, posthogData] = await Promise.all([
-    import("@/app/ai/utils/data-fetchers"),
-    import("@/app/blog/cloudflare"),
-    import("@/app/wakatime/wakatime-utils"),
-    import("@/app/blog/posthog"),
-  ]);
+  const [aiData, insightMetrics, blogData, wakaData, posthogData] =
+    await Promise.all([
+      import("@/app/ai/utils/data-fetchers"),
+      import("@/app/ai/utils/insight-metrics"),
+      import("@/app/blog/cloudflare"),
+      import("@/app/wakatime/wakatime-utils"),
+      import("@/app/blog/posthog"),
+    ]);
 
   const [
     aiMetrics,
@@ -25,6 +27,11 @@ async function loadOverviewDataForStaticBuild(): Promise<LoaderData> {
     ccByModel,
     ccEfficiency,
     ccProjects,
+    cacheRatio,
+    modelCostShare,
+    activityByWeekday,
+    activityByHour,
+    projectLeaderboard,
     wakaMetrics,
     wakaLanguages,
     wakaTrend,
@@ -38,6 +45,11 @@ async function loadOverviewDataForStaticBuild(): Promise<LoaderData> {
     aiData.getCCUsageActivityByModel(30),
     aiData.getCCUsageEfficiency(),
     aiData.getCCUsageProjects(30),
+    insightMetrics.getCacheRatioTrend(30),
+    insightMetrics.getModelCostShare(30),
+    insightMetrics.getActivityByWeekday(30),
+    insightMetrics.getActivityByHour(30),
+    insightMetrics.getProjectLeaderboard(30),
     wakaData.getWakaTimeMetrics(30),
     wakaData.getWakaTimeLanguages(30),
     wakaData.getWakaTimeMonthlyTrend(),
@@ -53,6 +65,11 @@ async function loadOverviewDataForStaticBuild(): Promise<LoaderData> {
     ccByModel: settled(ccByModel, []),
     ccEfficiency: settled(ccEfficiency, []),
     ccProjects: settled(ccProjects, []),
+    cacheRatio: settled(cacheRatio, []),
+    modelCostShare: settled(modelCostShare, []),
+    activityByWeekday: settled(activityByWeekday, []),
+    activityByHour: settled(activityByHour, []),
+    projectLeaderboard: settled(projectLeaderboard, []),
     cloudflare: settled(cloudflare, EMPTY_CLOUDFLARE),
     githubRepos: settled(githubRepos, []),
     posthog: settled(posthog, EMPTY_POSTHOG),
@@ -90,6 +107,11 @@ function isLoaderData(value: unknown): value is LoaderData {
       Array.isArray(data.ccByModel) &&
       Array.isArray(data.ccEfficiency) &&
       Array.isArray(data.ccProjects) &&
+      Array.isArray(data.cacheRatio) &&
+      Array.isArray(data.modelCostShare) &&
+      Array.isArray(data.activityByWeekday) &&
+      Array.isArray(data.activityByHour) &&
+      Array.isArray(data.projectLeaderboard) &&
       Array.isArray(data.wakaLanguages) &&
       Array.isArray(data.wakaTrend) &&
       Array.isArray(data.githubRepos),
