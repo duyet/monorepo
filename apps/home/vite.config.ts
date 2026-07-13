@@ -6,14 +6,6 @@ export default defineConfig({
   server: { port: 3001 },
   // Native tsconfig `paths` resolution (replaces the vite-tsconfig-paths plugin).
   resolve: { tsconfigPaths: true },
-  build: {
-    rolldownOptions: {
-      output: {
-        // Keep client output as a single bundle to avoid runtime dynamic chunk loads.
-        codeSplitting: false,
-      },
-    },
-  },
   plugins: [
     tanstackStart({
       router: {
