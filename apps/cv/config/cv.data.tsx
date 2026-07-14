@@ -64,7 +64,7 @@ export const cvData: CVData = {
       responsibilities: [
         {
           id: 1,
-          item: "Migrated from legacy stack (Spark, Iceberg, Trino) to ClickHouse.",
+          item: "Migrated from legacy stack (Spark, Iceberg, Trino) to ClickHouse, Airflow, PeerDB.",
         },
         {
           id: 2,
@@ -94,7 +94,7 @@ export const cvData: CVData = {
         },
         {
           id: 3,
-          item: "Achieved 300% better data compression and 2x-100x faster queries with ClickHouse compared to Trino + Iceberg.",
+          item: "300% better data compression and 2x-100x faster queries with ClickHouse compared to Trino + Iceberg.",
         },
         {
           id: 4,
@@ -108,7 +108,7 @@ export const cvData: CVData = {
                 text="Built AI Agents"
                 links={[
                   {
-                    text: "build-agent",
+                    text: "npx skills add duyet/build-agent",
                     href: "https://github.com/duyet/build-agent",
                   },
                   {
@@ -125,7 +125,8 @@ export const cvData: CVData = {
                   },
                 ]}
               />{" "}
-              and LLM Workflows on top of ClickHouse and Docs (LangGraph, LlamaIndex, Qdrant, Firecrawl, Cube.js, Next.js, etc)
+              and LLM Workflows on top of ClickHouse and Docs (LangGraph,
+              LlamaIndex, Qdrant, Firecrawl, Cube.js, etc)
             </span>
           ),
         },
