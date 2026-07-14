@@ -421,7 +421,7 @@ export const apps: AppItem[] = [
     tags: ["AI"],
   },
   {
-    name: "build-agent",
+    name: "npx skills add duyet/build-agent",
     href: "https://github.com/duyet/build-agent",
     host: "github.com",
     utmContent: "build_agent_bento",
