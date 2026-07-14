@@ -102,7 +102,7 @@ export const cvData: CVData = {
         },
         {
           id: 5,
-          item: "Built AI Agents and AI Workflows on top of ClickHouse Data Lake and Documentation with LangGraph, LlamaIndex, Qdrant, Firecrawl, Cube.js, Next.js.",
+          item: "Built AI Agents and LLLM Workflows on top of ClickHouse and Docs (LangGraph, LlamaIndex, Qdrant, Firecrawl, Cube.js, Next.js, etc)",
         },
       ],
     },
