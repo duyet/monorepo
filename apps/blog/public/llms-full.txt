@@ -191,6 +191,22 @@ I want to remind you again: the most important factor is context. During a goal-
 
 The Claude Agent Runner image is [public here][runner] with a detailed [architecture design][arch]. You can extend it further with custom code, the Antigravity SDK, and other agent frameworks.
 
+# Security
+
+"The agent cannot access the Kubernetes cluster API" is only true if the sandbox actually isolates the agent's process from the host. By default, a Kubernetes Pod is just a `runc` container: it shares the host kernel with every other Pod on the node through Linux namespaces and cgroups. That's fine for your own trusted code, but an LLM agent running arbitrary shell commands, installing dependencies, and executing model-generated code is a different threat model — a kernel exploit or container escape in that Pod reaches the host and every other workload on it. This is why the sandboxing runtime you pick under Agent Sandbox matters as much as the CRD itself.
+
+Three runtimes solve this differently:
+
+- **containerd + runc** (default): namespaces + seccomp carve out a *view* of one shared kernel. Fastest, but one syscall exploit away from the host.
+- **gVisor**: intercepts every syscall in userspace via a sandboxed kernel ("Sentry") — no direct host syscalls, no hardware virtualization needed. What GKE Sandbox and Cloud Run use.
+- **Kata Containers**: each Pod gets a real guest kernel in a microVM (QEMU/Cloud Hypervisor + KVM) — hardware isolation, at the cost of a second kernel to patch and slower cold starts.
+
+<img src="/media/2026/06/agent-sandbox-on-kubernetes/isolation-boundaries.svg" alt="Isolation boundary comparison: runc shares the host kernel directly, gVisor mediates syscalls through a userspace Sentry, Kata Containers isolates with a guest kernel behind KVM" style={{ maxWidth: '900px', width: '100%', margin: '1.5rem auto', display: 'block' }} />
+
+Agent Sandbox exposes `runtimeClassName` in the Sandbox's `podTemplate`, so this is a one-line choice per SandboxTemplate: `runc` for trusted, low-risk tasks; `gvisor` as the default for agent-generated shell/code execution; `kata` for anything touching untrusted external input.
+
+This doesn't replace the basics — NetworkPolicy egress limits, a minimal-RBAC ServiceAccount, non-root PodSecurityContext. The runtime raises the cost of a kernel escape; it doesn't substitute for keeping the agent's cluster permissions minimal.
+
 [kb]: https://kubernetes.io/blog/2026/03/20/running-agents-on-kubernetes-with-agent-sandbox/
 [runner]: https://github.com/duyet/claude-agent-runner
 [arch]: https://github.com/duyet/claude-agent-runner/blob/main/docs/architecture.md
