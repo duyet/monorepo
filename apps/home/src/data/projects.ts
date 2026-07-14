@@ -429,7 +429,7 @@ export const apps: AppItem[] = [
       "An autonomous agent skill designed to help build, run, and scale downstream AI agent systems.",
     domain: "github.com/duyet/build-agent",
     iconName: "Cpu",
-    logo: "https://cdn.simpleicons.org/npm",
+    logo: "https://raw.githubusercontent.com/duyet/build-agent/refs/heads/main/assets/logo.svg",
     logoDark: "https://cdn.simpleicons.org/npm/ffffff",
     tags: ["AI", "Tool"],
   },
