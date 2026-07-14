@@ -1,4 +1,4 @@
-import { cn, } from "@duyet/libs";
+import { cn } from "@duyet/libs";
 import type { ReactNode } from "react";
 import { ResumeLink } from "./resume-link";
 
@@ -29,13 +29,20 @@ export function ExperienceItem({
     <div className={cn("mt-3 first:mt-0", className)}>
       <div className="flex items-baseline justify-between">
         <h3 className="text-[15px] font-bold text-neutral-900 dark:text-neutral-100">
-          <CompanyLine
-            company={company}
-            companyUrl={companyUrl}
-            companyLogo={companyLogo}
-            companyLogoClassName={companyLogoClassName}
-          />
+          <CompanyLine company={company} companyUrl={companyUrl} />
         </h3>
+        {companyLogo ? (
+          <img
+            src={companyLogo}
+            alt={company}
+            width={12}
+            height={12}
+            className={cn(
+              "h-4 w-auto grayscale hover:grayscale-0 dark:brightness-0 dark:invert print:hidden",
+              companyLogoClassName
+            )}
+          />
+        ) : null}
       </div>
       <div className="flex items-baseline justify-between gap-x-3">
         <span className="min-w-0 text-[14px] italic text-neutral-700 dark:text-neutral-300">
@@ -59,30 +66,7 @@ export function ExperienceItem({
 function CompanyLine({
   company,
   companyUrl,
-  companyLogo,
-  companyLogoClassName,
-}: Pick<
-  ExperienceItemProps,
-  "company" | "companyUrl" | "companyLogo" | "companyLogoClassName"
->) {
-  const logoWithText = (
-    <span className="inline-flex items-center gap-1.5">
-      <span>{company}</span>
-      {companyLogo ? (
-        <img
-          src={companyLogo}
-          alt={company}
-          width={12}
-          height={12}
-          className={cn(
-            "h-3 w-auto grayscale hover:grayscale-0 dark:brightness-0 dark:invert print:hidden",
-            companyLogoClassName
-          )}
-        />
-      ) : null}
-    </span>
-  );
-
+}: Pick<ExperienceItemProps, "company" | "companyUrl">) {
   if (companyUrl) {
     return (
       <ResumeLink
@@ -90,19 +74,17 @@ function CompanyLine({
         external
         className="m-0 p-0 text-inherit hover:underline"
       >
-        {logoWithText}
+        {company}
       </ResumeLink>
     );
   }
 
-  return logoWithText;
+  return <>{company}</>;
 }
 
 function PeriodText({ from, to }: { from: Date; to?: Date }) {
   const monthFmt = new Intl.DateTimeFormat("en-US", { month: "short" });
   const fromStr = `${monthFmt.format(from)} ${from.getFullYear()}`;
-  const toStr = to
-    ? `${monthFmt.format(to)} ${to.getFullYear()}`
-    : "Present";
+  const toStr = to ? `${monthFmt.format(to)} ${to.getFullYear()}` : "Present";
   return <>{`${fromStr} – ${toStr}`}</>;
 }
