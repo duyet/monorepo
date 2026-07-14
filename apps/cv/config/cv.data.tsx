@@ -14,7 +14,7 @@ export const cvData: CVData = {
     title: "Résumé",
     email: "me@duyet.net",
     overview:
-      "Data & AI Engineer building scalable data platforms and AI-powered systems. 8+ years shipping production workloads across ClickHouse, Kubernetes, and cloud infrastructure. Currently exploring LLM agents and Rust.",
+      "Data & AI Engineer building scalable data platforms and AI-powered systems. 8+ years shipping production workloads across ClickHouse, Kubernetes and cloud infrastructure.",
     contacts: [
       {
         id: "email",
@@ -102,7 +102,32 @@ export const cvData: CVData = {
         },
         {
           id: 5,
-          item: "Built AI Agents and LLLM Workflows on top of ClickHouse and Docs (LangGraph, LlamaIndex, Qdrant, Firecrawl, Cube.js, Next.js, etc)",
+          item: (
+            <span key="build-ai-agents">
+              <HoverLinks
+                text="Built AI Agents"
+                links={[
+                  {
+                    text: "build-agent",
+                    href: "https://github.com/duyet/build-agent",
+                  },
+                  {
+                    text: "codex-claude-plugins",
+                    href: "https://github.com/duyet/codex-claude-plugins",
+                  },
+                  {
+                    text: "AnyRouter",
+                    href: "https://anyrouter.dev",
+                  },
+                  {
+                    text: "agentstate.app",
+                    href: "https://agentstate.app/",
+                  },
+                ]}
+              />{" "}
+              and LLM Workflows on top of ClickHouse and Docs (LangGraph, LlamaIndex, Qdrant, Firecrawl, Cube.js, Next.js, etc)
+            </span>
+          ),
         },
       ],
     },
