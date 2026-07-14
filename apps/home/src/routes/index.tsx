@@ -48,7 +48,7 @@ const recentNotes = (
 
 // Hand-picked to show breadth: AI infra, data, agents, DevOps, craft, type.
 const SELECTED: { name: string; tag: string }[] = [
-  { name: "build-agent", tag: "AI Skill" },
+  { name: "npx skills add duyet/build-agent", tag: "AI Skill" },
   { name: "Codex & Claude Plugins", tag: "AI" },
   { name: "AnyRouter", tag: "AI Infra" },
   { name: "ClickHouse Monitoring", tag: "Data" },
@@ -67,8 +67,6 @@ const selectedProjects = SELECTED.map(({ name, tag }) => {
   const item = byName.get(name);
   return item ? { item, tag } : null;
 }).filter((x): x is { item: AppItem; tag: string } => x !== null);
-
-
 
 // ---------------------------------------------------------------------------
 // Page
