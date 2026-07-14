@@ -116,11 +116,11 @@ export const cvData: CVData = {
                     href: "https://github.com/duyet/codex-claude-plugins",
                   },
                   {
-                    text: "AnyRouter",
+                    text: "AnyRouter (anyrouter.dev)",
                     href: "https://anyrouter.dev",
                   },
                   {
-                    text: "agentstate.app",
+                    text: "AgentState (agentstate.app)",
                     href: "https://agentstate.app/",
                   },
                 ]}
