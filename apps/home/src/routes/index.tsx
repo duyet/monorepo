@@ -89,7 +89,9 @@ function HomePage() {
               <Eyebrow>DATA &amp; AI ENGINEER</Eyebrow>
               <h1 className="rd-display mt-[13px] text-[clamp(2.4rem,5.5vw,4.2rem)] leading-[1.05]">
                 Building agent workflows and the{" "}
-                <span className="text-[var(--rd-accent)]">data platform</span>{" "}
+                <span className="text-[var(--rd-accent)]">
+                  <span className="rd-shimmer">data platform</span>
+                </span>{" "}
                 underneath them.
               </h1>
               <p className="rd-lead mt-[16px] max-w-[64ch] text-[clamp(1.02rem,1.4vw,1.18rem)]">

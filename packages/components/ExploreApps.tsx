@@ -1,10 +1,12 @@
 /**
  * ExploreApps — shared cross-app discovery section.
  *
- * Renders a compact, editorial grid of every public surface in the duyet.net
- * network with a hand-drawn monochrome glyph per app. Styled entirely with the
- * `--rd-*` token layer (see styles.css) so it looks identical across blog,
- * home, insights, and homelab and recolors automatically in light/dark.
+ * Renders a full-width editorial bento grid of every public surface in the
+ * duyet.net network. Each app gets a hand-drawn monochrome glyph; featured
+ * apps use bento emphasis (big, wide, tall) for visual hierarchy.
+ *
+ * Styled entirely with the `--rd-*` token layer (see styles.css) so it looks
+ * identical across blog, home, insights, and homelab and recolors in light/dark.
  *
  * Pass `currentApp` to drop the app the visitor is already on.
  */
@@ -24,7 +26,7 @@ export type ExploreAppKey =
   | "kb";
 
 /** Bento cell sizing for the grid view. */
-type BentoSize = "wide" | "big";
+type BentoSize = "wide" | "big" | "tall";
 
 interface AppEntry {
   key: ExploreAppKey;
@@ -34,11 +36,14 @@ interface AppEntry {
   href: string;
   blurb: string;
   glyph: ReactNode;
-  /** Optional bento emphasis: `wide` spans two columns, `big` spans two by two. */
+  /** Optional bento emphasis. */
   bento?: BentoSize;
 }
 
-/* --- Pro glyphs: 24×24, currentColor stroke, no external deps --- */
+/* ------------------------------------------------------------------ */
+/*  Monochrome SVG glyphs — 24×24 viewBox, currentColor stroke        */
+/*  Each one has a bit more personality than a bare icon set.         */
+/* ------------------------------------------------------------------ */
 const G = {
   fill: "none" as const,
   stroke: "currentColor",
@@ -59,6 +64,7 @@ const Glyph = {
     <svg viewBox="0 0 24 24" width="22" height="22" {...G}>
       <rect x="4" y="3.5" width="16" height="17" rx="2" />
       <path d="M8 8h8M8 12h8M8 16h5" />
+      <path d="M15.5 3.5v2.5h-7V3.5" />
     </svg>
   ),
   cv: (
@@ -72,13 +78,19 @@ const Glyph = {
     <svg viewBox="0 0 24 24" width="22" height="22" {...G}>
       <path d="M4 20h16" />
       <path d="M6.5 20v-5M11 20V9.5M15.5 20v-7.5M20 20V6" />
+      <circle cx="20" cy="6" r="1" fill="currentColor" />
+      <circle cx="15.5" cy="12.5" r="1" fill="currentColor" />
+      <circle cx="11" cy="9.5" r="1" fill="currentColor" />
     </svg>
   ),
   homelab: (
     <svg viewBox="0 0 24 24" width="22" height="22" {...G}>
-      <rect x="4" y="4" width="16" height="6" rx="1.5" />
-      <rect x="4" y="14" width="16" height="6" rx="1.5" />
-      <path d="M7.5 7h.01M7.5 17h.01" />
+      <rect x="3.5" y="3.5" width="17" height="5" rx="1.5" />
+      <rect x="3.5" y="10" width="17" height="5" rx="1.5" />
+      <rect x="3.5" y="16.5" width="17" height="4" rx="1.5" />
+      <circle cx="7" cy="6" r="1" fill="currentColor" />
+      <circle cx="7" cy="12.5" r="1" fill="currentColor" />
+      <circle cx="7" cy="18.5" r="1" fill="currentColor" />
     </svg>
   ),
   photos: (
@@ -86,40 +98,68 @@ const Glyph = {
       <rect x="3.5" y="5" width="17" height="14" rx="2" />
       <circle cx="9" cy="10" r="1.6" />
       <path d="m4 17 4.5-4.5L13 17M12 14l3-3 5 5" />
+      <path d="M3.5 16.5 8 12l4.5 4.5" />
     </svg>
   ),
   "llm-timeline": (
     <svg viewBox="0 0 24 24" width="22" height="22" {...G}>
       <path d="M4 12h16" />
       <circle cx="7" cy="12" r="2" />
-      <circle cx="13" cy="12" r="2" />
+      <circle cx="13" cy="12" r="2" fill="currentColor" />
       <circle cx="19" cy="12" r="1.6" />
       <path d="M7 6v4M13 14v4" />
+      <path d="M7 6h10M7 18h8" />
     </svg>
   ),
   "ai-percentage": (
     <svg viewBox="0 0 24 24" width="22" height="22" {...G}>
       <circle cx="12" cy="12" r="8.5" />
       <path d="M8.5 8.5 15.5 15.5" />
-      <circle cx="9" cy="9" r="1.1" />
-      <circle cx="15" cy="15" r="1.1" />
+      <circle cx="9" cy="9" r="1.1" fill="currentColor" />
+      <circle cx="15" cy="15" r="1.1" fill="currentColor" />
+      <path d="M12 3.5v2M12 18.5v2M3.5 12h2M18.5 12h2" />
     </svg>
   ),
   agents: (
     <svg viewBox="0 0 24 24" width="22" height="22" {...G}>
       <rect x="6" y="8" width="12" height="9" rx="3" />
       <path d="M12 5v3M9.5 12.5h.01M14.5 12.5h.01M4 11v3M20 11v3" />
+      <path d="M6 17.5v2.5h12v-2.5" />
     </svg>
   ),
   kb: (
     <svg viewBox="0 0 24 24" width="22" height="22" {...G}>
       <path d="M12 6c-1.6-1.2-3.6-1.5-6-1.5V18c2.4 0 4.4.3 6 1.5 1.6-1.2 3.6-1.5 6-1.5V4.5c-2.4 0-4.4.3-6 1.5Z" />
       <path d="M12 6v13.5" />
+      <path d="M7 9.5h2M7 12.5h2" strokeWidth="1.2" />
     </svg>
   ),
 };
 
+/* ------------------------------------------------------------------ */
+/*  App registry                                                      */
+/* ------------------------------------------------------------------ */
 const APPS: AppEntry[] = [
+  {
+    key: "home",
+    name: "Home",
+    domain: "duyet.net",
+    href: "https://duyet.net",
+    blurb:
+      "The index — who I am, what I ship, and where to find it across the network.",
+    glyph: Glyph.home,
+    bento: "big",
+  },
+  {
+    key: "insights",
+    name: "Insights",
+    domain: "insights.duyet.net",
+    href: "https://insights.duyet.net",
+    blurb:
+      "Live dashboards: coding hours, site traffic, and token spend, all refreshed daily.",
+    glyph: Glyph.insights,
+    bento: "wide",
+  },
   {
     key: "blog",
     name: "Blog",
@@ -127,6 +167,16 @@ const APPS: AppEntry[] = [
     href: "https://blog.duyet.net",
     blurb: "Long-form notes on data, distributed systems, and AI agents.",
     glyph: Glyph.blog,
+  },
+  {
+    key: "agents",
+    name: "AI Agents",
+    domain: "agents.duyet.net",
+    href: "https://agents.duyet.net",
+    blurb:
+      "Chat over Workers AI with streaming, artifacts, and tool integration.",
+    glyph: Glyph.agents,
+    bento: "tall",
   },
   {
     key: "cv",
@@ -137,45 +187,40 @@ const APPS: AppEntry[] = [
     glyph: Glyph.cv,
   },
   {
-    key: "insights",
-    name: "Insights",
-    domain: "insights.duyet.net",
-    href: "https://insights.duyet.net",
-    blurb: "Live dashboards: coding hours, traffic, and token spend.",
-    glyph: Glyph.insights,
-    bento: "wide",
-  },
-  {
     key: "homelab",
     name: "Homelab",
     domain: "homelab.duyet.net",
     href: "https://homelab.duyet.net",
-    blurb: "Monitoring for a three-node mini-PC cluster and smart devices.",
+    blurb:
+      "Monitoring for a three-node mini-PC cluster and smart-home devices.",
     glyph: Glyph.homelab,
-  },
-  {
-    key: "home",
-    name: "Home",
-    domain: "duyet.net",
-    href: "https://duyet.net",
-    blurb: "The index — who I am, what I ship, and where to find it.",
-    glyph: Glyph.home,
-    bento: "big",
   },
   {
     key: "photos",
     name: "Photos",
     domain: "photos.duyet.net",
     href: "https://photos.duyet.net",
-    blurb: "Photo journal with build-time EXIF metadata.",
+    blurb:
+      "Photo journal with build-time EXIF metadata, maps, and timelines.",
     glyph: Glyph.photos,
+  },
+  {
+    key: "kb",
+    name: "Knowledge base",
+    domain: "kb.duyet.net",
+    href: "https://kb.duyet.net",
+    blurb:
+      "A public second brain — durable notes on engineering and life, openly indexed.",
+    glyph: Glyph.kb,
+    bento: "wide",
   },
   {
     key: "llm-timeline",
     name: "LLM Timeline",
     domain: "llm-timeline.duyet.net",
     href: "https://llm-timeline.duyet.net",
-    blurb: "Interactive timeline of language-model releases since 2017.",
+    blurb:
+      "Interactive timeline of language-model releases since 2017 with benchmarks.",
     glyph: Glyph["llm-timeline"],
   },
   {
@@ -183,26 +228,47 @@ const APPS: AppEntry[] = [
     name: "AI Percentage",
     domain: "ai-percentage.duyet.net",
     href: "https://ai-percentage.duyet.net",
-    blurb: "How much of each repo is co-authored by AI assistants.",
+    blurb:
+      "How much of each repo is co-authored by AI assistants — a transparency tool.",
     glyph: Glyph["ai-percentage"],
   },
-  {
-    key: "agents",
-    name: "AI Agents",
-    domain: "agents.duyet.net",
-    href: "https://agents.duyet.net",
-    blurb: "Chat over Workers AI with streaming, artifacts, and tools.",
-    glyph: Glyph.agents,
-  },
-  {
-    key: "kb",
-    name: "Knowledge base",
-    domain: "kb.duyet.net",
-    href: "https://kb.duyet.net",
-    blurb: "A public second brain — durable notes, openly indexed.",
-    glyph: Glyph.kb,
-  },
 ];
+
+/* ------------------------------------------------------------------ */
+/*  Size helpers                                                      */
+/* ------------------------------------------------------------------ */
+
+/** Tailwind span classes for each bento size at each breakpoint. */
+function bentoSpans(bento: BentoSize | undefined): string {
+  switch (bento) {
+    case "big":
+      return "col-span-2 row-span-2";
+    case "wide":
+      return "col-span-2 sm:col-span-2";
+    case "tall":
+      return "row-span-2 sm:row-span-2";
+    default:
+      return "";
+  }
+}
+
+/** Larger icon wrapper for bento-emphasised cells. */
+function glyphWrapSize(bento: BentoSize | undefined): string {
+  switch (bento) {
+    case "big":
+      return "w-10 h-10 [&_svg]:w-6 [&_svg]:h-6";
+    case "wide":
+      return "w-9 h-9 [&_svg]:w-5 [&_svg]:h-5";
+    case "tall":
+      return "w-9 h-9 [&_svg]:w-5 [&_svg]:h-5";
+    default:
+      return "w-8 h-8 [&_svg]:w-4 [&_svg]:h-4";
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Component                                                         */
+/* ------------------------------------------------------------------ */
 
 export interface ExploreAppsProps {
   /** App the visitor is currently on — excluded from the grid. */
@@ -223,12 +289,7 @@ export function ExploreApps({
   const apps = APPS.filter((a) => a.key !== currentApp);
 
   return (
-    <section
-      className={className}
-      style={{
-        borderTop: "1px solid var(--rd-border)",
-      }}
-    >
+    <section className={className} style={{ borderTop: "1px solid var(--rd-border)" }}>
       <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,6vw,72px)]">
         <SecHead
           eyebrow={eyebrow}
@@ -241,44 +302,41 @@ export function ExploreApps({
           ]}
         />
 
-        <div className="max-w-[980px] mt-8">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 auto-rows-[minmax(108px,auto)] gap-3">
+        {/* Full-width bento grid — no inner max-width constraint */}
+        <div className="mt-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 auto-rows-[minmax(120px,auto)] gap-3">
             {apps.map((app) => {
-              const isBig = app.bento === "big";
-              const isWide = app.bento === "wide";
-              const span = isBig
-                ? "sm:col-span-2 sm:row-span-2"
-                : isWide
-                  ? "col-span-2"
-                  : "";
+              const spans = bentoSpans(app.bento);
+              const iconSize = glyphWrapSize(app.bento);
+
               return (
                 <a
                   key={app.key}
                   href={app.href}
-                  className={`group p-4 border border-[var(--rd-border)] rounded-[var(--rd-r)] bg-[var(--rd-surface)] hover:border-[var(--rd-accent)] hover:shadow-md hover:-translate-y-[2px] transition-all duration-200 flex flex-col gap-3 no-underline text-inherit ${span}`}
+                  className={`rd-explore-card group relative flex flex-col gap-3 p-4 no-underline text-inherit border border-[var(--rd-border)] rounded-[var(--rd-r)] bg-[var(--rd-surface)] ${spans}`}
                   title={app.blurb}
                 >
-                  {/* Icon wrapper */}
-                  <div className="flex items-center justify-center w-8 h-8 rounded-md bg-[var(--rd-bg)] text-[var(--rd-text-3)] group-hover:text-[var(--rd-accent)] group-hover:bg-[color-mix(in_srgb,var(--rd-accent)_8%,var(--rd-bg))] shrink-0 transition-all duration-200">
-                    <span className={`w-5 h-5 flex items-center justify-center [&_svg]:w-full [&_svg]:h-full ${isBig ? "w-6 h-6" : ""}`}>
-                      {app.glyph}
-                    </span>
+                  {/* Icon — rd-explore-glyph provides display:grid place-items:center */}
+                  <div
+                    className={`rd-explore-glyph ${iconSize}`}
+                  >
+                    {app.glyph}
                   </div>
 
                   {/* Content */}
                   <div className="min-w-0 flex-1 flex flex-col">
                     <div className="flex items-center justify-between gap-1">
-                      <span className={`block font-semibold tracking-[-0.01em] leading-snug truncate text-[var(--rd-text)] ${isBig ? "text-[15px]" : "text-[13px]"}`}>
+                      <span className="block font-semibold tracking-[-0.01em] leading-snug truncate text-[var(--rd-text)] text-[13px] group-hover:text-[var(--rd-accent-ink)] transition-colors duration-200">
                         {app.name}
                       </span>
-                      <span className="opacity-0 group-hover:opacity-100 text-[10px] text-[var(--rd-accent)] transition-opacity duration-200 font-mono">
+                      <span className="rd-explore-arrow opacity-0 group-hover:opacity-100 text-[10px] text-[var(--rd-text-4)] transition-all duration-200 font-mono">
                         →
                       </span>
                     </div>
                     <span className="block font-[var(--font-mono)] text-[9.5px] text-[var(--rd-text-4)] truncate mt-0.5">
                       {app.domain}
                     </span>
-                    <p className={`text-[11px] text-[var(--rd-text-3)] leading-normal mt-1.5 overflow-hidden text-ellipsis group-hover:text-[var(--rd-text-2)] transition-colors duration-200 ${isBig ? "line-clamp-4" : "line-clamp-2"}`}>
+                    <p className="text-[11px] text-[var(--rd-text-3)] leading-normal mt-1.5 overflow-hidden text-ellipsis line-clamp-2 group-hover:text-[var(--rd-text-2)] transition-colors duration-200">
                       {app.blurb}
                     </p>
                   </div>
