@@ -44,6 +44,11 @@ body {
     margin-bottom: 0 !important;
   }
 
+  /* Gap above the live-version footer note */
+  .cv-print-footer {
+    margin-top: 1.5rem !important;
+  }
+
   /* Hide interactive elements */
   [role="dialog"],
   [data-state*="open"],
