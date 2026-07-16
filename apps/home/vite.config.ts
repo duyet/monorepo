@@ -4,6 +4,19 @@ import viteReact from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 export default defineConfig({
   server: { port: 3001 },
+  build: {
+    rollupOptions: {
+      output: {
+        // Keep lucide in one chunk. Per-icon chunks mean every new icon adds a
+        // new hashed URL, and any asset URL that 404s during a deploy rollout
+        // gets the SPA fallback HTML cached against it under the immutable
+        // /assets/* rule in public/_headers.
+        manualChunks(id: string) {
+          if (id.includes("node_modules/lucide-react")) return "icons";
+        },
+      },
+    },
+  },
   // Native tsconfig `paths` resolution (replaces the vite-tsconfig-paths plugin).
   resolve: { tsconfigPaths: true },
   plugins: [
