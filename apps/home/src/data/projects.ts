@@ -7,6 +7,11 @@ export interface AppItem {
   utmContent: string;
   description: string;
   screenshot?: string;
+  /**
+   * YouTube video ID. Rendered as a click-to-play embed in the expanded work
+   * card, and preferred over `screenshot` when both are present.
+   */
+  youtubeId?: string;
   tone?: string;
   /**
    * Canonical production domain (without scheme). Optional — render in the
@@ -70,11 +75,11 @@ export const apps: AppItem[] = [
     utmContent: "ch_monitor_bento",
     description:
       "ClickHouse monitoring with AI agent support for finding insights, monitoring clusters, and triaging activity",
-    screenshot: "/screenshots/ch-monitor.png",
+    screenshot: "/screenshots/ch-monitor-hero.webp",
     tone: "bg-[#8b633f]",
     domain: "chmonitor.dev",
     iconName: "Database",
-    logo: "https://chmonitor.dev/brand/logo-mark.svg",
+    logo: "https://chmonitor.dev/brand/logo-chmonitor-avatar-solid.svg",
     tags: ["Data", "AI"],
   },
   {
@@ -109,7 +114,7 @@ export const apps: AppItem[] = [
     utmContent: "agentstate_bento",
     description:
       "State store for AI agents — persistent memory and state management for agent workflows.",
-    screenshot: "/screenshots/agentstate-art.svg",
+    screenshot: "/screenshots/agentstate-hero.webp",
     tone: "bg-[#536f91]",
     domain: "agentstate.app",
     iconName: "Bot",
@@ -236,6 +241,7 @@ export const apps: AppItem[] = [
     utmContent: "codex_claude_plugins_bento",
     description:
       "Codex and Claude Code plugins for AI-powered development workflows.",
+    screenshot: "/screenshots/codex-claude-plugins.webp",
     domain: "github.com/duyet/codex-claude-plugins",
     iconName: "Puzzle",
     logo: "https://cdn.simpleicons.org/anthropic",
@@ -427,6 +433,7 @@ export const apps: AppItem[] = [
     utmContent: "build_agent_bento",
     description:
       "An autonomous agent skill designed to help build, run, and scale downstream AI agent systems.",
+    youtubeId: "lOLI8W-CBDA",
     domain: "github.com/duyet/build-agent",
     iconName: "Cpu",
     logo: "https://raw.githubusercontent.com/duyet/build-agent/refs/heads/main/assets/logo.svg",
