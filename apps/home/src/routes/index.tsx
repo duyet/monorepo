@@ -175,14 +175,6 @@ function HomePage() {
                 <Eyebrow>
                   <span className="rd-dot rd-ok rd-pulse inline-block" /> NOW
                 </Eyebrow>
-                <p className="mt-[14px] max-w-[42ch] text-[clamp(1.15rem,2vw,1.5rem)] tracking-[-0.02em] leading-[1.35]">
-                  Building agent workflows and the data platform underneath them
-                  — writing, open-sourcing, and letting{" "}
-                  <Link to="/about-duyetbot" className="rd-ulink">
-                    @duyetbot
-                  </Link>{" "}
-                  keep the rest running.
-                </p>
                 <GitHubContributions />
               </div>
               <Button variant="ghost" size="sm" asChild>
