@@ -68,7 +68,7 @@ export function BlogTeaser({
 
         {/* recent notes */}
         {notes && notes.length > 0 && (
-          <Card className="p-0 border-0">
+          <Card className="p-0 border-0 flex flex-1 flex-col">
             <div className="flex items-center justify-between px-[22px] pt-[18px] pb-[6px]">
               <span className="font-[var(--font-mono)] text-[10.5px] uppercase tracking-[0.14em] text-[var(--rd-text-3)]">
                 Quick notes
@@ -88,11 +88,11 @@ export function BlogTeaser({
                 </a>
               </Button>
             </div>
-            <div className="rd-rows">
+            <div className="rd-rows flex flex-1 flex-col">
               {notes.slice(0, 5).map((note) => (
                 <a
                   key={`${note.id}-${note.date}`}
-                  className="rd-row cursor-pointer grid-cols-[1fr_auto] p-[12px_8px] no-underline text-inherit"
+                  className="rd-row flex-1 cursor-pointer grid-cols-[1fr_auto] p-[12px_8px] no-underline text-inherit"
                   href={`https://blog.duyet.net/note/${note.id}/`}
                   target="_blank"
                   rel="noreferrer"
@@ -113,12 +113,12 @@ export function BlogTeaser({
       </div>
 
       {/* recent posts list */}
-      <Card className="p-0 border-0">
-        <div className="rd-rows border-t-0">
+      <Card className="p-0 border-0 flex h-full flex-col">
+        <div className="rd-rows border-t-0 flex flex-1 flex-col">
           {recentPosts.slice(0, 5).map((post) => (
             <a
               key={post.slug}
-              className="rd-row cursor-pointer grid-cols-[1fr_auto] p-[15px_8px] no-underline text-inherit"
+              className="rd-row flex-1 cursor-pointer grid-cols-[1fr_auto] p-[15px_8px] no-underline text-inherit"
               href={`https://blog.duyet.net${post.slug}`}
               target="_blank"
               rel="noreferrer"
