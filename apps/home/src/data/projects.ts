@@ -430,7 +430,6 @@ export const apps: AppItem[] = [
     domain: "github.com/duyet/build-agent",
     iconName: "Cpu",
     logo: "https://raw.githubusercontent.com/duyet/build-agent/refs/heads/main/assets/logo.svg",
-    logoDark: "https://cdn.simpleicons.org/npm/ffffff",
     tags: ["AI", "Tool"],
   },
 ];
