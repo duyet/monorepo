@@ -134,21 +134,11 @@ function HomePage() {
           </Reveal>
         </section>
 
-        {/* expertise */}
-        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)] border-t border-[var(--rd-border)]">
-          <Reveal>
-            <SecHead num="02" eyebrow="Discipline" title="Areas of Expertise" />
-            <div className="mt-6">
-              <AreasOfExpertise hideHeader />
-            </div>
-          </Reveal>
-        </section>
-
         {/* blog */}
         <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)] border-t border-[var(--rd-border)]">
           <Reveal>
             <SecHead
-              num="03"
+              num="02"
               eyebrow="Writing"
               title="From the blog"
               links={[
@@ -163,6 +153,16 @@ function HomePage() {
               recentPosts={recentPosts}
               notes={recentNotes}
             />
+          </Reveal>
+        </section>
+
+        {/* expertise */}
+        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)] border-t border-[var(--rd-border)]">
+          <Reveal>
+            <SecHead num="03" eyebrow="Discipline" title="Areas of Expertise" />
+            <div className="mt-6">
+              <AreasOfExpertise hideHeader />
+            </div>
           </Reveal>
         </section>
 
