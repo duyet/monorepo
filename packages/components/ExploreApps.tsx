@@ -1,9 +1,9 @@
 /**
  * ExploreApps — shared cross-app discovery section.
  *
- * Renders a full-width editorial bento grid of every public surface in the
- * duyet.net network. Each app gets a hand-drawn monochrome glyph; featured
- * apps use bento emphasis (big, wide, tall) for visual hierarchy.
+ * Renders a compact, uniform grid of every public surface in the duyet.net
+ * network. Each app gets a hand-drawn monochrome glyph, its name, and its
+ * domain; the blurb rides along as the tooltip.
  *
  * Styled entirely with the `--rd-*` token layer (see styles.css) so it looks
  * identical across blog, home, insights, and homelab and recolors in light/dark.
@@ -25,9 +25,6 @@ export type ExploreAppKey =
   | "agents"
   | "kb";
 
-/** Bento cell sizing for the grid view. */
-type BentoSize = "wide" | "big" | "tall";
-
 interface AppEntry {
   key: ExploreAppKey;
   name: string;
@@ -36,8 +33,6 @@ interface AppEntry {
   href: string;
   blurb: string;
   glyph: ReactNode;
-  /** Optional bento emphasis. */
-  bento?: BentoSize;
 }
 
 /* ------------------------------------------------------------------ */
@@ -148,7 +143,6 @@ const APPS: AppEntry[] = [
     blurb:
       "The index — who I am, what I ship, and where to find it across the network.",
     glyph: Glyph.home,
-    bento: "big",
   },
   {
     key: "insights",
@@ -158,7 +152,6 @@ const APPS: AppEntry[] = [
     blurb:
       "Live dashboards: coding hours, site traffic, and token spend, all refreshed daily.",
     glyph: Glyph.insights,
-    bento: "wide",
   },
   {
     key: "blog",
@@ -176,7 +169,6 @@ const APPS: AppEntry[] = [
     blurb:
       "Chat over Workers AI with streaming, artifacts, and tool integration.",
     glyph: Glyph.agents,
-    bento: "tall",
   },
   {
     key: "cv",
@@ -212,7 +204,6 @@ const APPS: AppEntry[] = [
     blurb:
       "A public second brain — durable notes on engineering and life, openly indexed.",
     glyph: Glyph.kb,
-    bento: "wide",
   },
   {
     key: "llm-timeline",
@@ -233,38 +224,6 @@ const APPS: AppEntry[] = [
     glyph: Glyph["ai-percentage"],
   },
 ];
-
-/* ------------------------------------------------------------------ */
-/*  Size helpers                                                      */
-/* ------------------------------------------------------------------ */
-
-/** Tailwind span classes for each bento size at each breakpoint. */
-function bentoSpans(bento: BentoSize | undefined): string {
-  switch (bento) {
-    case "big":
-      return "col-span-2 row-span-2";
-    case "wide":
-      return "col-span-2 sm:col-span-2";
-    case "tall":
-      return "row-span-2 sm:row-span-2";
-    default:
-      return "";
-  }
-}
-
-/** Larger icon wrapper for bento-emphasised cells. */
-function glyphWrapSize(bento: BentoSize | undefined): string {
-  switch (bento) {
-    case "big":
-      return "w-10 h-10 [&_svg]:w-6 [&_svg]:h-6";
-    case "wide":
-      return "w-9 h-9 [&_svg]:w-5 [&_svg]:h-5";
-    case "tall":
-      return "w-9 h-9 [&_svg]:w-5 [&_svg]:h-5";
-    default:
-      return "w-8 h-8 [&_svg]:w-4 [&_svg]:h-4";
-  }
-}
 
 /* ------------------------------------------------------------------ */
 /*  Component                                                         */
@@ -290,7 +249,7 @@ export function ExploreApps({
 
   return (
     <section className={className} style={{ borderTop: "1px solid var(--rd-border)" }}>
-      <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,6vw,72px)]">
+      <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(32px,4vw,52px)]">
         <SecHead
           eyebrow={eyebrow}
           title={title}
@@ -302,47 +261,34 @@ export function ExploreApps({
           ]}
         />
 
-        {/* Full-width bento grid — no inner max-width constraint */}
-        <div className="mt-8">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 auto-rows-[minmax(120px,auto)] gap-3">
-            {apps.map((app) => {
-              const spans = bentoSpans(app.bento);
-              const iconSize = glyphWrapSize(app.bento);
+        {/* Compact uniform grid — one small row per app */}
+        <div className="mt-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
+            {apps.map((app) => (
+              <a
+                key={app.key}
+                href={app.href}
+                className="rd-explore-card group flex items-center gap-2.5 px-3 py-2.5 no-underline text-inherit border border-[var(--rd-border)] rounded-[var(--rd-r)] bg-[var(--rd-surface)]"
+                title={app.blurb}
+              >
+                <div className="rd-explore-glyph w-7 h-7 rounded-[8px] [&_svg]:w-3.5 [&_svg]:h-3.5">
+                  {app.glyph}
+                </div>
 
-              return (
-                <a
-                  key={app.key}
-                  href={app.href}
-                  className={`rd-explore-card group relative flex flex-col gap-3 p-4 no-underline text-inherit border border-[var(--rd-border)] rounded-[var(--rd-r)] bg-[var(--rd-surface)] ${spans}`}
-                  title={app.blurb}
-                >
-                  {/* Icon — rd-explore-glyph provides display:grid place-items:center */}
-                  <div
-                    className={`rd-explore-glyph ${iconSize}`}
-                  >
-                    {app.glyph}
-                  </div>
+                <div className="min-w-0 flex-1">
+                  <span className="block font-semibold tracking-[-0.01em] leading-snug truncate text-[var(--rd-text)] text-[12.5px] group-hover:text-[var(--rd-accent-ink)] transition-colors duration-200">
+                    {app.name}
+                  </span>
+                  <span className="block font-[var(--font-mono)] text-[9.5px] text-[var(--rd-text-4)] truncate mt-0.5">
+                    {app.domain}
+                  </span>
+                </div>
 
-                  {/* Content */}
-                  <div className="min-w-0 flex-1 flex flex-col">
-                    <div className="flex items-center justify-between gap-1">
-                      <span className="block font-semibold tracking-[-0.01em] leading-snug truncate text-[var(--rd-text)] text-[13px] group-hover:text-[var(--rd-accent-ink)] transition-colors duration-200">
-                        {app.name}
-                      </span>
-                      <span className="rd-explore-arrow opacity-0 group-hover:opacity-100 text-[10px] text-[var(--rd-text-4)] transition-all duration-200 font-mono">
-                        →
-                      </span>
-                    </div>
-                    <span className="block font-[var(--font-mono)] text-[9.5px] text-[var(--rd-text-4)] truncate mt-0.5">
-                      {app.domain}
-                    </span>
-                    <p className="text-[11px] text-[var(--rd-text-3)] leading-normal mt-1.5 overflow-hidden text-ellipsis line-clamp-2 group-hover:text-[var(--rd-text-2)] transition-colors duration-200">
-                      {app.blurb}
-                    </p>
-                  </div>
-                </a>
-              );
-            })}
+                <span className="rd-explore-arrow opacity-0 group-hover:opacity-100 text-[10px] text-[var(--rd-text-4)] transition-all duration-200 font-mono">
+                  →
+                </span>
+              </a>
+            ))}
           </div>
         </div>
       </div>
