@@ -1,0 +1,118 @@
+---
+title: "Open Managed Agents"
+date: 2026-07-18
+author: Duyet
+category: AI
+series: AI Harness Engineering
+tags:
+  - AI
+  - Agents
+  - Kubernetes
+  - Cloudflare
+  - Claude Code
+slug: /2026/07/open-managed-agents
+thumbnail: /media/2026/07/open-managed-agents/getting-started.jpg
+description: "I'm building Open Managed Agents (OMA) in the open — a self-hosted control plane on Cloudflare that drives agents on any sandbox backend from one UI and one API, and stays compatible with the Claude Managed Agents API. Here's where it stands."
+---
+
+In [Agent Sandbox on Kubernetes](/2026/06/agent-sandbox-on-kubernetes/) I wrote about running Claude day and night inside Agent sandboxes. It worked, but every new agent meant more YAML, more webhooks, more gitops. Each sandbox provider had its own lifecycle, its own credentials story, its own way to stream logs. Adding a fifth agent didn't feel like adding a row to a table — it felt like standing up a fifth service.
+
+So I started building [Open Managed Agents (OMA)](https://github.com/duyet/oma) to collapse that loop into one place. This post is a build log, not a launch. OMA is real and I run it, but it's a work in progress — some of what's below is solid, some is rough, and I'll call out which is which as I go.
+
+## The idea
+
+One control plane, any sandbox. OMA runs on **Cloudflare** (Workers + Durable Objects; there's also a `docker compose` flavor for self-hosting) and connects to whatever actually executes the code. The design goal is three "ones":
+
+- **One UI** — a single console for agents, sessions, environments, credentials, and sandbox runtimes, with health and capacity in one place. No more hopping between clusters and dashboards.
+- **One API** — everything is an HTTP API. `POST /v1/agents`, `POST /v1/sessions`, SSE event streams. The console is just a client of it.
+- **Claude Managed Agents compatible** — the API mirrors [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) closely enough that a client written against Anthropic's hosted platform migrates by swapping the base URL. The difference: every layer is open source, and the harness that drives the model loop is replaceable.
+
+Sessions are durable — an append-only event log means a crashed agent resumes where it stopped instead of starting over. Credentials never enter the sandbox; an outbound proxy injects them at the network edge. Sandboxes pause when idle and resume on the next message, so a fleet of parked agents costs close to nothing.
+
+## Getting started
+
+The fastest way in is the hosted console. You create an agent (model, system prompt, tools), pick an environment, and open a session. Under the hood that's the same `POST /v1/agents` → `POST /v1/sessions` calls the API exposes, so anything you can do by clicking you can also script.
+
+![The OMA console — creating an agent and getting the first session running](/media/2026/07/open-managed-agents/getting-started.jpg)
+
+You don't have to start from a blank config either — there's a small gallery of **template agents** (a coding assistant, a researcher, and so on) you can spin up and then edit, so the first agent is one click rather than a full spec.
+
+![Creating a new agent from a template](/media/2026/07/open-managed-agents/new-agent-from-template.jpg)
+
+Everything past this point is optional layering — pick a different sandbox, wire a trigger, attach a memory store — but a bare agent talking to a bare sandbox works on day one.
+
+## One control plane, any sandbox
+
+This is the part I care most about. The same agent config should run on any substrate without rewriting it. Internally that's a single `SandboxExecutor` interface — create, exec, read/write files, set env, destroy — and every backend implements it:
+
+- **Cloudflare Containers** — the default, zero extra setup.
+- **Kubernetes** — via an in-cluster bridge (the Agent Sandbox CRD from the [previous post](/2026/06/agent-sandbox-on-kubernetes/)), or a remote gateway callable straight from the Cloudflare Worker.
+- **NVIDIA OpenShell** — a gRPC sandbox backend, reached from Cloudflare through the same bridge relay.
+- **E2B** and **Daytona** — hosted micro-VM sandboxes.
+- **Docker** and **subprocess** — run the agent in a local container or as a plain child process.
+- **BoxRun / LiteBox** — a lightweight remote control plane and a native micro-VM, for the self-host runtime.
+
+Same agent, any substrate. In the console every runtime shows up on one **Sandbox Runtime** page with its health and capacity, so choosing where an agent runs is a dropdown, not a migration.
+
+![The Sandbox Runtime page — every backend behind one SandboxExecutor interface](/media/2026/07/open-managed-agents/sandbox-runtime.jpg)
+
+**Honest status:** the interface is uniform, but coverage isn't. A Cloudflare Worker is a single V8 isolate with no filesystem and no `child_process`, so on the Cloudflare deployment only the backends reachable over plain `fetch` (Containers, k8s-remote, boxrun, OpenShell-via-bridge, subprocess-via-relay) work today; the node-only ones (Docker, local Kubernetes, LiteBox, and the E2B/Daytona SDKs) run on the self-host runtime and aren't bundled into the Worker yet. Selecting an unavailable backend fails loudly with a clear error rather than silently falling back — that part I'm deliberate about.
+
+## Your laptop can be a runtime
+
+The one I did not expect to enjoy: your own machine can join the fleet as a sandbox runtime. You run
+
+```bash
+npx @getoma/cli bridge setup
+```
+
+and the CLI opens an **outbound-only** WebSocket back to the control plane — no inbound ports, no tunnel, nothing to expose. The machine then shows up on the console's Sandbox Runtime page like any other backend, and sessions assigned to it relay each sandbox op (exec, file read/write, destroy) down to your laptop and stream results back.
+
+![Adding a runtime — your own machine registers over an outbound-only WebSocket](/media/2026/07/open-managed-agents/sandbox-runtime-add-provider.jpg)
+
+It's genuinely useful for running an agent against a repo that only checks out cleanly on your box, or against local tooling. The caveats are real, though: there's no outbound credential-injection proxy on your machine (outbound HTTP is un-injected), and memory-store mounts aren't wired over the relay yet. So I use it for local dev, not for anything that needs a vault secret.
+
+## Sessions
+
+A session is one running conversation with its event log. You send a `user.message`, the harness drives the model loop, tools execute in the chosen sandbox, and every `agent.message` / `agent.tool_use` / `agent.tool_result` lands in an append-only log you can stream over SSE or poll as JSON. Because the log is the source of truth, a crashed harness rebuilds context from it and continues.
+
+![Starting a new session against a configured agent](/media/2026/07/open-managed-agents/new-session.jpg)
+
+## Triggers: Slack and GitHub
+
+An agent doesn't have to wait for a human to type. I'm wiring **integrations as triggers** so that inbound events become session turns:
+
+- **GitHub** — an issue or a comment becomes a `user.message`. Open an issue, the agent picks it up briefed with the title and body, works in a sandbox, and reports back on the issue thread.
+- **Slack** — a message in a channel starts (or continues) a session, and the agent replies in-thread.
+
+The plumbing already exists in the other direction — a finished session can post a GitHub comment, a Slack/Matrix message, or a signed webhook via **notify targets** — so triggers are the inbound half of the same idea: the channel you already live in becomes the agent's inbox.
+
+## A Kanban board over GitHub Issues
+
+The newest piece, and the one I'm actively building: a **Kanban board backed by GitHub Issues**. You pick a repo, filter the issues you care about, and then assign an issue to an agent straight from the board. Assigning spawns a session briefed with that issue — title, body, labels — and the card tracks the session as it moves.
+
+![The GitHub Issues board — assign an issue to an agent and it spawns a briefed session](/media/2026/07/open-managed-agents/github-integration.jpg)
+
+It turns the "issues in, PRs out" loop from the Kubernetes post into something I drive by dragging a card instead of hand-rolling a webhook per repo. This is the roughest of the sections here — filtering and assignment work; the board's live-status updates and multi-repo views are still in progress.
+
+## Skills
+
+Agents can mount **skills** — reusable prompt fragments plus files. When a session starts, the skill's files are mounted into the sandbox and its `SKILL.md` is injected into the system prompt, so an agent picks up a workflow (a review checklist, a repo-specific procedure) without baking it into the base prompt.
+
+![Attaching skills to an agent](/media/2026/07/open-managed-agents/skills.jpg)
+
+## The rest of the surface
+
+These are wired and I lean on them, but they're less visual:
+
+- **MCP servers** — register once at the tenant level, reference by id from any agent; credentials are resolved and injected by a proxy the agent never sees.
+- **Vaults & credentials** — GitHub, Linear, Slack, and CLI tools (`gh`, `aws`, `kubectl`, `wrangler`) authenticate through an outbound proxy; the sandbox never holds a raw token.
+- **Memory stores** — durable, versioned notes an agent reads and writes across sessions, mounted straight into its sandbox as plain files.
+- **Model providers** — Anthropic, any OpenAI-compatible endpoint, or [AnyRouter](https://anyrouter.dev) connected with one OAuth click, no pasted keys.
+- **Publishing** — turn an agent into a hosted chat page or an embeddable widget, with guest access and optional per-message billing.
+
+## Where it stands
+
+Solid enough that I run my own agents on it: the control plane, durable sessions, the unified sandbox interface for the fetch-reachable backends, MCP, vaults, and notify targets. Still rough: full sandbox-backend parity on Cloudflare, the Kanban board's live updates, memory mounts over the laptop relay, and scheduled runs on the self-host runtime. I'll keep logging progress here as the rough parts firm up.
+
+The project is Apache 2.0: [github.com/duyet/oma](https://github.com/duyet/oma) — docs at [docs.oma.duyet.net](https://docs.oma.duyet.net), hosted at [oma.duyet.net](https://oma.duyet.net). If you try it, the sharp edges above are exactly where I'd love the feedback.
