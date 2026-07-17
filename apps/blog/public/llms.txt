@@ -12,7 +12,7 @@ A comprehensive collection of technical blog posts covering Data Engineering, So
 
 ## About This Blog
 
-315+ technical articles covering topics including:
+316+ technical articles covering topics including:
 - Data Engineering & Big Data
 - Apache Spark, ClickHouse, Apache Airflow
 - Cloud Computing (AWS, GCP, Azure)
@@ -24,6 +24,13 @@ A comprehensive collection of technical blog posts covering Data Engineering, So
 Articles span from 2015 to 2026, documenting the evolution of modern data engineering and software development practices.
 
 ## Recent Posts
+
+### [Open Managed Agents](https://blog.duyet.net/2026/07/open-managed-agents)
+- **Date**: 2026-07-18
+- **Category**: AI
+- **Tags**: Ai, Agents, Kubernetes, Cloudflare, Claude Code
+- **URL**: https://blog.duyet.net/2026/07/open-managed-agents
+- **Description**: I'm building Open Managed Agents (OMA) in the open — a self-hosted control plane on Cloudflare that drives agents on any sandbox backend from one UI and one API, and stays compatible with the Claude Managed Agents API. Here's where it stands.
 
 ### [Agent Sandbox on Kubernetes](https://blog.duyet.net/2026/06/agent-sandbox-on-kubernetes)
 - **Date**: 2026-06-25
@@ -158,18 +165,12 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - **URL**: https://blog.duyet.net/2026/01/coding-agent/z-claude-mi-claude-or-claude
 - **Description**: Wrapper scripts to use Claude Code with alternative providers
 
-### [ClickHouse Rust UDFs](https://blog.duyet.net/2024/11/clickhouse-rust-udf)
-- **Date**: 2024-11-01
-- **Category**: Data
-- **Tags**: Data, Clickhouse
-- **URL**: https://blog.duyet.net/2024/11/clickhouse-rust-udf
-- **Description**: In Data Platform System with ClickHouse, rather than extracting data from ClickHouse for processing in external systems, we can perform transformations directly within ClickHouse itself. ClickHouse can call any external executable program or script to process data. My idea is using custom **User-Defined Functions (UDFs) written in Rust** to handle data transformations between tables.
-
 
 ## All Blog Posts by Year
 
-### 2026 (19 posts)
+### 2026 (20 posts)
 
+- [Open Managed Agents](https://blog.duyet.net/2026/07/open-managed-agents) - 2026-07-18
 - [Agent Sandbox on Kubernetes](https://blog.duyet.net/2026/06/agent-sandbox-on-kubernetes) - 2026-06-25
 - [Goal and Loop](https://blog.duyet.net/2026/06/goal-and-loop) - 2026-06-20
 - [Cowork as Planner](https://blog.duyet.net/2026/01/coding-agent/cowork-planner) - 2026-06-18
@@ -560,7 +561,7 @@ Short-form thoughts and notes. Full list: https://blog.duyet.net/notes
 ---
 
 **Blog Statistics:**
-- Total Posts: 315
+- Total Posts: 316
 - Years Active: 2015-2026
 - Categories: 15
 - Tags: 62

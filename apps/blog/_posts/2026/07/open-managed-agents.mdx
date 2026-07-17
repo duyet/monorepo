@@ -15,9 +15,9 @@ thumbnail: /media/2026/07/open-managed-agents/getting-started.jpg
 description: "I'm building Open Managed Agents (OMA) in the open — a self-hosted control plane on Cloudflare that drives agents on any sandbox backend from one UI and one API, and stays compatible with the Claude Managed Agents API. Here's where it stands."
 ---
 
-In [Agent Sandbox on Kubernetes](/2026/06/agent-sandbox-on-kubernetes/) I wrote about running Claude day and night inside Agent sandboxes. It worked, but every new agent meant more YAML, more webhooks, more gitops. Each sandbox provider had its own lifecycle, its own credentials story, its own way to stream logs. Adding a fifth agent didn't feel like adding a row to a table — it felt like standing up a fifth service.
+I started building [Open Managed Agents (OMA)](https://github.com/duyet/oma) to get away from the YAML and manual setup of [Agent Sandbox on Kubernetes](/2026/06/agent-sandbox-on-kubernetes/), which I wrote about last month. Running Claude day and night inside those sandboxes worked, but every new agent meant more YAML, more webhooks, more gitops. Each sandbox provider had its own lifecycle, its own credentials story, its own way to stream logs. Adding a fifth agent didn't feel like adding a row to a table — it felt like standing up a fifth service.
 
-So I started building [Open Managed Agents (OMA)](https://github.com/duyet/oma) to collapse that loop into one place. This post is a build log, not a launch. OMA is real and I run it, but it's a work in progress — some of what's below is solid, some is rough, and I'll call out which is which as I go.
+This post is a build log, not a launch. OMA is real and I run it, but it's a work in progress — some of what's below is solid, some is rough, and I'll call out which is which as I go.
 
 ## The idea
 
@@ -106,6 +106,7 @@ Agents can mount **skills** — reusable prompt fragments plus files. When a ses
 These are wired and I lean on them, but they're less visual:
 
 - **MCP servers** — register once at the tenant level, reference by id from any agent; credentials are resolved and injected by a proxy the agent never sees.
+- **Subagents** — an agent can spawn parallel sub-agent tasks (`general_subagent`, up to 10 concurrent) that share its sandbox and credentials, for fanning out work without spinning up new infrastructure.
 - **Vaults & credentials** — GitHub, Linear, Slack, and CLI tools (`gh`, `aws`, `kubectl`, `wrangler`) authenticate through an outbound proxy; the sandbox never holds a raw token.
 - **Memory stores** — durable, versioned notes an agent reads and writes across sessions, mounted straight into its sandbox as plain files.
 - **Model providers** — Anthropic, any OpenAI-compatible endpoint, or [AnyRouter](https://anyrouter.dev) connected with one OAuth click, no pasted keys.
@@ -113,6 +114,6 @@ These are wired and I lean on them, but they're less visual:
 
 ## Where it stands
 
-Solid enough that I run my own agents on it: the control plane, durable sessions, the unified sandbox interface for the fetch-reachable backends, MCP, vaults, and notify targets. Still rough: full sandbox-backend parity on Cloudflare, the Kanban board's live updates, memory mounts over the laptop relay, and scheduled runs on the self-host runtime. I'll keep logging progress here as the rough parts firm up.
+Solid enough that I run my own agents on it: the control plane, durable sessions, the unified sandbox interface for the fetch-reachable backends, MCP, vaults, and notify targets. Still rough: full sandbox-backend parity on Cloudflare, the Kanban board's live updates, memory mounts over the laptop relay, and scheduled runs on the self-host runtime. Routing sessions across multiple sandboxes automatically and tracking capacity per provider isn't built yet either — it's next. I'll keep logging progress here as the rough parts firm up.
 
 The project is Apache 2.0: [github.com/duyet/oma](https://github.com/duyet/oma) — docs at [docs.oma.duyet.net](https://docs.oma.duyet.net), hosted at [oma.duyet.net](https://oma.duyet.net). If you try it, the sharp edges above are exactly where I'd love the feedback.

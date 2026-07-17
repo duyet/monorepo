@@ -4,8 +4,15 @@
         <description><![CDATA[Sr. Data Engineer. Rustacean at night]]></description>
         <link>https://blog.duyet.net</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Thu, 16 Jul 2026 03:54:38 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 17 Jul 2026 18:30:23 GMT</lastBuildDate>
         <atom:link href="https://blog.duyet.net/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Open Managed Agents]]></title>
+            <description><![CDATA[I'm building Open Managed Agents (OMA) in the open — a self-hosted control plane on Cloudflare that drives agents on any sandbox backend from one UI and one API, and stays compatible with the Claude Managed Agents API. Here's where it stands.]]></description>
+            <link>https://blog.duyet.net/2026/07/open-managed-agents</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/07/open-managed-agents</guid>
+            <pubDate>Sat, 18 Jul 2026 00:00:00 GMT</pubDate>
+        </item>
         <item>
             <title><![CDATA[Agent Sandbox on Kubernetes]]></title>
             <description><![CDATA[I run Claude inside agent sandboxes on a home Kubernetes cluster. One consumes issue tickets into PRs, another triggers on Sentry webhooks to diagnose and patch runtime bugs. Here is the bigger loop, and where the new Kubernetes Agent Sandbox CRD fits.]]></description>
@@ -348,13 +355,6 @@
             <link>https://blog.duyet.net/2022/04/rust-code-cov</link>
             <guid isPermaLink="true">https://blog.duyet.net/2022/04/rust-code-cov</guid>
             <pubDate>Sat, 09 Apr 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Spark on Kubernetes tại Fossil 🤔]]></title>
-            <description><![CDATA[Hành trình chuyển đổi Apache Spark từ AWS EMR sang Kubernetes tại Fossil Data Platform. Tìm hiểu kiến trúc hệ thống với Spark Operator, Spark Submit Worker, và Spark Jobs UI. Bài viết chia sẻ chi tiết về lý do migration, kiến trúc microservices, GitOps workflow, và các tối ưu hóa performance trên Kubernetes production environment.]]></description>
-            <link>https://blog.duyet.net/2022/03/spark-kubernetes-at-fossil</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/03/spark-kubernetes-at-fossil</guid>
-            <pubDate>Wed, 09 Mar 2022 00:00:00 GMT</pubDate>
         </item>
     </channel>
 </rss>
