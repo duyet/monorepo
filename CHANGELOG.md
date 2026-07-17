@@ -1,5 +1,45 @@
 # Changelog
 
+## [0.1.3](https://github.com/duyet/monorepo/compare/v0.1.2...v0.1.3) (2026-07-16)
+
+
+### ✨ Features
+
+* **cache:** enable Cloudflare Workers Cache on Workers; _headers for Pages ([#1226](https://github.com/duyet/monorepo/issues/1226)) ([a864b8d](https://github.com/duyet/monorepo/commit/a864b8d0ea79556cbfb5412f8d04cde5dda027d8))
+* **home:** add agent discovery endpoints and WebMCP/markdown negotiation support ([e454223](https://github.com/duyet/monorepo/commit/e454223e0c077b892264045f37a357b7bd161d70))
+* **home:** expand shipped-work cards into a 2x2 detail block on click ([15ecc75](https://github.com/duyet/monorepo/commit/15ecc750c369bd6dae05a754148fe4e554d13dfa))
+* **home:** flatten shipped-work detail and add a zoom affordance ([22a7b1d](https://github.com/duyet/monorepo/commit/22a7b1d92bce18b48e8e3efee5feb5c1f4910023))
+* **home:** redesign landing page in blog style and remove 3D tech cloud ([e469542](https://github.com/duyet/monorepo/commit/e4695421a51a22705980b5f8bc3cc6994f2b5204))
+* **home:** remove Tech Stack section, compact ExploreApps grid, rename AI Agent Engineering ([626f89a](https://github.com/duyet/monorepo/commit/626f89ae577b847d9b33f236fb099716a3d9b419))
+* **home:** remove vibe-flag, stat bar, and CTA buttons from hero; use 3-col explore grid ([0af07ec](https://github.com/duyet/monorepo/commit/0af07ec1495f12f41e055ad5ca705f11ff7e0ae1))
+* **home:** show a full-width screenshot or video on expanded work cards ([f037555](https://github.com/duyet/monorepo/commit/f0375555948b1eaa2cbbc845332971624abf42de))
+* **insights:** add token burn metrics and donut charts for token/cost breakdown ([9cafc58](https://github.com/duyet/monorepo/commit/9cafc58ee73b4a327b9d2b4752a045500ad0142f))
+* **paid-api:** add x402 agent-native paid chat worker ([aea2a31](https://github.com/duyet/monorepo/commit/aea2a3115247abb31d9fe2f8dad5b898f1419cc1))
+* **paid-api:** wire paid.duyet.net custom domain (testnet) ([f390120](https://github.com/duyet/monorepo/commit/f3901203b1bfc0edce927aa514644504bbb7ddac))
+* refactor ExploreApps bento grid with full-width layout, enhanced SVGs, and new tall size ([b55f0f2](https://github.com/duyet/monorepo/commit/b55f0f29ae2e5d835afa6bb7978c9a6346dd501c))
+
+
+### 🐛 Bug Fixes
+
+* **blog:** disable model-distillation-skills post ([9e1c894](https://github.com/duyet/monorepo/commit/9e1c894eeceeed6b25ef7ca81b45cf86670efdbc))
+* **deps:** replace dependency framer-motion with motion ([#1229](https://github.com/duyet/monorepo/issues/1229)) ([aa7876b](https://github.com/duyet/monorepo/commit/aa7876b0e45209e66a1d3754633490ff1b7acdf5))
+* **home:** add white logoDark for Helm Charts logo on dark mode ([c13e5ee](https://github.com/duyet/monorepo/commit/c13e5eee9260492fbf4663344cf2d43060916dc7))
+* **home:** bundle lucide icons into a single chunk ([2b4ace3](https://github.com/duyet/monorepo/commit/2b4ace3d86faad2a5feec0cf3813d587806f648e))
+* **home:** drop npm logoDark so build-agent logo shows in dark mode ([3acb81c](https://github.com/duyet/monorepo/commit/3acb81c16ba539faf3eb8884a9e6156d780ed95a))
+* **home:** make blog teaser columns equal height ([ec844d3](https://github.com/duyet/monorepo/commit/ec844d309266c13ab569045ce7c272c66056da4e))
+* **home:** remove codeSplitting:false to fix SSR prerender (React undefined) ([ee8cb27](https://github.com/duyet/monorepo/commit/ee8cb27785756dbf636e7fd99e1edbb846c8626e))
+* **home:** remove LLM Timeline from selected projects on landing page ([16a6a1b](https://github.com/duyet/monorepo/commit/16a6a1b469e7df77dcdc79ce7eb7df96f127fcf8))
+* **home:** resolve dark mode visibility issues for Anthropic, MCP and Rust logos ([9b50020](https://github.com/duyet/monorepo/commit/9b500206e77d74d1591d8193c894059ceccebf0f))
+* **home:** unblock contributions api and clerk worker in csp ([2e66073](https://github.com/duyet/monorepo/commit/2e6607304d40504eeb3145310772b193ed538b7d))
+
+
+### ♻️ Refactoring
+
+* **components:** make ExploreApps network grid compact ([606377c](https://github.com/duyet/monorepo/commit/606377ca894acbc47470626ada281c495a2cf2e1))
+* **components:** make network grid 3-4 columns by screen size ([af8a0d8](https://github.com/duyet/monorepo/commit/af8a0d803c59f04a7813dabd3832b919f8a02935))
+* **home:** drop the tagline from the NOW band ([d096af8](https://github.com/duyet/monorepo/commit/d096af83715cab67c890b717ec29958b5971baf4))
+* **home:** swap blog and expertise sections on landing ([f431ed9](https://github.com/duyet/monorepo/commit/f431ed9e26fdb31931bb18b548db985a41338af5))
+
 ## [0.1.2](https://github.com/duyet/monorepo/compare/v0.1.1...v0.1.2) (2026-07-03)
 
 
