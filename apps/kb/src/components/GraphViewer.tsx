@@ -233,7 +233,7 @@ export function GraphViewer() {
             )}
             {bodyHtml && (
               <div
-                className="prose prose-sm dark:prose-invert mt-4 max-w-none"
+                className="typeset typeset-kb mt-4 max-w-none"
                 // eslint-disable-next-line react/no-danger
                 dangerouslySetInnerHTML={{ __html: bodyHtml }}
               />

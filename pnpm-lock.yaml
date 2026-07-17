@@ -65,7 +65,7 @@ importers:
         version: 2.5.1
       '@cloudflare/vite-plugin':
         specifier: ^1.0.0
-        version: 1.42.3(vite@8.1.0(@types/node@25.9.4)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0))(workerd@1.20260625.1)(wrangler@4.97.0(@cloudflare/workers-types@4.20260629.1))
+        version: 1.42.3(vite@8.1.0(@types/node@25.9.4)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0))(workerd@1.20260601.1)(wrangler@4.97.0(@cloudflare/workers-types@4.20260629.1))
       '@commitlint/cli':
         specifier: ^20.5.0
         version: 20.5.3(@types/node@25.9.4)(conventional-commits-parser@6.4.0)(typescript@6.0.3)
@@ -271,7 +271,7 @@ importers:
         version: 2.5.1
       '@cloudflare/vite-plugin':
         specifier: ^1.0.0
-        version: 1.42.3(vite@8.1.0(@types/node@25.9.4)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0))(workerd@1.20260601.1)(wrangler@4.97.0(@cloudflare/workers-types@4.20260629.1))
+        version: 1.42.3(vite@8.1.0(@types/node@25.9.4)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0))(workerd@1.20260625.1)(wrangler@4.97.0(@cloudflare/workers-types@4.20260629.1))
       '@cloudflare/workers-types':
         specifier: ^4.20260511.1
         version: 4.20260629.1
@@ -984,9 +984,6 @@ importers:
       '@duyet/config':
         specifier: '*'
         version: link:../../packages/config
-      '@tailwindcss/typography':
-        specifier: ^0.5.19
-        version: 0.5.20(tailwindcss@4.3.1)
       '@tanstack/react-router':
         specifier: 1.170.16
         version: 1.170.16(react-dom@19.2.7(react@19.2.7))(react@19.2.7)

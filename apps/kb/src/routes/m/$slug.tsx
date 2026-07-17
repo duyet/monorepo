@@ -94,7 +94,7 @@ function MemoryNotePage() {
 
           {/* Rendered markdown */}
           <div
-            className="prose prose-sm dark:prose-invert max-w-none"
+            className="typeset typeset-kb max-w-none"
             dangerouslySetInnerHTML={{ __html: html }}
           />
 
