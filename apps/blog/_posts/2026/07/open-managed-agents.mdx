@@ -52,6 +52,11 @@ One control plane, any sandbox, one API:
 <img src="/media/2026/07/open-managed-agents/skills.jpg" alt="Attaching skills to an agent" />
 </div>
 
+<div className="img-row">
+<img src="/media/2026/07/open-managed-agents/cli-bridge.jpg" alt="oma bridge — the CLI's help output for pairing a local agent with OMA" />
+<img src="/media/2026/07/open-managed-agents/cli-bridge-status.jpg" alt="oma bridge status — a connected laptop runtime, daemon up and reachable" />
+</div>
+
 ## Where it stands
 
 Solid enough that I run my own agents on it: the control plane, durable sessions, the unified sandbox interface for the fetch-reachable backends, MCP, vaults, and notify targets. Still rough: full sandbox-backend parity on Cloudflare, the Kanban board's live updates, memory mounts over the laptop relay, and scheduled runs on the self-host runtime. Routing sessions across multiple sandboxes automatically and tracking capacity per provider isn't built yet either — it's next. I'll keep logging progress here as the rough parts firm up.
