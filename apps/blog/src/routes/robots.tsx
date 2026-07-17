@@ -26,7 +26,7 @@ Sitemap: ${siteUrl}/sitemap`;
         </pre>
       </div>
 
-      <div className="prose max-w-none">
+      <div className="typeset typeset-blog max-w-none">
         <h2>What is robots.txt?</h2>
         <p>
           The robots.txt file tells web crawlers which pages or files the

@@ -99,7 +99,7 @@ export function Tabs({ tabs, defaultTab, className = "" }: TabsProps) {
           id={`panel-${activeTabContent.id}`}
           role="tabpanel"
           aria-labelledby={`tab-${activeTabContent.id}`}
-          className="prose dark:prose-invert prose-code:break-words max-w-none"
+          className="typeset typeset-blog max-w-none"
         >
           {activeTabContent.content}
         </div>

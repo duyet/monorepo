@@ -10,12 +10,12 @@ import type { ReactElement } from 'react'
 // grouping adjacent images into a full-bleed gallery row.
 
 const GALLERY_CLASS =
-  'not-prose relative left-1/2 my-8 w-screen -translate-x-1/2 grid items-start gap-6 px-8 grid-cols-[repeat(auto-fit,minmax(min(100%,16rem),1fr))]'
+  'not-typeset relative left-1/2 my-8 w-screen -translate-x-1/2 grid items-start gap-6 px-8 grid-cols-[repeat(auto-fit,minmax(min(100%,16rem),1fr))]'
 
-// A lone image breaks out of the prose column a little on large screens
+// A lone image breaks out of the typeset column a little on large screens
 // (negative x-margins widen the box past the text width); on small screens it
 // stays at text width to avoid horizontal overflow.
-const SINGLE_CLASS = 'not-prose mt-8 mb-6 lg:-mx-12'
+const SINGLE_CLASS = 'not-typeset mt-8 mb-6 lg:-mx-12'
 
 function imgWithClass(img: string, cls: string): string {
   return img.replace(/\sclass="[^"]*"/, '').replace(/^<img\s/, `<img class="${cls}" `)
@@ -64,7 +64,7 @@ export function Markdown({
 
   return (
     <div
-      className={cn('prose dark:prose-invert max-w-none', className)}
+      className={cn('typeset typeset-blog max-w-none', className)}
       dangerouslySetInnerHTML={{ __html: html }}
     />
   )

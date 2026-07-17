@@ -1,11 +1,16 @@
 /* Post reader editorial layout — scoped to .post-reader on the post route.
  * All tokens resolve through shadcn :root vars from globals.css.
+ *
+ * Typography + rhythm (size / leading / flow, fonts, colors, radius) come from
+ * typeset.css (`.typeset .typeset-blog`). This file owns only the editorial
+ * *layout*: the 68ch measure grid and the full-bleed media breakout. The two
+ * compose — Typeset styles the elements, this file places them on the grid.
  */
 
 .post-reader {
-  --reader-serif: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --reader-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --reader-mono: ui-monospace, monospace;
+  --reader-serif: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --reader-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --reader-mono: "Geist Mono", ui-monospace, monospace;
 
   --reader-faint: var(--muted);
   --reader-hairline: var(--border);
@@ -55,15 +60,16 @@
  * edge and width — no 68ch re-centering of the text, no single-image breakout.
  * The grid is built for long posts where text stays narrow while media widens;
  * a two-line note just wants one column that lines up with its title. */
-.post-reader--note .prose {
+.post-reader--note .typeset {
   display: block;
 }
-.post-reader--note .prose > .not-prose {
+.post-reader--note .typeset > .not-typeset,
+.post-reader--note .typeset > .not-prose {
   margin-left: 0;
   margin-right: 0;
 }
 
-/* ----------- Prose: narrow measure, generous leading -------------- */
+/* ----------- Typeset: narrow measure, generous leading ------------ */
 
 /* The body wrapper spans the wider track; text stays at ~68ch through
  * the CSS-grid below, while figures/images/tables can break out to fill
@@ -75,7 +81,7 @@
   margin-right: auto;
 }
 
-.post-reader .prose {
+.post-reader .typeset {
   font-family: var(--reader-sans);
   font-size: 1rem;
   line-height: 1.75;
@@ -92,19 +98,19 @@
   column-gap: 0;
 }
 
-/* Every prose child defaults to the narrow text track. */
-.post-reader .prose > * {
+/* Every typeset child defaults to the narrow text track. */
+.post-reader .typeset > * {
   grid-column: main;
   min-width: 0;
 }
 
 /* Wide media take the full track and center within it. Code blocks stay in the
  * main track so they share the body-text measure (long lines scroll). */
-.post-reader .prose > :where(figure, table, img, video, iframe, .full-bleed),
-.post-reader .prose > p:has(> img:only-child),
-.post-reader .prose > p:has(> a > img:only-child),
-.post-reader .prose > p:has(> .full-bleed),
-.post-reader .prose > div:has(> table) {
+.post-reader .typeset > :where(figure, table, img, video, iframe, .full-bleed),
+.post-reader .typeset > p:has(> img:only-child),
+.post-reader .typeset > p:has(> a > img:only-child),
+.post-reader .typeset > p:has(> .full-bleed),
+.post-reader .typeset > div:has(> table) {
   grid-column: full;
   width: 100%;
   max-width: none;
@@ -112,13 +118,13 @@
   margin-right: 0;
 }
 
-.post-reader .prose > :is(figure, table, img, video, iframe) {
+.post-reader .typeset > :is(figure, table, img, video, iframe) {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
 
-.post-reader .prose img,
-.post-reader .prose video {
+.post-reader .typeset img,
+.post-reader .typeset video {
   display: block;
   width: 100%;
   height: auto;
@@ -140,26 +146,26 @@
  * above, so this wrapper carries the vertical rhythm — keep breathing room
  * between an image and the surrounding text. Side-by-side groups use
  * `.img-row` (a <div>, not a <p>) and set their own margin below. */
-.post-reader .prose > p:has(> img:only-child),
-.post-reader .prose > p:has(> a > img:only-child) {
+.post-reader .typeset > p:has(> img:only-child),
+.post-reader .typeset > p:has(> a > img:only-child) {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
 
-.post-reader .prose figure > img,
-.post-reader .prose figure > video {
+.post-reader .typeset figure > img,
+.post-reader .typeset figure > video {
   margin: 0 auto;
 }
 
 /* A single image / code block / table shouldn't span the full wide media
  * track — that reads too big. Keep them to a comfortable measure and center.
  * Side-by-side groups (.img-row) still use the full width. */
-.post-reader .prose > p:has(> img:only-child) > img,
-.post-reader .prose > p:has(> a > img:only-child) img,
-.post-reader .prose > img,
-.post-reader .prose > figure > img,
-.post-reader .prose > table,
-.post-reader .prose > div:has(> table) {
+.post-reader .typeset > p:has(> img:only-child) > img,
+.post-reader .typeset > p:has(> a > img:only-child) img,
+.post-reader .typeset > img,
+.post-reader .typeset > figure > img,
+.post-reader .typeset > table,
+.post-reader .typeset > div:has(> table) {
   max-width: 1100px;
   margin-left: auto;
   margin-right: auto;
@@ -167,13 +173,13 @@
 
 /* Code blocks fill the main text track so they span the exact same measure as
    body paragraphs; long lines scroll horizontally (overflow-x-auto). */
-.post-reader .prose > pre {
+.post-reader .typeset > pre {
   width: 100%;
   max-width: 100%;
 }
 
-.post-reader .prose > table,
-.post-reader .prose > div:has(> table) {
+.post-reader .typeset > table,
+.post-reader .typeset > div:has(> table) {
   width: fit-content;
   min-width: 0;
   max-width: min(1100px, 100%);
@@ -182,8 +188,8 @@
 
 /* Side-by-side image row: <div class="img-row"> wrapping multiple <img>.
  * Takes the full track and lays the images out as flex columns. `width: auto`
- * overrides the global `.prose img { width: 100% }` so flex sizing controls
- * the layout instead.
+ * overrides the global typeset img sizing so flex sizing controls the layout
+ * instead.
  *
  * `nowrap` is deliberate: with `flex-wrap: wrap`, flexbox decides line breaks
  * from each image's intrinsic width *before* shrinking, so a row of wide
@@ -191,7 +197,7 @@
  * stack and never shrinks back. `nowrap` keeps them on one line and lets
  * `flex-shrink` size them down to fit. The mobile query below restores
  * stacking so the shrunk images don't become unreadable slivers. */
-.post-reader .prose .img-row {
+.post-reader .typeset .img-row {
   grid-column: full;
   display: flex;
   flex-wrap: nowrap;
@@ -201,7 +207,7 @@
   width: 100%;
   margin: 2rem 0;
 }
-.post-reader .prose .img-row img {
+.post-reader .typeset .img-row img {
   /* Size each box to its image, don't stretch it to a fixed fraction. A
    * stretched box + object-fit centered portrait shots with big side gaps
    * (two images shoved to opposite ends). With flex 0 1 auto + height:auto,
@@ -220,17 +226,17 @@
 /* On phones a single row of two wide screenshots shrinks to unreadable
  * slivers, so fall back to a vertical stack. */
 @media (max-width: 640px) {
-  .post-reader .prose .img-row {
+  .post-reader .typeset .img-row {
     flex-direction: column;
     align-items: center;
   }
-  .post-reader .prose .img-row img {
+  .post-reader .typeset .img-row img {
     width: 100%;
     max-width: 1024px;
   }
 }
 
-.post-reader .prose figcaption {
+.post-reader .typeset figcaption {
   margin-top: 0.75rem;
   font-size: 0.8125rem;
   line-height: 1.5;
@@ -239,7 +245,7 @@
 }
 
 /* Tables fit the content; cells use compact rhythm. */
-.post-reader .prose table {
+.post-reader .typeset table {
   display: block;
   overflow-x: auto;
   width: fit-content;
@@ -251,18 +257,18 @@
   line-height: 1.55;
 }
 
-.post-reader .prose table thead {
+.post-reader .typeset table thead {
   border-bottom: 1px solid var(--reader-hairline);
 }
 
-.post-reader .prose table th,
-.post-reader .prose table td {
+.post-reader .typeset table th,
+.post-reader .typeset table td {
   padding: 0.625rem 0.875rem;
   text-align: left;
   border-bottom: 1px solid var(--reader-hairline);
 }
 
-.post-reader .prose table th {
+.post-reader .typeset table th {
   font-weight: 600;
   color: var(--reader-ink);
 }
@@ -270,42 +276,42 @@
 /* ```prompt blocks: agent prompts, not code. Wrap long lines instead of
  * horizontal-scrolling, and let the leading slash-command (.hljs-built_in)
  * carry the only colour — the rest renders as plain body text. */
-.post-reader .prose pre:has(> code.language-prompt) {
+.post-reader .typeset pre:has(> code.language-prompt) {
   overflow-x: visible;
 }
-.post-reader .prose pre > code.language-prompt {
+.post-reader .typeset pre > code.language-prompt {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
 
 /* The loop diagram is small and reads best at the body-text measure, not the
  * wide media track every other image uses. Keep it in the main column. */
-.post-reader .prose > p:has(> img[src$="loop.svg"]) {
+.post-reader .typeset > p:has(> img[src$="loop.svg"]) {
   grid-column: main;
 }
-.post-reader .prose > p:has(> img[src$="loop.svg"]) > img {
+.post-reader .typeset > p:has(> img[src$="loop.svg"]) > img {
   max-width: 100%;
 }
 
-.post-reader .prose p {
+.post-reader .typeset p {
   line-height: 1.8;
   margin-top: 0;
   margin-bottom: 1em;
 }
 
-.post-reader .prose :where(ul, ol) {
+.post-reader .typeset :where(ul, ol) {
   margin-top: 0;
   margin-bottom: 0;
 }
 
 /* Headings inside the article body */
-.post-reader .prose :where(h1, h2, h3, h4, h5, h6) {
+.post-reader .typeset :where(h1, h2, h3, h4, h5, h6) {
   letter-spacing: -0.012em;
   color: var(--reader-ink);
   text-wrap: balance;
 }
 
-.post-reader .prose h1 {
+.post-reader .typeset h1 {
   font-size: 1.875rem;
   font-weight: 600;
   line-height: 1.2;
@@ -313,7 +319,7 @@
   margin-bottom: 1em;
 }
 
-.post-reader .prose h2 {
+.post-reader .typeset h2 {
   font-size: 1.625rem;
   font-weight: 600;
   line-height: 1.25;
@@ -323,7 +329,7 @@
   padding-bottom: 0 !important;
 }
 
-.post-reader .prose h3 {
+.post-reader .typeset h3 {
   font-size: 1.3rem;
   font-weight: 600;
   line-height: 1.3;
@@ -331,7 +337,7 @@
   margin-bottom: 0.4em;
 }
 
-.post-reader .prose h4 {
+.post-reader .typeset h4 {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.35;
@@ -346,17 +352,17 @@
  *     <a href="#..." class="heading-link" aria-hidden="true">#</a>...
  *   </h2>
  * Show it subtly on hover so the deep-link affordance is still discoverable. */
-.post-reader .prose :where(h1, h2, h3, h4, h5, h6) {
+.post-reader .typeset :where(h1, h2, h3, h4, h5, h6) {
   position: relative;
 }
 
 /* Anchor hangs in the left margin so the heading text stays aligned with body
  * copy and nothing reflows on hover. Hidden via opacity (not display) so the
  * box is reserved and the fade is smooth. */
-.post-reader .prose :where(h1, h2, h3, h4, h5, h6) > a.heading-link,
-.post-reader .prose :where(h1, h2, h3, h4, h5, h6) > a[aria-hidden="true"],
-.post-reader .prose :where(h1, h2, h3, h4, h5, h6) > a.header-anchor,
-.post-reader .prose :where(h1, h2, h3, h4, h5, h6) > a.anchor {
+.post-reader .typeset :where(h1, h2, h3, h4, h5, h6) > a.heading-link,
+.post-reader .typeset :where(h1, h2, h3, h4, h5, h6) > a[aria-hidden="true"],
+.post-reader .typeset :where(h1, h2, h3, h4, h5, h6) > a.header-anchor,
+.post-reader .typeset :where(h1, h2, h3, h4, h5, h6) > a.anchor {
   position: absolute;
   left: -0.85em;
   top: 0;
@@ -368,16 +374,16 @@
   transition: opacity 120ms ease-out;
 }
 
-.post-reader .prose :where(h1, h2, h3, h4, h5, h6):hover > a.heading-link,
-.post-reader .prose :where(h1, h2, h3, h4, h5, h6):hover > a[aria-hidden="true"],
-.post-reader .prose :where(h1, h2, h3, h4, h5, h6):hover > a.header-anchor,
-.post-reader .prose :where(h1, h2, h3, h4, h5, h6):hover > a.anchor,
-.post-reader .prose :where(h1, h2, h3, h4, h5, h6) > a.heading-link:hover {
+.post-reader .typeset :where(h1, h2, h3, h4, h5, h6):hover > a.heading-link,
+.post-reader .typeset :where(h1, h2, h3, h4, h5, h6):hover > a[aria-hidden="true"],
+.post-reader .typeset :where(h1, h2, h3, h4, h5, h6):hover > a.header-anchor,
+.post-reader .typeset :where(h1, h2, h3, h4, h5, h6):hover > a.anchor,
+.post-reader .typeset :where(h1, h2, h3, h4, h5, h6) > a.heading-link:hover {
   opacity: 0.55;
 }
 
 /* Links */
-.post-reader .prose a {
+.post-reader .typeset a {
   color: var(--reader-ink);
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -386,13 +392,13 @@
   transition: text-decoration-color 150ms ease-out;
 }
 
-.post-reader .prose a:hover {
+.post-reader .typeset a:hover {
   text-decoration-color: var(--reader-accent);
 }
 
 /* Blockquote — prominent pull-quote: larger, crisp, accent rule. Left-aligned
  * (not centered) so it works for inline citations as well as standalone quotes. */
-.post-reader .prose blockquote {
+.post-reader .typeset blockquote {
   margin: 2.5em auto;
   max-width: 90%;
   text-align: center;
@@ -404,26 +410,26 @@
   letter-spacing: -0.01em;
 }
 
-.post-reader .prose blockquote p {
+.post-reader .typeset blockquote p {
   font-size: inherit;
   line-height: 1.55;
   margin-bottom: 0.6em;
 }
 
-.post-reader .prose blockquote p:last-child {
+.post-reader .typeset blockquote p:last-child {
   margin-bottom: 0;
 }
 
 /* Tighter, dimmer text for nested links/citations inside quotes */
-.post-reader .prose blockquote a {
+.post-reader .typeset blockquote a {
   font-size: 0.85em;
   font-weight: 400;
 }
 
 /* Footnotes / asides */
-.post-reader .prose aside,
-.post-reader .prose .footnotes,
-.post-reader .prose section.footnotes {
+.post-reader .typeset aside,
+.post-reader .typeset .footnotes,
+.post-reader .typeset section.footnotes {
   font-size: 0.875em;
   color: var(--reader-muted);
   border-top: 1px solid var(--reader-hairline);
@@ -433,7 +439,7 @@
 
 /* ----------- Code blocks ------------------------------------------ */
 
-.post-reader .prose :where(pre),
+.post-reader .typeset :where(pre),
 .post-reader article pre {
   background-color: #ffffff !important;
   border: 1px solid #e5e7eb !important;
@@ -447,7 +453,7 @@
   overflow-x: auto;
 }
 
-.dark .post-reader .prose :where(pre),
+.dark .post-reader .typeset :where(pre),
 .dark .post-reader article pre {
   background-color: #0d1117 !important;
   border-color: #30363d !important;
@@ -455,15 +461,15 @@
 
 /* Inner <code> carries no padding of its own; the <pre> owns all inset so
  * scrolled long lines keep a consistent left edge. */
-.post-reader .prose :where(pre) code,
-.post-reader .prose pre code.hljs {
+.post-reader .typeset :where(pre) code,
+.post-reader .typeset pre code.hljs {
   background: transparent !important;
   padding: 0 !important;
   font-size: inherit;
 }
 
 /* Inline code */
-.post-reader .prose :where(code):not(:where(pre code)) {
+.post-reader .typeset :where(code):not(:where(pre code)) {
   background-color: #f3f4f6 !important;
   color: var(--reader-ink) !important;
   border: 1px solid #e5e7eb !important;
@@ -474,7 +480,7 @@
   font-weight: 400;
 }
 
-.dark .post-reader .prose :where(code):not(:where(pre code)) {
+.dark .post-reader .typeset :where(code):not(:where(pre code)) {
   background-color: #1e2530 !important;
   border-color: #30363d !important;
 }

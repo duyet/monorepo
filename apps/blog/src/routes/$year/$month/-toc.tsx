@@ -85,7 +85,7 @@ export function TableOfContents({ headings }: { headings: TOCItem[] }) {
     };
 
     const checkOverlap = () => {
-      const prose = document.querySelector(".prose");
+      const prose = document.querySelector(".typeset");
       if (!prose) return;
 
       const children = Array.from(prose.children);
@@ -124,7 +124,7 @@ export function TableOfContents({ headings }: { headings: TOCItem[] }) {
     window.addEventListener("resize", handleResize);
 
     const observer = new MutationObserver(checkOverlap);
-    const prose = document.querySelector(".prose");
+    const prose = document.querySelector(".typeset");
     if (prose) {
       observer.observe(prose, { childList: true, subtree: true });
     }

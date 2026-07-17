@@ -79,16 +79,15 @@ async function compileMDX(
   return MDXContent as React.ComponentType<MDXContentProps>;
 }
 
-// Shared editorial prose classes — narrow measure, generous leading.
-// CSS in `styles/post-reader.css` (scoped under `.post-reader`) controls
-// font family, sizing, and colour; here we just keep table/pre overflow
-// behaviour and let prose hooks pick up the rest.
-const proseClassName = cn(
-  "prose dark:prose-invert",
+// Shared editorial typeset classes — narrow measure, generous leading, and
+// token-driven theming are handled by typeset.css (`.typeset .typeset-blog`)
+// plus the `.post-reader` layout grid in styles/post-reader.css. Here we only
+// keep table/pre overflow behaviour and let the renderer pick up the rest.
+const typesetClassName = cn(
+  "typeset typeset-blog",
   "max-w-none",
   "[&>table]:overflow-x-auto [&>table]:sm:-mx-4 [&>table]:lg:-mx-8",
-  "[&>pre]:overflow-x-auto",
-  "prose-table:text-sm prose-table:leading-relaxed prose-table:table-auto"
+  "[&>pre]:overflow-x-auto"
 );
 
 function MDXRenderer({ source }: { source: string }) {
@@ -99,7 +98,7 @@ function MDXRenderer({ source }: { source: string }) {
   const MDXContent = use(mdxCache.get(source)!);
 
   return (
-    <article className={proseClassName}>
+    <article className={typesetClassName}>
       <MDXContent components={mdxComponents} />
     </article>
   );
@@ -114,7 +113,7 @@ export default function Content({ post }: { post: ContentPost }) {
         <MDXRenderer source={post.mdxSource} />
       ) : (
         <article
-          className={proseClassName}
+          className={typesetClassName}
           dangerouslySetInnerHTML={{ __html: post.content || "No content" }}
         />
       )}
