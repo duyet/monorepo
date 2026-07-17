@@ -1,0 +1,181 @@
+/* Typeset — a styling system for rendered markdown.
+ * One CSS file you own. Container-aware sizing, app theme tokens, and
+ * streaming-stable appends. Element selectors use :where() so Tailwind
+ * utilities and plain CSS win without !important.
+ *
+ * Layout (measure, full-bleed media breakout) is owned by the consuming app
+ * (e.g. .post-reader in apps/blog). Typeset owns only typography + rhythm.
+ */
+
+@layer components {
+  .typeset {
+    --typeset-font-body: inherit;
+    --typeset-font-heading: inherit;
+    --typeset-font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    --typeset-size: 1em; /* base text size — follows the container */
+    --typeset-leading: 1.7; /* line-height */
+    --typeset-flow: 1.25em; /* space between blocks */
+
+    --typeset-radius: var(--radius, 0.5rem);
+
+    font-family: var(--typeset-font-body);
+    font-size: var(--typeset-size);
+    line-height: var(--typeset-leading);
+    color: var(--foreground);
+  }
+
+  /* Reset margins, then flow spacing in one direction (margin-block-start
+   * only) so appending a new block never restyles the blocks above it. */
+  .typeset > :where(*) {
+    margin-block: 0;
+  }
+  .typeset > :where(*) + * {
+    margin-block-start: var(--typeset-flow);
+  }
+
+  /* Headings derive their spacing from --typeset-flow. */
+  .typeset :where(h1, h2, h3, h4, h5, h6) {
+    font-family: var(--typeset-font-heading);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.012em;
+    text-wrap: balance;
+    margin-block-start: calc(var(--typeset-flow) * 2);
+    margin-block-end: calc(var(--typeset-flow) * 0.5);
+  }
+  .typeset :where(h1) { font-size: 1.9em; }
+  .typeset :where(h2) { font-size: 1.6em; }
+  .typeset :where(h3) { font-size: 1.3em; }
+  .typeset :where(h4) { font-size: 1.1em; }
+  .typeset :where(h5) { font-size: 1em; }
+  .typeset :where(h6) { font-size: 0.9em; }
+
+  .typeset :where(p, ul, ol, dl, blockquote, pre, table, figure) {
+    margin-block: 0;
+  }
+  .typeset :where(ul, ol) {
+    padding-inline-start: 1.5em;
+  }
+  .typeset :where(li) {
+    margin-block: calc(var(--typeset-flow) * 0.25);
+  }
+
+  .typeset :where(a) {
+    color: var(--foreground);
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 150ms ease-out;
+  }
+  .typeset :where(a):hover {
+    text-decoration-color: var(--foreground);
+  }
+
+  .typeset :where(blockquote) {
+    border-inline-start: 3px solid var(--border);
+    padding-inline-start: 1em;
+    color: var(--muted-foreground);
+    font-style: italic;
+  }
+
+  .typeset :where(code):not(:where(pre code)) {
+    font-family: var(--typeset-font-mono);
+    font-size: 0.875em;
+    background: var(--muted);
+    border-radius: calc(var(--typeset-radius) * 0.4);
+    padding: 0.15em 0.35em;
+  }
+  .typeset :where(pre) {
+    font-family: var(--typeset-font-mono);
+    font-size: 0.875em;
+    line-height: 1.6;
+    background: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: var(--typeset-radius);
+    padding: 1em 1.25em;
+    overflow-x: auto;
+  }
+  .typeset :where(pre code) {
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+  }
+
+  .typeset :where(table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375em;
+  }
+  .typeset :where(th, td) {
+    text-align: start;
+    padding: 0.5em 0.75em;
+    border-bottom: 1px solid var(--border);
+  }
+  .typeset :where(th) {
+    font-weight: 600;
+  }
+
+  .typeset :where(img, video) {
+    max-width: 100%;
+    height: auto;
+    border-radius: calc(var(--typeset-radius) * 0.5);
+  }
+
+  .typeset :where(hr) {
+    border: 0;
+    border-block-start: 1px solid var(--border);
+    margin-block: calc(var(--typeset-flow) * 2);
+  }
+
+  /* Scroll a wide block horizontally instead of wrapping. Works for any
+   * block, not just tables. */
+  .typeset-scroll {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  /* Opt out a component (and its subtree). not-typeset / data-not-typeset
+   * are the canonical escapes; .not-prose is honored for legacy content.
+   * revert-layer strips the components-layer typeset rules without touching
+   * Tailwind utilities or the component's own styles. A nested .typeset
+   * inside stays opted out. */
+  .typeset :where(.not-typeset, [data-not-typeset], .not-prose),
+  .typeset :where(.not-typeset, [data-not-typeset], .not-prose) * {
+    all: revert-layer;
+  }
+
+  /* Dark mode follows the app tokens; loosen leading a touch on dark. */
+  .dark .typeset {
+    --typeset-leading: 1.8;
+  }
+
+  /* Small readability bump on phones. */
+  @media (max-width: 640px) {
+    .typeset {
+      --typeset-size: 1.05em;
+    }
+  }
+
+  /* ---- Presets ----------------------------------------------------- */
+
+  /* Blog: serif-free reading rhythm with the app's Geist families. */
+  .typeset-blog {
+    --typeset-font-body: "Geist", ui-sans-serif, system-ui, sans-serif;
+    --typeset-font-heading: "Geist", ui-sans-serif, system-ui, sans-serif;
+    --typeset-font-mono: "Geist Mono", ui-monospace, monospace;
+    --typeset-size: 16px;
+    --typeset-leading: 1.75;
+    --typeset-flow: 1.25em;
+  }
+
+  /* KB: compact, reference-style rhythm. */
+  .typeset-kb {
+    --typeset-font-body: "Geist", ui-sans-serif, system-ui, sans-serif;
+    --typeset-font-heading: "Geist", ui-sans-serif, system-ui, sans-serif;
+    --typeset-font-mono: "Geist Mono", ui-monospace, monospace;
+    --typeset-size: 14px;
+    --typeset-leading: 1.65;
+    --typeset-flow: 1em;
+  }
+}
