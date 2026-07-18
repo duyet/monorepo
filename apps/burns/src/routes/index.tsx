@@ -44,22 +44,17 @@ function Page() {
             alignItems: "center",
             justifyContent: "center",
             gap: 6,
-            fontSize: 11,
-            letterSpacing: "0.04em",
-            color: "var(--muted)",
             flexWrap: "wrap",
-            lineHeight: 1.4,
           }}>
-            <span>tokens consumed by</span>
             <SourceIcons sources={data.sources} />
           </div>
         </div>
 
+        <DailyChart daily={data.daily} firstDate={data.firstDate} lastDate={data.lastDate} />
+
         <div>
           <TokenBreakdown totals={data.totals} />
         </div>
-
-        <DailyChart daily={data.daily} firstDate={data.firstDate} lastDate={data.lastDate} />
       </div>
 
       <div style={{

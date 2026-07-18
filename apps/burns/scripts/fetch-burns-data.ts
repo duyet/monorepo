@@ -65,11 +65,41 @@ async function main() {
     ? formatDate(dailyRows[0].date)
     : null;
 
+  console.log("Fetching per-source breakdown per day...");
+  let sourceRows: any[] = [];
+  try {
+    sourceRows = await db.all(`
+      SELECT
+        date,
+        COALESCE(app, source, model, 'unknown') as source,
+        COALESCE(SUM(total_tokens), 0)          as total_tokens,
+        COALESCE(SUM(cost), 0)                  as cost
+      FROM ccusage_events
+      WHERE record_type = 'daily'
+      GROUP BY date, COALESCE(app, source, model, 'unknown')
+      ORDER BY date DESC
+    `);
+  } catch (err) {
+    console.warn("Per-source breakdown unavailable, skipping:", (err as Error).message);
+  }
+
+  const byDate = new Map<string, { source: string; total_tokens: number; cost: number }[]>();
+  for (const row of sourceRows) {
+    const date = formatDate(row.date);
+    const entry = {
+      source: String(row.source),
+      total_tokens: parseNum(row.total_tokens),
+      cost: Math.round(parseNum(row.cost) * 100) / 100,
+    };
+    if (!byDate.has(date)) byDate.set(date, []);
+    byDate.get(date)!.push(entry);
+  }
+
   const data = {
     generatedAt: new Date().toISOString(),
     firstDate,
     lastDate,
-    sources: ["agy", "opencode", "Claude Code", "Codex"] as const,
+    sources: ["Gemini", "Z.AI", "Grok", "commandcode", "opencode", "Claude Code", "Codex"] as const,
     totals: {
       input_tokens: parseNum(totals.input_tokens),
       output_tokens: parseNum(totals.output_tokens),
@@ -86,6 +116,7 @@ async function main() {
       cache_read_tokens: parseNum(row.cache_read_tokens),
       total_tokens: parseNum(row.total_tokens),
       cost: Math.round(parseNum(row.cost) * 100) / 100,
+      by_source: byDate.get(formatDate(row.date)) ?? [],
     })),
   };
 

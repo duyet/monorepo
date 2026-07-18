@@ -7,6 +7,12 @@ export interface TokenTotals {
   total_cost: number;
 }
 
+export interface DailyEntrySource {
+  source: string;
+  total_tokens: number;
+  cost: number;
+}
+
 export interface DailyEntry {
   date: string;
   input_tokens: number;
@@ -15,6 +21,7 @@ export interface DailyEntry {
   cache_read_tokens: number;
   total_tokens: number;
   cost: number;
+  by_source?: DailyEntrySource[];
 }
 
 export interface TokenData {

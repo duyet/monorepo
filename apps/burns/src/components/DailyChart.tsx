@@ -1,10 +1,36 @@
-import type { DailyEntry } from "../lib/types";
+import type { DailyEntry, DailyEntrySource } from "../lib/types";
 import { useState } from "react";
 
 interface DailyChartProps {
   daily: DailyEntry[];
   firstDate: string | null;
   lastDate: string | null;
+}
+
+const SOURCE_COLORS: Record<string, string> = {
+  Gemini: "#4285F4",
+  "Z.AI": "#111111",
+  Grok: "#1A1A1A",
+  commandcode: "#22D3A8",
+  opencode: "#7C3AED",
+  "Claude Code": "#D97757",
+  Codex: "#10A37F",
+};
+
+function normalizeSource(raw: string): string {
+  const s = raw.toLowerCase();
+  if (s.includes("gemini") || s === "agy") return "Gemini";
+  if (s.includes("z.ai") || s.includes("glm") || s.includes("zai")) return "Z.AI";
+  if (s.includes("grok") || s.includes("xai")) return "Grok";
+  if (s.includes("commandcode") || s.includes("command-code")) return "commandcode";
+  if (s.includes("opencode")) return "opencode";
+  if (s.includes("claude")) return "Claude Code";
+  if (s.includes("codex")) return "Codex";
+  return raw;
+}
+
+function fmt(n: number): string {
+  return n.toLocaleString("en-US");
 }
 
 export function DailyChart({ daily, firstDate, lastDate }: DailyChartProps) {
@@ -20,10 +46,14 @@ export function DailyChart({ daily, firstDate, lastDate }: DailyChartProps) {
   const format = (d: string) =>
     new Date(d).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
   const sinceLabel = firstDate && lastDate
-    ? `Since ${format(firstDate)} — ${format(lastDate)}`
+    ? `${format(firstDate)} — ${format(lastDate)}`
     : `Last ${recent.length} days`;
 
   const hoveredDay = hovered !== null ? recent[hovered] : null;
+
+  const sources = (hoveredDay?.by_source ?? [])
+    .map((s: DailyEntrySource) => ({ ...s, name: normalizeSource(s.source) }))
+    .sort((a, b) => b.total_tokens - a.total_tokens);
 
   return (
     <div style={{ width: "100%", maxWidth: 640, margin: "0 auto" }}>
@@ -76,21 +106,45 @@ export function DailyChart({ daily, firstDate, lastDate }: DailyChartProps) {
               left: `${pct}%`,
               transform: `translateX(${flip ? "-100%" : "-50%"})`,
               marginBottom: 4,
-              padding: "4px 8px",
-              borderRadius: 4,
+              padding: "8px 10px",
+              borderRadius: 6,
               fontSize: 11,
               fontFamily: "var(--sans)",
-              lineHeight: 1.4,
+              lineHeight: 1.5,
               whiteSpace: "nowrap",
               background: "var(--surface-card)",
               border: "1px solid var(--hairline)",
               color: "var(--ink)",
-              boxShadow: "none",
+              boxShadow: "0 2px 8px rgb(0 0 0 / 0.12)",
               pointerEvents: "none",
+              textAlign: "left",
             }}>
-              <div style={{ fontWeight: 500 }}>{format(hoveredDay.date)}</div>
-              <div>{hoveredDay.total_tokens.toLocaleString("en-US")} tokens</div>
-              <div style={{ color: "var(--muted)" }}>${hoveredDay.cost.toFixed(2)}</div>
+              <div style={{ fontWeight: 500, marginBottom: 4 }}>{format(hoveredDay.date)}</div>
+              {sources.length > 0 ? (
+                sources.map((s) => (
+                  <div key={s.name} style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                    fontVariantNumeric: "tabular-nums",
+                  }}>
+                    <span style={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: 2,
+                      flexShrink: 0,
+                      background: SOURCE_COLORS[s.name] ?? "var(--muted)",
+                    }} />
+                    <span style={{ minWidth: 84 }}>{s.name}</span>
+                    <span style={{ color: "var(--muted)" }}>{fmt(s.total_tokens)}</span>
+                  </div>
+                ))
+              ) : (
+                <div>{hoveredDay.total_tokens.toLocaleString("en-US")} tokens</div>
+              )}
+              <div style={{ color: "var(--muted)", marginTop: 4 }}>
+                ${hoveredDay.cost.toFixed(2)}
+              </div>
             </div>
           );
         })()}
