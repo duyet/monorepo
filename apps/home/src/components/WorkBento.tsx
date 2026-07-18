@@ -29,6 +29,7 @@ import {
 import { useState } from "react";
 import { addUtmParams } from "../../app/lib/utm";
 import type { AppItem } from "../data/projects";
+import { ProjectBlogLinks } from "./ProjectBlogLinks";
 import { ProjectCardHeader } from "./ProjectCardHeader";
 import { Badge } from "./ui/badge";
 
@@ -209,6 +210,14 @@ export function WorkBento({ selectedProjects }: WorkBentoProps) {
                     Visit project <ArrowUpRight size={13} />
                   </a>
                 </div>
+
+                <ProjectBlogLinks
+                  slugs={item.blogPosts}
+                  heading="Related posts"
+                  className="mt-3 flex flex-col gap-1"
+                  linkClassName="rd-ulink text-[12.5px] leading-snug"
+                  iconSize={11}
+                />
 
                 <Media item={item} />
               </div>
