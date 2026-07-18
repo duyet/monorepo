@@ -32,6 +32,46 @@ import { addUtmParams } from "../../app/lib/utm";
 import type { AppItem } from "../data/projects";
 import { ProjectCardHeader } from "./ProjectCardHeader";
 import { Badge } from "./ui/badge";
+import rawBlogPosts from "../../../blog/public/posts-data.json";
+
+type BlogPost = {
+  slug: string;
+  title: string;
+};
+
+const blogBySlug = new Map<string, BlogPost>(
+  (rawBlogPosts as BlogPost[]).map((p) => [p.slug, p]),
+);
+
+function BlogLinks({ slugs }: { slugs: string[] }) {
+  const posts = slugs
+    .map((slug) => blogBySlug.get(slug))
+    .filter((p): p is BlogPost => p !== undefined);
+
+  if (!posts.length) return null;
+
+  return (
+    <div className="mt-3">
+      <p className="text-[11px] font-[var(--font-mono)] text-[var(--rd-text-3)] mb-1.5 uppercase tracking-wider">
+        Related posts
+      </p>
+      <ul className="flex flex-col gap-1">
+        {posts.map((post) => (
+          <li key={post.slug}>
+            <a
+              href={`https://blog.duyet.net${post.slug}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rd-ulink text-[12.5px] leading-snug"
+            >
+              {post.title} <ArrowUpRight size={11} className="inline" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 interface WorkBentoProps {
   selectedProjects: { item: AppItem; tag: string }[];
@@ -240,6 +280,10 @@ export function WorkBento({ selectedProjects }: WorkBentoProps) {
                       Visit project <ArrowUpRight size={13} />
                     </a>
                   </div>
+
+                  {item.blogPosts ? (
+                    <BlogLinks slugs={item.blogPosts} />
+                  ) : null}
 
                   <Media item={item} />
                 </motion.div>
