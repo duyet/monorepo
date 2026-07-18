@@ -99,7 +99,7 @@ async function main() {
     generatedAt: new Date().toISOString(),
     firstDate,
     lastDate,
-    sources: ["Gemini", "Z.AI", "Grok", "commandcode", "opencode", "Claude Code", "Codex"] as const,
+    sources: ["Google Antigravity", "Z.AI", "opencode", "Claude Code", "Codex", "Grok"] as const,
     totals: {
       input_tokens: parseNum(totals.input_tokens),
       output_tokens: parseNum(totals.output_tokens),

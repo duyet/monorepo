@@ -8,10 +8,9 @@ interface DailyChartProps {
 }
 
 const SOURCE_COLORS: Record<string, string> = {
-  Gemini: "#4285F4",
+  "Google Antigravity": "#FFE432",
   "Z.AI": "#111111",
   Grok: "#1A1A1A",
-  commandcode: "#22D3A8",
   opencode: "#7C3AED",
   "Claude Code": "#D97757",
   Codex: "#10A37F",
@@ -19,10 +18,9 @@ const SOURCE_COLORS: Record<string, string> = {
 
 function normalizeSource(raw: string): string {
   const s = raw.toLowerCase();
-  if (s.includes("gemini") || s === "agy") return "Gemini";
+  if (s.includes("antigravity") || s.includes("agy") || s.includes("gemini")) return "Google Antigravity";
   if (s.includes("z.ai") || s.includes("glm") || s.includes("zai")) return "Z.AI";
   if (s.includes("grok") || s.includes("xai")) return "Grok";
-  if (s.includes("commandcode") || s.includes("command-code")) return "commandcode";
   if (s.includes("opencode")) return "opencode";
   if (s.includes("claude")) return "Claude Code";
   if (s.includes("codex")) return "Codex";
