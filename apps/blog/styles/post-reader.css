@@ -223,6 +223,49 @@
   border-radius: 0.5rem;
 }
 
+/* Bento image grid: <div class="img-bento"> wrapping multiple <img>.
+ * Six-column grid on the full track; the first image is the hero (4 cols,
+ * 2 rows), the next two stack beside it, and the rest flow three per row.
+ * Fixed rows + object-fit: cover give every tile a known size regardless of
+ * each screenshot's intrinsic width; object-position: top keeps app headers
+ * visible when tall shots crop. */
+.post-reader .typeset .img-bento {
+  grid-column: full;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: clamp(140px, 18vw, 240px);
+  gap: 1rem;
+  width: 100%;
+  margin: 2rem 0;
+}
+.post-reader .typeset .img-bento img {
+  grid-column: span 2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  margin: 0 !important;
+  border-radius: 0.5rem;
+  border: 1px solid var(--reader-hairline);
+}
+.post-reader .typeset .img-bento img:first-child {
+  grid-column: span 4;
+  grid-row: span 2;
+}
+
+@media (max-width: 640px) {
+  .post-reader .typeset .img-bento {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+  }
+  .post-reader .typeset .img-bento img,
+  .post-reader .typeset .img-bento img:first-child {
+    grid-column: auto;
+    grid-row: auto;
+    height: auto;
+  }
+}
+
 /* On phones a single row of two wide screenshots shrinks to unreadable
  * slivers, so fall back to a vertical stack. */
 @media (max-width: 640px) {
