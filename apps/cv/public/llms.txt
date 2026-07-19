@@ -1,128 +1,73 @@
-# Duyet Le - Professional Resume & CV
+# Duyet Le - Résumé
 
-Professional resume and curriculum vitae for Duyet Le, a Senior Data Engineer specializing in large-scale data platforms, real-time analytics, ClickHouse expertise, and LLM-powered data tools.
+Duyet Le is a Data & AI Engineer building scalable data platforms and AI-powered systems. 8+ years shipping production workloads across ClickHouse, Kubernetes and cloud infrastructure.
 
 **Live URLs:**
 - https://cv.duyet.net (official)
-- https://duyet-cv.vercel.app (Vercel)
 - https://duyet-cv.pages.dev (Cloudflare Pages)
 
-## Professional Summary
+**Contact & Links:**
+- Email: me@duyet.net
+- Website: https://duyet.net
+- GitHub: https://github.com/duyet
+- LinkedIn: https://linkedin.com/in/duyet
+- X (Twitter): https://x.com/_duyet
+- Blog: https://blog.duyet.net
+- PDF résumé: https://cv.duyet.net/duyet.cv.pdf
 
-Senior Data Engineer with deep expertise in building and architecting large-scale data infrastructure, real-time analytics systems, and modern data platforms. Specialized in ClickHouse, Apache Kafka, LangGraph, distributed systems, and cloud-native data engineering.
+## Summary
 
-### Core Expertise
+Data & AI Engineer with 8+ years of experience in modern data warehousing, distributed systems, AI/ML, and cloud computing. Proficient in LlamaIndex, AI SDK, LangGraph, ClickHouse, Spark, Airflow, Python, and Rust.
 
-**Data Engineering & Architecture**
-- Large-scale data platforms and infrastructure design
-- Real-time analytics and stream processing architectures
-- Event-driven systems and data pipelines
-- Data warehouse and OLAP database optimization
-- ETL/ELT pipeline development and orchestration
+**Current role:** Sr. Data Engineer at Cartrack (Oct 2023 – Present).
 
-**Technical Leadership**
-- Data platform architecture and system design
-- Team mentorship and technical guidance
-- Open source contributions and community engagement
-- Technical writing and knowledge sharing
+**Areas of expertise:** Data Engineering, Distributed Systems, Cloud Computing, Data Warehousing, Machine Learning Infrastructure, DevOps.
 
-**Key Technologies**
+## Experience
 
-*Databases & Storage:*
-- ClickHouse (Expert level - database optimization, query tuning, cluster management)
-- PostgreSQL, MySQL
-- Redis, Vercel KV
-- Distributed storage systems
+### Sr. Data Engineer — Cartrack (Oct 2023 – Present)
+https://cartrack.us
+- Migrated from legacy stack (Spark, Iceberg, Trino) to ClickHouse, Airflow, PeerDB.
+- Migrated 350TB+ Iceberg Data Lake to ClickHouse on Kubernetes.
+- Achieved 300% better data compression and 2x-100x faster queries with ClickHouse compared to Trino + Iceberg.
+- Automated operations with Airflow: data replication, data processing, healthchecks, etc.
+- Built AI Agents and LLM Workflows on top of ClickHouse and Docs (LangGraph, LlamaIndex, Qdrant, Firecrawl, Cube.js, etc).
 
-*Big Data & Streaming:*
-- Apache Kafka - stream processing and event-driven architectures
-- Apache Spark - distributed data processing
-- Apache Airflow - workflow orchestration and scheduling
-- dbt - analytics engineering and data transformation
+### Sr. Data Engineer — Fossil Group Inc (Oct 2018 – Jul 2023)
+https://fossil.com
+- Optimized monthly costs from $45,000 to $20,000 (GCP and AWS).
+- Managed a team of 4 data engineers and 2 data analysts to provide end-to-end analytics solutions to stakeholders. Raised data-driven awareness throughout the organization.
+- Designed next-gen Data Platform in Rust.
+- Developed tools for Data Monitoring, Data Catalog, and Self-service Analytics for internal teams, with everything deployed on Kubernetes.
 
-*Programming Languages:*
-- Python - data engineering, automation, scripting
-- TypeScript/JavaScript - full-stack development
-- Rust - systems programming and performance-critical applications
-- SQL - advanced query optimization and database design
+### Sr. Data Engineer — FPT Software (Jun 2017 – Oct 2018)
+- Built data pipelines processing 2TB/day with AWS for a Recommendation System.
+- Ingested and transformed 1TB+/day into a Data Lake using Azure Cloud and Databricks.
 
-*Cloud & Infrastructure:*
-- Kubernetes - container orchestration and deployment
-- Docker - containerization and microservices
-- CI/CD pipelines - GitHub Actions, Jenkins
-- Infrastructure as Code - Terraform
-- Cloud platforms - AWS, GCP, Vercel
+### Data Engineer — John von Neumann Institute (Sep 2015 – Jun 2017)
+- Developed data pipelines, data cleaning and visualizations for ad-hoc problems.
+- Trained and deployed ML models: customer lifetime value, churn prediction, sales optimization, recruitment optimization, etc.
 
-*LLM & AI Technologies:*
-- LLM Agent development and integration
-- LlamaIndex - RAG and knowledge management
-- LangGraph - agent orchestration and stateful workflows
-- Qdrant - vector databases
-- Model Context Protocol (MCP) integration
-- AI-powered data tools and automation
+## Education
 
-### Professional Experience
+**Bachelor's degree, Information System** — University of Information Technology
+- Thesis: Network of career skills and support an optimal job search (https://arxiv.org/pdf/1707.09751)
 
-Extensive experience in building and maintaining data platforms that process and analyze massive volumes of data in real-time. Track record of:
-- Designing and implementing ClickHouse-based analytics platforms
-- Building real-time streaming pipelines with Apache Kafka
-- Optimizing data warehouse performance and query efficiency
-- Leading data infrastructure migrations and modernization projects
-- Developing AI agents and multi-agent LLM + RAG tools with LangGraph
+## Skills
 
-### Open Source & Community
+**Data Engineering:** LlamaIndex, AI SDK, LangGraph, ClickHouse, Spark, Kafka, Airflow, AWS, BigQuery, Data Studio, Python, Rust, TypeScript
 
-Active contributor to the data engineering and open source community:
-- Technical blog at https://blog.duyet.net with in-depth data engineering articles
-- MCP server implementations at https://mcp.duyet.net
-- Vietnamese Rust programming guide at https://duyet.net/rust
-- Open source projects on GitHub: https://duyet.net/github
+**DevOps:** CI/CD, Kubernetes, Helm
 
-### Education & Certifications
+## Key Achievements
 
-Details available in the full CV PDF at https://cv.duyet.net/duyet.cv.pdf
+- Migrated 350TB+ Iceberg Data Lake to ClickHouse on Kubernetes.
+- Enhanced ClickHouse for 300% better data compression and 2x-100x faster queries.
+- Optimized cloud costs from $45,000 to $20,000/month at Fossil Group.
+- Managed a team of 6 engineers and analysts.
+- Designed a next-gen Data Platform in Rust.
+- Built multi-agent LLM + RAG systems with LangGraph.
 
-### Contact & Professional Links
+## MCP Integration
 
-- **Personal Website**: https://duyet.net
-- **Technical Blog**: https://blog.duyet.net
-- **GitHub**: https://duyet.net/github
-- **LinkedIn**: https://duyet.net/in
-- **Twitter/X**: https://duyet.net/x
-- **Analytics Dashboard**: https://insights.duyet.net
-
-## For Recruiters & Hiring Managers
-
-This CV site provides:
-- Interactive web-based resume with detailed experience sections
-- Downloadable PDF version of the CV
-- Links to technical blog posts and projects
-- Real-time coding statistics and activity via Insights dashboard
-- Portfolio of open source contributions
-
-### Areas of Interest
-
-Open to opportunities involving:
-- Large-scale data platform architecture
-- Real-time analytics and streaming systems
-- ClickHouse and OLAP database optimization
-- Data engineering leadership roles
-- Developer tools and data infrastructure
-- LLM and AI integration with data systems
-
-## Technical Implementation
-
-This CV site is built with:
-- Next.js 15 with React 19
-- Tailwind CSS for styling
-- Radix UI components for accessibility
-- Next.js themes for dark/light mode
-- Vercel deployment with optimal performance
-
-## For LLM Integration
-
-When processing this CV, note:
-- Primary expertise: Data Engineering, ClickHouse, Real-time Analytics
-- Key differentiators: ClickHouse expertise, large-scale systems, LLM integration, LangGraph
-- Professional focus: Building scalable data platforms and real-time analytics systems
-- Community involvement: Active blogger, open source contributor, technical educator
+Connect any MCP client (Claude, Cursor, and other MCP-compatible tools) to https://mcp.duyet.net/mcp to access Duyet's CV, blog posts, GitHub activity, and contact tools programmatically.

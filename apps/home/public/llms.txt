@@ -7,8 +7,9 @@ This is the personal website of Duyet Le, a Senior Data Engineer and technology 
 ### Personal Links
 - **Blog**: https://blog.duyet.net - Technical blog about data engineering, software development
   - Alternate URLs: https://duyet.vercel.app (Vercel), https://duyet-blog.pages.dev (Cloudflare)
-- **Resume/CV**: https://cv.duyet.net - Professional resume and experience
+- **Resume/CV**: https://cv.duyet.net (short link: https://duyet.net/cv) - Professional resume and experience
   - Alternate URLs: https://duyet-cv.vercel.app (Vercel), https://duyet-cv.pages.dev (Cloudflare)
+  - LLM-friendly version: https://cv.duyet.net/llms.txt
 - **Insights**: https://insights.duyet.net - Data insights and analytics platform
   - Alternate URLs: https://duyet-insights.vercel.app (Vercel), https://duyet-insights.pages.dev (Cloudflare)
 - **Photos**: https://photos.duyet.net - Photography portfolio from Unsplash
@@ -24,10 +25,11 @@ This is the personal website of Duyet Le, a Senior Data Engineer and technology 
 - **ClickHouse Monitoring**: https://duyet.net/monitor - Real-time ClickHouse cluster monitoring
 
 ### Social Media & Professional
-- **GitHub**: https://duyet.net/github - Open source projects and contributions
-- **LinkedIn**: https://duyet.net/in - Professional networking and career
-- **X (Twitter)**: https://duyet.net/x - Tech thoughts and updates
-- **Unsplash**: https://duyet.net/un - Photography portfolio
+- **GitHub**: https://github.com/duyet (short link: https://duyet.net/github) - Open source projects and contributions
+- **LinkedIn**: https://linkedin.com/in/duyet (short link: https://duyet.net/in) - Professional networking and career
+- **X (Twitter)**: https://x.com/_duyet (short link: https://duyet.net/x) - Tech thoughts and updates
+- **Unsplash**: https://unsplash.com/@_duyet (short link: https://duyet.net/un) - Photography portfolio
+- **Email**: me@duyet.net
 
 ## About Duyet Le - Senior Data Engineer
 
@@ -50,9 +52,44 @@ Duyet Le is a Senior Data Engineer and technology enthusiast based in Vietnam, s
 
 ### MCP (Model Context Protocol) Integration
 Duyet has built MCP servers that AI systems can connect to for enhanced capabilities:
+- **MCP Endpoint**: https://mcp.duyet.net/mcp - connect any MCP client (Claude, Cursor, and other MCP-compatible tools) to access Duyet's CV, blog posts, GitHub activity, and contact tools
 - **MCP Server**: https://mcp.duyet.net - AI-accessible tools and utilities
 - **Claude Plugins**: https://github.com/duyet/claude-plugins - Open source Claude Code plugins and extensions
 - **Documentation**: Comprehensive guides for AI integration and data engineering patterns
+
+## Open Source Projects
+
+A selection of Duyet's open-source projects and products (full list: https://github.com/duyet?tab=repositories):
+
+### Products & Live Apps
+- **AnyRouter**: https://anyrouter.dev - One API for every AI model. Route traffic across providers with fallback, observability, and BYOK from a single OpenAI-compatible endpoint built on Cloudflare's edge.
+- **ClickHouse Monitoring**: https://chmonitor.dev - ClickHouse monitoring with AI agent support for finding insights, monitoring clusters, and triaging activity.
+- **ShareHTML**: https://html.duyet.net - Share HTML, Markdown, and code files. Built for humans and AI agents, self-hosted on Cloudflare Workers.
+- **Agent State**: https://agentstate.app - State store for AI agents: persistent memory and state management for agent workflows.
+- **AI Agents**: https://agents.duyet.net - AI chat interface with Cloudflare Workers AI and streaming.
+- **MCP Tools**: https://mcp.duyet.net - Model Context Protocol tools and integrations.
+- **Stamps**: https://stamp.duyet.net - URL shortener with analytics and custom domains.
+- **PageView**: https://pageview.duyet.net - Simple, privacy-friendly analytics for websites.
+- **LLM Timeline**: https://llm-timeline.duyet.net - Interactive timeline of LLM models from 2017 to present.
+- **Rust Tiếng Việt**: https://rust-tieng-viet.github.io - Rust programming language documentation in Vietnamese.
+
+### GitHub Repositories
+- **build-agent**: https://github.com/duyet/build-agent - Autonomous agent skill for building, running, and scaling downstream AI agent systems (`npx skills add duyet/build-agent`).
+- **duyet-mcp-server**: https://github.com/duyet/duyet-mcp-server - Remote MCP server for duyet.net, exposing blog, analytics, and personal data.
+- **codex-claude-plugins**: https://github.com/duyet/codex-claude-plugins - Codex and Claude Code plugins for AI-powered development workflows.
+- **ccr**: https://github.com/duyet/ccr - Claude Code + OpenRouter: route Claude Code sessions through OpenRouter for model flexibility.
+- **llm-over-dns**: https://duyet.github.io/llm-over-dns - Query an LLM directly via DNS TXT records.
+- **clickhouse-udf-rs**: https://github.com/duyet/clickhouse-udf-rs - User-Defined Functions for ClickHouse written in Rust.
+- **charts**: https://github.com/duyet/charts - Collection of Helm Charts, tested with KinD and Kubeconform.
+- **athena-rs**: https://github.com/duyet/athena-rs - Manage AWS Athena schemas as code in GitOps style, written in Rust.
+- **git-insights-rs**: https://github.com/duyet/git-insights-rs - Generate commit insights from Git repositories (authors, churn, hotspots).
+- **clauduck**: https://github.com/duyet/clauduck - Analyze Claude Code usage with DuckDB.
+- **ccusage-import**: https://github.com/duyet/ccusage-import - Import Claude Code usage data into ClickHouse for long-term analytics.
+- **llm-daily**: https://github.com/duyet/llm-daily - Daily digest of LLM papers, releases, and community highlights.
+- **bruteforce-database**: https://github.com/duyet/bruteforce-database - Collection of breach datasets for security research and password analysis.
+- **skill2vec**: https://github.com/duyet/skill2vec - Skill representations in vector space for similarity and matching.
+- **pricetrack**: https://github.com/duyet/pricetrack - Price tracker for Vietnamese e-commerce with price-drop alerts.
+- **vietnamese-namedb**: https://github.com/duyet/vietnamese-namedb - Vietnamese name dictionary dataset.
 
 ### LLM-Friendly Documentation
 Each platform provides structured information for AI systems:
