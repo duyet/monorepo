@@ -2,7 +2,7 @@ import type { Post } from "@duyet/interfaces";
 import type { TOCItem } from "@duyet/libs/extractHeadings";
 import { cn } from "@duyet/libs/utils";
 import { compile, run } from "@mdx-js/mdx";
-import { Fragment, use } from "react";
+import { Fragment, use, useEffect, useRef } from "react";
 import * as runtime from "react/jsx-runtime";
 import rehypeHighlight from "rehype-highlight";
 import rehypeKatex from "rehype-katex";
@@ -90,6 +90,44 @@ const typesetClassName = cn(
   "[&>pre]:overflow-x-auto"
 );
 
+const COPY_ICON =
+  '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+const CHECK_ICON =
+  '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+
+/**
+ * Adds a copy button to every <pre> in the rendered article. Runs after
+ * render for both the static-HTML and MDX paths, which only emit plain
+ * pre/code markup.
+ */
+function useCodeCopyButtons() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const root = ref.current;
+    if (!root) return;
+    for (const pre of root.querySelectorAll("pre")) {
+      if (pre.querySelector(".code-copy")) continue;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "code-copy";
+      button.setAttribute("aria-label", "Copy code");
+      button.innerHTML = COPY_ICON;
+      button.addEventListener("click", () => {
+        const code = pre.querySelector("code");
+        navigator.clipboard.writeText(code?.innerText ?? pre.innerText);
+        button.innerHTML = CHECK_ICON;
+        setTimeout(() => {
+          button.innerHTML = COPY_ICON;
+        }, 1500);
+      });
+      pre.appendChild(button);
+    }
+  });
+
+  return ref;
+}
+
 function MDXRenderer({ source }: { source: string }) {
   if (!mdxCache.has(source)) {
     mdxCache.set(source, compileMDX(source));
@@ -105,18 +143,22 @@ function MDXRenderer({ source }: { source: string }) {
 }
 
 export default function Content({ post }: { post: ContentPost }) {
+  const copyRef = useCodeCopyButtons();
+
   return (
     <>
       <OldPostWarning post={post} year={5} className="mb-6" />
 
-      {post.isMDX && post.mdxSource ? (
-        <MDXRenderer source={post.mdxSource} />
-      ) : (
-        <article
-          className={typesetClassName}
-          dangerouslySetInnerHTML={{ __html: post.content || "No content" }}
-        />
-      )}
+      <div ref={copyRef} className="contents">
+        {post.isMDX && post.mdxSource ? (
+          <MDXRenderer source={post.mdxSource} />
+        ) : (
+          <article
+            className={typesetClassName}
+            dangerouslySetInnerHTML={{ __html: post.content || "No content" }}
+          />
+        )}
+      </div>
 
       {/* Render inline widgets */}
       {post.widgets &&

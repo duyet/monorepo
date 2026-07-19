@@ -20,10 +20,12 @@
     "./utils": "./utils.ts"
   },
   "dependencies": {
+    "@duyet/wasm": "*",
     "clsx": "^2.0.0",
     "date-fns": "^4.0.0",
     "github-slugger": "^2.0.0",
     "gray-matter": "4.0.3",
+    "lowlight": "^3.3.0",
     "rehype-highlight": "^7.0.0",
     "rehype-katex": "^7.0.0",
     "rehype-parse": "^9.0.0",
@@ -31,7 +33,6 @@
     "remark-parse": "^11.0.0",
     "sanitize-html": "^2.13.0",
     "tailwind-merge": "^3.0.0",
-    "@duyet/wasm": "*",
     "unified": "^11.0.0",
     "unist-util-visit": "^5.0.0",
     "vfile": "^6.0.3"

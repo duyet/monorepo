@@ -261,35 +261,32 @@ export function ExploreApps({
           ]}
         />
 
-        {/* Compact uniform grid — one small row per app */}
-        <div className="mt-6">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
-            {apps.map((app) => (
-              <a
-                key={app.key}
-                href={app.href}
-                className="rd-explore-card group flex items-center gap-2.5 px-3 py-2.5 no-underline text-inherit border border-[var(--rd-border)] rounded-[var(--rd-r)] bg-[var(--rd-surface)]"
-                title={app.blurb}
-              >
-                <div className="rd-explore-glyph w-7 h-7 rounded-[8px] [&_svg]:w-3.5 [&_svg]:h-3.5">
-                  {app.glyph}
-                </div>
+        {/* Flat hairline list — no cards, one row per app */}
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-[clamp(32px,6vw,80px)]">
+          {apps.map((app) => (
+            <a
+              key={app.key}
+              href={app.href}
+              className="rd-explore-row group flex items-center gap-3 py-3 no-underline text-inherit border-b border-[var(--rd-border)]"
+              title={app.blurb}
+            >
+              <span className="rd-explore-glyph shrink-0 text-[var(--rd-text-3)] [&_svg]:w-[18px] [&_svg]:h-[18px]">
+                {app.glyph}
+              </span>
 
-                <div className="min-w-0 flex-1">
-                  <span className="block font-semibold tracking-[-0.01em] leading-snug truncate text-[var(--rd-text)] text-[12.5px] group-hover:text-[var(--rd-accent-ink)] transition-colors duration-200">
-                    {app.name}
-                  </span>
-                  <span className="block font-[var(--font-mono)] text-[9.5px] text-[var(--rd-text-4)] truncate mt-0.5">
-                    {app.domain}
-                  </span>
-                </div>
+              <span className="font-medium tracking-[-0.01em] text-[14px] text-[var(--rd-text)] truncate group-hover:text-[var(--rd-accent-ink)] transition-colors duration-150">
+                {app.name}
+              </span>
 
-                <span className="rd-explore-arrow opacity-0 group-hover:opacity-100 text-[10px] text-[var(--rd-text-4)] transition-all duration-200 font-mono">
-                  →
-                </span>
-              </a>
-            ))}
-          </div>
+              <span className="ml-auto font-[var(--font-mono)] text-[11px] text-[var(--rd-text-4)] truncate">
+                {app.domain}
+              </span>
+
+              <span className="rd-explore-arrow opacity-0 group-hover:opacity-100 text-[11px] text-[var(--rd-accent-ink)] transition-all duration-150 font-mono">
+                →
+              </span>
+            </a>
+          ))}
         </div>
       </div>
     </section>

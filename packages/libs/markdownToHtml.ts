@@ -1,3 +1,4 @@
+import { common } from "lowlight";
 import rehypeHighlight from "rehype-highlight";
 import rehypeKatex from "rehype-katex";
 import rehypeParse from "rehype-parse";
@@ -116,6 +117,10 @@ function sanitize(html: string): string {
       "line",
       "polyline",
       "polygon",
+      "video",
+      "source",
+      "input",
+      "label",
     ]),
     allowedAttributes: {
       ...sanitizeHtml.defaults.allowedAttributes,
@@ -131,6 +136,23 @@ function sanitize(html: string): string {
         "class",
       ],
       svg: ["width", "height", "viewBox", "fill", "stroke", "class"],
+      video: [
+        "src",
+        "poster",
+        "width",
+        "height",
+        "controls",
+        "autoplay",
+        "muted",
+        "loop",
+        "playsinline",
+        "preload",
+        "class",
+      ],
+      source: ["src", "type"],
+      // CSS-only tab groups in posts (radio inputs + labels, no JS).
+      input: ["type", "name", "checked"],
+      label: ["for"],
       path: ["d", "fill", "stroke", "stroke-width", "class"],
     },
     allowedSchemes: ["http", "https", "mailto"],
@@ -172,12 +194,43 @@ async function postProcessHtml(html: string): Promise<string> {
     .use(rehypeParse, { fragment: true })
     .use(rehypeHighlight, {
       detect: true,
-      languages: { prompt: promptLanguage },
+      // `languages` REPLACES the default grammar set in rehype-highlight v7,
+      // so spread `common` back in or every normal language stops highlighting.
+      languages: { ...common, prompt: promptLanguage },
     })
     .use(rehypeKatex)
     .use(rehypeStringify)
     .process(html);
   return result.toString();
+}
+
+/**
+ * Line-highlight markers inside fenced code: append `[!code highlight]`
+ * (usually as a `//` or `#` comment) to a line and it renders wrapped in
+ * `<span class="line-hl">` with the marker stripped, so copied code is clean.
+ */
+const HL_MARKER = "[!code ";
+const HL_CLASSES: Record<string, string> = {
+  highlight: "line-hl",
+  "++": "line-add",
+  "--": "line-del",
+};
+const HL_COMMENT_ONLY =
+  /\s*(?:<span class="hljs-comment">)?(?:\/\/|#)\s*\[!code (highlight|\+\+|--)\](?:<\/span>)?/;
+const HL_BARE = /\s*\[!code (highlight|\+\+|--)\]/;
+
+function highlightMarkedLines(html: string): string {
+  if (!html.includes(HL_MARKER)) return html;
+  return html
+    .split("\n")
+    .map((line) => {
+      const match = HL_COMMENT_ONLY.exec(line) ?? HL_BARE.exec(line);
+      if (!match) return line;
+      const cls = HL_CLASSES[match[1]];
+      const cleaned = line.replace(match[0], "");
+      return `<span class="${cls}">${cleaned}</span>`;
+    })
+    .join("\n");
 }
 
 /**
@@ -192,7 +245,7 @@ export async function markdownToHtml(markdown: string) {
   await ensureWasmInit();
   const html = _markdownToHtml!(markdown);
   const safe = sanitize(html);
-  return postProcessHtml(safe);
+  return highlightMarkedLines(await postProcessHtml(safe));
 }
 
 export default markdownToHtml;

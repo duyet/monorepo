@@ -1444,43 +1444,28 @@ html.dark .prose pre {
     margin-top: 3px;
   }
 
-  /* ---------- explore apps (cross-app discovery grid) ---------- */
-  .rd-explore-card {
-    transition:
-      transform 0.18s ease,
-      border-color 0.18s ease,
-      background 0.18s ease;
+  /* ---------- explore apps (cross-app discovery list) ---------- */
+  .rd-explore-row {
+    transition: border-color 0.15s ease;
   }
-  .rd-explore-card:hover {
-    transform: translateY(-2px);
+  .rd-explore-row:hover {
     border-color: var(--rd-border-2);
-    background: var(--rd-surface-2);
   }
   .rd-explore-glyph {
     display: grid;
     place-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 11px;
-    flex-shrink: 0;
-    background: var(--rd-accent-bg);
-    color: var(--rd-accent-ink);
-    transition:
-      background 0.18s ease,
-      color 0.18s ease;
+    transition: color 0.15s ease;
   }
-  .rd-explore-card:hover .rd-explore-glyph {
-    background: var(--rd-accent);
-    color: #fff;
+  .rd-explore-row:hover .rd-explore-glyph {
+    color: var(--rd-accent-ink);
   }
   .rd-explore-arrow {
     transition:
-      transform 0.18s ease,
-      color 0.18s ease;
+      transform 0.15s ease,
+      opacity 0.15s ease;
   }
-  .rd-explore-card:hover .rd-explore-arrow {
-    transform: translateX(3px);
-    color: var(--rd-accent-ink);
+  .rd-explore-row:hover .rd-explore-arrow {
+    transform: translateX(2px);
   }
 
   /* ---------- responsive ---------- */

@@ -21,8 +21,8 @@ This post is a build log, not a launch. OMA is real and I run it, but it's a wor
 
 One control plane, any sandbox, one API:
 
-- **Any sandbox backend** — Cloudflare Containers (default), Kubernetes (the bridge from the [previous post](/2026/06/agent-sandbox-on-kubernetes/), or a remote gateway), NVIDIA OpenShell, E2B, Daytona, Docker/subprocess, BoxRun/LiteBox — one `SandboxExecutor` interface, one **Sandbox Runtime** page for health and capacity. *(Cloudflare only reaches the fetch-based backends today — Docker, local k8s, LiteBox, and the E2B/Daytona SDKs run on the self-host runtime for now.)*
-- **Claude Managed Agents compatible API** — `POST /v1/agents`, `POST /v1/sessions`, SSE events; swap the base URL and a client built for Anthropic's hosted platform just works.
+- **Any sandbox backend** — Cloudflare Containers (default), Kubernetes (the bridge from the [previous post](/2026/06/agent-sandbox-on-kubernetes/), or a remote gateway), [NVIDIA OpenShell](https://github.com/NVIDIA/OpenShell), [E2B](https://e2b.dev), [Daytona](https://daytona.io), Docker/subprocess, [BoxRun](https://github.com/boxlite-ai/boxrun)/[LiteBox](https://github.com/microsoft/litebox) — one `SandboxExecutor` interface, one **Sandbox Runtime** page for health and capacity. *(Cloudflare only reaches the fetch-based backends today — Docker, local k8s, LiteBox, and the E2B/Daytona SDKs run on the self-host runtime for now.)*
+- **[Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) compatible API** — `POST /v1/agents`, `POST /v1/sessions`, SSE events; swap the base URL and a client built for Anthropic's hosted platform just works.
 - **One console** — configure an agent, pick an environment, open a session; template agents (coding assistant, researcher, ...) give you a one-click start.
 - **Durable sessions** — append-only event log; a crashed harness resumes instead of restarting. Credentials never touch the sandbox — an outbound proxy injects them at the edge — and idle sandboxes pause, resuming on the next message.
 - **Your laptop as a runtime** — `npx @getoma/cli bridge setup` opens an outbound-only WebSocket and your machine joins as a sandbox backend, no inbound ports. *(No credential-injection proxy or memory mounts over the relay yet — local dev only, for now.)*
@@ -34,23 +34,17 @@ One control plane, any sandbox, one API:
 
 ## Screenshots
 
-<div className="img-row">
+<div className="img-bento">
+<img src="/media/2026/07/open-managed-agents/oma-hero-dark.png" alt="The oma.duyet.net landing page — the fit diagram framed by the dithered pattern, dark mode" />
+<img src="/media/2026/07/open-managed-agents/landing-dialog-sandbox.png" alt="The Sandbox dialog on the landing page — supported providers next to a live Sandbox Runtimes screenshot" />
+<img src="/media/2026/07/open-managed-agents/landing-dialog-agent.png" alt="The Agent dialog on the landing page — what an agent is made of" />
 <img src="/media/2026/07/open-managed-agents/getting-started.jpg" alt="The OMA console — creating an agent and getting the first session running" />
 <img src="/media/2026/07/open-managed-agents/new-agent-from-template.jpg" alt="Creating a new agent from a template" />
-</div>
-
-<div className="img-row">
+<img src="/media/2026/07/open-managed-agents/new-session.jpg" alt="Starting a new session against a configured agent" />
 <img src="/media/2026/07/open-managed-agents/sandbox-runtime.jpg" alt="The Sandbox Runtime page — every backend behind one SandboxExecutor interface" />
 <img src="/media/2026/07/open-managed-agents/sandbox-runtime-add-provider.jpg" alt="Adding a runtime — your own machine registers over an outbound-only WebSocket" />
-</div>
-
-<div className="img-row">
-<img src="/media/2026/07/open-managed-agents/new-session.jpg" alt="Starting a new session against a configured agent" />
 <img src="/media/2026/07/open-managed-agents/github-integration.jpg" alt="The GitHub Issues board — assign an issue to an agent and it spawns a briefed session" />
 <img src="/media/2026/07/open-managed-agents/skills.jpg" alt="Attaching skills to an agent" />
-</div>
-
-<div className="img-row">
 <img src="/media/2026/07/open-managed-agents/cli-bridge.jpg" alt="oma bridge — the CLI's help output for pairing a local agent with OMA" />
 <img src="/media/2026/07/open-managed-agents/cli-bridge-status.jpg" alt="oma bridge status — a connected laptop runtime, daemon up and reachable" />
 </div>

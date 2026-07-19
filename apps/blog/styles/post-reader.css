@@ -107,8 +107,8 @@
 /* Wide media take the full track and center within it. Code blocks stay in the
  * main track so they share the body-text measure (long lines scroll). */
 .post-reader .typeset > :where(figure, table, img, video, iframe, .full-bleed),
-.post-reader .typeset > p:has(> img:only-child),
-.post-reader .typeset > p:has(> a > img:only-child),
+.post-reader .typeset > p:has(> img:only-child):not(:has(> img.inline-icon)),
+.post-reader .typeset > p:has(> a > img:only-child):not(:has(img.inline-icon)),
 .post-reader .typeset > p:has(> .full-bleed),
 .post-reader .typeset > div:has(> table) {
   grid-column: full;
@@ -155,6 +155,177 @@
 .post-reader .typeset figure > img,
 .post-reader .typeset figure > video {
   margin: 0 auto;
+}
+
+/* Small inline icon inside a line of text (e.g. a favicon before a link).
+ * Overrides the block/full-width defaults for post images above. */
+.post-reader .typeset img.inline-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  margin: 0 0.25em 0 0 !important;
+  border-radius: 3px;
+}
+
+/* Highlighted / diff lines inside a code block
+ * (`[!code highlight]`, `[!code ++]`, `[!code --]` markers). */
+.post-reader .typeset pre :is(.line-hl, .line-add, .line-del) {
+  display: inline-block;
+  width: 100%;
+  border-radius: 3px;
+  position: relative;
+}
+
+.post-reader .typeset pre .line-hl {
+  background: color-mix(in srgb, currentColor 9%, transparent);
+}
+
+.post-reader .typeset pre .line-add {
+  background: rgba(46, 160, 67, 0.14);
+}
+
+.post-reader .typeset pre .line-del {
+  background: rgba(248, 81, 73, 0.12);
+  opacity: 0.75;
+}
+
+/* Gutter markers sit in the pre's left padding (absolute, zero-width),
+ * so diff lines stay column-aligned with normal lines. */
+.post-reader .typeset pre .line-add::before,
+.post-reader .typeset pre .line-del::before {
+  position: absolute;
+  left: -1.2em;
+}
+
+.post-reader .typeset pre .line-add::before {
+  content: "+";
+  color: rgb(46, 160, 67);
+}
+
+.post-reader .typeset pre .line-del::before {
+  content: "-";
+  color: rgb(248, 81, 73);
+}
+
+/* CSS-only code tabs for .md posts (shadcn Tabs look): inputs first, then
+ * <nav class="tab-list"> with labels, then panel divs — all direct children
+ * of `.code-tabs`. Supports up to 4 tabs. */
+.post-reader .typeset .code-tabs {
+  margin: 2rem 0;
+}
+
+.post-reader .typeset .code-tabs > input {
+  display: none;
+}
+
+.post-reader .typeset .code-tabs .tab-list {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--muted);
+}
+
+.post-reader .typeset .code-tabs .tab-list label {
+  padding: 0.3em 0.85em;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  font-size: 0.8rem;
+  font-weight: 550;
+  line-height: 1.4;
+  color: var(--muted-foreground, var(--reader-muted));
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.post-reader .typeset .code-tabs .tab-list label:hover {
+  color: var(--reader-ink);
+}
+
+.post-reader .typeset .code-tabs > .tab-panel {
+  display: none;
+}
+
+.post-reader .typeset .code-tabs > .tab-panel > pre {
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+}
+
+.post-reader .typeset .code-tabs > input:nth-of-type(1):checked ~ .tab-list label:nth-of-type(1),
+.post-reader .typeset .code-tabs > input:nth-of-type(2):checked ~ .tab-list label:nth-of-type(2),
+.post-reader .typeset .code-tabs > input:nth-of-type(3):checked ~ .tab-list label:nth-of-type(3),
+.post-reader .typeset .code-tabs > input:nth-of-type(4):checked ~ .tab-list label:nth-of-type(4) {
+  color: var(--reader-ink);
+  background: var(--background);
+  border-color: var(--border, transparent);
+}
+
+.post-reader .typeset .code-tabs > input:nth-of-type(1):checked ~ .tab-panel:nth-of-type(1),
+.post-reader .typeset .code-tabs > input:nth-of-type(2):checked ~ .tab-panel:nth-of-type(2),
+.post-reader .typeset .code-tabs > input:nth-of-type(3):checked ~ .tab-panel:nth-of-type(3),
+.post-reader .typeset .code-tabs > input:nth-of-type(4):checked ~ .tab-panel:nth-of-type(4) {
+  display: block;
+}
+
+/* Code blocks: tighter rhythm than body text. */
+.post-reader .typeset pre,
+.post-reader .typeset pre code {
+  line-height: 1.55;
+}
+
+/* Copy button injected into every <pre> (see -content.tsx). */
+.post-reader .typeset pre {
+  position: relative;
+}
+
+.post-reader .typeset pre .code-copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid var(--border, transparent);
+  background: var(--background);
+  color: var(--muted-foreground, var(--reader-muted));
+  opacity: 0;
+  cursor: pointer;
+  transition:
+    opacity 0.15s ease,
+    color 0.15s ease;
+}
+
+.post-reader .typeset pre:hover .code-copy,
+.post-reader .typeset pre .code-copy:focus-visible {
+  opacity: 1;
+}
+
+.post-reader .typeset pre .code-copy:hover {
+  color: var(--reader-ink);
+}
+
+/* Restore list markers stripped by the Tailwind preflight reset. */
+.post-reader .typeset ul {
+  list-style: disc;
+  padding-left: 1.4em;
+}
+
+.post-reader .typeset ol {
+  list-style: decimal;
+  padding-left: 1.4em;
+}
+
+.post-reader .typeset li {
+  margin-top: 0.35em;
+  margin-bottom: 0.35em;
+}
+
+.post-reader .typeset li::marker {
+  color: var(--reader-muted);
 }
 
 /* A single image / code block / table shouldn't span the full wide media
