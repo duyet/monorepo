@@ -12,7 +12,7 @@ A comprehensive collection of technical blog posts covering Data Engineering, So
 
 ## About This Blog
 
-316+ technical articles covering topics including:
+317+ technical articles covering topics including:
 - Data Engineering & Big Data
 - Apache Spark, ClickHouse, Apache Airflow
 - Cloud Computing (AWS, GCP, Azure)
@@ -24,6 +24,13 @@ A comprehensive collection of technical blog posts covering Data Engineering, So
 Articles span from 2015 to 2026, documenting the evolution of modern data engineering and software development practices.
 
 ## Recent Posts
+
+### [I am building anyrouter.dev](https://blog.duyet.net/2026/07/anyrouter)
+- **Date**: 2026-07-19
+- **Category**: AI
+- **Tags**: Ai, Llm, Agents
+- **URL**: https://blog.duyet.net/2026/07/anyrouter
+- **Description**: I am building AnyRouter to collect free LLM tokens from everywhere and unify the MCP Gateway. Yes, it's another router, but this is a router of routers: one API, BYOK, and a shared key pool.
 
 ### [Open Managed Agents](https://blog.duyet.net/2026/07/open-managed-agents)
 - **Date**: 2026-07-18
@@ -158,18 +165,12 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - **URL**: https://blog.duyet.net/2026/01/coding-agent/plan-mode
 - **Description**: Plan mode performs significantly better than just prompting directly
 
-### [z_claude, mi_claude & or_claude](https://blog.duyet.net/2026/01/coding-agent/z-claude-mi-claude-or-claude)
-- **Date**: 2026-01-01
-- **Category**: AI
-- **Tags**: Ai
-- **URL**: https://blog.duyet.net/2026/01/coding-agent/z-claude-mi-claude-or-claude
-- **Description**: Wrapper scripts to use Claude Code with alternative providers
-
 
 ## All Blog Posts by Year
 
-### 2026 (20 posts)
+### 2026 (21 posts)
 
+- [I am building anyrouter.dev](https://blog.duyet.net/2026/07/anyrouter) - 2026-07-19
 - [Open Managed Agents](https://blog.duyet.net/2026/07/open-managed-agents) - 2026-07-18
 - [Agent Sandbox on Kubernetes](https://blog.duyet.net/2026/06/agent-sandbox-on-kubernetes) - 2026-06-25
 - [Goal and Loop](https://blog.duyet.net/2026/06/goal-and-loop) - 2026-06-20
@@ -561,9 +562,9 @@ Short-form thoughts and notes. Full list: https://blog.duyet.net/notes
 ---
 
 **Blog Statistics:**
-- Total Posts: 316
+- Total Posts: 317
 - Years Active: 2015-2026
 - Categories: 15
-- Tags: 62
+- Tags: 63
 
 Generated from: https://blog.duyet.net

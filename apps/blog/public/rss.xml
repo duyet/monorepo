@@ -4,8 +4,15 @@
         <description><![CDATA[Sr. Data Engineer. Rustacean at night]]></description>
         <link>https://blog.duyet.net</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Sun, 19 Jul 2026 16:34:19 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 19 Jul 2026 18:27:08 GMT</lastBuildDate>
         <atom:link href="https://blog.duyet.net/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[I am building anyrouter.dev]]></title>
+            <description><![CDATA[I am building AnyRouter to collect free LLM tokens from everywhere and unify the MCP Gateway. Yes, it's another router, but this is a router of routers: one API, BYOK, and a shared key pool.]]></description>
+            <link>https://blog.duyet.net/2026/07/anyrouter</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/07/anyrouter</guid>
+            <pubDate>Sun, 19 Jul 2026 00:00:00 GMT</pubDate>
+        </item>
         <item>
             <title><![CDATA[Open Managed Agents]]></title>
             <description><![CDATA[I'm building Open Managed Agents (OMA) in the open — a self-hosted control plane on Cloudflare that drives agents on any sandbox backend from one UI and one API, and stays compatible with the Claude Managed Agents API. Here's where it stands.]]></description>
@@ -348,13 +355,6 @@
             <link>https://blog.duyet.net/2022/05/rust-cargo-fix</link>
             <guid isPermaLink="true">https://blog.duyet.net/2022/05/rust-cargo-fix</guid>
             <pubDate>Sat, 14 May 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Rust Source-based Code Coverage]]></title>
-            <description><![CDATA[Support for LLVM-based coverage instrumentation has been stabilized in Rust 1.60.0. To get the code coverage report in Rust, you need to generate profiling data and then use LLVM tools to process and generate reports.]]></description>
-            <link>https://blog.duyet.net/2022/04/rust-code-cov</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/04/rust-code-cov</guid>
-            <pubDate>Sat, 09 Apr 2022 00:00:00 GMT</pubDate>
         </item>
     </channel>
 </rss>

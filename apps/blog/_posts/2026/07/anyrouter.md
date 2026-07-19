@@ -9,7 +9,7 @@ tags:
   - Agents
 slug: /2026/07/anyrouter
 thumbnail: /media/2026/07/anyrouter/anyrouter-intro.png
-description: "I am building AnyRouter to collect free LLM tokens from everywhere and unify the MCP Gateway. Yes, it's another router, but this is a router of routers: one API, BYOK, and a shared key pool."
+description: "I am building AnyRouter to solve my problem of collecting free LLM tokens from everywhere and unifying the MCP Gateway. Yes, it's another router, but this is a router of routers."
 x: https://x.com/_duyet/status/2078848270064066623
 ---
 
