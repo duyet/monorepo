@@ -19,6 +19,8 @@ export type Post = {
   edit_url?: string;
   series?: string;
   snippet?: string;
+  /** X (Twitter) status URL for commenting on this post. */
+  x?: string;
   path?: string;
   isMDX?: boolean;
   mdxCode?: string;

@@ -52,6 +52,7 @@ interface RawPost {
   excerpt?: string;
   series?: string;
   snippet?: string;
+  x?: string;
   readingTime?: number;
   isMDX?: boolean;
   parent?: string;

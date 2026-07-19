@@ -232,6 +232,13 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
       post.readingTime = getReadingTime(wordCount, codeBlockCount);
     }
 
+    if (field === "x") {
+      post.x =
+        typeof data.x === "string" && data.x.trim().length > 0
+          ? data.x.trim()
+          : undefined;
+    }
+
     if (field === "changelog") {
       post.changelog = Array.isArray(data.changelog)
         ? data.changelog

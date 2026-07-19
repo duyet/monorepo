@@ -133,6 +133,7 @@ const metaFields = [
   "snippet",
   "thumbnail",
   "author",
+  "x",
   "changelog",
   "parent",
   "parts",

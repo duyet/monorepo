@@ -39,6 +39,16 @@ export function PostHero({ post }: { post: LoadedPost }) {
             {post.changelog.length} updates · updated {post.changelog[0].date}
           </span>
         )}
+        {post.x && (
+          <a
+            href={post.x}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[12.5px] underline underline-offset-4 decoration-[var(--rd-border)] hover:text-[var(--rd-text-1)] transition-colors"
+          >
+            Comment on X ↗
+          </a>
+        )}
         {post.markdown_content && (
           <MarkdownMenuWrapper
             markdownUrl={`${post.slug.replace(/\.html$/, "")}.md`}
