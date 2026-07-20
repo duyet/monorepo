@@ -131,6 +131,7 @@ There is a lot more to build than I thought (landing, api, mcp, admin, email, bl
 <div class="img-row">
   <img src="/media/2026/07/anyrouter/anyrouter-github-issues.png" alt="GitHub issues tracking" loading="lazy" />
   <img src="/media/2026/07/anyrouter/anyrouter-github-issues-new-model-detect.png" alt="New model auto-detect issue" loading="lazy" />
+  <img src="/media/2026/07/anyrouter/anyrouter-duyetbot-managed-bg.jpeg" alt="duyetbot managing AnyRouter" loading="lazy" />
 </div>
 
 Every night, a scheduled agent sandbox runs more goal-and-loop sessions to build toward the docs and address as many GitHub issues as possible. That's the continuous self-improvement. I also keep Claude Code or Codex at hand for customization, adjustments, or correcting things myself.
@@ -138,8 +139,6 @@ Every night, a scheduled agent sandbox runs more goal-and-loop sessions to build
 **Manage**: [duyetbot](https://duyet.net/about-duyetbot) (Hermes agent) helps a lot as the manager. It has jobs hunting for newly released models and new upstream providers, running smoke tests, generating reports, analytics, health checks, catching bugs — everything auto-tracked and turned into GitHub issues again, and another agent comes to fix them the next morning.
 
 I think this is the right way I've found so far to self-improve and manage a large codebase and product like this.
-
-![duyetbot managing AnyRouter](/media/2026/07/anyrouter/anyrouter-duyetbot-managed-bg.jpeg)
 
 The UI and UX keep changing over time too. I never read the code anymore and have no idea what is behind it — I trust thousands of realistic test cases to keep it stable.
 
