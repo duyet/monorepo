@@ -124,9 +124,9 @@ I will improve this over time.
 
 # How I built anyrouter: Self improvement
 
-There is a lot to build (landing, api, mcp, admin, email, blog, dashboard, playground, etc), and tons of model catalogs and upstreams to maintain. I don't have the time (or tokens) to do all of it myself.
+There is a lot more to build than I thought (landing, api, mcp, admin, email, blog, dashboard, playground, etc), and tons of model catalogs and upstreams to maintain. I don't have the time (or tokens) to do all of it myself.
 
-**Build:** I started the codebase from scratch with a plan and the docs. Instead of jumping straight into generating code, I generated the docs I expect end users to read first, then ran a large number of [goal and loop](/2026/06/goal-and-loop/) sessions to build toward them. This works really well for me: I can see the progress in the docs, and the role pivots me into a product owner and a user instead of a coder. GitHub issues turned out to be a good place to track everything — bug reports, epics, and so on.
+**Build:** I started the codebase from scratch with a plan and the docs. Instead of jumping straight into generating code, I generated the docs I expect end users to read first, all API specs, etc. Using Opus and Fable to analyze and generate a large number of epics and tasks. Then ran a large number of [goal and loop](/2026/06/goal-and-loop/) sessions with any coding subscription I have (claude, opencode, ZAI, commandcode, antigravity) to build toward them. Fable rewrite and fix the most of hardest logic (routing algo, payment, etc). This works really well for me: I can see the progress in the docs, and the role pivots me into a product owner and a user instead of a coder. GitHub issues turned out to be a good place to track everything — bug reports, epics, and so on.
 
 Every night, a scheduled agent sandbox runs more goal-and-loop sessions to build toward the docs and address as many GitHub issues as possible. That's the continuous self-improvement. I also keep Claude Code or Codex at hand for customization, adjustments, or correcting things myself.
 
@@ -158,7 +158,7 @@ import { AnyRouter } from "@anyr/sdk"
 const client = new AnyRouter()
 
 const completion = await client.chat.completions.create({
-  model: "openai/gpt-4o-mini",
+  model: "z-ai/glm-4.7",
   messages: [{ role: "user", content: "Hello!" }],
 })
 
@@ -175,7 +175,7 @@ import { generateText } from "ai"
 const anyrouter = createAnyRouter() // reads ANYROUTER_API_KEY
 
 const { text } = await generateText({
-  model: anyrouter("openai/gpt-4o-mini"),
+  model: anyrouter("z-ai/glm-4.7"),
   prompt: "What is AnyRouter?",
 })
 ```
