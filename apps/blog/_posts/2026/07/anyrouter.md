@@ -128,19 +128,20 @@ There is a lot more to build than I thought (landing, api, mcp, admin, email, bl
 
 **Build:** I started the codebase from scratch with a plan and the docs. Instead of jumping straight into generating code, I generated the docs I expect end users to read first, all API specs, etc. Using Opus and Fable to analyze and generate a large number of epics and tasks. Then ran a large number of [goal and loop](/2026/06/goal-and-loop/) sessions with any coding subscription I have (claude, opencode, ZAI, commandcode, antigravity) to build toward them. Fable rewrite and fix the most of hardest logic (routing algo, payment, etc). This works really well for me: I can see the progress in the docs, and the role pivots me into a product owner and a user instead of a coder. GitHub issues turned out to be a good place to track everything — bug reports, epics, and so on.
 
-<div class="img-row">
-  <img src="/media/2026/07/anyrouter/anyrouter-github-issues.png" alt="GitHub issues tracking" loading="lazy" />
-  <img src="/media/2026/07/anyrouter/anyrouter-github-issues-new-model-detect.png" alt="New model auto-detect issue" loading="lazy" />
-  <img src="/media/2026/07/anyrouter/anyrouter-duyetbot-managed-bg.jpeg" alt="duyetbot managing AnyRouter" loading="lazy" />
-</div>
-
 Every night, a scheduled agent sandbox runs more goal-and-loop sessions to build toward the docs and address as many GitHub issues as possible. That's the continuous self-improvement. I also keep Claude Code or Codex at hand for customization, adjustments, or correcting things myself.
 
 **Manage**: [duyetbot](https://duyet.net/about-duyetbot) (Hermes agent) helps a lot as the manager. It has jobs hunting for newly released models and new upstream providers, running smoke tests, generating reports, analytics, health checks, catching bugs — everything auto-tracked and turned into GitHub issues again, and another agent comes to fix them the next morning.
 
 I think this is the right way I've found so far to self-improve and manage a large codebase and product like this.
 
-The UI and UX keep changing over time too. I never read the code anymore and have no idea what is behind it — I trust thousands of realistic test cases to keep it stable.
+<div class="img-row">
+  <img src="/media/2026/07/anyrouter/anyrouter-github-issues.png" alt="GitHub issues tracking" loading="lazy" />
+  <img src="/media/2026/07/anyrouter/anyrouter-issues-new-mode-bg.png" alt="New model auto-detect issue" loading="lazy" />
+  <img src="/media/2026/07/anyrouter/anyrouter-duyetbot-managed-bg.jpeg" alt="duyetbot managing AnyRouter" loading="lazy" />
+</div>
+
+
+The UI and UX keep changing over time. I never read the code and have no idea what is behind it, but I don't care by trust thousands of realistic test cases and smoke tests to keep it stable.
 
 # The SDK & CLI
 
