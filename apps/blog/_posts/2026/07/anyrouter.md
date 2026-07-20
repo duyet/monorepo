@@ -136,7 +136,7 @@ I think this is the right way I've found so far to self-improve and manage a lar
 
 <div class="img-row">
   <img src="/media/2026/07/anyrouter/anyrouter-github-issues.png" alt="GitHub issues tracking" loading="lazy" />
-  <img src="/media/2026/07/anyrouter/anyrouter-issues-new-mode-bg.png" alt="New model auto-detect issue" loading="lazy" />
+  <img src="/media/2026/07/anyrouter/anyrouter-issues-new-model-bg.png" alt="New model auto-detect issue" loading="lazy" />
   <img src="/media/2026/07/anyrouter/anyrouter-duyetbot-managed-bg.jpeg" alt="duyetbot managing AnyRouter" loading="lazy" />
 </div>
 
