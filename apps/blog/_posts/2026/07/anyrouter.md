@@ -130,6 +130,7 @@ There is a lot more to build than I thought (landing, api, mcp, admin, email, bl
 
 <div class="img-row">
   <img src="/media/2026/07/anyrouter/anyrouter-github-issues.png" alt="GitHub issues tracking" loading="lazy" />
+  <img src="/media/2026/07/anyrouter/anyrouter-github-issues-new-model-detect.png" alt="New model auto-detect issue" loading="lazy" />
 </div>
 
 Every night, a scheduled agent sandbox runs more goal-and-loop sessions to build toward the docs and address as many GitHub issues as possible. That's the continuous self-improvement. I also keep Claude Code or Codex at hand for customization, adjustments, or correcting things myself.
@@ -142,16 +143,18 @@ I think this is the right way I've found so far to self-improve and manage a lar
 
 The UI and UX keep changing over time too. I never read the code anymore and have no idea what is behind it — I trust thousands of realistic test cases to keep it stable.
 
-# The SDK
+# The SDK & CLI
 
 There is a typed SDK if you want it: [`@anyr/sdk`](https://docs.anyrouter.dev/sdk). Prefer the Vercel AI SDK? Install `@anyr/ai-sdk-provider` and point any model id at AnyRouter through `createAnyRouter`.
 
 <div class="code-tabs">
 <input type="radio" name="sdk-tabs" id="tab-anyr-sdk" checked />
 <input type="radio" name="sdk-tabs" id="tab-anyr-provider" />
+<input type="radio" name="sdk-tabs" id="tab-anyr-cli" />
 <nav class="tab-list">
 <label for="tab-anyr-sdk">@anyr/sdk</label>
 <label for="tab-anyr-provider">@anyr/ai-sdk-provider</label>
+<label for="tab-anyr-cli">CLI</label>
 </nav>
 <div class="tab-panel">
 
@@ -182,6 +185,14 @@ const { text } = await generateText({
   model: anyrouter("z-ai/glm-4.7"),
   prompt: "What is AnyRouter?",
 })
+```
+ 
+</div>
+<div class="tab-panel">
+
+```bash
+# Pick any model (e.g. GLM-5.2)
+npx @anyr/cli claude --model z-ai/glm-5.2
 ```
 
 </div>
