@@ -36,7 +36,7 @@ export function DailyChart({ daily, firstDate, lastDate }: DailyChartProps) {
 
   if (daily.length === 0) return null;
 
-  const recent = daily.slice(0, 60);
+  const recent = daily.slice(0, 60).reverse();
   const maxTokens = Math.max(...recent.map((d) => d.total_tokens));
   const barWidth = 100 / recent.length;
   const chartHeight = 60;
