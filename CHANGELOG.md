@@ -1,5 +1,37 @@
 # Changelog
 
+## [0.1.4](https://github.com/duyet/monorepo/compare/v0.1.3...v0.1.4) (2026-07-21)
+
+
+### ✨ Features
+
+* **blog:** add CLI tab and new model-detect screenshot to AnyRouter post ([a2ef9c0](https://github.com/duyet/monorepo/commit/a2ef9c0845a1059804dd02dc2189809fa40b977c))
+* **blog:** anyrouter launch post, code tabs, diff lines, copy button ([a639cb9](https://github.com/duyet/monorepo/commit/a639cb9881a59f450874efa1e3fb60479a4106fa))
+* **blog:** bento image grid for post screenshots, applied to oma post ([c00ff63](https://github.com/duyet/monorepo/commit/c00ff6313015d33557bed681697433a3e05d0780))
+* **blog:** comment on x link from post frontmatter ([655fbda](https://github.com/duyet/monorepo/commit/655fbda5efed10a91a7b074e94c754d18b056b15))
+* **blog:** oma post dark hero thumbnail + landing dialog screenshots ([be9a056](https://github.com/duyet/monorepo/commit/be9a05676585b6605f412333cc995b825a3d5489))
+* **blog:** oma post new thumbnail, anyrouter desc matches tweet ([4cbeca6](https://github.com/duyet/monorepo/commit/4cbeca6300b1f7476f7c0394106d7878bb0c757e))
+* **blog:** publish Open Managed Agents build-log post ([2f06cb2](https://github.com/duyet/monorepo/commit/2f06cb294aeca069fea44225f28b98772250c143))
+* **burns:** logos-only source row, per-agent hover breakdown, layout tweaks ([00d9b3d](https://github.com/duyet/monorepo/commit/00d9b3dde3164e865f1aef99732c66b62553391d))
+
+
+### 🐛 Bug Fixes
+
+* **blog:** add github issues screenshot to anyrouter post ([763e921](https://github.com/duyet/monorepo/commit/763e9213d5807516de8610a0e3f5e2cbe90fe1e3))
+* **blog:** fix typos in anyrouter post ([a0bfbac](https://github.com/duyet/monorepo/commit/a0bfbacc328e6a2ee928003df82379b1bff8f298))
+* **blog:** move duyetbot image into img-row with GitHub issues ([cc5207d](https://github.com/duyet/monorepo/commit/cc5207da4da163f3cfba9a048987950efdf531dd))
+* **blog:** replace two screenshots in img-row with updated versions ([15b70ad](https://github.com/duyet/monorepo/commit/15b70ad6e45ed1716e0c451f6c80bc6411d813e9))
+* **burns:** official brand SVGs, resize Grok, backfill per-source breakdown ([34d514b](https://github.com/duyet/monorepo/commit/34d514bcab1d7f8a9d404aa100a71b9cff894154))
+* **burns:** reverse bar chart to chronological left-to-right ([183b237](https://github.com/duyet/monorepo/commit/183b237e1b36e7f8d30ea55a80914a7e16b58e6c))
+* rename anyrouter-issues-new-mode-bg to new-model-bg and update image ([cb47d83](https://github.com/duyet/monorepo/commit/cb47d83ee741671afd2c770d8c07cbc4f3e7d2a9))
+
+
+### ♻️ Refactoring
+
+* **blog:** migrate prose classes to typeset system ([dea3a1d](https://github.com/duyet/monorepo/commit/dea3a1dcb9c9beea0cb619d71783e0812a05c431))
+* **components:** add typeset.css markdown styling system ([ce3b7f6](https://github.com/duyet/monorepo/commit/ce3b7f6bfea17188a55b16e8d89421d846a8f464))
+* **kb:** migrate prose classes to typeset system ([713ca64](https://github.com/duyet/monorepo/commit/713ca644a02f47cface398fc59a5766a2327ee83))
+
 ## [0.1.3](https://github.com/duyet/monorepo/compare/v0.1.2...v0.1.3) (2026-07-16)
 
 
