@@ -16398,6 +16398,20 @@
     "authors": "Joshua Meier, Roshan Rao, Robert Verkuil, Jason Liu, Tom Sercu, Alexander Rives"
   },
   {
+    "name": "AliceMind-MMU",
+    "date": "2021-11-17",
+    "org": "Alibaba",
+    "params": null,
+    "type": "model",
+    "license": "closed",
+    "desc": "AI model by Alibaba",
+    "source": "epoch",
+    "link": "https://arxiv.org/abs/2111.08896",
+    "trainingHardware": "NVIDIA A100",
+    "trainingDataset": "12649000",
+    "authors": "Ming Yan, Haiyang Xu, Chenliang Li, Junfeng Tian, Bin Bi, Wei Wang, Weihua Chen, Xianzhe Xu, Fan Wang, Zheng Cao, Zhicheng Zhang, Qiyu Zhang, Ji Zhang, Songfang Huang, Fei Huang, Luo Si, Rong Jin"
+  },
+  {
     "name": "Swin Transformer V2 (SwinV2-G)",
     "date": "2021-11-18",
     "org": "Microsoft Research Asia",
@@ -22071,22 +22085,6 @@
     "authors": "Lan Zhenzhong"
   },
   {
-    "name": "GPT-4 (Jun 2023)",
-    "date": "2023-03-15",
-    "org": "OpenAI",
-    "params": "1.8T",
-    "type": "model",
-    "license": "closed",
-    "desc": "AI model by OpenAI",
-    "source": "epoch",
-    "domain": "Multimodal,Language,Vision",
-    "link": "https://arxiv.org/abs/2303.08774",
-    "trainingCompute": "2.1e25",
-    "trainingHardware": "NVIDIA A100 SXM4 40 GB",
-    "trainingDataset": "5416666666666.667",
-    "authors": "OpenAI, Josh Achiam, Steven Adler, Sandhini Agarwal, Lama Ahmad, Ilge Akkaya, Florencia Leoni Aleman, Diogo Almeida, Janko Altenschmidt, Sam Altman, Shyamal Anadkat, Red Avila, Igor Babuschkin, Suchir Balaji, Valerie Balcom, Paul Baltescu, Haiming Bao, Mohammad Bavarian, Jeff Belgum, Irwan Bello, Jake Berdine, Gabriel Bernadett-Shapiro, Christopher Berner, Lenny Bogdonoff, Oleg Boiko, Madelaine Boyd, Anna-Luisa Brakman, Greg Brockman, Tim Brooks, Miles Brundage, Kevin Button, Trevor Cai, Rosie Campbell, Andrew Cann, Brittany Carey, Chelsea Carlson, Rory Carmichael, Brooke Chan, Che Chang, Fotis Chantzis, Derek Chen, Sully Chen, Ruby Chen, Jason Chen, Mark Chen, Ben Chess, Chester Cho, Casey Chu, Hyung Won Chung, Dave Cummings, Jeremiah Currier, Yunxing Dai, Cory Decareaux, Thomas Degry, Noah Deutsch, Damien Deville, Arka Dhar, David Dohan, Steve Dowling, Sheila Dunning, Adrien Ecoffet, Atty Eleti, Tyna Eloundou, David Farhi, Liam Fedus, Niko Felix, Simón Posada Fishman, Juston Forte, Isabella Fulford, Leo Gao, Elie Georges, Christian Gibson, Vik Goel, Tarun Gogineni, Gabriel Goh, Rapha Gontijo-Lopes, Jonathan Gordon, Morgan Grafstein, Scott Gray, Ryan Greene, Joshua Gross, Shixiang Shane Gu, Yufei Guo, Chris Hallacy, Jesse Han, Jeff Harris, Yuchen He, Mike Heaton, Johannes Heidecke, Chris Hesse, Alan Hickey, Wade Hickey, Peter Hoeschele, Brandon Houghton, Kenny Hsu, Shengli Hu, Xin Hu, Joost Huizinga, Shantanu Jain, Shawn Jain et al. (181 additional authors not shown)"
-  },
-  {
     "name": "Gen-2",
     "date": "2023-03-20",
     "org": "Runway",
@@ -24126,6 +24124,22 @@
     "source": "epoch",
     "domain": "Language",
     "link": "https://huggingface.co/BelleGroup/BELLE-LLaMA-13B-2M-enc"
+  },
+  {
+    "name": "GPT-4 (Jun 2023)",
+    "date": "2023-06-13",
+    "org": "OpenAI",
+    "params": "1.8T",
+    "type": "model",
+    "license": "closed",
+    "desc": "AI model by OpenAI",
+    "source": "epoch",
+    "domain": "Multimodal,Language,Vision",
+    "link": "https://arxiv.org/abs/2303.08774",
+    "trainingCompute": "2.1e25",
+    "trainingHardware": "NVIDIA A100 SXM4 40 GB",
+    "trainingDataset": "5416666666666.667",
+    "authors": "OpenAI, Josh Achiam, Steven Adler, Sandhini Agarwal, Lama Ahmad, Ilge Akkaya, Florencia Leoni Aleman, Diogo Almeida, Janko Altenschmidt, Sam Altman, Shyamal Anadkat, Red Avila, Igor Babuschkin, Suchir Balaji, Valerie Balcom, Paul Baltescu, Haiming Bao, Mohammad Bavarian, Jeff Belgum, Irwan Bello, Jake Berdine, Gabriel Bernadett-Shapiro, Christopher Berner, Lenny Bogdonoff, Oleg Boiko, Madelaine Boyd, Anna-Luisa Brakman, Greg Brockman, Tim Brooks, Miles Brundage, Kevin Button, Trevor Cai, Rosie Campbell, Andrew Cann, Brittany Carey, Chelsea Carlson, Rory Carmichael, Brooke Chan, Che Chang, Fotis Chantzis, Derek Chen, Sully Chen, Ruby Chen, Jason Chen, Mark Chen, Ben Chess, Chester Cho, Casey Chu, Hyung Won Chung, Dave Cummings, Jeremiah Currier, Yunxing Dai, Cory Decareaux, Thomas Degry, Noah Deutsch, Damien Deville, Arka Dhar, David Dohan, Steve Dowling, Sheila Dunning, Adrien Ecoffet, Atty Eleti, Tyna Eloundou, David Farhi, Liam Fedus, Niko Felix, Simón Posada Fishman, Juston Forte, Isabella Fulford, Leo Gao, Elie Georges, Christian Gibson, Vik Goel, Tarun Gogineni, Gabriel Goh, Rapha Gontijo-Lopes, Jonathan Gordon, Morgan Grafstein, Scott Gray, Ryan Greene, Joshua Gross, Shixiang Shane Gu, Yufei Guo, Chris Hallacy, Jesse Han, Jeff Harris, Yuchen He, Mike Heaton, Johannes Heidecke, Chris Hesse, Alan Hickey, Wade Hickey, Peter Hoeschele, Brandon Houghton, Kenny Hsu, Shengli Hu, Xin Hu, Joost Huizinga, Shantanu Jain, Shawn Jain et al. (181 additional authors not shown)"
   },
   {
     "name": "GPT-3.5 Turbo",
@@ -31419,7 +31433,6 @@
     "source": "epoch",
     "domain": "Language",
     "link": "https://mistral.ai/news/mistral-large/",
-    "trainingCompute": "1.1e25",
     "trainingHardware": "NVIDIA H100 SXM5 80GB"
   },
   {
@@ -37316,7 +37329,6 @@
     "source": "epoch",
     "domain": "Language",
     "link": "https://mistral.ai/news/mistral-large-2407/",
-    "trainingCompute": "2.1e25",
     "authors": "Albert Jiang, Alexandre Sablayrolles, Alexis Tacnet, Alok Kothari, Antoine Roux, Arthur Mensch, Audrey Herblin-Stoop, Augustin Garreau, Austin Birky, Bam4d, Baptiste Bout, Baudouin de Monicault, Blanche Savary, Carole Rambaud, Caroline Feldman, Devendra Singh Chaplot, Diego de las Casas, Diogo Costa, Eleonore Arcelin, Emma Bou Hanna, Etienne Metzger, Gaspard Blanchet, Gianna Lengyel, Guillaume Bour, Guillaume Lample, Harizo Rajaona, Henri Roussez, Hichem Sattouf, Ian Mack, Jean-Malo Delignon, Jessica Chudnovsky, Justus Murke, Kartik Khandelwal, Lawrence Stewart, Louis Martin, Louis Ternon, Lucile Saulnier, Lélio Renard Lavaud, Margaret Jennings, Marie Pellat, Marie Torelli, Marie-Anne Lachaux, Marjorie Janiewicz, Mickaël Seznec, Nicolas Schuhl, Niklas Muhs, Olivier de Garrigues, Patrick von Platen, Paul Jacob, Pauline Buche, Pavan Kumar Reddy, Perry Savas, Pierre Stock, Romain Sauvestre, Sagar Vaze, Sandeep Subramanian, Saurabh Garg, Sophia Yang, Szymon Antoniak, Teven Le Scao, Thibault Schueller, Thibaut Lavril, Thomas Wang, Théophile Gervet, Timothée Lacroix, Valera Nemychnikova, Wendy Shang, William El Sayed, William Marshall"
   },
   {
@@ -51646,6 +51658,18 @@
     "link": "https://ideogram.ai/features/character"
   },
   {
+    "name": "Mistral Medium 3.1",
+    "date": "2025-08-12",
+    "org": "Mistral AI",
+    "params": null,
+    "type": "model",
+    "license": "closed",
+    "desc": "AI model by Mistral AI",
+    "source": "epoch",
+    "domain": "Language",
+    "link": "https://x.com/MistralAI/status/1955316715417382979?lang=en"
+  },
+  {
     "name": "DINOv3",
     "date": "2025-08-13",
     "org": "Meta AI",
@@ -54415,6 +54439,7 @@
     "source": "epoch",
     "domain": "Language",
     "link": "https://huggingface.co/upstage/Solar-Open-100B",
+    "trainingCompute": "1.4e24",
     "trainingDataset": "19700000000000",
     "authors": "Upstage AI"
   },
@@ -55432,6 +55457,18 @@
     "link": "https://openai.com/index/introducing-gpt-5-4-mini-and-nano/"
   },
   {
+    "name": "MiniMax-M2.7",
+    "date": "2026-03-18",
+    "org": "MiniMax",
+    "params": "229B",
+    "type": "model",
+    "license": "open",
+    "desc": "AI model by MiniMax",
+    "source": "epoch",
+    "domain": "Language",
+    "link": "https://www.minimax.io/news/minimax-m27-en"
+  },
+  {
     "name": "MiMo-V2-Pro",
     "date": "2026-03-18",
     "org": "Xiaomi Corp",
@@ -55859,7 +55896,19 @@
     "link": "https://z.ai/blog/glm-5.1"
   },
   {
-    "name": "LG EXAONE 4.5",
+    "name": "Muse Spark",
+    "date": "2026-04-08",
+    "org": "Meta AI",
+    "params": null,
+    "type": "model",
+    "license": "closed",
+    "desc": "AI model by Meta AI",
+    "source": "epoch",
+    "domain": "Multimodal,Language,Vision",
+    "link": "https://ai.meta.com/blog/introducing-muse-spark-msl/"
+  },
+  {
+    "name": "EXAONE 4.5",
     "date": "2026-04-09",
     "org": "LG AI Research",
     "params": "33.2B",
@@ -55868,7 +55917,7 @@
     "desc": "AI model by LG AI Research",
     "source": "epoch",
     "domain": "Language,Multimodal",
-    "trainingCompute": "2.2e23",
+    "trainingCompute": "3.9e24",
     "authors": "Eunbi Choi, Kibong Choi, Sehyun Chun, Seokhee Hong, Junwon Hwang, Hyojin Jeon, Ahra Jo, Hyunjik Jo, Yeonsik Jo, Joonkee Kim, Seonghwan Kim, Soyeon Kim, Sunkyoung Kim, Yireun Kim, Yongil Kim, Changhun Lee, Haeju Lee, Jinsik Lee, Kyungmin Lee, Sangha Park, Kwangrok Ryoo, Minju Seo, Sejong Yang, Heuiyeen Yeen, Hwan Chang, Stanley Jungkyu Choi, Yejin Choi, Kyubeen Han, Joonwon Jang, Kijeong Jeon, Geunyeong Jeong, Gerrard Jeongwon Jo, Jiyeon Jung, Daeseong Kim, Dohoon Kim, Dohyun Kim, Hyunseo Kim, Minu Kim, Myoungshin Kim, Youchul Kim, Byungoh Ko, Christopher Lee, Edward Hwayoung Lee, Honglak Lee, Jiyoung Lee, Sangeun Lee, Seungwon Lim, Woohyung Lim, Jueun Mun, Jaewoo Park, Jimin Park, Jinho Park, Yongmin Park, Wooseok Seo, Yongwoo Song, Sihyuk Yi, Kyungjae Yoo, Sangyeon Yoon"
   },
   {
@@ -55994,6 +56043,32 @@
     "link": "https://x.ai/news/grok-voice-think-fast-1"
   },
   {
+    "name": "MiMo-V2.5-Pro",
+    "date": "2026-04-23",
+    "org": "Xiaomi Corp",
+    "params": "1.0T",
+    "type": "model",
+    "license": "open",
+    "desc": "AI model by Xiaomi Corp",
+    "source": "epoch",
+    "domain": "Language",
+    "link": "https://mimo.xiaomi.com/mimo-v2-5-pro/",
+    "trainingCompute": "6.8e24",
+    "trainingDataset": "27000000000000"
+  },
+  {
+    "name": "Tencent Hy3 preview",
+    "date": "2026-04-23",
+    "org": "Tencent",
+    "params": "295B",
+    "type": "model",
+    "license": "open",
+    "desc": "AI model by Tencent",
+    "source": "epoch",
+    "domain": "Language",
+    "link": "https://hy.tencent.com/hy3-preview"
+  },
+  {
     "name": "DeepSeek-V4-Pro",
     "date": "2026-04-24",
     "org": "DeepSeek",
@@ -56018,20 +56093,6 @@
     "domain": "Language",
     "link": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf",
     "trainingCompute": "2.5e24"
-  },
-  {
-    "name": "MiMo-V2.5-Pro",
-    "date": "2026-04-27",
-    "org": "Xiaomi Corp",
-    "params": "1.0T",
-    "type": "model",
-    "license": "open",
-    "desc": "AI model by Xiaomi Corp",
-    "source": "epoch",
-    "domain": "Language",
-    "link": "https://mimo.xiaomi.com/mimo-v2-5-pro/",
-    "trainingCompute": "6.8e24",
-    "trainingDataset": "27000000000000"
   },
   {
     "name": "Mistral Medium 3.5",
@@ -56144,6 +56205,30 @@
     "link": "https://qwen.ai/blog?id=qwen3.7"
   },
   {
+    "name": "Qwen3.7-Max",
+    "date": "2026-05-19",
+    "org": "Alibaba",
+    "params": null,
+    "type": "model",
+    "license": "closed",
+    "desc": "AI model by Alibaba",
+    "source": "epoch",
+    "domain": "Language",
+    "link": "https://qwen.ai/blog?id=qwen3.7"
+  },
+  {
+    "name": "Claude Opus 4.8",
+    "date": "2026-05-28",
+    "org": "Anthropic",
+    "params": null,
+    "type": "model",
+    "license": "closed",
+    "desc": "AI model by Anthropic",
+    "source": "epoch",
+    "domain": "Language",
+    "link": "https://www.anthropic.com/news/claude-opus-4-8"
+  },
+  {
     "name": "MiniMax-M3",
     "date": "2026-06-01",
     "org": "MiniMax",
@@ -56154,6 +56239,21 @@
     "source": "epoch",
     "domain": "Language,Multimodal",
     "link": "https://www.minimax.io/blog/minimax-m3"
+  },
+  {
+    "name": "MAI-Thinking-1",
+    "date": "2026-06-02",
+    "org": "Microsoft",
+    "params": "962B",
+    "type": "model",
+    "license": "closed",
+    "desc": "AI model by Microsoft",
+    "source": "epoch",
+    "domain": "Language",
+    "link": "https://microsoft.ai/wp-content/uploads/2026/06/main_20260602_2.pdf",
+    "trainingCompute": "7.0e24",
+    "trainingHardware": "NVIDIA GB200",
+    "trainingDataset": "33550000000000"
   },
   {
     "name": "MAI-Image-2.5",
@@ -56229,5 +56329,226 @@
     "domain": "Language",
     "link": "https://cohere.com/blog/north-mini-code",
     "authors": "Jay Alammar, Sophia Althammer, Dennis Aumiller, Leon Engländer, Yannis Flet-Berliac, Eden Gilbert, Sarra Habchi, Kylie He, Dhruti Joshi, Jozef Mokrý, David Mora, Josh Netto-Rosen, Deniz Qian, Lawrence Rodgers, Willem Röpke, Tom Sherborne, Ahmet Üstün, Minjie Xu, Diana Abagyan, Sammie Bae, Björn Bebensee, Walter Beller-Morales, Sepideh Shaterian Bidgoli, Bas Büller, David Cairuz, Kris Cao, Roman Castagné, Giannis Chatziveroglou, Tim Chung, Felipe Cruz, Rishit Dholakia, Ali Edalati, Nikolas Gritsch, Kilian Haefeli, Prashant Kumar, Simon Lehnerer, Tony Liu, Alex McKinney, Ekagra Ranjan, Dev Shah, Zewen Shen, Sylvie Shi, Dwarak Talupuru, Komal Teru, Robin Vaaler, Bharat Venkitesh, Donglu Wang, Terrence Zhao, Leo Zhou, Conway Zhu, Phil Blunsom, Nick Frosst, Aidan Gomez, Manoj Govindassamy, Nick Jakobi, Patrick Lewis, Acyr Locatelli, Joelle Pineau, Ivan Zhang"
+  },
+  {
+    "name": "Kimi K2.7 Code",
+    "date": "2026-06-12",
+    "org": "Moonshot",
+    "params": "1.0T",
+    "type": "model",
+    "license": "open",
+    "desc": "AI model by Moonshot",
+    "source": "epoch",
+    "domain": "Language,Multimodal,Vision",
+    "link": "https://platform.kimi.ai/docs/guide/kimi-k2-7-code-quickstart"
+  },
+  {
+    "name": "GLM-5.2",
+    "date": "2026-06-16",
+    "org": "Z.ai (Zhipu AI)",
+    "params": "744B",
+    "type": "model",
+    "license": "open",
+    "desc": "AI model by Z.ai (Zhipu AI)",
+    "source": "epoch",
+    "domain": "Language",
+    "link": "https://z.ai/blog/glm-5.2"
+  },
+  {
+    "name": "Solar Open2 250B",
+    "date": "2026-06-28",
+    "org": "Upstage",
+    "params": "250.3B",
+    "type": "model",
+    "license": "open",
+    "desc": "AI model by Upstage",
+    "source": "epoch",
+    "domain": "Language",
+    "link": "https://huggingface.co/upstage/Solar-Open2-250B",
+    "trainingCompute": "1.1e24",
+    "trainingHardware": "NVIDIA B200,NVIDIA H200",
+    "trainingDataset": "11000000000000",
+    "authors": "Upstage Team"
+  },
+  {
+    "name": "Claude Sonnet 5",
+    "date": "2026-06-30",
+    "org": "Anthropic",
+    "params": null,
+    "type": "model",
+    "license": "closed",
+    "desc": "AI model by Anthropic",
+    "source": "epoch",
+    "domain": "Language,Multimodal",
+    "link": "https://www.anthropic.com/news/claude-sonnet-5"
+  },
+  {
+    "name": "GPT-Realtime-2.1-Mini",
+    "date": "2026-07-06",
+    "org": "OpenAI",
+    "params": null,
+    "type": "model",
+    "license": "closed",
+    "desc": "AI model by OpenAI",
+    "source": "epoch"
+  },
+  {
+    "name": "Muse Image",
+    "date": "2026-07-07",
+    "org": "Meta AI",
+    "params": null,
+    "type": "model",
+    "license": "closed",
+    "desc": "AI model by Meta AI",
+    "source": "epoch",
+    "domain": "Image generation",
+    "link": "https://about.fb.com/news/2026/07/introducing-muse-image-meta-ai/"
+  },
+  {
+    "name": "Grok 4.5",
+    "date": "2026-07-08",
+    "org": "xAI",
+    "params": "1.5T",
+    "type": "model",
+    "license": "closed",
+    "desc": "AI model by xAI",
+    "source": "epoch",
+    "domain": "Language",
+    "link": "https://x.ai/news/grok-4-5"
+  },
+  {
+    "name": "GPT-5.6 Sol",
+    "date": "2026-07-09",
+    "org": "OpenAI",
+    "params": null,
+    "type": "model",
+    "license": "closed",
+    "desc": "AI model by OpenAI",
+    "source": "epoch",
+    "domain": "Multimodal,Language,Vision",
+    "link": "https://openai.com/index/gpt-5-6/"
+  },
+  {
+    "name": "GPT-5.6 Terra",
+    "date": "2026-07-09",
+    "org": "OpenAI",
+    "params": null,
+    "type": "model",
+    "license": "closed",
+    "desc": "AI model by OpenAI",
+    "source": "epoch",
+    "domain": "Multimodal,Language,Vision",
+    "link": "https://openai.com/index/gpt-5-6/"
+  },
+  {
+    "name": "GPT-5.6 Luna",
+    "date": "2026-07-09",
+    "org": "OpenAI",
+    "params": null,
+    "type": "model",
+    "license": "closed",
+    "desc": "AI model by OpenAI",
+    "source": "epoch",
+    "domain": "Multimodal,Language,Vision",
+    "link": "https://openai.com/index/gpt-5-6/"
+  },
+  {
+    "name": "Muse Spark 1.1",
+    "date": "2026-07-09",
+    "org": "Meta AI",
+    "params": null,
+    "type": "model",
+    "license": "closed",
+    "desc": "AI model by Meta AI",
+    "source": "epoch",
+    "domain": "Language",
+    "link": "https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/\nhttps://ai.meta.com/static-resource/muse-spark-1-1-evaluation-report"
+  },
+  {
+    "name": "Inkling",
+    "date": "2026-07-15",
+    "org": "Thinking Machines",
+    "params": "975B",
+    "type": "model",
+    "license": "open",
+    "desc": "AI model by Thinking Machines",
+    "source": "epoch",
+    "domain": "Language,Multimodal,Audio,Video,Vision",
+    "link": "https://thinkingmachines.ai/news/introducing-inkling/",
+    "trainingCompute": "1.8e24",
+    "trainingHardware": "NVIDIA GB300 (Blackwell Ultra)",
+    "trainingDataset": "45000000000000"
+  },
+  {
+    "name": "Inkling-Small",
+    "date": "2026-07-15",
+    "org": "Thinking Machines",
+    "params": "276B",
+    "type": "model",
+    "license": "closed",
+    "desc": "AI model by Thinking Machines",
+    "source": "epoch",
+    "domain": "Language,Multimodal,Audio,Video,Vision",
+    "link": "https://thinkingmachines.ai/news/introducing-inkling/"
+  },
+  {
+    "name": "Kimi K3",
+    "date": "2026-07-16",
+    "org": "Moonshot",
+    "params": "2.8T",
+    "type": "model",
+    "license": "closed",
+    "desc": "AI model by Moonshot",
+    "source": "epoch",
+    "domain": "Language,Multimodal,Vision",
+    "link": "https://platform.kimi.ai/docs/guide/kimi-k3-quickstart"
+  },
+  {
+    "name": "Gemini 3.6 Flash",
+    "date": "2026-07-21",
+    "org": "Google DeepMind",
+    "params": null,
+    "type": "model",
+    "license": "closed",
+    "desc": "AI model by Google DeepMind",
+    "source": "epoch",
+    "domain": "Language,Multimodal,Vision",
+    "link": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-6-flash-3-5-flash-lite-3-5-flash-cyber/"
+  },
+  {
+    "name": "Gemini 3.5 Flash-Lite",
+    "date": "2026-07-21",
+    "org": "Google DeepMind",
+    "params": null,
+    "type": "model",
+    "license": "closed",
+    "desc": "AI model by Google DeepMind",
+    "source": "epoch",
+    "domain": "Language,Multimodal,Vision",
+    "link": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-6-flash-3-5-flash-lite-3-5-flash-cyber/"
+  },
+  {
+    "name": "Gemini 3.5 Flash Cyber",
+    "date": "2026-07-21",
+    "org": "Google DeepMind",
+    "params": null,
+    "type": "model",
+    "license": "closed",
+    "desc": "AI model by Google DeepMind",
+    "source": "epoch",
+    "domain": "Language,Multimodal,Vision",
+    "link": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-6-flash-3-5-flash-lite-3-5-flash-cyber/"
+  },
+  {
+    "name": "Claude Opus 5",
+    "date": "2026-07-24",
+    "org": "Anthropic",
+    "params": null,
+    "type": "model",
+    "license": "closed",
+    "desc": "AI model by Anthropic",
+    "source": "epoch",
+    "domain": "Language,Vision,Multimodal",
+    "link": "https://www.anthropic.com/news/claude-opus-5"
   }
 ]
