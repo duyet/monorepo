@@ -20,7 +20,7 @@ interface StatTileBaseProps {
 }
 
 function StatTileDiv({
-  icon: _icon,
+  icon,
   value,
   label,
   sublabel,
@@ -34,6 +34,7 @@ function StatTileDiv({
       )}
     >
       <div className="rd-eyebrow flex items-center gap-1.5 text-[10.5px]">
+        <span className="inline-flex text-[var(--rd-accent)]">{icon}</span>
         {label}
       </div>
       <div className={cn("text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none text-[1.9rem]", active && "text-[var(--rd-accent-ink)]")}>
@@ -45,7 +46,7 @@ function StatTileDiv({
 }
 
 function StatTileLink({
-  icon: _icon,
+  icon,
   value,
   label,
   sublabel,
@@ -61,6 +62,7 @@ function StatTileLink({
       )}
     >
       <div className="rd-eyebrow flex items-center gap-1.5 text-[10.5px]">
+        <span className="inline-flex text-[var(--rd-accent)]">{icon}</span>
         {label}
       </div>
       <div className={cn("text-[clamp(2rem,4vw,2.9rem)] font-semibold tracking-[-0.04em] leading-none text-[1.9rem]", active && "text-[var(--rd-accent-ink)]")}>
@@ -81,28 +83,28 @@ export function StatsCards({
   const sourceCount = sourceStats ? Object.keys(sourceStats).length : 0;
 
   return (
-    <div className="signalbar">
+    <div className="signalbar signalbar-4">
       <StatTileLink
         to="/"
-        icon={<Sparkles className="h-5 w-5 text-[var(--rd-text)]" />}
+        icon={<Sparkles size={12} />}
         value={models.toLocaleString()}
         label="Models"
         active={activeView === "models"}
       />
       <StatTileLink
         to="/org"
-        icon={<Building2 className="h-5 w-5 text-[var(--rd-text)]" />}
+        icon={<Building2 size={12} />}
         value={organizations.toLocaleString()}
         label="Organizations"
         active={activeView === "organizations"}
       />
       <StatTileDiv
-        icon={<Database className="h-5 w-5 text-[var(--rd-text)]" />}
+        icon={<Database size={12} />}
         value={sourceCount > 0 ? sourceCount.toLocaleString() : "—"}
         label="Sources"
       />
       <StatTileDiv
-        icon={<TrendingUp className="h-5 w-5 text-[var(--rd-text)]" />}
+        icon={<TrendingUp size={12} />}
         value={years && years > 0 ? years.toLocaleString() : "—"}
         label="Years"
       />

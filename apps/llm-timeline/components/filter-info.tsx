@@ -5,6 +5,7 @@ import { SearchAutocomplete } from "@/components/SearchAutocomplete";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Select } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
 import { domains } from "@/lib/data";
 
 type View = "models" | "organizations";
@@ -96,21 +97,22 @@ export function FilterInfo({
             </Button>
           )}
 
-          <Button
-            variant={liteMode ? "secondary" : "outline"}
-            onClick={toggleLiteMode}
-            className="h-10 rounded-lg"
+          <label
+            htmlFor="lite-mode"
+            className="flex h-10 cursor-pointer items-center gap-2 rounded-lg border border-border px-3"
             title={liteMode ? "Switch to full view" : "Switch to compact view"}
           >
-            {liteMode ? (
-              <List className="h-4 w-4" />
-            ) : (
-              <GitCompare className="h-4 w-4" />
-            )}
-            <span className="hidden sm:inline">
-              {liteMode ? "Compact" : "Full"}
+            <List className="h-4 w-4 text-muted-foreground" />
+            <span className="hidden text-sm text-foreground sm:inline">
+              Compact
             </span>
-          </Button>
+            <Switch
+              id="lite-mode"
+              aria-label="Compact view"
+              checked={liteMode}
+              onCheckedChange={toggleLiteMode}
+            />
+          </label>
         </div>
       </div>
 
@@ -164,15 +166,19 @@ export function FilterInfo({
         </div>
 
         {comparisonMode !== undefined && onToggleComparisonMode && (
-          <Button
-            variant={comparisonMode ? "default" : "outline"}
-            size="sm"
-            onClick={onToggleComparisonMode}
-            className="h-8"
+          <label
+            htmlFor="comparison-mode"
+            className="flex cursor-pointer items-center gap-2"
           >
-            <GitCompare className="h-3.5 w-3.5 mr-1.5" />
-            {comparisonMode ? "Comparing" : "Compare"}
-          </Button>
+            <GitCompare className="h-3.5 w-3.5 text-muted-foreground" />
+            <span className="text-sm text-foreground">Compare</span>
+            <Switch
+              id="comparison-mode"
+              aria-label="Comparison mode"
+              checked={comparisonMode}
+              onCheckedChange={onToggleComparisonMode}
+            />
+          </label>
         )}
       </div>
     </div>

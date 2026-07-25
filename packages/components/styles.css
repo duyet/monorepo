@@ -828,6 +828,11 @@ html.dark .prose pre {
     border-radius: var(--rd-r);
     overflow: hidden;
   }
+  /* Opt-in for consumers with four tiles instead of home's five. The
+     narrower breakpoints below still override this. */
+  .signalbar-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
   .signal-tile {
     text-align: left;
     background: var(--rd-surface);

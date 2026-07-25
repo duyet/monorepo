@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { filterInfoBaseProps } from "../../test-fixtures";
 import { FilterInfo } from "../filter-info";
@@ -57,25 +57,60 @@ describe("FilterInfo", () => {
     expect(selects.length).toBe(0);
   });
 
-  it("shows comparison mode hint when comparisonMode=true", () => {
-    const { getByText } = render(
+  it("reflects an enabled comparison mode on the switch", () => {
+    const { getByRole } = render(
       <FilterInfo
         {...filterInfoBaseProps}
         comparisonMode
         onToggleComparisonMode={() => {}}
       />
     );
-    expect(getByText("Comparing")).toBeDefined();
+    expect(
+      getByRole("switch", { name: "Comparison mode" }).getAttribute(
+        "aria-checked"
+      )
+    ).toBe("true");
   });
 
-  it("does not show comparison mode hint when comparisonMode=false", () => {
-    const { queryByText } = render(<FilterInfo {...filterInfoBaseProps} />);
-    expect(queryByText("Compare")).toBeNull();
+  it("reflects a disabled comparison mode on the switch", () => {
+    const { getByRole } = render(
+      <FilterInfo
+        {...filterInfoBaseProps}
+        comparisonMode={false}
+        onToggleComparisonMode={() => {}}
+      />
+    );
+    expect(
+      getByRole("switch", { name: "Comparison mode" }).getAttribute(
+        "aria-checked"
+      )
+    ).toBe("false");
   });
 
-  it("renders view mode toggle button", () => {
-    const { getByText } = render(<FilterInfo {...filterInfoBaseProps} />);
-    const btn = getByText("Full");
-    expect(btn).toBeDefined();
+  it("omits the comparison switch when no toggle handler is given", () => {
+    const { queryByRole } = render(<FilterInfo {...filterInfoBaseProps} />);
+    expect(queryByRole("switch", { name: "Comparison mode" })).toBeNull();
+  });
+
+  it("renders the compact-view switch, off by default", () => {
+    const { getByRole } = render(<FilterInfo {...filterInfoBaseProps} />);
+    expect(
+      getByRole("switch", { name: "Compact view" }).getAttribute("aria-checked")
+    ).toBe("false");
+  });
+
+  it("calls onToggleComparisonMode when the switch is clicked", () => {
+    let toggled = false;
+    const { getByRole } = render(
+      <FilterInfo
+        {...filterInfoBaseProps}
+        comparisonMode={false}
+        onToggleComparisonMode={() => {
+          toggled = true;
+        }}
+      />
+    );
+    fireEvent.click(getByRole("switch", { name: "Comparison mode" }));
+    expect(toggled).toBe(true);
   });
 });

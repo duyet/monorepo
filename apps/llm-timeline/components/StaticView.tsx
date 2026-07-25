@@ -1,6 +1,6 @@
 import { parseParamValue } from "@duyet/libs";
 import { cn } from "@duyet/libs/utils";
-import { Calendar, CalendarDays, LayoutGrid, type LucideIcon, Table2, X } from "lucide-react";
+import { Calendar, CalendarDays, LayoutGrid, Table2, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { FilterInfo } from "@/components/filter-info";
 import {
@@ -23,6 +23,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { Model } from "@/lib/data";
 import { organizations } from "@/lib/data";
 import {
@@ -262,69 +263,72 @@ export function StaticView({
         </div>
       )}
 
-      <div className="mb-4 flex flex-wrap items-center gap-x-6 gap-y-3">
-        <div className="flex items-center gap-2">
-          <span className="rd-eyebrow">Layout</span>
-          <div className="flex gap-1 bg-[var(--rd-surface-2)] rounded-[var(--rd-r-sm)] p-1">
-            {(
-              [
-                { value: "grid", Icon: LayoutGrid },
-                { value: "table", Icon: Table2 },
-              ] as const
-            ).map(({ value, Icon }) => (
-              <SegButton
-                key={value}
-                Icon={Icon}
-                label={value}
-                active={viewMode === value}
-                onClick={() => setViewMode(value)}
-              />
-            ))}
-          </div>
-        </div>
-
-        {viewMode === "grid" && (
-          <div className="flex items-center gap-2">
-            <span className="rd-eyebrow">Group</span>
-            <div className="flex gap-1 bg-[var(--rd-surface-2)] rounded-[var(--rd-r-sm)] p-1">
-              {(
-                [
-                  { value: "year", Icon: Calendar },
-                  { value: "month", Icon: CalendarDays },
-                ] as const
-              ).map(({ value, Icon }) => (
-                <SegButton
-                  key={value}
-                  Icon={Icon}
-                  label={value}
-                  active={grouping === value}
-                  onClick={() => setGrouping(value)}
-                />
-              ))}
+      {view === "models" && (
+        <Tabs
+          value={viewMode}
+          onValueChange={(v) => setViewMode(v as "grid" | "table")}
+        >
+          <div className="mb-4 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <div className="flex items-center gap-2">
+              <span className="rd-eyebrow">Layout</span>
+              <TabsList aria-label="Timeline layout">
+                <TabsTrigger value="grid">
+                  <LayoutGrid />
+                  grid
+                </TabsTrigger>
+                <TabsTrigger value="table">
+                  <Table2 />
+                  table
+                </TabsTrigger>
+              </TabsList>
             </div>
-          </div>
-        )}
-      </div>
 
-      {view === "models" &&
-        (viewMode === "table" ? (
-          <TimelineTable modelsByYear={modelsByYear} />
-        ) : grouping === "year" ? (
-          <TimelineGrid
-            modelsByYear={modelsByYear}
-            comparisonMode={comparisonMode}
-            selectedModelNames={selectedModelNames}
-            onToggleSelection={handleToggleSelection}
-            grouping="year"
-          />
-        ) : (
-          <MonthGroupedTimeline
-            models={filteredModels}
-            comparisonMode={comparisonMode}
-            selectedModelNames={selectedModelNames}
-            onToggleSelection={handleToggleSelection}
-          />
-        ))}
+            {viewMode === "grid" && (
+              <div className="flex items-center gap-2">
+                <span className="rd-eyebrow">Group</span>
+                <Tabs
+                  value={grouping}
+                  onValueChange={(v) => setGrouping(v as Grouping)}
+                >
+                  <TabsList aria-label="Group models by">
+                    <TabsTrigger value="year">
+                      <Calendar />
+                      year
+                    </TabsTrigger>
+                    <TabsTrigger value="month">
+                      <CalendarDays />
+                      month
+                    </TabsTrigger>
+                  </TabsList>
+                </Tabs>
+              </div>
+            )}
+          </div>
+
+          <TabsContent value="grid">
+            {grouping === "year" ? (
+              <TimelineGrid
+                modelsByYear={modelsByYear}
+                comparisonMode={comparisonMode}
+                selectedModelNames={selectedModelNames}
+                onToggleSelection={handleToggleSelection}
+                grouping="year"
+              />
+            ) : (
+              <MonthGroupedTimeline
+                models={filteredModels}
+                comparisonMode={comparisonMode}
+                selectedModelNames={selectedModelNames}
+                onToggleSelection={handleToggleSelection}
+              />
+            )}
+          </TabsContent>
+
+          <TabsContent value="table">
+            <TimelineTable modelsByYear={modelsByYear} />
+          </TabsContent>
+        </Tabs>
+      )}
 
       {view === "organizations" && (
         <div className="rd-g3 gap-3">
@@ -403,33 +407,6 @@ export function StaticView({
         </>
       )}
     </>
-  );
-}
-
-function SegButton({
-  Icon,
-  label,
-  active,
-  onClick,
-}: {
-  Icon: LucideIcon;
-  label: string;
-  active: boolean;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className={cn(
-        "flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-[var(--rd-r-sm)] transition-all font-medium capitalize",
-        active
-          ? "bg-[var(--rd-text)] text-[var(--rd-bg)]"
-          : "text-[var(--rd-text-3)] hover:text-[var(--rd-text)]"
-      )}
-    >
-      <Icon className="h-3.5 w-3.5" />
-      {label}
-    </button>
   );
 }
 
