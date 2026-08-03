@@ -14,7 +14,7 @@
     "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh agent-assistant duyet-agent-assistant"
   },
   "dependencies": {
-    "@assistant-ui/react": "^0.14.5",
+    "@assistant-ui/react": "^0.15.0",
     "@assistant-ui/react-langgraph": "latest",
     "@assistant-ui/react-markdown": "^0.14.0",
     "@duyet/components": "*",
@@ -37,8 +37,8 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.16.0",
-    "react": "19.2.7",
-    "react-dom": "19.2.7",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
     "remark-gfm": "^4.0.1",
     "tailwind-merge": "^3.3.0",
     "zustand": "^5.0.13"
