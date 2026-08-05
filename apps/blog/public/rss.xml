@@ -4,11 +4,11 @@
         <description><![CDATA[Sr. Data Engineer. Rustacean at night]]></description>
         <link>https://blog.duyet.net</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Sun, 19 Jul 2026 18:27:08 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 05 Aug 2026 08:41:17 GMT</lastBuildDate>
         <atom:link href="https://blog.duyet.net/rss.xml" rel="self" type="application/rss+xml"/>
         <item>
             <title><![CDATA[I am building anyrouter.dev]]></title>
-            <description><![CDATA[I am building AnyRouter to collect free LLM tokens from everywhere and unify the MCP Gateway. Yes, it's another router, but this is a router of routers: one API, BYOK, and a shared key pool.]]></description>
+            <description><![CDATA[I am building AnyRouter to solve my problem of collecting free LLM tokens from everywhere and unifying the MCP Gateway. Yes, it's another router, but this is a router of routers.]]></description>
             <link>https://blog.duyet.net/2026/07/anyrouter</link>
             <guid isPermaLink="true">https://blog.duyet.net/2026/07/anyrouter</guid>
             <pubDate>Sun, 19 Jul 2026 00:00:00 GMT</pubDate>
