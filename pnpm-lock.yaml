@@ -930,7 +930,7 @@ importers:
         specifier: ^1.0.0
         version: 1.28.0(react@19.2.8)
       motion:
-        specifier: ^11.18.2
+        specifier: ^12.43.0
         version: 12.43.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       react:
         specifier: 19.2.8
