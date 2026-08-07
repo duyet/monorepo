@@ -34,6 +34,11 @@ export interface AppItem {
   logo?: string;
   /** Optional dark-mode logo URL. If provided, used when user prefers dark mode. */
   logoDark?: string;
+  /**
+   * Blog post slugs to link from this project card. Each slug is a path like
+   * "/2026/06/goal-and-loop" — rendered as a link to https://blog.duyet.net{slug}.
+   */
+  blogPosts?: string[];
 }
 
 const hostOf = (url: string) => new URL(url).host;
@@ -81,6 +86,7 @@ export const apps: AppItem[] = [
     iconName: "Database",
     logo: "https://chmonitor.dev/brand/logo-chmonitor-avatar-solid.svg",
     tags: ["Data", "AI"],
+    blogPosts: ["/2024/03/clickhouse-monitoring"],
   },
   {
     name: "ShareHTML",
@@ -135,6 +141,7 @@ export const apps: AppItem[] = [
     logo: "https://cdn.simpleicons.org/modelcontextprotocol",
     logoDark: "https://cdn.simpleicons.org/modelcontextprotocol/ffffff",
     tags: ["AI", "Tool"],
+    blogPosts: ["/2026/01/coding-agent"],
   },
   {
     name: "Claude Codex Plugins",
@@ -146,6 +153,7 @@ export const apps: AppItem[] = [
     tone: "bg-[#4f6f62]",
     iconName: "Puzzle",
     tags: ["AI", "TypeScript"],
+    blogPosts: ["/2026/01/coding-agent/duyet-claude-plugins"],
   },
   {
     name: "Stamps",
@@ -233,6 +241,7 @@ export const apps: AppItem[] = [
     domain: "github.com/duyet/ccr",
     iconName: "Bot",
     tags: ["AI", "TypeScript"],
+    blogPosts: ["/2026/01/coding-agent/claude-code"],
   },
   {
     name: "Codex & Claude Plugins",
@@ -247,6 +256,7 @@ export const apps: AppItem[] = [
     logo: "https://cdn.simpleicons.org/anthropic",
     logoDark: "https://cdn.simpleicons.org/anthropic/ffffff",
     tags: ["AI", "TypeScript"],
+    blogPosts: ["/2026/01/coding-agent/duyet-claude-plugins", "/2026/01/coding-agent/opencode"],
   },
   {
     name: "duyet MCP Server",
@@ -438,5 +448,18 @@ export const apps: AppItem[] = [
     iconName: "Cpu",
     logo: "https://raw.githubusercontent.com/duyet/build-agent/refs/heads/main/assets/logo.svg",
     tags: ["AI", "Tool"],
+    blogPosts: ["/2026/06/goal-and-loop", "/2026/07/open-managed-agents"],
+  },
+  {
+    name: "OMA",
+    href: "https://github.com/duyet/oma",
+    host: "github.com",
+    utmContent: "oma_bento",
+    description:
+      "Open Managed Agents — a self-hosted control plane on Cloudflare that drives agents on any sandbox backend from one UI and one API.",
+    domain: "github.com/duyet/oma",
+    iconName: "Cpu",
+    tags: ["AI", "Infra"],
+    blogPosts: ["/2026/07/open-managed-agents"],
   },
 ];

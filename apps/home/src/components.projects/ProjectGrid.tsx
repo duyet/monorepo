@@ -1,8 +1,15 @@
 import { Reveal } from "@duyet/components";
+import { ArrowUpRight } from "lucide-react";
 import { ProjectCardHeader } from "../components/ProjectCardHeader";
 import { Badge } from "../components/ui/badge";
 import type { AppItem } from "../data/projects";
 import { categoryOf } from "./filter-utils";
+import rawBlogPosts from "../../../blog/public/posts-data.json";
+
+type BlogPost = { slug: string; title: string };
+const blogBySlug = new Map<string, BlogPost>(
+  (rawBlogPosts as BlogPost[]).map((p) => [p.slug, p]),
+);
 
 export function ProjectGrid({ items }: { items: AppItem[] }) {
   return (
@@ -42,6 +49,25 @@ export function ProjectGrid({ items }: { items: AppItem[] }) {
                   </Badge>
                 </div>
               </div>
+              {item.blogPosts ? (
+                <div className="mt-2 flex flex-col gap-0.5">
+                  {item.blogPosts
+                    .map((slug) => blogBySlug.get(slug))
+                    .filter((p): p is BlogPost => p !== undefined)
+                    .slice(0, 2)
+                    .map((post) => (
+                      <a
+                        key={post.slug}
+                        href={`https://blog.duyet.net${post.slug}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rd-ulink text-[11.5px] leading-snug inline-flex items-center gap-1"
+                      >
+                        {post.title} <ArrowUpRight size={10} />
+                      </a>
+                    ))}
+                </div>
+              ) : null}
             </div>
           </Reveal>
         );

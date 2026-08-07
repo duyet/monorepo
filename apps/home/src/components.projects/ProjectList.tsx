@@ -1,8 +1,15 @@
 import { Link } from "@tanstack/react-router";
+import { ArrowUpRight } from "lucide-react";
 import { addUtmParams } from "../../app/lib/utm";
 import { Badge } from "../components/ui/badge";
 import type { AppItem } from "../data/projects";
 import { ColoredDomain } from "./ColoredDomain";
+import rawBlogPosts from "../../../blog/public/posts-data.json";
+
+type BlogPost = { slug: string; title: string };
+const blogBySlug = new Map<string, BlogPost>(
+  (rawBlogPosts as BlogPost[]).map((p) => [p.slug, p]),
+);
 
 function Logo({
   logo,
@@ -89,7 +96,12 @@ export function ProjectList({ items }: { items: AppItem[] }) {
         const rowClass =
           "rd-row flex items-center gap-4 no-underline text-inherit cursor-pointer";
 
-        return isExternal ? (
+        const blogPosts =
+          item.blogPosts
+            ?.map((slug) => blogBySlug.get(slug))
+            .filter((p): p is BlogPost => p !== undefined) ?? [];
+
+        const row = isExternal ? (
           <a
             key={item.name}
             href={href}
@@ -103,6 +115,30 @@ export function ProjectList({ items }: { items: AppItem[] }) {
           <Link key={item.name} to={href} className={rowClass}>
             {inner}
           </Link>
+        );
+
+        if (blogPosts.length === 0) return row;
+
+        return (
+          <div key={item.name} className="flex flex-col">
+            {row}
+            <div className="flex items-center gap-3 px-4 pb-3 mt-[-6px]">
+              <span className="text-[11px] font-[var(--font-mono)] text-[var(--rd-text-3)] uppercase tracking-wider">
+                Posts
+              </span>
+              {blogPosts.map((post) => (
+                <a
+                  key={post.slug}
+                  href={`https://blog.duyet.net${post.slug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rd-ulink text-[12px] inline-flex items-center gap-1"
+                >
+                  {post.title} <ArrowUpRight size={10} />
+                </a>
+              ))}
+            </div>
+          </div>
         );
       })}
     </div>

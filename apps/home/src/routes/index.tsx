@@ -54,6 +54,7 @@ const SELECTED: { name: string; tag: string }[] = [
   { name: "ClickHouse Monitoring", tag: "Data" },
   { name: "Agent State", tag: "AI" },
   { name: "MCP Tools", tag: "AI" },
+  { name: "OMA", tag: "AI Infra" },
   { name: "LLM over DNS", tag: "AI Infra" },
   { name: "ccusage → ClickHouse", tag: "Data" },
   { name: "Clauduck", tag: "Data" },
