@@ -53,7 +53,9 @@ function Page() {
           </div>
         </div>
 
-        <DailyChart daily={data.daily} firstDate={data.firstDate} lastDate={data.lastDate} />
+        <div style={{ marginTop: 24, width: "100%" }}>
+          <DailyChart daily={data.daily} firstDate={data.firstDate} lastDate={data.lastDate} />
+        </div>
 
         <div>
           <TokenBreakdown totals={data.totals} />

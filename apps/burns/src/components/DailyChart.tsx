@@ -101,26 +101,27 @@ export function DailyChart({ daily, firstDate, lastDate }: DailyChartProps) {
             }}>
               <div style={{ fontWeight: 500, marginBottom: 6 }}>{format(hoveredDay.date)}</div>
               {sources.length > 0 ? (
-                <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                <div style={{
+                  display: "grid",
+                  gridTemplateColumns: "8px max-content max-content max-content",
+                  columnGap: 12,
+                  rowGap: 3,
+                  alignItems: "center",
+                  fontVariantNumeric: "tabular-nums",
+                }}>
                   {sources.map((s) => (
-                    <div key={s.name} style={{
-                      display: "grid",
-                      gridTemplateColumns: "8px minmax(72px, auto) auto auto",
-                      alignItems: "center",
-                      columnGap: 8,
-                      fontVariantNumeric: "tabular-nums",
-                    }}>
+                    <div key={s.name} style={{ display: "contents" }}>
                       <span style={{
                         width: 8,
                         height: 8,
                         borderRadius: 2,
                         background: SOURCE_COLORS[s.name] ?? "var(--muted)",
                       }} />
-                      <span>{s.name}</span>
+                      <span style={{ paddingRight: 4 }}>{s.name}</span>
                       <span style={{ color: "var(--muted)", textAlign: "right" }}>
                         {fmtTokens(s.total_tokens)}
                       </span>
-                      <span style={{ color: "var(--muted-soft)", textAlign: "right", minWidth: 56 }}>
+                      <span style={{ color: "var(--muted-soft)", textAlign: "right" }}>
                         {fmtCost(s.cost)}
                       </span>
                     </div>
