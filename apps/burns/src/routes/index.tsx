@@ -36,7 +36,7 @@ function Page() {
         justifyContent: "center",
         gap: 28,
       }}>
-        <div>
+        <div style={{ position: "relative", zIndex: 1 }}>
           <AnimatedCounter target={data.totals.total_tokens} />
           <div style={{
             marginTop: 12,
@@ -45,6 +45,8 @@ function Page() {
             justifyContent: "center",
             gap: 6,
             flexWrap: "wrap",
+            position: "relative",
+            zIndex: 30,
           }}>
             <SourceIcons
               sources={data.sources}

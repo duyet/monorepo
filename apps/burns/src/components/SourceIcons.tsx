@@ -71,6 +71,9 @@ export function SourceIcons({ sources, sourceTotals = [] }: SourceIconsProps) {
       alignItems: "center",
       justifyContent: "center",
       gap: 16,
+      // Stack above the huge counter so tooltips are not painted under it.
+      position: "relative",
+      zIndex: 30,
     }}>
       {sources.map((name) => {
         const svg = icons[name];
@@ -103,10 +106,11 @@ export function SourceIcons({ sources, sourceTotals = [] }: SourceIconsProps) {
             {isHovered && (
               <span style={{
                 position: "absolute",
-                top: "100%",
+                // Above the icon so it sits over the big number, not under it.
+                bottom: "100%",
                 left: "50%",
                 transform: "translateX(-50%)",
-                marginTop: 8,
+                marginBottom: 8,
                 padding: "8px 10px",
                 borderRadius: 6,
                 fontSize: 11,
@@ -116,10 +120,10 @@ export function SourceIcons({ sources, sourceTotals = [] }: SourceIconsProps) {
                 background: "var(--surface-card)",
                 border: "1px solid var(--hairline)",
                 color: "var(--ink)",
-                boxShadow: "0 2px 8px rgb(0 0 0 / 0.12)",
+                boxShadow: "0 4px 16px rgb(0 0 0 / 0.28)",
                 pointerEvents: "none",
                 textAlign: "center",
-                zIndex: 10,
+                zIndex: 50,
               }}>
                 <span style={{ display: "block", fontWeight: 500, marginBottom: 2 }}>
                   {label}
