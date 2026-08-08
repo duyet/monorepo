@@ -1,34 +1,11 @@
 import type { DailyEntry, DailyEntrySource } from "../lib/types";
+import { SOURCE_COLORS, fmtCost, fmtTokens, normalizeSource } from "../lib/sources";
 import { useState } from "react";
 
 interface DailyChartProps {
   daily: DailyEntry[];
   firstDate: string | null;
   lastDate: string | null;
-}
-
-const SOURCE_COLORS: Record<string, string> = {
-  "Google Antigravity": "#FFE432",
-  "Z.AI": "#111111",
-  Grok: "#1A1A1A",
-  opencode: "#7C3AED",
-  "Claude Code": "#D97757",
-  Codex: "#10A37F",
-};
-
-function normalizeSource(raw: string): string {
-  const s = raw.toLowerCase();
-  if (s.includes("antigravity") || s.includes("agy") || s.includes("gemini")) return "Google Antigravity";
-  if (s.includes("z.ai") || s.includes("glm") || s.includes("zai")) return "Z.AI";
-  if (s.includes("grok") || s.includes("xai")) return "Grok";
-  if (s.includes("opencode")) return "opencode";
-  if (s.includes("claude")) return "Claude Code";
-  if (s.includes("codex")) return "Codex";
-  return raw;
-}
-
-function fmt(n: number): string {
-  return n.toLocaleString("en-US");
 }
 
 export function DailyChart({ daily, firstDate, lastDate }: DailyChartProps) {
@@ -50,7 +27,11 @@ export function DailyChart({ daily, firstDate, lastDate }: DailyChartProps) {
   const hoveredDay = hovered !== null ? recent[hovered] : null;
 
   const sources = (hoveredDay?.by_source ?? [])
-    .map((s: DailyEntrySource) => ({ ...s, name: normalizeSource(s.source) }))
+    .map((s: DailyEntrySource) => ({
+      ...s,
+      name: normalizeSource(s.source),
+    }))
+    .filter((s) => s.total_tokens > 0 || s.cost > 0)
     .sort((a, b) => b.total_tokens - a.total_tokens);
 
   return (
@@ -82,7 +63,7 @@ export function DailyChart({ daily, firstDate, lastDate }: DailyChartProps) {
                 x={x}
                 y={y}
                 width={w}
-                height={height}
+                height={Math.max(height, 0)}
                 fill={hovered === i ? "var(--muted)" : "var(--hairline)"}
                 className="transition-colors"
                 onMouseEnter={() => setHovered(i)}
@@ -116,32 +97,52 @@ export function DailyChart({ daily, firstDate, lastDate }: DailyChartProps) {
               boxShadow: "0 2px 8px rgb(0 0 0 / 0.12)",
               pointerEvents: "none",
               textAlign: "left",
+              zIndex: 10,
             }}>
-              <div style={{ fontWeight: 500, marginBottom: 4 }}>{format(hoveredDay.date)}</div>
+              <div style={{ fontWeight: 500, marginBottom: 6 }}>{format(hoveredDay.date)}</div>
               {sources.length > 0 ? (
-                sources.map((s) => (
-                  <div key={s.name} style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 6,
-                    fontVariantNumeric: "tabular-nums",
-                  }}>
-                    <span style={{
-                      width: 8,
-                      height: 8,
-                      borderRadius: 2,
-                      flexShrink: 0,
-                      background: SOURCE_COLORS[s.name] ?? "var(--muted)",
-                    }} />
-                    <span style={{ minWidth: 84 }}>{s.name}</span>
-                    <span style={{ color: "var(--muted)" }}>{fmt(s.total_tokens)}</span>
-                  </div>
-                ))
+                <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                  {sources.map((s) => (
+                    <div key={s.name} style={{
+                      display: "grid",
+                      gridTemplateColumns: "8px minmax(72px, auto) auto auto",
+                      alignItems: "center",
+                      columnGap: 8,
+                      fontVariantNumeric: "tabular-nums",
+                    }}>
+                      <span style={{
+                        width: 8,
+                        height: 8,
+                        borderRadius: 2,
+                        background: SOURCE_COLORS[s.name] ?? "var(--muted)",
+                      }} />
+                      <span>{s.name}</span>
+                      <span style={{ color: "var(--muted)", textAlign: "right" }}>
+                        {fmtTokens(s.total_tokens)}
+                      </span>
+                      <span style={{ color: "var(--muted-soft)", textAlign: "right", minWidth: 56 }}>
+                        {fmtCost(s.cost)}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               ) : (
-                <div>{hoveredDay.total_tokens.toLocaleString("en-US")} tokens</div>
+                <div style={{ fontVariantNumeric: "tabular-nums" }}>
+                  {fmtTokens(hoveredDay.total_tokens)} tokens
+                </div>
               )}
-              <div style={{ color: "var(--muted)", marginTop: 4 }}>
-                ${hoveredDay.cost.toFixed(2)}
+              <div style={{
+                color: "var(--muted)",
+                marginTop: 6,
+                paddingTop: 4,
+                borderTop: "1px solid var(--hairline)",
+                fontVariantNumeric: "tabular-nums",
+                display: "flex",
+                justifyContent: "space-between",
+                gap: 16,
+              }}>
+                <span>{fmtTokens(hoveredDay.total_tokens)} total</span>
+                <span>{fmtCost(hoveredDay.cost)}</span>
               </div>
             </div>
           );

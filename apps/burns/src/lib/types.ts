@@ -24,11 +24,20 @@ export interface DailyEntry {
   by_source?: DailyEntrySource[];
 }
 
+/** All-time totals per coding agent (display name). */
+export interface SourceTotal {
+  source: string;
+  total_tokens: number;
+  cost: number;
+}
+
 export interface TokenData {
   generatedAt: string;
   firstDate: string | null;
   lastDate: string | null;
   sources: readonly string[];
   totals: TokenTotals;
+  /** All-time per-agent usage for logo hover tooltips. */
+  source_totals: SourceTotal[];
   daily: DailyEntry[];
 }

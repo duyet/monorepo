@@ -1,5 +1,10 @@
+import { useState } from "react";
+import type { SourceTotal } from "../lib/types";
+import { fmtCost, fmtTokens } from "../lib/sources";
+
 interface SourceIconsProps {
   sources: readonly string[];
+  sourceTotals?: readonly SourceTotal[];
 }
 
 // Official brand SVGs from glincker/thesvg.
@@ -35,7 +40,7 @@ const icons: Record<string, string> = {
   </svg>`,
   Codex: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd">
     <title>Codex (OpenAI)</title>
-    <path clip-rule="evenodd" d="M8.086.457a6.105 6.105 0 013.046-.415c1.333.153 2.521.72 3.564 1.7a.117.117 0 00.107.029c1.408-.346 2.762-.224 4.061.366l.063.03.154.076c1.357.703 2.33 1.77 2.918 3.198.278.679.418 1.388.421 2.126a5.655 5.655 0 01-.18 1.631.167.167 0 00.04.155 5.982 5.982 0 011.578 2.891c.385 1.901-.01 3.615-1.183 5.14l-.182.22a6.063 6.063 0 01-2.934 1.851.162.162 0 00-.108.102c-.255.736-.511 1.364-.987 1.992-1.199 1.582-2.962 2.462-4.948 2.451-1.583-.008-2.986-.587-4.21-1.736a.145.145 0 00-.14-.032c-.518.167-1.04.191-1.604.185a5.924 5.924 0 01-2.595-.622 6.058 6.058 0 01-2.146-1.781c-.203-.269-.404-.522-.551-.821a7.74 7.74 0 01-.495-1.283 6.11 6.11 0 01-.017-3.064.166.166 0 00.008-.074.115.115 0 00-.037-.064 5.958 5.958 0 01-1.38-2.202 5.196 5.196 0 01-.333-1.589 6.915 6.915 0 01.188-2.132c.45-1.484 1.309-2.648 2.577-3.493.282-.188.55-.334.802-.438.286-.12.573-.22.861-.304a.129.129 0 00.087-.087A6.016 6.016 0 015.635 2.31C6.315 1.464 7.132.846 8.086.457zm-.804 7.85a.848.848 0 00-1.473.842l1.694 2.965-1.688 2.848a.849.849 0 001.46.864l1.94-3.272a.849.849 0 00.007-.854l-1.94-3.393zm5.446 6.24a.849.849 0 000 1.695h4.848a.849.849 0 000-1.696h-4.848z" />
+    <path clip-rule="evenodd" d="M8.086.457a6.105 6.105 0 013.046-.415c1.333.153 2.521.72 3.564 1.7a.117.117 0 00.107.029c1.408-.346 2.762-.224 4.061.366l.063.03.154.076c1.357.703 2.33 1.77 2.918 3.198.278.679.418 1.388.421 2.126a5.655 5.655 0 01-.18 1.631.167.167 0 00.04.155 5.982 5.982 0 011.578 2.891c.385 1.901-.01 3.615-1.183 5.14l-.182.22a6.063 6.063 0 01-2.934 1.851.162.162 0 00-.108.102c-.255.736-.511 1.364-.987 1.992-1.199 1.582-2.962 2.462-4.948 2.451-1.583-.008-2.986-.587-4.21-1.736a.145.145 0 00-.140-.032c-.518.167-1.04.191-1.604.185a5.924 5.924 0 01-2.595-.622 6.058 6.058 0 01-2.146-1.781c-.203-.269-.404-.522-.551-.821a7.74 7.74 0 01-.495-1.283 6.11 6.11 0 01-.017-3.064.166.166 0 00.008-.074.115.115 0 00-.037-.064 5.958 5.958 0 01-1.38-2.202 5.196 5.196 0 01-.333-1.589 6.915 6.915 0 01.188-2.132c.45-1.484 1.309-2.648 2.577-3.493.282-.188.55-.334.802-.438.286-.12.573-.22.861-.304a.129.129 0 00.087-.087A6.016 6.016 0 015.635 2.31C6.315 1.464 7.132.846 8.086.457zm-.804 7.85a.848.848 0 00-1.473.842l1.694 2.965-1.688 2.848a.849.849 0 001.46.864l1.94-3.272a.849.849 0 00.007-.854l-1.94-3.393zm5.446 6.24a.849.849 0 000 1.695h4.848a.849.849 0 000-1.696h-4.848z" />
   </svg>`,
   Grok: `<svg viewBox="0 0 1024 1024" width="100%" height="100%" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path d="M395.479 633.828L735.91 381.105C752.599 368.715 776.454 373.548 784.406 392.792C826.26 494.285 807.561 616.253 724.288 699.996C641.016 783.739 525.151 802.104 419.247 760.277L303.556 814.143C469.49 928.202 670.987 899.995 796.901 773.282C896.776 672.843 927.708 535.937 898.785 412.476L899.047 412.739C857.105 231.37 909.358 158.874 1016.4 10.6326C1018.93 7.11771 1021.47 3.60279 1024 0L883.144 141.651V141.212L395.392 633.916" />
@@ -43,7 +48,23 @@ const icons: Record<string, string> = {
   </svg>`,
 };
 
-export function SourceIcons({ sources }: SourceIconsProps) {
+const DISPLAY_LABELS: Record<string, string> = {
+  Codex: "Codex (OpenAI)",
+  "Claude Code": "Claude Code",
+  "Google Antigravity": "Google Antigravity",
+  "Z.AI": "Z.AI",
+  opencode: "opencode",
+  Grok: "Grok",
+  Hermes: "Hermes",
+  OpenClaw: "OpenClaw",
+  pi: "pi",
+};
+
+export function SourceIcons({ sources, sourceTotals = [] }: SourceIconsProps) {
+  const [hovered, setHovered] = useState<string | null>(null);
+
+  const totalsByName = new Map(sourceTotals.map((s) => [s.source, s]));
+
   return (
     <div style={{
       display: "flex",
@@ -54,10 +75,14 @@ export function SourceIcons({ sources }: SourceIconsProps) {
       {sources.map((name) => {
         const svg = icons[name];
         if (!svg) return null;
+        const isHovered = hovered === name;
+        const total = totalsByName.get(name);
+        const label = DISPLAY_LABELS[name] ?? name;
         return (
           <span
             key={name}
-            title={name}
+            onMouseEnter={() => setHovered(name)}
+            onMouseLeave={() => setHovered(null)}
             style={{
               display: "block",
               width: 20,
@@ -65,9 +90,61 @@ export function SourceIcons({ sources }: SourceIconsProps) {
               flexShrink: 0,
               color: "var(--muted)",
               filter: "drop-shadow(0 0 1px rgb(0 0 0 / 0.15))",
+              cursor: "default",
+              position: "relative",
+              opacity: hovered && !isHovered ? 0.45 : 1,
+              transition: "opacity 120ms ease",
             }}
-            dangerouslySetInnerHTML={{ __html: svg }}
-          />
+          >
+            <span
+              style={{ display: "block", width: 20, height: 20 }}
+              dangerouslySetInnerHTML={{ __html: svg }}
+            />
+            {isHovered && (
+              <span style={{
+                position: "absolute",
+                top: "100%",
+                left: "50%",
+                transform: "translateX(-50%)",
+                marginTop: 8,
+                padding: "8px 10px",
+                borderRadius: 6,
+                fontSize: 11,
+                fontFamily: "var(--sans)",
+                lineHeight: 1.5,
+                whiteSpace: "nowrap",
+                background: "var(--surface-card)",
+                border: "1px solid var(--hairline)",
+                color: "var(--ink)",
+                boxShadow: "0 2px 8px rgb(0 0 0 / 0.12)",
+                pointerEvents: "none",
+                textAlign: "center",
+                zIndex: 10,
+              }}>
+                <span style={{ display: "block", fontWeight: 500, marginBottom: 2 }}>
+                  {label}
+                </span>
+                {total ? (
+                  <span style={{
+                    display: "block",
+                    color: "var(--muted)",
+                    fontVariantNumeric: "tabular-nums",
+                  }}>
+                    <span style={{ display: "block" }}>
+                      {fmtTokens(total.total_tokens)} tokens
+                    </span>
+                    <span style={{ display: "block" }}>
+                      {fmtCost(total.cost)} all-time
+                    </span>
+                  </span>
+                ) : (
+                  <span style={{ display: "block", color: "var(--muted-soft)" }}>
+                    No usage recorded
+                  </span>
+                )}
+              </span>
+            )}
+          </span>
         );
       })}
     </div>

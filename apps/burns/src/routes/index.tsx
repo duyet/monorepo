@@ -46,7 +46,10 @@ function Page() {
             gap: 6,
             flexWrap: "wrap",
           }}>
-            <SourceIcons sources={data.sources} />
+            <SourceIcons
+              sources={data.sources}
+              sourceTotals={data.source_totals ?? []}
+            />
           </div>
         </div>
 
