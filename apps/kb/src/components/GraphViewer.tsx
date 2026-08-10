@@ -1,11 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import Graph from "graphology";
-import forceAtlas2 from "graphology-layout-forceatlas2";
-import Sigma from "sigma";
 import { getAllContent, type ContentItem, type MemoryNote } from "../../lib/content";
+import { markdownToHtml } from "../../lib/markdown";
 
 type AttrMap = Record<string, unknown>;
-import { markdownToHtml } from "../../lib/markdown";
+type GraphologyGraph = import("graphology").default;
+type SigmaInstance = import("sigma").default;
 
 /**
  * Obsidian-style knowledge-graph viewer (homepage).
@@ -89,11 +88,16 @@ function buildGraphData() {
   return { nodes, bodies, backlinks, degree, edgeKeys, types };
 }
 
-function createGraphologyGraph(
+async function createGraphologyGraph(
   nodes: NodeMeta[],
   edgeKeys: Set<string>,
   degree: Record<string, number>,
-): Graph {
+): Promise<GraphologyGraph> {
+  const [{ default: Graph }, forceAtlas2] = await Promise.all([
+    import("graphology"),
+    import("graphology-layout-forceatlas2"),
+  ]);
+
   const graph = new Graph({ multi: false, type: "undirected", allowSelfLoops: false });
   const n = Math.max(nodes.length, 1);
 
@@ -127,8 +131,9 @@ function createGraphologyGraph(
   }
 
   // FA2 — synchronous is fine for ~150 nodes; freeze after assign
-  const sensible = forceAtlas2.inferSettings(graph);
-  forceAtlas2.assign(graph, {
+  const fa2 = forceAtlas2.default;
+  const sensible = fa2.inferSettings(graph);
+  fa2.assign(graph, {
     iterations: 280,
     settings: {
       ...sensible,
@@ -146,8 +151,8 @@ function createGraphologyGraph(
 
 export function GraphViewer() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const sigmaRef = useRef<Sigma | null>(null);
-  const graphRef = useRef<Graph | null>(null);
+  const sigmaRef = useRef<SigmaInstance | null>(null);
+  const graphRef = useRef<GraphologyGraph | null>(null);
   const dragRef = useRef<{ node: string | null; dragging: boolean }>({
     node: null,
     dragging: false,
@@ -189,33 +194,41 @@ export function GraphViewer() {
     };
   }, [selected, data.bodies]);
 
-  // Mount Sigma
+  // Mount Sigma (dynamic import — keeps homepage shell loadable if WebGL/graph fails)
   useEffect(() => {
     if (!containerRef.current) return;
+    let cancelled = false;
+    let sigma: SigmaInstance | null = null;
 
-    const graph = createGraphologyGraph(data.nodes, data.edgeKeys, data.degree);
-    graphRef.current = graph;
+    (async () => {
+      const [{ default: Sigma }, graph] = await Promise.all([
+        import("sigma"),
+        createGraphologyGraph(data.nodes, data.edgeKeys, data.degree),
+      ]);
+      if (cancelled || !containerRef.current) return;
 
-    const sigma = new Sigma(graph, containerRef.current, {
-      allowInvalidContainer: true,
-      renderLabels: true,
-      renderEdgeLabels: false,
-      labelFont: "ui-sans-serif, system-ui, sans-serif",
-      labelSize: 11,
-      labelWeight: "500",
-      labelColor: { color: "#a1a1aa" },
-      labelDensity: 0.12,
-      labelGridCellSize: 80,
-      labelRenderedSizeThreshold: 8,
-      defaultNodeColor: "#94a3b8",
-      defaultEdgeColor: EDGE_COLOR,
-      stagePadding: 40,
-      minCameraRatio: 0.08,
-      maxCameraRatio: 12,
-    });
-    sigmaRef.current = sigma;
+      graphRef.current = graph;
+      sigma = new Sigma(graph, containerRef.current, {
+        allowInvalidContainer: true,
+        renderLabels: true,
+        renderEdgeLabels: false,
+        labelFont: "ui-sans-serif, system-ui, sans-serif",
+        labelSize: 11,
+        labelWeight: "500",
+        labelColor: { color: "#a1a1aa" },
+        labelDensity: 0.12,
+        labelGridCellSize: 80,
+        labelRenderedSizeThreshold: 8,
+        defaultNodeColor: "#94a3b8",
+        defaultEdgeColor: EDGE_COLOR,
+        stagePadding: 40,
+        minCameraRatio: 0.08,
+        maxCameraRatio: 12,
+      });
+      sigmaRef.current = sigma;
+      const s = sigma;
 
-    const applyVisual = () => {
+      const applyVisual = () => {
       const hovered = hoverRef.current;
       const sel = selectedRef.current;
       const hidden = hiddenTypesRef.current;
@@ -226,7 +239,7 @@ export function GraphViewer() {
         graph.forEachNeighbor(focus, (n) => neighbors.add(n));
       }
 
-      sigma.setSetting("nodeReducer", (node, attrs) => {
+      s.setSetting("nodeReducer", (node, attrs) => {
         const res: AttrMap = { ...attrs };
         const nodeType = graph.getNodeAttribute(node, "nodeType") as string;
         if (hidden.has(nodeType)) {
@@ -252,7 +265,7 @@ export function GraphViewer() {
         return res;
       });
 
-      sigma.setSetting("edgeReducer", (edge, attrs) => {
+      s.setSetting("edgeReducer", (edge, attrs) => {
         const res: AttrMap = { ...attrs };
         const [a, b] = graph.extremities(edge);
         const aType = graph.getNodeAttribute(a, "nodeType") as string;
@@ -274,71 +287,80 @@ export function GraphViewer() {
         return res;
       });
 
-      sigma.refresh();
+      s.refresh();
     };
-    applyVisualRef.current = applyVisual;
+      applyVisualRef.current = applyVisual;
 
-    // Drag nodes
-    sigma.on("downNode", (e) => {
-      dragRef.current = { node: e.node, dragging: true };
-      if (!sigma.getCustomBBox()) sigma.setCustomBBox(sigma.getBBox());
-    });
-    sigma.getMouseCaptor().on("mousemovebody", (e) => {
-      const { node, dragging } = dragRef.current;
-      if (!dragging || !node) return;
-      const pos = sigma.viewportToGraph(e);
-      graph.setNodeAttribute(node, "x", pos.x);
-      graph.setNodeAttribute(node, "y", pos.y);
-      e.preventSigmaDefault();
-      e.original.preventDefault();
-      e.original.stopPropagation();
-    });
-    const stopDrag = () => {
-      dragRef.current = { node: null, dragging: false };
-    };
-    sigma.getMouseCaptor().on("mouseup", stopDrag);
-    sigma.getMouseCaptor().on("mouseleave", stopDrag);
+      // Drag nodes
+      s.on("downNode", (e) => {
+        dragRef.current = { node: e.node, dragging: true };
+        if (!s.getCustomBBox()) s.setCustomBBox(s.getBBox());
+      });
+      s.getMouseCaptor().on("mousemovebody", (e) => {
+        const { node, dragging } = dragRef.current;
+        if (!dragging || !node) return;
+        const pos = s.viewportToGraph(e);
+        graph.setNodeAttribute(node, "x", pos.x);
+        graph.setNodeAttribute(node, "y", pos.y);
+        e.preventSigmaDefault();
+        e.original.preventDefault();
+        e.original.stopPropagation();
+      });
+      const stopDrag = () => {
+        dragRef.current = { node: null, dragging: false };
+      };
+      s.getMouseCaptor().on("mouseup", stopDrag);
+      s.getMouseCaptor().on("mouseleave", stopDrag);
 
-    // Hover
-    sigma.on("enterNode", ({ node }) => {
-      hoverRef.current = node;
-      setHover(node);
-      document.body.style.cursor = "pointer";
-      applyVisual();
-    });
-    sigma.on("leaveNode", () => {
-      hoverRef.current = null;
-      setHover(null);
-      document.body.style.cursor = "default";
-      applyVisual();
-    });
+      // Hover
+      s.on("enterNode", ({ node }) => {
+        hoverRef.current = node;
+        setHover(node);
+        document.body.style.cursor = "pointer";
+        applyVisual();
+      });
+      s.on("leaveNode", () => {
+        hoverRef.current = null;
+        setHover(null);
+        document.body.style.cursor = "default";
+        applyVisual();
+      });
 
-    // Click
-    sigma.on("clickNode", ({ node }) => {
-      selectedRef.current = node;
-      setSelected(node);
-      const attrs = graph.getNodeAttributes(node);
-      const camera = sigma.getCamera();
-      camera.animate(
-        { x: attrs.x as number, y: attrs.y as number, ratio: Math.min(camera.ratio, 0.55) },
-        { duration: 280 },
-      );
-      applyVisual();
-    });
+      // Click
+      s.on("clickNode", ({ node }) => {
+        selectedRef.current = node;
+        setSelected(node);
+        const attrs = graph.getNodeAttributes(node);
+        const camera = s.getCamera();
+        camera.animate(
+          {
+            x: attrs.x as number,
+            y: attrs.y as number,
+            ratio: Math.min(camera.ratio, 0.55),
+          },
+          { duration: 280 },
+        );
+        applyVisual();
+      });
 
-    // Click stage clears hover focus (keep selection)
-    sigma.on("clickStage", () => {
-      hoverRef.current = null;
-      setHover(null);
-      applyVisual();
-    });
+      // Click stage clears hover focus (keep selection)
+      s.on("clickStage", () => {
+        hoverRef.current = null;
+        setHover(null);
+        applyVisual();
+      });
 
-    setReady(true);
-    queueMicrotask(applyVisual);
+      setReady(true);
+      queueMicrotask(applyVisual);
+    })().catch((err) => {
+      console.error("[GraphViewer] failed to mount", err);
+      setReady(false);
+    });
 
     return () => {
+      cancelled = true;
       document.body.style.cursor = "default";
-      sigma.kill();
+      sigma?.kill();
       sigmaRef.current = null;
       graphRef.current = null;
     };

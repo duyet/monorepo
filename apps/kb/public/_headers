@@ -1,41 +1,39 @@
-# Cloudflare Pages headers for the knowledge base (all responses are public,
-# read-only, non-user-specific). Explicit `Cache-Control: public` lets the
-# Workers/edge tiered cache store them; a deploy purges the Pages cache so
-# content is never stale after a publish.
+# Cloudflare Pages headers for the knowledge base.
+# IMPORTANT: HTML must not use long stale-while-revalidate. After deploy, hashed
+# /assets/* filenames change; serving stale HTML that points at deleted JS
+# returns index.html (text/html) for module scripts → blank page + MIME error.
 
-# Prerendered article/category HTML: fresh briefly, served stale while it
-# revalidates in the background.
+# Default (HTML routes): always revalidate; short browser cache only
 /*
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
-  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+  Cache-Control: public, max-age=0, must-revalidate
 
-# Hashed JS/CSS: filename carries a content hash -> cache forever
+# Hashed JS/CSS: filename is content-addressed → long cache is safe
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+  X-Content-Type-Options: nosniff
 
-# Raw markdown endpoints (/k/<slug>.md, /m/<slug>.md): plain text for LLM/agent
-# consumers, lightly cached with long edge SWR
+# Raw markdown endpoints
 /*.md
   Content-Type: text/plain; charset=utf-8
-  Cache-Control: public, max-age=3600, stale-while-revalidate=604800
+  Cache-Control: public, max-age=300, must-revalidate
 
-# LLM discovery indexes
 /llms.txt
   Content-Type: text/plain; charset=utf-8
-  Cache-Control: public, max-age=3600, stale-while-revalidate=604800
+  Cache-Control: public, max-age=300, must-revalidate
 
 /llms-full.txt
   Content-Type: text/plain; charset=utf-8
-  Cache-Control: public, max-age=3600, stale-while-revalidate=604800
+  Cache-Control: public, max-age=300, must-revalidate
 
-# SEO + knowledge-graph data
 /robots.txt
-  Cache-Control: public, max-age=3600, stale-while-revalidate=604800
+  Cache-Control: public, max-age=300, must-revalidate
 
 /sitemap.xml
-  Cache-Control: public, max-age=3600, stale-while-revalidate=604800
+  Cache-Control: public, max-age=300, must-revalidate
 
 /graph-data.json
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  Content-Type: application/json; charset=utf-8
+  Cache-Control: public, max-age=300, must-revalidate
