@@ -2,13 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { GraphViewer } from "../components/GraphViewer";
 
 /**
- * Homepage = the knowledge-graph viewer (native, no iframe).
- *
- * The viewer mounts client-side (cytoscape is DOM-bound) and renders the full
- * bundle — articles + memory notes — as a 2D graph with a click-to-read detail
- * panel. Same UX as the standalone /viz.html, but built from the app's content
- * loader so it shares the site shell. The root layout wraps this in the site
- * header/footer, so navigation is preserved.
+ * Homepage = Obsidian-style knowledge-graph viewer (Sigma.js + Graphology FA2).
+ * Client-only WebGL canvas: pan/zoom, drag nodes, hover neighbors, type filters,
+ * search, click-to-read panel. Content from articles + memory notes.
  */
 export const Route = createFileRoute("/")({
   head: () => ({
