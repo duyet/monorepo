@@ -26,8 +26,17 @@ const distDir = join(process.cwd(), "dist", "client");
 // Match a real <script> open tag that is not already opted out.
 const SCRIPT_OPEN = /<script\b(?![^>]*\bdata-cfasync=)/g;
 
+/**
+ * Cloudflare zone scripts (Zaraz/GTM/bot signals) on custom hostnames can race
+ * the first type=module load so hydration never starts (blank page / MIME errors
+ * when stale assets 404 as HTML). Retry the entry module once if React never
+ * mounts a <main>.
+ */
+const HYDRATION_RETRY = `<script data-cfasync="false">(function(){function boot(n){var s=document.querySelector('script[type="module"][src*="/assets/index-"]');if(!s||!s.src)return;import(s.src+(s.src.indexOf("?")>=0?"&":"?")+"cf_retry="+n).catch(function(e){if(n<4)setTimeout(function(){boot(n+1)},250*n);else console.error("[cf-hydrate-retry]",e)})}window.addEventListener("load",function(){setTimeout(function(){if(!document.querySelector("main"))boot(1)},800)})})();</script>`;
+
 let files = 0;
 let tags = 0;
+let retries = 0;
 
 function patchHtmlFiles(dir: string) {
   for (const entry of readdirSync(dir)) {
@@ -40,11 +49,19 @@ function patchHtmlFiles(dir: string) {
 
     const original = readFileSync(filePath, "utf8");
     let count = 0;
-    const updated = original.replace(SCRIPT_OPEN, () => {
+    let updated = original.replace(SCRIPT_OPEN, () => {
       count += 1;
       return '<script data-cfasync="false"';
     });
-    if (count > 0) {
+    if (
+      updated.includes("/assets/index-") &&
+      !updated.includes("cf-hydrate-retry") &&
+      updated.includes("</body>")
+    ) {
+      updated = updated.replace("</body>", `${HYDRATION_RETRY}</body>`);
+      retries += 1;
+    }
+    if (count > 0 || updated !== original) {
       writeFileSync(filePath, updated);
       files += 1;
       tags += count;
@@ -54,5 +71,5 @@ function patchHtmlFiles(dir: string) {
 
 patchHtmlFiles(distDir);
 console.log(
-  `Rocket Loader opt-out: tagged ${tags} <script> tags across ${files} HTML files.`,
+  `Rocket Loader opt-out: tagged ${tags} <script> tags across ${files} HTML files; hydration retry on ${retries} files.`,
 );

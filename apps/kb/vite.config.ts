@@ -97,6 +97,7 @@ function getKbRoutes(): string[] {
 }
 
 export default defineConfig({
+  base: "/",
   plugins: [
     tanstackStart({
       router: {
@@ -113,6 +114,28 @@ export default defineConfig({
     tailwindcss(),
     tsconfigPaths(),
   ],
+  build: {
+    // Avoid routes ↔ index circular chunks (index dynamic-imports routes while
+    // routes static-imports shared runtime from the index chunk). That cycle
+    // fails module evaluation on some CDNs/hosts (blank page / MIME errors).
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
+          if (id.includes("sigma") || id.includes("graphology")) return "graph";
+          if (
+            id.includes("react-dom") ||
+            id.includes("/react/") ||
+            id.includes("\\react\\") ||
+            id.endsWith("/react/index.js")
+          ) {
+            return "react";
+          }
+          if (id.includes("@tanstack")) return "tanstack";
+        },
+      },
+    },
+  },
   server: {
     port: 3009,
   },

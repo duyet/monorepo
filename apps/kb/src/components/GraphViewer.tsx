@@ -1,10 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import Graph from "graphology";
+import forceAtlas2 from "graphology-layout-forceatlas2";
+import Sigma from "sigma";
 import { getAllContent, type ContentItem, type MemoryNote } from "../../lib/content";
 import { markdownToHtml } from "../../lib/markdown";
 
 type AttrMap = Record<string, unknown>;
-type GraphologyGraph = import("graphology").default;
-type SigmaInstance = import("sigma").default;
+type GraphologyGraph = Graph;
+type SigmaInstance = Sigma;
 
 /**
  * Obsidian-style knowledge-graph viewer (homepage).
@@ -88,16 +91,11 @@ function buildGraphData() {
   return { nodes, bodies, backlinks, degree, edgeKeys, types };
 }
 
-async function createGraphologyGraph(
+function createGraphologyGraph(
   nodes: NodeMeta[],
   edgeKeys: Set<string>,
   degree: Record<string, number>,
-): Promise<GraphologyGraph> {
-  const [{ default: Graph }, forceAtlas2] = await Promise.all([
-    import("graphology"),
-    import("graphology-layout-forceatlas2"),
-  ]);
-
+): GraphologyGraph {
   const graph = new Graph({ multi: false, type: "undirected", allowSelfLoops: false });
   const n = Math.max(nodes.length, 1);
 
@@ -131,9 +129,8 @@ async function createGraphologyGraph(
   }
 
   // FA2 — synchronous is fine for ~150 nodes; freeze after assign
-  const fa2 = forceAtlas2.default;
-  const sensible = fa2.inferSettings(graph);
-  fa2.assign(graph, {
+  const sensible = forceAtlas2.inferSettings(graph);
+  forceAtlas2.assign(graph, {
     iterations: 280,
     settings: {
       ...sensible,
@@ -194,19 +191,12 @@ export function GraphViewer() {
     };
   }, [selected, data.bodies]);
 
-  // Mount Sigma (dynamic import — keeps homepage shell loadable if WebGL/graph fails)
+  // Mount Sigma
   useEffect(() => {
     if (!containerRef.current) return;
-    let cancelled = false;
     let sigma: SigmaInstance | null = null;
-
-    (async () => {
-      const [{ default: Sigma }, graph] = await Promise.all([
-        import("sigma"),
-        createGraphologyGraph(data.nodes, data.edgeKeys, data.degree),
-      ]);
-      if (cancelled || !containerRef.current) return;
-
+    try {
+      const graph = createGraphologyGraph(data.nodes, data.edgeKeys, data.degree);
       graphRef.current = graph;
       sigma = new Sigma(graph, containerRef.current, {
         allowInvalidContainer: true,
@@ -352,13 +342,12 @@ export function GraphViewer() {
 
       setReady(true);
       queueMicrotask(applyVisual);
-    })().catch((err) => {
+    } catch (err) {
       console.error("[GraphViewer] failed to mount", err);
       setReady(false);
-    });
+    }
 
     return () => {
-      cancelled = true;
       document.body.style.cursor = "default";
       sigma?.kill();
       sigmaRef.current = null;
