@@ -1716,1405 +1716,1307 @@ Run tests before and after each fix to confirm no regression. Commit each logica
 
 ---
 
-# Cloudflare acquired Astro (January 2026)
-URL: https://kb.duyet.net/m/cloudflare-acquires-astro
-Type: reference
-Description: Cloudflare acquired The Astro Technology Company in Jan 2026; the Astro team (Fred Schott) now ships agent tooling like Flue on Cloudflare
-
-Cloudflare acquired **The Astro Technology Company** (makers of the open-source
-Astro web framework) — announced **2026-01-16**. CEO **Fred Schott** and the Astro
-team joined Cloudflare; Astro stays open source.
-
-Why it matters for attribution:
-- **Flue** (open agent framework, `github.com/withastro/flue`, powered by the Pi
-  harness) is built by the Astro team — so it is correctly described as *both*
-  "from the Astro team" *and* "from Cloudflare" post-acquisition.
-- On Cloudflare, each Flue agent maps to a Durable Object via the [[flue-agent-framework]] / Agents SDK primitives.
-
-Gotcha: training cutoff (~Jan 2026) lands right on this date — verify against the
-live Cloudflare blog rather than memory.
-
----
-
-# Use cheap models for sub-agents
+# Cheap models for sub-agents
 URL: https://kb.duyet.net/m/feedback-cheap-models-subagents
 Type: feedback
-Description: Default fan-out sub-agents/workflow agents to Sonnet or Haiku, not Opus, to control cost
+Description: Fan-out sub-agents to cheaper models by default
 
-When dispatching sub-agents (Agent tool) or Workflow agents — especially in
-batch/parallel fan-out (e.g. babysitting/fixing/merging many PRs at once) —
-default them to a **cheaper model** (`sonnet`, or `haiku` for trivial/mechanical
-work) rather than inheriting Opus.
+Default sub-agents to mid/cheap tiers for mechanical work; reserve expensive models for hard reasoning.
 
-**Why:** Opus across many concurrent agents is expensive and usually overkill for
-mechanical, well-scoped work (fix-CI-then-merge, search, refactor-to-spec). Duyet
-flagged cost during a 13-agent parallel PR batch.
-
-**How to apply:**
-- Pass `model: "sonnet"` on `Agent` calls; `opts.model` in Workflow scripts.
-- Use `haiku` for trivial/mechanical tasks; reserve **Opus** for genuinely complex
-  reasoning the main loop handles.
-- Don't restart already-running agents just to switch model — only apply to new
-  dispatches.
+**Why:** parallel fan-out multiplies cost.
+**How to apply:** pass explicit cheaper model on dispatch. Related: [[tech-agent-loop-cheap-subagents]], [[feedback-working-style]].
 
 ---
 
-# Docs-Driven Development
+# Write concise simple English
+URL: https://kb.duyet.net/m/feedback-concise-english
+Type: feedback
+Description: Prefer short plain English in prose and commits
+
+Use simple, short English. No filler ("comprehensive", "elaborate").
+
+**Why:** faster review, clearer agent output.
+**How to apply:** trim adverbs; prefer lists; match [[feedback-semantic-commits]].
+
+---
+
+# Disambiguate which product/repo
+URL: https://kb.duyet.net/m/feedback-disambiguate-repo
+Type: feedback
+Description: When the user jumps between products, confirm target repo before large edits
+
+Duyet multi-homes work: chmonitor, AnyRouter, AgentState, AnyWorker, OMA, monorepo, kb, homelab.
+
+**How to apply:** if the chat is ambiguous, ask or infer from cwd/path; never assume monorepo. Index: [[user-duyet-active-projects]], [[user-duyet-multi-project]].
+
+---
+
+# Docs-Driven Development (index)
 URL: https://kb.duyet.net/m/feedback-docs-driven-development
 Type: feedback
-Description: Duyet's pattern — tiny CLAUDE.md/AGENTS.md router + a docs/kb "brain"; agents auto-read in, auto-write out
+Description: Tiny router files + versioned kb brain; reflexive read/write
 
-Duyet's core agent-collaboration pattern (from his blog, "Docs-Driven Development"):
+Pattern:
 
-- **`CLAUDE.md`/`AGENTS.md` stays tiny** — short, stable rules + a router pointing
-  at the right doc. Cramming architecture/feature contracts in there rots the file.
-- **A versioned, grep-able `kb` is the brain** — structured by the question being
-  asked; the same docs serve Duyet, teammates, and every coding agent.
-- **Make read/write reflexive, phrased as triggers not requests:** read the index
-  on the way *in* (before answering anything non-trivial), write back on the way
-  *out* (before forgetting). "Remember to write docs" doesn't work — triggers do.
+1. [[feedback-docs-router-tiny]] — keep CLAUDE.md/AGENTS.md short
+2. [[feedback-docs-kb-is-brain]] — structured notes are the memory
+3. [[feedback-docs-read-on-entry]] — index first
+4. [[feedback-docs-write-on-exit]] — capture before context dies
 
-**Why:** rules-in-prompt evaporate between sessions; a structured external brain
-persists and is reviewable in a PR.
-
-**How to apply:** this is exactly the model this repo implements — read `MEMORY.md`
-first, grep `memory/`, write durable facts back automatically. Don't bloat the
-router files; put knowledge in notes.
+Implemented by [[project-kb]]. Owner stance: [[user-duyet-ai-stance]].
 
 ---
 
-# Working style preferences
+# KB is the shared brain
+URL: https://kb.duyet.net/m/feedback-docs-kb-is-brain
+Type: feedback
+Description: Versioned, grep-able notes beat rules stuck only in prompts
+
+A public/shared kb persists across tools and sessions. This repo is that brain: [[project-kb]].
+
+**How to apply:** atomic notes + `MEMORY.md` index + [[tech-okf-bundle]].
+
+---
+
+# Read MEMORY.md on entry
+URL: https://kb.duyet.net/m/feedback-docs-read-on-entry
+Type: feedback
+Description: Before non-trivial work, read the index and relevant notes
+
+Trigger: session start / new task → open MEMORY.md, then only matching notes.
+
+**How to apply:** never bulk-load entire memory/. See [[feedback-docs-write-on-exit]].
+
+---
+
+# Keep router files tiny
+URL: https://kb.duyet.net/m/feedback-docs-router-tiny
+Type: feedback
+Description: CLAUDE.md/AGENTS.md = short stable rules + pointers, not architecture dumps
+
+Router files rot if they hold feature contracts. Point to notes instead.
+
+**How to apply:** put durable facts in [[project-kb]] notes; keep routers as indexes. See [[feedback-docs-driven-development]].
+
+---
+
+# Write memory on the way out
+URL: https://kb.duyet.net/m/feedback-docs-write-on-exit
+Type: feedback
+Description: Persist durable public facts before context is lost
+
+Trigger: learned durable public fact → note or inbox, then lint/sync.
+
+**How to apply:** public-only (AGENTS.md §3). Pair with [[feedback-docs-read-on-entry]].
+
+---
+
+# Fail loud; don't hide skips
+URL: https://kb.duyet.net/m/feedback-fail-loud
+Type: feedback
+Description: Never claim done if tests/steps were skipped silently
+
+Surface uncertainty and skipped work. "Tests pass" is false if any were skipped.
+
+**How to apply:** list what was not verified. Pair with [[feedback-logic-change-update-tests]].
+
+---
+
+# Logic change → update related tests
+URL: https://kb.duyet.net/m/feedback-logic-change-update-tests
+Type: feedback
+Description: Co-update tests in the same change; never wait for CI
+
+If you rename contracts or change behavior tests lock, grep tests and update expected values in the same PR.
+
+**Why:** green "new code only" still breaks CI.
+**How to apply:** run related suite before claiming done. See [[feedback-fail-loud]], [[tech-codebase-maintenance-loop]].
+
+---
+
+# Never auto-merge release-please PRs
+URL: https://kb.duyet.net/m/feedback-never-auto-merge-release-please
+Type: feedback
+Description: Leave release-please release PRs for human merge
+
+Do not arm auto-merge on release-please PRs (`chore(main): release X.Y.Z`, branches `release-please--*`).
+
+**How to apply:** fix/CI babysit only; human merges releases. See [[tech-release-please-basics]], [[project-open-managed-agents]].
+
+---
+
+# KB stores public generic facts only
+URL: https://kb.duyet.net/m/feedback-public-kb-only
+Type: feedback
+Description: No secrets, hosts, internal project names, or adhoc session dumps
+
+This repo is public. Store durable, generic, public facts only.
+
+**Ban:** credentials, hostnames, IPs, machine names, employer-internal codenames, private topology.
+**Allow:** public `duyet/*` GitHub repos, published blog/CV facts, reusable tech patterns.
+See AGENTS.md §3. Hub: [[project-kb]].
+
+---
+
+# Semantic commits
+URL: https://kb.duyet.net/m/feedback-semantic-commits
+Type: feedback
+Description: Use conventional semantic commit messages
+
+Conventional Commits style. Subject: lowercase, short. Body only when needed.
+
+**How to apply:** `feat(scope): …`, `fix(scope): …`, `chore: …`. Related: [[tech-release-please-pr-title]], [[feedback-concise-english]].
+
+---
+
+# Prefer simple code
+URL: https://kb.duyet.net/m/feedback-simple-code
+Type: feedback
+Description: Minimum code that solves the problem; no speculative abstraction
+
+Ship the smallest correct change. No unused flexibility.
+
+**Why:** less debt, easier agent diffs.
+**How to apply:** delete speculative layers; match [[feedback-surgical-changes]].
+
+---
+
+# Surgical changes only
+URL: https://kb.duyet.net/m/feedback-surgical-changes
+Type: feedback
+Description: Touch only what the request requires; no drive-by refactors
+
+Every changed line must map to the user request. Mention unrelated dead code; don't delete it unless asked.
+
+**How to apply:** read callers first; avoid formatting-only churn. See [[feedback-simple-code]].
+
+---
+
+# Working style (index)
 URL: https://kb.duyet.net/m/feedback-working-style
 Type: feedback
-Description: How Duyet wants agents to work — concise English, semantic commits, simple solutions
+Description: Index of agent collaboration preferences
 
-Working preferences for agents collaborating with [[user-duyet-profile]].
+Agent working-style index:
 
-- **Language:** respond in English. (Vietnamese is native, but English is the
-  default for work.)
-- **Communication:** concise, evidence over assumption, no filler words like
-  "comprehensive/extensive". Surface tradeoffs and uncertainty; don't hide confusion.
-- **Code:** simplest solution that works. No speculative abstractions, no
-  features beyond what was asked. Surgical changes — touch only what's needed.
-- **Commits:** semantic format, consistent scope, simple English.
-- **Autonomy:** comfortable with `/loop` for recurring maintenance; values
-  non-disruptive operations (never destructive actions without explicit ask).
+- [[feedback-concise-english]] · [[feedback-simple-code]] · [[feedback-semantic-commits]]
+- [[feedback-surgical-changes]] · [[feedback-fail-loud]]
+- [[feedback-docs-driven-development]] · [[feedback-cheap-models-subagents]]
+- [[feedback-logic-change-update-tests]] · [[feedback-never-auto-merge-release-please]]
 
-**Why:** Duyet is a senior engineer who optimizes for maintainability and low
-noise; over-engineering and verbosity waste his time.
+- [[feedback-disambiguate-repo]] — multi-product sessions
 
-**How to apply:** default to less code and fewer words; ask before big or
-irreversible moves; match the existing codebase's conventions.
+Owner: [[user-duyet-profile]].
 
 ---
 
-# The Self-Driving Homelab
-URL: https://kb.duyet.net/m/project-self-driven-homelab
+# duyet/agentstate
+URL: https://kb.duyet.net/m/project-agentstate
 Type: project
-Description: self-driving k3s homelab with Hermes/Minh — an AI agent that manages its own infrastructure
+Description: State and coordination layer for AI agent fleets (public OSS)
 
-# The Self-Driving Homelab
+github.com/duyet/agentstate · https://agentstate.app
 
-A single-node k3s cluster that largely runs itself. An AI agent named Minh lives inside it, reachable by Telegram, and maintains the infrastructure it depends on.
+Fleet **state/coordination** API (not an agent framework — [[tech-agentstate-not-a-framework]]). Five primitives: [[tech-agentstate-five-primitives]].
 
-## The Setup
+SDKs: npm `@agentstate/sdk`, PyPI `agentstate`. MCP available. MIT, self-hostable.
+Portfolio: [[user-duyet-active-projects]]. Related: [[project-anyworker]], [[project-open-managed-agents]], [[tech-ai-agent-stack]].
 
-**Hardware**: One machine — `duet-ubuntu`, 16 CPU, 13Gi RAM, 457G NVMe. Sitting in a home in Vietnam.
+---
 
-**Stack**: k3s (single-node, containerd), Traefik ingress, Let's Encrypt TLS via Cloudflare DNS-01, GitHub OAuth for auth. 15 services across 14 namespaces. All config versioned in git.
+# AnyRouter OpenAI-compatible API
+URL: https://kb.duyet.net/m/project-anyrouter-openai-compat
+Type: project
+Description: Point existing OpenAI SDKs at AnyRouter base URL; swap model strings
 
-**Services**: n8n (workflows), LiteLLM (LLM proxy), Open WebUI (chat UI), Home Assistant (smart home), ClickHouse (analytics DB), Qdrant (vectors), PeerDB (CDC replication), Firecrawl (web scraping), Portainer, and others. All behind OAuth.
+AnyRouter accepts OpenAI Chat Completions-shaped clients (and Anthropic Messages). Integrate by changing base URL + model id.
 
-Nothing exotic. Standard homelab stuff. The interesting part is *who runs it*.
-
-## Minh — The Agent That Lives Inside
-
-Minh is an instance of [Hermes](https://github.com/duyet/charts) — an open-source AI agent framework packaged as a Helm chart. She runs as a pod in the cluster with two containers: the agent itself and a Chromium sidecar for browser automation.
-
-**Reach**: You talk to Minh via Telegram (`@minh_duni_bot`). She speaks Vietnamese by default, switches to English when you write in English. One language per reply.
-
-**Brain**: Backed by `@preset/hermes-agent` through [AnyRouter](https://anyrouter.dev), with fallback to Gemini Flash and Claude Sonnet via OpenRouter. She has persistent memory (SOUL.md + session state on a PVC), so she remembers conversations and learns preferences.
-
-**Tools**: MCP servers give her filesystem access, web fetch, GitHub (official github-mcp-server), n8n workflow management, and browser automation via CDP. She can scrape the web (self-hosted Firecrawl), search (Tavily), read email (Himalaya + Gmail), and manage GitHub repos.
-
-**Personality**: Warm, concise, witty. Evidence over guesses. Honest about uncertainty. Proactive with obvious next steps. Calls the user "anh Duyệt" and refers to herself as "em" — Vietnamese familiar pronouns.
-
-## The Self-Management Loop
-
-Here's where it gets recursive. Minh has **cluster-admin** RBAC and the IaC repos (`duyet/infra`, `duyet/charts`) are mounted directly into her pod via hostPath. She can:
-
-1. **Read the cluster state** — `kubectl get pods -A`, `helm list`, check PVCs, view logs
-2. **Edit the infrastructure code** — modify `values.yaml`, manifests, secrets
-3. **Deploy changes** — `helm upgrade --install`, `kubectl apply`
-4. **Commit and push** — git commit with semantic messages, push to GitHub
-5. **Verify** — check pod health, test HTTP endpoints, confirm data integrity
-6. **Update herself** — even `helm upgrade hermes` to change her own deployment
-
-This is the full GitOps loop, but the agent *is* the operator. No ArgoCD. No Flux. Just an LLM with kubectl and a git client.
-
-### Example Workflows
-
-- **"The site is down"** → Minh checks pods, finds a crash, reads logs, identifies the config error, edits values.yaml, runs helm upgrade, verifies pods are Running, commits the fix.
-- **"Add a new service"** → Minh creates the namespace directory, writes values.yaml + secrets template, runs helm install, creates the ingress, tests the endpoint, updates docs.
-- **"How much disk do we have?"** → Zero-token shortcut command, instant response with `df -h` output.
-- **"Optimize resources"** → Minh profiles actual CPU/memory usage across all pods, compares to configured limits, adjusts requests/limits in all values files, deploys everything, verifies health, commits. (This actually happened — [[project-infra-optimization]])
-
-### Quick Commands
-
-Minh has 9 pre-built zero-token shortcuts for common ops: `k3s-status`, `k3s-nodes`, `top`, `disk`, `mem`, `uptime`, `helm`, `pvc`, `infra-diff`. These bypass the LLM entirely — instant shell output.
-
-## Security Model
-
-Yes, a Telegram-reachable LLM with cluster-admin is a high blast radius. This is intentional for a single-node, single-user homelab. Mitigations:
-
-- **`approvals: smart`** — Minh asks for confirmation before destructive operations (delete namespace, wipe PVC, `--force`)
-- **Persona guardrails** — her SOUL.md explicitly forbids destructive commands without confirmation
-- **GitHub App auth** — uses a short-lived installation token (60min), not a personal token
-- **OAuth everywhere** — all services behind GitHub OAuth via Traefik forwardAuth
-- **HostPath limitation** — ties the pod to one node. Acceptable for a homelab; multi-node would need RWX PVC or GitOps
-
-## What I Learned
-
-**Resource tuning is an LLM superpower**. Profiling 40+ pods, comparing actual vs configured resources, and adjusting 14 services in parallel is exactly the kind of tedious, systematic work agents excel at. The optimization pass freed 1.7Gi RAM and 9GB disk in one shot.
-
-**Self-reference is stable**. An agent managing its own deployment sounds like it should break, but in practice it's fine — Helm handles rolling updates, and the pod finishes its work before the new one takes over.
-
-**HostPath is the real constraint**. The IaC repos being mounted from the host means this pattern is single-node only. For multi-node, you'd need git-clone init containers or a proper GitOps tool.
-
-**Kubernetes is good infrastructure for agents**. RBAC, PVCs, init containers, health probes — all the K8s primitives that manage the agent also give it a rich environment to work with. The agent doesn't need special tooling; it just needs kubectl and helm.
-
-## Architecture
-
-```
-User (Telegram)
-    ↓
-Minh (@minh_duni_bot)
-    ↓ (LLM: @preset/hermes-agent via AnyRouter)
-Hermes Pod (k3s, namespace: hermes-agent)
-    ├── agent container (hermes-agent)
-    │   ├── MCP: filesystem, fetch, time, github, n8n
-    │   ├── kubectl + helm (cluster-admin SA)
-    │   ├── hostPath: ~/project/infra, ~/project/charts
-    │   └── git (GitHub App duyetbot, 60min tokens)
-    └── chromium container (CDP :9222)
-         ↓
-    k3s API → manages all namespaces
-    GitHub API → commits IaC changes
-```
-
-## Related
-
-- [[project-infra-optimization]] — the resource optimization pass Minh performed
-- [[tech-traefik-forwardauth-oauth2-proxy]] — auth layer protecting all services
-- [[tech-hermes-agent-custom-provider]] — custom LLM provider registration
-
-## Links
-
-- Hermes chart: [github.com/duyet/charts/hermes-agent](https://github.com/duyet/charts)
-- Infra repo: [github.com/duyet/infra](https://github.com/duyet/infra)
-- Hermes agent framework: [github.com/nicepkg/hermes](https://github.com/nicepkg/hermes)
+Product hub: [[project-anyrouter]]. Gateway lessons: [[tech-llm-gateway-quota-as-retryable]].
 
 ---
 
 # AnyRouter
 URL: https://kb.duyet.net/m/project-anyrouter
 Type: project
-Description: Universal LLM API gateway at anyrouter.dev — TanStack Start on CF Workers, Kumo UI, split web/API workers, prerendered marketing shells
+Description: Universal multi-provider LLM API gateway at anyrouter.dev
 
-github.com/duyet/anyrouter — OpenAI-compatible LLM router: one API, many providers, BYOK, presets, failover.
+https://anyrouter.dev — **universal AI model router**: one API, many providers/models, OpenAI Chat Completions + Anthropic Messages compatible.
 
-## Stack & deploy
+Product traits (public): multi-provider routing, BYOK, pricing/latency comparison, Cloudflare-edge deploy.
+Packages mentioned publicly: `@anyr/sdk`, `@anyr/cli`.
 
-| Layer | Choice |
-|-------|--------|
-| App | TanStack Start + React, SSR on Cloudflare Workers |
-| UI | Kumo (`@cloudflare/kumo`) + Phosphor icons |
-| API | Separate `anyrouter-api` worker via service binding (3 MiB budget split) |
-| Deploy | `pnpm cf:deploy` → `pnpm ops deploy` (secrets, D1 migrate, build, deploy, prerender, purge) |
-| Docs | Customer docs in `src/content/docs/`; maintainer kb in `docs/kb/` |
-
-## Public routes (2026-06-14)
-
-- `/pricing` — Free / Pro / Team tiers (Kumo cards)
-- Homepage **LLM API Gateway** diagram: `src/components/home-sections/gateway-section.tsx` (clients → AnyRouter hub → providers)
-- Subdomain shortcuts: `pricing.anyrouter.dev` → `/pricing`, etc. (`src/worker.ts`)
-
-## Ops habits
-
-- Post-task: deploy + commit only touched paths (`git add` specific files, never `-A`)
-- Smoke: `pnpm e2e:test:prod` after deploy
-- Internal kb auto-updated under `docs/kb/` for non-trivial fixes
-
-**Why:** Agents working across repos need the deploy split, file locations, and stale-chunk trap without re-discovering from scratch.
-
-**How to apply:** Read `docs/kb/` + `AGENTS.md` in repo before coding; use Kumo docs-first; route all upstreams through CF AI Gateway.
+API shape: [[project-anyrouter-openai-compat]]. Patterns: [[tech-llm-gateway-byok-sibling]], [[tech-llm-gateway-quota-as-retryable]], [[tech-cloudflare-ai-gateway-transparent]], [[tech-workers-cache-enabled]].
+Portfolio: [[user-duyet-active-projects]]. Related products: [[project-agentstate]], [[project-anyworker]].
 
 ---
 
-# ClickHouse Monitor (chmonitor)
-URL: https://kb.duyet.net/m/project-clickhouse-monitor
+# AnyWorker local agent + GUI
+URL: https://kb.duyet.net/m/project-anyworker-local-agent
 Type: project
-Description: Open-source ClickHouse monitoring dashboard — monorepo topology, domains, marketing/docs apps, design system
+Description: Product path: Python agent server plus React GUI; web is separate marketing app
 
-github.com/duyet/clickhouse-monitoring — flagship ClickHouse ops UI (~240★, GPL-3.0).
+[[project-anyworker]] splits **marketing Worker** (`apps/web`) from **local agent product** (`apps/anyworker` server + GUI).
 
-## Domains (Cloudflare Workers)
-
-| Worker | App | URL |
-|--------|-----|-----|
-| `chmonitor-landing` | `apps/landing` (Astro static) | chmonitor.dev |
-| `chmonitor-dash` | `apps/dashboard` (TanStack Start) | dash.chmonitor.dev |
-| `chmonitor-docs` | `apps/docs` (Astro custom theme) | docs.chmonitor.dev |
-| `chmonitor-mcp` | `apps/mcp` | dash.chmonitor.dev/api/mcp* |
-
-PR previews: `preview.chmonitor.dev`, `preview.docs.chmonitor.dev`, `preview.dash.chmonitor.dev`.
-
-`apps/landing` and `apps/docs` are **outside** the root bun workspace (isolated installs).
-
-## Marketing design system (2026-06-14)
-
-Shared landing + docs vibe:
-- **Display:** Bricolage Grotesque · **Body:** Source Sans 3 · **Mono:** JetBrains Mono
-- **Palette:** zinc fg (`#09090b`), amber `#f59e0b` → orange `#f97316` accent
-- **CTA copy:** nav/buttons say **Dashboard** / **Open dashboard** (not "Open Cloud")
-- Landing hero: browser-frame dashboard carousel + stats strip + lazy-loaded gallery marquee
-
-Docs: custom Astro theme (not Starlight); Pagefind search; versioned via `scripts/sync-docs.mjs`.
-
-## CI gotcha
-
-`component-test` (Cypress) fails on main when no `src/**/*.cy.{ts,tsx}` specs exist — needs `supportFile: false` in `cypress.config.ts` component block or actual component specs.
-
-**Why:** Agents editing marketing/docs need the right app paths and shared tokens — not the dashboard TanStack app.
-
-**How to apply:** Landing/docs changes → `apps/landing` + `apps/docs` only; build with `bun run build:landing` and `cd apps/docs && bun run build`; deploy via `landing.yml` / `docs.yml` / `cloudflare.yml`.
+Related: [[project-agentstate]], [[user-duyet-ai-stance]].
 
 ---
 
-# duyet.net monorepo
-URL: https://kb.duyet.net/m/project-duyet-net
+# duyet/anyworker
+URL: https://kb.duyet.net/m/project-anyworker
 Type: project
-Description: Bun + Turborepo monorepo behind duyet.net — ~9 web apps on TanStack Start SSG, deployed to Cloudflare Pages
+Description: Open alternative to Claude Cowork-style agents — local agent + marketing site
 
-`duyet/monorepo` — Bun + Turborepo hosting all of [[user-duyet-profile]]'s public
-web apps + shared packages. Most apps are TanStack Start SSG on Cloudflare Pages
-(see [[tech-tanstack-start-ssg]], [[tech-cloudflare-pages-deploy]]).
+github.com/duyet/anyworker · https://anyworker.dev
 
-**Apps** (subdomains of duyet.net), with pre-rendered page counts:
-- `blog` (393) — TanStack Start SSG, WASM markdown, isomorphic `readPublicJson`.
-- `llm-timeline` (3700+) — see [[project-llm-timeline]].
-- `insights` (22) — AI/Claude usage analytics from CCUsage data.
-- `home` (4), `cv` (2), `photos` (2), `homelab` (1), `ai-percentage` (1).
-- `agents` — the **only** Vite SPA left; D1 Pages Functions block SSG. See [[project-duyetbot]].
+Open “AI that does the work” product. Split: marketing Worker vs local agent+GUI ([[project-anyworker-local-agent]]).
 
-**Shared packages:** `components` (design system), `libs` (WASM bindings re-export),
-`wasm` (compiled Rust crates), `data-sync`, `api`, `config`, `urls`.
-
-**Design:** flat/hairline design system — see [[tech-flat-design-system]]. Palette
-varies per app (blog white `#ffffff`, others warm cream `#fbf7f0`).
-WASM strategy: [[tech-rust-wasm-prerender]]. Maintained autonomously by [[project-duyetbot]].
+pnpm monorepo; TanStack Start web ([[tech-tanstack-start-ssg]]). Related: [[project-agentstate]], [[project-anyrouter]].
+Release: [[feedback-never-auto-merge-release-please]]. Portfolio: [[user-duyet-active-projects]].
 
 ---
 
-# duyetbot — autonomous agent
+# duyet/charts
+URL: https://kb.duyet.net/m/project-charts
+Type: project
+Description: Public Helm charts repository
+
+github.com/duyet/charts — public Helm charts, tested with KinD. Related: [[user-duyet-infra-kubernetes]], [[reference-duyet-github]].
+
+---
+
+# chmonitor recommends, never auto-DDL
+URL: https://kb.duyet.net/m/project-chmonitor-advisor
+Type: project
+Description: AI/ops advisor suggests CH changes but does not apply DDL automatically
+
+chmonitor advisor mode is **recommend-only** — projections, skip indexes, partitions, MVs — never silent schema mutations.
+
+Hub: [[project-clickhouse-monitoring]]. Safety culture: [[feedback-fail-loud]].
+
+---
+
+# chmonitor
+URL: https://kb.duyet.net/m/project-clickhouse-monitoring
+Type: project
+Description: Open-source ClickHouse operational advisor — monitoring + AI recommendations
+
+github.com/chmonitor/chmonitor · https://chmonitor.dev · docs.chmonitor.dev
+
+**chmonitor** — ClickHouse operational advisor + real-time monitoring, MCP, AI chat. Advisor is recommend-only ([[project-chmonitor-advisor]]).
+
+OSS self-host and hosted Cloud from one product family ([[tech-one-codebase-oss-saas]], [[tech-single-source-env]]).
+Focus: [[user-duyet-focus-clickhouse]]. Portfolio: [[user-duyet-active-projects]].
+
+---
+
+# duyetbot persona
 URL: https://kb.duyet.net/m/project-duyetbot
 Type: project
-Description: Autonomous Claude Code agent that maintains the duyet.net monorepo — scope, autonomous loop, and memory hierarchy
+Description: Autonomous agent persona that maintains public monorepo within clear scope
 
-duyetbot — the autonomous Claude Code agent persona that maintains [[project-duyet-net]].
+duyetbot maintains [[project-monorepo]] within scope: code, design system, deploy config.
 
-**Scope (can change without asking):** codebase, look-and-feel, deployment —
-layout, components, design tokens, deps, build/deploy config, landing-page copy.
-**Out of scope (needs human direction):** blog post content (`apps/blog/_posts/**`)
-and LLM Timeline curated data — those are Duyet's authored words/research facts.
-
-**Autonomous loops:**
-- **Improvement loop** (`/loop` or one-shot `claude -p`): measure → fix top-priority issue → verify (lint+test+build) → commit → background-deploy → log. Priority order: build > tests > lint > deploy > code quality > features. See [[tech-cloudflare-pages-deploy]].
-- **PR management loop** (`/agent-loop:resume`): runs continuously every 15 min, triages all open PRs, dispatches cheap subagents (Sonnet/Haiku) for reviews/fixes/merges. See [[tech-agent-loop-autonomous-pr-management]].
-
-**Memory hierarchy** (most→least durable): commit messages → kb articles → durable
-findings doc → session memory `.md` snapshots → transcript. Memory files are
-point-in-time, may be stale — verify against code before acting. This is the
-[[feedback-docs-driven-development]] model. Auto-compaction welcomed; save
-to-remember context before it. Commits add a duyetbot co-author trailer.
+Out of scope without human direction: authored blog posts and curated timeline research facts.
+Loops: [[tech-improvement-loop]], [[tech-agent-loop-cycle]]. Memory model: [[feedback-docs-driven-development]].
 
 ---
 
-# Infra Optimization Baseline (2026-06-13)
-URL: https://kb.duyet.net/m/project-infra-optimization
+# duyet/homelab
+URL: https://kb.duyet.net/m/project-homelab
 Type: project
-Description: k3s cluster resource optimization, security hardening, and host cleanup — baseline for future tuning
+Description: Public personal homelab repo — configs and experiments (no private topology in kb)
 
-# Infra Optimization Baseline (2026-06-13)
+github.com/duyet/homelab — public personal homelab configs/experiments.
 
-**Goal**: optimize resources, reduce complexity, fix security issues on duet-ubuntu k3s cluster.
-
-## Results
-
-| Metric | Before | After | Delta |
-|--------|--------|-------|-------|
-| Memory | 10Gi (78%) | 9.2Gi (70%) | **-1.7Gi** |
-| Disk | 372G (86%) | 363G (84%) | **-9GB** |
-| Swap files | 2 (16G) | 1 (11G) | -4G file |
-| CrashLoop pods | 1 | 0 | fixed |
-| Services without limits | cert-manager | 0 | all limited |
-| Kubeconfig perms | 644 world-readable | 640/600 | secured |
-
-## What Changed
-
-### Resource optimization (all services)
-- Key principle: set requests based on actual usage, limits at 1.5-2x peak
-- Hermes: memory limit raised 1Gi → 2Gi (was being exceeded at 1212Mi)
-- PeerDB: massive over-provisioning fixed — temporal 512→128Mi, flow-worker 512→128Mi, total req ~1.9Gi → 736Mi
-- Home Assistant: CPU limit 2 → 500m (only using 10m actual)
-- Open-WebUI: memory limit 1536Mi → 1Gi, CPU limit 1 → 500m
-- LiteLLM: memory limit 1536 → 1200Mi
-- ClickHouse: memory limit 2Gi → 1536Mi, CPU limit 1 → 500m
-- n8n + worker: memory limits 1Gi → 512Mi
-- Portainer, Qdrant, Promptfoo, Vito, Chmonitor: all tightened
-- cert-manager: added limits to all 3 components (previously unlimited)
-
-### Security
-- Kubeconfig: `/etc/rancher/k3s/k3s.yaml` mode 640, user copy `$HOME/.kube/config.duet-homelab` mode 600
-- All Makefiles and docs updated to use new KUBECONFIG path
-- Docker daemon stopped, disabled, masked (k3s uses containerd)
-
-### Host cleanup
-- Journal logs vacuumed 876MB → 100MB cap
-- Old kernel 6.8.0-110-generic removed
-- Swap consolidated: removed `/swap.img` (4G), kept `/swapfile2` (11G)
-- Failed systemd units masked: NetworkManager-wait-online, systemd-networkd-wait-online
-
-### Firecrawl fix
-- nuq-worker disabled (CrashLoopBackOff — missing NUQ cloud config, not needed for homelab)
-- Added `{{- if .Values.nuqWorker.enabled }}` guard to deployment template
-
-## Repo: `~/project/infra` (duyet/infra)
-
-**Why**: baseline for future optimization rounds. Re-run `kubectl top pods -A` to compare.
-**How to apply**: resource tuning is iterative — always measure actual usage before adjusting.
+Related: [[user-duyet-homelab]], [[project-charts]], [[user-duyet-site-homelab]].
+Keep kb notes generic — no private inventory.
 
 ---
 
-# kb.duyet.net knowledge base
-URL: https://kb.duyet.net/m/project-kb-duyet-net
+# KB site front-end
+URL: https://kb.duyet.net/m/project-kb-site
 Type: project
-Description: kb.duyet.net — public KB site; migrating from the old monorepo app to this shared-brain repo, also serves bootstrap.sh
+Description: kb.duyet.net renders the shared-brain notes as a public site
 
-kb.duyet.net — Duyet's public knowledge base, the rendered front-end of this
-shared brain.
-
-- **Old form:** an `apps/kb` app inside [[project-duyet-net]] — markdown articles
-  with frontmatter (category/tags/links/summary), graph view at `/graph`, machine
-  index at `/llms.txt` + `/llms-full.txt`, raw article at `/k/<slug>.md`.
-- **Now:** that monorepo app is being **replaced by THIS repo** (the shared brain).
-  The site renders the kb (including client-side full-text search, RSS, and sitemap)
-  and also serves `/scripts/bootstrap.sh` for new-device setup.
-
-Embodies [[feedback-docs-driven-development]]: synthesized, graph-connected,
-grep-able notes — the durable form of agent memory, distinct from point-in-time
-session snapshots. Maintained by [[project-duyetbot]]. The 32 long-form source
-articles seeding this brain came from the old monorepo `apps/kb`.
+Public site for [[project-kb]]. Graph + llms.txt endpoints for agents. Pattern: [[feedback-docs-driven-development]]. Link: [[user-duyet-site-kb]].
 
 ---
 
-# LLM Timeline app
+# duyet/kb shared brain
+URL: https://kb.duyet.net/m/project-kb
+Type: project
+Description: Public shared-brain repo — atomic notes, MEMORY.md index, OKF layout
+
+github.com/duyet/kb — this repository. Protocol: AGENTS.md. Index: MEMORY.md. Graph: [[tech-okf-bundle]].
+
+Pattern: [[feedback-docs-driven-development]]. Site: [[user-duyet-site-kb]] / [[project-kb-site]]. Scope: [[feedback-public-kb-only]].
+
+---
+
+# LLM Timeline
 URL: https://kb.duyet.net/m/project-llm-timeline
 Type: project
-Description: llm-timeline.duyet.net — TanStack Start SSG timeline of LLM models 1950–2026, shadcn UI, dual data sources
+Description: Public SSG timeline of LLM models at llm-timeline.duyet.net
 
-`apps/llm-timeline` ([[project-duyet-net]]) — timeline of LLM models 1950–2026,
-3700+ pre-rendered pages. Reference implementation for the flat/shadcn design
-(PR #1003): all `shadow-*` removed, semantic tokens only, vertical stat-card grids.
+App in [[project-monorepo]]: https://llm-timeline.duyet.net — large static timeline (1950–present).
 
-**Data** (built into pages at build time, `pnpm run sync`, no runtime API):
-- Curated: ~785 models from Google Sheets, hand-maintained by Duyet (out of
-  scope for [[project-duyetbot]] — research facts + citations).
-- Epoch AI: ~3156 models (extended range back to 1950).
-- Deduped to ~3937 unique (last sync 2026-03-25).
-
-**Tech:** warm cream palette; `@tanstack/react-virtual` `useWindowVirtualizer`
-for the scroll; WASM normalizer crate via `initSync` (kept for consistency though
-not faster — see [[tech-rust-wasm-prerender]]); badge variants replace
-color-lookup functions. Design conventions: [[tech-flat-design-system]].
+Uses [[tech-tanstack-start-ssg]], [[tech-flat-design-hairline]]. Curated model data is human-owned research.
 
 ---
 
-# AI SDK chat history — map persisted parts to UIMessage at the client boundary
-URL: https://kb.duyet.net/m/reference-ai-sdk-history-uimessage-mapping
+# duyet/monorepo
+URL: https://kb.duyet.net/m/project-monorepo
+Type: project
+Description: Public Bun+Turborepo for personal duyet.net web apps
+
+github.com/duyet/monorepo — public web monorepo (blog, CV, timeline apps, shared packages).
+
+Stack: Bun, Turborepo, TanStack Start SSG, Cloudflare Pages.
+Related: [[project-llm-timeline]], [[project-duyetbot]], [[tech-tanstack-start-ssg]], [[tech-flat-design-hairline]].
+
+---
+
+# Open Managed Agents (OMA)
+URL: https://kb.duyet.net/m/project-open-managed-agents
+Type: project
+Description: OSS self-hostable Managed Agents API — CF Workers/DO or Docker
+
+github.com/duyet/oma · https://oma.duyet.net · docs: https://docs.oma.duyet.net
+
+Open-source reimplementation of a **Managed Agents**-style API. Meta-harness: platform prepares tools/skills/sandbox/credentials; pluggable harness drives the model loop.
+
+Runs two ways: Cloudflare (Workers + Durable Objects) or self-host Node/`docker compose` — same business logic.
+Invariants: [[tech-oma-credentials-out-of-sandbox]], [[tech-prompt-cache-byte-sensitive]].
+Release: [[feedback-never-auto-merge-release-please]]. Portfolio: [[user-duyet-active-projects]].
+
+---
+
+# AI SDK UIMessage shape
+URL: https://kb.duyet.net/m/reference-ai-sdk-uimessage
 Type: reference
-Description: Vercel AI SDK UIMessage rehydration pitfall — persisted tool/chart parts vanish on history reload unless translated to native dynamic-tool shape
+Description: UIMessage is id+role+parts; unknown part types render as null
 
-Building a chat UI on Vercel AI SDK (`useChat`, v5/v6/v7) backed by your own
-history API: a stored tool/chart part can render fine **live** but vanish on
-**history reload**. Live streaming feeds AI SDK its native SSE protocol, so parts
-arrive as the lib's own shape; history returns your DB's DTO shape, which AI SDK
-does not recognize.
+Vercel AI SDK `UIMessage` = `{id, role, parts[], metadata?}`. Renderer switches on `part.type` and drops unknowns.
 
-**Root cause.** AI SDK `UIMessage` = `{id, role, parts[], metadata?}`. Its
-renderer switches on each part's `type` and drops unknown types (`default: null`,
-silently). Native tool parts are `dynamic-tool` / `tool-${name}` with
-`{state, input, output}`. A neutral persistence DTO usually stores
-`{type:'tool-call', args, result}` + a parallel `annotations[]` array → none of
-which AI SDK reads.
-
-**Why a converter is needed.** Your API is a persistence/transport DTO, not a
-view-model. Translate at the client boundary:
-- tool parts: `tool-call`/`args`/`result` → `dynamic-tool` (`input`/`output`,
-  `state:'output-available'` when a result exists, else `input-available`)
-- side-channel `annotations[]` (token usage, reasoning, errors) → `data-${name}` parts
-- envelope: add `status:'ready'`, `id` fallback, normalize timestamps
-
-**Why not just fix the API?** Only safe if AI SDK is the *sole* consumer. One
-endpoint serving both a legacy custom renderer (reads `tool-call`) and an AI SDK
-renderer (needs `dynamic-tool`) can't emit one native shape without breaking the
-other — keep the API neutral, translate per client. Clean end-state once the
-legacy path retires: emit native `UIMessage` server-side, delete the shim.
-
-**Smell:** a response carrying `parts[]` AND `annotations[]` AND `toolInvocations[]`
-is three encodings of the same data — removable cruft once on one renderer.
+Native tool parts: `dynamic-tool` / `tool-${name}` with `{state, input, output}`.
+See [[tech-ai-sdk-history-dto-convert]], [[tech-ai-agent-stack]].
 
 ---
 
-# Duyet — blog content & themes
+# Cloudflare acquired Astro (2026)
+URL: https://kb.duyet.net/m/reference-cloudflare-acquires-astro
+Type: reference
+Description: Jan 2026: Astro team joined Cloudflare; Flue agent framework context
+
+Cloudflare acquired The Astro Technology Company (announced 2026-01-16). Astro stays open source.
+
+Flue (`withastro/flue`) is from that team post-acquisition. Related: [[tech-flue-register-in-initializer]], [[user-duyet-infra-cloudflare]].
+
+---
+
+# Blog themes
 URL: https://kb.duyet.net/m/reference-duyet-blog
 Type: reference
-Description: What blog.duyet.net covers — a digital garden on Rust, ClickHouse, AI agents, data eng, personal analytics
+Description: Recurring public blog themes on blog.duyet.net
 
-blog.duyet.net — Duyet runs it as a **digital garden** (evolving notes, not
-polished essays), drafted in Obsidian.
+Themes by volume: ClickHouse · Rust · AI agents · data eng (Airflow, DuckDB) · tooling.
 
-Recurring themes (by volume):
-- **ClickHouse** (largest): MergeTree/Replacing/Replicated engines, mutations,
-  replication topologies, UDFs, Keeper, monitoring on Kubernetes, cheatsheets.
-- **Rust**: async, building libraries (incl. for Next.js / WASM), language-model
-  from scratch, ownership types (`Rc<T>`, `Saturating<T>`), dependency tooling.
-- **AI agents / LLMs**: a leveled "build an agent" portfolio series — push-frontier
-  AI, self-improving coding agent, personal life-OS agent, enterprise workflow
-  agent — plus MCP, Ollama, workflow-vs-agents, `duyetbot`.
-- **Data engineering**: Airflow (deferrable operators), DuckDB, OpenDAL.
-- **Tooling & life**: homelab, Obsidian, personal analytics / life-logging.
-
-See [[user-duyet-web-presence]] for all links.
+Site: [[user-duyet-site-blog]]. Stance: [[user-duyet-ai-stance]]. Focus: [[user-duyet-focus-clickhouse]].
 
 ---
 
-# Duyet — notable GitHub projects
+# Notable public GitHub repos
 URL: https://kb.duyet.net/m/reference-duyet-github
 Type: reference
-Description: Duyet's main public repos — ClickHouse tooling, Rust data tools, AI-agent projects, infra
+Description: Catalog of notable public duyet/* and related OSS repos
 
-github.com/duyet — ~100 non-fork repos. Notable ones by area:
+Notable public repos (non-exhaustive):
 
-- **ClickHouse:** `clickhouse-monitoring` (flagship, ~240★, TanStack Start dashboard
-  at dash.chmonitor.dev; Astro landing/docs — see [[project-clickhouse-monitor]]),
-  `clickhouse-udf-rs` (Rust UDFs).
-- **Rust data/infra tooling (GitOps style):** `grant-rs` (Redshift/Postgres
-  privileges), `athena-rs` (AWS Athena schema), `glossary-rs` (actix API),
-  `cov-rs` (coverage).
-- **AI agents:** `duyetbot-agent` (TS), `coding-agent-insights` (Rust, analyzes
-  coding-agent history), `ccr` (Rust, Claude Code + OpenRouter), `codex-claude-plugins`
-  (Python), `okie.one` (Next.js all-in-one chat assistant).
-- **Infra:** `charts` (Helm charts, tested with KinD), `gaxy` (Go GA/GTM proxy).
-- **Web/personal:** `monorepo` (blog, cv, …), `api.duyet.net`, `saveto`, `feedback`.
-- **Most-starred (older):** `bruteforce-database` (~1.7k★), `pricetrack` (~140★).
+| Area | Repos |
+|------|-------|
+| ClickHouse | [[project-clickhouse-monitoring]], `clickhouse-udf-rs` |
+| LLM / agents | [[project-anyrouter]], [[project-agentstate]], [[project-anyworker]], [[project-open-managed-agents]] |
+| Web | [[project-monorepo]], [[project-kb]] |
+| Homelab / infra | [[project-homelab]], [[project-charts]], `gaxy` |
+| Older popular | `bruteforce-database`, `pricetrack` |
 
-Languages skew Rust + TypeScript + Python. See [[user-duyet-stack]].
+Hub: [[user-duyet-github]]. Stack: [[user-duyet-stack]].
 
 ---
 
-# release-please + squash-merge release pipeline
-URL: https://kb.duyet.net/m/tech-release-please-squash-pipeline
-Type: reference
-Description: Conventional-commit release automation where squash-merge PR titles drive versioning; pre-1.0 bump rules and the PR-title guard that keeps it honest
-
-Pattern used in chmonitor (clickhouse-monitoring) to fully automate releases.
-
-- **release-please** watches `main`, keeps a standing `chore(main): release X.Y.Z`
-  PR + tracked `CHANGELOG.md`. Merging it tags + publishes a GitHub Release,
-  which fires a separate `release.yml` (on `release: published`, NOT tag push —
-  avoids duplicate runs) to build Docker/assets and generate AI release notes.
-- Config/manifest can live anywhere — pass `config-file` / `manifest-file` to
-  the action. Moving them out of repo root into `.github/` keeps root clean.
-
-**Pre-1.0 bump trap:** with `bump-patch-for-minor-pre-major: true`, in `0.x`
-a plain `feat` only bumps the **patch**. To cut a new **minor** (e.g. 0.2→0.3)
-the commit MUST be a breaking change (`feat!:` or `BREAKING CHANGE:` footer).
-
-**The key guard:** squash-merge makes the **PR title** the commit release-please
-reads. An invalid title is silently dropped from the bump + changelog. So add a
-`pr-title` workflow that validates the title against the SAME
-`commitlint.config.js` the husky hook uses (`echo "$PR_TITLE" | bunx commitlint`)
-— one source of truth, no third-party action.
-
-**CHANGELOG ownership:** release-please owns versioned blocks; keep a human
-`## [Unreleased]` section on top for a curated preview — it's left untouched and
-the generated block is inserted above it on release.
-
-**AI migration prompt:** ship a paste-able env-migration prompt
-(`.github/release-migration-prompt.md`) auto-appended to breaking releases and
-mirrored in README + docs — lets users hand their `.env`/compose/k8s to any LLM
-to upgrade.
-
----
-
-# Pin GitHub Actions — the trivy-action March 2026 compromise
-URL: https://kb.duyet.net/m/tech-supply-chain-pin-github-actions
+# Pin GitHub Actions
+URL: https://kb.duyet.net/m/tech-pin-github-actions
 Type: tech
-Description: aquasecurity/trivy-action had 75 tags force-pushed in March 2026 — pin Actions to a version or commit SHA and use the two-phase Trivy scan (report then fail-on-severity)
+Description: Pin actions to version or commit SHA; moving major tags can be force-pushed
 
-GitHub Actions run with the repo's secrets, so a compromised action = a breach.
-Treat every `uses:` as untrusted third-party code that executes in your CI.
+Actions run with repo secrets. Prefer `@vX.Y.Z` or commit SHA pins; avoid floating `@v0`.
 
-## The incident
-
-In **March 2026**, `aquasecurity/trivy-action` had **75 tags force-pushed** — a
-known supply-chain attack pattern where a benign tag is silently moved to a
-malicious commit. Anyone referencing `@v0.x` (a moving tag) pulled the attacker's
-code on the next run. (`@v0.36.0` was the pin used here.)
-
-## How to apply
-
-- **Pin every Action** to a specific version tag (`@v0.36.0`, not `@v0.x`) or,
-  better, a **commit SHA** (`@<sha>#semver:`). Tags can be force-pushed; SHAs
-  can't (without repo history rewrite). Dependabot keeps SHA pins fresh.
-- **Two-phase Trivy scan** (report, then fail) — avoids re-running the expensive
-  setup and separates "show me the vulns" from "gate the build on them":
-  1. **Report job** — `trivy-action` with `exit-code: 0` (always succeeds, emits
-     the SARIF/JSON report).
-  2. **Fail-on-severity job** — `trivy-action` with `skip-setup: true` (reuses the
-     install) + `exit-code: 1` + `severity: CRITICAL,HIGH`.
-
-Related pipeline hygiene: see [[tech-release-please-squash-pipeline]] and
-[[tech-codebase-maintenance-loop]].
+Incident reference: trivy-action tags force-pushed (2026). Related: [[tech-trivy-two-phase]], [[feedback-public-kb-only]].
 
 ---
 
-# Cloudflare AI Gateway is a transparent proxy for model names
-URL: https://kb.duyet.net/m/tech-cloudflare-ai-gateway-proxy
+# release-please basics
+URL: https://kb.duyet.net/m/tech-release-please-basics
 Type: tech
-Description: AI Gateway does not validate model ids; it forwards them to the upstream — "invalid model ID" comes from the provider, not CF
+Description: Standing release PR + CHANGELOG; merge tags and publishes
 
-Cloudflare AI Gateway keeps **no per-model allow-list**. It never rejects a
-request because a model is "unsupported" by Cloudflare — it only resolves which
-**upstream/provider** to route to and forwards the model string unchanged. So you
-can serve a brand-new model the moment the **upstream provider** hosts it; no
-waiting on Cloudflare.
+release-please maintains a release PR and CHANGELOG from conventional commits. Merging releases tags/publishes.
 
-- **Custom & per-provider endpoints** (`.../<gateway>/custom-{slug}/...`): the
-  model is never parsed — everything after `custom-{slug}/` is appended to the
-  registered `base_url` and forwarded verbatim. Creating a custom provider needs
-  only `name`/`slug`/`base_url` — no model registration.
-- **Universal / `compat` endpoint** (`model: "provider/model"`): AI Gateway parses
-  only the **provider prefix** to pick a route. The error `"X is not a valid model
-  ID"` here means an **unknown provider prefix**, never an unsupported model.
-- A `"... is not a valid model ID"` in the AIG dashboard is the **upstream's**
-  rejection (the model isn't hosted there), not AI Gateway's. Debug upstream
-  availability, not gateway config.
-
-**Proven:** routing `nvidia/cosmos3-nano-reasoner` through a custom NVIDIA provider
-reached `integrate.api.nvidia.com` and NVIDIA rejected it (model is self-host
-NIM/HF-weights only, not on the hosted API). AIG passed it through fine.
+Prefer release-published workflows over raw tag push to avoid duplicates. Related: [[tech-release-please-pr-title]], [[feedback-never-auto-merge-release-please]].
 
 ---
 
-# Cloudflare Pages deploy workflow
+# Squash PR title is the release commit
+URL: https://kb.duyet.net/m/tech-release-please-pr-title
+Type: tech
+Description: Under squash-merge, PR title becomes the commit release-please reads
+
+Invalid PR titles are silently dropped from bumps. Guard titles with the same commitlint config as local hooks.
+
+Related: [[tech-release-please-basics]], [[feedback-semantic-commits]], [[tech-release-please-pre1-minor]].
+
+---
+
+# Pre-1.0 feat may only bump patch
+URL: https://kb.duyet.net/m/tech-release-please-pre1-minor
+Type: tech
+Description: With bump-patch-for-minor-pre-major, feat in 0.x needs breaking marker for minor
+
+In 0.x with `bump-patch-for-minor-pre-major: true`, plain `feat` → patch. Need `feat!:` or BREAKING CHANGE for minor.
+
+Related: [[tech-release-please-basics]], [[tech-release-please-pr-title]].
+
+---
+
+# Two-phase Trivy scan
+URL: https://kb.duyet.net/m/tech-trivy-two-phase
+Type: tech
+Description: Report job always succeeds; separate fail-on-severity job gates the build
+
+Phase 1: scan with exit 0 for artifacts. Phase 2: fail on CRITICAL/HIGH, ideally reusing setup.
+
+Related: [[tech-pin-github-actions]], [[tech-codebase-maintenance-loop]].
+
+---
+
+# AI Gateway is transparent on model ids
+URL: https://kb.duyet.net/m/tech-cloudflare-ai-gateway-transparent
+Type: tech
+Description: Cloudflare AI Gateway does not validate model names; upstream does
+
+AI Gateway routes by provider/prefix and forwards model strings. "Invalid model ID" is usually upstream or unknown provider prefix.
+
+Custom providers: base URL + slug; model path appended. Related: [[project-anyrouter]], [[tech-llm-gateway-quota-as-retryable]].
+
+---
+
+# Cloudflare Pages deploy habit
 URL: https://kb.duyet.net/m/tech-cloudflare-pages-deploy
 Type: tech
-Description: Commit→push→background-deploy convention for duyet.net apps on Cloudflare Pages, plus the parallel-deploy hazard
+Description: Semantic commit → push → deploy changed app; avoid parallel deploys that share env files
 
-Each [[project-duyet-net]] app deploys to Cloudflare Pages
-(`scripts/cf-deploy-prod.sh`, per-app `pnpm run cf:deploy:prod`,
-`pages_build_output_dir = "dist/client"`).
+Habit: commit → push → deploy the changed Pages app → verify HTTP 200.
 
-**Per-task convention:** semantic commit → push to `master` → background-deploy
-the changed app, then continue; verify production (`curl` → 200) after the
-completion notification.
-
-**Hazard:** never run two background deploys in parallel — the script renames
-`.env.local` → `.env.local.deploy-bak` mid-run, so parallel runs collide and lose
-the CF API token.
-
-**CI (`cf-deploy.yml`):** matrix over apps on push to `master`; the blog entry
-adds rust-toolchain + wasm-pack + `wasm:build:release` before build (see
-[[tech-rust-wasm-prerender]]); other apps skip it.
-
-**commitlint:** `subject-case` lowercase, `body-max-line-length` 100. Pre-commit
-hook runs `pnpm run test`. Root checks before completing a multi-file task:
-`pnpm run lint` (Biome) + `pnpm run check-types` + `pnpm run test`. Aligns with
-[[feedback-working-style]]; run autonomously by [[project-duyetbot]].
+Hazard: scripts that rename local env files mid-deploy must not run in parallel.
+Related: [[tech-tanstack-start-ssg]], [[project-monorepo]], [[feedback-semantic-commits]].
 
 ---
 
-# Traefik forwardAuth + OAuth2 Proxy + nginx redirector pattern
-URL: https://kb.duyet.net/m/tech-traefik-forwardauth-oauth2-proxy
+# forwardAuth must preserve status
+URL: https://kb.duyet.net/m/tech-forwardauth-preserve-status
 Type: tech
-Description: Traefik ErrorPages middleware preserves original status (won't pass 302 through), so forwardAuth with OAuth2 needs an nginx redirector to convert 401→302
+Description: Error pages middleware can rewrite 302 challenges into 401/500 and break OAuth
 
-Pattern for protecting k8s services behind GitHub OAuth2 via Traefik forwardAuth.
+When Traefik forwardAuth + OAuth2 Proxy sit behind error middleware, ensure 302 challenges are not replaced by generic error pages.
 
-## Architecture
-
-```
-Request → Traefik IngressRoute
-  → forwardAuth middleware (points to auth-redirector:9190/auth)
-    → auth-redirector (nginx) proxies to oauth2-proxy:4180/oauth2/auth
-      → 200: pass through (authenticated)
-      → 401: nginx intercepts → 302 to oauth2-proxy login
-```
-
-## Key insight: why nginx redirector is needed
-
-Traefik's `ErrorPages` middleware replaces the response body but **keeps the original status code**. When oauth2-proxy returns 302 on unauthenticated requests, ErrorPages rewrites it — the redirect never reaches the browser. The nginx redirector intercepts the 401 from oauth2-proxy and returns its own 302 with the correct `Location` header. This is a known Traefik limitation, not a bug.
-
-## OAuth2 Proxy callback URL
-
-Must use the proxy prefix path `/oauth2/callback`, not `/callback`:
-
-```
-redirect-url: "https://auth.example.com/oauth2/callback"
-login URL:     "https://auth.example.com/oauth2/start?rd=<original-url>"
-```
-
-## Traefik Middleware config
-
-```yaml
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-spec:
-  forwardAuth:
-    address: http://auth-redirector.<ns>.svc.cluster.local:9190/auth
-    authResponseHeaders:
-      - X-Auth-Request-Email
-      - X-Auth-Request-User
-    trustForwardHeader: true
-```
-
-Apply to IngressRoute via `middlewares` annotation or CRD middleware chain.
+Pattern: explicit redirect path for auth challenges. Generic edge auth lesson — no private hostnames.
 
 ---
 
-# Qdrant HNSW + quantization tuning for high-dim vectors
-URL: https://kb.duyet.net/m/tech-qdrant-hnsw-tuning
-Type: reference
-Description: Why high-dim (e.g. 4096-d) Qdrant collections time out, and the HNSW + INT8 quantization config that fixes it
+# Workers Cache enable flag
+URL: https://kb.duyet.net/m/tech-workers-cache-enabled
+Type: tech
+Description: Enable per-worker cache with cache.enabled; only public Cache-Control is stored
 
-## What Qdrant is
-Vector database: stores embeddings + payload (metadata), does approximate
-nearest-neighbour (ANN) search by vector similarity, optionally pre-filtered by
-payload. A "collection" = one vector space (fixed dimension + distance metric).
+Workers Cache sits in front of a Worker. Enable: `cache: { enabled: true }` in wrangler.
 
-## HNSW — the ANN index
-**Hierarchical Navigable Small World**: a multi-layer proximity graph. Each
-point links to its nearest neighbours; upper layers are sparse "express lanes",
-lower layers dense. Search greedily hops toward the query — **logarithmic**, not
-a full scan. Key params:
-- `m` — links per node (graph density). Higher = better recall, more RAM. 16 is a good default.
-- `ef_construct` — candidate list size at build time. Higher = better index quality, slower build. 200 is solid.
-- `full_scan_threshold` — below this many points (or post-filter subset), Qdrant does brute force instead of HNSW. **A tight payload filter can drop you under this → silent full scan.**
-
-## Why high-dim collections time out
-Cost scales with **dimension × points searched**. A 4096-d float32 vector is
-2.67× a 1536-d one. With default HNSW (`ef_construct=100`) **or** a filter that
-forces full scan, search over full-precision 4096-d vectors blows past a tool's
-timeout. Symptom: *some* queries return, others time out on the *same*
-collection (the slow ones are filtered/borderline → full scan).
-
-## The fix: quantization
-**INT8 scalar quantization** stores a 1-byte proxy per dimension (4× smaller
-than float32), kept in RAM (`always_ram=true`). HNSW traverses the cheap int8
-vectors, then **rescores** the top candidates at full precision (kept on disk).
-This is the dominant speedup at high dimensions. Combine with `on_disk=true`
-vectors so RAM holds only the quantized index.
-
-## Gotchas
-- **Config applies only at `create_collection`.** Changing creation code does
-  NOT retro-fit an existing collection. Apply in-place with `update_collection`
-  (sets `hnsw_config` / `quantization_config` — re-optimizes, **no re-embed**),
-  or recreate/reindex.
-- **Payload indexes are separate.** Filtered search (`language=en`, category…)
-  needs a payload index per field or it scans. Create explicitly.
-- **Centralize creation config** in one helper so every collection (and future
-  blue-green swaps) inherits HNSW + quantization, instead of bare `VectorParams`.
-
-## Verify / remediate a live collection
-- `client.get_collection(name)` → inspect `config.hnsw_config`, `quantization_config`.
-- `client.update_collection(name, quantization_config=..., hnsw_config=...)` — in-place.
-- List payload indexes via `get_collection(...).payload_schema`.
+Safe default: only responses with explicit public `Cache-Control` are stored. Auth headers auto-bypass.
+See [[tech-workers-cache-swr]], [[tech-workers-cache-hit-skips-cpu]].
 
 ---
 
-# AI agent building — tech stack
+# Cache HIT skips Worker CPU
+URL: https://kb.duyet.net/m/tech-workers-cache-hit-skips-cpu
+Type: tech
+Description: On HIT the Worker does not run — no CPU billing for that request
+
+A cache HIT is served from the edge tier without invoking the Worker isolate.
+
+Great for SSR-as-origin frameworks. Enable carefully with public CC only: [[tech-workers-cache-enabled]].
+
+---
+
+# Cache-Control stale-while-revalidate
+URL: https://kb.duyet.net/m/tech-workers-cache-swr
+Type: tech
+Description: SWR serves stale instantly while background refresh runs
+
+Use `Cache-Control: public, max-age=…, stale-while-revalidate=…` so users rarely wait on origin re-render.
+
+Pair with [[tech-workers-cache-enabled]], [[tech-workers-cache-tags]].
+
+---
+
+# Cache-Tag purge
+URL: https://kb.duyet.net/m/tech-workers-cache-tags
+Type: tech
+Description: Tag responses for targeted purge instead of purge-everything
+
+Set `Cache-Tag` on responses; purge by tag after content updates.
+
+Related: [[tech-workers-cache-enabled]], [[tech-workers-cache-swr]].
+
+---
+
+# Qdrant HNSW config at create
+URL: https://kb.duyet.net/m/tech-qdrant-config-at-create
+Type: tech
+Description: Many collection params apply at create; retrofit via update_collection
+
+Don't assume live config edits always apply retroactively. Prefer correct create params; use `update_collection` when supported.
+
+Related: [[tech-qdrant-hnsw-timeout]].
+
+---
+
+# Qdrant: high-dim full scan timeouts
+URL: https://kb.duyet.net/m/tech-qdrant-hnsw-timeout
+Type: tech
+Description: Large float32 collections without HNSW/quantization can time out
+
+High-dimension float32 collections can devolve to expensive scans. Tune HNSW + consider INT8 quantization.
+
+Config timing: [[tech-qdrant-config-at-create]]. Related: [[tech-rag-metadata-key-drift]].
+
+---
+
+# AgentState five primitives
+URL: https://kb.duyet.net/m/tech-agentstate-five-primitives
+Type: tech
+Description: States, leases, claims, capability tokens, conversations — fleet coordination API
+
+[[project-agentstate]] exposes five fleet primitives: **states**, **leases**, **claims**, **capability tokens**, **conversations**.
+
+Use when multi-agent systems need shared state/locking/delegation without reinventing a backend.
+See also [[tech-agentstate-not-a-framework]]. Related: [[tech-ai-agent-stack]], [[project-anyworker]].
+
+---
+
+# AgentState is not an agent framework
+URL: https://kb.duyet.net/m/tech-agentstate-not-a-framework
+Type: tech
+Description: Coordination/state API for fleets — bring your own agent loop
+
+AgentState does **not** replace LangGraph/AI SDK/etc. It is the state/coordination layer agents call.
+
+Related: [[project-agentstate]], [[tech-agentstate-five-primitives]], [[tech-ai-agent-stack]].
+
+---
+
+# AI agent stack map
 URL: https://kb.duyet.net/m/tech-ai-agent-stack
 Type: tech
-Description: Frameworks/SDKs for building LLM agents (LangGraph, AI SDK, Claude/OpenAI Agents SDK, MCP) + what Duyet uses
+Description: Map of common agent frameworks and what they are for
 
-The 2026 stack for building LLM agents, by layer:
+Common public stack pieces:
 
-- **Orchestration (Python):** LangGraph (graph/state machines), LlamaIndex
-  (RAG + agents), PydanticAI, CrewAI, AutoGen, OpenAI Agents SDK, Google ADK.
-- **Orchestration (TS/JS):** Vercel **AI SDK** (streaming, tools, `ToolLoopAgent`),
-  Mastra, LangGraph.js, Cloudflare Agents (Durable Objects), OpenAI Agents SDK,
-  Claude Agent SDK.
-- **Model gateways:** OpenRouter, AnyRouter, LiteLLM — swap providers without code churn.
-- **Interop protocol:** **MCP** (Model Context Protocol) for tools/resources; A2A
-  for agent-to-agent.
-- **Memory / RAG:** vector stores (Qdrant, pgvector), LlamaIndex; explicit
-  short/long-term + reflection memory for agentic loops.
-- **Eval / observability:** LangSmith, Langfuse, Braintrust.
-- **Runtime / deploy:** Cloudflare Workers + Durable Objects, Vercel.
+| Piece | Role |
+|-------|------|
+| Vercel AI SDK | streaming UI + tools |
+| LangGraph / LangChain | graphs & chains |
+| Cloudflare Agents SDK | Workers + DO agents |
+| MCP | tool servers |
+| Flue / Hermes | agent runtimes |
 
-**Duyet uses** (see [[user-duyet-ai-stance]]): Claude Code as driver; Claude Agent
-SDK, OpenAI Agents SDK, Cloudflare Agents, Vercel AI SDK, LlamaIndex, LangChain;
-OpenRouter/AnyRouter for routing; MCP (mcp.duyet.net). Core pattern: plan →
-execute → test → reflect with persistent memory.
+Stance: [[user-duyet-ai-stance]]. Runtimes: [[tech-eve-filesystem-agents]], [[tech-hermes-custom-provider]], [[tech-hermes-steer-mode]], [[tech-hermes-dashboard-auth-gate]]. Projects: [[project-anyrouter]], [[project-agentstate]], [[project-anyworker]], [[project-open-managed-agents]], [[project-duyetbot]].
 
 ---
 
-# eve framework (Vercel durable agents)
-URL: https://kb.duyet.net/m/tech-eve-framework
-Type: reference
-Description: Filesystem-first durable-agent framework — file layout, extension model, and the Node-24 .ts-import gotcha
-
-**eve** = Vercel's filesystem-first framework for durable backend AI agents (npm `eve`,
-Node 24+). An agent is a directory under `agent/`; eve compiles + runs it, persists every
-session, serves it over HTTP. Docs ship in `node_modules/eve/docs/` — read these, they
-match the installed version.
-
-## File layout (everything is a file)
-- `agent/agent.ts` — `defineAgent({ model, modelContextWindowTokens })`.
-- `agent/instructions.md` — always-on system prompt (identity/rules).
-- `agent/connections/<name>.ts` — `defineMcpClientConnection({url,description,auth?,tools?,approval?})`
-  or `defineOpenAPIConnection`. Name = filename. Model calls `connection__<name>__<tool>`
-  via `connection__search`; creds never reach the model.
-- `agent/skills/<name>/SKILL.md` (or flat `.md`) — load-on-demand procedures (`load_skill`);
-  `description` frontmatter is the routing hint. `defineSkill` for typed/packaged.
-- `agent/tools/<snake_case>.ts` — `defineTool({description, inputSchema: zod, execute})`.
-  Filename = tool name. Gate side effects with `needsApproval: always()/once()` (`eve/tools/approval`).
-- `agent/channels/eve.ts` — `eveChannel({ auth: [...] })`. Auth is **fail-closed**;
-  `placeholderAuth()` blocks browsers in prod — use `none()` (`eve/channels/auth`) as the
-  last entry for a public web chat.
-- State: `defineState(name, initial)` from `eve/context` — durable but **session-scoped**
-  (get/update). Cross-session data → a connection or external store.
-- HITL: built-in `ask_question` tool (model asks the user); approvals via `needsApproval`.
-
-## Gotchas (learned building eved)
-- **Imports between agent modules must use the real `.ts` extension** (`./model.ts`, not
-  `./model.js`). eve runs raw TS via Node 24 native type-stripping, which does NOT rewrite
-  `.js`→`.ts`; the docs' `.js` convention fails the dev runtime (`ERR_MODULE_NOT_FOUND`).
-  Set `allowImportingTsExtensions: true` so tsgo accepts it. eve's generated
-  `module-map.mjs` uses `.ts` — that's the tell.
-- Commands: `eve dev|build|start|info`; typecheck via `tsgo`. `eve info` = quick compile check.
-- **Frontend**: `eve/next` `withEve(nextConfig)` + `eve/react` `useEveAgent()`; same dir,
-  `agent/` at root. assistant-ui bridges cleanly via `useExternalStoreRuntime`.
-- `npx skills add <gh-repo>` vendors the WHOLE source repo (incl. its own CLAUDE.md/AGENTS.md
-  → pollutes your agent's context). Prefer a self-contained `.claude/skills/<n>/SKILL.md`.
-
-First used building **eved** (github.com/duyet/eved): a public Duyet-assistant agent on eve
-+ AnyRouter, with duyet / firecrawl / clickhouse-monitor MCP connections.
-
----
-
-# Hermes agent custom LLM provider config
-URL: https://kb.duyet.net/m/tech-hermes-agent-custom-provider
+# Convert history DTO → UIMessage
+URL: https://kb.duyet.net/m/tech-ai-sdk-history-dto-convert
 Type: tech
-Description: Hermes (codingllm/hermes) uses custom_providers list + provider:custom to register non-built-in OpenAI-compatible endpoints
+Description: Keep API neutral; translate tool-call DTOs to AI SDK parts per client
 
-Hermes agent configuration for custom OpenAI-compatible LLM providers.
+Map `tool-call`/`args`/`result` → `dynamic-tool` with `input`/`output` and correct `state`. Map annotations → `data-*` parts.
 
-## Custom provider registration
-
-Two-part config in `hermes.yaml`:
-
-1. **`custom_providers` list** — registers the provider by name, base_url, model, and api_key
-2. **`model.provider: custom`** — tells Hermes to look up from custom_providers instead of built-in
-
-```yaml
-model:
-  api_key: ${API_KEY}
-  base_url: ${API_BASE}
-  default: 'provider-name/model-name'
-  provider: custom          # <-- required to use custom_providers
-custom_providers:
-  - api_key: ${API_KEY}
-    base_url: https://example.com/api/v1
-    model: actual-model-id
-    name: provider-name     # referenced in default as "provider-name/model"
-providers: {}               # clear built-in providers if not needed
-```
-
-**Gotcha:** `providers` must be set to `{}` if you don't want built-in providers loaded. Leaving it out may cause conflicts.
-
-## Steer mode (busy_input_mode)
-
-```yaml
-display:
-  busy_input_mode: steer
-  busy_ack_enabled: true
-```
-
-- `steer`: when the agent is busy processing, new user messages are queued and the agent adjusts its current task to incorporate them (rather than ignoring or queuing blindly)
-- `busy_ack_enabled: true`: sends a brief acknowledgment so the user knows the message was received
-- Alternative values: `reject`, `queue` (agent-specific)
+Keep one endpoint for multiple clients until legacy dies. Related: [[reference-ai-sdk-uimessage]], [[tech-ai-sdk-uimessage-native-tools]].
 
 ---
 
-# Hermes dashboard auth gate (nous OAuth plugin)
-URL: https://kb.duyet.net/m/tech-hermes-dashboard-auth
+# AI SDK native tool parts
+URL: https://kb.duyet.net/m/tech-ai-sdk-uimessage-native-tools
 Type: tech
-Description: How the Hermes web dashboard auth gate + nous Portal OAuth plugin actually engage — insecure/loopback precedence, redirect-URI tiers, localhost-allowlist gotcha
+Description: Persist or convert to dynamic-tool / tool-name parts for history reload
 
-Hermes (`nousresearch/hermes-agent`) ships a bundled **`nous`** dashboard-auth
-plugin (OAuth 2.0 auth-code + PKCE vs Nous Portal `portal.nousresearch.com`).
-Source of truth when docs are scarce: read the bundled plugin at
-`/opt/hermes/plugins/dashboard_auth/nous/` inside the running image.
+Live streams use native part types; history DTOs often use `tool-call` + `annotations` and disappear on reload.
 
-- **Gate is independent of providers.** `web_server.should_require_auth(host, allow_public)`
-  decides if the in-app auth gate engages: **loopback host → off**; **non-loopback
-  + `insecure`/`--insecure` → off**; **non-loopback + not insecure → ON**. A
-  registered provider (nous/OIDC/basic) is only *consulted* when the gate is ON.
-  `allow_public` = `HERMES_DASHBOARD_INSECURE=1`.
-- **nous activation — two gates, both required (on the `main` build):**
-  (1) **opt-in allow-list** — `main` made bundled plugins opt-in; `nous` loads
-  only if listed in `plugins.enabled` (config.yaml; set via `hermes plugins enable`
-  OR, for chart-managed deploys, in `config.values`). (2) **client_id** — env
-  `HERMES_DASHBOARD_OAUTH_CLIENT_ID` (chart `dashboard.auth.oauthClientId`) wins
-  over config.yaml `dashboard.oauth.client_id`; shape `agent:{instance_id}`; empty
-  → provider skipped (no-op). See [[tech-hermes-agent-custom-provider]].
-- **Overwrite trap:** the chart's `config.overwrite: true` rewrites config.yaml
-  from the ConfigMap every boot, so a runtime `hermes plugins enable` is wiped on
-  restart. Put `plugins.enabled: [nous]` in `config.values` instead (deep-merge
-  keeps it over the default `[]`). Verified: log line
-  `dashboard-auth-nous: registered provider (client_id=…, portal=https://portal.nousresearch.com)`.
-- **Redirect-URI tiers** (`dashboard_auth/routes.py:_redirect_uri`):
-  `dashboard.public_url`/`HERMES_DASHBOARD_PUBLIC_URL` → else `X-Forwarded-Host`+`Proto`
-  → else request URL. The **Portal allowlist is authoritative** (plugin's local
-  check allows any `http(s)://…/auth/callback`).
-- **Homelab gotcha:** instance runs `insecure: true` behind Traefik forwardAuth
-  (see [[tech-traefik-forwardauth-oauth2-proxy]]), so the gate never engages →
-  registering nous is **dormant** (no effect). The default Portal allowlist is
-  `http://localhost:<port>/auth/callback` only, so it can't authenticate an
-  Ingress URL — to make nous the real dashboard auth you must: turn insecure OFF,
-  set `dashboard.public_url`, and add the public callback to the Portal allowlist.
+Convert at the client boundary: [[tech-ai-sdk-history-dto-convert]]. Shape: [[reference-ai-sdk-uimessage]].
 
 ---
 
-# Open Knowledge Format (OKF) — the spec this KB already implements
-URL: https://kb.duyet.net/m/tech-okf-open-knowledge-format
+# Filesystem-first durable agents
+URL: https://kb.duyet.net/m/tech-eve-filesystem-agents
 Type: tech
-Description: OKF v0.1 (Google, 2026-06) formalizes the markdown+frontmatter "LLM-wiki" pattern; this repo is now a strict-conformant bundle — nested topics, ISO-8601 timestamp, reserved index.md/log.md
+Description: Some frameworks store agent state/layout as files for durability and review
 
-**Open Knowledge Format (OKF) v0.1** — Draft. Published by Google Cloud (Sam
-McVeety, Amir Hormati) 2026-06-13. Canonical spec: `GoogleCloudPlatform/knowledge-catalog/okf/SPEC.md`.
+Filesystem-first agents keep prompts, memory, and tool config as files — greppable and PR-reviewable.
 
-An open, vendor-neutral standard for the **markdown + YAML-frontmatter
-"LLM-wiki"** pattern — the same pattern [[feedback-docs-driven-development]] and
-this repo already use. "Just markdown, just files, just YAML frontmatter." No
-runtime, no SDK, no compression.
-
-## Shape
-
-- **Bundle** = a directory tree of `.md` files. **Concept** = one `.md` file.
-  **Concept ID** = the file path with `.md` removed (the *path is the identity*).
-- **Reserved filenames** (MUST NOT be concepts): `index.md` (directory listing
-  for progressive disclosure), `log.md` (chronological change history, newest
-  first, ISO 8601).
-- Concepts link via **standard markdown links** (bundle-relative `/x.md` or
-  relative `x.md`) → a graph richer than the folder hierarchy. Consumers MUST
-  tolerate broken links.
-- **Frontmatter — REQUIRED: only `type`** (free-form string, not centrally
-  registered; e.g. `BigQuery Table`, `Metric`, `Playbook`, `Reference`).
-  Recommended: `title`, `description`, `resource` (URI of the asset), `tags`,
-  `timestamp` (ISO 8601). Producers MAY add custom keys; **consumers MUST
-  preserve unknown fields** and tolerate unknown `type`s.
-- Conventional body headings: `# Schema`, `# Examples`, `# Citations`.
-
-## Three design principles
-
-1. **Minimally opinionated** — only `type` is mandated; spec defines the
-   *interoperability surface*, not the content model.
-2. **Producer/consumer independence** — the format is the contract; tooling at
-   each end is swappable (human-authored ↔ agent-consumed).
-3. **Format, not platform** — no cloud / DB / model / agent-framework lock-in.
-
-## Gotcha: the reference validator is stricter than the prose
-
-The prose requires only `type`, but Google's reference `OKFDocument.validate()`
-rejects any doc missing **`type`, `title`, `description`, `timestamp`** (all four,
-non-empty), and Google's own sample bundles (GA4, Stack Overflow, Bitcoin) carry
-all four. So *de facto* OKF = those 4 fields. Reference tooling: a BigQuery
-enrichment agent (producer) + a self-contained static HTML graph visualizer
-(consumer).
-
-## How this repo aligns
-
-This repo **is** a strict-conformant OKF v0.1 bundle. `memory/` is the bundle
-root; each concept is one `.md` carrying the required `type`. Field map:
-
-| OKF field | this repo | status |
-|-----------|-----------|--------|
-| `type` | `type` (user/feedback/project/reference/tech) | ✅ |
-| `title` / `description` | same | ✅ |
-| `tags` | `tags` | ✅ |
-| `resource` | `sources` (URL array vs singular URI) | ≈ |
-| `timestamp` | `timestamp` (ISO 8601) + `created`/`updated` (dates) | ✅ |
-| path = ID | `name:` field (= filename) — permitted custom key | ✅ |
-| `index.md` | `memory/index.md` (generated) + `MEMORY.md` (root index) | ✅ |
-| `log.md` | `memory/log.md` (change history, newest-first) | ✅ |
-
-Concepts are grouped into **nested topic dirs** by domain
-(`topics/cloudflare/`, `topics/llm-agents/`, `topics/web/`, `topics/ci/`, …)
-alongside the memory-layer dirs (`user/`, `feedback/`, `reference/`,
-`projects/`). Cross-links use Obsidian wikilinks (the double-bracket form) — an
-OKF-compatible producer convention; the structured graph also rides in `related:`
-frontmatter. The official validator treats non-`/path.md` text as plain prose, so
-this is conformant with zero warnings. The monorepo `apps/kb` app is a live
-**consumer** — see [[project-kb-duyet-net]]; `kb viz` renders a self-contained
-graph viewer (the OKF reference consumer pattern).
+Aligns with [[feedback-docs-driven-development]]. Stack map: [[tech-ai-agent-stack]].
 
 ---
 
-# Flat editorial design system
-URL: https://kb.duyet.net/m/tech-flat-design-system
+# Flue: register providers in initializer
+URL: https://kb.duyet.net/m/tech-flue-register-in-initializer
 Type: tech
-Description: duyet.net design rules — hairline borders not shadows, lucide icons, shadcn + semantic tokens, minimal token layer, dark mode
+Description: Custom gateways must register from agent init with ctx.env; module load has empty env
 
-Flat editorial visual language across [[project-duyet-net]] (xAI-style reference,
-set 2026-05-25). [[project-llm-timeline]] PR #1003 is the reference implementation.
+Flue addresses models as `provider/model`. Register custom providers inside `defineAgent` initializer using `ctx.env`.
 
-**Flat rules:** hairline 1px border (`var(--hairline)`) is the only elevation cue.
-No `shadow-*`, no glow, no `rounded-2xl` (use `rounded-none`/`rounded-md`). Hover
-= background tint (`var(--faint)`), not shadow. Divider grid: `gap-px
-bg-[var(--hairline)]` container with `bg-[var(--background)]` cells.
-
-**Tokens (3 additive CSS layers in `packages/components/styles.css`):** base
-(Tailwind v4 `@theme`) → warm (`#fbf7f0 / #1f1f1f`) → minimal (`--minimal-*` +
-utilities `.pill-outline`, `.eyebrow-mono`, `.display-tight`). shadcn primitives
-(badge/button/input/card, CVA + radix slot) use semantic tokens (`bg-card`,
-`text-foreground`, `border-border`) — zero hardcoded `neutral-*`/`dark:`.
-
-**Icons:** `lucide-react` everywhere (drop `weight` prop); migrate
-`@phosphor-icons/react` when touching a file. **Dark mode:** card tints
-`dark:bg-{color}/20`; badges invert shade pair; blog uses white `#ffffff` bg
-(distinct editorial identity) over the warm cream others use.
+`process.env` is empty at module load on workerd. Debug with Node target when errors hide. Related: [[reference-cloudflare-acquires-astro]], [[project-anyrouter]].
 
 ---
 
-# Cloudflare Kumo UI + Next.js integration gotchas
-URL: https://kb.duyet.net/m/tech-kumo-ui-nextjs-integration
-Type: reference
-Description: Kumo (base-ui) + Phosphor crash RSC pre-render via createContext — every importer must be "use client"; plus Button/Tabs/Chart/Sidebar API differences
-
-Hard-won facts from migrating the AgentState dashboard (Next 16 + Turbopack + `output:"export"`) to `@cloudflare/kumo@2.5` from shadcn/ui. See [[project-agentstate-kumo-rebuild]].
-
-**`createContext is not a function` is THE blocker.** Kumo (base-ui) AND `@phosphor-icons/react` (`IconContext`) call `React.createContext` at module top-level. RSC pre-render has no `createContext`, so **every file importing either must start with `"use client"`** — not just the obvious ones. `transpilePackages: ["@cloudflare/kumo","@base-ui/react","@phosphor-icons/react","echarts"]` is necessary but NOT sufficient.
-
-**Tailwind v4 wiring** (`globals.css`): `@source "../../node_modules/@cloudflare/kumo/dist/**/*.{js,jsx,ts,tsx}";` then `@import "@cloudflare/kumo/styles/tailwind";` BEFORE `@import "tailwindcss";`. Without `@source`, Kumo utility classes silently vanish (e.g. dialogs not centered).
-
-**API differences vs shadcn:**
-- `Button` has **no `render`/`asChild`** → link buttons are `<Link href><Button>…</Button></Link>`. Default `variant` is `secondary` (map shadcn `default`→`primary`).
-- `Tabs` is **array-based** (`tabs={[{value,label}]}` + controlled `value`/`onValueChange`), no `Tabs.Content`.
-- **No `Chart`** → use `echarts` directly (it's a peer dep).
-- `Sidebar`: use named `SidebarProvider` (not `Sidebar.Provider`); `SidebarMenuButton` has `href`+`active`+`tooltip` but **no `render`**.
-- `Text` is a discriminated union: `heading1/2/3` REQUIRE matching `as="h1/2/3"`; **`className` is not accepted** on `Text` at all.
-
-**Tokens:** Kumo ships `--color-kumo-*` (base, hairline, fill, danger, brand…) AND the standard names (`muted`, `foreground`, `border`…) resolve from your own `globals.css :root`. Don't invent `kumo-line`/`kumo-tint`/`kumo-subtle`/`kumo-strong` — they don't exist; only `kumo-base` does among the common ones.
-
-**Phosphor:** `Activity` does NOT exist (use `Pulse`/`ChartLine`); both bare (`House`) and `*Icon` (`HouseIcon`) forms export. `lucide→phosphor`: Home→House, Settings→Gear, MessageSquare→ChatCircle, ChevronsUpDown→CaretUpDown, Building2→Buildings.
-
-**Dark mode:** Kumo uses `data-mode="dark"` attr; shadcn uses `.dark` class. During migration set BOTH. Local docs via `bunx kumo doc <Name>` / `kumo ls` (web docs often rate-limited).
-
-**Install:** `bun add @cloudflare/kumo @phosphor-icons/react echarts zod` (project uses Bun, not pnpm).
-
----
-
-# Per-page OG images in a static-prerendered app
-URL: https://kb.duyet.net/m/tech-og-images-static-prerender
+# Hermes custom_providers
+URL: https://kb.duyet.net/m/tech-hermes-custom-provider
 Type: tech
-Description: Build-time Open Graph cards from one registry feeding both the generator and the route head; meta must be in prerendered HTML for crawlers
+Description: Register custom OpenAI-compatible providers by name, base_url, model
 
-**Goal:** unique 1200×630 social-share images per page on a static site, without
-adding a runtime image renderer.
+Hermes-style agents: declare `custom_providers` then select `provider: custom` (or named id). Keep keys in env vars, not notes.
 
-**Two flavours of "dynamic":**
-- *Build-time* — generate one committed `og-<slug>.png` per page; regenerate on
-  every deploy. No worker bundle cost. **Default choice** for static-first apps.
-- *Request-time* — a `/og?title=…` worker route rendering live (Satori + resvg
-  WASM). Truly dynamic but adds WASM weight to the worker bundle; avoid unless
-  needed.
-
-**Pipeline (build-time):** [Satori](https://github.com/vercel/satori) (HTML/CSS
-object tree → SVG) + `@resvg/resvg-js` (SVG → PNG). Make it **hermetic**: vendor
-the TTF fonts in-repo so no network access — safe inside CI deploy jobs. It's
-deterministic (no timestamps/random), so regenerating unchanged cards yields
-**byte-identical** PNGs — git diff = objective proof a refactor changed nothing.
-
-**Single registry = no drift.** One map `slug → {eyebrow, title, description}`
-feeds *both* consumers: (1) the generator loops it to emit `og-<slug>.png`, and
-(2) a `pageOgHead(slug)` helper builds the route `<head>` meta. A standalone bun
-script can import the app's TS registry directly — keep that file free of React /
-path-alias imports.
-
-**Crawler correctness — the check that matters:** social crawlers (Slack, X,
-Facebook) don't run JS. The OG meta MUST be in the *prerendered* HTML, not
-injected client-side. With TanStack Start SSG the route `head()` runs at build
-and bakes tags into `dist/client/<route>/index.html`. Verify by grepping the
-built HTML, and on prod check the image returns `200 image/png` with
-`cf-cache-status: MISS` right after deploy (proves fresh, not edge-cached).
-
-Root layout holds the shared defaults (`og:type`, `og:image:width/height`,
-`twitter:card=summary_large_image`); per-route `head()` overrides title + image.
-Pages without a registry entry fall back to the site-wide default image.
-
-Shipped in chmonitor [[project-clickhouse-monitor]] (PRs #1614/#1615 base,
-#1617 extended to per-page query pages).
+Related: [[tech-ai-agent-stack]], [[tech-cloudflare-ai-gateway-transparent]].
 
 ---
 
-# Rust→WASM strategy + prerender CI trap
-URL: https://kb.duyet.net/m/tech-rust-wasm-prerender
+# Dashboard auth gate precedence
+URL: https://kb.duyet.net/m/tech-hermes-dashboard-auth-gate
 Type: tech
-Description: When WASM beats TS (>1ms compute only), and the silent-prerender CI trap when the gitignored WASM binary is missing
+Description: Insecure/loopback allowlists can bypass OAuth if ordered wrong
 
-7 Rust crates compiled to WASM (`crate-type=["cdylib"]`) replace TS in
-`@duyet/libs` ([[project-duyet-net]]). Apps import `@duyet/libs/*`, never WASM directly.
+Generic lesson: localhost/insecure allowlists must not outrank real auth on exposed binds.
 
-**Migration rule:** only migrate a TS function to WASM if its TS mean > ~1 ms.
-JS↔WASM string marshaling costs ~30–40 µs/call, so sub-100 µs ops are parity or
-slower. Only `markdown-to-html` cleared it: 6.3 ms → 0.08 ms (~79x). Slower
-crates (normalizers, dedup, csv, exif, diff, string-utils) kept for consistency
-+ future batch APIs that amortize marshal cost.
-
-**CI trap:** `**/pkg/` is gitignored → WASM must be built in CI before the build
-step. With `prerender.failOnError:false`, a missing binary makes `markdownToHtml`
-throw, the route is silently skipped, no `index.html` written, and CF Pages
-serves the homepage at every post URL (looks like a routing bug; deploy logs green).
-**Fix:** CI runs rust-toolchain + wasm-pack + `wasm:build:release` before build,
-gated on the blog app. **Diagnose:** healthy blog build = 700+ `index.html` in
-`dist/client/`; grep build log for `markdownToHtml`/"Failed to convert".
-See [[tech-tanstack-start-ssg]], [[tech-cloudflare-pages-deploy]].
+Prefer explicit bind address + auth plugin order tests. Related: [[feedback-public-kb-only]], [[tech-forwardauth-preserve-status]].
 
 ---
 
-# TanStack Router stale lazy route chunks
-URL: https://kb.duyet.net/m/tech-tanstack-stale-route-chunks
+# Hermes steer mode
+URL: https://kb.duyet.net/m/tech-hermes-steer-mode
 Type: tech
-Description: After Vite hash rotation, missing lazy chunks surface as reading 'component' — reload guard + prerender marketing shells
+Description: While busy, new user messages can adjust the current task instead of being ignored
 
-Post-deploy, users on an old main bundle may 404 a lazy route chunk (`pricing-*.js`). TanStack Router then throws **`Cannot read properties of undefined (reading 'component')`** — not caught by import-only preload handlers.
+Steer mode: in-flight agent incorporates new user messages into the current task.
 
-## Fix pattern (AnyRouter 2026-06-14)
-
-1. Inline pre-import script: match import failures **and** router render errors; `sessionStorage` debounce (30s); listen `unhandledrejection`, `error`, `vite:preloadError`
-2. Root `errorComponent` calls same reload helper when patterns match
-3. Prerender public marketing routes so ASSETS HTML is hash-locked with current build (`<slug>.html`, not `index.html` — CF trailing-slash 307 trap)
-
-**Why:** Default TanStack error UI sticks; users blame the page, not their cached bundle.
-
-**How to apply:** On any TanStack Start + Vite code-split app with frequent deploys, extend stale-chunk recovery beyond dynamic-import strings; prerender high-traffic static shells in the two-deploy capture pass.
+Related: [[tech-hermes-custom-provider]], [[tech-ai-agent-stack]].
 
 ---
 
-# TanStack Start SSG (Cloudflare)
+# BYOK sibling before disabling backend
+URL: https://kb.duyet.net/m/tech-llm-gateway-byok-sibling
+Type: tech
+Description: Disabling a platform backend can silently kill BYOK that injected through it
+
+If user keys ride a platform backend path, add an explicit `-byok` (or equivalent) route before disabling that backend.
+
+Learned on multi-provider routers like [[project-anyrouter]]. Related: [[tech-llm-gateway-quota-as-retryable]].
+
+---
+
+# Quota errors may arrive as HTTP 400
+URL: https://kb.duyet.net/m/tech-llm-gateway-quota-as-retryable
+Type: tech
+Description: Reseller budget errors buried in 400 should failover like 402/429
+
+Some upstreams return `budget_exceeded` as HTTP 400. Classify as retryable/failover, not terminal client error.
+
+Also: zero-byte full timeouts are terminal per backend per request — don't burn identical retries. See [[project-anyrouter]].
+
+---
+
+# Credentials never enter the sandbox
+URL: https://kb.duyet.net/m/tech-oma-credentials-out-of-sandbox
+Type: tech
+Description: Managed-agent platforms should inject secrets via outbound proxy, not into the sandbox FS
+
+Invariant for managed agent runtimes: tool sandboxes must not see raw credentials; an outbound proxy injects them.
+
+Project: [[project-open-managed-agents]]. Related: [[feedback-public-kb-only]].
+
+---
+
+# Prompt cache is byte-sensitive
+URL: https://kb.duyet.net/m/tech-prompt-cache-byte-sensitive
+Type: tech
+Description: Any prefix byte change can bust LLM prompt cache
+
+Prompt caching keys on exact prefix bytes. Unstable timestamps, random IDs, or reordered system text kill hit rates.
+
+Related: [[project-open-managed-agents]], [[tech-ai-agent-stack]].
+
+---
+
+# RAG citation guards
+URL: https://kb.duyet.net/m/tech-rag-citation-guards
+Type: tech
+Description: URL-shaped citations can be real yet irrelevant — require passage support
+
+Don't accept a citation because the URL exists. Require retrieved passage support for the claim.
+
+Related: [[tech-rag-toc-pollution]], [[feedback-fail-loud]].
+
+---
+
+# RAG metadata key drift
+URL: https://kb.duyet.net/m/tech-rag-metadata-key-drift
+Type: tech
+Description: Inconsistent metadata keys break filters between ingest and query
+
+If ingest writes `source_url` and query filters `url`, retrieval silently degrades.
+
+Lock a schema; test filters. Related: [[tech-rag-toc-pollution]], [[tech-qdrant-config-at-create]].
+
+---
+
+# RAG: TOC docs pollute retrieval
+URL: https://kb.duyet.net/m/tech-rag-toc-pollution
+Type: tech
+Description: Table-of-contents pages rank well but answer poorly — filter or downweight
+
+TOC/index pages often dominate vector search without answering the question.
+
+Mitigate: exclude TOCs, chunk body-only, or metadata filters. Related: [[tech-rag-citation-guards]], [[tech-rag-metadata-key-drift]].
+
+---
+
+# Atomic notes
+URL: https://kb.duyet.net/m/tech-note-atomic
+Type: tech
+Description: One fact per file; split when a note needs 'and'
+
+Atomic = one concept per note, short body, dense wikilinks.
+
+**How to apply:** if >~25 lines or multiple independent claims, split. Index: MEMORY.md. See [[tech-note-frontmatter]], [[tech-okf-bundle]].
+
+---
+
+# Note frontmatter standard
+URL: https://kb.duyet.net/m/tech-note-frontmatter
+Type: tech
+Description: Required top-level fields for every concept note
+
+Required: `name` (== filename), `description`, `type`, `tags`, `created`, `updated`, `timestamp` (ISO 8601).
+
+Optional: `title`, `category`, `aliases`, `related`, `sources`. No nested `metadata:`.
+Lint: `kb lint`. Template: memory/_TEMPLATE.md. See [[tech-note-atomic]].
+
+---
+
+# OKF-style knowledge bundle
+URL: https://kb.duyet.net/m/tech-okf-bundle
+Type: tech
+Description: Nested markdown + frontmatter bundle with index.md and log.md
+
+This repo follows an OKF-inspired layout: `memory/` concepts, generated `index.md`/`log.md`, required `timestamp`.
+
+Tools: `kb gen` regenerates indexes + viz. Protocol: [[project-kb]], [[feedback-docs-kb-is-brain]].
+Spec pointer: https://github.com/GoogleCloudPlatform/knowledge-catalog
+
+---
+
+# Chart unit suffix ≠ scale
+URL: https://kb.duyet.net/m/tech-unit-suffix-vs-scale
+Type: tech
+Description: Display unit labels must not silently convert values; pair with explicit multiplier
+
+If a formatter shows `min`/`h`/`ms`, it must not convert magnitudes unless the multiplier is explicit.
+
+Smell: values that can never reach "60 minutes" if unit is wrong. Related: [[tech-flat-design-semantic-tokens]].
+
+---
+
+# Flat design: hairline borders
+URL: https://kb.duyet.net/m/tech-flat-design-hairline
+Type: tech
+Description: Prefer hairline borders over heavy shadows for public site UI
+
+Flat/hairline look: borders over drop shadows; lucide (or Phosphor) icons; dark mode supported.
+
+Related: [[tech-flat-design-semantic-tokens]], [[project-monorepo]], [[project-llm-timeline]].
+
+---
+
+# Semantic design tokens
+URL: https://kb.duyet.net/m/tech-flat-design-semantic-tokens
+Type: tech
+Description: Use semantic tokens (bg-card, foreground) not ad-hoc color utilities
+
+Prefer semantic tokens (`bg-card`, `text-muted-foreground`) so themes/dark mode stay coherent.
+
+Related: [[tech-flat-design-hairline]], [[tech-shadcn-base]], [[tech-unit-suffix-vs-scale]].
+
+---
+
+# createContext breaks RSC importers
+URL: https://kb.duyet.net/m/tech-kumo-rsc-createcontext
+Type: tech
+Description: Libraries that call createContext at module scope force client boundaries
+
+If a UI kit uses `createContext` at import time, every importer may need `"use client"` (RSC).
+
+Prefer kits that stay server-safe or isolate client entrypoints. Related: [[tech-shadcn-base]].
+
+---
+
+# Build-time OG images
+URL: https://kb.duyet.net/m/tech-og-images-build-time
+Type: tech
+Description: Generate OG cards at build from one registry shared by generator and route head
+
+One registry feeds both image generation (e.g. Satori) and route head links. Avoid dual sources of truth.
+
+Related: [[tech-og-meta-in-prerender]], [[tech-tanstack-start-ssg]].
+
+---
+
+# OG meta must be prerendered
+URL: https://kb.duyet.net/m/tech-og-meta-in-prerender
+Type: tech
+Description: Social crawlers need Open Graph tags in static HTML, not only client head
+
+Put OG/Twitter meta into prerendered HTML. Client-only `useEffect` head injection is invisible to most crawlers.
+
+Related: [[tech-og-images-build-time]], [[tech-tanstack-start-ssg]].
+
+---
+
+# When Rust WASM is worth it
+URL: https://kb.duyet.net/m/tech-rust-wasm-when
+Type: tech
+Description: WASM usually wins only when the TS path is >~1ms hot work
+
+Prefer TypeScript for most UI/data shaping. Use Rust→WASM when profiling shows >~1ms hot paths.
+
+CI trap: [[tech-wasm-prerender-ci]]. Language context: [[user-duyet-lang-rust]].
+
+---
+
+# shadcn/ui base components
+URL: https://kb.duyet.net/m/tech-shadcn-base
+Type: tech
+Description: shadcn + CVA + slot pattern as default React component base
+
+Default component kit for public apps: shadcn/ui with CVA variants. Pair with [[tech-flat-design-semantic-tokens]].
+
+Used in [[project-anyrouter]], [[project-monorepo]]. RSC pitfall: [[tech-kumo-rsc-createcontext]].
+
+---
+
+# Stale route chunks after deploy
+URL: https://kb.duyet.net/m/tech-tanstack-stale-chunks
+Type: tech
+Description: Missing lazy chunks throw reading 'component'; add reload guard + prerender shells
+
+After deploy, old tabs may request deleted lazy chunks → runtime error on `component`.
+
+Mitigations: soft reload on chunk load failure; keep critical shells prerendered. See [[tech-tanstack-start-ssg]], [[project-anyrouter]].
+
+---
+
+# TanStack Start SSG
 URL: https://kb.duyet.net/m/tech-tanstack-start-ssg
 Type: tech
-Description: Why + how to prerender a Vite app with TanStack Start SSG to survive Cloudflare Rocket Loader
+Description: Prerender Vite/TanStack apps to static HTML for crawlers and edge hosts
 
-**Problem:** Cloudflare Rocket Loader rewrites `<script type="module">` to a
-deferred non-module script → Vite SPA entry never bootstraps → blank page.
-**Fix:** pre-render HTML so content exists before JS runs. (Also disable Rocket
-Loader per domain in the CF dashboard as belt-and-suspenders.)
+Prerender routes to static HTML so crawlers and edge hosts see real content without relying on client JS alone.
 
-**Migrate Vite SPA → TanStack Start SSG** (~8 files/app):
-- `vite.config.ts`: swap `TanStackRouterVite()` for `tanstackStart({ prerender:
-  { enabled: true, crawlLinks: true, failOnError: false } })`; drop
-  `@vitejs/plugin-react`; do NOT pass `autoCodeSplitting` (not in schema).
-- Delete `index.html` + `main.tsx`; add `entry-client.tsx` (`hydrateRoot`),
-  `entry-server.tsx` (`createStartHandler`).
-- `router.tsx` must export a `getRouter()` factory, not a const.
-- `__root.tsx` renders full `<html>` doc; move `<meta>`/`<link>` into route `head()`.
-- Build output `dist` → `dist/client`; set `pages_build_output_dir` in `wrangler.toml`.
-
-**Gotchas:** paths in config are relative to `srcDirectory` (`src`); local
-`fetch('/data.json')` fails in SSR — use isomorphic loading (`fs.readFile` on
-SSR, `fetch()` on client); absolute API URLs work in both. `failOnError:false`
-hides prerender errors — see [[tech-rust-wasm-prerender]]. Deploy: [[tech-cloudflare-pages-deploy]].
+Pairs with [[tech-og-meta-in-prerender]], [[tech-tanstack-stale-chunks]], [[tech-cloudflare-pages-deploy]].
+Used by [[project-monorepo]], [[project-llm-timeline]].
 
 ---
 
-# Agent-loop autonomous PR management
-URL: https://kb.duyet.net/m/tech-agent-loop-autonomous-pr-management
+# WASM prerender CI trap
+URL: https://kb.duyet.net/m/tech-wasm-prerender-ci
 Type: tech
-Description: Continuous loop that monitors all open PRs, triages by status, dispatches cheap subagents for fixes/reviews, reduces manual context overhead
+Description: Missing wasm build step makes prerender succeed empty or fail late
 
-**Agent-loop** is a continuous, self-paced autonomous system that manages all open PRs without human context overhead.
+SSG pipelines that import WASM must build release WASM in CI before prerender. Silent empty pages are worse than hard fail.
 
-## Cycle Structure
+Related: [[tech-rust-wasm-when]], [[tech-tanstack-start-ssg]], [[tech-cloudflare-pages-deploy]].
 
-Runs indefinitely on 15-minute intervals (configurable):
+---
 
-1. **Wait** — sleep for cycle interval (15 min)
-2. **Triage** — scan all open PRs across all repos, classify by status
-3. **Dispatch** — route work to parallel subagent threads
-4. **Monitor** — track thread progress and outcomes
-5. **Report** — log cycle summary to `.agent-loop/` state files
+# Agent-loop uses cheap workers
+URL: https://kb.duyet.net/m/tech-agent-loop-cheap-subagents
+Type: tech
+Description: PR fix/review fan-out should not all run on the most expensive model
 
-## What It Triages
+Mechanical PR fixes and checklist reviews → cheaper models. Hard architecture stays on the main/high tier.
 
-- **Merge-ready**: PR is passing, approved, no conflicts → dispatch merge agent
-- **Review-ready**: PR is passing, needs review → dispatch code-review subagent
-- **Needs-fix**: PR is failing tests/lint/type-check → dispatch fix subagent
-- **Merge-blocked**: conflicts, failing checks, waiting on approval → log and defer
-- **Deferred**: previously seen, no change → skip
+Policy: [[feedback-cheap-models-subagents]]. Cycle: [[tech-agent-loop-cycle]].
 
-## Subagent Dispatch Strategy
+---
 
-**Cheap models only** (Sonnet/Haiku) — preserves main context:
+# Agent-loop PR cycle
+URL: https://kb.duyet.net/m/tech-agent-loop-cycle
+Type: tech
+Description: Periodic cycle triages open PRs and dispatches fix/review work
 
-- **Haiku** — test failures, lint fixes, simple refactors
-- **Sonnet** — code reviews, complex refactors, multi-file changes
-- **Main context** — strategic decisions only (scope conflicts, architectural questions)
+Pattern: recurring cycle scans open PRs/issues, classifies, dispatches workers, merges when safe.
 
-Max 3 parallel threads per cycle (prevents queue overflow).
-
-## State & Recovery
-
-- **Persisted to** `.agent-loop/state.json` in repo root
-- **Recovers** cycle count, items processed, PRs merged, active thread list, thread history
-- **Backups** kept in `.agent-loop/backups/` (timestamped) for recovery from corruption
-- **Commands**: `/agent-loop:status` (quick), `/agent-loop:inspect` (full), `/agent-loop:stop` (graceful)
-
-## Effectiveness & Cost Savings
-
-**What it eliminates:**
-- Manual PR reviews (triaged by subagents in parallel)
-- Manual fix cycles (test failures → fix → re-run → merge in one agent call)
-- Context-switching cost (loop runs in background, main context for decisions only)
-- Duplicate work (state tracking prevents re-triaging)
-
-**Why cheap subagents work:**
-- PRs have clear status (passing/failing) → less ambiguity
-- Fixes are scoped (fix this test file, not "improve the codebase")
-- Reviews use heuristics (no duplicated code, type safety, naming) → Sonnet sufficient
-- Merge/CI tasks are deterministic (run test suite, merge, revert if fail)
-
-**Cost vs. value:**
-- Haiku @ 80 tokens/request × 20 fixes/cycle = 1.6k tokens
-- Sonnet @ 200 tokens/request × 5 reviews/cycle = 1k tokens
-- Per 15-min cycle: ~3k tokens (vs. Opus main-loop @ 10x cost)
-- 4 cycles/hr × 6 hrs/day = 24 cycles/day = 72k tokens/day (sustainable)
-
-## Setup & Configuration
-
-```bash
-# Resume with all-repos scope, 15-min cycle
-/agent-loop:resume --scope all --interval 900
-
-# Check status
-/agent-loop:status
-
-# Stop gracefully
-/agent-loop:stop
-```
-
-Configuration persists in state.json; resume re-applies saved interval/scope.
-
-## Integration Points
-
-- **CI systems**: loop watches GitHub Actions status in real-time
-- **PR queue**: triages GitHub PR API endpoints (open, draft, status)
-- **Git operations**: merge via CLI, uses signed commits (GPG if configured)
-- **Logging**: appends to `.agent-loop/cycles/<YYYY-MM-DD>.log` + `state.json` metrics
-
-## Next: Scaling to Org Scope
-
-Currently monitoring single project. Roadmap:
-- Fan out to multiple repos (`--scope all --repos org/repo1,org/repo2`)
-- Route complex PRs to senior-engineer agents when heuristics are uncertain
-- Auto-create follow-up issues for deferred PRs (merge-blockers, architecture questions)
-- Dashboard showing cycle health, merge velocity, average review time
+Cost control: [[tech-agent-loop-cheap-subagents]]. Related: [[project-duyetbot]], [[feedback-never-auto-merge-release-please]].
 
 ---
 
 # Codebase maintenance loop
 URL: https://kb.duyet.net/m/tech-codebase-maintenance-loop
 Type: tech
-Description: Improvement-cycle sweeps, safe dead-code removal, and test discipline used to keep duyet.net low-debt
+Description: Measure → fix top issue → verify → commit → deploy → log
 
-How [[project-duyetbot]] keeps [[project-duyet-net]] low-debt — extends
-[[feedback-working-style]] with concrete tooling.
+Priority order often: build > tests > lint > deploy > quality > features.
 
-**Improvement cycles:** periodic scoped sweeps, one debt category each (security,
-dedup/shadcn, privacy/cache, data-sync, DB, design, tests). ~9 cycles / ~155
-fixes by early 2026; cycle 9 added 104 tests + unified the design system. Run a
-cycle: `git log --since=<date> --name-only` to scope → fix → test before/after →
-one semantic commit per logical change.
-
-**Safe dead-code removal:** before deleting a symbol, prove zero non-test refs:
-`rg -n "<symbol>" apps packages --glob '!**/*.test.*' --glob '!**/*.spec.*'`.
-Empty output = safe. `pnpm why <pkg>` to check dep overrides. Record durable
-findings in the core-memory doc — do NOT create dated review files.
-
-**Tests:** `pnpm run test` from root (also the pre-commit hook). A test must fail
-when business logic changes (encode WHY, not just WHAT). Priority by risk:
-security/credentials → data transforms (normalizers, slugs, markdown) → render
-correctness → edge cases.
+Safe dead-code removal only with proof. Related: [[tech-improvement-loop]], [[feedback-logic-change-update-tests]], [[project-duyetbot]].
 
 ---
 
-# Tmux dynamic pane status labels
-URL: https://kb.duyet.net/m/tech-tmux-pane-status-labels
+# Autonomous improvement loop
+URL: https://kb.duyet.net/m/tech-improvement-loop
 Type: tech
-Description: Tmux automatic-rename-format using pane_current_command icons to distinguish active coding agents from idle shells at a glance
+Description: One issue per cycle with full verify before next
 
-## Problem
+Loop: pick highest priority → implement → lint/test/build → commit → deploy → log.
 
-When running multiple tmux windows with coding agents, you can't tell at a glance which tabs have an active agent session vs which are sitting idle at a shell prompt waiting for human review.
-
-## Solution
-
-Create a `~/.local/bin/tmux-pane-label` script that maps `#{pane_current_command}` to a descriptive icon+label, then wire it into tmux's `automatic-rename-format`.
-
-### Script location
-
-`~/.local/bin/tmux-pane-label` (chmod +x, must be in `$PATH`)
-
-### Command → label mapping
-
-| Command | Tab label | Meaning |
-|---|---|---|
-| `opencode`, `claude`, `codex`, `cursor` | `⟳ name` | Agent actively running |
-| `bash`, `sh`, `zsh`, `fish` | `⌄ name` | Idle at shell prompt |
-| `nvim`, `vim`, `nano` | `✎ name` | Editor open |
-| `node`, `npm`, `bun`, `deno` | `⚡ name` | Dev tool running |
-| `python`, `python3` | `🐍 python` | Python process |
-| `ssh` | `🌐 ssh` | Remote session |
-| `htop`, `top`, `btm` | `📊 name` | System monitor |
-| `docker` | `🐳 docker` | Container tool |
-| `sudo` | `🔒 sudo` | Privileged command |
-| `make`, `cargo`, `go` | `🔨 name` | Build tool |
-| `less`, `more`, `man` | `📄 name` | Pager |
-| `tail`, `tailf`, `watch` | `📋 name` | Log follow |
-| `tmux` | `⏎` | Tmux internal |
-| anything else | raw command name | Fallback |
-
-### Tmux config (`~/.tmux.conf.local` for gpakosz/.tmux)
-
-```tmux
-set -g automatic-rename-format \
-  "#{?pane_in_mode,[tmux],#(tmux-pane-label #{pane_id})}#{?pane_dead,[dead],}"
-
-# ⌃b + Shift+R re-enables dynamic naming on a manually-renamed window
-bind R set-window-option automatic-rename on \; display "Dynamic naming ON"
-```
-
-### How it works
-
-- `automatic-rename-format` dynamically sets window names based on the active pane
-- The script calls `tmux display -t <pane_id> -p '#{pane_current_command}'` and classifies the result
-- When a coding agent is the foreground process, the tab shows "⟳ agentname"
-- When the agent exits and the shell returns, the tab switches to "⌄ bash"
-- Previously renamed windows (`automatic-rename off` per-window) keep static names
-- **⌃b + Shift+R** re-enables dynamic naming on per-window basis
-
-### Notes
-
-- Script must handle panes that no longer exist (`tmux display` fails → returns `"?"`)
-- The `#()` format expansion is fast (<10ms per call, runs per status-interval)
-- Manual window names (via `⌃b + ,`) take precedence and disable automatic-rename
-- Tested with tmux 3.6a and gpakosz/.tmux config framework
+Persona: [[project-duyetbot]]. Deploy: [[tech-cloudflare-pages-deploy]]. Cheap fan-out: [[feedback-cheap-models-subagents]].
 
 ---
 
-# Duyet — AI & coding-agent stance
+# One codebase OSS + SaaS
+URL: https://kb.duyet.net/m/tech-one-codebase-oss-saas
+Type: tech
+Description: Ship self-host and cloud from one tree behind a fail-closed mode flag
+
+Pattern: single high-level deployment mode (`oss|cloud`) that resolves auth/storage defaults. Unset/junk → OSS so open source never degrades.
+
+Never gate core product features behind cloud-only. Example product: [[project-clickhouse-monitoring]]. Env: [[tech-single-source-env]].
+
+---
+
+# Single-source env config
+URL: https://kb.duyet.net/m/tech-single-source-env
+Type: tech
+Description: One committed non-secret env file feeds client build and server runtime
+
+Dual sources (hand-maintained wrangler vars vs Vite `VITE_*`) drift silently. Canonical names → derive client + deploy targets.
+
+Secrets never in committed env files. Related: [[tech-one-codebase-oss-saas]], [[feedback-public-kb-only]].
+
+---
+
+# Tmux pane status labels
+URL: https://kb.duyet.net/m/tech-tmux-pane-labels
+Type: tech
+Description: Map pane-current-command to short icons for agent vs editor vs idle
+
+Use tmux `pane-current-command` → icon mapping so multi-agent sessions are glanceable.
+
+Generic DX only — no hostnames. Related: [[user-duyet-local-dev]], [[user-duyet-ai-claude-code]].
+
+---
+
+# Active project portfolio (index)
+URL: https://kb.duyet.net/m/user-duyet-active-projects
+Type: user
+Description: Index of products and repos Duyet actively builds across
+
+Duyet builds **many products in parallel** (not single-app focus).
+
+| Area | Projects |
+|------|----------|
+| ClickHouse | [[project-clickhouse-monitoring]] |
+| LLM / agents | [[project-anyrouter]] · [[project-agentstate]] · [[project-anyworker]] · [[project-open-managed-agents]] · [[project-duyetbot]] |
+| Personal / platform | [[project-monorepo]] · [[project-kb]] · [[project-llm-timeline]] · [[user-duyet-homelab]] · [[project-charts]] |
+
+Also: [[user-duyet-multi-project]], [[feedback-disambiguate-repo]], [[reference-duyet-github]], [[user-duyet-ai-stance]].
+
+---
+
+# Claude Code daily driver
+URL: https://kb.duyet.net/m/user-duyet-ai-claude-code
+Type: user
+Description: Claude Code is the stated daily coding-agent driver
+
+Claude Code is the daily driver after trying many tools. Tools remain disposable — [[user-duyet-ai-tools-disposable]]. Index: [[user-duyet-ai-stance]].
+
+---
+
+# AI stance (index)
 URL: https://kb.duyet.net/m/user-duyet-ai-stance
 Type: user
-Description: How Duyet works with AI today — vibe-codes production, Claude Code as daily driver, fast-moving-field view
+Description: How public AI practice is structured — agents over hand-writing
 
-Duyet's current AI practice (from his blog, ~2026):
+AI practice index:
 
-- **Vibe-codes for production.** Top Wakatime language is now **Markdown** —
-  he drives agents more than he hand-writes code.
-- **Claude Code is his daily driver** and stated favorite ("king") after trying
-  100+ tools (Cursor, Codex, Copilot, Windsurf, Antigravity, opencode, etc.). He
-  treats specific tools as disposable — the field moves too fast to pick "the best".
-- **Builds with agent SDKs:** OpenAI Agents SDK, Claude Agent SDK, Cloudflare
-  Agents, Vercel AI SDK, LlamaIndex, LangChain. Deploys RAG for enterprise.
-- **Recurring interests:** self-improving/agentic loops (plan→execute→test→reflect),
-  agent memory & consolidation, privacy-first personal agents, personal analytics
-  / life-logging. Personal agent project: `duyetbot`.
+- [[user-duyet-ai-vibe-codes]] — agents drive production work
+- [[user-duyet-ai-claude-code]] — Claude Code as daily driver
+- [[user-duyet-ai-tools-disposable]] — tools change; don't lock dogma
+- [[tech-ai-agent-stack]] — SDK ecosystem
+- [[project-duyetbot]] — autonomous monorepo agent persona
 
-See [[user-duyet-stack]] for the broader toolset.
+Related: [[user-duyet-focus-llm-agents]], [[feedback-docs-driven-development]].
 
 ---
 
-# Duyet Le — profile
+# Coding tools are disposable
+URL: https://kb.duyet.net/m/user-duyet-ai-tools-disposable
+Type: user
+Description: Treat specific AI coding tools as replaceable; field moves fast
+
+Do not enshrine one IDE/agent forever. Prefer portable patterns: [[feedback-docs-driven-development]], [[tech-ai-agent-stack]].
+
+---
+
+# Vibe-codes production
+URL: https://kb.duyet.net/m/user-duyet-ai-vibe-codes
+Type: user
+Description: Public stance: agents write most production code; Markdown tops Wakatime
+
+Public practice: vibe-codes for production; agents write more than hand-typed code. See [[user-duyet-ai-stance]], [[feedback-docs-driven-development]].
+
+---
+
+# Data: ClickHouse
+URL: https://kb.duyet.net/m/user-duyet-data-clickhouse
+Type: user
+Description: ClickHouse as primary analytics engine in public work
+
+Primary analytics engine in public writing and tooling. Products: [[project-clickhouse-monitoring]]. Blog: [[reference-duyet-blog]].
+
+---
+
+# Data: Spark & Airflow
+URL: https://kb.duyet.net/m/user-duyet-data-spark-airflow
+Type: user
+Description: Public experience with Apache Spark and Airflow
+
+Public DE stack also includes Apache Spark and Apache Airflow (blog series). See [[user-duyet-focus-data-engineering]], [[reference-duyet-blog]].
+
+---
+
+# Focus: ClickHouse
+URL: https://kb.duyet.net/m/user-duyet-focus-clickhouse
+Type: user
+Description: Deep public expertise and writing on ClickHouse
+
+ClickHouse is a primary public specialty (blog volume + tooling). Flagship: [[project-clickhouse-monitoring]] / [[project-chmonitor-advisor]]. See [[reference-duyet-blog]], [[user-duyet-stack]], [[user-duyet-active-projects]].
+
+---
+
+# Focus: data engineering
+URL: https://kb.duyet.net/m/user-duyet-focus-data-engineering
+Type: user
+Description: Public focus on large-scale data platforms and DE tooling
+
+Public focus: large-scale data platforms, real-time analytics, Kafka/Spark/Airflow ecosystems.
+
+Related: [[user-duyet-focus-clickhouse]], [[user-duyet-stack]], [[reference-duyet-blog]].
+
+---
+
+# Focus: LLM agents
+URL: https://kb.duyet.net/m/user-duyet-focus-llm-agents
+Type: user
+Description: Public work on coding agents, agent SDKs, RAG, agent memory
+
+Recurring public themes: coding agents, agent SDKs, RAG, self-improving loops, agent memory.
+
+Products: [[project-anyrouter]], [[project-agentstate]], [[project-anyworker]], [[project-open-managed-agents]]. Stance: [[user-duyet-ai-stance]]. Stack: [[tech-ai-agent-stack]]. Pattern: [[feedback-docs-driven-development]].
+
+---
+
+# github.com/duyet
+URL: https://kb.duyet.net/m/user-duyet-github
+Type: reference
+Description: Public GitHub org/user for open-source work
+
+https://github.com/duyet — public repos. Catalog: [[reference-duyet-github]]. Notable: [[project-anyrouter]], [[project-agentstate]], [[project-anyworker]], [[project-clickhouse-monitoring]], [[project-monorepo]], [[project-open-managed-agents]], [[project-kb]], [[project-homelab]].
+
+---
+
+# GitHub handle @duyet
+URL: https://kb.duyet.net/m/user-duyet-handle
+Type: user
+Description: Public handle @duyet on GitHub and personal sites
+
+Public handle: **`@duyet`**. GitHub: https://github.com/duyet. Profile hub: [[user-duyet-profile]].
+
+---
+
+# Runs a personal homelab
+URL: https://kb.duyet.net/m/user-duyet-homelab
+Type: user
+Description: Duyet runs a personal homelab for self-host experiments and ops practice
+
+Duyet runs a **personal homelab** for self-host experiments and ops practice.
+
+Public surface: [[project-homelab]] · [[project-charts]] · [[user-duyet-site-homelab]].
+Stack overlap: [[user-duyet-infra-kubernetes]], [[user-duyet-data-clickhouse]].
+
+**Never store** hosts, IPs, VPN endpoints, or topology here ([[feedback-public-kb-only]]).
+
+---
+
+# Infra: Cloudflare
+URL: https://kb.duyet.net/m/user-duyet-infra-cloudflare
+Type: user
+Description: Cloudflare Workers/Pages as primary public deploy target
+
+Cloudflare Workers/Pages host many public apps. Patterns: [[tech-cloudflare-pages-deploy]], [[tech-workers-cache-enabled]], [[project-anyrouter]].
+
+---
+
+# Infra: Kubernetes
+URL: https://kb.duyet.net/m/user-duyet-infra-kubernetes
+Type: user
+Description: Kubernetes used in public infra writing and Helm charts
+
+Kubernetes appears in public blog series, Helm work, and personal lab practice. See [[project-charts]], [[project-homelab]], [[user-duyet-homelab]], [[user-duyet-stack]].
+
+---
+
+# Language: Python
+URL: https://kb.duyet.net/m/user-duyet-lang-python
+Type: user
+Description: Python used for data eng, agents, and glue code
+
+Python is a core language for data engineering and agent tooling. See [[user-duyet-stack]], [[user-duyet-focus-data-engineering]].
+
+---
+
+# Language: Rust
+URL: https://kb.duyet.net/m/user-duyet-lang-rust
+Type: user
+Description: Rust is a primary public language (data tooling, WASM, CLI)
+
+Rust is a primary language on public GitHub (UDFs, data tools, WASM). See [[user-duyet-stack]], [[tech-rust-wasm-when]], [[reference-duyet-github]].
+
+---
+
+# Language: SQL
+URL: https://kb.duyet.net/m/user-duyet-lang-sql
+Type: user
+Description: SQL is daily language for analytics and ClickHouse work
+
+SQL is daily for analytics and ClickHouse. See [[user-duyet-focus-clickhouse]], [[user-duyet-data-clickhouse]].
+
+---
+
+# Language: TypeScript
+URL: https://kb.duyet.net/m/user-duyet-lang-typescript
+Type: user
+Description: TypeScript/JavaScript for web apps and Workers
+
+TypeScript/JS for public web apps and Cloudflare Workers. See [[user-duyet-stack]], [[project-monorepo]], [[project-anyrouter]].
+
+---
+
+# Local dev preferences
+URL: https://kb.duyet.net/m/user-duyet-local-dev
+Type: user
+Description: Public local tooling: macOS, bun, uv, neovim, Obsidian
+
+Local tools (public): macOS, Homebrew, `bun`, `uv`, neovim, Obsidian, tmux ([[tech-tmux-pane-labels]]). Prefers [[feedback-semantic-commits]] and [[feedback-concise-english]].
+
+---
+
+# Multi-project builder
+URL: https://kb.duyet.net/m/user-duyet-multi-project
+Type: user
+Description: Expect concurrent work across several public products in one session
+
+Default assumption: Duyet is building **several products at once** (gateway, agent infra, ClickHouse tooling, personal sites, homelab).
+
+**How to apply:** disambiguate which repo/product a task is for; don't collapse everything into monorepo. Index: [[user-duyet-active-projects]]. Scope: [[feedback-public-kb-only]].
+
+---
+
+# Duyet Le profile
 URL: https://kb.duyet.net/m/user-duyet-profile
 Type: user
-Description: Duyet Le (@duyet) — senior data engineer in Vietnam, the owner of this shared brain
+Description: Public identity: Duyet Le (@duyet), senior data engineer
 
-**Duyet Le** (handle `@duyet`) — senior data engineer and technology enthusiast,
-based in Vietnam. Owner of this knowledge base.
+**Duyet Le** (handle `@duyet`) — senior data engineer and open-source contributor.
 
-Focus areas: large-scale data platforms, real-time analytics, ClickHouse, the
-data-engineering ecosystem (Kafka, Spark, Airflow), Kubernetes/cloud infra, and
-LLM agents / AI integration. Active open-source contributor.
-
-Public links and stack live in [[user-duyet-web-presence]] and [[user-duyet-stack]].
-Working preferences in [[feedback-working-style]].
+Handle: [[user-duyet-handle]]. Active portfolio: [[user-duyet-active-projects]]. Homelab: [[user-duyet-homelab]]. Focus areas: [[user-duyet-focus-data-engineering]], [[user-duyet-focus-clickhouse]], [[user-duyet-focus-llm-agents]].
+Stack: [[user-duyet-stack]]. Presence: [[user-duyet-web-presence]]. Style: [[feedback-working-style]].
 
 ---
 
-# Duyet — tech stack
+# blog.duyet.net
+URL: https://kb.duyet.net/m/user-duyet-site-blog
+Type: reference
+Description: Personal digital garden blog
+
+https://blog.duyet.net — digital garden. Themes: [[reference-duyet-blog]]. Feed: https://blog.duyet.net/feed. Index: [[user-duyet-web-presence]].
+
+---
+
+# homelab.duyet.net
+URL: https://kb.duyet.net/m/user-duyet-site-homelab
+Type: reference
+Description: Public homelab overview site on the personal domain
+
+https://homelab.duyet.net — public overview page for the personal lab.
+
+Related: [[user-duyet-homelab]], [[user-duyet-web-presence]], [[project-homelab]].
+
+---
+
+# kb.duyet.net
+URL: https://kb.duyet.net/m/user-duyet-site-kb
+Type: reference
+Description: Public rendered face of this shared-brain repo
+
+https://kb.duyet.net renders [[project-kb]]. Implements [[feedback-docs-driven-development]].
+
+---
+
+# Public tech stack (index)
 URL: https://kb.duyet.net/m/user-duyet-stack
 Type: user
-Description: Languages, tools, and platforms Duyet works in (public, from blog + GitHub)
+Description: Index of public languages, data, infra, and AI tools
 
-Technical stack for [[user-duyet-profile]], drawn from public blog & GitHub.
+Stack index (public blog/GitHub). Drill into atoms:
 
-**Languages:** Rust (extensive), Python, TypeScript/JavaScript, SQL. Also R, PHP
-in older posts. Notably interested in data-engineering tools written in Rust.
-
-**Data & big data:** ClickHouse (deep expertise), Apache Spark, Apache Airflow,
-DuckDB, Kafka; PostgreSQL, MongoDB, Redis.
-
-**Cloud & infra:** Kubernetes, Docker, AWS, GCP, Azure, Cloudflare, GitHub Actions.
-
-**AI/ML:** LLM agents & coding agents (Claude, Codex, Hermes), PyTorch/TensorFlow,
-NLP, MCP servers.
-
-**Frontend/web:** Next.js, React, TypeScript (e.g. `clickhouse-monitoring`).
-
-**Local dev environment:** macOS (Apple Silicon), Homebrew, `bun`, `uv`, neovim,
-Obsidian. Prefers semantic commits and simple, plain English in writing.
-
-Blog series worth knowing: ClickHouse on Kubernetes, Rust Fundamentals, Spark on
-Kubernetes, Apache Airflow, Coding Agents. See [[user-duyet-web-presence]].
+- Languages: [[user-duyet-lang-rust]], [[user-duyet-lang-python]], [[user-duyet-lang-typescript]], [[user-duyet-lang-sql]]
+- Data: [[user-duyet-data-clickhouse]], [[user-duyet-data-spark-airflow]]
+- Infra: [[user-duyet-infra-kubernetes]], [[user-duyet-infra-cloudflare]]
+- AI: [[user-duyet-ai-stance]], [[tech-ai-agent-stack]]
+- Local: [[user-duyet-local-dev]]
+- Homelab: [[user-duyet-homelab]]
+- Products: [[user-duyet-active-projects]]
 
 ---
 
-# Duyet — web presence & llms.txt sources
+# Web presence (index)
 URL: https://kb.duyet.net/m/user-duyet-web-presence
 Type: reference
-Description: Duyet's public sites, profiles, and LLM-friendly (llms.txt) knowledge sources
+Description: Index of public sites and llms.txt sources
 
-Public web presence for [[user-duyet-profile]]. Sites ending in `/llms.txt`
-serve an LLM-friendly profile — prefer those for fresh facts.
+Public sites (prefer `/llms.txt` when present):
 
-| What        | URL                          | llms.txt                         |
-|-------------|------------------------------|----------------------------------|
-| Profile     | https://duyet.net            | https://duyet.net/llms.txt       |
-| Blog        | https://blog.duyet.net       | https://blog.duyet.net/llms.txt  |
-| CV / Resume | https://cv.duyet.net         | https://cv.duyet.net/llms.txt    |
-| GitHub      | https://github.com/duyet     | —                                |
-| LinkedIn    | https://duyet.net/in         | —                                |
-| X (Twitter) | https://x.com/_duyet          | —                                |
-| Insights    | https://insights.duyet.net   | —                                |
-| Homelab     | https://homelab.duyet.net    | —                                |
-| LLM Timeline| https://llm-timeline.duyet.net | —                              |
-| MCP tools   | https://mcp.duyet.net        | —                                |
-| Agents API  | https://agents.duyet.net     | —                                |
+| Site | URL |
+|------|-----|
+| Profile / blog / CV | https://duyet.net · https://blog.duyet.net · https://cv.duyet.net (+ `/llms.txt`) |
+| GitHub / X | https://github.com/duyet · https://x.com/_duyet |
+| Products | https://llm-timeline.duyet.net · https://agents.duyet.net · https://kb.duyet.net · https://homelab.duyet.net |
 
-Contact: `me@duyet.net`. Blog feed: https://blog.duyet.net/feed.
+Atoms: [[user-duyet-site-blog]], [[user-duyet-github]], [[user-duyet-site-kb]], [[user-duyet-site-homelab]]. Portfolio: [[user-duyet-active-projects]]. Profile: [[user-duyet-profile]].
 
 ---

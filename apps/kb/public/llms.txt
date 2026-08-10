@@ -4,7 +4,7 @@ URL: https://kb.duyet.net
 Sitemap: https://kb.duyet.net/sitemap.xml
 Raw Markdown: https://kb.duyet.net/k/<slug>.md
 
-32 articles across 8 categories, 39 memory notes.
+32 articles across 8 categories, 114 memory notes.
 
 ## Articles
 
@@ -234,236 +234,686 @@ Summary: Nine improvement cycles completed as of March 2026 — ~155 total fixes
 
 ## Memory
 
-### Cloudflare acquired Astro (January 2026)
-URL: https://kb.duyet.net/m/cloudflare-acquires-astro
-Markdown: https://kb.duyet.net/m/cloudflare-acquires-astro.md
-Type: reference
-Description: Cloudflare acquired The Astro Technology Company in Jan 2026; the Astro team (Fred Schott) now ships agent tooling like Flue on Cloudflare
-
-### Use cheap models for sub-agents
+### Cheap models for sub-agents
 URL: https://kb.duyet.net/m/feedback-cheap-models-subagents
 Markdown: https://kb.duyet.net/m/feedback-cheap-models-subagents.md
 Type: feedback
-Description: Default fan-out sub-agents/workflow agents to Sonnet or Haiku, not Opus, to control cost
+Description: Fan-out sub-agents to cheaper models by default
 
-### Docs-Driven Development
+### Write concise simple English
+URL: https://kb.duyet.net/m/feedback-concise-english
+Markdown: https://kb.duyet.net/m/feedback-concise-english.md
+Type: feedback
+Description: Prefer short plain English in prose and commits
+
+### Disambiguate which product/repo
+URL: https://kb.duyet.net/m/feedback-disambiguate-repo
+Markdown: https://kb.duyet.net/m/feedback-disambiguate-repo.md
+Type: feedback
+Description: When the user jumps between products, confirm target repo before large edits
+
+### Docs-Driven Development (index)
 URL: https://kb.duyet.net/m/feedback-docs-driven-development
 Markdown: https://kb.duyet.net/m/feedback-docs-driven-development.md
 Type: feedback
-Description: Duyet's pattern — tiny CLAUDE.md/AGENTS.md router + a docs/kb "brain"; agents auto-read in, auto-write out
+Description: Tiny router files + versioned kb brain; reflexive read/write
 
-### Working style preferences
+### KB is the shared brain
+URL: https://kb.duyet.net/m/feedback-docs-kb-is-brain
+Markdown: https://kb.duyet.net/m/feedback-docs-kb-is-brain.md
+Type: feedback
+Description: Versioned, grep-able notes beat rules stuck only in prompts
+
+### Read MEMORY.md on entry
+URL: https://kb.duyet.net/m/feedback-docs-read-on-entry
+Markdown: https://kb.duyet.net/m/feedback-docs-read-on-entry.md
+Type: feedback
+Description: Before non-trivial work, read the index and relevant notes
+
+### Keep router files tiny
+URL: https://kb.duyet.net/m/feedback-docs-router-tiny
+Markdown: https://kb.duyet.net/m/feedback-docs-router-tiny.md
+Type: feedback
+Description: CLAUDE.md/AGENTS.md = short stable rules + pointers, not architecture dumps
+
+### Write memory on the way out
+URL: https://kb.duyet.net/m/feedback-docs-write-on-exit
+Markdown: https://kb.duyet.net/m/feedback-docs-write-on-exit.md
+Type: feedback
+Description: Persist durable public facts before context is lost
+
+### Fail loud; don't hide skips
+URL: https://kb.duyet.net/m/feedback-fail-loud
+Markdown: https://kb.duyet.net/m/feedback-fail-loud.md
+Type: feedback
+Description: Never claim done if tests/steps were skipped silently
+
+### Logic change → update related tests
+URL: https://kb.duyet.net/m/feedback-logic-change-update-tests
+Markdown: https://kb.duyet.net/m/feedback-logic-change-update-tests.md
+Type: feedback
+Description: Co-update tests in the same change; never wait for CI
+
+### Never auto-merge release-please PRs
+URL: https://kb.duyet.net/m/feedback-never-auto-merge-release-please
+Markdown: https://kb.duyet.net/m/feedback-never-auto-merge-release-please.md
+Type: feedback
+Description: Leave release-please release PRs for human merge
+
+### KB stores public generic facts only
+URL: https://kb.duyet.net/m/feedback-public-kb-only
+Markdown: https://kb.duyet.net/m/feedback-public-kb-only.md
+Type: feedback
+Description: No secrets, hosts, internal project names, or adhoc session dumps
+
+### Semantic commits
+URL: https://kb.duyet.net/m/feedback-semantic-commits
+Markdown: https://kb.duyet.net/m/feedback-semantic-commits.md
+Type: feedback
+Description: Use conventional semantic commit messages
+
+### Prefer simple code
+URL: https://kb.duyet.net/m/feedback-simple-code
+Markdown: https://kb.duyet.net/m/feedback-simple-code.md
+Type: feedback
+Description: Minimum code that solves the problem; no speculative abstraction
+
+### Surgical changes only
+URL: https://kb.duyet.net/m/feedback-surgical-changes
+Markdown: https://kb.duyet.net/m/feedback-surgical-changes.md
+Type: feedback
+Description: Touch only what the request requires; no drive-by refactors
+
+### Working style (index)
 URL: https://kb.duyet.net/m/feedback-working-style
 Markdown: https://kb.duyet.net/m/feedback-working-style.md
 Type: feedback
-Description: How Duyet wants agents to work — concise English, semantic commits, simple solutions
+Description: Index of agent collaboration preferences
 
-### The Self-Driving Homelab
-URL: https://kb.duyet.net/m/project-self-driven-homelab
-Markdown: https://kb.duyet.net/m/project-self-driven-homelab.md
+### duyet/agentstate
+URL: https://kb.duyet.net/m/project-agentstate
+Markdown: https://kb.duyet.net/m/project-agentstate.md
 Type: project
-Description: self-driving k3s homelab with Hermes/Minh — an AI agent that manages its own infrastructure
+Description: State and coordination layer for AI agent fleets (public OSS)
+
+### AnyRouter OpenAI-compatible API
+URL: https://kb.duyet.net/m/project-anyrouter-openai-compat
+Markdown: https://kb.duyet.net/m/project-anyrouter-openai-compat.md
+Type: project
+Description: Point existing OpenAI SDKs at AnyRouter base URL; swap model strings
 
 ### AnyRouter
 URL: https://kb.duyet.net/m/project-anyrouter
 Markdown: https://kb.duyet.net/m/project-anyrouter.md
 Type: project
-Description: Universal LLM API gateway at anyrouter.dev — TanStack Start on CF Workers, Kumo UI, split web/API workers, prerendered marketing shells
+Description: Universal multi-provider LLM API gateway at anyrouter.dev
 
-### ClickHouse Monitor (chmonitor)
-URL: https://kb.duyet.net/m/project-clickhouse-monitor
-Markdown: https://kb.duyet.net/m/project-clickhouse-monitor.md
+### AnyWorker local agent + GUI
+URL: https://kb.duyet.net/m/project-anyworker-local-agent
+Markdown: https://kb.duyet.net/m/project-anyworker-local-agent.md
 Type: project
-Description: Open-source ClickHouse monitoring dashboard — monorepo topology, domains, marketing/docs apps, design system
+Description: Product path: Python agent server plus React GUI; web is separate marketing app
 
-### duyet.net monorepo
-URL: https://kb.duyet.net/m/project-duyet-net
-Markdown: https://kb.duyet.net/m/project-duyet-net.md
+### duyet/anyworker
+URL: https://kb.duyet.net/m/project-anyworker
+Markdown: https://kb.duyet.net/m/project-anyworker.md
 Type: project
-Description: Bun + Turborepo monorepo behind duyet.net — ~9 web apps on TanStack Start SSG, deployed to Cloudflare Pages
+Description: Open alternative to Claude Cowork-style agents — local agent + marketing site
 
-### duyetbot — autonomous agent
+### duyet/charts
+URL: https://kb.duyet.net/m/project-charts
+Markdown: https://kb.duyet.net/m/project-charts.md
+Type: project
+Description: Public Helm charts repository
+
+### chmonitor recommends, never auto-DDL
+URL: https://kb.duyet.net/m/project-chmonitor-advisor
+Markdown: https://kb.duyet.net/m/project-chmonitor-advisor.md
+Type: project
+Description: AI/ops advisor suggests CH changes but does not apply DDL automatically
+
+### chmonitor
+URL: https://kb.duyet.net/m/project-clickhouse-monitoring
+Markdown: https://kb.duyet.net/m/project-clickhouse-monitoring.md
+Type: project
+Description: Open-source ClickHouse operational advisor — monitoring + AI recommendations
+
+### duyetbot persona
 URL: https://kb.duyet.net/m/project-duyetbot
 Markdown: https://kb.duyet.net/m/project-duyetbot.md
 Type: project
-Description: Autonomous Claude Code agent that maintains the duyet.net monorepo — scope, autonomous loop, and memory hierarchy
+Description: Autonomous agent persona that maintains public monorepo within clear scope
 
-### Infra Optimization Baseline (2026-06-13)
-URL: https://kb.duyet.net/m/project-infra-optimization
-Markdown: https://kb.duyet.net/m/project-infra-optimization.md
+### duyet/homelab
+URL: https://kb.duyet.net/m/project-homelab
+Markdown: https://kb.duyet.net/m/project-homelab.md
 Type: project
-Description: k3s cluster resource optimization, security hardening, and host cleanup — baseline for future tuning
+Description: Public personal homelab repo — configs and experiments (no private topology in kb)
 
-### kb.duyet.net knowledge base
-URL: https://kb.duyet.net/m/project-kb-duyet-net
-Markdown: https://kb.duyet.net/m/project-kb-duyet-net.md
+### KB site front-end
+URL: https://kb.duyet.net/m/project-kb-site
+Markdown: https://kb.duyet.net/m/project-kb-site.md
 Type: project
-Description: kb.duyet.net — public KB site; migrating from the old monorepo app to this shared-brain repo, also serves bootstrap.sh
+Description: kb.duyet.net renders the shared-brain notes as a public site
 
-### LLM Timeline app
+### duyet/kb shared brain
+URL: https://kb.duyet.net/m/project-kb
+Markdown: https://kb.duyet.net/m/project-kb.md
+Type: project
+Description: Public shared-brain repo — atomic notes, MEMORY.md index, OKF layout
+
+### LLM Timeline
 URL: https://kb.duyet.net/m/project-llm-timeline
 Markdown: https://kb.duyet.net/m/project-llm-timeline.md
 Type: project
-Description: llm-timeline.duyet.net — TanStack Start SSG timeline of LLM models 1950–2026, shadcn UI, dual data sources
+Description: Public SSG timeline of LLM models at llm-timeline.duyet.net
 
-### AI SDK chat history — map persisted parts to UIMessage at the client boundary
-URL: https://kb.duyet.net/m/reference-ai-sdk-history-uimessage-mapping
-Markdown: https://kb.duyet.net/m/reference-ai-sdk-history-uimessage-mapping.md
+### duyet/monorepo
+URL: https://kb.duyet.net/m/project-monorepo
+Markdown: https://kb.duyet.net/m/project-monorepo.md
+Type: project
+Description: Public Bun+Turborepo for personal duyet.net web apps
+
+### Open Managed Agents (OMA)
+URL: https://kb.duyet.net/m/project-open-managed-agents
+Markdown: https://kb.duyet.net/m/project-open-managed-agents.md
+Type: project
+Description: OSS self-hostable Managed Agents API — CF Workers/DO or Docker
+
+### AI SDK UIMessage shape
+URL: https://kb.duyet.net/m/reference-ai-sdk-uimessage
+Markdown: https://kb.duyet.net/m/reference-ai-sdk-uimessage.md
 Type: reference
-Description: Vercel AI SDK UIMessage rehydration pitfall — persisted tool/chart parts vanish on history reload unless translated to native dynamic-tool shape
+Description: UIMessage is id+role+parts; unknown part types render as null
 
-### Duyet — blog content & themes
+### Cloudflare acquired Astro (2026)
+URL: https://kb.duyet.net/m/reference-cloudflare-acquires-astro
+Markdown: https://kb.duyet.net/m/reference-cloudflare-acquires-astro.md
+Type: reference
+Description: Jan 2026: Astro team joined Cloudflare; Flue agent framework context
+
+### Blog themes
 URL: https://kb.duyet.net/m/reference-duyet-blog
 Markdown: https://kb.duyet.net/m/reference-duyet-blog.md
 Type: reference
-Description: What blog.duyet.net covers — a digital garden on Rust, ClickHouse, AI agents, data eng, personal analytics
+Description: Recurring public blog themes on blog.duyet.net
 
-### Duyet — notable GitHub projects
+### Notable public GitHub repos
 URL: https://kb.duyet.net/m/reference-duyet-github
 Markdown: https://kb.duyet.net/m/reference-duyet-github.md
 Type: reference
-Description: Duyet's main public repos — ClickHouse tooling, Rust data tools, AI-agent projects, infra
+Description: Catalog of notable public duyet/* and related OSS repos
 
-### release-please + squash-merge release pipeline
-URL: https://kb.duyet.net/m/tech-release-please-squash-pipeline
-Markdown: https://kb.duyet.net/m/tech-release-please-squash-pipeline.md
-Type: reference
-Description: Conventional-commit release automation where squash-merge PR titles drive versioning; pre-1.0 bump rules and the PR-title guard that keeps it honest
-
-### Pin GitHub Actions — the trivy-action March 2026 compromise
-URL: https://kb.duyet.net/m/tech-supply-chain-pin-github-actions
-Markdown: https://kb.duyet.net/m/tech-supply-chain-pin-github-actions.md
+### Pin GitHub Actions
+URL: https://kb.duyet.net/m/tech-pin-github-actions
+Markdown: https://kb.duyet.net/m/tech-pin-github-actions.md
 Type: tech
-Description: aquasecurity/trivy-action had 75 tags force-pushed in March 2026 — pin Actions to a version or commit SHA and use the two-phase Trivy scan (report then fail-on-severity)
+Description: Pin actions to version or commit SHA; moving major tags can be force-pushed
 
-### Cloudflare AI Gateway is a transparent proxy for model names
-URL: https://kb.duyet.net/m/tech-cloudflare-ai-gateway-proxy
-Markdown: https://kb.duyet.net/m/tech-cloudflare-ai-gateway-proxy.md
+### release-please basics
+URL: https://kb.duyet.net/m/tech-release-please-basics
+Markdown: https://kb.duyet.net/m/tech-release-please-basics.md
 Type: tech
-Description: AI Gateway does not validate model ids; it forwards them to the upstream — "invalid model ID" comes from the provider, not CF
+Description: Standing release PR + CHANGELOG; merge tags and publishes
 
-### Cloudflare Pages deploy workflow
+### Squash PR title is the release commit
+URL: https://kb.duyet.net/m/tech-release-please-pr-title
+Markdown: https://kb.duyet.net/m/tech-release-please-pr-title.md
+Type: tech
+Description: Under squash-merge, PR title becomes the commit release-please reads
+
+### Pre-1.0 feat may only bump patch
+URL: https://kb.duyet.net/m/tech-release-please-pre1-minor
+Markdown: https://kb.duyet.net/m/tech-release-please-pre1-minor.md
+Type: tech
+Description: With bump-patch-for-minor-pre-major, feat in 0.x needs breaking marker for minor
+
+### Two-phase Trivy scan
+URL: https://kb.duyet.net/m/tech-trivy-two-phase
+Markdown: https://kb.duyet.net/m/tech-trivy-two-phase.md
+Type: tech
+Description: Report job always succeeds; separate fail-on-severity job gates the build
+
+### AI Gateway is transparent on model ids
+URL: https://kb.duyet.net/m/tech-cloudflare-ai-gateway-transparent
+Markdown: https://kb.duyet.net/m/tech-cloudflare-ai-gateway-transparent.md
+Type: tech
+Description: Cloudflare AI Gateway does not validate model names; upstream does
+
+### Cloudflare Pages deploy habit
 URL: https://kb.duyet.net/m/tech-cloudflare-pages-deploy
 Markdown: https://kb.duyet.net/m/tech-cloudflare-pages-deploy.md
 Type: tech
-Description: Commit→push→background-deploy convention for duyet.net apps on Cloudflare Pages, plus the parallel-deploy hazard
+Description: Semantic commit → push → deploy changed app; avoid parallel deploys that share env files
 
-### Traefik forwardAuth + OAuth2 Proxy + nginx redirector pattern
-URL: https://kb.duyet.net/m/tech-traefik-forwardauth-oauth2-proxy
-Markdown: https://kb.duyet.net/m/tech-traefik-forwardauth-oauth2-proxy.md
+### forwardAuth must preserve status
+URL: https://kb.duyet.net/m/tech-forwardauth-preserve-status
+Markdown: https://kb.duyet.net/m/tech-forwardauth-preserve-status.md
 Type: tech
-Description: Traefik ErrorPages middleware preserves original status (won't pass 302 through), so forwardAuth with OAuth2 needs an nginx redirector to convert 401→302
+Description: Error pages middleware can rewrite 302 challenges into 401/500 and break OAuth
 
-### Qdrant HNSW + quantization tuning for high-dim vectors
-URL: https://kb.duyet.net/m/tech-qdrant-hnsw-tuning
-Markdown: https://kb.duyet.net/m/tech-qdrant-hnsw-tuning.md
-Type: reference
-Description: Why high-dim (e.g. 4096-d) Qdrant collections time out, and the HNSW + INT8 quantization config that fixes it
+### Workers Cache enable flag
+URL: https://kb.duyet.net/m/tech-workers-cache-enabled
+Markdown: https://kb.duyet.net/m/tech-workers-cache-enabled.md
+Type: tech
+Description: Enable per-worker cache with cache.enabled; only public Cache-Control is stored
 
-### AI agent building — tech stack
+### Cache HIT skips Worker CPU
+URL: https://kb.duyet.net/m/tech-workers-cache-hit-skips-cpu
+Markdown: https://kb.duyet.net/m/tech-workers-cache-hit-skips-cpu.md
+Type: tech
+Description: On HIT the Worker does not run — no CPU billing for that request
+
+### Cache-Control stale-while-revalidate
+URL: https://kb.duyet.net/m/tech-workers-cache-swr
+Markdown: https://kb.duyet.net/m/tech-workers-cache-swr.md
+Type: tech
+Description: SWR serves stale instantly while background refresh runs
+
+### Cache-Tag purge
+URL: https://kb.duyet.net/m/tech-workers-cache-tags
+Markdown: https://kb.duyet.net/m/tech-workers-cache-tags.md
+Type: tech
+Description: Tag responses for targeted purge instead of purge-everything
+
+### Qdrant HNSW config at create
+URL: https://kb.duyet.net/m/tech-qdrant-config-at-create
+Markdown: https://kb.duyet.net/m/tech-qdrant-config-at-create.md
+Type: tech
+Description: Many collection params apply at create; retrofit via update_collection
+
+### Qdrant: high-dim full scan timeouts
+URL: https://kb.duyet.net/m/tech-qdrant-hnsw-timeout
+Markdown: https://kb.duyet.net/m/tech-qdrant-hnsw-timeout.md
+Type: tech
+Description: Large float32 collections without HNSW/quantization can time out
+
+### AgentState five primitives
+URL: https://kb.duyet.net/m/tech-agentstate-five-primitives
+Markdown: https://kb.duyet.net/m/tech-agentstate-five-primitives.md
+Type: tech
+Description: States, leases, claims, capability tokens, conversations — fleet coordination API
+
+### AgentState is not an agent framework
+URL: https://kb.duyet.net/m/tech-agentstate-not-a-framework
+Markdown: https://kb.duyet.net/m/tech-agentstate-not-a-framework.md
+Type: tech
+Description: Coordination/state API for fleets — bring your own agent loop
+
+### AI agent stack map
 URL: https://kb.duyet.net/m/tech-ai-agent-stack
 Markdown: https://kb.duyet.net/m/tech-ai-agent-stack.md
 Type: tech
-Description: Frameworks/SDKs for building LLM agents (LangGraph, AI SDK, Claude/OpenAI Agents SDK, MCP) + what Duyet uses
+Description: Map of common agent frameworks and what they are for
 
-### eve framework (Vercel durable agents)
-URL: https://kb.duyet.net/m/tech-eve-framework
-Markdown: https://kb.duyet.net/m/tech-eve-framework.md
-Type: reference
-Description: Filesystem-first durable-agent framework — file layout, extension model, and the Node-24 .ts-import gotcha
-
-### Hermes agent custom LLM provider config
-URL: https://kb.duyet.net/m/tech-hermes-agent-custom-provider
-Markdown: https://kb.duyet.net/m/tech-hermes-agent-custom-provider.md
+### Convert history DTO → UIMessage
+URL: https://kb.duyet.net/m/tech-ai-sdk-history-dto-convert
+Markdown: https://kb.duyet.net/m/tech-ai-sdk-history-dto-convert.md
 Type: tech
-Description: Hermes (codingllm/hermes) uses custom_providers list + provider:custom to register non-built-in OpenAI-compatible endpoints
+Description: Keep API neutral; translate tool-call DTOs to AI SDK parts per client
 
-### Hermes dashboard auth gate (nous OAuth plugin)
-URL: https://kb.duyet.net/m/tech-hermes-dashboard-auth
-Markdown: https://kb.duyet.net/m/tech-hermes-dashboard-auth.md
+### AI SDK native tool parts
+URL: https://kb.duyet.net/m/tech-ai-sdk-uimessage-native-tools
+Markdown: https://kb.duyet.net/m/tech-ai-sdk-uimessage-native-tools.md
 Type: tech
-Description: How the Hermes web dashboard auth gate + nous Portal OAuth plugin actually engage — insecure/loopback precedence, redirect-URI tiers, localhost-allowlist gotcha
+Description: Persist or convert to dynamic-tool / tool-name parts for history reload
 
-### Open Knowledge Format (OKF) — the spec this KB already implements
-URL: https://kb.duyet.net/m/tech-okf-open-knowledge-format
-Markdown: https://kb.duyet.net/m/tech-okf-open-knowledge-format.md
+### Filesystem-first durable agents
+URL: https://kb.duyet.net/m/tech-eve-filesystem-agents
+Markdown: https://kb.duyet.net/m/tech-eve-filesystem-agents.md
 Type: tech
-Description: OKF v0.1 (Google, 2026-06) formalizes the markdown+frontmatter "LLM-wiki" pattern; this repo is now a strict-conformant bundle — nested topics, ISO-8601 timestamp, reserved index.md/log.md
+Description: Some frameworks store agent state/layout as files for durability and review
 
-### Flat editorial design system
-URL: https://kb.duyet.net/m/tech-flat-design-system
-Markdown: https://kb.duyet.net/m/tech-flat-design-system.md
+### Flue: register providers in initializer
+URL: https://kb.duyet.net/m/tech-flue-register-in-initializer
+Markdown: https://kb.duyet.net/m/tech-flue-register-in-initializer.md
 Type: tech
-Description: duyet.net design rules — hairline borders not shadows, lucide icons, shadcn + semantic tokens, minimal token layer, dark mode
+Description: Custom gateways must register from agent init with ctx.env; module load has empty env
 
-### Cloudflare Kumo UI + Next.js integration gotchas
-URL: https://kb.duyet.net/m/tech-kumo-ui-nextjs-integration
-Markdown: https://kb.duyet.net/m/tech-kumo-ui-nextjs-integration.md
-Type: reference
-Description: Kumo (base-ui) + Phosphor crash RSC pre-render via createContext — every importer must be "use client"; plus Button/Tabs/Chart/Sidebar API differences
-
-### Per-page OG images in a static-prerendered app
-URL: https://kb.duyet.net/m/tech-og-images-static-prerender
-Markdown: https://kb.duyet.net/m/tech-og-images-static-prerender.md
+### Hermes custom_providers
+URL: https://kb.duyet.net/m/tech-hermes-custom-provider
+Markdown: https://kb.duyet.net/m/tech-hermes-custom-provider.md
 Type: tech
-Description: Build-time Open Graph cards from one registry feeding both the generator and the route head; meta must be in prerendered HTML for crawlers
+Description: Register custom OpenAI-compatible providers by name, base_url, model
 
-### Rust→WASM strategy + prerender CI trap
-URL: https://kb.duyet.net/m/tech-rust-wasm-prerender
-Markdown: https://kb.duyet.net/m/tech-rust-wasm-prerender.md
+### Dashboard auth gate precedence
+URL: https://kb.duyet.net/m/tech-hermes-dashboard-auth-gate
+Markdown: https://kb.duyet.net/m/tech-hermes-dashboard-auth-gate.md
 Type: tech
-Description: When WASM beats TS (>1ms compute only), and the silent-prerender CI trap when the gitignored WASM binary is missing
+Description: Insecure/loopback allowlists can bypass OAuth if ordered wrong
 
-### TanStack Router stale lazy route chunks
-URL: https://kb.duyet.net/m/tech-tanstack-stale-route-chunks
-Markdown: https://kb.duyet.net/m/tech-tanstack-stale-route-chunks.md
+### Hermes steer mode
+URL: https://kb.duyet.net/m/tech-hermes-steer-mode
+Markdown: https://kb.duyet.net/m/tech-hermes-steer-mode.md
 Type: tech
-Description: After Vite hash rotation, missing lazy chunks surface as reading 'component' — reload guard + prerender marketing shells
+Description: While busy, new user messages can adjust the current task instead of being ignored
 
-### TanStack Start SSG (Cloudflare)
+### BYOK sibling before disabling backend
+URL: https://kb.duyet.net/m/tech-llm-gateway-byok-sibling
+Markdown: https://kb.duyet.net/m/tech-llm-gateway-byok-sibling.md
+Type: tech
+Description: Disabling a platform backend can silently kill BYOK that injected through it
+
+### Quota errors may arrive as HTTP 400
+URL: https://kb.duyet.net/m/tech-llm-gateway-quota-as-retryable
+Markdown: https://kb.duyet.net/m/tech-llm-gateway-quota-as-retryable.md
+Type: tech
+Description: Reseller budget errors buried in 400 should failover like 402/429
+
+### Credentials never enter the sandbox
+URL: https://kb.duyet.net/m/tech-oma-credentials-out-of-sandbox
+Markdown: https://kb.duyet.net/m/tech-oma-credentials-out-of-sandbox.md
+Type: tech
+Description: Managed-agent platforms should inject secrets via outbound proxy, not into the sandbox FS
+
+### Prompt cache is byte-sensitive
+URL: https://kb.duyet.net/m/tech-prompt-cache-byte-sensitive
+Markdown: https://kb.duyet.net/m/tech-prompt-cache-byte-sensitive.md
+Type: tech
+Description: Any prefix byte change can bust LLM prompt cache
+
+### RAG citation guards
+URL: https://kb.duyet.net/m/tech-rag-citation-guards
+Markdown: https://kb.duyet.net/m/tech-rag-citation-guards.md
+Type: tech
+Description: URL-shaped citations can be real yet irrelevant — require passage support
+
+### RAG metadata key drift
+URL: https://kb.duyet.net/m/tech-rag-metadata-key-drift
+Markdown: https://kb.duyet.net/m/tech-rag-metadata-key-drift.md
+Type: tech
+Description: Inconsistent metadata keys break filters between ingest and query
+
+### RAG: TOC docs pollute retrieval
+URL: https://kb.duyet.net/m/tech-rag-toc-pollution
+Markdown: https://kb.duyet.net/m/tech-rag-toc-pollution.md
+Type: tech
+Description: Table-of-contents pages rank well but answer poorly — filter or downweight
+
+### Atomic notes
+URL: https://kb.duyet.net/m/tech-note-atomic
+Markdown: https://kb.duyet.net/m/tech-note-atomic.md
+Type: tech
+Description: One fact per file; split when a note needs 'and'
+
+### Note frontmatter standard
+URL: https://kb.duyet.net/m/tech-note-frontmatter
+Markdown: https://kb.duyet.net/m/tech-note-frontmatter.md
+Type: tech
+Description: Required top-level fields for every concept note
+
+### OKF-style knowledge bundle
+URL: https://kb.duyet.net/m/tech-okf-bundle
+Markdown: https://kb.duyet.net/m/tech-okf-bundle.md
+Type: tech
+Description: Nested markdown + frontmatter bundle with index.md and log.md
+
+### Chart unit suffix ≠ scale
+URL: https://kb.duyet.net/m/tech-unit-suffix-vs-scale
+Markdown: https://kb.duyet.net/m/tech-unit-suffix-vs-scale.md
+Type: tech
+Description: Display unit labels must not silently convert values; pair with explicit multiplier
+
+### Flat design: hairline borders
+URL: https://kb.duyet.net/m/tech-flat-design-hairline
+Markdown: https://kb.duyet.net/m/tech-flat-design-hairline.md
+Type: tech
+Description: Prefer hairline borders over heavy shadows for public site UI
+
+### Semantic design tokens
+URL: https://kb.duyet.net/m/tech-flat-design-semantic-tokens
+Markdown: https://kb.duyet.net/m/tech-flat-design-semantic-tokens.md
+Type: tech
+Description: Use semantic tokens (bg-card, foreground) not ad-hoc color utilities
+
+### createContext breaks RSC importers
+URL: https://kb.duyet.net/m/tech-kumo-rsc-createcontext
+Markdown: https://kb.duyet.net/m/tech-kumo-rsc-createcontext.md
+Type: tech
+Description: Libraries that call createContext at module scope force client boundaries
+
+### Build-time OG images
+URL: https://kb.duyet.net/m/tech-og-images-build-time
+Markdown: https://kb.duyet.net/m/tech-og-images-build-time.md
+Type: tech
+Description: Generate OG cards at build from one registry shared by generator and route head
+
+### OG meta must be prerendered
+URL: https://kb.duyet.net/m/tech-og-meta-in-prerender
+Markdown: https://kb.duyet.net/m/tech-og-meta-in-prerender.md
+Type: tech
+Description: Social crawlers need Open Graph tags in static HTML, not only client head
+
+### When Rust WASM is worth it
+URL: https://kb.duyet.net/m/tech-rust-wasm-when
+Markdown: https://kb.duyet.net/m/tech-rust-wasm-when.md
+Type: tech
+Description: WASM usually wins only when the TS path is >~1ms hot work
+
+### shadcn/ui base components
+URL: https://kb.duyet.net/m/tech-shadcn-base
+Markdown: https://kb.duyet.net/m/tech-shadcn-base.md
+Type: tech
+Description: shadcn + CVA + slot pattern as default React component base
+
+### Stale route chunks after deploy
+URL: https://kb.duyet.net/m/tech-tanstack-stale-chunks
+Markdown: https://kb.duyet.net/m/tech-tanstack-stale-chunks.md
+Type: tech
+Description: Missing lazy chunks throw reading 'component'; add reload guard + prerender shells
+
+### TanStack Start SSG
 URL: https://kb.duyet.net/m/tech-tanstack-start-ssg
 Markdown: https://kb.duyet.net/m/tech-tanstack-start-ssg.md
 Type: tech
-Description: Why + how to prerender a Vite app with TanStack Start SSG to survive Cloudflare Rocket Loader
+Description: Prerender Vite/TanStack apps to static HTML for crawlers and edge hosts
 
-### Agent-loop autonomous PR management
-URL: https://kb.duyet.net/m/tech-agent-loop-autonomous-pr-management
-Markdown: https://kb.duyet.net/m/tech-agent-loop-autonomous-pr-management.md
+### WASM prerender CI trap
+URL: https://kb.duyet.net/m/tech-wasm-prerender-ci
+Markdown: https://kb.duyet.net/m/tech-wasm-prerender-ci.md
 Type: tech
-Description: Continuous loop that monitors all open PRs, triages by status, dispatches cheap subagents for fixes/reviews, reduces manual context overhead
+Description: Missing wasm build step makes prerender succeed empty or fail late
+
+### Agent-loop uses cheap workers
+URL: https://kb.duyet.net/m/tech-agent-loop-cheap-subagents
+Markdown: https://kb.duyet.net/m/tech-agent-loop-cheap-subagents.md
+Type: tech
+Description: PR fix/review fan-out should not all run on the most expensive model
+
+### Agent-loop PR cycle
+URL: https://kb.duyet.net/m/tech-agent-loop-cycle
+Markdown: https://kb.duyet.net/m/tech-agent-loop-cycle.md
+Type: tech
+Description: Periodic cycle triages open PRs and dispatches fix/review work
 
 ### Codebase maintenance loop
 URL: https://kb.duyet.net/m/tech-codebase-maintenance-loop
 Markdown: https://kb.duyet.net/m/tech-codebase-maintenance-loop.md
 Type: tech
-Description: Improvement-cycle sweeps, safe dead-code removal, and test discipline used to keep duyet.net low-debt
+Description: Measure → fix top issue → verify → commit → deploy → log
 
-### Tmux dynamic pane status labels
-URL: https://kb.duyet.net/m/tech-tmux-pane-status-labels
-Markdown: https://kb.duyet.net/m/tech-tmux-pane-status-labels.md
+### Autonomous improvement loop
+URL: https://kb.duyet.net/m/tech-improvement-loop
+Markdown: https://kb.duyet.net/m/tech-improvement-loop.md
 Type: tech
-Description: Tmux automatic-rename-format using pane_current_command icons to distinguish active coding agents from idle shells at a glance
+Description: One issue per cycle with full verify before next
 
-### Duyet — AI & coding-agent stance
+### One codebase OSS + SaaS
+URL: https://kb.duyet.net/m/tech-one-codebase-oss-saas
+Markdown: https://kb.duyet.net/m/tech-one-codebase-oss-saas.md
+Type: tech
+Description: Ship self-host and cloud from one tree behind a fail-closed mode flag
+
+### Single-source env config
+URL: https://kb.duyet.net/m/tech-single-source-env
+Markdown: https://kb.duyet.net/m/tech-single-source-env.md
+Type: tech
+Description: One committed non-secret env file feeds client build and server runtime
+
+### Tmux pane status labels
+URL: https://kb.duyet.net/m/tech-tmux-pane-labels
+Markdown: https://kb.duyet.net/m/tech-tmux-pane-labels.md
+Type: tech
+Description: Map pane-current-command to short icons for agent vs editor vs idle
+
+### Active project portfolio (index)
+URL: https://kb.duyet.net/m/user-duyet-active-projects
+Markdown: https://kb.duyet.net/m/user-duyet-active-projects.md
+Type: user
+Description: Index of products and repos Duyet actively builds across
+
+### Claude Code daily driver
+URL: https://kb.duyet.net/m/user-duyet-ai-claude-code
+Markdown: https://kb.duyet.net/m/user-duyet-ai-claude-code.md
+Type: user
+Description: Claude Code is the stated daily coding-agent driver
+
+### AI stance (index)
 URL: https://kb.duyet.net/m/user-duyet-ai-stance
 Markdown: https://kb.duyet.net/m/user-duyet-ai-stance.md
 Type: user
-Description: How Duyet works with AI today — vibe-codes production, Claude Code as daily driver, fast-moving-field view
+Description: How public AI practice is structured — agents over hand-writing
 
-### Duyet Le — profile
+### Coding tools are disposable
+URL: https://kb.duyet.net/m/user-duyet-ai-tools-disposable
+Markdown: https://kb.duyet.net/m/user-duyet-ai-tools-disposable.md
+Type: user
+Description: Treat specific AI coding tools as replaceable; field moves fast
+
+### Vibe-codes production
+URL: https://kb.duyet.net/m/user-duyet-ai-vibe-codes
+Markdown: https://kb.duyet.net/m/user-duyet-ai-vibe-codes.md
+Type: user
+Description: Public stance: agents write most production code; Markdown tops Wakatime
+
+### Data: ClickHouse
+URL: https://kb.duyet.net/m/user-duyet-data-clickhouse
+Markdown: https://kb.duyet.net/m/user-duyet-data-clickhouse.md
+Type: user
+Description: ClickHouse as primary analytics engine in public work
+
+### Data: Spark & Airflow
+URL: https://kb.duyet.net/m/user-duyet-data-spark-airflow
+Markdown: https://kb.duyet.net/m/user-duyet-data-spark-airflow.md
+Type: user
+Description: Public experience with Apache Spark and Airflow
+
+### Focus: ClickHouse
+URL: https://kb.duyet.net/m/user-duyet-focus-clickhouse
+Markdown: https://kb.duyet.net/m/user-duyet-focus-clickhouse.md
+Type: user
+Description: Deep public expertise and writing on ClickHouse
+
+### Focus: data engineering
+URL: https://kb.duyet.net/m/user-duyet-focus-data-engineering
+Markdown: https://kb.duyet.net/m/user-duyet-focus-data-engineering.md
+Type: user
+Description: Public focus on large-scale data platforms and DE tooling
+
+### Focus: LLM agents
+URL: https://kb.duyet.net/m/user-duyet-focus-llm-agents
+Markdown: https://kb.duyet.net/m/user-duyet-focus-llm-agents.md
+Type: user
+Description: Public work on coding agents, agent SDKs, RAG, agent memory
+
+### github.com/duyet
+URL: https://kb.duyet.net/m/user-duyet-github
+Markdown: https://kb.duyet.net/m/user-duyet-github.md
+Type: reference
+Description: Public GitHub org/user for open-source work
+
+### GitHub handle @duyet
+URL: https://kb.duyet.net/m/user-duyet-handle
+Markdown: https://kb.duyet.net/m/user-duyet-handle.md
+Type: user
+Description: Public handle @duyet on GitHub and personal sites
+
+### Runs a personal homelab
+URL: https://kb.duyet.net/m/user-duyet-homelab
+Markdown: https://kb.duyet.net/m/user-duyet-homelab.md
+Type: user
+Description: Duyet runs a personal homelab for self-host experiments and ops practice
+
+### Infra: Cloudflare
+URL: https://kb.duyet.net/m/user-duyet-infra-cloudflare
+Markdown: https://kb.duyet.net/m/user-duyet-infra-cloudflare.md
+Type: user
+Description: Cloudflare Workers/Pages as primary public deploy target
+
+### Infra: Kubernetes
+URL: https://kb.duyet.net/m/user-duyet-infra-kubernetes
+Markdown: https://kb.duyet.net/m/user-duyet-infra-kubernetes.md
+Type: user
+Description: Kubernetes used in public infra writing and Helm charts
+
+### Language: Python
+URL: https://kb.duyet.net/m/user-duyet-lang-python
+Markdown: https://kb.duyet.net/m/user-duyet-lang-python.md
+Type: user
+Description: Python used for data eng, agents, and glue code
+
+### Language: Rust
+URL: https://kb.duyet.net/m/user-duyet-lang-rust
+Markdown: https://kb.duyet.net/m/user-duyet-lang-rust.md
+Type: user
+Description: Rust is a primary public language (data tooling, WASM, CLI)
+
+### Language: SQL
+URL: https://kb.duyet.net/m/user-duyet-lang-sql
+Markdown: https://kb.duyet.net/m/user-duyet-lang-sql.md
+Type: user
+Description: SQL is daily language for analytics and ClickHouse work
+
+### Language: TypeScript
+URL: https://kb.duyet.net/m/user-duyet-lang-typescript
+Markdown: https://kb.duyet.net/m/user-duyet-lang-typescript.md
+Type: user
+Description: TypeScript/JavaScript for web apps and Workers
+
+### Local dev preferences
+URL: https://kb.duyet.net/m/user-duyet-local-dev
+Markdown: https://kb.duyet.net/m/user-duyet-local-dev.md
+Type: user
+Description: Public local tooling: macOS, bun, uv, neovim, Obsidian
+
+### Multi-project builder
+URL: https://kb.duyet.net/m/user-duyet-multi-project
+Markdown: https://kb.duyet.net/m/user-duyet-multi-project.md
+Type: user
+Description: Expect concurrent work across several public products in one session
+
+### Duyet Le profile
 URL: https://kb.duyet.net/m/user-duyet-profile
 Markdown: https://kb.duyet.net/m/user-duyet-profile.md
 Type: user
-Description: Duyet Le (@duyet) — senior data engineer in Vietnam, the owner of this shared brain
+Description: Public identity: Duyet Le (@duyet), senior data engineer
 
-### Duyet — tech stack
+### blog.duyet.net
+URL: https://kb.duyet.net/m/user-duyet-site-blog
+Markdown: https://kb.duyet.net/m/user-duyet-site-blog.md
+Type: reference
+Description: Personal digital garden blog
+
+### homelab.duyet.net
+URL: https://kb.duyet.net/m/user-duyet-site-homelab
+Markdown: https://kb.duyet.net/m/user-duyet-site-homelab.md
+Type: reference
+Description: Public homelab overview site on the personal domain
+
+### kb.duyet.net
+URL: https://kb.duyet.net/m/user-duyet-site-kb
+Markdown: https://kb.duyet.net/m/user-duyet-site-kb.md
+Type: reference
+Description: Public rendered face of this shared-brain repo
+
+### Public tech stack (index)
 URL: https://kb.duyet.net/m/user-duyet-stack
 Markdown: https://kb.duyet.net/m/user-duyet-stack.md
 Type: user
-Description: Languages, tools, and platforms Duyet works in (public, from blog + GitHub)
+Description: Index of public languages, data, infra, and AI tools
 
-### Duyet — web presence & llms.txt sources
+### Web presence (index)
 URL: https://kb.duyet.net/m/user-duyet-web-presence
 Markdown: https://kb.duyet.net/m/user-duyet-web-presence.md
 Type: reference
-Description: Duyet's public sites, profiles, and LLM-friendly (llms.txt) knowledge sources
+Description: Index of public sites and llms.txt sources
