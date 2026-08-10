@@ -12,8 +12,8 @@ Raw Markdown: https://kb.duyet.net/k/<slug>.md
 URL: https://kb.duyet.net/k/agent-memory-system
 Markdown: https://kb.duyet.net/k/agent-memory-system.md
 Category: agents
-Updated: 2026-05-26
-Summary: Agent memory lives in ~/.claude/projects/.../memory/ as point-in-time .md snapshots; the KB is the synthesized durable form.
+Updated: 2026-08-10
+Summary: Per-tool agent memory is a private scratchpad of point-in-time .md snapshots; the public shared KB is the durable form.
 
 ### Autonomous Workflow Patterns
 URL: https://kb.duyet.net/k/autonomous-workflow
