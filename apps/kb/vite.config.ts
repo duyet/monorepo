@@ -115,6 +115,10 @@ export default defineConfig({
     tsconfigPaths(),
   ],
   build: {
+    // Use /static/* (not /assets/*). On 2026-08-10 the duyet.net zone cache
+    // poisoned several /assets/* URLs with SPA HTML + long Cache-Control, so
+    // module/CSS fetches returned text/html. New path + new hashes escape that.
+    assetsDir: "static",
     // Avoid routes ↔ index circular chunks (index dynamic-imports routes while
     // routes static-imports shared runtime from the index chunk). That cycle
     // fails module evaluation on some CDNs/hosts (blank page / MIME errors).

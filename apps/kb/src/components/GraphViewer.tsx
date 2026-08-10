@@ -1,13 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import Graph from "graphology";
-import forceAtlas2 from "graphology-layout-forceatlas2";
-import Sigma from "sigma";
 import { getAllContent, type ContentItem, type MemoryNote } from "../../lib/content";
 import { markdownToHtml } from "../../lib/markdown";
 
 type AttrMap = Record<string, unknown>;
-type GraphologyGraph = Graph;
-type SigmaInstance = Sigma;
+// Lazy-loaded in the browser only — sigma/graphology touch WebGL at import time
+// and crash Node prerender (WebGL2RenderingContext is not defined).
+type GraphologyGraph = import("graphology").default;
+type SigmaInstance = import("sigma").default;
+type GraphologyCtor = typeof import("graphology").default;
+type ForceAtlas2 = typeof import("graphology-layout-forceatlas2").default;
+type SigmaCtor = typeof import("sigma").default;
 
 /**
  * Obsidian-style knowledge-graph viewer (homepage).
@@ -92,6 +94,8 @@ function buildGraphData() {
 }
 
 function createGraphologyGraph(
+  Graph: GraphologyCtor,
+  forceAtlas2: ForceAtlas2,
   nodes: NodeMeta[],
   edgeKeys: Set<string>,
   degree: Record<string, number>,
@@ -191,14 +195,31 @@ export function GraphViewer() {
     };
   }, [selected, data.bodies]);
 
-  // Mount Sigma
+  // Mount Sigma (dynamic import — keep WebGL libs out of SSR/prerender)
   useEffect(() => {
     if (!containerRef.current) return;
+    let cancelled = false;
     let sigma: SigmaInstance | null = null;
-    try {
-      const graph = createGraphologyGraph(data.nodes, data.edgeKeys, data.degree);
+
+    (async () => {
+      const [{ default: Graph }, { default: forceAtlas2 }, { default: Sigma }] =
+        await Promise.all([
+          import("graphology"),
+          import("graphology-layout-forceatlas2"),
+          import("sigma"),
+        ]);
+      if (cancelled || !containerRef.current) return;
+
+      try {
+      const graph = createGraphologyGraph(
+        Graph as GraphologyCtor,
+        forceAtlas2 as ForceAtlas2,
+        data.nodes,
+        data.edgeKeys,
+        data.degree,
+      );
       graphRef.current = graph;
-      sigma = new Sigma(graph, containerRef.current, {
+      sigma = new (Sigma as SigmaCtor)(graph, containerRef.current, {
         allowInvalidContainer: true,
         renderLabels: true,
         renderEdgeLabels: false,
@@ -215,6 +236,10 @@ export function GraphViewer() {
         minCameraRatio: 0.08,
         maxCameraRatio: 12,
       });
+      if (cancelled) {
+        sigma.kill();
+        return;
+      }
       sigmaRef.current = sigma;
       const s = sigma;
 
@@ -346,10 +371,17 @@ export function GraphViewer() {
       console.error("[GraphViewer] failed to mount", err);
       setReady(false);
     }
+    })().catch((err) => {
+      if (!cancelled) {
+        console.error("[GraphViewer] failed to load graph libs", err);
+        setReady(false);
+      }
+    });
 
     return () => {
+      cancelled = true;
       document.body.style.cursor = "default";
-      sigma?.kill();
+      sigmaRef.current?.kill();
       sigmaRef.current = null;
       graphRef.current = null;
     };

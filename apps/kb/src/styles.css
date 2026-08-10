@@ -4,6 +4,12 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Keep a real rule (not a stripped comment) so CSS content-hash rotates after
+   a zone-cache poison of a prior /assets/*.css URL with SPA HTML. */
+html[data-kb-cache-bust="2026-08-10"] {
+  --kb-cache-bust: 1;
+}
+
 @layer base {
   :root {
     --background: #ffffff;

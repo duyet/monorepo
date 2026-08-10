@@ -2,6 +2,13 @@
 # IMPORTANT: HTML must not use long stale-while-revalidate. After deploy, hashed
 # /assets/* filenames change; serving stale HTML that points at deleted JS
 # returns index.html (text/html) for module scripts → blank page + MIME error.
+#
+# ALSO: never apply immutable caching to responses that might be SPA HTML
+# fallbacks. If a deploy race 404s an asset and the edge serves index.html under
+# /assets/*.js with immutable headers, the zone cache poisons that URL for a year
+# (observed 2026-08-10 on kb.duyet.net CSS). Prefer must-revalidate on assets so
+# a bad edge entry can be corrected on the next request after deploy purge.
+# Filenames stay content-hashed so browsers still cache by URL identity.
 
 # Default (HTML routes): always revalidate; short browser cache only
 /*
@@ -10,9 +17,15 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Cache-Control: public, max-age=0, must-revalidate
 
-# Hashed JS/CSS: filename is content-addressed → long cache is safe
+# Hashed JS/CSS live under /static/* (see vite assetsDir). Long browser cache;
+# must-revalidate so a deploy-race HTML fallback cannot stick forever.
+/static/*
+  Cache-Control: public, max-age=31536000, must-revalidate
+  X-Content-Type-Options: nosniff
+
+# Legacy /assets/* path: never immutable — some URLs were zone-poisoned with SPA HTML.
 /assets/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=0, must-revalidate
   X-Content-Type-Options: nosniff
 
 # Raw markdown endpoints

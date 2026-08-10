@@ -31,8 +31,12 @@ const SCRIPT_OPEN = /<script\b(?![^>]*\bdata-cfasync=)/g;
  * the first type=module load so hydration never starts (blank page / MIME errors
  * when stale assets 404 as HTML). Retry the entry module once if React never
  * mounts a <main>.
+ *
+ * Also hard-reload once (sessionStorage, 30s) when a dynamic import / module
+ * script fails — common after deploys when an edge still has SPA HTML cached
+ * under a previous /assets/* hash with immutable headers.
  */
-const HYDRATION_RETRY = `<script data-cfasync="false">(function(){function boot(n){var s=document.querySelector('script[type="module"][src*="/assets/index-"]');if(!s||!s.src)return;import(s.src+(s.src.indexOf("?")>=0?"&":"?")+"cf_retry="+n).catch(function(e){if(n<4)setTimeout(function(){boot(n+1)},250*n);else console.error("[cf-hydrate-retry]",e)})}window.addEventListener("load",function(){setTimeout(function(){if(!document.querySelector("main"))boot(1)},800)})})();</script>`;
+const HYDRATION_RETRY = `<script data-cfasync="false">(function(){var K="cf_stale_chunk_reload",W=3e4;function shouldReload(m){if(!m)return!1;m=String(m);return/Failed to fetch dynamically imported module|Importing a module script failed|Expected a JavaScript-or-Wasm module script|text\\/html|loading module script|error loading dynamically imported module|Invariant failed/i.test(m)}function softReload(reason){try{var n=Date.now(),p=parseInt(sessionStorage.getItem(K)||"0",10);if(p&&n-p<W)return;sessionStorage.setItem(K,String(n));console.warn("[cf-stale-chunk]",reason);location.reload()}catch(e){location.reload()}}function boot(n){var s=document.querySelector('script[type="module"][src*="/static/index-"],script[type="module"][src*="/assets/index-"]');if(!s||!s.src)return;import(s.src+(s.src.indexOf("?")>=0?"&":"?")+"cf_retry="+n).catch(function(e){if(shouldReload(e&&e.message))softReload(e.message);else if(n<4)setTimeout(function(){boot(n+1)},250*n);else console.error("[cf-hydrate-retry]",e)})}window.addEventListener("unhandledrejection",function(e){var r=e&&e.reason,m=r&&(r.message||r);if(shouldReload(m))softReload(m)});window.addEventListener("error",function(e){var m=(e&&e.message)||(e&&e.error&&e.error.message)||"";var t=e&&e.target;if(t&&t.tagName==="SCRIPT"&&t.src&&(t.src.indexOf("/static/")!==-1||t.src.indexOf("/assets/")!==-1))softReload("script error "+t.src);else if(shouldReload(m))softReload(m)},!0);window.addEventListener("vite:preloadError",function(e){try{e.preventDefault()}catch(_){}softReload("vite:preloadError")});window.addEventListener("load",function(){setTimeout(function(){if(!document.querySelector("main"))boot(1)},800)})})();</script>`;
 
 let files = 0;
 let tags = 0;
@@ -54,7 +58,7 @@ function patchHtmlFiles(dir: string) {
       return '<script data-cfasync="false"';
     });
     if (
-      updated.includes("/assets/index-") &&
+      (updated.includes("/assets/index-") || updated.includes("/static/index-")) &&
       !updated.includes("cf-hydrate-retry") &&
       updated.includes("</body>")
     ) {
