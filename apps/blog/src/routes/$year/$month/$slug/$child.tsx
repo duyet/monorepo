@@ -87,12 +87,17 @@ export const Route = createFileRoute("/$year/$month/$slug/$child")({
       mdxSource = markdownContent;
     } else if (postWithContent.html) {
       htmlContent = postWithContent.html;
-    } else {
+    } else if (markdownContent) {
       if (typeof window === "undefined") {
         const { markdownToHtml } = await import("@duyet/libs/markdownToHtml");
         htmlContent = await markdownToHtml(markdownContent);
       } else {
-        console.error("markdownToHtml called on client for post:", slugPath);
+        console.warn(
+          "posts-content missing html; using marked client fallback:",
+          slugPath
+        );
+        const { marked } = await import("marked");
+        htmlContent = await marked.parse(markdownContent);
       }
     }
 

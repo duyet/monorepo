@@ -25,6 +25,10 @@ export default defineConfig({
       },
       prerender: {
         enabled: true,
+        // Explicit post routes always prerender; crawlLinks also discovers
+        // tags/series/notes. Broken crawl targets (e.g. alias tags) must not
+        // abort the whole site build — posts-content generation is the hard
+        // gate for empty article bodies.
         routes: getPostRoutes(),
         crawlLinks: true,
         failOnError: false,

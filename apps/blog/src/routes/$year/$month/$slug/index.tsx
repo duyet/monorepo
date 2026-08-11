@@ -79,12 +79,20 @@ export const Route = createFileRoute("/$year/$month/$slug/")({
       mdxSource = markdownContent;
     } else if (postWithContent.html) {
       htmlContent = postWithContent.html;
-    } else {
+    } else if (markdownContent) {
+      // Prefer prebuilt html from posts-content/*.json. Fallback:
+      // - server/prerender: full WASM pipeline (KaTeX, highlight)
+      // - client: marked so SPA navigations never paint "No content"
       if (typeof window === "undefined") {
         const { markdownToHtml } = await import("@duyet/libs/markdownToHtml");
         htmlContent = await markdownToHtml(markdownContent);
       } else {
-        console.error("markdownToHtml called on client for post:", slugPath);
+        console.warn(
+          "posts-content missing html; using marked client fallback:",
+          slugPath
+        );
+        const { marked } = await import("marked");
+        htmlContent = await marked.parse(markdownContent);
       }
     }
 

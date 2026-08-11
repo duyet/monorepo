@@ -14,7 +14,13 @@
  * Usage: bun scripts/generate-posts-data.ts
  */
 
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import {
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
 import { join } from "node:path";
 import type { Post, Series } from "@duyet/interfaces";
 import { getAllPosts } from "@duyet/libs/getPost";
@@ -27,6 +33,9 @@ const CONTENT_DIR = join(PUBLIC_DIR, "posts-content");
 const WIDGETS_DIR = join(import.meta.dirname!, "..", "public", "widgets");
 
 mkdirSync(PUBLIC_DIR, { recursive: true });
+// Wipe stale content files (e.g. *.html.json from older slug formats) so the
+// deploy only ships fresh payloads with preconverted HTML.
+rmSync(CONTENT_DIR, { recursive: true, force: true });
 mkdirSync(CONTENT_DIR, { recursive: true });
 
 console.log("Generating posts data...");
@@ -137,6 +146,7 @@ const metaFields = [
   "changelog",
   "parent",
   "parts",
+  "commentCount",
 ];
 
 const allPosts = getAllPosts(metaFields, 0) as Post[];
@@ -169,6 +179,9 @@ const allPostsWithContent = getAllPosts(
 
 let written = 0;
 let widgetCount = 0;
+let htmlConverted = 0;
+const conversionFailures: string[] = [];
+
 for (const post of allPostsWithContent) {
   // Derive a safe filename from slug: "/2024/01/foo.html" -> "2024-01-foo"
   const key = post.slug
@@ -209,16 +222,20 @@ for (const post of allPostsWithContent) {
   }
 
   // Pre-convert .md content to HTML so the route loader can skip
-  // markdownToHtml (WASM) during prerender/build.
+  // markdownToHtml (WASM) during prerender/build. Missing html on the
+  // client leaves the body as "No content" — fail the build instead.
   if (!payload.isMDX && processedMarkdown) {
     try {
       payload.html = await markdownToHtml(processedMarkdown);
+      if (!payload.html?.trim()) {
+        conversionFailures.push(`${key}: empty HTML output`);
+      } else {
+        htmlConverted++;
+      }
     } catch (err) {
-      console.error(
-        `  ✗ Failed to convert ${key}: ${err instanceof Error ? err.message : err}`
-      );
-      // Leave html undefined — the route loader will fall back to
-      // markdownToHtml at runtime.
+      const msg = err instanceof Error ? err.message : String(err);
+      conversionFailures.push(`${key}: ${msg}`);
+      console.error(`  ✗ Failed to convert ${key}: ${msg}`);
     }
   }
 
@@ -226,12 +243,24 @@ for (const post of allPostsWithContent) {
   written++;
 }
 
-// Count how many have html pre-converted
-const withHtml = allPostsWithContent.filter(
-  (p) => !p.isMDX && p.content
+if (conversionFailures.length > 0) {
+  console.error(
+    `\n✗ ${conversionFailures.length} markdown→HTML conversion(s) failed:`
+  );
+  for (const f of conversionFailures.slice(0, 20)) {
+    console.error(`  - ${f}`);
+  }
+  if (conversionFailures.length > 20) {
+    console.error(`  … and ${conversionFailures.length - 20} more`);
+  }
+  process.exit(1);
+}
+
+const contentFiles = readdirSync(CONTENT_DIR).filter((f) =>
+  f.endsWith(".json")
 ).length;
 console.log(
-  `  ✓ posts-content/ (${written} files, ${withHtml} pre-converted to HTML, ${widgetCount} widgets inlined)`
+  `  ✓ posts-content/ (${written} files written, ${contentFiles} on disk, ${htmlConverted} pre-converted to HTML, ${widgetCount} widgets inlined)`
 );
 
 // ── series-data.json ───────────────────────────────────────────────────────────
