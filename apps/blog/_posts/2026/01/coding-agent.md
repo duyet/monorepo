@@ -22,6 +22,8 @@ parts:
   - z-claude-mi-claude-or-claude
   - opencode
 changelog:
+  - date: "2026-08"
+    note: "Refreshed Top on my list — Grok Build alongside Claude Code, Grok 4.6 alongside Fable 5."
   - date: "2026-07"
     note: "Add CodeRabbit"
   - date: "2026-06"
@@ -57,12 +59,12 @@ While people are still scared of vibe coding, I ship it to production. For me, A
 I didn't stop writing, tons of drafts in my [obsidian](https://obsidian.md/), none published because they became outdated before I could finish them. I want to kick off this first 2026 post as my [digital garden](https://joelhooks.com/digital-garden/) - a place to reflect on what I'm thinking and doing in this LLM era. This post will be updated from time to time.
 
 <div class="not-prose my-8 rounded-2xl border border-border dark:border-white/10 p-6 sm:p-8">
-  <p class="text-[0.7rem] uppercase tracking-[0.2em] font-mono text-terracotta">Updated Jun 2026</p>
+  <p class="text-[0.7rem] uppercase tracking-[0.2em] font-mono text-terracotta">Updated Aug 2026</p>
   <p class="text-2xl font-serif text-foreground mt-2">Top on my list</p>
   <div class="mt-5 border-t border-border dark:border-white/10 divide-y divide-border dark:divide-white/10">
     <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 py-3.5">
       <span class="text-xs uppercase tracking-wide font-mono text-terracotta">Coding Agent</span>
-      <span class="text-foreground"><a href="/2026/01/coding-agent/claude-code" class="underline underline-offset-2">Claude Code</a>, <a href="/2026/01/coding-agent/opencode" class="underline underline-offset-2">opencode</a></span>
+      <span class="text-foreground">Grok Build, <a href="/2026/01/coding-agent/claude-code" class="underline underline-offset-2">Claude Code</a></span>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 py-3.5">
       <span class="text-xs uppercase tracking-wide font-mono text-terracotta">Code Review</span>
@@ -72,7 +74,7 @@ I didn't stop writing, tons of drafts in my [obsidian](https://obsidian.md/), no
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 py-3.5">
       <span class="text-xs uppercase tracking-wide font-mono text-terracotta">Model</span>
-      <span class="text-foreground"><a href="/2026/01/coding-agent/z-claude-mi-claude-or-claude" class="underline underline-offset-2">Fable 5</a>, <a href="/2026/01/coding-agent/z-claude-mi-claude-or-claude" class="underline underline-offset-2">Opus 4.8</a>, <a href="/2026/01/coding-agent/z-claude-mi-claude-or-claude" class="underline underline-offset-2">GLM 5.1</a></span>
+      <span class="text-foreground"><a href="/2026/01/coding-agent/z-claude-mi-claude-or-claude" class="underline underline-offset-2">Fable 5</a>, Grok 4.6</span>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-1 sm:gap-4 py-3.5">
       <span class="text-xs uppercase tracking-wide font-mono text-terracotta">Provider</span>

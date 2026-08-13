@@ -13,7 +13,7 @@ function CatChip({
     <button
       type="button"
       aria-pressed={active}
-      className={`shrink-0 cursor-pointer whitespace-nowrap bg-transparent px-0 text-[14px] tracking-tight transition-colors ${
+      className={`shrink-0 cursor-pointer whitespace-nowrap bg-transparent px-0 text-[16px] tracking-tight transition-colors ${
         active
           ? "font-semibold text-[var(--rd-text)]"
           : "font-normal text-[var(--rd-text-3)] hover:text-[var(--rd-text)]"
