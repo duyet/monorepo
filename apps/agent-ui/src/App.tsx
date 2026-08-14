@@ -17,6 +17,7 @@ import {
   AgentApiTransport,
   type AgentChatResponse,
 } from "./agent-api-transport";
+import { userFacingChatError } from "./lib/chat-error";
 
 const SESSION_STORAGE_KEY = "duyet-agent-ui-session-id";
 
@@ -65,7 +66,7 @@ function ChatScreen() {
     [getToken, sessionId],
   );
 
-  const { error, messages, sendMessage, setMessages, status, stop } =
+  const { error, messages, regenerate, sendMessage, setMessages, status, stop } =
     useChat<UIMessage>({
       id: sessionId,
       transport,
@@ -106,7 +107,17 @@ function ChatScreen() {
           {error ? (
             <Alert variant="destructive">
               <AlertTitle>Request failed</AlertTitle>
-              <AlertDescription>{error.message}</AlertDescription>
+              <AlertDescription>
+                <span>{userFacingChatError(error)}</span>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="mt-2"
+                  onClick={() => void regenerate()}
+                >
+                  Retry
+                </Button>
+              </AlertDescription>
             </Alert>
           ) : null}
 
