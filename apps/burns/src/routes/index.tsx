@@ -1,11 +1,15 @@
 import ThemeToggle from "@duyet/components/ThemeToggle";
+import type { JSX } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { AnimatedCounter } from "../components/AnimatedCounter";
-import { DailyChart } from "../components/DailyChart";
-import { TokenBreakdown } from "../components/TokenBreakdown";
-import { readPublicJson } from "../lib/read-public-json";
-import type { TokenData } from "../lib/types";
+import { DailyChart, WINDOW } from "../components/DailyChart";
+import { SourceBreakdown } from "../components/SourceBreakdown";
 import { SourceIcons } from "../components/SourceIcons";
+import { TokenBreakdown } from "../components/TokenBreakdown";
+import { BURNS_LOCALE, formatDay } from "../lib/dates";
+import { readPublicJson } from "../lib/read-public-json";
+import { fmtCost } from "../lib/sources";
+import type { TokenData } from "../lib/types";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
@@ -15,77 +19,77 @@ export const Route = createFileRoute("/")({
   component: Page,
 });
 
-function Page() {
+function formatRange(first: string | null, last: string | null): string | null {
+  if (!first || !last) return null;
+  return `${formatDay(first, true)} — ${formatDay(last, true)}`;
+}
+
+function formatUpdated(iso: string): string | null {
+  if (!iso) return null;
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return null;
+  return `Updated ${d.toLocaleDateString(BURNS_LOCALE, {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  })}`;
+}
+
+function Page(): JSX.Element {
   const data = Route.useLoaderData();
+  const range = formatRange(data.firstDate, data.lastDate);
+  const updated = formatUpdated(data.generatedAt);
 
   return (
-    <div style={{
-      display: "flex",
-      height: "100dvh",
-      flexDirection: "column",
-      alignItems: "center",
-      padding: "24px",
-      boxSizing: "border-box",
-      overflow: "hidden",
-    }}>
-      <div style={{
-        flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 28,
-      }}>
-        <div style={{ position: "relative", zIndex: 1 }}>
-          <AnimatedCounter target={data.totals.total_tokens} />
-          <div style={{
-            marginTop: 12,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 6,
-            flexWrap: "wrap",
-            position: "relative",
-            zIndex: 30,
-          }}>
-            <SourceIcons
-              sources={data.sources}
-              sourceTotals={data.source_totals ?? []}
-            />
-          </div>
-        </div>
-
-        <div style={{ marginTop: 24, width: "100%" }}>
-          <DailyChart daily={data.daily} firstDate={data.firstDate} lastDate={data.lastDate} />
-        </div>
-
+    <div className="burns-page">
+      <header className="burns-header">
         <div>
-          <TokenBreakdown totals={data.totals} />
+          <p className="burns-eyebrow">Burns</p>
+          <h1 className="burns-title">Token usage</h1>
         </div>
-      </div>
-
-      <div style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        width: "100%",
-        maxWidth: 400,
-        paddingTop: 8,
-        gap: 16,
-      }}>
         <ThemeToggle />
-        <a
-          href="https://duyet.net"
-          style={{
-            fontSize: 11,
-            letterSpacing: "0.04em",
-            color: "var(--muted-soft)",
-            textDecoration: "none",
-          }}
-        >
-          duyet.net
-        </a>
-      </div>
+      </header>
+
+      <section className="burns-hero">
+        <AnimatedCounter target={data.totals.total_tokens} />
+        <p className="burns-hero-kicker">tokens all-time</p>
+        <p className="burns-hero-meta">
+          {fmtCost(data.totals.total_cost)}
+          {range ? ` · ${range}` : ""}
+          {updated ? ` · ${updated}` : ""}
+        </p>
+        <SourceIcons
+          sources={data.sources}
+          sourceTotals={data.source_totals ?? []}
+        />
+      </section>
+
+      <section className="burns-section">
+        <div className="burns-section-head">
+          <h2 className="burns-section-title">Daily</h2>
+          <p className="burns-section-meta">{`Last ${WINDOW} days`}</p>
+        </div>
+        <DailyChart daily={data.daily} />
+      </section>
+
+      <section className="burns-section">
+        <div className="burns-section-head">
+          <h2 className="burns-section-title">By source</h2>
+          <p className="burns-section-meta">All-time</p>
+        </div>
+        <SourceBreakdown totals={data.source_totals ?? []} />
+      </section>
+
+      <section className="burns-section">
+        <div className="burns-section-head">
+          <h2 className="burns-section-title">Token mix</h2>
+        </div>
+        <TokenBreakdown totals={data.totals} />
+      </section>
+
+      <footer className="burns-footer">
+        <a href="https://duyet.net">duyet.net</a>
+      </footer>
     </div>
   );
 }

@@ -38,21 +38,5 @@ export function AnimatedCounter({ target, duration = 700 }: AnimatedCounterProps
     return () => cancelAnimationFrame(raf);
   }, [target, duration]);
 
-  return (
-    <span
-      style={{
-        display: "block",
-        textAlign: "center",
-        fontFamily: "Garamond, 'Apple Garamond', 'EB Garamond', serif",
-        fontWeight: 400,
-        letterSpacing: "-0.03em",
-        lineHeight: 1.05,
-        fontVariantNumeric: "tabular-nums",
-        fontSize: "clamp(2.5rem, 12vw, 9rem)",
-        color: "var(--ink)",
-      }}
-    >
-      {display}
-    </span>
-  );
+  return <span className="burns-count">{display}</span>;
 }

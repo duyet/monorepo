@@ -3,7 +3,6 @@ import "../styles.css";
 
 import Analytics from "@duyet/components/Analytics";
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import ThemeToggle from "@duyet/components/ThemeToggle";
 import {
   createRootRoute,
   HeadContent,
@@ -13,11 +12,9 @@ import {
 
 function NotFoundComponent() {
   return (
-    <div style={{ display: "flex", minHeight: "50vh", alignItems: "center", justifyContent: "center" }}>
-      <div style={{ textAlign: "center" }}>
-        <h1 style={{ fontSize: "2rem", fontWeight: 600 }}>404</h1>
-        <p style={{ marginTop: 8, color: "var(--muted)" }}>Page not found</p>
-      </div>
+    <div className="burns-page">
+      <h1 className="burns-title">404</h1>
+      <p className="burns-hero-meta">Page not found</p>
     </div>
   );
 }
@@ -28,18 +25,25 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
       { name: "robots", content: "follow, index" },
-      { title: "Burns | Token Counter" },
+      { title: "Burns · Token usage" },
       {
         name: "description",
-        content: "Total Claude Code token consumption.",
+        content: "Token usage across coding agents.",
+      },
+      {
+        name: "theme-color",
+        content: "#ffffff",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        name: "theme-color",
+        content: "#0a0a0a",
+        media: "(prefers-color-scheme: dark)",
       },
     ],
     links: [
       { rel: "icon", href: "/favicon.ico" },
-      {
-        rel: "preconnect",
-        href: "https://fonts.googleapis.com",
-      },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
       {
         rel: "preconnect",
         href: "https://fonts.gstatic.com",
@@ -48,7 +52,7 @@ export const Route = createRootRoute({
       {
         rel: "preload",
         as: "style",
-        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@300;400;500;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap",
       },
     ],
   }),
@@ -63,23 +67,14 @@ function RootComponent() {
         <HeadContent />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@300;400;500;600&display=swap"
-          media="print"
-          // @ts-expect-error onLoad is valid on link elements
-          onLoad="this.media='all'"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
         />
       </head>
       <body>
         <ThemeProvider>
-          <div style={{ minHeight: "100vh", background: "var(--canvas)", color: "var(--ink)" }}>
-            <main>
-              <Outlet />
-            </main>
-            <footer className="flex flex-col items-center gap-4 px-4 py-8 text-xs text-[var(--muted-soft)]">
-              <ThemeToggle />
-              <a href="https://duyet.net" style={{ color: "var(--muted)", textDecoration: "none" }}>duyet.net</a>
-            </footer>
-          </div>
+          <main>
+            <Outlet />
+          </main>
           <Analytics />
         </ThemeProvider>
         <Scripts />
