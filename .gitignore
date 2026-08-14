@@ -11,11 +11,12 @@ node_modules
 # production
 build
 dist
-.next/
-/out/
-**/out/
 
-# Next.js generated types
+# Next.js / leftover app dumps (never commit these)
+.next/
+**/.next/
+out/
+**/out/
 next-env.d.ts
 
 # misc
