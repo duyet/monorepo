@@ -56,6 +56,8 @@ export function GlobalNav({ currentApp }: { currentApp: AppKey }) {
                   ? () => setOpenDropdown(isDropdownOpen ? null : item.label)
                   : undefined
               }
+              aria-haspopup={hasChildren ? "menu" : undefined}
+              aria-expanded={hasChildren ? isDropdownOpen : undefined}
               asChild={!hasChildren}
             >
               {hasChildren ? (

@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { ChatTranscript } from "../chat/ChatTranscript";
 import {
   Attachment,
@@ -45,5 +45,26 @@ describe("shadcn chat primitives", () => {
     expect(container.querySelector('[data-slot="bubble"]')).not.toBe(null);
     expect(container.querySelector('[data-slot="attachment"]')).not.toBe(null);
     expect(container.querySelector('[data-slot="marker"]')).not.toBe(null);
+  });
+
+  it("scrolls the viewport to the end when MessageScrollerButton is clicked", () => {
+    const scrollTo = vi.fn();
+    const { getByRole } = render(
+      <ChatTranscript
+        messages={[{ id: "1", role: "user", text: "hello from user" }]}
+      />,
+    );
+    const viewport = document.querySelector(
+      '[data-slot="message-scroller-viewport"]',
+    );
+    expect(viewport).not.toBe(null);
+    Object.defineProperty(viewport, "scrollHeight", {
+      configurable: true,
+      value: 800,
+    });
+    (viewport as HTMLDivElement).scrollTo = scrollTo;
+
+    getByRole("button", { name: "Scroll to end" }).click();
+    expect(scrollTo).toHaveBeenCalledWith({ top: 800, behavior: "smooth" });
   });
 });

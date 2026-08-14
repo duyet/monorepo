@@ -17,12 +17,12 @@ import {
   MessageScrollerViewport,
 } from "../ui/message-scroller";
 
-export type ChatTranscriptMessage = {
+export interface ChatTranscriptMessage {
   id: string;
   role: "user" | "assistant" | "system";
   text: string;
   attachmentLabel?: string;
-};
+}
 
 export function ChatMessageList({
   messages,

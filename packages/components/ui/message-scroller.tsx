@@ -2,17 +2,42 @@
 
 import { cn } from "@duyet/libs/utils";
 import { ArrowDownIcon } from "lucide-react";
-import type { ComponentProps } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useRef,
+  type ComponentProps,
+  type RefObject,
+} from "react";
 import { Button } from "./button";
+
+interface MessageScrollerContextValue {
+  viewportRef: RefObject<HTMLDivElement | null>;
+  scrollToEnd: () => void;
+}
+
+const MessageScrollerContext = createContext<MessageScrollerContextValue | null>(
+  null,
+);
 
 function MessageScrollerProvider({
   children,
   ...props
 }: ComponentProps<"div">) {
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const scrollToEnd = useCallback(() => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+    viewport.scrollTo({ top: viewport.scrollHeight, behavior: "smooth" });
+  }, []);
+
   return (
-    <div data-slot="message-scroller-provider" className="contents" {...props}>
-      {children}
-    </div>
+    <MessageScrollerContext.Provider value={{ viewportRef, scrollToEnd }}>
+      <div data-slot="message-scroller-provider" className="contents" {...props}>
+        {children}
+      </div>
+    </MessageScrollerContext.Provider>
   );
 }
 
@@ -31,10 +56,18 @@ function MessageScroller({ className, ...props }: ComponentProps<"div">) {
 
 function MessageScrollerViewport({
   className,
+  ref,
   ...props
 }: ComponentProps<"div">) {
+  const ctx = useContext(MessageScrollerContext);
+
   return (
     <div
+      ref={(node) => {
+        if (ctx) ctx.viewportRef.current = node;
+        if (typeof ref === "function") ref(node);
+        else if (ref) ref.current = node;
+      }}
       data-slot="message-scroller-viewport"
       className={cn(
         "size-full min-h-0 min-w-0 overflow-y-auto overscroll-contain",
@@ -71,8 +104,11 @@ function MessageScrollerItem({ className, ...props }: ComponentProps<"div">) {
 function MessageScrollerButton({
   className,
   children,
+  onClick,
   ...props
 }: ComponentProps<typeof Button>) {
+  const ctx = useContext(MessageScrollerContext);
+
   return (
     <Button
       data-slot="message-scroller-button"
@@ -81,6 +117,10 @@ function MessageScrollerButton({
       size="icon"
       className={cn("absolute bottom-4 left-1/2 -translate-x-1/2", className)}
       {...props}
+      onClick={(event) => {
+        ctx?.scrollToEnd();
+        onClick?.(event);
+      }}
     >
       {children ?? (
         <>

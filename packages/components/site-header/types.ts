@@ -21,7 +21,7 @@ export type AppKey =
 
 export type AppCategory = "Personal" | "AI & Data" | "Build" | "Infra";
 
-export type AppDef = {
+export interface AppDef {
   key: AppKey;
   name: string;
   href: string;
@@ -29,30 +29,33 @@ export type AppDef = {
   Icon: LucideIcon;
   category: AppCategory;
   blurb: string;
-};
+}
 
-export type NavMatch = { app?: AppKey; path?: string };
+export interface NavMatch {
+  app?: AppKey;
+  path?: string;
+}
 
-export type GlobalNavChild = {
+export interface GlobalNavChild {
   label: string;
   href: string;
   match: NavMatch;
-};
+}
 
-export type GlobalNavItem = {
+export interface GlobalNavItem {
   label: string;
   href: string;
   match: NavMatch;
   children?: GlobalNavChild[];
   blogOnly?: boolean;
   hideOnApps?: AppKey[];
-};
+}
 
-export type LocalNavItem = {
+export interface LocalNavItem {
   label: string;
   href: string;
   external?: boolean;
-};
+}
 
 export interface SiteHeaderProps {
   /** @deprecated use currentApp instead */

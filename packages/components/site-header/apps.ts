@@ -17,7 +17,13 @@ import {
   Sparkles,
   User,
 } from "lucide-react";
-import type { AppCategory, AppDef, AppKey, GlobalNavItem } from "./types";
+import type {
+  AppCategory,
+  AppDef,
+  AppKey,
+  GlobalNavItem,
+  NavMatch,
+} from "./types";
 
 export const CATEGORY_ORDER: AppCategory[] = [
   "Personal",
@@ -265,7 +271,7 @@ export const GLOBAL_NAV: GlobalNavItem[] = [
     label: "About",
     href: "https://duyet.net/about",
     match: { path: "/about" },
-    hideOnApps: ["blog"],
+    hideOnApps: ["blog", "home"],
   },
 ];
 
@@ -281,20 +287,23 @@ export function filterGlobalNav(
   });
 }
 
+function matchesPath(path: string, pathname: string | null): boolean {
+  if (pathname == null) return false;
+  return path === "/" ? pathname === "/" : pathname.startsWith(path);
+}
+
 export function isNavActive(
-  m: { app?: AppKey; path?: string },
+  m: NavMatch,
   currentApp: AppKey,
   pathname: string | null,
 ): boolean {
   if (m.app && m.app === currentApp) {
-    if (m.app === "blog" && m.path && pathname != null) {
-      return m.path === "/" ? pathname === "/" : pathname.startsWith(m.path);
+    if ((m.app === "blog" || m.app === "home") && m.path) {
+      return matchesPath(m.path, pathname);
     }
-    if (m.app === "home" && m.path) return pathname === m.path;
     return true;
   }
-  if (m.path && currentApp === "home" && pathname != null) {
-    return m.path === "/" ? pathname === "/" : pathname.startsWith(m.path);
-  }
-  return false;
+  return Boolean(
+    m.path && currentApp === "home" && matchesPath(m.path, pathname),
+  );
 }

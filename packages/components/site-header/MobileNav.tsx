@@ -10,7 +10,12 @@ import type { AppKey } from "./types";
 export function MobileNav({ currentApp }: { currentApp: AppKey }) {
   const [open, setOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [pathname, setPathname] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    setPathname(window.location.pathname.replace(/\/+$/, "") || "/");
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -26,11 +31,6 @@ export function MobileNav({ currentApp }: { currentApp: AppKey }) {
     document.addEventListener("pointerdown", onPointerDown);
     return () => document.removeEventListener("pointerdown", onPointerDown);
   }, [open]);
-
-  const pathname =
-    typeof window === "undefined"
-      ? null
-      : window.location.pathname.replace(/\/+$/, "") || "/";
 
   return (
     <div ref={containerRef} className="relative md:hidden">
@@ -62,28 +62,27 @@ export function MobileNav({ currentApp }: { currentApp: AppKey }) {
                   ),
                 );
 
+              const itemClassName = cn(
+                "flex items-center justify-between h-9 px-3 rounded-md text-sm font-medium transition-colors",
+                itemActive
+                  ? "bg-[var(--rd-muted)] text-[var(--rd-accent)]"
+                  : "text-[var(--rd-text-3)] hover:bg-[var(--rd-muted)] hover:text-[var(--rd-text)]",
+              );
+
               return (
                 <div key={item.href}>
-                  <a
-                    href={hasChildren ? undefined : item.href}
-                    role="menuitem"
-                    onClick={(e) => {
-                      if (hasChildren) {
-                        e.preventDefault();
-                        setOpenDropdown(isDropdownOpen ? null : item.label);
-                      } else {
-                        setOpen(false);
+                  {hasChildren ? (
+                    <button
+                      type="button"
+                      role="menuitem"
+                      aria-haspopup="menu"
+                      aria-expanded={isDropdownOpen}
+                      onClick={() =>
+                        setOpenDropdown(isDropdownOpen ? null : item.label)
                       }
-                    }}
-                    className={cn(
-                      "flex items-center justify-between h-9 px-3 rounded-md text-sm font-medium transition-colors",
-                      itemActive
-                        ? "bg-[var(--rd-muted)] text-[var(--rd-accent)]"
-                        : "text-[var(--rd-text-3)] hover:bg-[var(--rd-muted)] hover:text-[var(--rd-text)]",
-                    )}
-                  >
-                    {item.label}
-                    {hasChildren && (
+                      className={cn(itemClassName, "w-full")}
+                    >
+                      {item.label}
                       <ChevronsUpDown
                         aria-hidden
                         className={cn(
@@ -91,8 +90,17 @@ export function MobileNav({ currentApp }: { currentApp: AppKey }) {
                           isDropdownOpen && "rotate-180",
                         )}
                       />
-                    )}
-                  </a>
+                    </button>
+                  ) : (
+                    <a
+                      href={item.href}
+                      role="menuitem"
+                      onClick={() => setOpen(false)}
+                      className={itemClassName}
+                    >
+                      {item.label}
+                    </a>
+                  )}
                   {hasChildren && isDropdownOpen && (
                     <div className="mt-1 flex flex-col pl-3">
                       {item.children!.map((child) => (
