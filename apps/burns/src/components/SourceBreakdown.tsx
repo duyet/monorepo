@@ -1,3 +1,4 @@
+import type { JSX } from "react";
 import type { SourceTotal } from "../lib/types";
 import { fmtCompactTokens, fmtCost, normalizeSource, sourceSwatch } from "../lib/sources";
 
@@ -5,12 +6,21 @@ interface SourceBreakdownProps {
   totals: readonly SourceTotal[];
 }
 
-export function SourceBreakdown({ totals }: SourceBreakdownProps) {
+export function SourceBreakdown({ totals }: SourceBreakdownProps): JSX.Element | null {
   if (totals.length === 0) return null;
 
-  const rows = [...totals]
-    .map((s) => ({ ...s, source: normalizeSource(s.source) }))
-    .sort((a, b) => b.total_tokens - a.total_tokens);
+  const merged = new Map<string, SourceTotal>();
+  for (const s of totals) {
+    const source = normalizeSource(s.source);
+    const existing = merged.get(source);
+    if (existing) {
+      existing.total_tokens += s.total_tokens;
+      existing.cost += s.cost;
+      continue;
+    }
+    merged.set(source, { ...s, source });
+  }
+  const rows = [...merged.values()].sort((a, b) => b.total_tokens - a.total_tokens);
 
   const max = Math.max(...rows.map((s) => s.total_tokens), 1);
 

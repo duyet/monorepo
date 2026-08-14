@@ -1,3 +1,5 @@
+import { BURNS_LOCALE } from "./dates";
+
 /** Canonical display names for coding agents shown on burn.duyet.net */
 export const DISPLAY_SOURCES = [
   "Claude Code",
@@ -71,12 +73,13 @@ export function normalizeSource(raw: string, modelName = ""): string {
 }
 
 export function sourceSwatch(name: string): string {
-  if (name === "Z.AI" || name === "Grok") return "#737373";
+  if (name === "Z.AI") return "#737373";
+  if (name === "Grok") return "#9a9994";
   return SOURCE_COLORS[name] ?? "var(--muted)";
 }
 
 export function fmtTokens(n: number): string {
-  return n.toLocaleString("en-US");
+  return n.toLocaleString(BURNS_LOCALE);
 }
 
 export function fmtCompactTokens(n: number): string {
@@ -86,11 +89,11 @@ export function fmtCompactTokens(n: number): string {
   if (abs >= 1e9) return `${sign}${(abs / 1e9).toFixed(1)}B`;
   if (abs >= 1e6) return `${sign}${(abs / 1e6).toFixed(1)}M`;
   if (abs >= 1e3) return `${sign}${(abs / 1e3).toFixed(1)}K`;
-  return n.toLocaleString("en-US");
+  return n.toLocaleString(BURNS_LOCALE);
 }
 
 export function fmtCost(n: number): string {
-  return `$${n.toLocaleString("en-US", {
+  return `$${n.toLocaleString(BURNS_LOCALE, {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   })}`;

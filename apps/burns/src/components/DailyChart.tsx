@@ -7,8 +7,13 @@ interface DailyChartProps {
   daily: DailyEntry[];
 }
 
-const WINDOW = 90;
+export const WINDOW = 90;
 const CHART_H = 100;
+
+function stackedTotal(d: DailyEntry): number {
+  const sum = (d.by_source ?? []).reduce((acc, s) => acc + s.total_tokens, 0);
+  return sum || d.total_tokens;
+}
 
 export function DailyChart({ daily }: DailyChartProps) {
   const [hovered, setHovered] = useState<number | null>(null);
@@ -16,7 +21,7 @@ export function DailyChart({ daily }: DailyChartProps) {
   if (daily.length === 0) return null;
 
   const recent = daily.slice(0, WINDOW).reverse();
-  const maxTokens = Math.max(...recent.map((d) => d.total_tokens), 1);
+  const maxTokens = Math.max(...recent.map(stackedTotal), 1);
   const barWidth = 100 / recent.length;
 
   const totals = new Map<string, number>();
@@ -51,6 +56,7 @@ export function DailyChart({ daily }: DailyChartProps) {
         <svg
           viewBox={`0 0 100 ${CHART_H}`}
           preserveAspectRatio="none"
+          role="img"
           aria-label="Daily token usage"
         >
           {recent.map((day, i) => {
@@ -65,6 +71,16 @@ export function DailyChart({ daily }: DailyChartProps) {
             const useStack = stack.length > 0;
             let y = CHART_H;
             const dim = hovered !== null && hovered !== i;
+            const barAccess = {
+              role: "button" as const,
+              tabIndex: 0,
+              "aria-label": `${day.date}: ${fmtTokens(day.total_tokens)} tokens, ${fmtCost(day.cost)}`,
+              onMouseEnter: () => setHovered(i),
+              onMouseLeave: () => setHovered(null),
+              onFocus: () => setHovered(i),
+              onBlur: () => setHovered(null),
+              style: { cursor: "pointer" as const },
+            };
 
             if (!useStack) {
               const h = (day.total_tokens / maxTokens) * CHART_H;
@@ -77,9 +93,7 @@ export function DailyChart({ daily }: DailyChartProps) {
                   height={h}
                   fill="var(--muted)"
                   opacity={dim ? 0.35 : 1}
-                  onMouseEnter={() => setHovered(i)}
-                  onMouseLeave={() => setHovered(null)}
-                  style={{ cursor: "pointer" }}
+                  {...barAccess}
                 />
               );
             }
@@ -87,10 +101,8 @@ export function DailyChart({ daily }: DailyChartProps) {
             return (
               <g
                 key={day.date}
-                onMouseEnter={() => setHovered(i)}
-                onMouseLeave={() => setHovered(null)}
-                style={{ cursor: "pointer" }}
                 opacity={dim ? 0.35 : 1}
+                {...barAccess}
               >
                 {stack.map((seg) => {
                   const h = (seg.tokens / maxTokens) * CHART_H;
@@ -113,14 +125,13 @@ export function DailyChart({ daily }: DailyChartProps) {
 
         {hovered !== null && hoveredDay && (() => {
           const pct = hovered * barWidth + barWidth / 2;
-          const flip = pct > 68;
+          const left = Math.min(Math.max(pct, 0), 100);
+          const transform =
+            pct < 18 ? "translateX(0)" : pct > 82 ? "translateX(-100%)" : "translateX(-50%)";
           return (
             <div
               className="burns-tooltip"
-              style={{
-                left: `${pct}%`,
-                transform: `translateX(${flip ? "-100%" : "-50%"})`,
-              }}
+              style={{ left: `${left}%`, transform }}
             >
               <div className="burns-tooltip-title">{formatDay(hoveredDay.date, true)}</div>
               {sources.length > 0 ? (

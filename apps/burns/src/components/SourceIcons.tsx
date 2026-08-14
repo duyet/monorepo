@@ -79,11 +79,15 @@ export function SourceIcons({ sources, sourceTotals = [] }: SourceIconsProps) {
         const label = DISPLAY_LABELS[name] ?? name;
         const mark = name === "pi" ? "π" : name.slice(0, 1).toUpperCase();
         return (
-          <span
+          <button
+            type="button"
             key={name}
             className="burns-icon"
+            aria-label={label}
             onMouseEnter={() => setHovered(name)}
             onMouseLeave={() => setHovered(null)}
+            onFocus={() => setHovered(name)}
+            onBlur={() => setHovered(null)}
             style={{ opacity: hovered && !isHovered ? 0.4 : 1 }}
           >
             {svg ? (
@@ -132,7 +136,7 @@ export function SourceIcons({ sources, sourceTotals = [] }: SourceIconsProps) {
                 )}
               </span>
             )}
-          </span>
+          </button>
         );
       })}
     </div>

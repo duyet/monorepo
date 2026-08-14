@@ -68,14 +68,13 @@ function RootComponent() {
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
-          media="print"
-          // @ts-expect-error onLoad is valid on link elements
-          onLoad="this.media='all'"
         />
       </head>
       <body>
         <ThemeProvider>
-          <Outlet />
+          <main>
+            <Outlet />
+          </main>
           <Analytics />
         </ThemeProvider>
         <Scripts />

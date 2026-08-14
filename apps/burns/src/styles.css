@@ -10,7 +10,7 @@
   --body: #3a3a38;
   --muted: #6e6d68;
   --muted-foreground: #6e6d68;
-  --muted-soft: #8c8b85;
+  --muted-soft: #76756f;
   --hairline: #e8e8e6;
   --surface-card: #ffffff;
   --on-dark: #f4f3f1;
@@ -25,7 +25,7 @@
   --body: #c8c7c2;
   --muted: #9a9994;
   --muted-foreground: #9a9994;
-  --muted-soft: #74736e;
+  --muted-soft: #7a7974;
   --hairline: #242424;
   --surface-card: #111111;
   --on-dark: #f4f3f1;
@@ -205,6 +205,14 @@ body {
   height: 168px;
 }
 
+.burns-chart svg [tabindex]:focus {
+  outline: none;
+}
+
+.burns-chart svg [tabindex]:focus-visible {
+  outline: 1px solid var(--ink);
+}
+
 .burns-chart-axis {
   display: flex;
   justify-content: space-between;
@@ -366,10 +374,23 @@ body {
   display: block;
   width: 18px;
   height: 18px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
   flex-shrink: 0;
   color: var(--muted);
   position: relative;
   cursor: default;
+}
+
+.burns-icon:focus {
+  outline: none;
+}
+
+.burns-icon:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
 }
 
 .burns-icon-tip {
@@ -378,12 +399,14 @@ body {
   left: 50%;
   transform: translateX(-50%);
   padding: 8px 10px;
+  max-width: min(220px, calc(100vw - 32px));
   background: var(--canvas);
   border: 1px solid var(--hairline);
   color: var(--ink);
   font-size: 11px;
   line-height: 1.5;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
   text-align: center;
   pointer-events: none;
   z-index: 20;

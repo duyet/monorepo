@@ -1,11 +1,11 @@
 import ThemeToggle from "@duyet/components/ThemeToggle";
 import { createFileRoute } from "@tanstack/react-router";
 import { AnimatedCounter } from "../components/AnimatedCounter";
-import { DailyChart } from "../components/DailyChart";
+import { DailyChart, WINDOW } from "../components/DailyChart";
 import { SourceBreakdown } from "../components/SourceBreakdown";
 import { SourceIcons } from "../components/SourceIcons";
 import { TokenBreakdown } from "../components/TokenBreakdown";
-import { formatDay } from "../lib/dates";
+import { BURNS_LOCALE, formatDay } from "../lib/dates";
 import { readPublicJson } from "../lib/read-public-json";
 import { fmtCost } from "../lib/sources";
 import type { TokenData } from "../lib/types";
@@ -27,7 +27,7 @@ function formatUpdated(iso: string): string | null {
   if (!iso) return null;
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return null;
-  return `Updated ${d.toLocaleDateString("en-GB", {
+  return `Updated ${d.toLocaleDateString(BURNS_LOCALE, {
     day: "numeric",
     month: "short",
     year: "numeric",
@@ -66,7 +66,7 @@ function Page() {
       <section className="burns-section">
         <div className="burns-section-head">
           <h2 className="burns-section-title">Daily</h2>
-          <p className="burns-section-meta">Last 90 days</p>
+          <p className="burns-section-meta">{`Last ${WINDOW} days`}</p>
         </div>
         <DailyChart daily={data.daily} />
       </section>

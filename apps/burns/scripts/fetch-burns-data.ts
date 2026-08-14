@@ -10,9 +10,18 @@ const MOTHERDUCK_TOKEN = process.env.MOTHERDUCK_TOKEN;
 const OUTPUT_DIR = join(import.meta.dirname, "..", "public");
 const OUTPUT_FILE = join(OUTPUT_DIR, "token-data.json");
 
-type SourceAgg = { source: string; total_tokens: number; cost: number };
+interface SourceAgg {
+  source: string;
+  total_tokens: number;
+  cost: number;
+}
 
-function mergeSource(map: Map<string, SourceAgg>, source: string, tokens: number, cost: number) {
+function mergeSource(
+  map: Map<string, SourceAgg>,
+  source: string,
+  tokens: number,
+  cost: number,
+): void {
   const existing = map.get(source);
   if (existing) {
     existing.total_tokens += tokens;

@@ -50,13 +50,20 @@ describe("source colors", () => {
     expect(SOURCE_COLORS["Google Antigravity"]).toBeTruthy();
     expect(sourceSwatch("Gemini CLI")).not.toBe(sourceSwatch("Google Antigravity"));
   });
+
+  test("Z.AI and Grok use distinct swatches", () => {
+    expect(sourceSwatch("Z.AI")).not.toBe(sourceSwatch("Grok"));
+  });
 });
 
 describe("fetch-burns-data mapping", () => {
-  const fetchSrc = readFileSync(join(burnsRoot, "scripts/fetch-burns-data.ts"), "utf8");
+  test("maps gemini and antigravity independently via normalizeSource", () => {
+    expect(normalizeSource("gemini")).toBe("Gemini CLI");
+    expect(normalizeSource("antigravity")).toBe("Google Antigravity");
+    expect(normalizeSource("gemini")).not.toBe(normalizeSource("antigravity"));
 
-  test("uses normalizeSource instead of a gemini→Antigravity CASE", () => {
-    expect(fetchSrc).toContain("normalizeSource");
+    const fetchSrc = readFileSync(join(burnsRoot, "scripts/fetch-burns-data.ts"), "utf8");
+    expect(fetchSrc).toContain("normalizeSource(");
     expect(fetchSrc).not.toContain("IN ('antigravity', 'gemini')");
     expect(fetchSrc).not.toMatch(/source\s*=\s*'gemini'\s+THEN\s+'Google Antigravity'/i);
   });
