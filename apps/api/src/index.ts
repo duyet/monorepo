@@ -5,10 +5,10 @@
  */
 
 import { Hono } from "hono";
+import type { Env } from "./env.js";
 import aiPercentageRouter from "./routes/ai-percentage.js";
 import cardDescriptionStreamingRouter from "./routes/card-description-streaming.js";
 import insightsRouter from "./routes/insights.js";
-import type { Env } from "./env.js";
 
 /**
  * Main Hono application
@@ -58,7 +58,8 @@ app.get("/health", (c) => {
 });
 
 /**
- * Register LLM card description streaming routes
+ * Register LLM card description streaming routes.
+ * Requires Authorization: Bearer <API_TOKEN|AGENT_API_TOKEN> and is rate-limited.
  */
 app.route("/api/llm/generate", cardDescriptionStreamingRouter);
 

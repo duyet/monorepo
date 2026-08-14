@@ -1,4 +1,6 @@
 export interface Env {
+  AGENT_API_TOKEN?: string;
+  API_TOKEN?: string;
   CLICKHOUSE_DATABASE?: string;
   CLICKHOUSE_HOST?: string;
   CLICKHOUSE_PASSWORD?: string;
