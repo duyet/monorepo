@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with th
 
 The **insights** app is a comprehensive analytics dashboard that aggregates data from multiple sources to provide insights into development productivity, AI usage, and system performance. Built as a Vite SPA with data fetched at build time for optimal performance.
 
-**Live URL**: https://insights.duyet.net | https://duyet-insights.vercel.app
+**Live URL**: https://insights.duyet.net (Cloudflare Pages project `duyet-insights`)
 
 ## Architecture & Tech Stack
 
@@ -123,7 +123,7 @@ User Request (90 days)
 - **Percentage Distribution**: Proper rounding ensuring totals always equal 100%
 - **Date Filtering**: Multiple time periods (30d, 90d, 6m, 1y, all)
 - **Error Boundaries**: Graceful fallbacks for data loading failures
-- **Static Generation**: Compatible with Vercel's edge deployment
+- **Static Generation**: Compatible with Cloudflare Pages prerender
 
 **Data Processing**:
 
@@ -172,13 +172,14 @@ export function useProcessedData(rawData: RawData[]) {
 
 ## Environment Variables
 
-### Public Variables (Client-side, Cloudflare dashboard names)
+### Public Variables (client, Vite `VITE_*` — not `NEXT_PUBLIC_*`)
 
 ```bash
-NEXT_PUBLIC_MEASUREMENT_ID=G-XXXXXXXXX      # Google Analytics
-NEXT_PUBLIC_DUYET_BLOG_URL=https://blog.duyet.net
-NEXT_PUBLIC_DUYET_INSIGHTS_URL=https://insights.duyet.net
-NEXT_PUBLIC_DUYET_CV_URL=https://cv.duyet.net
+VITE_MEASUREMENT_ID=G-XXXXXXXXX
+VITE_DUYET_BLOG_URL=https://blog.duyet.net
+VITE_DUYET_INSIGHTS_URL=https://insights.duyet.net
+VITE_DUYET_CV_URL=https://cv.duyet.net
+VITE_BASE_URL=https://insights.duyet.net
 ```
 
 ### Build-time Variables
@@ -205,12 +206,11 @@ CLICKHOUSE_DATABASE=analytics_db
 
 ```bash
 # Development
-pnpm run dev          # Start dev server on http://localhost:3000
-pnpm run build        # Build for production
+pnpm run dev          # Start Vite on http://localhost:3001
+pnpm run build        # Build for Cloudflare Pages
 pnpm run check-types  # TypeScript type check
 pnpm run lint         # Run Biome linter
 pnpm run fmt          # Format code
-pnpm run analyze      # Analyze bundle size
 
 # Testing
 pnpm run test         # Run all unit tests
@@ -330,11 +330,11 @@ if (!response.ok) {
 
 ## Deployment & Monitoring
 
-### Vercel Configuration
+### Cloudflare Pages
 
-- **Static Export**: Compatible with edge functions
-- **Environment Variables**: Properly configured in Vercel dashboard
-- **Build Optimization**: Monitored build times and success rates
+- **Project**: `duyet-insights`
+- **Output**: `dist/client` via `pnpm run cf:deploy` / `pnpm run cf:deploy:prod`
+- **Environment Variables**: set in the Cloudflare Pages project (not Vercel)
 
 ### Monitoring & Alerting
 
@@ -373,11 +373,6 @@ if (!response.ok) {
    - Add all required variables to both Production and Preview environments
    - Redeploy after adding variables
 
-3. In Vercel:
-   - Go to Project Settings → Environment Variables
-   - Add all required variables
-   - Redeploy after adding variables
-
 **Expected Logs When Working**:
 
 ```
@@ -402,17 +397,9 @@ Verify data format matches Recharts requirements
 ### Debug Tools
 
 ```bash
-# Check environment variables
-yarn env-check
-
-# Analyze bundle
-yarn analyze
-
-# Type check only
-yarn check-types
-
-# Lint specific files
-yarn lint app/ccusage/
+pnpm run check-types
+pnpm run lint
+pnpm run test
 ```
 
 ## Security Considerations

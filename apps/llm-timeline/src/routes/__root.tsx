@@ -64,6 +64,26 @@ export const Route = createRootRoute({
         content:
           "Interactive timeline of 3,923+ Large Language Model releases from 1950–2026 across 1,378+ organizations.",
       },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://llm-timeline.duyet.net/" },
+      {
+        property: "og:title",
+        content: "LLM Timeline | llm-timeline.duyet.net",
+      },
+      {
+        property: "og:description",
+        content:
+          "Interactive timeline of 3,923+ Large Language Model releases from 1950–2026 across 1,378+ organizations.",
+      },
+      {
+        property: "og:image",
+        content: "https://duyet.net/screenshots/llm-timeline.png",
+      },
+      { name: "twitter:card", content: "summary_large_image" },
+      {
+        name: "twitter:image",
+        content: "https://duyet.net/screenshots/llm-timeline.png",
+      },
     ],
     links: [
       { rel: "icon", href: "/favicon.svg", sizes: "any" },

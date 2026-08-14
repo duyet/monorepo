@@ -18,6 +18,14 @@ describe("FilterInfo", () => {
     expect(elements.length).toBeGreaterThan(0);
   });
 
+  it("gives the search box an accessible name", () => {
+    const { getAllByLabelText } = render(
+      <FilterInfo {...filterInfoBaseProps} />
+    );
+    const named = getAllByLabelText("Search models and organizations");
+    expect(named.length).toBeGreaterThan(0);
+  });
+
   it("renders result count", () => {
     const { getAllByText } = render(<FilterInfo {...filterInfoBaseProps} />);
     const elements = getAllByText("42");

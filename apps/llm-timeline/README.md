@@ -1,8 +1,10 @@
 # LLM Timeline
 
-Interactive timeline of Large Language Model releases from 2017 to present.
+Interactive timeline of Large Language Model releases from 1950 to present.
 
 - **Live**: https://llm-timeline.duyet.net (official) | https://duyet-llm-timeline.pages.dev (Cloudflare)
+
+![LLM Timeline](https://duyet.net/screenshots/llm-timeline.png)
 
 ## Features
 

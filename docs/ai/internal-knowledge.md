@@ -50,7 +50,7 @@ This repository is the pnpm/Turborepo monorepo for duyet.net public apps, shared
 - `apps/homelab`: homelab docs and resources for `https://homelab.duyet.net`.
 - `apps/llm-timeline`: LLM release timeline for `https://llm-timeline.duyet.net`, with sync, RSS, sitemap, and llms.txt generation.
 - `apps/agent-ui`: Cloudflare Pages chat UI for `https://agents.duyet.net`. Clerk auth, AI SDK `useChat`, `@duyet/components` `ChatTranscript` (MessageScroller / Message / Bubble / Attachment / Marker) against `apps/agent-api`.
-- `apps/agent-api`: API-only Cloudflare Agents Worker for `https://agents-api.duyet.net`; REST chat is `POST /api/v1/chat` with Clerk bearer auth or `AGENT_API_TOKEN`.
+- `apps/agent-api`: API-only Cloudflare Agents Worker. REST chat is `POST /api/v1/chat` with Clerk bearer auth or `AGENT_API_TOKEN`. The production hostname `agents-api.duyet.net` is bound in the Cloudflare dashboard; the `routes` block in `apps/agent-api/wrangler.toml` stays commented so `wrangler deploy` does not require Zone DNS edit permission.
 - `apps/api`: Hono API on Cloudflare Workers for `https://api.duyet.net`.
 - `apps/ai-percentage`: AI-written-code dashboard for `https://ai-percentage.duyet.net`; data comes from `apps/data-sync`.
 - `apps/data-sync`: operational CLI for ClickHouse analytics/activity syncs and migrations.
@@ -58,7 +58,7 @@ This repository is the pnpm/Turborepo monorepo for duyet.net public apps, shared
 - `apps/kb`: static TanStack Start knowledge base for `https://kb.duyet.net`, bundling `content/**/*.md` at build time and generating `llms.txt`, `llms-full.txt`, `sitemap.xml`, `robots.txt`, and raw `public/k/*.md` article endpoints.
 - `apps/burns`: Vite/Cloudflare Pages dashboard (`duyet-burns`) that prerenders Claude Code usage stats. `build` runs `scripts/fetch-burns-data.ts`, which pulls `ccusage` data from MotherDuck (`MOTHERDUCK_TOKEN`); a daily cron refreshes it.
 - `apps/x-algo`: static TanStack Start explainer for the open-sourced X For You ranking weights at `https://x-algo.duyet.net`. Numbers live in `src/lib/scoring.ts` and must match `xai-org/x-algorithm` `home-mixer/params/param.rs`.
-- `apps/mcp`: placeholder app directory (no active package). Treat as inactive unless it is reinitialized.
+- `apps/paid-api`: standalone x402 USDC-gated chat Worker for `https://paid.duyet.net` (`duyet-paid-api`). Payment replaces auth; see `apps/paid-api/README.md`.
 
 ## Shared Packages
 
@@ -187,9 +187,9 @@ In browser/CF Workers, use the default async export instead of `initSync`.
 
 ## Commit Scopes
 
-Commitlint scopes include `deps`, `post`, `blog`, `cv`, `home`, `insights`, `photos`, `travel`, `auth`, `ci`, `ui`, `rust`, `docs`, `lib`, `agents`, and `llm-timeline`.
+`commitlint.config.js` extends `@commitlint/config-conventional` only. There is **no** `scope-enum` rule, so any scope (or none) is accepted as long as the type and subject follow Conventional Commits.
 
-Use no scope only when no listed scope fits.
+Prefer a scope from this informal list when one fits: `deps`, `post`, `blog`, `cv`, `home`, `insights`, `photos`, `travel`, `auth`, `ci`, `ui`, `rust`, `docs`, `lib`, `agents`, `llm-timeline`, `kb`, `burns`, `api`. Use no scope when none of those fit. This list is documentation, not an enforced allowlist.
 
 ## Documentation Direction
 
@@ -198,6 +198,8 @@ This file is the root internal knowledge base for AI agents. Keep `AGENTS.md` an
 For Claude Cowork / desktop-agent sessions (non-terminal use), see [`docs/ai/cowork-instructions.md`](cowork-instructions.md). For writing blog posts and notes in Duyet's voice, see [`docs/ai/writing-style.md`](writing-style.md).
 
 ## Public App UI Direction
+
+This section is the source of truth for public-app UI. Root [`DESIGN.md`](../../DESIGN.md) is a shorter companion note for the same direction; if the two disagree, follow this section.
 
 The current public-app visual direction is a Websmith-inspired Duyet system, not a literal clone. Keep Duyet content, routes, data loading, auth, keyboard behavior, and app-specific workflows intact. Copy the design language only: quiet editorial layout, warm surfaces, compact cards, restrained borders, and mobile-safe wrapping.
 
