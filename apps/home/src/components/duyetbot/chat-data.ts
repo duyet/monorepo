@@ -133,7 +133,7 @@ function answerFor(text: string): BotReply {
   if (/contact|email|reach|hire|feedback|message|talk|connect/.test(t)) {
     return {
       contact: true,
-      text: "Of course — leave a note and I'll pass it straight to Duyet. He usually replies within a day.",
+      text: "Leave a note below — it opens your email client to me@duyet.net. Nothing is transmitted by this page.",
     };
   }
   if (/who|about|what.*do|introduce|tell me about duyet/.test(t)) {

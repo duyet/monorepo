@@ -1,6 +1,6 @@
 # Documentation Index
 
-- [`docs/ai/internal-knowledge.md`](ai/internal-knowledge.md): durable repository knowledge for AI agents (static-render rule, latest shadcn + chat primitives, deploy path).
+- [`docs/ai/internal-knowledge.md`](ai/internal-knowledge.md): durable repository knowledge for AI agents (static-render rule, latest shadcn + chat primitives, deploy path). Public-app UI direction lives here; [`DESIGN.md`](../DESIGN.md) is the short companion.
 - [`docs/ai/cowork-instructions.md`](ai/cowork-instructions.md): guidance for Claude Cowork (desktop agent) sessions on this repo.
 - [`docs/ai/writing-style.md`](ai/writing-style.md): how to write blog posts and notes in Duyet's voice.
 - [`docs/ai/core-memory.md`](ai/core-memory.md): durable code-smell, dead-code, and CI maintenance memory.

@@ -35,6 +35,26 @@ export const Route = createRootRoute({
         content: "#0a0a0a",
         media: "(prefers-color-scheme: dark)",
       },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://duyet.net/" },
+      {
+        property: "og:title",
+        content: "Duyet — building AI agents and data platforms",
+      },
+      {
+        property: "og:description",
+        content:
+          "I build AI agents and the data platforms that keep them honest — end-to-end, obsessing over the small details that make software feel right to use.",
+      },
+      {
+        property: "og:image",
+        content: "https://duyet.net/screenshots/art-1.png",
+      },
+      { name: "twitter:card", content: "summary_large_image" },
+      {
+        name: "twitter:image",
+        content: "https://duyet.net/screenshots/art-1.png",
+      },
     ],
     links: [{ rel: "icon", href: "/icon.svg", sizes: "any" }],
   }),

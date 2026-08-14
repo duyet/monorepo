@@ -1,48 +1,39 @@
 # Insights Dashboard
 
-Analytics dashboard showing GitHub activity, WakaTime coding statistics, and more.
+Analytics dashboard for https://insights.duyet.net (Cloudflare Pages project `duyet-insights`). Aggregates GitHub, WakaTime, PostHog, Cloudflare Analytics, and ClickHouse (ccusage / AI usage).
 
 ## Environment Variables
 
-Copy `.env.local.example` to `.env.local` and fill in the following variables:
+There is no `.env.local.example`. Copy values into `.env.local` (gitignored) for local scripts, or set them on the Cloudflare Pages project. Names match `apps/insights/environment.d.ts`.
 
-### Required for WakaTime Integration
+### Server / build-time
 
-- `WAKATIME_API_KEY` - Get your API key from [WakaTime Settings](https://wakatime.com/api-key)
+- `GITHUB_TOKEN` — GitHub personal access token
+- `WAKATIME_API_KEY` — [WakaTime Settings](https://wakatime.com/api-key)
+- `POSTHOG_API_KEY` / `POSTHOG_PROJECT_ID` — PostHog
+- `CLOUDFLARE_API_TOKEN` or `CLOUDFLARE_API_KEY` + `CLOUDFLARE_ZONE_ID` — Cloudflare analytics
+- `CLICKHOUSE_HOST`, `CLICKHOUSE_PORT`, `CLICKHOUSE_USER`, `CLICKHOUSE_PASSWORD`, `CLICKHOUSE_DATABASE`, `CLICKHOUSE_PROTOCOL` — AI usage / WakaTime history
 
-### Other API Keys
+### Client (Vite)
 
-- `GITHUB_TOKEN` - GitHub personal access token for repository analytics
-- `POSTHOG_API_KEY` / `POSTHOG_PROJECT_ID` - PostHog analytics
-- `NEXT_PUBLIC_CLOUDFLARE_*` - Cloudflare analytics
-- `KV_*` - Vercel KV Redis storage
+- `VITE_MEASUREMENT_ID` — Google Analytics
+- `VITE_DUYET_BLOG_URL`, `VITE_DUYET_INSIGHTS_URL`, `VITE_DUYET_CV_URL`, `VITE_BASE_URL`
 
-## WakaTime Setup
-
-1. Sign up at [wakatime.com](https://wakatime.com)
-2. Install WakaTime plugins for your editors/IDEs
-3. Get your API key from [WakaTime Settings](https://wakatime.com/api-key)
-4. Add `WAKATIME_API_KEY=your_api_key_here` to `.env.local`
-
-## AI Usage Data Source
-
-The **AI Usage** tab displays Claude Code usage analytics imported from the [ccusage-import](https://github.com/duyet/ccusage-import) script. This script:
-
-- Imports Claude Code usage data into ClickHouse database
-- Provides cost tracking and token usage analytics
-- Requires ClickHouse environment variables (see below)
-
-See the [ccusage-import repository](https://github.com/duyet/ccusage-import) for setup instructions and import scheduling.
+Do not use `NEXT_PUBLIC_*` names. This app is Vite / TanStack Start, not Next.js.
 
 ## Development
 
 ```bash
-yarn dev
+pnpm run dev          # http://localhost:3001
+pnpm run test
+pnpm run check-types
+pnpm run cf:deploy:prod
 ```
 
-Visit http://localhost:3001 to see the dashboard.
+## AI Usage Data Source
+
+The AI Usage tab uses Claude Code usage imported via `apps/data-sync` (`pnpm run sync ai-code-percentage` / ccusage syncers) into ClickHouse.
 
 ---
 
 **This repository is maintained by [@duyetbot](https://github.com/duyetbot).**
-

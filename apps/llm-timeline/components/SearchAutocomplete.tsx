@@ -17,6 +17,7 @@ interface SearchAutocompleteProps {
   onChange: (value: string) => void;
   inputClassName?: string;
   placeholder?: string;
+  "aria-label"?: string;
 }
 
 export function SearchAutocomplete({
@@ -24,6 +25,7 @@ export function SearchAutocomplete({
   onChange,
   inputClassName,
   placeholder = "Search models, organizations...",
+  "aria-label": ariaLabel = "Search models and organizations",
 }: SearchAutocompleteProps) {
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -179,6 +181,7 @@ export function SearchAutocomplete({
         ref={inputRef}
         type="text"
         placeholder={placeholder}
+        aria-label={ariaLabel}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={handleKeyDown}
