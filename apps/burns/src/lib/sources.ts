@@ -70,6 +70,11 @@ export function normalizeSource(raw: string, modelName = ""): string {
   return trimmed;
 }
 
+export function sourceSwatch(name: string): string {
+  if (name === "Z.AI" || name === "Grok") return "#737373";
+  return SOURCE_COLORS[name] ?? "var(--muted)";
+}
+
 export function fmtTokens(n: number): string {
   return n.toLocaleString("en-US");
 }

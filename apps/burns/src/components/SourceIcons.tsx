@@ -10,6 +10,10 @@ interface SourceIconsProps {
 // Official brand SVGs from glincker/thesvg.
 // Icons using fill="currentColor" auto-revert to white in dark mode via --muted.
 const icons: Record<string, string> = {
+  "Gemini CLI": `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <title>Gemini CLI</title>
+    <path fill="#4B64E8" d="M12 1.6l1.72 7.12L21.2 10.4l-7.48 1.68L12 19.2l-1.72-7.12L2.8 10.4l7.48-1.68L12 1.6z"/>
+  </svg>`,
   "Google Antigravity": `<svg viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
     <mask id="ag-mask" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="16" height="15">
       <path d="M14.0777 13.984C14.945 14.6345 16.2458 14.2008 15.0533 13.0084C11.476 9.53949 12.2349 0 7.79033 0C3.34579 0 4.10461 9.53949 0.527295 13.0084C-0.773543 14.3092 0.635692 14.6345 1.50293 13.984C4.86344 11.7076 4.64663 7.69664 7.79033 7.69664C10.934 7.69664 10.7172 11.7076 14.0777 13.984Z" fill="black"/>
@@ -67,65 +71,44 @@ export function SourceIcons({ sources, sourceTotals = [] }: SourceIconsProps) {
   const totalsByName = new Map(sourceTotals.map((s) => [s.source, s]));
 
   return (
-    <div style={{
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: 16,
-      // Stack above the huge counter so tooltips are not painted under it.
-      position: "relative",
-      zIndex: 30,
-    }}>
+    <div className="burns-icons">
       {sources.map((name) => {
         const svg = icons[name];
-        if (!svg) return null;
         const isHovered = hovered === name;
         const total = totalsByName.get(name);
         const label = DISPLAY_LABELS[name] ?? name;
+        const mark = name === "pi" ? "π" : name.slice(0, 1).toUpperCase();
         return (
           <span
             key={name}
+            className="burns-icon"
             onMouseEnter={() => setHovered(name)}
             onMouseLeave={() => setHovered(null)}
-            style={{
-              display: "block",
-              width: 20,
-              height: 20,
-              flexShrink: 0,
-              color: "var(--muted)",
-              filter: "drop-shadow(0 0 1px rgb(0 0 0 / 0.15))",
-              cursor: "default",
-              position: "relative",
-              opacity: hovered && !isHovered ? 0.45 : 1,
-              transition: "opacity 120ms ease",
-            }}
+            style={{ opacity: hovered && !isHovered ? 0.4 : 1 }}
           >
-            <span
-              style={{ display: "block", width: 20, height: 20 }}
-              dangerouslySetInnerHTML={{ __html: svg }}
-            />
+            {svg ? (
+              <span
+                style={{ display: "block", width: 18, height: 18 }}
+                dangerouslySetInnerHTML={{ __html: svg }}
+              />
+            ) : (
+              <span
+                style={{
+                  display: "flex",
+                  width: 18,
+                  height: 18,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: 11,
+                  fontWeight: 500,
+                  letterSpacing: "-0.04em",
+                }}
+              >
+                {mark}
+              </span>
+            )}
             {isHovered && (
-              <span style={{
-                position: "absolute",
-                // Above the icon so it sits over the big number, not under it.
-                bottom: "100%",
-                left: "50%",
-                transform: "translateX(-50%)",
-                marginBottom: 8,
-                padding: "8px 10px",
-                borderRadius: 6,
-                fontSize: 11,
-                fontFamily: "var(--sans)",
-                lineHeight: 1.5,
-                whiteSpace: "nowrap",
-                background: "var(--surface-card)",
-                border: "1px solid var(--hairline)",
-                color: "var(--ink)",
-                boxShadow: "0 4px 16px rgb(0 0 0 / 0.28)",
-                pointerEvents: "none",
-                textAlign: "center",
-                zIndex: 50,
-              }}>
+              <span className="burns-icon-tip">
                 <span style={{ display: "block", fontWeight: 500, marginBottom: 2 }}>
                   {label}
                 </span>

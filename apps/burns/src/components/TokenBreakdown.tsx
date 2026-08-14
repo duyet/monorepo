@@ -1,41 +1,47 @@
 import type { TokenTotals } from "../lib/types";
+import { fmtCompactTokens } from "../lib/sources";
 
 interface TokenBreakdownProps {
   totals: TokenTotals;
 }
 
-function fmt(n: number): string {
-  return n.toLocaleString("en-US");
-}
+const MIX = [
+  { key: "input_tokens", label: "Input", swatch: "burns-mix-input" },
+  { key: "output_tokens", label: "Output", swatch: "burns-mix-output" },
+  { key: "cache_creation_tokens", label: "Cache write", swatch: "burns-mix-write" },
+  { key: "cache_read_tokens", label: "Cache read", swatch: "burns-mix-read" },
+] as const;
 
 export function TokenBreakdown({ totals }: TokenBreakdownProps) {
-  const cost = totals.total_cost.toLocaleString("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 2,
-  });
+  const parts = MIX.map((m) => ({
+    ...m,
+    value: totals[m.key],
+  }));
+  const sum = parts.reduce((acc, p) => acc + p.value, 0);
 
   return (
-    <p style={{
-      textAlign: "center",
-      fontSize: 11,
-      color: "var(--muted)",
-      fontVariantNumeric: "tabular-nums",
-      lineHeight: 1.6,
-    }}>
-      Input {fmt(totals.input_tokens)}
-      <Sep />
-      Output {fmt(totals.output_tokens)}
-      <Sep />
-      Cache Write {fmt(totals.cache_creation_tokens)}
-      <Sep />
-      Cache Read {fmt(totals.cache_read_tokens)}
-      <Sep />
-      {cost}
-    </p>
+    <div>
+      <div className="burns-mix-bar" aria-hidden="true">
+        {parts.map((p) => {
+          if (p.value <= 0 || sum <= 0) return null;
+          return (
+            <i
+              key={p.key}
+              className={p.swatch}
+              style={{ width: `${(p.value / sum) * 100}%` }}
+            />
+          );
+        })}
+      </div>
+      <ul className="burns-mix-rows">
+        {parts.map((p) => (
+          <li key={p.key} className="burns-mix-row">
+            <span className={`burns-swatch ${p.swatch}`} />
+            <span>{p.label}</span>
+            <span>{fmtCompactTokens(p.value)}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
-}
-
-function Sep() {
-  return <span style={{ margin: "0 8px", color: "var(--hairline)" }}>·</span>;
 }

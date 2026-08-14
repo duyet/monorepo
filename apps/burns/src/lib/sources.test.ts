@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, test } from "vitest";
-import { normalizeSource } from "./sources";
+import { SOURCE_COLORS, normalizeSource, sourceSwatch } from "./sources";
 
 const burnsRoot = join(dirname(fileURLToPath(import.meta.url)), "../..");
 
@@ -41,6 +41,14 @@ describe("normalizeSource", () => {
 
   test("gemini stays Gemini even when the model looks like GLM", () => {
     expect(normalizeSource("gemini", "glm-4.6")).toBe("Gemini CLI");
+  });
+});
+
+describe("source colors", () => {
+  test("gemini and antigravity use different swatches", () => {
+    expect(SOURCE_COLORS["Gemini CLI"]).toBeTruthy();
+    expect(SOURCE_COLORS["Google Antigravity"]).toBeTruthy();
+    expect(sourceSwatch("Gemini CLI")).not.toBe(sourceSwatch("Google Antigravity"));
   });
 });
 
