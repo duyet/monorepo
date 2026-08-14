@@ -10,11 +10,17 @@ This is the [assistant-ui](https://github.com/assistant-ui/assistant-ui) starter
 
    Required:
    - `OPENAI_API_KEY` — used by `backend/agent.ts`
+   - `ASSISTANT_API_TOKEN` (or `AGENT_API_TOKEN`) — Worker secret; every `/api/threads*` request needs `Authorization: Bearer <token>`
+   - `VITE_ASSISTANT_API_TOKEN` — same value as the Worker secret so the same-origin UI can send the bearer header locally. This is a low-privilege gate for a personal tool, not a user password.
 
    Optional:
    - `OPENAI_MODEL` — override the default model id (`gpt-4o-mini`)
    - `LANGSMITH_TRACING` / `LANGSMITH_API_KEY` / `LANGSMITH_PROJECT` — tracing
    - `LANGCHAIN_API_KEY` — only needed when pointing `LANGGRAPH_API_URL` at LangGraph Platform (cloud)
+
+## Authentication
+
+`/api/threads*` is fail-closed. Missing token, wrong token, or an unconfigured Worker secret all return 401 before thread storage or model calls. CORS is limited to `https://agent-assistant.duyet.net` and localhost.
 
 2. Install deps and run both the LangGraph backend and the Next.js frontend:
 

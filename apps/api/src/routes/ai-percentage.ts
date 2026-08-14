@@ -5,25 +5,20 @@
  */
 
 import { Hono } from "hono";
-
-/**
- * Cloudflare Workers bindings interface
- */
-interface Env {
-  CLICKHOUSE_HOST?: string;
-  CLICKHOUSE_PORT?: string;
-  CLICKHOUSE_USER?: string;
-  CLICKHOUSE_PASSWORD?: string;
-  CLICKHOUSE_DATABASE?: string;
-  CLICKHOUSE_PROTOCOL?: string;
-}
+import type { Env } from "../env.js";
 
 const aiPercentageRouter = new Hono<{ Bindings: Env }>();
+const FETCH_TIMEOUT_MS = 10_000;
+
+export interface ClickHouseRequestConfig {
+  headers: Record<string, string>;
+  url: string;
+}
 
 /**
- * Get ClickHouse URL from environment
+ * Build a ClickHouse HTTP target without embedding credentials in the URL.
  */
-function getClickHouseUrl(env: Env): string | null {
+export function getClickHouseConfig(env: Env): ClickHouseRequestConfig | null {
   const host = env.CLICKHOUSE_HOST;
   const password = env.CLICKHOUSE_PASSWORD;
   const user = env.CLICKHOUSE_USER || "default";
@@ -34,26 +29,58 @@ function getClickHouseUrl(env: Env): string | null {
     return null;
   }
 
-  // ClickHouse HTTP format: https://user:password@host:port
-  // Query is sent via POST body or ?query= parameter
-  return `${protocol}://${user}:${encodeURIComponent(password)}@${host}:${port}`;
+  return {
+    headers: {
+      "X-ClickHouse-Key": password,
+      "X-ClickHouse-User": user,
+    },
+    url: `${protocol}://${host}:${port}`,
+  };
 }
 
 /**
- * Execute ClickHouse query using native fetch
+ * Request builder used by executeClickHouseQuery and tests.
+ * The returned URL must never include userinfo.
  */
-async function executeClickHouseQuery(
-  url: string,
+export function buildClickHouseRequest(
+  env: Env,
+  query: string,
+  database = "default"
+): { headers: Record<string, string>; url: string; body: string } | null {
+  const config = getClickHouseConfig(env);
+  if (!config) {
+    return null;
+  }
+
+  return {
+    body: query,
+    headers: {
+      ...config.headers,
+      Accept: "application/json",
+      "Content-Type": "text/plain",
+    },
+    url: `${config.url}?database=${database}`,
+  };
+}
+
+/**
+ * Execute ClickHouse query using native fetch and header-based auth.
+ */
+export async function executeClickHouseQuery(
+  env: Env,
   query: string,
   database = "default"
 ): Promise<any[]> {
-  const response = await fetch(`${url}?database=${database}`, {
+  const request = buildClickHouseRequest(env, query, database);
+  if (!request) {
+    throw new Error("ClickHouse not configured");
+  }
+
+  const response = await fetch(request.url, {
+    body: request.body,
+    headers: request.headers,
     method: "POST",
-    headers: {
-      "Content-Type": "text/plain",
-      Accept: "application/json",
-    },
-    body: query,
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
   });
 
   if (!response.ok) {
@@ -89,9 +116,7 @@ function getDateCondition(days: number): string {
  * }
  */
 aiPercentageRouter.get("/current", async (c) => {
-  const url = getClickHouseUrl(c.env);
-
-  if (!url) {
+  if (!getClickHouseConfig(c.env)) {
     return c.json({ error: "ClickHouse not configured" }, 500);
   }
 
@@ -109,7 +134,7 @@ aiPercentageRouter.get("/current", async (c) => {
     `;
 
     const database = c.env.CLICKHOUSE_DATABASE || "default";
-    const data = await executeClickHouseQuery(url, query, database);
+    const data = await executeClickHouseQuery(c.env, query, database);
 
     if (!Array.isArray(data) || data.length === 0) {
       return c.json({ error: "No data available" }, 404);
@@ -155,9 +180,7 @@ aiPercentageRouter.get("/current", async (c) => {
  * }
  */
 aiPercentageRouter.get("/history", async (c) => {
-  const url = getClickHouseUrl(c.env);
-
-  if (!url) {
+  if (!getClickHouseConfig(c.env)) {
     return c.json({ error: "ClickHouse not configured" }, 500);
   }
 
@@ -182,7 +205,7 @@ aiPercentageRouter.get("/history", async (c) => {
     `;
 
     const database = c.env.CLICKHOUSE_DATABASE || "default";
-    const data = await executeClickHouseQuery(url, query, database);
+    const data = await executeClickHouseQuery(c.env, query, database);
 
     if (!Array.isArray(data)) {
       return c.json({ data: [] });
@@ -217,9 +240,7 @@ aiPercentageRouter.get("/history", async (c) => {
  * }
  */
 aiPercentageRouter.get("/available", async (c) => {
-  const url = getClickHouseUrl(c.env);
-
-  if (!url) {
+  if (!getClickHouseConfig(c.env)) {
     return c.json({ available: false });
   }
 
@@ -232,7 +253,7 @@ aiPercentageRouter.get("/available", async (c) => {
     `;
 
     const database = c.env.CLICKHOUSE_DATABASE || "default";
-    const data = await executeClickHouseQuery(url, query, database);
+    const data = await executeClickHouseQuery(c.env, query, database);
 
     if (!Array.isArray(data) || data.length === 0) {
       return c.json({ available: false });

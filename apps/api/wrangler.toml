@@ -5,6 +5,7 @@ compatibility_date = "2024-01-01"
 
 # Environment variables (set via wrangler secret)
 # OPENROUTER_API_KEY
+# API_TOKEN (or AGENT_API_TOKEN) — required bearer token for /api/llm/generate
 
 # Route configuration for production
 routes = [

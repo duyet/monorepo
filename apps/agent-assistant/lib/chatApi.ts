@@ -1,4 +1,5 @@
 import { Client } from "@langchain/langgraph-sdk";
+import { getAssistantClientHeaders } from "../src/lib/api-auth";
 
 export const createClient = () => {
   const apiUrl =
@@ -11,5 +12,8 @@ export const createClient = () => {
     (typeof window !== "undefined"
       ? new URL("/api", window.location.href).href
       : "/api");
-  return new Client({ apiUrl });
+  return new Client({
+    apiUrl,
+    defaultHeaders: getAssistantClientHeaders(),
+  });
 };
