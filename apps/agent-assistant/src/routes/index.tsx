@@ -9,7 +9,7 @@ import { PanelLeftClose, PanelLeftOpen, Plus, Trash2 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Thread } from "@/components/assistant-ui/thread";
 import { createClient } from "@/lib/chatApi";
-import { confirmDeleteConversation } from "@/lib/confirm-delete";
+import { confirmDeleteConversation } from "../lib/confirm-delete";
 
 export const Route = createFileRoute("/")({
   component: AssistantPage,

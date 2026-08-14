@@ -67,7 +67,7 @@ export async function handleThreadsRequest(
     if (method === "GET" && stateMatch) {
       const threadId = stateMatch[1];
       const { DurableObjectSaver } = await import("./DurableObjectSaver");
-      const { getCompiledGraph } = await import("../../../backend/agent");
+      const { getCompiledGraph } = await import("../../backend/agent");
 
       const stub = THREAD_STORE.get(THREAD_STORE.idFromName(threadId));
       const checkpointer = new DurableObjectSaver(stub as DurableObjectStub);
@@ -94,7 +94,7 @@ export async function handleThreadsRequest(
       const input = body.input || {};
 
       const { DurableObjectSaver } = await import("./DurableObjectSaver");
-      const { getCompiledGraph } = await import("../../../backend/agent");
+      const { getCompiledGraph } = await import("../../backend/agent");
 
       const stub = THREAD_STORE.get(THREAD_STORE.idFromName(threadId));
       const checkpointer = new DurableObjectSaver(stub as DurableObjectStub);

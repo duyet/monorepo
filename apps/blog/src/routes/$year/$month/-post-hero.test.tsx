@@ -3,13 +3,18 @@ import { describe, expect, it } from "vitest";
 import { PostHero } from "./-post-hero";
 import type { LoadedPost } from "./-types";
 
-const post = {
+const post: LoadedPost = {
+  slug: "2026/08/hero-test",
   title: "Hero test",
-  date: "2026-08-01",
+  date: new Date("2026-08-01"),
   category: "dev",
+  category_slug: "dev",
+  tags: [],
+  tags_slug: [],
+  featured: false,
   thumbnail: "/media/hero.png",
   readingTime: 3,
-} as LoadedPost;
+};
 
 describe("PostHero", () => {
   it("reserves width and height on the hero image", () => {
