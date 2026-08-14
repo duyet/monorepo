@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { DailyEntry, DailyEntrySource } from "../lib/types";
+import { formatDay } from "../lib/dates";
 import { fmtCost, fmtTokens, normalizeSource, sourceSwatch } from "../lib/sources";
 
 interface DailyChartProps {
@@ -8,18 +9,6 @@ interface DailyChartProps {
 
 const WINDOW = 90;
 const CHART_H = 100;
-
-function shortDate(d: string): string {
-  return new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
-}
-
-function longDate(d: string): string {
-  return new Date(d).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-}
 
 export function DailyChart({ daily }: DailyChartProps) {
   const [hovered, setHovered] = useState<number | null>(null);
@@ -51,11 +40,10 @@ export function DailyChart({ daily }: DailyChartProps) {
     .filter((s) => s.total_tokens > 0 || s.cost > 0)
     .sort((a, b) => b.total_tokens - a.total_tokens);
 
-  const ticks = [
-    recent[0]?.date,
-    recent[Math.floor(recent.length / 2)]?.date,
-    recent[recent.length - 1]?.date,
-  ].filter(Boolean) as string[];
+  const ticks = [...new Set(
+    [recent[0]?.date, recent[Math.floor(recent.length / 2)]?.date, recent[recent.length - 1]?.date]
+      .filter(Boolean) as string[],
+  )];
 
   return (
     <div className="burns-chart">
@@ -134,7 +122,7 @@ export function DailyChart({ daily }: DailyChartProps) {
                 transform: `translateX(${flip ? "-100%" : "-50%"})`,
               }}
             >
-              <div className="burns-tooltip-title">{longDate(hoveredDay.date)}</div>
+              <div className="burns-tooltip-title">{formatDay(hoveredDay.date, true)}</div>
               {sources.length > 0 ? (
                 <div className="burns-tooltip-grid">
                   {sources.map((s) => (
@@ -166,7 +154,7 @@ export function DailyChart({ daily }: DailyChartProps) {
 
       <div className="burns-chart-axis">
         {ticks.map((d) => (
-          <span key={d}>{shortDate(d)}</span>
+          <span key={d}>{formatDay(d)}</span>
         ))}
       </div>
 

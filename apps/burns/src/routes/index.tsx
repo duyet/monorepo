@@ -5,6 +5,7 @@ import { DailyChart } from "../components/DailyChart";
 import { SourceBreakdown } from "../components/SourceBreakdown";
 import { SourceIcons } from "../components/SourceIcons";
 import { TokenBreakdown } from "../components/TokenBreakdown";
+import { formatDay } from "../lib/dates";
 import { readPublicJson } from "../lib/read-public-json";
 import { fmtCost } from "../lib/sources";
 import type { TokenData } from "../lib/types";
@@ -19,12 +20,7 @@ export const Route = createFileRoute("/")({
 
 function formatRange(first: string | null, last: string | null): string | null {
   if (!first || !last) return null;
-  const opts: Intl.DateTimeFormatOptions = {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  };
-  return `${new Date(first).toLocaleDateString("en-GB", opts)} — ${new Date(last).toLocaleDateString("en-GB", opts)}`;
+  return `${formatDay(first, true)} — ${formatDay(last, true)}`;
 }
 
 function formatUpdated(iso: string): string | null {
