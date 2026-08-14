@@ -1,17 +1,19 @@
 {
   "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "default",
+  "style": "new-york-v4",
   "rsc": true,
   "tsx": true,
   "tailwind": {
     "config": "tailwind.config.mjs",
-    "css": "app/globals.css",
+    "css": "styles.css",
     "baseColor": "stone",
     "cssVariables": true,
     "prefix": ""
   },
   "aliases": {
     "components": "components",
-    "utils": "@duyet/libs/utils"
-  }
+    "utils": "@duyet/libs/utils",
+    "ui": "ui"
+  },
+  "iconLibrary": "lucide"
 }

@@ -12,6 +12,13 @@ node_modules
 build
 dist
 
+# Next.js / leftover app dumps (never commit these)
+.next/
+**/.next/
+out/
+**/out/
+next-env.d.ts
+
 # misc
 .DS_Store
 *.pem

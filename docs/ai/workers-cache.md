@@ -49,7 +49,7 @@ Classify with: `grep -q pages_build_output_dir apps/<app>/wrangler.toml`.
 | `agent-api` | **Worker** (`main`) | `[cache]` enabled |
 | `agent-assistant` | **Worker** (`main`, Durable Objects) | `[cache]` enabled |
 | `agent-ui` | Pages | `_headers` only (no `[cache]`) |
-| `ai-percentage`, `blog`, `burns`, `cv`, `home`, `homelab`, `insights`, `kb`, `llm-timeline`, `photos` | Pages | `_headers` only (no `[cache]`) |
+| `ai-percentage`, `blog`, `burns`, `cv`, `home`, `homelab`, `insights`, `kb`, `llm-timeline`, `photos`, `x-algo` | Pages | `_headers` only (no `[cache]`) |
 
 ## Workers — `[cache] enabled = true`
 

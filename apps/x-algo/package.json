@@ -1,0 +1,35 @@
+{
+  "name": "x-algo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build && tsx ../../scripts/patch-html-for-cloudflare.ts",
+    "check-types": "tsc --noEmit",
+    "dev": "vite dev --port 3011",
+    "fmt": "biome format --write .",
+    "lint": "biome lint .",
+    "test": "vitest run",
+    "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh x-algo duyet-x-algo"
+  },
+  "dependencies": {
+    "@duyet/components": "*",
+    "@duyet/libs": "*",
+    "@tanstack/react-router": "^1.0.0",
+    "@tanstack/react-start": "^1.0.0",
+    "lucide-react": "^1.0.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@duyet/tailwind-config": "*",
+    "@duyet/tsconfig": "*",
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/react": "^19.1.4",
+    "@types/react-dom": "^19.1.5",
+    "typescript": "*",
+    "vite": "^8.0.0",
+    "vite-tsconfig-paths": "^6.0.0",
+    "vitest": "^3.2.4"
+  }
+}

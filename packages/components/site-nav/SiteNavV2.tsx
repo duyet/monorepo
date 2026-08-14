@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@duyet/libs/utils";
-import { List, SquaresFour } from "@phosphor-icons/react";
+import { LayoutGrid, Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AppCommandPalette } from "../AppCommandPalette";
 import ThemeToggle from "../ThemeToggle";
@@ -50,6 +50,22 @@ export function SiteNavV2({
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [alwaysScrolled]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (
+        !(event.metaKey || event.ctrlKey) ||
+        event.key.toLowerCase() !== "k"
+      ) {
+        return;
+      }
+      event.preventDefault();
+      setPaletteOpen(true);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
     <>
@@ -129,12 +145,13 @@ export function SiteNavV2({
         activeApp={activeApp}
       />
 
-      {/* Command Palette Dialog */}
-      <AppCommandPalette
-        open={paletteOpen}
-        onOpenChange={setPaletteOpen}
-        hideDefaultTrigger={true}
-      />
+      {paletteOpen ? (
+        <AppCommandPalette
+          open={paletteOpen}
+          onOpenChange={setPaletteOpen}
+          hideDefaultTrigger={true}
+        />
+      ) : null}
     </>
   );
 }
@@ -149,7 +166,7 @@ function AppsButton({ onClick }: { onClick: () => void }) {
       className="hidden md:flex h-8 w-8 items-center justify-center rounded-lg border border-neutral-200/50 bg-neutral-50/50 text-neutral-600 hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-900 dark:border-white/5 dark:bg-white/[0.02] dark:text-neutral-400 dark:hover:border-white/10 dark:hover:bg-white/[0.04] dark:hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cf-orange)]"
       aria-label="Open applications drawer"
     >
-      <SquaresFour size={16} weight="bold" />
+      <LayoutGrid className="size-4" />
     </button>
   );
 }
@@ -178,7 +195,7 @@ function MobileMenuButton({ onClick }: { onClick: () => void }) {
       className="flex md:hidden h-8 w-8 items-center justify-center rounded-lg border border-neutral-200/50 bg-neutral-50/50 text-neutral-600 hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-900 dark:border-white/5 dark:bg-white/[0.02] dark:text-neutral-400 dark:hover:border-white/10 dark:hover:bg-white/[0.04] dark:hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cf-orange)]"
       aria-label="Open navigation menu"
     >
-      <List size={16} weight="bold" />
+      <Menu className="size-4" />
     </button>
   );
 }

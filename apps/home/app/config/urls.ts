@@ -18,6 +18,10 @@ export const urls: Urls = {
     target: "https://llm-timeline.duyet.net",
     desc: "Interactive LLM releases timeline",
   },
+  "/x-algo": {
+    target: "https://x-algo.duyet.net",
+    desc: "X For You ranking weights",
+  },
   "/agents": { target: "https://agents.duyet.net", desc: "AI Agents" },
   "/okie": { target: "https://okie.one", desc: "okie.one - LLM chat UI" },
   "/pageview": {
