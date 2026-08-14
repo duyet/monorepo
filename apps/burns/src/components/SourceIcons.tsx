@@ -51,6 +51,7 @@ const icons: Record<string, string> = {
 const DISPLAY_LABELS: Record<string, string> = {
   Codex: "Codex (OpenAI)",
   "Claude Code": "Claude Code",
+  "Gemini CLI": "Gemini CLI",
   "Google Antigravity": "Google Antigravity",
   "Z.AI": "Z.AI",
   opencode: "opencode",

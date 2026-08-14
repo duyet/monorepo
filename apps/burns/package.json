@@ -9,6 +9,8 @@
     "dev": "vite dev --port 3010",
     "fmt": "biome format --write .",
     "lint": "biome lint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh burns duyet-burns"
   },
   "dependencies": {

@@ -3,35 +3,24 @@
 import { Database } from "duckdb-async";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { normalizeSource } from "../src/lib/sources";
 
 const MOTHERDUCK_TOKEN = process.env.MOTHERDUCK_TOKEN;
 
 const OUTPUT_DIR = join(import.meta.dirname, "..", "public");
 const OUTPUT_FILE = join(OUTPUT_DIR, "token-data.json");
 
-/** SQL CASE that maps raw source/model → display agent names. */
-const AGENT_CASE = `
-  CASE
-    WHEN source IN ('antigravity', 'gemini') THEN 'Google Antigravity'
-    WHEN source = 'opencode' THEN 'opencode'
-    WHEN source = 'codex' THEN 'Codex'
-    WHEN source = 'grok' THEN 'Grok'
-    WHEN source = 'hermes' THEN 'Hermes'
-    WHEN source = 'openclaw' THEN 'OpenClaw'
-    WHEN source = 'pi' THEN 'pi'
-    WHEN source = 'ccusage' AND (
-      lower(coalesce(model_name, '')) LIKE '%glm%'
-      OR lower(coalesce(model_name, '')) LIKE '%z-ai%'
-      OR lower(coalesce(model_name, '')) LIKE '%zai%'
-    ) THEN 'Z.AI'
-    WHEN source = 'ccusage' THEN 'Claude Code'
-    WHEN lower(coalesce(model_name, '')) LIKE '%glm%'
-      OR lower(coalesce(model_name, '')) LIKE '%z-ai%'
-      OR lower(coalesce(model_name, '')) LIKE '%zai%'
-      THEN 'Z.AI'
-    ELSE source
-  END
-`;
+type SourceAgg = { source: string; total_tokens: number; cost: number };
+
+function mergeSource(map: Map<string, SourceAgg>, source: string, tokens: number, cost: number) {
+  const existing = map.get(source);
+  if (existing) {
+    existing.total_tokens += tokens;
+    existing.cost += cost;
+    return;
+  }
+  map.set(source, { source, total_tokens: tokens, cost });
+}
 
 async function main() {
   if (!MOTHERDUCK_TOKEN) {
@@ -93,68 +82,51 @@ async function main() {
   const sourceRows = await db.all(`
     SELECT
       date,
-      ${AGENT_CASE} as source,
+      source,
+      model_name,
       COALESCE(SUM(total_tokens), 0) as total_tokens,
       COALESCE(SUM(cost), 0)         as cost
     FROM ccusage_events
     WHERE record_type = 'daily'
-    GROUP BY date, ${AGENT_CASE}
+    GROUP BY date, source, model_name
     ORDER BY date DESC
   `);
 
-  console.log("Fetching all-time per-agent totals...");
-  const sourceTotalRows = await db.all(`
-    SELECT
-      ${AGENT_CASE} as source,
-      COALESCE(SUM(total_tokens), 0) as total_tokens,
-      COALESCE(SUM(cost), 0)         as cost
-    FROM ccusage_events
-    WHERE record_type = 'daily'
-    GROUP BY ${AGENT_CASE}
-    ORDER BY total_tokens DESC
-  `);
+  const byDateMaps = new Map<string, Map<string, SourceAgg>>();
+  const allTime = new Map<string, SourceAgg>();
 
-  const byDate = new Map<string, { source: string; total_tokens: number; cost: number }[]>();
   for (const row of sourceRows) {
+    const tokens = parseNum(row.total_tokens);
+    const cost = parseNum(row.cost);
+    if (tokens === 0 && cost === 0) continue;
+
+    const source = normalizeSource(String(row.source ?? ""), String(row.model_name ?? ""));
     const date = formatDate(row.date);
-    const entry = {
-      source: String(row.source),
-      total_tokens: parseNum(row.total_tokens),
-      cost: Math.round(parseNum(row.cost) * 100) / 100,
-    };
-    // Drop zero-token, zero-cost noise rows
-    if (entry.total_tokens === 0 && entry.cost === 0) continue;
-    if (!byDate.has(date)) byDate.set(date, []);
-    byDate.get(date)!.push(entry);
+    if (!byDateMaps.has(date)) byDateMaps.set(date, new Map());
+    mergeSource(byDateMaps.get(date)!, source, tokens, cost);
+    mergeSource(allTime, source, tokens, cost);
   }
 
-  // Sort each day's agents by tokens desc
-  for (const entries of byDate.values()) {
-    entries.sort((a, b) => b.total_tokens - a.total_tokens);
+  const byDate = new Map<string, SourceAgg[]>();
+  for (const [date, map] of byDateMaps) {
+    const entries = [...map.values()]
+      .map((e) => ({
+        ...e,
+        cost: Math.round(e.cost * 100) / 100,
+      }))
+      .sort((a, b) => b.total_tokens - a.total_tokens);
+    byDate.set(date, entries);
   }
 
-  const source_totals = sourceTotalRows
-    .map((row) => ({
-      source: String(row.source),
-      total_tokens: parseNum(row.total_tokens),
-      cost: Math.round(parseNum(row.cost) * 100) / 100,
+  const source_totals = [...allTime.values()]
+    .map((e) => ({
+      ...e,
+      cost: Math.round(e.cost * 100) / 100,
     }))
-    .filter((e) => e.total_tokens > 0 || e.cost > 0);
+    .filter((e) => e.total_tokens > 0 || e.cost > 0)
+    .sort((a, b) => b.total_tokens - a.total_tokens);
 
-  // Logo row order: known display agents first, then any extras by tokens
-  const preferred = [
-    "Google Antigravity",
-    "Z.AI",
-    "opencode",
-    "Claude Code",
-    "Codex",
-    "Grok",
-  ];
-  const known = new Set(source_totals.map((s) => s.source));
-  const sources = [
-    ...preferred.filter((s) => known.has(s)),
-    ...source_totals.map((s) => s.source).filter((s) => !preferred.includes(s)),
-  ];
+  const sources = source_totals.map((s) => s.source);
 
   const data = {
     generatedAt: new Date().toISOString(),
