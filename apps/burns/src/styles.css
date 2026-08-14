@@ -227,6 +227,7 @@ body {
   bottom: calc(100% + 8px);
   padding: 8px 10px;
   min-width: 180px;
+  max-width: min(280px, calc(100vw - 24px));
   background: var(--canvas);
   border: 1px solid var(--hairline);
   color: var(--ink);
@@ -243,7 +244,7 @@ body {
 
 .burns-tooltip-grid {
   display: grid;
-  grid-template-columns: 8px max-content max-content max-content;
+  grid-template-columns: 8px minmax(0, 1fr) max-content max-content;
   column-gap: 10px;
   row-gap: 3px;
   align-items: center;

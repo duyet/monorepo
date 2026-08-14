@@ -30,7 +30,10 @@ export const SOURCE_COLORS: Record<string, string> = {
 };
 
 const DISPLAY_BY_LOWER = new Map<string, string>(
-  DISPLAY_SOURCES.map((name) => [name.toLowerCase(), name]),
+  DISPLAY_SOURCES.map((name: string): [string, string] => [
+    name.toLowerCase(),
+    name,
+  ]),
 );
 
 function isZaiModel(modelName: string): boolean {

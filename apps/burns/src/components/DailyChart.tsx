@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type JSX } from "react";
 import type { DailyEntry, DailyEntrySource } from "../lib/types";
 import { formatDay } from "../lib/dates";
 import { fmtCost, fmtTokens, normalizeSource, sourceSwatch } from "../lib/sources";
@@ -15,7 +15,7 @@ function stackedTotal(d: DailyEntry): number {
   return sum || d.total_tokens;
 }
 
-export function DailyChart({ daily }: DailyChartProps) {
+export function DailyChart({ daily }: DailyChartProps): JSX.Element | null {
   const [hovered, setHovered] = useState<number | null>(null);
 
   if (daily.length === 0) return null;

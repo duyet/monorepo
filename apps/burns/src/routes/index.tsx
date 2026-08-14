@@ -1,4 +1,5 @@
 import ThemeToggle from "@duyet/components/ThemeToggle";
+import type { JSX } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { AnimatedCounter } from "../components/AnimatedCounter";
 import { DailyChart, WINDOW } from "../components/DailyChart";
@@ -34,7 +35,7 @@ function formatUpdated(iso: string): string | null {
   })}`;
 }
 
-function Page() {
+function Page(): JSX.Element {
   const data = Route.useLoaderData();
   const range = formatRange(data.firstDate, data.lastDate);
   const updated = formatUpdated(data.generatedAt);
