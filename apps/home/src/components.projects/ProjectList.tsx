@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { addUtmParams } from "../../app/lib/utm";
+import { ProjectBlogLinks } from "../components/ProjectBlogLinks";
 import { Badge } from "../components/ui/badge";
+import { resolveBlogPosts } from "../data/blog-posts";
 import type { AppItem } from "../data/projects";
 import { ColoredDomain } from "./ColoredDomain";
 
@@ -89,7 +91,9 @@ export function ProjectList({ items }: { items: AppItem[] }) {
         const rowClass =
           "rd-row flex items-center gap-4 no-underline text-inherit cursor-pointer";
 
-        return isExternal ? (
+        const blogPosts = resolveBlogPosts(item.blogPosts);
+
+        const row = isExternal ? (
           <a
             key={item.name}
             href={href}
@@ -103,6 +107,21 @@ export function ProjectList({ items }: { items: AppItem[] }) {
           <Link key={item.name} to={href} className={rowClass}>
             {inner}
           </Link>
+        );
+
+        if (blogPosts.length === 0) return row;
+
+        return (
+          <div key={item.name} className="flex flex-col">
+            {row}
+            <ProjectBlogLinks
+              slugs={item.blogPosts}
+              heading="Posts"
+              className="flex items-center gap-3 px-4 pb-3 mt-[-6px]"
+              headingClassName="text-[11px] font-[var(--font-mono)] text-[var(--rd-text-3)] uppercase tracking-wider"
+              linkClassName="rd-ulink text-[12px] inline-flex items-center gap-1"
+            />
+          </div>
         );
       })}
     </div>
