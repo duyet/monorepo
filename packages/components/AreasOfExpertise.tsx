@@ -111,9 +111,9 @@ function TagBadge({ tag }: { tag: string }) {
   return (
     <Badge
       variant="secondary"
-      className="text-xs inline-flex items-center gap-1.5 py-0.5"
+      className="text-[10.5px] inline-flex items-center gap-1 px-1.5 py-0 font-normal"
     >
-      {Logo && <Logo width={12} height={12} className="shrink-0" />}
+      {Logo && <Logo width={10} height={10} className="shrink-0" />}
       {tag}
     </Badge>
   );
@@ -121,28 +121,22 @@ function TagBadge({ tag }: { tag: string }) {
 
 function AreaCard({ area }: { area: Area }) {
   return (
-    <div className="flex h-full flex-col gap-3 bg-background p-5">
-      <div className="flex items-start justify-between gap-3">
-        <h3 className="text-base font-semibold tracking-tight">{area.title}</h3>
-        <span className="shrink-0 font-mono text-xs text-muted-foreground tabular-nums">
+    <div className="flex flex-col gap-1 bg-background px-3 py-2.5">
+      <div className="flex items-baseline justify-between gap-2">
+        <h3 className="text-[13.5px] font-semibold tracking-tight leading-tight">
+          {area.title}
+        </h3>
+        <span className="shrink-0 font-mono text-[10.5px] text-muted-foreground tabular-nums">
           {area.years}yr
         </span>
       </div>
-      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-4">
+      <p className="text-[12px] text-muted-foreground leading-snug line-clamp-2">
         {area.description}
       </p>
-      <div className="mt-auto space-y-2 pt-2">
-        <p className="text-sm tabular-nums">
-          <span className="font-semibold tracking-tight">
-            {area.projectCount.toLocaleString()}
-          </span>
-          <span className="ml-1.5 text-muted-foreground">projects</span>
-        </p>
-        <div className="flex flex-wrap gap-1.5">
-          {area.tags.map((tag) => (
-            <TagBadge key={tag} tag={tag} />
-          ))}
-        </div>
+      <div className="flex flex-wrap gap-1">
+        {area.tags.map((tag) => (
+          <TagBadge key={tag} tag={tag} />
+        ))}
       </div>
     </div>
   );
@@ -161,33 +155,32 @@ export function AreasOfExpertise({
   areas = DEFAULT_AREAS,
   hideHeader = false,
 }: AreasOfExpertiseProps) {
-  const featured = areas.find((a) => a.featured);
-  const rest = areas.filter((a) => !a.featured);
-
   const totalProjects = areas.reduce((sum, a) => sum + a.projectCount, 0);
   const defaultSubheading = `${areas[0]?.years ?? 8}+ years of delivery across ${areas.length} disciplines, ${totalProjects.toLocaleString()} projects shipped`;
 
   return (
     <section>
       {!hideHeader && (
-        <div className="mb-6">
-          <h2 className="text-xl md:text-2xl font-semibold tracking-tight">
-            {heading}
-          </h2>
-          <p className="mt-1 text-sm text-muted-foreground max-w-xl">
+        <div className="mb-3">
+          <h2 className="text-lg font-semibold tracking-tight">{heading}</h2>
+          <p className="mt-0.5 text-xs text-muted-foreground max-w-xl">
             {subheading ?? defaultSubheading}
           </p>
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-border border border-border">
-        {featured && (
-          <div className="md:col-span-2 lg:col-span-2">
-            <AreaCard area={featured} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 border-t border-l border-border">
+        {areas.map((area, i) => (
+          <div
+            key={area.title}
+            className={`border-b border-r border-border ${
+              i === areas.length - 1 && areas.length % 2 === 1
+                ? "sm:col-span-2"
+                : ""
+            }`}
+          >
+            <AreaCard area={area} />
           </div>
-        )}
-        {rest.map((area) => (
-          <AreaCard key={area.title} area={area} />
         ))}
       </div>
     </section>

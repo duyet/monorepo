@@ -1,5 +1,6 @@
 import { cn } from "@duyet/libs/utils";
 import type { ReactNode } from "react";
+import { SocialHandles } from "./SocialHandles";
 
 export interface SiteFooterLink {
   label: string;
@@ -179,24 +180,7 @@ export function SiteFooter({
           <span>
             © {year} {owner}
           </span>
-          <span
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 12,
-            }}
-          >
-            Continuously maintained by{" "}
-            <a
-              href="https://duyet.net/about-duyetbot"
-              style={{
-                color: "var(--rd-accent-ink)",
-                textDecoration: "none",
-              }}
-            >
-              duyetbot
-            </a>
-            .
-          </span>
+          <SocialHandles />
           {children && <div>{children}</div>}
         </div>
       </div>

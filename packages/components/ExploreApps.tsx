@@ -11,7 +11,6 @@
  * Pass `currentApp` to drop the app the visitor is already on.
  */
 import type { ReactNode } from "react";
-import { SecHead } from "./redesign";
 
 export type ExploreAppKey =
   | "home"
@@ -241,49 +240,39 @@ export interface ExploreAppsProps {
 
 export function ExploreApps({
   currentApp,
-  eyebrow = "The network",
   title = "More from duyet.net",
   className,
 }: ExploreAppsProps) {
   const apps = APPS.filter((a) => a.key !== currentApp);
 
   return (
-    <section className={className} style={{ borderTop: "1px solid var(--rd-border)" }}>
-      <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(32px,4vw,52px)]">
-        <SecHead
-          eyebrow={eyebrow}
-          title={title}
-          links={[
-            {
-              label: "duyet.net",
-              href: "https://duyet.net",
-            },
-          ]}
-        />
+    <section
+      className={className}
+      style={{ borderTop: "1px solid var(--rd-border)" }}
+    >
+      <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-4">
+        <h2 className="mb-1.5 text-[12px] font-medium tracking-tight text-[var(--rd-text-3)]">
+          {title}
+        </h2>
 
-        {/* Flat hairline list — no cards, one row per app */}
-        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-[clamp(32px,6vw,80px)]">
+        <div className="grid grid-cols-1 sm:grid-cols-2">
           {apps.map((app) => (
             <a
               key={app.key}
               href={app.href}
-              className="rd-explore-row group flex items-center gap-3 py-3 no-underline text-inherit border-b border-[var(--rd-border)]"
+              className="rd-explore-row group flex min-w-0 items-center gap-2 py-1 no-underline text-inherit"
               title={app.blurb}
             >
-              <span className="rd-explore-glyph shrink-0 text-[var(--rd-text-3)] [&_svg]:w-[18px] [&_svg]:h-[18px]">
+              <span className="rd-explore-glyph shrink-0 text-[var(--rd-text-4)] [&_svg]:w-[13px] [&_svg]:h-[13px]">
                 {app.glyph}
               </span>
 
-              <span className="font-medium tracking-[-0.01em] text-[14px] text-[var(--rd-text)] truncate group-hover:text-[var(--rd-accent-ink)] transition-colors duration-150">
+              <span className="text-[13px] text-[var(--rd-text)] truncate group-hover:text-[var(--rd-accent-ink)] transition-colors duration-150">
                 {app.name}
               </span>
 
-              <span className="ml-auto font-[var(--font-mono)] text-[11px] text-[var(--rd-text-4)] truncate">
+              <span className="ml-auto font-[var(--font-mono)] text-[10.5px] text-[var(--rd-text-4)] truncate">
                 {app.domain}
-              </span>
-
-              <span className="rd-explore-arrow opacity-0 group-hover:opacity-100 text-[11px] text-[var(--rd-accent-ink)] transition-all duration-150 font-mono">
-                →
               </span>
             </a>
           ))}

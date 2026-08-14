@@ -26,7 +26,6 @@ import {
   X,
   ZoomIn,
 } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 import { addUtmParams } from "../../app/lib/utm";
 import type { AppItem } from "../data/projects";
@@ -120,16 +119,6 @@ function Media({ item }: { item: AppItem }) {
 
 export function WorkBento({ selectedProjects }: WorkBentoProps) {
   const [expanded, setExpanded] = useState<string | null>(null);
-  const reduceMotion = useReducedMotion();
-
-  // Plain ease-out zoom — no spring, so the grid never wobbles on expand.
-  const transition = reduceMotion
-    ? { duration: 0 }
-    : {
-        type: "tween" as const,
-        duration: 0.26,
-        ease: [0.22, 1, 0.36, 1] as const,
-      };
 
   return (
     <div className="rd-work-grid">
@@ -145,11 +134,8 @@ export function WorkBento({ selectedProjects }: WorkBentoProps) {
         const tags = item.tags?.length ? item.tags : [tag];
 
         return (
-          <motion.div
+          <div
             key={item.name}
-            layout
-            transition={transition}
-            style={{ borderRadius: "var(--rd-r)" }}
             className={`rd-card group relative flex flex-col p-4 min-h-[128px] text-inherit ${
               isOpen ? "sm:col-span-2 row-span-2" : ""
             }`}
@@ -165,11 +151,7 @@ export function WorkBento({ selectedProjects }: WorkBentoProps) {
               className="absolute inset-0 z-0 cursor-pointer rounded-[var(--rd-r)]"
             />
 
-            <motion.div
-              layout="position"
-              transition={transition}
-              className="relative z-10 pointer-events-none [&_a]:pointer-events-auto"
-            >
+            <div className="relative z-10 pointer-events-none [&_a]:pointer-events-auto">
               <ProjectCardHeader
                 item={item}
                 titleClass={isOpen ? "text-[1.28rem]" : "text-[1.02rem]"}
@@ -179,100 +161,76 @@ export function WorkBento({ selectedProjects }: WorkBentoProps) {
                   medium: item.host,
                 }}
               />
-            </motion.div>
+            </div>
 
-            <AnimatePresence mode="wait" initial={false}>
-              {isOpen ? (
-                <motion.div
-                  key="detail"
-                  layout
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={
-                    reduceMotion
-                      ? { duration: 0 }
-                      : { duration: 0.2, delay: 0.06 }
-                  }
-                  className="relative z-10 mt-3 flex-1 pointer-events-none [&_a]:pointer-events-auto"
-                >
-                  <p className="text-[13px] leading-[1.6] text-[var(--rd-text-2)]">
-                    {item.description}
-                  </p>
+            {isOpen ? (
+              <div className="relative z-10 mt-3 flex-1 pointer-events-none [&_a]:pointer-events-auto">
+                <p className="text-[13px] leading-[1.6] text-[var(--rd-text-2)]">
+                  {item.description}
+                </p>
 
-                  <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12.5px]">
-                    <span className="flex items-center gap-2 text-[var(--rd-text-3)]">
-                      <Icon size={14} className="shrink-0" />
-                      <a
-                        href={href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="rd-ulink font-[var(--font-mono)] text-[12px] break-all"
-                      >
-                        {item.domain || item.host}
-                      </a>
-                    </span>
-
-                    <span className="flex items-center gap-2">
-                      <TagIcon
-                        size={14}
-                        className="shrink-0 text-[var(--rd-text-3)]"
-                      />
-                      <span className="flex flex-wrap gap-1.5">
-                        {tags.map((t) => (
-                          <Badge
-                            key={t}
-                            variant="outline"
-                            className="font-[var(--font-mono)] text-[10.5px] px-2 py-0"
-                          >
-                            {t}
-                          </Badge>
-                        ))}
-                      </span>
-                    </span>
-
+                <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12.5px]">
+                  <span className="flex items-center gap-2 text-[var(--rd-text-3)]">
+                    <Icon size={14} className="shrink-0" />
                     <a
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 rd-ulink"
+                      className="rd-ulink font-[var(--font-mono)] text-[12px] break-all"
                     >
-                      Visit project <ArrowUpRight size={13} />
+                      {item.domain || item.host}
                     </a>
-                  </div>
+                  </span>
 
-                  <Media item={item} />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="summary"
-                  layout
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={
-                    reduceMotion ? { duration: 0 } : { duration: 0.18 }
-                  }
-                  className="relative z-10 flex flex-1 flex-col pointer-events-none"
-                >
-                  <p className="rd-work-desc">{item.description}</p>
-                  <div className="mt-3 flex items-center justify-between">
-                    <Badge
-                      variant="outline"
-                      className="font-[var(--font-mono)] text-[10.5px] px-2 py-0"
-                    >
-                      {tag}
-                    </Badge>
-                    {/* Expand affordance — the full-card button owns the click. */}
-                    <ZoomIn
+                  <span className="flex items-center gap-2">
+                    <TagIcon
                       size={14}
-                      aria-hidden="true"
-                      className="shrink-0 text-[var(--rd-text-4)] transition-colors group-hover:text-[var(--rd-accent)]"
+                      className="shrink-0 text-[var(--rd-text-3)]"
                     />
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                    <span className="flex flex-wrap gap-1.5">
+                      {tags.map((t) => (
+                        <Badge
+                          key={t}
+                          variant="outline"
+                          className="font-[var(--font-mono)] text-[10.5px] px-2 py-0"
+                        >
+                          {t}
+                        </Badge>
+                      ))}
+                    </span>
+                  </span>
+
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 rd-ulink"
+                  >
+                    Visit project <ArrowUpRight size={13} />
+                  </a>
+                </div>
+
+                <Media item={item} />
+              </div>
+            ) : (
+              <div className="relative z-10 flex flex-1 flex-col pointer-events-none">
+                <p className="rd-work-desc">{item.description}</p>
+                <div className="mt-3 flex items-center justify-between">
+                  <Badge
+                    variant="outline"
+                    className="font-[var(--font-mono)] text-[10.5px] px-2 py-0"
+                  >
+                    {tag}
+                  </Badge>
+                  {/* Expand affordance — the full-card button owns the click. */}
+                  <ZoomIn
+                    size={14}
+                    aria-hidden="true"
+                    className="shrink-0 text-[var(--rd-text-4)] transition-colors group-hover:text-[var(--rd-accent)]"
+                  />
+                </div>
+              </div>
+            )}
 
             {isOpen ? (
               <button
@@ -284,7 +242,7 @@ export function WorkBento({ selectedProjects }: WorkBentoProps) {
                 <X size={12} />
               </button>
             ) : null}
-          </motion.div>
+          </div>
         );
       })}
     </div>
