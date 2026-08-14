@@ -52,6 +52,7 @@ export type { SiteFooterLink, SiteFooterProps } from "./SiteFooter";
 export { default as SiteFooterDefault, SiteFooter } from "./SiteFooter";
 export type { SiteHeaderProps } from "./SiteHeader";
 export { default as SiteHeaderDefault, SiteHeader } from "./SiteHeader";
+export { default as SocialHandlesDefault, SocialHandles } from "./SocialHandles";
 export type { SiteSubnavLink, SiteSubnavProps } from "./SiteSubnav";
 export { default as SiteSubnavDefault, SiteSubnav } from "./SiteSubnav";
 export * from "./site-nav";

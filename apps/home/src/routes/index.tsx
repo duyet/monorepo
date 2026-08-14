@@ -4,6 +4,7 @@ import {
   Eyebrow,
   Reveal,
   SecHead,
+  SocialHandles,
 } from "@duyet/components";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
@@ -108,6 +109,7 @@ function HomePage() {
                 </a>{" "}
                 most of what I build.
               </p>
+              <SocialHandles className="mt-4" />
             </div>
           </Reveal>
         </section>
@@ -157,10 +159,10 @@ function HomePage() {
         </section>
 
         {/* expertise */}
-        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)] border-t border-[var(--rd-border)]">
+        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(24px,3vw,40px)] border-t border-[var(--rd-border)]">
           <Reveal>
             <SecHead num="03" eyebrow="Discipline" title="Areas of Expertise" />
-            <div className="mt-6">
+            <div className="mt-3">
               <AreasOfExpertise hideHeader />
             </div>
           </Reveal>
