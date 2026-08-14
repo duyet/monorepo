@@ -22,7 +22,7 @@ export function LocalNav({
   };
 
   return (
-    <>
+    <div className="hidden items-center md:flex">
       <Separator orientation="vertical" className="mx-2 h-6" />
       <nav className="flex items-center gap-0.5">
         {items.map((item) => {
@@ -50,6 +50,6 @@ export function LocalNav({
           );
         })}
       </nav>
-    </>
+    </div>
   );
 }

@@ -12,6 +12,7 @@ export type AppKey =
   | "photos"
   | "kb"
   | "ai-percentage"
+  | "x-algo"
   | "agents"
   | "burn"
   | "cv"

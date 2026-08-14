@@ -18,6 +18,7 @@ import {
   type LucideIcon,
   Radio,
   Search,
+  Share2,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
@@ -134,6 +135,12 @@ const appItems: PaletteItem[] = [
     description: "Language model release timeline",
     href: "https://llm-timeline.duyet.net",
     icon: Radio,
+  },
+  {
+    label: "X Algo",
+    description: "X For You ranking weights, decoded",
+    href: "https://x-algo.duyet.net",
+    icon: Share2,
   },
   {
     label: "Agents",

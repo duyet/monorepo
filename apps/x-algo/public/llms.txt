@@ -1,0 +1,9 @@
+# X Algo
+
+Interactive explainer of the open-sourced X For You ranking algorithm.
+
+- Site: https://x-algo.duyet.net
+- Source of numbers: https://github.com/xai-org/x-algorithm
+- Param sync: 2026-08-12 (home-mixer/params/param.rs)
+
+Copy-link weight is 20 (40× a like). Report is −234 (~468 likes). OON and in-network replies/RTs are ×0.75. Mutual-follow originals use reply weight 20.

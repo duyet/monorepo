@@ -12,6 +12,7 @@ import {
   List,
   Percent,
   Plug,
+  Share2,
   Server,
   Sparkles,
   User,
@@ -115,6 +116,15 @@ export const APPS: AppDef[] = [
     Icon: Percent,
     category: "AI & Data",
     blurb: "AI-written share",
+  },
+  {
+    key: "x-algo",
+    name: "X Algo",
+    href: "https://x-algo.duyet.net",
+    subdomain: "x-algo.duyet.net",
+    Icon: Share2,
+    category: "AI & Data",
+    blurb: "For You weights",
   },
   {
     key: "burn",

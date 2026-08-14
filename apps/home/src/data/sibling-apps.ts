@@ -67,6 +67,12 @@ export const siblingApps: SiblingApp[] = [
     domain: "ai-percentage.duyet.net",
   },
   {
+    name: "X Algo",
+    description:
+      "Interactive map of the open-sourced X For You ranking weights.",
+    domain: "x-algo.duyet.net",
+  },
+  {
     name: "Agent Assistant",
     description:
       "Claude-backed chat assistant with streaming, thread persistence, and tool use.",
