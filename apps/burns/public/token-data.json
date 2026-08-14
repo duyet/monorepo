@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T06:19:07.904Z",
+  "generatedAt": "2026-08-14T08:26:45.853Z",
   "firstDate": "2025-08-02",
   "lastDate": "2026-08-14",
   "sources": [
@@ -14,12 +14,12 @@
     "pi"
   ],
   "totals": {
-    "input_tokens": 4248158232,
-    "output_tokens": 336352045,
+    "input_tokens": 4250270649,
+    "output_tokens": 336521086,
     "cache_creation_tokens": 2212217303,
-    "cache_read_tokens": 103649497691,
-    "total_tokens": 110446225271,
-    "total_cost": 232196.26
+    "cache_read_tokens": 103691878747,
+    "total_tokens": 110490887785,
+    "total_cost": 232221.39
   },
   "source_totals": [
     {
@@ -49,8 +49,8 @@
     },
     {
       "source": "Grok",
-      "total_tokens": 875820347,
-      "cost": 136.57
+      "total_tokens": 920482861,
+      "cost": 161.7
     },
     {
       "source": "Gemini CLI",
@@ -71,12 +71,12 @@
   "daily": [
     {
       "date": "2026-08-14",
-      "input_tokens": 7560927,
-      "output_tokens": 1843987,
+      "input_tokens": 9673344,
+      "output_tokens": 2013028,
       "cache_creation_tokens": 5525275,
-      "cache_read_tokens": 445029751,
-      "total_tokens": 459959940,
-      "cost": 551.23,
+      "cache_read_tokens": 487410807,
+      "total_tokens": 504622454,
+      "cost": 576.36,
       "by_source": [
         {
           "source": "Claude Code",
@@ -85,8 +85,8 @@
         },
         {
           "source": "Grok",
-          "total_tokens": 189062888,
-          "cost": 4.8
+          "total_tokens": 233725402,
+          "cost": 29.93
         },
         {
           "source": "Hermes",
