@@ -9,7 +9,10 @@ export default defineConfig({
   resolve: {
     alias: {
       "@duyet/wasm/pkg/utils/utils.js": wasmStub,
+      react: path.resolve(__dirname, "node_modules/react"),
+      "react-dom": path.resolve(__dirname, "node_modules/react-dom"),
     },
+    dedupe: ["react", "react-dom"],
   },
   test: {
     setupFiles: ["./test-setup.tsx"],

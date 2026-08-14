@@ -7,21 +7,14 @@ import {
 } from "@clerk/clerk-react";
 import { useChat } from "@ai-sdk/react";
 import { Button } from "~/components/ui/button";
-import { SiteFooter, SiteHeader } from "@duyet/components";
+import {
+  ChatTranscript,
+  SiteFooter,
+  SiteHeader,
+} from "@duyet/components";
 import type { UIMessage } from "ai";
 import { Sparkles } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
-import {
-  Conversation,
-  ConversationContent,
-  ConversationEmptyState,
-  ConversationScrollButton,
-} from "~/components/ai-elements/conversation";
-import {
-  Message,
-  MessageContent,
-  MessageResponse,
-} from "~/components/ai-elements/message";
 import {
   PromptInput,
   PromptInputBody,
@@ -30,11 +23,6 @@ import {
   PromptInputTextarea,
   type PromptInputMessage,
 } from "~/components/ai-elements/prompt-input";
-import {
-  Reasoning,
-  ReasoningContent,
-  ReasoningTrigger,
-} from "~/components/ai-elements/reasoning";
 import { Suggestion, Suggestions } from "~/components/ai-elements/suggestion";
 import {
   AgentApiTransport,
@@ -77,42 +65,6 @@ function agentApiUrl(): string {
     return "http://localhost:8788";
   }
   return location.origin;
-}
-
-/** Render a single UIMessage's parts as ai-elements (reasoning + markdown). */
-function MessageParts({ message }: { message: UIMessage }) {
-  const isUser = message.role === "user";
-  return (
-    <>
-      {message.parts.map((part, index) => {
-        if (part.type === "reasoning" && part.text) {
-          return (
-            <Reasoning
-              key={`r-${index}`}
-              className="mb-2 w-full"
-              isStreaming={false}
-            >
-              <ReasoningTrigger />
-              <ReasoningContent>{part.text}</ReasoningContent>
-            </Reasoning>
-          );
-        }
-        if (part.type === "text" && part.text) {
-          return isUser ? (
-            <span
-              key={`t-${index}`}
-              className="whitespace-pre-wrap break-words"
-            >
-              {part.text}
-            </span>
-          ) : (
-            <MessageResponse key={`t-${index}`}>{part.text}</MessageResponse>
-          );
-        }
-        return null;
-      })}
-    </>
-  );
 }
 
 function ChatScreen() {
@@ -171,50 +123,55 @@ function ChatScreen() {
       <SiteHeader currentApp="agents" localNav={AGENT_NAV} activeHref="/" />
 
       <main className="mx-auto flex w-full max-w-[768px] flex-1 flex-col px-4 sm:px-6">
-        <Conversation className="flex-1">
-          <ConversationContent className="gap-6 py-8">
-            {empty ? (
-              <ConversationEmptyState className="py-16">
-                <div className="grid size-11 place-items-center rounded-2xl bg-muted text-foreground">
-                  <Sparkles className="size-6" />
-                </div>
-                <div className="space-y-1.5">
-                  <h2 className="text-2xl font-semibold tracking-tight">
-                    Ask Duyet anything.
-                  </h2>
-                  <p className="max-w-md text-sm leading-6 text-muted-foreground">
-                    An agent grounded in my blog, projects, and public data —
-                    conversational and streaming.
-                  </p>
-                </div>
-                <Suggestions className="mt-4 justify-center">
-                  {SUGGESTIONS.map((prompt) => (
-                    <Suggestion
-                      key={prompt}
-                      suggestion={prompt}
-                      onClick={submit}
-                      disabled={!isSignedIn || isBusy}
-                    />
-                  ))}
-                </Suggestions>
-              </ConversationEmptyState>
-            ) : (
-              <>
-                {messages.map((message) => (
-                  <Message key={message.id} from={message.role}>
-                    <MessageContent>
-                      <MessageParts message={message} />
-                    </MessageContent>
-                  </Message>
+        <div className="flex min-h-0 flex-1 flex-col py-6">
+          {empty ? (
+            <div className="flex flex-1 flex-col items-center justify-center gap-3 py-16 text-center">
+              <div className="grid size-11 place-items-center rounded-2xl bg-muted text-foreground">
+                <Sparkles className="size-6" />
+              </div>
+              <div className="space-y-1.5">
+                <h2 className="text-2xl font-semibold tracking-tight">
+                  Ask Duyet anything.
+                </h2>
+                <p className="max-w-md text-sm leading-6 text-muted-foreground">
+                  An agent grounded in my blog, projects, and public data —
+                  conversational and streaming.
+                </p>
+              </div>
+              <Suggestions className="mt-4 justify-center">
+                {SUGGESTIONS.map((prompt) => (
+                  <Suggestion
+                    key={prompt}
+                    suggestion={prompt}
+                    onClick={submit}
+                    disabled={!isSignedIn || isBusy}
+                  />
                 ))}
-                {error ? (
-                  <p className="text-sm text-destructive">{error.message}</p>
-                ) : null}
-              </>
-            )}
-          </ConversationContent>
-          <ConversationScrollButton />
-        </Conversation>
+              </Suggestions>
+            </div>
+          ) : (
+            <ChatTranscript
+              markerLabel="Chat"
+              messages={messages.map((message) => ({
+                id: message.id,
+                role:
+                  message.role === "user" || message.role === "system"
+                    ? message.role
+                    : "assistant",
+                text: message.parts
+                  .filter(
+                    (part): part is { type: "text"; text: string } =>
+                      part.type === "text" && Boolean(part.text),
+                  )
+                  .map((part) => part.text)
+                  .join("\n"),
+              }))}
+            />
+          )}
+          {error ? (
+            <p className="text-sm text-destructive">{error.message}</p>
+          ) : null}
+        </div>
 
         <div className="sticky bottom-0 mt-auto pb-6 pt-2">
           {!isSignedIn ? (

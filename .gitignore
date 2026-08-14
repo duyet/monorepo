@@ -11,6 +11,12 @@ node_modules
 # production
 build
 dist
+.next/
+/out/
+**/out/
+
+# Next.js generated types
+next-env.d.ts
 
 # misc
 .DS_Store

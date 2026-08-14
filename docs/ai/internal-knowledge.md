@@ -1,6 +1,6 @@
 # Internal Knowledge
 
-This repository is the pnpm/Turborepo monorepo for duyet.net public apps, shared packages, data sync jobs, and Cloudflare/Vercel deployment workflows.
+This repository is the pnpm/Turborepo monorepo for duyet.net public apps, shared packages, data sync jobs, and Cloudflare Pages/Workers deploys.
 
 ## Working Rules
 
@@ -11,6 +11,16 @@ This repository is the pnpm/Turborepo monorepo for duyet.net public apps, shared
 - Use pnpm commands from the relevant package or app directory. Check the local `package.json` before assuming a script exists.
 - Verify with the narrowest useful command first, then broaden only when needed.
 - If a linked worktree reports `Operation not permitted` under `.git/worktrees/...`, use the canonical checkout after `git status --short --branch`; stage only touched paths so unrelated local edits stay out of commits.
+- Public marketing/content routes stay **fully static**: HTML is produced at build/prerender time. Do not add runtime-required data fetches to those routes. Chat widgets may hydrate, but they must not turn the host page into a client-only shell.
+- Shared chrome lives in `packages/components/site-header/` as small units (`AppSwitcher`, `GlobalNav`, `LocalNav`, `MobileNav`, `ThemeButton`) composed by `SiteHeader`. Do not grow `SiteHeader.tsx` back into a 800-line file.
+- UI primitives come from **latest shadcn/ui** under `packages/components/ui/` (registry style `new-york-v4`). Chat conversations use the official June 2026 set: `MessageScroller`, `Message`, `Bubble`, `Attachment`, `Marker`. Compose them via `ChatTranscript` / `ChatMessageList` in `packages/components/chat/`. Do not invent a parallel chat kit.
+- Ignore generated Next dumps: `.next/`, `out/`, `next-env.d.ts`. Do not commit `apps/agents/` scratch or leftover agent worktrees.
+
+## Static rendering
+
+- `apps/blog`, `apps/home`, `apps/cv`, `apps/insights`, `apps/photos`, `apps/kb`, `apps/llm-timeline`, `apps/ai-percentage`, `apps/burns`, `apps/homelab` emit static HTML for public pages at build time (Vite/TanStack prerender or Pages output).
+- `apps/agent-ui` is a signed-in chat surface at `https://agents.duyet.net`. Its `index.html` must still contain a prerendered chat shell (`Ask Duyet anything.`). Conversation rows use shared shadcn chat primitives; Clerk/auth and streaming stay client-only.
+- `apps/insights` is static HTML plus calls to `apps/api`. Do not use TanStack Start server functions for runtime data loading.
 
 ## Root Commands
 
@@ -33,13 +43,13 @@ This repository is the pnpm/Turborepo monorepo for duyet.net public apps, shared
 ## Apps
 
 - `apps/home`: homepage for `https://duyet.net`, deployed to Cloudflare Pages.
-- `apps/blog`: Vite SPA blog for `https://blog.duyet.net`, Auth0 auth, Vercel KV comments, Markdown posts with KaTeX.
+- `apps/blog`: statically prerendered Vite blog for `https://blog.duyet.net`, Auth0 auth, Vercel KV comments, Markdown posts with KaTeX.
 - `apps/cv`: CV host for `https://cv.duyet.net`.
 - `apps/insights`: analytics dashboard for `https://insights.duyet.net`, using Cloudflare Analytics, GitHub, PostHog, WakaTime, ClickHouse, and TanStack Start prerendering.
 - `apps/photos`: photo gallery for `https://photos.duyet.net`, Unsplash and Cloudinary-related workflows.
 - `apps/homelab`: homelab docs and resources for `https://homelab.duyet.net`.
 - `apps/llm-timeline`: LLM release timeline for `https://llm-timeline.duyet.net`, with sync, RSS, sitemap, and llms.txt generation.
-- `apps/agent-ui`: simple Cloudflare Pages chat UI for `https://agents.duyet.net`, using Clerk auth and the AI SDK UI message model against `apps/agent-api`.
+- `apps/agent-ui`: Cloudflare Pages chat UI for `https://agents.duyet.net`. Clerk auth, AI SDK `useChat`, `@duyet/components` `ChatTranscript` (MessageScroller / Message / Bubble / Attachment / Marker) against `apps/agent-api`.
 - `apps/agent-api`: API-only Cloudflare Agents Worker for `https://agents-api.duyet.net`; REST chat is `POST /api/v1/chat` with Clerk bearer auth or `AGENT_API_TOKEN`.
 - `apps/api`: Hono API on Cloudflare Workers for `https://api.duyet.net`.
 - `apps/ai-percentage`: AI-written-code dashboard for `https://ai-percentage.duyet.net`; data comes from `apps/data-sync`.
@@ -47,12 +57,11 @@ This repository is the pnpm/Turborepo monorepo for duyet.net public apps, shared
 - `apps/agent-assistant`: Vite-powered TanStack Start application with assistant-ui + LangGraph serving as a local agent interface. Deployed directly serverless on Cloudflare Workers/Pages (`duyet-agent-assistant`) for `https://agent-assistant.duyet.net` utilizing a native Cloudflare Durable Object (`ThreadStateDO`) backed by SQLite for checkpoint persistence.
 - `apps/kb`: static TanStack Start knowledge base for `https://kb.duyet.net`, bundling `content/**/*.md` at build time and generating `llms.txt`, `llms-full.txt`, `sitemap.xml`, `robots.txt`, and raw `public/k/*.md` article endpoints.
 - `apps/burns`: Vite/Cloudflare Pages dashboard (`duyet-burns`) that prerenders Claude Code usage stats. `build` runs `scripts/fetch-burns-data.ts`, which pulls `ccusage` data from MotherDuck (`MOTHERDUCK_TOKEN`); a daily cron refreshes it.
-- `apps/mcp`: placeholder app directory (no active package; only `node_modules` present). Treat as inactive unless it is reinitialized.
-- `apps/home`: editorial homepage for `https://duyet.net`. `apps/cv`: CV host for `https://cv.duyet.net`. `apps/homelab`: 3-node minipc cluster monitoring dashboard for `https://homelab.duyet.net`.
+- `apps/mcp`: placeholder app directory (no active package). Treat as inactive unless it is reinitialized.
 
 ## Shared Packages
 
-- `packages/components`: shared React components.
+- `packages/components`: shared React chrome (`site-header/`), shadcn `ui/` primitives, and official chat components (`chat/`).
 - `packages/libs`: shared utility functions.
 - `packages/interfaces`: shared TypeScript interfaces.
 - `packages/config`: shared app, API, and UI config.
