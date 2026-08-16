@@ -453,7 +453,7 @@ Topic label rules (this feeds a dynamic topic taxonomy, so consistency matters):
 - Mix specific entities (anthropic, openai, nvidia, qwen) with themes (multi-agent, open-source, fine-tuning, regulation).
 - Always use the same canonical spelling for the same concept: singular not plural ("llm" not "llms"), one standard hyphenation not synonyms ("open-source" not "opensource" or "oss"), no near-duplicates. If a topic could be phrased multiple ways, pick the most common/obvious industry term.
 - Prefer these canonical tags whenever they apply (reuse EXACTLY as written, don't invent variants):
-  entities: openai, anthropic, google, meta, xai, microsoft, amazon, nvidia, deepseek, mistral, alibaba, apple, claude, gpt, gemini, grok, llama, qwen, codex, claude-code, elon-musk, sam-altman
+  entities: openai, anthropic, google, meta, xai, microsoft, amazon, nvidia, deepseek, mistral, alibaba, apple, claude, fable, opus, sonnet, haiku, gpt, gemini, grok, llama, qwen, codex, claude-code, elon-musk, sam-altman
   themes: llm, agent, multi-agent, harness, inference, open-source, fine-tuning, benchmark, reasoning, safety, regulation, funding, chips, gpu, infra, robotics, coding, rag, mcp
   Only invent a new tag when nothing above (or an equally obvious industry term) fits.
 - 3-6 tags per item — enough to be genuinely browsable/filterable, not a single catch-all tag.
