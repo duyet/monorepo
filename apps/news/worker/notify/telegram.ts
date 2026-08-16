@@ -118,8 +118,19 @@ async function callTelegram(
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(body),
+    signal: AbortSignal.timeout(15_000),
   });
-  return (await res.json()) as TelegramResponse;
+  // Telegram can return non-JSON (proxy/HTML error pages); surface the
+  // HTTP status instead of letting a parse error escape.
+  const raw = await res.text();
+  try {
+    return JSON.parse(raw) as TelegramResponse;
+  } catch {
+    return {
+      ok: false,
+      description: `HTTP ${res.status}: ${raw.slice(0, 200)}`,
+    };
+  }
 }
 
 export const telegramNotifier: Notifier = {

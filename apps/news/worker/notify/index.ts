@@ -85,6 +85,7 @@ export function buildTrendingQuery(
                  i.points, i.comments, i.rank_score, i.llm_importance
           FROM items i
           LEFT JOIN notifications n ON n.item_id = i.id AND n.channel = ?
+            AND (n.status = 'sent' OR n.attempts >= ${NOTIFY_MAX_ATTEMPTS})
           LEFT JOIN translations tr ON tr.item_id = i.id AND tr.lang = 'vi'
           WHERE i.status = 'published'
             AND i.published_at >= ?
@@ -145,9 +146,15 @@ export function localDayStartMs(nowMs: number, timezone: string): number {
 /** Loads the newest TL;DR snapshot and resolves each bullet's story
  *  permalink (VI bullets preferred). */
 async function loadDigest(env: Env, date: string): Promise<DailyDigest | null> {
+  // Bind the exact date: within the send window (08:00–24:00 local, UTC+7)
+  // the local date always equals the snapshot's UTC date, and a missing
+  // snapshot returns null so a later run retries instead of resending an
+  // older day's digest.
   const snapshot = await env.DB.prepare(
-    "SELECT date, bullets_en, bullets_vi FROM tldr_snapshots ORDER BY date DESC LIMIT 1"
-  ).first<{ date: string; bullets_en: string | null; bullets_vi: string | null }>();
+    "SELECT date, bullets_en, bullets_vi FROM tldr_snapshots WHERE date = ?"
+  )
+    .bind(date)
+    .first<{ date: string; bullets_en: string | null; bullets_vi: string | null }>();
   if (!snapshot) return null;
 
   const raw = topBullets(snapshot.bullets_vi, DIGEST_MAX_BULLETS);
