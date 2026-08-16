@@ -1,6 +1,7 @@
 import { TrendingUp } from "lucide-react";
 import type { CSSProperties } from "react";
 import { topicColor } from "../lib/topic-color";
+import { useHorizontalScroll } from "../lib/use-horizontal-scroll";
 
 export function TrendingChips({
   trending,
@@ -13,9 +14,14 @@ export function TrendingChips({
   selectedTag: string | null;
   onSelectTag: (tag: string | null) => void;
 }) {
+  const scrollRef = useHorizontalScroll<HTMLDivElement>();
+
   if (trending.length === 0) return null;
   return (
-    <div className="scrollbar-hide flex items-center gap-2 overflow-x-auto whitespace-nowrap py-3">
+    <div
+      ref={scrollRef}
+      className="edge-fade-x scrollbar-hide flex items-center gap-2 overflow-x-auto whitespace-nowrap py-3"
+    >
       <span className="flex shrink-0 items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-muted-foreground">
         <TrendingUp className="h-4 w-4 text-accent" aria-hidden />
         {label}

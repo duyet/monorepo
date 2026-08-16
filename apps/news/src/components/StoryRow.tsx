@@ -101,17 +101,17 @@ export function StoryRow({
         <span className="w-5 shrink-0 text-right text-sm text-muted-foreground">
           {index}
         </span>
-        {hot && (
-          <TrendingUp
-            className="h-4 w-4 shrink-0 self-center text-accent"
-            aria-hidden
-          />
-        )}
         <span
           className={`min-w-0 flex-1 font-semibold leading-snug ${
             matchColor ? "topic-colored" : ""
           }`}
         >
+          {hot && (
+            <TrendingUp
+              className="mr-1 inline h-4 w-4 align-[-2px] text-accent"
+              aria-hidden
+            />
+          )}
           <HighlightedTitle title={title} tags={item.tags} />{" "}
           <a
             href={item.url}

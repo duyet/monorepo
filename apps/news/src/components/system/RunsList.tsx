@@ -3,6 +3,7 @@ import type {
   WorkflowRunRow,
   WorkflowRunStats,
 } from "../../lib/system-queries";
+import { useHorizontalScroll } from "../../lib/use-horizontal-scroll";
 
 interface RunsListProps {
   runs: WorkflowRunRow[];
@@ -59,6 +60,8 @@ function extraBadges(stats: WorkflowRunStats, lang: "en" | "vi"): ExtraBadge[] {
 }
 
 export function RunsList({ runs, lang }: RunsListProps) {
+  const scrollRef = useHorizontalScroll<HTMLDivElement>();
+
   if (runs.length === 0) {
     return (
       <p className="text-sm text-muted-foreground">
@@ -67,7 +70,7 @@ export function RunsList({ runs, lang }: RunsListProps) {
     );
   }
   return (
-    <div className="scrollbar-hide overflow-x-auto">
+    <div ref={scrollRef} className="edge-fade-x scrollbar-hide overflow-x-auto">
       <table className="w-full text-left text-xs">
         <thead>
           <tr className="text-muted-foreground">

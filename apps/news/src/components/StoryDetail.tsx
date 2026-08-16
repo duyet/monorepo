@@ -6,6 +6,7 @@ import { detectSuggestField, type SuggestField } from "../lib/selection-field";
 import { storyPath } from "../lib/slug";
 import { topicColor } from "../lib/topic-color";
 import type { FeedItem, Lang } from "../lib/types";
+import { useHorizontalScroll } from "../lib/use-horizontal-scroll";
 import { SuggestionBadge, SuggestTranslation } from "./SuggestTranslation";
 
 export function fmtTime(epochSec: number, lang: Lang): string {
@@ -106,6 +107,7 @@ export function StoryDetail({
   const paragraphsVi = splitParagraphs(item.summary_vi);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const topicsScrollRef = useHorizontalScroll<HTMLDivElement>();
   const [selectionButton, setSelectionButton] =
     useState<SelectionButtonState | null>(null);
   const [pendingSuggestion, setPendingSuggestion] = useState<{
@@ -204,7 +206,10 @@ export function StoryDetail({
       <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
         <div className="min-w-0 flex-1 space-y-2">
           {(item.tags.length > 0 || item.category) && (
-            <div className="scrollbar-hide flex items-center gap-1.5 overflow-x-auto whitespace-nowrap">
+            <div
+              ref={topicsScrollRef}
+              className="edge-fade-x scrollbar-hide flex items-center gap-1.5 overflow-x-auto whitespace-nowrap"
+            >
               <span className="shrink-0 text-xs font-bold uppercase tracking-wider text-muted-foreground">
                 {lang === "vi" ? "Chủ đề" : "Topics"}
               </span>

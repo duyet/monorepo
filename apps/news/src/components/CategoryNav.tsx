@@ -1,5 +1,6 @@
 import { categoryLabel } from "../lib/lang";
 import type { Lang } from "../lib/types";
+import { useHorizontalScroll } from "../lib/use-horizontal-scroll";
 
 export function CategoryNav({
   categories,
@@ -12,10 +13,15 @@ export function CategoryNav({
   onToggle: (name: string) => void;
   lang: Lang;
 }) {
+  const scrollRef = useHorizontalScroll<HTMLElement>();
+
   if (categories.length === 0) return null;
 
   return (
-    <nav className="scrollbar-hide flex items-center gap-1.5 overflow-x-auto whitespace-nowrap border-b border-border py-2.5">
+    <nav
+      ref={scrollRef}
+      className="edge-fade-x scrollbar-hide flex items-center gap-1.5 overflow-x-auto whitespace-nowrap border-b border-border py-2.5"
+    >
       <button
         type="button"
         onClick={() => {
