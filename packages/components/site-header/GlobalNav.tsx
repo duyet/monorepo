@@ -71,7 +71,7 @@ export function GlobalNav({ currentApp }: { currentApp: AppKey }) {
             </Button>
 
             {hasChildren && isDropdownOpen && (
-              <div className="absolute left-0 top-full z-50 mt-1 min-w-[160px] overflow-hidden rounded-lg border bg-[var(--rd-bg)] shadow-xl dark:shadow-black/30">
+              <div className="absolute left-0 top-full z-50 mt-1 min-w-[160px] overflow-hidden rounded-lg border border-[var(--rd-border)] bg-[var(--rd-bg)] shadow-xl dark:shadow-black/30">
                 <nav className="flex flex-col p-1">
                   {item.children!.map((child) => (
                     <a
