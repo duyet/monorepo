@@ -136,29 +136,41 @@ export function StoryRow({
       </div>
 
       {expanded && hasDetails && (
-        <div className="space-y-4 border-l-2 border-accent/60 bg-muted/30 px-4 py-4 md:mx-6">
+        <div className="space-y-2 border-l-2 border-accent/60 bg-muted/30 px-4 py-2.5 md:mx-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-            <div className="min-w-0 flex-1 space-y-4">
+            <div className="min-w-0 flex-1 space-y-2">
               {(item.tags.length > 0 || item.category) && (
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <div className="scrollbar-hide flex items-center gap-1.5 overflow-x-auto whitespace-nowrap">
+                  <span className="shrink-0 text-xs font-bold uppercase tracking-wider text-muted-foreground">
                     {lang === "vi" ? "Chủ đề" : "Topics"}
                   </span>
                   {item.category && (
-                    <span className="rounded-full border border-border bg-background px-3 py-0.5 text-sm">
+                    <span className="shrink-0 rounded-full border border-border bg-background px-2 py-0 text-xs">
                       {categoryLabel(item.category, lang)}
                     </span>
                   )}
                   {item.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full border border-border bg-background px-3 py-0.5 text-sm"
+                      className="shrink-0 rounded-full border border-border bg-background px-2 py-0 text-xs"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
               )}
+
+              <div className="text-xs text-muted-foreground">
+                {fmtTime(item.published_at, lang)} · {item.source_id} · score{" "}
+                {item.rank_score.toFixed(1)}
+                {item.llm_tokens > 0 && <> · {item.llm_tokens} tokens</>} ·{" "}
+                <a
+                  href={storyPath(item)}
+                  className="underline underline-offset-2 hover:text-accent"
+                >
+                  {lang === "vi" ? "Trang tin" : "Permalink"}
+                </a>
+              </div>
 
               {paragraphs.length > 0 && (
                 <div className="max-w-3xl space-y-3 leading-relaxed">
@@ -194,18 +206,6 @@ export function StoryRow({
               ))}
             </div>
           )}
-
-          <div className="text-xs text-muted-foreground">
-            {fmtTime(item.published_at, lang)} · {item.source_id} · score{" "}
-            {item.rank_score.toFixed(1)}
-            {item.llm_tokens > 0 && <> · {item.llm_tokens} tokens</>} ·{" "}
-            <a
-              href={storyPath(item)}
-              className="underline underline-offset-2 hover:text-accent"
-            >
-              {lang === "vi" ? "Trang tin" : "Permalink"}
-            </a>
-          </div>
         </div>
       )}
     </div>
