@@ -1,0 +1,233 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-brand: var(--brand);
+  --color-brand-soft: var(--brand-soft);
+  /* Popover tokens for dither-kit chart tooltips. */
+  --color-popover: var(--background);
+  --color-popover-foreground: var(--foreground);
+  --font-sans: var(--editorial-font-sans);
+  --font-serif: var(--editorial-font-serif);
+  --font-mono: var(--editorial-font-mono);
+}
+
+:root {
+  /* Editorial monochrome tokens, matching the rest of duyet.net */
+  --editorial-bg: #ffffff;
+  --editorial-fg: #0a0a0a;
+  --editorial-muted: color-mix(in oklch, #0a0a0a 60%, transparent);
+  --editorial-faint: color-mix(in oklch, #0a0a0a 5%, transparent);
+  --editorial-hairline: rgb(10 10 10 / 8%);
+  --editorial-accent: #b45309;
+  --editorial-font-serif:
+    "EB Garamond", Garamond, "Apple Garamond", ui-serif, serif;
+  --editorial-font-sans:
+    "Geist", "Geist Sans", "Inter Variable", Inter, ui-sans-serif, system-ui,
+    sans-serif;
+  --editorial-font-mono:
+    "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+
+  /* HuggingNews-style sans, scoped to the feed content area only —
+     the duyet.net chrome (Header/Footer) keeps the editorial font above. */
+  --content-font-sans:
+    "Source Sans 3", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* Standard compatibility variables mapped to the editorial tokens.
+     --accent/--accent-foreground stay a NEUTRAL shadcn-style hover surface
+     here (same convention blog uses) because shared chrome components
+     (SiteHeader's nav buttons) consume these globally — our own amber
+     brand accent is scoped separately under .news-content below so it
+     never leaks into hover/active states on shared duyet.net chrome. */
+  --background: var(--editorial-bg);
+  --foreground: var(--editorial-fg);
+  --muted: var(--editorial-faint);
+  --muted-foreground: var(--editorial-muted);
+  --border: var(--editorial-hairline);
+  --accent: var(--editorial-faint);
+  --accent-foreground: var(--editorial-fg);
+
+  /* News-only accent for TL;DR rules and trending chips */
+  --brand: #f5c518;
+  --brand-soft: #fdf6d8;
+}
+
+:root.dark,
+.dark {
+  --editorial-bg: #0a0a0a;
+  --editorial-fg: #fafafa;
+  --editorial-muted: color-mix(in oklch, #fafafa 55%, transparent);
+  --editorial-faint: color-mix(in oklch, #fafafa 6%, transparent);
+  --editorial-hairline: rgb(250 250 250 / 8%);
+  --editorial-accent: #e8926e;
+
+  --background: var(--editorial-bg);
+  --foreground: var(--editorial-fg);
+  --muted: var(--editorial-faint);
+  --muted-foreground: var(--editorial-muted);
+  --border: var(--editorial-hairline);
+  --accent: var(--editorial-faint);
+  --accent-foreground: var(--editorial-fg);
+
+  --brand: #f5c518;
+  --brand-soft: #292209;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  :root.dark {
+    color-scheme: dark;
+  }
+
+  html,
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .tabular-nums,
+  time {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Feed content area (sub-header + day sections, TL;DR, story rows) keeps
+   the compact HuggingNews look — sans body font, distinct from the
+   duyet.net chrome. Reader-preferences panel (PrefsPanel) drives the
+   vars/attrs below. Our amber brand accent is scoped here (not at :root)
+   so it never bleeds into the shared SiteHeader's nav hover/active pills. */
+.news-content {
+  font-family: var(--content-font-sans);
+  font-size: calc(15px * var(--reader-font-size, 1));
+  --accent: var(--editorial-accent);
+  --accent-foreground: #fffefb;
+}
+
+.dark .news-content,
+:root.dark .news-content {
+  --accent-foreground: #1c1917;
+}
+
+.news-content[data-reader-font="serif"] {
+  font-family: var(--editorial-font-serif);
+}
+
+/* Reader background swatches live on .app-shell (the outer page wrapper
+   around SiteHeader + .news-content + SiteFooter), not .news-content, so
+   the chosen background paints the whole page instead of just the feed
+   area. .app-shell already renders bg-background, which reads these same
+   --background/--foreground custom properties once redefined here. */
+.app-shell[data-reader-bg="cream"] {
+  --background: #faf6ec;
+  --foreground: #2b2620;
+}
+
+.app-shell[data-reader-bg="gray"] {
+  --background: #dedede;
+  --foreground: #1c1c1a;
+}
+
+.app-shell[data-reader-bg="black"] {
+  --background: #000000;
+}
+
+/* Per-topic deterministic text color (see src/lib/topic-color.ts). Callers
+   set --tc-light/--tc-dark inline per element; this class just picks the
+   right one for the active theme, SSR-safe (no JS needed to avoid a flash
+   of wrong color). */
+.topic-colored {
+  color: var(--tc-light);
+}
+
+.dark .topic-colored {
+  color: var(--tc-dark);
+}
+
+/* Subtle per-topic row tint for the selected trending-tag highlight —
+   same --tc-light/--tc-dark vars as .topic-colored, low alpha so it reads
+   as a wash over whatever page background is active (reader-bg swatches
+   included), not a solid fill. srgb color-mix (not oklch) so `transparent`
+   mixes predictably across browsers. */
+.topic-hl-row {
+  background-color: color-mix(in srgb, var(--tc-light) 8%, transparent);
+}
+
+.dark .topic-hl-row {
+  background-color: color-mix(in srgb, var(--tc-dark) 14%, transparent);
+}
+
+/* Horizontal-scroll rows (topics chips, trending chips) that shouldn't show
+   a visible scrollbar when their content overflows on narrow screens. */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Left/right fade on horizontally-scrollable rows, indicating there's more
+   content past the edge. useHorizontalScroll sets the --fade-l/--fade-r
+   custom properties to 24px only on the side(s) that still have content to
+   scroll to, so an edge with nothing left to scroll stays unfaded. Masking
+   the scroll container itself fades whatever is currently painted at its
+   edges regardless of scroll offset — no extra paint work needed. */
+.edge-fade-x {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black var(--fade-l, 0px),
+    black calc(100% - var(--fade-r, 0px)),
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black var(--fade-l, 0px),
+    black calc(100% - var(--fade-r, 0px)),
+    transparent
+  );
+}
+
+/* Accent-styled range input used by the reader-preferences sliders
+   (text size, density) — track + round thumb in the brand accent color. */
+.reader-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--border);
+  accent-color: var(--accent);
+}
+
+.reader-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--accent);
+  cursor: pointer;
+}
+
+.reader-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: none;
+  border-radius: 999px;
+  background: var(--accent);
+  cursor: pointer;
+}

@@ -1,0 +1,27 @@
+name: News Ingest
+
+# Hourly trigger for the news.duyet.net ingest workflow. The Workers Free
+# plan's 5-cron cap prevents a native Cloudflare cron on duyet-news, so this
+# Actions cron calls the authenticated admin API instead. Remove this once
+# the account has a free cron slot (then re-add [triggers] in
+# apps/news/wrangler.toml).
+on:
+  schedule:
+    - cron: "5 * * * *"
+  workflow_dispatch:
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Trigger news-ingest workflow
+        run: |
+          code=$(curl -s -o /tmp/resp.json -w '%{http_code}' -X POST \
+            "https://news.duyet.net/api/admin/ingest" \
+            -H "Authorization: Bearer ${{ secrets.NEWS_ADMIN_TOKEN }}")
+          cat /tmp/resp.json
+          if [ "$code" -lt 200 ] || [ "$code" -ge 300 ]; then
+            echo "Trigger failed with HTTP $code" >&2
+            exit 1
+          fi

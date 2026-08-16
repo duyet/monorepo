@@ -2,12 +2,13 @@
 
 Read [docs/ai/internal-knowledge.md](docs/ai/internal-knowledge.md) before changing this repository.
 
-Use semantic commit messages. Keep changes surgical and verify with the narrowest useful command for the touched app or package.
+Use semantic commit messages. Commit as author `duyet <me@duyet.net>`. Keep changes surgical and verify with the narrowest useful command for the touched app or package.
 For single-file verification, use `pnpm exec biome lint <path>` before broader app checks.
 For dead-code cleanup, verify zero non-test references first with `rg -n "<symbol>" apps packages --glob '!**/*.test.*' --glob '!**/*.spec.*'`.
 For root quality checks, use `pnpm run lint`, `pnpm run check-types`, and `pnpm run test`.
 For deploy/config workflows, use root scripts (`pnpm run config`, `pnpm run deploy`, `pnpm run cf:deploy`, `pnpm run cf:deploy:prod`) when needed.
 For Rust/WASM workflows, use the documented root commands (`pnpm run rust:build`, `pnpm run wasm:build`, `pnpm run wasm:test`, `pnpm run wasm:clippy`, `pnpm run bench:wasm`) only when the touched change requires them.
+For `apps/news` (news.duyet.net: LLM news pipeline on Workers/Workflows/D1), read `apps/news/ALGORITHM.md` and `apps/news/README.md` before changing the pipeline, prompts, or admin/MCP surfaces.
 `AGENTS.md` is a symlink to this file; update `CLAUDE.md` as the canonical instruction entrypoint.
 
 Put durable repository knowledge in `docs/ai/internal-knowledge.md` instead of expanding this file.

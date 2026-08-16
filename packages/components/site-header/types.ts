@@ -17,7 +17,8 @@ export type AppKey =
   | "burn"
   | "cv"
   | "html"
-  | "mcp";
+  | "mcp"
+  | "news";
 
 export type AppCategory = "Personal" | "AI & Data" | "Build" | "Infra";
 
@@ -47,7 +48,9 @@ export interface GlobalNavItem {
   href: string;
   match: NavMatch;
   children?: GlobalNavChild[];
-  blogOnly?: boolean;
+  /** Only rendered when currentApp matches — excluded even from the home
+   * app's "show everything" fallback, unlike a plain `match.app`. */
+  onlyApp?: AppKey;
   hideOnApps?: AppKey[];
 }
 

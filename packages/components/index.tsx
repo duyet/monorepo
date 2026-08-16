@@ -13,6 +13,7 @@ export { default as ClerkAuthProvider } from "./ClerkAuthProvider";
 export { default as Container } from "./Container";
 // Card Components
 export * from "./cards";
+export * from "./chat";
 export { default as Error } from "./Error";
 export {
   default as ErrorBoundary,
@@ -25,6 +26,7 @@ export { default as Feed } from "./Feed";
 export { default as Footer } from "./Footer";
 export { default as Head } from "./Head";
 export { default as Header } from "./Header";
+export { AuthButtons } from "./header/AuthButtons";
 export { default as Icons } from "./Icons";
 // Illustration Components
 export * from "./illustrations";
@@ -52,10 +54,12 @@ export type { SiteFooterLink, SiteFooterProps } from "./SiteFooter";
 export { default as SiteFooterDefault, SiteFooter } from "./SiteFooter";
 export type { SiteHeaderProps } from "./SiteHeader";
 export { default as SiteHeaderDefault, SiteHeader } from "./SiteHeader";
-export { default as SocialHandlesDefault, SocialHandles } from "./SocialHandles";
-export * from "./chat";
 export type { SiteSubnavLink, SiteSubnavProps } from "./SiteSubnav";
 export { default as SiteSubnavDefault, SiteSubnav } from "./SiteSubnav";
+export {
+  default as SocialHandlesDefault,
+  SocialHandles,
+} from "./SocialHandles";
 export * from "./site-nav";
 export { default as ThemeProvider } from "./ThemeProvider";
 export { default as ThemeToggle } from "./ThemeToggle";

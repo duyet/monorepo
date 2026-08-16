@@ -1,0 +1,50 @@
+name = "duyet-news"
+main = "src/server.ts"
+compatibility_date = "2026-05-14"
+compatibility_flags = ["nodejs_compat"]
+# Enable versioned preview URLs (<version>-duyet-news.<subdomain>.workers.dev)
+# so `wrangler versions upload` yields a shareable preview before prod deploy.
+preview_urls = true
+
+[assets]
+directory = "dist/client"
+run_worker_first = ["/api/*"]
+not_found_handling = "single-page-application"
+
+# Hourly cron disabled: account is at the Workers Free 5-cron cap, and the
+# failed schedule call makes `wrangler deploy` exit non-zero (breaking the
+# deploy+smoke chain). Re-add `[triggers] crons = ["0 * * * *"]` after
+# freeing a cron slot or upgrading. Until then trigger via
+# `wrangler workflows trigger news-ingest` or the MCP trigger_ingest tool.
+
+[[workflows]]
+name = "news-ingest"
+binding = "NEWS_INGEST"
+class_name = "NewsIngestWorkflow"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "news"
+database_id = "8e692ccf-ec38-4e41-b011-50adbc891322"
+
+[vars]
+ANYROUTER_BASE_URL = "https://anyrouter.dev/api/v1"
+ANYROUTER_MODEL = "stepfun-ai/step-3.7-flash,google/gemini-3.7-flash,qwen/qwen3.7-flash"
+ANYROUTER_TRANSLATE_MODEL = "aisingapore/gemma-sea-lion-v4-27b-it,google/gemini-3.7-flash"
+
+[[send_email]]
+name = "EMAIL"
+
+# Workers Cache: safe for this surface — only responses with public
+# Cache-Control headers (feed/story/system APIs, static shell) are cached;
+# admin/subscribe/suggest/submit/mcp set no-store and Authorization-bearing
+# requests auto-bypass.
+[cache]
+enabled = true
+
+[observability]
+enabled = true
+
+[[routes]]
+pattern = "news.duyet.net"
+custom_domain = true

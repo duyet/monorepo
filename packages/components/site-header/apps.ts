@@ -10,10 +10,11 @@ import {
   Flame,
   House,
   List,
+  Newspaper,
   Percent,
   Plug,
-  Share2,
   Server,
+  Share2,
   Sparkles,
   User,
 } from "lucide-react";
@@ -142,6 +143,15 @@ export const APPS: AppDef[] = [
     blurb: "Token spend",
   },
   {
+    key: "news",
+    name: "News",
+    href: "https://news.duyet.net",
+    subdomain: "news.duyet.net",
+    Icon: Newspaper,
+    category: "AI & Data",
+    blurb: "AI news, ranked by LLMs",
+  },
+  {
     key: "agents",
     name: "Agents",
     href: "https://agents.duyet.net",
@@ -213,19 +223,19 @@ export const GLOBAL_NAV: GlobalNavItem[] = [
     label: "Series",
     href: "https://blog.duyet.net/series",
     match: { app: "blog", path: "/series" },
-    blogOnly: true,
+    onlyApp: "blog",
   },
   {
     label: "Note",
     href: "https://blog.duyet.net/notes",
     match: { app: "blog", path: "/notes" },
-    blogOnly: true,
+    onlyApp: "blog",
   },
   {
     label: "More",
     href: "https://blog.duyet.net/archives",
     match: { app: "blog", path: "/more-menu" },
-    blogOnly: true,
+    onlyApp: "blog",
     children: [
       {
         label: "Archives",
@@ -271,17 +281,49 @@ export const GLOBAL_NAV: GlobalNavItem[] = [
     label: "About",
     href: "https://duyet.net/about",
     match: { path: "/about" },
-    hideOnApps: ["blog", "home"],
+    // news shadows this with its own /about entry below (news.duyet.net/about,
+    // not duyet.net/about) — hidden here so it doesn't also render.
+    hideOnApps: ["blog", "home", "news"],
+  },
+  {
+    label: "News",
+    href: "/",
+    match: { app: "news", path: "/" },
+    onlyApp: "news",
+  },
+  {
+    label: "About",
+    href: "/about",
+    match: { app: "news", path: "/about" },
+    onlyApp: "news",
+  },
+  {
+    label: "MCP",
+    href: "/mcp",
+    match: { app: "news", path: "/mcp" },
+    onlyApp: "news",
+  },
+  {
+    label: "Analytics",
+    href: "/system",
+    match: { app: "news", path: "/system" },
+    onlyApp: "news",
+  },
+  {
+    label: "Submit",
+    href: "/submit",
+    match: { app: "news", path: "/submit" },
+    onlyApp: "news",
   },
 ];
 
 export function filterGlobalNav(
   items: GlobalNavItem[],
-  currentApp: AppKey,
+  currentApp: AppKey
 ): GlobalNavItem[] {
   return items.filter((item) => {
     if (item.hideOnApps?.includes(currentApp)) return false;
-    if (item.blogOnly) return currentApp === "blog";
+    if (item.onlyApp) return currentApp === item.onlyApp;
     if (currentApp === "home") return true;
     return item.match.app === currentApp || !item.match.app;
   });
@@ -295,15 +337,21 @@ function matchesPath(path: string, pathname: string | null): boolean {
 export function isNavActive(
   m: NavMatch,
   currentApp: AppKey,
-  pathname: string | null,
+  pathname: string | null
 ): boolean {
   if (m.app && m.app === currentApp) {
-    if ((m.app === "blog" || m.app === "home") && m.path) {
-      return matchesPath(m.path, pathname);
-    }
+    // A bare `app` match would light up every route of the current app;
+    // defer to the path check when one is provided so only the matching
+    // sub-page (not every item scoped to this app) gets highlighted.
+    if (m.path) return matchesPath(m.path, pathname);
     return true;
   }
-  return Boolean(
-    m.path && currentApp === "home" && matchesPath(m.path, pathname),
-  );
+  // Path-only fallback (no owning app, or the item belongs to "home") only
+  // applies while browsing the home app itself — otherwise every other
+  // app's items with an overlapping path (e.g. both "/") would incorrectly
+  // light up too.
+  if (m.path && (!m.app || m.app === "home") && currentApp === "home") {
+    return matchesPath(m.path, pathname);
+  }
+  return false;
 }

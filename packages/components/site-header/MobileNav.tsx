@@ -48,7 +48,7 @@ export function MobileNav({ currentApp }: { currentApp: AppKey }) {
       {open && (
         <div
           role="menu"
-          className="absolute right-0 top-full z-50 mt-1 w-40 overflow-hidden rounded-lg border bg-[var(--rd-bg)] shadow-xl dark:shadow-black/30"
+          className="absolute right-0 top-full z-50 mt-1 w-40 overflow-hidden rounded-lg border border-[var(--rd-border)] bg-[var(--rd-bg)] shadow-xl dark:shadow-black/30"
         >
           <nav className="flex flex-col p-1">
             {filterGlobalNav(GLOBAL_NAV, currentApp).map((item) => {

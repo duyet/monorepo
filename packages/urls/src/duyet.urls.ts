@@ -42,6 +42,7 @@ export const duyetUrls: UrlsConfig = {
     photos: importMetaEnv?.VITE_DUYET_PHOTOS_URL || "https://photos.duyet.net",
     homelab:
       importMetaEnv?.VITE_DUYET_HOMELAB_URL || "https://homelab.duyet.net",
+    news: importMetaEnv?.VITE_DUYET_NEWS_URL || "https://news.duyet.net",
   },
   external: {
     rust: "https://rust-tieng-viet.github.io",

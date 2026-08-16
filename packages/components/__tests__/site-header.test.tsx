@@ -12,7 +12,7 @@ describe("site header units", () => {
         label: "Series",
         href: "/series",
         match: { app: "blog", path: "/series" },
-        blogOnly: true,
+        onlyApp: "blog",
       },
     ];
     expect(filterGlobalNav(items, "home").map((i) => i.label)).toEqual([
@@ -48,19 +48,23 @@ describe("site header units", () => {
 
   it("matches blog child paths against the current pathname", () => {
     expect(
-      isNavActive({ app: "blog", path: "/series" }, "blog", "/series/ai"),
+      isNavActive({ app: "blog", path: "/series" }, "blog", "/series/ai")
     ).toBe(true);
-    expect(isNavActive({ app: "blog", path: "/series" }, "blog", "/notes")).toBe(
-      false,
-    );
+    expect(
+      isNavActive({ app: "blog", path: "/series" }, "blog", "/notes")
+    ).toBe(false);
   });
 
   it("matches home nested paths the same way as blog", () => {
     expect(
-      isNavActive({ app: "home", path: "/projects" }, "home", "/projects/detail"),
+      isNavActive(
+        { app: "home", path: "/projects" },
+        "home",
+        "/projects/detail"
+      )
     ).toBe(true);
     expect(isNavActive({ app: "home", path: "/" }, "home", "/projects")).toBe(
-      false,
+      false
     );
   });
 
@@ -72,7 +76,7 @@ describe("site header units", () => {
           { label: "Chat", href: "/chat" },
           { label: "API", href: "https://api.duyet.net", external: true },
         ]}
-      />,
+      />
     );
     expect(getByText("Chat").className).toContain("font-medium");
     expect(getByText("API")).toBeDefined();
