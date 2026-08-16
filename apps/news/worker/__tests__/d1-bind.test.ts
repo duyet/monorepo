@@ -56,6 +56,7 @@ describe("buildItemBindArgs", () => {
       0, // rank
       "published",
       0, // llm_tokens, defaulted since llmTokens was omitted
+      null, // duplicate_of, defaulted since duplicateOf was omitted
     ]);
   });
 
@@ -122,7 +123,7 @@ describe("buildItemBindArgs", () => {
     });
 
     expect(args).not.toContain(undefined);
-    expect(args[args.length - 1]).toBe(342);
+    expect(args[args.length - 2]).toBe(342); // llm_tokens (duplicate_of is last)
   });
 
   it("defaults llm_tokens to 0, never undefined, when omitted", () => {
@@ -141,7 +142,27 @@ describe("buildItemBindArgs", () => {
     });
 
     expect(args).not.toContain(undefined);
-    expect(args[args.length - 1]).toBe(0);
+    expect(args[args.length - 2]).toBe(0); // llm_tokens
+    expect(args[args.length - 1]).toBeNull(); // duplicate_of
+  });
+
+  it("includes duplicate_of with no undefined when the item is merged", () => {
+    const args = buildItemBindArgs({
+      id: "abc123",
+      sourceId: "hn",
+      item: {
+        url: "https://example.com/story",
+        title: "Title",
+        publishedAt: 1700000000,
+      },
+      rank: 1,
+      status: "merged",
+      now: 1700000100000,
+      duplicateOf: "canonical-id-456",
+    });
+
+    expect(args).not.toContain(undefined);
+    expect(args[args.length - 1]).toBe("canonical-id-456");
   });
 });
 

@@ -8,8 +8,17 @@ import {
   buildItemBindArgs,
   buildItemSourceBindArgs,
   buildTranslationBindArgs,
+  MAX_SOURCES_PER_ITEM,
   nn,
 } from "./d1-bind.js";
+import {
+  buildMergePlan,
+  clusterSimilar,
+  type ExistingCandidate,
+  type MergeCandidate,
+  type MergePlan,
+  unionSources,
+} from "./dedupe.js";
 import { scoreItems, translateItems } from "./llm.js";
 import { rankScore } from "./ranking.js";
 import { adapters } from "./sources/registry.js";
@@ -22,6 +31,11 @@ import type { Env } from "./types.js";
 const RELEVANCE_THRESHOLD = 0.4;
 const RANK_RECOMPUTE_WINDOW_SEC = 72 * 60 * 60;
 const SINCE_WINDOW_SEC = 26 * 60 * 60; // slight overlap over the hourly cron
+// Same lookback the rank-recompute step uses: candidates for "same story as
+// an already-published item" clustering.
+const MERGE_LOOKBACK_SEC = RANK_RECOMPUTE_WINDOW_SEC;
+// Bounds the clustering prompt's size; recent+highest-ranked first.
+const MERGE_CANDIDATE_LIMIT = 300;
 
 interface SourceRow {
   id: string;
@@ -146,7 +160,76 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
       });
 
       const now = Date.now();
+
+      const mergePlan = await step.do("merge-similar", async () => {
+        const empty: MergePlan = {
+          merged: new Map(),
+          canonicalUpdates: new Map(),
+        };
+        if (newRows.length === 0) return empty;
+
+        const { results: recentForClustering } = await this.env.DB.prepare(
+          `SELECT id, title, points, comments FROM items
+           WHERE status = 'published' AND published_at >= ?
+           ORDER BY published_at DESC
+           LIMIT ${MERGE_CANDIDATE_LIMIT}`
+        )
+          .bind(toEpochSeconds(now) - MERGE_LOOKBACK_SEC)
+          .all<{
+            id: string;
+            title: string;
+            points: number;
+            comments: number;
+          }>();
+
+        const clusters = await clusterSimilar(
+          this.env,
+          newRows.map((row, i) => ({ i, title: row.item.title })),
+          (recentForClustering ?? []).map((r) => ({ id: r.id, title: r.title }))
+        );
+        if (clusters.length === 0) return empty;
+
+        const candidates: MergeCandidate[] = newRows.map((row, i) => {
+          const score = scored.get(row.id);
+          const rank = rankScore({
+            importance: score?.importance ?? 5,
+            quality: score?.quality ?? 5,
+            points: row.item.points ?? 0,
+            comments: row.item.comments ?? 0,
+            publishedAt: row.item.publishedAt * 1000,
+            now,
+          });
+          return {
+            i,
+            id: row.id,
+            url: row.item.url,
+            sourceId: row.source.id,
+            sources: row.item.sources,
+            points: row.item.points ?? 0,
+            comments: row.item.comments ?? 0,
+            rank,
+          };
+        });
+
+        const existingById = new Map<string, ExistingCandidate>(
+          (recentForClustering ?? []).map((r) => [
+            r.id,
+            { points: r.points, comments: r.comments },
+          ])
+        );
+
+        return buildMergePlan(
+          clusters,
+          candidates,
+          existingById,
+          MAX_SOURCES_PER_ITEM
+        );
+      });
+
+      const newRowById = new Map(newRows.map((row) => [row.id, row]));
+
       const publishedRows = newRows.filter((row) => {
+        if (mergePlan.merged.has(row.id)) return false; // skip translate for merged items
         const score = scored.get(row.id);
         return !score || score.relevance >= RELEVANCE_THRESHOLD;
       });
@@ -179,19 +262,42 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         for (const { id, source, item } of newRows) {
           const score = scored.get(id);
           const translation = translated.get(id);
+          const mergeEntry = mergePlan.merged.get(id);
+          const canonicalUpdate = mergePlan.canonicalUpdates.get(id);
+
+          // A canonical new item absorbs the rest of its cluster's
+          // points/comments (max) and sources (union, capped) before
+          // its own row is written.
+          const effectiveItem =
+            canonicalUpdate && !canonicalUpdate.isExisting
+              ? {
+                  ...item,
+                  points: canonicalUpdate.maxPoints,
+                  comments: canonicalUpdate.maxComments,
+                  sources: unionSources(
+                    item.sources ?? [],
+                    canonicalUpdate.extraSources,
+                    MAX_SOURCES_PER_ITEM
+                  ),
+                }
+              : item;
+
           const relevance = score?.relevance ?? 0.5;
           const importance = score?.importance ?? 5;
           const quality = score?.quality ?? 5;
-          const status =
-            relevance < RELEVANCE_THRESHOLD ? "rejected" : "published";
+          const status = mergeEntry
+            ? "merged"
+            : relevance < RELEVANCE_THRESHOLD
+              ? "rejected"
+              : "published";
           const rank = rankScore({
             importance,
             quality,
-            points: item.points ?? 0,
-            comments: item.comments ?? 0,
+            points: effectiveItem.points ?? 0,
+            comments: effectiveItem.comments ?? 0,
             // item.publishedAt is epoch seconds (normalized at dedupe time);
             // rankScore's decay formula operates in milliseconds.
-            publishedAt: item.publishedAt * 1000,
+            publishedAt: effectiveItem.publishedAt * 1000,
             now,
           });
           const llmTokens = (score?.tokens ?? 0) + (translation?.tokens ?? 0);
@@ -202,8 +308,8 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
                 id, source_id, external_id, url, title, summary,
                 published_at, fetched_at, points, comments,
                 llm_relevance, llm_importance, llm_quality, category, tags,
-                rank_score, status, llm_tokens
-              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                rank_score, status, llm_tokens, duplicate_of
+              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
               ON CONFLICT(id) DO UPDATE SET
                 published_at = excluded.published_at,
                 points = excluded.points,
@@ -213,12 +319,13 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
               ...buildItemBindArgs({
                 id,
                 sourceId: source.id,
-                item,
+                item: effectiveItem,
                 score,
                 rank,
                 status,
                 now,
                 llmTokens,
+                duplicateOf: mergeEntry?.duplicateOf,
               })
             )
           );
@@ -242,13 +349,22 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
             );
           }
 
-          if (item.sources && item.sources.length > 0) {
+          // Merged items' sources have already been absorbed into their
+          // canonical's item_sources rows; don't also write their own.
+          if (
+            !mergeEntry &&
+            effectiveItem.sources &&
+            effectiveItem.sources.length > 0
+          ) {
             statements.push(
               this.env.DB.prepare(
                 "DELETE FROM item_sources WHERE item_id = ?"
               ).bind(nn(id))
             );
-            for (const row of buildItemSourceBindArgs(id, item.sources)) {
+            for (const row of buildItemSourceBindArgs(
+              id,
+              effectiveItem.sources
+            )) {
               statements.push(
                 this.env.DB.prepare(
                   `INSERT INTO item_sources (item_id, position, kind, author, posted_at, quote, url)
@@ -256,6 +372,64 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
                 ).bind(...row)
               );
             }
+          }
+        }
+
+        // Canonicals that are pre-existing (already-published) items absorb
+        // the merged new items' points/comments/sources too, but need their
+        // own read-update-write since they're not part of `newRows`.
+        for (const [canonicalId, update] of mergePlan.canonicalUpdates) {
+          if (!update.isExisting || newRowById.has(canonicalId)) continue;
+
+          statements.push(
+            this.env.DB.prepare(
+              "UPDATE items SET points = ?, comments = ? WHERE id = ?"
+            ).bind(
+              nn(update.maxPoints),
+              nn(update.maxComments),
+              nn(canonicalId)
+            )
+          );
+
+          const { results: existingSourceRows } = await this.env.DB.prepare(
+            "SELECT kind, author, posted_at, quote, url FROM item_sources WHERE item_id = ? ORDER BY position"
+          )
+            .bind(canonicalId)
+            .all<{
+              kind: "source" | "support" | "discussion";
+              author: string | null;
+              posted_at: number | null;
+              quote: string | null;
+              url: string | null;
+            }>();
+
+          const mergedSources = unionSources(
+            (existingSourceRows ?? []).map((r) => ({
+              kind: r.kind,
+              author: r.author ?? undefined,
+              postedAt: r.posted_at ?? undefined,
+              quote: r.quote ?? undefined,
+              url: r.url ?? undefined,
+            })),
+            update.extraSources,
+            MAX_SOURCES_PER_ITEM
+          );
+
+          statements.push(
+            this.env.DB.prepare(
+              "DELETE FROM item_sources WHERE item_id = ?"
+            ).bind(nn(canonicalId))
+          );
+          for (const row of buildItemSourceBindArgs(
+            canonicalId,
+            mergedSources
+          )) {
+            statements.push(
+              this.env.DB.prepare(
+                `INSERT INTO item_sources (item_id, position, kind, author, posted_at, quote, url)
+                 VALUES (?, ?, ?, ?, ?, ?, ?)`
+              ).bind(...row)
+            );
           }
         }
 
@@ -300,8 +474,9 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
       await step.do("mirror-clickhouse", async () => {
         const rows: MirrorRow[] = newRows.map(({ id, source, item }) => {
           const score = scored.get(id);
-          const status =
-            (score?.relevance ?? 0.5) < RELEVANCE_THRESHOLD
+          const status = mergePlan.merged.has(id)
+            ? "merged"
+            : (score?.relevance ?? 0.5) < RELEVANCE_THRESHOLD
               ? "rejected"
               : "published";
           return {

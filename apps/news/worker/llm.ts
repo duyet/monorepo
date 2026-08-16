@@ -20,6 +20,18 @@ const CATEGORIES = [
   "Funding",
 ] as const;
 
+/** Vietnamese house style. Literal translation reads badly to Vietnamese tech
+ * readers, who expect fluent Vietnamese prose with the English jargon left
+ * alone rather than calqued. */
+const VI_STYLE = `You are a Vietnamese tech journalist writing AI/tech news for Vietnamese readers.
+
+Write natural, fluent Vietnamese, never a word-by-word translation. Rephrase freely so every sentence follows Vietnamese structure and rhythm.
+
+Keep in English: product and model names (GPT, Claude, Qwen), company names, benchmark names, and the industry jargon Vietnamese readers already use in English — fine-tune, benchmark, agent, token, LLM, GPU, AI. Mixed English/Vietnamese prose is expected. Do translate terms with a settled Vietnamese equivalent, e.g. open-source becomes mã nguồn mở.
+
+Titles: concise headline style, viết hoa chữ cái đầu câu như báo chí Việt Nam, never ALL CAPS.
+Summaries: complete, natural sentences.`;
+
 interface ChatMessage {
   role: "system" | "user";
   content: string;
@@ -30,117 +42,213 @@ interface AnyrouterCallResult {
   tokens: number;
 }
 
-const REQUEST_TIMEOUT_MS = 30_000;
-// Total budget for one logical completion, including waits between re-posts.
-// Kept small because callers multiply it: scoreItems/translateItems spend it
-// per batch and generateTldr wraps it in its own retry, all inside a single
-// workflow step.
-const QUEUE_BUDGET_MS = 30_000;
-// Extra POSTs allowed after a queued response (each one is billed).
-const QUEUE_MAX_REPOSTS = 2;
-const QUEUE_MIN_DELAY_MS = 250;
-const QUEUE_FALLBACK_DELAY_MS = 5_000;
+const REQUEST_TIMEOUT_MS = 120_000;
 
-interface AnyrouterResponse {
-  object?: string;
-  estimated_wait_ms?: number;
-  choices?: { message?: { content?: string; reasoning?: string } }[];
-  usage?: {
-    total_tokens?: number;
-    prompt_tokens?: number;
-    completion_tokens?: number;
-  };
+/** Anyrouter reports usage in camelCase on the streaming metadata event and in
+ * snake_case on non-streaming responses. */
+interface Usage {
+  total_tokens?: number;
+  totalTokens?: number;
+  prompt_tokens?: number;
+  promptTokens?: number;
+  inputTokens?: number;
+  completion_tokens?: number;
+  completionTokens?: number;
+  outputTokens?: number;
 }
 
-/** Long prompts sometimes come back as `{"object":"chat.completion.queued",
- * "id":"req_…","choices":[],"queue_position":N,"estimated_wait_ms":M}` instead
- * of an inline completion. */
-function isQueued(data: AnyrouterResponse): boolean {
+interface StreamEvent {
+  object?: string;
+  choices?: { delta?: { content?: string; reasoning?: string } }[];
+  usage?: Usage;
+  // The trailing metadata frame has been seen nesting usage under either key.
+  metadata?: { usage?: Usage };
+  anyrouter_metadata?: { usage?: Usage };
+}
+
+function countTokens(usage: Usage): number {
+  const total = usage.total_tokens ?? usage.totalTokens;
+  if (typeof total === "number") return total;
+  const input = usage.prompt_tokens ?? usage.promptTokens ?? usage.inputTokens;
+  const output =
+    usage.completion_tokens ?? usage.completionTokens ?? usage.outputTokens;
+  return (input ?? 0) + (output ?? 0);
+}
+
+/** Long prompts used to come back as `{"object":"chat.completion.queued",
+ * "id":"req_…","choices":[],"queue_position":N}` instead of a completion, and
+ * anyrouter exposes no endpoint that resolves such a request id. Streaming
+ * bypasses the queue entirely, so this is only a defensive check. */
+function isQueued(data: { object?: string }): boolean {
   return typeof data.object === "string" && data.object.endsWith(".queued");
 }
 
-function readCompletion(data: AnyrouterResponse): AnyrouterCallResult | null {
-  const tokens =
-    typeof data.usage?.total_tokens === "number"
-      ? data.usage.total_tokens
-      : (data.usage?.prompt_tokens ?? 0) + (data.usage?.completion_tokens ?? 0);
+/** `ANYROUTER_MODEL` and its per-task overrides hold either one model id or a
+ * comma-separated fallback chain. */
+function parseModels(spec: string | undefined): string[] {
+  return (spec ?? "")
+    .split(",")
+    .map((model) => model.trim())
+    .filter(Boolean);
+}
 
-  const message = data.choices?.[0]?.message;
-  const content = message?.content;
-  if (content?.trim()) return { content, tokens };
+/**
+ * Streams a chat completion from one model. `stream: true` is not an
+ * optimization here — it is the only request shape anyrouter answers inline
+ * for large prompts.
+ */
+async function streamCompletion(
+  env: Env,
+  model: string,
+  messages: ChatMessage[],
+  opts: { json?: boolean; timeoutMs: number }
+): Promise<AnyrouterCallResult> {
+  const baseUrl = env.ANYROUTER_BASE_URL || "https://anyrouter.dev/api/v1";
+  const res = await fetch(`${baseUrl}/chat/completions`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${env.ANYROUTER_API_KEY}`,
+      // Anyrouter reads both for dashboard app attribution.
+      "HTTP-Referer": "https://news.duyet.net",
+      "X-Title": "AI News (news.duyet.net)",
+    },
+    body: JSON.stringify({
+      model,
+      messages,
+      temperature: 0,
+      max_tokens: MAX_TOKENS,
+      stream: true,
+      ...(opts.json ? { response_format: { type: "json_object" } } : {}),
+    }),
+    signal: AbortSignal.timeout(opts.timeoutMs),
+  });
+
+  if (!res.ok) {
+    throw new Error(
+      `anyrouter request failed: ${res.status} ${await res.text()}`
+    );
+  }
+  if (!res.body) throw new Error("anyrouter response missing content");
+
+  let content = "";
+  let reasoning = "";
+  let tokens = 0;
+  let sawEvent = false;
+  let queued = false;
+  let rawBody = "";
+  let buffer = "";
+  let done = false;
+
+  // Server-sent events arrive as `data: {…}` lines terminated by `data: [DONE]`,
+  // and a single chunk can split a line in half, so lines are cut out of a
+  // rolling buffer rather than per chunk.
+  const consumeLine = (line: string): void => {
+    if (!line.startsWith("data:")) return;
+    const payload = line.slice("data:".length).trim();
+    if (payload === "[DONE]") {
+      done = true;
+      return;
+    }
+    let event: StreamEvent;
+    try {
+      event = JSON.parse(payload) as StreamEvent;
+    } catch {
+      return; // keep-alives and other noise
+    }
+    sawEvent = true;
+    if (isQueued(event)) queued = true;
+    const delta = event.choices?.[0]?.delta;
+    if (delta?.content) content += delta.content;
+    if (delta?.reasoning) reasoning += delta.reasoning;
+    const usage =
+      event.usage ?? event.anyrouter_metadata?.usage ?? event.metadata?.usage;
+    if (usage) tokens = countTokens(usage);
+  };
+
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  try {
+    while (!done) {
+      const { value, done: finished } = await reader.read();
+      if (finished) break;
+      const text = decoder.decode(value, { stream: true });
+      rawBody += text;
+      buffer += text;
+      let newline = buffer.indexOf("\n");
+      while (newline !== -1 && !done) {
+        consumeLine(buffer.slice(0, newline).trim());
+        buffer = buffer.slice(newline + 1);
+        newline = buffer.indexOf("\n");
+      }
+    }
+    if (!done) consumeLine(buffer.trim());
+  } finally {
+    await reader.cancel().catch(() => {});
+  }
+
+  if (content.trim()) return { content, tokens };
 
   // Reasoning-model fallback: content came back empty, but the model may
   // have produced the JSON answer inside its `reasoning` field (e.g. right
   // before running out of budget, or because it never separated the two).
-  if (message?.reasoning) {
-    const extracted = extractLastJsonObject(message.reasoning);
+  if (reasoning) {
+    const extracted = extractLastJsonObject(reasoning);
     if (extracted) return { content: extracted, tokens };
   }
 
-  return null;
+  // A body with no events at all is not a stream — most likely a queue receipt
+  // delivered as plain JSON rather than as an event.
+  if (!sawEvent && rawBody.trim()) {
+    try {
+      queued = isQueued(JSON.parse(rawBody) as { object?: string });
+    } catch {
+      // not JSON either; fall through to the generic error
+    }
+  }
+  if (queued) throw new Error("anyrouter queued a streaming request");
+
+  throw new Error("anyrouter response missing content");
 }
 
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
+/**
+ * Tries each model in the configured chain until one returns usable content.
+ * Transport errors, non-200s, timeouts and empty/unusable completions all
+ * advance to the next model; the last failure is rethrown if none succeed.
+ */
 async function callAnyrouter(
   env: Env,
   messages: ChatMessage[],
-  opts: { json?: boolean } = {}
+  opts: { json?: boolean; modelSpec?: string } = {}
 ): Promise<AnyrouterCallResult> {
-  const baseUrl = env.ANYROUTER_BASE_URL || "https://anyrouter.dev/api/v1";
-  const body = JSON.stringify({
-    model: env.ANYROUTER_MODEL,
-    messages,
-    temperature: 0,
-    max_tokens: MAX_TOKENS,
-    ...(opts.json ? { response_format: { type: "json_object" } } : {}),
-  });
-  const deadline = Date.now() + QUEUE_BUDGET_MS;
+  const models = parseModels(opts.modelSpec || env.ANYROUTER_MODEL);
+  if (models.length === 0) throw new Error("anyrouter model is not configured");
 
-  for (let post = 0; ; post++) {
-    const budgetLeft = deadline - Date.now();
-    if (budgetLeft < QUEUE_MIN_DELAY_MS) break;
+  // One budget for the whole chain, so a long chain cannot outlive the
+  // workflow step that a single call was sized to fit inside. Each model also
+  // gets an equal slice of it: without that, a first model that stalls until
+  // the deadline would starve the very fallbacks it should be handing off to.
+  const deadline = Date.now() + REQUEST_TIMEOUT_MS;
+  const slice = REQUEST_TIMEOUT_MS / models.length;
+  let lastError: unknown;
 
-    const res = await fetch(`${baseUrl}/chat/completions`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${env.ANYROUTER_API_KEY}`,
-        // Anyrouter reads both for dashboard app attribution.
-        "HTTP-Referer": "https://news.duyet.net",
-        "X-Title": "AI News (news.duyet.net)",
-      },
-      body,
-      signal: AbortSignal.timeout(Math.min(REQUEST_TIMEOUT_MS, budgetLeft)),
-    });
-
-    if (!res.ok) {
-      throw new Error(
-        `anyrouter request failed: ${res.status} ${await res.text()}`
-      );
+  for (const model of models) {
+    const timeoutMs = Math.min(deadline - Date.now(), slice);
+    if (timeoutMs <= 0) break;
+    try {
+      const result = await streamCompletion(env, model, messages, {
+        json: opts.json,
+        timeoutMs,
+      });
+      console.log(`anyrouter completion served by ${model}`);
+      return result;
+    } catch (error) {
+      lastError = error;
+      console.error(`anyrouter model ${model} failed:`, error);
     }
-
-    const data = (await res.json()) as AnyrouterResponse;
-    const completion = readCompletion(data);
-    if (completion) return completion;
-
-    // Anyrouter exposes no endpoint that resolves a queued request id, so the
-    // only way to collect the answer is to send the request again and hope it
-    // lands inline. Bounded because every re-post is a fresh billed call.
-    if (!isQueued(data) || post >= QUEUE_MAX_REPOSTS) break;
-    const delay = Math.max(
-      data.estimated_wait_ms ?? QUEUE_FALLBACK_DELAY_MS,
-      QUEUE_MIN_DELAY_MS
-    );
-    // Waiting out a queue longer than the remaining budget can only end in the
-    // same failure, so stop now rather than burn the budget sleeping.
-    if (delay >= deadline - Date.now()) break;
-    await sleep(delay);
   }
 
-  throw new Error("anyrouter response missing content");
+  throw lastError ?? new Error("anyrouter response missing content");
 }
 
 /**
@@ -271,7 +379,7 @@ export async function translateItems(
   const results: TranslateResult[] = [];
 
   for (const batch of chunk(items, BATCH_SIZE)) {
-    const prompt = `Translate the following news items from English to Vietnamese. Keep proper nouns (model/company names) unchanged.
+    const prompt = `Translate these AI/tech news items into Vietnamese.
 
 Items:
 ${JSON.stringify(batch.map(({ i, title, summary }) => ({ i, title, summary })))}
@@ -281,8 +389,11 @@ Respond with strict JSON only: {"results":[{"i":0,"title":"...","summary":"..."}
     try {
       const { content: raw, tokens } = await callAnyrouter(
         env,
-        [{ role: "user", content: prompt }],
-        { json: true }
+        [
+          { role: "system", content: VI_STYLE },
+          { role: "user", content: prompt },
+        ],
+        { json: true, modelSpec: env.ANYROUTER_TRANSLATE_MODEL }
       );
       const parsed = parseJson<{
         results: Omit<TranslateResult, "tokens">[];
@@ -372,6 +483,8 @@ export async function generateTldr(
 ): Promise<TldrResult> {
   const prompt = `Summarize the following AI/tech news items into roughly 12 concise TL;DR bullets, in both English and Vietnamese. Each bullet must reference the item_id it was derived from.
 
+The Vietnamese bullets must read as natural Vietnamese rather than a literal translation of the English ones, keeping technical terms, model names, and industry jargon in English.
+
 Items:
 ${JSON.stringify(items)}
 
@@ -384,7 +497,7 @@ Respond with strict JSON only: {"bullets_en":[{"text":"...","item_id":"..."}],"b
       const { content: raw, tokens } = await callAnyrouter(
         env,
         [{ role: "user", content: prompt }],
-        { json: true }
+        { json: true, modelSpec: env.ANYROUTER_TLDR_MODEL }
       );
       totalTokens += tokens;
       const result = normalizeTldrResult(parseJson<unknown>(raw));

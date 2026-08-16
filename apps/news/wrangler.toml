@@ -23,7 +23,8 @@ database_id = "8e692ccf-ec38-4e41-b011-50adbc891322"
 
 [vars]
 ANYROUTER_BASE_URL = "https://anyrouter.dev/api/v1"
-ANYROUTER_MODEL = "stepfun-ai/step-3.7-flash"
+ANYROUTER_MODEL = "stepfun-ai/step-3.7-flash,google/gemini-3.7-flash,qwen/qwen3.7-flash"
+ANYROUTER_TRANSLATE_MODEL = "aisingapore/gemma-sea-lion-v4-27b-it,google/gemini-3.7-flash"
 
 [[send_email]]
 name = "EMAIL"

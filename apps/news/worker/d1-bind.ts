@@ -24,8 +24,19 @@ export function buildItemBindArgs(args: {
   status: string;
   now: number;
   llmTokens?: number;
+  duplicateOf?: string;
 }): unknown[] {
-  const { id, sourceId, item, score, rank, status, now, llmTokens } = args;
+  const {
+    id,
+    sourceId,
+    item,
+    score,
+    rank,
+    status,
+    now,
+    llmTokens,
+    duplicateOf,
+  } = args;
   return [
     nn(id),
     nn(sourceId),
@@ -48,6 +59,7 @@ export function buildItemBindArgs(args: {
     nn(rank),
     nn(status),
     nn(llmTokens ?? 0),
+    nn(duplicateOf),
   ];
 }
 

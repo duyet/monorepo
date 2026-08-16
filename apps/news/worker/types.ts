@@ -2,7 +2,12 @@ export interface Env {
   DB: D1Database;
   NEWS_INGEST: Workflow;
   ANYROUTER_BASE_URL: string;
+  /** One model id, or a comma-separated fallback chain tried in order. */
   ANYROUTER_MODEL: string;
+  /** Per-task overrides, same comma-separated semantics as ANYROUTER_MODEL.
+   *  Fall back to ANYROUTER_MODEL when unset. */
+  ANYROUTER_TRANSLATE_MODEL?: string;
+  ANYROUTER_TLDR_MODEL?: string;
   ANYROUTER_API_KEY: string;
   CLICKHOUSE_HOST?: string;
   CLICKHOUSE_NEWS_USER?: string;
