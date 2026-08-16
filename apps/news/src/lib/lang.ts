@@ -4,11 +4,12 @@ const COOKIE = "news_lang";
 
 export function readLangFromCookie(cookieHeader: string | null): Lang {
   const m = cookieHeader?.match(/(?:^|;\s*)news_lang=(vi|en)/);
-  return m?.[1] === "vi" ? "vi" : "en";
+  // Default to Vietnamese when no explicit choice was made
+  return m?.[1] === "en" ? "en" : "vi";
 }
 
 export function getClientLang(): Lang {
-  if (typeof document === "undefined") return "en";
+  if (typeof document === "undefined") return "vi";
   return readLangFromCookie(document.cookie);
 }
 

@@ -1,6 +1,11 @@
 import type { Env } from "./types.js";
 
 const BATCH_SIZE = 15;
+// Generous ceiling: some anyrouter-routed models (e.g. reasoning models
+// like stepfun-ai/step-3.7-flash) spend a large chunk of the token budget
+// on hidden `message.reasoning` before ever emitting `message.content`. A
+// low max_tokens starves the actual answer entirely.
+const MAX_TOKENS = 8192;
 const CATEGORIES = [
   "Models",
   "Regulation",
@@ -36,6 +41,7 @@ async function callAnyrouter(
       model: env.ANYROUTER_MODEL,
       messages,
       temperature: 0,
+      max_tokens: MAX_TOKENS,
       ...(opts.json ? { response_format: { type: "json_object" } } : {}),
     }),
     signal: AbortSignal.timeout(30_000),
@@ -48,11 +54,41 @@ async function callAnyrouter(
   }
 
   const data = (await res.json()) as {
-    choices?: { message?: { content?: string } }[];
+    choices?: { message?: { content?: string; reasoning?: string } }[];
   };
-  const content = data.choices?.[0]?.message?.content;
-  if (!content) throw new Error("anyrouter response missing content");
-  return content;
+  const message = data.choices?.[0]?.message;
+  const content = message?.content;
+  if (content?.trim()) return content;
+
+  // Reasoning-model fallback: content came back empty, but the model may
+  // have produced the JSON answer inside its `reasoning` field (e.g. right
+  // before running out of budget, or because it never separated the two).
+  if (message?.reasoning) {
+    const extracted = extractLastJsonObject(message.reasoning);
+    if (extracted) return extracted;
+  }
+
+  throw new Error("anyrouter response missing content");
+}
+
+/**
+ * Scans backward from the last `}` to find its matching `{` by brace-depth
+ * counting, returning the last complete top-level JSON object in `text`.
+ * Used to salvage a JSON answer that a reasoning model tacked onto the end
+ * of its `message.reasoning` instead of `message.content`.
+ */
+function extractLastJsonObject(text: string): string | null {
+  const end = text.lastIndexOf("}");
+  if (end === -1) return null;
+  let depth = 0;
+  for (let i = end; i >= 0; i--) {
+    if (text[i] === "}") depth++;
+    else if (text[i] === "{") {
+      depth--;
+      if (depth === 0) return text.slice(i, end + 1);
+    }
+  }
+  return null;
 }
 
 /**
@@ -263,11 +299,18 @@ Respond with strict JSON only: {"bullets_en":[{"text":"...","item_id":"..."}],"b
         `generateTldr attempt ${attempt}/${ATTEMPTS} returned no bullets`
       );
     } catch (error) {
-      console.error(`generateTldr attempt ${attempt}/${ATTEMPTS} failed:`, error);
+      console.error(
+        `generateTldr attempt ${attempt}/${ATTEMPTS} failed:`,
+        error
+      );
     }
   }
 
   return EMPTY_TLDR;
 }
 
-export { parseJson as _parseJsonForTests, normalizeTldrResult as _normalizeTldrForTests };
+export {
+  extractLastJsonObject as _extractLastJsonObjectForTests,
+  normalizeTldrResult as _normalizeTldrForTests,
+  parseJson as _parseJsonForTests,
+};

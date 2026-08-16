@@ -1,8 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
+  generateTldr,
+  _extractLastJsonObjectForTests as extractLastJsonObject,
   _normalizeTldrForTests as normalizeTldr,
   _parseJsonForTests as parseJson,
-  generateTldr,
   scoreItems,
   translateItems,
 } from "../llm.js";
@@ -32,7 +33,9 @@ describe("parseJson", () => {
 
   it("extracts a JSON object wrapped in prose, with no fence", () => {
     expect(
-      parseJson<{ a: number }>('Sure, here is the result: {"a":1} Hope that helps!')
+      parseJson<{ a: number }>(
+        'Sure, here is the result: {"a":1} Hope that helps!'
+      )
     ).toEqual({ a: 1 });
   });
 
@@ -52,11 +55,35 @@ describe("parseJson", () => {
 });
 
 function chatResponse(content: string): Response {
+  return new Response(JSON.stringify({ choices: [{ message: { content } }] }), {
+    status: 200,
+  });
+}
+
+function reasoningResponse(reasoning: string, content = ""): Response {
   return new Response(
-    JSON.stringify({ choices: [{ message: { content } }] }),
+    JSON.stringify({ choices: [{ message: { content, reasoning } }] }),
     { status: 200 }
   );
 }
+
+describe("extractLastJsonObject", () => {
+  it("returns null when there's no closing brace", () => {
+    expect(extractLastJsonObject("no json here")).toBeNull();
+  });
+
+  it("extracts a single top-level object", () => {
+    expect(extractLastJsonObject('some reasoning... {"a":1}')).toBe(
+      '{"a":1}'
+    );
+  });
+
+  it("extracts the LAST of multiple objects, respecting nested braces", () => {
+    const text =
+      'Let me think: {"draft":1} actually wait, final answer: {"a":{"nested":1},"b":2}';
+    expect(extractLastJsonObject(text)).toBe('{"a":{"nested":1},"b":2}');
+  });
+});
 
 describe("normalizeTldr", () => {
   it("accepts the documented bullets_en/bullets_vi shape", () => {
