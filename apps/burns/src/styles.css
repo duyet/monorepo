@@ -214,7 +214,7 @@ body {
 
 .burns-switch button[aria-pressed="true"] {
   color: var(--ink);
-  box-shadow: inset 0 -1px 0 var(--ink);
+  font-weight: 600;
 }
 
 .burns-footer {
