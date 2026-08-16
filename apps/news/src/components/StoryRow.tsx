@@ -66,17 +66,27 @@ export function StoryRow({
     selectedTag &&
       item.tags.some((tag) => tag.toLowerCase() === selectedTag.toLowerCase())
   );
+  // Selected-topic rows tint with THAT topic's own deterministic color
+  // (same palette as the in-title keyword highlights) instead of a
+  // generic accent, so the highlight visually matches the clicked chip.
+  const matchColor = isMatch && selectedTag ? topicColor(selectedTag) : null;
 
   return (
     <div id={`item-${item.id}`} className="border-b border-border">
       <div
         className={`flex items-baseline gap-3 ${
           hasDetails ? "cursor-pointer" : ""
-        } ${expanded ? "bg-muted/60" : isMatch ? "bg-muted/40" : ""}`}
-        style={{
-          paddingTop: "var(--reader-pad, 0.5rem)",
-          paddingBottom: "var(--reader-pad, 0.5rem)",
-        }}
+        } ${expanded ? "bg-muted/60" : matchColor ? "topic-hl-row" : ""}`}
+        style={
+          {
+            paddingTop: "var(--reader-pad, 0.5rem)",
+            paddingBottom: "var(--reader-pad, 0.5rem)",
+            ...(matchColor && {
+              "--tc-light": matchColor.light,
+              "--tc-dark": matchColor.dark,
+            }),
+          } as CSSProperties
+        }
         onClick={() => hasDetails && setExpanded((v) => !v)}
         onKeyDown={(e) => {
           if (hasDetails && (e.key === "Enter" || e.key === " ")) {
@@ -99,7 +109,7 @@ export function StoryRow({
         )}
         <span
           className={`min-w-0 flex-1 font-semibold leading-snug ${
-            isMatch ? "text-accent" : ""
+            matchColor ? "topic-colored" : ""
           }`}
         >
           <HighlightedTitle title={title} tags={item.tags} />{" "}

@@ -11,11 +11,21 @@ import {
   Outlet,
   Scripts,
 } from "@tanstack/react-router";
+import {
+  BarChart3,
+  ExternalLink,
+  GitFork,
+  History,
+  Info,
+  type LucideIcon,
+  Plug,
+} from "lucide-react";
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import { HeaderBar } from "../components/HeaderBar";
 import { ClerkModuleContext, useClerkModuleLoader } from "../lib/clerk-user";
-import { getClientLang, setClientLang } from "../lib/lang";
+import { fetchFeedOnce, getCachedFeed } from "../lib/feed-cache";
+import { getClientLang, setClientLang, timeAgo } from "../lib/lang";
 import { LangContext } from "../lib/lang-context";
 import {
   DEFAULT_PREFS,
@@ -60,15 +70,44 @@ function ClerkRootProvider({ children }: { children: ReactNode }) {
   );
 }
 
-const FOOTER_LINKS: { to: string; label: Record<Lang, string> }[] = [
-  { to: "/about", label: { en: "About", vi: "Giới thiệu" } },
-  { to: "/mcp", label: { en: "MCP", vi: "MCP" } },
-  { to: "/system", label: { en: "Analytics", vi: "Thống kê" } },
-  { to: "/changelog", label: { en: "Changelog", vi: "Nhật ký" } },
+const FOOTER_LINKS: {
+  to: string;
+  label: Record<Lang, string>;
+  icon: LucideIcon;
+}[] = [
+  { to: "/about", label: { en: "About", vi: "Giới thiệu" }, icon: Info },
+  { to: "/mcp", label: { en: "MCP", vi: "MCP" }, icon: Plug },
+  {
+    to: "/system",
+    label: { en: "Analytics", vi: "Thống kê" },
+    icon: BarChart3,
+  },
+  {
+    to: "/changelog",
+    label: { en: "Changelog", vi: "Nhật ký" },
+    icon: History,
+  },
 ];
 
 function NewsFooter({ lang }: { lang: Lang }) {
   const year = new Date().getFullYear();
+  const [lastFetchedAt, setLastFetchedAt] = useState<number | null>(
+    () => getCachedFeed()?.lastFetchedAt ?? null
+  );
+
+  useEffect(() => {
+    if (lastFetchedAt !== null) return;
+    let cancelled = false;
+    fetchFeedOnce().then((feed) => {
+      if (!cancelled && feed?.lastFetchedAt)
+        setLastFetchedAt(feed.lastFetchedAt);
+    });
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <footer className="border-t border-border py-6 text-xs text-muted-foreground">
       <div className="mx-auto flex w-full max-w-[1080px] flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 sm:px-6 lg:px-8">
@@ -76,14 +115,22 @@ function NewsFooter({ lang }: { lang: Lang }) {
           {lang === "vi"
             ? `© ${year} Duyet Le · news.duyet.net — Tin AI được LLM chấm điểm & xếp hạng`
             : `© ${year} Duyet Le · news.duyet.net — AI news, rated & ranked by LLMs`}
+          {lastFetchedAt !== null && (
+            <>
+              {" · "}
+              {lang === "vi" ? "Cập nhật" : "Updated"}{" "}
+              {timeAgo(lastFetchedAt, Date.now(), lang)}
+            </>
+          )}
         </span>
         <nav className="flex flex-wrap items-center gap-x-3 gap-y-1">
           {FOOTER_LINKS.map((link) => (
             <Link
               key={link.to}
               to={link.to}
-              className="hover:text-accent hover:underline hover:underline-offset-2"
+              className="flex items-center gap-1 hover:text-accent hover:underline hover:underline-offset-2"
             >
+              <link.icon className="h-3.5 w-3.5" aria-hidden />
               {link.label[lang]}
             </Link>
           ))}
@@ -91,18 +138,21 @@ function NewsFooter({ lang }: { lang: Lang }) {
             href="https://github.com/duyet/monorepo/tree/master/apps/news"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-accent hover:underline hover:underline-offset-2"
+            className="flex items-center gap-1 hover:text-accent hover:underline hover:underline-offset-2"
           >
+            <GitFork className="h-3.5 w-3.5" aria-hidden />
             GitHub
+            <ExternalLink className="h-3 w-3" aria-hidden />
           </a>
           {" · "}
           <a
             href="https://anyrouter.dev/?ref=news.duyet.net"
             target="_blank"
             rel="noopener"
-            className="hover:text-accent hover:underline hover:underline-offset-2"
+            className="flex items-center gap-1 hover:text-accent hover:underline hover:underline-offset-2"
           >
             AnyRouter
+            <ExternalLink className="h-3 w-3" aria-hidden />
           </a>
         </nav>
       </div>

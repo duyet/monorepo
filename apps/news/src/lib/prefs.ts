@@ -19,6 +19,8 @@ export interface Prefs {
   bg: ReaderBg;
   sections: ReaderSections;
   tldrCount: TldrCount;
+  /** Remembers the StoryDialog's EN|VI side-by-side toggle across stories. */
+  bilingualDialog: boolean;
 }
 
 export const DEFAULT_PREFS: Prefs = {
@@ -28,6 +30,7 @@ export const DEFAULT_PREFS: Prefs = {
   bg: "default",
   sections: { trending: true, tldr: true, days: true, categories: true },
   tldrCount: 8,
+  bilingualDialog: false,
 };
 
 const STORAGE_KEY = "news_prefs";
@@ -61,6 +64,10 @@ export function loadPrefs(): Prefs {
       fontSize: clampFontSize(parsed.fontSize),
       tldrCount: clampTldrCount(parsed.tldrCount),
       sections: { ...DEFAULT_PREFS.sections, ...parsed.sections },
+      bilingualDialog:
+        typeof parsed.bilingualDialog === "boolean"
+          ? parsed.bilingualDialog
+          : DEFAULT_PREFS.bilingualDialog,
     };
   } catch {
     // malformed/unavailable storage — fall back to defaults

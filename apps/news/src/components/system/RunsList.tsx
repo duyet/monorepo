@@ -112,7 +112,9 @@ export function RunsList({ runs, lang }: RunsListProps) {
                     <span
                       className={ok ? "text-muted-foreground" : "text-red-500"}
                     >
-                      {ok ? "OK" : (r.error ?? "error")}
+                      {ok
+                        ? "OK"
+                        : (r.error ?? (lang === "vi" ? "lỗi" : "error"))}
                     </span>
                   </span>
                 </td>

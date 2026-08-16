@@ -11,12 +11,18 @@ function SuggestForm({
   lang,
   userId,
   userName,
+  initialText,
+  onInitialTextConsumed,
 }: {
   itemId: string;
   field: "title" | "summary";
   lang: Lang;
   userId: string;
   userName: string;
+  /** Set by the selection-to-suggest floating button — opens the form
+   * pre-filled with the selected text as quoted context. */
+  initialText?: string;
+  onInitialTextConsumed?: () => void;
 }) {
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
@@ -24,6 +30,14 @@ function SuggestForm({
     "idle"
   );
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!initialText) return;
+    setOpen(true);
+    setText(`"${initialText}" → `);
+    onInitialTextConsumed?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialText]);
 
   if (status === "sent") {
     return (
@@ -49,7 +63,7 @@ function SuggestForm({
 
   return (
     <form
-      className="mt-1 space-y-1.5"
+      className="mt-2 w-full max-w-full space-y-2"
       onSubmit={async (e) => {
         e.preventDefault();
         if (!text.trim()) return;
@@ -75,16 +89,16 @@ function SuggestForm({
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
-        rows={2}
+        rows={3}
         maxLength={2000}
         placeholder={
           lang === "vi"
             ? "Đề xuất bản dịch tốt hơn..."
             : "Suggest a better translation..."
         }
-        className="w-full rounded-md border border-border bg-background p-2 text-xs"
+        className="min-h-16 w-full max-w-full resize-y rounded-md border border-border bg-background p-2 text-sm"
       />
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <button
           type="submit"
           disabled={status === "sending" || !text.trim()}
@@ -95,7 +109,7 @@ function SuggestForm({
         <button
           type="button"
           onClick={() => setOpen(false)}
-          className="text-xs text-muted-foreground hover:text-foreground"
+          className="rounded-md px-2 py-1 text-xs text-muted-foreground hover:text-foreground"
         >
           {lang === "vi" ? "Huỷ" : "Cancel"}
         </button>
@@ -113,6 +127,8 @@ export function SuggestTranslation(props: {
   itemId: string;
   field: "title" | "summary";
   lang: Lang;
+  initialText?: string;
+  onInitialTextConsumed?: () => void;
 }) {
   // Any Clerk failure degrades to nothing rendered — never the router's
   // full-page error screen.
@@ -127,10 +143,14 @@ function SuggestTranslationInner({
   itemId,
   field,
   lang,
+  initialText,
+  onInitialTextConsumed,
 }: {
   itemId: string;
   field: "title" | "summary";
   lang: Lang;
+  initialText?: string;
+  onInitialTextConsumed?: () => void;
 }) {
   const { mod, publishableKey } = useClerkModule();
 
@@ -157,6 +177,8 @@ function SuggestTranslationInner({
           field={field}
           lang={lang}
           useUser={useUser}
+          initialText={initialText}
+          onInitialTextConsumed={onInitialTextConsumed}
         />
       </SignedIn>
     </>
@@ -168,11 +190,15 @@ function SuggestFormGate({
   field,
   lang,
   useUser,
+  initialText,
+  onInitialTextConsumed,
 }: {
   itemId: string;
   field: "title" | "summary";
   lang: Lang;
   useUser: any;
+  initialText?: string;
+  onInitialTextConsumed?: () => void;
 }) {
   const { user } = useUser();
   if (!user) return null;
@@ -184,6 +210,8 @@ function SuggestFormGate({
       lang={lang}
       userId={user.id}
       userName={userName}
+      initialText={initialText}
+      onInitialTextConsumed={onInitialTextConsumed}
     />
   );
 }

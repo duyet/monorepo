@@ -1,12 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Coins, Newspaper, Play, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 import { BarList } from "../components/system/BarList";
 import { ChartCard } from "../components/system/ChartCard";
 import { DailyBars } from "../components/system/DailyBars";
 import { RunsList } from "../components/system/RunsList";
 import { StatTile } from "../components/system/StatTile";
-import { useLang } from "../lib/lang-context";
+import { categoryLabel, statusLabel } from "../lib/lang";
 import type { SystemStats } from "../lib/system-queries";
+import type { Lang } from "../lib/types";
 
 export const Route = createFileRoute("/system")({
   component: SystemPage,
@@ -19,8 +21,10 @@ function formatTokens(n: number): string {
 }
 
 function SystemPage() {
-  const lang = useLang();
-  const t = (en: string, vi: string) => (lang === "vi" ? vi : en);
+  // English-only by design: the global lang toggle is disabled on this
+  // route (see HeaderBar/LangToggle), so this page never renders VI.
+  const lang: Lang = "en";
+  const t = (en: string, _vi: string) => en;
   const [stats, setStats] = useState<SystemStats | null>(null);
   const [error, setError] = useState(false);
 
@@ -99,10 +103,12 @@ function SystemPage() {
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <StatTile
+          icon={Newspaper}
           label={t("Stories", "Bài viết")}
           value={String(stats.totals.items)}
         />
         <StatTile
+          icon={Coins}
           label={t("Tokens burned", "Token đã dùng")}
           value={formatTokens(stats.tokens.total)}
           sublabel={t(
@@ -111,10 +117,12 @@ function SystemPage() {
           )}
         />
         <StatTile
+          icon={Play}
           label={t("Runs today", "Lần chạy hôm nay")}
           value={String(stats.runsToday)}
         />
         <StatTile
+          icon={Users}
           label={t("Subscribers", "Người đăng ký")}
           value={String(stats.totals.subscribers)}
         />
@@ -125,7 +133,9 @@ function SystemPage() {
           title={t("Last run", "Lần chạy gần nhất")}
           subtitle={
             stats.lastRun?.started_at
-              ? new Date(stats.lastRun.started_at * 1000).toLocaleString()
+              ? new Date(stats.lastRun.started_at * 1000).toLocaleString(
+                  "en-US"
+                )
               : t("No runs recorded", "Chưa ghi nhận lần chạy nào")
           }
         >
@@ -199,7 +209,10 @@ function SystemPage() {
           )}
         >
           <BarList
-            data={stats.itemsByStatus}
+            data={stats.itemsByStatus.map((s) => ({
+              ...s,
+              name: statusLabel(s.name, lang),
+            }))}
             emptyLabel={t("No data yet.", "Chưa có dữ liệu.")}
           />
         </ChartCard>
@@ -223,7 +236,10 @@ function SystemPage() {
           className="md:col-span-2"
         >
           <BarList
-            data={stats.itemsByCategory}
+            data={stats.itemsByCategory.map((c) => ({
+              ...c,
+              name: categoryLabel(c.name, lang),
+            }))}
             emptyLabel={t("No data yet.", "Chưa có dữ liệu.")}
           />
         </ChartCard>

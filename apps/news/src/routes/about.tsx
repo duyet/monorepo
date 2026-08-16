@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useLang } from "../lib/lang-context";
 import { fetchSourceNames } from "../lib/sources-fn";
 import type { SystemStats } from "../lib/system-queries";
 
@@ -65,17 +64,16 @@ const STEPS: Step[] = [
 ];
 
 function PipelineDiagram() {
-  const lang = useLang();
+  // English-only by design: the global lang toggle is disabled on this
+  // route (see HeaderBar/LangToggle).
   return (
     <div className="scrollbar-hide -mx-1 flex items-stretch gap-1 overflow-x-auto px-1 py-1">
       {STEPS.map((step, i) => (
         <div key={step.en} className="flex shrink-0 items-stretch">
           <div className="flex w-28 flex-col justify-center rounded-lg border border-border px-2 py-2 text-center">
-            <div className="text-sm font-bold text-foreground">
-              {lang === "vi" ? step.vi : step.en}
-            </div>
+            <div className="text-sm font-bold text-foreground">{step.en}</div>
             <div className="mt-0.5 text-[11px] leading-tight text-muted-foreground">
-              {lang === "vi" ? step.subVi : step.subEn}
+              {step.subEn}
             </div>
           </div>
           {i < STEPS.length - 1 && (
@@ -114,7 +112,8 @@ function Section({
 }
 
 function Sources() {
-  const lang = useLang();
+  // English-only by design: the global lang toggle is disabled on this
+  // route (see HeaderBar/LangToggle).
   const [names, setNames] = useState<string[] | null>(null);
 
   useEffect(() => {
@@ -132,13 +131,11 @@ function Sources() {
   }, []);
 
   return (
-    <Section title={lang === "vi" ? "Nguồn tin" : "Sources"}>
+    <Section title="Sources">
       {names === null ? (
-        <p>{lang === "vi" ? "Đang tải..." : "Loading..."}</p>
+        <p>Loading...</p>
       ) : names.length === 0 ? (
-        <p>
-          {lang === "vi" ? "Chưa có nguồn nào." : "No sources configured yet."}
-        </p>
+        <p>No sources configured yet.</p>
       ) : (
         <ul className="flex flex-wrap gap-2">
           {names.map((name) => (
@@ -156,7 +153,8 @@ function Sources() {
 }
 
 function ModelsLine() {
-  const lang = useLang();
+  // English-only by design: the global lang toggle is disabled on this
+  // route (see HeaderBar/LangToggle).
   const [stats, setStats] = useState<SystemStats | null>(null);
 
   useEffect(() => {
@@ -178,19 +176,19 @@ function ModelsLine() {
   return (
     <>
       <p>
-        {lang === "vi" ? "Chấm điểm" : "Scoring"}:{" "}
+        Scoring:{" "}
         <span className="font-mono text-foreground">
           {stats.models.scoring[0]}
         </span>
-        {extra > 0 && ` (+${extra} ${lang === "vi" ? "dự phòng" : "fallback"})`}
+        {extra > 0 && ` (+${extra} fallback)`}
         {" · "}
-        {lang === "vi" ? "Dịch" : "Translation"}:{" "}
+        Translation:{" "}
         <span className="font-mono text-foreground">
           {stats.models.translation[0]}
         </span>
       </p>
       <p className="text-muted-foreground">
-        {lang === "vi" ? "LLM routing qua " : "LLM routing via "}
+        {"LLM routing via "}
         <a
           href="https://anyrouter.dev/?ref=news.duyet.net"
           target="_blank"
@@ -206,8 +204,9 @@ function ModelsLine() {
 }
 
 function AboutPage() {
-  const lang = useLang();
-  const t = (en: string, vi: string) => (lang === "vi" ? vi : en);
+  // English-only by design: the global lang toggle is disabled on this
+  // route (see HeaderBar/LangToggle).
+  const t = (en: string, _vi: string) => en;
 
   return (
     <div className="py-8">
@@ -255,18 +254,20 @@ function AboutPage() {
             href="https://github.com/duyet/monorepo/tree/master/apps/news"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-accent underline underline-offset-2 hover:no-underline"
+            className="inline-flex items-center gap-1 text-accent underline underline-offset-2 hover:no-underline"
           >
             GitHub
+            <ExternalLink className="h-3 w-3" aria-hidden />
           </a>
           {" · "}
           <a
             href="https://github.com/duyet/monorepo/blob/master/apps/news/ALGORITHM.md"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-accent underline underline-offset-2 hover:no-underline"
+            className="inline-flex items-center gap-1 text-accent underline underline-offset-2 hover:no-underline"
           >
             ALGORITHM.md
+            <ExternalLink className="h-3 w-3" aria-hidden />
           </a>
         </p>
       </Section>

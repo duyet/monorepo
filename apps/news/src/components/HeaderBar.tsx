@@ -1,9 +1,15 @@
 import { AuthButtons, ErrorBoundary } from "@duyet/components";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
+import { Plus } from "lucide-react";
 import type { Lang } from "../lib/types";
 import { LangToggle } from "./LangToggle";
 import { PrefsPanel } from "./PrefsPanel";
 import { SearchBox } from "./SearchBox";
+
+// Routes whose content is English-only — the EN|VI toggle is disabled
+// while on one of these, rather than offering a translation that doesn't
+// exist.
+const LANG_TOGGLE_DISABLED_PATHS = new Set(["/system", "/about"]);
 
 export function HeaderBar({
   lang,
@@ -12,6 +18,8 @@ export function HeaderBar({
   lang: Lang;
   onLangChange: (lang: Lang) => void;
 }) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const langToggleDisabled = LANG_TOGGLE_DISABLED_PATHS.has(pathname);
   const tagline =
     lang === "vi" ? "Hôm nay AI có gì mới?" : "What is happening in AI today?";
 
@@ -34,12 +42,17 @@ export function HeaderBar({
         <div className="flex shrink-0 items-center gap-1.5">
           <Link
             to="/submit"
-            className="rounded-full border border-border px-2 py-0.5 text-xs font-semibold text-muted-foreground hover:border-accent hover:text-accent"
+            className="flex items-center gap-1 rounded-full border border-border px-2 py-0.5 text-xs font-semibold text-muted-foreground hover:border-accent hover:text-accent"
           >
-            {lang === "vi" ? "+ Gửi bài" : "+ Submit"}
+            <Plus className="h-3.5 w-3.5" aria-hidden />
+            {lang === "vi" ? "Gửi bài" : "Submit"}
           </Link>
           <PrefsPanel />
-          <LangToggle lang={lang} onChange={onLangChange} />
+          <LangToggle
+            lang={lang}
+            onChange={onLangChange}
+            disabled={langToggleDisabled}
+          />
           <ErrorBoundary fallback={null}>
             <AuthButtons
               wrapWithProvider={false}

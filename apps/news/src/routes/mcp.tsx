@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { BookOpen, Plug, Terminal } from "lucide-react";
 import { useLang } from "../lib/lang-context";
 
 export const Route = createFileRoute("/mcp")({
@@ -48,6 +49,10 @@ const PUSH_ITEM_EXAMPLE = `curl -X POST https://news.duyet.net/api/admin/items \
   -H "Content-Type: application/json" \\
   -d '{"url":"https://example.com/post","title":"New AI model released"}'`;
 
+const CLAUDE_CODE_EXAMPLE = `claude mcp add --transport http duyet-news \\
+  https://news.duyet.net/api/mcp \\
+  --header "Authorization: Bearer <token>"`;
+
 function CodeBlock({ code }: { code: string }) {
   return (
     <pre className="mt-2 max-w-3xl overflow-x-auto rounded-md border border-border bg-muted p-4 text-xs leading-relaxed">
@@ -73,7 +78,8 @@ function McpPage() {
       </p>
 
       <section className="mt-6">
-        <h2 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
+        <h2 className="flex items-center gap-1.5 text-sm font-bold uppercase tracking-wider text-muted-foreground">
+          <Plug className="h-3.5 w-3.5" aria-hidden />
           {t("Connect", "Kết nối")}
         </h2>
         <CodeBlock code={CLIENT_CONFIG} />
@@ -83,6 +89,52 @@ function McpPage() {
             "Mọi yêu cầu đều cần bearer token."
           )}
         </p>
+      </section>
+
+      <section className="mt-6">
+        <h2 className="flex items-center gap-1.5 text-sm font-bold uppercase tracking-wider text-muted-foreground">
+          <Terminal className="h-3.5 w-3.5" aria-hidden />
+          {t("Use with your app", "Dùng với ứng dụng của bạn")}
+        </h2>
+        <div className="mt-2 space-y-3 text-sm">
+          <div>
+            <p className="font-semibold text-foreground">Claude Code</p>
+            <CodeBlock code={CLAUDE_CODE_EXAMPLE} />
+          </div>
+          <div>
+            <p className="font-semibold text-foreground">Claude Desktop</p>
+            <p className="mt-1 text-muted-foreground">
+              {t(
+                "Use the same connect config above.",
+                "Dùng cấu hình kết nối ở trên."
+              )}{" "}
+              {t(
+                "Paste it under Settings → Developer → Edit Config.",
+                "Dán vào Settings → Developer → Edit Config."
+              )}
+            </p>
+          </div>
+          <div>
+            <p className="font-semibold text-foreground">ChatGPT</p>
+            <p className="mt-1 text-muted-foreground">
+              {t(
+                "Add it as a connector with the same URL and bearer token, or use the REST API above for custom GPT Actions.",
+                "Thêm làm connector với cùng URL và bearer token, hoặc dùng REST API ở trên cho custom GPT Actions."
+              )}
+            </p>
+          </div>
+          <div>
+            <p className="font-semibold text-foreground">
+              {t("Other MCP clients", "Client MCP khác")}
+            </p>
+            <p className="mt-1 text-muted-foreground">
+              {t(
+                "Any MCP-capable client works the same way — the URL and Authorization header are all you need.",
+                "Bất kỳ client hỗ trợ MCP nào cũng dùng được — chỉ cần URL và header Authorization."
+              )}
+            </p>
+          </div>
+        </div>
       </section>
 
       <section className="mt-6">
@@ -107,7 +159,8 @@ function McpPage() {
       </section>
 
       <section className="mt-6">
-        <h2 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
+        <h2 className="flex items-center gap-1.5 text-sm font-bold uppercase tracking-wider text-muted-foreground">
+          <BookOpen className="h-3.5 w-3.5" aria-hidden />
           {t("REST example", "Ví dụ REST")}
         </h2>
         <p className="mt-2 text-sm text-muted-foreground">

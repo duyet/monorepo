@@ -1,5 +1,6 @@
 import { ErrorBoundary } from "@duyet/components";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Send } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useClerkModule } from "../lib/clerk-user";
 import { useLang } from "../lib/lang-context";
@@ -201,8 +202,9 @@ function SubmitForm({
       <button
         type="submit"
         disabled={status === "sending"}
-        className="rounded-md bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground disabled:opacity-50"
+        className="flex items-center gap-1.5 rounded-md bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground disabled:opacity-50"
       >
+        <Send className="h-3.5 w-3.5" aria-hidden />
         {lang === "vi" ? "Gửi bài" : "Submit"}
       </button>
       {error && <p className="text-sm text-red-600">{error}</p>}
@@ -231,7 +233,8 @@ function SubmitPage() {
 
   return (
     <div className="py-6">
-      <h1 className="text-xl font-bold">
+      <h1 className="flex items-center gap-2 text-xl font-bold">
+        <Send className="h-4 w-4 text-accent" aria-hidden />
         {lang === "vi" ? "Gửi bài viết" : "Submit a story"}
       </h1>
       <p className="mt-1 text-sm text-muted-foreground">

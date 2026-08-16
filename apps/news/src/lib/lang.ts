@@ -55,6 +55,22 @@ export function categoryLabel(name: string, lang: Lang): string {
   return CATEGORY_LABELS_VI[name] ?? name;
 }
 
+const STATUS_LABELS_VI: Record<string, string> = {
+  new: "Mới",
+  published: "Đã đăng",
+  rejected: "Từ chối",
+  pending: "Đang chờ",
+  accepted: "Đã duyệt",
+};
+
+/** Localizes an items.status value (used by /system's "items by status"
+ * chart) — unrecognized statuses fall back to the raw DB value rather than
+ * guessing a translation. */
+export function statusLabel(name: string, lang: Lang): string {
+  if (lang !== "vi") return name;
+  return STATUS_LABELS_VI[name] ?? name;
+}
+
 export function formatDayHeading(date: string, lang: Lang): string {
   const d = new Date(`${date}T00:00:00Z`);
   return d.toLocaleDateString(lang === "vi" ? "vi-VN" : "en-US", {

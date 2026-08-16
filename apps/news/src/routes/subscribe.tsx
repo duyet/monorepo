@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Mail } from "lucide-react";
 import { useState } from "react";
 import { useLang } from "../lib/lang-context";
 import type { Lang } from "../lib/types";
@@ -94,7 +95,8 @@ function SubscribePage() {
 
   return (
     <div className="mx-auto max-w-md py-12">
-      <h1 className="text-2xl font-bold tracking-tight">
+      <h1 className="flex items-center gap-2 text-2xl font-bold tracking-tight">
+        <Mail className="h-5 w-5 text-accent" aria-hidden />
         {lang === "vi" ? "Nhận bản tin hằng ngày" : "Daily AI News Digest"}
       </h1>
       <p className="mt-3 text-sm text-muted-foreground">

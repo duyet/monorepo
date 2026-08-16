@@ -152,6 +152,19 @@
   color: var(--tc-dark);
 }
 
+/* Subtle per-topic row tint for the selected trending-tag highlight —
+   same --tc-light/--tc-dark vars as .topic-colored, low alpha so it reads
+   as a wash over whatever page background is active (reader-bg swatches
+   included), not a solid fill. srgb color-mix (not oklch) so `transparent`
+   mixes predictably across browsers. */
+.topic-hl-row {
+  background-color: color-mix(in srgb, var(--tc-light) 8%, transparent);
+}
+
+.dark .topic-hl-row {
+  background-color: color-mix(in srgb, var(--tc-dark) 14%, transparent);
+}
+
 /* Horizontal-scroll rows (topics chips, trending chips) that shouldn't show
    a visible scrollbar when their content overflows on narrow screens. */
 .scrollbar-hide {

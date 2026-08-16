@@ -1,6 +1,8 @@
-import { ExternalLink } from "lucide-react";
+import { Clock, Cpu, ExternalLink, Link2 } from "lucide-react";
 import type { CSSProperties } from "react";
+import { useEffect, useRef, useState } from "react";
 import { categoryLabel } from "../lib/lang";
+import { detectSuggestField, type SuggestField } from "../lib/selection-field";
 import { storyPath } from "../lib/slug";
 import { topicColor } from "../lib/topic-color";
 import type { FeedItem, Lang } from "../lib/types";
@@ -60,18 +62,145 @@ function SourceRow({
  * thumbnail, translation-suggestion action, and key sources. Shared by
  * StoryRow's inline expansion and StoryDialog's modal so both stay in sync.
  */
-export function StoryDetail({ item, lang }: { item: FeedItem; lang: Lang }) {
-  const summary =
-    lang === "vi" && item.summary_vi ? item.summary_vi : item.summary;
-  const paragraphs = summary
-    ? summary
+interface SelectionButtonState {
+  field: SuggestField;
+  text: string;
+  top: number;
+  left: number;
+}
+
+function splitParagraphs(text: string | null): string[] {
+  return text
+    ? text
         .split(/\n\n+/)
         .map((p) => p.trim())
         .filter(Boolean)
     : [];
+}
+
+/**
+ * @param bilingual When true (and the item has a Vietnamese translation),
+ * renders title + summary as two side-by-side columns (EN | VI) instead of
+ * a single language — used by StoryDialog's "Song ngữ"/"Bilingual" toggle.
+ */
+export function StoryDetail({
+  item,
+  lang,
+  bilingual,
+}: {
+  item: FeedItem;
+  lang: Lang;
+  bilingual?: boolean;
+}) {
+  const hasVi = Boolean(item.title_vi || item.summary_vi);
+  const showBilingual = Boolean(bilingual) && hasVi;
+  // The suggest-a-correction UI (and its selection listener) targets the
+  // Vietnamese text — available whenever VI text is actually on screen,
+  // whether that's because lang="vi" or the bilingual view is showing it.
+  const vietnameseVisible = lang === "vi" || (showBilingual && hasVi);
+
+  const summary =
+    lang === "vi" && item.summary_vi ? item.summary_vi : item.summary;
+  const paragraphs = splitParagraphs(summary);
+  const paragraphsEn = splitParagraphs(item.summary);
+  const paragraphsVi = splitParagraphs(item.summary_vi);
+
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [selectionButton, setSelectionButton] =
+    useState<SelectionButtonState | null>(null);
+  const [pendingSuggestion, setPendingSuggestion] = useState<{
+    field: SuggestField;
+    text: string;
+  } | null>(null);
+
+  // Medium-style "select text → suggest a correction" for the Vietnamese
+  // translation. Scoped to this story's content only, listeners attached
+  // client-side only (SSR-safe).
+  useEffect(() => {
+    if (!vietnameseVisible) return;
+    const container = containerRef.current;
+    if (!container) return;
+
+    const BUTTON_HEIGHT = 32;
+    const GAP = 6;
+
+    const onMouseUp = () => {
+      const sel = window.getSelection();
+      if (!sel || sel.isCollapsed || sel.rangeCount === 0) {
+        setSelectionButton(null);
+        return;
+      }
+      const text = sel.toString().trim();
+      if (!text) {
+        setSelectionButton(null);
+        return;
+      }
+      const range = sel.getRangeAt(0);
+      if (!container.contains(range.commonAncestorContainer)) {
+        setSelectionButton(null);
+        return;
+      }
+      const field = detectSuggestField(range.commonAncestorContainer);
+      if (!field) {
+        setSelectionButton(null);
+        return;
+      }
+      const rect = range.getBoundingClientRect();
+      const aboveTop = rect.top - BUTTON_HEIGHT - GAP;
+      const flip = aboveTop < 0;
+      setSelectionButton({
+        field,
+        text,
+        top: flip ? rect.bottom + GAP : aboveTop,
+        left: rect.left,
+      });
+    };
+
+    const hide = () => setSelectionButton(null);
+    const onSelectionChange = () => {
+      if (window.getSelection()?.isCollapsed) hide();
+    };
+    const onDocMouseDown = (e: MouseEvent) => {
+      if (!container.contains(e.target as Node)) hide();
+    };
+
+    container.addEventListener("mouseup", onMouseUp);
+    window.addEventListener("scroll", hide, true);
+    document.addEventListener("selectionchange", onSelectionChange);
+    document.addEventListener("mousedown", onDocMouseDown);
+
+    return () => {
+      container.removeEventListener("mouseup", onMouseUp);
+      window.removeEventListener("scroll", hide, true);
+      document.removeEventListener("selectionchange", onSelectionChange);
+      document.removeEventListener("mousedown", onDocMouseDown);
+    };
+  }, [vietnameseVisible]);
 
   return (
-    <div className="space-y-2">
+    <div ref={containerRef} className="relative space-y-2">
+      {selectionButton && (
+        <button
+          type="button"
+          style={{
+            position: "fixed",
+            top: selectionButton.top,
+            left: selectionButton.left,
+            zIndex: 1100,
+          }}
+          onMouseDown={(e) => e.preventDefault()}
+          onClick={() => {
+            setPendingSuggestion({
+              field: selectionButton.field,
+              text: selectionButton.text,
+            });
+            setSelectionButton(null);
+          }}
+          className="rounded-full bg-foreground px-2.5 py-1 text-xs font-semibold text-background shadow-lg"
+        >
+          ✎ {lang === "vi" ? "Góp ý" : "Suggest"}
+        </button>
+      )}
       <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
         <div className="min-w-0 flex-1 space-y-2">
           {(item.tags.length > 0 || item.category) && (
@@ -109,31 +238,81 @@ export function StoryDetail({ item, lang }: { item: FeedItem; lang: Lang }) {
           )}
 
           <div className="text-xs text-muted-foreground">
+            <Clock className="inline h-3 w-3 align-[-1px]" aria-hidden />{" "}
             {fmtTime(item.published_at, lang)} · {item.source_id} · score{" "}
             {item.rank_score.toFixed(1)}
-            {item.llm_tokens > 0 && <> · {item.llm_tokens} tokens</>} ·{" "}
+            {item.llm_tokens > 0 && (
+              <>
+                {" · "}
+                <Cpu className="inline h-3 w-3 align-[-1px]" aria-hidden />{" "}
+                {item.llm_tokens} tokens
+              </>
+            )}
+            {" · "}
             <a
               href={storyPath(item)}
               className="underline underline-offset-2 hover:text-accent"
             >
+              <Link2 className="inline h-3 w-3 align-[-1px]" aria-hidden />{" "}
               {lang === "vi" ? "Trang tin" : "Permalink"}
             </a>
           </div>
 
-          {paragraphs.length > 0 && (
-            <div className="max-w-3xl space-y-3 leading-relaxed">
-              {paragraphs.map((p) => (
-                <p key={p}>{p}</p>
-              ))}
+          {showBilingual ? (
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:divide-x md:divide-border">
+              <div className="space-y-2">
+                <h3 className="text-sm font-bold leading-snug text-foreground">
+                  {item.title}
+                </h3>
+                {paragraphsEn.length > 0 && (
+                  <div className="space-y-3 leading-relaxed">
+                    {paragraphsEn.map((p) => (
+                      <p key={p}>{p}</p>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div
+                data-suggest-field="summary"
+                className="space-y-2 pt-4 md:pt-0 md:pl-6"
+              >
+                <h3 className="text-sm font-bold leading-snug text-foreground">
+                  {item.title_vi ?? item.title}
+                </h3>
+                {paragraphsVi.length > 0 && (
+                  <div className="space-y-3 leading-relaxed">
+                    {paragraphsVi.map((p) => (
+                      <p key={p}>{p}</p>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
+          ) : (
+            paragraphs.length > 0 && (
+              <div
+                data-suggest-field="summary"
+                className="max-w-3xl space-y-3 leading-relaxed"
+              >
+                {paragraphs.map((p) => (
+                  <p key={p}>{p}</p>
+                ))}
+              </div>
+            )
           )}
 
-          {lang === "vi" && (
+          {vietnameseVisible && (
             <div className="flex flex-wrap items-center gap-2">
               <SuggestTranslation
                 itemId={item.id}
                 field="summary"
                 lang={lang}
+                initialText={
+                  pendingSuggestion?.field === "summary"
+                    ? pendingSuggestion.text
+                    : undefined
+                }
+                onInitialTextConsumed={() => setPendingSuggestion(null)}
               />
               <SuggestionBadge itemId={item.id} expanded lang={lang} />
             </div>
