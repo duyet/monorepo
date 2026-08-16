@@ -1,12 +1,13 @@
 import "@duyet/components/styles.css";
 import "../styles.css";
 
-import { ErrorBoundary, SiteFooter, SiteHeader } from "@duyet/components";
+import { ErrorBoundary, SiteHeader } from "@duyet/components";
 import Analytics from "@duyet/components/Analytics";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import {
   createRootRoute,
   HeadContent,
+  Link,
   Outlet,
   Scripts,
 } from "@tanstack/react-router";
@@ -56,6 +57,47 @@ function ClerkRootProvider({ children }: { children: ReactNode }) {
         </clerkState.mod.ClerkProvider>
       </ClerkModuleContext.Provider>
     </ErrorBoundary>
+  );
+}
+
+const FOOTER_LINKS: { to: string; label: Record<Lang, string> }[] = [
+  { to: "/about", label: { en: "About", vi: "Giới thiệu" } },
+  { to: "/mcp", label: { en: "MCP", vi: "MCP" } },
+  { to: "/system", label: { en: "Analytics", vi: "Thống kê" } },
+  { to: "/changelog", label: { en: "Changelog", vi: "Nhật ký" } },
+];
+
+function NewsFooter({ lang }: { lang: Lang }) {
+  const year = new Date().getFullYear();
+  return (
+    <footer className="border-t border-border py-6 text-xs text-muted-foreground">
+      <div className="mx-auto flex w-full max-w-[1080px] flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 sm:px-6 lg:px-8">
+        <span>
+          {lang === "vi"
+            ? `© ${year} Duyet Le · news.duyet.net — Tin AI được LLM chấm điểm & xếp hạng`
+            : `© ${year} Duyet Le · news.duyet.net — AI news, rated & ranked by LLMs`}
+        </span>
+        <nav className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          {FOOTER_LINKS.map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
+              className="hover:text-accent hover:underline hover:underline-offset-2"
+            >
+              {link.label[lang]}
+            </Link>
+          ))}
+          <a
+            href="https://github.com/duyet/monorepo/tree/master/apps/news"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-accent hover:underline hover:underline-offset-2"
+          >
+            GitHub
+          </a>
+        </nav>
+      </div>
+    </footer>
   );
 }
 
@@ -190,7 +232,7 @@ function RootComponent() {
                     </main>
                   </div>
 
-                  <SiteFooter owner="Duyet Le" />
+                  <NewsFooter lang={lang} />
                 </div>
               </ClerkRootProvider>
             </ThemeProvider>
