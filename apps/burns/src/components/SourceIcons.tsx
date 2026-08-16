@@ -92,6 +92,9 @@ export function SourceIcons({
         const isHovered = hovered === name;
         const total = totalsByName.get(name);
         const label = DISPLAY_LABELS[name] ?? name;
+        const dimmed = Boolean(
+          (selected && selected !== name) || (hovered && !isHovered)
+        );
         const mark = name.slice(0, 1).toUpperCase();
         return (
           <button
@@ -105,20 +108,20 @@ export function SourceIcons({
             onMouseLeave={() => setHovered(null)}
             onFocus={() => setHovered(name)}
             onBlur={() => setHovered(null)}
-            style={{
-              opacity:
-                (selected && selected !== name) || (hovered && !isHovered)
-                  ? 0.4
-                  : 1,
-            }}
           >
             {svg ? (
               <span
                 className="burns-icon-mark"
+                style={{ opacity: dimmed ? 0.4 : 1 }}
                 dangerouslySetInnerHTML={{ __html: svg }}
               />
             ) : (
-              <span className="burns-icon-mark">{mark}</span>
+              <span
+                className="burns-icon-mark"
+                style={{ opacity: dimmed ? 0.4 : 1 }}
+              >
+                {mark}
+              </span>
             )}
             {isHovered && (
               <span className="burns-icon-tip">

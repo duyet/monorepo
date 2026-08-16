@@ -40,10 +40,7 @@ export function BreakdownDialog({
         }}
       >
         <div className="burns-dialog-body">
-          <section
-            className="burns-section"
-            style={{ paddingTop: 0, borderTop: 0 }}
-          >
+          <section className="burns-section" style={{ paddingTop: 0 }}>
             <div className="burns-section-head">
               <h2 className="burns-section-title">By source</h2>
               <p className="burns-section-meta">All-time</p>

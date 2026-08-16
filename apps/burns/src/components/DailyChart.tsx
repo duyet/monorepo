@@ -1,5 +1,5 @@
 import { type JSX, useState } from "react";
-import { formatDay } from "../lib/dates";
+import { formatDay, formatMonth } from "../lib/dates";
 import {
   fmtCost,
   fmtTokens,
@@ -14,6 +14,43 @@ interface DailyChartProps {
   filter?: string | null;
   /** Number of most recent days to chart; null charts everything. */
   days?: number | null;
+  granularity?: Granularity;
+}
+
+export const GRANULARITIES = [
+  { key: "monthly", label: "Monthly" },
+  { key: "daily", label: "Daily" },
+] as const;
+
+export type Granularity = (typeof GRANULARITIES)[number]["key"];
+
+/** Roll daily entries up into one entry per calendar month. */
+function byMonth(entries: DailyEntry[]): DailyEntry[] {
+  const months = new Map<string, DailyEntry>();
+  for (const d of entries) {
+    const key = d.date.slice(0, 7);
+    const month = months.get(key);
+    if (!month) {
+      months.set(key, {
+        ...d,
+        date: `${key}-01`,
+        by_source: (d.by_source ?? []).map((s) => ({ ...s })),
+      });
+      continue;
+    }
+    month.total_tokens += d.total_tokens;
+    month.cost += d.cost;
+    for (const s of d.by_source ?? []) {
+      const existing = month.by_source?.find((m) => m.source === s.source);
+      if (existing) {
+        existing.total_tokens += s.total_tokens;
+        existing.cost += s.cost;
+        continue;
+      }
+      month.by_source?.push({ ...s });
+    }
+  }
+  return [...months.values()];
 }
 
 export const RANGES = [
@@ -34,6 +71,7 @@ export function DailyChart({
   daily,
   filter = null,
   days = null,
+  granularity = "daily",
 }: DailyChartProps): JSX.Element | null {
   const [hovered, setHovered] = useState<number | null>(null);
 
@@ -42,13 +80,16 @@ export function DailyChart({
   const keep = (source: string) =>
     filter === null || normalizeSource(source) === filter;
 
-  const recent = (days === null ? daily.slice() : daily.slice(0, days))
+  const windowed = (days === null ? daily.slice() : daily.slice(0, days))
     .reverse()
     .map((d) =>
       filter === null
         ? d
         : { ...d, by_source: (d.by_source ?? []).filter((s) => keep(s.source)) }
     );
+  const recent = granularity === "monthly" ? byMonth(windowed) : windowed;
+  const label = (iso: string, long = false) =>
+    granularity === "monthly" ? formatMonth(iso) : formatDay(iso, long);
   const dayTotals = recent.map((d) =>
     filter === null
       ? { tokens: d.total_tokens, cost: d.cost }
@@ -186,7 +227,7 @@ export function DailyChart({
                 style={{ left: `${left}%`, transform }}
               >
                 <div className="burns-tooltip-title">
-                  {formatDay(hoveredDay.date, true)}
+                  {label(hoveredDay.date, true)}
                 </div>
                 {sources.length > 0 ? (
                   <div className="burns-tooltip-grid">
@@ -229,7 +270,7 @@ export function DailyChart({
 
       <div className="burns-chart-axis">
         {ticks.map((d) => (
-          <span key={d}>{formatDay(d)}</span>
+          <span key={d}>{label(d)}</span>
         ))}
       </div>
 

@@ -162,7 +162,6 @@ body {
   flex-direction: column;
   gap: 14px;
   padding-top: 28px;
-  border-top: 1px solid var(--hairline);
 }
 
 .burns-section-chart {
@@ -222,7 +221,6 @@ body {
   align-items: center;
   justify-content: space-between;
   padding-top: 8px;
-  border-top: 1px solid var(--hairline);
   font-size: 12px;
 }
 
@@ -542,6 +540,7 @@ body {
 
 .burns-dialog::backdrop {
   background: rgb(12 12 12 / 0.4);
+  backdrop-filter: blur(6px);
 }
 
 .burns-dialog-body {

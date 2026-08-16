@@ -3,7 +3,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { type JSX, useState } from "react";
 import { AnimatedCounter } from "../components/AnimatedCounter";
 import { BreakdownDialog } from "../components/BreakdownDialog";
-import { DailyChart, RANGES, type RangeKey } from "../components/DailyChart";
+import {
+  DailyChart,
+  GRANULARITIES,
+  type Granularity,
+  RANGES,
+  type RangeKey,
+} from "../components/DailyChart";
 import { SourceIcons } from "../components/SourceIcons";
 import { BURNS_LOCALE, formatDay } from "../lib/dates";
 import { readPublicJson } from "../lib/read-public-json";
@@ -38,6 +44,7 @@ function Page(): JSX.Element {
   const data = Route.useLoaderData();
   const [filter, setFilter] = useState<string | null>(null);
   const [rangeKey, setRangeKey] = useState<RangeKey>("90d");
+  const [granularity, setGranularity] = useState<Granularity>("daily");
   const range = formatRange(data.firstDate, data.lastDate);
   const updated = formatUpdated(data.generatedAt);
 
@@ -75,9 +82,18 @@ function Page(): JSX.Element {
 
       <section className="burns-section burns-section-chart">
         <div className="burns-section-head">
-          <h2 className="burns-section-title">
-            {filter ? `Daily · ${filter}` : "Daily"}
-          </h2>
+          <div className="burns-switch">
+            {GRANULARITIES.map((g) => (
+              <button
+                key={g.key}
+                type="button"
+                aria-pressed={granularity === g.key}
+                onClick={() => setGranularity(g.key)}
+              >
+                {g.label}
+              </button>
+            ))}
+          </div>
           <div className="burns-switch">
             {RANGES.map((r) => (
               <button
@@ -95,6 +111,7 @@ function Page(): JSX.Element {
           daily={data.daily}
           filter={filter}
           days={RANGES.find((r) => r.key === rangeKey)?.days ?? null}
+          granularity={granularity}
         />
       </section>
 
