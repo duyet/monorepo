@@ -1,5 +1,7 @@
 import { Columns2, ExternalLink, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { fetchFeedOnce, getCachedFeed } from "../lib/feed-cache";
+import { timeAgo } from "../lib/lang";
 import { usePrefs } from "../lib/prefs";
 import type { FeedItem, Lang } from "../lib/types";
 import { StoryDetail } from "./StoryDetail";
@@ -12,19 +14,38 @@ import { StoryDetail } from "./StoryDetail";
  */
 export function StoryDialog({
   idPrefix,
+  relatedIds,
   lang,
   onClose,
 }: {
   idPrefix: string;
+  /** Other story ids a TL;DR bullet synthesized alongside this one, shown
+   * as a compact "also in this story" list below the main content. */
+  relatedIds?: string[];
   lang: Lang;
   onClose: () => void;
 }) {
+  const [activeId, setActiveId] = useState(idPrefix);
   const [item, setItem] = useState<FeedItem | null | undefined>(undefined);
+  const [feed, setFeed] = useState(() => getCachedFeed());
   const panelRef = useRef<HTMLDivElement | null>(null);
   const triggerRef = useRef<Element | null>(null);
   const { prefs, setPrefs } = usePrefs();
   const bilingual = prefs.bilingualDialog;
   const hasVi = Boolean(item?.title_vi || item?.summary_vi);
+
+  useEffect(() => {
+    setActiveId(idPrefix);
+  }, [idPrefix]);
+
+  useEffect(() => {
+    if (relatedIds?.length && !feed) {
+      fetchFeedOnce().then((res) => {
+        if (res) setFeed(res);
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     triggerRef.current = document.activeElement;
@@ -48,7 +69,7 @@ export function StoryDialog({
   useEffect(() => {
     let cancelled = false;
     setItem(undefined);
-    fetch(`/api/story/${encodeURIComponent(idPrefix)}`)
+    fetch(`/api/story/${encodeURIComponent(activeId)}`)
       .then((res) => (res.ok ? (res.json() as Promise<FeedItem>) : null))
       .then((res) => {
         if (!cancelled) setItem(res);
@@ -59,7 +80,15 @@ export function StoryDialog({
     return () => {
       cancelled = true;
     };
-  }, [idPrefix]);
+  }, [activeId]);
+
+  const relatedItems = (relatedIds ?? [])
+    .filter((id) => id !== activeId)
+    .map((id) => {
+      const allItems = feed?.days.flatMap((d) => d.items) ?? [];
+      return allItems.find((it) => it.id.startsWith(id));
+    })
+    .filter((it): it is FeedItem => Boolean(it));
 
   const title =
     item && lang === "vi" && item.title_vi ? item.title_vi : item?.title;
@@ -137,6 +166,32 @@ export function StoryDialog({
           </p>
         )}
         {item && <StoryDetail item={item} lang={lang} bilingual={bilingual} />}
+
+        {relatedItems.length > 0 && (
+          <div className="mt-4 border-t border-border pt-3">
+            <p className="mb-1.5 text-xs font-semibold text-muted-foreground">
+              {lang === "vi" ? "Cùng chủ đề" : "Also in this story"}
+            </p>
+            <ul className="space-y-1">
+              {relatedItems.map((rel) => (
+                <li key={rel.id}>
+                  <button
+                    type="button"
+                    onClick={() => setActiveId(rel.id)}
+                    className="flex w-full items-baseline justify-between gap-2 rounded px-1 py-0.5 text-left text-xs hover:bg-muted"
+                  >
+                    <span className="min-w-0 flex-1 truncate">
+                      {lang === "vi" && rel.title_vi ? rel.title_vi : rel.title}
+                    </span>
+                    <span className="shrink-0 text-muted-foreground">
+                      {timeAgo(rel.published_at, Date.now(), lang)}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );

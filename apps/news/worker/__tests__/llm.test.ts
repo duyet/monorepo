@@ -101,25 +101,25 @@ describe("extractLastJsonObject", () => {
 describe("normalizeTldr", () => {
   it("accepts the documented bullets_en/bullets_vi shape", () => {
     const result = normalizeTldr({
-      bullets_en: [{ text: "A", item_id: "1" }],
-      bullets_vi: [{ text: "B", item_id: "2" }],
+      bullets_en: [{ text: "A", item_ids: ["1"] }],
+      bullets_vi: [{ text: "B", item_ids: ["2"] }],
     });
     expect(result).toEqual({
-      bullets_en: [{ text: "A", item_id: "1" }],
-      bullets_vi: [{ text: "B", item_id: "2" }],
+      bullets_en: [{ text: "A", item_ids: ["1"] }],
+      bullets_vi: [{ text: "B", item_ids: ["2"] }],
     });
   });
 
   it("accepts the alternate {bullets: {en, vi}} shape", () => {
     const result = normalizeTldr({
       bullets: {
-        en: [{ text: "A", item_id: "1" }],
-        vi: [{ text: "B", item_id: "2" }],
+        en: [{ text: "A", item_ids: ["1"] }],
+        vi: [{ text: "B", item_ids: ["2"] }],
       },
     });
     expect(result).toEqual({
-      bullets_en: [{ text: "A", item_id: "1" }],
-      bullets_vi: [{ text: "B", item_id: "2" }],
+      bullets_en: [{ text: "A", item_ids: ["1"] }],
+      bullets_vi: [{ text: "B", item_ids: ["2"] }],
     });
   });
 
@@ -129,8 +129,8 @@ describe("normalizeTldr", () => {
       bullets_vi: [],
     });
     expect(result.bullets_en).toEqual([
-      { text: "No id here", item_id: "" },
-      { text: "Just a string bullet", item_id: "" },
+      { text: "No id here", item_ids: [] },
+      { text: "Just a string bullet", item_ids: [] },
     ]);
   });
 
@@ -155,8 +155,8 @@ describe("generateTldr", () => {
       vi.fn().mockResolvedValue(
         chatResponse(
           `\`\`\`json\n${JSON.stringify({
-            bullets_en: [{ text: "A", item_id: "1" }],
-            bullets_vi: [{ text: "B", item_id: "1" }],
+            bullets_en: [{ text: "A", item_ids: ["1"] }],
+            bullets_vi: [{ text: "B", item_ids: ["1"] }],
           })}\n\`\`\``
         )
       )
@@ -174,8 +174,8 @@ describe("generateTldr", () => {
         chatResponse(
           `Here you go: ${JSON.stringify({
             bullets: {
-              en: [{ text: "A", item_id: "1" }],
-              vi: [{ text: "B", item_id: "1" }],
+              en: [{ text: "A", item_ids: ["1"] }],
+              vi: [{ text: "B", item_ids: ["1"] }],
             },
           })}`
         )
@@ -183,8 +183,8 @@ describe("generateTldr", () => {
     );
 
     const result = await generateTldr(env, [{ id: "1", title: "Story" }]);
-    expect(result.bullets_en).toEqual([{ text: "A", item_id: "1" }]);
-    expect(result.bullets_vi).toEqual([{ text: "B", item_id: "1" }]);
+    expect(result.bullets_en).toEqual([{ text: "A", item_ids: ["1"] }]);
+    expect(result.bullets_vi).toEqual([{ text: "B", item_ids: ["1"] }]);
   });
 
   it("retries once when the first attempt returns empty bullets, then succeeds", async () => {
@@ -196,8 +196,8 @@ describe("generateTldr", () => {
       .mockResolvedValueOnce(
         chatResponse(
           JSON.stringify({
-            bullets_en: [{ text: "A", item_id: "1" }],
-            bullets_vi: [{ text: "B", item_id: "1" }],
+            bullets_en: [{ text: "A", item_ids: ["1"] }],
+            bullets_vi: [{ text: "B", item_ids: ["1"] }],
           })
         )
       );
@@ -215,8 +215,8 @@ describe("generateTldr", () => {
       .mockResolvedValueOnce(
         chatResponse(
           JSON.stringify({
-            bullets_en: [{ text: "A", item_id: "1" }],
-            bullets_vi: [{ text: "B", item_id: "1" }],
+            bullets_en: [{ text: "A", item_ids: ["1"] }],
+            bullets_vi: [{ text: "B", item_ids: ["1"] }],
           })
         )
       );
@@ -672,8 +672,8 @@ describe("model fallback chain", () => {
     const fetchMock = vi.fn().mockResolvedValue(
       completion(
         JSON.stringify({
-          bullets_en: [{ text: "A", item_id: "1" }],
-          bullets_vi: [{ text: "B", item_id: "1" }],
+          bullets_en: [{ text: "A", item_ids: ["1"] }],
+          bullets_vi: [{ text: "B", item_ids: ["1"] }],
         })
       )
     );

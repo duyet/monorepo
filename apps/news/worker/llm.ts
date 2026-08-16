@@ -463,7 +463,7 @@ export interface TldrItem {
 
 export interface TldrBullet {
   text: string;
-  item_id: string;
+  item_ids: string[];
 }
 
 export interface TldrResult {
@@ -476,25 +476,31 @@ export interface TldrResult {
 
 const EMPTY_TLDR: TldrResult = { bullets_en: [], bullets_vi: [], tokens: 0 };
 
+/** Accepts the preferred `item_ids: string[]` shape as well as the legacy
+ * single `item_id` (or `id`) string, normalizing everything to an array. */
 function normalizeBullets(input: unknown): TldrBullet[] {
   if (!Array.isArray(input)) return [];
   const out: TldrBullet[] = [];
   for (const entry of input) {
     if (typeof entry === "string" && entry.trim()) {
-      out.push({ text: entry, item_id: "" });
+      out.push({ text: entry, item_ids: [] });
       continue;
     }
     if (entry && typeof entry === "object") {
       const e = entry as Record<string, unknown>;
       const text = typeof e.text === "string" ? e.text : undefined;
       if (!text) continue;
-      const itemId =
-        typeof e.item_id === "string"
-          ? e.item_id
-          : typeof e.id === "string"
-            ? e.id
-            : "";
-      out.push({ text, item_id: itemId });
+      let itemIds: string[];
+      if (Array.isArray(e.item_ids)) {
+        itemIds = e.item_ids.filter((id): id is string => typeof id === "string");
+      } else if (typeof e.item_id === "string" && e.item_id) {
+        itemIds = [e.item_id];
+      } else if (typeof e.id === "string" && e.id) {
+        itemIds = [e.id];
+      } else {
+        itemIds = [];
+      }
+      out.push({ text, item_ids: itemIds });
     }
   }
   return out;
@@ -523,32 +529,37 @@ function normalizeTldrResult(parsed: unknown): Omit<TldrResult, "tokens"> {
 /** The model sometimes hallucinates or truncates `item_id`s, which used to
  * make TL;DR bullets open the wrong story. Keep only ids that exactly match
  * an input item (or uniquely prefix-match one, expanded to the full id);
- * anything else is cleared so the bullet renders unlinked. */
+ * anything else is dropped from the bullet's id list. */
 export function sanitizeBulletIds(
   bullets: TldrBullet[],
   items: Pick<TldrItem, "id">[]
 ): TldrBullet[] {
   const ids = new Set(items.map((i) => i.id));
-  return bullets.map((b) => {
-    if (!b.item_id) return b;
-    if (ids.has(b.item_id)) return b;
-    const matches = items.filter((i) => i.id.startsWith(b.item_id));
-    return { ...b, item_id: matches.length === 1 ? matches[0].id : "" };
-  });
+  const resolve = (id: string): string | null => {
+    if (ids.has(id)) return id;
+    const matches = items.filter((i) => i.id.startsWith(id));
+    return matches.length === 1 ? matches[0].id : null;
+  };
+  return bullets.map((b) => ({
+    ...b,
+    item_ids: b.item_ids
+      .map(resolve)
+      .filter((id): id is string => id !== null),
+  }));
 }
 
 export async function generateTldr(
   env: Env,
   items: TldrItem[]
 ): Promise<TldrResult> {
-  const prompt = `Summarize the following AI/tech news items into exactly 16 concise TL;DR bullets, in both English and Vietnamese. Each bullet must reference the item_id it was derived from.
+  const prompt = `Summarize the following AI/tech news items into exactly 16 concise TL;DR bullets, in both English and Vietnamese. Each bullet must reference the item_ids (an array) it was derived from: most bullets summarize a single story, so item_ids has one id; when several items report the same story or theme, write ONE synthesizing bullet citing ALL of their ids instead of separate bullets.
 
 The Vietnamese bullets are NOT a translation pass over the English ones — write them the way a Vietnamese tech journalist would independently state the same facts, following the house style above.
 
 Items:
 ${JSON.stringify(items)}
 
-Respond with strict JSON only: {"bullets_en":[{"text":"...","item_id":"..."}],"bullets_vi":[{"text":"...","item_id":"..."}]}`;
+Respond with strict JSON only: {"bullets_en":[{"text":"...","item_ids":["..."]}],"bullets_vi":[{"text":"...","item_ids":["..."]}]}`;
 
   const ATTEMPTS = 2;
   let totalTokens = 0;
