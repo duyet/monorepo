@@ -211,6 +211,7 @@ describe("buildMergePlan", () => {
       comments: 20,
       rank: 5,
       sources: [{ kind: "discussion", url: "https://hn/a" }],
+      topics: ["anthropic", "claude"],
     },
     {
       i: 1,
@@ -220,6 +221,7 @@ describe("buildMergePlan", () => {
       points: 50,
       comments: 5,
       rank: 8,
+      topics: ["anthropic", "multi-agent"],
     },
     {
       i: 2,
@@ -229,6 +231,7 @@ describe("buildMergePlan", () => {
       points: 10,
       comments: 1,
       rank: 1,
+      topics: ["open-source"],
     },
   ];
 
@@ -255,6 +258,8 @@ describe("buildMergePlan", () => {
       { kind: "source", url: "https://example.com/a", author: "hn" },
       { kind: "source", url: "https://example.com/c", author: "hn" },
     ]);
+    // topics from both merged items (new-b, kept independent, is excluded)
+    expect(update?.extraTopics).toEqual(["anthropic", "claude", "open-source"]);
   });
 
   it("no existing item: canonical is the highest-rank new item, others merge into it", () => {
@@ -270,6 +275,21 @@ describe("buildMergePlan", () => {
     expect(update?.isExisting).toBe(false);
     expect(update?.maxPoints).toBe(100); // max(50 own, 100, 10)
     expect(update?.maxComments).toBe(20);
+    // canonical's own topics (new-b) are unioned with the merged items'
+    // too, in cluster iteration order (new-a, then new-b's own, then new-c)
+    expect(update?.extraTopics).toEqual([
+      "anthropic",
+      "claude",
+      "multi-agent",
+      "open-source",
+    ]);
+  });
+
+  it("respects a custom topic cap when unioning topics across a merge", () => {
+    const clusters: Cluster[] = [{ new: [0, 1, 2], existing: [] }];
+    const plan = buildMergePlan(clusters, candidates, new Map(), 8, 3);
+    const update = plan.canonicalUpdates.get("new-b");
+    expect(update?.extraTopics.length).toBeLessThanOrEqual(3);
   });
 
   it("respects the source cap when unioning", () => {

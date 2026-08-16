@@ -161,7 +161,8 @@ export async function normalizeTopics(
 
   const canonicalTagsByItem = new Map<string, string[]>();
   if (allNormalized.size === 0) {
-    for (const itemId of rawTagsByItem.keys()) canonicalTagsByItem.set(itemId, []);
+    for (const itemId of rawTagsByItem.keys())
+      canonicalTagsByItem.set(itemId, []);
     return canonicalTagsByItem;
   }
 
@@ -180,7 +181,10 @@ export async function normalizeTopics(
 
   const resolvedByName = new Map<string, string>();
   for (const name of allNormalized) {
-    resolvedByName.set(name, existingByName.get(name) ?? mapping.get(name) ?? name);
+    resolvedByName.set(
+      name,
+      existingByName.get(name) ?? mapping.get(name) ?? name
+    );
   }
 
   const occurrences = new Map<string, number>();

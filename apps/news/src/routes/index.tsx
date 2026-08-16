@@ -26,11 +26,47 @@ function IndexPage() {
   const { prefs } = usePrefs();
   const bullets = lang === "vi" ? feed.tldr?.bullets_vi : feed.tldr?.bullets_en;
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [selectedCategories, setSelectedCategories] = useState<Set<string>>(
+    () => new Set()
+  );
+
+  const toggleCategory = (name: string) => {
+    setSelectedCategories((prev) => {
+      const next = new Set(prev);
+      if (next.has(name)) next.delete(name);
+      else next.add(name);
+      return next;
+    });
+  };
+
+  const days =
+    selectedCategories.size === 0
+      ? feed.days
+      : feed.days
+          .map((day) => {
+            const items = day.items.filter(
+              (item) => item.category && selectedCategories.has(item.category)
+            );
+            const categoryCounts: Record<string, number> = {};
+            for (const item of items) {
+              if (item.category) {
+                categoryCounts[item.category] =
+                  (categoryCounts[item.category] ?? 0) + 1;
+              }
+            }
+            return { ...day, items, categoryCounts };
+          })
+          .filter((day) => day.items.length > 0);
 
   return (
     <div>
       {prefs.sections.categories && (
-        <CategoryNav categories={feed.categories} lang={lang} />
+        <CategoryNav
+          categories={feed.categories}
+          selected={selectedCategories}
+          onToggle={toggleCategory}
+          lang={lang}
+        />
       )}
       {prefs.sections.trending && (
         <TrendingChips
@@ -67,7 +103,7 @@ function IndexPage() {
         )
       )}
       {prefs.sections.days &&
-        feed.days.map((day) => (
+        days.map((day) => (
           <DaySection
             key={day.date}
             day={day}
@@ -75,9 +111,15 @@ function IndexPage() {
             selectedTag={selectedTag}
           />
         ))}
-      {prefs.sections.days && feed.days.length === 0 && (
+      {prefs.sections.days && days.length === 0 && (
         <p className="py-16 text-center text-muted-foreground">
-          {lang === "vi" ? "Chưa có tin nào." : "No stories yet."}
+          {selectedCategories.size > 0
+            ? lang === "vi"
+              ? "Không có tin phù hợp với bộ lọc."
+              : "No stories match the selected filters."
+            : lang === "vi"
+              ? "Chưa có tin nào."
+              : "No stories yet."}
         </p>
       )}
     </div>

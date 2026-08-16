@@ -38,8 +38,8 @@ import { reviewPendingSubmissions } from "./submissions.js";
 import { sendDailyTldr } from "./subscribe/send.js";
 import { reviewPendingSuggestions } from "./suggestions.js";
 import { toEpochSeconds } from "./time.js";
-import { MAX_MERGED_TOPICS, normalizeTopics, unionTopics } from "./topics.js";
 import { ensureDailyTldr } from "./tldr.js";
+import { MAX_MERGED_TOPICS, normalizeTopics, unionTopics } from "./topics.js";
 import type { Env } from "./types.js";
 
 const RELEVANCE_THRESHOLD = 0.4;
@@ -249,13 +249,16 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
       // the `topics` table's per-variant counts. Runs before merge-similar
       // so a cluster's topic union already has canonical values to
       // dedupe against.
-      const canonicalTagsByItem = await step.do("normalize-topics", async () => {
-        if (newRows.length === 0) return new Map<string, string[]>();
-        const rawTagsByItem = new Map<string, string[]>(
-          newRows.map((row) => [row.id, scored.get(row.id)?.tags ?? []])
-        );
-        return normalizeTopics(this.env, rawTagsByItem, now);
-      });
+      const canonicalTagsByItem = await step.do(
+        "normalize-topics",
+        async () => {
+          if (newRows.length === 0) return new Map<string, string[]>();
+          const rawTagsByItem = new Map<string, string[]>(
+            newRows.map((row) => [row.id, scored.get(row.id)?.tags ?? []])
+          );
+          return normalizeTopics(this.env, rawTagsByItem, now);
+        }
+      );
 
       const mergePlan = await step.do("merge-similar", async () => {
         const empty: MergePlan = {
@@ -628,7 +631,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
             llm_importance: score?.importance ?? null,
             llm_quality: score?.quality ?? null,
             category: score?.category ?? "",
-            tags: score?.tags ?? [],
+            tags: canonicalTagsByItem.get(id) ?? [],
             rank_score: rankScore({
               importance: score?.importance ?? 5,
               quality: score?.quality ?? 5,

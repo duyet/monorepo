@@ -1,33 +1,54 @@
-import { Link } from "@tanstack/react-router";
 import { categoryLabel } from "../lib/lang";
 import type { Lang } from "../lib/types";
 
 export function CategoryNav({
   categories,
-  active,
+  selected,
+  onToggle,
   lang,
 }: {
   categories: { name: string; count: number }[];
-  active?: string;
+  selected: Set<string>;
+  onToggle: (name: string) => void;
   lang: Lang;
 }) {
+  if (categories.length === 0) return null;
+
   return (
-    <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-border py-3 text-sm">
+    <nav className="scrollbar-hide flex items-center gap-1.5 overflow-x-auto whitespace-nowrap border-b border-border py-2.5">
+      <button
+        type="button"
+        onClick={() => {
+          for (const name of selected) onToggle(name);
+        }}
+        aria-pressed={selected.size === 0}
+        className={`shrink-0 rounded-full px-3 py-1 text-sm font-semibold transition-colors ${
+          selected.size === 0
+            ? "bg-accent text-accent-foreground"
+            : "text-muted-foreground hover:bg-muted"
+        }`}
+      >
+        {lang === "vi" ? "Tất cả" : "All"}
+      </button>
       {categories.map((c) => {
-        const slug = c.name.toLowerCase();
-        const isActive = active === slug;
+        const isSelected = selected.has(c.name);
         return (
-          <Link
+          <button
             key={c.name}
-            to="/category/$slug"
-            params={{ slug }}
-            className={`flex items-baseline gap-1 hover:text-accent ${
-              isActive ? "font-bold text-accent" : "font-medium"
+            type="button"
+            onClick={() => onToggle(c.name)}
+            aria-pressed={isSelected}
+            className={`shrink-0 rounded-full px-3 py-1 text-sm transition-colors ${
+              isSelected
+                ? "bg-accent font-semibold text-accent-foreground"
+                : "text-muted-foreground hover:bg-muted"
             }`}
           >
-            {categoryLabel(c.name, lang)}
-            <span className="text-xs text-muted-foreground">{c.count}</span>
-          </Link>
+            {categoryLabel(c.name, lang)}{" "}
+            <span className={isSelected ? "opacity-80" : "text-xs opacity-70"}>
+              {c.count}
+            </span>
+          </button>
         );
       })}
     </nav>

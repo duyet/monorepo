@@ -1,8 +1,26 @@
 import { ExternalLink, TrendingUp } from "lucide-react";
 import { useState } from "react";
+import { highlightTitle } from "../lib/highlight";
 import { categoryLabel, timeAgo } from "../lib/lang";
 import type { FeedItem, Lang } from "../lib/types";
 import { StoryDetail } from "./StoryDetail";
+
+function HighlightedTitle({ title, tags }: { title: string; tags: string[] }) {
+  const segments = highlightTitle(title, tags);
+  return (
+    <>
+      {segments.map((s, i) =>
+        s.highlighted ? (
+          <span key={i} className="font-semibold text-accent">
+            {s.text}
+          </span>
+        ) : (
+          <span key={i}>{s.text}</span>
+        )
+      )}
+    </>
+  );
+}
 
 export function StoryRow({
   item,
@@ -65,7 +83,7 @@ export function StoryRow({
             isMatch ? "text-accent" : ""
           }`}
         >
-          {title}{" "}
+          <HighlightedTitle title={title} tags={item.tags} />{" "}
           <a
             href={item.url}
             target="_blank"
