@@ -1,5 +1,5 @@
 import { ErrorBoundary } from "@duyet/components";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useClerkModule } from "../lib/clerk-user";
 import { useLang } from "../lib/lang-context";
@@ -112,7 +112,16 @@ function SubmitForm({
         <p className="text-muted-foreground">
           {lang === "vi"
             ? "Bài gửi sẽ được AI thẩm định và chấm điểm. Không phải bài nào cũng được đăng — chỉ những tin được đánh giá là liên quan và chất lượng mới xuất hiện trên trang."
-            : "Submissions are reviewed and rated by AI. Not all submissions will be published — only stories judged relevant and high-quality appear in the feed."}
+            : "Submissions are reviewed and rated by AI. Not all submissions will be published — only stories judged relevant and high-quality appear in the feed."}{" "}
+          <Link
+            to="/about"
+            hash="how-it-works"
+            className="text-accent underline underline-offset-2 hover:no-underline"
+          >
+            {lang === "vi"
+              ? "Tìm hiểu thêm về cách hoạt động →"
+              : "Learn how it works →"}
+          </Link>
         </p>
       </div>
     );
@@ -178,7 +187,16 @@ function SubmitForm({
       <p className="text-xs text-muted-foreground">
         {lang === "vi"
           ? "Bài gửi sẽ được AI thẩm định và chấm điểm. Không phải bài nào cũng được đăng — chỉ những tin được đánh giá là liên quan và chất lượng mới xuất hiện trên trang."
-          : "Submissions are reviewed and rated by AI. Not all submissions will be published — only stories judged relevant and high-quality appear in the feed."}
+          : "Submissions are reviewed and rated by AI. Not all submissions will be published — only stories judged relevant and high-quality appear in the feed."}{" "}
+        <Link
+          to="/about"
+          hash="how-it-works"
+          className="text-accent underline underline-offset-2 hover:no-underline"
+        >
+          {lang === "vi"
+            ? "Tìm hiểu thêm về cách hoạt động →"
+            : "Learn how it works →"}
+        </Link>
       </p>
       <button
         type="submit"
