@@ -117,7 +117,7 @@ export function buildKbGraph(content: ContentItem[] = getAllContent()): GraphDat
     }
   }
 
-  const addEdge = (source: string, target: string, kind: "link" | "tag") => {
+  const addEdge = (source: string, target: string, kind: "link" | "tag"): void => {
     if (source === target) return;
     const key = `${kind}|${source}|${target}`;
     if (edgeKeys.has(key)) return;

@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ExternalLink, Tag } from "lucide-react";
+import type { ReactElement } from "react";
 import { extractLocalGraph, LocalGraph } from "../../components/LocalGraph";
 import { getArticleBySlug, getLinkedArticles } from "../../../lib/content";
 import { buildKbGraph } from "../../../lib/graph";
@@ -41,7 +42,7 @@ export const Route = createFileRoute("/k/$slug")({
   component: ArticlePage,
 });
 
-function ArticlePage() {
+function ArticlePage(): ReactElement {
   const { article, html, linked, localGraph } = Route.useLoaderData();
   const hasLinks = linked.outgoing.length > 0 || linked.incoming.length > 0;
   const hasSidebar = hasLinks || localGraph.nodes.length > 1;

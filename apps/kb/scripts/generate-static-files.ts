@@ -83,7 +83,7 @@ interface InboxNote {
 
 function extractWikilinks(md: string): string[] {
   const found = new Set<string>();
-  const re = /\[\[([^\]|#]+)(?:\|[^\]]*)?\]\]/g;
+  const re = /\[\[([^\]|#]+)(?:#[^\]|]*)?(?:\|[^\]]*)?\]\]/g;
   let match: RegExpExecArray | null;
   // biome-ignore lint/suspicious/noAssignInExpressions: standard regex-exec loop
   while ((match = re.exec(md))) {
@@ -478,7 +478,7 @@ for (const note of inbox) {
     .join("\n");
   writeFileSync(
     join(PUBLIC_D_DIR, `${note.slug}.md`),
-    `${frontmatter}${note.raw}\n`,
+    `${frontmatter}\n${note.raw}\n`,
     "utf-8",
   );
 }
@@ -563,7 +563,7 @@ const nodes: GraphNode[] = [
 
 const edgeKeys = new Set<string>();
 const edges: GraphEdge[] = [];
-const addEdge = (source: string, target: string, kind: "link" | "tag") => {
+const addEdge = (source: string, target: string, kind: "link" | "tag"): void => {
   if (source === target) return;
   const key = `${kind}|${source}|${target}`;
   if (edgeKeys.has(key)) return;

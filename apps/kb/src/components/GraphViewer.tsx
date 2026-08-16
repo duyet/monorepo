@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { type ReactElement, useEffect, useMemo, useRef, useState } from "react";
 import { markdownToHtml } from "../../lib/markdown";
+import { MEMORY_PALETTE } from "./graph-palette";
 
 // Lazy-loaded in the browser only — sigma/graphology touch WebGL at import time
 // and crash Node prerender (WebGL2RenderingContext is not defined).
@@ -45,14 +46,6 @@ interface GraphData {
 }
 
 type AttrMap = Record<string, unknown>;
-
-const MEMORY_PALETTE: Record<string, string> = {
-  user: "#a78bfa",
-  feedback: "#f472b6",
-  project: "#60a5fa",
-  reference: "#f59e0b",
-  tech: "#eab308",
-};
 
 const KIND_LABEL: Record<NodeKind, string> = {
   article: "Article",
@@ -143,6 +136,7 @@ export function GraphViewer() {
   const [bodyLoading, setBodyLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [activeSuggestion, setActiveSuggestion] = useState(0);
   const [hiddenKinds, setHiddenKinds] = useState<Set<string>>(new Set());
   const [orphansOnly, setOrphansOnly] = useState(false);
   const [dark, setDark] = useState(true);
@@ -426,11 +420,13 @@ export function GraphViewer() {
         restartLayout.current = startLayout;
         startLayout(DEFAULT_FORCES);
 
-        // Drag nodes — fixes node while dragging, reheats layout
+        // Drag nodes — stop the live FA2 worker while dragging (it copies `fixed`
+        // into its matrix only on start(), so it would otherwise keep overwriting
+        // the dragged coordinates), then restart it once the drag ends.
         s.on("downNode", (e) => {
           dragRef.current = { node: e.node, dragging: true };
-          layoutRef.current?.start();
           if (stopTimer) clearTimeout(stopTimer);
+          layoutRef.current?.stop();
           if (!s.getCustomBBox()) s.setCustomBBox(s.getBBox());
         });
         s.getMouseCaptor().on("mousemovebody", (e) => {
@@ -445,6 +441,7 @@ export function GraphViewer() {
         });
         const stopDrag = () => {
           if (dragRef.current.dragging) {
+            layoutRef.current?.start();
             stopTimer = setTimeout(() => layoutRef.current?.stop(), 2000);
           }
           dragRef.current = { node: null, dragging: false };
@@ -506,6 +503,8 @@ export function GraphViewer() {
       cancelled = true;
       if (stopTimer) clearTimeout(stopTimer);
       document.body.style.cursor = "default";
+      applyVisualRef.current = () => {};
+      restartLayout.current = () => {};
       layoutRef.current?.kill();
       layoutRef.current = null;
       sigmaRef.current?.kill();
@@ -561,7 +560,8 @@ export function GraphViewer() {
   }, [query, data]);
 
   const onSearchSubmit = () => {
-    if (suggestions[0]) focusNode(suggestions[0].id);
+    const active = suggestions[activeSuggestion] ?? suggestions[0];
+    if (active) focusNode(active.id);
   };
 
   const toggleKind = (kind: string) => {
@@ -577,12 +577,10 @@ export function GraphViewer() {
     sigmaRef.current?.getCamera().animatedReset({ duration: 300 });
   };
 
-  const updateForce = (patch: Partial<ForceSettings>) => {
-    setForces((prev) => {
-      const next = { ...prev, ...patch };
-      restartLayout.current(next);
-      return next;
-    });
+  const updateForce = (patch: Partial<ForceSettings>): void => {
+    const next = { ...forces, ...patch };
+    setForces(next);
+    restartLayout.current(next);
   };
 
   const node = selected ? nodeMap[selected] : null;
@@ -637,24 +635,37 @@ export function GraphViewer() {
                   onChange={(e) => {
                     setQuery(e.target.value);
                     setShowSuggestions(true);
+                    setActiveSuggestion(0);
                   }}
                   onFocus={() => setShowSuggestions(true)}
                   onBlur={() => setTimeout(() => setShowSuggestions(false), 120)}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter") onSearchSubmit();
+                    if (e.key === "ArrowDown") {
+                      e.preventDefault();
+                      setShowSuggestions(true);
+                      setActiveSuggestion((i) => Math.min(i + 1, Math.max(suggestions.length - 1, 0)));
+                    } else if (e.key === "ArrowUp") {
+                      e.preventDefault();
+                      setActiveSuggestion((i) => Math.max(i - 1, 0));
+                    } else if (e.key === "Enter") {
+                      onSearchSubmit();
+                    }
                   }}
                   placeholder="Search nodes…"
                   className="h-8 w-full rounded-md border border-zinc-700 bg-zinc-900 px-2 text-xs text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500"
                 />
                 {showSuggestions && suggestions.length > 0 && (
                   <ul className="absolute left-0 right-0 top-9 z-20 max-h-56 overflow-y-auto rounded-md border border-zinc-700 bg-zinc-900 shadow-lg">
-                    {suggestions.map((n) => (
+                    {suggestions.map((n, i) => (
                       <li key={n.id}>
                         <button
                           type="button"
                           onMouseDown={(e) => e.preventDefault()}
+                          onMouseEnter={() => setActiveSuggestion(i)}
                           onClick={() => focusNode(n.id)}
-                          className="flex w-full items-center gap-2 px-2 py-1.5 text-left text-xs text-zinc-200 hover:bg-zinc-800"
+                          className={`flex w-full items-center gap-2 px-2 py-1.5 text-left text-xs text-zinc-200 hover:bg-zinc-800 ${
+                            i === activeSuggestion ? "bg-zinc-800" : ""
+                          }`}
                         >
                           <span
                             className="inline-block h-1.5 w-1.5 shrink-0 rounded-full"
@@ -682,6 +693,7 @@ export function GraphViewer() {
                     <button
                       key={k}
                       type="button"
+                      aria-pressed={on}
                       onClick={() => toggleKind(k)}
                       className="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] transition-opacity"
                       style={{
@@ -699,6 +711,7 @@ export function GraphViewer() {
                 })}
                 <button
                   type="button"
+                  aria-pressed={orphansOnly}
                   onClick={() => setOrphansOnly((v) => !v)}
                   className="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] transition-opacity"
                   style={{
@@ -871,21 +884,16 @@ export function GraphViewer() {
   );
 }
 
-function ForceSlider({
-  label,
-  value,
-  min,
-  max,
-  step,
-  onChange,
-}: {
+interface ForceSliderProps {
   label: string;
   value: number;
   min: number;
   max: number;
   step: number;
   onChange: (v: number) => void;
-}) {
+}
+
+function ForceSlider({ label, value, min, max, step, onChange }: ForceSliderProps): ReactElement {
   return (
     <label className="flex items-center gap-2 text-[11px] text-zinc-400">
       <span className="w-24 shrink-0">{label}</span>

@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ExternalLink } from "lucide-react";
+import type { ReactElement } from "react";
 import { extractLocalGraph, LocalGraph } from "../../components/LocalGraph";
 import { getInboxBySlug } from "../../../lib/content";
 import { buildKbGraph } from "../../../lib/graph";
@@ -28,7 +29,7 @@ export const Route = createFileRoute("/d/$date")({
   component: DailyNotePage,
 });
 
-function DailyNotePage() {
+function DailyNotePage(): ReactElement {
   const { note, html, localGraph } = Route.useLoaderData();
   const hasSidebar = localGraph.nodes.length > 1;
 

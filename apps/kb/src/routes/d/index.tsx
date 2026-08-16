@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CalendarDays } from "lucide-react";
+import type { ReactElement } from "react";
 import { getAllInbox } from "../../../lib/content";
 
 export const Route = createFileRoute("/d/")({
@@ -19,7 +20,7 @@ export const Route = createFileRoute("/d/")({
   component: DailyIndexPage,
 });
 
-function DailyIndexPage() {
+function DailyIndexPage(): ReactElement {
   const { notes } = Route.useLoaderData();
 
   return (

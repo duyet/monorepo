@@ -7,7 +7,8 @@
  */
 
 import { useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { type ReactElement, useEffect, useMemo, useRef, useState } from "react";
+import { MEMORY_PALETTE } from "./graph-palette";
 
 type GraphologyGraph = import("graphology").default;
 type SigmaInstance = import("sigma").default;
@@ -43,29 +44,26 @@ const KIND_COLOR: Record<string, string> = {
   tag: "#22c55e",
 };
 
-const MEMORY_TYPE_COLOR: Record<string, string> = {
-  user: "#a78bfa",
-  feedback: "#f472b6",
-  project: "#60a5fa",
-  reference: "#f59e0b",
-  tech: "#eab308",
-};
-
 function nodeColor(node: LocalGraphNode): string {
   if (node.kind === "memory") {
-    return MEMORY_TYPE_COLOR[node.memoryType ?? ""] ?? KIND_COLOR.article;
+    return MEMORY_PALETTE[node.memoryType ?? ""] ?? KIND_COLOR.article;
   }
   return KIND_COLOR[node.kind] ?? KIND_COLOR.article;
 }
 
+/** Hard cap on nodes pulled into a local graph, so a heavily shared tag can't
+ * blow up the synchronous ForceAtlas2 layout. The current note and its direct
+ * neighbors are always kept; only deeper nodes get dropped once the cap hits. */
+const MAX_LOCAL_NODES = 120;
+
 /**
  * Extract the depth-≤maxDepth neighborhood of `id` from a full graph
- * (BFS over both directions of edges).
+ * (BFS over both directions of edges), bounded to MAX_LOCAL_NODES.
  */
 export function extractLocalGraph(
   graph: { nodes: LocalGraphNode[]; edges: LocalGraphEdge[] },
   id: string,
-  maxDepth = 2,
+  maxDepth: number = 2,
 ): LocalGraphData {
   const adjacency = new Map<string, Set<string>>();
   for (const edge of graph.edges) {
@@ -83,6 +81,8 @@ export function extractLocalGraph(
     if (currentDepth >= maxDepth) continue;
     for (const neighbor of adjacency.get(current) ?? []) {
       if (depth.has(neighbor)) continue;
+      // Direct neighbors (depth 1) are always kept; only cap deeper nodes.
+      if (currentDepth >= 1 && depth.size >= MAX_LOCAL_NODES) continue;
       depth.set(neighbor, currentDepth + 1);
       queue.push(neighbor);
     }
@@ -102,7 +102,7 @@ interface LocalGraphProps {
   currentId: string;
 }
 
-export function LocalGraph({ nodes, edges, currentId }: LocalGraphProps) {
+export function LocalGraph({ nodes, edges, currentId }: LocalGraphProps): ReactElement | null {
   const containerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const [depth, setDepth] = useState<1 | 2>(2);
