@@ -121,18 +121,35 @@
   font-family: var(--editorial-font-serif);
 }
 
-.news-content[data-reader-bg="cream"] {
+/* Reader background swatches live on .app-shell (the outer page wrapper
+   around SiteHeader + .news-content + SiteFooter), not .news-content, so
+   the chosen background paints the whole page instead of just the feed
+   area. .app-shell already renders bg-background, which reads these same
+   --background/--foreground custom properties once redefined here. */
+.app-shell[data-reader-bg="cream"] {
   --background: #faf6ec;
   --foreground: #2b2620;
 }
 
-.news-content[data-reader-bg="gray"] {
+.app-shell[data-reader-bg="gray"] {
   --background: #dedede;
   --foreground: #1c1c1a;
 }
 
-.news-content[data-reader-bg="black"] {
+.app-shell[data-reader-bg="black"] {
   --background: #000000;
+}
+
+/* Per-topic deterministic text color (see src/lib/topic-color.ts). Callers
+   set --tc-light/--tc-dark inline per element; this class just picks the
+   right one for the active theme, SSR-safe (no JS needed to avoid a flash
+   of wrong color). */
+.topic-colored {
+  color: var(--tc-light);
+}
+
+.dark .topic-colored {
+  color: var(--tc-dark);
 }
 
 /* Horizontal-scroll rows (topics chips, trending chips) that shouldn't show

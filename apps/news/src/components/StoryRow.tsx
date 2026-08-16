@@ -1,7 +1,9 @@
 import { ExternalLink, TrendingUp } from "lucide-react";
+import type { CSSProperties } from "react";
 import { useState } from "react";
 import { highlightTitle } from "../lib/highlight";
 import { categoryLabel, timeAgo } from "../lib/lang";
+import { topicColor } from "../lib/topic-color";
 import type { FeedItem, Lang } from "../lib/types";
 import { StoryDetail } from "./StoryDetail";
 
@@ -9,15 +11,32 @@ function HighlightedTitle({ title, tags }: { title: string; tags: string[] }) {
   const segments = highlightTitle(title, tags);
   return (
     <>
-      {segments.map((s, i) =>
-        s.highlighted ? (
+      {segments.map((s, i) => {
+        if (s.highlighted && s.tag) {
+          const color = topicColor(s.tag);
+          return (
+            <span
+              key={i}
+              className="topic-colored font-semibold"
+              style={
+                {
+                  "--tc-light": color.light,
+                  "--tc-dark": color.dark,
+                } as CSSProperties
+              }
+            >
+              {s.text}
+            </span>
+          );
+        }
+        return s.highlighted ? (
           <span key={i} className="font-semibold text-accent">
             {s.text}
           </span>
         ) : (
           <span key={i}>{s.text}</span>
-        )
-      )}
+        );
+      })}
     </>
   );
 }

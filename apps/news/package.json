@@ -13,7 +13,8 @@
     "format:fix": "biome format --write .",
     "lint:fix": "biome check --write .",
     "deploy": "pnpm run build && pnpm exec wrangler deploy --config dist/server/wrangler.json",
-    "cf:deploy:prod": "dotenv -e ../../.env.production -e ../../.env.production.local -- pnpm run deploy"
+    "cf:deploy:prod": "dotenv -e ../../.env.production -e ../../.env.production.local -- pnpm run deploy && pnpm run smoke",
+    "smoke": "tsx scripts/smoke.ts"
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.61.2",

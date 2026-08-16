@@ -163,7 +163,11 @@ function RootComponent() {
           <PrefsContext.Provider value={{ prefs, setPrefs }}>
             <ThemeProvider>
               <ClerkRootProvider>
-                <div className="relative flex min-h-screen flex-col justify-between overflow-x-hidden bg-background text-foreground selection:bg-foreground selection:text-background">
+                <div
+                  className="app-shell relative flex min-h-screen flex-col justify-between overflow-x-hidden bg-background text-foreground selection:bg-foreground selection:text-background"
+                  data-reader-bg={prefs.bg}
+                  suppressHydrationWarning
+                >
                   <div className="relative z-20 flex w-full flex-col">
                     <SiteHeader currentApp="news" />
                   </div>
@@ -171,13 +175,13 @@ function RootComponent() {
                   {/* Our amber brand accent + compact reader typography are
                       scoped to .news-content (HeaderBar + main) only, so they
                       never leak into the shared SiteHeader/SiteFooter chrome
-                      above/below. */}
+                      above/below. The reader background swatch, though, is
+                      applied on .app-shell above so it paints the whole page
+                      (header/footer chrome included), not just this area. */}
                   <div
                     className="news-content relative z-10 flex flex-grow flex-col"
                     style={readerCssVars(prefs)}
                     data-reader-font={prefs.font}
-                    data-reader-bg={prefs.bg}
-                    suppressHydrationWarning
                   >
                     <HeaderBar lang={lang} onLangChange={handleLangChange} />
 

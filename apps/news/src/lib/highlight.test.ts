@@ -16,7 +16,7 @@ describe("highlightTitle", () => {
 
   it("highlights a single matching tag case-insensitively", () => {
     expect(highlightTitle("Anthropic ships Claude 5", ["anthropic"])).toEqual([
-      { text: "Anthropic", highlighted: true },
+      { text: "Anthropic", highlighted: true, tag: "anthropic" },
       { text: " ships Claude 5", highlighted: false },
     ]);
   });
@@ -26,7 +26,7 @@ describe("highlightTitle", () => {
       highlightTitle("New open source model released", ["open-source"])
     ).toEqual([
       { text: "New ", highlighted: false },
-      { text: "open source", highlighted: true },
+      { text: "open source", highlighted: true, tag: "open-source" },
       { text: " model released", highlighted: false },
     ]);
   });
@@ -70,5 +70,48 @@ describe("highlightTitle", () => {
     expect(highlightTitle("", ["anthropic"])).toEqual([
       { text: "", highlighted: false },
     ]);
+  });
+
+  describe("tag attribution", () => {
+    it("attaches the matched tag to each highlighted segment", () => {
+      const segments = highlightTitle("Anthropic and OpenAI race on models", [
+        "anthropic",
+        "openai",
+      ]);
+      const highlighted = segments.filter((s) => s.highlighted);
+      expect(highlighted).toEqual([
+        { text: "Anthropic", highlighted: true, tag: "anthropic" },
+        { text: "OpenAI", highlighted: true, tag: "openai" },
+      ]);
+    });
+
+    it("preserves the original tag's case, not lowercased", () => {
+      const segments = highlightTitle("New GPT-5 model announced", ["GPT-5"]);
+      const highlighted = segments.filter((s) => s.highlighted);
+      expect(highlighted).toHaveLength(1);
+      expect(highlighted[0].tag).toBe("GPT-5");
+    });
+
+    it("attributes a hyphenated tag even when matched via its spaced spelling", () => {
+      const segments = highlightTitle("New open source model released", [
+        "open-source",
+      ]);
+      const highlighted = segments.filter((s) => s.highlighted);
+      expect(highlighted).toHaveLength(1);
+      // The matched text is the spaced spelling found in the title, but the
+      // attributed tag is the original hyphenated input, not "open source".
+      expect(highlighted[0].text).toBe("open source");
+      expect(highlighted[0].tag).toBe("open-source");
+    });
+
+    it("does not attach a tag to unhighlighted segments", () => {
+      const segments = highlightTitle("Anthropic ships Claude 5", [
+        "anthropic",
+      ]);
+      const unhighlighted = segments.filter((s) => !s.highlighted);
+      for (const s of unhighlighted) {
+        expect(s.tag).toBeUndefined();
+      }
+    });
   });
 });

@@ -1,6 +1,8 @@
 import { ExternalLink } from "lucide-react";
+import type { CSSProperties } from "react";
 import { categoryLabel } from "../lib/lang";
 import { storyPath } from "../lib/slug";
+import { topicColor } from "../lib/topic-color";
 import type { FeedItem, Lang } from "../lib/types";
 import { SuggestionBadge, SuggestTranslation } from "./SuggestTranslation";
 
@@ -82,14 +84,27 @@ export function StoryDetail({ item, lang }: { item: FeedItem; lang: Lang }) {
                   {categoryLabel(item.category, lang)}
                 </span>
               )}
-              {item.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="shrink-0 rounded-full border border-border bg-background px-2 py-0 text-xs"
-                >
-                  {tag}
-                </span>
-              ))}
+              {item.tags.map((tag) => {
+                const color = topicColor(tag);
+                return (
+                  <span
+                    key={tag}
+                    className="shrink-0 rounded-full border border-border bg-background px-2 py-0 text-xs"
+                  >
+                    <span
+                      className="topic-colored"
+                      style={
+                        {
+                          "--tc-light": color.light,
+                          "--tc-dark": color.dark,
+                        } as CSSProperties
+                      }
+                    >
+                      {tag}
+                    </span>
+                  </span>
+                );
+              })}
             </div>
           )}
 

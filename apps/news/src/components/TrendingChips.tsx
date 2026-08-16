@@ -1,4 +1,6 @@
 import { TrendingUp } from "lucide-react";
+import type { CSSProperties } from "react";
+import { topicColor } from "../lib/topic-color";
 
 export function TrendingChips({
   trending,
@@ -22,6 +24,7 @@ export function TrendingChips({
         const selected =
           selectedTag !== null &&
           selectedTag.toLowerCase() === t.tag.toLowerCase();
+        const color = topicColor(t.tag);
         return (
           <button
             key={t.tag}
@@ -34,6 +37,16 @@ export function TrendingChips({
                 : "border-border hover:border-accent/60"
             }`}
           >
+            <span
+              className="topic-colored h-1.5 w-1.5 shrink-0 self-center rounded-full bg-current"
+              style={
+                {
+                  "--tc-light": color.light,
+                  "--tc-dark": color.dark,
+                } as CSSProperties
+              }
+              aria-hidden
+            />
             {t.tag}
             <span className="text-xs font-semibold text-accent">{t.count}</span>
           </button>

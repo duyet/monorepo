@@ -1,6 +1,11 @@
 export interface TitleSegment {
   text: string;
   highlighted: boolean;
+  /**
+   * The original (untrimmed-case, un-spaced) tag string that produced this
+   * highlighted segment. Only present when `highlighted` is true.
+   */
+  tag?: string;
 }
 
 const MAX_HIGHLIGHTS = 3;
@@ -13,6 +18,10 @@ const MAX_HIGHLIGHTS = 3;
  * capped at MAX_HIGHLIGHTS distinct tags found (first occurrence order)
  * to avoid a "rainbow title" when a story carries many tags.
  *
+ * Each highlighted segment carries the original input `tag` string that
+ * matched it (never the spaced/hyphen variant), so callers can color it
+ * per-topic.
+ *
  * Pure and React-safe: callers render each segment as plain text (no
  * dangerouslySetInnerHTML).
  */
@@ -22,19 +31,23 @@ export function highlightTitle(title: string, tags: string[]): TitleSegment[] {
   // Build the set of literal needles to search for (original + space-joined
   // variant for hyphenated/underscored multi-word tags), longest first so a
   // longer tag ("open source") wins over a shorter one it contains ("open").
-  const needles = new Set<string>();
+  // Each needle remembers the original input tag string it was derived
+  // from, so a matched range can be attributed back to its source tag.
+  const needleTag = new Map<string, string>();
   for (const tag of tags) {
     const trimmed = tag.trim();
     if (!trimmed) continue;
-    needles.add(trimmed);
+    if (!needleTag.has(trimmed)) needleTag.set(trimmed, trimmed);
     const spaced = trimmed.replace(/[-_]+/g, " ");
-    if (spaced !== trimmed) needles.add(spaced);
+    if (spaced !== trimmed && !needleTag.has(spaced)) {
+      needleTag.set(spaced, trimmed);
+    }
   }
-  const sorted = [...needles].sort((a, b) => b.length - a.length);
+  const sorted = [...needleTag.keys()].sort((a, b) => b.length - a.length);
 
   const lowerTitle = title.toLowerCase();
   // Collect non-overlapping matches across the whole title.
-  const ranges: { start: number; end: number }[] = [];
+  const ranges: { start: number; end: number; tag: string }[] = [];
   const matchedTags = new Set<string>();
 
   for (const needle of sorted) {
@@ -48,7 +61,8 @@ export function highlightTitle(title: string, tags: string[]): TitleSegment[] {
       const end = idx + lowerNeedle.length;
       const overlaps = ranges.some((r) => idx < r.end && end > r.start);
       if (!overlaps) {
-        ranges.push({ start: idx, end });
+        const originalTag = needleTag.get(needle) ?? needle;
+        ranges.push({ start: idx, end, tag: originalTag });
         matchedTags.add(lowerNeedle);
         break; // one highlighted occurrence per distinct tag is enough
       }
@@ -65,7 +79,11 @@ export function highlightTitle(title: string, tags: string[]): TitleSegment[] {
     if (r.start > cursor) {
       segments.push({ text: title.slice(cursor, r.start), highlighted: false });
     }
-    segments.push({ text: title.slice(r.start, r.end), highlighted: true });
+    segments.push({
+      text: title.slice(r.start, r.end),
+      highlighted: true,
+      tag: r.tag,
+    });
     cursor = r.end;
   }
   if (cursor < title.length) {
