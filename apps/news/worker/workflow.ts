@@ -602,10 +602,16 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
           }
         }
 
+        // Only the current UTC day is re-ranked: the feed groups and sorts
+        // stories per day, so recomputing freshness decay on older items
+        // reshuffles history the reader already saw. Once a day rolls over,
+        // its order is frozen; past days only ever gain merged-away dupes.
+        const startOfUtcDaySec =
+          Math.floor(toEpochSeconds(now) / 86400) * 86400;
         const { results: recentItems } = await this.env.DB.prepare(
           "SELECT id, published_at, points, comments, llm_importance, llm_quality FROM items WHERE published_at >= ? AND status = 'published'"
         )
-          .bind(toEpochSeconds(now) - RANK_RECOMPUTE_WINDOW_SEC)
+          .bind(startOfUtcDaySec)
           .all<
             Pick<
               ItemRow,
