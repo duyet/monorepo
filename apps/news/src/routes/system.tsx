@@ -3,7 +3,11 @@ import { Coins, Newspaper, Play, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 import { BarList } from "../components/system/BarList";
 import { ChartCard } from "../components/system/ChartCard";
-import { DailyBars } from "../components/system/DailyBars";
+import {
+  CategoryDonut,
+  ItemsAreaChart,
+  TokensLineChart,
+} from "../components/system/DitherCharts";
 import { RunDurationBars } from "../components/system/RunDurationBars";
 import { RunOutcomeBars } from "../components/system/RunOutcomeBars";
 import { RunsList } from "../components/system/RunsList";
@@ -184,7 +188,7 @@ function SystemPage() {
             "Bài đã đăng, 14 ngày gần nhất"
           )}
         >
-          <DailyBars
+          <ItemsAreaChart
             data={stats.itemsPerDay}
             emptyLabel={t("No data yet.", "Chưa có dữ liệu.")}
           />
@@ -197,10 +201,23 @@ function SystemPage() {
             "Token LLM đã dùng, 14 ngày gần nhất"
           )}
         >
-          <DailyBars
+          <TokensLineChart
             data={stats.tokens.perDay}
             emptyLabel={t("No token data yet.", "Chưa có dữ liệu token.")}
             formatValue={formatTokens}
+          />
+        </ChartCard>
+
+        <ChartCard
+          title={t("Category share", "Tỷ trọng chuyên mục")}
+          subtitle={t(
+            "Story share of the top categories",
+            "Tỷ lệ bài viết theo chuyên mục hàng đầu"
+          )}
+        >
+          <CategoryDonut
+            data={stats.itemsByCategory}
+            emptyLabel={t("No data yet.", "Chưa có dữ liệu.")}
           />
         </ChartCard>
 

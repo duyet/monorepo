@@ -11,6 +11,9 @@
   --color-accent: var(--accent);
   --color-brand: var(--brand);
   --color-brand-soft: var(--brand-soft);
+  /* Popover tokens for dither-kit chart tooltips. */
+  --color-popover: var(--background);
+  --color-popover-foreground: var(--foreground);
   --font-sans: var(--editorial-font-sans);
   --font-serif: var(--editorial-font-serif);
   --font-mono: var(--editorial-font-mono);
