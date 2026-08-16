@@ -55,11 +55,24 @@ async function callAnyrouter(
   return content;
 }
 
-/** Strips ```json fences and parses; throws on malformed JSON. */
+/**
+ * Strips ```json fences and parses. If there's no fence, some models still
+ * wrap the JSON in prose ("Here's the result: {...}") despite json mode;
+ * fall back to extracting the outermost {...} or [...] block. Throws if
+ * nothing parseable is found.
+ */
 function parseJson<T>(raw: string): T {
   let text = raw.trim();
   const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/i);
-  if (fenced) text = fenced[1].trim();
+  if (fenced) {
+    text = fenced[1].trim();
+  } else {
+    const start = text.search(/[[{]/);
+    const end = Math.max(text.lastIndexOf("}"), text.lastIndexOf("]"));
+    if (start >= 0 && end > start) {
+      text = text.slice(start, end + 1);
+    }
+  }
   return JSON.parse(text) as T;
 }
 
@@ -170,17 +183,63 @@ export interface TldrItem {
   summary?: string;
 }
 
+export interface TldrBullet {
+  text: string;
+  item_id: string;
+}
+
 export interface TldrResult {
-  bullets_en: { text: string; item_id: string }[];
-  bullets_vi: { text: string; item_id: string }[];
+  bullets_en: TldrBullet[];
+  bullets_vi: TldrBullet[];
+}
+
+const EMPTY_TLDR: TldrResult = { bullets_en: [], bullets_vi: [] };
+
+function normalizeBullets(input: unknown): TldrBullet[] {
+  if (!Array.isArray(input)) return [];
+  const out: TldrBullet[] = [];
+  for (const entry of input) {
+    if (typeof entry === "string" && entry.trim()) {
+      out.push({ text: entry, item_id: "" });
+      continue;
+    }
+    if (entry && typeof entry === "object") {
+      const e = entry as Record<string, unknown>;
+      const text = typeof e.text === "string" ? e.text : undefined;
+      if (!text) continue;
+      const itemId =
+        typeof e.item_id === "string"
+          ? e.item_id
+          : typeof e.id === "string"
+            ? e.id
+            : "";
+      out.push({ text, item_id: itemId });
+    }
+  }
+  return out;
+}
+
+/** Accepts the documented `{bullets_en, bullets_vi}` shape as well as a
+ * `{bullets: {en, vi}}` alternate the model sometimes returns, and tolerates
+ * bullets that are plain strings or missing `item_id`. */
+function normalizeTldrResult(parsed: unknown): TldrResult {
+  if (!parsed || typeof parsed !== "object") return EMPTY_TLDR;
+  const p = parsed as Record<string, unknown>;
+  const nested =
+    p.bullets && typeof p.bullets === "object"
+      ? (p.bullets as Record<string, unknown>)
+      : null;
+
+  return {
+    bullets_en: normalizeBullets(p.bullets_en ?? nested?.en),
+    bullets_vi: normalizeBullets(p.bullets_vi ?? nested?.vi),
+  };
 }
 
 export async function generateTldr(
   env: Env,
   items: TldrItem[]
 ): Promise<TldrResult> {
-  const empty: TldrResult = { bullets_en: [], bullets_vi: [] };
-
   const prompt = `Summarize the following AI/tech news items into roughly 12 concise TL;DR bullets, in both English and Vietnamese. Each bullet must reference the item_id it was derived from.
 
 Items:
@@ -188,19 +247,27 @@ ${JSON.stringify(items)}
 
 Respond with strict JSON only: {"bullets_en":[{"text":"...","item_id":"..."}],"bullets_vi":[{"text":"...","item_id":"..."}]}`;
 
-  try {
-    const raw = await callAnyrouter(env, [{ role: "user", content: prompt }], {
-      json: true,
-    });
-    const parsed = parseJson<TldrResult>(raw);
-    return {
-      bullets_en: Array.isArray(parsed.bullets_en) ? parsed.bullets_en : [],
-      bullets_vi: Array.isArray(parsed.bullets_vi) ? parsed.bullets_vi : [],
-    };
-  } catch (error) {
-    console.error("generateTldr failed:", error);
-    return empty;
+  const ATTEMPTS = 2;
+  for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
+    try {
+      const raw = await callAnyrouter(
+        env,
+        [{ role: "user", content: prompt }],
+        { json: true }
+      );
+      const result = normalizeTldrResult(parseJson<unknown>(raw));
+      if (result.bullets_en.length > 0 || result.bullets_vi.length > 0) {
+        return result;
+      }
+      console.error(
+        `generateTldr attempt ${attempt}/${ATTEMPTS} returned no bullets`
+      );
+    } catch (error) {
+      console.error(`generateTldr attempt ${attempt}/${ATTEMPTS} failed:`, error);
+    }
   }
+
+  return EMPTY_TLDR;
 }
 
-export { parseJson as _parseJsonForTests };
+export { parseJson as _parseJsonForTests, normalizeTldrResult as _normalizeTldrForTests };

@@ -12,6 +12,35 @@ interface ItemRow {
   summary: string | null;
 }
 
+const TOP_ITEMS_SQL = `SELECT id, title, summary FROM items
+     WHERE status = 'published' AND published_at >= ?
+     ORDER BY rank_score DESC
+     LIMIT 12`;
+
+/**
+ * Pure query builder for the top-items lookup, so the gating logic
+ * (published, fresh, ranked, capped at 12) can be verified without a D1
+ * binding. `nowMs` is epoch milliseconds; `items.published_at` is stored
+ * as epoch seconds, so the bound `since` value is normalized to seconds.
+ */
+export function buildTopItemsQuery(nowMs: number): {
+  sql: string;
+  since: number;
+} {
+  return {
+    sql: TOP_ITEMS_SQL,
+    since: toEpochSeconds(nowMs) - 24 * 60 * 60,
+  };
+}
+
+/** A TL;DR result is only worth persisting if it actually has bullets. */
+export function shouldPersistTldr(result: {
+  bullets_en: unknown[];
+  bullets_vi: unknown[];
+}): boolean {
+  return result.bullets_en.length > 0 || result.bullets_vi.length > 0;
+}
+
 /** Idempotent daily gate: generates and stores a TL;DR snapshot once per UTC day. */
 export async function ensureDailyTldr(env: Env): Promise<void> {
   const date = todayUtc();
@@ -23,16 +52,8 @@ export async function ensureDailyTldr(env: Env): Promise<void> {
     .first();
   if (existing) return;
 
-  // items.published_at is stored as epoch seconds.
-  const since = toEpochSeconds(Date.now()) - 24 * 60 * 60;
-  const { results } = await env.DB.prepare(
-    `SELECT id, title, summary FROM items
-     WHERE status = 'published' AND published_at >= ?
-     ORDER BY rank_score DESC
-     LIMIT 12`
-  )
-    .bind(since)
-    .all<ItemRow>();
+  const { sql, since } = buildTopItemsQuery(Date.now());
+  const { results } = await env.DB.prepare(sql).bind(since).all<ItemRow>();
 
   if (!results || results.length === 0) return;
 
@@ -44,6 +65,14 @@ export async function ensureDailyTldr(env: Env): Promise<void> {
       summary: row.summary ?? undefined,
     }))
   );
+
+  // Never write an empty snapshot: an empty row would satisfy the
+  // `existing` gate above and block regeneration for the rest of the day,
+  // even though the LLM call is retried hourly by the workflow's cron.
+  if (!shouldPersistTldr(tldr)) {
+    console.error("generateTldr returned no bullets; skipping snapshot write");
+    return;
+  }
 
   await env.DB.prepare(
     `INSERT INTO tldr_snapshots (date, bullets_en, bullets_vi, created_at)
