@@ -31,6 +31,49 @@
   --on-dark: #f4f3f1;
 }
 
+/* Native first paint: honour the OS scheme with CSS alone, so a dark visitor
+   never sees a light flash while the theme script and its bundle load. The
+   .light / .dark classes still win once a visitor picks a theme. */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --canvas: #0a0a0a;
+    --ink: #f4f3f1;
+    --background: var(--canvas);
+    --foreground: var(--ink);
+    --body: #c8c7c2;
+    --muted: #9a9994;
+    --muted-foreground: #9a9994;
+    --muted-soft: #7a7974;
+    --hairline: #242424;
+    --surface-card: #111111;
+    --on-dark: #f4f3f1;
+  }
+
+  :root:not(.light) .burns-swatch {
+    box-shadow: inset 0 0 0 1px rgb(244 243 241 / 0.22);
+  }
+
+  :root:not(.light) .burns-mix-write {
+    background: #5a5955;
+  }
+
+  :root:not(.light) .burns-mix-read {
+    background: #3a3936;
+  }
+}
+
+html {
+  color-scheme: light dark;
+}
+
+html.light {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
 * {
   box-sizing: border-box;
 }
