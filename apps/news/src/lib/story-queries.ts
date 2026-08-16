@@ -40,9 +40,11 @@ export async function getStory(
               ${hasImageUrl ? ", i.image_url" : ""}
        FROM items i
        LEFT JOIN translations t ON t.item_id = i.id AND t.lang = 'vi'
-       WHERE i.id LIKE ? AND i.status = 'published' LIMIT 1`
+       WHERE substr(i.id, 1, ?) = ? AND i.status = 'published' LIMIT 1`
     )
-    .bind(`${idPrefix}%`)
+    // substr-prefix match instead of LIKE: a full 64-char id as a LIKE
+    // pattern exceeds SQLite's pattern-complexity limit (D1_ERROR).
+    .bind(idPrefix.length, idPrefix)
     .first<Record<string, unknown>>();
   if (!row) return null;
 
