@@ -24,6 +24,11 @@ export interface Env {
   /** Comma-separated Clerk user ids (the token's `sub`) granted admin
    *  access, independent of any role claim. */
   NEWS_ADMIN_USER_IDS?: string;
+  /** Telegram bot token for channel posting (secret). Optional: the
+   *  telegram step no-ops when unset. */
+  TELEGRAM_BOT_TOKEN?: string;
+  /** Telegram channel/chat id to post stories to, e.g. "-1004420104760". */
+  TELEGRAM_CHAT_ID?: string;
   /** Cloudflare Email Sending binding. Optional: absent until Email Sending
    *  is onboarded for the account, so all use sites must guard for it. */
   EMAIL?: SendEmail;

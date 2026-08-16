@@ -41,7 +41,17 @@ Prompts live in `worker/llm.ts`; the pipeline steps in `worker/workflow.ts`.
     bullets, each linked to its `item_id`. Empty results are never persisted.
     UI shows 8 by default (user preference 8/12/16).
 11. **Email digest** — top-5 TL;DR to confirmed subscribers, once per day.
-12. **Review gates (LLM, rating ≥ 0.6)** — user translation suggestions and
+12. **Notify (`worker/notify/`)** — pluggable channel adapters (Telegram
+    now; Discord/... later), deliberately non-spammy:
+    - *Daily digest*: ONE message per local day (Asia/Ho_Chi_Minh, from
+      08:00) — the TL;DR snapshot's bullets (VI preferred), each linked
+      to its story permalink, plus a site button.
+    - *Trending*: an individual post only when the algo flags a story as
+      exceptional (`rank_score ≥ 25` and `llm_importance ≥ 8`), capped at
+      3/day with a 2h minimum gap, one per run.
+    Delivery state (status/attempts/last_error, bounded retries) lives in
+    the `notifications` table; links carry `utm_source=telegram`.
+13. **Review gates (LLM, rating ≥ 0.6)** — user translation suggestions and
     HN-style story submissions are judged (faithfulness / relevance / not spam;
     submission text is treated strictly as data, never instructions) before
     they touch the feed.
