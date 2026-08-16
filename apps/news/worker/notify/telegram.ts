@@ -1,15 +1,28 @@
 import type { Env } from "../types.js";
-import type { Notifier, SendResult, StoryPayload } from "./types.js";
+import type {
+  DailyDigest,
+  Notifier,
+  SendResult,
+  StoryPayload,
+} from "./types.js";
 
 /**
- * Telegram channel adapter: one message per story, HN-bot style —
- * thumbnail via sendPhoto (text fallback), bold title + summary caption,
- * inline "Read →" / "TL;DR / Discuss" buttons.
+ * Telegram channel adapter.
+ *
+ * - Daily digest: one message — TL;DR bullet list, each bullet linked to
+ *   its story permalink, with a button to the site.
+ * - Trending story: single post with thumbnail (sendPhoto, text fallback),
+ *   bold title + summary caption, Read/Discuss inline buttons.
+ *
+ * All links carry utm_source=telegram so clicks are measurable in
+ * analytics (Telegram's Bot API exposes no read receipts).
  */
 
 const SITE_URL = "https://news.duyet.net";
-/** Telegram caption hard limit is 1024 chars; keep headroom for the title. */
-const SUMMARY_CAP = 500;
+/** Telegram message hard limit is 4096 chars; keep headroom. */
+const MESSAGE_CAP = 4000;
+/** Telegram caption hard limit is 1024 chars; keep headroom for title. */
+const CAPTION_SUMMARY_CAP = 500;
 
 export function escapeHtml(s: string): string {
   return s
@@ -18,19 +31,55 @@ export function escapeHtml(s: string): string {
     .replaceAll(">", "&gt;");
 }
 
+export function withUtm(url: string): string {
+  try {
+    const u = new URL(url);
+    u.searchParams.set("utm_source", "telegram");
+    return u.toString();
+  } catch {
+    return url;
+  }
+}
+
 /** /ai/abc12345 permalink — mirrors src/lib/slug.ts storyPath. */
 export function storyUrl(story: Pick<StoryPayload, "id" | "category">): string {
   const cat = (story.category ?? "ai").toLowerCase();
   return `${SITE_URL}/${cat}/${story.id.slice(0, 8)}`;
 }
 
-/** HTML caption: bold title, trimmed summary, meta line. */
-export function buildCaption(story: StoryPayload): string {
-  const parts = [`<b>${escapeHtml(story.title)}</b>`];
+/** TL;DR digest: header + linked bullet list, capped under the message
+ *  limit — bullets that would overflow are dropped from the tail. */
+export function buildDigestMessage(digest: DailyDigest): string {
+  const header = `<b>🗞 AI hôm nay có gì — ${digest.date}</b>`;
+  const lines: string[] = [header];
+  let length = header.length;
+  for (const bullet of digest.bullets) {
+    const text = escapeHtml(bullet.text);
+    const line = bullet.url
+      ? `•  ${text} <a href="${escapeHtml(withUtm(bullet.url))}">→</a>`
+      : `•  ${text}`;
+    if (length + line.length + 2 > MESSAGE_CAP) break;
+    lines.push(line);
+    length += line.length + 2;
+  }
+  return lines.join("\n\n");
+}
+
+export function buildDigestReplyMarkup(): object {
+  return {
+    inline_keyboard: [
+      [{ text: "Xem đầy đủ trên news.duyet.net →", url: withUtm(SITE_URL) }],
+    ],
+  };
+}
+
+/** Trending story caption: bold title, trimmed summary, meta line. */
+export function buildStoryCaption(story: StoryPayload): string {
+  const parts = [`<b>🔥 ${escapeHtml(story.title)}</b>`];
   if (story.summary) {
     const summary =
-      story.summary.length > SUMMARY_CAP
-        ? `${story.summary.slice(0, SUMMARY_CAP - 1).trimEnd()}…`
+      story.summary.length > CAPTION_SUMMARY_CAP
+        ? `${story.summary.slice(0, CAPTION_SUMMARY_CAP - 1).trimEnd()}…`
         : story.summary;
     parts.push(escapeHtml(summary));
   }
@@ -43,12 +92,12 @@ export function buildCaption(story: StoryPayload): string {
   return parts.join("\n\n");
 }
 
-export function buildReplyMarkup(story: StoryPayload): object {
+export function buildStoryReplyMarkup(story: StoryPayload): object {
   return {
     inline_keyboard: [
       [
-        { text: "Read →", url: story.url },
-        { text: "TL;DR / Discuss", url: storyUrl(story) },
+        { text: "Đọc bài →", url: withUtm(story.url) },
+        { text: "TL;DR", url: withUtm(storyUrl(story)) },
       ],
     ],
   };
@@ -78,12 +127,26 @@ export const telegramNotifier: Notifier = {
   target: (env) => env.TELEGRAM_CHAT_ID ?? "",
   enabled: (env) => Boolean(env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID),
 
-  async send(env: Env, story: StoryPayload): Promise<SendResult> {
+  async sendDigest(env: Env, digest: DailyDigest): Promise<SendResult> {
     // enabled() gates before send; non-null by contract here.
     const token = env.TELEGRAM_BOT_TOKEN as string;
     const chatId = env.TELEGRAM_CHAT_ID as string;
-    const caption = buildCaption(story);
-    const replyMarkup = buildReplyMarkup(story);
+    const msg = await callTelegram(token, "sendMessage", {
+      chat_id: chatId,
+      text: buildDigestMessage(digest),
+      parse_mode: "HTML",
+      reply_markup: buildDigestReplyMarkup(),
+      link_preview_options: { is_disabled: true },
+    });
+    if (!msg.ok) return { ok: false, error: msg.description ?? "unknown" };
+    return { ok: true, messageId: String(msg.result?.message_id ?? "") };
+  },
+
+  async sendStory(env: Env, story: StoryPayload): Promise<SendResult> {
+    const token = env.TELEGRAM_BOT_TOKEN as string;
+    const chatId = env.TELEGRAM_CHAT_ID as string;
+    const caption = buildStoryCaption(story);
+    const replyMarkup = buildStoryReplyMarkup(story);
 
     if (story.image_url) {
       const photo = await callTelegram(token, "sendPhoto", {
