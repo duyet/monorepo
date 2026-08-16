@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { type JSX, useState } from "react";
 import { AnimatedCounter } from "../components/AnimatedCounter";
 import { BreakdownDialog } from "../components/BreakdownDialog";
-import { DailyChart, WINDOW } from "../components/DailyChart";
+import { DailyChart, RANGES, type RangeKey } from "../components/DailyChart";
 import { SourceIcons } from "../components/SourceIcons";
 import { BURNS_LOCALE, formatDay } from "../lib/dates";
 import { readPublicJson } from "../lib/read-public-json";
@@ -37,6 +37,7 @@ function formatUpdated(iso: string): string | null {
 function Page(): JSX.Element {
   const data = Route.useLoaderData();
   const [filter, setFilter] = useState<string | null>(null);
+  const [rangeKey, setRangeKey] = useState<RangeKey>("90d");
   const range = formatRange(data.firstDate, data.lastDate);
   const updated = formatUpdated(data.generatedAt);
 
@@ -74,12 +75,27 @@ function Page(): JSX.Element {
 
       <section className="burns-section burns-section-chart">
         <div className="burns-section-head">
-          <h2 className="burns-section-title">Daily</h2>
-          <p className="burns-section-meta">
-            {filter ? `${filter} · last ${WINDOW} days` : `Last ${WINDOW} days`}
-          </p>
+          <h2 className="burns-section-title">
+            {filter ? `Daily · ${filter}` : "Daily"}
+          </h2>
+          <div className="burns-switch">
+            {RANGES.map((r) => (
+              <button
+                key={r.key}
+                type="button"
+                aria-pressed={rangeKey === r.key}
+                onClick={() => setRangeKey(r.key)}
+              >
+                {r.label}
+              </button>
+            ))}
+          </div>
         </div>
-        <DailyChart daily={data.daily} filter={filter} />
+        <DailyChart
+          daily={data.daily}
+          filter={filter}
+          days={RANGES.find((r) => r.key === rangeKey)?.days ?? null}
+        />
       </section>
 
       <footer className="burns-footer">

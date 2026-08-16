@@ -12,9 +12,17 @@ interface DailyChartProps {
   daily: DailyEntry[];
   /** When set, only this agent's usage is charted. */
   filter?: string | null;
+  /** Number of most recent days to chart; null charts everything. */
+  days?: number | null;
 }
 
-export const WINDOW = 90;
+export const RANGES = [
+  { key: "all", label: "All", days: null },
+  { key: "12m", label: "12 months", days: 365 },
+  { key: "90d", label: "90 days", days: 90 },
+] as const;
+
+export type RangeKey = (typeof RANGES)[number]["key"];
 const CHART_H = 100;
 
 function stackedTotal(d: DailyEntry): number {
@@ -25,6 +33,7 @@ function stackedTotal(d: DailyEntry): number {
 export function DailyChart({
   daily,
   filter = null,
+  days = null,
 }: DailyChartProps): JSX.Element | null {
   const [hovered, setHovered] = useState<number | null>(null);
 
@@ -33,8 +42,7 @@ export function DailyChart({
   const keep = (source: string) =>
     filter === null || normalizeSource(source) === filter;
 
-  const recent = daily
-    .slice(0, WINDOW)
+  const recent = (days === null ? daily.slice() : daily.slice(0, days))
     .reverse()
     .map((d) =>
       filter === null

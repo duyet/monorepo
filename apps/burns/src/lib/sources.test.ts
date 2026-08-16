@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, test } from "vitest";
-import { SOURCE_COLORS, normalizeSource, sourceSwatch } from "./sources";
+import { normalizeSource, SOURCE_COLORS, sourceSwatch } from "./sources";
 
 const burnsRoot = join(dirname(fileURLToPath(import.meta.url)), "../..");
 
@@ -48,7 +48,9 @@ describe("source colors", () => {
   test("gemini and antigravity use different swatches", () => {
     expect(SOURCE_COLORS["Gemini CLI"]).toBeTruthy();
     expect(SOURCE_COLORS["Google Antigravity"]).toBeTruthy();
-    expect(sourceSwatch("Gemini CLI")).not.toBe(sourceSwatch("Google Antigravity"));
+    expect(sourceSwatch("Gemini CLI")).not.toBe(
+      sourceSwatch("Google Antigravity")
+    );
   });
 
   test("Z.AI and Grok use distinct swatches", () => {
@@ -62,9 +64,14 @@ describe("fetch-burns-data mapping", () => {
     expect(normalizeSource("antigravity")).toBe("Google Antigravity");
     expect(normalizeSource("gemini")).not.toBe(normalizeSource("antigravity"));
 
-    const fetchSrc = readFileSync(join(burnsRoot, "scripts/fetch-burns-data.ts"), "utf8");
+    const fetchSrc = readFileSync(
+      join(burnsRoot, "scripts/fetch-burns-data.ts"),
+      "utf8"
+    );
     expect(fetchSrc).toContain("normalizeSource(");
     expect(fetchSrc).not.toContain("IN ('antigravity', 'gemini')");
-    expect(fetchSrc).not.toMatch(/source\s*=\s*'gemini'\s+THEN\s+'Google Antigravity'/i);
+    expect(fetchSrc).not.toMatch(
+      /source\s*=\s*'gemini'\s+THEN\s+'Google Antigravity'/i
+    );
   });
 });

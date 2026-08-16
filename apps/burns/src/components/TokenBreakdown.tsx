@@ -1,5 +1,5 @@
-import type { TokenTotals } from "../lib/types";
 import { fmtCompactTokens } from "../lib/sources";
+import type { TokenTotals } from "../lib/types";
 
 interface TokenBreakdownProps {
   totals: TokenTotals;
@@ -8,7 +8,11 @@ interface TokenBreakdownProps {
 const MIX = [
   { key: "input_tokens", label: "Input", swatch: "burns-mix-input" },
   { key: "output_tokens", label: "Output", swatch: "burns-mix-output" },
-  { key: "cache_creation_tokens", label: "Cache write", swatch: "burns-mix-write" },
+  {
+    key: "cache_creation_tokens",
+    label: "Cache write",
+    swatch: "burns-mix-write",
+  },
   { key: "cache_read_tokens", label: "Cache read", swatch: "burns-mix-read" },
 ] as const;
 
