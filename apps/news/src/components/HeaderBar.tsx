@@ -18,13 +18,11 @@ export function HeaderBar({
   return (
     <div className="border-b border-border bg-background">
       <div className="mx-auto flex max-w-[1040px] flex-wrap items-center gap-4 px-4 py-4 md:px-6">
-        <Link to="/" className="flex shrink-0 items-baseline gap-2">
-          <span className="font-serif text-2xl italic tracking-tight text-foreground">
-            AI News
-          </span>
-          <span className="hidden text-sm text-muted-foreground sm:inline">
-            {tagline}
-          </span>
+        <Link
+          to="/"
+          className="shrink-0 text-sm text-muted-foreground hover:text-foreground"
+        >
+          {tagline}
         </Link>
         <div className="flex-1" />
         <div className="hidden flex-1 justify-center sm:flex">

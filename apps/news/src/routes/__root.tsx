@@ -131,7 +131,7 @@ function RootComponent() {
                 <div className="pointer-events-none absolute inset-0 z-0 bg-grid-pattern opacity-[0.8] dark:opacity-[0.4]" />
 
                 <div className="relative z-20 flex w-full flex-col">
-                  <SiteHeader />
+                  <SiteHeader currentApp="news" />
                   <HeaderBar lang={lang} onLangChange={handleLangChange} />
                 </div>
 

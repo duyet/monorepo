@@ -18,6 +18,7 @@ import {
   type LucideIcon,
   Menu,
   Moon,
+  Newspaper,
   Percent,
   Plug,
   Server,
@@ -64,7 +65,8 @@ type AppKey =
   | "burn"
   | "cv"
   | "html"
-  | "mcp";
+  | "mcp"
+  | "news";
 
 type AppCategory = "Personal" | "AI & Data" | "Build" | "Infra";
 
@@ -188,6 +190,15 @@ const APPS: AppDef[] = [
     blurb: "Token spend",
   },
   {
+    key: "news",
+    name: "News",
+    href: "https://news.duyet.net",
+    subdomain: "news.duyet.net",
+    Icon: Newspaper,
+    category: "AI & Data",
+    blurb: "AI news, ranked by LLMs",
+  },
+  {
     key: "agents",
     name: "Agents",
     href: "https://agents.duyet.net",
@@ -241,7 +252,8 @@ const APPS: AppDef[] = [
  * `app` keys compare against `currentApp`; `path` keys compare against the
  * current pathname (only meaningful on the home app).
  *
- * `blogOnly` — only rendered when currentApp === "blog".
+ * `onlyApp` — only rendered when currentApp matches (excluded even from the
+ * home app's "show everything" fallback, unlike a plain `match.app`).
  * `hideOnApps` — explicitly excluded from the listed apps.
  */
 const GLOBAL_NAV: {
@@ -253,7 +265,7 @@ const GLOBAL_NAV: {
     href: string;
     match: { app?: AppKey; path?: string };
   }[];
-  blogOnly?: boolean;
+  onlyApp?: AppKey;
   hideOnApps?: AppKey[];
 }[] = [
   {
@@ -280,19 +292,19 @@ const GLOBAL_NAV: {
     label: "Series",
     href: "https://blog.duyet.net/series",
     match: { app: "blog", path: "/series" },
-    blogOnly: true,
+    onlyApp: "blog",
   },
   {
     label: "Note",
     href: "https://blog.duyet.net/notes",
     match: { app: "blog", path: "/notes" },
-    blogOnly: true,
+    onlyApp: "blog",
   },
   {
     label: "More",
     href: "https://blog.duyet.net/archives",
     match: { app: "blog", path: "/more-menu" },
-    blogOnly: true,
+    onlyApp: "blog",
     children: [
       {
         label: "Archives",
@@ -340,6 +352,30 @@ const GLOBAL_NAV: {
     match: { path: "/about" },
     hideOnApps: ["blog"],
   },
+  {
+    label: "News",
+    href: "/",
+    match: { app: "news", path: "/" },
+    onlyApp: "news",
+  },
+  {
+    label: "MCP",
+    href: "/mcp",
+    match: { app: "news", path: "/mcp" },
+    onlyApp: "news",
+  },
+  {
+    label: "Analytics",
+    href: "/system",
+    match: { app: "news", path: "/system" },
+    onlyApp: "news",
+  },
+  {
+    label: "Changelog",
+    href: "/changelog",
+    match: { app: "news", path: "/changelog" },
+    onlyApp: "news",
+  },
 ];
 
 function GlobalNav({ currentApp }: { currentApp: AppKey }) {
@@ -370,16 +406,24 @@ function GlobalNav({ currentApp }: { currentApp: AppKey }) {
 
   const isActive = (m: { app?: AppKey; path?: string }) => {
     if (m.app && m.app === currentApp) {
-      // For blog app child items, check the path
-      if (m.app === "blog" && m.path && pathname != null) {
+      // A bare `app` match would light up every route of the current app;
+      // defer to the path check when one is provided so only the matching
+      // sub-page (not every item scoped to this app) gets highlighted.
+      if (m.path && pathname != null) {
         return m.path === "/" ? pathname === "/" : pathname.startsWith(m.path);
       }
-      // For the home app, a bare `app` match would light up every home route;
-      // defer to the path check when one is provided.
-      if (m.app === "home" && m.path) return pathname === m.path;
       return true;
     }
-    if (m.path && currentApp === "home" && pathname != null) {
+    // Path-only fallback (no owning app, or the item belongs to "home")
+    // only applies while browsing the home app itself — otherwise every
+    // other app's items with an overlapping path (e.g. both "/" ) would
+    // incorrectly light up too.
+    if (
+      m.path &&
+      (!m.app || m.app === "home") &&
+      currentApp === "home" &&
+      pathname != null
+    ) {
       return m.path === "/" ? pathname === "/" : pathname.startsWith(m.path);
     }
     return false;
@@ -394,7 +438,7 @@ function GlobalNav({ currentApp }: { currentApp: AppKey }) {
     <nav ref={containerRef} className="hidden items-center gap-0.5 md:flex">
       {GLOBAL_NAV.filter((item) => {
         if (item.hideOnApps?.includes(currentApp)) return false;
-        if (item.blogOnly) return currentApp === "blog";
+        if (item.onlyApp) return currentApp === item.onlyApp;
         if (currentApp === "home") return true;
         return item.match.app === currentApp || !item.match.app;
       }).map((item) => {
@@ -601,14 +645,12 @@ function MobileNav({ currentApp }: { currentApp: AppKey }) {
   const isActive = (m: { app?: AppKey; path?: string }) => {
     const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
     if (m.app && m.app === currentApp) {
-      // For blog app child items, check the path
-      if (m.app === "blog" && m.path) {
+      if (m.path) {
         return m.path === "/" ? pathname === "/" : pathname.startsWith(m.path);
       }
-      if (m.app === "home" && m.path) return pathname === m.path;
       return true;
     }
-    if (m.path && currentApp === "home") {
+    if (m.path && (!m.app || m.app === "home") && currentApp === "home") {
       return m.path === "/" ? pathname === "/" : pathname.startsWith(m.path);
     }
     return false;
@@ -658,7 +700,7 @@ function MobileNav({ currentApp }: { currentApp: AppKey }) {
           <nav className="flex flex-col p-1">
             {GLOBAL_NAV.filter((item) => {
               if (item.hideOnApps?.includes(currentApp)) return false;
-              if (item.blogOnly) return currentApp === "blog";
+              if (item.onlyApp) return currentApp === item.onlyApp;
               if (currentApp === "home") return true;
               return item.match.app === currentApp || !item.match.app;
             }).map((item) => {

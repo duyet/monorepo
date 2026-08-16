@@ -30,9 +30,9 @@ import {
 import { enrichMissingContent, fetchOgData } from "./enrich.js";
 import { scoreItems, translateItems } from "./llm.js";
 import { rankScore } from "./ranking.js";
+import { fetchStoryDetailByUrl } from "./sources/huggingnews.js";
 import { adapters } from "./sources/registry.js";
 import type { FetchedItem, FetchedItemSource } from "./sources/types.js";
-import { fetchStoryDetailByUrl } from "./sources/huggingnews.js";
 import { sendDailyTldr } from "./subscribe/send.js";
 import { toEpochSeconds } from "./time.js";
 import { ensureDailyTldr } from "./tldr.js";
@@ -651,11 +651,13 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
                VALUES (?, 'vi', ?, ?)
                ON CONFLICT(item_id, lang) DO UPDATE SET summary = excluded.summary`
             )
-              .bind(...buildTranslationBindArgs({
-                id: row.id,
-                title: result.title,
-                summary: result.summary,
-              }))
+              .bind(
+                ...buildTranslationBindArgs({
+                  id: row.id,
+                  title: result.title,
+                  summary: result.summary,
+                })
+              )
               .run();
           }
         } catch (error) {
