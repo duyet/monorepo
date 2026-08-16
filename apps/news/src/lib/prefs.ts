@@ -3,6 +3,7 @@ import { createContext, useContext } from "react";
 export type ReaderFont = "sans" | "serif";
 export type ReaderDensity = "compact" | "comfortable" | "spacious";
 export type ReaderBg = "default" | "cream" | "gray" | "dark" | "black";
+export type TldrCount = 8 | 12 | 16;
 
 export interface ReaderSections {
   trending: boolean;

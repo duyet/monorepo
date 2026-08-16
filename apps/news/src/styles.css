@@ -37,13 +37,19 @@
   --content-font-sans:
     "Source Sans 3", ui-sans-serif, system-ui, -apple-system, sans-serif;
 
-  /* Standard compatibility variables mapped to the editorial tokens */
+  /* Standard compatibility variables mapped to the editorial tokens.
+     --accent/--accent-foreground stay a NEUTRAL shadcn-style hover surface
+     here (same convention blog uses) because shared chrome components
+     (SiteHeader's nav buttons) consume these globally — our own amber
+     brand accent is scoped separately under .news-content below so it
+     never leaks into hover/active states on shared duyet.net chrome. */
   --background: var(--editorial-bg);
   --foreground: var(--editorial-fg);
   --muted: var(--editorial-faint);
   --muted-foreground: var(--editorial-muted);
   --border: var(--editorial-hairline);
-  --accent: var(--editorial-accent);
+  --accent: var(--editorial-faint);
+  --accent-foreground: var(--editorial-fg);
 
   /* News-only accent for TL;DR rules and trending chips */
   --brand: #f5c518;
@@ -64,7 +70,8 @@
   --muted: var(--editorial-faint);
   --muted-foreground: var(--editorial-muted);
   --border: var(--editorial-hairline);
-  --accent: var(--editorial-accent);
+  --accent: var(--editorial-faint);
+  --accent-foreground: var(--editorial-fg);
 
   --brand: #f5c518;
   --brand-soft: #292209;
@@ -93,12 +100,21 @@
   }
 }
 
-/* Feed content area (day sections, TL;DR, story rows) keeps the compact
-   HuggingNews look — sans body font, distinct from the duyet.net chrome.
-   Reader-preferences panel (PrefsPanel) drives the vars/attrs below. */
+/* Feed content area (sub-header + day sections, TL;DR, story rows) keeps
+   the compact HuggingNews look — sans body font, distinct from the
+   duyet.net chrome. Reader-preferences panel (PrefsPanel) drives the
+   vars/attrs below. Our amber brand accent is scoped here (not at :root)
+   so it never bleeds into the shared SiteHeader's nav hover/active pills. */
 .news-content {
   font-family: var(--content-font-sans);
   font-size: calc(15px * var(--reader-font-size, 1));
+  --accent: var(--editorial-accent);
+  --accent-foreground: #fffefb;
+}
+
+.dark .news-content,
+:root.dark .news-content {
+  --accent-foreground: #1c1917;
 }
 
 .news-content[data-reader-font="serif"] {
@@ -117,4 +133,15 @@
 
 .news-content[data-reader-bg="black"] {
   --background: #000000;
+}
+
+/* Horizontal-scroll rows (topics chips, trending chips) that shouldn't show
+   a visible scrollbar when their content overflows on narrow screens. */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

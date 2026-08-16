@@ -132,18 +132,25 @@ function RootComponent() {
 
                 <div className="relative z-20 flex w-full flex-col">
                   <SiteHeader currentApp="news" />
-                  <HeaderBar lang={lang} onLangChange={handleLangChange} />
                 </div>
 
-                <main
-                  className="news-content relative z-10 mx-auto w-full max-w-[1040px] flex-grow px-4 pb-16 md:px-6"
+                {/* Our amber brand accent + compact reader typography are
+                    scoped to .news-content (HeaderBar + main) only, so they
+                    never leak into the shared SiteHeader/SiteFooter chrome
+                    above/below. */}
+                <div
+                  className="news-content relative z-10 flex flex-grow flex-col"
                   style={readerCssVars(prefs)}
                   data-reader-font={prefs.font}
                   data-reader-bg={prefs.bg}
                   suppressHydrationWarning
                 >
-                  <Outlet />
-                </main>
+                  <HeaderBar lang={lang} onLangChange={handleLangChange} />
+
+                  <main className="mx-auto w-full max-w-[1040px] flex-grow px-4 pb-16 md:px-6">
+                    <Outlet />
+                  </main>
+                </div>
 
                 <SiteFooter owner="Duyet Le" />
               </div>

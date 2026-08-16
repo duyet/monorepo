@@ -40,12 +40,14 @@ export function timeAgo(
 }
 
 const CATEGORY_LABELS_VI: Record<string, string> = {
-  Regulation: "Quy định",
+  Regulation: "Chính sách",
   Research: "Nghiên cứu",
   Releases: "Phát hành",
   Funding: "Gọi vốn",
   Legal: "Pháp lý",
-  Industry: "Ngành",
+  Industry: "Doanh nghiệp",
+  Products: "Sản phẩm",
+  Infra: "Hạ tầng",
 };
 
 export function categoryLabel(name: string, lang: Lang): string {

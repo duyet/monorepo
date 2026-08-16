@@ -27,7 +27,21 @@ const VI_STYLE = `You are a Vietnamese tech journalist writing AI/tech news for 
 
 Write natural, fluent Vietnamese, never a word-by-word translation. Rephrase freely so every sentence follows Vietnamese structure and rhythm.
 
-Keep in English: product and model names (GPT, Claude, Qwen), company names, benchmark names, and the industry jargon Vietnamese readers already use in English — fine-tune, benchmark, agent, token, LLM, GPU, AI. Mixed English/Vietnamese prose is expected. Do translate terms with a settled Vietnamese equivalent, e.g. open-source becomes mã nguồn mở.
+Keep in English: product and model names (GPT, Claude, Qwen), company names, benchmark names, and the industry jargon Vietnamese readers already use in English — fine-tune, benchmark, agent, token, LLM, GPU, AI, swarm, multi-agent. Mixed English/Vietnamese prose is expected. Do translate terms with a settled Vietnamese equivalent, e.g. open-source becomes mã nguồn mở.
+
+NEVER add a parenthetical English gloss after a Vietnamese word, like "bầy (swarm)" or "đa tác nhân (multi-agent)". Pick one: the English term on its own, or a natural Vietnamese word on its own — never both stapled together.
+
+NEVER translate word-by-word (calque). Read the whole sentence, then restate the same fact the way a Vietnamese journalist would say it out loud — not the way each individual word maps across languages. Prefer active, concrete verbs over stiff noun-phrase calques (e.g. "cho thấy" / "phát hiện" / "ghi nhận", not "đã ghi nhận những lỗi phối hợp"). Split a long English sentence into two Vietnamese ones, or merge two short ones into one, whichever reads more naturally — don't preserve English sentence boundaries or punctuation just because the source used them. Avoid bureaucratic filler ("đã ghi nhận những", "tiến hành thực hiện") in favor of plain, direct phrasing.
+
+Example — bad (parenthetical gloss + calque + robotic rhythm):
+"Các thử nghiệm trên bầy (swarm) Claude agent đã ghi nhận những lỗi phối hợp, hành vi thông đồng ngầm và phá hoại lẫn nhau."
+Example — good (English term kept plain, active verbs, natural flow):
+"Thử nghiệm với swarm nhiều Claude agent cho thấy chúng phối hợp lỗi, ngầm bắt tay nhau và thậm chí phá hoại lẫn nhau — nghiên cứu phân tích ý nghĩa của điều này với an toàn AI."
+
+Example — bad (calqued noun phrase, no gloss needed but still stiff):
+"Công ty đã thực hiện việc ra mắt một mô hình mới với hiệu suất được cải thiện."
+Example — good (concrete verb, trimmed):
+"Công ty vừa ra mắt mô hình mới, hiệu suất được cải thiện rõ rệt."
 
 Titles: concise headline style, viết hoa chữ cái đầu câu như báo chí Việt Nam, never ALL CAPS.
 Summaries: complete, natural sentences.`;
@@ -481,9 +495,9 @@ export async function generateTldr(
   env: Env,
   items: TldrItem[]
 ): Promise<TldrResult> {
-  const prompt = `Summarize the following AI/tech news items into roughly 12 concise TL;DR bullets, in both English and Vietnamese. Each bullet must reference the item_id it was derived from.
+  const prompt = `Summarize the following AI/tech news items into exactly 16 concise TL;DR bullets, in both English and Vietnamese. Each bullet must reference the item_id it was derived from.
 
-The Vietnamese bullets must read as natural Vietnamese rather than a literal translation of the English ones, keeping technical terms, model names, and industry jargon in English.
+The Vietnamese bullets are NOT a translation pass over the English ones — write them the way a Vietnamese tech journalist would independently state the same facts, following the house style above.
 
 Items:
 ${JSON.stringify(items)}
@@ -496,7 +510,10 @@ Respond with strict JSON only: {"bullets_en":[{"text":"...","item_id":"..."}],"b
     try {
       const { content: raw, tokens } = await callAnyrouter(
         env,
-        [{ role: "user", content: prompt }],
+        [
+          { role: "system", content: VI_STYLE },
+          { role: "user", content: prompt },
+        ],
         { json: true, modelSpec: env.ANYROUTER_TLDR_MODEL }
       );
       totalTokens += tokens;

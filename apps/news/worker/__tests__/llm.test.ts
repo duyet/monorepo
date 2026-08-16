@@ -361,6 +361,40 @@ describe("streaming anyrouter responses", () => {
     expect(messages[1].role).toBe("user");
   });
 
+  // Regression: a real bad translation ("bầy (swarm)", "đã ghi nhận những
+  // lỗi phối hợp") slipped through before these rules existed.
+  it("style rules explicitly forbid parenthetical glosses and calques, with a worked example", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValue(chatResponse(JSON.stringify({ results: [] })));
+    vi.stubGlobal("fetch", fetchMock);
+
+    await translateItems(env, [{ i: 0, title: "New model released" }]);
+
+    const { messages } = JSON.parse(fetchMock.mock.calls[0][1].body);
+    const style = messages[0].content as string;
+    expect(style).toMatch(/parenthetical/i);
+    expect(style).toMatch(/calque/i);
+    expect(style).toContain("bầy (swarm)"); // the bad-example anchor
+    expect(style).toContain("cho thấy chúng phối hợp lỗi"); // the good-example anchor
+  });
+
+  it("sends the same Vietnamese style rules as a system message when generating the TL;DR", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValue(
+        chatResponse(JSON.stringify({ bullets_en: [], bullets_vi: [] }))
+      );
+    vi.stubGlobal("fetch", fetchMock);
+
+    await generateTldr(env, [{ id: "1", title: "Story" }]);
+
+    const { messages } = JSON.parse(fetchMock.mock.calls[0][1].body);
+    expect(messages[0].role).toBe("system");
+    expect(messages[0].content).toMatch(/parenthetical/i);
+    expect(messages[1].role).toBe("user");
+  });
+
   it("requests a stream so anyrouter answers inline instead of queuing", async () => {
     const fetchMock = vi
       .fn()

@@ -2,12 +2,12 @@ import { describe, expect, it } from "vitest";
 import { buildTopItemsQuery, shouldPersistTldr } from "../tldr.js";
 
 describe("buildTopItemsQuery", () => {
-  it("gates on status='published', ranks by rank_score DESC, caps at 12", () => {
+  it("gates on status='published', ranks by rank_score DESC, caps at 16", () => {
     const { sql } = buildTopItemsQuery(Date.now());
     expect(sql).toContain("status = 'published'");
     expect(sql).toContain("published_at >= ?");
     expect(sql).toMatch(/ORDER BY rank_score DESC/);
-    expect(sql).toMatch(/LIMIT 12/);
+    expect(sql).toMatch(/LIMIT 16/);
   });
 
   it("normalizes `since` to epoch seconds, 24h before now", () => {

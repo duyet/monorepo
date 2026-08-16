@@ -15,11 +15,11 @@ interface ItemRow {
 const TOP_ITEMS_SQL = `SELECT id, title, summary FROM items
      WHERE status = 'published' AND published_at >= ?
      ORDER BY rank_score DESC
-     LIMIT 12`;
+     LIMIT 16`;
 
 /**
  * Pure query builder for the top-items lookup, so the gating logic
- * (published, fresh, ranked, capped at 12) can be verified without a D1
+ * (published, fresh, ranked, capped at 16) can be verified without a D1
  * binding. `nowMs` is epoch milliseconds; `items.published_at` is stored
  * as epoch seconds, so the bound `since` value is normalized to seconds.
  */
