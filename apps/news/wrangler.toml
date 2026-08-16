@@ -2,6 +2,9 @@ name = "duyet-news"
 main = "src/server.ts"
 compatibility_date = "2026-05-14"
 compatibility_flags = ["nodejs_compat"]
+# Enable versioned preview URLs (<version>-duyet-news.<subdomain>.workers.dev)
+# so `wrangler versions upload` yields a shareable preview before prod deploy.
+preview_urls = true
 
 [assets]
 directory = "dist/client"
