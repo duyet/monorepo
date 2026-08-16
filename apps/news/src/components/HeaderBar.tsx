@@ -28,6 +28,7 @@ export function HeaderBar({
         <div className="hidden flex-1 justify-center sm:flex">
           <SearchBox
             placeholder={lang === "vi" ? "Tìm kiếm..." : "Search AI news..."}
+            lang={lang}
           />
         </div>
         <div className="flex shrink-0 items-center gap-1.5">

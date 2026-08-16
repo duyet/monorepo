@@ -31,6 +31,7 @@ import { enrichMissingContent, fetchOgData } from "./enrich.js";
 import { sha256Hex } from "./hash.js";
 import { scoreItems, translateItems } from "./llm.js";
 import { rankScore } from "./ranking.js";
+import { buildRunStats, serializeRunStats } from "./run-stats.js";
 import { fetchStoryDetailByUrl } from "./sources/huggingnews.js";
 import { adapters } from "./sources/registry.js";
 import type { FetchedItem, FetchedItemSource } from "./sources/types.js";
@@ -86,6 +87,24 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
     let itemsFetched = 0;
     let itemsNew = 0;
     let runError: string | null = null;
+    const bySource: Record<string, number> = {};
+    let merged = 0;
+    let published = 0;
+    let rejected = 0;
+    let scoreAndTranslateTokens = 0;
+    let backfilledSummaries = 0;
+    let backfilledTranslations = 0;
+    let backfillTranslateTokens = 0;
+    let qaRated = 0;
+    let qaAdjusted = 0;
+    let qaTokens = 0;
+    let suggestionsReviewed = 0;
+    let suggestionsTokens = 0;
+    let submissionsReviewed = 0;
+    let submissionsTokens = 0;
+    let tldrGenerated = false;
+    let tldrTokens = 0;
+    let emailsSent = 0;
 
     try {
       const sources = await step.do("load-sources", async () => {
@@ -111,6 +130,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         );
         fetchedBySource.push({ source, items });
         itemsFetched += items.length;
+        bySource[source.id] = (bySource[source.id] ?? 0) + items.length;
       }
 
       let newRows = await step.do("dedupe", async () => {
@@ -357,6 +377,17 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         }
         return map;
       });
+
+      // Plain deterministic derivation from already-memoized step outputs
+      // (newRows/scored/mergePlan/translated) — replay-safe the same way
+      // publishedRows above is, no need for its own step.do.
+      merged = mergePlan.merged.size;
+      published = publishedRows.length;
+      rejected = newRows.length - merged - published;
+      for (const score of scored.values())
+        scoreAndTranslateTokens += score.tokens;
+      for (const translation of translated.values())
+        scoreAndTranslateTokens += translation.tokens;
 
       await step.do("write-d1", async () => {
         const statements: D1PreparedStatement[] = [];
@@ -652,7 +683,8 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
       // summary — the `enrich` step above only ever touches this run's NEW
       // items. Drains the backlog a few items per hourly run rather than
       // trying to catch up all at once.
-      await step.do("backfill-content", async () => {
+      backfilledSummaries = await step.do("backfill-content", async () => {
+        let backfilled = 0;
         try {
           const { results } = await this.env.DB.prepare(
             buildMissingSummaryQuery(BACKFILL_CONTENT_CAP)
@@ -687,6 +719,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
                   fetched
                 );
                 if (!plan) return;
+                backfilled++;
 
                 await this.env.DB.prepare(
                   "UPDATE items SET summary = ?, image_url = COALESCE(image_url, ?) WHERE id = ?"
@@ -719,92 +752,140 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         } catch (error) {
           console.error("backfill-content step failed:", error);
         }
+        return backfilled;
       });
 
       // Translates whatever summaries exist (including ones the step above
       // just backfilled) but don't have a Vietnamese translation yet.
-      await step.do("backfill-translate", async () => {
-        try {
-          const { results } = await this.env.DB.prepare(
-            buildMissingTranslationQuery()
-          ).all<{ id: string; title: string; summary: string }>();
-          const rows = results ?? [];
-          if (rows.length === 0) return;
+      const backfillTranslateResult = await step.do(
+        "backfill-translate",
+        async () => {
+          let translatedCount = 0;
+          let tokens = 0;
+          try {
+            const { results } = await this.env.DB.prepare(
+              buildMissingTranslationQuery()
+            ).all<{ id: string; title: string; summary: string }>();
+            const rows = results ?? [];
+            if (rows.length === 0) return { translatedCount, tokens };
 
-          const translated = await translateItems(
-            this.env,
-            rows.map((row, i) => ({
-              i,
-              title: row.title,
-              summary: row.summary,
-            }))
-          );
-          for (const result of translated) {
-            const row = rows[result.i];
-            if (!row || !result.title || result.summary === undefined) continue;
-            await this.env.DB.prepare(
-              `INSERT INTO translations (item_id, lang, title, summary)
+            const translated = await translateItems(
+              this.env,
+              rows.map((row, i) => ({
+                i,
+                title: row.title,
+                summary: row.summary,
+              }))
+            );
+            for (const result of translated) {
+              tokens += result.tokens;
+              const row = rows[result.i];
+              if (!row || !result.title || result.summary === undefined)
+                continue;
+              await this.env.DB.prepare(
+                `INSERT INTO translations (item_id, lang, title, summary)
                VALUES (?, 'vi', ?, ?)
                ON CONFLICT(item_id, lang) DO UPDATE SET summary = excluded.summary`
-            )
-              .bind(
-                ...buildTranslationBindArgs({
-                  id: row.id,
-                  title: result.title,
-                  summary: result.summary,
-                })
               )
-              .run();
+                .bind(
+                  ...buildTranslationBindArgs({
+                    id: row.id,
+                    title: result.title,
+                    summary: result.summary,
+                  })
+                )
+                .run();
+              translatedCount++;
+            }
+          } catch (error) {
+            console.error("backfill-translate step failed:", error);
           }
-        } catch (error) {
-          console.error("backfill-translate step failed:", error);
+          return { translatedCount, tokens };
         }
-      });
+      );
+      backfilledTranslations = backfillTranslateResult.translatedCount;
+      backfillTranslateTokens = backfillTranslateResult.tokens;
 
-      await step.do("qa-translations", async () => {
+      const qaStats = await step.do("qa-translations", async () => {
         try {
-          await ratePendingTranslations(this.env);
+          return await ratePendingTranslations(this.env);
         } catch (error) {
           console.error("qa-translations step failed:", error);
+          return { rated: 0, adjusted: 0, tokens: 0 };
         }
       });
+      qaRated = qaStats.rated;
+      qaAdjusted = qaStats.adjusted;
+      qaTokens = qaStats.tokens;
 
-      await step.do("review-suggestions", async () => {
+      const suggestionsStats = await step.do("review-suggestions", async () => {
         try {
-          await reviewPendingSuggestions(this.env);
+          return await reviewPendingSuggestions(this.env);
         } catch (error) {
           console.error("review-suggestions step failed:", error);
+          return { reviewed: 0, tokens: 0 };
         }
       });
+      suggestionsReviewed = suggestionsStats.reviewed;
+      suggestionsTokens = suggestionsStats.tokens;
 
-      await step.do("review-submissions", async () => {
+      const submissionsStats = await step.do("review-submissions", async () => {
         try {
-          await reviewPendingSubmissions(this.env);
+          return await reviewPendingSubmissions(this.env);
         } catch (error) {
           console.error("review-submissions step failed:", error);
+          return { reviewed: 0, tokens: 0 };
         }
       });
+      submissionsReviewed = submissionsStats.reviewed;
+      submissionsTokens = submissionsStats.tokens;
 
-      await step.do("tldr", async () => {
-        await ensureDailyTldr(this.env);
+      const tldrStats = await step.do("tldr", async () => {
+        return await ensureDailyTldr(this.env);
       });
+      tldrGenerated = tldrStats.generated;
+      tldrTokens = tldrStats.tokens;
 
-      await step.do("email-digest", async () => {
+      emailsSent = await step.do("email-digest", async () => {
         try {
-          await sendDailyTldr(this.env);
+          return await sendDailyTldr(this.env);
         } catch (error) {
           // Never let a digest-send failure break the ingest workflow.
           console.error("email-digest step failed:", error);
+          return 0;
         }
       });
     } catch (error) {
       runError = error instanceof Error ? error.message : String(error);
       throw error;
     } finally {
+      const stats = buildRunStats({
+        bySource,
+        new: itemsNew,
+        merged,
+        rejected,
+        published,
+        tokens:
+          scoreAndTranslateTokens +
+          backfillTranslateTokens +
+          qaTokens +
+          suggestionsTokens +
+          submissionsTokens +
+          tldrTokens,
+        backfilledSummaries,
+        backfilledTranslations,
+        qaRated,
+        qaAdjusted,
+        suggestionsReviewed,
+        submissionsReviewed,
+        tldrGenerated,
+        emailsSent,
+      });
+
       await step.do("record-run", async () => {
         await this.env.DB.prepare(
-          `INSERT INTO workflow_runs (id, started_at, finished_at, items_fetched, items_new, error)
-           VALUES (?, ?, ?, ?, ?, ?)`
+          `INSERT INTO workflow_runs (id, started_at, finished_at, items_fetched, items_new, error, stats)
+           VALUES (?, ?, ?, ?, ?, ?, ?)`
         )
           .bind(
             nn(runId),
@@ -812,7 +893,8 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
             nn(Date.now()),
             nn(itemsFetched),
             nn(itemsNew),
-            nn(runError)
+            nn(runError),
+            nn(serializeRunStats(stats))
           )
           .run();
       });

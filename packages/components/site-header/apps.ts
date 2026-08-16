@@ -310,12 +310,6 @@ export const GLOBAL_NAV: GlobalNavItem[] = [
     onlyApp: "news",
   },
   {
-    label: "Changelog",
-    href: "/changelog",
-    match: { app: "news", path: "/changelog" },
-    onlyApp: "news",
-  },
-  {
     label: "Submit",
     href: "/submit",
     match: { app: "news", path: "/submit" },

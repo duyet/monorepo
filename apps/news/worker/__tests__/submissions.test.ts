@@ -409,8 +409,8 @@ describe("reviewPendingSubmissions", () => {
       vi.fn().mockRejectedValue(new Error("network down"))
     );
 
-    await expect(
-      reviewPendingSubmissions({ ...env, DB: db })
-    ).resolves.toBeUndefined();
+    await expect(reviewPendingSubmissions({ ...env, DB: db })).resolves.toEqual(
+      { reviewed: 0, tokens: 0 }
+    );
   });
 });

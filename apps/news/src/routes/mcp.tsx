@@ -43,32 +43,14 @@ const CLIENT_CONFIG = `{
   "headers": { "Authorization": "Bearer <token>" }
 }`;
 
-const CALL_TOOL_EXAMPLE = `curl -X POST https://news.duyet.net/api/mcp \\
-  -H "Authorization: Bearer <token>" \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "jsonrpc": "2.0",
-    "id": 1,
-    "method": "tools/call",
-    "params": {
-      "name": "push_items",
-      "arguments": {
-        "items": { "url": "https://example.com/post", "title": "New AI model released" }
-      }
-    }
-  }'`;
-
 const PUSH_ITEM_EXAMPLE = `curl -X POST https://news.duyet.net/api/admin/items \\
   -H "Authorization: Bearer <token>" \\
   -H "Content-Type: application/json" \\
   -d '{"url":"https://example.com/post","title":"New AI model released"}'`;
 
-const TRIGGER_INGEST_EXAMPLE = `curl -X POST https://news.duyet.net/api/admin/ingest \\
-  -H "Authorization: Bearer <token>"`;
-
 function CodeBlock({ code }: { code: string }) {
   return (
-    <pre className="mt-2 overflow-x-auto rounded-md border border-border bg-muted p-4 text-xs leading-relaxed">
+    <pre className="mt-2 max-w-3xl overflow-x-auto rounded-md border border-border bg-muted p-4 text-xs leading-relaxed">
       <code>{code}</code>
     </pre>
   );
@@ -79,80 +61,73 @@ function McpPage() {
   const t = (en: string, vi: string) => (lang === "vi" ? vi : en);
 
   return (
-    <div className="mx-auto max-w-2xl py-10">
+    <div className="py-10">
       <h1 className="text-2xl font-bold tracking-tight">
         {t("MCP Server", "Máy chủ MCP")}
       </h1>
-      <p className="mt-3 text-sm text-muted-foreground">
+      <p className="mt-2 max-w-3xl text-sm text-muted-foreground">
         {t(
-          "This site exposes a hand-rolled MCP (Model Context Protocol) server for managing the news feed remotely, alongside a plain REST admin API with the same capabilities.",
-          "Trang này cung cấp một máy chủ MCP (Model Context Protocol) để quản lý bảng tin từ xa, song song với một REST API quản trị có cùng chức năng."
+          "MCP server for pushing news and managing sources.",
+          "Máy chủ MCP để đẩy tin tức và quản lý nguồn tin."
         )}
       </p>
 
-      <section className="mt-8">
-        <h2 className="text-lg font-bold tracking-wide">
-          {t("Endpoint & auth", "Endpoint & xác thực")}
+      <section className="mt-6">
+        <h2 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
+          {t("Connect", "Kết nối")}
         </h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          {t(
-            "POST JSON-RPC 2.0 requests to",
-            "Gửi yêu cầu JSON-RPC 2.0 (POST) tới"
-          )}{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-xs">
-            https://news.duyet.net/api/mcp
-          </code>
-          .{" "}
-          {t(
-            "Every request must include a bearer token (no session state).",
-            "Mọi yêu cầu đều cần header bearer token (không có trạng thái phiên)."
-          )}
-        </p>
         <CodeBlock code={CLIENT_CONFIG} />
-      </section>
-
-      <section className="mt-8">
-        <h2 className="text-lg font-bold tracking-wide">
-          {t("Tools", "Các công cụ")}
-        </h2>
-        <ul className="mt-2 space-y-2 text-sm">
-          {TOOLS.map((tool) => (
-            <li key={tool.name} className="border-b border-border pb-2">
-              <code className="text-xs font-semibold">{tool.name}</code>
-              <p className="mt-0.5 text-muted-foreground">
-                {t(tool.en, tool.vi)}
-              </p>
-            </li>
-          ))}
-        </ul>
-        <CodeBlock code={CALL_TOOL_EXAMPLE} />
-      </section>
-
-      <section className="mt-8">
-        <h2 className="text-lg font-bold tracking-wide">
-          {t("REST admin API", "REST API quản trị")}
-        </h2>
-        <p className="mt-2 text-sm text-muted-foreground">
+        <p className="mt-2 text-xs text-muted-foreground">
           {t(
-            "All routes live under /api/admin/* and require the same bearer token.",
-            "Tất cả route nằm dưới /api/admin/* và dùng cùng bearer token."
+            "Every request needs a bearer token.",
+            "Mọi yêu cầu đều cần bearer token."
           )}
         </p>
-        <p className="mt-4 text-sm font-medium">
-          {t("Push an item", "Thêm một tin")}
+      </section>
+
+      <section className="mt-6">
+        <h2 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
+          {t("Tools", "Công cụ")}
+        </h2>
+        <div className="mt-2 divide-y divide-border rounded-md border border-border text-sm">
+          {TOOLS.map((tool) => (
+            <div
+              key={tool.name}
+              className="flex flex-col gap-0.5 px-3 py-2 sm:flex-row sm:items-baseline sm:gap-3"
+            >
+              <code className="shrink-0 text-xs font-semibold sm:w-32">
+                {tool.name}
+              </code>
+              <span className="text-muted-foreground">
+                {t(tool.en, tool.vi)}
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-6">
+        <h2 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
+          {t("REST example", "Ví dụ REST")}
+        </h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          {t("Push an item via REST:", "Thêm một tin qua REST:")}
         </p>
         <CodeBlock code={PUSH_ITEM_EXAMPLE} />
-        <p className="mt-4 text-sm font-medium">
-          {t("Trigger an ingest run", "Kích hoạt thu thập")}
-        </p>
-        <CodeBlock code={TRIGGER_INGEST_EXAMPLE} />
-        <p className="mt-4 text-sm text-muted-foreground">
-          {t(
-            "Other routes: GET /api/admin/sources, PUT /api/admin/sources/:id, DELETE /api/admin/sources/:id, GET /api/admin/status.",
-            "Các route khác: GET /api/admin/sources, PUT /api/admin/sources/:id, DELETE /api/admin/sources/:id, GET /api/admin/status."
-          )}
-        </p>
       </section>
+
+      <p className="mt-6 text-sm text-muted-foreground">
+        {t("Full API docs on", "Tài liệu API đầy đủ tại")}{" "}
+        <a
+          href="https://github.com/duyet/monorepo/tree/master/apps/news"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-accent underline underline-offset-2 hover:no-underline"
+        >
+          GitHub README
+        </a>
+        .
+      </p>
     </div>
   );
 }

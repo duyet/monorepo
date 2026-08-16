@@ -108,17 +108,26 @@ Respond with strict JSON only: {"title":"...","summary":"..."}`;
   return { result: { title: parsed.title, summary: parsed.summary }, tokens };
 }
 
+export interface TranslationQaStats {
+  rated: number;
+  adjusted: number;
+  tokens: number;
+}
+
+const NO_QA_WORK: TranslationQaStats = { rated: 0, adjusted: 0, tokens: 0 };
+
 export async function ratePendingTranslations(
   env: Env,
   cap = QA_CAP
-): Promise<void> {
+): Promise<TranslationQaStats> {
   const { results } = await env.DB.prepare(
     buildPendingQaQuery(cap)
   ).all<QaRow>();
   const rows = results ?? [];
-  if (rows.length === 0) return;
+  if (rows.length === 0) return NO_QA_WORK;
 
   let totalTokens = 0;
+  let adjusted = 0;
   const now = Math.floor(Date.now() / 1000);
 
   const { results: judged, tokens: judgeTokens } = await judgeTranslations(
@@ -171,6 +180,7 @@ export async function ratePendingTranslations(
     const newRating = rejudged[0]?.rating ?? judgment.rating;
 
     if (newRating > judgment.rating) {
+      adjusted++;
       await env.DB.prepare(
         `UPDATE translations SET title = ?, summary = ?, qa_rating = ?, qa_at = ?
          WHERE item_id = ? AND lang = 'vi'`
@@ -187,6 +197,8 @@ export async function ratePendingTranslations(
   }
 
   console.log(
-    `translation-qa: rated ${judged.length}/${rows.length} translations, ${totalTokens} tokens`
+    `translation-qa: rated ${judged.length}/${rows.length} translations, ${adjusted} adjusted, ${totalTokens} tokens`
   );
+
+  return { rated: judged.length, adjusted, tokens: totalTokens };
 }

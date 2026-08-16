@@ -41,8 +41,15 @@ export function shouldPersistTldr(result: {
   return result.bullets_en.length > 0 || result.bullets_vi.length > 0;
 }
 
+export interface TldrRunStats {
+  generated: boolean;
+  tokens: number;
+}
+
+const NOT_GENERATED: TldrRunStats = { generated: false, tokens: 0 };
+
 /** Idempotent daily gate: generates and stores a TL;DR snapshot once per UTC day. */
-export async function ensureDailyTldr(env: Env): Promise<void> {
+export async function ensureDailyTldr(env: Env): Promise<TldrRunStats> {
   const date = todayUtc();
 
   const existing = await env.DB.prepare(
@@ -50,12 +57,12 @@ export async function ensureDailyTldr(env: Env): Promise<void> {
   )
     .bind(date)
     .first();
-  if (existing) return;
+  if (existing) return NOT_GENERATED;
 
   const { sql, since } = buildTopItemsQuery(Date.now());
   const { results } = await env.DB.prepare(sql).bind(since).all<ItemRow>();
 
-  if (!results || results.length === 0) return;
+  if (!results || results.length === 0) return NOT_GENERATED;
 
   const tldr = await generateTldr(
     env,
@@ -71,7 +78,7 @@ export async function ensureDailyTldr(env: Env): Promise<void> {
   // even though the LLM call is retried hourly by the workflow's cron.
   if (!shouldPersistTldr(tldr)) {
     console.error("generateTldr returned no bullets; skipping snapshot write");
-    return;
+    return { generated: false, tokens: tldr.tokens };
   }
 
   await env.DB.prepare(
@@ -89,4 +96,6 @@ export async function ensureDailyTldr(env: Env): Promise<void> {
       Date.now()
     )
     .run();
+
+  return { generated: true, tokens: tldr.tokens };
 }

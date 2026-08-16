@@ -61,12 +61,12 @@ function SystemPage() {
   }
 
   return (
-    <div className="news-content mx-auto max-w-3xl py-6">
+    <div className="news-content py-6">
       <header className="mb-6">
         <h1 className="text-lg font-semibold text-foreground">
           {t("System status", "Trạng thái hệ thống")}
         </h1>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <p className="mt-1 max-w-3xl text-sm text-muted-foreground">
           {t(
             "Ingestion pipeline, content, and token usage — live from the database.",
             "Pipeline thu thập, nội dung và mức dùng token — trực tiếp từ cơ sở dữ liệu."
@@ -84,6 +84,16 @@ function SystemPage() {
           <span className="font-mono text-foreground">
             {stats.models.translation[0] ?? "—"}
           </span>
+          {" · "}
+          {t("via", "qua")}{" "}
+          <a
+            href="https://anyrouter.dev/?ref=news.duyet.net"
+            target="_blank"
+            rel="noopener"
+            className="text-accent underline underline-offset-2 hover:no-underline"
+          >
+            AnyRouter
+          </a>
         </p>
       </header>
 
@@ -152,30 +162,6 @@ function SystemPage() {
               {t("No data yet.", "Chưa có dữ liệu.")}
             </p>
           )}
-        </ChartCard>
-
-        <ChartCard
-          title={t("Analytics & traffic", "Phân tích & lưu lượng")}
-          subtitle={t(
-            "No server-side traffic store in D1",
-            "Không lưu lưu lượng phía server trong D1"
-          )}
-        >
-          <p className="text-sm text-muted-foreground">
-            {t(
-              "Page-view analytics run client-side (see the site's Analytics component). For request-level traffic, latency, and error rates, use the ",
-              "Số liệu lượt xem chạy phía client (xem component Analytics của trang). Với lưu lượng, độ trễ, tỷ lệ lỗi ở tầng request, xem "
-            )}
-            <a
-              href="https://dash.cloudflare.com/?to=/:account/workers/services/view/news/production/metrics"
-              target="_blank"
-              rel="noreferrer"
-              className="text-accent underline underline-offset-2"
-            >
-              Cloudflare Workers dashboard
-            </a>
-            .
-          </p>
         </ChartCard>
 
         <ChartCard

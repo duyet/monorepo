@@ -1,3 +1,20 @@
+export interface WorkflowRunStats {
+  bySource?: Record<string, number>;
+  new?: number;
+  merged?: number;
+  rejected?: number;
+  published?: number;
+  tokens?: number;
+  backfilledSummaries?: number;
+  backfilledTranslations?: number;
+  qaRated?: number;
+  qaAdjusted?: number;
+  suggestionsReviewed?: number;
+  submissionsReviewed?: number;
+  tldrGenerated?: number;
+  emailsSent?: number;
+}
+
 export interface WorkflowRunRow {
   id: string;
   started_at: number | null;
@@ -5,6 +22,27 @@ export interface WorkflowRunRow {
   items_fetched: number | null;
   items_new: number | null;
   error: string | null;
+  /** Parsed from the `stats` JSON column, added in migration 0012. Older
+   * rows (or rows on a DB not yet migrated) have no stats — always null
+   * in that case, never a partial/guessed object. */
+  stats: WorkflowRunStats | null;
+}
+
+/** Best-effort parse of the `stats` JSON column: malformed JSON, a
+ * non-object value, or a missing column (pre-migration-0012 DB) all fall
+ * back to null rather than throwing, so the runs table just renders the
+ * plain columns for that row. */
+function parseRunStats(raw: unknown): WorkflowRunStats | null {
+  if (typeof raw !== "string" || !raw) return null;
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+      return parsed as WorkflowRunStats;
+    }
+    return null;
+  } catch {
+    return null;
+  }
 }
 
 export interface DayCount {
@@ -86,6 +124,20 @@ async function supportsLlmTokens(db: D1Database): Promise<boolean> {
   return llmTokensSupported;
 }
 
+let runStatsSupported: boolean | null = null;
+
+async function supportsRunStats(db: D1Database): Promise<boolean> {
+  if (runStatsSupported !== null) return runStatsSupported;
+  try {
+    await db.prepare("SELECT stats FROM workflow_runs LIMIT 1").all();
+    runStatsSupported = true;
+  } catch {
+    // column not migrated in yet (pre-0012 DB)
+    runStatsSupported = false;
+  }
+  return runStatsSupported;
+}
+
 export async function loadSystemStats(
   db: D1Database,
   env: {
@@ -94,7 +146,14 @@ export async function loadSystemStats(
     ANYROUTER_TLDR_MODEL?: string;
   } = {}
 ): Promise<SystemStats> {
-  const hasTokens = await supportsLlmTokens(db);
+  const [hasTokens, hasRunStats] = await Promise.all([
+    supportsLlmTokens(db),
+    supportsRunStats(db),
+  ]);
+
+  const runsQuery = hasRunStats
+    ? "SELECT id, started_at, finished_at, items_fetched, items_new, error, stats FROM workflow_runs ORDER BY started_at DESC LIMIT 30"
+    : "SELECT id, started_at, finished_at, items_fetched, items_new, error FROM workflow_runs ORDER BY started_at DESC LIMIT 30";
 
   const [
     itemsTotal,
@@ -142,10 +201,8 @@ export async function loadSystemStats(
       )
       .all<{ date: string; count: number }>(),
     db
-      .prepare(
-        "SELECT id, started_at, finished_at, items_fetched, items_new, error FROM workflow_runs ORDER BY started_at DESC LIMIT 30"
-      )
-      .all<WorkflowRunRow>(),
+      .prepare(runsQuery)
+      .all<Omit<WorkflowRunRow, "stats"> & { stats?: string | null }>(),
     db
       .prepare("SELECT date FROM tldr_snapshots ORDER BY date DESC LIMIT 1")
       .first<{
@@ -183,7 +240,15 @@ export async function loadSystemStats(
     }));
   }
 
-  const runRows = runs.results ?? [];
+  const runRows: WorkflowRunRow[] = (runs.results ?? []).map((r) => ({
+    id: r.id,
+    started_at: r.started_at,
+    finished_at: r.finished_at,
+    items_fetched: r.items_fetched,
+    items_new: r.items_new,
+    error: r.error,
+    stats: parseRunStats(r.stats),
+  }));
   const todayStr = new Date().toISOString().slice(0, 10);
   const runsToday = runRows.filter(
     (r) =>

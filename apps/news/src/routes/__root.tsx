@@ -95,6 +95,15 @@ function NewsFooter({ lang }: { lang: Lang }) {
           >
             GitHub
           </a>
+          {" · "}
+          <a
+            href="https://anyrouter.dev/?ref=news.duyet.net"
+            target="_blank"
+            rel="noopener"
+            className="hover:text-accent hover:underline hover:underline-offset-2"
+          >
+            AnyRouter
+          </a>
         </nav>
       </div>
     </footer>

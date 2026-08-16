@@ -137,8 +137,8 @@ function SuggestTranslationInner({
   const signInHint = (
     <span className="text-xs text-muted-foreground">
       {lang === "vi"
-        ? "Đăng nhập để góp ý bản dịch"
-        : "Sign in to suggest a translation"}
+        ? "Đăng nhập để góp ý, chỉnh sửa"
+        : "Sign in to suggest edits"}
     </span>
   );
 

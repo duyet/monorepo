@@ -4,14 +4,28 @@ import { CategoryNav } from "../components/CategoryNav";
 import { DaySection } from "../components/DaySection";
 import { TldrSection } from "../components/TldrSection";
 import { TrendingChips } from "../components/TrendingChips";
+import { setCachedFeed } from "../lib/feed-cache";
 import { timeAgo } from "../lib/lang";
 import { useLang } from "../lib/lang-context";
 import { usePrefs } from "../lib/prefs";
 import type { FeedResponse } from "../lib/types";
 
+export interface IndexSearch {
+  q?: string;
+  tag?: string;
+  category?: string;
+}
+
 export const Route = createFileRoute("/")({
-  validateSearch: (search: Record<string, unknown>): { q?: string } =>
-    typeof search.q === "string" && search.q ? { q: search.q } : {},
+  validateSearch: (search: Record<string, unknown>): IndexSearch => {
+    const out: IndexSearch = {};
+    if (typeof search.q === "string" && search.q) out.q = search.q;
+    if (typeof search.tag === "string" && search.tag) out.tag = search.tag;
+    if (typeof search.category === "string" && search.category) {
+      out.category = search.category;
+    }
+    return out;
+  },
   component: IndexPage,
 });
 
@@ -26,15 +40,25 @@ function FeedSkeleton() {
 }
 
 function IndexPage() {
-  const { q } = Route.useSearch();
+  const { q, tag, category } = Route.useSearch();
   const lang = useLang();
   const { prefs } = usePrefs();
   const [feed, setFeed] = useState<FeedResponse | null>(null);
   const [error, setError] = useState(false);
-  const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [selectedTag, setSelectedTag] = useState<string | null>(tag ?? null);
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(
-    () => new Set()
+    () => new Set(category ? [category] : [])
   );
+
+  // Picking a "filter" suggestion from the header SearchBox navigates here
+  // with ?tag=/?category= — sync it in even if this component was already
+  // mounted (SPA nav doesn't remount).
+  useEffect(() => {
+    if (tag) setSelectedTag(tag);
+  }, [tag]);
+  useEffect(() => {
+    if (category) setSelectedCategories(new Set([category]));
+  }, [category]);
 
   // Static shell — the feed is bound entirely client-side from /api/feed so
   // this page's HTML is cacheable and never blocks on Clerk/data-fetch JS.
@@ -47,8 +71,12 @@ function IndexPage() {
       .then((res) => (res.ok ? (res.json() as Promise<FeedResponse>) : null))
       .then((res) => {
         if (cancelled) return;
-        if (res) setFeed(res);
-        else setError(true);
+        if (res) {
+          setFeed(res);
+          if (!q) setCachedFeed(res);
+        } else {
+          setError(true);
+        }
       })
       .catch(() => {
         if (!cancelled) setError(true);

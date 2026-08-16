@@ -70,7 +70,7 @@ function PipelineDiagram() {
     <div className="scrollbar-hide -mx-1 flex items-stretch gap-1 overflow-x-auto px-1 py-1">
       {STEPS.map((step, i) => (
         <div key={step.en} className="flex shrink-0 items-stretch">
-          <div className="flex w-32 flex-col justify-center rounded-lg border border-border px-3 py-2.5 text-center">
+          <div className="flex w-28 flex-col justify-center rounded-lg border border-border px-2 py-2 text-center">
             <div className="text-sm font-bold text-foreground">
               {lang === "vi" ? step.vi : step.en}
             </div>
@@ -79,8 +79,11 @@ function PipelineDiagram() {
             </div>
           </div>
           {i < STEPS.length - 1 && (
-            <div className="flex shrink-0 items-center px-1.5">
-              <ArrowRight className="h-4 w-4 text-accent" aria-hidden />
+            <div className="flex shrink-0 items-center px-1">
+              <ArrowRight
+                className="h-3.5 w-3.5 shrink-0 text-accent"
+                aria-hidden
+              />
             </div>
           )}
         </div>
@@ -173,18 +176,32 @@ function ModelsLine() {
   const extra = stats.models.scoring.length - 1;
 
   return (
-    <p>
-      {lang === "vi" ? "Chấm điểm" : "Scoring"}:{" "}
-      <span className="font-mono text-foreground">
-        {stats.models.scoring[0]}
-      </span>
-      {extra > 0 && ` (+${extra} ${lang === "vi" ? "dự phòng" : "fallback"})`}
-      {" · "}
-      {lang === "vi" ? "Dịch" : "Translation"}:{" "}
-      <span className="font-mono text-foreground">
-        {stats.models.translation[0]}
-      </span>
-    </p>
+    <>
+      <p>
+        {lang === "vi" ? "Chấm điểm" : "Scoring"}:{" "}
+        <span className="font-mono text-foreground">
+          {stats.models.scoring[0]}
+        </span>
+        {extra > 0 && ` (+${extra} ${lang === "vi" ? "dự phòng" : "fallback"})`}
+        {" · "}
+        {lang === "vi" ? "Dịch" : "Translation"}:{" "}
+        <span className="font-mono text-foreground">
+          {stats.models.translation[0]}
+        </span>
+      </p>
+      <p className="text-muted-foreground">
+        {lang === "vi" ? "LLM routing qua " : "LLM routing via "}
+        <a
+          href="https://anyrouter.dev/?ref=news.duyet.net"
+          target="_blank"
+          rel="noopener"
+          className="text-accent underline underline-offset-2 hover:no-underline"
+        >
+          AnyRouter
+        </a>
+        .
+      </p>
+    </>
   );
 }
 
@@ -193,11 +210,11 @@ function AboutPage() {
   const t = (en: string, vi: string) => (lang === "vi" ? vi : en);
 
   return (
-    <div className="mx-auto max-w-2xl py-8">
+    <div className="py-8">
       <h1 className="text-2xl font-bold tracking-tight">
         {t("About AI News", "Giới thiệu AI News")}
       </h1>
-      <p className="mt-2 text-sm text-muted-foreground">
+      <p className="mt-2 max-w-3xl text-sm text-muted-foreground">
         {t(
           "AI News is an LLM-based system: AI stories are fetched hourly, scored, merged, ranked, and translated to Vietnamese — every story links back to its original source.",
           "AI News là hệ thống tin tức vận hành bởi LLM: tin về AI được thu thập mỗi giờ, chấm điểm, gộp, xếp hạng và dịch sang tiếng Việt — mỗi tin đều dẫn về nguồn gốc."

@@ -235,7 +235,7 @@ async function retranslateFieldWithGuidance(
     currentTranslation: string | null;
     suggestion: string;
   }
-): Promise<string | null> {
+): Promise<{ translation: string | null; tokens: number }> {
   const prompt = `Re-translate this ${args.field === "title" ? "title" : "summary"} into Vietnamese.
 
 English source: ${JSON.stringify(args.sourceText)}
@@ -247,7 +247,7 @@ A reader suggested this phrasing — incorporate it if, and only if, it is faith
 Respond with strict JSON only: {"translation":"..."}`;
 
   try {
-    const { content } = await callAnyrouter(
+    const { content, tokens } = await callAnyrouter(
       env,
       [
         { role: "system", content: VI_STYLE },
@@ -256,12 +256,14 @@ Respond with strict JSON only: {"translation":"..."}`;
       { json: true, modelSpec: env.ANYROUTER_TRANSLATE_MODEL }
     );
     const parsed = parseJson<{ translation?: unknown }>(content);
-    return typeof parsed.translation === "string" && parsed.translation.trim()
-      ? parsed.translation.trim()
-      : null;
+    const translation =
+      typeof parsed.translation === "string" && parsed.translation.trim()
+        ? parsed.translation.trim()
+        : null;
+    return { translation, tokens };
   } catch (error) {
     console.error("retranslateFieldWithGuidance failed:", error);
-    return null;
+    return { translation: null, tokens: 0 };
   }
 }
 
@@ -274,10 +276,15 @@ Respond with strict JSON only: {"translation":"..."}`;
  * Any per-item failure is logged and leaves that item's suggestions
  * pending for a future run.
  */
+export interface SuggestionsReviewStats {
+  reviewed: number;
+  tokens: number;
+}
+
 export async function reviewPendingSuggestions(
   env: Env,
   cap = REVIEW_CAP_DEFAULT
-): Promise<void> {
+): Promise<SuggestionsReviewStats> {
   const { results } = await env.DB.prepare(
     `SELECT id, item_id, field, suggestion FROM translation_suggestions
      WHERE status = 'pending'
@@ -285,7 +292,7 @@ export async function reviewPendingSuggestions(
      LIMIT ${cap}`
   ).all<PendingSuggestionRow>();
   const pending = results ?? [];
-  if (pending.length === 0) return;
+  if (pending.length === 0) return { reviewed: 0, tokens: 0 };
 
   const byItem = new Map<string, PendingSuggestionRow[]>();
   for (const row of pending) {
@@ -293,6 +300,9 @@ export async function reviewPendingSuggestions(
     list.push(row);
     byItem.set(row.item_id, list);
   }
+
+  let reviewed = 0;
+  let tokens = 0;
 
   for (const [itemId, suggestions] of byItem) {
     try {
@@ -326,11 +336,12 @@ export async function reviewPendingSuggestions(
         }))
       );
 
-      const { content } = await callAnyrouter(
+      const { content, tokens: reviewTokens } = await callAnyrouter(
         env,
         [{ role: "user", content: prompt }],
         { json: true, modelSpec: env.ANYROUTER_TRANSLATE_MODEL }
       );
+      tokens += reviewTokens;
       const verdicts = parseReviewResponse(content);
       const verdictById = new Map(verdicts.map((v) => [v.id, v]));
 
@@ -346,12 +357,14 @@ export async function reviewPendingSuggestions(
             row.field === "title" ? item.title : (item.summary ?? "");
           const currentForField =
             row.field === "title" ? currentTitle : currentSummary;
-          const retranslated = await retranslateFieldWithGuidance(env, {
-            field: row.field,
-            sourceText,
-            currentTranslation: currentForField,
-            suggestion: row.suggestion,
-          });
+          const { translation: retranslated, tokens: retranslateTokens } =
+            await retranslateFieldWithGuidance(env, {
+              field: row.field,
+              sourceText,
+              currentTranslation: currentForField,
+              suggestion: row.suggestion,
+            });
+          tokens += retranslateTokens;
 
           if (!retranslated) {
             await env.DB.prepare(
@@ -391,6 +404,7 @@ export async function reviewPendingSuggestions(
             .run();
         }
       }
+      reviewed++;
     } catch (error) {
       console.error(
         `reviewPendingSuggestions failed for item ${itemId}:`,
@@ -398,6 +412,8 @@ export async function reviewPendingSuggestions(
       );
     }
   }
+
+  return { reviewed, tokens };
 }
 
 export { buildReviewPrompt as _buildReviewPromptForTests };

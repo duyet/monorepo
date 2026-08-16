@@ -216,10 +216,15 @@ interface PendingSubmissionRow {
  * pipeline (see workflow.ts's "dedupe" step). Any per-submission failure
  * is logged and leaves that submission pending for a future run.
  */
+export interface SubmissionsReviewStats {
+  reviewed: number;
+  tokens: number;
+}
+
 export async function reviewPendingSubmissions(
   env: Env,
   cap = REVIEW_CAP_DEFAULT
-): Promise<void> {
+): Promise<SubmissionsReviewStats> {
   const { results } = await env.DB.prepare(
     `SELECT id, url, title, note FROM submissions
      WHERE status = 'pending'
@@ -227,6 +232,9 @@ export async function reviewPendingSubmissions(
      LIMIT ${cap}`
   ).all<PendingSubmissionRow>();
   const pending = results ?? [];
+
+  let reviewed = 0;
+  let tokens = 0;
 
   for (const submission of pending) {
     try {
@@ -238,11 +246,12 @@ export async function reviewPendingSubmissions(
         note: submission.note ?? undefined,
         ogDescription: og.description,
       });
-      const { content } = await callAnyrouter(
+      const { content, tokens: reviewTokens } = await callAnyrouter(
         env,
         [{ role: "user", content: prompt }],
         { json: true, modelSpec: env.ANYROUTER_MODEL }
       );
+      tokens += reviewTokens;
       const verdict = parseSubmissionVerdict(content);
 
       if (verdict.relevance < ACCEPT_RATING_THRESHOLD) {
@@ -251,6 +260,7 @@ export async function reviewPendingSubmissions(
         )
           .bind(nn(verdict.relevance), nn(verdict.note), nn(submission.id))
           .run();
+        reviewed++;
         continue;
       }
 
@@ -291,6 +301,7 @@ export async function reviewPendingSubmissions(
           nn(submission.id)
         )
         .run();
+      reviewed++;
     } catch (error) {
       console.error(
         `reviewPendingSubmissions failed for ${submission.id}:`,
@@ -298,6 +309,8 @@ export async function reviewPendingSubmissions(
       );
     }
   }
+
+  return { reviewed, tokens };
 }
 
 export { buildSubmissionReviewPrompt as _buildSubmissionReviewPromptForTests };

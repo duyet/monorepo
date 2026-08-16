@@ -156,25 +156,26 @@ ${htmlItems}
  * snapshot with bullets yet — this must never break the hourly ingest
  * workflow.
  */
-export async function sendDailyTldr(env: Env): Promise<void> {
+export async function sendDailyTldr(env: Env): Promise<number> {
   if (!env.EMAIL) {
     console.error("EMAIL binding not configured; skipping daily digest");
-    return;
+    return 0;
   }
 
   const snapshot = await env.DB.prepare(
     "SELECT date, bullets_en, bullets_vi, sent_at FROM tldr_snapshots ORDER BY date DESC LIMIT 1"
   ).first<TldrSnapshotRow>();
 
-  if (!snapshot || !snapshotHasBullets(snapshot)) return;
+  if (!snapshot || !snapshotHasBullets(snapshot)) return 0;
 
   const { results: subscribers } = await env.DB.prepare(
     "SELECT email, lang, unsubscribe_token, timezone, last_sent_date FROM subscribers WHERE confirmed = 1"
   ).all<SubscriberRow>();
 
-  if (!subscribers || subscribers.length === 0) return;
+  if (!subscribers || subscribers.length === 0) return 0;
 
   const now = Date.now();
+  let emailsSent = 0;
 
   for (const sub of subscribers) {
     const { hour, date: localDate } = getLocalHourAndDate(now, sub.timezone);
@@ -205,6 +206,7 @@ export async function sendDailyTldr(env: Env): Promise<void> {
       )
         .bind(localDate, sub.email)
         .run();
+      emailsSent++;
     } catch (error) {
       console.error(`digest send failed for ${sub.email}:`, error);
       // Deliberately do NOT stamp last_sent_date — retried next hour.
@@ -220,4 +222,6 @@ export async function sendDailyTldr(env: Env): Promise<void> {
   )
     .bind(now, snapshot.date)
     .run();
+
+  return emailsSent;
 }
