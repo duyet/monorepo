@@ -33,15 +33,38 @@ NEVER add a parenthetical English gloss after a Vietnamese word, like "bầy (sw
 
 NEVER translate word-by-word (calque). Read the whole sentence, then restate the same fact the way a Vietnamese journalist would say it out loud — not the way each individual word maps across languages. Prefer active, concrete verbs over stiff noun-phrase calques (e.g. "cho thấy" / "phát hiện" / "ghi nhận", not "đã ghi nhận những lỗi phối hợp"). Split a long English sentence into two Vietnamese ones, or merge two short ones into one, whichever reads more naturally — don't preserve English sentence boundaries or punctuation just because the source used them. Avoid bureaucratic filler ("đã ghi nhận những", "tiến hành thực hiện") in favor of plain, direct phrasing.
 
-Example — bad (parenthetical gloss + calque + robotic rhythm):
+Prefer everyday Vietnamese over stiff Sino-Vietnamese formalese when both exist and mean the same thing: "dùng" over "sử dụng" where it reads naturally, "hãng" or "công ty" over "tập đoàn" for an ordinary company, "mở" over "tiến hành mở". Formal Sino-Vietnamese isn't wrong, but reach for it only when the everyday word would sound too casual for the fact being reported.
+
+Numbers and units follow Vietnamese press style: "2,5 tỷ USD" not "2.5 billion USD", "300 triệu người dùng" not "300 million users" — translate the unit word, keep the digits, use Vietnamese decimal comma.
+
+Keep sentence subjects light: drop a pronoun or restated noun where Vietnamese naturally omits it across clauses (don't repeat "công ty này" every clause when context already carries it).
+
+Headlines: punchy and information-dense like Vietnamese tech press, but never clickbait — no teaser phrasing that withholds the actual news ("điều bất ngờ", "không thể tin nổi").
+
+Example 1 — bad (parenthetical gloss + calque + robotic rhythm):
 "Các thử nghiệm trên bầy (swarm) Claude agent đã ghi nhận những lỗi phối hợp, hành vi thông đồng ngầm và phá hoại lẫn nhau."
-Example — good (English term kept plain, active verbs, natural flow):
+Example 1 — good (English term kept plain, active verbs, natural flow):
 "Thử nghiệm với swarm nhiều Claude agent cho thấy chúng phối hợp lỗi, ngầm bắt tay nhau và thậm chí phá hoại lẫn nhau — nghiên cứu phân tích ý nghĩa của điều này với an toàn AI."
 
-Example — bad (calqued noun phrase, no gloss needed but still stiff):
+Example 2 — bad (calqued noun phrase, bureaucratic filler):
 "Công ty đã thực hiện việc ra mắt một mô hình mới với hiệu suất được cải thiện."
-Example — good (concrete verb, trimmed):
+Example 2 — good (concrete verb, trimmed):
 "Công ty vừa ra mắt mô hình mới, hiệu suất được cải thiện rõ rệt."
+
+Example 3 — bad (over-formal Sino-Vietnamese where everyday words fit fine):
+"Tập đoàn đã tiến hành sử dụng nguồn vốn đầu tư để thực hiện việc mở rộng quy mô hoạt động."
+Example 3 — good (everyday words, same meaning):
+"Hãng dùng vốn đầu tư để mở rộng quy mô hoạt động."
+
+Example 4 — bad (stiff passive voice, calqued from English "was trained on"):
+"Mô hình đã được huấn luyện bởi công ty trên một tập dữ liệu gồm 10 nghìn tỷ token."
+Example 4 — good (active voice, natural Vietnamese press number style):
+"Công ty huấn luyện mô hình trên bộ dữ liệu 10 nghìn tỷ token."
+
+Example 5 — bad (one long stiff sentence, English clause order preserved):
+"Startup này, được thành lập vào năm 2023 bởi một nhóm cựu kỹ sư của OpenAI và đã huy động được 500 triệu USD, hiện đang mở rộng sang thị trường châu Á sau khi ra mắt sản phẩm mới."
+Example 5 — good (split into two, subject carried lightly):
+"Startup này do một nhóm cựu kỹ sư OpenAI thành lập năm 2023, đã huy động 500 triệu USD. Sau khi ra mắt sản phẩm mới, công ty đang mở rộng sang thị trường châu Á."
 
 Titles: concise headline style, viết hoa chữ cái đầu câu như báo chí Việt Nam, never ALL CAPS.
 Summaries: complete, natural sentences.`;

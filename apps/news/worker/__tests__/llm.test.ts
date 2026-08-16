@@ -6,6 +6,7 @@ import {
   _parseJsonForTests as parseJson,
   scoreItems,
   translateItems,
+  VI_STYLE,
 } from "../llm.js";
 import type { Env } from "../types.js";
 
@@ -951,5 +952,38 @@ describe("scoreItems / translateItems batch failure handling", () => {
     for (const result of results) {
       expect(result.tokens).toBe(30);
     }
+  });
+});
+
+describe("VI_STYLE", () => {
+  it("prefers everyday Vietnamese over Sino-Vietnamese formalese", () => {
+    expect(VI_STYLE).toContain("sử dụng");
+    expect(VI_STYLE).toContain("dùng");
+    expect(VI_STYLE).toMatch(/hãng/);
+  });
+
+  it("specifies Vietnamese press style for numbers and units", () => {
+    expect(VI_STYLE).toMatch(/tỷ|triệu/);
+  });
+
+  it("instructs dropping pronouns Vietnamese naturally omits", () => {
+    expect(VI_STYLE.toLowerCase()).toContain("pronoun");
+  });
+
+  it("warns against clickbait headlines", () => {
+    expect(VI_STYLE).toContain("clickbait");
+  });
+
+  it("includes at least five distinct bad→good example pairs", () => {
+    const badCount = (VI_STYLE.match(/— bad/g) ?? []).length;
+    const goodCount = (VI_STYLE.match(/— good/g) ?? []).length;
+    expect(badCount).toBeGreaterThanOrEqual(5);
+    expect(goodCount).toBeGreaterThanOrEqual(5);
+  });
+
+  it("covers over-formal Sino-Vietnamese, passive voice, and sentence-splitting failure modes", () => {
+    expect(VI_STYLE).toContain("Tập đoàn");
+    expect(VI_STYLE).toContain("được huấn luyện bởi");
+    expect(VI_STYLE).toMatch(/Startup này.*OpenAI/s);
   });
 });

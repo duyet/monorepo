@@ -40,6 +40,7 @@ import { reviewPendingSuggestions } from "./suggestions.js";
 import { toEpochSeconds } from "./time.js";
 import { ensureDailyTldr } from "./tldr.js";
 import { MAX_MERGED_TOPICS, normalizeTopics, unionTopics } from "./topics.js";
+import { ratePendingTranslations } from "./translation-qa.js";
 import type { Env } from "./types.js";
 
 const RELEVANCE_THRESHOLD = 0.4;
@@ -757,6 +758,14 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
           }
         } catch (error) {
           console.error("backfill-translate step failed:", error);
+        }
+      });
+
+      await step.do("qa-translations", async () => {
+        try {
+          await ratePendingTranslations(this.env);
+        } catch (error) {
+          console.error("qa-translations step failed:", error);
         }
       });
 

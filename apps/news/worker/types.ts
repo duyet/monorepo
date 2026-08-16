@@ -8,6 +8,9 @@ export interface Env {
    *  Fall back to ANYROUTER_MODEL when unset. */
   ANYROUTER_TRANSLATE_MODEL?: string;
   ANYROUTER_TLDR_MODEL?: string;
+  /** Cheaper chain for judging translation quality. Falls back to
+   *  ANYROUTER_MODEL when unset. */
+  ANYROUTER_QA_MODEL?: string;
   ANYROUTER_API_KEY: string;
   CLICKHOUSE_HOST?: string;
   CLICKHOUSE_NEWS_USER?: string;
