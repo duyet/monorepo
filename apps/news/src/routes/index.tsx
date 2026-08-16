@@ -54,6 +54,7 @@ function IndexPage() {
         prefs.sections.tldr && (
           <TldrSection
             bullets={bullets ?? []}
+            defaultCount={prefs.tldrCount}
             lang={lang}
             totalStories={feed.totalStories}
             updatedAt={feed.updatedAt}

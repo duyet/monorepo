@@ -350,12 +350,20 @@ const GLOBAL_NAV: {
     label: "About",
     href: "https://duyet.net/about",
     match: { path: "/about" },
-    hideOnApps: ["blog"],
+    // news shadows this with its own /about entry below (news.duyet.net/about,
+    // not duyet.net/about) — hidden here so it doesn't also render.
+    hideOnApps: ["blog", "news"],
   },
   {
     label: "News",
     href: "/",
     match: { app: "news", path: "/" },
+    onlyApp: "news",
+  },
+  {
+    label: "About",
+    href: "/about",
+    match: { app: "news", path: "/about" },
     onlyApp: "news",
   },
   {
@@ -374,6 +382,12 @@ const GLOBAL_NAV: {
     label: "Changelog",
     href: "/changelog",
     match: { app: "news", path: "/changelog" },
+    onlyApp: "news",
+  },
+  {
+    label: "Submit",
+    href: "/submit",
+    match: { app: "news", path: "/submit" },
     onlyApp: "news",
   },
 ];

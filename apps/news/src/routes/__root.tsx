@@ -128,8 +128,6 @@ function RootComponent() {
           <PrefsContext.Provider value={{ prefs, setPrefs }}>
             <ThemeProvider>
               <div className="relative flex min-h-screen flex-col justify-between overflow-x-hidden bg-background text-foreground selection:bg-foreground selection:text-background">
-                <div className="pointer-events-none absolute inset-0 z-0 bg-grid-pattern opacity-[0.8] dark:opacity-[0.4]" />
-
                 <div className="relative z-20 flex w-full flex-col">
                   <SiteHeader currentApp="news" />
                 </div>
@@ -147,7 +145,7 @@ function RootComponent() {
                 >
                   <HeaderBar lang={lang} onLangChange={handleLangChange} />
 
-                  <main className="mx-auto w-full max-w-[1040px] flex-grow px-4 pb-16 md:px-6">
+                  <main className="mx-auto w-full max-w-[1080px] flex-grow px-4 pb-16 sm:px-6 lg:px-8">
                     <Outlet />
                   </main>
                 </div>

@@ -17,7 +17,7 @@ export function HeaderBar({
 
   return (
     <div className="border-b border-border bg-background">
-      <div className="mx-auto flex max-w-[1040px] flex-wrap items-center gap-4 px-4 py-4 md:px-6">
+      <div className="mx-auto flex max-w-[1080px] flex-wrap items-center gap-4 px-4 py-4 sm:px-6 lg:px-8">
         <Link
           to="/"
           className="shrink-0 text-sm text-muted-foreground hover:text-foreground"
@@ -31,6 +31,12 @@ export function HeaderBar({
           />
         </div>
         <div className="flex shrink-0 items-center gap-2">
+          <Link
+            to="/submit"
+            className="rounded-full border border-border px-2.5 py-1 text-xs font-semibold text-muted-foreground hover:border-accent hover:text-accent"
+          >
+            {lang === "vi" ? "+ Gửi bài" : "+ Submit"}
+          </Link>
           <PrefsPanel />
           <LangToggle lang={lang} onChange={onLangChange} />
           <AuthButtons

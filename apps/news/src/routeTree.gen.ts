@@ -10,8 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as ChangelogRouteImport } from './routes/changelog'
 import { Route as McpRouteImport } from './routes/mcp'
+import { Route as SubmitRouteImport } from './routes/submit'
 import { Route as SubscribeRouteImport } from './routes/subscribe'
 import { Route as SystemRouteImport } from './routes/system'
 import { Route as CatSlugRouteImport } from './routes/$cat.$slug'
@@ -26,6 +28,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ChangelogRoute = ChangelogRouteImport.update({
   id: '/changelog',
   path: '/changelog',
@@ -34,6 +41,11 @@ const ChangelogRoute = ChangelogRouteImport.update({
 const McpRoute = McpRouteImport.update({
   id: '/mcp',
   path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SubmitRoute = SubmitRouteImport.update({
+  id: '/submit',
+  path: '/submit',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SubscribeRoute = SubscribeRouteImport.update({
@@ -79,8 +91,10 @@ const ApiAdminSplatRoute = ApiAdminSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/changelog': typeof ChangelogRoute
   '/mcp': typeof McpRoute
+  '/submit': typeof SubmitRoute
   '/subscribe': typeof SubscribeRoute
   '/system': typeof SystemRoute
   '/$cat/$slug': typeof CatSlugRoute
@@ -92,8 +106,10 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/changelog': typeof ChangelogRoute
   '/mcp': typeof McpRoute
+  '/submit': typeof SubmitRoute
   '/subscribe': typeof SubscribeRoute
   '/system': typeof SystemRoute
   '/$cat/$slug': typeof CatSlugRoute
@@ -106,8 +122,10 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/changelog': typeof ChangelogRoute
   '/mcp': typeof McpRoute
+  '/submit': typeof SubmitRoute
   '/subscribe': typeof SubscribeRoute
   '/system': typeof SystemRoute
   '/$cat/$slug': typeof CatSlugRoute
@@ -121,8 +139,10 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/changelog'
     | '/mcp'
+    | '/submit'
     | '/subscribe'
     | '/system'
     | '/$cat/$slug'
@@ -134,8 +154,10 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/changelog'
     | '/mcp'
+    | '/submit'
     | '/subscribe'
     | '/system'
     | '/$cat/$slug'
@@ -147,8 +169,10 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/changelog'
     | '/mcp'
+    | '/submit'
     | '/subscribe'
     | '/system'
     | '/$cat/$slug'
@@ -161,8 +185,10 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   ChangelogRoute: typeof ChangelogRoute
   McpRoute: typeof McpRoute
+  SubmitRoute: typeof SubmitRoute
   SubscribeRoute: typeof SubscribeRoute
   SystemRoute: typeof SystemRoute
   CatSlugRoute: typeof CatSlugRoute
@@ -182,6 +208,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/changelog': {
       id: '/changelog'
       path: '/changelog'
@@ -194,6 +227,13 @@ declare module '@tanstack/react-router' {
       path: '/mcp'
       fullPath: '/mcp'
       preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/submit': {
+      id: '/submit'
+      path: '/submit'
+      fullPath: '/submit'
+      preLoaderRoute: typeof SubmitRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/subscribe': {
@@ -257,8 +297,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   ChangelogRoute: ChangelogRoute,
   McpRoute: McpRoute,
+  SubmitRoute: SubmitRoute,
   SubscribeRoute: SubscribeRoute,
   SystemRoute: SystemRoute,
   CatSlugRoute: CatSlugRoute,

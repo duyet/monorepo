@@ -1,5 +1,7 @@
 # apps/news
 
+Feed pipeline and ranking design: see [ALGORITHM.md](./ALGORITHM.md).
+
 ## Admin API / MCP
 
 Push news items and manage sources remotely via a token-authenticated REST

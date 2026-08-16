@@ -28,12 +28,15 @@ import {
   unionSources,
 } from "./dedupe.js";
 import { enrichMissingContent, fetchOgData } from "./enrich.js";
+import { sha256Hex } from "./hash.js";
 import { scoreItems, translateItems } from "./llm.js";
 import { rankScore } from "./ranking.js";
 import { fetchStoryDetailByUrl } from "./sources/huggingnews.js";
 import { adapters } from "./sources/registry.js";
 import type { FetchedItem, FetchedItemSource } from "./sources/types.js";
+import { reviewPendingSubmissions } from "./submissions.js";
 import { sendDailyTldr } from "./subscribe/send.js";
+import { reviewPendingSuggestions } from "./suggestions.js";
 import { toEpochSeconds } from "./time.js";
 import { ensureDailyTldr } from "./tldr.js";
 import type { Env } from "./types.js";
@@ -72,14 +75,6 @@ interface ItemRow {
   tags: string;
   rank_score: number;
   status: string;
-}
-
-async function sha256Hex(input: string): Promise<string> {
-  const data = new TextEncoder().encode(input);
-  const digest = await crypto.subtle.digest("SHA-256", data);
-  return Array.from(new Uint8Array(digest))
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
 }
 
 export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
@@ -142,6 +137,51 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
             rows.push({ id, source, item: normalizedItem });
           }
         }
+
+        // Rows inserted directly with status='new' (e.g. an accepted user
+        // submission, or an admin push) never came through a source's
+        // fetchItems() this run, so the loop above never sees them. Pull
+        // them in here so they go through the same score/merge/translate
+        // pipeline as anything freshly fetched.
+        const { results: pendingNew } = await this.env.DB.prepare(
+          `SELECT id, source_id, external_id, url, title, summary,
+                  published_at, points, comments, image_url
+           FROM items WHERE status = 'new'`
+        ).all<{
+          id: string;
+          source_id: string;
+          external_id: string | null;
+          url: string;
+          title: string;
+          summary: string | null;
+          published_at: number;
+          points: number;
+          comments: number;
+          image_url: string | null;
+        }>();
+        for (const row of pendingNew ?? []) {
+          const source = sources.find((s) => s.id === row.source_id) ?? {
+            id: row.source_id,
+            type: "unknown",
+            config: "{}",
+            enabled: 1,
+          };
+          rows.push({
+            id: row.id,
+            source,
+            item: {
+              externalId: row.external_id ?? undefined,
+              url: row.url,
+              title: row.title,
+              summary: row.summary ?? undefined,
+              publishedAt: row.published_at,
+              points: row.points,
+              comments: row.comments,
+              imageUrl: row.image_url ?? undefined,
+            },
+          });
+        }
+
         return rows;
       });
       itemsNew = newRows.length;
@@ -356,7 +396,8 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
                 published_at = excluded.published_at,
                 points = excluded.points,
                 comments = excluded.comments,
-                rank_score = excluded.rank_score`
+                rank_score = excluded.rank_score,
+                status = excluded.status`
             ).bind(
               ...buildItemBindArgs({
                 id,
@@ -662,6 +703,22 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
           }
         } catch (error) {
           console.error("backfill-translate step failed:", error);
+        }
+      });
+
+      await step.do("review-suggestions", async () => {
+        try {
+          await reviewPendingSuggestions(this.env);
+        } catch (error) {
+          console.error("review-suggestions step failed:", error);
+        }
+      });
+
+      await step.do("review-submissions", async () => {
+        try {
+          await reviewPendingSubmissions(this.env);
+        } catch (error) {
+          console.error("review-submissions step failed:", error);
         }
       });
 

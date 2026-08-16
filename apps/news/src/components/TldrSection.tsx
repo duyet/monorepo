@@ -1,22 +1,30 @@
+import { useState } from "react";
 import { timeAgo } from "../lib/lang";
 import type { Lang, TldrBullet } from "../lib/types";
+import { StoryDialog } from "./StoryDialog";
 
 export function TldrSection({
   bullets,
+  defaultCount,
   lang,
   totalStories,
   updatedAt,
   lastFetchedAt,
 }: {
   bullets: TldrBullet[];
+  defaultCount: number;
   lang: Lang;
   totalStories: number;
   updatedAt: number;
   lastFetchedAt: number | null;
 }) {
+  const [showAll, setShowAll] = useState(false);
+  const [openItemId, setOpenItemId] = useState<string | null>(null);
+
   if (bullets.length === 0) return null;
-  const mid = Math.ceil(bullets.length / 2);
-  const cols = [bullets.slice(0, mid), bullets.slice(mid)];
+  const shown = showAll ? bullets : bullets.slice(0, defaultCount);
+  const mid = Math.ceil(shown.length / 2);
+  const cols = [shown.slice(0, mid), shown.slice(mid)];
 
   return (
     <section className="border-y-2 border-brand py-4">
@@ -37,7 +45,20 @@ export function TldrSection({
               <li key={b.text}>
                 {b.item_id ? (
                   <a
-                    href={`#item-${b.item_id}`}
+                    href={`/ai/${b.item_id}`}
+                    onClick={(e) => {
+                      if (
+                        e.button !== 0 ||
+                        e.metaKey ||
+                        e.ctrlKey ||
+                        e.shiftKey ||
+                        e.altKey
+                      ) {
+                        return;
+                      }
+                      e.preventDefault();
+                      setOpenItemId(b.item_id ?? null);
+                    }}
                     className="underline decoration-border underline-offset-2 hover:decoration-accent"
                   >
                     {b.text}
@@ -50,6 +71,23 @@ export function TldrSection({
           </ol>
         ))}
       </div>
+
+      {bullets.length > defaultCount && (
+        <button
+          type="button"
+          onClick={() => setShowAll((v) => !v)}
+          className="mt-3 text-xs font-semibold text-accent hover:underline"
+        >
+          {showAll
+            ? lang === "vi"
+              ? "Thu gọn"
+              : "Show less ↑"
+            : lang === "vi"
+              ? "Xem thêm ↓"
+              : "Show more ↓"}
+        </button>
+      )}
+
       <div className="mt-4 flex justify-between text-xs text-muted-foreground">
         <span>
           {totalStories} {lang === "vi" ? "tin" : "stories"}
@@ -66,6 +104,14 @@ export function TldrSection({
               : "News as of"}
         </span>
       </div>
+
+      {openItemId && (
+        <StoryDialog
+          idPrefix={openItemId}
+          lang={lang}
+          onClose={() => setOpenItemId(null)}
+        />
+      )}
     </section>
   );
 }

@@ -5,6 +5,7 @@ import {
   type ReaderBg,
   type ReaderDensity,
   type ReaderFont,
+  type TldrCount,
   usePrefs,
 } from "../lib/prefs";
 
@@ -17,6 +18,7 @@ const BG_SWATCHES: { key: ReaderBg; color: string }[] = [
 ];
 
 const DENSITIES: ReaderDensity[] = ["compact", "comfortable", "spacious"];
+const TLDR_COUNTS: TldrCount[] = [8, 12, 16];
 
 export function PrefsPanel() {
   const { prefs, setPrefs } = usePrefs();
@@ -162,6 +164,29 @@ export function PrefsPanel() {
                       : "border-border"
                   }`}
                 />
+              ))}
+            </div>
+          </div>
+
+          <div className="mb-3">
+            <span className="mb-1 block text-xs text-muted-foreground">
+              {t("TL;DR items", "Số mục TL;DR")}
+            </span>
+            <div className="flex gap-1.5">
+              {TLDR_COUNTS.map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => setPrefs({ tldrCount: n })}
+                  aria-pressed={prefs.tldrCount === n}
+                  className={`flex-1 rounded-md border px-2 py-1 text-xs ${
+                    prefs.tldrCount === n
+                      ? "border-accent bg-muted font-semibold"
+                      : "border-border text-muted-foreground"
+                  }`}
+                >
+                  {n}
+                </button>
               ))}
             </div>
           </div>

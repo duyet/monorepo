@@ -54,6 +54,16 @@ describe("prefs", () => {
     expect(loadPrefs().fontSize).toBe(0.85);
   });
 
+  it("defaults tldrCount to 8 and clamps invalid values", () => {
+    expect(DEFAULT_PREFS.tldrCount).toBe(8);
+    localStorage.setItem("news_prefs", JSON.stringify({ tldrCount: 12 }));
+    expect(loadPrefs().tldrCount).toBe(12);
+    localStorage.setItem("news_prefs", JSON.stringify({ tldrCount: 99 }));
+    expect(loadPrefs().tldrCount).toBe(8);
+    localStorage.setItem("news_prefs", JSON.stringify({ tldrCount: "16" }));
+    expect(loadPrefs().tldrCount).toBe(8);
+  });
+
   it("falls back to defaults on malformed JSON", () => {
     localStorage.setItem("news_prefs", "not json");
     expect(loadPrefs()).toEqual(DEFAULT_PREFS);

@@ -536,8 +536,12 @@ Respond with strict JSON only: {"bullets_en":[{"text":"...","item_id":"..."}],"b
   return { ...EMPTY_TLDR, tokens: totalTokens };
 }
 
+export type { AnyrouterCallResult, ChatMessage };
 export {
+  callAnyrouter,
   extractLastJsonObject as _extractLastJsonObjectForTests,
   normalizeTldrResult as _normalizeTldrForTests,
+  parseJson,
   parseJson as _parseJsonForTests,
+  VI_STYLE,
 };

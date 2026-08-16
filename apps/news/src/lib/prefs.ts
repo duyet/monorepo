@@ -18,6 +18,7 @@ export interface Prefs {
   density: ReaderDensity;
   bg: ReaderBg;
   sections: ReaderSections;
+  tldrCount: TldrCount;
 }
 
 export const DEFAULT_PREFS: Prefs = {
@@ -26,11 +27,13 @@ export const DEFAULT_PREFS: Prefs = {
   density: "compact",
   bg: "default",
   sections: { trending: true, tldr: true, days: true, categories: true },
+  tldrCount: 8,
 };
 
 const STORAGE_KEY = "news_prefs";
 const FONT_SIZE_MIN = 0.85;
 const FONT_SIZE_MAX = 1.25;
+const TLDR_COUNTS: TldrCount[] = [8, 12, 16];
 
 function clampFontSize(value: unknown): number {
   const n =
@@ -38,6 +41,12 @@ function clampFontSize(value: unknown): number {
       ? value
       : DEFAULT_PREFS.fontSize;
   return Math.min(FONT_SIZE_MAX, Math.max(FONT_SIZE_MIN, n));
+}
+
+function clampTldrCount(value: unknown): TldrCount {
+  return TLDR_COUNTS.includes(value as TldrCount)
+    ? (value as TldrCount)
+    : DEFAULT_PREFS.tldrCount;
 }
 
 export function loadPrefs(): Prefs {
@@ -50,6 +59,7 @@ export function loadPrefs(): Prefs {
       ...DEFAULT_PREFS,
       ...parsed,
       fontSize: clampFontSize(parsed.fontSize),
+      tldrCount: clampTldrCount(parsed.tldrCount),
       sections: { ...DEFAULT_PREFS.sections, ...parsed.sections },
     };
   } catch {
