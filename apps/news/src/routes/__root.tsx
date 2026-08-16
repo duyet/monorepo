@@ -1,7 +1,7 @@
 import "@duyet/components/styles.css";
 import "../styles.css";
 
-import { SiteNavV2 } from "@duyet/components";
+import { SiteFooter, SiteHeader } from "@duyet/components";
 import Analytics from "@duyet/components/Analytics";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import {
@@ -59,21 +59,16 @@ export const Route = createRootRoute({
         as: "style",
         href: "https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap",
       },
+      {
+        rel: "preload",
+        as: "style",
+        href: "https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap",
+      },
     ],
   }),
   notFoundComponent: NotFoundComponent,
   component: RootComponent,
 });
-
-const globalNavLinks = [
-  { name: "Home", href: "https://duyet.net" },
-  { name: "Projects", href: "https://duyet.net/projects" },
-  { name: "About", href: "https://duyet.net/about" },
-  { name: "Blog", href: "https://blog.duyet.net" },
-  { name: "CV", href: "https://cv.duyet.net" },
-  { name: "Insights", href: "https://insights.duyet.net" },
-  { name: "News", href: "/", active: true },
-];
 
 function RootComponent() {
   const [lang, setLang] = useState<Lang>(() => getClientLang());
@@ -94,6 +89,13 @@ function RootComponent() {
           // @ts-expect-error onLoad is valid on link elements
           onLoad="this.media='all'"
         />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap"
+          media="print"
+          // @ts-expect-error onLoad is valid on link elements
+          onLoad="this.media='all'"
+        />
       </head>
       <body>
         <LangContext.Provider value={lang}>
@@ -102,19 +104,15 @@ function RootComponent() {
               <div className="pointer-events-none absolute inset-0 z-0 bg-grid-pattern opacity-[0.8] dark:opacity-[0.4]" />
 
               <div className="relative z-20 flex w-full flex-col">
-                <SiteNavV2
-                  brandText="Duyet Le"
-                  brandHref="https://duyet.net"
-                  links={globalNavLinks}
-                />
+                <SiteHeader />
                 <HeaderBar lang={lang} onLangChange={handleLangChange} />
               </div>
 
-              <main className="relative z-10 mx-auto w-full max-w-[1040px] flex-grow px-4 pb-16 md:px-6">
+              <main className="news-content relative z-10 mx-auto w-full max-w-[1040px] flex-grow px-4 pb-16 md:px-6">
                 <Outlet />
               </main>
 
-              <EditorialFooter />
+              <SiteFooter owner="Duyet Le" />
             </div>
           </ThemeProvider>
         </LangContext.Provider>
@@ -122,39 +120,5 @@ function RootComponent() {
         <Scripts />
       </body>
     </html>
-  );
-}
-
-function EditorialFooter() {
-  const year = new Date().getFullYear();
-  return (
-    <footer className="relative z-10 mt-20 border-t border-border py-10">
-      <div className="mx-auto flex max-w-[1040px] flex-col justify-between gap-6 px-4 text-xs text-muted-foreground sm:text-[13px] md:flex-row md:items-center md:px-6">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-          <span>&copy; {year} Duyet Le.</span>
-          <span className="text-border">|</span>
-          <span>
-            news.duyet.net — AI news, rated and ranked by LLMs, translated to
-            Vietnamese.
-          </span>
-        </div>
-        <div className="flex items-center gap-4">
-          <a
-            href="https://duyet.net"
-            className="transition-colors hover:text-foreground"
-          >
-            duyet.net
-          </a>
-          <a
-            href="https://github.com/duyet"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors hover:text-foreground"
-          >
-            GitHub
-          </a>
-        </div>
-      </div>
-    </footer>
   );
 }

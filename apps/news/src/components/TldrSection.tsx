@@ -19,9 +19,9 @@ export function TldrSection({
   const cols = [bullets.slice(0, mid), bullets.slice(mid)];
 
   return (
-    <section className="border-y-2 border-brand py-5">
-      <div className="mb-3 flex items-baseline gap-3">
-        <h2 className="font-serif text-xl italic tracking-tight">TL;DR</h2>
+    <section className="border-y-2 border-brand py-4">
+      <div className="mb-2.5 flex items-baseline gap-3">
+        <h2 className="text-lg font-bold tracking-widest">TL;DR</h2>
         <span className="text-xs text-muted-foreground">
           {lang === "vi" ? "24 giờ qua" : "past 24 hours"}
         </span>
@@ -31,7 +31,7 @@ export function TldrSection({
           <ol
             key={col[0]?.text ?? ci}
             start={ci * mid + 1}
-            className="list-decimal space-y-2.5 pl-6 text-[15px] leading-snug marker:text-muted-foreground"
+            className="list-decimal space-y-1.5 pl-6 text-[15px] leading-snug marker:text-muted-foreground"
           >
             {col.map((b) => (
               <li key={b.text}>

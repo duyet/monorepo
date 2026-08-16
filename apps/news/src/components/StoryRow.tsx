@@ -84,7 +84,7 @@ export function StoryRow({
   return (
     <div id={`item-${item.id}`} className="border-b border-border">
       <div
-        className={`flex items-baseline gap-3 py-3 ${
+        className={`flex items-baseline gap-3 py-2 ${
           hasDetails ? "cursor-pointer" : ""
         } ${expanded ? "bg-muted/60" : ""}`}
         onClick={() => hasDetails && setExpanded((v) => !v)}
@@ -98,7 +98,7 @@ export function StoryRow({
         tabIndex={hasDetails ? 0 : undefined}
         aria-expanded={hasDetails ? expanded : undefined}
       >
-        <span className="w-6 shrink-0 text-right text-sm text-muted-foreground">
+        <span className="w-5 shrink-0 text-right text-sm text-muted-foreground">
           {index}
         </span>
         {hot && (

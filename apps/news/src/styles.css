@@ -32,6 +32,11 @@
   --editorial-font-mono:
     "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
 
+  /* HuggingNews-style sans, scoped to the feed content area only —
+     the duyet.net chrome (Header/Footer) keeps the editorial font above. */
+  --content-font-sans:
+    "Source Sans 3", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
   /* Standard compatibility variables mapped to the editorial tokens */
   --background: var(--editorial-bg);
   --foreground: var(--editorial-fg);
@@ -86,4 +91,10 @@
   time {
     font-variant-numeric: tabular-nums;
   }
+}
+
+/* Feed content area (day sections, TL;DR, story rows) keeps the compact
+   HuggingNews look — sans body font, distinct from the duyet.net chrome. */
+.news-content {
+  font-family: var(--content-font-sans);
 }
