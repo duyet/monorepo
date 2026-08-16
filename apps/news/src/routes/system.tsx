@@ -72,6 +72,19 @@ function SystemPage() {
             "Pipeline thu thập, nội dung và mức dùng token — trực tiếp từ cơ sở dữ liệu."
           )}
         </p>
+        <p className="mt-2 text-xs text-muted-foreground">
+          {t("Scoring", "Chấm điểm")}:{" "}
+          <span className="font-mono text-foreground">
+            {stats.models.scoring[0] ?? "—"}
+          </span>
+          {stats.models.scoring.length > 1 &&
+            ` (+${stats.models.scoring.length - 1} ${t("fallback", "dự phòng")})`}
+          {" · "}
+          {t("Translation", "Dịch")}:{" "}
+          <span className="font-mono text-foreground">
+            {stats.models.translation[0] ?? "—"}
+          </span>
+        </p>
       </header>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">

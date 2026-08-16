@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLang } from "../lib/lang-context";
 import { fetchSourceNames } from "../lib/sources-fn";
+import type { SystemStats } from "../lib/system-queries";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -9,6 +11,83 @@ export const Route = createFileRoute("/about")({
   }),
   component: AboutPage,
 });
+
+interface Step {
+  en: string;
+  vi: string;
+  subEn: string;
+  subVi: string;
+}
+
+const STEPS: Step[] = [
+  {
+    en: "Sources",
+    vi: "Nguồn",
+    subEn: "HN, HuggingNews, submissions",
+    subVi: "HN, HuggingNews, bài gửi từ người dùng",
+  },
+  {
+    en: "Fetch",
+    vi: "Thu thập",
+    subEn: "hourly poll",
+    subVi: "quét mỗi giờ",
+  },
+  {
+    en: "Score",
+    vi: "AI chấm điểm",
+    subEn: "hides irrelevant stories",
+    subVi: "ẩn tin không liên quan",
+  },
+  {
+    en: "Merge",
+    vi: "Gộp tin trùng",
+    subEn: "same story, one item",
+    subVi: "cùng một tin, một mục",
+  },
+  {
+    en: "Translate",
+    vi: "Dịch tự nhiên",
+    subEn: "EN → VI, journalist style",
+    subVi: "Anh → Việt, văn phong báo chí",
+  },
+  {
+    en: "Rank",
+    vi: "Xếp hạng",
+    subEn: "importance × quality, fresher wins",
+    subVi: "tầm quan trọng × chất lượng, mới hơn thắng",
+  },
+  {
+    en: "TL;DR + Email",
+    vi: "TL;DR + Email",
+    subEn: "daily digest",
+    subVi: "bản tin hằng ngày",
+  },
+];
+
+function PipelineDiagram() {
+  const lang = useLang();
+  return (
+    <div className="scrollbar-hide -mx-1 flex items-stretch gap-1 overflow-x-auto px-1 py-1">
+      {STEPS.map((step, i) => (
+        <div key={step.en} className="flex shrink-0 items-stretch">
+          <div className="flex w-32 flex-col justify-center rounded-lg border border-border px-3 py-2.5 text-center">
+            <div className="text-sm font-bold text-foreground">
+              {lang === "vi" ? step.vi : step.en}
+            </div>
+            <div className="mt-0.5 text-[11px] leading-tight text-muted-foreground">
+              {lang === "vi" ? step.subVi : step.subEn}
+            </div>
+          </div>
+          {i < STEPS.length - 1 && (
+            <div className="flex shrink-0 items-center px-1.5">
+              <ArrowRight className="h-4 w-4 text-accent" aria-hidden />
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
 
 function Section({
   id,
@@ -20,9 +99,11 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="mt-8 scroll-mt-20">
-      <h2 className="text-lg font-bold tracking-wide">{title}</h2>
-      <div className="mt-2 space-y-2 text-sm text-muted-foreground">
+    <section id={id} className="mt-6 scroll-mt-20">
+      <h2 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
+        {title}
+      </h2>
+      <div className="mt-2 space-y-1.5 text-sm text-muted-foreground">
         {children}
       </div>
     </section>
@@ -49,11 +130,6 @@ function Sources() {
 
   return (
     <Section title={lang === "vi" ? "Nguồn tin" : "Sources"}>
-      <p>
-        {lang === "vi"
-          ? "Hiện tại bảng tin lấy từ:"
-          : "Right now the feed pulls from:"}
-      </p>
       {names === null ? (
         <p>{lang === "vi" ? "Đang tải..." : "Loading..."}</p>
       ) : names.length === 0 ? (
@@ -72,12 +148,43 @@ function Sources() {
           ))}
         </ul>
       )}
-      <p>
-        {lang === "vi"
-          ? "Nguồn tin được cấu hình động và có thể thêm/bớt theo thời gian."
-          : "Sources are config-driven and may be added or removed over time."}
-      </p>
     </Section>
+  );
+}
+
+function ModelsLine() {
+  const lang = useLang();
+  const [stats, setStats] = useState<SystemStats | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/system")
+      .then((res) => (res.ok ? (res.json() as Promise<SystemStats>) : null))
+      .then((res) => {
+        if (!cancelled && res) setStats(res);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (!stats || stats.models.scoring.length === 0) return null;
+  const extra = stats.models.scoring.length - 1;
+
+  return (
+    <p>
+      {lang === "vi" ? "Chấm điểm" : "Scoring"}:{" "}
+      <span className="font-mono text-foreground">
+        {stats.models.scoring[0]}
+      </span>
+      {extra > 0 && ` (+${extra} ${lang === "vi" ? "dự phòng" : "fallback"})`}
+      {" · "}
+      {lang === "vi" ? "Dịch" : "Translation"}:{" "}
+      <span className="font-mono text-foreground">
+        {stats.models.translation[0]}
+      </span>
+    </p>
   );
 }
 
@@ -86,126 +193,72 @@ function AboutPage() {
   const t = (en: string, vi: string) => (lang === "vi" ? vi : en);
 
   return (
-    <div className="mx-auto max-w-2xl py-10">
+    <div className="mx-auto max-w-2xl py-8">
       <h1 className="text-2xl font-bold tracking-tight">
         {t("About AI News", "Giới thiệu AI News")}
       </h1>
-      <p className="mt-3 text-sm text-muted-foreground">
+      <p className="mt-2 text-sm text-muted-foreground">
         {t(
-          "AI News is an LLM-based news system: stories about AI are fetched hourly, rated and ranked by language models, merged when multiple sources cover the same story, and translated into natural Vietnamese. Every story links back to its original source.",
-          "AI News là một hệ thống tin tức vận hành bởi LLM: tin tức về AI được thu thập mỗi giờ, được các mô hình ngôn ngữ chấm điểm và xếp hạng, gộp lại khi nhiều nguồn cùng đưa một tin, và dịch sang tiếng Việt tự nhiên. Mỗi tin đều dẫn về nguồn gốc."
+          "AI News is an LLM-based system: AI stories are fetched hourly, scored, merged, ranked, and translated to Vietnamese — every story links back to its original source.",
+          "AI News là hệ thống tin tức vận hành bởi LLM: tin về AI được thu thập mỗi giờ, chấm điểm, gộp, xếp hạng và dịch sang tiếng Việt — mỗi tin đều dẫn về nguồn gốc."
         )}
       </p>
 
-      <Section id="how-it-works" title={t("How it works", "Cách hoạt động")}>
-        <p>
-          <strong className="text-foreground">
-            {t("1. Fetching.", "1. Thu thập.")}
-          </strong>{" "}
-          {t(
-            "Each enabled source is polled hourly for new AI/tech stories.",
-            "Mỗi nguồn đang bật được quét mỗi giờ để tìm tin AI/công nghệ mới."
-          )}
-        </p>
-        <p>
-          <strong className="text-foreground">
-            {t("2. Scoring.", "2. Chấm điểm.")}
-          </strong>{" "}
-          {t(
-            "An LLM rates each story's relevance, importance, and quality, and assigns a category. Irrelevant stories are hidden and never shown.",
-            "Một LLM chấm độ liên quan, tầm quan trọng và chất lượng của từng tin, đồng thời gán danh mục. Tin không liên quan sẽ bị ẩn, không hiển thị."
-          )}
-        </p>
-        <p>
-          <strong className="text-foreground">
-            {t("3. Merging.", "3. Gộp tin.")}
-          </strong>{" "}
-          {t(
-            "When multiple sources cover the same story, an LLM clusters them into one canonical item, combining sources and engagement stats.",
-            "Khi nhiều nguồn cùng đưa một tin, LLM gộp chúng thành một tin duy nhất, kết hợp các nguồn và số liệu tương tác."
-          )}
-        </p>
-        <p>
-          <strong className="text-foreground">
-            {t("4. Ranking.", "4. Xếp hạng.")}
-          </strong>{" "}
-          {t(
-            "Stories are ranked by importance × quality, decaying as they age, boosted by real engagement (points and comments) — no manual curation.",
-            "Tin được xếp hạng theo tầm quan trọng × chất lượng, giảm dần theo thời gian, được cộng điểm bởi tương tác thực (điểm và bình luận) — không có sự can thiệp thủ công."
-          )}
-        </p>
-        <p>
-          <strong className="text-foreground">
-            {t("5. Daily TL;DR.", "5. Tóm tắt TL;DR hằng ngày.")}
-          </strong>{" "}
-          {t(
-            "Once a day, an LLM writes a short bulleted summary of the top stories from the last 24 hours, each linked to its story.",
-            "Mỗi ngày một lần, LLM viết một bản tóm tắt ngắn gồm các tin nổi bật trong 24 giờ qua, mỗi mục dẫn tới tin gốc."
-          )}
-        </p>
-        <p>
-          <strong className="text-foreground">
-            {t("6. Translation.", "6. Dịch thuật.")}
-          </strong>{" "}
-          {t(
-            "Titles and summaries are translated into natural, journalist-style Vietnamese — technical terms (LLM, GPU, agent, etc.) are kept in English rather than force-translated.",
-            "Tiêu đề và tóm tắt được dịch sang tiếng Việt tự nhiên, theo văn phong báo chí — các thuật ngữ kỹ thuật (LLM, GPU, agent, v.v.) được giữ nguyên tiếng Anh thay vì dịch gượng ép."
-          )}
-        </p>
-      </Section>
+      <section id="how-it-works" className="mt-6 scroll-mt-20">
+        <h2 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
+          {t("How it works", "Cách hoạt động")}
+        </h2>
+        <div className="mt-3">
+          <PipelineDiagram />
+        </div>
+      </section>
 
       <Sources />
 
       <Section title={t("Transparency", "Minh bạch")}>
+        <ModelsLine />
         <p>
-          {t(
-            "Token usage is shown per story when available. Pipeline stats (run history, item counts) are visible at",
-            "Số token dùng cho mỗi tin được hiển thị khi có sẵn. Thống kê pipeline (lịch sử chạy, số lượng tin) có tại"
-          )}{" "}
+          {t("Pipeline stats at", "Thống kê pipeline tại")}{" "}
           <Link
             to="/system"
-            className="underline underline-offset-2 hover:text-accent"
+            className="text-accent underline underline-offset-2 hover:no-underline"
           >
             /system
           </Link>
-          , {t("and the API is documented at", "và API được mô tả tại")}{" "}
+          {" · "}
+          {t("API at", "API tại")}{" "}
           <Link
             to="/mcp"
-            className="underline underline-offset-2 hover:text-accent"
+            className="text-accent underline underline-offset-2 hover:no-underline"
           >
             /mcp
           </Link>
-          . {t("The source code lives on", "Mã nguồn nằm trên")}{" "}
+          {" · "}
           <a
             href="https://github.com/duyet/monorepo/tree/master/apps/news"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline underline-offset-2 hover:text-accent"
+            className="text-accent underline underline-offset-2 hover:no-underline"
           >
             GitHub
           </a>
-          ,{" "}
-          {t(
-            "with a full technical write-up of the algorithm in",
-            "cùng bản mô tả kỹ thuật đầy đủ của thuật toán trong"
-          )}{" "}
+          {" · "}
           <a
             href="https://github.com/duyet/monorepo/blob/master/apps/news/ALGORITHM.md"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline underline-offset-2 hover:text-accent"
+            className="text-accent underline underline-offset-2 hover:no-underline"
           >
             ALGORITHM.md
           </a>
-          .
         </p>
       </Section>
 
       <Section title={t("A note on accuracy", "Lưu ý về độ chính xác")}>
         <p>
           {t(
-            'Stories here are machine-curated and machine-translated. Mistakes are possible — a bad summary, a mistranslation, a misjudged category. If a Vietnamese translation reads off, translation suggestions are welcome from any signed-in reader (look for "Suggest better translation" under a story\'s Vietnamese summary).',
-            'Tin ở đây được máy tuyển chọn và dịch tự động. Sai sót có thể xảy ra — tóm tắt chưa chuẩn, dịch sai, hoặc phân loại nhầm. Nếu bản dịch tiếng Việt đọc chưa ổn, mọi độc giả đã đăng nhập đều có thể góp ý (tìm mục "Góp ý bản dịch" dưới phần tóm tắt tiếng Việt của mỗi tin).'
+            'Stories are machine-curated and machine-translated — mistakes are possible. Translation suggestions are welcome from any signed-in reader (see "Suggest better translation" under a story\'s Vietnamese summary).',
+            'Tin được máy tuyển chọn và dịch tự động — sai sót có thể xảy ra. Mọi độc giả đã đăng nhập đều có thể góp ý bản dịch (xem mục "Góp ý bản dịch" dưới phần tóm tắt tiếng Việt).'
           )}
         </p>
       </Section>

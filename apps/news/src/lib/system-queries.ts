@@ -39,6 +39,37 @@ export interface SystemStats {
   runsToday: number;
   lastRun: WorkflowRunRow | null;
   latestTldrDate: string | null;
+  models: ModelChains;
+}
+
+export interface ModelChains {
+  scoring: string[];
+  translation: string[];
+  tldr: string[];
+}
+
+/** Splits the comma-separated ANYROUTER_* model fallback chains into
+ * arrays. Public config (which models power scoring/translate/TL;DR), not
+ * a secret — safe to surface on /about and /system. */
+export function getModelChains(env: {
+  ANYROUTER_MODEL?: string;
+  ANYROUTER_TRANSLATE_MODEL?: string;
+  ANYROUTER_TLDR_MODEL?: string;
+}): ModelChains {
+  const split = (chain: string | undefined): string[] =>
+    (chain ?? "")
+      .split(",")
+      .map((m) => m.trim())
+      .filter(Boolean);
+
+  const scoring = split(env.ANYROUTER_MODEL);
+  const translation = split(env.ANYROUTER_TRANSLATE_MODEL);
+  const tldr = split(env.ANYROUTER_TLDR_MODEL);
+  return {
+    scoring,
+    translation: translation.length ? translation : scoring,
+    tldr: tldr.length ? tldr : scoring,
+  };
 }
 
 let llmTokensSupported: boolean | null = null;
@@ -55,7 +86,14 @@ async function supportsLlmTokens(db: D1Database): Promise<boolean> {
   return llmTokensSupported;
 }
 
-export async function loadSystemStats(db: D1Database): Promise<SystemStats> {
+export async function loadSystemStats(
+  db: D1Database,
+  env: {
+    ANYROUTER_MODEL?: string;
+    ANYROUTER_TRANSLATE_MODEL?: string;
+    ANYROUTER_TLDR_MODEL?: string;
+  } = {}
+): Promise<SystemStats> {
   const hasTokens = await supportsLlmTokens(db);
 
   const [
@@ -175,5 +213,6 @@ export async function loadSystemStats(db: D1Database): Promise<SystemStats> {
     runsToday,
     lastRun: runRows[0] ?? null,
     latestTldrDate: latestTldr?.date ?? null,
+    models: getModelChains(env),
   };
 }

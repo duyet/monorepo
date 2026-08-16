@@ -25,7 +25,7 @@ export const Route = createFileRoute("/api/system")({
         }
 
         try {
-          const stats = await loadSystemStats(db);
+          const stats = await loadSystemStats(db, env);
           return Response.json(stats, {
             headers: {
               "Cache-Control": "public, max-age=120, s-maxage=300",
