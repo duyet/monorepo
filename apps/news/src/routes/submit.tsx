@@ -261,11 +261,26 @@ function SubmitPage() {
             // app-wide one; a second provider crashes the whole page.
             <>
               <mod.SignedOut>
-                <p className="text-sm text-muted-foreground">
-                  {lang === "vi"
-                    ? "Đăng nhập để gửi bài."
-                    : "Sign in to submit a story."}
-                </p>
+                <ErrorBoundary
+                  fallback={
+                    <p className="text-sm text-muted-foreground">
+                      {lang === "vi"
+                        ? "Đăng nhập để gửi bài."
+                        : "Sign in to submit a story."}
+                    </p>
+                  }
+                >
+                  <mod.SignInButton mode="modal">
+                    <button
+                      type="button"
+                      className="rounded-md bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground"
+                    >
+                      {lang === "vi"
+                        ? "Đăng nhập để gửi bài"
+                        : "Sign in to submit"}
+                    </button>
+                  </mod.SignInButton>
+                </ErrorBoundary>
               </mod.SignedOut>
               <mod.SignedIn>
                 <SubmitGate useUser={mod.useUser} />
