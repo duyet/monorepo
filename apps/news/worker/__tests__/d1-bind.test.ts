@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { buildItemBindArgs, buildTranslationBindArgs, nn } from "../d1-bind.js";
+import {
+  buildItemBindArgs,
+  buildItemSourceBindArgs,
+  buildTranslationBindArgs,
+  MAX_SOURCES_PER_ITEM,
+  nn,
+} from "../d1-bind.js";
+import type { FetchedItemSource } from "../sources/types.js";
 
 describe("nn", () => {
   it("coerces undefined and null to null, passes through other values", () => {
@@ -48,6 +55,7 @@ describe("buildItemBindArgs", () => {
       "[]", // tags
       0, // rank
       "published",
+      0, // llm_tokens, defaulted since llmTokens was omitted
     ]);
   });
 
@@ -96,6 +104,91 @@ describe("buildItemBindArgs", () => {
 
     expect(args[6]).toBe(1786847892); // published_at, coerced to seconds
     expect(args[7]).toBe(1786847892); // fetched_at, coerced to seconds
+  });
+
+  it("includes llm_tokens with no undefined when provided", () => {
+    const args = buildItemBindArgs({
+      id: "abc123",
+      sourceId: "hn",
+      item: {
+        url: "https://example.com/story",
+        title: "Title",
+        publishedAt: 1700000000,
+      },
+      rank: 1,
+      status: "published",
+      now: 1700000100000,
+      llmTokens: 342,
+    });
+
+    expect(args).not.toContain(undefined);
+    expect(args[args.length - 1]).toBe(342);
+  });
+
+  it("defaults llm_tokens to 0, never undefined, when omitted", () => {
+    const args = buildItemBindArgs({
+      id: "abc123",
+      sourceId: "hn",
+      item: {
+        url: "https://example.com/story",
+        title: "Title",
+        publishedAt: 1700000000,
+      },
+      rank: 1,
+      status: "published",
+      now: 1700000100000,
+      // llmTokens omitted
+    });
+
+    expect(args).not.toContain(undefined);
+    expect(args[args.length - 1]).toBe(0);
+  });
+});
+
+describe("buildItemSourceBindArgs", () => {
+  it("never contains undefined for a source missing every optional field", () => {
+    const rows = buildItemSourceBindArgs("abc123", [{ kind: "source" }]);
+    expect(rows).toHaveLength(1);
+    expect(rows[0]).not.toContain(undefined);
+    expect(rows[0]).toEqual([
+      "abc123",
+      0, // position
+      "source",
+      null, // author
+      null, // posted_at
+      null, // quote
+      null, // url
+    ]);
+  });
+
+  it("assigns 0-based positions in input order", () => {
+    const sources: FetchedItemSource[] = [
+      { kind: "discussion", url: "https://a" },
+      { kind: "source", url: "https://b" },
+      { kind: "support", url: "https://c" },
+    ];
+    const rows = buildItemSourceBindArgs("abc123", sources);
+    expect(rows.map((r) => r[1])).toEqual([0, 1, 2]);
+    expect(rows.map((r) => r[2])).toEqual(["discussion", "source", "support"]);
+  });
+
+  it("normalizes a millisecond postedAt to seconds", () => {
+    const rows = buildItemSourceBindArgs("abc123", [
+      { kind: "source", postedAt: 1786720391000 },
+    ]);
+    expect(rows[0][4]).toBe(1786720391);
+  });
+
+  it("caps at MAX_SOURCES_PER_ITEM, dropping the rest", () => {
+    const sources: FetchedItemSource[] = Array.from({ length: 12 }, (_, i) => ({
+      kind: "support" as const,
+      url: `https://example.com/${i}`,
+    }));
+    const rows = buildItemSourceBindArgs("abc123", sources);
+    expect(rows).toHaveLength(MAX_SOURCES_PER_ITEM);
+    expect(rows[rows.length - 1][6]).toBe(
+      `https://example.com/${MAX_SOURCES_PER_ITEM - 1}`
+    );
   });
 });
 

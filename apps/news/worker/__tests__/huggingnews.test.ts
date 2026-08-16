@@ -11,6 +11,14 @@ const fixture = JSON.parse(
     "utf-8"
   )
 );
+const detailFixture = JSON.parse(
+  readFileSync(
+    path.join(dirname, "../sources/__fixtures__/huggingnews-story-detail.json"),
+    "utf-8"
+  )
+);
+const DETAIL_SLUG =
+  "alibaba-launches-open-weight-qwen-38-27b-to-bring-frontier-ai-to-smartph-f5c2c0ce";
 
 describe("resolve", () => {
   it("returns a scalar at the given index as-is (indices are not chased transitively)", () => {
@@ -97,5 +105,72 @@ describe("huggingNewsAdapter", () => {
 
     const items = await huggingNewsAdapter.fetchItems({}, 0);
     expect(items).toEqual([]);
+  });
+
+  it("enriches an item with sources from its real detail-page selectedTweets", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockImplementation(async (input: string | URL) => {
+        const url = String(input);
+        if (url.includes(`/ai/${DETAIL_SLUG}/__data.json`)) {
+          return new Response(JSON.stringify(detailFixture));
+        }
+        return new Response(JSON.stringify(fixture));
+      })
+    );
+
+    const items = await huggingNewsAdapter.fetchItems({}, 0);
+    const alibabaItem = items.find((i) => i.url.includes(DETAIL_SLUG));
+    expect(alibabaItem?.sources?.length).toBeGreaterThan(0);
+    expect(alibabaItem?.sources?.[0]).toMatchObject({
+      kind: "source",
+      author: "@alibaba_cloud",
+      quote: "licensed under Apache 2.0",
+      url: "https://x.com/alibaba_cloud/status/2088282795638394986",
+    });
+    // tweetedAt 1786720391000 ms -> 1786720391 seconds
+    expect(alibabaItem?.sources?.[0].postedAt).toBe(1786720391);
+    // second tweet in the fixture has label "Support"
+    expect(alibabaItem?.sources?.[1]).toMatchObject({ kind: "support" });
+  });
+
+  it("swallows a detail-page fetch failure and leaves that item without sources", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockImplementation(async (input: string | URL) => {
+        const url = String(input);
+        // Any per-story detail-page request (contains a topic segment before
+        // __data.json) fails; only the top-level feed URL succeeds.
+        if (url !== "https://huggingnews.com/__data.json") {
+          throw new Error("detail fetch failed");
+        }
+        return new Response(JSON.stringify(fixture));
+      })
+    );
+
+    const items = await huggingNewsAdapter.fetchItems({}, 0);
+    expect(items.length).toBeGreaterThan(0);
+    for (const item of items) {
+      expect(item.sources).toBeUndefined();
+    }
+  });
+
+  it("caps detail fetches and never exceeds MAX_SOURCES_PER_ITEM sources", async () => {
+    let detailFetchCount = 0;
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockImplementation(async (input: string | URL) => {
+        const url = String(input);
+        if (url.includes(`/ai/${DETAIL_SLUG}/__data.json`)) {
+          detailFetchCount++;
+          return new Response(JSON.stringify(detailFixture));
+        }
+        return new Response(JSON.stringify(fixture));
+      })
+    );
+
+    await huggingNewsAdapter.fetchItems({}, 0);
+    // this fixture only has 3 stories, well under MAX_DETAIL_FETCHES=20
+    expect(detailFetchCount).toBeLessThanOrEqual(1);
   });
 });

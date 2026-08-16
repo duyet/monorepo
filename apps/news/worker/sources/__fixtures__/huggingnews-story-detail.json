@@ -1,0 +1,304 @@
+{
+  "type": "data",
+  "nodes": [
+    null,
+    null,
+    {
+      "type": "data",
+      "data": [
+        {
+          "focusedStoryDetail": 47
+        },
+        false,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        "ai",
+        null,
+        null,
+        null,
+        "tech",
+        "m571tamsv3031zfpvbqrbwb3358cgq8z",
+        null,
+        "m57030epzac344j1w5aa0cm7gs8cf2fb",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        {
+          "data": 48,
+          "isLoading": 1,
+          "error": -1
+        },
+        {
+          "entities": 49,
+          "isSuperseded": 1,
+          "selectedTweets": 103,
+          "storyId": 18,
+          "summary": 142,
+          "supersededStory": 143
+        },
+        [50, 54, 58, 61, 64, 67, 70, 73, 76, 79, 82, 85, 88, 91, 94, 97, 100],
+        {
+          "cleanText": 51,
+          "text": 52,
+          "type": 53
+        },
+        "alibaba",
+        "Alibaba",
+        "ORG",
+        {
+          "cleanText": 55,
+          "text": 56,
+          "type": 57
+        },
+        "launch",
+        "Launch",
+        "MISC",
+        {
+          "cleanText": 59,
+          "text": 60,
+          "type": 57
+        },
+        "open_weight_qwen",
+        "Open Weight Qwen",
+        {
+          "cleanText": 62,
+          "text": 63,
+          "type": 57
+        },
+        "bring_frontier_ai_to_smartphones",
+        "Bring Frontier AI to Smartphones",
+        {
+          "cleanText": 65,
+          "text": 66,
+          "type": 57
+        },
+        "day",
+        "Day",
+        {
+          "cleanText": 68,
+          "text": 69,
+          "type": 53
+        },
+        "ali",
+        "Ali",
+        {
+          "cleanText": 71,
+          "text": 72,
+          "type": 53
+        },
+        "cloud",
+        "Cloud",
+        {
+          "cleanText": 74,
+          "text": 75,
+          "type": 57
+        },
+        "apache",
+        "Apache",
+        {
+          "cleanText": 77,
+          "text": 78,
+          "type": 57
+        },
+        "max",
+        "Max",
+        {
+          "cleanText": 80,
+          "text": 81,
+          "type": 57
+        },
+        "qwen",
+        "Qwen",
+        {
+          "cleanText": 83,
+          "text": 84,
+          "type": 53
+        },
+        "mediatek",
+        "MediaTek",
+        {
+          "cleanText": 86,
+          "text": 87,
+          "type": 57
+        },
+        "dimensity",
+        "Dimensity",
+        {
+          "cleanText": 89,
+          "text": 90,
+          "type": 57
+        },
+        "soc",
+        "SoC",
+        {
+          "cleanText": 92,
+          "text": 93,
+          "type": 57
+        },
+        "auto_cockpit_c_x",
+        "Auto Cockpit C - X1",
+        {
+          "cleanText": 95,
+          "text": 96,
+          "type": 53
+        },
+        "lm_studio",
+        "LM Studio",
+        {
+          "cleanText": 98,
+          "text": 99,
+          "type": 53
+        },
+        "nvidia_rtx_spark",
+        "Nvidia RTX Spark",
+        {
+          "cleanText": 101,
+          "text": 102,
+          "type": 53
+        },
+        "cerebras",
+        "Cerebras",
+        [104, 112, 121],
+        {
+          "authorHandle": 105,
+          "bestBit": 106,
+          "label": 107,
+          "text": 108,
+          "tweetId": 109,
+          "tweetedAt": 110,
+          "url": 111
+        },
+        "alibaba_cloud",
+        "licensed under Apache 2.0",
+        "Source",
+        "We promised open weights for Qwen3.8. Now, time to meet them! \ud83c\udf89\n\n\u26a1 Qwen3.8-27B:\n- A native multimodal dense model. With just 27B parameters, it outperforms Qwen3.7-Plus overall and shines in real-world coding & office workflows.\n- 262K native context, easily extendable to 1M tokens via YaRN.\n- Built for builders. Highly efficient, high-quality, and licensed under Apache 2.0.\n\n\ud83d\ude80 The open weights for Qwen3.8-2.4T-A95B (Max-level) have also been released recently.\n\nWhether you're shipping lightweight applications with Qwen3.8-27B locally or building agents with Qwen3.8-2.4T-A95B, they're yours now!\n\nDownload, deploy, and build something we haven't imagined yet. \ud83d\udc40\ud83d\udc47\n- Hugging Face\uff1a\nhttps://t.co/7StyOyfwdm\n- Qwen Cloud: \nhttps://t.co/Q35ynKS3kE  \n- Alibaba Cloud Model Studio\uff1a\nhttps://t.co/wqkC7MbMMt",
+        "2088282795638394986",
+        1786720391000,
+        "https://x.com/alibaba_cloud/status/2088282795638394986",
+        {
+          "authorHandle": 113,
+          "bestBit": 114,
+          "label": 115,
+          "quotedTweetText": 116,
+          "text": 117,
+          "tweetId": 118,
+          "tweetedAt": 119,
+          "url": 120
+        },
+        "alibaba_qwen",
+        "Day-0 support now available on Dimensity Auto Cockpit C-X1 and the latest Dimensity flagship mobile SoC",
+        "Support",
+        "Congratulations to the @Alibaba_Qwen on the launch of Qwen 3.8!\n\nMediaTek continues our long-standing collaboration with Qwen, with Day-0 support now available on Dimensity Auto Cockpit C-X1 and the latest Dimensity flagship mobile SoC, bringing smarter and more intuitive on-device AI experiences to more people, from smartphones to vehicles, and helping make agentic AI a seamless part of everyday life.",
+        "Qwen3.8-27B is now part of your everyday life \u2014  from smartphones to vehicles. \u26a1\ufe0f\ud83d\ude80Appreciate your work! @MediaTek",
+        "2088467890467168751",
+        1786764521000,
+        "https://x.com/Alibaba_Qwen/status/2088467890467168751",
+        {
+          "authorHandle": 113,
+          "bestBit": 122,
+          "label": 115,
+          "quotedTweetText": 123,
+          "text": 124,
+          "tweetId": 125,
+          "tweetedAt": 126,
+          "url": 127
+        },
+        "Requires ~17GB to run locally",
+        "Qwen3.8-27B is here! \ud83d\ude80\n\nIt's a leap in capabilities for a laptop size model.\n\nRequires ~17GB to run locally.\n\nModel page: https://t.co/GOxQEOLrdK https://t.co/g06nqgOXdB",
+        "Laptop-size model, frontier-size leap. \ud83c\udfc3\u200d\u2640\ufe0fQwen3.8-27B is live on LM Studio. Try it! @lmstudio",
+        "2088471287203246227",
+        1786765331000,
+        "https://x.com/Alibaba_Qwen/status/2088471287203246227",
+        {
+          "authorHandle": 113,
+          "bestBit": 129,
+          "label": 115,
+          "quotedTweetText": 130,
+          "text": 131,
+          "tweetId": 132,
+          "tweetedAt": 133,
+          "url": 134
+        },
+        "packs powerful AI into an open model developers can download, serve locally, and build with on their own terms",
+        "Ready to run Qwen3.8 locally? \ud83d\udc40 \n\nQwen3.8-27B packs powerful AI into an open model developers can download, serve locally, and build with on their own terms.",
+        "Ready right now! \ud83d\ude0eIncredible to see Qwen3.8-27B fly on RTX Spark. Download, deploy and create somthing new. @NVIDIARTXSpark",
+        "2088466210895823024",
+        1786764121000,
+        "https://x.com/Alibaba_Qwen/status/2088466210895823024",
+        {
+          "authorHandle": 101,
+          "bestBit": 136,
+          "label": 115,
+          "quotedTweetText": 137,
+          "text": 138,
+          "tweetId": 139,
+          "tweetedAt": 140,
+          "url": 141
+        },
+        "up soon in the Cerebras Shared Tier",
+        "We promised open weights for Qwen3.8. Now, time to meet them! \ud83c\udf89\n\n\u26a1 Qwen3.8-27B:\n- A native multimodal dense model. With just 27B parameters, it outperforms Qwen3.7-Plus overall and shines in real-world coding & office workflows.\n- 262K native context, easily extendable to 1M tokens via YaRN.\n- Built for builders. Highly efficient, high-quality, and licensed under Apache 2.0.\n\n\ud83d\ude80 The open weights for Qwen3.8-2.4T-A95B (Max-level) have also been released recently.\n\nWhether you're shipping lightweight applications with Qwen3.8-27B locally or building agents with Qwen3.8-2.4T-A95B, they're yours now!\n\nDownload, deploy, and build something we haven't imagined yet. \ud83d\udc40\ud83d\udc47\n- Hugging Face\uff1a\nhttps://t.co/4kaAcqYEVj\n- ModelScope\uff1a\nhttps://t.co/eRIMZCGkhC",
+        "Congratulations to @Alibaba_Qwen  team on the Qwen 3.8 27B launch! \n\nWe can't wait for our users to try it out! Contact us for dedicated deployments and it's going to be up soon in the Cerebras Shared Tier. \ud83d\udfe7\u26a1\ufe0f",
+        "2088419572416147582",
+        1786753001000,
+        "https://x.com/cerebras/status/2088419572416147582",
+        "These latest releases by Alibaba Cloud provide developers and hardware manufacturers with the files needed to host the newest series of multimodal models on private infrastructure. The 27B parameter dense model, released under an Apache 2.0 license, is tailored for real world coding and office workflows with a native context window of 262K tokens that can expand to 1M. Alibaba also released open weights for the larger Max level Qwen3.8 2.4T A95B model.\n\nMediaTek provides Day 0 support for the 27B model on its Dimensity flagship mobile SoC and Auto Cockpit C-X1 to facilitate agentic AI in smartphones and vehicles. Other launch partners include LM Studio for laptop deployments, Nvidia RTX Spark for local developer use, and Cerebras for dedicated server deployments.",
+        {
+          "authorCount": 144,
+          "eventTimeApprox": 145,
+          "publishedAt": 146,
+          "routingTopicKeys": 147,
+          "slug": 148,
+          "storyId": 20,
+          "storyScore": 149,
+          "title": 150,
+          "tweetCount": 151
+        },
+        31,
+        "2026-08-14T16:04:53.000Z",
+        1786727779137,
+        [13, 17],
+        "update-alibaba-releases-qwen38-27b-weights-to-beat-claude-opus-46-max-on-e09854c2",
+        0.627,
+        "UPDATE: Alibaba Releases Qwen3.8-27B Weights to Beat Claude Opus 4.6 Max on Agent Benchmarks",
+        59
+      ],
+      "uses": {
+        "search_params": ["tags"],
+        "params": ["slug", "topic"],
+        "parent": 1
+      }
+    }
+  ]
+}

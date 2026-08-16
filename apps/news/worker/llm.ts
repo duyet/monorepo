@@ -25,47 +25,119 @@ interface ChatMessage {
   content: string;
 }
 
-async function callAnyrouter(
-  env: Env,
-  messages: ChatMessage[],
-  opts: { json?: boolean } = {}
-): Promise<string> {
-  const baseUrl = env.ANYROUTER_BASE_URL || "https://anyrouter.dev/api/v1";
-  const res = await fetch(`${baseUrl}/chat/completions`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${env.ANYROUTER_API_KEY}`,
-    },
-    body: JSON.stringify({
-      model: env.ANYROUTER_MODEL,
-      messages,
-      temperature: 0,
-      max_tokens: MAX_TOKENS,
-      ...(opts.json ? { response_format: { type: "json_object" } } : {}),
-    }),
-    signal: AbortSignal.timeout(30_000),
-  });
+interface AnyrouterCallResult {
+  content: string;
+  tokens: number;
+}
 
-  if (!res.ok) {
-    throw new Error(
-      `anyrouter request failed: ${res.status} ${await res.text()}`
-    );
-  }
+const REQUEST_TIMEOUT_MS = 30_000;
+// Total budget for one logical completion, including waits between re-posts.
+// Kept small because callers multiply it: scoreItems/translateItems spend it
+// per batch and generateTldr wraps it in its own retry, all inside a single
+// workflow step.
+const QUEUE_BUDGET_MS = 30_000;
+// Extra POSTs allowed after a queued response (each one is billed).
+const QUEUE_MAX_REPOSTS = 2;
+const QUEUE_MIN_DELAY_MS = 250;
+const QUEUE_FALLBACK_DELAY_MS = 5_000;
 
-  const data = (await res.json()) as {
-    choices?: { message?: { content?: string; reasoning?: string } }[];
+interface AnyrouterResponse {
+  object?: string;
+  estimated_wait_ms?: number;
+  choices?: { message?: { content?: string; reasoning?: string } }[];
+  usage?: {
+    total_tokens?: number;
+    prompt_tokens?: number;
+    completion_tokens?: number;
   };
+}
+
+/** Long prompts sometimes come back as `{"object":"chat.completion.queued",
+ * "id":"req_…","choices":[],"queue_position":N,"estimated_wait_ms":M}` instead
+ * of an inline completion. */
+function isQueued(data: AnyrouterResponse): boolean {
+  return typeof data.object === "string" && data.object.endsWith(".queued");
+}
+
+function readCompletion(data: AnyrouterResponse): AnyrouterCallResult | null {
+  const tokens =
+    typeof data.usage?.total_tokens === "number"
+      ? data.usage.total_tokens
+      : (data.usage?.prompt_tokens ?? 0) + (data.usage?.completion_tokens ?? 0);
+
   const message = data.choices?.[0]?.message;
   const content = message?.content;
-  if (content?.trim()) return content;
+  if (content?.trim()) return { content, tokens };
 
   // Reasoning-model fallback: content came back empty, but the model may
   // have produced the JSON answer inside its `reasoning` field (e.g. right
   // before running out of budget, or because it never separated the two).
   if (message?.reasoning) {
     const extracted = extractLastJsonObject(message.reasoning);
-    if (extracted) return extracted;
+    if (extracted) return { content: extracted, tokens };
+  }
+
+  return null;
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function callAnyrouter(
+  env: Env,
+  messages: ChatMessage[],
+  opts: { json?: boolean } = {}
+): Promise<AnyrouterCallResult> {
+  const baseUrl = env.ANYROUTER_BASE_URL || "https://anyrouter.dev/api/v1";
+  const body = JSON.stringify({
+    model: env.ANYROUTER_MODEL,
+    messages,
+    temperature: 0,
+    max_tokens: MAX_TOKENS,
+    ...(opts.json ? { response_format: { type: "json_object" } } : {}),
+  });
+  const deadline = Date.now() + QUEUE_BUDGET_MS;
+
+  for (let post = 0; ; post++) {
+    const budgetLeft = deadline - Date.now();
+    if (budgetLeft < QUEUE_MIN_DELAY_MS) break;
+
+    const res = await fetch(`${baseUrl}/chat/completions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${env.ANYROUTER_API_KEY}`,
+        // Anyrouter reads both for dashboard app attribution.
+        "HTTP-Referer": "https://news.duyet.net",
+        "X-Title": "AI News (news.duyet.net)",
+      },
+      body,
+      signal: AbortSignal.timeout(Math.min(REQUEST_TIMEOUT_MS, budgetLeft)),
+    });
+
+    if (!res.ok) {
+      throw new Error(
+        `anyrouter request failed: ${res.status} ${await res.text()}`
+      );
+    }
+
+    const data = (await res.json()) as AnyrouterResponse;
+    const completion = readCompletion(data);
+    if (completion) return completion;
+
+    // Anyrouter exposes no endpoint that resolves a queued request id, so the
+    // only way to collect the answer is to send the request again and hope it
+    // lands inline. Bounded because every re-post is a fresh billed call.
+    if (!isQueued(data) || post >= QUEUE_MAX_REPOSTS) break;
+    const delay = Math.max(
+      data.estimated_wait_ms ?? QUEUE_FALLBACK_DELAY_MS,
+      QUEUE_MIN_DELAY_MS
+    );
+    // Waiting out a queue longer than the remaining budget can only end in the
+    // same failure, so stop now rather than burn the budget sleeping.
+    if (delay >= deadline - Date.now()) break;
+    await sleep(delay);
   }
 
   throw new Error("anyrouter response missing content");
@@ -134,6 +206,9 @@ export interface ScoreResult {
   quality: number;
   category: string;
   tags: string[];
+  /** This batch's total token usage, attributed evenly across the batch's
+   * requested items (not just the ones the model actually returned). */
+  tokens: number;
 }
 
 export async function scoreItems(
@@ -152,14 +227,19 @@ ${JSON.stringify(batch.map(({ i, title, summary, source }) => ({ i, title, summa
 Respond with strict JSON only: {"results":[{"i":0,"relevance":0.9,"importance":7,"quality":8,"category":"Models","tags":["..."]}]}`;
 
     try {
-      const raw = await callAnyrouter(
+      const { content: raw, tokens } = await callAnyrouter(
         env,
         [{ role: "user", content: prompt }],
         { json: true }
       );
-      const parsed = parseJson<{ results: ScoreResult[] }>(raw);
+      const parsed = parseJson<{
+        results: Omit<ScoreResult, "tokens">[];
+      }>(raw);
       if (Array.isArray(parsed.results)) {
-        results.push(...parsed.results);
+        const tokensPerItem = Math.ceil(tokens / batch.length);
+        for (const result of parsed.results) {
+          results.push({ ...result, tokens: tokensPerItem });
+        }
       }
     } catch (error) {
       console.error("scoreItems batch failed:", error);
@@ -179,6 +259,9 @@ export interface TranslateResult {
   i: number;
   title: string;
   summary: string;
+  /** This batch's total token usage, attributed evenly across the batch's
+   * requested items (not just the ones the model actually returned). */
+  tokens: number;
 }
 
 export async function translateItems(
@@ -196,14 +279,19 @@ ${JSON.stringify(batch.map(({ i, title, summary }) => ({ i, title, summary })))}
 Respond with strict JSON only: {"results":[{"i":0,"title":"...","summary":"..."}]}`;
 
     try {
-      const raw = await callAnyrouter(
+      const { content: raw, tokens } = await callAnyrouter(
         env,
         [{ role: "user", content: prompt }],
         { json: true }
       );
-      const parsed = parseJson<{ results: TranslateResult[] }>(raw);
+      const parsed = parseJson<{
+        results: Omit<TranslateResult, "tokens">[];
+      }>(raw);
       if (Array.isArray(parsed.results)) {
-        results.push(...parsed.results);
+        const tokensPerItem = Math.ceil(tokens / batch.length);
+        for (const result of parsed.results) {
+          results.push({ ...result, tokens: tokensPerItem });
+        }
       }
     } catch (error) {
       console.error("translateItems batch failed:", error);
@@ -227,9 +315,12 @@ export interface TldrBullet {
 export interface TldrResult {
   bullets_en: TldrBullet[];
   bullets_vi: TldrBullet[];
+  /** Total tokens burned across all attempts. Not attributed to any item;
+   * logged for visibility, not currently persisted anywhere. */
+  tokens: number;
 }
 
-const EMPTY_TLDR: TldrResult = { bullets_en: [], bullets_vi: [] };
+const EMPTY_TLDR: TldrResult = { bullets_en: [], bullets_vi: [], tokens: 0 };
 
 function normalizeBullets(input: unknown): TldrBullet[] {
   if (!Array.isArray(input)) return [];
@@ -257,9 +348,12 @@ function normalizeBullets(input: unknown): TldrBullet[] {
 
 /** Accepts the documented `{bullets_en, bullets_vi}` shape as well as a
  * `{bullets: {en, vi}}` alternate the model sometimes returns, and tolerates
- * bullets that are plain strings or missing `item_id`. */
-function normalizeTldrResult(parsed: unknown): TldrResult {
-  if (!parsed || typeof parsed !== "object") return EMPTY_TLDR;
+ * bullets that are plain strings or missing `item_id`. Token usage is
+ * tracked separately in generateTldr, not part of this shape parsing. */
+function normalizeTldrResult(parsed: unknown): Omit<TldrResult, "tokens"> {
+  if (!parsed || typeof parsed !== "object") {
+    return { bullets_en: [], bullets_vi: [] };
+  }
   const p = parsed as Record<string, unknown>;
   const nested =
     p.bullets && typeof p.bullets === "object"
@@ -284,16 +378,18 @@ ${JSON.stringify(items)}
 Respond with strict JSON only: {"bullets_en":[{"text":"...","item_id":"..."}],"bullets_vi":[{"text":"...","item_id":"..."}]}`;
 
   const ATTEMPTS = 2;
+  let totalTokens = 0;
   for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
     try {
-      const raw = await callAnyrouter(
+      const { content: raw, tokens } = await callAnyrouter(
         env,
         [{ role: "user", content: prompt }],
         { json: true }
       );
+      totalTokens += tokens;
       const result = normalizeTldrResult(parseJson<unknown>(raw));
       if (result.bullets_en.length > 0 || result.bullets_vi.length > 0) {
-        return result;
+        return { ...result, tokens: totalTokens };
       }
       console.error(
         `generateTldr attempt ${attempt}/${ATTEMPTS} returned no bullets`
@@ -306,7 +402,8 @@ Respond with strict JSON only: {"bullets_en":[{"text":"...","item_id":"..."}],"b
     }
   }
 
-  return EMPTY_TLDR;
+  console.error(`generateTldr burned ${totalTokens} tokens with no result`);
+  return { ...EMPTY_TLDR, tokens: totalTokens };
 }
 
 export {

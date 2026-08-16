@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
-  generateTldr,
   _extractLastJsonObjectForTests as extractLastJsonObject,
+  generateTldr,
   _normalizeTldrForTests as normalizeTldr,
   _parseJsonForTests as parseJson,
   scoreItems,
@@ -67,15 +67,23 @@ function reasoningResponse(reasoning: string, content = ""): Response {
   );
 }
 
+function chatResponseWithUsage(content: string, totalTokens: number): Response {
+  return new Response(
+    JSON.stringify({
+      choices: [{ message: { content } }],
+      usage: { total_tokens: totalTokens },
+    }),
+    { status: 200 }
+  );
+}
+
 describe("extractLastJsonObject", () => {
   it("returns null when there's no closing brace", () => {
     expect(extractLastJsonObject("no json here")).toBeNull();
   });
 
   it("extracts a single top-level object", () => {
-    expect(extractLastJsonObject('some reasoning... {"a":1}')).toBe(
-      '{"a":1}'
-    );
+    expect(extractLastJsonObject('some reasoning... {"a":1}')).toBe('{"a":1}');
   });
 
   it("extracts the LAST of multiple objects, respecting nested braces", () => {
@@ -225,7 +233,93 @@ describe("generateTldr", () => {
 
     const result = await generateTldr(env, [{ id: "1", title: "Story" }]);
     expect(fetchMock).toHaveBeenCalledTimes(2);
-    expect(result).toEqual({ bullets_en: [], bullets_vi: [] });
+    expect(result.bullets_en).toEqual([]);
+    expect(result.bullets_vi).toEqual([]);
+    expect(result.tokens).toBe(0); // no usage field in these mocked responses
+  });
+});
+
+describe("queued anyrouter responses", () => {
+  beforeEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  // Anyrouter answers long prompts with a queue receipt instead of a
+  // completion, and offers no endpoint to collect the result by id, so the
+  // only recovery is re-posting the identical request.
+  function queuedResponse(estimatedWaitMs = 0): Response {
+    return new Response(
+      JSON.stringify({
+        object: "chat.completion.queued",
+        id: "req_abc123",
+        choices: [],
+        queue_position: 3,
+        estimated_wait_ms: estimatedWaitMs,
+      }),
+      { status: 200 }
+    );
+  }
+
+  const scoreInput = [{ i: 0, title: "Story", source: "hn" }];
+  const scorePayload = JSON.stringify({
+    results: [
+      {
+        i: 0,
+        relevance: 0.9,
+        importance: 7,
+        quality: 8,
+        category: "Models",
+        tags: ["ai"],
+      },
+    ],
+  });
+
+  it("re-posts after a queued response and returns the completion", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(queuedResponse())
+      .mockResolvedValueOnce(chatResponse(scorePayload));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const results = await scoreItems(env, scoreInput);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(results).toHaveLength(1);
+    expect(results[0].category).toBe("Models");
+  });
+
+  it("gives up after the re-post budget and skips the batch", async () => {
+    const fetchMock = vi.fn().mockImplementation(async () => queuedResponse());
+    vi.stubGlobal("fetch", fetchMock);
+
+    const results = await scoreItems(env, scoreInput);
+    // One initial post plus two bounded re-posts, then the batch is skipped.
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+    expect(results).toEqual([]);
+  });
+
+  it("stops immediately when the queue is longer than the budget", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockImplementation(async () => queuedResponse(120_000));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const results = await scoreItems(env, scoreInput);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(results).toEqual([]);
+  });
+
+  it("does not re-post an ordinary response that merely lacks content", async () => {
+    const fetchMock = vi.fn().mockImplementation(
+      async () =>
+        new Response(JSON.stringify({ choices: [{ message: {} }] }), {
+          status: 200,
+        })
+    );
+    vi.stubGlobal("fetch", fetchMock);
+
+    const results = await scoreItems(env, scoreInput);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(results).toEqual([]);
   });
 });
 
@@ -298,5 +392,187 @@ describe("scoreItems / translateItems batch failure handling", () => {
     ]);
     expect(results).toHaveLength(1);
     expect(results[0].category).toBe("Models");
+  });
+
+  it("sends a generous max_tokens so reasoning can't starve the answer", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValue(chatResponse(JSON.stringify({ results: [] })));
+    vi.stubGlobal("fetch", fetchMock);
+
+    await scoreItems(env, [{ i: 0, title: "Story", source: "hn" }]);
+
+    const body = JSON.parse(fetchMock.mock.calls[0][1].body);
+    expect(body.max_tokens).toBeGreaterThanOrEqual(4096);
+  });
+
+  it("sends app-attribution headers so usage shows up in the anyrouter dashboard", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValue(chatResponse(JSON.stringify({ results: [] })));
+    vi.stubGlobal("fetch", fetchMock);
+
+    await scoreItems(env, [{ i: 0, title: "Story", source: "hn" }]);
+
+    const { headers } = fetchMock.mock.calls[0][1];
+    expect(headers["HTTP-Referer"]).toBe("https://news.duyet.net");
+    expect(headers["X-Title"]).toBe("AI News (news.duyet.net)");
+  });
+
+  it("falls back to extracting JSON from message.reasoning when content is empty (reasoning-model quirk)", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(
+        reasoningResponse(
+          `Let me analyze this story... it's clearly about AI. Final answer: ${JSON.stringify(
+            {
+              results: [
+                {
+                  i: 0,
+                  relevance: 0.9,
+                  importance: 7,
+                  quality: 8,
+                  category: "Models",
+                  tags: ["gpt"],
+                },
+              ],
+            }
+          )}`
+        )
+      )
+    );
+
+    const results = await scoreItems(env, [
+      { i: 0, title: "New model released", source: "hn" },
+    ]);
+    expect(results).toHaveLength(1);
+    expect(results[0].category).toBe("Models");
+  });
+
+  it("skips the batch when both content and reasoning are empty/missing", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(
+        new Response(JSON.stringify({ choices: [{ message: {} }] }), {
+          status: 200,
+        })
+      )
+    );
+
+    const results = await scoreItems(env, [
+      { i: 0, title: "Story", source: "hn" },
+    ]);
+    expect(results).toEqual([]);
+  });
+
+  it("attributes a batch's total tokens evenly across every requested item, rounding up", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(
+        chatResponseWithUsage(
+          JSON.stringify({
+            results: [
+              {
+                i: 0,
+                relevance: 0.9,
+                importance: 7,
+                quality: 8,
+                category: "Models",
+                tags: [],
+              },
+              {
+                i: 1,
+                relevance: 0.8,
+                importance: 6,
+                quality: 7,
+                category: "Products",
+                tags: [],
+              },
+              {
+                i: 2,
+                relevance: 0.7,
+                importance: 5,
+                quality: 6,
+                category: "Research",
+                tags: [],
+              },
+            ],
+          }),
+          100 // 100 tokens / 3 items -> ceil(33.33) = 34 per item
+        )
+      )
+    );
+
+    const results = await scoreItems(env, [
+      { i: 0, title: "A", source: "hn" },
+      { i: 1, title: "B", source: "hn" },
+      { i: 2, title: "C", source: "hn" },
+    ]);
+
+    expect(results).toHaveLength(3);
+    for (const result of results) {
+      expect(result.tokens).toBe(34);
+    }
+  });
+
+  it("attributes tokens by the batch's requested size, not the model's returned result count", async () => {
+    // The model only returned 1 of 2 requested items (e.g. it dropped one),
+    // but the full batch's token cost should still divide by the requested
+    // batch size, not by how many results actually came back.
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(
+        chatResponseWithUsage(
+          JSON.stringify({
+            results: [
+              {
+                i: 0,
+                relevance: 0.9,
+                importance: 7,
+                quality: 8,
+                category: "Models",
+                tags: [],
+              },
+            ],
+          }),
+          50
+        )
+      )
+    );
+
+    const results = await scoreItems(env, [
+      { i: 0, title: "A", source: "hn" },
+      { i: 1, title: "B", source: "hn" },
+    ]);
+
+    expect(results).toHaveLength(1);
+    expect(results[0].tokens).toBe(25); // 50 / 2 requested, not 50 / 1 returned
+  });
+
+  it("attributes translateItems tokens evenly across the batch too", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(
+        chatResponseWithUsage(
+          JSON.stringify({
+            results: [
+              { i: 0, title: "Tiêu đề A", summary: "Tóm tắt A" },
+              { i: 1, title: "Tiêu đề B", summary: "Tóm tắt B" },
+            ],
+          }),
+          60
+        )
+      )
+    );
+
+    const results = await translateItems(env, [
+      { i: 0, title: "Title A" },
+      { i: 1, title: "Title B" },
+    ]);
+
+    expect(results).toHaveLength(2);
+    for (const result of results) {
+      expect(result.tokens).toBe(30);
+    }
   });
 });

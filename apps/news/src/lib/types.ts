@@ -1,10 +1,20 @@
 export type Lang = "en" | "vi";
 
+export interface ItemSource {
+  kind: string; // source | support | discussion
+  author: string | null;
+  posted_at: number | null;
+  quote: string | null;
+  url: string | null;
+}
+
 export interface FeedItem {
   id: string;
   url: string;
   title: string;
   title_vi: string | null;
+  summary: string | null;
+  summary_vi: string | null;
   category: string | null;
   published_at: number;
   points: number;
@@ -12,6 +22,8 @@ export interface FeedItem {
   rank_score: number;
   source_id: string;
   tags: string[];
+  sources: ItemSource[];
+  llm_tokens: number;
 }
 
 export interface TldrBullet {
@@ -36,4 +48,6 @@ export interface FeedResponse {
   trending: { tag: string; count: number }[];
   totalStories: number;
   updatedAt: number;
+  /** Epoch seconds of the newest fetched item (last successful ingest). */
+  lastFetchedAt: number | null;
 }

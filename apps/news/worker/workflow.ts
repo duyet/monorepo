@@ -4,11 +4,17 @@ import {
   type WorkflowStep,
 } from "cloudflare:workers";
 import { type MirrorRow, mirrorItems } from "./clickhouse.js";
-import { buildItemBindArgs, buildTranslationBindArgs, nn } from "./d1-bind.js";
+import {
+  buildItemBindArgs,
+  buildItemSourceBindArgs,
+  buildTranslationBindArgs,
+  nn,
+} from "./d1-bind.js";
 import { scoreItems, translateItems } from "./llm.js";
 import { rankScore } from "./ranking.js";
 import { adapters } from "./sources/registry.js";
 import type { FetchedItem } from "./sources/types.js";
+import { sendDailyTldr } from "./subscribe/send.js";
 import { toEpochSeconds } from "./time.js";
 import { ensureDailyTldr } from "./tldr.js";
 import type { Env } from "./types.js";
@@ -147,7 +153,10 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
 
       const translated = await step.do("translate", async () => {
         if (publishedRows.length === 0)
-          return new Map<string, { title: string; summary: string }>();
+          return new Map<
+            string,
+            Awaited<ReturnType<typeof translateItems>>[number]
+          >();
         const results = await translateItems(
           this.env,
           publishedRows.map((row, i) => ({
@@ -156,11 +165,10 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
             summary: row.item.summary,
           }))
         );
-        const map = new Map<string, { title: string; summary: string }>();
+        const map = new Map<string, (typeof results)[number]>();
         for (const result of results) {
           const row = publishedRows[result.i];
-          if (row)
-            map.set(row.id, { title: result.title, summary: result.summary });
+          if (row) map.set(row.id, result);
         }
         return map;
       });
@@ -170,6 +178,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
 
         for (const { id, source, item } of newRows) {
           const score = scored.get(id);
+          const translation = translated.get(id);
           const relevance = score?.relevance ?? 0.5;
           const importance = score?.importance ?? 5;
           const quality = score?.quality ?? 5;
@@ -185,6 +194,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
             publishedAt: item.publishedAt * 1000,
             now,
           });
+          const llmTokens = (score?.tokens ?? 0) + (translation?.tokens ?? 0);
 
           statements.push(
             this.env.DB.prepare(
@@ -192,8 +202,8 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
                 id, source_id, external_id, url, title, summary,
                 published_at, fetched_at, points, comments,
                 llm_relevance, llm_importance, llm_quality, category, tags,
-                rank_score, status
-              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                rank_score, status, llm_tokens
+              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
               ON CONFLICT(id) DO UPDATE SET
                 published_at = excluded.published_at,
                 points = excluded.points,
@@ -208,11 +218,11 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
                 rank,
                 status,
                 now,
+                llmTokens,
               })
             )
           );
 
-          const translation = translated.get(id);
           // The translate step can be skipped (empty batch result) or the
           // LLM can omit a field entirely; only insert when both are usable.
           if (translation?.title && translation.summary !== undefined) {
@@ -230,6 +240,22 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
                 })
               )
             );
+          }
+
+          if (item.sources && item.sources.length > 0) {
+            statements.push(
+              this.env.DB.prepare(
+                "DELETE FROM item_sources WHERE item_id = ?"
+              ).bind(nn(id))
+            );
+            for (const row of buildItemSourceBindArgs(id, item.sources)) {
+              statements.push(
+                this.env.DB.prepare(
+                  `INSERT INTO item_sources (item_id, position, kind, author, posted_at, quote, url)
+                   VALUES (?, ?, ?, ?, ?, ?, ?)`
+                ).bind(...row)
+              );
+            }
           }
         }
 
@@ -310,6 +336,15 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
 
       await step.do("tldr", async () => {
         await ensureDailyTldr(this.env);
+      });
+
+      await step.do("email-digest", async () => {
+        try {
+          await sendDailyTldr(this.env);
+        } catch (error) {
+          // Never let a digest-send failure break the ingest workflow.
+          console.error("email-digest step failed:", error);
+        }
       });
     } catch (error) {
       runError = error instanceof Error ? error.message : String(error);

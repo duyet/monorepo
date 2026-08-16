@@ -1,8 +1,15 @@
 import { toEpochSeconds } from "../time.js";
-import type { FetchedItem, SourceAdapter } from "./types.js";
+import type { FetchedItem, FetchedItemSource, SourceAdapter } from "./types.js";
 
 const DATA_URL = "https://huggingnews.com/__data.json";
 const SITEMAP_URL_PREFIX = "https://huggingnews.com/sitemaps/stories-";
+const MAX_SOURCES_PER_ITEM = 8;
+// Hard cap on the extra per-story detail fetches made to enrich items with
+// selectedTweets: the feed listing itself doesn't carry this data (see
+// findDayGroupsNode's stories), only each story's own detail page does.
+const MAX_DETAIL_FETCHES = 20;
+const DETAIL_BATCH_SIZE = 4;
+const DETAIL_FETCH_TIMEOUT_MS = 8_000;
 
 /**
  * SvelteKit `__data.json` payloads flatten object graphs into a single
@@ -75,14 +82,26 @@ function deepFind(obj: unknown, key: string, depth = 0): unknown {
   return undefined;
 }
 
-function storyToItem(story: Record<string, unknown>): FetchedItem | null {
+/** A parsed feed story, plus the slug/topic/priority needed to fetch its
+ * detail page for selectedTweets, kept separate from the public FetchedItem
+ * shape. */
+interface RawStory {
+  item: FetchedItem;
+  slug: string;
+  topicSlug: string;
+  /** Lower is more prominent when present (feed's own per-day rank);
+   * falls back to Infinity so unranked stories sort last. */
+  priority: number;
+}
+
+function storyToRawStory(story: Record<string, unknown>): RawStory | null {
   const title = pick(story, ["title", "headline"]);
   const slug = pick(story, ["slug"]);
+  const topic = pick(story, ["primaryRoutingTopic"]);
+  const topicSlug = typeof topic === "string" ? topic : "ai";
   let url = pick(story, ["url", "link", "sourceUrl"]);
 
   if (typeof url !== "string" && typeof slug === "string") {
-    const topic = pick(story, ["primaryRoutingTopic"]);
-    const topicSlug = typeof topic === "string" ? topic : "ai";
     url = `https://huggingnews.com/${topicSlug}/${slug}`;
   }
 
@@ -104,27 +123,40 @@ function storyToItem(story: Record<string, unknown>): FetchedItem | null {
   const points = pick(story, ["points", "score", "storyScore"]);
   const comments = pick(story, ["comments", "commentCount", "tweetCount"]);
   const externalId = pick(story, ["storyId", "id"]);
+  const rank = pick(story, ["rank"]);
+  const storyScore = pick(story, ["storyScore"]);
+  const priority =
+    typeof rank === "number"
+      ? rank
+      : typeof storyScore === "number"
+        ? -storyScore
+        : Number.POSITIVE_INFINITY;
 
   return {
-    externalId: typeof externalId === "string" ? externalId : undefined,
-    url,
-    title,
-    // eventTimeApprox/publishedAt from HuggingNews are epoch milliseconds;
-    // normalize to seconds so this adapter's own output already matches
-    // the schema (the workflow's write layer also normalizes defensively).
-    publishedAt: toEpochSeconds(publishedAtMs),
-    points: typeof points === "number" ? Math.round(points) : 0,
-    comments: typeof comments === "number" ? comments : 0,
+    item: {
+      externalId: typeof externalId === "string" ? externalId : undefined,
+      url,
+      title,
+      // eventTimeApprox/publishedAt from HuggingNews are epoch milliseconds;
+      // normalize to seconds so this adapter's own output already matches
+      // the schema (the workflow's write layer also normalizes defensively).
+      publishedAt: toEpochSeconds(publishedAtMs),
+      points: typeof points === "number" ? Math.round(points) : 0,
+      comments: typeof comments === "number" ? comments : 0,
+    },
+    slug: typeof slug === "string" ? slug : "",
+    topicSlug,
+    priority,
   };
 }
 
-async function fetchFromDataJson(): Promise<FetchedItem[]> {
+async function fetchRawStories(): Promise<RawStory[]> {
   const res = await fetch(DATA_URL, { signal: AbortSignal.timeout(10_000) });
   if (!res.ok) return [];
   const payload = (await res.json()) as { nodes?: unknown[] };
   const nodes = payload.nodes ?? [];
 
-  const items: FetchedItem[] = [];
+  const stories: RawStory[] = [];
   for (const node of nodes) {
     if (!node || typeof node !== "object") continue;
     const data = (node as { data?: unknown[] }).data;
@@ -135,16 +167,132 @@ async function fetchFromDataJson(): Promise<FetchedItem[]> {
 
     for (const dayGroup of dayGroups) {
       if (!dayGroup || typeof dayGroup !== "object") continue;
-      const stories = (dayGroup as Record<string, unknown>).stories;
-      if (!Array.isArray(stories)) continue;
-      for (const story of stories) {
+      const rawStories = (dayGroup as Record<string, unknown>).stories;
+      if (!Array.isArray(rawStories)) continue;
+      for (const story of rawStories) {
         if (!story || typeof story !== "object") continue;
-        const item = storyToItem(story as Record<string, unknown>);
-        if (item) items.push(item);
+        const raw = storyToRawStory(story as Record<string, unknown>);
+        if (raw) stories.push(raw);
       }
     }
   }
-  return items;
+  return stories;
+}
+
+interface SelectedTweet {
+  label?: unknown;
+  authorHandle?: unknown;
+  author?: unknown;
+  bestBit?: unknown;
+  quote?: unknown;
+  url?: unknown;
+  link?: unknown;
+  tweetedAt?: unknown;
+  postedAt?: unknown;
+}
+
+function tweetToSource(tweet: SelectedTweet): FetchedItemSource | null {
+  const url = pick(tweet as Record<string, unknown>, ["url", "link"]);
+  if (typeof url !== "string") return null;
+
+  const label = pick(tweet as Record<string, unknown>, ["label"]);
+  const kind: FetchedItemSource["kind"] =
+    typeof label === "string" && label.toLowerCase() === "source"
+      ? "source"
+      : "support";
+
+  const authorRaw = pick(tweet as Record<string, unknown>, [
+    "authorHandle",
+    "author",
+  ]);
+  const author =
+    typeof authorRaw === "string"
+      ? authorRaw.startsWith("@")
+        ? authorRaw
+        : `@${authorRaw}`
+      : undefined;
+
+  const postedAtRaw = pick(tweet as Record<string, unknown>, [
+    "tweetedAt",
+    "postedAt",
+  ]);
+  const postedAtMs = toEpochMs(postedAtRaw);
+
+  const quoteRaw = pick(tweet as Record<string, unknown>, ["bestBit", "quote"]);
+
+  return {
+    kind,
+    author,
+    postedAt: postedAtMs === null ? undefined : toEpochSeconds(postedAtMs),
+    quote: typeof quoteRaw === "string" ? quoteRaw : undefined,
+    url,
+  };
+}
+
+/** Fetches a single story's detail page and extracts up to
+ * MAX_SOURCES_PER_ITEM sources from `focusedStoryDetail.data.selectedTweets`.
+ * Any failure (network, shape mismatch, missing data) resolves to []. */
+async function fetchStorySources(
+  topicSlug: string,
+  slug: string
+): Promise<FetchedItemSource[]> {
+  try {
+    const res = await fetch(
+      `https://huggingnews.com/${topicSlug}/${slug}/__data.json`,
+      { signal: AbortSignal.timeout(DETAIL_FETCH_TIMEOUT_MS) }
+    );
+    if (!res.ok) return [];
+    const payload = (await res.json()) as { nodes?: unknown[] };
+    const nodes = payload.nodes ?? [];
+
+    for (const node of nodes) {
+      if (!node || typeof node !== "object") continue;
+      const data = (node as { data?: unknown[] }).data;
+      if (!Array.isArray(data)) continue;
+
+      for (let i = 0; i < data.length; i++) {
+        const resolved = resolve(data, i);
+        if (!resolved || typeof resolved !== "object") continue;
+        const tweets = deepFind(resolved, "selectedTweets");
+        if (!Array.isArray(tweets)) continue;
+
+        const sources: FetchedItemSource[] = [];
+        for (const tweet of tweets) {
+          if (!tweet || typeof tweet !== "object") continue;
+          const source = tweetToSource(tweet as SelectedTweet);
+          if (source) sources.push(source);
+          if (sources.length >= MAX_SOURCES_PER_ITEM) break;
+        }
+        if (sources.length > 0) return sources;
+      }
+    }
+    return [];
+  } catch (error) {
+    console.error(
+      `huggingnews detail fetch failed for ${topicSlug}/${slug}:`,
+      error
+    );
+    return [];
+  }
+}
+
+/** Enriches the highest-priority stories with per-story sources, bounded by
+ * MAX_DETAIL_FETCHES total requests, DETAIL_BATCH_SIZE at a time. */
+async function enrichWithSources(stories: RawStory[]): Promise<FetchedItem[]> {
+  const prioritized = [...stories].sort((a, b) => a.priority - b.priority);
+  const toEnrich = prioritized.slice(0, MAX_DETAIL_FETCHES);
+
+  for (let i = 0; i < toEnrich.length; i += DETAIL_BATCH_SIZE) {
+    const batch = toEnrich.slice(i, i + DETAIL_BATCH_SIZE);
+    await Promise.all(
+      batch.map(async (raw) => {
+        const sources = await fetchStorySources(raw.topicSlug, raw.slug);
+        if (sources.length > 0) raw.item.sources = sources;
+      })
+    );
+  }
+
+  return stories.map((raw) => raw.item);
 }
 
 function slugToTitle(slug: string): string {
@@ -187,12 +335,14 @@ export const huggingNewsAdapter: SourceAdapter = {
 
   async fetchItems(_config, sinceEpochSec) {
     try {
-      const items = await fetchFromDataJson();
-      const filtered = items.filter(
-        (item) => item.publishedAt >= sinceEpochSec
+      const stories = await fetchRawStories();
+      const freshStories = stories.filter(
+        (raw) => raw.item.publishedAt >= sinceEpochSec
       );
-      if (filtered.length > 0) return filtered;
+      if (freshStories.length > 0) return enrichWithSources(freshStories);
 
+      // Sitemap fallback carries no slug/topic split usable for the detail
+      // fetch (URL is already assembled), so these items are never enriched.
       const sitemapItems = await fetchFromSitemap();
       return sitemapItems.filter((item) => item.publishedAt >= sinceEpochSec);
     } catch (error) {

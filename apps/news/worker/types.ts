@@ -9,4 +9,7 @@ export interface Env {
   CLICKHOUSE_NEWS_PASSWORD?: string;
   CLICKHOUSE_DATABASE?: string;
   NEWS_ADMIN_TOKEN: string;
+  /** Cloudflare Email Sending binding. Optional: absent until Email Sending
+   *  is onboarded for the account, so all use sites must guard for it. */
+  EMAIL?: SendEmail;
 }

@@ -1,3 +1,4 @@
+import { AuthButtons } from "@duyet/components";
 import { Link } from "@tanstack/react-router";
 import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -16,7 +17,7 @@ function DarkToggle() {
     <button
       type="button"
       aria-label="Toggle dark mode"
-      className="rounded-full p-1.5 text-black/70 hover:bg-black/10"
+      className="rounded-full p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
       onClick={() => {
         const next = !dark;
         setDark(next);
@@ -44,34 +45,32 @@ export function HeaderBar({
     lang === "vi" ? "Hôm nay AI có gì mới?" : "What is happening in AI today?";
 
   return (
-    <header className="bg-brand">
+    <header className="border-b border-border bg-background">
       <div className="mx-auto flex max-w-[1200px] items-center gap-4 px-4 py-3 md:px-6">
         <Link to="/" className="flex shrink-0 items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-md bg-black text-sm font-bold text-brand">
+          <span className="flex h-8 w-8 items-center justify-center rounded-md bg-brand text-sm font-bold text-foreground">
             AI
           </span>
-          <span className="text-lg font-bold tracking-tight text-black">
+          <span className="font-serif text-lg font-semibold italic tracking-tight text-foreground">
             AI News
           </span>
         </Link>
-        <span className="hidden shrink-0 border-l border-black/20 pl-4 text-sm text-black/80 md:block">
+        <span className="hidden shrink-0 border-l border-border pl-4 text-sm text-muted-foreground md:block">
           {tagline}
         </span>
         <div className="flex-1" />
         <div className="hidden flex-1 justify-center sm:flex">
           <SearchBox
-            placeholder={lang === "vi" ? "Tìm tin AI..." : "Search AI news..."}
+            placeholder={lang === "vi" ? "Tìm kiếm..." : "Search AI news..."}
           />
         </div>
         <div className="flex shrink-0 items-center gap-2">
-          <a
-            href="https://duyet.net"
-            className="hidden text-sm font-semibold text-black/80 hover:text-black md:block"
-          >
-            duyet.net
-          </a>
           <LangToggle lang={lang} onChange={onLangChange} />
           <DarkToggle />
+          <AuthButtons
+            signInClassName="h-7 w-7 flex items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            avatarSize="h-7 w-7"
+          />
         </div>
       </div>
     </header>

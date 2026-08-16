@@ -210,7 +210,7 @@ export const appConfig: Record<
       "CLICKHOUSE_NEWS_PASSWORD",
       "CLICKHOUSE_DATABASE",
     ],
-    buildVars: [],
+    buildVars: ["VITE_CLERK_PUBLISHABLE_KEY"],
   },
   "duyet-ai-percentage": {
     secrets: ["CLERK_SECRET_KEY"],

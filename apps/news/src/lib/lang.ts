@@ -23,8 +23,17 @@ export function setClientLang(lang: Lang) {
   }
 }
 
-export function timeAgo(epochSec: number, now = Date.now()): string {
+export function timeAgo(
+  epochSec: number,
+  now = Date.now(),
+  lang: Lang = "en"
+): string {
   const diff = Math.max(0, Math.floor(now / 1000) - epochSec);
+  if (lang === "vi") {
+    if (diff < 3600) return `${Math.max(1, Math.floor(diff / 60))} phút trước`;
+    if (diff < 86400) return `${Math.floor(diff / 3600)} giờ trước`;
+    return `${Math.floor(diff / 86400)} ngày trước`;
+  }
   if (diff < 3600) return `${Math.max(1, Math.floor(diff / 60))}m ago`;
   if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
   return `${Math.floor(diff / 86400)}d ago`;

@@ -12,6 +12,7 @@ interface AlgoliaHit {
   created_at_i: number;
   points?: number;
   num_comments?: number;
+  author?: string;
 }
 
 interface AlgoliaResponse {
@@ -29,6 +30,14 @@ function hitToItem(hit: AlgoliaHit): FetchedItem | null {
     publishedAt: hit.created_at_i * 1000,
     points: hit.points ?? 0,
     comments: hit.num_comments ?? 0,
+    sources: [
+      {
+        kind: "discussion",
+        author: hit.author,
+        postedAt: hit.created_at_i,
+        url: `https://news.ycombinator.com/item?id=${hit.objectID}`,
+      },
+    ],
   };
 }
 

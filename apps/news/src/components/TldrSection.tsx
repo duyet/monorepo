@@ -1,3 +1,4 @@
+import { timeAgo } from "../lib/lang";
 import type { Lang, TldrBullet } from "../lib/types";
 
 export function TldrSection({
@@ -5,11 +6,13 @@ export function TldrSection({
   lang,
   totalStories,
   updatedAt,
+  lastFetchedAt,
 }: {
   bullets: TldrBullet[];
   lang: Lang;
   totalStories: number;
   updatedAt: number;
+  lastFetchedAt: number | null;
 }) {
   if (bullets.length === 0) return null;
   const mid = Math.ceil(bullets.length / 2);
@@ -52,16 +55,15 @@ export function TldrSection({
           {totalStories} {lang === "vi" ? "tin" : "stories"}
         </span>
         <span>
-          {lang === "vi" ? "Cập nhật lúc" : "News as of"}{" "}
-          {new Date(updatedAt).toLocaleString(
-            lang === "vi" ? "vi-VN" : "en-US",
-            {
-              month: "short",
-              day: "numeric",
-              hour: "numeric",
-              minute: "2-digit",
-            }
-          )}
+          {lastFetchedAt
+            ? `${lang === "vi" ? "Cập nhật" : "Updated"} ${timeAgo(
+                lastFetchedAt,
+                updatedAt,
+                lang
+              )}`
+            : lang === "vi"
+              ? "Cập nhật lúc"
+              : "News as of"}
         </span>
       </div>
     </section>

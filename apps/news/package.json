@@ -16,6 +16,7 @@
     "cf:deploy:prod": "dotenv -e ../../.env.production -e ../../.env.production.local -- pnpm run deploy"
   },
   "dependencies": {
+    "@clerk/clerk-react": "^5.61.2",
     "@duyet/components": "*",
     "@duyet/config": "*",
     "@duyet/libs": "*",

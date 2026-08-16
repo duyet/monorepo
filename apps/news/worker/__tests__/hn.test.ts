@@ -46,4 +46,17 @@ describe("hnAdapter", () => {
     const claude = items.find((i) => i.externalId === "1001");
     expect(claude).toMatchObject({ points: 250, comments: 80 });
   });
+
+  it("attaches a single 'discussion' source pointing at the HN thread", async () => {
+    const items = await hnAdapter.fetchItems({}, 0);
+    const claude = items.find((i) => i.externalId === "1001");
+    expect(claude?.sources).toEqual([
+      {
+        kind: "discussion",
+        author: "someuser",
+        postedAt: 1780000000,
+        url: "https://news.ycombinator.com/item?id=1001",
+      },
+    ]);
+  });
 });

@@ -75,3 +75,27 @@ curl -X POST https://news.duyet.net/api/mcp \
     }
   }'
 ```
+
+A bilingual human-readable version of this section is also published at
+`/mcp`.
+
+## Email digest
+
+Visitors can subscribe to a daily TL;DR email (top 5 stories, EN or VI) at
+`/subscribe`. `POST /api/subscribe` with `{"email", "lang"}` adds a
+subscriber (table `subscribers`, migration `0004_subscribers.sql`);
+`DELETE /api/subscribe?token=<unsubscribe_token>` removes one. The hourly
+`NewsIngestWorkflow` sends the digest once per UTC day, right after the
+`tldr` step, via the `email-digest` step in `worker/workflow.ts`
+(`worker/subscribe/send.ts`). Sending is gated on that day's
+`tldr_snapshots` row having bullets and not already being marked
+`sent_at`.
+
+Email delivery uses the Cloudflare Email Sending Workers binding
+(`[[send_email]] name = "EMAIL"` in `wrangler.toml`, sender
+`news@duyet.net`). **This requires the `duyet.net` domain to be onboarded
+onto Cloudflare Email Sending** (`wrangler email sending enable
+duyet.net`, or via the Cloudflare dashboard) before digests can actually
+be delivered — `sendDailyTldr` no-ops (logs and skips) if `env.EMAIL` is
+missing, so the ingest workflow is never broken by this being
+unconfigured.

@@ -4,6 +4,7 @@ import { DaySection } from "../components/DaySection";
 import { TldrSection } from "../components/TldrSection";
 import { TrendingChips } from "../components/TrendingChips";
 import { fetchFeed } from "../lib/feed-fn";
+import { timeAgo } from "../lib/lang";
 import { useLang } from "../lib/lang-context";
 import type { FeedResponse } from "../lib/types";
 
@@ -30,10 +31,18 @@ function IndexPage() {
         label={lang === "vi" ? "Xu hướng" : "Trending"}
       />
       {q ? (
-        <p className="py-3 text-sm text-muted-foreground">
-          {lang === "vi" ? "Kết quả cho" : "Results for"}{" "}
-          <span className="font-semibold text-foreground">“{q}”</span> —{" "}
-          {feed.totalStories}
+        <p className="flex flex-wrap items-baseline justify-between gap-2 py-3 text-sm text-muted-foreground">
+          <span>
+            {lang === "vi" ? "Kết quả cho" : "Results for"}{" "}
+            <span className="font-semibold text-foreground">“{q}”</span> —{" "}
+            {feed.totalStories}
+          </span>
+          {feed.lastFetchedAt && (
+            <span className="text-xs">
+              {lang === "vi" ? "Cập nhật" : "Updated"}{" "}
+              {timeAgo(feed.lastFetchedAt, feed.updatedAt, lang)}
+            </span>
+          )}
         </p>
       ) : (
         <TldrSection
@@ -41,6 +50,7 @@ function IndexPage() {
           lang={lang}
           totalStories={feed.totalStories}
           updatedAt={feed.updatedAt}
+          lastFetchedAt={feed.lastFetchedAt}
         />
       )}
       {feed.days.map((day) => (

@@ -25,6 +25,9 @@ database_id = "8e692ccf-ec38-4e41-b011-50adbc891322"
 ANYROUTER_BASE_URL = "https://anyrouter.dev/api/v1"
 ANYROUTER_MODEL = "stepfun-ai/step-3.7-flash"
 
+[[send_email]]
+name = "EMAIL"
+
 [observability]
 enabled = true
 

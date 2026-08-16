@@ -6,7 +6,8 @@
       "url": "https://example.com/claude-model",
       "created_at_i": 1780000000,
       "points": 250,
-      "num_comments": 80
+      "num_comments": 80,
+      "author": "someuser"
     },
     {
       "objectID": "1002",
