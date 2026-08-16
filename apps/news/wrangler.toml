@@ -29,6 +29,13 @@ ANYROUTER_TRANSLATE_MODEL = "aisingapore/gemma-sea-lion-v4-27b-it,google/gemini-
 [[send_email]]
 name = "EMAIL"
 
+# Workers Cache: safe for this surface — only responses with public
+# Cache-Control headers (feed/story/system APIs, static shell) are cached;
+# admin/subscribe/suggest/submit/mcp set no-store and Authorization-bearing
+# requests auto-bypass.
+[cache]
+enabled = true
+
 [observability]
 enabled = true
 

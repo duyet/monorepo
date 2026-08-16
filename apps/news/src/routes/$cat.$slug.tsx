@@ -3,14 +3,17 @@ import { StoryRow } from "../components/StoryRow";
 import { formatDayHeading } from "../lib/lang";
 import { useLang } from "../lib/lang-context";
 import { idPrefixFromSlug } from "../lib/slug";
-import { fetchStory } from "../lib/story-fn";
+import { getStory } from "../lib/story-queries";
 import type { FeedItem } from "../lib/types";
 
 export const Route = createFileRoute("/$cat/$slug")({
   loader: async ({ params }): Promise<FeedItem> => {
     const idPrefix = idPrefixFromSlug(params.slug);
     if (!idPrefix) throw notFound();
-    const item = await fetchStory({ data: { idPrefix } });
+    const { env } = await import("cloudflare:workers");
+    const db = (env as { DB?: D1Database }).DB;
+    if (!db) throw new Error("D1 binding DB not configured");
+    const item = await getStory(db, idPrefix);
     if (!item) throw notFound();
     return item;
   },

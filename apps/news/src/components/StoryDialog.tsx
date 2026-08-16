@@ -1,6 +1,5 @@
 import { ExternalLink, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { fetchStory } from "../lib/story-fn";
 import type { FeedItem, Lang } from "../lib/types";
 import { StoryDetail } from "./StoryDetail";
 
@@ -45,7 +44,8 @@ export function StoryDialog({
   useEffect(() => {
     let cancelled = false;
     setItem(undefined);
-    fetchStory({ data: { idPrefix } })
+    fetch(`/api/story/${encodeURIComponent(idPrefix)}`)
+      .then((res) => (res.ok ? (res.json() as Promise<FeedItem>) : null))
       .then((res) => {
         if (!cancelled) setItem(res);
       })
