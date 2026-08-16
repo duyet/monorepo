@@ -29,9 +29,15 @@ import {
 } from "./dedupe.js";
 import { enrichMissingContent, fetchOgData } from "./enrich.js";
 import { sha256Hex } from "./hash.js";
-import { scoreItems, translateItems } from "./llm.js";
+import { createD1LlmCallLogger, pruneLlmCalls } from "./llm-call-log.js";
+import { scoreItems, setLlmCallLogger, translateItems } from "./llm.js";
 import { rankScore } from "./ranking.js";
-import { buildRunStats, serializeRunStats } from "./run-stats.js";
+import {
+  buildRunStats,
+  recordStep,
+  type RunStepInfo,
+  serializeRunStats,
+} from "./run-stats.js";
 import { fetchStoryDetailByUrl } from "./sources/huggingnews.js";
 import { adapters } from "./sources/registry.js";
 import type { FetchedItem, FetchedItemSource } from "./sources/types.js";
@@ -105,6 +111,16 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
     let tldrGenerated = false;
     let tldrTokens = 0;
     let emailsSent = 0;
+    const steps: RunStepInfo[] = [];
+
+    // Installs the D1-backed llm_calls logger so every scoreItems/
+    // translateItems/generateTldr call below (and everything else that
+    // routes through callAnyrouter) gets an observability row. Plain code,
+    // not step.do: re-running it on workflow replay is harmless (it just
+    // reinstalls the same closure and re-runs an idempotent DELETE), and
+    // it must never affect run-error tracking below.
+    setLlmCallLogger(createD1LlmCallLogger(this.env));
+    await pruneLlmCalls(this.env);
 
     try {
       const sources = await step.do("load-sources", async () => {
@@ -132,6 +148,11 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         itemsFetched += items.length;
         bySource[source.id] = (bySource[source.id] ?? 0) + items.length;
       }
+      recordStep(
+        steps,
+        "fetch",
+        `${itemsFetched} items from ${sources.length} sources`
+      );
 
       let newRows = await step.do("dedupe", async () => {
         const rows: {
@@ -207,6 +228,12 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         return rows;
       });
       itemsNew = newRows.length;
+      recordStep(
+        steps,
+        "dedupe",
+        `${itemsNew} new`,
+        `${Math.max(itemsFetched - itemsNew, 0)} already in db`
+      );
 
       // Fill in summary/image_url for items lacking either, from the
       // article's own og/description meta tags, BEFORE scoring so the
@@ -262,6 +289,12 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         }
         return map;
       });
+      recordStep(
+        steps,
+        "score",
+        newRows.length === 0 ? "skipped" : `scored ${scored.size} items`,
+        newRows.length === 0 ? "no new items" : undefined
+      );
 
       const now = Date.now();
 
@@ -377,6 +410,18 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         }
         return map;
       });
+      recordStep(
+        steps,
+        "translate",
+        publishedRows.length === 0
+          ? "skipped"
+          : `translated ${translated.size} items`,
+        publishedRows.length === 0
+          ? newRows.length === 0
+            ? "no new items"
+            : "no items cleared the relevance threshold"
+          : undefined
+      );
 
       // Plain deterministic derivation from already-memoized step outputs
       // (newRows/scored/mergePlan/translated) — replay-safe the same way
@@ -602,10 +647,16 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
           }
         }
 
+        // Only the current UTC day is re-ranked: the feed groups and sorts
+        // stories per day, so recomputing freshness decay on older items
+        // reshuffles history the reader already saw. Once a day rolls over,
+        // its order is frozen; past days only ever gain merged-away dupes.
+        const startOfUtcDaySec =
+          Math.floor(toEpochSeconds(now) / 86400) * 86400;
         const { results: recentItems } = await this.env.DB.prepare(
           "SELECT id, published_at, points, comments, llm_importance, llm_quality FROM items WHERE published_at >= ? AND status = 'published'"
         )
-          .bind(toEpochSeconds(now) - RANK_RECOMPUTE_WINDOW_SEC)
+          .bind(startOfUtcDaySec)
           .all<
             Pick<
               ItemRow,
@@ -754,6 +805,13 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         }
         return backfilled;
       });
+      recordStep(
+        steps,
+        "backfill-content",
+        backfilledSummaries === 0
+          ? "0 candidates backfilled"
+          : `backfilled ${backfilledSummaries} summaries`
+      );
 
       // Translates whatever summaries exist (including ones the step above
       // just backfilled) but don't have a Vietnamese translation yet.
@@ -805,6 +863,13 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
       );
       backfilledTranslations = backfillTranslateResult.translatedCount;
       backfillTranslateTokens = backfillTranslateResult.tokens;
+      recordStep(
+        steps,
+        "backfill-translate",
+        backfilledTranslations === 0
+          ? "0 candidates"
+          : `translated ${backfilledTranslations} summaries`
+      );
 
       const qaStats = await step.do("qa-translations", async () => {
         try {
@@ -817,6 +882,13 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
       qaRated = qaStats.rated;
       qaAdjusted = qaStats.adjusted;
       qaTokens = qaStats.tokens;
+      recordStep(
+        steps,
+        "qa-translations",
+        qaRated === 0
+          ? "0 pending translations"
+          : `rated ${qaRated} translations, adjusted ${qaAdjusted}`
+      );
 
       const suggestionsStats = await step.do("review-suggestions", async () => {
         try {
@@ -828,6 +900,13 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
       });
       suggestionsReviewed = suggestionsStats.reviewed;
       suggestionsTokens = suggestionsStats.tokens;
+      recordStep(
+        steps,
+        "review-suggestions",
+        suggestionsReviewed === 0
+          ? "0 pending suggestions"
+          : `reviewed ${suggestionsReviewed} suggestions`
+      );
 
       const submissionsStats = await step.do("review-submissions", async () => {
         try {
@@ -839,12 +918,25 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
       });
       submissionsReviewed = submissionsStats.reviewed;
       submissionsTokens = submissionsStats.tokens;
+      recordStep(
+        steps,
+        "review-submissions",
+        submissionsReviewed === 0
+          ? "0 pending submissions"
+          : `reviewed ${submissionsReviewed} submissions`
+      );
 
       const tldrStats = await step.do("tldr", async () => {
         return await ensureDailyTldr(this.env);
       });
       tldrGenerated = tldrStats.generated;
       tldrTokens = tldrStats.tokens;
+      recordStep(
+        steps,
+        "tldr",
+        tldrGenerated ? "generated" : "skipped",
+        tldrStats.reason
+      );
 
       emailsSent = await step.do("email-digest", async () => {
         try {
@@ -855,12 +947,19 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
           return 0;
         }
       });
+      recordStep(
+        steps,
+        "email",
+        emailsSent === 0 ? "skipped" : `sent to ${emailsSent} subscribers`,
+        emailsSent === 0 ? "no eligible subscribers this run" : undefined
+      );
     } catch (error) {
       runError = error instanceof Error ? error.message : String(error);
       throw error;
     } finally {
       const stats = buildRunStats({
         bySource,
+        steps,
         new: itemsNew,
         merged,
         rejected,

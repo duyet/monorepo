@@ -1,4 +1,19 @@
-import type { DayGroup, FeedItem, FeedResponse } from "./types";
+import type { DayGroup, FeedItem, FeedResponse, TldrBullet } from "./types";
+
+/** Older `tldr_snapshots` rows were written with a single `item_id` string
+ * per bullet; newer rows use `item_ids: string[]`. Normalize both to
+ * `item_ids` so the frontend only ever has to handle one shape. */
+function normalizeStoredBullets(raw: unknown): TldrBullet[] {
+  if (!Array.isArray(raw)) return [];
+  return raw.map((b: Record<string, unknown>) => {
+    const itemIds = Array.isArray(b.item_ids)
+      ? (b.item_ids as string[])
+      : typeof b.item_id === "string" && b.item_id
+        ? [b.item_id as string]
+        : [];
+    return { text: b.text as string, item_ids: itemIds };
+  });
+}
 
 interface ItemRow {
   id: string;
@@ -194,10 +209,14 @@ export async function getFeed(
     for (const tag of it.tags)
       tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
   }
-  const trending = [...tagCounts.entries()]
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 8)
-    .map(([tag, count]) => ({ tag, count }));
+  // Dynamic trending size: every tag mentioned 2+ times today earns a chip
+  // (capped at 16 so the row stays scannable); single-mention tags only top
+  // the list up to a floor of 8 on quiet days.
+  const ranked = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
+  const hot = ranked.filter(([, count]) => count >= 2).slice(0, 16);
+  const trending = (
+    hot.length >= 8 ? hot : ranked.slice(0, Math.min(8, ranked.length))
+  ).map(([tag, count]) => ({ tag, count }));
 
   let tldr: FeedResponse["tldr"] = null;
   const tldrRow = tldrRes.results?.[0];
@@ -205,8 +224,8 @@ export async function getFeed(
     try {
       tldr = {
         date: tldrRow.date,
-        bullets_en: JSON.parse(tldrRow.bullets_en),
-        bullets_vi: JSON.parse(tldrRow.bullets_vi),
+        bullets_en: normalizeStoredBullets(JSON.parse(tldrRow.bullets_en)),
+        bullets_vi: normalizeStoredBullets(JSON.parse(tldrRow.bullets_vi)),
       };
     } catch {
       // malformed snapshot — render feed without TL;DR

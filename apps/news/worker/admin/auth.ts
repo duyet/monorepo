@@ -1,4 +1,5 @@
 import type { Env } from "../types.js";
+import { isClerkAdmin, verifyClerkToken } from "./clerk.js";
 
 /**
  * Constant-time byte comparison. Consumes both operands up to the max of
@@ -42,4 +43,52 @@ export function checkAuth(request: Request, env: Env): Response | null {
   }
 
   return null;
+}
+
+function bearerToken(request: Request): string | null {
+  const authHeader = request.headers.get("Authorization") ?? "";
+  const match = authHeader.match(/^Bearer (.+)$/);
+  return match?.[1] ?? null;
+}
+
+/**
+ * True when the request's bearer token resolves to an admin via either
+ * mechanism: the static `NEWS_ADMIN_TOKEN`, or a valid Clerk session JWT
+ * belonging to an admin user (see `worker/admin/clerk.ts`).
+ */
+export async function isRequestAdmin(
+  request: Request,
+  env: Env
+): Promise<boolean> {
+  const token = bearerToken(request);
+  if (!token) return false;
+
+  if (env.NEWS_ADMIN_TOKEN) {
+    const encoder = new TextEncoder();
+    if (
+      timingSafeEqual(encoder.encode(token), encoder.encode(env.NEWS_ADMIN_TOKEN))
+    ) {
+      return true;
+    }
+  }
+
+  const payload = await verifyClerkToken(token, env);
+  if (payload && isClerkAdmin(payload, env)) return true;
+
+  return false;
+}
+
+/**
+ * Admin-route gate: passes (returns `null`) when the bearer token is
+ * either the correct `NEWS_ADMIN_TOKEN` or a valid Clerk session JWT of an
+ * admin user. Otherwise short-circuits with a `Response` (401), matching
+ * `checkAuth`'s contract. Unlike `checkAuth`, does not 500 when
+ * `NEWS_ADMIN_TOKEN` is unset — Clerk-only admin auth is a valid config.
+ */
+export async function checkAdminAuth(
+  request: Request,
+  env: Env
+): Promise<Response | null> {
+  if (await isRequestAdmin(request, env)) return null;
+  return Response.json({ error: "unauthorized" }, { status: 401 });
 }

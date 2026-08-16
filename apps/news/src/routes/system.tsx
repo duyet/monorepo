@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Coins, Newspaper, Play, Users } from "lucide-react";
 import { useEffect, useState } from "react";
+import { AdminPanel } from "../components/system/AdminPanel";
 import { BarList } from "../components/system/BarList";
 import { ChartCard } from "../components/system/ChartCard";
 import {
@@ -13,6 +14,7 @@ import { RunOutcomeBars } from "../components/system/RunOutcomeBars";
 import { RunsList } from "../components/system/RunsList";
 import { RunStatusStrip } from "../components/system/RunStatusStrip";
 import { StatTile } from "../components/system/StatTile";
+import { useAdmin } from "../lib/admin";
 import { categoryLabel, statusLabel } from "../lib/lang";
 import type { SystemStats } from "../lib/system-queries";
 import type { Lang } from "../lib/types";
@@ -34,6 +36,7 @@ function SystemPage() {
   const t = (en: string, _vi: string) => en;
   const [stats, setStats] = useState<SystemStats | null>(null);
   const [error, setError] = useState(false);
+  const admin = useAdmin();
 
   // Static shell — stats are bound client-side from /api/system.
   useEffect(() => {
@@ -366,6 +369,12 @@ function SystemPage() {
           <RunsList runs={stats.runs} lang={lang} />
         </ChartCard>
       </div>
+
+      {admin.isAdmin && (
+        <div className="mt-6">
+          <AdminPanel admin={admin} />
+        </div>
+      )}
     </div>
   );
 }

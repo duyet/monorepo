@@ -1,10 +1,14 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   _extractLastJsonObjectForTests as extractLastJsonObject,
   generateTldr,
+  normalizeTag,
   _normalizeTldrForTests as normalizeTldr,
   _parseJsonForTests as parseJson,
+  sanitizeScoreResults,
+  sanitizeTranslateResults,
   scoreItems,
+  setLlmCallLogger,
   translateItems,
   VI_STYLE,
 } from "../llm.js";
@@ -101,25 +105,25 @@ describe("extractLastJsonObject", () => {
 describe("normalizeTldr", () => {
   it("accepts the documented bullets_en/bullets_vi shape", () => {
     const result = normalizeTldr({
-      bullets_en: [{ text: "A", item_id: "1" }],
-      bullets_vi: [{ text: "B", item_id: "2" }],
+      bullets_en: [{ text: "A", item_ids: ["1"] }],
+      bullets_vi: [{ text: "B", item_ids: ["2"] }],
     });
     expect(result).toEqual({
-      bullets_en: [{ text: "A", item_id: "1" }],
-      bullets_vi: [{ text: "B", item_id: "2" }],
+      bullets_en: [{ text: "A", item_ids: ["1"] }],
+      bullets_vi: [{ text: "B", item_ids: ["2"] }],
     });
   });
 
   it("accepts the alternate {bullets: {en, vi}} shape", () => {
     const result = normalizeTldr({
       bullets: {
-        en: [{ text: "A", item_id: "1" }],
-        vi: [{ text: "B", item_id: "2" }],
+        en: [{ text: "A", item_ids: ["1"] }],
+        vi: [{ text: "B", item_ids: ["2"] }],
       },
     });
     expect(result).toEqual({
-      bullets_en: [{ text: "A", item_id: "1" }],
-      bullets_vi: [{ text: "B", item_id: "2" }],
+      bullets_en: [{ text: "A", item_ids: ["1"] }],
+      bullets_vi: [{ text: "B", item_ids: ["2"] }],
     });
   });
 
@@ -129,8 +133,8 @@ describe("normalizeTldr", () => {
       bullets_vi: [],
     });
     expect(result.bullets_en).toEqual([
-      { text: "No id here", item_id: "" },
-      { text: "Just a string bullet", item_id: "" },
+      { text: "No id here", item_ids: [] },
+      { text: "Just a string bullet", item_ids: [] },
     ]);
   });
 
@@ -155,8 +159,8 @@ describe("generateTldr", () => {
       vi.fn().mockResolvedValue(
         chatResponse(
           `\`\`\`json\n${JSON.stringify({
-            bullets_en: [{ text: "A", item_id: "1" }],
-            bullets_vi: [{ text: "B", item_id: "1" }],
+            bullets_en: [{ text: "A", item_ids: ["1"] }],
+            bullets_vi: [{ text: "B", item_ids: ["1"] }],
           })}\n\`\`\``
         )
       )
@@ -174,8 +178,8 @@ describe("generateTldr", () => {
         chatResponse(
           `Here you go: ${JSON.stringify({
             bullets: {
-              en: [{ text: "A", item_id: "1" }],
-              vi: [{ text: "B", item_id: "1" }],
+              en: [{ text: "A", item_ids: ["1"] }],
+              vi: [{ text: "B", item_ids: ["1"] }],
             },
           })}`
         )
@@ -183,8 +187,8 @@ describe("generateTldr", () => {
     );
 
     const result = await generateTldr(env, [{ id: "1", title: "Story" }]);
-    expect(result.bullets_en).toEqual([{ text: "A", item_id: "1" }]);
-    expect(result.bullets_vi).toEqual([{ text: "B", item_id: "1" }]);
+    expect(result.bullets_en).toEqual([{ text: "A", item_ids: ["1"] }]);
+    expect(result.bullets_vi).toEqual([{ text: "B", item_ids: ["1"] }]);
   });
 
   it("retries once when the first attempt returns empty bullets, then succeeds", async () => {
@@ -196,8 +200,8 @@ describe("generateTldr", () => {
       .mockResolvedValueOnce(
         chatResponse(
           JSON.stringify({
-            bullets_en: [{ text: "A", item_id: "1" }],
-            bullets_vi: [{ text: "B", item_id: "1" }],
+            bullets_en: [{ text: "A", item_ids: ["1"] }],
+            bullets_vi: [{ text: "B", item_ids: ["1"] }],
           })
         )
       );
@@ -215,8 +219,8 @@ describe("generateTldr", () => {
       .mockResolvedValueOnce(
         chatResponse(
           JSON.stringify({
-            bullets_en: [{ text: "A", item_id: "1" }],
-            bullets_vi: [{ text: "B", item_id: "1" }],
+            bullets_en: [{ text: "A", item_ids: ["1"] }],
+            bullets_vi: [{ text: "B", item_ids: ["1"] }],
           })
         )
       );
@@ -672,8 +676,8 @@ describe("model fallback chain", () => {
     const fetchMock = vi.fn().mockResolvedValue(
       completion(
         JSON.stringify({
-          bullets_en: [{ text: "A", item_id: "1" }],
-          bullets_vi: [{ text: "B", item_id: "1" }],
+          bullets_en: [{ text: "A", item_ids: ["1"] }],
+          bullets_vi: [{ text: "B", item_ids: ["1"] }],
         })
       )
     );
@@ -955,6 +959,55 @@ describe("scoreItems / translateItems batch failure handling", () => {
   });
 });
 
+// setLlmCallLogger installs a fire-and-forget observability sink (see
+// worker/llm-call-log.ts's D1-backed implementation); a broken sink must
+// never surface through the pipeline it's merely observing.
+describe("setLlmCallLogger", () => {
+  beforeEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  afterEach(() => {
+    setLlmCallLogger(null);
+  });
+
+  const scoreInput = [{ i: 0, title: "Story", source: "hn" }];
+  const scorePayload = JSON.stringify({
+    results: [
+      {
+        i: 0,
+        relevance: 0.9,
+        importance: 7,
+        quality: 8,
+        category: "Models",
+        tags: ["ai"],
+      },
+    ],
+  });
+
+  it("a synchronously-throwing logger does not break scoreItems", async () => {
+    setLlmCallLogger(() => {
+      throw new Error("logger exploded");
+    });
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(chatResponse(scorePayload)));
+
+    const results = await scoreItems(env, scoreInput);
+    expect(results).toHaveLength(1);
+    expect(results[0].category).toBe("Models");
+  });
+
+  it("a rejecting async logger does not break scoreItems", async () => {
+    setLlmCallLogger(async () => {
+      throw new Error("async logger exploded");
+    });
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(chatResponse(scorePayload)));
+
+    const results = await scoreItems(env, scoreInput);
+    expect(results).toHaveLength(1);
+    expect(results[0].category).toBe("Models");
+  });
+});
+
 describe("VI_STYLE", () => {
   it("prefers everyday Vietnamese over Sino-Vietnamese formalese", () => {
     expect(VI_STYLE).toContain("sử dụng");
@@ -985,5 +1038,137 @@ describe("VI_STYLE", () => {
     expect(VI_STYLE).toContain("Tập đoàn");
     expect(VI_STYLE).toContain("được huấn luyện bởi");
     expect(VI_STYLE).toMatch(/Startup này.*OpenAI/s);
+  });
+});
+
+// "Rating tests": the exact garbage shapes small fallback-chain models emit,
+// and what the sanitizers must make of them before anything touches ranking.
+describe("sanitizeScoreResults", () => {
+  const batch = [
+    { i: 0, title: "a", source: "hn" },
+    { i: 1, title: "b", source: "hn" },
+  ];
+
+  it("coerces stringified numbers and clamps out-of-range scores", () => {
+    const out = sanitizeScoreResults(
+      [
+        {
+          i: "0",
+          relevance: "0.9",
+          importance: 12,
+          quality: -3,
+          category: "models",
+          tags: ["LLMs "],
+        },
+      ],
+      batch,
+      5
+    );
+    expect(out).toEqual([
+      {
+        i: 0,
+        relevance: 0.9,
+        importance: 10,
+        quality: 0,
+        category: "Models",
+        tags: ["llms"],
+        tokens: 5,
+      },
+    ]);
+  });
+
+  it("drops hallucinated, duplicate, and NaN-score entries", () => {
+    const good = {
+      i: 1,
+      relevance: 1,
+      importance: 5,
+      quality: 5,
+      category: "Agents",
+      tags: [],
+    };
+    const out = sanitizeScoreResults(
+      [
+        { ...good, i: 7 }, // index never requested
+        { i: 0, relevance: "high", importance: 5, quality: 5 }, // NaN score
+        good,
+        { ...good, importance: 9 }, // duplicate i=1 — first wins
+        "not an object",
+        null,
+      ],
+      batch,
+      3
+    );
+    expect(out).toEqual([{ ...good, tokens: 3 }]);
+  });
+
+  it("maps off-enum categories to empty and normalizes messy tags", () => {
+    const out = sanitizeScoreResults(
+      [
+        {
+          i: 0,
+          relevance: 0.5,
+          importance: 5,
+          quality: 5,
+          category: "AI Stuff",
+          tags: [
+            "Open Source",
+            "multi_agent",
+            "open-source",
+            42,
+            "a".repeat(50),
+          ],
+        },
+      ],
+      batch,
+      1
+    );
+    expect(out[0].category).toBe("");
+    expect(out[0].tags).toEqual(["open-source", "multi-agent"]);
+  });
+
+  it("returns empty for non-array payloads", () => {
+    expect(sanitizeScoreResults({ results: [] }, batch, 1)).toEqual([]);
+    expect(sanitizeScoreResults("[]", batch, 1)).toEqual([]);
+  });
+});
+
+describe("sanitizeTranslateResults", () => {
+  const batch = [
+    { i: 0, title: "Hello" },
+    { i: 1, title: "World" },
+  ];
+
+  it("keeps only requested indexes with non-empty titles, trimming fields", () => {
+    const out = sanitizeTranslateResults(
+      [
+        { i: 0, title: "  Xin chào  ", summary: " Tóm tắt " },
+        { i: 1, title: "", summary: "no title" },
+        { i: 2, title: "hallucinated" },
+        { i: 0, title: "duplicate" },
+        { i: 1, title: "Thế giới", summary: null },
+      ],
+      batch,
+      4
+    );
+    expect(out).toEqual([
+      { i: 0, title: "Xin chào", summary: "Tóm tắt", tokens: 4 },
+      { i: 1, title: "Thế giới", summary: "", tokens: 4 },
+    ]);
+  });
+});
+
+describe("normalizeTag", () => {
+  it("canonicalizes to lowercase-kebab-case", () => {
+    expect(normalizeTag("Open Source")).toBe("open-source");
+    expect(normalizeTag("multi_agent")).toBe("multi-agent");
+    expect(normalizeTag("  A/B Testing! ")).toBe("a-b-testing");
+    expect(normalizeTag("--llm--")).toBe("llm");
+  });
+
+  it("rejects junk", () => {
+    expect(normalizeTag("")).toBeNull();
+    expect(normalizeTag("!!!")).toBeNull();
+    expect(normalizeTag(42)).toBeNull();
+    expect(normalizeTag("x".repeat(41))).toBeNull();
   });
 });

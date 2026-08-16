@@ -79,6 +79,64 @@ interface AnyrouterCallResult {
   tokens: number;
 }
 
+/** Labels a call by which pipeline stage issued it, for the `llm_calls`
+ * observability log. "other" covers callers outside this file (dedupe's
+ * clustering, submissions/suggestions review, translation QA) that don't
+ * pass an explicit label. */
+export type LlmTask =
+  | "score"
+  | "translate"
+  | "tldr"
+  | "cluster"
+  | "review"
+  | "other";
+
+/** One row of the `llm_calls` observability log: one entry per model
+ * attempted inside callAnyrouter's fallback loop, including failed
+ * attempts before a fallback succeeded. */
+export interface LlmCallLogEntry {
+  ts: number;
+  task: LlmTask;
+  model: string;
+  ok: boolean;
+  tokens: number;
+  durationMs: number;
+  error: string | null;
+  promptChars: number;
+  /** First 2000 chars of the raw response content. Only set on success —
+   * a failed attempt has no usable content to snippet. */
+  responseSnippet: string | null;
+}
+
+export type LlmCallLogger = (
+  entry: LlmCallLogEntry
+) => void | Promise<void>;
+
+let llmCallLogger: LlmCallLogger | null = null;
+
+/** Installs (or clears, via `null`) the sink for `llm_calls` log entries.
+ * Call sites never await this logger and never let it affect behavior —
+ * see `logLlmCall` below. */
+export function setLlmCallLogger(fn: LlmCallLogger | null): void {
+  llmCallLogger = fn;
+}
+
+/** Fire-and-forget: a throwing or rejecting logger must never fail or
+ * change the outcome of callAnyrouter/scoreItems/translateItems/generateTldr. */
+function logLlmCall(entry: LlmCallLogEntry): void {
+  if (!llmCallLogger) return;
+  try {
+    const result = llmCallLogger(entry);
+    if (result && typeof (result as Promise<void>).then === "function") {
+      (result as Promise<void>).catch((error) => {
+        console.error("llm call logger rejected:", error);
+      });
+    }
+  } catch (error) {
+    console.error("llm call logger threw:", error);
+  }
+}
+
 const REQUEST_TIMEOUT_MS = 120_000;
 
 /** Anyrouter reports usage in camelCase on the streaming metadata event and in
@@ -256,8 +314,9 @@ async function streamCompletion(
 async function callAnyrouter(
   env: Env,
   messages: ChatMessage[],
-  opts: { json?: boolean; modelSpec?: string } = {}
+  opts: { json?: boolean; modelSpec?: string; task?: LlmTask } = {}
 ): Promise<AnyrouterCallResult> {
+  const task = opts.task ?? "other";
   const models = parseModels(opts.modelSpec || env.ANYROUTER_MODEL);
   if (models.length === 0) throw new Error("anyrouter model is not configured");
 
@@ -268,20 +327,44 @@ async function callAnyrouter(
   const deadline = Date.now() + REQUEST_TIMEOUT_MS;
   const slice = REQUEST_TIMEOUT_MS / models.length;
   let lastError: unknown;
+  const promptChars = messages.reduce((sum, m) => sum + m.content.length, 0);
 
   for (const model of models) {
     const timeoutMs = Math.min(deadline - Date.now(), slice);
     if (timeoutMs <= 0) break;
+    const attemptStartedAt = Date.now();
     try {
       const result = await streamCompletion(env, model, messages, {
         json: opts.json,
         timeoutMs,
       });
       console.log(`anyrouter completion served by ${model}`);
+      logLlmCall({
+        ts: attemptStartedAt,
+        task,
+        model,
+        ok: true,
+        tokens: result.tokens,
+        durationMs: Date.now() - attemptStartedAt,
+        error: null,
+        promptChars,
+        responseSnippet: result.content.slice(0, 2000),
+      });
       return result;
     } catch (error) {
       lastError = error;
       console.error(`anyrouter model ${model} failed:`, error);
+      logLlmCall({
+        ts: attemptStartedAt,
+        task,
+        model,
+        ok: false,
+        tokens: 0,
+        durationMs: Date.now() - attemptStartedAt,
+        error: error instanceof Error ? error.message : String(error),
+        promptChars,
+        responseSnippet: null,
+      });
     }
   }
 
@@ -356,6 +439,88 @@ export interface ScoreResult {
   tokens: number;
 }
 
+const CATEGORY_BY_LOWER = new Map<string, string>(
+  CATEGORIES.map((c) => [c.toLowerCase(), c])
+);
+
+function clamp(n: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, n));
+}
+
+/** Canonicalize one model-emitted tag to lowercase-kebab-case; null when the
+ * result is empty or unreasonably long (small models occasionally emit whole
+ * sentences as a "tag"). */
+export function normalizeTag(raw: unknown): string | null {
+  if (typeof raw !== "string") return null;
+  const tag = raw
+    .toLowerCase()
+    .trim()
+    .replace(/[_\s/]+/g, "-")
+    .replace(/[^a-z0-9-]/g, "")
+    .replace(/-{2,}/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return tag && tag.length <= 40 ? tag : null;
+}
+
+/**
+ * Validate one score batch against what was actually asked. Small models on
+ * the fallback chain get every part of this wrong in practice: numbers as
+ * strings, scores out of range, categories in the wrong case or off-enum,
+ * tags with spaces/underscores, hallucinated or duplicate `i`. Coerce and
+ * clamp what's salvageable; drop entries whose identity (`i`) or scores are
+ * unusable — a dropped entry behaves exactly like an item the model skipped.
+ */
+export function sanitizeScoreResults(
+  raw: unknown,
+  batch: ScoreInput[],
+  tokensPerItem: number
+): ScoreResult[] {
+  if (!Array.isArray(raw)) return [];
+  const validIndexes = new Set(batch.map((b) => b.i));
+  const seen = new Set<number>();
+  const out: ScoreResult[] = [];
+  for (const entry of raw) {
+    if (!entry || typeof entry !== "object") continue;
+    const e = entry as Record<string, unknown>;
+    const i = Number(e.i);
+    if (!Number.isInteger(i) || !validIndexes.has(i) || seen.has(i)) continue;
+    const relevance = Number(e.relevance);
+    const importance = Number(e.importance);
+    const quality = Number(e.quality);
+    if (
+      Number.isNaN(relevance) ||
+      Number.isNaN(importance) ||
+      Number.isNaN(quality)
+    )
+      continue;
+    seen.add(i);
+    const category =
+      typeof e.category === "string"
+        ? (CATEGORY_BY_LOWER.get(e.category.trim().toLowerCase()) ?? "")
+        : "";
+    const tags = Array.isArray(e.tags)
+      ? [
+          ...new Set(
+            e.tags
+              .map(normalizeTag)
+              .filter((t): t is string => t !== null)
+              .slice(0, 6)
+          ),
+        ]
+      : [];
+    out.push({
+      i,
+      relevance: clamp(relevance, 0, 1),
+      importance: clamp(importance, 0, 10),
+      quality: clamp(quality, 0, 10),
+      category,
+      tags,
+      tokens: tokensPerItem,
+    });
+  }
+  return out;
+}
+
 export async function scoreItems(
   env: Env,
   items: ScoreInput[]
@@ -370,6 +535,11 @@ Topic label rules (this feeds a dynamic topic taxonomy, so consistency matters):
 - lowercase-kebab-case only, e.g. "open-source", "multi-agent" — never spaces, underscores, or camelCase.
 - Mix specific entities (anthropic, openai, nvidia, qwen) with themes (multi-agent, open-source, fine-tuning, regulation).
 - Always use the same canonical spelling for the same concept: singular not plural ("llm" not "llms"), one standard hyphenation not synonyms ("open-source" not "opensource" or "oss"), no near-duplicates. If a topic could be phrased multiple ways, pick the most common/obvious industry term.
+- Prefer these canonical tags whenever they apply (reuse EXACTLY as written, don't invent variants):
+  entities: openai, anthropic, google, meta, xai, x, microsoft, amazon, nvidia, huggingface, deepseek, mistral, alibaba, apple, claude, fable, opus, sonnet, haiku, gpt, gemini, grok, llama, qwen, codex, claude-code, cursor, composer, copilot, windsurf, elon-musk, sam-altman
+  themes: llm, agent, multi-agent, harness, inference, open-source, fine-tuning, benchmark, reasoning, safety, regulation, funding, chips, gpu, infra, robotics, coding, rag, mcp
+  benchmarks: swe-bench, swe-bench-pro, livecodebench, arc-agi, arc-agi-2, mmlu, aider-polyglot
+  Only invent a new tag when nothing above (or an equally obvious industry term) fits.
 - 3-6 tags per item — enough to be genuinely browsable/filterable, not a single catch-all tag.
 
 Items:
@@ -381,17 +551,14 @@ Respond with strict JSON only: {"results":[{"i":0,"relevance":0.9,"importance":7
       const { content: raw, tokens } = await callAnyrouter(
         env,
         [{ role: "user", content: prompt }],
-        { json: true }
+        { json: true, task: "score" }
       );
-      const parsed = parseJson<{
-        results: Omit<ScoreResult, "tokens">[];
-      }>(raw);
-      if (Array.isArray(parsed.results)) {
-        const tokensPerItem = Math.ceil(tokens / batch.length);
-        for (const result of parsed.results) {
-          results.push({ ...result, tokens: tokensPerItem });
-        }
-      }
+      const parsed = parseJson<{ results?: unknown } | unknown[]>(raw);
+      // Some small models return the bare array instead of {results: [...]}.
+      const rows = Array.isArray(parsed) ? parsed : parsed.results;
+      results.push(
+        ...sanitizeScoreResults(rows, batch, Math.ceil(tokens / batch.length))
+      );
     } catch (error) {
       console.error("scoreItems batch failed:", error);
     }
@@ -415,6 +582,33 @@ export interface TranslateResult {
   tokens: number;
 }
 
+/** Same defense as sanitizeScoreResults, for translations: keep only entries
+ * whose `i` was actually requested (once), with non-empty string title —
+ * small models sometimes echo the input array, invent indexes, or return
+ * nulls for fields they failed to translate. */
+export function sanitizeTranslateResults(
+  raw: unknown,
+  batch: TranslateInput[],
+  tokensPerItem: number
+): TranslateResult[] {
+  if (!Array.isArray(raw)) return [];
+  const validIndexes = new Set(batch.map((b) => b.i));
+  const seen = new Set<number>();
+  const out: TranslateResult[] = [];
+  for (const entry of raw) {
+    if (!entry || typeof entry !== "object") continue;
+    const e = entry as Record<string, unknown>;
+    const i = Number(e.i);
+    if (!Number.isInteger(i) || !validIndexes.has(i) || seen.has(i)) continue;
+    const title = typeof e.title === "string" ? e.title.trim() : "";
+    if (!title) continue;
+    seen.add(i);
+    const summary = typeof e.summary === "string" ? e.summary.trim() : "";
+    out.push({ i, title, summary, tokens: tokensPerItem });
+  }
+  return out;
+}
+
 export async function translateItems(
   env: Env,
   items: TranslateInput[]
@@ -436,17 +630,17 @@ Respond with strict JSON only: {"results":[{"i":0,"title":"...","summary":"..."}
           { role: "system", content: VI_STYLE },
           { role: "user", content: prompt },
         ],
-        { json: true, modelSpec: env.ANYROUTER_TRANSLATE_MODEL }
+        { json: true, modelSpec: env.ANYROUTER_TRANSLATE_MODEL, task: "translate" }
       );
-      const parsed = parseJson<{
-        results: Omit<TranslateResult, "tokens">[];
-      }>(raw);
-      if (Array.isArray(parsed.results)) {
-        const tokensPerItem = Math.ceil(tokens / batch.length);
-        for (const result of parsed.results) {
-          results.push({ ...result, tokens: tokensPerItem });
-        }
-      }
+      const parsed = parseJson<{ results?: unknown } | unknown[]>(raw);
+      const rows = Array.isArray(parsed) ? parsed : parsed.results;
+      results.push(
+        ...sanitizeTranslateResults(
+          rows,
+          batch,
+          Math.ceil(tokens / batch.length)
+        )
+      );
     } catch (error) {
       console.error("translateItems batch failed:", error);
     }
@@ -463,7 +657,7 @@ export interface TldrItem {
 
 export interface TldrBullet {
   text: string;
-  item_id: string;
+  item_ids: string[];
 }
 
 export interface TldrResult {
@@ -476,25 +670,33 @@ export interface TldrResult {
 
 const EMPTY_TLDR: TldrResult = { bullets_en: [], bullets_vi: [], tokens: 0 };
 
+/** Accepts the preferred `item_ids: string[]` shape as well as the legacy
+ * single `item_id` (or `id`) string, normalizing everything to an array. */
 function normalizeBullets(input: unknown): TldrBullet[] {
   if (!Array.isArray(input)) return [];
   const out: TldrBullet[] = [];
   for (const entry of input) {
     if (typeof entry === "string" && entry.trim()) {
-      out.push({ text: entry, item_id: "" });
+      out.push({ text: entry, item_ids: [] });
       continue;
     }
     if (entry && typeof entry === "object") {
       const e = entry as Record<string, unknown>;
       const text = typeof e.text === "string" ? e.text : undefined;
       if (!text) continue;
-      const itemId =
-        typeof e.item_id === "string"
-          ? e.item_id
-          : typeof e.id === "string"
-            ? e.id
-            : "";
-      out.push({ text, item_id: itemId });
+      let itemIds: string[];
+      if (Array.isArray(e.item_ids)) {
+        itemIds = e.item_ids.filter(
+          (id): id is string => typeof id === "string"
+        );
+      } else if (typeof e.item_id === "string" && e.item_id) {
+        itemIds = [e.item_id];
+      } else if (typeof e.id === "string" && e.id) {
+        itemIds = [e.id];
+      } else {
+        itemIds = [];
+      }
+      out.push({ text, item_ids: itemIds });
     }
   }
   return out;
@@ -523,32 +725,35 @@ function normalizeTldrResult(parsed: unknown): Omit<TldrResult, "tokens"> {
 /** The model sometimes hallucinates or truncates `item_id`s, which used to
  * make TL;DR bullets open the wrong story. Keep only ids that exactly match
  * an input item (or uniquely prefix-match one, expanded to the full id);
- * anything else is cleared so the bullet renders unlinked. */
+ * anything else is dropped from the bullet's id list. */
 export function sanitizeBulletIds(
   bullets: TldrBullet[],
   items: Pick<TldrItem, "id">[]
 ): TldrBullet[] {
   const ids = new Set(items.map((i) => i.id));
-  return bullets.map((b) => {
-    if (!b.item_id) return b;
-    if (ids.has(b.item_id)) return b;
-    const matches = items.filter((i) => i.id.startsWith(b.item_id));
-    return { ...b, item_id: matches.length === 1 ? matches[0].id : "" };
-  });
+  const resolve = (id: string): string | null => {
+    if (ids.has(id)) return id;
+    const matches = items.filter((i) => i.id.startsWith(id));
+    return matches.length === 1 ? matches[0].id : null;
+  };
+  return bullets.map((b) => ({
+    ...b,
+    item_ids: b.item_ids.map(resolve).filter((id): id is string => id !== null),
+  }));
 }
 
 export async function generateTldr(
   env: Env,
   items: TldrItem[]
 ): Promise<TldrResult> {
-  const prompt = `Summarize the following AI/tech news items into exactly 16 concise TL;DR bullets, in both English and Vietnamese. Each bullet must reference the item_id it was derived from.
+  const prompt = `Summarize the following AI/tech news items into exactly 16 concise TL;DR bullets, in both English and Vietnamese. Each bullet must reference the item_ids (an array) it was derived from: most bullets summarize a single story, so item_ids has one id; when several items report the same story or theme, write ONE synthesizing bullet citing ALL of their ids instead of separate bullets.
 
 The Vietnamese bullets are NOT a translation pass over the English ones — write them the way a Vietnamese tech journalist would independently state the same facts, following the house style above.
 
 Items:
 ${JSON.stringify(items)}
 
-Respond with strict JSON only: {"bullets_en":[{"text":"...","item_id":"..."}],"bullets_vi":[{"text":"...","item_id":"..."}]}`;
+Respond with strict JSON only: {"bullets_en":[{"text":"...","item_ids":["..."]}],"bullets_vi":[{"text":"...","item_ids":["..."]}]}`;
 
   const ATTEMPTS = 2;
   let totalTokens = 0;
@@ -560,7 +765,7 @@ Respond with strict JSON only: {"bullets_en":[{"text":"...","item_id":"..."}],"b
           { role: "system", content: VI_STYLE },
           { role: "user", content: prompt },
         ],
-        { json: true, modelSpec: env.ANYROUTER_TLDR_MODEL }
+        { json: true, modelSpec: env.ANYROUTER_TLDR_MODEL, task: "tldr" }
       );
       totalTokens += tokens;
       const result = normalizeTldrResult(parseJson<unknown>(raw));

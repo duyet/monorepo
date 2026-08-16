@@ -39,39 +39,48 @@ describe("shouldPersistTldr", () => {
 describe("sanitizeBulletIds", () => {
   const items = [{ id: "aaaa1111bbbb" }, { id: "aaaa2222cccc" }];
 
-  it("keeps exact-match ids and empty ids", () => {
+  it("keeps exact-match ids and empty id lists", () => {
     expect(
       sanitizeBulletIds(
         [
-          { text: "a", item_id: "aaaa1111bbbb" },
-          { text: "b", item_id: "" },
+          { text: "a", item_ids: ["aaaa1111bbbb"] },
+          { text: "b", item_ids: [] },
         ],
         items
       )
     ).toEqual([
-      { text: "a", item_id: "aaaa1111bbbb" },
-      { text: "b", item_id: "" },
+      { text: "a", item_ids: ["aaaa1111bbbb"] },
+      { text: "b", item_ids: [] },
     ]);
   });
 
   it("expands a unique prefix to the full id", () => {
     expect(
-      sanitizeBulletIds([{ text: "a", item_id: "aaaa1111" }], items)
-    ).toEqual([{ text: "a", item_id: "aaaa1111bbbb" }]);
+      sanitizeBulletIds([{ text: "a", item_ids: ["aaaa1111"] }], items)
+    ).toEqual([{ text: "a", item_ids: ["aaaa1111bbbb"] }]);
   });
 
-  it("clears hallucinated or ambiguous ids so bullets render unlinked", () => {
+  it("drops hallucinated or ambiguous ids, keeping the rest", () => {
     expect(
       sanitizeBulletIds(
         [
-          { text: "a", item_id: "deadbeef" },
-          { text: "b", item_id: "aaaa" },
+          { text: "a", item_ids: ["deadbeef"] },
+          { text: "b", item_ids: ["aaaa", "aaaa2222cccc"] },
         ],
         items
       )
     ).toEqual([
-      { text: "a", item_id: "" },
-      { text: "b", item_id: "" },
+      { text: "a", item_ids: [] },
+      { text: "b", item_ids: ["aaaa2222cccc"] },
     ]);
+  });
+
+  it("validates every id when a bullet cites multiple stories", () => {
+    expect(
+      sanitizeBulletIds(
+        [{ text: "a", item_ids: ["aaaa1111bbbb", "aaaa2222cccc"] }],
+        items
+      )
+    ).toEqual([{ text: "a", item_ids: ["aaaa1111bbbb", "aaaa2222cccc"] }]);
   });
 });

@@ -212,4 +212,66 @@ describe("enrichMissingContent", () => {
     const items = [makeItem()];
     await expect(enrichMissingContent(items)).resolves.toBeUndefined();
   });
+
+  it("prefers the og:image of a source-kind entry over the item's own (aggregator) URL", async () => {
+    const fetchMock = vi.fn(async (url: string) => {
+      if (url === "https://x.com/someone/status/1")
+        return htmlResponse(
+          `<meta property="og:image" content="https://pbs.twimg.com/story.jpg">`
+        );
+      return htmlResponse(
+        `<meta property="og:image" content="https://huggingnews.com/og-image.png">
+         <meta property="og:description" content="Body from aggregator page">`
+      );
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const item = makeItem({
+      url: "https://huggingnews.com/ai/some-slug",
+      sources: [
+        {
+          kind: "source",
+          url: "https://x.com/someone/status/1",
+        },
+      ],
+    });
+    await enrichMissingContent([item]);
+
+    expect(item.imageUrl).toBe("https://pbs.twimg.com/story.jpg");
+    expect(item.summary).toBe("Body from aggregator page");
+  });
+
+  it("blocks a known aggregator branding og:image and falls back to no image when no source URL helps", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(
+        htmlResponse(
+          `<meta property="og:image" content="https://huggingnews.com/og-image.png">`
+        )
+      )
+    );
+
+    const item = makeItem({ url: "https://huggingnews.com/ai/some-slug" });
+    await enrichMissingContent([item]);
+
+    expect(item.imageUrl).toBeUndefined();
+  });
+
+  it("falls back to item.url's og:image when the source-kind URL has no usable image", async () => {
+    const fetchMock = vi.fn(async (url: string) => {
+      if (url === "https://x.com/someone/status/1") return htmlResponse("<html></html>");
+      return htmlResponse(
+        `<meta property="og:image" content="https://example.com/article-thumb.jpg">`
+      );
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const item = makeItem({
+      url: "https://example.com/story",
+      sources: [{ kind: "source", url: "https://x.com/someone/status/1" }],
+    });
+    await enrichMissingContent([item]);
+
+    expect(item.imageUrl).toBe("https://example.com/article-thumb.jpg");
+  });
 });

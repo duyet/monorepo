@@ -29,7 +29,7 @@ export interface FeedItem {
 
 export interface TldrBullet {
   text: string;
-  item_id?: string;
+  item_ids?: string[];
 }
 
 export interface DayGroup {

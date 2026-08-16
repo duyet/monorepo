@@ -1,12 +1,18 @@
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { checkAuth } from "../admin/auth.js";
 import {
+  getLlmCalls,
   isHandlerError,
+  listItems,
   pushItems,
+  regenerateTldr,
+  reprocessToday,
   sha256Hex,
+  updateItem,
   upsertSource,
 } from "../admin/handlers.js";
 import { handleMcpRequest } from "../admin/mcp.js";
+import * as llm from "../llm.js";
 import type { Env } from "../types.js";
 
 /**
@@ -19,6 +25,9 @@ class FakeD1 {
   sources = new Map<string, Record<string, unknown>>();
   translations = new Map<string, Record<string, unknown>>();
   workflowRuns: Record<string, unknown>[] = [];
+  llmCalls: Record<string, unknown>[] = [];
+  topics = new Map<string, Record<string, unknown>>();
+  tldrSnapshots = new Map<string, Record<string, unknown>>();
 
   prepare(sql: string) {
     const db = this;
@@ -35,6 +44,12 @@ class FakeD1 {
       run: async () => db.exec(normalized, []),
       all: async () => db.exec(normalized, []),
     };
+  }
+
+  async batch(statements: { run: () => Promise<unknown> }[]) {
+    const results = [];
+    for (const s of statements) results.push(await s.run());
+    return results;
   }
 
   private exec(sql: string, args: unknown[]): unknown {
@@ -133,6 +148,170 @@ class FakeD1 {
           .sort((a, b) => (b.started_at as number) - (a.started_at as number))
           .slice(0, 10),
       };
+    }
+
+    if (sql.startsWith("SELECT * FROM llm_calls ORDER BY ts DESC LIMIT ?")) {
+      const [limit] = args as [number];
+      return {
+        results: [...this.llmCalls]
+          .sort((a, b) => (b.ts as number) - (a.ts as number))
+          .slice(0, limit),
+      };
+    }
+
+    if (
+      sql.startsWith(
+        "SELECT id, title, summary, source_id, points, comments, published_at FROM items WHERE status = 'published' AND published_at >= ?"
+      )
+    ) {
+      const [since] = args as [number];
+      return {
+        results: Array.from(this.items.values()).filter(
+          (row) =>
+            row.status === "published" &&
+            (row.published_at as number) >= since
+        ),
+      };
+    }
+
+    if (
+      sql.startsWith(
+        "UPDATE items SET llm_relevance = ?, llm_importance = ?, llm_quality = ?, category = ?"
+      )
+    ) {
+      const [
+        llm_relevance,
+        llm_importance,
+        llm_quality,
+        category,
+        tags,
+        rank_score,
+        id,
+      ] = args;
+      const row = this.items.get(id as string);
+      if (row) {
+        Object.assign(row, {
+          llm_relevance,
+          llm_importance,
+          llm_quality,
+          category,
+          tags,
+          rank_score,
+        });
+      }
+      return { success: true };
+    }
+
+    if (sql.startsWith("SELECT name, canonical FROM topics")) {
+      return { results: Array.from(this.topics.values()) };
+    }
+
+    if (sql.startsWith("INSERT INTO topics")) {
+      const [name, canonical, count, last_seen] = args;
+      this.topics.set(name as string, {
+        name,
+        canonical,
+        count,
+        last_seen,
+      });
+      return { success: true };
+    }
+
+    if (sql.startsWith("SELECT date FROM tldr_snapshots WHERE date = ?")) {
+      const [date] = args as [string];
+      return this.tldrSnapshots.has(date) ? { date } : null;
+    }
+
+    if (sql.startsWith("DELETE FROM tldr_snapshots WHERE date = ?")) {
+      const [date] = args as [string];
+      this.tldrSnapshots.delete(date);
+      return { success: true };
+    }
+
+    if (
+      sql.startsWith(
+        "SELECT id, title, summary FROM items WHERE status = 'published' AND published_at >= ? ORDER BY rank_score DESC"
+      )
+    ) {
+      const [since] = args as [number];
+      return {
+        results: Array.from(this.items.values())
+          .filter(
+            (row) =>
+              row.status === "published" &&
+              (row.published_at as number) >= since
+          )
+          .sort(
+            (a, b) => (b.rank_score as number) - (a.rank_score as number)
+          ),
+      };
+    }
+
+    if (sql.startsWith("INSERT INTO tldr_snapshots")) {
+      const [date, bullets_en, bullets_vi, created_at] = args;
+      this.tldrSnapshots.set(date as string, {
+        date,
+        bullets_en,
+        bullets_vi,
+        created_at,
+      });
+      return { success: true };
+    }
+
+    if (
+      sql.startsWith(
+        "SELECT id, source_id, title, url, status, published_at"
+      )
+    ) {
+      const [limit] = args as [number];
+      return {
+        results: Array.from(this.items.values())
+          .sort(
+            (a, b) =>
+              (b.published_at as number) - (a.published_at as number)
+          )
+          .slice(0, limit),
+      };
+    }
+
+    if (
+      sql.startsWith(
+        "SELECT id, points, comments, published_at, llm_relevance, llm_importance, llm_quality FROM items WHERE id = ?"
+      )
+    ) {
+      const [id] = args as [string];
+      return this.items.get(id) ?? null;
+    }
+
+    if (sql.startsWith("UPDATE items SET status = ? WHERE id = ?")) {
+      const [status, id] = args as [string, string];
+      const row = this.items.get(id);
+      if (row) row.status = status;
+      return { success: true };
+    }
+
+    if (
+      sql.startsWith(
+        "UPDATE items SET llm_relevance = ?, llm_importance = ?, llm_quality = ?, rank_score = ? WHERE id = ?"
+      )
+    ) {
+      const [llm_relevance, llm_importance, llm_quality, rank_score, id] =
+        args as [number, number, number, number, string];
+      const row = this.items.get(id);
+      if (row) {
+        Object.assign(row, {
+          llm_relevance,
+          llm_importance,
+          llm_quality,
+          rank_score,
+        });
+      }
+      return { success: true };
+    }
+
+    if (sql.startsWith("SELECT * FROM items WHERE id = ?")) {
+      const [id] = args as [string];
+      return this.items.get(id) ?? null;
     }
 
     if (sql.startsWith("SELECT status, COUNT(*)")) {
@@ -288,6 +467,319 @@ describe("upsertSource", () => {
       config: { query: "AI" },
     });
     expect(isHandlerError(result)).toBe(false);
+  });
+});
+
+describe("getLlmCalls", () => {
+  function seed(env: Env, n: number): void {
+    const db = env.DB as unknown as FakeD1;
+    for (let i = 0; i < n; i++) {
+      db.llmCalls.push({
+        id: i + 1,
+        ts: i, // ascending insert order, oldest first
+        task: "score",
+        model: "test-model",
+        ok: 1,
+        tokens: 10,
+        duration_ms: 5,
+        error: null,
+        prompt_chars: 100,
+        response_snippet: "snippet",
+      });
+    }
+  }
+
+  it("returns rows newest-first", async () => {
+    const env = makeEnv();
+    seed(env, 3);
+
+    const result = await getLlmCalls(env);
+    expect(result.calls.map((c: any) => c.ts)).toEqual([2, 1, 0]);
+  });
+
+  it("defaults to a limit of 100", async () => {
+    const env = makeEnv();
+    seed(env, 150);
+
+    const result = await getLlmCalls(env);
+    expect(result.calls).toHaveLength(100);
+  });
+
+  it("respects an explicit limit", async () => {
+    const env = makeEnv();
+    seed(env, 10);
+
+    const result = await getLlmCalls(env, "5");
+    expect(result.calls).toHaveLength(5);
+  });
+
+  it("caps the limit at 500 even when a larger value is requested", async () => {
+    const env = makeEnv();
+    seed(env, 600);
+
+    const result = await getLlmCalls(env, "10000");
+    expect(result.calls).toHaveLength(500);
+  });
+
+  it("falls back to the default for a non-numeric limit", async () => {
+    const env = makeEnv();
+    seed(env, 150);
+
+    const result = await getLlmCalls(env, "not-a-number");
+    expect(result.calls).toHaveLength(100);
+  });
+});
+
+describe("reprocessToday", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  function seedPublished(env: Env, id: string, publishedAt: number): void {
+    const db = env.DB as unknown as FakeD1;
+    db.items.set(id, {
+      id,
+      source_id: "hn",
+      external_id: null,
+      url: `https://example.com/${id}`,
+      title: `Title ${id}`,
+      summary: "summary",
+      published_at: publishedAt,
+      fetched_at: publishedAt,
+      points: 10,
+      comments: 2,
+      llm_relevance: 0.5,
+      llm_importance: 5,
+      llm_quality: 5,
+      category: null,
+      tags: "[]",
+      rank_score: 1,
+      status: "published",
+    });
+  }
+
+  it("updates existing item rows in place without inserting duplicates", async () => {
+    const env = makeEnv();
+    const todaySec = Math.floor(Date.now() / 1000);
+    seedPublished(env, "item-1", todaySec);
+
+    vi.spyOn(llm, "scoreItems").mockResolvedValue([
+      {
+        i: 0,
+        relevance: 0.9,
+        importance: 8,
+        quality: 7,
+        category: "Models",
+        tags: [],
+        tokens: 10,
+      },
+    ]);
+
+    const result = await reprocessToday(env, { steps: ["score"] });
+    expect(isHandlerError(result)).toBe(false);
+    if (isHandlerError(result)) throw new Error("unreachable");
+    expect(result.processed).toBe(1);
+    expect(result.scored).toBe(1);
+
+    const db = env.DB as unknown as FakeD1;
+    expect(db.items.size).toBe(1);
+    const row = db.items.get("item-1");
+    expect(row?.llm_importance).toBe(8);
+    expect(row?.category).toBe("Models");
+  });
+
+  it("upserts translations by item id via reprocess without duplicates", async () => {
+    const env = makeEnv();
+    const todaySec = Math.floor(Date.now() / 1000);
+    seedPublished(env, "item-2", todaySec);
+
+    vi.spyOn(llm, "translateItems").mockResolvedValue([
+      { i: 0, title: "Tiêu đề", summary: "Tóm tắt", tokens: 5 },
+    ]);
+
+    const result = await reprocessToday(env, { steps: ["translate"] });
+    if (isHandlerError(result)) throw new Error("unreachable");
+    expect(result.translated).toBe(1);
+
+    const db = env.DB as unknown as FakeD1;
+    expect(db.translations.size).toBe(1);
+    expect(db.translations.get("item-2:vi")?.title).toBe("Tiêu đề");
+  });
+
+  it("returns 409 when called while already running", async () => {
+    const env = makeEnv();
+    const todaySec = Math.floor(Date.now() / 1000);
+    seedPublished(env, "item-3", todaySec);
+
+    let resolveScore!: (v: unknown) => void;
+    vi.spyOn(llm, "scoreItems").mockReturnValue(
+      new Promise((resolve) => {
+        resolveScore = resolve;
+      }) as any
+    );
+
+    const first = reprocessToday(env, { steps: ["score"] });
+    const second = await reprocessToday(env, { steps: ["score"] });
+    expect(isHandlerError(second)).toBe(true);
+    if (!isHandlerError(second)) throw new Error("unreachable");
+    expect(second.status).toBe(409);
+    expect(second.error).toBe("reprocess already running");
+
+    resolveScore([]);
+    await first;
+  });
+});
+
+describe("regenerateTldr", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("deletes today's snapshot then regenerates it", async () => {
+    const env = makeEnv();
+    const db = env.DB as unknown as FakeD1;
+    const today = new Date().toISOString().slice(0, 10);
+    db.tldrSnapshots.set(today, {
+      date: today,
+      bullets_en: "[]",
+      bullets_vi: "[]",
+      created_at: 1,
+    });
+    db.items.set("t1", {
+      id: "t1",
+      title: "Top story",
+      summary: "s",
+      status: "published",
+      published_at: Math.floor(Date.now() / 1000),
+      rank_score: 10,
+    });
+
+    vi.spyOn(llm, "generateTldr").mockResolvedValue({
+      bullets_en: [{ text: "bullet", item_ids: ["t1"] }],
+      bullets_vi: [{ text: "bullet vi", item_ids: ["t1"] }],
+      tokens: 3,
+    });
+
+    const result = await regenerateTldr(env);
+    expect(result.generated).toBe(true);
+    expect(db.tldrSnapshots.has(today)).toBe(true);
+    expect(
+      JSON.parse(db.tldrSnapshots.get(today)?.bullets_en as string)
+    ).toEqual([{ text: "bullet", item_ids: ["t1"] }]);
+  });
+});
+
+describe("listItems", () => {
+  function seed(env: Env, id: string, publishedAt: number): void {
+    const db = env.DB as unknown as FakeD1;
+    db.items.set(id, {
+      id,
+      source_id: "hn",
+      external_id: null,
+      url: `https://example.com/${id}`,
+      title: `Title ${id}`,
+      summary: "summary",
+      published_at: publishedAt,
+      fetched_at: publishedAt,
+      points: 10,
+      comments: 2,
+      llm_relevance: 0.5,
+      llm_importance: 5,
+      llm_quality: 5,
+      category: null,
+      tags: "[]",
+      rank_score: 1,
+      status: "published",
+    });
+  }
+
+  it("returns rows newest-first across all statuses", async () => {
+    const env = makeEnv();
+    seed(env, "a", 100);
+    seed(env, "b", 300);
+    seed(env, "c", 200);
+    (env.DB as unknown as FakeD1).items.get("a")!.status = "rejected";
+
+    const result = await listItems(env);
+    expect(result.items.map((i: any) => i.id)).toEqual(["b", "c", "a"]);
+  });
+
+  it("caps the limit at 200", async () => {
+    const env = makeEnv();
+    for (let i = 0; i < 250; i++) seed(env, `id-${i}`, i);
+
+    const result = await listItems(env, "1000");
+    expect(result.items).toHaveLength(200);
+  });
+});
+
+describe("updateItem", () => {
+  function seed(env: Env, id: string): void {
+    const db = env.DB as unknown as FakeD1;
+    db.items.set(id, {
+      id,
+      source_id: "hn",
+      external_id: null,
+      url: `https://example.com/${id}`,
+      title: `Title ${id}`,
+      summary: "summary",
+      published_at: Math.floor(Date.now() / 1000),
+      fetched_at: Math.floor(Date.now() / 1000),
+      points: 10,
+      comments: 2,
+      llm_relevance: 0.5,
+      llm_importance: 5,
+      llm_quality: 5,
+      category: null,
+      tags: "[]",
+      rank_score: 1,
+      status: "published",
+    });
+  }
+
+  it("returns 404 for an unknown id", async () => {
+    const env = makeEnv();
+    const result = await updateItem(env, { id: "missing", action: "reject" });
+    expect(isHandlerError(result)).toBe(true);
+    if (!isHandlerError(result)) throw new Error("unreachable");
+    expect(result.status).toBe(404);
+  });
+
+  it("reject sets status to rejected", async () => {
+    const env = makeEnv();
+    seed(env, "item-1");
+    const result = await updateItem(env, { id: "item-1", action: "reject" });
+    expect(isHandlerError(result)).toBe(false);
+    expect((env.DB as unknown as FakeD1).items.get("item-1")?.status).toBe(
+      "rejected"
+    );
+  });
+
+  it("restore sets status back to published", async () => {
+    const env = makeEnv();
+    seed(env, "item-2");
+    (env.DB as unknown as FakeD1).items.get("item-2")!.status = "rejected";
+    const result = await updateItem(env, { id: "item-2", action: "restore" });
+    expect(isHandlerError(result)).toBe(false);
+    expect((env.DB as unknown as FakeD1).items.get("item-2")?.status).toBe(
+      "published"
+    );
+  });
+
+  it("rate clamps importance/quality and recomputes rank_score", async () => {
+    const env = makeEnv();
+    seed(env, "item-3");
+    const result = await updateItem(env, {
+      id: "item-3",
+      action: "rate",
+      importance: 99,
+      quality: -5,
+    });
+    expect(isHandlerError(result)).toBe(false);
+    const row = (env.DB as unknown as FakeD1).items.get("item-3");
+    expect(row?.llm_importance).toBe(10);
+    expect(row?.llm_quality).toBe(0);
+    expect(row?.rank_score).not.toBe(1);
   });
 });
 

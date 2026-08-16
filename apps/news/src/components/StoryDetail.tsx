@@ -124,7 +124,19 @@ export function StoryDetail({
     const BUTTON_HEIGHT = 32;
     const GAP = 6;
 
-    const onMouseUp = () => {
+    const onMouseUp = (e: MouseEvent) => {
+      // The floating "suggest" button lives inside `container`, so a
+      // mouseup on it bubbles here too — and since this listener is a
+      // native addEventListener on `container`, it fires *before* React's
+      // root-delegated click handler ever runs. Recomputing/clearing
+      // selectionButton here would re-render (and can unmount) the button
+      // before the click event reaches it, silently swallowing the click.
+      if (
+        e.target instanceof Node &&
+        (e.target as HTMLElement).closest?.("[data-selection-button]")
+      ) {
+        return;
+      }
       const sel = window.getSelection();
       if (!sel || sel.isCollapsed || sel.rangeCount === 0) {
         setSelectionButton(null);
@@ -182,6 +194,7 @@ export function StoryDetail({
       {selectionButton && (
         <button
           type="button"
+          data-selection-button=""
           style={{
             position: "fixed",
             top: selectionButton.top,

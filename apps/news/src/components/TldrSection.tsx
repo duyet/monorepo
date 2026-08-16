@@ -23,7 +23,10 @@ export function TldrSection({
   lastFetchedAt: number | null;
   topicByItemId?: Map<string, string>;
 }) {
-  const [openItemId, setOpenItemId] = useState<string | null>(null);
+  const [openBullet, setOpenBullet] = useState<{
+    itemId: string;
+    relatedIds: string[];
+  } | null>(null);
   const { setPrefs } = usePrefs();
 
   if (bullets.length === 0) return null;
@@ -93,7 +96,9 @@ export function TldrSection({
             className="list-decimal space-y-1.5 pl-6 leading-snug marker:text-muted-foreground"
           >
             {col.map((b) => {
-              const tag = b.item_id ? topicByItemId?.get(b.item_id) : undefined;
+              const primaryId = b.item_ids?.[0];
+              const otherIds = (b.item_ids ?? []).slice(1);
+              const tag = primaryId ? topicByItemId?.get(primaryId) : undefined;
               const color = tag ? topicColor(tag) : null;
               return (
                 <li key={b.text}>
@@ -110,9 +115,9 @@ export function TldrSection({
                       {tag}
                     </span>
                   )}
-                  {b.item_id ? (
+                  {primaryId ? (
                     <a
-                      href={`/ai/${b.item_id}`}
+                      href={`/ai/${primaryId}`}
                       onClick={(e) => {
                         if (
                           e.button !== 0 ||
@@ -124,7 +129,7 @@ export function TldrSection({
                           return;
                         }
                         e.preventDefault();
-                        setOpenItemId(b.item_id ?? null);
+                        setOpenBullet({ itemId: primaryId, relatedIds: otherIds });
                       }}
                       className="underline decoration-border underline-offset-2 hover:decoration-accent"
                     >
@@ -132,6 +137,11 @@ export function TldrSection({
                     </a>
                   ) : (
                     b.text
+                  )}
+                  {otherIds.length > 0 && (
+                    <span className="ml-1 text-[11px] font-semibold text-muted-foreground">
+                      +{otherIds.length}
+                    </span>
                   )}
                 </li>
               );
@@ -177,11 +187,12 @@ export function TldrSection({
         </span>
       </div>
 
-      {openItemId && (
+      {openBullet && (
         <StoryDialog
-          idPrefix={openItemId}
+          idPrefix={openBullet.itemId}
+          relatedIds={openBullet.relatedIds}
           lang={lang}
-          onClose={() => setOpenItemId(null)}
+          onClose={() => setOpenBullet(null)}
         />
       )}
     </section>

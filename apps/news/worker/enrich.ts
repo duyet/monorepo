@@ -1,5 +1,20 @@
 import type { FetchedItem } from "./sources/types.js";
 
+/**
+ * og:image URLs known to be an aggregator's own static branding asset
+ * rather than a story-specific thumbnail (e.g. HuggingNews serves this
+ * same image as og:image on every page, since story pages are
+ * client-rendered and have no per-story meta tags). Fetched images that
+ * match are treated as "no image", same as if og:image were absent.
+ */
+const BLOCKED_IMAGE_URLS = new Set<string>([
+  "https://huggingnews.com/og-image.png",
+]);
+
+function isBlockedImage(url: string): boolean {
+  return BLOCKED_IMAGE_URLS.has(url);
+}
+
 const MAX_ENRICH_FETCHES = 20;
 const ENRICH_BATCH_SIZE = 4;
 const ENRICH_FETCH_TIMEOUT_MS = 8_000;
@@ -158,6 +173,13 @@ export async function fetchOgData(url: string): Promise<OgData> {
  * ENRICH_BATCH_SIZE), so a large new-item batch doesn't blow the run's
  * subrequest budget. Never fetches an item that already has both fields
  * (e.g. HuggingNews items whose summary came from the detail-page body).
+ *
+ * For `imageUrl`, an item's `sources` entry of kind "source" (the
+ * original post the aggregator is reporting on, e.g. a tweet) is tried
+ * before `item.url` itself: for aggregator adapters like HuggingNews,
+ * `item.url` is often the aggregator's own page rather than the original
+ * article, whose og:image is just site branding (see BLOCKED_IMAGE_URLS)
+ * rather than a story-specific thumbnail.
  */
 export async function enrichMissingContent(
   items: FetchedItem[]
@@ -169,8 +191,25 @@ export async function enrichMissingContent(
     const batch = toEnrich.slice(i, i + ENRICH_BATCH_SIZE);
     await Promise.all(
       batch.map(async (item) => {
+        let sourceImageUrl: string | undefined;
+        const originalUrl = item.sources?.find(
+          (s) => s.kind === "source" && s.url
+        )?.url;
+        if (!item.imageUrl && originalUrl && originalUrl !== item.url) {
+          const sourceOg = await fetchOgData(originalUrl);
+          if (sourceOg.imageUrl && !isBlockedImage(sourceOg.imageUrl)) {
+            sourceImageUrl = sourceOg.imageUrl;
+          }
+        }
+
         const og = await fetchOgData(item.url);
-        if (!item.imageUrl && og.imageUrl) item.imageUrl = og.imageUrl;
+        if (!item.imageUrl) {
+          item.imageUrl =
+            sourceImageUrl ??
+            (og.imageUrl && !isBlockedImage(og.imageUrl)
+              ? og.imageUrl
+              : undefined);
+        }
         if (!item.summary && og.description) item.summary = og.description;
       })
     );

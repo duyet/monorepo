@@ -1,12 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { checkAuth } from "../../../worker/admin/auth.js";
+import { checkAdminAuth, isRequestAdmin } from "../../../worker/admin/auth.js";
 import {
   deleteSource,
+  getLlmCalls,
   getStatus,
   isHandlerError,
+  listItems,
   listSources,
   pushItems,
+  regenerateTldr,
+  reprocessToday,
   triggerIngest,
+  updateItem,
   upsertSource,
 } from "../../../worker/admin/handlers.js";
 import type { Env } from "../../../worker/types.js";
@@ -50,14 +55,43 @@ async function handle(
     );
   }
 
-  const authResponse = checkAuth(request, env);
-  if (authResponse) return authResponse;
-
   const segments = splat.split("/").filter(Boolean);
+
+  // Anonymous-safe: reports whether the caller's bearer resolves to an
+  // admin. Must run BEFORE the auth gate below — it always returns 200,
+  // never 401, so unauthenticated callers can use it to detect signed-out
+  // state.
+  if (method === "GET" && segments.length === 1 && segments[0] === "me") {
+    const admin = await isRequestAdmin(request, env);
+    return Response.json({ admin });
+  }
+
+  const authResponse = await checkAdminAuth(request, env);
+  if (authResponse) return authResponse;
 
   if (method === "POST" && segments.length === 1 && segments[0] === "items") {
     const { body, error } = await parseJsonBody(request);
     if (error) return Response.json({ error }, { status: 400 });
+    // Moderation updates ({id, action}) share this route with item pushes
+    // (which have no `action` field) — dispatch on body shape.
+    if (
+      body &&
+      typeof body === "object" &&
+      !Array.isArray(body) &&
+      "action" in body
+    ) {
+      const result = await updateItem(
+        env,
+        body as Parameters<typeof updateItem>[1]
+      );
+      if (isHandlerError(result)) {
+        return Response.json(
+          { error: result.error },
+          { status: result.status ?? 400 }
+        );
+      }
+      return Response.json(result);
+    }
     const result = await pushItems(
       env,
       body as Parameters<typeof pushItems>[1]
@@ -115,6 +149,52 @@ async function handle(
 
   if (method === "GET" && segments.length === 1 && segments[0] === "status") {
     const result = await getStatus(env);
+    return Response.json(result);
+  }
+
+  if (
+    method === "POST" &&
+    segments.length === 1 &&
+    segments[0] === "reprocess"
+  ) {
+    const { body, error } = await parseJsonBody(request);
+    if (error) return Response.json({ error }, { status: 400 });
+    const result = await reprocessToday(
+      env,
+      (body ?? {}) as Parameters<typeof reprocessToday>[1]
+    );
+    if (isHandlerError(result)) {
+      return Response.json(
+        { error: result.error },
+        { status: result.status ?? 400 }
+      );
+    }
+    return Response.json(result);
+  }
+
+  if (
+    method === "POST" &&
+    segments.length === 2 &&
+    segments[0] === "tldr" &&
+    segments[1] === "regenerate"
+  ) {
+    const result = await regenerateTldr(env);
+    return Response.json(result);
+  }
+
+  if (
+    method === "GET" &&
+    segments.length === 1 &&
+    segments[0] === "llm-calls"
+  ) {
+    const url = new URL(request.url);
+    const result = await getLlmCalls(env, url.searchParams.get("limit"));
+    return Response.json(result);
+  }
+
+  if (method === "GET" && segments.length === 1 && segments[0] === "items") {
+    const url = new URL(request.url);
+    const result = await listItems(env, url.searchParams.get("limit"));
     return Response.json(result);
   }
 
