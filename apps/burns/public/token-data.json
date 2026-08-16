@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-14T08:26:45.853Z",
+  "generatedAt": "2026-08-16T10:58:28.266Z",
   "firstDate": "2025-08-02",
-  "lastDate": "2026-08-14",
+  "lastDate": "2026-08-16",
   "sources": [
     "Claude Code",
     "Z.AI",
@@ -14,18 +14,18 @@
     "pi"
   ],
   "totals": {
-    "input_tokens": 4250270649,
-    "output_tokens": 336521086,
-    "cache_creation_tokens": 2212217303,
-    "cache_read_tokens": 103691878747,
-    "total_tokens": 110490887785,
-    "total_cost": 232221.39
+    "input_tokens": 4244521119,
+    "output_tokens": 340103831,
+    "cache_creation_tokens": 2284275611,
+    "cache_read_tokens": 105532970340,
+    "total_tokens": 112401870901,
+    "total_cost": 266781.96
   },
   "source_totals": [
     {
       "source": "Claude Code",
-      "total_tokens": 75891713682,
-      "cost": 52130.13
+      "total_tokens": 77965818509,
+      "cost": 54514.66
     },
     {
       "source": "Z.AI",
@@ -49,8 +49,8 @@
     },
     {
       "source": "Grok",
-      "total_tokens": 920482861,
-      "cost": 161.7
+      "total_tokens": 752794420,
+      "cost": 151.67
     },
     {
       "source": "Gemini CLI",
@@ -59,8 +59,8 @@
     },
     {
       "source": "Hermes",
-      "total_tokens": 167010056,
-      "cost": 165120.48
+      "total_tokens": 171576786,
+      "cost": 197306.56
     },
     {
       "source": "pi",
@@ -70,28 +70,75 @@
   ],
   "daily": [
     {
-      "date": "2026-08-14",
-      "input_tokens": 9673344,
-      "output_tokens": 2013028,
-      "cache_creation_tokens": 5525275,
-      "cache_read_tokens": 487410807,
-      "total_tokens": 504622454,
-      "cost": 576.36,
+      "date": "2026-08-16",
+      "input_tokens": 130148,
+      "output_tokens": 606033,
+      "cache_creation_tokens": 5802819,
+      "cache_read_tokens": 219566578,
+      "total_tokens": 226105578,
+      "cost": 23587.5,
       "by_source": [
         {
           "source": "Claude Code",
-          "total_tokens": 269084662,
-          "cost": 546.43
-        },
-        {
-          "source": "Grok",
-          "total_tokens": 233725402,
-          "cost": 29.93
+          "total_tokens": 225147997,
+          "cost": 469.91
         },
         {
           "source": "Hermes",
-          "total_tokens": 1812390,
+          "total_tokens": 957581,
+          "cost": 23117.59
+        }
+      ]
+    },
+    {
+      "date": "2026-08-15",
+      "input_tokens": 527150,
+      "output_tokens": 3688354,
+      "cache_creation_tokens": 66115033,
+      "cache_read_tokens": 1783178185,
+      "total_tokens": 1853508722,
+      "cost": 1904.26,
+      "by_source": [
+        {
+          "source": "Claude Code",
+          "total_tokens": 1846556623,
+          "cost": 1904.26
+        },
+        {
+          "source": "Grok",
+          "total_tokens": 3796597,
           "cost": 0
+        },
+        {
+          "source": "Hermes",
+          "total_tokens": 3155502,
+          "cost": 0
+        }
+      ]
+    },
+    {
+      "date": "2026-08-14",
+      "input_tokens": 3266516,
+      "output_tokens": 1301386,
+      "cache_creation_tokens": 5665731,
+      "cache_read_tokens": 325757637,
+      "total_tokens": 335991270,
+      "cost": 9645.15,
+      "by_source": [
+        {
+          "source": "Claude Code",
+          "total_tokens": 271484869,
+          "cost": 556.76
+        },
+        {
+          "source": "Grok",
+          "total_tokens": 62240364,
+          "cost": 19.9
+        },
+        {
+          "source": "Hermes",
+          "total_tokens": 2266037,
+          "cost": 9068.49
         }
       ]
     },
@@ -128,12 +175,12 @@
       "cache_creation_tokens": 17865981,
       "cache_read_tokens": 831831463,
       "total_tokens": 865845793,
-      "cost": 1033.38,
+      "cost": 1033.4,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 701836598,
-          "cost": 997.55
+          "cost": 997.57
         },
         {
           "source": "Grok",

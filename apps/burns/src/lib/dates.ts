@@ -28,3 +28,11 @@ export function formatDay(iso: string, year: boolean = false): string {
     ...(year ? { year: "numeric" as const } : {}),
   });
 }
+
+/** Format a YYYY-MM(-DD) value as a month label, e.g. "Aug 2026". */
+export function formatMonth(iso: string): string {
+  return parseDay(`${iso.slice(0, 7)}-01`).toLocaleDateString(BURNS_LOCALE, {
+    month: "short",
+    year: "numeric",
+  });
+}

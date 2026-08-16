@@ -9,7 +9,10 @@ function easeOutQuad(t: number): number {
   return t * (2 - t);
 }
 
-export function AnimatedCounter({ target, duration = 700 }: AnimatedCounterProps) {
+export function AnimatedCounter({
+  target,
+  duration = 700,
+}: AnimatedCounterProps) {
   const [display, setDisplay] = useState("0");
   const started = useRef(false);
 
