@@ -34,6 +34,8 @@ export interface RunStats {
   submissionsReviewed: number;
   tldrGenerated: boolean;
   emailsSent: number;
+  /** Stories delivered per notification channel (telegram, discord, ...). */
+  notified: Record<string, number>;
 }
 
 /** Every field defaults to zero/false/empty so a missing or failed step
@@ -55,6 +57,7 @@ export function buildRunStats(partial: Partial<RunStats> = {}): RunStats {
     submissionsReviewed: partial.submissionsReviewed ?? 0,
     tldrGenerated: partial.tldrGenerated ?? false,
     emailsSent: partial.emailsSent ?? 0,
+    notified: partial.notified ?? {},
   };
 }
 

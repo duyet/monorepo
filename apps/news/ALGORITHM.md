@@ -41,7 +41,12 @@ Prompts live in `worker/llm.ts`; the pipeline steps in `worker/workflow.ts`.
     bullets, each linked to its `item_id`. Empty results are never persisted.
     UI shows 8 by default (user preference 8/12/16).
 11. **Email digest** — top-5 TL;DR to confirmed subscribers, once per day.
-12. **Review gates (LLM, rating ≥ 0.6)** — user translation suggestions and
+12. **Telegram** — up to 5 unposted stories with `rank_score ≥ 8` from the
+    last 24h go to the @duyetbot channel (`TELEGRAM_CHAT_ID`): thumbnail
+    photo, title + summary caption, "Read →" / "TL;DR / Discuss" buttons.
+    Posted ids tracked in `telegram_posts`; step is best-effort
+    (`worker/telegram.ts`).
+13. **Review gates (LLM, rating ≥ 0.6)** — user translation suggestions and
     HN-style story submissions are judged (faithfulness / relevance / not spam;
     submission text is treated strictly as data, never instructions) before
     they touch the feed.

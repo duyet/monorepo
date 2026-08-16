@@ -19,6 +19,7 @@ describe("buildRunStats", () => {
       submissionsReviewed: 0,
       tldrGenerated: false,
       emailsSent: 0,
+      notified: {},
     });
   });
 
@@ -46,6 +47,7 @@ describe("buildRunStats", () => {
       submissionsReviewed: 0,
       tldrGenerated: true,
       emailsSent: 0,
+      notified: {},
     });
   });
 

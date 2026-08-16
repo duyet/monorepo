@@ -34,6 +34,8 @@ ANYROUTER_TRANSLATE_MODEL = "aisingapore/gemma-sea-lion-v4-27b-it,google/gemini-
 # Derived from VITE_CLERK_PUBLISHABLE_KEY's base64 domain suffix (see
 # apps/news/.env.production): pk_live_Y2xlcmsuZHV5ZXQubmV0JA -> clerk.duyet.net
 CLERK_ISSUER = "https://clerk.duyet.net"
+# @duyetbot posts top stories to this channel; TELEGRAM_BOT_TOKEN is a secret.
+TELEGRAM_CHAT_ID = "-1004420104760"
 
 [[send_email]]
 name = "EMAIL"

@@ -44,6 +44,7 @@ import type { FetchedItem, FetchedItemSource } from "./sources/types.js";
 import { reviewPendingSubmissions } from "./submissions.js";
 import { sendDailyTldr } from "./subscribe/send.js";
 import { reviewPendingSuggestions } from "./suggestions.js";
+import { dispatchStoryNotifications } from "./notify/index.js";
 import { toEpochSeconds } from "./time.js";
 import { ensureDailyTldr } from "./tldr.js";
 import { MAX_MERGED_TOPICS, normalizeTopics, unionTopics } from "./topics.js";
@@ -111,6 +112,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
     let tldrGenerated = false;
     let tldrTokens = 0;
     let emailsSent = 0;
+    let notified: Record<string, number> = {};
     const steps: RunStepInfo[] = [];
 
     // Installs the D1-backed llm_calls logger so every scoreItems/
@@ -953,6 +955,29 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         emailsSent === 0 ? "skipped" : `sent to ${emailsSent} subscribers`,
         emailsSent === 0 ? "no eligible subscribers this run" : undefined
       );
+
+      notified = await step.do("notify", async () => {
+        try {
+          return await dispatchStoryNotifications(this.env);
+        } catch (error) {
+          // Never let a channel-post failure break the ingest workflow.
+          console.error("notify step failed:", error);
+          return {};
+        }
+      });
+      const notifiedTotal = Object.values(notified).reduce((a, b) => a + b, 0);
+      recordStep(
+        steps,
+        "notify",
+        notifiedTotal === 0
+          ? "skipped"
+          : Object.entries(notified)
+              .map(([channel, n]) => `${channel}: ${n}`)
+              .join(", "),
+        notifiedTotal === 0
+          ? "no unposted stories above rank threshold (or no channel configured)"
+          : undefined
+      );
     } catch (error) {
       runError = error instanceof Error ? error.message : String(error);
       throw error;
@@ -979,6 +1004,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         submissionsReviewed,
         tldrGenerated,
         emailsSent,
+        notified,
       });
 
       await step.do("record-run", async () => {

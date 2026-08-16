@@ -209,6 +209,7 @@ export const appConfig: Record<
       "CLICKHOUSE_NEWS_USER",
       "CLICKHOUSE_NEWS_PASSWORD",
       "CLICKHOUSE_DATABASE",
+      "TELEGRAM_BOT_TOKEN",
     ],
     buildVars: ["VITE_CLERK_PUBLISHABLE_KEY"],
   },
