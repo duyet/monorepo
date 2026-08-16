@@ -115,7 +115,11 @@ export function StoryDetail({ item, lang }: { item: FeedItem; lang: Lang }) {
 
           {lang === "vi" && (
             <div className="flex flex-wrap items-center gap-2">
-              <SuggestTranslation itemId={item.id} field="summary" lang={lang} />
+              <SuggestTranslation
+                itemId={item.id}
+                field="summary"
+                lang={lang}
+              />
               <SuggestionBadge itemId={item.id} expanded lang={lang} />
             </div>
           )}

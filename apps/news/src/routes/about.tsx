@@ -55,7 +55,9 @@ function Sources() {
       {names === null ? (
         <p>{lang === "vi" ? "Đang tải..." : "Loading..."}</p>
       ) : names.length === 0 ? (
-        <p>{lang === "vi" ? "Chưa có nguồn nào." : "No sources configured yet."}</p>
+        <p>
+          {lang === "vi" ? "Chưa có nguồn nào." : "No sources configured yet."}
+        </p>
       ) : (
         <ul className="flex flex-wrap gap-2">
           {names.map((name) => (
@@ -158,11 +160,17 @@ function AboutPage() {
             "Token usage is shown per story when available. Pipeline stats (run history, item counts) are visible at",
             "Số token dùng cho mỗi tin được hiển thị khi có sẵn. Thống kê pipeline (lịch sử chạy, số lượng tin) có tại"
           )}{" "}
-          <Link to="/system" className="underline underline-offset-2 hover:text-accent">
+          <Link
+            to="/system"
+            className="underline underline-offset-2 hover:text-accent"
+          >
             /system
           </Link>
           , {t("and the API is documented at", "và API được mô tả tại")}{" "}
-          <Link to="/mcp" className="underline underline-offset-2 hover:text-accent">
+          <Link
+            to="/mcp"
+            className="underline underline-offset-2 hover:text-accent"
+          >
             /mcp
           </Link>
           . {t("The source code lives on", "Mã nguồn nằm trên")}{" "}
@@ -194,8 +202,8 @@ function AboutPage() {
       <Section title={t("A note on accuracy", "Lưu ý về độ chính xác")}>
         <p>
           {t(
-            "Stories here are machine-curated and machine-translated. Mistakes are possible — a bad summary, a mistranslation, a misjudged category. If a Vietnamese translation reads off, translation suggestions are welcome from any signed-in reader (look for \"Suggest better translation\" under a story's Vietnamese summary).",
-            "Tin ở đây được máy tuyển chọn và dịch tự động. Sai sót có thể xảy ra — tóm tắt chưa chuẩn, dịch sai, hoặc phân loại nhầm. Nếu bản dịch tiếng Việt đọc chưa ổn, mọi độc giả đã đăng nhập đều có thể góp ý (tìm mục \"Góp ý bản dịch\" dưới phần tóm tắt tiếng Việt của mỗi tin)."
+            'Stories here are machine-curated and machine-translated. Mistakes are possible — a bad summary, a mistranslation, a misjudged category. If a Vietnamese translation reads off, translation suggestions are welcome from any signed-in reader (look for "Suggest better translation" under a story\'s Vietnamese summary).',
+            'Tin ở đây được máy tuyển chọn và dịch tự động. Sai sót có thể xảy ra — tóm tắt chưa chuẩn, dịch sai, hoặc phân loại nhầm. Nếu bản dịch tiếng Việt đọc chưa ổn, mọi độc giả đã đăng nhập đều có thể góp ý (tìm mục "Góp ý bản dịch" dưới phần tóm tắt tiếng Việt của mỗi tin).'
           )}
         </p>
       </Section>
