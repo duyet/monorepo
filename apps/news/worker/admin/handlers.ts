@@ -442,6 +442,124 @@ export async function reprocessToday(
   }
 }
 
+const DEFAULT_ITEMS_LIMIT = 50;
+const MAX_ITEMS_LIMIT = 200;
+
+/**
+ * Newest-first rows from `items` across all statuses (published / rejected /
+ * merged / new), for the moderation surface. `limitParam` parsed the same
+ * defensive way as getLlmCalls.
+ */
+export async function listItems(env: Env, limitParam?: string | null) {
+  const parsed = limitParam ? Number(limitParam) : Number.NaN;
+  const limit =
+    Number.isFinite(parsed) && parsed > 0
+      ? Math.min(Math.floor(parsed), MAX_ITEMS_LIMIT)
+      : DEFAULT_ITEMS_LIMIT;
+  const { results } = await env.DB.prepare(
+    `SELECT id, source_id, title, url, status, published_at,
+            llm_relevance, llm_importance, llm_quality, category, tags,
+            rank_score, points, comments
+     FROM items ORDER BY published_at DESC LIMIT ?`
+  )
+    .bind(limit)
+    .all();
+  return { items: results ?? [] };
+}
+
+export interface UpdateItemInput {
+  id: string;
+  action: "reject" | "restore" | "rate";
+  importance?: number;
+  quality?: number;
+  relevance?: number;
+}
+
+interface ItemRow {
+  id: string;
+  points: number | null;
+  comments: number | null;
+  published_at: number;
+  llm_relevance: number | null;
+  llm_importance: number | null;
+  llm_quality: number | null;
+}
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, value));
+}
+
+/**
+ * Moderation mutation for a single item, by id: reject/restore flip
+ * `status`; rate updates the given llm_* fields (clamped to their valid
+ * ranges) and recomputes rank_score from the item's stored points/comments/
+ * published_at (seconds, matches items.published_at's unit — see
+ * reprocessToday above) and the current time. Always UPDATE-by-id, never
+ * INSERT; 404s when the id doesn't exist.
+ */
+export async function updateItem(
+  env: Env,
+  input: UpdateItemInput
+): Promise<Record<string, unknown> | HandlerError> {
+  if (!input?.id) {
+    return { error: "id is required", status: 400 };
+  }
+  const row = await env.DB.prepare(
+    `SELECT id, points, comments, published_at,
+            llm_relevance, llm_importance, llm_quality
+     FROM items WHERE id = ?`
+  )
+    .bind(input.id)
+    .first<ItemRow>();
+  if (!row) {
+    return { error: "item not found", status: 404 };
+  }
+
+  if (input.action === "reject" || input.action === "restore") {
+    const status = input.action === "reject" ? "rejected" : "published";
+    await env.DB.prepare("UPDATE items SET status = ? WHERE id = ?")
+      .bind(status, input.id)
+      .run();
+  } else if (input.action === "rate") {
+    const importance =
+      input.importance !== undefined
+        ? clamp(input.importance, 0, 10)
+        : (row.llm_importance ?? 0);
+    const quality =
+      input.quality !== undefined
+        ? clamp(input.quality, 0, 10)
+        : (row.llm_quality ?? 0);
+    const relevance =
+      input.relevance !== undefined
+        ? clamp(input.relevance, 0, 1)
+        : row.llm_relevance;
+
+    const rank = rankScore({
+      importance,
+      quality,
+      points: row.points ?? 0,
+      comments: row.comments ?? 0,
+      publishedAt: row.published_at * 1000,
+      now: Date.now(),
+    });
+
+    await env.DB.prepare(
+      `UPDATE items SET
+         llm_relevance = ?, llm_importance = ?, llm_quality = ?, rank_score = ?
+       WHERE id = ?`
+    )
+      .bind(relevance, importance, quality, rank, input.id)
+      .run();
+  } else {
+    return { error: `unknown action "${input.action}"`, status: 400 };
+  }
+
+  const updated = await env.DB.prepare("SELECT * FROM items WHERE id = ?")
+    .bind(input.id)
+    .first();
+  return (updated ?? {}) as Record<string, unknown>;
+}
+
 export interface TldrRegenerateResult {
   generated: boolean;
   tokens: number;

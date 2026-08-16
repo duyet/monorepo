@@ -40,6 +40,53 @@ interface LlmCall {
   response_snippet?: string | null;
 }
 
+interface ModerationItem {
+  id: string;
+  source_id: string;
+  title: string;
+  url: string;
+  status: string;
+  published_at: number;
+  llm_relevance: number | null;
+  llm_importance: number | null;
+  llm_quality: number | null;
+  category: string | null;
+  tags: string | null;
+  rank_score: number;
+  points: number | null;
+  comments: number | null;
+}
+
+// Mirrors worker/ranking.ts's rankScore formula — kept in sync manually for
+// this client-side "analyze" breakdown display.
+function rankBreakdown(item: ModerationItem) {
+  const now = Date.now();
+  const ageHours = Math.max(0, (now - item.published_at * 1000) / 3_600_000);
+  const importance = item.llm_importance ?? 0;
+  const quality = item.llm_quality ?? 0;
+  const qualityFactor = 0.6 + 0.4 * (quality / 10);
+  const decay = Math.exp(-ageHours / 36);
+  const engagement =
+    1 + Math.log10(1 + (item.points ?? 0) + 0.5 * (item.comments ?? 0));
+  return {
+    ageHours,
+    qualityFactor,
+    decay,
+    engagement,
+    computed: importance * qualityFactor * decay * engagement,
+  };
+}
+
+function parseTags(raw: string | null): string[] {
+  if (!raw) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
 async function authedFetch(
   admin: AdminState,
   url: string,
@@ -67,6 +114,14 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
   const [calls, setCalls] = useState<LlmCall[]>([]);
   const [callsBusy, setCallsBusy] = useState(false);
   const [refreshError, setRefreshError] = useState(false);
+  const [items, setItems] = useState<ModerationItem[]>([]);
+  const [itemsBusy, setItemsBusy] = useState(false);
+  const [itemActionBusyId, setItemActionBusyId] = useState<string | null>(
+    null
+  );
+  const [rateDrafts, setRateDrafts] = useState<
+    Record<string, { importance: string; quality: string }>
+  >({});
 
   async function loadStatus() {
     setStatusBusy(true);
@@ -95,13 +150,75 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
     }
   }
 
+  async function loadItems() {
+    setItemsBusy(true);
+    try {
+      const res = await authedFetch(admin, "/api/admin/items?limit=50");
+      if (res.ok) {
+        const data = (await res.json()) as { items?: ModerationItem[] };
+        setItems(Array.isArray(data.items) ? data.items : []);
+      }
+    } catch {
+      // leave previous items in place
+    } finally {
+      setItemsBusy(false);
+    }
+  }
+
   async function refreshAll() {
     setRefreshError(false);
     try {
-      await Promise.all([loadStatus(), loadCalls()]);
+      await Promise.all([loadStatus(), loadCalls(), loadItems()]);
     } catch {
       setRefreshError(true);
     }
+  }
+
+  async function moderateItem(
+    id: string,
+    body: Record<string, unknown>
+  ): Promise<void> {
+    setItemActionBusyId(id);
+    try {
+      const res = await authedFetch(admin, "/api/admin/items", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, ...body }),
+      });
+      if (res.ok) {
+        const updated = (await res.json()) as ModerationItem;
+        setItems((prev) =>
+          prev.map((item) => (item.id === id ? { ...item, ...updated } : item))
+        );
+      }
+    } catch {
+      // leave item state unchanged on failure
+    } finally {
+      setItemActionBusyId(null);
+    }
+  }
+
+  function rateDraft(id: string) {
+    return rateDrafts[id] ?? { importance: "", quality: "" };
+  }
+
+  function setRateDraft(
+    id: string,
+    field: "importance" | "quality",
+    value: string
+  ) {
+    setRateDrafts((prev) => ({
+      ...prev,
+      [id]: { ...rateDraft(id), [field]: value },
+    }));
+  }
+
+  async function applyRate(id: string) {
+    const draft = rateDraft(id);
+    const payload: Record<string, unknown> = { action: "rate" };
+    if (draft.importance !== "") payload.importance = Number(draft.importance);
+    if (draft.quality !== "") payload.quality = Number(draft.quality);
+    await moderateItem(id, payload);
   }
 
   async function triggerIngest() {
@@ -179,10 +296,10 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
         <button
           type="button"
           onClick={refreshAll}
-          disabled={statusBusy || callsBusy}
+          disabled={statusBusy || callsBusy || itemsBusy}
           className="rounded border border-border px-2 py-1 text-xs text-muted-foreground hover:text-foreground disabled:opacity-50"
         >
-          {statusBusy || callsBusy ? "Refreshing…" : "Refresh"}
+          {statusBusy || callsBusy || itemsBusy ? "Refreshing…" : "Refresh"}
         </button>
       </div>
 
@@ -359,6 +476,194 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
                     </td>
                   </tr>
                 ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
+      <div className="mt-4">
+        <div className="flex items-center justify-between">
+          <p className="text-xs font-medium text-muted-foreground">Items</p>
+          <button
+            type="button"
+            onClick={loadItems}
+            disabled={itemsBusy}
+            className="rounded border border-border px-2 py-1 text-xs text-muted-foreground hover:text-foreground disabled:opacity-50"
+          >
+            {itemsBusy ? "Refreshing…" : "Refresh"}
+          </button>
+        </div>
+        {items.length === 0 ? (
+          <p className="mt-1 text-xs text-muted-foreground">
+            No items loaded.
+          </p>
+        ) : (
+          <div className="mt-1 overflow-x-auto">
+            <table className="w-full text-xs">
+              <thead>
+                <tr className="border-b border-border text-left text-muted-foreground">
+                  <th className="py-1 pr-2 font-normal">time</th>
+                  <th className="py-1 pr-2 font-normal">source</th>
+                  <th className="py-1 pr-2 font-normal">title</th>
+                  <th className="py-1 pr-2 font-normal">status</th>
+                  <th className="py-1 pr-2 font-normal text-right tabular-nums">
+                    rel
+                  </th>
+                  <th className="py-1 pr-2 font-normal text-right tabular-nums">
+                    imp
+                  </th>
+                  <th className="py-1 pr-2 font-normal text-right tabular-nums">
+                    qual
+                  </th>
+                  <th className="py-1 pr-2 font-normal text-right tabular-nums">
+                    rank
+                  </th>
+                  <th className="py-1 pr-2 font-normal">actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {items.map((item) => {
+                  const draft = rateDraft(item.id);
+                  const busy = itemActionBusyId === item.id;
+                  const breakdown = rankBreakdown(item);
+                  return (
+                    <tr
+                      key={item.id}
+                      className="border-b border-border/50 align-top"
+                    >
+                      <td className="py-1 pr-2 whitespace-nowrap tabular-nums text-muted-foreground">
+                        {item.published_at
+                          ? new Date(item.published_at * 1000).toISOString()
+                          : "—"}
+                      </td>
+                      <td className="py-1 pr-2">{item.source_id ?? "—"}</td>
+                      <td className="py-1 pr-2 max-w-xs">
+                        {item.url ? (
+                          <a
+                            href={item.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-foreground hover:underline"
+                          >
+                            {item.title ?? item.url}
+                          </a>
+                        ) : (
+                          (item.title ?? "—")
+                        )}
+                        <details className="mt-1">
+                          <summary className="cursor-pointer text-muted-foreground">
+                            analyze
+                          </summary>
+                          <div className="mt-1 space-y-0.5 text-muted-foreground">
+                            <div>category: {item.category ?? "—"}</div>
+                            <div>
+                              tags: {parseTags(item.tags).join(", ") || "—"}
+                            </div>
+                            <div>
+                              points: {item.points ?? 0}, comments:{" "}
+                              {item.comments ?? 0}
+                            </div>
+                            <div>ageHours: {breakdown.ageHours.toFixed(2)}</div>
+                            <div>
+                              qualityFactor: {breakdown.qualityFactor.toFixed(3)}
+                            </div>
+                            <div>decay: {breakdown.decay.toFixed(3)}</div>
+                            <div>
+                              engagement: {breakdown.engagement.toFixed(3)}
+                            </div>
+                            <div>
+                              computed rank: {breakdown.computed.toFixed(3)}{" "}
+                              (stored: {item.rank_score?.toFixed?.(3) ?? "—"})
+                            </div>
+                          </div>
+                        </details>
+                      </td>
+                      <td className="py-1 pr-2">
+                        <span
+                          className={
+                            item.status === "published"
+                              ? "rounded bg-green-500/15 px-1.5 py-0.5 text-green-600 dark:text-green-400"
+                              : item.status === "rejected"
+                                ? "rounded bg-red-500/15 px-1.5 py-0.5 text-red-600 dark:text-red-400"
+                                : "rounded bg-muted px-1.5 py-0.5 text-muted-foreground"
+                          }
+                        >
+                          {item.status ?? "—"}
+                        </span>
+                      </td>
+                      <td className="py-1 pr-2 text-right tabular-nums">
+                        {item.llm_relevance ?? "—"}
+                      </td>
+                      <td className="py-1 pr-2 text-right tabular-nums">
+                        {item.llm_importance ?? "—"}
+                      </td>
+                      <td className="py-1 pr-2 text-right tabular-nums">
+                        {item.llm_quality ?? "—"}
+                      </td>
+                      <td className="py-1 pr-2 text-right tabular-nums">
+                        {item.rank_score?.toFixed?.(2) ?? "—"}
+                      </td>
+                      <td className="py-1 pr-2">
+                        <div className="flex flex-wrap items-center gap-1">
+                          {item.status === "rejected" ? (
+                            <button
+                              type="button"
+                              onClick={() =>
+                                moderateItem(item.id, { action: "restore" })
+                              }
+                              disabled={busy}
+                              className="rounded border border-border px-1.5 py-0.5 text-xs text-foreground hover:bg-muted disabled:opacity-50"
+                            >
+                              Restore
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() =>
+                                moderateItem(item.id, { action: "reject" })
+                              }
+                              disabled={busy}
+                              className="rounded border border-border px-1.5 py-0.5 text-xs text-foreground hover:bg-muted disabled:opacity-50"
+                            >
+                              Reject
+                            </button>
+                          )}
+                          <input
+                            type="number"
+                            min={0}
+                            max={10}
+                            placeholder="imp"
+                            value={draft.importance}
+                            onChange={(e) =>
+                              setRateDraft(item.id, "importance", e.target.value)
+                            }
+                            className="w-12 rounded border border-border bg-transparent px-1 py-0.5 text-xs tabular-nums"
+                          />
+                          <input
+                            type="number"
+                            min={0}
+                            max={10}
+                            placeholder="qual"
+                            value={draft.quality}
+                            onChange={(e) =>
+                              setRateDraft(item.id, "quality", e.target.value)
+                            }
+                            className="w-12 rounded border border-border bg-transparent px-1 py-0.5 text-xs tabular-nums"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => applyRate(item.id)}
+                            disabled={busy}
+                            className="rounded border border-border px-1.5 py-0.5 text-xs text-foreground hover:bg-muted disabled:opacity-50"
+                          >
+                            Rate
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

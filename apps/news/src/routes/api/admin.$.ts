@@ -5,11 +5,13 @@ import {
   getLlmCalls,
   getStatus,
   isHandlerError,
+  listItems,
   listSources,
   pushItems,
   regenerateTldr,
   reprocessToday,
   triggerIngest,
+  updateItem,
   upsertSource,
 } from "../../../worker/admin/handlers.js";
 import type { Env } from "../../../worker/types.js";
@@ -70,6 +72,26 @@ async function handle(
   if (method === "POST" && segments.length === 1 && segments[0] === "items") {
     const { body, error } = await parseJsonBody(request);
     if (error) return Response.json({ error }, { status: 400 });
+    // Moderation updates ({id, action}) share this route with item pushes
+    // (which have no `action` field) — dispatch on body shape.
+    if (
+      body &&
+      typeof body === "object" &&
+      !Array.isArray(body) &&
+      "action" in body
+    ) {
+      const result = await updateItem(
+        env,
+        body as Parameters<typeof updateItem>[1]
+      );
+      if (isHandlerError(result)) {
+        return Response.json(
+          { error: result.error },
+          { status: result.status ?? 400 }
+        );
+      }
+      return Response.json(result);
+    }
     const result = await pushItems(
       env,
       body as Parameters<typeof pushItems>[1]
@@ -167,6 +189,12 @@ async function handle(
   ) {
     const url = new URL(request.url);
     const result = await getLlmCalls(env, url.searchParams.get("limit"));
+    return Response.json(result);
+  }
+
+  if (method === "GET" && segments.length === 1 && segments[0] === "items") {
+    const url = new URL(request.url);
+    const result = await listItems(env, url.searchParams.get("limit"));
     return Response.json(result);
   }
 

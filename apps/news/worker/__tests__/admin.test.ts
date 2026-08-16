@@ -3,10 +3,12 @@ import { checkAuth } from "../admin/auth.js";
 import {
   getLlmCalls,
   isHandlerError,
+  listItems,
   pushItems,
   regenerateTldr,
   reprocessToday,
   sha256Hex,
+  updateItem,
   upsertSource,
 } from "../admin/handlers.js";
 import { handleMcpRequest } from "../admin/mcp.js";
@@ -172,7 +174,11 @@ class FakeD1 {
       };
     }
 
-    if (sql.startsWith("UPDATE items SET llm_relevance = ?")) {
+    if (
+      sql.startsWith(
+        "UPDATE items SET llm_relevance = ?, llm_importance = ?, llm_quality = ?, category = ?"
+      )
+    ) {
       const [
         llm_relevance,
         llm_importance,
@@ -250,6 +256,62 @@ class FakeD1 {
         created_at,
       });
       return { success: true };
+    }
+
+    if (
+      sql.startsWith(
+        "SELECT id, source_id, title, url, status, published_at"
+      )
+    ) {
+      const [limit] = args as [number];
+      return {
+        results: Array.from(this.items.values())
+          .sort(
+            (a, b) =>
+              (b.published_at as number) - (a.published_at as number)
+          )
+          .slice(0, limit),
+      };
+    }
+
+    if (
+      sql.startsWith(
+        "SELECT id, points, comments, published_at, llm_relevance, llm_importance, llm_quality FROM items WHERE id = ?"
+      )
+    ) {
+      const [id] = args as [string];
+      return this.items.get(id) ?? null;
+    }
+
+    if (sql.startsWith("UPDATE items SET status = ? WHERE id = ?")) {
+      const [status, id] = args as [string, string];
+      const row = this.items.get(id);
+      if (row) row.status = status;
+      return { success: true };
+    }
+
+    if (
+      sql.startsWith(
+        "UPDATE items SET llm_relevance = ?, llm_importance = ?, llm_quality = ?, rank_score = ? WHERE id = ?"
+      )
+    ) {
+      const [llm_relevance, llm_importance, llm_quality, rank_score, id] =
+        args as [number, number, number, number, string];
+      const row = this.items.get(id);
+      if (row) {
+        Object.assign(row, {
+          llm_relevance,
+          llm_importance,
+          llm_quality,
+          rank_score,
+        });
+      }
+      return { success: true };
+    }
+
+    if (sql.startsWith("SELECT * FROM items WHERE id = ?")) {
+      const [id] = args as [string];
+      return this.items.get(id) ?? null;
     }
 
     if (sql.startsWith("SELECT status, COUNT(*)")) {
@@ -604,6 +666,120 @@ describe("regenerateTldr", () => {
     expect(
       JSON.parse(db.tldrSnapshots.get(today)?.bullets_en as string)
     ).toEqual([{ text: "bullet", item_ids: ["t1"] }]);
+  });
+});
+
+describe("listItems", () => {
+  function seed(env: Env, id: string, publishedAt: number): void {
+    const db = env.DB as unknown as FakeD1;
+    db.items.set(id, {
+      id,
+      source_id: "hn",
+      external_id: null,
+      url: `https://example.com/${id}`,
+      title: `Title ${id}`,
+      summary: "summary",
+      published_at: publishedAt,
+      fetched_at: publishedAt,
+      points: 10,
+      comments: 2,
+      llm_relevance: 0.5,
+      llm_importance: 5,
+      llm_quality: 5,
+      category: null,
+      tags: "[]",
+      rank_score: 1,
+      status: "published",
+    });
+  }
+
+  it("returns rows newest-first across all statuses", async () => {
+    const env = makeEnv();
+    seed(env, "a", 100);
+    seed(env, "b", 300);
+    seed(env, "c", 200);
+    (env.DB as unknown as FakeD1).items.get("a")!.status = "rejected";
+
+    const result = await listItems(env);
+    expect(result.items.map((i: any) => i.id)).toEqual(["b", "c", "a"]);
+  });
+
+  it("caps the limit at 200", async () => {
+    const env = makeEnv();
+    for (let i = 0; i < 250; i++) seed(env, `id-${i}`, i);
+
+    const result = await listItems(env, "1000");
+    expect(result.items).toHaveLength(200);
+  });
+});
+
+describe("updateItem", () => {
+  function seed(env: Env, id: string): void {
+    const db = env.DB as unknown as FakeD1;
+    db.items.set(id, {
+      id,
+      source_id: "hn",
+      external_id: null,
+      url: `https://example.com/${id}`,
+      title: `Title ${id}`,
+      summary: "summary",
+      published_at: Math.floor(Date.now() / 1000),
+      fetched_at: Math.floor(Date.now() / 1000),
+      points: 10,
+      comments: 2,
+      llm_relevance: 0.5,
+      llm_importance: 5,
+      llm_quality: 5,
+      category: null,
+      tags: "[]",
+      rank_score: 1,
+      status: "published",
+    });
+  }
+
+  it("returns 404 for an unknown id", async () => {
+    const env = makeEnv();
+    const result = await updateItem(env, { id: "missing", action: "reject" });
+    expect(isHandlerError(result)).toBe(true);
+    if (!isHandlerError(result)) throw new Error("unreachable");
+    expect(result.status).toBe(404);
+  });
+
+  it("reject sets status to rejected", async () => {
+    const env = makeEnv();
+    seed(env, "item-1");
+    const result = await updateItem(env, { id: "item-1", action: "reject" });
+    expect(isHandlerError(result)).toBe(false);
+    expect((env.DB as unknown as FakeD1).items.get("item-1")?.status).toBe(
+      "rejected"
+    );
+  });
+
+  it("restore sets status back to published", async () => {
+    const env = makeEnv();
+    seed(env, "item-2");
+    (env.DB as unknown as FakeD1).items.get("item-2")!.status = "rejected";
+    const result = await updateItem(env, { id: "item-2", action: "restore" });
+    expect(isHandlerError(result)).toBe(false);
+    expect((env.DB as unknown as FakeD1).items.get("item-2")?.status).toBe(
+      "published"
+    );
+  });
+
+  it("rate clamps importance/quality and recomputes rank_score", async () => {
+    const env = makeEnv();
+    seed(env, "item-3");
+    const result = await updateItem(env, {
+      id: "item-3",
+      action: "rate",
+      importance: 99,
+      quality: -5,
+    });
+    expect(isHandlerError(result)).toBe(false);
+    const row = (env.DB as unknown as FakeD1).items.get("item-3");
+    expect(row?.llm_importance).toBe(10);
+    expect(row?.llm_quality).toBe(0);
+    expect(row?.rank_score).not.toBe(1);
   });
 });
 
