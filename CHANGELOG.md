@@ -1,5 +1,56 @@
 # Changelog
 
+## [0.1.4](https://github.com/duyet/monorepo/compare/v0.1.3...v0.1.4) (2026-08-14)
+
+
+### ✨ Features
+
+* **blog:** add CLI tab and new model-detect screenshot to AnyRouter post ([a2ef9c0](https://github.com/duyet/monorepo/commit/a2ef9c0845a1059804dd02dc2189809fa40b977c))
+* **blog:** anyrouter launch post, code tabs, diff lines, copy button ([a639cb9](https://github.com/duyet/monorepo/commit/a639cb9881a59f450874efa1e3fb60479a4106fa))
+* **blog:** bento image grid for post screenshots, applied to oma post ([c00ff63](https://github.com/duyet/monorepo/commit/c00ff6313015d33557bed681697433a3e05d0780))
+* **blog:** comment on x link from post frontmatter ([655fbda](https://github.com/duyet/monorepo/commit/655fbda5efed10a91a7b074e94c754d18b056b15))
+* **blog:** oma post dark hero thumbnail + landing dialog screenshots ([be9a056](https://github.com/duyet/monorepo/commit/be9a05676585b6605f412333cc995b825a3d5489))
+* **blog:** oma post new thumbnail, anyrouter desc matches tweet ([4cbeca6](https://github.com/duyet/monorepo/commit/4cbeca6300b1f7476f7c0394106d7878bb0c757e))
+* **blog:** publish Open Managed Agents build-log post ([2f06cb2](https://github.com/duyet/monorepo/commit/2f06cb294aeca069fea44225f28b98772250c143))
+* **burns:** logos-only source row, per-agent hover breakdown, layout tweaks ([00d9b3d](https://github.com/duyet/monorepo/commit/00d9b3dde3164e865f1aef99732c66b62553391d))
+* **burns:** per-agent hover tooltips for bars and logos ([64d4827](https://github.com/duyet/monorepo/commit/64d482740fc2006c005288e932aa11857fa55f8c))
+* **home:** link blog posts from project cards ([f3be69d](https://github.com/duyet/monorepo/commit/f3be69d3a2743324dbd7ec8a4be9fce5433f765a))
+* **kb:** obsidian-style sigma knowledge graph ([1970274](https://github.com/duyet/monorepo/commit/1970274ce9b9cf620d548cd8aad7eb8736514a39))
+* **llm-timeline:** shadcn tabs and switch, semantic timeline table ([6aafade](https://github.com/duyet/monorepo/commit/6aafadedaa2f74e1c511368f1be3905f51dd60b2))
+* **ui:** split site header and add official shadcn chat primitives ([634369a](https://github.com/duyet/monorepo/commit/634369a28dc3dd3b3959f6c505b0bf3d5117cea8))
+
+
+### 🐛 Bug Fixes
+
+* **agents:** resolve assistant graph import and refresh lockfile pins ([015e300](https://github.com/duyet/monorepo/commit/015e30058778fcffb39dfd101c1f0c76a43eccb9))
+* **api:** gate llm generate, assistant chat, and ClickHouse URL passwords ([07563ca](https://github.com/duyet/monorepo/commit/07563caabdb6cf257fa0829dd54f488b77c7fc62))
+* **blog:** add github issues screenshot to anyrouter post ([763e921](https://github.com/duyet/monorepo/commit/763e9213d5807516de8610a0e3f5e2cbe90fe1e3))
+* **blog:** fail build when post HTML is missing ([1825183](https://github.com/duyet/monorepo/commit/1825183eef6565bc6013f5a7f404545436d2f082))
+* **blog:** fix typos in anyrouter post ([a0bfbac](https://github.com/duyet/monorepo/commit/a0bfbacc328e6a2ee928003df82379b1bff8f298))
+* **blog:** move duyetbot image into img-row with GitHub issues ([cc5207d](https://github.com/duyet/monorepo/commit/cc5207da4da163f3cfba9a048987950efdf531dd))
+* **blog:** replace two screenshots in img-row with updated versions ([15b70ad](https://github.com/duyet/monorepo/commit/15b70ad6e45ed1716e0c451f6c80bc6411d813e9))
+* **burns:** backfill antigravity and hermes costs from public rates ([322a8be](https://github.com/duyet/monorepo/commit/322a8bef362fe8525b18bd5fe6b57478ce5c8162))
+* **burns:** grok estimated costs and logo tooltip above icons ([de030dd](https://github.com/duyet/monorepo/commit/de030dd26e227d88f7cb08e57f4d79b20ce78587))
+* **burns:** official brand SVGs, resize Grok, backfill per-source breakdown ([34d514b](https://github.com/duyet/monorepo/commit/34d514bcab1d7f8a9d404aa100a71b9cff894154))
+* **burns:** reverse bar chart to chronological left-to-right ([183b237](https://github.com/duyet/monorepo/commit/183b237e1b36e7f8d30ea55a80914a7e16b58e6c))
+* **burns:** stop labeling gemini as Antigravity and refresh UX ([61cd768](https://github.com/duyet/monorepo/commit/61cd7683ec67edafe68f203404e390e3b5403b91))
+* **burns:** tooltip layout, spacing, and restored Claude tokens ([fa678c1](https://github.com/duyet/monorepo/commit/fa678c123348c40396a0777030b743612d9db70a))
+* **ci:** align insights motion version to fix frozen-lockfile install ([83553bb](https://github.com/duyet/monorepo/commit/83553bbfc781493368619b24715bc295012a0c97))
+* **deps:** update all non-major dependencies ([#1265](https://github.com/duyet/monorepo/issues/1265)) ([df5cab8](https://github.com/duyet/monorepo/commit/df5cab84e7c18ba73b50bff8153be756840a085d))
+* **docs:** close audit issues for docs, seo, and small ux ([92460a1](https://github.com/duyet/monorepo/commit/92460a10278e2b6deec5f2e24fb15a0f28f58344))
+* **kb:** escape poisoned asset cache and fix graph SSR ([2a56a9e](https://github.com/duyet/monorepo/commit/2a56a9e9c1072e9073c47e512a571d5160348586))
+* **kb:** retry hydration when cloudflare races module load ([0428140](https://github.com/duyet/monorepo/commit/04281401ccadaf0141d483be544dc028f8f42a33))
+* **kb:** stop stale html cache breaking module scripts ([3c823f1](https://github.com/duyet/monorepo/commit/3c823f15826ecd253d75073f790596f5e5f06c7f))
+* rename anyrouter-issues-new-mode-bg to new-model-bg and update image ([cb47d83](https://github.com/duyet/monorepo/commit/cb47d83ee741671afd2c770d8c07cbc4f3e7d2a9))
+* **ui:** show a retryable chat error instead of the raw message ([d9ddba1](https://github.com/duyet/monorepo/commit/d9ddba15ed54182729488853b60659884fde1836))
+
+
+### ♻️ Refactoring
+
+* **blog:** migrate prose classes to typeset system ([dea3a1d](https://github.com/duyet/monorepo/commit/dea3a1dcb9c9beea0cb619d71783e0812a05c431))
+* **components:** add typeset.css markdown styling system ([ce3b7f6](https://github.com/duyet/monorepo/commit/ce3b7f6bfea17188a55b16e8d89421d846a8f464))
+* **kb:** migrate prose classes to typeset system ([713ca64](https://github.com/duyet/monorepo/commit/713ca644a02f47cface398fc59a5766a2327ee83))
+
 ## [0.1.3](https://github.com/duyet/monorepo/compare/v0.1.2...v0.1.3) (2026-07-16)
 
 
