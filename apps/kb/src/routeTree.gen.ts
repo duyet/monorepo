@@ -9,31 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as DreamRouteImport } from './routes/dream'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as MIndexRouteImport } from './routes/m/index'
+import { Route as DreamRouteImport } from './routes/dream'
 import { Route as CIndexRouteImport } from './routes/c/index'
-import { Route as SitemapXmlRouteImport } from './routes/sitemap.xml'
-import { Route as RobotsTxtRouteImport } from './routes/robots.txt'
-import { Route as MSlugRouteImport } from './routes/m/$slug'
-import { Route as LlmsTxtRouteImport } from './routes/llms.txt'
-import { Route as LlmsFullTxtRouteImport } from './routes/llms-full.txt'
-import { Route as KSlugRouteImport } from './routes/k/$slug'
 import { Route as CCategoryRouteImport } from './routes/c/$category'
+import { Route as KSlugRouteImport } from './routes/k/$slug'
+import { Route as LlmsFullTxtRouteImport } from './routes/llms-full.txt'
+import { Route as LlmsTxtRouteImport } from './routes/llms.txt'
+import { Route as MIndexRouteImport } from './routes/m/index'
+import { Route as MSlugRouteImport } from './routes/m/$slug'
+import { Route as RobotsTxtRouteImport } from './routes/robots.txt'
+import { Route as SitemapXmlRouteImport } from './routes/sitemap.xml'
 
-const DreamRoute = DreamRouteImport.update({
-  id: '/dream',
-  path: '/dream',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MIndexRoute = MIndexRouteImport.update({
-  id: '/m/',
-  path: '/m/',
+const DreamRoute = DreamRouteImport.update({
+  id: '/dream',
+  path: '/dream',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CIndexRoute = CIndexRouteImport.update({
@@ -41,29 +36,9 @@ const CIndexRoute = CIndexRouteImport.update({
   path: '/c/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SitemapXmlRoute = SitemapXmlRouteImport.update({
-  id: '/sitemap/xml',
-  path: '/sitemap/xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RobotsTxtRoute = RobotsTxtRouteImport.update({
-  id: '/robots/txt',
-  path: '/robots/txt',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MSlugRoute = MSlugRouteImport.update({
-  id: '/m/$slug',
-  path: '/m/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LlmsTxtRoute = LlmsTxtRouteImport.update({
-  id: '/llms/txt',
-  path: '/llms/txt',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LlmsFullTxtRoute = LlmsFullTxtRouteImport.update({
-  id: '/llms-full/txt',
-  path: '/llms-full/txt',
+const CCategoryRoute = CCategoryRouteImport.update({
+  id: '/c/$category',
+  path: '/c/$category',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KSlugRoute = KSlugRouteImport.update({
@@ -71,9 +46,34 @@ const KSlugRoute = KSlugRouteImport.update({
   path: '/k/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CCategoryRoute = CCategoryRouteImport.update({
-  id: '/c/$category',
-  path: '/c/$category',
+const LlmsFullTxtRoute = LlmsFullTxtRouteImport.update({
+  id: '/llms-full/txt',
+  path: '/llms-full/txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LlmsTxtRoute = LlmsTxtRouteImport.update({
+  id: '/llms/txt',
+  path: '/llms/txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MIndexRoute = MIndexRouteImport.update({
+  id: '/m/',
+  path: '/m/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MSlugRoute = MSlugRouteImport.update({
+  id: '/m/$slug',
+  path: '/m/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsTxtRoute = RobotsTxtRouteImport.update({
+  id: '/robots/txt',
+  path: '/robots/txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapXmlRoute = SitemapXmlRouteImport.update({
+  id: '/sitemap/xml',
+  path: '/sitemap/xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -175,13 +175,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/dream': {
-      id: '/dream'
-      path: '/dream'
-      fullPath: '/dream'
-      preLoaderRoute: typeof DreamRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -189,11 +182,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/m/': {
-      id: '/m/'
-      path: '/m'
-      fullPath: '/m/'
-      preLoaderRoute: typeof MIndexRouteImport
+    '/dream': {
+      id: '/dream'
+      path: '/dream'
+      fullPath: '/dream'
+      preLoaderRoute: typeof DreamRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/c/': {
@@ -203,39 +196,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sitemap/xml': {
-      id: '/sitemap/xml'
-      path: '/sitemap/xml'
-      fullPath: '/sitemap/xml'
-      preLoaderRoute: typeof SitemapXmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/robots/txt': {
-      id: '/robots/txt'
-      path: '/robots/txt'
-      fullPath: '/robots/txt'
-      preLoaderRoute: typeof RobotsTxtRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/m/$slug': {
-      id: '/m/$slug'
-      path: '/m/$slug'
-      fullPath: '/m/$slug'
-      preLoaderRoute: typeof MSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/llms/txt': {
-      id: '/llms/txt'
-      path: '/llms/txt'
-      fullPath: '/llms/txt'
-      preLoaderRoute: typeof LlmsTxtRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/llms-full/txt': {
-      id: '/llms-full/txt'
-      path: '/llms-full/txt'
-      fullPath: '/llms-full/txt'
-      preLoaderRoute: typeof LlmsFullTxtRouteImport
+    '/c/$category': {
+      id: '/c/$category'
+      path: '/c/$category'
+      fullPath: '/c/$category'
+      preLoaderRoute: typeof CCategoryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/k/$slug': {
@@ -245,11 +210,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/c/$category': {
-      id: '/c/$category'
-      path: '/c/$category'
-      fullPath: '/c/$category'
-      preLoaderRoute: typeof CCategoryRouteImport
+    '/llms-full/txt': {
+      id: '/llms-full/txt'
+      path: '/llms-full/txt'
+      fullPath: '/llms-full/txt'
+      preLoaderRoute: typeof LlmsFullTxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/llms/txt': {
+      id: '/llms/txt'
+      path: '/llms/txt'
+      fullPath: '/llms/txt'
+      preLoaderRoute: typeof LlmsTxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/m/': {
+      id: '/m/'
+      path: '/m'
+      fullPath: '/m/'
+      preLoaderRoute: typeof MIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/m/$slug': {
+      id: '/m/$slug'
+      path: '/m/$slug'
+      fullPath: '/m/$slug'
+      preLoaderRoute: typeof MSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots/txt': {
+      id: '/robots/txt'
+      path: '/robots/txt'
+      fullPath: '/robots/txt'
+      preLoaderRoute: typeof RobotsTxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap/xml': {
+      id: '/sitemap/xml'
+      path: '/sitemap/xml'
+      fullPath: '/sitemap/xml'
+      preLoaderRoute: typeof SitemapXmlRouteImport
       parentRoute: typeof rootRouteImport
     }
   }

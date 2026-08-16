@@ -9,28 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as OrgRouteImport } from './routes/org'
-import { Route as OpenRouteImport } from './routes/open'
-import { Route as LiteRouteImport } from './routes/lite'
-import { Route as CompareRouteImport } from './routes/compare'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as YearYearRouteImport } from './routes/year/$year'
-import { Route as OrgSlugRouteImport } from './routes/org/$slug'
+import { Route as CompareRouteImport } from './routes/compare'
+import { Route as LiteRouteImport } from './routes/lite'
+import { Route as OpenRouteImport } from './routes/open'
+import { Route as OrgRouteImport } from './routes/org'
 import { Route as LicenseTypeRouteImport } from './routes/license/$type'
+import { Route as OrgSlugRouteImport } from './routes/org/$slug'
+import { Route as YearYearRouteImport } from './routes/year/$year'
 
-const OrgRoute = OrgRouteImport.update({
-  id: '/org',
-  path: '/org',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OpenRoute = OpenRouteImport.update({
-  id: '/open',
-  path: '/open',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LiteRoute = LiteRouteImport.update({
-  id: '/lite',
-  path: '/lite',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CompareRoute = CompareRouteImport.update({
@@ -38,14 +28,24 @@ const CompareRoute = CompareRouteImport.update({
   path: '/compare',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const LiteRoute = LiteRouteImport.update({
+  id: '/lite',
+  path: '/lite',
   getParentRoute: () => rootRouteImport,
 } as any)
-const YearYearRoute = YearYearRouteImport.update({
-  id: '/year/$year',
-  path: '/year/$year',
+const OpenRoute = OpenRouteImport.update({
+  id: '/open',
+  path: '/open',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrgRoute = OrgRouteImport.update({
+  id: '/org',
+  path: '/org',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LicenseTypeRoute = LicenseTypeRouteImport.update({
+  id: '/license/$type',
+  path: '/license/$type',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OrgSlugRoute = OrgSlugRouteImport.update({
@@ -53,9 +53,9 @@ const OrgSlugRoute = OrgSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => OrgRoute,
 } as any)
-const LicenseTypeRoute = LicenseTypeRouteImport.update({
-  id: '/license/$type',
-  path: '/license/$type',
+const YearYearRoute = YearYearRouteImport.update({
+  id: '/year/$year',
+  path: '/year/$year',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -135,25 +135,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/org': {
-      id: '/org'
-      path: '/org'
-      fullPath: '/org'
-      preLoaderRoute: typeof OrgRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/open': {
-      id: '/open'
-      path: '/open'
-      fullPath: '/open'
-      preLoaderRoute: typeof OpenRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/lite': {
-      id: '/lite'
-      path: '/lite'
-      fullPath: '/lite'
-      preLoaderRoute: typeof LiteRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/compare': {
@@ -163,18 +149,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompareRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/lite': {
+      id: '/lite'
+      path: '/lite'
+      fullPath: '/lite'
+      preLoaderRoute: typeof LiteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/year/$year': {
-      id: '/year/$year'
-      path: '/year/$year'
-      fullPath: '/year/$year'
-      preLoaderRoute: typeof YearYearRouteImport
+    '/open': {
+      id: '/open'
+      path: '/open'
+      fullPath: '/open'
+      preLoaderRoute: typeof OpenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/org': {
+      id: '/org'
+      path: '/org'
+      fullPath: '/org'
+      preLoaderRoute: typeof OrgRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/license/$type': {
+      id: '/license/$type'
+      path: '/license/$type'
+      fullPath: '/license/$type'
+      preLoaderRoute: typeof LicenseTypeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/org/$slug': {
@@ -184,11 +184,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrgSlugRouteImport
       parentRoute: typeof OrgRoute
     }
-    '/license/$type': {
-      id: '/license/$type'
-      path: '/license/$type'
-      fullPath: '/license/$type'
-      preLoaderRoute: typeof LicenseTypeRouteImport
+    '/year/$year': {
+      id: '/year/$year'
+      path: '/year/$year'
+      fullPath: '/year/$year'
+      preLoaderRoute: typeof YearYearRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
