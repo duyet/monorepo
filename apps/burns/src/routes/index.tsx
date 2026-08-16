@@ -1,11 +1,10 @@
 import ThemeToggle from "@duyet/components/ThemeToggle";
-import type { JSX } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { type JSX, useState } from "react";
 import { AnimatedCounter } from "../components/AnimatedCounter";
+import { BreakdownDialog } from "../components/BreakdownDialog";
 import { DailyChart, WINDOW } from "../components/DailyChart";
-import { SourceBreakdown } from "../components/SourceBreakdown";
 import { SourceIcons } from "../components/SourceIcons";
-import { TokenBreakdown } from "../components/TokenBreakdown";
 import { BURNS_LOCALE, formatDay } from "../lib/dates";
 import { readPublicJson } from "../lib/read-public-json";
 import { fmtCost } from "../lib/sources";
@@ -37,6 +36,7 @@ function formatUpdated(iso: string): string | null {
 
 function Page(): JSX.Element {
   const data = Route.useLoaderData();
+  const [filter, setFilter] = useState<string | null>(null);
   const range = formatRange(data.firstDate, data.lastDate);
   const updated = formatUpdated(data.generatedAt);
 
@@ -47,7 +47,13 @@ function Page(): JSX.Element {
           <p className="burns-eyebrow">Burns</p>
           <h1 className="burns-title">Token usage</h1>
         </div>
-        <ThemeToggle />
+        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+          <BreakdownDialog
+            sourceTotals={data.source_totals ?? []}
+            totals={data.totals}
+          />
+          <ThemeToggle />
+        </div>
       </header>
 
       <section className="burns-hero">
@@ -61,30 +67,19 @@ function Page(): JSX.Element {
         <SourceIcons
           sources={data.sources}
           sourceTotals={data.source_totals ?? []}
+          selected={filter}
+          onSelect={setFilter}
         />
       </section>
 
-      <section className="burns-section">
+      <section className="burns-section burns-section-chart">
         <div className="burns-section-head">
           <h2 className="burns-section-title">Daily</h2>
-          <p className="burns-section-meta">{`Last ${WINDOW} days`}</p>
+          <p className="burns-section-meta">
+            {filter ? `${filter} · last ${WINDOW} days` : `Last ${WINDOW} days`}
+          </p>
         </div>
-        <DailyChart daily={data.daily} />
-      </section>
-
-      <section className="burns-section">
-        <div className="burns-section-head">
-          <h2 className="burns-section-title">By source</h2>
-          <p className="burns-section-meta">All-time</p>
-        </div>
-        <SourceBreakdown totals={data.source_totals ?? []} />
-      </section>
-
-      <section className="burns-section">
-        <div className="burns-section-head">
-          <h2 className="burns-section-title">Token mix</h2>
-        </div>
-        <TokenBreakdown totals={data.totals} />
+        <DailyChart daily={data.daily} filter={filter} />
       </section>
 
       <footer className="burns-footer">
