@@ -10,10 +10,18 @@ import {
   Outlet,
   Scripts,
 } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HeaderBar } from "../components/HeaderBar";
 import { getClientLang, setClientLang } from "../lib/lang";
 import { LangContext } from "../lib/lang-context";
+import {
+  DEFAULT_PREFS,
+  loadPrefs,
+  type Prefs,
+  PrefsContext,
+  readerCssVars,
+  savePrefs,
+} from "../lib/prefs";
 import type { Lang } from "../lib/types";
 
 function NotFoundComponent() {
@@ -78,6 +86,24 @@ function RootComponent() {
     setLang(next);
   };
 
+  // Render defaults on the server / first client paint to avoid a hydration
+  // mismatch, then apply anything persisted in localStorage once mounted.
+  const [prefs, setPrefsState] = useState<Prefs>(DEFAULT_PREFS);
+  const prefsLoadedRef = useRef(false);
+
+  useEffect(() => {
+    setPrefsState(loadPrefs());
+    prefsLoadedRef.current = true;
+  }, []);
+
+  useEffect(() => {
+    if (!prefsLoadedRef.current) return;
+    savePrefs(prefs);
+  }, [prefs]);
+
+  const setPrefs = (update: Partial<Prefs>) =>
+    setPrefsState((p) => ({ ...p, ...update }));
+
   return (
     <html lang={lang} suppressHydrationWarning>
       <head>
@@ -99,22 +125,30 @@ function RootComponent() {
       </head>
       <body>
         <LangContext.Provider value={lang}>
-          <ThemeProvider>
-            <div className="relative flex min-h-screen flex-col justify-between overflow-x-hidden bg-background text-foreground selection:bg-foreground selection:text-background">
-              <div className="pointer-events-none absolute inset-0 z-0 bg-grid-pattern opacity-[0.8] dark:opacity-[0.4]" />
+          <PrefsContext.Provider value={{ prefs, setPrefs }}>
+            <ThemeProvider>
+              <div className="relative flex min-h-screen flex-col justify-between overflow-x-hidden bg-background text-foreground selection:bg-foreground selection:text-background">
+                <div className="pointer-events-none absolute inset-0 z-0 bg-grid-pattern opacity-[0.8] dark:opacity-[0.4]" />
 
-              <div className="relative z-20 flex w-full flex-col">
-                <SiteHeader />
-                <HeaderBar lang={lang} onLangChange={handleLangChange} />
+                <div className="relative z-20 flex w-full flex-col">
+                  <SiteHeader />
+                  <HeaderBar lang={lang} onLangChange={handleLangChange} />
+                </div>
+
+                <main
+                  className="news-content relative z-10 mx-auto w-full max-w-[1040px] flex-grow px-4 pb-16 md:px-6"
+                  style={readerCssVars(prefs)}
+                  data-reader-font={prefs.font}
+                  data-reader-bg={prefs.bg}
+                  suppressHydrationWarning
+                >
+                  <Outlet />
+                </main>
+
+                <SiteFooter owner="Duyet Le" />
               </div>
-
-              <main className="news-content relative z-10 mx-auto w-full max-w-[1040px] flex-grow px-4 pb-16 md:px-6">
-                <Outlet />
-              </main>
-
-              <SiteFooter owner="Duyet Le" />
-            </div>
-          </ThemeProvider>
+            </ThemeProvider>
+          </PrefsContext.Provider>
         </LangContext.Provider>
         <Analytics />
         <Scripts />

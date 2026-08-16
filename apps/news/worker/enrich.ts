@@ -131,7 +131,7 @@ async function readCappedText(
 /** Fetches `url` and extracts og:image/description. Only text/html
  * responses are read. Any failure (network, non-2xx, wrong content type)
  * resolves to `{}`, never throws. */
-async function fetchOgData(url: string): Promise<OgData> {
+export async function fetchOgData(url: string): Promise<OgData> {
   try {
     const res = await fetch(url, {
       signal: AbortSignal.timeout(ENRICH_FETCH_TIMEOUT_MS),

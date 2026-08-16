@@ -31,7 +31,7 @@ export function TldrSection({
           <ol
             key={col[0]?.text ?? ci}
             start={ci * mid + 1}
-            className="list-decimal space-y-1.5 pl-6 text-[15px] leading-snug marker:text-muted-foreground"
+            className="list-decimal space-y-1.5 pl-6 leading-snug marker:text-muted-foreground"
           >
             {col.map((b) => (
               <li key={b.text}>

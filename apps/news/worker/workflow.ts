@@ -3,6 +3,14 @@ import {
   type WorkflowEvent,
   type WorkflowStep,
 } from "cloudflare:workers";
+import {
+  BACKFILL_BATCH_SIZE,
+  BACKFILL_CONTENT_CAP,
+  buildMissingSummaryQuery,
+  buildMissingTranslationQuery,
+  huggingNewsDetailUrl,
+  planBackfillUpdate,
+} from "./backfill.js";
 import { type MirrorRow, mirrorItems } from "./clickhouse.js";
 import {
   buildItemBindArgs,
@@ -19,11 +27,12 @@ import {
   type MergePlan,
   unionSources,
 } from "./dedupe.js";
-import { enrichMissingContent } from "./enrich.js";
+import { enrichMissingContent, fetchOgData } from "./enrich.js";
 import { scoreItems, translateItems } from "./llm.js";
 import { rankScore } from "./ranking.js";
 import { adapters } from "./sources/registry.js";
-import type { FetchedItem } from "./sources/types.js";
+import type { FetchedItem, FetchedItemSource } from "./sources/types.js";
+import { fetchStoryDetailByUrl } from "./sources/huggingnews.js";
 import { sendDailyTldr } from "./subscribe/send.js";
 import { toEpochSeconds } from "./time.js";
 import { ensureDailyTldr } from "./tldr.js";
@@ -541,6 +550,117 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
           };
         });
         await mirrorItems(this.env, rows);
+      });
+
+      // Backfills existing (pre-enrichment) published items still missing a
+      // summary — the `enrich` step above only ever touches this run's NEW
+      // items. Drains the backlog a few items per hourly run rather than
+      // trying to catch up all at once.
+      await step.do("backfill-content", async () => {
+        try {
+          const { results } = await this.env.DB.prepare(
+            buildMissingSummaryQuery(BACKFILL_CONTENT_CAP)
+          ).all<{
+            id: string;
+            url: string;
+            source_id: string;
+            image_url: string | null;
+          }>();
+          const rows = results ?? [];
+
+          for (let i = 0; i < rows.length; i += BACKFILL_BATCH_SIZE) {
+            const batch = rows.slice(i, i + BACKFILL_BATCH_SIZE);
+            await Promise.all(
+              batch.map(async (row) => {
+                let fetched: { summary?: string; imageUrl?: string };
+                let sources: FetchedItemSource[] = [];
+
+                if (row.source_id === "huggingnews") {
+                  const detail = await fetchStoryDetailByUrl(
+                    huggingNewsDetailUrl(row.url)
+                  );
+                  fetched = { summary: detail.summary };
+                  sources = detail.sources;
+                } else {
+                  const og = await fetchOgData(row.url);
+                  fetched = { summary: og.description, imageUrl: og.imageUrl };
+                }
+
+                const plan = planBackfillUpdate(
+                  { imageUrl: row.image_url },
+                  fetched
+                );
+                if (!plan) return;
+
+                await this.env.DB.prepare(
+                  "UPDATE items SET summary = ?, image_url = COALESCE(image_url, ?) WHERE id = ?"
+                )
+                  .bind(nn(plan.summary), nn(plan.imageUrl), nn(row.id))
+                  .run();
+
+                if (sources.length === 0) return;
+                const { results: existingSources } = await this.env.DB.prepare(
+                  "SELECT 1 FROM item_sources WHERE item_id = ? LIMIT 1"
+                )
+                  .bind(row.id)
+                  .all();
+                if ((existingSources ?? []).length > 0) return;
+
+                for (const sourceArgs of buildItemSourceBindArgs(
+                  row.id,
+                  sources
+                )) {
+                  await this.env.DB.prepare(
+                    `INSERT INTO item_sources (item_id, position, kind, author, posted_at, quote, url)
+                     VALUES (?, ?, ?, ?, ?, ?, ?)`
+                  )
+                    .bind(...sourceArgs)
+                    .run();
+                }
+              })
+            );
+          }
+        } catch (error) {
+          console.error("backfill-content step failed:", error);
+        }
+      });
+
+      // Translates whatever summaries exist (including ones the step above
+      // just backfilled) but don't have a Vietnamese translation yet.
+      await step.do("backfill-translate", async () => {
+        try {
+          const { results } = await this.env.DB.prepare(
+            buildMissingTranslationQuery()
+          ).all<{ id: string; title: string; summary: string }>();
+          const rows = results ?? [];
+          if (rows.length === 0) return;
+
+          const translated = await translateItems(
+            this.env,
+            rows.map((row, i) => ({
+              i,
+              title: row.title,
+              summary: row.summary,
+            }))
+          );
+          for (const result of translated) {
+            const row = rows[result.i];
+            if (!row || !result.title || result.summary === undefined) continue;
+            await this.env.DB.prepare(
+              `INSERT INTO translations (item_id, lang, title, summary)
+               VALUES (?, 'vi', ?, ?)
+               ON CONFLICT(item_id, lang) DO UPDATE SET summary = excluded.summary`
+            )
+              .bind(...buildTranslationBindArgs({
+                id: row.id,
+                title: result.title,
+                summary: result.summary,
+              }))
+              .run();
+          }
+        } catch (error) {
+          console.error("backfill-translate step failed:", error);
+        }
       });
 
       await step.do("tldr", async () => {

@@ -6,6 +6,7 @@ import { TrendingChips } from "../components/TrendingChips";
 import { fetchFeed } from "../lib/feed-fn";
 import { timeAgo } from "../lib/lang";
 import { useLang } from "../lib/lang-context";
+import { usePrefs } from "../lib/prefs";
 import type { FeedResponse } from "../lib/types";
 
 export const Route = createFileRoute("/")({
@@ -21,15 +22,20 @@ function IndexPage() {
   const feed = Route.useLoaderData();
   const { q } = Route.useSearch();
   const lang = useLang();
+  const { prefs } = usePrefs();
   const bullets = lang === "vi" ? feed.tldr?.bullets_vi : feed.tldr?.bullets_en;
 
   return (
     <div>
-      <CategoryNav categories={feed.categories} lang={lang} />
-      <TrendingChips
-        trending={feed.trending}
-        label={lang === "vi" ? "Xu hướng" : "Trending"}
-      />
+      {prefs.sections.categories && (
+        <CategoryNav categories={feed.categories} lang={lang} />
+      )}
+      {prefs.sections.trending && (
+        <TrendingChips
+          trending={feed.trending}
+          label={lang === "vi" ? "Xu hướng" : "Trending"}
+        />
+      )}
       {q ? (
         <p className="flex flex-wrap items-baseline justify-between gap-2 py-3 text-sm text-muted-foreground">
           <span>
@@ -45,18 +51,21 @@ function IndexPage() {
           )}
         </p>
       ) : (
-        <TldrSection
-          bullets={bullets ?? []}
-          lang={lang}
-          totalStories={feed.totalStories}
-          updatedAt={feed.updatedAt}
-          lastFetchedAt={feed.lastFetchedAt}
-        />
+        prefs.sections.tldr && (
+          <TldrSection
+            bullets={bullets ?? []}
+            lang={lang}
+            totalStories={feed.totalStories}
+            updatedAt={feed.updatedAt}
+            lastFetchedAt={feed.lastFetchedAt}
+          />
+        )
       )}
-      {feed.days.map((day) => (
-        <DaySection key={day.date} day={day} lang={lang} />
-      ))}
-      {feed.days.length === 0 && (
+      {prefs.sections.days &&
+        feed.days.map((day) => (
+          <DaySection key={day.date} day={day} lang={lang} />
+        ))}
+      {prefs.sections.days && feed.days.length === 0 && (
         <p className="py-16 text-center text-muted-foreground">
           {lang === "vi" ? "Chưa có tin nào." : "No stories yet."}
         </p>

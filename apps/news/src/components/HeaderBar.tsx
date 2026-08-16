@@ -2,6 +2,7 @@ import { AuthButtons } from "@duyet/components";
 import { Link } from "@tanstack/react-router";
 import type { Lang } from "../lib/types";
 import { LangToggle } from "./LangToggle";
+import { PrefsPanel } from "./PrefsPanel";
 import { SearchBox } from "./SearchBox";
 
 export function HeaderBar({
@@ -32,6 +33,7 @@ export function HeaderBar({
           />
         </div>
         <div className="flex shrink-0 items-center gap-2">
+          <PrefsPanel />
           <LangToggle lang={lang} onChange={onLangChange} />
           <AuthButtons
             signInClassName="h-7 w-7 flex items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"

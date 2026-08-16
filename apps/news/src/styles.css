@@ -94,7 +94,27 @@
 }
 
 /* Feed content area (day sections, TL;DR, story rows) keeps the compact
-   HuggingNews look — sans body font, distinct from the duyet.net chrome. */
+   HuggingNews look — sans body font, distinct from the duyet.net chrome.
+   Reader-preferences panel (PrefsPanel) drives the vars/attrs below. */
 .news-content {
   font-family: var(--content-font-sans);
+  font-size: calc(15px * var(--reader-font-size, 1));
+}
+
+.news-content[data-reader-font="serif"] {
+  font-family: var(--editorial-font-serif);
+}
+
+.news-content[data-reader-bg="cream"] {
+  --background: #faf6ec;
+  --foreground: #2b2620;
+}
+
+.news-content[data-reader-bg="gray"] {
+  --background: #dedede;
+  --foreground: #1c1c1a;
+}
+
+.news-content[data-reader-bg="black"] {
+  --background: #000000;
 }

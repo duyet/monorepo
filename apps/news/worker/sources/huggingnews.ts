@@ -230,7 +230,7 @@ function tweetToSource(tweet: SelectedTweet): FetchedItemSource | null {
   };
 }
 
-interface StoryDetail {
+export interface StoryDetail {
   sources: FetchedItemSource[];
   /** The story's written body, from `focusedStoryDetail.data.summary` — a
    * plain string (paragraphs already separated by blank lines), NOT an
@@ -238,64 +238,78 @@ interface StoryDetail {
   summary?: string;
 }
 
-/** Fetches a single story's detail page and extracts both the written body
- * (`focusedStoryDetail.data.summary`) and up to MAX_SOURCES_PER_ITEM
- * sources (`focusedStoryDetail.data.selectedTweets`) from the SAME
- * resolved object — one fetch covers both. Any failure (network, shape
- * mismatch, missing data) resolves to an empty result, never throws. */
+const EMPTY_STORY_DETAIL: StoryDetail = { sources: [] };
+
+/** Parses a fetched `__data.json` detail payload, extracting both the
+ * written body (`focusedStoryDetail.data.summary`) and up to
+ * MAX_SOURCES_PER_ITEM sources (`focusedStoryDetail.data.selectedTweets`)
+ * from the SAME resolved object. Returns an empty result on any shape
+ * mismatch; never throws. */
+function parseStoryDetailPayload(payload: { nodes?: unknown[] }): StoryDetail {
+  const nodes = payload.nodes ?? [];
+
+  for (const node of nodes) {
+    if (!node || typeof node !== "object") continue;
+    const data = (node as { data?: unknown[] }).data;
+    if (!Array.isArray(data)) continue;
+
+    for (let i = 0; i < data.length; i++) {
+      const resolved = resolve(data, i);
+      if (!resolved || typeof resolved !== "object") continue;
+      const tweets = deepFind(resolved, "selectedTweets");
+      const summaryRaw = deepFind(resolved, "summary");
+      if (!Array.isArray(tweets) && typeof summaryRaw !== "string") {
+        continue;
+      }
+
+      const sources: FetchedItemSource[] = [];
+      if (Array.isArray(tweets)) {
+        for (const tweet of tweets) {
+          if (!tweet || typeof tweet !== "object") continue;
+          const source = tweetToSource(tweet as SelectedTweet);
+          if (source) sources.push(source);
+          if (sources.length >= MAX_SOURCES_PER_ITEM) break;
+        }
+      }
+      const summary =
+        typeof summaryRaw === "string" && summaryRaw.trim()
+          ? summaryRaw.trim().slice(0, MAX_SUMMARY_CHARS)
+          : undefined;
+
+      if (sources.length > 0 || summary) return { sources, summary };
+    }
+  }
+  return EMPTY_STORY_DETAIL;
+}
+
+/** Fetches a story's `__data.json` detail page directly at `detailUrl` and
+ * parses it. Any failure (network, non-2xx, shape mismatch) resolves to an
+ * empty result, never throws. Shared by the feed adapter (which knows the
+ * topic/slug split) and the backfill pass (which only has the item's own
+ * canonical URL and appends `/__data.json` to it). */
+export async function fetchStoryDetailByUrl(
+  detailUrl: string
+): Promise<StoryDetail> {
+  try {
+    const res = await fetch(detailUrl, {
+      signal: AbortSignal.timeout(DETAIL_FETCH_TIMEOUT_MS),
+    });
+    if (!res.ok) return EMPTY_STORY_DETAIL;
+    const payload = (await res.json()) as { nodes?: unknown[] };
+    return parseStoryDetailPayload(payload);
+  } catch (error) {
+    console.error(`huggingnews detail fetch failed for ${detailUrl}:`, error);
+    return EMPTY_STORY_DETAIL;
+  }
+}
+
 async function fetchStoryDetail(
   topicSlug: string,
   slug: string
 ): Promise<StoryDetail> {
-  const empty: StoryDetail = { sources: [] };
-  try {
-    const res = await fetch(
-      `https://huggingnews.com/${topicSlug}/${slug}/__data.json`,
-      { signal: AbortSignal.timeout(DETAIL_FETCH_TIMEOUT_MS) }
-    );
-    if (!res.ok) return empty;
-    const payload = (await res.json()) as { nodes?: unknown[] };
-    const nodes = payload.nodes ?? [];
-
-    for (const node of nodes) {
-      if (!node || typeof node !== "object") continue;
-      const data = (node as { data?: unknown[] }).data;
-      if (!Array.isArray(data)) continue;
-
-      for (let i = 0; i < data.length; i++) {
-        const resolved = resolve(data, i);
-        if (!resolved || typeof resolved !== "object") continue;
-        const tweets = deepFind(resolved, "selectedTweets");
-        const summaryRaw = deepFind(resolved, "summary");
-        if (!Array.isArray(tweets) && typeof summaryRaw !== "string") {
-          continue;
-        }
-
-        const sources: FetchedItemSource[] = [];
-        if (Array.isArray(tweets)) {
-          for (const tweet of tweets) {
-            if (!tweet || typeof tweet !== "object") continue;
-            const source = tweetToSource(tweet as SelectedTweet);
-            if (source) sources.push(source);
-            if (sources.length >= MAX_SOURCES_PER_ITEM) break;
-          }
-        }
-        const summary =
-          typeof summaryRaw === "string" && summaryRaw.trim()
-            ? summaryRaw.trim().slice(0, MAX_SUMMARY_CHARS)
-            : undefined;
-
-        if (sources.length > 0 || summary) return { sources, summary };
-      }
-    }
-    return empty;
-  } catch (error) {
-    console.error(
-      `huggingnews detail fetch failed for ${topicSlug}/${slug}:`,
-      error
-    );
-    return empty;
-  }
+  return fetchStoryDetailByUrl(
+    `https://huggingnews.com/${topicSlug}/${slug}/__data.json`
+  );
 }
 
 /** Enriches the highest-priority stories with per-story sources and body

@@ -84,9 +84,13 @@ export function StoryRow({
   return (
     <div id={`item-${item.id}`} className="border-b border-border">
       <div
-        className={`flex items-baseline gap-3 py-2 ${
+        className={`flex items-baseline gap-3 ${
           hasDetails ? "cursor-pointer" : ""
         } ${expanded ? "bg-muted/60" : ""}`}
+        style={{
+          paddingTop: "var(--reader-pad, 0.5rem)",
+          paddingBottom: "var(--reader-pad, 0.5rem)",
+        }}
         onClick={() => hasDetails && setExpanded((v) => !v)}
         onKeyDown={(e) => {
           if (hasDetails && (e.key === "Enter" || e.key === " ")) {
@@ -157,7 +161,7 @@ export function StoryRow({
               )}
 
               {paragraphs.length > 0 && (
-                <div className="max-w-3xl space-y-3 text-[15px] leading-relaxed">
+                <div className="max-w-3xl space-y-3 leading-relaxed">
                   {paragraphs.map((p) => (
                     <p key={p}>{p}</p>
                   ))}
