@@ -13,6 +13,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as DreamRouteImport } from './routes/dream'
 import { Route as CIndexRouteImport } from './routes/c/index'
 import { Route as CCategoryRouteImport } from './routes/c/$category'
+import { Route as DIndexRouteImport } from './routes/d/index'
+import { Route as DDateRouteImport } from './routes/d/$date'
 import { Route as KSlugRouteImport } from './routes/k/$slug'
 import { Route as LlmsFullTxtRouteImport } from './routes/llms-full.txt'
 import { Route as LlmsTxtRouteImport } from './routes/llms.txt'
@@ -39,6 +41,16 @@ const CIndexRoute = CIndexRouteImport.update({
 const CCategoryRoute = CCategoryRouteImport.update({
   id: '/c/$category',
   path: '/c/$category',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DIndexRoute = DIndexRouteImport.update({
+  id: '/d/',
+  path: '/d/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DDateRoute = DDateRouteImport.update({
+  id: '/d/$date',
+  path: '/d/$date',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KSlugRoute = KSlugRouteImport.update({
@@ -81,6 +93,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dream': typeof DreamRoute
   '/c/$category': typeof CCategoryRoute
+  '/d/$date': typeof DDateRoute
   '/k/$slug': typeof KSlugRoute
   '/llms-full/txt': typeof LlmsFullTxtRoute
   '/llms/txt': typeof LlmsTxtRoute
@@ -88,12 +101,14 @@ export interface FileRoutesByFullPath {
   '/robots/txt': typeof RobotsTxtRoute
   '/sitemap/xml': typeof SitemapXmlRoute
   '/c/': typeof CIndexRoute
+  '/d/': typeof DIndexRoute
   '/m/': typeof MIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dream': typeof DreamRoute
   '/c/$category': typeof CCategoryRoute
+  '/d/$date': typeof DDateRoute
   '/k/$slug': typeof KSlugRoute
   '/llms-full/txt': typeof LlmsFullTxtRoute
   '/llms/txt': typeof LlmsTxtRoute
@@ -101,6 +116,7 @@ export interface FileRoutesByTo {
   '/robots/txt': typeof RobotsTxtRoute
   '/sitemap/xml': typeof SitemapXmlRoute
   '/c': typeof CIndexRoute
+  '/d': typeof DIndexRoute
   '/m': typeof MIndexRoute
 }
 export interface FileRoutesById {
@@ -108,6 +124,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/dream': typeof DreamRoute
   '/c/$category': typeof CCategoryRoute
+  '/d/$date': typeof DDateRoute
   '/k/$slug': typeof KSlugRoute
   '/llms-full/txt': typeof LlmsFullTxtRoute
   '/llms/txt': typeof LlmsTxtRoute
@@ -115,6 +132,7 @@ export interface FileRoutesById {
   '/robots/txt': typeof RobotsTxtRoute
   '/sitemap/xml': typeof SitemapXmlRoute
   '/c/': typeof CIndexRoute
+  '/d/': typeof DIndexRoute
   '/m/': typeof MIndexRoute
 }
 export interface FileRouteTypes {
@@ -123,6 +141,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dream'
     | '/c/$category'
+    | '/d/$date'
     | '/k/$slug'
     | '/llms-full/txt'
     | '/llms/txt'
@@ -130,12 +149,14 @@ export interface FileRouteTypes {
     | '/robots/txt'
     | '/sitemap/xml'
     | '/c/'
+    | '/d/'
     | '/m/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/dream'
     | '/c/$category'
+    | '/d/$date'
     | '/k/$slug'
     | '/llms-full/txt'
     | '/llms/txt'
@@ -143,12 +164,14 @@ export interface FileRouteTypes {
     | '/robots/txt'
     | '/sitemap/xml'
     | '/c'
+    | '/d'
     | '/m'
   id:
     | '__root__'
     | '/'
     | '/dream'
     | '/c/$category'
+    | '/d/$date'
     | '/k/$slug'
     | '/llms-full/txt'
     | '/llms/txt'
@@ -156,6 +179,7 @@ export interface FileRouteTypes {
     | '/robots/txt'
     | '/sitemap/xml'
     | '/c/'
+    | '/d/'
     | '/m/'
   fileRoutesById: FileRoutesById
 }
@@ -163,6 +187,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DreamRoute: typeof DreamRoute
   CCategoryRoute: typeof CCategoryRoute
+  DDateRoute: typeof DDateRoute
   KSlugRoute: typeof KSlugRoute
   LlmsFullTxtRoute: typeof LlmsFullTxtRoute
   LlmsTxtRoute: typeof LlmsTxtRoute
@@ -170,6 +195,7 @@ export interface RootRouteChildren {
   RobotsTxtRoute: typeof RobotsTxtRoute
   SitemapXmlRoute: typeof SitemapXmlRoute
   CIndexRoute: typeof CIndexRoute
+  DIndexRoute: typeof DIndexRoute
   MIndexRoute: typeof MIndexRoute
 }
 
@@ -201,6 +227,20 @@ declare module '@tanstack/react-router' {
       path: '/c/$category'
       fullPath: '/c/$category'
       preLoaderRoute: typeof CCategoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/d/': {
+      id: '/d/'
+      path: '/d'
+      fullPath: '/d/'
+      preLoaderRoute: typeof DIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/d/$date': {
+      id: '/d/$date'
+      path: '/d/$date'
+      fullPath: '/d/$date'
+      preLoaderRoute: typeof DDateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/k/$slug': {
@@ -259,6 +299,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DreamRoute: DreamRoute,
   CCategoryRoute: CCategoryRoute,
+  DDateRoute: DDateRoute,
   KSlugRoute: KSlugRoute,
   LlmsFullTxtRoute: LlmsFullTxtRoute,
   LlmsTxtRoute: LlmsTxtRoute,
@@ -266,6 +307,7 @@ const rootRouteChildren: RootRouteChildren = {
   RobotsTxtRoute: RobotsTxtRoute,
   SitemapXmlRoute: SitemapXmlRoute,
   CIndexRoute: CIndexRoute,
+  DIndexRoute: DIndexRoute,
   MIndexRoute: MIndexRoute,
 }
 export const routeTree = rootRouteImport

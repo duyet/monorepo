@@ -1,7 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ExternalLink, Tag } from "lucide-react";
-import { MiniGraph } from "../../components/MiniGraph";
+import { extractLocalGraph, LocalGraph } from "../../components/LocalGraph";
 import { getArticleBySlug, getLinkedArticles } from "../../../lib/content";
+import { buildKbGraph } from "../../../lib/graph";
 import { markdownToHtml } from "../../../lib/markdown";
 
 export const Route = createFileRoute("/k/$slug")({
@@ -10,7 +11,8 @@ export const Route = createFileRoute("/k/$slug")({
     if (!article) throw notFound();
     const html = await markdownToHtml(article.raw);
     const linked = getLinkedArticles(params.slug);
-    return { article, html, linked };
+    const localGraph = extractLocalGraph(buildKbGraph(), params.slug, 2);
+    return { article, html, linked, localGraph };
   },
   head: ({ loaderData }) => {
     const article = loaderData?.article;
@@ -40,11 +42,12 @@ export const Route = createFileRoute("/k/$slug")({
 });
 
 function ArticlePage() {
-  const { article, html, linked } = Route.useLoaderData();
+  const { article, html, linked, localGraph } = Route.useLoaderData();
   const hasLinks = linked.outgoing.length > 0 || linked.incoming.length > 0;
+  const hasSidebar = hasLinks || localGraph.nodes.length > 1;
 
   return (
-    <div className="mx-auto max-w-4xl px-4 sm:px-6 py-12">
+    <main className="mx-auto max-w-4xl px-4 sm:px-6 py-12">
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_220px] gap-10">
         {/* Main content */}
         <article>
@@ -116,8 +119,8 @@ function ArticlePage() {
           </div>
         </article>
 
-        {/* Sidebar — linked articles + mini graph */}
-        {hasLinks && (
+        {/* Sidebar — linked articles + local graph */}
+        {hasSidebar && (
           <aside className="space-y-6">
             {linked.outgoing.length > 0 && (
               <div>
@@ -160,15 +163,14 @@ function ArticlePage() {
               </div>
             )}
 
-            <MiniGraph
-              currentSlug={article.slug}
-              currentTitle={article.title}
-              outgoing={linked.outgoing}
-              incoming={linked.incoming}
+            <LocalGraph
+              nodes={localGraph.nodes}
+              edges={localGraph.edges}
+              currentId={article.slug}
             />
           </aside>
         )}
       </div>
-    </div>
+    </main>
   );
 }

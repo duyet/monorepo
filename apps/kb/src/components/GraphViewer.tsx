@@ -1,376 +1,500 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { getAllContent, type ContentItem, type MemoryNote } from "../../lib/content";
 import { markdownToHtml } from "../../lib/markdown";
 
-type AttrMap = Record<string, unknown>;
 // Lazy-loaded in the browser only — sigma/graphology touch WebGL at import time
 // and crash Node prerender (WebGL2RenderingContext is not defined).
 type GraphologyGraph = import("graphology").default;
 type SigmaInstance = import("sigma").default;
-type GraphologyCtor = typeof import("graphology").default;
-type ForceAtlas2 = typeof import("graphology-layout-forceatlas2").default;
+type FA2SupervisorCtor = typeof import("graphology-layout-forceatlas2/worker").default;
+type FA2Supervisor = InstanceType<FA2SupervisorCtor>;
 type SigmaCtor = typeof import("sigma").default;
 
 /**
  * Obsidian-style knowledge-graph viewer (homepage).
  *
- * Sigma.js (WebGL) + Graphology ForceAtlas2:
- * pan/zoom, node drag, hover neighbor highlight, click-to-read panel,
- * type filters, search, label density by zoom.
+ * Fetches the prebuilt /graph-data.json (no raw markdown in the bundle),
+ * lays it out with a live ForceAtlas2 worker (graphology-layout-forceatlas2),
+ * and renders with Sigma.js (WebGL): pan/zoom, node drag (reheats layout),
+ * hover neighbor highlight, click-to-read detail panel (markdown fetched on
+ * demand), kind/tag filters, force sliders, and search.
  */
 
-const PALETTE: Record<string, string> = {
+type NodeKind = "article" | "memory" | "inbox" | "tag";
+
+interface GraphNode {
+  id: string;
+  label: string;
+  kind: NodeKind;
+  memoryType?: string;
+  href: string;
+  tags: string[];
+  description: string;
+  updated: string;
+}
+
+interface GraphEdge {
+  source: string;
+  target: string;
+  kind: "link" | "tag";
+}
+
+interface GraphData {
+  generated: string;
+  nodes: GraphNode[];
+  edges: GraphEdge[];
+}
+
+type AttrMap = Record<string, unknown>;
+
+const MEMORY_PALETTE: Record<string, string> = {
   user: "#a78bfa",
   feedback: "#f472b6",
   project: "#60a5fa",
-  reference: "#34d399",
-  tech: "#fbbf24",
-  Article: "#94a3b8",
+  reference: "#f59e0b",
+  tech: "#eab308",
 };
 
-const EDGE_COLOR = "#3f3f46";
-const EDGE_HOVER = "#a1a1aa";
-const BG = "#0a0a0a";
+const KIND_LABEL: Record<NodeKind, string> = {
+  article: "Article",
+  memory: "Memory",
+  inbox: "Daily",
+  tag: "Tag",
+};
 
-const isMemory = (it: ContentItem): it is MemoryNote => "memoryType" in it;
+const THEME = {
+  light: {
+    bg: "#fafafa",
+    edge: "#d4d4d8",
+    edgeHover: "#71717a",
+    dim: "#e4e4e7",
+    label: "#3f3f46",
+    article: "#6b7280",
+    inbox: "#3b82f6",
+    tag: "#22c55e",
+  },
+  dark: {
+    bg: "#0a0a0a",
+    edge: "#3f3f46",
+    edgeHover: "#a1a1aa",
+    dim: "#1c1c1f",
+    label: "#a1a1aa",
+    article: "#9ca3af",
+    inbox: "#3b82f6",
+    tag: "#22c55e",
+  },
+};
 
-interface NodeMeta {
-  id: string;
-  label: string;
-  type: string;
-  description: string;
-  tags: string[];
-  resource: string;
-  color: string;
-  href: string;
+function nodeColor(node: GraphNode, theme: typeof THEME.light): string {
+  if (node.kind === "memory") return MEMORY_PALETTE[node.memoryType ?? ""] ?? theme.article;
+  if (node.kind === "inbox") return theme.inbox;
+  if (node.kind === "tag") return theme.tag;
+  return theme.article;
 }
 
-function stripWikilink(s: string): string {
-  return s.replace(/^\[\[/, "").replace(/\]\]$/, "").trim();
+function readDark(): boolean {
+  if (typeof document === "undefined") return true;
+  if (document.documentElement.classList.contains("dark")) return true;
+  if (document.documentElement.classList.contains("light")) return false;
+  return window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? true;
 }
 
-function buildGraphData() {
-  const items = getAllContent();
-  const bySlug = new Map(items.map((it) => [it.slug, it]));
-  const nodes: NodeMeta[] = [];
-  const bodies: Record<string, string> = {};
-  const degree: Record<string, number> = {};
-  const edgeKeys = new Set<string>();
-  const backlinks: Record<string, string[]> = {};
-
-  for (const it of items) {
-    const type = isMemory(it) ? it.memoryType : "Article";
-    nodes.push({
-      id: it.slug,
-      label: it.title || it.slug,
-      type,
-      description: isMemory(it) ? it.description : it.summary,
-      tags: it.tags ?? [],
-      resource: isMemory(it) ? (it.sources[0] ?? "") : "",
-      color: PALETTE[type] ?? "#94a3b8",
-      href: isMemory(it) ? `/m/${it.slug}` : `/k/${it.slug}`,
-    });
-    bodies[it.slug] = it.raw ?? "";
-  }
-
-  for (const it of items) {
-    const targets = (isMemory(it) ? it.related : it.links).map(stripWikilink);
-    for (const t of targets) {
-      if (!t || t === it.slug || !bySlug.has(t)) continue;
-      // Undirected edge key for layout density (still store directed backlinks)
-      const undirected = [it.slug, t].sort().join("__");
-      if (!edgeKeys.has(undirected)) {
-        edgeKeys.add(undirected);
-      }
-      if (!backlinks[t]) backlinks[t] = [];
-      if (!backlinks[t].includes(it.slug)) backlinks[t].push(it.slug);
-      degree[it.slug] = (degree[it.slug] ?? 0) + 1;
-      degree[t] = (degree[t] ?? 0) + 1;
-    }
-  }
-
-  const types = [...new Set(nodes.map((n) => n.type))].sort();
-  return { nodes, bodies, backlinks, degree, edgeKeys, types };
+function rawMdUrl(node: GraphNode): string | null {
+  if (node.kind === "tag") return null;
+  return `${node.href}.md`;
 }
 
-function createGraphologyGraph(
-  Graph: GraphologyCtor,
-  forceAtlas2: ForceAtlas2,
-  nodes: NodeMeta[],
-  edgeKeys: Set<string>,
-  degree: Record<string, number>,
-): GraphologyGraph {
-  const graph = new Graph({ multi: false, type: "undirected", allowSelfLoops: false });
-  const n = Math.max(nodes.length, 1);
-
-  nodes.forEach((node, i) => {
-    // Deterministic ring seed so FA2 never starts at all-zeros
-    const angle = (2 * Math.PI * i) / n;
-    const radius = 40 + (i % 7) * 3;
-    const deg = degree[node.id] ?? 0;
-    graph.addNode(node.id, {
-      label: node.label,
-      x: Math.cos(angle) * radius,
-      y: Math.sin(angle) * radius,
-      size: 4 + Math.min(deg, 12) * 0.9,
-      color: node.color,
-      type: "circle",
-      nodeType: node.type,
-      forceLabel: false,
-      zIndex: 1,
-    });
-  });
-
-  for (const key of edgeKeys) {
-    const [source, target] = key.split("__");
-    if (!graph.hasNode(source) || !graph.hasNode(target)) continue;
-    if (graph.hasEdge(source, target)) continue;
-    graph.addEdge(source, target, {
-      size: 0.6,
-      color: EDGE_COLOR,
-      zIndex: 0,
-    });
-  }
-
-  // FA2 — synchronous is fine for ~150 nodes; freeze after assign
-  const sensible = forceAtlas2.inferSettings(graph);
-  forceAtlas2.assign(graph, {
-    iterations: 280,
-    settings: {
-      ...sensible,
-      gravity: 0.8,
-      scalingRatio: 12,
-      strongGravityMode: true,
-      barnesHutOptimize: graph.order > 80,
-      adjustSizes: true,
-      slowDown: 2,
-    },
-  });
-
-  return graph;
+interface ForceSettings {
+  gravity: number; // center force
+  scalingRatio: number; // repel force
+  edgeWeightInfluence: number; // link force
+  linkDistance: number; // uniform edge weight (higher = looser)
 }
+
+const DEFAULT_FORCES: ForceSettings = {
+  gravity: 1,
+  scalingRatio: 10,
+  edgeWeightInfluence: 1,
+  linkDistance: 1,
+};
 
 export function GraphViewer() {
   const containerRef = useRef<HTMLDivElement>(null);
   const sigmaRef = useRef<SigmaInstance | null>(null);
   const graphRef = useRef<GraphologyGraph | null>(null);
+  const layoutRef = useRef<FA2Supervisor | null>(null);
   const dragRef = useRef<{ node: string | null; dragging: boolean }>({
     node: null,
     dragging: false,
   });
   const hoverRef = useRef<string | null>(null);
   const selectedRef = useRef<string | null>(null);
-  const hiddenTypesRef = useRef<Set<string>>(new Set());
+  const hiddenKindsRef = useRef<Set<string>>(new Set());
+  const orphansOnlyRef = useRef(false);
   const applyVisualRef = useRef<() => void>(() => {});
+  const themeRef = useRef(THEME.dark);
+  const restartLayout = useRef<(settings: ForceSettings) => void>(() => {});
 
-  const data = useMemo(() => buildGraphData(), []);
-  const [nodeMap] = useState(() => {
-    const map: Record<string, NodeMeta> = {};
-    for (const n of data.nodes) map[n.id] = n;
-    return map;
-  });
-  const [selected, setSelected] = useState<string | null>(data.nodes[0]?.id ?? null);
+  const [data, setData] = useState<GraphData | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(null);
   const [hover, setHover] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
   const [bodyHtml, setBodyHtml] = useState("");
+  const [bodyLoading, setBodyLoading] = useState(false);
   const [query, setQuery] = useState("");
-  const [hiddenTypes, setHiddenTypes] = useState<Set<string>>(new Set());
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [hiddenKinds, setHiddenKinds] = useState<Set<string>>(new Set());
+  const [orphansOnly, setOrphansOnly] = useState(false);
+  const [dark, setDark] = useState(true);
+  const [controlsOpen, setControlsOpen] = useState(true);
+  const [forces, setForces] = useState<ForceSettings>(DEFAULT_FORCES);
 
-  selectedRef.current = selected;
-  hiddenTypesRef.current = hiddenTypes;
-
-  // Markdown body for detail panel
   useEffect(() => {
     let cancelled = false;
-    const md = selected ? data.bodies[selected] : "";
-    if (!md) {
-      setBodyHtml("");
-      return;
-    }
-    markdownToHtml(md).then((html) => {
-      if (!cancelled) setBodyHtml(html);
-    });
+    fetch("/graph-data.json")
+      .then((r) => {
+        if (!r.ok) throw new Error(`graph-data.json ${r.status}`);
+        return r.json();
+      })
+      .then((json: GraphData) => {
+        if (!cancelled) setData(json);
+      })
+      .catch((err) => {
+        if (!cancelled) setLoadError(String(err));
+      });
     return () => {
       cancelled = true;
     };
-  }, [selected, data.bodies]);
+  }, []);
 
-  // Mount Sigma (dynamic import — keep WebGL libs out of SSR/prerender)
+  const nodeMap = useMemo(() => {
+    const map: Record<string, GraphNode> = {};
+    for (const n of data?.nodes ?? []) map[n.id] = n;
+    return map;
+  }, [data]);
+
+  const degree = useMemo(() => {
+    const deg: Record<string, number> = {};
+    for (const e of data?.edges ?? []) {
+      deg[e.source] = (deg[e.source] ?? 0) + 1;
+      deg[e.target] = (deg[e.target] ?? 0) + 1;
+    }
+    return deg;
+  }, [data]);
+
+  const backlinks = useMemo(() => {
+    const bl: Record<string, string[]> = {};
+    for (const e of data?.edges ?? []) {
+      if (!bl[e.target]) bl[e.target] = [];
+      if (!bl[e.target].includes(e.source)) bl[e.target].push(e.source);
+    }
+    return bl;
+  }, [data]);
+
+  const kinds = useMemo(() => {
+    const set = new Set<string>();
+    for (const n of data?.nodes ?? []) {
+      set.add(n.kind === "memory" ? `memory:${n.memoryType ?? "other"}` : n.kind);
+    }
+    return [...set].sort();
+  }, [data]);
+
+  selectedRef.current = selected;
+  hiddenKindsRef.current = hiddenKinds;
+  orphansOnlyRef.current = orphansOnly;
+  themeRef.current = dark ? THEME.dark : THEME.light;
+
+  // Theme detection: class on <html> + system preference
   useEffect(() => {
-    if (!containerRef.current) return;
+    setDark(readDark());
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const onMq = () => setDark(readDark());
+    mq.addEventListener("change", onMq);
+    const observer = new MutationObserver(() => setDark(readDark()));
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    return () => {
+      mq.removeEventListener("change", onMq);
+      observer.disconnect();
+    };
+  }, []);
+
+  // Markdown body for detail panel — fetched on demand
+  useEffect(() => {
+    let cancelled = false;
+    const node = selected ? nodeMap[selected] : null;
+    if (!node) {
+      setBodyHtml("");
+      return;
+    }
+    const url = rawMdUrl(node);
+    if (!url) {
+      setBodyHtml("");
+      return;
+    }
+    setBodyLoading(true);
+    fetch(url)
+      .then((r) => (r.ok ? r.text() : Promise.reject(new Error(`${url} ${r.status}`))))
+      .then((md) => markdownToHtml(md.replace(/^---[\s\S]*?---\n/, "")))
+      .then((html) => {
+        if (!cancelled) setBodyHtml(html);
+      })
+      .catch(() => {
+        if (!cancelled) setBodyHtml("");
+      })
+      .finally(() => {
+        if (!cancelled) setBodyLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [selected, nodeMap]);
+
+  // Mount Sigma + FA2 worker (dynamic import — keep WebGL libs out of SSR/prerender)
+  useEffect(() => {
+    if (!containerRef.current || !data) return;
     let cancelled = false;
     let sigma: SigmaInstance | null = null;
+    let stopTimer: ReturnType<typeof setTimeout> | null = null;
 
     (async () => {
-      const [{ default: Graph }, { default: forceAtlas2 }, { default: Sigma }] =
+      const [{ default: Graph }, { default: FA2LayoutSupervisor }, { default: Sigma }] =
         await Promise.all([
           import("graphology"),
-          import("graphology-layout-forceatlas2"),
+          import("graphology-layout-forceatlas2/worker"),
           import("sigma"),
         ]);
       if (cancelled || !containerRef.current) return;
 
       try {
-      const graph = createGraphologyGraph(
-        Graph as GraphologyCtor,
-        forceAtlas2 as ForceAtlas2,
-        data.nodes,
-        data.edgeKeys,
-        data.degree,
-      );
-      graphRef.current = graph;
-      sigma = new (Sigma as SigmaCtor)(graph, containerRef.current, {
-        allowInvalidContainer: true,
-        renderLabels: true,
-        renderEdgeLabels: false,
-        labelFont: "ui-sans-serif, system-ui, sans-serif",
-        labelSize: 11,
-        labelWeight: "500",
-        labelColor: { color: "#a1a1aa" },
-        labelDensity: 0.12,
-        labelGridCellSize: 80,
-        labelRenderedSizeThreshold: 8,
-        defaultNodeColor: "#94a3b8",
-        defaultEdgeColor: EDGE_COLOR,
-        stagePadding: 40,
-        minCameraRatio: 0.08,
-        maxCameraRatio: 12,
-      });
-      if (cancelled) {
-        sigma.kill();
-        return;
-      }
-      sigmaRef.current = sigma;
-      const s = sigma;
+        const graph = new Graph({ multi: false, type: "directed", allowSelfLoops: false }) as GraphologyGraph;
+        const n = Math.max(data.nodes.length, 1);
 
-      const applyVisual = () => {
-      const hovered = hoverRef.current;
-      const sel = selectedRef.current;
-      const hidden = hiddenTypesRef.current;
-      const neighbors = new Set<string>();
-      const focus = hovered ?? sel;
-      if (focus && graph.hasNode(focus)) {
-        neighbors.add(focus);
-        graph.forEachNeighbor(focus, (n) => neighbors.add(n));
-      }
+        data.nodes.forEach((node, i) => {
+          const angle = (2 * Math.PI * i) / n;
+          const radius = 40 + (i % 7) * 3;
+          const deg = degree[node.id] ?? 0;
+          const base = node.kind === "tag" ? 3.5 : 4.5;
+          graph.addNode(node.id, {
+            label: node.label,
+            x: Math.cos(angle) * radius,
+            y: Math.sin(angle) * radius,
+            size: base + Math.sqrt(deg) * 1.8,
+            color: nodeColor(node, themeRef.current),
+            type: "circle",
+            nodeKind: node.kind === "memory" ? `memory:${node.memoryType ?? "other"}` : node.kind,
+            forceLabel: false,
+            zIndex: 1,
+          });
+        });
 
-      s.setSetting("nodeReducer", (node, attrs) => {
-        const res: AttrMap = { ...attrs };
-        const nodeType = graph.getNodeAttribute(node, "nodeType") as string;
-        if (hidden.has(nodeType)) {
-          res.hidden = true;
-          return res;
+        for (const e of data.edges) {
+          if (!graph.hasNode(e.source) || !graph.hasNode(e.target)) continue;
+          if (graph.hasEdge(e.source, e.target)) continue;
+          graph.addEdgeWithKey(`${e.source}->${e.target}`, e.source, e.target, {
+            size: e.kind === "tag" ? 0.5 : 0.7,
+            color: themeRef.current.edge,
+            type: "arrow",
+            weight: 1,
+            zIndex: 0,
+          });
         }
-        res.hidden = false;
-        if (focus && neighbors.size) {
-          if (neighbors.has(node)) {
-            res.zIndex = 2;
-            res.forceLabel = node === focus;
-            if (node === focus) res.size = (attrs.size as number) * 1.35;
-          } else {
-            res.color = "#27272a";
-            res.label = "";
-            res.zIndex = 0;
+
+        graphRef.current = graph;
+
+        sigma = new (Sigma as SigmaCtor)(graph, containerRef.current, {
+          allowInvalidContainer: true,
+          renderLabels: true,
+          renderEdgeLabels: false,
+          defaultEdgeType: "arrow",
+          labelFont: "ui-sans-serif, system-ui, sans-serif",
+          labelSize: 11,
+          labelWeight: "500",
+          labelColor: { color: themeRef.current.label },
+          labelDensity: 0.12,
+          labelGridCellSize: 80,
+          labelRenderedSizeThreshold: 8,
+          defaultNodeColor: themeRef.current.article,
+          defaultEdgeColor: themeRef.current.edge,
+          stagePadding: 40,
+          minCameraRatio: 0.08,
+          maxCameraRatio: 12,
+        });
+        if (cancelled) {
+          sigma.kill();
+          return;
+        }
+        sigmaRef.current = sigma;
+        const s = sigma;
+
+        const applyVisual = () => {
+          const hovered = hoverRef.current;
+          const sel = selectedRef.current;
+          const hidden = hiddenKindsRef.current;
+          const onlyOrphans = orphansOnlyRef.current;
+          const theme = themeRef.current;
+          const neighbors = new Set<string>();
+          const focus = hovered ?? sel;
+          if (focus && graph.hasNode(focus)) {
+            neighbors.add(focus);
+            graph.forEachNeighbor(focus, (nb) => neighbors.add(nb));
           }
-        } else if (sel && node === sel) {
-          res.forceLabel = true;
-          res.size = (attrs.size as number) * 1.25;
-          res.zIndex = 2;
-        }
-        return res;
-      });
 
-      s.setSetting("edgeReducer", (edge, attrs) => {
-        const res: AttrMap = { ...attrs };
-        const [a, b] = graph.extremities(edge);
-        const aType = graph.getNodeAttribute(a, "nodeType") as string;
-        const bType = graph.getNodeAttribute(b, "nodeType") as string;
-        if (hidden.has(aType) || hidden.has(bType)) {
-          res.hidden = true;
-          return res;
-        }
-        if (focus && neighbors.size) {
-          if (neighbors.has(a) && neighbors.has(b)) {
-            res.color = EDGE_HOVER;
-            res.size = 1.2;
-            res.zIndex = 1;
-          } else {
-            res.color = "#1c1c1f";
-            res.zIndex = 0;
+          s.setSetting("nodeReducer", (node, attrs) => {
+            const res: AttrMap = { ...attrs };
+            const nodeKind = graph.getNodeAttribute(node, "nodeKind") as string;
+            if (hidden.has(nodeKind)) {
+              res.hidden = true;
+              return res;
+            }
+            if (onlyOrphans && graph.degree(node) > 0) {
+              res.hidden = true;
+              return res;
+            }
+            res.hidden = false;
+            if (focus && neighbors.size) {
+              if (neighbors.has(node)) {
+                res.zIndex = 2;
+                res.forceLabel = true;
+                if (node === focus) res.size = (attrs.size as number) * 1.35;
+              } else {
+                res.color = theme.dim;
+                res.label = "";
+                res.zIndex = 0;
+              }
+            } else if (sel && node === sel) {
+              res.forceLabel = true;
+              res.size = (attrs.size as number) * 1.25;
+              res.zIndex = 2;
+            }
+            return res;
+          });
+
+          s.setSetting("edgeReducer", (edge, attrs) => {
+            const res: AttrMap = { ...attrs };
+            const [a, b] = graph.extremities(edge);
+            const aKind = graph.getNodeAttribute(a, "nodeKind") as string;
+            const bKind = graph.getNodeAttribute(b, "nodeKind") as string;
+            if (hidden.has(aKind) || hidden.has(bKind)) {
+              res.hidden = true;
+              return res;
+            }
+            if (onlyOrphans) {
+              res.hidden = true;
+              return res;
+            }
+            if (focus && neighbors.size) {
+              if (neighbors.has(a) && neighbors.has(b)) {
+                res.color = theme.edgeHover;
+                res.size = 1.2;
+                res.zIndex = 1;
+              } else {
+                res.color = theme.dim;
+                res.zIndex = 0;
+              }
+            } else {
+              res.color = theme.edge;
+            }
+            return res;
+          });
+
+          s.refresh();
+        };
+        applyVisualRef.current = applyVisual;
+
+        // FA2 worker layout — live, auto-stop after settle, restarts on drag/slider change
+        const startLayout = (settings: ForceSettings) => {
+          layoutRef.current?.kill();
+          if (stopTimer) clearTimeout(stopTimer);
+          graph.forEachEdge((edge) => graph.setEdgeAttribute(edge, "weight", settings.linkDistance));
+          const layout = new (FA2LayoutSupervisor as FA2SupervisorCtor)(graph, {
+            settings: {
+              gravity: settings.gravity,
+              scalingRatio: settings.scalingRatio,
+              edgeWeightInfluence: settings.edgeWeightInfluence,
+              strongGravityMode: true,
+              barnesHutOptimize: graph.order > 80,
+              adjustSizes: true,
+              slowDown: 3,
+              linLogMode: false,
+            },
+            getEdgeWeight: "weight",
+          });
+          layout.start();
+          layoutRef.current = layout;
+          stopTimer = setTimeout(() => layout.stop(), 4500);
+        };
+        restartLayout.current = startLayout;
+        startLayout(DEFAULT_FORCES);
+
+        // Drag nodes — fixes node while dragging, reheats layout
+        s.on("downNode", (e) => {
+          dragRef.current = { node: e.node, dragging: true };
+          layoutRef.current?.start();
+          if (stopTimer) clearTimeout(stopTimer);
+          if (!s.getCustomBBox()) s.setCustomBBox(s.getBBox());
+        });
+        s.getMouseCaptor().on("mousemovebody", (e) => {
+          const { node, dragging } = dragRef.current;
+          if (!dragging || !node) return;
+          const pos = s.viewportToGraph(e);
+          graph.setNodeAttribute(node, "x", pos.x);
+          graph.setNodeAttribute(node, "y", pos.y);
+          e.preventSigmaDefault();
+          e.original.preventDefault();
+          e.original.stopPropagation();
+        });
+        const stopDrag = () => {
+          if (dragRef.current.dragging) {
+            stopTimer = setTimeout(() => layoutRef.current?.stop(), 2000);
           }
-        }
-        return res;
-      });
+          dragRef.current = { node: null, dragging: false };
+        };
+        s.getMouseCaptor().on("mouseup", stopDrag);
+        s.getMouseCaptor().on("mouseleave", stopDrag);
 
-      s.refresh();
-    };
-      applyVisualRef.current = applyVisual;
+        // Hover
+        s.on("enterNode", ({ node }) => {
+          hoverRef.current = node;
+          setHover(node);
+          document.body.style.cursor = "pointer";
+          applyVisual();
+        });
+        s.on("leaveNode", () => {
+          hoverRef.current = null;
+          setHover(null);
+          document.body.style.cursor = "default";
+          applyVisual();
+        });
 
-      // Drag nodes
-      s.on("downNode", (e) => {
-        dragRef.current = { node: e.node, dragging: true };
-        if (!s.getCustomBBox()) s.setCustomBBox(s.getBBox());
-      });
-      s.getMouseCaptor().on("mousemovebody", (e) => {
-        const { node, dragging } = dragRef.current;
-        if (!dragging || !node) return;
-        const pos = s.viewportToGraph(e);
-        graph.setNodeAttribute(node, "x", pos.x);
-        graph.setNodeAttribute(node, "y", pos.y);
-        e.preventSigmaDefault();
-        e.original.preventDefault();
-        e.original.stopPropagation();
-      });
-      const stopDrag = () => {
-        dragRef.current = { node: null, dragging: false };
-      };
-      s.getMouseCaptor().on("mouseup", stopDrag);
-      s.getMouseCaptor().on("mouseleave", stopDrag);
+        // Click
+        s.on("clickNode", ({ node }) => {
+          selectedRef.current = node;
+          setSelected(node);
+          // Camera space, not graph space — the live FA2 layout rescales graph
+          // coordinates, so raw node attrs no longer match the camera frame.
+          const display = s.getNodeDisplayData(node);
+          const camera = s.getCamera();
+          if (display) {
+            camera.animate(
+              { x: display.x, y: display.y, ratio: Math.min(camera.ratio, 0.55) },
+              { duration: 280 },
+            );
+          }
+          applyVisual();
+        });
 
-      // Hover
-      s.on("enterNode", ({ node }) => {
-        hoverRef.current = node;
-        setHover(node);
-        document.body.style.cursor = "pointer";
-        applyVisual();
-      });
-      s.on("leaveNode", () => {
-        hoverRef.current = null;
-        setHover(null);
-        document.body.style.cursor = "default";
-        applyVisual();
-      });
+        s.on("clickStage", () => {
+          hoverRef.current = null;
+          setHover(null);
+          applyVisual();
+        });
 
-      // Click
-      s.on("clickNode", ({ node }) => {
-        selectedRef.current = node;
-        setSelected(node);
-        const attrs = graph.getNodeAttributes(node);
-        const camera = s.getCamera();
-        camera.animate(
-          {
-            x: attrs.x as number,
-            y: attrs.y as number,
-            ratio: Math.min(camera.ratio, 0.55),
-          },
-          { duration: 280 },
-        );
-        applyVisual();
-      });
-
-      // Click stage clears hover focus (keep selection)
-      s.on("clickStage", () => {
-        hoverRef.current = null;
-        setHover(null);
-        applyVisual();
-      });
-
-      setReady(true);
-      queueMicrotask(applyVisual);
-    } catch (err) {
-      console.error("[GraphViewer] failed to mount", err);
-      setReady(false);
-    }
+        setReady(true);
+        queueMicrotask(applyVisual);
+      } catch (err) {
+        console.error("[GraphViewer] failed to mount", err);
+        setReady(false);
+      }
     })().catch((err) => {
       if (!cancelled) {
         console.error("[GraphViewer] failed to load graph libs", err);
@@ -380,48 +504,71 @@ export function GraphViewer() {
 
     return () => {
       cancelled = true;
+      if (stopTimer) clearTimeout(stopTimer);
       document.body.style.cursor = "default";
+      layoutRef.current?.kill();
+      layoutRef.current = null;
       sigmaRef.current?.kill();
       sigmaRef.current = null;
       graphRef.current = null;
     };
-  }, [data]);
+  }, [data, degree]);
 
-  // Re-apply when selection / type filter / hover state changes (refs already updated)
+  // Re-apply visuals when selection / filters / hover change
   useEffect(() => {
     applyVisualRef.current();
-  }, [selected, hiddenTypes, hover]);
+  }, [selected, hiddenKinds, orphansOnly, hover]);
+
+  // Re-apply theme colors on theme change (no relayout needed)
+  useEffect(() => {
+    const graph = graphRef.current;
+    const sigma = sigmaRef.current;
+    if (!graph || !sigma || !data) return;
+    const theme = themeRef.current;
+    graph.forEachNode((id) => {
+      const meta = nodeMap[id];
+      if (meta) graph.setNodeAttribute(id, "color", nodeColor(meta, theme));
+    });
+    graph.forEachEdge((edge) => graph.setEdgeAttribute(edge, "color", theme.edge));
+    sigma.setSetting("labelColor", { color: theme.label });
+    sigma.setSetting("defaultEdgeColor", theme.edge);
+    applyVisualRef.current();
+  }, [dark, data, nodeMap]);
 
   const focusNode = (id: string) => {
     setSelected(id);
+    setShowSuggestions(false);
+    setQuery("");
     const sigma = sigmaRef.current;
     const graph = graphRef.current;
-    if (!sigma || !graph || !graph.hasNode(id)) return;
-    const attrs = graph.getNodeAttributes(id);
-    sigma.getCamera().animate(
-      { x: attrs.x as number, y: attrs.y as number, ratio: 0.45 },
-      { duration: 320 },
-    );
+    if (!sigma || !graph?.hasNode(id)) return;
+    const display = sigma.getNodeDisplayData(id);
+    if (!display) return;
+    sigma.getCamera().animate({ x: display.x, y: display.y, ratio: 0.45 }, { duration: 320 });
   };
 
-  const onSearch = (q: string) => {
-    setQuery(q);
-    const needle = q.trim().toLowerCase();
-    if (!needle) return;
-    const hit = data.nodes.find(
-      (n) =>
-        n.id.toLowerCase().includes(needle) ||
-        n.label.toLowerCase().includes(needle) ||
-        n.tags.some((t) => t.toLowerCase().includes(needle)),
-    );
-    if (hit) focusNode(hit.id);
+  const suggestions = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    if (!needle || !data) return [];
+    return data.nodes
+      .filter(
+        (n) =>
+          n.id.toLowerCase().includes(needle) ||
+          n.label.toLowerCase().includes(needle) ||
+          n.tags.some((t) => t.toLowerCase().includes(needle)),
+      )
+      .slice(0, 8);
+  }, [query, data]);
+
+  const onSearchSubmit = () => {
+    if (suggestions[0]) focusNode(suggestions[0].id);
   };
 
-  const toggleType = (type: string) => {
-    setHiddenTypes((prev) => {
+  const toggleKind = (kind: string) => {
+    setHiddenKinds((prev) => {
       const next = new Set(prev);
-      if (next.has(type)) next.delete(type);
-      else next.add(type);
+      if (next.has(kind)) next.delete(kind);
+      else next.add(kind);
       return next;
     });
   };
@@ -430,9 +577,27 @@ export function GraphViewer() {
     sigmaRef.current?.getCamera().animatedReset({ duration: 300 });
   };
 
+  const updateForce = (patch: Partial<ForceSettings>) => {
+    setForces((prev) => {
+      const next = { ...prev, ...patch };
+      restartLayout.current(next);
+      return next;
+    });
+  };
+
   const node = selected ? nodeMap[selected] : null;
-  const bl = selected ? (data.backlinks[selected] ?? []) : [];
+  const isTag = node?.kind === "tag";
+  const linkedFrom = selected ? (backlinks[selected] ?? []) : [];
   const hoverNode = hover ? nodeMap[hover] : null;
+  const theme = dark ? THEME.dark : THEME.light;
+
+  if (loadError) {
+    return (
+      <div className="flex h-64 items-center justify-center text-sm text-muted-foreground">
+        Failed to load graph: {loadError}
+      </div>
+    );
+  }
 
   return (
     <div
@@ -440,61 +605,157 @@ export function GraphViewer() {
       style={{ height: "calc(100dvh - 3.5rem)" }}
     >
       {/* Graph canvas */}
-      <div className="relative flex-1 min-w-0" style={{ background: BG }}>
-        <div
-          ref={containerRef}
-          className="absolute inset-0"
-          aria-label="Knowledge graph"
-        />
+      <div className="relative flex-1 min-w-0" style={{ background: theme.bg }}>
+        <div ref={containerRef} className="absolute inset-0" aria-label="Knowledge graph" />
         {!ready && (
-          <div className="absolute inset-0 flex items-center justify-center text-sm font-mono text-zinc-500 pointer-events-none">
-            Layout graph…
+          <div className="absolute inset-0 flex items-center justify-center text-sm font-mono text-muted-foreground pointer-events-none">
+            {data ? "Laying out graph…" : "Loading graph…"}
           </div>
         )}
 
         {/* Controls overlay */}
-        <div className="absolute left-3 top-3 z-10 flex max-w-[min(100%,28rem)] flex-col gap-2">
-          <div className="flex gap-2">
-            <input
-              type="search"
-              value={query}
-              onChange={(e) => onSearch(e.target.value)}
-              placeholder="Search nodes…"
-              className="h-8 w-56 rounded-md border border-zinc-700 bg-zinc-900/90 px-2 text-xs text-zinc-100 placeholder:text-zinc-500 backdrop-blur focus:outline-none focus:ring-1 focus:ring-zinc-500"
-            />
+        <div className="absolute left-3 top-3 z-10 flex max-w-[min(100%,22rem)] flex-col gap-2 rounded-lg border border-zinc-700/60 bg-zinc-900/85 p-3 text-zinc-100 backdrop-blur dark:border-zinc-700/60 dark:bg-zinc-900/85">
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-xs font-mono uppercase tracking-widest text-zinc-400">
+              Graph {data ? `· ${data.nodes.length}n / ${data.edges.length}e` : ""}
+            </span>
             <button
               type="button"
-              onClick={resetCamera}
-              className="h-8 rounded-md border border-zinc-700 bg-zinc-900/90 px-2 text-xs text-zinc-300 backdrop-blur hover:bg-zinc-800"
+              onClick={() => setControlsOpen((v) => !v)}
+              className="text-xs text-zinc-400 hover:text-zinc-100"
             >
-              Reset view
+              {controlsOpen ? "collapse" : "expand"}
             </button>
           </div>
-          <div className="flex flex-wrap gap-1">
-            {data.types.map((t) => {
-              const on = !hiddenTypes.has(t);
-              return (
+
+          {controlsOpen && (
+            <>
+              <div className="relative">
+                <input
+                  type="search"
+                  value={query}
+                  onChange={(e) => {
+                    setQuery(e.target.value);
+                    setShowSuggestions(true);
+                  }}
+                  onFocus={() => setShowSuggestions(true)}
+                  onBlur={() => setTimeout(() => setShowSuggestions(false), 120)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") onSearchSubmit();
+                  }}
+                  placeholder="Search nodes…"
+                  className="h-8 w-full rounded-md border border-zinc-700 bg-zinc-900 px-2 text-xs text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500"
+                />
+                {showSuggestions && suggestions.length > 0 && (
+                  <ul className="absolute left-0 right-0 top-9 z-20 max-h-56 overflow-y-auto rounded-md border border-zinc-700 bg-zinc-900 shadow-lg">
+                    {suggestions.map((n) => (
+                      <li key={n.id}>
+                        <button
+                          type="button"
+                          onMouseDown={(e) => e.preventDefault()}
+                          onClick={() => focusNode(n.id)}
+                          className="flex w-full items-center gap-2 px-2 py-1.5 text-left text-xs text-zinc-200 hover:bg-zinc-800"
+                        >
+                          <span
+                            className="inline-block h-1.5 w-1.5 shrink-0 rounded-full"
+                            style={{ background: nodeColor(n, theme) }}
+                          />
+                          <span className="truncate">{n.label}</span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+
+              <div className="flex flex-wrap gap-1">
+                {kinds.map((k) => {
+                  const on = !hiddenKinds.has(k);
+                  const swatch = k.startsWith("memory:")
+                    ? (MEMORY_PALETTE[k.slice(7)] ?? theme.article)
+                    : k === "inbox"
+                      ? theme.inbox
+                      : k === "tag"
+                        ? theme.tag
+                        : theme.article;
+                  return (
+                    <button
+                      key={k}
+                      type="button"
+                      onClick={() => toggleKind(k)}
+                      className="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] transition-opacity"
+                      style={{
+                        borderColor: on ? swatch : "#3f3f46",
+                        color: on ? "#fafafa" : "#71717a",
+                        background: on ? `${swatch}33` : "#18181bcc",
+                        opacity: on ? 1 : 0.55,
+                      }}
+                    >
+                      <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: swatch }} />
+                      {KIND_LABEL[k.startsWith("memory:") ? "memory" : (k as NodeKind)]}
+                      {k.startsWith("memory:") ? `: ${k.slice(7)}` : ""}
+                    </button>
+                  );
+                })}
                 <button
-                  key={t}
                   type="button"
-                  onClick={() => toggleType(t)}
-                  className="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] backdrop-blur transition-opacity"
+                  onClick={() => setOrphansOnly((v) => !v)}
+                  className="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] transition-opacity"
                   style={{
-                    borderColor: on ? PALETTE[t] ?? "#71717a" : "#3f3f46",
-                    color: on ? "#fafafa" : "#71717a",
-                    background: on ? `${PALETTE[t] ?? "#71717a"}33` : "#18181bcc",
-                    opacity: on ? 1 : 0.55,
+                    borderColor: orphansOnly ? "#f87171" : "#3f3f46",
+                    color: orphansOnly ? "#fafafa" : "#71717a",
+                    background: orphansOnly ? "#f8717133" : "#18181bcc",
                   }}
                 >
-                  <span
-                    className="inline-block h-1.5 w-1.5 rounded-full"
-                    style={{ background: PALETTE[t] ?? "#71717a" }}
-                  />
-                  {t}
+                  orphans only
                 </button>
-              );
-            })}
-          </div>
+              </div>
+
+              <div className="flex flex-col gap-1.5 border-t border-zinc-800 pt-2">
+                <ForceSlider
+                  label="Center force"
+                  value={forces.gravity}
+                  min={0.1}
+                  max={5}
+                  step={0.1}
+                  onChange={(v) => updateForce({ gravity: v })}
+                />
+                <ForceSlider
+                  label="Repel force"
+                  value={forces.scalingRatio}
+                  min={1}
+                  max={40}
+                  step={1}
+                  onChange={(v) => updateForce({ scalingRatio: v })}
+                />
+                <ForceSlider
+                  label="Link force"
+                  value={forces.edgeWeightInfluence}
+                  min={0}
+                  max={3}
+                  step={0.1}
+                  onChange={(v) => updateForce({ edgeWeightInfluence: v })}
+                />
+                <ForceSlider
+                  label="Link distance"
+                  value={forces.linkDistance}
+                  min={0.2}
+                  max={5}
+                  step={0.1}
+                  onChange={(v) => updateForce({ linkDistance: v })}
+                />
+              </div>
+
+              <button
+                type="button"
+                onClick={resetCamera}
+                className="h-8 rounded-md border border-zinc-700 bg-zinc-900 px-2 text-xs text-zinc-300 hover:bg-zinc-800"
+              >
+                Reset view
+              </button>
+            </>
+          )}
+
           <p className="text-[10px] font-mono text-zinc-500">
             scroll zoom · drag canvas · drag nodes · hover neighbors
             {hoverNode ? ` · ${hoverNode.label}` : ""}
@@ -508,61 +769,46 @@ export function GraphViewer() {
           <article>
             <div className="mb-3 flex items-start justify-between gap-3">
               <h1 className="text-lg font-bold tracking-tight">{node.label}</h1>
-              <a
-                href={node.href}
-                className="shrink-0 text-xs text-muted-foreground hover:text-foreground hover:underline"
-              >
-                Open page ↗
-              </a>
+              {node.href && (
+                <a
+                  href={node.href}
+                  className="shrink-0 text-xs text-muted-foreground hover:text-foreground hover:underline"
+                >
+                  Open page ↗
+                </a>
+              )}
             </div>
             <span
               className="inline-block rounded-full px-2 py-0.5 text-[11px] text-white"
-              style={{ background: node.color }}
+              style={{ background: nodeColor(node, theme) }}
             >
-              {node.type}
+              {node.kind === "memory" ? node.memoryType : KIND_LABEL[node.kind]}
             </span>
-            {node.resource && (
-              <>
-                {" "}
-                <a
-                  className="text-xs text-muted-foreground hover:underline"
-                  href={node.resource}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  source ↗
-                </a>
-              </>
-            )}
-            {node.description && (
-              <p className="mt-3 text-sm text-muted-foreground">{node.description}</p>
-            )}
+            {node.description && <p className="mt-3 text-sm text-muted-foreground">{node.description}</p>}
             {node.tags.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-1.5">
                 {node.tags.map((t) => (
-                  <span
+                  <button
                     key={t}
-                    className="rounded border border-border bg-muted px-1.5 py-0.5 text-[11px] text-muted-foreground"
+                    type="button"
+                    onClick={() => {
+                      if (nodeMap[`#${t}`]) focusNode(`#${t}`);
+                    }}
+                    className="rounded border border-border bg-muted px-1.5 py-0.5 text-[11px] text-muted-foreground hover:text-foreground"
                   >
-                    {t}
-                  </span>
+                    #{t}
+                  </button>
                 ))}
               </div>
             )}
-            {bodyHtml && (
-              <div
-                className="typeset typeset-kb mt-4 max-w-none"
-                // eslint-disable-next-line react/no-danger
-                dangerouslySetInnerHTML={{ __html: bodyHtml }}
-              />
-            )}
-            {bl.length > 0 && (
+
+            {isTag ? (
               <div className="mt-5">
                 <h2 className="mb-1 text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                  Linked from
+                  Tagged notes
                 </h2>
                 <ul className="space-y-0.5">
-                  {bl.map((s) => {
+                  {linkedFrom.map((s) => {
                     const item = nodeMap[s];
                     return (
                       <li key={s}>
@@ -576,8 +822,45 @@ export function GraphViewer() {
                       </li>
                     );
                   })}
+                  {linkedFrom.length === 0 && (
+                    <li className="text-sm text-muted-foreground">No notes tagged.</li>
+                  )}
                 </ul>
               </div>
+            ) : (
+              <>
+                {bodyLoading && <p className="mt-4 text-sm text-muted-foreground">Loading…</p>}
+                {bodyHtml && (
+                  <div
+                    className="typeset typeset-kb mt-4 max-w-none"
+                    // eslint-disable-next-line react/no-danger
+                    dangerouslySetInnerHTML={{ __html: bodyHtml }}
+                  />
+                )}
+                {linkedFrom.length > 0 && (
+                  <div className="mt-5">
+                    <h2 className="mb-1 text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                      Linked from
+                    </h2>
+                    <ul className="space-y-0.5">
+                      {linkedFrom.map((s) => {
+                        const item = nodeMap[s];
+                        return (
+                          <li key={s}>
+                            <button
+                              type="button"
+                              className="text-sm text-blue-600 hover:underline dark:text-blue-400"
+                              onClick={() => focusNode(s)}
+                            >
+                              {item?.label ?? s}
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                )}
+              </>
             )}
           </article>
         ) : (
@@ -585,5 +868,37 @@ export function GraphViewer() {
         )}
       </aside>
     </div>
+  );
+}
+
+function ForceSlider({
+  label,
+  value,
+  min,
+  max,
+  step,
+  onChange,
+}: {
+  label: string;
+  value: number;
+  min: number;
+  max: number;
+  step: number;
+  onChange: (v: number) => void;
+}) {
+  return (
+    <label className="flex items-center gap-2 text-[11px] text-zinc-400">
+      <span className="w-24 shrink-0">{label}</span>
+      <input
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={(e) => onChange(Number(e.target.value))}
+        className="h-1 flex-1 accent-zinc-400"
+      />
+      <span className="w-8 shrink-0 text-right tabular-nums">{value.toFixed(1)}</span>
+    </label>
   );
 }

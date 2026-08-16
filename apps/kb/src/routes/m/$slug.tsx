@@ -1,6 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ExternalLink, Tag } from "lucide-react";
+import { extractLocalGraph, LocalGraph } from "../../components/LocalGraph";
 import { getMemoryBySlug, getLinkedArticles } from "../../../lib/content";
+import { buildKbGraph } from "../../../lib/graph";
 import { markdownToHtml } from "../../../lib/markdown";
 
 export const Route = createFileRoute("/m/$slug")({
@@ -9,7 +11,8 @@ export const Route = createFileRoute("/m/$slug")({
     if (!note) throw notFound();
     const html = await markdownToHtml(note.raw);
     const linked = getLinkedArticles(params.slug);
-    return { note, html, linked };
+    const localGraph = extractLocalGraph(buildKbGraph(), params.slug, 2);
+    return { note, html, linked, localGraph };
   },
   head: ({ loaderData }) => {
     const note = loaderData?.note;
@@ -30,11 +33,12 @@ export const Route = createFileRoute("/m/$slug")({
 });
 
 function MemoryNotePage() {
-  const { note, html, linked } = Route.useLoaderData();
+  const { note, html, linked, localGraph } = Route.useLoaderData();
   const hasLinks = linked.outgoing.length > 0 || linked.incoming.length > 0;
+  const hasSidebar = hasLinks || localGraph.nodes.length > 1;
 
   return (
-    <div className="mx-auto max-w-4xl px-4 sm:px-6 py-12">
+    <main className="mx-auto max-w-4xl px-4 sm:px-6 py-12">
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_220px] gap-10">
         {/* Main content */}
         <article>
@@ -130,8 +134,8 @@ function MemoryNotePage() {
           </div>
         </article>
 
-        {/* Sidebar — linked content */}
-        {hasLinks && (
+        {/* Sidebar — linked content + local graph */}
+        {hasSidebar && (
           <aside className="space-y-6">
             {linked.outgoing.length > 0 && (
               <div>
@@ -181,9 +185,15 @@ function MemoryNotePage() {
                 </ul>
               </div>
             )}
+
+            <LocalGraph
+              nodes={localGraph.nodes}
+              edges={localGraph.edges}
+              currentId={note.slug}
+            />
           </aside>
         )}
       </div>
-    </div>
+    </main>
   );
 }
