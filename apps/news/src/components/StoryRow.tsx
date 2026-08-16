@@ -1,6 +1,6 @@
 import { ExternalLink, TrendingUp } from "lucide-react";
 import { useState } from "react";
-import { timeAgo } from "../lib/lang";
+import { categoryLabel, timeAgo } from "../lib/lang";
 import { storyPath } from "../lib/slug";
 import type { FeedItem, Lang } from "../lib/types";
 
@@ -72,6 +72,14 @@ export function StoryRow({
     lang === "vi" && item.summary_vi ? item.summary_vi : item.summary;
   const hasDetails =
     Boolean(summary) || item.tags.length > 0 || item.sources.length > 0;
+  const paragraphs = summary
+    ? summary
+        .split(/\n\n+/)
+        .map((p) => p.trim())
+        .filter(Boolean)
+    : [];
+  const [imageFailed, setImageFailed] = useState(false);
+  const showImage = Boolean(item.image_url) && !imageFailed;
 
   return (
     <div id={`item-${item.id}`} className="border-b border-border">
@@ -113,7 +121,7 @@ export function StoryRow({
           </a>
         </span>
         <span className="hidden shrink-0 text-sm text-muted-foreground sm:block">
-          {item.category}
+          {item.category && categoryLabel(item.category, lang)}
         </span>
         <span className="hidden w-20 shrink-0 text-right text-sm text-muted-foreground md:block">
           {timeAgo(item.published_at, Date.now(), lang)}
@@ -125,30 +133,48 @@ export function StoryRow({
 
       {expanded && hasDetails && (
         <div className="space-y-4 border-l-2 border-accent/60 bg-muted/30 px-4 py-4 md:mx-6">
-          {(item.tags.length > 0 || item.category) && (
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                {lang === "vi" ? "Chủ đề" : "Topics"}
-              </span>
-              {item.category && (
-                <span className="rounded-full border border-border bg-background px-3 py-0.5 text-sm">
-                  {item.category}
-                </span>
+          <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+            <div className="min-w-0 flex-1 space-y-4">
+              {(item.tags.length > 0 || item.category) && (
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                    {lang === "vi" ? "Chủ đề" : "Topics"}
+                  </span>
+                  {item.category && (
+                    <span className="rounded-full border border-border bg-background px-3 py-0.5 text-sm">
+                      {categoryLabel(item.category, lang)}
+                    </span>
+                  )}
+                  {item.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-border bg-background px-3 py-0.5 text-sm"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               )}
-              {item.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full border border-border bg-background px-3 py-0.5 text-sm"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
 
-          {summary && (
-            <p className="max-w-3xl text-[15px] leading-relaxed">{summary}</p>
-          )}
+              {paragraphs.length > 0 && (
+                <div className="max-w-3xl space-y-3 text-[15px] leading-relaxed">
+                  {paragraphs.map((p) => (
+                    <p key={p}>{p}</p>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {showImage && (
+              <img
+                src={item.image_url ?? undefined}
+                alt=""
+                loading="lazy"
+                onError={() => setImageFailed(true)}
+                className="hidden max-h-40 w-40 shrink-0 rounded-md border border-border object-cover md:block"
+              />
+            )}
+          </div>
 
           {item.sources.length > 0 && (
             <div className="space-y-1.5">

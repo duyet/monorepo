@@ -25,7 +25,7 @@ function IndexPage() {
 
   return (
     <div>
-      <CategoryNav categories={feed.categories} />
+      <CategoryNav categories={feed.categories} lang={lang} />
       <TrendingChips
         trending={feed.trending}
         label={lang === "vi" ? "Xu hướng" : "Trending"}

@@ -1,4 +1,4 @@
-import { formatDayHeading } from "../lib/lang";
+import { categoryLabel, formatDayHeading } from "../lib/lang";
 import type { DayGroup, Lang } from "../lib/types";
 import { StoryRow } from "./StoryRow";
 
@@ -20,7 +20,8 @@ export function DaySection({ day, lang }: { day: DayGroup; lang: Lang }) {
         <span className="hidden flex-wrap gap-x-3 text-xs text-muted-foreground md:flex">
           {shown.map(([name, count]) => (
             <span key={name}>
-              {name} <span className="font-semibold">{count}</span>
+              {categoryLabel(name, lang)}{" "}
+              <span className="font-semibold">{count}</span>
             </span>
           ))}
           {more > 0 && <span>+{more} more</span>}

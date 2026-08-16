@@ -24,6 +24,7 @@ export interface FeedItem {
   tags: string[];
   sources: ItemSource[];
   llm_tokens: number;
+  image_url: string | null;
 }
 
 export interface TldrBullet {

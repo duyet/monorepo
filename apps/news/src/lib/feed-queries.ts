@@ -15,29 +15,44 @@ interface ItemRow {
   source_id: string;
   tags: string;
   llm_tokens?: number;
+  image_url?: string | null;
 }
 
 const ITEM_SELECT_BASE = `
   SELECT i.id, i.url, i.title, t.title AS title_vi, i.summary,
          t.summary AS summary_vi, i.category,
-         i.published_at, i.points, i.comments, i.rank_score, i.source_id, i.tags{tokens}
+         i.published_at, i.points, i.comments, i.rank_score, i.source_id, i.tags{tokens}{image}
   FROM items i
   LEFT JOIN translations t ON t.item_id = i.id AND t.lang = 'vi'
   WHERE i.status = 'published'
 `;
 
 let llmTokensSupported: boolean | null = null;
+let imageUrlSupported: boolean | null = null;
+
+async function probeColumn(
+  db: D1Database,
+  column: string,
+  cache: boolean | null
+): Promise<boolean> {
+  if (cache !== null) return cache;
+  try {
+    await db.prepare(`SELECT ${column} FROM items LIMIT 1`).all();
+    return true;
+  } catch {
+    // column not migrated in yet
+    return false;
+  }
+}
 
 async function supportsLlmTokens(db: D1Database): Promise<boolean> {
-  if (llmTokensSupported !== null) return llmTokensSupported;
-  try {
-    await db.prepare("SELECT llm_tokens FROM items LIMIT 1").all();
-    llmTokensSupported = true;
-  } catch {
-    // column not migrated in yet — fall back to feed without token counts
-    llmTokensSupported = false;
-  }
+  llmTokensSupported = await probeColumn(db, "llm_tokens", llmTokensSupported);
   return llmTokensSupported;
+}
+
+async function supportsImageUrl(db: D1Database): Promise<boolean> {
+  imageUrlSupported = await probeColumn(db, "image_url", imageUrlSupported);
+  return imageUrlSupported;
 }
 
 function toFeedItem(row: ItemRow): FeedItem {
@@ -47,7 +62,13 @@ function toFeedItem(row: ItemRow): FeedItem {
   } catch {
     // malformed tags JSON from an old pipeline run — treat as untagged
   }
-  return { ...row, tags, sources: [], llm_tokens: row.llm_tokens ?? 0 };
+  return {
+    ...row,
+    tags,
+    sources: [],
+    llm_tokens: row.llm_tokens ?? 0,
+    image_url: row.image_url ?? null,
+  };
 }
 
 async function attachSources(db: D1Database, items: FeedItem[]): Promise<void> {
@@ -116,11 +137,14 @@ export async function getFeed(
   const days = opts.days ?? 7;
   const since = Math.floor(Date.now() / 1000) - days * 86400;
 
-  const hasLlmTokens = await supportsLlmTokens(db);
+  const [hasLlmTokens, hasImageUrl] = await Promise.all([
+    supportsLlmTokens(db),
+    supportsImageUrl(db),
+  ]);
   const itemSelect = ITEM_SELECT_BASE.replace(
     "{tokens}",
     hasLlmTokens ? ", COALESCE(i.llm_tokens, 0) AS llm_tokens" : ""
-  );
+  ).replace("{image}", hasImageUrl ? ", i.image_url" : "");
 
   let sql = `${itemSelect} AND i.published_at >= ?`;
   const binds: unknown[] = [since];

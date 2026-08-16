@@ -60,6 +60,7 @@ export function buildItemBindArgs(args: {
     nn(status),
     nn(llmTokens ?? 0),
     nn(duplicateOf),
+    nn(item.imageUrl),
   ];
 }
 

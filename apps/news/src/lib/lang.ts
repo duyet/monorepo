@@ -39,6 +39,20 @@ export function timeAgo(
   return `${Math.floor(diff / 86400)}d ago`;
 }
 
+const CATEGORY_LABELS_VI: Record<string, string> = {
+  Regulation: "Quy định",
+  Research: "Nghiên cứu",
+  Releases: "Phát hành",
+  Funding: "Gọi vốn",
+  Legal: "Pháp lý",
+  Industry: "Ngành",
+};
+
+export function categoryLabel(name: string, lang: Lang): string {
+  if (lang !== "vi") return name;
+  return CATEGORY_LABELS_VI[name] ?? name;
+}
+
 export function formatDayHeading(date: string, lang: Lang): string {
   const d = new Date(`${date}T00:00:00Z`);
   return d.toLocaleDateString(lang === "vi" ? "vi-VN" : "en-US", {

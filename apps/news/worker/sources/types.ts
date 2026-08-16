@@ -15,6 +15,7 @@ export interface FetchedItem {
   points?: number;
   comments?: number;
   sources?: FetchedItemSource[];
+  imageUrl?: string;
 }
 
 export interface SourceAdapter {

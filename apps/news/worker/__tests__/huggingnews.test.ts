@@ -134,6 +134,56 @@ describe("huggingNewsAdapter", () => {
     expect(alibabaItem?.sources?.[1]).toMatchObject({ kind: "support" });
   });
 
+  it("enriches an item with its written body from focusedStoryDetail.data.summary", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockImplementation(async (input: string | URL) => {
+        const url = String(input);
+        if (url.includes(`/ai/${DETAIL_SLUG}/__data.json`)) {
+          return new Response(JSON.stringify(detailFixture));
+        }
+        return new Response(JSON.stringify(fixture));
+      })
+    );
+
+    const items = await huggingNewsAdapter.fetchItems({}, 0);
+    const alibabaItem = items.find((i) => i.url.includes(DETAIL_SLUG));
+    expect(alibabaItem?.summary).toContain("Alibaba Cloud");
+    expect(alibabaItem?.summary).toContain("MediaTek");
+    // real fixture body has a blank-line paragraph break, not flattened away
+    expect(alibabaItem?.summary).toContain("\n\n");
+  });
+
+  it("caps the body summary to ~1200 chars", async () => {
+    const longSummary = "x".repeat(5000);
+    const longFixture = JSON.parse(JSON.stringify(detailFixture));
+    // The real fixture stores `summary` as a plain string value at whatever
+    // index focusedStoryDetail.data.summary resolves to; find that index by
+    // locating the entry that currently holds the known fixture text and
+    // replacing it, rather than assuming a fixed offset.
+    const data: unknown[] = longFixture.nodes[2].data;
+    const summaryIndex = data.findIndex(
+      (v) => typeof v === "string" && v.startsWith("These latest releases")
+    );
+    expect(summaryIndex).toBeGreaterThanOrEqual(0);
+    data[summaryIndex] = longSummary;
+
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockImplementation(async (input: string | URL) => {
+        const url = String(input);
+        if (url.includes(`/ai/${DETAIL_SLUG}/__data.json`)) {
+          return new Response(JSON.stringify(longFixture));
+        }
+        return new Response(JSON.stringify(fixture));
+      })
+    );
+
+    const items = await huggingNewsAdapter.fetchItems({}, 0);
+    const alibabaItem = items.find((i) => i.url.includes(DETAIL_SLUG));
+    expect(alibabaItem?.summary?.length).toBeLessThanOrEqual(1200);
+  });
+
   it("swallows a detail-page fetch failure and leaves that item without sources", async () => {
     vi.stubGlobal(
       "fetch",

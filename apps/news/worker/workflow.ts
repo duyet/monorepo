@@ -19,6 +19,7 @@ import {
   type MergePlan,
   unionSources,
 } from "./dedupe.js";
+import { enrichMissingContent } from "./enrich.js";
 import { scoreItems, translateItems } from "./llm.js";
 import { rankScore } from "./ranking.js";
 import { adapters } from "./sources/registry.js";
@@ -106,7 +107,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         itemsFetched += items.length;
       }
 
-      const newRows = await step.do("dedupe", async () => {
+      let newRows = await step.do("dedupe", async () => {
         const rows: {
           id: string;
           source: SourceRow;
@@ -135,6 +136,38 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         return rows;
       });
       itemsNew = newRows.length;
+
+      // Fill in summary/image_url for items lacking either, from the
+      // article's own og/description meta tags, BEFORE scoring so the
+      // scorer/translator get to see the enriched description. Runs against
+      // scratch clones (not `newRows` directly) and returns only the plain
+      // diff data: Workflow steps replay by returning their memoized value
+      // rather than re-running the callback, so mutating `newRows` in place
+      // here wouldn't survive a workflow restart — the fold-back below runs
+      // as ordinary (replay-safe, deterministic) code outside the step.
+      const enrichment = await step.do("enrich", async () => {
+        if (newRows.length === 0) return [];
+        const drafts = newRows.map((row) => ({ ...row.item }));
+        await enrichMissingContent(drafts);
+        return newRows.map((row, i) => ({
+          id: row.id,
+          summary: drafts[i].summary,
+          imageUrl: drafts[i].imageUrl,
+        }));
+      });
+      const enrichmentById = new Map(enrichment.map((e) => [e.id, e]));
+      newRows = newRows.map((row) => {
+        const e = enrichmentById.get(row.id);
+        if (!e) return row;
+        return {
+          ...row,
+          item: {
+            ...row.item,
+            summary: e.summary ?? row.item.summary,
+            imageUrl: e.imageUrl ?? row.item.imageUrl,
+          },
+        };
+      });
 
       const scored = await step.do("score", async () => {
         if (newRows.length === 0)
@@ -308,8 +341,8 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
                 id, source_id, external_id, url, title, summary,
                 published_at, fetched_at, points, comments,
                 llm_relevance, llm_importance, llm_quality, category, tags,
-                rank_score, status, llm_tokens, duplicate_of
-              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                rank_score, status, llm_tokens, duplicate_of, image_url
+              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
               ON CONFLICT(id) DO UPDATE SET
                 published_at = excluded.published_at,
                 points = excluded.points,
@@ -504,6 +537,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
               now,
             }),
             status,
+            image_url: item.imageUrl ?? "",
           };
         });
         await mirrorItems(this.env, rows);

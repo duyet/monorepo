@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS news.items
     tags Array(String),
     rank_score Float32,
     status LowCardinality(String),
+    image_url String,
     updated_at DateTime DEFAULT now()
 )
 ENGINE = ReplacingMergeTree(updated_at)
@@ -46,6 +47,7 @@ export interface MirrorRow {
   tags: string[];
   rank_score: number;
   status: string;
+  image_url: string;
 }
 
 export async function mirrorItems(env: Env, rows: MirrorRow[]): Promise<void> {

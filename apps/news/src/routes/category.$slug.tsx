@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { CategoryNav } from "../components/CategoryNav";
 import { DaySection } from "../components/DaySection";
 import { fetchFeed } from "../lib/feed-fn";
+import { categoryLabel } from "../lib/lang";
 import { useLang } from "../lib/lang-context";
 import type { FeedResponse } from "../lib/types";
 
@@ -16,15 +17,20 @@ function CategoryPage() {
   const { slug } = Route.useParams();
   const lang = useLang();
 
+  const categoryName =
+    feed.categories.find((c) => c.name.toLowerCase() === slug)?.name ?? slug;
+
   return (
     <div>
-      <CategoryNav categories={feed.categories} active={slug} />
+      <CategoryNav categories={feed.categories} active={slug} lang={lang} />
       <p className="py-3 text-sm text-muted-foreground">
         <Link to="/" className="underline underline-offset-2">
           {lang === "vi" ? "Tất cả" : "All stories"}
         </Link>{" "}
         /{" "}
-        <span className="font-semibold capitalize text-foreground">{slug}</span>{" "}
+        <span className="font-semibold text-foreground">
+          {categoryLabel(categoryName, lang)}
+        </span>{" "}
         — {feed.totalStories}
       </p>
       {feed.days.map((day) => (

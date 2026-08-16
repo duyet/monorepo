@@ -1,11 +1,15 @@
 import { Link } from "@tanstack/react-router";
+import { categoryLabel } from "../lib/lang";
+import type { Lang } from "../lib/types";
 
 export function CategoryNav({
   categories,
   active,
+  lang,
 }: {
   categories: { name: string; count: number }[];
   active?: string;
+  lang: Lang;
 }) {
   return (
     <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-border py-3 text-sm">
@@ -21,7 +25,7 @@ export function CategoryNav({
               isActive ? "font-bold text-accent" : "font-medium"
             }`}
           >
-            {c.name}
+            {categoryLabel(c.name, lang)}
             <span className="text-xs text-muted-foreground">{c.count}</span>
           </Link>
         );
