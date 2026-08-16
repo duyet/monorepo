@@ -2,7 +2,15 @@ import { categoryLabel, formatDayHeading } from "../lib/lang";
 import type { DayGroup, Lang } from "../lib/types";
 import { StoryRow } from "./StoryRow";
 
-export function DaySection({ day, lang }: { day: DayGroup; lang: Lang }) {
+export function DaySection({
+  day,
+  lang,
+  selectedTag,
+}: {
+  day: DayGroup;
+  lang: Lang;
+  selectedTag?: string | null;
+}) {
   const counts = Object.entries(day.categoryCounts).sort((a, b) => b[1] - a[1]);
   const shown = counts.slice(0, 7);
   const more = counts.length - shown.length;
@@ -35,6 +43,7 @@ export function DaySection({ day, lang }: { day: DayGroup; lang: Lang }) {
             index={i + 1}
             lang={lang}
             hot={i === 0 && item.rank_score > 0 && day.items.length > 1}
+            selectedTag={selectedTag}
           />
         ))}
       </div>

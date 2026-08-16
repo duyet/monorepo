@@ -17,10 +17,10 @@ export function HeaderBar({
 
   return (
     <div className="border-b border-border bg-background">
-      <div className="mx-auto flex max-w-[1080px] flex-wrap items-center gap-4 px-4 py-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-[1080px] flex-wrap items-center gap-3 px-4 py-1.5 sm:px-6 lg:px-8">
         <Link
           to="/"
-          className="shrink-0 text-sm text-muted-foreground hover:text-foreground"
+          className="shrink-0 text-xs text-muted-foreground hover:text-foreground"
         >
           {tagline}
         </Link>
@@ -30,18 +30,18 @@ export function HeaderBar({
             placeholder={lang === "vi" ? "Tìm kiếm..." : "Search AI news..."}
           />
         </div>
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1.5">
           <Link
             to="/submit"
-            className="rounded-full border border-border px-2.5 py-1 text-xs font-semibold text-muted-foreground hover:border-accent hover:text-accent"
+            className="rounded-full border border-border px-2 py-0.5 text-xs font-semibold text-muted-foreground hover:border-accent hover:text-accent"
           >
             {lang === "vi" ? "+ Gửi bài" : "+ Submit"}
           </Link>
           <PrefsPanel />
           <LangToggle lang={lang} onChange={onLangChange} />
           <AuthButtons
-            signInClassName="h-7 w-7 flex items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-            avatarSize="h-7 w-7"
+            signInClassName="h-6 w-6 flex items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            avatarSize="h-6 w-6"
           />
         </div>
       </div>

@@ -145,3 +145,33 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* Accent-styled range input used by the reader-preferences sliders
+   (text size, density) — track + round thumb in the brand accent color. */
+.reader-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--border);
+  accent-color: var(--accent);
+}
+
+.reader-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--accent);
+  cursor: pointer;
+}
+
+.reader-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: none;
+  border-radius: 999px;
+  background: var(--accent);
+  cursor: pointer;
+}

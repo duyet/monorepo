@@ -22,6 +22,7 @@ function SuggestForm({
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle"
   );
+  const [error, setError] = useState<string | null>(null);
 
   if (status === "sent") {
     return (
@@ -52,6 +53,7 @@ function SuggestForm({
         e.preventDefault();
         if (!text.trim()) return;
         setStatus("sending");
+        setError(null);
         try {
           await submitSuggestion({
             data: {
@@ -63,8 +65,9 @@ function SuggestForm({
             },
           });
           setStatus("sent");
-        } catch {
+        } catch (err) {
           setStatus("error");
+          setError(err instanceof Error ? err.message : null);
         }
       }}
     >
@@ -97,7 +100,7 @@ function SuggestForm({
         </button>
         {status === "error" && (
           <span className="text-xs text-red-600">
-            {lang === "vi" ? "Lỗi, thử lại." : "Failed, try again."}
+            {error ?? (lang === "vi" ? "Lỗi, thử lại." : "Failed, try again.")}
           </span>
         )}
       </div>

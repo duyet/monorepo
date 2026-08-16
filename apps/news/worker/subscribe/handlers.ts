@@ -2,10 +2,26 @@ import type { Env } from "../types.js";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+export const DEFAULT_TIMEZONE = "Asia/Ho_Chi_Minh";
+
 export function isValidEmail(email: unknown): email is string {
   return (
     typeof email === "string" && email.length <= 254 && EMAIL_RE.test(email)
   );
+}
+
+/** True iff `tz` is a IANA timezone name `Intl` actually recognizes. Guards
+ * against a subscriber-supplied string that isn't a real timezone (typo,
+ * garbage, or a non-IANA offset like "UTC+7") reaching storage or, worse,
+ * throwing later when it's used to format a date. */
+export function isValidTimezone(tz: unknown): tz is string {
+  if (typeof tz !== "string" || tz.length === 0) return false;
+  try {
+    new Intl.DateTimeFormat("en-US", { timeZone: tz });
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 export interface SubscribeError {

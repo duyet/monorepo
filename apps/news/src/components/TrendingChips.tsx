@@ -3,9 +3,13 @@ import { TrendingUp } from "lucide-react";
 export function TrendingChips({
   trending,
   label,
+  selectedTag,
+  onSelectTag,
 }: {
   trending: { tag: string; count: number }[];
   label: string;
+  selectedTag: string | null;
+  onSelectTag: (tag: string | null) => void;
 }) {
   if (trending.length === 0) return null;
   return (
@@ -14,15 +18,27 @@ export function TrendingChips({
         <TrendingUp className="h-4 w-4 text-accent" aria-hidden />
         {label}
       </span>
-      {trending.map((t) => (
-        <span
-          key={t.tag}
-          className="flex shrink-0 items-baseline gap-1.5 rounded-full border border-border px-3 py-1 text-sm"
-        >
-          {t.tag}
-          <span className="text-xs font-semibold text-accent">{t.count}</span>
-        </span>
-      ))}
+      {trending.map((t) => {
+        const selected =
+          selectedTag !== null &&
+          selectedTag.toLowerCase() === t.tag.toLowerCase();
+        return (
+          <button
+            key={t.tag}
+            type="button"
+            onClick={() => onSelectTag(selected ? null : t.tag)}
+            aria-pressed={selected}
+            className={`flex shrink-0 items-baseline gap-1.5 rounded-full border px-3 py-1 text-sm transition-colors ${
+              selected
+                ? "border-accent text-accent"
+                : "border-border hover:border-accent/60"
+            }`}
+          >
+            {t.tag}
+            <span className="text-xs font-semibold text-accent">{t.count}</span>
+          </button>
+        );
+      })}
     </div>
   );
 }

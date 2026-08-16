@@ -65,6 +65,13 @@ function SubscribePage() {
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">(
     "idle"
   );
+  const [timezone] = useState<string>(() => {
+    try {
+      return Intl.DateTimeFormat().resolvedOptions().timeZone;
+    } catch {
+      return "Asia/Ho_Chi_Minh";
+    }
+  });
 
   if (unsubscribe) {
     return <UnsubscribeView token={unsubscribe} lang={lang} />;
@@ -77,7 +84,7 @@ function SubscribePage() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, lang: prefLang }),
+        body: JSON.stringify({ email, lang: prefLang, timezone }),
       });
       setStatus(res.ok ? "done" : "error");
     } catch {
@@ -92,15 +99,15 @@ function SubscribePage() {
       </h1>
       <p className="mt-3 text-sm text-muted-foreground">
         {lang === "vi"
-          ? "Tối đa 5 tin nổi bật nhất mỗi ngày, gửi thẳng vào hộp thư của bạn."
-          : "Top 5 stories a day, delivered straight to your inbox."}
+          ? "Tối đa 5 tin nổi bật nhất mỗi ngày, gửi vào khoảng 7 giờ sáng theo giờ của bạn."
+          : "Top 5 stories a day, delivered around 7:00 AM your local time."}
       </p>
 
       {status === "done" ? (
         <p className="mt-6 rounded-md border border-border bg-muted p-4 text-sm">
           {lang === "vi"
-            ? "Đăng ký thành công! Bạn sẽ nhận bản tin vào ngày mai."
-            : "Subscribed! You'll get your first digest tomorrow."}
+            ? `Đăng ký thành công! Bạn sẽ nhận bản tin đầu tiên vào khoảng 7:00 sáng mai (${timezone}).`
+            : `Subscribed! You'll get your first digest around 7:00 AM tomorrow (${timezone}).`}
         </p>
       ) : (
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
@@ -156,6 +163,12 @@ function SubscribePage() {
                 ? "Đăng ký"
                 : "Subscribe"}
           </button>
+
+          <p className="text-xs text-muted-foreground">
+            {lang === "vi"
+              ? `Giờ nhận: ~7:00 sáng (${timezone})`
+              : `Delivered around 7:00 AM your time (${timezone})`}
+          </p>
 
           {status === "error" && (
             <p className="text-sm text-destructive">

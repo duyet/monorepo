@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { getRequestHeader } from "@tanstack/react-start/server";
 
 export interface SubmissionInput {
   url: string;
@@ -59,12 +60,16 @@ export const submitStory = createServerFn({ method: "POST" })
     const { submitStory: submitStoryToDb } = await import(
       "../../worker/submissions.js"
     );
+    // Passed to the worker layer only to be hashed for per-IP rate
+    // limiting — never stored or logged here.
+    const ip = getRequestHeader("CF-Connecting-IP");
     const result = await submitStoryToDb(db, {
       url: data.url,
       title: data.title,
       note: data.note,
       userId: data.user_id,
       userName: data.user_name,
+      ip,
     });
     if (!result.ok) throw new Error(result.error);
     return { id: result.id };

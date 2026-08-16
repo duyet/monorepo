@@ -10,12 +10,14 @@ export function StoryRow({
   lang,
   hot,
   defaultExpanded,
+  selectedTag,
 }: {
   item: FeedItem;
   index: number;
   lang: Lang;
   hot?: boolean;
   defaultExpanded?: boolean;
+  selectedTag?: string | null;
 }) {
   const [expanded, setExpanded] = useState(defaultExpanded ?? false);
   const title = lang === "vi" && item.title_vi ? item.title_vi : item.title;
@@ -23,13 +25,17 @@ export function StoryRow({
     lang === "vi" && item.summary_vi ? item.summary_vi : item.summary;
   const hasDetails =
     Boolean(summary) || item.tags.length > 0 || item.sources.length > 0;
+  const isMatch = Boolean(
+    selectedTag &&
+      item.tags.some((tag) => tag.toLowerCase() === selectedTag.toLowerCase())
+  );
 
   return (
     <div id={`item-${item.id}`} className="border-b border-border">
       <div
         className={`flex items-baseline gap-3 ${
           hasDetails ? "cursor-pointer" : ""
-        } ${expanded ? "bg-muted/60" : ""}`}
+        } ${expanded ? "bg-muted/60" : isMatch ? "bg-muted/40" : ""}`}
         style={{
           paddingTop: "var(--reader-pad, 0.5rem)",
           paddingBottom: "var(--reader-pad, 0.5rem)",
@@ -54,7 +60,11 @@ export function StoryRow({
             aria-hidden
           />
         )}
-        <span className="min-w-0 flex-1 font-semibold leading-snug">
+        <span
+          className={`min-w-0 flex-1 font-semibold leading-snug ${
+            isMatch ? "text-accent" : ""
+          }`}
+        >
           {title}{" "}
           <a
             href={item.url}

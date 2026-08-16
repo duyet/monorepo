@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { CategoryNav } from "../components/CategoryNav";
 import { DaySection } from "../components/DaySection";
 import { TldrSection } from "../components/TldrSection";
@@ -24,6 +25,7 @@ function IndexPage() {
   const lang = useLang();
   const { prefs } = usePrefs();
   const bullets = lang === "vi" ? feed.tldr?.bullets_vi : feed.tldr?.bullets_en;
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
   return (
     <div>
@@ -34,6 +36,8 @@ function IndexPage() {
         <TrendingChips
           trending={feed.trending}
           label={lang === "vi" ? "Xu hướng" : "Trending"}
+          selectedTag={selectedTag}
+          onSelectTag={setSelectedTag}
         />
       )}
       {q ? (
@@ -64,7 +68,12 @@ function IndexPage() {
       )}
       {prefs.sections.days &&
         feed.days.map((day) => (
-          <DaySection key={day.date} day={day} lang={lang} />
+          <DaySection
+            key={day.date}
+            day={day}
+            lang={lang}
+            selectedTag={selectedTag}
+          />
         ))}
       {prefs.sections.days && feed.days.length === 0 && (
         <p className="py-16 text-center text-muted-foreground">
