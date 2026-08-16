@@ -1,13 +1,65 @@
-import { useState, type JSX } from "react";
+import { type JSX, useState } from "react";
+import { formatDay, formatMonth } from "../lib/dates";
+import {
+  fmtCost,
+  fmtTokens,
+  normalizeSource,
+  sourceSwatch,
+} from "../lib/sources";
 import type { DailyEntry, DailyEntrySource } from "../lib/types";
-import { formatDay } from "../lib/dates";
-import { fmtCost, fmtTokens, normalizeSource, sourceSwatch } from "../lib/sources";
 
 interface DailyChartProps {
   daily: DailyEntry[];
+  /** When set, only this agent's usage is charted. */
+  filter?: string | null;
+  /** Number of most recent days to chart; null charts everything. */
+  days?: number | null;
+  granularity?: Granularity;
 }
 
-export const WINDOW = 90;
+export const GRANULARITIES = [
+  { key: "monthly", label: "Monthly" },
+  { key: "daily", label: "Daily" },
+] as const;
+
+export type Granularity = (typeof GRANULARITIES)[number]["key"];
+
+/** Roll daily entries up into one entry per calendar month. */
+function byMonth(entries: DailyEntry[]): DailyEntry[] {
+  const months = new Map<string, DailyEntry>();
+  for (const d of entries) {
+    const key = d.date.slice(0, 7);
+    const month = months.get(key);
+    if (!month) {
+      months.set(key, {
+        ...d,
+        date: `${key}-01`,
+        by_source: (d.by_source ?? []).map((s) => ({ ...s })),
+      });
+      continue;
+    }
+    month.total_tokens += d.total_tokens;
+    month.cost += d.cost;
+    for (const s of d.by_source ?? []) {
+      const existing = month.by_source?.find((m) => m.source === s.source);
+      if (existing) {
+        existing.total_tokens += s.total_tokens;
+        existing.cost += s.cost;
+        continue;
+      }
+      month.by_source?.push({ ...s });
+    }
+  }
+  return [...months.values()];
+}
+
+export const RANGES = [
+  { key: "all", label: "All", days: null },
+  { key: "12m", label: "12 months", days: 365 },
+  { key: "90d", label: "90 days", days: 90 },
+] as const;
+
+export type RangeKey = (typeof RANGES)[number]["key"];
 const CHART_H = 100;
 
 function stackedTotal(d: DailyEntry): number {
@@ -15,13 +67,44 @@ function stackedTotal(d: DailyEntry): number {
   return sum || d.total_tokens;
 }
 
-export function DailyChart({ daily }: DailyChartProps): JSX.Element | null {
+export function DailyChart({
+  daily,
+  filter = null,
+  days = null,
+  granularity = "daily",
+}: DailyChartProps): JSX.Element | null {
   const [hovered, setHovered] = useState<number | null>(null);
 
   if (daily.length === 0) return null;
 
-  const recent = daily.slice(0, WINDOW).reverse();
-  const maxTokens = Math.max(...recent.map(stackedTotal), 1);
+  const keep = (source: string) =>
+    filter === null || normalizeSource(source) === filter;
+
+  const windowed = (days === null ? daily.slice() : daily.slice(0, days))
+    .reverse()
+    .map((d) =>
+      filter === null
+        ? d
+        : { ...d, by_source: (d.by_source ?? []).filter((s) => keep(s.source)) }
+    );
+  const recent = granularity === "monthly" ? byMonth(windowed) : windowed;
+  const label = (iso: string, long = false) =>
+    granularity === "monthly" ? formatMonth(iso) : formatDay(iso, long);
+  const dayTotals = recent.map((d) =>
+    filter === null
+      ? { tokens: d.total_tokens, cost: d.cost }
+      : (d.by_source ?? []).reduce(
+          (acc, s) => ({
+            tokens: acc.tokens + s.total_tokens,
+            cost: acc.cost + s.cost,
+          }),
+          { tokens: 0, cost: 0 }
+        )
+  );
+  const maxTokens =
+    filter === null
+      ? Math.max(...recent.map(stackedTotal), 1)
+      : Math.max(...dayTotals.map((t) => t.tokens), 1);
   const barWidth = 100 / recent.length;
 
   const totals = new Map<string, number>();
@@ -45,10 +128,15 @@ export function DailyChart({ daily }: DailyChartProps): JSX.Element | null {
     .filter((s) => s.total_tokens > 0 || s.cost > 0)
     .sort((a, b) => b.total_tokens - a.total_tokens);
 
-  const ticks = [...new Set(
-    [recent[0]?.date, recent[Math.floor(recent.length / 2)]?.date, recent[recent.length - 1]?.date]
-      .filter(Boolean) as string[],
-  )];
+  const ticks = [
+    ...new Set(
+      [
+        recent[0]?.date,
+        recent[Math.floor(recent.length / 2)]?.date,
+        recent[recent.length - 1]?.date,
+      ].filter(Boolean) as string[]
+    ),
+  ];
 
   return (
     <div className="burns-chart">
@@ -64,7 +152,10 @@ export function DailyChart({ daily }: DailyChartProps): JSX.Element | null {
             const w = Math.max(barWidth - gap, 0.2);
             const x = i * barWidth + gap / 2;
             const stack = (day.by_source ?? [])
-              .map((s) => ({ name: normalizeSource(s.source), tokens: s.total_tokens }))
+              .map((s) => ({
+                name: normalizeSource(s.source),
+                tokens: s.total_tokens,
+              }))
               .filter((s) => s.tokens > 0)
               .sort((a, b) => legend.indexOf(a.name) - legend.indexOf(b.name));
 
@@ -74,7 +165,7 @@ export function DailyChart({ daily }: DailyChartProps): JSX.Element | null {
             const barAccess = {
               role: "button" as const,
               tabIndex: 0,
-              "aria-label": `${day.date}: ${fmtTokens(day.total_tokens)} tokens, ${fmtCost(day.cost)}`,
+              "aria-label": `${day.date}: ${fmtTokens(dayTotals[i].tokens)} tokens, ${fmtCost(dayTotals[i].cost)}`,
               onMouseEnter: () => setHovered(i),
               onMouseLeave: () => setHovered(null),
               onFocus: () => setHovered(i),
@@ -83,7 +174,7 @@ export function DailyChart({ daily }: DailyChartProps): JSX.Element | null {
             };
 
             if (!useStack) {
-              const h = (day.total_tokens / maxTokens) * CHART_H;
+              const h = (dayTotals[i].tokens / maxTokens) * CHART_H;
               return (
                 <rect
                   key={day.date}
@@ -99,11 +190,7 @@ export function DailyChart({ daily }: DailyChartProps): JSX.Element | null {
             }
 
             return (
-              <g
-                key={day.date}
-                opacity={dim ? 0.35 : 1}
-                {...barAccess}
-              >
+              <g key={day.date} opacity={dim ? 0.35 : 1} {...barAccess}>
                 {stack.map((seg) => {
                   const h = (seg.tokens / maxTokens) * CHART_H;
                   y -= h;
@@ -123,49 +210,67 @@ export function DailyChart({ daily }: DailyChartProps): JSX.Element | null {
           })}
         </svg>
 
-        {hovered !== null && hoveredDay && (() => {
-          const pct = hovered * barWidth + barWidth / 2;
-          const left = Math.min(Math.max(pct, 0), 100);
-          const transform =
-            pct < 18 ? "translateX(0)" : pct > 82 ? "translateX(-100%)" : "translateX(-50%)";
-          return (
-            <div
-              className="burns-tooltip"
-              style={{ left: `${left}%`, transform }}
-            >
-              <div className="burns-tooltip-title">{formatDay(hoveredDay.date, true)}</div>
-              {sources.length > 0 ? (
-                <div className="burns-tooltip-grid">
-                  {sources.map((s) => (
-                    <div key={s.name} style={{ display: "contents" }}>
-                      <span className="burns-swatch" style={{ background: sourceSwatch(s.name) }} />
-                      <span>{s.name}</span>
-                      <span style={{ color: "var(--muted)", textAlign: "right" }}>
-                        {fmtTokens(s.total_tokens)}
-                      </span>
-                      <span style={{ color: "var(--muted-soft)", textAlign: "right" }}>
-                        {fmtCost(s.cost)}
-                      </span>
-                    </div>
-                  ))}
+        {hovered !== null &&
+          hoveredDay &&
+          (() => {
+            const pct = hovered * barWidth + barWidth / 2;
+            const left = Math.min(Math.max(pct, 0), 100);
+            const transform =
+              pct < 18
+                ? "translateX(0)"
+                : pct > 82
+                  ? "translateX(-100%)"
+                  : "translateX(-50%)";
+            return (
+              <div
+                className="burns-tooltip"
+                style={{ left: `${left}%`, transform }}
+              >
+                <div className="burns-tooltip-title">
+                  {label(hoveredDay.date, true)}
                 </div>
-              ) : (
-                <div style={{ fontVariantNumeric: "tabular-nums" }}>
-                  {fmtTokens(hoveredDay.total_tokens)} tokens
+                {sources.length > 0 ? (
+                  <div className="burns-tooltip-grid">
+                    {sources.map((s) => (
+                      <div key={s.name} style={{ display: "contents" }}>
+                        <span
+                          className="burns-swatch"
+                          style={{ background: sourceSwatch(s.name) }}
+                        />
+                        <span>{s.name}</span>
+                        <span
+                          style={{ color: "var(--muted)", textAlign: "right" }}
+                        >
+                          {fmtTokens(s.total_tokens)}
+                        </span>
+                        <span
+                          style={{
+                            color: "var(--muted-soft)",
+                            textAlign: "right",
+                          }}
+                        >
+                          {fmtCost(s.cost)}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div style={{ fontVariantNumeric: "tabular-nums" }}>
+                    {fmtTokens(dayTotals[hovered].tokens)} tokens
+                  </div>
+                )}
+                <div className="burns-tooltip-foot">
+                  <span>{fmtTokens(dayTotals[hovered].tokens)} total</span>
+                  <span>{fmtCost(dayTotals[hovered].cost)}</span>
                 </div>
-              )}
-              <div className="burns-tooltip-foot">
-                <span>{fmtTokens(hoveredDay.total_tokens)} total</span>
-                <span>{fmtCost(hoveredDay.cost)}</span>
               </div>
-            </div>
-          );
-        })()}
+            );
+          })()}
       </div>
 
       <div className="burns-chart-axis">
         {ticks.map((d) => (
-          <span key={d}>{formatDay(d)}</span>
+          <span key={d}>{label(d)}</span>
         ))}
       </div>
 
@@ -173,7 +278,10 @@ export function DailyChart({ daily }: DailyChartProps): JSX.Element | null {
         <ul className="burns-legend">
           {legend.map((name) => (
             <li key={name}>
-              <span className="burns-swatch" style={{ background: sourceSwatch(name) }} />
+              <span
+                className="burns-swatch"
+                style={{ background: sourceSwatch(name) }}
+              />
               {name}
             </li>
           ))}
