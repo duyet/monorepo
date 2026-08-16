@@ -208,7 +208,7 @@ export function StoryDetail({
           {(item.tags.length > 0 || item.category) && (
             <div
               ref={topicsScrollRef}
-              className="edge-fade-x scrollbar-hide flex items-center gap-1.5 overflow-x-auto whitespace-nowrap"
+              className="scrollbar-hide flex items-center gap-1.5 overflow-x-auto whitespace-nowrap"
             >
               <span className="shrink-0 text-xs font-bold uppercase tracking-wider text-muted-foreground">
                 {lang === "vi" ? "Chủ đề" : "Topics"}

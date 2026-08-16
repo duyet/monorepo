@@ -176,24 +176,25 @@
   display: none;
 }
 
-/* Always-on left/right fade on horizontally-scrollable rows, indicating
-   there's more content past the edge (paired with useHorizontalScroll's
-   wheel-to-horizontal-scroll behavior). Masking the scroll container
-   itself fades whatever is currently painted at its edges regardless of
-   scroll offset — no scroll-position JS needed. */
+/* Left/right fade on horizontally-scrollable rows, indicating there's more
+   content past the edge. useHorizontalScroll sets the --fade-l/--fade-r
+   custom properties to 24px only on the side(s) that still have content to
+   scroll to, so an edge with nothing left to scroll stays unfaded. Masking
+   the scroll container itself fades whatever is currently painted at its
+   edges regardless of scroll offset — no extra paint work needed. */
 .edge-fade-x {
   mask-image: linear-gradient(
     to right,
     transparent,
-    black 24px,
-    black calc(100% - 24px),
+    black var(--fade-l, 0px),
+    black calc(100% - var(--fade-r, 0px)),
     transparent
   );
   -webkit-mask-image: linear-gradient(
     to right,
     transparent,
-    black 24px,
-    black calc(100% - 24px),
+    black var(--fade-l, 0px),
+    black calc(100% - var(--fade-r, 0px)),
     transparent
   );
 }

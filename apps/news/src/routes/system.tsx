@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import { BarList } from "../components/system/BarList";
 import { ChartCard } from "../components/system/ChartCard";
 import { DailyBars } from "../components/system/DailyBars";
+import { RunDurationBars } from "../components/system/RunDurationBars";
+import { RunOutcomeBars } from "../components/system/RunOutcomeBars";
 import { RunsList } from "../components/system/RunsList";
+import { RunStatusStrip } from "../components/system/RunStatusStrip";
 import { StatTile } from "../components/system/StatTile";
 import { categoryLabel, statusLabel } from "../lib/lang";
 import type { SystemStats } from "../lib/system-queries";
@@ -293,6 +296,46 @@ function SystemPage() {
               </span>
             </li>
           </ul>
+        </ChartCard>
+
+        <ChartCard
+          title={t("Run status", "Trạng thái lần chạy")}
+          subtitle={t(
+            "Outcome per run, oldest to newest",
+            "Kết quả từng lần chạy, cũ đến mới"
+          )}
+        >
+          <RunStatusStrip
+            runs={stats.runs}
+            emptyLabel={t("No runs yet.", "Chưa có lần chạy nào.")}
+          />
+        </ChartCard>
+
+        <ChartCard
+          title={t("Run duration", "Thời lượng lần chạy")}
+          subtitle={t(
+            "Seconds per run, oldest to newest",
+            "Số giây mỗi lần chạy, cũ đến mới"
+          )}
+        >
+          <RunDurationBars
+            runs={stats.runs}
+            emptyLabel={t("No data yet.", "Chưa có dữ liệu.")}
+          />
+        </ChartCard>
+
+        <ChartCard
+          title={t("Run outcomes", "Kết quả lần chạy")}
+          subtitle={t(
+            "New / merged / rejected items per run",
+            "Bài mới / gộp / loại theo lần chạy"
+          )}
+          className="md:col-span-2"
+        >
+          <RunOutcomeBars
+            runs={stats.runs}
+            emptyLabel={t("No data yet.", "Chưa có dữ liệu.")}
+          />
         </ChartCard>
 
         <ChartCard

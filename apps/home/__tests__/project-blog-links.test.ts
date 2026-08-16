@@ -2,7 +2,10 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
 
-vi.mock("../../../blog/public/posts-data.json", () => ({
+// Path is relative to this test file (__tests__/), one level shallower than
+// src/data/blog-posts.ts which imports ../../../blog/... — both must resolve
+// to apps/blog/public/posts-data.json for the mock to apply.
+vi.mock("../../blog/public/posts-data.json", () => ({
   default: [
     {
       slug: "/2024/03/clickhouse-monitoring",

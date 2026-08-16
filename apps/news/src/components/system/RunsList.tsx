@@ -70,59 +70,66 @@ export function RunsList({ runs, lang }: RunsListProps) {
     );
   }
   return (
-    <div ref={scrollRef} className="edge-fade-x scrollbar-hide overflow-x-auto">
-      <table className="w-full text-left text-xs">
+    <div
+      ref={scrollRef}
+      className="scrollbar-hide overflow-x-auto rounded-lg border border-border"
+    >
+      <table className="w-full min-w-[720px] text-left text-xs">
         <thead>
-          <tr className="text-muted-foreground">
-            <th className="pb-2 font-normal">
+          <tr className="border-border border-b text-muted-foreground">
+            <th className="px-3 py-2 font-normal">
               {lang === "vi" ? "Trạng thái" : "Status"}
             </th>
-            <th className="pb-2 font-normal">
+            <th className="px-3 py-2 font-normal">
               {lang === "vi" ? "Bắt đầu" : "Started"}
             </th>
-            <th className="pb-2 font-normal">
+            <th className="px-3 py-2 text-right font-normal">
               {lang === "vi" ? "Thời lượng" : "Duration"}
             </th>
-            <th className="pb-2 text-right font-normal">
+            <th className="px-3 py-2 text-right font-normal">
               {lang === "vi" ? "Lấy về" : "Fetched"}
             </th>
-            <th className="pb-2 text-right font-normal">
+            <th className="px-3 py-2 text-right font-normal">
               {lang === "vi" ? "Mới/Gộp/Loại" : "New/Merged/Rej"}
             </th>
-            <th className="pb-2 text-right font-normal">
+            <th className="px-3 py-2 text-right font-normal">
               {lang === "vi" ? "Token" : "Tokens"}
             </th>
-            <th className="pb-2 font-normal">
+            <th className="px-3 py-2 font-normal">
               {lang === "vi" ? "Khác" : "Extras"}
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="divide-y divide-border">
           {runs.map((r) => {
             const ok = !r.error;
+            const partial = ok && (r.items_fetched ?? 0) === 0;
             const stats = r.stats;
             const sourceLine = stats ? bySourceSubline(stats) : null;
             const badges = stats ? extraBadges(stats, lang) : [];
             return (
-              <tr key={r.id} className="border-t border-border">
-                <td className="py-1.5">
-                  <span className="flex items-center gap-1.5">
-                    <span
-                      className={`inline-block h-1.5 w-1.5 shrink-0 rounded-full ${
-                        ok ? "bg-emerald-500" : "bg-red-500"
-                      }`}
-                    />
-                    <span
-                      className={ok ? "text-muted-foreground" : "text-red-500"}
-                    >
-                      {ok
-                        ? "OK"
-                        : (r.error ?? (lang === "vi" ? "lỗi" : "error"))}
-                    </span>
+              <tr key={r.id} className="hover:bg-muted/50">
+                <td className="px-3 py-2">
+                  <span
+                    className={`inline-flex items-center gap-1 whitespace-nowrap rounded-full px-1.5 py-0.5 text-[10px] font-medium ${
+                      !ok
+                        ? "bg-red-500/10 text-red-600 dark:text-red-400"
+                        : partial
+                          ? "bg-amber-500/10 text-amber-600 dark:text-amber-400"
+                          : "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                    }`}
+                  >
+                    {!ok
+                      ? (r.error ?? (lang === "vi" ? "lỗi" : "error"))
+                      : partial
+                        ? lang === "vi"
+                          ? "trống"
+                          : "empty"
+                        : "OK"}
                   </span>
                 </td>
                 <td
-                  className="py-1.5 font-mono tabular-nums text-foreground"
+                  className="px-3 py-2 font-mono tabular-nums text-foreground"
                   title={
                     r.started_at
                       ? new Date(r.started_at * 1000).toLocaleString()
@@ -131,10 +138,10 @@ export function RunsList({ runs, lang }: RunsListProps) {
                 >
                   {r.started_at ? timeAgo(r.started_at, Date.now(), lang) : "—"}
                 </td>
-                <td className="py-1.5 font-mono tabular-nums text-foreground">
+                <td className="px-3 py-2 text-right font-mono tabular-nums text-foreground">
                   {formatDuration(r.started_at, r.finished_at)}
                 </td>
-                <td className="py-1.5 text-right font-mono tabular-nums text-foreground">
+                <td className="px-3 py-2 text-right font-mono tabular-nums text-foreground">
                   <div>{r.items_fetched ?? 0}</div>
                   {sourceLine && (
                     <div
@@ -146,7 +153,7 @@ export function RunsList({ runs, lang }: RunsListProps) {
                   )}
                 </td>
                 <td
-                  className="py-1.5 text-right font-mono tabular-nums text-foreground"
+                  className="px-3 py-2 text-right font-mono tabular-nums text-foreground"
                   title={
                     stats
                       ? `${lang === "vi" ? "Mới" : "New"} ${stats.new ?? 0} · ${
@@ -163,10 +170,10 @@ export function RunsList({ runs, lang }: RunsListProps) {
                       }`
                     : (r.items_new ?? 0)}
                 </td>
-                <td className="py-1.5 text-right font-mono tabular-nums text-foreground">
+                <td className="px-3 py-2 text-right font-mono tabular-nums text-foreground">
                   {stats?.tokens ? formatTokens(stats.tokens) : "—"}
                 </td>
-                <td className="py-1.5">
+                <td className="px-3 py-2">
                   {badges.length > 0 && (
                     <span className="flex flex-wrap gap-1">
                       {badges.map((b) => (

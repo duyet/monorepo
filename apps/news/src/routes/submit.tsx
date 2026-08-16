@@ -239,8 +239,8 @@ function SubmitPage() {
       </h1>
       <p className="mt-1 text-sm text-muted-foreground">
         {lang === "vi"
-          ? "Chia sẻ một bài viết về AI. Bài của bạn sẽ được AI thẩm định trước khi lên trang."
-          : "Share an AI story. It'll be AI-reviewed before it appears on the site."}
+          ? "Chia sẻ một bài viết."
+          : "Share an AI story."}
       </p>
 
       <div className="mt-6 max-w-lg">

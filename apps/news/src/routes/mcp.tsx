@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { BookOpen, Plug, Terminal } from "lucide-react";
+import { BookOpen, ExternalLink, Plug, Terminal } from "lucide-react";
+import type { ReactNode } from "react";
 import { useLang } from "../lib/lang-context";
 
 export const Route = createFileRoute("/mcp")({
@@ -61,20 +62,43 @@ function CodeBlock({ code }: { code: string }) {
   );
 }
 
+function ExtLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-0.5 text-accent underline underline-offset-2 hover:no-underline"
+    >
+      {children}
+      <ExternalLink className="h-3 w-3" aria-hidden />
+    </a>
+  );
+}
+
 function McpPage() {
   const lang = useLang();
   const t = (en: string, vi: string) => (lang === "vi" ? vi : en);
 
   return (
     <div className="py-10">
-      <h1 className="text-2xl font-bold tracking-tight">
-        {t("MCP Server", "Máy chủ MCP")}
-      </h1>
+      <div className="flex items-center gap-3">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border bg-accent/10 text-accent">
+          <Plug className="h-5 w-5" aria-hidden />
+        </span>
+        <h1 className="text-2xl font-bold tracking-tight">
+          {t("MCP Server", "Máy chủ MCP")}
+        </h1>
+      </div>
       <p className="mt-2 max-w-3xl text-sm text-muted-foreground">
         {t(
-          "MCP server for pushing news and managing sources.",
-          "Máy chủ MCP để đẩy tin tức và quản lý nguồn tin."
-        )}
+          "MCP server for pushing news and managing sources. Implements the",
+          "Máy chủ MCP để đẩy tin tức và quản lý nguồn tin. Triển khai theo"
+        )}{" "}
+        <ExtLink href="https://modelcontextprotocol.io">
+          {t("Model Context Protocol", "chuẩn Model Context Protocol")}
+        </ExtLink>
+        .
       </p>
 
       <section className="mt-6">
@@ -98,11 +122,19 @@ function McpPage() {
         </h2>
         <div className="mt-2 space-y-3 text-sm">
           <div>
-            <p className="font-semibold text-foreground">Claude Code</p>
+            <p className="font-semibold text-foreground">
+              <ExtLink href="https://docs.claude.com/en/docs/claude-code/mcp">
+                Claude Code
+              </ExtLink>
+            </p>
             <CodeBlock code={CLAUDE_CODE_EXAMPLE} />
           </div>
           <div>
-            <p className="font-semibold text-foreground">Claude Desktop</p>
+            <p className="font-semibold text-foreground">
+              <ExtLink href="https://modelcontextprotocol.io/quickstart/user">
+                Claude Desktop
+              </ExtLink>
+            </p>
             <p className="mt-1 text-muted-foreground">
               {t(
                 "Use the same connect config above.",
@@ -115,7 +147,11 @@ function McpPage() {
             </p>
           </div>
           <div>
-            <p className="font-semibold text-foreground">ChatGPT</p>
+            <p className="font-semibold text-foreground">
+              <ExtLink href="https://platform.openai.com/docs/actions">
+                ChatGPT
+              </ExtLink>
+            </p>
             <p className="mt-1 text-muted-foreground">
               {t(
                 "Add it as a connector with the same URL and bearer token, or use the REST API above for custom GPT Actions.",
@@ -129,8 +165,16 @@ function McpPage() {
             </p>
             <p className="mt-1 text-muted-foreground">
               {t(
-                "Any MCP-capable client works the same way — the URL and Authorization header are all you need.",
-                "Bất kỳ client hỗ trợ MCP nào cũng dùng được — chỉ cần URL và header Authorization."
+                "Any MCP-capable client works the same way — e.g.",
+                "Bất kỳ client hỗ trợ MCP nào cũng dùng được — vd."
+              )}{" "}
+              <ExtLink href="https://cursor.com/docs/context/mcp">
+                Cursor
+              </ExtLink>
+              {" — "}
+              {t(
+                "the URL and Authorization header are all you need.",
+                "chỉ cần URL và header Authorization."
               )}
             </p>
           </div>

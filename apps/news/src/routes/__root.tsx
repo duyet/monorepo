@@ -70,26 +70,27 @@ function ClerkRootProvider({ children }: { children: ReactNode }) {
   );
 }
 
+// Footer is always English, regardless of site language.
 const FOOTER_LINKS: {
   to: string;
-  label: Record<Lang, string>;
+  label: string;
   icon: LucideIcon;
 }[] = [
-  { to: "/about", label: { en: "About", vi: "Giới thiệu" }, icon: Info },
-  { to: "/mcp", label: { en: "MCP", vi: "MCP" }, icon: Plug },
+  { to: "/about", label: "About", icon: Info },
+  { to: "/mcp", label: "MCP", icon: Plug },
   {
     to: "/system",
-    label: { en: "Analytics", vi: "Thống kê" },
+    label: "Analytics",
     icon: BarChart3,
   },
   {
     to: "/changelog",
-    label: { en: "Changelog", vi: "Nhật ký" },
+    label: "Changelog",
     icon: History,
   },
 ];
 
-function NewsFooter({ lang }: { lang: Lang }) {
+function NewsFooter() {
   const year = new Date().getFullYear();
   const [lastFetchedAt, setLastFetchedAt] = useState<number | null>(
     () => getCachedFeed()?.lastFetchedAt ?? null
@@ -112,14 +113,11 @@ function NewsFooter({ lang }: { lang: Lang }) {
     <footer className="border-t border-border py-6 text-xs text-muted-foreground">
       <div className="mx-auto flex w-full max-w-[1080px] flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 sm:px-6 lg:px-8">
         <span>
-          {lang === "vi"
-            ? `© ${year} Duyet Le · news.duyet.net — Tin AI được LLM chấm điểm & xếp hạng`
-            : `© ${year} Duyet Le · news.duyet.net — AI news, rated & ranked by LLMs`}
+          {`© ${year} Duyet Le · news.duyet.net — AI news, rated & ranked by LLMs`}
           {lastFetchedAt !== null && (
             <>
               {" · "}
-              {lang === "vi" ? "Cập nhật" : "Updated"}{" "}
-              {timeAgo(lastFetchedAt, Date.now(), lang)}
+              Updated {timeAgo(lastFetchedAt, Date.now(), "en")}
             </>
           )}
         </span>
@@ -131,7 +129,7 @@ function NewsFooter({ lang }: { lang: Lang }) {
               className="flex items-center gap-1 hover:text-accent hover:underline hover:underline-offset-2"
             >
               <link.icon className="h-3.5 w-3.5" aria-hidden />
-              {link.label[lang]}
+              {link.label}
             </Link>
           ))}
           <a
@@ -291,7 +289,7 @@ function RootComponent() {
                     </main>
                   </div>
 
-                  <NewsFooter lang={lang} />
+                  <NewsFooter />
                 </div>
               </ClerkRootProvider>
             </ThemeProvider>

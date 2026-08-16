@@ -163,7 +163,7 @@ export function SearchBox({
             }
           }}
           placeholder={placeholder}
-          className="w-full rounded-lg border border-border bg-muted py-1 pl-8 pr-3 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40"
+          className="w-full rounded-lg border border-border bg-background py-1 pl-8 pr-3 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40"
           aria-label="Search"
           aria-autocomplete="list"
           aria-expanded={showDropdown}

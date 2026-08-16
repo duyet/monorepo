@@ -3,7 +3,6 @@ import { ArrowRight, ExternalLink } from "lucide-react";
 import { useEffect, useState } from "react";
 import { fetchSourceNames } from "../lib/sources-fn";
 import type { SystemStats } from "../lib/system-queries";
-import { useHorizontalScroll } from "../lib/use-horizontal-scroll";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -67,12 +66,8 @@ const STEPS: Step[] = [
 function PipelineDiagram() {
   // English-only by design: the global lang toggle is disabled on this
   // route (see HeaderBar/LangToggle).
-  const scrollRef = useHorizontalScroll<HTMLDivElement>();
   return (
-    <div
-      ref={scrollRef}
-      className="edge-fade-x scrollbar-hide -mx-1 flex items-stretch gap-1 overflow-x-auto px-1 py-1"
-    >
+    <div className="-mx-1 flex flex-wrap items-stretch gap-1 gap-y-2 px-1 py-1">
       {STEPS.map((step, i) => (
         <div key={step.en} className="flex shrink-0 items-stretch">
           <div className="flex w-28 flex-col justify-center rounded-lg border border-border px-2 py-2 text-center">
