@@ -31,24 +31,18 @@ export function TrendingChips({
             type="button"
             onClick={() => onSelectTag(selected ? null : t.tag)}
             aria-pressed={selected}
-            className={`flex shrink-0 items-baseline gap-1.5 rounded-full border px-3 py-1 text-sm transition-colors ${
-              selected
-                ? "border-accent text-accent"
-                : "border-border hover:border-accent/60"
+            className={`topic-colored flex shrink-0 items-baseline gap-1.5 rounded-full border px-3 py-1 text-sm font-medium transition-colors ${
+              selected ? "border-current" : "border-border hover:border-current"
             }`}
+            style={
+              {
+                "--tc-light": color.light,
+                "--tc-dark": color.dark,
+              } as CSSProperties
+            }
           >
-            <span
-              className="topic-colored h-1.5 w-1.5 shrink-0 self-center rounded-full bg-current"
-              style={
-                {
-                  "--tc-light": color.light,
-                  "--tc-dark": color.dark,
-                } as CSSProperties
-              }
-              aria-hidden
-            />
             {t.tag}
-            <span className="text-xs font-semibold text-accent">{t.count}</span>
+            <span className="text-xs font-semibold opacity-70">{t.count}</span>
           </button>
         );
       })}
