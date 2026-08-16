@@ -38,25 +38,31 @@ export function isSubscribeError(value: unknown): value is SubscribeError {
   );
 }
 
-/** Inserts (or re-activates) a subscriber. `lang` defaults to 'vi' unless 'en' is explicitly given. */
+/** Inserts (or re-activates) a subscriber. `lang` defaults to 'vi' unless
+ * 'en' is explicitly given. `timezone` defaults to DEFAULT_TIMEZONE unless
+ * a valid IANA timezone string is given. */
 export async function subscribe(
   env: Env,
   email: unknown,
-  lang: unknown
+  lang: unknown,
+  timezone?: unknown
 ): Promise<{ ok: true } | SubscribeError> {
   if (!isValidEmail(email)) {
     return { error: "invalid email", status: 400 };
   }
   const normalizedLang = lang === "en" ? "en" : "vi";
+  const normalizedTimezone = isValidTimezone(timezone)
+    ? timezone
+    : DEFAULT_TIMEZONE;
   const token = crypto.randomUUID();
 
   await env.DB.prepare(
-    `INSERT INTO subscribers (email, lang, created_at, confirmed, unsubscribe_token)
-     VALUES (?, ?, ?, 1, ?)
+    `INSERT INTO subscribers (email, lang, timezone, created_at, confirmed, unsubscribe_token)
+     VALUES (?, ?, ?, ?, 1, ?)
      ON CONFLICT(email) DO UPDATE SET
-       lang = excluded.lang, confirmed = 1`
+       lang = excluded.lang, timezone = excluded.timezone, confirmed = 1`
   )
-    .bind(email, normalizedLang, Date.now(), token)
+    .bind(email, normalizedLang, normalizedTimezone, Date.now(), token)
     .run();
 
   return { ok: true };
