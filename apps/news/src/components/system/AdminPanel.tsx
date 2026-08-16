@@ -1,6 +1,34 @@
 import { useState } from "react";
 import type { AdminState } from "../../lib/admin";
 
+interface RunStepInfo {
+  name: string;
+  action: string;
+  reason?: string;
+}
+
+interface WorkflowRun {
+  stats?: string | { steps?: RunStepInfo[] } | null;
+}
+
+function lastRunSteps(status: unknown): RunStepInfo[] {
+  if (!status || typeof status !== "object") return [];
+  const runs = (status as { runs?: WorkflowRun[] }).runs;
+  const stats = runs?.[0]?.stats;
+  if (!stats) return [];
+  const parsed = typeof stats === "string" ? safeParse(stats) : stats;
+  const steps = (parsed as { steps?: unknown })?.steps;
+  return Array.isArray(steps) ? (steps as RunStepInfo[]) : [];
+}
+
+function safeParse(raw: string): unknown {
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
 interface LlmCall {
   ts: string;
   task: string;
@@ -26,6 +54,14 @@ async function authedFetch(
 export function AdminPanel({ admin }: { admin: AdminState }) {
   const [ingestBusy, setIngestBusy] = useState(false);
   const [ingestResult, setIngestResult] = useState<string | null>(null);
+  const [rescoreBusy, setRescoreBusy] = useState(false);
+  const [rescoreResult, setRescoreResult] = useState<string | null>(null);
+  const [retranslateBusy, setRetranslateBusy] = useState(false);
+  const [retranslateResult, setRetranslateResult] = useState<string | null>(
+    null
+  );
+  const [tldrBusy, setTldrBusy] = useState(false);
+  const [tldrResult, setTldrResult] = useState<string | null>(null);
   const [status, setStatus] = useState<unknown>(null);
   const [statusBusy, setStatusBusy] = useState(false);
   const [calls, setCalls] = useState<LlmCall[]>([]);
@@ -89,6 +125,53 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
     }
   }
 
+  async function reprocess(
+    steps: ("score" | "translate")[],
+    setBusy: (busy: boolean) => void,
+    setResult: (result: string | null) => void
+  ) {
+    setBusy(true);
+    setResult(null);
+    try {
+      const res = await authedFetch(admin, "/api/admin/reprocess", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ steps }),
+      });
+      const data = await res.json().catch(() => null);
+      setResult(
+        res.ok
+          ? `ok — ${JSON.stringify(data)}`
+          : `error (${res.status}) — ${JSON.stringify(data)}`
+      );
+      await loadStatus();
+    } catch {
+      setResult("error — request failed");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function regenerateTldr() {
+    setTldrBusy(true);
+    setTldrResult(null);
+    try {
+      const res = await authedFetch(admin, "/api/admin/tldr/regenerate", {
+        method: "POST",
+      });
+      const data = await res.json().catch(() => null);
+      setTldrResult(
+        res.ok
+          ? `ok — ${JSON.stringify(data)}`
+          : `error (${res.status}) — ${JSON.stringify(data)}`
+      );
+    } catch {
+      setTldrResult("error — request failed");
+    } finally {
+      setTldrBusy(false);
+    }
+  }
+
   return (
     <div className="rounded-lg border border-border p-4">
       <div className="flex items-center justify-between">
@@ -119,11 +202,85 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
         )}
       </div>
 
+      <div className="mt-2 flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          onClick={() =>
+            reprocess(["score"], setRescoreBusy, setRescoreResult)
+          }
+          disabled={rescoreBusy}
+          className="rounded border border-border px-2 py-1 text-xs text-foreground hover:bg-muted disabled:opacity-50"
+        >
+          {rescoreBusy ? "Re-scoring…" : "Re-score today"}
+        </button>
+        {rescoreResult && (
+          <span className="text-xs text-muted-foreground">
+            {rescoreResult}
+          </span>
+        )}
+      </div>
+
+      <div className="mt-2 flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          onClick={() =>
+            reprocess(["translate"], setRetranslateBusy, setRetranslateResult)
+          }
+          disabled={retranslateBusy}
+          className="rounded border border-border px-2 py-1 text-xs text-foreground hover:bg-muted disabled:opacity-50"
+        >
+          {retranslateBusy ? "Re-translating…" : "Re-translate today"}
+        </button>
+        {retranslateResult && (
+          <span className="text-xs text-muted-foreground">
+            {retranslateResult}
+          </span>
+        )}
+      </div>
+
+      <div className="mt-2 flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          onClick={regenerateTldr}
+          disabled={tldrBusy}
+          className="rounded border border-border px-2 py-1 text-xs text-foreground hover:bg-muted disabled:opacity-50"
+        >
+          {tldrBusy ? "Regenerating…" : "Regenerate TL;DR"}
+        </button>
+        {tldrResult && (
+          <span className="text-xs text-muted-foreground">{tldrResult}</span>
+        )}
+      </div>
+
       {refreshError && (
         <p className="mt-2 text-xs text-muted-foreground">
           Refresh failed.
         </p>
       )}
+
+      <div className="mt-4">
+        <p className="text-xs font-medium text-muted-foreground">
+          Last run steps
+        </p>
+        {lastRunSteps(status).length === 0 ? (
+          <p className="mt-1 text-xs text-muted-foreground">
+            No step detail loaded.
+          </p>
+        ) : (
+          <ul className="mt-1 space-y-0.5 text-xs">
+            {lastRunSteps(status).map((step, i) => (
+              <li key={`${step.name}-${i}`} className="text-foreground">
+                <span className="font-medium">{step.name}</span>
+                {": "}
+                <span>{step.action}</span>
+                {step.reason && (
+                  <span className="text-muted-foreground"> — {step.reason}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
 
       <div className="mt-4">
         <p className="text-xs font-medium text-muted-foreground">Status</p>

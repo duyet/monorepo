@@ -1,13 +1,16 @@
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { checkAuth } from "../admin/auth.js";
 import {
   getLlmCalls,
   isHandlerError,
   pushItems,
+  regenerateTldr,
+  reprocessToday,
   sha256Hex,
   upsertSource,
 } from "../admin/handlers.js";
 import { handleMcpRequest } from "../admin/mcp.js";
+import * as llm from "../llm.js";
 import type { Env } from "../types.js";
 
 /**
@@ -21,6 +24,8 @@ class FakeD1 {
   translations = new Map<string, Record<string, unknown>>();
   workflowRuns: Record<string, unknown>[] = [];
   llmCalls: Record<string, unknown>[] = [];
+  topics = new Map<string, Record<string, unknown>>();
+  tldrSnapshots = new Map<string, Record<string, unknown>>();
 
   prepare(sql: string) {
     const db = this;
@@ -37,6 +42,12 @@ class FakeD1 {
       run: async () => db.exec(normalized, []),
       all: async () => db.exec(normalized, []),
     };
+  }
+
+  async batch(statements: { run: () => Promise<unknown> }[]) {
+    const results = [];
+    for (const s of statements) results.push(await s.run());
+    return results;
   }
 
   private exec(sql: string, args: unknown[]): unknown {
@@ -144,6 +155,101 @@ class FakeD1 {
           .sort((a, b) => (b.ts as number) - (a.ts as number))
           .slice(0, limit),
       };
+    }
+
+    if (
+      sql.startsWith(
+        "SELECT id, title, summary, source_id, points, comments, published_at FROM items WHERE status = 'published' AND published_at >= ?"
+      )
+    ) {
+      const [since] = args as [number];
+      return {
+        results: Array.from(this.items.values()).filter(
+          (row) =>
+            row.status === "published" &&
+            (row.published_at as number) >= since
+        ),
+      };
+    }
+
+    if (sql.startsWith("UPDATE items SET llm_relevance = ?")) {
+      const [
+        llm_relevance,
+        llm_importance,
+        llm_quality,
+        category,
+        tags,
+        rank_score,
+        id,
+      ] = args;
+      const row = this.items.get(id as string);
+      if (row) {
+        Object.assign(row, {
+          llm_relevance,
+          llm_importance,
+          llm_quality,
+          category,
+          tags,
+          rank_score,
+        });
+      }
+      return { success: true };
+    }
+
+    if (sql.startsWith("SELECT name, canonical FROM topics")) {
+      return { results: Array.from(this.topics.values()) };
+    }
+
+    if (sql.startsWith("INSERT INTO topics")) {
+      const [name, canonical, count, last_seen] = args;
+      this.topics.set(name as string, {
+        name,
+        canonical,
+        count,
+        last_seen,
+      });
+      return { success: true };
+    }
+
+    if (sql.startsWith("SELECT date FROM tldr_snapshots WHERE date = ?")) {
+      const [date] = args as [string];
+      return this.tldrSnapshots.has(date) ? { date } : null;
+    }
+
+    if (sql.startsWith("DELETE FROM tldr_snapshots WHERE date = ?")) {
+      const [date] = args as [string];
+      this.tldrSnapshots.delete(date);
+      return { success: true };
+    }
+
+    if (
+      sql.startsWith(
+        "SELECT id, title, summary FROM items WHERE status = 'published' AND published_at >= ? ORDER BY rank_score DESC"
+      )
+    ) {
+      const [since] = args as [number];
+      return {
+        results: Array.from(this.items.values())
+          .filter(
+            (row) =>
+              row.status === "published" &&
+              (row.published_at as number) >= since
+          )
+          .sort(
+            (a, b) => (b.rank_score as number) - (a.rank_score as number)
+          ),
+      };
+    }
+
+    if (sql.startsWith("INSERT INTO tldr_snapshots")) {
+      const [date, bullets_en, bullets_vi, created_at] = args;
+      this.tldrSnapshots.set(date as string, {
+        date,
+        bullets_en,
+        bullets_vi,
+        created_at,
+      });
+      return { success: true };
     }
 
     if (sql.startsWith("SELECT status, COUNT(*)")) {
@@ -359,6 +465,145 @@ describe("getLlmCalls", () => {
 
     const result = await getLlmCalls(env, "not-a-number");
     expect(result.calls).toHaveLength(100);
+  });
+});
+
+describe("reprocessToday", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  function seedPublished(env: Env, id: string, publishedAt: number): void {
+    const db = env.DB as unknown as FakeD1;
+    db.items.set(id, {
+      id,
+      source_id: "hn",
+      external_id: null,
+      url: `https://example.com/${id}`,
+      title: `Title ${id}`,
+      summary: "summary",
+      published_at: publishedAt,
+      fetched_at: publishedAt,
+      points: 10,
+      comments: 2,
+      llm_relevance: 0.5,
+      llm_importance: 5,
+      llm_quality: 5,
+      category: null,
+      tags: "[]",
+      rank_score: 1,
+      status: "published",
+    });
+  }
+
+  it("updates existing item rows in place without inserting duplicates", async () => {
+    const env = makeEnv();
+    const todaySec = Math.floor(Date.now() / 1000);
+    seedPublished(env, "item-1", todaySec);
+
+    vi.spyOn(llm, "scoreItems").mockResolvedValue([
+      {
+        i: 0,
+        relevance: 0.9,
+        importance: 8,
+        quality: 7,
+        category: "Models",
+        tags: [],
+        tokens: 10,
+      },
+    ]);
+
+    const result = await reprocessToday(env, { steps: ["score"] });
+    expect(isHandlerError(result)).toBe(false);
+    if (isHandlerError(result)) throw new Error("unreachable");
+    expect(result.processed).toBe(1);
+    expect(result.scored).toBe(1);
+
+    const db = env.DB as unknown as FakeD1;
+    expect(db.items.size).toBe(1);
+    const row = db.items.get("item-1");
+    expect(row?.llm_importance).toBe(8);
+    expect(row?.category).toBe("Models");
+  });
+
+  it("upserts translations by item id via reprocess without duplicates", async () => {
+    const env = makeEnv();
+    const todaySec = Math.floor(Date.now() / 1000);
+    seedPublished(env, "item-2", todaySec);
+
+    vi.spyOn(llm, "translateItems").mockResolvedValue([
+      { i: 0, title: "Tiêu đề", summary: "Tóm tắt", tokens: 5 },
+    ]);
+
+    const result = await reprocessToday(env, { steps: ["translate"] });
+    if (isHandlerError(result)) throw new Error("unreachable");
+    expect(result.translated).toBe(1);
+
+    const db = env.DB as unknown as FakeD1;
+    expect(db.translations.size).toBe(1);
+    expect(db.translations.get("item-2:vi")?.title).toBe("Tiêu đề");
+  });
+
+  it("returns 409 when called while already running", async () => {
+    const env = makeEnv();
+    const todaySec = Math.floor(Date.now() / 1000);
+    seedPublished(env, "item-3", todaySec);
+
+    let resolveScore!: (v: unknown) => void;
+    vi.spyOn(llm, "scoreItems").mockReturnValue(
+      new Promise((resolve) => {
+        resolveScore = resolve;
+      }) as any
+    );
+
+    const first = reprocessToday(env, { steps: ["score"] });
+    const second = await reprocessToday(env, { steps: ["score"] });
+    expect(isHandlerError(second)).toBe(true);
+    if (!isHandlerError(second)) throw new Error("unreachable");
+    expect(second.status).toBe(409);
+    expect(second.error).toBe("reprocess already running");
+
+    resolveScore([]);
+    await first;
+  });
+});
+
+describe("regenerateTldr", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("deletes today's snapshot then regenerates it", async () => {
+    const env = makeEnv();
+    const db = env.DB as unknown as FakeD1;
+    const today = new Date().toISOString().slice(0, 10);
+    db.tldrSnapshots.set(today, {
+      date: today,
+      bullets_en: "[]",
+      bullets_vi: "[]",
+      created_at: 1,
+    });
+    db.items.set("t1", {
+      id: "t1",
+      title: "Top story",
+      summary: "s",
+      status: "published",
+      published_at: Math.floor(Date.now() / 1000),
+      rank_score: 10,
+    });
+
+    vi.spyOn(llm, "generateTldr").mockResolvedValue({
+      bullets_en: [{ text: "bullet", item_ids: ["t1"] }],
+      bullets_vi: [{ text: "bullet vi", item_ids: ["t1"] }],
+      tokens: 3,
+    });
+
+    const result = await regenerateTldr(env);
+    expect(result.generated).toBe(true);
+    expect(db.tldrSnapshots.has(today)).toBe(true);
+    expect(
+      JSON.parse(db.tldrSnapshots.get(today)?.bullets_en as string)
+    ).toEqual([{ text: "bullet", item_ids: ["t1"] }]);
   });
 });
 

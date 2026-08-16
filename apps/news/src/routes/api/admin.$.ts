@@ -7,6 +7,8 @@ import {
   isHandlerError,
   listSources,
   pushItems,
+  regenerateTldr,
+  reprocessToday,
   triggerIngest,
   upsertSource,
 } from "../../../worker/admin/handlers.js";
@@ -125,6 +127,36 @@ async function handle(
 
   if (method === "GET" && segments.length === 1 && segments[0] === "status") {
     const result = await getStatus(env);
+    return Response.json(result);
+  }
+
+  if (
+    method === "POST" &&
+    segments.length === 1 &&
+    segments[0] === "reprocess"
+  ) {
+    const { body, error } = await parseJsonBody(request);
+    if (error) return Response.json({ error }, { status: 400 });
+    const result = await reprocessToday(
+      env,
+      (body ?? {}) as Parameters<typeof reprocessToday>[1]
+    );
+    if (isHandlerError(result)) {
+      return Response.json(
+        { error: result.error },
+        { status: result.status ?? 400 }
+      );
+    }
+    return Response.json(result);
+  }
+
+  if (
+    method === "POST" &&
+    segments.length === 2 &&
+    segments[0] === "tldr" &&
+    segments[1] === "regenerate"
+  ) {
+    const result = await regenerateTldr(env);
     return Response.json(result);
   }
 

@@ -1,10 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { buildRunStats, serializeRunStats } from "../run-stats.js";
+import { buildRunStats, recordStep, serializeRunStats } from "../run-stats.js";
 
 describe("buildRunStats", () => {
   it("defaults every field to zero/false/empty when given nothing", () => {
     expect(buildRunStats()).toEqual({
       bySource: {},
+      steps: [],
       new: 0,
       merged: 0,
       rejected: 0,
@@ -31,6 +32,7 @@ describe("buildRunStats", () => {
     });
     expect(stats).toEqual({
       bySource: { hn: 5, huggingnews: 3 },
+      steps: [],
       new: 8,
       merged: 0,
       rejected: 0,
@@ -61,5 +63,30 @@ describe("serializeRunStats", () => {
     const parsed = JSON.parse(serializeRunStats(stats));
     expect(parsed).toEqual(stats);
     expect(JSON.stringify(stats)).not.toContain("undefined");
+  });
+});
+
+describe("recordStep", () => {
+  it("appends a step with name/action/reason", () => {
+    const steps: { name: string; action: string; reason?: string }[] = [];
+    recordStep(steps, "dedupe", "0 new", "27 already in db");
+    expect(steps).toEqual([
+      { name: "dedupe", action: "0 new", reason: "27 already in db" },
+    ]);
+  });
+
+  it("omits reason when not given", () => {
+    const steps: { name: string; action: string; reason?: string }[] = [];
+    recordStep(steps, "fetch", "27 items from 2 sources");
+    expect(steps).toEqual([{ name: "fetch", action: "27 items from 2 sources" }]);
+  });
+
+  it("never throws, even if pushing fails", () => {
+    const frozen = Object.freeze([]) as unknown as {
+      name: string;
+      action: string;
+      reason?: string;
+    }[];
+    expect(() => recordStep(frozen, "x", "y")).not.toThrow();
   });
 });
