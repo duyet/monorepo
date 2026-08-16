@@ -356,6 +356,88 @@ export interface ScoreResult {
   tokens: number;
 }
 
+const CATEGORY_BY_LOWER = new Map<string, string>(
+  CATEGORIES.map((c) => [c.toLowerCase(), c])
+);
+
+function clamp(n: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, n));
+}
+
+/** Canonicalize one model-emitted tag to lowercase-kebab-case; null when the
+ * result is empty or unreasonably long (small models occasionally emit whole
+ * sentences as a "tag"). */
+export function normalizeTag(raw: unknown): string | null {
+  if (typeof raw !== "string") return null;
+  const tag = raw
+    .toLowerCase()
+    .trim()
+    .replace(/[_\s/]+/g, "-")
+    .replace(/[^a-z0-9-]/g, "")
+    .replace(/-{2,}/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return tag && tag.length <= 40 ? tag : null;
+}
+
+/**
+ * Validate one score batch against what was actually asked. Small models on
+ * the fallback chain get every part of this wrong in practice: numbers as
+ * strings, scores out of range, categories in the wrong case or off-enum,
+ * tags with spaces/underscores, hallucinated or duplicate `i`. Coerce and
+ * clamp what's salvageable; drop entries whose identity (`i`) or scores are
+ * unusable — a dropped entry behaves exactly like an item the model skipped.
+ */
+export function sanitizeScoreResults(
+  raw: unknown,
+  batch: ScoreInput[],
+  tokensPerItem: number
+): ScoreResult[] {
+  if (!Array.isArray(raw)) return [];
+  const validIndexes = new Set(batch.map((b) => b.i));
+  const seen = new Set<number>();
+  const out: ScoreResult[] = [];
+  for (const entry of raw) {
+    if (!entry || typeof entry !== "object") continue;
+    const e = entry as Record<string, unknown>;
+    const i = Number(e.i);
+    if (!Number.isInteger(i) || !validIndexes.has(i) || seen.has(i)) continue;
+    const relevance = Number(e.relevance);
+    const importance = Number(e.importance);
+    const quality = Number(e.quality);
+    if (
+      Number.isNaN(relevance) ||
+      Number.isNaN(importance) ||
+      Number.isNaN(quality)
+    )
+      continue;
+    seen.add(i);
+    const category =
+      typeof e.category === "string"
+        ? (CATEGORY_BY_LOWER.get(e.category.trim().toLowerCase()) ?? "")
+        : "";
+    const tags = Array.isArray(e.tags)
+      ? [
+          ...new Set(
+            e.tags
+              .map(normalizeTag)
+              .filter((t): t is string => t !== null)
+              .slice(0, 6)
+          ),
+        ]
+      : [];
+    out.push({
+      i,
+      relevance: clamp(relevance, 0, 1),
+      importance: clamp(importance, 0, 10),
+      quality: clamp(quality, 0, 10),
+      category,
+      tags,
+      tokens: tokensPerItem,
+    });
+  }
+  return out;
+}
+
 export async function scoreItems(
   env: Env,
   items: ScoreInput[]
@@ -383,15 +465,12 @@ Respond with strict JSON only: {"results":[{"i":0,"relevance":0.9,"importance":7
         [{ role: "user", content: prompt }],
         { json: true }
       );
-      const parsed = parseJson<{
-        results: Omit<ScoreResult, "tokens">[];
-      }>(raw);
-      if (Array.isArray(parsed.results)) {
-        const tokensPerItem = Math.ceil(tokens / batch.length);
-        for (const result of parsed.results) {
-          results.push({ ...result, tokens: tokensPerItem });
-        }
-      }
+      const parsed = parseJson<{ results?: unknown } | unknown[]>(raw);
+      // Some small models return the bare array instead of {results: [...]}.
+      const rows = Array.isArray(parsed) ? parsed : parsed.results;
+      results.push(
+        ...sanitizeScoreResults(rows, batch, Math.ceil(tokens / batch.length))
+      );
     } catch (error) {
       console.error("scoreItems batch failed:", error);
     }
@@ -413,6 +492,33 @@ export interface TranslateResult {
   /** This batch's total token usage, attributed evenly across the batch's
    * requested items (not just the ones the model actually returned). */
   tokens: number;
+}
+
+/** Same defense as sanitizeScoreResults, for translations: keep only entries
+ * whose `i` was actually requested (once), with non-empty string title —
+ * small models sometimes echo the input array, invent indexes, or return
+ * nulls for fields they failed to translate. */
+export function sanitizeTranslateResults(
+  raw: unknown,
+  batch: TranslateInput[],
+  tokensPerItem: number
+): TranslateResult[] {
+  if (!Array.isArray(raw)) return [];
+  const validIndexes = new Set(batch.map((b) => b.i));
+  const seen = new Set<number>();
+  const out: TranslateResult[] = [];
+  for (const entry of raw) {
+    if (!entry || typeof entry !== "object") continue;
+    const e = entry as Record<string, unknown>;
+    const i = Number(e.i);
+    if (!Number.isInteger(i) || !validIndexes.has(i) || seen.has(i)) continue;
+    const title = typeof e.title === "string" ? e.title.trim() : "";
+    if (!title) continue;
+    seen.add(i);
+    const summary = typeof e.summary === "string" ? e.summary.trim() : "";
+    out.push({ i, title, summary, tokens: tokensPerItem });
+  }
+  return out;
 }
 
 export async function translateItems(
@@ -438,15 +544,15 @@ Respond with strict JSON only: {"results":[{"i":0,"title":"...","summary":"..."}
         ],
         { json: true, modelSpec: env.ANYROUTER_TRANSLATE_MODEL }
       );
-      const parsed = parseJson<{
-        results: Omit<TranslateResult, "tokens">[];
-      }>(raw);
-      if (Array.isArray(parsed.results)) {
-        const tokensPerItem = Math.ceil(tokens / batch.length);
-        for (const result of parsed.results) {
-          results.push({ ...result, tokens: tokensPerItem });
-        }
-      }
+      const parsed = parseJson<{ results?: unknown } | unknown[]>(raw);
+      const rows = Array.isArray(parsed) ? parsed : parsed.results;
+      results.push(
+        ...sanitizeTranslateResults(
+          rows,
+          batch,
+          Math.ceil(tokens / batch.length)
+        )
+      );
     } catch (error) {
       console.error("translateItems batch failed:", error);
     }
@@ -492,7 +598,9 @@ function normalizeBullets(input: unknown): TldrBullet[] {
       if (!text) continue;
       let itemIds: string[];
       if (Array.isArray(e.item_ids)) {
-        itemIds = e.item_ids.filter((id): id is string => typeof id === "string");
+        itemIds = e.item_ids.filter(
+          (id): id is string => typeof id === "string"
+        );
       } else if (typeof e.item_id === "string" && e.item_id) {
         itemIds = [e.item_id];
       } else if (typeof e.id === "string" && e.id) {
@@ -542,9 +650,7 @@ export function sanitizeBulletIds(
   };
   return bullets.map((b) => ({
     ...b,
-    item_ids: b.item_ids
-      .map(resolve)
-      .filter((id): id is string => id !== null),
+    item_ids: b.item_ids.map(resolve).filter((id): id is string => id !== null),
   }));
 }
 
