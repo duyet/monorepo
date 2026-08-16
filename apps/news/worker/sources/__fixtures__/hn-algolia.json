@@ -1,0 +1,28 @@
+{
+  "hits": [
+    {
+      "objectID": "1001",
+      "title": "New Claude model beats GPT on benchmarks",
+      "url": "https://example.com/claude-model",
+      "created_at_i": 1780000000,
+      "points": 250,
+      "num_comments": 80
+    },
+    {
+      "objectID": "1002",
+      "title": "Show HN: I built a todo app",
+      "url": "https://example.com/todo-app",
+      "created_at_i": 1780000100,
+      "points": 40,
+      "num_comments": 5
+    },
+    {
+      "objectID": "1003",
+      "story_title": "OpenAI announces new agent framework",
+      "story_url": "https://example.com/agent-framework",
+      "created_at_i": 1780000200,
+      "points": 300,
+      "num_comments": 120
+    }
+  ]
+}

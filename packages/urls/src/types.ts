@@ -23,6 +23,8 @@ export interface AppUrls {
   photos: string;
   /** Homelab dashboard URL */
   homelab: string;
+  /** AI news aggregator URL */
+  news: string;
 }
 
 /**

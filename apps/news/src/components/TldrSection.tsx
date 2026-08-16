@@ -1,0 +1,69 @@
+import type { Lang, TldrBullet } from "../lib/types";
+
+export function TldrSection({
+  bullets,
+  lang,
+  totalStories,
+  updatedAt,
+}: {
+  bullets: TldrBullet[];
+  lang: Lang;
+  totalStories: number;
+  updatedAt: number;
+}) {
+  if (bullets.length === 0) return null;
+  const mid = Math.ceil(bullets.length / 2);
+  const cols = [bullets.slice(0, mid), bullets.slice(mid)];
+
+  return (
+    <section className="border-y-2 border-foreground/80 py-5">
+      <div className="mb-3 flex items-baseline gap-3">
+        <h2 className="text-lg font-bold tracking-widest">TL;DR</h2>
+        <span className="text-xs text-muted-foreground">
+          {lang === "vi" ? "24 giờ qua" : "past 24 hours"}
+        </span>
+      </div>
+      <div className="grid gap-x-10 md:grid-cols-2">
+        {cols.map((col, ci) => (
+          <ol
+            key={col[0]?.text ?? ci}
+            start={ci * mid + 1}
+            className="list-decimal space-y-2.5 pl-6 text-[15px] leading-snug marker:text-muted-foreground"
+          >
+            {col.map((b) => (
+              <li key={b.text}>
+                {b.item_id ? (
+                  <a
+                    href={`#item-${b.item_id}`}
+                    className="underline decoration-border underline-offset-2 hover:decoration-accent"
+                  >
+                    {b.text}
+                  </a>
+                ) : (
+                  b.text
+                )}
+              </li>
+            ))}
+          </ol>
+        ))}
+      </div>
+      <div className="mt-4 flex justify-between text-xs text-muted-foreground">
+        <span>
+          {totalStories} {lang === "vi" ? "tin" : "stories"}
+        </span>
+        <span>
+          {lang === "vi" ? "Cập nhật lúc" : "News as of"}{" "}
+          {new Date(updatedAt).toLocaleString(
+            lang === "vi" ? "vi-VN" : "en-US",
+            {
+              month: "short",
+              day: "numeric",
+              hour: "numeric",
+              minute: "2-digit",
+            }
+          )}
+        </span>
+      </div>
+    </section>
+  );
+}

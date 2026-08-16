@@ -1,0 +1,390 @@
+import { describe, expect, it, vi } from "vitest";
+import { checkAuth } from "../admin/auth.js";
+import {
+  isHandlerError,
+  pushItems,
+  sha256Hex,
+  upsertSource,
+} from "../admin/handlers.js";
+import { handleMcpRequest } from "../admin/mcp.js";
+import type { Env } from "../types.js";
+
+/**
+ * Minimal in-memory D1 fake, tailored to the exact statements
+ * worker/admin/handlers.ts issues. Not a general SQL engine — routes on
+ * the fixed set of query shapes used by this module.
+ */
+class FakeD1 {
+  items = new Map<string, Record<string, unknown>>();
+  sources = new Map<string, Record<string, unknown>>();
+  translations = new Map<string, Record<string, unknown>>();
+  workflowRuns: Record<string, unknown>[] = [];
+
+  prepare(sql: string) {
+    const db = this;
+    const normalized = sql.replace(/\s+/g, " ").trim();
+    return {
+      bind(...args: unknown[]) {
+        return {
+          first: async () => db.exec(normalized, args),
+          run: async () => db.exec(normalized, args),
+          all: async () => db.exec(normalized, args),
+        };
+      },
+      first: async () => db.exec(normalized, []),
+      run: async () => db.exec(normalized, []),
+      all: async () => db.exec(normalized, []),
+    };
+  }
+
+  private exec(sql: string, args: unknown[]): unknown {
+    if (sql.startsWith("SELECT id FROM items WHERE id = ?")) {
+      const [id] = args as [string];
+      const row = this.items.get(id);
+      return row ? { id: row.id } : null;
+    }
+
+    if (sql.startsWith("INSERT INTO items")) {
+      const [
+        id,
+        source_id,
+        external_id,
+        url,
+        title,
+        summary,
+        published_at,
+        fetched_at,
+        points,
+        comments,
+        llm_relevance,
+        llm_importance,
+        llm_quality,
+        category,
+        tags,
+        rank_score,
+        status,
+      ] = args;
+      const existing = this.items.get(id as string);
+      const row = {
+        id,
+        source_id,
+        external_id,
+        url,
+        title,
+        summary,
+        published_at,
+        fetched_at,
+        points,
+        comments,
+        llm_relevance,
+        llm_importance,
+        llm_quality,
+        category,
+        tags,
+        rank_score,
+        status,
+      };
+      if (existing) {
+        Object.assign(existing, {
+          title,
+          summary,
+          points,
+          comments,
+          category,
+          tags,
+          status,
+        });
+      } else {
+        this.items.set(id as string, row);
+      }
+      return { success: true };
+    }
+
+    if (sql.startsWith("INSERT INTO translations")) {
+      const [item_id, title, summary] = args;
+      this.translations.set(`${item_id}:vi`, {
+        item_id,
+        lang: "vi",
+        title,
+        summary,
+      });
+      return { success: true };
+    }
+
+    if (sql.startsWith("SELECT * FROM sources")) {
+      return { results: Array.from(this.sources.values()) };
+    }
+
+    if (sql.startsWith("INSERT INTO sources")) {
+      const [id, name, type, config, enabled] = args;
+      this.sources.set(id as string, { id, name, type, config, enabled });
+      return { success: true };
+    }
+
+    if (sql.startsWith("DELETE FROM sources WHERE id = ?")) {
+      const [id] = args as [string];
+      this.sources.delete(id);
+      return { success: true };
+    }
+
+    if (sql.startsWith("SELECT * FROM workflow_runs")) {
+      return {
+        results: [...this.workflowRuns]
+          .sort((a, b) => (b.started_at as number) - (a.started_at as number))
+          .slice(0, 10),
+      };
+    }
+
+    if (sql.startsWith("SELECT status, COUNT(*)")) {
+      const counts = new Map<string, number>();
+      for (const item of this.items.values()) {
+        const status = item.status as string;
+        counts.set(status, (counts.get(status) ?? 0) + 1);
+      }
+      return {
+        results: Array.from(counts.entries()).map(([status, c]) => ({
+          status,
+          c,
+        })),
+      };
+    }
+
+    throw new Error(`unhandled SQL in FakeD1: ${sql}`);
+  }
+}
+
+function makeEnv(overrides: Partial<Env> = {}): Env {
+  return {
+    DB: new FakeD1() as unknown as D1Database,
+    NEWS_INGEST: {
+      create: vi.fn().mockResolvedValue({ id: "wf-123" }),
+    } as unknown as Workflow,
+    ANYROUTER_BASE_URL: "https://anyrouter.dev/api/v1",
+    ANYROUTER_MODEL: "test-model",
+    ANYROUTER_API_KEY: "test-key",
+    NEWS_ADMIN_TOKEN: "secret-token",
+    ...overrides,
+  };
+}
+
+describe("checkAuth", () => {
+  it("returns 500 when admin API is disabled (no token configured)", async () => {
+    const env = makeEnv({ NEWS_ADMIN_TOKEN: "" });
+    const req = new Request("https://x/", {
+      headers: { Authorization: "Bearer whatever" },
+    });
+    const res = checkAuth(req, env);
+    expect(res?.status).toBe(500);
+    expect(await res?.json()).toEqual({ error: "admin API disabled" });
+  });
+
+  it("returns 401 on wrong bearer token", () => {
+    const env = makeEnv();
+    const req = new Request("https://x/", {
+      headers: { Authorization: "Bearer wrong-token" },
+    });
+    const res = checkAuth(req, env);
+    expect(res?.status).toBe(401);
+  });
+
+  it("returns null (pass) on correct bearer token", () => {
+    const env = makeEnv();
+    const req = new Request("https://x/", {
+      headers: { Authorization: "Bearer secret-token" },
+    });
+    expect(checkAuth(req, env)).toBeNull();
+  });
+});
+
+describe("sha256Hex", () => {
+  it("is stable for the same input across calls", async () => {
+    const a = await sha256Hex("https://example.com/a");
+    const b = await sha256Hex("https://example.com/a");
+    expect(a).toBe(b);
+    expect(a).toMatch(/^[0-9a-f]{64}$/);
+  });
+});
+
+describe("pushItems", () => {
+  it("sets status 'new' when no score fields are given", async () => {
+    const env = makeEnv();
+    const result = await pushItems(env, {
+      url: "https://example.com/1",
+      title: "Item one",
+    });
+    expect(isHandlerError(result)).toBe(false);
+    if (isHandlerError(result)) throw new Error("unreachable");
+    expect(result.inserted).toBe(1);
+    expect(result.updated).toBe(0);
+    const id = await sha256Hex("https://example.com/1");
+    expect((env.DB as unknown as FakeD1).items.get(id)?.status).toBe("new");
+  });
+
+  it("sets status 'published' when relevance/importance/quality given", async () => {
+    const env = makeEnv();
+    await pushItems(env, {
+      url: "https://example.com/2",
+      title: "Item two",
+      relevance: 0.9,
+      importance: 7,
+      quality: 8,
+    });
+    const id = await sha256Hex("https://example.com/2");
+    expect((env.DB as unknown as FakeD1).items.get(id)?.status).toBe(
+      "published"
+    );
+  });
+
+  it("reports correct inserted/updated counts for array input", async () => {
+    const env = makeEnv();
+    const first = await pushItems(env, [
+      { url: "https://example.com/a", title: "A" },
+      { url: "https://example.com/b", title: "B" },
+    ]);
+    if (isHandlerError(first)) throw new Error("unreachable");
+    expect(first.inserted).toBe(2);
+    expect(first.updated).toBe(0);
+
+    const second = await pushItems(env, [
+      { url: "https://example.com/a", title: "A updated" },
+      { url: "https://example.com/c", title: "C" },
+    ]);
+    if (isHandlerError(second)) throw new Error("unreachable");
+    expect(second.inserted).toBe(1);
+    expect(second.updated).toBe(1);
+  });
+
+  it("rejects items missing url or title", async () => {
+    const env = makeEnv();
+    const result = await pushItems(env, { url: "", title: "no url" });
+    expect(isHandlerError(result)).toBe(true);
+  });
+});
+
+describe("upsertSource", () => {
+  it("rejects a type that is neither registered nor 'push'", async () => {
+    const env = makeEnv();
+    const result = await upsertSource(env, "custom", {
+      name: "Custom",
+      type: "not-a-real-adapter",
+    });
+    expect(isHandlerError(result)).toBe(true);
+  });
+
+  it("accepts the 'push' pseudo-type", async () => {
+    const env = makeEnv();
+    const result = await upsertSource(env, "external", {
+      name: "External pusher",
+      type: "push",
+    });
+    expect(isHandlerError(result)).toBe(false);
+  });
+
+  it("accepts registered adapter types", async () => {
+    const env = makeEnv();
+    const result = await upsertSource(env, "hn2", {
+      name: "HN mirror",
+      type: "hn",
+      config: { query: "AI" },
+    });
+    expect(isHandlerError(result)).toBe(false);
+  });
+});
+
+describe("MCP server", () => {
+  const url = "https://news.duyet.net/api/mcp";
+
+  it("tools/list returns the 6 admin tools", async () => {
+    const env = makeEnv();
+    const req = new Request(url, {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer secret-token",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "tools/list" }),
+    });
+    const res = await handleMcpRequest(req, env);
+    const json = (await res.json()) as any;
+    expect(json.result.tools.map((t: any) => t.name).sort()).toEqual(
+      [
+        "push_items",
+        "list_sources",
+        "upsert_source",
+        "delete_source",
+        "trigger_ingest",
+        "get_status",
+      ].sort()
+    );
+  });
+
+  it("tools/call push_items happy path", async () => {
+    const env = makeEnv();
+    const req = new Request(url, {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer secret-token",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        jsonrpc: "2.0",
+        id: 2,
+        method: "tools/call",
+        params: {
+          name: "push_items",
+          arguments: {
+            items: { url: "https://example.com/mcp", title: "Via MCP" },
+          },
+        },
+      }),
+    });
+    const res = await handleMcpRequest(req, env);
+    const json = (await res.json()) as any;
+    const payload = JSON.parse(json.result.content[0].text);
+    expect(payload.inserted).toBe(1);
+  });
+
+  it("tools/call get_status happy path", async () => {
+    const env = makeEnv();
+    await pushItems(env, {
+      url: "https://example.com/status-check",
+      title: "X",
+    });
+    const req = new Request(url, {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer secret-token",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        jsonrpc: "2.0",
+        id: 3,
+        method: "tools/call",
+        params: { name: "get_status", arguments: {} },
+      }),
+    });
+    const res = await handleMcpRequest(req, env);
+    const json = (await res.json()) as any;
+    const payload = JSON.parse(json.result.content[0].text);
+    expect(Array.isArray(payload.runs)).toBe(true);
+    expect(payload.itemsByStatus).toEqual(
+      expect.arrayContaining([expect.objectContaining({ status: "new", c: 1 })])
+    );
+  });
+
+  it("returns checkAuth's plain 401 Response on auth failure (not a JSON-RPC error)", async () => {
+    const env = makeEnv();
+    const req = new Request(url, {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer wrong",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ jsonrpc: "2.0", id: 4, method: "tools/list" }),
+    });
+    const res = await handleMcpRequest(req, env);
+    expect(res.status).toBe(401);
+    const json = await res.json();
+    expect(json).toEqual({ error: "unauthorized" });
+  });
+});

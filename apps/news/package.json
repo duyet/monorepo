@@ -1,0 +1,46 @@
+{
+  "name": "news",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev --port 3010",
+    "build": "vite build",
+    "test": "vitest run",
+    "check-types": "tsc --noEmit",
+    "lint": "biome check .",
+    "format": "biome format .",
+    "format:fix": "biome format --write .",
+    "lint:fix": "biome check --write .",
+    "deploy": "pnpm run build && pnpm exec wrangler deploy --config dist/server/wrangler.json",
+    "cf:deploy:prod": "dotenv -e ../../.env.production -e ../../.env.production.local -- pnpm run deploy"
+  },
+  "dependencies": {
+    "@duyet/components": "*",
+    "@duyet/config": "*",
+    "@duyet/libs": "*",
+    "@duyet/urls": "*",
+    "@tanstack/react-router": "^1.0.0",
+    "@tanstack/react-start": "^1.0.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.16.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "tailwind-merge": "^3.3.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.14",
+    "@cloudflare/vite-plugin": "^1.0.0",
+    "@cloudflare/workers-types": "^4.20260511.1",
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/node": "^25.6.0",
+    "@types/react": "^19.1.4",
+    "@types/react-dom": "^19.1.5",
+    "tailwindcss": "^4.0.0",
+    "typescript": "*",
+    "vite": "^8.0.0",
+    "vite-tsconfig-paths": "^6.0.0",
+    "vitest": "^3.0.0",
+    "wrangler": "^4.118.0"
+  }
+}

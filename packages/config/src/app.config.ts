@@ -58,6 +58,7 @@ export interface AppUrls {
   agents: string;
   llmTimeline: string;
   burns: string;
+  news: string;
 }
 
 // Environment-aware URL configuration
@@ -80,6 +81,7 @@ export const appUrls: AppUrls = {
   llmTimeline:
     env("VITE_DUYET_LLM_TIMELINE_URL") ?? "https://llm-timeline.duyet.net",
   burns: env("VITE_DUYET_BURNS_URL") ?? "https://burns.duyet.net",
+  news: env("VITE_DUYET_NEWS_URL") ?? "https://news.duyet.net",
 };
 
 // Blog app configuration
@@ -279,6 +281,25 @@ export const burnsConfig = {
   header: { longText: "Burns", shortText: "Burns" },
 };
 
+// News app configuration
+export const newsConfig = {
+  metadata: {
+    title: "AI News | duyet.net",
+    description: "AI news aggregated, rated and translated by LLMs",
+    lang: "en",
+  } as AppMetadata,
+  fonts: {
+    inter: {
+      name: "Inter",
+      weights: ["400", "500", "600", "700"] as const,
+      subsets: ["latin"] as const,
+      variable: "--font-inter",
+      display: "swap",
+    } as const,
+  },
+  header: { longText: "AI News", shortText: "News" },
+};
+
 // Export all configs
 export const appConfig = {
   urls: appUrls,
@@ -291,6 +312,7 @@ export const appConfig = {
   agents: agentsConfig,
   llmTimeline: llmTimelineConfig,
   burns: burnsConfig,
+  news: newsConfig,
 };
 
 // Named exports for convenience
