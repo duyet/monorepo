@@ -22,7 +22,7 @@
   --editorial-fg: #0a0a0a;
   --editorial-muted: color-mix(in oklch, #0a0a0a 60%, transparent);
   --editorial-faint: color-mix(in oklch, #0a0a0a 5%, transparent);
-  --editorial-hairline: color-mix(in oklch, #0a0a0a 8%, transparent);
+  --editorial-hairline: rgb(10 10 10 / 8%);
   --editorial-accent: #b45309;
   --editorial-font-serif:
     "EB Garamond", Garamond, "Apple Garamond", ui-serif, serif;
@@ -62,7 +62,7 @@
   --editorial-fg: #fafafa;
   --editorial-muted: color-mix(in oklch, #fafafa 55%, transparent);
   --editorial-faint: color-mix(in oklch, #fafafa 6%, transparent);
-  --editorial-hairline: color-mix(in oklch, #fafafa 8%, transparent);
+  --editorial-hairline: rgb(250 250 250 / 8%);
   --editorial-accent: #e8926e;
 
   --background: var(--editorial-bg);

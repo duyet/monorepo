@@ -11,14 +11,16 @@ export const Route = createFileRoute("/about")({
 });
 
 function Section({
+  id,
   title,
   children,
 }: {
+  id?: string;
   title: string;
   children: React.ReactNode;
 }) {
   return (
-    <section className="mt-8">
+    <section id={id} className="mt-8 scroll-mt-20">
       <h2 className="text-lg font-bold tracking-wide">{title}</h2>
       <div className="mt-2 space-y-2 text-sm text-muted-foreground">
         {children}
@@ -95,7 +97,7 @@ function AboutPage() {
         )}
       </p>
 
-      <Section title={t("How it works", "Cách hoạt động")}>
+      <Section id="how-it-works" title={t("How it works", "Cách hoạt động")}>
         <p>
           <strong className="text-foreground">
             {t("1. Fetching.", "1. Thu thập.")}
