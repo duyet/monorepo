@@ -1,27 +1,37 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
 import { StoryRow } from "../components/StoryRow";
 import { formatDayHeading } from "../lib/lang";
 import { useLang } from "../lib/lang-context";
 import { idPrefixFromSlug } from "../lib/slug";
+import { fetchStory } from "../lib/story-fn";
 import type { FeedItem, Lang } from "../lib/types";
 
 export const Route = createFileRoute("/$cat/$slug")({
-  head: () => ({
-    meta: [{ title: "AI News" }],
-  }),
+  loader: async ({ params }): Promise<FeedItem | null> => {
+    const idPrefix = idPrefixFromSlug(params.slug);
+    if (!idPrefix) return null;
+    return fetchStory({ data: { idPrefix } });
+  },
+  head: ({ loaderData }) => {
+    const item = loaderData as FeedItem | null | undefined;
+    if (!item) {
+      return { meta: [{ title: "AI News" }] };
+    }
+    const title = `${item.title} | AI News`;
+    const meta: { title?: string; property?: string; content?: string }[] = [
+      { title },
+      { property: "og:title", content: item.title },
+    ];
+    if (item.summary) {
+      meta.push({ property: "og:description", content: item.summary });
+    }
+    if (item.image_url) {
+      meta.push({ property: "og:image", content: item.image_url });
+    }
+    return { meta };
+  },
   component: StoryPage,
 });
-
-function StorySkeleton() {
-  return (
-    <div className="animate-pulse space-y-3 py-6">
-      <div className="h-6 w-2/3 rounded bg-muted" />
-      <div className="h-4 w-full rounded bg-muted" />
-      <div className="h-4 w-5/6 rounded bg-muted" />
-    </div>
-  );
-}
 
 function NotFoundStory({ lang }: { lang: Lang }) {
   return (
@@ -41,11 +51,6 @@ function NotFoundStory({ lang }: { lang: Lang }) {
 
 function StoryContent({ item, lang }: { item: FeedItem; lang: Lang }) {
   const date = new Date(item.published_at * 1000).toISOString().slice(0, 10);
-  const title = lang === "vi" && item.title_vi ? item.title_vi : item.title;
-
-  useEffect(() => {
-    document.title = `${title} | AI News`;
-  }, [title]);
 
   return (
     <div>
@@ -66,33 +71,9 @@ function StoryContent({ item, lang }: { item: FeedItem; lang: Lang }) {
 }
 
 function StoryPage() {
-  const { slug } = Route.useParams();
+  const item = Route.useLoaderData();
   const lang = useLang();
-  const [item, setItem] = useState<FeedItem | null | undefined>(undefined);
 
-  // Static shell — the story is bound client-side from /api/story/:id.
-  useEffect(() => {
-    const idPrefix = idPrefixFromSlug(slug);
-    if (!idPrefix) {
-      setItem(null);
-      return;
-    }
-    let cancelled = false;
-    setItem(undefined);
-    fetch(`/api/story/${encodeURIComponent(idPrefix)}`)
-      .then((res) => (res.ok ? (res.json() as Promise<FeedItem>) : null))
-      .then((res) => {
-        if (!cancelled) setItem(res);
-      })
-      .catch(() => {
-        if (!cancelled) setItem(null);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [slug]);
-
-  if (item === undefined) return <StorySkeleton />;
-  if (item === null) return <NotFoundStory lang={lang} />;
+  if (!item) return <NotFoundStory lang={lang} />;
   return <StoryContent item={item} lang={lang} />;
 }

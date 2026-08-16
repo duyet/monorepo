@@ -112,7 +112,7 @@ export function StoryDialog({
                 }`}
               >
                 <Columns2 className="h-3.5 w-3.5" aria-hidden />
-                {lang === "vi" ? "Song ngữ" : "Bilingual"}
+                Dual language
               </button>
             )}
             <button
