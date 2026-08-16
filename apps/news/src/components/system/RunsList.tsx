@@ -1,4 +1,4 @@
-import type { WorkflowRunRow } from "../../lib/system-fn";
+import type { WorkflowRunRow } from "../../lib/system-queries";
 
 interface RunsListProps {
   runs: WorkflowRunRow[];

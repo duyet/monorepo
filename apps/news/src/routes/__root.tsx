@@ -1,7 +1,7 @@
 import "@duyet/components/styles.css";
 import "../styles.css";
 
-import { SiteFooter, SiteHeader } from "@duyet/components";
+import { ErrorBoundary, SiteFooter, SiteHeader } from "@duyet/components";
 import Analytics from "@duyet/components/Analytics";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import {
@@ -10,8 +10,10 @@ import {
   Outlet,
   Scripts,
 } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import { HeaderBar } from "../components/HeaderBar";
+import { ClerkModuleContext, useClerkModuleLoader } from "../lib/clerk-user";
 import { getClientLang, setClientLang } from "../lib/lang";
 import { LangContext } from "../lib/lang-context";
 import {
@@ -23,6 +25,39 @@ import {
   savePrefs,
 } from "../lib/prefs";
 import type { Lang } from "../lib/types";
+
+/**
+ * Mounts the ONE app-wide <ClerkProvider>, dynamically imported, so every
+ * consumer (AuthButtons via wrapWithProvider={false}, SuggestTranslation,
+ * the submit page) shares it instead of each mounting its own — a second
+ * <ClerkProvider> crashes the whole app. If Clerk itself fails to
+ * initialize (bad key, network), the ErrorBoundary here degrades to
+ * rendering children with no Clerk context at all rather than losing the
+ * rest of the page; each individual Clerk consumer has its own boundary
+ * on top of that for a fully-signed-out fallback.
+ */
+function ClerkRootProvider({ children }: { children: ReactNode }) {
+  const clerkState = useClerkModuleLoader();
+  const withoutProvider = (
+    <ClerkModuleContext.Provider value={clerkState}>
+      {children}
+    </ClerkModuleContext.Provider>
+  );
+
+  if (!clerkState.mod || !clerkState.publishableKey) return withoutProvider;
+
+  return (
+    <ErrorBoundary fallback={withoutProvider}>
+      <ClerkModuleContext.Provider value={clerkState}>
+        <clerkState.mod.ClerkProvider
+          publishableKey={clerkState.publishableKey}
+        >
+          {children}
+        </clerkState.mod.ClerkProvider>
+      </ClerkModuleContext.Provider>
+    </ErrorBoundary>
+  );
+}
 
 function NotFoundComponent() {
   return (
@@ -127,31 +162,33 @@ function RootComponent() {
         <LangContext.Provider value={lang}>
           <PrefsContext.Provider value={{ prefs, setPrefs }}>
             <ThemeProvider>
-              <div className="relative flex min-h-screen flex-col justify-between overflow-x-hidden bg-background text-foreground selection:bg-foreground selection:text-background">
-                <div className="relative z-20 flex w-full flex-col">
-                  <SiteHeader currentApp="news" />
+              <ClerkRootProvider>
+                <div className="relative flex min-h-screen flex-col justify-between overflow-x-hidden bg-background text-foreground selection:bg-foreground selection:text-background">
+                  <div className="relative z-20 flex w-full flex-col">
+                    <SiteHeader currentApp="news" />
+                  </div>
+
+                  {/* Our amber brand accent + compact reader typography are
+                      scoped to .news-content (HeaderBar + main) only, so they
+                      never leak into the shared SiteHeader/SiteFooter chrome
+                      above/below. */}
+                  <div
+                    className="news-content relative z-10 flex flex-grow flex-col"
+                    style={readerCssVars(prefs)}
+                    data-reader-font={prefs.font}
+                    data-reader-bg={prefs.bg}
+                    suppressHydrationWarning
+                  >
+                    <HeaderBar lang={lang} onLangChange={handleLangChange} />
+
+                    <main className="mx-auto w-full max-w-[1080px] flex-grow px-4 pb-16 sm:px-6 lg:px-8">
+                      <Outlet />
+                    </main>
+                  </div>
+
+                  <SiteFooter owner="Duyet Le" />
                 </div>
-
-                {/* Our amber brand accent + compact reader typography are
-                    scoped to .news-content (HeaderBar + main) only, so they
-                    never leak into the shared SiteHeader/SiteFooter chrome
-                    above/below. */}
-                <div
-                  className="news-content relative z-10 flex flex-grow flex-col"
-                  style={readerCssVars(prefs)}
-                  data-reader-font={prefs.font}
-                  data-reader-bg={prefs.bg}
-                  suppressHydrationWarning
-                >
-                  <HeaderBar lang={lang} onLangChange={handleLangChange} />
-
-                  <main className="mx-auto w-full max-w-[1080px] flex-grow px-4 pb-16 sm:px-6 lg:px-8">
-                    <Outlet />
-                  </main>
-                </div>
-
-                <SiteFooter owner="Duyet Le" />
-              </div>
+              </ClerkRootProvider>
             </ThemeProvider>
           </PrefsContext.Provider>
         </LangContext.Provider>

@@ -1,3 +1,4 @@
+import { ErrorBoundary } from "@duyet/components";
 import { useEffect, useState } from "react";
 import { useClerkModule } from "../lib/clerk-user";
 import type { SuggestionSummary } from "../lib/suggest-fn";
@@ -108,7 +109,21 @@ function SuggestForm({
   );
 }
 
-export function SuggestTranslation({
+export function SuggestTranslation(props: {
+  itemId: string;
+  field: "title" | "summary";
+  lang: Lang;
+}) {
+  // Any Clerk failure degrades to nothing rendered — never the router's
+  // full-page error screen.
+  return (
+    <ErrorBoundary fallback={null}>
+      <SuggestTranslationInner {...props} />
+    </ErrorBoundary>
+  );
+}
+
+function SuggestTranslationInner({
   itemId,
   field,
   lang,
@@ -129,10 +144,12 @@ export function SuggestTranslation({
 
   if (!publishableKey || !mod) return signInHint;
 
-  const { ClerkProvider, SignedIn, SignedOut, useUser } = mod;
+  const { SignedIn, SignedOut, useUser } = mod;
 
+  // No own <ClerkProvider> here — __root.tsx mounts the single app-wide
+  // one; a second provider crashes the whole page.
   return (
-    <ClerkProvider publishableKey={publishableKey}>
+    <>
       <SignedOut>{signInHint}</SignedOut>
       <SignedIn>
         <SuggestFormGate
@@ -142,7 +159,7 @@ export function SuggestTranslation({
           useUser={useUser}
         />
       </SignedIn>
-    </ClerkProvider>
+    </>
   );
 }
 

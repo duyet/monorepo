@@ -1,3 +1,4 @@
+import { ErrorBoundary } from "@duyet/components";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useClerkModule } from "../lib/clerk-user";
@@ -222,26 +223,38 @@ function SubmitPage() {
       </p>
 
       <div className="mt-6 max-w-lg">
-        {!publishableKey || !mod ? (
-          <p className="text-sm text-muted-foreground">
-            {lang === "vi"
-              ? "Đăng nhập để gửi bài."
-              : "Sign in to submit a story."}
-          </p>
-        ) : (
-          <mod.ClerkProvider publishableKey={publishableKey}>
-            <mod.SignedOut>
-              <p className="text-sm text-muted-foreground">
-                {lang === "vi"
-                  ? "Đăng nhập để gửi bài."
-                  : "Sign in to submit a story."}
-              </p>
-            </mod.SignedOut>
-            <mod.SignedIn>
-              <SubmitGate useUser={mod.useUser} />
-            </mod.SignedIn>
-          </mod.ClerkProvider>
-        )}
+        <ErrorBoundary
+          fallback={
+            <p className="text-sm text-muted-foreground">
+              {lang === "vi"
+                ? "Đăng nhập để gửi bài."
+                : "Sign in to submit a story."}
+            </p>
+          }
+        >
+          {!publishableKey || !mod ? (
+            <p className="text-sm text-muted-foreground">
+              {lang === "vi"
+                ? "Đăng nhập để gửi bài."
+                : "Sign in to submit a story."}
+            </p>
+          ) : (
+            // No own <ClerkProvider> — __root.tsx mounts the single
+            // app-wide one; a second provider crashes the whole page.
+            <>
+              <mod.SignedOut>
+                <p className="text-sm text-muted-foreground">
+                  {lang === "vi"
+                    ? "Đăng nhập để gửi bài."
+                    : "Sign in to submit a story."}
+                </p>
+              </mod.SignedOut>
+              <mod.SignedIn>
+                <SubmitGate useUser={mod.useUser} />
+              </mod.SignedIn>
+            </>
+          )}
+        </ErrorBoundary>
       </div>
     </div>
   );

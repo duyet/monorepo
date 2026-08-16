@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { getFeed } from "../../lib/feed-queries";
+import { loadSystemStats } from "../../lib/system-queries";
 
-export const Route = createFileRoute("/api/feed")({
+export const Route = createFileRoute("/api/system")({
   server: {
     handlers: {
-      GET: async ({ request, context }: { request: Request; context: any }) => {
+      GET: async ({ context }: { context: any }) => {
         let env =
           context?.cloudflare?.env ||
           context?.env ||
@@ -24,16 +24,11 @@ export const Route = createFileRoute("/api/feed")({
           );
         }
 
-        const url = new URL(request.url);
         try {
-          const feed = await getFeed(db, {
-            category: url.searchParams.get("category") ?? undefined,
-            q: url.searchParams.get("q") ?? undefined,
-          });
-          return Response.json(feed, {
+          const stats = await loadSystemStats(db);
+          return Response.json(stats, {
             headers: {
-              "Cache-Control":
-                "public, max-age=60, s-maxage=120, stale-while-revalidate=300",
+              "Cache-Control": "public, max-age=120, s-maxage=300",
             },
           });
         } catch (e) {

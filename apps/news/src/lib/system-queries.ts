@@ -1,5 +1,3 @@
-import { createServerFn } from "@tanstack/react-start";
-
 export interface WorkflowRunRow {
   id: string;
   started_at: number | null;
@@ -57,7 +55,7 @@ async function supportsLlmTokens(db: D1Database): Promise<boolean> {
   return llmTokensSupported;
 }
 
-async function loadSystemStats(db: D1Database): Promise<SystemStats> {
+export async function loadSystemStats(db: D1Database): Promise<SystemStats> {
   const hasTokens = await supportsLlmTokens(db);
 
   const [
@@ -179,12 +177,3 @@ async function loadSystemStats(db: D1Database): Promise<SystemStats> {
     latestTldrDate: latestTldr?.date ?? null,
   };
 }
-
-export const fetchSystemStats = createServerFn({ method: "GET" }).handler(
-  async (): Promise<SystemStats> => {
-    const { env } = await import("cloudflare:workers");
-    const db = (env as { DB?: D1Database }).DB;
-    if (!db) throw new Error("D1 binding DB not configured");
-    return loadSystemStats(db);
-  }
-);

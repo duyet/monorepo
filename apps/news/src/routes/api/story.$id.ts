@@ -37,7 +37,10 @@ export const Route = createFileRoute("/api/story/$id")({
             return Response.json({ error: "not found" }, { status: 404 });
           }
           return Response.json(item, {
-            headers: { "Cache-Control": "public, max-age=300" },
+            headers: {
+              "Cache-Control":
+                "public, max-age=300, s-maxage=600, stale-while-revalidate=3600",
+            },
           });
         } catch (e) {
           return Response.json(

@@ -123,17 +123,23 @@ async function handle(
 
 type HandlerArgs = { request: Request; params: any; context: any };
 
+// Bearer-token-gated admin API — never cached at the edge or by browsers.
+function noStore(res: Response): Response {
+  res.headers.set("Cache-Control", "no-store");
+  return res;
+}
+
 export const Route = createFileRoute("/api/admin/$")({
   server: {
     handlers: {
       GET: async ({ request, params, context }: HandlerArgs) =>
-        handle("GET", params?._splat ?? "", request, context),
+        noStore(await handle("GET", params?._splat ?? "", request, context)),
       POST: async ({ request, params, context }: HandlerArgs) =>
-        handle("POST", params?._splat ?? "", request, context),
+        noStore(await handle("POST", params?._splat ?? "", request, context)),
       PUT: async ({ request, params, context }: HandlerArgs) =>
-        handle("PUT", params?._splat ?? "", request, context),
+        noStore(await handle("PUT", params?._splat ?? "", request, context)),
       DELETE: async ({ request, params, context }: HandlerArgs) =>
-        handle("DELETE", params?._splat ?? "", request, context),
+        noStore(await handle("DELETE", params?._splat ?? "", request, context)),
     },
   },
 });

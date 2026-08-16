@@ -1,14 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { BarList } from "../components/system/BarList";
 import { ChartCard } from "../components/system/ChartCard";
 import { DailyBars } from "../components/system/DailyBars";
 import { RunsList } from "../components/system/RunsList";
 import { StatTile } from "../components/system/StatTile";
 import { useLang } from "../lib/lang-context";
-import { fetchSystemStats, type SystemStats } from "../lib/system-fn";
+import type { SystemStats } from "../lib/system-queries";
 
 export const Route = createFileRoute("/system")({
-  loader: async (): Promise<SystemStats> => fetchSystemStats(),
   component: SystemPage,
 });
 
@@ -19,9 +19,46 @@ function formatTokens(n: number): string {
 }
 
 function SystemPage() {
-  const stats = Route.useLoaderData();
   const lang = useLang();
   const t = (en: string, vi: string) => (lang === "vi" ? vi : en);
+  const [stats, setStats] = useState<SystemStats | null>(null);
+  const [error, setError] = useState(false);
+
+  // Static shell — stats are bound client-side from /api/system.
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/system")
+      .then((res) => (res.ok ? (res.json() as Promise<SystemStats>) : null))
+      .then((res) => {
+        if (cancelled) return;
+        if (res) setStats(res);
+        else setError(true);
+      })
+      .catch(() => {
+        if (!cancelled) setError(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (error) {
+    return (
+      <p className="news-content mx-auto max-w-3xl py-16 text-center text-muted-foreground">
+        {t("Couldn't load system stats.", "Không tải được thống kê hệ thống.")}
+      </p>
+    );
+  }
+
+  if (!stats) {
+    return (
+      <div className="news-content mx-auto max-w-3xl animate-pulse space-y-3 py-6">
+        {Array.from({ length: 6 }, (_, i) => (
+          <div key={i} className="h-16 rounded bg-muted" />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div className="news-content mx-auto max-w-3xl py-6">

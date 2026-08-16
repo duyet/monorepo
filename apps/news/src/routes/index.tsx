@@ -1,10 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CategoryNav } from "../components/CategoryNav";
 import { DaySection } from "../components/DaySection";
 import { TldrSection } from "../components/TldrSection";
 import { TrendingChips } from "../components/TrendingChips";
-import { fetchFeed } from "../lib/feed-fn";
 import { timeAgo } from "../lib/lang";
 import { useLang } from "../lib/lang-context";
 import { usePrefs } from "../lib/prefs";
@@ -13,22 +12,65 @@ import type { FeedResponse } from "../lib/types";
 export const Route = createFileRoute("/")({
   validateSearch: (search: Record<string, unknown>): { q?: string } =>
     typeof search.q === "string" && search.q ? { q: search.q } : {},
-  loaderDeps: ({ search }) => ({ q: search.q }),
-  loader: async ({ deps }): Promise<FeedResponse> =>
-    fetchFeed({ data: { q: deps.q } }),
   component: IndexPage,
 });
 
+function FeedSkeleton() {
+  return (
+    <div className="animate-pulse space-y-3 py-6">
+      {Array.from({ length: 8 }, (_, i) => (
+        <div key={i} className="h-5 rounded bg-muted" />
+      ))}
+    </div>
+  );
+}
+
 function IndexPage() {
-  const feed = Route.useLoaderData();
   const { q } = Route.useSearch();
   const lang = useLang();
   const { prefs } = usePrefs();
-  const bullets = lang === "vi" ? feed.tldr?.bullets_vi : feed.tldr?.bullets_en;
+  const [feed, setFeed] = useState<FeedResponse | null>(null);
+  const [error, setError] = useState(false);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(
     () => new Set()
   );
+
+  // Static shell — the feed is bound entirely client-side from /api/feed so
+  // this page's HTML is cacheable and never blocks on Clerk/data-fetch JS.
+  useEffect(() => {
+    let cancelled = false;
+    setFeed(null);
+    setError(false);
+    const params = q ? `?q=${encodeURIComponent(q)}` : "";
+    fetch(`/api/feed${params}`)
+      .then((res) => (res.ok ? (res.json() as Promise<FeedResponse>) : null))
+      .then((res) => {
+        if (cancelled) return;
+        if (res) setFeed(res);
+        else setError(true);
+      })
+      .catch(() => {
+        if (!cancelled) setError(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [q]);
+
+  if (error) {
+    return (
+      <p className="py-16 text-center text-muted-foreground">
+        {lang === "vi"
+          ? "Không tải được bảng tin. Thử tải lại trang."
+          : "Couldn't load the feed. Try reloading the page."}
+      </p>
+    );
+  }
+
+  if (!feed) return <FeedSkeleton />;
+
+  const bullets = lang === "vi" ? feed.tldr?.bullets_vi : feed.tldr?.bullets_en;
 
   const toggleCategory = (name: string) => {
     setSelectedCategories((prev) => {

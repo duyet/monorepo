@@ -1,4 +1,4 @@
-import { AuthButtons } from "@duyet/components";
+import { AuthButtons, ErrorBoundary } from "@duyet/components";
 import { Link } from "@tanstack/react-router";
 import type { Lang } from "../lib/types";
 import { LangToggle } from "./LangToggle";
@@ -39,10 +39,13 @@ export function HeaderBar({
           </Link>
           <PrefsPanel />
           <LangToggle lang={lang} onChange={onLangChange} />
-          <AuthButtons
-            signInClassName="h-6 w-6 flex items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-            avatarSize="h-6 w-6"
-          />
+          <ErrorBoundary fallback={null}>
+            <AuthButtons
+              wrapWithProvider={false}
+              signInClassName="h-6 w-6 flex items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+              avatarSize="h-6 w-6"
+            />
+          </ErrorBoundary>
         </div>
       </div>
     </div>
