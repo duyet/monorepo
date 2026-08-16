@@ -1,6 +1,6 @@
 # Internal Knowledge
 
-This repository is the pnpm/Turborepo monorepo for duyet.net public apps, shared packages, data sync jobs, and Cloudflare/Vercel deployment workflows.
+This repository is the pnpm/Turborepo monorepo for duyet.net public apps, shared packages, data sync jobs, and Cloudflare Pages/Workers deploys.
 
 ## Working Rules
 
@@ -11,6 +11,16 @@ This repository is the pnpm/Turborepo monorepo for duyet.net public apps, shared
 - Use pnpm commands from the relevant package or app directory. Check the local `package.json` before assuming a script exists.
 - Verify with the narrowest useful command first, then broaden only when needed.
 - If a linked worktree reports `Operation not permitted` under `.git/worktrees/...`, use the canonical checkout after `git status --short --branch`; stage only touched paths so unrelated local edits stay out of commits.
+- Public marketing/content routes stay **fully static**: HTML is produced at build/prerender time. Do not add runtime-required data fetches to those routes. Chat widgets may hydrate, but they must not turn the host page into a client-only shell.
+- Shared chrome lives in `packages/components/site-header/` as small units (`AppSwitcher`, `GlobalNav`, `LocalNav`, `MobileNav`, `ThemeButton`) composed by `SiteHeader`. Do not grow `SiteHeader.tsx` back into a 800-line file.
+- UI primitives come from **latest shadcn/ui** under `packages/components/ui/` (registry style `new-york-v4`). Chat conversations use the official June 2026 set: `MessageScroller`, `Message`, `Bubble`, `Attachment`, `Marker`. Compose them via `ChatTranscript` / `ChatMessageList` in `packages/components/chat/`. Do not invent a parallel chat kit.
+- Ignore generated Next dumps: `.next/`, `out/`, `next-env.d.ts`. Do not commit `apps/agents/` scratch or leftover agent worktrees.
+
+## Static rendering
+
+- `apps/blog`, `apps/home`, `apps/cv`, `apps/insights`, `apps/photos`, `apps/kb`, `apps/llm-timeline`, `apps/ai-percentage`, `apps/burns`, `apps/homelab`, `apps/x-algo` emit static HTML for public pages at build time (Vite/TanStack prerender or Pages output).
+- `apps/agent-ui` is a signed-in chat surface at `https://agents.duyet.net`. Its `index.html` must still contain a prerendered chat shell (`Ask Duyet anything.`). Conversation rows use shared shadcn chat primitives; Clerk/auth and streaming stay client-only.
+- `apps/insights` is static HTML plus calls to `apps/api`. Do not use TanStack Start server functions for runtime data loading.
 
 ## Root Commands
 
@@ -33,26 +43,26 @@ This repository is the pnpm/Turborepo monorepo for duyet.net public apps, shared
 ## Apps
 
 - `apps/home`: homepage for `https://duyet.net`, deployed to Cloudflare Pages.
-- `apps/blog`: Vite SPA blog for `https://blog.duyet.net`, Auth0 auth, Vercel KV comments, Markdown posts with KaTeX.
+- `apps/blog`: statically prerendered Vite blog for `https://blog.duyet.net`, Auth0 auth, Vercel KV comments, Markdown posts with KaTeX.
 - `apps/cv`: CV host for `https://cv.duyet.net`.
 - `apps/insights`: analytics dashboard for `https://insights.duyet.net`, using Cloudflare Analytics, GitHub, PostHog, WakaTime, ClickHouse, and TanStack Start prerendering.
 - `apps/photos`: photo gallery for `https://photos.duyet.net`, Unsplash and Cloudinary-related workflows.
 - `apps/homelab`: homelab docs and resources for `https://homelab.duyet.net`.
 - `apps/llm-timeline`: LLM release timeline for `https://llm-timeline.duyet.net`, with sync, RSS, sitemap, and llms.txt generation.
-- `apps/agent-ui`: simple Cloudflare Pages chat UI for `https://agents.duyet.net`, using Clerk auth and the AI SDK UI message model against `apps/agent-api`.
-- `apps/agent-api`: API-only Cloudflare Agents Worker for `https://agents-api.duyet.net`; REST chat is `POST /api/v1/chat` with Clerk bearer auth or `AGENT_API_TOKEN`.
+- `apps/agent-ui`: Cloudflare Pages chat UI for `https://agents.duyet.net`. Clerk auth, AI SDK `useChat`, `@duyet/components` `ChatTranscript` (MessageScroller / Message / Bubble / Attachment / Marker) against `apps/agent-api`.
+- `apps/agent-api`: API-only Cloudflare Agents Worker. REST chat is `POST /api/v1/chat` with Clerk bearer auth or `AGENT_API_TOKEN`. The production hostname `agents-api.duyet.net` is bound in the Cloudflare dashboard; the `routes` block in `apps/agent-api/wrangler.toml` stays commented so `wrangler deploy` does not require Zone DNS edit permission.
 - `apps/api`: Hono API on Cloudflare Workers for `https://api.duyet.net`.
 - `apps/ai-percentage`: AI-written-code dashboard for `https://ai-percentage.duyet.net`; data comes from `apps/data-sync`.
 - `apps/data-sync`: operational CLI for ClickHouse analytics/activity syncs and migrations.
 - `apps/agent-assistant`: Vite-powered TanStack Start application with assistant-ui + LangGraph serving as a local agent interface. Deployed directly serverless on Cloudflare Workers/Pages (`duyet-agent-assistant`) for `https://agent-assistant.duyet.net` utilizing a native Cloudflare Durable Object (`ThreadStateDO`) backed by SQLite for checkpoint persistence.
 - `apps/kb`: static TanStack Start knowledge base for `https://kb.duyet.net`, bundling `content/**/*.md` at build time and generating `llms.txt`, `llms-full.txt`, `sitemap.xml`, `robots.txt`, and raw `public/k/*.md` article endpoints.
 - `apps/burns`: Vite/Cloudflare Pages dashboard (`duyet-burns`) that prerenders Claude Code usage stats. `build` runs `scripts/fetch-burns-data.ts`, which pulls `ccusage` data from MotherDuck (`MOTHERDUCK_TOKEN`); a daily cron refreshes it.
-- `apps/mcp`: placeholder app directory (no active package; only `node_modules` present). Treat as inactive unless it is reinitialized.
-- `apps/home`: editorial homepage for `https://duyet.net`. `apps/cv`: CV host for `https://cv.duyet.net`. `apps/homelab`: 3-node minipc cluster monitoring dashboard for `https://homelab.duyet.net`.
+- `apps/x-algo`: static TanStack Start explainer for the open-sourced X For You ranking weights at `https://x-algo.duyet.net`. Numbers live in `src/lib/scoring.ts` and must match `xai-org/x-algorithm` `home-mixer/params/param.rs`.
+- `apps/paid-api`: standalone x402 USDC-gated chat Worker for `https://paid.duyet.net` (`duyet-paid-api`). Payment replaces auth; see `apps/paid-api/README.md`.
 
 ## Shared Packages
 
-- `packages/components`: shared React components.
+- `packages/components`: shared React chrome (`site-header/`), shadcn `ui/` primitives, and official chat components (`chat/`).
 - `packages/libs`: shared utility functions.
 - `packages/interfaces`: shared TypeScript interfaces.
 - `packages/config`: shared app, API, and UI config.
@@ -71,7 +81,7 @@ This repository is the pnpm/Turborepo monorepo for duyet.net public apps, shared
 - `apps/api` uses Wrangler as a Worker, not a Pages app.
 - `apps/agent-api` uses Wrangler as a Worker, not a Pages app.
 - `apps/agent-assistant` compiles via Vite/TanStack Start into a unified Worker + Assets bundle and deploys to the `duyet-agent-assistant` project. Features an automated deployment processor (`deploy.ts`) that injects `ThreadStateDO` SQLite schemas and patches browser-incompatible `createRequire` and `import.meta.url` hooks in compiled server chunks.
-- **Cloudflare Workers Cache** (`[cache] enabled = true`) is a **Workers-only** wrangler key — it is not valid in a Pages config (`pages_build_output_dir`). It is set on the three real Workers (`api`, `agent-api`, `agent-assistant`) as a safe no-op: they only cache responses with an explicit `Cache-Control: public`. The static **Pages** apps (`agent-ui`, `blog`, `cv`, `home`, `photos`, `insights`, `ai-percentage`, `homelab`, `burns`, `kb`, `llm-timeline`) do **not** get `[cache]`; their public cache policy lives in each app's `public/_headers` (zone cache + deploy purge). See [`docs/ai/workers-cache.md`](workers-cache.md) for the per-app matrix, TTL rationale, and how to extend.
+- **Cloudflare Workers Cache** (`[cache] enabled = true`) is a **Workers-only** wrangler key — it is not valid in a Pages config (`pages_build_output_dir`). It is set on the three real Workers (`api`, `agent-api`, `agent-assistant`) as a safe no-op: they only cache responses with an explicit `Cache-Control: public`. The static **Pages** apps (`agent-ui`, `blog`, `cv`, `home`, `photos`, `insights`, `ai-percentage`, `homelab`, `burns`, `kb`, `llm-timeline`, `x-algo`) do **not** get `[cache]`; their public cache policy lives in each app's `public/_headers` (zone cache + deploy purge). See [`docs/ai/workers-cache.md`](workers-cache.md) for the per-app matrix, TTL rationale, and how to extend.
 
 ## App-Specific Command Notes
 
@@ -177,9 +187,9 @@ In browser/CF Workers, use the default async export instead of `initSync`.
 
 ## Commit Scopes
 
-Commitlint scopes include `deps`, `post`, `blog`, `cv`, `home`, `insights`, `photos`, `travel`, `auth`, `ci`, `ui`, `rust`, `docs`, `lib`, `agents`, and `llm-timeline`.
+`commitlint.config.js` extends `@commitlint/config-conventional` only. There is **no** `scope-enum` rule, so any scope (or none) is accepted as long as the type and subject follow Conventional Commits.
 
-Use no scope only when no listed scope fits.
+Prefer a scope from this informal list when one fits: `deps`, `post`, `blog`, `cv`, `home`, `insights`, `photos`, `travel`, `auth`, `ci`, `ui`, `rust`, `docs`, `lib`, `agents`, `llm-timeline`, `kb`, `burns`, `api`. Use no scope when none of those fit. This list is documentation, not an enforced allowlist.
 
 ## Documentation Direction
 
@@ -188,6 +198,8 @@ This file is the root internal knowledge base for AI agents. Keep `AGENTS.md` an
 For Claude Cowork / desktop-agent sessions (non-terminal use), see [`docs/ai/cowork-instructions.md`](cowork-instructions.md). For writing blog posts and notes in Duyet's voice, see [`docs/ai/writing-style.md`](writing-style.md).
 
 ## Public App UI Direction
+
+This section is the source of truth for public-app UI. Root [`DESIGN.md`](../../DESIGN.md) is a shorter companion note for the same direction; if the two disagree, follow this section.
 
 The current public-app visual direction is a Websmith-inspired Duyet system, not a literal clone. Keep Duyet content, routes, data loading, auth, keyboard behavior, and app-specific workflows intact. Copy the design language only: quiet editorial layout, warm surfaces, compact cards, restrained borders, and mobile-safe wrapping.
 

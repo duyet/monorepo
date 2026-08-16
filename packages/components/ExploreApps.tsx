@@ -21,6 +21,7 @@ export type ExploreAppKey =
   | "photos"
   | "llm-timeline"
   | "ai-percentage"
+  | "x-algo"
   | "agents"
   | "kb";
 
@@ -112,6 +113,13 @@ const Glyph = {
       <circle cx="9" cy="9" r="1.1" fill="currentColor" />
       <circle cx="15" cy="15" r="1.1" fill="currentColor" />
       <path d="M12 3.5v2M12 18.5v2M3.5 12h2M18.5 12h2" />
+    </svg>
+  ),
+  "x-algo": (
+    <svg viewBox="0 0 24 24" width="22" height="22" {...G}>
+      <path d="M4 7h16M4 12h10M4 17h13" />
+      <circle cx="19" cy="12" r="1.4" fill="currentColor" />
+      <circle cx="17" cy="17" r="1.4" fill="currentColor" />
     </svg>
   ),
   agents: (
@@ -221,6 +229,15 @@ const APPS: AppEntry[] = [
     blurb:
       "How much of each repo is co-authored by AI assistants — a transparency tool.",
     glyph: Glyph["ai-percentage"],
+  },
+  {
+    key: "x-algo",
+    name: "X Algo",
+    domain: "x-algo.duyet.net",
+    href: "https://x-algo.duyet.net",
+    blurb:
+      "Interactive map of the open-sourced X For You ranking weights.",
+    glyph: Glyph["x-algo"],
   },
 ];
 

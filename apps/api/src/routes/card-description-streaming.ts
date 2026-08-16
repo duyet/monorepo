@@ -5,15 +5,32 @@
  */
 
 import { Hono } from "hono";
-
-/**
- * Cloudflare Workers bindings interface
- */
-interface Env {
-  OPENROUTER_API_KEY?: string;
-}
+import type { Env } from "../env.js";
+import { isAuthorizedApiRequest } from "../lib/auth.js";
+import { consumeRateLimit } from "../lib/rate-limit.js";
 
 const cardDescriptionRouter = new Hono<{ Bindings: Env }>();
+
+function clientIp(request: Request): string {
+  return (
+    request.headers.get("CF-Connecting-IP") ||
+    request.headers.get("True-Client-IP") ||
+    request.headers.get("X-Forwarded-For")?.split(",")[0]?.trim() ||
+    "unknown"
+  );
+}
+
+cardDescriptionRouter.use("*", async (c, next) => {
+  if (!isAuthorizedApiRequest(c.req.raw, c.env)) {
+    return c.json({ error: "Unauthorized" }, 401);
+  }
+
+  if (!consumeRateLimit(`llm-generate:${clientIp(c.req.raw)}`)) {
+    return c.json({ error: "Too Many Requests" }, 429);
+  }
+
+  await next();
+});
 
 /**
  * Card type detection from prompt

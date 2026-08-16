@@ -1,4 +1,5 @@
 import { Reveal } from "@duyet/components";
+import { ProjectBlogLinks } from "../components/ProjectBlogLinks";
 import { ProjectCardHeader } from "../components/ProjectCardHeader";
 import { Badge } from "../components/ui/badge";
 import type { AppItem } from "../data/projects";
@@ -42,6 +43,12 @@ export function ProjectGrid({ items }: { items: AppItem[] }) {
                   </Badge>
                 </div>
               </div>
+              <ProjectBlogLinks
+                slugs={item.blogPosts}
+                limit={2}
+                className="mt-2 flex flex-col gap-0.5"
+                linkClassName="rd-ulink text-[11.5px] leading-snug inline-flex items-center gap-1"
+              />
             </div>
           </Reveal>
         );

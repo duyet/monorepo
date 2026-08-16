@@ -33,6 +33,7 @@ on:
           - ai-percentage
           - agent-ui
           - burns
+          - x-algo
 
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
@@ -80,6 +81,8 @@ jobs:
               - 'apps/ai-percentage/**'
             burns:
               - 'apps/burns/**'
+            x-algo:
+              - 'apps/x-algo/**'
             packages:
               - 'packages/**'
 
@@ -98,13 +101,14 @@ jobs:
           APPS[photos]='{"app":"photos","project":"duyet-photos","url":"https://photos.duyet.net"}'
           APPS[ai-percentage]='{"app":"ai-percentage","project":"duyet-ai-percentage","url":"https://ai-percentage.duyet.net"}'
           APPS[burns]='{"app":"burns","project":"duyet-burns","url":"https://duyet-burns.pages.dev"}'
+          APPS[x-algo]='{"app":"x-algo","project":"duyet-x-algo","url":"https://x-algo.duyet.net"}'
 
           DEPLOY_APPS=()
 
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             INPUT_APP="${{ github.event.inputs.app }}"
             if [[ "$INPUT_APP" == "all" ]]; then
-              for app in agent-ui blog cv home homelab insights llm-timeline photos ai-percentage burns; do
+              for app in agent-ui blog cv home homelab insights llm-timeline photos ai-percentage burns x-algo; do
                 DEPLOY_APPS+=("${APPS[$app]}")
               done
             elif [[ -n "$INPUT_APP" ]]; then
@@ -121,7 +125,7 @@ jobs:
             PACKAGES_CHANGED="${{ steps.filter.outputs.packages }}"
             FILTER_OUTPUTS='${{ toJson(steps.filter.outputs) }}'
 
-            for app in agent-ui blog cv home homelab insights llm-timeline photos ai-percentage burns; do
+            for app in agent-ui blog cv home homelab insights llm-timeline photos ai-percentage burns x-algo; do
               APP_CHANGED=$(echo "$FILTER_OUTPUTS" | jq -r --arg app "$app" '.[$app]')
               if [[ "$APP_CHANGED" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
                 DEPLOY_APPS+=("${APPS[$app]}")

@@ -14,6 +14,56 @@ interface ServiceWorkerContextValue {
   refresh: () => void;
 }
 
+export function UpdateAvailableBanner({
+  onUpdate,
+  onDismiss,
+}: {
+  onUpdate: () => void;
+  onDismiss: () => void;
+}) {
+  return (
+    <div className="fixed bottom-4 right-4 z-50 max-w-md rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-950">
+      <div className="flex items-start gap-3">
+        <RefreshCw className="mt-0.5 h-5 w-5 shrink-0 text-blue-600 dark:text-blue-400" />
+        <div className="flex-1">
+          <p className="font-medium text-blue-900 dark:text-blue-100">
+            Update Available
+          </p>
+          <p className="mt-1 text-sm text-blue-700 dark:text-blue-300">
+            A new version of the dashboard is available. Would you like to
+            update?
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={onDismiss}
+          aria-label="Dismiss update available"
+          className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200"
+        >
+          <X className="h-4 w-4" />
+        </button>
+      </div>
+      <div className="mt-3 flex gap-2">
+        <button
+          type="button"
+          onClick={onUpdate}
+          className="inline-flex items-center gap-2 rounded-md border border-blue-300 bg-blue-100 px-3 py-1.5 text-sm font-medium text-blue-700 hover:bg-blue-200 dark:border-blue-700 dark:bg-blue-800 dark:text-blue-200 dark:hover:bg-blue-700"
+        >
+          <RefreshCw className="h-3 w-3" />
+          Update Now
+        </button>
+        <button
+          type="button"
+          onClick={onDismiss}
+          className="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+        >
+          Later
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export function ServiceWorkerProvider() {
   const [isOnline, setIsOnline] = useState(true);
   const [updateAvailable, setUpdateAvailable] = useState(false);
@@ -118,43 +168,11 @@ export function ServiceWorkerProvider() {
         </div>
       )}
 
-      {/* Update Available Banner */}
       {updateAvailable && (
-        <div className="fixed bottom-4 right-4 z-50 max-w-md rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-950">
-          <div className="flex items-start gap-3">
-            <RefreshCw className="mt-0.5 h-5 w-5 shrink-0 text-blue-600 dark:text-blue-400" />
-            <div className="flex-1">
-              <p className="font-medium text-blue-900 dark:text-blue-100">
-                Update Available
-              </p>
-              <p className="mt-1 text-sm text-blue-700 dark:text-blue-300">
-                A new version of the dashboard is available. Would you like to
-                update?
-              </p>
-            </div>
-            <button
-              onClick={handleDismiss}
-              className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200"
-            >
-              <X className="h-4 w-4" />
-            </button>
-          </div>
-          <div className="mt-3 flex gap-2">
-            <button
-              onClick={handleUpdate}
-              className="inline-flex items-center gap-2 rounded-md border border-blue-300 bg-blue-100 px-3 py-1.5 text-sm font-medium text-blue-700 hover:bg-blue-200 dark:border-blue-700 dark:bg-blue-800 dark:text-blue-200 dark:hover:bg-blue-700"
-            >
-              <RefreshCw className="h-3 w-3" />
-              Update Now
-            </button>
-            <button
-              onClick={handleDismiss}
-              className="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
-            >
-              Later
-            </button>
-          </div>
-        </div>
+        <UpdateAvailableBanner
+          onUpdate={handleUpdate}
+          onDismiss={handleDismiss}
+        />
       )}
     </>
   );

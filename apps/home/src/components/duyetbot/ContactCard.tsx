@@ -1,44 +1,35 @@
-import { Check, Send } from "lucide-react";
+import { Send } from "lucide-react";
 import { useState } from "react";
+import { CONTACT_EMAIL, contactMailto } from "./contact-mailto";
+
+export { contactMailto };
 
 function ContactCard() {
-  const [sent, setSent] = useState(false);
   const [val, setVal] = useState("");
-
-  if (sent) {
-    return (
-      <div className="rd-chat-cards">
-        <div className="rd-chat-card cursor-default flex items-center gap-[10px] border-[color-mix(in_srgb,var(--rd-ok)_40%,var(--rd-border))]">
-          <span className="grid place-items-center w-[30px] h-[30px] rounded-lg bg-[color-mix(in_srgb,var(--rd-ok)_16%,transparent)] text-[var(--rd-ok)] shrink-0">
-            <Check size={14} />
-          </span>
-          <span>
-            <div className="rd-cc-t">Message queued</div>
-            <div className="rd-cc-m">Routed to Duyet via the contact tool.</div>
-          </span>
-        </div>
-      </div>
-    );
-  }
+  const ready = val.trim().length > 0;
 
   return (
-    <div className="mt-[12px] flex gap-[8px]">
-      <input
-        className="rd-chat-card flex-1 font-inherit text-[13.5px] px-[13px] py-[11px] outline-none bg-[var(--rd-bg)] text-[var(--rd-text)] border border-[var(--rd-border)] rounded-[10px]"
-        placeholder="Your message or email…"
-        value={val}
-        onChange={(e) => setVal(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && val.trim()) setSent(true);
-        }}
-      />
-      <button
-        className="rd-chat-send w-[40px] h-[40px]"
-        onClick={() => val.trim() && setSent(true)}
-        aria-label="Send"
-      >
-        <Send size={16} />
-      </button>
+    <div className="mt-[12px] flex flex-col gap-[8px]">
+      <p className="rd-cc-m">
+        Opens your email client to {CONTACT_EMAIL}. Nothing is sent from this
+        page.
+      </p>
+      <div className="flex gap-[8px]">
+        <input
+          className="rd-chat-card flex-1 font-inherit text-[13.5px] px-[13px] py-[11px] outline-none bg-[var(--rd-bg)] text-[var(--rd-text)] border border-[var(--rd-border)] rounded-[10px]"
+          placeholder="Your message…"
+          value={val}
+          onChange={(e) => setVal(e.target.value)}
+        />
+        <a
+          className="rd-chat-send w-[40px] h-[40px] grid place-items-center"
+          href={ready ? contactMailto(val) : undefined}
+          aria-disabled={!ready}
+          aria-label="Open email to Duyet"
+        >
+          <Send size={16} />
+        </a>
+      </div>
     </div>
   );
 }

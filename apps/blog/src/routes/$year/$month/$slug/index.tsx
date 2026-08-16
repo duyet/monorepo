@@ -22,16 +22,26 @@ export const Route = createFileRoute("/$year/$month/$slug/")({
     const slug = rawSlug.replace(/\.(md|html)$/, "");
     const post = (loaderData as { post?: Post } | undefined)?.post;
     const title = post?.title || slug.replace(/-/g, " ");
+    const canonical = `https://blog.duyet.net/${year}/${month}/${slug}`;
     const ogImage = post?.thumbnail
       ? new URL(post.thumbnail, "https://blog.duyet.net").toString()
       : undefined;
+    const jsonLd = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: title,
+      url: canonical,
+      datePublished: post?.date,
+      author: { "@type": "Person", name: "Duyet Le", url: "https://duyet.net" },
+      ...(ogImage ? { image: ogImage } : {}),
+    });
     return {
       meta: [
         { title: `${title} | Tôi là Duyệt` },
         { property: "og:type", content: "article" },
         {
           property: "og:url",
-          content: `https://blog.duyet.net/${year}/${month}/${slug}`,
+          content: canonical,
         },
         ...(post?.title ? [{ property: "og:title", content: post.title }] : []),
         ...(post?.excerpt
@@ -43,12 +53,14 @@ export const Route = createFileRoute("/$year/$month/$slug/")({
         ...(ogImage ? [{ property: "og:image", content: ogImage }] : []),
       ],
       links: [
+        { rel: "canonical", href: canonical },
         {
           rel: "alternate",
           type: "text/markdown",
-          href: `https://blog.duyet.net/${year}/${month}/${slug}.md`,
+          href: `${canonical}.md`,
         },
       ],
+      scripts: [{ type: "application/ld+json", children: jsonLd }],
     };
   },
   loader: async ({ params }) => {

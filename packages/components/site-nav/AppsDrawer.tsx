@@ -3,15 +3,15 @@
 import { cn } from "@duyet/libs/utils";
 import { duyetUrls } from "@duyet/urls";
 import {
+  BarChart3,
+  Bot,
   Camera,
-  ChartBar,
-  ChatCircle,
   Code,
   House,
+  MessageCircle,
   Newspaper,
-  Robot,
   X,
-} from "@phosphor-icons/react";
+} from "lucide-react";
 import { useEffect } from "react";
 
 export interface AppsDrawerProps {
@@ -65,21 +65,21 @@ export function AppsDrawer({ isOpen, onClose, activeApp }: AppsDrawerProps) {
       name: "Insights",
       key: "insights" as const,
       href: duyetUrls.apps.insights,
-      icon: ChartBar,
+      icon: BarChart3,
       desc: "Analytics & operational dashboards",
     },
     {
       name: "Agent",
       key: "agent" as const,
       href: "https://agents.duyet.net",
-      icon: Robot,
+      icon: Bot,
       desc: "Personal AI assistant (duyetbot)",
     },
     {
       name: "CV",
       key: "cv" as const,
       href: duyetUrls.apps.cv,
-      icon: ChatCircle,
+      icon: MessageCircle,
       desc: "Resume & professional experience",
     },
     {
@@ -133,7 +133,7 @@ export function AppsDrawer({ isOpen, onClose, activeApp }: AppsDrawerProps) {
             className="rounded-full p-1.5 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-950 dark:text-neutral-500 dark:hover:bg-neutral-800 dark:hover:text-white transition-colors"
             aria-label="Close menu"
           >
-            <X size={18} weight="bold" />
+            <X className="size-5" />
           </button>
         </div>
 
@@ -162,7 +162,7 @@ export function AppsDrawer({ isOpen, onClose, activeApp }: AppsDrawerProps) {
                         : "border-neutral-200 bg-white text-neutral-600 group-hover:text-neutral-900 dark:border-white/10 dark:bg-neutral-900 dark:text-neutral-400 dark:group-hover:text-white"
                     )}
                   >
-                    <Icon size={20} weight={isActive ? "fill" : "regular"} />
+                    <Icon className="size-5" />
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">

@@ -341,12 +341,18 @@ export async function scoreItems(
 
   for (const batch of chunk(items, BATCH_SIZE)) {
     const prompt = `You are scoring AI/tech news items for relevance and importance.
-For each item, return relevance (0-1, is this genuinely AI/tech news), importance (0-10), quality (0-10, writing/source quality), category (one of: ${CATEGORIES.join(", ")}), and tags (array of short keyword strings).
+For each item, return relevance (0-1, is this genuinely AI/tech news), importance (0-10), quality (0-10, writing/source quality), category (one of: ${CATEGORIES.join(", ")}), and tags — 3 to 6 topic labels per item.
+
+Topic label rules (this feeds a dynamic topic taxonomy, so consistency matters):
+- lowercase-kebab-case only, e.g. "open-source", "multi-agent" — never spaces, underscores, or camelCase.
+- Mix specific entities (anthropic, openai, nvidia, qwen) with themes (multi-agent, open-source, fine-tuning, regulation).
+- Always use the same canonical spelling for the same concept: singular not plural ("llm" not "llms"), one standard hyphenation not synonyms ("open-source" not "opensource" or "oss"), no near-duplicates. If a topic could be phrased multiple ways, pick the most common/obvious industry term.
+- 3-6 tags per item — enough to be genuinely browsable/filterable, not a single catch-all tag.
 
 Items:
 ${JSON.stringify(batch.map(({ i, title, summary, source }) => ({ i, title, summary, source })))}
 
-Respond with strict JSON only: {"results":[{"i":0,"relevance":0.9,"importance":7,"quality":8,"category":"Models","tags":["..."]}]}`;
+Respond with strict JSON only: {"results":[{"i":0,"relevance":0.9,"importance":7,"quality":8,"category":"Models","tags":["anthropic","claude","multi-agent","open-source"]}]}`;
 
     try {
       const { content: raw, tokens } = await callAnyrouter(

@@ -94,3 +94,33 @@
     cursor: pointer;
   }
 }
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--muted-foreground) 0%,
+    var(--foreground) 40%,
+    var(--muted-foreground) 80%
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 1.6s linear infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+.typeset-docs :where(p, ul, ol) {
+  margin-block: 0.6em;
+}
+
+.typeset-docs :where(p, li) {
+  overflow-wrap: anywhere;
+}

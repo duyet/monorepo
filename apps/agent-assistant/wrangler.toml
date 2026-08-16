@@ -3,6 +3,11 @@ main = "dist/server/server.js"
 compatibility_date = "2026-05-14"
 compatibility_flags = ["nodejs_compat"]
 
+# ASSISTANT_API_TOKEN (or AGENT_API_TOKEN) is required for /api/threads*.
+# This is a low-privilege access gate for a personal tool, not a user password.
+# The browser client may send the same value via VITE_ASSISTANT_API_TOKEN locally.
+# Set the Worker secret with: wrangler secret put ASSISTANT_API_TOKEN
+
 # Cloudflare Workers Cache: safe no-op for the dynamic surface. The SSR agent
 # responses and `/api/*` (Durable Object backed) set no `Cache-Control: public`,
 # so they are never cached; only the static SPA shell assets (hashed, immutable)

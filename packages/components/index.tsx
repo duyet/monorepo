@@ -13,6 +13,7 @@ export { default as ClerkAuthProvider } from "./ClerkAuthProvider";
 export { default as Container } from "./Container";
 // Card Components
 export * from "./cards";
+export * from "./chat";
 export { default as Error } from "./Error";
 export {
   default as ErrorBoundary,
@@ -53,9 +54,12 @@ export type { SiteFooterLink, SiteFooterProps } from "./SiteFooter";
 export { default as SiteFooterDefault, SiteFooter } from "./SiteFooter";
 export type { SiteHeaderProps } from "./SiteHeader";
 export { default as SiteHeaderDefault, SiteHeader } from "./SiteHeader";
-export { default as SocialHandlesDefault, SocialHandles } from "./SocialHandles";
 export type { SiteSubnavLink, SiteSubnavProps } from "./SiteSubnav";
 export { default as SiteSubnavDefault, SiteSubnav } from "./SiteSubnav";
+export {
+  default as SocialHandlesDefault,
+  SocialHandles,
+} from "./SocialHandles";
 export * from "./site-nav";
 export { default as ThemeProvider } from "./ThemeProvider";
 export { default as ThemeToggle } from "./ThemeToggle";
@@ -63,7 +67,9 @@ export * from "./Tremor";
 export * from "./thinking";
 export * from "./ui/accordion";
 // UI Components
+export * from "./ui/attachment";
 export * from "./ui/badge";
+export * from "./ui/bubble";
 export * from "./ui/button";
 export * from "./ui/card";
 export * from "./ui/command";
@@ -71,6 +77,9 @@ export * from "./ui/dialog";
 export * from "./ui/dropdown-menu";
 export * from "./ui/hover-card";
 export * from "./ui/input";
+export * from "./ui/marker";
+export * from "./ui/message";
+export * from "./ui/message-scroller";
 export * from "./ui/progress";
 export * from "./ui/scroll-area";
 export * from "./ui/select";

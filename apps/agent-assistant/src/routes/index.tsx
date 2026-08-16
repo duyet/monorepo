@@ -9,6 +9,7 @@ import { PanelLeftClose, PanelLeftOpen, Plus, Trash2 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Thread } from "@/components/assistant-ui/thread";
 import { createClient } from "@/lib/chatApi";
+import { confirmDeleteConversation } from "../lib/confirm-delete";
 
 export const Route = createFileRoute("/")({
   component: AssistantPage,
@@ -229,6 +230,9 @@ function AssistantPage() {
 
   const handleDeleteThread = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
+    if (!confirmDeleteConversation()) {
+      return;
+    }
     const updated = threads.filter((t) => t.id !== id);
     setThreads(updated);
     localStorage.setItem("duyetbot_threads", JSON.stringify(updated));

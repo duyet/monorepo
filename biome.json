@@ -21,6 +21,7 @@
       "!**/.wrangler",
       "!**/.output",
       "!**/llm-timeline/lib/data.ts",
+      "!**/x-algo/src/routeTree.gen.ts",
       "!**/.claude",
       "!**/routeTree.gen.ts",
       "!apps/kb/kb"

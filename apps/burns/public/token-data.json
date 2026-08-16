@@ -1,31 +1,31 @@
 {
-  "generatedAt": "2026-08-08T19:11:36.278Z",
+  "generatedAt": "2026-08-14T08:26:45.853Z",
   "firstDate": "2025-08-02",
-  "lastDate": "2026-08-09",
+  "lastDate": "2026-08-14",
   "sources": [
-    "Google Antigravity",
-    "Z.AI",
-    "opencode",
     "Claude Code",
+    "Z.AI",
     "Codex",
-    "Grok",
+    "opencode",
     "OpenClaw",
+    "Grok",
+    "Gemini CLI",
     "Hermes",
     "pi"
   ],
   "totals": {
-    "input_tokens": 4446520828,
-    "output_tokens": 341006263,
-    "cache_creation_tokens": 2148165785,
-    "cache_read_tokens": 104365293761,
-    "total_tokens": 111300986637,
-    "total_cost": 229509.18
+    "input_tokens": 4250270649,
+    "output_tokens": 336521086,
+    "cache_creation_tokens": 2212217303,
+    "cache_read_tokens": 103691878747,
+    "total_tokens": 110490887785,
+    "total_cost": 232221.39
   },
   "source_totals": [
     {
       "source": "Claude Code",
-      "total_tokens": 72910671570,
-      "cost": 48523.97
+      "total_tokens": 75891713682,
+      "cost": 52130.13
     },
     {
       "source": "Z.AI",
@@ -36,11 +36,6 @@
       "source": "Codex",
       "total_tokens": 11180305332,
       "cost": 6234.5
-    },
-    {
-      "source": "Google Antigravity",
-      "total_tokens": 4833642482,
-      "cost": 916.4
     },
     {
       "source": "opencode",
@@ -54,13 +49,18 @@
     },
     {
       "source": "Grok",
-      "total_tokens": 296518838,
-      "cost": 214.16
+      "total_tokens": 920482861,
+      "cost": 161.7
+    },
+    {
+      "source": "Gemini CLI",
+      "total_tokens": 404158241,
+      "cost": 75.74
     },
     {
       "source": "Hermes",
-      "total_tokens": 152630802,
-      "cost": 165121.31
+      "total_tokens": 167010056,
+      "cost": 165120.48
     },
     {
       "source": "pi",
@@ -70,39 +70,174 @@
   ],
   "daily": [
     {
-      "date": "2026-08-09",
-      "input_tokens": 807715,
-      "output_tokens": 5941,
-      "cache_creation_tokens": 0,
-      "cache_read_tokens": 0,
-      "total_tokens": 813656,
-      "cost": 0,
+      "date": "2026-08-14",
+      "input_tokens": 9673344,
+      "output_tokens": 2013028,
+      "cache_creation_tokens": 5525275,
+      "cache_read_tokens": 487410807,
+      "total_tokens": 504622454,
+      "cost": 576.36,
       "by_source": [
         {
           "source": "Claude Code",
-          "total_tokens": 813656,
+          "total_tokens": 269084662,
+          "cost": 546.43
+        },
+        {
+          "source": "Grok",
+          "total_tokens": 233725402,
+          "cost": 29.93
+        },
+        {
+          "source": "Hermes",
+          "total_tokens": 1812390,
+          "cost": 0
+        }
+      ]
+    },
+    {
+      "date": "2026-08-13",
+      "input_tokens": 7636777,
+      "output_tokens": 2767577,
+      "cache_creation_tokens": 20729132,
+      "cache_read_tokens": 1219043762,
+      "total_tokens": 1250177248,
+      "cost": 1149.81,
+      "by_source": [
+        {
+          "source": "Claude Code",
+          "total_tokens": 1208348227,
+          "cost": 1149.61
+        },
+        {
+          "source": "Grok",
+          "total_tokens": 39711617,
+          "cost": 0.2
+        },
+        {
+          "source": "Hermes",
+          "total_tokens": 2117404,
+          "cost": 0
+        }
+      ]
+    },
+    {
+      "date": "2026-08-12",
+      "input_tokens": 13487552,
+      "output_tokens": 2660797,
+      "cache_creation_tokens": 17865981,
+      "cache_read_tokens": 831831463,
+      "total_tokens": 865845793,
+      "cost": 1033.38,
+      "by_source": [
+        {
+          "source": "Claude Code",
+          "total_tokens": 701836598,
+          "cost": 997.55
+        },
+        {
+          "source": "Grok",
+          "total_tokens": 163239177,
+          "cost": 35.83
+        },
+        {
+          "source": "Hermes",
+          "total_tokens": 770018,
+          "cost": 0
+        }
+      ]
+    },
+    {
+      "date": "2026-08-11",
+      "input_tokens": 7482207,
+      "output_tokens": 1984003,
+      "cache_creation_tokens": 14876224,
+      "cache_read_tokens": 612652971,
+      "total_tokens": 636995405,
+      "cost": 639.81,
+      "by_source": [
+        {
+          "source": "Claude Code",
+          "total_tokens": 575892617,
+          "cost": 626.41
+        },
+        {
+          "source": "Grok",
+          "total_tokens": 58625030,
+          "cost": 13.4
+        },
+        {
+          "source": "Hermes",
+          "total_tokens": 2477758,
+          "cost": 0
+        }
+      ]
+    },
+    {
+      "date": "2026-08-10",
+      "input_tokens": 10564228,
+      "output_tokens": 879462,
+      "cache_creation_tokens": 5054906,
+      "cache_read_tokens": 271234101,
+      "total_tokens": 287732697,
+      "cost": 162.16,
+      "by_source": [
+        {
+          "source": "Claude Code",
+          "total_tokens": 201394664,
+          "cost": 161.35
+        },
+        {
+          "source": "Grok",
+          "total_tokens": 85012809,
+          "cost": 0.81
+        },
+        {
+          "source": "Hermes",
+          "total_tokens": 1325224,
+          "cost": 0
+        }
+      ]
+    },
+    {
+      "date": "2026-08-09",
+      "input_tokens": 10188923,
+      "output_tokens": 483491,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 105160640,
+      "total_tokens": 115833054,
+      "cost": 167.43,
+      "by_source": [
+        {
+          "source": "Grok",
+          "total_tokens": 84657594,
+          "cost": 42.61
+        },
+        {
+          "source": "Claude Code",
+          "total_tokens": 25299000,
+          "cost": 124.82
+        },
+        {
+          "source": "Hermes",
+          "total_tokens": 5876460,
           "cost": 0
         }
       ]
     },
     {
       "date": "2026-08-08",
-      "input_tokens": 3974237,
-      "output_tokens": 475230,
+      "input_tokens": 2453065,
+      "output_tokens": 339763,
       "cache_creation_tokens": 0,
-      "cache_read_tokens": 70453593,
-      "total_tokens": 74903060,
-      "cost": 37.73,
+      "cache_read_tokens": 50937856,
+      "total_tokens": 53730684,
+      "cost": 20.89,
       "by_source": [
         {
           "source": "Grok",
-          "total_tokens": 60285211,
-          "cost": 34.31
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 14303983,
-          "cost": 3.42
+          "total_tokens": 53416818,
+          "cost": 20.89
         },
         {
           "source": "Hermes",
@@ -113,12 +248,12 @@
     },
     {
       "date": "2026-08-07",
-      "input_tokens": 11459820,
-      "output_tokens": 1891867,
+      "input_tokens": 8947356,
+      "output_tokens": 1530376,
       "cache_creation_tokens": 8013817,
-      "cache_read_tokens": 411687896,
-      "total_tokens": 433053400,
-      "cost": 418.07,
+      "cache_read_tokens": 366118655,
+      "total_tokens": 384610204,
+      "cost": 319.25,
       "by_source": [
         {
           "source": "Claude Code",
@@ -127,13 +262,8 @@
         },
         {
           "source": "Grok",
-          "total_tokens": 150992629,
-          "cost": 113.43
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 14303983,
-          "cost": 3.42
+          "total_tokens": 116853416,
+          "cost": 18.03
         },
         {
           "source": "Hermes",
@@ -144,38 +274,33 @@
     },
     {
       "date": "2026-08-06",
-      "input_tokens": 1766714,
-      "output_tokens": 171448,
+      "input_tokens": 1729197,
+      "output_tokens": 169053,
       "cache_creation_tokens": 0,
-      "cache_read_tokens": 45922338,
-      "total_tokens": 47860500,
-      "cost": 33.91,
+      "cache_read_tokens": 45156032,
+      "total_tokens": 47054282,
+      "cost": 0,
       "by_source": [
         {
           "source": "Grok",
           "total_tokens": 44951830,
-          "cost": 33.72
+          "cost": 0
         },
         {
           "source": "Hermes",
           "total_tokens": 2102452,
           "cost": 0
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 806218,
-          "cost": 0.19
         }
       ]
     },
     {
       "date": "2026-08-05",
-      "input_tokens": 2436634,
-      "output_tokens": 1580347,
+      "input_tokens": 2399117,
+      "output_tokens": 1577952,
       "cache_creation_tokens": 11475676,
-      "cache_read_tokens": 901912792,
-      "total_tokens": 917405449,
-      "cost": 566.69,
+      "cache_read_tokens": 901146486,
+      "total_tokens": 916599231,
+      "cost": 533.8,
       "by_source": [
         {
           "source": "Claude Code",
@@ -185,28 +310,23 @@
         {
           "source": "Grok",
           "total_tokens": 40289168,
-          "cost": 32.7
+          "cost": 0
         },
         {
           "source": "Hermes",
           "total_tokens": 2714404,
           "cost": 0
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 806218,
-          "cost": 0.19
         }
       ]
     },
     {
       "date": "2026-08-04",
-      "input_tokens": 1996181,
-      "output_tokens": 2420411,
+      "input_tokens": 1958664,
+      "output_tokens": 2418016,
       "cache_creation_tokens": 31078333,
-      "cache_read_tokens": 728993145,
-      "total_tokens": 764488070,
-      "cost": 601.28,
+      "cache_read_tokens": 728226839,
+      "total_tokens": 763681852,
+      "cost": 601.09,
       "by_source": [
         {
           "source": "Claude Code",
@@ -222,22 +342,17 @@
           "source": "Hermes",
           "total_tokens": 2954363,
           "cost": 0
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 806218,
-          "cost": 0.19
         }
       ]
     },
     {
       "date": "2026-08-03",
-      "input_tokens": 3639508,
-      "output_tokens": 3213021,
+      "input_tokens": 3601991,
+      "output_tokens": 3210626,
       "cache_creation_tokens": 25181574,
-      "cache_read_tokens": 1057139142,
-      "total_tokens": 1089173245,
-      "cost": 900.29,
+      "cache_read_tokens": 1056372836,
+      "total_tokens": 1088367027,
+      "cost": 900.1,
       "by_source": [
         {
           "source": "Claude Code",
@@ -253,22 +368,17 @@
           "source": "Hermes",
           "total_tokens": 1620412,
           "cost": 0
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 806218,
-          "cost": 0.19
         }
       ]
     },
     {
       "date": "2026-08-02",
-      "input_tokens": 1947150,
-      "output_tokens": 1042648,
+      "input_tokens": 1281519,
+      "output_tokens": 1000161,
       "cache_creation_tokens": 4719381,
-      "cache_read_tokens": 259127932,
-      "total_tokens": 266837111,
-      "cost": 188.71,
+      "cache_read_tokens": 245532067,
+      "total_tokens": 252533128,
+      "cost": 185.29,
       "by_source": [
         {
           "source": "Claude Code",
@@ -281,11 +391,6 @@
           "cost": 9.64
         },
         {
-          "source": "Google Antigravity",
-          "total_tokens": 14303983,
-          "cost": 3.42
-        },
-        {
           "source": "Hermes",
           "total_tokens": 667735,
           "cost": 0
@@ -294,22 +399,17 @@
     },
     {
       "date": "2026-08-01",
-      "input_tokens": 1019600,
-      "output_tokens": 1748234,
+      "input_tokens": 353969,
+      "output_tokens": 1705747,
       "cache_creation_tokens": 15418466,
-      "cache_read_tokens": 582105413,
-      "total_tokens": 600291713,
-      "cost": 632.55,
+      "cache_read_tokens": 568509548,
+      "total_tokens": 585987730,
+      "cost": 629.13,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 585636770,
           "cost": 629.13
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 14303983,
-          "cost": 3.42
         },
         {
           "source": "Hermes",
@@ -320,22 +420,17 @@
     },
     {
       "date": "2026-07-31",
-      "input_tokens": 1486023,
-      "output_tokens": 3365645,
+      "input_tokens": 820392,
+      "output_tokens": 3323158,
       "cache_creation_tokens": 29968351,
-      "cache_read_tokens": 1291393000,
-      "total_tokens": 1326213019,
-      "cost": 1148.22,
+      "cache_read_tokens": 1277797135,
+      "total_tokens": 1311909036,
+      "cost": 1144.8,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 1310461119,
           "cost": 1144.8
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 14303983,
-          "cost": 3.42
         },
         {
           "source": "Hermes",
@@ -346,22 +441,17 @@
     },
     {
       "date": "2026-07-30",
-      "input_tokens": 1625154,
-      "output_tokens": 607597,
+      "input_tokens": 959523,
+      "output_tokens": 565110,
       "cache_creation_tokens": 4375754,
-      "cache_read_tokens": 174833494,
-      "total_tokens": 181441999,
-      "cost": 152.64,
+      "cache_read_tokens": 161237629,
+      "total_tokens": 167138016,
+      "cost": 149.22,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 165558184,
           "cost": 149.22
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 14303983,
-          "cost": 3.42
         },
         {
           "source": "Hermes",
@@ -372,22 +462,17 @@
     },
     {
       "date": "2026-07-29",
-      "input_tokens": 1966817,
-      "output_tokens": 582584,
+      "input_tokens": 1301186,
+      "output_tokens": 540097,
       "cache_creation_tokens": 2089120,
-      "cache_read_tokens": 153709047,
-      "total_tokens": 158347568,
-      "cost": 101.84,
+      "cache_read_tokens": 140113182,
+      "total_tokens": 144043585,
+      "cost": 98.42,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 135150041,
           "cost": 98.42
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 14303983,
-          "cost": 3.42
         },
         {
           "source": "opencode",
@@ -403,12 +488,12 @@
     },
     {
       "date": "2026-07-28",
-      "input_tokens": 39604995,
-      "output_tokens": 1747414,
+      "input_tokens": 38939364,
+      "output_tokens": 1704927,
       "cache_creation_tokens": 11057545,
-      "cache_read_tokens": 469650112,
-      "total_tokens": 522060066,
-      "cost": 325.41,
+      "cache_read_tokens": 456054247,
+      "total_tokens": 507756083,
+      "cost": 321.99,
       "by_source": [
         {
           "source": "Claude Code",
@@ -421,11 +506,6 @@
           "cost": 0
         },
         {
-          "source": "Google Antigravity",
-          "total_tokens": 14303983,
-          "cost": 3.42
-        },
-        {
           "source": "Hermes",
           "total_tokens": 1853858,
           "cost": 0
@@ -434,22 +514,17 @@
     },
     {
       "date": "2026-07-27",
-      "input_tokens": 1609947,
-      "output_tokens": 2242968,
+      "input_tokens": 944316,
+      "output_tokens": 2200481,
       "cache_creation_tokens": 16576218,
-      "cache_read_tokens": 743049428,
-      "total_tokens": 763478561,
-      "cost": 542.24,
+      "cache_read_tokens": 729453563,
+      "total_tokens": 749174578,
+      "cost": 538.82,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 746630208,
           "cost": 538.71
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 14303983,
-          "cost": 3.42
         },
         {
           "source": "Hermes",
@@ -465,22 +540,17 @@
     },
     {
       "date": "2026-07-26",
-      "input_tokens": 1280331,
-      "output_tokens": 1369634,
+      "input_tokens": 614700,
+      "output_tokens": 1327147,
       "cache_creation_tokens": 7694197,
-      "cache_read_tokens": 541883591,
-      "total_tokens": 552227753,
-      "cost": 289.39,
+      "cache_read_tokens": 528287726,
+      "total_tokens": 537923770,
+      "cost": 285.97,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 537315832,
           "cost": 285.97
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 14303983,
-          "cost": 3.42
         },
         {
           "source": "Hermes",
@@ -491,22 +561,17 @@
     },
     {
       "date": "2026-07-25",
-      "input_tokens": 1133410,
-      "output_tokens": 6590446,
+      "input_tokens": 467779,
+      "output_tokens": 6547959,
       "cache_creation_tokens": 50561225,
-      "cache_read_tokens": 2515868685,
-      "total_tokens": 2574153766,
-      "cost": 1398.25,
+      "cache_read_tokens": 2502272820,
+      "total_tokens": 2559849783,
+      "cost": 1394.83,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 2559182267,
           "cost": 1394.83
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 14303983,
-          "cost": 3.42
         },
         {
           "source": "Hermes",
@@ -517,22 +582,17 @@
     },
     {
       "date": "2026-07-24",
-      "input_tokens": 879727,
-      "output_tokens": 2793235,
+      "input_tokens": 214096,
+      "output_tokens": 2750748,
       "cache_creation_tokens": 21330626,
-      "cache_read_tokens": 841663096,
-      "total_tokens": 866666684,
-      "cost": 772.12,
+      "cache_read_tokens": 828067231,
+      "total_tokens": 852362701,
+      "cost": 768.7,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 851202653,
           "cost": 768.7
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 14303983,
-          "cost": 3.42
         },
         {
           "source": "Hermes",
@@ -543,18 +603,13 @@
     },
     {
       "date": "2026-07-23",
-      "input_tokens": 1003485,
-      "output_tokens": 146861,
+      "input_tokens": 259344,
+      "output_tokens": 104786,
       "cache_creation_tokens": 597712,
-      "cache_read_tokens": 12362451,
-      "total_tokens": 14110509,
-      "cost": 12.01,
+      "cache_read_tokens": 7008162,
+      "total_tokens": 7970004,
+      "cost": 11.12,
       "by_source": [
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 6140505,
-          "cost": 0.89
-        },
         {
           "source": "Hermes",
           "total_tokens": 5229785,
@@ -569,22 +624,17 @@
     },
     {
       "date": "2026-07-22",
-      "input_tokens": 72102269,
-      "output_tokens": 423106,
+      "input_tokens": 71436638,
+      "output_tokens": 380619,
       "cache_creation_tokens": 0,
-      "cache_read_tokens": 160864069,
-      "total_tokens": 233389444,
-      "cost": 30.98,
+      "cache_read_tokens": 147268204,
+      "total_tokens": 219085461,
+      "cost": 27.56,
       "by_source": [
         {
           "source": "opencode",
           "total_tokens": 217550156,
           "cost": 11.12
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 14303983,
-          "cost": 3.42
         },
         {
           "source": "Hermes",
@@ -600,22 +650,17 @@
     },
     {
       "date": "2026-07-21",
-      "input_tokens": 2243410,
-      "output_tokens": 147556,
+      "input_tokens": 1577779,
+      "output_tokens": 105069,
       "cache_creation_tokens": 0,
-      "cache_read_tokens": 99084633,
-      "total_tokens": 101475599,
-      "cost": 6.71,
+      "cache_read_tokens": 85488768,
+      "total_tokens": 87171616,
+      "cost": 3.29,
       "by_source": [
         {
           "source": "opencode",
           "total_tokens": 84940699,
           "cost": 0.42
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 14303983,
-          "cost": 3.42
         },
         {
           "source": "Hermes",
@@ -631,12 +676,12 @@
     },
     {
       "date": "2026-07-20",
-      "input_tokens": 52268139,
-      "output_tokens": 2068936,
+      "input_tokens": 51602508,
+      "output_tokens": 2026449,
       "cache_creation_tokens": 12704531,
-      "cache_read_tokens": 594093480,
-      "total_tokens": 661135086,
-      "cost": 513.77,
+      "cache_read_tokens": 580497615,
+      "total_tokens": 646831103,
+      "cost": 510.35,
       "by_source": [
         {
           "source": "Claude Code",
@@ -654,11 +699,6 @@
           "cost": 7.89
         },
         {
-          "source": "Google Antigravity",
-          "total_tokens": 14303983,
-          "cost": 3.42
-        },
-        {
           "source": "Hermes",
           "total_tokens": 671128,
           "cost": 0
@@ -667,12 +707,12 @@
     },
     {
       "date": "2026-07-19",
-      "input_tokens": 1865593,
-      "output_tokens": 2105902,
+      "input_tokens": 1199962,
+      "output_tokens": 2063415,
       "cache_creation_tokens": 19151141,
-      "cache_read_tokens": 723119064,
-      "total_tokens": 746241700,
-      "cost": 603.78,
+      "cache_read_tokens": 709523199,
+      "total_tokens": 731937717,
+      "cost": 600.36,
       "by_source": [
         {
           "source": "Claude Code",
@@ -685,11 +725,6 @@
           "cost": 9.07
         },
         {
-          "source": "Google Antigravity",
-          "total_tokens": 14303983,
-          "cost": 3.42
-        },
-        {
           "source": "Hermes",
           "total_tokens": 1054556,
           "cost": 0
@@ -698,12 +733,12 @@
     },
     {
       "date": "2026-07-18",
-      "input_tokens": 10801712,
-      "output_tokens": 6242140,
+      "input_tokens": 10136081,
+      "output_tokens": 6199653,
       "cache_creation_tokens": 54766978,
-      "cache_read_tokens": 2009415141,
-      "total_tokens": 2081225971,
-      "cost": 1659.46,
+      "cache_read_tokens": 1995819276,
+      "total_tokens": 2066921988,
+      "cost": 1656.04,
       "by_source": [
         {
           "source": "Claude Code",
@@ -714,11 +749,6 @@
           "source": "opencode",
           "total_tokens": 18091885,
           "cost": 1.38
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 14303983,
-          "cost": 3.42
         },
         {
           "source": "Hermes",
@@ -734,12 +764,12 @@
     },
     {
       "date": "2026-07-17",
-      "input_tokens": 9185769,
-      "output_tokens": 9490631,
+      "input_tokens": 8520138,
+      "output_tokens": 9448144,
       "cache_creation_tokens": 55605400,
-      "cache_read_tokens": 2538499889,
-      "total_tokens": 2612781689,
-      "cost": 1480.5,
+      "cache_read_tokens": 2524904024,
+      "total_tokens": 2598477706,
+      "cost": 1477.08,
       "by_source": [
         {
           "source": "Claude Code",
@@ -752,11 +782,6 @@
           "cost": 1.37
         },
         {
-          "source": "Google Antigravity",
-          "total_tokens": 14303983,
-          "cost": 3.42
-        },
-        {
           "source": "Hermes",
           "total_tokens": 806744,
           "cost": 0
@@ -765,22 +790,17 @@
     },
     {
       "date": "2026-07-16",
-      "input_tokens": 1402633,
-      "output_tokens": 6189385,
+      "input_tokens": 737002,
+      "output_tokens": 6146898,
       "cache_creation_tokens": 46763956,
-      "cache_read_tokens": 1888531768,
-      "total_tokens": 1942887742,
-      "cost": 1655.89,
+      "cache_read_tokens": 1874935903,
+      "total_tokens": 1928583759,
+      "cost": 1652.47,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 1919227154,
           "cost": 1652.18
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 14303983,
-          "cost": 3.42
         },
         {
           "source": "opencode",
@@ -801,12 +821,12 @@
     },
     {
       "date": "2026-07-15",
-      "input_tokens": 14582973,
-      "output_tokens": 966992,
+      "input_tokens": 13465012,
+      "output_tokens": 939201,
       "cache_creation_tokens": 3923262,
-      "cache_read_tokens": 282004745,
-      "total_tokens": 301477972,
-      "cost": 207.26,
+      "cache_read_tokens": 278788238,
+      "total_tokens": 297115713,
+      "cost": 202.71,
       "by_source": [
         {
           "source": "Claude Code",
@@ -819,11 +839,6 @@
           "cost": 2.25
         },
         {
-          "source": "Google Antigravity",
-          "total_tokens": 4362259,
-          "cost": 4.55
-        },
-        {
           "source": "Hermes",
           "total_tokens": 2018309,
           "cost": 0
@@ -832,12 +847,12 @@
     },
     {
       "date": "2026-07-14",
-      "input_tokens": 1343383,
-      "output_tokens": 796153,
+      "input_tokens": 677752,
+      "output_tokens": 753666,
       "cache_creation_tokens": 4286211,
-      "cache_read_tokens": 268639670,
-      "total_tokens": 275065417,
-      "cost": 290.4,
+      "cache_read_tokens": 255043805,
+      "total_tokens": 260761434,
+      "cost": 286.98,
       "by_source": [
         {
           "source": "Claude Code",
@@ -850,11 +865,6 @@
           "cost": 0.12
         },
         {
-          "source": "Google Antigravity",
-          "total_tokens": 14303983,
-          "cost": 3.42
-        },
-        {
           "source": "Hermes",
           "total_tokens": 905300,
           "cost": 0
@@ -863,22 +873,17 @@
     },
     {
       "date": "2026-07-13",
-      "input_tokens": 1322099,
-      "output_tokens": 1113533,
+      "input_tokens": 656468,
+      "output_tokens": 1071046,
       "cache_creation_tokens": 7589950,
-      "cache_read_tokens": 382837757,
-      "total_tokens": 392863339,
-      "cost": 291.37,
+      "cache_read_tokens": 369241892,
+      "total_tokens": 378559356,
+      "cost": 287.95,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 373132850,
           "cost": 287.67
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 14303983,
-          "cost": 3.42
         },
         {
           "source": "Hermes",
@@ -894,22 +899,17 @@
     },
     {
       "date": "2026-07-12",
-      "input_tokens": 7028198,
-      "output_tokens": 1878640,
+      "input_tokens": 365618,
+      "output_tokens": 1610249,
       "cache_creation_tokens": 13168766,
-      "cache_read_tokens": 560734969,
-      "total_tokens": 582810573,
-      "cost": 339.51,
+      "cache_read_tokens": 493296595,
+      "total_tokens": 508441228,
+      "cost": 330.25,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 507255781,
           "cost": 330.25
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 74369345,
-          "cost": 9.26
         },
         {
           "source": "Hermes",
@@ -920,22 +920,17 @@
     },
     {
       "date": "2026-07-11",
-      "input_tokens": 4262211,
-      "output_tokens": 4734202,
+      "input_tokens": 3596798,
+      "output_tokens": 4691729,
       "cache_creation_tokens": 37079714,
-      "cache_read_tokens": 1531134289,
-      "total_tokens": 1577210416,
-      "cost": 1237.41,
+      "cache_read_tokens": 1517542882,
+      "total_tokens": 1562911123,
+      "cost": 1233.99,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 1559818327,
           "cost": 1233.99
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 14299293,
-          "cost": 3.42
         },
         {
           "source": "Hermes",
@@ -946,22 +941,17 @@
     },
     {
       "date": "2026-07-10",
-      "input_tokens": 13586630,
-      "output_tokens": 8579370,
+      "input_tokens": 12921217,
+      "output_tokens": 8536897,
       "cache_creation_tokens": 74794714,
-      "cache_read_tokens": 2118982441,
-      "total_tokens": 2215943155,
-      "cost": 1719.25,
+      "cache_read_tokens": 2105391034,
+      "total_tokens": 2201643862,
+      "cost": 1715.83,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 2189995081,
           "cost": 1715.76
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 14299293,
-          "cost": 3.42
         },
         {
           "source": "opencode",
@@ -977,22 +967,17 @@
     },
     {
       "date": "2026-07-09",
-      "input_tokens": 20937234,
-      "output_tokens": 468586,
+      "input_tokens": 20271821,
+      "output_tokens": 426113,
       "cache_creation_tokens": 0,
-      "cache_read_tokens": 283136603,
-      "total_tokens": 304542423,
-      "cost": 7.22,
+      "cache_read_tokens": 269545196,
+      "total_tokens": 290243130,
+      "cost": 3.8,
       "by_source": [
         {
           "source": "opencode",
           "total_tokens": 289325436,
           "cost": 3.8
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 14299293,
-          "cost": 3.42
         },
         {
           "source": "Hermes",
@@ -1003,22 +988,17 @@
     },
     {
       "date": "2026-07-08",
-      "input_tokens": 57424925,
-      "output_tokens": 818154,
+      "input_tokens": 50144911,
+      "output_tokens": 525689,
       "cache_creation_tokens": 0,
-      "cache_read_tokens": 290071153,
-      "total_tokens": 348314232,
-      "cost": 37.2,
+      "cache_read_tokens": 237123936,
+      "total_tokens": 287794536,
+      "cost": 30.03,
       "by_source": [
         {
           "source": "opencode",
           "total_tokens": 287395855,
           "cost": 30.03
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 60519696,
-          "cost": 7.17
         },
         {
           "source": "Hermes",
@@ -1029,18 +1009,13 @@
     },
     {
       "date": "2026-07-07",
-      "input_tokens": 24883498,
-      "output_tokens": 652774,
+      "input_tokens": 11468230,
+      "output_tokens": 175858,
       "cache_creation_tokens": 119159,
-      "cache_read_tokens": 171834132,
-      "total_tokens": 197489563,
-      "cost": 31.98,
+      "cache_read_tokens": 39425696,
+      "total_tokens": 51188943,
+      "cost": 4.33,
       "by_source": [
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 146300620,
-          "cost": 27.65
-        },
         {
           "source": "opencode",
           "total_tokens": 45643548,
@@ -1065,22 +1040,17 @@
     },
     {
       "date": "2026-07-06",
-      "input_tokens": 19294872,
-      "output_tokens": 3660447,
+      "input_tokens": 9032650,
+      "output_tokens": 3189840,
       "cache_creation_tokens": 21774978,
-      "cache_read_tokens": 964549327,
-      "total_tokens": 1009279624,
-      "cost": 373.65,
+      "cache_read_tokens": 798047888,
+      "total_tokens": 832045356,
+      "cost": 354.86,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 731604638,
           "cost": 325.62
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 177234268,
-          "cost": 18.79
         },
         {
           "source": "Z.AI",
@@ -1096,12 +1066,12 @@
     },
     {
       "date": "2026-07-05",
-      "input_tokens": 2246317,
-      "output_tokens": 2162349,
+      "input_tokens": 1696879,
+      "output_tokens": 2127278,
       "cache_creation_tokens": 13837658,
-      "cache_read_tokens": 989430097,
-      "total_tokens": 1007676421,
-      "cost": 353.57,
+      "cache_read_tokens": 978207526,
+      "total_tokens": 995869341,
+      "cost": 350.75,
       "by_source": [
         {
           "source": "Claude Code",
@@ -1114,11 +1084,6 @@
           "cost": 7.59
         },
         {
-          "source": "Google Antigravity",
-          "total_tokens": 11807080,
-          "cost": 2.82
-        },
-        {
           "source": "Hermes",
           "total_tokens": 381700,
           "cost": 0
@@ -1127,22 +1092,17 @@
     },
     {
       "date": "2026-07-04",
-      "input_tokens": 4963539,
-      "output_tokens": 7290926,
+      "input_tokens": 4414101,
+      "output_tokens": 7255855,
       "cache_creation_tokens": 49343162,
-      "cache_read_tokens": 3005600096,
-      "total_tokens": 3067197723,
-      "cost": 1129.8,
+      "cache_read_tokens": 2994377525,
+      "total_tokens": 3055390643,
+      "cost": 1126.98,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 3053729740,
           "cost": 1126.98
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 11807080,
-          "cost": 2.82
         },
         {
           "source": "Hermes",
@@ -1153,22 +1113,17 @@
     },
     {
       "date": "2026-07-03",
-      "input_tokens": 11003243,
-      "output_tokens": 13399533,
+      "input_tokens": 10453805,
+      "output_tokens": 13364462,
       "cache_creation_tokens": 71913220,
-      "cache_read_tokens": 2569433366,
-      "total_tokens": 2665749362,
-      "cost": 1433.46,
+      "cache_read_tokens": 2558210795,
+      "total_tokens": 2653942282,
+      "cost": 1430.64,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 2652514651,
           "cost": 1430.64
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 11807080,
-          "cost": 2.82
         },
         {
           "source": "Hermes",
@@ -1179,22 +1134,17 @@
     },
     {
       "date": "2026-07-02",
-      "input_tokens": 2641028,
-      "output_tokens": 459437,
+      "input_tokens": 1091511,
+      "output_tokens": 361276,
       "cache_creation_tokens": 3367581,
-      "cache_read_tokens": 95887137,
-      "total_tokens": 102355183,
-      "cost": 46.87,
+      "cache_read_tokens": 58114424,
+      "total_tokens": 62934792,
+      "cost": 43.91,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 62150966,
           "cost": 43.91
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 39420391,
-          "cost": 2.96
         },
         {
           "source": "Hermes",
@@ -1205,22 +1155,17 @@
     },
     {
       "date": "2026-07-01",
-      "input_tokens": 53520642,
-      "output_tokens": 945388,
+      "input_tokens": 48371968,
+      "output_tokens": 692126,
       "cache_creation_tokens": 2343133,
-      "cache_read_tokens": 380192460,
-      "total_tokens": 437001623,
-      "cost": 85.82,
+      "cache_read_tokens": 293188297,
+      "total_tokens": 344595524,
+      "cost": 63.78,
       "by_source": [
         {
           "source": "opencode",
           "total_tokens": 275403331,
           "cost": 34.65
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 92406099,
-          "cost": 22.04
         },
         {
           "source": "Claude Code",
@@ -1236,22 +1181,17 @@
     },
     {
       "date": "2026-06-30",
-      "input_tokens": 32835586,
-      "output_tokens": 3596412,
+      "input_tokens": 26971062,
+      "output_tokens": 3388591,
       "cache_creation_tokens": 18675902,
-      "cache_read_tokens": 958435706,
-      "total_tokens": 1013543606,
-      "cost": 642.8,
+      "cache_read_tokens": 889581956,
+      "total_tokens": 938617511,
+      "cost": 635.8,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 847849396,
           "cost": 634.24
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 74926095,
-          "cost": 7
         },
         {
           "source": "opencode",
@@ -1272,18 +1212,13 @@
     },
     {
       "date": "2026-06-29",
-      "input_tokens": 2158607,
-      "output_tokens": 130507,
+      "input_tokens": 1610153,
+      "output_tokens": 95499,
       "cache_creation_tokens": 1476668,
-      "cache_read_tokens": 21248207,
-      "total_tokens": 25013989,
-      "cost": 8.34,
+      "cache_read_tokens": 10045732,
+      "total_tokens": 13228052,
+      "cost": 5.52,
       "by_source": [
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 11785937,
-          "cost": 2.82
-        },
         {
           "source": "Claude Code",
           "total_tokens": 10996800,
@@ -1303,22 +1238,17 @@
     },
     {
       "date": "2026-06-28",
-      "input_tokens": 1858508,
-      "output_tokens": 821912,
+      "input_tokens": 1310054,
+      "output_tokens": 786904,
       "cache_creation_tokens": 4512497,
-      "cache_read_tokens": 195426385,
-      "total_tokens": 202619302,
-      "cost": 149.95,
+      "cache_read_tokens": 184223910,
+      "total_tokens": 190833365,
+      "cost": 147.13,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 189917744,
           "cost": 147.13
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 11785937,
-          "cost": 2.82
         },
         {
           "source": "Hermes",
@@ -1329,12 +1259,12 @@
     },
     {
       "date": "2026-06-27",
-      "input_tokens": 2374888,
-      "output_tokens": 2575021,
+      "input_tokens": 1826434,
+      "output_tokens": 2540013,
       "cache_creation_tokens": 12136103,
-      "cache_read_tokens": 657584280,
-      "total_tokens": 674670292,
-      "cost": 484.57,
+      "cache_read_tokens": 646381805,
+      "total_tokens": 662884355,
+      "cost": 481.75,
       "by_source": [
         {
           "source": "Claude Code",
@@ -1347,11 +1277,6 @@
           "cost": 1.59
         },
         {
-          "source": "Google Antigravity",
-          "total_tokens": 11785937,
-          "cost": 2.82
-        },
-        {
           "source": "Hermes",
           "total_tokens": 625838,
           "cost": 0
@@ -1360,12 +1285,12 @@
     },
     {
       "date": "2026-06-26",
-      "input_tokens": 5997088,
-      "output_tokens": 4808356,
+      "input_tokens": 5448634,
+      "output_tokens": 4773348,
       "cache_creation_tokens": 24231850,
-      "cache_read_tokens": 1123181837,
-      "total_tokens": 1158219131,
-      "cost": 665.5,
+      "cache_read_tokens": 1111979362,
+      "total_tokens": 1146433194,
+      "cost": 662.68,
       "by_source": [
         {
           "source": "Claude Code",
@@ -1378,11 +1303,6 @@
           "cost": 27.14
         },
         {
-          "source": "Google Antigravity",
-          "total_tokens": 11785937,
-          "cost": 2.82
-        },
-        {
           "source": "Hermes",
           "total_tokens": 737183,
           "cost": 0
@@ -1391,18 +1311,13 @@
     },
     {
       "date": "2026-06-25",
-      "input_tokens": 12797520,
-      "output_tokens": 1183541,
+      "input_tokens": 2819837,
+      "output_tokens": 185450,
       "cache_creation_tokens": 0,
-      "cache_read_tokens": 215283795,
-      "total_tokens": 229264856,
-      "cost": 29.82,
+      "cache_read_tokens": 45026432,
+      "total_tokens": 48031719,
+      "cost": 6.54,
       "by_source": [
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 181233137,
-          "cost": 23.28
-        },
         {
           "source": "opencode",
           "total_tokens": 24002057,
@@ -1448,22 +1363,17 @@
     },
     {
       "date": "2026-06-23",
-      "input_tokens": 14569255,
-      "output_tokens": 2419121,
+      "input_tokens": 4126267,
+      "output_tokens": 1999806,
       "cache_creation_tokens": 12214618,
-      "cache_read_tokens": 707214473,
-      "total_tokens": 736417467,
-      "cost": 352.87,
+      "cache_read_tokens": 579003443,
+      "total_tokens": 597344134,
+      "cost": 335.99,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 519840726,
           "cost": 335.24
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 139073333,
-          "cost": 16.88
         },
         {
           "source": "opencode",
@@ -1484,12 +1394,12 @@
     },
     {
       "date": "2026-06-22",
-      "input_tokens": 6527997,
-      "output_tokens": 4530620,
+      "input_tokens": 5872132,
+      "output_tokens": 4457830,
       "cache_creation_tokens": 31845163,
-      "cache_read_tokens": 1234790401,
-      "total_tokens": 1277694181,
-      "cost": 835.92,
+      "cache_read_tokens": 1221195179,
+      "total_tokens": 1263370304,
+      "cost": 834.69,
       "by_source": [
         {
           "source": "Claude Code",
@@ -1500,11 +1410,6 @@
           "source": "opencode",
           "total_tokens": 73991549,
           "cost": 0.08
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 14323877,
-          "cost": 1.23
         },
         {
           "source": "Z.AI",
@@ -1520,22 +1425,17 @@
     },
     {
       "date": "2026-06-21",
-      "input_tokens": 4213962,
-      "output_tokens": 4434969,
+      "input_tokens": 3665705,
+      "output_tokens": 4399974,
       "cache_creation_tokens": 21768490,
-      "cache_read_tokens": 1148964474,
-      "total_tokens": 1179381895,
-      "cost": 873.8,
+      "cache_read_tokens": 1137766027,
+      "total_tokens": 1167600196,
+      "cost": 870.98,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 1164072491,
           "cost": 870.2
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 11781699,
-          "cost": 2.82
         },
         {
           "source": "Z.AI",
@@ -1551,22 +1451,17 @@
     },
     {
       "date": "2026-06-20",
-      "input_tokens": 3571303,
-      "output_tokens": 3596661,
+      "input_tokens": 3023046,
+      "output_tokens": 3561666,
       "cache_creation_tokens": 20347594,
-      "cache_read_tokens": 1093865426,
-      "total_tokens": 1121380984,
-      "cost": 804.86,
+      "cache_read_tokens": 1082666979,
+      "total_tokens": 1109599285,
+      "cost": 802.04,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 1101317979,
           "cost": 800.27
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 11781699,
-          "cost": 2.82
         },
         {
           "source": "Z.AI",
@@ -1582,22 +1477,17 @@
     },
     {
       "date": "2026-06-19",
-      "input_tokens": 2549128,
-      "output_tokens": 3409949,
+      "input_tokens": 2000871,
+      "output_tokens": 3374954,
       "cache_creation_tokens": 15349510,
-      "cache_read_tokens": 875636598,
-      "total_tokens": 896945185,
-      "cost": 656.56,
+      "cache_read_tokens": 864438151,
+      "total_tokens": 885163486,
+      "cost": 653.74,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 883181029,
           "cost": 653.08
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 11781699,
-          "cost": 2.82
         },
         {
           "source": "Z.AI",
@@ -1613,12 +1503,12 @@
     },
     {
       "date": "2026-06-18",
-      "input_tokens": 12313799,
-      "output_tokens": 11210551,
+      "input_tokens": 11974492,
+      "output_tokens": 11184398,
       "cache_creation_tokens": 46675370,
-      "cache_read_tokens": 2033299410,
-      "total_tokens": 2103499130,
-      "cost": 1546.87,
+      "cache_read_tokens": 2029632278,
+      "total_tokens": 2099466538,
+      "cost": 1534.32,
       "by_source": [
         {
           "source": "Claude Code",
@@ -1631,11 +1521,6 @@
           "cost": 55.71
         },
         {
-          "source": "Google Antigravity",
-          "total_tokens": 4032592,
-          "cost": 12.55
-        },
-        {
           "source": "Hermes",
           "total_tokens": 1156855,
           "cost": 0
@@ -1644,12 +1529,12 @@
     },
     {
       "date": "2026-06-17",
-      "input_tokens": 5339623,
-      "output_tokens": 5604996,
+      "input_tokens": 4791366,
+      "output_tokens": 5570001,
       "cache_creation_tokens": 33015533,
-      "cache_read_tokens": 1208492225,
-      "total_tokens": 1252452377,
-      "cost": 802.56,
+      "cache_read_tokens": 1197293778,
+      "total_tokens": 1240670678,
+      "cost": 799.74,
       "by_source": [
         {
           "source": "Claude Code",
@@ -1662,11 +1547,6 @@
           "cost": 16.36
         },
         {
-          "source": "Google Antigravity",
-          "total_tokens": 11781699,
-          "cost": 2.82
-        },
-        {
           "source": "Hermes",
           "total_tokens": 1064601,
           "cost": 0
@@ -1675,12 +1555,12 @@
     },
     {
       "date": "2026-06-16",
-      "input_tokens": 90199951,
-      "output_tokens": 3172446,
+      "input_tokens": 89750844,
+      "output_tokens": 3138068,
       "cache_creation_tokens": 3184910,
-      "cache_read_tokens": 821797789,
-      "total_tokens": 918355096,
-      "cost": 268.49,
+      "cache_read_tokens": 818146252,
+      "total_tokens": 914220074,
+      "cost": 253.88,
       "by_source": [
         {
           "source": "Z.AI",
@@ -1698,11 +1578,6 @@
           "cost": 133.7
         },
         {
-          "source": "Google Antigravity",
-          "total_tokens": 4135022,
-          "cost": 14.61
-        },
-        {
           "source": "Hermes",
           "total_tokens": 726375,
           "cost": 0
@@ -1711,12 +1586,12 @@
     },
     {
       "date": "2026-06-15",
-      "input_tokens": 20945406,
-      "output_tokens": 2669224,
+      "input_tokens": 14937449,
+      "output_tokens": 2323939,
       "cache_creation_tokens": 5092729,
-      "cache_read_tokens": 503039862,
-      "total_tokens": 531747221,
-      "cost": 131.71,
+      "cache_read_tokens": 417224080,
+      "total_tokens": 439578197,
+      "cost": 119.43,
       "by_source": [
         {
           "source": "Z.AI",
@@ -1727,11 +1602,6 @@
           "source": "Claude Code",
           "total_tokens": 142332007,
           "cost": 98.76
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 92169024,
-          "cost": 12.28
         },
         {
           "source": "opencode",
@@ -1747,12 +1617,12 @@
     },
     {
       "date": "2026-06-14",
-      "input_tokens": 27677633,
-      "output_tokens": 6429530,
+      "input_tokens": 18460114,
+      "output_tokens": 5788896,
       "cache_creation_tokens": 17670511,
-      "cache_read_tokens": 1080351578,
-      "total_tokens": 1132129252,
-      "cost": 473.93,
+      "cache_read_tokens": 960727596,
+      "total_tokens": 1002647117,
+      "cost": 461.42,
       "by_source": [
         {
           "source": "Claude Code",
@@ -1763,11 +1633,6 @@
           "source": "Z.AI",
           "total_tokens": 369345705,
           "cost": 3.53
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 129482135,
-          "cost": 12.51
         },
         {
           "source": "Codex",
@@ -1788,12 +1653,12 @@
     },
     {
       "date": "2026-06-13",
-      "input_tokens": 24454983,
-      "output_tokens": 4061112,
+      "input_tokens": 12960106,
+      "output_tokens": 3318508,
       "cache_creation_tokens": 11644001,
-      "cache_read_tokens": 903107248,
-      "total_tokens": 943267344,
-      "cost": 561.24,
+      "cache_read_tokens": 775267069,
+      "total_tokens": 803189684,
+      "cost": 546.87,
       "by_source": [
         {
           "source": "Claude Code",
@@ -1804,11 +1669,6 @@
           "source": "Z.AI",
           "total_tokens": 181543189,
           "cost": 41.36
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 140077660,
-          "cost": 14.37
         },
         {
           "source": "Codex",
@@ -1824,12 +1684,12 @@
     },
     {
       "date": "2026-06-12",
-      "input_tokens": 27170991,
-      "output_tokens": 3218594,
+      "input_tokens": 20768197,
+      "output_tokens": 2655342,
       "cache_creation_tokens": 12252137,
-      "cache_read_tokens": 850732077,
-      "total_tokens": 893373799,
-      "cost": 742.54,
+      "cache_read_tokens": 759463980,
+      "total_tokens": 795139656,
+      "cost": 733.08,
       "by_source": [
         {
           "source": "Claude Code",
@@ -1840,11 +1700,6 @@
           "source": "Z.AI",
           "total_tokens": 353134584,
           "cost": 113.89
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 98234143,
-          "cost": 9.46
         },
         {
           "source": "opencode",
@@ -1865,12 +1720,12 @@
     },
     {
       "date": "2026-06-11",
-      "input_tokens": 21980546,
-      "output_tokens": 2226218,
+      "input_tokens": 21524003,
+      "output_tokens": 2197077,
       "cache_creation_tokens": 5450388,
-      "cache_read_tokens": 631677297,
-      "total_tokens": 661334449,
-      "cost": 454.11,
+      "cache_read_tokens": 622352166,
+      "total_tokens": 651523634,
+      "cost": 451.76,
       "by_source": [
         {
           "source": "Z.AI",
@@ -1893,11 +1748,6 @@
           "cost": 0.07
         },
         {
-          "source": "Google Antigravity",
-          "total_tokens": 9810815,
-          "cost": 2.35
-        },
-        {
           "source": "Hermes",
           "total_tokens": 1464864,
           "cost": 0
@@ -1906,12 +1756,12 @@
     },
     {
       "date": "2026-06-10",
-      "input_tokens": 69116379,
-      "output_tokens": 2678292,
+      "input_tokens": 62338301,
+      "output_tokens": 2240778,
       "cache_creation_tokens": 8771785,
-      "cache_read_tokens": 684867379,
-      "total_tokens": 765433835,
-      "cost": 419.14,
+      "cache_read_tokens": 625916775,
+      "total_tokens": 699267639,
+      "cost": 411.47,
       "by_source": [
         {
           "source": "Claude Code",
@@ -1924,11 +1774,6 @@
           "cost": 80.96
         },
         {
-          "source": "Google Antigravity",
-          "total_tokens": 66166196,
-          "cost": 7.65
-        },
-        {
           "source": "opencode",
           "total_tokens": 50785835,
           "cost": 0
@@ -1936,18 +1781,18 @@
         {
           "source": "Hermes",
           "total_tokens": 447429,
-          "cost": 0.02
+          "cost": 0
         }
       ]
     },
     {
       "date": "2026-06-09",
-      "input_tokens": 6515184,
-      "output_tokens": 1162537,
+      "input_tokens": 6059076,
+      "output_tokens": 1133424,
       "cache_creation_tokens": 3097151,
-      "cache_read_tokens": 419075893,
-      "total_tokens": 429850765,
-      "cost": 202.68,
+      "cache_read_tokens": 409759642,
+      "total_tokens": 420049293,
+      "cost": 200.34,
       "by_source": [
         {
           "source": "Claude Code",
@@ -1960,11 +1805,6 @@
           "cost": 51.46
         },
         {
-          "source": "Google Antigravity",
-          "total_tokens": 9801472,
-          "cost": 2.34
-        },
-        {
           "source": "Hermes",
           "total_tokens": 398712,
           "cost": 0
@@ -1973,12 +1813,12 @@
     },
     {
       "date": "2026-06-08",
-      "input_tokens": 6718995,
-      "output_tokens": 2585329,
+      "input_tokens": 6262887,
+      "output_tokens": 2556216,
       "cache_creation_tokens": 9526013,
-      "cache_read_tokens": 698694276,
-      "total_tokens": 717524613,
-      "cost": 379.73,
+      "cache_read_tokens": 689378025,
+      "total_tokens": 707723141,
+      "cost": 376.85,
       "by_source": [
         {
           "source": "Claude Code",
@@ -1991,25 +1831,20 @@
           "cost": 48.32
         },
         {
-          "source": "Google Antigravity",
-          "total_tokens": 9801472,
-          "cost": 2.34
-        },
-        {
           "source": "Hermes",
           "total_tokens": 5164648,
-          "cost": 0.54
+          "cost": 0
         }
       ]
     },
     {
       "date": "2026-06-07",
-      "input_tokens": 230571510,
-      "output_tokens": 1995718,
+      "input_tokens": 230115402,
+      "output_tokens": 1966605,
       "cache_creation_tokens": 6587432,
-      "cache_read_tokens": 564352497,
-      "total_tokens": 803507157,
-      "cost": 14404.59,
+      "cache_read_tokens": 555036246,
+      "total_tokens": 793705685,
+      "cost": 14402.25,
       "by_source": [
         {
           "source": "Claude Code",
@@ -2027,11 +1862,6 @@
           "cost": 51.52
         },
         {
-          "source": "Google Antigravity",
-          "total_tokens": 9801472,
-          "cost": 2.34
-        },
-        {
           "source": "Hermes",
           "total_tokens": 603337,
           "cost": 14083.94
@@ -2040,12 +1870,12 @@
     },
     {
       "date": "2026-06-06",
-      "input_tokens": 132263591,
-      "output_tokens": 869427,
+      "input_tokens": 125652472,
+      "output_tokens": 506099,
       "cache_creation_tokens": 0,
-      "cache_read_tokens": 223213629,
-      "total_tokens": 356346647,
-      "cost": 14350.73,
+      "cache_read_tokens": 148144071,
+      "total_tokens": 274302642,
+      "cost": 14338.55,
       "by_source": [
         {
           "source": "opencode",
@@ -2056,11 +1886,6 @@
           "source": "Codex",
           "total_tokens": 123070116,
           "cost": 77.28
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 82044005,
-          "cost": 12.18
         },
         {
           "source": "Hermes",
@@ -2076,22 +1901,17 @@
     },
     {
       "date": "2026-06-05",
-      "input_tokens": 12828399,
-      "output_tokens": 1236912,
+      "input_tokens": 7074876,
+      "output_tokens": 910426,
       "cache_creation_tokens": 2860492,
-      "cache_read_tokens": 324365072,
-      "total_tokens": 341290875,
-      "cost": 25205.8,
+      "cache_read_tokens": 234201048,
+      "total_tokens": 245046842,
+      "cost": 25185.89,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 140039017,
           "cost": 99.99
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 96244033,
-          "cost": 19.89
         },
         {
           "source": "Codex",
@@ -2106,7 +1926,7 @@
         {
           "source": "Hermes",
           "total_tokens": 21516057,
-          "cost": 25029.34
+          "cost": 25029.32
         },
         {
           "source": "opencode",
@@ -2117,12 +1937,12 @@
     },
     {
       "date": "2026-06-04",
-      "input_tokens": 15460133,
-      "output_tokens": 3970310,
+      "input_tokens": 7418742,
+      "output_tokens": 3400109,
       "cache_creation_tokens": 17899973,
-      "cache_read_tokens": 1020217331,
-      "total_tokens": 1057547747,
-      "cost": 794.88,
+      "cache_read_tokens": 842025197,
+      "total_tokens": 870744021,
+      "cost": 776.41,
       "by_source": [
         {
           "source": "Claude Code",
@@ -2133,11 +1953,6 @@
           "source": "Z.AI",
           "total_tokens": 193624199,
           "cost": 279.53
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 186803726,
-          "cost": 18.47
         },
         {
           "source": "Hermes",
@@ -2153,12 +1968,12 @@
     },
     {
       "date": "2026-06-03",
-      "input_tokens": 16022849,
-      "output_tokens": 3954688,
+      "input_tokens": 7778746,
+      "output_tokens": 3511288,
       "cache_creation_tokens": 19719419,
-      "cache_read_tokens": 941791672,
-      "total_tokens": 981488628,
-      "cost": 739.31,
+      "cache_read_tokens": 782372078,
+      "total_tokens": 813381531,
+      "cost": 725.89,
       "by_source": [
         {
           "source": "Claude Code",
@@ -2169,11 +1984,6 @@
           "source": "Z.AI",
           "total_tokens": 179710677,
           "cost": 257.92
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 168107097,
-          "cost": 13.42
         },
         {
           "source": "Codex",
@@ -2189,12 +1999,12 @@
     },
     {
       "date": "2026-06-02",
-      "input_tokens": 12318097,
-      "output_tokens": 2256496,
+      "input_tokens": 8658526,
+      "output_tokens": 1980627,
       "cache_creation_tokens": 6653728,
-      "cache_read_tokens": 529111944,
-      "total_tokens": 550340265,
-      "cost": 678.48,
+      "cache_read_tokens": 458250542,
+      "total_tokens": 475543423,
+      "cost": 668.21,
       "by_source": [
         {
           "source": "Claude Code",
@@ -2205,11 +2015,6 @@
           "source": "Z.AI",
           "total_tokens": 157436575,
           "cost": 211.49
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 74796842,
-          "cost": 10.27
         },
         {
           "source": "Codex",
@@ -2225,18 +2030,13 @@
     },
     {
       "date": "2026-06-01",
-      "input_tokens": 28138628,
-      "output_tokens": 2668521,
+      "input_tokens": 15818918,
+      "output_tokens": 1925141,
       "cache_creation_tokens": 3698942,
-      "cache_read_tokens": 753902452,
-      "total_tokens": 788408543,
-      "cost": 479.18,
+      "cache_read_tokens": 501245198,
+      "total_tokens": 522688199,
+      "cost": 416.11,
       "by_source": [
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 266740048,
-          "cost": 64.1
-        },
         {
           "source": "Claude Code",
           "total_tokens": 207284207,
@@ -2261,17 +2061,22 @@
           "source": "Hermes",
           "total_tokens": 2018024,
           "cost": 0
+        },
+        {
+          "source": "Gemini CLI",
+          "total_tokens": 1019704,
+          "cost": 1.03
         }
       ]
     },
     {
       "date": "2026-05-31",
-      "input_tokens": 25641607,
-      "output_tokens": 2817830,
+      "input_tokens": 16103767,
+      "output_tokens": 2242310,
       "cache_creation_tokens": 6885877,
-      "cache_read_tokens": 832172404,
-      "total_tokens": 867517718,
-      "cost": 617.46,
+      "cache_read_tokens": 636566788,
+      "total_tokens": 661798742,
+      "cost": 568.63,
       "by_source": [
         {
           "source": "Claude Code",
@@ -2284,14 +2089,14 @@
           "cost": 349.08
         },
         {
-          "source": "Google Antigravity",
-          "total_tokens": 235047550,
-          "cost": 53.42
-        },
-        {
           "source": "opencode",
           "total_tokens": 103981987,
           "cost": 0
+        },
+        {
+          "source": "Gemini CLI",
+          "total_tokens": 29328574,
+          "cost": 4.59
         },
         {
           "source": "Hermes",
@@ -2302,12 +2107,12 @@
     },
     {
       "date": "2026-05-30",
-      "input_tokens": 13424411,
-      "output_tokens": 3648968,
+      "input_tokens": 9450311,
+      "output_tokens": 3409168,
       "cache_creation_tokens": 16910792,
-      "cache_read_tokens": 948597163,
-      "total_tokens": 982581334,
-      "cost": 925.4,
+      "cache_read_tokens": 867094823,
+      "total_tokens": 896865094,
+      "cost": 905.06,
       "by_source": [
         {
           "source": "Claude Code",
@@ -2318,11 +2123,6 @@
           "source": "Z.AI",
           "total_tokens": 337361613,
           "cost": 494.48
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 85716240,
-          "cost": 20.34
         },
         {
           "source": "Hermes",
@@ -2364,22 +2164,17 @@
     },
     {
       "date": "2026-05-28",
-      "input_tokens": 12846839,
-      "output_tokens": 1994730,
+      "input_tokens": 924539,
+      "output_tokens": 1275330,
       "cache_creation_tokens": 7969423,
-      "cache_read_tokens": 601074875,
-      "total_tokens": 623885867,
-      "cost": 31572.41,
+      "cache_read_tokens": 356567855,
+      "total_tokens": 366737147,
+      "cost": 31511.38,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 347827896,
           "cost": 231.1
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 257148720,
-          "cost": 61.03
         },
         {
           "source": "Z.AI",
@@ -2400,22 +2195,17 @@
     },
     {
       "date": "2026-05-27",
-      "input_tokens": 2398679,
-      "output_tokens": 702411,
+      "input_tokens": 1007744,
+      "output_tokens": 618481,
       "cache_creation_tokens": 4275090,
-      "cache_read_tokens": 224365871,
-      "total_tokens": 231742051,
-      "cost": 144.43,
+      "cache_read_tokens": 195840052,
+      "total_tokens": 201741367,
+      "cost": 137.31,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 198980945,
           "cost": 134.01
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 30000684,
-          "cost": 7.12
         },
         {
           "source": "Codex",
@@ -2431,22 +2221,17 @@
     },
     {
       "date": "2026-05-26",
-      "input_tokens": 2286053,
-      "output_tokens": 979379,
+      "input_tokens": 1093823,
+      "output_tokens": 907439,
       "cache_creation_tokens": 5057353,
-      "cache_read_tokens": 326623577,
-      "total_tokens": 334946362,
-      "cost": 181.16,
+      "cache_read_tokens": 302172875,
+      "total_tokens": 309231490,
+      "cost": 175.06,
       "by_source": [
         {
           "source": "Claude Code",
           "total_tokens": 304124032,
           "cost": 170.64
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 25714872,
-          "cost": 6.1
         },
         {
           "source": "Codex",
@@ -2462,18 +2247,13 @@
     },
     {
       "date": "2026-05-25",
-      "input_tokens": 6164549,
-      "output_tokens": 613769,
+      "input_tokens": 4694,
+      "output_tokens": 242079,
       "cache_creation_tokens": 1594438,
-      "cache_read_tokens": 220283609,
-      "total_tokens": 228656365,
-      "cost": 94.51,
+      "cache_read_tokens": 93954982,
+      "total_tokens": 95796193,
+      "cost": 62.98,
       "by_source": [
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 132860172,
-          "cost": 31.53
-        },
         {
           "source": "Claude Code",
           "total_tokens": 95791551,
@@ -2514,12 +2294,12 @@
     },
     {
       "date": "2026-05-23",
-      "input_tokens": 9732389,
-      "output_tokens": 2537867,
+      "input_tokens": 6155699,
+      "output_tokens": 2322047,
       "cache_creation_tokens": 11458988,
-      "cache_read_tokens": 753082092,
-      "total_tokens": 776811336,
-      "cost": 521.46,
+      "cache_read_tokens": 679729986,
+      "total_tokens": 699666720,
+      "cost": 503.15,
       "by_source": [
         {
           "source": "Claude Code",
@@ -2537,11 +2317,6 @@
           "cost": 124.2
         },
         {
-          "source": "Google Antigravity",
-          "total_tokens": 77144616,
-          "cost": 18.31
-        },
-        {
           "source": "Hermes",
           "total_tokens": 13381,
           "cost": 0
@@ -2550,12 +2325,12 @@
     },
     {
       "date": "2026-05-22",
-      "input_tokens": 19884051,
-      "output_tokens": 1911333,
+      "input_tokens": 15115131,
+      "output_tokens": 1623573,
       "cache_creation_tokens": 3758166,
-      "cache_read_tokens": 734530444,
-      "total_tokens": 760083994,
-      "cost": 1494.37,
+      "cache_read_tokens": 636727636,
+      "total_tokens": 657224506,
+      "cost": 1469.96,
       "by_source": [
         {
           "source": "Codex",
@@ -2566,11 +2341,6 @@
           "source": "Claude Code",
           "total_tokens": 112299793,
           "cost": 82.9
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 102859488,
-          "cost": 24.41
         },
         {
           "source": "Z.AI",
@@ -2591,12 +2361,12 @@
     },
     {
       "date": "2026-05-21",
-      "input_tokens": 25605661,
-      "output_tokens": 2400454,
+      "input_tokens": 20638036,
+      "output_tokens": 2100704,
       "cache_creation_tokens": 1952004,
-      "cache_read_tokens": 937473479,
-      "total_tokens": 967431598,
-      "cost": 2879.12,
+      "cache_read_tokens": 835595554,
+      "total_tokens": 860286298,
+      "cost": 2853.69,
       "by_source": [
         {
           "source": "Codex",
@@ -2607,11 +2377,6 @@
           "source": "Claude Code",
           "total_tokens": 123930549,
           "cost": 89.43
-        },
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 107145300,
-          "cost": 25.43
         },
         {
           "source": "opencode",
@@ -2632,18 +2397,13 @@
     },
     {
       "date": "2026-05-20",
-      "input_tokens": 40247429,
-      "output_tokens": 3769562,
+      "input_tokens": 18389879,
+      "output_tokens": 2450662,
       "cache_creation_tokens": 4772697,
-      "cache_read_tokens": 1379307791,
-      "total_tokens": 1428097479,
-      "cost": 1171.71,
+      "cache_read_tokens": 931044921,
+      "total_tokens": 956658159,
+      "cost": 1059.81,
       "by_source": [
-        {
-          "source": "Google Antigravity",
-          "total_tokens": 471439320,
-          "cost": 111.9
-        },
         {
           "source": "Codex",
           "total_tokens": 450317166,
@@ -2753,7 +2513,7 @@
           "cost": 25.8
         },
         {
-          "source": "Google Antigravity",
+          "source": "Gemini CLI",
           "total_tokens": 10125532,
           "cost": 4.11
         },
@@ -2833,7 +2593,7 @@
       "cache_creation_tokens": 11774124,
       "cache_read_tokens": 1106522845,
       "total_tokens": 1132769408,
-      "cost": 28553.14,
+      "cost": 28553.08,
       "by_source": [
         {
           "source": "Claude Code",
@@ -2853,7 +2613,7 @@
         {
           "source": "Hermes",
           "total_tokens": 9104465,
-          "cost": 27758.16
+          "cost": 27758.1
         }
       ]
     },
@@ -2864,7 +2624,7 @@
       "cache_creation_tokens": 7863155,
       "cache_read_tokens": 745190497,
       "total_tokens": 773387799,
-      "cost": 504.87,
+      "cost": 504.84,
       "by_source": [
         {
           "source": "Codex",
@@ -2884,7 +2644,7 @@
         {
           "source": "Hermes",
           "total_tokens": 534749,
-          "cost": 0.03
+          "cost": 0
         }
       ]
     },
@@ -2980,7 +2740,7 @@
           "cost": 30.44
         },
         {
-          "source": "Google Antigravity",
+          "source": "Gemini CLI",
           "total_tokens": 56586046,
           "cost": 19.67
         },
@@ -3001,7 +2761,7 @@
       "cost": 187.07,
       "by_source": [
         {
-          "source": "Google Antigravity",
+          "source": "Gemini CLI",
           "total_tokens": 160130863,
           "cost": 26.82
         },
@@ -3153,7 +2913,7 @@
       "cache_creation_tokens": 971002,
       "cache_read_tokens": 130305268,
       "total_tokens": 140171661,
-      "cost": 27.43,
+      "cost": 27.4,
       "by_source": [
         {
           "source": "opencode",
@@ -3171,7 +2931,7 @@
           "cost": 8.61
         },
         {
-          "source": "Google Antigravity",
+          "source": "Gemini CLI",
           "total_tokens": 12299802,
           "cost": 2.3
         },
@@ -3183,7 +2943,7 @@
         {
           "source": "Hermes",
           "total_tokens": 203696,
-          "cost": 0.03
+          "cost": 0
         }
       ]
     },
@@ -3194,7 +2954,7 @@
       "cache_creation_tokens": 0,
       "cache_read_tokens": 130217607,
       "total_tokens": 138484181,
-      "cost": 112.18,
+      "cost": 112.05,
       "by_source": [
         {
           "source": "Codex",
@@ -3214,7 +2974,7 @@
         {
           "source": "Hermes",
           "total_tokens": 1019390,
-          "cost": 0.13
+          "cost": 0
         }
       ]
     },
@@ -3462,7 +3222,7 @@
       "cost": 63.8,
       "by_source": [
         {
-          "source": "Google Antigravity",
+          "source": "Gemini CLI",
           "total_tokens": 134667720,
           "cost": 17.22
         },

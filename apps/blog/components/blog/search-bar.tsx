@@ -3,6 +3,17 @@ import { useNavigate, useSearch } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchHistory } from "@/lib/hooks/use-search-history";
 
+/** True when "/" or "s" should focus search. Ignores Ctrl/Cmd/Alt so Cmd+S still saves. */
+export function isSearchFocusShortcut(e: {
+  key: string;
+  ctrlKey: boolean;
+  metaKey: boolean;
+  altKey: boolean;
+}): boolean {
+  if (e.ctrlKey || e.metaKey || e.altKey) return false;
+  return e.key === "/" || e.key === "s";
+}
+
 export interface SearchBarProps {
   /** Placeholder text for the search input */
   placeholder?: string;
@@ -92,7 +103,7 @@ export function SearchBar({
         return;
       }
 
-      if (e.key === "/" || e.key === "s") {
+      if (isSearchFocusShortcut(e)) {
         e.preventDefault();
         inputRef.current?.focus();
       }

@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { timeAgo } from "../lib/lang";
+import { type TldrCount, usePrefs } from "../lib/prefs";
 import type { Lang, TldrBullet } from "../lib/types";
 import { StoryDialog } from "./StoryDialog";
+
+const TLDR_COUNTS: TldrCount[] = [8, 12, 16];
 
 export function TldrSection({
   bullets,
@@ -20,6 +23,7 @@ export function TldrSection({
 }) {
   const [showAll, setShowAll] = useState(false);
   const [openItemId, setOpenItemId] = useState<string | null>(null);
+  const { setPrefs } = usePrefs();
 
   if (bullets.length === 0) return null;
   const shown = showAll ? bullets : bullets.slice(0, defaultCount);
@@ -28,11 +32,30 @@ export function TldrSection({
 
   return (
     <section className="border-y-2 border-brand py-4">
-      <div className="mb-2.5 flex items-baseline gap-3">
-        <h2 className="text-lg font-bold tracking-widest">TL;DR</h2>
-        <span className="text-xs text-muted-foreground">
-          {lang === "vi" ? "24 giờ qua" : "past 24 hours"}
-        </span>
+      <div className="mb-2.5 flex items-baseline justify-between gap-3">
+        <div className="flex items-baseline gap-3">
+          <h2 className="text-lg font-bold tracking-widest">TL;DR</h2>
+          <span className="text-xs text-muted-foreground">
+            {lang === "vi" ? "24 giờ qua" : "past 24 hours"}
+          </span>
+        </div>
+        <div className="flex gap-1 text-xs">
+          {TLDR_COUNTS.map((n) => (
+            <button
+              key={n}
+              type="button"
+              onClick={() => setPrefs({ tldrCount: n })}
+              aria-pressed={defaultCount === n}
+              className={`rounded-md px-1.5 py-0.5 ${
+                defaultCount === n
+                  ? "font-bold text-accent"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {n}
+            </button>
+          ))}
+        </div>
       </div>
       <div className="grid gap-x-10 md:grid-cols-2">
         {cols.map((col, ci) => (

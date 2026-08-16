@@ -64,8 +64,10 @@ export function PostHero({ post }: { post: LoadedPost }) {
         <img
           src={post.thumbnail}
           alt={post.title}
+          width={1024}
+          height={576}
           loading="eager"
-          className="relative left-1/2 -translate-x-1/2 block w-[92vw] max-w-[1024px] max-h-[88vh] object-contain my-[30px] rounded-[var(--rd-r)]"
+          className="relative left-1/2 -translate-x-1/2 block w-[92vw] max-w-[1024px] max-h-[88vh] aspect-video object-contain my-[30px] rounded-[var(--rd-r)]"
         />
       )}
     </header>

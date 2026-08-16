@@ -1,5 +1,10 @@
 # Public App Design Direction
 
+Companion to the **Public App UI Direction** section of
+[`docs/ai/internal-knowledge.md`](docs/ai/internal-knowledge.md). That section
+is the source of truth; if this file and that section disagree, follow
+`internal-knowledge.md`.
+
 Use this note when refreshing public apps such as `apps/home` and `apps/blog`.
 Keep the product content, routes, data loading, auth, and app workflows intact.
 

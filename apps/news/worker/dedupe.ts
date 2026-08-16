@@ -1,4 +1,5 @@
 import type { FetchedItemSource } from "./sources/types.js";
+import { unionTopics } from "./topics.js";
 import type { Env } from "./types.js";
 
 // Self-contained anyrouter call, deliberately NOT imported from llm.ts:
@@ -193,6 +194,10 @@ export interface MergeCandidate {
   url: string;
   sourceId: string;
   sources?: FetchedItemSource[];
+  /** Canonical topic tags (already normalized/mapped by topics.ts), used
+   * to union topics across a cluster so counts don't fragment across
+   * near-duplicate stories. */
+  topics?: string[];
   points: number;
   comments: number;
   rank: number;
@@ -211,6 +216,7 @@ export interface MergePlanEntry {
 export interface CanonicalUpdate {
   isExisting: boolean;
   extraSources: FetchedItemSource[];
+  extraTopics: string[];
   maxPoints: number;
   maxComments: number;
 }
@@ -235,7 +241,8 @@ export function buildMergePlan(
   clusters: Cluster[],
   candidates: MergeCandidate[],
   existingById: Map<string, ExistingCandidate>,
-  sourceCap: number
+  sourceCap: number,
+  topicCap = sourceCap
 ): MergePlan {
   const byIndex = new Map(candidates.map((c) => [c.i, c]));
   const ranks = new Map(candidates.map((c) => [c.i, c.rank]));
@@ -262,6 +269,7 @@ export function buildMergePlan(
         ? (existingById.get(canonical.id)?.comments ?? 0)
         : 0;
     const extraSources: FetchedItemSource[] = [];
+    const extraTopics: string[] = [];
 
     for (const i of cluster.new) {
       const candidate = byIndex.get(i);
@@ -272,7 +280,11 @@ export function buildMergePlan(
 
       const isCanonicalItself =
         canonical.type === "new" && canonical.index === i;
-      if (isCanonicalItself) continue;
+      if (isCanonicalItself) {
+        // The canonical's own topics still count toward the union.
+        extraTopics.push(...(candidate.topics ?? []));
+        continue;
+      }
 
       merged.set(candidate.id, { duplicateOf: canonicalId });
       extraSources.push(...(candidate.sources ?? []));
@@ -281,6 +293,7 @@ export function buildMergePlan(
         url: candidate.url,
         author: candidate.sourceId,
       });
+      extraTopics.push(...(candidate.topics ?? []));
     }
 
     if (extraSources.length === 0 && canonical.type === "existing") {
@@ -297,6 +310,11 @@ export function buildMergePlan(
         existingUpdate?.extraSources ?? [],
         extraSources,
         sourceCap
+      ),
+      extraTopics: unionTopics(
+        existingUpdate?.extraTopics ?? [],
+        extraTopics,
+        topicCap
       ),
       maxPoints,
       maxComments,

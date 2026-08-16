@@ -38,6 +38,7 @@ import { reviewPendingSubmissions } from "./submissions.js";
 import { sendDailyTldr } from "./subscribe/send.js";
 import { reviewPendingSuggestions } from "./suggestions.js";
 import { toEpochSeconds } from "./time.js";
+import { MAX_MERGED_TOPICS, normalizeTopics, unionTopics } from "./topics.js";
 import { ensureDailyTldr } from "./tldr.js";
 import type { Env } from "./types.js";
 
@@ -243,6 +244,19 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
 
       const now = Date.now();
 
+      // Rewrites each item's raw score tags into canonical topic names
+      // (rules-based first, LLM-mapped for unseen variants), persisting
+      // the `topics` table's per-variant counts. Runs before merge-similar
+      // so a cluster's topic union already has canonical values to
+      // dedupe against.
+      const canonicalTagsByItem = await step.do("normalize-topics", async () => {
+        if (newRows.length === 0) return new Map<string, string[]>();
+        const rawTagsByItem = new Map<string, string[]>(
+          newRows.map((row) => [row.id, scored.get(row.id)?.tags ?? []])
+        );
+        return normalizeTopics(this.env, rawTagsByItem, now);
+      });
+
       const mergePlan = await step.do("merge-similar", async () => {
         const empty: MergePlan = {
           merged: new Map(),
@@ -287,6 +301,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
             url: row.item.url,
             sourceId: row.source.id,
             sources: row.item.sources,
+            topics: canonicalTagsByItem.get(row.id),
             points: row.item.points ?? 0,
             comments: row.item.comments ?? 0,
             rank,
@@ -304,7 +319,8 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
           clusters,
           candidates,
           existingById,
-          MAX_SOURCES_PER_ITEM
+          MAX_SOURCES_PER_ITEM,
+          MAX_MERGED_TOPICS
         );
       });
 
@@ -364,6 +380,22 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
                 }
               : item;
 
+          // Canonical topics (rules-normalized + LLM-mapped by
+          // normalize-topics), unioned with the rest of the cluster's
+          // topics for a new-item canonical so counts don't fragment
+          // across near-duplicate stories.
+          const canonicalTopics =
+            canonicalUpdate && !canonicalUpdate.isExisting
+              ? unionTopics(
+                  canonicalTagsByItem.get(id) ?? [],
+                  canonicalUpdate.extraTopics,
+                  MAX_MERGED_TOPICS
+                )
+              : (canonicalTagsByItem.get(id) ?? []);
+          const effectiveScore = score
+            ? { ...score, tags: canonicalTopics }
+            : undefined;
+
           const relevance = score?.relevance ?? 0.5;
           const importance = score?.importance ?? 5;
           const quality = score?.quality ?? 5;
@@ -403,7 +435,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
                 id,
                 sourceId: source.id,
                 item: effectiveItem,
-                score,
+                score: effectiveScore,
                 rank,
                 status,
                 now,
@@ -464,12 +496,31 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         for (const [canonicalId, update] of mergePlan.canonicalUpdates) {
           if (!update.isExisting || newRowById.has(canonicalId)) continue;
 
+          const existingTagsRow = await this.env.DB.prepare(
+            "SELECT tags FROM items WHERE id = ?"
+          )
+            .bind(canonicalId)
+            .first<{ tags: string | null }>();
+          let existingTopics: string[] = [];
+          try {
+            const parsed = JSON.parse(existingTagsRow?.tags ?? "[]");
+            if (Array.isArray(parsed)) existingTopics = parsed;
+          } catch {
+            // malformed existing tags JSON — treat as empty, union still works
+          }
+          const mergedTopics = unionTopics(
+            existingTopics,
+            update.extraTopics,
+            MAX_MERGED_TOPICS
+          );
+
           statements.push(
             this.env.DB.prepare(
-              "UPDATE items SET points = ?, comments = ? WHERE id = ?"
+              "UPDATE items SET points = ?, comments = ?, tags = ? WHERE id = ?"
             ).bind(
               nn(update.maxPoints),
               nn(update.maxComments),
+              nn(JSON.stringify(mergedTopics)),
               nn(canonicalId)
             )
           );
