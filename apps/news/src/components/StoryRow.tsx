@@ -124,7 +124,7 @@ export function StoryRow({
       </div>
 
       {expanded && hasDetails && (
-        <div className="space-y-4 border-l-2 border-foreground/70 bg-muted/30 px-4 py-4 md:mx-6">
+        <div className="space-y-4 border-l-2 border-accent/60 bg-muted/30 px-4 py-4 md:mx-6">
           {(item.tags.length > 0 || item.category) && (
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">

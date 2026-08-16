@@ -10,6 +10,7 @@ const MAX_SOURCES_PER_ITEM = 8;
 const MAX_DETAIL_FETCHES = 20;
 const DETAIL_BATCH_SIZE = 4;
 const DETAIL_FETCH_TIMEOUT_MS = 8_000;
+const MAX_SUMMARY_CHARS = 1200;
 
 /**
  * SvelteKit `__data.json` payloads flatten object graphs into a single
@@ -229,19 +230,30 @@ function tweetToSource(tweet: SelectedTweet): FetchedItemSource | null {
   };
 }
 
-/** Fetches a single story's detail page and extracts up to
- * MAX_SOURCES_PER_ITEM sources from `focusedStoryDetail.data.selectedTweets`.
- * Any failure (network, shape mismatch, missing data) resolves to []. */
-async function fetchStorySources(
+interface StoryDetail {
+  sources: FetchedItemSource[];
+  /** The story's written body, from `focusedStoryDetail.data.summary` — a
+   * plain string (paragraphs already separated by blank lines), NOT an
+   * array of paragraph objects. Capped to MAX_SUMMARY_CHARS. */
+  summary?: string;
+}
+
+/** Fetches a single story's detail page and extracts both the written body
+ * (`focusedStoryDetail.data.summary`) and up to MAX_SOURCES_PER_ITEM
+ * sources (`focusedStoryDetail.data.selectedTweets`) from the SAME
+ * resolved object — one fetch covers both. Any failure (network, shape
+ * mismatch, missing data) resolves to an empty result, never throws. */
+async function fetchStoryDetail(
   topicSlug: string,
   slug: string
-): Promise<FetchedItemSource[]> {
+): Promise<StoryDetail> {
+  const empty: StoryDetail = { sources: [] };
   try {
     const res = await fetch(
       `https://huggingnews.com/${topicSlug}/${slug}/__data.json`,
       { signal: AbortSignal.timeout(DETAIL_FETCH_TIMEOUT_MS) }
     );
-    if (!res.ok) return [];
+    if (!res.ok) return empty;
     const payload = (await res.json()) as { nodes?: unknown[] };
     const nodes = payload.nodes ?? [];
 
@@ -254,31 +266,42 @@ async function fetchStorySources(
         const resolved = resolve(data, i);
         if (!resolved || typeof resolved !== "object") continue;
         const tweets = deepFind(resolved, "selectedTweets");
-        if (!Array.isArray(tweets)) continue;
+        const summaryRaw = deepFind(resolved, "summary");
+        if (!Array.isArray(tweets) && typeof summaryRaw !== "string") {
+          continue;
+        }
 
         const sources: FetchedItemSource[] = [];
-        for (const tweet of tweets) {
-          if (!tweet || typeof tweet !== "object") continue;
-          const source = tweetToSource(tweet as SelectedTweet);
-          if (source) sources.push(source);
-          if (sources.length >= MAX_SOURCES_PER_ITEM) break;
+        if (Array.isArray(tweets)) {
+          for (const tweet of tweets) {
+            if (!tweet || typeof tweet !== "object") continue;
+            const source = tweetToSource(tweet as SelectedTweet);
+            if (source) sources.push(source);
+            if (sources.length >= MAX_SOURCES_PER_ITEM) break;
+          }
         }
-        if (sources.length > 0) return sources;
+        const summary =
+          typeof summaryRaw === "string" && summaryRaw.trim()
+            ? summaryRaw.trim().slice(0, MAX_SUMMARY_CHARS)
+            : undefined;
+
+        if (sources.length > 0 || summary) return { sources, summary };
       }
     }
-    return [];
+    return empty;
   } catch (error) {
     console.error(
       `huggingnews detail fetch failed for ${topicSlug}/${slug}:`,
       error
     );
-    return [];
+    return empty;
   }
 }
 
-/** Enriches the highest-priority stories with per-story sources, bounded by
- * MAX_DETAIL_FETCHES total requests, DETAIL_BATCH_SIZE at a time. */
-async function enrichWithSources(stories: RawStory[]): Promise<FetchedItem[]> {
+/** Enriches the highest-priority stories with per-story sources and body
+ * text, bounded by MAX_DETAIL_FETCHES total requests, DETAIL_BATCH_SIZE at
+ * a time. */
+async function enrichWithDetail(stories: RawStory[]): Promise<FetchedItem[]> {
   const prioritized = [...stories].sort((a, b) => a.priority - b.priority);
   const toEnrich = prioritized.slice(0, MAX_DETAIL_FETCHES);
 
@@ -286,8 +309,9 @@ async function enrichWithSources(stories: RawStory[]): Promise<FetchedItem[]> {
     const batch = toEnrich.slice(i, i + DETAIL_BATCH_SIZE);
     await Promise.all(
       batch.map(async (raw) => {
-        const sources = await fetchStorySources(raw.topicSlug, raw.slug);
-        if (sources.length > 0) raw.item.sources = sources;
+        const detail = await fetchStoryDetail(raw.topicSlug, raw.slug);
+        if (detail.sources.length > 0) raw.item.sources = detail.sources;
+        if (detail.summary) raw.item.summary = detail.summary;
       })
     );
   }
@@ -339,7 +363,7 @@ export const huggingNewsAdapter: SourceAdapter = {
       const freshStories = stories.filter(
         (raw) => raw.item.publishedAt >= sinceEpochSec
       );
-      if (freshStories.length > 0) return enrichWithSources(freshStories);
+      if (freshStories.length > 0) return enrichWithDetail(freshStories);
 
       // Sitemap fallback carries no slug/topic split usable for the detail
       // fetch (URL is already assembled), so these items are never enriched.

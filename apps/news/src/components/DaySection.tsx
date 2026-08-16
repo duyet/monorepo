@@ -9,8 +9,8 @@ export function DaySection({ day, lang }: { day: DayGroup; lang: Lang }) {
 
   return (
     <section className="pt-8">
-      <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b-2 border-foreground/80 pb-2">
-        <h2 className="text-xl font-bold">
+      <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-border pb-2">
+        <h2 className="font-serif text-2xl tracking-tight">
           {formatDayHeading(day.date, lang)}
         </h2>
         <span className="text-xs text-muted-foreground">
