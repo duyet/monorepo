@@ -79,6 +79,64 @@ interface AnyrouterCallResult {
   tokens: number;
 }
 
+/** Labels a call by which pipeline stage issued it, for the `llm_calls`
+ * observability log. "other" covers callers outside this file (dedupe's
+ * clustering, submissions/suggestions review, translation QA) that don't
+ * pass an explicit label. */
+export type LlmTask =
+  | "score"
+  | "translate"
+  | "tldr"
+  | "cluster"
+  | "review"
+  | "other";
+
+/** One row of the `llm_calls` observability log: one entry per model
+ * attempted inside callAnyrouter's fallback loop, including failed
+ * attempts before a fallback succeeded. */
+export interface LlmCallLogEntry {
+  ts: number;
+  task: LlmTask;
+  model: string;
+  ok: boolean;
+  tokens: number;
+  durationMs: number;
+  error: string | null;
+  promptChars: number;
+  /** First 2000 chars of the raw response content. Only set on success —
+   * a failed attempt has no usable content to snippet. */
+  responseSnippet: string | null;
+}
+
+export type LlmCallLogger = (
+  entry: LlmCallLogEntry
+) => void | Promise<void>;
+
+let llmCallLogger: LlmCallLogger | null = null;
+
+/** Installs (or clears, via `null`) the sink for `llm_calls` log entries.
+ * Call sites never await this logger and never let it affect behavior —
+ * see `logLlmCall` below. */
+export function setLlmCallLogger(fn: LlmCallLogger | null): void {
+  llmCallLogger = fn;
+}
+
+/** Fire-and-forget: a throwing or rejecting logger must never fail or
+ * change the outcome of callAnyrouter/scoreItems/translateItems/generateTldr. */
+function logLlmCall(entry: LlmCallLogEntry): void {
+  if (!llmCallLogger) return;
+  try {
+    const result = llmCallLogger(entry);
+    if (result && typeof (result as Promise<void>).then === "function") {
+      (result as Promise<void>).catch((error) => {
+        console.error("llm call logger rejected:", error);
+      });
+    }
+  } catch (error) {
+    console.error("llm call logger threw:", error);
+  }
+}
+
 const REQUEST_TIMEOUT_MS = 120_000;
 
 /** Anyrouter reports usage in camelCase on the streaming metadata event and in
@@ -256,8 +314,9 @@ async function streamCompletion(
 async function callAnyrouter(
   env: Env,
   messages: ChatMessage[],
-  opts: { json?: boolean; modelSpec?: string } = {}
+  opts: { json?: boolean; modelSpec?: string; task?: LlmTask } = {}
 ): Promise<AnyrouterCallResult> {
+  const task = opts.task ?? "other";
   const models = parseModels(opts.modelSpec || env.ANYROUTER_MODEL);
   if (models.length === 0) throw new Error("anyrouter model is not configured");
 
@@ -268,20 +327,44 @@ async function callAnyrouter(
   const deadline = Date.now() + REQUEST_TIMEOUT_MS;
   const slice = REQUEST_TIMEOUT_MS / models.length;
   let lastError: unknown;
+  const promptChars = messages.reduce((sum, m) => sum + m.content.length, 0);
 
   for (const model of models) {
     const timeoutMs = Math.min(deadline - Date.now(), slice);
     if (timeoutMs <= 0) break;
+    const attemptStartedAt = Date.now();
     try {
       const result = await streamCompletion(env, model, messages, {
         json: opts.json,
         timeoutMs,
       });
       console.log(`anyrouter completion served by ${model}`);
+      logLlmCall({
+        ts: attemptStartedAt,
+        task,
+        model,
+        ok: true,
+        tokens: result.tokens,
+        durationMs: Date.now() - attemptStartedAt,
+        error: null,
+        promptChars,
+        responseSnippet: result.content.slice(0, 2000),
+      });
       return result;
     } catch (error) {
       lastError = error;
       console.error(`anyrouter model ${model} failed:`, error);
+      logLlmCall({
+        ts: attemptStartedAt,
+        task,
+        model,
+        ok: false,
+        tokens: 0,
+        durationMs: Date.now() - attemptStartedAt,
+        error: error instanceof Error ? error.message : String(error),
+        promptChars,
+        responseSnippet: null,
+      });
     }
   }
 
@@ -468,7 +551,7 @@ Respond with strict JSON only: {"results":[{"i":0,"relevance":0.9,"importance":7
       const { content: raw, tokens } = await callAnyrouter(
         env,
         [{ role: "user", content: prompt }],
-        { json: true }
+        { json: true, task: "score" }
       );
       const parsed = parseJson<{ results?: unknown } | unknown[]>(raw);
       // Some small models return the bare array instead of {results: [...]}.
@@ -547,7 +630,7 @@ Respond with strict JSON only: {"results":[{"i":0,"title":"...","summary":"..."}
           { role: "system", content: VI_STYLE },
           { role: "user", content: prompt },
         ],
-        { json: true, modelSpec: env.ANYROUTER_TRANSLATE_MODEL }
+        { json: true, modelSpec: env.ANYROUTER_TRANSLATE_MODEL, task: "translate" }
       );
       const parsed = parseJson<{ results?: unknown } | unknown[]>(raw);
       const rows = Array.isArray(parsed) ? parsed : parsed.results;
@@ -682,7 +765,7 @@ Respond with strict JSON only: {"bullets_en":[{"text":"...","item_ids":["..."]}]
           { role: "system", content: VI_STYLE },
           { role: "user", content: prompt },
         ],
-        { json: true, modelSpec: env.ANYROUTER_TLDR_MODEL }
+        { json: true, modelSpec: env.ANYROUTER_TLDR_MODEL, task: "tldr" }
       );
       totalTokens += tokens;
       const result = normalizeTldrResult(parseJson<unknown>(raw));

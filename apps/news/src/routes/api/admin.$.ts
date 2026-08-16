@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { checkAuth } from "../../../worker/admin/auth.js";
+import { checkAdminAuth, isRequestAdmin } from "../../../worker/admin/auth.js";
 import {
   deleteSource,
+  getLlmCalls,
   getStatus,
   isHandlerError,
   listSources,
@@ -50,10 +51,19 @@ async function handle(
     );
   }
 
-  const authResponse = checkAuth(request, env);
-  if (authResponse) return authResponse;
-
   const segments = splat.split("/").filter(Boolean);
+
+  // Anonymous-safe: reports whether the caller's bearer resolves to an
+  // admin. Must run BEFORE the auth gate below — it always returns 200,
+  // never 401, so unauthenticated callers can use it to detect signed-out
+  // state.
+  if (method === "GET" && segments.length === 1 && segments[0] === "me") {
+    const admin = await isRequestAdmin(request, env);
+    return Response.json({ admin });
+  }
+
+  const authResponse = await checkAdminAuth(request, env);
+  if (authResponse) return authResponse;
 
   if (method === "POST" && segments.length === 1 && segments[0] === "items") {
     const { body, error } = await parseJsonBody(request);
@@ -115,6 +125,16 @@ async function handle(
 
   if (method === "GET" && segments.length === 1 && segments[0] === "status") {
     const result = await getStatus(env);
+    return Response.json(result);
+  }
+
+  if (
+    method === "GET" &&
+    segments.length === 1 &&
+    segments[0] === "llm-calls"
+  ) {
+    const url = new URL(request.url);
+    const result = await getLlmCalls(env, url.searchParams.get("limit"));
     return Response.json(result);
   }
 

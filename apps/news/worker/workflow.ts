@@ -29,7 +29,8 @@ import {
 } from "./dedupe.js";
 import { enrichMissingContent, fetchOgData } from "./enrich.js";
 import { sha256Hex } from "./hash.js";
-import { scoreItems, translateItems } from "./llm.js";
+import { createD1LlmCallLogger, pruneLlmCalls } from "./llm-call-log.js";
+import { scoreItems, setLlmCallLogger, translateItems } from "./llm.js";
 import { rankScore } from "./ranking.js";
 import { buildRunStats, serializeRunStats } from "./run-stats.js";
 import { fetchStoryDetailByUrl } from "./sources/huggingnews.js";
@@ -105,6 +106,15 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
     let tldrGenerated = false;
     let tldrTokens = 0;
     let emailsSent = 0;
+
+    // Installs the D1-backed llm_calls logger so every scoreItems/
+    // translateItems/generateTldr call below (and everything else that
+    // routes through callAnyrouter) gets an observability row. Plain code,
+    // not step.do: re-running it on workflow replay is harmless (it just
+    // reinstalls the same closure and re-runs an idempotent DELETE), and
+    // it must never affect run-error tracking below.
+    setLlmCallLogger(createD1LlmCallLogger(this.env));
+    await pruneLlmCalls(this.env);
 
     try {
       const sources = await step.do("load-sources", async () => {

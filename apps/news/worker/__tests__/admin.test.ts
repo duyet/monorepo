@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { checkAuth } from "../admin/auth.js";
 import {
+  getLlmCalls,
   isHandlerError,
   pushItems,
   sha256Hex,
@@ -19,6 +20,7 @@ class FakeD1 {
   sources = new Map<string, Record<string, unknown>>();
   translations = new Map<string, Record<string, unknown>>();
   workflowRuns: Record<string, unknown>[] = [];
+  llmCalls: Record<string, unknown>[] = [];
 
   prepare(sql: string) {
     const db = this;
@@ -132,6 +134,15 @@ class FakeD1 {
         results: [...this.workflowRuns]
           .sort((a, b) => (b.started_at as number) - (a.started_at as number))
           .slice(0, 10),
+      };
+    }
+
+    if (sql.startsWith("SELECT * FROM llm_calls ORDER BY ts DESC LIMIT ?")) {
+      const [limit] = args as [number];
+      return {
+        results: [...this.llmCalls]
+          .sort((a, b) => (b.ts as number) - (a.ts as number))
+          .slice(0, limit),
       };
     }
 
@@ -288,6 +299,66 @@ describe("upsertSource", () => {
       config: { query: "AI" },
     });
     expect(isHandlerError(result)).toBe(false);
+  });
+});
+
+describe("getLlmCalls", () => {
+  function seed(env: Env, n: number): void {
+    const db = env.DB as unknown as FakeD1;
+    for (let i = 0; i < n; i++) {
+      db.llmCalls.push({
+        id: i + 1,
+        ts: i, // ascending insert order, oldest first
+        task: "score",
+        model: "test-model",
+        ok: 1,
+        tokens: 10,
+        duration_ms: 5,
+        error: null,
+        prompt_chars: 100,
+        response_snippet: "snippet",
+      });
+    }
+  }
+
+  it("returns rows newest-first", async () => {
+    const env = makeEnv();
+    seed(env, 3);
+
+    const result = await getLlmCalls(env);
+    expect(result.calls.map((c: any) => c.ts)).toEqual([2, 1, 0]);
+  });
+
+  it("defaults to a limit of 100", async () => {
+    const env = makeEnv();
+    seed(env, 150);
+
+    const result = await getLlmCalls(env);
+    expect(result.calls).toHaveLength(100);
+  });
+
+  it("respects an explicit limit", async () => {
+    const env = makeEnv();
+    seed(env, 10);
+
+    const result = await getLlmCalls(env, "5");
+    expect(result.calls).toHaveLength(5);
+  });
+
+  it("caps the limit at 500 even when a larger value is requested", async () => {
+    const env = makeEnv();
+    seed(env, 600);
+
+    const result = await getLlmCalls(env, "10000");
+    expect(result.calls).toHaveLength(500);
+  });
+
+  it("falls back to the default for a non-numeric limit", async () => {
+    const env = makeEnv();
+    seed(env, 150);
+
+    const result = await getLlmCalls(env, "not-a-number");
+    expect(result.calls).toHaveLength(100);
   });
 });
 

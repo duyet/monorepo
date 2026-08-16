@@ -17,6 +17,13 @@ export interface Env {
   CLICKHOUSE_NEWS_PASSWORD?: string;
   CLICKHOUSE_DATABASE?: string;
   NEWS_ADMIN_TOKEN: string;
+  /** Clerk instance issuer (frontend API origin), e.g. "https://clerk.duyet.net".
+   *  Derived from the VITE_CLERK_PUBLISHABLE_KEY domain. When set, admin
+   *  Clerk-JWT verification rejects tokens whose `iss` doesn't match. */
+  CLERK_ISSUER?: string;
+  /** Comma-separated Clerk user ids (the token's `sub`) granted admin
+   *  access, independent of any role claim. */
+  NEWS_ADMIN_USER_IDS?: string;
   /** Cloudflare Email Sending binding. Optional: absent until Email Sending
    *  is onboarded for the account, so all use sites must guard for it. */
   EMAIL?: SendEmail;

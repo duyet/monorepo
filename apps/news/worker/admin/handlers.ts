@@ -245,3 +245,26 @@ export async function getStatus(env: Env) {
   ).all();
   return { runs: runs ?? [], itemsByStatus: itemsByStatus ?? [] };
 }
+
+const DEFAULT_LLM_CALLS_LIMIT = 100;
+const MAX_LLM_CALLS_LIMIT = 500;
+
+/**
+ * Newest-first rows from `llm_calls` (see migrations/0013_llm_calls.sql),
+ * one row per anyrouter model attempt. `limitParam` comes straight from a
+ * query string, so it's parsed defensively: anything non-numeric or <= 0
+ * falls back to the default, and the result is always capped.
+ */
+export async function getLlmCalls(env: Env, limitParam?: string | null) {
+  const parsed = limitParam ? Number(limitParam) : Number.NaN;
+  const limit =
+    Number.isFinite(parsed) && parsed > 0
+      ? Math.min(Math.floor(parsed), MAX_LLM_CALLS_LIMIT)
+      : DEFAULT_LLM_CALLS_LIMIT;
+  const { results } = await env.DB.prepare(
+    "SELECT * FROM llm_calls ORDER BY ts DESC LIMIT ?"
+  )
+    .bind(limit)
+    .all();
+  return { calls: results ?? [] };
+}

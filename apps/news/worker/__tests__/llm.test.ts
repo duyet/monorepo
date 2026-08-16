@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   _extractLastJsonObjectForTests as extractLastJsonObject,
   generateTldr,
@@ -8,6 +8,7 @@ import {
   sanitizeScoreResults,
   sanitizeTranslateResults,
   scoreItems,
+  setLlmCallLogger,
   translateItems,
   VI_STYLE,
 } from "../llm.js";
@@ -955,6 +956,55 @@ describe("scoreItems / translateItems batch failure handling", () => {
     for (const result of results) {
       expect(result.tokens).toBe(30);
     }
+  });
+});
+
+// setLlmCallLogger installs a fire-and-forget observability sink (see
+// worker/llm-call-log.ts's D1-backed implementation); a broken sink must
+// never surface through the pipeline it's merely observing.
+describe("setLlmCallLogger", () => {
+  beforeEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  afterEach(() => {
+    setLlmCallLogger(null);
+  });
+
+  const scoreInput = [{ i: 0, title: "Story", source: "hn" }];
+  const scorePayload = JSON.stringify({
+    results: [
+      {
+        i: 0,
+        relevance: 0.9,
+        importance: 7,
+        quality: 8,
+        category: "Models",
+        tags: ["ai"],
+      },
+    ],
+  });
+
+  it("a synchronously-throwing logger does not break scoreItems", async () => {
+    setLlmCallLogger(() => {
+      throw new Error("logger exploded");
+    });
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(chatResponse(scorePayload)));
+
+    const results = await scoreItems(env, scoreInput);
+    expect(results).toHaveLength(1);
+    expect(results[0].category).toBe("Models");
+  });
+
+  it("a rejecting async logger does not break scoreItems", async () => {
+    setLlmCallLogger(async () => {
+      throw new Error("async logger exploded");
+    });
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(chatResponse(scorePayload)));
+
+    const results = await scoreItems(env, scoreInput);
+    expect(results).toHaveLength(1);
+    expect(results[0].category).toBe("Models");
   });
 });
 
