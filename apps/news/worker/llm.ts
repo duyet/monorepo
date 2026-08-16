@@ -520,6 +520,23 @@ function normalizeTldrResult(parsed: unknown): Omit<TldrResult, "tokens"> {
   };
 }
 
+/** The model sometimes hallucinates or truncates `item_id`s, which used to
+ * make TL;DR bullets open the wrong story. Keep only ids that exactly match
+ * an input item (or uniquely prefix-match one, expanded to the full id);
+ * anything else is cleared so the bullet renders unlinked. */
+export function sanitizeBulletIds(
+  bullets: TldrBullet[],
+  items: Pick<TldrItem, "id">[]
+): TldrBullet[] {
+  const ids = new Set(items.map((i) => i.id));
+  return bullets.map((b) => {
+    if (!b.item_id) return b;
+    if (ids.has(b.item_id)) return b;
+    const matches = items.filter((i) => i.id.startsWith(b.item_id));
+    return { ...b, item_id: matches.length === 1 ? matches[0].id : "" };
+  });
+}
+
 export async function generateTldr(
   env: Env,
   items: TldrItem[]
@@ -548,7 +565,11 @@ Respond with strict JSON only: {"bullets_en":[{"text":"...","item_id":"..."}],"b
       totalTokens += tokens;
       const result = normalizeTldrResult(parseJson<unknown>(raw));
       if (result.bullets_en.length > 0 || result.bullets_vi.length > 0) {
-        return { ...result, tokens: totalTokens };
+        return {
+          bullets_en: sanitizeBulletIds(result.bullets_en, items),
+          bullets_vi: sanitizeBulletIds(result.bullets_vi, items),
+          tokens: totalTokens,
+        };
       }
       console.error(
         `generateTldr attempt ${attempt}/${ATTEMPTS} returned no bullets`

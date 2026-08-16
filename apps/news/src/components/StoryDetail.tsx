@@ -275,6 +275,21 @@ export function StoryDetail({
               <SuggestionBadge itemId={item.id} expanded lang={lang} />
             </div>
           )}
+
+          {item.sources.length > 0 && (
+            <div className="space-y-1.5 border-t border-border pt-3">
+              <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                {lang === "vi" ? "Nguồn chính" : "Key sources"}
+              </div>
+              {item.sources.map((source) => (
+                <SourceRow
+                  key={`${source.kind}-${source.url ?? source.author}`}
+                  source={source}
+                  lang={lang}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         <aside className="min-w-0 space-y-4 md:border-l md:border-border md:pl-5">
@@ -347,20 +362,6 @@ export function StoryDetail({
             </a>
           </div>
 
-          {item.sources.length > 0 && (
-            <div className="space-y-1.5">
-              <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                {lang === "vi" ? "Nguồn chính" : "Key sources"}
-              </div>
-              {item.sources.map((source) => (
-                <SourceRow
-                  key={`${source.kind}-${source.url ?? source.author}`}
-                  source={source}
-                  lang={lang}
-                />
-              ))}
-            </div>
-          )}
         </aside>
       </div>
     </div>

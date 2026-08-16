@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { sanitizeBulletIds } from "../llm.js";
 import { buildTopItemsQuery, shouldPersistTldr } from "../tldr.js";
 
 describe("buildTopItemsQuery", () => {
@@ -32,5 +33,45 @@ describe("shouldPersistTldr", () => {
     expect(
       shouldPersistTldr({ bullets_en: [], bullets_vi: [{ text: "a" }] })
     ).toBe(true);
+  });
+});
+
+describe("sanitizeBulletIds", () => {
+  const items = [{ id: "aaaa1111bbbb" }, { id: "aaaa2222cccc" }];
+
+  it("keeps exact-match ids and empty ids", () => {
+    expect(
+      sanitizeBulletIds(
+        [
+          { text: "a", item_id: "aaaa1111bbbb" },
+          { text: "b", item_id: "" },
+        ],
+        items
+      )
+    ).toEqual([
+      { text: "a", item_id: "aaaa1111bbbb" },
+      { text: "b", item_id: "" },
+    ]);
+  });
+
+  it("expands a unique prefix to the full id", () => {
+    expect(
+      sanitizeBulletIds([{ text: "a", item_id: "aaaa1111" }], items)
+    ).toEqual([{ text: "a", item_id: "aaaa1111bbbb" }]);
+  });
+
+  it("clears hallucinated or ambiguous ids so bullets render unlinked", () => {
+    expect(
+      sanitizeBulletIds(
+        [
+          { text: "a", item_id: "deadbeef" },
+          { text: "b", item_id: "aaaa" },
+        ],
+        items
+      )
+    ).toEqual([
+      { text: "a", item_id: "" },
+      { text: "b", item_id: "" },
+    ]);
   });
 });
