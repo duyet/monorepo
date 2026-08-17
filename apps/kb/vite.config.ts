@@ -12,6 +12,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 function getKbRoutes(): string[] {
   const routes: string[] = [
     "/",
+    "/about",
     "/c",
     "/c/",
     "/llms.txt",

@@ -118,6 +118,16 @@ export function getDreamContent(): { raw: string; lastDream: string } {
   return { raw, lastDream: state.last_dream ?? "" };
 }
 
+const RAW_README = import.meta.glob("../kb/README.md", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+}) as Record<string, string>;
+
+export function getReadmeContent(): string {
+  return Object.values(RAW_README)[0] ?? "";
+}
+
 const RAW_ARTICLES = import.meta.glob("../kb/raw/kb-content/**/*.md", {
   query: "?raw",
   import: "default",
