@@ -167,7 +167,9 @@ function RootComponent() {
               localNav={homeLocalNav}
               activeHref={pathname}
             />
-            <Outlet />
+            <main>
+              <Outlet />
+            </main>
             <SiteFooter />
           </ThemeProvider>
         </ClerkAuthProvider>
