@@ -105,7 +105,7 @@ interface LocalGraphProps {
 export function LocalGraph({ nodes, edges, currentId }: LocalGraphProps): ReactElement | null {
   const containerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-  const [depth, setDepth] = useState<1 | 2>(2);
+  const [depth, setDepth] = useState<1 | 2>(1);
 
   const visible = useMemo(
     () => extractLocalGraph({ nodes, edges }, currentId, depth),

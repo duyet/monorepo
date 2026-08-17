@@ -253,10 +253,11 @@ export function GraphViewer() {
     let stopTimer: ReturnType<typeof setTimeout> | null = null;
 
     (async () => {
-      const [{ default: Graph }, { default: FA2LayoutSupervisor }, { default: Sigma }] =
+      const [{ default: Graph }, { default: FA2LayoutSupervisor }, { default: forceAtlas2 }, { default: Sigma }] =
         await Promise.all([
           import("graphology"),
           import("graphology-layout-forceatlas2/worker"),
+          import("graphology-layout-forceatlas2"),
           import("sigma"),
         ]);
       if (cancelled || !containerRef.current) return;
@@ -297,6 +298,22 @@ export function GraphViewer() {
 
         graphRef.current = graph;
 
+        // Settle the layout synchronously BEFORE the first render — otherwise
+        // the graph visibly explodes from the seed circle on first paint.
+        forceAtlas2.assign(graph, {
+          iterations: 300,
+          settings: {
+            gravity: DEFAULT_FORCES.gravity,
+            scalingRatio: DEFAULT_FORCES.scalingRatio,
+            edgeWeightInfluence: DEFAULT_FORCES.edgeWeightInfluence,
+            strongGravityMode: true,
+            barnesHutOptimize: graph.order > 80,
+            adjustSizes: true,
+            slowDown: 12,
+            linLogMode: false,
+          },
+        });
+
         sigma = new (Sigma as SigmaCtor)(graph, containerRef.current, {
           allowInvalidContainer: true,
           renderLabels: true,
@@ -321,6 +338,10 @@ export function GraphViewer() {
         }
         sigmaRef.current = sigma;
         const s = sigma;
+        // Freeze the camera frame — without a custom bbox Sigma re-fits the
+        // viewport to the moving bounding box on every layout tick, which
+        // makes the whole graph appear to wobble during the live phase.
+        s.setCustomBBox(s.getBBox());
 
         const applyVisual = () => {
           const hovered = hoverRef.current;
@@ -419,7 +440,9 @@ export function GraphViewer() {
           });
           layout.start();
           layoutRef.current = layout;
-          stopTimer = setTimeout(() => layout.stop(), 4500);
+          // Layout is pre-settled synchronously at mount, so the live phase is
+          // just a short polish pass.
+          stopTimer = setTimeout(() => layout.stop(), 2000);
         };
         restartLayout.current = startLayout;
         startLayout(DEFAULT_FORCES);
