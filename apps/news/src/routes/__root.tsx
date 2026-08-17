@@ -49,8 +49,12 @@ import type { Lang } from "../lib/types";
  */
 function ClerkRootProvider({ children }: { children: ReactNode }) {
   const clerkState = useClerkModuleLoader();
+  // No provider in this subtree, so consumers must not see a module either —
+  // rendering Clerk's SignedIn/SignedOut outside a <ClerkProvider> throws.
   const withoutProvider = (
-    <ClerkModuleContext.Provider value={clerkState}>
+    <ClerkModuleContext.Provider
+      value={{ mod: null, publishableKey: clerkState.publishableKey }}
+    >
       {children}
     </ClerkModuleContext.Provider>
   );

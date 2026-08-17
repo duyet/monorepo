@@ -9,79 +9,29 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as AiRouteImport } from './routes/ai'
-import { Route as ArchivesRouteImport } from './routes/archives'
-import { Route as CategoryRouteImport } from './routes/category'
-import { Route as FeaturedRouteImport } from './routes/featured'
-import { Route as FeedRouteImport } from './routes/feed'
-import { Route as HtmlSitemapRouteImport } from './routes/html-sitemap'
-import { Route as NotesRouteImport } from './routes/notes'
-import { Route as RobotsRouteImport } from './routes/robots'
-import { Route as SearchRouteImport } from './routes/search'
-import { Route as SeriesRouteImport } from './routes/series'
 import { Route as TagsRouteImport } from './routes/tags'
-import { Route as CategoryCategoryRouteImport } from './routes/category/$category'
-import { Route as NoteIdRouteImport } from './routes/note/$id'
-import { Route as SeriesSlugRouteImport } from './routes/series/$slug'
+import { Route as SeriesRouteImport } from './routes/series'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as RobotsRouteImport } from './routes/robots'
+import { Route as NotesRouteImport } from './routes/notes'
+import { Route as HtmlSitemapRouteImport } from './routes/html-sitemap'
+import { Route as FeedRouteImport } from './routes/feed'
+import { Route as FeaturedRouteImport } from './routes/featured'
+import { Route as CategoryRouteImport } from './routes/category'
+import { Route as ArchivesRouteImport } from './routes/archives'
+import { Route as AiRouteImport } from './routes/ai'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as TagTagRouteImport } from './routes/tag/$tag'
+import { Route as SeriesSlugRouteImport } from './routes/series/$slug'
+import { Route as NoteIdRouteImport } from './routes/note/$id'
+import { Route as CategoryCategoryRouteImport } from './routes/category/$category'
 import { Route as YearMonthSlugIndexRouteImport } from './routes/$year/$month/$slug/index'
 import { Route as YearMonthSlugChildRouteImport } from './routes/$year/$month/$slug/$child'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AiRoute = AiRouteImport.update({
-  id: '/ai',
-  path: '/ai',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ArchivesRoute = ArchivesRouteImport.update({
-  id: '/archives',
-  path: '/archives',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CategoryRoute = CategoryRouteImport.update({
-  id: '/category',
-  path: '/category',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FeaturedRoute = FeaturedRouteImport.update({
-  id: '/featured',
-  path: '/featured',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FeedRoute = FeedRouteImport.update({
-  id: '/feed',
-  path: '/feed',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HtmlSitemapRoute = HtmlSitemapRouteImport.update({
-  id: '/html-sitemap',
-  path: '/html-sitemap',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const NotesRoute = NotesRouteImport.update({
-  id: '/notes',
-  path: '/notes',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RobotsRoute = RobotsRouteImport.update({
-  id: '/robots',
-  path: '/robots',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SearchRoute = SearchRouteImport.update({
-  id: '/search',
-  path: '/search',
+const TagsRoute = TagsRouteImport.update({
+  id: '/tags',
+  path: '/tags',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SeriesRoute = SeriesRouteImport.update({
@@ -89,19 +39,64 @@ const SeriesRoute = SeriesRouteImport.update({
   path: '/series',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TagsRoute = TagsRouteImport.update({
-  id: '/tags',
-  path: '/tags',
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CategoryCategoryRoute = CategoryCategoryRouteImport.update({
-  id: '/$category',
-  path: '/$category',
-  getParentRoute: () => CategoryRoute,
+const RobotsRoute = RobotsRouteImport.update({
+  id: '/robots',
+  path: '/robots',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const NoteIdRoute = NoteIdRouteImport.update({
-  id: '/note/$id',
-  path: '/note/$id',
+const NotesRoute = NotesRouteImport.update({
+  id: '/notes',
+  path: '/notes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HtmlSitemapRoute = HtmlSitemapRouteImport.update({
+  id: '/html-sitemap',
+  path: '/html-sitemap',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeedRoute = FeedRouteImport.update({
+  id: '/feed',
+  path: '/feed',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeaturedRoute = FeaturedRouteImport.update({
+  id: '/featured',
+  path: '/featured',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CategoryRoute = CategoryRouteImport.update({
+  id: '/category',
+  path: '/category',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArchivesRoute = ArchivesRouteImport.update({
+  id: '/archives',
+  path: '/archives',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AiRoute = AiRouteImport.update({
+  id: '/ai',
+  path: '/ai',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TagTagRoute = TagTagRouteImport.update({
+  id: '/tag/$tag',
+  path: '/tag/$tag',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SeriesSlugRoute = SeriesSlugRouteImport.update({
@@ -109,10 +104,15 @@ const SeriesSlugRoute = SeriesSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => SeriesRoute,
 } as any)
-const TagTagRoute = TagTagRouteImport.update({
-  id: '/tag/$tag',
-  path: '/tag/$tag',
+const NoteIdRoute = NoteIdRouteImport.update({
+  id: '/note/$id',
+  path: '/note/$id',
   getParentRoute: () => rootRouteImport,
+} as any)
+const CategoryCategoryRoute = CategoryCategoryRouteImport.update({
+  id: '/$category',
+  path: '/$category',
+  getParentRoute: () => CategoryRoute,
 } as any)
 const YearMonthSlugIndexRoute = YearMonthSlugIndexRouteImport.update({
   id: '/$year/$month/$slug/',
@@ -277,81 +277,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ai': {
-      id: '/ai'
-      path: '/ai'
-      fullPath: '/ai'
-      preLoaderRoute: typeof AiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/archives': {
-      id: '/archives'
-      path: '/archives'
-      fullPath: '/archives'
-      preLoaderRoute: typeof ArchivesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/category': {
-      id: '/category'
-      path: '/category'
-      fullPath: '/category'
-      preLoaderRoute: typeof CategoryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/featured': {
-      id: '/featured'
-      path: '/featured'
-      fullPath: '/featured'
-      preLoaderRoute: typeof FeaturedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/feed': {
-      id: '/feed'
-      path: '/feed'
-      fullPath: '/feed'
-      preLoaderRoute: typeof FeedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/html-sitemap': {
-      id: '/html-sitemap'
-      path: '/html-sitemap'
-      fullPath: '/html-sitemap'
-      preLoaderRoute: typeof HtmlSitemapRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/notes': {
-      id: '/notes'
-      path: '/notes'
-      fullPath: '/notes'
-      preLoaderRoute: typeof NotesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/robots': {
-      id: '/robots'
-      path: '/robots'
-      fullPath: '/robots'
-      preLoaderRoute: typeof RobotsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/search': {
-      id: '/search'
-      path: '/search'
-      fullPath: '/search'
-      preLoaderRoute: typeof SearchRouteImport
+    '/tags': {
+      id: '/tags'
+      path: '/tags'
+      fullPath: '/tags'
+      preLoaderRoute: typeof TagsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/series': {
@@ -361,25 +291,88 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SeriesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/tags': {
-      id: '/tags'
-      path: '/tags'
-      fullPath: '/tags'
-      preLoaderRoute: typeof TagsRouteImport
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/category/$category': {
-      id: '/category/$category'
-      path: '/$category'
-      fullPath: '/category/$category'
-      preLoaderRoute: typeof CategoryCategoryRouteImport
-      parentRoute: typeof CategoryRoute
+    '/robots': {
+      id: '/robots'
+      path: '/robots'
+      fullPath: '/robots'
+      preLoaderRoute: typeof RobotsRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/note/$id': {
-      id: '/note/$id'
-      path: '/note/$id'
-      fullPath: '/note/$id'
-      preLoaderRoute: typeof NoteIdRouteImport
+    '/notes': {
+      id: '/notes'
+      path: '/notes'
+      fullPath: '/notes'
+      preLoaderRoute: typeof NotesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/html-sitemap': {
+      id: '/html-sitemap'
+      path: '/html-sitemap'
+      fullPath: '/html-sitemap'
+      preLoaderRoute: typeof HtmlSitemapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/feed': {
+      id: '/feed'
+      path: '/feed'
+      fullPath: '/feed'
+      preLoaderRoute: typeof FeedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/featured': {
+      id: '/featured'
+      path: '/featured'
+      fullPath: '/featured'
+      preLoaderRoute: typeof FeaturedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/category': {
+      id: '/category'
+      path: '/category'
+      fullPath: '/category'
+      preLoaderRoute: typeof CategoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/archives': {
+      id: '/archives'
+      path: '/archives'
+      fullPath: '/archives'
+      preLoaderRoute: typeof ArchivesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ai': {
+      id: '/ai'
+      path: '/ai'
+      fullPath: '/ai'
+      preLoaderRoute: typeof AiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tag/$tag': {
+      id: '/tag/$tag'
+      path: '/tag/$tag'
+      fullPath: '/tag/$tag'
+      preLoaderRoute: typeof TagTagRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/series/$slug': {
@@ -389,12 +382,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SeriesSlugRouteImport
       parentRoute: typeof SeriesRoute
     }
-    '/tag/$tag': {
-      id: '/tag/$tag'
-      path: '/tag/$tag'
-      fullPath: '/tag/$tag'
-      preLoaderRoute: typeof TagTagRouteImport
+    '/note/$id': {
+      id: '/note/$id'
+      path: '/note/$id'
+      fullPath: '/note/$id'
+      preLoaderRoute: typeof NoteIdRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/category/$category': {
+      id: '/category/$category'
+      path: '/$category'
+      fullPath: '/category/$category'
+      preLoaderRoute: typeof CategoryCategoryRouteImport
+      parentRoute: typeof CategoryRoute
     }
     '/$year/$month/$slug/': {
       id: '/$year/$month/$slug/'
