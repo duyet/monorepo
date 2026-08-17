@@ -53,22 +53,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* ----------- Quick-note variant: one uniform column --------------- */
-
-/* Notes are short-form. Collapse the editorial wide-media grid (below) into a
- * plain block so the title, body text, and any image all share the same left
- * edge and width — no 68ch re-centering of the text, no single-image breakout.
- * The grid is built for long posts where text stays narrow while media widens;
- * a two-line note just wants one column that lines up with its title. */
-.post-reader--note .typeset {
-  display: block;
-}
-.post-reader--note .typeset > .not-typeset,
-.post-reader--note .typeset > .not-prose {
-  margin-left: 0;
-  margin-right: 0;
-}
-
 /* ----------- Typeset: narrow measure, generous leading ------------ */
 
 /* The body wrapper spans the wider track; text stays at ~68ch through
@@ -114,6 +98,21 @@
   grid-column: full;
   width: 100%;
   max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Notes are short-form. Collapse the 68ch editorial grid so title and body
+ * share one left edge. These rules sit after `.post-reader .typeset` so they
+ * win (same two-class specificity, later source). */
+.post-reader.post-reader--note .typeset {
+  display: block;
+}
+.post-reader.post-reader--note .typeset > * {
+  grid-column: unset;
+}
+.post-reader.post-reader--note .typeset > .not-typeset,
+.post-reader.post-reader--note .typeset > .not-prose {
   margin-left: 0;
   margin-right: 0;
 }
