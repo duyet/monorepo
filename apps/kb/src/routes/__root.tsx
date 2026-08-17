@@ -1,8 +1,8 @@
 import "@duyet/components/styles.css";
 import "../styles.css";
 
-import Analytics from "@duyet/components/Analytics";
 import { SiteFooter, SiteHeader } from "@duyet/components";
+import Analytics from "@duyet/components/Analytics";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import {
   createRootRoute,
@@ -58,6 +58,14 @@ export const Route = createRootRoute({
   component: RootComponent,
 });
 
+const KB_LOCAL_NAV = [
+  { label: "Graph", href: "/" },
+  { label: "Memory", href: "/m" },
+  { label: "Daily", href: "/d" },
+  { label: "About", href: "/about" },
+  { label: "Dream", href: "/dream" },
+];
+
 function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
@@ -69,7 +77,11 @@ function RootComponent() {
       <body>
         <ThemeProvider>
           <div className="min-h-screen bg-background text-foreground">
-            <SiteHeader currentApp="kb" />
+            <SiteHeader
+              currentApp="kb"
+              localNav={KB_LOCAL_NAV}
+              activeHref={pathname}
+            />
             <Outlet />
             {pathname !== "/" && <SiteFooter />}
           </div>

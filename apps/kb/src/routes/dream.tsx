@@ -18,7 +18,7 @@ function DreamPage() {
   const { html, lastDream } = Route.useLoaderData();
 
   return (
-    <div className="mx-auto max-w-3xl px-4 sm:px-6 py-12">
+    <main className="mx-auto max-w-3xl px-4 sm:px-6 py-12">
       <div className="mb-8">
         <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-3">
           Knowledge Base
@@ -39,6 +39,6 @@ function DreamPage() {
         className="typeset typeset-kb max-w-none"
         dangerouslySetInnerHTML={{ __html: html }}
       />
-    </div>
+    </main>
   );
 }

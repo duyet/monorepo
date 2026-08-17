@@ -30,7 +30,7 @@ export function SiteHeader({
           <LocalNav items={localNav} activeHref={activeHref} />
         )}
         <div className="ml-auto flex items-center gap-1">
-          <MobileNav currentApp={currentApp} />
+          <MobileNav currentApp={currentApp} localNav={localNav} />
           <GlobalNav currentApp={currentApp} />
           <Separator
             orientation="vertical"

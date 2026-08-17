@@ -6,7 +6,11 @@
  * This route provides a dev-mode preview and documents the shape.
  */
 import { createFileRoute } from "@tanstack/react-router";
-import { getAllArticles, getAllCategories, getAllMemory } from "../../lib/content";
+import {
+  getAllArticles,
+  getAllCategories,
+  getAllMemory,
+} from "../../lib/content";
 
 const SITE_URL = "https://kb.duyet.net";
 
@@ -24,6 +28,13 @@ export const Route = createFileRoute("/llms/txt")({
       `Raw Markdown: ${SITE_URL}/k/<slug>.md and ${SITE_URL}/m/<slug>.md`,
       "",
       `${articles.length} articles across ${categories.length} categories, ${memory.length} memory notes.`,
+      "",
+      "## Pages",
+      "",
+      `Graph: ${SITE_URL}/ — interactive knowledge graph of all notes`,
+      `About: ${SITE_URL}/about — how this knowledge base is built (from the duyet/kb README)`,
+      `Dream: ${SITE_URL}/dream — memory consolidation protocol`,
+      `Daily notes: ${SITE_URL}/d`,
       "",
       "## Articles",
       "",

@@ -281,9 +281,9 @@ export const GLOBAL_NAV: GlobalNavItem[] = [
     label: "About",
     href: "https://duyet.net/about",
     match: { path: "/about" },
-    // news shadows this with its own /about entry below (news.duyet.net/about,
-    // not duyet.net/about) — hidden here so it doesn't also render.
-    hideOnApps: ["blog", "home", "news"],
+    // news and kb shadow this with their own /about entries below —
+    // hidden here so it doesn't also render.
+    hideOnApps: ["blog", "home", "news", "kb"],
   },
   {
     label: "News",

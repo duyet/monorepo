@@ -72,5 +72,5 @@ if (existsSync(vizSrc)) {
 }
 
 console.log(
-  `copy-content-md: ${articlesCopied} articles to public/k/, ${memoryCopied} notes to public/m/${vizCopied ? ", viz.html → public/" : ""}`,
+  `copy-content-md: ${articlesCopied} articles to public/k/, ${memoryCopied} notes to public/m/${vizCopied ? ", viz.html → public/" : ""}`
 );

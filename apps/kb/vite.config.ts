@@ -1,8 +1,8 @@
 import { readdirSync, statSync } from "node:fs";
-import { basename, extname, join, dirname } from "node:path";
+import { basename, dirname, extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import tailwindcss from "@tailwindcss/vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
@@ -12,6 +12,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 function getKbRoutes(): string[] {
   const routes: string[] = [
     "/",
+    "/about",
     "/c",
     "/c/",
     "/llms.txt",
@@ -127,6 +128,13 @@ export default defineConfig({
         manualChunks(id) {
           if (!id.includes("node_modules")) return;
           if (id.includes("sigma") || id.includes("graphology")) return "graph";
+          if (
+            id.includes("three") ||
+            id.includes("3d-force-graph") ||
+            id.includes("force-graph") ||
+            id.includes("d3-force-3d")
+          )
+            return "graph3d";
           if (
             id.includes("react-dom") ||
             id.includes("/react/") ||

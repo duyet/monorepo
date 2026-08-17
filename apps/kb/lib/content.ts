@@ -66,7 +66,17 @@ export interface MemoryNote {
   raw: string;
 }
 
-export type ContentItem = Article | MemoryNote;
+export interface InboxNote {
+  slug: string;
+  date: string;
+  title: string;
+  /** Wikilink slugs parsed from the body (brackets stripped). */
+  links: string[];
+  /** Raw markdown body (without frontmatter, if any). */
+  raw: string;
+}
+
+export type ContentItem = Article | MemoryNote | InboxNote;
 
 export interface KbGraph {
   /** Map from slug to list of slugs it links to (outgoing). */
@@ -78,6 +88,7 @@ export interface KbGraph {
 interface KbContent {
   articles: Article[];
   memory: MemoryNote[];
+  inbox: InboxNote[];
   bySlug: Record<string, ContentItem>;
   byCategory: Record<string, Article[]>;
   byMemoryType: Record<string, MemoryNote[]>;
@@ -107,6 +118,16 @@ export function getDreamContent(): { raw: string; lastDream: string } {
   return { raw, lastDream: state.last_dream ?? "" };
 }
 
+const RAW_README = import.meta.glob("../kb/README.md", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+}) as Record<string, string>;
+
+export function getReadmeContent(): string {
+  return Object.values(RAW_README)[0] ?? "";
+}
+
 const RAW_ARTICLES = import.meta.glob("../kb/raw/kb-content/**/*.md", {
   query: "?raw",
   import: "default",
@@ -118,6 +139,27 @@ const RAW_MEMORY = import.meta.glob("../kb/memory/**/*.md", {
   import: "default",
   eager: true,
 }) as Record<string, string>;
+
+const RAW_INBOX = import.meta.glob("../kb/raw/inbox/*.md", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+}) as Record<string, string>;
+
+// ── Wikilink parsing ─────────────────────────────────────────────────────────
+
+/** Extracts `[[wikilink]]` targets from a markdown body. Brackets stripped, deduped. */
+export function extractWikilinks(md: string): string[] {
+  const found = new Set<string>();
+  const re = /\[\[([^\]|#]+)(?:#[^\]|]*)?(?:\|[^\]]*)?\]\]/g;
+  let match: RegExpExecArray | null;
+  // biome-ignore lint/suspicious/noAssignInExpressions: standard regex-exec loop
+  while ((match = re.exec(md))) {
+    const target = match[1].trim();
+    if (target) found.add(target);
+  }
+  return [...found];
+}
 
 // ── Parsers ───────────────────────────────────────────────────────────────────
 
@@ -146,7 +188,7 @@ function parseMemory(filePath: string, raw: string): MemoryNote | null {
 
   // Strip [[wikilink]] brackets from related slugs
   const related = (Array.isArray(data.related) ? data.related : []).map(
-    (r: string) => r.replace(/^\[\[/, "").replace(/\]\]$/, "").trim(),
+    (r: string) => r.replace(/^\[\[/, "").replace(/\]\]$/, "").trim()
   );
 
   return {
@@ -160,7 +202,7 @@ function parseMemory(filePath: string, raw: string): MemoryNote | null {
           : slug,
     description: typeof data.description === "string" ? data.description : "",
     memoryType: (["user", "feedback", "project", "reference", "tech"].includes(
-      data.type,
+      data.type
     )
       ? data.type
       : "reference") as MemoryType,
@@ -173,6 +215,26 @@ function parseMemory(filePath: string, raw: string): MemoryNote | null {
     updated: typeof data.updated === "string" ? data.updated : "",
     timestamp: typeof data.timestamp === "string" ? data.timestamp : "",
     raw: content.trim(),
+  };
+}
+
+function parseInbox(filePath: string, raw: string): InboxNote | null {
+  const { data, content } = parseFrontmatter(raw);
+  const slug = slugFromPath(filePath); // "YYYY-MM-DD"
+  if (slug.startsWith("_")) return null;
+
+  const body = content.trim();
+  const headingMatch = body.match(/^#\s+(.+)$/m);
+
+  return {
+    slug,
+    date: slug,
+    title:
+      typeof data.title === "string"
+        ? data.title
+        : (headingMatch?.[1]?.trim() ?? `Inbox ${slug}`),
+    links: extractWikilinks(body),
+    raw: body,
   };
 }
 
@@ -192,6 +254,13 @@ export function loadContent(): KbContent {
     const note = parseMemory(filePath, raw);
     if (note) memory.push(note);
   }
+
+  const inbox: InboxNote[] = [];
+  for (const [filePath, raw] of Object.entries(RAW_INBOX)) {
+    const note = parseInbox(filePath, raw);
+    if (note) inbox.push(note);
+  }
+  inbox.sort((a, b) => b.date.localeCompare(a.date));
 
   // Sort articles by updated date descending
   articles.sort((a, b) => {
@@ -223,6 +292,7 @@ export function loadContent(): KbContent {
   const bySlug: Record<string, ContentItem> = {};
   for (const article of articles) bySlug[article.slug] = article;
   for (const note of memory) bySlug[note.slug] = note;
+  for (const note of inbox) bySlug[note.slug] = note;
 
   // Index articles by category
   const byCategory: Record<string, Article[]> = {};
@@ -242,18 +312,32 @@ export function loadContent(): KbContent {
   const outgoing: Record<string, string[]> = {};
   const incoming: Record<string, string[]> = {};
 
-  // Article links → article targets
+  // Article links (frontmatter + body wikilinks) → article targets
   for (const article of articles) {
-    outgoing[article.slug] = article.links.filter((l) => l in bySlug);
+    const targets = new Set([
+      ...article.links,
+      ...extractWikilinks(article.raw),
+    ]);
+    outgoing[article.slug] = [...targets].filter((l) => l in bySlug);
     for (const link of outgoing[article.slug]) {
       if (!incoming[link]) incoming[link] = [];
       incoming[link].push(article.slug);
     }
   }
 
-  // Memory note related → any target
+  // Memory note related (frontmatter + body wikilinks) → any target
   for (const note of memory) {
-    outgoing[note.slug] = note.related.filter((r) => r in bySlug);
+    const targets = new Set([...note.related, ...extractWikilinks(note.raw)]);
+    outgoing[note.slug] = [...targets].filter((r) => r in bySlug);
+    for (const link of outgoing[note.slug]) {
+      if (!incoming[link]) incoming[link] = [];
+      incoming[link].push(note.slug);
+    }
+  }
+
+  // Inbox note body wikilinks → any target
+  for (const note of inbox) {
+    outgoing[note.slug] = note.links.filter((l) => l in bySlug);
     for (const link of outgoing[note.slug]) {
       if (!incoming[link]) incoming[link] = [];
       incoming[link].push(note.slug);
@@ -263,6 +347,7 @@ export function loadContent(): KbContent {
   _cache = {
     articles,
     memory,
+    inbox,
     bySlug,
     byCategory,
     byMemoryType,
@@ -309,9 +394,33 @@ export function getAllMemoryTypes(): MemoryType[] {
   return Object.keys(loadContent().byMemoryType).sort() as MemoryType[];
 }
 
+// Inbox
+export function getAllInbox(): InboxNote[] {
+  return loadContent().inbox;
+}
+
+export function getInboxBySlug(slug: string): InboxNote | null {
+  const item = loadContent().bySlug[slug];
+  return item && "date" in item ? (item as InboxNote) : null;
+}
+
 // Unified
+/** Resolve a wikilink target slug (or memory alias) to a site href. */
+export function resolveWikilinkHref(target: string): string | null {
+  const slug = target.trim();
+  if (getMemoryBySlug(slug)) return `/m/${slug}`;
+  if (getArticleBySlug(slug)) return `/k/${slug}`;
+  if (getInboxBySlug(slug)) return `/d/${slug}`;
+  const aliased = getAllMemory().find((n) => n.aliases.includes(slug));
+  return aliased ? `/m/${aliased.slug}` : null;
+}
+
 export function getAllContent(): ContentItem[] {
-  return [...loadContent().articles, ...loadContent().memory];
+  return [
+    ...loadContent().articles,
+    ...loadContent().memory,
+    ...loadContent().inbox,
+  ];
 }
 
 export function getContentBySlug(slug: string): ContentItem | null {

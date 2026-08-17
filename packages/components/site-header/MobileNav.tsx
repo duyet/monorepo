@@ -5,9 +5,15 @@ import { ChevronsUpDown, Menu } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { filterGlobalNav, GLOBAL_NAV, isNavActive } from "./apps";
-import type { AppKey } from "./types";
+import type { AppKey, LocalNavItem } from "./types";
 
-export function MobileNav({ currentApp }: { currentApp: AppKey }) {
+export function MobileNav({
+  currentApp,
+  localNav,
+}: {
+  currentApp: AppKey;
+  localNav?: LocalNavItem[];
+}) {
   const [open, setOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [pathname, setPathname] = useState<string | null>(null);
@@ -51,6 +57,29 @@ export function MobileNav({ currentApp }: { currentApp: AppKey }) {
           className="absolute right-0 top-full z-50 mt-1 w-40 overflow-hidden rounded-lg border border-[var(--rd-border)] bg-[var(--rd-bg)] shadow-xl dark:shadow-black/30"
         >
           <nav className="flex flex-col p-1">
+            {localNav?.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                role="menuitem"
+                onClick={() => setOpen(false)}
+                className={cn(
+                  "flex items-center h-9 px-3 rounded-md text-sm font-medium transition-colors",
+                  pathname &&
+                    (item.href === "/"
+                      ? pathname === "/"
+                      : pathname === item.href ||
+                        pathname.startsWith(`${item.href}/`))
+                    ? "bg-[var(--rd-muted)] text-[var(--rd-accent)]"
+                    : "text-[var(--rd-text-3)] hover:bg-[var(--rd-muted)] hover:text-[var(--rd-text)]",
+                )}
+                {...(item.external
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+              >
+                {item.label}
+              </a>
+            ))}
             {filterGlobalNav(GLOBAL_NAV, currentApp).map((item) => {
               const hasChildren = item.children && item.children.length > 0;
               const isDropdownOpen = openDropdown === item.label;

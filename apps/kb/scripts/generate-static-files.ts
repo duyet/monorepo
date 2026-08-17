@@ -10,7 +10,8 @@
  * - public/llms-full.txt
  * - public/k/<slug>.md        (raw markdown for every article)
  * - public/m/<slug>.md        (raw markdown for every memory note)
- * - public/graph-data.json    (nodes + edges for 3D knowledge graph)
+ * - public/d/<date>.md        (raw markdown for every inbox daily note)
+ * - public/graph-data.json    (nodes + edges for the knowledge graph)
  *
  * This script is self-contained — it does NOT import lib/content.ts so
  * the runtime loader can stay Vite-only (import.meta.glob).
@@ -18,8 +19,8 @@
 
 import {
   mkdirSync,
-  readFileSync,
   readdirSync,
+  readFileSync,
   statSync,
   writeFileSync,
 } from "node:fs";
@@ -30,14 +31,17 @@ const SCRIPT_DIR = import.meta.dirname!;
 const APP_DIR = join(SCRIPT_DIR, "..");
 const ARTICLES_DIR = join(APP_DIR, "kb", "raw", "kb-content");
 const MEMORY_DIR = join(APP_DIR, "kb", "memory");
+const INBOX_DIR = join(APP_DIR, "kb", "raw", "inbox");
 const PUBLIC_DIR = join(APP_DIR, "public");
 const PUBLIC_K_DIR = join(PUBLIC_DIR, "k");
 const PUBLIC_M_DIR = join(PUBLIC_DIR, "m");
+const PUBLIC_D_DIR = join(PUBLIC_DIR, "d");
 const SITE_URL = "https://kb.duyet.net";
 
 mkdirSync(PUBLIC_DIR, { recursive: true });
 mkdirSync(PUBLIC_K_DIR, { recursive: true });
 mkdirSync(PUBLIC_M_DIR, { recursive: true });
+mkdirSync(PUBLIC_D_DIR, { recursive: true });
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -67,6 +71,26 @@ interface MemoryNote {
   updated: string;
   timestamp: string;
   raw: string;
+}
+
+interface InboxNote {
+  slug: string;
+  date: string;
+  title: string;
+  links: string[];
+  raw: string;
+}
+
+function extractWikilinks(md: string): string[] {
+  const found = new Set<string>();
+  const re = /\[\[([^\]|#]+)(?:#[^\]|]*)?(?:\|[^\]]*)?\]\]/g;
+  let match: RegExpExecArray | null;
+  // biome-ignore lint/suspicious/noAssignInExpressions: standard regex-exec loop
+  while ((match = re.exec(md))) {
+    const target = match[1].trim();
+    if (target) found.add(target);
+  }
+  return [...found];
 }
 
 function walkMd(dir: string): string[] {
@@ -143,7 +167,7 @@ for (const filePath of walkMd(MEMORY_DIR)) {
   const raw = readFileSync(filePath, "utf-8");
   const { data, content } = matter(raw);
   const related = (Array.isArray(data.related) ? data.related : []).map(
-    (r: string) => r.replace(/^\[\[/, "").replace(/\]\]$/, "").trim(),
+    (r: string) => r.replace(/^\[\[/, "").replace(/\]\]$/, "").trim()
   );
 
   const note: MemoryNote = {
@@ -171,8 +195,35 @@ for (const filePath of walkMd(MEMORY_DIR)) {
   memoryTypes.add(note.memoryType);
 }
 
+// ── Walk inbox daily notes ────────────────────────────────────────────────────
+
+const inbox: InboxNote[] = [];
+
+for (const filePath of walkMd(INBOX_DIR)) {
+  const slug = basename(filePath, ".md");
+  if (slug.startsWith("_")) continue;
+
+  const raw = readFileSync(filePath, "utf-8");
+  const { data, content } = matter(raw);
+  const body = content.trim();
+  const headingMatch = body.match(/^#\s+(.+)$/m);
+
+  inbox.push({
+    slug,
+    date: slug,
+    title:
+      typeof data.title === "string"
+        ? data.title
+        : (headingMatch?.[1]?.trim() ?? `Inbox ${slug}`),
+    links: extractWikilinks(body),
+    raw: body,
+  });
+}
+
+inbox.sort((a, b) => b.date.localeCompare(a.date));
+
 console.log(
-  `generate-static-files: ${articles.length} articles, ${memory.length} memory notes, ${categories.size} categories`,
+  `generate-static-files: ${articles.length} articles, ${memory.length} memory notes, ${inbox.length} inbox notes, ${categories.size} categories`
 );
 
 // ── robots.txt ───────────────────────────────────────────────────────────────
@@ -196,7 +247,7 @@ const urlEntries: string[] = [`  <url>\n    <loc>${SITE_URL}/</loc>\n  </url>`];
 
 for (const cat of [...categories].sort()) {
   urlEntries.push(
-    `  <url>\n    <loc>${SITE_URL}/c/${encodeURIComponent(cat)}</loc>\n  </url>`,
+    `  <url>\n    <loc>${SITE_URL}/c/${encodeURIComponent(cat)}</loc>\n  </url>`
   );
 }
 
@@ -205,20 +256,26 @@ for (const article of articles) {
     ? `\n    <lastmod>${article.updated}</lastmod>`
     : "";
   urlEntries.push(
-    `  <url>\n    <loc>${SITE_URL}/k/${encodeURIComponent(article.slug)}</loc>${lastmod}\n  </url>`,
+    `  <url>\n    <loc>${SITE_URL}/k/${encodeURIComponent(article.slug)}</loc>${lastmod}\n  </url>`
   );
 }
 
-urlEntries.push(
-  `  <url>\n    <loc>${SITE_URL}/m</loc>\n  </url>`,
-);
+urlEntries.push(`  <url>\n    <loc>${SITE_URL}/m</loc>\n  </url>`);
 
 for (const note of memory) {
   const lastmod = note.updated
     ? `\n    <lastmod>${note.updated}</lastmod>`
     : "";
   urlEntries.push(
-    `  <url>\n    <loc>${SITE_URL}/m/${encodeURIComponent(note.slug)}</loc>${lastmod}\n  </url>`,
+    `  <url>\n    <loc>${SITE_URL}/m/${encodeURIComponent(note.slug)}</loc>${lastmod}\n  </url>`
+  );
+}
+
+urlEntries.push(`  <url>\n    <loc>${SITE_URL}/d</loc>\n  </url>`);
+
+for (const note of inbox) {
+  urlEntries.push(
+    `  <url>\n    <loc>${SITE_URL}/d/${encodeURIComponent(note.slug)}</loc>\n    <lastmod>${note.date}</lastmod>\n  </url>`
   );
 }
 
@@ -228,7 +285,7 @@ writeFileSync(
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urlEntries.join("\n")}
 </urlset>`,
-  "utf-8",
+  "utf-8"
 );
 console.log("  sitemap.xml");
 
@@ -241,7 +298,14 @@ const llmsLines: string[] = [
   `Sitemap: ${SITE_URL}/sitemap.xml`,
   `Raw Markdown: ${SITE_URL}/k/<slug>.md`,
   "",
-  `${articles.length} articles across ${categories.size} categories, ${memory.length} memory notes.`,
+  `${articles.length} articles across ${categories.size} categories, ${memory.length} memory notes, ${inbox.length} inbox notes.`,
+  "",
+  "## Pages",
+  "",
+  `Graph: ${SITE_URL}/ — interactive knowledge graph of all notes`,
+  `About: ${SITE_URL}/about — how this knowledge base is built (from the duyet/kb README)`,
+  `Dream: ${SITE_URL}/dream — memory consolidation protocol`,
+  `Daily notes: ${SITE_URL}/d`,
   "",
   "## Articles",
   "",
@@ -267,6 +331,17 @@ for (const note of memory) {
   llmsLines.push(`Type: ${note.memoryType}`);
   if (note.updated) llmsLines.push(`Updated: ${note.updated}`);
   if (note.description) llmsLines.push(`Description: ${note.description}`);
+  llmsLines.push("");
+}
+
+llmsLines.push("## Inbox");
+llmsLines.push("");
+
+for (const note of inbox) {
+  llmsLines.push(`### ${note.title}`);
+  llmsLines.push(`URL: ${SITE_URL}/d/${note.slug}`);
+  llmsLines.push(`Markdown: ${SITE_URL}/d/${note.slug}.md`);
+  llmsLines.push(`Date: ${note.date}`);
   llmsLines.push("");
 }
 
@@ -310,11 +385,18 @@ for (const note of memory) {
   fullLines.push("");
 }
 
-writeFileSync(
-  join(PUBLIC_DIR, "llms-full.txt"),
-  fullLines.join("\n"),
-  "utf-8",
-);
+for (const note of inbox) {
+  fullLines.push(`# ${note.title}`);
+  fullLines.push(`URL: ${SITE_URL}/d/${note.slug}`);
+  fullLines.push(`Date: ${note.date}`);
+  fullLines.push("");
+  fullLines.push(note.raw);
+  fullLines.push("");
+  fullLines.push("---");
+  fullLines.push("");
+}
+
+writeFileSync(join(PUBLIC_DIR, "llms-full.txt"), fullLines.join("\n"), "utf-8");
 console.log("  llms-full.txt");
 
 // ── public/k/<slug>.md (raw per-article markdown) ────────────────────────────
@@ -337,8 +419,8 @@ for (const article of articles) {
     .join("\n");
   writeFileSync(
     join(PUBLIC_K_DIR, `${article.slug}.md`),
-    `${frontmatter}${article.raw}\n`,
-    "utf-8",
+    `${frontmatter}\n${article.raw}\n`,
+    "utf-8"
   );
 }
 console.log(`  k/<slug>.md × ${articles.length}`);
@@ -374,147 +456,182 @@ for (const note of memory) {
     .join("\n");
   writeFileSync(
     join(PUBLIC_M_DIR, `${note.slug}.md`),
-    `${frontmatter}${note.raw}\n`,
-    "utf-8",
+    `${frontmatter}\n${note.raw}\n`,
+    "utf-8"
   );
 }
 console.log(`  m/<slug>.md × ${memory.length}`);
 
-// ── public/graph-data.json (3D knowledge graph) ──────────────────────────────
+// ── public/d/<date>.md (raw per-note markdown for inbox daily notes) ────────
 
-// Build unified node list
+for (const note of inbox) {
+  const frontmatter = [
+    "---",
+    `title: ${JSON.stringify(note.title)}`,
+    `date: ${JSON.stringify(note.date)}`,
+    note.links.length
+      ? `links: [${note.links.map((l) => JSON.stringify(l)).join(", ")}]`
+      : "",
+    "---",
+    "",
+  ]
+    .filter(Boolean)
+    .join("\n");
+  writeFileSync(
+    join(PUBLIC_D_DIR, `${note.slug}.md`),
+    `${frontmatter}\n${note.raw}\n`,
+    "utf-8"
+  );
+}
+console.log(`  d/<date>.md × ${inbox.length}`);
+
+// ── public/graph-data.json (knowledge graph) ─────────────────────────────────
+
 interface GraphNode {
   id: string;
   label: string;
-  url: string;
-  type: "article" | "memory";
-  // Coloring group: article category, or `memory:<type>` for memory notes.
-  group: string;
+  kind: "article" | "memory" | "inbox" | "tag";
+  memoryType?: string;
+  href: string;
   tags: string[];
-  degree: number;
+  description: string;
+  updated: string;
 }
 
 interface GraphEdge {
   source: string;
   target: string;
-  strong: boolean;
+  kind: "link" | "tag";
 }
-
-const allSlugs = new Set<string>();
-for (const a of articles) allSlugs.add(a.slug);
-for (const n of memory) allSlugs.add(n.slug);
 
 // Resolution map: slug | name | title | aliases → node id
 const resolve = new Map<string, string>();
 
-const nodes: (GraphNode & {
-  _related: string[];
-  _aliases: string[];
-})[] = [
-  ...articles.map((a) => {
-    const node = {
+for (const a of articles) {
+  resolve.set(a.slug, a.slug);
+  resolve.set(slugify(a.slug), a.slug);
+  resolve.set(slugify(a.title), a.slug);
+}
+for (const n of memory) {
+  resolve.set(n.slug, n.slug);
+  resolve.set(slugify(n.slug), n.slug);
+  resolve.set(slugify(n.title), n.slug);
+  resolve.set(slugify(n.name), n.slug);
+  for (const alias of n.aliases) resolve.set(slugify(alias), n.slug);
+}
+for (const d of inbox) {
+  resolve.set(d.slug, d.slug);
+  resolve.set(slugify(d.slug), d.slug);
+  resolve.set(slugify(d.title), d.slug);
+}
+
+const nodes: GraphNode[] = [
+  ...articles.map(
+    (a): GraphNode => ({
       id: a.slug,
       label: a.title,
-      url: `/k/${a.slug}`,
-      type: "article" as const,
-      group: a.category,
+      kind: "article",
+      href: `/k/${a.slug}`,
       tags: a.tags,
-      _related: a.links,
-      _aliases: [a.title],
-      degree: 0,
-    };
-    resolve.set(a.slug, a.slug);
-    resolve.set(slugify(a.slug), a.slug);
-    resolve.set(slugify(a.title), a.slug);
-    for (const alias of node._aliases) resolve.set(slugify(alias), a.slug);
-    return node;
-  }),
-  ...memory.map((n) => {
-    const node = {
+      description: a.summary,
+      updated: a.updated,
+    })
+  ),
+  ...memory.map(
+    (n): GraphNode => ({
       id: n.slug,
       label: n.title,
-      url: `/m/${n.slug}`,
-      type: "memory" as const,
-      group: `memory:${n.memoryType}`,
+      kind: "memory",
+      memoryType: n.memoryType,
+      href: `/m/${n.slug}`,
       tags: n.tags,
-      _related: n.related,
-      _aliases: [n.name, ...n.aliases],
-      degree: 0,
-    };
-    resolve.set(n.slug, n.slug);
-    resolve.set(slugify(n.slug), n.slug);
-    resolve.set(slugify(n.title), n.slug);
-    resolve.set(slugify(n.name), n.slug);
-    for (const alias of node._aliases) resolve.set(slugify(alias), n.slug);
-    return node;
-  }),
+      description: n.description,
+      updated: n.updated,
+    })
+  ),
+  ...inbox.map(
+    (d): GraphNode => ({
+      id: d.slug,
+      label: d.title,
+      kind: "inbox",
+      href: `/d/${d.slug}`,
+      tags: [],
+      description: "",
+      updated: d.date,
+    })
+  ),
 ];
 
-// Strong edges from explicit frontmatter links
-const edgeKey = (a: string, b: string) => (a < b ? `${a}|${b}` : `${b}|${a}`);
-const edges = new Map<string, GraphEdge>();
+const edgeKeys = new Set<string>();
+const edges: GraphEdge[] = [];
+const addEdge = (
+  source: string,
+  target: string,
+  kind: "link" | "tag"
+): void => {
+  if (source === target) return;
+  const key = `${kind}|${source}|${target}`;
+  if (edgeKeys.has(key)) return;
+  edgeKeys.add(key);
+  edges.push({ source, target, kind });
+};
 
-for (const n of nodes) {
-  for (const ref of n._related) {
+// Link edges: frontmatter links/related + body wikilinks, directed source→target.
+for (const a of articles) {
+  const refs = new Set([...a.links, ...extractWikilinks(a.raw)]);
+  for (const ref of refs) {
     const target = resolve.get(slugify(ref));
-    if (!target || target === n.id) continue;
-    edges.set(edgeKey(n.id, target), {
-      source: n.id,
-      target,
-      strong: true,
-    });
+    if (target) addEdge(a.slug, target, "link");
+  }
+}
+for (const n of memory) {
+  const refs = new Set([...n.related, ...extractWikilinks(n.raw)]);
+  for (const ref of refs) {
+    const target = resolve.get(slugify(ref));
+    if (target) addEdge(n.slug, target, "link");
+  }
+}
+for (const d of inbox) {
+  const refs = new Set([...d.links, ...extractWikilinks(d.raw)]);
+  for (const ref of refs) {
+    const target = resolve.get(slugify(ref));
+    if (target) addEdge(d.slug, target, "link");
   }
 }
 
-// Weak edges from shared tags (capped at 2 per node)
-const TAG_NEIGHBOUR_CAP = 2;
-const byTag = new Map<string, string[]>();
-for (const n of nodes) {
-  for (const t of n.tags) {
-    const key = String(t).toLowerCase();
-    if (!byTag.has(key)) byTag.set(key, []);
-    byTag.get(key)!.push(n.id);
-  }
-}
-
-const weakCount = new Map<string, number>();
-for (const ids of byTag.values()) {
-  for (let i = 0; i < ids.length; i++) {
-    for (let j = i + 1; j < ids.length; j++) {
-      const a = ids[i];
-      const b = ids[j];
-      const key = edgeKey(a, b);
-      if (edges.has(key)) continue;
-      if ((weakCount.get(a) || 0) >= TAG_NEIGHBOUR_CAP) continue;
-      if ((weakCount.get(b) || 0) >= TAG_NEIGHBOUR_CAP) continue;
-      edges.set(key, { source: a, target: b, strong: false });
-      weakCount.set(a, (weakCount.get(a) || 0) + 1);
-      weakCount.set(b, (weakCount.get(b) || 0) + 1);
+// Tag nodes + membership edges.
+const tagNodes = new Map<string, GraphNode>();
+for (const item of [...articles, ...memory]) {
+  for (const tag of item.tags) {
+    const tagId = `#${tag}`;
+    if (!tagNodes.has(tagId)) {
+      tagNodes.set(tagId, {
+        id: tagId,
+        label: `#${tag}`,
+        kind: "tag",
+        href: "",
+        tags: [],
+        description: "",
+        updated: "",
+      });
     }
+    addEdge(item.slug, tagId, "tag");
   }
-}
-
-// Degree = strong-edge count
-for (const e of edges.values()) {
-  if (!e.strong) continue;
-  const srcNode = nodes.find((n) => n.id === e.source);
-  const tgtNode = nodes.find((n) => n.id === e.target);
-  if (srcNode) srcNode.degree++;
-  if (tgtNode) tgtNode.degree++;
 }
 
 const graphData = {
-  nodes: nodes.map(({ _related, _aliases, ...rest }) => rest),
-  edges: [...edges.values()],
+  generated: new Date().toISOString(),
+  nodes: [...nodes, ...tagNodes.values()],
+  edges,
 };
 
 writeFileSync(
   join(PUBLIC_DIR, "graph-data.json"),
   JSON.stringify(graphData),
-  "utf-8",
+  "utf-8"
 );
 console.log(
-  `  graph-data.json (${graphData.nodes.length} nodes, ${graphData.edges.length} edges)`,
+  `  graph-data.json (${graphData.nodes.length} nodes, ${graphData.edges.length} edges)`
 );
 
 console.log("generate-static-files: done");

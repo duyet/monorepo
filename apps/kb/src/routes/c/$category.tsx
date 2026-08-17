@@ -37,10 +37,7 @@ function CategoryPage() {
             KB
           </Link>{" "}
           /{" "}
-          <Link
-            to="/c"
-            className="hover:text-foreground transition-colors"
-          >
+          <Link to="/c" className="hover:text-foreground transition-colors">
             Categories
           </Link>{" "}
           / {category}
@@ -54,7 +51,9 @@ function CategoryPage() {
       </div>
 
       {articles.length === 0 ? (
-        <p className="text-muted-foreground text-sm">No articles in this category yet.</p>
+        <p className="text-muted-foreground text-sm">
+          No articles in this category yet.
+        </p>
       ) : (
         <ul className="divide-y divide-border">
           {articles.map((article) => (

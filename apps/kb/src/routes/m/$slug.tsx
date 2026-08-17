@@ -1,15 +1,25 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ExternalLink, Tag } from "lucide-react";
-import { getMemoryBySlug, getLinkedArticles } from "../../../lib/content";
-import { markdownToHtml } from "../../../lib/markdown";
+import type { ReactElement } from "react";
+import {
+  getLinkedArticles,
+  getMemoryBySlug,
+  resolveWikilinkHref,
+} from "../../../lib/content";
+import { buildKbGraph } from "../../../lib/graph";
+import { markdownToHtml, preprocessObsidian } from "../../../lib/markdown";
+import { extractLocalGraph, LocalGraph } from "../../components/LocalGraph";
 
 export const Route = createFileRoute("/m/$slug")({
   loader: async ({ params }) => {
     const note = getMemoryBySlug(params.slug);
     if (!note) throw notFound();
-    const html = await markdownToHtml(note.raw);
+    const html = await markdownToHtml(
+      preprocessObsidian(note.raw, resolveWikilinkHref)
+    );
     const linked = getLinkedArticles(params.slug);
-    return { note, html, linked };
+    const localGraph = extractLocalGraph(buildKbGraph(), params.slug, 2);
+    return { note, html, linked, localGraph };
   },
   head: ({ loaderData }) => {
     const note = loaderData?.note;
@@ -29,12 +39,13 @@ export const Route = createFileRoute("/m/$slug")({
   component: MemoryNotePage,
 });
 
-function MemoryNotePage() {
-  const { note, html, linked } = Route.useLoaderData();
+function MemoryNotePage(): ReactElement {
+  const { note, html, linked, localGraph } = Route.useLoaderData();
   const hasLinks = linked.outgoing.length > 0 || linked.incoming.length > 0;
+  const hasSidebar = hasLinks || localGraph.nodes.length > 1;
 
   return (
-    <div className="mx-auto max-w-4xl px-4 sm:px-6 py-12">
+    <main className="mx-auto max-w-4xl px-4 sm:px-6 py-12">
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_220px] gap-10">
         {/* Main content */}
         <article>
@@ -44,10 +55,7 @@ function MemoryNotePage() {
               KB
             </Link>{" "}
             /{" "}
-            <Link
-              to="/m"
-              className="hover:text-foreground transition-colors"
-            >
+            <Link to="/m" className="hover:text-foreground transition-colors">
               Memory
             </Link>{" "}
             / {note.slug}
@@ -130,8 +138,8 @@ function MemoryNotePage() {
           </div>
         </article>
 
-        {/* Sidebar — linked content */}
-        {hasLinks && (
+        {/* Sidebar — linked content + local graph */}
+        {hasSidebar && (
           <aside className="space-y-6">
             {linked.outgoing.length > 0 && (
               <div>
@@ -142,11 +150,7 @@ function MemoryNotePage() {
                   {linked.outgoing.map((item) => (
                     <li key={item.slug}>
                       <Link
-                        to={
-                          "memoryType" in item
-                            ? "/m/$slug"
-                            : "/k/$slug"
-                        }
+                        to={"memoryType" in item ? "/m/$slug" : "/k/$slug"}
                         params={{ slug: item.slug }}
                         className="text-sm hover:underline underline-offset-4 block"
                       >
@@ -166,11 +170,7 @@ function MemoryNotePage() {
                   {linked.incoming.map((item) => (
                     <li key={item.slug}>
                       <Link
-                        to={
-                          "memoryType" in item
-                            ? "/m/$slug"
-                            : "/k/$slug"
-                        }
+                        to={"memoryType" in item ? "/m/$slug" : "/k/$slug"}
                         params={{ slug: item.slug }}
                         className="text-sm hover:underline underline-offset-4 block"
                       >
@@ -181,9 +181,15 @@ function MemoryNotePage() {
                 </ul>
               </div>
             )}
+
+            <LocalGraph
+              nodes={localGraph.nodes}
+              edges={localGraph.edges}
+              currentId={note.slug}
+            />
           </aside>
         )}
       </div>
-    </div>
+    </main>
   );
 }
