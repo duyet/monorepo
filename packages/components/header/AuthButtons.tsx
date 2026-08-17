@@ -32,8 +32,9 @@ let clerkProviderMounted = false;
  * <AuthButtons className="rounded-lg p-2" />
  *
  * @example
- * // App already has ClerkProvider
- * <AuthButtons wrapWithProvider={false} />
+ * // App already has ClerkProvider — pass the same module the provider was
+ * // mounted from, so we never render SignedIn/SignedOut before it exists.
+ * <AuthButtons wrapWithProvider={false} clerkModule={mod} />
  */
 export function AuthButtons({
   urls,
@@ -43,6 +44,7 @@ export function AuthButtons({
   signedInContent = null,
   signedOutContent = null,
   wrapWithProvider = true,
+  clerkModule: providedModule = null,
 }: {
   urls?: UrlsConfig;
   className?: string;
@@ -51,6 +53,7 @@ export function AuthButtons({
   signedInContent?: React.ReactNode | null;
   signedOutContent?: React.ReactNode | null;
   wrapWithProvider?: boolean;
+  clerkModule?: any;
 } = {}) {
   const importMetaEnv =
     typeof import.meta !== "undefined"
@@ -60,9 +63,16 @@ export function AuthButtons({
       : undefined;
   const publishableKey = importMetaEnv?.VITE_CLERK_PUBLISHABLE_KEY;
 
-  const [clerkModule, setClerkModule] = useState<any>(null);
+  const [ownModule, setOwnModule] = useState<any>(null);
   const [currentUrl, setCurrentUrl] = useState("");
   const isOwner = useRef(false);
+
+  // When the host app owns the <ClerkProvider> it must hand us the very
+  // module that provider was mounted from. Importing our own copy here would
+  // race the host: our import can resolve first and render <SignedOut />
+  // before any provider exists, which Clerk throws on.
+  const hostOwnsProvider = !wrapWithProvider;
+  const clerkModule = hostOwnsProvider ? providedModule : ownModule;
 
   useEffect(() => {
     // Get current page URL for redirect
@@ -71,27 +81,26 @@ export function AuthButtons({
 
   useEffect(() => {
     if (!publishableKey) return;
+    // The host owns the provider and hands us the module — nothing to import
+    // and no singleton to claim.
+    if (hostOwnsProvider) return;
 
-    if (wrapWithProvider) {
-      if (clerkProviderMounted) return;
-      clerkProviderMounted = true;
-      isOwner.current = true;
-    } else {
-      isOwner.current = true;
-    }
+    if (clerkProviderMounted) return;
+    clerkProviderMounted = true;
+    isOwner.current = true;
 
     import("@clerk/clerk-react")
-      .then((mod) => setClerkModule(mod))
+      .then((mod) => setOwnModule(mod))
       .catch(() => {
         // Clerk not available — isOwner stays true so fallback renders
       });
 
     return () => {
-      if (isOwner.current && wrapWithProvider) {
+      if (isOwner.current) {
         clerkProviderMounted = false;
       }
     };
-  }, [publishableKey, wrapWithProvider]);
+  }, [publishableKey, hostOwnsProvider]);
 
   // No publishable key — show unavailable fallback
   if (!publishableKey) {
@@ -106,8 +115,11 @@ export function AuthButtons({
     );
   }
 
-  // Key present but module not loaded yet — show nothing while loading
-  if (!clerkModule || !isOwner.current) {
+  // Key present but module not loaded yet — show nothing while loading.
+  // isOwner only gates the self-import singleton; when the host owns the
+  // provider it is irrelevant (and, being a ref set in an effect, would
+  // wrongly blank us out on a mount where the module is already available).
+  if (!clerkModule || (!hostOwnsProvider && !isOwner.current)) {
     return null;
   }
 

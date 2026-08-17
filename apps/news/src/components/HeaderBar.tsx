@@ -1,6 +1,7 @@
 import { AuthButtons, ErrorBoundary } from "@duyet/components";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
+import { useClerkModule } from "../lib/clerk-user";
 import type { Lang } from "../lib/types";
 import { LangToggle } from "./LangToggle";
 import { PrefsPanel } from "./PrefsPanel";
@@ -19,6 +20,10 @@ export function HeaderBar({
   onLangChange: (lang: Lang) => void;
 }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  // The single app-wide <ClerkProvider> lives in __root.tsx; hand AuthButtons
+  // that exact module so it never renders Clerk primitives before the
+  // provider is mounted.
+  const { mod: clerkModule } = useClerkModule();
   const langToggleDisabled = LANG_TOGGLE_DISABLED_PATHS.has(pathname);
   const tagline =
     lang === "vi" ? "Hôm nay AI có gì mới?" : "What is happening in AI today?";
@@ -56,6 +61,7 @@ export function HeaderBar({
           <ErrorBoundary fallback={null}>
             <AuthButtons
               wrapWithProvider={false}
+              clerkModule={clerkModule}
               signInClassName="h-6 w-6 flex items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
               avatarSize="h-6 w-6"
             />
