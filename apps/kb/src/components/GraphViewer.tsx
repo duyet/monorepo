@@ -115,9 +115,10 @@ export function GraphViewer() {
   const sigmaRef = useRef<SigmaInstance | null>(null);
   const graphRef = useRef<GraphologyGraph | null>(null);
   const layoutRef = useRef<FA2Supervisor | null>(null);
-  const dragRef = useRef<{ node: string | null; dragging: boolean }>({
+  const dragRef = useRef<{ node: string | null; dragging: boolean; moved: boolean }>({
     node: null,
     dragging: false,
+    moved: false,
   });
   const hoverRef = useRef<string | null>(null);
   const selectedRef = useRef<string | null>(null);
@@ -140,7 +141,8 @@ export function GraphViewer() {
   const [hiddenKinds, setHiddenKinds] = useState<Set<string>>(new Set());
   const [orphansOnly, setOrphansOnly] = useState(false);
   const [dark, setDark] = useState(true);
-  const [controlsOpen, setControlsOpen] = useState(true);
+  const [controlsOpen, setControlsOpen] = useState(false);
+  const [panelEnabled, setPanelEnabled] = useState(true);
   const [forces, setForces] = useState<ForceSettings>(DEFAULT_FORCES);
 
   useEffect(() => {
@@ -408,7 +410,9 @@ export function GraphViewer() {
               strongGravityMode: true,
               barnesHutOptimize: graph.order > 80,
               adjustSizes: true,
-              slowDown: 3,
+              // High slowDown damps per-tick displacement — low values make
+              // the whole graph visibly shake while the worker runs.
+              slowDown: 12,
               linLogMode: false,
             },
             getEdgeWeight: "weight",
@@ -424,7 +428,7 @@ export function GraphViewer() {
         // into its matrix only on start(), so it would otherwise keep overwriting
         // the dragged coordinates), then restart it once the drag ends.
         s.on("downNode", (e) => {
-          dragRef.current = { node: e.node, dragging: true };
+          dragRef.current = { node: e.node, dragging: true, moved: false };
           if (stopTimer) clearTimeout(stopTimer);
           layoutRef.current?.stop();
           if (!s.getCustomBBox()) s.setCustomBBox(s.getBBox());
@@ -432,6 +436,7 @@ export function GraphViewer() {
         s.getMouseCaptor().on("mousemovebody", (e) => {
           const { node, dragging } = dragRef.current;
           if (!dragging || !node) return;
+          dragRef.current.moved = true;
           const pos = s.viewportToGraph(e);
           graph.setNodeAttribute(node, "x", pos.x);
           graph.setNodeAttribute(node, "y", pos.y);
@@ -440,11 +445,13 @@ export function GraphViewer() {
           e.original.stopPropagation();
         });
         const stopDrag = () => {
-          if (dragRef.current.dragging) {
+          // Only reheat the layout after an actual drag — a plain click also
+          // fires downNode, and reheating on click makes the graph shake.
+          if (dragRef.current.dragging && dragRef.current.moved) {
             layoutRef.current?.start();
             stopTimer = setTimeout(() => layoutRef.current?.stop(), 2000);
           }
-          dragRef.current = { node: null, dragging: false };
+          dragRef.current = { node: null, dragging: false, moved: false };
         };
         s.getMouseCaptor().on("mouseup", stopDrag);
         s.getMouseCaptor().on("mouseleave", stopDrag);
@@ -617,13 +624,24 @@ export function GraphViewer() {
             <span className="text-xs font-mono uppercase tracking-widest text-zinc-400">
               Graph {data ? `· ${data.nodes.length}n / ${data.edges.length}e` : ""}
             </span>
-            <button
-              type="button"
-              onClick={() => setControlsOpen((v) => !v)}
-              className="text-xs text-zinc-400 hover:text-zinc-100"
-            >
-              {controlsOpen ? "collapse" : "expand"}
-            </button>
+            <span className="flex items-center gap-2">
+              <button
+                type="button"
+                aria-pressed={panelEnabled}
+                onClick={() => setPanelEnabled((v) => !v)}
+                title="Toggle the read panel shown when clicking a node"
+                className={`text-xs ${panelEnabled ? "text-zinc-200" : "text-zinc-500 line-through"} hover:text-zinc-100`}
+              >
+                read panel
+              </button>
+              <button
+                type="button"
+                onClick={() => setControlsOpen((v) => !v)}
+                className="text-xs text-zinc-400 hover:text-zinc-100"
+              >
+                {controlsOpen ? "collapse" : "customize"}
+              </button>
+            </span>
           </div>
 
           {controlsOpen && (
@@ -776,9 +794,20 @@ export function GraphViewer() {
         </div>
       </div>
 
-      {/* Detail panel */}
-      <aside className="w-[38%] max-w-xl overflow-y-auto border-l border-border bg-background p-5">
-        {node ? (
+      {/* Detail panel — hidden until a node is selected; toggleable */}
+      {panelEnabled && node && (
+        <aside className="w-[38%] max-w-xl overflow-y-auto border-l border-border bg-background p-5">
+          <div className="mb-2 flex justify-end">
+            <button
+              type="button"
+              onClick={() => setSelected(null)}
+              className="text-xs text-muted-foreground hover:text-foreground"
+              aria-label="Close panel"
+            >
+              close ✕
+            </button>
+          </div>
+          {(
           <article>
             <div className="mb-3 flex items-start justify-between gap-3">
               <h1 className="text-lg font-bold tracking-tight">{node.label}</h1>
@@ -876,10 +905,9 @@ export function GraphViewer() {
               </>
             )}
           </article>
-        ) : (
-          <p className="text-sm text-muted-foreground">Select a node to read it.</p>
-        )}
-      </aside>
+          )}
+        </aside>
+      )}
     </div>
   );
 }
