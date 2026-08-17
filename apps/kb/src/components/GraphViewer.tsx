@@ -348,7 +348,7 @@ export function GraphViewer() {
         // Settle the layout synchronously BEFORE the first render — otherwise
         // the graph visibly explodes from the seed circle on first paint.
         forceAtlas2.assign(graph, {
-          iterations: 300,
+          iterations: 600,
           settings: {
             gravity: DEFAULT_FORCES.gravity,
             scalingRatio: DEFAULT_FORCES.scalingRatio,
@@ -356,7 +356,7 @@ export function GraphViewer() {
             strongGravityMode: true,
             barnesHutOptimize: graph.order > 80,
             adjustSizes: true,
-            slowDown: 12,
+            slowDown: 1,
             linLogMode: false,
           },
         });
@@ -378,6 +378,11 @@ export function GraphViewer() {
           stagePadding: 40,
           minCameraRatio: 0.08,
           maxCameraRatio: 12,
+          // Virtualization: skip edges + labels while panning/zooming so the
+          // camera stays at 60fps regardless of graph size.
+          hideEdgesOnMove: true,
+          hideLabelsOnMove: true,
+          zIndex: true,
         });
         if (cancelled) {
           sigma.kill();
@@ -506,23 +511,23 @@ export function GraphViewer() {
               strongGravityMode: true,
               barnesHutOptimize: graph.order > 80,
               adjustSizes: true,
-              // High slowDown damps per-tick displacement — low values make
-              // the whole graph visibly shake while the worker runs.
-              slowDown: 12,
+              // Very high slowDown: the live worker only runs on drag/slider,
+              // and nodes should glide, not jitter.
+              slowDown: 25,
               linLogMode: false,
             },
             getEdgeWeight: "weight",
           });
           layout.start();
           layoutRef.current = layout;
-          // Layout is pre-settled synchronously at mount, so the live phase is
-          // just a short polish pass.
-          stopTimer = setTimeout(() => layout.stop(), 2000);
+          stopTimer = setTimeout(() => layout.stop(), 2500);
         };
         restartLayout.current = startLayout;
 
-        // Staged reveal: ease nodes in hub-first over ~1.4s, then run the
-        // short live-physics polish. Keeps the first paint calm and smooth.
+        // Staged reveal: ease nodes in hub-first over ~1.4s. The layout is
+        // already fully settled, so NO live physics runs afterwards — the
+        // worker only starts on node drag or force-slider changes. This is
+        // what keeps the resting graph perfectly still.
         const REVEAL_MS = 1400;
         const revealStart = performance.now();
         revealRef.current = 0;
@@ -535,7 +540,6 @@ export function GraphViewer() {
             requestAnimationFrame(revealTick);
           } else {
             revealRef.current = 1;
-            startLayout(DEFAULT_FORCES);
           }
         };
         requestAnimationFrame(revealTick);
