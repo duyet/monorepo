@@ -4,12 +4,14 @@ title: System prompt vs tool schema
 slug: system-prompt-vs-tool-schema
 ---
 
-Should `agent_system.md` describe each tool?
+Should the system prompt describe each tool?
 
-No. `## Tools` is not a catalog. Tools that never appear there still get called — docstring + JSON schema + the Skill Loading table are enough. Filling the list just adds tokens and drift.
+No. The model already gets tools as their own field: name, description, JSON schema. Reprinting that list in the system prompt just costs tokens and goes stale.
 
-They look duplicated because they are two sibling fields. On Chat Completions with tools already bound: `messages[0]` is policy; `tools[]` is name, docstring, JSON schema. The same `tools[]` is resent every hop unless you defer loading.
+Use the split:
 
-Docstring owns WHAT / HOW and that tool's WHEN / WHEN-NOT. `agent_system.md` owns who wins and what order. Middleware owns hard stops — block `delete_repo` unless `confirm: true` is in the args, don't add another paragraph.
+- **Tool description** — what it does, how to call it, when *this* tool applies or must not.
+- **System prompt** — who wins, what order, what never happens. Policy, not a catalog.
+- **Code / middleware** — hard stops the model will skip if you only write them in prose.
 
-I did not strip `## Tools`. That would be a new prompt change, not a note.
+If a tool never appears in the prompt and still gets called, that is working as designed.
