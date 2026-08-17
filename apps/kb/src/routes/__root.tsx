@@ -9,8 +9,10 @@ import {
   HeadContent,
   Outlet,
   Scripts,
+  useNavigate,
   useRouterState,
 } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 function NotFoundComponent() {
   return (
@@ -60,14 +62,45 @@ export const Route = createRootRoute({
 
 const KB_LOCAL_NAV = [
   { label: "Graph", href: "/" },
+  { label: "Search", href: "/search" },
   { label: "Memory", href: "/m" },
   { label: "Daily", href: "/d" },
   { label: "About", href: "/about" },
   { label: "Dream", href: "/dream" },
 ];
 
+function isTypingTarget(el: EventTarget | null): boolean {
+  if (!(el instanceof HTMLElement)) return false;
+  const tag = el.tagName;
+  return (
+    tag === "INPUT" ||
+    tag === "TEXTAREA" ||
+    tag === "SELECT" ||
+    el.isContentEditable
+  );
+}
+
 function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.defaultPrevented || e.altKey) return;
+      const goSearch =
+        ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") ||
+        (e.key === "/" && !e.metaKey && !e.ctrlKey && !isTypingTarget(e.target));
+      if (!goSearch) return;
+      e.preventDefault();
+      if (pathname === "/search") {
+        document.getElementById("kb-search")?.focus();
+        return;
+      }
+      void navigate({ to: "/search" });
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [navigate, pathname]);
 
   return (
     <html lang="en" suppressHydrationWarning>

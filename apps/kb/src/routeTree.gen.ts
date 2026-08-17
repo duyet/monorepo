@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as SearchRouteImport } from './routes/search'
 import { Route as DreamRouteImport } from './routes/dream'
 import { Route as CIndexRouteImport } from './routes/c/index'
 import { Route as CCategoryRouteImport } from './routes/c/$category'
@@ -32,6 +33,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DreamRoute = DreamRouteImport.update({
@@ -98,6 +104,7 @@ const SitemapXmlRoute = SitemapXmlRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/search': typeof SearchRoute
   '/dream': typeof DreamRoute
   '/c/$category': typeof CCategoryRoute
   '/d/$date': typeof DDateRoute
@@ -114,6 +121,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/search': typeof SearchRoute
   '/dream': typeof DreamRoute
   '/c/$category': typeof CCategoryRoute
   '/d/$date': typeof DDateRoute
@@ -131,6 +139,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/search': typeof SearchRoute
   '/dream': typeof DreamRoute
   '/c/$category': typeof CCategoryRoute
   '/d/$date': typeof DDateRoute
@@ -149,6 +158,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/search'
     | '/dream'
     | '/c/$category'
     | '/d/$date'
@@ -165,6 +175,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/search'
     | '/dream'
     | '/c/$category'
     | '/d/$date'
@@ -181,6 +192,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/search'
     | '/dream'
     | '/c/$category'
     | '/d/$date'
@@ -198,6 +210,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  SearchRoute: typeof SearchRoute
   DreamRoute: typeof DreamRoute
   CCategoryRoute: typeof CCategoryRoute
   DDateRoute: typeof DDateRoute
@@ -226,6 +239,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dream': {
@@ -318,6 +338,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  SearchRoute: SearchRoute,
   DreamRoute: DreamRoute,
   CCategoryRoute: CCategoryRoute,
   DDateRoute: DDateRoute,
