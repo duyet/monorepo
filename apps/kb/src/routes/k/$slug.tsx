@@ -1,16 +1,22 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ExternalLink, Tag } from "lucide-react";
 import type { ReactElement } from "react";
-import { extractLocalGraph, LocalGraph } from "../../components/LocalGraph";
-import { getArticleBySlug, getLinkedArticles } from "../../../lib/content";
+import {
+  getArticleBySlug,
+  getLinkedArticles,
+  resolveWikilinkHref,
+} from "../../../lib/content";
 import { buildKbGraph } from "../../../lib/graph";
-import { markdownToHtml } from "../../../lib/markdown";
+import { markdownToHtml, preprocessObsidian } from "../../../lib/markdown";
+import { extractLocalGraph, LocalGraph } from "../../components/LocalGraph";
 
 export const Route = createFileRoute("/k/$slug")({
   loader: async ({ params }) => {
     const article = getArticleBySlug(params.slug);
     if (!article) throw notFound();
-    const html = await markdownToHtml(article.raw);
+    const html = await markdownToHtml(
+      preprocessObsidian(article.raw, resolveWikilinkHref)
+    );
     const linked = getLinkedArticles(params.slug);
     const localGraph = extractLocalGraph(buildKbGraph(), params.slug, 2);
     return { article, html, linked, localGraph };
@@ -78,9 +84,7 @@ function ArticlePage(): ReactElement {
             </p>
           )}
           <div className="flex flex-wrap items-center gap-3 mb-8 text-xs text-muted-foreground">
-            {article.updated && (
-              <span>Updated {article.updated}</span>
-            )}
+            {article.updated && <span>Updated {article.updated}</span>}
             {article.tags.length > 0 && (
               <div className="flex items-center gap-1.5 flex-wrap">
                 <Tag className="size-3" />

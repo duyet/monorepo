@@ -13,9 +13,7 @@ export const Route = createFileRoute("/c/")({
     };
   },
   head: () => ({
-    meta: [
-      { title: "Categories | Knowledge Base | duyet.net" },
-    ],
+    meta: [{ title: "Categories | Knowledge Base | duyet.net" }],
   }),
   component: CategoriesPage,
 });

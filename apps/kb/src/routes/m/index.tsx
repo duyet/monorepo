@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BookOpen, Brain } from "lucide-react";
+import type { MemoryType } from "../../../lib/content";
 import {
   getAllArticles,
   getAllCategories,
@@ -7,7 +8,6 @@ import {
   getAllMemoryTypes,
   getMemoryByType,
 } from "../../../lib/content";
-import type { MemoryType } from "../../../lib/content";
 
 export const Route = createFileRoute("/m/")({
   loader: () => {
@@ -30,8 +30,7 @@ export const Route = createFileRoute("/m/")({
 });
 
 function MemoryIndexPage() {
-  const { memory, memoryTypes, articles, categories } =
-    Route.useLoaderData();
+  const { memory, memoryTypes, articles, categories } = Route.useLoaderData();
 
   return (
     <main className="mx-auto max-w-4xl px-4 sm:px-6 py-12">
@@ -44,8 +43,7 @@ function MemoryIndexPage() {
         </p>
         <h1 className="text-3xl font-bold tracking-tight mb-2">Memory</h1>
         <p className="text-muted-foreground text-sm">
-          {memory.length} notes across {memoryTypes.length} types.
-          Also{" "}
+          {memory.length} notes across {memoryTypes.length} types. Also{" "}
           <Link to="/c" className="underline underline-offset-4">
             {articles.length} articles
           </Link>{" "}

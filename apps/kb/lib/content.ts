@@ -188,7 +188,7 @@ function parseMemory(filePath: string, raw: string): MemoryNote | null {
 
   // Strip [[wikilink]] brackets from related slugs
   const related = (Array.isArray(data.related) ? data.related : []).map(
-    (r: string) => r.replace(/^\[\[/, "").replace(/\]\]$/, "").trim(),
+    (r: string) => r.replace(/^\[\[/, "").replace(/\]\]$/, "").trim()
   );
 
   return {
@@ -202,7 +202,7 @@ function parseMemory(filePath: string, raw: string): MemoryNote | null {
           : slug,
     description: typeof data.description === "string" ? data.description : "",
     memoryType: (["user", "feedback", "project", "reference", "tech"].includes(
-      data.type,
+      data.type
     )
       ? data.type
       : "reference") as MemoryType,
@@ -314,7 +314,10 @@ export function loadContent(): KbContent {
 
   // Article links (frontmatter + body wikilinks) → article targets
   for (const article of articles) {
-    const targets = new Set([...article.links, ...extractWikilinks(article.raw)]);
+    const targets = new Set([
+      ...article.links,
+      ...extractWikilinks(article.raw),
+    ]);
     outgoing[article.slug] = [...targets].filter((l) => l in bySlug);
     for (const link of outgoing[article.slug]) {
       if (!incoming[link]) incoming[link] = [];
@@ -402,8 +405,22 @@ export function getInboxBySlug(slug: string): InboxNote | null {
 }
 
 // Unified
+/** Resolve a wikilink target slug (or memory alias) to a site href. */
+export function resolveWikilinkHref(target: string): string | null {
+  const slug = target.trim();
+  if (getMemoryBySlug(slug)) return `/m/${slug}`;
+  if (getArticleBySlug(slug)) return `/k/${slug}`;
+  if (getInboxBySlug(slug)) return `/d/${slug}`;
+  const aliased = getAllMemory().find((n) => n.aliases.includes(slug));
+  return aliased ? `/m/${aliased.slug}` : null;
+}
+
 export function getAllContent(): ContentItem[] {
-  return [...loadContent().articles, ...loadContent().memory, ...loadContent().inbox];
+  return [
+    ...loadContent().articles,
+    ...loadContent().memory,
+    ...loadContent().inbox,
+  ];
 }
 
 export function getContentBySlug(slug: string): ContentItem | null {

@@ -9,10 +9,10 @@
 import {
   type Article,
   type ContentItem,
-  type InboxNote,
-  type MemoryNote,
   extractWikilinks,
   getAllContent,
+  type InboxNote,
+  type MemoryNote,
 } from "./content";
 
 export interface GraphNode {
@@ -60,7 +60,9 @@ function slugify(s: string): string {
 }
 
 /** Builds the full KB graph (articles + memory + inbox + tags) from the current content set. */
-export function buildKbGraph(content: ContentItem[] = getAllContent()): GraphData {
+export function buildKbGraph(
+  content: ContentItem[] = getAllContent()
+): GraphData {
   const nodes: GraphNode[] = [];
   const edgeKeys = new Set<string>();
   const edges: GraphEdge[] = [];
@@ -117,7 +119,11 @@ export function buildKbGraph(content: ContentItem[] = getAllContent()): GraphDat
     }
   }
 
-  const addEdge = (source: string, target: string, kind: "link" | "tag"): void => {
+  const addEdge = (
+    source: string,
+    target: string,
+    kind: "link" | "tag"
+  ): void => {
     if (source === target) return;
     const key = `${kind}|${source}|${target}`;
     if (edgeKeys.has(key)) return;
@@ -129,8 +135,10 @@ export function buildKbGraph(content: ContentItem[] = getAllContent()): GraphDat
   for (const item of content) {
     let refs: string[] = [];
     if (isArticle(item)) refs = [...item.links, ...extractWikilinks(item.raw)];
-    else if (isMemory(item)) refs = [...item.related, ...extractWikilinks(item.raw)];
-    else if (isInbox(item)) refs = [...item.links, ...extractWikilinks(item.raw)];
+    else if (isMemory(item))
+      refs = [...item.related, ...extractWikilinks(item.raw)];
+    else if (isInbox(item))
+      refs = [...item.links, ...extractWikilinks(item.raw)];
 
     for (const ref of refs) {
       const target = resolve.get(slugify(ref));

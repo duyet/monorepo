@@ -63,7 +63,7 @@ const MAX_LOCAL_NODES = 120;
 export function extractLocalGraph(
   graph: { nodes: LocalGraphNode[]; edges: LocalGraphEdge[] },
   id: string,
-  maxDepth: number = 2,
+  maxDepth: number = 2
 ): LocalGraphData {
   const adjacency = new Map<string, Set<string>>();
   for (const edge of graph.edges) {
@@ -91,7 +91,7 @@ export function extractLocalGraph(
   const includedIds = new Set(depth.keys());
   const nodes = graph.nodes.filter((n) => includedIds.has(n.id));
   const edges = graph.edges.filter(
-    (e) => includedIds.has(e.source) && includedIds.has(e.target),
+    (e) => includedIds.has(e.source) && includedIds.has(e.target)
   );
   return { nodes, edges };
 }
@@ -102,14 +102,18 @@ interface LocalGraphProps {
   currentId: string;
 }
 
-export function LocalGraph({ nodes, edges, currentId }: LocalGraphProps): ReactElement | null {
+export function LocalGraph({
+  nodes,
+  edges,
+  currentId,
+}: LocalGraphProps): ReactElement | null {
   const containerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const [depth, setDepth] = useState<1 | 2>(1);
 
   const visible = useMemo(
     () => extractLocalGraph({ nodes, edges }, currentId, depth),
-    [nodes, edges, currentId, depth],
+    [nodes, edges, currentId, depth]
   );
 
   useEffect(() => {
@@ -147,19 +151,30 @@ export function LocalGraph({ nodes, edges, currentId }: LocalGraphProps): ReactE
       });
 
       for (const edge of visible.edges) {
-        if (!graph.hasNode(edge.source) || !graph.hasNode(edge.target)) continue;
+        if (!graph.hasNode(edge.source) || !graph.hasNode(edge.target))
+          continue;
         if (graph.hasEdge(edge.source, edge.target)) continue;
-        graph.addEdgeWithKey(`${edge.source}__${edge.target}`, edge.source, edge.target, {
-          size: 1,
-          color: "#71717a",
-          type: "arrow",
-        });
+        graph.addEdgeWithKey(
+          `${edge.source}__${edge.target}`,
+          edge.source,
+          edge.target,
+          {
+            size: 1,
+            color: "#71717a",
+            type: "arrow",
+          }
+        );
       }
 
       const sensible = (forceAtlas2 as ForceAtlas2).inferSettings(graph);
       (forceAtlas2 as ForceAtlas2).assign(graph, {
         iterations: 100,
-        settings: { ...sensible, gravity: 1, scalingRatio: 8, adjustSizes: true },
+        settings: {
+          ...sensible,
+          gravity: 1,
+          scalingRatio: 8,
+          adjustSizes: true,
+        },
       });
 
       sigma = new (Sigma as SigmaCtor)(graph, containerRef.current, {
@@ -213,7 +228,10 @@ export function LocalGraph({ nodes, edges, currentId }: LocalGraphProps): ReactE
           ))}
         </div>
       </div>
-      <div ref={containerRef} className="h-64 w-full rounded border border-border" />
+      <div
+        ref={containerRef}
+        className="h-64 w-full rounded border border-border"
+      />
     </div>
   );
 }

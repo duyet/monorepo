@@ -19,8 +19,8 @@
 
 import {
   mkdirSync,
-  readFileSync,
   readdirSync,
+  readFileSync,
   statSync,
   writeFileSync,
 } from "node:fs";
@@ -167,7 +167,7 @@ for (const filePath of walkMd(MEMORY_DIR)) {
   const raw = readFileSync(filePath, "utf-8");
   const { data, content } = matter(raw);
   const related = (Array.isArray(data.related) ? data.related : []).map(
-    (r: string) => r.replace(/^\[\[/, "").replace(/\]\]$/, "").trim(),
+    (r: string) => r.replace(/^\[\[/, "").replace(/\]\]$/, "").trim()
   );
 
   const note: MemoryNote = {
@@ -223,7 +223,7 @@ for (const filePath of walkMd(INBOX_DIR)) {
 inbox.sort((a, b) => b.date.localeCompare(a.date));
 
 console.log(
-  `generate-static-files: ${articles.length} articles, ${memory.length} memory notes, ${inbox.length} inbox notes, ${categories.size} categories`,
+  `generate-static-files: ${articles.length} articles, ${memory.length} memory notes, ${inbox.length} inbox notes, ${categories.size} categories`
 );
 
 // ── robots.txt ───────────────────────────────────────────────────────────────
@@ -247,7 +247,7 @@ const urlEntries: string[] = [`  <url>\n    <loc>${SITE_URL}/</loc>\n  </url>`];
 
 for (const cat of [...categories].sort()) {
   urlEntries.push(
-    `  <url>\n    <loc>${SITE_URL}/c/${encodeURIComponent(cat)}</loc>\n  </url>`,
+    `  <url>\n    <loc>${SITE_URL}/c/${encodeURIComponent(cat)}</loc>\n  </url>`
   );
 }
 
@@ -256,20 +256,18 @@ for (const article of articles) {
     ? `\n    <lastmod>${article.updated}</lastmod>`
     : "";
   urlEntries.push(
-    `  <url>\n    <loc>${SITE_URL}/k/${encodeURIComponent(article.slug)}</loc>${lastmod}\n  </url>`,
+    `  <url>\n    <loc>${SITE_URL}/k/${encodeURIComponent(article.slug)}</loc>${lastmod}\n  </url>`
   );
 }
 
-urlEntries.push(
-  `  <url>\n    <loc>${SITE_URL}/m</loc>\n  </url>`,
-);
+urlEntries.push(`  <url>\n    <loc>${SITE_URL}/m</loc>\n  </url>`);
 
 for (const note of memory) {
   const lastmod = note.updated
     ? `\n    <lastmod>${note.updated}</lastmod>`
     : "";
   urlEntries.push(
-    `  <url>\n    <loc>${SITE_URL}/m/${encodeURIComponent(note.slug)}</loc>${lastmod}\n  </url>`,
+    `  <url>\n    <loc>${SITE_URL}/m/${encodeURIComponent(note.slug)}</loc>${lastmod}\n  </url>`
   );
 }
 
@@ -277,7 +275,7 @@ urlEntries.push(`  <url>\n    <loc>${SITE_URL}/d</loc>\n  </url>`);
 
 for (const note of inbox) {
   urlEntries.push(
-    `  <url>\n    <loc>${SITE_URL}/d/${encodeURIComponent(note.slug)}</loc>\n    <lastmod>${note.date}</lastmod>\n  </url>`,
+    `  <url>\n    <loc>${SITE_URL}/d/${encodeURIComponent(note.slug)}</loc>\n    <lastmod>${note.date}</lastmod>\n  </url>`
   );
 }
 
@@ -287,7 +285,7 @@ writeFileSync(
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urlEntries.join("\n")}
 </urlset>`,
-  "utf-8",
+  "utf-8"
 );
 console.log("  sitemap.xml");
 
@@ -398,11 +396,7 @@ for (const note of inbox) {
   fullLines.push("");
 }
 
-writeFileSync(
-  join(PUBLIC_DIR, "llms-full.txt"),
-  fullLines.join("\n"),
-  "utf-8",
-);
+writeFileSync(join(PUBLIC_DIR, "llms-full.txt"), fullLines.join("\n"), "utf-8");
 console.log("  llms-full.txt");
 
 // ── public/k/<slug>.md (raw per-article markdown) ────────────────────────────
@@ -425,8 +419,8 @@ for (const article of articles) {
     .join("\n");
   writeFileSync(
     join(PUBLIC_K_DIR, `${article.slug}.md`),
-    `${frontmatter}${article.raw}\n`,
-    "utf-8",
+    `${frontmatter}\n${article.raw}\n`,
+    "utf-8"
   );
 }
 console.log(`  k/<slug>.md × ${articles.length}`);
@@ -462,8 +456,8 @@ for (const note of memory) {
     .join("\n");
   writeFileSync(
     join(PUBLIC_M_DIR, `${note.slug}.md`),
-    `${frontmatter}${note.raw}\n`,
-    "utf-8",
+    `${frontmatter}\n${note.raw}\n`,
+    "utf-8"
   );
 }
 console.log(`  m/<slug>.md × ${memory.length}`);
@@ -486,7 +480,7 @@ for (const note of inbox) {
   writeFileSync(
     join(PUBLIC_D_DIR, `${note.slug}.md`),
     `${frontmatter}\n${note.raw}\n`,
-    "utf-8",
+    "utf-8"
   );
 }
 console.log(`  d/<date>.md × ${inbox.length}`);
@@ -541,7 +535,7 @@ const nodes: GraphNode[] = [
       tags: a.tags,
       description: a.summary,
       updated: a.updated,
-    }),
+    })
   ),
   ...memory.map(
     (n): GraphNode => ({
@@ -553,7 +547,7 @@ const nodes: GraphNode[] = [
       tags: n.tags,
       description: n.description,
       updated: n.updated,
-    }),
+    })
   ),
   ...inbox.map(
     (d): GraphNode => ({
@@ -564,13 +558,17 @@ const nodes: GraphNode[] = [
       tags: [],
       description: "",
       updated: d.date,
-    }),
+    })
   ),
 ];
 
 const edgeKeys = new Set<string>();
 const edges: GraphEdge[] = [];
-const addEdge = (source: string, target: string, kind: "link" | "tag"): void => {
+const addEdge = (
+  source: string,
+  target: string,
+  kind: "link" | "tag"
+): void => {
   if (source === target) return;
   const key = `${kind}|${source}|${target}`;
   if (edgeKeys.has(key)) return;
@@ -630,10 +628,10 @@ const graphData = {
 writeFileSync(
   join(PUBLIC_DIR, "graph-data.json"),
   JSON.stringify(graphData),
-  "utf-8",
+  "utf-8"
 );
 console.log(
-  `  graph-data.json (${graphData.nodes.length} nodes, ${graphData.edges.length} edges)`,
+  `  graph-data.json (${graphData.nodes.length} nodes, ${graphData.edges.length} edges)`
 );
 
 console.log("generate-static-files: done");

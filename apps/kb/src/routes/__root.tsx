@@ -1,8 +1,8 @@
 import "@duyet/components/styles.css";
 import "../styles.css";
 
-import Analytics from "@duyet/components/Analytics";
 import { SiteFooter, SiteHeader } from "@duyet/components";
+import Analytics from "@duyet/components/Analytics";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import {
   createRootRoute,

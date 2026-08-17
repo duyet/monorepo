@@ -1,16 +1,22 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ExternalLink, Tag } from "lucide-react";
 import type { ReactElement } from "react";
-import { extractLocalGraph, LocalGraph } from "../../components/LocalGraph";
-import { getMemoryBySlug, getLinkedArticles } from "../../../lib/content";
+import {
+  getLinkedArticles,
+  getMemoryBySlug,
+  resolveWikilinkHref,
+} from "../../../lib/content";
 import { buildKbGraph } from "../../../lib/graph";
-import { markdownToHtml } from "../../../lib/markdown";
+import { markdownToHtml, preprocessObsidian } from "../../../lib/markdown";
+import { extractLocalGraph, LocalGraph } from "../../components/LocalGraph";
 
 export const Route = createFileRoute("/m/$slug")({
   loader: async ({ params }) => {
     const note = getMemoryBySlug(params.slug);
     if (!note) throw notFound();
-    const html = await markdownToHtml(note.raw);
+    const html = await markdownToHtml(
+      preprocessObsidian(note.raw, resolveWikilinkHref)
+    );
     const linked = getLinkedArticles(params.slug);
     const localGraph = extractLocalGraph(buildKbGraph(), params.slug, 2);
     return { note, html, linked, localGraph };
@@ -49,10 +55,7 @@ function MemoryNotePage(): ReactElement {
               KB
             </Link>{" "}
             /{" "}
-            <Link
-              to="/m"
-              className="hover:text-foreground transition-colors"
-            >
+            <Link to="/m" className="hover:text-foreground transition-colors">
               Memory
             </Link>{" "}
             / {note.slug}
@@ -147,11 +150,7 @@ function MemoryNotePage(): ReactElement {
                   {linked.outgoing.map((item) => (
                     <li key={item.slug}>
                       <Link
-                        to={
-                          "memoryType" in item
-                            ? "/m/$slug"
-                            : "/k/$slug"
-                        }
+                        to={"memoryType" in item ? "/m/$slug" : "/k/$slug"}
                         params={{ slug: item.slug }}
                         className="text-sm hover:underline underline-offset-4 block"
                       >
@@ -171,11 +170,7 @@ function MemoryNotePage(): ReactElement {
                   {linked.incoming.map((item) => (
                     <li key={item.slug}>
                       <Link
-                        to={
-                          "memoryType" in item
-                            ? "/m/$slug"
-                            : "/k/$slug"
-                        }
+                        to={"memoryType" in item ? "/m/$slug" : "/k/$slug"}
                         params={{ slug: item.slug }}
                         className="text-sm hover:underline underline-offset-4 block"
                       >

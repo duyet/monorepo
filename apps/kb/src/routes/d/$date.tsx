@@ -1,16 +1,18 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import type { ReactElement } from "react";
-import { extractLocalGraph, LocalGraph } from "../../components/LocalGraph";
-import { getInboxBySlug } from "../../../lib/content";
+import { getInboxBySlug, resolveWikilinkHref } from "../../../lib/content";
 import { buildKbGraph } from "../../../lib/graph";
-import { markdownToHtml } from "../../../lib/markdown";
+import { markdownToHtml, preprocessObsidian } from "../../../lib/markdown";
+import { extractLocalGraph, LocalGraph } from "../../components/LocalGraph";
 
 export const Route = createFileRoute("/d/$date")({
   loader: async ({ params }) => {
     const note = getInboxBySlug(params.date);
     if (!note) throw notFound();
-    const html = await markdownToHtml(note.raw);
+    const html = await markdownToHtml(
+      preprocessObsidian(note.raw, resolveWikilinkHref)
+    );
     const localGraph = extractLocalGraph(buildKbGraph(), note.slug, 2);
     return { note, html, localGraph };
   },

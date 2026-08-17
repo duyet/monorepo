@@ -5,7 +5,9 @@ import { getAllInbox } from "../../../lib/content";
 
 export const Route = createFileRoute("/d/")({
   loader: () => {
-    const notes = [...getAllInbox()].sort((a, b) => b.date.localeCompare(a.date));
+    const notes = [...getAllInbox()].sort((a, b) =>
+      b.date.localeCompare(a.date)
+    );
     return { notes };
   },
   head: () => ({

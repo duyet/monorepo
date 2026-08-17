@@ -6,7 +6,11 @@
  * This route provides a dev-mode preview and documents the shape.
  */
 import { createFileRoute } from "@tanstack/react-router";
-import { getAllArticles, getAllCategories, getAllMemory } from "../../lib/content";
+import {
+  getAllArticles,
+  getAllCategories,
+  getAllMemory,
+} from "../../lib/content";
 
 const SITE_URL = "https://kb.duyet.net";
 
