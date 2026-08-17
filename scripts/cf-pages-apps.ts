@@ -95,13 +95,7 @@ const SHARED_CHANGE_PREFIXES = [
   ".npmrc",
 ];
 
-/** Changing discovery/matrix code must re-evaluate every Pages app. */
-const DEPLOY_INFRA_FILES = [
-  "scripts/cf-pages-apps.ts",
-  "scripts/cf-deploy-matrix.ts",
-  ".github/workflows/cf-deploy.yml",
-  ".github/workflows/cf-deploy-preview.yml",
-];
+
 
 export function selectAppsToDeploy(opts: {
   apps: Record<string, PagesApp>;
@@ -137,8 +131,7 @@ export function selectAppsToDeploy(opts: {
       prefix.endsWith("/") ? file.startsWith(prefix) : file === prefix,
     ),
   );
-  const infraChanged = files.some((file) => DEPLOY_INFRA_FILES.includes(file));
-  if (sharedChanged || infraChanged) return pick(names);
+  if (sharedChanged) return pick(names);
 
   const selected = new Set<string>();
   for (const file of files) {

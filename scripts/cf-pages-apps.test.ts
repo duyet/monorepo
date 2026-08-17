@@ -99,23 +99,6 @@ describe("selectAppsToDeploy", () => {
     ).toEqual(["kb"]);
   });
 
-  it("deploys every Pages app when deploy discovery files change", () => {
-    expect(
-      selectAppsToDeploy({
-        apps,
-        event: "push",
-        changedFiles: ["scripts/cf-pages-apps.ts"],
-      }).map((app) => app.name),
-    ).toEqual(Object.keys(apps).sort());
-    expect(
-      selectAppsToDeploy({
-        apps,
-        event: "push",
-        changedFiles: ["scripts/cf-pages-apps.ts"],
-      }).some((app) => app.name === "kb"),
-    ).toBe(true);
-  });
-
   it("deploys every Pages app when shared packages change", () => {
     expect(
       selectAppsToDeploy({
