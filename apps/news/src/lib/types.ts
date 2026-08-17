@@ -51,4 +51,6 @@ export interface FeedResponse {
   updatedAt: number;
   /** Epoch seconds of the newest fetched item (last successful ingest). */
   lastFetchedAt: number | null;
+  /** True when older published days exist beyond this page. */
+  hasMore: boolean;
 }

@@ -1,14 +1,14 @@
 import { ExternalLink, TrendingUp } from "lucide-react";
 import type { CSSProperties } from "react";
 import { useState } from "react";
-import { highlightTitle } from "../lib/highlight";
+import { highlightTitle, tagsForHighlight } from "../lib/highlight";
 import { categoryLabel, timeAgo } from "../lib/lang";
 import { topicColor } from "../lib/topic-color";
 import type { FeedItem, Lang } from "../lib/types";
 import { StoryDetail } from "./StoryDetail";
 
 function HighlightedTitle({ title, tags }: { title: string; tags: string[] }) {
-  const segments = highlightTitle(title, tags);
+  const segments = highlightTitle(title, tagsForHighlight(tags));
   return (
     <>
       {segments.map((s, i) => {

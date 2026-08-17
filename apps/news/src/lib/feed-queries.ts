@@ -1,3 +1,4 @@
+import { TITLE_KEYWORDS } from "./highlight";
 import type { DayGroup, FeedItem, FeedResponse, TldrBullet } from "./types";
 
 /** Older `tldr_snapshots` rows were written with a single `item_id` string
@@ -147,10 +148,13 @@ function groupByDay(items: FeedItem[]): DayGroup[] {
 
 export async function getFeed(
   db: D1Database,
-  opts: { category?: string; q?: string; days?: number } = {}
+  opts: { category?: string; q?: string; days?: number; before?: string } = {}
 ): Promise<FeedResponse> {
-  const days = opts.days ?? 7;
-  const since = Math.floor(Date.now() / 1000) - days * 86400;
+  const days = opts.days ?? (opts.q ? 30 : 3);
+  const until = opts.before
+    ? Math.floor(Date.parse(`${opts.before}T00:00:00Z`) / 1000)
+    : Math.floor(Date.now() / 1000);
+  const since = until - days * 86400;
 
   const [hasLlmTokens, hasImageUrl] = await Promise.all([
     supportsLlmTokens(db),
@@ -161,8 +165,8 @@ export async function getFeed(
     hasLlmTokens ? ", COALESCE(i.llm_tokens, 0) AS llm_tokens" : ""
   ).replace("{image}", hasImageUrl ? ", i.image_url" : "");
 
-  let sql = `${itemSelect} AND i.published_at >= ?`;
-  const binds: unknown[] = [since];
+  let sql = `${itemSelect} AND i.published_at >= ? AND i.published_at < ?`;
+  const binds: unknown[] = [since, until];
   if (opts.category) {
     sql += " AND lower(i.category) = ?";
     binds.push(opts.category.toLowerCase());
@@ -173,7 +177,7 @@ export async function getFeed(
   }
   sql += " ORDER BY i.published_at DESC LIMIT 500";
 
-  const [itemsRes, catsRes, tldrRes, fetchedRes] = await Promise.all([
+  const [itemsRes, catsRes, tldrRes, fetchedRes, olderRes] = await Promise.all([
     db
       .prepare(sql)
       .bind(...binds)
@@ -181,10 +185,10 @@ export async function getFeed(
     db
       .prepare(
         `SELECT category AS name, COUNT(*) AS count FROM items
-         WHERE status = 'published' AND category IS NOT NULL AND published_at >= ?
+         WHERE status = 'published' AND category IS NOT NULL AND published_at >= ? AND published_at < ?
          GROUP BY category ORDER BY count DESC`
       )
-      .bind(since)
+      .bind(since, until)
       .all<{ name: string; count: number }>(),
     db
       .prepare(
@@ -196,6 +200,14 @@ export async function getFeed(
         "SELECT MAX(fetched_at) AS last FROM items WHERE status = 'published'"
       )
       .all<{ last: number | null }>(),
+    db
+      .prepare(
+        `SELECT 1 AS yes FROM items
+         WHERE status = 'published' AND published_at < ?
+         LIMIT 1`
+      )
+      .bind(since)
+      .all<{ yes: number }>(),
   ]);
 
   const items = (itemsRes.results ?? []).map(toFeedItem);
@@ -208,6 +220,13 @@ export async function getFeed(
     if (it.published_at < dayAgo) continue;
     for (const tag of it.tags)
       tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+    if (it.tags.length === 0) {
+      const lower = it.title.toLowerCase();
+      for (const kw of TITLE_KEYWORDS) {
+        if (lower.includes(kw.toLowerCase()))
+          tagCounts.set(kw, (tagCounts.get(kw) ?? 0) + 1);
+      }
+    }
   }
   // Dynamic trending size: every tag mentioned 2+ times today earns a chip
   // (capped at 16 so the row stays scannable); single-mention tags only top
@@ -240,5 +259,6 @@ export async function getFeed(
     totalStories: items.length,
     updatedAt: Date.now(),
     lastFetchedAt: fetchedRes.results?.[0]?.last ?? null,
+    hasMore: (olderRes.results ?? []).length > 0,
   };
 }

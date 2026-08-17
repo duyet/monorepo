@@ -6,6 +6,10 @@ function todayUtc(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
+/** Re-run the daily snapshot this often so the homepage TL;DR tracks
+ * stories that land after the first successful generate of the day. */
+export const TLDR_REFRESH_MS = 3 * 60 * 60 * 1000;
+
 interface ItemRow {
   id: string;
   title: string;
@@ -48,21 +52,26 @@ export interface TldrRunStats {
   reason: string;
 }
 
-/** Idempotent daily gate: generates and stores a TL;DR snapshot once per UTC day. */
+/** Idempotent daily gate: generates today's snapshot if missing, or
+ * refreshes it when the last write is older than `TLDR_REFRESH_MS`. */
 export async function ensureDailyTldr(env: Env): Promise<TldrRunStats> {
   const date = todayUtc();
 
   const existing = await env.DB.prepare(
-    "SELECT date FROM tldr_snapshots WHERE date = ?"
+    "SELECT date, created_at FROM tldr_snapshots WHERE date = ?"
   )
     .bind(date)
-    .first();
-  if (existing)
-    return {
-      generated: false,
-      tokens: 0,
-      reason: `snapshot for ${date} already exists`,
-    };
+    .first<{ date: string; created_at: number }>();
+  if (existing) {
+    const age = Date.now() - (existing.created_at ?? 0);
+    if (age < TLDR_REFRESH_MS) {
+      return {
+        generated: false,
+        tokens: 0,
+        reason: `snapshot for ${date} is ${Math.round(age / 60000)}m old`,
+      };
+    }
+  }
 
   const { sql, since } = buildTopItemsQuery(Date.now());
   const { results } = await env.DB.prepare(sql).bind(since).all<ItemRow>();

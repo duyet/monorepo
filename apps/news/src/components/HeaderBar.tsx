@@ -25,17 +25,22 @@ export function HeaderBar({
   // provider is mounted.
   const { mod: clerkModule } = useClerkModule();
   const langToggleDisabled = LANG_TOGGLE_DISABLED_PATHS.has(pathname);
-  const tagline =
-    lang === "vi" ? "Hôm nay AI có gì mới?" : "What is happening in AI today?";
-
   return (
     <div className="border-b border-border bg-background">
-      <div className="mx-auto flex max-w-[1080px] flex-wrap items-center gap-3 px-4 py-1.5 sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-[1080px] flex-wrap items-center gap-x-3 gap-y-1.5 px-4 py-1.5 sm:px-6 lg:px-8">
         <Link
           to="/"
-          className="shrink-0 text-sm font-medium text-muted-foreground hover:text-foreground md:text-base"
+          className="w-full shrink-0 text-sm font-medium leading-snug text-muted-foreground hover:text-foreground sm:w-auto md:text-base"
         >
-          {tagline}
+          {lang === "vi" ? (
+            "Hôm nay AI có gì mới?"
+          ) : (
+            <>
+              What is happening
+              <br className="sm:hidden" />
+              {" in AI today?"}
+            </>
+          )}
         </Link>
         <div className="flex-1" />
         <div className="hidden flex-1 justify-center sm:flex">

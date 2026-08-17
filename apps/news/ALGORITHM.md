@@ -34,10 +34,12 @@ Prompts live in `worker/llm.ts`; the pipeline steps in `worker/workflow.ts`.
 
 8. **Write** — D1 upserts (`worker/d1-bind.ts` guards every bind), best-effort
    ClickHouse mirror (never fails the run).
-9. **Backfill** — up to 15 older published items missing summary/translation
-   get re-fetched/translated per run until the backlog drains.
-10. **TL;DR (LLM)** — once per UTC day (hourly retry on failure): top 16 items
-    of the last 24h by rank → 16 EN bullets + 16 independently-restated VI
+9. **Backfill** — up to 15 older published items missing summary, translation,
+   or score/tags get re-fetched/scored/translated per run until the backlog
+   drains.
+10. **TL;DR (LLM)** — hourly: generate today's snapshot if missing, or
+    refresh it when the last write is older than 3 hours. Top 16 items of
+    the last 24h by rank → 16 EN bullets + 16 independently-restated VI
     bullets, each linked to its `item_id`. Empty results are never persisted.
     UI shows 8 by default (user preference 8/12/16).
 11. **Email digest** — top-5 TL;DR to confirmed subscribers, once per day.

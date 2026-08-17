@@ -11,6 +11,55 @@ export interface TitleSegment {
 const MAX_HIGHLIGHTS = 3;
 
 /**
+ * Entity / product names that almost always deserve a highlight even
+ * when the scoring step left `items.tags` empty (today's ingest often
+ * lands before score/tags catch up). Longest-first matching is handled
+ * by `highlightTitle`.
+ */
+export const TITLE_KEYWORDS = [
+  "Hugging Face",
+  "OpenRouter",
+  "Anthropic",
+  "DeepMind",
+  "DeepSeek",
+  "Microsoft",
+  "OpenAI",
+  "Nvidia",
+  "Alibaba",
+  "Mistral",
+  "SpaceX",
+  "Stripe",
+  "Amazon",
+  "Apple",
+  "Claude",
+  "Gemini",
+  "Google",
+  "Codex",
+  "Copilot",
+  "Cursor",
+  "Llama",
+  "Qwen",
+  "Grok",
+  "Meta",
+  "xAI",
+  "GPT",
+];
+
+/** Merges the item's own tags with title-keyword fallbacks, de-duped
+ * case-insensitively, tags first so scored topics win attribution. */
+export function tagsForHighlight(itemTags: string[]): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const tag of [...itemTags, ...TITLE_KEYWORDS]) {
+    const key = tag.trim().toLowerCase();
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    out.push(tag);
+  }
+  return out;
+}
+
+/**
  * Splits a title into plain/highlighted segments wherever one of the
  * item's own topics/tags appears as a substring, case-insensitively.
  * Multi-word tags like "open-source" also match the hyphen-free spelling

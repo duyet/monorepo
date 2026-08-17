@@ -7,6 +7,7 @@
 
 export const BACKFILL_CONTENT_CAP = 15;
 export const BACKFILL_TRANSLATE_CAP = 15;
+export const BACKFILL_SCORE_CAP = 15;
 export const BACKFILL_BATCH_SIZE = 4;
 
 /** Published items still missing a summary, oldest-content-first isn't the
@@ -36,6 +37,18 @@ export function buildMissingTranslationQuery(
               AND t.summary IS NOT NULL AND t.summary != ''
           )
           ORDER BY i.published_at DESC
+          LIMIT ${limit}`;
+}
+
+/** Published items that never got a score (empty tags and no category).
+ * Most-recent first so today's feed heals before the long tail. */
+export function buildUnscoredItemsQuery(limit = BACKFILL_SCORE_CAP): string {
+  return `SELECT id, title, summary, source_id, points, comments, published_at
+          FROM items
+          WHERE status = 'published'
+            AND (category IS NULL OR category = '')
+            AND (tags IS NULL OR tags = '' OR tags = '[]')
+          ORDER BY published_at DESC
           LIMIT ${limit}`;
 }
 

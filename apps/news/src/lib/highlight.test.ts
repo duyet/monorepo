@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { highlightTitle } from "./highlight";
+import { highlightTitle, tagsForHighlight } from "./highlight";
 
 describe("highlightTitle", () => {
   it("returns a single unhighlighted segment when there are no tags", () => {
@@ -102,6 +102,20 @@ describe("highlightTitle", () => {
       // attributed tag is the original hyphenated input, not "open source".
       expect(highlighted[0].text).toBe("open source");
       expect(highlighted[0].tag).toBe("open-source");
+    });
+
+    it("highlights well-known entities when item tags are empty", () => {
+      const tags = tagsForHighlight([]);
+      const segments = highlightTitle(
+        "Anthropic and OpenAI ship GPT-5.6 Sol",
+        tags
+      );
+      const highlighted = segments.filter((s) => s.highlighted).map((s) => s.text);
+      expect(highlighted).toEqual(expect.arrayContaining(["Anthropic", "OpenAI", "GPT"]));
+    });
+
+    it("keeps the item's own tags ahead of fallback keywords", () => {
+      expect(tagsForHighlight(["openai"])[0]).toBe("openai");
     });
 
     it("does not attach a tag to unhighlighted segments", () => {

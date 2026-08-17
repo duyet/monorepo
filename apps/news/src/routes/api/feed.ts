@@ -25,10 +25,19 @@ export const Route = createFileRoute("/api/feed")({
         }
 
         const url = new URL(request.url);
+        const daysRaw = url.searchParams.get("days");
+        const days = daysRaw ? Number.parseInt(daysRaw, 10) : undefined;
+        const before = url.searchParams.get("before") ?? undefined;
         try {
           const feed = await getFeed(db, {
             category: url.searchParams.get("category") ?? undefined,
             q: url.searchParams.get("q") ?? undefined,
+            days:
+              days !== undefined && Number.isFinite(days) && days > 0
+                ? Math.min(days, 14)
+                : undefined,
+            before:
+              before && /^\d{4}-\d{2}-\d{2}$/.test(before) ? before : undefined,
           });
           return Response.json(feed, {
             headers: {

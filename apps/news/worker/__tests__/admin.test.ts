@@ -217,9 +217,12 @@ class FakeD1 {
       return { success: true };
     }
 
-    if (sql.startsWith("SELECT date FROM tldr_snapshots WHERE date = ?")) {
+    if (sql.startsWith("SELECT date, created_at FROM tldr_snapshots WHERE date = ?")) {
       const [date] = args as [string];
-      return this.tldrSnapshots.has(date) ? { date } : null;
+      const row = this.tldrSnapshots.get(date);
+      return row
+        ? { date: row.date, created_at: row.created_at ?? 0 }
+        : null;
     }
 
     if (sql.startsWith("DELETE FROM tldr_snapshots WHERE date = ?")) {
