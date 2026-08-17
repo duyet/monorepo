@@ -286,18 +286,6 @@ export const GLOBAL_NAV: GlobalNavItem[] = [
     hideOnApps: ["blog", "home", "news", "kb"],
   },
   {
-    label: "Graph",
-    href: "/",
-    match: { app: "kb", path: "/" },
-    onlyApp: "kb",
-  },
-  {
-    label: "About",
-    href: "/about",
-    match: { app: "kb", path: "/about" },
-    onlyApp: "kb",
-  },
-  {
     label: "News",
     href: "/",
     match: { app: "news", path: "/" },
