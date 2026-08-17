@@ -297,8 +297,9 @@ body {
   position: absolute;
   bottom: calc(100% + 8px);
   padding: 8px 10px;
+  width: max-content;
   min-width: 200px;
-  max-width: min(380px, calc(100vw - 24px));
+  max-width: min(380px, calc(100% - 16px));
   background: var(--canvas);
   border: 1px solid var(--hairline);
   color: var(--ink);

@@ -214,18 +214,22 @@ export function DailyChart({
           hoveredDay &&
           (() => {
             const pct = hovered * barWidth + barWidth / 2;
-            const left = Math.min(Math.max(pct, 0), 100);
-            const transform =
-              pct < 18
-                ? "translateX(0)"
-                : pct > 82
-                  ? "translateX(-100%)"
-                  : "translateX(-50%)";
+            // Abspos width is the leftover space after `left`. Pin with
+            // `right` on the trailing edge so the box can grow leftward.
+            const edge =
+              pct < 18 ? "start" : pct > 82 ? "end" : "center";
+            const style =
+              edge === "start"
+                ? { left: 0, right: "auto", transform: "none" }
+                : edge === "end"
+                  ? { left: "auto", right: 0, transform: "none" }
+                  : {
+                      left: `${pct}%`,
+                      right: "auto",
+                      transform: "translateX(-50%)",
+                    };
             return (
-              <div
-                className="burns-tooltip"
-                style={{ left: `${left}%`, transform }}
-              >
+              <div className="burns-tooltip" style={style}>
                 <div className="burns-tooltip-title">
                   {label(hoveredDay.date, true)}
                 </div>
