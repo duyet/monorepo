@@ -97,6 +97,7 @@ function IndexPage() {
   const { prefs } = usePrefs();
   const [feed, setFeed] = useState<FeedResponse | null>(null);
   const [error, setError] = useState(false);
+  const [loadingOlder, setLoadingOlder] = useState(false);
   const [selectedTag, setSelectedTag] = useState<string | null>(tag ?? null);
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(
     () => new Set(category ? [category] : [])
@@ -118,7 +119,7 @@ function IndexPage() {
     let cancelled = false;
     setFeed(null);
     setError(false);
-    const params = q ? `?q=${encodeURIComponent(q)}` : "";
+    const params = q ? `?q=${encodeURIComponent(q)}` : "?days=3";
     fetch(`/api/feed${params}`)
       .then((res) => (res.ok ? (res.json() as Promise<FeedResponse>) : null))
       .then((res) => {
@@ -133,8 +134,33 @@ function IndexPage() {
       .catch(() => {
         if (!cancelled) setError(true);
       });
+    const refresh = window.setInterval(() => {
+      if (q) return;
+      fetch("/api/feed?days=3")
+        .then((res) => (res.ok ? (res.json() as Promise<FeedResponse>) : null))
+        .then((res) => {
+          if (!cancelled && res) {
+            setFeed((prev) => {
+              if (!prev) return res;
+              const older = prev.days.filter(
+                (d) => !res.days.some((n) => n.date === d.date)
+              );
+              return {
+                ...res,
+                days: [...res.days, ...older],
+                hasMore: prev.hasMore || res.hasMore,
+              };
+            });
+            setCachedFeed(res);
+          }
+        })
+        .catch(() => {
+          // keep the last good feed
+        });
+    }, 120_000);
     return () => {
       cancelled = true;
+      window.clearInterval(refresh);
     };
   }, [q]);
 
@@ -230,6 +256,7 @@ function IndexPage() {
             updatedAt={feed.updatedAt}
             lastFetchedAt={feed.lastFetchedAt}
             topicByItemId={topicByItemId}
+            snapshotDate={feed.tldr?.date}
           />
         )
       )}
@@ -242,6 +269,51 @@ function IndexPage() {
             selectedTag={selectedTag}
           />
         ))}
+      {prefs.sections.days && !q && feed.hasMore && (
+        <div className="pt-8 text-center">
+          <button
+            type="button"
+            disabled={loadingOlder}
+            onClick={async () => {
+              const oldest = feed.days[feed.days.length - 1]?.date;
+              if (!oldest) return;
+              setLoadingOlder(true);
+              try {
+                const res = await fetch(
+                  `/api/feed?days=5&before=${encodeURIComponent(oldest)}`
+                );
+                if (!res.ok) return;
+                const older = (await res.json()) as FeedResponse;
+                setFeed((prev) => {
+                  if (!prev) return older;
+                  const seen = new Set(prev.days.map((d) => d.date));
+                  const merged = [
+                    ...prev.days,
+                    ...older.days.filter((d) => !seen.has(d.date)),
+                  ];
+                  return {
+                    ...prev,
+                    days: merged,
+                    hasMore: older.hasMore,
+                    totalStories: prev.totalStories + older.totalStories,
+                  };
+                });
+              } finally {
+                setLoadingOlder(false);
+              }
+            }}
+            className="rounded-full border border-border px-4 py-1.5 text-sm font-semibold text-muted-foreground hover:border-accent hover:text-accent disabled:opacity-50"
+          >
+            {loadingOlder
+              ? lang === "vi"
+                ? "Đang tải…"
+                : "Loading…"
+              : lang === "vi"
+                ? "Ngày cũ hơn"
+                : "Older days"}
+          </button>
+        </div>
+      )}
       {prefs.sections.days && days.length === 0 && (
         <p className="py-16 text-center text-muted-foreground">
           {selectedCategories.size > 0

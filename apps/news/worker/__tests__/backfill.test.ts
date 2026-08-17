@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   buildMissingSummaryQuery,
   buildMissingTranslationQuery,
+  buildUnscoredItemsQuery,
   huggingNewsDetailUrl,
   planBackfillUpdate,
 } from "../backfill.js";
@@ -35,6 +36,21 @@ describe("buildMissingTranslationQuery", () => {
 
   it("respects the given limit", () => {
     expect(buildMissingTranslationQuery(3)).toContain("LIMIT 3");
+  });
+});
+
+describe("buildUnscoredItemsQuery", () => {
+  it("gates on published items with empty category and tags", () => {
+    const sql = buildUnscoredItemsQuery(15);
+    expect(sql).toContain("status = 'published'");
+    expect(sql).toMatch(/category IS NULL OR category = ''/);
+    expect(sql).toMatch(/tags = '\[]'/);
+  });
+
+  it("orders most-recent-first and respects the given limit", () => {
+    const sql = buildUnscoredItemsQuery(4);
+    expect(sql).toMatch(/ORDER BY published_at DESC/);
+    expect(sql).toContain("LIMIT 4");
   });
 });
 

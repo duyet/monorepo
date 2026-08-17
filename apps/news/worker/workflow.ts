@@ -6,8 +6,10 @@ import {
 import {
   BACKFILL_BATCH_SIZE,
   BACKFILL_CONTENT_CAP,
+  BACKFILL_SCORE_CAP,
   buildMissingSummaryQuery,
   buildMissingTranslationQuery,
+  buildUnscoredItemsQuery,
   huggingNewsDetailUrl,
   planBackfillUpdate,
 } from "./backfill.js";
@@ -871,6 +873,89 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         backfilledTranslations === 0
           ? "0 candidates"
           : `translated ${backfilledTranslations} summaries`
+      );
+
+      const backfillScoreResult = await step.do("backfill-score", async () => {
+        let scoredCount = 0;
+        let tokens = 0;
+        try {
+          const { results } = await this.env.DB.prepare(
+            buildUnscoredItemsQuery(BACKFILL_SCORE_CAP)
+          ).all<{
+            id: string;
+            title: string;
+            summary: string | null;
+            source_id: string;
+            points: number;
+            comments: number;
+            published_at: number;
+          }>();
+          const rows = results ?? [];
+          if (rows.length === 0) return { scoredCount, tokens };
+
+          const scoredRows = await scoreItems(
+            this.env,
+            rows.map((row, i) => ({
+              i,
+              title: row.title,
+              summary: row.summary ?? undefined,
+              source: row.source_id,
+            }))
+          );
+          const rawTagsByItem = new Map<string, string[]>();
+          for (const result of scoredRows) {
+            tokens += result.tokens;
+            const row = rows[result.i];
+            if (row) rawTagsByItem.set(row.id, result.tags);
+          }
+          const canonical = await normalizeTopics(
+            this.env,
+            rawTagsByItem,
+            Date.now()
+          );
+          const now = Date.now();
+          for (const result of scoredRows) {
+            const row = rows[result.i];
+            if (!row) continue;
+            const tags = canonical.get(row.id) ?? result.tags;
+            const rank = rankScore({
+              importance: result.importance,
+              quality: result.quality,
+              points: row.points ?? 0,
+              comments: row.comments ?? 0,
+              publishedAt: row.published_at * 1000,
+              now,
+            });
+            await this.env.DB.prepare(
+              `UPDATE items SET
+                 llm_relevance = ?, llm_importance = ?, llm_quality = ?,
+                 category = ?, tags = ?, rank_score = ?
+               WHERE id = ?`
+            )
+              .bind(
+                result.relevance,
+                result.importance,
+                result.quality,
+                result.category,
+                JSON.stringify(tags),
+                rank,
+                row.id
+              )
+              .run();
+            scoredCount++;
+          }
+        } catch (error) {
+          console.error("backfill-score step failed:", error);
+        }
+        return { scoredCount, tokens };
+      });
+      scoreAndTranslateTokens += backfillScoreResult.tokens;
+      recordStep(
+        steps,
+        "backfill-score",
+        backfillScoreResult.scoredCount === 0
+          ? "0 candidates"
+          : `scored ${backfillScoreResult.scoredCount} items`
       );
 
       const qaStats = await step.do("qa-translations", async () => {

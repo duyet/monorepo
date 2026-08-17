@@ -14,6 +14,7 @@ export function TldrSection({
   updatedAt,
   lastFetchedAt,
   topicByItemId,
+  snapshotDate,
 }: {
   bullets: TldrBullet[];
   defaultCount: number;
@@ -22,6 +23,7 @@ export function TldrSection({
   updatedAt: number;
   lastFetchedAt: number | null;
   topicByItemId?: Map<string, string>;
+  snapshotDate?: string;
 }) {
   const [openBullet, setOpenBullet] = useState<{
     itemId: string;
@@ -65,7 +67,11 @@ export function TldrSection({
         <div className="flex items-baseline gap-3">
           <h2 className="text-lg font-bold tracking-widest">TL;DR</h2>
           <span className="text-xs text-muted-foreground">
-            {lang === "vi" ? "24 giờ qua" : "past 24 hours"}
+            {snapshotDate
+              ? snapshotDate
+              : lang === "vi"
+                ? "24 giờ qua"
+                : "past 24 hours"}
           </span>
         </div>
         {options.length > 0 && (

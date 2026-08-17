@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { sanitizeBulletIds } from "../llm.js";
-import { buildTopItemsQuery, shouldPersistTldr } from "../tldr.js";
+import { buildTopItemsQuery, shouldPersistTldr, TLDR_REFRESH_MS } from "../tldr.js";
 
 describe("buildTopItemsQuery", () => {
   it("gates on status='published', ranks by rank_score DESC, caps at 16", () => {
@@ -18,6 +18,12 @@ describe("buildTopItemsQuery", () => {
     expect(since).toBe(nowSec - 24 * 60 * 60);
     // sanity: since is in seconds, not milliseconds
     expect(since).toBeLessThan(1e12);
+  });
+});
+
+describe("TLDR_REFRESH_MS", () => {
+  it("refreshes the daily snapshot every few hours, not once-and-done", () => {
+    expect(TLDR_REFRESH_MS).toBe(3 * 60 * 60 * 1000);
   });
 });
 
