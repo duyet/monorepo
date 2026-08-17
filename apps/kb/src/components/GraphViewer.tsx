@@ -4,6 +4,7 @@ import {
   preprocessObsidian,
   stripFrontmatter,
 } from "../../lib/markdown";
+import { Graph3D } from "./Graph3D";
 import { MEMORY_PALETTE } from "./graph-palette";
 
 // Lazy-loaded in the browser only — sigma/graphology touch WebGL at import time
@@ -155,6 +156,7 @@ export function GraphViewer() {
   const [controlsOpen, setControlsOpen] = useState(false);
   const [panelEnabled, setPanelEnabled] = useState(true);
   const [forces, setForces] = useState<ForceSettings>(DEFAULT_FORCES);
+  const [view, setView] = useState<"2d" | "3d">("2d");
 
   useEffect(() => {
     let cancelled = false;
@@ -271,7 +273,7 @@ export function GraphViewer() {
 
   // Mount Sigma + FA2 worker (dynamic import — keep WebGL libs out of SSR/prerender)
   useEffect(() => {
-    if (!containerRef.current || !data) return;
+    if (!containerRef.current || !data || view !== "2d") return;
     let cancelled = false;
     let sigma: SigmaInstance | null = null;
     let stopTimer: ReturnType<typeof setTimeout> | null = null;
@@ -531,10 +533,16 @@ export function GraphViewer() {
         const REVEAL_MS = 1400;
         const revealStart = performance.now();
         revealRef.current = 0;
+        // Gentle dolly-in: start slightly zoomed out and ease to the final
+        // frame while nodes fade in, so the load feels like one motion.
+        const cam = s.getCamera();
+        const finalRatio = cam.ratio;
         const revealTick = (now: number) => {
           if (cancelled) return;
           const linear = Math.min(1, (now - revealStart) / REVEAL_MS);
-          revealRef.current = 1 - (1 - linear) ** 3; // ease-out cubic
+          const eased = 1 - (1 - linear) ** 3; // ease-out cubic
+          revealRef.current = eased;
+          cam.setState({ ratio: finalRatio * (1.3 - 0.3 * eased) });
           s.refresh();
           if (linear < 1) {
             requestAnimationFrame(revealTick);
@@ -642,7 +650,7 @@ export function GraphViewer() {
       sigmaRef.current = null;
       graphRef.current = null;
     };
-  }, [data, degree]);
+  }, [data, degree, view]);
 
   // Re-apply visuals when selection / filters / hover change
   useEffect(() => {
@@ -718,6 +726,18 @@ export function GraphViewer() {
     restartLayout.current(next);
   };
 
+  const visible3d = useMemo(() => {
+    if (!data) return { nodes: [], edges: [] };
+    const nodes = data.nodes.filter((n) => {
+      const k =
+        n.kind === "memory" ? `memory:${n.memoryType ?? "other"}` : n.kind;
+      if (hiddenKinds.has(k)) return false;
+      if (orphansOnly && (degree[n.id] ?? 0) > 0) return false;
+      return true;
+    });
+    return { nodes, edges: orphansOnly ? [] : data.edges };
+  }, [data, hiddenKinds, orphansOnly, degree]);
+
   const node = selected ? nodeMap[selected] : null;
   const isTag = node?.kind === "tag";
   const linkedFrom = selected ? (backlinks[selected] ?? []) : [];
@@ -739,12 +759,23 @@ export function GraphViewer() {
     >
       {/* Graph canvas */}
       <div className="relative flex-1 min-w-0" style={{ background: theme.bg }}>
-        <div
-          ref={containerRef}
-          className="absolute inset-0"
-          aria-label="Knowledge graph"
-        />
-        {!ready && (
+        {view === "2d" && (
+          <div
+            ref={containerRef}
+            className="absolute inset-0"
+            aria-label="Knowledge graph"
+          />
+        )}
+        {view === "3d" && data && (
+          <Graph3D
+            nodes={visible3d.nodes}
+            edges={visible3d.edges}
+            degree={degree}
+            theme={theme}
+            onSelect={(id) => setSelected(id)}
+          />
+        )}
+        {view === "2d" && !ready && (
           <div className="absolute inset-0 flex items-center justify-center text-sm font-mono text-muted-foreground pointer-events-none">
             {data ? "Laying out graph…" : "Loading graph…"}
           </div>
@@ -758,6 +789,15 @@ export function GraphViewer() {
               {data ? `· ${data.nodes.length}n / ${data.edges.length}e` : ""}
             </span>
             <span className="flex items-center gap-2">
+              <button
+                type="button"
+                aria-pressed={view === "3d"}
+                onClick={() => setView((v) => (v === "2d" ? "3d" : "2d"))}
+                title="Toggle 2D/3D view"
+                className="text-xs text-zinc-200 hover:text-zinc-100"
+              >
+                {view === "2d" ? "3D" : "2D"}
+              </button>
               <button
                 type="button"
                 aria-pressed={panelEnabled}
