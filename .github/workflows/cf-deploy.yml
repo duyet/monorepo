@@ -11,29 +11,18 @@ on:
       - 'package.json'
       - 'pnpm-lock.yaml'
       - '.npmrc'
+      - '.github/workflows/cf-deploy.yml'
+      - 'scripts/cf-pages-apps.ts'
+      - 'scripts/cf-deploy-matrix.ts'
   schedule:
     # Daily at midnight UTC to rebuild and update data-driven apps (like burns)
     - cron: '0 0 * * *'
   workflow_dispatch:
     inputs:
       app:
-        description: 'App to deploy (empty=auto-detect, "all"=all apps, or app name e.g. "blog")'
+        description: 'App to deploy (empty=auto-detect, "all"=every Pages app, or an apps/ directory name e.g. "kb")'
         required: false
-        type: choice
-        options:
-          - ''
-          - all
-          - blog
-          - cv
-          - home
-          - homelab
-          - insights
-          - llm-timeline
-          - photos
-          - ai-percentage
-          - agent-ui
-          - burns
-          - x-algo
+        type: string
 
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
@@ -53,95 +42,21 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7  # v3  # v1  # v6.0.2
         with:
-          fetch-depth: 2
+          fetch-depth: 0
           submodules: false
 
-      - uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d  # v4.0.3
-        id: filter
-        if: github.event_name != 'workflow_dispatch' && github.event_name != 'schedule'
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7.0.0
         with:
-          filters: |
-            agent-ui:
-              - 'apps/agent-ui/**'
-            blog:
-              - 'apps/blog/**'
-            cv:
-              - 'apps/cv/**'
-            home:
-              - 'apps/home/**'
-            homelab:
-              - 'apps/homelab/**'
-            insights:
-              - 'apps/insights/**'
-            llm-timeline:
-              - 'apps/llm-timeline/**'
-            photos:
-              - 'apps/photos/**'
-            ai-percentage:
-              - 'apps/ai-percentage/**'
-            burns:
-              - 'apps/burns/**'
-            x-algo:
-              - 'apps/x-algo/**'
-            packages:
-              - 'packages/**'
+          node-version: 24
 
       - name: Set deployment matrix
         id: set-matrix
         run: |
-          # App configurations
-          declare -A APPS
-          APPS[agent-ui]='{"app":"agent-ui","project":"duyet-agents","url":"https://agents.duyet.net"}'
-          APPS[blog]='{"app":"blog","project":"duyet-blog","url":"https://blog.duyet.net"}'
-          APPS[cv]='{"app":"cv","project":"duyet-cv","url":"https://cv.duyet.net"}'
-          APPS[home]='{"app":"home","project":"duyet-home","url":"https://duyet.net"}'
-          APPS[homelab]='{"app":"homelab","project":"duyet-homelab","url":"https://homelab.duyet.net"}'
-          APPS[insights]='{"app":"insights","project":"duyet-insights","url":"https://insights.duyet.net"}'
-          APPS[llm-timeline]='{"app":"llm-timeline","project":"duyet-llm-timeline","url":"https://llm-timeline.duyet.net"}'
-          APPS[photos]='{"app":"photos","project":"duyet-photos","url":"https://photos.duyet.net"}'
-          APPS[ai-percentage]='{"app":"ai-percentage","project":"duyet-ai-percentage","url":"https://ai-percentage.duyet.net"}'
-          APPS[burns]='{"app":"burns","project":"duyet-burns","url":"https://duyet-burns.pages.dev"}'
-          APPS[x-algo]='{"app":"x-algo","project":"duyet-x-algo","url":"https://x-algo.duyet.net"}'
-
-          DEPLOY_APPS=()
-
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            INPUT_APP="${{ github.event.inputs.app }}"
-            if [[ "$INPUT_APP" == "all" ]]; then
-              for app in agent-ui blog cv home homelab insights llm-timeline photos ai-percentage burns x-algo; do
-                DEPLOY_APPS+=("${APPS[$app]}")
-              done
-            elif [[ -n "$INPUT_APP" ]]; then
-              # Deploy a specific app by name
-              if [[ -n "${APPS[$INPUT_APP]+isset}" ]]; then
-                DEPLOY_APPS+=("${APPS[$INPUT_APP]}")
-              fi
-            fi
-          elif [[ "${{ github.event_name }}" == "schedule" ]]; then
-            # Scheduled run: deploy burns app daily to fetch latest tokens from MotherDuck
-            DEPLOY_APPS+=("${APPS[burns]}")
-          else
-            # Auto-detect changes
-            PACKAGES_CHANGED="${{ steps.filter.outputs.packages }}"
-            FILTER_OUTPUTS='${{ toJson(steps.filter.outputs) }}'
-
-            for app in agent-ui blog cv home homelab insights llm-timeline photos ai-percentage burns x-algo; do
-              APP_CHANGED=$(echo "$FILTER_OUTPUTS" | jq -r --arg app "$app" '.[$app]')
-              if [[ "$APP_CHANGED" == "true" ]] || [[ "$PACKAGES_CHANGED" == "true" ]]; then
-                DEPLOY_APPS+=("${APPS[$app]}")
-              fi
-            done
-          fi
-
-          # Build matrix JSON
-          if [ ${#DEPLOY_APPS[@]} -eq 0 ]; then
-            echo "matrix={\"include\":[]}" >> $GITHUB_OUTPUT
-            echo "No apps to deploy"
-          else
-            MATRIX=$(printf '%s,' "${DEPLOY_APPS[@]}" | sed 's/,$//')
-            echo "matrix={\"include\":[$MATRIX]}" >> $GITHUB_OUTPUT
-            echo "Apps to deploy: ${DEPLOY_APPS[*]}"
-          fi
+          node --experimental-strip-types scripts/cf-deploy-matrix.ts \
+            --event "${{ github.event_name }}" \
+            --input-app "${{ github.event.inputs.app || '' }}" \
+            --base "${{ github.event.before || github.event.pull_request.base.sha || '' }}" \
+            --head "${{ github.sha }}"
 
   typecheck:
     name: Type check
