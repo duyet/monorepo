@@ -31,7 +31,7 @@ This repository is the pnpm/Turborepo monorepo for duyet.net public apps, shared
 - `pnpm run test` runs Turbo tests.
 - `pnpm run config` runs workspace config tasks, including app secret syncs where defined.
 - `pnpm run deploy` builds deployable apps, then runs workspace config.
-- `pnpm run cf:deploy` deploys changed Cloudflare Pages apps.
+- `pnpm run cf:deploy` deploys changed Cloudflare Pages apps (same discovery as CI).
 - `pnpm run cf:deploy:prod` runs production Cloudflare deploy tasks through Turbo.
 - `pnpm run cf:deploy -- --force` bypasses git-based change detection and rebuilds all requested Cloudflare Pages apps.
 - `pnpm run wasm:build` builds all Rust crates to WASM via `wasm-pack`.
@@ -73,6 +73,7 @@ This repository is the pnpm/Turborepo monorepo for duyet.net public apps, shared
 ## Deployment Notes
 
 - Cloudflare Pages production deploys happen on pushes to `master` or `main`; PRs receive preview deploys.
+- Pages CI (`cf-deploy.yml`, `cf-deploy-preview.yml`) discovers deployable apps at runtime via `scripts/cf-pages-apps.ts`: any `apps/*` with `pages_build_output_dir` in `wrangler.toml` and a `cf:deploy:prod` script is included. Do not hardcode the app list in the workflow. New Pages apps (for example `kb`) deploy automatically when their tree or `packages/**` changes.
 - A scheduled daily job (cron `0 0 * * *` in `.github/workflows/cf-deploy.yml`) rebuilds and redeploys the `burns` app to refresh its prerendered stats from MotherDuck.
 - Deploy workflows run type checks, tests, and lint before deploy jobs.
 - App-level `cf:deploy:prod` scripts are authoritative when present.
