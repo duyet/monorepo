@@ -16,6 +16,5 @@ Your note body here. Markdown or plain text renders.
 ```
 
 The `import.meta.glob` loader matches `*.md` files at the top level of
-this folder. This README is not picked up because the loader excludes
-it (`README.md` doesn't match the date prefix and Vite's glob target is
-explicit). If empty, the index shows an empty state instead of hiding.
+this folder. `README.md` and files without a valid `date:` are skipped.
+If empty, the index shows an empty state instead of hiding.
