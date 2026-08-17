@@ -34,5 +34,18 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     }
   }
 
-  return next();
+  const res = await next();
+  const contentType = res.headers.get("content-type") || "";
+  if (!contentType.includes("text/html")) return res;
+
+  const text = await res.text();
+  const patched = text.replace(
+    'if(!document.querySelector("main"))boot(1)',
+    'if(window.__CF_ENTRY_RAN__||document.querySelector("main,header"))return;boot(1)',
+  );
+  if (patched === text) return new Response(text, res);
+
+  const headers = new Headers(res.headers);
+  headers.delete("content-length");
+  return new Response(patched, { status: res.status, headers });
 }
