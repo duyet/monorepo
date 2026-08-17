@@ -90,8 +90,6 @@ function NotePage(): ReactElement {
         {note.title ? (
           <h1 className="mt-8 text-2xl font-bold tracking-tight">{note.title}</h1>
         ) : null}
-      </div>
-      <div className="mx-auto max-w-3xl">
         <Suspense
           fallback={
             <p className="mt-6 text-lg leading-relaxed whitespace-pre-wrap">

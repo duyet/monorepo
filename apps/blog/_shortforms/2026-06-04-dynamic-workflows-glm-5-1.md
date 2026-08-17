@@ -1,6 +1,7 @@
 ---
 date: 2026-06-04
 title: Dynamic Workflows with GLM 5.1
+slug: dynamic-workflows-glm-5-1
 ---
 ![[dynamic-workflows-glm-5-1.png]]
 

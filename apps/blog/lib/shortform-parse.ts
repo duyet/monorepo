@@ -52,7 +52,11 @@ export function toExcerpt(body: string): string {
     .trim()
 }
 
-/** Resolve a note's URL id from its explicit slug or its filename. */
+const DATE_PREFIX = /^(\d{4}-\d{2}-\d{2})-(.+)$/
+
+/** Resolve a note's URL id from its explicit slug or `YYYY-MM-DD-slug` filename. */
 export function shortformId(filename: string, slug?: string): string {
-  return slug || slugify(filename)
+  if (slug) return slug
+  const dated = filename.match(DATE_PREFIX)
+  return slugify(dated ? dated[2] : filename)
 }
