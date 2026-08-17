@@ -20,15 +20,16 @@
  * - With --prod: Production deployment (custom domains like blog.duyet.net)
  *
  * Apps are discovered dynamically from the filesystem:
- * - Any app with a wrangler.toml and "cf:deploy:prod" script is deployable
+ * - Any app with pages_build_output_dir and "cf:deploy:prod" is deployable
  * - Project name is read from wrangler.toml
- * - Domain convention: <app>.duyet.net (except home → duyet.net)
+ * - Domain convention: <app>.duyet.net (see scripts/cf-pages-apps.ts overrides)
  */
 
-import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
+import { discoverPagesApps } from "./cf-pages-apps.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -110,87 +111,15 @@ const PRODUCTION_BRANCH =
   DEPLOY_ENV.CF_PAGES_PRODUCTION_BRANCH ||
   "master";
 
-// Apps that require secret syncing (have sensitive env vars)
-const appsWithSecrets = new Set(["blog", "photos", "insights"]);
-
-interface AppConfig {
-  name: string;
-  projectName: string;
-  domain: string;
-  outputDir: string;
-  secrets: boolean;
+// Dynamically discover Cloudflare Pages apps
+const APPS_CONFIG = discoverPagesApps();
+if (Object.keys(APPS_CONFIG).length === 0) {
+  console.error(
+    `[ERROR] No deployable Pages apps discovered in ${join(rootDir, "apps")}. ` +
+      `Ensure apps have pages_build_output_dir in wrangler.toml and a "cf:deploy:prod" script.`,
+  );
+  process.exit(1);
 }
-
-/**
- * Dynamically discover deployable apps from the filesystem.
- * An app is deployable if it has:
- * 1. A wrangler.toml file (Cloudflare Pages project)
- * 2. A "cf:deploy:prod" script in package.json
- *
- * The project name and output directory are read from wrangler.toml.
- * The domain follows the convention: <app>.duyet.net (except home -> duyet.net).
- */
-function discoverApps(): Record<string, AppConfig> {
-  const appsDir = join(rootDir, "apps");
-  const config: Record<string, AppConfig> = {};
-
-  for (const entry of readdirSync(appsDir, { withFileTypes: true })) {
-    if (!entry.isDirectory()) continue;
-
-    const appName = entry.name;
-    const appDir = join(appsDir, appName);
-    const wranglerPath = join(appDir, "wrangler.toml");
-    const pkgPath = join(appDir, "package.json");
-
-    if (!existsSync(wranglerPath) || !existsSync(pkgPath)) continue;
-
-    // Check for cf:deploy:prod script via parsed JSON
-    const pkgJson = JSON.parse(readFileSync(pkgPath, "utf-8")) as {
-      scripts?: Record<string, string>;
-    };
-    if (!pkgJson.scripts?.["cf:deploy:prod"]) continue;
-
-    // Parse wrangler.toml
-    const wranglerContent = readFileSync(wranglerPath, "utf-8");
-    const projectMatch = wranglerContent.match(/name\s*=\s*"([^"]+)"/);
-    if (!projectMatch) continue;
-
-    const projectName = projectMatch[1];
-    const domain =
-      appName === "home"
-        ? "duyet.net"
-        : appName === "agent-ui"
-          ? "agents.duyet.net"
-          : `${appName}.duyet.net`;
-
-    // Read pages_build_output_dir from wrangler.toml, default to "dist"
-    const outputDirMatch = wranglerContent.match(
-      /pages_build_output_dir\s*=\s*"([^"]+)"/
-    );
-    const outputDir = outputDirMatch ? outputDirMatch[1] : "dist";
-
-    config[appName] = {
-      name: appName,
-      projectName,
-      domain,
-      outputDir,
-      secrets: appsWithSecrets.has(appName),
-    };
-  }
-
-  if (Object.keys(config).length === 0) {
-    console.error(
-      `[ERROR] No deployable apps discovered in ${appsDir}. ` +
-        `Ensure apps have both wrangler.toml and a "cf:deploy:prod" script in package.json.`
-    );
-    process.exit(1);
-  }
-
-  return config;
-}
-
-// Dynamically discover deployable apps
-const APPS_CONFIG = discoverApps();
 console.log(
   `[INFO] Discovered ${Object.keys(APPS_CONFIG).length} deployable app(s): ${Object.keys(APPS_CONFIG).join(", ")}`
 );

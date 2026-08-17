@@ -11,6 +11,8 @@ time via Vite and served as prerendered HTML on Cloudflare Pages.
 - **Live**: https://kb.duyet.net | https://duyet-kb.pages.dev
 - **Port**: 3009 (development)
 - **Output**: Static SPA (`dist/client/`)
+- **CI**: Cloudflare Pages prod/preview discover this app from `wrangler.toml`
+  (`pages_build_output_dir`) + `cf:deploy:prod`. No hardcoded app list.
 
 ### Submodule
 
