@@ -302,6 +302,13 @@ const llmsLines: string[] = [
   "",
   `${articles.length} articles across ${categories.size} categories, ${memory.length} memory notes, ${inbox.length} inbox notes.`,
   "",
+  "## Pages",
+  "",
+  `Graph: ${SITE_URL}/ — interactive knowledge graph of all notes`,
+  `About: ${SITE_URL}/about — how this knowledge base is built (from the duyet/kb README)`,
+  `Dream: ${SITE_URL}/dream — memory consolidation protocol`,
+  `Daily notes: ${SITE_URL}/d`,
+  "",
   "## Articles",
   "",
 ];

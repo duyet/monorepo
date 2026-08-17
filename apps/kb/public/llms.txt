@@ -6,6 +6,13 @@ Raw Markdown: https://kb.duyet.net/k/<slug>.md
 
 32 articles across 8 categories, 116 memory notes, 4 inbox notes.
 
+## Pages
+
+Graph: https://kb.duyet.net/ — interactive knowledge graph of all notes
+About: https://kb.duyet.net/about — how this knowledge base is built (from the duyet/kb README)
+Dream: https://kb.duyet.net/dream — memory consolidation protocol
+Daily notes: https://kb.duyet.net/d
+
 ## Articles
 
 ### Agent Memory System

@@ -18,6 +18,13 @@ This is the personal website of Duyet Le, a Senior Data Engineer and technology 
   - Alternate URLs: https://duyet-homelab.pages.dev (Cloudflare)
 - **LLM Timeline**: https://llm-timeline.duyet.net - Interactive timeline of Large Language Model releases from 2017 to present
   - Alternate URLs: https://duyet-llm-timeline.pages.dev (Cloudflare)
+- **Knowledge Base**: https://kb.duyet.net - Interactive knowledge graph of articles, agent memory notes, and daily notes
+  - About/how it's built: https://kb.duyet.net/about
+  - LLM-friendly version: https://kb.duyet.net/llms.txt
+- **News**: https://news.duyet.net - AI-curated data engineering and AI news aggregator
+- **AI Percentage**: https://ai-percentage.duyet.net - Tracking how much of duyet.net is AI-written
+- **Burns**: https://burn.duyet.net - AI coding agent token/cost burn dashboard
+- **X-Algo**: https://x-algo.duyet.net - X (Twitter) algorithm explorer
 - **AI Agents API**: https://agents.duyet.net (https://agents-api.duyet.net) - API-only Cloudflare Agents endpoint with `POST /api/v1/chat`
 - **OpenClaw**: https://claw.duyet.net - Mission Control dashboard
 - **MCP Tools**: https://mcp.duyet.net - Model Context Protocol tools and utilities
@@ -99,4 +106,5 @@ Each platform provides structured information for AI systems:
 - **Photos**: https://photos.duyet.net/llms.txt - Photography portfolio from Unsplash
 - **MCP Tools**: https://mcp.duyet.net/llms.txt - AI tools and utilities
 - **LLM Timeline**: https://llm-timeline.duyet.net/llms.txt - LLM timeline and history data
+- **Knowledge Base**: https://kb.duyet.net/llms.txt - Knowledge base articles and agent memory notes (full text: https://kb.duyet.net/llms-full.txt)
 - **AI Agents API**: https://agents.duyet.net/llms.txt - API-only agent endpoint information
