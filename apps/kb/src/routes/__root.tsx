@@ -92,6 +92,10 @@ function RootComponent() {
         (e.key === "/" && !e.metaKey && !e.ctrlKey && !isTypingTarget(e.target));
       if (!goSearch) return;
       e.preventDefault();
+      if (pathname === "/" || pathname === "") {
+        document.getElementById("graph-search")?.focus();
+        return;
+      }
       if (pathname === "/search") {
         document.getElementById("kb-search")?.focus();
         return;

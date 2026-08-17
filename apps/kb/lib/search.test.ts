@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { parseSearchTerms, searchDocs, snippetAround } from "./search";
+import {
+  graphNodeMatches,
+  parseSearchTerms,
+  searchDocs,
+  snippetAround,
+} from "./search";
 import type { SearchDoc } from "./search";
 
 const docs: SearchDoc[] = [
@@ -62,6 +67,21 @@ describe("searchDocs", () => {
     const hits = searchDocs(docs, "anyrouter", "article");
     expect(hits).toHaveLength(1);
     expect(hits[0].kind).toBe("article");
+  });
+});
+
+describe("graphNodeMatches", () => {
+  const node = {
+    id: "project-anyrouter",
+    label: "AnyRouter",
+    tags: ["llm", "gateway"],
+    description: "Universal multi-provider API",
+  };
+
+  it("matches label, tag, or description terms (AND)", () => {
+    expect(graphNodeMatches(node, "anyrouter")).toBe(true);
+    expect(graphNodeMatches(node, "gateway api")).toBe(true);
+    expect(graphNodeMatches(node, "anyrouter host-count")).toBe(false);
   });
 });
 

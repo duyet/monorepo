@@ -35,6 +35,7 @@ interface Graph3DProps {
   edges: Graph3DEdge[];
   degree: Record<string, number>;
   theme: Graph3DTheme;
+  highlightIds?: Set<string>;
   onSelect: (id: string) => void;
 }
 
@@ -51,6 +52,7 @@ export function Graph3D({
   edges,
   degree,
   theme,
+  highlightIds,
   onSelect,
 }: Graph3DProps): ReactElement {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -82,12 +84,24 @@ export function Graph3D({
         .backgroundColor(theme.bg)
         .showNavInfo(false)
         .nodeLabel((n) => (n as unknown as Graph3DNode).label)
-        .nodeColor((n) => nodeColor3d(n as unknown as Graph3DNode, theme))
+        .nodeColor((n) => {
+          const node = n as unknown as Graph3DNode;
+          if (highlightIds && highlightIds.size > 0 && !highlightIds.has(node.id)) {
+            return theme.bg === "#0a0a0a" ? "#1c1c1f" : "#e4e4e7";
+          }
+          return nodeColor3d(node, theme);
+        })
         .nodeVal(
           (n) =>
             1 + Math.sqrt(degree[(n as unknown as Graph3DNode).id] ?? 0) * 1.5
         )
-        .nodeOpacity(0.95)
+        .nodeOpacity((n) => {
+          const node = n as unknown as Graph3DNode;
+          if (highlightIds && highlightIds.size > 0 && !highlightIds.has(node.id)) {
+            return 0.12;
+          }
+          return 0.95;
+        })
         .nodeResolution(12)
         .linkColor(() => theme.edge)
         .linkOpacity(0.3)
@@ -135,7 +149,7 @@ export function Graph3D({
       fgRef.current?._destructor?.();
       fgRef.current = null;
     };
-  }, [nodes, edges, degree, theme]);
+  }, [nodes, edges, degree, theme, highlightIds]);
 
   return (
     <div

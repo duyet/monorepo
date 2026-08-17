@@ -29,6 +29,19 @@ export function parseSearchTerms(query: string): string[] {
   return query.toLowerCase().split(/\s+/).filter(Boolean);
 }
 
+/** True when every search term hits a graph node's id, label, tags, or description. */
+export function graphNodeMatches(
+  node: { id: string; label: string; tags: string[]; description?: string },
+  query: string
+): boolean {
+  const terms = parseSearchTerms(query);
+  if (terms.length === 0) return false;
+  const blob = [node.id, node.label, node.description ?? "", ...node.tags]
+    .join(" ")
+    .toLowerCase();
+  return terms.every((t) => blob.includes(t));
+}
+
 export function snippetAround(text: string, term: string, radius = 72): string {
   const lower = text.toLowerCase();
   const idx = lower.indexOf(term.toLowerCase());
