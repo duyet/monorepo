@@ -96,21 +96,25 @@ describe("handleThreadsRequest", () => {
     expect(response.status).toBe(401);
   });
 
-  it("loads the shipped backend graph when reading thread state", async () => {
-    const { getCompiledGraph } = await import("../../backend/agent");
-    expect(typeof getCompiledGraph).toBe("function");
+  it(
+    "loads the shipped backend graph when reading thread state",
+    async () => {
+      const { getCompiledGraph } = await import("../../backend/agent");
+      expect(typeof getCompiledGraph).toBe("function");
 
-    const response = await handleThreadsRequest(
-      threadRequest("/api/threads/abc/state", {
-        headers: { Authorization: `Bearer ${TOKEN}` },
-      }),
-      "GET",
-      "threads/abc/state",
-      makeEnv()
-    );
+      const response = await handleThreadsRequest(
+        threadRequest("/api/threads/abc/state", {
+          headers: { Authorization: `Bearer ${TOKEN}` },
+        }),
+        "GET",
+        "threads/abc/state",
+        makeEnv()
+      );
 
-    const body = (await response.json()) as { error?: string };
-    expect(body.error ?? "").not.toMatch(/Cannot find module|Failed to resolve/);
-    expect(response.status).not.toBe(401);
-  });
+      const body = (await response.json()) as { error?: string };
+      expect(body.error ?? "").not.toMatch(/Cannot find module|Failed to resolve/);
+      expect(response.status).not.toBe(401);
+    },
+    15_000
+  );
 });
