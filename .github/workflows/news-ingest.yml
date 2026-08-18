@@ -1,10 +1,10 @@
 name: News Ingest
 
-# Hourly trigger for the news.duyet.net ingest workflow. The Workers Free
-# plan's 5-cron cap prevents a native Cloudflare cron on duyet-news, so this
-# Actions cron calls the authenticated admin API instead. Remove this once
-# the account has a free cron slot (then re-add [triggers] in
-# apps/news/wrangler.toml).
+# Hourly trigger for news.duyet.net ingest on the Workers Free plan.
+# Do not replace this with Worker `[triggers] crons` (account is at the
+# 5-cron cap) or Workflow `schedules` (paid plan — wrangler deploy fails).
+# This Actions cron POSTs the authenticated admin API, which starts a
+# `news-ingest` Workflow instance (`env.NEWS_INGEST.create()`).
 on:
   schedule:
     - cron: "5 * * * *"
@@ -16,12 +16,22 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Trigger news-ingest workflow
+        env:
+          NEWS_ADMIN_TOKEN: ${{ secrets.NEWS_ADMIN_TOKEN }}
         run: |
+          if [ -z "$NEWS_ADMIN_TOKEN" ]; then
+            echo "NEWS_ADMIN_TOKEN secret is empty" >&2
+            exit 1
+          fi
           code=$(curl -s -o /tmp/resp.json -w '%{http_code}' -X POST \
             "https://news.duyet.net/api/admin/ingest" \
-            -H "Authorization: Bearer ${{ secrets.NEWS_ADMIN_TOKEN }}")
+            -H "Authorization: Bearer ${NEWS_ADMIN_TOKEN}")
           cat /tmp/resp.json
           if [ "$code" -lt 200 ] || [ "$code" -ge 300 ]; then
             echo "Trigger failed with HTTP $code" >&2
+            exit 1
+          fi
+          if ! grep -q '"id"' /tmp/resp.json; then
+            echo "Trigger response missing workflow instance id" >&2
             exit 1
           fi
