@@ -1,8 +1,10 @@
 import { ExternalLink, TrendingUp } from "lucide-react";
 import type { CSSProperties } from "react";
 import { useState } from "react";
+import { localizedTitle } from "../lib/display-title";
 import { highlightTitle, tagsForHighlight } from "../lib/highlight";
 import { categoryLabel, timeAgo } from "../lib/lang";
+import { storyPath } from "../lib/slug";
 import { topicColor } from "../lib/topic-color";
 import type { FeedItem, Lang } from "../lib/types";
 import { StoryDetail } from "./StoryDetail";
@@ -57,7 +59,7 @@ export function StoryRow({
   selectedTag?: string | null;
 }) {
   const [expanded, setExpanded] = useState(defaultExpanded ?? false);
-  const title = lang === "vi" && item.title_vi ? item.title_vi : item.title;
+  const { text: title, fallbackFromEnglish } = localizedTitle(item, lang);
   const summary =
     lang === "vi" && item.summary_vi ? item.summary_vi : item.summary;
   const hasDetails =
@@ -112,7 +114,26 @@ export function StoryRow({
               aria-hidden
             />
           )}
-          <HighlightedTitle title={title} tags={item.tags} />{" "}
+          <a
+            href={storyPath(item)}
+            lang={fallbackFromEnglish ? "en" : undefined}
+            onClick={(e) => e.stopPropagation()}
+            className="hover:underline hover:underline-offset-2"
+          >
+            <HighlightedTitle title={title} tags={item.tags} />
+          </a>
+          {fallbackFromEnglish && (
+            <span
+              className="ml-1 align-middle text-[10px] font-semibold uppercase tracking-wide text-muted-foreground"
+              title={
+                lang === "vi"
+                  ? "Tiêu đề gốc tiếng Anh — chưa có bản dịch"
+                  : "Original English title — no Vietnamese translation yet"
+              }
+            >
+              EN
+            </span>
+          )}{" "}
           <a
             href={item.url}
             target="_blank"

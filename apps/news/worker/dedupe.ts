@@ -79,6 +79,218 @@ export interface Cluster {
   existing: string[];
 }
 
+const TITLE_DUP_JACCARD = 0.55;
+const TITLE_DUP_MIN_SHARED = 3;
+
+const TITLE_STOPWORDS = new Set([
+  "a",
+  "an",
+  "the",
+  "for",
+  "to",
+  "of",
+  "in",
+  "on",
+  "at",
+  "its",
+  "it",
+  "and",
+  "or",
+  "over",
+  "more",
+  "than",
+  "since",
+  "by",
+  "with",
+  "from",
+  "as",
+  "is",
+  "are",
+  "times",
+  "time",
+  "into",
+  "after",
+  "before",
+  "about",
+  "vs",
+]);
+
+/** Lowercase, strip UPDATE:, fold $8 billion → 8b / 5x → 5, drop punctuation. */
+export function normalizeTitleForDedupe(title: string): string {
+  return title
+    .normalize("NFKD")
+    .toLowerCase()
+    .replace(/^update:\s*/i, "")
+    .replace(/[“”"'`’]/g, "")
+    .replace(/[$€£]/g, "")
+    .replace(/\b(\d+(?:\.\d+)?)\s*(?:billion|bn)\b/g, "$1b")
+    .replace(/\b(\d+(?:\.\d+)?)\s*(?:million|mn)\b/g, "$1m")
+    .replace(/\b(\d+(?:\.\d+)?)[x×]\b/g, "$1")
+    .replace(/\bfive\b/g, "5")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim()
+    .replace(/\s+/g, " ");
+}
+
+export function significantTitleTokens(title: string): Set<string> {
+  const out = new Set<string>();
+  for (const tok of normalizeTitleForDedupe(title).split(" ")) {
+    if (!tok || tok.length < 2 || TITLE_STOPWORDS.has(tok)) continue;
+    const stemmed =
+      tok.length > 3 && tok.endsWith("s") ? tok.slice(0, -1) : tok;
+    out.add(stemmed);
+  }
+  return out;
+}
+
+export function titleSimilarity(a: string, b: string): number {
+  const na = normalizeTitleForDedupe(a);
+  const nb = normalizeTitleForDedupe(b);
+  if (!na || !nb) return 0;
+  if (na === nb) return 1;
+  const ta = significantTitleTokens(a);
+  const tb = significantTitleTokens(b);
+  if (ta.size === 0 || tb.size === 0) return 0;
+  let inter = 0;
+  for (const t of ta) {
+    if (tb.has(t)) inter++;
+  }
+  return inter / (ta.size + tb.size - inter);
+}
+
+/** Same underlying headline: exact normalized match, or high token overlap. */
+export function isTitleNearDuplicate(a: string, b: string): boolean {
+  const na = normalizeTitleForDedupe(a);
+  const nb = normalizeTitleForDedupe(b);
+  if (!na || !nb) return false;
+  if (na === nb) return true;
+  const ta = significantTitleTokens(a);
+  const tb = significantTitleTokens(b);
+  let inter = 0;
+  for (const t of ta) {
+    if (tb.has(t)) inter++;
+  }
+  if (inter < TITLE_DUP_MIN_SHARED) return false;
+  const jaccard = inter / (ta.size + tb.size - inter);
+  const overlap = inter / Math.min(ta.size, tb.size);
+  return jaccard >= TITLE_DUP_JACCARD || overlap >= TITLE_DUP_JACCARD;
+}
+
+type UfKey = string;
+
+function unionFind() {
+  const parent = new Map<UfKey, UfKey>();
+  const find = (key: UfKey): UfKey => {
+    const current = parent.get(key) ?? key;
+    if (current !== key) {
+      const root = find(current);
+      parent.set(key, root);
+      return root;
+    }
+    return current;
+  };
+  const union = (a: UfKey, b: UfKey) => {
+    const pa = find(a);
+    const pb = find(b);
+    if (pa !== pb) parent.set(pa, pb);
+  };
+  const ensure = (key: UfKey) => {
+    if (!parent.has(key)) parent.set(key, key);
+  };
+  return { find, union, ensure };
+}
+
+function emitClusters(
+  uf: ReturnType<typeof unionFind>,
+  newItems: ClusterNewInput[],
+  recentItems: ClusterExistingInput[]
+): Cluster[] {
+  const groups = new Map<UfKey, Cluster>();
+  for (const item of newItems) {
+    const root = uf.find(`n:${item.i}`);
+    const group = groups.get(root) ?? { new: [], existing: [] };
+    group.new.push(item.i);
+    groups.set(root, group);
+  }
+  for (const item of recentItems) {
+    const key = `e:${item.id}`;
+    const root = uf.find(key);
+    const group = groups.get(root);
+    if (!group) continue;
+    group.existing.push(item.id);
+  }
+  return [...groups.values()].filter(
+    (cluster) => cluster.new.length + cluster.existing.length >= 2
+  );
+}
+
+/**
+ * Deterministic fallback for the LLM clusterer: same story, different URL
+ * (HuggingNews slug churn, HN vs original). Does not invent merges — only
+ * high-overlap / normalized-equal titles.
+ */
+export function clusterByTitleSimilarity(
+  newItems: ClusterNewInput[],
+  recentItems: ClusterExistingInput[]
+): Cluster[] {
+  if (newItems.length === 0) return [];
+  const uf = unionFind();
+  for (const item of newItems) uf.ensure(`n:${item.i}`);
+  for (const item of recentItems) uf.ensure(`e:${item.id}`);
+
+  for (let i = 0; i < newItems.length; i++) {
+    for (let j = i + 1; j < newItems.length; j++) {
+      if (isTitleNearDuplicate(newItems[i].title, newItems[j].title)) {
+        uf.union(`n:${newItems[i].i}`, `n:${newItems[j].i}`);
+      }
+    }
+    for (const existing of recentItems) {
+      if (isTitleNearDuplicate(newItems[i].title, existing.title)) {
+        uf.union(`n:${newItems[i].i}`, `e:${existing.id}`);
+      }
+    }
+  }
+  return emitClusters(uf, newItems, recentItems);
+}
+
+/** Union LLM clusters with title-similarity clusters so either signal wins. */
+export function mergeClusters(groups: Cluster[][]): Cluster[] {
+  const newSeen = new Set<number>();
+  const existingSeen = new Set<string>();
+  for (const list of groups) {
+    for (const cluster of list) {
+      for (const i of cluster.new) newSeen.add(i);
+      for (const id of cluster.existing) existingSeen.add(id);
+    }
+  }
+  if (newSeen.size === 0 && existingSeen.size === 0) return [];
+
+  const uf = unionFind();
+  const newItems: ClusterNewInput[] = [...newSeen].map((i) => ({
+    i,
+    title: "",
+  }));
+  const recentItems: ClusterExistingInput[] = [...existingSeen].map((id) => ({
+    id,
+    title: "",
+  }));
+  for (const item of newItems) uf.ensure(`n:${item.i}`);
+  for (const item of recentItems) uf.ensure(`e:${item.id}`);
+
+  for (const list of groups) {
+    for (const cluster of list) {
+      const members: UfKey[] = [
+        ...cluster.new.map((i) => `n:${i}`),
+        ...cluster.existing.map((id) => `e:${id}`),
+      ];
+      for (let i = 1; i < members.length; i++) {
+        uf.union(members[0], members[i]);
+      }
+    }
+  }
+  return emitClusters(uf, newItems, recentItems);
+}
+
 /** Defensive: keeps only well-shaped clusters with at least 2 total members
  * (a cluster of 1 item isn't a duplicate of anything). */
 function normalizeClusters(raw: unknown): Cluster[] {

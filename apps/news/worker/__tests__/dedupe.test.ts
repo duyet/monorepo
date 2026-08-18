@@ -2,10 +2,15 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   buildMergePlan,
   type Cluster,
+  clusterByTitleSimilarity,
   clusterSimilar,
   type ExistingCandidate,
+  isTitleNearDuplicate,
   type MergeCandidate,
+  mergeClusters,
+  normalizeTitleForDedupe,
   selectCanonical,
+  titleSimilarity,
   unionSources,
 } from "../dedupe.js";
 import type { FetchedItemSource } from "../sources/types.js";
@@ -131,6 +136,119 @@ describe("clusterSimilar", () => {
     const clusters = await clusterSimilar(env, [], [{ id: "x", title: "X" }]);
     expect(clusters).toEqual([]);
     expect(fetchMock).not.toHaveBeenCalled();
+  });
+});
+
+describe("title similarity dedupe", () => {
+  it("treats $7B / $8B Stripe OpenRouter rewrites as the same story", () => {
+    expect(
+      isTitleNearDuplicate(
+        "Stripe Buys OpenRouter for $8B, More Than 5x Its May Valuation",
+        "Stripe Buys OpenRouter for Over $7 Billion, Five Times its May Valuation"
+      )
+    ).toBe(true);
+    expect(
+      isTitleNearDuplicate(
+        "Stripe Buys OpenRouter for Over $7 Billion, 5 Times May Valuation",
+        "Stripe Buys OpenRouter for Over $7 Billion in 5.4x Valuation Leap Since May"
+      )
+    ).toBe(true);
+    expect(
+      isTitleNearDuplicate(
+        "Stripe Buys OpenRouter for $8B, More Than 5x Its May Valuation",
+        "Stripe Buys OpenRouter for Over $8 Billion to Flip Its AI Business Model"
+      )
+    ).toBe(true);
+  });
+
+  it("does not merge unrelated OpenRouter headlines", () => {
+    expect(
+      isTitleNearDuplicate(
+        "Stripe Buys OpenRouter for $8B, More Than 5x Its May Valuation",
+        "Launch HN: Speko (YC S26) – OpenRouter for Voice AI"
+      )
+    ).toBe(false);
+    expect(
+      isTitleNearDuplicate(
+        "Stripe Buys OpenRouter for $8B, More Than 5x Its May Valuation",
+        "Sakana AI Debuts Namazu on OpenRouter Using Kimi K2.6 for Japanese Business Context"
+      )
+    ).toBe(false);
+  });
+
+  it("matches an exact title that only differs by punctuation", () => {
+    expect(
+      isTitleNearDuplicate(
+        `AI-Generated GitHub Copilot "Autofix" Allowed Compromise of Snowflake's Jira`,
+        "AI-Generated GitHub Copilot “Autofix” Allowed Compromise of Snowflake's Jira"
+      )
+    ).toBe(true);
+    expect(
+      titleSimilarity(
+        `AI-Generated GitHub Copilot "Autofix" Allowed Compromise of Snowflake's Jira`,
+        "AI-Generated GitHub Copilot “Autofix” Allowed Compromise of Snowflake's Jira"
+      )
+    ).toBe(1);
+  });
+
+  it("strips UPDATE: and folds billion/x units", () => {
+    expect(normalizeTitleForDedupe("UPDATE: Foo raises $5 billion, 2x")).toBe(
+      "foo raises 5b 2"
+    );
+  });
+
+  it("clusters new items with each other and with an existing title", () => {
+    const clusters = clusterByTitleSimilarity(
+      [
+        {
+          i: 0,
+          title:
+            "Stripe Buys OpenRouter for $8B, More Than 5x Its May Valuation",
+        },
+        { i: 1, title: "Unrelated story about a new GPU" },
+        {
+          i: 2,
+          title:
+            "Stripe Buys OpenRouter for Over $7 Billion, Five Times its May Valuation",
+        },
+      ],
+      [
+        {
+          id: "existing-1",
+          title:
+            "Stripe Buys OpenRouter for Over $8 Billion to Flip Its AI Business Model",
+        },
+      ]
+    );
+    const stripe = clusters.find((c) => c.new.includes(0) || c.new.includes(2));
+    expect(stripe).toBeTruthy();
+    expect(stripe?.new.sort()).toEqual([0, 2]);
+    expect(stripe?.existing).toContain("existing-1");
+    expect(clusters.every((c) => !c.new.includes(1) || c.new.length > 1)).toBe(
+      true
+    );
+    expect(clusters.some((c) => c.new.length === 1 && c.new[0] === 1)).toBe(
+      false
+    );
+  });
+
+  it("merges LLM clusters with title clusters via union-find", () => {
+    const merged = mergeClusters([
+      [{ new: [0, 1], existing: [] }],
+      [{ new: [1, 2], existing: ["old"] }],
+    ]);
+    expect(merged).toHaveLength(1);
+    expect(merged[0].new.sort()).toEqual([0, 1, 2]);
+    expect(merged[0].existing).toEqual(["old"]);
+  });
+
+  it("returns no clusters when nothing overlaps", () => {
+    expect(
+      clusterByTitleSimilarity(
+        [{ i: 0, title: "OpenAI ships GPT-6" }],
+        [{ id: "x", title: "A totally different story" }]
+      )
+    ).toEqual([]);
   });
 });
 

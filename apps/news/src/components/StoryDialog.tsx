@@ -1,5 +1,6 @@
 import { Columns2, ExternalLink, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { localizedTitle } from "../lib/display-title";
 import { fetchFeedOnce, getCachedFeed } from "../lib/feed-cache";
 import { timeAgo } from "../lib/lang";
 import { usePrefs } from "../lib/prefs";
@@ -90,8 +91,9 @@ export function StoryDialog({
     })
     .filter((it): it is FeedItem => Boolean(it));
 
-  const title =
-    item && lang === "vi" && item.title_vi ? item.title_vi : item?.title;
+  const { text: title, fallbackFromEnglish } = item
+    ? localizedTitle(item, lang)
+    : { text: undefined as string | undefined, fallbackFromEnglish: false };
 
   return (
     <div
@@ -115,9 +117,15 @@ export function StoryDialog({
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
+              lang={fallbackFromEnglish ? "en" : undefined}
               className="min-w-0 flex-1 font-semibold leading-snug hover:text-accent"
             >
-              {title}{" "}
+              {title}
+              {fallbackFromEnglish && (
+                <span className="ml-1 align-middle text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+                  EN
+                </span>
+              )}{" "}
               <ExternalLink className="inline h-3.5 w-3.5 align-baseline" />
             </a>
           ) : (
@@ -180,8 +188,15 @@ export function StoryDialog({
                     onClick={() => setActiveId(rel.id)}
                     className="flex w-full items-baseline justify-between gap-2 rounded px-1 py-0.5 text-left text-xs hover:bg-muted"
                   >
-                    <span className="min-w-0 flex-1 truncate">
-                      {lang === "vi" && rel.title_vi ? rel.title_vi : rel.title}
+                    <span
+                      className="min-w-0 flex-1 truncate"
+                      lang={
+                        localizedTitle(rel, lang).fallbackFromEnglish
+                          ? "en"
+                          : undefined
+                      }
+                    >
+                      {localizedTitle(rel, lang).text}
                     </span>
                     <span className="shrink-0 text-muted-foreground">
                       {timeAgo(rel.published_at, Date.now(), lang)}

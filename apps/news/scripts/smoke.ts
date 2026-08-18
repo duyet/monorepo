@@ -55,13 +55,43 @@ function assert(condition: unknown, message: string): asserts condition {
 async function main() {
   console.log(`Smoke testing ${base}\n`);
 
-  // 1. Root shell renders (SSR default lang is "vi").
+  // 1. Root shell renders (SSR default lang is "vi") with share tags + stories.
   await check("GET / -> 200 with SSR shell marker", async () => {
     const res = await fetch(`${base}/`);
     assert(res.status === 200, `expected 200, got ${res.status}`);
     const body = await res.text();
     const marker = "Hôm nay AI có gì mới?";
     assert(body.includes(marker), `body missing shell marker "${marker}"`);
+    assert(body.includes("og:title"), "homepage missing og:title");
+    assert(body.includes("twitter:card"), "homepage missing twitter:card");
+    assert(body.includes('rel="canonical"'), "homepage missing canonical");
+    assert(
+      /href="\/[a-z0-9-]+\/[0-9a-f]{8}"/.test(body),
+      "homepage HTML has no story permalinks"
+    );
+  });
+
+  await check(
+    "GET /sitemap.xml -> 200 application/xml with urlset",
+    async () => {
+      const res = await fetch(`${base}/sitemap.xml`);
+      assert(res.status === 200, `expected 200, got ${res.status}`);
+      const ctype = res.headers.get("content-type") ?? "";
+      assert(ctype.includes("xml"), `expected xml content-type, got ${ctype}`);
+      const body = await res.text();
+      assert(body.includes("<urlset"), "sitemap missing <urlset>");
+      assert(body.includes(`${base}/`), "sitemap missing homepage loc");
+    }
+  );
+
+  await check("GET /robots.txt includes Sitemap line", async () => {
+    const res = await fetch(`${base}/robots.txt`);
+    assert(res.status === 200, `expected 200, got ${res.status}`);
+    const body = await res.text();
+    assert(
+      /Sitemap:\s*https:\/\/news\.duyet\.net\/sitemap\.xml/i.test(body),
+      "robots.txt missing Sitemap line"
+    );
   });
 
   // 2. Feed API shape + story-by-id regression checks.

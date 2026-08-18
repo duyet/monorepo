@@ -4,10 +4,13 @@ import { CategoryNav } from "../components/CategoryNav";
 import { DaySection } from "../components/DaySection";
 import { TldrSection } from "../components/TldrSection";
 import { TrendingChips } from "../components/TrendingChips";
+import { emptyFeedCopy, showFeedBrowseChrome } from "../lib/empty-feed";
 import { setCachedFeed } from "../lib/feed-cache";
+import { fetchFeed } from "../lib/feed-fn";
 import { timeAgo } from "../lib/lang";
 import { useLang } from "../lib/lang-context";
 import { usePrefs } from "../lib/prefs";
+import { homepageHead } from "../lib/seo";
 import type { FeedResponse } from "../lib/types";
 
 export interface IndexSearch {
@@ -26,6 +29,12 @@ export const Route = createFileRoute("/")({
     }
     return out;
   },
+  loaderDeps: ({ search }) => ({ q: search.q }),
+  loader: ({ deps }) =>
+    fetchFeed({
+      data: deps.q ? { q: deps.q } : { days: 3 },
+    }),
+  head: () => homepageHead(),
   component: IndexPage,
 });
 
@@ -95,7 +104,10 @@ function IndexPage() {
   const { q, tag, category } = Route.useSearch();
   const lang = useLang();
   const { prefs } = usePrefs();
-  const [feed, setFeed] = useState<FeedResponse | null>(null);
+  const loaderFeed = Route.useLoaderData();
+  const [feed, setFeed] = useState<FeedResponse | null>(
+    () => loaderFeed ?? null
+  );
   const [error, setError] = useState(false);
   const [loadingOlder, setLoadingOlder] = useState(false);
   const [selectedTag, setSelectedTag] = useState<string | null>(tag ?? null);
@@ -113,27 +125,36 @@ function IndexPage() {
     if (category) setSelectedCategories(new Set([category]));
   }, [category]);
 
-  // Static shell — the feed is bound entirely client-side from /api/feed so
-  // this page's HTML is cacheable and never blocks on Clerk/data-fetch JS.
+  useEffect(() => {
+    if (loaderFeed) {
+      setFeed(loaderFeed);
+      setError(false);
+      if (!q) setCachedFeed(loaderFeed);
+    }
+  }, [loaderFeed, q]);
+
+  // Client refresh (and first paint when the loader had no D1, e.g. prerender).
   useEffect(() => {
     let cancelled = false;
-    setFeed(null);
-    setError(false);
-    const params = q ? `?q=${encodeURIComponent(q)}` : "?days=3";
-    fetch(`/api/feed${params}`)
-      .then((res) => (res.ok ? (res.json() as Promise<FeedResponse>) : null))
-      .then((res) => {
-        if (cancelled) return;
-        if (res) {
-          setFeed(res);
-          if (!q) setCachedFeed(res);
-        } else {
-          setError(true);
-        }
-      })
-      .catch(() => {
-        if (!cancelled) setError(true);
-      });
+    if (!loaderFeed) {
+      setFeed(null);
+      setError(false);
+      const params = q ? `?q=${encodeURIComponent(q)}` : "?days=3";
+      fetch(`/api/feed${params}`)
+        .then((res) => (res.ok ? (res.json() as Promise<FeedResponse>) : null))
+        .then((res) => {
+          if (cancelled) return;
+          if (res) {
+            setFeed(res);
+            if (!q) setCachedFeed(res);
+          } else {
+            setError(true);
+          }
+        })
+        .catch(() => {
+          if (!cancelled) setError(true);
+        });
+    }
     const refresh = window.setInterval(() => {
       if (q) return;
       fetch("/api/feed?days=3")
@@ -162,7 +183,7 @@ function IndexPage() {
       cancelled = true;
       window.clearInterval(refresh);
     };
-  }, [q]);
+  }, [q, loaderFeed]);
 
   if (error) {
     return (
@@ -214,9 +235,11 @@ function IndexPage() {
           })
           .filter((day) => day.items.length > 0);
 
+  const browseChrome = showFeedBrowseChrome(q);
+
   return (
     <div>
-      {prefs.sections.categories && (
+      {prefs.sections.categories && browseChrome && (
         <CategoryNav
           categories={feed.categories}
           selected={selectedCategories}
@@ -224,7 +247,7 @@ function IndexPage() {
           lang={lang}
         />
       )}
-      {prefs.sections.trending && (
+      {prefs.sections.trending && browseChrome && (
         <TrendingChips
           trending={feed.trending}
           label={lang === "vi" ? "Xu hướng" : "Trending"}
@@ -316,13 +339,11 @@ function IndexPage() {
       )}
       {prefs.sections.days && days.length === 0 && (
         <p className="py-16 text-center text-muted-foreground">
-          {selectedCategories.size > 0
-            ? lang === "vi"
-              ? "Không có tin phù hợp với bộ lọc."
-              : "No stories match the selected filters."
-            : lang === "vi"
-              ? "Chưa có tin nào."
-              : "No stories yet."}
+          {emptyFeedCopy({
+            lang,
+            q,
+            selectedCategoryCount: selectedCategories.size,
+          })}
         </p>
       )}
     </div>
