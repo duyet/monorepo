@@ -1,4 +1,6 @@
+import { AUDIENCE_TIMEZONE, localCalendarDate } from "../../worker/time.js";
 import { TITLE_KEYWORDS } from "./highlight";
+import { isThinDisplayTldr, resolveTldrForDisplay } from "./tldr-fallback";
 import type { DayGroup, FeedItem, FeedResponse, TldrBullet } from "./types";
 
 /** Older `tldr_snapshots` rows were written with a single `item_id` string
@@ -251,8 +253,35 @@ export async function getFeed(
     }
   }
 
+  const resolved = resolveTldrForDisplay(tldr, items);
+  // Persist a rebuilt last-24h fallback so Telegram and the next request
+  // see the ranked digest, not the leftover. Stamp created_at as already
+  // stale so the next ingest still tries the LLM.
+  if (resolved && isThinDisplayTldr(tldr)) {
+    try {
+      await db
+        .prepare(
+          `INSERT INTO tldr_snapshots (date, bullets_en, bullets_vi, created_at)
+         VALUES (?, ?, ?, ?)
+         ON CONFLICT(date) DO UPDATE SET
+           bullets_en = excluded.bullets_en,
+           bullets_vi = excluded.bullets_vi,
+           created_at = excluded.created_at`
+        )
+        .bind(
+          localCalendarDate(Date.now(), AUDIENCE_TIMEZONE),
+          JSON.stringify(resolved.bullets_en),
+          JSON.stringify(resolved.bullets_vi),
+          Date.now() - 3 * 60 * 60 * 1000
+        )
+        .run();
+    } catch {
+      // read-time persist is best-effort — display still uses `resolved`
+    }
+  }
+
   return {
-    tldr,
+    tldr: resolved,
     days: groupByDay(items),
     categories: catsRes.results ?? [],
     trending,

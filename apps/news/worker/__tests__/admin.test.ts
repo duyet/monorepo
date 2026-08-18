@@ -169,8 +169,7 @@ class FakeD1 {
       return {
         results: Array.from(this.items.values()).filter(
           (row) =>
-            row.status === "published" &&
-            (row.published_at as number) >= since
+            row.status === "published" && (row.published_at as number) >= since
         ),
       };
     }
@@ -218,11 +217,23 @@ class FakeD1 {
       return { success: true };
     }
 
-    if (sql.startsWith("SELECT date, created_at FROM tldr_snapshots WHERE date = ?")) {
+    if (
+      sql.startsWith(
+        "SELECT date, created_at FROM tldr_snapshots WHERE date = ?"
+      ) ||
+      sql.startsWith(
+        "SELECT date, created_at, bullets_en, bullets_vi FROM tldr_snapshots WHERE date = ?"
+      )
+    ) {
       const [date] = args as [string];
       const row = this.tldrSnapshots.get(date);
       return row
-        ? { date: row.date, created_at: row.created_at ?? 0 }
+        ? {
+            date: row.date,
+            created_at: row.created_at ?? 0,
+            bullets_en: row.bullets_en ?? "[]",
+            bullets_vi: row.bullets_vi ?? "[]",
+          }
         : null;
     }
 
@@ -233,9 +244,7 @@ class FakeD1 {
     }
 
     if (
-      sql.startsWith(
-        "SELECT i.id, i.title, i.summary, tr.title AS title_vi"
-      )
+      sql.startsWith("SELECT i.id, i.title, i.summary, tr.title AS title_vi")
     ) {
       const [since] = args as [number];
       return {
@@ -245,9 +254,7 @@ class FakeD1 {
               row.status === "published" &&
               (row.published_at as number) >= since
           )
-          .sort(
-            (a, b) => (b.rank_score as number) - (a.rank_score as number)
-          ),
+          .sort((a, b) => (b.rank_score as number) - (a.rank_score as number)),
       };
     }
 
@@ -263,16 +270,13 @@ class FakeD1 {
     }
 
     if (
-      sql.startsWith(
-        "SELECT id, source_id, title, url, status, published_at"
-      )
+      sql.startsWith("SELECT id, source_id, title, url, status, published_at")
     ) {
       const [limit] = args as [number];
       return {
         results: Array.from(this.items.values())
           .sort(
-            (a, b) =>
-              (b.published_at as number) - (a.published_at as number)
+            (a, b) => (b.published_at as number) - (a.published_at as number)
           )
           .slice(0, limit),
       };

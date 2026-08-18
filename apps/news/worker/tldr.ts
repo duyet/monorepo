@@ -50,11 +50,63 @@ export function shouldPersistTldr(result: {
   return result.bullets_en.length > 0 || result.bullets_vi.length > 0;
 }
 
+/** Useful digest size: min(8, itemCount), and at least 2 when itemCount >= 2. */
+export function usefulTldrFloor(itemCount: number): number {
+  if (itemCount < 2) return Math.max(0, itemCount);
+  return Math.min(8, itemCount);
+}
+
+/** True when the LLM digest is too thin for the ranked window (e.g. 1
+ * leftover bullet while last-24h has 16 items). */
+export function isThinTldr(
+  result: { bullets_en: unknown[]; bullets_vi: unknown[] },
+  itemCount: number
+): boolean {
+  const count = Math.max(result.bullets_en.length, result.bullets_vi.length);
+  return count < usefulTldrFloor(itemCount);
+}
+
+function parseStoredBullets(raw: unknown): unknown[] {
+  if (Array.isArray(raw)) return raw;
+  if (typeof raw !== "string" || !raw) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Refresh immediately when the snapshot is missing or thin. A useful
+ * snapshot still waits `TLDR_REFRESH_MS` so we do not call the LLM every hour.
+ */
+export function shouldRefreshExistingSnapshot(opts: {
+  existing:
+    | {
+        created_at: number;
+        bullets_en: unknown[];
+        bullets_vi: unknown[];
+      }
+    | null
+    | undefined;
+  itemCount: number;
+  nowMs: number;
+  refreshMs?: number;
+}): boolean {
+  if (!opts.existing) return true;
+  if (isThinTldr(opts.existing, opts.itemCount)) return true;
+  return (
+    opts.nowMs - (opts.existing.created_at ?? 0) >=
+    (opts.refreshMs ?? TLDR_REFRESH_MS)
+  );
+}
+
 /**
  * Deterministic snapshot from already-stored item titles. EN uses the
- * item title; VI uses an existing translation title when present — never
- * invents Vietnamese. Used when the LLM returns no bullets so the daily
- * digest still has something to send.
+ * item title; VI uses `title_vi` when present, otherwise the same title
+ * (never invents Vietnamese prose). Used when the LLM returns no bullets
+ * or a thin digest so the daily snapshot still ranks the last-24h window.
  */
 export function fallbackTldrFromItems(
   items: Array<{ id: string; title: string; title_vi?: string | null }>
@@ -65,8 +117,8 @@ export function fallbackTldrFromItems(
     const title = item.title.trim();
     if (!title) continue;
     bullets_en.push({ text: title, item_ids: [item.id] });
-    const vi = item.title_vi?.trim();
-    if (vi) bullets_vi.push({ text: vi, item_ids: [item.id] });
+    const vi = item.title_vi?.trim() || title;
+    bullets_vi.push({ text: vi, item_ids: [item.id] });
   }
   return { bullets_en, bullets_vi };
 }
@@ -78,29 +130,48 @@ export interface TldrRunStats {
   reason: string;
 }
 
-/** Idempotent daily gate: generates today's snapshot if missing, or
- * refreshes it when the last write is older than `TLDR_REFRESH_MS`. */
+/** Idempotent daily gate: generates today's snapshot if missing or thin,
+ * or refreshes a useful one when the last write is older than `TLDR_REFRESH_MS`. */
 export async function ensureDailyTldr(env: Env): Promise<TldrRunStats> {
-  const date = tldrSnapshotDate();
+  const nowMs = Date.now();
+  const date = tldrSnapshotDate(nowMs);
 
   const existing = await env.DB.prepare(
-    "SELECT date, created_at FROM tldr_snapshots WHERE date = ?"
+    "SELECT date, created_at, bullets_en, bullets_vi FROM tldr_snapshots WHERE date = ?"
   )
     .bind(date)
-    .first<{ date: string; created_at: number }>();
-  if (existing) {
-    const age = Date.now() - (existing.created_at ?? 0);
-    if (age < TLDR_REFRESH_MS) {
-      return {
-        generated: false,
-        tokens: 0,
-        reason: `snapshot for ${date} is ${Math.round(age / 60000)}m old`,
-      };
-    }
-  }
+    .first<{
+      date: string;
+      created_at: number;
+      bullets_en: string | null;
+      bullets_vi: string | null;
+    }>();
 
-  const { sql, since } = buildTopItemsQuery(Date.now());
+  const { sql, since } = buildTopItemsQuery(nowMs);
   const { results } = await env.DB.prepare(sql).bind(since).all<ItemRow>();
+
+  const existingParsed = existing
+    ? {
+        created_at: existing.created_at ?? 0,
+        bullets_en: parseStoredBullets(existing.bullets_en),
+        bullets_vi: parseStoredBullets(existing.bullets_vi),
+      }
+    : null;
+
+  if (
+    !shouldRefreshExistingSnapshot({
+      existing: existingParsed,
+      itemCount: results?.length ?? 0,
+      nowMs,
+    })
+  ) {
+    const age = nowMs - (existingParsed?.created_at ?? 0);
+    return {
+      generated: false,
+      tokens: 0,
+      reason: `snapshot for ${date} is ${Math.round(age / 60000)}m old`,
+    };
+  }
 
   if (!results || results.length === 0)
     return {
@@ -122,11 +193,12 @@ export async function ensureDailyTldr(env: Env): Promise<TldrRunStats> {
   let bullets_vi = tldr.bullets_vi;
   let persistReason: string | undefined;
 
-  // Never write an empty snapshot: an empty row would satisfy the
-  // `existing` gate above and block regeneration for the rest of the day.
-  // If the LLM produced nothing, persist title-based bullets (existing
-  // translations only — no invented Vietnamese) so the digest can send.
-  if (!shouldPersistTldr(tldr)) {
+  // Never write an empty or thin snapshot: a 1-bullet row would satisfy
+  // the `existing` gate above and freeze a leftover line for TLDR_REFRESH_MS
+  // even when last-24h has many ranked items. If the LLM produced nothing
+  // (or too few bullets), persist title-based bullets — VI reuses the
+  // English title when no translation exists, never invented prose.
+  if (isThinTldr(tldr, results.length)) {
     const fallback = fallbackTldrFromItems(results);
     if (!shouldPersistTldr(fallback)) {
       const detail = tldr.error ?? "returned no bullets";
@@ -139,7 +211,7 @@ export async function ensureDailyTldr(env: Env): Promise<TldrRunStats> {
     }
     bullets_en = fallback.bullets_en;
     bullets_vi = fallback.bullets_vi;
-    persistReason = `LLM failed (${tldr.error ?? "no bullets"}); persisted ${fallback.bullets_en.length} title-fallback bullets`;
+    persistReason = `LLM thin (${tldr.error ?? `${Math.max(tldr.bullets_en.length, tldr.bullets_vi.length)} bullets`}); persisted ${fallback.bullets_en.length} title-fallback bullets`;
     console.error(persistReason);
   }
 
