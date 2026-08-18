@@ -30,6 +30,8 @@ import { fetchFeedOnce, getCachedFeed } from "../lib/feed-cache";
 import { splatOwnsDocumentTitle } from "../lib/html-title";
 import { getClientLang, setClientLang, timeAgo } from "../lib/lang";
 import { LangContext } from "../lib/lang-context";
+import { notFoundCopy } from "../lib/not-found";
+import { loadNotFoundLang } from "../lib/not-found-fn";
 import {
   DEFAULT_PREFS,
   loadPrefs,
@@ -167,13 +169,19 @@ function NewsFooter() {
 }
 
 export const Route = createRootRoute({
-  head: ({ matches }) => {
+  // Parent loader runs before the splat throws notFound(), so head() can
+  // still localize the 404 title from the news_lang cookie.
+  loader: () => ({ lang: loadNotFoundLang() }),
+  head: ({ matches, loaderData }) => {
     const notFoundOwnsTitle = splatOwnsDocumentTitle(
       matches.map((m) => ({
         id: (m as { id?: string }).id,
         routeId: (m as { routeId?: string }).routeId,
       }))
     );
+    const title = notFoundOwnsTitle
+      ? notFoundCopy((loaderData?.lang ?? "vi") as Lang).documentTitle
+      : SITE_TITLE;
     return {
       meta: [
         { charSet: "utf-8" },
@@ -182,9 +190,9 @@ export const Route = createRootRoute({
           name: "robots",
           content: notFoundOwnsTitle ? "noindex, follow" : "follow, index",
         },
-        // Not-found route owns the first <title>. Emitting SITE_TITLE here
-        // would win in browsers/crawlers even if a later title is added.
-        ...(notFoundOwnsTitle ? [] : [{ title: SITE_TITLE }]),
+        // Splat throws notFound() (HTTP 404) and skips its own head().
+        // Root must emit the 404 title here or SITE_TITLE wins.
+        { title },
         {
           name: "description",
           content: SITE_DESCRIPTION,

@@ -1,32 +1,25 @@
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { describe, expect, it, vi } from "vitest";
-import { notFoundLangOnServer } from "./not-found-fn";
+import { describe, expect, it } from "vitest";
+import { notFoundLangFromCookie } from "./not-found-fn";
 import { notFoundCopy } from "./not-found";
 import { notFoundHead } from "./seo";
 import { SITE_TITLE } from "./site";
 
 const here = dirname(fileURLToPath(import.meta.url));
 
-describe("notFoundLangOnServer", () => {
-  it("sets HTTP 404 and defaults to vi without a cookie", () => {
-    const setStatus = vi.fn();
-    expect(notFoundLangOnServer(null, setStatus)).toBe("vi");
-    expect(setStatus).toHaveBeenCalledWith(404);
+describe("notFoundLangFromCookie", () => {
+  it("defaults to vi without a cookie", () => {
+    expect(notFoundLangFromCookie(null)).toBe("vi");
   });
 
   it("reads news_lang=en from the cookie", () => {
-    const setStatus = vi.fn();
-    expect(notFoundLangOnServer("foo=1; news_lang=en; bar=2", setStatus)).toBe(
-      "en"
-    );
-    expect(setStatus).toHaveBeenCalledWith(404);
+    expect(notFoundLangFromCookie("foo=1; news_lang=en; bar=2")).toBe("en");
   });
 
   it("feeds the localized 404 title, not the homepage title", () => {
-    const lang = notFoundLangOnServer(null, vi.fn());
-    const title = notFoundCopy(lang).documentTitle;
+    const title = notFoundCopy(notFoundLangFromCookie(null)).documentTitle;
     expect(title).toBe("Không tìm thấy trang | AI News");
     expect(title).not.toBe(SITE_TITLE);
     expect(
@@ -40,14 +33,14 @@ describe("404 splat import boundary", () => {
     const src = readFileSync(join(here, "../routes/$.tsx"), "utf8");
     expect(src).not.toMatch(/from\s+["']@tanstack\/react-start\/server["']/);
     expect(src).not.toMatch(/from\s+["'][^"']*\.server["']/);
-    expect(src).toContain("loadNotFoundLang");
+    expect(src).toContain("throw notFound()");
   });
 
-  it("sets HTTP 404 inside createServerFn", () => {
+  it("reads news_lang inside createIsomorphicFn.server", () => {
     const src = readFileSync(join(here, "./not-found-fn.ts"), "utf8");
-    expect(src).toContain("createServerFn");
-    expect(src).toContain("setResponseStatus");
-    expect(src).toContain("notFoundLangOnServer");
+    expect(src).toContain("createIsomorphicFn");
+    expect(src).toContain("notFoundLangFromCookie");
+    expect(src).toContain("getRequestHeader");
   });
 
   it("keeps a single title owner: NotFoundPage has no nested title", () => {
