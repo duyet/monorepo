@@ -114,3 +114,15 @@ export function robotsResponse(): Response {
     },
   });
 }
+
+/** Always 200 XML. Any load/build failure falls back to static URLs. */
+export async function safeSitemapResponse(
+  loadUrls: () => Promise<SitemapUrl[]> | SitemapUrl[]
+): Promise<Response> {
+  try {
+    return sitemapResponse(buildSitemapXml(await loadUrls()));
+  } catch (error) {
+    console.error("sitemap.xml failed; serving static fallback", error);
+    return sitemapResponse(buildSitemapXml(staticSitemapUrls()));
+  }
+}

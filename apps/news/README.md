@@ -2,6 +2,11 @@
 
 Feed pipeline and ranking design: see [ALGORITHM.md](./ALGORITHM.md).
 
+Hourly ingest is triggered by GitHub Actions
+(`.github/workflows/news-ingest.yml`, cron `5 * * * *`) via
+`POST /api/admin/ingest`. Do not add Worker `[triggers] crons` or
+Workflow `schedules` — both break Free-plan deploys.
+
 ## Admin API / MCP
 
 Push news items and manage sources remotely via a token-authenticated REST

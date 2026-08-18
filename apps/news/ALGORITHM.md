@@ -2,8 +2,9 @@
 
 How the hourly `NewsIngestWorkflow` turns raw sources into the ranked, bilingual feed.
 Prompts live in `worker/llm.ts`; the pipeline steps in `worker/workflow.ts`.
-Hourly instances come from `schedules` on the `news-ingest` Workflow binding
-in `wrangler.toml` — not a Worker `[triggers] crons` entry (Free 5-cron cap).
+Hourly instances are started by GitHub Actions (`.github/workflows/news-ingest.yml`
+cron `5 * * * *` → `POST /api/admin/ingest`), not Worker `[triggers] crons`
+(Free 5-cron cap) and not Workflow `schedules` (paid plan).
 
 ## Pipeline (per hourly run)
 

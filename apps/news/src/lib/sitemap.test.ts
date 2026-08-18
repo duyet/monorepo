@@ -1,12 +1,13 @@
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { SITE_URL } from "./site";
 import {
   buildSitemapXml,
   escapeXml,
   robotsTxt,
+  safeSitemapResponse,
   staticSitemapUrls,
   storySitemapUrl,
 } from "./sitemap";
@@ -83,5 +84,53 @@ describe("robotsTxt", () => {
       "utf8"
     );
     expect(published).toBe(robotsTxt());
+  });
+});
+
+describe("safeSitemapResponse", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("stays 200 XML when env/DB throws", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    const res = await safeSitemapResponse(async () => {
+      throw new Error("env/DB unavailable");
+    });
+    expect(res.status).toBe(200);
+    expect(res.headers.get("content-type")).toMatch(/application\/xml/);
+    const xml = await res.text();
+    expect(xml.startsWith('<?xml version="1.0" encoding="UTF-8"?>')).toBe(true);
+    expect(xml).toContain(`<loc>${SITE_URL}/</loc>`);
+    expect(xml).toContain("</urlset>");
+    expect(console.error).toHaveBeenCalled();
+  });
+
+  it("stays 200 XML when DB property access throws", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    const res = await safeSitemapResponse(async () => {
+      const env = {
+        get DB(): D1Database {
+          throw new Error("D1 binding getter failed");
+        },
+      };
+      return env.DB
+        ? Promise.reject(new Error("unreachable"))
+        : staticSitemapUrls();
+    });
+    expect(res.status).toBe(200);
+    const xml = await res.text();
+    expect(xml).toContain(
+      'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
+    );
+    expect(xml).toContain(`<loc>${SITE_URL}/</loc>`);
+  });
+
+  it("returns loaded urls when the loader succeeds", async () => {
+    const res = await safeSitemapResponse(() => [{ loc: `${SITE_URL}/about` }]);
+    expect(res.status).toBe(200);
+    const xml = await res.text();
+    expect(xml).toContain(`<loc>${SITE_URL}/about</loc>`);
+    expect(xml).not.toContain(`<loc>${SITE_URL}/mcp</loc>`);
   });
 });
