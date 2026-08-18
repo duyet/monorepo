@@ -5,6 +5,7 @@ import {
   buildSitemapXml,
   loadSitemapUrls,
   robotsResponse,
+  safeSitemapResponse,
   sitemapResponse,
   staticSitemapUrls,
 } from "./lib/sitemap";
@@ -26,11 +27,17 @@ export default {
       return robotsResponse();
     }
     if (path === "/sitemap.xml") {
-      const resolved = await resolveEnv(env);
-      const urls = resolved?.DB
-        ? await loadSitemapUrls(resolved.DB)
-        : staticSitemapUrls();
-      return sitemapResponse(buildSitemapXml(urls));
+      try {
+        return await safeSitemapResponse(async () => {
+          const resolved = await resolveEnv(env);
+          return resolved?.DB
+            ? loadSitemapUrls(resolved.DB)
+            : staticSitemapUrls();
+        });
+      } catch (error) {
+        console.error("sitemap.xml failed; serving static fallback", error);
+        return sitemapResponse(buildSitemapXml(staticSitemapUrls()));
+      }
     }
     return handler.fetch(request);
   },
