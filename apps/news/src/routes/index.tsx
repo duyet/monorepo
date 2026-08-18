@@ -11,6 +11,7 @@ import { timeAgo } from "../lib/lang";
 import { useLang } from "../lib/lang-context";
 import { usePrefs } from "../lib/prefs";
 import { homepageHead } from "../lib/seo";
+import { displayTldrBullets } from "../lib/tldr-fallback";
 import type { FeedResponse } from "../lib/types";
 
 export interface IndexSearch {
@@ -197,7 +198,7 @@ function IndexPage() {
 
   if (!feed) return <FeedSkeleton />;
 
-  const bullets = lang === "vi" ? feed.tldr?.bullets_vi : feed.tldr?.bullets_en;
+  const bullets = displayTldrBullets(feed.tldr, lang);
 
   const topicByItemId = new Map<string, string>();
   for (const day of feed.days) {

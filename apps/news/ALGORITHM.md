@@ -47,10 +47,13 @@ cron `5 * * * *` → `POST /api/admin/ingest`), not Worker `[triggers] crons`
     (`Asia/Ho_Chi_Minh`, same key the Telegram digest looks up) if missing,
     or refresh it when the last write is older than 3 hours. Top 16 items
     of the last 24h by rank → up to 16 EN bullets + 16 independently-restated
-    VI bullets, each linked to its `item_id`. If the LLM returns no bullets,
-    a title-fallback snapshot is persisted (EN from item titles; VI only
-    from existing translations — never invented). Empty results are never
-    persisted. UI shows 8 by default (user preference 8/12/16).
+    VI bullets, each linked to its `item_id`. If the LLM returns no bullets
+    or a thin digest (fewer than min(8, item count), at least 2 when there
+    are 2+ stories), a title-fallback snapshot is persisted (EN from item
+    titles; VI from `title_vi` or the English title if no translation —
+    never invented prose). Empty results are never persisted. The homepage
+    may also synthesize a last-24h title-fallback at read time when the
+    stored snapshot is thin. UI shows 8 by default (user preference 8/12/16).
 11. **Email digest** — top-5 TL;DR to confirmed subscribers, once per day.
 12. **Notify (`worker/notify/`)** — pluggable channel adapters (Telegram
     now; Discord/... later), deliberately non-spammy:

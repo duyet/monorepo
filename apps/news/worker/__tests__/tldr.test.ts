@@ -3,9 +3,11 @@ import { sanitizeBulletIds } from "../llm.js";
 import {
   buildTopItemsQuery,
   fallbackTldrFromItems,
+  isThinTldr,
   shouldPersistTldr,
   TLDR_REFRESH_MS,
   tldrSnapshotDate,
+  usefulTldrFloor,
 } from "../tldr.js";
 
 describe("buildTopItemsQuery", () => {
@@ -111,7 +113,7 @@ describe("tldrSnapshotDate", () => {
 });
 
 describe("fallbackTldrFromItems", () => {
-  it("uses item titles for EN and existing translations only for VI", () => {
+  it("uses item titles for EN and title_vi || title for VI (counts match)", () => {
     expect(
       fallbackTldrFromItems([
         { id: "a", title: "GPT-6 ships", title_vi: "GPT-6 ra mắt" },
@@ -122,14 +124,54 @@ describe("fallbackTldrFromItems", () => {
         { text: "GPT-6 ships", item_ids: ["a"] },
         { text: "OpenRouter sold", item_ids: ["b"] },
       ],
-      bullets_vi: [{ text: "GPT-6 ra mắt", item_ids: ["a"] }],
+      bullets_vi: [
+        { text: "GPT-6 ra mắt", item_ids: ["a"] },
+        { text: "OpenRouter sold", item_ids: ["b"] },
+      ],
     });
   });
 
-  it("does not invent Vietnamese when no translation exists", () => {
+  it("reuses the English title when no translation exists, never invents prose", () => {
     const { bullets_vi } = fallbackTldrFromItems([
       { id: "a", title: "English only" },
     ]);
-    expect(bullets_vi).toEqual([]);
+    expect(bullets_vi).toEqual([{ text: "English only", item_ids: ["a"] }]);
+  });
+});
+
+describe("isThinTldr", () => {
+  it("uses min(8, itemCount) and at least 2 when there are 2+ stories", () => {
+    expect(usefulTldrFloor(0)).toBe(0);
+    expect(usefulTldrFloor(1)).toBe(1);
+    expect(usefulTldrFloor(2)).toBe(2);
+    expect(usefulTldrFloor(5)).toBe(5);
+    expect(usefulTldrFloor(16)).toBe(8);
+  });
+
+  it("replaces a 1-bullet LLM result with a fallback of all ranked items", () => {
+    const items = Array.from({ length: 16 }, (_, i) => ({
+      id: `id-${i}`,
+      title: `Story ${i}`,
+      title_vi: i === 0 ? "Llama.cpp ra mắt phiên bản v0.1.0" : null,
+    }));
+    const llm = {
+      bullets_en: [{ text: "Llama.cpp v0.1.0" }],
+      bullets_vi: [{ text: "Llama.cpp ra mắt phiên bản v0.1.0" }],
+    };
+    expect(isThinTldr(llm, items.length)).toBe(true);
+    const fallback = fallbackTldrFromItems(items);
+    expect(fallback.bullets_en).toHaveLength(16);
+    expect(fallback.bullets_vi).toHaveLength(16);
+    expect(fallback.bullets_vi[0]?.text).toBe(
+      "Llama.cpp ra mắt phiên bản v0.1.0"
+    );
+    expect(fallback.bullets_vi[1]?.text).toBe("Story 1");
+  });
+
+  it("keeps a full-size LLM digest", () => {
+    const bullets = Array.from({ length: 8 }, (_, i) => ({ text: `b${i}` }));
+    expect(isThinTldr({ bullets_en: bullets, bullets_vi: bullets }, 16)).toBe(
+      false
+    );
   });
 });

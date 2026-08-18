@@ -1,4 +1,5 @@
 import { TITLE_KEYWORDS } from "./highlight";
+import { resolveTldrForDisplay } from "./tldr-fallback";
 import type { DayGroup, FeedItem, FeedResponse, TldrBullet } from "./types";
 
 /** Older `tldr_snapshots` rows were written with a single `item_id` string
@@ -252,7 +253,7 @@ export async function getFeed(
   }
 
   return {
-    tldr,
+    tldr: resolveTldrForDisplay(tldr, items),
     days: groupByDay(items),
     categories: catsRes.results ?? [],
     trending,
