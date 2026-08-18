@@ -231,3 +231,25 @@
   background: var(--accent);
   cursor: pointer;
 }
+
+/* Phone chrome: hide stacked SiteHeader + desktop HeaderBar on narrow
+   phones and short landscape phones (e.g. 812x375). Compact chrome is
+   the single bar with a visible search field and 44px tap targets. */
+.news-wide-chrome,
+.news-wide-row {
+  display: none;
+}
+.news-compact-chrome {
+  display: flex;
+}
+@media (min-width: 640px) and (min-height: 501px) {
+  .news-wide-chrome {
+    display: block;
+  }
+  .news-wide-row {
+    display: flex;
+  }
+  .news-compact-chrome {
+    display: none;
+  }
+}

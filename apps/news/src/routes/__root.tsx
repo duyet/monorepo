@@ -24,8 +24,10 @@ import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import { HeaderBar } from "../components/HeaderBar";
 import { NotFoundPage } from "../components/NotFoundPage";
+import { WIDE_CHROME_CLASS } from "../lib/chrome";
 import { ClerkModuleContext, useClerkModuleLoader } from "../lib/clerk-user";
 import { fetchFeedOnce, getCachedFeed } from "../lib/feed-cache";
+import { splatOwnsDocumentTitle } from "../lib/html-title";
 import { getClientLang, setClientLang, timeAgo } from "../lib/lang";
 import { LangContext } from "../lib/lang-context";
 import {
@@ -165,42 +167,55 @@ function NewsFooter() {
 }
 
 export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1.0" },
-      { name: "robots", content: "follow, index" },
-      { title: SITE_TITLE },
-      {
-        name: "description",
-        content: SITE_DESCRIPTION,
-      },
-    ],
-    links: [
-      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
-      {
-        rel: "sitemap",
-        type: "application/xml",
-        href: `${SITE_URL}/sitemap.xml`,
-      },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
-      },
-      {
-        rel: "preload",
-        as: "style",
-        href: "https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap",
-      },
-      {
-        rel: "preload",
-        as: "style",
-        href: "https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap",
-      },
-    ],
-  }),
+  head: ({ matches }) => {
+    const notFoundOwnsTitle = splatOwnsDocumentTitle(
+      matches.map((m) => ({
+        id: (m as { id?: string }).id,
+        routeId: (m as { routeId?: string }).routeId,
+      }))
+    );
+    return {
+      meta: [
+        { charSet: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1.0" },
+        {
+          name: "robots",
+          content: notFoundOwnsTitle ? "noindex, follow" : "follow, index",
+        },
+        // Not-found route owns the first <title>. Emitting SITE_TITLE here
+        // would win in browsers/crawlers even if a later title is added.
+        ...(notFoundOwnsTitle ? [] : [{ title: SITE_TITLE }]),
+        {
+          name: "description",
+          content: SITE_DESCRIPTION,
+        },
+      ],
+      links: [
+        { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+        {
+          rel: "sitemap",
+          type: "application/xml",
+          href: `${SITE_URL}/sitemap.xml`,
+        },
+        { rel: "preconnect", href: "https://fonts.googleapis.com" },
+        {
+          rel: "preconnect",
+          href: "https://fonts.gstatic.com",
+          crossOrigin: "anonymous",
+        },
+        {
+          rel: "preload",
+          as: "style",
+          href: "https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap",
+        },
+        {
+          rel: "preload",
+          as: "style",
+          href: "https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap",
+        },
+      ],
+    };
+  },
   notFoundComponent: NotFoundPage,
   component: RootComponent,
 });
@@ -260,7 +275,9 @@ function RootComponent() {
                   data-reader-bg={prefs.bg}
                   suppressHydrationWarning
                 >
-                  <div className="relative z-20 flex w-full flex-col">
+                  <div
+                    className={`relative z-20 w-full flex-col ${WIDE_CHROME_CLASS}`}
+                  >
                     <SiteHeader currentApp="news" />
                   </div>
 

@@ -99,4 +99,10 @@ describe("notFoundHead", () => {
     expect(metaContent(head.meta, "title")).not.toBe(SITE_TITLE);
     expect(metaContent(head.meta, "robots")).toBe("noindex, follow");
   });
+
+  it("localizes the English 404 title too", () => {
+    const head = notFoundHead("Page not found | AI News");
+    expect(metaContent(head.meta, "title")).toBe("Page not found | AI News");
+    expect(metaContent(head.meta, "title")).not.toBe(SITE_TITLE);
+  });
 });
