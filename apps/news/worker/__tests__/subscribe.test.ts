@@ -4,6 +4,7 @@ import {
   buildDigestEmail,
   DIGEST_LOCAL_HOUR,
   getLocalHourAndDate,
+  primaryItemId,
   sendDailyTldr,
   shouldSendForSubscriber,
   snapshotHasBullets,
@@ -375,5 +376,15 @@ describe("sendDailyTldr — per-subscriber send flow", () => {
     vi.setSystemTime(fixedNow);
     await sendDailyTldr(env);
     expect(sentTo).toEqual(["nextday@example.com"]);
+  });
+});
+
+describe("primaryItemId", () => {
+  it("prefers legacy item_id, then the first item_ids entry", () => {
+    expect(primaryItemId({ text: "a", item_id: "legacy" })).toBe("legacy");
+    expect(primaryItemId({ text: "a", item_ids: ["new1", "new2"] })).toBe(
+      "new1"
+    );
+    expect(primaryItemId({ text: "a" })).toBeUndefined();
   });
 });

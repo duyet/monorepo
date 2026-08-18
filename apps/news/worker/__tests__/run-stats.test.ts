@@ -20,6 +20,7 @@ describe("buildRunStats", () => {
       tldrGenerated: false,
       emailsSent: 0,
       notified: {},
+      notifyReason: {},
     });
   });
 
@@ -48,6 +49,7 @@ describe("buildRunStats", () => {
       tldrGenerated: true,
       emailsSent: 0,
       notified: {},
+      notifyReason: {},
     });
   });
 

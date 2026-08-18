@@ -13,6 +13,8 @@ export interface WorkflowRunStats {
   submissionsReviewed?: number;
   tldrGenerated?: number;
   emailsSent?: number;
+  notified?: Record<string, number>;
+  notifyReason?: Record<string, unknown>;
 }
 
 export interface WorkflowRunRow {
