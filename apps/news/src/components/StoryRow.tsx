@@ -1,6 +1,11 @@
 import { ExternalLink, TrendingUp } from "lucide-react";
 import type { CSSProperties } from "react";
 import { useState } from "react";
+import {
+  ARTICLE_TITLE_TAG,
+  FEED_TITLE_TAG,
+  type StoryTitleTag,
+} from "../lib/article-headings";
 import { localizedTitle } from "../lib/display-title";
 import { highlightTitle, tagsForHighlight } from "../lib/highlight";
 import { categoryLabel, timeAgo } from "../lib/lang";
@@ -50,6 +55,7 @@ export function StoryRow({
   hot,
   defaultExpanded,
   selectedTag,
+  titleAs = FEED_TITLE_TAG,
 }: {
   item: FeedItem;
   index: number;
@@ -57,7 +63,10 @@ export function StoryRow({
   hot?: boolean;
   defaultExpanded?: boolean;
   selectedTag?: string | null;
+  /** Article route only — homepage feed keeps a non-heading title. */
+  titleAs?: StoryTitleTag;
 }) {
+  const TitleTag = titleAs;
   const [expanded, setExpanded] = useState(defaultExpanded ?? false);
   const { text: title, fallbackFromEnglish } = localizedTitle(item, lang);
   const summary =
@@ -114,14 +123,18 @@ export function StoryRow({
               aria-hidden
             />
           )}
-          <a
-            href={storyPath(item)}
-            lang={fallbackFromEnglish ? "en" : undefined}
-            onClick={(e) => e.stopPropagation()}
-            className="hover:underline hover:underline-offset-2"
+          <TitleTag
+            className={titleAs === ARTICLE_TITLE_TAG ? "inline" : undefined}
           >
-            <HighlightedTitle title={title} tags={item.tags} />
-          </a>
+            <a
+              href={storyPath(item)}
+              lang={fallbackFromEnglish ? "en" : undefined}
+              onClick={(e) => e.stopPropagation()}
+              className="hover:underline hover:underline-offset-2"
+            >
+              <HighlightedTitle title={title} tags={item.tags} />
+            </a>
+          </TitleTag>
           {fallbackFromEnglish && (
             <span
               className="ml-1 align-middle text-[10px] font-semibold uppercase tracking-wide text-muted-foreground"
