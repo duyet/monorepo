@@ -26,6 +26,14 @@ import type {
 /** Registered delivery channels; add discord/... here. */
 export const notifiers: Notifier[] = [telegramNotifier];
 
+/** Calls each channel's enabled() so a half-configured deploy (chat id
+ *  without token) throws instead of silently skipping sends. */
+export function assertNotifyConfig(env: Env): void {
+  for (const notifier of notifiers) {
+    notifier.enabled(env);
+  }
+}
+
 /** Audience timezone: the channel is Vietnamese-first. */
 export const DIGEST_TIMEZONE = "Asia/Ho_Chi_Minh";
 /** Digests only go out from this local hour onward — no 3am posts. */
@@ -214,6 +222,8 @@ async function recordDelivery(
 export async function dispatchStoryNotifications(
   env: Env
 ): Promise<Record<string, number>> {
+  assertNotifyConfig(env);
+
   const sent: Record<string, number> = {};
   const now = Date.now();
   const { hour, date } = getLocalHourAndDate(now, DIGEST_TIMEZONE);

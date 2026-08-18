@@ -43,7 +43,9 @@ export interface Notifier {
   id: string;
   /** Where posts go (chat id, webhook host, ...) — stored for observability. */
   target(env: Env): string;
-  /** False when required config (secrets/vars) is missing; channel is skipped. */
+  /** False when the channel is fully unset (local/dev). Throws when
+   *  half-configured (e.g. chat id without token) so a deploy bug
+   *  cannot silently skip sends. */
   enabled(env: Env): boolean;
   /** Sends the once-a-day TL;DR summary (bullet list + links). */
   sendDigest(env: Env, digest: DailyDigest): Promise<SendResult>;

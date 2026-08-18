@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  assertNotifyConfig,
   buildTrendingQuery,
   DIGEST_LOCAL_HOUR,
   digestKey,
@@ -180,6 +181,36 @@ describe("telegramNotifier gating", () => {
         TELEGRAM_CHAT_ID: "-100",
       } as Env)
     ).toBe(true);
+  });
+
+  it("throws when chat id is set but the bot token is missing", () => {
+    expect(() =>
+      telegramNotifier.enabled({ TELEGRAM_CHAT_ID: "-100" } as Env)
+    ).toThrow(/TELEGRAM_CHAT_ID is set but TELEGRAM_BOT_TOKEN is missing/);
+    expect(() =>
+      telegramNotifier.enabled({
+        TELEGRAM_CHAT_ID: "-100",
+        TELEGRAM_BOT_TOKEN: "   ",
+      } as Env)
+    ).toThrow(/TELEGRAM_BOT_TOKEN is missing/);
+  });
+});
+
+describe("assertNotifyConfig", () => {
+  it("allows fully unset or fully set telegram", () => {
+    expect(() => assertNotifyConfig({} as Env)).not.toThrow();
+    expect(() =>
+      assertNotifyConfig({
+        TELEGRAM_BOT_TOKEN: "t",
+        TELEGRAM_CHAT_ID: "-100",
+      } as Env)
+    ).not.toThrow();
+  });
+
+  it("fails loud when telegram is half-configured", () => {
+    expect(() =>
+      assertNotifyConfig({ TELEGRAM_CHAT_ID: "-100" } as Env)
+    ).toThrow(/TELEGRAM_BOT_TOKEN is missing/);
   });
 });
 

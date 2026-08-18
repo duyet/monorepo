@@ -136,7 +136,17 @@ async function callTelegram(
 export const telegramNotifier: Notifier = {
   id: "telegram",
   target: (env) => env.TELEGRAM_CHAT_ID ?? "",
-  enabled: (env) => Boolean(env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID),
+  enabled: (env) => {
+    const token = env.TELEGRAM_BOT_TOKEN?.trim() ?? "";
+    const chatId = env.TELEGRAM_CHAT_ID?.trim() ?? "";
+    // Chat id without a token is a deploy misconfig — fail loud.
+    if (chatId && !token) {
+      throw new Error(
+        "TELEGRAM_CHAT_ID is set but TELEGRAM_BOT_TOKEN is missing"
+      );
+    }
+    return Boolean(token && chatId);
+  },
 
   async sendDigest(env: Env, digest: DailyDigest): Promise<SendResult> {
     // enabled() gates before send; non-null by contract here.
