@@ -13,16 +13,16 @@ directory = "dist/client"
 run_worker_first = ["/", "/sitemap.xml", "/robots.txt", "/api/*"]
 not_found_handling = "single-page-application"
 
-# Hourly cron disabled: account is at the Workers Free 5-cron cap, and the
-# failed schedule call makes `wrangler deploy` exit non-zero (breaking the
-# deploy+smoke chain). Re-add `[triggers] crons = ["0 * * * *"]` after
-# freeing a cron slot or upgrading. Until then trigger via
-# `wrangler workflows trigger news-ingest` or the MCP trigger_ingest tool.
+# Hourly ingest is scheduled on the Workflow binding (not Worker
+# `[triggers] crons` — that hits the Free 5-cron cap and breaks deploy).
+# Manual fallback: `wrangler workflows trigger news-ingest`.
+# https://developers.cloudflare.com/workflows/build/trigger-workflows/
 
 [[workflows]]
 name = "news-ingest"
 binding = "NEWS_INGEST"
 class_name = "NewsIngestWorkflow"
+schedules = ["0 * * * *"]
 
 [[d1_databases]]
 binding = "DB"

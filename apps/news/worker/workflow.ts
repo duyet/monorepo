@@ -1057,13 +1057,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
       );
 
       notified = await step.do("notify", async () => {
-        try {
-          return await dispatchStoryNotifications(this.env);
-        } catch (error) {
-          // Never let a channel-post failure break the ingest workflow.
-          console.error("notify step failed:", error);
-          return {};
-        }
+        return await dispatchStoryNotifications(this.env);
       });
       const notifiedTotal = Object.values(notified).reduce((a, b) => a + b, 0);
       recordStep(
