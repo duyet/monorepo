@@ -23,9 +23,11 @@ import {
 } from "./d1-bind.js";
 import {
   buildMergePlan,
+  clusterByTitleSimilarity,
   clusterSimilar,
   type ExistingCandidate,
   type MergeCandidate,
+  mergeClusters,
   type MergePlan,
   unionSources,
 } from "./dedupe.js";
@@ -339,11 +341,24 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
             comments: number;
           }>();
 
-        const clusters = await clusterSimilar(
+        const newForCluster = newRows.map((row, i) => ({
+          i,
+          title: row.item.title,
+        }));
+        const existingForCluster = (recentForClustering ?? []).map((r) => ({
+          id: r.id,
+          title: r.title,
+        }));
+        const llmClusters = await clusterSimilar(
           this.env,
-          newRows.map((row, i) => ({ i, title: row.item.title })),
-          (recentForClustering ?? []).map((r) => ({ id: r.id, title: r.title }))
+          newForCluster,
+          existingForCluster
         );
+        const titleClusters = clusterByTitleSimilarity(
+          newForCluster,
+          existingForCluster
+        );
+        const clusters = mergeClusters([llmClusters, titleClusters]);
         if (clusters.length === 0) return empty;
 
         const candidates: MergeCandidate[] = newRows.map((row, i) => {

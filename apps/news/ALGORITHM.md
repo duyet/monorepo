@@ -15,9 +15,12 @@ Prompts live in `worker/llm.ts`; the pipeline steps in `worker/workflow.ts`.
    `relevance` 0–1, `importance` 0–10, `quality` 0–10, one `category` from a
    fixed 11-value enum, free-form `tags`.
    **Hide rule:** `relevance < 0.4` → status `rejected` (never shown).
-5. **Merge (LLM)** — one clustering call compares new items with the last 72h
-   of published titles; same-story clusters collapse to a canonical item
-   (existing item wins, else highest rank). Losers get status `merged` +
+5. **Merge (LLM + title similarity)** — one clustering call compares new
+   items with the last 72h of published titles; a deterministic
+   title-similarity pass (normalized headlines / high token overlap) runs
+   alongside so same-story URLs the model misses or fails to cluster still
+   collapse. Same-story clusters collapse to a canonical item (existing
+   item wins, else highest rank). Losers get status `merged` +
    `duplicate_of`; their sources and max points/comments fold into the
    canonical (`worker/dedupe.ts`).
 6. **Translate (LLM)** — EN→VI in batches, journalist style (`VI_STYLE` system

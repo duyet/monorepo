@@ -227,12 +227,14 @@ export function StoryDetail({
                 {
                   key: "en",
                   title: item.title,
+                  titleFallback: false,
                   paragraphs: paragraphsEn,
                   isVi: false,
                 },
                 {
                   key: "vi",
-                  title: item.title_vi ?? item.title,
+                  title: item.title_vi?.trim() || item.title,
+                  titleFallback: !item.title_vi?.trim(),
                   paragraphs: paragraphsVi,
                   isVi: true,
                 },
@@ -246,8 +248,16 @@ export function StoryDetail({
                       i === 0 ? "space-y-2" : "space-y-2 pt-4 md:pt-0 md:pl-6"
                     }
                   >
-                    <h3 className="text-sm font-bold leading-snug text-foreground">
+                    <h3
+                      className="text-sm font-bold leading-snug text-foreground"
+                      lang={col.titleFallback ? "en" : undefined}
+                    >
                       {col.title}
+                      {col.titleFallback && (
+                        <span className="ml-1 align-middle text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+                          EN
+                        </span>
+                      )}
                     </h3>
                     {col.paragraphs.length > 0 && (
                       <div className="space-y-3 leading-relaxed">

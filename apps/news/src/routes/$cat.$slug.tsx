@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { StoryRow } from "../components/StoryRow";
 import { formatDayHeading } from "../lib/lang";
 import { useLang } from "../lib/lang-context";
+import { notFoundCopy } from "../lib/not-found";
+import { articleHead, notFoundHead } from "../lib/seo";
 import { idPrefixFromSlug } from "../lib/slug";
 import { fetchStory } from "../lib/story-fn";
 import type { FeedItem, Lang } from "../lib/types";
@@ -15,20 +17,9 @@ export const Route = createFileRoute("/$cat/$slug")({
   head: ({ loaderData }) => {
     const item = loaderData as FeedItem | null | undefined;
     if (!item) {
-      return { meta: [{ title: "AI News" }] };
+      return notFoundHead(notFoundCopy("vi").documentTitle);
     }
-    const title = `${item.title} | AI News`;
-    const meta: { title?: string; property?: string; content?: string }[] = [
-      { title },
-      { property: "og:title", content: item.title },
-    ];
-    if (item.summary) {
-      meta.push({ property: "og:description", content: item.summary });
-    }
-    if (item.image_url) {
-      meta.push({ property: "og:image", content: item.image_url });
-    }
-    return { meta };
+    return articleHead(item);
   },
   component: StoryPage,
 });

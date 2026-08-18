@@ -8,7 +8,9 @@ preview_urls = true
 
 [assets]
 directory = "dist/client"
-run_worker_first = ["/api/*"]
+# `/` must hit the Worker so the homepage SSR's stories (the static
+# index.html shell has no feed). Sitemap/robots are Worker-generated.
+run_worker_first = ["/", "/sitemap.xml", "/robots.txt", "/api/*"]
 not_found_handling = "single-page-application"
 
 # Hourly cron disabled: account is at the Workers Free 5-cron cap, and the

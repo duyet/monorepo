@@ -23,6 +23,7 @@ import {
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import { HeaderBar } from "../components/HeaderBar";
+import { NotFoundPage } from "../components/NotFoundPage";
 import { ClerkModuleContext, useClerkModuleLoader } from "../lib/clerk-user";
 import { fetchFeedOnce, getCachedFeed } from "../lib/feed-cache";
 import { getClientLang, setClientLang, timeAgo } from "../lib/lang";
@@ -35,6 +36,7 @@ import {
   readerCssVars,
   savePrefs,
 } from "../lib/prefs";
+import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "../lib/site";
 import type { Lang } from "../lib/types";
 
 /**
@@ -162,38 +164,25 @@ function NewsFooter() {
   );
 }
 
-function NotFoundComponent() {
-  return (
-    <div className="flex min-h-[60vh] items-center justify-center px-6">
-      <div className="text-center">
-        <h1 className="font-serif text-6xl tracking-tight">404</h1>
-        <p className="mt-3 text-sm text-muted-foreground">Page not found</p>
-        <a
-          href="/"
-          className="mt-6 inline-block text-sm underline underline-offset-4 decoration-accent hover:decoration-2"
-        >
-          Go home
-        </a>
-      </div>
-    </div>
-  );
-}
-
 export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
       { name: "robots", content: "follow, index" },
-      { title: "AI News | news.duyet.net" },
+      { title: SITE_TITLE },
       {
         name: "description",
-        content:
-          "AI news aggregated from many sources, rated and ranked by LLMs, translated to Vietnamese. Updated hourly.",
+        content: SITE_DESCRIPTION,
       },
     ],
     links: [
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      {
+        rel: "sitemap",
+        type: "application/xml",
+        href: `${SITE_URL}/sitemap.xml`,
+      },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       {
         rel: "preconnect",
@@ -212,7 +201,7 @@ export const Route = createRootRoute({
       },
     ],
   }),
-  notFoundComponent: NotFoundComponent,
+  notFoundComponent: NotFoundPage,
   component: RootComponent,
 });
 
