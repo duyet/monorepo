@@ -4,10 +4,12 @@ export function LangToggle({
   lang,
   onChange,
   disabled,
+  buttonClassName,
 }: {
   lang: Lang;
   onChange: (lang: Lang) => void;
   disabled?: boolean;
+  buttonClassName?: string;
 }) {
   return (
     <div
@@ -29,8 +31,8 @@ export function LangToggle({
           disabled={disabled}
           onClick={() => onChange(l)}
           className={`px-2.5 py-1 uppercase transition-colors ${
-            disabled ? "cursor-not-allowed" : ""
-          } ${
+            buttonClassName ?? ""
+          } ${disabled ? "cursor-not-allowed" : ""} ${
             lang === l
               ? "bg-foreground text-background"
               : "text-muted-foreground hover:bg-muted"

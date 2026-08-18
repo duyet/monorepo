@@ -208,7 +208,11 @@ function AboutTab({ t }: { t: (en: string, vi: string) => string }) {
   );
 }
 
-export function PrefsPanel() {
+export function PrefsPanel({
+  triggerClassName,
+}: {
+  triggerClassName?: string;
+} = {}) {
   const lang = useLang();
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -241,7 +245,10 @@ export function PrefsPanel() {
         aria-label={t("Reader preferences", "Tuỳ chỉnh hiển thị")}
         aria-haspopup="dialog"
         aria-expanded={open}
-        className="rounded-full px-2.5 py-1 text-sm font-semibold text-muted-foreground hover:bg-muted hover:text-foreground"
+        className={
+          triggerClassName ??
+          "rounded-full px-2.5 py-1 text-sm font-semibold text-muted-foreground hover:bg-muted hover:text-foreground"
+        }
       >
         Aa
       </button>
