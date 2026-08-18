@@ -29,16 +29,19 @@ export default defineConfig({
         enabled: true,
         crawlLinks: true,
         failOnError: false,
-        routes: [
-          "/",
-          "/projects",
-          "/about",
-          "/about-duyetbot",
-          "/ls",
-          "/cartrack",
-          "/fossil",
-        ],
       },
+      pages: [
+        "/",
+        "/projects",
+        "/about",
+        "/about-duyetbot",
+        "/ls",
+        "/cartrack",
+        "/fossil",
+      ].map((path) => ({
+        path,
+        prerender: { enabled: true },
+      })),
     }),
     // Required by TanStack Start dev mode for the React Refresh runtime.
     viteReact(),
