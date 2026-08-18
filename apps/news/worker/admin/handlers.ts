@@ -1,10 +1,27 @@
 import { scoreItems, setLlmCallLogger, translateItems } from "../llm.js";
 import { createD1LlmCallLogger } from "../llm-call-log.js";
+import { forceSendDigest } from "../notify/index.js";
 import { rankScore } from "../ranking.js";
 import { adapters } from "../sources/registry.js";
 import { ensureDailyTldr, tldrSnapshotDate } from "../tldr.js";
 import { normalizeTopics } from "../topics.js";
 import type { Env } from "../types.js";
+
+export async function writeAudit(
+  env: Env,
+  action: string,
+  detail?: string
+): Promise<void> {
+  try {
+    await env.DB.prepare(
+      "INSERT INTO admin_audit (ts, action, detail) VALUES (?, ?, ?)"
+    )
+      .bind(Date.now(), action, detail ?? null)
+      .run();
+  } catch {
+    // table not migrated yet
+  }
+}
 
 /**
  * Same implementation as the private helper in worker/workflow.ts
@@ -238,6 +255,7 @@ export async function deleteSource(
 
 export async function triggerIngest(env: Env) {
   const instance = await env.NEWS_INGEST.create();
+  await writeAudit(env, "ingest.trigger", instance.id);
   return { id: instance.id };
 }
 
@@ -248,7 +266,57 @@ export async function getStatus(env: Env) {
   const { results: itemsByStatus } = await env.DB.prepare(
     "SELECT status, COUNT(*) as c FROM items GROUP BY status"
   ).all();
-  return { runs: runs ?? [], itemsByStatus: itemsByStatus ?? [] };
+  const latestTldr = await env.DB.prepare(
+    "SELECT date, created_at FROM tldr_snapshots ORDER BY date DESC LIMIT 1"
+  ).first<{ date: string; created_at: number }>();
+  let notifications: unknown[] = [];
+  try {
+    const { results } = await env.DB.prepare(
+      `SELECT channel, item_id, status, attempts, last_error, posted_at
+       FROM notifications ORDER BY posted_at DESC LIMIT 20`
+    ).all();
+    notifications = results ?? [];
+  } catch {
+    notifications = [];
+  }
+  return {
+    runs: runs ?? [],
+    itemsByStatus: itemsByStatus ?? [],
+    telegram: {
+      configured: Boolean(env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID),
+    },
+    latestTldr: latestTldr ?? null,
+    notifications,
+  };
+}
+
+export async function listNotifications(env: Env) {
+  try {
+    const { results } = await env.DB.prepare(
+      `SELECT channel, item_id, target, status, attempts, message_id, last_error, posted_at
+       FROM notifications ORDER BY posted_at DESC LIMIT 50`
+    ).all();
+    return { notifications: results ?? [] };
+  } catch {
+    return { notifications: [] };
+  }
+}
+
+export async function listAudit(env: Env) {
+  try {
+    const { results } = await env.DB.prepare(
+      "SELECT ts, action, detail FROM admin_audit ORDER BY ts DESC LIMIT 50"
+    ).all();
+    return { audit: results ?? [] };
+  } catch {
+    return { audit: [] };
+  }
+}
+
+export async function retryTelegramDigest(env: Env) {
+  const result = await forceSendDigest(env);
+  await writeAudit(env, "notify.digest", result.reason);
+  return result;
 }
 
 const DEFAULT_LLM_CALLS_LIMIT = 100;
@@ -577,5 +645,11 @@ export async function regenerateTldr(env: Env): Promise<TldrRegenerateResult> {
   await env.DB.prepare("DELETE FROM tldr_snapshots WHERE date = ?")
     .bind(date)
     .run();
-  return ensureDailyTldr(env);
+  const result = await ensureDailyTldr(env);
+  await writeAudit(
+    env,
+    "tldr.regenerate",
+    result.generated ? `ok ${date}` : result.reason
+  );
+  return result;
 }

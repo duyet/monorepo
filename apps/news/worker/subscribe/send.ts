@@ -51,7 +51,14 @@ export function topBullets(
   try {
     const parsed = JSON.parse(bulletsJson);
     if (!Array.isArray(parsed)) return [];
-    return parsed.slice(0, max);
+    return parsed.slice(0, max).map((b: Record<string, unknown>) => {
+      const itemIds = Array.isArray(b.item_ids) ? (b.item_ids as string[]) : [];
+      const item_id =
+        typeof b.item_id === "string" && b.item_id
+          ? b.item_id
+          : itemIds[0];
+      return { text: String(b.text ?? ""), item_id };
+    });
   } catch {
     return [];
   }

@@ -90,7 +90,7 @@ const FOOTER_LINKS: {
   { to: "/mcp", label: "MCP", icon: Plug },
   {
     to: "/system",
-    label: "Analytics",
+    label: "System",
     icon: BarChart3,
   },
   {

@@ -44,6 +44,14 @@ describe("topBullets", () => {
     expect(topBullets("not json")).toEqual([]);
     expect(topBullets(JSON.stringify({ a: 1 }))).toEqual([]);
   });
+
+  it("promotes item_ids[0] onto item_id for telegram permalinks", () => {
+    expect(
+      topBullets(
+        JSON.stringify([{ text: "hi", item_ids: ["abc", "def"] }])
+      )
+    ).toEqual([{ text: "hi", item_id: "abc" }]);
+  });
 });
 
 describe("snapshotHasBullets", () => {
