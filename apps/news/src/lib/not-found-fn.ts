@@ -1,9 +1,10 @@
-import { createIsomorphicFn } from "@tanstack/react-start";
+import { createServerFn } from "@tanstack/react-start";
 import {
   getRequestHeader,
+  setResponseHeader,
   setResponseStatus,
 } from "@tanstack/react-start/server";
-import { getClientLang, readLangFromCookie } from "./lang";
+import { readLangFromCookie } from "./lang";
 import type { Lang } from "./types";
 
 /** Pure helper so 404 status + news_lang can be unit-tested without Start. */
@@ -16,16 +17,16 @@ export function notFoundLangOnServer(
 }
 
 /**
- * SSR: HTTP 404 + news_lang cookie (VI default).
- * Client nav: cookie only. Server imports are referenced only inside
- * createIsomorphicFn.server() so Vite import-protection can prune them.
+ * Runs on the server (RPC from client nav). setResponseStatus only sticks
+ * from createServerFn, not from an isomorphic loader body.
  * Do not throw notFound(): that skips this route's head().
  */
-export const loadNotFoundLang = createIsomorphicFn()
-  .client((): Lang => getClientLang())
-  .server((): Lang =>
-    notFoundLangOnServer(
+export const loadNotFoundLang = createServerFn({ method: "GET" }).handler(
+  (): Lang => {
+    setResponseHeader("Cache-Control", "private, no-store");
+    return notFoundLangOnServer(
       getRequestHeader("cookie") ?? null,
       setResponseStatus
-    )
-  );
+    );
+  }
+);

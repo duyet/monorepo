@@ -7,9 +7,9 @@ import type { Lang } from "../lib/types";
 
 // Catch-all owns head() so the FIRST <title> is the localized 404 title.
 // Do not throw notFound() here: TanStack skips head() when beforeLoad throws.
-// HTTP 404 + news_lang live in loadNotFoundLang (createIsomorphicFn).
+// HTTP 404 + news_lang live in loadNotFoundLang (createServerFn).
 export const Route = createFileRoute("/$")({
-  loader: () => ({ lang: loadNotFoundLang() }),
+  loader: async () => ({ lang: await loadNotFoundLang() }),
   head: ({ loaderData }) =>
     notFoundHead(
       notFoundCopy((loaderData?.lang ?? "vi") as Lang).documentTitle
