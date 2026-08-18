@@ -44,16 +44,19 @@ cron `5 * * * *` → `POST /api/admin/ingest`), not Worker `[triggers] crons`
    or score/tags get re-fetched/scored/translated per run until the backlog
    drains.
 10. **TL;DR (LLM)** — hourly: generate today's **local** snapshot
-    (`Asia/Ho_Chi_Minh`, same key the Telegram digest looks up) if missing,
-    or refresh it when the last write is older than 3 hours. Top 16 items
-    of the last 24h by rank → up to 16 EN bullets + 16 independently-restated
+    (`Asia/Ho_Chi_Minh` date key — same identity the Telegram digest looks
+    up for once-per-local-day send) if missing or thin, or refresh a useful
+    snapshot when the last write is older than 3 hours. Content is always
+    the top 16 items of the **rolling last 24h** by rank (not ICT
+    calendar-day-so-far) → up to 16 EN bullets + 16 independently-restated
     VI bullets, each linked to its `item_id`. If the LLM returns no bullets
     or a thin digest (fewer than min(8, item count), at least 2 when there
     are 2+ stories), a title-fallback snapshot is persisted (EN from item
     titles; VI from `title_vi` or the English title if no translation —
     never invented prose). Empty results are never persisted. The homepage
-    may also synthesize a last-24h title-fallback at read time when the
-    stored snapshot is thin. UI shows 8 by default (user preference 8/12/16).
+    also synthesizes a last-24h title-fallback at read time when the stored
+    snapshot is thin, and persists it so the leftover cannot return. UI
+    shows 8 by default (user preference 8/12/16).
 11. **Email digest** — top-5 TL;DR to confirmed subscribers, once per day.
 12. **Notify (`worker/notify/`)** — pluggable channel adapters (Telegram
     now; Discord/... later), deliberately non-spammy:

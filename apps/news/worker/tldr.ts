@@ -66,6 +66,42 @@ export function isThinTldr(
   return count < usefulTldrFloor(itemCount);
 }
 
+function parseStoredBullets(raw: unknown): unknown[] {
+  if (Array.isArray(raw)) return raw;
+  if (typeof raw !== "string" || !raw) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Refresh immediately when the snapshot is missing or thin. A useful
+ * snapshot still waits `TLDR_REFRESH_MS` so we do not call the LLM every hour.
+ */
+export function shouldRefreshExistingSnapshot(opts: {
+  existing:
+    | {
+        created_at: number;
+        bullets_en: unknown[];
+        bullets_vi: unknown[];
+      }
+    | null
+    | undefined;
+  itemCount: number;
+  nowMs: number;
+  refreshMs?: number;
+}): boolean {
+  if (!opts.existing) return true;
+  if (isThinTldr(opts.existing, opts.itemCount)) return true;
+  return (
+    opts.nowMs - (opts.existing.created_at ?? 0) >=
+    (opts.refreshMs ?? TLDR_REFRESH_MS)
+  );
+}
+
 /**
  * Deterministic snapshot from already-stored item titles. EN uses the
  * item title; VI uses `title_vi` when present, otherwise the same title
@@ -94,29 +130,48 @@ export interface TldrRunStats {
   reason: string;
 }
 
-/** Idempotent daily gate: generates today's snapshot if missing, or
- * refreshes it when the last write is older than `TLDR_REFRESH_MS`. */
+/** Idempotent daily gate: generates today's snapshot if missing or thin,
+ * or refreshes a useful one when the last write is older than `TLDR_REFRESH_MS`. */
 export async function ensureDailyTldr(env: Env): Promise<TldrRunStats> {
-  const date = tldrSnapshotDate();
+  const nowMs = Date.now();
+  const date = tldrSnapshotDate(nowMs);
 
   const existing = await env.DB.prepare(
-    "SELECT date, created_at FROM tldr_snapshots WHERE date = ?"
+    "SELECT date, created_at, bullets_en, bullets_vi FROM tldr_snapshots WHERE date = ?"
   )
     .bind(date)
-    .first<{ date: string; created_at: number }>();
-  if (existing) {
-    const age = Date.now() - (existing.created_at ?? 0);
-    if (age < TLDR_REFRESH_MS) {
-      return {
-        generated: false,
-        tokens: 0,
-        reason: `snapshot for ${date} is ${Math.round(age / 60000)}m old`,
-      };
-    }
-  }
+    .first<{
+      date: string;
+      created_at: number;
+      bullets_en: string | null;
+      bullets_vi: string | null;
+    }>();
 
-  const { sql, since } = buildTopItemsQuery(Date.now());
+  const { sql, since } = buildTopItemsQuery(nowMs);
   const { results } = await env.DB.prepare(sql).bind(since).all<ItemRow>();
+
+  const existingParsed = existing
+    ? {
+        created_at: existing.created_at ?? 0,
+        bullets_en: parseStoredBullets(existing.bullets_en),
+        bullets_vi: parseStoredBullets(existing.bullets_vi),
+      }
+    : null;
+
+  if (
+    !shouldRefreshExistingSnapshot({
+      existing: existingParsed,
+      itemCount: results?.length ?? 0,
+      nowMs,
+    })
+  ) {
+    const age = nowMs - (existingParsed?.created_at ?? 0);
+    return {
+      generated: false,
+      tokens: 0,
+      reason: `snapshot for ${date} is ${Math.round(age / 60000)}m old`,
+    };
+  }
 
   if (!results || results.length === 0)
     return {

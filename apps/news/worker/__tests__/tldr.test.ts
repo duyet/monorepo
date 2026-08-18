@@ -5,6 +5,7 @@ import {
   fallbackTldrFromItems,
   isThinTldr,
   shouldPersistTldr,
+  shouldRefreshExistingSnapshot,
   TLDR_REFRESH_MS,
   tldrSnapshotDate,
   usefulTldrFloor,
@@ -28,6 +29,17 @@ describe("buildTopItemsQuery", () => {
     expect(since).toBe(nowSec - 24 * 60 * 60);
     // sanity: since is in seconds, not milliseconds
     expect(since).toBeLessThan(1e12);
+  });
+
+  it("uses a rolling 24h window, not ICT calendar-day-so-far", () => {
+    // 00:30 ICT on 2026-08-19 = 2026-08-18T17:30:00Z
+    const afterIctMidnight = Date.UTC(2026, 7, 18, 17, 30, 0);
+    const { since } = buildTopItemsQuery(afterIctMidnight);
+    const ictMidnightSec = Math.floor(Date.UTC(2026, 7, 18, 17, 0, 0) / 1000);
+    expect(since).toBe(Math.floor(afterIctMidnight / 1000) - 24 * 60 * 60);
+    // calendar-day-so-far would bind ICT midnight (~30 minutes back)
+    expect(since).toBeLessThan(ictMidnightSec);
+    expect(tldrSnapshotDate(afterIctMidnight)).toBe("2026-08-19");
   });
 });
 
@@ -173,5 +185,47 @@ describe("isThinTldr", () => {
     expect(isThinTldr({ bullets_en: bullets, bullets_vi: bullets }, 16)).toBe(
       false
     );
+  });
+});
+
+describe("shouldRefreshExistingSnapshot", () => {
+  const useful = {
+    created_at: 1_000,
+    bullets_en: Array.from({ length: 8 }, (_, i) => ({ text: `b${i}` })),
+    bullets_vi: Array.from({ length: 8 }, (_, i) => ({ text: `v${i}` })),
+  };
+
+  it("refreshes a 1-item leftover even when it is only minutes old", () => {
+    expect(
+      shouldRefreshExistingSnapshot({
+        existing: {
+          created_at: 1_000,
+          bullets_en: [{ text: "LLAMA leftover" }],
+          bullets_vi: [{ text: "Llama.cpp ra mắt phiên bản v0.1.0" }],
+        },
+        itemCount: 16,
+        nowMs: 1_000 + 2 * 60 * 1000,
+      })
+    ).toBe(true);
+  });
+
+  it("keeps a useful snapshot inside the 3h window", () => {
+    expect(
+      shouldRefreshExistingSnapshot({
+        existing: useful,
+        itemCount: 16,
+        nowMs: useful.created_at + 30 * 60 * 1000,
+      })
+    ).toBe(false);
+  });
+
+  it("refreshes a useful snapshot after 3h", () => {
+    expect(
+      shouldRefreshExistingSnapshot({
+        existing: useful,
+        itemCount: 16,
+        nowMs: useful.created_at + TLDR_REFRESH_MS,
+      })
+    ).toBe(true);
   });
 });
