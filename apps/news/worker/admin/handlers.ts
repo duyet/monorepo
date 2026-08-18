@@ -1,8 +1,8 @@
-import { createD1LlmCallLogger } from "../llm-call-log.js";
 import { scoreItems, setLlmCallLogger, translateItems } from "../llm.js";
+import { createD1LlmCallLogger } from "../llm-call-log.js";
 import { rankScore } from "../ranking.js";
 import { adapters } from "../sources/registry.js";
-import { ensureDailyTldr } from "../tldr.js";
+import { ensureDailyTldr, tldrSnapshotDate } from "../tldr.js";
 import { normalizeTopics } from "../topics.js";
 import type { Env } from "../types.js";
 
@@ -573,7 +573,7 @@ export interface TldrRegenerateResult {
  */
 export async function regenerateTldr(env: Env): Promise<TldrRegenerateResult> {
   setLlmCallLogger(createD1LlmCallLogger(env));
-  const date = new Date().toISOString().slice(0, 10);
+  const date = tldrSnapshotDate();
   await env.DB.prepare("DELETE FROM tldr_snapshots WHERE date = ?")
     .bind(date)
     .run();

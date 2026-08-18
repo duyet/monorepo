@@ -27,19 +27,23 @@ import {
   clusterSimilar,
   type ExistingCandidate,
   type MergeCandidate,
-  mergeClusters,
   type MergePlan,
+  mergeClusters,
   unionSources,
 } from "./dedupe.js";
 import { enrichMissingContent, fetchOgData } from "./enrich.js";
 import { sha256Hex } from "./hash.js";
-import { createD1LlmCallLogger, pruneLlmCalls } from "./llm-call-log.js";
 import { scoreItems, setLlmCallLogger, translateItems } from "./llm.js";
+import { createD1LlmCallLogger, pruneLlmCalls } from "./llm-call-log.js";
+import {
+  dispatchStoryNotifications,
+  type NotifyChannelReason,
+} from "./notify/index.js";
 import { rankScore } from "./ranking.js";
 import {
   buildRunStats,
-  recordStep,
   type RunStepInfo,
+  recordStep,
   serializeRunStats,
 } from "./run-stats.js";
 import { fetchStoryDetailByUrl } from "./sources/huggingnews.js";
@@ -48,7 +52,6 @@ import type { FetchedItem, FetchedItemSource } from "./sources/types.js";
 import { reviewPendingSubmissions } from "./submissions.js";
 import { sendDailyTldr } from "./subscribe/send.js";
 import { reviewPendingSuggestions } from "./suggestions.js";
-import { dispatchStoryNotifications } from "./notify/index.js";
 import { toEpochSeconds } from "./time.js";
 import { ensureDailyTldr } from "./tldr.js";
 import { MAX_MERGED_TOPICS, normalizeTopics, unionTopics } from "./topics.js";
@@ -117,6 +120,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
     let tldrTokens = 0;
     let emailsSent = 0;
     let notified: Record<string, number> = {};
+    let notifyReason: Record<string, NotifyChannelReason> = {};
     const steps: RunStepInfo[] = [];
 
     // Installs the D1-backed llm_calls logger so every scoreItems/
@@ -1056,9 +1060,11 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         emailsSent === 0 ? "no eligible subscribers this run" : undefined
       );
 
-      notified = await step.do("notify", async () => {
+      const notifyResult = await step.do("notify", async () => {
         return await dispatchStoryNotifications(this.env);
       });
+      notified = notifyResult.sent;
+      notifyReason = notifyResult.reasons;
       const notifiedTotal = Object.values(notified).reduce((a, b) => a + b, 0);
       recordStep(
         steps,
@@ -1068,9 +1074,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
           : Object.entries(notified)
               .map(([channel, n]) => `${channel}: ${n}`)
               .join(", "),
-        notifiedTotal === 0
-          ? "no unposted stories above rank threshold (or no channel configured)"
-          : undefined
+        JSON.stringify(notifyReason)
       );
     } catch (error) {
       runError = error instanceof Error ? error.message : String(error);
@@ -1099,6 +1103,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         tldrGenerated,
         emailsSent,
         notified,
+        notifyReason,
       });
 
       await step.do("record-run", async () => {

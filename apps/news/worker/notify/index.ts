@@ -1,5 +1,10 @@
 import { nn } from "../d1-bind.js";
-import { getLocalHourAndDate, topBullets } from "../subscribe/send.js";
+import {
+  getLocalHourAndDate,
+  primaryItemId,
+  topBullets,
+} from "../subscribe/send.js";
+import { AUDIENCE_TIMEZONE } from "../time.js";
 import type { Env } from "../types.js";
 import { telegramNotifier } from "./telegram.js";
 import type {
@@ -35,7 +40,7 @@ export function assertNotifyConfig(env: Env): void {
 }
 
 /** Audience timezone: the channel is Vietnamese-first. */
-export const DIGEST_TIMEZONE = "Asia/Ho_Chi_Minh";
+export const DIGEST_TIMEZONE = AUDIENCE_TIMEZONE;
 /** Digests only go out from this local hour onward — no 3am posts. */
 export const DIGEST_LOCAL_HOUR = 8;
 /** TL;DR bullets per digest. */
@@ -60,9 +65,66 @@ export function digestKey(localDate: string): string {
   return `digest:${localDate}`;
 }
 
+export type DigestSkipReason =
+  | "sent"
+  | "no_snapshot"
+  | "already_sent"
+  | "before_hour"
+  | "send_failed";
+
+export type TrendingSkipReason =
+  | "sent"
+  | "below_min_rank"
+  | "budget_zero"
+  | "none_unposted"
+  | "send_failed";
+
+export interface NotifyChannelReason {
+  digest: DigestSkipReason;
+  trending: TrendingSkipReason;
+  maxRank: number | null;
+  budget: number;
+  localHour: number;
+  localDate: string;
+  digestError?: string;
+}
+
+export interface NotifyRunResult {
+  sent: Record<string, number>;
+  reasons: Record<string, NotifyChannelReason>;
+}
+
 interface NotificationRow {
   status: string;
   attempts: number;
+}
+
+/** Why today's digest will not go out, or null if it should send. */
+export function classifyDigestSkip(
+  existing: NotificationRow | null,
+  localHour: number
+): Extract<DigestSkipReason, "before_hour" | "already_sent"> | null {
+  if (localHour < DIGEST_LOCAL_HOUR) return "before_hour";
+  if (!existing) return null;
+  if (existing.status === "failed" && existing.attempts < NOTIFY_MAX_ATTEMPTS) {
+    return null;
+  }
+  return "already_sent";
+}
+
+/** Why trending will not post, or null if a candidate may be sent. */
+export function classifyTrendingSkip(
+  maxRank: number | null,
+  budget: number,
+  candidateCount: number
+): Extract<
+  TrendingSkipReason,
+  "below_min_rank" | "budget_zero" | "none_unposted"
+> | null {
+  if (budget === 0) return "budget_zero";
+  if ((maxRank ?? 0) < TRENDING_MIN_RANK) return "below_min_rank";
+  if (candidateCount === 0) return "none_unposted";
+  return null;
 }
 
 /** True when today's digest should go out for this channel: at/after the
@@ -108,6 +170,18 @@ export function buildTrendingQuery(
       TRENDING_MIN_RANK,
       TRENDING_MIN_IMPORTANCE,
     ],
+  };
+}
+
+/** Window max rank, no threshold — so a skip can report live maxRank. */
+export function buildMaxRankQuery(nowMs: number): {
+  sql: string;
+  binds: [number];
+} {
+  return {
+    sql: `SELECT MAX(rank_score) AS max_rank FROM items
+          WHERE status = 'published' AND published_at >= ?`,
+    binds: [Math.floor(nowMs / 1000) - WINDOW_SEC],
   };
 }
 
@@ -162,7 +236,11 @@ async function loadDigest(env: Env, date: string): Promise<DailyDigest | null> {
     "SELECT date, bullets_en, bullets_vi FROM tldr_snapshots WHERE date = ?"
   )
     .bind(date)
-    .first<{ date: string; bullets_en: string | null; bullets_vi: string | null }>();
+    .first<{
+      date: string;
+      bullets_en: string | null;
+      bullets_vi: string | null;
+    }>();
   if (!snapshot) return null;
 
   const raw = topBullets(snapshot.bullets_vi, DIGEST_MAX_BULLETS);
@@ -173,11 +251,12 @@ async function loadDigest(env: Env, date: string): Promise<DailyDigest | null> {
   const resolved: DigestBullet[] = [];
   for (const bullet of bullets) {
     let url: string | null = null;
-    if (bullet.item_id) {
+    const itemId = primaryItemId(bullet);
+    if (itemId) {
       const item = await env.DB.prepare(
         "SELECT id, category FROM items WHERE id = ?"
       )
-        .bind(bullet.item_id)
+        .bind(itemId)
         .first<{ id: string; category: string | null }>();
       if (item) {
         const cat = (item.category ?? "ai").toLowerCase();
@@ -218,17 +297,24 @@ async function recordDelivery(
     .run();
 }
 
-/** Best-effort dispatch; per-channel count of messages sent this run. */
+/** Best-effort dispatch; per-channel sent counts plus structured skip reasons. */
 export async function dispatchStoryNotifications(
   env: Env
-): Promise<Record<string, number>> {
+): Promise<NotifyRunResult> {
   assertNotifyConfig(env);
 
   const sent: Record<string, number> = {};
+  const reasons: Record<string, NotifyChannelReason> = {};
   const now = Date.now();
   const { hour, date } = getLocalHourAndDate(now, DIGEST_TIMEZONE);
   const key = digestKey(date);
   const dayStartMs = localDayStartMs(now, DIGEST_TIMEZONE);
+
+  const { sql: maxRankSql, binds: maxRankBinds } = buildMaxRankQuery(now);
+  const maxRankRow = await env.DB.prepare(maxRankSql)
+    .bind(...maxRankBinds)
+    .first<{ max_rank: number | null }>();
+  const maxRank = maxRankRow?.max_rank ?? null;
 
   let digest: DailyDigest | null | undefined;
 
@@ -237,6 +323,11 @@ export async function dispatchStoryNotifications(
     const target = notifier.target(env);
     sent[notifier.id] = 0;
 
+    let digestReason: DigestSkipReason = "no_snapshot";
+    let digestError: string | undefined;
+    let trendingReason: TrendingSkipReason = "none_unposted";
+    let budget = 0;
+
     // --- 1. Daily TL;DR digest (once per local day) ---
     const existing = await env.DB.prepare(
       "SELECT status, attempts FROM notifications WHERE channel = ? AND item_id = ?"
@@ -244,9 +335,14 @@ export async function dispatchStoryNotifications(
       .bind(notifier.id, key)
       .first<NotificationRow>();
 
-    if (shouldSendDigest(existing ?? null, hour)) {
+    const digestSkip = classifyDigestSkip(existing ?? null, hour);
+    if (digestSkip) {
+      digestReason = digestSkip;
+    } else {
       if (digest === undefined) digest = await loadDigest(env, date);
-      if (digest) {
+      if (!digest) {
+        digestReason = "no_snapshot";
+      } else {
         let result: { ok: boolean; messageId?: string; error?: string };
         try {
           result = await notifier.sendDigest(env, digest);
@@ -256,10 +352,15 @@ export async function dispatchStoryNotifications(
             error: error instanceof Error ? error.message : String(error),
           };
         }
-        if (!result.ok)
+        if (!result.ok) {
+          digestReason = "send_failed";
+          digestError = result.error;
           console.error(
             `notify(${notifier.id}) digest failed: ${result.error}`
           );
+        } else {
+          digestReason = "sent";
+        }
         await recordDelivery(env, notifier.id, target, key, result);
         if (result.ok) sent[notifier.id]++;
       }
@@ -278,36 +379,65 @@ export async function dispatchStoryNotifications(
     // A digest sent seconds ago shouldn't block a genuine trending post
     // forever, but the gap keeps this run from double-posting: budget is
     // computed before this run's digest is counted.
-    const budget = trendingBudget(
+    budget = trendingBudget(
       stats?.sent_today ?? 0,
       sent[notifier.id] > 0 ? null : (stats?.last_posted_at ?? null),
       now
     );
-    if (budget === 0) continue;
 
-    const { sql, binds } = buildTrendingQuery(notifier.id, now);
-    const { results } = await env.DB.prepare(sql)
-      .bind(...binds)
-      .all<StoryPayload>();
-
-    for (const story of (results ?? []).slice(0, budget)) {
-      let result: { ok: boolean; messageId?: string; error?: string };
-      try {
-        result = await notifier.sendStory(env, story);
-      } catch (error) {
-        result = {
-          ok: false,
-          error: error instanceof Error ? error.message : String(error),
-        };
+    const trendingSkip = classifyTrendingSkip(maxRank, budget, 1);
+    if (trendingSkip === "budget_zero" || trendingSkip === "below_min_rank") {
+      trendingReason = trendingSkip;
+    } else {
+      const { sql, binds } = buildTrendingQuery(notifier.id, now);
+      const { results } = await env.DB.prepare(sql)
+        .bind(...binds)
+        .all<StoryPayload>();
+      const candidates = results ?? [];
+      const afterQuery = classifyTrendingSkip(
+        maxRank,
+        budget,
+        candidates.length
+      );
+      if (afterQuery) {
+        trendingReason = afterQuery;
+      } else {
+        for (const story of candidates.slice(0, budget)) {
+          let result: { ok: boolean; messageId?: string; error?: string };
+          try {
+            result = await notifier.sendStory(env, story);
+          } catch (error) {
+            result = {
+              ok: false,
+              error: error instanceof Error ? error.message : String(error),
+            };
+          }
+          if (!result.ok) {
+            trendingReason = "send_failed";
+            console.error(
+              `notify(${notifier.id}) trending failed for ${story.id}: ${result.error}`
+            );
+          } else {
+            trendingReason = "sent";
+          }
+          await recordDelivery(env, notifier.id, target, story.id, result);
+          if (result.ok) sent[notifier.id]++;
+        }
       }
-      if (!result.ok)
-        console.error(
-          `notify(${notifier.id}) trending failed for ${story.id}: ${result.error}`
-        );
-      await recordDelivery(env, notifier.id, target, story.id, result);
-      if (result.ok) sent[notifier.id]++;
     }
+
+    reasons[notifier.id] = {
+      digest: digestReason,
+      trending: trendingReason,
+      maxRank,
+      budget,
+      localHour: hour,
+      localDate: date,
+      digestError,
+    };
   }
 
-  return sent;
+  const report: NotifyRunResult = { sent, reasons };
+  console.info("notify", report);
+  return report;
 }

@@ -36,6 +36,8 @@ export interface RunStats {
   emailsSent: number;
   /** Stories delivered per notification channel (telegram, discord, ...). */
   notified: Record<string, number>;
+  /** Structured digest/trending skip reasons per channel. */
+  notifyReason: Record<string, unknown>;
 }
 
 /** Every field defaults to zero/false/empty so a missing or failed step
@@ -58,6 +60,7 @@ export function buildRunStats(partial: Partial<RunStats> = {}): RunStats {
     tldrGenerated: partial.tldrGenerated ?? false,
     emailsSent: partial.emailsSent ?? 0,
     notified: partial.notified ?? {},
+    notifyReason: partial.notifyReason ?? {},
   };
 }
 

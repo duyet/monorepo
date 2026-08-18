@@ -108,9 +108,7 @@ export interface LlmCallLogEntry {
   responseSnippet: string | null;
 }
 
-export type LlmCallLogger = (
-  entry: LlmCallLogEntry
-) => void | Promise<void>;
+export type LlmCallLogger = (entry: LlmCallLogEntry) => void | Promise<void>;
 
 let llmCallLogger: LlmCallLogger | null = null;
 
@@ -314,7 +312,12 @@ async function streamCompletion(
 async function callAnyrouter(
   env: Env,
   messages: ChatMessage[],
-  opts: { json?: boolean; modelSpec?: string; task?: LlmTask } = {}
+  opts: {
+    json?: boolean;
+    modelSpec?: string;
+    task?: LlmTask;
+    timeoutMs?: number;
+  } = {}
 ): Promise<AnyrouterCallResult> {
   const task = opts.task ?? "other";
   const models = parseModels(opts.modelSpec || env.ANYROUTER_MODEL);
@@ -324,8 +327,9 @@ async function callAnyrouter(
   // workflow step that a single call was sized to fit inside. Each model also
   // gets an equal slice of it: without that, a first model that stalls until
   // the deadline would starve the very fallbacks it should be handing off to.
-  const deadline = Date.now() + REQUEST_TIMEOUT_MS;
-  const slice = REQUEST_TIMEOUT_MS / models.length;
+  const budget = opts.timeoutMs ?? REQUEST_TIMEOUT_MS;
+  const deadline = Date.now() + budget;
+  const slice = budget / models.length;
   let lastError: unknown;
   const promptChars = messages.reduce((sum, m) => sum + m.content.length, 0);
 
@@ -630,7 +634,11 @@ Respond with strict JSON only: {"results":[{"i":0,"title":"...","summary":"..."}
           { role: "system", content: VI_STYLE },
           { role: "user", content: prompt },
         ],
-        { json: true, modelSpec: env.ANYROUTER_TRANSLATE_MODEL, task: "translate" }
+        {
+          json: true,
+          modelSpec: env.ANYROUTER_TRANSLATE_MODEL,
+          task: "translate",
+        }
       );
       const parsed = parseJson<{ results?: unknown } | unknown[]>(raw);
       const rows = Array.isArray(parsed) ? parsed : parsed.results;
@@ -666,9 +674,16 @@ export interface TldrResult {
   /** Total tokens burned across all attempts. Not attributed to any item;
    * logged for visibility, not currently persisted anywhere. */
   tokens: number;
+  /** Last failure, when both attempts produced no usable bullets. */
+  error?: string;
 }
 
 const EMPTY_TLDR: TldrResult = { bullets_en: [], bullets_vi: [], tokens: 0 };
+
+/** Bilingual 16+16 JSON is a large generation; give the chain more than
+ * the default 120s so a reasoning model that spends its first slice on
+ * hidden tokens still has time to emit content (or hand off). */
+const TLDR_TIMEOUT_MS = 180_000;
 
 /** Accepts the preferred `item_ids: string[]` shape as well as the legacy
  * single `item_id` (or `id`) string, normalizing everything to an array. */
@@ -717,8 +732,8 @@ function normalizeTldrResult(parsed: unknown): Omit<TldrResult, "tokens"> {
       : null;
 
   return {
-    bullets_en: normalizeBullets(p.bullets_en ?? nested?.en),
-    bullets_vi: normalizeBullets(p.bullets_vi ?? nested?.vi),
+    bullets_en: normalizeBullets(p.bullets_en ?? nested?.en ?? p.en),
+    bullets_vi: normalizeBullets(p.bullets_vi ?? nested?.vi ?? p.vi),
   };
 }
 
@@ -742,30 +757,54 @@ export function sanitizeBulletIds(
   }));
 }
 
+function tldrPrompt(items: TldrItem[], bilingual: boolean): string {
+  const n = Math.min(16, Math.max(1, items.length));
+  const langs = bilingual
+    ? "in both English and Vietnamese"
+    : "in English only";
+  const shape = bilingual
+    ? '{"bullets_en":[{"text":"...","item_ids":["..."]}],"bullets_vi":[{"text":"...","item_ids":["..."]}]}'
+    : '{"bullets_en":[{"text":"...","item_ids":["..."]}],"bullets_vi":[]}';
+  const viNote = bilingual
+    ? `
+The Vietnamese bullets are NOT a translation pass over the English ones — write them the way a Vietnamese tech journalist would independently state the same facts, following the house style above.
+`
+    : "";
+  return `Summarize the following ${items.length} AI/tech news items into at most ${n} concise TL;DR bullets (one per distinct story), ${langs}. Each bullet must reference the item_ids (an array) it was derived from: most bullets summarize a single story, so item_ids has one id; when several items report the same story or theme, write ONE synthesizing bullet citing ALL of their ids instead of separate bullets.
+${viNote}
+Items:
+${JSON.stringify(items)}
+
+Respond with strict JSON only: ${shape}`;
+}
+
 export async function generateTldr(
   env: Env,
   items: TldrItem[]
 ): Promise<TldrResult> {
-  const prompt = `Summarize the following AI/tech news items into exactly 16 concise TL;DR bullets, in both English and Vietnamese. Each bullet must reference the item_ids (an array) it was derived from: most bullets summarize a single story, so item_ids has one id; when several items report the same story or theme, write ONE synthesizing bullet citing ALL of their ids instead of separate bullets.
-
-The Vietnamese bullets are NOT a translation pass over the English ones — write them the way a Vietnamese tech journalist would independently state the same facts, following the house style above.
-
-Items:
-${JSON.stringify(items)}
-
-Respond with strict JSON only: {"bullets_en":[{"text":"...","item_ids":["..."]}],"bullets_vi":[{"text":"...","item_ids":["..."]}]}`;
-
   const ATTEMPTS = 2;
   let totalTokens = 0;
+  let lastError: string | undefined;
   for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
+    // First attempt: bilingual journalist restatement. Second attempt
+    // drops VI so a timeout/starved-content failure still yields EN
+    // bullets the digest can send (it already falls back to EN).
+    const bilingual = attempt === 1;
     try {
       const { content: raw, tokens } = await callAnyrouter(
         env,
-        [
-          { role: "system", content: VI_STYLE },
-          { role: "user", content: prompt },
-        ],
-        { json: true, modelSpec: env.ANYROUTER_TLDR_MODEL, task: "tldr" }
+        bilingual
+          ? [
+              { role: "system", content: VI_STYLE },
+              { role: "user", content: tldrPrompt(items, true) },
+            ]
+          : [{ role: "user", content: tldrPrompt(items, false) }],
+        {
+          json: true,
+          modelSpec: env.ANYROUTER_TLDR_MODEL,
+          task: "tldr",
+          timeoutMs: TLDR_TIMEOUT_MS,
+        }
       );
       totalTokens += tokens;
       const result = normalizeTldrResult(parseJson<unknown>(raw));
@@ -776,10 +815,10 @@ Respond with strict JSON only: {"bullets_en":[{"text":"...","item_ids":["..."]}]
           tokens: totalTokens,
         };
       }
-      console.error(
-        `generateTldr attempt ${attempt}/${ATTEMPTS} returned no bullets`
-      );
+      lastError = `attempt ${attempt}/${ATTEMPTS} returned no bullets`;
+      console.error(`generateTldr ${lastError}`);
     } catch (error) {
+      lastError = error instanceof Error ? error.message : String(error);
       console.error(
         `generateTldr attempt ${attempt}/${ATTEMPTS} failed:`,
         error
@@ -787,8 +826,10 @@ Respond with strict JSON only: {"bullets_en":[{"text":"...","item_ids":["..."]}]
     }
   }
 
-  console.error(`generateTldr burned ${totalTokens} tokens with no result`);
-  return { ...EMPTY_TLDR, tokens: totalTokens };
+  console.error(
+    `generateTldr burned ${totalTokens} tokens with no result: ${lastError}`
+  );
+  return { ...EMPTY_TLDR, tokens: totalTokens, error: lastError };
 }
 
 export type { AnyrouterCallResult, ChatMessage };

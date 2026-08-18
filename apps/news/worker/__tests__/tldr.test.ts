@@ -1,13 +1,21 @@
 import { describe, expect, it } from "vitest";
 import { sanitizeBulletIds } from "../llm.js";
-import { buildTopItemsQuery, shouldPersistTldr, TLDR_REFRESH_MS } from "../tldr.js";
+import {
+  buildTopItemsQuery,
+  fallbackTldrFromItems,
+  shouldPersistTldr,
+  TLDR_REFRESH_MS,
+  tldrSnapshotDate,
+} from "../tldr.js";
 
 describe("buildTopItemsQuery", () => {
   it("gates on status='published', ranks by rank_score DESC, caps at 16", () => {
     const { sql } = buildTopItemsQuery(Date.now());
     expect(sql).toContain("status = 'published'");
     expect(sql).toContain("published_at >= ?");
-    expect(sql).toMatch(/ORDER BY rank_score DESC/);
+    expect(sql).toContain("translations");
+    expect(sql).toContain("title_vi");
+    expect(sql).toMatch(/ORDER BY i.rank_score DESC/);
     expect(sql).toMatch(/LIMIT 16/);
   });
 
@@ -88,5 +96,40 @@ describe("sanitizeBulletIds", () => {
         items
       )
     ).toEqual([{ text: "a", item_ids: ["aaaa1111bbbb", "aaaa2222cccc"] }]);
+  });
+});
+
+describe("tldrSnapshotDate", () => {
+  it("keys the snapshot by Asia/Ho_Chi_Minh date, not UTC", () => {
+    // 2026-08-17T17:30:00Z = 00:30 ICT on 2026-08-18
+    const afterIctMidnight = Date.UTC(2026, 7, 17, 17, 30, 0);
+    expect(tldrSnapshotDate(afterIctMidnight)).toBe("2026-08-18");
+    // 2026-08-17T16:30:00Z = 23:30 ICT on 2026-08-17
+    const beforeIctMidnight = Date.UTC(2026, 7, 17, 16, 30, 0);
+    expect(tldrSnapshotDate(beforeIctMidnight)).toBe("2026-08-17");
+  });
+});
+
+describe("fallbackTldrFromItems", () => {
+  it("uses item titles for EN and existing translations only for VI", () => {
+    expect(
+      fallbackTldrFromItems([
+        { id: "a", title: "GPT-6 ships", title_vi: "GPT-6 ra mắt" },
+        { id: "b", title: "OpenRouter sold", title_vi: null },
+      ])
+    ).toEqual({
+      bullets_en: [
+        { text: "GPT-6 ships", item_ids: ["a"] },
+        { text: "OpenRouter sold", item_ids: ["b"] },
+      ],
+      bullets_vi: [{ text: "GPT-6 ra mắt", item_ids: ["a"] }],
+    });
+  });
+
+  it("does not invent Vietnamese when no translation exists", () => {
+    const { bullets_vi } = fallbackTldrFromItems([
+      { id: "a", title: "English only" },
+    ]);
+    expect(bullets_vi).toEqual([]);
   });
 });

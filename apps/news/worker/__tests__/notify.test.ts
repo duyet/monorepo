@@ -1,7 +1,10 @@
 import { describe, expect, it } from "vitest";
 import {
   assertNotifyConfig,
+  buildMaxRankQuery,
   buildTrendingQuery,
+  classifyDigestSkip,
+  classifyTrendingSkip,
   DIGEST_LOCAL_HOUR,
   digestKey,
   localDayStartMs,
@@ -220,5 +223,52 @@ describe("helpers", () => {
   });
   it("keeps invalid URLs unchanged in withUtm", () => {
     expect(withUtm("not a url")).toBe("not a url");
+  });
+});
+
+describe("classifyDigestSkip", () => {
+  it("returns before_hour before the local send hour", () => {
+    expect(classifyDigestSkip(null, DIGEST_LOCAL_HOUR - 1)).toBe("before_hour");
+  });
+  it("returns already_sent for a sent row", () => {
+    expect(classifyDigestSkip({ status: "sent", attempts: 1 }, 12)).toBe(
+      "already_sent"
+    );
+  });
+  it("returns null when a digest should go out", () => {
+    expect(classifyDigestSkip(null, 12)).toBeNull();
+    expect(
+      classifyDigestSkip({ status: "failed", attempts: 1 }, 12)
+    ).toBeNull();
+  });
+});
+
+describe("classifyTrendingSkip", () => {
+  it("reports below_min_rank when the live max is under the bar", () => {
+    expect(classifyTrendingSkip(16.93, 1, 0)).toBe("below_min_rank");
+  });
+  it("reports budget_zero before looking at rank", () => {
+    expect(classifyTrendingSkip(30, 0, 0)).toBe("budget_zero");
+  });
+  it("reports none_unposted when rank clears the bar but nothing is left", () => {
+    expect(classifyTrendingSkip(30, 1, 0)).toBe("none_unposted");
+  });
+  it("returns null when a candidate may be sent", () => {
+    expect(classifyTrendingSkip(30, 1, 2)).toBeNull();
+  });
+});
+
+describe("buildMaxRankQuery", () => {
+  it("selects MAX(rank_score) over the published 24h window", () => {
+    const { sql, binds } = buildMaxRankQuery(1_700_000_000_000);
+    expect(sql).toContain("MAX(rank_score)");
+    expect(sql).toContain("status = 'published'");
+    expect(binds).toEqual([1_700_000_000 - 24 * 3600]);
+  });
+});
+
+describe("TRENDING_MIN_RANK", () => {
+  it("stays at 25 — exceptional bar, not a scale bug", () => {
+    expect(TRENDING_MIN_RANK).toBe(25);
   });
 });

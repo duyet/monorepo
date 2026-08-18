@@ -1,10 +1,7 @@
-import { generateTldr } from "./llm.js";
-import { toEpochSeconds } from "./time.js";
+import { generateTldr, type TldrBullet } from "./llm.js";
+import { getLocalHourAndDate } from "./subscribe/send.js";
+import { AUDIENCE_TIMEZONE, toEpochSeconds } from "./time.js";
 import type { Env } from "./types.js";
-
-function todayUtc(): string {
-  return new Date().toISOString().slice(0, 10);
-}
 
 /** Re-run the daily snapshot this often so the homepage TL;DR tracks
  * stories that land after the first successful generate of the day. */
@@ -14,11 +11,14 @@ interface ItemRow {
   id: string;
   title: string;
   summary: string | null;
+  title_vi: string | null;
 }
 
-const TOP_ITEMS_SQL = `SELECT id, title, summary FROM items
-     WHERE status = 'published' AND published_at >= ?
-     ORDER BY rank_score DESC
+const TOP_ITEMS_SQL = `SELECT i.id, i.title, i.summary, tr.title AS title_vi
+     FROM items i
+     LEFT JOIN translations tr ON tr.item_id = i.id AND tr.lang = 'vi'
+     WHERE i.status = 'published' AND i.published_at >= ?
+     ORDER BY i.rank_score DESC
      LIMIT 16`;
 
 /**
@@ -37,12 +37,38 @@ export function buildTopItemsQuery(nowMs: number): {
   };
 }
 
+/** Snapshot / digest calendar date: local day in Asia/Ho_Chi_Minh, not UTC. */
+export function tldrSnapshotDate(nowMs: number = Date.now()): string {
+  return getLocalHourAndDate(nowMs, AUDIENCE_TIMEZONE).date;
+}
+
 /** A TL;DR result is only worth persisting if it actually has bullets. */
 export function shouldPersistTldr(result: {
   bullets_en: unknown[];
   bullets_vi: unknown[];
 }): boolean {
   return result.bullets_en.length > 0 || result.bullets_vi.length > 0;
+}
+
+/**
+ * Deterministic snapshot from already-stored item titles. EN uses the
+ * item title; VI uses an existing translation title when present — never
+ * invents Vietnamese. Used when the LLM returns no bullets so the daily
+ * digest still has something to send.
+ */
+export function fallbackTldrFromItems(
+  items: Array<{ id: string; title: string; title_vi?: string | null }>
+): { bullets_en: TldrBullet[]; bullets_vi: TldrBullet[] } {
+  const bullets_en: TldrBullet[] = [];
+  const bullets_vi: TldrBullet[] = [];
+  for (const item of items) {
+    const title = item.title.trim();
+    if (!title) continue;
+    bullets_en.push({ text: title, item_ids: [item.id] });
+    const vi = item.title_vi?.trim();
+    if (vi) bullets_vi.push({ text: vi, item_ids: [item.id] });
+  }
+  return { bullets_en, bullets_vi };
 }
 
 export interface TldrRunStats {
@@ -55,7 +81,7 @@ export interface TldrRunStats {
 /** Idempotent daily gate: generates today's snapshot if missing, or
  * refreshes it when the last write is older than `TLDR_REFRESH_MS`. */
 export async function ensureDailyTldr(env: Env): Promise<TldrRunStats> {
-  const date = todayUtc();
+  const date = tldrSnapshotDate();
 
   const existing = await env.DB.prepare(
     "SELECT date, created_at FROM tldr_snapshots WHERE date = ?"
@@ -77,7 +103,11 @@ export async function ensureDailyTldr(env: Env): Promise<TldrRunStats> {
   const { results } = await env.DB.prepare(sql).bind(since).all<ItemRow>();
 
   if (!results || results.length === 0)
-    return { generated: false, tokens: 0, reason: "no published items in window" };
+    return {
+      generated: false,
+      tokens: 0,
+      reason: "no published items in window",
+    };
 
   const tldr = await generateTldr(
     env,
@@ -88,16 +118,29 @@ export async function ensureDailyTldr(env: Env): Promise<TldrRunStats> {
     }))
   );
 
+  let bullets_en = tldr.bullets_en;
+  let bullets_vi = tldr.bullets_vi;
+  let persistReason: string | undefined;
+
   // Never write an empty snapshot: an empty row would satisfy the
-  // `existing` gate above and block regeneration for the rest of the day,
-  // even though the LLM call is retried hourly by the workflow's cron.
+  // `existing` gate above and block regeneration for the rest of the day.
+  // If the LLM produced nothing, persist title-based bullets (existing
+  // translations only — no invented Vietnamese) so the digest can send.
   if (!shouldPersistTldr(tldr)) {
-    console.error("generateTldr returned no bullets; skipping snapshot write");
-    return {
-      generated: false,
-      tokens: tldr.tokens,
-      reason: "LLM returned no bullets",
-    };
+    const fallback = fallbackTldrFromItems(results);
+    if (!shouldPersistTldr(fallback)) {
+      const detail = tldr.error ?? "returned no bullets";
+      console.error(`generateTldr produced no persistable bullets: ${detail}`);
+      return {
+        generated: false,
+        tokens: tldr.tokens,
+        reason: `LLM failed: ${detail}`,
+      };
+    }
+    bullets_en = fallback.bullets_en;
+    bullets_vi = fallback.bullets_vi;
+    persistReason = `LLM failed (${tldr.error ?? "no bullets"}); persisted ${fallback.bullets_en.length} title-fallback bullets`;
+    console.error(persistReason);
   }
 
   await env.DB.prepare(
@@ -110,8 +153,8 @@ export async function ensureDailyTldr(env: Env): Promise<TldrRunStats> {
   )
     .bind(
       date,
-      JSON.stringify(tldr.bullets_en),
-      JSON.stringify(tldr.bullets_vi),
+      JSON.stringify(bullets_en),
+      JSON.stringify(bullets_vi),
       Date.now()
     )
     .run();
@@ -119,6 +162,8 @@ export async function ensureDailyTldr(env: Env): Promise<TldrRunStats> {
   return {
     generated: true,
     tokens: tldr.tokens,
-    reason: `generated ${tldr.bullets_en.length + tldr.bullets_vi.length} bullets`,
+    reason:
+      persistReason ??
+      `generated ${bullets_en.length + bullets_vi.length} bullets`,
   };
 }

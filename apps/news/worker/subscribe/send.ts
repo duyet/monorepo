@@ -4,6 +4,21 @@ import { DEFAULT_TIMEZONE, isValidTimezone } from "./handlers.js";
 export interface TldrBulletLike {
   text: string;
   item_id?: string;
+  item_ids?: string[];
+}
+
+/** Newer snapshots store `item_ids: string[]`; older rows used `item_id`. */
+export function primaryItemId(bullet: TldrBulletLike): string | undefined {
+  if (typeof bullet.item_id === "string" && bullet.item_id)
+    return bullet.item_id;
+  const ids = bullet.item_ids;
+  if (Array.isArray(ids)) {
+    const first = ids.find(
+      (id): id is string => typeof id === "string" && id.length > 0
+    );
+    if (first) return first;
+  }
+  return undefined;
 }
 
 export interface SubscriberRow {
