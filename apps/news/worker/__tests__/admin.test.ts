@@ -13,6 +13,7 @@ import {
 } from "../admin/handlers.js";
 import { handleMcpRequest } from "../admin/mcp.js";
 import * as llm from "../llm.js";
+import { tldrSnapshotDate } from "../tldr.js";
 import type { Env } from "../types.js";
 
 /**
@@ -233,7 +234,7 @@ class FakeD1 {
 
     if (
       sql.startsWith(
-        "SELECT id, title, summary FROM items WHERE status = 'published' AND published_at >= ? ORDER BY rank_score DESC"
+        "SELECT i.id, i.title, i.summary, tr.title AS title_vi"
       )
     ) {
       const [since] = args as [number];
@@ -641,7 +642,7 @@ describe("regenerateTldr", () => {
   it("deletes today's snapshot then regenerates it", async () => {
     const env = makeEnv();
     const db = env.DB as unknown as FakeD1;
-    const today = new Date().toISOString().slice(0, 10);
+    const today = tldrSnapshotDate();
     db.tldrSnapshots.set(today, {
       date: today,
       bullets_en: "[]",

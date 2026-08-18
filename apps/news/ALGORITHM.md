@@ -43,11 +43,14 @@ cron `5 * * * *` → `POST /api/admin/ingest`), not Worker `[triggers] crons`
 9. **Backfill** — up to 15 older published items missing summary, translation,
    or score/tags get re-fetched/scored/translated per run until the backlog
    drains.
-10. **TL;DR (LLM)** — hourly: generate today's snapshot if missing, or
-    refresh it when the last write is older than 3 hours. Top 16 items of
-    the last 24h by rank → 16 EN bullets + 16 independently-restated VI
-    bullets, each linked to its `item_id`. Empty results are never persisted.
-    UI shows 8 by default (user preference 8/12/16).
+10. **TL;DR (LLM)** — hourly: generate today's **local** snapshot
+    (`Asia/Ho_Chi_Minh`, same key the Telegram digest looks up) if missing,
+    or refresh it when the last write is older than 3 hours. Top 16 items
+    of the last 24h by rank → up to 16 EN bullets + 16 independently-restated
+    VI bullets, each linked to its `item_id`. If the LLM returns no bullets,
+    a title-fallback snapshot is persisted (EN from item titles; VI only
+    from existing translations — never invented). Empty results are never
+    persisted. UI shows 8 by default (user preference 8/12/16).
 11. **Email digest** — top-5 TL;DR to confirmed subscribers, once per day.
 12. **Notify (`worker/notify/`)** — pluggable channel adapters (Telegram
     now; Discord/... later), deliberately non-spammy:
@@ -56,7 +59,12 @@ cron `5 * * * *` → `POST /api/admin/ingest`), not Worker `[triggers] crons`
       to its story permalink, plus a site button.
     - *Trending*: an individual post only when the algo flags a story as
       exceptional (`rank_score ≥ 25` and `llm_importance ≥ 8`), capped at
-      3/day with a 2h minimum gap, one per run.
+      3/day with a 2h minimum gap, one per run. 25 is reachable for a
+      10×10, fresh, well-engaged story (the rank formula is unchanged);
+      typical live max is ~17. Digest is the intended daily Telegram post.
+    Skip reasons are structured (`digest`: no_snapshot / already_sent /
+    before_hour; `trending`: below_min_rank / budget_zero / none_unposted)
+    and `console.info`'d plus stored on `workflow_runs.stats.notifyReason`.
     Delivery state (status/attempts/last_error, bounded retries) lives in
     the `notifications` table; links carry `utm_source=telegram`.
 13. **Review gates (LLM, rating ≥ 0.6)** — user translation suggestions and

@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { toEpochSeconds } from "../time.js";
+import {
+  AUDIENCE_TIMEZONE,
+  localCalendarDate,
+  toEpochSeconds,
+} from "../time.js";
 
 describe("toEpochSeconds", () => {
   it("converts a millisecond epoch timestamp to seconds", () => {
@@ -17,5 +21,16 @@ describe("toEpochSeconds", () => {
 
   it("treats 0 as already seconds", () => {
     expect(toEpochSeconds(0)).toBe(0);
+  });
+});
+
+describe("localCalendarDate", () => {
+  it("returns the ICT calendar date across the UTC midnight gap", () => {
+    expect(
+      localCalendarDate(Date.UTC(2026, 7, 17, 17, 30, 0), AUDIENCE_TIMEZONE)
+    ).toBe("2026-08-18");
+    expect(
+      localCalendarDate(Date.UTC(2026, 7, 17, 16, 30, 0), AUDIENCE_TIMEZONE)
+    ).toBe("2026-08-17");
   });
 });

@@ -138,6 +138,18 @@ describe("normalizeTldr", () => {
     ]);
   });
 
+  it("accepts a top-level {en, vi} shape", () => {
+    expect(
+      normalizeTldr({
+        en: [{ text: "A", item_ids: ["1"] }],
+        vi: [{ text: "B", item_ids: ["1"] }],
+      })
+    ).toEqual({
+      bullets_en: [{ text: "A", item_ids: ["1"] }],
+      bullets_vi: [{ text: "B", item_ids: ["1"] }],
+    });
+  });
+
   it("returns empty arrays for garbage input", () => {
     expect(normalizeTldr(null)).toEqual({ bullets_en: [], bullets_vi: [] });
     expect(normalizeTldr("a string")).toEqual({
@@ -245,6 +257,49 @@ describe("generateTldr", () => {
     expect(result.bullets_en).toEqual([]);
     expect(result.bullets_vi).toEqual([]);
     expect(result.tokens).toBe(0); // no usage field in these mocked responses
+    expect(result.error).toBeTruthy();
+  });
+
+  it("asks for at most N bullets matching the input, not exactly 16", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValue(
+        chatResponse(JSON.stringify({ bullets_en: [], bullets_vi: [] }))
+      );
+    vi.stubGlobal("fetch", fetchMock);
+
+    await generateTldr(env, [
+      { id: "1", title: "Story one" },
+      { id: "2", title: "Story two" },
+    ]);
+
+    const { messages } = JSON.parse(fetchMock.mock.calls[0][1].body);
+    const prompt = messages[1].content as string;
+    expect(prompt).toMatch(/at most 2/);
+    expect(prompt).not.toMatch(/exactly 16/);
+  });
+
+  it("retries English-only without the VI style prompt after a bilingual miss", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(chatResponse("still no json"))
+      .mockResolvedValueOnce(
+        chatResponse(
+          JSON.stringify({
+            bullets_en: [{ text: "A", item_ids: ["1"] }],
+            bullets_vi: [],
+          })
+        )
+      );
+    vi.stubGlobal("fetch", fetchMock);
+
+    const result = await generateTldr(env, [{ id: "1", title: "Story" }]);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    const second = JSON.parse(fetchMock.mock.calls[1][1].body);
+    expect(second.messages).toHaveLength(1);
+    expect(second.messages[0].role).toBe("user");
+    expect(second.messages[0].content).toMatch(/English only/);
+    expect(result.bullets_en).toHaveLength(1);
   });
 });
 
