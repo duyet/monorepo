@@ -110,7 +110,7 @@ describe("safeSitemapResponse", () => {
     vi.spyOn(console, "error").mockImplementation(() => {});
     const res = await safeSitemapResponse(async () => {
       const env = {
-        get DB() {
+        get DB(): D1Database {
           throw new Error("D1 binding getter failed");
         },
       };
