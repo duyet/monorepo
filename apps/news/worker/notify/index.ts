@@ -465,7 +465,7 @@ export async function forceSendDigest(
   const now = Date.now();
   const { date } = getLocalHourAndDate(now, DIGEST_TIMEZONE);
   const key = digestKey(date);
-  let digest = await loadDigest(env, date);
+  const digest = await loadDigest(env, date);
   if (!digest) {
     return { sent: 0, reason: `no TL;DR snapshot for ${date}` };
   }
