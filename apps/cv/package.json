@@ -6,7 +6,7 @@
   "scripts": {
     "test": "vitest run",
     "config": "tsx ../../scripts/sync-app-secrets.ts duyet-cv",
-    "build": "vite build && tsx ../../scripts/patch-html-for-cloudflare.ts",
+    "build": "node --import ../../scripts/force-workspace-react.mjs ../../node_modules/vite/bin/vite.js build && tsx ../../scripts/patch-html-for-cloudflare.ts",
     "check-types": "tsc --noEmit",
     "dev": "vite dev",
     "fmt": "pnpm run fix",

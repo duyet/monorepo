@@ -13,7 +13,7 @@
     "sync:cache": "dotenv -e .env.local -- tsx scripts/sync-analytics-cache.ts",
     "sync:motherduck": "dotenv -e .env.local -- tsx scripts/sync-to-motherduck.ts",
     "prebuild": "cd ../blog && tsx scripts/generate-posts-data.ts",
-    "build": "vite build && tsx ../../scripts/patch-html-for-cloudflare.ts",
+    "build": "node --import ../../scripts/force-workspace-react.mjs ../../node_modules/vite/bin/vite.js build && tsx ../../scripts/patch-html-for-cloudflare.ts",
     "check-types": "tsc --noEmit",
     "dev": "vite dev --port 3001",
     "fmt": "pnpm run fix",
