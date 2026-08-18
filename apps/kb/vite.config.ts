@@ -100,6 +100,7 @@ function getKbRoutes(): string[] {
 
 export default defineConfig({
   base: "/",
+  resolve: { dedupe: ["react", "react-dom"] },
   plugins: [
     tanstackStart({
       router: {

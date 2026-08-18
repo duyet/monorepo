@@ -1,13 +1,18 @@
 /**
- * Pin Node's react / react-dom resolution to the workspace copies.
- * The TanStack prerender host otherwise loads a nested react-dom@19.2.4
- * while the SSR bundle calls react@19.2.8 hooks, which crashes prerender.
+ * Pin Node's react / react-dom resolution to the current app's copies.
+ * The TanStack prerender host otherwise loads a nested react-dom while the
+ * SSR bundle calls a newer react, which crashes prerender and leaves
+ * empty HTML shells on Cloudflare Pages.
+ *
+ * Run from an app directory:
+ *   node --import ../../scripts/force-workspace-react.mjs ../../node_modules/vite/bin/vite.js build
  */
 import Module from "node:module";
 import { createRequire } from "node:module";
 import { register } from "node:module";
+import { join } from "node:path";
 
-const require = createRequire(import.meta.url);
+const require = createRequire(join(process.cwd(), "package.json"));
 const aliases = new Map();
 for (const spec of [
   "react",

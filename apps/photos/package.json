@@ -6,7 +6,7 @@
   "scripts": {
     "config": "tsx ../../scripts/sync-app-secrets.ts duyet-photos",
     "prebuild": "tsx scripts/generate-photos-data.ts",
-    "build": "vite build && tsx ../../scripts/patch-html-for-cloudflare.ts",
+    "build": "node --import ../../scripts/force-workspace-react.mjs ../../node_modules/vite/bin/vite.js build && tsx ../../scripts/patch-html-for-cloudflare.ts",
     "dev": "vite dev --port 3003",
     "fmt": "pnpm run fix",
     "lint": "biome lint .",

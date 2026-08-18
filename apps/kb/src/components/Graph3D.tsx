@@ -95,13 +95,7 @@ export function Graph3D({
           (n) =>
             1 + Math.sqrt(degree[(n as unknown as Graph3DNode).id] ?? 0) * 1.5
         )
-        .nodeOpacity((n) => {
-          const node = n as unknown as Graph3DNode;
-          if (highlightIds && highlightIds.size > 0 && !highlightIds.has(node.id)) {
-            return 0.12;
-          }
-          return 0.95;
-        })
+        .nodeOpacity(0.95)
         .nodeResolution(12)
         .linkColor(() => theme.edge)
         .linkOpacity(0.3)

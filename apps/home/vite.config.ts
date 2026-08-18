@@ -18,7 +18,7 @@ export default defineConfig({
     },
   },
   // Native tsconfig `paths` resolution (replaces the vite-tsconfig-paths plugin).
-  resolve: { tsconfigPaths: true },
+  resolve: { tsconfigPaths: true, dedupe: ["react", "react-dom"] },
   plugins: [
     tanstackStart({
       router: {
@@ -30,6 +30,18 @@ export default defineConfig({
         crawlLinks: true,
         failOnError: false,
       },
+      pages: [
+        "/",
+        "/projects",
+        "/about",
+        "/about-duyetbot",
+        "/ls",
+        "/cartrack",
+        "/fossil",
+      ].map((path) => ({
+        path,
+        prerender: { enabled: true },
+      })),
     }),
     // Required by TanStack Start dev mode for the React Refresh runtime.
     viteReact(),
