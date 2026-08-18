@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { StoryRow } from "../components/StoryRow";
+import { ARTICLE_DATE_TAG, ARTICLE_TITLE_TAG } from "../lib/article-headings";
 import { formatDayHeading } from "../lib/lang";
 import { useLang } from "../lib/lang-context";
 import { notFoundCopy } from "../lib/not-found";
@@ -54,9 +55,17 @@ function StoryContent({ item, lang }: { item: FeedItem; lang: Lang }) {
         </span>
       </div>
       <div className="border-b-2 border-foreground/80 pb-2">
-        <h2 className="text-xl font-bold">{formatDayHeading(date, lang)}</h2>
+        <ARTICLE_DATE_TAG className="text-xl font-bold">
+          {formatDayHeading(date, lang)}
+        </ARTICLE_DATE_TAG>
       </div>
-      <StoryRow item={item} index={1} lang={lang} defaultExpanded />
+      <StoryRow
+        item={item}
+        index={1}
+        lang={lang}
+        defaultExpanded
+        titleAs={ARTICLE_TITLE_TAG}
+      />
     </div>
   );
 }
