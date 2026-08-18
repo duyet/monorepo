@@ -48,17 +48,13 @@ describe("splatOwnsDocumentTitle", () => {
 });
 
 describe("firstTitleFromHeadMetas", () => {
-  it("uses the not-found route title when root omits title", () => {
-    const owned = notFoundHead(notFoundCopy("vi").documentTitle).meta.filter(
-      (t): t is { title: string } => "title" in t
-    );
-    const rootWithoutTitle: Array<{ title?: string }> = [];
-    expect(firstTitleFromHeadMetas([rootWithoutTitle, owned])).toBe(
+  it("uses the 404 title when root emits it first", () => {
+    const title = notFoundCopy("vi").documentTitle;
+    const rootWith404: Array<{ title?: string }> = [{ title }];
+    expect(firstTitleFromHeadMetas([rootWith404, []])).toBe(
       "Không tìm thấy trang | AI News"
     );
-    expect(firstTitleFromHeadMetas([rootWithoutTitle, owned])).not.toBe(
-      SITE_TITLE
-    );
+    expect(firstTitleFromHeadMetas([rootWith404, []])).not.toBe(SITE_TITLE);
   });
 
   it("reproduces the live bug when root still emits SITE_TITLE first", () => {

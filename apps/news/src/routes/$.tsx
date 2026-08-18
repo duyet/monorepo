@@ -1,18 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, notFound } from "@tanstack/react-router";
 import { NotFoundPage } from "../components/NotFoundPage";
-import { loadNotFoundLang } from "../lib/not-found-fn";
-import { notFoundCopy } from "../lib/not-found";
-import { notFoundHead } from "../lib/seo";
-import type { Lang } from "../lib/types";
 
-// Catch-all owns head() so the FIRST <title> is the localized 404 title.
-// Do not throw notFound() here: TanStack skips head() when beforeLoad throws.
-// HTTP 404 + news_lang live in loadNotFoundLang (createServerFn).
+// Throw notFound() so TanStack sets HTTP 404 (setResponseStatus is ignored
+// once SSR already opened a 200 stream). head() is skipped, so root emits
+// the localized 404 title when this splat matches.
 export const Route = createFileRoute("/$")({
-  loader: async () => ({ lang: await loadNotFoundLang() }),
-  head: ({ loaderData }) =>
-    notFoundHead(
-      notFoundCopy((loaderData?.lang ?? "vi") as Lang).documentTitle
-    ),
+  beforeLoad: () => {
+    throw notFound();
+  },
   component: NotFoundPage,
 });
