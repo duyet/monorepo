@@ -43,9 +43,9 @@ describe("404 splat import boundary", () => {
     expect(src).toContain("loadNotFoundLang");
   });
 
-  it("sets HTTP 404 inside createIsomorphicFn.server", () => {
+  it("sets HTTP 404 inside createServerFn", () => {
     const src = readFileSync(join(here, "./not-found-fn.ts"), "utf8");
-    expect(src).toContain("createIsomorphicFn");
+    expect(src).toContain("createServerFn");
     expect(src).toContain("setResponseStatus");
     expect(src).toContain("notFoundLangOnServer");
   });
