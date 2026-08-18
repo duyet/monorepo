@@ -46,6 +46,16 @@ describe("site header units", () => {
     }
   });
 
+  it("shows a kb-only KB submenu with Home", () => {
+    expect(filterGlobalNav(GLOBAL_NAV, "blog").some((i) => i.label === "KB")).toBe(
+      false
+    );
+    const kb = filterGlobalNav(GLOBAL_NAV, "kb");
+    expect(kb.map((i) => i.label)).toEqual(["KB"]);
+    expect(kb[0].children?.map((c) => c.label)).toContain("Home");
+    expect(kb[0].children?.find((c) => c.label === "Home")?.href).toBe("/");
+  });
+
   it("matches blog child paths against the current pathname", () => {
     expect(
       isNavActive({ app: "blog", path: "/series" }, "blog", "/series/ai")

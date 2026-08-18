@@ -17,6 +17,7 @@ export const Route = createFileRoute("/sitemap/xml")({
 
     const urlEntries: string[] = [
       `  <url>\n    <loc>${SITE_URL}/</loc>\n  </url>`,
+      `  <url>\n    <loc>${SITE_URL}/search</loc>\n  </url>`,
       `  <url>\n    <loc>${SITE_URL}/graph</loc>\n  </url>`,
     ];
 

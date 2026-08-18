@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
+import {
+  type ContributionDay,
+  GH_CONTRIB_API,
+  type JoguberDay,
+  weeksFromJoguber,
+} from "../lib/github-contributions";
 
-const API = "https://github-contributions-api.deno.dev/duyet.json";
-const CACHE_KEY = "gh-contrib";
+const CACHE_KEY = "gh-contrib-v2";
 const CACHE_TTL = 86_400_000; // 24h
 
 // SVG geometry in viewBox units; the whole grid scales fluidly to the
@@ -30,18 +35,12 @@ const LEVEL_INDEX: Record<string, number> = {
   FOURTH_QUARTILE: 4,
 };
 
-interface Day {
-  date: string;
-  contributionCount: number;
-  contributionLevel: string;
-}
-
 interface Cached {
   ts: number;
-  data: Day[][];
+  data: ContributionDay[][];
 }
 
-function getCached(): Day[][] | null {
+function getCached(): ContributionDay[][] | null {
   try {
     const raw = localStorage.getItem(CACHE_KEY);
     if (!raw) return null;
@@ -53,7 +52,7 @@ function getCached(): Day[][] | null {
   }
 }
 
-function setCache(data: Day[][]) {
+function setCache(data: ContributionDay[][]) {
   try {
     localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data }));
   } catch {
@@ -66,7 +65,7 @@ function levelColor(level: string): string {
 }
 
 export function GitHubContributions() {
-  const [data, setData] = useState<Day[][] | null>(null);
+  const [data, setData] = useState<ContributionDay[][] | null>(null);
 
   useEffect(() => {
     const cached = getCached();
@@ -74,10 +73,13 @@ export function GitHubContributions() {
       setData(cached);
       return;
     }
-    fetch(API)
-      .then((r) => r.json())
+    fetch(GH_CONTRIB_API)
+      .then((r) => {
+        if (!r.ok) throw new Error(`contrib ${r.status}`);
+        return r.json() as Promise<{ contributions: JoguberDay[] }>;
+      })
       .then((json) => {
-        const weeks: Day[][] = json.contributions;
+        const weeks = weeksFromJoguber(json.contributions ?? []);
         setCache(weeks);
         setData(weeks);
       })

@@ -315,6 +315,44 @@ export const GLOBAL_NAV: GlobalNavItem[] = [
     match: { app: "news", path: "/submit" },
     onlyApp: "news",
   },
+  {
+    label: "KB",
+    href: "/",
+    match: { app: "kb", path: "/" },
+    onlyApp: "kb",
+    children: [
+      {
+        label: "Home",
+        href: "/",
+        match: { app: "kb", path: "/" },
+      },
+      {
+        label: "Search",
+        href: "/search",
+        match: { app: "kb", path: "/search" },
+      },
+      {
+        label: "Memory",
+        href: "/m",
+        match: { app: "kb", path: "/m" },
+      },
+      {
+        label: "Daily",
+        href: "/d",
+        match: { app: "kb", path: "/d" },
+      },
+      {
+        label: "About",
+        href: "/about",
+        match: { app: "kb", path: "/about" },
+      },
+      {
+        label: "Dream",
+        href: "/dream",
+        match: { app: "kb", path: "/dream" },
+      },
+    ],
+  },
 ];
 
 export function filterGlobalNav(

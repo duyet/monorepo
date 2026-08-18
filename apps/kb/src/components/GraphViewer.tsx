@@ -5,6 +5,7 @@ import {
   stripFrontmatter,
 } from "../../lib/markdown";
 import { Graph3D } from "./Graph3D";
+import { graphNodeMatches } from "../../lib/search";
 import { MEMORY_PALETTE } from "./graph-palette";
 
 // Lazy-loaded in the browser only — sigma/graphology touch WebGL at import time
@@ -137,6 +138,7 @@ export function GraphViewer() {
   const orphansOnlyRef = useRef(false);
   const applyVisualRef = useRef<() => void>(() => {});
   const themeRef = useRef(THEME.dark);
+  const searchHitsRef = useRef<Set<string>>(new Set());
   const revealRef = useRef(1); // 0..1 staged node reveal during first load
   const restartLayout = useRef<(settings: ForceSettings) => void>(() => {});
 
@@ -403,6 +405,8 @@ export function GraphViewer() {
           const hidden = hiddenKindsRef.current;
           const onlyOrphans = orphansOnlyRef.current;
           const theme = themeRef.current;
+          const hits = searchHitsRef.current;
+          const searching = hits.size > 0;
           const neighbors = new Set<string>();
           const focus = hovered ?? sel;
           if (focus && graph.hasNode(focus)) {
@@ -436,7 +440,18 @@ export function GraphViewer() {
               return res;
             }
             res.hidden = false;
-            if (focus && neighbors.size) {
+            if (searching) {
+              if (hits.has(node)) {
+                res.zIndex = 2;
+                res.forceLabel = true;
+                res.size =
+                  (attrs.size as number) * (node === focus ? 1.4 : 1.2);
+              } else {
+                res.color = theme.dim;
+                res.label = "";
+                res.zIndex = 0;
+              }
+            } else if (focus && neighbors.size) {
               if (neighbors.has(node)) {
                 res.zIndex = 2;
                 res.forceLabel = true;
@@ -479,7 +494,16 @@ export function GraphViewer() {
               res.hidden = true;
               return res;
             }
-            if (focus && neighbors.size) {
+            if (searching) {
+              if (hits.has(a) && hits.has(b)) {
+                res.color = theme.edgeHover;
+                res.size = 1.2;
+                res.zIndex = 1;
+              } else {
+                res.color = theme.dim;
+                res.zIndex = 0;
+              }
+            } else if (focus && neighbors.size) {
               if (neighbors.has(a) && neighbors.has(b)) {
                 res.color = theme.edgeHover;
                 res.size = 1.2;
@@ -675,10 +699,24 @@ export function GraphViewer() {
     applyVisualRef.current();
   }, [dark, data, nodeMap]);
 
+  const matchIds = useMemo(() => {
+    const needle = query.trim();
+    const hits = new Set<string>();
+    if (!needle || !data) return hits;
+    for (const n of data.nodes) {
+      if (graphNodeMatches(n, needle)) hits.add(n.id);
+    }
+    return hits;
+  }, [query, data]);
+
+  useEffect(() => {
+    searchHitsRef.current = matchIds;
+    applyVisualRef.current();
+  }, [matchIds]);
+
   const focusNode = (id: string) => {
     setSelected(id);
     setShowSuggestions(false);
-    setQuery("");
     const sigma = sigmaRef.current;
     const graph = graphRef.current;
     if (!sigma || !graph?.hasNode(id)) return;
@@ -690,17 +728,9 @@ export function GraphViewer() {
   };
 
   const suggestions = useMemo(() => {
-    const needle = query.trim().toLowerCase();
-    if (!needle || !data) return [];
-    return data.nodes
-      .filter(
-        (n) =>
-          n.id.toLowerCase().includes(needle) ||
-          n.label.toLowerCase().includes(needle) ||
-          n.tags.some((t) => t.toLowerCase().includes(needle))
-      )
-      .slice(0, 8);
-  }, [query, data]);
+    if (!query.trim() || !data) return [];
+    return data.nodes.filter((n) => matchIds.has(n.id)).slice(0, 8);
+  }, [query, data, matchIds]);
 
   const onSearchSubmit = () => {
     const active = suggestions[activeSuggestion] ?? suggestions[0];
@@ -772,6 +802,7 @@ export function GraphViewer() {
             edges={visible3d.edges}
             degree={degree}
             theme={theme}
+            highlightIds={matchIds}
             onSelect={(id) => setSelected(id)}
           />
         )}
@@ -817,63 +848,70 @@ export function GraphViewer() {
             </span>
           </div>
 
+          <div className="relative">
+            <input
+              id="graph-search"
+              type="search"
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setShowSuggestions(true);
+                setActiveSuggestion(0);
+              }}
+              onFocus={() => setShowSuggestions(true)}
+              onBlur={() => setTimeout(() => setShowSuggestions(false), 120)}
+              onKeyDown={(e) => {
+                if (e.key === "ArrowDown") {
+                  e.preventDefault();
+                  setShowSuggestions(true);
+                  setActiveSuggestion((i) =>
+                    Math.min(i + 1, Math.max(suggestions.length - 1, 0))
+                  );
+                } else if (e.key === "ArrowUp") {
+                  e.preventDefault();
+                  setActiveSuggestion((i) => Math.max(i - 1, 0));
+                } else if (e.key === "Enter") {
+                  onSearchSubmit();
+                } else if (e.key === "Escape") {
+                  setQuery("");
+                  setShowSuggestions(false);
+                }
+              }}
+              placeholder="Highlight nodes…"
+              className="h-8 w-full rounded-md border border-zinc-700 bg-zinc-900 px-2 text-xs text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500"
+            />
+            {query.trim() && (
+              <p className="mt-1 text-[10px] font-mono text-zinc-500">
+                {matchIds.size} match{matchIds.size === 1 ? "" : "es"}
+              </p>
+            )}
+            {showSuggestions && suggestions.length > 0 && (
+              <ul className="absolute left-0 right-0 top-9 z-20 max-h-56 overflow-y-auto rounded-md border border-zinc-700 bg-zinc-900 shadow-lg">
+                {suggestions.map((n, i) => (
+                  <li key={n.id}>
+                    <button
+                      type="button"
+                      onMouseDown={(e) => e.preventDefault()}
+                      onMouseEnter={() => setActiveSuggestion(i)}
+                      onClick={() => focusNode(n.id)}
+                      className={`flex w-full items-center gap-2 px-2 py-1.5 text-left text-xs text-zinc-200 hover:bg-zinc-800 ${
+                        i === activeSuggestion ? "bg-zinc-800" : ""
+                      }`}
+                    >
+                      <span
+                        className="inline-block h-1.5 w-1.5 shrink-0 rounded-full"
+                        style={{ background: nodeColor(n, theme) }}
+                      />
+                      <span className="truncate">{n.label}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
           {controlsOpen && (
             <>
-              <div className="relative">
-                <input
-                  type="search"
-                  value={query}
-                  onChange={(e) => {
-                    setQuery(e.target.value);
-                    setShowSuggestions(true);
-                    setActiveSuggestion(0);
-                  }}
-                  onFocus={() => setShowSuggestions(true)}
-                  onBlur={() =>
-                    setTimeout(() => setShowSuggestions(false), 120)
-                  }
-                  onKeyDown={(e) => {
-                    if (e.key === "ArrowDown") {
-                      e.preventDefault();
-                      setShowSuggestions(true);
-                      setActiveSuggestion((i) =>
-                        Math.min(i + 1, Math.max(suggestions.length - 1, 0))
-                      );
-                    } else if (e.key === "ArrowUp") {
-                      e.preventDefault();
-                      setActiveSuggestion((i) => Math.max(i - 1, 0));
-                    } else if (e.key === "Enter") {
-                      onSearchSubmit();
-                    }
-                  }}
-                  placeholder="Search nodes…"
-                  className="h-8 w-full rounded-md border border-zinc-700 bg-zinc-900 px-2 text-xs text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500"
-                />
-                {showSuggestions && suggestions.length > 0 && (
-                  <ul className="absolute left-0 right-0 top-9 z-20 max-h-56 overflow-y-auto rounded-md border border-zinc-700 bg-zinc-900 shadow-lg">
-                    {suggestions.map((n, i) => (
-                      <li key={n.id}>
-                        <button
-                          type="button"
-                          onMouseDown={(e) => e.preventDefault()}
-                          onMouseEnter={() => setActiveSuggestion(i)}
-                          onClick={() => focusNode(n.id)}
-                          className={`flex w-full items-center gap-2 px-2 py-1.5 text-left text-xs text-zinc-200 hover:bg-zinc-800 ${
-                            i === activeSuggestion ? "bg-zinc-800" : ""
-                          }`}
-                        >
-                          <span
-                            className="inline-block h-1.5 w-1.5 shrink-0 rounded-full"
-                            style={{ background: nodeColor(n, theme) }}
-                          />
-                          <span className="truncate">{n.label}</span>
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-
               <div className="flex flex-wrap gap-1">
                 {kinds.map((k) => {
                   const on = !hiddenKinds.has(k);
