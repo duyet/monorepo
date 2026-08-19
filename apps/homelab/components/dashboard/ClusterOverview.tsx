@@ -4,7 +4,7 @@ import { Activity, Database, HardDrive, Server, CheckCircle2 } from "lucide-reac
 import { useClusterStats } from "@/hooks/useDashboard";
 import { Card, CardContent } from "@/components/ui/card";
 
-const STAT_CARDS = [
+const statCards = [
   {
     key: "nodes",
     icon: Server,
@@ -49,7 +49,7 @@ export function ClusterOverview() {
 
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-      {STAT_CARDS.map((card) => (
+      {statCards.map((card) => (
         <Card key={card.key} className="min-w-0">
           <CardContent className="p-4">
             <div className="flex items-center gap-1.5 text-muted-foreground">

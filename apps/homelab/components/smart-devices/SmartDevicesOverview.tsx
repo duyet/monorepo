@@ -130,7 +130,9 @@ export function SmartDevicesOverview() {
               {cameras.map((cam) => (
                 <li key={cam.id} className="min-w-0">
                   <div className="flex items-center gap-1.5">
-                    <span className="size-1.5 rounded-full bg-[var(--rd-ok)]" />
+                    <span
+                      className={`size-1.5 rounded-full ${STATUS_DOT[cam.status] ?? "bg-muted-foreground"}`}
+                    />
                     <span className="text-xs font-medium">{cam.name}</span>
                   </div>
                   <p className="pl-3 text-[11px] text-muted-foreground">

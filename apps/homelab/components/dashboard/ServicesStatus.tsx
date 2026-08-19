@@ -102,7 +102,7 @@ export function ServicesStatus() {
             <TableBody>
               {filteredServices.map((service) => (
                 <TableRow
-                  key={`${service.name}-${service.node}`}
+                  key={`${service.namespace}-${service.name}-${service.node}-${service.port}`}
                   className={service.status !== "running" ? "opacity-50" : undefined}
                 >
                   <TableCell className="px-2 py-2">

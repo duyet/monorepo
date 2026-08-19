@@ -2,10 +2,13 @@ import { Badge } from "@duyet/components/ui/badge";
 import {
   Activity,
   ArrowUpCircle,
+  Check,
   FileText,
+  LoaderCircle,
   RefreshCw,
   Settings,
   Shield,
+  X,
 } from "lucide-react";
 import { useAgentActions } from "@/hooks/useDashboard";
 import type { AgentAction } from "@/lib/data/types";
@@ -22,12 +25,12 @@ const TYPE_ICON: Record<AgentAction["type"], typeof Activity> = {
 
 function StatusSymbol({ status }: { status: AgentAction["status"] }) {
   if (status === "success") {
-    return <span className="font-mono text-xs font-bold text-[var(--rd-ok)]">✓</span>;
+    return <Check className="size-3 text-[var(--rd-ok)]" aria-label="success" />;
   }
   if (status === "running") {
-    return <span className="font-mono text-xs font-bold text-[var(--rd-accent)]">↻</span>;
+    return <LoaderCircle className="size-3 text-[var(--rd-accent)]" aria-label="running" />;
   }
-  return <span className="font-mono text-xs font-bold text-destructive">✗</span>;
+  return <X className="size-3 text-destructive" aria-label="failed" />;
 }
 
 export function AgentActionsTile() {

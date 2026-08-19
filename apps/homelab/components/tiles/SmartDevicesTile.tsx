@@ -42,17 +42,18 @@ export function SmartDevicesTile() {
         <DeviceRow
           name="Dyson TP09"
           detail={`${dysonAirPurifier.airQuality} · ${dysonAirPurifier.currentTemperature}° · ${dysonAirPurifier.currentHumidity}%`}
-          ok
+          status={dysonAirPurifier.status}
         />
         <Separator />
         <DeviceRow
           name="Bosch Washer"
           detail={`${boschWashingMachine.status} · ${boschWashingMachine.lifetimeCycles} cyc`}
+          status={boschWashingMachine.status}
         />
         <Separator />
-        <DeviceRow name="LG WashTower" detail="washer + dryer" />
+        <DeviceRow name="LG WashTower" detail="washer + dryer" status="idle" />
         <Separator />
-        <DeviceRow name="DQSmart Hub" detail="18 devices" ok />
+        <DeviceRow name="DQSmart Hub" detail="18 devices" status="online" />
         <div className="flex flex-wrap gap-1.5 pt-3">
           {Object.entries(byType).map(([type, counts]) => (
             <Badge
@@ -70,21 +71,25 @@ export function SmartDevicesTile() {
   );
 }
 
+const STATUS_DOT: Record<string, string> = {
+  online: "bg-[var(--rd-ok)]",
+  idle: "bg-[var(--rd-warn)]",
+  offline: "bg-destructive",
+};
+
 function DeviceRow({
   name,
   detail,
-  ok,
+  status,
 }: {
   name: string;
   detail: string;
-  ok?: boolean;
+  status: string;
 }) {
   return (
     <div className="flex items-center gap-2 py-2 first:pt-0">
       <span
-        className={`size-1.5 shrink-0 rounded-full ${
-          ok ? "bg-[var(--rd-ok)]" : "bg-[var(--rd-warn)]"
-        }`}
+        className={`size-1.5 shrink-0 rounded-full ${STATUS_DOT[status] ?? "bg-muted-foreground"}`}
       />
       <span className="font-mono text-xs font-medium">{name}</span>
       <span className="ml-auto truncate font-mono text-[11px] text-muted-foreground">

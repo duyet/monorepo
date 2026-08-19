@@ -13,7 +13,7 @@ import { Box, Cuboid, Layers, RotateCcw } from "lucide-react";
 import { useK8s } from "@/hooks/useDashboard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-const STATUS_STYLES: Record<string, string> = {
+const statusStyles: Record<string, string> = {
   running: "bg-[var(--rd-ok)]",
   pending: "bg-[var(--rd-warn)]",
   crashloop: "bg-destructive",
@@ -74,7 +74,7 @@ export function K8sInfo() {
             </TableHeader>
             <TableBody>
               {pods.map((pod) => (
-                <TableRow key={pod.name}>
+                <TableRow key={`${pod.namespace}/${pod.name}`}>
                   <TableCell className="max-w-[180px] truncate px-2 py-2 font-mono text-xs">
                     {pod.name}
                   </TableCell>
@@ -89,7 +89,7 @@ export function K8sInfo() {
                   <TableCell className="px-2 py-2">
                     <span className="inline-flex items-center gap-1.5 text-[11px] font-medium">
                       <span
-                        className={`size-1.5 rounded-full ${STATUS_STYLES[pod.status] ?? "bg-muted-foreground"}`}
+                        className={`size-1.5 rounded-full ${statusStyles[pod.status] ?? "bg-muted-foreground"}`}
                       />
                       {pod.status}
                     </span>
