@@ -32,7 +32,10 @@ database_id = "8e692ccf-ec38-4e41-b011-50adbc891322"
 [vars]
 ANYROUTER_BASE_URL = "https://anyrouter.dev/api/v1"
 ANYROUTER_MODEL = "stepfun-ai/step-3.7-flash,google/gemini-3.7-flash,qwen/qwen3.7-flash"
-ANYROUTER_TRANSLATE_MODEL = "aisingapore/gemma-sea-lion-v4-27b-it,google/gemini-3.7-flash"
+ANYROUTER_TRANSLATE_MODEL = "aisingapore/gemma-sea-lion-v4-27b-it,google/gemini-3.7-flash,google/gemini-3.6-flash,google/gemini-2.5-flash,qwen/qwen3.7-flash,google/gemma-4-26b-a4b-it"
+# Bilingual TL;DR used to fall through to ANYROUTER_MODEL (reasoning-first)
+# and time out both attempts, leaving English bullets on the VI homepage.
+ANYROUTER_TLDR_MODEL = "google/gemini-3.7-flash,google/gemini-3.6-flash,qwen/qwen3.7-flash,google/gemini-2.5-flash"
 # Derived from VITE_CLERK_PUBLISHABLE_KEY's base64 domain suffix (see
 # apps/news/.env.production): pk_live_Y2xlcmsuZHV5ZXQubmV0JA -> clerk.duyet.net
 CLERK_ISSUER = "https://clerk.duyet.net"
