@@ -78,12 +78,24 @@ describe("parseWrapJson", () => {
   });
 
   it("extracts JSON from surrounding text", () => {
-    const parsed = parseWrapJson('noise {"body_md":"Hi"} trailing');
-    expect(parsed?.body_md).toBe("Hi");
+    const parsed = parseWrapJson(
+      'noise {"subject":"S","body_md":"Hi"} trailing'
+    );
+    expect(parsed).toEqual({
+      subject: "S",
+      preheader: "",
+      body_md: "Hi",
+      cta_label: "",
+      cta_url: "",
+    });
   });
 
   it("rejects missing body", () => {
     expect(parseWrapJson('{"subject":"S"}')).toBeNull();
+  });
+
+  it("rejects missing subject", () => {
+    expect(parseWrapJson('{"body_md":"Hi"}')).toBeNull();
   });
 });
 

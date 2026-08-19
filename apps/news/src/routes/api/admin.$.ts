@@ -390,8 +390,16 @@ async function handleMail(
     segments[2] === "send"
   ) {
     const url = new URL(request.url);
-    const testEmail = url.searchParams.get("test") ?? undefined;
-    const result = await sendCampaign(env, segments[1], { testEmail });
+    const hasTest = url.searchParams.has("test");
+    const testEmail = url.searchParams.get("test")?.trim() || undefined;
+    if (hasTest && !testEmail) {
+      return Response.json({ error: "test email required" }, { status: 400 });
+    }
+    const result = await sendCampaign(
+      env,
+      segments[1],
+      hasTest ? { testEmail } : {}
+    );
     if (isMailError(result)) {
       return Response.json(
         { error: result.error },

@@ -285,6 +285,9 @@ export async function sendCampaign(
   }
 
   const testEmail = opts.testEmail?.trim();
+  if (!testEmail && campaign.status === "sent") {
+    return { error: "campaign already sent", status: 409 };
+  }
   if (testEmail) {
     const sub = await env.DB.prepare(
       "SELECT email, unsubscribe_token FROM subscribers WHERE email = ? AND confirmed = 1"

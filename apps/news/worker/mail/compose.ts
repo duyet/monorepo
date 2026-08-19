@@ -55,10 +55,11 @@ export function parseWrapJson(raw: string): WrapResult | null {
   if (!json) return null;
   try {
     const parsed = JSON.parse(json) as Record<string, unknown>;
+    const subject = asString(parsed.subject).trim();
     const body = asString(parsed.body_md);
-    if (!body.trim()) return null;
+    if (!subject || !body.trim()) return null;
     return {
-      subject: asString(parsed.subject).trim(),
+      subject,
       preheader: asString(parsed.preheader).trim(),
       body_md: body,
       cta_label: asString(parsed.cta_label).trim(),
