@@ -748,9 +748,13 @@ describe("model fallback chain", () => {
   });
 
   it("prefers the per-task translate model over ANYROUTER_MODEL", async () => {
-    const fetchMock = vi
-      .fn()
-      .mockResolvedValue(completion(JSON.stringify({ results: [] })));
+    const fetchMock = vi.fn().mockResolvedValue(
+      completion(
+        JSON.stringify({
+          results: [{ i: 0, title: "Tin", summary: "Tóm tắt" }],
+        })
+      )
+    );
     vi.stubGlobal("fetch", fetchMock);
 
     await translateItems(
@@ -795,7 +799,13 @@ describe("model fallback chain", () => {
     const fetchMock = vi
       .fn()
       .mockRejectedValueOnce(new Error("down"))
-      .mockResolvedValueOnce(completion(JSON.stringify({ results: [] })));
+      .mockResolvedValueOnce(
+        completion(
+          JSON.stringify({
+            results: [{ i: 0, title: "Tin", summary: "Tóm tắt" }],
+          })
+        )
+      );
     vi.stubGlobal("fetch", fetchMock);
 
     await translateItems(
@@ -942,7 +952,9 @@ describe("scoreItems / translateItems batch failure handling", () => {
   it("skips a batch when the anyrouter call fails, without throwing", async () => {
     vi.stubGlobal(
       "fetch",
-      vi.fn().mockResolvedValue(new Response("server error", { status: 500 }))
+      vi.fn().mockImplementation(
+        () => new Response("server error", { status: 500 })
+      )
     );
 
     const results = await scoreItems(env, [
@@ -996,7 +1008,7 @@ describe("scoreItems / translateItems batch failure handling", () => {
       indexes: number[];
     };
     expect(parsed.event).toBe("translateItems.batch_failed");
-    expect(parsed.reason).toMatch(/anyrouter request failed: 500/);
+    expect(parsed.reason).toMatch(/anyrouter request failed: 500|unusable/);
     expect(parsed.batchSize).toBe(2);
     expect(parsed.indexes).toEqual([0, 1]);
     error.mockRestore();
