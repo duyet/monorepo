@@ -639,6 +639,12 @@
   font-weight: 400;
 }
 
+/* Official X embeds: widgets.js leaves the live iframe left-aligned. */
+.post-reader .typeset .x-embed {
+  display: flex;
+  justify-content: center;
+}
+
 /* Footnotes / asides */
 .post-reader .typeset aside,
 .post-reader .typeset .footnotes,

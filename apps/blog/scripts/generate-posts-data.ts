@@ -142,6 +142,7 @@ const metaFields = [
   "readingTime",
   "snippet",
   "thumbnail",
+  "video",
   "author",
   "x",
   "changelog",

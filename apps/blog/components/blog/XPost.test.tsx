@@ -1,5 +1,6 @@
 import { render } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
+import { TWEET_EMBED_WRAP_CLASS } from "../../lib/x-embed";
 import { Tweet, XPost } from "./XPost";
 
 describe("XPost", () => {
@@ -7,7 +8,11 @@ describe("XPost", () => {
     const { container } = render(
       <XPost url="https://x.com/_duyet/status/2089665924454633766" />
     );
-    const quote = container.querySelector("blockquote.twitter-tweet");
+    const wrap = container.querySelector(
+      `.${TWEET_EMBED_WRAP_CLASS.split(" ").join(".")}`
+    );
+    expect(wrap).not.toBeNull();
+    const quote = wrap?.querySelector("blockquote.twitter-tweet");
     expect(quote).not.toBeNull();
     const link = container.querySelector("a");
     expect(link?.getAttribute("href")).toBe(

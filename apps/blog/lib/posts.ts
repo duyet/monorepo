@@ -48,6 +48,7 @@ interface RawPost {
   tags_slug: string[];
   featured: boolean;
   thumbnail?: string;
+  video?: string;
   author?: string;
   excerpt?: string;
   series?: string;

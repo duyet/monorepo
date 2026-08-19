@@ -215,6 +215,14 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
           : undefined;
     }
 
+    if (field === "video") {
+      const video = data.video;
+      post.video =
+        typeof video === "string" && video.trim().length > 0
+          ? video.trim()
+          : undefined;
+    }
+
     if (field === "isMDX") {
       post.isMDX = fullPath.endsWith(".mdx");
     }

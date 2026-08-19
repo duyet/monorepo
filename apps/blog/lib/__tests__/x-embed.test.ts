@@ -1,7 +1,12 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, test } from "vitest";
-import { embedXPosts, parseTweetId, parseTweetUrl } from "../x-embed";
+import {
+  embedXPosts,
+  parseTweetId,
+  parseTweetUrl,
+  TWEET_EMBED_WRAP_CLASS,
+} from "../x-embed";
 
 describe("parseTweetId", () => {
   test("parses x.com status URLs", () => {
@@ -81,6 +86,7 @@ describe("embedXPosts", () => {
 https://x.com/_duyet/status/2089665924454633766</p>
 </blockquote>`;
     const out = embedXPosts(html);
+    expect(out).toContain(`class="${TWEET_EMBED_WRAP_CLASS}"`);
     expect(out).toContain('class="twitter-tweet"');
     expect(out).toContain("Wait, I can install Tailscale");
     expect(out).toContain(
@@ -95,6 +101,7 @@ https://x.com/_duyet/status/2089665924454633766</p>
 <p><a href="https://x.com/_duyet/status/2089665924454633766">https://x.com/_duyet/status/2089665924454633766</a></p>
 </blockquote>`;
     const out = embedXPosts(html);
+    expect(out).toContain(`class="${TWEET_EMBED_WRAP_CLASS}"`);
     expect(out).toContain('class="twitter-tweet"');
     expect(out).toContain("The network is also very fast.");
     expect(out).toContain(
@@ -105,6 +112,7 @@ https://x.com/_duyet/status/2089665924454633766</p>
   test("turns a paragraph that is only a status URL into an embed", () => {
     const html = `<p>https://twitter.com/_duyet/status/2070880670852005898</p>`;
     const out = embedXPosts(html);
+    expect(out).toContain(`class="${TWEET_EMBED_WRAP_CLASS}"`);
     expect(out).toContain('<blockquote class="twitter-tweet">');
     expect(out).toContain("2070880670852005898");
     expect(out).toContain("<p>");
@@ -113,6 +121,7 @@ https://x.com/_duyet/status/2089665924454633766</p>
   test("turns a paragraph that is only a status link into an embed", () => {
     const html = `<p><a href="https://x.com/i/web/status/2069746255333654869">tweet</a></p>`;
     const out = embedXPosts(html);
+    expect(out).toContain(`class="${TWEET_EMBED_WRAP_CLASS}"`);
     expect(out).toContain('class="twitter-tweet"');
     expect(out).toContain("2069746255333654869");
     expect(out).toContain(">tweet</a>");
@@ -122,6 +131,7 @@ https://x.com/_duyet/status/2089665924454633766</p>
     const html = `<p>Comment on this post <a href="https://x.com/_duyet/status/2089665924454633766">there</a>.</p>`;
     const out = embedXPosts(html);
     expect(out).not.toContain("twitter-tweet");
+    expect(out).not.toContain("x-embed");
     expect(out).toContain("Comment on this post");
     expect(out).toContain(">there</a>.");
   });
@@ -133,7 +143,10 @@ https://x.com/_duyet/status/2089665924454633766</p>
 
   test("is idempotent on already-embedded tweets", () => {
     const html = `<blockquote class="twitter-tweet"><p>hi</p><a href="https://x.com/_duyet/status/1">1</a></blockquote>`;
-    expect(embedXPosts(html)).toBe(html);
+    const once = embedXPosts(html);
+    expect(once).toContain(`class="${TWEET_EMBED_WRAP_CLASS}"`);
+    expect(once).toContain('<blockquote class="twitter-tweet">');
+    expect(embedXPosts(once)).toBe(once);
   });
 
   test("converts grok-bot-style quotes and leaves the lead and inline link alone", () => {
@@ -168,6 +181,7 @@ https://x.com/_duyet/status/2089665924454633766</p>
     const out = embedXPosts(html);
     const embeds = out.match(/twitter-tweet/g) ?? [];
     expect(embeds).toHaveLength(6);
+    expect(out.match(/x-embed/g) ?? []).toHaveLength(6);
     expect(out).toContain("I was on SuperGrok Heavy because of Grok Bot.");
     expect(out).toContain("Wait, I can install @Tailscale");
     expect(out).toContain("I am building AnyRouter");

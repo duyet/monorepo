@@ -11,6 +11,8 @@ tags:
 slug: /2026/08/grok-bot
 x: https://x.com/_duyet/status/2089665924454633766
 description: "I am on SuperGrok Heavy because of Grok Bot and I am super impressed. Wow, from me, at first. The harness is surprisingly good. The UI/UX is surprisingly good."
+thumbnail: /media/2026/08/grok-bot/hero.jpg
+video: /media/2026/08/grok-bot/hero.mp4
 ---
 
 I am on SuperGrok Heavy because of Grok Bot and I am super impressed. Wow, from me, at first. The harness is surprisingly good. The UI/UX is surprisingly good. Same feeling as when Claude Code launched.
@@ -19,14 +21,9 @@ This will change how we use coding agents. I think it changes software engineeri
 
 ## A year of trying to automate duyetbot
 
-I have been trying to automate duyetbot for a year. First it was Claude Code on a cron. Then OpenClaw. Then Hermes. Grok Bot is the first one that looks like what I actually wanted.
+I have been trying to automate duyetbot for a year. First it was Claude Code on a cron, custom Claude Agent SDK -> then OpenClaw -> Hermes Agent. Grok Bot is the first one that looks like what I actually wanted.
 
 The difference is the computer. Not a headless sandbox. The bot has a browser, persistent memory, a workspace you can watch.
-
-I already started posting the first-run notes yesterday. Comment on this post [there](https://x.com/_duyet/status/2089665924454633766).
-
-> Wait, I can install @Tailscale and @herdrdev on the Grok Bot Computer. I will ask it to install Grok Build and then work on some repos first. The network is also very fast.
-> https://x.com/_duyet/status/2089665924454633766
 
 ## Design the team
 
@@ -38,16 +35,14 @@ QA is one bot for test and validate. Recerts live after each ship, files only on
 
 They share a computer, each with its own screen, and they message each other. I don't copy a stack trace from one window into another.
 
-Day one I was still asking [what to do first](https://x.com/_duyet/status/2089655766336844221). Day two they were already handing work to each other.
-
 > Since the Grok bot has its own desktop computer, I am asking it to review the whole product, going page by page, using a smoke test account. It has found something then create a lot of github issues and will spawn Grok Build to fix them all. I think this kind of daily automation tries to make duyetbot act like a real customer, then report issues and have another bot fix and deploy them autonomously.
 > https://x.com/_duyet/status/2089687655458259272
 
-## Two days in
+## This replaced my local coding agent
 
 I stood the team up on [chmonitor](https://chmonitor.dev), [anyrouter.dev](https://anyrouter.dev), [news.duyet.net](https://news.duyet.net), and the rest of the duyet.net apps.
 
-This morning chmonitor shipped a TTL inventory fix ([#3122](https://github.com/chmonitor/chmonitor/pull/3122)). The manager told QA to recert `dash.chmonitor.dev/ttl-partition-health`. QA came back PASS: 136 rows, charts fine, no silent Retry. The manager told chmonitor. I read the result.
+![Grok Bot team](/media/2026/08/grok-bot/team.png)
 
 They watch GitHub issues and PRs and squash-merge except release-please. Fixes go through Grok Build or a Cursor cloud agent. `chmonitor/chmonitor` does not have the Cursor GitHub app, so the engineer said so and switched to Grok Build. After each ship, QA recerts the live URL and files only on fail. They read [kb.duyet.net](https://kb.duyet.net) `MEMORY.md` first. Weekday routines: morning GitHub digest, inbox, hourly token import, late-afternoon production QA. I print a one-page A4 on the Mac. Tailscale + herdr so I can watch from anywhere. After an Update, Tailscale has to be reinstalled (the package does not survive; the files do).
 

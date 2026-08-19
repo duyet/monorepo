@@ -13,6 +13,7 @@ export type Post = {
   tags_slug: string[];
   featured: boolean;
   thumbnail?: string;
+  video?: string;
   author?: string;
   content?: string;
   excerpt?: string;

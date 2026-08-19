@@ -25,4 +25,22 @@ describe("PostHero", () => {
     expect(img?.getAttribute("height")).toBe("576");
     expect(img?.className).toContain("aspect-video");
   });
+
+  it("renders a looping muted video instead of an image when post.video is set", () => {
+    const { container } = render(
+      <PostHero post={{ ...post, video: "/media/hero.mp4" }} />
+    );
+    const video = container.querySelector("video");
+    expect(video).not.toBeNull();
+    expect(video?.getAttribute("src")).toBe("/media/hero.mp4");
+    expect(video?.getAttribute("poster")).toBe("/media/hero.png");
+    expect(video?.hasAttribute("autoplay")).toBe(true);
+    expect(video?.hasAttribute("loop")).toBe(true);
+    expect(video?.hasAttribute("playsinline")).toBe(true);
+    expect((video as HTMLVideoElement | null)?.muted).toBe(true);
+    expect(video?.className).toContain("w-[92vw]");
+    expect(video?.className).toContain("max-w-[1024px]");
+    expect(video?.className).toContain("rounded");
+    expect(container.querySelector("img")).toBeNull();
+  });
 });
