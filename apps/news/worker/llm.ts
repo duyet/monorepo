@@ -197,7 +197,12 @@ async function streamCompletion(
   env: Env,
   model: string,
   messages: ChatMessage[],
-  opts: { json?: boolean; timeoutMs: number; signal?: AbortSignal }
+  opts: {
+    json?: boolean;
+    timeoutMs: number;
+    signal?: AbortSignal;
+    maxTokens?: number;
+  }
 ): Promise<AnyrouterCallResult> {
   const baseUrl = env.ANYROUTER_BASE_URL || "https://anyrouter.dev/api/v1";
   const res = await fetch(`${baseUrl}/chat/completions`, {
@@ -213,7 +218,7 @@ async function streamCompletion(
       model,
       messages,
       temperature: 0,
-      max_tokens: MAX_TOKENS,
+      max_tokens: opts.maxTokens ?? MAX_TOKENS,
       stream: true,
       ...(opts.json ? { response_format: { type: "json_object" } } : {}),
     }),
@@ -221,9 +226,17 @@ async function streamCompletion(
   });
 
   if (!res.ok) {
-    throw new Error(
-      `anyrouter request failed: ${res.status} ${await res.text()}`
-    );
+    const body = await res.text();
+    const requested = opts.maxTokens ?? MAX_TOKENS;
+    const afford = /can only afford (\d+)/i.exec(body);
+    const affordable = afford ? Number(afford[1]) : 0;
+    if (res.status === 402 && affordable > 0 && affordable < requested) {
+      return streamCompletion(env, model, messages, {
+        ...opts,
+        maxTokens: affordable,
+      });
+    }
+    throw new Error(`anyrouter request failed: ${res.status} ${body}`);
   }
   if (!res.body) throw new Error("anyrouter response missing content");
 
@@ -307,9 +320,11 @@ async function streamCompletion(
   throw new Error("anyrouter response missing content");
 }
 
-/** Cap so a 10-id chain still gives the current model time to finish a
- *  translate batch, instead of `budget / n` collapsing to ~30s. */
-const MODEL_SLICE_MAX_MS = 90_000;
+/** Hang-cap. 90s equaled a 90s batch budget so leftover never reached
+ *  fallbacks after one native hang. 25s still finishes a 3-item title
+ *  batch and leaves a 20s floor for two more ids. */
+export const MODEL_SLICE_MAX_MS = 25_000;
+const FALLBACK_FLOOR_MS = 20_000;
 
 /**
  * Per-attempt budget: keep an even slice for up to two fallbacks, give the
@@ -324,10 +339,8 @@ export function modelAttemptTimeoutMs(
   if (remainingMs <= 0 || remainingModels <= 0) return 0;
   const even = remainingMs / remainingModels;
   const fallbacksToKeep = Math.min(remainingModels - 1, 2);
-  return Math.max(
-    1,
-    Math.min(maxSliceMs, remainingMs - even * fallbacksToKeep)
-  );
+  const reserved = fallbacksToKeep * Math.min(FALLBACK_FLOOR_MS, even);
+  return Math.max(1, Math.min(maxSliceMs, remainingMs - reserved));
 }
 
 /**
@@ -367,6 +380,7 @@ async function callAnyrouter(
     modelSpec?: string;
     task?: LlmTask;
     timeoutMs?: number;
+    maxTokens?: number;
     /** A 200 with content that fails this check is a model failure so
      *  the next id in the chain can run (e.g. empty sanitize). */
     accept?: (content: string) => boolean;
@@ -384,7 +398,7 @@ async function callAnyrouter(
   // SSE body cannot leak subrequests into the next attempt.
   const budget = opts.timeoutMs ?? REQUEST_TIMEOUT_MS;
   const deadline = Date.now() + budget;
-  let lastError: unknown;
+  const failures: string[] = [];
   const promptChars = messages.reduce((sum, m) => sum + m.content.length, 0);
 
   for (let i = 0; i < models.length; i++) {
@@ -393,7 +407,10 @@ async function callAnyrouter(
       deadline - Date.now(),
       models.length - i
     );
-    if (timeoutMs <= 0) break;
+    if (timeoutMs <= 0) {
+      failures.push(`${model}: leftover budget too small`);
+      continue;
+    }
     const attemptStartedAt = Date.now();
     const abort = new AbortController();
     try {
@@ -402,6 +419,7 @@ async function callAnyrouter(
           json: opts.json,
           timeoutMs,
           signal: abort.signal,
+          maxTokens: opts.maxTokens,
         }),
         timeoutMs,
         `anyrouter model ${model}`,
@@ -424,7 +442,8 @@ async function callAnyrouter(
       });
       return result;
     } catch (error) {
-      lastError = error;
+      const msg = error instanceof Error ? error.message : String(error);
+      failures.push(`${model}: ${msg}`);
       console.error(`anyrouter model ${model} failed:`, error);
       logLlmCall({
         ts: attemptStartedAt,
@@ -440,7 +459,10 @@ async function callAnyrouter(
     }
   }
 
-  throw lastError ?? new Error("anyrouter response missing content");
+  throw new Error(
+    "anyrouter chain exhausted: " +
+      (failures.join(" | ") || "no models attempted")
+  );
 }
 
 /**
@@ -683,9 +705,10 @@ export function sanitizeTranslateResults(
 
 /** Whole translateItems call. Several 3-item batches share this so a
  *  15-item backfill cannot stack 5 × 300s. */
-const TRANSLATE_TIMEOUT_MS = 180_000;
-/** One 3-item batch should finish (or fail over) inside the 90s slice. */
-const TRANSLATE_BATCH_TIMEOUT_MS = 180_000;
+const TRANSLATE_TIMEOUT_MS = 240_000;
+/** 25s hang-cap + two 20s floors so leftover actually reaches fallbacks. */
+const TRANSLATE_BATCH_TIMEOUT_MS = 70_000;
+const TRANSLATE_MAX_TOKENS = 2048;
 /** HuggingNews summaries are multi-paragraph; clip so a 3-item JSON
  *  answer still fits max_tokens instead of truncating mid-object. */
 const TRANSLATE_SUMMARY_MAX_CHARS = 800;
@@ -747,6 +770,7 @@ async function translateBatch(
       modelSpec: env.ANYROUTER_TRANSLATE_MODEL,
       task: "translate",
       timeoutMs,
+      maxTokens: TRANSLATE_MAX_TOKENS,
       accept: (content) => {
         try {
           return (

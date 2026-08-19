@@ -101,10 +101,15 @@ describe("translation upsert", () => {
 describe("translate batch size", () => {
   const llm = readFileSync(path.join(newsRoot, "worker/llm.ts"), "utf-8");
 
-  it("chunks translateItems by 3 so a 15-item JSON blob cannot eat the 90s slice", () => {
+  it("chunks translateItems by 3 so a 15-item JSON blob cannot eat the hang-cap", () => {
     expect(llm).toMatch(/TRANSLATE_BATCH_SIZE = 3/);
     expect(llm).toMatch(/chunk\(items, TRANSLATE_BATCH_SIZE\)/);
     expect(algorithm).toMatch(/batches of 3/);
+  });
+
+  it("caps each model attempt at 25s so leftover reaches fallbacks", () => {
+    expect(llm).toMatch(/MODEL_SLICE_MAX_MS = 25_000/);
+    expect(llm).toMatch(/FALLBACK_FLOOR_MS = 20_000/);
   });
 });
 
@@ -118,5 +123,6 @@ describe("backfill-translate checkpoints", () => {
     expect(workflow).toContain("backfill-translate-load");
     expect(workflow).toContain("backfill-translate-${offset}");
     expect(workflow).toContain("TRANSLATE_BATCH_SIZE");
+    expect(workflow).toContain("if (!row || !result.title) continue");
   });
 });
