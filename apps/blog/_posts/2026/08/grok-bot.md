@@ -48,10 +48,11 @@ The team babysits GitHub issues and PRs, auto-deploys, and validates. Fixes go t
 
 I chat with duyetbot the boss. It knows who can handle it. If I find something off I paste a screenshot and it assigns an agent to fix, validate, and deliver.
 
-![duyetbot the boss](/media/2026/08/grok-bot/duyetbot.jpg)
-
 I also asked it to print a one-page A4 every morning when I walk into the home office. That feels real in a way a dashboard does not.
 
-![duyetbot daily report on the T720DW](/media/2026/08/grok-bot/daily-print.jpg)
+<div class="img-row">
+<img src="/media/2026/08/grok-bot/duyetbot.jpg" alt="duyetbot the boss" />
+<img src="/media/2026/08/grok-bot/daily-print.jpg" alt="duyetbot daily report on the T720DW" />
+</div>
 
 I will write again when a week of weekday routines has either held or gone quiet.
