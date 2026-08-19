@@ -1,4 +1,4 @@
-import { parseTweetId } from "../../lib/x-embed";
+import { parseTweetId, TWEET_EMBED_WRAP_CLASS } from "../../lib/x-embed";
 
 export interface XPostProps {
   id?: string;
@@ -17,9 +17,11 @@ export function XPost({ id, url }: XPostProps) {
     url && parseTweetId(url) ? url : `https://x.com/i/web/status/${tweetId}`;
 
   return (
-    <blockquote className="twitter-tweet">
-      <a href={href}>{href}</a>
-    </blockquote>
+    <div className={TWEET_EMBED_WRAP_CLASS}>
+      <blockquote className="twitter-tweet">
+        <a href={href}>{href}</a>
+      </blockquote>
+    </div>
   );
 }
 

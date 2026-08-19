@@ -242,7 +242,41 @@ export function embedXPosts(html: string): string {
     }
   );
 
-  return replaceStandaloneStatusParagraphs(withQuotes);
+  return wrapUnwrappedTweetEmbeds(
+    replaceStandaloneStatusParagraphs(withQuotes)
+  );
 }
 
 export const TWITTER_WIDGETS_SRC = "https://platform.twitter.com/widgets.js";
+
+/** Centers the live iframe; widgets.js leaves `blockquote.twitter-tweet` left-aligned. */
+export const TWEET_EMBED_WRAP_CLASS = "x-embed flex justify-center";
+
+function wrapTweetEmbed(blockquoteHtml: string): string {
+  return `<div class="${TWEET_EMBED_WRAP_CLASS}">${blockquoteHtml}</div>`;
+}
+
+function isAlreadyTweetWrapped(htmlBefore: string): boolean {
+  return /<div\b[^>]*\bx-embed\b[^>]*>\s*$/i.test(htmlBefore);
+}
+
+function wrapUnwrappedTweetEmbeds(html: string): string {
+  const re = /<blockquote\b([^>]*)>[\s\S]*?<\/blockquote>/gi;
+  let out = "";
+  let lastIndex = 0;
+  let match = re.exec(html);
+  while (match) {
+    const start = match.index;
+    const end = start + match[0].length;
+    if (
+      /\btwitter-tweet\b/i.test(match[1]) &&
+      !isAlreadyTweetWrapped(html.slice(0, start))
+    ) {
+      out += html.slice(lastIndex, start);
+      out += wrapTweetEmbed(match[0]);
+      lastIndex = end;
+    }
+    match = re.exec(html);
+  }
+  return out + html.slice(lastIndex);
+}
