@@ -60,15 +60,40 @@ describe("live AnyRouter model chains", () => {
     expect(native).toContain(firstId("ANYROUTER_MODEL"));
   });
 
-  it("does not put BYOK-only hangers first", () => {
-    expect(wrangler).not.toMatch(
-      /ANYROUTER_TRANSLATE_MODEL = "aisingapore\/gemma-sea-lion/
+  it("omits known BYOK-only ids from every live chain", () => {
+    const byokOnly = [
+      "aisingapore/gemma-sea-lion-v4-27b-it",
+      "google/gemini-3.7-flash",
+      "google/gemini-3.6-flash",
+      "qwen/qwen3.7-flash",
+    ];
+    for (const name of [
+      "ANYROUTER_MODEL",
+      "ANYROUTER_TRANSLATE_MODEL",
+      "ANYROUTER_TLDR_MODEL",
+    ]) {
+      const match = wrangler.match(new RegExp(`${name} = "([^"]+)"`));
+      const ids = (match?.[1] ?? "").split(",").map((s) => s.trim());
+      for (const blocked of byokOnly) {
+        expect(ids, name).not.toContain(blocked);
+      }
+    }
+  });
+});
+
+describe("translation upsert", () => {
+  const workflow = readFileSync(
+    path.join(newsRoot, "worker/workflow.ts"),
+    "utf-8"
+  );
+
+  it("writes title on conflict so backfill can replace an empty title_vi", () => {
+    const upserts = workflow.match(
+      /ON CONFLICT\(item_id, lang\) DO UPDATE SET[\s\S]{0,80}/g
     );
-    expect(wrangler).not.toMatch(
-      /ANYROUTER_TRANSLATE_MODEL = "google\/gemini-3\.7-flash/
-    );
-    expect(wrangler).not.toMatch(
-      /ANYROUTER_TRANSLATE_MODEL = "qwen\/qwen3\.7-flash/
-    );
+    expect(upserts?.length).toBeGreaterThanOrEqual(2);
+    for (const sql of upserts ?? []) {
+      expect(sql).toContain("title = excluded.title");
+    }
   });
 });
