@@ -1,101 +1,146 @@
 "use client";
 
+import { Badge } from "@duyet/components/ui/badge";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@duyet/components/ui/table";
 import { Box, Cuboid, Layers, RotateCcw } from "lucide-react";
 import { useK8s } from "@/hooks/useDashboard";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const STATUS_STYLES: Record<string, string> = {
-  running: "text-[var(--rd-ok)]",
-  pending: "text-[var(--rd-warn)]",
-  crashloop: "text-[var(--rd-down)]",
-  completed: "text-[var(--rd-text-3)]",
+  running: "bg-[var(--rd-ok)]",
+  pending: "bg-[var(--rd-warn)]",
+  crashloop: "bg-destructive",
+  completed: "bg-muted-foreground",
 };
 
 export function K8sInfo() {
   const { pods, summary } = useK8s();
 
   return (
-    <div className="space-y-6">
-      {/* Summary cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="p-4 rounded-[var(--rd-r-sm)] bg-[var(--rd-surface-2)]">
-          <div className="flex items-center gap-2 text-[var(--rd-text-3)]">
-            <Cuboid size={14} />
-            <p className="text-xs font-medium">Namespaces</p>
-          </div>
-          <p className="mt-2 text-2xl font-semibold text-[var(--rd-text)]">{summary.namespaces}</p>
-        </div>
-        <div className="p-4 rounded-[var(--rd-r-sm)] bg-[var(--rd-surface-2)]">
-          <div className="flex items-center gap-2 text-[var(--rd-ok)]">
-            <Box size={14} />
-            <p className="text-xs font-medium">Pods</p>
-          </div>
-          <p className="mt-2 text-2xl font-semibold text-[var(--rd-text)]">
-            {summary.running}<span className="text-base text-[var(--rd-text-3)]">/{summary.pods}</span>
-          </p>
-          <p className="text-xs text-[var(--rd-text-3)]">running</p>
-        </div>
-        <div className="p-4 rounded-[var(--rd-r-sm)] bg-[var(--rd-surface-2)]">
-          <div className="flex items-center gap-2 text-[var(--rd-accent)]">
-            <Layers size={14} />
-            <p className="text-xs font-medium">Deployments</p>
-          </div>
-          <p className="mt-2 text-2xl font-semibold text-[var(--rd-text)]">{summary.deployments}</p>
-        </div>
-        <div className="p-4 rounded-[var(--rd-r-sm)] bg-[var(--rd-surface-2)]">
-          <div className="flex items-center gap-2 text-[var(--rd-warn)]">
-            <RotateCcw size={14} />
-            <p className="text-xs font-medium">Restarts</p>
-          </div>
-          <p className="mt-2 text-2xl font-semibold text-[var(--rd-text)]">{summary.totalRestarts}</p>
-          <p className="text-xs text-[var(--rd-text-3)]">total</p>
-        </div>
-      </div>
+    <div className="grid grid-cols-2 gap-3 lg:grid-cols-12">
+      <StatCell
+        icon={Cuboid}
+        label="Namespaces"
+        value={String(summary.namespaces)}
+      />
+      <StatCell
+        icon={Box}
+        label="Pods"
+        value={`${summary.running}/${summary.pods}`}
+        sub="running"
+      />
+      <StatCell
+        icon={Layers}
+        label="Deployments"
+        value={String(summary.deployments)}
+      />
+      <StatCell
+        icon={RotateCcw}
+        label="Restarts"
+        value={String(summary.totalRestarts)}
+        sub="total"
+      />
 
-      {/* Pod table */}
-      <div>
-        <h2 className="mb-4 text-base font-semibold tracking-tight text-[var(--rd-text)]">
-          Pods
-        </h2>
-        <div className="overflow-x-auto">
-          <table className="w-full text-xs">
-            <thead>
-              <tr className="border-b border-[var(--rd-line)] text-left">
-                <th className="pb-2 font-medium text-[var(--rd-text-3)]">Name</th>
-                <th className="pb-2 font-medium text-[var(--rd-text-3)]">Namespace</th>
-                <th className="pb-2 font-medium text-[var(--rd-text-3)]">Node</th>
-                <th className="pb-2 font-medium text-[var(--rd-text-3)]">Status</th>
-                <th className="pb-2 font-medium text-[var(--rd-text-3)] text-right">Restarts</th>
-                <th className="pb-2 font-medium text-[var(--rd-text-3)] text-right">CPU</th>
-                <th className="pb-2 font-medium text-[var(--rd-text-3)] text-right">Memory</th>
-                <th className="pb-2 font-medium text-[var(--rd-text-3)] text-right">Age</th>
-              </tr>
-            </thead>
-            <tbody>
+      <Card className="col-span-2 min-w-0 lg:col-span-12">
+        <CardHeader className="flex-row items-center justify-between">
+          <CardTitle>Pods</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow className="hover:bg-transparent">
+                <TableHead className="h-8 px-2 text-[11px]">Name</TableHead>
+                <TableHead className="h-8 px-2 text-[11px]">NS</TableHead>
+                <TableHead className="hidden h-8 px-2 text-[11px] sm:table-cell">
+                  Node
+                </TableHead>
+                <TableHead className="h-8 px-2 text-[11px]">Status</TableHead>
+                <TableHead className="h-8 px-2 text-right text-[11px]">R</TableHead>
+                <TableHead className="hidden h-8 px-2 text-right text-[11px] md:table-cell">
+                  CPU
+                </TableHead>
+                <TableHead className="hidden h-8 px-2 text-right text-[11px] md:table-cell">
+                  Mem
+                </TableHead>
+                <TableHead className="h-8 px-2 text-right text-[11px]">Age</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {pods.map((pod) => (
-                <tr
-                  key={pod.name}
-                  className="border-b border-[var(--rd-line)] hover:bg-[var(--rd-surface-2)] transition-colors"
-                >
-                  <td className="py-2.5 pr-4 font-[var(--font-mono)] font-medium text-[var(--rd-text)] max-w-[200px] truncate">
+                <TableRow key={pod.name}>
+                  <TableCell className="max-w-[180px] truncate px-2 py-2 font-mono text-xs">
                     {pod.name}
-                  </td>
-                  <td className="py-2.5 pr-4">
-                    <span className="rd-chip">{pod.namespace}</span>
-                  </td>
-                  <td className="py-2.5 pr-4 text-[var(--rd-text-2)]">{pod.node}</td>
-                  <td className={`py-2.5 pr-4 font-medium ${STATUS_STYLES[pod.status] ?? "text-[var(--rd-text)]"}`}>
-                    {pod.status}
-                  </td>
-                  <td className="py-2.5 pr-4 text-right text-[var(--rd-text-2)]">{pod.restarts}</td>
-                  <td className="py-2.5 pr-4 text-right font-[var(--font-mono)] text-[var(--rd-text-2)]">{pod.cpu}</td>
-                  <td className="py-2.5 pr-4 text-right font-[var(--font-mono)] text-[var(--rd-text-2)]">{pod.memory}</td>
-                  <td className="py-2.5 text-right text-[var(--rd-text-3)]">{pod.age}</td>
-                </tr>
+                  </TableCell>
+                  <TableCell className="px-2 py-2">
+                    <Badge variant="outline" className="font-mono text-[10px] font-normal">
+                      {pod.namespace}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="hidden px-2 py-2 text-[11px] text-muted-foreground sm:table-cell">
+                    {pod.node}
+                  </TableCell>
+                  <TableCell className="px-2 py-2">
+                    <span className="inline-flex items-center gap-1.5 text-[11px] font-medium">
+                      <span
+                        className={`size-1.5 rounded-full ${STATUS_STYLES[pod.status] ?? "bg-muted-foreground"}`}
+                      />
+                      {pod.status}
+                    </span>
+                  </TableCell>
+                  <TableCell className="px-2 py-2 text-right font-mono text-[11px] tabular-nums">
+                    {pod.restarts}
+                  </TableCell>
+                  <TableCell className="hidden px-2 py-2 text-right font-mono text-[11px] tabular-nums md:table-cell">
+                    {pod.cpu}
+                  </TableCell>
+                  <TableCell className="hidden px-2 py-2 text-right font-mono text-[11px] tabular-nums md:table-cell">
+                    {pod.memory}
+                  </TableCell>
+                  <TableCell className="px-2 py-2 text-right text-[11px] text-muted-foreground">
+                    {pod.age}
+                  </TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
     </div>
+  );
+}
+
+function StatCell({
+  icon: Icon,
+  label,
+  value,
+  sub,
+}: {
+  icon: typeof Box;
+  label: string;
+  value: string;
+  sub?: string;
+}) {
+  return (
+    <Card className="min-w-0 lg:col-span-3">
+      <CardContent className="p-4">
+        <div className="flex items-center gap-1.5 text-muted-foreground">
+          <Icon className="size-3.5" />
+          <p className="text-[11px] font-medium">{label}</p>
+        </div>
+        <p className="mt-2 font-mono text-2xl font-semibold tracking-tight tabular-nums">
+          {value}
+        </p>
+        {sub ? (
+          <p className="mt-0.5 text-[11px] text-muted-foreground">{sub}</p>
+        ) : null}
+      </CardContent>
+    </Card>
   );
 }

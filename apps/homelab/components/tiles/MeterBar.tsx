@@ -1,3 +1,6 @@
+import { Progress } from "@duyet/components/ui/progress";
+import { cn } from "@duyet/libs/utils";
+
 function MeterBar({
   value,
   warn = 55,
@@ -7,16 +10,18 @@ function MeterBar({
   warn?: number;
   danger?: number;
 }) {
-  const bg =
+  const tone =
     value > danger
-      ? "var(--rd-down)"
+      ? "[&>[data-slot=progress-indicator]]:bg-destructive"
       : value > warn
-        ? "var(--rd-warn)"
-        : "var(--rd-ok)";
+        ? "[&>[data-slot=progress-indicator]]:bg-[var(--rd-warn)]"
+        : "[&>[data-slot=progress-indicator]]:bg-[var(--rd-ok)]";
+
   return (
-    <div className="rd-meter mt-[6px]">
-      <i style={{ width: `${Math.min(value, 100)}%`, background: bg }} />
-    </div>
+    <Progress
+      value={Math.min(value, 100)}
+      className={cn("h-1.5 bg-muted", tone)}
+    />
   );
 }
 

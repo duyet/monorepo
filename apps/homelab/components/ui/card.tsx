@@ -9,63 +9,58 @@ import {
 import { cn } from "@duyet/libs/utils";
 import * as React from "react";
 
-// Override Card with rounded corners and gray border
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
   <SharedCard
     ref={ref}
-    className={cn(
-      "rounded-xl border border-[#e8e0d4] bg-white dark:border-white/12 dark:bg-[#1a1a1a]",
-      className
-    )}
+    className={cn("rounded-lg border bg-card text-card-foreground shadow-none", className)}
     {...props}
   />
 ));
 Card.displayName = "Card";
 
-// Use default CardHeader with padding
 const CardHeader = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <SharedCardHeader ref={ref} className={className} {...props} />
+  <SharedCardHeader
+    ref={ref}
+    className={cn("flex flex-col gap-1.5 space-y-0 p-4 pb-2", className)}
+    {...props}
+  />
 ));
 CardHeader.displayName = "CardHeader";
 
-// Override CardTitle to make text smaller
 const CardTitle = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
   <SharedCardTitle
     ref={ref}
-    className={`text-base font-semibold tracking-tight text-neutral-950 dark:text-neutral-100 ${className || ""}`}
+    className={cn("text-sm font-medium tracking-tight", className)}
     {...props}
   />
 ));
 CardTitle.displayName = "CardTitle";
 
-// Use default CardContent with padding
 const CardContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <SharedCardContent ref={ref} className={className} {...props} />
+  <SharedCardContent ref={ref} className={cn("p-4 pt-0", className)} {...props} />
 ));
 CardContent.displayName = "CardContent";
 
-// Use default CardFooter with padding
 const CardFooter = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <SharedCardFooter ref={ref} className={className} {...props} />
+  <SharedCardFooter ref={ref} className={cn("p-4 pt-0", className)} {...props} />
 ));
 CardFooter.displayName = "CardFooter";
 
-// Export overridden components and shared components
 export {
   Card,
   CardContent,

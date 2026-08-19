@@ -1,32 +1,38 @@
 "use client";
 
+import { Badge } from "@duyet/components/ui/badge";
+import { Button } from "@duyet/components/ui/button";
+import { Input } from "@duyet/components/ui/input";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@duyet/components/ui/table";
 import { Search } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { useServices } from "@/hooks/useDashboard";
-import { ServiceCard } from "./ServiceCard";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function ServicesStatus() {
-  const [selectedNamespace, setSelectedNamespace] = useState<string | null>(
-    null
-  );
+  const [selectedNamespace, setSelectedNamespace] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-
   const { allServices, namespaces, servicesByNamespace } = useServices();
 
-  // Filter services by namespace and search query
   const filteredServices = useMemo(() => {
     let result = selectedNamespace
       ? servicesByNamespace[selectedNamespace] || []
       : allServices;
 
-    // Apply search filter
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
       result = result.filter(
         (service) =>
           service.name.toLowerCase().includes(query) ||
           service.namespace.toLowerCase().includes(query) ||
-          service.node.toLowerCase().includes(query)
+          service.node.toLowerCase().includes(query),
       );
     }
 
@@ -34,97 +40,130 @@ export function ServicesStatus() {
   }, [selectedNamespace, searchQuery, allServices, servicesByNamespace]);
 
   return (
-    <div className="space-y-6">
-      <h2 className="text-base font-semibold tracking-tight text-[var(--rd-text)]">
-        Running Services
-      </h2>
-
-      {/* Search bar */}
-      <div className="relative">
-        <Search
-          className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--rd-text-3)]"
-          aria-hidden="true"
-        />
-        <input
-          type="search"
-          placeholder="Search services by name, namespace, or node..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full rounded-lg border border-[var(--rd-border)] bg-[var(--rd-surface)] py-2 pl-10 pr-4 text-sm text-[var(--rd-text)] placeholder:text-[var(--rd-text-3)] focus:border-[var(--rd-accent)] focus:outline-none focus:ring-2 focus:ring-[var(--rd-ring)]"
-          aria-label="Search services"
-        />
-      </div>
-
-      {/* Namespace filters */}
-      <div
-        className="flex flex-wrap gap-2"
-        role="tablist"
-        aria-label="Service namespace filters"
-      >
-        <button
-          onClick={() => setSelectedNamespace(null)}
-          role="tab"
-          aria-selected={selectedNamespace === null}
-          aria-controls="services-list"
-          className={`rounded-lg px-3 py-1 text-xs font-medium transition-colors ${
-            selectedNamespace === null
-              ? "bg-[var(--rd-text)] text-[var(--rd-bg)]"
-              : "bg-[var(--rd-surface)] text-[var(--rd-text-2)] ring-1 ring-[var(--rd-border)] hover:bg-[var(--rd-surface-2)]"
-          }`}
-        >
-          All ({allServices.length})
-        </button>
-        {namespaces.map((namespace) => (
-          <button
-            key={namespace}
-            onClick={() => setSelectedNamespace(namespace)}
-            role="tab"
-            aria-selected={selectedNamespace === namespace}
-            aria-controls="services-list"
-            className={`rounded-lg px-3 py-1 text-xs font-medium transition-colors ${
-              selectedNamespace === namespace
-                ? "bg-[var(--rd-text)] text-[var(--rd-bg)]"
-                : "bg-[var(--rd-surface)] text-[var(--rd-text-2)] ring-1 ring-[var(--rd-border)] hover:bg-[var(--rd-surface-2)]"
-            }`}
+    <Card className="min-w-0">
+      <CardHeader className="flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+        <CardTitle>
+          Services
+          <span className="ml-2 font-mono text-[11px] font-normal text-muted-foreground">
+            {filteredServices.length}/{allServices.length}
+          </span>
+        </CardTitle>
+        <div className="relative w-full sm:max-w-xs sm:ml-auto">
+          <Search className="absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            type="search"
+            placeholder="Search name, namespace, node"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="h-8 pl-8 text-xs"
+            aria-label="Search services"
+          />
+        </div>
+      </CardHeader>
+      <CardContent className="space-y-3">
+        <div className="flex flex-wrap gap-1.5" role="tablist" aria-label="Namespace">
+          <FilterChip
+            active={selectedNamespace === null}
+            onClick={() => setSelectedNamespace(null)}
           >
-            {namespace} ({servicesByNamespace[namespace]?.length || 0})
-          </button>
-        ))}
-      </div>
+            All ({allServices.length})
+          </FilterChip>
+          {namespaces.map((namespace) => (
+            <FilterChip
+              key={namespace}
+              active={selectedNamespace === namespace}
+              onClick={() => setSelectedNamespace(namespace)}
+            >
+              {namespace} ({servicesByNamespace[namespace]?.length || 0})
+            </FilterChip>
+          ))}
+        </div>
 
-      {/* Services grid */}
-      <div
-        id="services-list"
-        role="tabpanel"
-        className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3"
-        aria-live="polite"
-        aria-atomic={false}
-      >
-        {filteredServices.length > 0 ? (
-          filteredServices.map((service) => (
-            <ServiceCard
-              key={`${service.name}-${service.node}`}
-              service={service}
-            />
-          ))
+        {filteredServices.length === 0 ? (
+          <p className="py-8 text-center text-sm text-muted-foreground">
+            No services matching &quot;{searchQuery}&quot;
+          </p>
         ) : (
-          <div className="col-span-full py-12 text-center">
-            <p className="text-sm text-[var(--rd-text-3)]">
-              No services found matching &quot;{searchQuery}&quot;
-            </p>
-          </div>
+          <Table>
+            <TableHeader>
+              <TableRow className="hover:bg-transparent">
+                <TableHead className="h-8 px-2 text-[11px]">Name</TableHead>
+                <TableHead className="h-8 px-2 text-[11px]">NS</TableHead>
+                <TableHead className="hidden h-8 px-2 text-[11px] sm:table-cell">
+                  Node
+                </TableHead>
+                <TableHead className="h-8 px-2 text-right text-[11px]">CPU</TableHead>
+                <TableHead className="h-8 px-2 text-right text-[11px]">Mem</TableHead>
+                <TableHead className="hidden h-8 px-2 text-right text-[11px] md:table-cell">
+                  Uptime
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filteredServices.map((service) => (
+                <TableRow
+                  key={`${service.name}-${service.node}`}
+                  className={service.status !== "running" ? "opacity-50" : undefined}
+                >
+                  <TableCell className="px-2 py-2">
+                    <div className="flex min-w-0 items-center gap-1.5">
+                      <span
+                        className={`size-1.5 shrink-0 rounded-full ${
+                          service.status === "running"
+                            ? "bg-[var(--rd-ok)]"
+                            : "bg-destructive"
+                        }`}
+                      />
+                      <span className="truncate font-mono text-xs">{service.name}</span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="px-2 py-2">
+                    <Badge variant="outline" className="font-mono text-[10px] font-normal">
+                      {service.namespace}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="hidden px-2 py-2 font-mono text-[11px] text-muted-foreground sm:table-cell">
+                    {service.node}:{service.port}
+                  </TableCell>
+                  <TableCell className="px-2 py-2 text-right font-mono text-[11px] tabular-nums">
+                    {service.cpu}%
+                  </TableCell>
+                  <TableCell className="px-2 py-2 text-right font-mono text-[11px] tabular-nums">
+                    {service.memory}MB
+                  </TableCell>
+                  <TableCell className="hidden px-2 py-2 text-right font-mono text-[11px] text-muted-foreground md:table-cell">
+                    {service.uptime}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         )}
-      </div>
+      </CardContent>
+    </Card>
+  );
+}
 
-      {/* Results summary */}
-      {searchQuery && filteredServices.length > 0 && (
-        <p
-          className="mt-4 text-xs text-[var(--rd-text-3)]"
-          role="status"
-        >
-          Showing {filteredServices.length} of {allServices.length} services
-        </p>
-      )}
-    </div>
+function FilterChip({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: ReactNode;
+}) {
+  return (
+    <Button
+      type="button"
+      size="xs"
+      variant={active ? "default" : "outline"}
+      onClick={onClick}
+      role="tab"
+      aria-selected={active}
+      className="h-6 px-2 text-[11px]"
+    >
+      {children}
+    </Button>
   );
 }

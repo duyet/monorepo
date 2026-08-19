@@ -285,7 +285,7 @@ export function BoschWashingMachine() {
   const statusConfig = STATUS_CONFIG[data.status];
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {/* Device Header */}
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-claude-lavender/25 dark:bg-claude-lavender/10">
@@ -310,61 +310,42 @@ export function BoschWashingMachine() {
       </div>
 
       {/* Bento Grid */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        {/* Lifetime Cycles */}
-        <div className="rounded-2xl border border-claude-lavender/30 bg-gradient-to-br from-claude-lavender/25 to-claude-lavender/5 p-5 dark:border-claude-lavender/10 dark:from-claude-lavender/10 dark:to-claude-lavender/5">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+        <div className={`${BENTO_CELL} bg-claude-lavender/15 dark:bg-claude-lavender/10`}>
           <div className="flex items-center gap-2">
             <RefreshCw className="h-4 w-4 text-claude-lavender" />
-            <p className="text-xs font-medium text-claude-lavender">
-              Lifetime Cycles
+            <p className="text-[11px] font-medium text-claude-lavender">
+              Lifetime cycles
             </p>
           </div>
-          <p className="mt-2 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+          <p className="mt-2 font-mono text-2xl font-semibold tracking-tight">
             {data.lifetimeCycles}
           </p>
-          <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
-            Total wash cycles
-          </p>
+          <p className="mt-0.5 text-[11px] text-muted-foreground">Total wash cycles</p>
         </div>
 
-        {/* Avg Water / Month */}
-        <div className="rounded-2xl border border-claude-sky/30 bg-gradient-to-br from-claude-sky/25 to-claude-sky/5 p-5 dark:border-claude-sky/10 dark:from-claude-sky/10 dark:to-claude-sky/5">
+        <div className={`${BENTO_CELL} bg-claude-sky/15 dark:bg-claude-sky/10`}>
           <div className="flex items-center gap-2">
             <Droplets className="h-4 w-4 text-claude-sky" />
-            <p className="text-xs font-medium text-claude-sky">
-              Avg Water / Month
-            </p>
+            <p className="text-[11px] font-medium text-claude-sky">Avg water / month</p>
           </div>
-          <p className="mt-2 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+          <p className="mt-2 font-mono text-2xl font-semibold tracking-tight">
             {data.waterConsumption.monthlyAverage}
-            <span className="text-lg text-neutral-600 dark:text-neutral-400">
-              {" "}
-              L
-            </span>
+            <span className="ml-1 text-sm font-normal text-muted-foreground">L</span>
           </p>
-          <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
-            Monthly average
-          </p>
+          <p className="mt-0.5 text-[11px] text-muted-foreground">Monthly average</p>
         </div>
 
-        {/* Avg Energy / Month */}
-        <div className="rounded-2xl border border-claude-peach/30 bg-gradient-to-br from-claude-peach/25 to-claude-peach/5 p-5 dark:border-claude-peach/10 dark:from-claude-peach/10 dark:to-claude-peach/5">
+        <div className={`${BENTO_CELL} bg-claude-peach/20 dark:bg-claude-peach/10`}>
           <div className="flex items-center gap-2">
             <Zap className="h-4 w-4 text-claude-peach" />
-            <p className="text-xs font-medium text-claude-peach">
-              Avg Energy / Month
-            </p>
+            <p className="text-[11px] font-medium text-claude-peach">Avg energy / month</p>
           </div>
-          <p className="mt-2 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+          <p className="mt-2 font-mono text-2xl font-semibold tracking-tight">
             {data.energyConsumption.monthlyAverage}
-            <span className="text-lg text-neutral-600 dark:text-neutral-400">
-              {" "}
-              kWh
-            </span>
+            <span className="ml-1 text-sm font-normal text-muted-foreground">kWh</span>
           </p>
-          <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
-            Monthly average
-          </p>
+          <p className="mt-0.5 text-[11px] text-muted-foreground">Monthly average</p>
         </div>
 
         {/* Water Consumption Chart — full width */}
