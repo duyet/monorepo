@@ -438,12 +438,16 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         "translate",
         publishedRows.length === 0
           ? "skipped"
-          : `translated ${translated.size} items`,
+          : `translated ${translated.size}/${publishedRows.length} items`,
         publishedRows.length === 0
           ? newRows.length === 0
             ? "no new items"
             : "no items cleared the relevance threshold"
-          : undefined
+          : translated.size === 0
+            ? "translateItems.batch_failed — title_vi left empty (EN badge) until backfill"
+            : translated.size < publishedRows.length
+              ? `partial ${translated.size}/${publishedRows.length}`
+              : undefined
       );
 
       // Plain deterministic derivation from already-memoized step outputs
@@ -843,12 +847,15 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         async () => {
           let translatedCount = 0;
           let tokens = 0;
+          let attempted = 0;
           try {
             const { results } = await this.env.DB.prepare(
               buildMissingTranslationQuery()
             ).all<{ id: string; title: string; summary: string }>();
             const rows = results ?? [];
-            if (rows.length === 0) return { translatedCount, tokens };
+            attempted = rows.length;
+            if (rows.length === 0)
+              return { translatedCount, tokens, attempted: 0 };
 
             const translated = await translateItems(
               this.env,
@@ -881,7 +888,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
           } catch (error) {
             console.error("backfill-translate step failed:", error);
           }
-          return { translatedCount, tokens };
+          return { translatedCount, tokens, attempted };
         }
       );
       backfilledTranslations = backfillTranslateResult.translatedCount;
@@ -890,8 +897,14 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         steps,
         "backfill-translate",
         backfilledTranslations === 0
-          ? "0 candidates"
-          : `translated ${backfilledTranslations} summaries`
+          ? backfillTranslateResult.attempted === 0
+            ? "0 candidates"
+            : `translated 0/${backfillTranslateResult.attempted}`
+          : `translated ${backfilledTranslations} summaries`,
+        backfillTranslateResult.attempted > 0 &&
+          backfilledTranslations === 0
+          ? "translateItems.batch_failed — missing title_vi not backfilled"
+          : undefined
       );
 
       const backfillScoreResult = await step.do("backfill-score", async () => {

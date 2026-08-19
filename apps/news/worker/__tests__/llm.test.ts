@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   _extractLastJsonObjectForTests as extractLastJsonObject,
+  callAnyrouter,
   generateTldr,
   normalizeTag,
   _normalizeTldrForTests as normalizeTldr,
@@ -745,9 +746,13 @@ describe("model fallback chain", () => {
   });
 
   it("falls back to ANYROUTER_MODEL when the per-task override is unset", async () => {
-    const fetchMock = vi
-      .fn()
-      .mockResolvedValue(completion(JSON.stringify({ results: [] })));
+    const fetchMock = vi.fn().mockResolvedValue(
+      completion(
+        JSON.stringify({
+          results: [{ i: 0, title: "Tin", summary: "Tóm tắt" }],
+        })
+      )
+    );
     vi.stubGlobal("fetch", fetchMock);
 
     await translateItems(chain, [{ i: 0, title: "Story" }]);
@@ -766,6 +771,53 @@ describe("model fallback chain", () => {
       [{ i: 0, title: "Story" }]
     );
     expect(modelsOf(fetchMock)).toEqual(["vi/primary", "vi/backup"]);
+  });
+
+  it("advances past a hanging model via raceTimeout so the next id can run", async () => {
+    vi.useFakeTimers();
+    try {
+      const fetchMock = vi
+        .fn()
+        .mockImplementationOnce(() => new Promise(() => {}))
+        .mockResolvedValueOnce(
+          completion(JSON.stringify({ results: [{ i: 0, title: "Tin" }] }))
+        );
+      vi.stubGlobal("fetch", fetchMock);
+
+      const pending = callAnyrouter(
+        { ...env, ANYROUTER_MODEL: "hang/model,ok/model" },
+        [{ role: "user", content: "hi" }],
+        { timeoutMs: 200, json: true }
+      );
+      await vi.advanceTimersByTimeAsync(100);
+      const result = await pending;
+      expect(modelsOf(fetchMock)).toEqual(["hang/model", "ok/model"]);
+      expect(result.content).toContain("Tin");
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("advances when the first model returns JSON that sanitize drops", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(completion(JSON.stringify({ results: [] })))
+      .mockResolvedValueOnce(
+        completion(
+          JSON.stringify({
+            results: [{ i: 0, title: "Tin mới", summary: "Tóm tắt" }],
+          })
+        )
+      );
+    vi.stubGlobal("fetch", fetchMock);
+
+    const results = await translateItems(
+      { ...env, ANYROUTER_TRANSLATE_MODEL: "empty/model,ok/model" },
+      [{ i: 0, title: "Story" }]
+    );
+    expect(modelsOf(fetchMock)).toEqual(["empty/model", "ok/model"]);
+    expect(results).toHaveLength(1);
+    expect(results[0].title).toBe("Tin mới");
   });
 });
 
@@ -801,6 +853,39 @@ describe("scoreItems / translateItems batch failure handling", () => {
 
     const results = await translateItems(env, [{ i: 0, title: "Hello" }]);
     expect(results).toEqual([]);
+  });
+
+  it("logs a structured reason when a translate batch fails", async () => {
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(new Response("server error", { status: 500 }))
+    );
+
+    const results = await translateItems(env, [
+      { i: 0, title: "Hello" },
+      { i: 1, title: "World" },
+    ]);
+    expect(results).toEqual([]);
+
+    const payload = error.mock.calls
+      .map((call) => call[0])
+      .find(
+        (line): line is string =>
+          typeof line === "string" && line.includes("translateItems.batch_failed")
+      );
+    expect(payload).toBeDefined();
+    const parsed = JSON.parse(payload as string) as {
+      event: string;
+      reason: string;
+      batchSize: number;
+      indexes: number[];
+    };
+    expect(parsed.event).toBe("translateItems.batch_failed");
+    expect(parsed.reason).toMatch(/anyrouter request failed: 500/);
+    expect(parsed.batchSize).toBe(2);
+    expect(parsed.indexes).toEqual([0, 1]);
+    error.mockRestore();
   });
 
   it("parses a well-formed scoring response", async () => {

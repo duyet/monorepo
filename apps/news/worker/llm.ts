@@ -305,6 +305,26 @@ async function streamCompletion(
 }
 
 /**
+ * AbortSignal.timeout on fetch is not enough: a stalled SSE body read can
+ * ignore the signal. Racing a timer guarantees the chain advances.
+ */
+function raceTimeout<T>(
+  promise: Promise<T>,
+  ms: number,
+  label: string
+): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const timeout = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => {
+      reject(new Error(`${label} timed out after ${Math.round(ms)}ms`));
+    }, ms);
+  });
+  return Promise.race([promise, timeout]).finally(() => {
+    if (timer !== undefined) clearTimeout(timer);
+  });
+}
+
+/**
  * Tries each model in the configured chain until one returns usable content.
  * Transport errors, non-200s, timeouts and empty/unusable completions all
  * advance to the next model; the last failure is rethrown if none succeed.
@@ -317,6 +337,9 @@ async function callAnyrouter(
     modelSpec?: string;
     task?: LlmTask;
     timeoutMs?: number;
+    /** A 200 with content that fails this check is a model failure so
+     *  the next id in the chain can run (e.g. empty sanitize). */
+    accept?: (content: string) => boolean;
   } = {}
 ): Promise<AnyrouterCallResult> {
   const task = opts.task ?? "other";
@@ -327,6 +350,8 @@ async function callAnyrouter(
   // workflow step that a single call was sized to fit inside. Each model also
   // gets an equal slice of it: without that, a first model that stalls until
   // the deadline would starve the very fallbacks it should be handing off to.
+  // raceTimeout (below) guarantees a hang still advances even if the fetch
+  // AbortSignal is ignored by a stalled SSE body.
   const budget = opts.timeoutMs ?? REQUEST_TIMEOUT_MS;
   const deadline = Date.now() + budget;
   const slice = budget / models.length;
@@ -338,10 +363,17 @@ async function callAnyrouter(
     if (timeoutMs <= 0) break;
     const attemptStartedAt = Date.now();
     try {
-      const result = await streamCompletion(env, model, messages, {
-        json: opts.json,
+      const result = await raceTimeout(
+        streamCompletion(env, model, messages, {
+          json: opts.json,
+          timeoutMs,
+        }),
         timeoutMs,
-      });
+        `anyrouter model ${model}`
+      );
+      if (opts.accept && !opts.accept(result.content)) {
+        throw new Error("anyrouter response failed accept check");
+      }
       console.log(`anyrouter completion served by ${model}`);
       logLlmCall({
         ts: attemptStartedAt,
@@ -613,6 +645,15 @@ export function sanitizeTranslateResults(
   return out;
 }
 
+/** Translate batches are larger than a score call; give the chain enough
+ *  wall time that a hanging first model can still hand off. */
+const TRANSLATE_TIMEOUT_MS = 300_000;
+
+function parseTranslateRows(raw: string): unknown {
+  const parsed = parseJson<{ results?: unknown } | unknown[]>(raw);
+  return Array.isArray(parsed) ? parsed : parsed.results;
+}
+
 export async function translateItems(
   env: Env,
   items: TranslateInput[]
@@ -638,19 +679,36 @@ Respond with strict JSON only: {"results":[{"i":0,"title":"...","summary":"..."}
           json: true,
           modelSpec: env.ANYROUTER_TRANSLATE_MODEL,
           task: "translate",
+          timeoutMs: TRANSLATE_TIMEOUT_MS,
+          accept: (content) => {
+            try {
+              return (
+                sanitizeTranslateResults(parseTranslateRows(content), batch, 0)
+                  .length > 0
+              );
+            } catch {
+              return false;
+            }
+          },
         }
       );
-      const parsed = parseJson<{ results?: unknown } | unknown[]>(raw);
-      const rows = Array.isArray(parsed) ? parsed : parsed.results;
       results.push(
         ...sanitizeTranslateResults(
-          rows,
+          parseTranslateRows(raw),
           batch,
           Math.ceil(tokens / batch.length)
         )
       );
     } catch (error) {
-      console.error("translateItems batch failed:", error);
+      const reason = error instanceof Error ? error.message : String(error);
+      console.error(
+        JSON.stringify({
+          event: "translateItems.batch_failed",
+          reason,
+          batchSize: batch.length,
+          indexes: batch.map((item) => item.i),
+        })
+      );
     }
   }
 
@@ -683,7 +741,7 @@ const EMPTY_TLDR: TldrResult = { bullets_en: [], bullets_vi: [], tokens: 0 };
 /** Bilingual 16+16 JSON is a large generation; give the chain more than
  * the default 120s so a reasoning model that spends its first slice on
  * hidden tokens still has time to emit content (or hand off). */
-const TLDR_TIMEOUT_MS = 180_000;
+const TLDR_TIMEOUT_MS = 240_000;
 
 /** Accepts the preferred `item_ids: string[]` shape as well as the legacy
  * single `item_id` (or `id`) string, normalizing everything to an array. */
