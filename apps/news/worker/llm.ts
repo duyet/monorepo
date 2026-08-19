@@ -1,6 +1,9 @@
 import type { Env } from "./types.js";
 
 const BATCH_SIZE = 15;
+/** 15-item translate JSON + VI_STYLE routinely times out native Gemma 4
+ *  at the 90s attempt cap; 3 titles still fill a homepage row and finish. */
+const TRANSLATE_BATCH_SIZE = 3;
 // Generous ceiling: some anyrouter-routed models (e.g. reasoning models
 // like stepfun-ai/step-3.7-flash) spend a large chunk of the token budget
 // on hidden `message.reasoning` before ever emitting `message.content`. A
@@ -678,9 +681,11 @@ export function sanitizeTranslateResults(
   return out;
 }
 
-/** Translate batches are larger than a score call; give the chain enough
- *  wall time that a hanging first model can still hand off. */
+/** Whole translateItems call. Several 3-item batches share this so a
+ *  15-item backfill cannot stack 5 × 300s. */
 const TRANSLATE_TIMEOUT_MS = 300_000;
+/** One 3-item batch should finish (or fail over) inside the 90s slice. */
+const TRANSLATE_BATCH_TIMEOUT_MS = 90_000;
 
 function parseTranslateRows(raw: string): unknown {
   const parsed = parseJson<{ results?: unknown } | unknown[]>(raw);
@@ -692,8 +697,21 @@ export async function translateItems(
   items: TranslateInput[]
 ): Promise<TranslateResult[]> {
   const results: TranslateResult[] = [];
+  const deadline = Date.now() + TRANSLATE_TIMEOUT_MS;
 
-  for (const batch of chunk(items, BATCH_SIZE)) {
+  for (const batch of chunk(items, TRANSLATE_BATCH_SIZE)) {
+    const remaining = deadline - Date.now();
+    if (remaining <= 0) {
+      console.error(
+        JSON.stringify({
+          event: "translateItems.batch_failed",
+          reason: "translate deadline exhausted",
+          batchSize: batch.length,
+          indexes: batch.map((item) => item.i),
+        })
+      );
+      break;
+    }
     const prompt = `Translate these AI/tech news items into Vietnamese.
 
 Items:
@@ -712,7 +730,7 @@ Respond with strict JSON only: {"results":[{"i":0,"title":"...","summary":"..."}
           json: true,
           modelSpec: env.ANYROUTER_TRANSLATE_MODEL,
           task: "translate",
-          timeoutMs: TRANSLATE_TIMEOUT_MS,
+          timeoutMs: Math.min(TRANSLATE_BATCH_TIMEOUT_MS, remaining),
           accept: (content) => {
             try {
               return (

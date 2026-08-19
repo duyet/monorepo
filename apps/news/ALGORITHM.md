@@ -85,8 +85,10 @@ anyrouter's queue for long prompts), JSON mode, `max_tokens` 8192,
 reasoning-model fallback (extracts JSON from `message.reasoning` when content
 is starved), comma-separated model fallback chains (`ANYROUTER_MODEL`), and
 per-task overrides (`ANYROUTER_TRANSLATE_MODEL` / `ANYROUTER_TLDR_MODEL` —
-Gemini 2.5 Flash-Lite / Gemma 4 / GLM-4.7 / Ling-3.0 first, then native Gemini 2.5/3.5;
-BYOK-only ids such as SEA-LION and Gemini 3.7 are omitted). A hang or
+Gemma 4 first for translate (native, actually completes), then Flash-Lite /
+GLM-4.7 / Ling-3.0 / Gemini 2.5/3.5; BYOK-only ids such as SEA-LION and
+Gemini 3.7 are omitted). Translate runs in batches of 3 so a 90s attempt
+cap can finish instead of hanging on a 15-item JSON blob. A hang or
 empty sanitize advances the chain (`raceTimeout` aborts the fetch + leftover
 budget goes to the next id, capped per attempt + `accept` check);
 the last failure is rethrown. Translate batch failures are logged as
