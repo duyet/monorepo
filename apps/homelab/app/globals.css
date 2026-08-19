@@ -3,49 +3,28 @@
 @config "../tailwind.config.mjs";
 
 @layer base {
-  :root {
-    --background: var(--rd-bg, #ffffff);
-    --foreground: var(--rd-text, #0c0c0c);
-    --card: var(--rd-surface, #ffffff);
-    --card-foreground: var(--rd-text, #0c0c0c);
-    --popover: var(--rd-surface, #ffffff);
-    --popover-foreground: var(--rd-text, #0c0c0c);
-    --primary: var(--rd-text, #0c0c0c);
-    --primary-foreground: var(--rd-bg, #ffffff);
-    --secondary: var(--rd-surface-2, #f6f6f5);
-    --secondary-foreground: var(--rd-text, #0c0c0c);
-    --muted: var(--rd-surface-2, #f6f6f5);
-    --muted-foreground: var(--rd-text-3, #8c8b85);
-    --accent: var(--rd-accent-bg, #fbeee7);
-    --accent-foreground: var(--rd-accent-ink, #b54a1f);
-    --destructive: var(--rd-down, #d23b3b);
-    --destructive-foreground: #ffffff;
-    --border: var(--rd-border, #e8e8e6);
-    --input: var(--rd-border, #e8e8e6);
-    --ring: var(--rd-ring, rgba(216,96,47,.32));
-    --radius: var(--rd-r, 11px);
-  }
-
+  :root,
   .dark {
-    --background: var(--rd-bg, #0a0a0a);
-    --foreground: var(--rd-text, #f4f3f1);
-    --card: var(--rd-surface, #111111);
-    --card-foreground: var(--rd-text, #f4f3f1);
-    --popover: var(--rd-surface, #111111);
-    --popover-foreground: var(--rd-text, #f4f3f1);
-    --primary: var(--rd-text, #f4f3f1);
-    --primary-foreground: var(--rd-bg, #0a0a0a);
-    --secondary: var(--rd-surface-2, #161616);
-    --secondary-foreground: var(--rd-text, #f4f3f1);
-    --muted: var(--rd-surface-2, #161616);
-    --muted-foreground: var(--rd-text-3, #74736e);
-    --accent: var(--rd-accent-bg, #2a1810);
-    --accent-foreground: var(--rd-accent-ink, #f59568);
-    --destructive: var(--rd-down, #f06464);
-    --destructive-foreground: #ffffff;
-    --border: var(--rd-border, #242424);
-    --input: var(--rd-border, #242424);
-    --ring: var(--rd-ring, rgba(240,116,63,.4));
+    --background: #070708;
+    --foreground: #f3efe6;
+    --card: #101114;
+    --card-foreground: #f3efe6;
+    --popover: #101114;
+    --popover-foreground: #f3efe6;
+    --primary: #f3efe6;
+    --primary-foreground: #070708;
+    --secondary: #16171b;
+    --secondary-foreground: #f3efe6;
+    --muted: #16171b;
+    --muted-foreground: #8b877c;
+    --accent: #1c1712;
+    --accent-foreground: #f0a060;
+    --destructive: #ff6b5a;
+    --destructive-foreground: #fff4f1;
+    --border: rgba(243, 239, 230, 0.09);
+    --input: rgba(243, 239, 230, 0.12);
+    --ring: rgba(240, 160, 96, 0.42);
+    --radius: 8px;
   }
 
   * {
@@ -53,18 +32,29 @@
   }
 
   html {
-    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    color-scheme: dark;
+    background-color: #070708;
+    font-family: Geist, ui-sans-serif, system-ui, sans-serif;
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
   }
 
   body {
     background-color: var(--background);
+    background-image: radial-gradient(
+      980px 440px at 10% -12%,
+      rgba(240, 116, 63, 0.14),
+      transparent 58%
+    );
     color: var(--foreground);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    line-height: 1.55;
-    transition: background-color .35s ease, color .35s ease;
+    line-height: 1.6;
+  }
+
+  ::selection {
+    background: rgba(240, 160, 96, 0.28);
+    color: #fff6ee;
   }
 }
 

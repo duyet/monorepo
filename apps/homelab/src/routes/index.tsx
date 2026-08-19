@@ -1,13 +1,6 @@
-import { Badge } from "@duyet/components/ui/badge";
-import { Button } from "@duyet/components/ui/button";
-import { Box, Server, Smartphone, Zap } from "lucide-react";
-import {
-  AgentActionsTile,
-  ClusterStatsTile,
-  NodesTile,
-  SmartDevicesTile,
-  StatusDot,
-} from "@/components/tiles";
+import { SecHead } from "@duyet/components";
+import { createFileRoute } from "@tanstack/react-router";
+import { AgentActionsTile, NodesTile, SmartDevicesTile, StatusDot } from "@/components/tiles";
 import { ClusterOverview } from "@/components/dashboard/ClusterOverview";
 import { K8sInfo } from "@/components/dashboard/K8sInfo";
 import { NetworkStats } from "@/components/dashboard/NetworkStats";
@@ -16,15 +9,17 @@ import { ServiceDowntime } from "@/components/dashboard/ServiceDowntime";
 import { ServicesStatus } from "@/components/dashboard/ServicesStatus";
 import { SmartDevicesOverview } from "@/components/smart-devices/SmartDevicesOverview";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
-import { useClusterInfo, useNodes } from "@/hooks/useDashboard";
-import { createFileRoute } from "@tanstack/react-router";
+import { useClusterInfo, useClusterStats, useNodes } from "@/hooks/useDashboard";
 
 const sections = [
-  { id: "overview", label: "Overview", icon: Zap },
-  { id: "infrastructure", label: "Infrastructure", icon: Server },
-  { id: "k8s", label: "Kubernetes", icon: Box },
-  { id: "smart-devices", label: "Smart Devices", icon: Smartphone },
+  { id: "overview", label: "Overview" },
+  { id: "infrastructure", label: "Infrastructure" },
+  { id: "k8s", label: "Kubernetes" },
+  { id: "smart-devices", label: "Smart devices" },
 ] as const;
+
+const INTRO =
+  "A small k3s lab on mini PCs, a Raspberry Pi, and a few home devices. Metrics here are mock data that refresh on each build.";
 
 export const Route = createFileRoute("/")({
   component: HomelabPage,
@@ -33,112 +28,76 @@ export const Route = createFileRoute("/")({
 function HomelabPage() {
   const { onlineCount, totalNodes } = useNodes();
   const clusterInfo = useClusterInfo();
+  const stats = useClusterStats();
 
   return (
-    <div className="bg-background text-foreground">
-      <section className="mx-auto max-w-6xl px-4 pb-4 pt-6 sm:px-6">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div className="min-w-0">
-            <p className="mb-1 inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-widest text-muted-foreground">
-              <StatusDot status={onlineCount === totalNodes ? "online" : "degraded"} />
-              Infrastructure · homelab.duyet.net
-            </p>
-            <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-              Homelab
-            </h1>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="text-left sm:text-right">
-              <p className="text-sm font-medium">
-                Kubernetes {clusterInfo.version}
-              </p>
-              <p className="text-[11px] text-muted-foreground">
-                {clusterInfo.platform} · {clusterInfo.cni} CNI · {clusterInfo.csi} CSI
-              </p>
-            </div>
-            <Badge variant="secondary" className="gap-1.5 font-mono text-[11px] font-normal">
-              <span className="size-1.5 rounded-full bg-[var(--rd-ok)]" />
-              k3s
-            </Badge>
-          </div>
+    <div>
+      <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(32px,4.5vw,56px)] pb-[clamp(22px,3vw,36px)]">
+        <h1 className="rd-display text-[clamp(2.4rem,5.5vw,4rem)] text-[#f3efe6]">
+          Homelab, a{" "}
+          <span className="text-[#f0a060]">k3s cluster</span>.
+        </h1>
+        <p className="rd-lead mt-[16px] max-w-[64ch] text-[clamp(1.02rem,1.4vw,1.18rem)] text-[#8b877c]">
+          {INTRO}
+        </p>
+        <div className="mt-[16px] flex flex-wrap items-center gap-5 font-[var(--font-mono)] text-[13px] text-[#8b877c]">
+          <span className="inline-flex items-center gap-2">
+            <StatusDot status={onlineCount === totalNodes ? "online" : "degraded"} />
+            <strong className="text-[#f0a060]">
+              {onlineCount}/{totalNodes}
+            </strong>{" "}
+            nodes
+          </span>
+          <span>
+            <strong className="text-[#f0a060]">
+              {stats.runningServices}/{stats.totalServices}
+            </strong>{" "}
+            services
+          </span>
+          <span>
+            {clusterInfo.platform} {clusterInfo.version}
+          </span>
+          <span>
+            {clusterInfo.cni} · {clusterInfo.csi}
+          </span>
         </div>
+
+        <nav className="mt-6 flex gap-5 overflow-x-auto whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {sections.map((s) => (
+            <a
+              key={s.id}
+              href={`#${s.id}`}
+              className="shrink-0 text-[16px] tracking-tight text-[#8b877c] no-underline transition-colors hover:text-[#f3efe6]"
+            >
+              {s.label}
+            </a>
+          ))}
+        </nav>
       </section>
 
-      <nav className="sticky top-[3.5rem] z-20 border-y bg-background/85 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4 sm:px-6">
-          {sections.map((s) => {
-            const Icon = s.icon;
-            return (
-              <Button
-                key={s.id}
-                variant="ghost"
-                size="sm"
-                asChild
-                className="h-9 shrink-0 text-[13px] text-muted-foreground hover:text-foreground"
-              >
-                <a href={`#${s.id}`}>
-                  <Icon className="size-3.5" />
-                  {s.label}
-                </a>
-              </Button>
-            );
-          })}
-        </div>
-      </nav>
-
-      <main className="mx-auto max-w-6xl space-y-8 px-4 py-6 sm:px-6">
-        <OverviewSection />
-        <InfrastructureSection />
-        <K8sSection />
-        <SmartDevicesSection />
-      </main>
-    </div>
-  );
-}
-
-function SectionLabel({
-  id,
-  kicker,
-  title,
-}: {
-  id: string;
-  kicker: string;
-  title: string;
-}) {
-  return (
-    <div id={id} className="scroll-mt-28 mb-3">
-      <p className="text-[11px] font-medium uppercase tracking-widest text-muted-foreground">
-        {kicker}
-      </p>
-      <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
+      <OverviewSection />
+      <InfrastructureSection />
+      <K8sSection />
+      <SmartDevicesSection />
     </div>
   );
 }
 
 function OverviewSection() {
   return (
-    <section>
-      <SectionLabel id="overview" kicker="At a glance" title="Overview" />
-      <div className="space-y-3">
+    <section
+      id="overview"
+      className="scroll-mt-24 mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(28px,3.5vw,44px)] border-t border-[var(--rd-border)]"
+    >
+      <SecHead eyebrow="At a glance" title="Overview" />
+      <div className="space-y-8">
         <ErrorBoundary>
           <ClusterOverview />
         </ErrorBoundary>
-        <div className="grid grid-cols-1 gap-3 lg:grid-cols-12">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
           <div className="min-w-0 lg:col-span-8">
             <ErrorBoundary>
               <NodesTile />
-            </ErrorBoundary>
-          </div>
-          <div className="min-w-0 lg:col-span-4">
-            <ErrorBoundary>
-              <ClusterStatsTile />
-            </ErrorBoundary>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 gap-3 lg:grid-cols-12">
-          <div className="min-w-0 lg:col-span-8">
-            <ErrorBoundary>
-              <AgentActionsTile />
             </ErrorBoundary>
           </div>
           <div className="min-w-0 lg:col-span-4">
@@ -147,6 +106,9 @@ function OverviewSection() {
             </ErrorBoundary>
           </div>
         </div>
+        <ErrorBoundary>
+          <AgentActionsTile />
+        </ErrorBoundary>
       </div>
     </section>
   );
@@ -154,9 +116,12 @@ function OverviewSection() {
 
 function InfrastructureSection() {
   return (
-    <section>
-      <SectionLabel id="infrastructure" kicker="Cluster" title="Infrastructure" />
-      <div className="space-y-3">
+    <section
+      id="infrastructure"
+      className="scroll-mt-24 mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(28px,3.5vw,44px)] border-t border-[var(--rd-border)]"
+    >
+      <SecHead eyebrow="Cluster" title="Infrastructure" />
+      <div className="space-y-10">
         <ErrorBoundary>
           <ResourceMetrics />
         </ErrorBoundary>
@@ -176,8 +141,11 @@ function InfrastructureSection() {
 
 function K8sSection() {
   return (
-    <section>
-      <SectionLabel id="k8s" kicker="Kubernetes" title="Cluster" />
+    <section
+      id="k8s"
+      className="scroll-mt-24 mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(28px,3.5vw,44px)] border-t border-[var(--rd-border)]"
+    >
+      <SecHead eyebrow="Kubernetes" title="Cluster" />
       <ErrorBoundary>
         <K8sInfo />
       </ErrorBoundary>
@@ -187,8 +155,11 @@ function K8sSection() {
 
 function SmartDevicesSection() {
   return (
-    <section>
-      <SectionLabel id="smart-devices" kicker="Home" title="Smart devices" />
+    <section
+      id="smart-devices"
+      className="scroll-mt-24 mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(28px,3.5vw,44px)] pb-[clamp(44px,6vw,72px)] border-t border-[var(--rd-border)]"
+    >
+      <SecHead eyebrow="Home" title="Smart devices" />
       <ErrorBoundary>
         <SmartDevicesOverview />
       </ErrorBoundary>

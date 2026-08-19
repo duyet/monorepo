@@ -10,7 +10,6 @@ import {
   HeadContent,
   Outlet,
   Scripts,
-  useRouterState,
 } from "@tanstack/react-router";
 import ErrorPage from "@/app/error";
 import NotFoundPage from "@/app/not-found";
@@ -37,19 +36,21 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
-
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
       <body>
-        <ThemeProvider>
-          <SiteHeader currentApp="homelab" />
-          <Outlet />
-          <ExploreApps currentApp="homelab" />
-          <SiteFooter />
+        <ThemeProvider forcedTheme="dark" defaultTheme="dark" enableSystem={false}>
+          <div className="relative flex min-h-screen flex-col justify-between overflow-x-hidden bg-background text-foreground subpixel-antialiased">
+            <SiteHeader currentApp="homelab" hideThemeToggle />
+            <main className="relative z-10 flex-grow">
+              <Outlet />
+            </main>
+            <ExploreApps currentApp="homelab" />
+            <SiteFooter />
+          </div>
         </ThemeProvider>
         <Scripts />
       </body>
