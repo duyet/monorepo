@@ -1,3 +1,4 @@
+import { listUnsubscribeHeaders } from "../mail/render.js";
 import type { Env } from "../types.js";
 import { DEFAULT_TIMEZONE, isValidTimezone } from "./handlers.js";
 
@@ -215,6 +216,7 @@ export async function sendDailyTldr(env: Env): Promise<number> {
         subject,
         html,
         text,
+        headers: listUnsubscribeHeaders(sub.unsubscribe_token),
       });
       await env.DB.prepare(
         "UPDATE subscribers SET last_sent_date = ? WHERE email = ?"

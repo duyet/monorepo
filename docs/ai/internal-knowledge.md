@@ -241,7 +241,8 @@ The current public-app visual direction is a Websmith-inspired Duyet system, not
 - `apps/home`: editorial homepage with sticky minimal header, oversized but not huge left-aligned hero, relaxed 3+ column project grid on laptop, pastel service tiles, compact black CTAs, and large footer/contact rhythm.
 - `apps/agent-ui`: keep this a small signed-in chat surface for `agents.duyet.net`; it should call `apps/agent-api` and not duplicate agent logic.
 - `apps/agent-api`: keep this surface API-only for `agents-api.duyet.net`. Preserve `/api/v1/chat`, `/agents/ChatAgent/:sessionId`, Clerk bearer auth, and `AGENT_API_TOKEN` support.
-- `apps/blog`: keep white background preference. Use compact home cards and mobile-safe archive rows; avoid the old large shared-card padding in 3-column contexts.
+- `apps/blog`: keep white background preference. Use compact home cards and mobile-safe archive rows; avoid the old large shared-card padding in 3-column contexts. Newsletter capture hydrates as a small Subscribe button + end-of-post form (`SubscribeCapture`); it POSTs to `https://news.duyet.net/api/subscribe` and must not turn the host page into a client-only shell.
+- `apps/news`: mailing list lives in D1 `subscribers`. Daily digest stays automated. Custom notes are composed at `/mail` (Clerk admin) with templates + AI wrap; HTML is Cursor-like (520px, Inter, black CTA). Do not add a third-party ESP.
 - `apps/insights`: keep dashboard density. Use the shared warm/near-black tokens and compact operational panels rather than a landing-page composition.
 - `apps/insights`: architecture is static HTML frontend plus backend Worker API calls. Do not use TanStack Start server functions for runtime data loading; client-side data refreshes should call `apps/api` Worker endpoints.
 - `apps/photos`: keep the photo-first white background. Text metadata such as location must truncate or wrap safely.

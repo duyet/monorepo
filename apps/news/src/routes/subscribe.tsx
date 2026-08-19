@@ -85,7 +85,12 @@ function SubscribePage() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, lang: prefLang, timezone }),
+        body: JSON.stringify({
+          email,
+          lang: prefLang,
+          timezone,
+          source: "news",
+        }),
       });
       setStatus(res.ok ? "done" : "error");
     } catch {

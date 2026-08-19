@@ -106,3 +106,29 @@ duyet.net`, or via the Cloudflare dashboard) before digests can actually
 be delivered — `sendDailyTldr` no-ops (logs and skips) if `env.EMAIL` is
 missing, so the ingest workflow is never broken by this being
 unconfigured.
+
+## Newsletter composer
+
+The same `subscribers` D1 table is the mailing list. Blog and home capture
+via `SubscribeCapture` (`packages/components/subscribe/`) posting CORS
+`POST /api/subscribe` with `{email, lang, timezone, source}`. `source` is
+`blog` | `news` | `home` (table `subscriber_sources`, migration
+`0015_mail.sql`). IP rate limit: 8/day (`subscribe_attempts`).
+
+Custom sends (not the daily digest) are composed at **`/mail`** (Clerk
+admin, same gate as `/system`). Pick a template (Note / New post /
+Digest), pick blog RSS + news stories, optionally paste notes, then **AI
+wrap** fills subject/preheader/body markdown. Preview is a Cursor-like
+HTML email (520px, Inter, near-black on white, 8px CTA). Send from
+`notes@duyet.net`. One-click `List-Unsubscribe` is set on digest and
+campaign mail.
+
+Apply the migration when deploying:
+
+```bash
+pnpm exec wrangler d1 migrations apply news --config apps/news/wrangler.toml --remote
+```
+
+`ensureMailSchema` also creates the 0015 tables on first mail/subscribe
+use, so the composer works before that command if D1 create-table is
+allowed.

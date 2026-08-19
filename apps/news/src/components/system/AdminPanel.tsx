@@ -293,14 +293,22 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
     <div className="rounded-lg border border-border p-4">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold text-foreground">Admin</h3>
-        <button
-          type="button"
-          onClick={refreshAll}
-          disabled={statusBusy || callsBusy || itemsBusy}
-          className="rounded border border-border px-2 py-1 text-xs text-muted-foreground hover:text-foreground disabled:opacity-50"
-        >
-          {statusBusy || callsBusy || itemsBusy ? "Refreshing…" : "Refresh"}
-        </button>
+        <div className="flex items-center gap-2">
+          <a
+            href="/mail"
+            className="rounded border border-border px-2 py-1 text-xs text-muted-foreground hover:text-foreground"
+          >
+            Mail
+          </a>
+          <button
+            type="button"
+            onClick={refreshAll}
+            disabled={statusBusy || callsBusy || itemsBusy}
+            className="rounded border border-border px-2 py-1 text-xs text-muted-foreground hover:text-foreground disabled:opacity-50"
+          >
+            {statusBusy || callsBusy || itemsBusy ? "Refreshing…" : "Refresh"}
+          </button>
+        </div>
       </div>
 
       <div className="mt-3 flex items-center gap-2">

@@ -18,6 +18,7 @@ import {
   History,
   Info,
   type LucideIcon,
+  Mail,
   Plug,
 } from "lucide-react";
 import type { ReactNode } from "react";
@@ -87,6 +88,7 @@ const FOOTER_LINKS: {
   icon: LucideIcon;
 }[] = [
   { to: "/about", label: "About", icon: Info },
+  { to: "/subscribe", label: "Subscribe", icon: Mail },
   { to: "/mcp", label: "MCP", icon: Plug },
   {
     to: "/system",

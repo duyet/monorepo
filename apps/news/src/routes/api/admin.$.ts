@@ -14,6 +14,19 @@ import {
   updateItem,
   upsertSource,
 } from "../../../worker/admin/handlers.js";
+import {
+  getCampaign,
+  isMailError,
+  listCampaigns,
+  listSubscribers,
+  listTemplates,
+  previewCampaign,
+  saveCampaign,
+  sendCampaign,
+  upsertTemplate,
+  wrapCampaign,
+} from "../../../worker/mail/campaigns.js";
+import { listMailContent } from "../../../worker/mail/content.js";
 import type { Env } from "../../../worker/types.js";
 
 async function resolveEnv(context: any): Promise<Env | undefined> {
@@ -198,6 +211,195 @@ async function handle(
     return Response.json(result);
   }
 
+  if (method === "GET" && segments[0] === "mail") {
+    return handleMail("GET", segments.slice(1), request, env);
+  }
+  if (method === "POST" && segments[0] === "mail") {
+    return handleMail("POST", segments.slice(1), request, env);
+  }
+  if (method === "PUT" && segments[0] === "mail") {
+    return handleMail("PUT", segments.slice(1), request, env);
+  }
+
+  return notFound();
+}
+
+async function handleMail(
+  method: string,
+  segments: string[],
+  request: Request,
+  env: Env
+): Promise<Response> {
+  if (
+    method === "GET" &&
+    segments[0] === "subscribers" &&
+    segments.length === 1
+  ) {
+    return Response.json(await listSubscribers(env));
+  }
+  if (
+    method === "GET" &&
+    segments[0] === "templates" &&
+    segments.length === 1
+  ) {
+    return Response.json(await listTemplates(env));
+  }
+  if (
+    method === "PUT" &&
+    segments[0] === "templates" &&
+    segments.length === 2
+  ) {
+    const { body, error } = await parseJsonBody(request);
+    if (error) return Response.json({ error }, { status: 400 });
+    const result = await upsertTemplate(
+      env,
+      segments[1],
+      (body ?? {}) as Record<string, unknown>
+    );
+    if (isMailError(result)) {
+      return Response.json(
+        { error: result.error },
+        { status: result.status ?? 400 }
+      );
+    }
+    return Response.json(result);
+  }
+  if (method === "GET" && segments[0] === "content" && segments.length === 1) {
+    return Response.json(await listMailContent(env));
+  }
+  if (method === "POST" && segments[0] === "preview" && segments.length === 1) {
+    const { body, error } = await parseJsonBody(request);
+    if (error) return Response.json({ error }, { status: 400 });
+    const draft = (body ?? {}) as {
+      subject?: string;
+      preheader?: string;
+      body_md?: string;
+      cta_label?: string;
+      cta_url?: string;
+    };
+    if (!draft.subject || !draft.body_md) {
+      return Response.json(
+        { error: "subject and body_md required" },
+        { status: 400 }
+      );
+    }
+    return Response.json(
+      previewCampaign({
+        subject: draft.subject,
+        preheader: draft.preheader ?? "",
+        body_md: draft.body_md,
+        cta_label: draft.cta_label ?? "",
+        cta_url: draft.cta_url ?? "",
+      })
+    );
+  }
+  if (
+    method === "GET" &&
+    segments[0] === "campaigns" &&
+    segments.length === 1
+  ) {
+    return Response.json(await listCampaigns(env));
+  }
+  if (
+    method === "GET" &&
+    segments[0] === "campaigns" &&
+    segments.length === 2
+  ) {
+    const result = await getCampaign(env, segments[1]);
+    if (isMailError(result)) {
+      return Response.json(
+        { error: result.error },
+        { status: result.status ?? 404 }
+      );
+    }
+    return Response.json(result);
+  }
+  if (
+    method === "GET" &&
+    segments[0] === "campaigns" &&
+    segments[1] &&
+    segments[2] === "preview"
+  ) {
+    const campaign = await getCampaign(env, segments[1]);
+    if (isMailError(campaign)) {
+      return Response.json(
+        { error: campaign.error },
+        { status: campaign.status ?? 404 }
+      );
+    }
+    return Response.json(previewCampaign(campaign));
+  }
+  if (
+    method === "POST" &&
+    segments[0] === "campaigns" &&
+    segments.length === 1
+  ) {
+    const { body, error } = await parseJsonBody(request);
+    if (error) return Response.json({ error }, { status: 400 });
+    const result = await saveCampaign(
+      env,
+      (body ?? {}) as Parameters<typeof saveCampaign>[1]
+    );
+    if (isMailError(result)) {
+      return Response.json(
+        { error: result.error },
+        { status: result.status ?? 400 }
+      );
+    }
+    return Response.json(result);
+  }
+  if (method === "POST" && segments[0] === "wrap" && segments.length === 1) {
+    const { body, error } = await parseJsonBody(request);
+    if (error) return Response.json({ error }, { status: 400 });
+    const result = await wrapCampaign(
+      env,
+      (body ?? {}) as Parameters<typeof wrapCampaign>[1]
+    );
+    if (isMailError(result)) {
+      return Response.json(
+        { error: result.error },
+        { status: result.status ?? 400 }
+      );
+    }
+    return Response.json(result);
+  }
+  if (
+    method === "POST" &&
+    segments[0] === "campaigns" &&
+    segments.length === 3 &&
+    segments[2] === "wrap"
+  ) {
+    const { body, error } = await parseJsonBody(request);
+    if (error) return Response.json({ error }, { status: 400 });
+    const result = await wrapCampaign(env, {
+      ...((body ?? {}) as object),
+      campaignId: segments[1],
+    });
+    if (isMailError(result)) {
+      return Response.json(
+        { error: result.error },
+        { status: result.status ?? 400 }
+      );
+    }
+    return Response.json(result);
+  }
+  if (
+    method === "POST" &&
+    segments[0] === "campaigns" &&
+    segments.length === 3 &&
+    segments[2] === "send"
+  ) {
+    const url = new URL(request.url);
+    const testEmail = url.searchParams.get("test") ?? undefined;
+    const result = await sendCampaign(env, segments[1], { testEmail });
+    if (isMailError(result)) {
+      return Response.json(
+        { error: result.error },
+        { status: result.status ?? 400 }
+      );
+    }
+    return Response.json(result);
+  }
   return notFound();
 }
 

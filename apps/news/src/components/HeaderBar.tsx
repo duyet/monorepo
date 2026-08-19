@@ -18,12 +18,13 @@ import { SearchBox } from "./SearchBox";
 // Routes whose content is English-only — the EN|VI toggle is disabled
 // while on one of these, rather than offering a translation that doesn't
 // exist.
-const LANG_TOGGLE_DISABLED_PATHS = new Set(["/system", "/about"]);
+const LANG_TOGGLE_DISABLED_PATHS = new Set(["/system", "/about", "/mail"]);
 
 const SITE_LINKS = [
   { href: "/", label: "News", internal: true },
   { href: "/about", label: "About", internal: true },
   { href: "/mcp", label: "MCP", internal: true },
+  { href: "/subscribe", label: "Subscribe", internal: true },
   { href: "/system", label: "Analytics", internal: true },
   { href: "/submit", label: "Submit", internal: true },
   { href: "https://duyet.net", label: "Home", internal: false },
