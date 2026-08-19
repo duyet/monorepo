@@ -84,9 +84,11 @@ All calls go through `callAnyrouter` (`worker/llm.ts`): streaming SSE (bypasses
 anyrouter's queue for long prompts), JSON mode, `max_tokens` 8192,
 reasoning-model fallback (extracts JSON from `message.reasoning` when content
 is starved), comma-separated model fallback chains (`ANYROUTER_MODEL`), and
-per-task overrides (`ANYROUTER_TRANSLATE_MODEL` — SEA-LION first, then Gemini /
-Qwen / Gemma flash — and `ANYROUTER_TLDR_MODEL`). A hang or empty sanitize
-advances the chain (`raceTimeout` + per-model floor/cap + `accept` check);
+per-task overrides (`ANYROUTER_TRANSLATE_MODEL` / `ANYROUTER_TLDR_MODEL` —
+Gemini 2.5 Flash-Lite / Gemma 4 / GLM-4.7 / Ling-3.0 first, then native Gemini 2.5/3.5;
+BYOK-only ids such as SEA-LION and Gemini 3.7 are omitted). A hang or
+empty sanitize advances the chain (`raceTimeout` aborts the fetch + leftover
+budget goes to the next id, capped per attempt + `accept` check);
 the last failure is rethrown. Translate batch failures are logged as
 structured JSON (`translateItems.batch_failed` with `reason` / `batchSize` /
 `indexes`) and recorded on `workflow_runs.stats.steps`, but still skip the

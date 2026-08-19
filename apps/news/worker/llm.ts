@@ -194,7 +194,7 @@ async function streamCompletion(
   env: Env,
   model: string,
   messages: ChatMessage[],
-  opts: { json?: boolean; timeoutMs: number }
+  opts: { json?: boolean; timeoutMs: number; signal?: AbortSignal }
 ): Promise<AnyrouterCallResult> {
   const baseUrl = env.ANYROUTER_BASE_URL || "https://anyrouter.dev/api/v1";
   const res = await fetch(`${baseUrl}/chat/completions`, {
@@ -214,7 +214,7 @@ async function streamCompletion(
       stream: true,
       ...(opts.json ? { response_format: { type: "json_object" } } : {}),
     }),
-    signal: AbortSignal.timeout(opts.timeoutMs),
+    signal: opts.signal ?? AbortSignal.timeout(opts.timeoutMs),
   });
 
   if (!res.ok) {
@@ -304,18 +304,45 @@ async function streamCompletion(
   throw new Error("anyrouter response missing content");
 }
 
+/** Cap so a 10-id chain still gives the current model time to finish a
+ *  translate batch, instead of `budget / n` collapsing to ~30s. */
+const MODEL_SLICE_MAX_MS = 90_000;
+
+/**
+ * Per-attempt budget: keep an even slice for up to two fallbacks, give the
+ * rest (capped) to the current id. Fast failures therefore leave later
+ * models far more than `budget / n`; a hang still cannot eat the deadline.
+ */
+export function modelAttemptTimeoutMs(
+  remainingMs: number,
+  remainingModels: number,
+  maxSliceMs = MODEL_SLICE_MAX_MS
+): number {
+  if (remainingMs <= 0 || remainingModels <= 0) return 0;
+  const even = remainingMs / remainingModels;
+  const fallbacksToKeep = Math.min(remainingModels - 1, 2);
+  return Math.max(
+    1,
+    Math.min(maxSliceMs, remainingMs - even * fallbacksToKeep)
+  );
+}
+
 /**
  * AbortSignal.timeout on fetch is not enough: a stalled SSE body read can
- * ignore the signal. Racing a timer guarantees the chain advances.
+ * ignore the signal. Racing a timer guarantees the chain advances. Abort
+ * the in-flight fetch so a hung stream does not leak subrequests into
+ * the next attempt.
  */
 function raceTimeout<T>(
   promise: Promise<T>,
   ms: number,
-  label: string
+  label: string,
+  abort?: AbortController
 ): Promise<T> {
   let timer: ReturnType<typeof setTimeout> | undefined;
   const timeout = new Promise<never>((_, reject) => {
     timer = setTimeout(() => {
+      abort?.abort();
       reject(new Error(`${label} timed out after ${Math.round(ms)}ms`));
     }, ms);
   });
@@ -347,29 +374,35 @@ async function callAnyrouter(
   if (models.length === 0) throw new Error("anyrouter model is not configured");
 
   // One budget for the whole chain, so a long chain cannot outlive the
-  // workflow step that a single call was sized to fit inside. Each model also
-  // gets an equal slice of it: without that, a first model that stalls until
-  // the deadline would starve the very fallbacks it should be handing off to.
-  // raceTimeout (below) guarantees a hang still advances even if the fetch
-  // AbortSignal is ignored by a stalled SSE body.
+  // workflow step that a single call was sized to fit inside. Each attempt
+  // is sized by modelAttemptTimeoutMs: leftover budget after a fast fail
+  // goes to the next id (not locked to budget/n), and a hang is capped so
+  // two fallbacks still run. raceTimeout aborts the fetch so a stalled
+  // SSE body cannot leak subrequests into the next attempt.
   const budget = opts.timeoutMs ?? REQUEST_TIMEOUT_MS;
   const deadline = Date.now() + budget;
-  const slice = budget / models.length;
   let lastError: unknown;
   const promptChars = messages.reduce((sum, m) => sum + m.content.length, 0);
 
-  for (const model of models) {
-    const timeoutMs = Math.min(deadline - Date.now(), slice);
+  for (let i = 0; i < models.length; i++) {
+    const model = models[i];
+    const timeoutMs = modelAttemptTimeoutMs(
+      deadline - Date.now(),
+      models.length - i
+    );
     if (timeoutMs <= 0) break;
     const attemptStartedAt = Date.now();
+    const abort = new AbortController();
     try {
       const result = await raceTimeout(
         streamCompletion(env, model, messages, {
           json: opts.json,
           timeoutMs,
+          signal: abort.signal,
         }),
         timeoutMs,
-        `anyrouter model ${model}`
+        `anyrouter model ${model}`,
+        abort
       );
       if (opts.accept && !opts.accept(result.content)) {
         throw new Error("anyrouter response failed accept check");
@@ -862,6 +895,18 @@ export async function generateTldr(
           modelSpec: env.ANYROUTER_TLDR_MODEL,
           task: "tldr",
           timeoutMs: TLDR_TIMEOUT_MS,
+          // Bilingual attempt: EN-only JSON is a miss so the next model
+          // can still produce bullets_vi. EN-only is accepted on retry.
+          accept: (content) => {
+            try {
+              const parsed = normalizeTldrResult(parseJson<unknown>(content));
+              return bilingual
+                ? parsed.bullets_vi.length > 0
+                : parsed.bullets_en.length > 0;
+            } catch {
+              return false;
+            }
+          },
         }
       );
       totalTokens += tokens;

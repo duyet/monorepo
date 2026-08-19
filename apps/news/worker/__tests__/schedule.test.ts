@@ -39,3 +39,61 @@ describe("free-plan hourly ingest", () => {
     expect(algorithm).not.toMatch(/Hourly instances come from `schedules`/);
   });
 });
+
+describe("live AnyRouter model chains", () => {
+  function firstId(varName: string): string {
+    const match = wrangler.match(new RegExp(`${varName} = "([^"]+)"`));
+    expect(match, `${varName} missing`).toBeTruthy();
+    return match![1].split(",")[0];
+  }
+
+  it("leads translate/tldr/score with a native (non-BYOK-only) catalog id", () => {
+    const native = [
+      "google/gemini-2.5-flash-lite",
+      "google/gemini-2.5-flash",
+      "google/gemma-4-26b-a4b-it",
+      "z-ai/glm-4.7-flash",
+      "inclusionai/ling-3.0-flash",
+    ];
+    expect(native).toContain(firstId("ANYROUTER_TRANSLATE_MODEL"));
+    expect(native).toContain(firstId("ANYROUTER_TLDR_MODEL"));
+    expect(native).toContain(firstId("ANYROUTER_MODEL"));
+  });
+
+  it("omits known BYOK-only ids from every live chain", () => {
+    const byokOnly = [
+      "aisingapore/gemma-sea-lion-v4-27b-it",
+      "google/gemini-3.7-flash",
+      "google/gemini-3.6-flash",
+      "qwen/qwen3.7-flash",
+    ];
+    for (const name of [
+      "ANYROUTER_MODEL",
+      "ANYROUTER_TRANSLATE_MODEL",
+      "ANYROUTER_TLDR_MODEL",
+    ]) {
+      const match = wrangler.match(new RegExp(`${name} = "([^"]+)"`));
+      const ids = (match?.[1] ?? "").split(",").map((s) => s.trim());
+      for (const blocked of byokOnly) {
+        expect(ids, name).not.toContain(blocked);
+      }
+    }
+  });
+});
+
+describe("translation upsert", () => {
+  const workflow = readFileSync(
+    path.join(newsRoot, "worker/workflow.ts"),
+    "utf-8"
+  );
+
+  it("writes title on conflict so backfill can replace an empty title_vi", () => {
+    const upserts = workflow.match(
+      /ON CONFLICT\(item_id, lang\) DO UPDATE SET[\s\S]{0,80}/g
+    );
+    expect(upserts?.length).toBeGreaterThanOrEqual(2);
+    for (const sql of upserts ?? []) {
+      expect(sql).toContain("title = excluded.title");
+    }
+  });
+});

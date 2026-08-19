@@ -873,7 +873,8 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
               await this.env.DB.prepare(
                 `INSERT INTO translations (item_id, lang, title, summary)
                VALUES (?, 'vi', ?, ?)
-               ON CONFLICT(item_id, lang) DO UPDATE SET summary = excluded.summary`
+               ON CONFLICT(item_id, lang) DO UPDATE SET
+                 title = excluded.title, summary = excluded.summary`
               )
                 .bind(
                   ...buildTranslationBindArgs({
