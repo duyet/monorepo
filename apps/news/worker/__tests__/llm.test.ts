@@ -921,6 +921,22 @@ describe("model fallback chain", () => {
     }
   });
 
+  it("lists every attempted model when the chain is exhausted", async () => {
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(new Response("server error", { status: 500 }))
+    );
+    await expect(
+      callAnyrouter(
+        { ...env, ANYROUTER_MODEL: "one/model,two/model" },
+        [{ role: "user", content: "hi" }],
+        { timeoutMs: 5000 }
+      )
+    ).rejects.toThrow(/chain exhausted[\s\S]*one\/model[\s\S]*two\/model/);
+    error.mockRestore();
+  });
+
   it("advances when the first model returns JSON that sanitize drops", async () => {
     const fetchMock = vi
       .fn()
@@ -952,9 +968,9 @@ describe("scoreItems / translateItems batch failure handling", () => {
   it("skips a batch when the anyrouter call fails, without throwing", async () => {
     vi.stubGlobal(
       "fetch",
-      vi.fn().mockImplementation(
-        () => new Response("server error", { status: 500 })
-      )
+      vi
+        .fn()
+        .mockImplementation(() => new Response("server error", { status: 500 }))
     );
 
     const results = await scoreItems(env, [
@@ -1008,7 +1024,9 @@ describe("scoreItems / translateItems batch failure handling", () => {
       indexes: number[];
     };
     expect(parsed.event).toBe("translateItems.batch_failed");
-    expect(parsed.reason).toMatch(/anyrouter request failed: 500|unusable/);
+    expect(parsed.reason).toMatch(
+      /anyrouter request failed: 500|chain exhausted|unusable/
+    );
     expect(parsed.batchSize).toBe(2);
     expect(parsed.indexes).toEqual([0, 1]);
     error.mockRestore();
@@ -1434,14 +1452,14 @@ describe("modelAttemptTimeoutMs", () => {
     expect(modelAttemptTimeoutMs(200, 2)).toBe(100);
   });
 
-  it("gives a long chain more than budget/n, capped at 90s", () => {
+  it("gives a long chain more than budget/n, capped at 25s so leftover funds two fallbacks", () => {
     const even = 300_000 / 11;
     expect(even).toBeLessThan(30_000);
-    expect(modelAttemptTimeoutMs(300_000, 11)).toBe(90_000);
+    expect(modelAttemptTimeoutMs(300_000, 11)).toBe(25_000);
   });
 
   it("after a hang-cap, leftover budget still funds the next id", () => {
-    expect(modelAttemptTimeoutMs(210_000, 10)).toBe(90_000);
+    expect(modelAttemptTimeoutMs(70_000, 3)).toBe(25_000);
   });
 
   it("a single remaining model gets the leftover, not a tiny even slice", () => {

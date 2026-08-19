@@ -81,19 +81,20 @@ cron `5 * * * *` → `POST /api/admin/ingest`), not Worker `[triggers] crons`
 ## LLM transport
 
 All calls go through `callAnyrouter` (`worker/llm.ts`): streaming SSE (bypasses
-anyrouter's queue for long prompts), JSON mode, `max_tokens` 8192,
+anyrouter's queue for long prompts), JSON mode, `max_tokens` 8192 (2048 on translate),
 reasoning-model fallback (extracts JSON from `message.reasoning` when content
 is starved), comma-separated model fallback chains (`ANYROUTER_MODEL`), and
 per-task overrides (`ANYROUTER_TRANSLATE_MODEL` / `ANYROUTER_TLDR_MODEL` —
-Gemma 4 / GLM-4.7 / Ling-3.0 / Gemma 4 31B / `anyrouter/free` first
-for translate, then paid Flash-Lite / `anyrouter/auto` / Gemini 2.5/3.5;
+Gemma 4 / GLM-4.7 / Ling-3.0 / `anyrouter/auto` first
+for translate (native ids that finish a 3-item batch), then Gemma 4 31B / Flash-Lite / Gemini 2.5/3.5;
 BYOK-only ids such as SEA-LION and Gemini 3.7 are omitted). Translate
 runs in batches of 3 (summaries clipped, title-only retry) and each
 backfill slice is its own Workflow step so a finished batch is written
-even if a later slice times out. A hang or
-empty sanitize advances the chain (`raceTimeout` aborts the fetch + leftover
-budget goes to the next id, capped per attempt + `accept` check);
-the last failure is rethrown. Translate batch failures are logged as
+even if a later slice times out. A hang, empty sanitize, timeout, or 402 advances the chain
+(`raceTimeout` aborts the fetch; leftover reserves a 20s floor for two
+fallbacks and hang-caps at 25s so leftover actually reaches them; 402
+retries the same id at the affordable token cap; the last failure lists
+every attempted id). Translate batch failures are logged as
 structured JSON (`translateItems.batch_failed` with `reason` / `batchSize` /
 `indexes`) and recorded on `workflow_runs.stats.steps`, but still skip the
 batch so a bad response never fails a run. Per-item token usage is attributed
