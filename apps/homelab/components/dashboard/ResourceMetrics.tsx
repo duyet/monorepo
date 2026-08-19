@@ -1,22 +1,15 @@
 "use client";
 
-import {
-  CartesianGrid,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
-import { useResourceMetrics } from "@/hooks/useDashboard";
-import {
-  chartTick,
-  chartTooltipStyle,
-  NODE_CHART_COLORS,
-  NODE_CHART_KEYS,
-} from "@/lib/chart";
+import { Line } from "@/components/dither-kit/area";
+import { LineChart } from "@/components/dither-kit/area-chart";
+import { Grid } from "@/components/dither-kit/grid";
+import { Tooltip } from "@/components/dither-kit/tooltip";
+import { XAxis } from "@/components/dither-kit/x-axis";
+import { YAxis } from "@/components/dither-kit/y-axis";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useResourceMetrics } from "@/hooks/useDashboard";
+import { NODE_CHART_CONFIG, NODE_CHART_KEYS } from "@/lib/chart";
+import { BlockLegend } from "@/components/dither-kit/block-legend";
 
 export function ResourceMetrics() {
   const { cpuHistory, memoryHistory } = useResourceMetrics();
@@ -40,56 +33,21 @@ function MetricChart({
     <Card className="min-w-0">
       <CardHeader className="flex-row items-center justify-between">
         <CardTitle>{title}</CardTitle>
-        <Legend />
+        <BlockLegend config={NODE_CHART_CONFIG} align="end" className="text-[11px]" />
       </CardHeader>
       <CardContent>
         <div className="h-[200px] w-full min-w-0">
-          <ResponsiveContainer width="100%" height={200}>
-            <LineChart data={data} margin={{ top: 4, right: 8, left: -18, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
-              <XAxis
-                dataKey="time"
-                tick={chartTick}
-                axisLine={false}
-                tickLine={false}
-              />
-              <YAxis
-                tick={chartTick}
-                axisLine={false}
-                tickLine={false}
-                domain={[0, 100]}
-              />
-              <Tooltip contentStyle={chartTooltipStyle} />
-              {NODE_CHART_KEYS.map((key) => (
-                <Line
-                  key={key}
-                  type="monotone"
-                  dataKey={key}
-                  stroke={NODE_CHART_COLORS[key]}
-                  strokeWidth={2}
-                  dot={false}
-                />
-              ))}
-            </LineChart>
-          </ResponsiveContainer>
+          <LineChart data={data} config={NODE_CHART_CONFIG} bloom="aura">
+            <Grid />
+            <XAxis dataKey="time" />
+            <YAxis tickFormatter={(v) => `${v}`} />
+            <Tooltip labelKey="time" valueFormatter={(v) => `${v}%`} />
+            {NODE_CHART_KEYS.map((key) => (
+              <Line key={key} dataKey={key} />
+            ))}
+          </LineChart>
         </div>
       </CardContent>
     </Card>
-  );
-}
-
-function Legend() {
-  return (
-    <div className="flex flex-wrap gap-3 text-[11px] text-muted-foreground">
-      {NODE_CHART_KEYS.map((key) => (
-        <span key={key} className="inline-flex items-center gap-1.5">
-          <span
-            className="size-2 rounded-full"
-            style={{ background: NODE_CHART_COLORS[key] }}
-          />
-          {key}
-        </span>
-      ))}
-    </div>
   );
 }

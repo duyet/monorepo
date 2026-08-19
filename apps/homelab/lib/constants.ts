@@ -88,20 +88,6 @@ export const TIME_POINTS = [
 // Bento grid cell — single-level tile, compact padding, no nested chrome
 export const BENTO_CELL = "rounded-lg border bg-card text-card-foreground p-4";
 
-// Chart colors — Claude brand palette for Recharts
-export const CHART_COLORS = {
-  CLAUDE_LAVENDER: "#b8b5ff",
-  CLAUDE_MINT: "#8fd4ab",
-  CLAUDE_PEACH: "#ffc9a0",
-  CLAUDE_SUNSHINE: "#f5cc70",
-  CLAUDE_SKY: "#90c8ff",
-  CLAUDE_SKY_LIGHT: "#b3d9ff",
-  CLAUDE_ROSE: "#ff8585",
-  CLAUDE_ORANGE: "#D97757",
-  CLAUDE_COPPER: "#CC785C",
-  CLAUDE_SUNSHINE_LIGHT: "#f0d9a8",
-} as const;
-
 // External links
 export const EXTERNAL_LINKS = {
   UPTIME_MONITOR: "https://duyet.github.io/uptime/",

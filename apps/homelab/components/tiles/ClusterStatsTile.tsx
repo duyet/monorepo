@@ -1,12 +1,12 @@
-import { Sparkline } from "@duyet/components";
 import { Separator } from "@duyet/components/ui/separator";
 import type { ReactNode } from "react";
+import { Sparkline } from "@/components/dither-kit/sparkline";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   useClusterStats,
   useDowntimeHistory,
   useResourceMetrics,
 } from "@/hooks/useDashboard";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function ClusterStatsTile() {
   const stats = useClusterStats();
@@ -29,8 +29,8 @@ export function ClusterStatsTile() {
               %
             </span>
           </span>
-          <div className="w-14">
-            <Sparkline data={cpuData} h={18} />
+          <div className="h-[18px] w-14">
+            <Sparkline data={cpuData} color="orange" />
           </div>
         </StatRow>
         <Separator />
@@ -41,8 +41,8 @@ export function ClusterStatsTile() {
               / {stats.totalMemory} GB
             </span>
           </span>
-          <div className="w-14">
-            <Sparkline data={memData} h={18} />
+          <div className="h-[18px] w-14">
+            <Sparkline data={memData} color="purple" />
           </div>
         </StatRow>
         <Separator />

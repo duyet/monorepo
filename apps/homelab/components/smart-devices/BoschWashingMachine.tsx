@@ -1,41 +1,20 @@
 "use client";
 
 import { ArrowDown, ArrowUp, Droplets, RefreshCw, Zap } from "lucide-react";
-import { useMemo, useState } from "react";
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Cell,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
+import { useMemo, useState, type ReactNode } from "react";
+import { Bar } from "@/components/dither-kit/bar";
+import { BarChart } from "@/components/dither-kit/bar-chart";
+import type { ChartConfig } from "@/components/dither-kit/chart-context";
+import { Grid } from "@/components/dither-kit/grid";
+import type { DitherColor } from "@/components/dither-kit/palette";
+import { Tooltip } from "@/components/dither-kit/tooltip";
+import { XAxis } from "@/components/dither-kit/x-axis";
+import { YAxis } from "@/components/dither-kit/y-axis";
 import { useSmartDevices } from "@/hooks/useDashboard";
-import { BENTO_CELL, CHART_COLORS } from "@/lib/constants";
+import { BENTO_CELL } from "@/lib/constants";
 import type { ConsumptionData } from "@/lib/data";
 
-const TOOLTIP_STYLE = {
-  backgroundColor: "var(--rd-surface)",
-  border: "1px solid var(--rd-border)",
-  borderRadius: "8px",
-  fontSize: "12px",
-  color: "var(--rd-text)",
-};
-
 type ViewMode = "day" | "month";
-
-function formatTooltipValue(
-  value: number | string | readonly (number | string)[] | undefined,
-  unit: string
-): [string, string] {
-  const num = Array.isArray(value) ? Number(value[0]) : Number(value);
-  return [
-    `${Number.isFinite(num) ? num : 0} ${unit}`,
-    unit === "L" ? "Water" : "Energy",
-  ];
-}
 
 function ComparisonBadge({
   value,
@@ -65,18 +44,6 @@ function ComparisonBadge({
       <span className="text-neutral-500 dark:text-neutral-400">vs average</span>
     </span>
   );
-}
-
-function makeBarClickHandler(
-  selected: string | null,
-  setSelected: (value: string | null) => void
-) {
-  return (state: { activeLabel?: string | number | null }) => {
-    if (state?.activeLabel) {
-      const label = String(state.activeLabel);
-      setSelected(label === selected ? null : label);
-    }
-  };
 }
 
 function ViewModeToggle({
@@ -117,20 +84,22 @@ function ConsumptionChart({
   icon,
   unit,
   consumption,
-  colorDefault,
-  colorActive,
+  color,
   className,
 }: {
   title: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   unit: string;
   consumption: ConsumptionData;
-  colorDefault: string;
-  colorActive: string;
+  color: DitherColor;
   className?: string;
 }) {
   const [viewMode, setViewMode] = useState<ViewMode>("month");
   const [selectedBar, setSelectedBar] = useState<string | null>(null);
+  const config: ChartConfig = useMemo(
+    () => ({ value: { label: title, color } }),
+    [title, color],
+  );
 
   const chartData = useMemo(() => {
     if (viewMode === "day") {
@@ -196,56 +165,22 @@ function ConsumptionChart({
           </p>
         )}
       </div>
-      <ResponsiveContainer width="100%" height={220}>
+      <div className="h-[220px] w-full min-w-0">
         <BarChart
           data={chartData}
-          onClick={makeBarClickHandler(selectedBar, setSelectedBar)}
+          config={config}
+          bloom="aura"
+          onHoverChange={(index) => {
+            setSelectedBar(index == null ? null : (chartData[index]?.label ?? null));
+          }}
         >
-          <CartesianGrid strokeDasharray="3 3" opacity={0.2} vertical={false} />
-          <XAxis
-            dataKey="label"
-            tick={{ fontSize: viewMode === "day" ? 10 : 12 }}
-            stroke="currentColor"
-            opacity={0.5}
-            axisLine={false}
-            tickLine={false}
-            interval={viewMode === "day" ? 4 : 0}
-          />
-          <YAxis
-            tick={{ fontSize: 12 }}
-            stroke="currentColor"
-            opacity={0.5}
-            axisLine={false}
-            tickLine={false}
-            label={{
-              value: unit,
-              angle: -90,
-              position: "insideLeft",
-              fontSize: 11,
-              opacity: 0.5,
-            }}
-          />
-          <Tooltip
-            contentStyle={TOOLTIP_STYLE}
-            formatter={(v) => formatTooltipValue(v, unit)}
-            cursor={{ fill: "rgba(0,0,0,0.04)" }}
-          />
-          <Bar
-            dataKey="value"
-            radius={[6, 6, 0, 0]}
-            maxBarSize={viewMode === "day" ? 12 : 32}
-          >
-            {chartData.map((entry) => (
-              <Cell
-                key={entry.label}
-                fill={selectedBar === entry.label ? colorActive : colorDefault}
-                opacity={selectedBar && selectedBar !== entry.label ? 0.4 : 1}
-                className="cursor-pointer"
-              />
-            ))}
-          </Bar>
+          <Grid />
+          <XAxis dataKey="label" maxTicks={viewMode === "day" ? 6 : 12} />
+          <YAxis />
+          <Tooltip labelKey="label" valueFormatter={(v) => `${v} ${unit}`} />
+          <Bar dataKey="value" variant="gradient" />
         </BarChart>
-      </ResponsiveContainer>
+      </div>
       <div className="mt-2 flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
         <span>
           {viewMode === "month" ? "Monthly" : "Daily"} avg:{" "}
@@ -354,8 +289,7 @@ export function BoschWashingMachine() {
           icon={<Droplets className="h-4 w-4 text-claude-sky" />}
           unit="L"
           consumption={data.waterConsumption}
-          colorDefault={CHART_COLORS.CLAUDE_SKY_LIGHT}
-          colorActive={CHART_COLORS.CLAUDE_SKY}
+          color="blue"
           className="md:col-span-3"
         />
 
@@ -365,8 +299,7 @@ export function BoschWashingMachine() {
           icon={<Zap className="h-4 w-4 text-claude-peach" />}
           unit="kWh"
           consumption={data.energyConsumption}
-          colorDefault={CHART_COLORS.CLAUDE_SUNSHINE_LIGHT}
-          colorActive={CHART_COLORS.CLAUDE_ORANGE}
+          color="orange"
           className="md:col-span-3"
         />
       </div>

@@ -1,7 +1,7 @@
-import { Sparkline } from "@duyet/components";
 import { Separator } from "@duyet/components/ui/separator";
-import { useNetworkStats } from "@/hooks/useDashboard";
+import { Sparkline } from "@/components/dither-kit/sparkline";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useNetworkStats } from "@/hooks/useDashboard";
 
 export function NetworkTile() {
   const { speedTest, networkTraffic } = useNetworkStats();
@@ -18,8 +18,8 @@ export function NetworkTile() {
         <Metric label="Upload" value={speedTest.upload} unit="Mbps" />
         <Separator />
         <Metric label="Ping" value={speedTest.ping} unit="ms" />
-        <div className="mt-3">
-          <Sparkline data={trafficInData} h={28} stroke="var(--rd-accent)" />
+        <div className="mt-3 h-7">
+          <Sparkline data={trafficInData} color="orange" bloom="low" />
         </div>
         <p className="mt-1.5 font-mono text-[10px] text-muted-foreground">
           {speedTest.timestamp}
