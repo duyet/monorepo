@@ -23,6 +23,7 @@ import type {
   AppDef,
   AppKey,
   GlobalNavItem,
+  LocalNavItem,
   NavMatch,
 } from "./types";
 
@@ -365,6 +366,26 @@ export function filterGlobalNav(
     if (currentApp === "home") return true;
     return item.match.app === currentApp || !item.match.app;
   });
+}
+
+/** Normalize in-app and absolute duyet.net hrefs so LocalNav can drop duplicates. */
+export function navHrefKey(href: string): string {
+  try {
+    const url = new URL(href, "https://duyet.net");
+    const path = url.pathname.replace(/\/+$/, "") || "/";
+    return `${url.host}${path}`;
+  } catch {
+    return href;
+  }
+}
+
+export function excludeLocalNavItems<T extends { href: string }>(
+  items: T[],
+  localNav?: LocalNavItem[],
+): T[] {
+  if (!localNav?.length) return items;
+  const localKeys = new Set(localNav.map((item) => navHrefKey(item.href)));
+  return items.filter((item) => !localKeys.has(navHrefKey(item.href)));
 }
 
 function matchesPath(path: string, pathname: string | null): boolean {

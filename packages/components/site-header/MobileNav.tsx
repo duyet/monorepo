@@ -4,7 +4,12 @@ import { cn } from "@duyet/libs/utils";
 import { ChevronsUpDown, Menu } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
-import { filterGlobalNav, GLOBAL_NAV, isNavActive } from "./apps";
+import {
+  excludeLocalNavItems,
+  filterGlobalNav,
+  GLOBAL_NAV,
+  isNavActive,
+} from "./apps";
 import type { AppKey, LocalNavItem } from "./types";
 
 export function MobileNav({
@@ -80,7 +85,10 @@ export function MobileNav({
                 {item.label}
               </a>
             ))}
-            {filterGlobalNav(GLOBAL_NAV, currentApp).map((item) => {
+            {excludeLocalNavItems(
+              filterGlobalNav(GLOBAL_NAV, currentApp),
+              localNav,
+            ).map((item) => {
               const hasChildren = item.children && item.children.length > 0;
               const isDropdownOpen = openDropdown === item.label;
               const itemActive =

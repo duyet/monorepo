@@ -4,10 +4,21 @@ import { cn } from "@duyet/libs/utils";
 import { ChevronsUpDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
-import { filterGlobalNav, GLOBAL_NAV, isNavActive } from "./apps";
-import type { AppKey } from "./types";
+import {
+  excludeLocalNavItems,
+  filterGlobalNav,
+  GLOBAL_NAV,
+  isNavActive,
+} from "./apps";
+import type { AppKey, LocalNavItem } from "./types";
 
-export function GlobalNav({ currentApp }: { currentApp: AppKey }) {
+export function GlobalNav({
+  currentApp,
+  localNav,
+}: {
+  currentApp: AppKey;
+  localNav?: LocalNavItem[];
+}) {
   const [pathname, setPathname] = useState<string | null>(null);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -32,7 +43,10 @@ export function GlobalNav({ currentApp }: { currentApp: AppKey }) {
 
   return (
     <nav ref={containerRef} className="hidden items-center gap-0.5 md:flex">
-      {filterGlobalNav(GLOBAL_NAV, currentApp).map((item) => {
+      {excludeLocalNavItems(
+        filterGlobalNav(GLOBAL_NAV, currentApp),
+        localNav,
+      ).map((item) => {
         const hasChildren = item.children && item.children.length > 0;
         const isDropdownOpen = openDropdown === item.label;
         const itemActive =

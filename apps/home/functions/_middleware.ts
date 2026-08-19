@@ -39,10 +39,17 @@ export async function onRequest(context: PagesContext): Promise<Response> {
   if (!contentType.includes("text/html")) return res;
 
   const text = await res.text();
-  const patched = text.replace(
-    'if(!document.querySelector("main"))boot(1)',
-    'if(window.__CF_ENTRY_RAN__||document.querySelector("main,header"))return;boot(1)',
-  );
+  // Prerendered shells always include <header>/<main>. Skipping retry on that
+  // selector left failed first-module loads frozen; only __CF_ENTRY_RAN__ means boot.
+  const patched = text
+    .replace(
+      'if(window.__CF_ENTRY_RAN__)return;if(document.querySelector("main,header"))return;boot(1)',
+      "if(window.__CF_ENTRY_RAN__)return;boot(1)",
+    )
+    .replace(
+      'if(!document.querySelector("main"))boot(1)',
+      "if(window.__CF_ENTRY_RAN__)return;boot(1)",
+    );
   if (patched === text) return new Response(text, res);
 
   const headers = new Headers(res.headers);

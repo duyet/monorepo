@@ -15,4 +15,11 @@ describe("ChatScreen error UI", () => {
     expect(app).toMatch(/Retry/);
     expect(app).not.toContain("{error.message}");
   });
+
+  it("shows a sign-in path instead of a dead prompt when unsigned", () => {
+    expect(app).toContain("SignInButton");
+    expect(app).toContain("Sign in to continue");
+    expect(app).toContain("!isSignedIn");
+    expect(app).toContain("<PromptForm");
+  });
 });

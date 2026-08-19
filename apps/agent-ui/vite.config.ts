@@ -8,6 +8,7 @@ export default defineConfig({
   },
   resolve: {
     tsconfigPaths: true,
+    dedupe: ["react", "react-dom"],
   },
   server: {
     port: 3008,

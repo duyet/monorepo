@@ -29,9 +29,9 @@ export function SiteHeader({
         {localNav && localNav.length > 0 && (
           <LocalNav items={localNav} activeHref={activeHref} />
         )}
-        <div className="ml-auto flex items-center gap-1">
+        <div className="ml-auto flex shrink-0 items-center gap-1">
           <MobileNav currentApp={currentApp} localNav={localNav} />
-          <GlobalNav currentApp={currentApp} />
+          <GlobalNav currentApp={currentApp} localNav={localNav} />
           <Separator
             orientation="vertical"
             className="mx-1 hidden h-6 md:block"
