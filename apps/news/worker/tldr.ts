@@ -96,6 +96,15 @@ export function shouldRefreshExistingSnapshot(opts: {
 }): boolean {
   if (!opts.existing) return true;
   if (isThinTldr(opts.existing, opts.itemCount)) return true;
+  // EN-only snapshot: bilingual generate timed out / fell back. Refresh
+  // immediately so a healthier chain can fill bullets_vi (otherwise the
+  // 3h useful-snapshot gate leaves English TL;DR on the VI homepage).
+  if (
+    opts.existing.bullets_en.length > 0 &&
+    opts.existing.bullets_vi.length === 0
+  ) {
+    return true;
+  }
   return (
     opts.nowMs - (opts.existing.created_at ?? 0) >=
     (opts.refreshMs ?? TLDR_REFRESH_MS)

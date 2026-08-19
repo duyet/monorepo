@@ -228,4 +228,18 @@ describe("shouldRefreshExistingSnapshot", () => {
       })
     ).toBe(true);
   });
+
+  it("refreshes an EN-only snapshot so the next run can fill bullets_vi", () => {
+    expect(
+      shouldRefreshExistingSnapshot({
+        existing: {
+          created_at: 1_000,
+          bullets_en: Array.from({ length: 8 }, (_, i) => ({ text: `b${i}` })),
+          bullets_vi: [],
+        },
+        itemCount: 16,
+        nowMs: 1_000 + 2 * 60 * 1000,
+      })
+    ).toBe(true);
+  });
 });

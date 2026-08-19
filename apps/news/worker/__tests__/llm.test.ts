@@ -303,6 +303,37 @@ describe("generateTldr", () => {
     expect(second.messages[0].content).toMatch(/English only/);
     expect(result.bullets_en).toHaveLength(1);
   });
+
+  it("advances the bilingual chain when the first model returns EN-only bullets", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(
+        chatResponse(
+          JSON.stringify({
+            bullets_en: [{ text: "A", item_ids: ["1"] }],
+            bullets_vi: [],
+          })
+        )
+      )
+      .mockResolvedValueOnce(
+        chatResponse(
+          JSON.stringify({
+            bullets_en: [{ text: "A", item_ids: ["1"] }],
+            bullets_vi: [{ text: "B", item_ids: ["1"] }],
+          })
+        )
+      );
+    vi.stubGlobal("fetch", fetchMock);
+
+    const result = await generateTldr(
+      { ...env, ANYROUTER_TLDR_MODEL: "en-only/model,ok/model" },
+      [{ id: "1", title: "Story" }]
+    );
+    expect(fetchMock.mock.calls.map((call) => JSON.parse(call[1].body).model)).toEqual(
+      ["en-only/model", "ok/model"]
+    );
+    expect(result.bullets_vi).toEqual([{ text: "B", item_ids: ["1"] }]);
+  });
 });
 
 describe("streaming anyrouter responses", () => {

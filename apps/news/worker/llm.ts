@@ -895,6 +895,18 @@ export async function generateTldr(
           modelSpec: env.ANYROUTER_TLDR_MODEL,
           task: "tldr",
           timeoutMs: TLDR_TIMEOUT_MS,
+          // Bilingual attempt: EN-only JSON is a miss so the next model
+          // can still produce bullets_vi. EN-only is accepted on retry.
+          accept: (content) => {
+            try {
+              const parsed = normalizeTldrResult(parseJson<unknown>(content));
+              return bilingual
+                ? parsed.bullets_vi.length > 0
+                : parsed.bullets_en.length > 0;
+            } catch {
+              return false;
+            }
+          },
         }
       );
       totalTokens += tokens;
