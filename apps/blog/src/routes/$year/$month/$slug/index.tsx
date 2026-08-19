@@ -2,6 +2,7 @@ import type { Post, Series } from "@duyet/interfaces";
 import { extractHeadings } from "@duyet/libs/extractHeadings";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
+import { embedXPosts, TWITTER_WIDGETS_SRC } from "@/lib/x-embed";
 import {
   getChildren,
   getPostBySlug,
@@ -60,7 +61,10 @@ export const Route = createFileRoute("/$year/$month/$slug/")({
           href: `${canonical}.md`,
         },
       ],
-      scripts: [{ type: "application/ld+json", children: jsonLd }],
+      scripts: [
+        { type: "application/ld+json", children: jsonLd },
+        { src: TWITTER_WIDGETS_SRC, async: true },
+      ],
     };
   },
   loader: async ({ params }) => {
@@ -90,21 +94,21 @@ export const Route = createFileRoute("/$year/$month/$slug/")({
     if (postWithContent.isMDX) {
       mdxSource = markdownContent;
     } else if (postWithContent.html) {
-      htmlContent = postWithContent.html;
+      htmlContent = embedXPosts(postWithContent.html);
     } else if (markdownContent) {
       // Prefer prebuilt html from posts-content/*.json. Fallback:
       // - server/prerender: full WASM pipeline (KaTeX, highlight)
       // - client: marked so SPA navigations never paint "No content"
       if (typeof window === "undefined") {
         const { markdownToHtml } = await import("@duyet/libs/markdownToHtml");
-        htmlContent = await markdownToHtml(markdownContent);
+        htmlContent = embedXPosts(await markdownToHtml(markdownContent));
       } else {
         console.warn(
           "posts-content missing html; using marked client fallback:",
           slugPath
         );
         const { marked } = await import("marked");
-        htmlContent = await marked.parse(markdownContent);
+        htmlContent = embedXPosts(String(await marked.parse(markdownContent)));
       }
     }
 
