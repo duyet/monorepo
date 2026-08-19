@@ -39,3 +39,36 @@ describe("free-plan hourly ingest", () => {
     expect(algorithm).not.toMatch(/Hourly instances come from `schedules`/);
   });
 });
+
+describe("live AnyRouter model chains", () => {
+  function firstId(varName: string): string {
+    const match = wrangler.match(new RegExp(`${varName} = "([^"]+)"`));
+    expect(match, `${varName} missing`).toBeTruthy();
+    return match![1].split(",")[0];
+  }
+
+  it("leads translate/tldr/score with a native (non-BYOK-only) catalog id", () => {
+    const native = [
+      "google/gemini-2.5-flash-lite",
+      "google/gemini-2.5-flash",
+      "google/gemma-4-26b-a4b-it",
+      "z-ai/glm-4.7-flash",
+      "inclusionai/ling-3.0-flash",
+    ];
+    expect(native).toContain(firstId("ANYROUTER_TRANSLATE_MODEL"));
+    expect(native).toContain(firstId("ANYROUTER_TLDR_MODEL"));
+    expect(native).toContain(firstId("ANYROUTER_MODEL"));
+  });
+
+  it("does not put BYOK-only hangers first", () => {
+    expect(wrangler).not.toMatch(
+      /ANYROUTER_TRANSLATE_MODEL = "aisingapore\/gemma-sea-lion/
+    );
+    expect(wrangler).not.toMatch(
+      /ANYROUTER_TRANSLATE_MODEL = "google\/gemini-3\.7-flash/
+    );
+    expect(wrangler).not.toMatch(
+      /ANYROUTER_TRANSLATE_MODEL = "qwen\/qwen3\.7-flash/
+    );
+  });
+});
