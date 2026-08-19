@@ -95,9 +95,20 @@ async function postWebhook(
   }
 }
 
+/** Persist host/origin only — Slack webhook paths carry secrets. */
+export function webhookTarget(url: string | undefined): string {
+  const raw = url?.trim() ?? "";
+  if (!raw) return "";
+  try {
+    return new URL(raw).origin;
+  } catch {
+    return "webhook";
+  }
+}
+
 export const webhookNotifier: Notifier = {
   id: "webhook",
-  target: (env) => env.NOTIFY_WEBHOOK_URL ?? "",
+  target: (env) => webhookTarget(env.NOTIFY_WEBHOOK_URL),
   enabled: (env) => Boolean(env.NOTIFY_WEBHOOK_URL?.trim()),
   sendDigest: (env, digest) => postWebhook(env, digestEvent(digest)),
   sendStory: (env, story) => postWebhook(env, storyEvent(story)),

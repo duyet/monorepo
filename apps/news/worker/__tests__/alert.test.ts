@@ -13,6 +13,7 @@ import {
   formatHealthFooter,
   healthOk,
 } from "../notify/alert.js";
+import { webhookTarget } from "../notify/webhook.js";
 
 const event: AlertEvent = {
   severity: "warning",
@@ -51,6 +52,23 @@ describe("AlertEvent adapters", () => {
     expect(telegramAlertAdapter.render(event)).toBe(html);
   });
 
+  it("escapes quotes inside Telegram href attributes", () => {
+    const html = renderTelegramHtml({
+      ...event,
+      links: [
+        {
+          label: 'say "hi"',
+          url: 'https://news.duyet.net/x?q="quoted"&s=\'s\'',
+        },
+      ],
+    });
+    expect(html).toContain(
+      'href="https://news.duyet.net/x?q=&quot;quoted&quot;&amp;s=&#39;s&#39;"'
+    );
+    expect(html).toContain("say &quot;hi&quot;");
+    expect(html).not.toContain('href="https://news.duyet.net/x?q="');
+  });
+
   it("renders a Slack attachment with metrics and health", () => {
     const payload = renderSlackPayload(event);
     expect(payload.text).toContain("GPT-6 <beats> humans & robots");
@@ -77,5 +95,17 @@ describe("health snapshot", () => {
     expect(healthOk(snapshot)).toBe(false);
     expect(formatHealthFooter(snapshot)).toContain("ingest");
     expect(formatHealthFooter(snapshot)).toContain("translations");
+  });
+});
+
+describe("webhookTarget", () => {
+  it("stores origin only, never the secret path", () => {
+    expect(
+      webhookTarget(
+        "https://hooks.slack.com/services/T00/B00/secrettoken"
+      )
+    ).toBe("https://hooks.slack.com");
+    expect(webhookTarget("")).toBe("");
+    expect(webhookTarget("not-a-url")).toBe("webhook");
   });
 });

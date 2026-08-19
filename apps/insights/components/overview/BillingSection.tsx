@@ -1,8 +1,15 @@
 import { BarList, Eyebrow } from "@duyet/components";
+import type { ReactElement } from "react";
 import { compactName, formatNumber } from "./helpers";
 import type { BillingSummary } from "./suggestions";
 
-export function BillingSection({ billing }: { billing: BillingSummary }) {
+interface BillingSectionProps {
+  billing: BillingSummary;
+}
+
+export function BillingSection({
+  billing,
+}: BillingSectionProps): ReactElement {
   return (
     <div id="ins-billing" className="rd-card mt-3 p-[clamp(22px,2.6vw,30px)]">
       <div className="mb-5 flex items-end justify-between gap-3">

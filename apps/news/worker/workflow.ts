@@ -562,6 +562,8 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
           // LLM can omit a field entirely; only insert when both are usable.
           // Source titles that are already Vietnamese are stored as title_vi
           // so the homepage does not paint an EN badge on Vietnamese text.
+          // Persist VI titles only for published items — rejected/merged
+          // rows must not create translations entries (native or LLM).
           const nativeViTitle =
             !translation?.title && looksVietnamese(item.title)
               ? {
@@ -569,12 +571,15 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
                   summary: item.summary?.trim() ?? "",
                 }
               : null;
-          const persisted = translation?.title
-            ? {
-                title: translation.title,
-                summary: translation.summary ?? "",
-              }
-            : nativeViTitle;
+          const persisted =
+            status === "published"
+              ? translation?.title
+                ? {
+                    title: translation.title,
+                    summary: translation.summary ?? "",
+                  }
+                : nativeViTitle
+              : null;
           if (persisted) {
             statements.push(
               this.env.DB.prepare(

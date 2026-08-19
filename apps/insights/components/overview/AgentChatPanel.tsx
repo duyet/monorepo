@@ -1,13 +1,16 @@
 import { Eyebrow } from "@duyet/components";
+import type { ReactElement } from "react";
 import type { InsightSuggestion } from "./suggestions";
 
 const AGENTS_URL = "https://agents.duyet.net";
 
+interface SuggestionsAndChatProps {
+  suggestions: InsightSuggestion[];
+}
+
 export function SuggestionsAndChat({
   suggestions,
-}: {
-  suggestions: InsightSuggestion[];
-}) {
+}: SuggestionsAndChatProps): ReactElement {
   return (
     <div className="rd-g2 mt-3">
       <div className="rd-card p-[clamp(22px,2.6vw,30px)]">

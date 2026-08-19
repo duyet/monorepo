@@ -54,10 +54,10 @@ export function Donut({
   thickness = 18,
   className,
 }: DonutProps) {
-  const total = data.reduce(
-    (sum, slice) => sum + (Number.isFinite(slice.value) ? slice.value : 0),
-    0
+  const positive = data.filter(
+    (slice) => Number.isFinite(slice.value) && slice.value > 0
   );
+  const total = positive.reduce((sum, slice) => sum + slice.value, 0);
   if (total <= 0) {
     return (
       <div
@@ -73,20 +73,18 @@ export function Donut({
   const cy = size / 2;
   const r = size / 2 - thickness / 2 - 2;
   let angle = 0;
-  const slices = data
-    .filter((slice) => Number.isFinite(slice.value) && slice.value > 0)
-    .map((slice, i) => {
-      const sweep = (slice.value / total) * 360;
-      const start = angle;
-      const end = angle + sweep;
-      angle = end;
-      return {
-        ...slice,
-        start,
-        end,
-        color: slice.color ?? FALLBACK_COLORS[i % FALLBACK_COLORS.length],
-      };
-    });
+  const slices = positive.map((slice, i) => {
+    const sweep = (slice.value / total) * 360;
+    const start = angle;
+    const end = angle + sweep;
+    angle = end;
+    return {
+      ...slice,
+      start,
+      end,
+      color: slice.color ?? FALLBACK_COLORS[i % FALLBACK_COLORS.length],
+    };
+  });
 
   return (
     <svg

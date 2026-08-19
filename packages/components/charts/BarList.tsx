@@ -25,7 +25,6 @@ export function BarList({
     <ul
       aria-label={ariaLabel}
       className={className}
-      role="img"
       style={{
         display: "grid",
         gap: 11,
@@ -35,7 +34,10 @@ export function BarList({
       }}
     >
       {data.map((item) => {
-        const width = max > 0 ? Math.max((item.value / max) * 100, 2) : 0;
+        const width =
+          max > 0 && Number.isFinite(item.value) && item.value > 0
+            ? Math.max((item.value / max) * 100, 2)
+            : 0;
         const label = (
           <>
             <div

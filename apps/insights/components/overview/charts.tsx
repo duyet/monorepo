@@ -118,17 +118,46 @@ function InsightDonutChart({
     return <EmptyChart label="No model cost data available." />;
   }
 
+  const palette = [
+    "#3b82f6",
+    "#a855f7",
+    "#22c55e",
+    "#ec4899",
+    "#f97316",
+    "#ef4444",
+  ];
+  const slices = data.map((d, i) => ({
+    name: compactName(d.name),
+    value: d.pct || d.cost,
+    pct: d.pct,
+    cost: d.cost,
+    color: `var(--chart-${(i % 6) + 1}, ${palette[i % 6]})`,
+  }));
+
   return (
-    <div className="flex min-h-[200px] min-w-0 items-center justify-center">
+    <div className="flex min-h-[200px] min-w-0 flex-wrap items-center justify-center gap-6">
       <Donut
         ariaLabel={ariaLabel ?? "Cost share"}
-        data={data.map((d, i) => ({
-          name: compactName(d.name),
-          value: d.pct || d.cost,
-          color: `var(--chart-${(i % 6) + 1}, ${["#3b82f6", "#a855f7", "#22c55e", "#ec4899", "#f97316", "#ef4444"][i % 6]})`,
-        }))}
+        data={slices}
         size={180}
       />
+      <ul className="grid gap-2 text-sm" aria-label="Cost share legend">
+        {slices.map((slice) => (
+          <li className="flex items-center gap-2" key={slice.name}>
+            <span
+              aria-hidden="true"
+              className="inline-block h-2.5 w-2.5 rounded-full"
+              style={{ background: slice.color }}
+            />
+            <span className="text-[var(--rd-text-2)]">
+              {slice.name} ·{" "}
+              {slice.pct > 0
+                ? `${Math.round(slice.pct)}%`
+                : `$${formatNumber(slice.cost)}`}
+            </span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

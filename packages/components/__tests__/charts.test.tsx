@@ -50,6 +50,23 @@ describe("Donut", () => {
     expect(html).toContain("Cost share");
     expect(html).toContain("<path");
   });
+
+  it("ignores non-positive slices when computing arc totals", () => {
+    const html = renderToStaticMarkup(
+      <Donut
+        ariaLabel="Cost share"
+        data={[
+          { name: "neg", value: -10 },
+          { name: "Claude", value: 20 },
+          { name: "GPT", value: 10 },
+        ]}
+      />
+    );
+    expect(html).toContain("<path");
+    expect(html).toContain("Claude: 20");
+    expect(html).toContain("GPT: 10");
+    expect(html).not.toContain("neg:");
+  });
 });
 
 describe("BarList", () => {
@@ -63,8 +80,23 @@ describe("BarList", () => {
         ]}
       />
     );
-    expect(getByRole("img", { name: "Top cost drivers" })).toBeDefined();
+    expect(getByRole("list", { name: "Top cost drivers" })).toBeDefined();
     expect(getByText("claude-opus")).toBeDefined();
     expect(getByText("80")).toBeDefined();
+  });
+
+  it("keeps zero values at zero width", () => {
+    const html = renderToStaticMarkup(
+      <BarList
+        ariaLabel="Top cost drivers"
+        data={[
+          { name: "claude-opus", value: 80 },
+          { name: "free", value: 0 },
+        ]}
+      />
+    );
+    expect(html).toMatch(/width:\s*100%/);
+    expect(html).toMatch(/width:\s*0%/);
+    expect(html).not.toMatch(/width:\s*2%/);
   });
 });
