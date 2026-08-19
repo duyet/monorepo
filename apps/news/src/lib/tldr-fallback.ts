@@ -104,16 +104,15 @@ export function resolveTldrForDisplay(
   };
 }
 
-/** VI never shows a leftover 1-bullet list while EN has many: fall back to
- * bullets_en (or the synthesized list already stored on the snapshot). */
+/** VI chrome never paints English. English-only or leftover-thin
+ * bullets_vi hides the section; getFeed already rebuilds from title_vi. */
 export function displayTldrBullets(
   tldr: FeedResponse["tldr"],
   lang: "en" | "vi"
 ): TldrBullet[] {
   if (!tldr) return [];
   if (lang !== "vi") return tldr.bullets_en;
+  if (isEnglishOnlyViTldr(tldr.bullets_vi)) return [];
   if (tldr.bullets_vi.length >= TLDR_DISPLAY_MIN) return tldr.bullets_vi;
-  return tldr.bullets_en.length > tldr.bullets_vi.length
-    ? tldr.bullets_en
-    : tldr.bullets_vi;
+  return [];
 }
