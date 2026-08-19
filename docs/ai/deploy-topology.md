@@ -12,23 +12,33 @@ behavior change without a real `pnpm run cf:deploy -- --dry-run`.
 
 Orchestration locally / in CI Pages jobs: `scripts/cf-deploy.ts`. App-level `cf:deploy:prod` scripts remain authoritative when present.
 
-## Change detection (`scripts/cf-deploy.ts`)
+## Change detection
 
-Rebuilds are keyed off `git diff --name-only origin/master...HEAD` over:
+### CI Pages workflows (`scripts/cf-deploy-matrix.ts`)
 
-- `apps/`
+Prod and preview workflows call the matrix with workflow-provided `--base` /
+`--head` SHAs (not `origin/master...HEAD`). Shared rebuilds fire only when
+changed files match:
+
+- `apps/` (per-app selection)
 - `packages/`
-- `turbo.json`
 - `package.json`
-- **`pnpm-lock.yaml`** (the real lockfile — not `bun.lock` / `bun.lockb`)
-- `.env.production`
-- `scripts/`
+- `pnpm-lock.yaml`
+- `.npmrc`
 
-A lockfile-only or `packages/**` change rebuilds every requested Pages app. `--force` skips detection and rebuilds all requested targets (`pnpm run cf:deploy -- --force`).
+`turbo.json`, `.env.production`, and most of `scripts/` do **not** force every
+Pages app to rebuild in CI.
+
+### Local / manual (`scripts/cf-deploy.ts`)
+
+`pnpm run cf:deploy` still diffs `origin/master...HEAD` and also watches
+`turbo.json`, `.env.production`, and `scripts/` for full rebuilds. A
+lockfile-only or `packages/**` change rebuilds every requested Pages app.
+`--force` skips detection (`pnpm run cf:deploy -- --force`).
 
 ## Dependency graph (what pulls a rebuild)
 
-```
+```text
 packages/{components,libs,config,urls,profile,interfaces,tailwind-config,tsconfig,wasm}
         │
         ├─► Pages (static HTML at build time)
@@ -65,11 +75,14 @@ The one runtime coupling is **agent-ui → agent-api**. A breaking Worker contra
 
 ## Per-app command
 
-```
+```sh
 pnpm run cf:deploy            # changed Pages apps, preview
 pnpm run cf:deploy -- --prod  # production
 pnpm run cf:deploy -- --force
 pnpm run cf:deploy -- --dry-run
 ```
 
-Worker apps use their own `pnpm run deploy` / `pnpm run cf:deploy:prod` from `apps/api`, `apps/agent-api`, `apps/news`.
+Worker apps use their own `pnpm run deploy` / `pnpm run cf:deploy:prod` from
+`apps/api`, `apps/agent-api`, and `apps/news`. `paid-api` is not on the
+`cf-worker-deploy.yml` path filters — deploy it manually from
+`apps/paid-api` with `pnpm run deploy` (wrangler).
