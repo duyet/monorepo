@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import {
   alertAdapters,
   jsonAlertAdapter,
@@ -13,7 +13,12 @@ import {
   formatHealthFooter,
   healthOk,
 } from "../notify/alert.js";
-import { webhookTarget } from "../notify/webhook.js";
+import {
+  webhookDeliveryId,
+  webhookNotifier,
+  webhookTarget,
+} from "../notify/webhook.js";
+import type { Env } from "../types.js";
 
 const event: AlertEvent = {
   severity: "warning",
@@ -107,5 +112,42 @@ describe("webhookTarget", () => {
     ).toBe("https://hooks.slack.com");
     expect(webhookTarget("")).toBe("");
     expect(webhookTarget("not-a-url")).toBe("webhook");
+  });
+});
+
+describe("webhookDeliveryId", () => {
+  it("is stable for the same digest date or story id", () => {
+    expect(webhookDeliveryId("digest", "2026-08-19")).toBe(
+      "news:digest:2026-08-19"
+    );
+    expect(webhookDeliveryId("story", "abc123")).toBe("news:story:abc123");
+  });
+
+  it("sends Idempotency-Key and skips retry after timeout", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockRejectedValueOnce(
+        Object.assign(new Error("The operation was aborted due to timeout"), {
+          name: "TimeoutError",
+        })
+      );
+    vi.stubGlobal("fetch", fetchMock);
+    const result = await webhookNotifier.sendDigest(
+      { NOTIFY_WEBHOOK_URL: "https://example.com/hook" } as Env,
+      { date: "2026-08-19", bullets: [] }
+    );
+    expect(result.ok).toBe(true);
+    expect(result.messageId).toBe(
+      "news:digest:2026-08-19:ambiguous-timeout"
+    );
+    expect(fetchMock).toHaveBeenCalledWith(
+      "https://example.com/hook",
+      expect.objectContaining({
+        headers: expect.objectContaining({
+          "Idempotency-Key": "news:digest:2026-08-19",
+        }),
+      })
+    );
+    vi.unstubAllGlobals();
   });
 });

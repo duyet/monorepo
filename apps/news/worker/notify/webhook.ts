@@ -24,6 +24,14 @@ function webhookKind(url: string): "slack" | "json" {
   return "json";
 }
 
+/** Stable across retries so receivers can dedupe. */
+export function webhookDeliveryId(
+  kind: "digest" | "story",
+  key: string
+): string {
+  return `news:${kind}:${key}`;
+}
+
 function digestEvent(digest: DailyDigest): AlertEvent {
   return {
     severity: "info",
@@ -66,28 +74,54 @@ function storyEvent(story: StoryPayload): AlertEvent {
   };
 }
 
+function isTimeoutError(error: unknown): boolean {
+  if (!(error instanceof Error)) return false;
+  return (
+    error.name === "TimeoutError" ||
+    error.name === "AbortError" ||
+    /timed? ?out/i.test(error.message)
+  );
+}
+
 async function postWebhook(
   env: Env,
-  event: AlertEvent
+  event: AlertEvent,
+  deliveryId: string
 ): Promise<SendResult> {
   const url = env.NOTIFY_WEBHOOK_URL?.trim() ?? "";
   if (!url) return { ok: false, error: "NOTIFY_WEBHOOK_URL missing" };
-  const payload =
-    webhookKind(url) === "slack"
+  const kind = webhookKind(url);
+  const rendered =
+    kind === "slack"
       ? slackAlertAdapter.render(event)
       : jsonAlertAdapter.render(event);
+  // Keep AlertEvent fields top-level; add delivery_id for JSON receivers.
+  // Slack incoming webhooks ignore unknown top-level keys.
+  const payload =
+    kind === "slack"
+      ? rendered
+      : { ...(rendered as AlertEvent), delivery_id: deliveryId };
   try {
     const res = await fetch(url, {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: {
+        "content-type": "application/json",
+        "Idempotency-Key": deliveryId,
+        "X-Delivery-Id": deliveryId,
+      },
       body: JSON.stringify(payload),
       signal: AbortSignal.timeout(15_000),
     });
     if (!res.ok) {
       return { ok: false, error: `HTTP ${res.status}` };
     }
-    return { ok: true, messageId: "webhook" };
+    return { ok: true, messageId: deliveryId };
   } catch (error) {
+    // Timeout after the receiver may have accepted the POST — do not
+    // retry (at-most-once). Idempotency-Key covers receivers that support it.
+    if (isTimeoutError(error)) {
+      return { ok: true, messageId: `${deliveryId}:ambiguous-timeout` };
+    }
     return {
       ok: false,
       error: error instanceof Error ? error.message : String(error),
@@ -110,6 +144,16 @@ export const webhookNotifier: Notifier = {
   id: "webhook",
   target: (env) => webhookTarget(env.NOTIFY_WEBHOOK_URL),
   enabled: (env) => Boolean(env.NOTIFY_WEBHOOK_URL?.trim()),
-  sendDigest: (env, digest) => postWebhook(env, digestEvent(digest)),
-  sendStory: (env, story) => postWebhook(env, storyEvent(story)),
+  sendDigest: (env, digest) =>
+    postWebhook(
+      env,
+      digestEvent(digest),
+      webhookDeliveryId("digest", digest.date)
+    ),
+  sendStory: (env, story) =>
+    postWebhook(
+      env,
+      storyEvent(story),
+      webhookDeliveryId("story", story.id)
+    ),
 };
