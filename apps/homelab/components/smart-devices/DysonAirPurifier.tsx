@@ -9,20 +9,17 @@ import {
   Thermometer,
   Wind,
 } from "lucide-react";
-import { useMemo, useState } from "react";
-import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
+import { useMemo, useState, type ReactNode } from "react";
+import { Area, Line } from "@/components/dither-kit/area";
+import { AreaChart, LineChart } from "@/components/dither-kit/area-chart";
+import type { ChartConfig } from "@/components/dither-kit/chart-context";
+import { Grid } from "@/components/dither-kit/grid";
+import type { DitherColor } from "@/components/dither-kit/palette";
+import { Tooltip } from "@/components/dither-kit/tooltip";
+import { XAxis } from "@/components/dither-kit/x-axis";
+import { YAxis } from "@/components/dither-kit/y-axis";
 import { useSmartDevices } from "@/hooks/useDashboard";
-import { BENTO_CELL, CHART_COLORS } from "@/lib/constants";
+import { BENTO_CELL } from "@/lib/constants";
 import type { AirQualityLevel } from "@/lib/data";
 
 const AQ_COLORS: Record<AirQualityLevel, string> = {
@@ -57,35 +54,6 @@ const AQ_LABEL: Record<AirQualityLevel, string> = {
   "very-poor": "Very Poor",
 };
 
-const TOOLTIP_STYLE = {
-  backgroundColor: "var(--rd-surface)",
-  border: "1px solid var(--rd-border)",
-  borderRadius: "8px",
-  fontSize: "12px",
-  color: "var(--rd-text)",
-};
-
-function formatMetricValue(
-  value: number | string | readonly (number | string)[] | undefined,
-  unit: string
-) {
-  const numeric = Array.isArray(value) ? Number(value[0]) : Number(value);
-  return `${Number.isFinite(numeric) ? numeric : 0} ${unit}`;
-}
-
-function formatTemperatureHumidityValue(
-  value: number | string | readonly (number | string)[] | undefined,
-  name: string | number | undefined
-): [string, string] {
-  const numeric = Array.isArray(value) ? Number(value[0]) : Number(value);
-  const metricName = String(name);
-
-  return [
-    `${Number.isFinite(numeric) ? numeric : 0}${metricName === "temperature" ? "°C" : "%"}`,
-    metricName === "temperature" ? "Temperature" : "Humidity",
-  ];
-}
-
 const STATUS_CONFIG = {
   online: {
     label: "Running",
@@ -109,13 +77,18 @@ type AqMetric = "pm25" | "pm10" | "voc" | "no2" | "hcho";
 
 const METRIC_CONFIG: Record<
   AqMetric,
-  { label: string; color: string; unit: string }
+  { label: string; color: DitherColor; unit: string }
 > = {
-  pm25: { label: "PM2.5", color: "#b8b5ff", unit: "\u00b5g/m\u00b3" },
-  pm10: { label: "PM10", color: "#90c8ff", unit: "\u00b5g/m\u00b3" },
-  voc: { label: "VOC", color: "#8fd4ab", unit: "\u00b5g/m\u00b3" },
-  no2: { label: "NO\u2082", color: "#f5cc70", unit: "\u00b5g/m\u00b3" },
-  hcho: { label: "HCHO", color: "#ff8585", unit: "mg/m\u00b3" },
+  pm25: { label: "PM2.5", color: "purple", unit: "\u00b5g/m\u00b3" },
+  pm10: { label: "PM10", color: "blue", unit: "\u00b5g/m\u00b3" },
+  voc: { label: "VOC", color: "green", unit: "\u00b5g/m\u00b3" },
+  no2: { label: "NO\u2082", color: "orange", unit: "\u00b5g/m\u00b3" },
+  hcho: { label: "HCHO", color: "red", unit: "mg/m\u00b3" },
+};
+
+const TEMP_HUMIDITY_CONFIG: ChartConfig = {
+  temperature: { label: "Temperature", color: "orange" },
+  humidity: { label: "Humidity", color: "blue" },
 };
 
 function AirQualityRing({
@@ -206,7 +179,7 @@ function PollutantGrid() {
       {data.pollutants.map((p) => (
         <div
           key={p.shortLabel}
-          className={`rounded-2xl p-3 text-center ${AQ_BG[p.level]}`}
+          className={`rounded-md p-2.5 text-center ${AQ_BG[p.level]}`}
         >
           <p className="text-[10px] font-medium text-neutral-600 dark:text-neutral-300">
             {p.shortLabel}
@@ -262,65 +235,22 @@ function AirQualityChart() {
           ))}
         </div>
       </div>
-      <ResponsiveContainer width="100%" height={200}>
-        <AreaChart data={chartData}>
-          <defs>
-            <linearGradient
-              id={`gradient-${activeMetric}`}
-              x1="0"
-              y1="0"
-              x2="0"
-              y2="1"
-            >
-              <stop offset="5%" stopColor={config.color} stopOpacity={0.3} />
-              <stop offset="95%" stopColor={config.color} stopOpacity={0} />
-            </linearGradient>
-          </defs>
-          <CartesianGrid
-            strokeDasharray="3 3"
-            opacity={0.15}
-            vertical={false}
-          />
-          <XAxis
-            dataKey="time"
-            tick={{ fontSize: 10 }}
-            stroke="currentColor"
-            opacity={0.4}
-            axisLine={false}
-            tickLine={false}
-            interval={3}
-          />
-          <YAxis
-            tick={{ fontSize: 10 }}
-            stroke="currentColor"
-            opacity={0.4}
-            axisLine={false}
-            tickLine={false}
-            width={35}
-            label={{
-              value: config.unit,
-              angle: -90,
-              position: "insideLeft",
-              fontSize: 9,
-              opacity: 0.4,
-            }}
-          />
+      <div className="h-[200px] w-full min-w-0">
+        <AreaChart
+          data={chartData}
+          config={{ [activeMetric]: { label: config.label, color: config.color } }}
+          bloom="aura"
+        >
+          <Grid />
+          <XAxis dataKey="time" />
+          <YAxis />
           <Tooltip
-            contentStyle={TOOLTIP_STYLE}
-            formatter={(value) => formatMetricValue(value, config.unit)}
-            labelFormatter={() => config.label}
+            labelKey="time"
+            valueFormatter={(v) => `${v} ${config.unit}`}
           />
-          <Area
-            type="monotone"
-            dataKey={activeMetric}
-            stroke={config.color}
-            strokeWidth={2}
-            fill={`url(#gradient-${activeMetric})`}
-            dot={false}
-            activeDot={{ r: 4, strokeWidth: 2 }}
-          />
+          <Area dataKey={activeMetric} variant="gradient" />
         </AreaChart>
-      </ResponsiveContainer>
+      </div>
     </div>
   );
 }
@@ -345,86 +275,21 @@ function TemperatureHumidityChart() {
           </span>
         </div>
       </div>
-      <ResponsiveContainer width="100%" height={200}>
-        <LineChart data={chartData}>
-          <CartesianGrid
-            yAxisId="temp"
-            strokeDasharray="3 3"
-            opacity={0.15}
-            vertical={false}
-          />
-          <XAxis
-            dataKey="time"
-            tick={{ fontSize: 10 }}
-            stroke="currentColor"
-            opacity={0.4}
-            axisLine={false}
-            tickLine={false}
-            interval={3}
-          />
-          <YAxis
-            yAxisId="temp"
-            tick={{ fontSize: 10 }}
-            stroke="currentColor"
-            opacity={0.4}
-            axisLine={false}
-            tickLine={false}
-            width={30}
-            domain={["auto", "auto"]}
-            label={{
-              value: "°C",
-              angle: -90,
-              position: "insideLeft",
-              fontSize: 9,
-              opacity: 0.4,
-            }}
-          />
-          <YAxis
-            yAxisId="humidity"
-            orientation="right"
-            tick={{ fontSize: 10 }}
-            stroke="currentColor"
-            opacity={0.4}
-            axisLine={false}
-            tickLine={false}
-            width={30}
-            domain={["auto", "auto"]}
-            label={{
-              value: "%",
-              angle: 90,
-              position: "insideRight",
-              fontSize: 9,
-              opacity: 0.4,
-            }}
-          />
+      <div className="h-[200px] w-full min-w-0">
+        <LineChart data={chartData} config={TEMP_HUMIDITY_CONFIG} bloom="aura">
+          <Grid />
+          <XAxis dataKey="time" />
+          <YAxis />
           <Tooltip
-            contentStyle={TOOLTIP_STYLE}
-            formatter={(value, name) =>
-              formatTemperatureHumidityValue(value, name)
+            labelKey="time"
+            valueFormatter={(v, name) =>
+              name === "temperature" ? `${v}°C` : `${v}%`
             }
-            labelFormatter={() => "Temperature & Humidity"}
           />
-          <Line
-            yAxisId="temp"
-            type="monotone"
-            dataKey="temperature"
-            stroke={CHART_COLORS.CLAUDE_ORANGE}
-            strokeWidth={2}
-            dot={false}
-            activeDot={{ r: 4, strokeWidth: 2 }}
-          />
-          <Line
-            yAxisId="humidity"
-            type="monotone"
-            dataKey="humidity"
-            stroke={CHART_COLORS.CLAUDE_SKY}
-            strokeWidth={2}
-            dot={false}
-            strokeDasharray="4 2"
-            activeDot={{ r: 4, strokeWidth: 2 }}
-          />
+          <Line dataKey="temperature" />
+          <Line dataKey="humidity" strokeVariant="dashed" />
         </LineChart>
-      </ResponsiveContainer>
+      </div>
       <div className="mt-2 flex items-center justify-center gap-6 text-xs text-neutral-500 dark:text-neutral-400">
         <span className="flex items-center gap-1.5">
           <span className="inline-block h-0.5 w-4 rounded bg-claude-orange" />
@@ -448,7 +313,7 @@ function FilterStatus() {
         <Wind className="h-4 w-4 text-claude-lavender" />
         Filter Life
       </h4>
-      <div className="space-y-4">
+      <div className="space-y-3">
         {data.filters.map((filter) => {
           const isLow = filter.remainingPercent <= 20;
 
@@ -496,28 +361,40 @@ function FilterStatus() {
   );
 }
 
+function ReportRow({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="flex items-center justify-between gap-3 py-2 first:pt-0 last:pb-0">
+      <span className="text-[11px] text-muted-foreground">{label}</span>
+      {children}
+    </div>
+  );
+}
+
 function AirQualityReport() {
   const { dysonAirPurifier: data } = useSmartDevices();
   const { report } = data;
 
   return (
     <div className={BENTO_CELL}>
-      <h4 className="mb-4 flex items-center gap-2 text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+      <h4 className="mb-3 flex items-center gap-2 text-sm font-medium">
         <Gauge className="h-4 w-4 text-claude-sky" />
-        Indoor Air Quality Report
+        Indoor air quality
       </h4>
-      <div className="space-y-3">
-        <div className="flex items-center justify-between rounded-xl bg-neutral-50 p-3 dark:bg-neutral-700/30">
-          <span className="text-xs text-neutral-600 dark:text-neutral-400">
-            vs. Last Month
-          </span>
+      <div className="divide-y divide-border">
+        <ReportRow label="vs last month">
           <span
             className={`flex items-center gap-1 text-xs font-semibold ${
               report.comparedToLastMonth === "improved"
                 ? "text-claude-mint"
                 : report.comparedToLastMonth === "deteriorated"
                   ? "text-claude-coral"
-                  : "text-neutral-600 dark:text-neutral-400"
+                  : "text-muted-foreground"
             }`}
           >
             {report.comparedToLastMonth === "improved" ? (
@@ -528,36 +405,20 @@ function AirQualityReport() {
             {report.comparedToLastMonth.charAt(0).toUpperCase() +
               report.comparedToLastMonth.slice(1)}
           </span>
-        </div>
-
-        <div className="flex items-center justify-between rounded-xl bg-neutral-50 p-3 dark:bg-neutral-700/30">
-          <span className="text-xs text-neutral-600 dark:text-neutral-400">
-            Highest Pollution
-          </span>
-          <span className="text-xs font-medium text-neutral-900 dark:text-neutral-100">
-            {report.highestPollutionDate}
-          </span>
-        </div>
-
-        <div className="flex items-center justify-between rounded-xl bg-neutral-50 p-3 dark:bg-neutral-700/30">
-          <span className="text-xs text-neutral-600 dark:text-neutral-400">
-            AQI Rating
-          </span>
+        </ReportRow>
+        <ReportRow label="Highest pollution">
+          <span className="text-xs font-medium">{report.highestPollutionDate}</span>
+        </ReportRow>
+        <ReportRow label="AQI">
           <span
-            className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${AQ_BG[report.aqiRating]} ${AQ_TEXT[report.aqiRating]}`}
+            className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${AQ_BG[report.aqiRating]} ${AQ_TEXT[report.aqiRating]}`}
           >
             {AQ_LABEL[report.aqiRating]}
           </span>
-        </div>
-
-        <div className="flex items-center justify-between rounded-xl bg-neutral-50 p-3 dark:bg-neutral-700/30">
-          <span className="text-xs text-neutral-600 dark:text-neutral-400">
-            Dominant Pollutant
-          </span>
-          <span className="text-xs font-semibold text-neutral-900 dark:text-neutral-100">
-            {report.dominantPollutant}
-          </span>
-        </div>
+        </ReportRow>
+        <ReportRow label="Dominant">
+          <span className="text-xs font-medium">{report.dominantPollutant}</span>
+        </ReportRow>
       </div>
     </div>
   );
@@ -568,7 +429,7 @@ export function DysonAirPurifier() {
   const statusConfig = STATUS_CONFIG[data.status];
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {/* Device Header */}
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-claude-lavender/25 dark:bg-claude-lavender/10">
@@ -593,7 +454,7 @@ export function DysonAirPurifier() {
       </div>
 
       {/* Bento Grid */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
         {/* Air Quality Status */}
         <div className={BENTO_CELL}>
           <p className="mb-3 text-xs font-medium text-neutral-600 dark:text-neutral-400">

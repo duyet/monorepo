@@ -1,14 +1,16 @@
 "use client";
 
-import { Camera, Lightbulb, Router, Smartphone, WashingMachine } from "lucide-react";
+import { Badge } from "@duyet/components/ui/badge";
+import { Camera, Lightbulb, Router, WashingMachine } from "lucide-react";
 import { useSmartDevices } from "@/hooks/useDashboard";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BoschWashingMachine } from "./BoschWashingMachine";
 import { DysonAirPurifier } from "./DysonAirPurifier";
 
 const STATUS_DOT: Record<string, string> = {
-  online: "rd-dot rd-ok",
-  idle: "rd-dot rd-idle",
-  offline: "rd-dot rd-down",
+  online: "bg-[var(--rd-ok)]",
+  idle: "bg-[var(--rd-warn)]",
+  offline: "bg-destructive",
 };
 
 export function SmartDevicesOverview() {
@@ -18,7 +20,6 @@ export function SmartDevicesOverview() {
     (d) => d.status === "online" || d.status === "idle",
   ).length;
 
-  // Group non-detail devices by type
   const detailIds = new Set(["bosch-washer", "dyson-purifier"]);
   const otherDevices = devices.filter((d) => !detailIds.has(d.id));
 
@@ -31,125 +32,117 @@ export function SmartDevicesOverview() {
     {} as Record<string, typeof otherDevices>,
   );
 
+  const lights = grouped.light ?? [];
+  const cameras = grouped.camera ?? [];
+
   return (
-    <div className="space-y-8">
-      {/* Connected Devices Summary */}
-      <div className="flex items-center gap-3">
-        <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[var(--rd-accent-bg)]">
-          <Smartphone className="h-4 w-4 text-[var(--rd-accent)]" />
-        </div>
-        <div>
-          <p className="text-sm font-medium text-[var(--rd-text)]">
-            {devices.length} devices · {onlineCount} online
-          </p>
-          <p className="text-xs text-[var(--rd-text-3)]">
-            {Object.keys(grouped).length + 2} device types
-          </p>
-        </div>
-      </div>
+    <div className="space-y-3">
+      <p className="text-sm text-muted-foreground">
+        {devices.length} devices · {onlineCount} online
+      </p>
 
-      {/* Dyson Air Purifier */}
       <DysonAirPurifier />
-
-      <div className="border-t border-[var(--rd-border)]" />
-
-      {/* Bosch Washing Machine */}
       <BoschWashingMachine />
 
-      <div className="border-t border-[var(--rd-border)]" />
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+        <Card className="min-w-0">
+          <CardHeader className="flex-row items-center justify-between">
+            <CardTitle className="inline-flex items-center gap-2">
+              <WashingMachine className="size-3.5" />
+              LG WashTower
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul className="divide-y divide-border">
+              <li className="py-2 first:pt-0">
+                <p className="text-sm font-medium">LG Washer</p>
+                <p className="text-[11px] text-muted-foreground">
+                  WV9-1408B3 · Laundry room · Idle · Last run 3h ago
+                </p>
+              </li>
+              <li className="py-2 last:pb-0">
+                <p className="text-sm font-medium">LG Dryer</p>
+                <p className="text-[11px] text-muted-foreground">
+                  WV9-1408B3 · Laundry room · Idle · Last run 2h ago
+                </p>
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
 
-      {/* LG Washer + Dryer */}
-      <div>
-        <h3 className="text-base font-semibold text-[var(--rd-text)] mb-4 flex items-center gap-2">
-          <WashingMachine className="h-4 w-4 text-[var(--rd-accent)]" />
-          LG WashTower
-        </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div className="rd-card p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="rd-dot rd-idle" />
-              <span className="font-medium text-sm text-[var(--rd-text)]">LG Washer</span>
-            </div>
-            <p className="text-xs text-[var(--rd-text-3)]">WV9-1408B3 · Laundry room</p>
-            <p className="text-xs text-[var(--rd-text-3)] mt-1">Status: Idle · Last run: 3h ago</p>
-          </div>
-          <div className="rd-card p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="rd-dot rd-idle" />
-              <span className="font-medium text-sm text-[var(--rd-text)]">LG Dryer</span>
-            </div>
-            <p className="text-xs text-[var(--rd-text-3)]">WV9-1408B3 · Laundry room</p>
-            <p className="text-xs text-[var(--rd-text-3)] mt-1">Status: Idle · Last run: 2h ago</p>
-          </div>
-        </div>
+        <Card className="min-w-0">
+          <CardHeader className="flex-row items-center justify-between">
+            <CardTitle className="inline-flex items-center gap-2">
+              <Router className="size-3.5" />
+              DQSmart Hub
+            </CardTitle>
+            <Badge variant="secondary" className="font-mono text-[11px] font-normal">
+              18 devices
+            </Badge>
+          </CardHeader>
+          <CardContent>
+            <p className="text-[11px] text-muted-foreground">
+              DQS-H1 · Utility closet · Connected and operational
+            </p>
+          </CardContent>
+        </Card>
       </div>
 
-      <div className="border-t border-[var(--rd-border)]" />
-
-      {/* DQSmart Hub */}
-      <div>
-        <h3 className="text-base font-semibold text-[var(--rd-text)] mb-4 flex items-center gap-2">
-          <Router className="h-4 w-4 text-[var(--rd-accent)]" />
-          DQSmart Hub
-        </h3>
-        <div className="rd-card p-4">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="rd-dot rd-ok rd-pulse" />
-            <span className="font-medium text-sm text-[var(--rd-text)]">DQSmart Hub</span>
-            <span className="rd-chip text-[10px] ml-auto">18 devices</span>
-          </div>
-          <p className="text-xs text-[var(--rd-text-3)]">DQS-H1 · Utility closet · Connected and operational</p>
-        </div>
-      </div>
-
-      <div className="border-t border-[var(--rd-border)]" />
-
-      {/* Lights */}
-      {grouped.light && (
-        <div>
-          <h3 className="text-base font-semibold text-[var(--rd-text)] mb-4 flex items-center gap-2">
-            <Lightbulb className="h-4 w-4 text-[var(--rd-accent)]" />
-            Smart Lights
-            <span className="rd-chip text-[10px]">
-              {grouped.light.filter((d) => d.status === "online").length}/{grouped.light.length} on
-            </span>
-          </h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
-            {grouped.light.map((light) => (
-              <div key={light.id} className="rd-card p-3">
-                <div className="flex items-center gap-2">
-                  <span className={STATUS_DOT[light.status]} />
-                  <span className="font-[var(--font-mono)] text-[12px] font-medium text-[var(--rd-text)] truncate">
-                    {light.location}
-                  </span>
-                </div>
-                <p className="text-[10px] text-[var(--rd-text-3)] mt-1">{light.detail}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+      {lights.length > 0 && (
+        <Card className="min-w-0">
+          <CardHeader className="flex-row items-center justify-between">
+            <CardTitle className="inline-flex items-center gap-2">
+              <Lightbulb className="size-3.5" />
+              Lights
+            </CardTitle>
+            <Badge variant="secondary" className="font-mono text-[11px] font-normal">
+              {lights.filter((d) => d.status === "online").length}/{lights.length} on
+            </Badge>
+          </CardHeader>
+          <CardContent>
+            <ul className="grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3 lg:grid-cols-4">
+              {lights.map((light) => (
+                <li key={light.id} className="min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <span
+                      className={`size-1.5 shrink-0 rounded-full ${STATUS_DOT[light.status]}`}
+                    />
+                    <span className="truncate font-mono text-xs">{light.location}</span>
+                  </div>
+                  <p className="pl-3 text-[10px] text-muted-foreground">{light.detail}</p>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
       )}
 
-      {/* Cameras */}
-      {grouped.camera && (
-        <div>
-          <h3 className="text-base font-semibold text-[var(--rd-text)] mb-4 flex items-center gap-2">
-            <Camera className="h-4 w-4 text-[var(--rd-accent)]" />
-            Cameras
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {grouped.camera.map((cam) => (
-              <div key={cam.id} className="rd-card p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="rd-dot rd-ok" />
-                  <span className="font-medium text-sm text-[var(--rd-text)]">{cam.name}</span>
-                </div>
-                <p className="text-xs text-[var(--rd-text-3)]">{cam.location}</p>
-                <p className="text-xs text-[var(--rd-text-3)] mt-1">{cam.detail}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+      {cameras.length > 0 && (
+        <Card className="min-w-0">
+          <CardHeader className="flex-row items-center justify-between">
+            <CardTitle className="inline-flex items-center gap-2">
+              <Camera className="size-3.5" />
+              Cameras
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {cameras.map((cam) => (
+                <li key={cam.id} className="min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <span
+                      className={`size-1.5 rounded-full ${STATUS_DOT[cam.status] ?? "bg-muted-foreground"}`}
+                    />
+                    <span className="text-xs font-medium">{cam.name}</span>
+                  </div>
+                  <p className="pl-3 text-[11px] text-muted-foreground">
+                    {cam.location} · {cam.detail}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
       )}
     </div>
   );

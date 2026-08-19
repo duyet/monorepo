@@ -1,5 +1,7 @@
-import { Activity } from "lucide-react";
-import { Sparkline } from "@duyet/components";
+import { Separator } from "@duyet/components/ui/separator";
+import type { ReactNode } from "react";
+import { Sparkline } from "@/components/dither-kit/sparkline";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   useClusterStats,
   useDowntimeHistory,
@@ -15,67 +17,70 @@ export function ClusterStatsTile() {
   const memData = memoryHistory.map((d) => d["minipc-01"] as number);
 
   return (
-    <div className="rd-card md:col-span-1 p-[clamp(14px,1.8vw,22px)]">
-      <div className="flex items-center justify-between mb-3">
-        <span className="rd-eyebrow">
-          <Activity size={13} />
-          Cluster
-        </span>
-      </div>
-
-      {/* Avg CPU */}
-      <div className="flex items-center justify-between py-2.5 border-b border-[var(--rd-line)]">
-        <span className="text-[11px] text-[var(--rd-text-3)] font-medium">
-          Avg CPU
-        </span>
-        <div className="flex items-center gap-3">
-          <span className="font-[var(--font-mono)] text-lg font-semibold tracking-[-0.02em] text-[var(--rd-text)]">
+    <Card className="min-w-0">
+      <CardHeader>
+        <CardTitle>Cluster</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-0">
+        <StatRow label="Avg CPU">
+          <span className="font-mono text-lg font-semibold tabular-nums tracking-tight">
             {stats.avgCpu.toFixed(1)}
-            <span className="rd-unit">%</span>
+            <span className="ml-0.5 text-[11px] font-normal text-muted-foreground">
+              %
+            </span>
           </span>
-          <div className="w-16">
-            <Sparkline data={cpuData} h={20} />
+          <div className="h-[18px] w-14">
+            <Sparkline data={cpuData} color="orange" />
           </div>
-        </div>
-      </div>
-
-      {/* Memory */}
-      <div className="flex items-center justify-between py-2.5 border-b border-[var(--rd-line)]">
-        <span className="text-[11px] text-[var(--rd-text-3)] font-medium">
-          Memory
-        </span>
-        <div className="flex items-center gap-3">
-          <span className="font-[var(--font-mono)] text-lg font-semibold tracking-[-0.02em] text-[var(--rd-text)]">
+        </StatRow>
+        <Separator />
+        <StatRow label="Memory">
+          <span className="font-mono text-lg font-semibold tabular-nums tracking-tight">
             {stats.usedMemory.toFixed(0)}
-            <span className="rd-unit">/ {stats.totalMemory} GB</span>
+            <span className="ml-0.5 text-[11px] font-normal text-muted-foreground">
+              / {stats.totalMemory} GB
+            </span>
           </span>
-          <div className="w-16">
-            <Sparkline data={memData} h={20} />
+          <div className="h-[18px] w-14">
+            <Sparkline data={memData} color="purple" />
           </div>
-        </div>
-      </div>
+        </StatRow>
+        <Separator />
+        <StatRow label="Storage">
+          <span className="font-mono text-lg font-semibold tabular-nums tracking-tight">
+            {(stats.totalStorage / 1024).toFixed(1)}
+            <span className="ml-0.5 text-[11px] font-normal text-muted-foreground">
+              TB
+            </span>
+          </span>
+        </StatRow>
+        <Separator />
+        <StatRow label="Incidents">
+          <span className="font-mono text-lg font-semibold tabular-nums tracking-tight">
+            {downtimeHistory.length}
+            <span className="ml-0.5 text-[11px] font-normal text-muted-foreground">
+              recent
+            </span>
+          </span>
+        </StatRow>
+      </CardContent>
+    </Card>
+  );
+}
 
-      {/* Storage */}
-      <div className="flex items-center justify-between py-2.5 border-b border-[var(--rd-line)]">
-        <span className="text-[11px] text-[var(--rd-text-3)] font-medium">
-          Storage
-        </span>
-        <span className="font-[var(--font-mono)] text-lg font-semibold tracking-[-0.02em] text-[var(--rd-text)]">
-          {(stats.totalStorage / 1024).toFixed(1)}
-          <span className="rd-unit">TB</span>
-        </span>
-      </div>
-
-      {/* Incidents */}
-      <div className="flex items-center justify-between py-2.5">
-        <span className="text-[11px] text-[var(--rd-text-3)] font-medium">
-          Incidents
-        </span>
-        <span className="font-[var(--font-mono)] text-lg font-semibold tracking-[-0.02em] text-[var(--rd-text)]">
-          {downtimeHistory.length}
-          <span className="rd-unit">recent</span>
-        </span>
-      </div>
+function StatRow({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="flex items-center justify-between gap-3 py-2.5 first:pt-0 last:pb-0">
+      <span className="text-[11px] font-medium text-muted-foreground">
+        {label}
+      </span>
+      <div className="flex items-center gap-2">{children}</div>
     </div>
   );
 }
