@@ -3,47 +3,28 @@
 @config "../tailwind.config.mjs";
 
 @layer base {
-  :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --radius: 0.5rem;
-  }
-
+  :root,
   .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.3 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.72 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 14%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
+    --background: #070708;
+    --foreground: #f3efe6;
+    --card: #101114;
+    --card-foreground: #f3efe6;
+    --popover: #101114;
+    --popover-foreground: #f3efe6;
+    --primary: #f3efe6;
+    --primary-foreground: #070708;
+    --secondary: #16171b;
+    --secondary-foreground: #f3efe6;
+    --muted: #16171b;
+    --muted-foreground: #8b877c;
+    --accent: #1c1712;
+    --accent-foreground: #f0a060;
+    --destructive: #ff6b5a;
+    --destructive-foreground: #fff4f1;
+    --border: rgba(243, 239, 230, 0.09);
+    --input: rgba(243, 239, 230, 0.12);
+    --ring: rgba(240, 160, 96, 0.42);
+    --radius: 8px;
   }
 
   * {
@@ -51,18 +32,29 @@
   }
 
   html {
-    background: var(--background);
-    font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+    color-scheme: dark;
+    background-color: #070708;
+    font-family: Geist, ui-sans-serif, system-ui, sans-serif;
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
   }
 
   body {
-    background: var(--background);
+    background-color: var(--background);
+    background-image: radial-gradient(
+      980px 440px at 10% -12%,
+      rgba(240, 116, 63, 0.14),
+      transparent 58%
+    );
     color: var(--foreground);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.6;
+  }
+
+  ::selection {
+    background: rgba(240, 160, 96, 0.28);
+    color: #fff6ee;
   }
 }
 

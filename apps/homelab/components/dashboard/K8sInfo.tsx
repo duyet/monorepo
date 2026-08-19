@@ -25,7 +25,7 @@ export function K8sInfo() {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-2 gap-px overflow-hidden border border-[var(--rd-border)] bg-[var(--rd-border)] lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-px overflow-hidden border border-white/10 bg-white/10 lg:grid-cols-4">
       <StatCell
         icon={Cuboid}
         label="Namespaces"
@@ -130,7 +130,7 @@ function StatCell({
   sub?: string;
 }) {
   return (
-    <div className="min-w-0 bg-[var(--rd-surface)] p-5">
+    <div className="min-w-0 bg-[#101114] p-5">
       <div className="flex items-center gap-1.5 text-[var(--rd-text-3)]">
         <Icon className="size-3.5" />
         <p className="text-[12px]">{label}</p>

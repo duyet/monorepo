@@ -41,14 +41,14 @@ export function ClusterOverview() {
   const stats = useClusterStats();
 
   return (
-    <div className="grid grid-cols-2 gap-px overflow-hidden border border-[var(--rd-border)] bg-[var(--rd-border)] sm:grid-cols-3 lg:grid-cols-5">
+    <div className="grid grid-cols-2 gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-3 lg:grid-cols-5">
       {statCards.map((card) => (
-        <div key={card.key} className="min-w-0 bg-[var(--rd-surface)] p-5">
-          <p className="text-[12px] text-[var(--rd-text-3)]">{card.label}</p>
-          <p className="mt-2 font-mono text-[28px] font-semibold leading-none tracking-tight tabular-nums text-[var(--rd-text)]">
+        <div key={card.key} className="min-w-0 bg-[#101114] p-5">
+          <p className="text-[12px] text-muted-foreground">{card.label}</p>
+          <p className="mt-2 font-mono text-[28px] font-semibold leading-none tracking-tight tabular-nums text-foreground">
             {card.value(stats)}
           </p>
-          <p className="mt-2 truncate font-mono text-[12px] text-[var(--rd-text-3)]">
+          <p className="mt-2 truncate font-mono text-[12px] text-muted-foreground">
             {card.sub(stats)}
           </p>
         </div>

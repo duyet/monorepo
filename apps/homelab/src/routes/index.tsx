@@ -33,23 +33,23 @@ function HomelabPage() {
   return (
     <div>
       <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(32px,4.5vw,56px)] pb-[clamp(22px,3vw,36px)]">
-        <h1 className="rd-display text-[clamp(2.4rem,5.5vw,4rem)]">
+        <h1 className="rd-display text-[clamp(2.4rem,5.5vw,4rem)] text-[#f3efe6]">
           Homelab, a{" "}
-          <span className="text-[var(--rd-accent)]">k3s cluster</span>.
+          <span className="text-[#f0a060]">k3s cluster</span>.
         </h1>
-        <p className="rd-lead mt-[16px] max-w-[64ch] text-[clamp(1.02rem,1.4vw,1.18rem)]">
+        <p className="rd-lead mt-[16px] max-w-[64ch] text-[clamp(1.02rem,1.4vw,1.18rem)] text-[#8b877c]">
           {INTRO}
         </p>
-        <div className="mt-[16px] flex flex-wrap items-center gap-5 font-[var(--font-mono)] text-[13px] text-[var(--rd-text-3)]">
+        <div className="mt-[16px] flex flex-wrap items-center gap-5 font-[var(--font-mono)] text-[13px] text-[#8b877c]">
           <span className="inline-flex items-center gap-2">
             <StatusDot status={onlineCount === totalNodes ? "online" : "degraded"} />
-            <strong className="text-[var(--rd-accent)]">
+            <strong className="text-[#f0a060]">
               {onlineCount}/{totalNodes}
             </strong>{" "}
             nodes
           </span>
           <span>
-            <strong className="text-[var(--rd-accent)]">
+            <strong className="text-[#f0a060]">
               {stats.runningServices}/{stats.totalServices}
             </strong>{" "}
             services
@@ -67,7 +67,7 @@ function HomelabPage() {
             <a
               key={s.id}
               href={`#${s.id}`}
-              className="shrink-0 text-[16px] tracking-tight text-[var(--rd-text-3)] no-underline transition-colors hover:text-[var(--rd-text)]"
+              className="shrink-0 text-[16px] tracking-tight text-[#8b877c] no-underline transition-colors hover:text-[#f3efe6]"
             >
               {s.label}
             </a>
