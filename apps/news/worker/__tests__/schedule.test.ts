@@ -107,3 +107,16 @@ describe("translate batch size", () => {
     expect(algorithm).toMatch(/batches of 3/);
   });
 });
+
+describe("backfill-translate checkpoints", () => {
+  const workflow = readFileSync(
+    path.join(newsRoot, "worker/workflow.ts"),
+    "utf-8"
+  );
+
+  it("persists each 3-item slice in its own Workflow step", () => {
+    expect(workflow).toContain("backfill-translate-load");
+    expect(workflow).toContain("backfill-translate-${offset}");
+    expect(workflow).toContain("TRANSLATE_BATCH_SIZE");
+  });
+});

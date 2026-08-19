@@ -685,7 +685,7 @@ export function sanitizeTranslateResults(
  *  15-item backfill cannot stack 5 × 300s. */
 const TRANSLATE_TIMEOUT_MS = 180_000;
 /** One 3-item batch should finish (or fail over) inside the 90s slice. */
-const TRANSLATE_BATCH_TIMEOUT_MS = 90_000;
+const TRANSLATE_BATCH_TIMEOUT_MS = 180_000;
 /** HuggingNews summaries are multi-paragraph; clip so a 3-item JSON
  *  answer still fits max_tokens instead of truncating mid-object. */
 const TRANSLATE_SUMMARY_MAX_CHARS = 800;
