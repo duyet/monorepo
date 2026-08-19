@@ -112,6 +112,15 @@ describe("handleSubscribeCors", () => {
     expect(next).toHaveBeenCalledOnce();
     expect(res).toBe(inner);
   });
+
+  it("awaits a sync next() return, matching TanStack fetch typing", async () => {
+    const inner = new Response("ok", { status: 200 });
+    const res = await handleSubscribeCors(
+      new Request("https://news.duyet.net/api/feed"),
+      () => inner
+    );
+    expect(res).toBe(inner);
+  });
 });
 
 describe("worker fetch entry", () => {

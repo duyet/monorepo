@@ -81,9 +81,9 @@ export function preflight(request: Request): Response {
  */
 export async function handleSubscribeCors(
   request: Request,
-  next: () => Promise<Response>
+  next: () => Response | Promise<Response>
 ): Promise<Response> {
-  if (!isSubscribePath(request)) return next();
+  if (!isSubscribePath(request)) return await next();
   if (request.method === "OPTIONS") return preflight(request);
   return withCors(request, await next());
 }
