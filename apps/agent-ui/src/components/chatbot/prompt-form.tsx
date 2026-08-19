@@ -1,7 +1,11 @@
 import { ArrowUpIcon, SquareIcon } from "lucide-react";
 import { useState } from "react";
-import { Button } from "~/components/ui/button";
-import { Textarea } from "~/components/ui/textarea";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupTextarea,
+} from "~/components/ui/input-group";
 
 export function PromptForm({
   isBusy,
@@ -30,14 +34,10 @@ export function PromptForm({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div
-        data-slot="input-group"
-        className="relative flex w-full min-w-0 flex-col rounded-2xl border bg-input/50"
-      >
-        <Textarea
-          data-slot="input-group-control"
+      <InputGroup className="rounded-2xl bg-input/50 has-[>textarea]:h-auto">
+        <InputGroupTextarea
           placeholder={placeholder}
-          className="min-h-16 resize-none rounded-none border-0 bg-transparent p-3.5 shadow-none focus-visible:ring-0"
+          className="min-h-16 p-3.5"
           value={input}
           disabled={disabled}
           onChange={(event) => setInput(event.target.value)}
@@ -52,31 +52,33 @@ export function PromptForm({
             }
           }}
         />
-        <div className="flex items-center justify-between gap-2 px-2.5 pb-2">
+        <InputGroupAddon align="block-end">
           <div className="flex min-w-0 items-center gap-1">{extra}</div>
           {isBusy && onStop ? (
-            <Button
+            <InputGroupButton
               type="button"
               size="icon-sm"
               variant="outline"
               aria-label="Stop generating"
+              className="ml-auto"
               onClick={onStop}
             >
               <SquareIcon />
-            </Button>
+            </InputGroupButton>
           ) : (
-            <Button
+            <InputGroupButton
               type="submit"
               size="icon-sm"
               variant="default"
               aria-label="Send message"
+              className="ml-auto"
               disabled={!input.trim() || disabled}
             >
               <ArrowUpIcon />
-            </Button>
+            </InputGroupButton>
           )}
-        </div>
-      </div>
+        </InputGroupAddon>
+      </InputGroup>
     </form>
   );
 }

@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* SiteHeader lives in the shared package; without this, v4 can drop md:flex / shrink-0. */
+@source "../../../packages/components";
+
 @layer base {
   :root {
     --background: var(--rd-bg, #ffffff);

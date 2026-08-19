@@ -58,7 +58,10 @@ export function ChatConversation({
         <MessageScrollerViewport>
           <MessageScrollerContent className="mx-auto flex w-full max-w-2xl flex-col gap-6 px-6 py-6">
             {messages.map((message) => (
-              <MessageScrollerItem key={message.id}>
+              <MessageScrollerItem
+                key={message.id}
+                data-message-id={message.id}
+              >
                 <ChatMessage message={message} />
               </MessageScrollerItem>
             ))}

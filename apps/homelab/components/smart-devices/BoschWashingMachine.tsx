@@ -1,41 +1,20 @@
 "use client";
 
 import { ArrowDown, ArrowUp, Droplets, RefreshCw, Zap } from "lucide-react";
-import { useMemo, useState } from "react";
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Cell,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
+import { useMemo, useState, type ReactNode } from "react";
+import { Bar } from "@/components/dither-kit/bar";
+import { BarChart } from "@/components/dither-kit/bar-chart";
+import type { ChartConfig } from "@/components/dither-kit/chart-context";
+import { Grid } from "@/components/dither-kit/grid";
+import type { DitherColor } from "@/components/dither-kit/palette";
+import { Tooltip } from "@/components/dither-kit/tooltip";
+import { XAxis } from "@/components/dither-kit/x-axis";
+import { YAxis } from "@/components/dither-kit/y-axis";
 import { useSmartDevices } from "@/hooks/useDashboard";
-import { BENTO_CELL, CHART_COLORS } from "@/lib/constants";
+import { BENTO_CELL } from "@/lib/constants";
 import type { ConsumptionData } from "@/lib/data";
 
-const TOOLTIP_STYLE = {
-  backgroundColor: "var(--rd-surface)",
-  border: "1px solid var(--rd-border)",
-  borderRadius: "8px",
-  fontSize: "12px",
-  color: "var(--rd-text)",
-};
-
 type ViewMode = "day" | "month";
-
-function formatTooltipValue(
-  value: number | string | readonly (number | string)[] | undefined,
-  unit: string
-): [string, string] {
-  const num = Array.isArray(value) ? Number(value[0]) : Number(value);
-  return [
-    `${Number.isFinite(num) ? num : 0} ${unit}`,
-    unit === "L" ? "Water" : "Energy",
-  ];
-}
 
 function ComparisonBadge({
   value,
@@ -65,18 +44,6 @@ function ComparisonBadge({
       <span className="text-neutral-500 dark:text-neutral-400">vs average</span>
     </span>
   );
-}
-
-function makeBarClickHandler(
-  selected: string | null,
-  setSelected: (value: string | null) => void
-) {
-  return (state: { activeLabel?: string | number | null }) => {
-    if (state?.activeLabel) {
-      const label = String(state.activeLabel);
-      setSelected(label === selected ? null : label);
-    }
-  };
 }
 
 function ViewModeToggle({
@@ -117,20 +84,22 @@ function ConsumptionChart({
   icon,
   unit,
   consumption,
-  colorDefault,
-  colorActive,
+  color,
   className,
 }: {
   title: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   unit: string;
   consumption: ConsumptionData;
-  colorDefault: string;
-  colorActive: string;
+  color: DitherColor;
   className?: string;
 }) {
   const [viewMode, setViewMode] = useState<ViewMode>("month");
   const [selectedBar, setSelectedBar] = useState<string | null>(null);
+  const config: ChartConfig = useMemo(
+    () => ({ value: { label: title, color } }),
+    [title, color],
+  );
 
   const chartData = useMemo(() => {
     if (viewMode === "day") {
@@ -196,56 +165,22 @@ function ConsumptionChart({
           </p>
         )}
       </div>
-      <ResponsiveContainer width="100%" height={220}>
+      <div className="h-[220px] w-full min-w-0">
         <BarChart
           data={chartData}
-          onClick={makeBarClickHandler(selectedBar, setSelectedBar)}
+          config={config}
+          bloom="aura"
+          onHoverChange={(index) => {
+            setSelectedBar(index == null ? null : (chartData[index]?.label ?? null));
+          }}
         >
-          <CartesianGrid strokeDasharray="3 3" opacity={0.2} vertical={false} />
-          <XAxis
-            dataKey="label"
-            tick={{ fontSize: viewMode === "day" ? 10 : 12 }}
-            stroke="currentColor"
-            opacity={0.5}
-            axisLine={false}
-            tickLine={false}
-            interval={viewMode === "day" ? 4 : 0}
-          />
-          <YAxis
-            tick={{ fontSize: 12 }}
-            stroke="currentColor"
-            opacity={0.5}
-            axisLine={false}
-            tickLine={false}
-            label={{
-              value: unit,
-              angle: -90,
-              position: "insideLeft",
-              fontSize: 11,
-              opacity: 0.5,
-            }}
-          />
-          <Tooltip
-            contentStyle={TOOLTIP_STYLE}
-            formatter={(v) => formatTooltipValue(v, unit)}
-            cursor={{ fill: "rgba(0,0,0,0.04)" }}
-          />
-          <Bar
-            dataKey="value"
-            radius={[6, 6, 0, 0]}
-            maxBarSize={viewMode === "day" ? 12 : 32}
-          >
-            {chartData.map((entry) => (
-              <Cell
-                key={entry.label}
-                fill={selectedBar === entry.label ? colorActive : colorDefault}
-                opacity={selectedBar && selectedBar !== entry.label ? 0.4 : 1}
-                className="cursor-pointer"
-              />
-            ))}
-          </Bar>
+          <Grid />
+          <XAxis dataKey="label" maxTicks={viewMode === "day" ? 6 : 12} />
+          <YAxis />
+          <Tooltip labelKey="label" valueFormatter={(v) => `${v} ${unit}`} />
+          <Bar dataKey="value" variant="gradient" />
         </BarChart>
-      </ResponsiveContainer>
+      </div>
       <div className="mt-2 flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
         <span>
           {viewMode === "month" ? "Monthly" : "Daily"} avg:{" "}
@@ -285,7 +220,7 @@ export function BoschWashingMachine() {
   const statusConfig = STATUS_CONFIG[data.status];
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {/* Device Header */}
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-claude-lavender/25 dark:bg-claude-lavender/10">
@@ -310,61 +245,42 @@ export function BoschWashingMachine() {
       </div>
 
       {/* Bento Grid */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        {/* Lifetime Cycles */}
-        <div className="rounded-2xl border border-claude-lavender/30 bg-gradient-to-br from-claude-lavender/25 to-claude-lavender/5 p-5 dark:border-claude-lavender/10 dark:from-claude-lavender/10 dark:to-claude-lavender/5">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+        <div className={`${BENTO_CELL} bg-claude-lavender/15 dark:bg-claude-lavender/10`}>
           <div className="flex items-center gap-2">
             <RefreshCw className="h-4 w-4 text-claude-lavender" />
-            <p className="text-xs font-medium text-claude-lavender">
-              Lifetime Cycles
+            <p className="text-[11px] font-medium text-claude-lavender">
+              Lifetime cycles
             </p>
           </div>
-          <p className="mt-2 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+          <p className="mt-2 font-mono text-2xl font-semibold tracking-tight">
             {data.lifetimeCycles}
           </p>
-          <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
-            Total wash cycles
-          </p>
+          <p className="mt-0.5 text-[11px] text-muted-foreground">Total wash cycles</p>
         </div>
 
-        {/* Avg Water / Month */}
-        <div className="rounded-2xl border border-claude-sky/30 bg-gradient-to-br from-claude-sky/25 to-claude-sky/5 p-5 dark:border-claude-sky/10 dark:from-claude-sky/10 dark:to-claude-sky/5">
+        <div className={`${BENTO_CELL} bg-claude-sky/15 dark:bg-claude-sky/10`}>
           <div className="flex items-center gap-2">
             <Droplets className="h-4 w-4 text-claude-sky" />
-            <p className="text-xs font-medium text-claude-sky">
-              Avg Water / Month
-            </p>
+            <p className="text-[11px] font-medium text-claude-sky">Avg water / month</p>
           </div>
-          <p className="mt-2 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+          <p className="mt-2 font-mono text-2xl font-semibold tracking-tight">
             {data.waterConsumption.monthlyAverage}
-            <span className="text-lg text-neutral-600 dark:text-neutral-400">
-              {" "}
-              L
-            </span>
+            <span className="ml-1 text-sm font-normal text-muted-foreground">L</span>
           </p>
-          <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
-            Monthly average
-          </p>
+          <p className="mt-0.5 text-[11px] text-muted-foreground">Monthly average</p>
         </div>
 
-        {/* Avg Energy / Month */}
-        <div className="rounded-2xl border border-claude-peach/30 bg-gradient-to-br from-claude-peach/25 to-claude-peach/5 p-5 dark:border-claude-peach/10 dark:from-claude-peach/10 dark:to-claude-peach/5">
+        <div className={`${BENTO_CELL} bg-claude-peach/20 dark:bg-claude-peach/10`}>
           <div className="flex items-center gap-2">
             <Zap className="h-4 w-4 text-claude-peach" />
-            <p className="text-xs font-medium text-claude-peach">
-              Avg Energy / Month
-            </p>
+            <p className="text-[11px] font-medium text-claude-peach">Avg energy / month</p>
           </div>
-          <p className="mt-2 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+          <p className="mt-2 font-mono text-2xl font-semibold tracking-tight">
             {data.energyConsumption.monthlyAverage}
-            <span className="text-lg text-neutral-600 dark:text-neutral-400">
-              {" "}
-              kWh
-            </span>
+            <span className="ml-1 text-sm font-normal text-muted-foreground">kWh</span>
           </p>
-          <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
-            Monthly average
-          </p>
+          <p className="mt-0.5 text-[11px] text-muted-foreground">Monthly average</p>
         </div>
 
         {/* Water Consumption Chart — full width */}
@@ -373,8 +289,7 @@ export function BoschWashingMachine() {
           icon={<Droplets className="h-4 w-4 text-claude-sky" />}
           unit="L"
           consumption={data.waterConsumption}
-          colorDefault={CHART_COLORS.CLAUDE_SKY_LIGHT}
-          colorActive={CHART_COLORS.CLAUDE_SKY}
+          color="blue"
           className="md:col-span-3"
         />
 
@@ -384,8 +299,7 @@ export function BoschWashingMachine() {
           icon={<Zap className="h-4 w-4 text-claude-peach" />}
           unit="kWh"
           consumption={data.energyConsumption}
-          colorDefault={CHART_COLORS.CLAUDE_SUNSHINE_LIGHT}
-          colorActive={CHART_COLORS.CLAUDE_ORANGE}
+          color="orange"
           className="md:col-span-3"
         />
       </div>

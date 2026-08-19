@@ -1,74 +1,94 @@
-import { Sparkline } from "@duyet/components";
-import { useNodes, useResourceMetrics } from "@/hooks/useDashboard";
+import { Badge } from "@duyet/components/ui/badge";
+import { Progress } from "@duyet/components/ui/progress";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@duyet/components/ui/table";
+import { useClusterInfo, useNodes } from "@/hooks/useDashboard";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatusDot } from "./StatusDot";
 
 function NodesTile() {
   const { nodes, onlineCount, totalNodes } = useNodes();
-  const { cpuHistory } = useResourceMetrics();
+  const clusterInfo = useClusterInfo();
 
   return (
-    <div className="rd-card p-[clamp(18px,2.2vw,26px)] md:col-span-2">
-      <div className="flex items-center justify-between mb-[14px]">
-        <span className="rd-eyebrow">Nodes</span>
-        <span className="rd-chip font-[var(--font-mono)] text-[11px]">
+    <Card className="min-w-0">
+      <CardHeader className="flex-row items-center justify-between">
+        <CardTitle>Nodes</CardTitle>
+        <Badge variant="secondary" className="font-mono text-[11px] font-normal">
           {onlineCount}/{totalNodes} online
-        </span>
-      </div>
-
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
-        {nodes.map((node) => {
-          const isOffline = node.status !== "online";
-
-          // Extract last 13 CPU data points for this node from cpuHistory
-          const nodeCpuData = cpuHistory
-            .slice(-13)
-            .map((entry) => entry[node.name as keyof typeof entry])
-            .filter((v): v is number => typeof v === "number");
-
-          return (
-            <div
-              key={node.id}
-              className={`p-3 rounded-[var(--rd-r-sm)] bg-[var(--rd-surface-2)] transition-colors ${isOffline ? "opacity-50" : "hover:bg-[var(--rd-surface)]"}`}
-            >
-              {/* Row 1: status + name + type chip */}
-              <div className="flex items-center gap-1.5 mb-1.5">
-                <StatusDot status={node.status} />
-                <span className="font-[var(--font-mono)] text-sm font-semibold text-[var(--rd-text)] truncate">
-                  {node.name}
-                </span>
-                <span className="rd-chip font-[var(--font-mono)] text-[10px] ml-auto shrink-0">
-                  {node.type}
-                </span>
-              </div>
-
-              {/* Row 2: CPU% / RAM% */}
-              <div className="font-[var(--font-mono)] text-xs text-[var(--rd-text-3)] mb-1.5">
-                CPU {node.cpu}% &middot; RAM {node.memory}%
-              </div>
-
-              {/* Row 3: sparkline or offline */}
-              {isOffline ? (
-                <div className="text-[var(--rd-text-3)] text-[10px] font-[var(--font-mono)] mb-1">
-                  offline
-                </div>
-              ) : (
-                <Sparkline
-                  data={nodeCpuData}
-                  h={16}
-                  stroke="var(--rd-accent)"
-                  fill={true}
-                />
-              )}
-
-              {/* Row 4: IP */}
-              <div className="text-[var(--rd-text-3)] text-[10px] font-[var(--font-mono)]">
-                {node.ip}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
+        </Badge>
+      </CardHeader>
+      <CardContent>
+        <Table>
+          <TableHeader>
+            <TableRow className="hover:bg-transparent">
+              <TableHead className="h-8 px-2 text-[11px]">Name</TableHead>
+              <TableHead className="h-8 px-2 text-[11px]">Role</TableHead>
+              <TableHead className="h-8 px-2 text-[11px]">CPU</TableHead>
+              <TableHead className="h-8 px-2 text-[11px]">RAM</TableHead>
+              <TableHead className="hidden h-8 px-2 text-[11px] sm:table-cell">
+                Uptime
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {nodes.map((node) => {
+              const offline = node.status !== "online";
+              const role = clusterInfo.nodeRoles[node.name] ?? "worker";
+              return (
+                <TableRow
+                  key={node.id}
+                  className={offline ? "opacity-50" : undefined}
+                >
+                  <TableCell className="px-2 py-2">
+                    <div className="flex min-w-0 items-center gap-1.5">
+                      <StatusDot status={node.status} />
+                      <div className="min-w-0">
+                        <p className="truncate font-mono text-xs font-medium">
+                          {node.name}
+                        </p>
+                        <p className="truncate font-mono text-[10px] text-muted-foreground">
+                          {node.ip}
+                        </p>
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell className="px-2 py-2">
+                    <Badge
+                      variant="outline"
+                      className="font-mono text-[10px] font-normal"
+                    >
+                      {role}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="w-[88px] px-2 py-2">
+                    <p className="mb-1 font-mono text-[11px] tabular-nums">
+                      {node.cpu}%
+                    </p>
+                    <Progress value={node.cpu} className="h-1.5" />
+                  </TableCell>
+                  <TableCell className="w-[88px] px-2 py-2">
+                    <p className="mb-1 font-mono text-[11px] tabular-nums">
+                      {node.memory}%
+                    </p>
+                    <Progress value={node.memory} className="h-1.5" />
+                  </TableCell>
+                  <TableCell className="hidden px-2 py-2 font-mono text-[11px] text-muted-foreground sm:table-cell">
+                    {node.uptime}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
   );
 }
 
