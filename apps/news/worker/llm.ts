@@ -1,6 +1,9 @@
 import type { Env } from "./types.js";
 
 const BATCH_SIZE = 15;
+/** 15-item translate JSON + VI_STYLE routinely times out native Gemma 4
+ *  at the 90s attempt cap; 3 titles still fill a homepage row and finish. */
+export const TRANSLATE_BATCH_SIZE = 3;
 // Generous ceiling: some anyrouter-routed models (e.g. reasoning models
 // like stepfun-ai/step-3.7-flash) spend a large chunk of the token budget
 // on hidden `message.reasoning` before ever emitting `message.content`. A
@@ -678,13 +681,89 @@ export function sanitizeTranslateResults(
   return out;
 }
 
-/** Translate batches are larger than a score call; give the chain enough
- *  wall time that a hanging first model can still hand off. */
-const TRANSLATE_TIMEOUT_MS = 300_000;
+/** Whole translateItems call. Several 3-item batches share this so a
+ *  15-item backfill cannot stack 5 × 300s. */
+const TRANSLATE_TIMEOUT_MS = 180_000;
+/** One 3-item batch should finish (or fail over) inside the 90s slice. */
+const TRANSLATE_BATCH_TIMEOUT_MS = 180_000;
+/** HuggingNews summaries are multi-paragraph; clip so a 3-item JSON
+ *  answer still fits max_tokens instead of truncating mid-object. */
+const TRANSLATE_SUMMARY_MAX_CHARS = 800;
 
 function parseTranslateRows(raw: string): unknown {
   const parsed = parseJson<{ results?: unknown } | unknown[]>(raw);
   return Array.isArray(parsed) ? parsed : parsed.results;
+}
+
+function clipSummary(summary: string | undefined): string | undefined {
+  if (!summary) return summary;
+  const trimmed = summary.trim();
+  if (trimmed.length <= TRANSLATE_SUMMARY_MAX_CHARS) return trimmed;
+  return `${trimmed.slice(0, TRANSLATE_SUMMARY_MAX_CHARS).trimEnd()}…`;
+}
+
+function translatePrompt(batch: TranslateInput[], titlesOnly: boolean): string {
+  const items = batch.map(({ i, title, summary }) =>
+    titlesOnly ? { i, title } : { i, title, summary: clipSummary(summary) }
+  );
+  return `Translate these AI/tech news items into Vietnamese.
+
+Items:
+${JSON.stringify(items)}
+
+Respond with strict JSON only: {"results":[{"i":0,"title":"...","summary":"..."}]}`;
+}
+
+function logTranslateBatchFailed(
+  reason: string,
+  batch: TranslateInput[],
+  titlesOnly: boolean
+): void {
+  console.error(
+    JSON.stringify({
+      event: "translateItems.batch_failed",
+      reason,
+      batchSize: batch.length,
+      indexes: batch.map((item) => item.i),
+      titlesOnly,
+    })
+  );
+}
+
+async function translateBatch(
+  env: Env,
+  batch: TranslateInput[],
+  timeoutMs: number,
+  titlesOnly: boolean
+): Promise<TranslateResult[]> {
+  const { content: raw, tokens } = await callAnyrouter(
+    env,
+    [
+      { role: "system", content: VI_STYLE },
+      { role: "user", content: translatePrompt(batch, titlesOnly) },
+    ],
+    {
+      json: true,
+      modelSpec: env.ANYROUTER_TRANSLATE_MODEL,
+      task: "translate",
+      timeoutMs,
+      accept: (content) => {
+        try {
+          return (
+            sanitizeTranslateResults(parseTranslateRows(content), batch, 0)
+              .length > 0
+          );
+        } catch {
+          return false;
+        }
+      },
+    }
+  );
+  return sanitizeTranslateResults(
+    parseTranslateRows(raw),
+    batch,
+    Math.ceil(tokens / batch.length)
+  );
 }
 
 export async function translateItems(
@@ -692,56 +771,48 @@ export async function translateItems(
   items: TranslateInput[]
 ): Promise<TranslateResult[]> {
   const results: TranslateResult[] = [];
+  const deadline = Date.now() + TRANSLATE_TIMEOUT_MS;
 
-  for (const batch of chunk(items, BATCH_SIZE)) {
-    const prompt = `Translate these AI/tech news items into Vietnamese.
-
-Items:
-${JSON.stringify(batch.map(({ i, title, summary }) => ({ i, title, summary })))}
-
-Respond with strict JSON only: {"results":[{"i":0,"title":"...","summary":"..."}]}`;
-
+  for (const batch of chunk(items, TRANSLATE_BATCH_SIZE)) {
+    const remaining = deadline - Date.now();
+    if (remaining <= 0) {
+      logTranslateBatchFailed("translate deadline exhausted", batch, false);
+      break;
+    }
     try {
-      const { content: raw, tokens } = await callAnyrouter(
-        env,
-        [
-          { role: "system", content: VI_STYLE },
-          { role: "user", content: prompt },
-        ],
-        {
-          json: true,
-          modelSpec: env.ANYROUTER_TRANSLATE_MODEL,
-          task: "translate",
-          timeoutMs: TRANSLATE_TIMEOUT_MS,
-          accept: (content) => {
-            try {
-              return (
-                sanitizeTranslateResults(parseTranslateRows(content), batch, 0)
-                  .length > 0
-              );
-            } catch {
-              return false;
-            }
-          },
-        }
-      );
       results.push(
-        ...sanitizeTranslateResults(
-          parseTranslateRows(raw),
+        ...(await translateBatch(
+          env,
           batch,
-          Math.ceil(tokens / batch.length)
-        )
+          Math.min(TRANSLATE_BATCH_TIMEOUT_MS, remaining),
+          false
+        ))
       );
     } catch (error) {
       const reason = error instanceof Error ? error.message : String(error);
-      console.error(
-        JSON.stringify({
-          event: "translateItems.batch_failed",
-          reason,
-          batchSize: batch.length,
-          indexes: batch.map((item) => item.i),
-        })
-      );
+      const hasSummary = batch.some((item) => Boolean(item.summary));
+      const titleBudget = deadline - Date.now();
+      if (!hasSummary || titleBudget <= 0) {
+        logTranslateBatchFailed(reason, batch, false);
+        if (titleBudget <= 0) break;
+        continue;
+      }
+      try {
+        results.push(
+          ...(await translateBatch(
+            env,
+            batch,
+            Math.min(TRANSLATE_BATCH_TIMEOUT_MS, titleBudget),
+            true
+          ))
+        );
+      } catch (titleError) {
+        logTranslateBatchFailed(
+          titleError instanceof Error ? titleError.message : String(titleError),
+          batch,
+          true
+        );
+      }
     }
   }
 

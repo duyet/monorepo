@@ -33,7 +33,12 @@ import {
 } from "./dedupe.js";
 import { enrichMissingContent, fetchOgData } from "./enrich.js";
 import { sha256Hex } from "./hash.js";
-import { scoreItems, setLlmCallLogger, translateItems } from "./llm.js";
+import {
+  scoreItems,
+  setLlmCallLogger,
+  TRANSLATE_BATCH_SIZE,
+  translateItems,
+} from "./llm.js";
 import { createD1LlmCallLogger, pruneLlmCalls } from "./llm-call-log.js";
 import {
   dispatchStoryNotifications,
@@ -842,67 +847,85 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
 
       // Translates whatever summaries exist (including ones the step above
       // just backfilled) but don't have a Vietnamese translation yet.
-      const backfillTranslateResult = await step.do(
-        "backfill-translate",
+      // Load once, then one durable step per 3-item slice so a successful
+      // batch is checkpointed even if a later slice times out.
+      const missingTranslations = await step.do(
+        "backfill-translate-load",
         async () => {
-          let translatedCount = 0;
-          let tokens = 0;
-          let attempted = 0;
-          try {
-            const { results } = await this.env.DB.prepare(
-              buildMissingTranslationQuery()
-            ).all<{ id: string; title: string; summary: string }>();
-            const rows = results ?? [];
-            attempted = rows.length;
-            if (rows.length === 0)
-              return { translatedCount, tokens, attempted: 0 };
-
-            const translated = await translateItems(
-              this.env,
-              rows.map((row, i) => ({
-                i,
-                title: row.title,
-                summary: row.summary,
-              }))
-            );
-            for (const result of translated) {
-              tokens += result.tokens;
-              const row = rows[result.i];
-              if (!row || !result.title || result.summary === undefined)
-                continue;
-              await this.env.DB.prepare(
-                `INSERT INTO translations (item_id, lang, title, summary)
+          const { results } = await this.env.DB.prepare(
+            buildMissingTranslationQuery()
+          ).all<{ id: string; title: string; summary: string }>();
+          return results ?? [];
+        }
+      );
+      let backfillTranslateAttempted = missingTranslations.length;
+      {
+        let translatedCount = 0;
+        let tokens = 0;
+        for (
+          let offset = 0;
+          offset < missingTranslations.length;
+          offset += TRANSLATE_BATCH_SIZE
+        ) {
+          const part = await step.do(
+            `backfill-translate-${offset}`,
+            async () => {
+              const rows = missingTranslations.slice(
+                offset,
+                offset + TRANSLATE_BATCH_SIZE
+              );
+              let count = 0;
+              let partTokens = 0;
+              try {
+                const translated = await translateItems(
+                  this.env,
+                  rows.map((row, i) => ({
+                    i,
+                    title: row.title,
+                    summary: row.summary,
+                  }))
+                );
+                for (const result of translated) {
+                  partTokens += result.tokens;
+                  const row = rows[result.i];
+                  if (!row || !result.title) continue;
+                  await this.env.DB.prepare(
+                    `INSERT INTO translations (item_id, lang, title, summary)
                VALUES (?, 'vi', ?, ?)
                ON CONFLICT(item_id, lang) DO UPDATE SET
                  title = excluded.title, summary = excluded.summary`
-              )
-                .bind(
-                  ...buildTranslationBindArgs({
-                    id: row.id,
-                    title: result.title,
-                    summary: result.summary,
-                  })
-                )
-                .run();
-              translatedCount++;
+                  )
+                    .bind(
+                      ...buildTranslationBindArgs({
+                        id: row.id,
+                        title: result.title,
+                        summary: result.summary ?? "",
+                      })
+                    )
+                    .run();
+                  count++;
+                }
+              } catch (error) {
+                console.error("backfill-translate batch failed:", error);
+              }
+              return { count, tokens: partTokens };
             }
-          } catch (error) {
-            console.error("backfill-translate step failed:", error);
-          }
-          return { translatedCount, tokens, attempted };
+          );
+          translatedCount += part.count;
+          tokens += part.tokens;
         }
-      );
-      backfilledTranslations = backfillTranslateResult.translatedCount;
-      backfillTranslateTokens = backfillTranslateResult.tokens;
+        backfilledTranslations = translatedCount;
+        backfillTranslateTokens = tokens;
+      }
       recordStep(
         steps,
         "backfill-translate",
         backfilledTranslations === 0
-          ? backfillTranslateResult.attempted === 0
+          ? backfillTranslateAttempted === 0
             ? "0 candidates"
-            : `translated 0/${backfillTranslateResult.attempted}`
+            : `translated 0/${backfillTranslateAttempted}`
           : `translated ${backfilledTranslations} summaries`,
-        backfillTranslateResult.attempted > 0 &&
+        backfillTranslateAttempted > 0 &&
           backfilledTranslations === 0
           ? "translateItems.batch_failed — missing title_vi not backfilled"
           : undefined
