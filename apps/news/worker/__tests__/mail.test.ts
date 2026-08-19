@@ -118,6 +118,18 @@ describe("renderNoteEmail", () => {
     expect(text).toContain("Hello friend.");
     expect(text).toContain("Read: https://blog.duyet.net/x");
   });
+
+  it("omits non-http(s) CTA urls", () => {
+    const { html, text } = renderNoteEmail({
+      subject: "A note",
+      bodyMd: "Hello",
+      cta: { label: "Bad", url: "javascript:alert(1)" },
+      unsubscribeUrl: "https://news.duyet.net/subscribe?unsubscribe=tok",
+    });
+    expect(html).not.toContain("javascript:");
+    expect(html).not.toContain(">Bad<");
+    expect(text).not.toContain("Bad:");
+  });
 });
 
 describe("previewCampaign", () => {

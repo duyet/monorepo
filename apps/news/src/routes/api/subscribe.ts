@@ -32,6 +32,8 @@ function isOneClickBody(request: Request, raw: string): boolean {
   );
 }
 
+// type alias (not interface): TanStack routeTree.gen must re-export handler
+// shapes; a non-exported interface triggers TS4023 on ApiSubscribeRoute.
 type HandlerArgs = { request: Request; context: any };
 
 export const Route = createFileRoute("/api/subscribe")({

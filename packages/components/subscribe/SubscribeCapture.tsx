@@ -5,7 +5,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent, type JSX } from "react";
 
 export const SUBSCRIBE_STORAGE_KEY = "duyet.newsletter.subscribed";
 
@@ -53,11 +53,11 @@ function SubscribeForm({
   source: SubscribeSource;
   endpoint: string;
   onDone: () => void;
-}) {
+}): JSX.Element {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
 
-  async function onSubmit(event: FormEvent) {
+  async function onSubmit(event: FormEvent): Promise<void> {
     event.preventDefault();
     setStatus("loading");
     try {
@@ -92,6 +92,7 @@ function SubscribeForm({
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-2">
       <input
+        aria-label="Email address"
         type="email"
         required
         value={email}

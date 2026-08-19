@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import type { AdminState } from "../../lib/admin";
 
@@ -294,12 +295,12 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold text-foreground">Admin</h3>
         <div className="flex items-center gap-2">
-          <a
-            href="/mail"
+          <Link
+            to="/mail"
             className="rounded border border-border px-2 py-1 text-xs text-muted-foreground hover:text-foreground"
           >
             Mail
-          </a>
+          </Link>
           <button
             type="button"
             onClick={refreshAll}

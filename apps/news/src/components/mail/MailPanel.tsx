@@ -236,27 +236,31 @@ export function MailPanel({ admin }: { admin: AdminState }) {
   }
 
   async function send(test?: boolean) {
-    const sendId = await save();
-    await run(test ? "test" : "send", async () => {
-      const qs = test ? `?test=${encodeURIComponent(testEmail)}` : "";
-      const res = await authedFetch(
-        admin,
-        `/api/admin/mail/campaigns/${sendId}/send${qs}`,
-        { method: "POST" }
-      );
-      const data = (await res.json()) as {
-        error?: string;
-        sent?: number;
-        failed?: number;
-      };
-      if (!res.ok) throw new Error(data.error ?? "send failed");
-      setMessage(
-        test
-          ? `Test sent to ${testEmail}.`
-          : `Sent to ${data.sent ?? 0} (${data.failed ?? 0} failed).`
-      );
-      await loadLists();
-    });
+    try {
+      const sendId = await save();
+      await run(test ? "test" : "send", async () => {
+        const qs = test ? `?test=${encodeURIComponent(testEmail)}` : "";
+        const res = await authedFetch(
+          admin,
+          `/api/admin/mail/campaigns/${sendId}/send${qs}`,
+          { method: "POST" }
+        );
+        const data = (await res.json()) as {
+          error?: string;
+          sent?: number;
+          failed?: number;
+        };
+        if (!res.ok) throw new Error(data.error ?? "send failed");
+        setMessage(
+          test
+            ? `Test sent to ${testEmail}.`
+            : `Sent to ${data.sent ?? 0} (${data.failed ?? 0} failed).`
+        );
+        await loadLists();
+      });
+    } catch {
+      // save() already recorded the error message
+    }
   }
 
   return (

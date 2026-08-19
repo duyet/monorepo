@@ -93,11 +93,11 @@ ${preheader ? `<div style="display:none;max-height:0;overflow:hidden;opacity:0">
 </body>
 </html>`;
 
+  const safeCtaUrl =
+    input.cta?.label && input.cta.url ? safeHref(input.cta.url) : null;
   const textParts = [
     markdownToPlainText(input.bodyMd),
-    input.cta?.label && input.cta.url
-      ? `${input.cta.label}: ${input.cta.url}`
-      : "",
+    safeCtaUrl ? `${input.cta!.label}: ${safeCtaUrl}` : "",
     `Unsubscribe: ${input.unsubscribeUrl}`,
   ].filter(Boolean);
 
