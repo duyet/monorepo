@@ -2,6 +2,7 @@ import {
   escapeHtml,
   markdownToEmailHtml,
   markdownToPlainText,
+  safeHref,
 } from "./markdown.js";
 
 export const NOTES_FROM = {
@@ -27,7 +28,9 @@ export interface NoteEmailInput {
 }
 
 function ctaButton(label: string, url: string): string {
-  const href = escapeHtml(url);
+  const safe = safeHref(url);
+  if (!safe) return "";
+  const href = escapeHtml(safe);
   const text = escapeHtml(label);
   return `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:8px 0 28px">
   <tr>

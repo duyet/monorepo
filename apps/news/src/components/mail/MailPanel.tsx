@@ -85,21 +85,33 @@ export function MailPanel({ admin }: { admin: AdminState }) {
       authedFetch(admin, "/api/admin/mail/campaigns"),
       authedFetch(admin, "/api/admin/mail/content"),
     ]);
+    const failures: string[] = [];
     if (tRes.ok) {
       const data = (await tRes.json()) as { templates?: Template[] };
       setTemplates(Array.isArray(data.templates) ? data.templates : []);
+    } else {
+      failures.push("templates");
     }
     if (sRes.ok) {
       const data = (await sRes.json()) as { subscribers?: SubscriberRow[] };
       setSubscribers(Array.isArray(data.subscribers) ? data.subscribers : []);
+    } else {
+      failures.push("subscribers");
     }
     if (cRes.ok) {
       const data = (await cRes.json()) as { campaigns?: CampaignRow[] };
       setCampaigns(Array.isArray(data.campaigns) ? data.campaigns : []);
+    } else {
+      failures.push("campaigns");
     }
     if (nRes.ok) {
       const data = (await nRes.json()) as { items?: ContentItem[] };
       setContent(Array.isArray(data.items) ? data.items : []);
+    } else {
+      failures.push("content");
+    }
+    if (failures.length > 0) {
+      setMessage(`Failed to load ${failures.join(", ")}.`);
     }
   }
 
@@ -191,8 +203,9 @@ export function MailPanel({ admin }: { admin: AdminState }) {
   }
 
   async function save(): Promise<string> {
-    let id = campaignId;
-    await run("save", async () => {
+    setBusy("save");
+    setMessage(null);
+    try {
       const res = await authedFetch(admin, "/api/admin/mail/campaigns", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -208,15 +221,18 @@ export function MailPanel({ admin }: { admin: AdminState }) {
       });
       const data = (await res.json()) as { id?: string; error?: string };
       if (!res.ok) throw new Error(data.error ?? "save failed");
-      if (data.id) {
-        id = data.id;
-        setCampaignId(data.id);
-      }
+      const id = data.id ?? campaignId;
+      if (!id) throw new Error("save a draft first");
+      setCampaignId(id);
       setMessage("Draft saved.");
       await loadLists();
-    });
-    if (!id) throw new Error("save a draft first");
-    return id;
+      return id;
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : String(error));
+      throw error;
+    } finally {
+      setBusy(null);
+    }
   }
 
   async function send(test?: boolean) {
@@ -370,6 +386,7 @@ export function MailPanel({ admin }: { admin: AdminState }) {
           <iframe
             title="Email preview"
             className="h-[520px] w-full rounded-md border border-border bg-white"
+            sandbox=""
             srcDoc={
               previewHtml ||
               "<p style='font-family:sans-serif;color:#737373;padding:24px'>Preview to see the Cursor-clean layout.</p>"

@@ -9,7 +9,7 @@ export function escapeHtml(value: string): string {
     .replace(/"/g, "&quot;");
 }
 
-function safeHref(raw: string): string | null {
+export function safeHref(raw: string): string | null {
   const href = raw.trim();
   if (!/^https?:\/\//i.test(href)) return null;
   try {
