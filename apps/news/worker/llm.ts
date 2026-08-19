@@ -847,6 +847,7 @@ export interface TldrItem {
   id: string;
   title: string;
   summary?: string;
+  title_vi?: string;
 }
 
 export interface TldrBullet {

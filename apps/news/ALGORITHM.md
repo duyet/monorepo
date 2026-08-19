@@ -45,18 +45,25 @@ cron `5 * * * *` → `POST /api/admin/ingest`), not Worker `[triggers] crons`
    drains.
 10. **TL;DR (LLM)** — hourly: generate today's **local** snapshot
     (`Asia/Ho_Chi_Minh` date key — same identity the Telegram digest looks
-    up for once-per-local-day send) if missing or thin, or refresh a useful
-    snapshot when the last write is older than 3 hours. Content is always
-    the top 16 items of the **rolling last 24h** by rank (not ICT
-    calendar-day-so-far) → up to 16 EN bullets + 16 independently-restated
-    VI bullets, each linked to its `item_id`. If the LLM returns no bullets
-    or a thin digest (fewer than min(8, item count), at least 2 when there
-    are 2+ stories), a title-fallback snapshot is persisted (EN from item
-    titles; VI from `title_vi` or the English title if no translation —
-    never invented prose). Empty results are never persisted. The homepage
-    also synthesizes a last-24h title-fallback at read time when the stored
-    snapshot is thin, and persists it so the leftover cannot return. UI
-    shows 8 by default (user preference 8/12/16).
+    up for once-per-local-day send) if missing, thin, EN-only (`bullets_vi`
+    empty), or **English-only `bullets_vi` while `title_vi` now exists**;
+    otherwise refresh a useful bilingual snapshot when the last write is
+    older than 3 hours. Content is always the top 16 items of the
+    **rolling last 24h** by rank (not ICT calendar-day-so-far) → up to 16
+    EN bullets + 16 independently-restated VI bullets, each linked to its
+    `item_id`. If the LLM returns no bullets or a thin digest (fewer than
+    min(8, item count), at least 2 when there are 2+ stories), a
+    title-fallback snapshot is persisted (EN from item titles; VI from
+    `title_vi` or the English title if no translation — never invented
+    prose). If the LLM digest is useful in count but `bullets_vi` has no
+    Vietnamese diacritics and `title_vi` exists, keep the EN bullets and
+    replace VI with the `title_vi` fallback — never persist raw English
+    titles as `bullets_vi` once translations exist. Empty results are
+    never persisted. The homepage also synthesizes a last-24h
+    title-fallback at read time when the stored snapshot is thin *or*
+    English-only in VI while `title_vi` exists, and persists it so the
+    frozen EN copy cannot return. UI shows 8 by default (user preference
+    8/12/16).
 11. **Email digest** — top-5 TL;DR to confirmed subscribers, once per day.
 12. **Notify (`worker/notify/`)** — pluggable channel adapters (Telegram
     now; Discord/... later), deliberately non-spammy:

@@ -1,6 +1,11 @@
 import { generateTldr, type TldrBullet } from "./llm.js";
 import { getLocalHourAndDate } from "./subscribe/send.js";
 import { AUDIENCE_TIMEZONE, toEpochSeconds } from "./time.js";
+import {
+  isEnglishOnlyViTldr,
+  itemsHaveTitleVi,
+  needsViTitleFallback,
+} from "./tldr-lang.js";
 import type { Env } from "./types.js";
 
 /** Re-run the daily snapshot this often so the homepage TL;DR tracks
@@ -93,6 +98,8 @@ export function shouldRefreshExistingSnapshot(opts: {
   itemCount: number;
   nowMs: number;
   refreshMs?: number;
+  /** True when last-24h ranked items now have Vietnamese title_vi. */
+  hasTitleVi?: boolean;
 }): boolean {
   if (!opts.existing) return true;
   if (isThinTldr(opts.existing, opts.itemCount)) return true;
@@ -103,6 +110,12 @@ export function shouldRefreshExistingSnapshot(opts: {
     opts.existing.bullets_en.length > 0 &&
     opts.existing.bullets_vi.length === 0
   ) {
+    return true;
+  }
+  // Frozen EN copies in bullets_vi (title-fallback before title_vi, or
+  // bilingual LLM that restated English). Rebuild as soon as translations
+  // exist — do not wait out TLDR_REFRESH_MS.
+  if (opts.hasTitleVi && isEnglishOnlyViTldr(opts.existing.bullets_vi)) {
     return true;
   }
   return (
@@ -172,6 +185,7 @@ export async function ensureDailyTldr(env: Env): Promise<TldrRunStats> {
       existing: existingParsed,
       itemCount: results?.length ?? 0,
       nowMs,
+      hasTitleVi: itemsHaveTitleVi(results ?? []),
     })
   ) {
     const age = nowMs - (existingParsed?.created_at ?? 0);
@@ -195,6 +209,7 @@ export async function ensureDailyTldr(env: Env): Promise<TldrRunStats> {
       id: row.id,
       title: row.title,
       summary: row.summary ?? undefined,
+      title_vi: row.title_vi ?? undefined,
     }))
   );
 
@@ -221,6 +236,13 @@ export async function ensureDailyTldr(env: Env): Promise<TldrRunStats> {
     bullets_en = fallback.bullets_en;
     bullets_vi = fallback.bullets_vi;
     persistReason = `LLM thin (${tldr.error ?? `${Math.max(tldr.bullets_en.length, tldr.bullets_vi.length)} bullets`}); persisted ${fallback.bullets_en.length} title-fallback bullets`;
+    console.error(persistReason);
+  } else if (needsViTitleFallback(tldr.bullets_vi, results)) {
+    // Keep a useful EN digest; never persist raw English as bullets_vi
+    // once title_vi exists. Title-fallback uses title_vi || title.
+    const fallback = fallbackTldrFromItems(results);
+    bullets_vi = fallback.bullets_vi;
+    persistReason = `LLM VI was English-only; persisted ${fallback.bullets_vi.length} title_vi fallback bullets`;
     console.error(persistReason);
   }
 
