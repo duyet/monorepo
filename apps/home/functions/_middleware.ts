@@ -49,6 +49,12 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     .replace(
       'if(!document.querySelector("main"))boot(1)',
       "if(window.__CF_ENTRY_RAN__)return;boot(1)",
+    )
+    // Old retry always imported ?cf_retry=n, which re-hydrated a successful
+    // first boot and left duyet.net blank after load.
+    .replace(
+      'import(s.src+(s.src.indexOf("?")>=0?"&":"?")+"cf_retry="+n).catch(function(e){',
+      'import((n<=1?s.src:s.src+(s.src.indexOf("?")>=0?"&":"?")+"cf_retry="+n)).then(function(){window.__CF_ENTRY_RAN__=true}).catch(function(e){',
     );
   if (patched === text) return new Response(text, res);
 

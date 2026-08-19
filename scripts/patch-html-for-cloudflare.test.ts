@@ -14,4 +14,28 @@ describe("Cloudflare hydration retry", () => {
     expect(source).toContain("if(window.__CF_ENTRY_RAN__)return;boot(1)");
     expect(source).not.toContain('document.querySelector("main,header")');
   });
+
+  it("does not cache-bust the first retry (avoids a second hydrateRoot)", () => {
+    expect(source).toContain("n<=1?s.src:");
+    expect(source).toContain('s0.addEventListener("load"');
+    expect(source).not.toMatch(
+      /import\(s\.src\+\(s\.src\.indexOf\("\?"\)>=0\?"&":"\?"\)\+"cf_retry="\+n\)\.catch/,
+    );
+  });
+});
+
+describe("home Pages Function rewrites the old cache-busting retry", () => {
+  it("patches the live boot() import so n=1 reuses the module URL", () => {
+    const mw = readFileSync(
+      join(
+        dirname(fileURLToPath(import.meta.url)),
+        "../apps/home/functions/_middleware.ts",
+      ),
+      "utf8",
+    );
+    expect(mw).toContain('n<=1?s.src:');
+    expect(mw).toContain(
+      'import(s.src+(s.src.indexOf("?")>=0?"&":"?")+"cf_retry="+n).catch(function(e){',
+    );
+  });
 });
