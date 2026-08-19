@@ -4,6 +4,7 @@ import {
   isThinDisplayTldr,
   pickLast24hRanked,
   resolveTldrForDisplay,
+  shouldRebuildTldrForDisplay,
   synthesizeTldrFromItems,
 } from "./tldr-fallback";
 import type { FeedItem } from "./types";
@@ -120,6 +121,63 @@ describe("resolveTldrForDisplay", () => {
   it("does not invent a snapshot when the feed has fewer than 2 stories", () => {
     expect(resolveTldrForDisplay(null, [items[0]], now)).toBeNull();
   });
+
+  it("rebuilds English-only bullets_vi from title_vi and keeps EN", () => {
+    const resolved = resolveTldrForDisplay(
+      {
+        date: "2026-08-19",
+        bullets_en: [
+          {
+            text: "Z AI GLM-5.3 Ties Kimi K3 as Most Intelligent Open Model With 60 Score",
+          },
+          { text: "Story B" },
+          { text: "Story C" },
+        ],
+        bullets_vi: [
+          {
+            text: "Z AI GLM-5.3 Ties Kimi K3 as Most Intelligent Open Model With 60 Score",
+          },
+          { text: "Story B" },
+          { text: "Story C" },
+        ],
+      },
+      items,
+      now
+    );
+    expect(resolved?.date).toBe("2026-08-19");
+    expect(resolved?.bullets_en[0]?.text).toBe(
+      "Z AI GLM-5.3 Ties Kimi K3 as Most Intelligent Open Model With 60 Score"
+    );
+    expect(resolved?.bullets_vi.map((b) => b.text)).toEqual([
+      "Tin A",
+      "Story B",
+      "Story C",
+    ]);
+    expect(
+      shouldRebuildTldrForDisplay(
+        {
+          date: "2026-08-19",
+          bullets_en: [{ text: "A" }, { text: "B" }],
+          bullets_vi: [{ text: "A" }, { text: "B" }],
+        },
+        items
+      )
+    ).toBe(true);
+  });
+
+  it("does not rebuild English-only VI when no title_vi exists", () => {
+    const noVi = [
+      item("a", "Story A", { rank_score: 8, published_at: now - 3600 }),
+      item("b", "Story B", { rank_score: 5, published_at: now - 7200 }),
+    ];
+    const frozen = {
+      date: "2026-08-19",
+      bullets_en: [{ text: "Story A" }, { text: "Story B" }],
+      bullets_vi: [{ text: "Story A" }, { text: "Story B" }],
+    };
+    expect(resolveTldrForDisplay(frozen, noVi, now)).toBe(frozen);
+    expect(shouldRebuildTldrForDisplay(frozen, noVi)).toBe(false);
+  });
 });
 
 describe("isThinDisplayTldr", () => {
@@ -143,17 +201,51 @@ describe("isThinDisplayTldr", () => {
 });
 
 describe("displayTldrBullets", () => {
-  it("falls back to EN when VI is a leftover 1-bullet list", () => {
+  it("hides leftover-thin VI instead of painting EN in VI chrome", () => {
     const tldr = {
       date: "2026-08-19",
       bullets_en: [{ text: "A" }, { text: "B" }, { text: "C" }],
       bullets_vi: [{ text: "LLAMA leftover" }],
     };
-    expect(displayTldrBullets(tldr, "vi").map((b) => b.text)).toEqual([
-      "A",
-      "B",
-      "C",
-    ]);
+    expect(displayTldrBullets(tldr, "vi")).toEqual([]);
     expect(displayTldrBullets(tldr, "en")).toHaveLength(3);
+  });
+
+  it("hides English-copied bullets_vi so VI chrome is never raw EN", () => {
+    const tldr = {
+      date: "2026-08-19",
+      bullets_en: [
+        {
+          text: "Claude Code Teaching macOS to Natively Print to the HP Laser 1008a",
+        },
+        {
+          text: "Z AI GLM-5.3 Ties Kimi K3 as Most Intelligent Open Model With 60 Score",
+        },
+      ],
+      bullets_vi: [
+        {
+          text: "Claude Code Teaching macOS to Natively Print to the HP Laser 1008a",
+        },
+        {
+          text: "Z AI GLM-5.3 Ties Kimi K3 as Most Intelligent Open Model With 60 Score",
+        },
+      ],
+    };
+    expect(displayTldrBullets(tldr, "vi")).toEqual([]);
+    expect(displayTldrBullets(tldr, "en")).toHaveLength(2);
+  });
+
+  it("shows Vietnamese bullets in VI chrome", () => {
+    const tldr = {
+      date: "2026-08-19",
+      bullets_en: [{ text: "A" }, { text: "B" }],
+      bullets_vi: [
+        { text: "GLM-5.3 của Z AI đạt điểm thông minh cao nhất" },
+        { text: "Claude Code giúp macOS in trực tiếp ra HP Laser 1008a" },
+      ],
+    };
+    expect(displayTldrBullets(tldr, "vi").map((b) => b.text)[0]).toContain(
+      "của"
+    );
   });
 });

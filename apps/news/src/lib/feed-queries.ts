@@ -1,6 +1,9 @@
 import { AUDIENCE_TIMEZONE, localCalendarDate } from "../../worker/time.js";
 import { TITLE_KEYWORDS } from "./highlight";
-import { isThinDisplayTldr, resolveTldrForDisplay } from "./tldr-fallback";
+import {
+  resolveTldrForDisplay,
+  shouldRebuildTldrForDisplay,
+} from "./tldr-fallback";
 import type { DayGroup, FeedItem, FeedResponse, TldrBullet } from "./types";
 
 /** Older `tldr_snapshots` rows were written with a single `item_id` string
@@ -255,9 +258,9 @@ export async function getFeed(
 
   const resolved = resolveTldrForDisplay(tldr, items);
   // Persist a rebuilt last-24h fallback so Telegram and the next request
-  // see the ranked digest, not the leftover. Stamp created_at as already
-  // stale so the next ingest still tries the LLM.
-  if (resolved && isThinDisplayTldr(tldr)) {
+  // see the ranked digest, not a leftover or English-copied bullets_vi.
+  // Stamp created_at as already stale so the next ingest still tries the LLM.
+  if (resolved && shouldRebuildTldrForDisplay(tldr, items)) {
     try {
       await db
         .prepare(

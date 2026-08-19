@@ -1,3 +1,7 @@
+import {
+  isEnglishOnlyViTldr,
+  itemsHaveTitleVi,
+} from "../../worker/tldr-lang.js";
 import type { FeedItem, FeedResponse, TldrBullet } from "./types";
 
 const TLDR_DISPLAY_MIN = 2;
@@ -62,36 +66,53 @@ export function synthesizeTldrFromItems(
   return { bullets_en, bullets_vi };
 }
 
-/** If the stored snapshot is thin while the feed has 2+ stories, replace
- * bullets with a last-24h ranked title-fallback. Keeps the snapshot date
- * when present so the subtitle stays the ICT calendar day. */
+/** True when the homepage should replace a stored snapshot: thin leftover,
+ * or English-only bullets_vi while title_vi now exists. */
+export function shouldRebuildTldrForDisplay(
+  tldr: FeedResponse["tldr"],
+  items: Array<{ title_vi?: string | null }>
+): boolean {
+  if (isThinDisplayTldr(tldr)) return items.length >= 2;
+  if (!tldr) return false;
+  return isEnglishOnlyViTldr(tldr.bullets_vi) && itemsHaveTitleVi(items);
+}
+
+/** If the stored snapshot is thin — or bullets_vi is English-only while
+ * title_vi exists — replace with a last-24h ranked title-fallback. A
+ * useful EN digest keeps its bullets_en; only VI is rebuilt from
+ * title_vi. Keeps the snapshot date so the subtitle stays the ICT day. */
 export function resolveTldrForDisplay(
   tldr: FeedResponse["tldr"],
   items: FeedItem[],
   nowSec: number = Math.floor(Date.now() / 1000)
 ): FeedResponse["tldr"] {
-  if (!isThinDisplayTldr(tldr) || items.length < 2) return tldr;
+  const rebuildViOnly =
+    !isThinDisplayTldr(tldr) &&
+    tldr != null &&
+    isEnglishOnlyViTldr(tldr.bullets_vi) &&
+    itemsHaveTitleVi(items);
+  if (!isThinDisplayTldr(tldr) && !rebuildViOnly) return tldr;
+  if (items.length < 2) return tldr;
   const ranked = pickLast24hRanked(items, nowSec);
   if (ranked.length < 2) return tldr;
   const fallback = synthesizeTldrFromItems(ranked);
   if (fallback.bullets_en.length < 2) return tldr;
   return {
     date: tldr?.date ?? "",
-    bullets_en: fallback.bullets_en,
+    bullets_en: rebuildViOnly && tldr ? tldr.bullets_en : fallback.bullets_en,
     bullets_vi: fallback.bullets_vi,
   };
 }
 
-/** VI never shows a leftover 1-bullet list while EN has many: fall back to
- * bullets_en (or the synthesized list already stored on the snapshot). */
+/** VI chrome never paints English. English-only or leftover-thin
+ * bullets_vi hides the section; getFeed already rebuilds from title_vi. */
 export function displayTldrBullets(
   tldr: FeedResponse["tldr"],
   lang: "en" | "vi"
 ): TldrBullet[] {
   if (!tldr) return [];
   if (lang !== "vi") return tldr.bullets_en;
+  if (isEnglishOnlyViTldr(tldr.bullets_vi)) return [];
   if (tldr.bullets_vi.length >= TLDR_DISPLAY_MIN) return tldr.bullets_vi;
-  return tldr.bullets_en.length > tldr.bullets_vi.length
-    ? tldr.bullets_en
-    : tldr.bullets_vi;
+  return [];
 }

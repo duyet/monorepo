@@ -10,6 +10,12 @@ import {
   tldrSnapshotDate,
   usefulTldrFloor,
 } from "../tldr.js";
+import {
+  isEnglishOnlyViTldr,
+  itemsHaveTitleVi,
+  looksVietnamese,
+  needsViTitleFallback,
+} from "../tldr-lang.js";
 
 describe("buildTopItemsQuery", () => {
   it("gates on status='published', ranks by rank_score DESC, caps at 16", () => {
@@ -241,5 +247,105 @@ describe("shouldRefreshExistingSnapshot", () => {
         nowMs: 1_000 + 2 * 60 * 1000,
       })
     ).toBe(true);
+  });
+
+  it("refreshes English-copied bullets_vi once title_vi exists, even minutes old", () => {
+    const en = [
+      "Claude Code Teaching macOS to Natively Print to the HP Laser 1008a",
+      "Z AI GLM-5.3 Ties Kimi K3 as Most Intelligent Open Model With 60 Score",
+      ...Array.from({ length: 6 }, (_, i) => `English leftover ${i}`),
+    ];
+    expect(
+      shouldRefreshExistingSnapshot({
+        existing: {
+          created_at: 1_000,
+          bullets_en: en.map((text) => ({ text })),
+          bullets_vi: en.map((text) => ({ text })),
+        },
+        itemCount: 16,
+        nowMs: 1_000 + 2 * 60 * 1000,
+        hasTitleVi: true,
+      })
+    ).toBe(true);
+  });
+
+  it("keeps English-copied bullets_vi inside 3h when no title_vi exists", () => {
+    const en = Array.from({ length: 8 }, (_, i) => `English leftover ${i}`);
+    expect(
+      shouldRefreshExistingSnapshot({
+        existing: {
+          created_at: 1_000,
+          bullets_en: en.map((text) => ({ text })),
+          bullets_vi: en.map((text) => ({ text })),
+        },
+        itemCount: 16,
+        nowMs: 1_000 + 2 * 60 * 1000,
+        hasTitleVi: false,
+      })
+    ).toBe(false);
+  });
+});
+
+describe("looksVietnamese / isEnglishOnlyViTldr", () => {
+  it("detects Vietnamese diacritics and rejects the live EN leftover lines", () => {
+    expect(
+      looksVietnamese(
+        "GLM-5.3 của Z AI đạt điểm thông minh cao nhất nhóm mã nguồn mở"
+      )
+    ).toBe(true);
+    expect(
+      looksVietnamese(
+        "Z AI GLM-5.3 Ties Kimi K3 as Most Intelligent Open Model With 60 Score"
+      )
+    ).toBe(false);
+    expect(
+      isEnglishOnlyViTldr([
+        {
+          text: "Claude Code Teaching macOS to Natively Print to the HP Laser 1008a",
+        },
+        {
+          text: "Z AI GLM-5.3 Ties Kimi K3 as Most Intelligent Open Model With 60 Score",
+        },
+      ])
+    ).toBe(true);
+    expect(
+      isEnglishOnlyViTldr([
+        {
+          text: "GLM-5.3 của Z AI đạt điểm thông minh cao nhất nhóm mã nguồn mở",
+        },
+        { text: "Norway Should Buy OpenAI" },
+      ])
+    ).toBe(false);
+  });
+
+  it("needs a title_vi fallback only when VI is English-only and translations exist", () => {
+    const items = [
+      {
+        title_vi:
+          "GLM-5.3 của Z AI đạt điểm thông minh cao nhất nhóm mã nguồn mở",
+      },
+      { title_vi: null },
+    ];
+    expect(itemsHaveTitleVi(items)).toBe(true);
+    expect(
+      needsViTitleFallback(
+        [
+          {
+            text: "Z AI GLM-5.3 Ties Kimi K3 as Most Intelligent Open Model With 60 Score",
+          },
+        ],
+        items
+      )
+    ).toBe(true);
+    expect(
+      needsViTitleFallback(
+        [
+          {
+            text: "Z AI GLM-5.3 Ties Kimi K3 as Most Intelligent Open Model With 60 Score",
+          },
+        ],
+        [{ title_vi: null }]
+      )
+    ).toBe(false);
   });
 });
