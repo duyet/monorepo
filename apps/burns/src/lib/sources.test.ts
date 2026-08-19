@@ -80,6 +80,8 @@ describe("fetch-burns-data mapping", () => {
     expect(fetchSrc).toContain("keeping committed public/token-data.json");
     expect(fetchSrc).toContain("existsSync(OUTPUT_FILE)");
     expect(fetchSrc).toContain('eventName === "schedule"');
+    expect(fetchSrc).toContain('eventName === "workflow_dispatch"');
     expect(fetchSrc).toContain('ref === "refs/heads/master"');
+    expect(fetchSrc).toContain('ref === "refs/heads/main"');
   });
 });
