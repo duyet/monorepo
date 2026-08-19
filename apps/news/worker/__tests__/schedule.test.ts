@@ -97,3 +97,13 @@ describe("translation upsert", () => {
     }
   });
 });
+
+describe("translate batch size", () => {
+  const llm = readFileSync(path.join(newsRoot, "worker/llm.ts"), "utf-8");
+
+  it("chunks translateItems by 3 so a 15-item JSON blob cannot eat the 90s slice", () => {
+    expect(llm).toMatch(/TRANSLATE_BATCH_SIZE = 3/);
+    expect(llm).toMatch(/chunk\(items, TRANSLATE_BATCH_SIZE\)/);
+    expect(algorithm).toMatch(/batches of 3/);
+  });
+});

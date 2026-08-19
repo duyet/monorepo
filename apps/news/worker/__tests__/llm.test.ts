@@ -329,9 +329,9 @@ describe("generateTldr", () => {
       { ...env, ANYROUTER_TLDR_MODEL: "en-only/model,ok/model" },
       [{ id: "1", title: "Story" }]
     );
-    expect(fetchMock.mock.calls.map((call) => JSON.parse(call[1].body).model)).toEqual(
-      ["en-only/model", "ok/model"]
-    );
+    expect(
+      fetchMock.mock.calls.map((call) => JSON.parse(call[1].body).model)
+    ).toEqual(["en-only/model", "ok/model"]);
     expect(result.bullets_vi).toEqual([{ text: "B", item_ids: ["1"] }]);
   });
 });
@@ -805,6 +805,57 @@ describe("model fallback chain", () => {
     expect(modelsOf(fetchMock)).toEqual(["vi/primary", "vi/backup"]);
   });
 
+  it("splits translate work into batches of 3 so a 90s attempt can finish", async () => {
+    const fetchMock = vi.fn().mockImplementation(() => {
+      const call = fetchMock.mock.calls.length;
+      const indexes = call === 1 ? [0, 1, 2] : [3];
+      return completion(
+        JSON.stringify({
+          results: indexes.map((i) => ({
+            i,
+            title: "Tin",
+            summary: "Tóm tắt",
+          })),
+        })
+      );
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const results = await translateItems(
+      env,
+      [0, 1, 2, 3].map((i) => ({ i, title: `Story ${i}` }))
+    );
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(results.map((row) => row.i)).toEqual([0, 1, 2, 3]);
+  });
+
+  it("retries title-only when a batch with summaries fails accept", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(completion(JSON.stringify({ results: [] })))
+      .mockResolvedValueOnce(
+        completion(
+          JSON.stringify({
+            results: [{ i: 0, title: "Tin GLM-5.3", summary: "" }],
+          })
+        )
+      );
+    vi.stubGlobal("fetch", fetchMock);
+
+    const results = await translateItems(env, [
+      { i: 0, title: "GLM-5.3 Ties Kimi", summary: "A long English summary." },
+    ]);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    const second = JSON.parse(
+      (fetchMock.mock.calls[1][1] as { body: string }).body
+    ) as { messages: { role: string; content: string }[] };
+    const user = second.messages.find((m) => m.role === "user")?.content ?? "";
+    expect(user).toContain("GLM-5.3 Ties Kimi");
+    expect(user).not.toContain("A long English summary.");
+    expect(results).toHaveLength(1);
+    expect(results[0].title).toBe("Tin GLM-5.3");
+  });
+
   it("advances past a hanging model via raceTimeout so the next id can run", async () => {
     vi.useFakeTimers();
     try {
@@ -934,7 +985,8 @@ describe("scoreItems / translateItems batch failure handling", () => {
       .map((call) => call[0])
       .find(
         (line): line is string =>
-          typeof line === "string" && line.includes("translateItems.batch_failed")
+          typeof line === "string" &&
+          line.includes("translateItems.batch_failed")
       );
     expect(payload).toBeDefined();
     const parsed = JSON.parse(payload as string) as {
@@ -1191,7 +1243,10 @@ describe("setLlmCallLogger", () => {
     setLlmCallLogger(() => {
       throw new Error("logger exploded");
     });
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(chatResponse(scorePayload)));
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(chatResponse(scorePayload))
+    );
 
     const results = await scoreItems(env, scoreInput);
     expect(results).toHaveLength(1);
@@ -1202,7 +1257,10 @@ describe("setLlmCallLogger", () => {
     setLlmCallLogger(async () => {
       throw new Error("async logger exploded");
     });
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(chatResponse(scorePayload)));
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(chatResponse(scorePayload))
+    );
 
     const results = await scoreItems(env, scoreInput);
     expect(results).toHaveLength(1);
