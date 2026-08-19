@@ -16,6 +16,28 @@ interface SourceAgg {
   cost: number;
 }
 
+const EMPTY_TOKEN_DATA = {
+  generatedAt: "",
+  firstDate: null,
+  lastDate: null,
+  sources: [] as string[],
+  totals: {
+    input_tokens: 0,
+    output_tokens: 0,
+    cache_creation_tokens: 0,
+    cache_read_tokens: 0,
+    total_tokens: 0,
+    total_cost: 0,
+  },
+  source_totals: [] as SourceAgg[],
+  daily: [] as Array<Record<string, unknown>>,
+};
+
+function writeTokenData(data: unknown): void {
+  mkdirSync(OUTPUT_DIR, { recursive: true });
+  writeFileSync(OUTPUT_FILE, JSON.stringify(data, null, 2));
+}
+
 function mergeSource(
   map: Map<string, SourceAgg>,
   source: string,
@@ -33,7 +55,13 @@ function mergeSource(
 
 async function main() {
   if (!MOTHERDUCK_TOKEN) {
-    throw new Error("MOTHERDUCK_TOKEN is required");
+    // Preview CI does not pass MotherDuck; keep the static app buildable.
+    console.warn("MOTHERDUCK_TOKEN missing; writing empty token-data.json");
+    writeTokenData({
+      ...EMPTY_TOKEN_DATA,
+      generatedAt: new Date().toISOString(),
+    });
+    return;
   }
 
   console.log("Connecting to MotherDuck...");
@@ -163,8 +191,7 @@ async function main() {
     })),
   };
 
-  mkdirSync(OUTPUT_DIR, { recursive: true });
-  writeFileSync(OUTPUT_FILE, JSON.stringify(data, null, 2));
+  writeTokenData(data);
 
   console.log(`\nTotal tokens: ${data.totals.total_tokens.toLocaleString()}`);
   console.log(`Total cost:   $${data.totals.total_cost.toLocaleString()}`);
