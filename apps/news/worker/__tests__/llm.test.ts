@@ -1,8 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
-  _extractLastJsonObjectForTests as extractLastJsonObject,
   callAnyrouter,
+  _extractLastJsonObjectForTests as extractLastJsonObject,
   generateTldr,
+  modelAttemptTimeoutMs,
   normalizeTag,
   _normalizeTldrForTests as normalizeTldr,
   _parseJsonForTests as parseJson,
@@ -798,6 +799,36 @@ describe("model fallback chain", () => {
     }
   });
 
+  it("aborts the hanging fetch so the leaked stream does not block fallback", async () => {
+    vi.useFakeTimers();
+    try {
+      let hangingSignal: AbortSignal | undefined;
+      const fetchMock = vi
+        .fn()
+        .mockImplementationOnce(
+          (_url: string, init: { signal?: AbortSignal }) => {
+            hangingSignal = init.signal;
+            return new Promise(() => {});
+          }
+        )
+        .mockResolvedValueOnce(
+          completion(JSON.stringify({ results: [{ i: 0, title: "Tin" }] }))
+        );
+      vi.stubGlobal("fetch", fetchMock);
+
+      const pending = callAnyrouter(
+        { ...env, ANYROUTER_MODEL: "hang/model,ok/model" },
+        [{ role: "user", content: "hi" }],
+        { timeoutMs: 200, json: true }
+      );
+      await vi.advanceTimersByTimeAsync(100);
+      await pending;
+      expect(hangingSignal?.aborted).toBe(true);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it("advances when the first model returns JSON that sanitize drops", async () => {
     const fetchMock = vi
       .fn()
@@ -1294,6 +1325,31 @@ describe("sanitizeTranslateResults", () => {
       { i: 0, title: "Xin chào", summary: "Tóm tắt", tokens: 4 },
       { i: 1, title: "Thế giới", summary: "", tokens: 4 },
     ]);
+  });
+});
+
+describe("modelAttemptTimeoutMs", () => {
+  it("keeps the 2-model hang test contract: half the budget each", () => {
+    expect(modelAttemptTimeoutMs(200, 2)).toBe(100);
+  });
+
+  it("gives a long chain more than budget/n, capped at 90s", () => {
+    const even = 300_000 / 11;
+    expect(even).toBeLessThan(30_000);
+    expect(modelAttemptTimeoutMs(300_000, 11)).toBe(90_000);
+  });
+
+  it("after a hang-cap, leftover budget still funds the next id", () => {
+    expect(modelAttemptTimeoutMs(210_000, 10)).toBe(90_000);
+  });
+
+  it("a single remaining model gets the leftover, not a tiny even slice", () => {
+    expect(modelAttemptTimeoutMs(12_000, 1)).toBe(12_000);
+  });
+
+  it("returns 0 when the deadline has passed", () => {
+    expect(modelAttemptTimeoutMs(0, 3)).toBe(0);
+    expect(modelAttemptTimeoutMs(-5, 3)).toBe(0);
   });
 });
 
