@@ -50,15 +50,14 @@ export const MASONRY_CONFIG: GridConfiguration = {
  */
 export function getColumnsForViewport(width: number): number {
   const { breakpoints } = MASONRY_CONFIG;
-
-  if (width >= 1920) return breakpoints.default;
-  if (width >= 1536) return breakpoints["1920"];
-  if (width >= 1280) return breakpoints["1536"];
-  if (width >= 1024) return breakpoints["1280"];
-  if (width >= 768) return breakpoints["1024"];
-  if (width >= 640) return breakpoints["768"];
-
-  return 1;
+  const keys = Object.keys(breakpoints)
+    .filter((key) => key !== "default")
+    .map(Number)
+    .sort((a, b) => a - b);
+  for (const key of keys) {
+    if (width <= key) return breakpoints[String(key)];
+  }
+  return breakpoints.default;
 }
 
 /**

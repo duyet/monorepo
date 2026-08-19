@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  BACKFILL_TRANSLATE_CAP,
   buildMissingSummaryQuery,
   buildMissingTranslationQuery,
   buildUnscoredItemsQuery,
@@ -22,6 +23,13 @@ describe("buildMissingSummaryQuery", () => {
 
   it("defaults to the standard cap when no limit is given", () => {
     expect(buildMissingSummaryQuery()).toContain("LIMIT 15");
+  });
+});
+
+describe("BACKFILL_TRANSLATE_CAP", () => {
+  it("defaults the missing-translation query to the raised hourly cap", () => {
+    expect(BACKFILL_TRANSLATE_CAP).toBe(45);
+    expect(buildMissingTranslationQuery()).toContain("LIMIT 45");
   });
 });
 

@@ -1,3 +1,4 @@
+import { Heatmap } from "@duyet/components";
 import { useEffect, useState } from "react";
 import {
   type ContributionDay,
@@ -13,7 +14,6 @@ const CACHE_TTL = 86_400_000; // 24h
 // container width via a viewBox, so cells stay crisp from 320px up.
 const CELL = 11;
 const GAP = 2.5;
-const PITCH = CELL + GAP;
 const RADIUS = 2.5;
 
 // Sequential 5-step ramp derived from the theme accent so the heatmap
@@ -60,10 +60,6 @@ function setCache(data: ContributionDay[][]) {
   }
 }
 
-function levelColor(level: string): string {
-  return RAMP[LEVEL_INDEX[level] ?? 0];
-}
-
 export function GitHubContributions() {
   const [data, setData] = useState<ContributionDay[][] | null>(null);
 
@@ -89,40 +85,28 @@ export function GitHubContributions() {
   if (!data || data.length === 0) return <div className="mt-4" />;
 
   const total = data.flat().reduce((s, d) => s + d.contributionCount, 0);
-  const width = Math.max(0, data.length * PITCH - GAP);
-  const height = 7 * PITCH - GAP;
   const totalLabel = total.toLocaleString();
+  const heatmap = data.map((week) =>
+    week.map((day) => ({
+      value: LEVEL_INDEX[day.contributionLevel] ?? 0,
+      title: `${day.contributionCount} on ${day.date}`,
+    }))
+  );
 
   return (
     <div className="mt-4 select-none">
       <div className="font-[var(--font-mono)] text-[11px] text-[var(--rd-text-3)] mb-1.5">
         {totalLabel} contributions in the last year
       </div>
-      <svg
-        viewBox={`0 0 ${width} ${height}`}
-        width="100%"
-        preserveAspectRatio="xMidYMid meet"
-        role="img"
-        aria-label={`GitHub contribution heatmap: ${totalLabel} contributions in the last year`}
-        style={{ display: "block", height: "auto" }}
-      >
-        {data.flatMap((week, wi) =>
-          week.map((day, di) => (
-            <rect
-              key={`${wi}-${di}`}
-              x={wi * PITCH}
-              y={di * PITCH}
-              width={CELL}
-              height={CELL}
-              rx={RADIUS}
-              ry={RADIUS}
-              fill={levelColor(day.contributionLevel)}
-            >
-              <title>{`${day.contributionCount} on ${day.date}`}</title>
-            </rect>
-          ))
-        )}
-      </svg>
+      <Heatmap
+        ariaLabel={`GitHub contribution heatmap: ${totalLabel} contributions in the last year`}
+        cell={CELL}
+        colorRamp={RAMP}
+        data={heatmap}
+        gap={GAP}
+        maxValue={4}
+        radius={RADIUS}
+      />
       <div className="mt-2 flex items-center gap-1.5 font-[var(--font-mono)] text-[10px] text-[var(--rd-text-3)]">
         <span>Less</span>
         {RAMP.map((c) => (

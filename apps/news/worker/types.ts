@@ -30,6 +30,8 @@ export interface Env {
   TELEGRAM_BOT_TOKEN?: string;
   /** Telegram channel/chat id to post stories to, e.g. "-1004420104760". */
   TELEGRAM_CHAT_ID?: string;
+  /** Optional JSON/Slack incoming webhook for the same AlertEvent fan-out. */
+  NOTIFY_WEBHOOK_URL?: string;
   /** Cloudflare Email Sending binding. Optional: absent until Email Sending
    *  is onboarded for the account, so all use sites must guard for it. */
   EMAIL?: SendEmail;

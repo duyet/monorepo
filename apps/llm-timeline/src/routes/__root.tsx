@@ -10,7 +10,6 @@ import {
   HeadContent,
   Outlet,
   Scripts,
-  useRouterState,
 } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 
@@ -100,8 +99,6 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -109,7 +106,7 @@ function RootComponent() {
       </head>
       <body>
         <ThemeProvider>
-          <div className="min-h-screen bg-background text-foreground">
+          <div className="min-h-screen overflow-x-hidden bg-background text-foreground">
             <SiteHeader currentApp="llm-timeline" />
             <main className="relative z-10">
               <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pb-16 pt-6">

@@ -32,7 +32,7 @@ export function ChatConversation({
 
   if (messages.length === 0) {
     return (
-      <div className="flex flex-1 items-center justify-center p-6">
+      <div className="flex flex-1 items-center justify-center px-4 py-8 sm:p-6">
         <Empty>
           <EmptyHeader>
             <EmptyTitle>Ask Duyet anything.</EmptyTitle>

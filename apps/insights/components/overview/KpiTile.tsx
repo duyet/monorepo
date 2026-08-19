@@ -1,5 +1,4 @@
-import { Sparkline as DitherSparkline } from "@/components/dither-kit";
-import { Sparkline as SvgSparkline } from "@/components/charts/Sparkline";
+import { Sparkline } from "@duyet/components";
 
 interface KpiTileData {
   k: string;
@@ -15,14 +14,11 @@ interface KpiTileData {
 function KpiTile({ t }: { t: KpiTileData }) {
   const up = t.trend.startsWith("+");
   const goodTrend = t.good ? !up : up;
-  const sparkColor = t.good ? "green" : "blue";
   const hasSpark = t.spark.filter(Number.isFinite).length >= 2;
   return (
     <div className="rd-card p-[clamp(18px,2.2vw,26px)] flex flex-col gap-3 min-h-[168px]">
       <div className="flex justify-between items-center">
-        <span className="rd-eyebrow text-[10.5px]">
-          {t.k}
-        </span>
+        <span className="rd-eyebrow text-[10.5px]">{t.k}</span>
         <span
           className={`font-[var(--font-mono)] text-[11.5px] ${goodTrend ? "text-[var(--rd-ok)]" : "text-[var(--rd-text-3)]"}`}
         >
@@ -35,15 +31,17 @@ function KpiTile({ t }: { t: KpiTileData }) {
       </div>
       {hasSpark ? (
         <div className="h-[34px] -mx-1">
-          <DitherSparkline
+          <Sparkline
             data={t.spark}
-            color={sparkColor}
-            bloom={goodTrend ? "low" : "off"}
-            bloomOnHover
+            h={34}
+            label={`${t.k} trend`}
+            stroke={
+              goodTrend ? "var(--rd-ok, #3d8b6e)" : "var(--rd-accent, #c45c26)"
+            }
           />
         </div>
       ) : (
-        <SvgSparkline data={t.spark} h={34} label={`${t.k} trend`} />
+        <div className="h-[34px]" />
       )}
       <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11.5px]">
         {t.sub}

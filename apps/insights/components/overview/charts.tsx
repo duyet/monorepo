@@ -1,3 +1,4 @@
+import { Donut } from "@duyet/components";
 import type { CCUsageActivityByModelData } from "@/app/ai/types";
 import {
   Area,
@@ -5,9 +6,6 @@ import {
   Bar,
   BarChart,
   Grid,
-  Legend,
-  Pie,
-  PieChart,
   Tooltip,
   XAxis,
   YAxis,
@@ -120,20 +118,17 @@ function InsightDonutChart({
     return <EmptyChart label="No model cost data available." />;
   }
 
-  const config: ChartConfig = Object.fromEntries(
-    data.map((d, i) => [
-      d.name,
-      { label: compactName(d.name), color: BAR_COLORS[i % BAR_COLORS.length] },
-    ])
-  );
-
   return (
-    <div aria-label={ariaLabel} className="h-[200px] min-w-0" role="img">
-      <PieChart data={data} dataKey="pct" nameKey="name" config={config} innerRadius={0.55}>
-        <Pie />
-        <Legend isClickable align="center" />
-        <Tooltip />
-      </PieChart>
+    <div className="flex min-h-[200px] min-w-0 items-center justify-center">
+      <Donut
+        ariaLabel={ariaLabel ?? "Cost share"}
+        data={data.map((d, i) => ({
+          name: compactName(d.name),
+          value: d.pct || d.cost,
+          color: `var(--chart-${(i % 6) + 1}, ${["#3b82f6", "#a855f7", "#22c55e", "#ec4899", "#f97316", "#ef4444"][i % 6]})`,
+        }))}
+        size={180}
+      />
     </div>
   );
 }
