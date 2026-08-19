@@ -25,8 +25,12 @@ import { join } from "node:path";
 import type { Post, Series } from "@duyet/interfaces";
 import { getAllPosts } from "@duyet/libs/getPost";
 import { getAllSeries } from "@duyet/libs/getSeries";
-import { markdownToHtml, extractWidgetFences } from "@duyet/libs/markdownToHtml";
+import {
+  extractWidgetFences,
+  markdownToHtml,
+} from "@duyet/libs/markdownToHtml";
 import sanitizeHtml from "sanitize-html";
+import { embedXPosts } from "../lib/x-embed";
 
 const PUBLIC_DIR = join(import.meta.dirname!, "..", "public");
 const CONTENT_DIR = join(PUBLIC_DIR, "posts-content");
@@ -71,15 +75,7 @@ function sanitizeWidgetHtml(html: string): string {
       ...sanitizeHtml.defaults.allowedAttributes,
       "*": ["class", "id", "aria-hidden", "focusable", "xmlns"],
       a: ["href", "name", "target", "rel", "class", "id"],
-      img: [
-        "src",
-        "alt",
-        "title",
-        "width",
-        "height",
-        "loading",
-        "class",
-      ],
+      img: ["src", "alt", "title", "width", "height", "loading", "class"],
       svg: ["width", "height", "viewBox", "fill", "stroke", "class"],
       path: ["d", "fill", "stroke", "stroke-width", "class"],
     },
@@ -116,12 +112,17 @@ function resolveWidgetHtml(widgetPath: string, postKey: string): string | null {
   }
 
   // Try global widgets directory
-  const globalPath = join(WIDGETS_DIR, widgetPath.replace(/^\.\/widgets\//, ""));
+  const globalPath = join(
+    WIDGETS_DIR,
+    widgetPath.replace(/^\.\/widgets\//, "")
+  );
   try {
     const html = readFileSync(globalPath, "utf-8");
     return html;
   } catch {
-    console.error(`  ✗ Widget not found: ${widgetPath} (tried post-local and global)`);
+    console.error(
+      `  ✗ Widget not found: ${widgetPath} (tried post-local and global)`
+    );
     return null;
   }
 }
@@ -226,7 +227,7 @@ for (const post of allPostsWithContent) {
   // client leaves the body as "No content" — fail the build instead.
   if (!payload.isMDX && processedMarkdown) {
     try {
-      payload.html = await markdownToHtml(processedMarkdown);
+      payload.html = embedXPosts(await markdownToHtml(processedMarkdown));
       if (!payload.html?.trim()) {
         conversionFailures.push(`${key}: empty HTML output`);
       } else {

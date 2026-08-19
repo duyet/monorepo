@@ -2,12 +2,12 @@ import type { Post } from "@duyet/interfaces";
 import type { TOCItem } from "@duyet/libs/extractHeadings";
 import { cn } from "@duyet/libs/utils";
 import { compile, run } from "@mdx-js/mdx";
+import { common } from "lowlight";
 import { Fragment, use, useEffect, useRef } from "react";
 import * as runtime from "react/jsx-runtime";
 import rehypeHighlight from "rehype-highlight";
 import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";
-import { common } from "lowlight";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 
@@ -15,6 +15,7 @@ import "katex/dist/contrib/mhchem.min.js";
 import "katex/dist/katex.min.css";
 import "@/styles/highlight.css";
 import { mdxComponents } from "@/components/MdxComponents";
+import { embedXPosts, TWITTER_WIDGETS_SRC } from "@/lib/x-embed";
 import { LiveWidget } from "../../../components/LiveWidget";
 import { OldPostWarning } from "./-old-post-warning";
 import { Snippet } from "./-snippet";
@@ -42,7 +43,12 @@ const mdxCache = new Map<
 // Factory: lowlight/highlight.js register a language by calling it as
 // `(hljs) => definition`, so a bare object throws at registration
 // ("languageDefinition is not a function") and crashes every .mdx post.
-const promptLanguage = (): { name: string; disableAutodetect: boolean; case_insensitive: boolean; contains: { scope: string; begin: RegExp }[] } => ({
+const promptLanguage = (): {
+  name: string;
+  disableAutodetect: boolean;
+  case_insensitive: boolean;
+  contains: { scope: string; begin: RegExp }[];
+} => ({
   name: "prompt",
   disableAutodetect: true,
   case_insensitive: false,
@@ -128,6 +134,40 @@ function useCodeCopyButtons() {
   return ref;
 }
 
+type TwitterWidgets = {
+  widgets?: { load: (el?: HTMLElement) => void };
+};
+
+/** Load widgets.js once and re-scan embeds when the post body changes. */
+function useTwitterWidgets() {
+  useEffect(() => {
+    const win = window as Window & { twttr?: TwitterWidgets };
+    const load = () => {
+      win.twttr?.widgets?.load();
+    };
+
+    if (win.twttr?.widgets) {
+      load();
+      return;
+    }
+
+    const existing = document.querySelector<HTMLScriptElement>(
+      `script[src="${TWITTER_WIDGETS_SRC}"]`
+    );
+    if (existing) {
+      existing.addEventListener("load", load);
+      return () => existing.removeEventListener("load", load);
+    }
+
+    const script = document.createElement("script");
+    script.src = TWITTER_WIDGETS_SRC;
+    script.async = true;
+    script.addEventListener("load", load);
+    document.body.appendChild(script);
+    return () => script.removeEventListener("load", load);
+  });
+}
+
 function MDXRenderer({ source }: { source: string }) {
   if (!mdxCache.has(source)) {
     mdxCache.set(source, compileMDX(source));
@@ -144,6 +184,7 @@ function MDXRenderer({ source }: { source: string }) {
 
 export default function Content({ post }: { post: ContentPost }) {
   const copyRef = useCodeCopyButtons();
+  useTwitterWidgets();
 
   return (
     <>
@@ -155,7 +196,9 @@ export default function Content({ post }: { post: ContentPost }) {
         ) : (
           <article
             className={typesetClassName}
-            dangerouslySetInnerHTML={{ __html: post.content || "No content" }}
+            dangerouslySetInnerHTML={{
+              __html: embedXPosts(post.content || "No content"),
+            }}
           />
         )}
       </div>

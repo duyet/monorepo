@@ -22,6 +22,7 @@ import { Step, Steps } from "./blog/Steps";
 import { StepsList } from "./blog/StepsList";
 import { Tabs } from "./blog/Tabs";
 import { StatusBadge, Timeline } from "./blog/Timeline";
+import { Tweet, XPost } from "./blog/XPost";
 
 // Custom Image component for MDX.
 //
@@ -59,7 +60,9 @@ function Image({
   return (
     <span
       className={cn("block my-2", !inColumn && "full-bleed")}
-      style={capPx ? { maxWidth: `${capPx}px`, marginInline: "auto" } : undefined}
+      style={
+        capPx ? { maxWidth: `${capPx}px`, marginInline: "auto" } : undefined
+      }
     >
       <img
         src={imageSrc || ""}
@@ -99,6 +102,8 @@ export const mdxComponents: MDXComponents = {
   Callout,
   ChartGrid,
   StatGrid,
+  XPost,
+  Tweet,
   pre: LazyCodeBlock,
   Image,
   img: Image,
