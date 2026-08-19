@@ -24,7 +24,8 @@ export function K8sInfo() {
   const { pods, summary } = useK8s();
 
   return (
-    <div className="grid grid-cols-2 gap-3 lg:grid-cols-12">
+    <div className="space-y-6">
+      <div className="grid grid-cols-2 gap-px overflow-hidden border border-[var(--rd-border)] bg-[var(--rd-border)] lg:grid-cols-4">
       <StatCell
         icon={Cuboid}
         label="Namespaces"
@@ -47,8 +48,9 @@ export function K8sInfo() {
         value={String(summary.totalRestarts)}
         sub="total"
       />
+      </div>
 
-      <Card className="col-span-2 min-w-0 lg:col-span-12">
+      <Card className="min-w-0">
         <CardHeader className="flex-row items-center justify-between">
           <CardTitle>Pods</CardTitle>
         </CardHeader>
@@ -128,19 +130,17 @@ function StatCell({
   sub?: string;
 }) {
   return (
-    <Card className="min-w-0 lg:col-span-3">
-      <CardContent className="p-4">
-        <div className="flex items-center gap-1.5 text-muted-foreground">
-          <Icon className="size-3.5" />
-          <p className="text-[11px] font-medium">{label}</p>
-        </div>
-        <p className="mt-2 font-mono text-2xl font-semibold tracking-tight tabular-nums">
-          {value}
-        </p>
-        {sub ? (
-          <p className="mt-0.5 text-[11px] text-muted-foreground">{sub}</p>
-        ) : null}
-      </CardContent>
-    </Card>
+    <div className="min-w-0 bg-[var(--rd-surface)] p-5">
+      <div className="flex items-center gap-1.5 text-[var(--rd-text-3)]">
+        <Icon className="size-3.5" />
+        <p className="text-[12px]">{label}</p>
+      </div>
+      <p className="mt-2 font-mono text-[28px] font-semibold leading-none tracking-tight tabular-nums text-[var(--rd-text)]">
+        {value}
+      </p>
+      {sub ? (
+        <p className="mt-2 font-mono text-[12px] text-[var(--rd-text-3)]">{sub}</p>
+      ) : null}
+    </div>
   );
 }
