@@ -150,4 +150,27 @@ describe("webhookDeliveryId", () => {
     );
     vi.unstubAllGlobals();
   });
+
+  it("uses Slack payloads only for hooks.slack.com", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
+    vi.stubGlobal("fetch", fetchMock);
+    await webhookNotifier.sendDigest(
+      {
+        NOTIFY_WEBHOOK_URL: "https://hooks.slack.com/services/T00/B00/x",
+      } as Env,
+      { date: "2026-08-19", bullets: [] }
+    );
+    await webhookNotifier.sendDigest(
+      {
+        NOTIFY_WEBHOOK_URL: "https://slack-alerts.example.com/hook",
+      } as Env,
+      { date: "2026-08-19", bullets: [] }
+    );
+    const slackBody = JSON.parse(fetchMock.mock.calls[0][1].body as string);
+    const jsonBody = JSON.parse(fetchMock.mock.calls[1][1].body as string);
+    expect(slackBody.attachments).toBeDefined();
+    expect(jsonBody.attachments).toBeUndefined();
+    expect(jsonBody.source).toBe("news.duyet.net");
+    vi.unstubAllGlobals();
+  });
 });

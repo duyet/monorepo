@@ -16,7 +16,7 @@ interface SourceAgg {
   cost: number;
 }
 
-const EMPTY_TOKEN_DATA = {
+const emptyTokenData = {
   generatedAt: "",
   firstDate: null,
   lastDate: null,
@@ -55,10 +55,14 @@ function mergeSource(
 
 async function main() {
   if (!MOTHERDUCK_TOKEN) {
-    // Preview CI does not pass MotherDuck; keep the static app buildable.
+    // Preview CI does not pass MotherDuck. Production and local builds
+    // must still fail rather than publish zero usage.
+    if (process.env.GITHUB_EVENT_NAME !== "pull_request") {
+      throw new Error("MOTHERDUCK_TOKEN is required");
+    }
     console.warn("MOTHERDUCK_TOKEN missing; writing empty token-data.json");
     writeTokenData({
-      ...EMPTY_TOKEN_DATA,
+      ...emptyTokenData,
       generatedAt: new Date().toISOString(),
     });
     return;

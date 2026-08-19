@@ -15,7 +15,7 @@ import type {
 function webhookKind(url: string): "slack" | "json" {
   try {
     const host = new URL(url).hostname;
-    if (host.endsWith("hooks.slack.com") || host.includes("slack")) {
+    if (host === "hooks.slack.com" || host.endsWith(".hooks.slack.com")) {
       return "slack";
     }
   } catch {
