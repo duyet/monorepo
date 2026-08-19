@@ -1,4 +1,5 @@
 import handler from "@tanstack/react-start/server-entry";
+import { handleSubscribeCors } from "../worker/subscribe/cors";
 import type { Env } from "../worker/types";
 import { NewsIngestWorkflow } from "../worker/workflow";
 import {
@@ -39,7 +40,7 @@ export default {
         return sitemapResponse(buildSitemapXml(staticSitemapUrls()));
       }
     }
-    return handler.fetch(request);
+    return handleSubscribeCors(request, () => handler.fetch(request));
   },
   async scheduled(_controller: ScheduledController, env: Env) {
     await env.NEWS_INGEST.create();

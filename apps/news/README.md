@@ -113,7 +113,10 @@ The same `subscribers` D1 table is the mailing list. Blog and home capture
 via `SubscribeCapture` (`packages/components/subscribe/`) posting CORS
 `POST /api/subscribe` with `{email, lang, timezone, source}`. `source` is
 `blog` | `news` | `home` (table `subscriber_sources`, migration
-`0015_mail.sql`). IP rate limit: 8/day (`subscribe_attempts`).
+`0015_mail.sql`). IP rate limit: 8/day (`subscribe_attempts`). CORS is
+applied in `src/server.ts` (`handleSubscribeCors`) before TanStack Start:
+Pages `not_found_handling = "single-page-application"` otherwise serves
+`index.html` for `OPTIONS`, which browsers treat as a CORS failure.
 
 Custom sends (not the daily digest) are composed at **`/mail`** (Clerk
 admin, same gate as `/system`). Pick a template (Note / New post /
