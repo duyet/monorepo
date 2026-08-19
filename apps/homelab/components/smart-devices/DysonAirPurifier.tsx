@@ -68,7 +68,7 @@ const STATUS_CONFIG = {
   offline: {
     label: "Offline",
     badgeClass:
-      "bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-400",
+      "bg-white/10 text-muted-foreground",
     dotClass: "bg-neutral-400",
   },
 } as const;
@@ -145,7 +145,7 @@ function AirQualityRing({
             <Thermometer className="h-4 w-4 text-claude-orange" />
           </div>
           <div>
-            <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+            <p className="text-2xl font-bold text-foreground">
               {Math.round(temperature)}°
             </p>
             <p className="text-[10px] text-neutral-500 dark:text-neutral-400">
@@ -158,7 +158,7 @@ function AirQualityRing({
             <Droplets className="h-4 w-4 text-claude-sky" />
           </div>
           <div>
-            <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+            <p className="text-2xl font-bold text-foreground">
               {Math.round(humidity)}%
             </p>
             <p className="text-[10px] text-neutral-500 dark:text-neutral-400">
@@ -210,7 +210,7 @@ function AirQualityChart() {
     <div className={`${BENTO_CELL} md:col-span-2 lg:col-span-2`}>
       <div className="mb-4 space-y-2">
         <div className="flex items-center justify-between">
-          <h4 className="flex items-center gap-2 text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+          <h4 className="flex items-center gap-2 text-sm font-semibold text-foreground">
             <Gauge className="h-4 w-4 text-claude-lavender" />
             Air Quality History
           </h4>
@@ -226,8 +226,8 @@ function AirQualityChart() {
               onClick={() => setActiveMetric(key)}
               className={`rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors ${
                 activeMetric === key
-                  ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
-                  : "bg-neutral-100 text-neutral-500 hover:text-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200"
+                  ? "bg-[#f3efe6] text-[#070708]"
+                  : "bg-white/8 text-[#8b877c] hover:text-[#f3efe6]"
               }`}
             >
               {METRIC_CONFIG[key].label}
@@ -266,7 +266,7 @@ function TemperatureHumidityChart() {
     <div className={`${BENTO_CELL} md:col-span-2 lg:col-span-2`}>
       <div className="mb-4">
         <div className="flex items-center justify-between">
-          <h4 className="flex items-center gap-2 text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+          <h4 className="flex items-center gap-2 text-sm font-semibold text-foreground">
             <Thermometer className="h-4 w-4 text-claude-orange" />
             Temperature & Humidity
           </h4>
@@ -309,7 +309,7 @@ function FilterStatus() {
 
   return (
     <div className={BENTO_CELL}>
-      <h4 className="mb-4 flex items-center gap-2 text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+      <h4 className="mb-4 flex items-center gap-2 text-sm font-semibold text-foreground">
         <Wind className="h-4 w-4 text-claude-lavender" />
         Filter Life
       </h4>
@@ -327,13 +327,13 @@ function FilterStatus() {
                   className={`text-sm font-bold ${
                     isLow
                       ? "text-claude-coral"
-                      : "text-neutral-900 dark:text-neutral-100"
+                      : "text-foreground"
                   }`}
                 >
                   {filter.remainingPercent}%
                 </span>
               </div>
-              <div className="h-3 w-full overflow-hidden rounded-full bg-claude-tan/50 dark:bg-neutral-700">
+              <div className="h-3 w-full overflow-hidden rounded-full bg-white/10">
                 <div
                   className={`h-full rounded-full transition-all ${
                     isLow ? "bg-claude-coral" : "bg-claude-lavender"
@@ -436,7 +436,7 @@ export function DysonAirPurifier() {
           <Wind className="h-5 w-5 text-claude-lavender" />
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+          <h3 className="text-lg font-semibold text-foreground">
             {data.model}
           </h3>
           <p className="text-xs text-neutral-500 dark:text-neutral-400">

@@ -25,16 +25,6 @@ export const Route = createRootRoute({
       { name: "description", content: homelabConfig.metadata.description },
     ],
     links: [
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
-      },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap",
-      },
       { rel: "icon", href: "/favicon.svg", sizes: "any" },
     ],
   }),
@@ -47,14 +37,14 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
       <body>
-        <ThemeProvider>
+        <ThemeProvider forcedTheme="dark" defaultTheme="dark" enableSystem={false}>
           <div className="relative flex min-h-screen flex-col justify-between overflow-x-hidden bg-background text-foreground subpixel-antialiased">
-            <SiteHeader currentApp="homelab" />
+            <SiteHeader currentApp="homelab" hideThemeToggle />
             <main className="relative z-10 flex-grow">
               <Outlet />
             </main>
