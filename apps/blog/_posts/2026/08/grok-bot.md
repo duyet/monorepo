@@ -36,11 +36,11 @@ They share a computer, each with its own screen, and they message each other. I 
 > Since the Grok bot has its own desktop computer, I am asking it to review the whole product, going page by page, using a smoke test account. It has found something then create a lot of github issues and will spawn Grok Build to fix them all. I think this kind of daily automation tries to make duyetbot act like a real customer, then report issues and have another bot fix and deploy them autonomously.
 > https://x.com/_duyet/status/2089687655458259272
 
-## Two days in
+## This replaced my local coding agent
 
 I stood the team up on [chmonitor](https://chmonitor.dev), [anyrouter.dev](https://anyrouter.dev), [news.duyet.net](https://news.duyet.net), and the rest of the duyet.net apps.
 
-This morning chmonitor shipped a TTL inventory fix ([#3122](https://github.com/chmonitor/chmonitor/pull/3122)). The manager told QA to recert `dash.chmonitor.dev/ttl-partition-health`. QA came back PASS: 136 rows, charts fine, no silent Retry. The manager told chmonitor. I read the result.
+![Grok Bot team](/media/2026/08/grok-bot/team.png)
 
 They watch GitHub issues and PRs and squash-merge except release-please. Fixes go through Grok Build or a Cursor cloud agent. `chmonitor/chmonitor` does not have the Cursor GitHub app, so the engineer said so and switched to Grok Build. After each ship, QA recerts the live URL and files only on fail. They read [kb.duyet.net](https://kb.duyet.net) `MEMORY.md` first. Weekday routines: morning GitHub digest, inbox, hourly token import, late-afternoon production QA. I print a one-page A4 on the Mac. Tailscale + herdr so I can watch from anywhere. After an Update, Tailscale has to be reinstalled (the package does not survive; the files do).
 
