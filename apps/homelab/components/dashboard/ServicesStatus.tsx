@@ -1,7 +1,6 @@
 "use client";
 
 import { Badge } from "@duyet/components/ui/badge";
-import { Button } from "@duyet/components/ui/button";
 import { Input } from "@duyet/components/ui/input";
 import {
   Table,
@@ -61,12 +60,17 @@ export function ServicesStatus() {
         </div>
       </CardHeader>
       <CardContent className="space-y-3">
-        <div className="flex flex-wrap gap-1.5" role="tablist" aria-label="Namespace">
+        <div
+          className="flex gap-5 overflow-x-auto whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          role="tablist"
+          aria-label="Namespace"
+        >
           <FilterChip
             active={selectedNamespace === null}
             onClick={() => setSelectedNamespace(null)}
           >
-            All ({allServices.length})
+            All
+            <span className="ml-[3px] text-[var(--rd-text-4)]">{allServices.length}</span>
           </FilterChip>
           {namespaces.map((namespace) => (
             <FilterChip
@@ -74,7 +78,10 @@ export function ServicesStatus() {
               active={selectedNamespace === namespace}
               onClick={() => setSelectedNamespace(namespace)}
             >
-              {namespace} ({servicesByNamespace[namespace]?.length || 0})
+              {namespace}
+              <span className="ml-[3px] text-[var(--rd-text-4)]">
+                {servicesByNamespace[namespace]?.length || 0}
+              </span>
             </FilterChip>
           ))}
         </div>
@@ -154,16 +161,18 @@ function FilterChip({
   children: ReactNode;
 }) {
   return (
-    <Button
+    <button
       type="button"
-      size="xs"
-      variant={active ? "default" : "outline"}
       onClick={onClick}
       role="tab"
       aria-selected={active}
-      className="h-6 px-2 text-[11px]"
+      className={`shrink-0 cursor-pointer bg-transparent px-0 text-[16px] tracking-tight transition-colors ${
+        active
+          ? "font-semibold text-[var(--rd-text)]"
+          : "font-normal text-[var(--rd-text-3)] hover:text-[var(--rd-text)]"
+      }`}
     >
       {children}
-    </Button>
+    </button>
   );
 }

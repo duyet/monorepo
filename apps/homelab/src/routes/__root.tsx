@@ -10,7 +10,6 @@ import {
   HeadContent,
   Outlet,
   Scripts,
-  useRouterState,
 } from "@tanstack/react-router";
 import ErrorPage from "@/app/error";
 import NotFoundPage from "@/app/not-found";
@@ -26,6 +25,16 @@ export const Route = createRootRoute({
       { name: "description", content: homelabConfig.metadata.description },
     ],
     links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap",
+      },
       { rel: "icon", href: "/favicon.svg", sizes: "any" },
     ],
   }),
@@ -37,8 +46,6 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -46,10 +53,14 @@ function RootComponent() {
       </head>
       <body>
         <ThemeProvider>
-          <SiteHeader currentApp="homelab" />
-          <Outlet />
-          <ExploreApps currentApp="homelab" />
-          <SiteFooter />
+          <div className="relative flex min-h-screen flex-col justify-between overflow-x-hidden bg-background text-foreground subpixel-antialiased">
+            <SiteHeader currentApp="homelab" />
+            <main className="relative z-10 flex-grow">
+              <Outlet />
+            </main>
+            <ExploreApps currentApp="homelab" />
+            <SiteFooter />
+          </div>
         </ThemeProvider>
         <Scripts />
       </body>
