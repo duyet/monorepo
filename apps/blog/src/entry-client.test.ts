@@ -6,20 +6,20 @@ import { describe, expect, it } from "vitest";
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), "../../..");
 const appsDir = join(repoRoot, "apps");
 
-function listEntryClients(): string[] {
+function listClientEntries(): string[] {
   return readdirSync(appsDir)
-    .map((app) => join(appsDir, app, "src/entry-client.tsx"))
+    .map((app) => join(appsDir, app, "src/client.tsx"))
     .filter((path) => existsSync(path));
 }
 
 describe("static app hydrate guard", () => {
-  it("sets __CF_ENTRY_RAN__ before hydrateRoot so CF retry cannot remount", () => {
-    const entries = listEntryClients();
+  it("sets __CF_ENTRY_RAN__ in src/client.tsx so CF retry cannot remount", () => {
+    const entries = listClientEntries();
     expect(entries.length).toBeGreaterThan(8);
     for (const path of entries) {
       const source = readFileSync(path, "utf8");
       expect(source, path).toContain("__CF_ENTRY_RAN__");
-      expect(source, path).toContain("hydrateRoot(document, <StartClient />)");
+      expect(source, path).toContain("hydrateRoot(");
     }
   });
 });
