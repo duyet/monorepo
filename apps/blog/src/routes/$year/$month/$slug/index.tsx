@@ -2,13 +2,14 @@ import type { Post, Series } from "@duyet/interfaces";
 import { extractHeadings } from "@duyet/libs/extractHeadings";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
-import { embedXPosts, TWITTER_WIDGETS_SRC } from "@/lib/x-embed";
 import {
   getChildren,
   getPostBySlug,
   getRelatedPosts,
   getSeries,
 } from "@/lib/posts";
+import { resolveArticleHtml } from "@/lib/resolve-article-html";
+import { TWITTER_WIDGETS_SRC } from "@/lib/x-embed";
 import "@/styles/post-reader.css";
 import { Chapters } from "../-chapters";
 import Content from "../-content";
@@ -88,29 +89,8 @@ export const Route = createFileRoute("/$year/$month/$slug/")({
     const file = `${year}/${month}/${slug}.md`;
     const edit_url = `${repoUrl}/edit/master/apps/blog/_posts/${file}`;
 
-    let htmlContent = "";
-    let mdxSource: string | undefined;
-
-    if (postWithContent.isMDX) {
-      mdxSource = markdownContent;
-    } else if (postWithContent.html) {
-      htmlContent = embedXPosts(postWithContent.html);
-    } else if (markdownContent) {
-      // Prefer prebuilt html from posts-content/*.json. Fallback:
-      // - server/prerender: full WASM pipeline (KaTeX, highlight)
-      // - client: marked so SPA navigations never paint "No content"
-      if (typeof window === "undefined") {
-        const { markdownToHtml } = await import("@duyet/libs/markdownToHtml");
-        htmlContent = embedXPosts(await markdownToHtml(markdownContent));
-      } else {
-        console.warn(
-          "posts-content missing html; using marked client fallback:",
-          slugPath
-        );
-        const { marked } = await import("marked");
-        htmlContent = embedXPosts(String(await marked.parse(markdownContent)));
-      }
-    }
+    const { htmlContent, mdxSource } =
+      await resolveArticleHtml(postWithContent);
 
     const series = postWithContent.series
       ? await getSeries({ name: postWithContent.series as string })

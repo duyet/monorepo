@@ -383,7 +383,6 @@ export async function getChildNavigation(
 
   return {
     prev: index > 0 ? toNavItem(siblings[index - 1]) : null,
-    next:
-      index < siblings.length - 1 ? toNavItem(siblings[index + 1]) : null,
+    next: index < siblings.length - 1 ? toNavItem(siblings[index + 1]) : null,
   };
 }

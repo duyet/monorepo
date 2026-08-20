@@ -20,6 +20,7 @@ export function getRouter() {
     routeTree,
     defaultPreload: "intent",
     scrollRestoration: true,
+    defaultStaleTime: Number.POSITIVE_INFINITY,
   });
   const originalUpdate = router.update.bind(router);
   router.update = ((opts: object) => {

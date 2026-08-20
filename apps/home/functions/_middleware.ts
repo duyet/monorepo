@@ -3,6 +3,31 @@ interface PagesContext {
   next: (request?: Request) => Promise<Response>;
 }
 
+/** Currently deployed retry always cache-busts, which re-runs hydrateRoot. */
+export const LEGACY_CACHE_BUST_IMPORT =
+  'import(s.src+(s.src.indexOf("?")>=0?"&":"?")+"cf_retry="+n).catch(function(e){';
+
+/** First retry reuses the script URL (ESM cache no-op if the module already ran). */
+export const SAME_URL_FIRST_RETRY_IMPORT =
+  'import((n<=1?s.src:s.src+(s.src.indexOf("?")>=0?"&":"?")+"cf_retry="+n)).then(function(){window.__CF_ENTRY_RAN__=true}).catch(function(e){';
+
+export function rewriteHydrationRetryHtml(html: string): string {
+  return html
+    .replace(
+      'if(window.__CF_ENTRY_RAN__)return;if(document.querySelector("main,header"))return;boot(1)',
+      "if(window.__CF_ENTRY_RAN__)return;boot(1)",
+    )
+    .replace(
+      'if(!document.querySelector("main"))boot(1)',
+      "if(window.__CF_ENTRY_RAN__)return;boot(1)",
+    )
+    .replace(LEGACY_CACHE_BUST_IMPORT, SAME_URL_FIRST_RETRY_IMPORT);
+}
+
+export function hydrationRetryHref(src: string, n: number): string {
+  return n <= 1 ? src : `${src}${src.includes("?") ? "&" : "?"}cf_retry=${n}`;
+}
+
 export async function onRequest(context: PagesContext): Promise<Response> {
   const { request, next } = context;
   const accept = request.headers.get("accept") || "";
@@ -39,17 +64,7 @@ export async function onRequest(context: PagesContext): Promise<Response> {
   if (!contentType.includes("text/html")) return res;
 
   const text = await res.text();
-  // Prerendered shells always include <header>/<main>. Skipping retry on that
-  // selector left failed first-module loads frozen; only __CF_ENTRY_RAN__ means boot.
-  const patched = text
-    .replace(
-      'if(window.__CF_ENTRY_RAN__)return;if(document.querySelector("main,header"))return;boot(1)',
-      "if(window.__CF_ENTRY_RAN__)return;boot(1)",
-    )
-    .replace(
-      'if(!document.querySelector("main"))boot(1)',
-      "if(window.__CF_ENTRY_RAN__)return;boot(1)",
-    );
+  const patched = rewriteHydrationRetryHtml(text);
   if (patched === text) return new Response(text, res);
 
   const headers = new Headers(res.headers);
