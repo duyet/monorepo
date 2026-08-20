@@ -29,6 +29,8 @@ Musk's deal with Cursor looks like a good one from here. Cursor already had Clou
 
 ![duyetbot GitHub contributions — 29,480 in the last year](/media/2026/08/grok-bot/duyetbot-github.jpg)
 
+That graph is the [duyetbot](https://github.com/duyetbot) GitHub account — now owned by Grok Bot.
+
 ## Design the team
 
 duyetbot was the first one. I was not clear yet how it was working. Then a bunch of agents that talk to each other.
