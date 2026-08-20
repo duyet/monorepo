@@ -59,19 +59,29 @@ describe("source colors", () => {
 });
 
 describe("fetch-burns-data mapping", () => {
+  const fetchSrc = readFileSync(
+    join(burnsRoot, "scripts/fetch-burns-data.ts"),
+    "utf8"
+  );
+
   test("maps gemini and antigravity independently via normalizeSource", () => {
     expect(normalizeSource("gemini")).toBe("Gemini CLI");
     expect(normalizeSource("antigravity")).toBe("Google Antigravity");
     expect(normalizeSource("gemini")).not.toBe(normalizeSource("antigravity"));
 
-    const fetchSrc = readFileSync(
-      join(burnsRoot, "scripts/fetch-burns-data.ts"),
-      "utf8"
-    );
     expect(fetchSrc).toContain("normalizeSource(");
     expect(fetchSrc).not.toContain("IN ('antigravity', 'gemini')");
     expect(fetchSrc).not.toMatch(
       /source\s*=\s*'gemini'\s+THEN\s+'Google Antigravity'/i
     );
+  });
+
+  test("keeps committed snapshot when preview has no MotherDuck token", () => {
+    expect(fetchSrc).toContain("keeping committed public/token-data.json");
+    expect(fetchSrc).toContain("existsSync(OUTPUT_FILE)");
+    expect(fetchSrc).toContain('eventName === "schedule"');
+    expect(fetchSrc).toContain('eventName === "workflow_dispatch"');
+    expect(fetchSrc).toContain('ref === "refs/heads/master"');
+    expect(fetchSrc).toContain('ref === "refs/heads/main"');
   });
 });
