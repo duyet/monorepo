@@ -32,6 +32,15 @@ describe("static app routers keep prerendered loader data", () => {
     }
   });
 
+  it("shims router.stores.matches so prerender dehydrate does not crash", () => {
+    for (const app of staticApps) {
+      const path = join(appsDir, app, "src/router.tsx");
+      const source = readFileSync(path, "utf8");
+      expect(source, path).toContain("shimMatchesStore");
+      expect(source, path).toContain("activeMatchesSnapshot");
+    }
+  });
+
   it("covers every pages app with a router.tsx", () => {
     const routers = readdirSync(appsDir).filter((app) =>
       existsSync(join(appsDir, app, "src/router.tsx"))

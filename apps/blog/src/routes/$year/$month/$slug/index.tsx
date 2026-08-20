@@ -7,8 +7,8 @@ import {
   getPostBySlug,
   getRelatedPosts,
   getSeries,
-  resolveArticleHtml,
 } from "@/lib/posts";
+import { resolveArticleHtml } from "@/lib/resolve-article-html";
 import { TWITTER_WIDGETS_SRC } from "@/lib/x-embed";
 import "@/styles/post-reader.css";
 import { Chapters } from "../-chapters";

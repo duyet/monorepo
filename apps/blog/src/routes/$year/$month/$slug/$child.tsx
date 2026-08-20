@@ -9,8 +9,8 @@ import {
   getPostBySlug,
   getRelatedPosts,
   getSeries,
-  resolveArticleHtml,
 } from "@/lib/posts";
+import { resolveArticleHtml } from "@/lib/resolve-article-html";
 import "@/styles/post-reader.css";
 import { ChildBreadcrumb } from "../-breadcrumb";
 import Content from "../-content";
