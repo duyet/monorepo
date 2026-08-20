@@ -17,6 +17,8 @@ export interface SubscribeCaptureProps {
   endpoint?: string;
   variant?: "button" | "inline";
   className?: string;
+  /** Fired after a successful subscribe (and when already subscribed on mount is not). */
+  onSubscribed?: () => void;
 }
 
 type Status = "idle" | "loading" | "done" | "error";
@@ -125,6 +127,7 @@ export function SubscribeCapture({
   endpoint = "https://news.duyet.net/api/subscribe",
   variant = "button",
   className,
+  onSubscribed,
 }: SubscribeCaptureProps) {
   const [subscribed, setSubscribed] = useState(false);
   const [open, setOpen] = useState(false);
@@ -133,29 +136,29 @@ export function SubscribeCapture({
     setSubscribed(readSubscribed());
   }, []);
 
+  function markSubscribed(): void {
+    setSubscribed(true);
+    onSubscribed?.();
+  }
+
   if (subscribed && variant === "button") return null;
 
   if (variant === "inline") {
-    if (subscribed) {
-      return (
-        <p className={`text-[13px] text-neutral-500 ${className ?? ""}`}>
-          You&apos;re subscribed for updates.
-        </p>
-      );
-    }
+    if (subscribed) return null;
+
     return (
-      <div className={`my-10 border-t border-black/10 pt-8 ${className ?? ""}`}>
-        <p className="text-[13px] font-medium tracking-tight text-[#1a1a1a]">
+      <div className={className}>
+        <p className="font-[var(--font-mono)] text-xl font-semibold tracking-tight text-[var(--rd-text,#1a1a1a)] mb-4">
           Get updates
         </p>
-        <p className="mt-1 mb-3 max-w-sm text-[13px] leading-5 text-neutral-600">
+        <p className="mb-3 max-w-sm text-[13.5px] leading-snug text-[var(--rd-text-2,#525252)]">
           A note when I publish something worth reading. No dump.
         </p>
         <div className="max-w-xs">
           <SubscribeForm
             source={source}
             endpoint={endpoint}
-            onDone={() => setSubscribed(true)}
+            onDone={markSubscribed}
           />
         </div>
       </div>
@@ -186,7 +189,7 @@ export function SubscribeCapture({
           source={source}
           endpoint={endpoint}
           onDone={() => {
-            setSubscribed(true);
+            markSubscribed();
             setOpen(false);
           }}
         />

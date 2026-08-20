@@ -38,16 +38,12 @@ duyetbot was the first one. I was not clear yet how it was working. Then a bunch
 
 I assign each bot to one repo on purpose so the work stays isolated. Not a shared pile of agents on every repo. One delegated worker per project is the isolation, not just an org chart.
 
-QA is one bot for test and validate. Recerts live after each ship, files only on fail. chmonitor, anyrouter, monorepo, oma each have their own worker. They keep working. I may add more roles later.
-
-They share a computer, each with its own screen, and they message each other. I don't copy a stack trace from one window into another.
+QA is its own bot for testing and validation. It runs live recerts after every ship and only files when something fails. chmonitor, anyrouter, monorepo, and oma each have their own worker. They keep working. I may add more roles later.
 
 ![duyetbot the boss with per-repo workers in the sidebar](/media/2026/08/grok-bot/design-the-team.jpg)
 
 > Since the Grok bot has its own desktop computer, I am asking it to review the whole product, going page by page, using a smoke test account. It has found something then create a lot of github issues and will spawn Grok Build to fix them all. I think this kind of daily automation tries to make duyetbot act like a real customer, then report issues and have another bot fix and deploy them autonomously.
 > https://x.com/_duyet/status/2089687655458259272
-
-## Bots that keep pinging each other
 
 The next piece is communication between the bots and the automation loop. They have schedules. They keep pinging back and forth. Sometimes silent for a while. Sometimes suddenly back to work.
 
@@ -55,9 +51,9 @@ Give them a mailbox, a Cloudflare account, a GitHub account — the same surface
 
 ## This replaced my local coding agent
 
-I stood the team up on [chmonitor](https://chmonitor.dev), [anyrouter.dev](https://anyrouter.dev), [news.duyet.net](https://news.duyet.net), and the rest of the duyet.net apps.
+When I ask a bot to code, it launches a Cursor Cloud Agent for each task and PR. I can keep feeding it input or adjust details in realtime. You can also install Cursor CLI or Grok Build and code remotely via herdr — the way I still work from my homelab machine, only now from anywhere. The bot can drive those local coding agents without issues.
 
-![Grok Bot team](/media/2026/08/grok-bot/team.png)
+![Cursor Cloud Agent launched from Grok Bot](/media/2026/08/grok-bot/cursor-cloud-agent.jpg)
 
 The team babysits GitHub issues and PRs, auto-deploys, and validates. Fixes go through Grok Build or a Cursor Cloud Agent (SuperGrok Heavy, so Cursor Ultra $200 is actually in the loop). Long time since I was back in Cursor. They are so good now.
 
@@ -70,5 +66,5 @@ I also asked it to print a one-page A4 every morning when I walk into the home o
 <img src="/media/2026/08/grok-bot/daily-print.jpg" alt="duyetbot daily report on the T720DW" />
 </div>
 
-I will write again when a week of weekday routines has either held or gone quiet.
+I will keep using it, discovering more, and posting updates.
 

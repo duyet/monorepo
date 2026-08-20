@@ -140,7 +140,8 @@ describe("SubscribeCapture", () => {
       source: "blog",
     });
     await waitFor(() =>
-      expect(screen.getByText("You're subscribed for updates.")).toBeTruthy(),
+      expect(screen.queryByPlaceholderText("you@example.com")).toBeNull(),
     );
+    expect(localStorage.getItem(SUBSCRIBE_STORAGE_KEY)).toBe("1");
   });
 });
