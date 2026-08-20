@@ -7,6 +7,9 @@ export function getRouter() {
     defaultPreload: "intent",
     scrollRestoration: true,
     trailingSlash: "always",
+    // Prerendered HTML is the source of truth. Do not refetch loaders on
+    // hydrate (default staleTime is 0) — that pending swap blanks the post.
+    defaultStaleTime: Number.POSITIVE_INFINITY,
   });
 }
 
