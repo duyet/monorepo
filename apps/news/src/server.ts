@@ -1,6 +1,7 @@
 import handler from "@tanstack/react-start/server-entry";
 import type { Env } from "../worker/types";
 import { NewsIngestWorkflow } from "../worker/workflow";
+import { applyNotFoundHttpStatus } from "./lib/not-found-status";
 import {
   buildSitemapXml,
   loadSitemapUrls,
@@ -39,7 +40,7 @@ export default {
         return sitemapResponse(buildSitemapXml(staticSitemapUrls()));
       }
     }
-    return handler.fetch(request);
+    return applyNotFoundHttpStatus(await handler.fetch(request));
   },
   async scheduled(_controller: ScheduledController, env: Env) {
     await env.NEWS_INGEST.create();
