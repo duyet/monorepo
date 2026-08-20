@@ -27,6 +27,8 @@ The difference is the computer. Not a headless sandbox. The bot has a real deskt
 
 Musk's deal with Cursor looks like a good one from here. Cursor already had Cloud Agents, sandboxes, and Chrome Desktop on those sandboxes for automation and UI tests. Grok Bot feels like that idea taken all the way: not "run a coding agent in a box," but give the agent a machine you can see.
 
+![duyetbot GitHub contributions — 29,480 in the last year](/media/2026/08/grok-bot/duyetbot-github.jpg)
+
 ## Design the team
 
 duyetbot was the first one. I was not clear yet how it was working. Then a bunch of agents that talk to each other.
