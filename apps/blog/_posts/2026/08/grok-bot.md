@@ -21,7 +21,7 @@ This will change how we use coding agents. I think it changes software engineeri
 
 ## A year of trying to automate duyetbot
 
-I have been trying to automate duyetbot for a year. First it was Claude Code on a cron, custom Claude Agent SDK -> then OpenClaw -> Hermes Agent. Grok Bot is the first one that looks like what I actually wanted.
+I have been trying to automate [@duyetbot](https://x.com/duyetbot) for years. First it was Claude Code on a cron, custom Claude Agent SDK -> then OpenClaw -> Hermes Agent. Grok Bot is the first one that looks like what I actually wanted.
 
 The difference is the computer. Not a headless sandbox. The bot has a real desktop, a browser, persistent memory, and a workspace you can watch while it works.
 
