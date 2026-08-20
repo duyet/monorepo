@@ -9,6 +9,9 @@ import {
 import { KpiTile } from "@/components/overview/KpiTile";
 import type { KpiTileData } from "@/components/overview/KpiTile";
 import { TokenAttributionSection } from "@/components/overview/TokenAttributionSection";
+import { BillingSection } from "@/components/overview/BillingSection";
+import { SuggestionsAndChat } from "@/components/overview/AgentChatPanel";
+import { deriveBilling, deriveSuggestions } from "@/components/overview/suggestions";
 import {
   InsightAreaChart,
   InsightDistributionChart,
@@ -283,6 +286,9 @@ function IndexPage() {
           </Reveal>
         ))}
       </div>
+
+      <SuggestionsAndChat suggestions={deriveSuggestions(data)} />
+      <BillingSection billing={deriveBilling(data)} />
 
       {/* ---- Coding + AI split ---- */}
       <div className="rd-g2 mt-3">

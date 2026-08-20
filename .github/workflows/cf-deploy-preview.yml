@@ -151,6 +151,7 @@ jobs:
     needs: [detect-changes, typecheck, unittest, lint]
     if: ${{ needs.detect-changes.outputs.matrix != '{"include":[]}' && github.event.pull_request.head.repo.full_name == github.repository && (github.event.pull_request.author_association == 'OWNER' || github.event.pull_request.author_association == 'MEMBER') }}
     runs-on: ubuntu-latest
+    environment: staging
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.detect-changes.outputs.matrix) }}
@@ -231,8 +232,9 @@ jobs:
           # Clerk Authentication (blog app)
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
           VITE_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
-          # burns preview build fetches token-data.json from MotherDuck
-          MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
+          # Burns only: staging MOTHERDUCK_TOKEN refreshes data. If empty,
+          # fetch-burns-data.ts keeps committed public/token-data.json.
+          MOTHERDUCK_TOKEN: ${{ matrix.app == 'burns' && secrets.MOTHERDUCK_TOKEN || '' }}
 
       - name: Save build failure status
         if: failure() && steps.build.outcome == 'failure'

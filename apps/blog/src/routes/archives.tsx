@@ -84,7 +84,7 @@ function Archives(): ReactElement {
                 {posts.map((post) => (
                   <li
                     key={post.slug}
-                    className="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr_120px] items-baseline gap-4 py-4"
+                    className="grid grid-cols-[4.5rem_1fr] md:grid-cols-[120px_1fr_120px] items-baseline gap-3 sm:gap-4 py-4 min-w-0"
                   >
                     <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground tabular-nums">
                       {dateFormat(new Date(post.date), "MMM d")}
@@ -92,7 +92,7 @@ function Archives(): ReactElement {
                     <Link
                       to="/$year/$month/$slug/"
                       params={postParams(post)}
-                      className="text-base font-medium tracking-tight hover:text-muted-foreground transition-colors"
+                      className="min-w-0 text-base font-medium tracking-tight hover:text-muted-foreground transition-colors"
                     >
                       {post.title}
                     </Link>

@@ -49,8 +49,12 @@ const mockPhotos = [
 
 describe("GridUtilities", () => {
   describe("getColumnsForViewport", () => {
-    test("returns 1 column for mobile", () => {
-      expect(getColumnsForViewport(600)).toBe(1);
+    test("returns 1 column at the 640px masonry boundary", () => {
+      expect(getColumnsForViewport(640)).toBe(1);
+    });
+
+    test("returns 2 columns at the 768px masonry boundary", () => {
+      expect(getColumnsForViewport(768)).toBe(2);
     });
 
     test("returns 3 columns for tablet", () => {

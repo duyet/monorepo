@@ -15,7 +15,10 @@ const Card = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SharedCard
     ref={ref}
-    className={cn("rounded-lg border bg-card text-card-foreground shadow-none", className)}
+    className={cn(
+      "rounded-[8px] border border-white/10 bg-card text-card-foreground shadow-none",
+      className,
+    )}
     {...props}
   />
 ));
@@ -39,7 +42,7 @@ const CardTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SharedCardTitle
     ref={ref}
-    className={cn("text-sm font-medium tracking-tight", className)}
+    className={cn("text-sm font-semibold tracking-tight", className)}
     {...props}
   />
 ));

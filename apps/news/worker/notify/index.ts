@@ -13,6 +13,7 @@ import type {
   Notifier,
   StoryPayload,
 } from "./types.js";
+import { webhookNotifier } from "./webhook.js";
 
 /**
  * Channel-agnostic dispatch, deliberately non-spammy. Two kinds of posts:
@@ -29,7 +30,7 @@ import type {
  */
 
 /** Registered delivery channels; add discord/... here. */
-export const notifiers: Notifier[] = [telegramNotifier];
+export const notifiers: Notifier[] = [telegramNotifier, webhookNotifier];
 
 /** Calls each channel's enabled() so a half-configured deploy (chat id
  *  without token) throws instead of silently skipping sends. */
@@ -232,7 +233,7 @@ async function loadDigest(env: Env, date: string): Promise<DailyDigest | null> {
   // the local date always equals the snapshot's UTC date, and a missing
   // snapshot returns null so a later run retries instead of resending an
   // older day's digest.
-  const snapshot = await env.DB.prepare(
+  let snapshot = await env.DB.prepare(
     "SELECT date, bullets_en, bullets_vi FROM tldr_snapshots WHERE date = ?"
   )
     .bind(date)
@@ -241,6 +242,21 @@ async function loadDigest(env: Env, date: string): Promise<DailyDigest | null> {
       bullets_en: string | null;
       bullets_vi: string | null;
     }>();
+  // TL;DR used to key on UTC date; if today's local row is missing, try UTC.
+  if (!snapshot) {
+    const utcDate = new Date().toISOString().slice(0, 10);
+    if (utcDate !== date) {
+      snapshot = await env.DB.prepare(
+        "SELECT date, bullets_en, bullets_vi FROM tldr_snapshots WHERE date = ?"
+      )
+        .bind(utcDate)
+        .first<{
+          date: string;
+          bullets_en: string | null;
+          bullets_vi: string | null;
+        }>();
+    }
+  }
   if (!snapshot) return null;
 
   const raw = topBullets(snapshot.bullets_vi, DIGEST_MAX_BULLETS);
@@ -440,4 +456,41 @@ export async function dispatchStoryNotifications(
   const report: NotifyRunResult = { sent, reasons };
   console.info("notify", report);
   return report;
+}
+
+/** Admin/manual: send today's digest now, ignoring the 08:00 local gate
+ * and overwriting a prior sent/failed row. */
+export async function forceSendDigest(
+  env: Env
+): Promise<{ sent: number; reason: string }> {
+  const now = Date.now();
+  const { date } = getLocalHourAndDate(now, DIGEST_TIMEZONE);
+  const key = digestKey(date);
+  const digest = await loadDigest(env, date);
+  if (!digest) {
+    return { sent: 0, reason: `no TL;DR snapshot for ${date}` };
+  }
+  let sent = 0;
+  for (const notifier of notifiers) {
+    if (!notifier.enabled(env)) {
+      return {
+        sent: 0,
+        reason: `${notifier.id} not configured (missing bot token or chat id)`,
+      };
+    }
+    const target = notifier.target(env);
+    let result: { ok: boolean; messageId?: string; error?: string };
+    try {
+      result = await notifier.sendDigest(env, digest);
+    } catch (error) {
+      result = {
+        ok: false,
+        error: error instanceof Error ? error.message : String(error),
+      };
+    }
+    await recordDelivery(env, notifier.id, target, key, result);
+    if (result.ok) sent++;
+    else return { sent, reason: result.error ?? "send failed" };
+  }
+  return { sent, reason: sent > 0 ? `sent digest ${date}` : "no channel sent" };
 }

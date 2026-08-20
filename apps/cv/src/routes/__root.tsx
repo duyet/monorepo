@@ -101,11 +101,11 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <ThemeProvider>
           <main>
             <Container className="mb-20 mt-10 min-h-screen max-w-3xl md:mt-20">

@@ -36,4 +36,19 @@ describe("localizedTitle", () => {
     });
     expect(localizedTitle(missing, "en").fallbackFromEnglish).toBe(false);
   });
+
+  it("hides the EN badge when the original title is already Vietnamese", () => {
+    expect(
+      localizedTitle(
+        {
+          title: "Z AI GLM-5.3 hòa Kimi K3 mô hình nguồn mở thông minh nhất",
+          title_vi: null,
+        },
+        "vi"
+      )
+    ).toEqual({
+      text: "Z AI GLM-5.3 hòa Kimi K3 mô hình nguồn mở thông minh nhất",
+      fallbackFromEnglish: false,
+    });
+  });
 });

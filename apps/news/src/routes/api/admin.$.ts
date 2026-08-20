@@ -5,11 +5,14 @@ import {
   getLlmCalls,
   getStatus,
   isHandlerError,
+  listAudit,
+  listNotifications,
   listItems,
   listSources,
   pushItems,
   regenerateTldr,
   reprocessToday,
+  retryTelegramDigest,
   triggerIngest,
   updateItem,
   upsertSource,
@@ -219,6 +222,27 @@ async function handle(
   }
   if (method === "PUT" && segments[0] === "mail") {
     return handleMail("PUT", segments.slice(1), request, env);
+  }
+
+  if (
+    method === "GET" &&
+    segments.length === 1 &&
+    segments[0] === "notifications"
+  ) {
+    return Response.json(await listNotifications(env));
+  }
+
+  if (method === "GET" && segments.length === 1 && segments[0] === "audit") {
+    return Response.json(await listAudit(env));
+  }
+
+  if (
+    method === "POST" &&
+    segments.length === 2 &&
+    segments[0] === "notify" &&
+    segments[1] === "digest"
+  ) {
+    return Response.json(await retryTelegramDigest(env));
   }
 
   return notFound();

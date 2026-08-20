@@ -866,6 +866,48 @@ describe("model fallback chain", () => {
     expect(results[0].title).toBe("Tin GLM-5.3");
   });
 
+  it("copies an already-Vietnamese title without calling the LLM", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+
+    const results = await translateItems(env, [
+      {
+        i: 0,
+        title: "GLM-5.3 hòa Kimi K3 mô hình nguồn mở thông minh nhất",
+        summary: "Tóm tắt sẵn có.",
+      },
+    ]);
+    expect(fetchMock).not.toHaveBeenCalled();
+    expect(results).toEqual([
+      {
+        i: 0,
+        title: "GLM-5.3 hòa Kimi K3 mô hình nguồn mở thông minh nhất",
+        summary: "Tóm tắt sẵn có.",
+        tokens: 0,
+      },
+    ]);
+  });
+
+  it("retries leftover items one at a time after a batch fails", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(completion(JSON.stringify({ results: [] })))
+      .mockResolvedValueOnce(
+        completion(JSON.stringify({ results: [{ i: 0, title: "Tin A" }] }))
+      )
+      .mockResolvedValueOnce(
+        completion(JSON.stringify({ results: [{ i: 1, title: "Tin B" }] }))
+      );
+    vi.stubGlobal("fetch", fetchMock);
+
+    const results = await translateItems(env, [
+      { i: 0, title: "Story A" },
+      { i: 1, title: "Story B" },
+    ]);
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+    expect(results.map((row) => row.title).sort()).toEqual(["Tin A", "Tin B"]);
+  });
+
   it("advances past a hanging model via raceTimeout so the next id can run", async () => {
     vi.useFakeTimers();
     try {

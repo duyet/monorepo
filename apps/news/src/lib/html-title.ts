@@ -21,7 +21,7 @@ export function splatOwnsDocumentTitle(
 
 /**
  * Document-order first title from stacked route head() meta lists.
- * Root emits the 404 title when the splat matched (splat head is skipped).
+ * Catch-all owns the 404 title; root omits SITE_TITLE when the splat matched.
  */
 export function firstTitleFromHeadMetas(
   heads: Array<Array<{ title?: string }>>

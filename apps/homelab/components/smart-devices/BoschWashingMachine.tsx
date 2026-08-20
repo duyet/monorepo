@@ -54,13 +54,13 @@ function ViewModeToggle({
   onChange: (mode: ViewMode) => void;
 }) {
   return (
-    <div className="flex rounded-full bg-neutral-100 p-0.5 dark:bg-neutral-800">
+    <div className="flex rounded-full bg-white/8 p-0.5">
       <button
         onClick={() => onChange("day")}
         className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
           mode === "day"
-            ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
-            : "text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200"
+            ? "bg-[#f3efe6] text-[#070708]"
+            : "text-[#8b877c] hover:text-[#f3efe6]"
         }`}
       >
         Day
@@ -69,8 +69,8 @@ function ViewModeToggle({
         onClick={() => onChange("month")}
         className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
           mode === "month"
-            ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
-            : "text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200"
+            ? "bg-[#f3efe6] text-[#070708]"
+            : "text-[#8b877c] hover:text-[#f3efe6]"
         }`}
       >
         Month
@@ -142,7 +142,7 @@ function ConsumptionChart({
     <div className={`${BENTO_CELL} ${className ?? ""}`}>
       <div className="mb-4 space-y-2">
         <div className="flex items-center justify-between">
-          <h4 className="flex items-center gap-2 text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+          <h4 className="flex items-center gap-2 text-sm font-semibold text-foreground">
             {icon}
             {title}
           </h4>
@@ -159,7 +159,7 @@ function ConsumptionChart({
         {selectedEntry && (
           <p className="text-sm text-neutral-500 dark:text-neutral-400">
             {selectedEntry.label}:{" "}
-            <span className="font-semibold text-neutral-900 dark:text-neutral-100">
+            <span className="font-semibold text-foreground">
               {selectedEntry.value} {unit}
             </span>
           </p>
@@ -210,7 +210,7 @@ const STATUS_CONFIG = {
   offline: {
     label: "Offline",
     badgeClass:
-      "bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-400",
+      "bg-white/10 text-muted-foreground",
     dotClass: "bg-neutral-400",
   },
 } as const;
@@ -227,7 +227,7 @@ export function BoschWashingMachine() {
           <RefreshCw className="h-5 w-5 text-claude-lavender" />
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+          <h3 className="text-lg font-semibold text-foreground">
             {data.model}
           </h3>
           <p className="text-xs text-neutral-500 dark:text-neutral-400">

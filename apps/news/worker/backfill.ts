@@ -6,7 +6,10 @@
  */
 
 export const BACKFILL_CONTENT_CAP = 15;
-export const BACKFILL_TRANSLATE_CAP = 15;
+/** Hourly drain for missing title_vi. 15 left today's EN badges up for
+ * many hours after a failed ingest translate; 45 is 15 workflow slices
+ * of TRANSLATE_BATCH_SIZE and still well under the step budget. */
+export const BACKFILL_TRANSLATE_CAP = 45;
 export const BACKFILL_SCORE_CAP = 15;
 export const BACKFILL_BATCH_SIZE = 4;
 

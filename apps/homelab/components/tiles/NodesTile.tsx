@@ -18,11 +18,14 @@ function NodesTile() {
 
   return (
     <Card className="min-w-0">
-      <CardHeader className="flex-row items-center justify-between">
-        <CardTitle>Nodes</CardTitle>
-        <Badge variant="secondary" className="font-mono text-[11px] font-normal">
-          {onlineCount}/{totalNodes} online
-        </Badge>
+      <CardHeader className="flex-row items-baseline justify-between">
+        <CardTitle className="text-base font-semibold">Nodes</CardTitle>
+        <span className="font-mono text-[12px] text-[var(--rd-text-3)]">
+          <strong className="font-semibold text-[var(--rd-accent)]">
+            {onlineCount}/{totalNodes}
+          </strong>{" "}
+          online
+        </span>
       </CardHeader>
       <CardContent>
         <Table>

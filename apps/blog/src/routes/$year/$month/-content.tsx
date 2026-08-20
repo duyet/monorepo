@@ -4,7 +4,7 @@ import type { TOCItem } from "@duyet/libs/extractHeadings";
 import { cn } from "@duyet/libs/utils";
 import { compile, run } from "@mdx-js/mdx";
 import { common } from "lowlight";
-import { Fragment, use, useEffect, useRef } from "react";
+import { Fragment, Suspense, use, useEffect, useRef } from "react";
 import * as runtime from "react/jsx-runtime";
 import rehypeHighlight from "rehype-highlight";
 import rehypeKatex from "rehype-katex";
@@ -186,6 +186,15 @@ function MDXRenderer({ source }: { source: string }) {
 export default function Content({ post }: { post: ContentPost }) {
   const copyRef = useCodeCopyButtons();
   useTwitterWidgets();
+  const html = embedXPosts(post.content || "");
+  const staticArticle = (
+    <article
+      className={typesetClassName}
+      dangerouslySetInnerHTML={{
+        __html: html || (post.isMDX ? "" : "No content"),
+      }}
+    />
+  );
 
   return (
     <>
@@ -193,14 +202,11 @@ export default function Content({ post }: { post: ContentPost }) {
 
       <div ref={copyRef} className="contents">
         {post.isMDX && post.mdxSource ? (
-          <MDXRenderer source={post.mdxSource} />
+          <Suspense fallback={staticArticle}>
+            <MDXRenderer source={post.mdxSource} />
+          </Suspense>
         ) : (
-          <article
-            className={typesetClassName}
-            dangerouslySetInnerHTML={{
-              __html: embedXPosts(post.content || "No content"),
-            }}
-          />
+          staticArticle
         )}
       </div>
 

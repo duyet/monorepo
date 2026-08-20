@@ -16,6 +16,7 @@ export function SiteHeader({
   localNav,
   activeHref,
   className,
+  hideThemeToggle = false,
 }: SiteHeaderProps) {
   return (
     <header
@@ -32,11 +33,15 @@ export function SiteHeader({
         <div className="ml-auto flex shrink-0 items-center gap-1">
           <MobileNav currentApp={currentApp} localNav={localNav} />
           <GlobalNav currentApp={currentApp} localNav={localNav} />
-          <Separator
-            orientation="vertical"
-            className="mx-1 hidden h-6 md:block"
-          />
-          <ThemeButton />
+          {!hideThemeToggle && (
+            <>
+              <Separator
+                orientation="vertical"
+                className="mx-1 hidden h-6 md:block"
+              />
+              <ThemeButton />
+            </>
+          )}
         </div>
       </div>
     </header>

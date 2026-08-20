@@ -1,3 +1,4 @@
+import { Donut } from "@duyet/components";
 import type { CCUsageActivityByModelData } from "@/app/ai/types";
 import {
   Area,
@@ -5,9 +6,6 @@ import {
   Bar,
   BarChart,
   Grid,
-  Legend,
-  Pie,
-  PieChart,
   Tooltip,
   XAxis,
   YAxis,
@@ -120,20 +118,46 @@ function InsightDonutChart({
     return <EmptyChart label="No model cost data available." />;
   }
 
-  const config: ChartConfig = Object.fromEntries(
-    data.map((d, i) => [
-      d.name,
-      { label: compactName(d.name), color: BAR_COLORS[i % BAR_COLORS.length] },
-    ])
-  );
+  const palette = [
+    "#3b82f6",
+    "#a855f7",
+    "#22c55e",
+    "#ec4899",
+    "#f97316",
+    "#ef4444",
+  ];
+  const slices = data.map((d, i) => ({
+    name: compactName(d.name),
+    value: d.pct || d.cost,
+    pct: d.pct,
+    cost: d.cost,
+    color: `var(--chart-${(i % 6) + 1}, ${palette[i % 6]})`,
+  }));
 
   return (
-    <div aria-label={ariaLabel} className="h-[200px] min-w-0" role="img">
-      <PieChart data={data} dataKey="pct" nameKey="name" config={config} innerRadius={0.55}>
-        <Pie />
-        <Legend isClickable align="center" />
-        <Tooltip />
-      </PieChart>
+    <div className="flex min-h-[200px] min-w-0 flex-wrap items-center justify-center gap-6">
+      <Donut
+        ariaLabel={ariaLabel ?? "Cost share"}
+        data={slices}
+        size={180}
+      />
+      <ul className="grid gap-2 text-sm" aria-label="Cost share legend">
+        {slices.map((slice) => (
+          <li className="flex items-center gap-2" key={slice.name}>
+            <span
+              aria-hidden="true"
+              className="inline-block h-2.5 w-2.5 rounded-full"
+              style={{ background: slice.color }}
+            />
+            <span className="text-[var(--rd-text-2)]">
+              {slice.name} ·{" "}
+              {slice.pct > 0
+                ? `${Math.round(slice.pct)}%`
+                : `$${formatNumber(slice.cost)}`}
+            </span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

@@ -103,7 +103,7 @@ describe("translate batch size", () => {
 
   it("chunks translateItems by 3 so a 15-item JSON blob cannot eat the hang-cap", () => {
     expect(llm).toMatch(/TRANSLATE_BATCH_SIZE = 3/);
-    expect(llm).toMatch(/chunk\(items, TRANSLATE_BATCH_SIZE\)/);
+    expect(llm).toMatch(/chunk\(needLlm, TRANSLATE_BATCH_SIZE\)/);
     expect(algorithm).toMatch(/batches of 3/);
   });
 

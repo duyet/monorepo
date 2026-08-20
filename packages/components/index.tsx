@@ -48,6 +48,17 @@ export {
   fetchGitHubRepos,
   OpenSourceGrid,
 } from "./OpenSourceGrid";
+// SVG chart primitives (sparkline also re-exported from redesign)
+export { BarList, Donut, Heatmap } from "./charts";
+export type {
+  BarListItem,
+  ChartBarListProps,
+  DonutProps,
+  DonutSlice,
+  HeatmapCell,
+  HeatmapProps,
+  SparklineProps,
+} from "./charts";
 // Redesign components (2026 duyet.net redesign)
 export * from "./redesign";
 export type { SiteFooterLink, SiteFooterProps } from "./SiteFooter";

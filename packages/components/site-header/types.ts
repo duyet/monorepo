@@ -69,4 +69,5 @@ export interface SiteHeaderProps {
   localNav?: LocalNavItem[];
   activeHref?: string;
   className?: string;
+  hideThemeToggle?: boolean;
 }
