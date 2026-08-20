@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.6](https://github.com/duyet/monorepo/compare/v0.1.5...v0.1.6) (2026-08-20)
+
+
+### 🐛 Bug Fixes
+
+* address open news, viz, alerting, and insights issues ([#1332](https://github.com/duyet/monorepo/issues/1332)) ([1f9554c](https://github.com/duyet/monorepo/commit/1f9554c4e4df0cb75bd6801dd2f80b5129dd46a2))
+* **news:** rewrite splat HTML to HTTP 404 in the Worker ([#1314](https://github.com/duyet/monorepo/issues/1314)) ([9cba8c1](https://github.com/duyet/monorepo/commit/9cba8c11532750ddfe7da2d651eef18b8abca891))
+
 ## [0.1.5](https://github.com/duyet/monorepo/compare/v0.1.4...v0.1.5) (2026-08-20)
 
 
