@@ -8,6 +8,7 @@ import {
   rewriteHydrationRetryHtml,
   SAME_URL_FIRST_RETRY_IMPORT,
 } from "../apps/home/functions/_middleware";
+import { preferStaticFirstPaint } from "./patch-html-for-cloudflare";
 
 const source = readFileSync(
   join(dirname(fileURLToPath(import.meta.url)), "patch-html-for-cloudflare.ts"),
@@ -53,17 +54,38 @@ describe("home Pages Function rewrites the old cache-busting retry", () => {
 });
 
 describe("home TanStack client entry", () => {
+  const client = readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), "../apps/home/src/client.tsx"),
+    "utf8",
+  );
+
   it("sets __CF_ENTRY_RAN__ before hydrateRoot so the CF retry does not run twice", () => {
-    const client = readFileSync(
-      join(
-        dirname(fileURLToPath(import.meta.url)),
-        "../apps/home/src/client.tsx",
-      ),
-      "utf8",
-    );
     const flag = client.indexOf("w.__CF_ENTRY_RAN__ = true");
     const hydrate = client.indexOf("hydrateRoot(");
     expect(flag).toBeGreaterThan(0);
     expect(hydrate).toBeGreaterThan(flag);
+  });
+
+  it("hydrates after first paint so prerendered HTML is the first body", () => {
+    expect(client).toContain("afterFirstPaint");
+    expect(client).toContain("requestIdleCallback");
+    expect(client.indexOf("afterFirstPaint")).toBeLessThan(
+      client.indexOf("hydrateRoot("),
+    );
+  });
+});
+
+describe("preferStaticFirstPaint", () => {
+  it("puts CSS before JS and drops head modulepreloads", () => {
+    const html = `<html><head><link rel="modulepreload" href="/assets/main-abc.js"/><link rel="icon" href="/icon.svg"/><link rel="stylesheet" href="/assets/main-abc.css#" type="text/css"/></head><body><main>Building agent workflows</main><script type="module">import("/assets/main-abc.js")</script></body></html>`;
+    const out = preferStaticFirstPaint(html);
+    expect(out).toContain("Building agent workflows");
+    expect(out).not.toContain("modulepreload");
+    expect(out).toContain('href="/assets/main-abc.css"');
+    expect(out).not.toContain(".css#");
+    expect(out.indexOf('rel="stylesheet"')).toBeLessThan(
+      out.indexOf('rel="icon"'),
+    );
+    expect(out).toContain('import("/assets/main-abc.js")');
   });
 });

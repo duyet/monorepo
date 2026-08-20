@@ -1,7 +1,7 @@
 #!/usr/bin/env tsx
 
 import { Database } from "duckdb-async";
-import { mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { normalizeSource } from "../src/lib/sources";
 
@@ -10,32 +10,23 @@ const MOTHERDUCK_TOKEN = process.env.MOTHERDUCK_TOKEN;
 const OUTPUT_DIR = join(import.meta.dirname, "..", "public");
 const OUTPUT_FILE = join(OUTPUT_DIR, "token-data.json");
 
+/** Master/cron/manual deploys must refresh. Preview and local can keep the snapshot. */
+function requiresFreshBurnsData(
+  eventName = process.env.GITHUB_EVENT_NAME,
+  ref = process.env.GITHUB_REF,
+): boolean {
+  return (
+    eventName === "schedule" ||
+    eventName === "workflow_dispatch" ||
+    ref === "refs/heads/master" ||
+    ref === "refs/heads/main"
+  );
+}
+
 interface SourceAgg {
   source: string;
   total_tokens: number;
   cost: number;
-}
-
-const emptyTokenData = {
-  generatedAt: "",
-  firstDate: null,
-  lastDate: null,
-  sources: [] as string[],
-  totals: {
-    input_tokens: 0,
-    output_tokens: 0,
-    cache_creation_tokens: 0,
-    cache_read_tokens: 0,
-    total_tokens: 0,
-    total_cost: 0,
-  },
-  source_totals: [] as SourceAgg[],
-  daily: [] as Array<Record<string, unknown>>,
-};
-
-function writeTokenData(data: unknown): void {
-  mkdirSync(OUTPUT_DIR, { recursive: true });
-  writeFileSync(OUTPUT_FILE, JSON.stringify(data, null, 2));
 }
 
 function mergeSource(
@@ -55,17 +46,13 @@ function mergeSource(
 
 async function main() {
   if (!MOTHERDUCK_TOKEN) {
-    // Preview CI does not pass MotherDuck. Production and local builds
-    // must still fail rather than publish zero usage.
-    if (process.env.GITHUB_EVENT_NAME !== "pull_request") {
-      throw new Error("MOTHERDUCK_TOKEN is required");
+    if (!requiresFreshBurnsData() && existsSync(OUTPUT_FILE)) {
+      console.warn(
+        "MOTHERDUCK_TOKEN is not set; keeping committed public/token-data.json",
+      );
+      return;
     }
-    console.warn("MOTHERDUCK_TOKEN missing; writing empty token-data.json");
-    writeTokenData({
-      ...emptyTokenData,
-      generatedAt: new Date().toISOString(),
-    });
-    return;
+    throw new Error("MOTHERDUCK_TOKEN is required");
   }
 
   console.log("Connecting to MotherDuck...");
@@ -195,7 +182,8 @@ async function main() {
     })),
   };
 
-  writeTokenData(data);
+  mkdirSync(OUTPUT_DIR, { recursive: true });
+  writeFileSync(OUTPUT_FILE, JSON.stringify(data, null, 2));
 
   console.log(`\nTotal tokens: ${data.totals.total_tokens.toLocaleString()}`);
   console.log(`Total cost:   $${data.totals.total_cost.toLocaleString()}`);

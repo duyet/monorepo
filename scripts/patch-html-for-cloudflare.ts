@@ -48,6 +48,27 @@ let files = 0;
 let tags = 0;
 let retries = 0;
 
+/**
+ * Prerendered pages already contain the full body. Head `modulepreload` of the
+ * 600kB+ client graph races the stylesheet, so first paint looks like the body
+ * arrived later. Drop those preloads (the body module script still loads JS)
+ * and put stylesheets first in `<head>`.
+ */
+export function preferStaticFirstPaint(html: string): string {
+  let out = html.replace(/<link\b[^>]*rel="modulepreload"[^>]*>/gi, "");
+  const sheets = [
+    ...out.matchAll(/<link\b[^>]*rel=["']stylesheet["'][^>]*>/gi),
+  ].map((m) => m[0]);
+  if (sheets.length === 0) return out;
+  for (const sheet of sheets) {
+    out = out.replace(sheet, "");
+  }
+  const cleaned = sheets.map((sheet) =>
+    sheet.replace(/(\.css)#(["'\s>])/g, "$1$2"),
+  );
+  return out.replace(/<head([^>]*)>/i, `<head$1>${cleaned.join("")}`);
+}
+
 function patchHtmlFiles(dir: string) {
   for (const entry of readdirSync(dir)) {
     const filePath = join(dir, entry);
@@ -59,7 +80,7 @@ function patchHtmlFiles(dir: string) {
 
     const original = readFileSync(filePath, "utf8");
     let count = 0;
-    let updated = original.replace(SCRIPT_OPEN, () => {
+    let updated = preferStaticFirstPaint(original).replace(SCRIPT_OPEN, () => {
       count += 1;
       return '<script data-cfasync="false"';
     });
@@ -81,7 +102,13 @@ function patchHtmlFiles(dir: string) {
   }
 }
 
-patchHtmlFiles(distDir);
-console.log(
-  `Rocket Loader opt-out: tagged ${tags} <script> tags across ${files} HTML files; hydration retry on ${retries} files.`,
-);
+const launched = process.argv[1]?.replace(/\\/g, "/") ?? "";
+if (
+  launched.endsWith("patch-html-for-cloudflare.ts") ||
+  launched.endsWith("patch-html-for-cloudflare.js")
+) {
+  patchHtmlFiles(distDir);
+  console.log(
+    `Rocket Loader opt-out: tagged ${tags} <script> tags across ${files} HTML files; hydration retry on ${retries} files.`,
+  );
+}
