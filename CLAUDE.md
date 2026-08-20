@@ -13,6 +13,13 @@ For `apps/news` (news.duyet.net: LLM news pipeline on Workers/Workflows/D1), rea
 
 Put durable repository knowledge in `docs/ai/internal-knowledge.md` instead of expanding this file.
 
+## Herdr isolated worktrees (when `HERDR_ENV=1`)
+
+`herdr worktree create` only opens a **shell** pane. Always follow with
+`herdr agent start` + `herdr agent prompt` on `.result.root_pane.pane_id`, or
+the worktree sits idle. Recipe: `docs/ai/internal-knowledge.md` (Herdr section).
+Do not run bare `herdr` (attaches the TUI). Confirm with `herdr --skill`.
+
 ## Code-smell / dead-code automation
 
 For scoped reviews after the last run timestamp:

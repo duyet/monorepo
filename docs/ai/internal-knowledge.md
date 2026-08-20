@@ -18,6 +18,24 @@ GitHub repo metadata (description + topics) must match the current stack. When m
 - UI primitives come from **latest shadcn/ui** under `packages/components/ui/` (registry style `new-york-v4`). Chat conversations use the official June 2026 set: `MessageScroller`, `Message`, `Bubble`, `Attachment`, `Marker`. Compose them via `ChatTranscript` / `ChatMessageList` in `packages/components/chat/`. Do not invent a parallel chat kit.
 - Ignore generated Next dumps: `.next/`, `out/`, `next-env.d.ts`. Do not commit `apps/agents/` scratch or leftover agent worktrees.
 
+## Herdr (isolated coding agents)
+
+When this session has `HERDR_ENV=1` and the user asks for a Herdr worktree / parallel agent:
+
+1. Do **not** run bare `herdr` (that attaches the TUI). Use `herdr worktree`, `herdr agent`, or `herdr --skill`.
+2. `herdr worktree create` only creates a git worktree + **shell** pane. It does **not** start a coding agent.
+3. Required follow-up — parse `.result.root_pane.pane_id`, then start and prompt:
+
+```bash
+CREATE=$(herdr worktree create --cwd "$PWD" --branch feat/<name> --base origin/master --no-focus)
+PANE=$(printf '%s' "$CREATE" | jq -r '.result.root_pane.pane_id')
+herdr agent start feat-<short> --kind cursor --pane "$PANE"
+herdr agent prompt feat-<short> "<full task spec>" --wait --timeout 600000
+```
+
+4. Agent names: `[a-z][a-z0-9_-]{0,31}`, unique among live agents. Prefer `--kind` matching the user’s agent (Cursor → `cursor`, Grok → `grok`, etc.).
+5. Herdr 0.8 `agent start` works (`agent_started` / `interactive_ready`). Stopping after `worktree create` is the idle-shell failure mode, not a Herdr regression.
+
 ## Static rendering
 
 - `apps/blog`, `apps/home`, `apps/cv`, `apps/insights`, `apps/photos`, `apps/kb`, `apps/llm-timeline`, `apps/ai-percentage`, `apps/burns`, `apps/homelab`, `apps/x-algo` emit static HTML for public pages at build time (Vite/TanStack prerender or Pages output).
