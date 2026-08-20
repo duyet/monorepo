@@ -1070,7 +1070,16 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
       );
 
       const tldrStats = await step.do("tldr", async () => {
-        return await ensureDailyTldr(this.env);
+        try {
+          return await ensureDailyTldr(this.env);
+        } catch (error) {
+          console.error("tldr step failed:", error);
+          return {
+            generated: false,
+            tokens: 0,
+            reason: error instanceof Error ? error.message : String(error),
+          };
+        }
       });
       tldrGenerated = tldrStats.generated;
       tldrTokens = tldrStats.tokens;

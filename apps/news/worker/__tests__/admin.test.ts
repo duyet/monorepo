@@ -322,6 +322,29 @@ class FakeD1 {
       return this.items.get(id) ?? null;
     }
 
+    if (
+      sql.startsWith(
+        "SELECT date, created_at FROM tldr_snapshots ORDER BY date DESC"
+      )
+    ) {
+      const rows = Array.from(this.tldrSnapshots.values()).sort((a, b) =>
+        String(b.date).localeCompare(String(a.date))
+      );
+      return rows[0] ?? null;
+    }
+
+    if (sql.startsWith("SELECT channel, item_id")) {
+      return { results: [] };
+    }
+
+    if (sql.startsWith("INSERT INTO admin_audit")) {
+      return { success: true };
+    }
+
+    if (sql.startsWith("SELECT ts, action, detail FROM admin_audit")) {
+      return { results: [] };
+    }
+
     if (sql.startsWith("SELECT status, COUNT(*)")) {
       const counts = new Map<string, number>();
       for (const item of this.items.values()) {

@@ -109,6 +109,11 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
   );
   const [tldrBusy, setTldrBusy] = useState(false);
   const [tldrResult, setTldrResult] = useState<string | null>(null);
+  const [notifyBusy, setNotifyBusy] = useState(false);
+  const [notifyResult, setNotifyResult] = useState<string | null>(null);
+  const [audit, setAudit] = useState<
+    { ts: number; action: string; detail?: string | null }[]
+  >([]);
   const [status, setStatus] = useState<unknown>(null);
   const [statusBusy, setStatusBusy] = useState(false);
   const [calls, setCalls] = useState<LlmCall[]>([]);
@@ -150,6 +155,20 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
     }
   }
 
+  async function loadAudit() {
+    try {
+      const res = await authedFetch(admin, "/api/admin/audit");
+      if (res.ok) {
+        const data = (await res.json()) as {
+          audit?: { ts: number; action: string; detail?: string | null }[];
+        };
+        setAudit(Array.isArray(data.audit) ? data.audit : []);
+      }
+    } catch {
+      // keep previous
+    }
+  }
+
   async function loadItems() {
     setItemsBusy(true);
     try {
@@ -168,7 +187,7 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
   async function refreshAll() {
     setRefreshError(false);
     try {
-      await Promise.all([loadStatus(), loadCalls(), loadItems()]);
+      await Promise.all([loadStatus(), loadCalls(), loadItems(), loadAudit()]);
     } catch {
       setRefreshError(true);
     }
@@ -266,6 +285,27 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
       setResult("error — request failed");
     } finally {
       setBusy(false);
+    }
+  }
+
+  async function sendTelegramDigest() {
+    setNotifyBusy(true);
+    setNotifyResult(null);
+    try {
+      const res = await authedFetch(admin, "/api/admin/notify/digest", {
+        method: "POST",
+      });
+      const data = await res.json().catch(() => null);
+      setNotifyResult(
+        res.ok
+          ? `ok — ${JSON.stringify(data)}`
+          : `error (${res.status}) — ${JSON.stringify(data)}`
+      );
+      await loadStatus();
+    } catch {
+      setNotifyResult("error — request failed");
+    } finally {
+      setNotifyBusy(false);
     }
   }
 
@@ -369,11 +409,66 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
         )}
       </div>
 
+      <div className="mt-2 flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          onClick={sendTelegramDigest}
+          disabled={notifyBusy}
+          className="rounded border border-border px-2 py-1 text-xs text-foreground hover:bg-muted disabled:opacity-50"
+        >
+          {notifyBusy ? "Sending…" : "Send Telegram digest"}
+        </button>
+        {notifyResult && (
+          <span className="text-xs text-muted-foreground">{notifyResult}</span>
+        )}
+      </div>
+
       {refreshError && (
         <p className="mt-2 text-xs text-muted-foreground">
           Refresh failed.
         </p>
       )}
+
+      <div className="mt-4">
+        <p className="text-xs font-medium text-muted-foreground">
+          Telegram / TL;DR
+        </p>
+        <pre className="mt-1 max-h-32 overflow-auto rounded border border-border p-2 text-xs text-muted-foreground">
+          {status
+            ? JSON.stringify(
+                {
+                  telegram: (status as { telegram?: unknown }).telegram,
+                  latestTldr: (status as { latestTldr?: unknown }).latestTldr,
+                  notifications: (status as { notifications?: unknown })
+                    .notifications,
+                },
+                null,
+                2
+              )
+            : "No status loaded."}
+        </pre>
+      </div>
+
+      <div className="mt-4">
+        <p className="text-xs font-medium text-muted-foreground">Audit log</p>
+        {audit.length === 0 ? (
+          <p className="mt-1 text-xs text-muted-foreground">No audit rows.</p>
+        ) : (
+          <ul className="mt-1 space-y-0.5 text-xs">
+            {audit.map((row) => (
+              <li key={`${row.ts}-${row.action}`}>
+                <span className="tabular-nums text-muted-foreground">
+                  {new Date(row.ts).toISOString()}
+                </span>{" "}
+                <span className="font-medium">{row.action}</span>
+                {row.detail ? (
+                  <span className="text-muted-foreground"> — {row.detail}</span>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
 
       <div className="mt-4">
         <p className="text-xs font-medium text-muted-foreground">
