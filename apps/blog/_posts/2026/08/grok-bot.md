@@ -19,7 +19,7 @@ I am on SuperGrok Heavy because of Grok Bot and I am super impressed. Wow, from 
 
 This will change how we use coding agents. I think it changes software engineering forever.
 
-## A year of trying to automate duyetbot
+## Years of trying to automate duyetbot
 
 I have been trying to automate [@duyetbot](https://x.com/duyetbot) for years. First it was Claude Code on a cron, custom Claude Agent SDK -> then OpenClaw -> Hermes Agent. Grok Bot is the first one that looks like what I actually wanted.
 
