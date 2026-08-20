@@ -19,11 +19,18 @@ I am on SuperGrok Heavy because of Grok Bot and I am super impressed. Wow, from 
 
 This will change how we use coding agents. I think it changes software engineering forever.
 
-## A year of trying to automate duyetbot
+## Years of trying to automate duyetbot
 
-I have been trying to automate duyetbot for a year. First it was Claude Code on a cron, custom Claude Agent SDK -> then OpenClaw -> Hermes Agent. Grok Bot is the first one that looks like what I actually wanted.
+I have been trying to automate [@duyetbot](https://x.com/duyetbot) for years. First it was Claude Code on a cron, custom Claude Agent SDK -> then OpenClaw -> Hermes Agent -> Grok Bot.
+Grok Bot is the first one that looks like what I actually wanted by the end.
 
-The difference is the computer. Not a headless sandbox. The bot has a browser, persistent memory, a workspace you can watch.
+The difference is the computer. Not a headless sandbox. The bot has a real desktop, a browser, persistent memory, and a workspace you can watch while it works.
+
+Musk's deal with Cursor is really a good deal. Cursor already had Cloud Agents, sandboxes, and Chrome Desktop on those sandboxes for automation and UI tests. Grok Bot feels like that idea taken all the way: not "run a coding agent in a box," but give the agent a machine you can see.
+
+![duyetbot GitHub contributions — 29,480 in the last year](/media/2026/08/grok-bot/duyetbot-github.jpg)
+
+This screenshot is the GitHub contributions of my [@duyetbot](https://github.com/duyetbot), which is now owned by Grok Bot.
 
 ## Design the team
 
@@ -35,8 +42,16 @@ QA is one bot for test and validate. Recerts live after each ship, files only on
 
 They share a computer, each with its own screen, and they message each other. I don't copy a stack trace from one window into another.
 
+![duyetbot the boss with per-repo workers in the sidebar](/media/2026/08/grok-bot/design-the-team.jpg)
+
 > Since the Grok bot has its own desktop computer, I am asking it to review the whole product, going page by page, using a smoke test account. It has found something then create a lot of github issues and will spawn Grok Build to fix them all. I think this kind of daily automation tries to make duyetbot act like a real customer, then report issues and have another bot fix and deploy them autonomously.
 > https://x.com/_duyet/status/2089687655458259272
+
+## Bots that keep pinging each other
+
+The next piece is communication between the bots and the automation loop. They have schedules. They keep pinging back and forth. Sometimes silent for a while. Sometimes suddenly back to work.
+
+Give them a mailbox, a Cloudflare account, a GitHub account — the same surfaces a human uses — and they can do a lot without you sitting in the loop. Mail for alerts and inbound asks. Cloudflare for deploy and config. GitHub for issues, PRs, and review. The schedule is what keeps the team alive when you are not watching.
 
 ## This replaced my local coding agent
 
@@ -56,3 +71,4 @@ I also asked it to print a one-page A4 every morning when I walk into the home o
 </div>
 
 I will write again when a week of weekday routines has either held or gone quiet.
+
