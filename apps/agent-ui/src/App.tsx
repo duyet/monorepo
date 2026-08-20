@@ -92,7 +92,7 @@ function ChatScreen() {
   );
 
   return (
-    <div className="flex min-h-dvh flex-col bg-background text-foreground">
+      <div className="flex min-h-dvh flex-col overflow-x-hidden bg-background text-foreground">
       <SiteHeader currentApp="agents" localNav={AGENT_NAV} activeHref="/" />
 
       <main className="mx-auto flex min-h-0 w-full max-w-2xl flex-1 flex-col">
@@ -103,7 +103,7 @@ function ChatScreen() {
           onSelectSuggestion={submit}
         />
 
-        <div className="mx-auto flex w-full max-w-2xl flex-col gap-2 px-6 pb-6">
+        <div className="mx-auto flex w-full max-w-2xl flex-col gap-2 px-4 pb-6 sm:px-6">
           {error ? (
             <Alert variant="destructive">
               <AlertTitle>Request failed</AlertTitle>

@@ -3,10 +3,20 @@
   "extends": [
     "config:base",
     "group:allNonMajor",
-    "group:nextjsMonorepo",
     "schedule:weekly",
     "schedule:automergeWeekly",
     "security:openssf-scorecard"
   ],
-  "automerge": true
+  "automerge": true,
+  "ignoreDeps": [
+    "@duyet/tsconfig",
+    "@duyet/components",
+    "@duyet/config",
+    "@duyet/libs",
+    "@duyet/tailwind-config",
+    "@duyet/urls",
+    "@duyet/interfaces",
+    "@duyet/wasm",
+    "@duyet/profile"
+  ]
 }

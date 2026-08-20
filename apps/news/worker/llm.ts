@@ -1,3 +1,4 @@
+import { looksVietnamese } from "./tldr-lang.js";
 import type { Env } from "./types.js";
 
 const BATCH_SIZE = 15;
@@ -796,47 +797,72 @@ export async function translateItems(
 ): Promise<TranslateResult[]> {
   const results: TranslateResult[] = [];
   const deadline = Date.now() + TRANSLATE_TIMEOUT_MS;
+  const needLlm: TranslateInput[] = [];
 
-  for (const batch of chunk(items, TRANSLATE_BATCH_SIZE)) {
+  for (const item of items) {
+    if (looksVietnamese(item.title)) {
+      results.push({
+        i: item.i,
+        title: item.title.trim(),
+        summary: item.summary?.trim() ?? "",
+        tokens: 0,
+      });
+    } else {
+      needLlm.push(item);
+    }
+  }
+
+  const translated = new Set(results.map((row) => row.i));
+
+  const runBatch = async (
+    batch: TranslateInput[],
+    titlesOnly: boolean
+  ): Promise<TranslateResult[]> => {
     const remaining = deadline - Date.now();
     if (remaining <= 0) {
-      logTranslateBatchFailed("translate deadline exhausted", batch, false);
-      break;
+      logTranslateBatchFailed("translate deadline exhausted", batch, titlesOnly);
+      return [];
     }
     try {
-      results.push(
-        ...(await translateBatch(
-          env,
-          batch,
-          Math.min(TRANSLATE_BATCH_TIMEOUT_MS, remaining),
-          false
-        ))
+      return await translateBatch(
+        env,
+        batch,
+        Math.min(TRANSLATE_BATCH_TIMEOUT_MS, remaining),
+        titlesOnly
       );
     } catch (error) {
       const reason = error instanceof Error ? error.message : String(error);
-      const hasSummary = batch.some((item) => Boolean(item.summary));
-      const titleBudget = deadline - Date.now();
-      if (!hasSummary || titleBudget <= 0) {
-        logTranslateBatchFailed(reason, batch, false);
-        if (titleBudget <= 0) break;
-        continue;
+      logTranslateBatchFailed(reason, batch, titlesOnly);
+      return [];
+    }
+  };
+
+  for (const batch of chunk(needLlm, TRANSLATE_BATCH_SIZE)) {
+    if (deadline - Date.now() <= 0) {
+      logTranslateBatchFailed("translate deadline exhausted", batch, false);
+      break;
+    }
+
+    let got = await runBatch(batch, false);
+    const hasSummary = batch.some((item) => Boolean(item.summary));
+    if (got.length < batch.length && hasSummary) {
+      const have = new Set(got.map((row) => row.i));
+      const leftover = batch.filter((item) => !have.has(item.i));
+      if (leftover.length > 0) {
+        got = [...got, ...(await runBatch(leftover, true))];
       }
-      try {
-        results.push(
-          ...(await translateBatch(
-            env,
-            batch,
-            Math.min(TRANSLATE_BATCH_TIMEOUT_MS, titleBudget),
-            true
-          ))
-        );
-      } catch (titleError) {
-        logTranslateBatchFailed(
-          titleError instanceof Error ? titleError.message : String(titleError),
-          batch,
-          true
-        );
-      }
+    }
+    results.push(...got);
+    for (const row of got) translated.add(row.i);
+
+    // One poisoned item in a 3-row batch used to leave every title_vi null
+    // (EN badge) until backfill. Retry leftovers one at a time.
+    const stillMissing = batch.filter((item) => !translated.has(item.i));
+    for (const item of stillMissing) {
+      if (deadline - Date.now() <= 0) break;
+      const one = await runBatch([item], true);
+      results.push(...one);
+      for (const row of one) translated.add(row.i);
     }
   }
 

@@ -58,6 +58,7 @@ import { reviewPendingSubmissions } from "./submissions.js";
 import { sendDailyTldr } from "./subscribe/send.js";
 import { reviewPendingSuggestions } from "./suggestions.js";
 import { toEpochSeconds } from "./time.js";
+import { looksVietnamese } from "./tldr-lang.js";
 import { ensureDailyTldr } from "./tldr.js";
 import { MAX_MERGED_TOPICS, normalizeTopics, unionTopics } from "./topics.js";
 import { ratePendingTranslations } from "./translation-qa.js";
@@ -559,7 +560,27 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
 
           // The translate step can be skipped (empty batch result) or the
           // LLM can omit a field entirely; only insert when both are usable.
-          if (translation?.title && translation.summary !== undefined) {
+          // Source titles that are already Vietnamese are stored as title_vi
+          // so the homepage does not paint an EN badge on Vietnamese text.
+          // Persist VI titles only for published items — rejected/merged
+          // rows must not create translations entries (native or LLM).
+          const nativeViTitle =
+            !translation?.title && looksVietnamese(item.title)
+              ? {
+                  title: item.title.trim(),
+                  summary: item.summary?.trim() ?? "",
+                }
+              : null;
+          const persisted =
+            status === "published"
+              ? translation?.title
+                ? {
+                    title: translation.title,
+                    summary: translation.summary ?? "",
+                  }
+                : nativeViTitle
+              : null;
+          if (persisted) {
             statements.push(
               this.env.DB.prepare(
                 `INSERT INTO translations (item_id, lang, title, summary)
@@ -569,8 +590,8 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
               ).bind(
                 ...buildTranslationBindArgs({
                   id,
-                  title: translation.title,
-                  summary: translation.summary,
+                  title: persisted.title,
+                  summary: persisted.summary,
                 })
               )
             );
@@ -858,7 +879,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
           return results ?? [];
         }
       );
-      let backfillTranslateAttempted = missingTranslations.length;
+      const backfillTranslateAttempted = missingTranslations.length;
       {
         let translatedCount = 0;
         let tokens = 0;

@@ -3,8 +3,6 @@
 export {
   AreaChart,
   BarChart,
-  BarList,
-  DonutChart,
   Flex,
   Legend,
   Metric,

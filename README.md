@@ -1,6 +1,6 @@
 # duyet.net
 
-This monorepo contains the public apps and shared packages for duyet.net.
+Personal monorepo for duyet.net — blog, CV, AI agent demos, news, and data tooling. TanStack Start + Cloudflare Workers/Pages + Rust/WASM.
 
 ## Apps
 

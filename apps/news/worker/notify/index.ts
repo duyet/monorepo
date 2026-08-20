@@ -13,6 +13,7 @@ import type {
   Notifier,
   StoryPayload,
 } from "./types.js";
+import { webhookNotifier } from "./webhook.js";
 
 /**
  * Channel-agnostic dispatch, deliberately non-spammy. Two kinds of posts:
@@ -29,7 +30,7 @@ import type {
  */
 
 /** Registered delivery channels; add discord/... here. */
-export const notifiers: Notifier[] = [telegramNotifier];
+export const notifiers: Notifier[] = [telegramNotifier, webhookNotifier];
 
 /** Calls each channel's enabled() so a half-configured deploy (chat id
  *  without token) throws instead of silently skipping sends. */

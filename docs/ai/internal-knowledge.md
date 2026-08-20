@@ -2,6 +2,8 @@
 
 This repository is the pnpm/Turborepo monorepo for duyet.net public apps, shared packages, data sync jobs, and Cloudflare Pages/Workers deploys.
 
+GitHub repo metadata (description + topics) must match the current stack. When migrating frameworks, update both in the same change: description should name TanStack Start, Cloudflare Workers/Pages, and Rust/WASM; topics should include `tanstack-start`, `cloudflare-workers`, `cloudflare-pages`, `vite`, `wasm`, `rust`, `blog`, `duyet`, `monorepo` (and drop stale ones such as `nextjs`). `gh repo edit` / the GitHub settings UI is required — topics are not stored in-repo.
+
 ## Working Rules
 
 - Read `CLAUDE.md` and this file before making non-trivial changes.
@@ -75,6 +77,7 @@ This repository is the pnpm/Turborepo monorepo for duyet.net public apps, shared
 - Cloudflare Pages production deploys happen on pushes to `master` or `main`; PRs receive preview deploys.
 - Pages CI (`cf-deploy.yml`, `cf-deploy-preview.yml`) discovers deployable apps at runtime via `scripts/cf-pages-apps.ts`: any `apps/*` with `pages_build_output_dir` in `wrangler.toml` and a `cf:deploy:prod` script is included. Do not hardcode the app list in the workflow. New Pages apps (for example `kb`) deploy automatically when their tree or `packages/**` changes.
 - A scheduled daily job (cron `0 0 * * *` in `.github/workflows/cf-deploy.yml`) rebuilds and redeploys the `burns` app to refresh its prerendered stats from MotherDuck.
+- Pages vs Worker topology, lockfile-based rebuilds, and the agent-ui ↔ agent-api race: [`docs/ai/deploy-topology.md`](deploy-topology.md).
 - Deploy workflows run type checks, tests, and lint before deploy jobs.
 - App-level `cf:deploy:prod` scripts are authoritative when present.
 - `apps/agent-ui` deploys `dist/client` to the `duyet-agents` Pages project for `https://agents.duyet.net`.

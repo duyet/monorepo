@@ -40,9 +40,12 @@ cron `5 * * * *` → `POST /api/admin/ingest`), not Worker `[triggers] crons`
 
 8. **Write** — D1 upserts (`worker/d1-bind.ts` guards every bind), best-effort
    ClickHouse mirror (never fails the run).
-9. **Backfill** — up to 15 older published items missing summary, translation,
-   or score/tags get re-fetched/scored/translated per run until the backlog
-   drains.
+9. **Backfill** — up to 15 older published items missing summary or
+   score/tags, and up to 45 missing Vietnamese titles, get
+   re-fetched/scored/translated per run until the backlog drains.
+   Translate already skips LLM when the source title is Vietnamese, retries
+   leftover items one-at-a-time after a batch fail, and the VI UI hides
+   the EN badge when the painted title is Vietnamese or `title_vi` exists.
 10. **TL;DR (LLM)** — hourly: generate today's **local** snapshot
     (`Asia/Ho_Chi_Minh` date key — same identity the Telegram digest looks
     up for once-per-local-day send) if missing, thin, EN-only (`bullets_vi`
@@ -66,7 +69,11 @@ cron `5 * * * *` → `POST /api/admin/ingest`), not Worker `[triggers] crons`
     8/12/16).
 11. **Email digest** — top-5 TL;DR to confirmed subscribers, once per day.
 12. **Notify (`worker/notify/`)** — pluggable channel adapters (Telegram
-    now; Discord/... later), deliberately non-spammy:
+    plus optional JSON/Slack webhook via `NOTIFY_WEBHOOK_URL`),
+    deliberately non-spammy. A normalized `AlertEvent` (severity, source,
+    title, summary, metrics, links, optional health snapshot) is the
+    internal shape; adapters in `worker/notify/adapters.ts` render
+    Telegram HTML, Slack incoming-webhook JSON, or raw JSON.
     - *Daily digest*: ONE message per local day (Asia/Ho_Chi_Minh, from
       08:00) — the TL;DR snapshot's bullets (VI preferred), each linked
       to its story permalink, plus a site button.

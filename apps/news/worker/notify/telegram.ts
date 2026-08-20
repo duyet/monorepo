@@ -1,10 +1,13 @@
 import type { Env } from "../types.js";
+import { escapeHtml } from "./alert.js";
 import type {
   DailyDigest,
   Notifier,
   SendResult,
   StoryPayload,
 } from "./types.js";
+
+export { escapeHtml };
 
 /**
  * Telegram channel adapter.
@@ -23,13 +26,6 @@ const SITE_URL = "https://news.duyet.net";
 const MESSAGE_CAP = 4000;
 /** Telegram caption hard limit is 1024 chars; keep headroom for title. */
 const CAPTION_SUMMARY_CAP = 500;
-
-export function escapeHtml(s: string): string {
-  return s
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;");
-}
 
 export function withUtm(url: string): string {
   try {
