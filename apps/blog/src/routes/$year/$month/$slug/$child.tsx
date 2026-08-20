@@ -6,9 +6,10 @@ import {
   type ChildNavItem,
   fetchAllPosts,
   getChildren,
-  getRelatedPosts,
   getPostBySlug,
+  getRelatedPosts,
   getSeries,
+  resolveArticleHtml,
 } from "@/lib/posts";
 import "@/styles/post-reader.css";
 import { ChildBreadcrumb } from "../-breadcrumb";
@@ -80,26 +81,8 @@ export const Route = createFileRoute("/$year/$month/$slug/$child")({
     const file = `${year}/${month}/${slug}/${child}.${sourceExt}`;
     const edit_url = `${repoUrl}/edit/master/apps/blog/_posts/${file}`;
 
-    let htmlContent = "";
-    let mdxSource: string | undefined;
-
-    if (postWithContent.isMDX) {
-      mdxSource = markdownContent;
-    } else if (postWithContent.html) {
-      htmlContent = postWithContent.html;
-    } else if (markdownContent) {
-      if (typeof window === "undefined") {
-        const { markdownToHtml } = await import("@duyet/libs/markdownToHtml");
-        htmlContent = await markdownToHtml(markdownContent);
-      } else {
-        console.warn(
-          "posts-content missing html; using marked client fallback:",
-          slugPath
-        );
-        const { marked } = await import("marked");
-        htmlContent = await marked.parse(markdownContent);
-      }
-    }
+    const { htmlContent, mdxSource } =
+      await resolveArticleHtml(postWithContent);
 
     const related = await getRelatedPosts(postWithContent, 3);
 
@@ -141,7 +124,13 @@ export const Route = createFileRoute("/$year/$month/$slug/$child")({
       edit_url,
     };
 
-    return { post, parentTitle, siblings: siblings.map(toNavItem), series, related };
+    return {
+      post,
+      parentTitle,
+      siblings: siblings.map(toNavItem),
+      series,
+      related,
+    };
   },
   component: ChildPostPage,
 });

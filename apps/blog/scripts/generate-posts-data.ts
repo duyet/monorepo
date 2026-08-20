@@ -223,21 +223,26 @@ for (const post of allPostsWithContent) {
     payload.widgets = resolvedWidgets;
   }
 
-  // Pre-convert .md content to HTML so the route loader can skip
-  // markdownToHtml (WASM) during prerender/build. Missing html on the
-  // client leaves the body as "No content" — fail the build instead.
-  if (!payload.isMDX && processedMarkdown) {
+  // Pre-convert markdown/MDX to HTML so prerendered pages ship a full
+  // article body. MDX still compiles on the client for Mermaid/JSX, but
+  // the static HTML is the hydrate fallback so the post cannot go blank.
+  if (processedMarkdown) {
     try {
       payload.html = embedXPosts(await markdownToHtml(processedMarkdown));
       if (!payload.html?.trim()) {
-        conversionFailures.push(`${key}: empty HTML output`);
+        if (!payload.isMDX)
+          conversionFailures.push(`${key}: empty HTML output`);
       } else {
         htmlConverted++;
       }
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
-      conversionFailures.push(`${key}: ${msg}`);
-      console.error(`  ✗ Failed to convert ${key}: ${msg}`);
+      if (payload.isMDX) {
+        console.warn(`  ⚠ MDX static HTML fallback failed for ${key}: ${msg}`);
+      } else {
+        conversionFailures.push(`${key}: ${msg}`);
+        console.error(`  ✗ Failed to convert ${key}: ${msg}`);
+      }
     }
   }
 
