@@ -47,6 +47,7 @@ const GROUPS: FooterGroup[] = [
       { label: "CV", href: "https://cv.duyet.net" },
       { label: "Projects", href: "https://duyet.net/projects" },
       { label: "RSS", href: "https://blog.duyet.net/rss.xml" },
+      { label: "Newsletter", href: "https://news.duyet.net/subscribe" },
     ],
   },
   {

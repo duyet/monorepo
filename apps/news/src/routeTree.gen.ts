@@ -15,6 +15,7 @@ import { Route as ChangelogRouteImport } from './routes/changelog'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as SubmitRouteImport } from './routes/submit'
 import { Route as SubscribeRouteImport } from './routes/subscribe'
+import { Route as MailRouteImport } from './routes/mail'
 import { Route as SystemRouteImport } from './routes/system'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as CatSlugRouteImport } from './routes/$cat.$slug'
@@ -53,6 +54,11 @@ const SubmitRoute = SubmitRouteImport.update({
 const SubscribeRoute = SubscribeRouteImport.update({
   id: '/subscribe',
   path: '/subscribe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MailRoute = MailRouteImport.update({
+  id: '/mail',
+  path: '/mail',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SystemRoute = SystemRouteImport.update({
@@ -108,6 +114,7 @@ export interface FileRoutesByFullPath {
   '/mcp': typeof McpRoute
   '/submit': typeof SubmitRoute
   '/subscribe': typeof SubscribeRoute
+  '/mail': typeof MailRoute
   '/system': typeof SystemRoute
   '/$': typeof SplatRoute
   '/$cat/$slug': typeof CatSlugRoute
@@ -125,6 +132,7 @@ export interface FileRoutesByTo {
   '/mcp': typeof McpRoute
   '/submit': typeof SubmitRoute
   '/subscribe': typeof SubscribeRoute
+  '/mail': typeof MailRoute
   '/system': typeof SystemRoute
   '/$': typeof SplatRoute
   '/$cat/$slug': typeof CatSlugRoute
@@ -143,6 +151,7 @@ export interface FileRoutesById {
   '/mcp': typeof McpRoute
   '/submit': typeof SubmitRoute
   '/subscribe': typeof SubscribeRoute
+  '/mail': typeof MailRoute
   '/system': typeof SystemRoute
   '/$': typeof SplatRoute
   '/$cat/$slug': typeof CatSlugRoute
@@ -162,6 +171,7 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/submit'
     | '/subscribe'
+    | '/mail'
     | '/system'
     | '/$'
     | '/$cat/$slug'
@@ -179,6 +189,7 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/submit'
     | '/subscribe'
+    | '/mail'
     | '/system'
     | '/$'
     | '/$cat/$slug'
@@ -196,6 +207,7 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/submit'
     | '/subscribe'
+    | '/mail'
     | '/system'
     | '/$'
     | '/$cat/$slug'
@@ -214,6 +226,7 @@ export interface RootRouteChildren {
   McpRoute: typeof McpRoute
   SubmitRoute: typeof SubmitRoute
   SubscribeRoute: typeof SubscribeRoute
+  MailRoute: typeof MailRoute
   SystemRoute: typeof SystemRoute
   SplatRoute: typeof SplatRoute
   CatSlugRoute: typeof CatSlugRoute
@@ -267,6 +280,13 @@ declare module '@tanstack/react-router' {
       path: '/subscribe'
       fullPath: '/subscribe'
       preLoaderRoute: typeof SubscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mail': {
+      id: '/mail'
+      path: '/mail'
+      fullPath: '/mail'
+      preLoaderRoute: typeof MailRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/system': {
@@ -342,6 +362,7 @@ const rootRouteChildren: RootRouteChildren = {
   McpRoute: McpRoute,
   SubmitRoute: SubmitRoute,
   SubscribeRoute: SubscribeRoute,
+  MailRoute: MailRoute,
   SystemRoute: SystemRoute,
   SplatRoute: SplatRoute,
   CatSlugRoute: CatSlugRoute,

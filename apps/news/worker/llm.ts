@@ -93,6 +93,7 @@ export type LlmTask =
   | "tldr"
   | "cluster"
   | "review"
+  | "mail"
   | "other";
 
 /** One row of the `llm_calls` observability log: one entry per model
@@ -464,6 +465,25 @@ async function callAnyrouter(
     "anyrouter chain exhausted: " +
       (failures.join(" | ") || "no models attempted")
   );
+}
+
+/** JSON chat completion for callers outside scoring/translate/tldr. */
+export async function completeJson(
+  env: Env,
+  messages: ChatMessage[],
+  opts: {
+    task?: LlmTask;
+    timeoutMs?: number;
+    maxTokens?: number;
+  } = {}
+): Promise<string> {
+  const result = await callAnyrouter(env, messages, {
+    json: true,
+    task: opts.task ?? "other",
+    timeoutMs: opts.timeoutMs,
+    maxTokens: opts.maxTokens,
+  });
+  return result.content;
 }
 
 /**

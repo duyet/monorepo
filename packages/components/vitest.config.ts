@@ -7,6 +7,7 @@ const wasmStub = path.resolve(__dirname, "../wasm/stub.ts");
 export default defineConfig({
   plugins: [tsconfigPaths()],
   resolve: {
+    dedupe: ["react", "react-dom"],
     alias: {
       "@duyet/wasm/pkg/utils/utils.js": wasmStub,
     },

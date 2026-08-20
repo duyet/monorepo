@@ -1,3 +1,4 @@
+import { SubscribeCapture } from "@duyet/components/subscribe/SubscribeCapture";
 import type { Post } from "@duyet/interfaces";
 import type { TOCItem } from "@duyet/libs/extractHeadings";
 import { cn } from "@duyet/libs/utils";
@@ -221,6 +222,7 @@ export default function Content({ post }: { post: ContentPost }) {
         ))}
 
       <Snippet html={post.snippet || ""} />
+      <SubscribeCapture source="blog" variant="inline" />
     </>
   );
 }

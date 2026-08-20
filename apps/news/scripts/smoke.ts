@@ -178,7 +178,8 @@ async function main() {
     assert(res.status === 401, `expected 401, got ${res.status}`);
   });
 
-  // 6. Subscribe API rejects invalid input without 500ing.
+  // 6. Subscribe API rejects invalid input without 500ing, and answers
+  // CORS preflight from the blog (TanStack SPA must not swallow OPTIONS).
   await check(
     "POST /api/subscribe with invalid email -> 4xx, not 5xx",
     async () => {
@@ -190,6 +191,53 @@ async function main() {
       assert(
         res.status >= 400 && res.status < 500,
         `expected 4xx, got ${res.status}`
+      );
+    }
+  );
+
+  await check(
+    "OPTIONS /api/subscribe from blog.duyet.net -> CORS 204, not HTML",
+    async () => {
+      const res = await fetch(`${base}/api/subscribe`, {
+        method: "OPTIONS",
+        headers: {
+          Origin: "https://blog.duyet.net",
+          "Access-Control-Request-Method": "POST",
+          "Access-Control-Request-Headers": "content-type",
+        },
+      });
+      assert(
+        res.status === 204 || res.status === 200,
+        `expected 204/200, got ${res.status}`
+      );
+      const ctype = res.headers.get("content-type") ?? "";
+      assert(
+        !ctype.includes("text/html"),
+        `preflight returned HTML (${ctype})`
+      );
+      assert(
+        res.headers.get("Access-Control-Allow-Origin") ===
+          "https://blog.duyet.net",
+        `missing ACAO, got ${res.headers.get("Access-Control-Allow-Origin")}`
+      );
+    }
+  );
+
+  await check(
+    "POST /api/subscribe from blog.duyet.net includes ACAO",
+    async () => {
+      const res = await fetch(`${base}/api/subscribe`, {
+        method: "POST",
+        headers: {
+          Origin: "https://blog.duyet.net",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: "not-an-email" }),
+      });
+      assert(
+        res.headers.get("Access-Control-Allow-Origin") ===
+          "https://blog.duyet.net",
+        `missing ACAO, got ${res.headers.get("Access-Control-Allow-Origin")}`
       );
     }
   );

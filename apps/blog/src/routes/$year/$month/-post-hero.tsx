@@ -1,3 +1,4 @@
+import { SubscribeCapture } from "@duyet/components/subscribe/SubscribeCapture";
 import { formatReadingTime } from "@duyet/libs/date";
 import { MarkdownMenuWrapper } from "./-markdown-menu-wrapper";
 import type { LoadedPost } from "./-types";
@@ -14,13 +15,9 @@ export function PostHero({ post }: { post: LoadedPost }) {
 
   return (
     <header className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-6 text-center">
-
-      <h1
-        className="rd-display text-center text-[clamp(2.4rem,6vw,4rem)] leading-[1.04] tracking-[-0.04em] font-semibold text-balance mb-10"
-      >
+      <h1 className="rd-display text-center text-[clamp(2.4rem,6vw,4rem)] leading-[1.04] tracking-[-0.04em] font-semibold text-balance mb-10">
         {post.title}
       </h1>
-
 
       <div className="flex items-center justify-center gap-5 flex-wrap mb-6">
         <span className="rd-chip font-[var(--font-mono)] text-[10.5px]">
@@ -56,6 +53,7 @@ export function PostHero({ post }: { post: LoadedPost }) {
             dropUp={false}
           />
         )}
+        <SubscribeCapture source="blog" />
       </div>
 
       {/* Hero media — breaks out of the narrow header to the body media
