@@ -41,6 +41,8 @@ QA is one bot for test and validate. Recerts live after each ship, files only on
 
 They share a computer, each with its own screen, and they message each other. I don't copy a stack trace from one window into another.
 
+![duyetbot the boss with per-repo workers in the sidebar](/media/2026/08/grok-bot/design-the-team.jpg)
+
 > Since the Grok bot has its own desktop computer, I am asking it to review the whole product, going page by page, using a smoke test account. It has found something then create a lot of github issues and will spawn Grok Build to fix them all. I think this kind of daily automation tries to make duyetbot act like a real customer, then report issues and have another bot fix and deploy them autonomously.
 > https://x.com/_duyet/status/2089687655458259272
 
