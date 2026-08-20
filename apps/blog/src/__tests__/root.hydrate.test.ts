@@ -7,7 +7,7 @@ const dir = dirname(fileURLToPath(import.meta.url));
 
 describe("blog root hydrate", () => {
   it("suppresses theme class mismatches on html/body", () => {
-    const source = readFileSync(join(dir, "__root.tsx"), "utf8");
+    const source = readFileSync(join(dir, "../routes/__root.tsx"), "utf8");
     expect(source).toContain('<html lang="en" suppressHydrationWarning>');
     expect(source).toContain("<body suppressHydrationWarning>");
   });

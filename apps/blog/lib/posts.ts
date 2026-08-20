@@ -10,7 +10,6 @@
 
 import type { CategoryCount, Post, Series, TagCount } from "@duyet/interfaces";
 import { getSlug } from "@duyet/libs/getSlug";
-import { embedXPosts } from "./x-embed";
 
 const isServer = typeof window === "undefined";
 
@@ -169,38 +168,6 @@ export async function getPostBySlug(
   if (!post) throw new Error(`Post not found: ${slugPath}`);
   const content = await fetchPostContent(post.slug);
   return { ...post, ...content };
-}
-
-/**
- * Static article HTML for prerender and hydrate. Prefer build-time `html`
- * so the page never waits on WASM/MDX compile. Client navigation falls back
- * to marked only when that payload is missing.
- */
-export async function resolveArticleHtml(
-  post: Post & PostContent
-): Promise<{ htmlContent: string; mdxSource?: string }> {
-  const markdownContent = post.content || "";
-  const mdxSource = post.isMDX ? markdownContent : undefined;
-
-  let html = post.html || "";
-  if (!html && markdownContent) {
-    if (typeof window === "undefined") {
-      const { markdownToHtml } = await import("@duyet/libs/markdownToHtml");
-      html = await markdownToHtml(markdownContent);
-    } else {
-      console.warn(
-        "posts-content missing html; using marked client fallback:",
-        post.slug
-      );
-      const { marked } = await import("marked");
-      html = String(await marked.parse(markdownContent));
-    }
-  }
-
-  return {
-    htmlContent: html ? embedXPosts(html) : "",
-    mdxSource,
-  };
 }
 
 export async function getAllCategories(): Promise<CategoryCount> {

@@ -1,6 +1,12 @@
 import type { Post } from "@duyet/interfaces";
 import { describe, expect, it } from "vitest";
-import { type PostContent, resolveArticleHtml } from "../posts";
+import { resolveArticleHtml } from "../resolve-article-html";
+
+type PostContent = {
+  content: string;
+  isMDX?: boolean;
+  html?: string;
+};
 
 function post(
   overrides: Partial<Post & PostContent> & Pick<PostContent, "content">
