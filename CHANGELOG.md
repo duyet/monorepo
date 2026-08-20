@@ -1,5 +1,58 @@
 # Changelog
 
+## [0.1.5](https://github.com/duyet/monorepo/compare/v0.1.4...v0.1.5) (2026-08-20)
+
+
+### ✨ Features
+
+* **blog:** embed live X posts from quote and URL blocks ([#1321](https://github.com/duyet/monorepo/issues/1321)) ([811acb4](https://github.com/duyet/monorepo/commit/811acb44898a5bd05c4b6fb492bff84927b33006))
+* **blog:** publish Grok Bot ([#1320](https://github.com/duyet/monorepo/issues/1320)) ([4e22fd0](https://github.com/duyet/monorepo/commit/4e22fd06e7d8696aa85cfe723f9b9bfcce5a65ac))
+* **blog:** refresh Grok Bot post ([#1323](https://github.com/duyet/monorepo/issues/1323)) ([225ebec](https://github.com/duyet/monorepo/commit/225ebec5bbc57e5975dc42ca7e1e0be055bad406))
+* **blog:** rewrite Grok Bot closer with duyetbot print shots ([#1330](https://github.com/duyet/monorepo/issues/1330)) ([1591f20](https://github.com/duyet/monorepo/commit/1591f200bb45f3fb9a88eede6c11a61e7be8e7d9))
+* **burns:** full-width layout, agent filter, and breakdown dialog ([#1283](https://github.com/duyet/monorepo/issues/1283)) ([a253e57](https://github.com/duyet/monorepo/commit/a253e57bdf3c7270abc5da2cb3b67ce1c60c3be2))
+* **homelab:** lock dark mode and tune night-ops palette ([#1338](https://github.com/duyet/monorepo/issues/1338)) ([ab85d5d](https://github.com/duyet/monorepo/commit/ab85d5d915da5e57962cbec9ad53e30507427ac9))
+* **homelab:** rebuild dashboard as a single-level bento ([#1334](https://github.com/duyet/monorepo/issues/1334)) ([eb7917b](https://github.com/duyet/monorepo/commit/eb7917b20da9bae3581afd8fe2d9e3c9b05f50f7))
+* **kb:** add site-wide search for notes and articles ([#1297](https://github.com/duyet/monorepo/issues/1297)) ([44107e0](https://github.com/duyet/monorepo/commit/44107e02272016d08da51283aec1e2349c7b4f87))
+* **kb:** obsidian-style graph redesign with live physics and local graphs ([#1286](https://github.com/duyet/monorepo/issues/1286)) ([23f5b98](https://github.com/duyet/monorepo/commit/23f5b98f2a100a6f02cc51aa73b230e27e79a6e9))
+* **news:** add news.duyet.net AI news aggregator ([#1280](https://github.com/duyet/monorepo/issues/1280)) ([64128d9](https://github.com/duyet/monorepo/commit/64128d941bc42122a4d292a1c0df33a74f495177))
+* **news:** admin panel, llm hardening, multi-story tldr, ui fixes ([#1284](https://github.com/duyet/monorepo/issues/1284)) ([24aaac6](https://github.com/duyet/monorepo/commit/24aaac6f5b6dd4409025ea219b9be55000d9943e))
+* **news:** telegram channel notifier with daily TL;DR digest and trending posts ([#1285](https://github.com/duyet/monorepo/issues/1285)) ([5b9945b](https://github.com/duyet/monorepo/commit/5b9945b8b292a829b178a35c4f64709450381c66))
+
+
+### 🐛 Bug Fixes
+
+* **blog:** center X embeds and trim Grok Bot first-run notes ([#1325](https://github.com/duyet/monorepo/issues/1325)) ([6e0f86a](https://github.com/duyet/monorepo/commit/6e0f86a5eba75340449b8435f7c44b818a59c676))
+* **blog:** hydrate from src/client.tsx so posts stay visible ([#1343](https://github.com/duyet/monorepo/issues/1343)) ([a91b0a6](https://github.com/duyet/monorepo/commit/a91b0a668b7a5f167ab2aa72a76ea27537dfa045))
+* **blog:** keep prerendered pages visible after hydrate ([#1341](https://github.com/duyet/monorepo/issues/1341)) ([22afb8c](https://github.com/duyet/monorepo/commit/22afb8cfa22081bacd495fcfd481130573235915))
+* **blog:** prerender posts and keep tests off WASM ([#1342](https://github.com/duyet/monorepo/issues/1342)) ([6db040a](https://github.com/duyet/monorepo/commit/6db040ad04b23334216a5feb7025585e1b30490b))
+* **blog:** put Grok Bot duyetbot and print shots on one row ([ce76d57](https://github.com/duyet/monorepo/commit/ce76d57a8fcb1e176273a1fa5f09b2fd20cfa80b))
+* **burns:** keep daily-chart tooltip readable on trailing bars ([#1292](https://github.com/duyet/monorepo/issues/1292)) ([cae680e](https://github.com/duyet/monorepo/commit/cae680e9433bc131328cd31d9a76b92481da8385))
+* **ci:** discover Pages apps so kb deploys ([#1294](https://github.com/duyet/monorepo/issues/1294)) ([4e66b62](https://github.com/duyet/monorepo/commit/4e66b629be0a7e0179cf63518e268de7c21c2110))
+* **ci:** give burns preview a MotherDuck token ([#1336](https://github.com/duyet/monorepo/issues/1336)) ([8ca2aad](https://github.com/duyet/monorepo/commit/8ca2aadc858fa9cdc6d6b4ba10c0662e889ea1d0))
+* **home:** keep landing hero visible in first static HTML ([#1319](https://github.com/duyet/monorepo/issues/1319)) ([164f6a7](https://github.com/duyet/monorepo/commit/164f6a7aca008df6ba3c933ff4722f46c0eb1571))
+* **home:** paint prerendered HTML before hydrating ([#1340](https://github.com/duyet/monorepo/issues/1340)) ([aff5187](https://github.com/duyet/monorepo/commit/aff51874d728931c85e3aa88c584fd9509343d9d))
+* **home:** restore header cluster and hydrate agents chat ([#1335](https://github.com/duyet/monorepo/issues/1335)) ([df38e2c](https://github.com/duyet/monorepo/commit/df38e2c05e32bfd126866d46ee76952546709292))
+* **home:** scope Pages Function to / so static routes and query strings work ([#1281](https://github.com/duyet/monorepo/issues/1281)) ([6691980](https://github.com/duyet/monorepo/commit/6691980cb968c73208ffee3bad0edbc129f036ad))
+* **home:** stop CF retry from double-hydrating after load ([#1339](https://github.com/duyet/monorepo/issues/1339)) ([aabdea9](https://github.com/duyet/monorepo/commit/aabdea9e81837155d2338c3932150f9e5bf979ed))
+* **news:** 404 first title, phone search, combined chrome ([#1309](https://github.com/duyet/monorepo/issues/1309)) ([1b842a6](https://github.com/duyet/monorepo/commit/1b842a6b65f1f90e943096d720c67754db8caf2b))
+* **news:** expose the story title as the article page H1 ([#1317](https://github.com/duyet/monorepo/issues/1317)) ([ada7147](https://github.com/duyet/monorepo/commit/ada7147a721dfe024ffc71f1ae58d2bbb0b6e995))
+* **news:** fail over hanging translate models so VI titles come back ([#1322](https://github.com/duyet/monorepo/issues/1322)) ([0320af9](https://github.com/duyet/monorepo/commit/0320af9526b77c9183a1fea7d1178467e36eed33))
+* **news:** give leftover translate budget to fallbacks and lead with live Gemini ([#1324](https://github.com/duyet/monorepo/issues/1324)) ([8793083](https://github.com/duyet/monorepo/commit/879308329889d22c24130a790d837252bc2d5e76))
+* **news:** hang-cap leftover so translate fallbacks actually run ([#1327](https://github.com/duyet/monorepo/issues/1327)) ([6f1bab1](https://github.com/duyet/monorepo/commit/6f1bab15a3589d806493331ecedb78ff8521c641))
+* **news:** keep splat 404 status out of the client graph ([#1310](https://github.com/duyet/monorepo/issues/1310)) ([1a6017f](https://github.com/duyet/monorepo/commit/1a6017f02cdbc590682679bc551d0f90ddecbbce))
+* **news:** persist a TL;DR so Telegram can send the daily digest ([#1304](https://github.com/duyet/monorepo/issues/1304)) ([7522795](https://github.com/duyet/monorepo/commit/7522795f3ba7381dc27cf8de1a98afac878e6afe))
+* **news:** rank last-24h TL;DR instead of a 1-item leftover ([#1315](https://github.com/duyet/monorepo/issues/1315)) ([657e21f](https://github.com/duyet/monorepo/commit/657e21f586065a63cde315b8c202c7ff22016e7e))
+* **news:** rebuild English-only TL;DR bullets_vi from title_vi ([#1329](https://github.com/duyet/monorepo/issues/1329)) ([a5cbbc9](https://github.com/duyet/monorepo/commit/a5cbbc9e6590042d814a93f7238bef591eea7763))
+* **news:** refresh tldr, highlight today, page older days ([bcd51b4](https://github.com/duyet/monorepo/commit/bcd51b4022428a75b432531e23a8f605dd4d7b50))
+* **news:** render Clerk auth buttons only from the app-wide provider module ([#1289](https://github.com/duyet/monorepo/issues/1289)) ([cf93dc6](https://github.com/duyet/monorepo/commit/cf93dc6990674abde038c24f9438b01b398ae096))
+* **news:** schedule ingest hourly so Telegram can send ([#1302](https://github.com/duyet/monorepo/issues/1302)) ([d8cad69](https://github.com/duyet/monorepo/commit/d8cad69d17d800ae62a4dca112a3fb846163473e))
+* **news:** set HTTP 404 from createServerFn ([d5eb090](https://github.com/duyet/monorepo/commit/d5eb09043d8f3ed276133d5a8dc5f0e6465e4048))
+* **news:** sitemap, SSR feed, share tags, 404, title fallback, dedupe ([#1301](https://github.com/duyet/monorepo/issues/1301)) ([b5e6159](https://github.com/duyet/monorepo/commit/b5e6159a414d4d1fa5c87b694b3cf6d80fc677b4))
+* **news:** throw notFound so the splat document is HTTP 404 ([#1312](https://github.com/duyet/monorepo/issues/1312)) ([d16a146](https://github.com/duyet/monorepo/commit/d16a1465a1d9f07fc4a61ac9390e58bf3cf0fc43))
+* **news:** translate in batches of 3 so VI titles finish before timeout ([#1326](https://github.com/duyet/monorepo/issues/1326)) ([dd20d93](https://github.com/duyet/monorepo/commit/dd20d932baecb54d4ac62304d473871b5eafd0ba))
+* **news:** trigger hourly ingest via Actions, not paid Workflow schedules ([#1303](https://github.com/duyet/monorepo/issues/1303)) ([5cffd55](https://github.com/duyet/monorepo/commit/5cffd5561f939e0ffa70fafeae76e72b76768049))
+* **ssg:** pin one React copy so all Pages apps prerender ([#1298](https://github.com/duyet/monorepo/issues/1298)) ([a530f6f](https://github.com/duyet/monorepo/commit/a530f6f1737fffb684b370eb434b693478debd07))
+
 ## [0.1.4](https://github.com/duyet/monorepo/compare/v0.1.3...v0.1.4) (2026-08-14)
 
 
