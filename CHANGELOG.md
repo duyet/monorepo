@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.7](https://github.com/duyet/monorepo/compare/v0.1.6...v0.1.7) (2026-08-21)
+
+
+### 🐛 Bug Fixes
+
+* **blog:** move Get updates into footer grid with series/related ([#1348](https://github.com/duyet/monorepo/issues/1348)) ([a8b5120](https://github.com/duyet/monorepo/commit/a8b5120c670b821b3262a6c873800cb5deb26e85))
+
 ## [0.1.6](https://github.com/duyet/monorepo/compare/v0.1.5...v0.1.6) (2026-08-20)
 
 
