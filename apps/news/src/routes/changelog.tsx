@@ -25,8 +25,8 @@ const ENTRIES: ChangelogEntry[] = [
   },
   {
     date: "2026-05",
-    en: "Initial launch: an hourly ingestion pipeline, a daily TL;DR summary, and English/Vietnamese translations for every story.",
-    vi: "Ra mắt lần đầu: pipeline thu thập tin theo giờ, tóm tắt TL;DR hằng ngày, và bản dịch song ngữ Anh/Việt cho từng tin.",
+    en: "Initial launch: an hourly ingestion pipeline, a daily AI;DR summary, and English/Vietnamese translations for every story.",
+    vi: "Ra mắt lần đầu: pipeline thu thập tin theo giờ, tóm tắt AI;DR hằng ngày, và bản dịch song ngữ Anh/Việt cho từng tin.",
   },
 ];
 
