@@ -1,8 +1,12 @@
+import {
+  readSubscribed,
+  SubscribeCapture,
+} from "@duyet/components/subscribe/SubscribeCapture";
 import type { Post, Series } from "@duyet/interfaces";
 import { Link } from "@tanstack/react-router";
 import { yearColor } from "@/lib/colors";
 import type { LoadedPost } from "./-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@duyet/libs/utils";
 
 function postParams(post: Post) {
@@ -62,8 +66,17 @@ export function PostFooter({
   related: Post[];
 }) {
   const hasChangelog = Boolean(post.changelog && post.changelog.length > 0);
-  const count =
+  const otherCount =
     (series ? 1 : 0) + (related.length > 0 ? 1 : 0) + (hasChangelog ? 1 : 0);
+  const [subscribed, setSubscribed] = useState(false);
+
+  useEffect(() => {
+    setSubscribed(readSubscribed());
+  }, []);
+
+  // Same row as series/related/changelog — hide when that row is already full.
+  const showSubscribe = !subscribed && otherCount < 3;
+  const count = otherCount + (showSubscribe ? 1 : 0);
 
   if (count === 0) {
     return null;
@@ -265,6 +278,14 @@ export function PostFooter({
               })}
             </div>
           </div>
+        )}
+
+        {showSubscribe && (
+          <SubscribeCapture
+            source="blog"
+            variant="inline"
+            onSubscribed={() => setSubscribed(true)}
+          />
         )}
       </div>
     </div>
