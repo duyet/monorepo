@@ -54,7 +54,7 @@ function extraBadges(stats: WorkflowRunStats, lang: "en" | "vi"): ExtraBadge[] {
     }
   }
   if (stats.tldrGenerated) {
-    badges.push({ label: lang === "vi" ? "AI;DR" : "AI;DR", value: 1 });
+    badges.push({ label: "AI;DR", value: 1 });
   }
   return badges;
 }
