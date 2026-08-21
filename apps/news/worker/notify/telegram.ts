@@ -93,7 +93,7 @@ export function buildStoryReplyMarkup(story: StoryPayload): object {
     inline_keyboard: [
       [
         { text: "Đọc bài →", url: withUtm(story.url) },
-        { text: "TL;DR", url: withUtm(storyUrl(story)) },
+        { text: "AI;DR", url: withUtm(storyUrl(story)) },
       ],
     ],
   };

@@ -135,7 +135,7 @@ export function buildDigestEmail(
   unsubscribeToken: string
 ): { subject: string; html: string; text: string } {
   const unsubscribeUrl = `${SITE_URL}/subscribe?unsubscribe=${unsubscribeToken}`;
-  const title = `AI News TL;DR — ${date}`;
+  const title = `AI News AI;DR — ${date}`;
   const footerText =
     lang === "vi"
       ? `Hủy đăng ký: ${unsubscribeUrl}`

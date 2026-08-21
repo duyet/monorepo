@@ -411,7 +411,7 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
           disabled={tldrBusy}
           className="rounded border border-border px-2 py-1 text-xs text-foreground hover:bg-muted disabled:opacity-50"
         >
-          {tldrBusy ? "Regenerating…" : "Regenerate TL;DR"}
+          {tldrBusy ? "Regenerating…" : "Regenerate AI;DR"}
         </button>
         {tldrResult && (
           <span className="text-xs text-muted-foreground">{tldrResult}</span>
@@ -440,7 +440,7 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
 
       <div className="mt-4">
         <p className="text-xs font-medium text-muted-foreground">
-          Telegram / TL;DR
+          Telegram / AI;DR
         </p>
         <pre className="mt-1 max-h-32 overflow-auto rounded border border-border p-2 text-xs text-muted-foreground">
           {status

@@ -65,7 +65,7 @@ export function TldrSection({
     <section className="border-y-2 border-brand py-4">
       <div className="mb-2.5 flex items-baseline justify-between gap-3">
         <div className="flex items-baseline gap-3">
-          <h2 className="text-lg font-bold tracking-widest">TL;DR</h2>
+          <h2 className="text-lg font-bold tracking-widest">AI;DR</h2>
           <span className="text-xs text-muted-foreground">
             {snapshotDate
               ? snapshotDate

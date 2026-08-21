@@ -153,7 +153,7 @@ describe("trending story message", () => {
     expect(caption).toContain("…");
   });
 
-  it("builds Read + TL;DR buttons with UTM tracking", () => {
+  it("builds Read + AI;DR buttons with UTM tracking", () => {
     const markup = buildStoryReplyMarkup(story()) as {
       inline_keyboard: { text: string; url: string }[][];
     };

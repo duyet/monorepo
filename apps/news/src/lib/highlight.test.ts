@@ -53,6 +53,28 @@ describe("highlightTitle", () => {
     expect(highlighted[0].text.toLowerCase()).toBe("open source");
   });
 
+  it("does not highlight a needle embedded in a larger word", () => {
+    // "SpaceXAI" is a single brand: neither "SpaceX" nor "xAI" may color
+    // a fragment of it — only the standalone "Grok" gets highlighted.
+    const segments = highlightTitle("SpaceXAI Opens Grok Build to All", [
+      "SpaceX",
+      "xAI",
+      "Grok",
+    ]);
+    const highlighted = segments.filter((s) => s.highlighted).map((s) => s.text);
+    expect(highlighted).toEqual(["Grok"]);
+  });
+
+  it("still matches when bordered by digits or punctuation", () => {
+    const gpt = highlightTitle("New GPT-5.6 model announced", ["GPT"]);
+    expect(gpt.filter((s) => s.highlighted).map((s) => s.text)).toEqual(["GPT"]);
+
+    const qwen = highlightTitle("Qwen3 tops the charts", ["qwen"]);
+    expect(qwen.filter((s) => s.highlighted).map((s) => s.text)).toEqual([
+      "Qwen",
+    ]);
+  });
+
   it("caps highlights at 3 distinct tags", () => {
     const title = "Alpha Beta Gamma Delta all launch today";
     const segments = highlightTitle(title, ["alpha", "beta", "gamma", "delta"]);
