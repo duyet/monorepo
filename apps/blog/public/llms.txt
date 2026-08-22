@@ -12,7 +12,7 @@ A comprehensive collection of technical blog posts covering Data Engineering, So
 
 ## About This Blog
 
-317+ technical articles covering topics including:
+318+ technical articles covering topics including:
 - Data Engineering & Big Data
 - Apache Spark, ClickHouse, Apache Airflow
 - Cloud Computing (AWS, GCP, Azure)
@@ -24,6 +24,13 @@ A comprehensive collection of technical blog posts covering Data Engineering, So
 Articles span from 2015 to 2026, documenting the evolution of modern data engineering and software development practices.
 
 ## Recent Posts
+
+### [Grok Bot](https://blog.duyet.net/2026/08/grok-bot)
+- **Date**: 2026-08-19
+- **Category**: AI
+- **Tags**: Ai, Agents, Grok
+- **URL**: https://blog.duyet.net/2026/08/grok-bot
+- **Description**: I am on SuperGrok Heavy because of Grok Bot and I am super impressed. Wow, from me, at first. The harness is surprisingly good. The UI/UX is surprisingly good.
 
 ### [I am building anyrouter.dev](https://blog.duyet.net/2026/07/anyrouter)
 - **Date**: 2026-07-19
@@ -158,18 +165,12 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - **URL**: https://blog.duyet.net/2026/01/coding-agent/parallel-sub-agents
 - **Description**: Lead a team of parallel agents with leader delegation to senior and junior roles
 
-### [Plan Mode](https://blog.duyet.net/2026/01/coding-agent/plan-mode)
-- **Date**: 2026-01-01
-- **Category**: AI
-- **Tags**: Ai
-- **URL**: https://blog.duyet.net/2026/01/coding-agent/plan-mode
-- **Description**: Plan mode performs significantly better than just prompting directly
-
 
 ## All Blog Posts by Year
 
-### 2026 (21 posts)
+### 2026 (22 posts)
 
+- [Grok Bot](https://blog.duyet.net/2026/08/grok-bot) - 2026-08-19
 - [I am building anyrouter.dev](https://blog.duyet.net/2026/07/anyrouter) - 2026-07-19
 - [Open Managed Agents](https://blog.duyet.net/2026/07/open-managed-agents) - 2026-07-18
 - [Agent Sandbox on Kubernetes](https://blog.duyet.net/2026/06/agent-sandbox-on-kubernetes) - 2026-06-25
@@ -523,6 +524,11 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 
 Short-form thoughts and notes. Full list: https://blog.duyet.net/notes
 
+### [System prompt vs tool schema](https://blog.duyet.net/note/system-prompt-vs-tool-schema)
+- **Date**: 2026-08-17
+- **URL**: https://blog.duyet.net/note/system-prompt-vs-tool-schema
+- **Markdown**: https://blog.duyet.net/note/system-prompt-vs-tool-schema.md
+- **Description**: Should the system prompt describe each tool? No. The model already gets tools as their own field: name, description, JSON schema. Reprinting that list in the system prompt just costs tokens and goes stale. Use the split: Tool description — what it does, how to call it, when this tool applies or must not. System prompt — who wins, what order, what never happens. Policy, not a catalog. Code / middleware — hard stops the model will skip if you only write them in prose. If a tool never appears in the prompt and still gets called, that is working as designed.
 ### [Cloudflare Agents Week so far](https://blog.duyet.net/note/cloudflare-agents-week)
 - **Date**: 2026-08-04
 - **URL**: https://blog.duyet.net/note/cloudflare-agents-week
@@ -567,9 +573,9 @@ Short-form thoughts and notes. Full list: https://blog.duyet.net/notes
 ---
 
 **Blog Statistics:**
-- Total Posts: 317
+- Total Posts: 318
 - Years Active: 2015-2026
 - Categories: 15
-- Tags: 63
+- Tags: 64
 
 Generated from: https://blog.duyet.net
