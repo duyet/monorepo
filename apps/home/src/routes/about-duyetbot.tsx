@@ -14,6 +14,7 @@ export const Route = createFileRoute("/about-duyetbot")({
           "duyetbot is an autonomous agent that maintains, redesigns, and ships duyet.net. A bundle of self-built AI agent skills running on top of the Hermes agent runtime.",
       },
     ],
+    links: [{ rel: "canonical", href: "https://duyet.net/about-duyetbot" }],
   }),
 });
 

@@ -9,6 +9,9 @@ import UrlsList from "../components/UrlsList";
 
 export const Route = createFileRoute("/ls")({
   component: ListPage,
+  head: () => ({
+    links: [{ rel: "canonical", href: "https://duyet.net/ls" }],
+  }),
 });
 
 const publicUrls = Object.entries(urls)

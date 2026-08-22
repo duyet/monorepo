@@ -19,9 +19,38 @@ import { NowDeco } from "../components/NowDeco";
 import { Button } from "../components/ui/button";
 import { WorkBento } from "../components/WorkBento";
 import { type AppItem, apps } from "../data/projects";
+import {
+  organizationJsonLd,
+  personJsonLd,
+  websiteJsonLd,
+} from "../lib/jsonld";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
+  head: () => ({
+    meta: [
+      {
+        name: "description",
+        content:
+          "I build AI agents and the data platforms that keep them honest — end-to-end, obsessing over the small details that make software feel right to use.",
+      },
+    ],
+    links: [{ rel: "canonical", href: "https://duyet.net/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(websiteJsonLd()),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(personJsonLd()),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(organizationJsonLd()),
+      },
+    ],
+  }),
 });
 
 // ---------------------------------------------------------------------------
@@ -188,6 +217,49 @@ function HomePage() {
                   About me <ArrowUpRight size={16} />
                 </Link>
               </Button>
+            </div>
+          </Reveal>
+        </section>
+
+        {/* developer & agent resources */}
+        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)] border-t border-[var(--rd-border)]">
+          <Reveal>
+            <SecHead
+              num="04"
+              eyebrow="For developers & agents"
+              title="Machine-readable, on purpose"
+              links={[
+                {
+                  label: "All resources",
+                  onClick: () => window.location.assign("/developers"),
+                },
+              ]}
+            />
+            <p className="rd-lead max-w-[58ch] text-[clamp(0.95rem,1.2vw,1.05rem)]">
+              This site exposes a public stats API, an MCP server for AI
+              assistants, and machine-readable indexes alongside the pages.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                to="/developers"
+                className="rd-chip rd-chip-btn no-underline"
+              >
+                Developer resources
+              </Link>
+              <a href="/openapi.json" className="rd-chip rd-chip-btn no-underline">
+                API spec
+              </a>
+              <a
+                href="https://mcp.duyet.net/mcp"
+                target="_blank"
+                rel="noreferrer"
+                className="rd-chip rd-chip-btn no-underline"
+              >
+                MCP server
+              </a>
+              <a href="/llms.txt" className="rd-chip rd-chip-btn no-underline">
+                LLM index
+              </a>
             </div>
           </Reveal>
         </section>

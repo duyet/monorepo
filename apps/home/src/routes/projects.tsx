@@ -25,6 +25,7 @@ export const Route = createFileRoute("/projects")({
           "A complete list of Duyet Le projects, apps, dashboards, AI tools, and open source work.",
       },
     ],
+    links: [{ rel: "canonical", href: "https://duyet.net/projects" }],
   }),
 });
 
