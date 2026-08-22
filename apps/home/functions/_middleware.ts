@@ -15,11 +15,11 @@ export function rewriteHydrationRetryHtml(html: string): string {
   return html
     .replace(
       'if(window.__CF_ENTRY_RAN__)return;if(document.querySelector("main,header"))return;boot(1)',
-      "if(window.__CF_ENTRY_RAN__)return;boot(1)",
+      "if(window.__CF_ENTRY_RAN__)return;boot(1)"
     )
     .replace(
       'if(!document.querySelector("main"))boot(1)',
-      "if(window.__CF_ENTRY_RAN__)return;boot(1)",
+      "if(window.__CF_ENTRY_RAN__)return;boot(1)"
     )
     .replace(LEGACY_CACHE_BUST_IMPORT, SAME_URL_FIRST_RETRY_IMPORT);
 }
@@ -48,13 +48,19 @@ export async function onRequest(context: PagesContext): Promise<Response> {
             headers: {
               "Content-Type": "text/markdown; charset=utf-8",
               "x-markdown-tokens": tokenCount.toString(),
-              "Link": '</.well-known/api-catalog>; rel="api-catalog", </auth.md>; rel="describedby"',
+              Link: '</.well-known/api-catalog>; rel="api-catalog", </auth.md>; rel="describedby"',
               "Access-Control-Allow-Origin": "*",
+              // Same URL returns markdown or HTML depending on Accept, so
+              // shared caches must not reuse one representation for the other.
+              Vary: "Accept, Accept-Encoding",
             },
           });
         }
       } catch (error) {
-        console.error("Failed to fetch llms.txt for markdown negotiation:", error);
+        console.error(
+          "Failed to fetch llms.txt for markdown negotiation:",
+          error
+        );
       }
     }
   }
@@ -63,11 +69,23 @@ export async function onRequest(context: PagesContext): Promise<Response> {
   const contentType = res.headers.get("content-type") || "";
   if (!contentType.includes("text/html")) return res;
 
+  // Same URL returns HTML or markdown depending on Accept, so shared caches
+  // must not reuse one representation for the other.
+  const headers = new Headers(res.headers);
+  const existingVary = headers.get("Vary");
+  headers.set(
+    "Vary",
+    existingVary
+      ? `${existingVary}, Accept, Accept-Encoding`
+      : "Accept, Accept-Encoding"
+  );
+
   const text = await res.text();
   const patched = rewriteHydrationRetryHtml(text);
-  if (patched === text) return new Response(text, res);
+  if (patched === text) {
+    return new Response(text, { status: res.status, headers });
+  }
 
-  const headers = new Headers(res.headers);
   headers.delete("content-length");
   return new Response(patched, { status: res.status, headers });
 }
