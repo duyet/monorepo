@@ -6,7 +6,10 @@
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import app from "./index";
-import { resetRateLimits } from "./lib/rate-limit.js";
+import {
+  GLOBAL_RATE_LIMIT,
+  resetRateLimits,
+} from "./lib/rate-limit.js";
 
 interface ApiInfoResponse {
   name: string;
@@ -80,6 +83,84 @@ describe("API Endpoints", () => {
       const json = (await res.json()) as HealthResponse;
       expect(json.status).toBe("ok");
       expect(json.timestamp).toBeDefined();
+    });
+  });
+
+  describe("GET /openapi.json", () => {
+    it("should serve an OpenAPI 3.1 document with unique operationIds and oauth2 scopes", async () => {
+      const res = await app.request("/openapi.json");
+      expect(res.status).toBe(200);
+      expect(res.headers.get("Cache-Control")).toBe("public, max-age=300");
+
+      const doc = (await res.json()) as Record<string, any>;
+      expect(String(doc.openapi)).toMatch(/^3\.1\./);
+      expect(doc.info?.title).toBe("duyet.net API");
+
+      // Every operation: unique operationId + non-empty description + 200 response
+      const operationIds = new Set<string>();
+      for (const [path, pathItem] of Object.entries<any>(doc.paths)) {
+        for (const [method, operation] of Object.entries<any>(pathItem)) {
+          expect(operation.operationId, `${method} ${path}`).toBeTruthy();
+          expect(
+            operationIds.has(operation.operationId),
+            `duplicate operationId ${operation.operationId}`
+          ).toBe(false);
+          operationIds.add(operation.operationId);
+          expect(operation.description, `${method} ${path}`).toBeTruthy();
+          expect(operation.responses?.["200"], `${method} ${path}`).toBeDefined();
+        }
+      }
+
+      // Security schemes declare the canonical scopes
+      const flows = doc.components?.securitySchemes?.oauth2?.flows ?? {};
+      const scopes = Object.values<any>(flows).flatMap((f) => Object.keys(f.scopes ?? {}));
+      expect(scopes).toContain("read:profile");
+      expect(scopes).toContain("chat");
+
+      // The secured operation requires the chat scope (or bearer fallback)
+      const generateSecurity = doc.paths?.["/api/llm/generate"]?.post?.security;
+      expect(generateSecurity).toEqual([{ oauth2: ["chat"] }, { bearerAuth: [] }]);
+    });
+  });
+
+  describe("Rate-limit headers", () => {
+    function expectRateLimitHeaders(res: Response): void {
+      expect(res.headers.get("RateLimit-Limit")).toBe(
+        String(GLOBAL_RATE_LIMIT.max)
+      );
+      expect(Number(res.headers.get("RateLimit-Remaining"))).not.toBeNaN();
+      expect(Number(res.headers.get("RateLimit-Reset"))).not.toBeNaN();
+    }
+
+    it("sets RateLimit-* headers on success responses", async () => {
+      for (const path of ["/", "/health", "/api/insights/overview"]) {
+        const res = await app.request(path, {
+          headers: { "CF-Connecting-IP": "203.0.113.50" },
+        });
+        expect(res.status, path).toBe(200);
+        expectRateLimitHeaders(res);
+        await res.json().catch(() => null);
+      }
+    });
+
+    it("returns 429 with Retry-After when the global bucket is exhausted", async () => {
+      const ip = "203.0.113.60";
+      let lastRes: Response | undefined;
+
+      for (let i = 0; i <= GLOBAL_RATE_LIMIT.max; i += 1) {
+        lastRes = await app.request("/health", {
+          headers: { "CF-Connecting-IP": ip },
+        });
+        if (i < GLOBAL_RATE_LIMIT.max) {
+          expect(lastRes.status).toBe(200);
+        }
+      }
+
+      expect(lastRes?.status).toBe(429);
+      expectRateLimitHeaders(lastRes as Response);
+      expect(Number(lastRes?.headers.get("Retry-After"))).toBeGreaterThan(0);
+      const json = (await lastRes?.json()) as ErrorResponse;
+      expect(json.error).toBe("rate limited");
     });
   });
 
@@ -172,7 +253,7 @@ describe("API Endpoints", () => {
 
     it("should return 429 after 10 requests from the same IP", async () => {
       const ip = "198.51.100.9";
-      let lastStatus = 0;
+      let lastRes: Response | undefined;
 
       for (let i = 0; i < 11; i += 1) {
         const res = await app.request(
@@ -180,13 +261,16 @@ describe("API Endpoints", () => {
           generateInit({}, ip),
           AUTH_ENV
         );
-        lastStatus = res.status;
+        lastRes = res;
         if (i < 10) {
           expect(res.status).toBe(400);
         }
       }
 
-      expect(lastStatus).toBe(429);
+      expect(lastRes?.status).toBe(429);
+      // 429s carry Retry-After (seconds until the window resets)
+      const retryAfter = Number(lastRes?.headers.get("Retry-After"));
+      expect(retryAfter).toBeGreaterThan(0);
     });
 
     it("should accept blog card prompt", async () => {
