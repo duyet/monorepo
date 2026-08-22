@@ -68,3 +68,5 @@ I also asked it to print a one-page A4 every morning when I walk into the home o
 
 I will keep using it, discovering more, and posting updates.
 
+The biggest bottleneck is still the price. SuperGrok Heavy is not cheap. But the bundle is real — Grok Bot, the desktop, Cursor in the loop — and for what you get, it is worth it.
+
