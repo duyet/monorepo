@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tip.duyet.net/sitemap.xml

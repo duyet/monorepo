@@ -1,0 +1,32 @@
+{
+  "name": "tip",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node --import ../../scripts/force-workspace-react.mjs ../../node_modules/vite/bin/vite.js build && tsx ../../scripts/patch-html-for-cloudflare.ts",
+    "check-types": "tsc --noEmit",
+    "dev": "vite dev --port 3012",
+    "fmt": "biome format --write .",
+    "lint": "biome lint .",
+    "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh tip duyet-tip"
+  },
+  "dependencies": {
+    "@duyet/components": "*",
+    "@duyet/libs": "*",
+    "@tanstack/react-router": "^1.0.0",
+    "@tanstack/react-start": "^1.0.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@duyet/tailwind-config": "*",
+    "@duyet/tsconfig": "*",
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/react": "^19.1.4",
+    "@types/react-dom": "^19.1.5",
+    "typescript": "*",
+    "vite": "^8.0.0",
+    "vite-tsconfig-paths": "^6.0.0"
+  }
+}
