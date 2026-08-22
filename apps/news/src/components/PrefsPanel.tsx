@@ -131,7 +131,7 @@ function SettingsTab({ t }: { t: (en: string, vi: string) => string }) {
   const sectionToggles: { key: keyof typeof prefs.sections; label: string }[] =
     [
       { key: "trending", label: t("Trending", "Xu hướng") },
-      { key: "tldr", label: "TL;DR" },
+      { key: "tldr", label: "AI;DR" },
       { key: "days", label: t("Daily feed", "Bảng tin theo ngày") },
       { key: "categories", label: t("Category nav", "Danh mục") },
     ];
@@ -140,7 +140,7 @@ function SettingsTab({ t }: { t: (en: string, vi: string) => string }) {
     <div className="space-y-4">
       <div>
         <span className="mb-1.5 block text-xs text-muted-foreground">
-          {t("TL;DR items", "Số mục TL;DR")}
+          {t("AI;DR items", "Số mục AI;DR")}
         </span>
         <div className="flex gap-1.5">
           {TLDR_COUNTS.map((n) => (

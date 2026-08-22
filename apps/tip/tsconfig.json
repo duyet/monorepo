@@ -1,0 +1,10 @@
+{
+  "extends": "@duyet/tsconfig/vite.json",
+  "compilerOptions": {
+    "ignoreDeprecations": "6.0",
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "paths": { "~/*": ["./src/*"] }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts"]
+}

@@ -6,6 +6,7 @@ import {
   Briefcase,
   Camera,
   Code2,
+  Coffee,
   FileText,
   Flame,
   House,
@@ -142,6 +143,15 @@ export const APPS: AppDef[] = [
     Icon: Flame,
     category: "AI & Data",
     blurb: "Token spend",
+  },
+  {
+    key: "tip",
+    name: "Tip",
+    href: "https://tip.duyet.net",
+    subdomain: "tip.duyet.net",
+    Icon: Coffee,
+    category: "Personal",
+    blurb: "Buy me a coffee",
   },
   {
     key: "news",

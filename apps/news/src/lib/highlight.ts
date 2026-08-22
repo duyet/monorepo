@@ -10,6 +10,10 @@ export interface TitleSegment {
 
 const MAX_HIGHLIGHTS = 3;
 
+/** Unicode letters count as "inside a word"; digits and punctuation are
+ * boundaries, so "GPT" still matches in "GPT-5" but not in "OpenAI". */
+const isLetter = (ch: string): boolean => /\p{L}/u.test(ch);
+
 /**
  * Entity / product names that almost always deserve a highlight even
  * when the scoring step left `items.tags` empty (today's ingest often
@@ -108,8 +112,15 @@ export function highlightTitle(title: string, tags: string[]): TitleSegment[] {
       const idx = lowerTitle.indexOf(lowerNeedle, searchFrom);
       if (idx === -1) break;
       const end = idx + lowerNeedle.length;
+      // Whole-word match only: a needle bordered by letters is a fragment
+      // of a larger word ("SpaceX" inside "SpaceXAI") and must not color
+      // half a brand name. Digits/punctuation borders are fine ("GPT-5").
+      // Checked against lowerTitle so the offsets match the indexOf above.
+      const borderedByLetter =
+        (idx > 0 && isLetter(lowerTitle[idx - 1])) ||
+        (end < lowerTitle.length && isLetter(lowerTitle[end]));
       const overlaps = ranges.some((r) => idx < r.end && end > r.start);
-      if (!overlaps) {
+      if (!borderedByLetter && !overlaps) {
         const originalTag = needleTag.get(needle) ?? needle;
         ranges.push({ start: idx, end, tag: originalTag });
         matchedTags.add(lowerNeedle);
