@@ -38,7 +38,7 @@ herdr agent prompt feat-<short> "<full task spec>" --wait --timeout 600000
 
 ## Static rendering
 
-- `apps/blog`, `apps/home`, `apps/cv`, `apps/insights`, `apps/photos`, `apps/kb`, `apps/llm-timeline`, `apps/ai-percentage`, `apps/burns`, `apps/homelab`, `apps/x-algo` emit static HTML for public pages at build time (Vite/TanStack prerender or Pages output).
+- `apps/blog`, `apps/home`, `apps/cv`, `apps/insights`, `apps/photos`, `apps/kb`, `apps/llm-timeline`, `apps/ai-percentage`, `apps/burns`, `apps/homelab`, `apps/x-algo`, `apps/tip` emit static HTML for public pages at build time (Vite/TanStack prerender or Pages output).
 - `apps/agent-ui` is a signed-in chat surface at `https://agents.duyet.net`. Its `index.html` must still contain a prerendered chat shell (`Ask Duyet anything.`). Conversation rows use shared shadcn chat primitives; Clerk/auth and streaming stay client-only.
 - `apps/insights` is static HTML plus calls to `apps/api`. Do not use TanStack Start server functions for runtime data loading.
 
@@ -78,6 +78,7 @@ herdr agent prompt feat-<short> "<full task spec>" --wait --timeout 600000
 - `apps/kb`: static TanStack Start knowledge base for `https://kb.duyet.net`, bundling `content/**/*.md` at build time and generating `llms.txt`, `llms-full.txt`, `sitemap.xml`, `robots.txt`, and raw `public/k/*.md` article endpoints.
 - `apps/burns`: Vite/Cloudflare Pages dashboard (`duyet-burns`) that prerenders Claude Code usage stats. `build` runs `scripts/fetch-burns-data.ts`, which pulls `ccusage` data from MotherDuck (`MOTHERDUCK_TOKEN`); a daily cron refreshes it. Preview CI uses the GitHub `staging` environment secret (synced from local `.env.production.local`). If the token is missing, preview/local builds keep committed `public/token-data.json`; master/cron/manual deploys still require the token.
 - `apps/x-algo`: static TanStack Start explainer for the open-sourced X For You ranking weights at `https://x-algo.duyet.net`. Numbers live in `src/lib/scoring.ts` and must match `xai-org/x-algorithm` `home-mixer/params/param.rs`.
+- `apps/tip`: Ko-fi tip page on Cloudflare Pages for `https://tip.duyet.net` (Pages project `duyet-tip`). A single centered section embeds the official Ko-fi widget; widget URL lives in `src/lib/site.ts`. Keep the shared `SiteHeader`/`SiteFooter` chrome and the prerendered static HTML.
 - `apps/paid-api`: standalone x402 USDC-gated chat Worker for `https://paid.duyet.net` (`duyet-paid-api`). Payment replaces auth; see `apps/paid-api/README.md`.
 
 ## Shared Packages
@@ -103,7 +104,7 @@ herdr agent prompt feat-<short> "<full task spec>" --wait --timeout 600000
 - `apps/api` uses Wrangler as a Worker, not a Pages app.
 - `apps/agent-api` uses Wrangler as a Worker, not a Pages app.
 - `apps/agent-assistant` compiles via Vite/TanStack Start into a unified Worker + Assets bundle and deploys to the `duyet-agent-assistant` project. Features an automated deployment processor (`deploy.ts`) that injects `ThreadStateDO` SQLite schemas and patches browser-incompatible `createRequire` and `import.meta.url` hooks in compiled server chunks.
-- **Cloudflare Workers Cache** (`[cache] enabled = true`) is a **Workers-only** wrangler key — it is not valid in a Pages config (`pages_build_output_dir`). It is set on the three real Workers (`api`, `agent-api`, `agent-assistant`) as a safe no-op: they only cache responses with an explicit `Cache-Control: public`. The static **Pages** apps (`agent-ui`, `blog`, `cv`, `home`, `photos`, `insights`, `ai-percentage`, `homelab`, `burns`, `kb`, `llm-timeline`, `x-algo`) do **not** get `[cache]`; their public cache policy lives in each app's `public/_headers` (zone cache + deploy purge). See [`docs/ai/workers-cache.md`](workers-cache.md) for the per-app matrix, TTL rationale, and how to extend.
+- **Cloudflare Workers Cache** (`[cache] enabled = true`) is a **Workers-only** wrangler key — it is not valid in a Pages config (`pages_build_output_dir`). It is set on the three real Workers (`api`, `agent-api`, `agent-assistant`) as a safe no-op: they only cache responses with an explicit `Cache-Control: public`. The static **Pages** apps (`agent-ui`, `blog`, `cv`, `home`, `photos`, `insights`, `ai-percentage`, `homelab`, `burns`, `kb`, `llm-timeline`, `x-algo`, `tip`) do **not** get `[cache]`; their public cache policy lives in each app's `public/_headers` (zone cache + deploy purge). See [`docs/ai/workers-cache.md`](workers-cache.md) for the per-app matrix, TTL rationale, and how to extend.
 
 ## App-Specific Command Notes
 
