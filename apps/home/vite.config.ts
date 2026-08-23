@@ -38,6 +38,12 @@ export default defineConfig({
         "/ls",
         "/cartrack",
         "/fossil",
+        "/developers",
+        "/contact",
+        "/privacy",
+        "/p/anyrouter",
+        "/p/chm",
+        "/p/stamp",
       ].map((path) => ({
         path,
         prerender: { enabled: true },

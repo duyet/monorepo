@@ -7,7 +7,11 @@
 import { Hono } from "hono";
 import type { Env } from "../env.js";
 import { isAuthorizedApiRequest } from "../lib/auth.js";
-import { consumeRateLimit } from "../lib/rate-limit.js";
+import {
+  consumeRateLimit,
+  GENERATE_RATE_LIMIT,
+  secondsUntil,
+} from "../lib/rate-limit.js";
 
 const cardDescriptionRouter = new Hono<{ Bindings: Env }>();
 
@@ -25,7 +29,14 @@ cardDescriptionRouter.use("*", async (c, next) => {
     return c.json({ error: "Unauthorized" }, 401);
   }
 
-  if (!consumeRateLimit(`llm-generate:${clientIp(c.req.raw)}`)) {
+  const limit = consumeRateLimit(
+    `llm-generate:${clientIp(c.req.raw)}`,
+    Date.now(),
+    GENERATE_RATE_LIMIT.max,
+    GENERATE_RATE_LIMIT.windowMs
+  );
+  if (!limit.allowed) {
+    c.header("Retry-After", String(secondsUntil(limit.resetAt)));
     return c.json({ error: "Too Many Requests" }, 429);
   }
 

@@ -10,7 +10,8 @@
 /insights https://insights.duyet.net 302
 
 # Tools & Projects
-/mcp https://mcp.duyet.net 302
+# 308 keeps the method: agents POSTing JSON-RPC to /mcp reach the endpoint intact.
+/mcp https://mcp.duyet.net/mcp 308
 /okie https://okie.one 302
 /pageview https://pageview.duyet.net 302
 /rs https://rust-tieng-viet.github.io 302
@@ -59,6 +60,3 @@
 
 # Burns
 /burn https://burns.duyet.net 302
-
-# SPA fallback — must be last
-/* /index.html 200

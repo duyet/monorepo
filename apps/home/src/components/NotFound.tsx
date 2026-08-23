@@ -17,6 +17,31 @@ export function NotFound() {
         >
           Go back home
         </Link>
+        <div className="mt-10 border-t pt-6 text-xs text-muted-foreground">
+          <p className="mb-2 font-mono uppercase tracking-widest">
+            For agents &amp; crawlers
+          </p>
+          <ul className="flex flex-wrap justify-center gap-x-4 gap-y-1">
+            {[
+              { href: "/llms.txt", label: "/llms.txt" },
+              { href: "/sitemap.xml", label: "/sitemap.xml" },
+              {
+                href: "/.well-known/api-catalog",
+                label: "/.well-known/api-catalog",
+              },
+              { href: "/developers", label: "/developers" },
+            ].map((item) => (
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  className="underline underline-offset-2 hover:text-foreground"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

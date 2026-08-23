@@ -1,0 +1,1358 @@
+{
+  "components": {
+    "headers": {
+      "RateLimit-Limit": {
+        "description": "Maximum number of requests allowed in the current window (per IP).",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "RateLimit-Remaining": {
+        "description": "Requests remaining in the current window.",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "RateLimit-Reset": {
+        "description": "Seconds until the current window resets.",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "Retry-After": {
+        "description": "Seconds to wait before retrying the request (sent with 429 responses).",
+        "schema": {
+          "type": "integer"
+        }
+      }
+    },
+    "schemas": {
+      "AiPercentageAvailable": {
+        "additionalProperties": false,
+        "properties": {
+          "available": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "available"
+        ],
+        "type": "object"
+      },
+      "AiPercentageCurrent": {
+        "additionalProperties": false,
+        "properties": {
+          "ai_percentage": {
+            "type": "number"
+          },
+          "ai_lines_added": {
+            "type": "integer"
+          },
+          "human_lines_added": {
+            "type": "integer"
+          },
+          "total_lines_added": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "ai_percentage",
+          "total_lines_added",
+          "human_lines_added",
+          "ai_lines_added"
+        ],
+        "type": "object"
+      },
+      "AiPercentageHistoryPoint": {
+        "additionalProperties": false,
+        "properties": {
+          "ai_commits": {
+            "type": "integer"
+          },
+          "ai_percentage": {
+            "type": "number"
+          },
+          "ai_lines_added": {
+            "type": "integer"
+          },
+          "date": {
+            "type": "string"
+          },
+          "human_commits": {
+            "type": "integer"
+          },
+          "human_lines_added": {
+            "type": "integer"
+          },
+          "total_commits": {
+            "type": "integer"
+          },
+          "total_lines_added": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "date",
+          "ai_percentage",
+          "total_lines_added",
+          "human_lines_added",
+          "ai_lines_added",
+          "total_commits",
+          "human_commits",
+          "ai_commits"
+        ],
+        "type": "object"
+      },
+      "AiPercentageHistoryResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/AiPercentageHistoryPoint"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object"
+      },
+      "Error": {
+        "additionalProperties": false,
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "type": "object"
+      },
+      "GenerateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "prompt": {
+            "description": "Prompt describing the card to describe, e.g. \"generate description for blog card\". Must mention a supported card type.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "prompt"
+        ],
+        "type": "object"
+      },
+      "GenerateResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "description"
+        ],
+        "type": "object"
+      },
+      "Health": {
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "timestamp": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "timestamp"
+        ],
+        "type": "object"
+      },
+      "InsightsOverview": {
+        "additionalProperties": true,
+        "properties": {
+          "aiActivity": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "Total Cost": {
+                  "type": "number"
+                },
+                "Total Tokens": {
+                  "type": "integer"
+                },
+                "date": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "date",
+                "Total Tokens",
+                "Total Cost"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "aiMetrics": {
+            "additionalProperties": false,
+            "properties": {
+              "activeDays": {
+                "type": "integer"
+              },
+              "cacheTokens": {
+                "type": "integer"
+              },
+              "dailyAverage": {
+                "type": "integer"
+              },
+              "topModel": {
+                "type": "string"
+              },
+              "totalCost": {
+                "type": "number"
+              },
+              "totalTokens": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "totalTokens",
+              "cacheTokens",
+              "totalCost",
+              "activeDays",
+              "dailyAverage",
+              "topModel"
+            ],
+            "type": "object"
+          },
+          "aiModels": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "cost": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "percent": {
+                  "type": "integer"
+                },
+                "tokens": {
+                  "type": "integer"
+                },
+                "usageCount": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "name",
+                "tokens",
+                "cost",
+                "percent",
+                "usageCount"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "cloudflare": {
+            "additionalProperties": false,
+            "properties": {
+              "data": {
+                "additionalProperties": true,
+                "properties": {
+                  "viewer": {
+                    "additionalProperties": true,
+                    "properties": {
+                      "zones": {
+                        "items": {
+                          "additionalProperties": true,
+                          "properties": {
+                            "httpRequests1dGroups": {
+                              "items": {
+                                "additionalProperties": true,
+                                "properties": {
+                                  "date": {
+                                    "properties": {
+                                      "date": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "date"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "sum": {
+                                    "properties": {
+                                      "bytes": {
+                                        "type": "integer"
+                                      },
+                                      "cachedBytes": {
+                                        "type": "integer"
+                                      },
+                                      "pageViews": {
+                                        "type": "integer"
+                                      },
+                                      "requests": {
+                                        "type": "integer"
+                                      }
+                                    },
+                                    "required": [
+                                      "requests",
+                                      "pageViews"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "uniq": {
+                                    "properties": {
+                                      "uniques": {
+                                        "type": "integer"
+                                      }
+                                    },
+                                    "required": [
+                                      "uniques"
+                                    ],
+                                    "type": "object"
+                                  }
+                                },
+                                "required": [
+                                  "date",
+                                  "sum",
+                                  "uniq"
+                                ],
+                                "type": "object"
+                              },
+                              "type": "array"
+                            }
+                          },
+                          "required": [
+                            "httpRequests1dGroups"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "zones"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "viewer"
+                ],
+                "type": "object"
+              },
+              "days": {
+                "type": "integer"
+              },
+              "generatedAt": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "totalPageviews": {
+                "type": "integer"
+              },
+              "totalRequests": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "data",
+              "days",
+              "generatedAt",
+              "totalPageviews",
+              "totalRequests"
+            ],
+            "type": "object"
+          },
+          "posthog": {
+            "additionalProperties": false,
+            "properties": {
+              "avgVisitorsPerPage": {
+                "type": "number"
+              },
+              "blogUrl": {
+                "type": "string"
+              },
+              "paths": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "path": {
+                      "type": "string"
+                    },
+                    "views": {
+                      "type": "integer"
+                    },
+                    "visitors": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "path",
+                    "views",
+                    "visitors"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "totalViews": {
+                "type": "integer"
+              },
+              "totalVisitors": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "totalVisitors",
+              "totalViews",
+              "avgVisitorsPerPage",
+              "paths",
+              "blogUrl"
+            ],
+            "type": "object"
+          },
+          "wakaLanguages": {
+            "items": {
+              "additionalProperties": true,
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "percent": {
+                  "type": "number"
+                },
+                "total_seconds": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "name",
+                "percent",
+                "total_seconds"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "wakaMetrics": {
+            "additionalProperties": false,
+            "properties": {
+              "avgDailyHours": {
+                "type": "number"
+              },
+              "daysActive": {
+                "type": "integer"
+              },
+              "topLanguage": {
+                "type": "string"
+              },
+              "totalHours": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "totalHours",
+              "avgDailyHours",
+              "daysActive",
+              "topLanguage"
+            ],
+            "type": "object"
+          },
+          "wakaTrend": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "displayDate": {
+                  "type": "string"
+                },
+                "hours": {
+                  "type": "number"
+                },
+                "yearMonth": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "yearMonth",
+                "displayDate",
+                "hours"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "aiActivity",
+          "aiMetrics",
+          "aiModels",
+          "cloudflare",
+          "posthog",
+          "wakaLanguages",
+          "wakaMetrics",
+          "wakaTrend"
+        ],
+        "type": "object"
+      },
+      "ServiceInfo": {
+        "additionalProperties": false,
+        "properties": {
+          "endpoints": {
+            "additionalProperties": false,
+            "properties": {
+              "aiPercentage": {
+                "type": "string"
+              },
+              "cardDescription": {
+                "type": "string"
+              },
+              "health": {
+                "type": "string"
+              },
+              "insights": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "health",
+              "cardDescription",
+              "aiPercentage",
+              "insights"
+            ],
+            "type": "object"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "version",
+          "status",
+          "endpoints"
+        ],
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "description": "Static API token issued for agents (API_TOKEN / AGENT_API_TOKEN), passed as `Authorization: Bearer <token>`.",
+        "scheme": "bearer",
+        "type": "http"
+      },
+      "oauth2": {
+        "description": "OAuth 2.0 against the authorization server at https://duyet.net (see /.well-known/oauth-protected-resource and /.well-known/oauth-authorization-server).",
+        "flows": {
+          "clientCredentials": {
+            "scopes": {
+              "read:profile": "Read the authenticated agent's public profile information.",
+              "chat": "Send prompts to LLM-backed endpoints such as POST /api/llm/generate."
+            },
+            "tokenUrl": "https://duyet.net/oauth/token"
+          }
+        },
+        "type": "oauth2"
+      }
+    }
+  },
+  "info": {
+    "description": "Public API for duyet.net: AI-generated card descriptions, AI code-usage metrics, and site analytics. All endpoints are rate limited per IP and return RateLimit-Limit, RateLimit-Remaining, and RateLimit-Reset headers on every response; exhausted quotas produce a 429 response with a Retry-After header (seconds until reset). Authentication uses either a static bearer token or OAuth 2.0 scopes published in /.well-known/oauth-protected-resource.",
+    "title": "duyet.net API",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/": {
+      "get": {
+        "description": "Returns the service name, version, health status, and a map of available endpoints.",
+        "operationId": "getServiceInfo",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "endpoints": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "aiPercentage": {
+                          "type": "string"
+                        },
+                        "cardDescription": {
+                          "type": "string"
+                        },
+                        "health": {
+                          "type": "string"
+                        },
+                        "insights": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "health",
+                        "cardDescription",
+                        "aiPercentage",
+                        "insights"
+                      ],
+                      "type": "object"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "version",
+                    "status",
+                    "endpoints"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Service information.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              }
+            }
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Rate limit exceeded. The response includes a Retry-After header with the number of seconds until the quota resets.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "Retry-After": {
+                "$ref": "#/components/headers/Retry-After"
+              }
+            }
+          }
+        },
+        "security": [],
+        "summary": "Get service info",
+        "tags": [
+          "Meta"
+        ]
+      }
+    },
+    "/api/ai/percentage/available": {
+      "get": {
+        "description": "Reports whether AI code-percentage data exists in the backing ClickHouse table.",
+        "operationId": "getAiPercentageAvailability",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AiPercentageAvailable"
+                }
+              }
+            },
+            "description": "Data availability.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              }
+            }
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Rate limit exceeded. The response includes a Retry-After header with the number of seconds until the quota resets.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "Retry-After": {
+                "$ref": "#/components/headers/Retry-After"
+              }
+            }
+          }
+        },
+        "security": [],
+        "summary": "Check AI percentage availability",
+        "tags": [
+          "AI Percentage"
+        ]
+      }
+    },
+    "/api/ai/percentage/current": {
+      "get": {
+        "description": "Returns the most recent AI code percentage with line counts (total, human, AI) from ClickHouse.",
+        "operationId": "getCurrentAiPercentage",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "ai_percentage": {
+                      "type": "number"
+                    },
+                    "ai_lines_added": {
+                      "type": "integer"
+                    },
+                    "human_lines_added": {
+                      "type": "integer"
+                    },
+                    "total_lines_added": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "ai_percentage",
+                    "total_lines_added",
+                    "human_lines_added",
+                    "ai_lines_added"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Latest AI code percentage snapshot.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "No data available."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Rate limit exceeded. The response includes a Retry-After header with the number of seconds until the quota resets.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "Retry-After": {
+                "$ref": "#/components/headers/Retry-After"
+              }
+            }
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "ClickHouse not configured or query failed."
+          }
+        },
+        "security": [],
+        "summary": "Get current AI percentage",
+        "tags": [
+          "AI Percentage"
+        ]
+      }
+    },
+    "/api/ai/percentage/history": {
+      "get": {
+        "description": "Returns daily AI code-percentage history ordered ascending, including line and commit splits.",
+        "operationId": "getAiPercentageHistory",
+        "parameters": [
+          {
+            "description": "Number of days to look back.",
+            "in": "query",
+            "name": "days",
+            "required": false,
+            "schema": {
+              "default": 365,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AiPercentageHistoryResponse"
+                }
+              }
+            },
+            "description": "Historical AI code percentages.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              }
+            }
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Rate limit exceeded. The response includes a Retry-After header with the number of seconds until the quota resets.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "Retry-After": {
+                "$ref": "#/components/headers/Retry-After"
+              }
+            }
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "ClickHouse not configured or query failed."
+          }
+        },
+        "security": [],
+        "summary": "Get AI percentage history",
+        "tags": [
+          "AI Percentage"
+        ]
+      }
+    },
+    "/api/insights/overview": {
+      "get": {
+        "description": "Aggregated dashboard overview combining AI usage metrics, WakaTime coding stats, Cloudflare traffic, and PostHog page analytics. Individual source failures degrade to zeroed defaults instead of erroring.",
+        "operationId": "getInsightsOverview",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InsightsOverview"
+                }
+              }
+            },
+            "description": "Aggregated overview payload.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              }
+            }
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Rate limit exceeded. The response includes a Retry-After header with the number of seconds until the quota resets.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "Retry-After": {
+                "$ref": "#/components/headers/Retry-After"
+              }
+            }
+          }
+        },
+        "security": [],
+        "summary": "Get insights overview",
+        "tags": [
+          "Insights"
+        ]
+      }
+    },
+    "/api/llm/generate": {
+      "post": {
+        "description": "Generates a short card description with an LLM. Requires authentication and is limited to 10 requests/min/IP on top of the global limit. The prompt must mention a supported card type (\"blog card\" or \"featured posts card\").",
+        "operationId": "generateLlmCardDescription",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenerateResponse"
+                }
+              }
+            },
+            "description": "Generated card description.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "supportedTypes": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Missing/invalid prompt or unsupported card type. May include supportedTypes listing accepted card types."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Rate limit exceeded. The response includes a Retry-After header with the number of seconds until the quota resets.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "Retry-After": {
+                "$ref": "#/components/headers/Retry-After"
+              }
+            }
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "fallback": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Upstream generation failed. May include a fallback description."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "chat"
+            ]
+          },
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Generate LLM card description",
+        "tags": [
+          "LLM"
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "description": "Liveness probe returning an ok status and the current server time. Used by uptime checks and listed in /.well-known/api-catalog.",
+        "operationId": "getHealth",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "format": "date-time",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "timestamp"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Service is healthy.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              }
+            }
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Rate limit exceeded. The response includes a Retry-After header with the number of seconds until the quota resets.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "Retry-After": {
+                "$ref": "#/components/headers/Retry-After"
+              }
+            }
+          }
+        },
+        "security": [],
+        "summary": "Health check",
+        "tags": [
+          "Meta"
+        ]
+      }
+    },
+    "/openapi.json": {
+      "get": {
+        "description": "Returns this OpenAPI document. Mirrored statically at https://duyet.net/openapi.json.",
+        "operationId": "getOpenApiDocument",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "OpenAPI 3.1 document.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              }
+            }
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Rate limit exceeded. The response includes a Retry-After header with the number of seconds until the quota resets.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "Retry-After": {
+                "$ref": "#/components/headers/Retry-After"
+              }
+            }
+          }
+        },
+        "security": [],
+        "summary": "Get OpenAPI document",
+        "tags": [
+          "Meta"
+        ]
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.duyet.net"
+    },
+    {
+      "url": "https://duyet.net/api",
+      "description": "Same-origin mirror"
+    }
+  ]
+}

@@ -56,8 +56,8 @@ const STEPS: Step[] = [
     subVi: "tầm quan trọng × chất lượng, mới hơn thắng",
   },
   {
-    en: "TL;DR + Email",
-    vi: "TL;DR + Email",
+    en: "AI;DR + Email",
+    vi: "AI;DR + Email",
     subEn: "daily digest",
     subVi: "bản tin hằng ngày",
   },

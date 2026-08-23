@@ -285,7 +285,7 @@ function SystemPage() {
             </li>
             <li className="flex justify-between">
               <span className="text-muted-foreground">
-                {t("TL;DR digests", "Bản tóm tắt")}
+                {t("AI;DR digests", "Bản tóm tắt")}
               </span>
               <span className="font-mono tabular-nums text-foreground">
                 {stats.totals.tldrSnapshots}
