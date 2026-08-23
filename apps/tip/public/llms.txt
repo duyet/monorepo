@@ -1,0 +1,10 @@
+# Tip
+
+Support duyet with a small tip on Ko-fi.
+
+- Site: https://tip.duyet.net
+- Ko-fi: https://ko-fi.com/duyet
+
+The page embeds the official Ko-fi widget (ko-fi.com/duyet) in a centered,
+responsive layout. If the widget does not load, the Ko-fi profile page is
+linked directly.

@@ -15,6 +15,7 @@ export type AppKey =
   | "x-algo"
   | "agents"
   | "burn"
+  | "tip"
   | "cv"
   | "html"
   | "mcp"

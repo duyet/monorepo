@@ -1362,6 +1362,52 @@ importers:
         specifier: ^6.0.0
         version: 6.1.1(typescript@6.0.3)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
 
+  apps/tip:
+    dependencies:
+      '@duyet/components':
+        specifier: '*'
+        version: link:../../packages/components
+      '@duyet/libs':
+        specifier: '*'
+        version: link:../../packages/libs
+      '@tanstack/react-router':
+        specifier: 1.170.29
+        version: 1.170.29(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@tanstack/react-start':
+        specifier: 1.168.46
+        version: 1.168.46(esbuild@0.28.2)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rolldown@1.2.4)(rollup@4.61.0)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
+      react:
+        specifier: 19.2.8
+        version: 19.2.8
+      react-dom:
+        specifier: 19.2.8
+        version: 19.2.8(react@19.2.8)
+    devDependencies:
+      '@duyet/tailwind-config':
+        specifier: '*'
+        version: link:../../packages/tailwind-config
+      '@duyet/tsconfig':
+        specifier: '*'
+        version: link:../../packages/tsconfig
+      '@tailwindcss/vite':
+        specifier: ^4.0.0
+        version: 4.3.3(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
+      '@types/react':
+        specifier: ^19.1.4
+        version: 19.2.18
+      '@types/react-dom':
+        specifier: ^19.1.5
+        version: 19.2.4(@types/react@19.2.18)
+      typescript:
+        specifier: '*'
+        version: 6.0.3
+      vite:
+        specifier: ^8.0.0
+        version: 8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0)
+      vite-tsconfig-paths:
+        specifier: ^6.0.0
+        version: 6.1.1(typescript@6.0.3)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
+
   apps/x-algo:
     dependencies:
       '@duyet/components':
