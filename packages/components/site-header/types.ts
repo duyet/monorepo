@@ -42,12 +42,16 @@ export interface GlobalNavChild {
   label: string;
   href: string;
   match: NavMatch;
+  Icon?: LucideIcon;
 }
 
 export interface GlobalNavItem {
   label: string;
   href: string;
   match: NavMatch;
+  /** External link opened in a new tab (e.g. ko-fi.com). */
+  external?: boolean;
+  Icon?: LucideIcon;
   children?: GlobalNavChild[];
   /** Only rendered when currentApp matches — excluded even from the home
    * app's "show everything" fallback, unlike a plain `match.app`. */
