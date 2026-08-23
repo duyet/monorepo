@@ -70,5 +70,8 @@ Cargo.lock
 # Antigravity CLI
 .antigravitycli/
 
+# Command Code session state
+.commandcode/
+
 # Design handoff bundles (reference only)
 scratch/

@@ -108,3 +108,26 @@ Each platform provides structured information for AI systems:
 - **LLM Timeline**: https://llm-timeline.duyet.net/llms.txt - LLM timeline and history data
 - **Knowledge Base**: https://kb.duyet.net/llms.txt - Knowledge base articles and agent memory notes (full text: https://kb.duyet.net/llms-full.txt)
 - **AI Agents API**: https://agents.duyet.net/llms.txt - API-only agent endpoint information
+
+## When to use this site
+
+Use duyet.net when you need to:
+- Research Duyet for hiring or collaboration — experience, focus, and current work are summarized on /about and https://cv.duyet.net
+- Read data-engineering technical writing (ClickHouse, Spark, Airflow, DuckDB) on the blog
+- Explore Duyet's open-source projects and products (full list on /projects)
+- Query public stats about this site via the API (see Developer resources below)
+- Connect an AI assistant to Duyet's tools via MCP (https://mcp.duyet.net/mcp)
+
+## Developer resources
+
+- **Developer portal**: https://duyet.net/developers - one page covering the public API, authentication, rate limits, MCP, and machine-readable files
+- **OpenAPI spec**: https://duyet.net/openapi.json - OpenAPI 3.1 spec for the public API
+- **API catalog**: https://duyet.net/.well-known/api-catalog - link-set catalog of available APIs
+- **MCP endpoint**: https://mcp.duyet.net/mcp - Streamable HTTP MCP server for AI assistants
+- **OAuth metadata**: https://duyet.net/.well-known/oauth-protected-resource - protected-resource metadata with declared scopes
+
+## Contact & legal
+
+- **Contact page**: https://duyet.net/contact - all contact channels in one place; AI agents can use the MCP `send_message` tool instead
+- **Email**: me@duyet.net
+- **Privacy policy**: https://duyet.net/privacy - what the site collects and how to request deletion

@@ -6,6 +6,8 @@
 
 import { Hono } from "hono";
 import type { Env } from "./env.js";
+import { openApiDocument } from "./lib/openapi.js";
+import { consumeRateLimit, GLOBAL_RATE_LIMIT, secondsUntil } from "./lib/rate-limit.js";
 import aiPercentageRouter from "./routes/ai-percentage.js";
 import cardDescriptionStreamingRouter from "./routes/card-description-streaming.js";
 import insightsRouter from "./routes/insights.js";
@@ -34,6 +36,35 @@ app.use("*", async (c, next) => {
 });
 
 /**
+ * Global per-IP rate-limit middleware.
+ * Sets RateLimit-* headers (IETF draft
+ * https-draft-ietf-httpapi-ratelimit-headers) on every response and
+ * returns 429 with Retry-After once the bucket is exhausted.
+ * Separate bucket namespace ("global:") from the stricter generate limiter.
+ */
+app.use("*", async (c, next) => {
+  const ip = c.req.header("CF-Connecting-IP") || "anonymous";
+  const now = Date.now();
+  const limit = consumeRateLimit(
+    `global:${ip}`,
+    now,
+    GLOBAL_RATE_LIMIT.max,
+    GLOBAL_RATE_LIMIT.windowMs
+  );
+
+  c.header("RateLimit-Limit", String(GLOBAL_RATE_LIMIT.max));
+  c.header("RateLimit-Remaining", String(limit.remaining));
+  c.header("RateLimit-Reset", String(secondsUntil(limit.resetAt, now)));
+
+  if (!limit.allowed) {
+    c.header("Retry-After", String(secondsUntil(limit.resetAt, now)));
+    return c.json({ error: "rate limited" }, 429);
+  }
+
+  await next();
+});
+
+/**
  * Health check endpoint
  */
 app.get("/", (c) => {
@@ -55,6 +86,14 @@ app.get("/", (c) => {
  */
 app.get("/health", (c) => {
   return c.json({ status: "ok", timestamp: new Date().toISOString() });
+});
+
+/**
+ * Published OpenAPI document (mirrored at https://duyet.net/openapi.json)
+ */
+app.get("/openapi.json", (c) => {
+  c.header("Cache-Control", "public, max-age=300");
+  return c.json(openApiDocument);
 });
 
 /**

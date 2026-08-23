@@ -90,6 +90,12 @@ export const Route = createFileRoute("/p/$project")({
             "A Duyet Le project surface for data, AI, and developer tools.",
         },
       ],
+      links: [
+        {
+          rel: "canonical",
+          href: `https://duyet.net/p/${params.project}`,
+        },
+      ],
     };
   },
   loader: ({ params }) => {

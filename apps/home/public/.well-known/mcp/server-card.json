@@ -1,12 +1,17 @@
 {
   "serverInfo": {
     "name": "duyet-mcp-server",
-    "version": "0.1.0"
+    "version": "0.2.1"
   },
-  "endpoint": "https://api.duyet.net/mcp",
+  "endpoint": "https://mcp.duyet.net/mcp",
+  "transport": "streamable-http",
   "capabilities": {
     "tools": {},
     "resources": {},
     "prompts": {}
+  },
+  "metadata": {
+    "resourceMetadata": "https://mcp.duyet.net/.well-known/oauth-protected-resource",
+    "documentation": "https://duyet.net/developers"
   }
 }

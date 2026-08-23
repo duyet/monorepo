@@ -55,6 +55,18 @@
   Content-Type: text/markdown; charset=utf-8
   Access-Control-Allow-Origin: *
 
+# OpenAPI schema — fetchable by agents, short cache
+/openapi.json
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=300
+
+# Well-known discovery files (catches files beyond the explicit rules above).
+# NOTE: /llms.txt intentionally NOT re-declared here — the existing /llms.txt
+# rule above pins Content-Type: text/plain, and Pages joins duplicate headers
+# from matching rules with commas, which would corrupt the Content-Type.
+/.well-known/*
+  Access-Control-Allow-Origin: *
+
 # Security headers
 /*
   X-Frame-Options: DENY
