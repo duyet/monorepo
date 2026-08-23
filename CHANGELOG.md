@@ -1,5 +1,30 @@
 # Changelog
 
+## [0.1.7](https://github.com/duyet/monorepo/compare/v0.1.6...v0.1.7) (2026-08-23)
+
+
+### ✨ Features
+
+* **api:** rate-limit headers, Retry-After, and published OpenAPI spec ([f66f6ee](https://github.com/duyet/monorepo/commit/f66f6eedfa4a1bb74b4ba0cc22a5986da9a80671))
+* **home,api:** agent-readiness fixes from Is Agentic audit ([#1358](https://github.com/duyet/monorepo/issues/1358)) ([0e83cbe](https://github.com/duyet/monorepo/commit/0e83cbef3bffa9d950b7eed9c9b7d812d03661d3))
+* **home:** developer portal, trust pages, JSON-LD, canonicals ([3db677c](https://github.com/duyet/monorepo/commit/3db677c993225a0cfa1672dc484e6e4b625e535f))
+* **home:** real 404s, MCP endpoint redirect, Vary headers, API mirror ([638bdca](https://github.com/duyet/monorepo/commit/638bdcad308a26097f47728c8447d6e656b2b473))
+* **news:** rebrand TL;DR to AI;DR ([c15ec43](https://github.com/duyet/monorepo/commit/c15ec43eba14533c1bdc7def89f2ef3208c41313))
+* **tip:** add Ko-fi tip page for tip.duyet.net ([7e9b47a](https://github.com/duyet/monorepo/commit/7e9b47a4a9bf15ad126721bb48458b6edb9a36e7))
+* **tip:** add Ko-fi tip page for tip.duyet.net ([#1352](https://github.com/duyet/monorepo/issues/1352)) ([8441220](https://github.com/duyet/monorepo/commit/8441220ad16b6112fe63f39fba1901bb7cee952a))
+
+
+### 🐛 Bug Fixes
+
+* **blog:** move Get updates into footer grid with series/related ([#1348](https://github.com/duyet/monorepo/issues/1348)) ([a8b5120](https://github.com/duyet/monorepo/commit/a8b5120c670b821b3262a6c873800cb5deb26e85))
+* **news:** match title highlights on word boundaries only ([f201ef4](https://github.com/duyet/monorepo/commit/f201ef4aa53a78f968cec7eb8fcde3cc213fc57f))
+* **tip:** keep top padding visible when content overflows ([5888c0c](https://github.com/duyet/monorepo/commit/5888c0c01b1b34cef92188e207eedb9eabfa9ea5))
+
+
+### ♻️ Refactoring
+
+* **news:** address review on highlight boundaries ([0b24977](https://github.com/duyet/monorepo/commit/0b24977df99effc481e3dd9e8576df6a159522a6))
+
 ## [0.1.6](https://github.com/duyet/monorepo/compare/v0.1.5...v0.1.6) (2026-08-20)
 
 
