@@ -21,8 +21,9 @@ function Page() {
             Buy me a coffee
           </h1>
           <p className="mt-4 text-pretty text-base leading-7 text-muted-foreground sm:text-lg">
-            If something here helped you, a small tip keeps the servers running
-            and the coffee flowing. Thank you!
+            If something here helped you, a small tip keeps everything up and
+            running. Or if you're just feeling generous — either way, the coffee
+            keeps flowing. Thank you!
           </p>
         </header>
 

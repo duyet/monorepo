@@ -45,15 +45,17 @@ export function GlobalNav({
     <nav ref={containerRef} className="hidden items-center gap-0.5 md:flex">
       {excludeLocalNavItems(
         filterGlobalNav(GLOBAL_NAV, currentApp),
-        localNav,
+        localNav
       ).map((item) => {
         const hasChildren = item.children && item.children.length > 0;
         const isDropdownOpen = openDropdown === item.label;
         const itemActive =
           isNavActive(item.match, currentApp, pathname) ||
-          Boolean(item.children?.some((child) =>
-            isNavActive(child.match, currentApp, pathname),
-          ));
+          Boolean(
+            item.children?.some((child) =>
+              isNavActive(child.match, currentApp, pathname)
+            )
+          );
 
         return (
           <div key={item.href} className="relative">
@@ -63,7 +65,7 @@ export function GlobalNav({
               className={cn(
                 "h-8 px-2.5 text-sm font-normal text-muted-foreground hover:text-foreground",
                 itemActive &&
-                  "bg-muted font-medium text-[var(--rd-accent)] hover:text-[var(--rd-accent)]",
+                  "bg-muted font-medium text-[var(--rd-accent)] hover:text-[var(--rd-accent)]"
               )}
               onClick={
                 hasChildren
@@ -80,7 +82,19 @@ export function GlobalNav({
                   <ChevronsUpDown aria-hidden className="h-3 w-3" />
                 </span>
               ) : (
-                <a href={item.href}>{item.label}</a>
+                <a
+                  href={item.href}
+                  {...(item.external
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                >
+                  <span className="flex items-center gap-1.5">
+                    {item.Icon && (
+                      <item.Icon aria-hidden className="h-3.5 w-3.5" />
+                    )}
+                    {item.label}
+                  </span>
+                </a>
               )}
             </Button>
 
@@ -95,7 +109,7 @@ export function GlobalNav({
                         "flex items-center h-8 px-3 rounded-md text-sm transition-colors",
                         isNavActive(child.match, currentApp, pathname)
                           ? "bg-[var(--rd-muted)] text-[var(--rd-accent)] font-medium"
-                          : "text-[var(--rd-text)] hover:bg-[var(--rd-muted)]",
+                          : "text-[var(--rd-text)] hover:bg-[var(--rd-muted)]"
                       )}
                     >
                       {child.label}

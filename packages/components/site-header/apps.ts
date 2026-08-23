@@ -289,6 +289,13 @@ export const GLOBAL_NAV: GlobalNavItem[] = [
     ],
   },
   {
+    label: "Tip",
+    href: "https://ko-fi.com/duyet",
+    match: { app: "tip" },
+    external: true,
+    Icon: Coffee,
+  },
+  {
     label: "About",
     href: "https://duyet.net/about",
     match: { path: "/about" },
@@ -391,7 +398,7 @@ export function navHrefKey(href: string): string {
 
 export function excludeLocalNavItems<T extends { href: string }>(
   items: T[],
-  localNav?: LocalNavItem[],
+  localNav?: LocalNavItem[]
 ): T[] {
   if (!localNav?.length) return items;
   const localKeys = new Set(localNav.map((item) => navHrefKey(item.href)));

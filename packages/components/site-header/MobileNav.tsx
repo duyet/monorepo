@@ -76,7 +76,7 @@ export function MobileNav({
                       : pathname === item.href ||
                         pathname.startsWith(`${item.href}/`))
                     ? "bg-[var(--rd-muted)] text-[var(--rd-accent)]"
-                    : "text-[var(--rd-text-3)] hover:bg-[var(--rd-muted)] hover:text-[var(--rd-text)]",
+                    : "text-[var(--rd-text-3)] hover:bg-[var(--rd-muted)] hover:text-[var(--rd-text)]"
                 )}
                 {...(item.external
                   ? { target: "_blank", rel: "noopener noreferrer" }
@@ -87,7 +87,7 @@ export function MobileNav({
             ))}
             {excludeLocalNavItems(
               filterGlobalNav(GLOBAL_NAV, currentApp),
-              localNav,
+              localNav
             ).map((item) => {
               const hasChildren = item.children && item.children.length > 0;
               const isDropdownOpen = openDropdown === item.label;
@@ -95,15 +95,15 @@ export function MobileNav({
                 isNavActive(item.match, currentApp, pathname) ||
                 Boolean(
                   item.children?.some((child) =>
-                    isNavActive(child.match, currentApp, pathname),
-                  ),
+                    isNavActive(child.match, currentApp, pathname)
+                  )
                 );
 
               const itemClassName = cn(
                 "flex items-center justify-between h-9 px-3 rounded-md text-sm font-medium transition-colors",
                 itemActive
                   ? "bg-[var(--rd-muted)] text-[var(--rd-accent)]"
-                  : "text-[var(--rd-text-3)] hover:bg-[var(--rd-muted)] hover:text-[var(--rd-text)]",
+                  : "text-[var(--rd-text-3)] hover:bg-[var(--rd-muted)] hover:text-[var(--rd-text)]"
               );
 
               return (
@@ -124,7 +124,7 @@ export function MobileNav({
                         aria-hidden
                         className={cn(
                           "h-3 w-3 shrink-0 transition-transform",
-                          isDropdownOpen && "rotate-180",
+                          isDropdownOpen && "rotate-180"
                         )}
                       />
                     </button>
@@ -134,7 +134,13 @@ export function MobileNav({
                       role="menuitem"
                       onClick={() => setOpen(false)}
                       className={itemClassName}
+                      {...(item.external
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
                     >
+                      {item.Icon && (
+                        <item.Icon aria-hidden className="h-3.5 w-3.5" />
+                      )}
                       {item.label}
                     </a>
                   )}
@@ -150,7 +156,7 @@ export function MobileNav({
                             "flex items-center h-8 px-3 rounded-md text-sm transition-colors",
                             isNavActive(child.match, currentApp, pathname)
                               ? "text-[var(--rd-accent)] font-medium"
-                              : "text-[var(--rd-text)] hover:bg-[var(--rd-muted)]",
+                              : "text-[var(--rd-text)] hover:bg-[var(--rd-muted)]"
                           )}
                         >
                           {child.label}
