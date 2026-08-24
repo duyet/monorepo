@@ -31,19 +31,17 @@ database_id = "8e692ccf-ec38-4e41-b011-50adbc891322"
 
 [vars]
 ANYROUTER_BASE_URL = "https://anyrouter.dev/api/v1"
-# Live AnyRouter ids with native (non-BYOK) providers only. #1322 led
-# with aisingapore/gemma-sea-lion-v4-27b-it + gemini-3.7/3.6 + qwen3.7
-# — all BYOK-only — so a hang/401 on the first id ate the 300s budget
-# and never reached a model that can write title_vi. Translate leads
-# with Gemma 4 (completes a 3-item JSON batch); score/TL;DR lead with
-# Flash-Lite. Paid native Gemini after; no BYOK-only ids.
-# stealth/ox-alpha sits last on each chain as a final fallback: only reached
-# when every native id above fails, so an unproven id cannot eat budget.
-ANYROUTER_MODEL = "google/gemini-2.5-flash-lite,google/gemma-4-26b-a4b-it,z-ai/glm-4.7-flash,inclusionai/ling-3.0-flash,google/gemini-2.5-flash,google/gemini-3.5-flash,stealth/ox-alpha"
-ANYROUTER_TRANSLATE_MODEL = "google/gemma-4-26b-a4b-it,z-ai/glm-4.7-flash,inclusionai/ling-3.0-flash,anyrouter/auto,google/gemma-4-31b,google/gemini-2.5-flash-lite,google/gemini-2.5-flash,google/gemini-3.5-flash,stealth/ox-alpha"
-# Bilingual TL;DR used to fall through to ANYROUTER_MODEL (reasoning-first)
-# and time out both attempts, leaving English bullets on the VI homepage.
-ANYROUTER_TLDR_MODEL = "google/gemini-2.5-flash-lite,google/gemma-4-26b-a4b-it,z-ai/glm-4.7-flash,inclusionai/ling-3.0-flash,google/gemini-2.5-flash,google/gemini-3.5-flash,stealth/ox-alpha"
+# Live model chains on stealth/ox-alpha (replaced every paid google/gemini-*
+# id). Score/TL;DR lead with ox-alpha and fall back to the cheap native ids
+# (non-BYOK); translate still leads with Gemma 4 (completes a 3-item JSON
+# batch fast) and keeps ox-alpha as the final fallback. No BYOK-only ids
+# (SEA-LION, gemini-3.6/3.7, qwen3.7) — a hang/401 on the first id used to
+# eat the whole budget before reaching a model that can write title_vi.
+ANYROUTER_MODEL = "stealth/ox-alpha,google/gemma-4-26b-a4b-it,z-ai/glm-4.7-flash,inclusionai/ling-3.0-flash"
+ANYROUTER_TRANSLATE_MODEL = "google/gemma-4-26b-a4b-it,z-ai/glm-4.7-flash,inclusionai/ling-3.0-flash,anyrouter/auto,google/gemma-4-31b,stealth/ox-alpha"
+# Bilingual TL;DR used to fall through to a reasoning-first chain and time
+# out both attempts, leaving English bullets on the VI homepage.
+ANYROUTER_TLDR_MODEL = "stealth/ox-alpha,google/gemma-4-26b-a4b-it,z-ai/glm-4.7-flash,inclusionai/ling-3.0-flash"
 # Derived from VITE_CLERK_PUBLISHABLE_KEY's base64 domain suffix (see
 # apps/news/.env.production): pk_live_Y2xlcmsuZHV5ZXQubmV0JA -> clerk.duyet.net
 CLERK_ISSUER = "https://clerk.duyet.net"

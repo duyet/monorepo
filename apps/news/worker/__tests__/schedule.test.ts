@@ -41,28 +41,36 @@ describe("free-plan hourly ingest", () => {
 });
 
 describe("live AnyRouter model chains", () => {
-  function firstId(varName: string): string {
+  function idsOf(varName: string): string[] {
     const match = wrangler.match(new RegExp(`${varName} = "([^"]+)"`));
     expect(match, `${varName} missing`).toBeTruthy();
-    return match![1].split(",")[0];
+    return match![1].split(",").map((s) => s.trim());
   }
 
-  it("leads translate/tldr/score with a native (non-BYOK-only) catalog id", () => {
-    const native = [
-      "google/gemini-2.5-flash-lite",
-      "google/gemini-2.5-flash",
-      "google/gemma-4-26b-a4b-it",
-      "z-ai/glm-4.7-flash",
-      "inclusionai/ling-3.0-flash",
-    ];
-    expect(native).toContain(firstId("ANYROUTER_TRANSLATE_MODEL"));
-    expect(native).toContain(firstId("ANYROUTER_TLDR_MODEL"));
-    expect(native).toContain(firstId("ANYROUTER_MODEL"));
+  it("uses stealth/ox-alpha on every live chain", () => {
+    for (const name of [
+      "ANYROUTER_MODEL",
+      "ANYROUTER_TRANSLATE_MODEL",
+      "ANYROUTER_TLDR_MODEL",
+    ]) {
+      expect(idsOf(name), name).toContain("stealth/ox-alpha");
+    }
   });
 
-  it("omits known BYOK-only ids from every live chain", () => {
-    const byokOnly = [
+  it("leads score/tldr with ox-alpha and translate with Gemma 4", () => {
+    expect(idsOf("ANYROUTER_MODEL")[0]).toBe("stealth/ox-alpha");
+    expect(idsOf("ANYROUTER_TLDR_MODEL")[0]).toBe("stealth/ox-alpha");
+    expect(idsOf("ANYROUTER_TRANSLATE_MODEL")[0]).toBe(
+      "google/gemma-4-26b-a4b-it"
+    );
+  });
+
+  it("omits known BYOK-only and paid gemini ids from every live chain", () => {
+    const blocked = [
       "aisingapore/gemma-sea-lion-v4-27b-it",
+      "google/gemini-2.5-flash-lite",
+      "google/gemini-2.5-flash",
+      "google/gemini-3.5-flash",
       "google/gemini-3.7-flash",
       "google/gemini-3.6-flash",
       "qwen/qwen3.7-flash",
@@ -72,10 +80,9 @@ describe("live AnyRouter model chains", () => {
       "ANYROUTER_TRANSLATE_MODEL",
       "ANYROUTER_TLDR_MODEL",
     ]) {
-      const match = wrangler.match(new RegExp(`${name} = "([^"]+)"`));
-      const ids = (match?.[1] ?? "").split(",").map((s) => s.trim());
-      for (const blocked of byokOnly) {
-        expect(ids, name).not.toContain(blocked);
+      const ids = idsOf(name);
+      for (const id of blocked) {
+        expect(ids, name).not.toContain(id);
       }
     }
   });
