@@ -57,11 +57,12 @@ describe("live AnyRouter model chains", () => {
     }
   });
 
-  it("leads score/tldr with ox-alpha and translate with a fast native id", () => {
+  it("leads score/tldr with ox-alpha and translate with Gemma 4", () => {
     expect(idsOf("ANYROUTER_MODEL")[0]).toBe("stealth/ox-alpha");
     expect(idsOf("ANYROUTER_TLDR_MODEL")[0]).toBe("stealth/ox-alpha");
-    const native = ["google/gemma-4-26b-a4b-it", "stealth/ox-alpha"];
-    expect(native).toContain(idsOf("ANYROUTER_TRANSLATE_MODEL")[0]);
+    expect(idsOf("ANYROUTER_TRANSLATE_MODEL")[0]).toBe(
+      "google/gemma-4-26b-a4b-it"
+    );
   });
 
   it("omits known BYOK-only and paid gemini ids from every live chain", () => {
