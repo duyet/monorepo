@@ -99,9 +99,11 @@ anyrouter's queue for long prompts), JSON mode, `max_tokens` 8192 (2048 on trans
 reasoning-model fallback (extracts JSON from `message.reasoning` when content
 is starved), comma-separated model fallback chains (`ANYROUTER_MODEL`), and
 per-task overrides (`ANYROUTER_TRANSLATE_MODEL` / `ANYROUTER_TLDR_MODEL` —
-Gemma 4 / GLM-4.7 / Ling-3.0 / `anyrouter/auto` first
-for translate (native ids that finish a 3-item batch), then Gemma 4 31B / Flash-Lite / Gemini 2.5/3.5;
-BYOK-only ids such as SEA-LION and Gemini 3.7 are omitted). Translate
+stealth/ox-alpha first for score/TL;DR; translate leads with Gemma 4 /
+GLM-4.7 / Ling-3.0 / `anyrouter/auto` (native ids that finish a 3-item
+batch), then Gemma 4 31B, with stealth/ox-alpha last on every chain;
+BYOK-only ids such as SEA-LION and Gemini 3.6/3.7 are omitted, and all
+paid Gemini ids were replaced by stealth/ox-alpha). Translate
 runs in batches of 3 (summaries clipped, title-only retry) and each
 backfill slice is its own Workflow step so a finished batch is written
 even if a later slice times out. A hang, empty sanitize, timeout, or 402 advances the chain
