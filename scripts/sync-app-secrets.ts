@@ -18,7 +18,8 @@
  * consistency with Cloudflare secret configuration.
  */
 
-import { existsSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, unlinkSync, writeFileSync } from "node:fs";
+import os from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
@@ -26,6 +27,21 @@ import { spawnSync } from "node:child_process";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const rootDir = join(__dirname, "..");
+
+function warnStaleSeedFiles(): void {
+  try {
+    const stale = readdirSync(os.tmpdir()).filter(
+      (file) => file.startsWith("wrangler-seeds-") && file.endsWith(".json")
+    );
+    if (stale.length > 0) {
+      console.warn(
+        `  [WARN] Found ${stale.length} stale seed file(s) in ${os.tmpdir()}: ${stale.join(", ")}`
+      );
+    }
+  } catch {
+    // Ignore tmpdir read errors
+  }
+}
 
 // CLI args (only defined when running as main script)
 const appName = process.argv[2] ?? "";
@@ -376,42 +392,46 @@ async function setSecretsBulk(
     const dirName = appName.replace("duyet-", "");
     const appDir = join(rootDir, "apps", dirName);
 
-    // Create a temporary JSON file in the app directory
-    const tmpFile = join(appDir, `.wrangler-seeds-${appName}.json`);
-    writeFileSync(tmpFile, JSON.stringify(secrets, null, 2));
+    const tmpFile = join(
+      os.tmpdir(),
+      `wrangler-seeds-${appName}-${Date.now()}.json`
+    );
 
-    // Check if this is a Pages project (has pages_build_output_dir) or Workers project
-    const wranglerTomlPath = join(appDir, "wrangler.toml");
-    const wranglerToml = readFileSync(wranglerTomlPath, "utf-8");
-    const isPagesProject = wranglerToml.includes("pages_build_output_dir");
-
-    // Use different commands for Pages vs Workers
-    const cmd = isPagesProject
-      ? ["pnpm", "dlx", "wrangler", "pages", "secret", "bulk", tmpFile]
-      : ["pnpm", "dlx", "wrangler", "secret", "bulk", tmpFile, "--env="];
-
-    // Run wrangler from the app directory so it finds wrangler.toml
-    const result = spawnSync(cmd[0], cmd.slice(1), {
-      cwd: appDir,
-      stdio: ["inherit", "pipe", "pipe"],
-      env: { ...process.env, ...env },
-      encoding: "utf-8",
-    });
-
-    // Clean up temp file
     try {
-      unlinkSync(tmpFile);
-    } catch {
-      // Ignore cleanup errors
-    }
+      writeFileSync(tmpFile, JSON.stringify(secrets, null, 2));
 
-    if (result.status !== 0) {
-      const stderr = result.stderr ?? "";
-      console.error(`  [ERROR] Failed to sync secrets: ${stderr}`);
-      return false;
-    }
+      // Check if this is a Pages project (has pages_build_output_dir) or Workers project
+      const wranglerTomlPath = join(appDir, "wrangler.toml");
+      const wranglerToml = readFileSync(wranglerTomlPath, "utf-8");
+      const isPagesProject = wranglerToml.includes("pages_build_output_dir");
 
-    return true;
+      // Use different commands for Pages vs Workers
+      const cmd = isPagesProject
+        ? ["pnpm", "dlx", "wrangler", "pages", "secret", "bulk", tmpFile]
+        : ["pnpm", "dlx", "wrangler", "secret", "bulk", tmpFile, "--env="];
+
+      // Run wrangler from the app directory so it finds wrangler.toml
+      const result = spawnSync(cmd[0], cmd.slice(1), {
+        cwd: appDir,
+        stdio: ["inherit", "pipe", "pipe"],
+        env: { ...process.env, ...env },
+        encoding: "utf-8",
+      });
+
+      if (result.status !== 0) {
+        const stderr = result.stderr ?? "";
+        console.error(`  [ERROR] Failed to sync secrets: ${stderr}`);
+        return false;
+      }
+
+      return true;
+    } finally {
+      try {
+        unlinkSync(tmpFile);
+      } catch {
+        // Ignore cleanup errors
+      }
+    }
   } catch (error) {
     console.error(`  [ERROR] Exception syncing secrets:`, error);
     return false;
@@ -466,6 +486,7 @@ async function setBuildVarsForPages(
 }
 
 async function main() {
+  warnStaleSeedFiles();
   console.log(`\n[${appName}] Syncing secrets and build vars...`);
 
   // Load environment variables from root

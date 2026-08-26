@@ -61,6 +61,29 @@ jobs:
           echo "Original: $RAW_BRANCH"
           echo "Sanitized: $SAFE_BRANCH"
 
+      # Pass untrusted workflow_run values through env before they reach the
+      # Claude prompt. GitHub interpolates ${{ }} in YAML before actions run;
+      # mapping via env + outputs keeps workflow_run fields out of the prompt
+      # block (same pattern as RAW_BRANCH above).
+      - name: Prepare workflow context
+        id: workflow_context
+        env:
+          RUN_NAME: ${{ github.event.workflow_run.name }}
+          RUN_URL: ${{ github.event.workflow_run.html_url }}
+          PR_NUMBER: ${{ github.event.workflow_run.pull_requests[0].number }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+        run: |
+          {
+            echo "run_name<<EOF"
+            printf '%s' "$RUN_NAME"
+            echo "EOF"
+            echo "run_url<<EOF"
+            printf '%s' "$RUN_URL"
+            echo "EOF"
+            echo "pr_number=$PR_NUMBER"
+            echo "run_id=$RUN_ID"
+          } >> "$GITHUB_OUTPUT"
+
       - name: Run Claude to diagnose and fix CI failure
         uses: anthropics/claude-code-action@c81e3bc69d1b18badbb63ba39581218f02421678  # v1
         with:
@@ -71,13 +94,13 @@ jobs:
             actions: read
 
           prompt: |
-            The **"${{ github.event.workflow_run.name }}"** CI workflow failed on a pull request.
+            The **"${{ steps.workflow_context.outputs.run_name }}"** CI workflow failed on a pull request.
 
             **Details:**
               - Branch: `${{ steps.sanitize.outputs.safe_branch }}`
-              - PR: #${{ github.event.workflow_run.pull_requests[0].number }}
-              - Failed run: ${{ github.event.workflow_run.html_url }}
-              - Run ID: `${{ github.event.workflow_run.id }}`
+              - PR: #${{ steps.workflow_context.outputs.pr_number }}
+              - Failed run: ${{ steps.workflow_context.outputs.run_url }}
+              - Run ID: `${{ steps.workflow_context.outputs.run_id }}`
 
             **Your task — follow these steps in order:**
 
@@ -85,7 +108,7 @@ jobs:
 
             2. **Get the failure logs** to understand what went wrong:
                 ```
-                gh run view ${{ github.event.workflow_run.id }} --log-failed
+                gh run view ${{ steps.workflow_context.outputs.run_id }} --log-failed
                 ```
 
             3. **Reproduce the failure locally** to confirm you understand it:
@@ -100,16 +123,16 @@ jobs:
             5. **Verify the fix** by re-running the same commands from step 3. All must pass.
 
             6. **Create a fix branch** named exactly:
-                `claude/fix-ci-${{ github.event.workflow_run.pull_requests[0].number }}-${{ github.run_id }}`
+                `claude/fix-ci-${{ steps.workflow_context.outputs.pr_number }}-${{ github.run_id }}`
                 ```
-                git checkout -b "claude/fix-ci-${{ github.event.workflow_run.pull_requests[0].number }}-${{ github.run_id }}" "${{ steps.sanitize.outputs.safe_branch }}"
+                git checkout -b "claude/fix-ci-${{ steps.workflow_context.outputs.pr_number }}-${{ github.run_id }}" "${{ steps.sanitize.outputs.safe_branch }}"
                 ```
 
             7. **Commit** following the conventions in CLAUDE.md (semantic prefix, co-authors):
                 ```
-                git commit -m "fix(ci): fix ${{ github.event.workflow_run.name }} failures
+                git commit -m "fix(ci): fix ${{ steps.workflow_context.outputs.run_name }} failures
 
-                Auto-fix for failed run: ${{ github.event.workflow_run.html_url }}
+                Auto-fix for failed run: ${{ steps.workflow_context.outputs.run_url }}
 
                 Co-Authored-By: duyet <me@duyet.net>
                 Co-Authored-By: duyetbot <duyetbot@users.noreply.github.com>"
@@ -117,18 +140,18 @@ jobs:
 
             8. **Push and open a PR** targeting the original branch:
                 ```
-                git push origin claude/fix-ci-${{ github.event.workflow_run.pull_requests[0].number }}-${{ github.run_id }}
+                git push origin claude/fix-ci-${{ steps.workflow_context.outputs.pr_number }}-${{ github.run_id }}
                 gh pr create \
-                  --title "fix(ci): auto-fix ${{ github.event.workflow_run.name }} failures on PR #${{ github.event.workflow_run.pull_requests[0].number }}" \
-                  --body "Automated fix for CI failure on PR #${{ github.event.workflow_run.pull_requests[0].number }}.
+                  --title "fix(ci): auto-fix ${{ steps.workflow_context.outputs.run_name }} failures on PR #${{ steps.workflow_context.outputs.pr_number }}" \
+                  --body "Automated fix for CI failure on PR #${{ steps.workflow_context.outputs.pr_number }}.
 
-                **Failed run:** ${{ github.event.workflow_run.html_url }}
+                **Failed run:** ${{ steps.workflow_context.outputs.run_url }}
 
                 Please review and merge into \`${{ steps.sanitize.outputs.safe_branch }}\` if the fix looks correct." \
                   --base "${{ steps.sanitize.outputs.safe_branch }}" \
                 ```
 
-            **If you cannot confidently fix the issue** (e.g., the failure requires business logic decisions, or is a flaky test), instead post a comment on PR #${{ github.event.workflow_run.pull_requests[0].number }} explaining:
+            **If you cannot confidently fix the issue** (e.g., the failure requires business logic decisions, or is a flaky test), instead post a comment on PR #${{ steps.workflow_context.outputs.pr_number }} explaining:
             - What the failure is
             - What you investigated
             - Why you couldn't auto-fix it

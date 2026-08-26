@@ -9,6 +9,7 @@
     "dev": "vite dev --port 3012",
     "fmt": "biome format --write .",
     "lint": "biome lint .",
+    "test": "vitest run",
     "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh tip duyet-tip"
   },
   "dependencies": {
@@ -27,6 +28,7 @@
     "@types/react-dom": "^19.1.5",
     "typescript": "*",
     "vite": "^8.0.0",
-    "vite-tsconfig-paths": "^6.0.0"
+    "vite-tsconfig-paths": "^6.0.0",
+    "vitest": "^3.2.4"
   }
 }

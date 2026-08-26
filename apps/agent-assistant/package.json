@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev --port 3000",
+    "dev": "vite dev --port 3004",
     "build": "vite build",
     "check-types": "tsc --noEmit",
     "test": "vitest run",

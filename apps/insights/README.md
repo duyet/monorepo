@@ -24,7 +24,7 @@ Do not use `NEXT_PUBLIC_*` names. This app is Vite / TanStack Start, not Next.js
 ## Development
 
 ```bash
-pnpm run dev          # http://localhost:3001
+pnpm run dev          # http://localhost:3013
 pnpm run test
 pnpm run check-types
 pnpm run cf:deploy:prod

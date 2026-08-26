@@ -20,7 +20,11 @@ jobs:
           code=$(curl -s -o /tmp/resp.json -w '%{http_code}' -X POST \
             "https://news.duyet.net/api/admin/ingest" \
             -H "Authorization: Bearer ${{ secrets.NEWS_ADMIN_TOKEN }}")
-          cat /tmp/resp.json
+          if [ "$code" -ge 200 ] && [ "$code" -lt 300 ]; then
+            cat /tmp/resp.json
+          else
+            echo "ingest failed (HTTP $code); body suppressed"
+          fi
           if [ "$code" -lt 200 ] || [ "$code" -ge 300 ]; then
             echo "Trigger failed with HTTP $code" >&2
             exit 1
