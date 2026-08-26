@@ -1,7 +1,9 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { PAGES_DOMAIN_OVERRIDES } from "@duyet/urls/app-registry";
+// Relative import: cf-deploy-matrix runs via `node --experimental-strip-types`
+// in CI without `pnpm install`, so workspace aliases like @duyet/urls are unavailable.
+import { PAGES_DOMAIN_OVERRIDES } from "../packages/urls/src/app-registry.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
