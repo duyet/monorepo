@@ -21,7 +21,8 @@ async function resolveEnv(context: any): Promise<Env | undefined> {
 }
 
 function clientIp(request: Request): string | null {
-  return request.headers.get("CF-Connecting-IP");
+  const cf = (request as Request & { cf?: unknown }).cf;
+  return cf ? request.headers.get("CF-Connecting-IP") : null;
 }
 
 function isOneClickBody(request: Request, raw: string): boolean {

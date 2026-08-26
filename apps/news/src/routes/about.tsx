@@ -236,10 +236,10 @@ function AboutPage() {
         <p>
           {t("Pipeline stats at", "Thống kê pipeline tại")}{" "}
           <Link
-            to="/system"
+            to="/data"
             className="text-accent underline underline-offset-2 hover:no-underline"
           >
-            /system
+            /data
           </Link>
           {" · "}
           {t("API at", "API tại")}{" "}

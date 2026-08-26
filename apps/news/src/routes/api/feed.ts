@@ -46,10 +46,8 @@ export const Route = createFileRoute("/api/feed")({
             },
           });
         } catch (e) {
-          return Response.json(
-            { error: e instanceof Error ? e.message : "query failed" },
-            { status: 500 }
-          );
+          console.error("feed:", e);
+          return Response.json({ error: "query failed" }, { status: 500 });
         }
       },
     },

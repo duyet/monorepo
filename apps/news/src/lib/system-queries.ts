@@ -52,6 +52,14 @@ export interface DayCount {
   count: number;
 }
 
+export interface LlmDayTaskCount {
+  date: string;
+  task: string;
+  calls: number;
+  failures: number;
+  tokens: number;
+}
+
 export interface NamedCount {
   name: string;
   count: number;
@@ -80,6 +88,27 @@ export interface SystemStats {
   lastRun: WorkflowRunRow | null;
   latestTldrDate: string | null;
   models: ModelChains;
+  llmCallsPerDay: LlmDayTaskCount[];
+}
+
+/** Legacy workflow_runs rows may store started_at/finished_at in ms. */
+function normalizeTs(v: number | null): number | null {
+  if (v == null) return null;
+  return v > 1e12 ? Math.floor(v / 1000) : v;
+}
+
+function normalizeRunRow(row: Omit<WorkflowRunRow, "stats"> & {
+  stats?: string | null;
+}): WorkflowRunRow {
+  return {
+    id: row.id,
+    started_at: normalizeTs(row.started_at),
+    finished_at: normalizeTs(row.finished_at),
+    items_fetched: row.items_fetched,
+    items_new: row.items_new,
+    error: row.error,
+    stats: parseRunStats(row.stats),
+  };
 }
 
 export interface ModelChains {
@@ -126,6 +155,50 @@ async function supportsLlmTokens(db: D1Database): Promise<boolean> {
   return llmTokensSupported;
 }
 
+let llmCallsSupported: boolean | null = null;
+
+async function supportsLlmCalls(db: D1Database): Promise<boolean> {
+  if (llmCallsSupported !== null) return llmCallsSupported;
+  try {
+    await db.prepare("SELECT ts FROM llm_calls LIMIT 1").all();
+    llmCallsSupported = true;
+  } catch {
+    llmCallsSupported = false;
+  }
+  return llmCallsSupported;
+}
+
+async function loadLlmCallsPerDay(
+  db: D1Database
+): Promise<LlmDayTaskCount[]> {
+  const { results } = await db
+    .prepare(
+      `SELECT date(ts / 1000, 'unixepoch') AS date,
+              task,
+              COUNT(*) AS calls,
+              SUM(CASE WHEN ok = 0 THEN 1 ELSE 0 END) AS failures,
+              SUM(COALESCE(tokens, 0)) AS tokens
+       FROM llm_calls
+       WHERE ts >= (unixepoch('now') - 14 * 86400) * 1000
+       GROUP BY date, task
+       ORDER BY date ASC, task ASC`
+    )
+    .all<{
+      date: string;
+      task: string;
+      calls: number;
+      failures: number;
+      tokens: number | null;
+    }>();
+  return (results ?? []).map((r) => ({
+    date: r.date,
+    task: r.task,
+    calls: r.calls,
+    failures: r.failures,
+    tokens: r.tokens ?? 0,
+  }));
+}
+
 let runStatsSupported: boolean | null = null;
 
 async function supportsRunStats(db: D1Database): Promise<boolean> {
@@ -148,9 +221,10 @@ export async function loadSystemStats(
     ANYROUTER_TLDR_MODEL?: string;
   } = {}
 ): Promise<SystemStats> {
-  const [hasTokens, hasRunStats] = await Promise.all([
+  const [hasTokens, hasRunStats, hasLlmCalls] = await Promise.all([
     supportsLlmTokens(db),
     supportsRunStats(db),
+    supportsLlmCalls(db),
   ]);
 
   const runsQuery = hasRunStats
@@ -242,21 +316,22 @@ export async function loadSystemStats(
     }));
   }
 
-  const runRows: WorkflowRunRow[] = (runs.results ?? []).map((r) => ({
-    id: r.id,
-    started_at: r.started_at,
-    finished_at: r.finished_at,
-    items_fetched: r.items_fetched,
-    items_new: r.items_new,
-    error: r.error,
-    stats: parseRunStats(r.stats),
-  }));
+  const runRows: WorkflowRunRow[] = (runs.results ?? []).map(normalizeRunRow);
   const todayStr = new Date().toISOString().slice(0, 10);
   const runsToday = runRows.filter(
     (r) =>
       r.started_at &&
       new Date(r.started_at * 1000).toISOString().slice(0, 10) === todayStr
   ).length;
+
+  let llmCallsPerDay: LlmDayTaskCount[] = [];
+  if (hasLlmCalls) {
+    try {
+      llmCallsPerDay = await loadLlmCallsPerDay(db);
+    } catch {
+      llmCallsPerDay = [];
+    }
+  }
 
   return {
     totals: {
@@ -281,5 +356,6 @@ export async function loadSystemStats(
     lastRun: runRows[0] ?? null,
     latestTldrDate: latestTldr?.date ?? null,
     models: getModelChains(env),
+    llmCallsPerDay,
   };
 }

@@ -102,7 +102,7 @@ interface ItemRow {
 
 export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
   async run(_event: WorkflowEvent<unknown>, step: WorkflowStep) {
-    const startedAt = Date.now();
+    const startedAt = toEpochSeconds(Date.now());
     const runId = crypto.randomUUID();
     let itemsFetched = 0;
     let itemsNew = 0;
@@ -149,20 +149,30 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
       const sinceEpochSec = Math.floor(Date.now() / 1000) - SINCE_WINDOW_SEC;
       const fetchedBySource: { source: SourceRow; items: FetchedItem[] }[] = [];
 
-      for (const source of sources) {
-        const items = await step.do<FetchedItem[]>(
-          `fetch-${source.id}`,
-          { retries: { limit: 3, delay: 10_000, backoff: "exponential" } },
-          async () => {
-            const adapter = adapters[source.type];
-            if (!adapter) return [];
-            const config = JSON.parse(source.config || "{}");
-            return adapter.fetchItems(config, sinceEpochSec);
-          }
+      const SOURCE_FETCH_GROUP = 4;
+      for (let gi = 0; gi < sources.length; gi += SOURCE_FETCH_GROUP) {
+        const group = sources.slice(gi, gi + SOURCE_FETCH_GROUP);
+        const groupResults = await Promise.all(
+          group.map((source) =>
+            step.do<FetchedItem[]>(
+              `fetch-${source.id}`,
+              { retries: { limit: 3, delay: 10_000, backoff: "exponential" } },
+              async () => {
+                const adapter = adapters[source.type];
+                if (!adapter) return [];
+                const config = JSON.parse(source.config || "{}");
+                return adapter.fetchItems(config, sinceEpochSec);
+              }
+            )
+          )
         );
-        fetchedBySource.push({ source, items });
-        itemsFetched += items.length;
-        bySource[source.id] = (bySource[source.id] ?? 0) + items.length;
+        for (let j = 0; j < group.length; j++) {
+          const source = group[j];
+          const items = groupResults[j];
+          fetchedBySource.push({ source, items });
+          itemsFetched += items.length;
+          bySource[source.id] = (bySource[source.id] ?? 0) + items.length;
+        }
       }
       recordStep(
         steps,
@@ -171,31 +181,41 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
       );
 
       let newRows = await step.do("dedupe", async () => {
-        const rows: {
+        const candidates: {
           id: string;
           source: SourceRow;
           item: FetchedItem;
         }[] = [];
 
         for (const { source, items } of fetchedBySource) {
-          for (const item of items) {
-            const id = await sha256Hex(item.url);
-            const existing = await this.env.DB.prepare(
-              "SELECT id FROM items WHERE id = ?"
-            )
-              .bind(id)
-              .first();
-            if (existing) continue;
-            // Normalize once here: adapters may emit ms (e.g. hn.ts
-            // converts Algolia's seconds back to ms) or already-seconds
-            // timestamps; every downstream consumer treats this as seconds.
-            const normalizedItem: FetchedItem = {
-              ...item,
-              publishedAt: toEpochSeconds(item.publishedAt),
-            };
-            rows.push({ id, source, item: normalizedItem });
-          }
+          const hashed = await Promise.all(
+            items.map(async (item) => ({
+              id: await sha256Hex(item.url),
+              source,
+              item: {
+                ...item,
+                publishedAt: toEpochSeconds(item.publishedAt),
+              },
+            }))
+          );
+          candidates.push(...hashed);
         }
+
+        const existingIds = new Set<string>();
+        const DEDUPE_IN_CHUNK = 50;
+        for (let i = 0; i < candidates.length; i += DEDUPE_IN_CHUNK) {
+          const chunk = candidates.slice(i, i + DEDUPE_IN_CHUNK);
+          if (chunk.length === 0) continue;
+          const placeholders = chunk.map(() => "?").join(",");
+          const { results } = await this.env.DB.prepare(
+            `SELECT id FROM items WHERE id IN (${placeholders})`
+          )
+            .bind(...chunk.map((c) => c.id))
+            .all<{ id: string }>();
+          for (const row of results ?? []) existingIds.add(row.id);
+        }
+
+        const rows = candidates.filter((c) => !existingIds.has(c.id));
 
         // Rows inserted directly with status='new' (e.g. an accepted user
         // submission, or an admin push) never came through a source's
@@ -1181,7 +1201,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
           .bind(
             nn(runId),
             nn(startedAt),
-            nn(Date.now()),
+            nn(toEpochSeconds(Date.now())),
             nn(itemsFetched),
             nn(itemsNew),
             nn(runError),

@@ -1,5 +1,60 @@
+import {
+  checkRateLimit,
+  hashIp,
+  ONE_DAY_SEC,
+} from "../rate-limit.js";
 import type { Env } from "../types.js";
 import { isClerkAdmin, verifyClerkToken } from "./clerk.js";
+
+/** Per-IP failed admin auth attempts before 429. Tunable if shared NAT bites. */
+const ADMIN_FAIL_LIMIT = 10;
+
+async function adminFailKey(request: Request): Promise<string> {
+  const ip = request.headers.get("CF-Connecting-IP") ?? "unknown";
+  return `admin-fail:${await hashIp(ip)}`;
+}
+
+/** Returns a 429 Response when the IP has exceeded failed auth attempts,
+ * or null to proceed. Only applies when a bearer token is present. */
+export async function checkAdminAuthRateLimit(
+  request: Request,
+  env: Env
+): Promise<Response | null> {
+  if (!bearerToken(request)) return null;
+  try {
+    const key = await adminFailKey(request);
+    const blocked = await checkRateLimit(env.DB, {
+      table: "subscribe_attempts",
+      column: "ip_hash",
+      key,
+      windowSec: ONE_DAY_SEC,
+      limit: ADMIN_FAIL_LIMIT,
+    });
+    if (blocked) {
+      return Response.json({ error: "too many attempts" }, { status: 429 });
+    }
+  } catch {
+    // subscribe_attempts table may be absent in test stubs
+  }
+  return null;
+}
+
+async function recordAdminAuthFailure(
+  request: Request,
+  env: Env
+): Promise<void> {
+  if (!bearerToken(request)) return;
+  const key = await adminFailKey(request);
+  try {
+    await env.DB.prepare(
+      "INSERT INTO subscribe_attempts (ip_hash, created_at) VALUES (?, ?)"
+    )
+      .bind(key, Date.now())
+      .run();
+  } catch {
+    // subscribe_attempts table may not exist yet
+  }
+}
 
 /**
  * Constant-time byte comparison. Consumes both operands up to the max of
@@ -89,6 +144,9 @@ export async function checkAdminAuth(
   request: Request,
   env: Env
 ): Promise<Response | null> {
+  const rateLimited = await checkAdminAuthRateLimit(request, env);
+  if (rateLimited) return rateLimited;
   if (await isRequestAdmin(request, env)) return null;
+  await recordAdminAuthFailure(request, env);
   return Response.json({ error: "unauthorized" }, { status: 401 });
 }

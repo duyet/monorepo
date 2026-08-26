@@ -31,25 +31,37 @@ function statusLabel(status: Submission["status"], lang: "en" | "vi") {
 function SubmissionsList({
   userId,
   lang,
+  getToken,
 }: {
   userId: string;
   lang: "en" | "vi";
+  getToken: () => Promise<string | null>;
 }) {
   const [items, setItems] = useState<Submission[] | null>(null);
 
   useEffect(() => {
     let cancelled = false;
-    fetchMySubmissions({ data: { user_id: userId } })
-      .then((res) => {
-        if (!cancelled) setItems(res);
-      })
-      .catch(() => {
+    (async () => {
+      const token = await getToken();
+      if (!token) {
         if (!cancelled) setItems([]);
-      });
+        return;
+      }
+      fetchMySubmissions({
+        data: { user_id: userId },
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then((res) => {
+          if (!cancelled) setItems(res);
+        })
+        .catch(() => {
+          if (!cancelled) setItems([]);
+        });
+    })();
     return () => {
       cancelled = true;
     };
-  }, [userId]);
+  }, [userId, getToken]);
 
   if (!items || items.length === 0) return null;
 
@@ -89,9 +101,11 @@ function SubmissionsList({
 function SubmitForm({
   userId,
   userName,
+  getToken,
 }: {
   userId: string;
   userName: string;
+  getToken: () => Promise<string | null>;
 }) {
   const lang = useLang();
   const [url, setUrl] = useState("");
@@ -136,8 +150,11 @@ function SubmitForm({
         setStatus("sending");
         setError(null);
         try {
+          const token = await getToken();
+          if (!token) throw new Error("Sign in required");
           await submitStory({
             data: { url, title, note, user_id: userId, user_name: userName },
+            headers: { Authorization: `Bearer ${token}` },
           });
           setStatus("sent");
         } catch (err) {
@@ -208,13 +225,20 @@ function SubmitForm({
         {lang === "vi" ? "Gửi bài" : "Submit"}
       </button>
       {error && <p className="text-sm text-red-600">{error}</p>}
-      <SubmissionsList userId={userId} lang={lang} />
+      <SubmissionsList userId={userId} lang={lang} getToken={getToken} />
     </form>
   );
 }
 
-function SubmitGate({ useUser }: { useUser: any }) {
+function SubmitGate({
+  useUser,
+  useAuth,
+}: {
+  useUser: any;
+  useAuth: any;
+}) {
   const { user } = useUser();
+  const { getToken } = useAuth();
   const lang = useLang();
   if (!user) {
     return (
@@ -224,7 +248,9 @@ function SubmitGate({ useUser }: { useUser: any }) {
     );
   }
   const userName = user.fullName ?? user.username ?? "user";
-  return <SubmitForm userId={user.id} userName={userName} />;
+  return (
+    <SubmitForm userId={user.id} userName={userName} getToken={getToken} />
+  );
 }
 
 function SubmitPage() {
@@ -286,7 +312,7 @@ function SubmitPage() {
                 </ErrorBoundary>
               </mod.SignedOut>
               <mod.SignedIn>
-                <SubmitGate useUser={mod.useUser} />
+                <SubmitGate useUser={mod.useUser} useAuth={mod.useAuth} />
               </mod.SignedIn>
             </>
           )}

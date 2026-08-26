@@ -653,3 +653,81 @@ export async function regenerateTldr(env: Env): Promise<TldrRegenerateResult> {
   );
   return result;
 }
+
+export async function listPendingSuggestions(
+  env: Env,
+  limitParam?: string | null
+) {
+  const limit = Math.min(
+    Math.max(Number.parseInt(limitParam ?? "50", 10) || 50, 1),
+    100
+  );
+  const { results } = await env.DB.prepare(
+    `SELECT id, item_id, field, suggestion, user_name, rating, created_at, status
+     FROM translation_suggestions
+     WHERE status = 'pending'
+     ORDER BY created_at ASC
+     LIMIT ${limit}`
+  ).all();
+  return { suggestions: results ?? [] };
+}
+
+export async function listPendingSubmissions(
+  env: Env,
+  limitParam?: string | null
+) {
+  const limit = Math.min(
+    Math.max(Number.parseInt(limitParam ?? "50", 10) || 50, 1),
+    100
+  );
+  const { results } = await env.DB.prepare(
+    `SELECT id, url, title, note, user_name, rating, created_at, status
+     FROM submissions
+     WHERE status = 'pending'
+     ORDER BY created_at ASC
+     LIMIT ${limit}`
+  ).all();
+  return { submissions: results ?? [] };
+}
+
+export async function decideSuggestion(
+  env: Env,
+  body: { id?: string; action?: string }
+): Promise<{ ok: true } | HandlerError> {
+  const id = body.id;
+  const action = body.action;
+  if (!id || (action !== "approve" && action !== "reject")) {
+    return { error: "id and action (approve|reject) required", status: 400 };
+  }
+  const { approveSuggestionById, rejectSuggestionById } = await import(
+    "../suggestions.js"
+  );
+  const result =
+    action === "approve"
+      ? await approveSuggestionById(env, id)
+      : await rejectSuggestionById(env, id);
+  if (!result.ok) return { error: result.error, status: 404 };
+  await writeAudit(env, `suggestions.${action}`, id);
+  return { ok: true };
+}
+
+export async function decideSubmission(
+  env: Env,
+  body: { id?: string; action?: string }
+): Promise<{ ok: true } | HandlerError> {
+  const id = body.id;
+  const action = body.action;
+  if (!id || (action !== "approve" && action !== "reject")) {
+    return { error: "id and action (approve|reject) required", status: 400 };
+  }
+  const { acceptSubmissionById, rejectSubmissionById } = await import(
+    "../submissions.js"
+  );
+  const result =
+    action === "approve"
+      ? await acceptSubmissionById(env, id)
+      : await rejectSubmissionById(env, id);
+  if (!result.ok) return { error: result.error, status: 404 };
+  await writeAudit(env, `submissions.${action}`, id);
+  return { ok: true };
+}

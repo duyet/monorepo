@@ -66,6 +66,33 @@ function isAbsoluteHttpUrl(url: string): boolean {
   }
 }
 
+/** Hostname-only SSRF guard before server-side fetches. No DNS resolution
+ * in Workers — blocks obvious private/link-local targets by name. */
+export function isFetchableUrl(raw: string): boolean {
+  let u: URL;
+  try {
+    u = new URL(raw);
+  } catch {
+    return false;
+  }
+  if (u.protocol !== "http:" && u.protocol !== "https:") return false;
+  const h = u.hostname.toLowerCase();
+  if (
+    h === "localhost" ||
+    h.endsWith(".localhost") ||
+    h.endsWith(".internal") ||
+    h.endsWith(".local")
+  ) {
+    return false;
+  }
+  if (/^(10|127)\./.test(h)) return false;
+  if (/^192\.168\./.test(h)) return false;
+  if (/^172\.(1[6-9]|2\d|3[01])\./.test(h)) return false;
+  if (/^169\.254\./.test(h)) return false;
+  if (/^(::1|fc00:|fd[0-9a-f]{2}:|fe80:)/i.test(h)) return false;
+  return true;
+}
+
 /** Matches a <meta> tag's `content` regardless of whether `content` comes
  * before or after the property/name attribute, single- or double-quoted. */
 function extractMetaContent(
@@ -147,6 +174,14 @@ async function readCappedText(
  * responses are read. Any failure (network, non-2xx, wrong content type)
  * resolves to `{}`, never throws. */
 export async function fetchOgData(url: string): Promise<OgData> {
+  if (!isFetchableUrl(url)) {
+    try {
+      console.warn("enrich: blocked url", new URL(url).hostname);
+    } catch {
+      console.warn("enrich: blocked url", url);
+    }
+    return {};
+  }
   try {
     const res = await fetch(url, {
       signal: AbortSignal.timeout(ENRICH_FETCH_TIMEOUT_MS),

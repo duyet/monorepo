@@ -1,5 +1,6 @@
 import { looksVietnamese } from "./tldr-lang.js";
 import type { Env } from "./types.js";
+import { mapWithConcurrency } from "./concurrency.js";
 
 const BATCH_SIZE = 15;
 /** 15-item translate JSON + VI_STYLE routinely times out native Gemma 4
@@ -640,10 +641,14 @@ export async function scoreItems(
   env: Env,
   items: ScoreInput[]
 ): Promise<ScoreResult[]> {
-  const results: ScoreResult[] = [];
-
-  for (const batch of chunk(items, BATCH_SIZE)) {
-    const prompt = `You are scoring AI/tech news items for relevance and importance.
+  const batches = chunk(items, BATCH_SIZE);
+  // Token spend unchanged; wall-clock divided (~3× at SCORE_CONCURRENCY).
+  const SCORE_CONCURRENCY = 3;
+  const batchResults = await mapWithConcurrency(
+    batches,
+    SCORE_CONCURRENCY,
+    async (batch) => {
+      const prompt = `You are scoring AI/tech news items for relevance and importance.
 For each item, return relevance (0-1, is this genuinely AI/tech news), importance (0-10), quality (0-10, writing/source quality), category (one of: ${CATEGORIES.join(", ")}), and tags — 3 to 6 topic labels per item.
 
 Topic label rules (this feeds a dynamic topic taxonomy, so consistency matters):
@@ -662,24 +667,26 @@ ${JSON.stringify(batch.map(({ i, title, summary, source }) => ({ i, title, summa
 
 Respond with strict JSON only: {"results":[{"i":0,"relevance":0.9,"importance":7,"quality":8,"category":"Models","tags":["anthropic","claude","multi-agent","open-source"]}]}`;
 
-    try {
-      const { content: raw, tokens } = await callAnyrouter(
-        env,
-        [{ role: "user", content: prompt }],
-        { json: true, task: "score" }
-      );
-      const parsed = parseJson<{ results?: unknown } | unknown[]>(raw);
-      // Some small models return the bare array instead of {results: [...]}.
-      const rows = Array.isArray(parsed) ? parsed : parsed.results;
-      results.push(
-        ...sanitizeScoreResults(rows, batch, Math.ceil(tokens / batch.length))
-      );
-    } catch (error) {
-      console.error("scoreItems batch failed:", error);
+      try {
+        const { content: raw, tokens } = await callAnyrouter(
+          env,
+          [{ role: "user", content: prompt }],
+          { json: true, task: "score" }
+        );
+        const parsed = parseJson<{ results?: unknown } | unknown[]>(raw);
+        const rows = Array.isArray(parsed) ? parsed : parsed.results;
+        return sanitizeScoreResults(
+          rows,
+          batch,
+          Math.ceil(tokens / batch.length)
+        );
+      } catch (error) {
+        console.error("scoreItems batch failed:", error);
+        return [];
+      }
     }
-  }
-
-  return results;
+  );
+  return batchResults.flat();
 }
 
 export interface TranslateInput {
@@ -832,8 +839,6 @@ export async function translateItems(
     }
   }
 
-  const translated = new Set(results.map((row) => row.i));
-
   const runBatch = async (
     batch: TranslateInput[],
     titlesOnly: boolean
@@ -857,12 +862,15 @@ export async function translateItems(
     }
   };
 
-  for (const batch of chunk(needLlm, TRANSLATE_BATCH_SIZE)) {
+  const processBatch = async (
+    batch: TranslateInput[]
+  ): Promise<TranslateResult[]> => {
     if (deadline - Date.now() <= 0) {
       logTranslateBatchFailed("translate deadline exhausted", batch, false);
-      break;
+      return [];
     }
 
+    const batchResults: TranslateResult[] = [];
     let got = await runBatch(batch, false);
     const hasSummary = batch.some((item) => Boolean(item.summary));
     if (got.length < batch.length && hasSummary) {
@@ -872,18 +880,28 @@ export async function translateItems(
         got = [...got, ...(await runBatch(leftover, true))];
       }
     }
-    results.push(...got);
-    for (const row of got) translated.add(row.i);
+    batchResults.push(...got);
 
-    // One poisoned item in a 3-row batch used to leave every title_vi null
-    // (EN badge) until backfill. Retry leftovers one at a time.
-    const stillMissing = batch.filter((item) => !translated.has(item.i));
+    const batchTranslated = new Set(got.map((row) => row.i));
+    const stillMissing = batch.filter((item) => !batchTranslated.has(item.i));
     for (const item of stillMissing) {
       if (deadline - Date.now() <= 0) break;
       const one = await runBatch([item], true);
-      results.push(...one);
-      for (const row of one) translated.add(row.i);
+      batchResults.push(...one);
     }
+    return batchResults;
+  };
+
+  // Token spend unchanged; wall-clock divided (~3× at TRANSLATE_CONCURRENCY).
+  const TRANSLATE_CONCURRENCY = 3;
+  const batches = chunk(needLlm, TRANSLATE_BATCH_SIZE);
+  const parallelResults = await mapWithConcurrency(
+    batches,
+    TRANSLATE_CONCURRENCY,
+    processBatch
+  );
+  for (const batchOut of parallelResults) {
+    results.push(...batchOut);
   }
 
   return results;

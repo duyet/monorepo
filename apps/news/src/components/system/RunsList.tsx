@@ -10,12 +10,20 @@ interface RunsListProps {
   lang: "en" | "vi";
 }
 
+function formatDurationSec(
+  started: number | null,
+  finished: number | null
+): number {
+  if (!started || !finished) return 0;
+  return Math.max(finished - started, 0);
+}
+
 function formatDuration(
   started: number | null,
   finished: number | null
 ): string {
-  if (!started || !finished) return "—";
-  const s = Math.max(finished - started, 0);
+  const s = formatDurationSec(started, finished);
+  if (!s) return "—";
   return s < 60 ? `${s}s` : `${Math.round(s / 60)}m`;
 }
 
@@ -69,6 +77,12 @@ export function RunsList({ runs, lang }: RunsListProps) {
       </p>
     );
   }
+
+  const maxDuration = Math.max(
+    ...runs.map((r) => formatDurationSec(r.started_at, r.finished_at)),
+    1
+  );
+
   return (
     <div
       ref={scrollRef}
@@ -85,6 +99,9 @@ export function RunsList({ runs, lang }: RunsListProps) {
             </th>
             <th className="px-3 py-2 text-right font-normal">
               {lang === "vi" ? "Thời lượng" : "Duration"}
+            </th>
+            <th className="px-3 py-2 font-normal">
+              {lang === "vi" ? "Bar" : "Bar"}
             </th>
             <th className="px-3 py-2 text-right font-normal">
               {lang === "vi" ? "Lấy về" : "Fetched"}
@@ -140,6 +157,20 @@ export function RunsList({ runs, lang }: RunsListProps) {
                 </td>
                 <td className="px-3 py-2 text-right font-mono tabular-nums text-foreground">
                   {formatDuration(r.started_at, r.finished_at)}
+                </td>
+                <td className="px-3 py-2">
+                  {(() => {
+                    const sec = formatDurationSec(r.started_at, r.finished_at);
+                    if (!sec) return "—";
+                    const pct = Math.max((sec / maxDuration) * 100, 4);
+                    return (
+                      <div
+                        className="h-2 rounded-sm bg-accent/80"
+                        style={{ width: `${pct}%`, maxWidth: "4rem" }}
+                        title={`${sec}s`}
+                      />
+                    );
+                  })()}
                 </td>
                 <td className="px-3 py-2 text-right font-mono tabular-nums text-foreground">
                   <div>{r.items_fetched ?? 0}</div>

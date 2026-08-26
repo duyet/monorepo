@@ -10,14 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SplatRouteImport } from './routes/$'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ChangelogRouteImport } from './routes/changelog'
+import { Route as DataRouteImport } from './routes/data'
+import { Route as MailRouteImport } from './routes/mail'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as SubmitRouteImport } from './routes/submit'
 import { Route as SubscribeRouteImport } from './routes/subscribe'
-import { Route as MailRouteImport } from './routes/mail'
-import { Route as SystemRouteImport } from './routes/system'
-import { Route as SplatRouteImport } from './routes/$'
 import { Route as CatSlugRouteImport } from './routes/$cat.$slug'
 import { Route as ApiFeedRouteImport } from './routes/api/feed'
 import { Route as ApiMcpRouteImport } from './routes/api/mcp'
@@ -31,6 +31,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SplatRoute = SplatRouteImport.update({
+  id: '/$',
+  path: '/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -39,6 +44,16 @@ const AboutRoute = AboutRouteImport.update({
 const ChangelogRoute = ChangelogRouteImport.update({
   id: '/changelog',
   path: '/changelog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DataRoute = DataRouteImport.update({
+  id: '/data',
+  path: '/data',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MailRoute = MailRouteImport.update({
+  id: '/mail',
+  path: '/mail',
   getParentRoute: () => rootRouteImport,
 } as any)
 const McpRoute = McpRouteImport.update({
@@ -54,21 +69,6 @@ const SubmitRoute = SubmitRouteImport.update({
 const SubscribeRoute = SubscribeRouteImport.update({
   id: '/subscribe',
   path: '/subscribe',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MailRoute = MailRouteImport.update({
-  id: '/mail',
-  path: '/mail',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SystemRoute = SystemRouteImport.update({
-  id: '/system',
-  path: '/system',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SplatRoute = SplatRouteImport.update({
-  id: '/$',
-  path: '/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CatSlugRoute = CatSlugRouteImport.update({
@@ -109,14 +109,14 @@ const ApiStoryIdRoute = ApiStoryIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$': typeof SplatRoute
   '/about': typeof AboutRoute
   '/changelog': typeof ChangelogRoute
+  '/data': typeof DataRoute
+  '/mail': typeof MailRoute
   '/mcp': typeof McpRoute
   '/submit': typeof SubmitRoute
   '/subscribe': typeof SubscribeRoute
-  '/mail': typeof MailRoute
-  '/system': typeof SystemRoute
-  '/$': typeof SplatRoute
   '/$cat/$slug': typeof CatSlugRoute
   '/api/feed': typeof ApiFeedRoute
   '/api/mcp': typeof ApiMcpRoute
@@ -127,14 +127,14 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/$': typeof SplatRoute
   '/about': typeof AboutRoute
   '/changelog': typeof ChangelogRoute
+  '/data': typeof DataRoute
+  '/mail': typeof MailRoute
   '/mcp': typeof McpRoute
   '/submit': typeof SubmitRoute
   '/subscribe': typeof SubscribeRoute
-  '/mail': typeof MailRoute
-  '/system': typeof SystemRoute
-  '/$': typeof SplatRoute
   '/$cat/$slug': typeof CatSlugRoute
   '/api/feed': typeof ApiFeedRoute
   '/api/mcp': typeof ApiMcpRoute
@@ -146,14 +146,14 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/$': typeof SplatRoute
   '/about': typeof AboutRoute
   '/changelog': typeof ChangelogRoute
+  '/data': typeof DataRoute
+  '/mail': typeof MailRoute
   '/mcp': typeof McpRoute
   '/submit': typeof SubmitRoute
   '/subscribe': typeof SubscribeRoute
-  '/mail': typeof MailRoute
-  '/system': typeof SystemRoute
-  '/$': typeof SplatRoute
   '/$cat/$slug': typeof CatSlugRoute
   '/api/feed': typeof ApiFeedRoute
   '/api/mcp': typeof ApiMcpRoute
@@ -166,14 +166,14 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/$'
     | '/about'
     | '/changelog'
+    | '/data'
+    | '/mail'
     | '/mcp'
     | '/submit'
     | '/subscribe'
-    | '/mail'
-    | '/system'
-    | '/$'
     | '/$cat/$slug'
     | '/api/feed'
     | '/api/mcp'
@@ -184,14 +184,14 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/$'
     | '/about'
     | '/changelog'
+    | '/data'
+    | '/mail'
     | '/mcp'
     | '/submit'
     | '/subscribe'
-    | '/mail'
-    | '/system'
-    | '/$'
     | '/$cat/$slug'
     | '/api/feed'
     | '/api/mcp'
@@ -202,14 +202,14 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/$'
     | '/about'
     | '/changelog'
+    | '/data'
+    | '/mail'
     | '/mcp'
     | '/submit'
     | '/subscribe'
-    | '/mail'
-    | '/system'
-    | '/$'
     | '/$cat/$slug'
     | '/api/feed'
     | '/api/mcp'
@@ -221,14 +221,14 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SplatRoute: typeof SplatRoute
   AboutRoute: typeof AboutRoute
   ChangelogRoute: typeof ChangelogRoute
+  DataRoute: typeof DataRoute
+  MailRoute: typeof MailRoute
   McpRoute: typeof McpRoute
   SubmitRoute: typeof SubmitRoute
   SubscribeRoute: typeof SubscribeRoute
-  MailRoute: typeof MailRoute
-  SystemRoute: typeof SystemRoute
-  SplatRoute: typeof SplatRoute
   CatSlugRoute: typeof CatSlugRoute
   ApiFeedRoute: typeof ApiFeedRoute
   ApiMcpRoute: typeof ApiMcpRoute
@@ -247,6 +247,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$': {
+      id: '/$'
+      path: '/$'
+      fullPath: '/$'
+      preLoaderRoute: typeof SplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -259,6 +266,20 @@ declare module '@tanstack/react-router' {
       path: '/changelog'
       fullPath: '/changelog'
       preLoaderRoute: typeof ChangelogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/data': {
+      id: '/data'
+      path: '/data'
+      fullPath: '/data'
+      preLoaderRoute: typeof DataRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mail': {
+      id: '/mail'
+      path: '/mail'
+      fullPath: '/mail'
+      preLoaderRoute: typeof MailRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mcp': {
@@ -280,27 +301,6 @@ declare module '@tanstack/react-router' {
       path: '/subscribe'
       fullPath: '/subscribe'
       preLoaderRoute: typeof SubscribeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mail': {
-      id: '/mail'
-      path: '/mail'
-      fullPath: '/mail'
-      preLoaderRoute: typeof MailRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/system': {
-      id: '/system'
-      path: '/system'
-      fullPath: '/system'
-      preLoaderRoute: typeof SystemRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/$': {
-      id: '/$'
-      path: '/$'
-      fullPath: '/$'
-      preLoaderRoute: typeof SplatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$cat/$slug': {
@@ -357,14 +357,14 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SplatRoute: SplatRoute,
   AboutRoute: AboutRoute,
   ChangelogRoute: ChangelogRoute,
+  DataRoute: DataRoute,
+  MailRoute: MailRoute,
   McpRoute: McpRoute,
   SubmitRoute: SubmitRoute,
   SubscribeRoute: SubscribeRoute,
-  MailRoute: MailRoute,
-  SystemRoute: SystemRoute,
-  SplatRoute: SplatRoute,
   CatSlugRoute: CatSlugRoute,
   ApiFeedRoute: ApiFeedRoute,
   ApiMcpRoute: ApiMcpRoute,

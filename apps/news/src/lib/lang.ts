@@ -28,7 +28,10 @@ export function timeAgo(
   now = Date.now(),
   lang: Lang = "en"
 ): string {
-  const diff = Math.max(0, Math.floor(now / 1000) - epochSec);
+  const normalizeTs = (v: number) =>
+    v > 1e12 ? Math.floor(v / 1000) : Math.floor(v);
+  const started = normalizeTs(epochSec);
+  const diff = Math.max(0, Math.floor(now / 1000) - started);
   if (lang === "vi") {
     if (diff < 3600) return `${Math.max(1, Math.floor(diff / 60))} phút trước`;
     if (diff < 86400) return `${Math.floor(diff / 3600)} giờ trước`;

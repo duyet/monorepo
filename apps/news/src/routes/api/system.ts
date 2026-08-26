@@ -32,10 +32,8 @@ export const Route = createFileRoute("/api/system")({
             },
           });
         } catch (e) {
-          return Response.json(
-            { error: e instanceof Error ? e.message : "query failed" },
-            { status: 500 }
-          );
+          console.error("system:", e);
+          return Response.json({ error: "query failed" }, { status: 500 });
         }
       },
     },

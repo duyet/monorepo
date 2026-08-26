@@ -13,13 +13,15 @@ import { RunDurationBars } from "../components/system/RunDurationBars";
 import { RunOutcomeBars } from "../components/system/RunOutcomeBars";
 import { RunsList } from "../components/system/RunsList";
 import { RunStatusStrip } from "../components/system/RunStatusStrip";
+import { LlmSection } from "../components/system/LlmSection";
+import { RankingExplainer } from "../components/system/RankingExplainer";
 import { StatTile } from "../components/system/StatTile";
 import { useAdmin } from "../lib/admin";
 import { categoryLabel, statusLabel } from "../lib/lang";
 import type { SystemStats } from "../lib/system-queries";
 import type { Lang } from "../lib/types";
 
-export const Route = createFileRoute("/system")({
+export const Route = createFileRoute("/data")({
   component: SystemPage,
 });
 
@@ -78,7 +80,7 @@ function SystemPage() {
     <div className="news-content py-6">
       <header className="mb-6">
         <h1 className="text-lg font-semibold text-foreground">
-          {t("System status", "Trạng thái hệ thống")}
+          {t("Pipeline data", "Dữ liệu pipeline")}
         </h1>
         <p className="mt-1 max-w-3xl text-sm text-muted-foreground">
           {t(
@@ -209,6 +211,20 @@ function SystemPage() {
             emptyLabel={t("No token data yet.", "Chưa có dữ liệu token.")}
             formatValue={formatTokens}
           />
+        </ChartCard>
+
+        <ChartCard
+          title="LLM calls"
+          subtitle="Calls, failures, and token burn by task (14 days)"
+        >
+          <LlmSection data={stats.llmCallsPerDay} formatTokens={formatTokens} />
+        </ChartCard>
+
+        <ChartCard
+          title="Ranking"
+          subtitle="How stories are scored for the feed"
+        >
+          <RankingExplainer models={stats.models} />
         </ChartCard>
 
         <ChartCard

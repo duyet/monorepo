@@ -128,6 +128,32 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
   const [rateDrafts, setRateDrafts] = useState<
     Record<string, { importance: string; quality: string }>
   >({});
+  const [queueSuggestions, setQueueSuggestions] = useState<
+    {
+      id: string;
+      item_id: string;
+      field: string;
+      suggestion: string;
+      user_name: string | null;
+      rating: number | null;
+      created_at: number;
+    }[]
+  >([]);
+  const [queueSubmissions, setQueueSubmissions] = useState<
+    {
+      id: string;
+      url: string;
+      title: string;
+      note: string | null;
+      user_name: string | null;
+      rating: number | null;
+      created_at: number;
+    }[]
+  >([]);
+  const [queueBusy, setQueueBusy] = useState(false);
+  const [queueActionBusyId, setQueueActionBusyId] = useState<string | null>(
+    null
+  );
 
   async function loadStatus() {
     setStatusBusy(true);
@@ -170,6 +196,52 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
     }
   }
 
+  async function loadQueue() {
+    setQueueBusy(true);
+    try {
+      const [sRes, subRes] = await Promise.all([
+        authedFetch(admin, "/api/admin/suggestions?limit=50"),
+        authedFetch(admin, "/api/admin/submissions?limit=50"),
+      ]);
+      if (sRes.ok) {
+        const data = (await sRes.json()) as {
+          suggestions?: typeof queueSuggestions;
+        };
+        setQueueSuggestions(Array.isArray(data.suggestions) ? data.suggestions : []);
+      }
+      if (subRes.ok) {
+        const data = (await subRes.json()) as {
+          submissions?: typeof queueSubmissions;
+        };
+        setQueueSubmissions(
+          Array.isArray(data.submissions) ? data.submissions : []
+        );
+      }
+    } catch {
+      // leave previous queue in place
+    } finally {
+      setQueueBusy(false);
+    }
+  }
+
+  async function decideQueue(
+    kind: "suggestions" | "submissions",
+    id: string,
+    action: "approve" | "reject"
+  ) {
+    setQueueActionBusyId(id);
+    try {
+      const res = await authedFetch(admin, `/api/admin/${kind}/decide`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, action }),
+      });
+      if (res.ok) await loadQueue();
+    } finally {
+      setQueueActionBusyId(null);
+    }
+  }
+
   async function loadItems() {
     setItemsBusy(true);
     try {
@@ -188,7 +260,13 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
   async function refreshAll() {
     setRefreshError(false);
     try {
-      await Promise.all([loadStatus(), loadCalls(), loadItems(), loadAudit()]);
+      await Promise.all([
+        loadStatus(),
+        loadCalls(),
+        loadItems(),
+        loadAudit(),
+        loadQueue(),
+      ]);
     } catch {
       setRefreshError(true);
     }
@@ -582,6 +660,155 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+      </div>
+
+      <div className="mt-4">
+        <div className="flex items-center justify-between">
+          <p className="text-xs font-medium text-muted-foreground">Queue</p>
+          <button
+            type="button"
+            onClick={loadQueue}
+            disabled={queueBusy}
+            className="rounded border border-border px-2 py-1 text-xs text-muted-foreground hover:text-foreground disabled:opacity-50"
+          >
+            {queueBusy ? "Refreshing…" : "Refresh"}
+          </button>
+        </div>
+        {queueSuggestions.length === 0 && queueSubmissions.length === 0 ? (
+          <p className="mt-1 text-xs text-muted-foreground">
+            No pending suggestions or submissions.
+          </p>
+        ) : (
+          <div className="mt-2 space-y-4">
+            {queueSuggestions.length > 0 && (
+              <div className="overflow-x-auto">
+                <p className="mb-1 text-[10px] uppercase tracking-wide text-muted-foreground">
+                  Suggestions
+                </p>
+                <table className="w-full text-xs">
+                  <thead>
+                    <tr className="border-b border-border text-left text-muted-foreground">
+                      <th className="py-1 pr-2 font-normal">field</th>
+                      <th className="py-1 pr-2 font-normal">suggestion</th>
+                      <th className="py-1 pr-2 font-normal">user</th>
+                      <th className="py-1 pr-2 font-normal text-right">rating</th>
+                      <th className="py-1 pr-2 font-normal">actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {queueSuggestions.map((row) => {
+                      const busy = queueActionBusyId === row.id;
+                      return (
+                        <tr key={row.id} className="border-b border-border/50">
+                          <td className="py-1 pr-2">{row.field}</td>
+                          <td className="py-1 pr-2 max-w-xs truncate">
+                            {row.suggestion}
+                          </td>
+                          <td className="py-1 pr-2">{row.user_name ?? "—"}</td>
+                          <td className="py-1 pr-2 text-right tabular-nums">
+                            {row.rating ?? "—"}
+                          </td>
+                          <td className="py-1 pr-2">
+                            <div className="flex gap-1">
+                              <button
+                                type="button"
+                                disabled={busy}
+                                onClick={() =>
+                                  decideQueue("suggestions", row.id, "approve")
+                                }
+                                className="rounded border border-border px-1.5 py-0.5 hover:bg-muted disabled:opacity-50"
+                              >
+                                Approve
+                              </button>
+                              <button
+                                type="button"
+                                disabled={busy}
+                                onClick={() =>
+                                  decideQueue("suggestions", row.id, "reject")
+                                }
+                                className="rounded border border-border px-1.5 py-0.5 hover:bg-muted disabled:opacity-50"
+                              >
+                                Reject
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+            {queueSubmissions.length > 0 && (
+              <div className="overflow-x-auto">
+                <p className="mb-1 text-[10px] uppercase tracking-wide text-muted-foreground">
+                  Submissions
+                </p>
+                <table className="w-full text-xs">
+                  <thead>
+                    <tr className="border-b border-border text-left text-muted-foreground">
+                      <th className="py-1 pr-2 font-normal">title</th>
+                      <th className="py-1 pr-2 font-normal">url</th>
+                      <th className="py-1 pr-2 font-normal">user</th>
+                      <th className="py-1 pr-2 font-normal text-right">rating</th>
+                      <th className="py-1 pr-2 font-normal">actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {queueSubmissions.map((row) => {
+                      const busy = queueActionBusyId === row.id;
+                      return (
+                        <tr key={row.id} className="border-b border-border/50">
+                          <td className="py-1 pr-2 max-w-xs truncate">
+                            {row.title}
+                          </td>
+                          <td className="py-1 pr-2 max-w-xs truncate">
+                            <a
+                              href={row.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="hover:underline"
+                            >
+                              {row.url}
+                            </a>
+                          </td>
+                          <td className="py-1 pr-2">{row.user_name ?? "—"}</td>
+                          <td className="py-1 pr-2 text-right tabular-nums">
+                            {row.rating ?? "—"}
+                          </td>
+                          <td className="py-1 pr-2">
+                            <div className="flex gap-1">
+                              <button
+                                type="button"
+                                disabled={busy}
+                                onClick={() =>
+                                  decideQueue("submissions", row.id, "approve")
+                                }
+                                className="rounded border border-border px-1.5 py-0.5 hover:bg-muted disabled:opacity-50"
+                              >
+                                Approve
+                              </button>
+                              <button
+                                type="button"
+                                disabled={busy}
+                                onClick={() =>
+                                  decideQueue("submissions", row.id, "reject")
+                                }
+                                className="rounded border border-border px-1.5 py-0.5 hover:bg-muted disabled:opacity-50"
+                              >
+                                Reject
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         )}
       </div>

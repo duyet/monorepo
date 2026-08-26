@@ -43,10 +43,8 @@ export const Route = createFileRoute("/api/story/$id")({
             },
           });
         } catch (e) {
-          return Response.json(
-            { error: e instanceof Error ? e.message : "query failed" },
-            { status: 500 }
-          );
+          console.error("story.$id:", e);
+          return Response.json({ error: "query failed" }, { status: 500 });
         }
       },
     },
