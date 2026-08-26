@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import type { Env } from "../env.js";
 import {
   buildClickHouseRequest,
+  clampHistoryDays,
   executeClickHouseQuery,
   getClickHouseConfig,
 } from "./ai-percentage.js";
@@ -38,6 +39,15 @@ describe("ClickHouse request builder", () => {
   it("returns null when ClickHouse is not configured", () => {
     expect(getClickHouseConfig({})).toBeNull();
     expect(buildClickHouseRequest({}, "SELECT 1")).toBeNull();
+  });
+});
+
+describe("clampHistoryDays", () => {
+  it("defaults invalid values to 365 and caps large requests", () => {
+    expect(clampHistoryDays(NaN)).toBe(365);
+    expect(clampHistoryDays(0)).toBe(365);
+    expect(clampHistoryDays(365)).toBe(365);
+    expect(clampHistoryDays(9999)).toBe(730);
   });
 });
 

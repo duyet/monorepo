@@ -9,6 +9,8 @@ import type { Env } from "../env.js";
 
 const aiPercentageRouter = new Hono<{ Bindings: Env }>();
 const FETCH_TIMEOUT_MS = 10_000;
+const MAX_HISTORY_DAYS = 730;
+const MAX_CLICKHOUSE_RESPONSE_BYTES = 1_048_576;
 
 export interface ClickHouseRequestConfig {
   headers: Record<string, string>;
@@ -91,8 +93,21 @@ export async function executeClickHouseQuery(
   }
 
   const text = await response.text();
+  if (text.length > MAX_CLICKHOUSE_RESPONSE_BYTES) {
+    throw new Error(
+      `[REDACTED] response exceeded ${MAX_CLICKHOUSE_RESPONSE_BYTES} bytes`
+    );
+  }
+
   const lines = text.trim().split("\n").filter(Boolean);
   return lines.map((line) => JSON.parse(line));
+}
+
+export function clampHistoryDays(rawDays: number): number {
+  if (!Number.isFinite(rawDays) || rawDays <= 0) {
+    return 365;
+  }
+  return Math.min(Math.floor(rawDays), MAX_HISTORY_DAYS);
 }
 
 /**
@@ -184,7 +199,7 @@ aiPercentageRouter.get("/history", async (c) => {
     return c.json({ error: "ClickHouse not configured" }, 500);
   }
 
-  const days = Number(c.req.query("days") || "365");
+  const days = clampHistoryDays(Number(c.req.query("days") || "365"));
   const dateCondition = getDateCondition(days);
 
   try {
