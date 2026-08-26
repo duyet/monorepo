@@ -8,7 +8,7 @@
     "config": "tsx ../../scripts/sync-app-secrets.ts duyet-cv",
     "build": "node --import ../../scripts/force-workspace-react.mjs ../../node_modules/vite/bin/vite.js build && tsx ../../scripts/patch-html-for-cloudflare.ts",
     "check-types": "tsc --noEmit",
-    "dev": "vite dev",
+    "dev": "vite dev --port 3017",
     "fmt": "pnpm run fix",
     "lint": "biome lint .",
     "preview": "vite preview",

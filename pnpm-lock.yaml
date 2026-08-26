@@ -478,6 +478,9 @@ importers:
       vite-tsconfig-paths:
         specifier: ^6.0.0
         version: 6.1.1(typescript@6.0.3)(vite@8.2.2(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
+      vitest:
+        specifier: ^3.2.4
+        version: 3.2.7(@types/debug@4.1.13)(@types/node@26.2.0)(happy-dom@20.11.6)(jiti@2.7.0)(lightningcss@1.33.0)(tsx@4.23.12)(yaml@2.9.0)
 
   apps/api:
     dependencies:
@@ -1407,6 +1410,9 @@ importers:
       vite-tsconfig-paths:
         specifier: ^6.0.0
         version: 6.1.1(typescript@6.0.3)(vite@8.2.2(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
+      vitest:
+        specifier: ^3.2.4
+        version: 3.2.7(@types/debug@4.1.13)(@types/node@26.2.0)(happy-dom@20.11.6)(jiti@2.7.0)(lightningcss@1.33.0)(tsx@4.23.12)(yaml@2.9.0)
 
   apps/x-algo:
     dependencies:

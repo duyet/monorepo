@@ -30,7 +30,7 @@ This is the [assistant-ui](https://github.com/assistant-ui/assistant-ui) starter
    ```
 
    - `localhost:2024` — LangGraph dev server (serves the `agent` graph)
-   - `localhost:3000` — Next.js app (proxies `/api/*` → `LANGGRAPH_API_URL`)
+   - `localhost:3004` — Vite dev client (proxies API routes to LangGraph)
 
    Run them individually with `bun run dev:backend` and `bun run dev:frontend`.
 

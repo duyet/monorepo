@@ -3,7 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
-  server: { port: 3002 },
+  server: { port: 3016, strictPort: true },
   resolve: { dedupe: ["react", "react-dom"] },
   plugins: [
     tanstackStart({
