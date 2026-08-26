@@ -17,6 +17,7 @@ GitHub repo metadata (description + topics) must match the current stack. When m
 - Shared chrome lives in `packages/components/site-header/` as small units (`AppSwitcher`, `GlobalNav`, `LocalNav`, `MobileNav`, `ThemeButton`) composed by `SiteHeader`. Do not grow `SiteHeader.tsx` back into a 800-line file.
 - UI primitives come from **latest shadcn/ui** under `packages/components/ui/` (registry style `new-york-v4`). Chat conversations use the official June 2026 set: `MessageScroller`, `Message`, `Bubble`, `Attachment`, `Marker`. Compose them via `ChatTranscript` / `ChatMessageList` in `packages/components/chat/`. Do not invent a parallel chat kit.
 - Ignore generated Next dumps: `.next/`, `out/`, `next-env.d.ts`. Do not commit `apps/agents/` scratch or leftover agent worktrees.
+- Secret scanning: `.gitleaks.toml` (custom AnyRouter `sk-ar-v1-` prefix). CI workflow `gitleaks.yml` scans the working tree with `--no-git` so historical leaks do not fail the gate. Do not rewrite git history for leaked keys; rotate the live credentials instead. Distinct from `.deepsec/` (SAST).
 
 ## Herdr (isolated coding agents)
 

@@ -1,0 +1,24 @@
+# Secret scanning for this repo. Distinct from `.deepsec/` (SAST).
+# CI scans the working tree only (`gitleaks detect --no-git`) because git
+# history still contains leaked keys and is intentionally not rewritten.
+
+title = "duyet/monorepo"
+
+[[rules]]
+id = "anyrouter-api-key"
+description = "AnyRouter API key (sk-ar-v1- prefix)"
+regex = '''sk-ar-v1-[0-9A-Za-z_-]{16,}'''
+keywords = ["sk-ar-v1-"]
+tags = ["key", "anyrouter"]
+
+[[allowlists]]
+description = "Generated trees, lockfiles, and git metadata"
+paths = [
+  '''(^|/)node_modules/''',
+  '''(^|/)dist/''',
+  '''(^|/)\.git/''',
+  '''(^|/)target/''',
+  '''(^|/)\.turbo/''',
+  '''(^|/)\.wrangler/''',
+  '''(^|/)pnpm-lock\.yaml$''',
+]
