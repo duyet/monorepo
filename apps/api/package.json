@@ -16,6 +16,7 @@
     "fmt": "pnpm run fix"
   },
   "dependencies": {
+    "@duyet/libs": "*",
     "hono": "^4.12.8"
   },
   "devDependencies": {

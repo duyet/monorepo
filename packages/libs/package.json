@@ -18,7 +18,8 @@
     "./native-cli": "./native-cli.ts",
     "./parseModelParams": "./parseModelParams.ts",
     "./string": "./string.ts",
-    "./utils": "./utils.ts"
+    "./utils": "./utils.ts",
+    "./workers-auth": "./workers-auth.ts"
   },
   "dependencies": {
     "@duyet/wasm": "*",

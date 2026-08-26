@@ -15,6 +15,12 @@ import {
 } from "./agent";
 import { toPublicMessageMetadata } from "./public-messages";
 import { scopedAgentRequest } from "./routing";
+import {
+  CHAT_RATE_LIMIT,
+  clientIp,
+  consumeRateLimit,
+  secondsUntil,
+} from "./lib/rate-limit";
 
 export { ChatAgent };
 export type { Env };
@@ -255,6 +261,68 @@ async function requireAuth(
   );
 }
 
+function withRateLimitHeaders(
+  request: Request,
+  env: Env,
+  response: Response,
+  rateLimitHeaders: Headers
+): Response {
+  const corsed = withCors(request, env, response);
+  const headers = new Headers(corsed.headers);
+  for (const [key, value] of rateLimitHeaders) {
+    headers.set(key, value);
+  }
+  return new Response(corsed.body, {
+    headers,
+    status: corsed.status,
+    statusText: corsed.statusText,
+  });
+}
+
+type IpRateLimitResult =
+  | { allowed: true; headers: Headers }
+  | { allowed: false; response: Response };
+
+function applyIpRateLimit(
+  request: Request,
+  env: Env,
+  routeKey: string
+): IpRateLimitResult {
+  const now = Date.now();
+  const limit = consumeRateLimit(
+    `${routeKey}:${clientIp(request)}`,
+    now,
+    CHAT_RATE_LIMIT.max,
+    CHAT_RATE_LIMIT.windowMs
+  );
+
+  const headers = new Headers({
+    "RateLimit-Limit": String(CHAT_RATE_LIMIT.max),
+    "RateLimit-Remaining": String(limit.remaining),
+    "RateLimit-Reset": String(secondsUntil(limit.resetAt, now)),
+  });
+
+  if (!limit.allowed) {
+    headers.set("Retry-After", String(secondsUntil(limit.resetAt, now)));
+    return {
+      allowed: false,
+      response: withCors(
+        request,
+        env,
+        new Response(JSON.stringify({ error: "rate limited" }), {
+          status: 429,
+          headers: {
+            ...Object.fromEntries(headers),
+            "Content-Type": "application/json",
+          },
+        })
+      ),
+    };
+  }
+
+  return { allowed: true, headers };
+}
+
 export async function handleRequest(request: Request, env: Env): Promise<Response> {
   if (request.method === "OPTIONS") {
     return preflight(request, env);
@@ -275,24 +343,49 @@ export async function handleRequest(request: Request, env: Env): Promise<Respons
   }
 
   if (request.method === "POST" && url.pathname === "/api/v1/chat") {
+    const rateLimit = applyIpRateLimit(request, env, "chat");
+    if (!rateLimit.allowed) return rateLimit.response;
+
     const auth = await requireAuth(request, env);
-    if (auth instanceof Response) return auth;
-    return handleChat(request, env, auth);
+    if (auth instanceof Response) {
+      return withRateLimitHeaders(request, env, auth, rateLimit.headers);
+    }
+    return withRateLimitHeaders(
+      request,
+      env,
+      await handleChat(request, env, auth),
+      rateLimit.headers
+    );
   }
 
   if (url.pathname.startsWith("/agents/")) {
+    const rateLimit = applyIpRateLimit(request, env, "agents");
+    if (!rateLimit.allowed) return rateLimit.response;
+
     const auth = await requireAuth(request, env);
-    if (auth instanceof Response) return auth;
+    if (auth instanceof Response) {
+      return withRateLimitHeaders(request, env, auth, rateLimit.headers);
+    }
 
     const scopedRequest = scopedAgentRequest(request, auth);
     if (!scopedRequest) {
-      return json(request, env, { error: "Unknown agent route" }, 404);
+      return withRateLimitHeaders(
+        request,
+        env,
+        json(request, env, { error: "Unknown agent route" }, 404),
+        rateLimit.headers
+      );
     }
 
     const routed = await routeAgentRequest(scopedRequest, env);
-    return routed
-      ? withCors(request, env, routed)
-      : json(request, env, { error: "Not Found" }, 404);
+    return withRateLimitHeaders(
+      request,
+      env,
+      routed
+        ? withCors(request, env, routed)
+        : json(request, env, { error: "Not Found" }, 404),
+      rateLimit.headers
+    );
   }
 
   return json(request, env, { error: "Not Found" }, 404);

@@ -1,9 +1,12 @@
 import { verifyToken } from "@clerk/backend";
+import {
+  getBearerToken,
+  timingSafeEqualStrings as timingSafeEqual,
+} from "@duyet/libs/workers-auth";
 import { getClerkAuthorizedOrigins } from "@duyet/urls/app-registry";
 
 export const DEFAULT_AUTHORIZED_PARTIES = getClerkAuthorizedOrigins();
 
-const MAX_TOKEN_BYTES = 4096;
 export const SESSION_PART_MAX_LENGTH = 96;
 export const SCOPED_SESSION_MAX_LENGTH = 192;
 
@@ -21,13 +24,7 @@ export interface AuthContext {
   sessionId?: string;
 }
 
-export function getBearerToken(request: Request): string | null {
-  const header = request.headers.get("Authorization");
-  if (!header) return null;
-
-  const match = header.match(/^Bearer\s+(.+)$/i);
-  return match?.[1]?.trim() || null;
-}
+export { getBearerToken, timingSafeEqual };
 
 export function getAuthorizedParties(env: AuthEnv): string[] {
   const configured =
@@ -38,30 +35,6 @@ export function getAuthorizedParties(env: AuthEnv): string[] {
   return configured.length > 0
     ? [...new Set(configured)]
     : DEFAULT_AUTHORIZED_PARTIES;
-}
-
-export function timingSafeEqual(left?: string, right?: string): boolean {
-  if (!left || !right) return false;
-
-  const encoder = new TextEncoder();
-  const leftBytes = encoder.encode(left);
-  const rightBytes = encoder.encode(right);
-  const leftBuffer = new Uint8Array(MAX_TOKEN_BYTES);
-  const rightBuffer = new Uint8Array(MAX_TOKEN_BYTES);
-
-  let mismatch = leftBytes.length ^ rightBytes.length;
-  if (leftBytes.length > MAX_TOKEN_BYTES || rightBytes.length > MAX_TOKEN_BYTES) {
-    mismatch = 1;
-  }
-
-  leftBuffer.set(leftBytes.slice(0, MAX_TOKEN_BYTES));
-  rightBuffer.set(rightBytes.slice(0, MAX_TOKEN_BYTES));
-
-  for (let index = 0; index < MAX_TOKEN_BYTES; index += 1) {
-    mismatch |= leftBuffer[index] ^ rightBuffer[index];
-  }
-
-  return mismatch === 0;
 }
 
 function normalizePem(value: string): string {

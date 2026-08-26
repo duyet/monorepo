@@ -44,12 +44,26 @@ export function isPaidChatEnabled(env: Env): boolean {
   return EVM_ADDRESS.test(env.PAY_TO ?? "");
 }
 
+/** Guards against $0 or malformed prices silently giving away compute. */
+export function isPriceSane(price: string): boolean {
+  const match = /^\$([0-9]+(?:\.[0-9]{1,4})?)$/.exec(price.trim());
+  return match != null && Number.parseFloat(match[1]) > 0;
+}
+
+export interface BuildAppOptions {
+  syncFacilitatorOnStart?: boolean;
+}
+
 /** Build a per-request Hono app so price/network/payTo track the live env. */
-function buildApp(env: Env): Hono<{ Bindings: Env }> {
+export function buildApp(
+  env: Env,
+  options: BuildAppOptions = {},
+): Hono<{ Bindings: Env }> {
   const payTo = env.PAY_TO as `0x${string}`;
   const network = (env.X402_NETWORK ?? DEFAULT_NETWORK) as ChainId;
   const facilitatorUrl = env.X402_FACILITATOR_URL ?? DEFAULT_FACILITATOR;
   const price = env.X402_PRICE ?? DEFAULT_PRICE;
+  const syncFacilitatorOnStart = options.syncFacilitatorOnStart ?? true;
 
   const resourceServer = new x402ResourceServer(
     new HTTPFacilitatorClient({ url: facilitatorUrl }),
@@ -69,6 +83,9 @@ function buildApp(env: Env): Hono<{ Bindings: Env }> {
         },
       },
       resourceServer,
+      undefined,
+      undefined,
+      syncFacilitatorOnStart,
     ),
   );
 
@@ -116,6 +133,10 @@ export default {
         { error: "x402 not configured — PAY_TO missing" },
         { status: 503 },
       );
+    }
+    const price = env.X402_PRICE ?? DEFAULT_PRICE;
+    if (!isPriceSane(price)) {
+      return Response.json({ error: "x402 price misconfigured" }, { status: 503 });
     }
     return buildApp(env).fetch(request, env);
   },

@@ -41,13 +41,12 @@ async function getLlmsHead(): Promise<string> {
   return body;
 }
 
-function clientIp(request: Request): string {
-  return (
-    request.headers.get("CF-Connecting-IP") ||
-    request.headers.get("True-Client-IP") ||
-    request.headers.get("X-Forwarded-For")?.split(",")[0]?.trim() ||
-    "unknown"
-  );
+/**
+ * Cloudflare sets this at the edge; client-controlled fallbacks would allow
+ * bucket rotation when the header is absent (e.g. direct workers.dev access).
+ */
+export function clientIp(request: Request): string {
+  return request.headers.get("CF-Connecting-IP") ?? "unknown";
 }
 
 cardDescriptionRouter.use("*", async (c, next) => {
