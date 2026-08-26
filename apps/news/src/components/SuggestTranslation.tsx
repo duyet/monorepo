@@ -11,6 +11,7 @@ function SuggestForm({
   lang,
   userId,
   userName,
+  getToken,
   initialText,
   onInitialTextConsumed,
 }: {
@@ -19,6 +20,7 @@ function SuggestForm({
   lang: Lang;
   userId: string;
   userName: string;
+  getToken: () => Promise<string | null>;
   /** Set by the selection-to-suggest floating button — opens the form
    * pre-filled with the selected text as quoted context. */
   initialText?: string;
@@ -70,6 +72,8 @@ function SuggestForm({
         setStatus("sending");
         setError(null);
         try {
+          const token = await getToken();
+          if (!token) throw new Error("Sign in required");
           await submitSuggestion({
             data: {
               item_id: itemId,
@@ -78,6 +82,7 @@ function SuggestForm({
               user_id: userId,
               user_name: userName,
             },
+            headers: { Authorization: `Bearer ${token}` },
           });
           setStatus("sent");
         } catch (err) {
@@ -164,7 +169,7 @@ function SuggestTranslationInner({
 
   if (!publishableKey || !mod) return signInHint;
 
-  const { SignedIn, SignedOut, useUser } = mod;
+  const { SignedIn, SignedOut, useUser, useAuth } = mod;
 
   // No own <ClerkProvider> here — __root.tsx mounts the single app-wide
   // one; a second provider crashes the whole page.
@@ -177,6 +182,7 @@ function SuggestTranslationInner({
           field={field}
           lang={lang}
           useUser={useUser}
+          useAuth={useAuth}
           initialText={initialText}
           onInitialTextConsumed={onInitialTextConsumed}
         />
@@ -190,6 +196,7 @@ function SuggestFormGate({
   field,
   lang,
   useUser,
+  useAuth,
   initialText,
   onInitialTextConsumed,
 }: {
@@ -197,10 +204,12 @@ function SuggestFormGate({
   field: "title" | "summary";
   lang: Lang;
   useUser: any;
+  useAuth: any;
   initialText?: string;
   onInitialTextConsumed?: () => void;
 }) {
   const { user } = useUser();
+  const { getToken } = useAuth();
   if (!user) return null;
   const userName = user.fullName ?? user.username ?? "user";
   return (
@@ -210,6 +219,7 @@ function SuggestFormGate({
       lang={lang}
       userId={user.id}
       userName={userName}
+      getToken={getToken}
       initialText={initialText}
       onInitialTextConsumed={onInitialTextConsumed}
     />

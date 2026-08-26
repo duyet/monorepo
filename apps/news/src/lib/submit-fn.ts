@@ -1,12 +1,13 @@
 import { createServerFn } from "@tanstack/react-start";
-import { getRequestHeader } from "@tanstack/react-start/server";
+import { getRequest } from "@tanstack/react-start/server";
+import { requireClerkUser } from "./clerk-auth-fn";
 
 export interface SubmissionInput {
   url: string;
   title: string;
   note: string;
-  user_id: string;
-  user_name: string;
+  user_id?: string;
+  user_name?: string;
 }
 
 export interface Submission {
@@ -26,7 +27,11 @@ const TITLE_MAX = 300;
  * worker/D1 constraints the backend enforces. Exported separately so it's
  * unit-testable without touching D1/Cloudflare bindings.
  */
-export function validateSubmission(input: SubmissionInput): {
+export function validateSubmission(input: {
+  url: string;
+  title: string;
+  user_id?: string;
+}): {
   url: string;
   title: string;
 } {
@@ -47,12 +52,10 @@ export function validateSubmission(input: SubmissionInput): {
   return { url: url.toString(), title };
 }
 
-// NOTE: user_id/user_name are trusted as sent by the client for now — there
-// is no server-side Clerk JWT verification yet.
 export const submitStory = createServerFn({ method: "POST" })
   .inputValidator((input: SubmissionInput) => input)
   .handler(async ({ data }) => {
-    if (!data.user_id) throw new Error("Sign in required");
+    const { userId, userName } = await requireClerkUser();
     const { env } = await import("cloudflare:workers");
     const db = (env as { DB?: D1Database }).DB;
     if (!db) throw new Error("D1 binding DB not configured");
@@ -60,27 +63,31 @@ export const submitStory = createServerFn({ method: "POST" })
     const { submitStory: submitStoryToDb } = await import(
       "../../worker/submissions.js"
     );
-    // Passed to the worker layer only to be hashed for per-IP rate
-    // limiting — never stored or logged here.
-    const ip = getRequestHeader("CF-Connecting-IP");
+    const ip = getRequest().cf
+      ? (getRequest().headers.get("CF-Connecting-IP") ?? null)
+      : null;
     const result = await submitStoryToDb(db, {
       url: data.url,
       title: data.title,
       note: data.note,
-      userId: data.user_id,
-      userName: data.user_name,
-      ip,
+      userId,
+      userName,
+      ip: ip ?? undefined,
     });
     if (!result.ok) throw new Error(result.error);
     return { id: result.id };
   });
 
 export const fetchMySubmissions = createServerFn({ method: "GET" })
-  .inputValidator((input: { user_id: string }) => input)
+  .inputValidator((input: { user_id?: string }) => input)
   .handler(async ({ data }): Promise<Submission[]> => {
+    const { userId } = await requireClerkUser();
+    if (data.user_id && data.user_id !== userId) {
+      throw new Error("Sign in required");
+    }
     const { env } = await import("cloudflare:workers");
     const db = (env as { DB?: D1Database }).DB;
-    if (!db || !data.user_id) return [];
+    if (!db) return [];
     try {
       const { results } = await db
         .prepare(
@@ -90,11 +97,10 @@ export const fetchMySubmissions = createServerFn({ method: "GET" })
            ORDER BY created_at DESC
            LIMIT 50`
         )
-        .bind(data.user_id)
+        .bind(userId)
         .all<Submission>();
       return results ?? [];
     } catch {
-      // submissions table may not exist yet (pre-migration)
       return [];
     }
   });

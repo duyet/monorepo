@@ -44,6 +44,39 @@ export const SUBSCRIBE_SOURCES = ["blog", "news", "home"] as const;
 export type SubscribeSource = (typeof SUBSCRIBE_SOURCES)[number];
 const SUBSCRIBE_IP_LIMIT = 8;
 
+async function hmacUnsubscribeToken(
+  email: string,
+  secret: string
+): Promise<string> {
+  const key = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"]
+  );
+  const mac = await crypto.subtle.sign(
+    "HMAC",
+    key,
+    new TextEncoder().encode(email.toLowerCase())
+  );
+  return [...new Uint8Array(mac)]
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+/** HMAC(email, secret) when configured; legacy UUID otherwise. Pre-existing
+ * rows keep their stored token until the subscriber re-subscribes. */
+export async function deriveUnsubscribeToken(
+  env: Env,
+  email: string
+): Promise<string> {
+  if (env.NEWS_UNSUBSCRIBE_SECRET) {
+    return hmacUnsubscribeToken(email, env.NEWS_UNSUBSCRIBE_SECRET);
+  }
+  return crypto.randomUUID();
+}
+
 export function normalizeSource(source: unknown): SubscribeSource {
   return SUBSCRIBE_SOURCES.includes(source as SubscribeSource)
     ? (source as SubscribeSource)
@@ -69,7 +102,7 @@ export async function subscribe(
     ? timezone
     : DEFAULT_TIMEZONE;
   const normalizedSource = normalizeSource(source);
-  const token = crypto.randomUUID();
+  const token = await deriveUnsubscribeToken(env, email);
   const now = Date.now();
 
   await ensureMailSchema(env.DB);
@@ -92,6 +125,8 @@ export async function subscribe(
     )
       .bind(ipHash, now)
       .run();
+  } else {
+    console.warn("subscribe: no cf context; skipping rate limit");
   }
 
   await env.DB.prepare(

@@ -275,10 +275,10 @@ export function MailPanel({ admin }: { admin: AdminState }) {
           </p>
         </div>
         <Link
-          to="/system"
+          to="/data"
           className="text-sm text-muted-foreground hover:text-foreground"
         >
-          Analytics
+          Data
         </Link>
       </header>
 

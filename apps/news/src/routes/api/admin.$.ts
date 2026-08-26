@@ -1,13 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { checkAdminAuth, isRequestAdmin } from "../../../worker/admin/auth.js";
+import {
+  checkAdminAuth,
+  checkAdminAuthRateLimit,
+  isRequestAdmin,
+} from "../../../worker/admin/auth.js";
 import {
   deleteSource,
+  decideSubmission,
+  decideSuggestion,
   getLlmCalls,
   getStatus,
   isHandlerError,
   listAudit,
   listNotifications,
   listItems,
+  listPendingSubmissions,
+  listPendingSuggestions,
   listSources,
   pushItems,
   regenerateTldr,
@@ -78,6 +86,8 @@ async function handle(
   // never 401, so unauthenticated callers can use it to detect signed-out
   // state.
   if (method === "GET" && segments.length === 1 && segments[0] === "me") {
+    const rateLimited = await checkAdminAuthRateLimit(request, env);
+    if (rateLimited) return rateLimited;
     const admin = await isRequestAdmin(request, env);
     return Response.json({ admin });
   }
@@ -234,6 +244,70 @@ async function handle(
 
   if (method === "GET" && segments.length === 1 && segments[0] === "audit") {
     return Response.json(await listAudit(env));
+  }
+
+  if (
+    method === "GET" &&
+    segments.length === 1 &&
+    segments[0] === "suggestions"
+  ) {
+    const url = new URL(request.url);
+    return Response.json(
+      await listPendingSuggestions(env, url.searchParams.get("limit"))
+    );
+  }
+
+  if (
+    method === "GET" &&
+    segments.length === 1 &&
+    segments[0] === "submissions"
+  ) {
+    const url = new URL(request.url);
+    return Response.json(
+      await listPendingSubmissions(env, url.searchParams.get("limit"))
+    );
+  }
+
+  if (
+    method === "POST" &&
+    segments.length === 2 &&
+    segments[0] === "suggestions" &&
+    segments[1] === "decide"
+  ) {
+    const { body, error } = await parseJsonBody(request);
+    if (error) return Response.json({ error }, { status: 400 });
+    const result = await decideSuggestion(
+      env,
+      (body ?? {}) as Parameters<typeof decideSuggestion>[1]
+    );
+    if (isHandlerError(result)) {
+      return Response.json(
+        { error: result.error },
+        { status: result.status ?? 400 }
+      );
+    }
+    return Response.json(result);
+  }
+
+  if (
+    method === "POST" &&
+    segments.length === 2 &&
+    segments[0] === "submissions" &&
+    segments[1] === "decide"
+  ) {
+    const { body, error } = await parseJsonBody(request);
+    if (error) return Response.json({ error }, { status: 400 });
+    const result = await decideSubmission(
+      env,
+      (body ?? {}) as Parameters<typeof decideSubmission>[1]
+    );
+    if (isHandlerError(result)) {
+      return Response.json(
+        { error: result.error },
+        { status: result.status ?? 400 }
+      );
+    }
+    return Response.json(result);
   }
 
   if (

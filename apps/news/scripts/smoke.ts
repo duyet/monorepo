@@ -163,7 +163,7 @@ async function main() {
     "/mcp",
     "/changelog",
     "/subscribe",
-    "/system",
+    "/data",
   ];
   for (const route of staticRoutes) {
     await check(`GET ${route} -> 200`, async () => {

@@ -416,4 +416,88 @@ export async function reviewPendingSuggestions(
   return { reviewed, tokens };
 }
 
+export async function approveSuggestionById(
+  env: Env,
+  id: string
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  const row = await env.DB.prepare(
+    `SELECT id, item_id, field, suggestion FROM translation_suggestions
+     WHERE id = ? AND status = 'pending'`
+  )
+    .bind(nn(id))
+    .first<PendingSuggestionRow>();
+  if (!row) return { ok: false, error: "not found or not pending" };
+
+  const item = await env.DB.prepare(
+    "SELECT title, summary FROM items WHERE id = ?"
+  )
+    .bind(row.item_id)
+    .first<ItemSourceRow>();
+  if (!item) return { ok: false, error: "item not found" };
+
+  const translation = await env.DB.prepare(
+    "SELECT title, summary FROM translations WHERE item_id = ? AND lang = 'vi'"
+  )
+    .bind(row.item_id)
+    .first<TranslationRow>();
+
+  const sourceText = row.field === "title" ? item.title : (item.summary ?? "");
+  const currentForField =
+    row.field === "title"
+      ? (translation?.title ?? null)
+      : (translation?.summary ?? null);
+  const { translation: retranslated } = await retranslateFieldWithGuidance(env, {
+    field: row.field,
+    sourceText,
+    currentTranslation: currentForField,
+    suggestion: row.suggestion,
+  });
+
+  if (!retranslated) {
+    await env.DB.prepare(
+      "UPDATE translation_suggestions SET status = 'rejected', rating = ?, review_note = ? WHERE id = ?"
+    )
+      .bind(nn(1), nn("human approved but re-translation failed"), nn(id))
+      .run();
+    return { ok: false, error: "re-translation failed" };
+  }
+
+  let currentTitle = translation?.title ?? null;
+  let currentSummary = translation?.summary ?? null;
+  if (row.field === "title") currentTitle = retranslated;
+  else currentSummary = retranslated;
+
+  await env.DB.prepare(
+    `INSERT INTO translations (item_id, lang, title, summary)
+     VALUES (?, 'vi', ?, ?)
+     ON CONFLICT(item_id, lang) DO UPDATE SET
+       title = excluded.title, summary = excluded.summary`
+  )
+    .bind(nn(row.item_id), nn(currentTitle), nn(currentSummary))
+    .run();
+
+  await env.DB.prepare(
+    "UPDATE translation_suggestions SET status = 'accepted', rating = ?, review_note = ? WHERE id = ?"
+  )
+    .bind(nn(1), nn("human approved"), nn(id))
+    .run();
+  return { ok: true };
+}
+
+export async function rejectSuggestionById(
+  env: Env,
+  id: string,
+  note = "human rejected"
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  const result = await env.DB.prepare(
+    "UPDATE translation_suggestions SET status = 'rejected', review_note = ? WHERE id = ? AND status = 'pending'"
+  )
+    .bind(nn(note), nn(id))
+    .run();
+  if ((result.meta?.changes ?? 0) === 0) {
+    return { ok: false, error: "not found or not pending" };
+  }
+  return { ok: true };
+}
+
 export { buildReviewPrompt as _buildReviewPromptForTests };

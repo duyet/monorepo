@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
-import { getRequestHeader } from "@tanstack/react-start/server";
+import { getRequest } from "@tanstack/react-start/server";
+import { requireClerkUser } from "./clerk-auth-fn";
 
 export interface SuggestionSummary {
   user_name: string;
@@ -12,21 +13,12 @@ export interface SuggestionInput {
   item_id: string;
   field: "title" | "summary";
   suggestion: string;
-  user_id: string;
-  user_name: string;
+  user_id?: string;
+  user_name?: string;
 }
 
 const MAX_LEN = 2000;
 
-/**
- * Client-side pre-validation only — mirrors worker/suggestions.ts's
- * validateSuggestionText/MAX_SUGGESTION_LENGTH plus the sign-in
- * requirement, so the form can show an error before round-tripping to the
- * server. Kept local (not statically imported from worker/) so this pure
- * check doesn't drag worker-only code into the client bundle; the server
- * fn below dynamically imports worker/suggestions.ts for the real,
- * rate-limited check.
- */
 export function validateSuggestion(input: SuggestionInput): string {
   const suggestion = input.suggestion.trim();
   if (!suggestion) throw new Error("Suggestion cannot be empty");
@@ -41,15 +33,10 @@ export function validateSuggestion(input: SuggestionInput): string {
   return suggestion;
 }
 
-// NOTE: user_id/user_name are trusted as sent by the client for now — there
-// is no server-side Clerk JWT verification yet. Abuse/spoofing is possible
-// until that lands; suggestions are reviewed (LLM + status flag) before
-// their text is shown to anyone but the author, which limits the blast
-// radius in the meantime.
 export const submitSuggestion = createServerFn({ method: "POST" })
   .inputValidator((input: SuggestionInput) => input)
   .handler(async ({ data }) => {
-    if (!data.user_id) throw new Error("Sign in required");
+    const { userId, userName } = await requireClerkUser();
     const { env } = await import("cloudflare:workers");
     const db = (env as { DB?: D1Database }).DB;
     if (!db) throw new Error("D1 binding DB not configured");
@@ -57,16 +44,16 @@ export const submitSuggestion = createServerFn({ method: "POST" })
     const { submitSuggestion: submitSuggestionToDb } = await import(
       "../../worker/suggestions.js"
     );
-    // Passed to the worker layer only to be hashed for per-IP rate
-    // limiting — never stored or logged here.
-    const ip = getRequestHeader("CF-Connecting-IP");
+    const ip = getRequest().cf
+      ? (getRequest().headers.get("CF-Connecting-IP") ?? null)
+      : null;
     const result = await submitSuggestionToDb(db, {
       itemId: data.item_id,
       field: data.field,
       suggestion: data.suggestion,
-      userId: data.user_id,
-      userName: data.user_name,
-      ip,
+      userId,
+      userName,
+      ip: ip ?? undefined,
     });
     if (!result.ok) throw new Error(result.error);
     return { id: result.id };
@@ -79,8 +66,6 @@ export const fetchSuggestions = createServerFn({ method: "GET" })
     const db = (env as { DB?: D1Database }).DB;
     if (!db) return [];
     try {
-      // Only accepted suggestions expose their text — pending/rejected
-      // stay count-only to avoid rendering unreviewed user text to others.
       const { results } = await db
         .prepare(
           `SELECT user_name, status, created_at,
@@ -94,7 +79,6 @@ export const fetchSuggestions = createServerFn({ method: "GET" })
         .all<SuggestionSummary>();
       return results ?? [];
     } catch {
-      // translation_suggestions table may not exist yet (pre-migration)
       return [];
     }
   });

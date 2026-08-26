@@ -89,8 +89,8 @@ const FOOTER_LINKS: {
   { to: "/subscribe", label: "Subscribe", icon: Mail },
   { to: "/mcp", label: "MCP", icon: Plug },
   {
-    to: "/system",
-    label: "System",
+    to: "/data",
+    label: "Data",
     icon: BarChart3,
   },
   {

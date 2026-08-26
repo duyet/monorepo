@@ -35,4 +35,6 @@ export interface Env {
   /** Cloudflare Email Sending binding. Optional: absent until Email Sending
    *  is onboarded for the account, so all use sites must guard for it. */
   EMAIL?: SendEmail;
+  /** HMAC secret for unsubscribe tokens. When unset, legacy UUID tokens are used. */
+  NEWS_UNSUBSCRIBE_SECRET?: string;
 }

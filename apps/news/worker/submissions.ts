@@ -313,4 +313,60 @@ export async function reviewPendingSubmissions(
   return { reviewed, tokens };
 }
 
+export async function acceptSubmissionById(
+  env: Env,
+  id: string
+): Promise<{ ok: true; itemId: string } | { ok: false; error: string }> {
+  const submission = await env.DB.prepare(
+    "SELECT id, url, title, note FROM submissions WHERE id = ? AND status = 'pending'"
+  )
+    .bind(nn(id))
+    .first<PendingSubmissionRow>();
+  if (!submission) return { ok: false, error: "not found or not pending" };
+
+  const og = await fetchOgData(submission.url);
+  const itemId = await sha256Hex(submission.url);
+  const now = Date.now();
+  await env.DB.prepare(
+    `INSERT INTO items (id, source_id, external_id, url, title, summary, published_at, fetched_at, image_url)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+     ON CONFLICT(id) DO NOTHING`
+  )
+    .bind(
+      nn(itemId),
+      nn("user"),
+      nn(submission.id),
+      nn(submission.url),
+      nn(submission.title),
+      nn(og.description),
+      nn(toEpochSeconds(now)),
+      nn(toEpochSeconds(now)),
+      nn(og.imageUrl)
+    )
+    .run();
+
+  await env.DB.prepare(
+    "UPDATE submissions SET status = 'accepted', rating = ?, review_note = ?, item_id = ? WHERE id = ?"
+  )
+    .bind(nn(1), nn("human approved"), nn(itemId), nn(submission.id))
+    .run();
+  return { ok: true, itemId };
+}
+
+export async function rejectSubmissionById(
+  env: Env,
+  id: string,
+  note = "human rejected"
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  const result = await env.DB.prepare(
+    "UPDATE submissions SET status = 'rejected', review_note = ? WHERE id = ? AND status = 'pending'"
+  )
+    .bind(nn(note), nn(id))
+    .run();
+  if ((result.meta?.changes ?? 0) === 0) {
+    return { ok: false, error: "not found or not pending" };
+  }
+  return { ok: true };
+}
+
 export { buildSubmissionReviewPrompt as _buildSubmissionReviewPromptForTests };
