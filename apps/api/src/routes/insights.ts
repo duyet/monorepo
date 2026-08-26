@@ -3,6 +3,10 @@ import type { Env } from "../env.js";
 
 const insightsRouter = new Hono<{ Bindings: Env }>();
 const FETCH_TIMEOUT_MS = 10_000;
+/** Reject oversized [REDACTED] bodies before materializing in JS (OOM guard). */
+const MAX_CLICKHOUSE_RESPONSE_BYTES = 1_048_576;
+/** Monthly trend only needs ~12 buckets; all_time can return thousands of days. */
+const WAKA_TREND_RANGE = "last_year";
 const FALLBACK_CORS_ORIGIN = "https://insights.duyet.net";
 
 interface TrafficGroup {
@@ -102,6 +106,13 @@ async function queryClickHouse(
     }
 
     const text = await response.text();
+    if (text.length > MAX_CLICKHOUSE_RESPONSE_BYTES) {
+      console.warn(
+        `[REDACTED] insights response exceeded ${MAX_CLICKHOUSE_RESPONSE_BYTES} bytes`
+      );
+      return [];
+    }
+
     const results: Record<string, unknown>[] = [];
 
     for (const line of text.trim().split("\n").filter(Boolean)) {
@@ -257,7 +268,7 @@ async function getWakaOverview(env: Env) {
 
 async function getWakaMonthlyTrend(auth: string) {
   const response = await fetch(
-    "https://wakatime.com/api/v1/users/current/insights/days/all_time",
+    `https://wakatime.com/api/v1/users/current/insights/days/${WAKA_TREND_RANGE}`,
     {
       headers: { Authorization: auth },
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
