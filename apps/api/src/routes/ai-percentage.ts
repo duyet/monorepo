@@ -12,7 +12,7 @@ const AI_PERCENTAGE_CACHE_CONTROL =
 
 const aiPercentageRouter = new Hono<{ Bindings: Env }>();
 const FETCH_TIMEOUT_MS = 10_000;
-const MAX_HISTORY_DAYS = 730;
+const MAX_HISTORY_DAYS = 3650;
 const MAX_CLICKHOUSE_RESPONSE_BYTES = 1_048_576;
 
 export interface ClickHouseRequestConfig {

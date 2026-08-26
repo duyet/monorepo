@@ -50,7 +50,7 @@ describe("clampHistoryDays", () => {
     expect(clampHistoryDays(NaN)).toBe(365);
     expect(clampHistoryDays(0)).toBe(365);
     expect(clampHistoryDays(365)).toBe(365);
-    expect(clampHistoryDays(9999)).toBe(730);
+    expect(clampHistoryDays(9999)).toBe(3650);
   });
 });
 
@@ -103,7 +103,7 @@ describe("parseHistoryDays", () => {
 
   it("clamps out-of-range values", () => {
     expect(parseHistoryDays("0")).toBe(365);
-    expect(parseHistoryDays("99999")).toBe(730);
+    expect(parseHistoryDays("99999")).toBe(3650);
   });
 
   it("builds safe SQL date conditions", () => {
@@ -117,7 +117,7 @@ describe("parseHistoryDays", () => {
       "WHERE date >= now() - INTERVAL 365 DAY"
     );
     expect(getDateCondition(parseHistoryDays("99999"))).toBe(
-      "WHERE date >= now() - INTERVAL 730 DAY"
+      "WHERE date >= now() - INTERVAL 3650 DAY"
     );
   });
 });

@@ -14,8 +14,8 @@ type FacilitatorMode = "accept" | "verify-reject" | "settle-fail";
 interface FacilitatorStub {
   url: string;
   close: () => Promise<void>;
-  verifyCalls: number;
-  settleCalls: number;
+  readonly verifyCalls: number;
+  readonly settleCalls: number;
 }
 
 async function startFacilitatorStub(
@@ -100,8 +100,12 @@ async function startFacilitatorStub(
 
   return {
     url: `http://127.0.0.1:${address.port}`,
-    verifyCalls: state.verifyCalls,
-    settleCalls: state.settleCalls,
+    get verifyCalls() {
+      return state.verifyCalls;
+    },
+    get settleCalls() {
+      return state.settleCalls;
+    },
     close: () =>
       new Promise((resolve, reject) => {
         server!.close((error) => (error ? reject(error) : resolve()));
@@ -195,6 +199,8 @@ describe("x402 payment gate", () => {
     expect(await paid.json()).toEqual({ ok: true, response: "model-response" });
     expect(aiRun).toHaveBeenCalledTimes(1);
     expect(aiRun.mock.calls[0]?.[0]).toBe("@cf/moonshotai/kimi-k2.6");
+    expect(facilitator.verifyCalls).toBe(1);
+    expect(facilitator.settleCalls).toBe(1);
   });
 
   it("does not run compute when facilitator verify rejects the payment", async () => {
@@ -235,5 +241,7 @@ describe("x402 payment gate", () => {
 
     expect(res.status).toBe(402);
     expect(aiRun).not.toHaveBeenCalled();
+    expect(facilitator.verifyCalls).toBe(1);
+    expect(facilitator.settleCalls).toBe(0);
   });
 });
