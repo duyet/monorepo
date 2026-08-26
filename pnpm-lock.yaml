@@ -153,6 +153,9 @@ importers:
       '@cloudflare/ai-chat':
         specifier: ^0.10.0
         version: 0.10.2(@ai-sdk/react@4.0.80(react@19.2.8)(zod@4.4.3))(agents@0.21.0(@ai-sdk/react@4.0.80(react@19.2.8)(zod@4.4.3))(@babel/core@7.29.7)(@babel/runtime@7.29.7)(@cloudflare/workers-types@4.20260702.1)(@modelcontextprotocol/client@2.0.0)(@modelcontextprotocol/sdk@1.30.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(@modelcontextprotocol/server@2.0.0)(@x402/core@2.23.0)(@x402/evm@2.23.0(typescript@6.0.3))(ai@7.0.77(zod@4.4.3))(just-bash@3.0.2)(react@19.2.8)(rolldown@1.2.5)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))(zod@4.4.3))(ai@7.0.77(zod@4.4.3))(react@19.2.8)
+      '@duyet/urls':
+        specifier: workspace:*
+        version: link:../../packages/urls
       agents:
         specifier: ^0.21.0
         version: 0.21.0(@ai-sdk/react@4.0.80(react@19.2.8)(zod@4.4.3))(@babel/core@7.29.7)(@babel/runtime@7.29.7)(@cloudflare/workers-types@4.20260702.1)(@modelcontextprotocol/client@2.0.0)(@modelcontextprotocol/sdk@1.30.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(@modelcontextprotocol/server@2.0.0)(@x402/core@2.23.0)(@x402/evm@2.23.0(typescript@6.0.3))(ai@7.0.77(zod@4.4.3))(just-bash@3.0.2)(react@19.2.8)(rolldown@1.2.5)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))(zod@4.4.3)
@@ -1014,6 +1017,9 @@ importers:
       '@duyet/config':
         specifier: '*'
         version: link:../../packages/config
+      '@duyet/libs':
+        specifier: '*'
+        version: link:../../packages/libs
       '@tanstack/react-router':
         specifier: 1.170.32
         version: 1.170.32(react-dom@19.2.8(react@19.2.8))(react@19.2.8)

@@ -1,17 +1,7 @@
 import { verifyToken } from "@clerk/backend";
+import { getClerkAuthorizedOrigins } from "@duyet/urls/app-registry";
 
-export const DEFAULT_AUTHORIZED_PARTIES = [
-  "https://duyet.net",
-  "https://blog.duyet.net",
-  "https://cv.duyet.net",
-  "https://insights.duyet.net",
-  "https://photos.duyet.net",
-  "https://homelab.duyet.net",
-  "https://llm-timeline.duyet.net",
-  "https://ai-percentage.duyet.net",
-  "https://agents.duyet.net",
-  "https://agents-api.duyet.net",
-];
+export const DEFAULT_AUTHORIZED_PARTIES = getClerkAuthorizedOrigins();
 
 const MAX_TOKEN_BYTES = 4096;
 export const SESSION_PART_MAX_LENGTH = 96;

@@ -2,6 +2,7 @@ import { mkdtempSync, mkdirSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { PAGES_DOMAIN_OVERRIDES } from "../packages/urls/src/app-registry.ts";
 import {
   DEFAULT_APPS_DIR,
   discoverPagesApps,
@@ -11,6 +12,14 @@ import {
 } from "./cf-pages-apps.ts";
 
 describe("domainForApp", () => {
+  it("reads overrides from the app registry (same relative path as CI matrix script)", () => {
+    expect(PAGES_DOMAIN_OVERRIDES).toEqual({
+      home: "duyet.net",
+      "agent-ui": "agents.duyet.net",
+      burns: "duyet-burns.pages.dev",
+    });
+  });
+
   it("uses hostname overrides and the default <app>.duyet.net pattern", () => {
     expect(domainForApp("home")).toBe("duyet.net");
     expect(domainForApp("agent-ui")).toBe("agents.duyet.net");

@@ -13,6 +13,7 @@
     "./getRelatedPosts": "./getRelatedPosts.ts",
     "./getSeries": "./getSeries.ts",
     "./getSlug": "./getSlug.ts",
+    "./slugify": "./slugify.ts",
     "./markdownToHtml": "./markdownToHtml.ts",
     "./native-cli": "./native-cli.ts",
     "./parseModelParams": "./parseModelParams.ts",

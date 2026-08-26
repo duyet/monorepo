@@ -6,6 +6,7 @@
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import app from "./index";
+import { resetLlmsCacheForTests } from "./routes/card-description-streaming.js";
 import {
   GLOBAL_RATE_LIMIT,
   resetRateLimits,
@@ -300,6 +301,42 @@ describe("API Endpoints", () => {
       expect(res.status).not.toBe(400);
       expect(res.status).not.toBe(401);
     }, 15_000);
+
+    it("fetches llms.txt at most once per isolate within the cache TTL", async () => {
+      resetLlmsCacheForTests();
+
+      const fetchMock = vi
+        .fn()
+        .mockImplementation(async (input: RequestInfo | URL) => {
+          const url = String(input);
+          if (url.includes("llms.txt")) {
+            return {
+              ok: true,
+              text: async () => "a".repeat(4000),
+            };
+          }
+          return {
+            ok: true,
+            json: async () => ({
+              choices: [{ message: { content: "Cached blog description." } }],
+            }),
+          };
+        });
+      vi.stubGlobal("fetch", fetchMock);
+
+      const init = generateInit(
+        { prompt: "generate description for blog card" },
+        "203.0.113.22"
+      );
+
+      await app.request("/api/llm/generate", init, AUTH_ENV);
+      await app.request("/api/llm/generate", init, AUTH_ENV);
+
+      const llmsFetches = fetchMock.mock.calls.filter(([input]) =>
+        String(input).includes("llms.txt")
+      );
+      expect(llmsFetches).toHaveLength(1);
+    });
   });
 
   describe("404 Handler", () => {

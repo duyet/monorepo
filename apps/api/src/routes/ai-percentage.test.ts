@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { Env } from "../env.js";
+import app from "../index.js";
 import {
   buildClickHouseRequest,
   clampHistoryDays,
@@ -70,6 +71,24 @@ describe("executeClickHouseQuery", () => {
     expect(calledUrl).not.toMatch(/reader:/);
     expect((init.headers as Record<string, string>)["X-ClickHouse-Key"]).toBe(
       PASSWORD
+    );
+  });
+});
+
+describe("GET /api/ai/percentage/current", () => {
+  it("sets Cache-Control on successful responses", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      text: async () =>
+        '{"ai_percentage":26.5,"total_lines_added":125000,"human_lines_added":92000,"ai_lines_added":33000}\n',
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const res = await app.request("/api/ai/percentage/current", {}, env);
+
+    expect(res.status).toBe(200);
+    expect(res.headers.get("Cache-Control")).toBe(
+      "public, max-age=3600, stale-while-revalidate=86400"
     );
   });
 });

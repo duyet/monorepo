@@ -19,6 +19,7 @@ import {
   Sparkles,
   User,
 } from "lucide-react";
+import { APP_REGISTRY } from "@duyet/urls/app-registry";
 import type {
   AppCategory,
   AppDef,
@@ -27,6 +28,15 @@ import type {
   LocalNavItem,
   NavMatch,
 } from "./types";
+
+const registryById = Object.fromEntries(
+  APP_REGISTRY.map((entry) => [entry.id, entry] as const)
+);
+
+function appUrls(id: keyof typeof registryById) {
+  const entry = registryById[id];
+  return { href: entry.href, subdomain: entry.host };
+}
 
 export const CATEGORY_ORDER: AppCategory[] = [
   "Personal",
@@ -39,8 +49,7 @@ export const APPS: AppDef[] = [
   {
     key: "home",
     name: "Home",
-    href: "https://duyet.net",
-    subdomain: "duyet.net",
+    ...appUrls("home"),
     Icon: House,
     category: "Personal",
     blurb: "Profile & projects",
@@ -48,8 +57,7 @@ export const APPS: AppDef[] = [
   {
     key: "blog",
     name: "Blog",
-    href: "https://blog.duyet.net",
-    subdomain: "blog.duyet.net",
+    ...appUrls("blog"),
     Icon: BookOpen,
     category: "Personal",
     blurb: "Notes & posts",
@@ -57,8 +65,7 @@ export const APPS: AppDef[] = [
   {
     key: "photos",
     name: "Photos",
-    href: "https://photos.duyet.net",
-    subdomain: "photos.duyet.net",
+    ...appUrls("photos"),
     Icon: Camera,
     category: "Personal",
     blurb: "Photography",
@@ -66,8 +73,7 @@ export const APPS: AppDef[] = [
   {
     key: "about",
     name: "About",
-    href: "https://duyet.net/about",
-    subdomain: "duyet.net",
+    ...appUrls("about"),
     Icon: User,
     category: "Personal",
     blurb: "Bio & background",
@@ -75,8 +81,7 @@ export const APPS: AppDef[] = [
   {
     key: "projects",
     name: "Projects",
-    href: "https://duyet.net/projects",
-    subdomain: "duyet.net",
+    ...appUrls("projects"),
     Icon: Briefcase,
     category: "Personal",
     blurb: "Work & experiments",
@@ -84,8 +89,7 @@ export const APPS: AppDef[] = [
   {
     key: "ls",
     name: "ls",
-    href: "https://duyet.net/ls",
-    subdomain: "duyet.net",
+    ...appUrls("ls"),
     Icon: List,
     category: "Personal",
     blurb: "Directory listing",
@@ -93,8 +97,7 @@ export const APPS: AppDef[] = [
   {
     key: "cv",
     name: "CV",
-    href: "https://cv.duyet.net",
-    subdomain: "cv.duyet.net",
+    ...appUrls("cv"),
     Icon: FileText,
     category: "Personal",
     blurb: "Resume",
@@ -102,8 +105,7 @@ export const APPS: AppDef[] = [
   {
     key: "insights",
     name: "Insights",
-    href: "https://insights.duyet.net",
-    subdomain: "insights.duyet.net",
+    ...appUrls("insights"),
     Icon: Activity,
     category: "AI & Data",
     blurb: "Usage analytics",
@@ -111,8 +113,7 @@ export const APPS: AppDef[] = [
   {
     key: "llm-timeline",
     name: "LLM Timeline",
-    href: "https://llm-timeline.duyet.net",
-    subdomain: "llm-timeline.duyet.net",
+    ...appUrls("llm-timeline"),
     Icon: Sparkles,
     category: "AI & Data",
     blurb: "3,900+ models",
@@ -120,8 +121,7 @@ export const APPS: AppDef[] = [
   {
     key: "ai-percentage",
     name: "AI Percentage",
-    href: "https://ai-percentage.duyet.net",
-    subdomain: "ai-percentage.duyet.net",
+    ...appUrls("ai-percentage"),
     Icon: Percent,
     category: "AI & Data",
     blurb: "AI-written share",
@@ -129,8 +129,7 @@ export const APPS: AppDef[] = [
   {
     key: "x-algo",
     name: "X Algo",
-    href: "https://x-algo.duyet.net",
-    subdomain: "x-algo.duyet.net",
+    ...appUrls("x-algo"),
     Icon: Share2,
     category: "AI & Data",
     blurb: "For You weights",
@@ -138,8 +137,7 @@ export const APPS: AppDef[] = [
   {
     key: "burn",
     name: "Burn",
-    href: "https://burn.duyet.net",
-    subdomain: "burn.duyet.net",
+    ...appUrls("burn"),
     Icon: Flame,
     category: "AI & Data",
     blurb: "Token spend",
@@ -147,8 +145,7 @@ export const APPS: AppDef[] = [
   {
     key: "tip",
     name: "Tip",
-    href: "https://tip.duyet.net",
-    subdomain: "tip.duyet.net",
+    ...appUrls("tip"),
     Icon: Coffee,
     category: "Personal",
     blurb: "Buy me a coffee",
@@ -156,8 +153,7 @@ export const APPS: AppDef[] = [
   {
     key: "news",
     name: "News",
-    href: "https://news.duyet.net",
-    subdomain: "news.duyet.net",
+    ...appUrls("news"),
     Icon: Newspaper,
     category: "AI & Data",
     blurb: "AI news, ranked by LLMs",
@@ -165,8 +161,7 @@ export const APPS: AppDef[] = [
   {
     key: "agents",
     name: "Agents",
-    href: "https://agents.duyet.net",
-    subdomain: "agents.duyet.net",
+    ...appUrls("agents"),
     Icon: Bot,
     category: "Build",
     blurb: "AI chat & tools",
@@ -174,8 +169,7 @@ export const APPS: AppDef[] = [
   {
     key: "kb",
     name: "Knowledge base",
-    href: "https://kb.duyet.net",
-    subdomain: "kb.duyet.net",
+    ...appUrls("kb"),
     Icon: Brain,
     category: "Build",
     blurb: "Second brain",
@@ -183,8 +177,7 @@ export const APPS: AppDef[] = [
   {
     key: "html",
     name: "HTML",
-    href: "https://html.duyet.net",
-    subdomain: "html.duyet.net",
+    ...appUrls("html"),
     Icon: Code2,
     category: "Build",
     blurb: "HTML artifacts",
@@ -192,8 +185,7 @@ export const APPS: AppDef[] = [
   {
     key: "mcp",
     name: "MCP",
-    href: "https://mcp.duyet.net",
-    subdomain: "mcp.duyet.net",
+    ...appUrls("mcp"),
     Icon: Plug,
     category: "Build",
     blurb: "MCP server",
@@ -201,8 +193,7 @@ export const APPS: AppDef[] = [
   {
     key: "homelab",
     name: "Homelab",
-    href: "https://homelab.duyet.net",
-    subdomain: "homelab.duyet.net",
+    ...appUrls("homelab"),
     Icon: Server,
     category: "Infra",
     blurb: "Cluster status",

@@ -1,19 +1,8 @@
 import type { Post } from "@duyet/interfaces";
 import type { TOCItem } from "@duyet/libs/extractHeadings";
 import { cn } from "@duyet/libs/utils";
-import { compile, run } from "@mdx-js/mdx";
-import { common } from "lowlight";
 import { Fragment, Suspense, use, useEffect, useRef } from "react";
 import * as runtime from "react/jsx-runtime";
-import rehypeHighlight from "rehype-highlight";
-import rehypeKatex from "rehype-katex";
-import rehypeSlug from "rehype-slug";
-import remarkGfm from "remark-gfm";
-import remarkMath from "remark-math";
-
-import "katex/dist/contrib/mhchem.min.js";
-import "katex/dist/katex.min.css";
-import "@/styles/highlight.css";
 import { mdxComponents } from "@/components/MdxComponents";
 import { embedXPosts, TWITTER_WIDGETS_SRC } from "@/lib/x-embed";
 import { LiveWidget } from "../../../components/LiveWidget";
@@ -55,14 +44,44 @@ const promptLanguage = (): {
   contains: [{ scope: "built_in", begin: /^\/[A-Za-z][\w:-]*/ }],
 });
 
-// Built once: every common grammar (ts, bash, sh, …) plus the custom `prompt`.
-// `languages` overrides rehype-highlight's default set, so `common` must be
-// merged in rather than passed alone.
-const highlightLanguages = { ...common, prompt: promptLanguage };
+let highlightLanguagesPromise:
+  | Promise<Record<string, ReturnType<typeof promptLanguage>>>
+  | undefined;
+
+async function getHighlightLanguages() {
+  if (!highlightLanguagesPromise) {
+    highlightLanguagesPromise = import("lowlight").then(({ common }) => ({
+      ...common,
+      prompt: promptLanguage(),
+    }));
+  }
+  return highlightLanguagesPromise;
+}
 
 async function compileMDX(
   source: string
 ): Promise<React.ComponentType<MDXContentProps>> {
+  const [
+    { compile, run },
+    highlightLanguages,
+    rehypeHighlight,
+    rehypeKatex,
+    rehypeSlug,
+    remarkGfm,
+    remarkMath,
+  ] = await Promise.all([
+    import("@mdx-js/mdx"),
+    getHighlightLanguages(),
+    import("rehype-highlight").then((module) => module.default),
+    import("rehype-katex").then((module) => module.default),
+    import("rehype-slug").then((module) => module.default),
+    import("remark-gfm").then((module) => module.default),
+    import("remark-math").then((module) => module.default),
+    import("katex/dist/contrib/mhchem.min.js"),
+    import("katex/dist/katex.min.css"),
+    import("@/styles/highlight.css"),
+  ]);
+
   const code = await compile(source, {
     outputFormat: "function-body",
     remarkPlugins: [remarkGfm, remarkMath],
@@ -197,7 +216,7 @@ export default function Content({ post }: { post: ContentPost }) {
 
   return (
     <>
-      <OldPostWarning post={post} year={5} className="mb-6" />
+      <OldPostWarning post={post} className="mb-6" year={5} />
 
       <div ref={copyRef} className="contents">
         {post.isMDX && post.mdxSource ? (

@@ -17,6 +17,7 @@
     "3d-force-graph": "^1.80.0",
     "@duyet/components": "*",
     "@duyet/config": "*",
+    "@duyet/libs": "*",
     "@tanstack/react-router": "^1.0.0",
     "@tanstack/react-start": "^1.0.0",
     "graphology": "^0.26.0",

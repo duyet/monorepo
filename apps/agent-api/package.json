@@ -16,6 +16,7 @@
   "dependencies": {
     "@clerk/backend": "^2.32.0",
     "@cloudflare/ai-chat": "^0.10.0",
+    "@duyet/urls": "workspace:*",
     "agents": "^0.21.0",
     "ai": "^7.0.4",
     "workers-ai-provider": "^3.1.14",

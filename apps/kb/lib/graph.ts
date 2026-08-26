@@ -50,14 +50,7 @@ function isInbox(item: ContentItem): item is InboxNote {
   return "date" in item;
 }
 
-function slugify(s: string): string {
-  return String(s)
-    .toLowerCase()
-    .replace(/\[\[|\]\]/g, "")
-    .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
+import { kbSlugify as slugify } from "@duyet/libs/slugify";
 
 /** Builds the full KB graph (articles + memory + inbox + tags) from the current content set. */
 export function buildKbGraph(

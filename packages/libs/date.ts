@@ -70,20 +70,10 @@ export function generateId(prefix: string): string {
  * slugify("My Test String", 10) // "my-test"
  * ```
  */
+import { slugify as sharedSlugify } from "./slugify";
+
 export function slugify(str: string, maxLength = 100): string {
-  let slug = str
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-
-  // Truncate to maxLength, ensuring we don't cut mid-word
-  if (slug.length > maxLength) {
-    const truncated = slug.slice(0, maxLength);
-    const lastHyphen = truncated.lastIndexOf("-");
-    slug = lastHyphen > 0 ? truncated.slice(0, lastHyphen) : truncated;
-  }
-
-  return slug;
+  return sharedSlugify(str, { mode: "collapse", maxLength });
 }
 
 /**
