@@ -15,6 +15,12 @@ import {
 } from "./agent";
 import { toPublicMessageMetadata } from "./public-messages";
 import { scopedAgentRequest } from "./routing";
+import {
+  CHAT_RATE_LIMIT,
+  clientIp,
+  consumeRateLimit,
+  secondsUntil,
+} from "./lib/rate-limit";
 
 export { ChatAgent };
 export type { Env };
@@ -255,6 +261,41 @@ async function requireAuth(
   );
 }
 
+function applyIpRateLimit(
+  request: Request,
+  env: Env,
+  routeKey: string
+): Response | null {
+  const now = Date.now();
+  const limit = consumeRateLimit(
+    `${routeKey}:${clientIp(request)}`,
+    now,
+    CHAT_RATE_LIMIT.max,
+    CHAT_RATE_LIMIT.windowMs
+  );
+
+  const headers = new Headers({
+    "Content-Type": "application/json",
+    "RateLimit-Limit": String(CHAT_RATE_LIMIT.max),
+    "RateLimit-Remaining": String(limit.remaining),
+    "RateLimit-Reset": String(secondsUntil(limit.resetAt, now)),
+  });
+
+  if (!limit.allowed) {
+    headers.set("Retry-After", String(secondsUntil(limit.resetAt, now)));
+    return withCors(
+      request,
+      env,
+      new Response(JSON.stringify({ error: "rate limited" }), {
+        status: 429,
+        headers,
+      })
+    );
+  }
+
+  return null;
+}
+
 export async function handleRequest(request: Request, env: Env): Promise<Response> {
   if (request.method === "OPTIONS") {
     return preflight(request, env);
@@ -275,12 +316,18 @@ export async function handleRequest(request: Request, env: Env): Promise<Respons
   }
 
   if (request.method === "POST" && url.pathname === "/api/v1/chat") {
+    const limited = applyIpRateLimit(request, env, "chat");
+    if (limited) return limited;
+
     const auth = await requireAuth(request, env);
     if (auth instanceof Response) return auth;
     return handleChat(request, env, auth);
   }
 
   if (url.pathname.startsWith("/agents/")) {
+    const limited = applyIpRateLimit(request, env, "agents");
+    if (limited) return limited;
+
     const auth = await requireAuth(request, env);
     if (auth instanceof Response) return auth;
 

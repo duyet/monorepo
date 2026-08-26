@@ -6,6 +6,8 @@ import {
   clampHistoryDays,
   executeClickHouseQuery,
   getClickHouseConfig,
+  getDateCondition,
+  parseHistoryDays,
 } from "./ai-percentage.js";
 
 const PASSWORD = "s3cret-clickhouse-pass";
@@ -89,6 +91,33 @@ describe("GET /api/ai/percentage/current", () => {
     expect(res.status).toBe(200);
     expect(res.headers.get("Cache-Control")).toBe(
       "public, max-age=3600, stale-while-revalidate=86400"
+    );
+  });
+});
+
+describe("parseHistoryDays", () => {
+  it("defaults invalid values to 365", () => {
+    expect(parseHistoryDays(undefined)).toBe(365);
+    expect(parseHistoryDays("abc")).toBe(365);
+  });
+
+  it("clamps out-of-range values", () => {
+    expect(parseHistoryDays("0")).toBe(365);
+    expect(parseHistoryDays("99999")).toBe(730);
+  });
+
+  it("builds safe SQL date conditions", () => {
+    expect(getDateCondition(parseHistoryDays("365"))).toBe(
+      "WHERE date >= now() - INTERVAL 365 DAY"
+    );
+    expect(getDateCondition(parseHistoryDays("abc"))).toBe(
+      "WHERE date >= now() - INTERVAL 365 DAY"
+    );
+    expect(getDateCondition(parseHistoryDays("0"))).toBe(
+      "WHERE date >= now() - INTERVAL 365 DAY"
+    );
+    expect(getDateCondition(parseHistoryDays("99999"))).toBe(
+      "WHERE date >= now() - INTERVAL 730 DAY"
     );
   });
 });

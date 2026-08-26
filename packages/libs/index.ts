@@ -10,3 +10,4 @@ export * from "./object-utils";
 export * from "./parseModelParams";
 export * from "./string";
 export * from "./utils";
+export * from "./workers-auth";

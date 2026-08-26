@@ -113,10 +113,16 @@ export function clampHistoryDays(rawDays: number): number {
   return Math.min(Math.floor(rawDays), MAX_HISTORY_DAYS);
 }
 
+/** Integer-parse the history `days` query param, then clamp for safe SQL interpolation. */
+export function parseHistoryDays(raw: string | undefined): number {
+  const parsed = Number.parseInt(raw ?? "365", 10);
+  return clampHistoryDays(parsed);
+}
+
 /**
  * Get date condition SQL for filtering by days
  */
-function getDateCondition(days: number): string {
+export function getDateCondition(days: number): string {
   return `WHERE date >= now() - INTERVAL ${days} DAY`;
 }
 
@@ -204,7 +210,7 @@ aiPercentageRouter.get("/history", async (c) => {
     return c.json({ error: "ClickHouse not configured" }, 500);
   }
 
-  const days = clampHistoryDays(Number(c.req.query("days") || "365"));
+  const days = parseHistoryDays(c.req.query("days"));
   const dateCondition = getDateCondition(days);
 
   try {
