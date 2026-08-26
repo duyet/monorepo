@@ -9,6 +9,7 @@
  */
 
 import type { UrlsConfig } from "./types";
+import { getDuyetUrlsApps } from "./app-registry";
 
 const importMetaEnv =
   typeof import.meta !== "undefined"
@@ -32,17 +33,19 @@ const importMetaEnv =
  * <Header urls={duyetUrls} />
  * ```
  */
+const registryApps = getDuyetUrlsApps();
+
 export const duyetUrls: UrlsConfig = {
   apps: {
-    blog: importMetaEnv?.VITE_DUYET_BLOG_URL || "https://blog.duyet.net",
-    cv: importMetaEnv?.VITE_DUYET_CV_URL || "https://cv.duyet.net",
+    blog: importMetaEnv?.VITE_DUYET_BLOG_URL || registryApps.blog,
+    cv: importMetaEnv?.VITE_DUYET_CV_URL || registryApps.cv,
     insights:
-      importMetaEnv?.VITE_DUYET_INSIGHTS_URL || "https://insights.duyet.net",
-    home: importMetaEnv?.VITE_DUYET_HOME_URL || "https://duyet.net",
-    photos: importMetaEnv?.VITE_DUYET_PHOTOS_URL || "https://photos.duyet.net",
+      importMetaEnv?.VITE_DUYET_INSIGHTS_URL || registryApps.insights,
+    home: importMetaEnv?.VITE_DUYET_HOME_URL || registryApps.home,
+    photos: importMetaEnv?.VITE_DUYET_PHOTOS_URL || registryApps.photos,
     homelab:
-      importMetaEnv?.VITE_DUYET_HOMELAB_URL || "https://homelab.duyet.net",
-    news: importMetaEnv?.VITE_DUYET_NEWS_URL || "https://news.duyet.net",
+      importMetaEnv?.VITE_DUYET_HOMELAB_URL || registryApps.homelab,
+    news: importMetaEnv?.VITE_DUYET_NEWS_URL || registryApps.news,
   },
   external: {
     rust: "https://rust-tieng-viet.github.io",

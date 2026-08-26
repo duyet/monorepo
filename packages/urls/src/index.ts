@@ -18,6 +18,15 @@
 
 // Export Duyet's configuration
 export { duyetUrls, duyetUrls as defaultUrls } from "./duyet.urls";
+export {
+  APP_REGISTRY,
+  appOrigin,
+  getClerkAuthorizedOrigins,
+  getDuyetUrlsApps,
+  getRegistryOrigins,
+  PAGES_DOMAIN_OVERRIDES,
+} from "./app-registry";
+export type { AppRegistryEntry, AppRegistryId } from "./app-registry";
 // Export all types
 export type {
   AppUrls,

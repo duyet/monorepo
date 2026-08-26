@@ -32,12 +32,11 @@ export function parseFrontmatter(raw: string): ParsedFrontmatter {
   }
 }
 
+import { slugify as sharedSlugify } from "@duyet/libs/slugify";
+
 /** URL-safe id from a filename when no explicit `slug:` is set. */
 export function slugify(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
+  return sharedSlugify(name, { mode: "collapse" });
 }
 
 /** Plain-text preview: drop images/embeds, unwrap links, strip markdown punctuation. */

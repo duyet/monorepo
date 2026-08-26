@@ -7,6 +7,9 @@
 import { Hono } from "hono";
 import type { Env } from "../env.js";
 
+const AI_PERCENTAGE_CACHE_CONTROL =
+  "public, max-age=3600, stale-while-revalidate=86400";
+
 const aiPercentageRouter = new Hono<{ Bindings: Env }>();
 const FETCH_TIMEOUT_MS = 10_000;
 
@@ -142,6 +145,8 @@ aiPercentageRouter.get("/current", async (c) => {
 
     const row = data[0] as any;
 
+    c.header("Cache-Control", AI_PERCENTAGE_CACHE_CONTROL);
+
     return c.json({
       ai_percentage: Number(row.ai_percentage) || 0,
       total_lines_added: Number(row.total_lines_added) || 0,
@@ -211,6 +216,8 @@ aiPercentageRouter.get("/history", async (c) => {
       return c.json({ data: [] });
     }
 
+    c.header("Cache-Control", AI_PERCENTAGE_CACHE_CONTROL);
+
     return c.json({
       data: data.map((row: any) => ({
         date: String(row.date),
@@ -260,6 +267,7 @@ aiPercentageRouter.get("/available", async (c) => {
     }
 
     const count = Number((data[0] as any).count) || 0;
+    c.header("Cache-Control", AI_PERCENTAGE_CACHE_CONTROL);
     return c.json({ available: count > 0 });
   } catch (error) {
     console.error("Error checking AI percentage availability:", error);

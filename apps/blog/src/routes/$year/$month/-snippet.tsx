@@ -1,18 +1,11 @@
 import { cn } from "@duyet/libs/utils";
-import sanitizeHtml from "sanitize-html";
+import { Suspense, use } from "react";
 
-export function Snippet({
-  html,
-  className,
-}: {
-  html: string;
-  className?: string;
-}) {
-  if (!html) {
-    return null;
-  }
+const sanitizeHtmlPromise = import("sanitize-html");
 
-  const sanitized = sanitizeHtml(html, {
+async function getSanitizeOptions() {
+  const sanitizeHtml = (await sanitizeHtmlPromise).default;
+  return {
     allowedTags: sanitizeHtml.defaults.allowedTags.concat([
       "math",
       "semantics",
@@ -44,7 +37,25 @@ export function Snippet({
       path: ["d", "fill", "stroke", "stroke-width", "class"],
     },
     allowedSchemes: ["http", "https", "mailto"],
-  });
+  };
+}
+
+const sanitizeOptionsPromise = getSanitizeOptions();
+
+function SanitizedSnippet({
+  html,
+  className,
+}: {
+  html: string;
+  className?: string;
+}) {
+  const [sanitizeHtml, options] = use(
+    Promise.all([sanitizeHtmlPromise, sanitizeOptionsPromise]).then(
+      ([module, sanitizeOptions]) => [module.default, sanitizeOptions] as const
+    )
+  );
+
+  const sanitized = sanitizeHtml(html, options);
 
   return (
     <div
@@ -52,5 +63,23 @@ export function Snippet({
       dangerouslySetInnerHTML={{ __html: sanitized }}
       suppressHydrationWarning
     />
+  );
+}
+
+export function Snippet({
+  html,
+  className,
+}: {
+  html: string;
+  className?: string;
+}) {
+  if (!html) {
+    return null;
+  }
+
+  return (
+    <Suspense fallback={null}>
+      <SanitizedSnippet html={html} className={className} />
+    </Suspense>
   );
 }

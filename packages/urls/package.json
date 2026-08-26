@@ -9,6 +9,7 @@
     ".": "./src/index.ts",
     "./types": "./src/types.ts",
     "./duyet": "./src/duyet.urls.ts",
+    "./app-registry": "./src/app-registry.ts",
     "./utils": "./src/utils.ts"
   },
   "scripts": {

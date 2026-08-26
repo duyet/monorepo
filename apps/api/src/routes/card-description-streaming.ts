@@ -15,6 +15,32 @@ import {
 
 const cardDescriptionRouter = new Hono<{ Bindings: Env }>();
 
+const LLMS_TXT_URL = "https://blog.duyet.net/llms.txt";
+const LLMS_CACHE_TTL_MS = 6 * 60 * 60 * 1000;
+const MAX_CONTENT_LENGTH = 3000;
+
+let llmsCache: { body: string; at: number } | null = null;
+
+export function resetLlmsCacheForTests(): void {
+  llmsCache = null;
+}
+
+async function getLlmsHead(): Promise<string> {
+  const now = Date.now();
+  if (llmsCache && now - llmsCache.at < LLMS_CACHE_TTL_MS) {
+    return llmsCache.body;
+  }
+
+  const response = await fetch(LLMS_TXT_URL);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch blog content: ${response.status}`);
+  }
+
+  const body = (await response.text()).slice(0, MAX_CONTENT_LENGTH);
+  llmsCache = { body, at: now };
+  return body;
+}
+
 function clientIp(request: Request): string {
   return (
     request.headers.get("CF-Connecting-IP") ||
@@ -97,11 +123,7 @@ function getSystemPrompt(cardType: CardType): string {
  */
 async function getContentForCardType(cardType: CardType): Promise<string> {
   if (cardType === "blog") {
-    const response = await fetch("https://blog.duyet.net/llms.txt");
-    if (!response.ok) {
-      throw new Error(`Failed to fetch blog content: ${response.status}`);
-    }
-    return await response.text();
+    return getLlmsHead();
   }
 
   // For featured, return generic content
@@ -153,7 +175,6 @@ cardDescriptionRouter.post("/", async (c) => {
     const systemPrompt = getSystemPrompt(cardType);
 
     // Truncate content if too long (limit to ~3000 chars for context window)
-    const MAX_CONTENT_LENGTH = 3000;
     if (content.length > MAX_CONTENT_LENGTH) {
       content = `${content.substring(0, MAX_CONTENT_LENGTH)}...`;
     }

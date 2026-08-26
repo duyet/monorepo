@@ -26,6 +26,7 @@ import {
 } from "node:fs";
 import { basename, extname, join } from "node:path";
 import matter from "gray-matter";
+import { kbSlugify } from "@duyet/libs/slugify";
 
 const SCRIPT_DIR = import.meta.dirname!;
 const APP_DIR = join(SCRIPT_DIR, "..");
@@ -116,13 +117,7 @@ function walkMd(dir: string): string[] {
   return out;
 }
 
-const slugify = (s: string) =>
-  String(s)
-    .toLowerCase()
-    .replace(/\[\[|\]\]/g, "")
-    .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+const slugify = kbSlugify;
 
 // ── Walk articles ────────────────────────────────────────────────────────────
 

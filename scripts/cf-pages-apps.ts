@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { PAGES_DOMAIN_OVERRIDES } from "@duyet/urls/app-registry";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -10,11 +11,7 @@ export const DEFAULT_APPS_DIR = join(__dirname, "..", "apps");
 const APPS_WITH_SECRETS = new Set(["blog", "photos", "insights"]);
 
 /** Hostnames that do not follow `<app>.duyet.net`. */
-const DOMAIN_OVERRIDES: Record<string, string> = {
-  home: "duyet.net",
-  "agent-ui": "agents.duyet.net",
-  burns: "duyet-burns.pages.dev",
-};
+const DOMAIN_OVERRIDES: Record<string, string> = PAGES_DOMAIN_OVERRIDES;
 
 export interface PagesApp {
   name: string;
