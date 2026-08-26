@@ -23,10 +23,14 @@ jobs:
     # Only run when:
     # - CI actually failed (not cancelled/skipped)
     # - There is an associated pull request
+    # - The PR is from this repository (not a fork). workflow_run jobs run in
+    #   the base-repo context with write tokens; auto-fixing forks would be a
+    #   pwn-request even after the env: fix below.
     # - The branch is not already a Claude-generated fix branch (prevents loops)
     if: |
       github.event.workflow_run.conclusion == 'failure' &&
       github.event.workflow_run.pull_requests[0] != null &&
+      github.event.workflow_run.head_repository.full_name == github.repository &&
       !startsWith(github.event.workflow_run.head_branch, 'claude/')
     runs-on: ubuntu-latest
     steps:
@@ -43,13 +47,18 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # Pass untrusted workflow_run values through env. GitHub interpolates
+      # ${{ }} before Bash parses `run:`, so inlining head_branch would let a
+      # crafted ref execute as shell. Env vars are assigned without shell parsing;
+      # sanitizing after interpolation does not help.
       - name: Sanitize branch name
         id: sanitize
+        env:
+          RAW_BRANCH: ${{ github.event.workflow_run.head_branch }}
         run: |
-          BRANCH="${{ github.event.workflow_run.head_branch }}"
-          SAFE_BRANCH=$(echo "$BRANCH" | sed 's/[^a-zA-Z0-9/_-]//g')
-          echo "safe_branch=$SAFE_BRANCH" >> $GITHUB_OUTPUT
-          echo "Original: $BRANCH"
+          SAFE_BRANCH=$(printf '%s' "$RAW_BRANCH" | sed 's/[^a-zA-Z0-9/_-]//g')
+          echo "safe_branch=$SAFE_BRANCH" >> "$GITHUB_OUTPUT"
+          echo "Original: $RAW_BRANCH"
           echo "Sanitized: $SAFE_BRANCH"
 
       - name: Run Claude to diagnose and fix CI failure
