@@ -2,6 +2,46 @@
 
 Feed pipeline and ranking design: see [ALGORITHM.md](./ALGORITHM.md).
 
+## Public read API
+
+Unauthenticated digest for third-party clients (Chrome new-tab first).
+`GET /api/feed` is the full homepage payload (~360KB) and does not send CORS
+for `chrome-extension://` origins. Use this instead:
+
+- **URL:** `https://news.duyet.net/api/public`
+- **Auth:** none. Failures return `{ "error": "unavailable" }` (no D1/admin detail).
+- **CORS:** Worker fetch intercepts OPTIONS/GET before TanStack Start (SPA
+  fallback would otherwise serve HTML). Allows `chrome-extension://…`,
+  `http://localhost` / `http://127.0.0.1`, and `https://*.duyet.net`.
+- **Cache:** `public, max-age=120, s-maxage=300, stale-while-revalidate=600`.
+  Not rate-limited (same as `GET /api/feed`).
+
+```json
+{
+  "tldr": {
+    "date": "2026-08-27",
+    "bullets_en": [{ "text": "...", "item_ids": ["..."] }],
+    "bullets_vi": [{ "text": "...", "item_ids": ["..."] }]
+  },
+  "stories": [
+    {
+      "id": "...",
+      "url": "https://...",
+      "title": "...",
+      "title_vi": "...",
+      "category": "Industry",
+      "image_url": "https://...",
+      "published_at": 1787793175
+    }
+  ],
+  "updatedAt": 1756300000000
+}
+```
+
+Up to 16 bullets per language and 8 top stories by `rank_score`. Typical
+payload is well under 50KB. New-tab client: [`apps/news-tab`](../news-tab/README.md).
+
+
 Hourly ingest is triggered by GitHub Actions
 (`.github/workflows/news-ingest.yml`, cron `5 * * * *`) via
 `POST /api/admin/ingest`. Do not add Worker `[triggers] crons` or

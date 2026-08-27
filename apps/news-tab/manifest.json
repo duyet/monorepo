@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "AI News — new tab",
+  "version": "0.1.0",
+  "description": "Today's AI TL;DR from news.duyet.net on every new tab.",
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "host_permissions": [
+    "https://news.duyet.net/*",
+    "http://localhost:3014/*",
+    "http://127.0.0.1:3014/*"
+  ]
+}

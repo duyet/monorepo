@@ -54,7 +54,7 @@ name = "EMAIL"
 # Workers Cache: safe for this surface — only responses with public
 # Cache-Control headers (feed/story/system APIs, static shell) are cached;
 # admin/subscribe/suggest/submit/mcp set no-store and Authorization-bearing
-# requests auto-bypass.
+# requests auto-bypass. Public GET /api/public is Cache-Control: public.
 [cache]
 enabled = true
 

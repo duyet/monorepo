@@ -9,7 +9,10 @@ import {
   withCors,
 } from "../subscribe/cors.js";
 
-const newsRoot = path.join(path.dirname(fileURLToPath(import.meta.url)), "../..");
+const newsRoot = path.join(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../.."
+);
 
 function subscribeRequest(
   method: string,
@@ -70,7 +73,9 @@ describe("preflight", () => {
 
 describe("handleSubscribeCors", () => {
   it("answers OPTIONS without calling next, so SPA HTML cannot leak", async () => {
-    const next = vi.fn(async () => new Response("<html></html>", { status: 200 }));
+    const next = vi.fn(
+      async () => new Response("<html></html>", { status: 200 })
+    );
     const res = await handleSubscribeCors(
       subscribeRequest("OPTIONS", "https://blog.duyet.net"),
       next
@@ -127,6 +132,7 @@ describe("worker fetch entry", () => {
   it("intercepts /api/subscribe CORS before TanStack Start", () => {
     const src = readFileSync(path.join(newsRoot, "src/server.ts"), "utf-8");
     expect(src).toContain("handleSubscribeCors");
+    expect(src).toContain("handlePublicCors");
     expect(src).not.toMatch(/return handler\.fetch\(request\);/);
   });
 });
