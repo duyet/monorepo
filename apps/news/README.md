@@ -4,7 +4,7 @@ Feed pipeline and ranking design: see [ALGORITHM.md](./ALGORITHM.md).
 
 ## Public read API
 
-Unauthenticated digest for third-party clients (Chrome new-tab first).
+Unauthenticated digest for third-party clients (Chrome extension first).
 `GET /api/feed` is the full homepage payload (~360KB) and does not send CORS
 for `chrome-extension://` origins. Use this instead:
 
@@ -39,8 +39,7 @@ for `chrome-extension://` origins. Use this instead:
 ```
 
 Up to 16 bullets per language and 8 top stories by `rank_score`. Typical
-payload is well under 50KB. New-tab client: [`apps/news-tab`](../news-tab/README.md).
-
+payload is well under 50KB.
 
 Hourly ingest is triggered by GitHub Actions
 (`.github/workflows/news-ingest.yml`, cron `5 * * * *`) via
