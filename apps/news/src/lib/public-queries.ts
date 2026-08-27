@@ -1,4 +1,9 @@
 import { isThinDisplayTldr, synthesizeTldrFromItems } from "./tldr-fallback";
+import {
+  collectTldrItemIds,
+  imageUrlByItemId,
+  withTldrImages,
+} from "./tldr-images";
 import type { TldrBullet } from "./types";
 
 /** Top stories on the public digest — keep the payload well under 50KB. */
@@ -54,6 +59,9 @@ LIMIT ?`;
 
 const TLDR_SQL =
   "SELECT date, bullets_en, bullets_vi FROM tldr_snapshots ORDER BY date DESC LIMIT 1";
+
+const IMAGES_SQL = `SELECT id, image_url FROM items
+WHERE id IN ({placeholders}) AND image_url IS NOT NULL AND image_url != ''`;
 
 function capBullets(raw: TldrBullet[]): TldrBullet[] {
   return raw.slice(0, PUBLIC_BULLET_CAP).map((b) => ({
@@ -154,9 +162,37 @@ export async function getPublicDigest(db: D1Database): Promise<PublicDigest> {
     stories
   );
 
+  const images = imageUrlByItemId(stories);
+  const missing = collectTldrItemIds(tldr).filter((id) => !images.has(id));
+  if (missing.length > 0) {
+    for (const [id, url] of await loadImagesForIds(db, missing)) {
+      images.set(id, url);
+    }
+  }
+
   return {
-    tldr,
+    tldr: withTldrImages(tldr, images),
     stories,
     updatedAt: Date.now(),
   };
+}
+
+/** Look up og/thumbnails for TL;DR item ids that are not in the top-8
+ * stories payload. Best-effort: a missing `image_url` column returns
+ * an empty map so the digest still ships. */
+async function loadImagesForIds(
+  db: D1Database,
+  ids: string[]
+): Promise<Map<string, string>> {
+  if (ids.length === 0) return new Map();
+  const placeholders = ids.map(() => "?").join(",");
+  try {
+    const { results } = await db
+      .prepare(IMAGES_SQL.replace("{placeholders}", placeholders))
+      .bind(...ids)
+      .all<{ id: string; image_url: string }>();
+    return imageUrlByItemId(results ?? []);
+  } catch {
+    return new Map();
+  }
 }

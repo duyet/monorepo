@@ -40,12 +40,23 @@ export const Route = createFileRoute("/")({
 });
 
 function SkeletonRow({ i }: { i: number }) {
-  const widths = ["w-3/4", "w-2/3", "w-3/4", "w-1/2", "w-2/3", "w-3/4", "w-1/2", "w-2/3"];
+  const widths = [
+    "w-3/4",
+    "w-2/3",
+    "w-3/4",
+    "w-1/2",
+    "w-2/3",
+    "w-3/4",
+    "w-1/2",
+    "w-2/3",
+  ];
   return (
     <div className="flex items-baseline gap-3 border-b border-border py-2">
       <span className="h-4 w-5 shrink-0 rounded bg-muted" />
       <span className="min-w-0 flex-1 space-y-1.5">
-        <span className={`block h-4 ${widths[i % widths.length]} rounded bg-muted`} />
+        <span
+          className={`block h-4 ${widths[i % widths.length]} rounded bg-muted`}
+        />
         <span className="block h-3 w-1/4 rounded bg-muted" />
       </span>
       <span className="hidden h-4 w-14 shrink-0 rounded bg-muted sm:block" />
@@ -76,9 +87,12 @@ function FeedSkeleton() {
         <div className="mb-2.5 h-5 w-24 rounded bg-muted" />
         <div className="grid gap-x-10 md:grid-cols-2">
           {[0, 1].map((col) => (
-            <div key={col} className="space-y-1.5">
-              {Array.from({ length: 6 }, (_, i) => (
-                <div key={i} className="h-3.5 w-full rounded bg-muted" />
+            <div key={col} className="space-y-2">
+              {Array.from({ length: 4 }, (_, i) => (
+                <div key={i} className="flex items-start gap-2">
+                  <span className="h-10 w-10 shrink-0 rounded-md bg-muted" />
+                  <span className="mt-2 h-3.5 w-full rounded bg-muted" />
+                </div>
               ))}
             </div>
           ))}
@@ -201,10 +215,12 @@ function IndexPage() {
   const bullets = displayTldrBullets(feed.tldr, lang);
 
   const topicByItemId = new Map<string, string>();
+  const imageByItemId = new Map<string, string>();
   for (const day of feed.days) {
     for (const item of day.items) {
       const topic = item.tags[0] ?? item.category;
       if (topic) topicByItemId.set(item.id, topic);
+      if (item.image_url) imageByItemId.set(item.id, item.image_url);
     }
   }
 
@@ -280,6 +296,7 @@ function IndexPage() {
             updatedAt={feed.updatedAt}
             lastFetchedAt={feed.lastFetchedAt}
             topicByItemId={topicByItemId}
+            imageByItemId={imageByItemId}
             snapshotDate={feed.tldr?.date}
           />
         )

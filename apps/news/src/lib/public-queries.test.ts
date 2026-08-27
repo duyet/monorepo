@@ -38,6 +38,7 @@ function story(id: string, extra: Partial<StoryRow> = {}): StoryRow {
 function makeDb(opts: {
   tldr?: TldrRow | null;
   stories?: StoryRow[];
+  extraImages?: Array<{ id: string; image_url: string | null }>;
   failImageColumn?: boolean;
   throwOnItems?: boolean;
 }) {
@@ -55,6 +56,9 @@ function makeDb(opts: {
             }
             if (opts.failImageColumn && sql.includes("image_url")) {
               throw new Error("no such column: image_url");
+            }
+            if (sql.includes("id IN")) {
+              return { results: opts.extraImages ?? [] };
             }
             return { results: opts.stories ?? [] };
           }
@@ -111,6 +115,15 @@ describe("getPublicDigest", () => {
     expect(digest.tldr?.date).toBe("2026-08-27");
     expect(digest.tldr?.bullets_vi[0]?.text).toContain("Hugging Face");
     expect(digest.tldr?.bullets_en).toHaveLength(2);
+    expect(digest.tldr?.bullets_en[0]?.image_url).toBe(
+      "https://img.example/a.jpg"
+    );
+    expect(digest.tldr?.bullets_en[1]?.image_url).toBe(
+      "https://img.example/b.jpg"
+    );
+    expect(digest.tldr?.bullets_vi[0]?.image_url).toBe(
+      "https://img.example/a.jpg"
+    );
     expect(digest.stories).toHaveLength(3);
     expect(digest.stories[0]).toEqual({
       id: "a",
@@ -168,6 +181,39 @@ describe("getPublicDigest", () => {
     const digest = await getPublicDigest(db);
     expect(digest.stories[0]?.image_url).toBeNull();
     expect(digest.stories[0]?.id).toBe("a");
+    expect(digest.tldr?.bullets_en[0]).not.toHaveProperty("image_url");
+  });
+
+  it("looks up a bullet image even when the story is outside the top 8", async () => {
+    const db = makeDb({
+      tldr: bilingualTldr,
+      stories: [story("z")],
+      extraImages: [
+        { id: "a", image_url: "https://img.example/a.jpg" },
+        { id: "b", image_url: "https://img.example/b.jpg" },
+      ],
+    });
+    const digest = await getPublicDigest(db);
+    expect(digest.tldr?.bullets_en[0]?.image_url).toBe(
+      "https://img.example/a.jpg"
+    );
+    expect(digest.tldr?.bullets_en[1]?.image_url).toBe(
+      "https://img.example/b.jpg"
+    );
+    expect(digest.stories[0]?.id).toBe("z");
+  });
+
+  it("omits image_url on a bullet when the linked story has none", async () => {
+    const db = makeDb({
+      tldr: bilingualTldr,
+      stories: [
+        story("a", { image_url: null }),
+        story("b", { image_url: null }),
+      ],
+    });
+    const digest = await getPublicDigest(db);
+    expect(digest.tldr?.bullets_en[0]).not.toHaveProperty("image_url");
+    expect(digest.tldr?.bullets_en[1]).not.toHaveProperty("image_url");
   });
 });
 

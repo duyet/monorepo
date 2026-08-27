@@ -4,6 +4,7 @@ import {
   resolveTldrForDisplay,
   shouldRebuildTldrForDisplay,
 } from "./tldr-fallback";
+import { imageUrlByItemId, withTldrImages } from "./tldr-images";
 import type { DayGroup, FeedItem, FeedResponse, TldrBullet } from "./types";
 
 /** Older `tldr_snapshots` rows were written with a single `item_id` string
@@ -284,7 +285,7 @@ export async function getFeed(
   }
 
   return {
-    tldr: resolved,
+    tldr: withTldrImages(resolved, imageUrlByItemId(items)),
     days: groupByDay(items),
     categories: catsRes.results ?? [],
     trending,

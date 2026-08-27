@@ -10,6 +10,11 @@ interface ChangelogEntry {
 const ENTRIES: ChangelogEntry[] = [
   {
     date: "2026-08",
+    en: "AI;DR bullets now show a small story thumbnail (or the site mark when a story has no image).",
+    vi: "Mỗi gạch đầu dòng AI;DR có ảnh thumbnail nhỏ (hoặc logo trang nếu tin chưa có ảnh).",
+  },
+  {
+    date: "2026-08",
     en: "Added a reader-preferences panel (font, text size, density, background, and section visibility), saved to your browser.",
     vi: "Thêm bảng tuỳ chỉnh hiển thị (font chữ, cỡ chữ, mật độ, màu nền, ẩn/hiện từng mục), lưu trên trình duyệt của bạn.",
   },

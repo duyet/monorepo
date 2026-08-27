@@ -5,6 +5,7 @@ import { type TldrCount, usePrefs } from "../lib/prefs";
 import { topicColor } from "../lib/topic-color";
 import type { Lang, TldrBullet } from "../lib/types";
 import { StoryDialog } from "./StoryDialog";
+import { StoryThumb } from "./StoryThumb";
 
 export function TldrSection({
   bullets,
@@ -14,6 +15,7 @@ export function TldrSection({
   updatedAt,
   lastFetchedAt,
   topicByItemId,
+  imageByItemId,
   snapshotDate,
 }: {
   bullets: TldrBullet[];
@@ -23,6 +25,8 @@ export function TldrSection({
   updatedAt: number;
   lastFetchedAt: number | null;
   topicByItemId?: Map<string, string>;
+  /** Fallback when a bullet has no read-time `image_url` (cached feeds). */
+  imageByItemId?: Map<string, string>;
   snapshotDate?: string;
 }) {
   const [openBullet, setOpenBullet] = useState<{
@@ -50,15 +54,19 @@ export function TldrSection({
   }
 
   const selectedOption =
-    options.find((o) => o.nominal === defaultCount) ?? options[options.length - 1];
-  const effectiveDefault = selectedOption ? selectedOption.effective : bullets.length;
+    options.find((o) => o.nominal === defaultCount) ??
+    options[options.length - 1];
+  const effectiveDefault = selectedOption
+    ? selectedOption.effective
+    : bullets.length;
 
   const shown = bullets.slice(0, effectiveDefault);
   const mid = Math.ceil(shown.length / 2);
   const cols = [shown.slice(0, mid), shown.slice(mid)];
 
   const selectedIndex = selectedOption ? options.indexOf(selectedOption) : -1;
-  const nextOption = selectedIndex >= 0 ? options[selectedIndex + 1] : undefined;
+  const nextOption =
+    selectedIndex >= 0 ? options[selectedIndex + 1] : undefined;
   const canCollapse = selectedIndex > 0;
 
   return (
@@ -99,15 +107,19 @@ export function TldrSection({
           <ol
             key={col[0]?.text ?? ci}
             start={ci * mid + 1}
-            className="list-decimal space-y-1.5 pl-6 leading-snug marker:text-muted-foreground"
+            className="list-decimal space-y-2 pl-6 leading-snug marker:text-muted-foreground"
           >
             {col.map((b) => {
               const primaryId = b.item_ids?.[0];
               const otherIds = (b.item_ids ?? []).slice(1);
               const tag = primaryId ? topicByItemId?.get(primaryId) : undefined;
               const color = tag ? topicColor(tag) : null;
-              return (
-                <li key={b.text}>
+              const thumbSrc =
+                b.image_url ??
+                (primaryId ? imageByItemId?.get(primaryId) : undefined) ??
+                null;
+              const text = (
+                <>
                   {color && tag && (
                     <span
                       className="topic-colored mr-1.5 text-xs font-semibold uppercase tracking-wide"
@@ -135,7 +147,10 @@ export function TldrSection({
                           return;
                         }
                         e.preventDefault();
-                        setOpenBullet({ itemId: primaryId, relatedIds: otherIds });
+                        setOpenBullet({
+                          itemId: primaryId,
+                          relatedIds: otherIds,
+                        });
                       }}
                       className="underline decoration-border underline-offset-2 hover:decoration-accent"
                     >
@@ -149,6 +164,14 @@ export function TldrSection({
                       +{otherIds.length}
                     </span>
                   )}
+                </>
+              );
+              return (
+                <li key={b.text}>
+                  <span className="flex items-start gap-2">
+                    <StoryThumb src={thumbSrc} />
+                    <span className="min-w-0">{text}</span>
+                  </span>
                 </li>
               );
             })}

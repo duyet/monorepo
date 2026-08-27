@@ -20,8 +20,8 @@ for `chrome-extension://` origins. Use this instead:
 {
   "tldr": {
     "date": "2026-08-27",
-    "bullets_en": [{ "text": "...", "item_ids": ["..."] }],
-    "bullets_vi": [{ "text": "...", "item_ids": ["..."] }]
+    "bullets_en": [{ "text": "...", "item_ids": ["..."], "image_url": "https://..." }],
+    "bullets_vi": [{ "text": "...", "item_ids": ["..."], "image_url": "https://..." }]
   },
   "stories": [
     {
@@ -39,7 +39,8 @@ for `chrome-extension://` origins. Use this instead:
 ```
 
 Up to 16 bullets per language and 8 top stories by `rank_score`. Typical
-payload is well under 50KB.
+payload is well under 50KB. `image_url` on a bullet is additive and only
+present when the linked story has an og/thumbnail.
 
 Hourly ingest is triggered by GitHub Actions
 (`.github/workflows/news-ingest.yml`, cron `5 * * * *`) via
