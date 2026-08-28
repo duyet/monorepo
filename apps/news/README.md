@@ -43,10 +43,12 @@ payload is well under 50KB. `image_url` on a bullet is additive and only
 present when the linked story has an og/thumbnail. `published_at` is epoch
 **seconds**; `updatedAt` is epoch milliseconds.
 
-Hourly ingest is triggered by GitHub Actions
-(`.github/workflows/news-ingest.yml`, cron `5 * * * *`) via
+Hourly ingest is triggered by the `NewsIngestScheduler` Durable Object
+alarm (not a Worker cron) plus GitHub Actions
+(`.github/workflows/news-ingest.yml`, crons at :05/:20/:35/:50) via
 `POST /api/admin/ingest`. Do not add Worker `[triggers] crons` or
-Workflow `schedules` — both break Free-plan deploys.
+Workflow `schedules` — both break Free-plan deploys. GitHub POSTs
+coalesce if a run started in the last 45 minutes.
 
 ## Admin API / MCP
 

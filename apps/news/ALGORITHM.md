@@ -2,9 +2,13 @@
 
 How the hourly `NewsIngestWorkflow` turns raw sources into the ranked, bilingual feed.
 Prompts live in `worker/llm.ts`; the pipeline steps in `worker/workflow.ts`.
-Hourly instances are started by GitHub Actions (`.github/workflows/news-ingest.yml`
-cron `5 * * * *` → `POST /api/admin/ingest`), not Worker `[triggers] crons`
-(Free 5-cron cap) and not Workflow `schedules` (paid plan).
+Hourly instances are started by the `NewsIngestScheduler` Durable Object
+alarm (not a Worker `[triggers]` cron — Free 5-cron cap — and not Workflow
+`schedules`, which are paid-plan). GitHub Actions (`.github/workflows/news-ingest.yml`,
+four independent crons at :05/:20/:35/:50) POSTs `/api/admin/ingest` as a
+watchdog because GitHub routinely delays or skips scheduled workflows.
+Both paths coalesce: a new instance is skipped if one started in the last
+45 minutes.
 
 ## Pipeline (per hourly run)
 

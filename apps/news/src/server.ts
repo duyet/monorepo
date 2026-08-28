@@ -1,4 +1,6 @@
 import handler from "@tanstack/react-start/server-entry";
+import { ensureIngestAlarm, tickIngest } from "../worker/ingest-schedule";
+import { NewsIngestScheduler } from "../worker/ingest-scheduler";
 import { handlePublicCors } from "../worker/public-cors";
 import { handleSubscribeCors } from "../worker/subscribe/cors";
 import type { Env } from "../worker/types";
@@ -24,8 +26,11 @@ async function resolveEnv(env?: Env): Promise<Env | undefined> {
 }
 
 export default {
-  async fetch(request: Request, env: Env) {
+  async fetch(request: Request, env: Env, ctx?: ExecutionContext) {
     const path = new URL(request.url).pathname;
+    if (path === "/api/public" || path === "/api/admin/ingest") {
+      ctx?.waitUntil?.(ensureIngestAlarm(env));
+    }
     if (path === "/robots.txt") {
       return robotsResponse();
     }
@@ -49,8 +54,8 @@ export default {
     );
   },
   async scheduled(_controller: ScheduledController, env: Env) {
-    await env.NEWS_INGEST.create();
+    await tickIngest(env);
   },
 };
 
-export { NewsIngestWorkflow };
+export { NewsIngestScheduler, NewsIngestWorkflow };

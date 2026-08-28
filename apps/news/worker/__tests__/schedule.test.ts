@@ -25,17 +25,29 @@ describe("free-plan hourly ingest", () => {
     expect(wrangler).not.toMatch(/^[\t ]*crons\s*=/m);
   });
 
+  it("binds a SQLite Durable Object scheduler instead of a cron", () => {
+    expect(wrangler).toMatch(/name\s*=\s*"NEWS_INGEST_SCHEDULER"/);
+    expect(wrangler).toMatch(/class_name\s*=\s*"NewsIngestScheduler"/);
+    expect(wrangler).toMatch(
+      /new_sqlite_classes\s*=\s*\["NewsIngestScheduler"\]/
+    );
+  });
+
   it("keeps run_worker_first for homepage, sitemap, robots, and APIs", () => {
     expect(wrangler).toContain(
       'run_worker_first = ["/", "/sitemap.xml", "/robots.txt", "/api/*"]'
     );
   });
 
-  it("schedules hourly ingest via GitHub Actions admin API, not Workflow schedules", () => {
+  it("schedules ingest via a Durable Object alarm plus GitHub Actions watchdog", () => {
     expect(ingestYml).toMatch(/cron:\s*"5 \* \* \* \*"/);
+    expect(ingestYml).toMatch(/cron:\s*"20 \* \* \* \*"/);
+    expect(ingestYml).toMatch(/cron:\s*"35 \* \* \* \*"/);
+    expect(ingestYml).toMatch(/cron:\s*"50 \* \* \* \*"/);
     expect(ingestYml).toContain("https://news.duyet.net/api/admin/ingest");
     expect(ingestYml).toContain("secrets.NEWS_ADMIN_TOKEN");
     expect(algorithm).toMatch(/GitHub Actions/);
+    expect(algorithm).toMatch(/Durable Object/);
     expect(algorithm).not.toMatch(/Hourly instances come from `schedules`/);
   });
 });
@@ -143,8 +155,10 @@ describe("backfill-translate checkpoints", () => {
 
   it("persists each 3-item slice in its own Workflow step", () => {
     expect(workflow).toContain("backfill-translate-load");
-    expect(workflow).toContain("backfill-translate-${offset}");
+    expect(workflow).toMatch(/backfill-translate-\$\{offset\}/);
     expect(workflow).toContain("TRANSLATE_BATCH_SIZE");
+    expect(workflow).toContain("BACKFILL_TRANSLATE_STEP");
+    expect(workflow).toMatch(/retries:\s*\{\s*limit:\s*0/);
     expect(workflow).toContain("if (!row || !result.title) continue");
   });
 });

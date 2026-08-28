@@ -1,6 +1,9 @@
 export interface Env {
   DB: D1Database;
   NEWS_INGEST: Workflow;
+  /** Singleton DO that arms an hourly alarm and coalesces ingest triggers.
+   *  Optional so node tests can omit it; production wrangler always binds it. */
+  NEWS_INGEST_SCHEDULER?: DurableObjectNamespace;
   ANYROUTER_BASE_URL: string;
   /** One model id, or a comma-separated fallback chain tried in order. */
   ANYROUTER_MODEL: string;

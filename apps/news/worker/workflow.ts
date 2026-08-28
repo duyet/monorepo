@@ -73,6 +73,14 @@ const MERGE_LOOKBACK_SEC = RANK_RECOMPUTE_WINDOW_SEC;
 // Bounds the clustering prompt's size; recent+highest-ranked first.
 const MERGE_CANDIDATE_LIMIT = 300;
 
+/** Backfill-translate slices already catch LLM failures. Default Workflow
+ * retries (5 × 10 min) stacked 15 slices and left ingest instances running
+ * past the next GitHub POST, so later runs never reached record-run. */
+const BACKFILL_TRANSLATE_STEP = {
+  retries: { limit: 0, delay: 0 },
+  timeout: "2 minutes",
+} as const;
+
 interface SourceRow {
   id: string;
   type: string;
@@ -908,50 +916,56 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
           offset < missingTranslations.length;
           offset += TRANSLATE_BATCH_SIZE
         ) {
-          const part = await step.do(
-            `backfill-translate-${offset}`,
-            async () => {
-              const rows = missingTranslations.slice(
-                offset,
-                offset + TRANSLATE_BATCH_SIZE
-              );
-              let count = 0;
-              let partTokens = 0;
-              try {
-                const translated = await translateItems(
-                  this.env,
-                  rows.map((row, i) => ({
-                    i,
-                    title: row.title,
-                    summary: row.summary,
-                  }))
+          let part = { count: 0, tokens: 0 };
+          try {
+            part = await step.do(
+              `backfill-translate-${offset}`,
+              BACKFILL_TRANSLATE_STEP,
+              async () => {
+                const rows = missingTranslations.slice(
+                  offset,
+                  offset + TRANSLATE_BATCH_SIZE
                 );
-                for (const result of translated) {
-                  partTokens += result.tokens;
-                  const row = rows[result.i];
-                  if (!row || !result.title) continue;
-                  await this.env.DB.prepare(
-                    `INSERT INTO translations (item_id, lang, title, summary)
+                let count = 0;
+                let partTokens = 0;
+                try {
+                  const translated = await translateItems(
+                    this.env,
+                    rows.map((row, i) => ({
+                      i,
+                      title: row.title,
+                      summary: row.summary,
+                    }))
+                  );
+                  for (const result of translated) {
+                    partTokens += result.tokens;
+                    const row = rows[result.i];
+                    if (!row || !result.title) continue;
+                    await this.env.DB.prepare(
+                      `INSERT INTO translations (item_id, lang, title, summary)
                VALUES (?, 'vi', ?, ?)
                ON CONFLICT(item_id, lang) DO UPDATE SET
                  title = excluded.title, summary = excluded.summary`
-                  )
-                    .bind(
-                      ...buildTranslationBindArgs({
-                        id: row.id,
-                        title: result.title,
-                        summary: result.summary ?? "",
-                      })
                     )
-                    .run();
-                  count++;
+                      .bind(
+                        ...buildTranslationBindArgs({
+                          id: row.id,
+                          title: result.title,
+                          summary: result.summary ?? "",
+                        })
+                      )
+                      .run();
+                    count++;
+                  }
+                } catch (error) {
+                  console.error("backfill-translate batch failed:", error);
                 }
-              } catch (error) {
-                console.error("backfill-translate batch failed:", error);
+                return { count, tokens: partTokens };
               }
-              return { count, tokens: partTokens };
-            }
-          );
+            );
+          } catch (error) {
+            console.error(`backfill-translate-${offset} step failed:`, error);
+          }
           translatedCount += part.count;
           tokens += part.tokens;
         }
@@ -966,8 +980,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
             ? "0 candidates"
             : `translated 0/${backfillTranslateAttempted}`
           : `translated ${backfilledTranslations} summaries`,
-        backfillTranslateAttempted > 0 &&
-          backfilledTranslations === 0
+        backfillTranslateAttempted > 0 && backfilledTranslations === 0
           ? "translateItems.batch_failed — missing title_vi not backfilled"
           : undefined
       );
@@ -1148,7 +1161,15 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
       );
 
       const notifyResult = await step.do("notify", async () => {
-        return await dispatchStoryNotifications(this.env);
+        try {
+          return await dispatchStoryNotifications(this.env);
+        } catch (error) {
+          console.error("notify step failed:", error);
+          return {
+            sent: {} as Record<string, number>,
+            reasons: {} as Record<string, NotifyChannelReason>,
+          };
+        }
       });
       notified = notifyResult.sent;
       notifyReason = notifyResult.reasons;
