@@ -5,6 +5,7 @@ import { timeAgo } from "../lib/lang";
 import { type TldrCount, usePrefs } from "../lib/prefs";
 import { topicColor } from "../lib/topic-color";
 import type { Lang, TldrBullet } from "../lib/types";
+import { HighlightedText } from "./HighlightedText";
 import { StoryDialog } from "./StoryDialog";
 import { StoryThumb } from "./StoryThumb";
 
@@ -12,14 +13,20 @@ function TldrBulletRow({
   layout,
   n,
   thumbSrc,
+  fullText,
   children,
 }: {
   layout: AidrLayout;
   n: number;
   thumbSrc: string | null;
+  fullText: string;
   children: ReactNode;
 }): ReactElement {
-  const copy = <span className="min-w-0 flex-1">{children}</span>;
+  const copy = (
+    <span className="min-w-0 flex-1 line-clamp-3 break-words" title={fullText}>
+      {children}
+    </span>
+  );
   switch (layout) {
     case "a":
     case "b":
@@ -56,6 +63,7 @@ export function TldrSection({
   updatedAt,
   lastFetchedAt,
   topicByItemId,
+  tagsByItemId,
   imageByItemId,
   snapshotDate,
   layout = DEFAULT_AIDR_LAYOUT,
@@ -68,6 +76,8 @@ export function TldrSection({
   updatedAt: number;
   lastFetchedAt: number | null;
   topicByItemId?: Map<string, string>;
+  /** Item tags for in-bullet entity highlight (plus TITLE_KEYWORDS). */
+  tagsByItemId?: Map<string, string[]>;
   /** Fallback when a bullet has no read-time `image_url` (cached feeds). */
   imageByItemId?: Map<string, string>;
   snapshotDate?: string;
@@ -171,13 +181,24 @@ export function TldrSection({
               const otherIds = (b.item_ids ?? []).slice(1);
               const tag = primaryId ? topicByItemId?.get(primaryId) : undefined;
               const color = tag ? topicColor(tag) : null;
+              const itemTags = (b.item_ids ?? []).flatMap(
+                (id) => tagsByItemId?.get(id) ?? []
+              );
               const thumbSrc =
                 b.image_url ??
                 (primaryId ? imageByItemId?.get(primaryId) : undefined) ??
                 null;
+              const highlighted = (
+                <HighlightedText text={b.text} tags={itemTags} />
+              );
               return (
                 <li key={b.text}>
-                  <TldrBulletRow layout={layout} n={n} thumbSrc={thumbSrc}>
+                  <TldrBulletRow
+                    layout={layout}
+                    n={n}
+                    thumbSrc={thumbSrc}
+                    fullText={b.text}
+                  >
                     {color && tag && (
                       <span
                         className="topic-colored mr-1.5 text-xs font-semibold uppercase tracking-wide"
@@ -212,10 +233,10 @@ export function TldrSection({
                         }}
                         className="underline decoration-border underline-offset-2 hover:decoration-accent"
                       >
-                        {b.text}
+                        {highlighted}
                       </a>
                     ) : (
-                      b.text
+                      highlighted
                     )}
                     {otherIds.length > 0 && (
                       <span className="ml-1 text-[11px] font-semibold text-muted-foreground">

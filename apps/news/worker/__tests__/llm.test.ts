@@ -281,6 +281,25 @@ describe("generateTldr", () => {
     expect(prompt).not.toMatch(/exactly 16/);
   });
 
+  it("asks for ~2-sentence / 180–240 character digest bullets, not a paragraph", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValue(
+        chatResponse(JSON.stringify({ bullets_en: [], bullets_vi: [] }))
+      );
+    vi.stubGlobal("fetch", fetchMock);
+
+    await generateTldr(env, [{ id: "1", title: "Story" }]);
+
+    const { messages } = JSON.parse(fetchMock.mock.calls[0][1].body);
+    const prompt = messages[1].content as string;
+    expect(prompt).toMatch(/180–240/);
+    expect(prompt).toMatch(/2 sentences/);
+    expect(prompt).toMatch(/not an article/);
+    expect(prompt).toMatch(/do not write a paragraph/i);
+    expect(prompt).toMatch(/named entities/);
+  });
+
   it("retries English-only without the VI style prompt after a bilingual miss", async () => {
     const fetchMock = vi
       .fn()

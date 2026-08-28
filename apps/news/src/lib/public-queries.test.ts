@@ -106,6 +106,13 @@ describe("normalizeStoredBullets", () => {
     expect(bullets[0]?.text).toHaveLength(400);
     expect(bullets[0]?.item_ids).toHaveLength(8);
   });
+
+  it("keeps digest-length bullet text (180–240 chars) unclipped", () => {
+    const text = "A".repeat(220);
+    const bullets = normalizeStoredBullets([{ text, item_ids: ["a"] }]);
+    expect(bullets[0]?.text).toBe(text);
+    expect(bullets[0]?.text).toHaveLength(220);
+  });
 });
 
 describe("getPublicDigest", () => {
