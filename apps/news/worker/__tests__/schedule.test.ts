@@ -47,26 +47,41 @@ describe("live AnyRouter model chains", () => {
     return match![1].split(",").map((s) => s.trim());
   }
 
-  it("uses stealth/ox-alpha on every live chain", () => {
+  it("keeps a real fallback chain on every live task (no single-model setup)", () => {
     for (const name of [
       "ANYROUTER_MODEL",
       "ANYROUTER_TRANSLATE_MODEL",
       "ANYROUTER_TLDR_MODEL",
     ]) {
-      expect(idsOf(name), name).toContain("stealth/ox-alpha");
+      expect(idsOf(name).length, name).toBeGreaterThanOrEqual(2);
     }
   });
 
-  it("leads score/tldr with ox-alpha and translate with Gemma 4", () => {
-    expect(idsOf("ANYROUTER_MODEL")[0]).toBe("stealth/ox-alpha");
-    expect(idsOf("ANYROUTER_TLDR_MODEL")[0]).toBe("stealth/ox-alpha");
+  it("leads score/tldr with anyrouter/auto and translate with Gemma 4", () => {
+    expect(idsOf("ANYROUTER_MODEL")[0]).toBe("anyrouter/auto");
+    expect(idsOf("ANYROUTER_TLDR_MODEL")[0]).toBe("anyrouter/auto");
     expect(idsOf("ANYROUTER_TRANSLATE_MODEL")[0]).toBe(
       "google/gemma-4-26b-a4b-it"
     );
+    expect(idsOf("ANYROUTER_TRANSLATE_MODEL")).toContain("anyrouter/auto");
   });
 
-  it("omits known BYOK-only and paid gemini ids from every live chain", () => {
+  it("reports three scoring fallbacks so /data can show (+3 fallback)", () => {
+    expect(idsOf("ANYROUTER_MODEL")).toEqual([
+      "anyrouter/auto",
+      "google/gemma-4-26b-a4b-it",
+      "z-ai/glm-4.7-flash",
+      "inclusionai/ling-3.0-flash",
+    ]);
+    expect(idsOf("ANYROUTER_TLDR_MODEL")).toEqual(idsOf("ANYROUTER_MODEL"));
+  });
+
+  it("omits delisted, BYOK-only, paid gemini, and rejected replacement ids", () => {
     const blocked = [
+      "stealth/ox-alpha",
+      "poolside/laguna-s-2.1",
+      "deepseek/DeepSeek-V4-Flash",
+      "stepfun-ai/step-3.7-flash",
       "aisingapore/gemma-sea-lion-v4-27b-it",
       "google/gemini-2.5-flash-lite",
       "google/gemini-2.5-flash",
