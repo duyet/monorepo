@@ -164,15 +164,26 @@ describe("backfill-translate checkpoints", () => {
     expect(workflow).toContain("BACKFILL_TRANSLATE_STEP");
     expect(workflow).toContain("LLM_STEP");
     expect(workflow).toMatch(/retries:\s*\{\s*limit:\s*0/);
-    expect(workflow).toContain('step.do("score", LLM_STEP');
-    expect(workflow).toContain('step.do("translate", LLM_STEP');
-    expect(workflow).toContain('step.do("tldr", LLM_STEP');
-    expect(workflow).toContain('step.do("record-run", LLM_STEP');
+    expect(workflow).toContain("safeStep(");
+    expect(workflow).toContain('"score"');
+    expect(workflow).toContain('"translate"');
+    expect(workflow).toContain('"tldr"');
+    expect(workflow).toContain('"open-run"');
+    expect(workflow).toContain('"close-run"');
+    expect(workflow).toContain("persistWorkflowRun");
     expect(workflow).toContain("if (!row || !result.title) continue");
   });
 
-  it("does not rethrow after setting runError so record-run can insert", () => {
+  it("does not rethrow after setting runError so close-run can persist", () => {
     expect(workflow).toContain("ingest run failed:");
     expect(workflow).not.toMatch(/runError[\s\S]{0,80}throw error/);
+    expect(workflow).toContain("persistWorkflowRun");
+  });
+
+  it("opens a workflow_runs row before fetch/LLM steps", () => {
+    const openIdx = workflow.indexOf('"open-run"');
+    const fetchIdx = workflow.indexOf("load-sources");
+    expect(openIdx).toBeGreaterThan(0);
+    expect(openIdx).toBeLessThan(fetchIdx);
   });
 });

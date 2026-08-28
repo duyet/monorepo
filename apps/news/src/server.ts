@@ -28,7 +28,11 @@ async function resolveEnv(env?: Env): Promise<Env | undefined> {
 export default {
   async fetch(request: Request, env: Env, ctx?: ExecutionContext) {
     const path = new URL(request.url).pathname;
-    if (path === "/api/public" || path === "/api/admin/ingest") {
+    if (
+      path === "/api/public" ||
+      path === "/api/admin/ingest" ||
+      path === "/api/system"
+    ) {
       ctx?.waitUntil?.(ensureIngestAlarm(env));
     }
     if (path === "/robots.txt") {

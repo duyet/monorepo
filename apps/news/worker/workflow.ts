@@ -51,6 +51,12 @@ import {
   recordStep,
   serializeRunStats,
 } from "./run-stats.js";
+import {
+  ingestRunId,
+  jsonMap,
+  mapEntries,
+  persistWorkflowRun,
+} from "./workflow-run.js";
 import { fetchStoryDetailByUrl } from "./sources/huggingnews.js";
 import { adapters } from "./sources/registry.js";
 import type { FetchedItem, FetchedItemSource } from "./sources/types.js";
@@ -94,6 +100,79 @@ const EMPTY_MERGE_PLAN: MergePlan = {
   canonicalUpdates: new Map(),
 };
 
+type SerializedMergePlan = {
+  merged: [
+    string,
+    MergePlan["merged"] extends Map<string, infer V> ? V : never,
+  ][];
+  canonicalUpdates: [
+    string,
+    MergePlan["canonicalUpdates"] extends Map<string, infer V> ? V : never,
+  ][];
+};
+
+function serializeMergePlan(plan: MergePlan): SerializedMergePlan {
+  return {
+    merged: mapEntries(plan.merged),
+    canonicalUpdates: mapEntries(plan.canonicalUpdates),
+  };
+}
+
+function restoreMergePlan(
+  value: MergePlan | SerializedMergePlan | null | undefined
+): MergePlan {
+  if (value && value.merged instanceof Map) {
+    return value as MergePlan;
+  }
+  const serialized = value as SerializedMergePlan | undefined;
+  return {
+    merged: jsonMap(serialized?.merged),
+    canonicalUpdates: jsonMap(serialized?.canonicalUpdates),
+  };
+}
+
+type StepRetryConfig =
+  | typeof LLM_STEP
+  | typeof BACKFILL_TRANSLATE_STEP
+  | {
+      retries: {
+        limit: number;
+        delay: number;
+        backoff?: "linear" | "exponential" | "constant";
+      };
+      timeout?: string;
+    };
+
+/** Catch Workflow engine failures (timeout / retries exhausted). Inner
+ * try/catch around the callback does not run when `step.do` itself throws,
+ * and a failed step with retries:0 can skip later steps including close-run. */
+async function safeStep<T>(
+  step: WorkflowStep,
+  name: string,
+  fallback: T,
+  closure: () => Promise<T>,
+  config?: StepRetryConfig
+): Promise<T> {
+  try {
+    const result = config
+      ? await (
+          step.do as (
+            name: string,
+            config: StepRetryConfig,
+            fn: () => Promise<T>
+          ) => Promise<T>
+        )(name, config, closure)
+      : await (step.do as (name: string, fn: () => Promise<T>) => Promise<T>)(
+          name,
+          closure
+        );
+    return result;
+  } catch (error) {
+    console.error(`${name} step failed:`, error);
+    return fallback;
+  }
+}
+
 interface SourceRow {
   id: string;
   type: string;
@@ -123,8 +202,6 @@ interface ItemRow {
 
 export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
   async run(_event: WorkflowEvent<unknown>, step: WorkflowStep) {
-    const startedAt = toEpochSeconds(Date.now());
-    const runId = crypto.randomUUID();
     let itemsFetched = 0;
     let itemsNew = 0;
     let runError: string | null = null;
@@ -159,8 +236,40 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
     setLlmCallLogger(createD1LlmCallLogger(this.env));
     await pruneLlmCalls(this.env);
 
+    // Insert workflow_runs before any LLM/fetch step. A later engine-level
+    // step failure skips remaining step.do (including close-run in finally);
+    // this row still moves /api/system lastRun.id and runsToday.
+    const opened = await safeStep(
+      step,
+      "open-run",
+      {
+        id: ingestRunId(_event as { instanceId?: string }),
+        startedAt: toEpochSeconds(Date.now()),
+      },
+      async () => {
+        const id = ingestRunId(_event as { instanceId?: string });
+        const startedAt = toEpochSeconds(Date.now());
+        await persistWorkflowRun(this.env.DB, {
+          id,
+          startedAt,
+          finishedAt: startedAt,
+          itemsFetched: 0,
+          itemsNew: 0,
+          error: null,
+          statsJson: serializeRunStats(
+            buildRunStats({
+              steps: [{ name: "open-run", action: "started" }],
+            })
+          ),
+        });
+        return { id, startedAt };
+      }
+    );
+    const runId = opened.id;
+    const startedAt = opened.startedAt;
+
     try {
-      const sources = await step.do("load-sources", async () => {
+      const sources = await safeStep(step, "load-sources", [], async () => {
         const { results } = await this.env.DB.prepare(
           "SELECT id, type, config, enabled FROM sources WHERE enabled = 1"
         ).all<SourceRow>();
@@ -175,16 +284,23 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         const group = sources.slice(gi, gi + SOURCE_FETCH_GROUP);
         const groupResults = await Promise.all(
           group.map((source) =>
-            step.do<FetchedItem[]>(
-              `fetch-${source.id}`,
-              { retries: { limit: 3, delay: 10_000, backoff: "exponential" } },
-              async () => {
-                const adapter = adapters[source.type];
-                if (!adapter) return [];
-                const config = JSON.parse(source.config || "{}");
-                return adapter.fetchItems(config, sinceEpochSec);
-              }
-            )
+            step
+              .do<FetchedItem[]>(
+                `fetch-${source.id}`,
+                {
+                  retries: { limit: 3, delay: 10_000, backoff: "exponential" },
+                },
+                async () => {
+                  const adapter = adapters[source.type];
+                  if (!adapter) return [];
+                  const config = JSON.parse(source.config || "{}");
+                  return adapter.fetchItems(config, sinceEpochSec);
+                }
+              )
+              .catch((error: unknown) => {
+                console.error(`fetch-${source.id} step failed:`, error);
+                return [] as FetchedItem[];
+              })
           )
         );
         for (let j = 0; j < group.length; j++) {
@@ -201,89 +317,98 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         `${itemsFetched} items from ${sources.length} sources`
       );
 
-      let newRows = await step.do("dedupe", async () => {
-        const candidates: {
+      let newRows = await safeStep(
+        step,
+        "dedupe",
+        [] as {
           id: string;
           source: SourceRow;
           item: FetchedItem;
-        }[] = [];
+        }[],
+        async () => {
+          const candidates: {
+            id: string;
+            source: SourceRow;
+            item: FetchedItem;
+          }[] = [];
 
-        for (const { source, items } of fetchedBySource) {
-          const hashed = await Promise.all(
-            items.map(async (item) => ({
-              id: await sha256Hex(item.url),
-              source,
-              item: {
-                ...item,
-                publishedAt: toEpochSeconds(item.publishedAt),
-              },
-            }))
-          );
-          candidates.push(...hashed);
-        }
+          for (const { source, items } of fetchedBySource) {
+            const hashed = await Promise.all(
+              items.map(async (item) => ({
+                id: await sha256Hex(item.url),
+                source,
+                item: {
+                  ...item,
+                  publishedAt: toEpochSeconds(item.publishedAt),
+                },
+              }))
+            );
+            candidates.push(...hashed);
+          }
 
-        const existingIds = new Set<string>();
-        const DEDUPE_IN_CHUNK = 50;
-        for (let i = 0; i < candidates.length; i += DEDUPE_IN_CHUNK) {
-          const chunk = candidates.slice(i, i + DEDUPE_IN_CHUNK);
-          if (chunk.length === 0) continue;
-          const placeholders = chunk.map(() => "?").join(",");
-          const { results } = await this.env.DB.prepare(
-            `SELECT id FROM items WHERE id IN (${placeholders})`
-          )
-            .bind(...chunk.map((c) => c.id))
-            .all<{ id: string }>();
-          for (const row of results ?? []) existingIds.add(row.id);
-        }
+          const existingIds = new Set<string>();
+          const DEDUPE_IN_CHUNK = 50;
+          for (let i = 0; i < candidates.length; i += DEDUPE_IN_CHUNK) {
+            const chunk = candidates.slice(i, i + DEDUPE_IN_CHUNK);
+            if (chunk.length === 0) continue;
+            const placeholders = chunk.map(() => "?").join(",");
+            const { results } = await this.env.DB.prepare(
+              `SELECT id FROM items WHERE id IN (${placeholders})`
+            )
+              .bind(...chunk.map((c) => c.id))
+              .all<{ id: string }>();
+            for (const row of results ?? []) existingIds.add(row.id);
+          }
 
-        const rows = candidates.filter((c) => !existingIds.has(c.id));
+          const rows = candidates.filter((c) => !existingIds.has(c.id));
 
-        // Rows inserted directly with status='new' (e.g. an accepted user
-        // submission, or an admin push) never came through a source's
-        // fetchItems() this run, so the loop above never sees them. Pull
-        // them in here so they go through the same score/merge/translate
-        // pipeline as anything freshly fetched.
-        const { results: pendingNew } = await this.env.DB.prepare(
-          `SELECT id, source_id, external_id, url, title, summary,
+          // Rows inserted directly with status='new' (e.g. an accepted user
+          // submission, or an admin push) never came through a source's
+          // fetchItems() this run, so the loop above never sees them. Pull
+          // them in here so they go through the same score/merge/translate
+          // pipeline as anything freshly fetched.
+          const { results: pendingNew } = await this.env.DB.prepare(
+            `SELECT id, source_id, external_id, url, title, summary,
                   published_at, points, comments, image_url
            FROM items WHERE status = 'new'`
-        ).all<{
-          id: string;
-          source_id: string;
-          external_id: string | null;
-          url: string;
-          title: string;
-          summary: string | null;
-          published_at: number;
-          points: number;
-          comments: number;
-          image_url: string | null;
-        }>();
-        for (const row of pendingNew ?? []) {
-          const source = sources.find((s) => s.id === row.source_id) ?? {
-            id: row.source_id,
-            type: "unknown",
-            config: "{}",
-            enabled: 1,
-          };
-          rows.push({
-            id: row.id,
-            source,
-            item: {
-              externalId: row.external_id ?? undefined,
-              url: row.url,
-              title: row.title,
-              summary: row.summary ?? undefined,
-              publishedAt: row.published_at,
-              points: row.points,
-              comments: row.comments,
-              imageUrl: row.image_url ?? undefined,
-            },
-          });
-        }
+          ).all<{
+            id: string;
+            source_id: string;
+            external_id: string | null;
+            url: string;
+            title: string;
+            summary: string | null;
+            published_at: number;
+            points: number;
+            comments: number;
+            image_url: string | null;
+          }>();
+          for (const row of pendingNew ?? []) {
+            const source = sources.find((s) => s.id === row.source_id) ?? {
+              id: row.source_id,
+              type: "unknown",
+              config: "{}",
+              enabled: 1,
+            };
+            rows.push({
+              id: row.id,
+              source,
+              item: {
+                externalId: row.external_id ?? undefined,
+                url: row.url,
+                title: row.title,
+                summary: row.summary ?? undefined,
+                publishedAt: row.published_at,
+                points: row.points,
+                comments: row.comments,
+                imageUrl: row.image_url ?? undefined,
+              },
+            });
+          }
 
-        return rows;
-      });
+          return rows;
+        }
+      );
       itemsNew = newRows.length;
       recordStep(
         steps,
@@ -300,16 +425,21 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
       // rather than re-running the callback, so mutating `newRows` in place
       // here wouldn't survive a workflow restart — the fold-back below runs
       // as ordinary (replay-safe, deterministic) code outside the step.
-      const enrichment = await step.do("enrich", async () => {
-        if (newRows.length === 0) return [];
-        const drafts = newRows.map((row) => ({ ...row.item }));
-        await enrichMissingContent(drafts);
-        return newRows.map((row, i) => ({
-          id: row.id,
-          summary: drafts[i].summary,
-          imageUrl: drafts[i].imageUrl,
-        }));
-      });
+      const enrichment = await safeStep(
+        step,
+        "enrich",
+        [] as { id: string; summary?: string; imageUrl?: string }[],
+        async () => {
+          if (newRows.length === 0) return [];
+          const drafts = newRows.map((row) => ({ ...row.item }));
+          await enrichMissingContent(drafts);
+          return newRows.map((row, i) => ({
+            id: row.id,
+            summary: drafts[i].summary,
+            imageUrl: drafts[i].imageUrl,
+          }));
+        }
+      );
       const enrichmentById = new Map(enrichment.map((e) => [e.id, e]));
       newRows = newRows.map((row) => {
         const e = enrichmentById.get(row.id);
@@ -324,33 +454,37 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         };
       });
 
-      const scored = await step.do("score", LLM_STEP, async () => {
-        const empty = new Map<
-          string,
-          Awaited<ReturnType<typeof scoreItems>>[number]
-        >();
-        if (newRows.length === 0) return empty;
-        try {
-          const results = await scoreItems(
-            this.env,
-            newRows.map((row, i) => ({
-              i,
-              title: row.item.title,
-              summary: row.item.summary,
-              source: row.source.id,
-            }))
-          );
-          const map = new Map<string, (typeof results)[number]>();
-          for (const result of results) {
-            const row = newRows[result.i];
-            if (row) map.set(row.id, result);
-          }
-          return map;
-        } catch (error) {
-          console.error("score step failed:", error);
-          return empty;
-        }
-      });
+      const scored = jsonMap(
+        await safeStep(
+          step,
+          "score",
+          [] as [string, Awaited<ReturnType<typeof scoreItems>>[number]][],
+          async () => {
+            if (newRows.length === 0) return [];
+            try {
+              const results = await scoreItems(
+                this.env,
+                newRows.map((row, i) => ({
+                  i,
+                  title: row.item.title,
+                  summary: row.item.summary,
+                  source: row.source.id,
+                }))
+              );
+              const map = new Map<string, (typeof results)[number]>();
+              for (const result of results) {
+                const row = newRows[result.i];
+                if (row) map.set(row.id, result);
+              }
+              return mapEntries(map);
+            } catch (error) {
+              console.error("score step failed:", error);
+              return [];
+            }
+          },
+          LLM_STEP
+        )
+      );
       recordStep(
         steps,
         "score",
@@ -365,102 +499,122 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
       // the `topics` table's per-variant counts. Runs before merge-similar
       // so a cluster's topic union already has canonical values to
       // dedupe against.
-      const canonicalTagsByItem = await step.do(
-        "normalize-topics",
-        LLM_STEP,
-        async () => {
-          if (newRows.length === 0) return new Map<string, string[]>();
-          try {
-            const rawTagsByItem = new Map<string, string[]>(
-              newRows.map((row) => [row.id, scored.get(row.id)?.tags ?? []])
-            );
-            return await normalizeTopics(this.env, rawTagsByItem, now);
-          } catch (error) {
-            console.error("normalize-topics step failed:", error);
-            return new Map<string, string[]>();
-          }
-        }
+      const canonicalTagsByItem = jsonMap(
+        await safeStep(
+          step,
+          "normalize-topics",
+          [] as [string, string[]][],
+          async () => {
+            if (newRows.length === 0) return [];
+            try {
+              const rawTagsByItem = new Map<string, string[]>(
+                newRows.map((row) => [row.id, scored.get(row.id)?.tags ?? []])
+              );
+              return mapEntries(
+                await normalizeTopics(this.env, rawTagsByItem, now)
+              );
+            } catch (error) {
+              console.error("normalize-topics step failed:", error);
+              return [];
+            }
+          },
+          LLM_STEP
+        )
       );
 
-      const mergePlan = await step.do("merge-similar", LLM_STEP, async () => {
-        if (newRows.length === 0) return EMPTY_MERGE_PLAN;
-        try {
-          const { results: recentForClustering } = await this.env.DB.prepare(
-            `SELECT id, title, points, comments FROM items
+      const mergePlan = restoreMergePlan(
+        await safeStep(
+          step,
+          "merge-similar",
+          serializeMergePlan(EMPTY_MERGE_PLAN),
+          async () => {
+            if (newRows.length === 0)
+              return serializeMergePlan(EMPTY_MERGE_PLAN);
+            try {
+              const { results: recentForClustering } =
+                await this.env.DB.prepare(
+                  `SELECT id, title, points, comments FROM items
            WHERE status = 'published' AND published_at >= ?
            ORDER BY published_at DESC
            LIMIT ${MERGE_CANDIDATE_LIMIT}`
-          )
-            .bind(toEpochSeconds(now) - MERGE_LOOKBACK_SEC)
-            .all<{
-              id: string;
-              title: string;
-              points: number;
-              comments: number;
-            }>();
+                )
+                  .bind(toEpochSeconds(now) - MERGE_LOOKBACK_SEC)
+                  .all<{
+                    id: string;
+                    title: string;
+                    points: number;
+                    comments: number;
+                  }>();
 
-          const newForCluster = newRows.map((row, i) => ({
-            i,
-            title: row.item.title,
-          }));
-          const existingForCluster = (recentForClustering ?? []).map((r) => ({
-            id: r.id,
-            title: r.title,
-          }));
-          const llmClusters = await clusterSimilar(
-            this.env,
-            newForCluster,
-            existingForCluster
-          );
-          const titleClusters = clusterByTitleSimilarity(
-            newForCluster,
-            existingForCluster
-          );
-          const clusters = mergeClusters([llmClusters, titleClusters]);
-          if (clusters.length === 0) return EMPTY_MERGE_PLAN;
+              const newForCluster = newRows.map((row, i) => ({
+                i,
+                title: row.item.title,
+              }));
+              const existingForCluster = (recentForClustering ?? []).map(
+                (r) => ({
+                  id: r.id,
+                  title: r.title,
+                })
+              );
+              const llmClusters = await clusterSimilar(
+                this.env,
+                newForCluster,
+                existingForCluster
+              );
+              const titleClusters = clusterByTitleSimilarity(
+                newForCluster,
+                existingForCluster
+              );
+              const clusters = mergeClusters([llmClusters, titleClusters]);
+              if (clusters.length === 0) return EMPTY_MERGE_PLAN;
 
-          const candidates: MergeCandidate[] = newRows.map((row, i) => {
-            const score = scored.get(row.id);
-            const rank = rankScore({
-              importance: score?.importance ?? 5,
-              quality: score?.quality ?? 5,
-              points: row.item.points ?? 0,
-              comments: row.item.comments ?? 0,
-              publishedAt: row.item.publishedAt * 1000,
-              now,
-            });
-            return {
-              i,
-              id: row.id,
-              url: row.item.url,
-              sourceId: row.source.id,
-              sources: row.item.sources,
-              topics: canonicalTagsByItem.get(row.id),
-              points: row.item.points ?? 0,
-              comments: row.item.comments ?? 0,
-              rank,
-            };
-          });
+              const candidates: MergeCandidate[] = newRows.map((row, i) => {
+                const score = scored.get(row.id);
+                const rank = rankScore({
+                  importance: score?.importance ?? 5,
+                  quality: score?.quality ?? 5,
+                  points: row.item.points ?? 0,
+                  comments: row.item.comments ?? 0,
+                  publishedAt: row.item.publishedAt * 1000,
+                  now,
+                });
+                return {
+                  i,
+                  id: row.id,
+                  url: row.item.url,
+                  sourceId: row.source.id,
+                  sources: row.item.sources,
+                  topics: canonicalTagsByItem.get(row.id),
+                  points: row.item.points ?? 0,
+                  comments: row.item.comments ?? 0,
+                  rank,
+                };
+              });
 
-          const existingById = new Map<string, ExistingCandidate>(
-            (recentForClustering ?? []).map((r) => [
-              r.id,
-              { points: r.points, comments: r.comments },
-            ])
-          );
+              const existingById = new Map<string, ExistingCandidate>(
+                (recentForClustering ?? []).map((r) => [
+                  r.id,
+                  { points: r.points, comments: r.comments },
+                ])
+              );
 
-          return buildMergePlan(
-            clusters,
-            candidates,
-            existingById,
-            MAX_SOURCES_PER_ITEM,
-            MAX_MERGED_TOPICS
-          );
-        } catch (error) {
-          console.error("merge-similar step failed:", error);
-          return EMPTY_MERGE_PLAN;
-        }
-      });
+              return serializeMergePlan(
+                buildMergePlan(
+                  clusters,
+                  candidates,
+                  existingById,
+                  MAX_SOURCES_PER_ITEM,
+                  MAX_MERGED_TOPICS
+                )
+              );
+            } catch (error) {
+              console.error("merge-similar step failed:", error);
+              return serializeMergePlan(EMPTY_MERGE_PLAN);
+            }
+          },
+          LLM_STEP
+        )
+      );
 
       const newRowById = new Map(newRows.map((row) => [row.id, row]));
 
@@ -470,32 +624,36 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         return !score || score.relevance >= RELEVANCE_THRESHOLD;
       });
 
-      const translated = await step.do("translate", LLM_STEP, async () => {
-        const empty = new Map<
-          string,
-          Awaited<ReturnType<typeof translateItems>>[number]
-        >();
-        if (publishedRows.length === 0) return empty;
-        try {
-          const results = await translateItems(
-            this.env,
-            publishedRows.map((row, i) => ({
-              i,
-              title: row.item.title,
-              summary: row.item.summary,
-            }))
-          );
-          const map = new Map<string, (typeof results)[number]>();
-          for (const result of results) {
-            const row = publishedRows[result.i];
-            if (row) map.set(row.id, result);
-          }
-          return map;
-        } catch (error) {
-          console.error("translate step failed:", error);
-          return empty;
-        }
-      });
+      const translated = jsonMap(
+        await safeStep(
+          step,
+          "translate",
+          [] as [string, Awaited<ReturnType<typeof translateItems>>[number]][],
+          async () => {
+            if (publishedRows.length === 0) return [];
+            try {
+              const results = await translateItems(
+                this.env,
+                publishedRows.map((row, i) => ({
+                  i,
+                  title: row.item.title,
+                  summary: row.item.summary,
+                }))
+              );
+              const map = new Map<string, (typeof results)[number]>();
+              for (const result of results) {
+                const row = publishedRows[result.i];
+                if (row) map.set(row.id, result);
+              }
+              return mapEntries(map);
+            } catch (error) {
+              console.error("translate step failed:", error);
+              return [];
+            }
+          },
+          LLM_STEP
+        )
+      );
       recordStep(
         steps,
         "translate",
@@ -524,7 +682,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
       for (const translation of translated.values())
         scoreAndTranslateTokens += translation.tokens;
 
-      await step.do("write-d1", async () => {
+      await safeStep(step, "write-d1", undefined, async () => {
         const statements: D1PreparedStatement[] = [];
 
         for (const { id, source, item } of newRows) {
@@ -801,7 +959,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         }
       });
 
-      await step.do("mirror-clickhouse", async () => {
+      await safeStep(step, "mirror-clickhouse", undefined, async () => {
         const rows: MirrorRow[] = newRows.map(({ id, source, item }) => {
           const score = scored.get(id);
           const status = mergePlan.merged.has(id)
@@ -844,77 +1002,86 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
       // summary — the `enrich` step above only ever touches this run's NEW
       // items. Drains the backlog a few items per hourly run rather than
       // trying to catch up all at once.
-      backfilledSummaries = await step.do("backfill-content", async () => {
-        let backfilled = 0;
-        try {
-          const { results } = await this.env.DB.prepare(
-            buildMissingSummaryQuery(BACKFILL_CONTENT_CAP)
-          ).all<{
-            id: string;
-            url: string;
-            source_id: string;
-            image_url: string | null;
-          }>();
-          const rows = results ?? [];
+      backfilledSummaries = await safeStep(
+        step,
+        "backfill-content",
+        0,
+        async () => {
+          let backfilled = 0;
+          try {
+            const { results } = await this.env.DB.prepare(
+              buildMissingSummaryQuery(BACKFILL_CONTENT_CAP)
+            ).all<{
+              id: string;
+              url: string;
+              source_id: string;
+              image_url: string | null;
+            }>();
+            const rows = results ?? [];
 
-          for (let i = 0; i < rows.length; i += BACKFILL_BATCH_SIZE) {
-            const batch = rows.slice(i, i + BACKFILL_BATCH_SIZE);
-            await Promise.all(
-              batch.map(async (row) => {
-                let fetched: { summary?: string; imageUrl?: string };
-                let sources: FetchedItemSource[] = [];
+            for (let i = 0; i < rows.length; i += BACKFILL_BATCH_SIZE) {
+              const batch = rows.slice(i, i + BACKFILL_BATCH_SIZE);
+              await Promise.all(
+                batch.map(async (row) => {
+                  let fetched: { summary?: string; imageUrl?: string };
+                  let sources: FetchedItemSource[] = [];
 
-                if (row.source_id === "huggingnews") {
-                  const detail = await fetchStoryDetailByUrl(
-                    huggingNewsDetailUrl(row.url)
+                  if (row.source_id === "huggingnews") {
+                    const detail = await fetchStoryDetailByUrl(
+                      huggingNewsDetailUrl(row.url)
+                    );
+                    fetched = { summary: detail.summary };
+                    sources = detail.sources;
+                  } else {
+                    const og = await fetchOgData(row.url);
+                    fetched = {
+                      summary: og.description,
+                      imageUrl: og.imageUrl,
+                    };
+                  }
+
+                  const plan = planBackfillUpdate(
+                    { imageUrl: row.image_url },
+                    fetched
                   );
-                  fetched = { summary: detail.summary };
-                  sources = detail.sources;
-                } else {
-                  const og = await fetchOgData(row.url);
-                  fetched = { summary: og.description, imageUrl: og.imageUrl };
-                }
+                  if (!plan) return;
+                  backfilled++;
 
-                const plan = planBackfillUpdate(
-                  { imageUrl: row.image_url },
-                  fetched
-                );
-                if (!plan) return;
-                backfilled++;
-
-                await this.env.DB.prepare(
-                  "UPDATE items SET summary = ?, image_url = COALESCE(image_url, ?) WHERE id = ?"
-                )
-                  .bind(nn(plan.summary), nn(plan.imageUrl), nn(row.id))
-                  .run();
-
-                if (sources.length === 0) return;
-                const { results: existingSources } = await this.env.DB.prepare(
-                  "SELECT 1 FROM item_sources WHERE item_id = ? LIMIT 1"
-                )
-                  .bind(row.id)
-                  .all();
-                if ((existingSources ?? []).length > 0) return;
-
-                for (const sourceArgs of buildItemSourceBindArgs(
-                  row.id,
-                  sources
-                )) {
                   await this.env.DB.prepare(
-                    `INSERT INTO item_sources (item_id, position, kind, author, posted_at, quote, url)
-                     VALUES (?, ?, ?, ?, ?, ?, ?)`
+                    "UPDATE items SET summary = ?, image_url = COALESCE(image_url, ?) WHERE id = ?"
                   )
-                    .bind(...sourceArgs)
+                    .bind(nn(plan.summary), nn(plan.imageUrl), nn(row.id))
                     .run();
-                }
-              })
-            );
+
+                  if (sources.length === 0) return;
+                  const { results: existingSources } =
+                    await this.env.DB.prepare(
+                      "SELECT 1 FROM item_sources WHERE item_id = ? LIMIT 1"
+                    )
+                      .bind(row.id)
+                      .all();
+                  if ((existingSources ?? []).length > 0) return;
+
+                  for (const sourceArgs of buildItemSourceBindArgs(
+                    row.id,
+                    sources
+                  )) {
+                    await this.env.DB.prepare(
+                      `INSERT INTO item_sources (item_id, position, kind, author, posted_at, quote, url)
+                     VALUES (?, ?, ?, ?, ?, ?, ?)`
+                    )
+                      .bind(...sourceArgs)
+                      .run();
+                  }
+                })
+              );
+            }
+          } catch (error) {
+            console.error("backfill-content step failed:", error);
           }
-        } catch (error) {
-          console.error("backfill-content step failed:", error);
+          return backfilled;
         }
-        return backfilled;
-      });
+      );
       recordStep(
         steps,
         "backfill-content",
@@ -927,8 +1094,10 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
       // just backfilled) but don't have a Vietnamese translation yet.
       // Load once, then one durable step per 3-item slice so a successful
       // batch is checkpointed even if a later slice times out.
-      const missingTranslations = await step.do(
+      const missingTranslations = await safeStep(
+        step,
         "backfill-translate-load",
+        [] as { id: string; title: string; summary: string }[],
         async () => {
           const { results } = await this.env.DB.prepare(
             buildMissingTranslationQuery()
@@ -947,9 +1116,10 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         ) {
           let part = { count: 0, tokens: 0 };
           try {
-            part = await step.do(
+            part = await safeStep(
+              step,
               `backfill-translate-${offset}`,
-              BACKFILL_TRANSLATE_STEP,
+              { count: 0, tokens: 0 },
               async () => {
                 const rows = missingTranslations.slice(
                   offset,
@@ -990,7 +1160,8 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
                   console.error("backfill-translate batch failed:", error);
                 }
                 return { count, tokens: partTokens };
-              }
+              },
+              BACKFILL_TRANSLATE_STEP
             );
           } catch (error) {
             console.error(`backfill-translate-${offset} step failed:`, error);
@@ -1014,9 +1185,10 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
           : undefined
       );
 
-      const backfillScoreResult = await step.do(
+      const backfillScoreResult = await safeStep(
+        step,
         "backfill-score",
-        LLM_STEP,
+        { scoredCount: 0, tokens: 0 },
         async () => {
           let scoredCount = 0;
           let tokens = 0;
@@ -1090,7 +1262,8 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
             console.error("backfill-score step failed:", error);
           }
           return { scoredCount, tokens };
-        }
+        },
+        LLM_STEP
       );
       scoreAndTranslateTokens += backfillScoreResult.tokens;
       recordStep(
@@ -1101,14 +1274,20 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
           : `scored ${backfillScoreResult.scoredCount} items`
       );
 
-      const qaStats = await step.do("qa-translations", LLM_STEP, async () => {
-        try {
-          return await ratePendingTranslations(this.env);
-        } catch (error) {
-          console.error("qa-translations step failed:", error);
-          return { rated: 0, adjusted: 0, tokens: 0 };
-        }
-      });
+      const qaStats = await safeStep(
+        step,
+        "qa-translations",
+        { rated: 0, adjusted: 0, tokens: 0 },
+        async () => {
+          try {
+            return await ratePendingTranslations(this.env);
+          } catch (error) {
+            console.error("qa-translations step failed:", error);
+            return { rated: 0, adjusted: 0, tokens: 0 };
+          }
+        },
+        LLM_STEP
+      );
       qaRated = qaStats.rated;
       qaAdjusted = qaStats.adjusted;
       qaTokens = qaStats.tokens;
@@ -1120,14 +1299,19 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
           : `rated ${qaRated} translations, adjusted ${qaAdjusted}`
       );
 
-      const suggestionsStats = await step.do("review-suggestions", async () => {
-        try {
-          return await reviewPendingSuggestions(this.env);
-        } catch (error) {
-          console.error("review-suggestions step failed:", error);
-          return { reviewed: 0, tokens: 0 };
+      const suggestionsStats = await safeStep(
+        step,
+        "review-suggestions",
+        { reviewed: 0, tokens: 0 },
+        async () => {
+          try {
+            return await reviewPendingSuggestions(this.env);
+          } catch (error) {
+            console.error("review-suggestions step failed:", error);
+            return { reviewed: 0, tokens: 0 };
+          }
         }
-      });
+      );
       suggestionsReviewed = suggestionsStats.reviewed;
       suggestionsTokens = suggestionsStats.tokens;
       recordStep(
@@ -1138,14 +1322,19 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
           : `reviewed ${suggestionsReviewed} suggestions`
       );
 
-      const submissionsStats = await step.do("review-submissions", async () => {
-        try {
-          return await reviewPendingSubmissions(this.env);
-        } catch (error) {
-          console.error("review-submissions step failed:", error);
-          return { reviewed: 0, tokens: 0 };
+      const submissionsStats = await safeStep(
+        step,
+        "review-submissions",
+        { reviewed: 0, tokens: 0 },
+        async () => {
+          try {
+            return await reviewPendingSubmissions(this.env);
+          } catch (error) {
+            console.error("review-submissions step failed:", error);
+            return { reviewed: 0, tokens: 0 };
+          }
         }
-      });
+      );
       submissionsReviewed = submissionsStats.reviewed;
       submissionsTokens = submissionsStats.tokens;
       recordStep(
@@ -1156,18 +1345,28 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
           : `reviewed ${submissionsReviewed} submissions`
       );
 
-      const tldrStats = await step.do("tldr", LLM_STEP, async () => {
-        try {
-          return await ensureDailyTldr(this.env);
-        } catch (error) {
-          console.error("tldr step failed:", error);
-          return {
-            generated: false,
-            tokens: 0,
-            reason: error instanceof Error ? error.message : String(error),
-          };
-        }
-      });
+      const tldrStats = await safeStep(
+        step,
+        "tldr",
+        {
+          generated: false,
+          tokens: 0,
+          reason: "tldr step failed",
+        },
+        async () => {
+          try {
+            return await ensureDailyTldr(this.env);
+          } catch (error) {
+            console.error("tldr step failed:", error);
+            return {
+              generated: false,
+              tokens: 0,
+              reason: error instanceof Error ? error.message : String(error),
+            };
+          }
+        },
+        LLM_STEP
+      );
       tldrGenerated = tldrStats.generated;
       tldrTokens = tldrStats.tokens;
       recordStep(
@@ -1177,7 +1376,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         tldrStats.reason
       );
 
-      emailsSent = await step.do("email-digest", async () => {
+      emailsSent = await safeStep(step, "email-digest", 0, async () => {
         try {
           return await sendDailyTldr(this.env);
         } catch (error) {
@@ -1193,17 +1392,25 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         emailsSent === 0 ? "no eligible subscribers this run" : undefined
       );
 
-      const notifyResult = await step.do("notify", async () => {
-        try {
-          return await dispatchStoryNotifications(this.env);
-        } catch (error) {
-          console.error("notify step failed:", error);
-          return {
-            sent: {} as Record<string, number>,
-            reasons: {} as Record<string, NotifyChannelReason>,
-          };
+      const notifyResult = await safeStep(
+        step,
+        "notify",
+        {
+          sent: {} as Record<string, number>,
+          reasons: {} as Record<string, NotifyChannelReason>,
+        },
+        async () => {
+          try {
+            return await dispatchStoryNotifications(this.env);
+          } catch (error) {
+            console.error("notify step failed:", error);
+            return {
+              sent: {} as Record<string, number>,
+              reasons: {} as Record<string, NotifyChannelReason>,
+            };
+          }
         }
-      });
+      );
       notified = notifyResult.sent;
       notifyReason = notifyResult.reasons;
       const notifiedTotal = Object.values(notified).reduce((a, b) => a + b, 0);
@@ -1225,6 +1432,7 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
       runError = error instanceof Error ? error.message : String(error);
       console.error("ingest run failed:", error);
     } finally {
+      recordStep(steps, "close-run", "recording");
       const stats = buildRunStats({
         bySource,
         steps,
@@ -1251,25 +1459,35 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
         notifyReason,
       });
 
+      const row = {
+        id: runId,
+        startedAt,
+        finishedAt: toEpochSeconds(Date.now()),
+        itemsFetched,
+        itemsNew,
+        error: runError,
+        statsJson: serializeRunStats(stats),
+      };
+
+      // Durable close so a replay still writes. Direct D1 in finally is a
+      // fallback when the engine will not schedule another step.do.
       try {
-        await step.do("record-run", LLM_STEP, async () => {
-          await this.env.DB.prepare(
-            `INSERT INTO workflow_runs (id, started_at, finished_at, items_fetched, items_new, error, stats)
-           VALUES (?, ?, ?, ?, ?, ?, ?)`
-          )
-            .bind(
-              nn(runId),
-              nn(startedAt),
-              nn(toEpochSeconds(Date.now())),
-              nn(itemsFetched),
-              nn(itemsNew),
-              nn(runError),
-              nn(serializeRunStats(stats))
-            )
-            .run();
-        });
+        await safeStep(
+          step,
+          "close-run",
+          undefined,
+          async () => {
+            await persistWorkflowRun(this.env.DB, row);
+          },
+          LLM_STEP
+        );
       } catch (error) {
-        console.error("record-run failed:", error);
+        console.error("close-run step failed:", error);
+      }
+      try {
+        await persistWorkflowRun(this.env.DB, row);
+      } catch (error) {
+        console.error("close-run d1 failed:", error);
       }
     }
   }

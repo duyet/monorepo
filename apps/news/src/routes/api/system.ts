@@ -28,7 +28,9 @@ export const Route = createFileRoute("/api/system")({
           const stats = await loadSystemStats(db, env);
           return Response.json(stats, {
             headers: {
-              "Cache-Control": "public, max-age=120, s-maxage=300",
+              // Operational: lastRun/runsToday must not sit behind the 5-minute
+              // edge cache that hid ingest completion from /api/system recert.
+              "Cache-Control": "no-store",
             },
           });
         } catch (e) {

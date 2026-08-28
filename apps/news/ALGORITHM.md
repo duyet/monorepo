@@ -10,10 +10,13 @@ watchdog because GitHub routinely delays or skips scheduled workflows.
 Both paths coalesce: a new instance is skipped if one started in the last
 45 minutes. `POST /api/admin/ingest?force=1` (workflow_dispatch) bypasses
 the window. LLM-heavy Workflow steps use `retries: 0` and a 4-minute
-timeout; a failed score/TL;DR call must not abort `record-run`. Score and
+timeout; a failed score/TL;DR call must not abort close-run. `open-run`
+upserts `workflow_runs` before fetch/LLM so `/api/system` `lastRun` moves
+even if a later step is terminated. Score and
 TL;DR hang-cap per model at 70s/90s (translate stays 25s). Do not treat
-GitHub Actions SUCCESS as a finished ingest — wait for `/api/system`
-`lastRun` / `runsToday`.
+GitHub Actions SUCCESS as a finished ingest — poll `GET /api/system`
+(no-store) until `lastRun.id` changes; do not invent a `:05/:20/:35/:50`
+schedule fire.
 
 ## Pipeline (per hourly run)
 
