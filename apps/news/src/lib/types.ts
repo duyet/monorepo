@@ -30,6 +30,9 @@ export interface FeedItem {
 export interface TldrBullet {
   text: string;
   item_ids?: string[];
+  /** Story og/thumbnail for the first linked item that has one.
+   * Additive read-time field — not stored on `tldr_snapshots`. */
+  image_url?: string | null;
 }
 
 export interface DayGroup {

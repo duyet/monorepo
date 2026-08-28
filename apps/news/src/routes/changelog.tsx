@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import type { ReactElement } from "react";
 import { useLang } from "../lib/lang-context";
 
 interface ChangelogEntry {
@@ -8,6 +9,11 @@ interface ChangelogEntry {
 }
 
 const ENTRIES: ChangelogEntry[] = [
+  {
+    date: "2026-08",
+    en: "AI;DR bullets show a small story thumbnail on the right (or the site mark when a story has no image).",
+    vi: "Mỗi gạch đầu dòng AI;DR có ảnh thumbnail nhỏ bên phải (hoặc logo trang nếu tin chưa có ảnh).",
+  },
   {
     date: "2026-08",
     en: "Added a reader-preferences panel (font, text size, density, background, and section visibility), saved to your browser.",
@@ -37,7 +43,7 @@ export const Route = createFileRoute("/changelog")({
   component: ChangelogPage,
 });
 
-function ChangelogPage() {
+function ChangelogPage(): ReactElement {
   const lang = useLang();
 
   return (
