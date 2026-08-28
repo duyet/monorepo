@@ -26,6 +26,7 @@ Personal monorepo for duyet.net — blog, CV, AI agent demos, news, and data too
 
 - Blog: [./apps/blog/README.md](./apps/blog/README.md)
 - News: [./apps/news/README.md](./apps/news/README.md)
+- News new-tab extension: [./apps/news-tab/README.md](./apps/news-tab/README.md)
 - Insights: [./apps/insights/README.md](./apps/insights/README.md)
 - CV: [./apps/cv/README.md](./apps/cv/README.md)
 - Homelab: [./apps/homelab/README.md](./apps/homelab/README.md)

@@ -5,8 +5,10 @@ Feed pipeline and ranking design: see [ALGORITHM.md](./ALGORITHM.md).
 ## Public read API
 
 Unauthenticated digest for third-party clients (Chrome extension first).
-`GET /api/feed` is the full homepage payload (~360KB) and does not send CORS
-for `chrome-extension://` origins. Use this instead:
+The in-repo unpacked extension lives at [`apps/news-tab`](../news-tab)
+(load that folder in `chrome://extensions`). `GET /api/feed` is the full
+homepage payload (~360KB) and does not send CORS for `chrome-extension://`
+origins. Use this instead:
 
 - **URL:** `https://news.duyet.net/api/public`
 - **Auth:** none. Failures return `{ "error": "unavailable" }` (no D1/admin detail).
