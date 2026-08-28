@@ -16,6 +16,25 @@ pnpm --filter news-tab build
 `build` validates the unpacked tree (it does not emit a Worker bundle).
 Load unpacked from this folder, not `dist/`.
 
+## Versioning
+
+news-tab is its **own** [release-please](https://github.com/googleapis/release-please)
+component (`apps/news-tab` in `.github/release-please-config.json`), not part of
+the root `duyet` `v0.1.x` line (GitHub tags like `v0.1.8`).
+
+| Surface | Value |
+| --- | --- |
+| Series | `0.1.x` (pre-1.0; `feat` → patch, same as the monorepo) |
+| Manifest / npm | `manifest.json` `version` and `package.json` `version` stay equal |
+| Changelog | [`CHANGELOG.md`](./CHANGELOG.md) |
+| Git tag / GitHub Release | `news-tab-v0.1.x` (component prefix; `tag-separator` `-`) |
+
+The standalone extension shipped as `1.0.1`. The monorepo series **resets** to
+`0.1.0` as the last recorded version in `.github/.release-please-manifest.json`.
+The next `release-please` run on `master` should open a separate news-tab
+release PR (likely `0.1.1`, absorbing `feat(news-tab)` from the in-repo import).
+Humans merge those PRs; they are never auto-merged.
+
 ## Load unpacked
 
 1. Open `chrome://extensions`

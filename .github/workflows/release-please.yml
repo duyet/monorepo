@@ -1,13 +1,13 @@
 name: Release Please
 
-# release-please watches conventional commits landing on master and maintains a
-# standing "chore(master): release X.Y.Z" PR plus the tracked CHANGELOG.md.
-# Merging that PR tags the version and publishes a GitHub Release.
-#
+# release-please watches conventional commits landing on master and maintains
+# standing release PRs (humans merge them; this workflow never auto-merges):
+#   - duyet (root): "chore(master): release X.Y.Z" → CHANGELOG.md, tag vX.Y.Z
+#   - news-tab: a separate PR → apps/news-tab/CHANGELOG.md, tag news-tab-vX.Y.Z
 # Config + manifest live under .github/ to keep the repo root clean. Pre-1.0 bump
 # rules (see release-please-config.json): a plain feat bumps the PATCH; only a
 # breaking change (feat! / BREAKING CHANGE) cuts a new minor. bootstrap-sha pins
-# the changelog baseline so the first release only spans commits after setup.
+# the changelog baseline so the first duyet release only spans commits after setup.
 
 on:
   push:
