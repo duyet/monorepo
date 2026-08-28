@@ -186,4 +186,14 @@ describe("backfill-translate checkpoints", () => {
     expect(openIdx).toBeGreaterThan(0);
     expect(openIdx).toBeLessThan(fetchIdx);
   });
+
+  it("persists workflow_runs before pruneLlmCalls and without safeStep", () => {
+    const persistIdx = workflow.indexOf(
+      'persistOpenedWorkflowRun(this.env.DB, runId, startedAt, "open-run")'
+    );
+    const pruneIdx = workflow.indexOf("await pruneLlmCalls(this.env)");
+    expect(persistIdx).toBeGreaterThan(0);
+    expect(persistIdx).toBeLessThan(pruneIdx);
+    expect(workflow).not.toMatch(/safeStep\(\s*step,\s*"open-run"/);
+  });
 });

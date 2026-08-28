@@ -1,4 +1,5 @@
 import { nn } from "./d1-bind.js";
+import { buildRunStats, serializeRunStats } from "./run-stats.js";
 
 /** Upsert used by ingest open-run / close-run. ON CONFLICT so a Workflow
  * replay, a JS `finally`, and the durable `close-run` step can all write
@@ -44,6 +45,46 @@ export async function persistWorkflowRun(
       nn(row.statsJson)
     )
     .run();
+}
+
+export type OpenedRunStepName = "create" | "open-run";
+
+/** Row written at Workflow `create()` and again at `run()` start so
+ * `/api/system` lastRun.id matches the POST id before fetch/LLM. */
+export function openedWorkflowRun(
+  id: string,
+  startedAt: number,
+  stepName: OpenedRunStepName
+): WorkflowRunRecord {
+  return {
+    id,
+    startedAt,
+    finishedAt: startedAt,
+    itemsFetched: 0,
+    itemsNew: 0,
+    error: null,
+    statsJson: serializeRunStats(
+      buildRunStats({
+        steps: [{ name: stepName, action: "started" }],
+      })
+    ),
+  };
+}
+
+/** Best-effort upsert. Never throws — `create()` already succeeded, and
+ * ingest must continue even if this observability write fails. */
+export async function persistOpenedWorkflowRun(
+  db: D1Runner | undefined,
+  id: string | null | undefined,
+  startedAt: number,
+  stepName: OpenedRunStepName
+): Promise<void> {
+  if (!db || !id) return;
+  try {
+    await persistWorkflowRun(db, openedWorkflowRun(id, startedAt, stepName));
+  } catch (error) {
+    console.error(`${stepName} d1 failed:`, error);
+  }
 }
 
 /** Cloudflare Workflows JSON-serialize step returns. `Map` becomes `{}`,

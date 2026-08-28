@@ -51,12 +51,6 @@ import {
   recordStep,
   serializeRunStats,
 } from "./run-stats.js";
-import {
-  ingestRunId,
-  jsonMap,
-  mapEntries,
-  persistWorkflowRun,
-} from "./workflow-run.js";
 import { fetchStoryDetailByUrl } from "./sources/huggingnews.js";
 import { adapters } from "./sources/registry.js";
 import type { FetchedItem, FetchedItemSource } from "./sources/types.js";
@@ -64,11 +58,18 @@ import { reviewPendingSubmissions } from "./submissions.js";
 import { sendDailyTldr } from "./subscribe/send.js";
 import { reviewPendingSuggestions } from "./suggestions.js";
 import { toEpochSeconds } from "./time.js";
-import { looksVietnamese } from "./tldr-lang.js";
 import { ensureDailyTldr } from "./tldr.js";
+import { looksVietnamese } from "./tldr-lang.js";
 import { MAX_MERGED_TOPICS, normalizeTopics, unionTopics } from "./topics.js";
 import { ratePendingTranslations } from "./translation-qa.js";
 import type { Env } from "./types.js";
+import {
+  ingestRunId,
+  jsonMap,
+  mapEntries,
+  persistOpenedWorkflowRun,
+  persistWorkflowRun,
+} from "./workflow-run.js";
 
 const RELEVANCE_THRESHOLD = 0.4;
 const RANK_RECOMPUTE_WINDOW_SEC = 72 * 60 * 60;
@@ -201,7 +202,7 @@ interface ItemRow {
 }
 
 export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
-  async run(_event: WorkflowEvent<unknown>, step: WorkflowStep) {
+  async run(event: WorkflowEvent<unknown>, step: WorkflowStep) {
     let itemsFetched = 0;
     let itemsNew = 0;
     let runError: string | null = null;
@@ -227,6 +228,17 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
     let notifyReason: Record<string, NotifyChannelReason> = {};
     const steps: RunStepInfo[] = [];
 
+    // POST /api/admin/ingest `{id}` is the Workflow instance id. Persist
+    // that row before prune/fetch/LLM and before any step.do: create() can
+    // return while run() is still queued, pruneLlmCalls can run for minutes
+    // on a large llm_calls table, and wrapping the first step.do in
+    // safeStep can return a fallback without executing the upsert.
+    const runId = ingestRunId(event);
+    const startedAt = toEpochSeconds(
+      event.timestamp instanceof Date ? event.timestamp.getTime() : Date.now()
+    );
+    await persistOpenedWorkflowRun(this.env.DB, runId, startedAt, "open-run");
+
     // Installs the D1-backed llm_calls logger so every scoreItems/
     // translateItems/generateTldr call below (and everything else that
     // routes through callAnyrouter) gets an observability row. Plain code,
@@ -234,39 +246,15 @@ export class NewsIngestWorkflow extends WorkflowEntrypoint<Env> {
     // reinstalls the same closure and re-runs an idempotent DELETE), and
     // it must never affect run-error tracking below.
     setLlmCallLogger(createD1LlmCallLogger(this.env));
-    await pruneLlmCalls(this.env);
 
-    // Insert workflow_runs before any LLM/fetch step. A later engine-level
-    // step failure skips remaining step.do (including close-run in finally);
-    // this row still moves /api/system lastRun.id and runsToday.
-    const opened = await safeStep(
-      step,
-      "open-run",
-      {
-        id: ingestRunId(_event as { instanceId?: string }),
-        startedAt: toEpochSeconds(Date.now()),
-      },
-      async () => {
-        const id = ingestRunId(_event as { instanceId?: string });
-        const startedAt = toEpochSeconds(Date.now());
-        await persistWorkflowRun(this.env.DB, {
-          id,
-          startedAt,
-          finishedAt: startedAt,
-          itemsFetched: 0,
-          itemsNew: 0,
-          error: null,
-          statsJson: serializeRunStats(
-            buildRunStats({
-              steps: [{ name: "open-run", action: "started" }],
-            })
-          ),
-        });
-        return { id, startedAt };
-      }
-    );
-    const runId = opened.id;
-    const startedAt = opened.startedAt;
+    // Durable duplicate of the open-run upsert. Do not wrap in safeStep:
+    // a caught engine yield would skip the callback and look like success.
+    await step.do("open-run", async () => {
+      await persistOpenedWorkflowRun(this.env.DB, runId, startedAt, "open-run");
+      return { id: runId, startedAt };
+    });
+
+    await pruneLlmCalls(this.env);
 
     try {
       const sources = await safeStep(step, "load-sources", [], async () => {

@@ -55,8 +55,9 @@ coalesce if a run started in the last 45 minutes. Manual
 skip. Actions SUCCESS is only the POST; poll `GET /api/system` (no admin
 token, `Cache-Control: no-store`) until `lastRun.id` is no longer the
 previous id and `runsToday > 0`. The POST JSON `id` is the Cloudflare
-Workflow instance id and matches `workflow_runs.id` after `open-run`.
-Do not invent a scheduled `:05/:20/:35/:50` fire.
+Workflow instance id and is written to `workflow_runs` when `create()`
+returns (before `run()` / `open-run` may start). Do not invent a
+scheduled `:05/:20/:35/:50` fire.
 
 ## Admin API / MCP
 

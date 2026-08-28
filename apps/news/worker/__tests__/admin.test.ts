@@ -338,6 +338,39 @@ class FakeD1 {
       return { results: [] };
     }
 
+    if (sql.startsWith("INSERT INTO workflow_runs")) {
+      const [
+        id,
+        started_at,
+        finished_at,
+        items_fetched,
+        items_new,
+        error,
+        stats,
+      ] = args as [
+        string,
+        number,
+        number,
+        number,
+        number,
+        string | null,
+        string | null,
+      ];
+      const existing = this.workflowRuns.find((r) => r.id === id);
+      const row = {
+        id,
+        started_at,
+        finished_at,
+        items_fetched,
+        items_new,
+        error,
+        stats,
+      };
+      if (existing) Object.assign(existing, row);
+      else this.workflowRuns.push(row);
+      return { success: true };
+    }
+
     if (sql.startsWith("INSERT INTO admin_audit")) {
       return { success: true };
     }
@@ -821,6 +854,9 @@ describe("triggerIngest", () => {
     const result = await triggerIngest(env);
     expect(result).toEqual({ id: "wf-123", skipped: false });
     expect(env.NEWS_INGEST.create).toHaveBeenCalledOnce();
+    const runs = (env.DB as unknown as FakeD1).workflowRuns;
+    expect(runs).toHaveLength(1);
+    expect(runs[0]?.id).toBe("wf-123");
   });
 
   it("returns a skipped tick from the scheduler without creating a workflow", async () => {
@@ -844,6 +880,7 @@ describe("triggerIngest", () => {
       reason: "ran recently",
     });
     expect(create).not.toHaveBeenCalled();
+    expect((env.DB as unknown as FakeD1).workflowRuns).toHaveLength(0);
   });
 
   it("passes force through to the scheduler tick", async () => {
@@ -860,6 +897,9 @@ describe("triggerIngest", () => {
     const result = await triggerIngest(env, { force: true });
     expect(result).toEqual({ id: "wf-forced", skipped: false });
     expect(tick).toHaveBeenCalledWith({ force: true });
+    const runs = (env.DB as unknown as FakeD1).workflowRuns;
+    expect(runs).toHaveLength(1);
+    expect(runs[0]?.id).toBe("wf-forced");
   });
 });
 

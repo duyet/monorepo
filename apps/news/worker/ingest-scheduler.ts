@@ -3,6 +3,7 @@ import {
   armAlarmAt,
   type IngestTickResult,
   nextAlarmAt,
+  persistCreatedIngestRun,
   shouldSkipIngest,
 } from "./ingest-schedule.js";
 import type { Env } from "./types.js";
@@ -35,7 +36,12 @@ export class NewsIngestScheduler extends DurableObject<Env> {
     try {
       const instance = await this.env.NEWS_INGEST.create();
       await this.ctx.storage.put(LAST_STARTED_KEY, now);
-      return { id: instance.id, skipped: false };
+      const result: IngestTickResult = {
+        id: instance.id,
+        skipped: false,
+      };
+      await persistCreatedIngestRun(this.env.DB, result);
+      return result;
     } catch (error) {
       console.error("ingest scheduler create failed:", error);
       return {

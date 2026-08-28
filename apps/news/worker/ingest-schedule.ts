@@ -1,3 +1,6 @@
+import { toEpochSeconds } from "./time.js";
+import { type D1Runner, persistOpenedWorkflowRun } from "./workflow-run.js";
+
 /** Coalescing rules for news ingest triggers (GitHub Actions, admin POST,
  * Durable Object alarm). Kept free of `cloudflare:workers` so node tests
  * can import them. */
@@ -32,6 +35,7 @@ export interface IngestSchedulerRpc {
 
 export async function tickIngest(
   env: {
+    DB?: D1Runner;
     NEWS_INGEST: Workflow;
     NEWS_INGEST_SCHEDULER?: DurableObjectNamespace;
   },
@@ -42,10 +46,31 @@ export async function tickIngest(
     const stub = ns.get(
       ns.idFromName(INGEST_SCHEDULER_NAME)
     ) as unknown as IngestSchedulerRpc;
-    return stub.tick(opts);
+    const result = await stub.tick(opts);
+    await persistCreatedIngestRun(env.DB, result);
+    return result;
   }
   const instance = await env.NEWS_INGEST.create();
-  return { id: instance.id, skipped: false };
+  const result: IngestTickResult = { id: instance.id, skipped: false };
+  await persistCreatedIngestRun(env.DB, result);
+  return result;
+}
+
+/** `create()` returns an id before `NewsIngestWorkflow.run()` (and
+ * `open-run`) may execute — instances can sit queued behind an in-flight
+ * ingest. Write `workflow_runs` here so lastRun.id matches the POST body
+ * as soon as the trigger returns. */
+export async function persistCreatedIngestRun(
+  db: D1Runner | undefined,
+  result: IngestTickResult
+): Promise<void> {
+  if (result.skipped || !result.id) return;
+  await persistOpenedWorkflowRun(
+    db,
+    result.id,
+    toEpochSeconds(Date.now()),
+    "create"
+  );
 }
 
 export async function ensureIngestAlarm(env: {
