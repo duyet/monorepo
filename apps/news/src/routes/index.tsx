@@ -95,9 +95,12 @@ function FeedSkeleton() {
           {[0, 1].map((col) => (
             <div key={col} className="space-y-2">
               {Array.from({ length: 4 }, (_, i) => (
-                <div key={i} className="flex items-start gap-2">
-                  <span className="mt-2 h-3.5 w-full rounded bg-muted" />
-                  <span className="h-10 w-10 shrink-0 rounded-md bg-muted" />
+                <div key={i} className="flex min-h-[2lh] items-stretch gap-2">
+                  <span className="min-w-0 flex-1 space-y-1.5">
+                    <span className="block h-3.5 w-full rounded bg-muted" />
+                    <span className="block h-3.5 w-4/5 rounded bg-muted" />
+                  </span>
+                  <span className="size-[2lh] shrink-0 rounded-md bg-muted" />
                 </div>
               ))}
             </div>
@@ -221,11 +224,13 @@ function IndexPage() {
   const bullets = displayTldrBullets(feed.tldr, lang);
 
   const topicByItemId = new Map<string, string>();
+  const tagsByItemId = new Map<string, string[]>();
   const imageByItemId = new Map<string, string>();
   for (const day of feed.days) {
     for (const item of day.items) {
       const topic = item.tags[0] ?? item.category;
       if (topic) topicByItemId.set(item.id, topic);
+      if (item.tags.length > 0) tagsByItemId.set(item.id, item.tags);
       if (item.image_url) imageByItemId.set(item.id, item.image_url);
     }
   }
@@ -302,6 +307,7 @@ function IndexPage() {
             updatedAt={feed.updatedAt}
             lastFetchedAt={feed.lastFetchedAt}
             topicByItemId={topicByItemId}
+            tagsByItemId={tagsByItemId}
             imageByItemId={imageByItemId}
             snapshotDate={feed.tldr?.date}
             layout={parseAidrLayout(aidr)}

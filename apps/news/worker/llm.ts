@@ -1047,7 +1047,9 @@ function tldrPrompt(items: TldrItem[], bilingual: boolean): string {
 The Vietnamese bullets are NOT a translation pass over the English ones — write them the way a Vietnamese tech journalist would independently state the same facts, following the house style above.
 `
     : "";
-  return `Summarize the following ${items.length} AI/tech news items into at most ${n} concise TL;DR bullets (one per distinct story), ${langs}. Each bullet must reference the item_ids (an array) it was derived from: most bullets summarize a single story, so item_ids has one id; when several items report the same story or theme, write ONE synthesizing bullet citing ALL of their ids instead of separate bullets.
+  return `Summarize the following ${items.length} AI/tech news items into at most ${n} TL;DR digest bullets (one per distinct story), ${langs}. Each bullet must reference the item_ids (an array) it was derived from: most bullets summarize a single story, so item_ids has one id; when several items report the same story or theme, write ONE synthesizing bullet citing ALL of their ids instead of separate bullets.
+
+Each bullet is a short digest, not an article: about 2 sentences or 180–240 characters (English and Vietnamese). State the what and the why (or who/impact). Keep named entities (models, labs, products) in the text. Do not pad with filler, and do not write a paragraph.
 ${viNote}
 Items:
 ${JSON.stringify(items)}

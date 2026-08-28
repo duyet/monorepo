@@ -136,6 +136,20 @@ describe("highlightTitle", () => {
       expect(highlighted).toEqual(expect.arrayContaining(["Anthropic", "OpenAI", "GPT"]));
     });
 
+    it("highlights entities inside a 2-sentence digest bullet", () => {
+      const tags = tagsForHighlight([]);
+      const segments = highlightTitle(
+        "Nvidia announced a $442B one-day gain after OpenAI locked in a new chip deal. Claude and Gemini remain the other labs in the race.",
+        tags
+      );
+      const highlighted = segments
+        .filter((s) => s.highlighted)
+        .map((s) => s.text);
+      expect(highlighted).toEqual(
+        expect.arrayContaining(["Nvidia", "OpenAI", "Claude"])
+      );
+    });
+
     it("keeps the item's own tags ahead of fallback keywords", () => {
       expect(tagsForHighlight(["openai"])[0]).toBe("openai");
     });

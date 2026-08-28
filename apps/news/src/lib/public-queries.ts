@@ -10,6 +10,7 @@ import type { TldrBullet } from "./types";
 export const PUBLIC_STORY_LIMIT = 8;
 /** Snapshots store at most 16; cap again so a bloated row cannot balloon. */
 export const PUBLIC_BULLET_CAP = 16;
+/** Above the ~180–240 digest target so `/api/public` can return longer bullets. */
 const PUBLIC_BULLET_TEXT_MAX = 400;
 const PUBLIC_ITEM_IDS_MAX = 8;
 const PUBLIC_STORY_TEXT_MAX = 400;

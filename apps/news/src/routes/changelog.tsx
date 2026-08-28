@@ -11,6 +11,11 @@ interface ChangelogEntry {
 const ENTRIES: ChangelogEntry[] = [
   {
     date: "2026-08",
+    en: "AI;DR bullets are a 2-line digest (truncated with an ellipsis) and highlight model and org names in the same topic colors as the feed.",
+    vi: "Mỗi gạch đầu dòng AI;DR là bản tóm tắt 2 dòng (cắt bằng dấu ba chấm khi dài hơn) và tô màu tên model/tổ chức giống bảng tin.",
+  },
+  {
+    date: "2026-08",
     en: "AI;DR bullets show a small story thumbnail on the right (or the site mark when a story has no image).",
     vi: "Mỗi gạch đầu dòng AI;DR có ảnh thumbnail nhỏ bên phải (hoặc logo trang nếu tin chưa có ảnh).",
   },
