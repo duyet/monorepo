@@ -714,6 +714,33 @@ describe("model fallback chain", () => {
     expect(results[0].category).toBe("Models");
   });
 
+  it("advances past 404, 429, and 402 so a delisted primary cannot stall the chain", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(new Response("model not found", { status: 404 }))
+      .mockResolvedValueOnce(new Response("rate limited", { status: 429 }))
+      .mockResolvedValueOnce(
+        new Response("insufficient credits", { status: 402 })
+      )
+      .mockResolvedValueOnce(completion(scorePayload));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const results = await scoreItems(
+      {
+        ...env,
+        ANYROUTER_MODEL: "gone/model,busy/model,broke/model,ok/model",
+      },
+      scoreInput
+    );
+    expect(modelsOf(fetchMock)).toEqual([
+      "gone/model",
+      "busy/model",
+      "broke/model",
+      "ok/model",
+    ]);
+    expect(results[0].category).toBe("Models");
+  });
+
   it("advances when a model streams an empty completion", async () => {
     const fetchMock = vi
       .fn()
