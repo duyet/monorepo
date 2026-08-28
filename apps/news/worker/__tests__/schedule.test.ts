@@ -197,3 +197,19 @@ describe("backfill-translate checkpoints", () => {
     expect(workflow).not.toMatch(/safeStep\(\s*step,\s*"open-run"/);
   });
 });
+
+describe("create-path workflow_runs persist", () => {
+  const ingestSchedule = readFileSync(
+    path.join(newsRoot, "worker/ingest-schedule.ts"),
+    "utf-8"
+  );
+
+  it("verifies D1 before NEWS_INGEST.create({ id })", () => {
+    const persistIdx = ingestSchedule.indexOf(
+      "persistCreatedIngestRunVerified"
+    );
+    const createIdx = ingestSchedule.indexOf("NEWS_INGEST.create({ id })");
+    expect(persistIdx).toBeGreaterThan(0);
+    expect(createIdx).toBeGreaterThan(persistIdx);
+  });
+});

@@ -5,7 +5,9 @@ import {
   mapEntries,
   openedWorkflowRun,
   persistOpenedWorkflowRun,
+  persistOpenedWorkflowRunVerified,
   persistWorkflowRun,
+  SELECT_WORKFLOW_RUN_ID_SQL,
   UPSERT_WORKFLOW_RUN_SQL,
 } from "../workflow-run.js";
 
@@ -22,8 +24,9 @@ describe("UPSERT_WORKFLOW_RUN_SQL", () => {
 
 describe("persistWorkflowRun", () => {
   it("binds the row onto the upsert statement", async () => {
-    const run = vi.fn().mockResolvedValue(undefined);
-    const bind = vi.fn().mockReturnValue({ run });
+    const run = vi.fn().mockResolvedValue({ success: true });
+    const first = vi.fn();
+    const bind = vi.fn().mockReturnValue({ run, first });
     const prepare = vi.fn().mockReturnValue({ bind });
     await persistWorkflowRun(
       { prepare },
@@ -106,10 +109,38 @@ describe("persistOpenedWorkflowRun", () => {
     const prepare = vi.fn().mockReturnValue({
       bind: () => ({
         run: () => Promise.reject(new Error("D1 unavailable")),
+        first: () => Promise.resolve(null),
       }),
     });
     await expect(
       persistOpenedWorkflowRun({ prepare }, "wf-1", 1, "create")
     ).resolves.toBeUndefined();
+  });
+});
+
+describe("persistOpenedWorkflowRunVerified", () => {
+  it("upserts then reads the same id back", async () => {
+    const run = vi.fn().mockResolvedValue({ success: true });
+    const first = vi.fn().mockResolvedValue({ id: "wf-1" });
+    const bind = vi.fn().mockReturnValue({ run, first });
+    const prepare = vi.fn().mockReturnValue({ bind });
+    await persistOpenedWorkflowRunVerified({ prepare }, "wf-1", 1, "create");
+    expect(prepare).toHaveBeenCalledWith(UPSERT_WORKFLOW_RUN_SQL);
+    expect(prepare).toHaveBeenCalledWith(SELECT_WORKFLOW_RUN_ID_SQL);
+    expect(run).toHaveBeenCalledOnce();
+    expect(first).toHaveBeenCalledOnce();
+  });
+
+  it("throws after retries when verify misses", async () => {
+    const prepare = vi.fn().mockReturnValue({
+      bind: () => ({
+        run: async () => ({ success: true }),
+        first: async () => null,
+      }),
+    });
+    await expect(
+      persistOpenedWorkflowRunVerified({ prepare }, "wf-1", 1, "create")
+    ).rejects.toThrow(/verify missed wf-1/);
+    expect(prepare).toHaveBeenCalledTimes(6);
   });
 });

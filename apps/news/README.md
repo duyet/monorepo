@@ -54,10 +54,10 @@ coalesce if a run started in the last 45 minutes. Manual
 `workflow_dispatch` sends `?force=1` so a hung coalesce window cannot
 skip. Actions SUCCESS is only the POST; poll `GET /api/system` (no admin
 token, `Cache-Control: no-store`) until `lastRun.id` is no longer the
-previous id and `runsToday > 0`. The POST JSON `id` is the Cloudflare
-Workflow instance id and is written to `workflow_runs` when `create()`
-returns (before `run()` / `open-run` may start). Do not invent a
-scheduled `:05/:20/:35/:50` fire.
+previous id and `runsToday > 0`. The POST JSON `id` is chosen before
+`NEWS_INGEST.create({ id })` and is written (then SELECT-verified) to
+`workflow_runs` before the POST returns — not after ingest finishes.
+Do not invent a scheduled `:05/:20/:35/:50` fire.
 
 ## Admin API / MCP
 

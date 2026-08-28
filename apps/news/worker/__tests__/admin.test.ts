@@ -55,6 +55,12 @@ class FakeD1 {
   }
 
   private exec(sql: string, args: unknown[]): unknown {
+    if (sql.startsWith("SELECT id FROM workflow_runs WHERE id = ?")) {
+      const [id] = args as [string];
+      const row = this.workflowRuns.find((r) => r.id === id);
+      return row ? { id: row.id } : null;
+    }
+
     if (sql.startsWith("SELECT id FROM items WHERE id = ?")) {
       const [id] = args as [string];
       const row = this.items.get(id);
@@ -852,25 +858,34 @@ describe("triggerIngest", () => {
   it("creates a workflow instance when no scheduler is bound", async () => {
     const env = makeEnv();
     const result = await triggerIngest(env);
-    expect(result).toEqual({ id: "wf-123", skipped: false });
-    expect(env.NEWS_INGEST.create).toHaveBeenCalledOnce();
+    expect(result.skipped).toBe(false);
+    expect(result.id).toMatch(
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+    );
+    expect(env.NEWS_INGEST.create).toHaveBeenCalledWith({ id: result.id });
     const runs = (env.DB as unknown as FakeD1).workflowRuns;
     expect(runs).toHaveLength(1);
-    expect(runs[0]?.id).toBe("wf-123");
+    expect(runs[0]?.id).toBe(result.id);
   });
 
   it("returns a skipped tick from the scheduler without creating a workflow", async () => {
     const create = vi.fn();
-    const tick = vi.fn().mockResolvedValue({
+    const canStart = vi.fn().mockResolvedValue({
       id: null,
       skipped: true,
       reason: "ran recently",
     });
+    const startInstance = vi.fn();
     const env = makeEnv({
       NEWS_INGEST: { create } as unknown as Workflow,
       NEWS_INGEST_SCHEDULER: {
         idFromName: () => "id",
-        get: () => ({ tick, ensureArmed: vi.fn() }),
+        get: () => ({
+          tick: vi.fn(),
+          canStart,
+          startInstance,
+          ensureArmed: vi.fn(),
+        }),
       } as unknown as DurableObjectNamespace,
     });
     const result = await triggerIngest(env);
@@ -880,26 +895,37 @@ describe("triggerIngest", () => {
       reason: "ran recently",
     });
     expect(create).not.toHaveBeenCalled();
+    expect(startInstance).not.toHaveBeenCalled();
     expect((env.DB as unknown as FakeD1).workflowRuns).toHaveLength(0);
   });
 
-  it("passes force through to the scheduler tick", async () => {
-    const tick = vi.fn().mockResolvedValue({
-      id: "wf-forced",
+  it("persists workflow_runs before startInstance when force is set", async () => {
+    const canStart = vi.fn().mockResolvedValue({
+      id: null,
       skipped: false,
     });
+    const startInstance = vi.fn(async (id: string) => ({
+      id,
+      skipped: false,
+    }));
     const env = makeEnv({
       NEWS_INGEST_SCHEDULER: {
         idFromName: () => "id",
-        get: () => ({ tick, ensureArmed: vi.fn() }),
+        get: () => ({
+          tick: vi.fn(),
+          canStart,
+          startInstance,
+          ensureArmed: vi.fn(),
+        }),
       } as unknown as DurableObjectNamespace,
     });
     const result = await triggerIngest(env, { force: true });
-    expect(result).toEqual({ id: "wf-forced", skipped: false });
-    expect(tick).toHaveBeenCalledWith({ force: true });
+    expect(canStart).toHaveBeenCalledWith({ force: true });
+    expect(result.skipped).toBe(false);
+    expect(startInstance).toHaveBeenCalledWith(result.id);
     const runs = (env.DB as unknown as FakeD1).workflowRuns;
     expect(runs).toHaveLength(1);
-    expect(runs[0]?.id).toBe("wf-forced");
+    expect(runs[0]?.id).toBe(result.id);
   });
 });
 
