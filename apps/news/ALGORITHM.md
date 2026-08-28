@@ -10,11 +10,15 @@ watchdog because GitHub routinely delays or skips scheduled workflows.
 Both paths coalesce: a new instance is skipped if one started in the last
 45 minutes. `POST /api/admin/ingest?force=1` (workflow_dispatch) bypasses
 the window. LLM-heavy Workflow steps use `retries: 0` and a 4-minute
-timeout; a failed score/TL;DR call must not abort close-run. `open-run`
-upserts `workflow_runs` at Workflow `create()` (the POST `{id}`) and again
-at `run()` start **before** `pruneLlmCalls` / fetch / LLM, so `/api/system`
-`lastRun` moves even when the instance is still queued or prune is slow.
-Do not wrap `open-run` in `safeStep`. Score and
+timeout; a failed score/TL;DR call must not abort close-run. HTTP
+`POST /api/admin/ingest` picks the instance uuid, **upserts and
+read-back-verifies** `workflow_runs` on the Worker D1 binding, then
+calls `NEWS_INGEST.create({ id })` (the Durable Object only gates the
+45-minute coalesce and performs create). Do not swallow that D1 write:
+#1409 upserted after `create()` and caught errors, so live POST
+`9a1002fa-…` never became `lastRun`. `run()` still upserts at start
+**before** `pruneLlmCalls` / fetch / LLM. Do not wrap `open-run` in
+`safeStep`. Score and
 TL;DR hang-cap per model at 70s/90s (translate stays 25s). Do not treat
 GitHub Actions SUCCESS as a finished ingest — poll `GET /api/system`
 (no-store) until `lastRun.id` matches the POST `id` (or at least is no

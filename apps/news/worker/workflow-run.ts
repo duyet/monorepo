@@ -13,6 +13,13 @@ ON CONFLICT(id) DO UPDATE SET
   error = excluded.error,
   stats = excluded.stats`;
 
+/** Read-your-writes check after the HTTP create-path upsert so POST does
+ * not return an id that `/api/system` cannot see. */
+export const SELECT_WORKFLOW_RUN_ID_SQL =
+  "SELECT id FROM workflow_runs WHERE id = ?";
+
+const PERSIST_ATTEMPTS = 3;
+
 export interface WorkflowRunRecord {
   id: string;
   startedAt: number;
@@ -23,17 +30,31 @@ export interface WorkflowRunRecord {
   statsJson: string;
 }
 
+export interface D1BoundStatement {
+  run: () => Promise<unknown>;
+  first: <T>() => Promise<T | null>;
+}
+
 export interface D1Runner {
   prepare: (sql: string) => {
-    bind: (...args: unknown[]) => { run: () => Promise<unknown> };
+    bind: (...args: unknown[]) => D1BoundStatement;
   };
+}
+
+function d1RunFailed(result: unknown): boolean {
+  return (
+    !!result &&
+    typeof result === "object" &&
+    "success" in result &&
+    (result as { success: unknown }).success === false
+  );
 }
 
 export async function persistWorkflowRun(
   db: D1Runner,
   row: WorkflowRunRecord
 ): Promise<void> {
-  await db
+  const result = await db
     .prepare(UPSERT_WORKFLOW_RUN_SQL)
     .bind(
       nn(row.id),
@@ -45,6 +66,9 @@ export async function persistWorkflowRun(
       nn(row.statsJson)
     )
     .run();
+  if (d1RunFailed(result)) {
+    throw new Error("workflow_runs upsert returned success=false");
+  }
 }
 
 export type OpenedRunStepName = "create" | "open-run";
@@ -71,8 +95,9 @@ export function openedWorkflowRun(
   };
 }
 
-/** Best-effort upsert. Never throws — `create()` already succeeded, and
- * ingest must continue even if this observability write fails. */
+/** Best-effort upsert. Never throws — Workflow `run()` must continue even
+ * if this observability write fails. HTTP create-path uses
+ * `persistOpenedWorkflowRunVerified` instead. */
 export async function persistOpenedWorkflowRun(
   db: D1Runner | undefined,
   id: string | null | undefined,
@@ -85,6 +110,42 @@ export async function persistOpenedWorkflowRun(
   } catch (error) {
     console.error(`${stepName} d1 failed:`, error);
   }
+}
+
+async function verifyWorkflowRunRow(db: D1Runner, id: string): Promise<void> {
+  const seen = await db
+    .prepare(SELECT_WORKFLOW_RUN_ID_SQL)
+    .bind(id)
+    .first<{ id: string }>();
+  if (seen?.id !== id) {
+    throw new Error(`workflow_runs verify missed ${id}`);
+  }
+}
+
+/** Upsert that must stick before POST /api/admin/ingest returns. Throws
+ * after retries if D1 does not read back the same id — swallowing here
+ * is what left lastRun on 42d830a9 after #1409. */
+export async function persistOpenedWorkflowRunVerified(
+  db: D1Runner,
+  id: string,
+  startedAt: number,
+  stepName: OpenedRunStepName
+): Promise<void> {
+  const row = openedWorkflowRun(id, startedAt, stepName);
+  let lastError: unknown;
+  for (let attempt = 1; attempt <= PERSIST_ATTEMPTS; attempt++) {
+    try {
+      await persistWorkflowRun(db, row);
+      await verifyWorkflowRunRow(db, id);
+      return;
+    } catch (error) {
+      lastError = error;
+      console.error(`${stepName} d1 failed (attempt ${attempt}):`, error);
+    }
+  }
+  throw lastError instanceof Error
+    ? lastError
+    : new Error(`${stepName} d1 failed`);
 }
 
 /** Cloudflare Workflows JSON-serialize step returns. `Map` becomes `{}`,
