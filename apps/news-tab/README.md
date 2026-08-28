@@ -7,6 +7,15 @@ app — do not add `wrangler.toml`.
 
 Load this folder **unpacked**. `manifest.json` is the extension root.
 
+```bash
+pnpm --filter news-tab lint
+pnpm --filter news-tab test
+pnpm --filter news-tab build
+```
+
+`build` validates the unpacked tree (it does not emit a Worker bundle).
+Load unpacked from this folder, not `dist/`.
+
 ## Load unpacked
 
 1. Open `chrome://extensions`

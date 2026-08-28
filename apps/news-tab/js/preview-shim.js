@@ -1,17 +1,33 @@
 /** Preview chrome.* when this folder is opened as files, not as an extension. */
 
-function memoryArea(prefix) {
-  const readAll = () => {
-    try {
-      return JSON.parse(localStorage.getItem(prefix) || "{}");
-    } catch {
-      return {};
-    }
-  };
+const memoryStores = new Map();
 
+function readStore(prefix) {
+  try {
+    if (typeof localStorage !== "undefined") {
+      return JSON.parse(localStorage.getItem(prefix) || "{}");
+    }
+  } catch {
+    // fall through to process memory
+  }
+  return { ...(memoryStores.get(prefix) || {}) };
+}
+
+function writeStore(prefix, value) {
+  memoryStores.set(prefix, value);
+  try {
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem(prefix, JSON.stringify(value));
+    }
+  } catch {
+    // Node / private mode
+  }
+}
+
+function memoryArea(prefix) {
   return {
     get(keys) {
-      const store = readAll();
+      const store = readStore(prefix);
       let result = {};
       if (keys == null) {
         result = { ...store };
@@ -27,8 +43,7 @@ function memoryArea(prefix) {
       return Promise.resolve(result);
     },
     set(items) {
-      const store = { ...readAll(), ...items };
-      localStorage.setItem(prefix, JSON.stringify(store));
+      writeStore(prefix, { ...readStore(prefix), ...items });
       return Promise.resolve();
     },
   };

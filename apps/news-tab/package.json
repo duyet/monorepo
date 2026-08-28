@@ -1,0 +1,11 @@
+{
+  "name": "news-tab",
+  "version": "1.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "biome lint .",
+    "test": "node --test js/*.test.js",
+    "build": "node scripts/build.js"
+  }
+}
