@@ -141,9 +141,13 @@ describe("translate batch size", () => {
     expect(algorithm).toMatch(/batches of 3/);
   });
 
-  it("caps each model attempt at 25s so leftover reaches fallbacks", () => {
+  it("caps translate attempts at 25s so leftover reaches fallbacks", () => {
     expect(llm).toMatch(/MODEL_SLICE_MAX_MS = 25_000/);
+    expect(llm).toMatch(/SCORE_SLICE_MAX_MS = 70_000/);
+    expect(llm).toMatch(/TLDR_SLICE_MAX_MS = 90_000/);
     expect(llm).toMatch(/FALLBACK_FLOOR_MS = 20_000/);
+    expect(llm).toMatch(/SCORE_BATCH_SIZE = 5/);
+    expect(algorithm).toMatch(/batches of 5/);
   });
 });
 
@@ -158,7 +162,17 @@ describe("backfill-translate checkpoints", () => {
     expect(workflow).toMatch(/backfill-translate-\$\{offset\}/);
     expect(workflow).toContain("TRANSLATE_BATCH_SIZE");
     expect(workflow).toContain("BACKFILL_TRANSLATE_STEP");
+    expect(workflow).toContain("LLM_STEP");
     expect(workflow).toMatch(/retries:\s*\{\s*limit:\s*0/);
+    expect(workflow).toContain('step.do("score", LLM_STEP');
+    expect(workflow).toContain('step.do("translate", LLM_STEP');
+    expect(workflow).toContain('step.do("tldr", LLM_STEP');
+    expect(workflow).toContain('step.do("record-run", LLM_STEP');
     expect(workflow).toContain("if (!row || !result.title) continue");
+  });
+
+  it("does not rethrow after setting runError so record-run can insert", () => {
+    expect(workflow).toContain("ingest run failed:");
+    expect(workflow).not.toMatch(/runError[\s\S]{0,80}throw error/);
   });
 });

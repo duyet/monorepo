@@ -26,8 +26,12 @@ jobs:
     steps:
       - name: Trigger news-ingest workflow
         run: |
+          url="https://news.duyet.net/api/admin/ingest"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            url="${url}?force=1"
+          fi
           code=$(curl -s -o /tmp/resp.json -w '%{http_code}' -X POST \
-            "https://news.duyet.net/api/admin/ingest" \
+            "$url" \
             -H "Authorization: Bearer ${{ secrets.NEWS_ADMIN_TOKEN }}")
           if [ "$code" -ge 200 ] && [ "$code" -lt 300 ]; then
             cat /tmp/resp.json
