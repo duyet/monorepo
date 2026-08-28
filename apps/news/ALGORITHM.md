@@ -65,7 +65,7 @@ GitHub Actions SUCCESS as a finished ingest — wait for `/api/system`
     EN bullets + 16 independently-restated VI bullets, each linked to its
     `item_id`. Each bullet is a short digest (~2 sentences / 180–240
     characters), not a headline and not a paragraph; the homepage clamps
-    overflow to 3 lines. If the LLM returns no bullets or a thin digest (fewer than
+    overflow to 2 lines and sizes the thumbnail to that row. If the LLM returns no bullets or a thin digest (fewer than
     min(8, item count), at least 2 when there are 2+ stories), a
     title-fallback snapshot is persisted (EN from item titles; VI from
     `title_vi` or the English title if no translation — never invented

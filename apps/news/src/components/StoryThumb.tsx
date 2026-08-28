@@ -6,8 +6,8 @@ export const STORY_THUMB_PLACEHOLDER = "/favicon.svg";
 
 /**
  * Compact story thumbnail matching the feed card language: rounded,
- * bordered, object-cover. Stays 40px on the phone and 48px from `sm`
- * up — never a hero image.
+ * bordered, object-cover. Sized to two lines of the surrounding
+ * `leading-snug` copy (`2lh`) so it fills an AI;DR row.
  */
 export function StoryThumb({
   src,
@@ -36,7 +36,7 @@ export function StoryThumb({
         }
         event.currentTarget.style.visibility = "hidden";
       }}
-      className="h-10 w-10 shrink-0 overflow-hidden rounded-md border border-border bg-brand-soft object-cover sm:h-12 sm:w-12"
+      className="size-[2lh] min-h-[2lh] min-w-[2lh] shrink-0 self-stretch overflow-hidden rounded-md border border-border bg-brand-soft object-cover"
     />
   );
 }

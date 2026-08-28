@@ -23,7 +23,7 @@ function TldrBulletRow({
   children: ReactNode;
 }): ReactElement {
   const copy = (
-    <span className="min-w-0 flex-1 line-clamp-3 break-words" title={fullText}>
+    <span className="min-w-0 flex-1 line-clamp-2 break-words" title={fullText}>
       {children}
     </span>
   );
@@ -31,16 +31,16 @@ function TldrBulletRow({
     case "a":
     case "b":
       return (
-        <span className="flex items-start gap-2">
+        <span className="flex min-h-[2lh] items-stretch gap-2">
           {copy}
           <StoryThumb src={thumbSrc} />
         </span>
       );
     case "c":
       return (
-        <span className="flex items-start gap-2">
+        <span className="flex min-h-[2lh] items-stretch gap-2">
           {copy}
-          <span className="relative shrink-0">
+          <span className="relative shrink-0 self-stretch">
             <StoryThumb src={thumbSrc} />
             <span className="absolute bottom-0.5 left-0.5 flex h-4 min-w-4 items-center justify-center rounded-sm bg-foreground/80 px-0.5 text-[10px] font-bold tabular-nums text-background">
               {n}
