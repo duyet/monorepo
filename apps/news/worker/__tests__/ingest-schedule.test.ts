@@ -7,9 +7,11 @@ import {
   INGEST_MIN_INTERVAL_MS,
   INGEST_SCHEDULER_NAME,
   nextAlarmAt,
+  persistCreatedIngestRun,
   shouldSkipIngest,
   tickIngest,
 } from "../ingest-schedule.js";
+import { UPSERT_WORKFLOW_RUN_SQL } from "../workflow-run.js";
 
 describe("shouldSkipIngest", () => {
   it("runs when there is no previous start", () => {
@@ -57,6 +59,24 @@ describe("tickIngest", () => {
     expect(result).toEqual({ id: "wf-1", skipped: false });
   });
 
+  it("writes workflow_runs with the create() id before returning", async () => {
+    const run = vi.fn().mockResolvedValue(undefined);
+    const bind = vi.fn().mockReturnValue({ run });
+    const prepare = vi.fn().mockReturnValue({ bind });
+    const create = vi.fn().mockResolvedValue({
+      id: "532028af-065f-422a-91a5-c342c5c84b85",
+    });
+    const result = await tickIngest({
+      DB: { prepare },
+      NEWS_INGEST: { create } as unknown as Workflow,
+    });
+    expect(result.id).toBe("532028af-065f-422a-91a5-c342c5c84b85");
+    expect(prepare).toHaveBeenCalledWith(UPSERT_WORKFLOW_RUN_SQL);
+    expect(bind.mock.calls[0]?.[0]).toBe(
+      "532028af-065f-422a-91a5-c342c5c84b85"
+    );
+  });
+
   it("delegates to the Durable Object stub when bound", async () => {
     const tick = vi.fn().mockResolvedValue({
       id: "wf-2",
@@ -74,6 +94,17 @@ describe("tickIngest", () => {
     });
     expect(tick).toHaveBeenCalledWith({});
     expect(result).toEqual({ id: "wf-2", skipped: false });
+  });
+});
+
+describe("persistCreatedIngestRun", () => {
+  it("skips skipped ticks", async () => {
+    const prepare = vi.fn();
+    await persistCreatedIngestRun(
+      { prepare },
+      { id: null, skipped: true, reason: "ran recently" }
+    );
+    expect(prepare).not.toHaveBeenCalled();
   });
 });
 

@@ -3,6 +3,8 @@ import {
   ingestRunId,
   jsonMap,
   mapEntries,
+  openedWorkflowRun,
+  persistOpenedWorkflowRun,
   persistWorkflowRun,
   UPSERT_WORKFLOW_RUN_SQL,
 } from "../workflow-run.js";
@@ -78,5 +80,36 @@ describe("ingestRunId", () => {
     expect(id).toMatch(
       /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
     );
+  });
+});
+
+describe("openedWorkflowRun", () => {
+  it("sets finished_at to started_at so runsToday counts the open row", () => {
+    const row = openedWorkflowRun("wf-1", 1_700_000_000, "create");
+    expect(row.id).toBe("wf-1");
+    expect(row.startedAt).toBe(1_700_000_000);
+    expect(row.finishedAt).toBe(1_700_000_000);
+    expect(row.itemsFetched).toBe(0);
+    expect(JSON.parse(row.statsJson).steps).toEqual([
+      { name: "create", action: "started" },
+    ]);
+  });
+});
+
+describe("persistOpenedWorkflowRun", () => {
+  it("no-ops without a db or id", async () => {
+    await persistOpenedWorkflowRun(undefined, "wf-1", 1, "create");
+    await persistOpenedWorkflowRun({ prepare: vi.fn() }, null, 1, "open-run");
+  });
+
+  it("swallows D1 failures so create() still returns the instance id", async () => {
+    const prepare = vi.fn().mockReturnValue({
+      bind: () => ({
+        run: () => Promise.reject(new Error("D1 unavailable")),
+      }),
+    });
+    await expect(
+      persistOpenedWorkflowRun({ prepare }, "wf-1", 1, "create")
+    ).resolves.toBeUndefined();
   });
 });
