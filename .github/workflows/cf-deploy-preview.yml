@@ -5,6 +5,7 @@ on:
     types: [opened, synchronize, reopened]
     paths:
       - 'apps/**'
+      - '!apps/news-tab/**'
       - 'packages/**'
       - 'package.json'
       - 'pnpm-lock.yaml'

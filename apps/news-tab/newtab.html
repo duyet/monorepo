@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="vi" data-theme="system" data-font="system">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI News</title>
+    <link rel="stylesheet" href="css/newtab.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="top">
+        <a class="brand" href="https://news.duyet.net/" rel="noreferrer">
+          <span class="mark" aria-hidden="true">n</span>
+          AI News
+        </a>
+        <p class="lede" id="lede">Hôm nay AI có gì mới?</p>
+        <time class="date" id="stamp"></time>
+        <button type="button" class="gear" id="open-settings" aria-label="Cài đặt">
+          ⚙
+        </button>
+      </header>
+
+      <p class="status" id="status" hidden></p>
+
+      <section class="tldr" id="section-tldr" hidden>
+        <div class="tldr-head">
+          <h1>AI;DR</h1>
+          <span class="muted" id="tldr-meta"></span>
+        </div>
+        <div class="tldr-cols" id="tldr-cols"></div>
+      </section>
+
+      <section class="chips-wrap" id="section-trending" hidden>
+        <span class="chips-label" id="trending-label">Xu hướng</span>
+        <div class="chips" id="trending"></div>
+      </section>
+
+      <section class="chips-wrap" id="section-categories" hidden>
+        <span class="chips-label" id="categories-label">Chủ đề</span>
+        <div class="chips" id="categories"></div>
+      </section>
+
+      <section class="stories" id="section-stories" hidden>
+        <h2 id="stories-heading">Tin nổi bật</h2>
+        <ol class="story-list" id="stories"></ol>
+      </section>
+    </div>
+
+    <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
+    <aside class="drawer" id="settings-drawer" hidden>
+      <div class="drawer-head">
+        <h2 id="settings-title">Cài đặt</h2>
+        <button type="button" class="gear" id="close-settings" aria-label="Đóng">
+          ×
+        </button>
+      </div>
+      <div id="settings-root"></div>
+    </aside>
+
+    <script type="module" src="js/boot.js"></script>
+    <script type="module" src="js/newtab.js"></script>
+  </body>
+</html>
