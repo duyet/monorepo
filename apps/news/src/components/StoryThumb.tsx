@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { type ReactElement, useState } from "react";
 
 /** Branded site mark — used when a story has no og/thumbnail, or the
  * remote image fails. Same asset as the favicon so it never 404s. */
@@ -15,9 +15,9 @@ export function StoryThumb({
 }: {
   src?: string | null;
   alt?: string;
-}) {
-  const [failed, setFailed] = useState(false);
-  const remote = src && !failed ? src : null;
+}): ReactElement {
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
+  const remote = src && src !== failedSrc ? src : null;
   const showSrc = remote ?? STORY_THUMB_PLACEHOLDER;
 
   return (
@@ -31,7 +31,7 @@ export function StoryThumb({
       aria-hidden={alt ? undefined : true}
       onError={(event) => {
         if (remote) {
-          setFailed(true);
+          setFailedSrc(remote);
           return;
         }
         event.currentTarget.style.visibility = "hidden";

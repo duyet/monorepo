@@ -41,7 +41,7 @@ function makeDb(opts: {
   extraImages?: Array<{ id: string; image_url: string | null }>;
   failImageColumn?: boolean;
   throwOnItems?: boolean;
-}) {
+}): D1Database {
   return {
     prepare(sql: string) {
       const stub = {
@@ -94,6 +94,17 @@ describe("normalizeStoredBullets", () => {
     ]);
     const many = Array.from({ length: 20 }, (_, i) => ({ text: `b${i}` }));
     expect(normalizeStoredBullets(many)).toHaveLength(16);
+  });
+
+  it("truncates oversized bullet text and item_ids", () => {
+    const bullets = normalizeStoredBullets([
+      {
+        text: "x".repeat(500),
+        item_ids: Array.from({ length: 20 }, (_, i) => `id${i}`),
+      },
+    ]);
+    expect(bullets[0]?.text).toHaveLength(400);
+    expect(bullets[0]?.item_ids).toHaveLength(8);
   });
 });
 

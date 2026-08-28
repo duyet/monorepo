@@ -40,7 +40,8 @@ for `chrome-extension://` origins. Use this instead:
 
 Up to 16 bullets per language and 8 top stories by `rank_score`. Typical
 payload is well under 50KB. `image_url` on a bullet is additive and only
-present when the linked story has an og/thumbnail.
+present when the linked story has an og/thumbnail. `published_at` is epoch
+**seconds**; `updatedAt` is epoch milliseconds.
 
 Hourly ingest is triggered by GitHub Actions
 (`.github/workflows/news-ingest.yml`, cron `5 * * * *`) via

@@ -10,6 +10,13 @@ import type { TldrBullet } from "./types";
 export const PUBLIC_STORY_LIMIT = 8;
 /** Snapshots store at most 16; cap again so a bloated row cannot balloon. */
 export const PUBLIC_BULLET_CAP = 16;
+const PUBLIC_BULLET_TEXT_MAX = 400;
+const PUBLIC_ITEM_IDS_MAX = 8;
+const PUBLIC_STORY_TEXT_MAX = 400;
+
+function clip(value: string, max: number): string {
+  return value.length <= max ? value : value.slice(0, max);
+}
 
 export interface PublicStory {
   id: string;
@@ -65,10 +72,14 @@ WHERE id IN ({placeholders}) AND image_url IS NOT NULL AND image_url != ''`;
 
 function capBullets(raw: TldrBullet[]): TldrBullet[] {
   return raw.slice(0, PUBLIC_BULLET_CAP).map((b) => ({
-    text: typeof b.text === "string" ? b.text : "",
-    item_ids: Array.isArray(b.item_ids)
+    text: clip(
+      typeof b.text === "string" ? b.text : "",
+      PUBLIC_BULLET_TEXT_MAX
+    ),
+    item_ids: (Array.isArray(b.item_ids)
       ? b.item_ids.filter((id): id is string => typeof id === "string")
-      : [],
+      : []
+    ).slice(0, PUBLIC_ITEM_IDS_MAX),
   }));
 }
 
@@ -108,12 +119,14 @@ function parseTldrRow(
 
 function toPublicStory(row: StoryRow): PublicStory {
   return {
-    id: row.id,
-    url: row.url,
-    title: row.title,
-    title_vi: row.title_vi ?? null,
-    category: row.category ?? null,
-    image_url: row.image_url ?? null,
+    id: clip(row.id, 128),
+    url: clip(row.url, PUBLIC_STORY_TEXT_MAX),
+    title: clip(row.title, PUBLIC_STORY_TEXT_MAX),
+    title_vi: row.title_vi ? clip(row.title_vi, PUBLIC_STORY_TEXT_MAX) : null,
+    category: row.category ? clip(row.category, 64) : null,
+    image_url: row.image_url
+      ? clip(row.image_url, PUBLIC_STORY_TEXT_MAX)
+      : null,
     published_at: row.published_at,
   };
 }
