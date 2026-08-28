@@ -1,14 +1,23 @@
 name: News Ingest
 
-# Hourly trigger for the news.duyet.net ingest workflow. The Workers Free
-# plan's 5-cron cap prevents a native Cloudflare cron on duyet-news, so this
-# Actions cron calls the authenticated admin API instead. Remove this once
-# the account has a free cron slot (then re-add [triggers] in
-# apps/news/wrangler.toml).
+# Watchdog for the news.duyet.net ingest workflow. Primary hourly cadence
+# is a Durable Object alarm on duyet-news (not a Worker cron — Free plan
+# is at the 5-trigger cap). GitHub scheduled workflows on this repo skip
+# for hours at a time (2026-08-27: 3/24 hourly runs; same pattern on the
+# kb-submodule-sync hourly job), so this file fires four independent cron
+# expressions per hour. POSTs coalesce in NewsIngestScheduler if a run
+# started in the last 45 minutes.
 on:
   schedule:
     - cron: "5 * * * *"
+    - cron: "20 * * * *"
+    - cron: "35 * * * *"
+    - cron: "50 * * * *"
   workflow_dispatch:
+
+concurrency:
+  group: news-ingest
+  cancel-in-progress: false
 
 jobs:
   trigger:
