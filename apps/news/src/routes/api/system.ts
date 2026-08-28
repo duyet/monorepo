@@ -25,7 +25,11 @@ export const Route = createFileRoute("/api/system")({
         }
 
         try {
-          const stats = await loadSystemStats(db, env);
+          const session =
+            typeof db.withSession === "function"
+              ? db.withSession("first-primary")
+              : db;
+          const stats = await loadSystemStats(session as D1Database, env);
           return Response.json(stats, {
             headers: {
               // Operational: lastRun/runsToday must not sit behind the 5-minute

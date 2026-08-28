@@ -17,12 +17,18 @@ const LAST_STARTED_KEY = "last_started_at";
  * watchdog; both paths call `tick()` so overlapping POSTs coalesce.
  *
  * HTTP `POST /api/admin/ingest` uses `canStart` + Worker D1 persist +
- * `startInstance` so `workflow_runs` is committed on the same binding
- * `/api/system` reads **before** `NEWS_INGEST.create()`.
+ * Worker `NEWS_INGEST.create({ id })` + `markStarted`. Alarm `tick()`
+ * still creates from this isolate (best-effort persist).
  */
 export class NewsIngestScheduler extends DurableObject<Env> {
   async alarm(): Promise<void> {
     await this.tick();
+  }
+
+  async markStarted(_id: string): Promise<void> {
+    const now = Date.now();
+    await this.ctx.storage.put(LAST_STARTED_KEY, now);
+    await this.ctx.storage.setAlarm(nextAlarmAt(now));
   }
 
   async canStart(opts: IngestTickOpts = {}): Promise<IngestTickResult> {

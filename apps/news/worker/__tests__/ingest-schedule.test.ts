@@ -14,18 +14,33 @@ import {
 } from "../ingest-schedule.js";
 import {
   type D1Runner,
+  SELECT_LATEST_WORKFLOW_RUN_ID_SQL,
   SELECT_WORKFLOW_RUN_ID_SQL,
   UPSERT_WORKFLOW_RUN_SQL,
 } from "../workflow-run.js";
 
-function trackingDb(order: string[]): D1Runner {
+function trackingDb(order: string[], lastRunId?: { current: string }): D1Runner {
   const prepare = vi.fn((sql: string) => {
-    order.push(sql.startsWith("INSERT") ? "persist" : "verify");
+    if (sql.startsWith("INSERT")) order.push("persist");
+    else if (sql.includes("ORDER BY")) order.push("verify-last");
+    else order.push("verify");
     return {
-      bind: (...args: unknown[]) => ({
-        run: async () => ({ success: true }),
-        first: async <T>() => ({ id: args[0] as string }) as T,
-      }),
+      bind: (...args: unknown[]) => {
+        if (typeof args[0] === "string" && lastRunId) {
+          lastRunId.current = args[0];
+        }
+        const id = (args[0] as string | undefined) ?? lastRunId?.current;
+        return {
+          run: async () => ({
+            success: true,
+            meta: { changes: 1, rows_written: 1 },
+            results: [{ id, started_at: 1 }],
+          }),
+          first: async <T>() => ({ id, started_at: 1 }) as T,
+        };
+      },
+      first: async <T>() =>
+        ({ id: lastRunId?.current, started_at: 1 }) as T,
     };
   });
   return { prepare };
@@ -68,18 +83,35 @@ describe("alarm timestamps", () => {
 });
 
 describe("tickIngest", () => {
+  it("fails closed when DB is unbound so POST cannot return a phantom id", async () => {
+    const create = vi.fn();
+    await expect(
+      tickIngest({
+        NEWS_INGEST: { create } as unknown as Workflow,
+      })
+    ).rejects.toThrow(/requires DB/);
+    expect(create).not.toHaveBeenCalled();
+  });
+
   it("falls back to NEWS_INGEST.create({ id }) when no scheduler is bound", async () => {
-    const create = vi.fn().mockResolvedValue({ id: "wf-1" });
+    const order: string[] = [];
+    const lastRunId = { current: "" };
+    const create = vi.fn(async (opts?: { id?: string }) => {
+      order.push("create");
+      return { id: opts?.id };
+    });
     const result = await tickIngest({
+      DB: trackingDb(order, lastRunId),
       NEWS_INGEST: { create } as unknown as Workflow,
     });
     expect(result.skipped).toBe(false);
     expect(create).toHaveBeenCalledWith({ id: result.id });
   });
 
-  it("writes and verifies workflow_runs before create()", async () => {
+  it("writes and lastRun-verifies workflow_runs before create()", async () => {
     const order: string[] = [];
-    const db = trackingDb(order);
+    const lastRunId = { current: "" };
+    const db = trackingDb(order, lastRunId);
     const create = vi.fn(async (opts?: { id?: string }) => {
       order.push("create");
       return { id: opts?.id };
@@ -89,24 +121,29 @@ describe("tickIngest", () => {
       NEWS_INGEST: { create } as unknown as Workflow,
     });
     expect(result.skipped).toBe(false);
-    expect(order).toEqual(["persist", "verify", "create"]);
+    expect(order).toEqual(["persist", "verify", "verify-last", "create"]);
     expect(create).toHaveBeenCalledWith({ id: result.id });
     expect(db.prepare).toHaveBeenCalledWith(UPSERT_WORKFLOW_RUN_SQL);
     expect(db.prepare).toHaveBeenCalledWith(SELECT_WORKFLOW_RUN_ID_SQL);
+    expect(db.prepare).toHaveBeenCalledWith(SELECT_LATEST_WORKFLOW_RUN_ID_SQL);
   });
 
-  it("persists on the Worker DB before startInstance when the scheduler is bound", async () => {
+  it("persists on the Worker DB then create({ id }) when the scheduler is bound", async () => {
     const order: string[] = [];
-    const db = trackingDb(order);
+    const lastRunId = { current: "" };
+    const db = trackingDb(order, lastRunId);
     const canStart = vi.fn(async () => {
       order.push("gate");
       return { id: null, skipped: false };
     });
-    const startInstance = vi.fn(async (id: string) => {
-      order.push("create");
-      return { id, skipped: false };
+    const startInstance = vi.fn();
+    const markStarted = vi.fn(async () => {
+      order.push("mark");
     });
-    const create = vi.fn();
+    const create = vi.fn(async (opts?: { id?: string }) => {
+      order.push("create");
+      return { id: opts?.id };
+    });
     const result = await tickIngest(
       {
         DB: db,
@@ -120,6 +157,7 @@ describe("tickIngest", () => {
             tick: vi.fn(),
             canStart,
             startInstance,
+            markStarted,
             ensureArmed: vi.fn(),
           }),
         } as unknown as DurableObjectNamespace,
@@ -127,9 +165,17 @@ describe("tickIngest", () => {
       { force: true }
     );
     expect(canStart).toHaveBeenCalledWith({ force: true });
-    expect(create).not.toHaveBeenCalled();
-    expect(startInstance).toHaveBeenCalledWith(result.id);
-    expect(order).toEqual(["gate", "persist", "verify", "create"]);
+    expect(startInstance).not.toHaveBeenCalled();
+    expect(create).toHaveBeenCalledWith({ id: result.id });
+    expect(markStarted).toHaveBeenCalledWith(result.id);
+    expect(order).toEqual([
+      "gate",
+      "persist",
+      "verify",
+      "verify-last",
+      "create",
+      "mark",
+    ]);
     expect(db.prepare).toHaveBeenCalledWith(UPSERT_WORKFLOW_RUN_SQL);
   });
 
@@ -150,6 +196,7 @@ describe("tickIngest", () => {
             reason: "ran recently",
           }),
           startInstance,
+          markStarted: vi.fn(),
           ensureArmed: vi.fn(),
         }),
       } as unknown as DurableObjectNamespace,
@@ -177,19 +224,29 @@ describe("persistCreatedIngestRun", () => {
 });
 
 describe("persistCreatedIngestRunVerified", () => {
-  it("throws when D1 does not read back the row", async () => {
+  it("throws when DB is unbound", async () => {
+    await expect(
+      persistCreatedIngestRunVerified(undefined, {
+        id: "wf-missing",
+        skipped: false,
+      })
+    ).rejects.toThrow(/requires DB/);
+  });
+
+  it("throws when D1 does not RETURN the row", async () => {
     const prepare = vi.fn().mockReturnValue({
       bind: () => ({
         run: async () => ({ success: true }),
         first: async () => null,
       }),
+      first: async () => null,
     });
     await expect(
       persistCreatedIngestRunVerified(
         { prepare },
         { id: "wf-missing", skipped: false }
       )
-    ).rejects.toThrow(/verify missed wf-missing/);
+    ).rejects.toThrow(/RETURNING missed wf-missing/);
   });
 });
 
@@ -207,6 +264,7 @@ describe("ensureIngestAlarm", () => {
           tick: vi.fn(),
           canStart: vi.fn(),
           startInstance: vi.fn(),
+          markStarted: vi.fn(),
           ensureArmed,
         }),
       } as unknown as DurableObjectNamespace,

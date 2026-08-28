@@ -37,14 +37,16 @@ export interface IngestTickOpts {
 /** RPC surface of `NewsIngestScheduler`. Declared here so admin handlers
  * can call it without importing `cloudflare:workers`.
  *
- * HTTP ingest must persist `workflow_runs` on the Worker D1 binding
- * **before** `NEWS_INGEST.create()`: #1409 upserted after create() (and
- * swallowed D1 errors), and live POST `9a1002fa-…` never appeared in
- * `/api/system`. Split gate/start so the Worker can write+verify first. */
+ * HTTP ingest persists `workflow_runs` on the Worker D1 binding (the one
+ * `/api/system` reads) **before** `NEWS_INGEST.create({ id })` in this
+ * isolate. The Durable Object only gates the 45-minute coalesce and
+ * records last-started — it must not be the create() path, because a
+ * Workflow id is not a `workflow_runs` row. */
 export interface IngestSchedulerRpc {
   tick(opts?: IngestTickOpts): Promise<IngestTickResult>;
   canStart(opts?: IngestTickOpts): Promise<IngestTickResult>;
   startInstance(id: string): Promise<IngestTickResult>;
+  markStarted(id: string): Promise<void>;
   ensureArmed(): Promise<void>;
 }
 
@@ -64,35 +66,53 @@ export async function tickIngest(
 ): Promise<IngestTickResult> {
   if (env.NEWS_INGEST_SCHEDULER) {
     const stub = schedulerStub(env.NEWS_INGEST_SCHEDULER);
-    const gate = await stub.canStart(opts);
+    const gate = await gateIngest(stub, opts);
     if (gate.skipped) return gate;
     return startCreatedIngest(env, stub);
   }
   return startCreatedIngest(env);
 }
 
-/** Choose the instance id, persist+verify `workflow_runs`, then
- * `create({ id })`. POST `{id}` is this uuid, not whatever create()
- * would mint after a D1 write that may never commit. */
+async function gateIngest(
+  stub: IngestSchedulerRpc,
+  opts: IngestTickOpts
+): Promise<IngestTickResult> {
+  try {
+    return await stub.canStart(opts);
+  } catch (error) {
+    // Old DO isolate without canStart. Force still has to persist+create
+    // on the Worker; non-force also proceeds rather than calling tick()
+    // (that would create() without a lastRun row).
+    console.error("ingest scheduler canStart failed:", error);
+    return { id: null, skipped: false, reason: "gate-unavailable" };
+  }
+}
+
+/** Choose the instance id, persist+verify `workflow_runs` as lastRun,
+ * then `create({ id })` from this Worker. POST `{id}` is this uuid. */
 async function startCreatedIngest(
   env: {
     DB?: D1Runner;
     NEWS_INGEST: Workflow;
   },
-  stub?: Pick<IngestSchedulerRpc, "startInstance">
+  stub?: Pick<IngestSchedulerRpc, "markStarted">
 ): Promise<IngestTickResult> {
   const id = crypto.randomUUID();
   const result: IngestTickResult = { id, skipped: false };
   await persistCreatedIngestRunVerified(env.DB, result);
-  if (stub) {
-    const started = await stub.startInstance(id);
-    return {
-      id,
-      skipped: false,
-      reason: started.reason,
-    };
+  try {
+    await env.NEWS_INGEST.create({ id });
+  } catch (error) {
+    console.error("NEWS_INGEST.create failed after persist:", error);
+    result.reason = error instanceof Error ? error.message : String(error);
   }
-  await env.NEWS_INGEST.create({ id });
+  if (stub) {
+    try {
+      await stub.markStarted(id);
+    } catch (error) {
+      console.error("ingest scheduler markStarted failed:", error);
+    }
+  }
   return result;
 }
 
@@ -111,13 +131,16 @@ export async function persistCreatedIngestRun(
   );
 }
 
-/** Must succeed before `create()` / POST 2xx. Throws if D1 does not
- * read back the row. No-ops when DB is unbound (unit tests). */
+/** Must succeed before `create()` / POST 2xx. Throws if D1 is unbound or
+ * does not read back the row as lastRun. */
 export async function persistCreatedIngestRunVerified(
   db: D1Runner | undefined,
   result: IngestTickResult
 ): Promise<void> {
-  if (result.skipped || !result.id || !db) return;
+  if (result.skipped || !result.id) return;
+  if (!db) {
+    throw new Error("workflow_runs persist requires DB");
+  }
   await persistOpenedWorkflowRunVerified(
     db,
     result.id,

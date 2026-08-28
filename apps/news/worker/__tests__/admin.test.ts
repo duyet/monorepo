@@ -61,6 +61,17 @@ class FakeD1 {
       return row ? { id: row.id } : null;
     }
 
+    if (
+      sql.startsWith(
+        "SELECT id FROM workflow_runs ORDER BY started_at DESC LIMIT 1"
+      )
+    ) {
+      const rows = [...this.workflowRuns].sort(
+        (a, b) => Number(b.started_at ?? 0) - Number(a.started_at ?? 0)
+      );
+      return rows[0] ? { id: rows[0].id } : null;
+    }
+
     if (sql.startsWith("SELECT id FROM items WHERE id = ?")) {
       const [id] = args as [string];
       const row = this.items.get(id);
@@ -374,7 +385,13 @@ class FakeD1 {
       };
       if (existing) Object.assign(existing, row);
       else this.workflowRuns.push(row);
-      return { success: true };
+      return {
+        success: true,
+        id,
+        started_at,
+        results: [{ id, started_at }],
+        meta: { changes: 1, rows_written: 1 },
+      };
     }
 
     if (sql.startsWith("INSERT INTO admin_audit")) {
@@ -884,6 +901,7 @@ describe("triggerIngest", () => {
           tick: vi.fn(),
           canStart,
           startInstance,
+          markStarted: vi.fn(),
           ensureArmed: vi.fn(),
         }),
       } as unknown as DurableObjectNamespace,
@@ -899,22 +917,25 @@ describe("triggerIngest", () => {
     expect((env.DB as unknown as FakeD1).workflowRuns).toHaveLength(0);
   });
 
-  it("persists workflow_runs before startInstance when force is set", async () => {
+  it("persists workflow_runs before Worker create({ id }) when force is set", async () => {
     const canStart = vi.fn().mockResolvedValue({
       id: null,
       skipped: false,
     });
-    const startInstance = vi.fn(async (id: string) => ({
-      id,
-      skipped: false,
+    const startInstance = vi.fn();
+    const markStarted = vi.fn();
+    const create = vi.fn(async (opts?: { id?: string }) => ({
+      id: opts?.id,
     }));
     const env = makeEnv({
+      NEWS_INGEST: { create } as unknown as Workflow,
       NEWS_INGEST_SCHEDULER: {
         idFromName: () => "id",
         get: () => ({
           tick: vi.fn(),
           canStart,
           startInstance,
+          markStarted,
           ensureArmed: vi.fn(),
         }),
       } as unknown as DurableObjectNamespace,
@@ -922,7 +943,9 @@ describe("triggerIngest", () => {
     const result = await triggerIngest(env, { force: true });
     expect(canStart).toHaveBeenCalledWith({ force: true });
     expect(result.skipped).toBe(false);
-    expect(startInstance).toHaveBeenCalledWith(result.id);
+    expect(startInstance).not.toHaveBeenCalled();
+    expect(create).toHaveBeenCalledWith({ id: result.id });
+    expect(markStarted).toHaveBeenCalledWith(result.id);
     const runs = (env.DB as unknown as FakeD1).workflowRuns;
     expect(runs).toHaveLength(1);
     expect(runs[0]?.id).toBe(result.id);

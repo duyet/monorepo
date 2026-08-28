@@ -205,10 +205,11 @@ describe("create-path workflow_runs persist", () => {
   );
 
   it("verifies D1 before NEWS_INGEST.create({ id })", () => {
-    const persistIdx = ingestSchedule.indexOf(
-      "persistCreatedIngestRunVerified"
+    const startFn = ingestSchedule.slice(
+      ingestSchedule.indexOf("async function startCreatedIngest")
     );
-    const createIdx = ingestSchedule.indexOf("NEWS_INGEST.create({ id })");
+    const persistIdx = startFn.indexOf("persistCreatedIngestRunVerified");
+    const createIdx = startFn.indexOf("NEWS_INGEST.create({ id })");
     expect(persistIdx).toBeGreaterThan(0);
     expect(createIdx).toBeGreaterThan(persistIdx);
   });
