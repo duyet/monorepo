@@ -43,7 +43,8 @@ See [apps/news/README.md](../news/README.md) for the JSON shape.
 
 - `storage` — settings (`sync`, with `local` fallback) and feed cache
 - `host_permissions`: `https://news.duyet.net/*`
-- `optional_host_permissions`: `https://*/*` only when you set a custom API
-  base
+- `optional_host_permissions`: `https://*/*` for a custom HTTPS API base;
+  `http://localhost/*` and `http://127.0.0.1/*` for a local news Worker
+  (`http://localhost:3014`)
 
 No identity, tabs scrape, webRequest, history, or analytics.

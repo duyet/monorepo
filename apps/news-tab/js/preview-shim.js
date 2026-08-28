@@ -78,4 +78,8 @@ export function installPreviewShim() {
   };
 }
 
+export function resetPreviewStores() {
+  memoryStores.clear();
+}
+
 installPreviewShim();

@@ -42,4 +42,5 @@ test("normalizeApiBase keeps host and rejects junk", () => {
     normalizeApiBase("http://localhost:3014"),
     "http://localhost:3014"
   );
+  assert.equal(normalizeApiBase("http://example.com"), DEFAULT_API_BASE);
 });

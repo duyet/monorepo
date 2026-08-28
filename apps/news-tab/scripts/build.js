@@ -21,6 +21,11 @@ if (!manifest.permissions?.includes("storage")) fail("storage permission");
 if (!manifest.host_permissions?.includes("https://news.duyet.net/*")) {
   fail("host_permissions must include https://news.duyet.net/*");
 }
+const csp = manifest.content_security_policy?.extension_pages || "";
+if (!csp.includes("object-src 'self'")) fail("CSP must set object-src 'self'");
+if (!csp.includes("http://localhost:*")) {
+  fail("CSP connect-src must allow http://localhost:*");
+}
 
 const required = [
   "newtab.html",

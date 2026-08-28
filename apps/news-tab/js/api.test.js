@@ -7,9 +7,11 @@ import {
   publicUrl,
   writeCachedDigest,
 } from "./api.js";
+import { resetPreviewStores } from "./preview-shim.js";
 
 afterEach(() => {
   globalThis.fetch = originalFetch;
+  resetPreviewStores();
 });
 
 const originalFetch = globalThis.fetch;
@@ -29,7 +31,9 @@ test("normalizeDigest maps public payload and image aliases", () => {
   const digest = normalizeDigest({
     tldr: {
       date: "2026-08-28",
-      bullets_en: [{ text: "Hello", item_ids: ["a"], imageUrl: "https://img/a" }],
+      bullets_en: [
+        { text: "Hello", item_ids: ["a"], imageUrl: "https://img/a" },
+      ],
       bullets_vi: [{ text: "Xin chào", item_id: "b" }],
     },
     stories: [
@@ -115,13 +119,16 @@ test("fetchDigest falls back to /api/feed", async () => {
 });
 
 test("fetchDigest falls back to last-good cache", async () => {
-  await writeCachedDigest({
-    tldr: null,
-    stories: [{ id: "cached", url: "https://c", title: "Cached" }],
-    categories: [],
-    trending: [],
-    updatedAt: 9,
-  });
+  await writeCachedDigest(
+    {
+      tldr: null,
+      stories: [{ id: "cached", url: "https://c", title: "Cached" }],
+      categories: [],
+      trending: [],
+      updatedAt: 9,
+    },
+    "https://news.duyet.net"
+  );
 
   globalThis.fetch = async () => {
     throw new Error("offline");
@@ -130,4 +137,24 @@ test("fetchDigest falls back to last-good cache", async () => {
   assert.equal(result.source, "cache");
   assert.equal(result.stale, true);
   assert.equal(result.digest.stories[0].id, "cached");
+});
+
+test("fetchDigest does not reuse another API base cache", async () => {
+  await writeCachedDigest(
+    {
+      tldr: null,
+      stories: [{ id: "other", url: "https://o", title: "Other" }],
+      categories: [],
+      trending: [],
+      updatedAt: 1,
+    },
+    "https://other.example"
+  );
+  globalThis.fetch = async () => {
+    throw new Error("offline");
+  };
+  await assert.rejects(
+    () => fetchDigest("https://news.duyet.net"),
+    /unavailable/
+  );
 });

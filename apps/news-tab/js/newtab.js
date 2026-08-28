@@ -187,6 +187,7 @@ function renderChips(settings, digest) {
   catRoot.replaceChildren();
 
   const showTrending = settings.sections.trending && digest.trending.length > 0;
+  if (!showTrending) filterTag = null;
   trendSection.hidden = !showTrending;
   if (showTrending) {
     for (const row of digest.trending) {
@@ -207,6 +208,7 @@ function renderChips(settings, digest) {
   }
 
   const showCats = settings.sections.categories && digest.categories.length > 0;
+  if (!showCats) filterCategory = null;
   catSection.hidden = !showCats;
   if (showCats) {
     const lang = uiLang(settings);

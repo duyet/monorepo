@@ -109,18 +109,34 @@ export function normalizeDigest(raw) {
   };
 }
 
-async function readJson(url) {
-  const response = await fetch(url, { credentials: "omit" });
-  if (!response.ok) throw new Error(`http ${response.status}`);
-  const type = response.headers.get("content-type") || "";
-  if (!type.includes("json")) throw new Error("not json");
-  return response.json();
+const FETCH_MS = 8000;
+
+function cacheSlot(apiBase) {
+  return `${CACHE_KEY}:${normalizeApiBase(apiBase)}`;
 }
 
-export async function readCachedDigest() {
+async function readJson(url) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), FETCH_MS);
   try {
-    const bag = await asChrome().storage.local.get(CACHE_KEY);
-    const cached = bag?.[CACHE_KEY];
+    const response = await fetch(url, {
+      credentials: "omit",
+      signal: controller.signal,
+    });
+    if (!response.ok) throw new Error(`http ${response.status}`);
+    const type = response.headers.get("content-type") || "";
+    if (!type.includes("json")) throw new Error("not json");
+    return await response.json();
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+export async function readCachedDigest(apiBase) {
+  try {
+    const key = cacheSlot(apiBase);
+    const bag = await asChrome().storage.local.get(key);
+    const cached = bag?.[key];
     if (cached?.digest) return normalizeDigest(cached.digest);
   } catch {
     // ignore
@@ -128,10 +144,11 @@ export async function readCachedDigest() {
   return null;
 }
 
-export async function writeCachedDigest(digest) {
+export async function writeCachedDigest(digest, apiBase) {
   try {
+    const base = normalizeApiBase(apiBase);
     await asChrome().storage.local.set({
-      [CACHE_KEY]: { digest, savedAt: Date.now() },
+      [cacheSlot(base)]: { digest, apiBase: base, savedAt: Date.now() },
     });
   } catch {
     // ignore quota
@@ -139,19 +156,20 @@ export async function writeCachedDigest(digest) {
 }
 
 export async function fetchDigest(apiBase) {
+  const base = normalizeApiBase(apiBase);
   try {
-    const data = await readJson(publicUrl(apiBase));
+    const data = await readJson(publicUrl(base));
     const digest = normalizeDigest(data);
-    await writeCachedDigest(digest);
+    await writeCachedDigest(digest, base);
     return { digest, source: "public", stale: false };
   } catch {
     try {
-      const data = await readJson(feedUrl(apiBase));
+      const data = await readJson(feedUrl(base));
       const digest = normalizeDigest(data);
-      await writeCachedDigest(digest);
+      await writeCachedDigest(digest, base);
       return { digest, source: "feed", stale: false };
     } catch {
-      const cached = await readCachedDigest();
+      const cached = await readCachedDigest(base);
       if (cached) return { digest: cached, source: "cache", stale: true };
       throw new Error("unavailable");
     }

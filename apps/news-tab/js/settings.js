@@ -75,8 +75,12 @@ export function normalizeApiBase(value) {
   if (typeof value !== "string" || !value.trim()) return fallback;
   try {
     const url = new URL(value.trim());
-    if (url.protocol !== "https:" && url.protocol !== "http:") return fallback;
-    return `${url.protocol}//${url.host}`;
+    const loopback =
+      url.hostname === "localhost" || url.hostname === "127.0.0.1";
+    if (url.protocol === "https:" || (url.protocol === "http:" && loopback)) {
+      return `${url.protocol}//${url.host}`;
+    }
+    return fallback;
   } catch {
     return fallback;
   }
