@@ -31,17 +31,19 @@ database_id = "8e692ccf-ec38-4e41-b011-50adbc891322"
 
 [vars]
 ANYROUTER_BASE_URL = "https://anyrouter.dev/api/v1"
-# Live model chains on stealth/ox-alpha (replaced every paid google/gemini-*
-# id). Score/TL;DR lead with ox-alpha and fall back to the cheap native ids
-# (non-BYOK); translate still leads with Gemma 4 (completes a 3-item JSON
-# batch fast) and keeps ox-alpha as the final fallback. No BYOK-only ids
-# (SEA-LION, gemini-3.6/3.7, qwen3.7) — a hang/401 on the first id used to
-# eat the whole budget before reaching a model that can write title_vi.
-ANYROUTER_MODEL = "stealth/ox-alpha,google/gemma-4-26b-a4b-it,z-ai/glm-4.7-flash,inclusionai/ling-3.0-flash"
-ANYROUTER_TRANSLATE_MODEL = "google/gemma-4-26b-a4b-it,z-ai/glm-4.7-flash,inclusionai/ling-3.0-flash,anyrouter/auto,google/gemma-4-31b,stealth/ox-alpha"
+# Live model chains: score/TL;DR lead with anyrouter/auto (AnyRouter's
+# health-aware router over top stable platform models) and fall back to
+# cheap native ids (non-BYOK). Translate still leads with Gemma 4
+# (completes a 3-item JSON batch fast) and keeps anyrouter/auto mid-chain.
+# stealth/ox-alpha was delisted (404s) — do not restore it. No BYOK-only
+# ids (SEA-LION, gemini-3.6/3.7, qwen3.7) — a hang/401 on the first id
+# used to eat the whole budget before reaching a model that can write
+# title_vi.
+ANYROUTER_MODEL = "anyrouter/auto,google/gemma-4-26b-a4b-it,z-ai/glm-4.7-flash,inclusionai/ling-3.0-flash"
+ANYROUTER_TRANSLATE_MODEL = "google/gemma-4-26b-a4b-it,z-ai/glm-4.7-flash,inclusionai/ling-3.0-flash,anyrouter/auto,google/gemma-4-31b"
 # Bilingual TL;DR used to fall through to a reasoning-first chain and time
 # out both attempts, leaving English bullets on the VI homepage.
-ANYROUTER_TLDR_MODEL = "stealth/ox-alpha,google/gemma-4-26b-a4b-it,z-ai/glm-4.7-flash,inclusionai/ling-3.0-flash"
+ANYROUTER_TLDR_MODEL = "anyrouter/auto,google/gemma-4-26b-a4b-it,z-ai/glm-4.7-flash,inclusionai/ling-3.0-flash"
 # Derived from VITE_CLERK_PUBLISHABLE_KEY's base64 domain suffix (see
 # apps/news/.env.production): pk_live_Y2xlcmsuZHV5ZXQubmV0JA -> clerk.duyet.net
 CLERK_ISSUER = "https://clerk.duyet.net"
