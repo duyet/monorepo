@@ -13,6 +13,10 @@ const manifestPath = join(root, "manifest.json");
 if (!existsSync(manifestPath)) fail("manifest.json missing");
 
 const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
+if (pkg.version !== manifest.version) {
+  fail("package.json version must match manifest.json (release-please extra-files)");
+}
 if (manifest.manifest_version !== 3) fail("expected Manifest V3");
 if (manifest.chrome_url_overrides?.newtab !== "newtab.html") {
   fail("newtab override must be newtab.html");

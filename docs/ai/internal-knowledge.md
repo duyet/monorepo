@@ -81,7 +81,7 @@ herdr agent prompt feat-<short> "<full task spec>" --wait --timeout 600000
 - `apps/x-algo`: static TanStack Start explainer for the open-sourced X For You ranking weights at `https://x-algo.duyet.net`. Numbers live in `src/lib/scoring.ts` and must match `xai-org/x-algorithm` `home-mixer/params/param.rs`.
 - `apps/tip`: Ko-fi tip page on Cloudflare Pages for `https://tip.duyet.net` (Pages project `duyet-tip`). A single centered section embeds the official Ko-fi widget; widget URL lives in `src/lib/site.ts`. Keep the shared `SiteHeader`/`SiteFooter` chrome and the prerendered static HTML.
 - `apps/paid-api`: standalone x402 USDC-gated chat Worker for `https://paid.duyet.net` (`duyet-paid-api`). Payment replaces auth; see `apps/paid-api/README.md`.
-- `apps/news-tab`: Chrome MV3 unpacked new-tab extension for `https://news.duyet.net`. Load the folder that contains `manifest.json`. Not a Worker/Pages app — no `wrangler.toml`, no Turbo package. Fetches `GET /api/public`.
+- `apps/news-tab`: Chrome MV3 unpacked new-tab extension for `https://news.duyet.net`. Load the folder that contains `manifest.json`. Not a Worker/Pages app — no `wrangler.toml`. Fetches `GET /api/public`. Own release-please component (`news-tab-v0.1.x`, `apps/news-tab/CHANGELOG.md`); do not fold into the root `duyet` release. Humans merge release-please PRs; never auto-merge them. `manifest.json` `version` tracks that component via extra-files (monorepo series starts at 0.1.0, not the old standalone 1.0.1).
 
 ## Shared Packages
 

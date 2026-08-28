@@ -4,6 +4,7 @@
   "bump-minor-pre-major": true,
   "bump-patch-for-minor-pre-major": true,
   "include-component-in-tag": false,
+  "separate-pull-requests": true,
   "tag-separator": "-",
   "packages": {
     ".": {
@@ -12,6 +13,35 @@
       "changelog-path": "CHANGELOG.md",
       "draft": false,
       "prerelease": false,
+      "include-component-in-tag": false,
+      "exclude-paths": ["apps/news-tab"],
+      "changelog-sections": [
+        { "type": "feat", "section": "✨ Features" },
+        { "type": "fix", "section": "🐛 Bug Fixes" },
+        { "type": "perf", "section": "⚡ Performance" },
+        { "type": "refactor", "section": "♻️ Refactoring" },
+        { "type": "deps", "section": "📦 Dependencies" },
+        { "type": "docs", "section": "📚 Documentation", "hidden": true },
+        { "type": "chore", "section": "🧹 Chores", "hidden": true },
+        { "type": "test", "section": "🧪 Tests", "hidden": true },
+        { "type": "ci", "section": "👷 CI", "hidden": true },
+        { "type": "style", "section": "💅 Style", "hidden": true }
+      ]
+    },
+    "apps/news-tab": {
+      "release-type": "node",
+      "package-name": "news-tab",
+      "changelog-path": "CHANGELOG.md",
+      "draft": false,
+      "prerelease": false,
+      "include-component-in-tag": true,
+      "extra-files": [
+        {
+          "type": "json",
+          "path": "manifest.json",
+          "jsonpath": "$.version"
+        }
+      ],
       "changelog-sections": [
         { "type": "feat", "section": "✨ Features" },
         { "type": "fix", "section": "🐛 Bug Fixes" },
