@@ -8,6 +8,7 @@ import {
   regenerateTldr,
   reprocessToday,
   sha256Hex,
+  triggerIngest,
   updateItem,
   upsertSource,
 } from "../admin/handlers.js";
@@ -811,6 +812,54 @@ describe("updateItem", () => {
     expect(row?.llm_importance).toBe(10);
     expect(row?.llm_quality).toBe(0);
     expect(row?.rank_score).not.toBe(1);
+  });
+});
+
+describe("triggerIngest", () => {
+  it("creates a workflow instance when no scheduler is bound", async () => {
+    const env = makeEnv();
+    const result = await triggerIngest(env);
+    expect(result).toEqual({ id: "wf-123", skipped: false });
+    expect(env.NEWS_INGEST.create).toHaveBeenCalledOnce();
+  });
+
+  it("returns a skipped tick from the scheduler without creating a workflow", async () => {
+    const create = vi.fn();
+    const tick = vi.fn().mockResolvedValue({
+      id: null,
+      skipped: true,
+      reason: "ran recently",
+    });
+    const env = makeEnv({
+      NEWS_INGEST: { create } as unknown as Workflow,
+      NEWS_INGEST_SCHEDULER: {
+        idFromName: () => "id",
+        get: () => ({ tick, ensureArmed: vi.fn() }),
+      } as unknown as DurableObjectNamespace,
+    });
+    const result = await triggerIngest(env);
+    expect(result).toEqual({
+      id: null,
+      skipped: true,
+      reason: "ran recently",
+    });
+    expect(create).not.toHaveBeenCalled();
+  });
+
+  it("passes force through to the scheduler tick", async () => {
+    const tick = vi.fn().mockResolvedValue({
+      id: "wf-forced",
+      skipped: false,
+    });
+    const env = makeEnv({
+      NEWS_INGEST_SCHEDULER: {
+        idFromName: () => "id",
+        get: () => ({ tick, ensureArmed: vi.fn() }),
+      } as unknown as DurableObjectNamespace,
+    });
+    const result = await triggerIngest(env, { force: true });
+    expect(result).toEqual({ id: "wf-forced", skipped: false });
+    expect(tick).toHaveBeenCalledWith({ force: true });
   });
 });
 

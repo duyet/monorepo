@@ -13,16 +13,28 @@ directory = "dist/client"
 run_worker_first = ["/", "/sitemap.xml", "/robots.txt", "/api/*"]
 not_found_handling = "single-page-application"
 
-# Hourly ingest is GitHub Actions (`.github/workflows/news-ingest.yml`),
-# not Worker `[triggers] crons` (Free 5-cron cap breaks deploy) and not
-# Workflow `schedules` (paid Workers plan — wrangler deploy exits 1).
-# Manual: Actions workflow_dispatch, admin POST /api/admin/ingest, or
-# `wrangler workflows trigger news-ingest`.
+# Hourly ingest is a Durable Object alarm (`NewsIngestScheduler`) plus
+# GitHub Actions (`.github/workflows/news-ingest.yml`) as a watchdog.
+# Do not add Worker `[triggers] crons` (Free 5-cron cap breaks deploy)
+# and do not add Workflow `schedules` (paid Workers plan — wrangler
+# deploy exits 1). Manual: Actions workflow_dispatch, admin
+# POST /api/admin/ingest, or `wrangler workflows trigger news-ingest`.
 
 [[workflows]]
 name = "news-ingest"
 binding = "NEWS_INGEST"
 class_name = "NewsIngestWorkflow"
+
+# Not a cron trigger. Hourly `alarm()` starts NewsIngestWorkflow without
+# counting against the account's 5 Worker cron slots.
+[durable_objects]
+bindings = [
+  { name = "NEWS_INGEST_SCHEDULER", class_name = "NewsIngestScheduler" }
+]
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["NewsIngestScheduler"]
 
 [[d1_databases]]
 binding = "DB"

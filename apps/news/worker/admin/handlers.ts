@@ -1,3 +1,4 @@
+import { tickIngest } from "../ingest-schedule.js";
 import { scoreItems, setLlmCallLogger, translateItems } from "../llm.js";
 import { createD1LlmCallLogger } from "../llm-call-log.js";
 import { forceSendDigest } from "../notify/index.js";
@@ -253,10 +254,19 @@ export async function deleteSource(
   return { ok: true, id };
 }
 
-export async function triggerIngest(env: Env) {
-  const instance = await env.NEWS_INGEST.create();
-  await writeAudit(env, "ingest.trigger", instance.id);
-  return { id: instance.id };
+export async function triggerIngest(
+  env: Env,
+  opts: { force?: boolean } = {}
+) {
+  const result = await tickIngest(env, opts);
+  await writeAudit(
+    env,
+    "ingest.trigger",
+    result.skipped
+      ? `skipped:${result.reason ?? "ran recently"}`
+      : (result.id ?? result.reason ?? "no-id")
+  );
+  return result;
 }
 
 export async function getStatus(env: Env) {

@@ -1558,6 +1558,11 @@ describe("modelAttemptTimeoutMs", () => {
     expect(modelAttemptTimeoutMs(0, 3)).toBe(0);
     expect(modelAttemptTimeoutMs(-5, 3)).toBe(0);
   });
+
+  it("honors a longer per-task hang-cap for score/tldr JSON", () => {
+    expect(modelAttemptTimeoutMs(240_000, 4, 90_000)).toBe(90_000);
+    expect(modelAttemptTimeoutMs(70_000, 3, 70_000)).toBe(30_000);
+  });
 });
 
 describe("normalizeTag", () => {

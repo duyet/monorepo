@@ -1,5 +1,7 @@
+import { tickIngest } from "./ingest-schedule.js";
 import type { Env } from "./types.js";
 
+export { NewsIngestScheduler } from "./ingest-scheduler.js";
 export { NewsIngestWorkflow } from "./workflow.js";
 
 export async function scheduled(
@@ -7,5 +9,5 @@ export async function scheduled(
   env: Env,
   _ctx: ExecutionContext
 ): Promise<void> {
-  await env.NEWS_INGEST.create();
+  await tickIngest(env);
 }

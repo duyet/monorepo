@@ -137,6 +137,22 @@ describe("clusterSimilar", () => {
     expect(clusters).toEqual([]);
     expect(fetchMock).not.toHaveBeenCalled();
   });
+
+  it("sends only the first id when ANYROUTER_MODEL is a fallback chain", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValue(chatResponse(JSON.stringify({ clusters: [] })));
+    vi.stubGlobal("fetch", fetchMock);
+    await clusterSimilar(
+      { ...env, ANYROUTER_MODEL: "anyrouter/auto,google/gemma-4-26b-a4b-it" },
+      [{ i: 0, title: "A" }],
+      []
+    );
+    const body = JSON.parse(fetchMock.mock.calls[0][1].body as string) as {
+      model: string;
+    };
+    expect(body.model).toBe("anyrouter/auto");
+  });
 });
 
 describe("title similarity dedupe", () => {

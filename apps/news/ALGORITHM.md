@@ -2,9 +2,18 @@
 
 How the hourly `NewsIngestWorkflow` turns raw sources into the ranked, bilingual feed.
 Prompts live in `worker/llm.ts`; the pipeline steps in `worker/workflow.ts`.
-Hourly instances are started by GitHub Actions (`.github/workflows/news-ingest.yml`
-cron `5 * * * *` → `POST /api/admin/ingest`), not Worker `[triggers] crons`
-(Free 5-cron cap) and not Workflow `schedules` (paid plan).
+Hourly instances are started by the `NewsIngestScheduler` Durable Object
+alarm (not a Worker `[triggers]` cron — Free 5-cron cap — and not Workflow
+`schedules`, which are paid-plan). GitHub Actions (`.github/workflows/news-ingest.yml`,
+four independent crons at :05/:20/:35/:50) POSTs `/api/admin/ingest` as a
+watchdog because GitHub routinely delays or skips scheduled workflows.
+Both paths coalesce: a new instance is skipped if one started in the last
+45 minutes. `POST /api/admin/ingest?force=1` (workflow_dispatch) bypasses
+the window. LLM-heavy Workflow steps use `retries: 0` and a 4-minute
+timeout; a failed score/TL;DR call must not abort `record-run`. Score and
+TL;DR hang-cap per model at 70s/90s (translate stays 25s). Do not treat
+GitHub Actions SUCCESS as a finished ingest — wait for `/api/system`
+`lastRun` / `runsToday`.
 
 ## Pipeline (per hourly run)
 
@@ -14,7 +23,7 @@ cron `5 * * * *` → `POST /api/admin/ingest`), not Worker `[triggers] crons`
 2. **Dedupe** — item id = `sha256(url)`; ids already in `items` are dropped.
 3. **Enrich** — missing summary/thumbnail filled from the article page
    (`og:description` / `og:image`), capped and failure-proof (`worker/enrich.ts`).
-4. **Score (LLM)** — batches of 15, fixed rubric → per item:
+   4. **Score (LLM)** — batches of 5, fixed rubric → per item:
    `relevance` 0–1, `importance` 0–10, `quality` 0–10, one `category` from a
    fixed 11-value enum, free-form `tags`.
    **Hide rule:** `relevance < 0.4` → status `rejected` (never shown).
@@ -109,7 +118,9 @@ BYOK-only ids such as SEA-LION and Gemini 3.6/3.7 are omitted, and
 stealth/ox-alpha was removed after AnyRouter delisted it). Translate
 runs in batches of 3 (summaries clipped, title-only retry) and each
 backfill slice is its own Workflow step so a finished batch is written
-even if a later slice times out. A hang, empty sanitize, timeout, or 402 advances the chain
+even if a later slice times out. Score batches of 5 with a 70s hang-cap;
+TL;DR uses a 90s hang-cap so bilingual JSON can finish (a 25s cap made
+every score/TL;DR model log 0 tokens). A hang, empty sanitize, timeout, or 402 advances the chain
 (`raceTimeout` aborts the fetch; leftover reserves a 20s floor for two
 fallbacks and hang-caps at 25s so leftover actually reaches them; 402
 retries the same id at the affordable token cap; the last failure lists
