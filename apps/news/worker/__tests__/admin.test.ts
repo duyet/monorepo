@@ -845,6 +845,22 @@ describe("triggerIngest", () => {
     });
     expect(create).not.toHaveBeenCalled();
   });
+
+  it("passes force through to the scheduler tick", async () => {
+    const tick = vi.fn().mockResolvedValue({
+      id: "wf-forced",
+      skipped: false,
+    });
+    const env = makeEnv({
+      NEWS_INGEST_SCHEDULER: {
+        idFromName: () => "id",
+        get: () => ({ tick, ensureArmed: vi.fn() }),
+      } as unknown as DurableObjectNamespace,
+    });
+    const result = await triggerIngest(env, { force: true });
+    expect(result).toEqual({ id: "wf-forced", skipped: false });
+    expect(tick).toHaveBeenCalledWith({ force: true });
+  });
 });
 
 describe("MCP server", () => {

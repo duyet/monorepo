@@ -40,7 +40,9 @@ async function callAnyrouterForClustering(
       Authorization: `Bearer ${env.ANYROUTER_API_KEY}`,
     },
     body: JSON.stringify({
-      model: env.ANYROUTER_MODEL,
+      model:
+        (env.ANYROUTER_MODEL ?? "").split(",")[0]?.trim() ||
+        env.ANYROUTER_MODEL,
       messages: [{ role: "user", content: prompt }],
       temperature: 0,
       max_tokens: MAX_TOKENS,

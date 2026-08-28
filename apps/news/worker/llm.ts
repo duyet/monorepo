@@ -2,7 +2,9 @@ import { looksVietnamese } from "./tldr-lang.js";
 import type { Env } from "./types.js";
 import { mapWithConcurrency } from "./concurrency.js";
 
-const BATCH_SIZE = 15;
+/** 15-item score JSON routinely misses a 25s hang-cap (0 tokens, 100%
+ *  fail). 5 titles still fill a batch and finish inside SCORE_SLICE_MAX. */
+const SCORE_BATCH_SIZE = 5;
 /** 15-item translate JSON + VI_STYLE routinely times out native Gemma 4
  *  at the 90s attempt cap; 3 titles still fill a homepage row and finish. */
 export const TRANSLATE_BATCH_SIZE = 3;
@@ -323,10 +325,12 @@ async function streamCompletion(
   throw new Error("anyrouter response missing content");
 }
 
-/** Hang-cap. 90s equaled a 90s batch budget so leftover never reached
- *  fallbacks after one native hang. 25s still finishes a 3-item title
- *  batch and leaves a 20s floor for two more ids. */
+/** Hang-cap for translate (3-item JSON). Score/TL;DR use a longer slice. */
 export const MODEL_SLICE_MAX_MS = 25_000;
+/** 15-item score / 16-bullet TL;DR JSON cannot finish in 25s; every
+ *  model then logs 0 tokens and the chain looks 100% dead. */
+export const SCORE_SLICE_MAX_MS = 70_000;
+export const TLDR_SLICE_MAX_MS = 90_000;
 const FALLBACK_FLOOR_MS = 20_000;
 
 /**
@@ -384,6 +388,7 @@ async function callAnyrouter(
     task?: LlmTask;
     timeoutMs?: number;
     maxTokens?: number;
+    maxSliceMs?: number;
     /** A 200 with content that fails this check is a model failure so
      *  the next id in the chain can run (e.g. empty sanitize). */
     accept?: (content: string) => boolean;
@@ -408,7 +413,8 @@ async function callAnyrouter(
     const model = models[i];
     const timeoutMs = modelAttemptTimeoutMs(
       deadline - Date.now(),
-      models.length - i
+      models.length - i,
+      opts.maxSliceMs ?? MODEL_SLICE_MAX_MS
     );
     if (timeoutMs <= 0) {
       failures.push(`${model}: leftover budget too small`);
@@ -429,7 +435,19 @@ async function callAnyrouter(
         abort
       );
       if (opts.accept && !opts.accept(result.content)) {
-        throw new Error("anyrouter response failed accept check");
+        logLlmCall({
+          ts: attemptStartedAt,
+          task,
+          model,
+          ok: false,
+          tokens: result.tokens,
+          durationMs: Date.now() - attemptStartedAt,
+          error: "anyrouter response failed accept check",
+          promptChars,
+          responseSnippet: result.content.slice(0, 2000),
+        });
+        failures.push(`${model}: anyrouter response failed accept check`);
+        continue;
       }
       console.log(`anyrouter completion served by ${model}`);
       logLlmCall({
@@ -641,7 +659,7 @@ export async function scoreItems(
   env: Env,
   items: ScoreInput[]
 ): Promise<ScoreResult[]> {
-  const batches = chunk(items, BATCH_SIZE);
+  const batches = chunk(items, SCORE_BATCH_SIZE);
   // Token spend unchanged; wall-clock divided (~3× at SCORE_CONCURRENCY).
   const SCORE_CONCURRENCY = 3;
   const batchResults = await mapWithConcurrency(
@@ -671,7 +689,11 @@ Respond with strict JSON only: {"results":[{"i":0,"relevance":0.9,"importance":7
         const { content: raw, tokens } = await callAnyrouter(
           env,
           [{ role: "user", content: prompt }],
-          { json: true, task: "score" }
+          {
+            json: true,
+            task: "score",
+            maxSliceMs: SCORE_SLICE_MAX_MS,
+          }
         );
         const parsed = parseJson<{ results?: unknown } | unknown[]>(raw);
         const rows = Array.isArray(parsed) ? parsed : parsed.results;
@@ -845,7 +867,11 @@ export async function translateItems(
   ): Promise<TranslateResult[]> => {
     const remaining = deadline - Date.now();
     if (remaining <= 0) {
-      logTranslateBatchFailed("translate deadline exhausted", batch, titlesOnly);
+      logTranslateBatchFailed(
+        "translate deadline exhausted",
+        batch,
+        titlesOnly
+      );
       return [];
     }
     try {
@@ -1055,6 +1081,7 @@ export async function generateTldr(
           modelSpec: env.ANYROUTER_TLDR_MODEL,
           task: "tldr",
           timeoutMs: TLDR_TIMEOUT_MS,
+          maxSliceMs: TLDR_SLICE_MAX_MS,
           // Bilingual attempt: EN-only JSON is a miss so the next model
           // can still produce bullets_vi. EN-only is accepted on retry.
           accept: (content) => {

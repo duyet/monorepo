@@ -169,7 +169,8 @@ async function handle(
   }
 
   if (method === "POST" && segments.length === 1 && segments[0] === "ingest") {
-    const result = await triggerIngest(env);
+    const force = new URL(request.url).searchParams.get("force") === "1";
+    const result = await triggerIngest(env, { force });
     return Response.json(result);
   }
 

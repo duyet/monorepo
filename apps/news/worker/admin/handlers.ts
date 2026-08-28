@@ -254,8 +254,11 @@ export async function deleteSource(
   return { ok: true, id };
 }
 
-export async function triggerIngest(env: Env) {
-  const result = await tickIngest(env);
+export async function triggerIngest(
+  env: Env,
+  opts: { force?: boolean } = {}
+) {
+  const result = await tickIngest(env, opts);
   await writeAudit(
     env,
     "ingest.trigger",
