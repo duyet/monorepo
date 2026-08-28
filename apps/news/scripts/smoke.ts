@@ -96,6 +96,60 @@ async function main() {
 
   // 2. Feed API shape + story-by-id regression checks.
   let firstItemId: string | null = null;
+  await check("GET /api/public -> slim tldr + stories, no auth", async () => {
+    const res = await fetch(`${base}/api/public`);
+    assert(res.status === 200, `expected 200, got ${res.status}`);
+    const ctype = res.headers.get("content-type") ?? "";
+    assert(ctype.includes("json"), `expected json, got ${ctype}`);
+    const body = await res.json();
+    assert(
+      body.tldr === null ||
+        (body.tldr &&
+          Array.isArray(body.tldr.bullets_en) &&
+          Array.isArray(body.tldr.bullets_vi)),
+      "body.tldr missing bullets"
+    );
+    assert(Array.isArray(body.stories), "body.stories is not an array");
+    if (body.stories[0]) {
+      const s = body.stories[0];
+      assert(typeof s.id === "string", "story.id missing");
+      assert(typeof s.url === "string", "story.url missing");
+      assert(typeof s.title === "string", "story.title missing");
+      assert(!("summary" in s), "public story leaked summary");
+    }
+    const bytes = Number(res.headers.get("content-length") ?? 0);
+    if (bytes > 0) {
+      assert(bytes < 50_000, `public payload too large: ${bytes} bytes`);
+    }
+  });
+
+  await check(
+    "OPTIONS /api/public from chrome-extension -> CORS 204, not HTML",
+    async () => {
+      const origin = "chrome-extension://abcdefghijklmnopqrstuvwxyzabcdef";
+      const res = await fetch(`${base}/api/public`, {
+        method: "OPTIONS",
+        headers: {
+          Origin: origin,
+          "Access-Control-Request-Method": "GET",
+        },
+      });
+      assert(
+        res.status === 204 || res.status === 200,
+        `expected 204/200, got ${res.status}`
+      );
+      const ctype = res.headers.get("content-type") ?? "";
+      assert(
+        !ctype.includes("text/html"),
+        `preflight returned HTML (${ctype})`
+      );
+      assert(
+        res.headers.get("Access-Control-Allow-Origin") === origin,
+        `missing ACAO, got ${res.headers.get("Access-Control-Allow-Origin")}`
+      );
+    }
+  );
+
   await check("GET /api/feed -> 200 with days[] and categories[]", async () => {
     const res = await fetch(`${base}/api/feed`);
     assert(res.status === 200, `expected 200, got ${res.status}`);

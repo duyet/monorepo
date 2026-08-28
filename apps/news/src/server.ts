@@ -1,4 +1,5 @@
 import handler from "@tanstack/react-start/server-entry";
+import { handlePublicCors } from "../worker/public-cors";
 import { handleSubscribeCors } from "../worker/subscribe/cors";
 import type { Env } from "../worker/types";
 import { NewsIngestWorkflow } from "../worker/workflow";
@@ -41,8 +42,10 @@ export default {
         return sitemapResponse(buildSitemapXml(staticSitemapUrls()));
       }
     }
-    return handleSubscribeCors(request, async () =>
-      applyNotFoundHttpStatus(await handler.fetch(request)),
+    return handlePublicCors(request, () =>
+      handleSubscribeCors(request, async () =>
+        applyNotFoundHttpStatus(await handler.fetch(request))
+      )
     );
   },
   async scheduled(_controller: ScheduledController, env: Env) {

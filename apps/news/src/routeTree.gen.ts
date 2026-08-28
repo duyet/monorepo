@@ -21,6 +21,7 @@ import { Route as SubscribeRouteImport } from './routes/subscribe'
 import { Route as CatSlugRouteImport } from './routes/$cat.$slug'
 import { Route as ApiFeedRouteImport } from './routes/api/feed'
 import { Route as ApiMcpRouteImport } from './routes/api/mcp'
+import { Route as ApiPublicRouteImport } from './routes/api/public'
 import { Route as ApiSubscribeRouteImport } from './routes/api/subscribe'
 import { Route as ApiSystemRouteImport } from './routes/api/system'
 import { Route as ApiAdminSplatRouteImport } from './routes/api/admin.$'
@@ -86,6 +87,11 @@ const ApiMcpRoute = ApiMcpRouteImport.update({
   path: '/api/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicRoute = ApiPublicRouteImport.update({
+  id: '/api/public',
+  path: '/api/public',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiSubscribeRoute = ApiSubscribeRouteImport.update({
   id: '/api/subscribe',
   path: '/api/subscribe',
@@ -120,6 +126,7 @@ export interface FileRoutesByFullPath {
   '/$cat/$slug': typeof CatSlugRoute
   '/api/feed': typeof ApiFeedRoute
   '/api/mcp': typeof ApiMcpRoute
+  '/api/public': typeof ApiPublicRoute
   '/api/subscribe': typeof ApiSubscribeRoute
   '/api/system': typeof ApiSystemRoute
   '/api/admin/$': typeof ApiAdminSplatRoute
@@ -138,6 +145,7 @@ export interface FileRoutesByTo {
   '/$cat/$slug': typeof CatSlugRoute
   '/api/feed': typeof ApiFeedRoute
   '/api/mcp': typeof ApiMcpRoute
+  '/api/public': typeof ApiPublicRoute
   '/api/subscribe': typeof ApiSubscribeRoute
   '/api/system': typeof ApiSystemRoute
   '/api/admin/$': typeof ApiAdminSplatRoute
@@ -157,6 +165,7 @@ export interface FileRoutesById {
   '/$cat/$slug': typeof CatSlugRoute
   '/api/feed': typeof ApiFeedRoute
   '/api/mcp': typeof ApiMcpRoute
+  '/api/public': typeof ApiPublicRoute
   '/api/subscribe': typeof ApiSubscribeRoute
   '/api/system': typeof ApiSystemRoute
   '/api/admin/$': typeof ApiAdminSplatRoute
@@ -177,6 +186,7 @@ export interface FileRouteTypes {
     | '/$cat/$slug'
     | '/api/feed'
     | '/api/mcp'
+    | '/api/public'
     | '/api/subscribe'
     | '/api/system'
     | '/api/admin/$'
@@ -195,6 +205,7 @@ export interface FileRouteTypes {
     | '/$cat/$slug'
     | '/api/feed'
     | '/api/mcp'
+    | '/api/public'
     | '/api/subscribe'
     | '/api/system'
     | '/api/admin/$'
@@ -213,6 +224,7 @@ export interface FileRouteTypes {
     | '/$cat/$slug'
     | '/api/feed'
     | '/api/mcp'
+    | '/api/public'
     | '/api/subscribe'
     | '/api/system'
     | '/api/admin/$'
@@ -232,6 +244,7 @@ export interface RootRouteChildren {
   CatSlugRoute: typeof CatSlugRoute
   ApiFeedRoute: typeof ApiFeedRoute
   ApiMcpRoute: typeof ApiMcpRoute
+  ApiPublicRoute: typeof ApiPublicRoute
   ApiSubscribeRoute: typeof ApiSubscribeRoute
   ApiSystemRoute: typeof ApiSystemRoute
   ApiAdminSplatRoute: typeof ApiAdminSplatRoute
@@ -324,6 +337,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiMcpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public': {
+      id: '/api/public'
+      path: '/api/public'
+      fullPath: '/api/public'
+      preLoaderRoute: typeof ApiPublicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/subscribe': {
       id: '/api/subscribe'
       path: '/api/subscribe'
@@ -368,6 +388,7 @@ const rootRouteChildren: RootRouteChildren = {
   CatSlugRoute: CatSlugRoute,
   ApiFeedRoute: ApiFeedRoute,
   ApiMcpRoute: ApiMcpRoute,
+  ApiPublicRoute: ApiPublicRoute,
   ApiSubscribeRoute: ApiSubscribeRoute,
   ApiSystemRoute: ApiSystemRoute,
   ApiAdminSplatRoute: ApiAdminSplatRoute,
