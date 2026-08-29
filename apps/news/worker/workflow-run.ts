@@ -52,12 +52,13 @@ export interface D1PreparedStatement {
   run?: () => Promise<unknown>;
 }
 
+/** Structural subset of `D1Database` / `D1DatabaseSession` so `Env.DB` stays
+ * assignable. Do not add `batch` here: real D1 `batch(D1PreparedStatement[])`
+ * is not assignable to a union that includes `D1BoundStatement` (TS2345 on
+ * `tickIngest(env)` / persist). Call `batch` through `d1Batch()` instead. */
 export interface D1Runner {
   prepare: (sql: string) => D1PreparedStatement;
   withSession?: (constraint: string) => D1Runner;
-  batch?: (
-    statements: Array<D1BoundStatement | D1PreparedStatement>
-  ) => Promise<unknown[]>;
 }
 
 function d1RunFailed(result: unknown): boolean {
@@ -106,6 +107,15 @@ export function d1Session(db: D1Runner): D1Runner {
     return db.withSession("first-primary");
   }
   return db;
+}
+
+/** Duck-typed D1 `batch()`. Kept off `D1Runner` so `D1Database` assigns. */
+function d1BatchFn(
+  db: D1Runner
+): ((statements: unknown[]) => Promise<unknown[]>) | undefined {
+  const batch = (db as { batch?: unknown }).batch;
+  if (typeof batch !== "function") return undefined;
+  return batch as (statements: unknown[]) => Promise<unknown[]>;
 }
 
 export async function persistWorkflowRun(
@@ -208,9 +218,10 @@ async function persistAndConfirmLastRun(
   row: WorkflowRunRecord
 ): Promise<void> {
   const upsert = boundUpsert(db, row);
-  if (typeof db.batch === "function") {
+  const batch = d1BatchFn(db);
+  if (batch) {
     const latestStmt = db.prepare(SELECT_LATEST_WORKFLOW_RUN_ID_SQL);
-    const [writeResult, latestResult] = await db.batch([upsert, latestStmt]);
+    const [writeResult, latestResult] = await batch([upsert, latestStmt]);
     assertWriteOk(writeResult);
     // Second batch result only — INSERT `{id}` / empty `.results` is not lastRun.
     assertLastRun(d1RowId(latestResult), row.id);

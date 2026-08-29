@@ -27,6 +27,13 @@ describe("UPSERT_WORKFLOW_RUN_SQL", () => {
   });
 });
 
+describe("D1Runner", () => {
+  it("accepts D1Database so Env.DB assigns at tickIngest/persist", () => {
+    const use = (_db: D1Runner): void => undefined;
+    use({} as D1Database);
+  });
+});
+
 describe("persistWorkflowRun", () => {
   it("binds the row onto the upsert statement", async () => {
     const run = vi.fn().mockResolvedValue({ success: true });
