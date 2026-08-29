@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { CategoryNav } from "../components/CategoryNav";
 import { DaySection } from "../components/DaySection";
@@ -376,6 +376,18 @@ function IndexPage() {
             q,
             selectedCategoryCount: selectedCategories.size,
           })}
+        </p>
+      )}
+      {!q && (
+        <p className="pt-10 text-center text-xs text-muted-foreground">
+          <Link
+            to="/extension"
+            className="hover:text-accent hover:underline hover:underline-offset-2"
+          >
+            {lang === "vi"
+              ? "Tiện ích tab mới Chrome"
+              : "Chrome new tab extension"}
+          </Link>
         </p>
       )}
     </div>

@@ -11,6 +11,11 @@ interface ChangelogEntry {
 const ENTRIES: ChangelogEntry[] = [
   {
     date: "2026-08",
+    en: "Chrome new-tab extension: download the zip from /extension and load it unpacked (not on the Web Store yet).",
+    vi: "Tiện ích tab mới Chrome: tải zip tại /extension rồi load unpacked (chưa có trên Web Store).",
+  },
+  {
+    date: "2026-08",
     en: "AI;DR bullets are a 2-line digest (truncated with an ellipsis) and highlight model and org names in the same topic colors as the feed.",
     vi: "Mỗi gạch đầu dòng AI;DR là bản tóm tắt 2 dòng (cắt bằng dấu ba chấm khi dài hơn) và tô màu tên model/tổ chức giống bảng tin.",
   },

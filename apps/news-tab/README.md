@@ -6,6 +6,10 @@ layout) from the public digest. No account. Not a Cloudflare Worker or Pages
 app — do not add `wrangler.toml`.
 
 Load this folder **unpacked**. `manifest.json` is the extension root.
+Public download (same tree, zipped) is
+[`https://news.duyet.net/news-tab.zip`](https://news.duyet.net/news-tab.zip)
+with steps at [`https://news.duyet.net/extension`](https://news.duyet.net/extension).
+The news Worker build packs that zip; it is not a GitHub Release asset.
 
 ```bash
 pnpm --filter news-tab lint
@@ -37,11 +41,12 @@ Humans merge those PRs; they are never auto-merged.
 
 ## Load unpacked
 
-1. Open `chrome://extensions`
-2. Enable **Developer mode**
-3. **Load unpacked** and pick `apps/news-tab` (the directory that contains
-   `manifest.json`)
-4. Open a new tab
+1. Download [`news-tab.zip`](https://news.duyet.net/news-tab.zip) (or use this folder from a git checkout)
+2. Unzip. Pick the directory that contains `manifest.json` (named `news-tab`)
+3. Open `chrome://extensions`
+4. Enable **Developer mode**
+5. **Load unpacked** and pick that folder
+6. Open a new tab
 
 To point at a local news Worker (`pnpm --filter news dev` on port 3014), set
 **API base URL** in the extension settings to `http://localhost:3014` and

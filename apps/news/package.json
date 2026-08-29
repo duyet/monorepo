@@ -4,8 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev --port 3014",
-    "build": "vite build",
+    "pack-extension": "tsx scripts/pack-news-tab.ts",
+    "dev": "pnpm run pack-extension && vite dev --port 3014",
+    "build": "pnpm run pack-extension && vite build",
     "test": "vitest run",
     "check-types": "tsc --noEmit",
     "lint": "biome check .",

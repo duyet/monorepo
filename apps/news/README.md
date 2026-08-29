@@ -5,8 +5,12 @@ Feed pipeline and ranking design: see [ALGORITHM.md](./ALGORITHM.md).
 ## Public read API
 
 Unauthenticated digest for third-party clients (Chrome extension first).
-The in-repo unpacked extension lives at [`apps/news-tab`](../news-tab)
-(load that folder in `chrome://extensions`). `GET /api/feed` is the full
+The in-repo unpacked extension lives at [`apps/news-tab`](../news-tab).
+Visitors download it from [`https://news.duyet.net/news-tab.zip`](https://news.duyet.net/news-tab.zip)
+and follow the load-unpacked steps on [`/extension`](https://news.duyet.net/extension).
+The zip is packed at news build time from that folder (manifest.json, html, js, css, icons, `_locales`; not `node_modules`).
+Do not point "latest" at the monorepo GitHub `releases/latest` tag; that is the `duyet` line, not the extension.
+`GET /api/feed` is the full
 homepage payload (~360KB) and does not send CORS for `chrome-extension://`
 origins. Use this instead:
 
