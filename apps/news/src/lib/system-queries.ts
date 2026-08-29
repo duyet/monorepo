@@ -228,8 +228,8 @@ export async function loadSystemStats(
   ]);
 
   const runsQuery = hasRunStats
-    ? "SELECT id, started_at, finished_at, items_fetched, items_new, error, stats FROM workflow_runs ORDER BY started_at DESC LIMIT 30"
-    : "SELECT id, started_at, finished_at, items_fetched, items_new, error FROM workflow_runs ORDER BY started_at DESC LIMIT 30";
+    ? "SELECT id, started_at, finished_at, items_fetched, items_new, error, stats FROM workflow_runs ORDER BY started_at DESC, id DESC LIMIT 30"
+    : "SELECT id, started_at, finished_at, items_fetched, items_new, error FROM workflow_runs ORDER BY started_at DESC, id DESC LIMIT 30";
 
   const [
     itemsTotal,

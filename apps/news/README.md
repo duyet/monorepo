@@ -56,7 +56,7 @@ skip. Actions SUCCESS is only the POST; poll `GET /api/system` (no admin
 token, `Cache-Control: no-store`) until `lastRun.id` is no longer the
 previous id and `runsToday > 0`. The POST JSON `id` is chosen before
 `NEWS_INGEST.create({ id })` and must be lastRun (`INSERT … RETURNING`
-plus `ORDER BY started_at DESC LIMIT 1`) before the POST returns.
+plus `ORDER BY started_at DESC, id DESC LIMIT 1`) before the POST returns.
 A persist miss fails the POST instead of returning a Workflow id.
 Do not invent a scheduled `:05/:20/:35/:50` fire.
 

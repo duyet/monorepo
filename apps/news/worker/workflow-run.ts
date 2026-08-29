@@ -24,10 +24,11 @@ RETURNING id, started_at`;
 export const SELECT_WORKFLOW_RUN_ID_SQL =
   "SELECT id FROM workflow_runs WHERE id = ?";
 
-/** Same ordering `/api/system` uses for lastRun. A WHERE-id hit that is
- * not this row is still a phantom as far as recert is concerned. */
+/** Same ordering `/api/system` uses for lastRun. `id DESC` breaks ties when
+ * two rows share a second-precision `started_at` (concurrent force/alarm).
+ * A WHERE-id hit that is not this row is still a phantom for recert. */
 export const SELECT_LATEST_WORKFLOW_RUN_ID_SQL =
-  "SELECT id FROM workflow_runs ORDER BY started_at DESC LIMIT 1";
+  "SELECT id FROM workflow_runs ORDER BY started_at DESC, id DESC LIMIT 1";
 
 const PERSIST_ATTEMPTS = 3;
 

@@ -63,11 +63,16 @@ class FakeD1 {
 
     if (
       sql.startsWith(
-        "SELECT id FROM workflow_runs ORDER BY started_at DESC LIMIT 1"
+        "SELECT id FROM workflow_runs ORDER BY started_at DESC, id DESC LIMIT 1"
       )
     ) {
       const rows = [...this.workflowRuns].sort(
-        (a, b) => Number(b.started_at ?? 0) - Number(a.started_at ?? 0)
+        (a: Record<string, unknown>, b: Record<string, unknown>): number => {
+          const byStarted =
+            Number(b.started_at ?? 0) - Number(a.started_at ?? 0);
+          if (byStarted !== 0) return byStarted;
+          return String(b.id ?? "").localeCompare(String(a.id ?? ""));
+        }
       );
       return rows[0] ? { id: rows[0].id } : null;
     }

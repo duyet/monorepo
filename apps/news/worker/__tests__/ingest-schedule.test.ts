@@ -210,6 +210,87 @@ describe("tickIngest", () => {
     expect(startInstance).not.toHaveBeenCalled();
     expect(create).not.toHaveBeenCalled();
   });
+
+  it("rethrows canStart failures instead of proceeding as skipped:false", async () => {
+    const prepare = vi.fn();
+    const create = vi.fn();
+    await expect(
+      tickIngest({
+        DB: { prepare },
+        NEWS_INGEST: { create } as unknown as Workflow,
+        NEWS_INGEST_SCHEDULER: {
+          idFromName: () => "id",
+          get: () => ({
+            tick: vi.fn(),
+            canStart: vi.fn().mockRejectedValue(new Error("DO unavailable")),
+            startInstance: vi.fn(),
+            markStarted: vi.fn(),
+            ensureArmed: vi.fn(),
+          }),
+        } as unknown as DurableObjectNamespace,
+      })
+    ).rejects.toThrow(/DO unavailable/);
+    expect(prepare).not.toHaveBeenCalled();
+    expect(create).not.toHaveBeenCalled();
+  });
+
+  it("rethrows NEWS_INGEST.create failures after persist (no 2xx phantom)", async () => {
+    const order: string[] = [];
+    const lastRunId = { current: "" };
+    const create = vi.fn(async () => {
+      order.push("create");
+      throw new Error("workflow create rejected");
+    });
+    const markStarted = vi.fn();
+    await expect(
+      tickIngest({
+        DB: trackingDb(order, lastRunId),
+        NEWS_INGEST: { create } as unknown as Workflow,
+        NEWS_INGEST_SCHEDULER: {
+          idFromName: () => "id",
+          get: () => ({
+            tick: vi.fn(),
+            canStart: vi.fn().mockResolvedValue({ id: null, skipped: false }),
+            startInstance: vi.fn(),
+            markStarted,
+            ensureArmed: vi.fn(),
+          }),
+        } as unknown as DurableObjectNamespace,
+      })
+    ).rejects.toThrow(/workflow create rejected/);
+    expect(order).toEqual(["persist", "verify", "verify-last", "create"]);
+    expect(markStarted).not.toHaveBeenCalled();
+  });
+
+  it("rethrows markStarted failures after create so POST is not SUCCESS", async () => {
+    const order: string[] = [];
+    const lastRunId = { current: "" };
+    const create = vi.fn(async (opts?: { id?: string }) => {
+      order.push("create");
+      return { id: opts?.id };
+    });
+    const markStarted = vi
+      .fn()
+      .mockRejectedValue(new Error("markStarted storage failed"));
+    await expect(
+      tickIngest({
+        DB: trackingDb(order, lastRunId),
+        NEWS_INGEST: { create } as unknown as Workflow,
+        NEWS_INGEST_SCHEDULER: {
+          idFromName: () => "id",
+          get: () => ({
+            tick: vi.fn(),
+            canStart: vi.fn().mockResolvedValue({ id: null, skipped: false }),
+            startInstance: vi.fn(),
+            markStarted,
+            ensureArmed: vi.fn(),
+          }),
+        } as unknown as DurableObjectNamespace,
+      })
+    ).rejects.toThrow(/markStarted storage failed/);
+    expect(create).toHaveBeenCalledOnce();
+    expect(markStarted).toHaveBeenCalledTimes(3);
+  });
 });
 
 describe("persistCreatedIngestRun", () => {

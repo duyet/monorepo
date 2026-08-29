@@ -105,6 +105,14 @@ describe("openedWorkflowRun", () => {
   });
 });
 
+describe("SELECT_LATEST_WORKFLOW_RUN_ID_SQL", () => {
+  it("breaks started_at ties with id DESC so lastRun is deterministic", () => {
+    expect(SELECT_LATEST_WORKFLOW_RUN_ID_SQL).toContain(
+      "ORDER BY started_at DESC, id DESC"
+    );
+  });
+});
+
 describe("persistOpenedWorkflowRun", () => {
   it("no-ops without a db or id", async () => {
     await persistOpenedWorkflowRun(undefined, "wf-1", 1, "create");

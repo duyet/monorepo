@@ -24,6 +24,8 @@ export const INGEST_ALARM_ARM_DELAY_MS = 15_000;
 
 export const INGEST_SCHEDULER_NAME = "default";
 
+const MARK_STARTED_ATTEMPTS = 3;
+
 export interface IngestTickResult {
   id: string | null;
   skipped: boolean;
@@ -66,30 +68,20 @@ export async function tickIngest(
 ): Promise<IngestTickResult> {
   if (env.NEWS_INGEST_SCHEDULER) {
     const stub = schedulerStub(env.NEWS_INGEST_SCHEDULER);
-    const gate = await gateIngest(stub, opts);
+    // Fail closed on gate errors — do not swallow into skipped:false
+    // (that would bypass the 45-minute coalesce during a DO outage).
+    const gate = await stub.canStart(opts);
     if (gate.skipped) return gate;
     return startCreatedIngest(env, stub);
   }
   return startCreatedIngest(env);
 }
 
-async function gateIngest(
-  stub: IngestSchedulerRpc,
-  opts: IngestTickOpts
-): Promise<IngestTickResult> {
-  try {
-    return await stub.canStart(opts);
-  } catch (error) {
-    // Old DO isolate without canStart. Force still has to persist+create
-    // on the Worker; non-force also proceeds rather than calling tick()
-    // (that would create() without a lastRun row).
-    console.error("ingest scheduler canStart failed:", error);
-    return { id: null, skipped: false, reason: "gate-unavailable" };
-  }
-}
-
 /** Choose the instance id, persist+verify `workflow_runs` as lastRun,
- * then `create({ id })` from this Worker. POST `{id}` is this uuid. */
+ * then `create({ id })` from this Worker. POST `{id}` is this uuid.
+ * create() / markStarted failures throw so the admin route is non-2xx —
+ * never return a persisted id as HTTP 200 when the Workflow did not
+ * start or the coalesce clock was not updated. */
 async function startCreatedIngest(
   env: {
     DB?: D1Runner;
@@ -100,20 +92,33 @@ async function startCreatedIngest(
   const id = crypto.randomUUID();
   const result: IngestTickResult = { id, skipped: false };
   await persistCreatedIngestRunVerified(env.DB, result);
-  try {
-    await env.NEWS_INGEST.create({ id });
-  } catch (error) {
-    console.error("NEWS_INGEST.create failed after persist:", error);
-    result.reason = error instanceof Error ? error.message : String(error);
-  }
+  await env.NEWS_INGEST.create({ id });
   if (stub) {
-    try {
-      await stub.markStarted(id);
-    } catch (error) {
-      console.error("ingest scheduler markStarted failed:", error);
-    }
+    await markStartedOrThrow(stub, id);
   }
   return result;
+}
+
+async function markStartedOrThrow(
+  stub: Pick<IngestSchedulerRpc, "markStarted">,
+  id: string
+): Promise<void> {
+  let lastError: unknown;
+  for (let attempt = 1; attempt <= MARK_STARTED_ATTEMPTS; attempt++) {
+    try {
+      await stub.markStarted(id);
+      return;
+    } catch (error) {
+      lastError = error;
+      console.error(
+        `ingest scheduler markStarted failed (attempt ${attempt}):`,
+        error
+      );
+    }
+  }
+  throw lastError instanceof Error
+    ? lastError
+    : new Error("ingest scheduler markStarted failed");
 }
 
 /** Best-effort upsert after the Durable Object alarm `create()`. HTTP
