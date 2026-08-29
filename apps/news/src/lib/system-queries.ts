@@ -1,3 +1,5 @@
+import { WORKFLOW_RUN_STARTED_AT_ORDER_SQL } from "../../worker/workflow-run.js";
+
 export interface WorkflowRunStats {
   bySource?: Record<string, number>;
   new?: number;
@@ -227,9 +229,10 @@ export async function loadSystemStats(
     supportsLlmCalls(db),
   ]);
 
-  const runsQuery = hasRunStats
-    ? "SELECT id, started_at, finished_at, items_fetched, items_new, error, stats FROM workflow_runs ORDER BY started_at DESC, id DESC LIMIT 30"
-    : "SELECT id, started_at, finished_at, items_fetched, items_new, error FROM workflow_runs ORDER BY started_at DESC, id DESC LIMIT 30";
+  const runColumns = hasRunStats
+    ? "id, started_at, finished_at, items_fetched, items_new, error, stats"
+    : "id, started_at, finished_at, items_fetched, items_new, error";
+  const runsQuery = `SELECT ${runColumns} FROM workflow_runs ORDER BY ${WORKFLOW_RUN_STARTED_AT_ORDER_SQL} DESC, id DESC LIMIT 30`;
 
   const [
     itemsTotal,

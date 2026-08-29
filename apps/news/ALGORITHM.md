@@ -14,11 +14,14 @@ timeout; a failed score/TL;DR call must not abort close-run. HTTP
 `POST /api/admin/ingest` picks the instance uuid, **upserts `workflow_runs`
 with `.run()` / `batch()` (D1 writes do not populate `.first()` / `.results`)
 then lastRun-verifies** on the Worker D1 binding (`first-primary` session,
-`ORDER BY started_at DESC, id DESC LIMIT 1` — same query `/api/system`
-uses). Invoke `batch()` as a method on the binding — extracting
-`db.batch` throws `Illegal invocation` on the native host object (#1415
-type-check follow-up, live force POST HTTP 500). A 2xx POST cannot happen
-unless that SELECT returns the POST id.
+epoch-normalized `ORDER BY CASE WHEN started_at > 1e12 THEN started_at / 1000
+ELSE started_at END DESC, id DESC LIMIT 1` — same query `/api/system`
+uses). Invoke `batch()` as a **method** on the binding (`db.batch(stmts)`).
+Extracting `db.batch` or `batch.call(db, stmts)` throws `Illegal invocation`
+on native Workers D1 (#1415 extract, #1417 `Function.prototype.call`
+leftover — live force POST still HTTP 500). A leftover millisecond
+`started_at` on `42d830a9-…` must not sort above a newer seconds persist.
+A 2xx POST cannot happen unless that SELECT returns the POST id.
 Then `NEWS_INGEST.create({ id })` from that isolate. The Durable Object
 only gates the 45-minute coalesce and records last-started. #1413's
 INSERT…RETURNING `.first()` 500'd the live force POST; #1411's WHERE-id

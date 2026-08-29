@@ -21,12 +21,16 @@ ON CONFLICT(id) DO UPDATE SET
   error = excluded.error,
   stats = excluded.stats`;
 
-/** Same ordering `/api/system` uses for lastRun. `id DESC` breaks ties when
- * two rows share a second-precision `started_at` (concurrent force/alarm).
- * This SELECT — not WHERE-id and not INSERT RETURNING — is the 2xx gate:
- * a bind-echo or write-shaped `{id}` is not lastRun. */
-export const SELECT_LATEST_WORKFLOW_RUN_ID_SQL =
-  "SELECT id FROM workflow_runs ORDER BY started_at DESC, id DESC LIMIT 1";
+/** Same ordering `/api/system` uses for lastRun. Epoch-ms legacy rows
+ * (`started_at > 1e12`) must not sort above a newer seconds persist —
+ * live `42d830a9-…` is 2026-08-26 and may still be stored in ms, so a
+ * raw `ORDER BY started_at DESC` keeps it as lastRun and 500s POST.
+ * `id DESC` breaks second-precision ties. This SELECT — not WHERE-id
+ * and not INSERT RETURNING — is the 2xx gate. */
+export const WORKFLOW_RUN_STARTED_AT_ORDER_SQL =
+  "CASE WHEN started_at > 1000000000000 THEN started_at / 1000 ELSE started_at END";
+
+export const SELECT_LATEST_WORKFLOW_RUN_ID_SQL = `SELECT id FROM workflow_runs ORDER BY ${WORKFLOW_RUN_STARTED_AT_ORDER_SQL} DESC, id DESC LIMIT 1`;
 
 const PERSIST_ATTEMPTS = 3;
 
@@ -110,20 +114,21 @@ export function d1Session(db: D1Runner): D1Runner {
   return db;
 }
 
-/** Duck-typed D1 `batch()`, always invoked with the binding as `this`.
+/** Duck-typed D1 `batch()` via **method call** (`db.batch(stmts)`).
  * Kept off `D1Runner` so `D1Database` assigns. Do not extract
- * `const batch = db.batch` and call it unbound: native Workers D1 host
- * methods throw `Illegal invocation` (#1415 type-check follow-up, live
- * force POST HTTP 500, lastRun stayed `42d830a9-…`). */
+ * `const batch = db.batch` and do not `batch.call(db, stmts)`: native
+ * Workers D1 host methods throw `Illegal invocation` for both (#1415
+ * extract, #1417 `Function.prototype.call` leftover — live force POST
+ * still HTTP 500, lastRun stayed `42d830a9-…`). */
 async function d1Batch(
   db: D1Runner,
   statements: unknown[]
 ): Promise<unknown[] | undefined> {
-  const batch = (db as { batch?: unknown }).batch;
-  if (typeof batch !== "function") return undefined;
-  const result = await (
-    batch as (this: unknown, stmts: unknown[]) => unknown
-  ).call(db, statements);
+  const runner = db as {
+    batch?: (stmts: unknown[]) => Promise<unknown>;
+  };
+  if (typeof runner.batch !== "function") return undefined;
+  const result = await runner.batch(statements);
   return Array.isArray(result) ? result : undefined;
 }
 
@@ -230,8 +235,9 @@ function assertLastRun(latestId: string | undefined, id: string): void {
 
 /** `.run()` / `batch()` write, then the same lastRun SELECT `/api/system`
  * uses. INSERT RETURNING + `.first()` is not a D1 write API. Native D1
- * `batch()` is invoked with the binding as `this`; if that throws or the
- * SELECT `.results` are empty, fall through to `.run()` + a row read. */
+ * `batch()` is a method call on the binding (never extracted, never
+ * `.call()`); if that throws or the SELECT `.results` are empty, fall
+ * through to `.run()` + a row read. */
 async function persistAndConfirmLastRun(
   db: D1Runner,
   row: WorkflowRunRecord
@@ -261,8 +267,8 @@ async function persistAndConfirmLastRun(
 }
 
 /** Upsert that must stick before POST /api/admin/ingest returns. Throws
- * after retries if D1 does not show the id as lastRun (`ORDER BY
- * started_at DESC, id DESC LIMIT 1` — same query `/api/system` uses).
+ * after retries if D1 does not show the id as lastRun (epoch-normalized
+ * `started_at` DESC, `id` DESC LIMIT 1 — same query `/api/system` uses).
  * #1413's INSERT…RETURNING `.first()` 500'd the live force POST while
  * lastRun stayed `42d830a9-…`; #1411's WHERE-id SELECT was 2xx for
  * `5419a68e-…` without that row becoming lastRun. */

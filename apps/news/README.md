@@ -56,11 +56,14 @@ skip. Actions SUCCESS is only the POST; poll `GET /api/system` (no admin
 token, `Cache-Control: no-store`) until `lastRun.id` is no longer the
 previous id and `runsToday > 0`. The POST JSON `id` is chosen before
 `NEWS_INGEST.create({ id })` and must be lastRun: D1 `.run()`/`batch()`
-upsert (call `batch` on the binding; do not extract the host method),
-then `SELECT id FROM workflow_runs ORDER BY started_at DESC, id DESC
-LIMIT 1` (the same query `/api/system` uses for `lastRun`). A persist miss
-fails the POST instead of returning a Workflow id. INSERT RETURNING +
-`.first()` is not that proof — D1 write results are empty.
+upsert (`db.batch(stmts)` method call — do not extract the host method
+and do not `.call()` it), then `SELECT id FROM workflow_runs ORDER BY
+CASE WHEN started_at > 1e12 THEN started_at / 1000 ELSE started_at END
+DESC, id DESC LIMIT 1` (the same query `/api/system` uses for `lastRun`).
+A persist miss fails the POST instead of returning a Workflow id.
+INSERT RETURNING + `.first()` is not that proof — D1 write results are
+empty. Native host methods throw `Illegal invocation` for extract and
+for `.call()`.
 Do not invent a scheduled `:05/:20/:35/:50` fire.
 
 ## Admin API / MCP

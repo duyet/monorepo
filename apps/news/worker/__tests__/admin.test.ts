@@ -62,14 +62,19 @@ class FakeD1 {
     }
 
     if (
-      sql.startsWith(
-        "SELECT id FROM workflow_runs ORDER BY started_at DESC, id DESC LIMIT 1"
-      )
+      sql.startsWith("SELECT id FROM workflow_runs") &&
+      sql.includes("ORDER BY") &&
+      sql.includes("LIMIT 1") &&
+      !sql.includes("WHERE")
     ) {
+      const normalize = sql.includes("WHEN started_at");
+      const epoch = (value: unknown): number => {
+        const n = Number(value ?? 0);
+        return normalize && n > 1_000_000_000_000 ? n / 1000 : n;
+      };
       const rows = [...this.workflowRuns].sort(
         (a: Record<string, unknown>, b: Record<string, unknown>): number => {
-          const byStarted =
-            Number(b.started_at ?? 0) - Number(a.started_at ?? 0);
+          const byStarted = epoch(b.started_at) - epoch(a.started_at);
           if (byStarted !== 0) return byStarted;
           return String(b.id ?? "").localeCompare(String(a.id ?? ""));
         }
@@ -954,6 +959,32 @@ describe("triggerIngest", () => {
     const runs = (env.DB as unknown as FakeD1).workflowRuns;
     expect(runs).toHaveLength(1);
     expect(runs[0]?.id).toBe(result.id);
+  });
+
+  it("force persist beats a leftover millisecond lastRun row", async () => {
+    const leftover = "42d830a9-689c-4e9a-9e91-98e812016b97";
+    const env = makeEnv();
+    (env.DB as unknown as FakeD1).workflowRuns.push({
+      id: leftover,
+      started_at: 1_787_761_102_000,
+      finished_at: 1_787_761_102_000,
+      items_fetched: 0,
+      items_new: 0,
+      error: null,
+      stats: "{}",
+    });
+    const result = await triggerIngest(env, { force: true });
+    expect(result.skipped).toBe(false);
+    expect(result.id).not.toBe(leftover);
+    const runs = (env.DB as unknown as FakeD1).workflowRuns;
+    const last = [...runs].sort((a, b) => {
+      const epoch = (value: unknown): number => {
+        const n = Number(value ?? 0);
+        return n > 1_000_000_000_000 ? n / 1000 : n;
+      };
+      return epoch(b.started_at) - epoch(a.started_at);
+    })[0];
+    expect(last?.id).toBe(result.id);
   });
 });
 

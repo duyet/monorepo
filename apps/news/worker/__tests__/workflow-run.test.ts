@@ -10,6 +10,7 @@ import {
   persistWorkflowRun,
   SELECT_LATEST_WORKFLOW_RUN_ID_SQL,
   UPSERT_WORKFLOW_RUN_SQL,
+  WORKFLOW_RUN_STARTED_AT_ORDER_SQL,
 } from "../workflow-run.js";
 
 describe("UPSERT_WORKFLOW_RUN_SQL", () => {
@@ -112,8 +113,11 @@ describe("openedWorkflowRun", () => {
 });
 
 describe("SELECT_LATEST_WORKFLOW_RUN_ID_SQL", () => {
-  it("breaks started_at ties with id DESC so lastRun is deterministic", () => {
+  it("orders lastRun by epoch-normalized started_at so leftover ms rows lose", () => {
     expect(SELECT_LATEST_WORKFLOW_RUN_ID_SQL).toContain(
+      `${WORKFLOW_RUN_STARTED_AT_ORDER_SQL} DESC, id DESC`
+    );
+    expect(SELECT_LATEST_WORKFLOW_RUN_ID_SQL).not.toContain(
       "ORDER BY started_at DESC, id DESC"
     );
   });
@@ -249,12 +253,16 @@ describe("persistOpenedWorkflowRunVerified", () => {
     expect(prepare).toHaveBeenCalled();
   });
 
-  it("invokes native-style D1 batch with the binding as this", async () => {
-    /** Host-object D1 `batch` throws if extracted (`const fn = db.batch`).
-     * #1415's type-check follow-up did that and live force POST 500'd. */
+  it("invokes native-style D1 batch as a method, never Function.prototype.call", async () => {
+    /** Host-object D1 `batch` throws if extracted (`const fn = db.batch`)
+     * and its own `.call`/`.apply` also throw. #1415 extracted; #1417 used
+     * `batch.call(db, stmts)` which native Workers D1 still rejects. */
+    const leftover = "42d830a9-689c-4e9a-9e91-98e812016b97";
+    const callFlag = { usedCall: false };
+
     class HostStyleD1 {
-      lastId = "42d830a9-689c-4e9a-9e91-98e812016b97";
-      started = new Map<string, number>([[this.lastId, 1]]);
+      lastId = leftover;
+      started = new Map<string, number>([[leftover, 1]]);
 
       latest() {
         const id = [...this.started.entries()].sort(
@@ -272,28 +280,27 @@ describe("persistOpenedWorkflowRunVerified", () => {
 
       prepare(sql: string) {
         const isLatest = sql.includes("ORDER BY");
-        return {
-          bind: (...args: unknown[]) => ({
-            run: async () => {
-              const id = args[0] as string;
-              const startedAt = args[1] as number;
-              this.started.set(id, startedAt);
-              return {
-                success: true,
-                meta: { changes: 1, rows_written: 1 },
-                results: [],
-              };
-            },
-            first: async () => this.latest(),
-            all: async () => this.latest(),
-          }),
-          run: async () =>
-            isLatest
-              ? this.latest()
-              : { success: true, meta: { changes: 1 }, results: [] },
+        const run = async () =>
+          isLatest
+            ? this.latest()
+            : { success: true, meta: { changes: 1 }, results: [] };
+        const first = async () => this.latest();
+        const all = async () => this.latest();
+        const bind = (...args: unknown[]) => ({
+          run: async () => {
+            const id = args[0] as string;
+            const startedAt = args[1] as number;
+            this.started.set(id, startedAt);
+            return {
+              success: true,
+              meta: { changes: 1, rows_written: 1 },
+              results: [],
+            };
+          },
           first: async () => this.latest(),
           all: async () => this.latest(),
-        };
+        });
+        return { bind, run, first, all };
       }
 
       async batch(statements: { run: () => Promise<unknown> }[]) {
@@ -308,15 +315,40 @@ describe("persistOpenedWorkflowRunVerified", () => {
       }
     }
 
+    function installIllegalCall(fn: (...args: never[]) => unknown): void {
+      for (const key of ["call", "apply"] as const) {
+        Object.defineProperty(fn, key, {
+          configurable: true,
+          value(..._args: unknown[]) {
+            callFlag.usedCall = true;
+            throw new TypeError(
+              `Illegal invocation: D1 ${key} requires the binding receiver`
+            );
+          },
+        });
+      }
+    }
+
     const db = new HostStyleD1();
+    installIllegalCall(db.batch);
     const extracted = db.batch;
     await expect(extracted([])).rejects.toThrow(/Illegal invocation/);
+    expect(() =>
+      (
+        extracted as unknown as {
+          call: (thisArg: unknown, stmts: unknown[]) => unknown;
+        }
+      ).call(db, [])
+    ).toThrow(/Illegal invocation/);
+    callFlag.usedCall = false;
+
     await persistOpenedWorkflowRunVerified(
       db as unknown as D1Runner,
       "wf-new",
       2,
       "create"
     );
+    expect(callFlag.usedCall).toBe(false);
     expect(db.lastId).toBe("wf-new");
   });
 
@@ -379,5 +411,174 @@ describe("persistOpenedWorkflowRunVerified", () => {
       "create"
     );
     expect(lastId).toBe("wf-new");
+  });
+
+  it("does not treat a leftover millisecond started_at as lastRun after a seconds persist", async () => {
+    const leftover = "42d830a9-689c-4e9a-9e91-98e812016b97";
+    /** Live GET lastRun after JS normalizeTs is 1787761102 (2026-08-26).
+     * If the D1 row is still stored in ms, raw ORDER BY started_at DESC
+     * keeps it above a newer seconds persist and 500s POST. */
+    const leftoverMs = 1_787_761_102_000;
+    const newId = "wf-seconds";
+    const newSeconds = 1_788_000_000;
+
+    class MixedEpochD1 {
+      started = new Map<string, number>([[leftover, leftoverMs]]);
+
+      latest(sql: string) {
+        const normalize = sql.includes("WHEN started_at");
+        const key = (value: number): number =>
+          normalize && value > 1_000_000_000_000 ? value / 1000 : value;
+        const id = [...this.started.entries()].sort(
+          (a, b) => key(b[1]) - key(a[1]) || b[0].localeCompare(a[0])
+        )[0]?.[0];
+        return {
+          id,
+          started_at: id ? this.started.get(id) : undefined,
+          results: id
+            ? [{ id, started_at: this.started.get(id) }]
+            : [],
+        };
+      }
+
+      prepare(sql: string) {
+        const isLatest = sql.includes("ORDER BY");
+        return {
+          bind: (...args: unknown[]) => ({
+            run: async () => {
+              this.started.set(args[0] as string, args[1] as number);
+              return {
+                success: true,
+                meta: { changes: 1, rows_written: 1 },
+                results: [],
+              };
+            },
+            first: async () => this.latest(sql),
+            all: async () => this.latest(sql),
+          }),
+          run: async () =>
+            isLatest
+              ? this.latest(sql)
+              : { success: true, meta: { changes: 1 }, results: [] },
+          first: async () => this.latest(sql),
+          all: async () => this.latest(sql),
+        };
+      }
+    }
+
+    const db = new MixedEpochD1();
+    await persistOpenedWorkflowRunVerified(
+      db as unknown as D1Runner,
+      newId,
+      newSeconds,
+      "create"
+    );
+    expect(db.latest(SELECT_LATEST_WORKFLOW_RUN_ID_SQL).id).toBe(newId);
+  });
+
+  it("invokes D1 statement run/all/first as methods, not extracted .call", async () => {
+    const leftover = "42d830a9-689c-4e9a-9e91-98e812016b97";
+    const callFlag = { usedCall: false };
+
+    function installIllegalCall(fn: (...args: never[]) => unknown): void {
+      for (const key of ["call", "apply"] as const) {
+        Object.defineProperty(fn, key, {
+          configurable: true,
+          value(..._args: unknown[]) {
+            callFlag.usedCall = true;
+            throw new TypeError(
+              `Illegal invocation: D1 ${key} requires the binding receiver`
+            );
+          },
+        });
+      }
+    }
+
+    class HostStatement {
+      constructor(
+        private readonly owner: HostStmtD1,
+        private readonly sql: string,
+        private readonly args: unknown[] = []
+      ) {}
+
+      bind(...args: unknown[]) {
+        if (this == null) {
+          throw new TypeError("Illegal invocation");
+        }
+        return new HostStatement(this.owner, this.sql, args);
+      }
+
+      async run() {
+        if (this == null) {
+          throw new TypeError("Illegal invocation");
+        }
+        if (this.sql.includes("INSERT") && this.args[0]) {
+          this.owner.started.set(
+            this.args[0] as string,
+            this.args[1] as number
+          );
+          return { success: true, meta: { changes: 1 }, results: [] };
+        }
+        return this.owner.latest();
+      }
+
+      async first() {
+        if (this == null) {
+          throw new TypeError("Illegal invocation");
+        }
+        return this.owner.latest();
+      }
+
+      async all() {
+        if (this == null) {
+          throw new TypeError("Illegal invocation");
+        }
+        return this.owner.latest();
+      }
+    }
+
+    class HostStmtD1 {
+      lastId = leftover;
+      started = new Map<string, number>([[leftover, 1]]);
+
+      latest() {
+        const id = [...this.started.entries()].sort(
+          (a, b) => b[1] - a[1] || b[0].localeCompare(a[0])
+        )[0]?.[0];
+        this.lastId = id ?? this.lastId;
+        return {
+          id: this.lastId,
+          started_at: this.started.get(this.lastId),
+          results: [
+            { id: this.lastId, started_at: this.started.get(this.lastId) },
+          ],
+        };
+      }
+
+      prepare(sql: string) {
+        if (this == null) {
+          throw new TypeError("Illegal invocation");
+        }
+        return new HostStatement(this, sql);
+      }
+    }
+
+    const db = new HostStmtD1();
+    installIllegalCall(HostStatement.prototype.run);
+    installIllegalCall(HostStatement.prototype.first);
+    installIllegalCall(HostStatement.prototype.all);
+    installIllegalCall(HostStatement.prototype.bind);
+    installIllegalCall(HostStmtD1.prototype.prepare);
+    const extractedRun = new HostStatement(db, "SELECT 1").run;
+    await expect(extractedRun()).rejects.toThrow(/Illegal invocation/);
+
+    await persistOpenedWorkflowRunVerified(
+      db as unknown as D1Runner,
+      "wf-stmt",
+      2,
+      "create"
+    );
+    expect(callFlag.usedCall).toBe(false);
+    expect(db.lastId).toBe("wf-stmt");
   });
 });
