@@ -56,7 +56,8 @@ skip. Actions SUCCESS is only the POST; poll `GET /api/system` (no admin
 token, `Cache-Control: no-store`) until `lastRun.id` is no longer the
 previous id and `runsToday > 0`. The POST JSON `id` is chosen before
 `NEWS_INGEST.create({ id })` and must be lastRun: D1 `.run()`/`batch()`
-upsert, then `SELECT id FROM workflow_runs ORDER BY started_at DESC, id DESC
+upsert (call `batch` on the binding; do not extract the host method),
+then `SELECT id FROM workflow_runs ORDER BY started_at DESC, id DESC
 LIMIT 1` (the same query `/api/system` uses for `lastRun`). A persist miss
 fails the POST instead of returning a Workflow id. INSERT RETURNING +
 `.first()` is not that proof — D1 write results are empty.

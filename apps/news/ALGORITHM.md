@@ -15,7 +15,10 @@ timeout; a failed score/TL;DR call must not abort close-run. HTTP
 with `.run()` / `batch()` (D1 writes do not populate `.first()` / `.results`)
 then lastRun-verifies** on the Worker D1 binding (`first-primary` session,
 `ORDER BY started_at DESC, id DESC LIMIT 1` — same query `/api/system`
-uses). A 2xx POST cannot happen unless that SELECT returns the POST id.
+uses). Invoke `batch()` as a method on the binding — extracting
+`db.batch` throws `Illegal invocation` on the native host object (#1415
+type-check follow-up, live force POST HTTP 500). A 2xx POST cannot happen
+unless that SELECT returns the POST id.
 Then `NEWS_INGEST.create({ id })` from that isolate. The Durable Object
 only gates the 45-minute coalesce and records last-started. #1413's
 INSERT…RETURNING `.first()` 500'd the live force POST; #1411's WHERE-id
