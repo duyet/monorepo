@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import {
+  type D1Runner,
   ingestRunId,
   jsonMap,
   mapEntries,
@@ -7,9 +8,7 @@ import {
   persistOpenedWorkflowRun,
   persistOpenedWorkflowRunVerified,
   persistWorkflowRun,
-  type D1Runner,
   SELECT_LATEST_WORKFLOW_RUN_ID_SQL,
-  SELECT_WORKFLOW_RUN_ID_SQL,
   UPSERT_WORKFLOW_RUN_SQL,
 } from "../workflow-run.js";
 
@@ -24,7 +23,14 @@ describe("UPSERT_WORKFLOW_RUN_SQL", () => {
     expect(UPSERT_WORKFLOW_RUN_SQL).toContain(
       "started_at = excluded.started_at"
     );
-    expect(UPSERT_WORKFLOW_RUN_SQL).toContain("RETURNING id, started_at");
+    expect(UPSERT_WORKFLOW_RUN_SQL).not.toContain("RETURNING");
+  });
+});
+
+describe("D1Runner", () => {
+  it("accepts D1Database so Env.DB assigns at tickIngest/persist", () => {
+    const use = (_db: D1Runner): void => undefined;
+    use({} as D1Database);
   });
 });
 
@@ -133,11 +139,23 @@ describe("persistOpenedWorkflowRun", () => {
 });
 
 describe("persistOpenedWorkflowRunVerified", () => {
-  it("upserts via RETURNING then confirms lastRun", async () => {
-    const run = vi.fn().mockResolvedValue({ success: true });
+  it("upserts via .run() then confirms lastRun (not INSERT RETURNING)", async () => {
+    const run = vi.fn().mockResolvedValue({
+      success: true,
+      meta: { changes: 1 },
+      results: [],
+    });
     const first = vi.fn().mockResolvedValue({ id: "wf-1", started_at: 1 });
     const bind = vi.fn().mockReturnValue({ run, first });
-    const prepare = vi.fn().mockReturnValue({ bind, first });
+    const prepare = vi.fn((sql: string) => ({
+      bind,
+      first: sql.includes("ORDER BY")
+        ? async () => ({ id: "wf-1", started_at: 1 })
+        : first,
+      run: sql.includes("ORDER BY")
+        ? async () => ({ results: [{ id: "wf-1" }] })
+        : run,
+    }));
     await persistOpenedWorkflowRunVerified(
       { prepare } as D1Runner,
       "wf-1",
@@ -145,29 +163,67 @@ describe("persistOpenedWorkflowRunVerified", () => {
       "create"
     );
     expect(prepare).toHaveBeenCalledWith(UPSERT_WORKFLOW_RUN_SQL);
-    expect(prepare).toHaveBeenCalledWith(SELECT_WORKFLOW_RUN_ID_SQL);
     expect(prepare).toHaveBeenCalledWith(SELECT_LATEST_WORKFLOW_RUN_ID_SQL);
-    expect(first).toHaveBeenCalled();
+    expect(run).toHaveBeenCalled();
+    expect(first).not.toHaveBeenCalled();
   });
 
-  it("throws after retries when RETURNING misses", async () => {
+  it("uses batch write+lastRun SELECT when batch is bound", async () => {
+    const bind = vi.fn().mockReturnValue({
+      run: async () => ({ success: true, meta: { changes: 1 }, results: [] }),
+    });
+    const prepare = vi.fn((sql: string) => ({
+      bind,
+      run: async () =>
+        sql.includes("ORDER BY")
+          ? { results: [{ id: "wf-batch" }] }
+          : { success: true, meta: { changes: 1 }, results: [] },
+    }));
+    const batch = vi.fn(async (stmts: { run: () => Promise<unknown> }[]) => {
+      const results = [];
+      for (const stmt of stmts) results.push(await stmt.run());
+      return results;
+    });
+    await persistOpenedWorkflowRunVerified(
+      { prepare, batch } as D1Runner,
+      "wf-batch",
+      1,
+      "create"
+    );
+    expect(batch).toHaveBeenCalledOnce();
+    expect(prepare).toHaveBeenCalledWith(UPSERT_WORKFLOW_RUN_SQL);
+    expect(prepare).toHaveBeenCalledWith(SELECT_LATEST_WORKFLOW_RUN_ID_SQL);
+    expect(bind).toHaveBeenCalled();
+  });
+
+  it("throws after retries when lastRun SELECT misses", async () => {
     const prepare = vi.fn().mockReturnValue({
       bind: () => ({
-        run: async () => ({ success: true }),
+        run: async () => ({ success: true, meta: { changes: 1 } }),
         first: async () => null,
       }),
       first: async () => null,
+      run: async () => ({ results: [] }),
     });
     await expect(
-      persistOpenedWorkflowRunVerified({ prepare } as D1Runner, "wf-1", 1, "create")
-    ).rejects.toThrow(/RETURNING missed wf-1/);
-    expect(prepare).toHaveBeenCalledTimes(3);
+      persistOpenedWorkflowRunVerified(
+        { prepare } as D1Runner,
+        "wf-1",
+        1,
+        "create"
+      )
+    ).rejects.toThrow(/lastRun is null after persist wf-1/);
+    expect(prepare).toHaveBeenCalled();
   });
 
-  it("throws when RETURNING echoes the id but lastRun is still another row", async () => {
+  it("throws when the write reports success but lastRun is still another row", async () => {
     const prepare = vi.fn((sql: string) => ({
       bind: () => ({
-        run: async () => ({ success: true }),
+        run: async () => ({
+          success: true,
+          meta: { changes: 1 },
+          results: [{ id: "wf-1" }],
+        }),
         first: async () =>
           sql.includes("ORDER BY")
             ? { id: "42d830a9-689c-4e9a-9e91-98e812016b97" }
@@ -177,9 +233,18 @@ describe("persistOpenedWorkflowRunVerified", () => {
         sql.includes("ORDER BY")
           ? { id: "42d830a9-689c-4e9a-9e91-98e812016b97" }
           : { id: "wf-1", started_at: 1 },
+      run: async () =>
+        sql.includes("ORDER BY")
+          ? { results: [{ id: "42d830a9-689c-4e9a-9e91-98e812016b97" }] }
+          : { success: true, meta: { changes: 1 }, results: [{ id: "wf-1" }] },
     }));
     await expect(
-      persistOpenedWorkflowRunVerified({ prepare } as D1Runner, "wf-1", 1, "create")
+      persistOpenedWorkflowRunVerified(
+        { prepare } as D1Runner,
+        "wf-1",
+        1,
+        "create"
+      )
     ).rejects.toThrow(/lastRun is 42d830a9/);
     expect(prepare).toHaveBeenCalled();
   });
