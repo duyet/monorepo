@@ -20,6 +20,7 @@ import {
   type LucideIcon,
   Mail,
   Plug,
+  Puzzle,
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
@@ -86,6 +87,7 @@ const FOOTER_LINKS: {
   icon: LucideIcon;
 }[] = [
   { to: "/about", label: "About", icon: Info },
+  { to: "/extension", label: "Chrome tab", icon: Puzzle },
   { to: "/subscribe", label: "Subscribe", icon: Mail },
   { to: "/mcp", label: "MCP", icon: Plug },
   {

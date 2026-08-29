@@ -218,6 +218,7 @@ async function main() {
     "/changelog",
     "/subscribe",
     "/data",
+    "/extension",
   ];
   for (const route of staticRoutes) {
     await check(`GET ${route} -> 200`, async () => {
@@ -225,6 +226,31 @@ async function main() {
       assert(res.status === 200, `expected 200, got ${res.status}`);
     });
   }
+
+  await check("GET /extension mentions load unpacked", async () => {
+    const res = await fetch(`${base}/extension`);
+    assert(res.status === 200, `expected 200, got ${res.status}`);
+    const body = await res.text();
+    assert(body.includes("Load unpacked"), "guide missing Load unpacked");
+    assert(body.includes("/news-tab.zip"), "guide missing zip href");
+    assert(
+      !body.includes("chrome.google.com/webstore"),
+      "must not invent a Web Store listing"
+    );
+  });
+
+  await check("GET /news-tab.zip is a zip, not HTML", async () => {
+    const res = await fetch(`${base}/news-tab.zip`);
+    assert(res.status === 200, `expected 200, got ${res.status}`);
+    const ctype = res.headers.get("content-type") ?? "";
+    assert(!ctype.includes("text/html"), `zip served as HTML (${ctype})`);
+    const bytes = new Uint8Array(await res.arrayBuffer());
+    assert(bytes.length > 100, `zip too small: ${bytes.length}`);
+    assert(
+      bytes[0] === 0x50 && bytes[1] === 0x4b,
+      "body is not a zip (missing PK)"
+    );
+  });
 
   // 5. Admin API rejects unauthenticated requests.
   await check("GET /api/admin/status without auth -> 401", async () => {

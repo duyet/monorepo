@@ -14,6 +14,7 @@ import { Route as SplatRouteImport } from './routes/$'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ChangelogRouteImport } from './routes/changelog'
 import { Route as DataRouteImport } from './routes/data'
+import { Route as ExtensionRouteImport } from './routes/extension'
 import { Route as MailRouteImport } from './routes/mail'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as SubmitRouteImport } from './routes/submit'
@@ -50,6 +51,11 @@ const ChangelogRoute = ChangelogRouteImport.update({
 const DataRoute = DataRouteImport.update({
   id: '/data',
   path: '/data',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExtensionRoute = ExtensionRouteImport.update({
+  id: '/extension',
+  path: '/extension',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MailRoute = MailRouteImport.update({
@@ -119,6 +125,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/changelog': typeof ChangelogRoute
   '/data': typeof DataRoute
+  '/extension': typeof ExtensionRoute
   '/mail': typeof MailRoute
   '/mcp': typeof McpRoute
   '/submit': typeof SubmitRoute
@@ -138,6 +145,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/changelog': typeof ChangelogRoute
   '/data': typeof DataRoute
+  '/extension': typeof ExtensionRoute
   '/mail': typeof MailRoute
   '/mcp': typeof McpRoute
   '/submit': typeof SubmitRoute
@@ -158,6 +166,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/changelog': typeof ChangelogRoute
   '/data': typeof DataRoute
+  '/extension': typeof ExtensionRoute
   '/mail': typeof MailRoute
   '/mcp': typeof McpRoute
   '/submit': typeof SubmitRoute
@@ -179,6 +188,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/changelog'
     | '/data'
+    | '/extension'
     | '/mail'
     | '/mcp'
     | '/submit'
@@ -198,6 +208,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/changelog'
     | '/data'
+    | '/extension'
     | '/mail'
     | '/mcp'
     | '/submit'
@@ -217,6 +228,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/changelog'
     | '/data'
+    | '/extension'
     | '/mail'
     | '/mcp'
     | '/submit'
@@ -237,6 +249,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ChangelogRoute: typeof ChangelogRoute
   DataRoute: typeof DataRoute
+  ExtensionRoute: typeof ExtensionRoute
   MailRoute: typeof MailRoute
   McpRoute: typeof McpRoute
   SubmitRoute: typeof SubmitRoute
@@ -286,6 +299,13 @@ declare module '@tanstack/react-router' {
       path: '/data'
       fullPath: '/data'
       preLoaderRoute: typeof DataRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/extension': {
+      id: '/extension'
+      path: '/extension'
+      fullPath: '/extension'
+      preLoaderRoute: typeof ExtensionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mail': {
@@ -381,6 +401,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ChangelogRoute: ChangelogRoute,
   DataRoute: DataRoute,
+  ExtensionRoute: ExtensionRoute,
   MailRoute: MailRoute,
   McpRoute: McpRoute,
   SubmitRoute: SubmitRoute,

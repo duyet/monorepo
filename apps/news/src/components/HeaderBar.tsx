@@ -23,6 +23,7 @@ const LANG_TOGGLE_DISABLED_PATHS = new Set(["/data", "/about", "/mail"]);
 const SITE_LINKS = [
   { href: "/", label: "News", internal: true },
   { href: "/about", label: "About", internal: true },
+  { href: "/extension", label: "Chrome tab", internal: true },
   { href: "/mcp", label: "MCP", internal: true },
   { href: "/subscribe", label: "Subscribe", internal: true },
   { href: "/data", label: "Data", internal: true },
@@ -192,6 +193,12 @@ export function HeaderBar({
           <SearchBox placeholder={searchPlaceholder} lang={lang} />
         </div>
         <div className="flex shrink-0 items-center gap-1.5">
+          <Link
+            to="/extension"
+            className="text-xs font-semibold text-muted-foreground hover:text-accent"
+          >
+            {lang === "vi" ? "Tab Chrome" : "Chrome tab"}
+          </Link>
           <Link
             to="/submit"
             className="flex items-center gap-1 rounded-full border border-border px-2 py-0.5 text-xs font-semibold text-muted-foreground hover:border-accent hover:text-accent"

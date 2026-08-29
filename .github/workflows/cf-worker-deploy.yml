@@ -9,6 +9,9 @@ on:
       - 'apps/agent-api/**'
       - 'apps/api/**'
       - 'apps/news/**'
+      # news build zips apps/news-tab into public/news-tab.zip (not a
+      # separate Worker; news-tab has no wrangler.toml).
+      - 'apps/news-tab/**'
       # news bundles @duyet/{components,libs,urls,config} into its client
       # build, so shared-package changes ship to it too.
       - 'packages/**'
@@ -60,6 +63,7 @@ jobs:
               - 'apps/api/**'
             news:
               - 'apps/news/**'
+              - 'apps/news-tab/**'
               - 'packages/**'
 
   deploy-agents-api:
