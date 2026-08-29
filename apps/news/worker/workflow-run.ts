@@ -5,9 +5,12 @@ import { buildRunStats, serializeRunStats } from "./run-stats.js";
  * replay, a JS `finally`, and the durable `close-run` step can all write
  * the same `workflow_runs.id` without failing the instance.
  * `started_at` is updated on conflict so lastRun ORDER BY cannot keep an
- * older row on top. RETURNING is the write-path proof #1411's separate
- * `WHERE id = ?` SELECT did not provide (live POST `5419a68e-…` was 2xx
- * with no lastRun row). */
+ * older row on top.
+ *
+ * No RETURNING: D1 `.first()` / `.run().results` are empty for INSERT
+ * (`results` is empty for writes). #1413 used INSERT…RETURNING + `.first()`
+ * as write-path proof; live force POST then HTTP 500'd (`RETURNING missed`)
+ * and lastRun stayed `42d830a9-…`. Writes go through `.run()` / `batch()`. */
 export const UPSERT_WORKFLOW_RUN_SQL = `INSERT INTO workflow_runs (id, started_at, finished_at, items_fetched, items_new, error, stats)
 VALUES (?, ?, ?, ?, ?, ?, ?)
 ON CONFLICT(id) DO UPDATE SET
@@ -16,17 +19,12 @@ ON CONFLICT(id) DO UPDATE SET
   items_fetched = excluded.items_fetched,
   items_new = excluded.items_new,
   error = excluded.error,
-  stats = excluded.stats
-RETURNING id, started_at`;
-
-/** Read-your-writes check after the HTTP create-path upsert so POST does
- * not return an id that `/api/system` cannot see. */
-export const SELECT_WORKFLOW_RUN_ID_SQL =
-  "SELECT id FROM workflow_runs WHERE id = ?";
+  stats = excluded.stats`;
 
 /** Same ordering `/api/system` uses for lastRun. `id DESC` breaks ties when
  * two rows share a second-precision `started_at` (concurrent force/alarm).
- * A WHERE-id hit that is not this row is still a phantom for recert. */
+ * This SELECT — not WHERE-id and not INSERT RETURNING — is the 2xx gate:
+ * a bind-echo or write-shaped `{id}` is not lastRun. */
 export const SELECT_LATEST_WORKFLOW_RUN_ID_SQL =
   "SELECT id FROM workflow_runs ORDER BY started_at DESC, id DESC LIMIT 1";
 
@@ -51,11 +49,15 @@ export interface D1BoundStatement {
 export interface D1PreparedStatement {
   bind: (...args: unknown[]) => D1BoundStatement;
   first?: <T>() => Promise<T | null>;
+  run?: () => Promise<unknown>;
 }
 
 export interface D1Runner {
   prepare: (sql: string) => D1PreparedStatement;
   withSession?: (constraint: string) => D1Runner;
+  batch?: (
+    statements: Array<D1BoundStatement | D1PreparedStatement>
+  ) => Promise<unknown[]>;
 }
 
 function d1RunFailed(result: unknown): boolean {
@@ -69,8 +71,9 @@ function d1RunFailed(result: unknown): boolean {
 
 function d1DidNotWrite(result: unknown): boolean {
   if (!result || typeof result !== "object") return false;
-  const meta = (result as { meta?: { changes?: unknown; rows_written?: unknown } })
-    .meta;
+  const meta = (
+    result as { meta?: { changes?: unknown; rows_written?: unknown } }
+  ).meta;
   if (!meta) return false;
   const written =
     typeof meta.changes === "number"
@@ -87,7 +90,11 @@ export function d1RowId(result: unknown): string | undefined {
   const rec = result as { id?: unknown; results?: unknown[] };
   if (typeof rec.id === "string" && rec.id.length > 0) return rec.id;
   const row = Array.isArray(rec.results) ? rec.results[0] : undefined;
-  if (row && typeof row === "object" && typeof (row as { id?: unknown }).id === "string") {
+  if (
+    row &&
+    typeof row === "object" &&
+    typeof (row as { id?: unknown }).id === "string"
+  ) {
     const id = (row as { id: string }).id;
     if (id.length > 0) return id;
   }
@@ -105,24 +112,8 @@ export async function persistWorkflowRun(
   db: D1Runner,
   row: WorkflowRunRecord
 ): Promise<void> {
-  const result = await db
-    .prepare(UPSERT_WORKFLOW_RUN_SQL)
-    .bind(
-      nn(row.id),
-      nn(row.startedAt),
-      nn(row.finishedAt),
-      nn(row.itemsFetched),
-      nn(row.itemsNew),
-      nn(row.error),
-      nn(row.statsJson)
-    )
-    .run();
-  if (d1RunFailed(result)) {
-    throw new Error("workflow_runs upsert returned success=false");
-  }
-  if (d1DidNotWrite(result)) {
-    throw new Error("workflow_runs upsert wrote 0 rows");
-  }
+  const result = await boundUpsert(db, row).run();
+  assertWriteOk(result);
 }
 
 export type OpenedRunStepName = "create" | "open-run";
@@ -166,11 +157,8 @@ export async function persistOpenedWorkflowRun(
   }
 }
 
-async function returningWorkflowRunRow(
-  db: D1Runner,
-  row: WorkflowRunRecord
-): Promise<void> {
-  const bound = db
+function boundUpsert(db: D1Runner, row: WorkflowRunRecord): D1BoundStatement {
+  return db
     .prepare(UPSERT_WORKFLOW_RUN_SQL)
     .bind(
       nn(row.id),
@@ -181,38 +169,64 @@ async function returningWorkflowRunRow(
       nn(row.error),
       nn(row.statsJson)
     );
-  const written = await bound.first<{ id: string; started_at?: number }>();
-  if (d1RowId(written) !== row.id) {
-    throw new Error(`workflow_runs RETURNING missed ${row.id}`);
+}
+
+async function readLatestWorkflowRunId(
+  db: D1Runner
+): Promise<string | undefined> {
+  const stmt = db.prepare(SELECT_LATEST_WORKFLOW_RUN_ID_SQL);
+  if (typeof stmt.run === "function") {
+    return d1RowId(await stmt.run());
+  }
+  if (typeof stmt.first === "function") {
+    return d1RowId(await stmt.first<{ id: string }>());
+  }
+  return d1RowId(await stmt.bind().first<{ id: string }>());
+}
+
+function assertWriteOk(result: unknown): void {
+  if (d1RunFailed(result)) {
+    throw new Error("workflow_runs upsert returned success=false");
+  }
+  if (d1DidNotWrite(result)) {
+    throw new Error("workflow_runs upsert wrote 0 rows");
   }
 }
 
-async function verifyWorkflowRunIsLastRun(
-  db: D1Runner,
-  id: string
-): Promise<void> {
-  const byId = await db
-    .prepare(SELECT_WORKFLOW_RUN_ID_SQL)
-    .bind(id)
-    .first<{ id: string }>();
-  if (d1RowId(byId) !== id) {
-    throw new Error(`workflow_runs verify missed ${id}`);
-  }
-  const latestStmt = db.prepare(SELECT_LATEST_WORKFLOW_RUN_ID_SQL);
-  const latest = latestStmt.first
-    ? await latestStmt.first<{ id: string }>()
-    : await latestStmt.bind().first<{ id: string }>();
-  if (d1RowId(latest) !== id) {
+function assertLastRun(latestId: string | undefined, id: string): void {
+  if (latestId !== id) {
     throw new Error(
-      `workflow_runs lastRun is ${d1RowId(latest) ?? "null"} after persist ${id}`
+      `workflow_runs lastRun is ${latestId ?? "null"} after persist ${id}`
     );
   }
 }
 
+/** `.run()` / `batch()` write, then the same lastRun SELECT `/api/system`
+ * uses. INSERT RETURNING + `.first()` is not a D1 write API. */
+async function persistAndConfirmLastRun(
+  db: D1Runner,
+  row: WorkflowRunRecord
+): Promise<void> {
+  const upsert = boundUpsert(db, row);
+  if (typeof db.batch === "function") {
+    const latestStmt = db.prepare(SELECT_LATEST_WORKFLOW_RUN_ID_SQL);
+    const [writeResult, latestResult] = await db.batch([upsert, latestStmt]);
+    assertWriteOk(writeResult);
+    // Second batch result only — INSERT `{id}` / empty `.results` is not lastRun.
+    assertLastRun(d1RowId(latestResult), row.id);
+    return;
+  }
+  const writeResult = await upsert.run();
+  assertWriteOk(writeResult);
+  assertLastRun(await readLatestWorkflowRunId(db), row.id);
+}
+
 /** Upsert that must stick before POST /api/admin/ingest returns. Throws
- * after retries if D1 does not RETURN the id and show it as lastRun —
- * #1411's WHERE-id SELECT still let live POST `5419a68e-…` return 2xx
- * while `/api/system` lastRun stayed `42d830a9-…`. */
+ * after retries if D1 does not show the id as lastRun (`ORDER BY
+ * started_at DESC, id DESC LIMIT 1` — same query `/api/system` uses).
+ * #1413's INSERT…RETURNING `.first()` 500'd the live force POST while
+ * lastRun stayed `42d830a9-…`; #1411's WHERE-id SELECT was 2xx for
+ * `5419a68e-…` without that row becoming lastRun. */
 export async function persistOpenedWorkflowRunVerified(
   db: D1Runner,
   id: string,
@@ -224,8 +238,7 @@ export async function persistOpenedWorkflowRunVerified(
   let lastError: unknown;
   for (let attempt = 1; attempt <= PERSIST_ATTEMPTS; attempt++) {
     try {
-      await returningWorkflowRunRow(session, row);
-      await verifyWorkflowRunIsLastRun(session, id);
+      await persistAndConfirmLastRun(session, row);
       return;
     } catch (error) {
       lastError = error;

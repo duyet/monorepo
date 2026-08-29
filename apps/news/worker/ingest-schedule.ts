@@ -137,7 +137,7 @@ export async function persistCreatedIngestRun(
 }
 
 /** Must succeed before `create()` / POST 2xx. Throws if D1 is unbound or
- * does not read back the row as lastRun. */
+ * lastRun (`ORDER BY started_at DESC, id DESC LIMIT 1`) is not this id. */
 export async function persistCreatedIngestRunVerified(
   db: D1Runner | undefined,
   result: IngestTickResult

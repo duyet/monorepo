@@ -11,13 +11,16 @@ Both paths coalesce: a new instance is skipped if one started in the last
 45 minutes. `POST /api/admin/ingest?force=1` (workflow_dispatch) bypasses
 the window. LLM-heavy Workflow steps use `retries: 0` and a 4-minute
 timeout; a failed score/TL;DR call must not abort close-run. HTTP
-`POST /api/admin/ingest` picks the instance uuid, **upserts with
-RETURNING and lastRun-verifies** `workflow_runs` on the Worker D1
-binding (`first-primary` session), then `NEWS_INGEST.create({ id })`
-from that isolate. The Durable Object only gates the 45-minute
-coalesce and records last-started. A failed persist must fail the
-POST — #1411's WHERE-id SELECT still returned 2xx for
-`5419a68e-…` while lastRun stayed `42d830a9-…`. `run()` still upserts at start
+`POST /api/admin/ingest` picks the instance uuid, **upserts `workflow_runs`
+with `.run()` / `batch()` (D1 writes do not populate `.first()` / `.results`)
+then lastRun-verifies** on the Worker D1 binding (`first-primary` session,
+`ORDER BY started_at DESC, id DESC LIMIT 1` — same query `/api/system`
+uses). A 2xx POST cannot happen unless that SELECT returns the POST id.
+Then `NEWS_INGEST.create({ id })` from that isolate. The Durable Object
+only gates the 45-minute coalesce and records last-started. #1413's
+INSERT…RETURNING `.first()` 500'd the live force POST; #1411's WHERE-id
+SELECT was 2xx for `5419a68e-…` while lastRun stayed `42d830a9-…`.
+`run()` still upserts at start
 **before** `pruneLlmCalls` / fetch / LLM. Do not wrap `open-run` in
 `safeStep`. Score and
 TL;DR hang-cap per model at 70s/90s (translate stays 25s). Do not treat

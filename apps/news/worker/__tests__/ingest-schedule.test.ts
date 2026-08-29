@@ -15,32 +15,40 @@ import {
 import {
   type D1Runner,
   SELECT_LATEST_WORKFLOW_RUN_ID_SQL,
-  SELECT_WORKFLOW_RUN_ID_SQL,
   UPSERT_WORKFLOW_RUN_SQL,
 } from "../workflow-run.js";
 
-function trackingDb(order: string[], lastRunId?: { current: string }): D1Runner {
+function trackingDb(
+  order: string[],
+  lastRunId?: { current: string }
+): D1Runner {
   const prepare = vi.fn((sql: string) => {
     if (sql.startsWith("INSERT")) order.push("persist");
     else if (sql.includes("ORDER BY")) order.push("verify-last");
     else order.push("verify");
+    const row = () => {
+      const id = lastRunId?.current;
+      return {
+        success: true,
+        meta: { changes: 1, rows_written: 1 },
+        results: [{ id, started_at: 1 }],
+        id,
+        started_at: 1,
+      };
+    };
     return {
       bind: (...args: unknown[]) => {
         if (typeof args[0] === "string" && lastRunId) {
           lastRunId.current = args[0];
         }
-        const id = (args[0] as string | undefined) ?? lastRunId?.current;
         return {
-          run: async () => ({
-            success: true,
-            meta: { changes: 1, rows_written: 1 },
-            results: [{ id, started_at: 1 }],
-          }),
-          first: async <T>() => ({ id, started_at: 1 }) as T,
+          run: async () => row(),
+          first: async <T>() =>
+            ({ id: lastRunId?.current, started_at: 1 }) as T,
         };
       },
-      first: async <T>() =>
-        ({ id: lastRunId?.current, started_at: 1 }) as T,
+      first: async <T>() => ({ id: lastRunId?.current, started_at: 1 }) as T,
+      run: async () => row(),
     };
   });
   return { prepare };
@@ -121,10 +129,9 @@ describe("tickIngest", () => {
       NEWS_INGEST: { create } as unknown as Workflow,
     });
     expect(result.skipped).toBe(false);
-    expect(order).toEqual(["persist", "verify", "verify-last", "create"]);
+    expect(order).toEqual(["persist", "verify-last", "create"]);
     expect(create).toHaveBeenCalledWith({ id: result.id });
     expect(db.prepare).toHaveBeenCalledWith(UPSERT_WORKFLOW_RUN_SQL);
-    expect(db.prepare).toHaveBeenCalledWith(SELECT_WORKFLOW_RUN_ID_SQL);
     expect(db.prepare).toHaveBeenCalledWith(SELECT_LATEST_WORKFLOW_RUN_ID_SQL);
   });
 
@@ -168,14 +175,7 @@ describe("tickIngest", () => {
     expect(startInstance).not.toHaveBeenCalled();
     expect(create).toHaveBeenCalledWith({ id: result.id });
     expect(markStarted).toHaveBeenCalledWith(result.id);
-    expect(order).toEqual([
-      "gate",
-      "persist",
-      "verify",
-      "verify-last",
-      "create",
-      "mark",
-    ]);
+    expect(order).toEqual(["gate", "persist", "verify-last", "create", "mark"]);
     expect(db.prepare).toHaveBeenCalledWith(UPSERT_WORKFLOW_RUN_SQL);
   });
 
@@ -258,7 +258,7 @@ describe("tickIngest", () => {
         } as unknown as DurableObjectNamespace,
       })
     ).rejects.toThrow(/workflow create rejected/);
-    expect(order).toEqual(["persist", "verify", "verify-last", "create"]);
+    expect(order).toEqual(["persist", "verify-last", "create"]);
     expect(markStarted).not.toHaveBeenCalled();
   });
 
@@ -314,20 +314,21 @@ describe("persistCreatedIngestRunVerified", () => {
     ).rejects.toThrow(/requires DB/);
   });
 
-  it("throws when D1 does not RETURN the row", async () => {
+  it("throws when lastRun SELECT does not return the persisted id", async () => {
     const prepare = vi.fn().mockReturnValue({
       bind: () => ({
-        run: async () => ({ success: true }),
+        run: async () => ({ success: true, meta: { changes: 1 } }),
         first: async () => null,
       }),
       first: async () => null,
+      run: async () => ({ results: [] }),
     });
     await expect(
       persistCreatedIngestRunVerified(
         { prepare },
         { id: "wf-missing", skipped: false }
       )
-    ).rejects.toThrow(/RETURNING missed wf-missing/);
+    ).rejects.toThrow(/lastRun is null after persist wf-missing/);
   });
 });
 
