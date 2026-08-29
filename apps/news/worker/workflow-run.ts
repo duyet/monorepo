@@ -50,6 +50,7 @@ export interface D1PreparedStatement {
   bind: (...args: unknown[]) => D1BoundStatement;
   first?: <T>() => Promise<T | null>;
   run?: () => Promise<unknown>;
+  all?: () => Promise<{ results?: unknown[] } | unknown>;
 }
 
 /** Structural subset of `D1Database` / `D1DatabaseSession` so `Env.DB` stays
@@ -109,13 +110,21 @@ export function d1Session(db: D1Runner): D1Runner {
   return db;
 }
 
-/** Duck-typed D1 `batch()`. Kept off `D1Runner` so `D1Database` assigns. */
-function d1BatchFn(
-  db: D1Runner
-): ((statements: unknown[]) => Promise<unknown[]>) | undefined {
+/** Duck-typed D1 `batch()`, always invoked with the binding as `this`.
+ * Kept off `D1Runner` so `D1Database` assigns. Do not extract
+ * `const batch = db.batch` and call it unbound: native Workers D1 host
+ * methods throw `Illegal invocation` (#1415 type-check follow-up, live
+ * force POST HTTP 500, lastRun stayed `42d830a9-…`). */
+async function d1Batch(
+  db: D1Runner,
+  statements: unknown[]
+): Promise<unknown[] | undefined> {
   const batch = (db as { batch?: unknown }).batch;
   if (typeof batch !== "function") return undefined;
-  return batch as (statements: unknown[]) => Promise<unknown[]>;
+  const result = await (
+    batch as (this: unknown, stmts: unknown[]) => unknown
+  ).call(db, statements);
+  return Array.isArray(result) ? result : undefined;
 }
 
 export async function persistWorkflowRun(
@@ -185,11 +194,19 @@ async function readLatestWorkflowRunId(
   db: D1Runner
 ): Promise<string | undefined> {
   const stmt = db.prepare(SELECT_LATEST_WORKFLOW_RUN_ID_SQL);
-  if (typeof stmt.run === "function") {
-    return d1RowId(await stmt.run());
+  // Prefer row-returning APIs. `.run()` on a write is empty `.results`
+  // (#1413); a SELECT `.run()` that also comes back empty is not lastRun.
+  if (typeof stmt.all === "function") {
+    const id = d1RowId(await stmt.all());
+    if (id) return id;
   }
   if (typeof stmt.first === "function") {
-    return d1RowId(await stmt.first<{ id: string }>());
+    const id = d1RowId(await stmt.first<{ id: string }>());
+    if (id) return id;
+  }
+  if (typeof stmt.run === "function") {
+    const id = d1RowId(await stmt.run());
+    if (id) return id;
   }
   return d1RowId(await stmt.bind().first<{ id: string }>());
 }
@@ -212,23 +229,34 @@ function assertLastRun(latestId: string | undefined, id: string): void {
 }
 
 /** `.run()` / `batch()` write, then the same lastRun SELECT `/api/system`
- * uses. INSERT RETURNING + `.first()` is not a D1 write API. */
+ * uses. INSERT RETURNING + `.first()` is not a D1 write API. Native D1
+ * `batch()` is invoked with the binding as `this`; if that throws or the
+ * SELECT `.results` are empty, fall through to `.run()` + a row read. */
 async function persistAndConfirmLastRun(
   db: D1Runner,
   row: WorkflowRunRecord
 ): Promise<void> {
   const upsert = boundUpsert(db, row);
-  const batch = d1BatchFn(db);
-  if (batch) {
-    const latestStmt = db.prepare(SELECT_LATEST_WORKFLOW_RUN_ID_SQL);
-    const [writeResult, latestResult] = await batch([upsert, latestStmt]);
-    assertWriteOk(writeResult);
-    // Second batch result only — INSERT `{id}` / empty `.results` is not lastRun.
-    assertLastRun(d1RowId(latestResult), row.id);
-    return;
+  let wrote = false;
+  if (typeof (db as { batch?: unknown }).batch === "function") {
+    try {
+      const batched = await d1Batch(db, [
+        upsert,
+        db.prepare(SELECT_LATEST_WORKFLOW_RUN_ID_SQL),
+      ]);
+      if (batched && batched.length >= 2) {
+        assertWriteOk(batched[0]);
+        wrote = true;
+        // Second batch result only — INSERT `{id}` / empty `.results` is not lastRun.
+        if (d1RowId(batched[1]) === row.id) return;
+      }
+    } catch (error) {
+      console.error("create d1 batch failed:", error);
+    }
   }
-  const writeResult = await upsert.run();
-  assertWriteOk(writeResult);
+  if (!wrote) {
+    assertWriteOk(await upsert.run());
+  }
   assertLastRun(await readLatestWorkflowRunId(db), row.id);
 }
 

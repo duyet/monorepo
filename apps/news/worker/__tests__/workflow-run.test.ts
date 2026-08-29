@@ -248,4 +248,136 @@ describe("persistOpenedWorkflowRunVerified", () => {
     ).rejects.toThrow(/lastRun is 42d830a9/);
     expect(prepare).toHaveBeenCalled();
   });
+
+  it("invokes native-style D1 batch with the binding as this", async () => {
+    /** Host-object D1 `batch` throws if extracted (`const fn = db.batch`).
+     * #1415's type-check follow-up did that and live force POST 500'd. */
+    class HostStyleD1 {
+      lastId = "42d830a9-689c-4e9a-9e91-98e812016b97";
+      started = new Map<string, number>([[this.lastId, 1]]);
+
+      latest() {
+        const id = [...this.started.entries()].sort(
+          (a, b) => b[1] - a[1] || b[0].localeCompare(a[0])
+        )[0]?.[0];
+        this.lastId = id ?? this.lastId;
+        return {
+          id: this.lastId,
+          started_at: this.started.get(this.lastId),
+          results: [
+            { id: this.lastId, started_at: this.started.get(this.lastId) },
+          ],
+        };
+      }
+
+      prepare(sql: string) {
+        const isLatest = sql.includes("ORDER BY");
+        return {
+          bind: (...args: unknown[]) => ({
+            run: async () => {
+              const id = args[0] as string;
+              const startedAt = args[1] as number;
+              this.started.set(id, startedAt);
+              return {
+                success: true,
+                meta: { changes: 1, rows_written: 1 },
+                results: [],
+              };
+            },
+            first: async () => this.latest(),
+            all: async () => this.latest(),
+          }),
+          run: async () =>
+            isLatest
+              ? this.latest()
+              : { success: true, meta: { changes: 1 }, results: [] },
+          first: async () => this.latest(),
+          all: async () => this.latest(),
+        };
+      }
+
+      async batch(statements: { run: () => Promise<unknown> }[]) {
+        if (this == null || typeof this.prepare !== "function") {
+          throw new TypeError(
+            "Illegal invocation: D1Database.batch requires the binding receiver"
+          );
+        }
+        const results = [];
+        for (const stmt of statements) results.push(await stmt.run());
+        return results;
+      }
+    }
+
+    const db = new HostStyleD1();
+    const extracted = db.batch;
+    await expect(extracted([])).rejects.toThrow(/Illegal invocation/);
+    await persistOpenedWorkflowRunVerified(
+      db as unknown as D1Runner,
+      "wf-new",
+      2,
+      "create"
+    );
+    expect(db.lastId).toBe("wf-new");
+  });
+
+  it("falls back to .run() + lastRun SELECT when batch throws", async () => {
+    let lastId = "42d830a9-689c-4e9a-9e91-98e812016b97";
+    const prepare = vi.fn((sql: string) => ({
+      bind: (...args: unknown[]) => ({
+        run: async () => {
+          lastId = args[0] as string;
+          return { success: true, meta: { changes: 1 }, results: [] };
+        },
+        first: async () => ({ id: lastId }),
+      }),
+      first: async () => ({ id: lastId }),
+      all: async () => ({ results: [{ id: lastId }] }),
+      run: async () =>
+        sql.includes("ORDER BY")
+          ? { results: [{ id: lastId }] }
+          : { success: true, meta: { changes: 1 }, results: [] },
+    }));
+    const batch = vi.fn(async () => {
+      throw new TypeError("Illegal invocation");
+    });
+    await persistOpenedWorkflowRunVerified(
+      { prepare, batch } as D1Runner,
+      "wf-fallback",
+      2,
+      "create"
+    );
+    expect(batch).toHaveBeenCalled();
+    expect(lastId).toBe("wf-fallback");
+  });
+
+  it("does not treat empty D1 write-shaped batch SELECT results as lastRun", async () => {
+    let lastId = "42d830a9-689c-4e9a-9e91-98e812016b97";
+    const prepare = vi.fn((sql: string) => ({
+      bind: (...args: unknown[]) => ({
+        run: async () => {
+          lastId = args[0] as string;
+          return { success: true, meta: { changes: 1 }, results: [] };
+        },
+        first: async () => ({ id: lastId }),
+      }),
+      first: async () => ({ id: lastId }),
+      all: async () => ({ results: [{ id: lastId }] }),
+      run: async () =>
+        sql.includes("ORDER BY")
+          ? { success: true, meta: {}, results: [] }
+          : { success: true, meta: { changes: 1 }, results: [] },
+    }));
+    const batch = vi.fn(async (stmts: { run: () => Promise<unknown> }[]) => {
+      const results = [];
+      for (const stmt of stmts) results.push(await stmt.run());
+      return results;
+    });
+    await persistOpenedWorkflowRunVerified(
+      { prepare, batch } as D1Runner,
+      "wf-new",
+      2,
+      "create"
+    );
+    expect(lastId).toBe("wf-new");
+  });
 });
