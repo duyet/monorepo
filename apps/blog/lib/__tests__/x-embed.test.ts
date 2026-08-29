@@ -6,6 +6,7 @@ import {
   parseTweetId,
   parseTweetUrl,
   TWEET_EMBED_WRAP_CLASS,
+  TWEET_ROW_CLASS,
 } from "../x-embed";
 
 describe("parseTweetId", () => {
@@ -87,6 +88,7 @@ https://x.com/_duyet/status/2089665924454633766</p>
 </blockquote>`;
     const out = embedXPosts(html);
     expect(out).toContain(`class="${TWEET_EMBED_WRAP_CLASS}"`);
+    expect(out).not.toContain(`class="${TWEET_ROW_CLASS}"`);
     expect(out).toContain('class="twitter-tweet"');
     expect(out).toContain("Wait, I can install Tailscale");
     expect(out).toContain(
@@ -113,6 +115,7 @@ https://x.com/_duyet/status/2089665924454633766</p>
     const html = `<p>https://twitter.com/_duyet/status/2070880670852005898</p>`;
     const out = embedXPosts(html);
     expect(out).toContain(`class="${TWEET_EMBED_WRAP_CLASS}"`);
+    expect(out).not.toContain(`class="${TWEET_ROW_CLASS}"`);
     expect(out).toContain('<blockquote class="twitter-tweet">');
     expect(out).toContain("2070880670852005898");
     expect(out).toContain("<p>");
@@ -145,8 +148,67 @@ https://x.com/_duyet/status/2089665924454633766</p>
     const html = `<blockquote class="twitter-tweet"><p>hi</p><a href="https://x.com/_duyet/status/1">1</a></blockquote>`;
     const once = embedXPosts(html);
     expect(once).toContain(`class="${TWEET_EMBED_WRAP_CLASS}"`);
+    expect(once).not.toContain(`class="${TWEET_ROW_CLASS}"`);
     expect(once).toContain('<blockquote class="twitter-tweet">');
     expect(embedXPosts(once)).toBe(once);
+  });
+
+  test("puts two consecutive embeds in one tweet-row", () => {
+    const html = `<blockquote>
+<p>Every company still needs some drama.
+https://x.com/_duyet/status/2093007340824035383</p>
+</blockquote>
+<blockquote>
+<p>Since the Grok bot has its own desktop computer.
+https://x.com/_duyet/status/2089687655458259272</p>
+</blockquote>`;
+    const out = embedXPosts(html);
+    expect(out.match(/twitter-tweet/g) ?? []).toHaveLength(2);
+    expect(out.match(/x-embed/g) ?? []).toHaveLength(2);
+    expect(
+      out.match(new RegExp(`class="${TWEET_ROW_CLASS}"`, "g")) ?? []
+    ).toHaveLength(1);
+    expect(out).toMatch(
+      new RegExp(
+        `<div class="${TWEET_ROW_CLASS}">[\\s\\S]*x-embed[\\s\\S]*x-embed[\\s\\S]*</div>`
+      )
+    );
+    expect(embedXPosts(out)).toBe(out);
+  });
+
+  test("does not row a single embed or embeds split by prose", () => {
+    const html = `<blockquote>
+<p>Quote one.
+https://x.com/_duyet/status/2093007340824035383</p>
+</blockquote>
+<p>They have schedules.</p>
+<blockquote>
+<p>Quote two.
+https://x.com/_duyet/status/2089687655458259272</p>
+</blockquote>`;
+    const out = embedXPosts(html);
+    expect(out.match(/twitter-tweet/g) ?? []).toHaveLength(2);
+    expect(out).not.toContain(`class="${TWEET_ROW_CLASS}"`);
+    expect(out).toContain("They have schedules.");
+  });
+
+  test("leaves an explicit tweet-row wrapper alone", () => {
+    const html = `<div class="${TWEET_ROW_CLASS}">
+<blockquote>
+<p>Quote one.
+https://x.com/_duyet/status/2093007340824035383</p>
+</blockquote>
+<blockquote>
+<p>Quote two.
+https://x.com/_duyet/status/2089687655458259272</p>
+</blockquote>
+</div>`;
+    const out = embedXPosts(html);
+    expect(
+      out.match(new RegExp(`class="${TWEET_ROW_CLASS}"`, "g")) ?? []
+    ).toHaveLength(1);
+    expect(out.match(/x-embed/g) ?? []).toHaveLength(2);
+    expect(embedXPosts(out)).toBe(out);
   });
 
   test("converts grok-bot-style quotes and leaves the lead and inline link alone", () => {
@@ -182,6 +244,9 @@ https://x.com/_duyet/status/2089665924454633766</p>
     const embeds = out.match(/twitter-tweet/g) ?? [];
     expect(embeds).toHaveLength(6);
     expect(out.match(/x-embed/g) ?? []).toHaveLength(6);
+    expect(
+      out.match(new RegExp(`class="${TWEET_ROW_CLASS}"`, "g")) ?? []
+    ).toHaveLength(1);
     expect(out).toContain("I was on SuperGrok Heavy because of Grok Bot.");
     expect(out).toContain("Wait, I can install @Tailscale");
     expect(out).toContain("I am building AnyRouter");
