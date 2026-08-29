@@ -137,7 +137,8 @@ export async function persistCreatedIngestRun(
 }
 
 /** Must succeed before `create()` / POST 2xx. Throws if D1 is unbound or
- * lastRun (`ORDER BY started_at DESC, id DESC LIMIT 1`) is not this id. */
+ * lastRun (`ORDER BY` epoch-normalized `started_at` DESC, `id` DESC
+ * LIMIT 1) is not this id. */
 export async function persistCreatedIngestRunVerified(
   db: D1Runner | undefined,
   result: IngestTickResult
