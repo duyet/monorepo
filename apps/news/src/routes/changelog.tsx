@@ -11,8 +11,8 @@ interface ChangelogEntry {
 const ENTRIES: ChangelogEntry[] = [
   {
     date: "2026-08",
-    en: "Chrome new-tab extension: download the zip from /extension and load it unpacked (not on the Web Store yet).",
-    vi: "Tiện ích tab mới Chrome: tải zip tại /extension rồi load unpacked (chưa có trên Web Store).",
+    en: "Chrome new-tab extension: unzip /news-tab.zip, then Load unpacked the news-tab folder (not the zip). Guide at /extension.",
+    vi: "Tiện ích tab mới Chrome: giải nén /news-tab.zip, rồi Load unpacked thư mục news-tab (không phải file zip). Hướng dẫn tại /extension.",
   },
   {
     date: "2026-08",

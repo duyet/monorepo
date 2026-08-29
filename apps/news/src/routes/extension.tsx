@@ -2,7 +2,16 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Puzzle } from "lucide-react";
 import type { ReactNode } from "react";
 import { useLang } from "../lib/lang-context";
-import { NEWS_TAB_ZIP_HREF } from "../lib/news-tab-public";
+import {
+  CHROME_EXTENSIONS_HREF,
+  GUIDE_COPY,
+  NEWS_TAB_ZIP_ERROR_IMG,
+} from "../lib/news-tab-guide";
+import {
+  NEWS_TAB_ZIP_ERROR_IMG_HEIGHT,
+  NEWS_TAB_ZIP_ERROR_IMG_WIDTH,
+  NEWS_TAB_ZIP_HREF,
+} from "../lib/news-tab-public";
 
 export const Route = createFileRoute("/extension")({
   head: () => ({
@@ -10,29 +19,6 @@ export const Route = createFileRoute("/extension")({
   }),
   component: ExtensionPage,
 });
-
-const STEPS = [
-  {
-    en: "Download the zip and unzip it. You want the folder that contains manifest.json (it is named news-tab).",
-    vi: "Tải zip rồi giải nén. Chọn thư mục có file manifest.json (tên thư mục là news-tab).",
-  },
-  {
-    en: "Open chrome://extensions (paste that into the address bar).",
-    vi: "Mở chrome://extensions (dán vào thanh địa chỉ).",
-  },
-  {
-    en: "Turn on Developer mode (top right).",
-    vi: "Bật Developer mode (góc trên bên phải).",
-  },
-  {
-    en: "Click Load unpacked and pick that unzipped folder.",
-    vi: "Bấm Load unpacked và chọn đúng thư mục vừa giải nén.",
-  },
-  {
-    en: "Open a new tab. It should show today's AI;DR and stories from this site.",
-    vi: "Mở tab mới. Trang sẽ hiện AI;DR hôm nay và tin từ site này.",
-  },
-];
 
 function ZipLink({
   children,
@@ -44,6 +30,17 @@ function ZipLink({
   return (
     <a href={NEWS_TAB_ZIP_HREF} download="news-tab.zip" className={className}>
       {children}
+    </a>
+  );
+}
+
+function ChromeExtensionsLink() {
+  return (
+    <a
+      href={CHROME_EXTENSIONS_HREF}
+      className="text-accent underline underline-offset-2 hover:no-underline"
+    >
+      chrome://extensions
     </a>
   );
 }
@@ -79,8 +76,8 @@ function ExtensionPage() {
       </div>
       <p className="mt-2 max-w-3xl text-xs text-muted-foreground">
         {t(
-          "Both buttons download the same zip. Then follow Load unpacked below. There is no Web Store listing.",
-          "Cả hai nút đều tải cùng một file zip. Sau đó làm bước Load unpacked bên dưới. Không có trang trên Web Store."
+          "Both buttons download the same zip. Unzip it, then Load unpacked below. There is no Web Store listing.",
+          "Cả hai nút đều tải cùng một file zip. Giải nén rồi làm bước Load unpacked bên dưới. Không có trang trên Web Store."
         )}
       </p>
 
@@ -88,12 +85,45 @@ function ExtensionPage() {
         <h2 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
           {t("Load unpacked", "Load unpacked")}
         </h2>
-        <ol className="mt-3 max-w-3xl list-decimal space-y-2 pl-5 text-sm text-muted-foreground">
-          {STEPS.map((step) => (
-            <li key={step.en} className="pl-1">
-              {t(step.en, step.vi)}
-            </li>
-          ))}
+
+        <ol className="mt-3 max-w-3xl list-decimal space-y-4 pl-5 text-sm text-muted-foreground">
+          <li className="pl-1">
+            <p className="font-semibold text-foreground">
+              {t(GUIDE_COPY.unzipFirst.en, GUIDE_COPY.unzipFirst.vi)}
+            </p>
+            <p className="mt-1">
+              {t(GUIDE_COPY.unzipDetail.en, GUIDE_COPY.unzipDetail.vi)}
+            </p>
+            <figure className="mt-3 overflow-hidden rounded-lg border border-border bg-background">
+              <img
+                src={NEWS_TAB_ZIP_ERROR_IMG}
+                alt={t(GUIDE_COPY.zipErrorAlt.en, GUIDE_COPY.zipErrorAlt.vi)}
+                width={NEWS_TAB_ZIP_ERROR_IMG_WIDTH}
+                height={NEWS_TAB_ZIP_ERROR_IMG_HEIGHT}
+                className="h-auto w-full max-w-lg"
+              />
+              <figcaption className="border-t border-border px-3 py-2 text-xs">
+                {t(
+                  GUIDE_COPY.zipErrorCaption.en,
+                  GUIDE_COPY.zipErrorCaption.vi
+                )}
+              </figcaption>
+            </figure>
+          </li>
+          <li className="pl-1">
+            {t(GUIDE_COPY.openExtensions.en, GUIDE_COPY.openExtensions.vi)}{" "}
+            <ChromeExtensionsLink />.{" "}
+            {t(GUIDE_COPY.pasteExtensions.en, GUIDE_COPY.pasteExtensions.vi)}
+          </li>
+          <li className="pl-1">
+            {t(GUIDE_COPY.developerMode.en, GUIDE_COPY.developerMode.vi)}
+          </li>
+          <li className="pl-1">
+            {t(GUIDE_COPY.loadFolder.en, GUIDE_COPY.loadFolder.vi)}
+          </li>
+          <li className="pl-1">
+            {t(GUIDE_COPY.newTab.en, GUIDE_COPY.newTab.vi)}
+          </li>
         </ol>
       </section>
 

@@ -125,6 +125,7 @@ describe("buildNewsTabZip", () => {
         "utf8"
       )
     ).toBe('{"name":"AI News"}');
+    expect(names).not.toContain("manifest.json");
   });
 
   it("packs the real apps/news-tab tree without tests", () => {
@@ -147,6 +148,10 @@ describe("buildNewsTabZip", () => {
     const zip = buildNewsTabZip(realRoot);
     const names = zipNames(zip);
     expect(names).toContain(`${NEWS_TAB_UNPACKED_DIR}/manifest.json`);
+    expect(names).not.toContain("manifest.json");
+    expect(names.every((n) => n.startsWith(`${NEWS_TAB_UNPACKED_DIR}/`))).toBe(
+      true
+    );
     const manifest = JSON.parse(
       zipFileBytes(zip, `${NEWS_TAB_UNPACKED_DIR}/manifest.json`).toString(
         "utf8"

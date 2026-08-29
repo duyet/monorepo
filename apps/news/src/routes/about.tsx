@@ -285,8 +285,8 @@ function AboutPage() {
       <Section title={t("Chrome new tab", "Tab mới Chrome")}>
         <p>
           {t(
-            "A Manifest V3 extension replaces Chrome's new tab with the AI;DR and stories from this site. Not on the Web Store; load it unpacked.",
-            "Tiện ích Manifest V3 thay tab mới của Chrome bằng AI;DR và tin từ site này. Chưa có trên Web Store; load unpacked."
+            "A Manifest V3 extension replaces Chrome's new tab with the AI;DR and stories from this site. Not on the Web Store; unzip then Load unpacked the news-tab folder.",
+            "Tiện ích Manifest V3 thay tab mới của Chrome bằng AI;DR và tin từ site này. Chưa có trên Web Store; giải nén rồi Load unpacked thư mục news-tab."
           )}{" "}
           <Link
             to="/extension"

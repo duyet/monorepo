@@ -44,7 +44,7 @@ describe("site header units", () => {
   });
 
   it("keeps GLOBAL_NAV entries unique per app", () => {
-    for (const app of ["home", "blog", "cv"] as const) {
+    for (const app of ["home", "blog", "cv", "news"] as const) {
       const items = filterGlobalNav(GLOBAL_NAV, app);
       const hrefs = items.map((i) => i.href);
       const labels = items.map((i) => i.label);
@@ -53,10 +53,27 @@ describe("site header units", () => {
     }
   });
 
+  it("puts the news /extension guide in the primary menu", () => {
+    expect(
+      filterGlobalNav(GLOBAL_NAV, "blog").some((i) => i.href === "/extension")
+    ).toBe(false);
+    const news = filterGlobalNav(GLOBAL_NAV, "news");
+    const tab = news.find((i) => i.href === "/extension");
+    expect(tab?.label).toBe("Chrome tab");
+    expect(news.map((i) => i.label)).toEqual([
+      "News",
+      "About",
+      "Chrome tab",
+      "MCP",
+      "Data",
+      "Submit",
+    ]);
+  });
+
   it("shows a kb-only KB submenu with Home", () => {
-    expect(filterGlobalNav(GLOBAL_NAV, "blog").some((i) => i.label === "KB")).toBe(
-      false
-    );
+    expect(
+      filterGlobalNav(GLOBAL_NAV, "blog").some((i) => i.label === "KB")
+    ).toBe(false);
     const kb = filterGlobalNav(GLOBAL_NAV, "kb");
     expect(kb.map((i) => i.label)).toEqual(["KB"]);
     expect(kb[0].children?.map((c) => c.label)).toContain("Home");

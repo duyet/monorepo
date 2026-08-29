@@ -42,8 +42,8 @@ Humans merge those PRs; they are never auto-merged.
 ## Load unpacked
 
 1. Download [`news-tab.zip`](https://news.duyet.net/news-tab.zip) (or use this folder from a git checkout)
-2. Unzip. Pick the directory that contains `manifest.json` (named `news-tab`)
-3. Open `chrome://extensions`
+2. **Unzip first.** Do not Load unpacked the `.zip` — Chrome will say the manifest is missing. Pick the extracted `news-tab` directory (the one that contains `manifest.json`)
+3. Open [`chrome://extensions`](chrome://extensions)
 4. Enable **Developer mode**
 5. **Load unpacked** and pick that folder
 6. Open a new tab
