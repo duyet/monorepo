@@ -234,6 +234,22 @@ async function main() {
     assert(body.includes("Load unpacked"), "guide missing Load unpacked");
     assert(body.includes("/news-tab.zip"), "guide missing zip href");
     assert(
+      body.includes('href="chrome://extensions"'),
+      "chrome://extensions must be an href"
+    );
+    assert(
+      body.includes("/media/chrome-load-unpacked-zip-error.png"),
+      "guide missing zip-load error screenshot"
+    );
+    assert(
+      body.includes("Unzip first") || body.includes("Giải nén trước"),
+      "guide missing unzip-first warning"
+    );
+    assert(
+      body.includes("manifest.json"),
+      "guide missing manifest.json folder"
+    );
+    assert(
       !body.includes("chrome.google.com/webstore"),
       "must not invent a Web Store listing"
     );

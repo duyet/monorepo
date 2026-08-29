@@ -141,7 +141,8 @@ function u32(n: number): Buffer {
   return buf;
 }
 
-/** PKZIP of the unpacked MV3 tree (manifest.json at `news-tab/manifest.json`). */
+/** PKZIP of the unpacked MV3 tree (manifest.json at `news-tab/manifest.json`).
+ * Chrome Load unpacked cannot open the zip file; unzip and pick that folder. */
 export function buildNewsTabZip(root: string): Buffer {
   const rels = listUnpackedRelPaths(root);
   const entries = rels.map((rel) => zipEntry(rel, join(root, rel)));

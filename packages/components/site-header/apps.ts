@@ -307,6 +307,12 @@ export const GLOBAL_NAV: GlobalNavItem[] = [
     onlyApp: "news",
   },
   {
+    label: "Chrome tab",
+    href: "/extension",
+    match: { app: "news", path: "/extension" },
+    onlyApp: "news",
+  },
+  {
     label: "MCP",
     href: "/mcp",
     match: { app: "news", path: "/mcp" },
