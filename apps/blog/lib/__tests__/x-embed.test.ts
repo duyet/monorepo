@@ -176,6 +176,28 @@ https://x.com/_duyet/status/2089687655458259272</p>
     expect(embedXPosts(out)).toBe(out);
   });
 
+  test("rows consecutive embeds when a quote contains a nested div", () => {
+    const html = `<blockquote class="twitter-tweet">
+<p>Quote with <div class="inner">nested</div> markup.
+<a href="https://x.com/_duyet/status/2093007340824035383">https://x.com/_duyet/status/2093007340824035383</a></p>
+</blockquote>
+<blockquote class="twitter-tweet">
+<p>Second.
+<a href="https://x.com/_duyet/status/2089687655458259272">https://x.com/_duyet/status/2089687655458259272</a></p>
+</blockquote>`;
+    const out = embedXPosts(html);
+    expect(out.match(/twitter-tweet/g) ?? []).toHaveLength(2);
+    expect(out.match(/x-embed/g) ?? []).toHaveLength(2);
+    expect(
+      out.match(new RegExp(`class="${TWEET_ROW_CLASS}"`, "g")) ?? []
+    ).toHaveLength(1);
+    expect(out).toContain('class="inner"');
+    expect(out).toContain("nested");
+    expect(out).toContain("2093007340824035383");
+    expect(out).toContain("2089687655458259272");
+    expect(embedXPosts(out)).toBe(out);
+  });
+
   test("does not row a single embed or embeds split by prose", () => {
     const html = `<blockquote>
 <p>Quote one.

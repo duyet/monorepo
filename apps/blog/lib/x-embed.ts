@@ -288,19 +288,51 @@ function isAlreadyTweetRowWrapped(htmlBefore: string): boolean {
   return /<div\b[^>]*\b(?:tweet-row|img-row)\b[^>]*>\s*$/i.test(htmlBefore);
 }
 
+function matchingDivEnd(html: string, afterOpen: number): number {
+  let depth = 1;
+  const re = /<div\b[^>]*>|<\/div>/gi;
+  re.lastIndex = afterOpen;
+  let match = re.exec(html);
+  while (match) {
+    if (match[0].charAt(1) === "/") {
+      depth -= 1;
+      if (depth === 0) return match.index + match[0].length;
+    } else {
+      depth += 1;
+    }
+    match = re.exec(html);
+  }
+  return -1;
+}
+
+/**
+ * Complete `.x-embed` wrappers, including nested `<div>` inside the
+ * converted blockquote. A non-greedy `[\s\S]*?</div>` would stop at that
+ * inner close and leave leftover `</blockquote></div>` between embeds.
+ */
+function collectXEmbedRanges(html: string): { start: number; end: number }[] {
+  const embeds: { start: number; end: number }[] = [];
+  const openRe = /<div\b[^>]*\bx-embed\b[^>]*>/gi;
+  let open = openRe.exec(html);
+  while (open) {
+    const start = open.index;
+    const end = matchingDivEnd(html, start + open[0].length);
+    if (end !== -1) {
+      embeds.push({ start, end });
+      openRe.lastIndex = end;
+    }
+    open = openRe.exec(html);
+  }
+  return embeds;
+}
+
 /**
  * Two or more consecutive `.x-embed` wrappers (only whitespace between) sit in
  * one `.tweet-row`. A single embed stays centered on its own. Explicit
  * `tweet-row` / `img-row` wrappers are left alone.
  */
 function groupConsecutiveTweetEmbeds(html: string): string {
-  const embedRe = /<div\b[^>]*\bx-embed\b[^>]*>[\s\S]*?<\/div>/gi;
-  const embeds: { start: number; end: number }[] = [];
-  let match = embedRe.exec(html);
-  while (match) {
-    embeds.push({ start: match.index, end: match.index + match[0].length });
-    match = embedRe.exec(html);
-  }
+  const embeds = collectXEmbedRanges(html);
   if (embeds.length < 2) return html;
 
   const groups: { start: number; end: number }[] = [];
