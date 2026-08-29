@@ -66,6 +66,15 @@ I also asked it to print a one-page A4 every morning when I walk into the home o
 <img src="/media/2026/08/grok-bot/daily-print.jpg" alt="duyetbot daily report on the T720DW" />
 </div>
 
+xAI now publishes official Grok Bot guides at [x.ai/bot/guides](https://x.ai/bot/guides). Featured is "How I run multiple teams of Grok Bots" (Aug 27, 2026), plus cards for mobile, designing Grok Bot with Grok Bot, GTM, and PMs.
+
+![xAI Grok Bot Guides — featured How I run multiple teams of Grok Bots, with cards for mobile, designing Grok Bot with Grok Bot, GTM, and PMs](/media/2026/08/grok-bot/xai-guides.jpg)
+
+We can even create a group chat of bots and let them make drama.
+
+> Every company still needs some drama, included Grok @Bot team. Here we go 😂
+> https://x.com/_duyet/status/2093007340824035383
+
 I will keep using it, discovering more, and posting updates.
 
 The biggest bottleneck is still the price. SuperGrok Heavy is not cheap. But the bundle is real — Grok Bot, the desktop, Cursor in the loop — and for what you get, it is worth it.
