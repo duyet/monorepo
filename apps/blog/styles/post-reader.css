@@ -645,6 +645,42 @@
   justify-content: center;
 }
 
+/* Side-by-side tweet row: consecutive embeds, or an explicit
+ * `<div class="tweet-row">` (same idea as `.img-row`). A single embed stays
+ * centered in the text column. Wrap on small screens so live iframes don't
+ * shrink into unreadable slivers. */
+.post-reader .typeset .tweet-row {
+  grid-column: full;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 100%;
+  margin: 2rem 0;
+}
+.post-reader .typeset .tweet-row > .x-embed,
+.post-reader .typeset .img-row > .x-embed {
+  flex: 1 1 280px;
+  min-width: 0;
+  max-width: 550px;
+}
+.post-reader .typeset .tweet-row > .x-embed > *,
+.post-reader .typeset .img-row > .x-embed > * {
+  max-width: 100%;
+}
+
+@media (max-width: 640px) {
+  .post-reader .typeset .tweet-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .post-reader .typeset .tweet-row > .x-embed {
+    width: 100%;
+    max-width: 550px;
+  }
+}
+
 /* Footnotes / asides */
 .post-reader .typeset aside,
 .post-reader .typeset .footnotes,

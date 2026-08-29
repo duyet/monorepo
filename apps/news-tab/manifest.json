@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "__MSG_extName__",
   "description": "__MSG_extDescription__",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "default_locale": "en",
   "minimum_chrome_version": "116",
   "icons": {
@@ -18,8 +18,12 @@
     "page": "options.html",
     "open_in_tab": false
   },
-  "permissions": ["storage"],
-  "host_permissions": ["https://news.duyet.net/*"],
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://news.duyet.net/*"
+  ],
   "optional_host_permissions": [
     "https://*/*",
     "http://localhost/*",

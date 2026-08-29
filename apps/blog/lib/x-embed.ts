@@ -242,8 +242,8 @@ export function embedXPosts(html: string): string {
     }
   );
 
-  return wrapUnwrappedTweetEmbeds(
-    replaceStandaloneStatusParagraphs(withQuotes)
+  return groupConsecutiveTweetEmbeds(
+    wrapUnwrappedTweetEmbeds(replaceStandaloneStatusParagraphs(withQuotes))
   );
 }
 
@@ -251,6 +251,9 @@ export const TWITTER_WIDGETS_SRC = "https://platform.twitter.com/widgets.js";
 
 /** Centers the live iframe; widgets.js leaves `blockquote.twitter-tweet` left-aligned. */
 export const TWEET_EMBED_WRAP_CLASS = "x-embed flex justify-center";
+
+/** Side-by-side group for two or more consecutive embeds, same idea as `.img-row`. */
+export const TWEET_ROW_CLASS = "tweet-row";
 
 function wrapTweetEmbed(blockquoteHtml: string): string {
   return `<div class="${TWEET_EMBED_WRAP_CLASS}">${blockquoteHtml}</div>`;
@@ -277,6 +280,87 @@ function wrapUnwrappedTweetEmbeds(html: string): string {
       lastIndex = end;
     }
     match = re.exec(html);
+  }
+  return out + html.slice(lastIndex);
+}
+
+function isAlreadyTweetRowWrapped(htmlBefore: string): boolean {
+  return /<div\b[^>]*\b(?:tweet-row|img-row)\b[^>]*>\s*$/i.test(htmlBefore);
+}
+
+function matchingDivEnd(html: string, afterOpen: number): number {
+  let depth = 1;
+  const re = /<div\b[^>]*>|<\/div>/gi;
+  re.lastIndex = afterOpen;
+  let match = re.exec(html);
+  while (match) {
+    if (match[0].charAt(1) === "/") {
+      depth -= 1;
+      if (depth === 0) return match.index + match[0].length;
+    } else {
+      depth += 1;
+    }
+    match = re.exec(html);
+  }
+  return -1;
+}
+
+/**
+ * Complete `.x-embed` wrappers, including nested `<div>` inside the
+ * converted blockquote. A non-greedy `[\s\S]*?</div>` would stop at that
+ * inner close and leave leftover `</blockquote></div>` between embeds.
+ */
+function collectXEmbedRanges(html: string): { start: number; end: number }[] {
+  const embeds: { start: number; end: number }[] = [];
+  const openRe = /<div\b[^>]*\bx-embed\b[^>]*>/gi;
+  let open = openRe.exec(html);
+  while (open) {
+    const start = open.index;
+    const end = matchingDivEnd(html, start + open[0].length);
+    if (end !== -1) {
+      embeds.push({ start, end });
+      openRe.lastIndex = end;
+    }
+    open = openRe.exec(html);
+  }
+  return embeds;
+}
+
+/**
+ * Two or more consecutive `.x-embed` wrappers (only whitespace between) sit in
+ * one `.tweet-row`. A single embed stays centered on its own. Explicit
+ * `tweet-row` / `img-row` wrappers are left alone.
+ */
+function groupConsecutiveTweetEmbeds(html: string): string {
+  const embeds = collectXEmbedRanges(html);
+  if (embeds.length < 2) return html;
+
+  const groups: { start: number; end: number }[] = [];
+  let groupStart = embeds[0].start;
+  let groupEnd = embeds[0].end;
+  let count = 1;
+  for (let i = 1; i < embeds.length; i++) {
+    const between = html.slice(groupEnd, embeds[i].start);
+    if (between.trim() === "") {
+      groupEnd = embeds[i].end;
+      count++;
+    } else {
+      if (count >= 2) groups.push({ start: groupStart, end: groupEnd });
+      groupStart = embeds[i].start;
+      groupEnd = embeds[i].end;
+      count = 1;
+    }
+  }
+  if (count >= 2) groups.push({ start: groupStart, end: groupEnd });
+  if (groups.length === 0) return html;
+
+  let out = "";
+  let lastIndex = 0;
+  for (const group of groups) {
+    if (isAlreadyTweetRowWrapped(html.slice(0, group.start))) continue;
+    out += html.slice(lastIndex, group.start);
+    out += `<div class="${TWEET_ROW_CLASS}">${html.slice(group.start, group.end)}</div>`;
+    lastIndex = group.end;
   }
   return out + html.slice(lastIndex);
 }
