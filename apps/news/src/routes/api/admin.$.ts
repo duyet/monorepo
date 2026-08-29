@@ -170,8 +170,20 @@ async function handle(
 
   if (method === "POST" && segments.length === 1 && segments[0] === "ingest") {
     const force = new URL(request.url).searchParams.get("force") === "1";
-    const result = await triggerIngest(env, { force });
-    return Response.json(result);
+    try {
+      const result = await triggerIngest(env, { force });
+      return Response.json(result);
+    } catch (error) {
+      // Persist / create / canStart / markStarted must not become Actions
+      // SUCCESS with a phantom Workflow id (Sourcery on #1413).
+      console.error("ingest trigger failed:", error);
+      return Response.json(
+        {
+          error: error instanceof Error ? error.message : String(error),
+        },
+        { status: 500 }
+      );
+    }
   }
 
   if (method === "GET" && segments.length === 1 && segments[0] === "status") {

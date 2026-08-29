@@ -24,6 +24,8 @@ export const INGEST_ALARM_ARM_DELAY_MS = 15_000;
 
 export const INGEST_SCHEDULER_NAME = "default";
 
+const MARK_STARTED_ATTEMPTS = 3;
+
 export interface IngestTickResult {
   id: string | null;
   skipped: boolean;
@@ -37,14 +39,16 @@ export interface IngestTickOpts {
 /** RPC surface of `NewsIngestScheduler`. Declared here so admin handlers
  * can call it without importing `cloudflare:workers`.
  *
- * HTTP ingest must persist `workflow_runs` on the Worker D1 binding
- * **before** `NEWS_INGEST.create()`: #1409 upserted after create() (and
- * swallowed D1 errors), and live POST `9a1002fa-…` never appeared in
- * `/api/system`. Split gate/start so the Worker can write+verify first. */
+ * HTTP ingest persists `workflow_runs` on the Worker D1 binding (the one
+ * `/api/system` reads) **before** `NEWS_INGEST.create({ id })` in this
+ * isolate. The Durable Object only gates the 45-minute coalesce and
+ * records last-started — it must not be the create() path, because a
+ * Workflow id is not a `workflow_runs` row. */
 export interface IngestSchedulerRpc {
   tick(opts?: IngestTickOpts): Promise<IngestTickResult>;
   canStart(opts?: IngestTickOpts): Promise<IngestTickResult>;
   startInstance(id: string): Promise<IngestTickResult>;
+  markStarted(id: string): Promise<void>;
   ensureArmed(): Promise<void>;
 }
 
@@ -64,6 +68,8 @@ export async function tickIngest(
 ): Promise<IngestTickResult> {
   if (env.NEWS_INGEST_SCHEDULER) {
     const stub = schedulerStub(env.NEWS_INGEST_SCHEDULER);
+    // Fail closed on gate errors — do not swallow into skipped:false
+    // (that would bypass the 45-minute coalesce during a DO outage).
     const gate = await stub.canStart(opts);
     if (gate.skipped) return gate;
     return startCreatedIngest(env, stub);
@@ -71,29 +77,48 @@ export async function tickIngest(
   return startCreatedIngest(env);
 }
 
-/** Choose the instance id, persist+verify `workflow_runs`, then
- * `create({ id })`. POST `{id}` is this uuid, not whatever create()
- * would mint after a D1 write that may never commit. */
+/** Choose the instance id, persist+verify `workflow_runs` as lastRun,
+ * then `create({ id })` from this Worker. POST `{id}` is this uuid.
+ * create() / markStarted failures throw so the admin route is non-2xx —
+ * never return a persisted id as HTTP 200 when the Workflow did not
+ * start or the coalesce clock was not updated. */
 async function startCreatedIngest(
   env: {
     DB?: D1Runner;
     NEWS_INGEST: Workflow;
   },
-  stub?: Pick<IngestSchedulerRpc, "startInstance">
+  stub?: Pick<IngestSchedulerRpc, "markStarted">
 ): Promise<IngestTickResult> {
   const id = crypto.randomUUID();
   const result: IngestTickResult = { id, skipped: false };
   await persistCreatedIngestRunVerified(env.DB, result);
-  if (stub) {
-    const started = await stub.startInstance(id);
-    return {
-      id,
-      skipped: false,
-      reason: started.reason,
-    };
-  }
   await env.NEWS_INGEST.create({ id });
+  if (stub) {
+    await markStartedOrThrow(stub, id);
+  }
   return result;
+}
+
+async function markStartedOrThrow(
+  stub: Pick<IngestSchedulerRpc, "markStarted">,
+  id: string
+): Promise<void> {
+  let lastError: unknown;
+  for (let attempt = 1; attempt <= MARK_STARTED_ATTEMPTS; attempt++) {
+    try {
+      await stub.markStarted(id);
+      return;
+    } catch (error) {
+      lastError = error;
+      console.error(
+        `ingest scheduler markStarted failed (attempt ${attempt}):`,
+        error
+      );
+    }
+  }
+  throw lastError instanceof Error
+    ? lastError
+    : new Error("ingest scheduler markStarted failed");
 }
 
 /** Best-effort upsert after the Durable Object alarm `create()`. HTTP
@@ -111,13 +136,16 @@ export async function persistCreatedIngestRun(
   );
 }
 
-/** Must succeed before `create()` / POST 2xx. Throws if D1 does not
- * read back the row. No-ops when DB is unbound (unit tests). */
+/** Must succeed before `create()` / POST 2xx. Throws if D1 is unbound or
+ * does not read back the row as lastRun. */
 export async function persistCreatedIngestRunVerified(
   db: D1Runner | undefined,
   result: IngestTickResult
 ): Promise<void> {
-  if (result.skipped || !result.id || !db) return;
+  if (result.skipped || !result.id) return;
+  if (!db) {
+    throw new Error("workflow_runs persist requires DB");
+  }
   await persistOpenedWorkflowRunVerified(
     db,
     result.id,
