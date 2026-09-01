@@ -61,8 +61,9 @@ Do not drive an instance whose doctor reports `clerkAligned: false`.
 Prefer the lever over ad-hoc grep. Recipes live in `features/`. Stable handles:
 
 - Post URL path: `/2026/07/anyrouter/` (file `apps/blog/_posts/2026/07/anyrouter.md`, prerender `apps/blog/dist/client/2026/07/anyrouter/index.html`).
-- Pricing copy that must appear after #1427: `Why Go at $2/mo` and `$4 credits`.
-- Pricing copy that must not appear: `Why Starter at $1/mo`.
+- Pricing copy that must appear: `Why Go is $2/mo`, `$4 monthly credits`, `$2.63`.
+- CLI copy that must appear: `https://anyrouter.dev/setup.sh` and `anyr claude --model z-ai/glm-5.2`.
+- Pricing/CLI copy that must not appear: `Why Starter at $1/mo`, `Why Go at $2/mo`, `npx @anyr/cli claude`.
 - Clerk failure token: `MISSING_EXPORT` plus those four export names.
 
 ```bash
@@ -75,7 +76,7 @@ That is the proven-drive command: doctor, production build, HTML assertions, JSO
 .cursor/skills/verify-blog/bin/verify-blog drive anyrouter-pricing
 ```
 
-Preview (optional, after `preview-start`): open `http://127.0.0.1:<port>/2026/07/anyrouter/`. Assert the visible heading contains `Why Go at $2/mo`. Screenshot the article, not only the chrome.
+Preview (optional, after `preview-start`): open `http://127.0.0.1:<port>/2026/07/anyrouter/`. Assert the visible heading contains `Why Go is $2/mo`. Screenshot the article, not only the chrome.
 
 ## Evidence
 

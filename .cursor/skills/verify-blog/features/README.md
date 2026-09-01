@@ -44,6 +44,6 @@ Keep implementation details out of the map. Name only user paths, stable handles
 ## Features
 
 - [Production build](./production-build.md) covers the Clerk-safe Vite/rolldown Pages build.
-- [AnyRouter pricing copy](./anyrouter-pricing.md) covers Go $2/mo / $4 credits in prerendered HTML.
+- [AnyRouter pricing copy](./anyrouter-pricing.md) covers Why Go is $2/mo, Polar $2.63 / $4 monthly credits, Free 403, and setup.sh CLI.
 - [Post page](./post-page.md) covers a published post URL rendering its title and body.
 - [Homepage](./homepage.md) covers the blog index identity in `dist/client/index.html`.

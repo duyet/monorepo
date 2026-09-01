@@ -210,8 +210,19 @@ src = pathlib.Path(html_path)
 dest = pathlib.Path(evidence) / "anyrouter.html"
 shutil.copyfile(src, dest)
 text = src.read_text(encoding="utf-8", errors="replace")
-needles_present = ["Why Go at $2/mo", "$4 credits"]
-needles_absent = ["Why Starter at $1/mo"]
+needles_present = [
+    "Why Go is $2/mo",
+    "$4 monthly credits",
+    "$2.63",
+    "anyrouter/free",
+    "https://anyrouter.dev/setup.sh",
+    "anyr claude --model z-ai/glm-5.2",
+]
+needles_absent = [
+    "Why Starter at $1/mo",
+    "Why Go at $2/mo",
+    "npx @anyr/cli claude",
+]
 present = {n: n in text for n in needles_present}
 absent_ok = {n: n not in text for n in needles_absent}
 ok = all(present.values()) and all(absent_ok.values())
