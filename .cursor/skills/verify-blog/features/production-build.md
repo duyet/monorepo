@@ -23,7 +23,7 @@ Preconditions:
 - Markdown WASM is present (`packages/wasm/pkg/markdown/markdown.js`). CI builds it; a fresh checkout will not have `pkg/`.
 
 - **Doctor pin.** Confirm Clerk shared is 3.x. Run `.cursor/skills/verify-blog/bin/verify-blog doctor`. JSON has `"clerkAligned": true` and `"override": "3.47.8"`.
-- **Build.** Produce the Pages artifact. Run `.cursor/skills/verify-blog/bin/verify-blog build` (or `prove --feature production-build`). Exit code `0`, `"missingExport": false`, `"indexHtml": true`.
+- **Build.** Produce the Pages artifact. Run `.cursor/skills/verify-blog/bin/verify-blog build` (or `prove --feature production-build`). Exit code `0`, `"missingExport": false`, and `"indexHtml": true`. The lever fails if Vite exits 0 without writing `apps/blog/dist/client/index.html`.
 - **Log.** Open `evidenceDir/build.log`. It must not contain `MISSING_EXPORT`, `ClientContext`, or `OrganizationProvider is not exported`.
 - **Proof.** `apps/blog/dist/client/index.html` exists after the command returns.
 

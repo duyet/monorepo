@@ -114,4 +114,4 @@ Stops only the preview PID this lever started (recorded in `/tmp/verify-blog/sta
 .cursor/skills/verify-blog/bin/verify-blog cleanup
 ```
 
-`--help` prints the same list. All commands emit one JSON object on stdout. Non-zero exit means the claim is not verified.
+`--help` or an empty invocation prints the same list instead of JSON. All other commands emit one JSON object on stdout. Non-zero exit means the claim is not verified.

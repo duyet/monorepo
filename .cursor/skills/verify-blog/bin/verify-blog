@@ -172,7 +172,7 @@ log, status, elapsed, run_id, evidence, root = sys.argv[1:7]
 text = pathlib.Path(log).read_text(encoding="utf-8", errors="replace")
 missing = "MISSING_EXPORT" in text
 index_html = (pathlib.Path(root) / "apps/blog/dist/client/index.html").is_file()
-ok = int(status) == 0 and not missing
+ok = int(status) == 0 and not missing and index_html
 out = {
     "ok": ok,
     "command": "pnpm --filter blog build",
