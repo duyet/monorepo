@@ -30,6 +30,12 @@ if (!csp.includes("object-src 'self'")) fail("CSP must set object-src 'self'");
 if (!csp.includes("http://localhost:*")) {
   fail("CSP connect-src must allow http://localhost:*");
 }
+if (!csp.includes("https://fonts.googleapis.com")) {
+  fail("CSP style-src must allow Google Fonts CSS");
+}
+if (!csp.includes("https://fonts.gstatic.com")) {
+  fail("CSP font-src must allow Google Fonts files");
+}
 
 const required = [
   "newtab.html",
@@ -43,11 +49,14 @@ const required = [
   "js/boot.js",
   "js/settings-panel.js",
   "js/preview-shim.js",
+  "js/highlight.js",
+  "js/topic-color.js",
   "icons/icon16.png",
   "icons/icon32.png",
   "icons/icon48.png",
   "icons/icon128.png",
   "icons/icon.svg",
+  "icons/thumb-mark.svg",
   "_locales/en/messages.json",
   "_locales/vi/messages.json",
 ];

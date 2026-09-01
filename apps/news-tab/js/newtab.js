@@ -1,9 +1,12 @@
 import { fetchDigest } from "./api.js";
+import { highlightTitle, tagsForHighlight } from "./highlight.js";
 import { t, uiLang } from "./i18n.js";
-import { applyAppearance, loadSettings } from "./settings.js";
+import { applyAppearance, loadSettings, saveSettings } from "./settings.js";
 import { mountSettingsPanel } from "./settings-panel.js";
+import { topicColor } from "./topic-color.js";
 
 const NEWS_SITE = "https://news.duyet.net";
+const THUMB_MARK = new URL("../icons/thumb-mark.svg", import.meta.url).href;
 
 const CATEGORY_VI = {
   Regulation: "Chính sách",
@@ -71,26 +74,65 @@ function bulletsFor(tldr, language) {
   return viUseful ? vi : en.length ? en : vi;
 }
 
-function thumbNode(src) {
-  if (src) {
-    const img = document.createElement("img");
-    img.className = "thumb";
-    img.width = 48;
-    img.height = 48;
-    img.alt = "";
-    img.loading = "lazy";
-    img.decoding = "async";
-    img.src = src;
-    img.addEventListener("error", () => {
-      img.replaceWith(thumbNode(null));
-    });
-    return img;
+function paintTopic(el, tag) {
+  const color = topicColor(tag);
+  el.classList.add("topic-colored");
+  el.style.setProperty("--tc-light", color.light);
+  el.style.setProperty("--tc-dark", color.dark);
+}
+
+function itemMeta(digest, itemId) {
+  return digest.items?.[itemId] || null;
+}
+
+function bulletTags(digest, bullet) {
+  const ids = bullet.item_ids || [];
+  const tags = [];
+  for (const id of ids) {
+    const meta = itemMeta(digest, id);
+    if (meta?.tags) tags.push(...meta.tags);
   }
-  const mark = document.createElement("span");
-  mark.className = "thumb thumb-mark";
-  mark.setAttribute("aria-hidden", "true");
-  mark.textContent = "n";
-  return mark;
+  return tags;
+}
+
+function bulletTopic(digest, bullet, segments) {
+  const primaryId = bullet.item_ids?.[0];
+  const meta = primaryId ? itemMeta(digest, primaryId) : null;
+  if (meta?.tags?.[0]) return meta.tags[0];
+  if (meta?.category) return meta.category;
+  const highlighted = segments.find((s) => s.highlighted && s.tag);
+  return highlighted?.tag || null;
+}
+
+function appendHighlighted(parent, text, tags) {
+  const segments = highlightTitle(text, tagsForHighlight(tags));
+  for (const segment of segments) {
+    const span = document.createElement("span");
+    span.textContent = segment.text;
+    if (segment.highlighted && segment.tag) {
+      span.className = "hl";
+      paintTopic(span, segment.tag);
+    } else if (segment.highlighted) {
+      span.className = "hl";
+    }
+    parent.append(span);
+  }
+  return segments;
+}
+
+function thumbNode(src) {
+  const img = document.createElement("img");
+  img.className = "thumb";
+  img.width = 48;
+  img.height = 48;
+  img.alt = "";
+  img.loading = "lazy";
+  img.decoding = "async";
+  img.src = src || THUMB_MARK;
+  img.addEventListener("error", () => {
+    if (img.src !== THUMB_MARK) img.src = THUMB_MARK;
+  });
+  return img;
 }
 
 function bulletHref(bullet) {
@@ -99,23 +141,43 @@ function bulletHref(bullet) {
   return NEWS_SITE;
 }
 
-function renderThumbRow(n, text, href, imageUrl) {
+function renderThumbRow(digest, bullet, n) {
   const row = document.createElement("li");
-  row.className = "bullet";
-
-  const index = document.createElement("span");
-  index.className = "bullet-n";
-  index.textContent = String(n);
+  const inner = document.createElement("span");
+  inner.className = "bullet";
 
   const copy = document.createElement("span");
   copy.className = "bullet-copy";
+  copy.title = bullet.text;
+
+  const tags = bulletTags(digest, bullet);
+  const segments = highlightTitle(bullet.text, tagsForHighlight(tags));
+  const topic = bulletTopic(digest, bullet, segments);
+  if (topic) {
+    const tagEl = document.createElement("span");
+    tagEl.className = "topic-tag";
+    tagEl.textContent = topic;
+    paintTopic(tagEl, topic);
+    copy.append(tagEl);
+  }
+
   const link = document.createElement("a");
-  link.href = href;
+  link.href = bulletHref(bullet);
   link.rel = "noreferrer";
-  link.textContent = text;
+  appendHighlighted(link, bullet.text, tags);
   copy.append(link);
 
-  row.append(index, copy, thumbNode(imageUrl));
+  const extra = (bullet.item_ids || []).length - 1;
+  if (extra > 0) {
+    const more = document.createElement("span");
+    more.className = "related";
+    more.textContent = `+${extra}`;
+    copy.append(more);
+  }
+
+  inner.append(copy, thumbNode(bullet.image_url));
+  row.append(inner);
+  row.dataset.n = String(n);
   return row;
 }
 
@@ -126,15 +188,27 @@ function splitColumns(items) {
 
 let filterTag = null;
 let filterCategory = null;
+let tldrExpanded = false;
+let pushSettings = async () => {};
 
 function applyChrome(settings) {
-  $("lede").textContent = t(settings, "lede");
+  const lang = uiLang(settings);
+  $("brand").textContent = t(settings, "lede");
+  $("search").placeholder = t(settings, "search");
+  $("chrome-tab").textContent = t(settings, "chromeTab");
+  $("submit-label").textContent = t(settings, "submit");
   $("stories-heading").textContent = t(settings, "stories");
   $("trending-label").textContent = t(settings, "trending");
-  $("categories-label").textContent = t(settings, "categories");
   $("settings-title").textContent = t(settings, "settings");
   $("open-settings").setAttribute("aria-label", t(settings, "settings"));
   $("close-settings").setAttribute("aria-label", t(settings, "close"));
+  document.title = t(settings, "lede");
+  for (const btn of $("lang-toggle").querySelectorAll("button")) {
+    btn.setAttribute(
+      "aria-pressed",
+      btn.dataset.lang === lang ? "true" : "false"
+    );
+  }
 }
 
 function setStatus(message, show) {
@@ -143,10 +217,20 @@ function setStatus(message, show) {
   node.textContent = message || "";
 }
 
+function tldrShown(bullets, settings) {
+  const cap = settings.tldrCount || 8;
+  if (bullets.length <= 8) return bullets;
+  if (tldrExpanded) return bullets.slice(0, Math.min(bullets.length, cap));
+  return bullets.slice(0, 8);
+}
+
 function renderTldr(settings, digest) {
   const section = $("section-tldr");
   const cols = $("tldr-cols");
+  const more = $("tldr-more");
+  const counts = $("tldr-counts");
   cols.replaceChildren();
+  counts.replaceChildren();
   if (!settings.sections.tldr) {
     section.hidden = true;
     return;
@@ -158,33 +242,124 @@ function renderTldr(settings, digest) {
   }
   section.hidden = false;
   $("tldr-meta").textContent = digest.tldr?.date || t(settings, "tldrMeta");
-  const columns = splitColumns(bullets);
+
+  const options = [];
+  if (bullets.length > 8) {
+    options.push(8);
+    options.push(Math.min(bullets.length, 12));
+    if (bullets.length > 12) options.push(Math.min(bullets.length, 16));
+  }
+  counts.hidden = options.length === 0;
+  for (const n of options) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = String(n);
+    btn.setAttribute(
+      "aria-pressed",
+      (settings.tldrCount || 8) === n ||
+        (n === bullets.length && (settings.tldrCount || 8) > n)
+        ? "true"
+        : "false"
+    );
+    btn.addEventListener("click", async () => {
+      const nominal = n <= 8 ? 8 : n <= 12 ? 12 : 16;
+      tldrExpanded = nominal > 8;
+      await pushSettings({ ...settings, tldrCount: nominal });
+    });
+    counts.append(btn);
+  }
+
+  const shown = tldrShown(bullets, {
+    ...settings,
+    tldrCount: tldrExpanded ? settings.tldrCount || 8 : 8,
+  });
+  const columns = splitColumns(shown);
   columns.forEach((col, ci) => {
     if (!col.length) return;
     const list = document.createElement("ol");
     list.className = "tldr-list";
-    const start = ci === 0 ? 1 : columns[0].length + 1;
+    list.start = ci === 0 ? 1 : columns[0].length + 1;
     col.forEach((bullet, i) => {
       list.append(
-        renderThumbRow(
-          start + i,
-          bullet.text,
-          bulletHref(bullet),
-          bullet.image_url
-        )
+        renderThumbRow(digest, bullet, (ci === 0 ? 1 : columns[0].length + 1) + i)
       );
     });
     cols.append(list);
   });
+
+  if (bullets.length > 8 && !tldrExpanded) {
+    more.hidden = false;
+    more.textContent = t(settings, "showMore");
+    more.onclick = async () => {
+      tldrExpanded = true;
+      const next = bullets.length > 12 ? 16 : 12;
+      await pushSettings({ ...settings, tldrCount: next });
+    };
+  } else if (tldrExpanded && bullets.length > 8) {
+    more.hidden = false;
+    more.textContent = t(settings, "showLess");
+    more.onclick = async () => {
+      tldrExpanded = false;
+      await pushSettings({ ...settings, tldrCount: 8 });
+    };
+  } else {
+    more.hidden = true;
+  }
+
+  const total = digest.totalStories || digest.stories.length;
+  $("tldr-total").textContent = total
+    ? `${total} ${t(settings, "storiesCount")}`
+    : "";
+  const stamp = digest.lastFetchedAt || digest.updatedAt;
+  $("tldr-updated").textContent = stamp
+    ? `${t(settings, "updated")} ${timeAgo(stamp, uiLang(settings))}`
+    : "";
 }
 
 function renderChips(settings, digest) {
-  const trendSection = $("section-trending");
   const catSection = $("section-categories");
+  const trendSection = $("section-trending");
   const trendRoot = $("trending");
-  const catRoot = $("categories");
+  catSection.replaceChildren();
   trendRoot.replaceChildren();
-  catRoot.replaceChildren();
+
+  const showCats = settings.sections.categories && digest.categories.length > 0;
+  if (!showCats) filterCategory = null;
+  catSection.hidden = !showCats;
+  if (showCats) {
+    const lang = uiLang(settings);
+    const all = document.createElement("button");
+    all.type = "button";
+    all.className = "chip";
+    all.textContent = t(settings, "all");
+    all.setAttribute("aria-pressed", filterCategory ? "false" : "true");
+    all.addEventListener("click", () => {
+      filterCategory = null;
+      render(settings, digest);
+    });
+    catSection.append(all);
+    for (const row of digest.categories) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "chip";
+      btn.setAttribute(
+        "aria-pressed",
+        filterCategory === row.name ? "true" : "false"
+      );
+      btn.append(
+        `${categoryLabel(row.name, lang)} `,
+        Object.assign(document.createElement("span"), {
+          className: "n",
+          textContent: String(row.count),
+        })
+      );
+      btn.addEventListener("click", () => {
+        filterCategory = filterCategory === row.name ? null : row.name;
+        render(settings, digest);
+      });
+      catSection.append(btn);
+    }
+  }
 
   const showTrending = settings.sections.trending && digest.trending.length > 0;
   if (!showTrending) filterTag = null;
@@ -193,39 +368,24 @@ function renderChips(settings, digest) {
     for (const row of digest.trending) {
       const btn = document.createElement("button");
       btn.type = "button";
-      btn.className = "chip";
-      btn.textContent = `${row.tag} ${row.count}`;
+      btn.className = "trend-chip";
+      paintTopic(btn, row.tag);
       btn.setAttribute(
         "aria-pressed",
         filterTag === row.tag ? "true" : "false"
+      );
+      btn.append(
+        row.tag,
+        Object.assign(document.createElement("span"), {
+          className: "n",
+          textContent: String(row.count),
+        })
       );
       btn.addEventListener("click", () => {
         filterTag = filterTag === row.tag ? null : row.tag;
         render(settings, digest);
       });
       trendRoot.append(btn);
-    }
-  }
-
-  const showCats = settings.sections.categories && digest.categories.length > 0;
-  if (!showCats) filterCategory = null;
-  catSection.hidden = !showCats;
-  if (showCats) {
-    const lang = uiLang(settings);
-    for (const row of digest.categories) {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "chip";
-      btn.textContent = `${categoryLabel(row.name, lang)} ${row.count}`;
-      btn.setAttribute(
-        "aria-pressed",
-        filterCategory === row.name ? "true" : "false"
-      );
-      btn.addEventListener("click", () => {
-        filterCategory = filterCategory === row.name ? null : row.name;
-        render(settings, digest);
-      });
-      catRoot.append(btn);
     }
   }
 }
@@ -244,11 +404,10 @@ function renderStories(settings, digest) {
     stories = stories.filter((s) => s.category === filterCategory);
   }
   if (filterTag) {
-    stories = stories.filter((s) =>
-      (s.title + (s.title_vi || ""))
-        .toLowerCase()
-        .includes(filterTag.toLowerCase())
-    );
+    stories = stories.filter((s) => {
+      const blob = `${s.title} ${s.title_vi || ""} ${(s.tags || []).join(" ")}`;
+      return blob.toLowerCase().includes(filterTag.toLowerCase());
+    });
   }
   if (!stories.length) {
     section.hidden = true;
@@ -267,7 +426,7 @@ function renderStories(settings, digest) {
     const a = document.createElement("a");
     a.href = story.url || `${NEWS_SITE}/ai/${story.id}`;
     a.rel = "noreferrer";
-    a.textContent = storyTitle(story, settings.language);
+    appendHighlighted(a, storyTitle(story, settings.language), story.tags || []);
     const meta = document.createElement("span");
     meta.className = "story-meta";
     const bits = [];
@@ -275,21 +434,16 @@ function renderStories(settings, digest) {
     if (story.published_at) bits.push(timeAgo(story.published_at, lang));
     meta.textContent = bits.join(" · ");
     copy.append(a, meta);
-    li.append(n, copy, thumbNode(story.image_url));
+    li.append(n, copy);
     list.append(li);
   });
 }
 
 function render(settings, digest) {
   applyChrome(settings);
-  renderTldr(settings, digest);
   renderChips(settings, digest);
+  renderTldr(settings, digest);
   renderStories(settings, digest);
-  const stamp = $("stamp");
-  if (digest.updatedAt) {
-    stamp.dateTime = new Date(digest.updatedAt).toISOString();
-    stamp.textContent = timeAgo(digest.updatedAt, uiLang(settings));
-  }
 }
 
 function bindDrawer(getSettings, onChange) {
@@ -312,23 +466,36 @@ function bindDrawer(getSettings, onChange) {
   });
 }
 
+function bindLangToggle(getSettings, onChange) {
+  $("lang-toggle").addEventListener("click", (event) => {
+    const btn = event.target.closest("button[data-lang]");
+    if (!btn) return;
+    onChange({ ...getSettings(), language: btn.dataset.lang });
+  });
+}
+
 async function main() {
   let settings = await loadSettings();
   applyAppearance(settings);
   applyChrome(settings);
 
-  let digest = {
-    tldr: null,
-    stories: [],
-    categories: [],
-    trending: [],
-    updatedAt: 0,
-  };
+  let digest =
+    globalThis.__NEWS_TAB_DIGEST__ || {
+      tldr: null,
+      stories: [],
+      categories: [],
+      trending: [],
+      items: {},
+      totalStories: 0,
+      lastFetchedAt: 0,
+      updatedAt: 0,
+    };
 
   const refresh = async (next) => {
     settings = next;
     applyAppearance(settings);
     render(settings, digest);
+    if (globalThis.__NEWS_TAB_DIGEST__) return;
     try {
       const result = await fetchDigest(settings.apiBase);
       digest = result.digest;
@@ -340,6 +507,24 @@ async function main() {
   };
 
   bindDrawer(() => settings, refresh);
+  pushSettings = async (next) => {
+    settings = await saveSettings(next);
+    applyAppearance(settings);
+    render(settings, digest);
+  };
+  bindLangToggle(
+    () => settings,
+    async (next) => {
+      settings = await saveSettings(next);
+      applyAppearance(settings);
+      render(settings, digest);
+    }
+  );
+
+  if (digest.tldr || digest.stories.length) {
+    render(settings, digest);
+    return;
+  }
 
   try {
     const result = await fetchDigest(settings.apiBase);
