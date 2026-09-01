@@ -1,0 +1,444 @@
+#!/usr/bin/env bash
+# CLI lever for .cursor/skills/verify-blog — run from the monorepo root.
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../.." && pwd)"
+STATE_DIR="${VERIFY_BLOG_STATE_DIR:-/tmp/verify-blog}"
+STATE_FILE="${STATE_DIR}/state.json"
+CMD="${1:-}"
+shift || true
+
+mkdir -p "${STATE_DIR}"
+
+die() {
+  python3 -c 'import json,sys; print(json.dumps({"ok": False, "error": sys.argv[1]}))' "$1"
+  exit 1
+}
+
+usage() {
+  cat <<'EOF'
+verify-blog — drive apps/blog production build and prerendered HTML
+
+Commands:
+  doctor                         Read-only Clerk pin + script checks
+  build                          pnpm --filter blog build (Pages production)
+  drive <feature>                Inspect prerendered HTML (anyrouter-pricing|post-page|homepage)
+  prove [--feature <id>]         doctor + build + drive (default anyrouter-pricing)
+  preview-start                  vite preview of dist/client
+  preview-stop                   Stop the preview this lever started
+  cleanup                        preview-stop; keep evidence
+  --help                         This text
+
+Evidence: $VERIFY_BLOG_EVIDENCE or /tmp/verify-blog/<run-id>/
+EOF
+}
+
+ensure_root() {
+  [[ -f "${ROOT}/package.json" && -d "${ROOT}/apps/blog" ]] || die "not the monorepo root (${ROOT})"
+}
+
+new_run_id() {
+  date -u +%Y%m%dT%H%M%SZ
+}
+
+read_state_run_id() {
+  python3 - "$STATE_FILE" <<'PY'
+import json, sys, pathlib
+p = pathlib.Path(sys.argv[1])
+if not p.is_file():
+    print("")
+    raise SystemExit(0)
+try:
+    print(json.loads(p.read_text()).get("runId", "") or "")
+except json.JSONDecodeError:
+    print("")
+PY
+}
+
+evidence_dir_for() {
+  local id="$1"
+  if [[ -n "${VERIFY_BLOG_EVIDENCE:-}" ]]; then
+    printf '%s' "${VERIFY_BLOG_EVIDENCE}"
+  else
+    printf '%s/%s' "${STATE_DIR}" "${id}"
+  fi
+}
+
+write_state() {
+  python3 - "$STATE_FILE" "$1" "$2" <<'PY'
+import json, sys, pathlib
+path, run_id, evidence = pathlib.Path(sys.argv[1]), sys.argv[2], sys.argv[3]
+state = {}
+if path.is_file():
+    try:
+        state = json.loads(path.read_text())
+    except json.JSONDecodeError:
+        state = {}
+state["runId"] = run_id
+state["evidenceDir"] = evidence
+path.write_text(json.dumps(state))
+PY
+}
+
+resolve_run() {
+  local id="${VERIFY_BLOG_RUN_ID:-}"
+  if [[ -z "${id}" ]]; then
+    id="$(read_state_run_id)"
+  fi
+  if [[ -z "${id}" ]]; then
+    id="$(new_run_id)"
+  fi
+  local evidence
+  evidence="$(evidence_dir_for "${id}")"
+  mkdir -p "${evidence}"
+  write_state "${id}" "${evidence}"
+  printf '%s %s' "${id}" "${evidence}"
+}
+
+html_path_for_anyrouter() {
+  local p="${ROOT}/apps/blog/dist/client/2026/07/anyrouter/index.html"
+  if [[ -f "${p}" ]]; then
+    printf '%s' "${p}"
+    return
+  fi
+  p="${ROOT}/apps/blog/dist/client/2026/07/anyrouter.html"
+  if [[ -f "${p}" ]]; then
+    printf '%s' "${p}"
+  fi
+}
+
+cmd_doctor() {
+  ensure_root
+  python3 - "$ROOT" <<'PY'
+import json, os, sys, pathlib
+root = pathlib.Path(sys.argv[1])
+pkg = json.loads((root / "package.json").read_text())
+override = pkg.get("pnpm", {}).get("overrides", {}).get("@clerk/shared", "")
+blog_build = json.loads((root / "apps/blog/package.json").read_text()).get("scripts", {}).get("build", "")
+
+def first_version(candidates):
+    for path in candidates:
+        if path.is_file():
+            return json.loads(path.read_text()).get("version", "")
+    return ""
+
+shared_candidates = [root / "node_modules/@clerk/shared/package.json"]
+pnpm_dir = root / "node_modules/.pnpm"
+if pnpm_dir.is_dir():
+    for name in os.listdir(pnpm_dir):
+        if name.startswith("@clerk+shared@"):
+            shared_candidates.append(pnpm_dir / name / "node_modules/@clerk/shared/package.json")
+            break
+resolved_shared = first_version(shared_candidates)
+resolved_react = first_version([root / "node_modules/@clerk/clerk-react/package.json"])
+aligned = override.startswith("3.") and (not resolved_shared or resolved_shared.startswith("3."))
+wasm_md = (root / "packages/wasm/pkg/markdown/markdown.js").is_file()
+out = {
+    "ok": aligned,
+    "clerkAligned": aligned,
+    "wasmMarkdown": wasm_md,
+    "override": override,
+    "resolvedShared": resolved_shared,
+    "resolvedClerkReact": resolved_react,
+    "blogBuildScriptUsesVite": "vite" in blog_build,
+    "expectedOverridePrefix": "3.",
+}
+print(json.dumps(out))
+raise SystemExit(0 if aligned else 1)
+PY
+}
+
+cmd_build() {
+  ensure_root
+  local pair id evidence
+  pair="$(resolve_run)"
+  id="${pair%% *}"
+  evidence="${pair#* }"
+  local log="${evidence}/build.log"
+  local start end elapsed status
+  start="$(date +%s)"
+  set +e
+  (
+    cd "${ROOT}"
+    pnpm --filter blog build
+  ) >"${log}" 2>&1
+  status=$?
+  set -e
+  end="$(date +%s)"
+  elapsed=$((end - start))
+  python3 - "$log" "$status" "$elapsed" "$id" "$evidence" "$ROOT" <<'PY'
+import json, sys, pathlib
+log, status, elapsed, run_id, evidence, root = sys.argv[1:7]
+text = pathlib.Path(log).read_text(encoding="utf-8", errors="replace")
+missing = "MISSING_EXPORT" in text
+index_html = (pathlib.Path(root) / "apps/blog/dist/client/index.html").is_file()
+ok = int(status) == 0 and not missing and index_html
+out = {
+    "ok": ok,
+    "command": "pnpm --filter blog build",
+    "exitCode": int(status),
+    "elapsedSec": int(elapsed),
+    "missingExport": missing,
+    "indexHtml": index_html,
+    "runId": run_id,
+    "evidenceDir": evidence,
+    "buildLog": log,
+}
+print(json.dumps(out))
+raise SystemExit(0 if ok else 1)
+PY
+}
+
+cmd_drive() {
+  ensure_root
+  local feature="${1:-}"
+  [[ -n "${feature}" ]] || die "drive requires a feature id"
+  local pair id evidence
+  pair="$(resolve_run)"
+  id="${pair%% *}"
+  evidence="${pair#* }"
+
+  case "${feature}" in
+    anyrouter-pricing|post-page)
+      local html
+      html="$(html_path_for_anyrouter)"
+      [[ -n "${html}" ]] || die "prerendered anyrouter HTML not found under apps/blog/dist/client; run build first"
+      python3 - "$feature" "$html" "$evidence" "$id" <<'PY'
+import json, sys, pathlib, shutil
+feature, html_path, evidence, run_id = sys.argv[1:5]
+src = pathlib.Path(html_path)
+dest = pathlib.Path(evidence) / "anyrouter.html"
+shutil.copyfile(src, dest)
+text = src.read_text(encoding="utf-8", errors="replace")
+needles_present = [
+    "Why Go is $2/mo",
+    "$4 monthly credits",
+    "$2.63",
+    "anyrouter/free",
+    "https://anyrouter.dev/setup.sh",
+    "anyr claude --model z-ai/glm-5.2",
+]
+needles_absent = [
+    "Why Starter at $1/mo",
+    "Why Go at $2/mo",
+    "npx @anyr/cli claude",
+]
+present = {n: n in text for n in needles_present}
+absent_ok = {n: n not in text for n in needles_absent}
+ok = all(present.values()) and all(absent_ok.values())
+report = {
+    "ok": ok,
+    "feature": feature,
+    "htmlPath": html_path,
+    "bytes": len(text),
+    "mustContain": present,
+    "mustNotContain": absent_ok,
+    "runId": run_id,
+    "evidenceDir": evidence,
+    "copiedTo": str(dest),
+}
+(pathlib.Path(evidence) / "report.json").write_text(json.dumps(report, indent=2) + "\n")
+print(json.dumps(report))
+raise SystemExit(0 if ok else 1)
+PY
+      ;;
+    homepage)
+      local home="${ROOT}/apps/blog/dist/client/index.html"
+      [[ -f "${home}" ]] || die "apps/blog/dist/client/index.html missing; run build first"
+      python3 - "$home" "$evidence" "$id" <<'PY'
+import json, sys, pathlib, shutil
+html_path, evidence, run_id = sys.argv[1:4]
+src = pathlib.Path(html_path)
+shutil.copyfile(src, pathlib.Path(evidence) / "index.html")
+text = src.read_text(encoding="utf-8", errors="replace")
+ok = ("blog.duyet.net" in text) or ("Tôi là Duyệt" in text)
+report = {
+    "ok": ok,
+    "feature": "homepage",
+    "htmlPath": html_path,
+    "bytes": len(text),
+    "hasBlogIdentity": ok,
+    "runId": run_id,
+    "evidenceDir": evidence,
+}
+(pathlib.Path(evidence) / "report.json").write_text(json.dumps(report, indent=2) + "\n")
+print(json.dumps(report))
+raise SystemExit(0 if ok else 1)
+PY
+      ;;
+    production-build)
+      die "drive production-build is the build command; use: verify-blog prove --feature production-build"
+      ;;
+    *)
+      die "unknown feature: ${feature}"
+      ;;
+  esac
+}
+
+cmd_prove() {
+  local feature="anyrouter-pricing"
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --feature)
+        feature="${2:-}"
+        shift 2
+        ;;
+      *)
+        die "unknown prove arg: $1"
+        ;;
+    esac
+  done
+  [[ -n "${feature}" ]] || die "--feature requires an id"
+
+  local id evidence
+  id="$(new_run_id)"
+  export VERIFY_BLOG_RUN_ID="${id}"
+  evidence="$(evidence_dir_for "${id}")"
+  export VERIFY_BLOG_EVIDENCE="${evidence}"
+  mkdir -p "${evidence}"
+  write_state "${id}" "${evidence}"
+
+  set +e
+  cmd_doctor >"${evidence}/doctor.json"
+  local doctor_st=$?
+  set -e
+  if [[ ${doctor_st} -ne 0 ]]; then
+    python3 - "$evidence" "$id" <<'PY'
+import json, sys, pathlib
+evidence, run_id = sys.argv[1:3]
+out = {
+    "ok": False,
+    "stage": "doctor",
+    "runId": run_id,
+    "evidenceDir": evidence,
+    "doctor": json.loads(pathlib.Path(evidence, "doctor.json").read_text()),
+}
+print(json.dumps(out))
+raise SystemExit(1)
+PY
+  fi
+
+  set +e
+  cmd_build >"${evidence}/build.json"
+  local build_st=$?
+  set -e
+  if [[ ${build_st} -ne 0 ]]; then
+    python3 - "$evidence" "$id" <<'PY'
+import json, sys, pathlib
+evidence, run_id = sys.argv[1:3]
+out = {
+    "ok": False,
+    "stage": "build",
+    "runId": run_id,
+    "evidenceDir": evidence,
+    "doctor": json.loads(pathlib.Path(evidence, "doctor.json").read_text()),
+    "build": json.loads(pathlib.Path(evidence, "build.json").read_text()),
+}
+print(json.dumps(out))
+raise SystemExit(1)
+PY
+  fi
+
+  local drive_feature="${feature}"
+  if [[ "${feature}" == "production-build" ]]; then
+    drive_feature="homepage"
+  fi
+  set +e
+  cmd_drive "${drive_feature}" >"${evidence}/drive.json"
+  local drive_st=$?
+  set -e
+  python3 - "$evidence" "$id" "$feature" "$drive_st" <<'PY'
+import json, sys, pathlib
+evidence, run_id, feature, drive_st = sys.argv[1:5]
+out = {
+    "ok": int(drive_st) == 0,
+    "feature": feature,
+    "runId": run_id,
+    "evidenceDir": evidence,
+    "doctor": json.loads(pathlib.Path(evidence, "doctor.json").read_text()),
+    "build": json.loads(pathlib.Path(evidence, "build.json").read_text()),
+    "drive": json.loads(pathlib.Path(evidence, "drive.json").read_text()),
+}
+print(json.dumps(out))
+raise SystemExit(0 if out["ok"] else 1)
+PY
+}
+
+cmd_preview_start() {
+  ensure_root
+  [[ -f "${ROOT}/apps/blog/dist/client/index.html" ]] || die "dist/client missing; run build first"
+  local port="${VERIFY_BLOG_PREVIEW_PORT:-4173}"
+  local log="${STATE_DIR}/preview.log"
+  (
+    cd "${ROOT}/apps/blog"
+    pnpm exec vite preview --host 127.0.0.1 --port "${port}" --strictPort
+  ) >"${log}" 2>&1 &
+  local pid=$!
+  python3 - "$STATE_FILE" "$pid" "$port" "$log" <<'PY'
+import json, sys, pathlib
+path = pathlib.Path(sys.argv[1])
+state = {}
+if path.is_file():
+    try:
+        state = json.loads(path.read_text())
+    except json.JSONDecodeError:
+        state = {}
+state["previewPid"] = int(sys.argv[2])
+state["previewPort"] = int(sys.argv[3])
+state["previewLog"] = sys.argv[4]
+path.write_text(json.dumps(state))
+PY
+  local i=0
+  while [[ ${i} -lt 50 ]]; do
+    if curl -sf -o /dev/null "http://127.0.0.1:${port}/"; then
+      python3 -c 'import json,sys; print(json.dumps({"ok": True, "previewPid": int(sys.argv[1]), "url": sys.argv[2], "anyrouter": sys.argv[3], "log": sys.argv[4]}))' \
+        "${pid}" "http://127.0.0.1:${port}/" "http://127.0.0.1:${port}/2026/07/anyrouter/" "${log}"
+      return 0
+    fi
+    if ! kill -0 "${pid}" 2>/dev/null; then
+      die "preview process exited; see ${log}"
+    fi
+    sleep 0.2
+    i=$((i + 1))
+  done
+  die "preview did not become ready on port ${port}; see ${log}"
+}
+
+cmd_preview_stop() {
+  python3 - "$STATE_FILE" <<'PY'
+import json, os, sys, signal, pathlib
+path = pathlib.Path(sys.argv[1])
+if not path.is_file():
+    print(json.dumps({"ok": True, "stopped": False, "reason": "no state file"}))
+    raise SystemExit(0)
+try:
+    state = json.loads(path.read_text())
+except json.JSONDecodeError:
+    print(json.dumps({"ok": True, "stopped": False, "reason": "empty state"}))
+    raise SystemExit(0)
+pid = state.get("previewPid")
+if not pid:
+    print(json.dumps({"ok": True, "stopped": False, "reason": "no previewPid"}))
+    raise SystemExit(0)
+try:
+    os.kill(int(pid), signal.SIGTERM)
+    stopped, reason = True, "sigterm"
+except ProcessLookupError:
+    stopped, reason = False, "not running"
+state.pop("previewPid", None)
+path.write_text(json.dumps(state))
+print(json.dumps({"ok": True, "stopped": stopped, "pid": pid, "reason": reason}))
+PY
+}
+
+case "${CMD}" in
+  doctor) cmd_doctor ;;
+  build) cmd_build ;;
+  drive) cmd_drive "${1:-}" ;;
+  prove) cmd_prove "$@" ;;
+  preview-start) cmd_preview_start ;;
+  preview-stop) cmd_preview_stop ;;
+  cleanup) cmd_preview_stop ;;
+  -h|--help|help|"") usage ;;
+  *) die "unknown command: ${CMD}" ;;
+esac

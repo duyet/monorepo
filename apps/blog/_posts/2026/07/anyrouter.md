@@ -109,18 +109,22 @@ When those keys go into the shared pool, the idle capacity turns into credits an
   <img src="/media/2026/07/anyrouter/anyrouter-shared-pool-2-bg.png" alt="Shared pool models" loading="lazy" />
 </div>
 
-# Why Go at $2/mo
+# Why Go is $2/mo
 
-I launched a few weeks ago giving each new user $2 free right after sign up. Thousands of spam accounts got created.
-So the paid floor is now Go at $2/mo, with $4 credits included — nothing compared to a $200 Claude or Codex plan or the bunch of other subscriptions you already pay for, not even worth your morning coffee. Honestly, it's a good way to prevent spam.
+I launched a few weeks ago giving each new user $2 free credit right after sign up. Thousands of spam accounts got created.
+
+The cheap paid door is now Go at $2/mo. Polar charges the card $2.63 so their fee is covered. You get $4 monthly credits — not a $1 plan.
 
 <div class="img-row">
   <img src="/media/2026/07/anyrouter/anyrouter-spam.jpeg" alt="Spam accounts after launch" loading="lazy" />
   <img src="/media/2026/07/anyrouter/anyrouter-to-start-bg.png" alt="Getting the Go plan" loading="lazy" />
 </div>
 
-Another way to get Go: donate at least one good shared key to the pool.
-I will improve this over time.
+The Free plan has no monthly credits and no signup bonus. `anyrouter/free` on Free returns 403 until you take Go or donate a key.
+
+Another way to get Go: donate at least one good shared key to the pool. No card. I do not take Alipay or WeChat.
+
+I will keep improving this. Live table: [docs.anyrouter.dev/features/pricing](https://docs.anyrouter.dev/features/pricing).
 
 # How I built anyrouter: Self improvement
 
@@ -191,8 +195,8 @@ const { text } = await generateText({
 <div class="tab-panel">
 
 ```bash
-# Pick any model (e.g. GLM-5.2)
-npx @anyr/cli claude --model z-ai/glm-5.2
+curl -fsSL https://anyrouter.dev/setup.sh | bash
+anyr claude --model z-ai/glm-5.2
 ```
 
 </div>

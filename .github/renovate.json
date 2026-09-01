@@ -8,6 +8,13 @@
     "security:openssf-scorecard"
   ],
   "automerge": true,
+  "packageRules": [
+    {
+      "description": "clerk-react 5.x and @clerk/backend 2.x require @clerk/shared ^3.47. v4 drops ClientContext/OrganizationProvider/SessionContext/UserContext and breaks the blog Vite/rolldown production build.",
+      "matchPackageNames": ["@clerk/shared"],
+      "allowedVersions": "<4"
+    }
+  ],
   "ignoreDeps": [
     "@duyet/tsconfig",
     "@duyet/components",
