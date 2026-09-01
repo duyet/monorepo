@@ -105,7 +105,7 @@ A lot of providers give you some free tokens. This one unifies and combines them
 When those keys go into the shared pool, the idle capacity turns into credits and free models for everyone. **You donate what you're not using, and you draw from what others aren't using.** [Donating your idle free keys to the pool](https://anyrouter.dev/donate) is the way to a good source of free tokens for everyone.
 
 <div class="img-row">
-  <img src="/media/2026/07/anyrouter/anyrouter-shared-pool-bg.png" alt="The shared key pool" loading="lazy" />
+  <img src="/media/2026/07/anyrouter/anyrouter-shared-pool-bg.png?v=d83b17c3" alt="The shared key pool" loading="lazy" />
   <img src="/media/2026/07/anyrouter/anyrouter-shared-pool-2-bg.png" alt="Shared pool models" loading="lazy" />
 </div>
 
@@ -117,7 +117,7 @@ The cheap paid door is now Go at $2/mo. Polar charges the card $2.63 so their fe
 
 <div class="img-row">
   <img src="/media/2026/07/anyrouter/anyrouter-spam.jpeg" alt="Spam accounts after launch" loading="lazy" />
-  <img src="/media/2026/07/anyrouter/anyrouter-to-start-bg.png" alt="Getting the Go plan" loading="lazy" />
+  <img src="/media/2026/07/anyrouter/anyrouter-to-start-bg.png?v=d83b17c3" alt="Getting the Go plan" loading="lazy" />
 </div>
 
 The Free plan has no monthly credits and no signup bonus. `anyrouter/free` on Free returns 403 until you take Go or donate a key.
@@ -206,6 +206,6 @@ anyr claude --model z-ai/glm-5.2
 
 People wire it into coding agents, chat apps, and batch jobs — anywhere they'd otherwise juggle several provider keys by hand. A few real setups are collected at [anyrouter.dev/use-cases](https://anyrouter.dev/use-cases). Take whatever's useful.
 
-![AnyRouter use cases](/media/2026/07/anyrouter/anyrouter-use-cases.png)
+![AnyRouter use cases](/media/2026/07/anyrouter/anyrouter-use-cases.png?v=d83b17c3)
 
 I hope everyone can use it and give me more feedback: [https://anyrouter.dev](https://anyrouter.dev/?utm_source=blog&utm_medium=post&ref=blog)
