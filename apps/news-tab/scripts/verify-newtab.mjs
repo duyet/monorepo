@@ -96,11 +96,11 @@ function expectedMap(digest) {
 
 function featureMapFromHtml(html) {
   const pick = (re) => html.match(re)?.[1]?.trim() || "";
-  const chips = [...html.matchAll(/class="chip"[^>]*>([\s\S]*?)<\/button>/g)].map(
+  const chips = [...html.matchAll(/class="chip[\s"][^>]*>([\s\S]*?)<\/button>/g)].map(
     (m) => m[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()
   );
   const trends = [
-    ...html.matchAll(/class="trend-chip"[^>]*>([\s\S]*?)<\/button>/g),
+    ...html.matchAll(/class="trend-chip[\s"][^>]*>([\s\S]*?)<\/button>/g),
   ].map((m) => m[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim());
   const thumbs = (html.match(/class="thumb"/g) || []).length;
   const topicTags = (html.match(/class="topic-tag/g) || []).length;

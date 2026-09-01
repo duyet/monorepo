@@ -42,7 +42,9 @@ Do not invent a parallel cream/terracotta digest. Tokens come from `apps/news/sr
 
 ## Proven drive
 
-Run the CLI after UI changes. Attach `report.json` plus both PNGs. Verdict must be `VERIFIED`.
+2026-09-01 — `node apps/news-tab/scripts/verify-newtab.mjs --out /tmp/verify-news-tab`
+
+Verdict: **VERIFIED** (header, Tất cả, trending pills, AI;DR date, layout A, two numbered columns, topic tags, `topic-colored` highlights, thumbs). Screenshots: `newtab.png` vs live `site.png`.
 
 ```bash
 pnpm --filter news-tab test
