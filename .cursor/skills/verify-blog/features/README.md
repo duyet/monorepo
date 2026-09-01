@@ -6,6 +6,7 @@ This directory is the maintained source for verifying user-facing behavior of `a
 
 - Work from the monorepo root with pnpm 10.
 - `pnpm.overrides["@clerk/shared"]` is `3.47.8`. Shared v4 breaks the Vite/rolldown production build (`MISSING_EXPORT` of Clerk React contexts).
+- `packages/wasm/pkg/markdown/markdown.js` exists (gitignored; build with wasm-pack or `pnpm run wasm:build` as CI does).
 - Launch means `pnpm --filter blog build` (Pages output `apps/blog/dist/client`). `vite dev` is not a substitute for a production-build claim.
 - Put `.cursor/skills/verify-blog/bin` on `PATH` or invoke the binary by repo-relative path.
 - Run `verify-blog doctor` and require `clerkAligned: true`.

@@ -13,13 +13,21 @@ Feature map: [`features/README.md`](features/README.md). Drive the mapped featur
 
 ## Launch
 
-From the monorepo root, with pnpm 10 and workspace `node_modules` installed:
+From the monorepo root, with pnpm 10 and workspace `node_modules` installed. WASM pkg files are gitignored; CI runs `pnpm run wasm:build:release` before the blog Pages job. Locally, if `packages/wasm/pkg/markdown/markdown.js` is missing:
+
+```bash
+# rustc 1.85+ (edition 2024), wasm32-unknown-unknown, wasm-pack
+wasm-pack build --target web --out-dir packages/wasm/pkg/markdown --out-name markdown crates/markdown
+# or: pnpm run wasm:build
+```
+
+Then:
 
 ```bash
 pnpm --filter blog build
 ```
 
-Ready when the command exits 0 and `apps/blog/dist/client/index.html` exists. This is the same graph CI uses for the `duyet-blog` Pages job (`apps/blog` `build` / `cf:deploy:prod`). A failing production build is a failed launch — do not fall back to `vite dev`.
+Ready when the command exits 0 and `apps/blog/dist/client/index.html` exists. This is the same graph CI uses for the `duyet-blog` Pages job (`apps/blog` `build` / `cf:deploy:prod`). A failing production build is a failed launch — do not fall back to `vite dev`. Prebuild failing with `Cannot find module .../packages/wasm/pkg/markdown/markdown.js` means WASM was skipped, not a Clerk miss.
 
 Optional preview of that output (separate from launch):
 
@@ -44,6 +52,7 @@ Pass requires:
 - Root `pnpm.overrides["@clerk/shared"]` is `3.x` (currently `3.47.8`). `@clerk/clerk-react` 5.x imports `ClientContext` / `OrganizationProvider` / `SessionContext` / `UserContext` from `@clerk/shared/react`. Shared v4 dropped those exports and fails the rolldown production build with `MISSING_EXPORT`.
 - If `node_modules` is present, the resolved `@clerk/shared` package version is also `3.x`.
 - `apps/blog/package.json` `build` script still invokes Vite via `scripts/force-workspace-react.mjs`.
+- Doctor also reports `wasmMarkdown` (whether `packages/wasm/pkg/markdown/markdown.js` exists). Missing WASM fails prebuild, not Clerk; CI builds WASM before Pages.
 
 Do not drive an instance whose doctor reports `clerkAligned: false`.
 

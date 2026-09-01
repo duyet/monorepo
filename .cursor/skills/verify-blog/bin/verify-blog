@@ -132,9 +132,11 @@ if pnpm_dir.is_dir():
 resolved_shared = first_version(shared_candidates)
 resolved_react = first_version([root / "node_modules/@clerk/clerk-react/package.json"])
 aligned = override.startswith("3.") and (not resolved_shared or resolved_shared.startswith("3."))
+wasm_md = (root / "packages/wasm/pkg/markdown/markdown.js").is_file()
 out = {
     "ok": aligned,
     "clerkAligned": aligned,
+    "wasmMarkdown": wasm_md,
     "override": override,
     "resolvedShared": resolved_shared,
     "resolvedClerkReact": resolved_react,
