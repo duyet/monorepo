@@ -1,8 +1,10 @@
 # apps/news-tab
 
 Chrome Manifest V3 new-tab page for [news.duyet.net](https://news.duyet.net).
-It paints today's AI;DR + top stories (small thumbs, compact cream/terracotta
-layout) from the public digest. No account. Not a Cloudflare Worker or Pages
+It paints today's AI;DR + top stories to match the live
+[news.duyet.net](https://news.duyet.net) homepage (layout A: numbered
+two-column digest, keyword highlights, category chips, trending pills,
+~40–48px thumbs). No account. Not a Cloudflare Worker or Pages
 app — do not add `wrangler.toml`.
 
 Load this folder **unpacked**. `manifest.json` is the extension root.
@@ -15,6 +17,7 @@ The news Worker build packs that zip; it is not a GitHub Release asset.
 pnpm --filter news-tab lint
 pnpm --filter news-tab test
 pnpm --filter news-tab build
+pnpm --filter news-tab verify
 ```
 
 `build` validates the unpacked tree (it does not emit a Worker bundle).
@@ -58,6 +61,10 @@ grant the optional host permission when Chrome asks. Production default is
 - **URL:** `GET https://news.duyet.net/api/public` (shipped in the news Worker)
 - **Auth:** none
 - **CORS:** `chrome-extension://`, localhost, `*.duyet.net`
+- **Chrome data:** unpacked MV3 `host_permissions` also read
+  `GET /api/feed?days=3` for category counts, trending pills, and item tags
+  (the slim public digest does not include those). Previewing `newtab.html`
+  as a web page cannot call `/api/feed` (no CORS); Load unpacked can.
 - **Fallback:** `GET /api/feed` if `/api/public` fails, then last-good cache in
   `chrome.storage.local`
 

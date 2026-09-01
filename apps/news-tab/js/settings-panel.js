@@ -177,6 +177,23 @@ export function mountSettingsPanel(root, settings, onSaved) {
     ])
   );
 
+  form.append(
+    labeledSelect(
+      t(state, "tldrCount"),
+      "tldrCount",
+      String(state.tldrCount),
+      [
+        { value: "8", label: "8" },
+        { value: "12", label: "12" },
+        { value: "16", label: "16" },
+      ],
+      async (value) => {
+        state.tldrCount = Number(value);
+        await persist();
+      }
+    )
+  );
+
   const sectionKeys = ["tldr", "stories", "categories", "trending"];
   const checks = el("div", { className: "checks" });
   for (const key of sectionKeys) {

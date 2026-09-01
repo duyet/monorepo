@@ -30,6 +30,6 @@
     "http://127.0.0.1/*"
   ],
   "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'; img-src 'self' https: data: blob:; connect-src 'self' https: http://127.0.0.1:* http://localhost:*"
+    "extension_pages": "script-src 'self'; object-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data: blob:; connect-src 'self' https: http://127.0.0.1:* http://localhost:*"
   }
 }

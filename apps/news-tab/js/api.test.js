@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { afterEach, test } from "node:test";
 import {
+  enrichDigest,
   feedUrl,
   fetchDigest,
   normalizeDigest,
@@ -89,7 +90,10 @@ test("fetchDigest prefers /api/public then caches", async () => {
   assert.equal(first.source, "public");
   assert.equal(first.stale, false);
   assert.equal(first.digest.stories[0].title, "T");
-  assert.deepEqual(calls, ["https://news.duyet.net/api/public"]);
+  assert.deepEqual(calls, [
+    "https://news.duyet.net/api/public",
+    "https://news.duyet.net/api/feed?days=3",
+  ]);
 });
 
 test("fetchDigest falls back to /api/feed", async () => {
@@ -157,4 +161,34 @@ test("fetchDigest does not reuse another API base cache", async () => {
     () => fetchDigest("https://news.duyet.net"),
     /unavailable/
   );
+});
+
+test("enrichDigest copies categories, trending, and item tags from feed", () => {
+  const digest = normalizeDigest({
+    tldr: { date: "d", bullets_en: [], bullets_vi: [] },
+    stories: [{ id: "1", url: "https://x", title: "T" }],
+  });
+  const next = enrichDigest(digest, {
+    categories: [{ name: "Industry", count: 37 }],
+    trending: [{ tag: "agent", count: 15 }],
+    totalStories: 163,
+    lastFetchedAt: 99,
+    days: [
+      {
+        items: [
+          {
+            id: "abc",
+            url: "https://x",
+            title: "OpenAI news",
+            tags: ["openai", "agent"],
+            category: "Industry",
+          },
+        ],
+      },
+    ],
+  });
+  assert.deepEqual(next.categories, [{ name: "Industry", count: 37 }]);
+  assert.deepEqual(next.trending, [{ tag: "agent", count: 15 }]);
+  assert.equal(next.totalStories, 163);
+  assert.deepEqual(next.items.abc.tags, ["openai", "agent"]);
 });

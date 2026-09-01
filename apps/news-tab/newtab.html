@@ -3,41 +3,93 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AI News</title>
+    <title>Hôm nay AI có gì mới?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+    />
     <link rel="stylesheet" href="css/newtab.css" />
   </head>
   <body>
-    <div class="page">
-      <header class="top">
-        <a class="brand" href="https://news.duyet.net/" rel="noreferrer">
-          <span class="mark" aria-hidden="true">n</span>
-          AI News
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="brand" id="brand" href="https://news.duyet.net/" rel="noreferrer">
+          Hôm nay AI có gì mới?
         </a>
-        <p class="lede" id="lede">Hôm nay AI có gì mới?</p>
-        <time class="date" id="stamp"></time>
-        <button type="button" class="gear" id="open-settings" aria-label="Cài đặt">
-          ⚙
-        </button>
-      </header>
+        <span class="topbar-spacer" aria-hidden="true"></span>
+        <form class="search" id="search-form" action="https://news.duyet.net/" method="get">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-3.5-3.5" />
+          </svg>
+          <input
+            id="search"
+            name="q"
+            type="search"
+            autocomplete="off"
+            placeholder="Tìm kiếm..."
+            aria-label="Search"
+          />
+        </form>
+        <div class="actions">
+          <a class="chrome-tab" id="chrome-tab" href="https://news.duyet.net/extension">
+            Tab Chrome
+          </a>
+          <a class="submit-btn" id="submit-btn" href="https://news.duyet.net/submit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+            <span id="submit-label">Gửi bài</span>
+          </a>
+          <button type="button" class="aa-btn" id="open-settings" aria-label="Tuỳ chỉnh hiển thị">
+            Aa
+          </button>
+          <div class="lang-toggle" id="lang-toggle">
+            <button type="button" data-lang="en" aria-pressed="false">EN</button>
+            <button type="button" data-lang="vi" aria-pressed="true">VI</button>
+          </div>
+          <a class="profile" id="profile" href="https://news.duyet.net/" aria-label="news.duyet.net">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+              <circle cx="12" cy="8" r="3.25" />
+              <path d="M5.5 19.5a6.5 6.5 0 0 1 13 0" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </header>
 
+    <div class="page">
       <p class="status" id="status" hidden></p>
 
-      <section class="tldr" id="section-tldr" hidden>
-        <div class="tldr-head">
-          <h1>AI;DR</h1>
-          <span class="muted" id="tldr-meta"></span>
-        </div>
-        <div class="tldr-cols" id="tldr-cols"></div>
-      </section>
+      <nav class="cat-nav" id="section-categories" hidden></nav>
 
-      <section class="chips-wrap" id="section-trending" hidden>
-        <span class="chips-label" id="trending-label">Xu hướng</span>
+      <section class="trending" id="section-trending" hidden>
+        <span class="trending-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M3 17 9 11l4 4 8-8" />
+            <path d="M14 7h7v7" />
+          </svg>
+          <span id="trending-label">Xu hướng</span>
+        </span>
         <div class="chips" id="trending"></div>
       </section>
 
-      <section class="chips-wrap" id="section-categories" hidden>
-        <span class="chips-label" id="categories-label">Chủ đề</span>
-        <div class="chips" id="categories"></div>
+      <section class="tldr" id="section-tldr" hidden data-aidr-layout="a">
+        <div class="tldr-head">
+          <div class="tldr-title">
+            <h1>AI;DR</h1>
+            <span class="muted" id="tldr-meta"></span>
+          </div>
+          <div class="tldr-counts" id="tldr-counts" hidden></div>
+        </div>
+        <div class="tldr-cols" id="tldr-cols"></div>
+        <button type="button" class="tldr-more" id="tldr-more" hidden></button>
+        <div class="tldr-foot">
+          <span id="tldr-total"></span>
+          <span id="tldr-updated"></span>
+        </div>
       </section>
 
       <section class="stories" id="section-stories" hidden>

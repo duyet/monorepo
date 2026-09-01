@@ -48,6 +48,9 @@ function normalizeStory(raw) {
     title,
     title_vi: raw.title_vi ? clipText(raw.title_vi) : null,
     category: raw.category ? clipText(raw.category) : null,
+    tags: Array.isArray(raw.tags)
+      ? raw.tags.filter((tag) => typeof tag === "string" && tag)
+      : [],
     image_url: typeof image === "string" ? image : null,
     published_at: Number(raw.published_at) || 0,
   };
@@ -60,6 +63,65 @@ function categoriesFromStories(stories) {
     counts.set(story.category, (counts.get(story.category) || 0) + 1);
   }
   return [...counts.entries()].map(([name, count]) => ({ name, count }));
+}
+
+function itemIndexFromStories(stories) {
+  const items = {};
+  for (const story of stories) {
+    if (!story.id) continue;
+    items[story.id] = {
+      tags: story.tags || [],
+      category: story.category,
+      image_url: story.image_url,
+    };
+  }
+  return items;
+}
+
+function itemIndexFromFeed(raw) {
+  const items = {};
+  const days = Array.isArray(raw?.days) ? raw.days : [];
+  for (const day of days) {
+    const rows = Array.isArray(day?.items) ? day.items : [];
+    for (const row of rows) {
+      const story = normalizeStory(row);
+      if (!story?.id) continue;
+      items[story.id] = {
+        tags: story.tags,
+        category: story.category,
+        image_url: story.image_url,
+      };
+    }
+  }
+  return items;
+}
+
+export function enrichDigest(digest, feedRaw) {
+  if (!feedRaw || typeof feedRaw !== "object") return digest;
+  const feedCats = Array.isArray(feedRaw.categories)
+    ? feedRaw.categories
+        .map((c) => ({
+          name: clipText(c.name),
+          count: Number(c.count) || 0,
+        }))
+        .filter((c) => c.name)
+    : [];
+  const feedTrend = Array.isArray(feedRaw.trending)
+    ? feedRaw.trending
+        .map((row) => ({
+          tag: clipText(row.tag),
+          count: Number(row.count) || 0,
+        }))
+        .filter((row) => row.tag)
+    : [];
+  return {
+    ...digest,
+    categories: feedCats.length ? feedCats : digest.categories,
+    trending: feedTrend.length ? feedTrend : digest.trending,
+    items: { ...digest.items, ...itemIndexFromFeed(feedRaw) },
+    totalStories: Number(feedRaw.totalStories) || digest.totalStories,
+    lastFetchedAt: Number(feedRaw.lastFetchedAt) || digest.lastFetchedAt,
+  };
 }
 
 export function normalizeDigest(raw) {
@@ -100,13 +162,20 @@ export function normalizeDigest(raw) {
         .filter((row) => row.tag)
     : [];
 
-  return {
+  const digest = {
     tldr,
     stories,
     categories,
     trending,
+    items: itemIndexFromStories(stories),
+    totalStories: Number(raw?.totalStories) || stories.length,
+    lastFetchedAt: Number(raw?.lastFetchedAt) || 0,
     updatedAt: Number(raw?.updatedAt) || Date.now(),
   };
+  if (raw?.items && typeof raw.items === "object") {
+    digest.items = { ...digest.items, ...raw.items };
+  }
+  return digest;
 }
 
 const FETCH_MS = 8000;
@@ -159,7 +228,14 @@ export async function fetchDigest(apiBase) {
   const base = normalizeApiBase(apiBase);
   try {
     const data = await readJson(publicUrl(base));
-    const digest = normalizeDigest(data);
+    let digest = normalizeDigest(data);
+    try {
+      const feed = await readJson(`${feedUrl(base)}?days=3`);
+      digest = enrichDigest(digest, feed);
+    } catch {
+      // /api/feed has no CORS for web previews; unpacked MV3 host_permissions
+      // still succeed. Public digest is enough for AI;DR + stories.
+    }
     await writeCachedDigest(digest, base);
     return { digest, source: "public", stale: false };
   } catch {

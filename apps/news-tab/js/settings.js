@@ -16,6 +16,7 @@ export const DEFAULT_SETTINGS = {
   },
   density: "compact",
   storyCount: 8,
+  tldrCount: 8,
   apiBase: DEFAULT_API_BASE,
 };
 
@@ -24,6 +25,7 @@ const FONTS = ["system", "editorial", "humanist", "serif", "mono"];
 const THEMES = ["light", "dark", "system"];
 const DENSITIES = ["compact", "comfortable", "spacious"];
 const LANGUAGES = ["vi", "en", "both"];
+const TLDR_COUNTS = [8, 12, 16];
 
 function asChrome() {
   return globalThis.chrome;
@@ -39,6 +41,11 @@ function clampCount(value) {
   const n = Number(value);
   if (!Number.isFinite(n)) return DEFAULT_SETTINGS.storyCount;
   return Math.min(8, Math.max(1, Math.round(n)));
+}
+
+function clampTldrCount(value) {
+  const n = Number(value);
+  return TLDR_COUNTS.includes(n) ? n : DEFAULT_SETTINGS.tldrCount;
 }
 
 function pick(list, value, fallback) {
@@ -66,6 +73,7 @@ export function normalizeSettings(raw) {
     },
     density: pick(DENSITIES, input.density, DEFAULT_SETTINGS.density),
     storyCount: clampCount(input.storyCount),
+    tldrCount: clampTldrCount(input.tldrCount),
     apiBase: normalizeApiBase(input.apiBase),
   };
 }
@@ -91,6 +99,12 @@ export function applyAppearance(settings) {
   root.dataset.theme = settings.theme;
   root.dataset.font = settings.font;
   root.dataset.density = settings.density;
+  root.classList.toggle(
+    "dark",
+    settings.theme === "dark" ||
+      (settings.theme === "system" &&
+        globalThis.matchMedia?.("(prefers-color-scheme: dark)").matches)
+  );
   root.style.setProperty("--accent", settings.accent);
   root.style.setProperty("--size", `${settings.fontSize}px`);
   root.lang = settings.language === "en" ? "en" : "vi";

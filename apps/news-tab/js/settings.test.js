@@ -27,6 +27,7 @@ test("normalizeSettings clamps size, count, and unknown enums", () => {
   assert.equal(settings.language, "vi");
   assert.equal(settings.density, "compact");
   assert.equal(settings.storyCount, 1);
+  assert.equal(settings.tldrCount, 8);
   assert.equal(settings.apiBase, DEFAULT_API_BASE);
   assert.equal(settings.sections.tldr, false);
   assert.equal(settings.sections.stories, true);
