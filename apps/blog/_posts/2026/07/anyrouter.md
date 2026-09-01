@@ -109,17 +109,17 @@ When those keys go into the shared pool, the idle capacity turns into credits an
   <img src="/media/2026/07/anyrouter/anyrouter-shared-pool-2-bg.png" alt="Shared pool models" loading="lazy" />
 </div>
 
-# Why Starter at $1/mo
+# Why Go at $2/mo
 
 I launched a few weeks ago giving each new user $2 free right after sign up. Thousands of spam accounts got created.
-So I am starting the plan at $1/mo — nothing compared to a $200 Claude or Codex plan or the bunch of other subscriptions you already pay for, not even worth your morning coffee. Honestly, it's a good way to prevent spam.
+So the paid floor is now Go at $2/mo, with $4 credits included — nothing compared to a $200 Claude or Codex plan or the bunch of other subscriptions you already pay for, not even worth your morning coffee. Honestly, it's a good way to prevent spam.
 
 <div class="img-row">
   <img src="/media/2026/07/anyrouter/anyrouter-spam.jpeg" alt="Spam accounts after launch" loading="lazy" />
-  <img src="/media/2026/07/anyrouter/anyrouter-to-start-bg.png" alt="Getting the Starter plan" loading="lazy" />
+  <img src="/media/2026/07/anyrouter/anyrouter-to-start-bg.png" alt="Getting the Go plan" loading="lazy" />
 </div>
 
-Another way to get the Starter plan: donate at least one good shared key to the pool.
+Another way to get Go: donate at least one good shared key to the pool.
 I will improve this over time.
 
 # How I built anyrouter: Self improvement
