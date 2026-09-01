@@ -84,7 +84,7 @@
       "ai": "^7.0.4",
       "@ai-sdk/react": "^4.0.5",
       "@assistant-ui/core": "^0.3.0",
-      "@clerk/shared": "4.30.2",
+      "@clerk/shared": "3.47.8",
       "@tanstack/history": "1.162.1",
       "@tanstack/react-router": "1.170.32",
       "@tanstack/react-start": "1.168.49",
