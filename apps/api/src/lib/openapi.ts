@@ -60,6 +60,120 @@ const unauthorizedResponse = jsonResponse(
   errorSchema()
 );
 
+const honeypotProperty: Schema = {
+  description:
+    "Honeypot field for bots; must be left empty. A non-empty value is silently discarded.",
+  type: "string",
+};
+
+const emailProperty: Schema = {
+  format: "email",
+  maxLength: 254,
+  type: "string",
+};
+
+const contactRequestSchema: Schema = {
+  additionalProperties: false,
+  properties: {
+    email: emailProperty,
+    message: { maxLength: 8000, minLength: 1, type: "string" },
+    name: { maxLength: 200, minLength: 1, type: "string" },
+    website: honeypotProperty,
+  },
+  required: ["name", "email", "message"],
+  type: "object",
+};
+
+const jdRequestSchema: Schema = {
+  description:
+    "Job description as raw text or as an https URL; exactly one of text or url must be present.",
+  oneOf: [
+    {
+      additionalProperties: false,
+      properties: {
+        company: { maxLength: 200, type: "string" },
+        note: { maxLength: 2000, type: "string" },
+        text: {
+          description: "Job description text, at most 32 KB (UTF-8 bytes).",
+          minLength: 1,
+          type: "string",
+        },
+        website: honeypotProperty,
+      },
+      required: ["text"],
+      type: "object",
+    },
+    {
+      additionalProperties: false,
+      properties: {
+        company: { maxLength: 200, type: "string" },
+        note: { maxLength: 2000, type: "string" },
+        url: {
+          description: "Link to the job description; must use https.",
+          format: "uri",
+          maxLength: 2048,
+          type: "string",
+        },
+        website: honeypotProperty,
+      },
+      required: ["url"],
+      type: "object",
+    },
+  ],
+};
+
+const commentRequestSchema: Schema = {
+  additionalProperties: false,
+  properties: {
+    author: { maxLength: 100, minLength: 1, type: "string" },
+    body: { maxLength: 4000, minLength: 1, type: "string" },
+    email: emailProperty,
+    post: {
+      description:
+        'Blog post slug such as "/2026/08/grok-bot" (leading slash and trailing .html are normalized). Must match a published post.',
+      type: "string",
+    },
+    website: honeypotProperty,
+  },
+  required: ["post", "author", "body"],
+  type: "object",
+};
+
+const submissionAcceptedSchema: Schema = {
+  additionalProperties: false,
+  properties: {
+    id: { format: "uuid", type: "string" },
+    status: { enum: ["pending"], type: "string" },
+  },
+  required: ["id", "status"],
+  type: "object",
+};
+
+function submissionResponses(
+  extra: Record<string, Operation> = {}
+): Record<string, Operation> {
+  return {
+    "202": okResponse("Submission accepted and queued for review.", {
+      $ref: "#/components/schemas/SubmissionAccepted",
+    }),
+    "400": jsonResponse(
+      "Malformed JSON, unknown field, or a field outside its documented bounds.",
+      errorSchema()
+    ),
+    ...extra,
+    "413": jsonResponse("Request body exceeds the size limit.", errorSchema()),
+    "415": jsonResponse("Content-Type is not application/json.", errorSchema()),
+    "429": tooManyRequestsResponse(),
+    "503": jsonResponse(
+      "Submission store or upstream post index unavailable.",
+      errorSchema()
+    ),
+  };
+}
+
+const submissionRateLimitNote =
+  "Limited to 5 requests per IP per 10 minutes on this route; the RateLimit-* headers reflect that bucket.";
+
 const serviceInfoSchema: Schema = {
   additionalProperties: false,
   properties: {
@@ -68,10 +182,21 @@ const serviceInfoSchema: Schema = {
       properties: {
         aiPercentage: { type: "string" },
         cardDescription: { type: "string" },
+        comments: { type: "string" },
+        contact: { type: "string" },
         health: { type: "string" },
         insights: { type: "string" },
+        jd: { type: "string" },
       },
-      required: ["health", "cardDescription", "aiPercentage", "insights"],
+      required: [
+        "health",
+        "cardDescription",
+        "aiPercentage",
+        "insights",
+        "contact",
+        "jd",
+        "comments",
+      ],
       type: "object",
     },
     name: { type: "string" },
@@ -376,6 +501,8 @@ export const openApiDocument = {
         required: ["data"],
         type: "object",
       },
+      CommentRequest: commentRequestSchema,
+      ContactRequest: contactRequestSchema,
       Error: errorSchema(),
       GenerateRequest: {
         additionalProperties: false,
@@ -397,7 +524,9 @@ export const openApiDocument = {
       },
       Health: healthSchema,
       InsightsOverview: insightsOverviewSchema,
+      JdRequest: jdRequestSchema,
       ServiceInfo: serviceInfoSchema,
+      SubmissionAccepted: submissionAcceptedSchema,
     },
     securitySchemes: {
       bearerAuth: {
@@ -425,7 +554,7 @@ export const openApiDocument = {
   },
   info: {
     description:
-      "Public API for duyet.net: AI-generated card descriptions, AI code-usage metrics, and site analytics. All endpoints are rate limited per IP and return RateLimit-Limit, RateLimit-Remaining, and RateLimit-Reset headers on every response; exhausted quotas produce a 429 response with a Retry-After header (seconds until reset). Authentication uses either a static bearer token or OAuth 2.0 scopes published in /.well-known/oauth-protected-resource.",
+      "Public API for duyet.net: AI-generated card descriptions, AI code-usage metrics, site analytics, and submissions (contact messages, job descriptions, blog comments). All endpoints are rate limited per IP and return RateLimit-Limit, RateLimit-Remaining, and RateLimit-Reset headers on every response; exhausted quotas produce a 429 response with a Retry-After header (seconds until reset). Authentication uses either a static bearer token or OAuth 2.0 scopes published in /.well-known/oauth-protected-resource.",
     title: "duyet.net API",
     version: "0.1.0",
   },
@@ -506,6 +635,47 @@ export const openApiDocument = {
         tags: ["AI Percentage"],
       },
     },
+    "/api/comments": {
+      post: {
+        description: `Submits a blog comment for moderation. The post slug must match a published post (looked up from blog.duyet.net/posts-data.json, cached for one hour); unknown slugs return 404. Bodies over 8 KB are rejected. ${submissionRateLimitNote}`,
+        operationId: "submitComment",
+        requestBody: {
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/CommentRequest" },
+            },
+          },
+          required: true,
+        },
+        responses: submissionResponses({
+          "404": jsonResponse(
+            "The post slug does not match a published post.",
+            errorSchema()
+          ),
+        }),
+        security: [],
+        summary: "Submit a blog comment",
+        tags: ["Submissions"],
+      },
+    },
+    "/api/contact": {
+      post: {
+        description: `Submits a contact message. Bodies over 8 KB are rejected. ${submissionRateLimitNote}`,
+        operationId: "submitContact",
+        requestBody: {
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/ContactRequest" },
+            },
+          },
+          required: true,
+        },
+        responses: submissionResponses(),
+        security: [],
+        summary: "Submit a contact message",
+        tags: ["Submissions"],
+      },
+    },
     "/api/insights/overview": {
       get: {
         description:
@@ -520,6 +690,24 @@ export const openApiDocument = {
         security: [],
         summary: "Get insights overview",
         tags: ["Insights"],
+      },
+    },
+    "/api/jd": {
+      post: {
+        description: `Submits a job description either as text (at most 32 KB) or as an https URL. The JSON envelope may be at most 40 KB. ${submissionRateLimitNote}`,
+        operationId: "submitJobDescription",
+        requestBody: {
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/JdRequest" },
+            },
+          },
+          required: true,
+        },
+        responses: submissionResponses(),
+        security: [],
+        summary: "Submit a job description",
+        tags: ["Submissions"],
       },
     },
     "/api/llm/generate": {

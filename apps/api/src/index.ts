@@ -11,6 +11,7 @@ import { consumeRateLimit, GLOBAL_RATE_LIMIT, secondsUntil } from "./lib/rate-li
 import aiPercentageRouter from "./routes/ai-percentage.js";
 import cardDescriptionStreamingRouter from "./routes/card-description-streaming.js";
 import insightsRouter from "./routes/insights.js";
+import submissionsRouter from "./routes/submissions.js";
 
 /**
  * Main Hono application
@@ -77,6 +78,9 @@ app.get("/", (c) => {
       cardDescription: "/api/llm/generate",
       aiPercentage: "/api/ai/percentage",
       insights: "/api/insights",
+      contact: "/api/contact",
+      jd: "/api/jd",
+      comments: "/api/comments",
     },
   });
 });
@@ -111,6 +115,8 @@ app.route("/api/ai/percentage", aiPercentageRouter);
  * Register Insights data routes
  */
 app.route("/api/insights", insightsRouter);
+
+app.route("/", submissionsRouter);
 
 /**
  * 404 handler

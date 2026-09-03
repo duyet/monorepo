@@ -15,6 +15,9 @@ const ALLOWLIST: Record<string, string[]> = {
   "api/ai/percentage/available": ["GET"],
   "api/insights/overview": ["GET"],
   "api/llm/generate": ["POST"],
+  "api/contact": ["POST"],
+  "api/jd": ["POST"],
+  "api/comments": ["POST"],
 };
 
 function json(
@@ -55,6 +58,8 @@ export const onRequest = async ({
   const headers = new Headers();
   const auth = request.headers.get("Authorization");
   if (auth) headers.set("Authorization", auth);
+  const contentType = request.headers.get("Content-Type");
+  if (contentType) headers.set("Content-Type", contentType);
 
   try {
     const upstream = await fetch(`${UPSTREAM}/${suffix}${url.search}`, {
