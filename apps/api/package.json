@@ -6,7 +6,7 @@
   "scripts": {
     "config": "tsx ../../scripts/sync-app-secrets.ts duyet-api",
     "dev": "pnpm dlx wrangler dev src/index.ts --port 8787",
-    "deploy": "pnpm run build && pnpm dlx wrangler deploy",
+    "deploy": "pnpm run build && pnpm dlx wrangler deploy && pnpm dlx wrangler d1 migrations apply SUBMISSIONS_DB --remote",
     "build": "esbuild src/index.ts --bundle --outdir=dist --platform=browser --format=esm",
     "start": "node dist/index.js",
     "check-types": "tsc --noEmit",
