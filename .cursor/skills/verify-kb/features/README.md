@@ -8,7 +8,7 @@ This directory is the maintained source for verifying user-facing graph motion o
 - `apps/kb/kb` submodule is checked out. Do not commit a new submodule pointer for this feature.
 - Launch means the homepage graph canvas is answering (dev or preview). `pnpm --filter kb test` is required for the motion contract; a full Pages prerender is not.
 - Put `.cursor/skills/verify-kb/bin` on `PATH` or invoke the binary by repo-relative path.
-- Run `verify-kb doctor` and require `labelsStayOnMove: true`.
+- Run `verify-kb doctor` and require `labelsStayOnMove: true` and `edgesStayOnMove: true`.
 - Never drive a preview that this run did not start, unless `--url` is passed explicitly.
 
 ## Driving conventions
@@ -19,8 +19,8 @@ This directory is the maintained source for verifying user-facing graph motion o
 
 ## Proof and skip reporting
 
-- Capture the user action (zoom) and the resulting state (labels still inked on the 2D overlay).
-- Pixel proof is `labelCanvasOpaquePixels` at rest, mid-zoom, and end. Source grep alone is not enough for a zoom-labels claim.
+- Capture the user action (zoom) and the resulting state (labels still inked on the 2D overlay; edges still inked on `canvas.sigma-edges`).
+- Pixel proof is `labelCanvasOpaquePixels` and `edgeCanvasOpaquePixels` at rest, mid-zoom, and while `cameraMoving`. Source grep alone is not enough for a zoom-labels or zoom-edges claim. A `cameraMoving` sample with `edgePixels === 0` fails prove.
 - Record LayoutCount / RecalcStyleCount deltas when Chrome Performance metrics are available. Do not claim "no jank" without a number.
 - Report an unreachable path with the attempted command and the unmet precondition.
 
@@ -35,4 +35,5 @@ Each feature file starts with an H1 title and one paragraph describing the user-
 
 ## Features
 
-- [Zoom labels](./zoom-labels.md) covers homepage graph zoom keeping labels readable, with cheaper hover/refresh.
+- [Zoom labels](./zoom-labels.md) covers homepage graph zoom keeping labels readable, with cheaper hover/refresh. Edges stay inked too.
+- [Zoom edges](./zoom-edges.md) covers homepage graph zoom/pan keeping connection lines inked (`hideEdgesOnMove: false`). Labels stay; do not re-enable `hideLabelsOnMove`.

@@ -220,7 +220,7 @@ async function main() {
           const el = document.querySelector('[data-kb-graph="2d"]');
           const ready = el && el.getAttribute('data-sigma-ready') === 'true';
           const probe = window.__kbGraph;
-          if (ready && probe && probe.hideLabelsOnMove === false) {
+          if (ready && probe && probe.hideLabelsOnMove === false && probe.hideEdgesOnMove === false) {
             resolve({ ok: true, elapsedMs: Date.now() - start });
             return;
           }
@@ -248,8 +248,9 @@ async function main() {
           const start = Date.now();
           const tick = () => {
             const n = window.__kbGraph?.labelCanvasOpaquePixels ?? 0;
-            if (n > 0 || Date.now() - start > 3000) {
-              resolve(n);
+            const e = window.__kbGraph?.edgeCanvasOpaquePixels ?? 0;
+            if ((n > 0 && e > 0) || Date.now() - start > 3000) {
+              resolve({ labels: n, edges: e });
               return;
             }
             requestAnimationFrame(tick);
@@ -268,6 +269,7 @@ async function main() {
             renderLabels: window.__kbGraph.renderLabels,
             cameraMoving: window.__kbGraph.cameraMoving,
             labelCanvasOpaquePixels: window.__kbGraph.labelCanvasOpaquePixels,
+            edgeCanvasOpaquePixels: window.__kbGraph.edgeCanvasOpaquePixels,
             refreshCount: window.__kbGraph.refreshCount,
             reducerResetCount: window.__kbGraph.reducerResetCount,
           })`
@@ -282,7 +284,7 @@ async function main() {
     }
 
     const restPng = join(outDir, "rest.png");
-    if (ready?.ok) await screenshot(session, restPng);
+    await screenshot(session, restPng);
 
     const frameDir = join(outDir, "frames");
     mkdirSync(frameDir, { recursive: true });
@@ -318,7 +320,9 @@ async function main() {
           `new Promise((resolve) => {
             const before = {
               hideLabelsOnMove: window.__kbGraph.hideLabelsOnMove,
+              hideEdgesOnMove: window.__kbGraph.hideEdgesOnMove,
               pixels: window.__kbGraph.labelCanvasOpaquePixels,
+              edgePixels: window.__kbGraph.edgeCanvasOpaquePixels,
               moving: window.__kbGraph.cameraMoving,
               reducerResetCount: window.__kbGraph.reducerResetCount,
               refreshCount: window.__kbGraph.refreshCount,
@@ -331,7 +335,9 @@ async function main() {
                 t: Date.now() - start,
                 moving: window.__kbGraph.cameraMoving,
                 pixels: window.__kbGraph.labelCanvasOpaquePixels,
+                edgePixels: window.__kbGraph.edgeCanvasOpaquePixels,
                 hideLabelsOnMove: window.__kbGraph.hideLabelsOnMove,
+                hideEdgesOnMove: window.__kbGraph.hideEdgesOnMove,
               });
               if (Date.now() - start < 700) {
                 requestAnimationFrame(tick);
@@ -342,7 +348,9 @@ async function main() {
                 samples,
                 after: {
                   hideLabelsOnMove: window.__kbGraph.hideLabelsOnMove,
+                  hideEdgesOnMove: window.__kbGraph.hideEdgesOnMove,
                   pixels: window.__kbGraph.labelCanvasOpaquePixels,
+                  edgePixels: window.__kbGraph.edgeCanvasOpaquePixels,
                   moving: window.__kbGraph.cameraMoving,
                   reducerResetCount: window.__kbGraph.reducerResetCount,
                   refreshCount: window.__kbGraph.refreshCount,
@@ -390,21 +398,39 @@ async function main() {
     const midPixels = Array.isArray(mid?.samples)
       ? Math.max(...mid.samples.map((s) => s.pixels || 0), 0)
       : 0;
-    const movingSample = Array.isArray(mid?.samples)
-      ? mid.samples.find((s) => s.moving) || mid.samples[Math.floor(mid.samples.length / 2)]
-      : null;
+    const midEdgePixels = Array.isArray(mid?.samples)
+      ? Math.max(...mid.samples.map((s) => s.edgePixels || 0), 0)
+      : 0;
+    const movingSamples = Array.isArray(mid?.samples)
+      ? mid.samples.filter((s) => s.moving)
+      : [];
+    const movingSample = movingSamples[0] || (Array.isArray(mid?.samples)
+      ? mid.samples[Math.floor(mid.samples.length / 2)]
+      : null);
+    const movingEdgeMin = movingSamples.length
+      ? Math.min(...movingSamples.map((s) => s.edgePixels || 0))
+      : 0;
+    const edgesDisappearedWhileMoving =
+      movingSamples.length > 0 && movingEdgeMin === 0;
 
     const checks = {
       probeReady: Boolean(ready?.ok),
       hideLabelsOnMoveFalse: restProbe?.hideLabelsOnMove === false,
-      hideEdgesOnMoveTrue: restProbe?.hideEdgesOnMove === true,
+      hideEdgesOnMoveFalse: restProbe?.hideEdgesOnMove === false,
       renderLabels: restProbe?.renderLabels === true,
       reducersOnce: restProbe?.reducerResetCount === 1,
       restPixels: (restProbe?.labelCanvasOpaquePixels ?? 0) > 0,
+      restEdgePixels: (restProbe?.edgeCanvasOpaquePixels ?? 0) > 0,
       midPixels: midPixels > 0,
+      midEdgePixels: midEdgePixels > 0,
       midHideLabelsFalse:
         movingSample?.hideLabelsOnMove === false ||
         mid?.after?.hideLabelsOnMove === false,
+      midHideEdgesFalse:
+        movingSample?.hideEdgesOnMove === false ||
+        mid?.after?.hideEdgesOnMove === false,
+      edgesStayWhileMoving:
+        movingSamples.length > 0 && !edgesDisappearedWhileMoving,
       reducersUnchanged:
         restProbe?.reducerResetCount === 1 &&
         mid?.after?.reducerResetCount === 1,
@@ -429,10 +455,13 @@ async function main() {
       restProbe,
       zoom: mid,
       midPixels,
+      midEdgePixels,
+      movingEdgeMin,
+      edgesDisappearedWhileMoving,
       layoutCountDelta,
       recalcStyleDelta,
       screenshots: {
-        rest: ready?.ok ? restPng : null,
+        rest: restPng,
         zoomMid: ready?.ok ? midPng : null,
         zoomEnd: ready?.ok ? endPng : null,
       },
