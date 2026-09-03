@@ -4,13 +4,21 @@
  * @module index.test
  */
 
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import app from "./index";
+import { openApiDocument } from "./lib/openapi.js";
 import { resetLlmsCacheForTests } from "./routes/card-description-streaming.js";
 import {
   GLOBAL_RATE_LIMIT,
   resetRateLimits,
 } from "./lib/rate-limit.js";
+
+const OPENAPI_MIRROR = resolve(
+  import.meta.dirname,
+  "../../home/public/openapi.json"
+);
 
 interface ApiInfoResponse {
   name: string;
@@ -97,7 +105,6 @@ describe("API Endpoints", () => {
       expect(String(doc.openapi)).toMatch(/^3\.1\./);
       expect(doc.info?.title).toBe("duyet.net API");
 
-      // Every operation: unique operationId + non-empty description + 200 response
       const operationIds = new Set<string>();
       for (const [path, pathItem] of Object.entries<any>(doc.paths)) {
         for (const [method, operation] of Object.entries<any>(pathItem)) {
@@ -108,9 +115,17 @@ describe("API Endpoints", () => {
           ).toBe(false);
           operationIds.add(operation.operationId);
           expect(operation.description, `${method} ${path}`).toBeTruthy();
-          expect(operation.responses?.["200"], `${method} ${path}`).toBeDefined();
+          const statuses = Object.keys(operation.responses ?? {});
+          expect(
+            statuses.some((status) => /^2\d\d$/.test(status)),
+            `${method} ${path} has no 2xx response`
+          ).toBe(true);
         }
       }
+
+      expect(operationIds).toContain("submitContact");
+      expect(operationIds).toContain("submitJobDescription");
+      expect(operationIds).toContain("submitComment");
 
       // Security schemes declare the canonical scopes
       const flows = doc.components?.securitySchemes?.oauth2?.flows ?? {};
@@ -121,6 +136,11 @@ describe("API Endpoints", () => {
       // The secured operation requires the chat scope (or bearer fallback)
       const generateSecurity = doc.paths?.["/api/llm/generate"]?.post?.security;
       expect(generateSecurity).toEqual([{ oauth2: ["chat"] }, { bearerAuth: [] }]);
+    });
+
+    it("matches the static mirror at apps/home/public/openapi.json", () => {
+      const mirror = JSON.parse(readFileSync(OPENAPI_MIRROR, "utf8"));
+      expect(mirror).toEqual(openApiDocument);
     });
   });
 

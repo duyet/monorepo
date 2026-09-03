@@ -1,0 +1,27 @@
+[package]
+name = "duyet"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version = "1.85"
+description = "Read duyet.net from the terminal: posts, notes, series, KB, news, insights, and the duyet agent"
+
+[[bin]]
+name = "duyet"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4.6", features = ["derive", "env", "wrap_help"] }
+clap_complete = "4.6"
+clap_mangen = "0.3"
+directories = "6"
+reqwest = { version = "0.13", default-features = false, features = ["blocking", "rustls-no-provider", "json"] }
+rustls = { version = "0.23", default-features = false, features = ["ring", "std", "tls12"] }
+serde.workspace = true
+serde_json.workspace = true
+sha2 = "0.11"
+toml = "1"
+url = "2"
+
+[dev-dependencies]
+tempfile = "3"

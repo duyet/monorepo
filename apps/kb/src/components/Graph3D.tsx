@@ -1,4 +1,4 @@
-import { type ReactElement, useEffect, useRef } from "react";
+import { type ReactElement, useEffect, useMemo, useRef } from "react";
 import { MEMORY_PALETTE } from "./graph-palette";
 
 /**
@@ -6,6 +6,10 @@ import { MEMORY_PALETTE } from "./graph-palette";
  *
  * Lazy-loaded in the browser only and mounted on demand from GraphViewer's
  * 2D/3D toggle, so three.js never loads unless the user opts in.
+ *
+ * Mount follows topology (node/edge ids). Theme and search highlight update
+ * in place via refs + refresh — remounting on every keystroke was dropping
+ * the camera and re-running the force layout.
  */
 
 interface Graph3DNode {
@@ -47,6 +51,12 @@ function nodeColor3d(node: Graph3DNode, theme: Graph3DTheme): string {
   return theme.article;
 }
 
+function topologyKey(nodes: Graph3DNode[], edges: Graph3DEdge[]): string {
+  const ids = nodes.map((n) => n.id).join("\n");
+  const links = edges.map((e) => `${e.source}\t${e.target}`).join("\n");
+  return `${ids}\n#\n${links}`;
+}
+
 export function Graph3D({
   nodes,
   edges,
@@ -56,48 +66,70 @@ export function Graph3D({
   onSelect,
 }: Graph3DProps): ReactElement {
   const containerRef = useRef<HTMLDivElement>(null);
-  // biome-ignore lint/suspicious/noExplicitAny: 3d-force-graph instance type is not exported cleanly
   const fgRef = useRef<any>(null);
   const onSelectRef = useRef(onSelect);
   onSelectRef.current = onSelect;
+  const themeRef = useRef(theme);
+  themeRef.current = theme;
+  const highlightRef = useRef(highlightIds);
+  highlightRef.current = highlightIds;
+  const degreeRef = useRef(degree);
+  degreeRef.current = degree;
+  const nodesRef = useRef(nodes);
+  nodesRef.current = nodes;
+  const edgesRef = useRef(edges);
+  edgesRef.current = edges;
+
+  const graphKey = useMemo(() => topologyKey(nodes, edges), [nodes, edges]);
 
   useEffect(() => {
     const el = containerRef.current;
-    if (!el || nodes.length === 0) return;
+    if (!el || nodesRef.current.length === 0) return;
     let cancelled = false;
     let resizeObserver: ResizeObserver | null = null;
+
+    const colorOf = (raw: unknown): string => {
+      const node = raw as Graph3DNode;
+      const hits = highlightRef.current;
+      const currentTheme = themeRef.current;
+      if (hits && hits.size > 0 && !hits.has(node.id)) {
+        return currentTheme.bg === "#0a0a0a" ? "#1c1c1f" : "#e4e4e7";
+      }
+      return nodeColor3d(node, currentTheme);
+    };
 
     (async () => {
       const { default: ForceGraph3D } = await import("3d-force-graph");
       if (cancelled || !containerRef.current) return;
 
-      const ids = new Set(nodes.map((n) => n.id));
+      const currentNodes = nodesRef.current;
+      const currentEdges = edgesRef.current;
+      const ids = new Set(currentNodes.map((n) => n.id));
       const data = {
-        nodes: nodes.map((n) => ({ ...n })),
-        links: edges
+        nodes: currentNodes.map((n) => ({ ...n })),
+        links: currentEdges
           .filter((e) => ids.has(e.source) && ids.has(e.target))
           .map((e) => ({ source: e.source, target: e.target })),
       };
 
+      const { width, height } = el.getBoundingClientRect();
       const fg = new ForceGraph3D(el)
         .graphData(data)
-        .backgroundColor(theme.bg)
+        .backgroundColor(themeRef.current.bg)
         .showNavInfo(false)
         .nodeLabel((n) => (n as unknown as Graph3DNode).label)
-        .nodeColor((n) => {
-          const node = n as unknown as Graph3DNode;
-          if (highlightIds && highlightIds.size > 0 && !highlightIds.has(node.id)) {
-            return theme.bg === "#0a0a0a" ? "#1c1c1f" : "#e4e4e7";
-          }
-          return nodeColor3d(node, theme);
-        })
+        .nodeColor(colorOf)
         .nodeVal(
           (n) =>
-            1 + Math.sqrt(degree[(n as unknown as Graph3DNode).id] ?? 0) * 1.5
+            1 +
+            Math.sqrt(
+              degreeRef.current[(n as unknown as Graph3DNode).id] ?? 0
+            ) *
+              1.5
         )
         .nodeOpacity(0.95)
         .nodeResolution(12)
-        .linkColor(() => theme.edge)
+        .linkColor(() => themeRef.current.edge)
         .linkOpacity(0.3)
         .linkWidth(0.4)
         .linkDirectionalArrowLength(2.2)
@@ -125,12 +157,14 @@ export function Graph3D({
             700
           );
         })
-        .width(el.clientWidth)
-        .height(el.clientHeight);
+        .width(width)
+        .height(height);
       fgRef.current = fg;
 
-      resizeObserver = new ResizeObserver(() => {
-        fg.width(el.clientWidth).height(el.clientHeight);
+      resizeObserver = new ResizeObserver((entries) => {
+        const box = entries[0]?.contentRect;
+        if (!box || box.width < 1 || box.height < 1) return;
+        fg.width(box.width).height(box.height);
       });
       resizeObserver.observe(el);
     })().catch((err) => {
@@ -143,12 +177,20 @@ export function Graph3D({
       fgRef.current?._destructor?.();
       fgRef.current = null;
     };
-  }, [nodes, edges, degree, theme, highlightIds]);
+  }, [graphKey]);
+
+  useEffect(() => {
+    const fg = fgRef.current;
+    if (!fg) return;
+    fg.backgroundColor(theme.bg);
+    fg.refresh();
+  }, [theme, highlightIds]);
 
   return (
     <div
       ref={containerRef}
       className="absolute inset-0"
+      data-kb-graph="3d"
       aria-label="Knowledge graph (3D)"
     />
   );

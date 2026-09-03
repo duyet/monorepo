@@ -118,6 +118,70 @@
         ],
         "type": "object"
       },
+      "CommentRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "author": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
+          },
+          "body": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "email": {
+            "format": "email",
+            "maxLength": 254,
+            "type": "string"
+          },
+          "post": {
+            "description": "Blog post slug such as \"/2026/08/grok-bot\" (leading slash and trailing .html are normalized). Must match a published post.",
+            "type": "string"
+          },
+          "website": {
+            "description": "Honeypot field for bots; must be left empty. A non-empty value is silently discarded.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "post",
+          "author",
+          "body"
+        ],
+        "type": "object"
+      },
+      "ContactRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "email": {
+            "format": "email",
+            "maxLength": 254,
+            "type": "string"
+          },
+          "message": {
+            "maxLength": 8000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "website": {
+            "description": "Honeypot field for bots; must be left empty. A non-empty value is silently discarded.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "message"
+        ],
+        "type": "object"
+      },
       "Error": {
         "additionalProperties": false,
         "properties": {
@@ -505,6 +569,64 @@
         ],
         "type": "object"
       },
+      "JdRequest": {
+        "description": "Job description as raw text or as an https URL; exactly one of text or url must be present.",
+        "oneOf": [
+          {
+            "additionalProperties": false,
+            "properties": {
+              "company": {
+                "maxLength": 200,
+                "type": "string"
+              },
+              "note": {
+                "maxLength": 2000,
+                "type": "string"
+              },
+              "text": {
+                "description": "Job description text, at most 32 KB (UTF-8 bytes).",
+                "minLength": 1,
+                "type": "string"
+              },
+              "website": {
+                "description": "Honeypot field for bots; must be left empty. A non-empty value is silently discarded.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "text"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "company": {
+                "maxLength": 200,
+                "type": "string"
+              },
+              "note": {
+                "maxLength": 2000,
+                "type": "string"
+              },
+              "url": {
+                "description": "Link to the job description; must use https.",
+                "format": "uri",
+                "maxLength": 2048,
+                "type": "string"
+              },
+              "website": {
+                "description": "Honeypot field for bots; must be left empty. A non-empty value is silently discarded.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "type": "object"
+          }
+        ]
+      },
       "ServiceInfo": {
         "additionalProperties": false,
         "properties": {
@@ -517,10 +639,19 @@
               "cardDescription": {
                 "type": "string"
               },
+              "comments": {
+                "type": "string"
+              },
+              "contact": {
+                "type": "string"
+              },
               "health": {
                 "type": "string"
               },
               "insights": {
+                "type": "string"
+              },
+              "jd": {
                 "type": "string"
               }
             },
@@ -528,7 +659,10 @@
               "health",
               "cardDescription",
               "aiPercentage",
-              "insights"
+              "insights",
+              "contact",
+              "jd",
+              "comments"
             ],
             "type": "object"
           },
@@ -547,6 +681,26 @@
           "version",
           "status",
           "endpoints"
+        ],
+        "type": "object"
+      },
+      "SubmissionAccepted": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "pending"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "status"
         ],
         "type": "object"
       }
@@ -573,7 +727,7 @@
     }
   },
   "info": {
-    "description": "Public API for duyet.net: AI-generated card descriptions, AI code-usage metrics, and site analytics. All endpoints are rate limited per IP and return RateLimit-Limit, RateLimit-Remaining, and RateLimit-Reset headers on every response; exhausted quotas produce a 429 response with a Retry-After header (seconds until reset). Authentication uses either a static bearer token or OAuth 2.0 scopes published in /.well-known/oauth-protected-resource.",
+    "description": "Public API for duyet.net: AI-generated card descriptions, AI code-usage metrics, site analytics, and submissions (contact messages, job descriptions, blog comments). All endpoints are rate limited per IP and return RateLimit-Limit, RateLimit-Remaining, and RateLimit-Reset headers on every response; exhausted quotas produce a 429 response with a Retry-After header (seconds until reset). Authentication uses either a static bearer token or OAuth 2.0 scopes published in /.well-known/oauth-protected-resource.",
     "title": "duyet.net API",
     "version": "0.1.0"
   },
@@ -599,10 +753,19 @@
                         "cardDescription": {
                           "type": "string"
                         },
+                        "comments": {
+                          "type": "string"
+                        },
+                        "contact": {
+                          "type": "string"
+                        },
                         "health": {
                           "type": "string"
                         },
                         "insights": {
+                          "type": "string"
+                        },
+                        "jd": {
                           "type": "string"
                         }
                       },
@@ -610,7 +773,10 @@
                         "health",
                         "cardDescription",
                         "aiPercentage",
-                        "insights"
+                        "insights",
+                        "contact",
+                        "jd",
+                        "comments"
                       ],
                       "type": "object"
                     },
@@ -980,6 +1146,331 @@
         ]
       }
     },
+    "/api/comments": {
+      "post": {
+        "description": "Submits a blog comment for moderation. The post slug must match a published post (looked up from blog.duyet.net/posts-data.json, cached for one hour); unknown slugs return 404. Bodies over 8 KB are rejected. Limited to 5 requests per IP per 10 minutes on this route; the RateLimit-* headers reflect that bucket.",
+        "operationId": "submitComment",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmissionAccepted"
+                }
+              }
+            },
+            "description": "Submission accepted and queued for review.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Malformed JSON, unknown field, or a field outside its documented bounds."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "The post slug does not match a published post."
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Request body exceeds the size limit."
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Content-Type is not application/json."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Rate limit exceeded. The response includes a Retry-After header with the number of seconds until the quota resets.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "Retry-After": {
+                "$ref": "#/components/headers/Retry-After"
+              }
+            }
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Submission store or upstream post index unavailable."
+          }
+        },
+        "security": [],
+        "summary": "Submit a blog comment",
+        "tags": [
+          "Submissions"
+        ]
+      }
+    },
+    "/api/contact": {
+      "post": {
+        "description": "Submits a contact message. Bodies over 8 KB are rejected. Limited to 5 requests per IP per 10 minutes on this route; the RateLimit-* headers reflect that bucket.",
+        "operationId": "submitContact",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContactRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmissionAccepted"
+                }
+              }
+            },
+            "description": "Submission accepted and queued for review.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Malformed JSON, unknown field, or a field outside its documented bounds."
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Request body exceeds the size limit."
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Content-Type is not application/json."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Rate limit exceeded. The response includes a Retry-After header with the number of seconds until the quota resets.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "Retry-After": {
+                "$ref": "#/components/headers/Retry-After"
+              }
+            }
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Submission store or upstream post index unavailable."
+          }
+        },
+        "security": [],
+        "summary": "Submit a contact message",
+        "tags": [
+          "Submissions"
+        ]
+      }
+    },
     "/api/insights/overview": {
       "get": {
         "description": "Aggregated dashboard overview combining AI usage metrics, WakaTime coding stats, Cloudflare traffic, and PostHog page analytics. Individual source failures degrade to zeroed defaults instead of erroring.",
@@ -1044,6 +1535,159 @@
         "summary": "Get insights overview",
         "tags": [
           "Insights"
+        ]
+      }
+    },
+    "/api/jd": {
+      "post": {
+        "description": "Submits a job description either as text (at most 32 KB) or as an https URL. The JSON envelope may be at most 40 KB. Limited to 5 requests per IP per 10 minutes on this route; the RateLimit-* headers reflect that bucket.",
+        "operationId": "submitJobDescription",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JdRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmissionAccepted"
+                }
+              }
+            },
+            "description": "Submission accepted and queued for review.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Malformed JSON, unknown field, or a field outside its documented bounds."
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Request body exceeds the size limit."
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Content-Type is not application/json."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Rate limit exceeded. The response includes a Retry-After header with the number of seconds until the quota resets.",
+            "headers": {
+              "RateLimit-Limit": {
+                "$ref": "#/components/headers/RateLimit-Limit"
+              },
+              "RateLimit-Remaining": {
+                "$ref": "#/components/headers/RateLimit-Remaining"
+              },
+              "RateLimit-Reset": {
+                "$ref": "#/components/headers/RateLimit-Reset"
+              },
+              "Retry-After": {
+                "$ref": "#/components/headers/Retry-After"
+              }
+            }
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Submission store or upstream post index unavailable."
+          }
+        },
+        "security": [],
+        "summary": "Submit a job description",
+        "tags": [
+          "Submissions"
         ]
       }
     },

@@ -6,11 +6,23 @@ compatibility_date = "2024-01-01"
 # Environment variables (set via wrangler secret)
 # OPENROUTER_API_KEY
 # API_TOKEN (or AGENT_API_TOKEN) — required bearer token for /api/llm/generate
+# SUBMISSIONS_IP_SALT — optional; keys the sha256 of client IPs stored with submissions
 
 # Route configuration for production
 routes = [
   { pattern = "api.duyet.net/*", zone_name = "duyet.net" }
 ]
+
+# No database_id: wrangler provisions the database on first deploy and locally
+# under `wrangler dev`.
+[[d1_databases]]
+binding = "SUBMISSIONS_DB"
+database_name = "duyet-api-submissions"
+migrations_dir = "migrations"
+
+[[send_email]]
+name = "NOTIFY_EMAIL"
+destination_address = "me@duyet.net"
 
 # Cloudflare Workers Cache: safe no-op. This is a dynamic Hono API; responses
 # set no `Cache-Control: public`, so nothing is cached. `Authorization`-bearing

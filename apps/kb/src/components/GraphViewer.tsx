@@ -4,8 +4,13 @@ import {
   preprocessObsidian,
   stripFrontmatter,
 } from "../../lib/markdown";
-import { Graph3D } from "./Graph3D";
 import { graphNodeMatches } from "../../lib/search";
+import { Graph3D } from "./Graph3D";
+import {
+  attachKbGraphProbe,
+  SIGMA_HOMEPAGE_RENDER,
+  type SigmaProbeHost,
+} from "./graph-motion";
 import { MEMORY_PALETTE } from "./graph-palette";
 
 // Lazy-loaded in the browser only — sigma/graphology touch WebGL at import time
@@ -22,9 +27,10 @@ type SigmaCtor = typeof import("sigma").default;
  *
  * Fetches the prebuilt /graph-data.json (no raw markdown in the bundle),
  * lays it out with a live ForceAtlas2 worker (graphology-layout-forceatlas2),
- * and renders with Sigma.js (WebGL): pan/zoom, node drag (reheats layout),
- * hover neighbor highlight, click-to-read detail panel (markdown fetched on
- * demand), kind/tag filters, force sliders, and search.
+ * and renders with Sigma.js (WebGL): pan/zoom (labels and edges stay readable), node
+ * drag (reheats layout), hover neighbor highlight, click-to-read detail
+ * panel (markdown fetched on demand), kind/tag filters, force sliders, and
+ * search. Hover highlight is ref-only so the overlay tree does not re-render.
  */
 
 type NodeKind = "article" | "memory" | "inbox" | "tag";
@@ -133,6 +139,7 @@ export function GraphViewer() {
     moved: false,
   });
   const hoverRef = useRef<string | null>(null);
+  const hoverHintRef = useRef<HTMLSpanElement>(null);
   const selectedRef = useRef<string | null>(null);
   const hiddenKindsRef = useRef<Set<string>>(new Set());
   const orphansOnlyRef = useRef(false);
@@ -141,11 +148,14 @@ export function GraphViewer() {
   const searchHitsRef = useRef<Set<string>>(new Set());
   const revealRef = useRef(1); // 0..1 staged node reveal during first load
   const restartLayout = useRef<(settings: ForceSettings) => void>(() => {});
+  const nodeMapRef = useRef<Record<string, GraphNode>>({});
+  const refreshCountRef = useRef(0);
+  const reducerResetCountRef = useRef(0);
+  const detachProbeRef = useRef<(() => void) | null>(null);
 
   const [data, setData] = useState<GraphData | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
-  const [hover, setHover] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
   const [bodyHtml, setBodyHtml] = useState("");
   const [bodyLoading, setBodyLoading] = useState(false);
@@ -216,6 +226,7 @@ export function GraphViewer() {
   hiddenKindsRef.current = hiddenKinds;
   orphansOnlyRef.current = orphansOnly;
   themeRef.current = dark ? THEME.dark : THEME.light;
+  nodeMapRef.current = nodeMap;
 
   // Theme detection: class on <html> + system preference
   useEffect(() => {
@@ -366,27 +377,10 @@ export function GraphViewer() {
         });
 
         sigma = new (Sigma as SigmaCtor)(graph, containerRef.current, {
-          allowInvalidContainer: true,
-          renderLabels: true,
-          renderEdgeLabels: false,
-          defaultEdgeType: "arrow",
-          labelFont: "ui-sans-serif, system-ui, sans-serif",
-          labelSize: 11,
-          labelWeight: "500",
+          ...SIGMA_HOMEPAGE_RENDER,
           labelColor: { color: themeRef.current.label },
-          labelDensity: 0.12,
-          labelGridCellSize: 80,
-          labelRenderedSizeThreshold: 8,
           defaultNodeColor: themeRef.current.article,
           defaultEdgeColor: themeRef.current.edge,
-          stagePadding: 40,
-          minCameraRatio: 0.08,
-          maxCameraRatio: 12,
-          // Virtualization: skip edges + labels while panning/zooming so the
-          // camera stays at 60fps regardless of graph size.
-          hideEdgesOnMove: true,
-          hideLabelsOnMove: true,
-          zIndex: true,
         });
         if (cancelled) {
           sigma.kill();
@@ -394,133 +388,186 @@ export function GraphViewer() {
         }
         sigmaRef.current = sigma;
         const s = sigma;
+        refreshCountRef.current = 0;
+        reducerResetCountRef.current = 0;
         // Freeze the camera frame — without a custom bbox Sigma re-fits the
         // viewport to the moving bounding box on every layout tick, which
         // makes the whole graph appear to wobble during the live phase.
         s.setCustomBBox(s.getBBox());
 
-        const applyVisual = () => {
+        // Reducers read this snapshot. Rebuild it on refresh — do not call
+        // setSetting("nodeReducer") again (Sigma reindexes on every bind).
+        const visualCtx = {
+          hidden: hiddenKindsRef.current,
+          onlyOrphans: false,
+          theme: themeRef.current,
+          hits: searchHitsRef.current,
+          searching: false,
+          neighbors: new Set<string>(),
+          focus: null as string | null,
+          sel: null as string | null,
+        };
+        const syncVisualCtx = () => {
           const hovered = hoverRef.current;
           const sel = selectedRef.current;
-          const hidden = hiddenKindsRef.current;
-          const onlyOrphans = orphansOnlyRef.current;
-          const theme = themeRef.current;
           const hits = searchHitsRef.current;
-          const searching = hits.size > 0;
           const neighbors = new Set<string>();
           const focus = hovered ?? sel;
           if (focus && graph.hasNode(focus)) {
             neighbors.add(focus);
             graph.forEachNeighbor(focus, (nb) => neighbors.add(nb));
           }
+          visualCtx.hidden = hiddenKindsRef.current;
+          visualCtx.onlyOrphans = orphansOnlyRef.current;
+          visualCtx.theme = themeRef.current;
+          visualCtx.hits = hits;
+          visualCtx.searching = hits.size > 0;
+          visualCtx.neighbors = neighbors;
+          visualCtx.focus = focus;
+          visualCtx.sel = sel;
+        };
 
-          s.setSetting("nodeReducer", (node, attrs) => {
-            const res: AttrMap = { ...attrs };
-            const nodeKind = graph.getNodeAttribute(node, "nodeKind") as string;
-            if (hidden.has(nodeKind)) {
+        s.setSetting("nodeReducer", (node, attrs) => {
+          const res: AttrMap = { ...attrs };
+          const {
+            hidden,
+            onlyOrphans,
+            theme,
+            hits,
+            searching,
+            neighbors,
+            focus,
+            sel,
+          } = visualCtx;
+          const nodeKind = graph.getNodeAttribute(node, "nodeKind") as string;
+          if (hidden.has(nodeKind)) {
+            res.hidden = true;
+            return res;
+          }
+          const reveal = revealRef.current;
+          if (reveal < 1) {
+            // Each node fades/scales in once the reveal front passes its rank.
+            const rank = (attrs.revealOrder as number) ?? 0;
+            const t = (reveal - rank * 0.7) / 0.3;
+            if (t <= 0) {
               res.hidden = true;
               return res;
             }
-            const reveal = revealRef.current;
-            if (reveal < 1) {
-              // Each node fades/scales in once the reveal front passes its rank.
-              const rank = (attrs.revealOrder as number) ?? 0;
-              const t = (reveal - rank * 0.7) / 0.3;
-              if (t <= 0) {
-                res.hidden = true;
-                return res;
-              }
-              if (t < 1) {
-                res.size = (attrs.size as number) * t;
-                res.label = "";
-              }
+            if (t < 1) {
+              res.size = (attrs.size as number) * t;
+              res.label = "";
             }
-            if (onlyOrphans && graph.degree(node) > 0) {
-              res.hidden = true;
-              return res;
-            }
-            res.hidden = false;
-            if (searching) {
-              if (hits.has(node)) {
-                res.zIndex = 2;
-                res.forceLabel = true;
-                res.size =
-                  (attrs.size as number) * (node === focus ? 1.4 : 1.2);
-              } else {
-                res.color = theme.dim;
-                res.label = "";
-                res.zIndex = 0;
-              }
-            } else if (focus && neighbors.size) {
-              if (neighbors.has(node)) {
-                res.zIndex = 2;
-                res.forceLabel = true;
-                if (node === focus) res.size = (attrs.size as number) * 1.35;
-              } else {
-                res.color = theme.dim;
-                res.label = "";
-                res.zIndex = 0;
-              }
-            } else if (sel && node === sel) {
-              res.forceLabel = true;
-              res.size = (attrs.size as number) * 1.25;
+          }
+          if (onlyOrphans && graph.degree(node) > 0) {
+            res.hidden = true;
+            return res;
+          }
+          res.hidden = false;
+          if (searching) {
+            if (hits.has(node)) {
               res.zIndex = 2;
-            }
-            return res;
-          });
-
-          s.setSetting("edgeReducer", (edge, attrs) => {
-            const res: AttrMap = { ...attrs };
-            const [a, b] = graph.extremities(edge);
-            const aKind = graph.getNodeAttribute(a, "nodeKind") as string;
-            const bKind = graph.getNodeAttribute(b, "nodeKind") as string;
-            if (hidden.has(aKind) || hidden.has(bKind)) {
-              res.hidden = true;
-              return res;
-            }
-            const reveal = revealRef.current;
-            if (reveal < 1) {
-              // An edge appears only once both endpoints are mostly revealed.
-              const ra =
-                (graph.getNodeAttribute(a, "revealOrder") as number) ?? 0;
-              const rb =
-                (graph.getNodeAttribute(b, "revealOrder") as number) ?? 0;
-              if (reveal < Math.max(ra, rb) * 0.7 + 0.2) {
-                res.hidden = true;
-                return res;
-              }
-            }
-            if (onlyOrphans) {
-              res.hidden = true;
-              return res;
-            }
-            if (searching) {
-              if (hits.has(a) && hits.has(b)) {
-                res.color = theme.edgeHover;
-                res.size = 1.2;
-                res.zIndex = 1;
-              } else {
-                res.color = theme.dim;
-                res.zIndex = 0;
-              }
-            } else if (focus && neighbors.size) {
-              if (neighbors.has(a) && neighbors.has(b)) {
-                res.color = theme.edgeHover;
-                res.size = 1.2;
-                res.zIndex = 1;
-              } else {
-                res.color = theme.dim;
-                res.zIndex = 0;
-              }
+              res.forceLabel = true;
+              res.size = (attrs.size as number) * (node === focus ? 1.4 : 1.2);
             } else {
-              res.color = theme.edge;
+              res.color = theme.dim;
+              res.label = "";
+              res.zIndex = 0;
             }
+          } else if (focus && neighbors.size) {
+            if (neighbors.has(node)) {
+              res.zIndex = 2;
+              res.forceLabel = true;
+              if (node === focus) res.size = (attrs.size as number) * 1.35;
+            } else {
+              res.color = theme.dim;
+              res.label = "";
+              res.zIndex = 0;
+            }
+          } else if (sel && node === sel) {
+            res.forceLabel = true;
+            res.size = (attrs.size as number) * 1.25;
+            res.zIndex = 2;
+          }
+          return res;
+        });
+        s.setSetting("edgeReducer", (edge, attrs) => {
+          const res: AttrMap = { ...attrs };
+          const {
+            hidden,
+            onlyOrphans,
+            theme,
+            hits,
+            searching,
+            neighbors,
+            focus,
+          } = visualCtx;
+          const [a, b] = graph.extremities(edge);
+          const aKind = graph.getNodeAttribute(a, "nodeKind") as string;
+          const bKind = graph.getNodeAttribute(b, "nodeKind") as string;
+          if (hidden.has(aKind) || hidden.has(bKind)) {
+            res.hidden = true;
             return res;
-          });
+          }
+          const reveal = revealRef.current;
+          if (reveal < 1) {
+            // An edge appears only once both endpoints are mostly revealed.
+            const ra =
+              (graph.getNodeAttribute(a, "revealOrder") as number) ?? 0;
+            const rb =
+              (graph.getNodeAttribute(b, "revealOrder") as number) ?? 0;
+            if (reveal < Math.max(ra, rb) * 0.7 + 0.2) {
+              res.hidden = true;
+              return res;
+            }
+          }
+          if (onlyOrphans) {
+            res.hidden = true;
+            return res;
+          }
+          if (searching) {
+            if (hits.has(a) && hits.has(b)) {
+              res.color = theme.edgeHover;
+              res.size = 1.2;
+              res.zIndex = 1;
+            } else {
+              res.color = theme.dim;
+              res.zIndex = 0;
+            }
+          } else if (focus && neighbors.size) {
+            if (neighbors.has(a) && neighbors.has(b)) {
+              res.color = theme.edgeHover;
+              res.size = 1.2;
+              res.zIndex = 1;
+            } else {
+              res.color = theme.dim;
+              res.zIndex = 0;
+            }
+          } else {
+            res.color = theme.edge;
+          }
+          return res;
+        });
+        reducerResetCountRef.current += 1;
 
+        const applyVisual = () => {
+          syncVisualCtx();
+          refreshCountRef.current += 1;
           s.refresh();
         };
         applyVisualRef.current = applyVisual;
+
+        const host = containerRef.current;
+        if (host) {
+          detachProbeRef.current?.();
+          detachProbeRef.current = attachKbGraphProbe(
+            s as SigmaProbeHost,
+            host,
+            {
+              refreshCount: () => refreshCountRef.current,
+              reducerResetCount: () => reducerResetCountRef.current,
+            }
+          );
+        }
 
         // FA2 worker layout — live, auto-stop after settle, restarts on drag/slider change
         const startLayout = (settings: ForceSettings) => {
@@ -567,6 +614,7 @@ export function GraphViewer() {
           const eased = 1 - (1 - linear) ** 3; // ease-out cubic
           revealRef.current = eased;
           cam.setState({ ratio: finalRatio * (1.3 - 0.3 * eased) });
+          refreshCountRef.current += 1;
           s.refresh();
           if (linear < 1) {
             requestAnimationFrame(revealTick);
@@ -608,17 +656,29 @@ export function GraphViewer() {
         s.getMouseCaptor().on("mouseup", stopDrag);
         s.getMouseCaptor().on("mouseleave", stopDrag);
 
-        // Hover
+        const writeHoverHint = (id: string | null) => {
+          const el = hoverHintRef.current;
+          if (!el) return;
+          if (!id) {
+            el.textContent = "";
+            return;
+          }
+          el.textContent = ` · ${nodeMapRef.current[id]?.label ?? id}`;
+        };
+        const graphCursor = () => containerRef.current ?? document.body;
+
+        // Hover — refs + a text node, not React state (avoids re-rendering
+        // the overlay tree and a second applyVisual via useEffect).
         s.on("enterNode", ({ node }) => {
           hoverRef.current = node;
-          setHover(node);
-          document.body.style.cursor = "pointer";
+          writeHoverHint(node);
+          graphCursor().style.cursor = "pointer";
           applyVisual();
         });
         s.on("leaveNode", () => {
           hoverRef.current = null;
-          setHover(null);
-          document.body.style.cursor = "default";
+          writeHoverHint(null);
+          graphCursor().style.cursor = "default";
           applyVisual();
         });
 
@@ -645,7 +705,7 @@ export function GraphViewer() {
 
         s.on("clickStage", () => {
           hoverRef.current = null;
-          setHover(null);
+          writeHoverHint(null);
           applyVisual();
         });
 
@@ -665,7 +725,9 @@ export function GraphViewer() {
     return () => {
       cancelled = true;
       if (stopTimer) clearTimeout(stopTimer);
-      document.body.style.cursor = "default";
+      detachProbeRef.current?.();
+      detachProbeRef.current = null;
+      if (containerRef.current) containerRef.current.style.cursor = "default";
       applyVisualRef.current = () => {};
       restartLayout.current = () => {};
       layoutRef.current?.kill();
@@ -676,10 +738,10 @@ export function GraphViewer() {
     };
   }, [data, degree, view]);
 
-  // Re-apply visuals when selection / filters / hover change
+  // Re-apply visuals when selection / filters change (hover is ref-only)
   useEffect(() => {
     applyVisualRef.current();
-  }, [selected, hiddenKinds, orphansOnly, hover]);
+  }, [selected, hiddenKinds, orphansOnly]);
 
   // Re-apply theme colors on theme change (no relayout needed)
   useEffect(() => {
@@ -771,7 +833,6 @@ export function GraphViewer() {
   const node = selected ? nodeMap[selected] : null;
   const isTag = node?.kind === "tag";
   const linkedFrom = selected ? (backlinks[selected] ?? []) : [];
-  const hoverNode = hover ? nodeMap[hover] : null;
   const theme = dark ? THEME.dark : THEME.light;
 
   if (loadError) {
@@ -793,6 +854,10 @@ export function GraphViewer() {
           <div
             ref={containerRef}
             className="absolute inset-0"
+            data-kb-graph="2d"
+            data-hide-labels-on-move="false"
+            data-hide-edges-on-move="false"
+            data-sigma-ready={ready ? "true" : "false"}
             aria-label="Knowledge graph"
           />
         )}
@@ -1011,7 +1076,7 @@ export function GraphViewer() {
 
           <p className="text-[10px] font-mono text-zinc-500">
             scroll zoom · drag canvas · drag nodes · hover neighbors
-            {hoverNode ? ` · ${hoverNode.label}` : ""}
+            <span ref={hoverHintRef} />
           </p>
         </div>
       </div>

@@ -74,6 +74,9 @@ herdr agent prompt feat-<short> "<full task spec>" --wait --timeout 600000
 - `apps/agent-ui`: Cloudflare Pages chat UI for `https://agents.duyet.net`. Clerk auth, AI SDK `useChat`, `@duyet/components` `ChatTranscript` (MessageScroller / Message / Bubble / Attachment / Marker) against `apps/agent-api`.
 - `apps/agent-api`: API-only Cloudflare Agents Worker. REST chat is `POST /api/v1/chat` with Clerk bearer auth or `AGENT_API_TOKEN`. The production hostname `agents-api.duyet.net` is bound in the Cloudflare dashboard; the `routes` block in `apps/agent-api/wrangler.toml` stays commented so `wrangler deploy` does not require Zone DNS edit permission.
 - `apps/api`: Hono API on Cloudflare Workers for `https://api.duyet.net`.
+  - `POST /api/contact` `{name, email, message}`: 8 KB body cap, 5 per IP per 10 min, `website` honeypot (non-empty is a silent 202), stored in D1 `SUBMISSIONS_DB` as `pending`, owner notified via the `NOTIFY_EMAIL` send_email binding.
+  - `POST /api/jd` `{company?, note?, text | url}`: 40 KB envelope cap with `text` <= 32 KB or an https `url`, same 5-per-IP-per-10-min limit, honeypot, `SUBMISSIONS_DB` row, and `NOTIFY_EMAIL` notification.
+  - `POST /api/comments` `{post, author, email?, body}`: 8 KB cap, `post` must match a slug in `blog.duyet.net/posts-data.json` (cached 1 h, unknown slug is 404), same limit, honeypot, `SUBMISSIONS_DB` row, and `NOTIFY_EMAIL` notification.
 - `apps/ai-percentage`: AI-written-code dashboard for `https://ai-percentage.duyet.net`; data comes from `apps/data-sync`.
 - `apps/data-sync`: operational CLI for ClickHouse analytics/activity syncs and migrations.
 - `apps/agent-assistant`: Vite-powered TanStack Start application with assistant-ui + LangGraph serving as a local agent interface. Deployed directly serverless on Cloudflare Workers/Pages (`duyet-agent-assistant`) for `https://agent-assistant.duyet.net` utilizing a native Cloudflare Durable Object (`ThreadStateDO`) backed by SQLite for checkpoint persistence.
@@ -126,6 +129,8 @@ Rust crates in `crates/` serve two purposes:
 - **Build-time**: Native CLI binary (`duyet-cli`) for data sync and prerender
 - **Runtime**: WASM modules for browser/CF Workers (diff, exif, utils, markdown)
 
+Two binaries share the `duyet` name and must not be confused. `duyet-cli` (`crates/cli`) is the build-time JSON stdin/stdout tool consumed by `callCli()`; it is unchanged by the CLI program. `duyet` (`crates/duyet`) is the user-facing CLI for readers and agents from epic #1440: clap command tree, `--json` envelope `{"ok","schema","data"|"error"}`, exit codes 0/1/2/3/4/5/6/10 in one `ExitCode` enum, TOML config with no secrets under the OS config dir, `doctor`, completions, man pages, and generated `crates/duyet/docs/reference.md`. Later-slice commands are present with `--help` and exit 2 with the tracked issue number. Contracts live in `crates/duyet/README.md`; drive it with `.cursor/skills/verify-duyet-cli/SKILL.md`. `Cargo.lock` is committed because `duyet` ships as a binary; `test.yml` caches on it.
+
 ### Build & Test
 
 - `pnpm run rust:build` — build native CLI binary (`target/release/duyet-cli`)
@@ -139,6 +144,7 @@ Rust crates in `crates/` serve two purposes:
 | Crate | Mode | Function | Consumer |
 |-------|------|----------|----------|
 | `crates/cli/` | Build | Unified CLI: `csv`, `normalize`, `dedup`, `markdown` subcommands | JS wrappers via `callCli()` |
+| `crates/duyet/` | User CLI | `duyet` binary: `version`, `config`, `doctor`, `completions`, `docs`; content/chat/submission/update groups stubbed until #1443/#1445/#1447/#1448 | Readers and agents (released in #1444/#1446) |
 | `crates/markdown/` | Both | `markdown_to_html(input) -> String` | WASM for per-page, CLI for batch |
 | `crates/csv-parser/` | Build | `parse_csv(input) -> String` | `apps/llm-timeline/lib/csv.ts` |
 | `crates/normalizers/` | Build | 8 normalize functions | `apps/llm-timeline/lib/normalizers.ts` |
