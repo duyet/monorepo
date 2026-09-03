@@ -220,17 +220,25 @@ cmd_preview_start() {
   ensure_root
   local port="${VERIFY_KB_PREVIEW_PORT:-3009}"
   local log="${STATE_DIR}/preview.log"
+  local vite_bin="${ROOT}/node_modules/.bin/vite"
+  [[ -x "${vite_bin}" ]] || die "vite not found at ${vite_bin}; run pnpm install"
+  # Drop a previous lever-owned preview so we do not curl a leftover
+  # grandchild (pnpm exec leaves vite behind after SIGTERM of the wrapper).
+  cmd_preview_stop >/dev/null || true
+  if curl -sf -o /dev/null "http://127.0.0.1:${port}/"; then
+    die "port ${port} already answers; stop that process or set VERIFY_KB_PREVIEW_PORT"
+  fi
   local pid
   if [[ -f "${ROOT}/apps/kb/dist/client/index.html" ]]; then
     (
       cd "${ROOT}/apps/kb"
-      exec pnpm exec vite preview --host 127.0.0.1 --port "${port}" --strictPort
+      exec "${vite_bin}" preview --host 127.0.0.1 --port "${port}" --strictPort
     ) >"${log}" 2>&1 &
     pid=$!
   else
     (
       cd "${ROOT}/apps/kb"
-      exec pnpm exec vite dev --host 127.0.0.1 --port "${port}" --strictPort
+      exec "${vite_bin}" dev --host 127.0.0.1 --port "${port}" --strictPort
     ) >"${log}" 2>&1 &
     pid=$!
   fi
@@ -250,13 +258,13 @@ path.write_text(json.dumps(state))
 PY
   local i=0
   while [[ ${i} -lt 80 ]]; do
+    if ! kill -0 "${pid}" 2>/dev/null; then
+      die "preview process exited; see ${log}"
+    fi
     if curl -sf -o /dev/null "http://127.0.0.1:${port}/"; then
       python3 -c 'import json,sys; print(json.dumps({"ok": True, "previewPid": int(sys.argv[1]), "url": sys.argv[2], "log": sys.argv[3]}))' \
         "${pid}" "http://127.0.0.1:${port}/" "${log}"
       return 0
-    fi
-    if ! kill -0 "${pid}" 2>/dev/null; then
-      die "preview process exited; see ${log}"
     fi
     sleep 0.25
     i=$((i + 1))
@@ -280,18 +288,48 @@ pid = state.get("previewPid")
 if not pid:
     print(json.dumps({"ok": True, "stopped": False, "reason": "no previewPid"}))
     raise SystemExit(0)
-try:
-    os.kill(int(pid), signal.SIGTERM)
-    stopped, reason = True, "sigterm"
+
+def children_of(root):
+    kids = {}
+    proc = pathlib.Path("/proc")
+    if not proc.is_dir():
+        return [int(root)]
+    for entry in proc.iterdir():
+        if not entry.name.isdigit():
+            continue
+        try:
+            status = (entry / "status").read_text()
+        except OSError:
+            continue
+        ppid = None
+        for line in status.splitlines():
+            if line.startswith("PPid:"):
+                ppid = int(line.split()[1])
+                break
+        if ppid is None:
+            continue
+        kids.setdefault(ppid, []).append(int(entry.name))
+    ordered = []
+    stack = [int(root)]
+    while stack:
+        cur = stack.pop()
+        ordered.append(cur)
+        stack.extend(kids.get(cur, []))
+    return ordered
+
+tree = children_of(pid)
+stopped, reason = False, "not running"
+for child in reversed(tree):
     try:
-        os.killpg(int(pid), signal.SIGTERM)
-    except (ProcessLookupError, PermissionError, OSError):
+        os.kill(child, signal.SIGTERM)
+        stopped, reason = True, "sigterm"
+    except ProcessLookupError:
         pass
-except ProcessLookupError:
-    stopped, reason = False, "not running"
+    except PermissionError:
+        reason = "permission"
 state.pop("previewPid", None)
 path.write_text(json.dumps(state))
-print(json.dumps({"ok": True, "stopped": stopped, "pid": pid, "reason": reason}))
+print(json.dumps({"ok": True, "stopped": stopped, "pid": pid, "reason": reason, "killed": tree}))
 PY
 }
 

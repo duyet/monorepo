@@ -284,7 +284,7 @@ async function main() {
     }
 
     const restPng = join(outDir, "rest.png");
-    if (ready?.ok) await screenshot(session, restPng);
+    await screenshot(session, restPng);
 
     const frameDir = join(outDir, "frames");
     mkdirSync(frameDir, { recursive: true });
@@ -461,7 +461,7 @@ async function main() {
       layoutCountDelta,
       recalcStyleDelta,
       screenshots: {
-        rest: ready?.ok ? restPng : null,
+        rest: restPng,
         zoomMid: ready?.ok ? midPng : null,
         zoomEnd: ready?.ok ? endPng : null,
       },
