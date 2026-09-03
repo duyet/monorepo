@@ -213,13 +213,13 @@ cmd_preview_start() {
   if [[ -f "${ROOT}/apps/kb/dist/client/index.html" ]]; then
     (
       cd "${ROOT}/apps/kb"
-      pnpm exec vite preview --host 127.0.0.1 --port "${port}" --strictPort
+      exec pnpm exec vite preview --host 127.0.0.1 --port "${port}" --strictPort
     ) >"${log}" 2>&1 &
     pid=$!
   else
     (
       cd "${ROOT}/apps/kb"
-      pnpm exec vite dev --host 127.0.0.1 --port "${port}" --strictPort
+      exec pnpm exec vite dev --host 127.0.0.1 --port "${port}" --strictPort
     ) >"${log}" 2>&1 &
     pid=$!
   fi
@@ -272,6 +272,10 @@ if not pid:
 try:
     os.kill(int(pid), signal.SIGTERM)
     stopped, reason = True, "sigterm"
+    try:
+        os.killpg(int(pid), signal.SIGTERM)
+    except (ProcessLookupError, PermissionError, OSError):
+        pass
 except ProcessLookupError:
     stopped, reason = False, "not running"
 state.pop("previewPid", None)

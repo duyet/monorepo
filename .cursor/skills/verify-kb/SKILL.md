@@ -88,7 +88,17 @@ Proof standards:
 
 Stops only the preview PID this lever started (recorded in `/tmp/verify-kb/state.json`). Never `pkill vite` / `pkill node`. Never delete `evidenceDir`.
 
-## Helpers
+## Proven drive
+
+2026-09-03 — `.cursor/skills/verify-kb/bin/verify-kb prove --feature zoom-labels`
+
+Verdict: **VERIFIED**. Homepage Sigma probe: `hideLabelsOnMove: false`, `hideEdgesOnMove: true`, `reducerResetCount: 1` through zoom. Label overlay ink at rest (2997) and while `cameraMoving` (samples 5490–5722). `layoutCountDelta: 0`. Screenshots `rest.png` / `zoom-mid.png` / `zoom-end.png` plus `zoom.webm`. Evidence: `/tmp/verify-kb/20260903T075334Z/`.
+
+```bash
+pnpm --filter kb test
+pnpm --filter kb check-types
+.cursor/skills/verify-kb/bin/verify-kb prove --feature zoom-labels
+```
 
 ```bash
 .cursor/skills/verify-kb/bin/verify-kb doctor

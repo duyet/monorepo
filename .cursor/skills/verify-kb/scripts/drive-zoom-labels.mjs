@@ -194,6 +194,14 @@ async function main() {
     const { browser, session } = await connectPage(debugPort, "about:blank");
     await session.send("Page.enable");
     await session.send("Runtime.enable");
+    const exceptions = [];
+    session.on("Runtime.exceptionThrown", (params) => {
+      const desc =
+        params.exceptionDetails?.exception?.description ||
+        params.exceptionDetails?.text ||
+        "exception";
+      exceptions.push(String(desc).slice(0, 500));
+    });
     try {
       await session.send("Performance.enable");
     } catch {
@@ -431,6 +439,7 @@ async function main() {
       video,
       frameCount: frames.length,
       chromeErr: chromeErr.slice(0, 500),
+      exceptions: exceptions.slice(0, 8),
     };
     writeFileSync(join(outDir, "report.json"), JSON.stringify(report, null, 2));
     console.log(JSON.stringify(report));
