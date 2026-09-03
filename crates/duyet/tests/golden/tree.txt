@@ -1,0 +1,45 @@
+duyet  Read duyet.net from the terminal: posts, notes, series, KB, news, insights, and the duyet agent
+duyet posts  Blog posts: list, search, read, open
+duyet posts list  List posts, newest first
+duyet posts search  Full-text search over titles, tags, and summaries (client side)
+duyet posts read  Print one post as terminal Markdown
+duyet posts open  Open a post in the browser
+duyet notes  Short notes
+duyet notes list  List notes, newest first
+duyet notes read  Print one note
+duyet series  Post series
+duyet series list  List series
+duyet series read  Show one series and its posts
+duyet kb  Knowledge base articles
+duyet kb list  List articles
+duyet kb search  Full-text search over the article index (client side)
+duyet kb read  Print one article as terminal Markdown
+duyet news  Daily LLM news digest
+duyet news today  Today's digest
+duyet images  Download a post's images
+duyet images download  Download every image referenced by a post
+duyet insights  Site insights and stats
+duyet insights overview  Site-wide totals
+duyet chat  Chat with the duyet agent
+duyet contact  Send a contact message (confirms before sending)
+duyet jd  Submit a job description (confirms before sending)
+duyet jd submit  Submit a job description from a file or URL
+duyet comment  Comment on a post (confirms before sending)
+duyet auth  Manage the agent token
+duyet auth login  Store an agent token in the OS keychain
+duyet auth logout  Remove the stored token
+duyet auth status  Report whether a token is available (never prints it)
+duyet config  Read and edit the config file
+duyet config path  Print the config file path
+duyet config show  Print every key with its effective value and where it came from
+duyet config set  Set a key (validated before writing)
+duyet config unset  Remove a key from the file (no error if it is not set)
+duyet config doctor  Lint the file: parse errors, unknown keys, bad values, secret-looking keys, loose permissions
+duyet update  Update the binary or check for a newer release
+duyet doctor  Check config, cache, endpoints, and token state
+duyet version  Print version, target, channel, and commit
+duyet completions  Print a shell completion script
+duyet docs  Generate man pages, Markdown reference, or the command tree
+duyet docs man  Write one roff man page per command
+duyet docs markdown  Print the Markdown command reference
+duyet docs tree  Print every command path, one per line
