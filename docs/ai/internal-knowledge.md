@@ -116,7 +116,7 @@ herdr agent prompt feat-<short> "<full task spec>" --wait --timeout 600000
 
 - `apps/agent-ui`: `pnpm run dev` uses Vite on port 3008; local chat expects `apps/agent-api` on port 8788 unless `VITE_DUYET_AGENTS_API_URL` or `VITE_AGENT_API_URL` is set. Production chat uses the same-origin `/api/v1/chat` Pages Function proxy so browsers do not need to resolve `agents-api.duyet.net`.
 - `apps/agent-api`: `pnpm run dev` uses Wrangler on port 8788; `pnpm run deploy` type-checks then deploys the Worker; `pnpm run cf:deploy:prod` loads production env files before deploy; `pnpm run config` syncs `AGENT_API_TOKEN` plus Clerk verification secrets.
-- `apps/api`: `pnpm run dev` uses Wrangler; `pnpm run deploy` builds then deploys the Worker.
+- `apps/api`: `pnpm run dev` uses Wrangler; `pnpm run deploy` builds then runs `scripts/deploy.ts`. That helper omits `[[d1_databases]]` from the production config when `database_id` is not a UUID, so CI does not auto-provision D1 by name. After `wrangler d1 create duyet-api-submissions`, put the printed UUID in `apps/api/wrangler.toml` and the same deploy applies `SUBMISSIONS_DB` migrations remotely.
 - `apps/cv`: `pnpm run preview` validates production output locally.
 - `apps/data-sync`: use `pnpm run sync <name>`, `pnpm run sync:all`, `pnpm run migrate:*`, and `pnpm run cleanup:dry-run`.
 - `apps/kb`: `pnpm run build` runs the content prebuild and must preserve article `links` frontmatter in `public/k/*.md` for knowledge-graph and LLM consumers.

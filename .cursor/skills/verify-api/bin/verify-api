@@ -1,0 +1,551 @@
+#!/usr/bin/env bash
+# CLI lever for .cursor/skills/verify-api — run from the monorepo root.
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../.." && pwd)"
+DRIVE_HTTP="${ROOT}/.cursor/skills/verify-api/scripts/drive-http.ts"
+STATE_DIR="${VERIFY_API_STATE_DIR:-/tmp/verify-api}"
+STATE_FILE="${STATE_DIR}/state.json"
+CMD="${1:-}"
+shift || true
+
+mkdir -p "${STATE_DIR}"
+
+die() {
+  python3 -c 'import json,sys; print(json.dumps({"ok": False, "error": sys.argv[1]}))' "$1"
+  exit 1
+}
+
+usage() {
+  cat <<'EOF'
+verify-api — drive apps/api HTTP and the production D1 deploy plan
+
+Commands:
+  doctor                         Wrangler name, deploy helper, production D1 plan
+  deploy-plan                    pnpm --filter api deploy:plan
+  drive <feature>                production-d1|health|openapi|submissions-contact|live-worker
+  prove [--feature <id>]         doctor + drive (default production-d1)
+  dev-start                      wrangler dev on port 8787
+  dev-stop                       Stop the wrangler this lever started
+  cleanup                        dev-stop; keep evidence
+  --help                         This text
+
+Evidence: $VERIFY_API_EVIDENCE or /tmp/verify-api/<run-id>/
+EOF
+}
+
+ensure_root() {
+  [[ -f "${ROOT}/package.json" && -d "${ROOT}/apps/api" ]] || die "not the monorepo root (${ROOT})"
+}
+
+new_run_id() {
+  date -u +%Y%m%dT%H%M%SZ
+}
+
+read_state_run_id() {
+  python3 - "$STATE_FILE" <<'PY'
+import json, sys, pathlib
+p = pathlib.Path(sys.argv[1])
+if not p.is_file():
+    print("")
+    raise SystemExit(0)
+try:
+    print(json.loads(p.read_text()).get("runId", "") or "")
+except json.JSONDecodeError:
+    print("")
+PY
+}
+
+evidence_dir_for() {
+  local id="$1"
+  if [[ -n "${VERIFY_API_EVIDENCE:-}" ]]; then
+    printf '%s' "${VERIFY_API_EVIDENCE}"
+  else
+    printf '%s/%s' "${STATE_DIR}" "${id}"
+  fi
+}
+
+write_state() {
+  python3 - "$STATE_FILE" "$1" "$2" <<'PY'
+import json, sys, pathlib
+path, run_id, evidence = pathlib.Path(sys.argv[1]), sys.argv[2], sys.argv[3]
+state = {}
+if path.is_file():
+    try:
+        state = json.loads(path.read_text())
+    except json.JSONDecodeError:
+        state = {}
+state["runId"] = run_id
+state["evidenceDir"] = evidence
+path.write_text(json.dumps(state))
+PY
+}
+
+resolve_run() {
+  local id="${VERIFY_API_RUN_ID:-}"
+  if [[ -z "${id}" ]]; then
+    id="$(read_state_run_id)"
+  fi
+  if [[ -z "${id}" ]]; then
+    id="$(new_run_id)"
+  fi
+  local evidence
+  evidence="$(evidence_dir_for "${id}")"
+  mkdir -p "${evidence}"
+  write_state "${id}" "${evidence}"
+  printf '%s %s' "${id}" "${evidence}"
+}
+
+dev_url() {
+  python3 - "$STATE_FILE" <<'PY'
+import json, sys, pathlib
+p = pathlib.Path(sys.argv[1])
+if not p.is_file():
+    print("")
+    raise SystemExit(0)
+try:
+    state = json.loads(p.read_text())
+except json.JSONDecodeError:
+    print("")
+    raise SystemExit(0)
+port = state.get("devPort") or 8787
+print(f"http://127.0.0.1:{port}")
+PY
+}
+
+cmd_deploy_plan() {
+  ensure_root
+  local pair id evidence
+  pair="$(resolve_run)"
+  id="${pair%% *}"
+  evidence="${pair#* }"
+  local out="${evidence}/plan.json"
+  set +e
+  (
+    cd "${ROOT}"
+    pnpm --filter api deploy:plan
+  ) >"${out}.raw" 2>"${evidence}/plan.err"
+  local status=$?
+  set -e
+  python3 - "$out" "${out}.raw" "$status" "$id" "$evidence" <<'PY'
+import json, sys, pathlib, re
+out, raw_path, status, run_id, evidence = sys.argv[1:6]
+raw = pathlib.Path(raw_path).read_text(encoding="utf-8", errors="replace")
+plan = None
+for match in re.finditer(r"\{.*\}", raw, re.S):
+    try:
+        plan = json.loads(match.group(0))
+    except json.JSONDecodeError:
+        continue
+ok = int(status) == 0 and isinstance(plan, dict) and plan.get("ok") is True
+report = {
+    "ok": ok,
+    "exitCode": int(status),
+    "plan": plan,
+    "stripD1": None if not plan else plan.get("stripD1"),
+    "productionHasD1": None if not plan else plan.get("productionHasD1"),
+    "applyMigrations": None if not plan else plan.get("applyMigrations"),
+    "runId": run_id,
+    "evidenceDir": evidence,
+    "planPath": out,
+}
+pathlib.Path(out).write_text(json.dumps(report, indent=2) + "\n")
+print(json.dumps(report))
+raise SystemExit(0 if ok else 1)
+PY
+}
+
+cmd_doctor() {
+  ensure_root
+  local pair id evidence
+  pair="$(resolve_run)"
+  id="${pair%% *}"
+  evidence="${pair#* }"
+  local doctor_partial="${evidence}/doctor.partial.json"
+  python3 - "$ROOT" "$id" "$evidence" <<'PY' >"${doctor_partial}"
+import json, pathlib, re, sys
+root = pathlib.Path(sys.argv[1])
+run_id, evidence = sys.argv[2:4]
+toml = (root / "apps/api/wrangler.toml").read_text(encoding="utf-8")
+pkg = json.loads((root / "apps/api/package.json").read_text())
+deploy = pkg.get("scripts", {}).get("deploy", "")
+base = {
+    "nameDuyetApi": bool(re.search(r'(?m)^name\s*=\s*"duyet-api"\s*$', toml)),
+    "deployUsesHelper": "tsx scripts/deploy.ts" in deploy,
+    "helperExists": (root / "apps/api/src/lib/d1-deploy-plan.ts").is_file(),
+    "planScriptExists": (root / "apps/api/scripts/plan-production-deploy.ts").is_file(),
+    "deployScriptExists": (root / "apps/api/scripts/deploy.ts").is_file(),
+    "runId": run_id,
+    "evidenceDir": evidence,
+}
+print(json.dumps(base))
+PY
+  set +e
+  cmd_deploy_plan >"${evidence}/doctor-plan.json"
+  local plan_st=$?
+  set -e
+  python3 - "${doctor_partial}" "${evidence}/doctor-plan.json" "$plan_st" "${evidence}" <<'PY'
+import json, sys, pathlib
+base = json.loads(pathlib.Path(sys.argv[1]).read_text())
+plan_wrap = json.loads(pathlib.Path(sys.argv[2]).read_text())
+plan_st = int(sys.argv[3])
+evidence = sys.argv[4]
+plan = plan_wrap.get("plan") or {}
+safe = (
+    plan_st == 0
+    and plan.get("ok") is True
+    and (
+        (plan.get("stripD1") is True and plan.get("productionHasD1") is False)
+        or (plan.get("stripD1") is False and plan.get("applyMigrations") is True)
+    )
+)
+ok = (
+    base["nameDuyetApi"]
+    and base["deployUsesHelper"]
+    and base["helperExists"]
+    and base["planScriptExists"]
+    and base["deployScriptExists"]
+    and safe
+)
+out = {
+    **base,
+    "ok": ok,
+    "productionD1Safe": safe,
+    "plan": plan,
+}
+pathlib.Path(evidence, "doctor.json").write_text(json.dumps(out, indent=2) + "\n")
+print(json.dumps(out))
+raise SystemExit(0 if ok else 1)
+PY
+}
+
+http_get() {
+  local url="$1"
+  local dest="$2"
+  python3 - "$url" "$dest" <<'PY'
+import json, sys, urllib.request, urllib.error, pathlib
+url, dest = sys.argv[1:3]
+req = urllib.request.Request(url, method="GET")
+try:
+    with urllib.request.urlopen(req, timeout=20) as resp:
+        body = resp.read()
+        status = resp.status
+        headers = {k.lower(): v for k, v in resp.headers.items()}
+except urllib.error.HTTPError as e:
+    body = e.read()
+    status = e.code
+    headers = {k.lower(): v for k, v in e.headers.items()}
+except Exception as e:
+    pathlib.Path(dest).write_text(json.dumps({"ok": False, "error": str(e), "url": url}) + "\n")
+    print(json.dumps({"ok": False, "error": str(e), "url": url, "status": 0}))
+    raise SystemExit(1)
+text = body.decode("utf-8", errors="replace")
+pathlib.Path(dest).write_text(text)
+parsed = None
+try:
+    parsed = json.loads(text)
+except json.JSONDecodeError:
+    parsed = None
+print(json.dumps({
+    "ok": 200 <= status < 300,
+    "status": status,
+    "url": url,
+    "cfCacheStatus": headers.get("cf-cache-status"),
+    "body": parsed if parsed is not None else text[:500],
+    "bodyPath": dest,
+}))
+PY
+}
+
+http_post_json() {
+  local url="$1"
+  local payload="$2"
+  local dest="$3"
+  python3 - "$url" "$payload" "$dest" <<'PY'
+import json, sys, urllib.request, urllib.error, pathlib
+url, payload, dest = sys.argv[1:4]
+data = payload.encode("utf-8")
+req = urllib.request.Request(
+    url,
+    data=data,
+    method="POST",
+    headers={"Content-Type": "application/json"},
+)
+try:
+    with urllib.request.urlopen(req, timeout=20) as resp:
+        body = resp.read()
+        status = resp.status
+except urllib.error.HTTPError as e:
+    body = e.read()
+    status = e.code
+except Exception as e:
+    pathlib.Path(dest).write_text(json.dumps({"ok": False, "error": str(e)}) + "\n")
+    print(json.dumps({"ok": False, "error": str(e), "status": 0, "url": url}))
+    raise SystemExit(1)
+text = body.decode("utf-8", errors="replace")
+pathlib.Path(dest).write_text(text)
+parsed = None
+try:
+    parsed = json.loads(text)
+except json.JSONDecodeError:
+    parsed = None
+print(json.dumps({
+    "status": status,
+    "url": url,
+    "body": parsed if parsed is not None else text[:500],
+    "bodyPath": dest,
+}))
+PY
+}
+
+cmd_drive() {
+  ensure_root
+  local feature="${1:-}"
+  [[ -n "${feature}" ]] || die "drive requires a feature id"
+  local pair id evidence
+  pair="$(resolve_run)"
+  id="${pair%% *}"
+  evidence="${pair#* }"
+
+  case "${feature}" in
+    production-d1)
+      cmd_deploy_plan
+      ;;
+    health|openapi|submissions-contact)
+      local dest="${evidence}/drive-${feature}.json"
+      set +e
+      (
+        cd "${ROOT}"
+        pnpm exec tsx "${DRIVE_HTTP}" "${feature}"
+      ) >"${dest}" 2>"${evidence}/drive-${feature}.err"
+      local st=$?
+      set -e
+      python3 - "$dest" "$evidence" "$id" "$feature" "$st" <<'PY'
+import json, sys, pathlib, re
+dest, evidence, run_id, feature, st = sys.argv[1:6]
+raw = pathlib.Path(dest).read_text(encoding="utf-8", errors="replace")
+report = None
+for match in re.finditer(r"\{.*\}", raw, re.S):
+    try:
+        candidate = json.loads(match.group(0))
+    except json.JSONDecodeError:
+        continue
+    if isinstance(candidate, dict) and "feature" in candidate:
+        report = candidate
+if report is None:
+    err = pathlib.Path(evidence, f"drive-{feature}.err").read_text(encoding="utf-8", errors="replace")
+    print(json.dumps({"ok": False, "error": "drive-http did not print JSON", "stderr": err[-2000:], "stdout": raw[-2000:]}))
+    raise SystemExit(1)
+report["runId"] = run_id
+report["evidenceDir"] = evidence
+report["exitCode"] = int(st)
+pathlib.Path(evidence, "report.json").write_text(json.dumps(report, indent=2) + "\n")
+print(json.dumps(report))
+raise SystemExit(0 if report.get("ok") and int(st) == 0 else 1)
+PY
+      ;;
+    live-worker)
+      local health_meta root_meta contact
+      health_meta="$(http_get "https://api.duyet.net/health" "${evidence}/live-health.json")"
+      root_meta="$(http_get "https://api.duyet.net/" "${evidence}/live-root.json")"
+      contact="$(http_post_json "https://api.duyet.net/api/contact" '{"name":"Ada","email":"ada@example.test","message":"hello"}' "${evidence}/live-contact.json")"
+      python3 - "$health_meta" "$root_meta" "$contact" "$evidence" "$id" <<'PY'
+import json, sys, pathlib
+health, root, contact, evidence, run_id = (
+    json.loads(sys.argv[1]),
+    json.loads(sys.argv[2]),
+    json.loads(sys.argv[3]),
+    sys.argv[4],
+    sys.argv[5],
+)
+rbody = root.get("body") or {}
+endpoints = rbody.get("endpoints") if isinstance(rbody, dict) else {}
+lists = isinstance(endpoints, dict) and "contact" in endpoints
+cstat = contact.get("status")
+ok = health.get("status") == 200 and lists and cstat != 404
+report = {
+    "ok": ok,
+    "feature": "live-worker",
+    "healthStatus": health.get("status"),
+    "rootStatus": root.get("status"),
+    "listsContact": lists,
+    "contactStatus": cstat,
+    "cfCacheStatus": root.get("cfCacheStatus"),
+    "runId": run_id,
+    "evidenceDir": evidence,
+}
+pathlib.Path(evidence, "report.json").write_text(json.dumps(report, indent=2) + "\n")
+print(json.dumps(report))
+raise SystemExit(0 if ok else 1)
+PY
+      ;;
+    *)
+      die "unknown feature: ${feature}"
+      ;;
+  esac
+}
+
+cmd_prove() {
+  local feature="production-d1"
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --feature)
+        feature="${2:-}"
+        shift 2
+        ;;
+      *)
+        die "unknown prove arg: $1"
+        ;;
+    esac
+  done
+  [[ -n "${feature}" ]] || die "--feature requires an id"
+
+  local id evidence
+  id="$(new_run_id)"
+  export VERIFY_API_RUN_ID="${id}"
+  evidence="$(evidence_dir_for "${id}")"
+  export VERIFY_API_EVIDENCE="${evidence}"
+  mkdir -p "${evidence}"
+  write_state "${id}" "${evidence}"
+
+  set +e
+  cmd_doctor >"${evidence}/prove-doctor.json"
+  local doctor_st=$?
+  set -e
+  if [[ ${doctor_st} -ne 0 ]]; then
+    python3 - "$evidence" "$id" "$feature" <<'PY'
+import json, sys, pathlib
+evidence, run_id, feature = sys.argv[1:4]
+out = {
+    "ok": False,
+    "stage": "doctor",
+    "feature": feature,
+    "runId": run_id,
+    "evidenceDir": evidence,
+    "doctor": json.loads(pathlib.Path(evidence, "prove-doctor.json").read_text()),
+}
+print(json.dumps(out))
+raise SystemExit(1)
+PY
+  fi
+
+  set +e
+  cmd_drive "${feature}" >"${evidence}/prove-drive.json"
+  local drive_st=$?
+  set -e
+  python3 - "$evidence" "$id" "$feature" "$drive_st" <<'PY'
+import json, sys, pathlib
+evidence, run_id, feature, drive_st = sys.argv[1:5]
+out = {
+    "ok": int(drive_st) == 0,
+    "feature": feature,
+    "runId": run_id,
+    "evidenceDir": evidence,
+    "doctor": json.loads(pathlib.Path(evidence, "prove-doctor.json").read_text()),
+    "drive": json.loads(pathlib.Path(evidence, "prove-drive.json").read_text()),
+}
+print(json.dumps(out))
+raise SystemExit(0 if out["ok"] else 1)
+PY
+}
+
+cmd_dev_start() {
+  ensure_root
+  local port="${VERIFY_API_DEV_PORT:-8787}"
+  if curl -sf -o /dev/null "http://127.0.0.1:${port}/health"; then
+    python3 - "$STATE_FILE" <<'PY'
+import json, sys, pathlib
+path = pathlib.Path(sys.argv[1])
+state = {}
+if path.is_file():
+    try:
+        state = json.loads(path.read_text())
+    except json.JSONDecodeError:
+        state = {}
+if state.get("devPid"):
+    print(json.dumps({"ok": True, "reused": True, "url": f"http://127.0.0.1:{state.get('devPort', 8787)}/health", "devPid": state.get("devPid")}))
+    raise SystemExit(0)
+print(json.dumps({"ok": False, "error": "port 8787 already in use by a process this lever did not start"}))
+raise SystemExit(1)
+PY
+  fi
+  local pair id evidence
+  pair="$(resolve_run)"
+  id="${pair%% *}"
+  evidence="${pair#* }"
+  local log="${evidence}/dev.log"
+  (
+    cd "${ROOT}/apps/api"
+    pnpm run dev
+  ) >"${log}" 2>&1 &
+  local pid=$!
+  python3 - "$STATE_FILE" "$pid" "$port" "$log" "$id" "$evidence" <<'PY'
+import json, sys, pathlib
+path = pathlib.Path(sys.argv[1])
+state = {}
+if path.is_file():
+    try:
+        state = json.loads(path.read_text())
+    except json.JSONDecodeError:
+        state = {}
+state["devPid"] = int(sys.argv[2])
+state["devPort"] = int(sys.argv[3])
+state["devLog"] = sys.argv[4]
+state["runId"] = sys.argv[5]
+state["evidenceDir"] = sys.argv[6]
+path.write_text(json.dumps(state))
+PY
+  local i=0
+  while [[ ${i} -lt 80 ]]; do
+    if curl -sf -o /dev/null "http://127.0.0.1:${port}/health"; then
+      python3 -c 'import json,sys; print(json.dumps({"ok": True, "devPid": int(sys.argv[1]), "url": sys.argv[2], "health": sys.argv[3], "log": sys.argv[4], "runId": sys.argv[5], "evidenceDir": sys.argv[6]}))' \
+        "${pid}" "http://127.0.0.1:${port}" "http://127.0.0.1:${port}/health" "${log}" "${id}" "${evidence}"
+      return 0
+    fi
+    if ! kill -0 "${pid}" 2>/dev/null; then
+      die "wrangler dev exited; see ${log}"
+    fi
+    sleep 0.25
+    i=$((i + 1))
+  done
+  die "wrangler dev did not become ready on port ${port}; see ${log}"
+}
+
+cmd_dev_stop() {
+  python3 - "$STATE_FILE" <<'PY'
+import json, os, sys, signal, pathlib
+path = pathlib.Path(sys.argv[1])
+if not path.is_file():
+    print(json.dumps({"ok": True, "stopped": False, "reason": "no state file"}))
+    raise SystemExit(0)
+try:
+    state = json.loads(path.read_text())
+except json.JSONDecodeError:
+    print(json.dumps({"ok": True, "stopped": False, "reason": "empty state"}))
+    raise SystemExit(0)
+pid = state.get("devPid")
+if not pid:
+    print(json.dumps({"ok": True, "stopped": False, "reason": "no devPid"}))
+    raise SystemExit(0)
+try:
+    os.kill(int(pid), signal.SIGTERM)
+    stopped, reason = True, "sigterm"
+except ProcessLookupError:
+    stopped, reason = False, "not running"
+state.pop("devPid", None)
+path.write_text(json.dumps(state))
+print(json.dumps({"ok": True, "stopped": stopped, "pid": pid, "reason": reason}))
+PY
+}
+
+case "${CMD}" in
+  doctor) cmd_doctor ;;
+  deploy-plan) cmd_deploy_plan ;;
+  drive) cmd_drive "${1:-}" ;;
+  prove) cmd_prove "$@" ;;
+  dev-start) cmd_dev_start ;;
+  dev-stop) cmd_dev_stop ;;
+  cleanup) cmd_dev_stop ;;
+  -h|--help|help|"") usage ;;
+  *) die "unknown command: ${CMD}" ;;
+esac

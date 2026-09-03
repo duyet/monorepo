@@ -13,8 +13,6 @@ routes = [
   { pattern = "api.duyet.net/*", zone_name = "duyet.net" }
 ]
 
-# No database_id: wrangler provisions the database on first deploy and locally
-# under `wrangler dev`.
 [[d1_databases]]
 binding = "SUBMISSIONS_DB"
 database_name = "duyet-api-submissions"

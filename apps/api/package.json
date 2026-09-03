@@ -6,7 +6,8 @@
   "scripts": {
     "config": "tsx ../../scripts/sync-app-secrets.ts duyet-api",
     "dev": "pnpm dlx wrangler dev src/index.ts --port 8787",
-    "deploy": "pnpm run build && pnpm dlx wrangler deploy && pnpm dlx wrangler d1 migrations apply SUBMISSIONS_DB --remote",
+    "deploy": "pnpm run build && tsx scripts/deploy.ts",
+    "deploy:plan": "tsx scripts/plan-production-deploy.ts",
     "build": "esbuild src/index.ts --bundle --outdir=dist --platform=browser --format=esm",
     "openapi:mirror": "tsx scripts/openapi-mirror.ts",
     "start": "node dist/index.js",
