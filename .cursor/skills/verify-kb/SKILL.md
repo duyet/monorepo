@@ -93,7 +93,9 @@ Stops only the preview PID this lever started (recorded in `/tmp/verify-kb/state
 
 ## Proven drive
 
-Pending this PR — run `.cursor/skills/verify-kb/bin/verify-kb prove --feature zoom-edges` after the motion contract change.
+2026-09-03 — `.cursor/skills/verify-kb/bin/verify-kb prove --feature zoom-edges`
+
+Verdict: **VERIFIED**. Homepage Sigma probe: `hideLabelsOnMove: false`, `hideEdgesOnMove: false`, `reducerResetCount: 1` through zoom. Label overlay ink at rest (1680) and while `cameraMoving` (5510–5740). Edge canvas ink at rest (6942) and while `cameraMoving` (20848–22786, min 20848). `layoutCountDelta: 0`. Screenshots `rest.png` / `zoom-mid.png` / `zoom-end.png` plus `zoom.webm`. Evidence: `/tmp/verify-kb/20260903T083111Z/`.
 
 ```bash
 pnpm --filter kb test
