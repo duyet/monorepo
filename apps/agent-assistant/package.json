@@ -36,12 +36,11 @@
     "@tanstack/react-router": "^1.0.0",
     "@tanstack/react-start": "^1.0.0",
     "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
+    "cn": "^0.2.4",
     "lucide-react": "^1.16.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "remark-gfm": "^4.0.1",
-    "tailwind-merge": "^3.3.0",
     "zustand": "^5.0.13"
   },
   "devDependencies": {
