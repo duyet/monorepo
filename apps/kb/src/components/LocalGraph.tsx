@@ -8,6 +8,7 @@
 
 import { useNavigate } from "@tanstack/react-router";
 import { type ReactElement, useEffect, useMemo, useRef, useState } from "react";
+import { SIGMA_CAMERA_MOTION } from "./graph-motion";
 import { MEMORY_PALETTE } from "./graph-palette";
 
 type GraphologyGraph = import("graphology").default;
@@ -178,8 +179,8 @@ export function LocalGraph({
       });
 
       sigma = new (Sigma as SigmaCtor)(graph, containerRef.current, {
+        ...SIGMA_CAMERA_MOTION,
         allowInvalidContainer: true,
-        renderLabels: true,
         labelSize: 10,
         labelDensity: 0.2,
         labelGridCellSize: 60,
