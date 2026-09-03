@@ -21,10 +21,10 @@ usage() {
 verify-kb — drive apps/kb homepage graph zoom/labels
 
 Commands:
-  doctor                         Source contract (labels stay on move)
+  doctor                         Source contract (labels + edges stay on move)
   test                           pnpm --filter kb test
-  drive <feature>                Chrome CDP zoom-labels (requires preview)
-  prove [--feature <id>]         doctor + test + preview + drive (default zoom-labels)
+  drive <feature>                Chrome CDP zoom (zoom-labels | zoom-edges)
+  prove [--feature <id>]         doctor + test + preview + drive (default zoom-edges)
   preview-start                  vite preview of dist/client, else vite dev
   preview-stop                   Stop the preview this lever started
   cleanup                        preview-stop; keep evidence
@@ -127,23 +127,34 @@ local_graph = (root / "apps/kb/src/components/LocalGraph.tsx").read_text()
 graph3d = (root / "apps/kb/src/components/Graph3D.tsx").read_text()
 gitmodules = (root / ".gitmodules").read_text() if (root / ".gitmodules").is_file() else ""
 
-hide_true = "hideLabelsOnMove: true" in viewer
-hide_false_setting = "hideLabelsOnMove: false" in motion
+hide_labels_true = "hideLabelsOnMove: true" in viewer
+hide_labels_false = "hideLabelsOnMove: false" in motion
+hide_edges_true_viewer = (
+    "hideEdgesOnMove: true" in viewer
+    or 'data-hide-edges-on-move="true"' in viewer
+)
+hide_edges_true_motion = "hideEdgesOnMove: true" in motion
+hide_edges_false = "hideEdgesOnMove: false" in motion
 uses_set_hover = "setHover(" in viewer or "setHover =" in viewer
 imports_motion = "SIGMA_HOMEPAGE_RENDER" in viewer
 local_uses_motion = "SIGMA_CAMERA_MOTION" in local_graph
 graph3d_key = "graphKey" in graph3d and "highlightIds" in graph3d
 submodule = "apps/kb/kb" in gitmodules
 
-labels_ok = hide_false_setting and not hide_true and imports_motion
+labels_ok = hide_labels_false and not hide_labels_true and imports_motion
+edges_ok = hide_edges_false and not hide_edges_true_viewer and not hide_edges_true_motion
 hover_ok = not uses_set_hover
-ok = labels_ok and hover_ok and local_uses_motion and submodule
+ok = labels_ok and edges_ok and hover_ok and local_uses_motion and submodule
 
 out = {
     "ok": ok,
     "labelsStayOnMove": labels_ok,
-    "hideLabelsOnMoveTrueInViewer": hide_true,
-    "hideLabelsOnMoveFalseInMotion": hide_false_setting,
+    "edgesStayOnMove": edges_ok,
+    "hideLabelsOnMoveTrueInViewer": hide_labels_true,
+    "hideLabelsOnMoveFalseInMotion": hide_labels_false,
+    "hideEdgesOnMoveTrueInViewer": hide_edges_true_viewer,
+    "hideEdgesOnMoveTrueInMotion": hide_edges_true_motion,
+    "hideEdgesOnMoveFalseInMotion": hide_edges_false,
     "hoverUsesReactState": uses_set_hover,
     "viewerImportsMotion": imports_motion,
     "localGraphUsesMotion": local_uses_motion,
@@ -192,7 +203,7 @@ cmd_drive() {
   ensure_root
   local feature="${1:-}"
   [[ -n "${feature}" ]] || die "drive requires a feature id"
-  [[ "${feature}" == "zoom-labels" ]] || die "unknown feature: ${feature}"
+  [[ "${feature}" == "zoom-labels" || "${feature}" == "zoom-edges" ]] || die "unknown feature: ${feature}"
   local pair id evidence
   pair="$(resolve_run)"
   id="${pair%% *}"
@@ -285,7 +296,7 @@ PY
 }
 
 cmd_prove() {
-  local feature="zoom-labels"
+  local feature="zoom-edges"
   while [[ $# -gt 0 ]]; do
     case "$1" in
       --feature)

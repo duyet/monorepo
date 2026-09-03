@@ -1,19 +1,20 @@
 /**
- * Camera / label motion contract for kb graph canvases (Sigma.js).
+ * Camera / label / edge motion contract for kb graph canvases (Sigma.js).
  *
  * Labels are a 2D overlay, not measured DOM. `hideLabelsOnMove` was a FPS
- * shortcut that blanked every label for the whole pan/zoom/animate. Edges
- * are the expensive stroke and can still be skipped while the camera moves.
- * Reducers read refs and are assigned once so hover does not rebuild Sigma's
- * index or re-render React.
+ * shortcut that blanked every label for the whole pan/zoom/animate.
+ * `hideEdgesOnMove` skipped the dedicated edges WebGL layer the same way —
+ * connection lines vanished and the graph felt leaky. Keep both inked while
+ * the camera moves. Reducers read refs and are assigned once so hover does
+ * not rebuild Sigma's index or re-render React.
  */
 
 export const SIGMA_CAMERA_MOTION = {
   renderLabels: true,
   /** Keep node labels readable while the camera pans, zooms, or animates. */
   hideLabelsOnMove: false,
-  /** Skip edge strokes during camera moves — cheaper than dropping labels. */
-  hideEdgesOnMove: true,
+  /** Keep connection lines inked while the camera pans, zooms, or animates. */
+  hideEdgesOnMove: false,
 } as const;
 
 export const SIGMA_HOMEPAGE_RENDER = {
@@ -35,7 +36,7 @@ export const SIGMA_HOMEPAGE_RENDER = {
 
 export const GRAPH_MOTION_CONTRACT = {
   hideLabelsOnMove: false,
-  hideEdgesOnMove: true,
+  hideEdgesOnMove: false,
   hoverUsesReactState: false,
   reducersAssignedOnce: true,
   graph3dRemountsOnHighlight: false,
@@ -47,6 +48,7 @@ export type KbGraphProbe = {
   renderLabels: boolean;
   cameraMoving: boolean;
   labelCanvasOpaquePixels: number;
+  edgeCanvasOpaquePixels: number;
   refreshCount: number;
   reducerResetCount: number;
   zoomBy: (factor: number) => void;
@@ -69,6 +71,9 @@ export type SigmaProbeHost = {
     key: "hideLabelsOnMove" | "hideEdgesOnMove" | "renderLabels"
   ) => unknown;
   getCamera: () => SigmaCamera;
+  getCanvases: () => Record<string, HTMLCanvasElement>;
+  on: (event: "afterRender", handler: () => void) => void;
+  off: (event: "afterRender", handler: () => void) => void;
 };
 
 export function countLabelCanvasOpaquePixels(container: HTMLElement): number {
@@ -95,6 +100,47 @@ export function countLabelCanvasOpaquePixels(container: HTMLElement): number {
   return best;
 }
 
+function webglContext(canvas: HTMLCanvasElement): WebGLRenderingContext | null {
+  for (const name of ["webgl2", "webgl"] as const) {
+    let ctx: RenderingContext | null = null;
+    try {
+      ctx = canvas.getContext(name);
+    } catch {
+      ctx = null;
+    }
+    if (ctx && "readPixels" in ctx) {
+      return ctx as WebGLRenderingContext;
+    }
+  }
+  return null;
+}
+
+export function countEdgeCanvasOpaquePixels(
+  sigma: SigmaProbeHost,
+  container: HTMLElement
+): number {
+  const canvases = sigma.getCanvases?.() ?? {};
+  const edges =
+    canvases.edges ??
+    container.querySelector("canvas.sigma-edges") ??
+    null;
+  if (!(edges instanceof HTMLCanvasElement)) return 0;
+  const gl = webglContext(edges);
+  if (!gl) return 0;
+  const width = gl.drawingBufferWidth;
+  const height = gl.drawingBufferHeight;
+  if (width < 2 || height < 2) return 0;
+  gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+  const pixels = new Uint8Array(width * height * 4);
+  gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+  let n = 0;
+  // Same stride as the label overlay probe.
+  for (let i = 3; i < pixels.length; i += 16) {
+    if (pixels[i] > 24) n += 1;
+  }
+  return n;
+}
+
 function cameraIsMoving(camera: SigmaCamera): boolean {
   if (typeof camera.isAnimated === "function") return camera.isAnimated();
   if (typeof camera.animated === "boolean") return camera.animated;
@@ -106,6 +152,15 @@ export function attachKbGraphProbe(
   container: HTMLElement,
   counters: { refreshCount: () => number; reducerResetCount: () => number }
 ): () => void {
+  // Sample the edges WebGL layer in afterRender so readPixels still sees
+  // the buffer (Sigma creates it with preserveDrawingBuffer: false).
+  let edgeInk = 0;
+  const sampleEdges = () => {
+    edgeInk = countEdgeCanvasOpaquePixels(sigma, container);
+  };
+  sigma.on("afterRender", sampleEdges);
+  sampleEdges();
+
   const probe: KbGraphProbe = {
     get hideLabelsOnMove() {
       return sigma.getSetting("hideLabelsOnMove") === true;
@@ -121,6 +176,9 @@ export function attachKbGraphProbe(
     },
     get labelCanvasOpaquePixels() {
       return countLabelCanvasOpaquePixels(container);
+    },
+    get edgeCanvasOpaquePixels() {
+      return edgeInk;
     },
     get refreshCount() {
       return counters.refreshCount();
@@ -147,6 +205,7 @@ export function attachKbGraphProbe(
   container.dataset.sigmaReady = "true";
 
   return () => {
+    sigma.off("afterRender", sampleEdges);
     if (win.__kbGraph === probe) delete win.__kbGraph;
     delete container.dataset.sigmaReady;
   };

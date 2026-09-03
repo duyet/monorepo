@@ -27,7 +27,7 @@ type SigmaCtor = typeof import("sigma").default;
  *
  * Fetches the prebuilt /graph-data.json (no raw markdown in the bundle),
  * lays it out with a live ForceAtlas2 worker (graphology-layout-forceatlas2),
- * and renders with Sigma.js (WebGL): pan/zoom (labels stay readable), node
+ * and renders with Sigma.js (WebGL): pan/zoom (labels and edges stay readable), node
  * drag (reheats layout), hover neighbor highlight, click-to-read detail
  * panel (markdown fetched on demand), kind/tag filters, force sliders, and
  * search. Hover highlight is ref-only so the overlay tree does not re-render.
@@ -856,7 +856,7 @@ export function GraphViewer() {
             className="absolute inset-0"
             data-kb-graph="2d"
             data-hide-labels-on-move="false"
-            data-hide-edges-on-move="true"
+            data-hide-edges-on-move="false"
             data-sigma-ready={ready ? "true" : "false"}
             aria-label="Knowledge graph"
           />

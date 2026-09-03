@@ -13,10 +13,17 @@ describe("kb graph motion contract", () => {
     expect(GRAPH_MOTION_CONTRACT.hideLabelsOnMove).toBe(false);
   });
 
-  it("still skips edges during pan/zoom so the camera stays cheap", () => {
-    expect(SIGMA_CAMERA_MOTION.hideEdgesOnMove).toBe(true);
-    expect(SIGMA_HOMEPAGE_RENDER.hideEdgesOnMove).toBe(true);
-    expect(GRAPH_MOTION_CONTRACT.hideEdgesOnMove).toBe(true);
+  it("keeps connection lines on while the camera moves", () => {
+    expect(SIGMA_CAMERA_MOTION.hideEdgesOnMove).toBe(false);
+    expect(SIGMA_HOMEPAGE_RENDER.hideEdgesOnMove).toBe(false);
+    expect(GRAPH_MOTION_CONTRACT.hideEdgesOnMove).toBe(false);
+  });
+
+  it("does not re-enable hideLabelsOnMove when keeping edges", () => {
+    expect(SIGMA_CAMERA_MOTION.hideLabelsOnMove).toBe(false);
+    expect(SIGMA_CAMERA_MOTION.hideEdgesOnMove).toBe(false);
+    expect(GRAPH_MOTION_CONTRACT.hideLabelsOnMove).toBe(false);
+    expect(GRAPH_MOTION_CONTRACT.hideEdgesOnMove).toBe(false);
   });
 
   it("does not re-render React or rebind Sigma reducers on hover", () => {
