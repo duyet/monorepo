@@ -126,6 +126,8 @@ Rust crates in `crates/` serve two purposes:
 - **Build-time**: Native CLI binary (`duyet-cli`) for data sync and prerender
 - **Runtime**: WASM modules for browser/CF Workers (diff, exif, utils, markdown)
 
+Two binaries share the `duyet` name and must not be confused. `duyet-cli` (`crates/cli`) is the build-time JSON stdin/stdout tool consumed by `callCli()`; it is unchanged by the CLI program. `duyet` (`crates/duyet`) is the user-facing CLI for readers and agents from epic #1440: clap command tree, `--json` envelope `{"ok","schema","data"|"error"}`, exit codes 0/1/2/3/4/5/6/10 in one `ExitCode` enum, TOML config with no secrets under the OS config dir, `doctor`, completions, man pages, and generated `crates/duyet/docs/reference.md`. Later-slice commands are present with `--help` and exit 2 with the tracked issue number. Contracts live in `crates/duyet/README.md`; drive it with `.cursor/skills/verify-duyet-cli/SKILL.md`. `Cargo.lock` is committed because `duyet` ships as a binary; `test.yml` caches on it.
+
 ### Build & Test
 
 - `pnpm run rust:build` — build native CLI binary (`target/release/duyet-cli`)
@@ -139,6 +141,7 @@ Rust crates in `crates/` serve two purposes:
 | Crate | Mode | Function | Consumer |
 |-------|------|----------|----------|
 | `crates/cli/` | Build | Unified CLI: `csv`, `normalize`, `dedup`, `markdown` subcommands | JS wrappers via `callCli()` |
+| `crates/duyet/` | User CLI | `duyet` binary: `version`, `config`, `doctor`, `completions`, `docs`; content/chat/submission/update groups stubbed until #1443/#1445/#1447/#1448 | Readers and agents (released in #1444/#1446) |
 | `crates/markdown/` | Both | `markdown_to_html(input) -> String` | WASM for per-page, CLI for batch |
 | `crates/csv-parser/` | Build | `parse_csv(input) -> String` | `apps/llm-timeline/lib/csv.ts` |
 | `crates/normalizers/` | Build | 8 normalize functions | `apps/llm-timeline/lib/normalizers.ts` |
