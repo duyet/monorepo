@@ -83,6 +83,17 @@ npx wrangler secret put OPENROUTER_API_KEY
 pnpm run deploy
 ```
 
+`pnpm run deploy` runs `scripts/deploy.ts`. That helper omits `[[d1_databases]]` from the production Wrangler config when `database_id` is not a UUID. Wrangler 4.45+ otherwise looks up `/d1/database/duyet-api-submissions` and auto-provisions; the GitHub Actions token returns authentication error 10000 on that route.
+
+To bind production D1 and apply migrations:
+
+1. In the same Cloudflare account as `duyet-api` (Duyet Personal), create D1 database `duyet-api-submissions` (`npx wrangler d1 create duyet-api-submissions`, or the dashboard). The Actions token needs D1 Edit for create and for `wrangler d1 migrations apply`.
+2. Copy the printed `database_id` UUID into `apps/api/wrangler.toml` under `[[d1_databases]]`. Do not invent a UUID.
+3. Confirm Email Routing allows `me@duyet.net` as a destination for `[[send_email]]`.
+4. Redeploy. `scripts/deploy.ts` then keeps the binding and runs `wrangler d1 migrations apply SUBMISSIONS_DB --remote`.
+
+Until step 2, production `POST /api/contact`, `/api/jd`, and `/api/comments` return 503 (`SUBMISSIONS_DB` missing). Local `pnpm run dev` still uses `database_name` for a local D1.
+
 ## Project Structure
 
 ```
