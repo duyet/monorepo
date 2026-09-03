@@ -2,6 +2,7 @@
 
 - [`docs/ai/internal-knowledge.md`](ai/internal-knowledge.md): durable repository knowledge for AI agents (static-render rule, latest shadcn + chat primitives, deploy path, gitleaks secret scan, Clerk `@clerk/shared` 3.47 pin). Public-app UI direction lives here; [`DESIGN.md`](../DESIGN.md) is the short companion.
 - [`.cursor/skills/verify-blog/`](../.cursor/skills/verify-blog/SKILL.md): project-local blog verification skill (production build + prerendered post HTML). CLI lever: `.cursor/skills/verify-blog/bin/verify-blog`.
+- [`.cursor/skills/verify-kb/`](../.cursor/skills/verify-kb/SKILL.md): project-local kb graph motion skill (zoom keeps labels; Chrome CDP + Sigma probe). CLI lever: `.cursor/skills/verify-kb/bin/verify-kb`.
 - [`.gitleaks.toml`](../.gitleaks.toml): custom secret-scan rules (AnyRouter `sk-ar-v1-` prefix). CI: `.github/workflows/gitleaks.yml`.
 - [`docs/ai/cowork-instructions.md`](ai/cowork-instructions.md): guidance for Claude Cowork (desktop agent) sessions on this repo.
 - [`docs/ai/writing-style.md`](ai/writing-style.md): how to write blog posts and notes in Duyet's voice.

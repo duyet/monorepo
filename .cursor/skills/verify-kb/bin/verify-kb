@@ -1,0 +1,405 @@
+#!/usr/bin/env bash
+# CLI lever for .cursor/skills/verify-kb — run from the monorepo root.
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../.." && pwd)"
+STATE_DIR="${VERIFY_KB_STATE_DIR:-/tmp/verify-kb}"
+STATE_FILE="${STATE_DIR}/state.json"
+DRIVE_JS="${ROOT}/.cursor/skills/verify-kb/scripts/drive-zoom-labels.mjs"
+CMD="${1:-}"
+shift || true
+
+mkdir -p "${STATE_DIR}"
+
+die() {
+  python3 -c 'import json,sys; print(json.dumps({"ok": False, "error": sys.argv[1]}))' "$1"
+  exit 1
+}
+
+usage() {
+  cat <<'EOF'
+verify-kb — drive apps/kb homepage graph zoom/labels
+
+Commands:
+  doctor                         Source contract (labels stay on move)
+  test                           pnpm --filter kb test
+  drive <feature>                Chrome CDP zoom-labels (requires preview)
+  prove [--feature <id>]         doctor + test + preview + drive (default zoom-labels)
+  preview-start                  vite preview of dist/client, else vite dev
+  preview-stop                   Stop the preview this lever started
+  cleanup                        preview-stop; keep evidence
+  --help                         This text
+
+Evidence: $VERIFY_KB_EVIDENCE or /tmp/verify-kb/<run-id>/
+EOF
+}
+
+ensure_root() {
+  [[ -f "${ROOT}/package.json" && -d "${ROOT}/apps/kb" ]] || die "not the monorepo root (${ROOT})"
+}
+
+new_run_id() {
+  date -u +%Y%m%dT%H%M%SZ
+}
+
+read_state_run_id() {
+  python3 - "$STATE_FILE" <<'PY'
+import json, sys, pathlib
+p = pathlib.Path(sys.argv[1])
+if not p.is_file():
+    print("")
+    raise SystemExit(0)
+try:
+    print(json.loads(p.read_text()).get("runId", "") or "")
+except json.JSONDecodeError:
+    print("")
+PY
+}
+
+evidence_dir_for() {
+  local id="$1"
+  if [[ -n "${VERIFY_KB_EVIDENCE:-}" ]]; then
+    printf '%s' "${VERIFY_KB_EVIDENCE}"
+  else
+    printf '%s/%s' "${STATE_DIR}" "${id}"
+  fi
+}
+
+write_state() {
+  python3 - "$STATE_FILE" "$1" "$2" <<'PY'
+import json, sys, pathlib
+path, run_id, evidence = pathlib.Path(sys.argv[1]), sys.argv[2], sys.argv[3]
+state = {}
+if path.is_file():
+    try:
+        state = json.loads(path.read_text())
+    except json.JSONDecodeError:
+        state = {}
+state["runId"] = run_id
+state["evidenceDir"] = evidence
+path.write_text(json.dumps(state))
+PY
+}
+
+resolve_run() {
+  local id="${VERIFY_KB_RUN_ID:-}"
+  if [[ -z "${id}" ]]; then
+    id="$(read_state_run_id)"
+  fi
+  if [[ -z "${id}" ]]; then
+    id="$(new_run_id)"
+  fi
+  local evidence
+  evidence="$(evidence_dir_for "${id}")"
+  mkdir -p "${evidence}"
+  write_state "${id}" "${evidence}"
+  printf '%s %s' "${id}" "${evidence}"
+}
+
+read_preview_url() {
+  python3 - "$STATE_FILE" <<'PY'
+import json, sys, pathlib
+p = pathlib.Path(sys.argv[1])
+if not p.is_file():
+    print("")
+    raise SystemExit(0)
+try:
+    state = json.loads(p.read_text())
+except json.JSONDecodeError:
+    print("")
+    raise SystemExit(0)
+port = state.get("previewPort")
+if port:
+    print(f"http://127.0.0.1:{int(port)}/")
+else:
+    print("")
+PY
+}
+
+cmd_doctor() {
+  ensure_root
+  python3 - "$ROOT" <<'PY'
+import json, subprocess, sys, pathlib
+root = pathlib.Path(sys.argv[1])
+viewer = (root / "apps/kb/src/components/GraphViewer.tsx").read_text()
+motion = (root / "apps/kb/src/components/graph-motion.ts").read_text()
+local_graph = (root / "apps/kb/src/components/LocalGraph.tsx").read_text()
+graph3d = (root / "apps/kb/src/components/Graph3D.tsx").read_text()
+gitmodules = (root / ".gitmodules").read_text() if (root / ".gitmodules").is_file() else ""
+
+hide_true = "hideLabelsOnMove: true" in viewer
+hide_false_setting = "hideLabelsOnMove: false" in motion
+uses_set_hover = "setHover(" in viewer or "setHover =" in viewer
+imports_motion = "SIGMA_HOMEPAGE_RENDER" in viewer
+local_uses_motion = "SIGMA_CAMERA_MOTION" in local_graph
+graph3d_key = "graphKey" in graph3d and "highlightIds" in graph3d
+submodule = "apps/kb/kb" in gitmodules
+
+labels_ok = hide_false_setting and not hide_true and imports_motion
+hover_ok = not uses_set_hover
+ok = labels_ok and hover_ok and local_uses_motion and submodule
+
+out = {
+    "ok": ok,
+    "labelsStayOnMove": labels_ok,
+    "hideLabelsOnMoveTrueInViewer": hide_true,
+    "hideLabelsOnMoveFalseInMotion": hide_false_setting,
+    "hoverUsesReactState": uses_set_hover,
+    "viewerImportsMotion": imports_motion,
+    "localGraphUsesMotion": local_uses_motion,
+    "graph3dUpdatesHighlightInPlace": graph3d_key,
+    "kbSubmodule": submodule,
+}
+print(json.dumps(out))
+raise SystemExit(0 if ok else 1)
+PY
+}
+
+cmd_test() {
+  ensure_root
+  local pair id evidence
+  pair="$(resolve_run)"
+  id="${pair%% *}"
+  evidence="${pair#* }"
+  local log="${evidence}/test.log"
+  set +e
+  (
+    cd "${ROOT}"
+    pnpm --filter kb test
+  ) >"${log}" 2>&1
+  local status=$?
+  set -e
+  python3 - "$log" "$status" "$id" "$evidence" <<'PY'
+import json, sys, pathlib
+log, status, run_id, evidence = sys.argv[1:5]
+text = pathlib.Path(log).read_text(encoding="utf-8", errors="replace")
+ok = int(status) == 0
+out = {
+    "ok": ok,
+    "command": "pnpm --filter kb test",
+    "exitCode": int(status),
+    "runId": run_id,
+    "evidenceDir": evidence,
+    "testLog": log,
+    "passedHint": "passed" in text.lower() or ok,
+}
+print(json.dumps(out))
+raise SystemExit(0 if ok else 1)
+PY
+}
+
+cmd_drive() {
+  ensure_root
+  local feature="${1:-}"
+  [[ -n "${feature}" ]] || die "drive requires a feature id"
+  [[ "${feature}" == "zoom-labels" ]] || die "unknown feature: ${feature}"
+  local pair id evidence
+  pair="$(resolve_run)"
+  id="${pair%% *}"
+  evidence="${pair#* }"
+  local url="${VERIFY_KB_URL:-}"
+  if [[ -z "${url}" ]]; then
+    url="$(read_preview_url)"
+  fi
+  [[ -n "${url}" ]] || die "no preview url; run preview-start or set VERIFY_KB_URL"
+  node "${DRIVE_JS}" --url "${url}" --out "${evidence}"
+}
+
+cmd_preview_start() {
+  ensure_root
+  local port="${VERIFY_KB_PREVIEW_PORT:-3009}"
+  local log="${STATE_DIR}/preview.log"
+  local pid
+  if [[ -f "${ROOT}/apps/kb/dist/client/index.html" ]]; then
+    (
+      cd "${ROOT}/apps/kb"
+      pnpm exec vite preview --host 127.0.0.1 --port "${port}" --strictPort
+    ) >"${log}" 2>&1 &
+    pid=$!
+  else
+    (
+      cd "${ROOT}/apps/kb"
+      pnpm exec vite dev --host 127.0.0.1 --port "${port}" --strictPort
+    ) >"${log}" 2>&1 &
+    pid=$!
+  fi
+  python3 - "$STATE_FILE" "$pid" "$port" "$log" <<'PY'
+import json, sys, pathlib
+path = pathlib.Path(sys.argv[1])
+state = {}
+if path.is_file():
+    try:
+        state = json.loads(path.read_text())
+    except json.JSONDecodeError:
+        state = {}
+state["previewPid"] = int(sys.argv[2])
+state["previewPort"] = int(sys.argv[3])
+state["previewLog"] = sys.argv[4]
+path.write_text(json.dumps(state))
+PY
+  local i=0
+  while [[ ${i} -lt 80 ]]; do
+    if curl -sf -o /dev/null "http://127.0.0.1:${port}/"; then
+      python3 -c 'import json,sys; print(json.dumps({"ok": True, "previewPid": int(sys.argv[1]), "url": sys.argv[2], "log": sys.argv[3]}))' \
+        "${pid}" "http://127.0.0.1:${port}/" "${log}"
+      return 0
+    fi
+    if ! kill -0 "${pid}" 2>/dev/null; then
+      die "preview process exited; see ${log}"
+    fi
+    sleep 0.25
+    i=$((i + 1))
+  done
+  die "preview did not become ready on port ${port}; see ${log}"
+}
+
+cmd_preview_stop() {
+  python3 - "$STATE_FILE" <<'PY'
+import json, os, sys, signal, pathlib
+path = pathlib.Path(sys.argv[1])
+if not path.is_file():
+    print(json.dumps({"ok": True, "stopped": False, "reason": "no state file"}))
+    raise SystemExit(0)
+try:
+    state = json.loads(path.read_text())
+except json.JSONDecodeError:
+    print(json.dumps({"ok": True, "stopped": False, "reason": "empty state"}))
+    raise SystemExit(0)
+pid = state.get("previewPid")
+if not pid:
+    print(json.dumps({"ok": True, "stopped": False, "reason": "no previewPid"}))
+    raise SystemExit(0)
+try:
+    os.kill(int(pid), signal.SIGTERM)
+    stopped, reason = True, "sigterm"
+except ProcessLookupError:
+    stopped, reason = False, "not running"
+state.pop("previewPid", None)
+path.write_text(json.dumps(state))
+print(json.dumps({"ok": True, "stopped": stopped, "pid": pid, "reason": reason}))
+PY
+}
+
+cmd_prove() {
+  local feature="zoom-labels"
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --feature)
+        feature="${2:-}"
+        shift 2
+        ;;
+      *)
+        die "unknown prove arg: $1"
+        ;;
+    esac
+  done
+  [[ -n "${feature}" ]] || die "--feature requires an id"
+
+  local id evidence
+  id="$(new_run_id)"
+  export VERIFY_KB_RUN_ID="${id}"
+  evidence="$(evidence_dir_for "${id}")"
+  export VERIFY_KB_EVIDENCE="${evidence}"
+  mkdir -p "${evidence}"
+  write_state "${id}" "${evidence}"
+
+  set +e
+  cmd_doctor >"${evidence}/doctor.json"
+  local doctor_st=$?
+  set -e
+  if [[ ${doctor_st} -ne 0 ]]; then
+    python3 - "$evidence" "$id" <<'PY'
+import json, sys, pathlib
+evidence, run_id = sys.argv[1:3]
+out = {
+    "ok": False,
+    "stage": "doctor",
+    "runId": run_id,
+    "evidenceDir": evidence,
+    "doctor": json.loads(pathlib.Path(evidence, "doctor.json").read_text()),
+}
+print(json.dumps(out))
+raise SystemExit(1)
+PY
+  fi
+
+  set +e
+  cmd_test >"${evidence}/test.json"
+  local test_st=$?
+  set -e
+  if [[ ${test_st} -ne 0 ]]; then
+    python3 - "$evidence" "$id" <<'PY'
+import json, sys, pathlib
+evidence, run_id = sys.argv[1:3]
+out = {
+    "ok": False,
+    "stage": "test",
+    "runId": run_id,
+    "evidenceDir": evidence,
+    "doctor": json.loads(pathlib.Path(evidence, "doctor.json").read_text()),
+    "test": json.loads(pathlib.Path(evidence, "test.json").read_text()),
+}
+print(json.dumps(out))
+raise SystemExit(1)
+PY
+  fi
+
+  set +e
+  cmd_preview_start >"${evidence}/preview.json"
+  local preview_st=$?
+  set -e
+  if [[ ${preview_st} -ne 0 ]]; then
+    python3 - "$evidence" "$id" <<'PY'
+import json, sys, pathlib
+evidence, run_id = sys.argv[1:3]
+out = {
+    "ok": False,
+    "stage": "preview",
+    "runId": run_id,
+    "evidenceDir": evidence,
+    "doctor": json.loads(pathlib.Path(evidence, "doctor.json").read_text()),
+    "test": json.loads(pathlib.Path(evidence, "test.json").read_text()),
+}
+print(json.dumps(out))
+raise SystemExit(1)
+PY
+  fi
+
+  set +e
+  cmd_drive "${feature}" >"${evidence}/drive.json"
+  local drive_st=$?
+  set -e
+  cmd_preview_stop >"${evidence}/cleanup.json" || true
+  python3 - "$evidence" "$id" "$feature" "$drive_st" <<'PY'
+import json, sys, pathlib
+evidence, run_id, feature, drive_st = sys.argv[1:5]
+drive_raw = pathlib.Path(evidence, "drive.json").read_text(encoding="utf-8", errors="replace")
+try:
+    drive = json.loads(drive_raw)
+except json.JSONDecodeError:
+    drive = {"ok": False, "raw": drive_raw[-2000:]}
+out = {
+    "ok": int(drive_st) == 0,
+    "feature": feature,
+    "runId": run_id,
+    "evidenceDir": evidence,
+    "doctor": json.loads(pathlib.Path(evidence, "doctor.json").read_text()),
+    "test": json.loads(pathlib.Path(evidence, "test.json").read_text()),
+    "drive": drive,
+}
+print(json.dumps(out))
+raise SystemExit(0 if out["ok"] else 1)
+PY
+}
+
+case "${CMD}" in
+  doctor) cmd_doctor ;;
+  test) cmd_test ;;
+  drive) cmd_drive "${1:-}" ;;
+  prove) cmd_prove "$@" ;;
+  preview-start) cmd_preview_start ;;
+  preview-stop) cmd_preview_stop ;;
+  cleanup) cmd_preview_stop ;;
+  -h|--help|help|"") usage ;;
+  *) die "unknown command: ${CMD}" ;;
+esac
