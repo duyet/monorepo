@@ -10,18 +10,18 @@ export function BarList({ data, emptyLabel }: BarListProps) {
   }
   const max = Math.max(...data.map((d) => d.count), 1);
   return (
-    <ul className="flex flex-col gap-2">
+    <ul className="flex flex-col gap-2.5">
       {data.map((d) => (
-        <li key={d.name} className="flex items-center gap-2">
+        <li key={d.name} className="flex items-center gap-2.5">
           <span
-            className="w-24 shrink-0 truncate text-xs text-muted-foreground"
+            className="w-28 shrink-0 truncate text-xs font-medium text-muted-foreground"
             title={d.name}
           >
             {d.name}
           </span>
-          <span className="h-2 flex-1 rounded-full bg-muted">
+          <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-secondary">
             <span
-              className="block h-2 rounded-full bg-accent"
+              className="block h-1.5 rounded-full bg-accent"
               style={{ width: `${Math.max((d.count / max) * 100, 3)}%` }}
               title={`${d.name}: ${d.count}`}
             />

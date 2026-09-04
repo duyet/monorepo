@@ -30,6 +30,37 @@ export interface WorkflowRunRow {
    * rows (or rows on a DB not yet migrated) have no stats — always null
    * in that case, never a partial/guessed object. */
   stats: WorkflowRunStats | null;
+  /** LLM attempts attributed to this run by timestamp window (from
+   * `llm_calls`). Empty when the table is missing or no calls overlap. */
+  llm?: RunLlmSummary;
+}
+
+/** One anyrouter attempt from `llm_calls`, including optional usage split
+ * from migration 0016. */
+export interface LlmCallRow {
+  ts: number;
+  task: string;
+  model: string;
+  ok: boolean;
+  tokens: number;
+  durationMs: number;
+  promptChars: number | null;
+  promptTokens: number | null;
+  completionTokens: number | null;
+  cachedTokens: number | null;
+  error: string | null;
+}
+
+export interface RunLlmSummary {
+  calls: number;
+  failures: number;
+  tokens: number;
+  cachedTokens: number;
+  durationMs: number;
+  /** Distinct models that returned ok=true, in first-seen order. */
+  models: string[];
+  /** Per-attempt rows for the expandable Recent runs detail. */
+  attempts: LlmCallRow[];
 }
 
 /** Best-effort parse of the `stats` JSON column: malformed JSON, a
@@ -99,9 +130,11 @@ function normalizeTs(v: number | null): number | null {
   return v > 1e12 ? Math.floor(v / 1000) : v;
 }
 
-function normalizeRunRow(row: Omit<WorkflowRunRow, "stats"> & {
-  stats?: string | null;
-}): WorkflowRunRow {
+function normalizeRunRow(
+  row: Omit<WorkflowRunRow, "stats" | "llm"> & {
+    stats?: string | null;
+  }
+): WorkflowRunRow {
   return {
     id: row.id,
     started_at: normalizeTs(row.started_at),
@@ -111,6 +144,76 @@ function normalizeRunRow(row: Omit<WorkflowRunRow, "stats"> & {
     error: row.error,
     stats: parseRunStats(row.stats),
   };
+}
+
+/** Grace ms after finished_at so trailing log inserts still match. */
+const LLM_RUN_GRACE_MS = 15_000;
+
+function emptyLlmSummary(): RunLlmSummary {
+  return {
+    calls: 0,
+    failures: 0,
+    tokens: 0,
+    cachedTokens: 0,
+    durationMs: 0,
+    models: [],
+    attempts: [],
+  };
+}
+
+function summarizeAttempts(attempts: LlmCallRow[]): RunLlmSummary {
+  const summary = emptyLlmSummary();
+  const seenModels = new Set<string>();
+  for (const call of attempts) {
+    summary.calls += 1;
+    if (!call.ok) summary.failures += 1;
+    summary.tokens += call.tokens;
+    summary.cachedTokens += call.cachedTokens ?? 0;
+    summary.durationMs += call.durationMs;
+    if (call.ok && !seenModels.has(call.model)) {
+      seenModels.add(call.model);
+      summary.models.push(call.model);
+    }
+  }
+  summary.attempts = attempts;
+  return summary;
+}
+
+/** Attribute llm_calls rows to runs by timestamp window. Exported for tests. */
+export function attachLlmCallsToRuns(
+  runs: WorkflowRunRow[],
+  calls: LlmCallRow[]
+): WorkflowRunRow[] {
+  if (runs.length === 0) return runs;
+  const buckets = new Map<string, LlmCallRow[]>();
+  for (const run of runs) buckets.set(run.id, []);
+
+  for (const call of calls) {
+    let best: WorkflowRunRow | null = null;
+    let bestSpan = Number.POSITIVE_INFINITY;
+    for (const run of runs) {
+      if (run.started_at == null) continue;
+      const startMs = run.started_at * 1000;
+      const endMs =
+        (run.finished_at ?? Math.floor(Date.now() / 1000)) * 1000 +
+        LLM_RUN_GRACE_MS;
+      if (call.ts < startMs || call.ts > endMs) continue;
+      const span = endMs - startMs;
+      if (span < bestSpan) {
+        bestSpan = span;
+        best = run;
+      }
+    }
+    if (best) buckets.get(best.id)?.push(call);
+  }
+
+  return runs.map((run) => {
+    const attempts = (buckets.get(run.id) ?? []).sort((a, b) => a.ts - b.ts);
+    return {
+      ...run,
+      llm: attempts.length ? summarizeAttempts(attempts) : undefined,
+    };
+  });
 }
 
 export interface ModelChains {
@@ -170,9 +273,7 @@ async function supportsLlmCalls(db: D1Database): Promise<boolean> {
   return llmCallsSupported;
 }
 
-async function loadLlmCallsPerDay(
-  db: D1Database
-): Promise<LlmDayTaskCount[]> {
+async function loadLlmCallsPerDay(db: D1Database): Promise<LlmDayTaskCount[]> {
   const { results } = await db
     .prepare(
       `SELECT date(ts / 1000, 'unixepoch') AS date,
@@ -199,6 +300,70 @@ async function loadLlmCallsPerDay(
     failures: r.failures,
     tokens: r.tokens ?? 0,
   }));
+}
+
+interface LlmCallDbRow {
+  ts: number;
+  task: string;
+  model: string;
+  ok: number;
+  tokens: number | null;
+  duration_ms: number | null;
+  prompt_chars: number | null;
+  error: string | null;
+  prompt_tokens?: number | null;
+  completion_tokens?: number | null;
+  cached_tokens?: number | null;
+}
+
+function mapLlmCallRow(r: LlmCallDbRow): LlmCallRow {
+  return {
+    ts: r.ts,
+    task: r.task,
+    model: r.model,
+    ok: r.ok === 1,
+    tokens: r.tokens ?? 0,
+    durationMs: r.duration_ms ?? 0,
+    promptChars: r.prompt_chars ?? null,
+    promptTokens: r.prompt_tokens ?? null,
+    completionTokens: r.completion_tokens ?? null,
+    cachedTokens: r.cached_tokens ?? null,
+    error: r.error ?? null,
+  };
+}
+
+/** Recent llm_calls covering the last N workflow runs' time window. */
+async function loadRecentLlmCalls(
+  db: D1Database,
+  sinceMs: number
+): Promise<LlmCallRow[]> {
+  try {
+    const { results } = await db
+      .prepare(
+        `SELECT ts, task, model, ok, tokens, duration_ms, prompt_chars, error,
+                prompt_tokens, completion_tokens, cached_tokens
+         FROM llm_calls
+         WHERE ts >= ?
+         ORDER BY ts ASC
+         LIMIT 2000`
+      )
+      .bind(sinceMs)
+      .all<LlmCallDbRow>();
+    return (results ?? []).map(mapLlmCallRow);
+  } catch {
+    // Pre-0016 DB without usage columns.
+    const { results } = await db
+      .prepare(
+        `SELECT ts, task, model, ok, tokens, duration_ms, prompt_chars, error
+         FROM llm_calls
+         WHERE ts >= ?
+         ORDER BY ts ASC
+         LIMIT 2000`
+      )
+      .bind(sinceMs)
+      .all<LlmCallDbRow>();
+    return (results ?? []).map(mapLlmCallRow);
+  }
 }
 
 let runStatsSupported: boolean | null = null;
@@ -281,7 +446,7 @@ export async function loadSystemStats(
       .all<{ date: string; count: number }>(),
     db
       .prepare(runsQuery)
-      .all<Omit<WorkflowRunRow, "stats"> & { stats?: string | null }>(),
+      .all<Omit<WorkflowRunRow, "stats" | "llm"> & { stats?: string | null }>(),
     db
       .prepare("SELECT date FROM tldr_snapshots ORDER BY date DESC LIMIT 1")
       .first<{
@@ -319,20 +484,35 @@ export async function loadSystemStats(
     }));
   }
 
-  const runRows: WorkflowRunRow[] = (runs.results ?? []).map(normalizeRunRow);
+  const runRowsRaw: WorkflowRunRow[] = (runs.results ?? []).map(
+    normalizeRunRow
+  );
   const todayStr = new Date().toISOString().slice(0, 10);
-  const runsToday = runRows.filter(
+  const runsToday = runRowsRaw.filter(
     (r) =>
       r.started_at &&
       new Date(r.started_at * 1000).toISOString().slice(0, 10) === todayStr
   ).length;
 
   let llmCallsPerDay: LlmDayTaskCount[] = [];
+  let runRows = runRowsRaw;
   if (hasLlmCalls) {
     try {
       llmCallsPerDay = await loadLlmCallsPerDay(db);
     } catch {
       llmCallsPerDay = [];
+    }
+    try {
+      const oldestStart = runRowsRaw.reduce<number | null>((min, r) => {
+        if (r.started_at == null) return min;
+        return min == null ? r.started_at : Math.min(min, r.started_at);
+      }, null);
+      const sinceMs =
+        oldestStart != null ? oldestStart * 1000 : Date.now() - 7 * 86400_000;
+      const recentCalls = await loadRecentLlmCalls(db, sinceMs);
+      runRows = attachLlmCallsToRuns(runRowsRaw, recentCalls);
+    } catch {
+      // leave runs without llm detail
     }
   }
 

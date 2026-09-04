@@ -3,6 +3,34 @@ import type { Env } from "./types.js";
 
 const RETENTION_MS = 7 * 24 * 60 * 60 * 1000;
 
+/** Additive usage columns from migration 0016. Applied at runtime so local
+ * / preview DBs keep logging before `wrangler d1 migrations apply`. */
+const USAGE_COLUMNS_SQL = [
+  "ALTER TABLE llm_calls ADD COLUMN prompt_tokens INTEGER",
+  "ALTER TABLE llm_calls ADD COLUMN completion_tokens INTEGER",
+  "ALTER TABLE llm_calls ADD COLUMN cached_tokens INTEGER",
+];
+
+let usageColumnsReady = false;
+
+async function ensureUsageColumns(db: D1Database): Promise<void> {
+  if (usageColumnsReady) return;
+  for (const sql of USAGE_COLUMNS_SQL) {
+    try {
+      await db.prepare(sql).run();
+    } catch {
+      // Column already exists, or table not migrated yet — insert path
+      // still falls back to the lean 0013 INSERT below.
+    }
+  }
+  usageColumnsReady = true;
+}
+
+/** Test helper — Worker isolate is long-lived; tests share the module. */
+export function resetLlmCallLogSchemaCache(): void {
+  usageColumnsReady = false;
+}
+
 /**
  * Builds a `setLlmCallLogger`-compatible sink that persists each entry to
  * D1's `llm_calls` table. Best-effort: an insert failure is logged and
@@ -14,6 +42,34 @@ export function createD1LlmCallLogger(
 ): (entry: LlmCallLogEntry) => Promise<void> {
   return async (entry) => {
     try {
+      await ensureUsageColumns(env.DB);
+      try {
+        await env.DB.prepare(
+          `INSERT INTO llm_calls (
+             ts, task, model, ok, tokens, duration_ms, error,
+             prompt_chars, response_snippet,
+             prompt_tokens, completion_tokens, cached_tokens
+           ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+        )
+          .bind(
+            entry.ts,
+            entry.task,
+            entry.model,
+            entry.ok ? 1 : 0,
+            entry.tokens,
+            entry.durationMs,
+            entry.error,
+            entry.promptChars,
+            entry.responseSnippet,
+            entry.promptTokens,
+            entry.completionTokens,
+            entry.cachedTokens
+          )
+          .run();
+        return;
+      } catch {
+        // Pre-0016 DB or ensureUsageColumns failed: fall back to lean insert.
+      }
       await env.DB.prepare(
         `INSERT INTO llm_calls (ts, task, model, ok, tokens, duration_ms, error, prompt_chars, response_snippet)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`

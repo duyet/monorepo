@@ -1,3 +1,4 @@
+import { Badge, Separator } from "@duyet/components";
 import type { LlmDayTaskCount } from "../../lib/system-queries";
 
 const TASK_COLORS: Record<string, string> = {
@@ -26,7 +27,9 @@ function totals(data: LlmDayTaskCount[]) {
 /** Stacked daily LLM call chart grouped by task. */
 export function LlmSection({ data, formatTokens }: LlmSectionProps) {
   if (data.length === 0) {
-    return <p className="text-sm text-muted-foreground">No LLM call data yet.</p>;
+    return (
+      <p className="text-sm text-muted-foreground">No LLM call data yet.</p>
+    );
   }
 
   const byDate = new Map<string, LlmDayTaskCount[]>();
@@ -47,27 +50,33 @@ export function LlmSection({ data, formatTokens }: LlmSectionProps) {
 
   return (
     <div className="space-y-3">
-      <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
-        <span>
+      <div className="flex flex-wrap gap-2">
+        <Badge variant="secondary" className="font-normal">
           calls{" "}
-          <span className="font-mono tabular-nums text-foreground">{calls}</span>
-        </span>
-        <span>
+          <span className="ml-1 font-mono tabular-nums text-foreground">
+            {calls}
+          </span>
+        </Badge>
+        <Badge variant="secondary" className="font-normal">
           failures{" "}
-          <span className="font-mono tabular-nums text-foreground">
+          <span className="ml-1 font-mono tabular-nums text-foreground">
             {failures}
           </span>
-        </span>
-        <span>
+        </Badge>
+        <Badge variant="secondary" className="font-normal">
           tokens{" "}
-          <span className="font-mono tabular-nums text-foreground">
+          <span className="ml-1 font-mono tabular-nums text-foreground">
             {formatTokens(tokens)}
           </span>
-        </span>
+        </Badge>
       </div>
-      <div className="flex flex-wrap gap-2 text-[10px] text-muted-foreground">
+
+      <div className="flex flex-wrap gap-2">
         {tasks.map((task) => (
-          <span key={task} className="inline-flex items-center gap-1">
+          <span
+            key={task}
+            className="inline-flex items-center gap-1.5 text-xs text-muted-foreground"
+          >
             <span
               className={`inline-block h-2 w-2 rounded-sm ${TASK_COLORS[task] ?? "bg-border"}`}
             />
@@ -75,11 +84,17 @@ export function LlmSection({ data, formatTokens }: LlmSectionProps) {
           </span>
         ))}
       </div>
+
+      <Separator />
+
       <div className="flex h-28 items-end gap-1">
         {dates.map((date) => {
           const rows = byDate.get(date) ?? [];
           const dayTotal = rows.reduce((sum, r) => sum + r.calls, 0);
-          const heightPct = Math.max((dayTotal / maxCalls) * 100, dayTotal ? 4 : 1);
+          const heightPct = Math.max(
+            (dayTotal / maxCalls) * 100,
+            dayTotal ? 4 : 1
+          );
           return (
             <div
               key={date}

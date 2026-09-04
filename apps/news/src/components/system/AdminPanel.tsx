@@ -37,6 +37,9 @@ interface LlmCall {
   ok: boolean;
   tokens?: number;
   duration_ms?: number;
+  prompt_tokens?: number | null;
+  completion_tokens?: number | null;
+  cached_tokens?: number | null;
   error?: string | null;
   response_snippet?: string | null;
 }
@@ -122,9 +125,7 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
   const [refreshError, setRefreshError] = useState(false);
   const [items, setItems] = useState<ModerationItem[]>([]);
   const [itemsBusy, setItemsBusy] = useState(false);
-  const [itemActionBusyId, setItemActionBusyId] = useState<string | null>(
-    null
-  );
+  const [itemActionBusyId, setItemActionBusyId] = useState<string | null>(null);
   const [rateDrafts, setRateDrafts] = useState<
     Record<string, { importance: string; quality: string }>
   >({});
@@ -207,7 +208,9 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
         const data = (await sRes.json()) as {
           suggestions?: typeof queueSuggestions;
         };
-        setQueueSuggestions(Array.isArray(data.suggestions) ? data.suggestions : []);
+        setQueueSuggestions(
+          Array.isArray(data.suggestions) ? data.suggestions : []
+        );
       }
       if (subRes.ok) {
         const data = (await subRes.json()) as {
@@ -440,27 +443,21 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
           {ingestBusy ? "Triggering…" : "Trigger ingest"}
         </button>
         {ingestResult && (
-          <span className="text-xs text-muted-foreground">
-            {ingestResult}
-          </span>
+          <span className="text-xs text-muted-foreground">{ingestResult}</span>
         )}
       </div>
 
       <div className="mt-2 flex flex-wrap items-center gap-2">
         <button
           type="button"
-          onClick={() =>
-            reprocess(["score"], setRescoreBusy, setRescoreResult)
-          }
+          onClick={() => reprocess(["score"], setRescoreBusy, setRescoreResult)}
           disabled={rescoreBusy}
           className="rounded border border-border px-2 py-1 text-xs text-foreground hover:bg-muted disabled:opacity-50"
         >
           {rescoreBusy ? "Re-scoring…" : "Re-score today"}
         </button>
         {rescoreResult && (
-          <span className="text-xs text-muted-foreground">
-            {rescoreResult}
-          </span>
+          <span className="text-xs text-muted-foreground">{rescoreResult}</span>
         )}
       </div>
 
@@ -511,9 +508,7 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
       </div>
 
       {refreshError && (
-        <p className="mt-2 text-xs text-muted-foreground">
-          Refresh failed.
-        </p>
+        <p className="mt-2 text-xs text-muted-foreground">Refresh failed.</p>
       )}
 
       <div className="mt-4">
@@ -573,7 +568,10 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
                 {": "}
                 <span>{step.action}</span>
                 {step.reason && (
-                  <span className="text-muted-foreground"> — {step.reason}</span>
+                  <span className="text-muted-foreground">
+                    {" "}
+                    — {step.reason}
+                  </span>
                 )}
               </li>
             ))}
@@ -589,13 +587,9 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
       </div>
 
       <div className="mt-4">
-        <p className="text-xs font-medium text-muted-foreground">
-          LLM calls
-        </p>
+        <p className="text-xs font-medium text-muted-foreground">LLM calls</p>
         {calls.length === 0 ? (
-          <p className="mt-1 text-xs text-muted-foreground">
-            No calls loaded.
-          </p>
+          <p className="mt-1 text-xs text-muted-foreground">No calls loaded.</p>
         ) : (
           <div className="mt-1 overflow-x-auto">
             <table className="w-full text-xs">
@@ -607,6 +601,9 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
                   <th className="py-1 pr-2 font-normal">ok</th>
                   <th className="py-1 pr-2 font-normal text-right tabular-nums">
                     tokens
+                  </th>
+                  <th className="py-1 pr-2 font-normal text-right tabular-nums">
+                    cached
                   </th>
                   <th className="py-1 pr-2 font-normal text-right tabular-nums">
                     duration
@@ -624,7 +621,7 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
                       {call.ts}
                     </td>
                     <td className="py-1 pr-2">{call.task}</td>
-                    <td className="py-1 pr-2">{call.model}</td>
+                    <td className="py-1 pr-2 font-mono">{call.model}</td>
                     <td className="py-1 pr-2">
                       <span
                         className={
@@ -638,6 +635,9 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
                     </td>
                     <td className="py-1 pr-2 text-right tabular-nums">
                       {call.tokens ?? "—"}
+                    </td>
+                    <td className="py-1 pr-2 text-right tabular-nums">
+                      {call.cached_tokens != null ? call.cached_tokens : "—"}
                     </td>
                     <td className="py-1 pr-2 text-right tabular-nums">
                       {call.duration_ms != null ? `${call.duration_ms}ms` : "—"}
@@ -693,7 +693,9 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
                       <th className="py-1 pr-2 font-normal">field</th>
                       <th className="py-1 pr-2 font-normal">suggestion</th>
                       <th className="py-1 pr-2 font-normal">user</th>
-                      <th className="py-1 pr-2 font-normal text-right">rating</th>
+                      <th className="py-1 pr-2 font-normal text-right">
+                        rating
+                      </th>
                       <th className="py-1 pr-2 font-normal">actions</th>
                     </tr>
                   </thead>
@@ -752,7 +754,9 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
                       <th className="py-1 pr-2 font-normal">title</th>
                       <th className="py-1 pr-2 font-normal">url</th>
                       <th className="py-1 pr-2 font-normal">user</th>
-                      <th className="py-1 pr-2 font-normal text-right">rating</th>
+                      <th className="py-1 pr-2 font-normal text-right">
+                        rating
+                      </th>
                       <th className="py-1 pr-2 font-normal">actions</th>
                     </tr>
                   </thead>
@@ -826,9 +830,7 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
           </button>
         </div>
         {items.length === 0 ? (
-          <p className="mt-1 text-xs text-muted-foreground">
-            No items loaded.
-          </p>
+          <p className="mt-1 text-xs text-muted-foreground">No items loaded.</p>
         ) : (
           <div className="mt-1 overflow-x-auto">
             <table className="w-full text-xs">
@@ -897,7 +899,8 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
                             </div>
                             <div>ageHours: {breakdown.ageHours.toFixed(2)}</div>
                             <div>
-                              qualityFactor: {breakdown.qualityFactor.toFixed(3)}
+                              qualityFactor:{" "}
+                              {breakdown.qualityFactor.toFixed(3)}
                             </div>
                             <div>decay: {breakdown.decay.toFixed(3)}</div>
                             <div>
@@ -967,7 +970,11 @@ export function AdminPanel({ admin }: { admin: AdminState }) {
                             placeholder="imp"
                             value={draft.importance}
                             onChange={(e) =>
-                              setRateDraft(item.id, "importance", e.target.value)
+                              setRateDraft(
+                                item.id,
+                                "importance",
+                                e.target.value
+                              )
                             }
                             className="w-12 rounded border border-border bg-transparent px-1 py-0.5 text-xs tabular-nums"
                           />

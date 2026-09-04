@@ -1,3 +1,11 @@
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@duyet/components";
+import { cn } from "@duyet/libs/utils";
 import type { ReactNode } from "react";
 
 interface ChartCardProps {
@@ -5,6 +13,7 @@ interface ChartCardProps {
   subtitle?: string;
   children: ReactNode;
   className?: string;
+  action?: ReactNode;
 }
 
 export function ChartCard({
@@ -12,14 +21,24 @@ export function ChartCard({
   subtitle,
   children,
   className,
+  action,
 }: ChartCardProps) {
   return (
-    <div className={`rounded-lg border border-border p-4 ${className ?? ""}`}>
-      <h3 className="text-sm font-semibold text-foreground">{title}</h3>
-      {subtitle && (
-        <p className="mt-0.5 text-xs text-muted-foreground">{subtitle}</p>
-      )}
-      <div className="mt-3">{children}</div>
-    </div>
+    <Card className={cn("shadow-none", className)}>
+      <CardHeader className="flex flex-row items-start justify-between gap-3 space-y-0 p-4 pb-0">
+        <div className="min-w-0 space-y-1">
+          <CardTitle className="font-sans text-sm font-semibold tracking-tight text-foreground">
+            {title}
+          </CardTitle>
+          {subtitle ? (
+            <CardDescription className="text-xs leading-relaxed">
+              {subtitle}
+            </CardDescription>
+          ) : null}
+        </div>
+        {action ? <div className="shrink-0">{action}</div> : null}
+      </CardHeader>
+      <CardContent className="p-4 pt-3">{children}</CardContent>
+    </Card>
   );
 }
