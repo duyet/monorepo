@@ -56,8 +56,8 @@ herdr agent prompt feat-<short> "<full task spec>" --wait --timeout 600000
 - `pnpm run cf:deploy` deploys changed Cloudflare Pages apps (same discovery as CI).
 - `pnpm run cf:deploy:prod` runs production Cloudflare deploy tasks through Turbo.
 - `pnpm run cf:deploy -- --force` bypasses git-based change detection and rebuilds all requested Cloudflare Pages apps.
-- `pnpm run wasm:build` builds all Rust crates to WASM via `wasm-pack`.
-- `pnpm run wasm:build:release` builds WASM with optimizations.
+- `pnpm run wasm:build` builds **cdylib** crates to WASM via `scripts/wasm-build.ts` + `wasm-pack`. Binary crates (`duyet`, `duyet-cli`) are excluded. `duyet` depends on `rustls` → `ring` → `getrandom 0.2`, which `compile_error!`s on `wasm32-unknown-unknown` without the `js` feature. Do not enable that feature workspace-wide; the CLI is not a WASM target. A workspace-wide `cargo build --target wasm32-unknown-unknown` is what broke blog Pages CI after #1450.
+- `pnpm run wasm:build:release` is the same graph with optimizations. Pages CI (`cf-deploy.yml`, `cf-deploy-preview.yml`) runs this before every app build.
 - `pnpm run wasm:test` runs `cargo test` across the Rust workspace.
 - `pnpm run wasm:clippy` lints Rust code.
 - `pnpm run bench:wasm` benchmarks TS vs WASM for all modules.
@@ -134,9 +134,9 @@ Two binaries share the `duyet` name and must not be confused. `duyet-cli` (`crat
 ### Build & Test
 
 - `pnpm run rust:build` — build native CLI binary (`target/release/duyet-cli`)
-- `pnpm run wasm:build` — build runtime crates to WASM
+- `pnpm run wasm:build` — build cdylib runtime crates to WASM (`-p` each crate with `crate-type` cdylib; never `--workspace`)
 - `pnpm run wasm:test` — `cargo test` across workspace
-- `pnpm run wasm:clippy` — lint Rust code
+- `pnpm run wasm:clippy` — clippy wasm32 for the workspace except `duyet` and `duyet-cli`
 - `pnpm run bench:wasm` — run TS vs WASM benchmarks
 
 ### Crates

@@ -6,14 +6,28 @@ const CRATES_DIR = join(import.meta.dirname!, "..", "crates")
 const OUT_DIR = join(import.meta.dirname!, "..", "packages", "wasm", "pkg")
 const release = process.argv.includes("--release")
 
-const crates = readdirSync(CRATES_DIR).filter((name) => {
+type WasmCrate = { dir: string; pkg: string }
+
+function packageName(cargoToml: string, cargoPath: string): string {
+  const match = cargoToml.match(/^name\s*=\s*"([^"]+)"/m)
+  if (!match) {
+    console.error(`No package name in ${cargoPath}`)
+    process.exit(1)
+  }
+  return match[1]
+}
+
+const crates: WasmCrate[] = readdirSync(CRATES_DIR).flatMap((name) => {
   const p = join(CRATES_DIR, name)
-  if (!statSync(p).isDirectory()) return false
+  if (!statSync(p).isDirectory()) return []
   const cargoPath = join(p, "Cargo.toml")
-  if (!statSync(cargoPath, { throwIfNoEntry: false })) return false
-  // wasm-pack requires crate-type = ["cdylib", ...]. Skip binary/CLI crates
-  // so a binary crate in this workspace doesn't break the WASM build.
-  return readFileSync(cargoPath, "utf-8").includes("cdylib")
+  if (!statSync(cargoPath, { throwIfNoEntry: false })) return []
+  const cargoToml = readFileSync(cargoPath, "utf-8")
+  // wasm-pack needs crate-type = ["cdylib", ...]. Binary crates (duyet,
+  // duyet-cli) must stay off the wasm32 cargo graph: duyet pulls rustls →
+  // ring → getrandom 0.2, which compile_error!s without the js feature.
+  if (!cargoToml.includes("cdylib")) return []
+  return [{ dir: name, pkg: packageName(cargoToml, cargoPath) }]
 })
 
 if (crates.length === 0) {
@@ -21,14 +35,14 @@ if (crates.length === 0) {
   process.exit(0)
 }
 
-console.log(`Building ${crates.length} crate(s): ${crates.join(", ")}`)
+console.log(`Building ${crates.length} crate(s): ${crates.map((c) => c.pkg).join(", ")}`)
 
+const packageArgs = crates.flatMap((c) => ["-p", c.pkg])
 const cargoArgs = release ? ["--release"] : []
 
-// Build all crates for WASM target
 const cargoResult = spawnSync(
   "cargo",
-  ["build", "--target", "wasm32-unknown-unknown", ...cargoArgs],
+  ["build", "--target", "wasm32-unknown-unknown", ...packageArgs, ...cargoArgs],
   { cwd: join(import.meta.dirname!, ".."), stdio: "inherit" },
 )
 if (cargoResult.status !== 0) {
@@ -36,28 +50,30 @@ if (cargoResult.status !== 0) {
   process.exit(1)
 }
 
-// Run wasm-pack for each crate
 for (const crate of crates) {
-  const cratePath = join(CRATES_DIR, crate)
-  const outPath = join(OUT_DIR, crate)
+  const cratePath = join(CRATES_DIR, crate.dir)
+  const outPath = join(OUT_DIR, crate.dir)
 
-  console.log(`\nwasm-pack: ${crate} -> ${outPath}`)
+  console.log(`\nwasm-pack: ${crate.pkg} -> ${outPath}`)
 
-  // Derive output name from crate name (replace hyphens with underscores)
-  const outName = crate.replace(/-/g, "_")
+  const outName = crate.dir.replace(/-/g, "_")
 
   const args = [
-    "wasm-pack", "build",
-    "--target", "web",
-    "--out-dir", outPath,
-    "--out-name", outName,
+    "wasm-pack",
+    "build",
+    "--target",
+    "web",
+    "--out-dir",
+    outPath,
+    "--out-name",
+    outName,
     ...(release ? ["--release"] : []),
     cratePath,
   ]
 
   const proc = spawnSync(args[0], args.slice(1), { stdio: "inherit" })
   if (proc.status !== 0) {
-    console.error(`wasm-pack failed for ${crate} (exit ${proc.status})`)
+    console.error(`wasm-pack failed for ${crate.pkg} (exit ${proc.status})`)
     process.exit(1)
   }
 }
