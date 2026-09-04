@@ -173,6 +173,82 @@ describe("attachLlmCallsToRuns", () => {
 
     expect(attached[1]?.llm?.calls).toBe(1);
     expect(attached[1]?.llm?.failures).toBe(1);
-    expect(attached[1]?.llm?.models).toEqual([]);
+    expect(attached[1]?.llm?.models).toEqual(["anyrouter/other"]);
+  });
+
+  it("keeps failed→ok models in first-seen order for fallback display", () => {
+    const runs = [
+      {
+        id: "run-fb",
+        started_at: 1_700_000_000,
+        finished_at: 1_700_000_060,
+        items_fetched: 1,
+        items_new: 1,
+        error: null,
+        stats: null,
+      },
+    ];
+    const calls = [
+      {
+        ts: 1_700_000_010_000,
+        task: "score",
+        model: "anyrouter/auto",
+        ok: false,
+        tokens: 0,
+        durationMs: 12000,
+        promptChars: 100,
+        promptTokens: null,
+        completionTokens: null,
+        cachedTokens: null,
+        error: "anyrouter response missing content",
+      },
+      {
+        ts: 1_700_000_022_000,
+        task: "score",
+        model: "google/gemma-4-26b-a4b-it",
+        ok: true,
+        tokens: 624,
+        durationMs: 5800,
+        promptChars: 100,
+        promptTokens: 500,
+        completionTokens: 124,
+        cachedTokens: 0,
+        error: null,
+      },
+      {
+        ts: 1_700_000_030_000,
+        task: "score",
+        model: "anyrouter/auto",
+        ok: false,
+        tokens: 0,
+        durationMs: 3800,
+        promptChars: 100,
+        promptTokens: null,
+        completionTokens: null,
+        cachedTokens: null,
+        error: "anyrouter response missing content",
+      },
+      {
+        ts: 1_700_000_034_000,
+        task: "score",
+        model: "google/gemma-4-26b-a4b-it",
+        ok: true,
+        tokens: 763,
+        durationMs: 2100,
+        promptChars: 100,
+        promptTokens: 600,
+        completionTokens: 163,
+        cachedTokens: 0,
+        error: null,
+      },
+    ];
+
+    const attached = attachLlmCallsToRuns(runs, calls);
+    expect(attached[0]?.llm?.models).toEqual([
+      "anyrouter/auto",
+      "google/gemma-4-26b-a4b-it",
+    ]);
+    expect(attached[0]?.llm?.failures).toBe(2);
+    expect(attached[0]?.llm?.calls).toBe(4);
   });
 });

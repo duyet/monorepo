@@ -57,7 +57,8 @@ export interface RunLlmSummary {
   tokens: number;
   cachedTokens: number;
   durationMs: number;
-  /** Distinct models that returned ok=true, in first-seen order. */
+  /** Distinct models attempted (ok or fail), first-seen order — shows
+   * fallback chains as e.g. anyrouter/auto → google/gemma-4-…. */
   models: string[];
   /** Per-attempt rows for the expandable Recent runs detail. */
   attempts: LlmCallRow[];
@@ -170,7 +171,7 @@ function summarizeAttempts(attempts: LlmCallRow[]): RunLlmSummary {
     summary.tokens += call.tokens;
     summary.cachedTokens += call.cachedTokens ?? 0;
     summary.durationMs += call.durationMs;
-    if (call.ok && !seenModels.has(call.model)) {
+    if (!seenModels.has(call.model)) {
       seenModels.add(call.model);
       summary.models.push(call.model);
     }
