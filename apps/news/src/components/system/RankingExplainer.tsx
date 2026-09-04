@@ -1,4 +1,5 @@
 import { Badge, Separator } from "@duyet/components";
+import { anyrouterModelUrl } from "../../lib/anyrouter";
 import type { ModelChains } from "../../lib/system-queries";
 
 interface RankingExplainerProps {
@@ -47,11 +48,6 @@ export function RankingExplainer({ models }: RankingExplainerProps) {
       </div>
     </div>
   );
-}
-
-function anyrouterModelUrl(model: string): string {
-  // Model ids are path-shaped (e.g. anyrouter/auto, google/gemma-4-…).
-  return `https://anyrouter.dev/model/${model}?ref=news.duyet.net`;
 }
 
 function ModelChain({ label, chain }: { label: string; chain: string[] }) {

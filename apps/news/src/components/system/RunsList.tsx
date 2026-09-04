@@ -9,6 +9,7 @@ import {
 } from "@duyet/components";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { Fragment, useState } from "react";
+import { anyrouterModelUrl } from "../../lib/anyrouter";
 import { timeAgo } from "../../lib/lang";
 import type {
   LlmCallRow,
@@ -119,12 +120,16 @@ function ModelsCell({ llm }: { llm?: RunLlmSummary }) {
   const rest = llm.models.length - 1;
   return (
     <div className="min-w-0 max-w-[14rem]">
-      <span
-        className="block truncate font-mono text-xs text-foreground"
+      <a
+        href={anyrouterModelUrl(primary)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block truncate font-mono text-xs text-foreground underline-offset-2 hover:text-accent hover:underline"
         title={llm.models.join(" → ")}
+        onClick={(e) => e.stopPropagation()}
       >
         {shortModel(primary)}
-      </span>
+      </a>
       {rest > 0 ? (
         <span className="text-[10px] text-muted-foreground">+{rest} more</span>
       ) : llm.failures > 0 ? (
@@ -171,11 +176,16 @@ function AttemptRows({ attempts }: { attempts: LlmCallRow[] }) {
                   {call.task}
                 </Badge>
               </td>
-              <td
-                className="max-w-[12rem] truncate px-2 py-1.5 font-mono text-[11px] text-foreground"
-                title={call.model}
-              >
-                {call.model}
+              <td className="max-w-[12rem] truncate px-2 py-1.5 font-mono text-[11px]">
+                <a
+                  href={anyrouterModelUrl(call.model)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-foreground underline-offset-2 hover:text-accent hover:underline"
+                  title={call.model}
+                >
+                  {call.model}
+                </a>
               </td>
               <td className="px-2 py-1.5">
                 <Badge

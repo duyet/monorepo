@@ -18,6 +18,7 @@ import { RunStatusStrip } from "../components/system/RunStatusStrip";
 import { RunsList } from "../components/system/RunsList";
 import { StatTile } from "../components/system/StatTile";
 import { useAdmin } from "../lib/admin";
+import { anyrouterModelUrl } from "../lib/anyrouter";
 import { categoryLabel, statusLabel } from "../lib/lang";
 import type { SystemStats } from "../lib/system-queries";
 import type { Lang } from "../lib/types";
@@ -120,9 +121,19 @@ function SystemPage() {
             <span className="text-muted-foreground">
               {t("Scoring", "Chấm điểm")}
             </span>
-            <span className="ml-1.5 font-mono text-foreground">
-              {stats.models.scoring[0] ?? "—"}
-            </span>
+            {stats.models.scoring[0] ? (
+              <a
+                href={anyrouterModelUrl(stats.models.scoring[0])}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-1.5 font-mono text-foreground underline-offset-2 hover:text-accent hover:underline"
+                title={`Open ${stats.models.scoring[0]} on AnyRouter`}
+              >
+                {stats.models.scoring[0]}
+              </a>
+            ) : (
+              <span className="ml-1.5 font-mono text-foreground">—</span>
+            )}
             {stats.models.scoring.length > 1 ? (
               <span className="ml-1 text-muted-foreground">
                 +{stats.models.scoring.length - 1}
@@ -133,9 +144,19 @@ function SystemPage() {
             <span className="text-muted-foreground">
               {t("Translation", "Dịch")}
             </span>
-            <span className="ml-1.5 font-mono text-foreground">
-              {stats.models.translation[0] ?? "—"}
-            </span>
+            {stats.models.translation[0] ? (
+              <a
+                href={anyrouterModelUrl(stats.models.translation[0])}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-1.5 font-mono text-foreground underline-offset-2 hover:text-accent hover:underline"
+                title={`Open ${stats.models.translation[0]} on AnyRouter`}
+              >
+                {stats.models.translation[0]}
+              </a>
+            ) : (
+              <span className="ml-1.5 font-mono text-foreground">—</span>
+            )}
           </Badge>
           <span className="text-xs text-muted-foreground">
             {t("via", "qua")}{" "}
