@@ -51,9 +51,10 @@ packages/{components,libs,config,urls,profile,interfaces,tailwind-config,tsconfi
               news           (ingest workflow + SSR, news.duyet.net)
               paid-api       (x402; own wrangler, not in cf-worker-deploy.yml)
 
-WASM (pnpm run wasm:build) is a build-time input for photos (exif) and
-libs/string (utils). Pages CI installs the Rust toolchain when those
-trees change.
+WASM (`pnpm run wasm:build`) is a build-time input for photos (exif),
+blog markdown, and libs/string (utils). Pages CI runs
+`pnpm run wasm:build:release` (cdylib crates only) before each Pages
+app. Binary crates `duyet` / `duyet-cli` stay off that graph.
 ```
 
 Runtime data, not deploy edges:
