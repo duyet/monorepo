@@ -11,6 +11,11 @@ slug: /2026/07/anyrouter
 thumbnail: /media/2026/07/anyrouter/anyrouter-intro.png
 description: "I am building AnyRouter to solve my problem of collecting free LLM tokens from everywhere and unifying the MCP Gateway. Yes, it's another router, but this is a router of routers."
 x: https://x.com/_duyet/status/2078848270064066623
+changelog:
+  - date: "2026-09"
+    note: "duyetbot is now an instance of Grok Bot"
+  - date: "2026-07"
+    note: "Original post"
 ---
 
 I am building [<img src="/media/2026/07/anyrouter/anyrouter-icon.png" alt="" class="inline-icon" />AnyRouter](https://anyrouter.dev) to solve my problem of collecting free LLM tokens from everywhere and unifying the MCP Gateway. Yes, it's another router, but this is a router of routers.
@@ -135,6 +140,8 @@ There is a lot more to build than I thought (landing, api, mcp, admin, email, bl
 Every night, a scheduled agent sandbox runs more goal-and-loop sessions to build toward the docs and address as many GitHub issues as possible. That's the continuous self-improvement. I also keep Claude Code or Codex at hand for customization, adjustments, or correcting things myself.
 
 **Manage**: [duyetbot](https://duyet.net/about-duyetbot) (Hermes agent) helps a lot as the manager. It has jobs hunting for newly released models and new upstream providers, running smoke tests, generating reports, analytics, health checks, catching bugs — everything auto-tracked and turned into GitHub issues again, and another agent comes to fix them the next morning.
+
+**Updated 2026-09:** duyetbot is now an instance of [Grok Bot](/2026/08/grok-bot/), which manages everything from implementation and research to model ops and system audits. Grok Bot is the agent design I wanted for duyetbot by the end of the year.
 
 I think this is the right way I've found so far to self-improve and manage a large codebase and product like this.
 
