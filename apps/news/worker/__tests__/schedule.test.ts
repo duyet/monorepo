@@ -8,7 +8,10 @@ const newsRoot = path.join(dirname, "../..");
 const wrangler = readFileSync(path.join(newsRoot, "wrangler.toml"), "utf-8");
 const algorithm = readFileSync(path.join(newsRoot, "ALGORITHM.md"), "utf-8");
 const ingestYml = readFileSync(
-  path.join(newsRoot, "../../.github/workflows/news-ingest.yml"),
+  path.join(
+    newsRoot,
+    "../../.github/workflows/_disabled/news-ingest.yml.disabled"
+  ),
   "utf-8"
 );
 
@@ -39,7 +42,7 @@ describe("free-plan hourly ingest", () => {
     );
   });
 
-  it("schedules ingest via a Durable Object alarm plus GitHub Actions watchdog", () => {
+  it("archives the GitHub Actions watchdog (cut over to aidr.today)", () => {
     expect(ingestYml).toMatch(/cron:\s*"5 \* \* \* \*"/);
     expect(ingestYml).toMatch(/cron:\s*"20 \* \* \* \*"/);
     expect(ingestYml).toMatch(/cron:\s*"35 \* \* \* \*"/);
