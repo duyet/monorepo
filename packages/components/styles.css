@@ -100,10 +100,12 @@
   :root {
     --editorial-bg: #ffffff;
     --editorial-fg: #0a0a0a;
-    --editorial-muted: color-mix(in oklch, #0a0a0a 60%, transparent);
-    --editorial-subtle: color-mix(in oklch, #0a0a0a 35%, transparent);
-    --editorial-faint: color-mix(in oklch, #0a0a0a 8%, transparent);
-    --editorial-hairline: color-mix(in oklch, #0a0a0a 8%, transparent);
+    /* Hex+alpha — avoid color-mix()/rgb() that LightningCSS rewrites to
+       invalid `oklch(... none / a)` (borders then fall back to currentColor). */
+    --editorial-muted: #0a0a0a99;
+    --editorial-subtle: #0a0a0a59;
+    --editorial-faint: #0a0a0a14;
+    --editorial-hairline: #0a0a0a14;
     --editorial-accent: var(--cf-orange);
     --editorial-font-serif: "Geist", ui-sans-serif, system-ui, sans-serif;
     --editorial-font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
@@ -114,10 +116,10 @@
   .dark {
     --editorial-bg: #0a0a0a;
     --editorial-fg: #fafafa;
-    --editorial-muted: color-mix(in oklch, #fafafa 55%, transparent);
-    --editorial-subtle: color-mix(in oklch, #fafafa 30%, transparent);
-    --editorial-faint: color-mix(in oklch, #fafafa 8%, transparent);
-    --editorial-hairline: color-mix(in oklch, #fafafa 8%, transparent);
+    --editorial-muted: #fafafa8c;
+    --editorial-subtle: #fafafa4d;
+    --editorial-faint: #fafafa14;
+    --editorial-hairline: #fafafa14;
     --editorial-accent: var(--cf-orange);
   }
 
