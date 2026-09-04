@@ -49,6 +49,11 @@ export function RankingExplainer({ models }: RankingExplainerProps) {
   );
 }
 
+function anyrouterModelUrl(model: string): string {
+  // Model ids are path-shaped (e.g. anyrouter/auto, google/gemma-4-…).
+  return `https://anyrouter.dev/model/${model}?ref=news.duyet.net`;
+}
+
 function ModelChain({ label, chain }: { label: string; chain: string[] }) {
   return (
     <div className="flex flex-wrap items-center gap-1.5">
@@ -68,12 +73,20 @@ function ModelChain({ label, chain }: { label: string; chain: string[] }) {
                 →
               </span>
             ) : null}
-            <Badge
-              variant="outline"
-              className="font-mono text-[10px] font-normal"
+            <a
+              href={anyrouterModelUrl(model)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              title={`Open ${model} on AnyRouter`}
             >
-              {model}
-            </Badge>
+              <Badge
+                variant="outline"
+                className="font-mono text-[10px] font-normal transition-colors hover:border-accent hover:text-accent"
+              >
+                {model}
+              </Badge>
+            </a>
           </span>
         ))
       )}
