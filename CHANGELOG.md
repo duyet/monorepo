@@ -1,5 +1,63 @@
 # Changelog
 
+## [0.1.8](https://github.com/duyet/monorepo/compare/v0.1.7...v0.1.8) (2026-09-04)
+
+
+### ✨ Features
+
+* **api:** add submissions backend for contact, job descriptions, and comments ([#1449](https://github.com/duyet/monorepo/issues/1449)) ([d605d10](https://github.com/duyet/monorepo/commit/d605d104b5b01233e40925333194e2f9a98b13df))
+* **blog:** add 2026-09 Grok Bot note to AnyRouter post ([#1454](https://github.com/duyet/monorepo/issues/1454)) ([37fff33](https://github.com/duyet/monorepo/commit/37fff33e1e869f68c1300c5b8fe732613ee48e92))
+* **blog:** add xAI Grok Bot guides note and tweet-row layout ([#1420](https://github.com/duyet/monorepo/issues/1420)) ([04886fb](https://github.com/duyet/monorepo/commit/04886fb630e36c9b54a0eac4182f26fea080317e))
+* **duyet:** scaffold the user CLI crate with command tree, config, envelope, doctor ([#1450](https://github.com/duyet/monorepo/issues/1450)) ([0323c46](https://github.com/duyet/monorepo/commit/0323c46e4fb0340321c930c6eb54a93b982d4899))
+* **news-tab:** add Chrome new-tab extension to monorepo ([#1403](https://github.com/duyet/monorepo/issues/1403)) ([6d1b20b](https://github.com/duyet/monorepo/commit/6d1b20bef4050cce466d9e5d51d5b723269bbc4d))
+* **news-tab:** match live homepage AI;DR layout ([#1429](https://github.com/duyet/monorepo/issues/1429)) ([4740556](https://github.com/duyet/monorepo/commit/47405565ef79882190c42ef8c5d8c91fa7dfe73f))
+* **news:** add public tldr api for third-party clients ([#1396](https://github.com/duyet/monorepo/issues/1396)) ([b83e54b](https://github.com/duyet/monorepo/commit/b83e54b7c3444eb355c34bec26a87f82418c05e1))
+* **news:** longer AI;DR bullets with clamp and keyword highlight ([#1399](https://github.com/duyet/monorepo/issues/1399)) ([6965de8](https://github.com/duyet/monorepo/commit/6965de8ae93583d13c0b716766273351d7d667f8))
+* **news:** polish /data UI and per-run LLM detail ([#1452](https://github.com/duyet/monorepo/issues/1452)) ([944a866](https://github.com/duyet/monorepo/commit/944a866e9acc12bd5943a39b09ea408b92a9d716))
+* **news:** public Chrome new-tab zip and load-unpacked guide ([#1421](https://github.com/duyet/monorepo/issues/1421)) ([8989c2f](https://github.com/duyet/monorepo/commit/8989c2f36ab82d3bed92c059737716ef6d5df67e))
+* **news:** small thumbnails on homepage AI;DR bullets ([#1397](https://github.com/duyet/monorepo/issues/1397)) ([d351db6](https://github.com/duyet/monorepo/commit/d351db61cc7c8e72dfd02c546b6cc4b784120614))
+* **tip:** rewrite tip copy and link ko-fi.com/duyet in the menu ([#1361](https://github.com/duyet/monorepo/issues/1361)) ([cbb90df](https://github.com/duyet/monorepo/commit/cbb90dfcd51db3c70aa1fdb3ee3cc9a1b429e1b0))
+
+
+### 🐛 Bug Fixes
+
+* **agent-assistant:** purge leaked scratch API keys ([#1372](https://github.com/duyet/monorepo/issues/1372)) ([60d841a](https://github.com/duyet/monorepo/commit/60d841af28ffa5abaa6b68d5b2498faddf1ed5b7))
+* **api:** guard duyet-api memory hotspots; document [#1370](https://github.com/duyet/monorepo/issues/1370) binding gap ([#1395](https://github.com/duyet/monorepo/issues/1395)) ([66cf288](https://github.com/duyet/monorepo/commit/66cf288132103a49df07e6945c8bbb5c3fde61ad))
+* **api:** omit nameless D1 from production wrangler deploy ([#1451](https://github.com/duyet/monorepo/issues/1451)) ([2c9b075](https://github.com/duyet/monorepo/commit/2c9b07542091aa0b50f90648517490da0514a20d))
+* **blog:** cache-bust replaced AnyRouter Go $2 illustrations ([#1431](https://github.com/duyet/monorepo/issues/1431)) ([168d534](https://github.com/duyet/monorepo/commit/168d5346251b7e1f28b814cbcc83b036ba93e7f4))
+* **blog:** replace leftover Start $1/mo pixels in AnyRouter illustrations ([#1430](https://github.com/duyet/monorepo/issues/1430)) ([d83b17c](https://github.com/duyet/monorepo/commit/d83b17c3acf0fa490c05072505100eecb87b9680))
+* **blog:** update AnyRouter post to Go $2/mo pricing ([#1427](https://github.com/duyet/monorepo/issues/1427)) ([43c6c6e](https://github.com/duyet/monorepo/commit/43c6c6ec6eebee030eba22532bf433dab0b7bb64))
+* **ci:** pass workflow_run branch through env to prevent pwn-request ([#1371](https://github.com/duyet/monorepo/issues/1371)) ([51fb0ef](https://github.com/duyet/monorepo/commit/51fb0ef2d0ff6771585b27f1bddea93dbcc1243d))
+* **deps:** correct motion and vitest resolutions that violate declared ranges ([#1367](https://github.com/duyet/monorepo/issues/1367)) ([447f431](https://github.com/duyet/monorepo/commit/447f431f587be7a69ba7bd2de629b557b6f52c37))
+* **deps:** pin @clerk/shared@3.47.8 so blog Pages can build ([#1428](https://github.com/duyet/monorepo/issues/1428)) ([ef2f852](https://github.com/duyet/monorepo/commit/ef2f852741dbdbabed2a3d59caef11045a281645))
+* **deps:** update all non-major dependencies ([#1364](https://github.com/duyet/monorepo/issues/1364)) ([57adb04](https://github.com/duyet/monorepo/commit/57adb04c4475aefd479cdef061f5013ef3a66876))
+* **deps:** update all non-major dependencies ([#1425](https://github.com/duyet/monorepo/issues/1425)) ([1e0809b](https://github.com/duyet/monorepo/commit/1e0809b2168fd28c158c390342184062d7072435))
+* **news:** call D1 batch with binding this so ingest persist sticks ([#1417](https://github.com/duyet/monorepo/issues/1417)) ([5cf0ba1](https://github.com/duyet/monorepo/commit/5cf0ba142a017b586b3a4f3342ac2b760c1893ae))
+* **news:** fail ingest POST unless lastRun can read persist ([#1413](https://github.com/duyet/monorepo/issues/1413)) ([eb1ecfd](https://github.com/duyet/monorepo/commit/eb1ecfd4bcd33aa634046382142c33695965c115))
+* **news:** harden APIs, /data page, pipeline throughput, moderation queue ([#1394](https://github.com/duyet/monorepo/issues/1394)) ([6ccd7ea](https://github.com/duyet/monorepo/commit/6ccd7ea797936b69ab0dc3f84343034449d0eb92))
+* **news:** make hourly ingest reliable without a Worker cron ([#1400](https://github.com/duyet/monorepo/issues/1400)) ([e4f00c7](https://github.com/duyet/monorepo/commit/e4f00c7048c3ff4820ed037033f931cf8fbb085e))
+* **news:** persist ingest lastRun with D1 .run()/batch() ([#1415](https://github.com/duyet/monorepo/issues/1415)) ([bde2a29](https://github.com/duyet/monorepo/commit/bde2a293e27bf4edc95f972e413e560865a39891))
+* **news:** persist ingest lastRun with method-call D1 and epoch ORDER BY ([#1419](https://github.com/duyet/monorepo/issues/1419)) ([7303fa8](https://github.com/duyet/monorepo/commit/7303fa8ef86e4837e9e10ce2dea1c08106b8ce19))
+* **news:** persist ingest workflow_runs at create() ([#1409](https://github.com/duyet/monorepo/issues/1409)) ([5ea5aa3](https://github.com/duyet/monorepo/commit/5ea5aa3a5f0e3d4b61127135fe44ff693031fbfb))
+* **news:** persist ingest workflow_runs on open-run ([#1405](https://github.com/duyet/monorepo/issues/1405)) ([f08dad8](https://github.com/duyet/monorepo/commit/f08dad87927ab1a5ec83de9ce449e64529ec5e62))
+* **news:** persist workflow_runs before Workflow create() ([#1411](https://github.com/duyet/monorepo/issues/1411)) ([4a8fff8](https://github.com/duyet/monorepo/commit/4a8fff8fe48e5a5c0054ed9eb1048cbe68e59bf4))
+* **news:** record ingest runs when score and tldr LLM steps fail ([#1402](https://github.com/duyet/monorepo/issues/1402)) ([b390922](https://github.com/duyet/monorepo/commit/b390922f8654c4fe0553bd6b7d4899a1f5972034))
+* **news:** replace paid gemini ids with stealth/ox-alpha in LLM chains ([#1366](https://github.com/duyet/monorepo/issues/1366)) ([7e0f187](https://github.com/duyet/monorepo/commit/7e0f1879927f3ce921313a817c8e4d89565b97eb))
+* **news:** replace stealth/ox-alpha with anyrouter/auto in LLM chains ([#1398](https://github.com/duyet/monorepo/issues/1398)) ([058f0a9](https://github.com/duyet/monorepo/commit/058f0a900d891a83ca060c8ef23149beb6ec2731))
+* **news:** unzip then Load unpacked the folder, not the zip ([#1423](https://github.com/duyet/monorepo/issues/1423)) ([7ffba0e](https://github.com/duyet/monorepo/commit/7ffba0e0524fa744047068e246df2cadf7d7185f))
+* **security:** rate limits, shared auth helpers, paid-api x402 tests ([#1392](https://github.com/duyet/monorepo/issues/1392)) ([5a771c1](https://github.com/duyet/monorepo/commit/5a771c1a17221519f1b450d3987a569f37fefa4f))
+
+
+### ⚡ Performance
+
+* **kb:** keep graph edges visible while zooming ([#1437](https://github.com/duyet/monorepo/issues/1437)) ([538aacb](https://github.com/duyet/monorepo/commit/538aacb9523aedc252b272d5eb3d4ea107c7b603))
+* **kb:** keep graph labels while zooming ([#1435](https://github.com/duyet/monorepo/issues/1435)) ([b19e9f7](https://github.com/duyet/monorepo/commit/b19e9f73089e89386a60135be3983b0eb48828f3))
+
+
+### ♻️ Refactoring
+
+* slugify, app registry, API cache, and blog bundle diet ([#1393](https://github.com/duyet/monorepo/issues/1393)) ([9c0d674](https://github.com/duyet/monorepo/commit/9c0d6743364e3290c8e9cf6200ba4c94ca77e223))
+
 ## [0.1.7](https://github.com/duyet/monorepo/compare/v0.1.6...v0.1.7) (2026-08-23)
 
 
