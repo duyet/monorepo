@@ -5,6 +5,7 @@ import { handlePublicCors } from "../worker/public-cors";
 import { handleSubscribeCors } from "../worker/subscribe/cors";
 import type { Env } from "../worker/types";
 import { NewsIngestWorkflow } from "../worker/workflow";
+import { redirectToAidr } from "./lib/aidr-redirect";
 import { applyNotFoundHttpStatus } from "./lib/not-found-status";
 import {
   buildSitemapXml,
@@ -27,6 +28,8 @@ async function resolveEnv(env?: Env): Promise<Env | undefined> {
 
 export default {
   async fetch(request: Request, env: Env, ctx?: ExecutionContext) {
+    const redirected = redirectToAidr(request);
+    if (redirected) return redirected;
     const path = new URL(request.url).pathname;
     if (
       path === "/api/public" ||
