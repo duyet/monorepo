@@ -333,11 +333,15 @@ function mapLlmCallRow(r: LlmCallDbRow): LlmCallRow {
   };
 }
 
-/** Recent llm_calls covering the last N workflow runs' time window. */
+/** Recent llm_calls covering the last N workflow runs' time window.
+ * Newest-first limit so Recent runs keep their detail under high volume. */
 async function loadRecentLlmCalls(
   db: D1Database,
   sinceMs: number
 ): Promise<LlmCallRow[]> {
+  const mapNewestFirst = (results: LlmCallDbRow[] | null | undefined) =>
+    (results ?? []).map(mapLlmCallRow).reverse();
+
   try {
     const { results } = await db
       .prepare(
@@ -345,12 +349,12 @@ async function loadRecentLlmCalls(
                 prompt_tokens, completion_tokens, cached_tokens
          FROM llm_calls
          WHERE ts >= ?
-         ORDER BY ts ASC
+         ORDER BY ts DESC
          LIMIT 2000`
       )
       .bind(sinceMs)
       .all<LlmCallDbRow>();
-    return (results ?? []).map(mapLlmCallRow);
+    return mapNewestFirst(results);
   } catch {
     // Pre-0016 DB without usage columns.
     const { results } = await db
@@ -358,12 +362,12 @@ async function loadRecentLlmCalls(
         `SELECT ts, task, model, ok, tokens, duration_ms, prompt_chars, error
          FROM llm_calls
          WHERE ts >= ?
-         ORDER BY ts ASC
+         ORDER BY ts DESC
          LIMIT 2000`
       )
       .bind(sinceMs)
       .all<LlmCallDbRow>();
-    return (results ?? []).map(mapLlmCallRow);
+    return mapNewestFirst(results);
   }
 }
 

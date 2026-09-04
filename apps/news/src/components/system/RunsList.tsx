@@ -1,6 +1,5 @@
 import {
   Badge,
-  Table,
   TableBody,
   TableCell,
   TableHead,
@@ -271,7 +270,9 @@ export function RunsList({ runs, lang }: RunsListProps) {
       ref={scrollRef}
       className="scrollbar-hide -mx-1 overflow-x-auto rounded-md border border-border"
     >
-      <Table className="min-w-[960px]">
+      {/* Native table: shared Table wraps overflow-auto itself, which
+          breaks useHorizontalScroll edge-fade on the outer container. */}
+      <table className="w-full min-w-[960px] caption-bottom text-left text-sm">
         <TableHeader>
           <TableRow className="hover:bg-transparent">
             <TableHead className="h-9 w-8 px-2" />
@@ -331,11 +332,26 @@ export function RunsList({ runs, lang }: RunsListProps) {
                 >
                   <TableCell className="px-2 py-2 text-muted-foreground">
                     {canExpand ? (
-                      expanded ? (
-                        <ChevronDown className="h-3.5 w-3.5" aria-hidden />
-                      ) : (
-                        <ChevronRight className="h-3.5 w-3.5" aria-hidden />
-                      )
+                      <button
+                        type="button"
+                        aria-expanded={expanded}
+                        aria-label={
+                          lang === "vi"
+                            ? "Chi tiết lần gọi LLM"
+                            : "Toggle LLM call details"
+                        }
+                        className="inline-flex h-6 w-6 items-center justify-center rounded-sm hover:bg-muted"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setOpenId(expanded ? null : r.id);
+                        }}
+                      >
+                        {expanded ? (
+                          <ChevronDown className="h-3.5 w-3.5" aria-hidden />
+                        ) : (
+                          <ChevronRight className="h-3.5 w-3.5" aria-hidden />
+                        )}
+                      </button>
                     ) : null}
                   </TableCell>
                   <TableCell className="px-3 py-2">
@@ -462,7 +478,7 @@ export function RunsList({ runs, lang }: RunsListProps) {
             );
           })}
         </TableBody>
-      </Table>
+      </table>
     </div>
   );
 }
