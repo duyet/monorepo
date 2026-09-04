@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Scan shared shadcn primitives so Card/Badge/Table utilities emit. */
+@source "../../../packages/components";
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -33,9 +36,12 @@
   /* Editorial monochrome tokens, matching the rest of duyet.net */
   --editorial-bg: #ffffff;
   --editorial-fg: #0a0a0a;
-  --editorial-muted: color-mix(in oklch, #0a0a0a 60%, transparent);
-  --editorial-faint: color-mix(in oklch, #0a0a0a 5%, transparent);
-  --editorial-hairline: rgb(10 10 10 / 8%);
+  /* Prefer hex+alpha over rgb()/color-mix(): LightningCSS can rewrite those
+     to `oklch(... none / a)` which some browsers treat as invalid, and then
+     `border-color: var(--border)` falls through to currentColor (solid black). */
+  --editorial-muted: #0a0a0a99;
+  --editorial-faint: #0a0a0a0d;
+  --editorial-hairline: #0a0a0a14;
   --editorial-accent: #b45309;
   --editorial-font-serif:
     "EB Garamond", Garamond, "Apple Garamond", ui-serif, serif;
@@ -84,9 +90,9 @@
 .dark {
   --editorial-bg: #0a0a0a;
   --editorial-fg: #fafafa;
-  --editorial-muted: color-mix(in oklch, #fafafa 55%, transparent);
-  --editorial-faint: color-mix(in oklch, #fafafa 6%, transparent);
-  --editorial-hairline: rgb(250 250 250 / 8%);
+  --editorial-muted: #fafafa8c;
+  --editorial-faint: #fafafa0f;
+  --editorial-hairline: #fafafa14;
   --editorial-accent: #e8926e;
 
   --background: var(--editorial-bg);
@@ -118,6 +124,14 @@
   }
   :root.dark {
     color-scheme: dark;
+  }
+
+  /* Tailwind v4 defaults border-color to currentColor; keep hairlines soft. */
+  *,
+  ::after,
+  ::before,
+  ::backdrop {
+    border-color: var(--border);
   }
 
   html,

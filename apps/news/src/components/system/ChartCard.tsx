@@ -24,7 +24,7 @@ export function ChartCard({
   action,
 }: ChartCardProps) {
   return (
-    <Card className={cn("shadow-none", className)}>
+    <Card className={cn("border-border shadow-none", className)}>
       <CardHeader className="flex flex-row items-start justify-between gap-3 space-y-0 p-4 pb-0">
         <div className="min-w-0 space-y-1">
           <CardTitle className="font-sans text-sm font-semibold tracking-tight text-foreground">

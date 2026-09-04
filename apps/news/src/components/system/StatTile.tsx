@@ -15,7 +15,7 @@ export function StatTile({
   icon: Icon,
 }: StatTileProps) {
   return (
-    <Card className="shadow-none">
+    <Card className="border-border shadow-none">
       <CardContent className="p-4">
         <p className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
           {Icon ? (
