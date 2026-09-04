@@ -143,6 +143,8 @@ Every night, a scheduled agent sandbox runs more goal-and-loop sessions to build
 
 **Updated 2026-09:** duyetbot is now an instance of [Grok Bot](/2026/08/grok-bot/), which manages everything from implementation and research to model ops and system audits. Grok Bot is the agent design I wanted for duyetbot by the end of the year.
 
+<img src="/media/2026/07/anyrouter/duyetbot-grok-bot.jpg" alt="duyetbot (Grok Bot) managing AnyRouter. Agents, PRs, deploys." loading="lazy" />
+
 I think this is the right way I've found so far to self-improve and manage a large codebase and product like this.
 
 <div class="img-row">
