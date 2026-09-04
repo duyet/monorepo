@@ -1,6 +1,6 @@
+import { mapWithConcurrency } from "./concurrency.js";
 import { looksVietnamese } from "./tldr-lang.js";
 import type { Env } from "./types.js";
-import { mapWithConcurrency } from "./concurrency.js";
 
 /** 15-item score JSON routinely misses a 25s hang-cap (0 tokens, 100%
  *  fail). 5 titles still fill a batch and finish inside SCORE_SLICE_MAX. */
@@ -81,9 +81,16 @@ interface ChatMessage {
   content: string;
 }
 
-interface AnyrouterCallResult {
-  content: string;
+/** Prompt / completion / cache split from anyrouter usage metadata. */
+export interface LlmUsageBreakdown {
   tokens: number;
+  promptTokens: number | null;
+  completionTokens: number | null;
+  cachedTokens: number | null;
+}
+
+interface AnyrouterCallResult extends LlmUsageBreakdown {
+  content: string;
 }
 
 /** Labels a call by which pipeline stage issued it, for the `llm_calls`
@@ -108,6 +115,9 @@ export interface LlmCallLogEntry {
   model: string;
   ok: boolean;
   tokens: number;
+  promptTokens: number | null;
+  completionTokens: number | null;
+  cachedTokens: number | null;
   durationMs: number;
   error: string | null;
   promptChars: number;
@@ -146,7 +156,8 @@ function logLlmCall(entry: LlmCallLogEntry): void {
 const REQUEST_TIMEOUT_MS = 120_000;
 
 /** Anyrouter reports usage in camelCase on the streaming metadata event and in
- * snake_case on non-streaming responses. */
+ * snake_case on non-streaming responses. Cache hits appear as cachedTokens
+ * (anyrouter_metadata) or prompt_tokens_details.cached_tokens. */
 interface Usage {
   total_tokens?: number;
   totalTokens?: number;
@@ -156,6 +167,9 @@ interface Usage {
   completion_tokens?: number;
   completionTokens?: number;
   outputTokens?: number;
+  cached_tokens?: number;
+  cachedTokens?: number;
+  prompt_tokens_details?: { cached_tokens?: number };
 }
 
 interface StreamEvent {
@@ -167,13 +181,41 @@ interface StreamEvent {
   anyrouter_metadata?: { usage?: Usage };
 }
 
-function countTokens(usage: Usage): number {
-  const total = usage.total_tokens ?? usage.totalTokens;
-  if (typeof total === "number") return total;
-  const input = usage.prompt_tokens ?? usage.promptTokens ?? usage.inputTokens;
-  const output =
-    usage.completion_tokens ?? usage.completionTokens ?? usage.outputTokens;
-  return (input ?? 0) + (output ?? 0);
+function pickNumber(...values: unknown[]): number | null {
+  for (const v of values) {
+    if (typeof v === "number" && Number.isFinite(v)) return v;
+  }
+  return null;
+}
+
+function parseUsage(usage: Usage): LlmUsageBreakdown {
+  const promptTokens = pickNumber(
+    usage.prompt_tokens,
+    usage.promptTokens,
+    usage.inputTokens
+  );
+  const completionTokens = pickNumber(
+    usage.completion_tokens,
+    usage.completionTokens,
+    usage.outputTokens
+  );
+  const cachedTokens = pickNumber(
+    usage.cached_tokens,
+    usage.cachedTokens,
+    usage.prompt_tokens_details?.cached_tokens
+  );
+  const total = pickNumber(usage.total_tokens, usage.totalTokens);
+  const tokens = total ?? (promptTokens ?? 0) + (completionTokens ?? 0);
+  return { tokens, promptTokens, completionTokens, cachedTokens };
+}
+
+function emptyUsage(): LlmUsageBreakdown {
+  return {
+    tokens: 0,
+    promptTokens: null,
+    completionTokens: null,
+    cachedTokens: null,
+  };
 }
 
 /** Long prompts used to come back as `{"object":"chat.completion.queued",
@@ -247,7 +289,7 @@ async function streamCompletion(
 
   let content = "";
   let reasoning = "";
-  let tokens = 0;
+  let usageBreakdown = emptyUsage();
   let sawEvent = false;
   let queued = false;
   let rawBody = "";
@@ -277,7 +319,7 @@ async function streamCompletion(
     if (delta?.reasoning) reasoning += delta.reasoning;
     const usage =
       event.usage ?? event.anyrouter_metadata?.usage ?? event.metadata?.usage;
-    if (usage) tokens = countTokens(usage);
+    if (usage) usageBreakdown = parseUsage(usage);
   };
 
   const reader = res.body.getReader();
@@ -301,14 +343,14 @@ async function streamCompletion(
     await reader.cancel().catch(() => {});
   }
 
-  if (content.trim()) return { content, tokens };
+  if (content.trim()) return { content, ...usageBreakdown };
 
   // Reasoning-model fallback: content came back empty, but the model may
   // have produced the JSON answer inside its `reasoning` field (e.g. right
   // before running out of budget, or because it never separated the two).
   if (reasoning) {
     const extracted = extractLastJsonObject(reasoning);
-    if (extracted) return { content: extracted, tokens };
+    if (extracted) return { content: extracted, ...usageBreakdown };
   }
 
   // A body with no events at all is not a stream — most likely a queue receipt
@@ -441,6 +483,9 @@ async function callAnyrouter(
           model,
           ok: false,
           tokens: result.tokens,
+          promptTokens: result.promptTokens,
+          completionTokens: result.completionTokens,
+          cachedTokens: result.cachedTokens,
           durationMs: Date.now() - attemptStartedAt,
           error: "anyrouter response failed accept check",
           promptChars,
@@ -456,6 +501,9 @@ async function callAnyrouter(
         model,
         ok: true,
         tokens: result.tokens,
+        promptTokens: result.promptTokens,
+        completionTokens: result.completionTokens,
+        cachedTokens: result.cachedTokens,
         durationMs: Date.now() - attemptStartedAt,
         error: null,
         promptChars,
@@ -472,6 +520,9 @@ async function callAnyrouter(
         model,
         ok: false,
         tokens: 0,
+        promptTokens: null,
+        completionTokens: null,
+        cachedTokens: null,
         durationMs: Date.now() - attemptStartedAt,
         error: error instanceof Error ? error.message : String(error),
         promptChars,

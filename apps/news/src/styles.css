@@ -1,19 +1,32 @@
 @import "tailwindcss";
 
+/* Scan shared shadcn primitives so Card/Badge/Table utilities emit. */
+@source "../../../packages/components";
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
   --color-border: var(--border);
   --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-ring: var(--ring);
   --color-brand: var(--brand);
   --color-brand-soft: var(--brand-soft);
   /* Popover tokens for dither-kit chart tooltips. */
-  --color-popover: var(--background);
-  --color-popover-foreground: var(--foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
   --font-sans: var(--editorial-font-sans);
   --font-serif: var(--editorial-font-serif);
   --font-mono: var(--editorial-font-mono);
@@ -23,9 +36,12 @@
   /* Editorial monochrome tokens, matching the rest of duyet.net */
   --editorial-bg: #ffffff;
   --editorial-fg: #0a0a0a;
-  --editorial-muted: color-mix(in oklch, #0a0a0a 60%, transparent);
-  --editorial-faint: color-mix(in oklch, #0a0a0a 5%, transparent);
-  --editorial-hairline: rgb(10 10 10 / 8%);
+  /* Prefer hex+alpha over rgb()/color-mix(): LightningCSS can rewrite those
+     to `oklch(... none / a)` which some browsers treat as invalid, and then
+     `border-color: var(--border)` falls through to currentColor (solid black). */
+  --editorial-muted: #0a0a0a99;
+  --editorial-faint: #0a0a0a0d;
+  --editorial-hairline: #0a0a0a14;
   --editorial-accent: #b45309;
   --editorial-font-serif:
     "EB Garamond", Garamond, "Apple Garamond", ui-serif, serif;
@@ -48,11 +64,22 @@
      never leaks into hover/active states on shared duyet.net chrome. */
   --background: var(--editorial-bg);
   --foreground: var(--editorial-fg);
+  --card: var(--editorial-bg);
+  --card-foreground: var(--editorial-fg);
+  --popover: var(--editorial-bg);
+  --popover-foreground: var(--editorial-fg);
   --muted: var(--editorial-faint);
   --muted-foreground: var(--editorial-muted);
+  --secondary: var(--editorial-faint);
+  --secondary-foreground: var(--editorial-fg);
   --border: var(--editorial-hairline);
   --accent: var(--editorial-faint);
   --accent-foreground: var(--editorial-fg);
+  --primary: var(--editorial-fg);
+  --primary-foreground: var(--editorial-bg);
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --ring: var(--editorial-fg);
 
   /* News-only accent for TL;DR rules and trending chips */
   --brand: #f5c518;
@@ -63,18 +90,29 @@
 .dark {
   --editorial-bg: #0a0a0a;
   --editorial-fg: #fafafa;
-  --editorial-muted: color-mix(in oklch, #fafafa 55%, transparent);
-  --editorial-faint: color-mix(in oklch, #fafafa 6%, transparent);
-  --editorial-hairline: rgb(250 250 250 / 8%);
+  --editorial-muted: #fafafa8c;
+  --editorial-faint: #fafafa0f;
+  --editorial-hairline: #fafafa14;
   --editorial-accent: #e8926e;
 
   --background: var(--editorial-bg);
   --foreground: var(--editorial-fg);
+  --card: var(--editorial-bg);
+  --card-foreground: var(--editorial-fg);
+  --popover: var(--editorial-bg);
+  --popover-foreground: var(--editorial-fg);
   --muted: var(--editorial-faint);
   --muted-foreground: var(--editorial-muted);
+  --secondary: var(--editorial-faint);
+  --secondary-foreground: var(--editorial-fg);
   --border: var(--editorial-hairline);
   --accent: var(--editorial-faint);
   --accent-foreground: var(--editorial-fg);
+  --primary: var(--editorial-fg);
+  --primary-foreground: var(--editorial-bg);
+  --destructive: #f87171;
+  --destructive-foreground: #1c1917;
+  --ring: var(--editorial-fg);
 
   --brand: #f5c518;
   --brand-soft: #292209;
@@ -86,6 +124,14 @@
   }
   :root.dark {
     color-scheme: dark;
+  }
+
+  /* Tailwind v4 defaults border-color to currentColor; keep hairlines soft. */
+  *,
+  ::after,
+  ::before,
+  ::backdrop {
+    border-color: var(--border);
   }
 
   html,
@@ -113,6 +159,15 @@
   font-size: calc(15px * var(--reader-font-size, 1));
   --accent: var(--editorial-accent);
   --accent-foreground: #fffefb;
+}
+
+/* Pipeline /data dashboard: Geist (shadcn) sans + standard type scale,
+   not the feed's Source Sans 3 reader font. Keeps news accent tokens. */
+.news-content.news-data {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
 .dark .news-content,

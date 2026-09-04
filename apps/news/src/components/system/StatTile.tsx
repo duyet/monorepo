@@ -1,3 +1,4 @@
+import { Card, CardContent } from "@duyet/components";
 import type { LucideIcon } from "lucide-react";
 
 interface StatTileProps {
@@ -14,17 +15,21 @@ export function StatTile({
   icon: Icon,
 }: StatTileProps) {
   return (
-    <div className="rounded-lg border border-border p-4">
-      <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
-        {Icon && <Icon className="h-3.5 w-3.5" aria-hidden />}
-        {label}
-      </p>
-      <p className="mt-1 font-mono text-2xl font-semibold tabular-nums text-foreground">
-        {value}
-      </p>
-      {sublabel && (
-        <p className="mt-0.5 text-xs text-muted-foreground">{sublabel}</p>
-      )}
-    </div>
+    <Card className="border-border shadow-none">
+      <CardContent className="p-4">
+        <p className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+          {Icon ? (
+            <Icon className="h-3.5 w-3.5 text-accent" aria-hidden />
+          ) : null}
+          {label}
+        </p>
+        <p className="mt-2 font-mono text-2xl font-semibold tracking-tight tabular-nums text-foreground">
+          {value}
+        </p>
+        {sublabel ? (
+          <p className="mt-1 text-xs text-muted-foreground">{sublabel}</p>
+        ) : null}
+      </CardContent>
+    </Card>
   );
 }
