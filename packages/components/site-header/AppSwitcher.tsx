@@ -18,12 +18,16 @@ function AppLogo({ Icon }: { Icon: LucideIcon }) {
 
 export function AppSwitcher({
   currentApp = "home",
+  variant = "default",
 }: {
   currentApp?: AppKey;
+  /** `wordmark` — lowercase brand for slashy marketing chrome. */
+  variant?: "default" | "wordmark";
 }) {
   const current = APPS.find((a) => a.key === currentApp) ?? APPS[0];
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const isWordmark = variant === "wordmark";
 
   useEffect(() => {
     if (!open) return;
@@ -49,22 +53,42 @@ export function AppSwitcher({
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="menu"
         aria-expanded={open}
+        aria-label={isWordmark ? "Open apps menu" : undefined}
         className={cn(
           "inline-flex h-9 items-center gap-2 -ml-1 rounded-md px-2 text-sm font-medium",
-          "transition-colors hover:bg-muted/60 focus-visible:outline-hidden",
+          "transition-colors focus-visible:outline-hidden",
           "focus-visible:ring-2 focus-visible:ring-ring",
-          open && "bg-muted/60 relative z-50",
+          isWordmark
+            ? "hover:opacity-80"
+            : "hover:bg-muted/60",
+          open && !isWordmark && "bg-muted/60 relative z-50",
+          open && isWordmark && "relative z-50"
         )}
       >
-        <AppLogo Icon={current.Icon} />
-        <span className="font-semibold tracking-tight">{current.name}</span>
-        <ChevronsUpDown
-          aria-hidden
-          className={cn(
-            "h-3.5 w-3.5 text-muted-foreground/70 transition-transform",
-            open && "rotate-180",
-          )}
-        />
+        {isWordmark ? (
+          <>
+            <span className="site-header-wordmark">duyet</span>
+            <ChevronsUpDown
+              aria-hidden
+              className={cn(
+                "h-3 w-3 text-[var(--rd-text-3)] transition-transform",
+                open && "rotate-180"
+              )}
+            />
+          </>
+        ) : (
+          <>
+            <AppLogo Icon={current.Icon} />
+            <span className="font-semibold tracking-tight">{current.name}</span>
+            <ChevronsUpDown
+              aria-hidden
+              className={cn(
+                "h-3.5 w-3.5 text-muted-foreground/70 transition-transform",
+                open && "rotate-180"
+              )}
+            />
+          </>
+        )}
       </button>
 
       {open && (

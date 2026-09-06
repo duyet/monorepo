@@ -1,55 +1,50 @@
 import { Reveal } from "@duyet/components";
 import { ProjectBlogLinks } from "../components/ProjectBlogLinks";
 import { ProjectCardHeader } from "../components/ProjectCardHeader";
-import { Badge } from "../components/ui/badge";
+import { SoftLabel, toneFrom } from "../components/SoftLabel";
+import { artFor } from "../data/ascii-art";
 import type { AppItem } from "../data/projects";
 import { categoryOf } from "./filter-utils";
 
 export function ProjectGrid({ items }: { items: AppItem[] }) {
   return (
-    <div className="rd-work-grid">
+    <div className="home-proj-grid">
       {items.map((item, i) => {
         const cat = categoryOf(item);
-
+        const art = item.screenshot || artFor(item.name, i);
         return (
-          <Reveal key={item.name} delay={i * 25}>
-            <div className="rd-card flex flex-col p-4 min-h-[176px] text-inherit h-full">
-              <ProjectCardHeader
-                item={item}
-                titleClass="text-[1.18rem]"
-                utm={{
-                  source: "projects",
-                  content: item.utmContent,
-                  medium: item.host,
-                }}
-              />
-              <p className="rd-work-desc">{item.description}</p>
-              <div className="flex items-center justify-between pt-2">
-                <div className="flex gap-1 flex-wrap">
-                  {item.tags?.map((tag) => (
-                    <Badge
-                      key={tag}
-                      variant="outline"
-                      className="font-[var(--font-mono)] text-[10.5px] px-2 py-0"
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
-                  <Badge
-                    variant="outline"
-                    className="font-[var(--font-mono)] text-[10.5px] px-2 py-0"
-                  >
-                    {cat}
-                  </Badge>
-                </div>
+          <Reveal key={item.name} delay={Math.min(i * 20, 200)}>
+            <article className="home-proj-card">
+              <div className="home-proj-art" aria-hidden="true">
+                <img src={art} alt="" loading="lazy" />
               </div>
-              <ProjectBlogLinks
-                slugs={item.blogPosts}
-                limit={2}
-                className="mt-2 flex flex-col gap-0.5"
-                linkClassName="rd-ulink text-[11.5px] leading-snug inline-flex items-center gap-1"
-              />
-            </div>
+              <div className="home-proj-body">
+                <ProjectCardHeader
+                  item={item}
+                  titleClass="text-[1.12rem]"
+                  utm={{
+                    source: "projects",
+                    content: item.utmContent,
+                    medium: item.host,
+                  }}
+                />
+                <p className="home-proj-desc">{item.description}</p>
+                <div className="mt-auto flex flex-wrap gap-1.5 pt-3">
+                  {item.tags?.slice(0, 3).map((tag) => (
+                    <SoftLabel key={tag} tone={toneFrom(tag)}>
+                      {tag}
+                    </SoftLabel>
+                  ))}
+                  <SoftLabel tone="slate">{cat}</SoftLabel>
+                </div>
+                <ProjectBlogLinks
+                  slugs={item.blogPosts}
+                  limit={2}
+                  className="mt-2 flex flex-col gap-0.5"
+                  linkClassName="home-text-link text-[12px]"
+                />
+              </div>
+            </article>
           </Reveal>
         );
       })}

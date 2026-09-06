@@ -17,12 +17,56 @@ export function SiteHeader({
   activeHref,
   className,
   hideThemeToggle = false,
+  variant = "default",
+  cta,
 }: SiteHeaderProps) {
+  if (variant === "slashy") {
+    return (
+      <header
+        className={cn(
+          "site-header-slashy sticky top-0 z-[999] w-full bg-[var(--rd-bg)]",
+          className
+        )}
+      >
+        <div className="site-header-slashy-inner relative mx-auto flex h-16 max-w-[var(--rd-maxw,1120px)] items-center gap-4 px-[var(--rd-pad,1.25rem)]">
+          <div className="site-header-slashy-brand shrink-0">
+            <AppSwitcher currentApp={currentApp} variant="wordmark" />
+          </div>
+
+          <div className="site-header-slashy-center absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
+            {localNav && localNav.length > 0 ? (
+              <LocalNav
+                items={localNav}
+                activeHref={activeHref}
+                variant="slashy"
+              />
+            ) : null}
+            <GlobalNav
+              currentApp={currentApp}
+              localNav={localNav}
+              variant="slashy"
+            />
+          </div>
+
+          <div className="ml-auto flex shrink-0 items-center gap-2">
+            <MobileNav currentApp={currentApp} localNav={localNav} />
+            {!hideThemeToggle ? <ThemeButton /> : null}
+            {cta ? (
+              <a href={cta.href} className="site-header-cta hidden sm:inline-flex">
+                {cta.label}
+              </a>
+            ) : null}
+          </div>
+        </div>
+      </header>
+    );
+  }
+
   return (
     <header
       className={cn(
         "sticky top-0 z-[999] w-full border-b border-[var(--rd-border)] bg-[var(--rd-bg)]/95 backdrop-blur supports-[backdrop-filter]:bg-[var(--rd-bg)]/60",
-        className,
+        className
       )}
     >
       <div className="mx-auto flex h-14 max-w-[1080px] items-center px-4 sm:px-6 lg:px-8">

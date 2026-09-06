@@ -1,5 +1,6 @@
-import { Eyebrow } from "@duyet/components";
 import { ArrowUpRight } from "lucide-react";
+import { SoftLabel } from "../SoftLabel";
+import { SectionHead } from "../SectionHead";
 
 interface ElsewhereLink {
   title: string;
@@ -13,26 +14,24 @@ interface ElsewhereCardsProps {
 
 function ElsewhereCards({ elsewhere }: ElsewhereCardsProps) {
   return (
-    <div className="mt-[clamp(48px,6vw,72px)]">
-      <Eyebrow>Elsewhere</Eyebrow>
-      <div className="rd-g4 mt-[18px] gap-[10px]">
+    <div>
+      <SectionHead eyebrow="Network" title="Elsewhere" />
+      <div className="home-about-elsewhere">
         {elsewhere.map((e) => (
           <a
             key={e.title}
-            className="rd-card p-[clamp(18px,2.2vw,26px)] flex flex-col gap-2 bg-[var(--rd-bg-sub)] min-h-[120px] text-inherit no-underline"
+            className="home-proj-card home-about-elsewhere-card no-underline text-inherit"
             href={e.url}
             target="_blank"
             rel="noreferrer"
           >
-            <div className="flex items-center justify-between">
-              <span className="text-[16px] font-semibold">{e.title}</span>
-              <span className="rd-rowarrow">
+            <div className="flex items-center justify-between gap-3">
+              <SoftLabel tone="slate">{e.title}</SoftLabel>
+              <span className="text-[var(--rd-text-3)]" aria-hidden="true">
                 <ArrowUpRight size={15} />
               </span>
             </div>
-            <p className="text-[var(--rd-text-2)] text-[13.5px] leading-[1.5]">
-              {e.description}
-            </p>
+            <p className="home-cap-body mt-3">{e.description}</p>
           </a>
         ))}
       </div>
