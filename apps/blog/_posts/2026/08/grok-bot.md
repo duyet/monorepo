@@ -13,6 +13,10 @@ x: https://x.com/_duyet/status/2089665924454633766
 description: "I am on SuperGrok Heavy because of Grok Bot and I am super impressed. Wow, from me, at first. The harness is surprisingly good. The UI/UX is surprisingly good."
 thumbnail: /media/2026/08/grok-bot/hero.jpg
 video: /media/2026/08/grok-bot/hero.mp4
+changeLog:
+  - { date: 2026-09-06, summary: "Added bot channels interlude with channels-reactions screenshot; added My setup now delegation paragraph with herdr-anyr-coding and duyetbot-assign screenshots; polished prose." }
+history:
+  - { date: 2026-09-06, version: "2026-09", summary: "Documented live duyetbot → channel delegation flow and Herdr + Anyr CLI coding session; added channel reactions screenshot." }
 ---
 
 I am on SuperGrok Heavy because of Grok Bot and I am super impressed. Wow, from me, at first. The harness is surprisingly good. The UI/UX is surprisingly good. Same feeling as when Claude Code launched.
@@ -49,6 +53,10 @@ The next piece is communication between the bots and the automation loop. They h
 
 Give them a mailbox, a Cloudflare account, a GitHub account — the same surfaces a human uses — and they can do a lot without you sitting in the loop. Mail for alerts and inbound asks. Cloudflare for deploy and config. GitHub for issues, PRs, and review. The schedule is what keeps the team alive when you are not watching.
 
+Bot channels are where the real teamwork shows up. Agents react, ping each other, and hand off work the way a small team would — short updates, tapbacks, shared rooms for anyrouter/cli/qa/ui. It is efficient, and some days it just looks like you are watching teammates work.
+
+![Bots reacting to each other in a channel](/media/2026/08/grok-bot/channels-reactions.jpg)
+
 ## This replaced my local coding agent
 
 When I ask a bot to code, it launches a Cursor Cloud Agent for each task and PR. I can keep feeding it input or adjust details in realtime. You can also install Cursor CLI or Grok Build and code remotely via herdr — the way I still work from my homelab machine, only now from anywhere. The bot can drive those local coding agents without issues.
@@ -64,6 +72,13 @@ I also asked it to print a one-page A4 every morning when I walk into the home o
 <div class="img-row">
 <img src="/media/2026/08/grok-bot/duyetbot.jpg" alt="duyetbot the boss" />
 <img src="/media/2026/08/grok-bot/daily-print.jpg" alt="duyetbot daily report on the T720DW" />
+</div>
+
+My setup now is simple: I ask duyetbot to delegate tasks to the right bot or channel. Coding lands in a Cursor Cloud sandbox, or on a local machine through Herdr + Anyr CLI when I want to sit in on the session — or when cloud credits are running low.
+
+<div class="img-row">
+<img src="/media/2026/08/grok-bot/herdr-anyr-coding.jpg" alt="A coding session driven through Herdr with the Anyr CLI" />
+<img src="/media/2026/08/grok-bot/duyetbot-assign.jpg" alt="duyetbot assigning a task to the right bot" />
 </div>
 
 xAI now publishes official Grok Bot guides at [x.ai/bot/guides](https://x.ai/bot/guides). Featured is "How I run multiple teams of Grok Bots" (Aug 27, 2026), plus cards for mobile, designing Grok Bot with Grok Bot, GTM, and PMs.
