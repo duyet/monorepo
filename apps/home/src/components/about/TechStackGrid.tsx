@@ -1,4 +1,5 @@
-import { Badge } from "../ui/badge";
+import { SoftLabel, toneFrom } from "../SoftLabel";
+import { SectionHead } from "../SectionHead";
 import { StackGroupIcon } from "./StackGroupIcon";
 
 interface TechStackGroup {
@@ -13,33 +14,27 @@ interface TechStackGridProps {
 
 function TechStackGrid({ techStack }: TechStackGridProps) {
   return (
-    <div className="rd-g4 mt-3 gap-[10px]">
-      {techStack.map((group) => (
-        <div
-          key={group.g}
-          className="rd-card p-[clamp(18px,2.2vw,26px)] px-[22px] py-5"
-        >
-          <div className="mb-[14px] flex items-center gap-[10px]">
-            <div className="rd-stack-ic">
-              <StackGroupIcon icon={group.icon} />
+    <div>
+      <SectionHead eyebrow="Toolkit" title="What I reach for" />
+      <div className="home-about-stack">
+        {techStack.map((group) => (
+          <article key={group.g} className="home-cap-card">
+            <div className="mb-3.5 flex items-center gap-2.5">
+              <span className="home-cap-icon mb-0" aria-hidden="true">
+                <StackGroupIcon icon={group.icon} />
+              </span>
+              <h3 className="home-cap-title mt-0">{group.g}</h3>
             </div>
-            <span className="text-[14px] font-semibold tracking-[-0.01em]">
-              {group.g}
-            </span>
-          </div>
-          <div className="flex flex-wrap gap-1.5">
-            {group.items.map((item) => (
-              <Badge
-                key={item}
-                variant="outline"
-                className="font-[var(--font-mono)] text-[11.5px] px-2 py-0"
-              >
-                {item}
-              </Badge>
-            ))}
-          </div>
-        </div>
-      ))}
+            <div className="flex flex-wrap gap-1.5">
+              {group.items.map((item) => (
+                <SoftLabel key={item} tone={toneFrom(item)}>
+                  {item}
+                </SoftLabel>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
   );
 }

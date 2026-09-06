@@ -35,6 +35,10 @@ export const Route = createRootRoute({
         content: "#0a0a0a",
         media: "(prefers-color-scheme: dark)",
       },
+      {
+        name: "color-scheme",
+        content: "light dark",
+      },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://duyet.net/" },
       {
@@ -164,6 +168,8 @@ function RootComponent() {
           <ThemeProvider>
             <SiteHeader
               currentApp="home"
+              variant="slashy"
+              cta={{ label: "View projects", href: "/projects" }}
               localNav={homeLocalNav}
               activeHref={pathname}
             />

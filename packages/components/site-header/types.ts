@@ -75,4 +75,11 @@ export interface SiteHeaderProps {
   activeHref?: string;
   className?: string;
   hideThemeToggle?: boolean;
+  /**
+   * `slashy` — marketing chrome: wordmark, centered text links, pill CTA.
+   * Scoped for apps/home; other apps keep `default`.
+   */
+  variant?: "default" | "slashy";
+  /** Right-side primary CTA (slashy variant). */
+  cta?: { label: string; href: string };
 }

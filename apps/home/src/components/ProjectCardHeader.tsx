@@ -4,75 +4,57 @@ import type { AppItem } from "../data/projects";
 
 interface ProjectCardHeaderProps {
   item: AppItem;
-  titleClass: string;
-  /** UTM params: source, content, medium host. */
+  titleClass?: string;
   utm?: { source: string; content?: string; medium?: string };
 }
 
 function Logo({
   logo,
   logoDark,
-  className = "",
 }: {
   logo?: string;
   logoDark?: string;
-  className?: string;
 }) {
   if (!logo && !logoDark) return null;
   if (logoDark) {
     return (
       <>
-        <img src={logo} alt="" className={`${className} dark:hidden`} />
+        <img src={logo} alt="" className="home-proj-logo dark:hidden" />
         <img
           src={logoDark}
           alt=""
-          className={`hidden dark:block ${className}`}
+          className="home-proj-logo hidden dark:block"
         />
       </>
     );
   }
-  return <img src={logo} alt="" className={className} />;
+  return <img src={logo} alt="" className="home-proj-logo" />;
 }
 
 export function ProjectCardHeader({
   item,
-  titleClass,
+  titleClass = "text-[1.05rem]",
   utm,
 }: ProjectCardHeaderProps) {
   const href = utm
     ? addUtmParams(item.href, utm.source, utm.content, utm.medium)
     : item.href;
   const isExternal = href.startsWith("http");
-
   const linkProps = isExternal
     ? { href, target: "_blank" as const, rel: "noopener noreferrer" }
     : { href };
 
   return (
-    <div
-      className={
-        item.logo || item.logoDark
-          ? "grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 items-center"
-          : "flex flex-col gap-1"
-      }
-    >
-      <Logo
-        logo={item.logo}
-        logoDark={item.logoDark}
-        className="shrink-0 rounded row-span-2 self-start w-[50px] h-auto max-h-[50px] object-contain"
-      />
-      <a
-        {...linkProps}
-        className="font-[var(--font-mono)] text-[13px] font-medium tracking-[-0.01em] min-w-0 overflow-hidden text-ellipsis whitespace-nowrap no-underline text-inherit hover:opacity-70 transition-opacity"
-      >
-        <ColoredDomain domain={item.domain || item.host} />
-      </a>
-      <a
-        {...linkProps}
-        className={`${titleClass} tracking-[-0.03em] leading-tight no-underline text-inherit hover:opacity-70 transition-opacity`}
-      >
-        {item.name}
-      </a>
+    <div className="home-proj-head">
+      <Logo logo={item.logo} logoDark={item.logoDark} />
+      <div className="min-w-0 flex flex-col gap-0.5">
+        <a {...linkProps} className="home-proj-domain">
+          <ColoredDomain domain={item.domain || item.host} />
+        </a>
+        <a {...linkProps} className={`home-proj-title ${titleClass}`}>
+          {item.name}
+        </a>
+      </div>
     </div>
   );
 }

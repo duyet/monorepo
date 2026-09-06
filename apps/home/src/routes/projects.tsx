@@ -1,7 +1,7 @@
-import { Reveal, SecHead } from "@duyet/components";
+import { Reveal } from "@duyet/components";
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { Button } from "../components/ui/button";
+import { Search } from "lucide-react";
+import { useMemo, useState } from "react";
 import {
   categoryOf,
   FILTER_KEYS,
@@ -12,7 +12,6 @@ import { ProjectGrid } from "../components.projects/ProjectGrid";
 import { ProjectList } from "../components.projects/ProjectList";
 import { ViewToggle } from "../components.projects/ViewToggle";
 import { apps } from "../data/projects";
-import { cn } from "../lib/utils";
 
 export const Route = createFileRoute("/projects")({
   component: ProjectsPage,
@@ -32,58 +31,89 @@ export const Route = createFileRoute("/projects")({
 function ProjectsPage() {
   const [filter, setFilter] = useState<FilterKey>("All");
   const [view, setView] = useState<"grid" | "list">("grid");
+  const [query, setQuery] = useState("");
 
-  const list =
-    filter === "All"
-      ? apps
-      : filter === "Live" || filter === "OSS"
-        ? apps.filter((a) => categoryOf(a) === filter)
-        : apps.filter((a) => a.tags?.includes(filter));
+  const list = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return apps.filter((a) => {
+      if (filter === "Live" || filter === "OSS") {
+        if (categoryOf(a) !== filter) return false;
+      } else if (filter !== "All" && !a.tags?.includes(filter)) {
+        return false;
+      }
+      if (!q) return true;
+      return (
+        a.name.toLowerCase().includes(q) ||
+        a.description.toLowerCase().includes(q) ||
+        a.host.toLowerCase().includes(q) ||
+        (a.domain?.toLowerCase().includes(q) ?? false) ||
+        (a.tags?.some((t) => t.toLowerCase().includes(q)) ?? false)
+      );
+    });
+  }, [filter, query]);
 
   return (
     <div className="bg-[var(--rd-bg)] text-[var(--rd-text)]">
-      <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(44px,6vw,76px)] pb-[clamp(56px,8vw,96px)]">
-        <Reveal>
-          <SecHead
-            eyebrow={`Projects · ${apps.length} total`}
-            title="Everything I've built & kept running."
-            links={[
-              {
-                label: "GitHub",
-                href: "https://github.com/duyet",
-              },
-            ]}
-          />
-          <p className="rd-lead mt-4 max-w-[60ch]">
-            Products, small tools, and open source — most of it live on a
-            subdomain or a GitHub repo. {liveCount} are running right now.
-          </p>
-        </Reveal>
-
-        {/* filter + view toggle toolbar */}
-        <Reveal delay={60}>
-          <div className="flex items-center justify-between gap-4 flex-wrap mt-8 mb-5">
-            <div className="flex gap-2 flex-wrap">
-              {FILTER_KEYS.map((key) => (
-                <Button
-                  key={key}
-                  variant="ghost"
-                  size="sm"
-                  className={cn(
-                    "font-[var(--font-mono)] text-[13px]",
-                    filter === key && "bg-muted font-medium"
-                  )}
-                  onClick={() => setFilter(key)}
-                >
-                  {key}
-                </Button>
-              ))}
+      <section className="home-hero">
+        <div className="home-hero-inner">
+          <Reveal>
+            <div className="home-hero-copy home-fade-up">
+              <h1 className="home-hero-heading">
+                <span className="home-hero-brand">Projects</span>
+                <span className="home-hero-title">
+                  Everything I&apos;ve built &amp; kept running.
+                </span>
+              </h1>
+              <p className="home-hero-lead home-fade-up-delay">
+                Products, small tools, and open source — most of it live on a
+                subdomain or a GitHub repo. {liveCount} are running right now.
+              </p>
             </div>
-            <ViewToggle view={view} setView={setView} />
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pb-[clamp(56px,8vw,96px)]">
+        <Reveal delay={40}>
+          <div className="home-dir mb-6">
+            <label className="home-dir-search">
+              <Search size={16} strokeWidth={1.6} aria-hidden="true" />
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search by name, tag, or domain"
+                aria-label="Search projects"
+              />
+            </label>
+
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div
+                className="home-dir-filters"
+                role="tablist"
+                aria-label="Project filters"
+              >
+                {FILTER_KEYS.map((key) => (
+                  <button
+                    key={key}
+                    type="button"
+                    role="tab"
+                    aria-selected={filter === key}
+                    className={`home-dir-pill ${filter === key ? "is-active" : ""}`}
+                    onClick={() => setFilter(key)}
+                  >
+                    {key}
+                  </button>
+                ))}
+              </div>
+              <ViewToggle view={view} setView={setView} />
+            </div>
           </div>
         </Reveal>
 
-        {view === "grid" ? (
+        {list.length === 0 ? (
+          <p className="home-dir-empty">No projects match that search.</p>
+        ) : view === "grid" ? (
           <ProjectGrid items={list} />
         ) : (
           <ProjectList items={list} />

@@ -8,36 +8,33 @@ export function ViewToggle({
   view: "grid" | "list";
   setView: (v: "grid" | "list") => void;
 }) {
-  const btnBase =
-    "inline-flex items-center justify-center w-8 h-8 border rounded-[var(--rd-r-sm)] bg-transparent cursor-pointer";
-
   return (
-    <div className="flex gap-1.5">
+    <div className="inline-flex rounded-full border border-[var(--rd-border)] bg-[var(--rd-surface)] p-1">
       <button
         type="button"
         aria-label="Grid view"
         onClick={() => setView("grid")}
         className={cn(
-          btnBase,
+          "inline-flex h-8 w-8 items-center justify-center rounded-full transition-colors",
           view === "grid"
-            ? "border-[var(--rd-text)] text-[var(--rd-text)]"
-            : "border-[var(--rd-border)] text-[var(--rd-text-3)]"
+            ? "bg-[var(--rd-text)] text-[var(--rd-bg)]"
+            : "text-[var(--rd-text-3)] hover:text-[var(--rd-text)]"
         )}
       >
-        <Layers size={15} />
+        <Layers size={14} />
       </button>
       <button
         type="button"
         aria-label="List view"
         onClick={() => setView("list")}
         className={cn(
-          btnBase,
+          "inline-flex h-8 w-8 items-center justify-center rounded-full transition-colors",
           view === "list"
-            ? "border-[var(--rd-text)] text-[var(--rd-text)]"
-            : "border-[var(--rd-border)] text-[var(--rd-text-3)]"
+            ? "bg-[var(--rd-text)] text-[var(--rd-bg)]"
+            : "text-[var(--rd-text-3)] hover:text-[var(--rd-text)]"
         )}
       >
-        <AlignJustify size={15} />
+        <AlignJustify size={14} />
       </button>
     </div>
   );

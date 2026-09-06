@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { addUtmParams } from "../../app/lib/utm";
 import { ProjectBlogLinks } from "../components/ProjectBlogLinks";
-import { Badge } from "../components/ui/badge";
+import { SoftLabel, toneFrom } from "../components/SoftLabel";
 import { resolveBlogPosts } from "../data/blog-posts";
 import type { AppItem } from "../data/projects";
 import { ColoredDomain } from "./ColoredDomain";
@@ -24,14 +24,14 @@ function Logo({
           alt=""
           width={size}
           height={size}
-          className="shrink-0 rounded dark:hidden"
+          className="shrink-0 rounded-lg dark:hidden"
         />
         <img
           src={logoDark}
           alt=""
           width={size}
           height={size}
-          className="hidden shrink-0 rounded dark:block"
+          className="hidden shrink-0 rounded-lg dark:block"
         />
       </>
     );
@@ -42,14 +42,14 @@ function Logo({
       alt=""
       width={size}
       height={size}
-      className="shrink-0 rounded"
+      className="shrink-0 rounded-lg"
     />
   );
 }
 
 export function ProjectList({ items }: { items: AppItem[] }) {
   return (
-    <div className="rd-rows">
+    <div className="home-inbox">
       {items.map((item) => {
         const href = addUtmParams(
           item.href,
@@ -58,40 +58,36 @@ export function ProjectList({ items }: { items: AppItem[] }) {
           item.host
         );
         const isExternal = href.startsWith("http");
+        const blogPosts = resolveBlogPosts(item.blogPosts);
+
         const inner = (
           <>
-            <span className="flex flex-col gap-1 w-[200px] shrink-0">
+            <span className="flex items-center gap-3 min-w-0">
               <Logo logo={item.logo} logoDark={item.logoDark} size={28} />
-              <span className="font-[var(--font-mono)] text-[12.5px] overflow-hidden text-ellipsis whitespace-nowrap">
-                <ColoredDomain domain={item.domain || item.host} />
+              <span className="min-w-0">
+                <span className="home-inbox-from block">
+                  <ColoredDomain domain={item.domain || item.host} />
+                </span>
+                <span className="home-inbox-subject block mt-0.5">
+                  {item.name}
+                </span>
               </span>
             </span>
-            <span className="min-w-0 flex-1">
-              <span className="font-semibold mr-3 tracking-[-0.02em]">
-                {item.name}
-              </span>
-              <span className="text-[var(--rd-text-2)] text-sm">
-                {item.description}
-              </span>
+            <span className="home-inbox-snip hidden md:block min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">
+              {item.description}
             </span>
-            <div className="flex gap-1 shrink-0">
-              {item.tags?.map((tag) => (
-                <Badge
-                  key={tag}
-                  variant="outline"
-                  className="font-[var(--font-mono)] text-[10.5px] px-2 py-0"
-                >
+            <span className="hidden sm:flex flex-wrap gap-1.5 justify-end">
+              {item.tags?.slice(0, 2).map((tag) => (
+                <SoftLabel key={tag} tone={toneFrom(tag)}>
                   {tag}
-                </Badge>
+                </SoftLabel>
               ))}
-            </div>
+            </span>
           </>
         );
 
         const rowClass =
-          "rd-row flex items-center gap-4 no-underline text-inherit cursor-pointer";
-
-        const blogPosts = resolveBlogPosts(item.blogPosts);
+          "home-inbox-row !grid-cols-1 md:!grid-cols-[minmax(12rem,18rem)_minmax(0,1fr)_auto] no-underline text-inherit";
 
         const row = isExternal ? (
           <a
@@ -112,14 +108,14 @@ export function ProjectList({ items }: { items: AppItem[] }) {
         if (blogPosts.length === 0) return row;
 
         return (
-          <div key={item.name} className="flex flex-col">
+          <div key={item.name}>
             {row}
             <ProjectBlogLinks
               slugs={item.blogPosts}
               heading="Posts"
-              className="flex items-center gap-3 px-4 pb-3 mt-[-6px]"
-              headingClassName="text-[11px] font-[var(--font-mono)] text-[var(--rd-text-3)] uppercase tracking-wider"
-              linkClassName="rd-ulink text-[12px] inline-flex items-center gap-1"
+              className="flex flex-wrap items-center gap-3 px-4 pb-3"
+              headingClassName="text-[11px] text-[var(--rd-text-3)]"
+              linkClassName="home-text-link text-[12px]"
             />
           </div>
         );

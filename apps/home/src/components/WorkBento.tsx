@@ -20,24 +20,21 @@ import {
   Share2,
   Shield,
   ShoppingCart,
-  Tag as TagIcon,
   Terminal,
   Type,
   X,
-  ZoomIn,
 } from "lucide-react";
-import { useState } from "react";
+import { type CSSProperties, useState } from "react";
 import { addUtmParams } from "../../app/lib/utm";
+import { artFor } from "../data/ascii-art";
 import type { AppItem } from "../data/projects";
 import { ProjectBlogLinks } from "./ProjectBlogLinks";
-import { ProjectCardHeader } from "./ProjectCardHeader";
-import { Badge } from "./ui/badge";
+import { SoftLabel, toneFrom } from "./SoftLabel";
 
 interface WorkBentoProps {
   selectedProjects: { item: AppItem; tag: string }[];
 }
 
-/** Icons referenced by `AppItem.iconName` in src/data/projects.ts. */
 const ICONS: Record<string, LucideIcon> = {
   BarChart2,
   BookOpen,
@@ -61,60 +58,106 @@ const ICONS: Record<string, LucideIcon> = {
   Type,
 };
 
-/**
- * Full-width media for an expanded card: a click-to-play YouTube embed when the
- * project has one, otherwise its screenshot.
- *
- * The video starts as a thumbnail facade — the iframe is only mounted on click,
- * so an expanded card costs one image rather than the whole YouTube player.
- */
-function Media({ item }: { item: AppItem }) {
+const FALLBACK_ART = [
+  "#536f91",
+  "#8b633f",
+  "#5f6257",
+  "#7f524e",
+  "#6a5578",
+  "#3d5a4c",
+  "#4a5568",
+  "#5c4a3a",
+  "#2f4a5e",
+  "#6b4f3a",
+];
+
+function artColor(item: AppItem, seed: string): string {
+  const fromTone = item.tone?.match(/#([0-9a-fA-F]{3,8})/)?.[0];
+  if (fromTone) return fromTone;
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    hash = (hash + seed.charCodeAt(i) * (i + 1)) % 97;
+  }
+  return FALLBACK_ART[hash % FALLBACK_ART.length];
+}
+
+function ArtVisual({ item }: { item: AppItem }) {
   const [playing, setPlaying] = useState(false);
+  const Icon = (item.iconName && ICONS[item.iconName]) || Globe;
+  const logo = item.logoDark || item.logo;
 
   if (item.youtubeId) {
+    if (playing) {
+      return (
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${item.youtubeId}?autoplay=1`}
+          title={item.name}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="home-ship-frame"
+        />
+      );
+    }
     return (
-      <div className="mt-3 overflow-hidden rounded-[var(--rd-r-sm)] border border-[var(--rd-border)]">
-        {playing ? (
-          <iframe
-            src={`https://www.youtube-nocookie.com/embed/${item.youtubeId}?autoplay=1`}
-            title={item.name}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="pointer-events-auto block aspect-video w-full border-0"
-          />
+      <button
+        type="button"
+        className="home-ship-play"
+        aria-label={`Play the ${item.name} video`}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setPlaying(true);
+        }}
+      >
+        <img
+          src={`https://i.ytimg.com/vi/${item.youtubeId}/hqdefault.jpg`}
+          alt=""
+          className="home-ship-shot"
+          loading="lazy"
+        />
+        <span className="home-ship-play-btn">
+          <Play size={16} fill="currentColor" className="ml-0.5" />
+        </span>
+      </button>
+    );
+  }
+
+  if (item.screenshot) {
+    return (
+      <div className="home-ship-visual">
+        <img
+          src={item.screenshot}
+          alt=""
+          className="home-ship-shot"
+          loading="lazy"
+        />
+        {logo ? (
+          <img src={logo} alt="" className="home-ship-badge-logo" loading="lazy" />
         ) : (
-          <button
-            type="button"
-            onClick={() => setPlaying(true)}
-            aria-label={`Play the ${item.name} video`}
-            className="pointer-events-auto group/play relative block aspect-video w-full cursor-pointer"
-          >
-            <img
-              src={`https://i.ytimg.com/vi/${item.youtubeId}/maxresdefault.jpg`}
-              alt=""
-              loading="lazy"
-              className="h-full w-full object-cover"
-            />
-            <span className="absolute inset-0 grid place-items-center bg-black/25 transition-colors group-hover/play:bg-black/40">
-              <span className="grid h-12 w-12 place-items-center rounded-full border border-white/70 bg-black/55 text-white">
-                <Play size={18} className="ml-0.5" fill="currentColor" />
-              </span>
-            </span>
-          </button>
+          <span className="home-ship-badge-icon" aria-hidden="true">
+            <Icon size={18} strokeWidth={1.5} />
+          </span>
         )}
       </div>
     );
   }
 
-  if (!item.screenshot) return null;
-
   return (
-    <img
-      src={item.screenshot}
-      alt=""
-      loading="lazy"
-      className="mt-3 block w-full rounded-[var(--rd-r-sm)] border border-[var(--rd-border)] object-cover"
-    />
+    <div className="home-ship-visual">
+      <img
+        src={artFor(item.name, 3)}
+        alt=""
+        className="home-ship-shot"
+        loading="lazy"
+      />
+      {logo ? (
+        <img src={logo} alt="" className="home-ship-badge-logo" loading="lazy" />
+      ) : (
+        <span className="home-ship-badge-icon" aria-hidden="true">
+          <Icon size={18} strokeWidth={1.5} />
+        </span>
+      )}
+    </div>
   );
 }
 
@@ -122,7 +165,7 @@ export function WorkBento({ selectedProjects }: WorkBentoProps) {
   const [expanded, setExpanded] = useState<string | null>(null);
 
   return (
-    <div className="rd-work-grid">
+    <div className="home-ship-grid">
       {selectedProjects.map(({ item, tag }) => {
         const isOpen = expanded === item.name;
         const href = addUtmParams(
@@ -131,127 +174,85 @@ export function WorkBento({ selectedProjects }: WorkBentoProps) {
           item.utmContent,
           item.host
         );
-        const Icon = (item.iconName && ICONS[item.iconName]) || Globe;
+        const color = artColor(item, item.name);
         const tags = item.tags?.length ? item.tags : [tag];
 
         return (
-          <div
+          <article
             key={item.name}
-            className={`rd-card group relative flex flex-col p-4 min-h-[128px] text-inherit ${
-              isOpen ? "sm:col-span-2 row-span-2" : ""
-            }`}
+            className={`home-ship-card ${isOpen ? "is-open" : ""}`}
+            style={{ "--ship-art": color } as CSSProperties}
           >
-            {/* Click target sits behind the content so inner links still win. */}
             <button
               type="button"
-              onClick={() => setExpanded(isOpen ? null : item.name)}
+              className="home-ship-hit"
               aria-expanded={isOpen}
               aria-label={
                 isOpen ? `Collapse ${item.name}` : `Expand ${item.name}`
               }
-              className="absolute inset-0 z-0 cursor-pointer rounded-[var(--rd-r)]"
+              onClick={() => setExpanded(isOpen ? null : item.name)}
             />
 
-            <div className="relative z-10 pointer-events-none [&_a]:pointer-events-auto">
-              <ProjectCardHeader
-                item={item}
-                titleClass={isOpen ? "text-[1.28rem]" : "text-[1.02rem]"}
-                utm={{
-                  source: "homepage",
-                  content: item.utmContent,
-                  medium: item.host,
-                }}
-              />
-            </div>
-
-            {isOpen ? (
-              <div className="relative z-10 mt-3 flex-1 pointer-events-none [&_a]:pointer-events-auto">
-                <p className="text-[13px] leading-[1.6] text-[var(--rd-text-2)]">
-                  {item.description}
-                </p>
-
-                <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12.5px]">
-                  <span className="flex items-center gap-2 text-[var(--rd-text-3)]">
-                    <Icon size={14} className="shrink-0" />
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rd-ulink font-[var(--font-mono)] text-[12px] break-all"
-                    >
-                      {item.domain || item.host}
-                    </a>
-                  </span>
-
-                  <span className="flex items-center gap-2">
-                    <TagIcon
-                      size={14}
-                      className="shrink-0 text-[var(--rd-text-3)]"
-                    />
-                    <span className="flex flex-wrap gap-1.5">
-                      {tags.map((t) => (
-                        <Badge
-                          key={t}
-                          variant="outline"
-                          className="font-[var(--font-mono)] text-[10.5px] px-2 py-0"
-                        >
-                          {t}
-                        </Badge>
-                      ))}
-                    </span>
-                  </span>
-
+            <div className="home-ship-body">
+              <div className="home-ship-copy">
+                <SoftLabel tone={toneFrom(tag)}>{tag}</SoftLabel>
+                <h3 className="home-ship-title">{item.name}</h3>
+                <p className="home-ship-desc">{item.description}</p>
+                <div className="home-ship-actions">
                   <a
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 rd-ulink"
+                    className="home-text-link relative z-10"
                   >
-                    Visit project <ArrowUpRight size={13} />
+                    {item.domain || item.host}
+                    <ArrowUpRight size={13} />
                   </a>
                 </div>
-
-                <ProjectBlogLinks
-                  slugs={item.blogPosts}
-                  heading="Related posts"
-                  className="mt-3 flex flex-col gap-1"
-                  linkClassName="rd-ulink text-[12.5px] leading-snug"
-                  iconSize={11}
-                />
-
-                <Media item={item} />
               </div>
-            ) : (
-              <div className="relative z-10 flex flex-1 flex-col pointer-events-none">
-                <p className="rd-work-desc">{item.description}</p>
-                <div className="mt-3 flex items-center justify-between">
-                  <Badge
-                    variant="outline"
-                    className="font-[var(--font-mono)] text-[10.5px] px-2 py-0"
-                  >
-                    {tag}
-                  </Badge>
-                  {/* Expand affordance — the full-card button owns the click. */}
-                  <ZoomIn
-                    size={14}
-                    aria-hidden="true"
-                    className="shrink-0 text-[var(--rd-text-4)] transition-colors group-hover:text-[var(--rd-accent)]"
-                  />
-                </div>
+
+              <div className="home-ship-art" aria-hidden={!item.screenshot}>
+                <div className="home-ship-grain" />
+                <ArtVisual item={item} />
               </div>
-            )}
+            </div>
 
             {isOpen ? (
-              <button
-                type="button"
-                onClick={() => setExpanded(null)}
-                aria-label={`Collapse ${item.name}`}
-                className="absolute top-3 right-3 z-20 grid h-6 w-6 cursor-pointer place-items-center rounded-full border border-[var(--rd-border)] bg-[var(--rd-surface)] text-[var(--rd-text-3)] hover:text-[var(--rd-text)] hover:border-[var(--rd-border-2)] transition-colors"
-              >
-                <X size={12} />
-              </button>
+              <div className="home-ship-detail">
+                <div className="flex flex-wrap gap-1.5">
+                  {tags.map((t) => (
+                    <SoftLabel key={t} tone={toneFrom(t)}>
+                      {t}
+                    </SoftLabel>
+                  ))}
+                </div>
+                <ProjectBlogLinks
+                  slugs={item.blogPosts}
+                  heading="Related"
+                  className="home-related"
+                  linkClassName="home-text-link text-[13px]"
+                  iconSize={11}
+                />
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rd-btn rd-btn-primary no-underline text-[13px] px-4 py-2.5 relative z-10"
+                  >
+                    Visit project
+                  </a>
+                  <button
+                    type="button"
+                    className="rd-btn rd-btn-ghost text-[13px] px-4 py-2.5 relative z-10"
+                    onClick={() => setExpanded(null)}
+                  >
+                    Close <X size={13} />
+                  </button>
+                </div>
+              </div>
             ) : null}
-          </div>
+          </article>
         );
       })}
     </div>

@@ -8,6 +8,11 @@ export interface AppItem {
   description: string;
   screenshot?: string;
   /**
+   * Looping muted hero/demo video URL. Preferred over `screenshot` in the
+   * selected-work art panel when present.
+   */
+  video?: string;
+  /**
    * YouTube video ID. Rendered as a click-to-play embed in the expanded work
    * card, and preferred over `screenshot` when both are present.
    */
@@ -74,6 +79,19 @@ export const apps: AppItem[] = [
     tags: ["AI", "Infra"],
   },
   {
+    name: "TemplateBot",
+    href: "https://templatebot.lol",
+    host: "templatebot.lol",
+    utmContent: "templatebot_bento",
+    description:
+      "Marketplace for Grok Bot templates — browse, buy, and publish installable bots.",
+    tone: "bg-[#0f7a76]",
+    domain: "templatebot.lol",
+    iconName: "Bot",
+    logo: "https://templatebot.lol/logo.svg",
+    tags: ["AI", "Marketplace"],
+  },
+  {
     name: "ClickHouse Monitoring",
     href: projectUrls.clickhouseMonitoring,
     host: hostOf(projectUrls.clickhouseMonitoring),
@@ -81,6 +99,7 @@ export const apps: AppItem[] = [
     description:
       "ClickHouse monitoring with AI agent support for finding insights, monitoring clusters, and triaging activity",
     screenshot: "/screenshots/ch-monitor-hero.webp",
+    video: "https://chmonitor.dev/assets/videos/chmonitor-v0.3.mp4",
     tone: "bg-[#8b633f]",
     domain: "chmonitor.dev",
     iconName: "Database",
@@ -226,6 +245,7 @@ export const apps: AppItem[] = [
     utmContent: "llm_over_dns_bento",
     description:
       "Query an LLM directly via DNS TXT records — `dig @llm.duyet.net 'explain quantum computing' TXT +short`",
+    tone: "bg-[#2f4a5e]",
     domain: "duyet.github.io/llm-over-dns",
     iconName: "Terminal",
     logo: "https://cdn.simpleicons.org/cloudflare",
@@ -251,6 +271,7 @@ export const apps: AppItem[] = [
     description:
       "Codex and Claude Code plugins for AI-powered development workflows.",
     screenshot: "/screenshots/codex-claude-plugins.webp",
+    tone: "bg-[#5a4a6e]",
     domain: "github.com/duyet/codex-claude-plugins",
     iconName: "Puzzle",
     logo: "https://cdn.simpleicons.org/anthropic",
@@ -290,6 +311,7 @@ export const apps: AppItem[] = [
     utmContent: "charts_bento",
     description:
       "Collection of useful Helm Charts, well-tested with KinD and Kubeconform.",
+    tone: "bg-[#3d5a4c]",
     domain: "github.com/duyet/charts",
     iconName: "Package",
     logo: "https://helm.sh/img/helm.svg",
@@ -303,6 +325,7 @@ export const apps: AppItem[] = [
     utmContent: "ccusage_import_bento",
     description:
       "Import Claude Code usage data (ccusage) into ClickHouse for long-term analytics.",
+    tone: "bg-[#8b633f]",
     domain: "github.com/duyet/ccusage-import",
     iconName: "Database",
     tags: ["Data"],
@@ -314,6 +337,7 @@ export const apps: AppItem[] = [
     utmContent: "clauduck_bento",
     description:
       "Analyze your Claude Code usage with DuckDB — query session stats, token costs, and model breakdown.",
+    tone: "bg-[#4a5568]",
     domain: "github.com/duyet/clauduck",
     iconName: "BarChart2",
     tags: ["Data"],
@@ -447,6 +471,7 @@ export const apps: AppItem[] = [
     description:
       "An autonomous agent skill designed to help build, run, and scale downstream AI agent systems.",
     youtubeId: "lOLI8W-CBDA",
+    tone: "bg-[#536f91]",
     domain: "github.com/duyet/build-agent",
     iconName: "Cpu",
     logo: "https://raw.githubusercontent.com/duyet/build-agent/refs/heads/main/assets/logo.svg",
@@ -460,6 +485,7 @@ export const apps: AppItem[] = [
     utmContent: "oma_bento",
     description:
       "Open Managed Agents — a self-hosted control plane on Cloudflare that drives agents on any sandbox backend from one UI and one API.",
+    tone: "bg-[#6a5578]",
     domain: "github.com/duyet/oma",
     iconName: "Cpu",
     tags: ["AI", "Infra"],

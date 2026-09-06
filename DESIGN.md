@@ -11,16 +11,20 @@ Keep the product content, routes, data loading, auth, and app workflows intact.
 ## Direction
 
 - Keep the interface simple, editorial, and quiet.
-- Prefer white backgrounds with near-black text.
-- Use one primary sans font stack: `Inter, ui-sans-serif, system-ui, sans-serif`.
-- Avoid serif/display font pairings unless the app already depends on them.
+- Prefer white backgrounds with near-black text for most apps; `apps/home` is
+  an exception (Slashy-inspired dark-first matte canvas — see App Notes).
+- Use one primary sans font stack for most apps: Geist (already loaded) or
+  `Inter, ui-sans-serif, system-ui, sans-serif`.
+- Avoid serif/display font pairings unless the app opts in (home does).
 - Avoid Anthropic-style cream surfaces, oversized bento blocks, and decorative
   warm palettes.
 - Avoid shadcn-looking UI: no generic rounded cards, soft shadows, heavy
   component chrome, or nested card layouts.
 - Use restrained borders and line-based grouping before boxed panels.
-- Use compact controls with 8px radius where a bordered control is needed.
-- Keep accent color rare. Primary actions should usually be black or near-black.
+- Use compact controls with 8px radius where a bordered control is needed;
+  home uses pill CTAs and ~16px card radii instead.
+- Keep accent color rare. Primary actions should usually be black or near-black
+  (inverted on dark canvases: white pill on near-black).
 
 ## Layout
 
@@ -45,7 +49,10 @@ Keep the product content, routes, data loading, auth, and app workflows intact.
 
 ## App Notes
 
-- `apps/home`: minimal editorial homepage, simple app/project lists, black
-  controls, restrained spacing, and mobile-safe navigation.
+- `apps/home`: Slashy-inspired dark-first homepage — Libertinus/Noto serif
+  display + Geist UI, matte `#0a0a0a` canvas, soft `#141414` cards (~16–24px
+  radius), white/black pill CTAs, muted plum/pine/slate labels, left-aligned
+  brand + serif hero, generous breathing room. Scoped via
+  `apps/home/src/globals.css` so other apps keep the shared `--rd-*` tokens.
 - `apps/blog`: white page, single sans typography, line-based post lists,
   bordered topic/category tiles, and no card-heavy archive/search surfaces.

@@ -1,5 +1,5 @@
-import { Eyebrow } from "@duyet/components";
-import { createFileRoute } from "@tanstack/react-router";
+import { Reveal } from "@duyet/components";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   agentsList,
   elsewhere,
@@ -13,6 +13,7 @@ import { ElsewhereCards } from "../components/about/ElsewhereCards";
 import { ExpertiseGrid } from "../components/about/ExpertiseGrid";
 import { TechStackGrid } from "../components/about/TechStackGrid";
 import { VibeCodingBento } from "../components/about/VibeCodingBento";
+import { SoftLabel } from "../components/SoftLabel";
 
 const contentLastModified = "2026-05-02";
 
@@ -93,48 +94,102 @@ export const Route = createFileRoute("/about")({
 function AboutPage() {
   return (
     <div className="page-enter bg-[var(--rd-bg)] text-[var(--rd-text)]">
-      <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(40px,5vw,64px)] pb-[clamp(56px,8vw,96px)]">
-        {/* Intro block */}
-        <div>
-          <Eyebrow>About</Eyebrow>
-          <h1 className="rd-display mt-[13px] max-w-[17ch] text-[clamp(2.05rem,4.2vw,3.3rem)] leading-[1.02]">
-            I build data platforms, and the{" "}
-            <span className="text-[var(--rd-accent)]">AI agents</span> that run
-            on top of them.
-          </h1>
-          <p className="rd-lead mt-6 max-w-[60ch] text-[clamp(1.05rem,1.5vw,1.22rem)]">
-            I care about systems that are easy to operate, easy to explain, and
-            boring in the places where reliability matters. Most of my work sits
-            where data products, AI tooling, and engineering platforms meet —
-            and most of it ends up open source.
-          </p>
+      {/* Intro — HomeHero pattern, no art */}
+      <section className="home-hero">
+        <div className="home-hero-inner">
+          <Reveal>
+            <div className="home-hero-copy home-fade-up">
+              <h1 className="home-hero-heading">
+                <span className="home-hero-brand">duyet</span>
+                <span className="home-hero-title">
+                  I build data platforms, and the AI agents that run on top of
+                  them.
+                </span>
+              </h1>
+              <p className="home-hero-lead home-fade-up-delay">
+                Systems that are easy to operate, easy to explain, and boring
+                where reliability matters — open source by default.
+              </p>
+              <div className="home-cta-row home-hero-actions home-fade-up-delay-2">
+                <Link
+                  to="/projects"
+                  className="rd-btn rd-btn-primary no-underline"
+                >
+                  View projects
+                </Link>
+                <Link
+                  to="/contact"
+                  className="rd-btn rd-btn-ghost no-underline"
+                >
+                  Say hello
+                </Link>
+              </div>
+            </div>
+          </Reveal>
         </div>
+      </section>
 
-        <VibeCodingBento agentsList={agentsList} />
+      {/* Focus & stack */}
+      <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)]">
+        <Reveal>
+          <div className="home-about-focus">
+            <article className="home-cap-card">
+              <SoftLabel tone="pine">Focus</SoftLabel>
+              <p className="home-about-focus-body">{focus}</p>
+            </article>
+            <article className="home-cap-card">
+              <SoftLabel tone="slate">Stack</SoftLabel>
+              <p className="home-about-focus-body">{stack}</p>
+            </article>
+          </div>
+        </Reveal>
+      </section>
 
-        {/* Focus + Stack */}
-        <div className="rd-g2 mt-3">
-          <div className="rd-card p-[clamp(18px,2.2vw,26px)] p-[clamp(24px,3vw,34px)]">
-            <Eyebrow>Focus</Eyebrow>
-            <p className="mt-4 max-w-[34ch] text-[clamp(1.05rem,1.6vw,1.3rem)] leading-[1.5] tracking-[-0.01em] text-[var(--rd-text-2)]">
-              {focus}
-            </p>
-          </div>
-          <div className="rd-card p-[clamp(18px,2.2vw,26px)] p-[clamp(24px,3vw,34px)]">
-            <Eyebrow>Stack</Eyebrow>
-            <p className="mt-4 text-[clamp(1.05rem,1.6vw,1.3rem)] leading-[1.5] tracking-[-0.01em] text-[var(--rd-text-2)]">
-              {stack}
-            </p>
-          </div>
+      {/* Agents */}
+      <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(48px,6vw,80px)]">
+        <Reveal>
+          <VibeCodingBento agentsList={agentsList} />
+        </Reveal>
+      </section>
+
+      {/* Tech stack */}
+      <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(48px,6vw,80px)]">
+        <Reveal>
+          <TechStackGrid techStack={techStack} />
+        </Reveal>
+      </section>
+
+      {/* Expertise */}
+      <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(48px,6vw,80px)]">
+        <Reveal>
+          <ExpertiseGrid
+            expertise={expertise}
+            experienceYears={experienceYears}
+          />
+        </Reveal>
+      </section>
+
+      {/* Elsewhere */}
+      <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(48px,6vw,80px)]">
+        <Reveal>
+          <ElsewhereCards elsewhere={elsewhere} />
+        </Reveal>
+      </section>
+
+      {/* Closing */}
+      <section className="home-closing">
+        <h2 className="home-closing-title">
+          Prefer the long-form résumé, or just say hi.
+        </h2>
+        <div className="home-cta-row home-closing-actions">
+          <Link to="/projects" className="rd-btn rd-btn-primary no-underline">
+            View projects
+          </Link>
+          <Link to="/contact" className="rd-btn rd-btn-ghost no-underline">
+            Contact
+          </Link>
         </div>
-
-        <TechStackGrid techStack={techStack} />
-        <ElsewhereCards elsewhere={elsewhere} />
-        <ExpertiseGrid
-          expertise={expertise}
-          experienceYears={experienceYears}
-        />
-      </div>
+      </section>
     </div>
   );
 }

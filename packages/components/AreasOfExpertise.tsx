@@ -77,43 +77,52 @@ export const DEFAULT_AREAS: Area[] = [
   },
 ];
 
-import * as SVGLogos from "@thesvg/react";
-
-const TAG_LOGOS: Record<string, any> = {
-  ClickHouse: SVGLogos.Clickhouse,
-  "Apache Spark": SVGLogos.ApacheSpark,
-  Airflow: SVGLogos.ApacheAirflow,
-  BigQuery: SVGLogos.GcpBigquery,
-  Kafka: SVGLogos.ApacheKafka,
-  Python: SVGLogos.Python,
-  "Claude API": SVGLogos.Claude,
-  LangGraph: SVGLogos.Langgraph,
-  LlamaIndex: SVGLogos.Llamaindex,
-  TypeScript: SVGLogos.Typescript,
-  Kubernetes: SVGLogos.Kubernetes,
-  Terraform: SVGLogos.Terraform,
-  AWS: SVGLogos.Aws,
-  GCP: SVGLogos.GoogleCloud,
-  Cloudflare: SVGLogos.Cloudflare,
-  Rust: SVGLogos.Rust,
-  "Cloudflare Workers": SVGLogos.CloudflareWorkers,
-  React: SVGLogos.React,
-  "Tailwind CSS": SVGLogos.TailwindCss,
-  "GitHub Actions": SVGLogos.GithubActions,
-  Turborepo: SVGLogos.Turborepo,
-  OpenTelemetry: SVGLogos.Opentelemetry,
-  Grafana: SVGLogos.Grafana,
-  GitHub: SVGLogos.Github,
+const TAG_ICONS: Record<string, string> = {
+  ClickHouse: "clickhouse",
+  "Apache Spark": "apachespark",
+  Airflow: "apacheairflow",
+  BigQuery: "googlebigquery",
+  Kafka: "apachekafka",
+  Python: "python",
+  "Claude API": "anthropic",
+  LangGraph: "langchain",
+  LlamaIndex: "llamaindex",
+  TypeScript: "typescript",
+  Kubernetes: "kubernetes",
+  Terraform: "terraform",
+  AWS: "amazonwebservices",
+  GCP: "googlecloud",
+  Cloudflare: "cloudflare",
+  Rust: "rust",
+  "Cloudflare Workers": "cloudflare",
+  React: "react",
+  "Tailwind CSS": "tailwindcss",
+  "GitHub Actions": "githubactions",
+  Turborepo: "turborepo",
+  OpenTelemetry: "opentelemetry",
+  Grafana: "grafana",
+  GitHub: "github",
 };
 
 function TagBadge({ tag }: { tag: string }) {
-  const Logo = TAG_LOGOS[tag];
+  // Prefer static <img> over @thesvg/react — those components call useId() and
+  // blow up TanStack Start SSR, which empties <main> until client hydration.
+  const icon = TAG_ICONS[tag];
   return (
     <Badge
       variant="secondary"
       className="text-[10.5px] inline-flex items-center gap-1 px-1.5 py-0 font-normal"
     >
-      {Logo && <Logo width={10} height={10} className="shrink-0" />}
+      {icon ? (
+        <img
+          src={`https://cdn.simpleicons.org/${icon}`}
+          alt=""
+          width={10}
+          height={10}
+          className="shrink-0 dark:invert"
+          loading="lazy"
+        />
+      ) : null}
       {tag}
     </Badge>
   );

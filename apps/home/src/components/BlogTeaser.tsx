@@ -1,6 +1,4 @@
-import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
-import { Card } from "./ui/card";
+import { SoftLabel, toneFrom } from "./SoftLabel";
 
 interface BlogPost {
   slug: string;
@@ -10,6 +8,7 @@ interface BlogPost {
   tags: string[];
   excerpt: string;
   readingTime?: number;
+  thumbnail?: string;
 }
 
 interface Note {
@@ -25,6 +24,27 @@ interface BlogTeaserProps {
   notes?: Note[];
 }
 
+function formatTime(dateStr: string): string {
+  const d = new Date(dateStr);
+  return d.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+function mediaUrl(path?: string): string | undefined {
+  if (!path) return undefined;
+  if (path.startsWith("http")) return path;
+  return `https://blog.duyet.net${path}`;
+}
+
+function metaLine(post: BlogPost): string {
+  const parts = [formatTime(post.date)];
+  if (post.readingTime) parts.push(`${post.readingTime} min`);
+  return parts.join(" · ");
+}
+
 export function BlogTeaser({
   featuredPost,
   recentPosts,
@@ -32,126 +52,103 @@ export function BlogTeaser({
 }: BlogTeaserProps) {
   if (!featuredPost) return null;
 
+  const thumb = mediaUrl(featuredPost.thumbnail);
+  const more = recentPosts.slice(0, 4);
+
   return (
-    <div className="grid grid-cols-[minmax(0,1.05fr)_minmax(0,.95fr)] items-stretch gap-[18px]">
-      {/* featured post card */}
-      <div className="flex flex-col gap-[18px]">
-        <a
-          className="flex cursor-pointer flex-col overflow-hidden no-underline text-inherit border-0"
-          href={`https://blog.duyet.net${featuredPost.slug}`}
-          target="_blank"
-          rel="noreferrer"
-        >
-          <div className="p-0">
-            <div className="flex items-center gap-[10px] mb-3">
-              <Badge
-                variant="outline"
-                className="font-[var(--font-mono)] text-[10.5px] px-2 py-0"
-              >
-                {featuredPost.category}
-              </Badge>
-              <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs">
-                {formatBlogDate(featuredPost.date)} · {featuredPost.readingTime}{" "}
-                min
-              </span>
-            </div>
-            <h3 className="text-[1.5rem] tracking-[-0.03em]">
-              {featuredPost.title}
-            </h3>
-            {featuredPost.excerpt && (
-              <p className="text-[var(--rd-text-2)] mt-[10px] text-[14.5px]">
-                {featuredPost.excerpt}
-              </p>
-            )}
+    <div className="home-blog-layout">
+      <a
+        className="home-blog-feature"
+        href={`https://blog.duyet.net${featuredPost.slug}`}
+        target="_blank"
+        rel="noreferrer"
+      >
+        {thumb ? (
+          <div className="home-blog-feature-media">
+            <img src={thumb} alt="" loading="lazy" />
           </div>
-        </a>
-
-        {/* recent notes */}
-        {notes && notes.length > 0 && (
-          <Card className="p-0 border-0 flex flex-1 flex-col">
-            <div className="flex items-center justify-between px-[22px] pt-[18px] pb-[6px]">
-              <span className="font-[var(--font-mono)] text-[10.5px] uppercase tracking-[0.14em] text-[var(--rd-text-3)]">
-                Quick notes
-              </span>
-              <Button
-                variant="link"
-                size="sm"
-                asChild
-                className="inline-flex mt-0 p-0 h-auto text-[12px]"
-              >
-                <a
-                  href="https://blog.duyet.net/notes/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  All notes &rarr;
-                </a>
-              </Button>
-            </div>
-            <div className="rd-rows flex flex-1 flex-col">
-              {notes.slice(0, 5).map((note) => (
-                <a
-                  key={`${note.id}-${note.date}`}
-                  className="rd-row flex-1 cursor-pointer grid-cols-[1fr_auto] p-[12px_8px] no-underline text-inherit"
-                  href={`https://blog.duyet.net/note/${note.id}/`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <div className="min-w-0">
-                    <div className="overflow-hidden text-ellipsis whitespace-nowrap text-[14px] font-[540]">
-                      {note.title}
-                    </div>
-                  </div>
-                  <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11px]">
-                    {formatBlogDate(note.date)}
-                  </span>
-                </a>
-              ))}
-            </div>
-          </Card>
-        )}
-      </div>
-
-      {/* recent posts list */}
-      <Card className="p-0 border-0 flex h-full flex-col">
-        <div className="rd-rows border-t-0 flex flex-1 flex-col">
-          {recentPosts.slice(0, 5).map((post) => (
-            <a
-              key={post.slug}
-              className="rd-row flex-1 cursor-pointer grid-cols-[1fr_auto] p-[15px_8px] no-underline text-inherit"
-              href={`https://blog.duyet.net${post.slug}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <div className="min-w-0">
-                <div className="overflow-hidden text-ellipsis whitespace-nowrap text-[15px] font-[550]">
-                  {post.title}
-                </div>
-                <div className="font-[var(--font-mono)] text-[var(--rd-text-3)] mt-1 text-[11.5px]">
-                  {post.category} · {formatBlogDate(post.date)}
-                </div>
-                {post.excerpt && (
-                  <div className="text-[var(--rd-text-2)] mt-[5px] overflow-hidden text-ellipsis whitespace-nowrap text-[13px]">
-                    {post.excerpt}
-                  </div>
-                )}
-              </div>
-              <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs">
-                {post.readingTime} min
-              </span>
-            </a>
-          ))}
+        ) : null}
+        <div className="home-blog-feature-copy">
+          <div className="home-blog-feature-meta">
+            <SoftLabel tone={toneFrom(featuredPost.category)}>
+              {featuredPost.category}
+            </SoftLabel>
+            <span className="home-inbox-time">{metaLine(featuredPost)}</span>
+          </div>
+          <h3 className="home-blog-feature-title">{featuredPost.title}</h3>
+          {featuredPost.excerpt ? (
+            <p className="home-blog-feature-excerpt">{featuredPost.excerpt}</p>
+          ) : null}
+          <span className="home-text-link mt-auto inline-flex pt-4">
+            Read post →
+          </span>
         </div>
-      </Card>
+      </a>
+
+      <div className="home-blog-side">
+        {more.length > 0 ? (
+          <div className="home-blog-more">
+            {more.map((post) => {
+              const tags = post.tags?.slice(0, 2) ?? [];
+              return (
+                <a
+                  key={post.slug}
+                  className="home-blog-post"
+                  href={`https://blog.duyet.net${post.slug}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <div className="home-blog-post-meta">
+                    <SoftLabel tone={toneFrom(post.category)}>
+                      {post.category}
+                    </SoftLabel>
+                    <span className="home-inbox-time">{metaLine(post)}</span>
+                  </div>
+                  <h4 className="home-blog-post-title">{post.title}</h4>
+                  {post.excerpt ? (
+                    <p className="home-blog-post-excerpt">{post.excerpt}</p>
+                  ) : null}
+                  {tags.length > 0 ? (
+                    <p className="home-blog-post-tags">{tags.join(" · ")}</p>
+                  ) : null}
+                </a>
+              );
+            })}
+          </div>
+        ) : null}
+
+        {notes && notes.length > 0 ? (
+          <div className="home-notes">
+            <div className="home-notes-head">
+              <span>Quick notes</span>
+              <a
+                href="https://blog.duyet.net/notes/"
+                target="_blank"
+                rel="noreferrer"
+                className="home-text-link"
+              >
+                All notes →
+              </a>
+            </div>
+            <ul className="home-notes-list">
+              {notes.slice(0, 3).map((note) => (
+                <li key={`${note.id}-${note.date}`}>
+                  <a
+                    href={`https://blog.duyet.net/note/${note.id}/`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <span className="truncate">{note.title}</span>
+                    <span className="home-inbox-time shrink-0">
+                      {formatTime(note.date)}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+      </div>
     </div>
   );
-}
-
-function formatBlogDate(dateStr: string): string {
-  const d = new Date(dateStr);
-  return d.toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
 }

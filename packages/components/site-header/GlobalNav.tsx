@@ -15,13 +15,16 @@ import type { AppKey, LocalNavItem } from "./types";
 export function GlobalNav({
   currentApp,
   localNav,
+  variant = "default",
 }: {
   currentApp: AppKey;
   localNav?: LocalNavItem[];
+  variant?: "default" | "slashy";
 }) {
   const [pathname, setPathname] = useState<string | null>(null);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const isSlashy = variant === "slashy";
 
   useEffect(() => {
     setPathname(window.location.pathname.replace(/\/+$/, "") || "/");
@@ -42,7 +45,13 @@ export function GlobalNav({
   }, [openDropdown]);
 
   return (
-    <nav ref={containerRef} className="hidden items-center gap-0.5 md:flex">
+    <nav
+      ref={containerRef}
+      className={cn(
+        "items-center",
+        isSlashy ? "flex gap-0.5" : "hidden gap-0.5 md:flex"
+      )}
+    >
       {excludeLocalNavItems(
         filterGlobalNav(GLOBAL_NAV, currentApp),
         localNav
@@ -56,6 +65,60 @@ export function GlobalNav({
               isNavActive(child.match, currentApp, pathname)
             )
           );
+
+        if (isSlashy) {
+          if (hasChildren) {
+            return (
+              <div key={item.href} className="relative">
+                <button
+                  type="button"
+                  className={cn("site-header-link", itemActive && "is-active")}
+                  onClick={() =>
+                    setOpenDropdown(isDropdownOpen ? null : item.label)
+                  }
+                  aria-haspopup="menu"
+                  aria-expanded={isDropdownOpen}
+                >
+                  {item.label}
+                  <ChevronsUpDown aria-hidden className="ml-1 h-3 w-3 opacity-50" />
+                </button>
+                {isDropdownOpen ? (
+                  <div className="absolute left-0 top-full z-50 mt-2 min-w-[160px] overflow-hidden rounded-xl border border-[var(--rd-border)] bg-[var(--rd-surface)] shadow-xl dark:shadow-black/40">
+                    <nav className="flex flex-col p-1.5">
+                      {item.children!.map((child) => (
+                        <a
+                          key={child.href}
+                          href={child.href}
+                          className={cn(
+                            "flex h-8 items-center rounded-lg px-3 text-sm transition-colors",
+                            isNavActive(child.match, currentApp, pathname)
+                              ? "bg-[var(--rd-surface-2)] text-[var(--rd-text)] font-medium"
+                              : "text-[var(--rd-text-2)] hover:bg-[var(--rd-surface-2)] hover:text-[var(--rd-text)]"
+                          )}
+                        >
+                          {child.label}
+                        </a>
+                      ))}
+                    </nav>
+                  </div>
+                ) : null}
+              </div>
+            );
+          }
+
+          return (
+            <a
+              key={item.href}
+              href={item.href}
+              className={cn("site-header-link", itemActive && "is-active")}
+              {...(item.external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+            >
+              {item.label}
+            </a>
+          );
+        }
 
         return (
           <div key={item.href} className="relative">
