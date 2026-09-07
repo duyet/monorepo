@@ -1,6 +1,5 @@
 import {
   AreasOfExpertise,
-  ExploreApps,
   Eyebrow,
   Reveal,
   SecHead,
@@ -221,50 +220,57 @@ function HomePage() {
           </Reveal>
         </section>
 
-        {/* developer & agent resources */}
+        {/* machine-readable resources — one line */}
         <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)] border-t border-[var(--rd-border)]">
           <Reveal>
-            <SecHead
-              num="04"
-              eyebrow="For developers & agents"
-              title="Machine-readable, on purpose"
-              links={[
-                {
-                  label: "All resources",
-                  onClick: () => window.location.assign("/developers"),
-                },
-              ]}
-            />
-            <p className="rd-lead max-w-[58ch] text-[clamp(0.95rem,1.2vw,1.05rem)]">
-              This site exposes a public stats API, an MCP server for AI
-              assistants, and machine-readable indexes alongside the pages.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                to="/developers"
-                className="rd-chip rd-chip-btn no-underline"
-              >
-                Developer resources
-              </Link>
-              <a href="/openapi.json" className="rd-chip rd-chip-btn no-underline">
-                API spec
-              </a>
+            <div className="flex items-center gap-4 text-[clamp(0.9rem,1.2vw,1rem)]">
+              <span className="font-[var(--font-mono)] text-[var(--rd-text-3)]">
+                llms.txt
+              </span>
+              <span className="text-[var(--rd-text-4)]">·</span>
               <a
                 href="https://mcp.duyet.net/mcp"
                 target="_blank"
                 rel="noreferrer"
-                className="rd-chip rd-chip-btn no-underline"
+                className="rd-ulink"
               >
                 MCP server
-              </a>
-              <a href="/llms.txt" className="rd-chip rd-chip-btn no-underline">
-                LLM index
               </a>
             </div>
           </Reveal>
         </section>
 
-        <ExploreApps currentApp="home" />
+        {/* key links — Blog, GitHub, CV only (rest in footer) */}
+        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pb-[clamp(40px,6vw,64px)]">
+          <Reveal>
+            <div className="flex flex-wrap gap-6">
+              <a
+                href="https://blog.duyet.net"
+                className="rd-ulink"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Blog
+              </a>
+              <a
+                href="https://github.com/duyet"
+                className="rd-ulink"
+                target="_blank"
+                rel="noreferrer"
+              >
+                GitHub
+              </a>
+              <a
+                href="https://cv.duyet.net"
+                className="rd-ulink"
+                target="_blank"
+                rel="noreferrer"
+              >
+                CV
+              </a>
+            </div>
+          </Reveal>
+        </section>
       </div>
     </>
   );
