@@ -1,12 +1,9 @@
 import { Eyebrow } from "@duyet/components";
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  agentsList,
   elsewhere,
   experienceYears,
   expertise,
-  focus,
-  stack,
   techStack,
 } from "../components/about/about-data";
 import { ElsewhereCards } from "../components/about/ElsewhereCards";
@@ -110,23 +107,7 @@ function AboutPage() {
           </p>
         </div>
 
-        <VibeCodingBento agentsList={agentsList} />
-
-        {/* Focus + Stack */}
-        <div className="rd-g2 mt-3">
-          <div className="rd-card p-[clamp(18px,2.2vw,26px)] p-[clamp(24px,3vw,34px)]">
-            <Eyebrow>Focus</Eyebrow>
-            <p className="mt-4 max-w-[34ch] text-[clamp(1.05rem,1.6vw,1.3rem)] leading-[1.5] tracking-[-0.01em] text-[var(--rd-text-2)]">
-              {focus}
-            </p>
-          </div>
-          <div className="rd-card p-[clamp(18px,2.2vw,26px)] p-[clamp(24px,3vw,34px)]">
-            <Eyebrow>Stack</Eyebrow>
-            <p className="mt-4 text-[clamp(1.05rem,1.6vw,1.3rem)] leading-[1.5] tracking-[-0.01em] text-[var(--rd-text-2)]">
-              {stack}
-            </p>
-          </div>
-        </div>
+        <VibeCodingBento />
 
         <TechStackGrid techStack={techStack} />
         <ElsewhereCards elsewhere={elsewhere} />

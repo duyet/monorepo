@@ -3,12 +3,6 @@ import { addUtmParams } from "../../../app/lib/utm";
 
 const experienceYears = "8+ years";
 
-const focus =
-  "Data pipelines, warehouses, and observability. Agent workflows, model routing, evaluation, and usage analytics. Small, sharp tools with clean interfaces.";
-
-const stack =
-  "Python, Rust, TypeScript · Spark, Airflow, ClickHouse, BigQuery, Kafka · Kubernetes, AWS, GCP, Cloudflare · LlamaIndex, AI SDK, LangGraph.";
-
 const elsewhere = [
   {
     title: "Résumé",
@@ -43,24 +37,6 @@ const expertise = DEFAULT_AREAS.map((a) => ({
   tools: a.tags,
 }));
 
-const agentsList = [
-  {
-    name: "Claude Code",
-    role: "Architecture & review",
-    desc: "My default pair — reads the whole tree, reasons about design, and writes the load-bearing code.",
-  },
-  {
-    name: "Codex",
-    role: "Long-horizon refactors",
-    desc: "Hand it a goal and a repo; it plans, edits across files, and runs the tests until green.",
-  },
-  {
-    name: "opencode",
-    role: "Local & offline",
-    desc: "Open-source TUI agent wired to homelab models for quick, private edits without the cloud.",
-  },
-];
-
 const techStack = [
   {
     g: "Languages",
@@ -92,12 +68,4 @@ const techStack = [
   },
 ];
 
-export {
-  agentsList,
-  elsewhere,
-  experienceYears,
-  expertise,
-  focus,
-  stack,
-  techStack,
-};
+export { elsewhere, experienceYears, expertise, techStack };
