@@ -114,6 +114,11 @@ function HtmlSitemapPage(): ReactElement {
               </a>
             </li>
             <li>
+              <a href="/categories/" className={linkClass}>
+                Categories
+              </a>
+            </li>
+            <li>
               <a href="/tags/" className={linkClass}>
                 Tags
               </a>

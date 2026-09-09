@@ -3,8 +3,8 @@
  */
 const redirects = async () => [
   {
-    source: "/categories",
-    destination: "/category",
+    source: "/category",
+    destination: "/categories",
     permanent: true,
   },
   {

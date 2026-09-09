@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TagsRouteImport } from './routes/tags'
+import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as SeriesRouteImport } from './routes/series'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as RobotsRouteImport } from './routes/robots'
@@ -32,6 +33,11 @@ import { Route as YearMonthSlugChildRouteImport } from './routes/$year/$month/$s
 const TagsRoute = TagsRouteImport.update({
   id: '/tags',
   path: '/tags',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CategoriesRoute = CategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SeriesRoute = SeriesRouteImport.update({
@@ -139,6 +145,7 @@ export interface FileRoutesByFullPath {
   '/search': typeof SearchRoute
   '/series': typeof SeriesRouteWithChildren
   '/tags': typeof TagsRoute
+  '/categories': typeof CategoriesRoute
   '/category/$category': typeof CategoryCategoryRoute
   '/note/$id': typeof NoteIdRoute
   '/series/$slug': typeof SeriesSlugRoute
@@ -160,6 +167,7 @@ export interface FileRoutesByTo {
   '/search': typeof SearchRoute
   '/series': typeof SeriesRouteWithChildren
   '/tags': typeof TagsRoute
+  '/categories': typeof CategoriesRoute
   '/category/$category': typeof CategoryCategoryRoute
   '/note/$id': typeof NoteIdRoute
   '/series/$slug': typeof SeriesSlugRoute
@@ -182,6 +190,7 @@ export interface FileRoutesById {
   '/search': typeof SearchRoute
   '/series': typeof SeriesRouteWithChildren
   '/tags': typeof TagsRoute
+  '/categories': typeof CategoriesRoute
   '/category/$category': typeof CategoryCategoryRoute
   '/note/$id': typeof NoteIdRoute
   '/series/$slug': typeof SeriesSlugRoute
@@ -205,6 +214,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/series'
     | '/tags'
+    | '/categories'
     | '/category/$category'
     | '/note/$id'
     | '/series/$slug'
@@ -226,6 +236,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/series'
     | '/tags'
+    | '/categories'
     | '/category/$category'
     | '/note/$id'
     | '/series/$slug'
@@ -247,6 +258,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/series'
     | '/tags'
+    | '/categories'
     | '/category/$category'
     | '/note/$id'
     | '/series/$slug'
@@ -269,6 +281,7 @@ export interface RootRouteChildren {
   SearchRoute: typeof SearchRoute
   SeriesRoute: typeof SeriesRouteWithChildren
   TagsRoute: typeof TagsRoute
+  CategoriesRoute: typeof CategoriesRoute
   NoteIdRoute: typeof NoteIdRoute
   TagTagRoute: typeof TagTagRoute
   YearMonthSlugChildRoute: typeof YearMonthSlugChildRoute
@@ -282,6 +295,13 @@ declare module '@tanstack/react-router' {
       path: '/tags'
       fullPath: '/tags'
       preLoaderRoute: typeof TagsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/categories': {
+      id: '/categories'
+      path: '/categories'
+      fullPath: '/categories'
+      preLoaderRoute: typeof CategoriesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/series': {
@@ -450,6 +470,7 @@ const rootRouteChildren: RootRouteChildren = {
   SearchRoute: SearchRoute,
   SeriesRoute: SeriesRouteWithChildren,
   TagsRoute: TagsRoute,
+  CategoriesRoute: CategoriesRoute,
   NoteIdRoute: NoteIdRoute,
   TagTagRoute: TagTagRoute,
   YearMonthSlugChildRoute: YearMonthSlugChildRoute,
