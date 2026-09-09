@@ -81,6 +81,8 @@ const SELECTED: { name: string; tag: string }[] = [
   { name: "npx skills add duyet/build-agent", tag: "AI Skill" },
   { name: "Codex & Claude Plugins", tag: "AI" },
   { name: "AnyRouter", tag: "AI Infra" },
+  { name: "AI;DR", tag: "AI" },
+  { name: "Templatebot", tag: "AI" },
   { name: "ClickHouse Monitoring", tag: "Data" },
   { name: "Agent State", tag: "AI" },
   { name: "MCP Tools", tag: "AI" },

@@ -45,6 +45,8 @@ const hostOf = (url: string) => new URL(url).host;
 
 const projectUrls = {
   anyRouter: "https://anyrouter.dev",
+  aidr: "https://aidr.today",
+  templatebot: "https://templatebot.lol",
   clickhouseMonitoring: "https://chmonitor.dev",
   llmTimeline: "https://llm-timeline.duyet.net",
   agents: "https://agents.duyet.net/agents",
@@ -72,6 +74,30 @@ export const apps: AppItem[] = [
     iconName: "Cloud",
     logo: "https://anyrouter.dev/brand/anyrouter-logo.svg",
     tags: ["AI", "Infra"],
+  },
+  {
+    name: "AI;DR",
+    href: projectUrls.aidr,
+    host: hostOf(projectUrls.aidr),
+    utmContent: "aidr_bento",
+    description:
+      "AI TL;DR — news summarizer that distills the day's AI stories into a short digest at aidr.today.",
+    tone: "bg-[#536f91]",
+    domain: "aidr.today",
+    iconName: "Rss",
+    tags: ["AI", "News"],
+  },
+  {
+    name: "Templatebot",
+    href: projectUrls.templatebot,
+    host: hostOf(projectUrls.templatebot),
+    utmContent: "templatebot_bento",
+    description:
+      "Marketplace for Grok Bot templates — browse, add a free listing, or publish your own at templatebot.lol.",
+    tone: "bg-[#5f6257]",
+    domain: "templatebot.lol",
+    iconName: "Bot",
+    tags: ["AI", "Tool"],
   },
   {
     name: "ClickHouse Monitoring",
