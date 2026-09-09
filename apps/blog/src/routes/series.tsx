@@ -47,9 +47,8 @@ function SeriesPage(): ReactElement {
   const hasChild = useMatches().some(
     (match) => match.routeId === "/series/$slug"
   );
-  if (hasChild) return <Outlet />;
-
   const { seriesList } = Route.useLoaderData() as { seriesList: Series[] };
+  if (hasChild) return <Outlet />;
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
