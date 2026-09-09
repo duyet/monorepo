@@ -23,7 +23,7 @@ function NotesPage(): ReactElement {
 
   return (
     <div className="min-h-screen bg-[var(--rd-bg)]">
-      <header className="mx-auto max-w-6xl px-6 pt-16 pb-10 md:pt-24 md:pb-12">
+      <header className="mx-auto max-w-3xl px-6 pt-16 pb-10 md:pt-24 md:pb-12">
         <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-[var(--rd-text-3)]">
           Logbook
         </p>
