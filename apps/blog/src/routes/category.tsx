@@ -28,11 +28,10 @@ function Categories() {
   const hasChild = useMatches().some(
     (match) => match.routeId === "/category/$category"
   );
-  if (hasChild) return <Outlet />;
-
   const { categories } = Route.useLoaderData() as {
     categories: CategoryCount;
   };
+  if (hasChild) return <Outlet />;
 
   const sorted = Object.entries(categories).sort(
     ([, a], [, b]) => b - a
