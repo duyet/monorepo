@@ -1,4 +1,6 @@
 # Category redirects
+/category /categories 301
+/category/ /categories/ 301
 /category/data-engineer /category/data-engineering 301
 /category/bigdata /category/data 301
 

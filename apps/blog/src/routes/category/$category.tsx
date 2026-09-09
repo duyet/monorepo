@@ -72,7 +72,7 @@ function PostsByCategory(): ReactElement {
       <header className="pt-24 md:pt-28 pb-10 mx-auto">
         <span className="inline-block text-[0.6875rem] font-medium tracking-[0.16em] uppercase text-muted-foreground mb-3.5">
           <Link
-            to="/category/"
+            to="/categories/"
             className="transition-colors hover:text-[color:var(--em-foreground)]"
           >
             Category
