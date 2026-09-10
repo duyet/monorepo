@@ -100,7 +100,7 @@ Precedence, highest first: **flag** (`--json`) > **environment** (`DUYET_<KEY>`)
 | `kb_url` | `DUYET_KB_URL` | http(s) URL | `https://kb.duyet.net` |
 | `api_url` | `DUYET_API_URL` | http(s) URL | `https://api.duyet.net` |
 | `agents_api_url` | `DUYET_AGENTS_API_URL` | http(s) URL | `https://agents-api.duyet.net` |
-| `news_url` | `DUYET_NEWS_URL` | http(s) URL | `https://news.duyet.net` |
+| `news_url` | `DUYET_NEWS_URL` | http(s) URL | `https://aidr.today` |
 | `channel` | `DUYET_CHANNEL` | `stable` \| `beta` | `stable` |
 | `output` | `DUYET_OUTPUT` | `human` \| `json` | `human` |
 | `telemetry` | `DUYET_TELEMETRY` | bool | `false` |

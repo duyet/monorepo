@@ -2,7 +2,7 @@
 /**
  * CLI lever for .cursor/skills/verify-news-tab
  *
- * Fetches live news.duyet.net, paints the unpacked new-tab with the same
+ * Fetches live aidr.today, paints the unpacked new-tab with the same
  * digest, screenshots both, and writes a JSON feature map.
  *
  *   pnpm --filter news-tab verify
@@ -18,7 +18,7 @@ import { highlightTitle, tagsForHighlight } from "../js/highlight.js";
 import { topicColor } from "../js/topic-color.js";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const SITE = "https://news.duyet.net";
+const SITE = "https://aidr.today";
 const MIME = {
   ".html": "text/html; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",

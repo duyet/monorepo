@@ -1,9 +1,9 @@
 ---
 name: verify-news-tab
-description: Verify the Chrome new-tab extension (apps/news-tab) against live news.duyet.net homepage AI;DR.
+description: Verify the Chrome new-tab extension (apps/news-tab) against live aidr.today homepage AI;DR.
 ---
 
-# Verify news-tab vs news.duyet.net
+# Verify news-tab vs aidr.today
 
 Prove the unpacked new-tab UI matches the live homepage AI;DR (layout A), not that tests passed.
 
@@ -17,9 +17,9 @@ node apps/news-tab/scripts/verify-newtab.mjs --out /tmp/verify-news-tab
 
 The script:
 
-1. Fetches `GET https://news.duyet.net/api/public` and `GET /api/feed?days=3`
+1. Fetches `GET https://aidr.today/api/public` and `GET /api/feed?days=3`
 2. Serves `apps/news-tab` with that digest injected (`window.__NEWS_TAB_DIGEST__`)
-3. Headless-Chrome screenshots + dump-dom of new-tab vs `https://news.duyet.net/`
+3. Headless-Chrome screenshots + dump-dom of new-tab vs `https://aidr.today/`
 4. Writes `report.json`, `expected.json`, `newtab.png`, `site.png`
 
 Exit 0 only when every Feature Map check is true.

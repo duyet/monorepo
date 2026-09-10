@@ -35,8 +35,8 @@ test("normalizeSettings clamps size, count, and unknown enums", () => {
 
 test("normalizeApiBase keeps host and rejects junk", () => {
   assert.equal(
-    normalizeApiBase("https://news.duyet.net/extra"),
-    "https://news.duyet.net"
+    normalizeApiBase("https://aidr.today/extra"),
+    "https://aidr.today"
   );
   assert.equal(normalizeApiBase("not a url"), DEFAULT_API_BASE);
   assert.equal(

@@ -1,0 +1,20 @@
+{
+  "name": "news-redirect",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm dlx wrangler dev --config wrangler.toml --port 3014",
+    "deploy": "pnpm run check-types && pnpm dlx wrangler deploy --config wrangler.toml",
+    "cf:deploy:prod": "pnpm run deploy",
+    "check-types": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "biome lint .",
+    "fmt": "biome format --write ."
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260511.1",
+    "@duyet/tsconfig": "*",
+    "typescript": "^6.0.3"
+  }
+}

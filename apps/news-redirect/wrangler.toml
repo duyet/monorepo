@@ -1,0 +1,12 @@
+name = "duyet-news"
+main = "src/index.ts"
+compatibility_date = "2026-05-17"
+
+# Replaces the retired news app Worker. Same Worker name + custom domain so
+# news.duyet.net keeps serving path-preserving redirects to aidr.today.
+routes = [
+  { pattern = "news.duyet.net", custom_domain = true }
+]
+
+[observability]
+enabled = true

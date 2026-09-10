@@ -99,7 +99,7 @@ impl ConfigKey {
             ConfigKey::KbUrl => url("https://kb.duyet.net"),
             ConfigKey::ApiUrl => url("https://api.duyet.net"),
             ConfigKey::AgentsApiUrl => url("https://agents-api.duyet.net"),
-            ConfigKey::NewsUrl => url("https://news.duyet.net"),
+            ConfigKey::NewsUrl => url("https://aidr.today"),
             ConfigKey::Channel => Value::Channel(Channel::Stable),
             ConfigKey::Output => Value::Output(Mode::Human),
             ConfigKey::Telemetry => Value::Bool(false),

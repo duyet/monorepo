@@ -1,6 +1,6 @@
 import "./preview-shim.js";
 
-export const DEFAULT_API_BASE = "https://news.duyet.net";
+export const DEFAULT_API_BASE = "https://aidr.today";
 
 export const DEFAULT_SETTINGS = {
   theme: "system",
@@ -152,7 +152,7 @@ export async function saveSettings(next) {
 export async function ensureHostPermission(apiBase) {
   const chromeApi = asChrome();
   const origin = `${normalizeApiBase(apiBase)}/*`;
-  if (origin.startsWith("https://news.duyet.net/")) return true;
+  if (origin.startsWith("https://aidr.today/")) return true;
   if (!chromeApi.permissions?.request) return true;
   const already = await chromeApi.permissions.contains({ origins: [origin] });
   if (already) return true;

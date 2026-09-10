@@ -81,7 +81,7 @@ export const appUrls: AppUrls = {
   llmTimeline:
     env("VITE_DUYET_LLM_TIMELINE_URL") ?? "https://llm-timeline.duyet.net",
   burns: env("VITE_DUYET_BURNS_URL") ?? "https://burns.duyet.net",
-  news: env("VITE_DUYET_NEWS_URL") ?? "https://news.duyet.net",
+  news: env("VITE_DUYET_NEWS_URL") ?? "https://aidr.today",
 };
 
 // Blog app configuration

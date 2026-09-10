@@ -22,8 +22,8 @@ if (manifest.chrome_url_overrides?.newtab !== "newtab.html") {
   fail("newtab override must be newtab.html");
 }
 if (!manifest.permissions?.includes("storage")) fail("storage permission");
-if (!manifest.host_permissions?.includes("https://news.duyet.net/*")) {
-  fail("host_permissions must include https://news.duyet.net/*");
+if (!manifest.host_permissions?.includes("https://aidr.today/*")) {
+  fail("host_permissions must include https://aidr.today/*");
 }
 const csp = manifest.content_security_policy?.extension_pages || "";
 if (!csp.includes("object-src 'self'")) fail("CSP must set object-src 'self'");
