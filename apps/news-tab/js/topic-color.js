@@ -1,6 +1,6 @@
 /**
  * Port of apps/news/src/lib/topic-color.ts — keep the palette and djb2
- * hash identical so extension chips/highlights match news.duyet.net.
+ * hash identical so extension chips/highlights match aidr.today.
  */
 
 export const TOPIC_COLOR_PALETTE = [

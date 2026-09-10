@@ -124,7 +124,7 @@ function SubscribeForm({
  */
 export function SubscribeCapture({
   source = "blog",
-  endpoint = "https://news.duyet.net/api/subscribe",
+  endpoint = "https://aidr.today/api/subscribe",
   variant = "button",
   className,
   onSubscribed,

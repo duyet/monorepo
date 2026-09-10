@@ -85,8 +85,9 @@ export const APP_REGISTRY = [
   },
   {
     id: "news",
-    host: "news.duyet.net",
-    href: "https://news.duyet.net",
+    host: "aidr.today",
+    href: "https://aidr.today",
+    repoDir: "news-redirect",
   },
   {
     id: "agents",
@@ -137,7 +138,14 @@ export function getRegistryOrigins(): string[] {
 }
 
 export function getClerkAuthorizedOrigins(): string[] {
-  return [...new Set([...getRegistryOrigins(), "https://agents-api.duyet.net"])].sort();
+  return [
+    ...new Set([
+      ...getRegistryOrigins(),
+      "https://agents-api.duyet.net",
+      // Legacy host still hits the path-preserving redirect Worker.
+      "https://news.duyet.net",
+    ]),
+  ].sort();
 }
 
 export const PAGES_DOMAIN_OVERRIDES: Record<string, string> = {

@@ -48,11 +48,11 @@ Humans merge those PRs; they are never auto-merged.
 
 To point at a custom API, set **API base URL** in the extension settings
 and grant the optional host permission when Chrome asks. Production default
-is `https://news.duyet.net` (redirects to aidr.today).
+is `https://aidr.today`.
 
 ## Public API
 
-- **URL:** `GET https://news.duyet.net/api/public` (aidr; `news.duyet.net` redirects)
+- **URL:** `GET https://aidr.today/api/public`
 - **Auth:** none
 - **CORS:** `chrome-extension://`, localhost, `*.duyet.net`
 - **Chrome data:** unpacked MV3 `host_permissions` also read
@@ -67,7 +67,7 @@ JSON shape is the slim public digest (`tldr` + top stories) plus `/api/feed` ext
 ## Permissions
 
 - `storage` — settings (`sync`, with `local` fallback) and feed cache
-- `host_permissions`: `https://news.duyet.net/*`
+- `host_permissions`: `https://aidr.today/*`
 - `optional_host_permissions`: `https://*/*` for a custom HTTPS API base;
   `http://localhost/*` and `http://127.0.0.1/*` for a local news Worker
   (`http://localhost:3014`)

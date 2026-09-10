@@ -22,7 +22,7 @@
     "storage"
   ],
   "host_permissions": [
-    "https://news.duyet.net/*"
+    "https://aidr.today/*"
   ],
   "optional_host_permissions": [
     "https://*/*",

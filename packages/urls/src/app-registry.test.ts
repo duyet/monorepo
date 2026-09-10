@@ -24,6 +24,8 @@ describe("app registry", () => {
       expect(DEFAULT_AUTHORIZED_PARTIES).toContain(origin);
     }
     expect(DEFAULT_AUTHORIZED_PARTIES).toEqual(getClerkAuthorizedOrigins());
+    expect(DEFAULT_AUTHORIZED_PARTIES).toContain("https://news.duyet.net");
+    expect(DEFAULT_AUTHORIZED_PARTIES).toContain("https://aidr.today");
   });
 
   it("matches the derived registry snapshot", () => {
@@ -31,6 +33,7 @@ describe("app registry", () => {
       [
         "https://agents.duyet.net",
         "https://ai-percentage.duyet.net",
+        "https://aidr.today",
         "https://blog.duyet.net",
         "https://burn.duyet.net",
         "https://cv.duyet.net",
@@ -41,7 +44,6 @@ describe("app registry", () => {
         "https://kb.duyet.net",
         "https://llm-timeline.duyet.net",
         "https://mcp.duyet.net",
-        "https://news.duyet.net",
         "https://photos.duyet.net",
         "https://tip.duyet.net",
         "https://x-algo.duyet.net",

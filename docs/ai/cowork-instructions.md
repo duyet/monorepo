@@ -4,7 +4,7 @@ Guidance for working on this repository in Claude Cowork (the desktop agent), as
 
 ## What this project is
 
-A pnpm + Turborepo monorepo for `duyet.net` and its subdomains (home, blog, cv, insights, photos, homelab, llm-timeline, kb, burns, agent-ui, agent-api, agent-assistant, api, ai-percentage), plus shared `packages/*` and Rust/WASM `crates/*`. Most apps deploy to Cloudflare Pages; a few (`api`, `agent-api`) are Cloudflare Workers. See [`internal-knowledge.md`](internal-knowledge.md) for the full app and command map and [`../INDEX.md`](../INDEX.md) for the doc index.
+A pnpm + Turborepo monorepo for `duyet.net` and its subdomains (home, blog, cv, insights, photos, homelab, llm-timeline, kb, burns, agent-ui, agent-api, agent-assistant, api, ai-percentage), plus shared `packages/*` and Rust/WASM `crates/*`. Most apps deploy to Cloudflare Pages; a few (`api`, `agent-api`, `news-redirect`) are Cloudflare Workers. See [`internal-knowledge.md`](internal-knowledge.md) for the full app and command map and [`../INDEX.md`](../INDEX.md) for the doc index.
 
 ## Orientation, every session
 

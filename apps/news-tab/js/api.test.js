@@ -19,12 +19,12 @@ const originalFetch = globalThis.fetch;
 
 test("publicUrl and feedUrl use the normalized API base", () => {
   assert.equal(
-    publicUrl("https://news.duyet.net/"),
-    "https://news.duyet.net/api/public"
+    publicUrl("https://aidr.today/"),
+    "https://aidr.today/api/public"
   );
   assert.equal(
-    feedUrl("https://news.duyet.net"),
-    "https://news.duyet.net/api/feed"
+    feedUrl("https://aidr.today"),
+    "https://aidr.today/api/feed"
   );
 });
 
@@ -86,13 +86,13 @@ test("fetchDigest prefers /api/public then caches", async () => {
     };
   };
 
-  const first = await fetchDigest("https://news.duyet.net");
+  const first = await fetchDigest("https://aidr.today");
   assert.equal(first.source, "public");
   assert.equal(first.stale, false);
   assert.equal(first.digest.stories[0].title, "T");
   assert.deepEqual(calls, [
-    "https://news.duyet.net/api/public",
-    "https://news.duyet.net/api/feed?days=3",
+    "https://aidr.today/api/public",
+    "https://aidr.today/api/feed?days=3",
   ]);
 });
 
@@ -113,12 +113,12 @@ test("fetchDigest falls back to /api/feed", async () => {
     };
   };
 
-  const result = await fetchDigest("https://news.duyet.net");
+  const result = await fetchDigest("https://aidr.today");
   assert.equal(result.source, "feed");
   assert.equal(result.digest.stories[0].id, "f");
   assert.deepEqual(calls, [
-    "https://news.duyet.net/api/public",
-    "https://news.duyet.net/api/feed",
+    "https://aidr.today/api/public",
+    "https://aidr.today/api/feed",
   ]);
 });
 
@@ -131,13 +131,13 @@ test("fetchDigest falls back to last-good cache", async () => {
       trending: [],
       updatedAt: 9,
     },
-    "https://news.duyet.net"
+    "https://aidr.today"
   );
 
   globalThis.fetch = async () => {
     throw new Error("offline");
   };
-  const result = await fetchDigest("https://news.duyet.net");
+  const result = await fetchDigest("https://aidr.today");
   assert.equal(result.source, "cache");
   assert.equal(result.stale, true);
   assert.equal(result.digest.stories[0].id, "cached");
@@ -158,7 +158,7 @@ test("fetchDigest does not reuse another API base cache", async () => {
     throw new Error("offline");
   };
   await assert.rejects(
-    () => fetchDigest("https://news.duyet.net"),
+    () => fetchDigest("https://aidr.today"),
     /unavailable/
   );
 });

@@ -21,7 +21,7 @@ This is the personal website of Duyet Le, a Senior Data Engineer and technology 
 - **Knowledge Base**: https://kb.duyet.net - Interactive knowledge graph of articles, agent memory notes, and daily notes
   - About/how it's built: https://kb.duyet.net/about
   - LLM-friendly version: https://kb.duyet.net/llms.txt
-- **News**: https://news.duyet.net - AI-curated data engineering and AI news aggregator
+- **News (aidr)**: https://aidr.today - AI-curated data engineering and AI news aggregator (`news.duyet.net` redirects here)
 - **AI Percentage**: https://ai-percentage.duyet.net - Tracking how much of duyet.net is AI-written
 - **Burns**: https://burn.duyet.net - AI coding agent token/cost burn dashboard
 - **X-Algo**: https://x-algo.duyet.net - X (Twitter) algorithm explorer

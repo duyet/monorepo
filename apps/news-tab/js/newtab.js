@@ -5,7 +5,7 @@ import { applyAppearance, loadSettings, saveSettings } from "./settings.js";
 import { mountSettingsPanel } from "./settings-panel.js";
 import { topicColor } from "./topic-color.js";
 
-const NEWS_SITE = "https://news.duyet.net";
+const NEWS_SITE = "https://aidr.today";
 const THUMB_MARK = new URL("../icons/thumb-mark.svg", import.meta.url).href;
 
 const CATEGORY_VI = {
