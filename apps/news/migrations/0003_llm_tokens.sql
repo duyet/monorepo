@@ -1,1 +1,0 @@
-ALTER TABLE items ADD COLUMN llm_tokens INTEGER DEFAULT 0;

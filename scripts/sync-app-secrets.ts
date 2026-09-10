@@ -218,17 +218,6 @@ export const appConfig: Record<
     secrets: ["MOTHERDUCK_TOKEN"],
     buildVars: [],
   },
-  "duyet-news": {
-    secrets: [
-      "ANYROUTER_API_KEY",
-      "CLICKHOUSE_HOST",
-      "CLICKHOUSE_NEWS_USER",
-      "CLICKHOUSE_NEWS_PASSWORD",
-      "CLICKHOUSE_DATABASE",
-      "TELEGRAM_BOT_TOKEN",
-    ],
-    buildVars: ["VITE_CLERK_PUBLISHABLE_KEY"],
-  },
   "duyet-ai-percentage": {
     secrets: ["CLERK_SECRET_KEY"],
     buildVars: [

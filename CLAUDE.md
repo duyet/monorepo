@@ -8,7 +8,6 @@ For dead-code cleanup, verify zero non-test references first with `rg -n "<symbo
 For root quality checks, use `pnpm run lint`, `pnpm run check-types`, and `pnpm run test`.
 For deploy/config workflows, use root scripts (`pnpm run config`, `pnpm run deploy`, `pnpm run cf:deploy`, `pnpm run cf:deploy:prod`) when needed.
 For Rust/WASM workflows, use the documented root commands (`pnpm run rust:build`, `pnpm run wasm:build`, `pnpm run wasm:test`, `pnpm run wasm:clippy`, `pnpm run bench:wasm`) only when the touched change requires them.
-For `apps/news` (news.duyet.net: LLM news pipeline on Workers/Workflows/D1), read `apps/news/ALGORITHM.md` and `apps/news/README.md` before changing the pipeline, prompts, or admin/MCP surfaces.
 `AGENTS.md` is a symlink to this file; update `CLAUDE.md` as the canonical instruction entrypoint.
 
 Put durable repository knowledge in `docs/ai/internal-knowledge.md` instead of expanding this file.
