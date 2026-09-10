@@ -1,6 +1,6 @@
 # duyet.net
 
-Personal monorepo for duyet.net — blog, CV, AI agent demos, news, and data tooling. TanStack Start + Cloudflare Workers/Pages + Rust/WASM.
+Personal monorepo for duyet.net — blog, CV, AI agent demos, and data tooling. TanStack Start + Cloudflare Workers/Pages + Rust/WASM.
 
 ## Apps
 
@@ -12,7 +12,7 @@ Personal monorepo for duyet.net — blog, CV, AI agent demos, news, and data too
 - **Homelab**: https://homelab.duyet.net (official) | https://duyet-homelab.pages.dev (Cloudflare Pages)
 - **LLM Timeline**: https://llm-timeline.duyet.net (official) | https://duyet-llm-timeline.pages.dev (Cloudflare Pages)
 - **KB**: https://kb.duyet.net (official) — interactive knowledge graph, [about](https://kb.duyet.net/about), [llms.txt](https://kb.duyet.net/llms.txt)
-- **News**: https://news.duyet.net (official)
+- **News (aidr)**: https://aidr.today (official) — `news.duyet.net` redirects here; not in this monorepo
 - **X-Algo**: https://x-algo.duyet.net (official)
 - **Burns**: https://burn.duyet.net (official) | https://duyet-burns.pages.dev (Cloudflare Pages)
 - **Agent Assistant**: https://agent-assistant.duyet.net (official)
@@ -25,7 +25,6 @@ Personal monorepo for duyet.net — blog, CV, AI agent demos, news, and data too
 ## App Docs
 
 - Blog: [./apps/blog/README.md](./apps/blog/README.md)
-- News: [./apps/news/README.md](./apps/news/README.md)
 - News new-tab extension: [./apps/news-tab/README.md](./apps/news-tab/README.md)
 - Insights: [./apps/insights/README.md](./apps/insights/README.md)
 - CV: [./apps/cv/README.md](./apps/cv/README.md)

@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://news.duyet.net/sitemap.xml

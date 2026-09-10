@@ -1,17 +1,12 @@
 # apps/news-tab
 
-Chrome Manifest V3 new-tab page for [news.duyet.net](https://news.duyet.net).
-It paints today's AI;DR + top stories to match the live
-[news.duyet.net](https://news.duyet.net) homepage (layout A: numbered
-two-column digest, keyword highlights, category chips, trending pills,
-~40–48px thumbs). No account. Not a Cloudflare Worker or Pages
-app — do not add `wrangler.toml`.
+Chrome Manifest V3 new-tab page for [aidr.today](https://aidr.today)
+(`news.duyet.net` redirects there). It paints today's AI;DR + top stories
+to match the live homepage (layout A: numbered two-column digest, keyword
+highlights, category chips, trending pills, ~40–48px thumbs). No account.
+Not a Cloudflare Worker or Pages app — do not add `wrangler.toml`.
 
 Load this folder **unpacked**. `manifest.json` is the extension root.
-Public download (same tree, zipped) is
-[`https://news.duyet.net/news-tab.zip`](https://news.duyet.net/news-tab.zip)
-with steps at [`https://news.duyet.net/extension`](https://news.duyet.net/extension).
-The news Worker build packs that zip; it is not a GitHub Release asset.
 
 ```bash
 pnpm --filter news-tab lint
@@ -44,21 +39,20 @@ Humans merge those PRs; they are never auto-merged.
 
 ## Load unpacked
 
-1. Download [`news-tab.zip`](https://news.duyet.net/news-tab.zip) (or use this folder from a git checkout)
+1. Use this folder from a git checkout (or a zip of this tree)
 2. **Unzip first.** Do not Load unpacked the `.zip` — Chrome will say the manifest is missing. Pick the extracted `news-tab` directory (the one that contains `manifest.json`)
 3. Open [`chrome://extensions`](chrome://extensions)
 4. Enable **Developer mode**
 5. **Load unpacked** and pick that folder
 6. Open a new tab
 
-To point at a local news Worker (`pnpm --filter news dev` on port 3014), set
-**API base URL** in the extension settings to `http://localhost:3014` and
-grant the optional host permission when Chrome asks. Production default is
-`https://news.duyet.net`.
+To point at a custom API, set **API base URL** in the extension settings
+and grant the optional host permission when Chrome asks. Production default
+is `https://news.duyet.net` (redirects to aidr.today).
 
 ## Public API
 
-- **URL:** `GET https://news.duyet.net/api/public` (shipped in the news Worker)
+- **URL:** `GET https://news.duyet.net/api/public` (aidr; `news.duyet.net` redirects)
 - **Auth:** none
 - **CORS:** `chrome-extension://`, localhost, `*.duyet.net`
 - **Chrome data:** unpacked MV3 `host_permissions` also read
@@ -68,7 +62,7 @@ grant the optional host permission when Chrome asks. Production default is
 - **Fallback:** `GET /api/feed` if `/api/public` fails, then last-good cache in
   `chrome.storage.local`
 
-See [apps/news/README.md](../news/README.md) for the JSON shape.
+JSON shape is the slim public digest (`tldr` + top stories) plus `/api/feed` extras when host permission is granted.
 
 ## Permissions
 

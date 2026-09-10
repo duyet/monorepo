@@ -102,7 +102,7 @@ describe("selectAppsToDeploy", () => {
         event: "push",
         changedFiles: [
           "apps/kb/src/routes/index.tsx",
-          "apps/news/src/index.ts",
+          "apps/paid-api/src/index.ts",
         ],
       }).map((app) => app.name),
     ).toEqual(["kb"]);
