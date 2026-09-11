@@ -5,6 +5,7 @@ This is the personal website of Duyet Le, a Senior Data Engineer and technology 
 ## Available Pages & Features
 
 ### Personal Links
+- **Brand kit**: https://duyet.net/brand — logo SVG/PNG (canonical, light, dark)
 - **Blog**: https://blog.duyet.net - Technical blog about data engineering, software development
   - Alternate URLs: https://duyet.vercel.app (Vercel), https://duyet-blog.pages.dev (Cloudflare)
 - **Resume/CV**: https://cv.duyet.net (short link: https://duyet.net/cv) - Professional resume and experience

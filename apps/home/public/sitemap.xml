@@ -54,6 +54,12 @@
     <lastmod>2026-08-22</lastmod>
   </url>
   <url>
+    <loc>https://duyet.net/brand</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+    <lastmod>2026-09-11</lastmod>
+  </url>
+  <url>
     <loc>https://duyet.net/p/anyrouter</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

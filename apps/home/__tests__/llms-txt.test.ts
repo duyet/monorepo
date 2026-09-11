@@ -22,4 +22,8 @@ describe("llms.txt agent guidance", () => {
   it("exposes contact and legal pages", () => {
     expect(llmsTxt).toContain("/contact");
   });
+
+  it("points at the brand kit", () => {
+    expect(llmsTxt).toContain("https://duyet.net/brand");
+  });
 });

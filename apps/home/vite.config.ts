@@ -41,6 +41,7 @@ export default defineConfig({
         "/developers",
         "/contact",
         "/privacy",
+        "/brand",
         "/p/anyrouter",
         "/p/chm",
         "/p/stamp",

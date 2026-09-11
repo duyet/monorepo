@@ -48,6 +48,11 @@ describe("home sitemap.xml", () => {
       "/p/chm",
       "/p/stamp",
     ];
+    const brandEntry = sitemap.split("<url>").find((block) =>
+      block.includes("<loc>https://duyet.net/brand</loc>")
+    );
+    expect(brandEntry).toBeTruthy();
+    expect(brandEntry).toContain("<lastmod>2026-09-11</lastmod>");
     for (const path of newPaths) {
       const entry = sitemap.split("<url>").find((block) =>
         block.includes(`<loc>https://duyet.net${path}</loc>`)
