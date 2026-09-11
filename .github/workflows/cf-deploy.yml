@@ -7,7 +7,6 @@ on:
       - main
     paths:
       - 'apps/**'
-      - '!apps/news-tab/**'
       - 'packages/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
