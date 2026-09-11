@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/duyet/monorepo/compare/news-tab-v0.1.2...news-tab-v0.1.3) (2026-09-11)
+
+
+### ✨ Features
+
+* **news:** restore path-preserving news.duyet.net redirects ([#1475](https://github.com/duyet/monorepo/issues/1475)) ([e9899bd](https://github.com/duyet/monorepo/commit/e9899bd39f02698a1e6560d0cb201adcdb525a19))
+
 ## [0.1.2](https://github.com/duyet/monorepo/compare/news-tab-v0.1.1...news-tab-v0.1.2) (2026-09-03)
 
 
