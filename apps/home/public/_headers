@@ -20,6 +20,9 @@
 /screenshots/*
   Cache-Control: public, max-age=31536000, immutable
 
+/brand/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # Ensure llms.txt is served as plain text and not redirected
 /llms.txt
   Content-Type: text/plain; charset=utf-8

@@ -56,7 +56,10 @@ export const Route = createRootRoute({
         content: "https://duyet.net/screenshots/art-1.png",
       },
     ],
-    links: [{ rel: "icon", href: "/icon.svg", sizes: "any" }],
+    links: [
+      { rel: "icon", href: "/brand/logo.svg", type: "image/svg+xml" },
+      { rel: "apple-touch-icon", href: "/brand/logo-512.png" },
+    ],
   }),
   notFoundComponent: NotFound,
   component: RootComponent,
