@@ -25,7 +25,6 @@ Personal monorepo for duyet.net — blog, CV, AI agent demos, and data tooling. 
 ## App Docs
 
 - Blog: [./apps/blog/README.md](./apps/blog/README.md)
-- News new-tab extension: [./apps/news-tab/README.md](./apps/news-tab/README.md)
 - News host redirect: [./apps/news-redirect/README.md](./apps/news-redirect/README.md)
 - Insights: [./apps/insights/README.md](./apps/insights/README.md)
 - CV: [./apps/cv/README.md](./apps/cv/README.md)
