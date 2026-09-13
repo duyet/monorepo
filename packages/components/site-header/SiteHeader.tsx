@@ -34,7 +34,7 @@ export function SiteHeader({
             <AppSwitcher currentApp={currentApp} variant="wordmark" />
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-1 max-md:hidden md:absolute md:left-1/2 md:-translate-x-1/2">
+          <div className="flex flex-wrap items-center justify-center gap-1 max-lg:hidden lg:absolute lg:left-1/2 lg:-translate-x-1/2">
             {localNav && localNav.length > 0 ? (
               <LocalNav
                 items={localNav}

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Github } from "lucide-react";
+import { Github } from "@duyet/components/Icons";
 import { addUtmParams } from "../../app/lib/utm";
 import { ProjectBlogLinks } from "../components/ProjectBlogLinks";
 import { ProjectMark } from "../components/ProjectMark";
@@ -100,7 +100,7 @@ export function ProjectList({ items }: { items: AppItem[] }) {
                   className="inline-flex h-[1.6rem] w-[1.6rem] items-center justify-center rounded text-[var(--rd-text-2)] hover:bg-[var(--rd-surface-2)] hover:text-[var(--rd-text)]"
                   aria-label={`${item.name} source on GitHub`}
                 >
-                  <Github size={15} />
+                  <Github className="h-[15px] w-[15px]" />
                 </a>
               ) : null}
             </span>

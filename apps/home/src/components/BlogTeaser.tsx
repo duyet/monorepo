@@ -26,8 +26,12 @@ interface BlogTeaserProps {
 }
 
 function formatTime(dateStr: string): string {
-  const d = new Date(dateStr);
-  return d.toLocaleDateString("en-US", {
+  const calendar = dateStr.slice(0, 10);
+  const local =
+    /^\d{4}-\d{2}-\d{2}$/.test(calendar)
+      ? new Date(`${calendar}T00:00:00`)
+      : new Date(dateStr);
+  return local.toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
     year: "numeric",
