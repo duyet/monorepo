@@ -1,4 +1,7 @@
-@import "tailwindcss";
+@import "@duyet/components/styles.css";
+
+@source "./**/*.{ts,tsx}";
+@source "../../../packages/components";
 
 @custom-variant dark (&:where(.dark, .dark *));
 

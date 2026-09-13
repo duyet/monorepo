@@ -38,9 +38,9 @@ export const agentsConfig = {
       creator: "@duyetdev",
     },
     icons: {
-      icon: "/favicon.svg",
-      shortcut: "/favicon.svg",
-      apple: "/favicon.svg",
+      icon: "https://duyet.net/brand/logo.svg",
+      shortcut: "https://duyet.net/brand/logo.svg",
+      apple: "https://duyet.net/brand/logo-512.png",
     },
   } as AppMetadata,
   fonts: {

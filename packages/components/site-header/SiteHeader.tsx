@@ -2,6 +2,7 @@
 
 import { cn } from "@duyet/libs/utils";
 import { Separator } from "../ui/separator";
+import { twHeader } from "./tw";
 import { AppSwitcher } from "./AppSwitcher";
 import { GlobalNav } from "./GlobalNav";
 import { LocalNav } from "./LocalNav";
@@ -24,16 +25,16 @@ export function SiteHeader({
     return (
       <header
         className={cn(
-          "site-header-slashy sticky top-0 z-[999] w-full bg-[var(--rd-bg)]",
+          "sticky top-0 z-[999] w-full min-h-16 bg-[var(--rd-bg)]",
           className
         )}
       >
-        <div className="site-header-slashy-inner relative mx-auto flex h-16 max-w-[var(--rd-maxw,1120px)] items-center gap-4 px-[var(--rd-pad,1.25rem)]">
-          <div className="site-header-slashy-brand shrink-0">
+        <div className="relative mx-auto flex h-16 max-w-[var(--rd-maxw,1120px)] items-center gap-4 px-[var(--rd-pad,1.25rem)]">
+          <div className="shrink-0">
             <AppSwitcher currentApp={currentApp} variant="wordmark" />
           </div>
 
-          <div className="site-header-slashy-center absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
+          <div className="flex flex-wrap items-center justify-center gap-1 max-md:hidden md:absolute md:left-1/2 md:-translate-x-1/2">
             {localNav && localNav.length > 0 ? (
               <LocalNav
                 items={localNav}
@@ -52,7 +53,7 @@ export function SiteHeader({
             <MobileNav currentApp={currentApp} localNav={localNav} />
             {!hideThemeToggle ? <ThemeButton /> : null}
             {cta ? (
-              <a href={cta.href} className="site-header-cta hidden sm:inline-flex">
+              <a href={cta.href} className={twHeader.cta}>
                 {cta.label}
               </a>
             ) : null}

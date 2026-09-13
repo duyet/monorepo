@@ -1,4 +1,6 @@
-import type { LucideIcon } from "lucide-react";
+import type { ComponentType } from "react";
+
+export type AppIcon = ComponentType<{ className?: string }>;
 
 export type AppKey =
   | "home"
@@ -28,7 +30,7 @@ export interface AppDef {
   name: string;
   href: string;
   subdomain: string;
-  Icon: LucideIcon;
+  Icon: AppIcon;
   category: AppCategory;
   blurb: string;
 }
@@ -42,7 +44,7 @@ export interface GlobalNavChild {
   label: string;
   href: string;
   match: NavMatch;
-  Icon?: LucideIcon;
+  Icon?: AppIcon;
 }
 
 export interface GlobalNavItem {
@@ -51,7 +53,7 @@ export interface GlobalNavItem {
   match: NavMatch;
   /** External link opened in a new tab (e.g. ko-fi.com). */
   external?: boolean;
-  Icon?: LucideIcon;
+  Icon?: AppIcon;
   children?: GlobalNavChild[];
   /** Only rendered when currentApp matches — excluded even from the home
    * app's "show everything" fallback, unlike a plain `match.app`. */

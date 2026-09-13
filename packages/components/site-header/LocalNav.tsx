@@ -1,6 +1,7 @@
 import { cn } from "@duyet/libs/utils";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
+import { twHeader } from "./tw";
 import type { LocalNavItem } from "./types";
 
 export function LocalNav({
@@ -32,10 +33,8 @@ export function LocalNav({
             <a
               key={item.href}
               href={item.href}
-              className={cn(
-                "site-header-link",
-                isActive && "is-active"
-              )}
+              className={twHeader.link}
+              data-active={isActive ? "true" : undefined}
               {...(item.external
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}

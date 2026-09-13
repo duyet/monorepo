@@ -1,9 +1,13 @@
-import "@duyet/components/styles.css";
 import "@/app/globals.css";
 
 import { SiteHeader } from "@duyet/components/SiteHeader";
 import { SiteFooter } from "@duyet/components/SiteFooter";
-import { ExploreApps } from "@duyet/components";
+import {
+  duyetFaviconHeadLinks,
+  duyetFontHeadLinks,
+  THEME_BOOT_SCRIPT,
+  ExploreApps,
+} from "@duyet/components";
 import { homelabConfig } from "@duyet/config";
 import {
   createRootRoute,
@@ -25,7 +29,8 @@ export const Route = createRootRoute({
       { name: "description", content: homelabConfig.metadata.description },
     ],
     links: [
-      { rel: "icon", href: "/favicon.svg", sizes: "any" },
+      ...duyetFontHeadLinks(),
+      ...duyetFaviconHeadLinks(),
     ],
   }),
   errorComponent: ({ error, reset }) => (
@@ -39,6 +44,7 @@ function RootComponent() {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
         <HeadContent />
       </head>
       <body>

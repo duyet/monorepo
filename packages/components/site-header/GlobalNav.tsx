@@ -10,6 +10,7 @@ import {
   GLOBAL_NAV,
   isNavActive,
 } from "./apps";
+import { twHeader } from "./tw";
 import type { AppKey, LocalNavItem } from "./types";
 
 export function GlobalNav({
@@ -72,11 +73,11 @@ export function GlobalNav({
               <div key={item.href} className="relative">
                 <button
                   type="button"
-                  className={cn("site-header-link", itemActive && "is-active")}
+                  className={twHeader.link}
+                  data-active={itemActive ? "true" : undefined}
                   onClick={() =>
                     setOpenDropdown(isDropdownOpen ? null : item.label)
                   }
-                  aria-haspopup="menu"
                   aria-expanded={isDropdownOpen}
                 >
                   {item.label}
@@ -110,7 +111,8 @@ export function GlobalNav({
             <a
               key={item.href}
               href={item.href}
-              className={cn("site-header-link", itemActive && "is-active")}
+              className={twHeader.link}
+              data-active={itemActive ? "true" : undefined}
               {...(item.external
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}

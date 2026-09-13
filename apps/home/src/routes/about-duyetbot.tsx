@@ -24,14 +24,14 @@ function DuyetbotPage() {
       <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(22px,3.2vw,40px)] pb-[clamp(32px,5vw,64px)]">
         <Reveal>
           <Eyebrow>Agent · duyetbot</Eyebrow>
-          <h1 className="rd-display mt-[12px] text-[clamp(1.9rem,3.8vw,3rem)] max-w-[24ch] leading-[1.06]">
+          <h1 className="font-[family-name:var(--font-display)] font-normal tracking-[-0.025em] leading-[1.05] mt-[12px] text-[clamp(1.9rem,3.8vw,3rem)] max-w-[24ch] leading-[1.06]">
             The agent that{" "}
             <span className="text-[var(--rd-accent)]">runs this site.</span>
           </h1>
-          <p className="rd-lead mt-[14px] max-w-[58ch] text-[clamp(0.95rem,1.1vw,1.05rem)]">
+          <p className="text-[1.05rem] leading-[1.65] text-[var(--rd-text-2)] mt-[14px] max-w-[58ch] text-[clamp(0.95rem,1.1vw,1.05rem)]">
             duyetbot is the autonomous agent that maintains, redesigns, and
             ships{" "}
-            <a href="https://duyet.net" className="rd-ulink">
+            <a href="https://duyet.net" className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)]">
               duyet.net
             </a>{" "}
             end-to-end. A bundle of self-built AI agent skills running on top of
@@ -43,11 +43,11 @@ function DuyetbotPage() {
         {/* demo banner */}
         <Reveal delay={60} className="mt-[14px]">
           <div className="inline-flex items-center gap-[8px] px-[12px] py-[6px] border border-[var(--rd-border)] rounded-[var(--rd-r)] text-[12.5px] text-[var(--rd-text-3)] font-[var(--font-mono)]">
-            <span className="rd-dot rd-ok rd-pulse inline-block" />
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
             Demo conversation — connect the real MCP server at{" "}
             <a
               href="https://mcp.duyet.net"
-              className="rd-ulink text-[12.5px]"
+              className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)] text-[12.5px]"
               target="_blank"
               rel="noreferrer"
             >
@@ -59,7 +59,7 @@ function DuyetbotPage() {
 
         {/* chat shell */}
         <Reveal delay={100} className="mt-[28px]">
-          <div className="rd-chat-shell">
+          <div className="overflow-hidden rounded-[var(--rd-r-lg)] border border-[var(--rd-border)] bg-[var(--rd-surface)]">
             <ChatWindow />
             <ChatSidebar />
           </div>
@@ -73,7 +73,7 @@ function DuyetbotPage() {
               eyebrow="Runtime"
               title="Hermes agent + a bundle of self-built skills"
             />
-            <p className="rd-lead max-w-[62ch] mt-[16px] text-[clamp(0.92rem,1.05vw,1rem)]">
+            <p className="text-[1.05rem] leading-[1.65] text-[var(--rd-text-2)] max-w-[62ch] mt-[16px] text-[clamp(0.92rem,1.05vw,1rem)]">
               The bot runs on top of the Hermes agent runtime — long-running,
               tool-using, with persistent file-based memory across sessions. On
               top of that runtime sit a growing set of skills written
@@ -121,7 +121,7 @@ function DuyetbotPage() {
                   key={cap.label}
                   className="border-r border-b border-[var(--rd-border)] px-[22px] py-[20px]"
                 >
-                  <p className="rd-eyebrow text-[10.5px]">{cap.label}</p>
+                  <p className="text-[0.68rem] font-medium tracking-[0.08em] uppercase text-[var(--rd-text-3)] text-[10.5px]">{cap.label}</p>
                   <p className="text-[var(--rd-text-2)] text-[13.5px] leading-[1.65] mt-[8px]">
                     {cap.body}
                   </p>
@@ -139,7 +139,7 @@ function DuyetbotPage() {
               eyebrow="Disclosure"
               title="Subject to change without notice"
             />
-            <p className="rd-lead max-w-[62ch] mt-[16px] text-[clamp(0.92rem,1.05vw,1rem)]">
+            <p className="text-[1.05rem] leading-[1.65] text-[var(--rd-text-2)] max-w-[62ch] mt-[16px] text-[clamp(0.92rem,1.05vw,1rem)]">
               Anything on this site can change at any time. The layout you're
               reading right now is the bot's current taste, not a permanent
               position. If a page looks different next time you visit, that's
@@ -147,15 +147,15 @@ function DuyetbotPage() {
             </p>
             <p className="text-[var(--rd-text-2)] max-w-[62ch] mt-[12px] text-[clamp(0.92rem,1.05vw,1rem)]">
               For things that need to be stable —{" "}
-              <Link to="/projects" className="rd-ulink">
+              <Link to="/projects" className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)]">
                 project links
               </Link>
               ,{" "}
-              <a href="https://blog.duyet.net" className="rd-ulink">
+              <a href="https://blog.duyet.net" className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)]">
                 blog posts
               </a>
               , the data behind{" "}
-              <a href="https://insights.duyet.net" className="rd-ulink">
+              <a href="https://insights.duyet.net" className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)]">
                 insights
               </a>{" "}
               — those have human-owned sources of truth that the bot only

@@ -1,8 +1,13 @@
-import "@duyet/components/styles.css";
 import "../styles.css";
 
 import Analytics from "@duyet/components/Analytics";
-import { SiteFooter, SiteHeader } from "@duyet/components";
+import {
+  duyetFaviconHeadLinks,
+  duyetFontHeadLinks,
+  THEME_BOOT_SCRIPT,
+  SiteFooter,
+  SiteHeader,
+} from "@duyet/components";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import {
   createRootRoute,
@@ -65,8 +70,9 @@ export const Route = createRootRoute({
       },
     ],
     links: [
+      ...duyetFontHeadLinks(),
       { rel: "canonical", href: SITE_URL },
-      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      ...duyetFaviconHeadLinks(),
       { rel: "sitemap", type: "application/xml", href: "/sitemap.xml" },
     ],
   }),
@@ -78,6 +84,7 @@ function RootComponent() {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
         <HeadContent />
       </head>
       <body>

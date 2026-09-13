@@ -1,4 +1,25 @@
 export { default as Analytics } from "./Analytics";
+export {
+  duyetThemeHeadScripts,
+  THEME_BOOT_SCRIPT,
+} from "./ThemeProvider";
+export {
+  DUYET_BRAND_BASE,
+  DUYET_FAVICON_APPLE,
+  DUYET_FAVICON_SVG,
+  DUYET_LOGO_ASSETS,
+  DUYET_LOGO_VARIANTS,
+  duyetFaviconHeadLinks,
+  duyetLogoUrl,
+} from "./brand/duyet-logo";
+export type {
+  DuyetLogoFormat,
+  DuyetLogoPngSize,
+  DuyetLogoTone,
+} from "./brand/duyet-logo";
+export { duyetFontHeadLinks } from "./brand/fonts";
+export { DuyetLogo, DuyetMark } from "./brand/DuyetLogo";
+export type { DuyetLogoProps } from "./brand/DuyetLogo";
 export { AppCommandPalette } from "./AppCommandPalette";
 export type { Area } from "./AreasOfExpertise";
 export {

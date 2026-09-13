@@ -9,7 +9,6 @@ import {
   Coffee,
   FileText,
   Flame,
-  House,
   List,
   Newspaper,
   Percent,
@@ -20,6 +19,7 @@ import {
   User,
 } from "lucide-react";
 import { APP_REGISTRY } from "@duyet/urls/app-registry";
+import { DuyetMark } from "./DuyetMark";
 import type {
   AppCategory,
   AppDef,
@@ -50,7 +50,7 @@ export const APPS: AppDef[] = [
     key: "home",
     name: "Home",
     ...appUrls("home"),
-    Icon: House,
+    Icon: DuyetMark,
     category: "Personal",
     blurb: "Profile & projects",
   },

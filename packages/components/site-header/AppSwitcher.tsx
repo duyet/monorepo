@@ -1,18 +1,15 @@
 "use client";
 
 import { cn } from "@duyet/libs/utils";
-import { Check, ChevronsUpDown, type LucideIcon } from "lucide-react";
+import { Check, ChevronsUpDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { APPS, CATEGORY_ORDER } from "./apps";
-import type { AppKey } from "./types";
+import { twHeader } from "./tw";
+import type { AppIcon, AppKey } from "./types";
 
-function AppLogo({ Icon }: { Icon: LucideIcon }) {
+function AppLogo({ Icon }: { Icon: AppIcon }) {
   return (
-    <Icon
-      className="h-4 w-4 shrink-0 text-foreground"
-      strokeWidth={1.75}
-      aria-hidden
-    />
+    <Icon className="h-4 w-4 shrink-0 text-foreground" />
   );
 }
 
@@ -67,7 +64,7 @@ export function AppSwitcher({
       >
         {isWordmark ? (
           <>
-            <span className="site-header-wordmark">duyet</span>
+            <span className={twHeader.wordmark}>duyet</span>
             <ChevronsUpDown
               aria-hidden
               className={cn(
@@ -122,24 +119,46 @@ export function AppSwitcher({
                           role="menuitem"
                           aria-current={isCurrent ? "page" : undefined}
                           onClick={() => setOpen(false)}
+                          onMouseMove={(e) => {
+                            const el = e.currentTarget;
+                            const r = el.getBoundingClientRect();
+                            el.style.setProperty(
+                              "--mx",
+                              `${e.clientX - r.left}px`
+                            );
+                            el.style.setProperty(
+                              "--my",
+                              `${e.clientY - r.top}px`
+                            );
+                          }}
                           className={cn(
-                            "group flex items-center gap-2.5 rounded-md border px-2 py-2 outline-none transition-colors",
-                            "hover:bg-[var(--rd-muted)] focus-visible:bg-[var(--rd-muted)]",
+                            "group relative isolate flex items-center gap-2.5 overflow-hidden rounded-md border px-2 py-2 outline-none",
+                            "transition-[transform,border-color,box-shadow] duration-200",
+                            "hover:-translate-y-px hover:shadow-[0_8px_20px_-12px_rgb(0_0_0_/_0.35)]",
+                            "before:pointer-events-none before:absolute before:inset-0 before:z-0 before:opacity-0 before:transition-opacity before:duration-200",
+                            "before:bg-[radial-gradient(90px_circle_at_var(--mx,30%)_var(--my,30%),color-mix(in_srgb,var(--rd-accent)_32%,transparent),transparent_68%)]",
+                            "hover:before:opacity-100 focus-visible:before:opacity-100",
+                            "after:pointer-events-none after:absolute after:inset-0 after:z-0 after:opacity-0 after:transition-opacity",
+                            "after:bg-[linear-gradient(115deg,transparent_35%,color-mix(in_srgb,var(--rd-accent)_18%,transparent)_50%,transparent_65%)]",
+                            "after:bg-[length:220%_100%] hover:after:opacity-100 hover:after:animate-[rd-app-shine_0.85s_ease]",
                             isCurrent
                               ? "border-foreground/20 bg-[var(--rd-muted)]"
-                              : "border-transparent hover:border-border",
+                              : "border-transparent hover:border-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)]",
                           )}
                         >
                           <span
                             className={cn(
-                              "flex h-7 w-7 shrink-0 items-center justify-center rounded-md border transition-colors",
-                              "border-border bg-background group-hover:border-foreground/20",
-                              isCurrent && "border-foreground/20",
+                              "relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-md border bg-background",
+                              "transition-transform duration-200 ease-out",
+                              "group-hover:scale-110 group-hover:-rotate-6 group-hover:border-[color-mix(in_srgb,var(--rd-accent)_45%,transparent)]",
+                              isCurrent
+                                ? "border-foreground/20"
+                                : "border-border",
                             )}
                           >
                             <AppLogo Icon={app.Icon} />
                           </span>
-                          <span className="flex min-w-0 flex-1 flex-col leading-tight">
+                          <span className="relative z-10 flex min-w-0 flex-1 flex-col leading-tight">
                             <span className="flex items-center gap-1">
                               <span className="truncate text-[13px] font-medium text-foreground">
                                 {app.name}

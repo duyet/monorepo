@@ -42,35 +42,37 @@ function ChatWindow() {
   };
 
   return (
-    <div className="rd-chat-window">
+    <div className="flex min-h-0 flex-col">
       {/* header */}
-      <div className="rd-chat-head">
-        <span className="rd-chat-avatar">
+      <div className="flex items-center gap-2 border-b border-[var(--rd-border)] px-3 py-2">
+        <span className="grid h-8 w-8 place-items-center rounded-full bg-[var(--rd-bg-sub)]">
           <Bot size={22} />
-          <span className="rd-live-ping" />
+          <span className="sr-only">live</span>
         </span>
         <div className="min-w-0">
-          <div className="rd-ch-name">
+          <div className="flex items-center gap-1.5 text-[0.9rem] font-medium">
             duyetbot{" "}
-            <span className="rd-chip font-[var(--font-mono)] text-[9.5px]">
+            <span className="rounded-full border border-[var(--rd-border)] px-2 py-0.5 font-[var(--font-mono)] text-[9.5px]">
               beta
             </span>
           </div>
-          <div className="rd-ch-model">claude-sonnet · via AnyRouter</div>
+          <div className="text-[0.7rem] text-[var(--rd-text-3)]">
+            claude-sonnet · via AnyRouter
+          </div>
         </div>
         <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11.5px] ml-auto inline-flex items-center gap-[6px]">
-          <span className="rd-dot rd-ok rd-pulse" /> online
+          <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> online
         </span>
       </div>
 
       {/* message thread */}
-      <div className="rd-chat-body" ref={bodyRef}>
+      <div className="min-h-0 flex-1 overflow-y-auto p-3" ref={bodyRef}>
         {msgs.map((m, i) => (
           <div
             key={i}
-            className={`rd-msg ${m.role === "bot" ? "rd-bot" : "rd-user"}`}
+            className={`mb-3 flex gap-2 ${m.role === "bot" ? "" : "flex-row-reverse"}`}
           >
-            <span className="rd-msg-ic">
+            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[var(--rd-bg-sub)] text-[0.7rem]">
               {m.role === "bot" ? (
                 <Bot size={16} />
               ) : (
@@ -78,9 +80,9 @@ function ChatWindow() {
               )}
             </span>
             <div className="min-w-0">
-              <div className="rd-msg-bubble">
+              <div className="rounded-2xl bg-[var(--rd-bg-sub)] px-3 py-2 text-[0.875rem] leading-[1.5]">
                 {"tool" in m && m.tool && (
-                  <div className="rd-tool-call">
+                  <div className="mb-1 inline-flex items-center gap-1 font-[family-name:var(--font-mono)] text-[0.7rem] text-[var(--rd-text-3)]">
                     <Plug size={12} /> {m.tool.name}
                     {m.tool.arg ? `(${m.tool.arg})` : "()"}
                   </div>
@@ -90,15 +92,16 @@ function ChatWindow() {
                 {"contact" in m && m.contact && <ContactCard />}
               </div>
               {"follow" in m && m.follow && (
-                <div className="rd-follow-row">
+                <div className="mt-2 flex flex-wrap gap-1.5">
                   {m.follow.map((f) => (
                     <button
                       key={f}
-                      className="rd-follow-chip"
+                      type="button"
+                      className="inline-flex items-center gap-1 rounded-full border border-[var(--rd-border)] px-2.5 py-1 text-[0.75rem]"
                       onClick={() => send(f)}
                     >
                       {f}{" "}
-                      <span className="rd-fc-arr">
+                      <span>
                         <ArrowRight size={12} />
                       </span>
                     </button>
@@ -111,21 +114,21 @@ function ChatWindow() {
 
         {/* typing indicator */}
         {busy && (
-          <div className="rd-msg rd-bot">
-            <span className="rd-msg-ic">
+          <div className="mb-3 flex gap-2">
+            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[var(--rd-bg-sub)]">
               <Bot size={16} />
             </span>
-            <div className="rd-msg-bubble">
+            <div className="rounded-2xl bg-[var(--rd-bg-sub)] px-3 py-2 text-[0.875rem]">
               {pending && (
-                <div className="rd-tool-call">
-                  <span className="rd-tc-spin" /> {pending.name}
+                <div className="mb-1 font-[family-name:var(--font-mono)] text-[0.7rem] text-[var(--rd-text-3)]">
+                  {pending.name}
                   {pending.arg ? `(${pending.arg})` : "()"}
                 </div>
               )}
-              <div className="rd-typing">
-                <i />
-                <i />
-                <i />
+              <div className="flex gap-1">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--rd-text-3)]" />
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--rd-text-3)]" />
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--rd-text-3)]" />
               </div>
             </div>
           </div>
@@ -133,7 +136,7 @@ function ChatWindow() {
       </div>
 
       {/* input */}
-      <div className="rd-chat-input">
+      <div className="flex gap-2 border-t border-[var(--rd-border)] p-3">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -141,7 +144,7 @@ function ChatWindow() {
           placeholder="Ask about Duyet's work, writing, or stack…"
         />
         <button
-          className="rd-chat-send"
+          className="grid h-10 w-10 place-items-center rounded-full bg-[var(--rd-text)] text-[var(--rd-bg)]"
           onClick={() => send(input)}
           aria-label="Send"
         >

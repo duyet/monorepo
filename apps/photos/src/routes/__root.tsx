@@ -1,8 +1,13 @@
-import "@duyet/components/styles.css";
 import "../../app/globals.css";
 
 import Analytics from "@duyet/components/Analytics";
-import { SiteFooter, SiteHeader } from "@duyet/components";
+import {
+  duyetFaviconHeadLinks,
+  duyetFontHeadLinks,
+  THEME_BOOT_SCRIPT,
+  SiteFooter,
+  SiteHeader,
+} from "@duyet/components";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import {
   createRootRoute,
@@ -70,7 +75,8 @@ export const Route = createRootRoute({
       },
     ],
     links: [
-      { rel: "icon", type: "image/svg+xml", href: "/app/icon.svg" },
+      ...duyetFontHeadLinks(),
+      ...duyetFaviconHeadLinks(),
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       {
         rel: "preconnect",
@@ -93,6 +99,7 @@ function RootComponent() {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
         <HeadContent />
         {/* Non-blocking Google Fonts: preloaded above, applied here */}
         <link

@@ -51,7 +51,7 @@ export const Route = createFileRoute("/developers")({
 
 function CodeBlock({ children }: { children: string }) {
   return (
-    <pre className="rd-card overflow-x-auto p-[14px] font-[var(--font-mono)] text-[12.5px] leading-[1.65] text-[var(--rd-text-2)]">
+    <pre className="rounded-[var(--rd-r-lg)] border border-[var(--rd-border)] bg-[var(--rd-surface)] overflow-x-auto p-[14px] font-[var(--font-mono)] text-[12.5px] leading-[1.65] text-[var(--rd-text-2)]">
       <code>{children}</code>
     </pre>
   );
@@ -59,16 +59,16 @@ function CodeBlock({ children }: { children: string }) {
 
 function DevelopersPage() {
   return (
-    <div className="page-enter bg-[var(--rd-bg)] text-[var(--rd-text)]">
+    <div className="bg-[var(--rd-bg)] text-[var(--rd-text)]">
       <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(40px,5vw,64px)] pb-[clamp(56px,8vw,96px)]">
         {/* intro */}
         <Reveal>
           <Eyebrow>Developers · API</Eyebrow>
-          <h1 className="rd-display mt-[13px] text-[clamp(2rem,4.2vw,3.3rem)] leading-[1.04]">
+          <h1 className="font-[family-name:var(--font-display)] font-normal tracking-[-0.025em] leading-[1.05] mt-[13px] text-[clamp(2rem,4.2vw,3.3rem)] leading-[1.04]">
             Duyet Developer{" "}
             <span className="text-[var(--rd-accent)]">Resources</span>
           </h1>
-          <p className="rd-lead mt-6 max-w-[62ch]">
+          <p className="text-[1.05rem] leading-[1.65] text-[var(--rd-text-2)] mt-6 max-w-[62ch]">
             Everything on duyet.net is readable by machines, not just people.
             This page collects what's available for developers and AI agents: a
             public stats API, an MCP server your assistant can connect to, and
@@ -83,11 +83,11 @@ function DevelopersPage() {
             <p className="text-[var(--rd-text-2)] max-w-[62ch] text-[15px] leading-[1.65]">
               The public API serves site metrics and insights. It is available
               at{" "}
-              <a href="https://api.duyet.net" className="rd-ulink">
+              <a href="https://api.duyet.net" className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)]">
                 https://api.duyet.net
               </a>{" "}
               (primary), with a same-origin mirror at{" "}
-              <a href="/api" className="rd-ulink">
+              <a href="/api" className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)]">
                 https://duyet.net/api
               </a>
               . All GET endpoints below are public and need no authentication.
@@ -136,8 +136,8 @@ function DevelopersPage() {
               </table>
             </div>
 
-            <div className="mt-8 rd-g2">
-              <div className="rd-card p-[clamp(18px,2.2vw,26px)]">
+            <div className="mt-8 grid gap-4 min-[720px]:grid-cols-2">
+              <div className="rounded-[var(--rd-r-lg)] border border-[var(--rd-border)] bg-[var(--rd-surface)] p-[clamp(18px,2.2vw,26px)]">
                 <Eyebrow>Authentication</Eyebrow>
                 <p className="mt-3 text-[13.5px] leading-[1.65] text-[var(--rd-text-2)]">
                   Public GET endpoints need no auth.{" "}
@@ -149,7 +149,7 @@ function DevelopersPage() {
                     Authorization: Bearer &lt;token&gt;
                   </code>{" "}
                   — request access by email{" "}
-                  <a href="mailto:me@duyet.net" className="rd-ulink">
+                  <a href="mailto:me@duyet.net" className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)]">
                     me@duyet.net
                   </a>
                   . OAuth scopes{" "}
@@ -163,14 +163,14 @@ function DevelopersPage() {
                   are declared in{" "}
                   <a
                     href="/.well-known/oauth-protected-resource"
-                    className="rd-ulink"
+                    className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)]"
                   >
                     /.well-known/oauth-protected-resource
                   </a>
                   .
                 </p>
               </div>
-              <div className="rd-card p-[clamp(18px,2.2vw,26px)]">
+              <div className="rounded-[var(--rd-r-lg)] border border-[var(--rd-border)] bg-[var(--rd-surface)] p-[clamp(18px,2.2vw,26px)]">
                 <Eyebrow>Rate limits</Eyebrow>
                 <p className="mt-3 text-[13.5px] leading-[1.65] text-[var(--rd-text-2)]">
                   Responses carry{" "}
@@ -206,7 +206,7 @@ function DevelopersPage() {
               The MCP server exposes Duyet's CV, blog posts, GitHub activity,
               and contact tools over Streamable HTTP. Point any MCP-compatible
               client (Claude, Cursor, and others) at{" "}
-              <a href="https://mcp.duyet.net/mcp" className="rd-ulink">
+              <a href="https://mcp.duyet.net/mcp" className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)]">
                 https://mcp.duyet.net/mcp
               </a>
               :
@@ -261,7 +261,7 @@ function DevelopersPage() {
                 <li key={file.href} className="flex flex-wrap gap-x-4 py-3">
                   <a
                     href={file.href}
-                    className="rd-ulink font-[var(--font-mono)] text-[13px]"
+                    className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)] font-[var(--font-mono)] text-[13px]"
                   >
                     {file.label}
                   </a>

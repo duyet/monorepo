@@ -1,8 +1,15 @@
 import type { ReactNode } from "react";
 import { cn } from "../lib/utils";
+import { tw } from "../lib/tw";
 
 const TONES = ["plum", "pine", "slate"] as const;
 export type SoftTone = (typeof TONES)[number];
+
+const TONE_CLASS: Record<SoftTone, string> = {
+  plum: tw.labelPlum,
+  pine: tw.labelPine,
+  slate: tw.labelSlate,
+};
 
 export function toneFrom(seed: string): SoftTone {
   let hash = 0;
@@ -22,7 +29,7 @@ export function SoftLabel({
   className?: string;
 }) {
   return (
-    <span className={cn("rd-label", `rd-label-${tone}`, className)}>
+    <span className={cn(tw.label, TONE_CLASS[tone], className)}>
       {children}
     </span>
   );

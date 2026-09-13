@@ -1,6 +1,8 @@
-@import "tailwindcss";
+@import "@duyet/components/styles.css";
 @import "tw-animate-css";
-@import "@duyet/components/typeset.css";
+
+@source "../src/**/*.{ts,tsx}";
+@source "../../../packages/components";
 
 @config "../tailwind.config.mjs";
 

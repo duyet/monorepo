@@ -85,9 +85,9 @@ export function SignalBar({
             {...linkProps}
             className="signal-tile flex min-w-0 cursor-pointer flex-col gap-2 border-none bg-[var(--rd-surface)] p-[18px_20px] text-left text-inherit no-underline"
           >
-            <div className="rd-eyebrow flex items-center gap-1.5 text-[10.5px]">
+            <div className="text-[0.68rem] font-medium tracking-[0.08em] uppercase text-[var(--rd-text-3)] flex items-center gap-1.5 text-[10.5px]">
               {t.live && (
-                <span className="rd-dot rd-ok rd-pulse inline-block" />
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
               )}
               {t.flame && (
                 <span className="inline-flex text-[var(--rd-accent)]">
@@ -103,7 +103,7 @@ export function SignalBar({
               )}
             >
               {t.big}
-              <span className="rd-unit">{t.unit}</span>
+              <span className="text-[0.7em] font-normal">{t.unit}</span>
             </div>
             {t.spark ? (
               <Sparkline data={t.spark} h={22} />

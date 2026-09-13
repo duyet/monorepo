@@ -1,5 +1,4 @@
 import { ArrowUpRight } from "lucide-react";
-import { SoftLabel } from "../SoftLabel";
 import { SectionHead } from "../SectionHead";
 
 interface ElsewhereLink {
@@ -8,33 +7,30 @@ interface ElsewhereLink {
   url: string;
 }
 
-interface ElsewhereCardsProps {
-  elsewhere: ElsewhereLink[];
-}
-
-function ElsewhereCards({ elsewhere }: ElsewhereCardsProps) {
+function ElsewhereCards({ elsewhere }: { elsewhere: ElsewhereLink[] }) {
   return (
     <div>
-      <SectionHead eyebrow="Network" title="Elsewhere" />
-      <div className="home-about-elsewhere">
+      <SectionHead title="Elsewhere" />
+      <ul className="m-0 grid list-none grid-cols-1 gap-x-6 gap-y-3.5 p-0 min-[640px]:grid-cols-2 min-[900px]:grid-cols-4">
         {elsewhere.map((e) => (
-          <a
-            key={e.title}
-            className="home-proj-card home-about-elsewhere-card no-underline text-inherit"
-            href={e.url}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <div className="flex items-center justify-between gap-3">
-              <SoftLabel tone="slate">{e.title}</SoftLabel>
-              <span className="text-[var(--rd-text-3)]" aria-hidden="true">
-                <ArrowUpRight size={15} />
+          <li key={e.title}>
+            <a
+              className="flex min-w-0 flex-col gap-0.5 text-inherit no-underline"
+              href={e.url}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="inline-flex items-center gap-1 text-[0.9375rem] font-medium tracking-[-0.02em]">
+                {e.title}
+                <ArrowUpRight size={13} />
               </span>
-            </div>
-            <p className="home-cap-body mt-3">{e.description}</p>
-          </a>
+              <span className="text-[0.8rem] leading-[1.4] text-[var(--rd-text-3)]">
+                {e.description}
+              </span>
+            </a>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

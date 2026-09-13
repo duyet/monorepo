@@ -38,14 +38,14 @@ function Section({
 
 function PrivacyPage() {
   return (
-    <div className="page-enter bg-[var(--rd-bg)] text-[var(--rd-text)]">
+    <div className="bg-[var(--rd-bg)] text-[var(--rd-text)]">
       <div className="mx-auto max-w-[640px] px-[var(--rd-pad)] pt-[clamp(40px,5vw,64px)] pb-[clamp(56px,8vw,96px)]">
         <Reveal>
           <Eyebrow>Legal · Effective {EFFECTIVE_DATE}</Eyebrow>
-          <h1 className="rd-display mt-[13px] text-[clamp(2rem,4.2vw,3.2rem)] leading-[1.04]">
+          <h1 className="font-[family-name:var(--font-display)] font-normal tracking-[-0.025em] leading-[1.05] mt-[13px] text-[clamp(2rem,4.2vw,3.2rem)] leading-[1.04]">
             Privacy Policy
           </h1>
-          <p className="rd-lead mt-6 max-w-[56ch]">
+          <p className="text-[1.05rem] leading-[1.65] text-[var(--rd-text-2)] mt-6 max-w-[56ch]">
             This site is a personal homepage, and it is built to be read — by
             people and by machines — without collecting more than it needs.
             This page describes what data duyet.net handles, in plain terms.
@@ -88,7 +88,7 @@ function PrivacyPage() {
           <p>
             If you have questions about this policy, or want a message you
             sent deleted, email{" "}
-            <a href="mailto:me@duyet.net" className="rd-ulink">
+            <a href="mailto:me@duyet.net" className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)]">
               me@duyet.net
             </a>{" "}
             and I'll take care of it.

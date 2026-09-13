@@ -24,9 +24,9 @@ function Badge({
   };
 
   const tones: Record<string, string> = {
-    plum: "rd-label rd-label-plum border-transparent",
-    pine: "rd-label rd-label-pine border-transparent",
-    slate: "rd-label rd-label-slate border-transparent",
+    plum: "border-transparent bg-[var(--rd-label-plum)] text-[var(--rd-label-plum-fg)]",
+    pine: "border-transparent bg-[var(--rd-label-pine)] text-[var(--rd-label-pine-fg)]",
+    slate: "border-transparent bg-[var(--rd-label-slate)] text-[var(--rd-label-slate-fg)]",
   };
 
   return (

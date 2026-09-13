@@ -1,34 +1,12 @@
 import { addUtmParams } from "../../app/lib/utm";
 import { ColoredDomain } from "../components.projects/ColoredDomain";
 import type { AppItem } from "../data/projects";
+import { ProjectMark } from "./ProjectMark";
 
 interface ProjectCardHeaderProps {
   item: AppItem;
   titleClass?: string;
   utm?: { source: string; content?: string; medium?: string };
-}
-
-function Logo({
-  logo,
-  logoDark,
-}: {
-  logo?: string;
-  logoDark?: string;
-}) {
-  if (!logo && !logoDark) return null;
-  if (logoDark) {
-    return (
-      <>
-        <img src={logo} alt="" className="home-proj-logo dark:hidden" />
-        <img
-          src={logoDark}
-          alt=""
-          className="home-proj-logo hidden dark:block"
-        />
-      </>
-    );
-  }
-  return <img src={logo} alt="" className="home-proj-logo" />;
 }
 
 export function ProjectCardHeader({
@@ -45,13 +23,23 @@ export function ProjectCardHeader({
     : { href };
 
   return (
-    <div className="home-proj-head">
-      <Logo logo={item.logo} logoDark={item.logoDark} />
+    <div className="flex items-center gap-3">
+      <ProjectMark
+        item={item}
+        size={40}
+        className="h-10 w-10 shrink-0 overflow-hidden rounded-lg [&>img]:h-10 [&>img]:w-10 [&>img]:object-contain [&>svg]:h-10 [&>svg]:w-10"
+      />
       <div className="min-w-0 flex flex-col gap-0.5">
-        <a {...linkProps} className="home-proj-domain">
+        <a
+          {...linkProps}
+          className="font-[family-name:var(--font-mono)] text-[0.72rem] text-[var(--rd-text-3)] no-underline"
+        >
           <ColoredDomain domain={item.domain || item.host} />
         </a>
-        <a {...linkProps} className={`home-proj-title ${titleClass}`}>
+        <a
+          {...linkProps}
+          className={`font-medium tracking-[-0.02em] text-[var(--rd-text)] no-underline hover:text-[var(--rd-accent-ink)] ${titleClass}`}
+        >
           {item.name}
         </a>
       </div>

@@ -9,62 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as BrandRouteImport } from './routes/brand'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as AboutDuyetbotRouteImport } from './routes/about-duyetbot'
-import { Route as CartrackRouteImport } from './routes/cartrack'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as DevelopersRouteImport } from './routes/developers'
-import { Route as FossilRouteImport } from './routes/fossil'
-import { Route as LsRouteImport } from './routes/ls'
-import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as LsRouteImport } from './routes/ls'
+import { Route as FossilRouteImport } from './routes/fossil'
+import { Route as DevelopersRouteImport } from './routes/developers'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CartrackRouteImport } from './routes/cartrack'
+import { Route as BrandRouteImport } from './routes/brand'
+import { Route as AboutDuyetbotRouteImport } from './routes/about-duyetbot'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as PProjectRouteImport } from './routes/p/$project'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BrandRoute = BrandRouteImport.update({
-  id: '/brand',
-  path: '/brand',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutDuyetbotRoute = AboutDuyetbotRouteImport.update({
-  id: '/about-duyetbot',
-  path: '/about-duyetbot',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CartrackRoute = CartrackRouteImport.update({
-  id: '/cartrack',
-  path: '/cartrack',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DevelopersRoute = DevelopersRouteImport.update({
-  id: '/developers',
-  path: '/developers',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FossilRoute = FossilRouteImport.update({
-  id: '/fossil',
-  path: '/fossil',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LsRoute = LsRouteImport.update({
-  id: '/ls',
-  path: '/ls',
+const ProjectsRoute = ProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -72,9 +32,49 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProjectsRoute = ProjectsRouteImport.update({
-  id: '/projects',
-  path: '/projects',
+const LsRoute = LsRouteImport.update({
+  id: '/ls',
+  path: '/ls',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FossilRoute = FossilRouteImport.update({
+  id: '/fossil',
+  path: '/fossil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DevelopersRoute = DevelopersRouteImport.update({
+  id: '/developers',
+  path: '/developers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CartrackRoute = CartrackRouteImport.update({
+  id: '/cartrack',
+  path: '/cartrack',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrandRoute = BrandRouteImport.update({
+  id: '/brand',
+  path: '/brand',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutDuyetbotRoute = AboutDuyetbotRouteImport.update({
+  id: '/about-duyetbot',
+  path: '/about-duyetbot',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PProjectRoute = PProjectRouteImport.update({
@@ -85,9 +85,9 @@ const PProjectRoute = PProjectRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/brand': typeof BrandRoute
   '/about': typeof AboutRoute
   '/about-duyetbot': typeof AboutDuyetbotRoute
+  '/brand': typeof BrandRoute
   '/cartrack': typeof CartrackRoute
   '/contact': typeof ContactRoute
   '/developers': typeof DevelopersRoute
@@ -99,9 +99,9 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/brand': typeof BrandRoute
   '/about': typeof AboutRoute
   '/about-duyetbot': typeof AboutDuyetbotRoute
+  '/brand': typeof BrandRoute
   '/cartrack': typeof CartrackRoute
   '/contact': typeof ContactRoute
   '/developers': typeof DevelopersRoute
@@ -114,9 +114,9 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/brand': typeof BrandRoute
   '/about': typeof AboutRoute
   '/about-duyetbot': typeof AboutDuyetbotRoute
+  '/brand': typeof BrandRoute
   '/cartrack': typeof CartrackRoute
   '/contact': typeof ContactRoute
   '/developers': typeof DevelopersRoute
@@ -130,9 +130,9 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/brand'
     | '/about'
     | '/about-duyetbot'
+    | '/brand'
     | '/cartrack'
     | '/contact'
     | '/developers'
@@ -144,9 +144,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/brand'
     | '/about'
     | '/about-duyetbot'
+    | '/brand'
     | '/cartrack'
     | '/contact'
     | '/developers'
@@ -158,9 +158,9 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/brand'
     | '/about'
     | '/about-duyetbot'
+    | '/brand'
     | '/cartrack'
     | '/contact'
     | '/developers'
@@ -173,9 +173,9 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BrandRoute: typeof BrandRoute
   AboutRoute: typeof AboutRoute
   AboutDuyetbotRoute: typeof AboutDuyetbotRoute
+  BrandRoute: typeof BrandRoute
   CartrackRoute: typeof CartrackRoute
   ContactRoute: typeof ContactRoute
   DevelopersRoute: typeof DevelopersRoute
@@ -188,67 +188,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/brand': {
-      id: '/brand'
-      path: '/brand'
-      fullPath: '/brand'
-      preLoaderRoute: typeof BrandRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about-duyetbot': {
-      id: '/about-duyetbot'
-      path: '/about-duyetbot'
-      fullPath: '/about-duyetbot'
-      preLoaderRoute: typeof AboutDuyetbotRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/cartrack': {
-      id: '/cartrack'
-      path: '/cartrack'
-      fullPath: '/cartrack'
-      preLoaderRoute: typeof CartrackRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/developers': {
-      id: '/developers'
-      path: '/developers'
-      fullPath: '/developers'
-      preLoaderRoute: typeof DevelopersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/fossil': {
-      id: '/fossil'
-      path: '/fossil'
-      fullPath: '/fossil'
-      preLoaderRoute: typeof FossilRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ls': {
-      id: '/ls'
-      path: '/ls'
-      fullPath: '/ls'
-      preLoaderRoute: typeof LsRouteImport
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -258,11 +202,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/projects': {
-      id: '/projects'
-      path: '/projects'
-      fullPath: '/projects'
-      preLoaderRoute: typeof ProjectsRouteImport
+    '/ls': {
+      id: '/ls'
+      path: '/ls'
+      fullPath: '/ls'
+      preLoaderRoute: typeof LsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fossil': {
+      id: '/fossil'
+      path: '/fossil'
+      fullPath: '/fossil'
+      preLoaderRoute: typeof FossilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/developers': {
+      id: '/developers'
+      path: '/developers'
+      fullPath: '/developers'
+      preLoaderRoute: typeof DevelopersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cartrack': {
+      id: '/cartrack'
+      path: '/cartrack'
+      fullPath: '/cartrack'
+      preLoaderRoute: typeof CartrackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brand': {
+      id: '/brand'
+      path: '/brand'
+      fullPath: '/brand'
+      preLoaderRoute: typeof BrandRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about-duyetbot': {
+      id: '/about-duyetbot'
+      path: '/about-duyetbot'
+      fullPath: '/about-duyetbot'
+      preLoaderRoute: typeof AboutDuyetbotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/p/$project': {
@@ -277,9 +277,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BrandRoute: BrandRoute,
   AboutRoute: AboutRoute,
   AboutDuyetbotRoute: AboutDuyetbotRoute,
+  BrandRoute: BrandRoute,
   CartrackRoute: CartrackRoute,
   ContactRoute: ContactRoute,
   DevelopersRoute: DevelopersRoute,

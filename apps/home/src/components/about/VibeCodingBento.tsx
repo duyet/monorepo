@@ -1,115 +1,68 @@
-import { Bot } from "lucide-react";
-import { SoftLabel, toneFrom } from "../SoftLabel";
-import { SectionHead } from "../SectionHead";
+import { addUtmParams } from "../../../app/lib/utm";
+import { tw } from "../../lib/tw";
 
-interface Agent {
-  name: string;
-  role: string;
-  desc: string;
+interface TechStackGroup {
+  g: string;
+  icon: string;
+  items: string[];
 }
 
-interface VibeCodingBentoProps {
-  agentsList: Agent[];
-}
+function VibeCodingBento({ techStack }: { techStack: TechStackGroup[] }) {
+  const agents = techStack.find((g) => g.g === "Coding agents");
+  const kit = techStack.filter((g) => g.g !== "Coding agents");
 
-function AgentIcon({ name }: { name: string }) {
-  const normalized = name.toLowerCase();
-  if (normalized === "claude code") {
-    return (
-      <svg className="h-[15px] w-[15px]" viewBox="0 0 24 24" fill="none">
-        <title>Claude Code</title>
-        <path
-          clipRule="evenodd"
-          d="M20.998 10.949H24v3.102h-3v3.028h-1.487V20H18v-2.921h-1.487V20H15v-2.921H9V20H7.488v-2.921H6V20H4.487v-2.921H3V14.05H0V10.95h3V5h17.998v5.949zM6 10.949h1.488V8.102H6v2.847zm10.51 0H18V8.102h-1.49v2.847z"
-          fill="#D97757"
-          fillRule="evenodd"
-        />
-      </svg>
-    );
-  }
-  if (normalized === "codex") {
-    return (
-      <svg
-        className="h-[15px] w-[15px]"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-      >
-        <title>Codex</title>
-        <path
-          clipRule="evenodd"
-          d="M8.086.457a6.105 6.105 0 013.046-.415c1.333.153 2.521.72 3.564 1.7a.117.117 0 00.107.029c1.408-.346 2.762-.224 4.061.366l.063.03.154.076c1.357.703 2.33 1.77 2.918 3.198.278.679.418 1.388.421 2.126a5.655 5.655 0 01-.18 1.631.167.167 0 00.04.155 5.982 5.982 0 011.578 2.891c.385 1.901-.01 3.615-1.183 5.14l-.182.22a6.063 6.063 0 01-2.934 1.851.162.162 0 00-.108.102c-.255.736-.511 1.364-.987 1.992-1.199 1.582-2.962 2.462-4.948 2.451-1.583-.008-2.986-.587-4.21-1.736a.145.145 0 00-.14-.032c-.518.167-1.04.191-1.604.185a5.924 5.924 0 01-2.595-.622 6.058 6.058 0 01-2.146-1.781c-.203-.269-.404-.522-.551-.821a7.74 7.74 0 01-.495-1.283 6.11 6.11 0 01-.017-3.064.166.166 0 00.008-.074.115.115 0 00-.037-.064 5.958 5.958 0 01-1.38-2.202 5.196 5.196 0 01-.333-1.589 6.915 6.915 0 01.188-2.132c.45-1.484 1.309-2.648 2.577-3.493.282-.188.55-.334.802-.438.286-.12.573-.22.861-.304a.129.129 0 00.087-.087A6.016 6.016 0 015.635 2.31C6.315 1.464 7.132.846 8.086.457zm-.804 7.85a.848.848 0 00-1.473.842l1.694 2.965-1.688 2.848a.849.849 0 001.46.864l1.94-3.272a.849.849 0 00.007-.854l-1.94-3.393zm5.446 6.24a.849.849 0 000 1.695h4.848a.849.849 0 000-1.696h-4.848z"
-          fillRule="evenodd"
-        />
-      </svg>
-    );
-  }
-  if (normalized === "opencode") {
-    return (
-      <svg
-        className="h-[15px] w-[15px]"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        fillRule="evenodd"
-      >
-        <title>opencode</title>
-        <path d="M16 6H8v12h8V6zm4 16H4V2h16v20z" />
-      </svg>
-    );
-  }
-  return <Bot size={15} />;
-}
-
-function VibeCodingBento({ agentsList }: VibeCodingBentoProps) {
   return (
     <div>
-      <SectionHead
-        eyebrow="Practice"
-        title="Shipping with coding agents"
-        links={[
-          {
-            label: "Read the post",
-            href: "https://blog.duyet.net/2026/01/coding-agent/",
-          },
-        ]}
-      />
-      <div className="home-about-agents">
-        <article className="home-cap-card home-about-agents-lead">
-          <SoftLabel tone="plum">Vibe-coding</SoftLabel>
-          <p className="home-cap-body mt-4 max-w-[40ch] text-[clamp(0.95rem,1.2vw,1.05rem)]">
-            Most of what ships here is written alongside coding agents, with me
-            steering. I describe intent, review diffs, and keep the architecture
-            honest — the agents do the typing, the searching, and a lot of the
-            grunt work.
-          </p>
-          <p className="home-about-agents-note">
-            <span className="font-[var(--font-mono)] text-[var(--rd-text)]">
-              1.24B
-            </span>{" "}
-            tokens burned all-time — a trailing signal, not the point.
-          </p>
-        </article>
-
-        <div className="home-about-agents-list">
-          {agentsList.map((agent) => (
-            <article key={agent.name} className="home-proj-card home-about-agent">
-              <div className="home-about-agent-top">
-                <span className="home-cap-icon" aria-hidden="true">
-                  <AgentIcon name={agent.name} />
+      <header className="mb-[0.85rem] flex flex-wrap items-baseline justify-between gap-x-5 gap-y-2">
+        <h2 className="m-0 font-[family-name:var(--font-display)] text-[clamp(1.65rem,3vw,2.15rem)] font-normal tracking-[-0.035em] leading-[1.1]">
+          Agentic Engineering
+        </h2>
+        <a
+          className={tw.link}
+          href={addUtmParams(
+            "https://blog.duyet.net/2026/01/coding-agent/",
+            "about_page",
+            "agentic_engineering"
+          )}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Read the post
+        </a>
+      </header>
+      <p className="m-0 max-w-[46rem] text-[0.98rem] leading-[1.65] text-[var(--rd-text-2)]">
+        Most of what ships here is written with coding agents. I describe
+        intent, review diffs, and keep the architecture honest; they do the
+        typing, the searching, and a lot of the grunt work.
+      </p>
+      {agents ? (
+        <ul className="mt-[1.35rem] mb-0 flex list-none flex-wrap items-baseline gap-y-[0.35rem] p-0">
+          {agents.items.map((name, i) => (
+            <li
+              key={name}
+              className="font-[family-name:var(--font-display)] text-[clamp(1.2rem,2.2vw,1.55rem)] font-normal tracking-[-0.03em] leading-[1.25] text-[var(--rd-text)]"
+            >
+              {i > 0 ? (
+                <span className="mx-[0.7rem] font-sans text-[0.9rem] text-[var(--rd-text-4)]">
+                  ·
                 </span>
-                <div className="min-w-0">
-                  <h3 className="home-cap-title mt-0">{agent.name}</h3>
-                  <SoftLabel
-                    tone={toneFrom(agent.role)}
-                    className="mt-1.5"
-                  >
-                    {agent.role}
-                  </SoftLabel>
-                </div>
-              </div>
-              <p className="home-cap-body">{agent.desc}</p>
-            </article>
+              ) : null}
+              {name}
+            </li>
           ))}
-        </div>
+        </ul>
+      ) : null}
+      <div className="mt-6 grid grid-cols-1 gap-x-8 gap-y-[1.1rem] border-t border-[var(--rd-line)] pt-[1.35rem] sm:grid-cols-2">
+        {kit.map((group) => (
+          <div key={group.g}>
+            <p className="m-0 text-[0.68rem] font-medium tracking-[0.08em] text-[var(--rd-text-3)] uppercase">
+              {group.g}
+            </p>
+            <p className="mt-[0.35rem] mb-0 text-[0.9rem] leading-[1.5] tracking-[-0.015em] text-[var(--rd-text)]">
+              {group.items.join("  ·  ")}
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );

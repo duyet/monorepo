@@ -1,6 +1,7 @@
 # Documentation Index
 
-- [`docs/ai/internal-knowledge.md`](ai/internal-knowledge.md): durable repository knowledge for AI agents (static-render rule, latest shadcn + chat primitives, deploy path, gitleaks secret scan, Clerk `@clerk/shared` 3.47 pin). Public-app UI direction lives here; [`DESIGN.md`](../DESIGN.md) is the short companion.
+- [`docs/ai/internal-knowledge.md`](ai/internal-knowledge.md): durable repository knowledge for AI agents (static-render rule, Tailwind-only layout, light `:root` / `.dark` overrides, latest shadcn + chat primitives, deploy path, gitleaks secret scan, Clerk `@clerk/shared` 3.47 pin). Public-app UI direction lives here; [`DESIGN.md`](../DESIGN.md) is the short companion.
+- [`.cursor/rules/ui-tailwind.mdc`](../.cursor/rules/ui-tailwind.mdc): always-applied UI rule (Tailwind in TSX, one CSS graph, no `.light` class).
 - [`.cursor/skills/verify-blog/`](../.cursor/skills/verify-blog/SKILL.md): project-local blog verification skill (production build + prerendered post HTML). CLI lever: `.cursor/skills/verify-blog/bin/verify-blog`.
 - [`.cursor/skills/verify-kb/`](../.cursor/skills/verify-kb/SKILL.md): project-local kb graph motion skill (zoom keeps labels and edges; Chrome CDP + Sigma probe). CLI lever: `.cursor/skills/verify-kb/bin/verify-kb`.
 - [`.cursor/skills/verify-api/`](../.cursor/skills/verify-api/SKILL.md): project-local duyet-api skill (wrangler.dev HTTP + production D1 deploy plan). CLI lever: `.cursor/skills/verify-api/bin/verify-api`.

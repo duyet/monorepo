@@ -1,55 +1,30 @@
 import { Link } from "@tanstack/react-router";
+import { Github } from "lucide-react";
 import { addUtmParams } from "../../app/lib/utm";
 import { ProjectBlogLinks } from "../components/ProjectBlogLinks";
+import { ProjectMark } from "../components/ProjectMark";
 import { SoftLabel, toneFrom } from "../components/SoftLabel";
 import { resolveBlogPosts } from "../data/blog-posts";
 import type { AppItem } from "../data/projects";
 import { ColoredDomain } from "./ColoredDomain";
 
-function Logo({
-  logo,
-  logoDark,
-  size = 28,
-}: {
-  logo?: string;
-  logoDark?: string;
-  size?: number;
-}) {
-  if (!logo && !logoDark) return null;
-  if (logoDark) {
-    return (
-      <>
-        <img
-          src={logo}
-          alt=""
-          width={size}
-          height={size}
-          className="shrink-0 rounded-lg dark:hidden"
-        />
-        <img
-          src={logoDark}
-          alt=""
-          width={size}
-          height={size}
-          className="hidden shrink-0 rounded-lg dark:block"
-        />
-      </>
-    );
+function sourceUrl(item: AppItem): string | undefined {
+  if (item.repo) return item.repo;
+  if (item.host === "github.com") {
+    return item.href.split("?")[0];
   }
-  return (
-    <img
-      src={logo}
-      alt=""
-      width={size}
-      height={size}
-      className="shrink-0 rounded-lg"
-    />
-  );
+  return undefined;
+}
+
+function licenseOf(item: AppItem): string | undefined {
+  if (item.license) return item.license;
+  if (item.host === "github.com" || item.repo) return "MIT";
+  return undefined;
 }
 
 export function ProjectList({ items }: { items: AppItem[] }) {
   return (
-    <div className="home-inbox">
+    <div className="overflow-hidden rounded-[var(--rd-r-lg)] border border-[var(--rd-border)] bg-[var(--rd-surface)]">
       {items.map((item) => {
         const href = addUtmParams(
           item.href,
@@ -59,64 +34,85 @@ export function ProjectList({ items }: { items: AppItem[] }) {
         );
         const isExternal = href.startsWith("http");
         const blogPosts = resolveBlogPosts(item.blogPosts);
+        const repo = sourceUrl(item);
+        const license = licenseOf(item);
+        const linkProps = isExternal
+          ? { href, target: "_blank" as const, rel: "noopener noreferrer" }
+          : { href };
 
-        const inner = (
-          <>
-            <span className="flex items-center gap-3 min-w-0">
-              <Logo logo={item.logo} logoDark={item.logoDark} size={28} />
-              <span className="min-w-0">
-                <span className="home-inbox-from block">
-                  <ColoredDomain domain={item.domain || item.host} />
-                </span>
-                <span className="home-inbox-subject block mt-0.5">
-                  {item.name}
-                </span>
+        const identity = (
+          <span className="flex min-w-0 items-center gap-3">
+            <ProjectMark
+              item={item}
+              size={28}
+              className="h-7 w-7 shrink-0 overflow-hidden rounded-[5px] [&>img]:h-7 [&>img]:w-7 [&>img]:object-contain [&>svg]:h-7 [&>svg]:w-7"
+            />
+            <span className="min-w-0">
+              <span className="block font-[family-name:var(--font-mono)] text-[0.72rem] text-[var(--rd-text-3)]">
+                <ColoredDomain domain={item.domain || item.host} />
+              </span>
+              <span className="mt-0.5 block text-[0.9375rem] font-medium tracking-[-0.02em]">
+                {item.name}
               </span>
             </span>
-            <span className="home-inbox-snip hidden md:block min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">
+          </span>
+        );
+
+        return (
+          <div
+            key={item.name}
+            className="grid grid-cols-1 items-start gap-x-4 gap-y-1.5 border-b border-[var(--rd-line)] px-[1.15rem] py-[0.85rem] last:border-b-0 hover:bg-[var(--rd-surface-2)] min-[721px]:grid-cols-[minmax(14rem,18rem)_minmax(0,1fr)_auto] min-[721px]:grid-rows-[auto_auto] min-[721px]:items-center"
+          >
+            {isExternal ? (
+              <a
+                {...linkProps}
+                className="min-w-0 text-inherit no-underline min-[721px]:col-start-1 min-[721px]:row-start-1"
+              >
+                {identity}
+              </a>
+            ) : (
+              <Link
+                to={href}
+                className="min-w-0 text-inherit no-underline min-[721px]:col-start-1 min-[721px]:row-start-1"
+              >
+                {identity}
+              </Link>
+            )}
+            <span className="min-w-0 overflow-hidden text-ellipsis text-[0.8125rem] leading-[1.45] text-[var(--rd-text-2)] max-[720px]:line-clamp-2 min-[721px]:col-start-2 min-[721px]:row-start-1 min-[721px]:whitespace-nowrap">
               {item.description}
             </span>
-            <span className="hidden sm:flex flex-wrap gap-1.5 justify-end">
+            <span className="flex shrink-0 items-center justify-start gap-[0.4rem] min-[721px]:col-start-3 min-[721px]:row-start-1 min-[721px]:justify-end">
               {item.tags?.slice(0, 2).map((tag) => (
                 <SoftLabel key={tag} tone={toneFrom(tag)}>
                   {tag}
                 </SoftLabel>
               ))}
+              {license ? (
+                <span className="px-[0.15rem] font-[family-name:var(--font-mono)] text-[0.68rem] tracking-[0.04em] text-[var(--rd-text-3)]">
+                  {license}
+                </span>
+              ) : null}
+              {repo ? (
+                <a
+                  href={repo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-[1.6rem] w-[1.6rem] items-center justify-center rounded text-[var(--rd-text-2)] hover:bg-[var(--rd-surface-2)] hover:text-[var(--rd-text)]"
+                  aria-label={`${item.name} source on GitHub`}
+                >
+                  <Github size={15} />
+                </a>
+              ) : null}
             </span>
-          </>
-        );
-
-        const rowClass =
-          "home-inbox-row !grid-cols-1 md:!grid-cols-[minmax(12rem,18rem)_minmax(0,1fr)_auto] no-underline text-inherit";
-
-        const row = isExternal ? (
-          <a
-            key={item.name}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={rowClass}
-          >
-            {inner}
-          </a>
-        ) : (
-          <Link key={item.name} to={href} className={rowClass}>
-            {inner}
-          </Link>
-        );
-
-        if (blogPosts.length === 0) return row;
-
-        return (
-          <div key={item.name}>
-            {row}
-            <ProjectBlogLinks
-              slugs={item.blogPosts}
-              heading="Posts"
-              className="flex flex-wrap items-center gap-3 px-4 pb-3"
-              headingClassName="text-[11px] text-[var(--rd-text-3)]"
-              linkClassName="home-text-link text-[12px]"
-            />
+            {blogPosts.length > 0 ? (
+              <ProjectBlogLinks
+                slugs={item.blogPosts}
+                heading="Posts"
+                className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 pl-[calc(1.75rem+0.75rem)] min-[721px]:col-span-3 min-[721px]:row-start-2"
+                headingClassName="m-0 text-[0.65rem] font-medium tracking-[0.06em] text-[var(--rd-text-4)] uppercase"
+                linkClassName="text-[0.75rem] text-[var(--rd-text-2)] no-underline hover:text-[var(--rd-text)]"
+              />
+            ) : null}
           </div>
         );
       })}

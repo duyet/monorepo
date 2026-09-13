@@ -40,7 +40,7 @@ export const duyetProfile: Profile = {
 
   appearance: {
     avatar: "/avatar.jpg",
-    favicon: "/favicon.ico",
+    favicon: "https://duyet.net/brand/logo.svg",
     theme: {
       // Claude-inspired color palette
       primary: "#f5dcd0", // Claude peach

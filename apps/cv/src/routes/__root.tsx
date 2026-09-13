@@ -1,6 +1,10 @@
-import "@duyet/components/styles.css";
-import "../../app/globals.css";
+import "../app.css";
 
+import {
+  duyetFaviconHeadLinks,
+  duyetFontHeadLinks,
+  THEME_BOOT_SCRIPT,
+} from "@duyet/components";
 import Analytics from "@duyet/components/Analytics";
 import Container from "@duyet/components/Container";
 import SiteFooter from "@duyet/components/SiteFooter";
@@ -91,7 +95,8 @@ export const Route = createRootRoute({
       },
     ],
     links: [
-      { rel: "icon", href: "/favicon.svg", sizes: "any" },
+      ...duyetFontHeadLinks(),
+      ...duyetFaviconHeadLinks(),
     ],
     scripts: [{ type: "application/ld+json", children: personJsonLd }],
   }),
@@ -103,6 +108,7 @@ function RootComponent() {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
         <HeadContent />
       </head>
       <body suppressHydrationWarning>

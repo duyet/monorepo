@@ -1,8 +1,13 @@
-import "@duyet/components/styles.css";
 import "../../app/globals.css";
 import "../../styles/blog-design.css";
 
-import { SiteFooter, SiteHeader } from "@duyet/components";
+import {
+  duyetFaviconHeadLinks,
+  duyetFontHeadLinks,
+  THEME_BOOT_SCRIPT,
+  SiteFooter,
+  SiteHeader,
+} from "@duyet/components";
 import Analytics from "@duyet/components/Analytics";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import {
@@ -71,6 +76,7 @@ export const Route = createRootRoute({
       },
     ],
     links: [
+      ...duyetFontHeadLinks(),
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       {
         rel: "preconnect",
@@ -81,7 +87,7 @@ export const Route = createRootRoute({
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico" },
+      ...duyetFaviconHeadLinks(),
       {
         rel: "alternate",
         type: "application/rss+xml",
@@ -98,6 +104,7 @@ function RootComponent() {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
         <HeadContent />
       </head>
       <body suppressHydrationWarning>

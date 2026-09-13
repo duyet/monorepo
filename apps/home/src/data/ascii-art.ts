@@ -19,3 +19,6 @@ export function artFor(seed: string, offset = 0): string {
   }
   return ASCII_ART[(hash + offset) % ASCII_ART.length];
 }
+
+/** Shared selected-work landscape behind logo-on-art projects. */
+export const SHOWCASE_LANDSCAPE = artFor("AnyRouter", 0);

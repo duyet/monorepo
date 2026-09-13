@@ -1,7 +1,11 @@
-import "@duyet/components/styles.css";
 import "../styles.css";
 
-import { SiteNavV2 } from "@duyet/components";
+import {
+  duyetFaviconHeadLinks,
+  duyetFontHeadLinks,
+  THEME_BOOT_SCRIPT,
+  SiteNavV2,
+} from "@duyet/components";
 import Analytics from "@duyet/components/Analytics";
 import ThemeProvider from "@duyet/components/ThemeProvider";
 import {
@@ -45,7 +49,8 @@ export const Route = createRootRoute({
       },
     ],
     links: [
-      { rel: "icon", href: "/favicon.ico" },
+      ...duyetFontHeadLinks(),
+      ...duyetFaviconHeadLinks(),
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       {
         rel: "preconnect",
@@ -79,6 +84,7 @@ function RootComponent() {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
         <HeadContent />
         <link
           rel="stylesheet"
