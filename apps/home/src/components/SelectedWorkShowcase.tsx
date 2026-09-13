@@ -186,7 +186,7 @@ export function SelectedWorkShowcase({
                     <span className="min-w-0">
                       <span className="flex min-w-0 items-center justify-between gap-3">
                         <span
-                          className={`inline-flex min-w-0 items-center gap-[0.4rem] overflow-hidden text-ellipsis whitespace-nowrap font-sans text-[0.9375rem] font-medium tracking-[-0.02em] max-[640px]:text-[0.875rem] ${isActive ? "text-[var(--work-tone,var(--rd-text))]" : "text-[var(--rd-text)]"}`}
+                          className="inline-flex min-w-0 items-center gap-[0.4rem] overflow-hidden text-ellipsis whitespace-nowrap font-sans text-[0.9375rem] font-medium tracking-[-0.02em] text-[var(--rd-text)] max-[640px]:text-[0.875rem]"
                         >
                           <ProjectMark
                             item={item}

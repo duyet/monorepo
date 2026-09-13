@@ -34,4 +34,9 @@ export const tw = {
   leadBare: "text-[1.05rem] leading-[1.65] text-[var(--rd-text-2)]",
   card: "rounded-[var(--rd-r-lg)] border border-[var(--rd-border)] bg-[var(--rd-surface)]",
   time: "font-[family-name:var(--font-mono)] text-[0.72rem] text-[var(--rd-text-3)]",
+  close:
+    "border-t border-[var(--rd-line)] px-[var(--rd-pad)] py-[clamp(3.5rem,8vw,6rem)] text-center",
+  closeTitle:
+    "mx-auto m-0 max-w-[18ch] font-[family-name:var(--font-display)] text-[clamp(1.85rem,3.5vw,2.75rem)] font-normal tracking-[-0.025em] leading-[1.15] text-[var(--rd-text)] text-pretty",
+  closeActions: "mt-7 flex flex-wrap items-center justify-center gap-3",
 } as const;

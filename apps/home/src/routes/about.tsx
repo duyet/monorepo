@@ -170,8 +170,8 @@ function AboutPage() {
       </section>
 
       {/* Closing */}
-      <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(48px,7vw,88px)]">
-        <h2 className="m-0 max-w-[20rem] font-[family-name:var(--font-display)] text-[clamp(1.6rem,3vw,2.1rem)] font-normal tracking-[-0.035em] leading-[1.2] text-pretty">
+      <section className={tw.close}>
+        <h2 className={tw.closeTitle}>
           Prefer the long-form{" "}
           <a
             href="https://cv.duyet.net"
@@ -183,7 +183,7 @@ function AboutPage() {
           </a>
           , or just say hi.
         </h2>
-        <div className="mt-6 flex flex-wrap items-center gap-3">
+        <div className={tw.closeActions}>
           <a
             href="https://cv.duyet.net"
             className={tw.btnPrimary}
