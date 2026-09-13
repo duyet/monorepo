@@ -29,30 +29,27 @@ const mdxCache = new Map<
 >();
 
 // Minimal hljs grammar for ```prompt blocks: highlights /slash-commands only.
-// Factory: lowlight/highlight.js register a language by calling it as
-// `(hljs) => definition`, so a bare object throws at registration
-// ("languageDefinition is not a function") and crashes every .mdx post.
-const promptLanguage = (): {
-  name: string;
-  disableAutodetect: boolean;
-  case_insensitive: boolean;
-  contains: { scope: string; begin: RegExp }[];
-} => ({
-  name: "prompt",
-  disableAutodetect: true,
-  case_insensitive: false,
-  contains: [{ scope: "built_in", begin: /^\/[A-Za-z][\w:-]*/ }],
-});
+// Register as a factory `(hljs) => definition`. Passing the returned object
+// throws `languageDefinition.bind is not a function` (minified: `r.bind is
+// not a function`) and crashes every .mdx post that uses ```prompt.
+function promptLanguage() {
+  return {
+    name: "prompt",
+    disableAutodetect: true,
+    case_insensitive: false,
+    contains: [{ scope: "built_in", begin: /^\/[A-Za-z][\w:-]*/ }],
+  };
+}
 
 let highlightLanguagesPromise:
-  | Promise<Record<string, ReturnType<typeof promptLanguage>>>
+  | Promise<Record<string, typeof promptLanguage>>
   | undefined;
 
 async function getHighlightLanguages() {
   if (!highlightLanguagesPromise) {
     highlightLanguagesPromise = import("lowlight").then(({ common }) => ({
       ...common,
-      prompt: promptLanguage(),
+      prompt: promptLanguage,
     }));
   }
   return highlightLanguagesPromise;
