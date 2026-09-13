@@ -15,8 +15,8 @@ GitHub repo metadata (description + topics) must match the current stack. When m
 - If a linked worktree reports `Operation not permitted` under `.git/worktrees/...`, use the canonical checkout after `git status --short --branch`; stage only touched paths so unrelated local edits stay out of commits.
 - Public marketing/content routes stay **fully static**: HTML is produced at build/prerender time. Do not add runtime-required data fetches to those routes. Chat widgets may hydrate, but they must not turn the host page into a client-only shell.
 - Shared chrome lives in `packages/components/site-header/` as small units (`AppSwitcher`, `GlobalNav`, `LocalNav`, `MobileNav`, `ThemeButton`) composed by `SiteHeader`. Do not grow `SiteHeader.tsx` back into a 800-line file.
-- **UI styling:** layout and chrome use **Tailwind classes in TSX** (shared strings in `apps/home/src/lib/tw.ts` or `packages/components/site-header/classes.ts` are fine). Do not add new CSS selectors (`.home-*`, `.rd-*`, `.site-header-*`) for layout. CSS files keep **tokens only**: `:root` is light; **`.dark` is the only theme override**; no `.light` class and do not toggle `html.light`.
-- **One CSS graph per app:** the app stylesheet `@import "@duyet/components/styles.css"` once, then local token overrides. `__root` imports that one file — never a second `@import "tailwindcss"` or a second `styles.css` from JS. Fonts go in `<link>` (`duyetFontHeadLinks()`), not `@import url(...)` in CSS.
+- **UI styling:** layout and chrome use **Tailwind classes in TSX**. Shared editorial strings live in `packages/components/editorial/tw.ts` (home/blog re-export as `lib/tw`). Do not add new CSS selectors (`.home-*`, `.rd-*`, `.site-header-*`) for layout. CSS files keep **tokens only**: `:root` is light; **`.dark` is the only theme override**; no `.light` class and do not toggle `html.light`.
+- **One CSS graph per app:** the app stylesheet `@import "@duyet/components/styles.css"` once. Home and blog then `@import "@duyet/components/editorial/tokens.css"` for `--rd-*`. `__root` imports that one app file — never a second `@import "tailwindcss"` or a second `styles.css` from JS. Fonts go in `<link>` (`duyetFontHeadLinks()`), not `@import url(...)` in CSS.
 - **First paint:** default theme is **light**. Dark only if `localStorage.theme === "dark"`. Header/footer are not wrapped in `ClerkAuthProvider` (Clerk remounts children). App roots import chrome from **deep paths** (`site-header/SiteHeader`, `SiteFooter`, `ThemeProvider`), not the `@duyet/components` barrel. `html { scrollbar-gutter: stable }`. Brand mark/favicons come from `packages/components/brand/` (`DuyetLogo`, `duyetFaviconHeadLinks`).
 - UI primitives come from **latest shadcn/ui** under `packages/components/ui/` (registry style `new-york-v4`). Chat conversations use the official June 2026 set: `MessageScroller`, `Message`, `Bubble`, `Attachment`, `Marker`. Compose them via `ChatTranscript` / `ChatMessageList` in `packages/components/chat/`. Do not invent a parallel chat kit.
 - Ignore generated Next dumps: `.next/`, `out/`, `next-env.d.ts`. Do not commit `apps/agents/` scratch or leftover agent worktrees.
@@ -40,6 +40,15 @@ herdr agent prompt feat-<short> "<full task spec>" --wait --timeout 600000
 
 4. Agent names: `[a-z][a-z0-9_-]{0,31}`, unique among live agents. Prefer `--kind` matching the user’s agent (Cursor → `cursor`, Grok → `grok`, etc.).
 5. Herdr 0.8 `agent start` works (`agent_started` / `interactive_ready`). Stopping after `worktree create` is the idle-shell failure mode, not a Herdr regression.
+
+## Tailscale Serve (local Vite remote access)
+
+When the user asks for Tailscale / tailnet / remote access to a local Vite app:
+
+1. Bind Vite `server.host` to `0.0.0.0`. Put `.ts.net` and the node MagicDNS name (`tailscale status`) in `allowedHosts`.
+2. Do **not** run `tailscale serve reset` (wipes other proxies). Do **not** enable Funnel unless they ask for the public internet.
+3. `tailscale serve --bg --https=<httpsPort> --yes <vitePort>` on a free HTTPS port. Home is typically `3443 → 3001`, blog `3444 → 3000`.
+4. Give them the URL from `tailscale serve status` (`https://<magicdns>:<httpsPort>/`).
 
 ## Static rendering
 

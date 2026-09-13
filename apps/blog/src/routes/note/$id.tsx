@@ -4,7 +4,7 @@ import { type ReactElement, Suspense } from 'react'
 import { Markdown } from '@/components/Markdown'
 import { getShortformById, getShortforms } from '@/lib/shortforms'
 import type { Shortform } from '@/lib/shortforms'
-import '@/styles/post-reader.css'
+
 
 type NeighborNote = { id: string; title?: string; excerpt: string }
 

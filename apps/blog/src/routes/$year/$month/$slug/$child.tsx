@@ -11,7 +11,7 @@ import {
   getSeries,
 } from "@/lib/posts";
 import { resolveArticleHtml } from "@/lib/resolve-article-html";
-import "@/styles/post-reader.css";
+
 import { ChildBreadcrumb } from "../-breadcrumb";
 import Content from "../-content";
 import { PostFooter } from "../-post-footer";
@@ -136,14 +136,19 @@ export const Route = createFileRoute("/$year/$month/$slug/$child")({
 });
 
 function ChildPostPage() {
-  const { post, parentTitle, siblings, series, related } =
-    Route.useLoaderData() as {
-      post: LoadedPost;
-      parentTitle: string;
-      siblings: ChildNavItem[];
-      series: Series | null;
-      related: Post[];
-    };
+  const data = Route.useLoaderData() as
+    | {
+        post: LoadedPost;
+        parentTitle: string;
+        siblings: ChildNavItem[];
+        series: Series | null;
+        related: Post[];
+      }
+    | undefined;
+  if (!data?.post) {
+    throw notFound();
+  }
+  const { post, parentTitle, siblings, series, related } = data;
 
   return (
     <div className="post-reader overflow-x-hidden pb-0">

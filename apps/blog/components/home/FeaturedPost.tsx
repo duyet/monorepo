@@ -20,54 +20,43 @@ function FeaturedPost({ post }: { post: Post }) {
     <Link
       to="/$year/$month/$slug/"
       params={postParams(post)}
-      className={`overflow-hidden grid grid-cols-1 ${
+      className={
         thumbnail
-          ? "md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] rounded-[var(--rd-r)] bg-[var(--rd-surface)]"
-          : "rd-card"
-      }`}
+          ? "group grid overflow-hidden rounded-[var(--rd-r-lg)] bg-[var(--rd-surface)] text-inherit no-underline shadow-[var(--rd-shadow)] max-md:grid-cols-1 md:grid-cols-[1.15fr_minmax(0,1fr)]"
+          : "group grid overflow-hidden rounded-[var(--rd-r-lg)] border border-[var(--rd-border)] bg-[var(--rd-surface)] text-inherit no-underline"
+      }
     >
-      {thumbnail && (
-        <div className="overflow-hidden min-h-[200px] md:min-h-[260px] max-h-[300px] md:max-h-none flex items-center">
+      {thumbnail ? (
+        <div className="relative min-h-[220px] overflow-hidden bg-[var(--rd-surface-2)] md:min-h-[320px]">
           <img
             src={thumbnail}
-            alt={post.title}
+            alt=""
             loading="lazy"
-            className="w-full h-auto max-h-full object-contain"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
           />
         </div>
-      )}
+      ) : null}
 
-      {/* Post details */}
-      <div
-        className="p-[clamp(26px,3vw,38px)] flex flex-col justify-center"
-      >
-        <div
-          className="flex gap-[10px] items-center mb-4"
-        >
-          <span className="rd-chip font-[var(--font-mono)] text-[10.5px]">
+      <div className="flex flex-col justify-center px-[clamp(1.5rem,3vw,2.5rem)] py-[clamp(1.6rem,3vw,2.4rem)]">
+        <div className="mb-4 flex flex-wrap items-center gap-2.5">
+          <span className="inline-flex items-center rounded-full border border-[var(--rd-border)] bg-[var(--rd-bg)] px-2.5 py-1 font-[family-name:var(--font-mono)] text-[10.5px] font-medium tracking-[0.04em] text-[var(--rd-text-2)] uppercase">
             {post.category}
           </span>
-          <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs">
-            {formatPostDate(post.date)} &middot;{" "}
+          <span className="font-[family-name:var(--font-mono)] text-xs text-[var(--rd-text-3)]">
+            {formatPostDate(post.date)} ·{" "}
             {Math.max(1, Math.round(post.readingTime ?? 1))} min
           </span>
         </div>
-        <h2
-          className="text-[clamp(1.5rem,2.6vw,2rem)] tracking-[-0.035em] leading-[1.08]"
-        >
+        <h2 className="m-0 font-[family-name:var(--font-display)] text-[clamp(1.7rem,2.8vw,2.25rem)] font-normal leading-[1.08] tracking-[-0.035em] text-[var(--rd-text)]">
           {post.title}
         </h2>
-        {post.excerpt && (
-          <p
-            className="text-[var(--rd-text-2)] mt-[14px] text-[15.5px] max-w-[44ch]"
-          >
+        {post.excerpt ? (
+          <p className="mt-3.5 m-0 max-w-[44ch] text-[15.5px] leading-[1.55] text-[var(--rd-text-2)]">
             {post.excerpt}
           </p>
-        )}
-        <div
-          className="mt-[22px] flex items-center gap-2 text-[var(--rd-accent-ink)] text-sm font-[550]"
-        >
-          Read the post <ArrowRight size={16} />
+        ) : null}
+        <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-[var(--rd-accent-ink)]">
+          Read the post <ArrowRight size={16} aria-hidden />
         </div>
       </div>
     </Link>

@@ -112,7 +112,7 @@ describe("SubscribeCapture", () => {
   it("opens a compact dialog from the button", () => {
     render(<SubscribeCapture />);
     fireEvent.click(screen.getByRole("button", { name: "Subscribe" }));
-    expect(screen.getByText("Get updates")).toBeTruthy();
+    expect(screen.getByRole("heading", { name: "Get updates" })).toBeTruthy();
     expect(screen.getByPlaceholderText("you@example.com")).toBeTruthy();
   });
 

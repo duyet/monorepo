@@ -1,0 +1,190 @@
+#!/usr/bin/env bash
+# CLI lever for .cursor/skills/verify-editorial — run from the monorepo root.
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../.." && pwd)"
+BLOG_URL="${BLOG_URL:-http://127.0.0.1:3000}"
+HOME_URL="${HOME_URL:-http://127.0.0.1:3001}"
+CMD="${1:-}"
+shift || true
+
+die() {
+  python3 -c 'import json,sys; print(json.dumps({"ok": False, "error": sys.argv[1]}))' "$1"
+  exit 1
+}
+
+usage() {
+  cat <<'EOF'
+verify-editorial — prove home/blog editorial chrome
+
+Commands:
+  doctor              Tokens import + dither contrast contracts in source
+  drive <feature>     featured-hero | dither-contrast | post-html
+  prove-dev           doctor + featured-hero + dither-contrast + post-html + home GET
+  --help              This text
+
+Env: BLOG_URL (default http://127.0.0.1:3000) HOME_URL (default http://127.0.0.1:3001)
+EOF
+}
+
+ensure_root() {
+  [[ -f "${ROOT}/package.json" && -d "${ROOT}/apps/blog" ]] || die "not the monorepo root (${ROOT})"
+}
+
+json_out() {
+  python3 -c 'import json,sys; print(json.dumps(json.loads(sys.argv[1])))' "$1"
+}
+
+cmd_doctor() {
+  ensure_root
+  python3 - "$ROOT" <<'PY'
+import json, pathlib, sys
+root = pathlib.Path(sys.argv[1])
+home_css = (root / "apps/home/src/globals.css").read_text()
+blog_css = (root / "apps/blog/app/globals.css").read_text()
+switcher = (root / "packages/components/site-header/AppSwitcher.tsx").read_text()
+sub = (root / "packages/components/subscribe/SubscribeCapture.tsx").read_text()
+featured = (root / "apps/blog/components/home/FeaturedPost.tsx").read_text()
+ok = True
+checks = {
+  "homeTokens": "@duyet/components/editorial/tokens.css" in home_css,
+  "blogTokens": "@duyet/components/editorial/tokens.css" in blog_css,
+  "switcherNotFullDither": "hover:after:opacity-100" not in switcher,
+  "switcherMask": "mask-image" in switcher,
+  "subscribePanel": "SubscribeDitherPanel" in sub,
+  "featuredCover": "object-cover" in featured,
+}
+ok = all(checks.values())
+print(json.dumps({"ok": ok, "checks": checks}))
+sys.exit(0 if ok else 1)
+PY
+}
+
+cmd_featured_hero() {
+  ensure_root
+  python3 - "$BLOG_URL" "$ROOT" <<'PY'
+import json, pathlib, sys, urllib.request
+base, root = sys.argv[1], pathlib.Path(sys.argv[2])
+url = base.rstrip("/") + "/"
+req = urllib.request.Request(url, headers={"User-Agent": "verify-editorial/1.0"})
+try:
+    with urllib.request.urlopen(req, timeout=20) as r:
+        body = r.read().replace(b"\0", b"").decode("utf-8", "replace")
+        status = r.status
+except Exception as e:
+    print(json.dumps({"ok": False, "error": str(e), "url": url}))
+    sys.exit(1)
+src = (root / "apps/blog/components/home/FeaturedPost.tsx").read_text()
+out = {
+  "ok": status == 200 and "Notes, mostly on" in body and "Read the post" in body and "Cannot destructure" not in body and "object-cover" in src,
+  "url": url,
+  "status": status,
+  "hasHeading": "Notes, mostly on" in body,
+  "hasCta": "Read the post" in body,
+  "noLoaderCrash": "Cannot destructure" not in body,
+  "featuredCover": "object-cover" in src,
+}
+print(json.dumps(out))
+sys.exit(0 if out["ok"] else 1)
+PY
+}
+
+cmd_dither() {
+  ensure_root
+  python3 - "$ROOT" <<'PY'
+import json, pathlib, re, sys
+root = pathlib.Path(sys.argv[1])
+switcher = (root / "packages/components/site-header/AppSwitcher.tsx").read_text()
+sub = (root / "packages/components/subscribe/SubscribeCapture.tsx").read_text()
+opacities = [float(x) for x in re.findall(r"hover:after:opacity-(\d+(?:\.\d+)?)", switcher)]
+sub_ops = [float(x) for x in re.findall(r"after:opacity-(\d+(?:\.\d+)?)", sub)]
+ok = (
+  "hover:after:opacity-100" not in switcher
+  and "mask-image" in switcher
+  and (not opacities or max(opacities) <= 40)
+  and (not sub_ops or max(sub_ops) <= 40)
+  and "SubscribeDitherPanel" in sub
+)
+print(json.dumps({
+  "ok": ok,
+  "switcherHoverOpacities": opacities,
+  "subscribeAfterOpacities": sub_ops,
+  "switcherHasMask": "mask-image" in switcher,
+}))
+sys.exit(0 if ok else 1)
+PY
+}
+
+cmd_post_html() {
+  ensure_root
+  python3 - "$BLOG_URL" <<'PY'
+import json, sys, urllib.request
+url = sys.argv[1].rstrip("/") + "/2026/08/grok-bot/"
+req = urllib.request.Request(url, headers={"User-Agent": "verify-editorial/1.0"})
+try:
+    with urllib.request.urlopen(req, timeout=60) as r:
+        body = r.read().replace(b"\0", b"").decode("utf-8", "replace")
+        status = r.status
+except Exception as e:
+    print(json.dumps({"ok": False, "error": str(e), "url": url}))
+    sys.exit(1)
+ok = (
+    status == 200
+    and "<article" in body
+    and "typeset" in body
+    and "SuperGrok Heavy" in body
+    and "server rendering errored" not in body
+    and "Cannot destructure" not in body
+)
+print(json.dumps({
+    "ok": ok,
+    "url": url,
+    "status": status,
+    "hasArticle": "<article" in body,
+    "hasTypeset": "typeset" in body,
+    "hasBodyCopy": "SuperGrok Heavy" in body,
+    "noSsrError": "server rendering errored" not in body,
+}))
+sys.exit(0 if ok else 1)
+PY
+}
+
+cmd_prove() {
+  ensure_root
+  python3 - "$HOME_URL" <<'PY'
+import json, sys, urllib.request
+url = sys.argv[1].rstrip("/") + "/"
+req = urllib.request.Request(url, headers={"User-Agent": "verify-editorial/1.0"})
+try:
+    with urllib.request.urlopen(req, timeout=20) as r:
+        body = r.read().replace(b"\0", b"").decode("utf-8", "replace")
+        status = r.status
+except Exception as e:
+    print(json.dumps({"ok": False, "home": {"error": str(e)}}))
+    sys.exit(1)
+print(json.dumps({"ok": status == 200 and "Cannot destructure" not in body, "homeStatus": status, "url": url}))
+sys.exit(0 if status == 200 else 1)
+PY
+}
+
+case "${CMD}" in
+  ""|--help|-h) usage ;;
+  doctor) cmd_doctor ;;
+  drive)
+    feat="${1:-}"
+    case "${feat}" in
+      featured-hero) cmd_featured_hero ;;
+      dither-contrast) cmd_dither ;;
+      post-html) cmd_post_html ;;
+      *) die "unknown feature: ${feat}" ;;
+    esac
+    ;;
+  prove-dev)
+    cmd_doctor
+    cmd_dither
+    cmd_featured_hero
+    cmd_post_html
+    cmd_prove
+    ;;
+  *) die "unknown command: ${CMD}" ;;
+esac

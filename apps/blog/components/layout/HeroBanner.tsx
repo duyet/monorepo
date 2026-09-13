@@ -1,3 +1,4 @@
+import { tw } from "@/lib/tw";
 import { BackLink } from "../ui/BackLink";
 
 interface HeroBannerProps {
@@ -22,20 +23,16 @@ export function HeroBanner({
   void colorClass;
 
   return (
-    <div className="blog-page-head mb-12 border-b border-[var(--border-faint)] pb-8">
+    <div className={tw.pageHead}>
       <div className="mb-4">
         <BackLink href={backLinkHref} text={backLinkText} />
       </div>
 
-      <h1 className="mb-5 text-4xl font-semibold tracking-tight text-[var(--foreground)] dark:text-[var(--on-dark)] sm:text-5xl">
-        {title}
-      </h1>
+      <h1 className={tw.pageTitle}>{title}</h1>
 
-      <p className="mb-6 max-w-2xl text-base leading-7 text-[#1a1a1a]/70 dark:text-[#f8f8f2]/75">
-        {description}
-      </p>
+      <p className={`${tw.lead} mt-4 mb-6`}>{description}</p>
 
-      <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm font-medium text-[#1a1a1a]/55 dark:text-[#f8f8f2]/55">
+      <div className={`${tw.mono} flex flex-wrap gap-x-4 gap-y-1`}>
         <span>
           {postCount} {postCount === 1 ? "post" : "posts"}
         </span>

@@ -188,8 +188,8 @@ export function AppSwitcher({
                             "before:bg-[radial-gradient(100px_circle_at_var(--mx,30%)_var(--my,30%),color-mix(in_srgb,var(--switcher-tone)_38%,transparent),transparent_70%)]",
                             "hover:before:opacity-100 focus-visible:before:opacity-100",
                             "after:pointer-events-none after:absolute after:inset-0 after:z-0 after:opacity-0 after:transition-opacity after:duration-200",
-                            "after:[background-image:var(--switcher-dither)] after:bg-repeat",
-                            "hover:after:opacity-100 focus-visible:after:opacity-100",
+                            "after:[background-image:var(--switcher-dither)] after:bg-repeat after:[mask-image:linear-gradient(105deg,transparent_0%,transparent_42%,black_88%)]",
+                            "hover:after:opacity-30 focus-visible:after:opacity-30",
                             isCurrent
                               ? "border-[color-mix(in_srgb,var(--switcher-tone)_28%,transparent)] bg-[color-mix(in_srgb,var(--switcher-tone)_10%,var(--rd-muted,transparent))]"
                               : "border-transparent hover:border-[color-mix(in_srgb,var(--switcher-tone)_45%,transparent)] hover:bg-[color-mix(in_srgb,var(--switcher-tone)_8%,transparent)]",

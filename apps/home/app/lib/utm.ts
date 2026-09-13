@@ -13,8 +13,9 @@ export function addUtmParams(
   if (absUrl.startsWith("/")) return absUrl;
   const urlObj = new URL(absUrl);
   urlObj.searchParams.set("utm_source", "home");
-  urlObj.searchParams.set("utm_medium", "website");
+  urlObj.searchParams.set("utm_medium", "referral");
   urlObj.searchParams.set("utm_campaign", campaign);
+  urlObj.searchParams.set("ref", "duyet.net");
   if (content) {
     urlObj.searchParams.set("utm_content", content);
   }

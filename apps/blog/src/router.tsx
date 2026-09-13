@@ -27,6 +27,8 @@ export function getRouter() {
     // Prerendered HTML is the source of truth. Do not refetch loaders on
     // hydrate (default staleTime is 0) — that pending swap blanks the post.
     defaultStaleTime: Number.POSITIVE_INFINITY,
+    defaultPendingMs: Number.POSITIVE_INFINITY,
+    defaultPendingMinMs: 0,
   });
   const originalUpdate = router.update.bind(router);
   router.update = ((opts: object) => {

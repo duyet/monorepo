@@ -2,6 +2,7 @@ import Container from "@duyet/components/Container";
 import type { Post } from "@duyet/interfaces";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { getAllPosts } from "@/lib/posts";
+import { tw } from "@/lib/tw";
 
 export const Route = createFileRoute("/feed")({
   loader: async () => {
@@ -17,13 +18,9 @@ function FeedPage() {
 
   return (
     <Container className="mx-auto max-w-[960px] px-5 sm:px-8 lg:px-10">
-      <header className="blog-page-head border-b border-border pb-8">
-        <h1 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
-          Feed
-        </h1>
-        <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
-          Latest posts from the blog.
-        </p>
+      <header className={tw.pageHead}>
+        <h1 className={tw.pageTitle}>Feed</h1>
+        <p className={tw.lead}>Latest posts from the blog.</p>
       </header>
 
       <div className="mt-10 divide-y divide-border">

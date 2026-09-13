@@ -22,4 +22,19 @@ describe("SiteFooter", () => {
     expect(container.textContent).not.toContain("Continuously maintained");
     expect(container.textContent).toContain("duyetbot");
   });
+
+  it("dofollow-refers first-party projects", () => {
+    const { container } = render(
+      <SiteFooter referralSource="blog.duyet.net" />,
+    );
+    const anyrouter = container.querySelector(
+      'a[href*="anyrouter.dev"]',
+    ) as HTMLAnchorElement | null;
+    expect(anyrouter).toBeTruthy();
+    expect(anyrouter?.href).toContain("utm_source=blog.duyet.net");
+    expect(anyrouter?.href).toContain("ref=blog.duyet.net");
+    expect(anyrouter?.getAttribute("rel")).toBeNull();
+    expect(container.textContent).toContain("Templatebot");
+    expect(container.textContent).toContain("Agent State");
+  });
 });

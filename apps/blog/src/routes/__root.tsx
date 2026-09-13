@@ -1,15 +1,13 @@
 import "../../app/globals.css";
-import "../../styles/blog-design.css";
 
-import {
-  duyetFaviconHeadLinks,
-  duyetFontHeadLinks,
-  THEME_BOOT_SCRIPT,
-  SiteFooter,
-  SiteHeader,
-} from "@duyet/components";
 import Analytics from "@duyet/components/Analytics";
-import ThemeProvider from "@duyet/components/ThemeProvider";
+import { SiteFooter } from "@duyet/components/SiteFooter";
+import ThemeProvider, {
+  THEME_BOOT_SCRIPT,
+} from "@duyet/components/ThemeProvider";
+import { duyetFaviconHeadLinks } from "@duyet/components/brand/duyet-logo";
+import { duyetFontHeadLinks } from "@duyet/components/brand/fonts";
+import { SiteHeader } from "@duyet/components/site-header/SiteHeader";
 import {
   createRootRoute,
   HeadContent,
@@ -25,7 +23,7 @@ function NotFoundComponent() {
         <p className="mb-4 text-xs uppercase tracking-[0.16em] text-muted-foreground">
           404
         </p>
-        <h1 className="mb-3 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+        <h1 className="mb-3 font-[family-name:var(--font-display)] text-4xl font-normal tracking-[-0.03em] text-foreground sm:text-5xl">
           Page not found
         </h1>
         <p className="mb-8 text-sm text-muted-foreground">
@@ -55,13 +53,6 @@ function NotFoundComponent() {
   );
 }
 
-const siteFooterLinks = [
-  { label: "Home", href: "https://duyet.net" },
-  { label: "Blog", href: "https://blog.duyet.net" },
-  { label: "CV", href: "https://cv.duyet.net" },
-  { label: "Insights", href: "https://insights.duyet.net" },
-];
-
 export const Route = createRootRoute({
   head: () => ({
     meta: [
@@ -76,17 +67,7 @@ export const Route = createRootRoute({
       },
     ],
     links: [
-      ...duyetFontHeadLinks(),
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
-      },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap",
-      },
+      ...duyetFontHeadLinks({ display: true }),
       ...duyetFaviconHeadLinks(),
       {
         rel: "alternate",
@@ -109,17 +90,17 @@ function RootComponent() {
       </head>
       <body suppressHydrationWarning>
         <ThemeProvider>
-          <div className="blog-editorial-shell min-h-screen relative bg-background text-foreground overflow-x-hidden flex flex-col justify-between subpixel-antialiased">
-            <SiteHeader currentApp="blog" />
-
-            <main className="relative z-10 pb-12 flex-grow">
-              <Outlet />
-            </main>
-
-            <SiteFooter links={siteFooterLinks} />
-            <Analytics />
-            <ServiceWorkerRegister />
-          </div>
+          <SiteHeader
+            currentApp="blog"
+            variant="slashy"
+            cta={{ label: "Archives", href: "/archives/" }}
+          />
+          <main className="min-h-[70vh]">
+            <Outlet />
+          </main>
+          <SiteFooter referralSource="blog.duyet.net" />
+          <Analytics />
+          <ServiceWorkerRegister />
         </ThemeProvider>
         <Scripts />
       </body>

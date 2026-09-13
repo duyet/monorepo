@@ -1,7 +1,13 @@
 import type { Post } from "@duyet/interfaces";
 import type { TOCItem } from "@duyet/libs/extractHeadings";
 import { cn } from "@duyet/libs/utils";
-import { Fragment, Suspense, use, useEffect, useRef } from "react";
+import {
+  Fragment,
+  useEffect,
+  useRef,
+  useState,
+  type ComponentType,
+} from "react";
 import * as runtime from "react/jsx-runtime";
 import { mdxComponents } from "@/components/MdxComponents";
 import { embedXPosts, TWITTER_WIDGETS_SRC } from "@/lib/x-embed";
@@ -184,32 +190,54 @@ function useTwitterWidgets() {
   });
 }
 
-function MDXRenderer({ source }: { source: string }) {
-  if (!mdxCache.has(source)) {
-    mdxCache.set(source, compileMDX(source));
-  }
-
-  const MDXContent = use(mdxCache.get(source)!);
-
+function StaticArticle({ html }: { html: string }) {
   return (
-    <article className={typesetClassName}>
-      <MDXContent components={mdxComponents} />
-    </article>
+    <article
+      className={typesetClassName}
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
   );
+}
+
+/** SSR always paints prebuilt HTML. MDX compiles after mount (no Suspense blank). */
+function ProgressiveMDX({
+  source,
+  html,
+}: {
+  source: string;
+  html: string;
+}) {
+  const [MDXContent, setMDXContent] = useState<ComponentType<MDXContentProps> | null>(
+    null,
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+    if (!mdxCache.has(source)) {
+      mdxCache.set(source, compileMDX(source));
+    }
+    mdxCache.get(source)!.then((Comp) => {
+      if (!cancelled) setMDXContent(() => Comp);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [source]);
+
+  if (MDXContent) {
+    return (
+      <article className={typesetClassName}>
+        <MDXContent components={mdxComponents} />
+      </article>
+    );
+  }
+  return <StaticArticle html={html} />;
 }
 
 export default function Content({ post }: { post: ContentPost }) {
   const copyRef = useCodeCopyButtons();
   useTwitterWidgets();
-  const html = embedXPosts(post.content || "");
-  const staticArticle = (
-    <article
-      className={typesetClassName}
-      dangerouslySetInnerHTML={{
-        __html: html || (post.isMDX ? "" : "No content"),
-      }}
-    />
-  );
+  const html = embedXPosts(post.content || "") || (post.isMDX ? "" : "No content");
 
   return (
     <>
@@ -217,11 +245,9 @@ export default function Content({ post }: { post: ContentPost }) {
 
       <div ref={copyRef} className="contents">
         {post.isMDX && post.mdxSource ? (
-          <Suspense fallback={staticArticle}>
-            <MDXRenderer source={post.mdxSource} />
-          </Suspense>
+          <ProgressiveMDX source={post.mdxSource} html={html} />
         ) : (
-          staticArticle
+          <StaticArticle html={html} />
         )}
       </div>
 

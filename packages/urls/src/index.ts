@@ -27,6 +27,15 @@ export {
   PAGES_DOMAIN_OVERRIDES,
 } from "./app-registry";
 export type { AppRegistryEntry, AppRegistryId } from "./app-registry";
+export {
+  FIRST_PARTY_HOSTS,
+  PROJECT_BACKLINKS,
+  isFirstPartyHref,
+  referralRel,
+  referralTarget,
+  withReferral,
+} from "./referral";
+export type { ProjectBacklink } from "./referral";
 // Export all types
 export type {
   AppUrls,

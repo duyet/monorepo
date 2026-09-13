@@ -1,4 +1,10 @@
 import { cn } from "@duyet/libs/utils";
+import {
+  PROJECT_BACKLINKS,
+  referralRel,
+  referralTarget,
+  withReferral,
+} from "@duyet/urls/referral";
 import type { ReactNode } from "react";
 import { SocialHandles } from "./SocialHandles";
 
@@ -13,6 +19,8 @@ export interface SiteFooterProps {
   owner?: string;
   className?: string;
   children?: ReactNode;
+  /** utm_source / ref for outbound project backlinks. */
+  referralSource?: string;
 }
 
 interface FooterGroup {
@@ -20,45 +28,70 @@ interface FooterGroup {
   items: SiteFooterLink[];
 }
 
-const GROUPS: FooterGroup[] = [
+function tagged(
+  items: SiteFooterLink[],
+  source: string,
+  campaign: string,
+): SiteFooterLink[] {
+  return items.map((item) => ({
+    ...item,
+    href: withReferral(item.href, { source, campaign, content: item.label }),
+  }));
+}
+
+function footerGroups(source: string): FooterGroup[] {
+  return [
   {
     heading: "Apps",
-    items: [
-      { label: "Home", href: "https://duyet.net" },
-      { label: "Blog", href: "https://blog.duyet.net" },
-      { label: "Insights", href: "https://insights.duyet.net" },
-      { label: "Homelab", href: "https://homelab.duyet.net" },
-      { label: "Photos", href: "https://photos.duyet.net" },
-    ],
+    items: tagged(
+      [
+        { label: "Home", href: "https://duyet.net" },
+        { label: "Blog", href: "https://blog.duyet.net" },
+        { label: "Insights", href: "https://insights.duyet.net" },
+        { label: "Homelab", href: "https://homelab.duyet.net" },
+        { label: "Photos", href: "https://photos.duyet.net" },
+        { label: "CV", href: "https://cv.duyet.net" },
+      ],
+      source,
+      "footer-apps",
+    ),
   },
   {
     heading: "Projects",
-    items: [
-      { label: "GitHub", href: "https://github.com/duyet" },
-      { label: "ClickHouse Monitor", href: "https://chmonitor.dev" },
-      { label: "AnyRouter", href: "https://anyrouter.dev" },
-      { label: "Knowledge base", href: "https://kb.duyet.net" },
-    ],
+    items: tagged(
+      PROJECT_BACKLINKS.map((p) => ({ label: p.label, href: p.href })),
+      source,
+      "footer-projects",
+    ),
   },
   {
     heading: "About",
-    items: [
-      { label: "About", href: "https://duyet.net/about" },
-      { label: "CV", href: "https://cv.duyet.net" },
-      { label: "Projects", href: "https://duyet.net/projects" },
-      { label: "RSS", href: "https://blog.duyet.net/rss.xml" },
-      { label: "Newsletter", href: "https://aidr.today/subscribe" },
-    ],
+    items: tagged(
+      [
+        { label: "About", href: "https://duyet.net/about" },
+        { label: "Projects", href: "https://duyet.net/projects" },
+        { label: "GitHub", href: "https://github.com/duyet" },
+        { label: "RSS", href: "https://blog.duyet.net/rss.xml" },
+        { label: "Newsletter", href: "https://aidr.today/subscribe" },
+      ],
+      source,
+      "footer-about",
+    ),
   },
   {
     heading: "For agents",
-    items: [
-      { label: "duyetbot", href: "https://duyet.net/about-duyetbot" },
-      { label: "MCP server", href: "https://mcp.duyet.net" },
-      { label: "llms.txt", href: "https://duyet.net/ls" },
-    ],
+    items: tagged(
+      [
+        { label: "duyetbot", href: "https://duyet.net/about-duyetbot" },
+        { label: "MCP server", href: "https://mcp.duyet.net" },
+        { label: "llms.txt", href: "https://duyet.net/ls" },
+      ],
+      source,
+      "footer-agents",
+    ),
   },
 ];
+}
 
 function FooterCol({ group }: { group: FooterGroup }) {
   return (
@@ -80,8 +113,8 @@ function FooterCol({ group }: { group: FooterGroup }) {
         <a
           key={item.href}
           href={item.href}
-          target={item.href.startsWith("http") ? "_blank" : undefined}
-          rel={item.href.startsWith("http") ? "noreferrer" : undefined}
+          target={referralTarget(item.href)}
+          rel={referralRel(item.href)}
           style={{
             display: "block",
             fontSize: 14,
@@ -108,11 +141,13 @@ export function SiteFooter({
   links,
   className,
   children,
+  referralSource = "duyet.net",
 }: SiteFooterProps) {
+  const base = footerGroups(referralSource);
   const groups =
     links && links.length > 0
-      ? [...GROUPS, { heading: "Links", items: links }]
-      : GROUPS;
+      ? [...base, { heading: "Links", items: links }]
+      : base;
 
   return (
     <footer

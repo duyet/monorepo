@@ -14,7 +14,20 @@ function getPostRoutes(): string[] {
 }
 
 export default defineConfig({
-  server: { port: 3000, strictPort: true },
+  server: {
+    port: 3000,
+    strictPort: true,
+    host: "0.0.0.0",
+    allowedHosts: [
+      "duet-ubuntu.dingo-mora.ts.net",
+      ".dingo-mora.ts.net",
+      ".ts.net",
+      "localhost",
+      "127.0.0.1",
+      "ubuntu",
+      "duet-ubuntu",
+    ],
+  },
   // Native tsconfig `paths` resolution (replaces the vite-tsconfig-paths plugin).
   resolve: { tsconfigPaths: true, dedupe: ["react", "react-dom"] },
   plugins: [
