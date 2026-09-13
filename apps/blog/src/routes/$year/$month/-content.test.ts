@@ -14,4 +14,9 @@ describe("post content static HTML", () => {
     expect(source).toContain("fallback={staticArticle}");
     expect(source).toContain("dangerouslySetInnerHTML");
   });
+
+  it("registers prompt as a highlight.js language factory", () => {
+    expect(source).toContain("prompt: promptLanguage");
+    expect(source).not.toContain("prompt: promptLanguage()");
+  });
 });
