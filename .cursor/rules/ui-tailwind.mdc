@@ -5,7 +5,7 @@ alwaysApply: true
 
 # UI
 
-- Layout and chrome: **Tailwind classes in TSX**. Reuse strings in `apps/home/src/lib/tw.ts` or `packages/components/site-header/classes.ts`. Do not add new `.home-*` / `.rd-*` / `.site-header-*` CSS selectors.
+- Layout and chrome: **Tailwind classes in TSX**. Reuse `packages/components/editorial/tw.ts` (home/blog). Do not add new `.home-*` / `.rd-*` / `.site-header-*` CSS selectors.
 - CSS files: **tokens only**. `:root` = light. **`.dark` only** for theme overrides. No `.light` class.
 - One stylesheet per app: `@import "@duyet/components/styles.css"` then local tokens. Do not import Tailwind twice or load `styles.css` plus app CSS from JS.
 - Fonts: `<link>` via `duyetFontHeadLinks()`, never `@import` Google Fonts in CSS.

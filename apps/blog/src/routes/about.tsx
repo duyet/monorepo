@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { tw } from "@/lib/tw";
 import type { CSSProperties, ReactElement } from "react";
 import {
   BlogIcon,
@@ -76,15 +77,13 @@ const skills = [
 
 function About(): ReactElement {
   return (
-    <div className="px-6 md:px-8">
-      <header className="pt-24 md:pt-28 pb-10 mx-auto">
-        <span className="inline-block text-[0.6875rem] font-medium tracking-[0.16em] uppercase text-muted-foreground mb-3.5">
+    <div className={`${tw.wrap} pb-16`}>
+      <header className="pt-[clamp(3.5rem,8vw,6.5rem)] pb-10">
+        <span className="mb-3.5 inline-block text-[0.6875rem] font-medium tracking-[0.16em] text-[var(--rd-text-3)] uppercase">
           Colophon
         </span>
-        <h1 className="text-[clamp(2.25rem,4.5vw,3.25rem)] font-semibold leading-[1.08] tracking-[-0.018em] text-foreground m-0">
-          About
-        </h1>
-        <p className="mt-4 text-base leading-[1.6] text-muted-foreground max-w-xl">
+        <h1 className={tw.display}>About</h1>
+        <p className={tw.lead}>
           Data engineer with 6+ years of experience. Comfortable across data
           engineering concepts, best practices, and modern cloud platforms.
         </p>

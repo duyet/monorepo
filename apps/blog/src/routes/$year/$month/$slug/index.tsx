@@ -10,7 +10,6 @@ import {
 } from "@/lib/posts";
 import { resolveArticleHtml } from "@/lib/resolve-article-html";
 import { TWITTER_WIDGETS_SRC } from "@/lib/x-embed";
-import "@/styles/post-reader.css";
 import { Chapters } from "../-chapters";
 import Content from "../-content";
 import { PostFooter } from "../-post-footer";
@@ -117,12 +116,18 @@ export const Route = createFileRoute("/$year/$month/$slug/")({
 });
 
 function PostPage() {
-  const { post, series, related, children } = Route.useLoaderData() as {
-    post: LoadedPost;
-    series: Series | null;
-    related: Post[];
-    children: Post[];
-  };
+  const data = Route.useLoaderData() as
+    | {
+        post: LoadedPost;
+        series: Series | null;
+        related: Post[];
+        children: Post[];
+      }
+    | undefined;
+  if (!data?.post) {
+    throw notFound();
+  }
+  const { post, series, related, children } = data;
 
   const hasChildren = children.length > 0;
 

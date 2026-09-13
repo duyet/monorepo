@@ -10,9 +10,10 @@ const source = readFileSync(
 
 describe("post content static HTML", () => {
   it("keeps prerendered HTML while MDX compiles", () => {
-    expect(source).toContain("Suspense");
-    expect(source).toContain("fallback={staticArticle}");
+    expect(source).toContain("ProgressiveMDX");
+    expect(source).toContain("StaticArticle");
     expect(source).toContain("dangerouslySetInnerHTML");
+    expect(source).not.toContain("fallback={staticArticle}");
   });
 
   it("registers prompt as a highlight.js language factory", () => {

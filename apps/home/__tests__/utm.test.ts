@@ -5,7 +5,8 @@ describe("addUtmParams", () => {
   it("adds utm params to absolute URL", () => {
     const result = addUtmParams("https://blog.duyet.net");
     expect(result).toContain("utm_source=home");
-    expect(result).toContain("utm_medium=website");
+    expect(result).toContain("utm_medium=referral");
+    expect(result).toContain("ref=duyet.net");
     expect(result).toContain("utm_campaign=homepage");
   });
 

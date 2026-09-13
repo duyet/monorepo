@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TagsRouteImport } from './routes/tags'
-import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as SeriesRouteImport } from './routes/series'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as RobotsRouteImport } from './routes/robots'
@@ -19,6 +18,7 @@ import { Route as HtmlSitemapRouteImport } from './routes/html-sitemap'
 import { Route as FeedRouteImport } from './routes/feed'
 import { Route as FeaturedRouteImport } from './routes/featured'
 import { Route as CategoryRouteImport } from './routes/category'
+import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as ArchivesRouteImport } from './routes/archives'
 import { Route as AiRouteImport } from './routes/ai'
 import { Route as AboutRouteImport } from './routes/about'
@@ -33,11 +33,6 @@ import { Route as YearMonthSlugChildRouteImport } from './routes/$year/$month/$s
 const TagsRoute = TagsRouteImport.update({
   id: '/tags',
   path: '/tags',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CategoriesRoute = CategoriesRouteImport.update({
-  id: '/categories',
-  path: '/categories',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SeriesRoute = SeriesRouteImport.update({
@@ -78,6 +73,11 @@ const FeaturedRoute = FeaturedRouteImport.update({
 const CategoryRoute = CategoryRouteImport.update({
   id: '/category',
   path: '/category',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CategoriesRoute = CategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ArchivesRoute = ArchivesRouteImport.update({
@@ -136,6 +136,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/ai': typeof AiRoute
   '/archives': typeof ArchivesRoute
+  '/categories': typeof CategoriesRoute
   '/category': typeof CategoryRouteWithChildren
   '/featured': typeof FeaturedRoute
   '/feed': typeof FeedRoute
@@ -145,7 +146,6 @@ export interface FileRoutesByFullPath {
   '/search': typeof SearchRoute
   '/series': typeof SeriesRouteWithChildren
   '/tags': typeof TagsRoute
-  '/categories': typeof CategoriesRoute
   '/category/$category': typeof CategoryCategoryRoute
   '/note/$id': typeof NoteIdRoute
   '/series/$slug': typeof SeriesSlugRoute
@@ -158,6 +158,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/ai': typeof AiRoute
   '/archives': typeof ArchivesRoute
+  '/categories': typeof CategoriesRoute
   '/category': typeof CategoryRouteWithChildren
   '/featured': typeof FeaturedRoute
   '/feed': typeof FeedRoute
@@ -167,7 +168,6 @@ export interface FileRoutesByTo {
   '/search': typeof SearchRoute
   '/series': typeof SeriesRouteWithChildren
   '/tags': typeof TagsRoute
-  '/categories': typeof CategoriesRoute
   '/category/$category': typeof CategoryCategoryRoute
   '/note/$id': typeof NoteIdRoute
   '/series/$slug': typeof SeriesSlugRoute
@@ -181,6 +181,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/ai': typeof AiRoute
   '/archives': typeof ArchivesRoute
+  '/categories': typeof CategoriesRoute
   '/category': typeof CategoryRouteWithChildren
   '/featured': typeof FeaturedRoute
   '/feed': typeof FeedRoute
@@ -190,7 +191,6 @@ export interface FileRoutesById {
   '/search': typeof SearchRoute
   '/series': typeof SeriesRouteWithChildren
   '/tags': typeof TagsRoute
-  '/categories': typeof CategoriesRoute
   '/category/$category': typeof CategoryCategoryRoute
   '/note/$id': typeof NoteIdRoute
   '/series/$slug': typeof SeriesSlugRoute
@@ -205,6 +205,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/ai'
     | '/archives'
+    | '/categories'
     | '/category'
     | '/featured'
     | '/feed'
@@ -214,7 +215,6 @@ export interface FileRouteTypes {
     | '/search'
     | '/series'
     | '/tags'
-    | '/categories'
     | '/category/$category'
     | '/note/$id'
     | '/series/$slug'
@@ -227,6 +227,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/ai'
     | '/archives'
+    | '/categories'
     | '/category'
     | '/featured'
     | '/feed'
@@ -236,7 +237,6 @@ export interface FileRouteTypes {
     | '/search'
     | '/series'
     | '/tags'
-    | '/categories'
     | '/category/$category'
     | '/note/$id'
     | '/series/$slug'
@@ -249,6 +249,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/ai'
     | '/archives'
+    | '/categories'
     | '/category'
     | '/featured'
     | '/feed'
@@ -258,7 +259,6 @@ export interface FileRouteTypes {
     | '/search'
     | '/series'
     | '/tags'
-    | '/categories'
     | '/category/$category'
     | '/note/$id'
     | '/series/$slug'
@@ -272,6 +272,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AiRoute: typeof AiRoute
   ArchivesRoute: typeof ArchivesRoute
+  CategoriesRoute: typeof CategoriesRoute
   CategoryRoute: typeof CategoryRouteWithChildren
   FeaturedRoute: typeof FeaturedRoute
   FeedRoute: typeof FeedRoute
@@ -281,7 +282,6 @@ export interface RootRouteChildren {
   SearchRoute: typeof SearchRoute
   SeriesRoute: typeof SeriesRouteWithChildren
   TagsRoute: typeof TagsRoute
-  CategoriesRoute: typeof CategoriesRoute
   NoteIdRoute: typeof NoteIdRoute
   TagTagRoute: typeof TagTagRoute
   YearMonthSlugChildRoute: typeof YearMonthSlugChildRoute
@@ -295,13 +295,6 @@ declare module '@tanstack/react-router' {
       path: '/tags'
       fullPath: '/tags'
       preLoaderRoute: typeof TagsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/categories': {
-      id: '/categories'
-      path: '/categories'
-      fullPath: '/categories'
-      preLoaderRoute: typeof CategoriesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/series': {
@@ -358,6 +351,13 @@ declare module '@tanstack/react-router' {
       path: '/category'
       fullPath: '/category'
       preLoaderRoute: typeof CategoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/categories': {
+      id: '/categories'
+      path: '/categories'
+      fullPath: '/categories'
+      preLoaderRoute: typeof CategoriesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/archives': {
@@ -461,6 +461,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AiRoute: AiRoute,
   ArchivesRoute: ArchivesRoute,
+  CategoriesRoute: CategoriesRoute,
   CategoryRoute: CategoryRouteWithChildren,
   FeaturedRoute: FeaturedRoute,
   FeedRoute: FeedRoute,
@@ -470,7 +471,6 @@ const rootRouteChildren: RootRouteChildren = {
   SearchRoute: SearchRoute,
   SeriesRoute: SeriesRouteWithChildren,
   TagsRoute: TagsRoute,
-  CategoriesRoute: CategoriesRoute,
   NoteIdRoute: NoteIdRoute,
   TagTagRoute: TagTagRoute,
   YearMonthSlugChildRoute: YearMonthSlugChildRoute,

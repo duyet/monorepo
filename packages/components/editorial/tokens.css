@@ -1,0 +1,164 @@
+/*
+ * Editorial tokens for home + blog. Opt-in via:
+ *   @import "@duyet/components/styles.css";
+ *   @import "@duyet/components/editorial/tokens.css";
+ * :root = light. .dark is the only theme override.
+ */
+
+@layer base {
+  :root {
+    --font-display: "Libertinus Serif", "Noto Serif", Georgia, "Times New Roman",
+      serif;
+    --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+    --font-serif: var(--font-display);
+    --font-mono: "Geist Mono", ui-monospace, monospace;
+
+    --rd-bg: #f7f7f5;
+    --rd-bg-sub: #f0f0ed;
+    --rd-surface: #ffffff;
+    --rd-surface-2: #f3f3f0;
+    --rd-border: #e4e4e0;
+    --rd-border-2: #d4d4cf;
+    --rd-line: #ebebe7;
+    --rd-text: #0c0c0c;
+    --rd-text-2: #5c5b56;
+    --rd-text-3: #8a8983;
+    --rd-text-4: #b3b2ab;
+    --rd-accent: #c45a2d;
+    --rd-accent-ink: #a34820;
+    --rd-accent-bg: #f7ebe4;
+    --rd-ok: #1f8a5b;
+    --rd-warn: #c98a16;
+    --rd-down: #d23b3b;
+    --rd-r-sm: 10px;
+    --rd-r: 16px;
+    --rd-r-lg: 24px;
+    --rd-maxw: 1120px;
+    --rd-pad: clamp(24px, 5.5vw, 56px);
+    --rd-nav-h: 64px;
+    --rd-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
+    --rd-ring: rgba(196, 90, 45, 0.28);
+
+    --rd-label-plum: #f3e6ec;
+    --rd-label-plum-fg: #6b3a52;
+    --rd-label-pine: #e4f0e9;
+    --rd-label-pine-fg: #2d5a42;
+    --rd-label-slate: #e8eaf0;
+    --rd-label-slate-fg: #3d4458;
+    --rd-label-lavender: #7c83c3;
+
+    --background: var(--rd-bg);
+    --foreground: var(--rd-text);
+    --card: var(--rd-surface);
+    --card-foreground: var(--rd-text);
+    --popover: var(--rd-surface);
+    --popover-foreground: var(--rd-text);
+    --primary: var(--rd-text);
+    --primary-foreground: var(--rd-bg);
+    --secondary: var(--rd-surface-2);
+    --secondary-foreground: var(--rd-text);
+    --muted: var(--rd-surface-2);
+    --muted-foreground: var(--rd-text-3);
+    --accent: var(--rd-accent-bg);
+    --accent-foreground: var(--rd-accent-ink);
+    --destructive: var(--rd-down);
+    --destructive-foreground: #ffffff;
+    --border: var(--rd-border);
+    --input: var(--rd-border);
+    --ring: var(--rd-ring);
+    --radius: var(--rd-r);
+  }
+
+  .dark {
+    --rd-bg: #0a0a0a;
+    --rd-bg-sub: #0e0e0e;
+    --rd-surface: #141414;
+    --rd-surface-2: #1a1a1a;
+    --rd-border: #222222;
+    --rd-border-2: #2e2e2e;
+    --rd-line: #1c1c1c;
+    --rd-text: #f5f5f4;
+    --rd-text-2: #a1a1aa;
+    --rd-text-3: #71717a;
+    --rd-text-4: #3f3f46;
+    --rd-accent: #e8a07a;
+    --rd-accent-ink: #f0b896;
+    --rd-accent-bg: #241811;
+    --rd-ok: #43c089;
+    --rd-warn: #e0a93a;
+    --rd-down: #f06464;
+    --rd-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+    --rd-ring: rgba(232, 160, 122, 0.35);
+
+    --rd-label-plum: #3d2433;
+    --rd-label-plum-fg: #e0b8c8;
+    --rd-label-pine: #1a3228;
+    --rd-label-pine-fg: #a8cbb8;
+    --rd-label-slate: #252836;
+    --rd-label-slate-fg: #b8bcc8;
+    --rd-label-lavender: #8b92c9;
+
+    --background: var(--rd-bg);
+    --foreground: var(--rd-text);
+    --card: var(--rd-surface);
+    --card-foreground: var(--rd-text);
+    --popover: var(--rd-surface);
+    --popover-foreground: var(--rd-text);
+    --primary: var(--rd-text);
+    --primary-foreground: var(--rd-bg);
+    --secondary: var(--rd-surface-2);
+    --secondary-foreground: var(--rd-text);
+    --muted: var(--rd-surface-2);
+    --muted-foreground: var(--rd-text-3);
+    --accent: var(--rd-accent-bg);
+    --accent-foreground: var(--rd-accent-ink);
+    --destructive: var(--rd-down);
+    --destructive-foreground: #ffffff;
+    --border: var(--rd-border);
+    --input: var(--rd-border);
+    --ring: var(--rd-ring);
+  }
+
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+    background-color: var(--rd-bg);
+    color-scheme: light;
+    scrollbar-gutter: stable;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  img[data-theme-logo="dark"] {
+    display: none !important;
+  }
+
+  html.dark img[data-theme-logo="light"] {
+    display: none !important;
+  }
+
+  html.dark img[data-theme-logo="dark"] {
+    display: block !important;
+  }
+
+  html.dark img[data-theme-logo="mono"] {
+    filter: invert(1);
+  }
+
+  body {
+    background-color: var(--rd-bg);
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.55;
+  }
+}
+
+@custom-variant dark (&:where(.dark, .dark *));

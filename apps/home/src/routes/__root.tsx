@@ -181,7 +181,7 @@ function RootComponent() {
               <Outlet />
             </ClerkAuthProvider>
           </main>
-          <SiteFooter />
+          <SiteFooter referralSource="duyet.net" />
         </ThemeProvider>
         <Scripts />
       </body>

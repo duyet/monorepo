@@ -10,6 +10,7 @@
     "./types": "./src/types.ts",
     "./duyet": "./src/duyet.urls.ts",
     "./app-registry": "./src/app-registry.ts",
+    "./referral": "./src/referral.ts",
     "./utils": "./src/utils.ts"
   },
   "scripts": {

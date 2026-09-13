@@ -9,6 +9,12 @@ import type { Shortform } from "@/lib/shortforms";
 import { FeaturedPost } from "@/components/home/FeaturedPost";
 import { PostList } from "@/components/home/PostList";
 import { NoteCard } from "@/components/blog/NoteCard";
+import { tw } from "@/lib/tw";
+import {
+  PROJECT_BACKLINKS,
+  referralRel,
+  withReferral,
+} from "@duyet/urls/referral";
 
 // ---------------------------------------------------------------------------
 // Route & loader
@@ -135,49 +141,78 @@ function HomePage(): ReactElement {
     <div>
       {/* ── Blog header ─────────────────────────────────────────────── */}
       <section
-        className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(32px,4.5vw,56px)] pb-[clamp(22px,3vw,36px)]"
+        className={`${tw.wrap} pt-[clamp(3.5rem,8vw,6.5rem)] pb-[clamp(1.4rem,3vw,2.25rem)]`}
       >
-        <h1
-          className="rd-display text-[clamp(2.4rem,5.5vw,4rem)]"
-        >
+        <h1 className={tw.display}>
           Notes, mostly on{" "}
           <span className="text-[var(--rd-accent)]">data &amp; agents</span>.
         </h1>
-        <p
-          className="rd-lead mt-[16px] max-w-[64ch] text-[clamp(1.02rem,1.4vw,1.18rem)]"
-        >
-          {BLOG_INTRO}
-        </p>
+        <p className={tw.lead}>{BLOG_INTRO}</p>
         <div
-          className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[13px] mt-[16px] flex gap-5 flex-wrap"
+          className="mt-4 flex flex-wrap gap-5 font-[family-name:var(--font-mono)] text-[13px] text-[var(--rd-text-3)]"
         >
           <span>
-            <strong className="text-[var(--rd-accent)]">{totalPosts}</strong>{" "}
+            <strong className="font-medium text-[var(--rd-accent)]">
+              {totalPosts}
+            </strong>{" "}
             posts
           </span>
           <span>
-            <strong className="text-[var(--rd-accent)]">{totalYears}</strong>{" "}
+            <strong className="font-medium text-[var(--rd-accent)]">
+              {totalYears}
+            </strong>{" "}
             years
           </span>
           <span>since {sinceYear}</span>
-          <Link to="/archives/" className="rd-ulink cursor-pointer">archive</Link>
-          <Link to="/series/" className="rd-ulink cursor-pointer">series</Link>
-          <Link to="/tags/" className="rd-ulink cursor-pointer">tags</Link>
+          <Link to="/archives/" className={tw.ulink}>
+            archive
+          </Link>
+          <Link to="/series/" className={tw.ulink}>
+            series
+          </Link>
+          <Link to="/tags/" className={tw.ulink}>
+            tags
+          </Link>
         </div>
+        <nav
+          aria-label="Projects"
+          className="mt-8 flex flex-wrap gap-x-4 gap-y-2 text-[13px] text-[var(--rd-text-3)]"
+        >
+          <span className="font-[family-name:var(--font-mono)] text-[0.7rem] tracking-[0.08em] uppercase">
+            Also shipping
+          </span>
+          {PROJECT_BACKLINKS.map((project) => {
+            const href = withReferral(project.href, {
+              source: "blog.duyet.net",
+              campaign: "blog-home",
+              content: project.label,
+            });
+            return (
+              <a
+                key={project.href}
+                href={href}
+                rel={referralRel(href)}
+                className="text-[var(--rd-text-2)] no-underline hover:text-[var(--rd-text)] hover:underline"
+              >
+                {project.label}
+              </a>
+            );
+          })}
+        </nav>
       </section>
 
       {/* ── Featured post ────────────────────────────────────────────── */}
       {featured && (
-        <section
-          className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)] pt-0"
-        >
+        <section className={`${tw.wrap} py-[clamp(40px,5vw,64px)] pt-0`}>
           <FeaturedPost post={featured} />
         </section>
       )}
 
       {/* ── Quick Notes ────────────────────────────────────────────── */}
       {shortforms && shortforms.length > 0 && (
-        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(32px,4vw,52px)] border-t">
+        <section
+          className={`${tw.wrap} border-t border-[var(--rd-line)] py-[clamp(32px,4vw,52px)]`}
+        >
           <div className="flex justify-between items-baseline mb-5 ml-0">
             <SecHead eyebrow="Notes" title="Quick Thoughts" />
             <Link
