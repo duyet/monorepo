@@ -1,0 +1,5 @@
+@import "@duyet/components/styles.css";
+@import "../app/globals.css";
+
+@source "./**/*.{ts,tsx}";
+@source "../../../packages/components";

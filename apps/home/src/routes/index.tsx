@@ -1,22 +1,13 @@
-import {
-  AreasOfExpertise,
-  Eyebrow,
-  Reveal,
-  SecHead,
-  SocialHandles,
-} from "@duyet/components";
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
+import { Reveal } from "@duyet/components";
+import { createFileRoute } from "@tanstack/react-router";
 import { Suspense } from "react";
 import rawNotes from "../../../blog/public/notes-data.json";
 import rawBlogPosts from "../../../blog/public/posts-data.json";
 import { BlogTeaser } from "../components/BlogTeaser";
-import { GitHubContributions } from "../components/GitHubContributions";
+import { HomeHero } from "../components/HomeHero";
 import { KeyboardFeatures } from "../components/KeyboardFeatures";
-import { NowDeco } from "../components/NowDeco";
-
-import { Button } from "../components/ui/button";
-import { WorkBento } from "../components/WorkBento";
+import { SectionHead } from "../components/SectionHead";
+import { SelectedWorkShowcase } from "../components/SelectedWorkShowcase";
 import { type AppItem, apps } from "../data/projects";
 import {
   organizationJsonLd,
@@ -31,7 +22,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "I build AI agents and the data platforms that keep them honest — end-to-end, obsessing over the small details that make software feel right to use.",
+          "Duyet — Senior Data & AI Engineer. Agent workflows, data platforms, selected work, and writing.",
       },
     ],
     links: [{ rel: "canonical", href: "https://duyet.net/" }],
@@ -52,10 +43,6 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-// ---------------------------------------------------------------------------
-// Data
-// ---------------------------------------------------------------------------
-
 type BlogPost = {
   slug: string;
   title: string;
@@ -75,34 +62,49 @@ const recentNotes = (
   rawNotes as { id: string; title: string; date: string; excerpt: string }[]
 ).slice(0, 5);
 
-// Hand-picked to show breadth: AI infra, data, agents, DevOps, craft, type.
-const SELECTED: { name: string; tag: string }[] = [
-  { name: "npx skills add duyet/build-agent", tag: "AI Skill" },
-  { name: "Codex & Claude Plugins", tag: "AI" },
-  { name: "AnyRouter", tag: "AI Infra" },
-  { name: "AI;DR", tag: "AI" },
-  { name: "Templatebot", tag: "AI" },
-  { name: "ClickHouse Monitoring", tag: "Data" },
-  { name: "Agent State", tag: "AI" },
-  { name: "MCP Tools", tag: "AI" },
-  { name: "OMA", tag: "AI Infra" },
-  { name: "LLM over DNS", tag: "AI Infra" },
-  { name: "ccusage → ClickHouse", tag: "Data" },
-  { name: "Clauduck", tag: "Data" },
-  { name: "Rust Tieng Viet", tag: "Rust" },
-  { name: "Stamps", tag: "Tool" },
-  { name: "Helm Charts", tag: "Infra" },
+const FEATURED: { name: string; tag: string; label: string }[] = [
+  { name: "AnyRouter", tag: "AI Infra", label: "anyrouter.dev" },
+  { name: "ClickHouse Monitoring", tag: "Data", label: "chmonitor.dev" },
+  { name: "Templatebot", tag: "Marketplace", label: "templatebot" },
+  { name: "AI;DR", tag: "News", label: "aidr.today" },
+  { name: "OMA", tag: "AI", label: "oma.duyet.net" },
+  { name: "Summa", tag: "Data", label: "summa.duyet.net" },
+  { name: "Agent State", tag: "AI", label: "agentstate.app" },
+  {
+    name: "Rust Tieng Viet",
+    tag: "Rust",
+    label: "rust-tieng-viet.github.io",
+  },
+  {
+    name: "npx skills add duyet/build-agent",
+    tag: "AI Skill",
+    label: "duyet/build-agent",
+  },
+];
+
+const MORE_NAMES = [
+  "LLM over DNS",
+  "ShareHTML",
+  "Stamps",
+  "Codex & Claude Plugins",
+  "ccusage → ClickHouse",
+  "Clauduck",
+  "AI Agents",
+  "MCP Tools",
 ];
 
 const byName = new Map(apps.map((a) => [a.name, a]));
-const selectedProjects = SELECTED.map(({ name, tag }) => {
+const featuredProjects = FEATURED.map(({ name, tag, label }) => {
   const item = byName.get(name);
-  return item ? { item, tag } : null;
-}).filter((x): x is { item: AppItem; tag: string } => x !== null);
+  return item ? { item, tag, label } : null;
+}).filter(
+  (x): x is { item: AppItem; tag: string; label: string } => x !== null
+);
 
-// ---------------------------------------------------------------------------
-// Page
-// ---------------------------------------------------------------------------
+const featuredNames = new Set(featuredProjects.map((p) => p.item.name));
+const moreProjects = MORE_NAMES.map((name) => byName.get(name)).filter(
+  (item): item is AppItem => !!item && !featuredNames.has(item.name)
+);
 
 function HomePage() {
   return (
@@ -112,71 +114,24 @@ function HomePage() {
       </Suspense>
 
       <div className="bg-[var(--rd-bg)] text-[var(--rd-text)]">
-        {/* hero */}
-        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(32px,4.5vw,56px)] pb-[clamp(22px,3vw,36px)]">
-          <Reveal>
-            <div>
-              <Eyebrow>DATA &amp; AI ENGINEER</Eyebrow>
-              <h1 className="rd-display mt-[13px] text-[clamp(2.4rem,5.5vw,4.2rem)] leading-[1.05]">
-                Building agent workflows and the{" "}
-                <span className="text-[var(--rd-accent)]">
-                  <span className="rd-shimmer">data platform</span>
-                </span>{" "}
-                underneath them.
-              </h1>
-              <p className="rd-lead mt-[16px] max-w-[64ch] text-[clamp(1.02rem,1.4vw,1.18rem)]">
-                I'm Duyet — a Senior Data &amp; AI Engineer. I focus on the
-                foundational systems that make software work: data pipelines
-                that scale, platforms that stay reliable, and AI agents that are
-                actually useful. I build systems that are simple to operate and
-                transparent about what they do — and I{" "}
-                <a
-                  href="https://github.com/duyet"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rd-ulink"
-                >
-                  open-source
-                </a>{" "}
-                most of what I build.
-              </p>
-              <SocialHandles className="mt-4" />
-            </div>
-          </Reveal>
-        </section>
+        <HomeHero />
 
-        {/* selected work */}
-        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)]">
+        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(1rem,3vw,2rem)] pb-[clamp(48px,6vw,80px)]">
           <Reveal>
-            <SecHead
-              num="01"
-              eyebrow="Selected work"
-              title="Things I've shipped"
-              links={[
-                {
-                  label: "All projects",
-                  onClick: () => window.location.assign("/projects"),
-                },
-                {
-                  label: "GitHub",
-                  href: "https://github.com/duyet",
-                },
-              ]}
+            <SelectedWorkShowcase
+              featured={featuredProjects}
+              more={moreProjects}
             />
-            <WorkBento selectedProjects={selectedProjects} />
           </Reveal>
         </section>
 
-        {/* blog */}
-        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)] border-t border-[var(--rd-border)]">
+        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(48px,6vw,80px)]">
           <Reveal>
-            <SecHead
-              num="02"
-              eyebrow="Writing"
+            <SectionHead
               title="From the blog"
               links={[
                 {
-                  label: "Browse the blog",
+                  label: "blog.duyet.net",
                   href: "https://blog.duyet.net",
                 },
               ]}
@@ -186,91 +141,6 @@ function HomePage() {
               recentPosts={recentPosts}
               notes={recentNotes}
             />
-          </Reveal>
-        </section>
-
-        {/* expertise */}
-        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(24px,3vw,40px)] border-t border-[var(--rd-border)]">
-          <Reveal>
-            <SecHead num="03" eyebrow="Discipline" title="Areas of Expertise" />
-            <div className="mt-3">
-              <AreasOfExpertise hideHeader />
-            </div>
-          </Reveal>
-        </section>
-
-        {/* now band */}
-        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)] pb-[clamp(56px,8vw,96px)]">
-          <Reveal>
-            <div className="rd-card p-[clamp(18px,2.2vw,26px)] relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6 overflow-hidden">
-              <NowDeco />
-              <div className="relative">
-                <Eyebrow>
-                  <span className="rd-dot rd-ok rd-pulse inline-block" /> NOW
-                </Eyebrow>
-                <GitHubContributions />
-              </div>
-              <Button variant="ghost" size="sm" asChild>
-                <Link
-                  to="/about"
-                  className="relative cursor-pointer no-underline"
-                >
-                  About me <ArrowUpRight size={16} />
-                </Link>
-              </Button>
-            </div>
-          </Reveal>
-        </section>
-
-        {/* machine-readable resources — one line */}
-        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)] border-t border-[var(--rd-border)]">
-          <Reveal>
-            <div className="flex items-center gap-4 text-[clamp(0.9rem,1.2vw,1rem)]">
-              <span className="font-[var(--font-mono)] text-[var(--rd-text-3)]">
-                llms.txt
-              </span>
-              <span className="text-[var(--rd-text-4)]">·</span>
-              <a
-                href="https://mcp.duyet.net/mcp"
-                target="_blank"
-                rel="noreferrer"
-                className="rd-ulink"
-              >
-                MCP server
-              </a>
-            </div>
-          </Reveal>
-        </section>
-
-        {/* key links — Blog, GitHub, CV only (rest in footer) */}
-        <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pb-[clamp(40px,6vw,64px)]">
-          <Reveal>
-            <div className="flex flex-wrap gap-6">
-              <a
-                href="https://blog.duyet.net"
-                className="rd-ulink"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Blog
-              </a>
-              <a
-                href="https://github.com/duyet"
-                className="rd-ulink"
-                target="_blank"
-                rel="noreferrer"
-              >
-                GitHub
-              </a>
-              <a
-                href="https://cv.duyet.net"
-                className="rd-ulink"
-                target="_blank"
-                rel="noreferrer"
-              >
-                CV
-              </a>
-            </div>
           </Reveal>
         </section>
       </div>

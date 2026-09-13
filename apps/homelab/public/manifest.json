@@ -9,7 +9,7 @@
   "orientation": "any",
   "icons": [
     {
-      "src": "/favicon.svg",
+      "src": "https://duyet.net/brand/logo.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"

@@ -22,7 +22,7 @@ const products: Product[] = [
     name: "AnyRouter",
     eyebrow: "AI gateway product",
     summary: "One API for every AI model.",
-    image: "/screenshots/anyrouter-art.svg",
+    image: "/art/ascii-01.webp",
     url: "https://anyrouter.dev",
     year: "2026",
     role: "Design, engineering, docs",

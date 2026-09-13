@@ -3,11 +3,11 @@ import type { Card } from "./chat-data";
 
 function ChatCards({ cards }: { cards: Card[] }) {
   return (
-    <div className="rd-chat-cards">
+    <div className="flex flex-col gap-2">
       {cards.map((c) => (
         <a
           key={c.t}
-          className="rd-chat-card flex items-center gap-[10px] no-underline text-inherit"
+          className="rounded-xl border border-[var(--rd-border)] flex items-center gap-[10px] no-underline text-inherit"
           href={`https://blog.duyet.net`}
           target="_blank"
           rel="noreferrer"
@@ -16,8 +16,8 @@ function ChatCards({ cards }: { cards: Card[] }) {
             <BookOpen size={14} />
           </span>
           <span className="min-w-0 flex-1">
-            <div className="rd-cc-t">{c.t}</div>
-            <div className="rd-cc-m">
+            <div className="truncate text-[0.85rem] font-medium">{c.t}</div>
+            <div className="text-[0.75rem] text-[var(--rd-text-3)]">
               {c.c} · {c.d} · {c.r}
             </div>
           </span>

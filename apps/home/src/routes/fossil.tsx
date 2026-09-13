@@ -105,15 +105,15 @@ export const Route = createFileRoute("/fossil")({
 
 function FossilPage() {
   return (
-    <div className="page-enter bg-[var(--rd-bg)] text-[var(--rd-text)]">
+    <div className="bg-[var(--rd-bg)] text-[var(--rd-text)]">
       <div className="mx-auto max-w-[640px] px-[var(--rd-pad)] pt-[clamp(40px,5vw,64px)] pb-[clamp(56px,8vw,96px)]">
         <Eyebrow>
           {PERIOD} · {TENURE}
         </Eyebrow>
-        <h1 className="rd-display mt-[13px] text-[clamp(1.9rem,4vw,3rem)] leading-[1.04]">
+        <h1 className="font-[family-name:var(--font-display)] font-normal tracking-[-0.025em] leading-[1.05] mt-[13px] text-[clamp(1.9rem,4vw,3rem)] leading-[1.04]">
           <span className="text-[var(--rd-accent)]">Fossil Group</span>
         </h1>
-        <p className="rd-lead mt-5 text-[clamp(1.02rem,1.4vw,1.15rem)] text-[var(--rd-text-2)]">
+        <p className="text-[1.05rem] leading-[1.65] text-[var(--rd-text-2)] mt-5 text-[clamp(1.02rem,1.4vw,1.15rem)] text-[var(--rd-text-2)]">
           Nearly five years at Fossil Group, growing from Data Engineer to
           leading the data team. The Data Platform started on a Node.js
           data-collection platform on AWS — Kinesis into S3, Lambda transforms,
@@ -170,7 +170,7 @@ function FossilPage() {
                   href={addUtmParams(p.href, "fossil_page", "related_writing")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rd-ulink text-[14.5px] text-[var(--rd-text-2)]"
+                  className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)] text-[14.5px] text-[var(--rd-text-2)]"
                 >
                   {p.title}
                 </a>

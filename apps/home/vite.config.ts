@@ -2,8 +2,22 @@ import tailwindcss from "@tailwindcss/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+
 export default defineConfig({
-  server: { port: 3001, strictPort: true },
+  server: {
+    port: 3001,
+    strictPort: true,
+    host: "0.0.0.0",
+    allowedHosts: [
+      "duet-ubuntu.dingo-mora.ts.net",
+      ".dingo-mora.ts.net",
+      ".ts.net",
+      "localhost",
+      "127.0.0.1",
+      "ubuntu",
+      "duet-ubuntu",
+    ],
+  },
   build: {
     rollupOptions: {
       output: {

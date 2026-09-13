@@ -1,7 +1,6 @@
-@import "tailwindcss";
+@import "@duyet/components/styles.css";
 
-/* Generate Tailwind classes used by the shared @duyet/components header
-   and footer (they live outside this app's default content scan). */
+@source "./**/*.{ts,tsx}";
 @source "../../../packages/components";
 
 @custom-variant dark (&:where(.dark, .dark *));

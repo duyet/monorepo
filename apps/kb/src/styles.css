@@ -1,6 +1,8 @@
-@import "tailwindcss";
-@import "@duyet/components/typeset.css";
+@import "@duyet/components/styles.css";
 @import "highlight.js/styles/github.min.css";
+
+@source "./**/*.{ts,tsx}";
+@source "../../../packages/components";
 
 @custom-variant dark (&:where(.dark, .dark *));
 

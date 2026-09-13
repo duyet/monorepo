@@ -1,8 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap");
 @import "tailwindcss";
 @import "./typeset.css";
 
 @config "./tailwind.config.mjs";
+@source "./**/*.{ts,tsx}";
 
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
@@ -19,6 +19,10 @@
   ::backdrop,
   ::file-selector-button {
     border-color: var(--border, currentcolor);
+  }
+
+  html {
+    scrollbar-gutter: stable;
   }
 
   /* Unified dark mode CSS variables for consistent theming across all apps */
@@ -712,6 +716,15 @@ html.dark .prose pre {
   }
 
   /* ---------- motion ---------- */
+  @keyframes rd-app-shine {
+    from {
+      background-position: 120% 0;
+    }
+    to {
+      background-position: -20% 0;
+    }
+  }
+
   @keyframes rd-pulse {
     0%,
     100% {

@@ -7,11 +7,11 @@ import {
   Bot,
   Camera,
   Code,
-  House,
   MessageCircle,
   Newspaper,
   X,
 } from "lucide-react";
+import { DuyetMark } from "../site-header/DuyetMark";
 import { useEffect } from "react";
 
 export interface AppsDrawerProps {
@@ -51,7 +51,7 @@ export function AppsDrawer({ isOpen, onClose, activeApp }: AppsDrawerProps) {
       name: "Home",
       key: "home" as const,
       href: duyetUrls.apps.home,
-      icon: House,
+      icon: DuyetMark,
       desc: "Personal portfolio and directory",
     },
     {

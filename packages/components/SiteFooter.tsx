@@ -53,7 +53,7 @@ const GROUPS: FooterGroup[] = [
   {
     heading: "For agents",
     items: [
-      { label: "DuyetBot", href: "https://duyet.net/about-duyetbot" },
+      { label: "duyetbot", href: "https://duyet.net/about-duyetbot" },
       { label: "MCP server", href: "https://mcp.duyet.net" },
       { label: "llms.txt", href: "https://duyet.net/ls" },
     ],
@@ -106,11 +106,9 @@ function FooterCol({ group }: { group: FooterGroup }) {
 
 export function SiteFooter({
   links,
-  owner = "Duyet Le",
   className,
   children,
 }: SiteFooterProps) {
-  const year = new Date().getFullYear();
   const groups =
     links && links.length > 0
       ? [...GROUPS, { heading: "Links", items: links }]
@@ -131,7 +129,6 @@ export function SiteFooter({
           padding: "54px var(--rd-pad) 40px",
         }}
       >
-        {/* Top: brand + column grid */}
         <div
           style={{
             display: "flex",
@@ -141,6 +138,7 @@ export function SiteFooter({
           }}
         >
           <div style={{ maxWidth: 300 }}>
+            <SocialHandles className="mb-3" />
             <div
               style={{
                 fontSize: 22,
@@ -163,27 +161,9 @@ export function SiteFooter({
             ))}
           </div>
         </div>
-
-        {/* Bottom bar */}
-        <div
-          style={{
-            marginTop: 44,
-            paddingTop: 22,
-            borderTop: "1px solid var(--rd-border)",
-            display: "flex",
-            justifyContent: "space-between",
-            gap: 16,
-            flexWrap: "wrap",
-            fontSize: 13,
-            color: "var(--rd-text-3)",
-          }}
-        >
-          <span>
-            © {year} {owner}
-          </span>
-          <SocialHandles />
-          {children && <div>{children}</div>}
-        </div>
+        {children ? (
+          <div style={{ marginTop: 32 }}>{children}</div>
+        ) : null}
       </div>
     </footer>
   );

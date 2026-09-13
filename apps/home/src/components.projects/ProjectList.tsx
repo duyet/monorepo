@@ -1,55 +1,30 @@
 import { Link } from "@tanstack/react-router";
+import { Github } from "@duyet/components/Icons";
 import { addUtmParams } from "../../app/lib/utm";
 import { ProjectBlogLinks } from "../components/ProjectBlogLinks";
-import { Badge } from "../components/ui/badge";
+import { ProjectMark } from "../components/ProjectMark";
+import { SoftLabel, toneFrom } from "../components/SoftLabel";
 import { resolveBlogPosts } from "../data/blog-posts";
 import type { AppItem } from "../data/projects";
 import { ColoredDomain } from "./ColoredDomain";
 
-function Logo({
-  logo,
-  logoDark,
-  size = 28,
-}: {
-  logo?: string;
-  logoDark?: string;
-  size?: number;
-}) {
-  if (!logo && !logoDark) return null;
-  if (logoDark) {
-    return (
-      <>
-        <img
-          src={logo}
-          alt=""
-          width={size}
-          height={size}
-          className="shrink-0 rounded dark:hidden"
-        />
-        <img
-          src={logoDark}
-          alt=""
-          width={size}
-          height={size}
-          className="hidden shrink-0 rounded dark:block"
-        />
-      </>
-    );
+function sourceUrl(item: AppItem): string | undefined {
+  if (item.repo) return item.repo;
+  if (item.host === "github.com") {
+    return item.href.split("?")[0];
   }
-  return (
-    <img
-      src={logo}
-      alt=""
-      width={size}
-      height={size}
-      className="shrink-0 rounded"
-    />
-  );
+  return undefined;
+}
+
+function licenseOf(item: AppItem): string | undefined {
+  if (item.license) return item.license;
+  if (item.host === "github.com" || item.repo) return "MIT";
+  return undefined;
 }
 
 export function ProjectList({ items }: { items: AppItem[] }) {
   return (
-    <div className="rd-rows">
+    <div className="overflow-hidden rounded-[var(--rd-r-lg)] border border-[var(--rd-border)] bg-[var(--rd-surface)]">
       {items.map((item) => {
         const href = addUtmParams(
           item.href,
@@ -58,69 +33,86 @@ export function ProjectList({ items }: { items: AppItem[] }) {
           item.host
         );
         const isExternal = href.startsWith("http");
-        const inner = (
-          <>
-            <span className="flex flex-col gap-1 w-[200px] shrink-0">
-              <Logo logo={item.logo} logoDark={item.logoDark} size={28} />
-              <span className="font-[var(--font-mono)] text-[12.5px] overflow-hidden text-ellipsis whitespace-nowrap">
+        const blogPosts = resolveBlogPosts(item.blogPosts);
+        const repo = sourceUrl(item);
+        const license = licenseOf(item);
+        const linkProps = isExternal
+          ? { href, target: "_blank" as const, rel: "noopener noreferrer" }
+          : { href };
+
+        const identity = (
+          <span className="flex min-w-0 items-center gap-3">
+            <ProjectMark
+              item={item}
+              size={28}
+              className="h-7 w-7 shrink-0 overflow-hidden rounded-[5px] [&>img]:h-7 [&>img]:w-7 [&>img]:object-contain [&>svg]:h-7 [&>svg]:w-7"
+            />
+            <span className="min-w-0">
+              <span className="block font-[family-name:var(--font-mono)] text-[0.72rem] text-[var(--rd-text-3)]">
                 <ColoredDomain domain={item.domain || item.host} />
               </span>
-            </span>
-            <span className="min-w-0 flex-1">
-              <span className="font-semibold mr-3 tracking-[-0.02em]">
+              <span className="mt-0.5 block text-[0.9375rem] font-medium tracking-[-0.02em]">
                 {item.name}
               </span>
-              <span className="text-[var(--rd-text-2)] text-sm">
-                {item.description}
-              </span>
             </span>
-            <div className="flex gap-1 shrink-0">
-              {item.tags?.map((tag) => (
-                <Badge
-                  key={tag}
-                  variant="outline"
-                  className="font-[var(--font-mono)] text-[10.5px] px-2 py-0"
-                >
-                  {tag}
-                </Badge>
-              ))}
-            </div>
-          </>
+          </span>
         );
-
-        const rowClass =
-          "rd-row flex items-center gap-4 no-underline text-inherit cursor-pointer";
-
-        const blogPosts = resolveBlogPosts(item.blogPosts);
-
-        const row = isExternal ? (
-          <a
-            key={item.name}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={rowClass}
-          >
-            {inner}
-          </a>
-        ) : (
-          <Link key={item.name} to={href} className={rowClass}>
-            {inner}
-          </Link>
-        );
-
-        if (blogPosts.length === 0) return row;
 
         return (
-          <div key={item.name} className="flex flex-col">
-            {row}
-            <ProjectBlogLinks
-              slugs={item.blogPosts}
-              heading="Posts"
-              className="flex items-center gap-3 px-4 pb-3 mt-[-6px]"
-              headingClassName="text-[11px] font-[var(--font-mono)] text-[var(--rd-text-3)] uppercase tracking-wider"
-              linkClassName="rd-ulink text-[12px] inline-flex items-center gap-1"
-            />
+          <div
+            key={item.name}
+            className="grid grid-cols-1 items-start gap-x-4 gap-y-1.5 border-b border-[var(--rd-line)] px-[1.15rem] py-[0.85rem] last:border-b-0 hover:bg-[var(--rd-surface-2)] min-[721px]:grid-cols-[minmax(14rem,18rem)_minmax(0,1fr)_auto] min-[721px]:grid-rows-[auto_auto] min-[721px]:items-center"
+          >
+            {isExternal ? (
+              <a
+                {...linkProps}
+                className="min-w-0 text-inherit no-underline min-[721px]:col-start-1 min-[721px]:row-start-1"
+              >
+                {identity}
+              </a>
+            ) : (
+              <Link
+                to={href}
+                className="min-w-0 text-inherit no-underline min-[721px]:col-start-1 min-[721px]:row-start-1"
+              >
+                {identity}
+              </Link>
+            )}
+            <span className="min-w-0 overflow-hidden text-ellipsis text-[0.8125rem] leading-[1.45] text-[var(--rd-text-2)] max-[720px]:line-clamp-2 min-[721px]:col-start-2 min-[721px]:row-start-1 min-[721px]:whitespace-nowrap">
+              {item.description}
+            </span>
+            <span className="flex shrink-0 items-center justify-start gap-[0.4rem] min-[721px]:col-start-3 min-[721px]:row-start-1 min-[721px]:justify-end">
+              {item.tags?.slice(0, 2).map((tag) => (
+                <SoftLabel key={tag} tone={toneFrom(tag)}>
+                  {tag}
+                </SoftLabel>
+              ))}
+              {license ? (
+                <span className="px-[0.15rem] font-[family-name:var(--font-mono)] text-[0.68rem] tracking-[0.04em] text-[var(--rd-text-3)]">
+                  {license}
+                </span>
+              ) : null}
+              {repo ? (
+                <a
+                  href={repo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-[1.6rem] w-[1.6rem] items-center justify-center rounded text-[var(--rd-text-2)] hover:bg-[var(--rd-surface-2)] hover:text-[var(--rd-text)]"
+                  aria-label={`${item.name} source on GitHub`}
+                >
+                  <Github className="h-[15px] w-[15px]" />
+                </a>
+              ) : null}
+            </span>
+            {blogPosts.length > 0 ? (
+              <ProjectBlogLinks
+                slugs={item.blogPosts}
+                heading="Posts"
+                className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 pl-[calc(1.75rem+0.75rem)] min-[721px]:col-span-3 min-[721px]:row-start-2"
+                headingClassName="m-0 text-[0.65rem] font-medium tracking-[0.06em] text-[var(--rd-text-4)] uppercase"
+                linkClassName="text-[0.75rem] text-[var(--rd-text-2)] no-underline hover:text-[var(--rd-text)]"
+              />
+            ) : null}
           </div>
         );
       })}

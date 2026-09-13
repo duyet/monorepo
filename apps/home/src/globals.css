@@ -1,52 +1,143 @@
-@import "tailwindcss";
+@import "@duyet/components/styles.css";
 
-/* SiteHeader lives in the shared package; without this, v4 can drop md:flex / shrink-0. */
+@theme {
+  --animate-work-rail: work-rail linear forwards;
+}
+
+@keyframes work-rail {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Scan this app + shared header (single Tailwind pass). */
+@source "./**/*.{ts,tsx}";
 @source "../../../packages/components";
+
+/*
+ * Home (duyet.net) — Slashy-inspired visual language, scoped to this app.
+ * Dark-first matte canvas · serif display · Geist UI · pill CTAs · soft labels.
+ * Shared `--rd-*` tokens stay intact for other apps; home overrides below.
+ */
 
 @layer base {
   :root {
-    --background: var(--rd-bg, #ffffff);
-    --foreground: var(--rd-text, #0c0c0c);
-    --card: var(--rd-surface, #ffffff);
-    --card-foreground: var(--rd-text, #0c0c0c);
-    --popover: var(--rd-surface, #ffffff);
-    --popover-foreground: var(--rd-text, #0c0c0c);
-    --primary: var(--rd-text, #0c0c0c);
-    --primary-foreground: var(--rd-bg, #ffffff);
-    --secondary: var(--rd-surface-2, #f6f6f5);
-    --secondary-foreground: var(--rd-text, #0c0c0c);
-    --muted: var(--rd-surface-2, #f6f6f5);
-    --muted-foreground: var(--rd-text-3, #8c8b85);
-    --accent: var(--rd-accent-bg, #fbeee7);
-    --accent-foreground: var(--rd-accent-ink, #b54a1f);
-    --destructive: var(--rd-down, #d23b3b);
+    --font-display: "Libertinus Serif", "Noto Serif", Georgia, "Times New Roman",
+      serif;
+    --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+    --font-serif: var(--font-display);
+    --font-mono: "Geist Mono", ui-monospace, monospace;
+
+    /* Light: quiet editorial companion to the dark Slashy canvas */
+    --rd-bg: #f7f7f5;
+    --rd-bg-sub: #f0f0ed;
+    --rd-surface: #ffffff;
+    --rd-surface-2: #f3f3f0;
+    --rd-border: #e4e4e0;
+    --rd-border-2: #d4d4cf;
+    --rd-line: #ebebe7;
+    --rd-text: #0c0c0c;
+    --rd-text-2: #5c5b56;
+    --rd-text-3: #8a8983;
+    --rd-text-4: #b3b2ab;
+    --rd-accent: #c45a2d;
+    --rd-accent-ink: #a34820;
+    --rd-accent-bg: #f7ebe4;
+    --rd-ok: #1f8a5b;
+    --rd-warn: #c98a16;
+    --rd-down: #d23b3b;
+    --rd-r-sm: 10px;
+    --rd-r: 16px;
+    --rd-r-lg: 24px;
+    --rd-maxw: 1120px;
+    --rd-pad: clamp(24px, 5.5vw, 56px);
+    --rd-nav-h: 64px;
+    --rd-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
+    --rd-ring: rgba(196, 90, 45, 0.28);
+
+    /* Soft label tints (Slashy-style badges) — light */
+    --rd-label-plum: #f3e6ec;
+    --rd-label-plum-fg: #6b3a52;
+    --rd-label-pine: #e4f0e9;
+    --rd-label-pine-fg: #2d5a42;
+    --rd-label-slate: #e8eaf0;
+    --rd-label-slate-fg: #3d4458;
+    --rd-label-lavender: #7c83c3;
+
+    --background: var(--rd-bg);
+    --foreground: var(--rd-text);
+    --card: var(--rd-surface);
+    --card-foreground: var(--rd-text);
+    --popover: var(--rd-surface);
+    --popover-foreground: var(--rd-text);
+    --primary: var(--rd-text);
+    --primary-foreground: var(--rd-bg);
+    --secondary: var(--rd-surface-2);
+    --secondary-foreground: var(--rd-text);
+    --muted: var(--rd-surface-2);
+    --muted-foreground: var(--rd-text-3);
+    --accent: var(--rd-accent-bg);
+    --accent-foreground: var(--rd-accent-ink);
+    --destructive: var(--rd-down);
     --destructive-foreground: #ffffff;
-    --border: var(--rd-border, #e8e8e6);
-    --input: var(--rd-border, #e8e8e6);
-    --ring: var(--rd-ring, rgba(216, 96, 47, 0.32));
-    --radius: var(--rd-r, 11px);
+    --border: var(--rd-border);
+    --input: var(--rd-border);
+    --ring: var(--rd-ring);
+    --radius: var(--rd-r);
   }
 
   .dark {
-    --background: var(--rd-bg, #0a0a0a);
-    --foreground: var(--rd-text, #f4f3f1);
-    --card: var(--rd-surface, #111111);
-    --card-foreground: var(--rd-text, #f4f3f1);
-    --popover: var(--rd-surface, #111111);
-    --popover-foreground: var(--rd-text, #f4f3f1);
-    --primary: var(--rd-text, #f4f3f1);
-    --primary-foreground: var(--rd-bg, #0a0a0a);
-    --secondary: var(--rd-surface-2, #161616);
-    --secondary-foreground: var(--rd-text, #f4f3f1);
-    --muted: var(--rd-surface-2, #161616);
-    --muted-foreground: var(--rd-text-3, #74736e);
-    --accent: var(--rd-accent-bg, #2a1810);
-    --accent-foreground: var(--rd-accent-ink, #f59568);
-    --destructive: var(--rd-down, #f06464);
+    --rd-bg: #0a0a0a;
+    --rd-bg-sub: #0e0e0e;
+    --rd-surface: #141414;
+    --rd-surface-2: #1a1a1a;
+    --rd-border: #222222;
+    --rd-border-2: #2e2e2e;
+    --rd-line: #1c1c1c;
+    --rd-text: #f5f5f4;
+    --rd-text-2: #a1a1aa;
+    --rd-text-3: #71717a;
+    --rd-text-4: #3f3f46;
+    --rd-accent: #e8a07a;
+    --rd-accent-ink: #f0b896;
+    --rd-accent-bg: #241811;
+    --rd-ok: #43c089;
+    --rd-warn: #e0a93a;
+    --rd-down: #f06464;
+    --rd-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+    --rd-ring: rgba(232, 160, 122, 0.35);
+
+    /* Soft labels — dark, muted fills like Slashy inbox tags */
+    --rd-label-plum: #3d2433;
+    --rd-label-plum-fg: #e0b8c8;
+    --rd-label-pine: #1a3228;
+    --rd-label-pine-fg: #a8cbb8;
+    --rd-label-slate: #252836;
+    --rd-label-slate-fg: #b8bcc8;
+    --rd-label-lavender: #8b92c9;
+
+    --background: var(--rd-bg);
+    --foreground: var(--rd-text);
+    --card: var(--rd-surface);
+    --card-foreground: var(--rd-text);
+    --popover: var(--rd-surface);
+    --popover-foreground: var(--rd-text);
+    --primary: var(--rd-text);
+    --primary-foreground: var(--rd-bg);
+    --secondary: var(--rd-surface-2);
+    --secondary-foreground: var(--rd-text);
+    --muted: var(--rd-surface-2);
+    --muted-foreground: var(--rd-text-3);
+    --accent: var(--rd-accent-bg);
+    --accent-foreground: var(--rd-accent-ink);
+    --destructive: var(--rd-down);
     --destructive-foreground: #ffffff;
-    --border: var(--rd-border, #242424);
-    --input: var(--rd-border, #242424);
-    --ring: var(--rd-ring, rgba(240, 116, 63, 0.4));
+    --border: var(--rd-border);
+    --input: var(--rd-border);
+    --ring: var(--rd-ring);
   }
 
   * {
@@ -54,88 +145,43 @@
   }
 
   html {
-    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-sans);
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
+    background-color: var(--rd-bg);
+    color-scheme: light;
+    scrollbar-gutter: stable;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  /* Theme logos: don't use Tailwind dark:hidden (loses to .hidden). */
+  img[data-theme-logo="dark"] {
+    display: none !important;
+  }
+
+  html.dark img[data-theme-logo="light"] {
+    display: none !important;
+  }
+
+  html.dark img[data-theme-logo="dark"] {
+    display: block !important;
+  }
+
+  html.dark img[data-theme-logo="mono"] {
+    filter: invert(1);
   }
 
   body {
-    background-color: var(--background);
+    background-color: var(--rd-bg);
     color: var(--foreground);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.55;
-    transition:
-      background-color 0.35s ease,
-      color 0.35s ease;
   }
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@layer utilities {
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  /* Spotify soundwave keyframes */
-  @keyframes spotify-bar-1 {
-    0%,
-    100% {
-      height: 4px;
-    }
-    50% {
-      height: 16px;
-    }
-  }
-  @keyframes spotify-bar-2 {
-    0%,
-    100% {
-      height: 12px;
-    }
-    50% {
-      height: 6px;
-    }
-  }
-  @keyframes spotify-bar-3 {
-    0%,
-    100% {
-      height: 8px;
-    }
-    50% {
-      height: 18px;
-    }
-  }
-  @keyframes spotify-bar-4 {
-    0%,
-    100% {
-      height: 14px;
-    }
-    50% {
-      height: 4px;
-    }
-  }
-
-  .animate-spotify-1 {
-    animation: spotify-bar-1 1.2s ease-in-out infinite;
-  }
-  .animate-spotify-2 {
-    animation: spotify-bar-2 0.8s ease-in-out infinite;
-  }
-  .animate-spotify-3 {
-    animation: spotify-bar-3 1s ease-in-out infinite;
-  }
-  .animate-spotify-4 {
-    animation: spotify-bar-4 1.4s ease-in-out infinite;
-  }
-}

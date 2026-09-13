@@ -1,8 +1,11 @@
-import "@duyet/components/styles.css";
 import "../globals.css";
 
-import { ClerkAuthProvider, SiteFooter, SiteHeader } from "@duyet/components";
-import ThemeProvider from "@duyet/components/ThemeProvider";
+import ClerkAuthProvider from "@duyet/components/ClerkAuthProvider";
+import { SiteFooter } from "@duyet/components/SiteFooter";
+import ThemeProvider, { THEME_BOOT_SCRIPT } from "@duyet/components/ThemeProvider";
+import { duyetFaviconHeadLinks } from "@duyet/components/brand/duyet-logo";
+import { duyetFontHeadLinks } from "@duyet/components/brand/fonts";
+import { SiteHeader } from "@duyet/components/site-header/SiteHeader";
 import { useEffect } from "react";
 import {
   createRootRoute,
@@ -35,6 +38,10 @@ export const Route = createRootRoute({
         content: "#0a0a0a",
         media: "(prefers-color-scheme: dark)",
       },
+      {
+        name: "color-scheme",
+        content: "light dark",
+      },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://duyet.net/" },
       {
@@ -56,10 +63,7 @@ export const Route = createRootRoute({
         content: "https://duyet.net/screenshots/art-1.png",
       },
     ],
-    links: [
-      { rel: "icon", href: "/brand/logo.svg", type: "image/svg+xml" },
-      { rel: "apple-touch-icon", href: "/brand/logo-512.png" },
-    ],
+    links: [...duyetFontHeadLinks({ display: true }), ...duyetFaviconHeadLinks()],
   }),
   notFoundComponent: NotFound,
   component: RootComponent,
@@ -160,22 +164,25 @@ function RootComponent() {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
         <HeadContent />
       </head>
       <body>
-        <ClerkAuthProvider>
-          <ThemeProvider>
-            <SiteHeader
-              currentApp="home"
-              localNav={homeLocalNav}
-              activeHref={pathname}
-            />
-            <main>
+        <ThemeProvider>
+          <SiteHeader
+            currentApp="home"
+            variant="slashy"
+            cta={{ label: "View projects", href: "/projects" }}
+            localNav={homeLocalNav}
+            activeHref={pathname}
+          />
+          <main>
+            <ClerkAuthProvider>
               <Outlet />
-            </main>
-            <SiteFooter />
-          </ThemeProvider>
-        </ClerkAuthProvider>
+            </ClerkAuthProvider>
+          </main>
+          <SiteFooter />
+        </ThemeProvider>
         <Scripts />
       </body>
     </html>

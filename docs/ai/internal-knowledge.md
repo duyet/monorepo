@@ -15,6 +15,9 @@ GitHub repo metadata (description + topics) must match the current stack. When m
 - If a linked worktree reports `Operation not permitted` under `.git/worktrees/...`, use the canonical checkout after `git status --short --branch`; stage only touched paths so unrelated local edits stay out of commits.
 - Public marketing/content routes stay **fully static**: HTML is produced at build/prerender time. Do not add runtime-required data fetches to those routes. Chat widgets may hydrate, but they must not turn the host page into a client-only shell.
 - Shared chrome lives in `packages/components/site-header/` as small units (`AppSwitcher`, `GlobalNav`, `LocalNav`, `MobileNav`, `ThemeButton`) composed by `SiteHeader`. Do not grow `SiteHeader.tsx` back into a 800-line file.
+- **UI styling:** layout and chrome use **Tailwind classes in TSX** (shared strings in `apps/home/src/lib/tw.ts` or `packages/components/site-header/classes.ts` are fine). Do not add new CSS selectors (`.home-*`, `.rd-*`, `.site-header-*`) for layout. CSS files keep **tokens only**: `:root` is light; **`.dark` is the only theme override**; no `.light` class and do not toggle `html.light`.
+- **One CSS graph per app:** the app stylesheet `@import "@duyet/components/styles.css"` once, then local token overrides. `__root` imports that one file — never a second `@import "tailwindcss"` or a second `styles.css` from JS. Fonts go in `<link>` (`duyetFontHeadLinks()`), not `@import url(...)` in CSS.
+- **First paint:** default theme is **light**. Dark only if `localStorage.theme === "dark"`. Header/footer are not wrapped in `ClerkAuthProvider` (Clerk remounts children). App roots import chrome from **deep paths** (`site-header/SiteHeader`, `SiteFooter`, `ThemeProvider`), not the `@duyet/components` barrel. `html { scrollbar-gutter: stable }`. Brand mark/favicons come from `packages/components/brand/` (`DuyetLogo`, `duyetFaviconHeadLinks`).
 - UI primitives come from **latest shadcn/ui** under `packages/components/ui/` (registry style `new-york-v4`). Chat conversations use the official June 2026 set: `MessageScroller`, `Message`, `Bubble`, `Attachment`, `Marker`. Compose them via `ChatTranscript` / `ChatMessageList` in `packages/components/chat/`. Do not invent a parallel chat kit.
 - Ignore generated Next dumps: `.next/`, `out/`, `next-env.d.ts`. Do not commit `apps/agents/` scratch or leftover agent worktrees.
 - Secret scanning: `.gitleaks.toml` (custom AnyRouter `sk-ar-v1-` prefix). CI workflow `gitleaks.yml` scans the working tree with `--no-git` so historical leaks do not fail the gate. Do not rewrite git history for leaked keys; rotate the live credentials instead. Distinct from `.deepsec/` (SAST).
@@ -238,14 +241,14 @@ The current public-app visual direction is a Websmith-inspired Duyet system, not
 
 ### Design Tokens
 
-- Use a white or warm off-white page background. Preferred warm base: `#f8f8f2`; white is acceptable for dense data or photo-heavy apps where the user explicitly prefers it.
-- Use near-black foreground text, usually `#1a1a1a` or `#1f1f1f`, never low-contrast gray for primary content.
-- Use Inter-first typography for refreshed apps: `Inter, ui-sans-serif, system-ui, sans-serif`. If an app already has a deliberate serif/display pairing, keep it only when it serves that app.
+- Use a white or warm off-white page background for most apps. Preferred warm base: `#f8f8f2`; white is acceptable for dense data or photo-heavy apps where the user explicitly prefers it. **`apps/home` exception:** Slashy-inspired dark-first matte canvas (`#0a0a0a` / `#141414` surfaces), scoped in `apps/home/src/globals.css`.
+- Use near-black foreground text, usually `#1a1a1a` or `#1f1f1f`, never low-contrast gray for primary content (on dark home: `#f5f5f4` primary, `#a1a1aa` secondary).
+- Use Inter/Geist-first typography for refreshed apps. **`apps/home` exception:** Libertinus Serif / Noto Serif for display headlines + Geist for UI/body (Slashy pairing).
 - Keep headings tight but not oversized. Desktop heroes should feel confident, not billboard-sized. Use around `text-4xl` to `text-5xl` for primary app heroes, smaller for utility dashboards.
 - Keep body text relaxed and readable: mostly `text-sm` and `text-base`; avoid giant feature-card copy.
-- Use a compact radius system: `8px` to `12px` for buttons, panels, cards, inputs, and screenshots. Avoid pill-shaped cards unless the existing control is a badge or status chip.
-- Primary controls should usually be black or near-black rounded rectangles with white text. Secondary controls are white/warm panels with a single thin border.
-- Accent/status orange can use `oklch(70.5% .213 47.604)` or a close orange. Use it sparingly for status dots, highlights, or active marks, not as a full-page theme.
+- Use a compact radius system: `8px` to `12px` for buttons, panels, cards, inputs, and screenshots in most apps. **`apps/home`:** cards ~16–24px; primary/secondary CTAs are pills (`rounded-full`); soft plum/pine/slate label badges.
+- Primary controls should usually be black or near-black rounded rectangles with white text. On dark home: white pill / black text primary, bordered dark ghost secondary.
+- Accent/status orange can use `oklch(70.5% .213 47.604)` or a close orange. Use it sparingly for status dots, highlights, or active marks, not as a full-page theme. Home keeps orange quiet and leans on hierarchy via gray opacity.
 - Pastel panels should be soft and varied, not a one-hue palette: light blue, emerald, red/coral, stone, and pale orange panels are preferred. Avoid purple-blue gradients as the main theme.
 
 ### Layout Pattern
@@ -270,7 +273,7 @@ The current public-app visual direction is a Websmith-inspired Duyet system, not
 
 ### App-Specific Notes
 
-- `apps/home`: editorial homepage with sticky minimal header, oversized but not huge left-aligned hero, relaxed 3+ column project grid on laptop, pastel service tiles, compact black CTAs, and large footer/contact rhythm.
+- `apps/home`: Slashy-inspired dark-first editorial homepage — lowercase brand mark, Libertinus/Noto serif hero, Geist UI, matte near-black canvas, soft rounded cards, white/ghost pill CTAs, muted label badges, sticky minimal header, capability bento, interactive process steps + expertise split, platform cards, SuperGrok-style apps feature panel, searchable apps directory, closing CTA band, ASCII art backgrounds under `public/art/`. Tokens overridden only in `apps/home/src/globals.css`.
 - `apps/agent-ui`: keep this a small signed-in chat surface for `agents.duyet.net`; it should call `apps/agent-api` and not duplicate agent logic.
 - `apps/agent-api`: keep this surface API-only for `agents-api.duyet.net`. Preserve `/api/v1/chat`, `/agents/ChatAgent/:sessionId`, Clerk bearer auth, and `AGENT_API_TOKEN` support.
 - `apps/blog`: keep white background preference. Use compact home cards and mobile-safe archive rows; avoid the old large shared-card padding in 3-column contexts. Newsletter capture hydrates as a small Subscribe button in the post hero plus an inline `Get updates` column in the post footer grid (series / related / changelog). Hide that footer column when the row already has 3 cells. It POSTs to `https://aidr.today/api/subscribe` and must not turn the host page into a client-only shell.

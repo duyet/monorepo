@@ -2,6 +2,7 @@
 
 import { cn } from "@duyet/libs/utils";
 import { Link } from "@tanstack/react-router";
+import { DuyetLogo } from "../brand/DuyetLogo";
 
 interface HeaderBrandingProps {
   /** URL for the home link */
@@ -10,26 +11,12 @@ interface HeaderBrandingProps {
   shortText?: string;
   /** Long text shown on larger screens */
   longText?: string;
-  /** Show logo (DuyetMark) */
+  /** Show logo (brand mark from duyet.net/brand) */
   logo?: boolean;
   /** Center layout mode */
   center?: boolean;
   /** Optional CSS classes forwarded to the Link element */
   className?: string;
-}
-
-/**
- * DuyetMark: abstract 2x2 grid logo.
- */
-function DuyetMark() {
-  return (
-    <span className="grid h-5 w-5 grid-cols-2 gap-0.5" aria-hidden="true">
-      <span className="bg-[#141413] dark:bg-[#f8f8f2]" />
-      <span className="translate-y-1 bg-[#141413] dark:bg-[#f8f8f2]" />
-      <span className="-translate-y-1 bg-[#141413] dark:bg-[#f8f8f2]" />
-      <span className="bg-[#141413] dark:bg-[#f8f8f2]" />
-    </span>
-  );
 }
 
 /**
@@ -47,7 +34,15 @@ export function HeaderBranding({
 
   const inner = (
     <>
-      {logo && <DuyetMark />}
+      {logo ? (
+        <DuyetLogo
+          tone="auto"
+          format="svg"
+          className="inline-flex h-5 w-5 shrink-0"
+          imgClassName="h-full w-full object-contain"
+          alt=""
+        />
+      ) : null}
       <span
         className={cn(
           "text-lg font-semibold tracking-tight",

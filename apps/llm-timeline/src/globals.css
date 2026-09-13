@@ -1,4 +1,7 @@
-@import "tailwindcss";
+@import "@duyet/components/styles.css";
+
+@source "./**/*.{ts,tsx}";
+@source "../../../packages/components";
 
 @layer base {
   /* Bridge shadcn semantic tokens to the rd-* design system.

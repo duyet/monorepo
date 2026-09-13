@@ -39,6 +39,20 @@ export interface AppItem {
    * "/2026/06/goal-and-loop" — rendered as a link to https://blog.duyet.net{slug}.
    */
   blogPosts?: string[];
+  /** GitHub (or other) source URL when the primary `href` is a live demo. */
+  repo?: string;
+  /** SPDX-style license label, shown in the projects list when set. */
+  license?: string;
+  /** Selected-work row accent (hex). */
+  workTone?: string;
+  /** Selected-work panel: shared landscape with a centered logo. */
+  showcaseLogoArt?: boolean;
+  /** Logo on the selected-work art panel. Defaults to logoDark || logo. */
+  showcaseLogo?: string;
+  /** Wide wordmark on the selected-work art panel (e.g. "summa"). */
+  showcaseWordmark?: boolean;
+  /** Extra outbound links shown inline with the primary domain (GitHub, Chrome, …). */
+  extraLinks?: { label: string; href: string }[];
 }
 
 const hostOf = (url: string) => new URL(url).host;
@@ -68,12 +82,17 @@ export const apps: AppItem[] = [
     utmContent: "anyrouter_bento",
     description:
       "One API for every AI model. Route traffic across providers with fallback, observability, and BYOK from a single OpenAI-compatible endpoint built on Cloudflare's edge.",
-    screenshot: "/screenshots/anyrouter-art.svg",
     tone: "bg-[#536f91]",
     domain: "anyrouter.dev",
     iconName: "Cloud",
-    logo: "https://anyrouter.dev/brand/anyrouter-logo.svg",
+    logo: "https://anyrouter.dev/brand/anyrouter-logo-black.svg",
+    logoDark: "https://anyrouter.dev/brand/anyrouter-logo-white.svg",
+    workTone: "#3b6ea8",
+    showcaseLogoArt: true,
+    showcaseLogo: "https://anyrouter.dev/brand/anyrouter-logo-white.svg",
+    extraLinks: [{ label: "x.com/anyrouterdev", href: "https://x.com/anyrouterdev" }],
     tags: ["AI", "Infra"],
+    blogPosts: ["/2026/07/anyrouter"],
   },
   {
     name: "AI;DR",
@@ -85,6 +104,15 @@ export const apps: AppItem[] = [
     tone: "bg-[#536f91]",
     domain: "aidr.today",
     iconName: "Rss",
+    logo: "https://aidr.today/logo.svg",
+    workTone: "#c44c3a",
+    extraLinks: [
+      {
+        label: "Chrome",
+        href: "https://chromewebstore.google.com/detail/aidr",
+      },
+      { label: "t.me/aihomnay", href: "https://t.me/aihomnay" },
+    ],
     tags: ["AI", "News"],
   },
   {
@@ -97,6 +125,9 @@ export const apps: AppItem[] = [
     tone: "bg-[#5f6257]",
     domain: "templatebot.lol",
     iconName: "Bot",
+    logo: "https://templatebot.lol/logo.svg",
+    workTone: "#0f8a7a",
+    showcaseLogoArt: true,
     tags: ["AI", "Tool"],
   },
   {
@@ -111,6 +142,12 @@ export const apps: AppItem[] = [
     domain: "chmonitor.dev",
     iconName: "Database",
     logo: "https://chmonitor.dev/brand/logo-chmonitor-avatar-solid.svg",
+    workTone: "#c17a3a",
+    repo: "https://github.com/chmonitor/chmonitor",
+    license: "MIT",
+    extraLinks: [
+      { label: "x.com/_chmonitor", href: "https://x.com/_chmonitor" },
+    ],
     tags: ["Data", "AI"],
     blogPosts: ["/2024/03/clickhouse-monitoring"],
   },
@@ -124,7 +161,7 @@ export const apps: AppItem[] = [
     tone: "bg-[#5f6257]",
     domain: "html.duyet.net",
     iconName: "Share2",
-    logo: "https://stamp.duyet.net/api/stamps/EzFmilcUpdI9/image",
+    workTone: "#8a5a32",
     tags: ["Tool"],
   },
   {
@@ -137,6 +174,7 @@ export const apps: AppItem[] = [
     tone: "bg-[#536f91]",
     domain: "agents.duyet.net",
     iconName: "Bot",
+    workTone: "#536f91",
     tags: ["AI"],
   },
   {
@@ -152,6 +190,7 @@ export const apps: AppItem[] = [
     iconName: "Bot",
     logo: "https://agentstate.app/brand/agentstate-logo.svg",
     logoDark: "https://agentstate.app/brand/agentstate-logo-dark.svg",
+    workTone: "#4a6fd4",
     tags: ["AI"],
   },
   {
@@ -166,6 +205,7 @@ export const apps: AppItem[] = [
     iconName: "Plug",
     logo: "https://cdn.simpleicons.org/modelcontextprotocol",
     logoDark: "https://cdn.simpleicons.org/modelcontextprotocol/ffffff",
+    workTone: "#4a6b5c",
     tags: ["AI", "Tool"],
     blogPosts: ["/2026/01/coding-agent"],
   },
@@ -191,7 +231,7 @@ export const apps: AppItem[] = [
     tone: "bg-[#7f524e]",
     domain: "stamp.duyet.net",
     iconName: "Link",
-    logo: "https://stamp.duyet.net/api/stamps/eNVALg5MthyB/image",
+    workTone: "#b44a6a",
     tags: ["Tool"],
   },
   {
@@ -200,7 +240,6 @@ export const apps: AppItem[] = [
     host: hostOf(projectUrls.pageview),
     utmContent: "pageview_bento",
     description: "Simple, privacy-friendly analytics for websites",
-    screenshot: "/screenshots/pageview-art.svg",
     tone: "bg-[#7a705d]",
     domain: "pageview.duyet.net",
     iconName: "BarChart2",
@@ -226,11 +265,14 @@ export const apps: AppItem[] = [
     ),
     utmContent: "rust_bento",
     description: "Rust programming language documentation in Vietnamese",
-    screenshot: "/screenshots/rust-art.png",
     tone: "bg-[#6a5578]",
     iconName: "BookOpen",
     logo: "https://rust-lang.org/logos/rust-logo-blk.svg",
     logoDark: "https://cdn.simpleicons.org/rust/ffffff",
+    workTone: "#b7410e",
+    showcaseLogoArt: true,
+    showcaseLogo: "https://cdn.simpleicons.org/rust/ffffff",
+    repo: "https://github.com/duyet/rust-tieng-viet",
     tags: ["Rust"],
   },
   {
@@ -255,6 +297,7 @@ export const apps: AppItem[] = [
     domain: "duyet.github.io/llm-over-dns",
     iconName: "Terminal",
     logo: "https://cdn.simpleicons.org/cloudflare",
+    workTone: "#1f6f8a",
     tags: ["AI", "Infra"],
   },
   {
@@ -281,6 +324,7 @@ export const apps: AppItem[] = [
     iconName: "Puzzle",
     logo: "https://cdn.simpleicons.org/anthropic",
     logoDark: "https://cdn.simpleicons.org/anthropic/ffffff",
+    workTone: "#d97757",
     tags: ["AI", "TypeScript"],
     blogPosts: [
       "/2026/01/coding-agent/duyet-claude-plugins",
@@ -331,6 +375,7 @@ export const apps: AppItem[] = [
       "Import Claude Code usage data (ccusage) into ClickHouse for long-term analytics.",
     domain: "github.com/duyet/ccusage-import",
     iconName: "Database",
+    workTone: "#c17a3a",
     tags: ["Data"],
   },
   {
@@ -342,6 +387,7 @@ export const apps: AppItem[] = [
       "Analyze your Claude Code usage with DuckDB — query session stats, token costs, and model breakdown.",
     domain: "github.com/duyet/clauduck",
     iconName: "BarChart2",
+    workTone: "#2d7a4f",
     tags: ["Data"],
   },
   {
@@ -476,19 +522,59 @@ export const apps: AppItem[] = [
     domain: "github.com/duyet/build-agent",
     iconName: "Cpu",
     logo: "https://raw.githubusercontent.com/duyet/build-agent/refs/heads/main/assets/logo.svg",
+    workTone: "#2d7a4f",
+    showcaseLogoArt: true,
+    extraLinks: [
+      {
+        label: "skills.sh",
+        href: "https://www.skills.sh/duyet/build-agent/build-agent",
+      },
+    ],
     tags: ["AI", "Tool"],
     blogPosts: ["/2026/06/goal-and-loop", "/2026/07/open-managed-agents"],
   },
   {
     name: "OMA",
-    href: "https://github.com/duyet/oma",
-    host: "github.com",
+    href: "https://oma.duyet.net",
+    host: "oma.duyet.net",
     utmContent: "oma_bento",
     description:
       "Open Managed Agents — a self-hosted control plane on Cloudflare that drives agents on any sandbox backend from one UI and one API.",
-    domain: "github.com/duyet/oma",
+    domain: "oma.duyet.net",
+    repo: "https://github.com/duyet/oma",
+    license: "MIT",
     iconName: "Cpu",
+    logo: "https://oma.duyet.net/logo.svg",
+    workTone: "#7b4ea3",
+    showcaseLogoArt: true,
+    showcaseLogo:
+      "data:image/svg+xml," +
+      encodeURIComponent(
+        `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect x="9" y="9" width="46" height="46" rx="13" fill="none" stroke="#fff" stroke-width="5.5"/><path d="M18 18 29 29" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round"/><circle cx="32" cy="32" r="7" fill="#fff"/></svg>`
+      ),
     tags: ["AI", "Infra"],
     blogPosts: ["/2026/07/open-managed-agents"],
+  },
+  {
+    name: "Summa",
+    href: "https://summa.duyet.net",
+    host: "summa.duyet.net",
+    utmContent: "summa_bento",
+    description:
+      "Token and usage analytics for AI agents. Live production at burn.duyet.net.",
+    tone: "bg-[#b4532a]",
+    workTone: "#b4532a",
+    domain: "summa.duyet.net",
+    repo: "https://github.com/duyet/summa",
+    license: "MIT",
+    iconName: "Flame",
+    showcaseLogoArt: true,
+    showcaseWordmark: true,
+    showcaseLogo:
+      "data:image/svg+xml," +
+      encodeURIComponent(
+        `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 90"><text x="210" y="68" text-anchor="middle" fill="#fff" font-size="72" font-family="ui-serif, Georgia, 'Times New Roman', serif" font-weight="400" letter-spacing="-0.04em">summa</text></svg>`
+      ),
+    tags: ["AI", "Data"],
   },
 ];

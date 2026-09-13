@@ -1,3 +1,6 @@
+import { DUYET_FAVICON_APPLE, DUYET_FAVICON_SVG } from "./brand/duyet-logo";
+import { duyetFontHeadLinks } from "./brand/fonts";
+
 /**
  * DNS preconnect hints for commonly used external domains
  *
@@ -18,7 +21,20 @@ export default function Head() {
       <meta charSet="utf-8" />
       <meta content="follow, index" name="robots" />
       <meta content="ie=edge" httpEquiv="x-ua-compatible" />
-      <link href="/icon.svg" rel="icon" sizes="any" />
+      {duyetFontHeadLinks().map((l) => (
+        <link
+          key={l.href + l.rel}
+          rel={l.rel}
+          href={l.href}
+          crossOrigin={l.crossOrigin}
+        />
+      ))}
+      <link
+        href={DUYET_FAVICON_SVG}
+        rel="icon"
+        type="image/svg+xml"
+      />
+      <link href={DUYET_FAVICON_APPLE} rel="apple-touch-icon" />
 
       {/* DNS prefetch and preconnect hints for external domains */}
       {DNS_PREFETCH_DOMAINS.map((domain) => (

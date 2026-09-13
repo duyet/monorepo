@@ -1,5 +1,5 @@
-import { Eyebrow } from "@duyet/components";
 import { ArrowUpRight } from "lucide-react";
+import { SectionHead } from "../SectionHead";
 
 interface ElsewhereLink {
   title: string;
@@ -7,35 +7,30 @@ interface ElsewhereLink {
   url: string;
 }
 
-interface ElsewhereCardsProps {
-  elsewhere: ElsewhereLink[];
-}
-
-function ElsewhereCards({ elsewhere }: ElsewhereCardsProps) {
+function ElsewhereCards({ elsewhere }: { elsewhere: ElsewhereLink[] }) {
   return (
-    <div className="mt-[clamp(48px,6vw,72px)]">
-      <Eyebrow>Elsewhere</Eyebrow>
-      <div className="rd-g4 mt-[18px] gap-[10px]">
+    <div>
+      <SectionHead title="Elsewhere" />
+      <ul className="m-0 grid list-none grid-cols-1 gap-x-6 gap-y-3.5 p-0 min-[640px]:grid-cols-2 min-[900px]:grid-cols-4">
         {elsewhere.map((e) => (
-          <a
-            key={e.title}
-            className="rd-card p-[clamp(18px,2.2vw,26px)] flex flex-col gap-2 bg-[var(--rd-bg-sub)] min-h-[120px] text-inherit no-underline"
-            href={e.url}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-[16px] font-semibold">{e.title}</span>
-              <span className="rd-rowarrow">
-                <ArrowUpRight size={15} />
+          <li key={e.title}>
+            <a
+              className="flex min-w-0 flex-col gap-0.5 text-inherit no-underline"
+              href={e.url}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="inline-flex items-center gap-1 text-[0.9375rem] font-medium tracking-[-0.02em]">
+                {e.title}
+                <ArrowUpRight size={13} />
               </span>
-            </div>
-            <p className="text-[var(--rd-text-2)] text-[13.5px] leading-[1.5]">
-              {e.description}
-            </p>
-          </a>
+              <span className="text-[0.8rem] leading-[1.4] text-[var(--rd-text-3)]">
+                {e.description}
+              </span>
+            </a>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

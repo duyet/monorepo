@@ -1,17 +1,21 @@
-import { Eyebrow } from "@duyet/components";
-import { createFileRoute } from "@tanstack/react-router";
+import { Reveal } from "@duyet/components";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   elsewhere,
   experienceYears,
   expertise,
+  focus,
+  stack,
   techStack,
 } from "../components/about/about-data";
 import { ElsewhereCards } from "../components/about/ElsewhereCards";
 import { ExpertiseGrid } from "../components/about/ExpertiseGrid";
-import { TechStackGrid } from "../components/about/TechStackGrid";
 import { VibeCodingBento } from "../components/about/VibeCodingBento";
+import { HeroStory } from "../components/HeroStory";
+import { tw } from "../lib/tw";
+import { SoftLabel } from "../components/SoftLabel";
 
-const contentLastModified = "2026-05-02";
+const contentLastModified = "2026-09-13";
 
 const profilePageJsonLd = JSON.stringify({
   "@context": "https://schema.org",
@@ -89,33 +93,110 @@ export const Route = createFileRoute("/about")({
 
 function AboutPage() {
   return (
-    <div className="page-enter bg-[var(--rd-bg)] text-[var(--rd-text)]">
-      <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(40px,5vw,64px)] pb-[clamp(56px,8vw,96px)]">
-        {/* Intro block */}
-        <div>
-          <Eyebrow>About</Eyebrow>
-          <h1 className="rd-display mt-[13px] max-w-[17ch] text-[clamp(2.05rem,4.2vw,3.3rem)] leading-[1.02]">
-            I build data platforms, and the{" "}
-            <span className="text-[var(--rd-accent)]">AI agents</span> that run
-            on top of them.
-          </h1>
-          <p className="rd-lead mt-6 max-w-[60ch] text-[clamp(1.05rem,1.5vw,1.22rem)]">
-            I care about systems that are easy to operate, easy to explain, and
-            boring in the places where reliability matters. Most of my work sits
-            where data products, AI tooling, and engineering platforms meet —
-            and most of it ends up open source.
-          </p>
+    <div className="bg-[var(--rd-bg)] text-[var(--rd-text)]">
+      {/* Intro — HomeHero pattern, no art */}
+      <section>
+        <div className="mx-auto w-full max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-[clamp(3.5rem,8vw,6.5rem)] pb-[clamp(2.5rem,5vw,4rem)]">
+          <Reveal>
+            <div className="min-w-0 max-w-[46rem]">
+              <h1 className="m-0 flex flex-col gap-3">
+                <span className={tw.display}>About</span>
+                <span className={tw.title}>
+                  I build data platforms, and the AI agents that run on top of
+                  them.
+                </span>
+              </h1>
+              <HeroStory />
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <a
+                  href="https://cv.duyet.net"
+                  className={tw.btnPrimary}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Resume
+                </a>
+                <Link to="/contact" className={tw.btnGhost}>
+                  Contact
+                </Link>
+              </div>
+            </div>
+          </Reveal>
         </div>
+      </section>
 
-        <VibeCodingBento />
+      {/* Focus & stack */}
+      <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(40px,5vw,64px)]">
+        <Reveal>
+          <div className="grid gap-4 min-[720px]:grid-cols-2">
+            <article className="rounded-[var(--rd-r-lg)] border border-[var(--rd-border)] bg-[var(--rd-surface)] p-5">
+              <SoftLabel tone="pine">Focus</SoftLabel>
+              <p className="mt-3 m-0 text-[0.95rem] leading-[1.6] text-[var(--rd-text-2)]">
+                {focus}
+              </p>
+            </article>
+            <article className="rounded-[var(--rd-r-lg)] border border-[var(--rd-border)] bg-[var(--rd-surface)] p-5">
+              <SoftLabel tone="slate">Stack</SoftLabel>
+              <p className="mt-3 m-0 text-[0.95rem] leading-[1.6] text-[var(--rd-text-2)]">
+                {stack}
+              </p>
+            </article>
+          </div>
+        </Reveal>
+      </section>
 
-        <TechStackGrid techStack={techStack} />
-        <ElsewhereCards elsewhere={elsewhere} />
-        <ExpertiseGrid
-          expertise={expertise}
-          experienceYears={experienceYears}
-        />
-      </div>
+      {/* Agents */}
+      <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(48px,6vw,80px)]">
+        <Reveal>
+          <VibeCodingBento techStack={techStack} />
+        </Reveal>
+      </section>
+
+      {/* Expertise */}
+      <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(48px,6vw,80px)]">
+        <Reveal>
+          <ExpertiseGrid
+            expertise={expertise}
+            experienceYears={experienceYears}
+          />
+        </Reveal>
+      </section>
+
+      {/* Elsewhere */}
+      <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(32px,4vw,48px)]">
+        <Reveal>
+          <ElsewhereCards elsewhere={elsewhere} />
+        </Reveal>
+      </section>
+
+      {/* Closing */}
+      <section className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-[clamp(48px,7vw,88px)]">
+        <h2 className="m-0 max-w-[20rem] font-[family-name:var(--font-display)] text-[clamp(1.6rem,3vw,2.1rem)] font-normal tracking-[-0.035em] leading-[1.2] text-pretty">
+          Prefer the long-form{" "}
+          <a
+            href="https://cv.duyet.net"
+            className="text-inherit underline decoration-[color-mix(in_srgb,var(--rd-accent)_45%,transparent)] underline-offset-[0.14em] hover:decoration-[var(--rd-accent)]"
+            target="_blank"
+            rel="noreferrer"
+          >
+            résumé
+          </a>
+          , or just say hi.
+        </h2>
+        <div className="mt-6 flex flex-wrap items-center gap-3">
+          <a
+            href="https://cv.duyet.net"
+            className={tw.btnPrimary}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Resume
+          </a>
+          <Link to="/contact" className={tw.btnGhost}>
+            Contact
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }

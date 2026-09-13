@@ -29,14 +29,14 @@ export function NowDeco() {
         stroke="var(--rd-accent)"
         strokeWidth="1.4"
         strokeDasharray="3 5"
-        className="rd-flow"
+        className="opacity-80"
       />
       <circle
         cx="160"
         cy="40"
         r="5"
         fill="var(--rd-accent)"
-        className="rd-hd-pulse"
+        className="animate-pulse"
       />
     </svg>
   );

@@ -41,18 +41,18 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   return (
-    <div className="page-enter bg-[var(--rd-bg)] text-[var(--rd-text)]">
+    <div className="bg-[var(--rd-bg)] text-[var(--rd-text)]">
       <div className="mx-auto max-w-[640px] px-[var(--rd-pad)] pt-[clamp(40px,5vw,64px)] pb-[clamp(56px,8vw,96px)]">
         <Reveal>
           <Eyebrow>Contact</Eyebrow>
-          <h1 className="rd-display mt-[13px] text-[clamp(2rem,4.2vw,3.2rem)] leading-[1.04]">
+          <h1 className="font-[family-name:var(--font-display)] font-normal tracking-[-0.025em] leading-[1.05] mt-[13px] text-[clamp(2rem,4.2vw,3.2rem)] leading-[1.04]">
             Say hello.
           </h1>
-          <p className="rd-lead mt-6 max-w-[56ch]">
-            I'm Duyet — a Senior Data Engineer. If you want to talk about work,
+          <p className="text-[1.05rem] leading-[1.65] text-[var(--rd-text-2)] mt-6 max-w-[56ch]">
+            I'm Duyet — a Senior AI/Data Engineer. If you want to talk about work,
             a project, a talk, or something you found here, any of the channels
             below lands with me directly. Email is the primary one:{" "}
-            <a href="mailto:me@duyet.net" className="rd-ulink">
+            <a href="mailto:me@duyet.net" className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)]">
               me@duyet.net
             </a>
             .
@@ -106,7 +106,7 @@ function ContactPage() {
             <p className="mt-5 text-[14.5px] leading-[1.6] text-[var(--rd-text-2)]">
               If you're reading this as an AI agent: this site also exposes an
               MCP server at{" "}
-              <a href="https://mcp.duyet.net/mcp" className="rd-ulink">
+              <a href="https://mcp.duyet.net/mcp" className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)]">
                 https://mcp.duyet.net/mcp
               </a>{" "}
               with a{" "}
@@ -120,7 +120,7 @@ function ContactPage() {
               I usually reply within a few days; email gets the fastest
               response. Messages sent through the contact form or MCP are
               stored so they can be answered — see the{" "}
-              <a href="/privacy" className="rd-ulink">
+              <a href="/privacy" className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)]">
                 privacy policy
               </a>{" "}
               for details.

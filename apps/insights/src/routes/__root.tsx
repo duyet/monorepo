@@ -1,9 +1,15 @@
-import "@duyet/components/styles.css";
 import "../styles/globals.css";
 
 import Analytics from "@duyet/components/Analytics";
 import ThemeProvider from "@duyet/components/ThemeProvider";
-import { SiteHeader, SiteFooter, ExploreApps } from "@duyet/components";
+import {
+  duyetFaviconHeadLinks,
+  duyetFontHeadLinks,
+  THEME_BOOT_SCRIPT,
+  ExploreApps,
+  SiteFooter,
+  SiteHeader,
+} from "@duyet/components";
 import {
   createRootRoute,
   HeadContent,
@@ -39,7 +45,8 @@ export const Route = createRootRoute({
       { name: "description", content: "Insights for duyet.net" },
     ],
     links: [
-      { rel: "icon", href: "/favicon.ico" },
+      ...duyetFontHeadLinks(),
+      ...duyetFaviconHeadLinks(),
     ],
   }),
   notFoundComponent: NotFoundComponent,
@@ -52,6 +59,7 @@ function RootComponent() {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
         <HeadContent />
       </head>
       <body>
