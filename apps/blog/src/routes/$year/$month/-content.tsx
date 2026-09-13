@@ -213,7 +213,7 @@ export default function Content({ post }: { post: ContentPost }) {
 
   return (
     <>
-      <OldPostWarning post={post} className="mb-6" year={5} />
+      <OldPostWarning post={post} year={5} />
 
       <div ref={copyRef} className="contents">
         {post.isMDX && post.mdxSource ? (

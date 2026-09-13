@@ -21,13 +21,14 @@ export function OldPostWarning({
   }
 
   return (
-    <p
+    <aside
+      role="note"
       className={cn(
-        "mx-auto max-w-[68ch] text-sm leading-relaxed text-muted-foreground",
+        "mx-auto mb-8 box-border w-full max-w-[68ch] rounded-md bg-muted px-4 py-3 text-sm leading-relaxed text-muted-foreground",
         className,
       )}
     >
       This post is over {postYear} years old. The information may be outdated.
-    </p>
+    </aside>
   );
 }
