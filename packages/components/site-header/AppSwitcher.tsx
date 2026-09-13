@@ -2,10 +2,49 @@
 
 import { cn } from "@duyet/libs/utils";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import {
+  type CSSProperties,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { APPS, CATEGORY_ORDER } from "./apps";
 import { twHeader } from "./tw";
-import type { AppIcon, AppKey } from "./types";
+import type { AppCategory, AppIcon, AppKey } from "./types";
+
+function dither(svg: string): string {
+  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+}
+
+const CATEGORY_THEME: Record<
+  AppCategory,
+  { tone: string; dither: string }
+> = {
+  Personal: {
+    tone: "#b8734a",
+    dither: dither(
+      `<svg xmlns="http://www.w3.org/2000/svg" width="7" height="7"><circle cx="1.2" cy="2" r=".7" fill="#b8734a"/><circle cx="5" cy="5.2" r=".55" fill="#b8734a" opacity=".7"/><circle cx="4.5" cy="1.2" r=".45" fill="#b8734a" opacity=".5"/></svg>`
+    ),
+  },
+  "AI & Data": {
+    tone: "#4a6d92",
+    dither: dither(
+      `<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"><rect width="1.2" height="1.2" fill="#4a6d92"/><rect x="4" y="3" width="1" height="1" fill="#4a6d92" opacity=".7"/><rect x="6.5" y="6.5" width="1.1" height="1.1" fill="#4a6d92" opacity=".55"/><rect x="2" y="6" width=".8" height=".8" fill="#4a6d92" opacity=".45"/></svg>`
+    ),
+  },
+  Build: {
+    tone: "#7a4560",
+    dither: dither(
+      `<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"><path d="M0 7 L7 0" stroke="#7a4560" stroke-width=".7"/><path d="M3 8 L8 3" stroke="#7a4560" stroke-width=".5" opacity=".55"/></svg>`
+    ),
+  },
+  Infra: {
+    tone: "#2f6a4c",
+    dither: dither(
+      `<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"><rect y="1" width="8" height=".7" fill="#2f6a4c" opacity=".55"/><rect y="4.5" width="8" height=".5" fill="#2f6a4c" opacity=".35"/><circle cx="2" cy="6.6" r=".5" fill="#2f6a4c"/></svg>`
+    ),
+  },
+};
 
 function AppLogo({ Icon }: { Icon: AppIcon }) {
   return (
@@ -104,9 +143,19 @@ export function AppSwitcher({
             {CATEGORY_ORDER.map((category) => {
               const apps = APPS.filter((a) => a.category === category);
               if (apps.length === 0) return null;
+              const theme = CATEGORY_THEME[category];
               return (
-                <div key={category} className="mb-1.5 last:mb-0">
-                  <p className="px-1.5 pt-1 pb-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground/70">
+                <div
+                  key={category}
+                  className="mb-1.5 rounded-md last:mb-0"
+                  style={
+                    {
+                      "--switcher-tone": theme.tone,
+                      "--switcher-dither": theme.dither,
+                    } as CSSProperties
+                  }
+                >
+                  <p className="px-1.5 pt-1 pb-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-[color-mix(in_srgb,var(--switcher-tone)_72%,var(--rd-text-3))]">
                     {category}
                   </p>
                   <div className="grid grid-cols-2 gap-1">
@@ -134,25 +183,25 @@ export function AppSwitcher({
                           className={cn(
                             "group relative isolate flex items-center gap-2.5 overflow-hidden rounded-md border px-2 py-2 outline-none",
                             "transition-[transform,border-color,box-shadow] duration-200",
-                            "hover:-translate-y-px hover:shadow-[0_8px_20px_-12px_rgb(0_0_0_/_0.35)]",
+                            "hover:-translate-y-px hover:shadow-[0_8px_20px_-12px_color-mix(in_srgb,var(--switcher-tone)_55%,transparent)]",
                             "before:pointer-events-none before:absolute before:inset-0 before:z-0 before:opacity-0 before:transition-opacity before:duration-200",
-                            "before:bg-[radial-gradient(90px_circle_at_var(--mx,30%)_var(--my,30%),color-mix(in_srgb,var(--rd-accent)_32%,transparent),transparent_68%)]",
+                            "before:bg-[radial-gradient(100px_circle_at_var(--mx,30%)_var(--my,30%),color-mix(in_srgb,var(--switcher-tone)_38%,transparent),transparent_70%)]",
                             "hover:before:opacity-100 focus-visible:before:opacity-100",
-                            "after:pointer-events-none after:absolute after:inset-0 after:z-0 after:opacity-0 after:transition-opacity",
-                            "after:bg-[linear-gradient(115deg,transparent_35%,color-mix(in_srgb,var(--rd-accent)_18%,transparent)_50%,transparent_65%)]",
-                            "after:bg-[length:220%_100%] hover:after:opacity-100 hover:after:animate-[rd-app-shine_0.85s_ease]",
+                            "after:pointer-events-none after:absolute after:inset-0 after:z-0 after:opacity-0 after:transition-opacity after:duration-200",
+                            "after:[background-image:var(--switcher-dither)] after:bg-repeat",
+                            "hover:after:opacity-100 focus-visible:after:opacity-100",
                             isCurrent
-                              ? "border-foreground/20 bg-[var(--rd-muted)]"
-                              : "border-transparent hover:border-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)]",
+                              ? "border-[color-mix(in_srgb,var(--switcher-tone)_28%,transparent)] bg-[color-mix(in_srgb,var(--switcher-tone)_10%,var(--rd-muted,transparent))]"
+                              : "border-transparent hover:border-[color-mix(in_srgb,var(--switcher-tone)_45%,transparent)] hover:bg-[color-mix(in_srgb,var(--switcher-tone)_8%,transparent)]",
                           )}
                         >
                           <span
                             className={cn(
                               "relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-md border bg-background",
                               "transition-transform duration-200 ease-out",
-                              "group-hover:scale-110 group-hover:-rotate-6 group-hover:border-[color-mix(in_srgb,var(--rd-accent)_45%,transparent)]",
+                              "group-hover:scale-110 group-hover:-rotate-6 group-hover:border-[color-mix(in_srgb,var(--switcher-tone)_50%,transparent)]",
                               isCurrent
-                                ? "border-foreground/20"
+                                ? "border-[color-mix(in_srgb,var(--switcher-tone)_35%,transparent)]"
                                 : "border-border",
                             )}
                           >
