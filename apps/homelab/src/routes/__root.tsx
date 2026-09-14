@@ -34,7 +34,10 @@ export const Route = createRootRoute({
     ],
   }),
   errorComponent: ({ error, reset }) => (
-    <ErrorPage error={error} reset={reset} />
+    <ErrorPage
+      error={error instanceof Error ? error : new Error(String(error))}
+      reset={reset}
+    />
   ),
   notFoundComponent: () => <NotFoundPage />,
   component: RootComponent,
