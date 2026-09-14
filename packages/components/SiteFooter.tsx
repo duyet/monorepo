@@ -39,6 +39,15 @@ function tagged(
   }));
 }
 
+const FOOTER_PROJECT_LABELS = new Set([
+  "AnyRouter",
+  "ClickHouse Monitor",
+  "AI;DR",
+  "Templatebot",
+  "Agent State",
+  "OMA",
+]);
+
 function footerGroups(source: string): FooterGroup[] {
   return [
   {
@@ -59,7 +68,9 @@ function footerGroups(source: string): FooterGroup[] {
   {
     heading: "Projects",
     items: tagged(
-      PROJECT_BACKLINKS.map((p) => ({ label: p.label, href: p.href })),
+      PROJECT_BACKLINKS.filter((p) => FOOTER_PROJECT_LABELS.has(p.label)).map(
+        (p) => ({ label: p.label, href: p.href }),
+      ),
       source,
       "footer-projects",
     ),

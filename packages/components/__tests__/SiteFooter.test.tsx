@@ -36,5 +36,8 @@ describe("SiteFooter", () => {
     expect(anyrouter?.getAttribute("rel")).toBeNull();
     expect(container.textContent).toContain("Templatebot");
     expect(container.textContent).toContain("Agent State");
+    expect(container.textContent).toContain("OMA");
+    expect(container.textContent).not.toContain("Summa");
+    expect(container.textContent).not.toContain("ShareHTML");
   });
 });
