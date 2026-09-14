@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@duyet/wasm": "*",
-    "cn": "^0.2.4",
+    "cn": "^0.3.0",
     "date-fns": "^4.0.0",
     "github-slugger": "^2.0.0",
     "gray-matter": "4.0.3",
