@@ -144,6 +144,26 @@ Rust crates in `crates/` serve two purposes:
 
 Two binaries share the `duyet` name and must not be confused. `duyet-cli` (`crates/cli`) is the build-time JSON stdin/stdout tool consumed by `callCli()`; it is unchanged by the CLI program. `duyet` (`crates/duyet`) is the user-facing CLI for readers and agents from epic #1440: clap command tree, `--json` envelope `{"ok","schema","data"|"error"}`, exit codes 0/1/2/3/4/5/6/10 in one `ExitCode` enum, TOML config with no secrets under the OS config dir, `doctor`, completions, man pages, and generated `crates/duyet/docs/reference.md`. Later-slice commands are present with `--help` and exit 2 with the tracked issue number. Contracts live in `crates/duyet/README.md`; drive it with `.cursor/skills/verify-duyet-cli/SKILL.md`. `Cargo.lock` is committed because `duyet` ships as a binary; `test.yml` caches on it.
 
+### `duyet` CLI dist releases (#1444)
+
+`dist` (cargo-dist 0.32.x) ships only package `duyet` (`dist-workspace.toml`, `packages = ["duyet"]`). Workflow `.github/workflows/release-duyet.yml` runs on tags matching `duyet*` + semver (`tag-namespace = "duyet"`). Root `vX.Y.Z` and `news-tab-v*` never build binaries.
+
+Stable: merge the release-please PR for `crates/duyet` (humans merge; never auto-merge). Tag is `duyet-vX.Y.Z`. Beta: Actions → **Cut duyet beta** (`cut-duyet-beta.yml`) pushes `duyet-vX.Y.Z-beta.N`; dist marks the GitHub Release prerelease.
+
+Release assets (consumed by #1446 installers and #1447 `duyet update`):
+
+- `https://github.com/duyet/monorepo/releases/download/duyet-vX.Y.Z/duyet-<triple>.tar.xz` (Windows: `.zip`)
+- `duyet-installer.sh` / `duyet-installer.ps1` (dist-generated; thin wrappers at duyet.net are #1446)
+- `SHA256SUMS`, `SHA256SUMS.minisig`, `dist-manifest.json`
+- GitHub artifact attestations (`gh attestation verify <archive> --repo duyet/monorepo`)
+
+Channel manifests (Pages via `apps/home`):
+
+- `https://duyet.net/cli/stable.json` / `beta.json` — `{schema,version,tag,published_at,targets.{triple:{url,sha256,size}}}`
+- `https://duyet.net/cli/minisign.pub` — same key the binary embeds via `include_str!("../minisign.pub")`
+
+Post-announce job `.github/workflows/duyet-sign-channel.yml` writes SHA256SUMS, minisigns it, and opens a PR to `master` with the channel JSON (branch protection blocks direct push). Repo secret **`MINISIGN_SECRET_KEY`**: unencrypted minisign secret matching the committed public key. If unset, the release still publishes archives/attestations; `.minisig` is skipped.
+
 ### Build & Test
 
 - `pnpm run rust:build` — build native CLI binary (`target/release/duyet-cli`)

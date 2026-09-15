@@ -5,6 +5,9 @@ edition.workspace = true
 license.workspace = true
 rust-version = "1.85"
 description = "Read duyet.net from the terminal: posts, notes, series, KB, news, insights, and the duyet agent"
+repository = "https://github.com/duyet/monorepo"
+homepage = "https://duyet.net/cli"
+readme = "README.md"
 
 [[bin]]
 name = "duyet"

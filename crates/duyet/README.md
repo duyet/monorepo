@@ -33,8 +33,9 @@ Every other command is present in the tree with full arguments and `--help`, and
 | `update` | [#1447](https://github.com/duyet/monorepo/issues/1447) |
 | `contact`, `jd`, `comment` | [#1448](https://github.com/duyet/monorepo/issues/1448) |
 
-Release pipeline and installers are [#1444](https://github.com/duyet/monorepo/issues/1444) and
-[#1446](https://github.com/duyet/monorepo/issues/1446).
+Release pipeline is [#1444](https://github.com/duyet/monorepo/issues/1444): tags `duyet-vX.Y.Z`
+(and `duyet-vX.Y.Z-beta.N`) publish five archives, `SHA256SUMS` + minisign, attestations, and
+channel JSON at `https://duyet.net/cli/{stable,beta}.json`. Installers are [#1446](https://github.com/duyet/monorepo/issues/1446).
 
 ## Output contract
 
