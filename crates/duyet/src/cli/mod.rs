@@ -105,6 +105,10 @@ pub struct Globals {
     #[arg(long, global = true)]
     pub offline: bool,
 
+    /// Bypass the disk HTTP cache (always refetch)
+    #[arg(long, global = true)]
+    pub no_cache: bool,
+
     /// HTTP timeout in seconds
     #[arg(
         long,
@@ -204,13 +208,13 @@ impl Ctx {
 
 pub fn dispatch(command: &Command, ctx: &Ctx) -> Result<(), CliError> {
     match command {
-        Command::Posts(args) => posts::run(args),
-        Command::Notes(args) => notes::run(args),
-        Command::Series(args) => series::run(args),
-        Command::Kb(args) => kb::run(args),
-        Command::News(args) => news::run(args),
-        Command::Images(args) => images::run(args),
-        Command::Insights(args) => insights::run(args),
+        Command::Posts(args) => posts::run(args, ctx),
+        Command::Notes(args) => notes::run(args, ctx),
+        Command::Series(args) => series::run(args, ctx),
+        Command::Kb(args) => kb::run(args, ctx),
+        Command::News(args) => news::run(args, ctx),
+        Command::Images(args) => images::run(args, ctx),
+        Command::Insights(args) => insights::run(args, ctx),
         Command::Chat(args) => chat::run(args),
         Command::Contact(args) => contact::run(args, ctx),
         Command::Jd(args) => jd::run(args, ctx),

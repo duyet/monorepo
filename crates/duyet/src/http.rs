@@ -25,6 +25,7 @@ pub struct Http {
     client: Client,
     cache_dir: PathBuf,
     offline: bool,
+    no_cache: bool,
     verbosity: u8,
     timeout: Duration,
     redactor: Redactor,
@@ -106,6 +107,7 @@ impl Http {
             client,
             cache_dir: paths.cache_dir.join("http"),
             offline: globals.offline,
+            no_cache: globals.no_cache,
             verbosity: globals.verbose,
             timeout,
             redactor: Redactor::from_env(),
@@ -142,7 +144,11 @@ impl Http {
     /// GET with a disk cache (ETag + `Cache-Control: max-age`) and three attempts with
     /// exponential backoff on connect errors and 5xx. 4xx never retries.
     pub fn get(&self, url: &Url) -> Result<Fetched, CliError> {
-        let cached = self.read_cache(url);
+        let cached = if self.no_cache {
+            None
+        } else {
+            self.read_cache(url)
+        };
         let now = unix_now();
         if self.offline {
             self.log(
@@ -163,8 +169,12 @@ impl Http {
             return Ok(fetched_from(entry.clone(), true));
         }
 
-        let response =
-            self.send_with_retry(url, cached.as_ref().and_then(|e| e.etag.as_deref()))?;
+        let etag = if self.no_cache {
+            None
+        } else {
+            cached.as_ref().and_then(|e| e.etag.as_deref())
+        };
+        let response = self.send_with_retry(url, etag)?;
         let status = response.status();
         let headers = response.headers().clone();
         let request_id = request_id(&headers);
@@ -204,9 +214,39 @@ impl Http {
             max_age: max_age(&headers).unwrap_or(0),
             request_id,
         };
-        self.write_cache(&entry);
-        self.log(2, &format!("cached {url} for {}s", entry.max_age));
+        if !self.no_cache {
+            self.write_cache(&entry);
+            self.log(2, &format!("cached {url} for {}s", entry.max_age));
+        }
         Ok(fetched_from(entry, false))
+    }
+
+    /// GET bytes (images). Not stored in the JSON text cache.
+    pub fn get_bytes(&self, url: &Url) -> Result<Vec<u8>, CliError> {
+        if self.offline {
+            return Err(CliError::Offline {
+                url: url.to_string(),
+            });
+        }
+        let response = self.send_with_retry(url, None)?;
+        let status = response.status();
+        let request_id = request_id(response.headers());
+        if !status.is_success() {
+            return Err(CliError::Http {
+                url: url.to_string(),
+                status: status.as_u16(),
+                request_id,
+                retry_after: retry_after(response.headers()),
+            });
+        }
+        response
+            .bytes()
+            .map(|b| b.to_vec())
+            .map_err(|err| CliError::Network {
+                url: url.to_string(),
+                message: describe(&err),
+                request_id,
+            })
     }
 
     fn send_with_retry(&self, url: &Url, etag: Option<&str>) -> Result<Response, CliError> {

@@ -1,22 +1,24 @@
 use clap::{Args as ClapArgs, Subcommand};
 
-use crate::error::{CliError, Slice};
-
-const SLICE: Slice = Slice::P2Content;
+use super::Ctx;
+use crate::config::ConfigKey;
+use crate::content::{http, insights_overview};
+use crate::error::CliError;
 
 const AFTER_HELP: &str = "\
 Source: <api_url>/api/insights/overview.
+
+Live shape is the insights dashboard (Cloudflare / PostHog / WakaTime / AI metrics), not
+blog post counts. Unknown fields are ignored.
 
 Examples:
   duyet insights overview
   duyet insights overview --json | jq .data
 
 JSON (duyet.insights.v1):
-  overview:
-    {\"posts\":N,\"words\":N,\"first_post\":\"YYYY-MM-DD\",\"latest_post\":\"YYYY-MM-DD\",
-     \"categories\":[{\"name\":\"..\",\"count\":N}]}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443";
+  {\"generated_at\":\"..?\",\"cloudflare_requests\":N,\"cloudflare_pageviews\":N,
+   \"posthog_views\":N,\"posthog_visitors\":N,\"waka_hours\":N,\"waka_top_language\":\"..\",
+   \"ai_tokens\":N,\"ai_cost\":N}";
 
 #[derive(Debug, ClapArgs)]
 #[command(after_long_help = AFTER_HELP)]
@@ -32,6 +34,12 @@ pub enum InsightsCommand {
     Overview,
 }
 
-pub fn run(_args: &Args) -> Result<(), CliError> {
-    Err(CliError::NotImplemented(SLICE))
+pub fn run(args: &Args, ctx: &Ctx) -> Result<(), CliError> {
+    let http = http(ctx)?;
+    match args.command {
+        InsightsCommand::Overview => ctx.emit(&insights_overview(
+            &http,
+            ctx.settings.url(ConfigKey::ApiUrl),
+        )?),
+    }
 }
