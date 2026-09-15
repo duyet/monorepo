@@ -1,19 +1,17 @@
 # Pester tests for install.ps1 target selection and manifest parsing.
-# Run: pwsh -File apps/home/scripts/Install.Tests.ps1
-
-# Pester 5 may load this file without $PSScriptRoot; resolve robustly.
-$scriptDir = $PSScriptRoot
-if (-not $scriptDir) {
-    if ($PSCommandPath) { $scriptDir = Split-Path -Parent $PSCommandPath }
-    elseif ($MyInvocation.MyCommand.Path) { $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path }
-    else { $scriptDir = Join-Path $PWD "apps/home/scripts" }
-}
-$install = Join-Path (Split-Path $scriptDir -Parent) "public/install.ps1"
+# Run from repo root: pwsh -File apps/home/scripts/Install.Tests.ps1
 
 Describe "duyet install.ps1" {
     BeforeAll {
-        if (-not (Test-Path -LiteralPath $install)) {
-            throw "install.ps1 not found at $install (scriptDir=$scriptDir pwd=$PWD)"
+        # Resolve from the repo root (GHA cwd) — do not rely on $PSScriptRoot,
+        # which is empty when Pester 5 discovers/loads this file as a scriptblock.
+        $candidates = @(
+            (Join-Path (Get-Location) "apps/home/public/install.ps1"),
+            (Join-Path $PSScriptRoot "../public/install.ps1")
+        )
+        $install = $candidates | Where-Object { $_ -and (Test-Path -LiteralPath $_) } | Select-Object -First 1
+        if (-not $install) {
+            throw "install.ps1 not found. pwd=$(Get-Location) PSScriptRoot=$PSScriptRoot candidates=$($candidates -join ', ')"
         }
         $env:DUYET_INSTALLER_TEST = "1"
         . $install
@@ -28,8 +26,6 @@ Describe "duyet install.ps1" {
     }
 
     It "parses stub channel manifest targets" {
-        # Channel JSON on trunk is an empty schema filled by the #1444 host job.
-        # Use an inline fixture that matches the published shape.
         $json = @'
 {
   "schema": "duyet.cli.channel.v1",
