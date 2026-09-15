@@ -61,4 +61,16 @@ describe("Cloudflare Pages _headers additions", () => {
     // Count rule lines (start of line), not prose mentions in comments.
     expect(headers.match(/^\/llms\.txt$/gm)).toHaveLength(1);
   });
+
+  it("serves CLI installers with short cache and distinct Content-Types", () => {
+    expect(headers).toMatch(
+      /\/install\.sh\n {2}Content-Type: text\/x-shellscript; charset=utf-8\n {2}Cache-Control: public, max-age=300\n/
+    );
+    expect(headers).toMatch(
+      /\/install\.ps1\n {2}Content-Type: text\/plain; charset=utf-8\n {2}Cache-Control: public, max-age=300\n/
+    );
+    expect(headers).toMatch(
+      /\/cli\/\*\.json\n {2}Content-Type: application\/json; charset=utf-8\n {2}Cache-Control: public, max-age=300\n/
+    );
+  });
 });

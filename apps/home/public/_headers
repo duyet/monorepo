@@ -76,6 +76,25 @@
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=300
 
+# CLI installers — short cache so a new release is picked up fast.
+# text/x-shellscript is the installer MIME; markdown Accept negotiation in
+# functions/_middleware.ts only rewrites / and /index.html, so this file is
+# never turned into text/markdown.
+/install.sh
+  Content-Type: text/x-shellscript; charset=utf-8
+  Cache-Control: public, max-age=300
+  Access-Control-Allow-Origin: *
+
+/install.ps1
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=300
+  Access-Control-Allow-Origin: *
+
+/cli/*.json
+  Content-Type: application/json; charset=utf-8
+  Cache-Control: public, max-age=300
+  Access-Control-Allow-Origin: *
+
 # Well-known discovery files (catches files beyond the explicit rules above).
 # NOTE: /llms.txt intentionally NOT re-declared here — the existing /llms.txt
 # rule above pins Content-Type: text/plain, and Pages joins duplicate headers

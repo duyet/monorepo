@@ -256,6 +256,42 @@ function DevelopersPage() {
           </Reveal>
         </section>
 
+        <section className="mt-9 border-t border-[var(--rd-border)] pt-7">
+          <Reveal>
+            <h2 className="text-[1.05rem] font-medium tracking-[-0.01em]">
+              CLI
+            </h2>
+            <p className="mt-3 max-w-[62ch] text-[14.5px] leading-[1.65] text-[var(--rd-text-2)]">
+              One binary for posts, notes, KB, and the agent. macOS and Linux
+              use a POSIX installer; Windows uses PowerShell. Channel manifests:
+              {" "}
+              <a
+                href="/cli/stable.json"
+                className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)] font-[var(--font-mono)] text-[13px]"
+              >
+                /cli/stable.json
+              </a>
+              {" "}
+              and
+              {" "}
+              <a
+                href="/cli/beta.json"
+                className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)] font-[var(--font-mono)] text-[13px]"
+              >
+                /cli/beta.json
+              </a>
+              .
+            </p>
+            <div className="mt-4 flex flex-col gap-3 max-w-[720px]">
+              <CodeBlock>{`curl -fsSL https://duyet.net/install.sh | sh`}</CodeBlock>
+              <CodeBlock>{`DUYET_CHANNEL=beta curl -fsSL https://duyet.net/install.sh | sh`}</CodeBlock>
+              <CodeBlock>{`DUYET_VERSION=0.1.0-beta.1 curl -fsSL https://duyet.net/install.sh | sh`}</CodeBlock>
+              <CodeBlock>{`irm https://duyet.net/install.ps1 | iex`}</CodeBlock>
+              <CodeBlock>{`gh attestation verify duyet-x86_64-unknown-linux-musl.tar.xz --repo duyet/monorepo`}</CodeBlock>
+            </div>
+          </Reveal>
+        </section>
+
         <section className="mt-9 border-t border-[var(--rd-border)] pt-7 pb-[clamp(24px,4vw,48px)]">
           <Reveal>
             <h2 className="text-[1.05rem] font-medium tracking-[-0.01em]">

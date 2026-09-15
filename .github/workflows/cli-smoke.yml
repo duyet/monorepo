@@ -1,0 +1,206 @@
+name: CLI installer smoke
+
+on:
+  pull_request:
+    paths:
+      - "apps/home/public/install.sh"
+      - "apps/home/public/install.ps1"
+      - "apps/home/public/cli/**"
+      - "apps/home/public/_headers"
+      - "apps/home/scripts/install-sh-smoke.sh"
+      - "apps/home/scripts/Install.Tests.ps1"
+      - ".github/workflows/cli-smoke.yml"
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint-sh:
+    name: shellcheck + sh -n
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - name: Install shellcheck and dash
+        run: sudo apt-get update && sudo apt-get install -y shellcheck dash busybox
+      - name: shellcheck POSIX
+        run: shellcheck -s sh apps/home/public/install.sh
+      - name: dash -n
+        run: dash -n apps/home/public/install.sh
+      - name: busybox sh -n
+        run: busybox sh -n apps/home/public/install.sh
+      - name: script size under 20 KB
+        run: |
+          bytes=$(wc -c < apps/home/public/install.sh)
+          test "$bytes" -lt 20480
+
+  lint-ps1:
+    name: PSScriptAnalyzer + Pester
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - name: PSScriptAnalyzer
+        shell: pwsh
+        run: |
+          Install-Module PSScriptAnalyzer -Force -Scope CurrentUser -SkipPublisherCheck
+          $r = Invoke-ScriptAnalyzer -Path apps/home/public/install.ps1 -Severity Warning,Error
+          if ($r) { $r | Format-Table -AutoSize; throw "PSScriptAnalyzer findings" }
+      - name: Pester
+        shell: pwsh
+        run: |
+          $cfg = New-PesterConfiguration
+          $cfg.Run.Path = "apps/home/scripts/Install.Tests.ps1"
+          $cfg.Run.Exit = $true
+          $cfg.Output.Verbosity = "Detailed"
+          Invoke-Pester -Configuration $cfg
+      - name: script size under 20 KB
+        shell: pwsh
+        run: |
+          $bytes = (Get-Item apps/home/public/install.ps1).Length
+          if ($bytes -ge 20480) { throw "install.ps1 is $bytes bytes" }
+
+  stub-smoke:
+    name: stub archive smoke (${{ matrix.os }})
+    needs: [lint-sh]
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest, macos-13]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - name: Run local stub installer
+        run: sh apps/home/scripts/install-sh-smoke.sh
+
+  stub-smoke-windows:
+    name: stub archive smoke (windows)
+    needs: [lint-ps1]
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - name: Stub zip + install.ps1
+        shell: pwsh
+        run: |
+          $root = Join-Path $env:RUNNER_TEMP "duyet-stub"
+          New-Item -ItemType Directory -Path (Join-Path $root "www\cli") -Force | Out-Null
+          $binDir = Join-Path $root "bin"
+          New-Item -ItemType Directory -Path $binDir | Out-Null
+          Set-Content -Path (Join-Path $binDir "duyet.exe") -Value "@echo duyet 0.0.0-smoke" -Encoding ASCII
+          $zip = Join-Path $root "www\duyet-x86_64-pc-windows-msvc.zip"
+          Compress-Archive -Path (Join-Path $binDir "duyet.exe") -DestinationPath $zip
+          $hash = (Get-FileHash -Algorithm SHA256 $zip).Hash.ToLowerInvariant()
+          Set-Content -Path (Join-Path $root "www\SHA256SUMS") -Value "$hash  duyet-x86_64-pc-windows-msvc.zip"
+          $manifest = @{
+            version = "0.0.0-smoke"
+            tag = "duyet-v0.0.0-smoke"
+            channel = "stable"
+            targets = @{
+              "x86_64-pc-windows-msvc" = @{
+                url = "http://127.0.0.1:8765/duyet-x86_64-pc-windows-msvc.zip"
+                sha256 = $hash
+                size = (Get-Item $zip).Length
+              }
+            }
+          } | ConvertTo-Json -Depth 6
+          Set-Content -Path (Join-Path $root "www\cli\stable.json") -Value $manifest
+          $listener = Start-Job -ScriptBlock {
+            param($dir)
+            $http = [System.Net.HttpListener]::new()
+            $http.Prefixes.Add("http://127.0.0.1:8765/")
+            $http.Start()
+            while ($http.IsListening) {
+              $ctx = $http.GetContext()
+              $path = $ctx.Request.Url.AbsolutePath.TrimStart("/")
+              if ([string]::IsNullOrEmpty($path)) { $path = "index.html" }
+              $file = Join-Path $dir $path
+              if (Test-Path $file) {
+                $bytes = [System.IO.File]::ReadAllBytes($file)
+                $ctx.Response.StatusCode = 200
+                $ctx.Response.OutputStream.Write($bytes, 0, $bytes.Length)
+              } else {
+                $ctx.Response.StatusCode = 404
+              }
+              $ctx.Response.Close()
+            }
+          } -ArgumentList (Join-Path $root "www")
+          Start-Sleep -Seconds 1
+          $env:DUYET_BASE_URL = "http://127.0.0.1:8765"
+          $env:DUYET_INSTALL_DIR = Join-Path $root "home\bin"
+          $env:DUYET_MODIFY_PATH = "0"
+          $env:DUYET_CHANNEL = "stable"
+          & (Resolve-Path "apps/home/public/install.ps1").Path -Yes
+          $installed = Join-Path $env:DUYET_INSTALL_DIR "duyet.exe"
+          if (-not (Test-Path $installed)) { throw "missing $installed" }
+          Stop-Job $listener -ErrorAction SilentlyContinue
+
+  live-one-liner:
+    name: live one-liner (${{ matrix.os }})
+    needs: [lint-sh]
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest, macos-13, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - name: Probe production installers and optional release assets
+        if: runner.os != 'Windows'
+        env:
+          DUYET_CHANNEL: stable
+        run: |
+          set -eu
+          echo "::notice::trunk currently 404s /install.sh until this PR deploys; probing anyway"
+          code=$(curl -sS -o /tmp/install.sh.body -w "%{http_code}" https://duyet.net/install.sh || true)
+          echo "duyet.net/install.sh -> $code"
+          if [ "$code" != "200" ]; then
+            echo "::warning::production /install.sh is $code (expected until Pages deploys this branch). Using repo script."
+            cp apps/home/public/install.sh /tmp/install.sh.body
+          fi
+          head -n 1 /tmp/install.sh.body | grep -q '^#!/bin/sh'
+          # Real GitHub release from #1444. Skip install (do not fail the job) when missing.
+          tag=duyet-v0.1.0-beta.1
+          status=$(curl -sS -o /dev/null -w "%{http_code}" -I "https://github.com/duyet/monorepo/releases/download/${tag}/SHA256SUMS" || true)
+          echo "release ${tag} SHA256SUMS -> $status"
+          if [ "$status" != "200" ] && [ "$status" != "302" ]; then
+            echo "::warning::#1444 artifacts not published yet; skipping live curl|sh install. Stub smoke already ran."
+            exit 0
+          fi
+          export DUYET_VERSION=0.1.0-beta.1
+          export DUYET_INSTALL_DIR="${HOME}/.duyet/bin"
+          sh /tmp/install.sh.body
+          "${DUYET_INSTALL_DIR}/duyet" version --json
+          if "${DUYET_INSTALL_DIR}/duyet" posts list --json 2>/dev/null | grep -q '"ok"'; then
+            echo "posts list returned a JSON envelope"
+          else
+            echo "::notice::duyet posts list is not implemented yet (#1443); not failing smoke"
+          fi
+          export DUYET_CHANNEL=beta
+          unset DUYET_VERSION
+          sh /tmp/install.sh.body || echo "::warning::beta channel install failed (likely stub manifest)"
+      - name: Probe production PowerShell installer
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          try {
+            $r = Invoke-WebRequest -UseBasicParsing https://duyet.net/install.ps1
+            Write-Host "duyet.net/install.ps1 -> $($r.StatusCode)"
+          } catch {
+            Write-Host "::warning::production /install.ps1 not deployed yet"
+          }
+          $tagHead = $null
+          try {
+            $tagHead = Invoke-WebRequest -UseBasicParsing -Method Head "https://github.com/duyet/monorepo/releases/download/duyet-v0.1.0-beta.1/SHA256SUMS"
+          } catch {}
+          if (-not $tagHead) {
+            Write-Host "::warning::#1444 artifacts not published yet; skipping live irm|iex"
+            exit 0
+          }
+          $env:DUYET_VERSION = "0.1.0-beta.1"
+          $env:DUYET_MODIFY_PATH = "1"
+          & "$pwd\apps\home\public\install.ps1" -Yes
