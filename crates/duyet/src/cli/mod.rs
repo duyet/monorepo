@@ -14,6 +14,7 @@ pub mod news;
 pub mod notes;
 pub mod posts;
 pub mod series;
+pub mod submit;
 pub mod update;
 pub mod version;
 
@@ -211,9 +212,9 @@ pub fn dispatch(command: &Command, ctx: &Ctx) -> Result<(), CliError> {
         Command::Images(args) => images::run(args),
         Command::Insights(args) => insights::run(args),
         Command::Chat(args) => chat::run(args),
-        Command::Contact(args) => contact::run(args),
-        Command::Jd(args) => jd::run(args),
-        Command::Comment(args) => comment::run(args),
+        Command::Contact(args) => contact::run(args, ctx),
+        Command::Jd(args) => jd::run(args, ctx),
+        Command::Comment(args) => comment::run(args, ctx),
         Command::Auth(args) => auth::run(args),
         Command::Config(args) => config_cmd::run(args, ctx),
         Command::Update(args) => update::run(args),

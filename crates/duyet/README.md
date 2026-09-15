@@ -19,9 +19,10 @@ The full command reference is generated from the clap tree into [`docs/reference
 by `duyet docs markdown`; `cargo test -p duyet` fails when it is stale and
 `UPDATE_GOLDEN=1 cargo test -p duyet` rewrites it together with `tests/golden/*.txt`.
 
-## What works in this release (P1)
+## What works in this release (P1 + P7)
 
-`version`, `config path|show|set|unset|doctor`, `doctor`, `completions`, `docs man|markdown|tree`.
+`version`, `config path|show|set|unset|doctor`, `doctor`, `completions`, `docs man|markdown|tree`,
+`contact`, `jd submit`, `comment` (confirm-before-send against `api.duyet.net`).
 
 Every other command is present in the tree with full arguments and `--help`, and exits 2 with
 `not implemented yet, tracked in #<issue>` (JSON: `code: "not_implemented"`, `tracking: <issue URL>`):
@@ -31,7 +32,6 @@ Every other command is present in the tree with full arguments and `--help`, and
 | `posts`, `notes`, `series`, `kb`, `news`, `images`, `insights` | [#1443](https://github.com/duyet/monorepo/issues/1443) |
 | `chat`, `auth` | [#1445](https://github.com/duyet/monorepo/issues/1445) |
 | `update` | [#1447](https://github.com/duyet/monorepo/issues/1447) |
-| `contact`, `jd`, `comment` | [#1448](https://github.com/duyet/monorepo/issues/1448) |
 
 Release pipeline and installers are [#1444](https://github.com/duyet/monorepo/issues/1444) and
 [#1446](https://github.com/duyet/monorepo/issues/1446).

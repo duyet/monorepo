@@ -1,31 +1,52 @@
 use clap::Args as ClapArgs;
 
-use crate::error::{CliError, Slice};
+use super::Ctx;
+use crate::domain::Submission;
+use crate::error::CliError;
+use crate::term::prompt_required;
 
-const SLICE: Slice = Slice::P7Submissions;
-
-#[derive(Debug, ClapArgs)]
-#[command(after_long_help = "\
-Prints the full payload and destination, then asks `Send? [y/N]`. --yes skips the prompt; without
-a terminal and without --yes the command exits 5. --dry-run shows the payload and sends nothing.
-Comments enter a moderation queue and are not shown on the blog until approved.
+const PRIVACY: &str = "\
+Sends post slug, author, optional email, and body as JSON to POST {api_url}/api/comments. The
+slug is checked against cached posts-data.json first. Comments are queued for moderation; the
+CLI stores no secrets. Prints the payload, then asks `Send? [y/N]`. --yes skips the prompt;
+--no-input without --yes exits 5. --json returns {id, kind, accepted_at} and does not echo the
+payload.
 
 Examples:
-  duyet comment 2024-01-01-hello --body \"Great post\"
-  duyet comment 2024-01-01-hello --body \"Typo in section 2\" --yes --json
+  duyet comment 2026/08/grok-bot --body \"nice\" --author Ada --yes";
 
-JSON (duyet.submission.v1):
-  {\"kind\":\"comment\",\"id\":\"..\",\"accepted\":true,\"idempotency_key\":\"..\"}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1448")]
+#[derive(Debug, ClapArgs)]
+#[command(after_long_help = PRIVACY)]
 pub struct Args {
-    /// Slug of the post to comment on
+    /// Slug of the post to comment on (YYYY/MM/slug)
     pub post_slug: String,
-    /// Comment text (Markdown)
+    /// Comment text
     #[arg(long)]
     pub body: String,
+    /// Display name (prompted on a TTY if omitted)
+    #[arg(long)]
+    pub author: Option<String>,
+    /// Optional reply-to address
+    #[arg(long)]
+    pub email: Option<String>,
 }
 
-pub fn run(_args: &Args) -> Result<(), CliError> {
-    Err(CliError::NotImplemented(SLICE))
+pub fn run(args: &Args, ctx: &Ctx) -> Result<(), CliError> {
+    let author = match args
+        .author
+        .as_deref()
+        .map(str::trim)
+        .filter(|value| !value.is_empty())
+    {
+        Some(value) => value.to_owned(),
+        None => match ctx.interactivity {
+            crate::term::Interactivity::Interactive => {
+                prompt_required("author", &ctx.interactivity)?
+            }
+            crate::term::Interactivity::NonInteractive { .. } => "anonymous".into(),
+        },
+    };
+    let submission =
+        Submission::comment(&args.post_slug, &author, args.email.as_deref(), &args.body)?;
+    super::submit::send(ctx, submission)
 }

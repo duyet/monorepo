@@ -265,6 +265,7 @@ function DevelopersPage() {
               <CodeBlock>{`curl https://api.duyet.net/health`}</CodeBlock>
               <CodeBlock>{`curl https://api.duyet.net/api/ai/percentage/current`}</CodeBlock>
               <CodeBlock>{`curl https://api.duyet.net/api/insights/overview`}</CodeBlock>
+              <CodeBlock>{`duyet contact --name Ada --email ada@example.com --message "Hi" --yes`}</CodeBlock>
             </div>
           </Reveal>
         </section>

@@ -836,7 +836,7 @@ Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues
 ```text
 Send a contact message (confirms before sending)
 
-Usage: duyet contact --name <NAME> --email <EMAIL> --message <MESSAGE>
+Usage: duyet contact [OPTIONS]
 
 Options:
       --name <NAME>
@@ -851,18 +851,13 @@ Options:
   -h, --help
           Print help (see a summary with '-h')
 
-Prints the full payload and destination, then asks `Send? [y/N]`. --yes skips the prompt; without
-a terminal and without --yes the command exits 5. --dry-run shows the payload and sends nothing.
-Sends carry an idempotency key so a retry never double-posts.
+Sends name, email, and message as JSON to POST {api_url}/api/contact. The CLI stores no secrets;
+the message is queued for review. Prints the payload, then asks `Send? [y/N]`. --yes skips the
+prompt; --no-input without --yes exits 5. --json returns {id, kind, accepted_at} and does not
+echo the payload.
 
 Examples:
-  duyet contact --name "Ada" --email ada@example.com --message "Hi!"
-  duyet contact --name Ada --email ada@example.com --message Hi --yes --json
-
-JSON (duyet.submission.v1):
-  {"kind":"contact","id":"..","accepted":true,"idempotency_key":".."}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1448
+  duyet contact --name Ada --email ada@example.com --message "Hi" --yes
 ```
 
 ## `duyet jd`
@@ -880,17 +875,13 @@ Options:
   -h, --help
           Print help (see a summary with '-h')
 
-Prints the full payload and destination, then asks `Send? [y/N]`. --yes skips the prompt; without
-a terminal and without --yes the command exits 5. --dry-run shows the payload and sends nothing.
+Sends a job description as JSON to POST {api_url}/api/jd: file contents as `text` (32 KB cap) or
+an https `url`. The CLI stores no secrets. Prints the payload, then asks `Send? [y/N]`. --yes
+skips the prompt; --no-input without --yes exits 5. --json returns {id, kind, accepted_at} and
+does not echo the payload.
 
 Examples:
-  duyet jd submit ./role.md --company Acme --note "remote, EU hours"
-  duyet jd submit https://example.com/jobs/123 --yes --json
-
-JSON (duyet.submission.v1):
-  {"kind":"jd","id":"..","accepted":true,"idempotency_key":".."}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1448
+  duyet jd submit ./role.md --company Acme --note "remote, EU hours" --yes
 ```
 
 ## `duyet jd submit`
@@ -902,7 +893,7 @@ Usage: duyet jd submit [OPTIONS] <SOURCE>
 
 Arguments:
   <SOURCE>
-          Path to a text/Markdown/PDF file, or an http(s) URL
+          Path to a text/Markdown file, or an https URL
 
 Options:
       --company <COMPANY>
@@ -914,17 +905,13 @@ Options:
   -h, --help
           Print help (see a summary with '-h')
 
-Prints the full payload and destination, then asks `Send? [y/N]`. --yes skips the prompt; without
-a terminal and without --yes the command exits 5. --dry-run shows the payload and sends nothing.
+Sends a job description as JSON to POST {api_url}/api/jd: file contents as `text` (32 KB cap) or
+an https `url`. The CLI stores no secrets. Prints the payload, then asks `Send? [y/N]`. --yes
+skips the prompt; --no-input without --yes exits 5. --json returns {id, kind, accepted_at} and
+does not echo the payload.
 
 Examples:
-  duyet jd submit ./role.md --company Acme --note "remote, EU hours"
-  duyet jd submit https://example.com/jobs/123 --yes --json
-
-JSON (duyet.submission.v1):
-  {"kind":"jd","id":"..","accepted":true,"idempotency_key":".."}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1448
+  duyet jd submit ./role.md --company Acme --note "remote, EU hours" --yes
 ```
 
 ## `duyet comment`
@@ -932,31 +919,33 @@ Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues
 ```text
 Comment on a post (confirms before sending)
 
-Usage: duyet comment --body <BODY> <POST_SLUG>
+Usage: duyet comment [OPTIONS] --body <BODY> <POST_SLUG>
 
 Arguments:
   <POST_SLUG>
-          Slug of the post to comment on
+          Slug of the post to comment on (YYYY/MM/slug)
 
 Options:
       --body <BODY>
-          Comment text (Markdown)
+          Comment text
+
+      --author <AUTHOR>
+          Display name (prompted on a TTY if omitted)
+
+      --email <EMAIL>
+          Optional reply-to address
 
   -h, --help
           Print help (see a summary with '-h')
 
-Prints the full payload and destination, then asks `Send? [y/N]`. --yes skips the prompt; without
-a terminal and without --yes the command exits 5. --dry-run shows the payload and sends nothing.
-Comments enter a moderation queue and are not shown on the blog until approved.
+Sends post slug, author, optional email, and body as JSON to POST {api_url}/api/comments. The
+slug is checked against cached posts-data.json first. Comments are queued for moderation; the
+CLI stores no secrets. Prints the payload, then asks `Send? [y/N]`. --yes skips the prompt;
+--no-input without --yes exits 5. --json returns {id, kind, accepted_at} and does not echo the
+payload.
 
 Examples:
-  duyet comment 2024-01-01-hello --body "Great post"
-  duyet comment 2024-01-01-hello --body "Typo in section 2" --yes --json
-
-JSON (duyet.submission.v1):
-  {"kind":"comment","id":"..","accepted":true,"idempotency_key":".."}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1448
+  duyet comment 2026/08/grok-bot --body "nice" --author Ada --yes
 ```
 
 ## `duyet auth`

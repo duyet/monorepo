@@ -8,6 +8,9 @@ use crate::config::{Channel, Severity, Source};
 use crate::http::{Probe, ProbeStatus};
 use crate::output::{Render, Style, table};
 
+mod submit;
+pub use submit::{AcceptedSubmission, Submission, is_known_post_slug};
+
 #[derive(Debug, Serialize)]
 pub struct VersionInfo {
     pub version: &'static str,

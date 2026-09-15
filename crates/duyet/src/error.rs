@@ -114,6 +114,7 @@ pub enum CliError {
         url: String,
         status: u16,
         request_id: Option<String>,
+        retry_after: Option<String>,
     },
     Declined,
     Internal(String),
@@ -177,7 +178,15 @@ impl CliError {
             CliError::Io { path, source } => format!("{}: {source}", path.display()),
             CliError::Offline { url } => format!("offline and no cached copy of {url}"),
             CliError::Network { url, message, .. } => format!("{url}: {message}"),
-            CliError::Http { url, status, .. } => format!("{url}: HTTP {status}"),
+            CliError::Http {
+                url,
+                status,
+                retry_after,
+                ..
+            } => match retry_after {
+                Some(after) => format!("{url}: HTTP {status} (Retry-After: {after})"),
+                None => format!("{url}: HTTP {status}"),
+            },
             CliError::Declined => "confirmation required but not given".into(),
             CliError::Internal(text) => text.clone(),
         }
@@ -345,6 +354,7 @@ mod tests {
                     url: "u".into(),
                     status: 500,
                     request_id: None,
+                    retry_after: None,
                 },
                 ExitCode::Network,
             ),
@@ -353,6 +363,7 @@ mod tests {
                     url: "u".into(),
                     status: 404,
                     request_id: Some("r".into()),
+                    retry_after: None,
                 },
                 ExitCode::NotFound,
             ),
@@ -371,6 +382,7 @@ mod tests {
             url: "u".into(),
             status: 404,
             request_id: Some("cf-1".into()),
+            retry_after: None,
         };
         assert_eq!(err.code(), "http_404");
         assert_eq!(err.request_id(), Some("cf-1"));
