@@ -143,19 +143,14 @@ function FossilPage() {
         <div className="mt-9 border-t border-[var(--rd-border)] pt-7">
           <Eyebrow>How the platform evolved</Eyebrow>
           <ol className="mt-4 flex flex-col gap-4">
-            {journey.map((m, i) => (
-              <li key={m.label} className="flex gap-3">
-                <span className="font-[var(--font-mono)] text-[12px] text-[var(--rd-text-3)] pt-[3px] tabular-nums">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <h3 className="text-[14.5px] font-medium tracking-[-0.01em]">
-                    {m.label}
-                  </h3>
-                  <p className="mt-1 text-[14px] leading-[1.55] text-[var(--rd-text-2)]">
-                    {m.body}
-                  </p>
-                </div>
+            {journey.map((m) => (
+              <li key={m.label}>
+                <h3 className="text-[14.5px] font-medium tracking-[-0.01em]">
+                  {m.label}
+                </h3>
+                <p className="mt-1 text-[14px] leading-[1.55] text-[var(--rd-text-2)]">
+                  {m.body}
+                </p>
               </li>
             ))}
           </ol>

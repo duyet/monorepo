@@ -1,4 +1,4 @@
-import { Eyebrow, Reveal, SecHead } from "@duyet/components";
+import { Eyebrow, Reveal } from "@duyet/components";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChatSidebar } from "../components/duyetbot/ChatSidebar";
 import { ChatWindow } from "../components/duyetbot/ChatWindow";
@@ -65,101 +65,70 @@ function DuyetbotPage() {
           </div>
         </Reveal>
 
-        {/* runtime section */}
-        <section className="mt-[clamp(48px,7vw,80px)]">
+        <section className="mt-9 border-t border-[var(--rd-border)] pt-7">
           <Reveal>
-            <SecHead
-              num="01"
-              eyebrow="Runtime"
-              title="Hermes agent + a bundle of self-built skills"
-            />
-            <p className="text-[1.05rem] leading-[1.65] text-[var(--rd-text-2)] max-w-[62ch] mt-[16px] text-[clamp(0.92rem,1.05vw,1rem)]">
-              The bot runs on top of the Hermes agent runtime — long-running,
-              tool-using, with persistent file-based memory across sessions. On
-              top of that runtime sit a growing set of skills written
-              specifically for this monorepo: design audits, deploy
-              verification, blog post curation, dependency hygiene, MDX
-              authoring, ClickHouse sync, and so on.
-            </p>
-            <p className="text-[var(--rd-text-2)] max-w-[62ch] mt-[12px] text-[clamp(0.92rem,1.05vw,1rem)]">
-              New skills get added when a recurring task becomes worth
-              automating. Skills get retired when their work is permanently
-              handled by a more general capability. The skill set is itself a
-              living thing.
+            <h2 className="text-[1.05rem] font-medium tracking-[-0.01em]">
+              Runtime
+            </h2>
+            <p className="mt-3 max-w-[62ch] text-[14.5px] leading-[1.65] text-[var(--rd-text-2)]">
+              Hermes agent runtime — long-running, tool-using, with persistent
+              file-based memory. Skills on top of it cover design audits, deploy
+              verification, blog curation, dependency hygiene, MDX, and
+              ClickHouse sync. New skills appear when a task is worth
+              automating; they leave when a more general capability covers the
+              work.
             </p>
           </Reveal>
         </section>
 
-        {/* behavior section */}
-        <section className="mt-[clamp(40px,6vw,72px)]">
+        <section className="mt-9 border-t border-[var(--rd-border)] pt-7">
           <Reveal>
-            <SecHead
-              num="02"
-              eyebrow="Behavior"
-              title="Auto-discover, auto-rebuild, auto-ship"
-            />
-            <div className="mt-[20px] grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-0 border border-[var(--rd-border)] rounded-[var(--rd-r)] overflow-hidden">
-              {[
-                {
-                  label: "Auto-discover",
-                  body: "Crawls its own knowledge, public posts, GitHub activity, and Duyet's recent work to find what's worth surfacing on the site this week.",
-                },
-                {
-                  label: "Auto-rebuild",
-                  body: "When the site's structure no longer matches the content, the bot proposes a refactor, executes it, and ships it without asking.",
-                },
-                {
-                  label: "Auto-restyle",
-                  body: "Picks a design direction based on current inspiration or its own mood. Applies the change across home, blog, agents, and insights through the shared design system.",
-                },
-                {
-                  label: "Auto-verify",
-                  body: "Builds, deploys to Cloudflare Pages, then curls production and matches the live bundle against the local build before declaring a turn complete.",
-                },
-              ].map((cap) => (
-                <div
-                  key={cap.label}
-                  className="border-r border-b border-[var(--rd-border)] px-[22px] py-[20px]"
-                >
-                  <p className="text-[0.68rem] font-medium tracking-[0.08em] uppercase text-[var(--rd-text-3)] text-[10.5px]">{cap.label}</p>
-                  <p className="text-[var(--rd-text-2)] text-[13.5px] leading-[1.65] mt-[8px]">
-                    {cap.body}
-                  </p>
-                </div>
-              ))}
-            </div>
+            <h2 className="text-[1.05rem] font-medium tracking-[-0.01em]">
+              What it does
+            </h2>
+            <p className="mt-3 max-w-[62ch] text-[14.5px] leading-[1.65] text-[var(--rd-text-2)]">
+              Discovers what is worth surfacing this week, rebuilds structure
+              when content no longer fits, restyles through the shared design
+              system, then verifies the live Cloudflare Pages bundle against
+              the local build.
+            </p>
           </Reveal>
         </section>
 
-        {/* disclosure */}
-        <section className="mt-[clamp(40px,6vw,72px)] pb-[clamp(48px,7vw,88px)]">
+        <section className="mt-9 border-t border-[var(--rd-border)] pt-7 pb-[clamp(48px,7vw,88px)]">
           <Reveal>
-            <SecHead
-              num="03"
-              eyebrow="Disclosure"
-              title="Subject to change without notice"
-            />
-            <p className="text-[1.05rem] leading-[1.65] text-[var(--rd-text-2)] max-w-[62ch] mt-[16px] text-[clamp(0.92rem,1.05vw,1rem)]">
-              Anything on this site can change at any time. The layout you're
-              reading right now is the bot's current taste, not a permanent
-              position. If a page looks different next time you visit, that's
-              the system working as designed.
+            <h2 className="text-[1.05rem] font-medium tracking-[-0.01em]">
+              Subject to change
+            </h2>
+            <p className="mt-3 max-w-[62ch] text-[14.5px] leading-[1.65] text-[var(--rd-text-2)]">
+              Anything on this site can change at any time. The layout you are
+              reading is the bot&apos;s current taste, not a permanent
+              position.
             </p>
-            <p className="text-[var(--rd-text-2)] max-w-[62ch] mt-[12px] text-[clamp(0.92rem,1.05vw,1rem)]">
-              For things that need to be stable —{" "}
-              <Link to="/projects" className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)]">
+            <p className="mt-3 max-w-[62ch] text-[14.5px] leading-[1.65] text-[var(--rd-text-2)]">
+              Stable sources of truth —{" "}
+              <Link
+                to="/projects"
+                className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)]"
+              >
                 project links
               </Link>
               ,{" "}
-              <a href="https://blog.duyet.net" className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)]">
+              <a
+                href="https://blog.duyet.net"
+                className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)]"
+              >
                 blog posts
               </a>
-              , the data behind{" "}
-              <a href="https://insights.duyet.net" className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)]">
+              ,{" "}
+              <a
+                href="https://insights.duyet.net"
+                className="text-[var(--rd-accent-ink)] underline decoration-[color-mix(in_srgb,var(--rd-accent)_40%,transparent)] underline-offset-2 hover:decoration-[var(--rd-accent)]"
+              >
                 insights
               </a>{" "}
-              — those have human-owned sources of truth that the bot only
-              reflects, never replaces.
+              — are human-owned. The bot reflects them; it does not replace
+              them.
             </p>
           </Reveal>
         </section>

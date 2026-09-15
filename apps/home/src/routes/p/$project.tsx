@@ -1,6 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { addUtmParams } from "../../../app/lib/utm";
-import { Card, CardContent } from "../../components/ui/card";
 
 type Product = {
   slug: string;
@@ -172,31 +171,27 @@ function ProductPage() {
         </div>
 
         {related.length > 0 && (
-          <section className="mt-20 border-t pt-10">
-            <h2 className="text-2xl font-semibold tracking-tight mb-6">
-              More projects
+          <section className="mt-16 border-t pt-8">
+            <h2 className="text-base font-medium tracking-tight">
+              Other project pages
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <ul className="mt-3 flex flex-col gap-2 text-sm">
               {related.map((item) => (
-                <Link
-                  key={item.slug}
-                  to="/p/$project"
-                  params={{ project: item.slug }}
-                  className="block no-underline"
-                >
-                  <Card className="hover:border-foreground/30 transition-colors">
-                    <CardContent className="pt-5">
-                      <h3 className="font-semibold text-lg tracking-tight">
-                        {item.name}
-                      </h3>
-                      <p className="mt-1 text-sm text-muted-foreground">
-                        {item.eyebrow}
-                      </p>
-                    </CardContent>
-                  </Card>
-                </Link>
+                <li key={item.slug}>
+                  <Link
+                    to="/p/$project"
+                    params={{ project: item.slug }}
+                    className="underline underline-offset-4"
+                  >
+                    {item.name}
+                  </Link>
+                  <span className="text-muted-foreground">
+                    {" "}
+                    — {item.eyebrow}
+                  </span>
+                </li>
               ))}
-            </div>
+            </ul>
           </section>
         )}
       </main>
