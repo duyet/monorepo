@@ -36,6 +36,37 @@ Personal monorepo for duyet.net — blog, CV, AI agent demos, and data tooling. 
 - Data Sync: [./apps/data-sync/README.md](./apps/data-sync/README.md)
 - Paid API: [./apps/paid-api/README.md](./apps/paid-api/README.md)
 
+## CLI (`duyet`)
+
+Installers live on duyet.net (stable URL + Pages cache). Channel manifests are
+`https://duyet.net/cli/stable.json` and `https://duyet.net/cli/beta.json`
+(filled by the dist release pipeline, issue #1444).
+
+macOS / Linux:
+
+```sh
+curl -fsSL https://duyet.net/install.sh | sh
+DUYET_CHANNEL=beta curl -fsSL https://duyet.net/install.sh | sh
+DUYET_VERSION=0.1.0-beta.1 curl -fsSL https://duyet.net/install.sh | sh
+```
+
+Windows (PowerShell 5.1 or 7):
+
+```powershell
+irm https://duyet.net/install.ps1 | iex
+$env:DUYET_CHANNEL = "beta"; irm https://duyet.net/install.ps1 | iex
+$env:DUYET_VERSION = "0.1.0-beta.1"; irm https://duyet.net/install.ps1 | iex
+```
+
+Manual download plus attestation (after #1444 ships signed GitHub Releases):
+
+```sh
+gh attestation verify duyet-x86_64-unknown-linux-musl.tar.xz --repo duyet/monorepo
+```
+
+The scripts print the PATH line instead of editing shell rc files unless
+`DUYET_MODIFY_PATH=1` (Unix) or `-Yes` / `$env:DUYET_MODIFY_PATH=1` (Windows).
+
 ## More
 
 - Repository maintained by [@duyetbot](https://github.com/duyetbot)

@@ -35,7 +35,15 @@ Every other command is present in the tree with full arguments and `--help`, and
 
 Release pipeline is [#1444](https://github.com/duyet/monorepo/issues/1444): tags `duyet-vX.Y.Z`
 (and `duyet-vX.Y.Z-beta.N`) publish five archives, `SHA256SUMS` + minisign, attestations, and
-channel JSON at `https://duyet.net/cli/{stable,beta}.json`. Installers are [#1446](https://github.com/duyet/monorepo/issues/1446).
+channel JSON at `https://duyet.net/cli/{stable,beta}.json`. Installers (#1446):
+
+```sh
+curl -fsSL https://duyet.net/install.sh | sh
+```
+
+```powershell
+irm https://duyet.net/install.ps1 | iex
+```
 
 ## Output contract
 

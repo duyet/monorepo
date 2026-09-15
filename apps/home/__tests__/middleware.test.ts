@@ -57,6 +57,25 @@ describe("home _middleware", () => {
     expect(res.headers.get("Link")).toContain("api-catalog");
   });
 
+  it("does not markdown-negotiate /install.sh (curl | sh must get the script)", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+    const script = "#!/bin/sh\necho ok\n";
+    const res = await onRequest({
+      request: new Request("https://duyet.net/install.sh", {
+        headers: { Accept: "text/markdown, */*" },
+      }),
+      next: async () =>
+        new Response(script, {
+          status: 200,
+          headers: { "Content-Type": "text/x-shellscript; charset=utf-8" },
+        }),
+    });
+    expect(fetchMock).not.toHaveBeenCalled();
+    expect(await res.text()).toBe(script);
+    expect(res.headers.get("Content-Type")).toContain("text/x-shellscript");
+  });
+
   it("falls back to HTML when llms.txt is unavailable", async () => {
     vi.stubGlobal(
       "fetch",

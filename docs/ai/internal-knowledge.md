@@ -76,7 +76,7 @@ When the user asks for Tailscale / tailnet / remote access to a local Vite app:
 
 ## Apps
 
-- `apps/home`: homepage for `https://duyet.net`, deployed to Cloudflare Pages.
+- `apps/home`: homepage for `https://duyet.net`, deployed to Cloudflare Pages. Hosts the `duyet` CLI installers at `/install.sh` (POSIX, macOS/Linux) and `/install.ps1` (PowerShell 5.1/7, Windows x64), plus channel manifests at `/cli/stable.json` and `/cli/beta.json`. duyet.net is the stable URL so Pages can cache them with `max-age=300` and so GitHub Releases "latest" is never used: three release components (root `v*`, `news-tab-v*`, `duyet-v*`) make "latest" the wrong artifact. Manifest JSON is filled by the dist pipeline (#1444); installers already consume that layout. `functions/_middleware.ts` markdown-negotiates only `/` and `/index.html`, so `text/x-shellscript` on `/install.sh` is safe.
 - `apps/blog`: statically prerendered Vite blog for `https://blog.duyet.net`, Auth0 auth, Vercel KV comments, Markdown posts with KaTeX.
 - `apps/cv`: CV host for `https://cv.duyet.net`.
 - `apps/insights`: analytics dashboard for `https://insights.duyet.net`, using Cloudflare Analytics, GitHub, PostHog, WakaTime, ClickHouse, and TanStack Start prerendering.
