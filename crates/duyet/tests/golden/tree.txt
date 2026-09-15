@@ -28,7 +28,7 @@ duyet comment  Comment on a post (confirms before sending)
 duyet auth  Manage the agent token
 duyet auth login  Store an agent token in the OS keychain
 duyet auth logout  Remove the stored token
-duyet auth status  Report whether a token is available (never prints it)
+duyet auth status  Report whether a token is available (never prints more than 4 characters)
 duyet config  Read and edit the config file
 duyet config path  Print the config file path
 duyet config show  Print every key with its effective value and where it came from

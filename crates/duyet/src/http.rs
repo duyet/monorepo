@@ -141,6 +141,11 @@ impl Http {
         }
     }
 
+    pub fn with_secret(mut self, secret: &str) -> Http {
+        self.redactor = self.redactor.with_secret(secret.to_owned());
+        self
+    }
+
     /// GET with a disk cache (ETag + `Cache-Control: max-age`) and three attempts with
     /// exponential backoff on connect errors and 5xx. 4xx never retries.
     pub fn get(&self, url: &Url) -> Result<Fetched, CliError> {
@@ -402,6 +407,92 @@ impl Http {
                 status: status.as_u16(),
                 request_id,
                 retry_after,
+            });
+        }
+    }
+
+    /// POST JSON with a bearer token. Retries connect/timeout/429/5xx. 401 is auth, not HTTP.
+    pub fn post_authorized(
+        &self,
+        url: &Url,
+        bearer: &str,
+        body: &serde_json::Value,
+    ) -> Result<Fetched, CliError> {
+        if self.offline {
+            return Err(CliError::Offline {
+                url: url.to_string(),
+            });
+        }
+        let payload = serde_json::to_vec(body)
+            .map_err(|err| CliError::Internal(format!("json encode: {err}")))?;
+        let mut attempt = 0;
+        loop {
+            attempt += 1;
+            let started = Instant::now();
+            let outcome = self
+                .client
+                .post(url.clone())
+                .header(reqwest::header::AUTHORIZATION, format!("Bearer {bearer}"))
+                .header(reqwest::header::CONTENT_TYPE, "application/json")
+                .body(payload.clone())
+                .send();
+            let elapsed = started.elapsed().as_millis();
+            let retry = match &outcome {
+                Ok(response) => {
+                    let status = response.status().as_u16();
+                    self.log(1, &format!("POST {url} -> {status} {elapsed}ms"));
+                    status == 429 || response.status().is_server_error()
+                }
+                Err(err) => {
+                    self.log(
+                        1,
+                        &format!("POST {url} -> error {elapsed}ms: {}", describe(err)),
+                    );
+                    err.is_connect() || err.is_timeout() || err.is_request()
+                }
+            };
+            if retry && attempt < ATTEMPTS {
+                let backoff = BACKOFF_BASE * 2u32.pow(attempt - 1);
+                self.log(
+                    2,
+                    &format!("retry {attempt}/{ATTEMPTS} after {}ms", backoff.as_millis()),
+                );
+                thread::sleep(backoff);
+                continue;
+            }
+            let response = outcome.map_err(|err| CliError::Network {
+                url: url.to_string(),
+                message: describe(&err),
+                request_id: None,
+            })?;
+            let status = response.status();
+            let headers = response.headers().clone();
+            let request_id = request_id(&headers);
+            let retry_after = retry_after(&headers);
+            let body = response.text().map_err(|err| CliError::Network {
+                url: url.to_string(),
+                message: describe(&err),
+                request_id: request_id.clone(),
+            })?;
+            if status.as_u16() == 401 {
+                return Err(CliError::Unauthorized {
+                    url: url.to_string(),
+                    request_id,
+                });
+            }
+            if !status.is_success() {
+                return Err(CliError::Http {
+                    url: url.to_string(),
+                    status: status.as_u16(),
+                    request_id,
+                    retry_after,
+                });
+            }
+            return Ok(Fetched {
+                body,
+                from_cache: false,
+                etag: None,
+                request_id,
             });
         }
     }

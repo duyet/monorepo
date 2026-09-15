@@ -1,7 +1,6 @@
 use clap::Args as ClapArgs;
 
 use super::Ctx;
-use crate::TOKEN_ENV;
 use crate::config::ConfigKey;
 use crate::domain::{DoctorReport, TokenState};
 use crate::error::CliError;
@@ -44,7 +43,7 @@ pub fn run(_args: &Args, ctx: &Ctx) -> Result<(), CliError> {
         config_exists: ctx.config.exists(),
         cache_dir: ctx.paths.cache_dir.clone(),
         endpoints,
-        agent_token: TokenState::from_env(TOKEN_ENV),
+        agent_token: TokenState::from_resolved(crate::token::resolve().as_ref()),
         telemetry: ctx.settings.telemetry(),
         offline: ctx.globals.offline,
     })

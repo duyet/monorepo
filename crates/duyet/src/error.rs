@@ -125,6 +125,14 @@ pub enum CliError {
         id: String,
     },
     Declined,
+    Unauthorized {
+        url: String,
+        request_id: Option<String>,
+    },
+    AuthRequired,
+    KeychainUnavailable {
+        message: String,
+    },
     Internal(String),
     UpdateAvailable,
     ChecksumMismatch {
@@ -152,6 +160,8 @@ impl CliError {
             CliError::InvalidPayload { .. } => "invalid_payload".into(),
             CliError::Missing { .. } => "not_found".into(),
             CliError::Declined => "declined".into(),
+            CliError::Unauthorized { .. } | CliError::AuthRequired => "auth".into(),
+            CliError::KeychainUnavailable { .. } => "keychain".into(),
             CliError::Internal(_) => "internal".into(),
             CliError::UpdateAvailable => "update_available".into(),
             CliError::ChecksumMismatch { .. } => "checksum_mismatch".into(),
@@ -171,10 +181,14 @@ impl CliError {
             CliError::Offline { .. } => ExitCode::Network,
             CliError::Network { .. } => ExitCode::Network,
             CliError::Http { status: 404, .. } => ExitCode::NotFound,
+            CliError::Http { status: 401, .. }
+            | CliError::Unauthorized { .. }
+            | CliError::AuthRequired => ExitCode::Auth,
             CliError::Http { .. } => ExitCode::Network,
             CliError::InvalidPayload { .. } => ExitCode::NotFound,
             CliError::Missing { .. } => ExitCode::NotFound,
             CliError::Declined => ExitCode::Declined,
+            CliError::KeychainUnavailable { .. } => ExitCode::Generic,
             CliError::Internal(_) => ExitCode::Generic,
             CliError::UpdateAvailable => ExitCode::UpdateAvailable,
             CliError::ChecksumMismatch { .. } | CliError::BadSignature => ExitCode::Generic,
@@ -220,6 +234,11 @@ impl CliError {
             }
             CliError::Missing { resource, id } => format!("{resource} `{id}` not found"),
             CliError::Declined => "confirmation required but not given".into(),
+            CliError::Unauthorized { url, .. } => format!("{url}: HTTP 401"),
+            CliError::AuthRequired => "agent token required".into(),
+            CliError::KeychainUnavailable { message } => format!(
+                "OS keychain unavailable ({message}); only DUYET_AGENT_TOKEN is supported on this target"
+            ),
             CliError::Internal(text) => text.clone(),
             CliError::UpdateAvailable => "update available".into(),
             CliError::ChecksumMismatch { expected, actual } => {
@@ -263,6 +282,12 @@ impl CliError {
             }
             CliError::Missing { .. } => Some("check the slug or id; run `duyet doctor`".into()),
             CliError::Declined => Some("pass --yes to confirm non-interactively".into()),
+            CliError::Unauthorized { .. } | CliError::AuthRequired => {
+                Some("run `duyet auth login`".into())
+            }
+            CliError::KeychainUnavailable { .. } => {
+                Some("export DUYET_AGENT_TOKEN instead of using the keychain".into())
+            }
             CliError::Internal(_) => None,
             CliError::UpdateAvailable => Some("run `duyet update`".into()),
             CliError::ChecksumMismatch { .. } => {
@@ -282,6 +307,7 @@ impl CliError {
         match self {
             CliError::Network { request_id, .. } => request_id.as_deref(),
             CliError::Http { request_id, .. } => request_id.as_deref(),
+            CliError::Unauthorized { request_id, .. } => request_id.as_deref(),
             CliError::NotImplemented(_)
             | CliError::Usage(_)
             | CliError::ConfigUnknownKey { .. }
@@ -292,6 +318,8 @@ impl CliError {
             | CliError::InvalidPayload { .. }
             | CliError::Missing { .. }
             | CliError::Declined
+            | CliError::AuthRequired
+            | CliError::KeychainUnavailable { .. }
             | CliError::Internal(_)
             | CliError::UpdateAvailable
             | CliError::ChecksumMismatch { .. }
@@ -314,6 +342,9 @@ impl CliError {
             | CliError::InvalidPayload { .. }
             | CliError::Missing { .. }
             | CliError::Declined
+            | CliError::Unauthorized { .. }
+            | CliError::AuthRequired
+            | CliError::KeychainUnavailable { .. }
             | CliError::Internal(_)
             | CliError::UpdateAvailable
             | CliError::ChecksumMismatch { .. }
@@ -429,6 +460,15 @@ mod tests {
             (
                 CliError::Http {
                     url: "u".into(),
+                    status: 401,
+                    request_id: None,
+                    retry_after: None,
+                },
+                ExitCode::Auth,
+            ),
+            (
+                CliError::Http {
+                    url: "u".into(),
                     status: 404,
                     request_id: Some("r".into()),
                     retry_after: None,
@@ -450,6 +490,20 @@ mod tests {
                 ExitCode::NotFound,
             ),
             (CliError::Declined, ExitCode::Declined),
+            (
+                CliError::Unauthorized {
+                    url: "u".into(),
+                    request_id: None,
+                },
+                ExitCode::Auth,
+            ),
+            (CliError::AuthRequired, ExitCode::Auth),
+            (
+                CliError::KeychainUnavailable {
+                    message: "no backend".into(),
+                },
+                ExitCode::Generic,
+            ),
             (CliError::Internal("i".into()), ExitCode::Generic),
             (CliError::UpdateAvailable, ExitCode::UpdateAvailable),
             (
