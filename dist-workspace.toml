@@ -1,0 +1,40 @@
+[workspace]
+members = ["cargo:."]
+
+# Config for dist (cargo-dist). Only the user-facing `duyet` binary is shipped.
+# Tags must start with `duyet` (e.g. duyet-v0.1.0, duyet-v0.1.0-beta.1). Root
+# vX.Y.Z and news-tab-v* tags never enter this pipeline.
+[dist]
+cargo-dist-version = "0.32.0"
+ci = "github"
+installers = ["shell", "powershell"]
+targets = [
+    "aarch64-apple-darwin",
+    "x86_64-apple-darwin",
+    "aarch64-unknown-linux-musl",
+    "x86_64-unknown-linux-musl",
+    "x86_64-pc-windows-msvc",
+]
+packages = ["duyet"]
+checksum = "sha256"
+github-attestations = true
+pr-run-mode = "plan"
+hosting = "github"
+install-updater = false
+precise-builds = true
+tag-namespace = "duyet"
+post-announce-jobs = ["./duyet-sign-channel"]
+install-path = "CARGO_HOME"
+# CI lives at .github/workflows/release-duyet.yml (issue #1444). dist would
+# generate duyet-release.yml from tag-namespace; keep the issue name.
+allow-dirty = ["ci"]
+
+[dist.github-custom-job-permissions]
+duyet-sign-channel = { contents = "write", pull-requests = "write" }
+
+[dist.github-action-commits]
+"actions/checkout" = "3d3c42e5aac5ba805825da76410c181273ba90b1"
+"actions/upload-artifact" = "043fb46d1a93c77aae656e7c1c64a875d1fc6a0a"
+"actions/download-artifact" = "3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c"
+"actions/attest" = "1e69f48acb82d1966a394da916b4c1698aa569d6"
+"actions/setup-node" = "820762786026740c76f36085b0efc47a31fe5020"

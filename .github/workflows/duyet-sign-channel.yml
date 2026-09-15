@@ -1,0 +1,36 @@
+name: duyet sign and channel manifests
+
+# Called by dist after announce. Signs SHA256SUMS with minisign, uploads
+# SHA256SUMS.minisig, and opens a PR that updates apps/home/public/cli/{stable,beta}.json.
+on:
+  workflow_call:
+    inputs:
+      plan:
+        required: true
+        type: string
+    secrets:
+      MINISIGN_SECRET_KEY:
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sign-and-channel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PLAN: ${{ inputs.plan }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install minisign
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq minisign
+
+      - name: Sign SHA256SUMS and write channel manifest
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MINISIGN_SECRET_KEY: ${{ secrets.MINISIGN_SECRET_KEY }}
+        run: python3 scripts/duyet-channel-release.py

@@ -1,0 +1,51 @@
+name: Cut duyet beta
+
+# Pushes the next duyet-vX.Y.Z-beta.N tag from crates/duyet's Cargo.toml version
+# and existing tags. dist then marks the GitHub Release as prerelease.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  cut-duyet-beta:
+    name: cut-duyet-beta
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Compute and push next beta tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          version=$(sed -n '/^\[package\]/,/^\[/{s/^version = "\(.*\)"/\1/p}' crates/duyet/Cargo.toml | head -1)
+          if [ -z "$version" ]; then
+            echo "could not read crates/duyet version" >&2
+            exit 1
+          fi
+          base="${version%%-*}"
+          git fetch --tags origin
+          max=0
+          while IFS= read -r tag; do
+            n="${tag##*-beta.}"
+            case "$n" in
+              ''|*[!0-9]*) ;;
+              *)
+                if [ "$n" -gt "$max" ]; then
+                  max=$n
+                fi
+                ;;
+            esac
+          done < <(git tag -l "duyet-v${base}-beta.*")
+          next=$((max + 1))
+          tag="duyet-v${base}-beta.${next}"
+          git tag "$tag"
+          git push origin "$tag"
+          echo "pushed $tag"

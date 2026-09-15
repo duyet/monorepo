@@ -3,6 +3,8 @@ name: Release Please
 # release-please watches conventional commits landing on master and maintains
 # standing release PRs (humans merge them; this workflow never auto-merges):
 #   - duyet (root): "chore(master): release X.Y.Z" → CHANGELOG.md, tag vX.Y.Z
+#   - crates/duyet CLI: "chore(master): release duyet X.Y.Z" → crates/duyet/CHANGELOG.md, tag duyet-vX.Y.Z
+# CLI commits under crates/duyet are exclude-paths on the root package.
 # Config + manifest live under .github/ to keep the repo root clean. Pre-1.0 bump
 # rules (see release-please-config.json): a plain feat bumps the PATCH; only a
 # breaking change (feat! / BREAKING CHANGE) cuts a new minor. bootstrap-sha pins

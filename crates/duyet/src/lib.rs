@@ -23,6 +23,8 @@ pub const VERSION: &str = env!("CARGO_PKG_VERSION");
 pub const TARGET: &str = env!("DUYET_TARGET");
 pub const COMMIT: &str = env!("DUYET_COMMIT");
 pub const TOKEN_ENV: &str = "DUYET_AGENT_TOKEN";
+/// Minisign public key used to verify `SHA256SUMS` (same bytes as `https://duyet.net/cli/minisign.pub`).
+pub const MINISIGN_PUB: &str = include_str!("../minisign.pub");
 
 pub fn run(args: impl IntoIterator<Item = OsString>) -> ExitCode {
     let args: Vec<OsString> = args.into_iter().collect();

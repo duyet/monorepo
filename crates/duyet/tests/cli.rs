@@ -643,6 +643,18 @@ fn http_get_never_retries_4xx_and_maps_404_to_not_found() {
 }
 
 #[test]
+fn minisign_pub_is_embedded() {
+    let key = duyet::MINISIGN_PUB;
+    assert!(key.starts_with("untrusted comment: minisign public key"));
+    assert!(key.contains("RWS"));
+    let home = include_str!(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/../../apps/home/public/cli/minisign.pub"
+    ));
+    assert_eq!(key, home);
+}
+
+#[test]
 fn http_offline_serves_cache_or_fails() {
     let dir = tempfile::tempdir().unwrap();
     let url = url::Url::parse("http://127.0.0.1:1/never").unwrap();
