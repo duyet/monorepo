@@ -97,9 +97,25 @@ test -x "$DUYET_INSTALL_DIR/duyet"
 "$DUYET_INSTALL_DIR/duyet" version --json | grep '"ok":true'
 
 # Tampered checksum must fail and leave no binary.
+# Use a well-formed 64-hex digest so both GNU sha256sum and macOS shasum parse
+# the line; the installer compares the digest itself (not `shasum -c`).
 rm -f "$DUYET_INSTALL_DIR/duyet"
-echo "deadbeef  ${ARCHIVE_NAME}" >"$WORKDIR/www/SHA256SUMS"
-if sh "$INSTALL_SH"; then
+BAD_SHA="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+printf '%s  %s\n' "$BAD_SHA" "$ARCHIVE_NAME" >"$WORKDIR/www/SHA256SUMS"
+python3 - "$WORKDIR/www/cli/stable.json" "$BAD_SHA" <<'PY'
+import json, sys
+from pathlib import Path
+p = Path(sys.argv[1])
+data = json.loads(p.read_text())
+for t in data.get("targets", {}).values():
+    t["sha256"] = sys.argv[2]
+p.write_text(json.dumps(data))
+PY
+set +e
+sh "$INSTALL_SH"
+status=$?
+set -e
+if [ "$status" -eq 0 ]; then
   echo "expected checksum failure" >&2
   exit 1
 fi

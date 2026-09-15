@@ -129,24 +129,30 @@ SUMS="$TMPDIR_INSTALL/SHA256SUMS"
 info "downloading ${ARCHIVE_URL}"
 curl -fsSL "$ARCHIVE_URL" -o "$ARCHIVE" || die "failed to download ${ARCHIVE_URL} (release artifacts come from #1444)"
 
+file_sha256() {
+  if [ "$SHA_CMD" = "sha256sum" ]; then
+    sha256sum "$1" | awk '{print $1}'
+  else
+    shasum -a 256 "$1" | awk '{print $1}'
+  fi
+}
+
+# Compare hex digests ourselves. `shasum -c` on macOS can exit 0 when a sums
+# file has no well-formed lines, which would accept a tampered SHA256SUMS.
+sums_digest_for() {
+  # $1 = sums file, $2 = archive basename
+  awk -v n="$2" '
+    $2 == n || $2 == ("*" n) { print $1; exit }
+  ' "$1"
+}
+
 if [ "${DUYET_SKIP_VERIFY:-0}" != "1" ]; then
+  GOT=$(file_sha256 "$ARCHIVE")
   if curl -fsSL "$SUMS_URL" -o "$SUMS" 2>/dev/null; then
-    # Keep only the line for this archive so -c does not fail on missing siblings.
-    grep -F "$ARCHIVE_NAME" "$SUMS" >"$TMPDIR_INSTALL/SHA256SUMS.one" || die "SHA256SUMS has no entry for ${ARCHIVE_NAME}"
-    (
-      cd "$TMPDIR_INSTALL"
-      if [ "$SHA_CMD" = "sha256sum" ]; then
-        sha256sum -c SHA256SUMS.one
-      else
-        shasum -a 256 -c SHA256SUMS.one
-      fi
-    ) || die "SHA256 mismatch for ${ARCHIVE_NAME}"
+    WANT=$(sums_digest_for "$SUMS" "$ARCHIVE_NAME")
+    [ -n "$WANT" ] || die "SHA256SUMS has no entry for ${ARCHIVE_NAME}"
+    [ "$GOT" = "$WANT" ] || die "SHA256 mismatch for ${ARCHIVE_NAME}"
   elif [ -n "${EXPECTED_SHA:-}" ] && [ "$EXPECTED_SHA" != "0000000000000000000000000000000000000000000000000000000000000000" ]; then
-    if [ "$SHA_CMD" = "sha256sum" ]; then
-      GOT=$(sha256sum "$ARCHIVE" | awk '{print $1}')
-    else
-      GOT=$(shasum -a 256 "$ARCHIVE" | awk '{print $1}')
-    fi
     [ "$GOT" = "$EXPECTED_SHA" ] || die "SHA256 mismatch: got ${GOT} expected ${EXPECTED_SHA}"
   else
     die "could not fetch SHA256SUMS from ${SUMS_URL} and manifest has no sha256"

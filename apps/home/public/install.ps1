@@ -23,12 +23,11 @@ param(
 $ErrorActionPreference = "Stop"
 $BaseUrl = if ($env:DUYET_BASE_URL) { $env:DUYET_BASE_URL.TrimEnd("/") } else { "https://duyet.net" }
 $GithubRepo = if ($env:DUYET_GITHUB) { $env:DUYET_GITHUB.TrimEnd("/") } else { "https://github.com/duyet/monorepo" }
-$ModifyPath = $Yes -or ($env:DUYET_MODIFY_PATH -eq "1")
 $SkipVerify = $env:DUYET_SKIP_VERIFY -eq "1"
 $Target = "x86_64-pc-windows-msvc"
 
 function Write-DuyetInfo([string]$Message) {
-    Write-Host "duyet-install: $Message"
+    Write-Output "duyet-install: $Message"
 }
 
 function Get-DuyetTarget {
@@ -63,6 +62,13 @@ function ConvertFrom-DuyetManifest([string]$Json) {
 }
 
 function Install-Duyet {
+    param(
+        [string]$Channel,
+        [string]$Version,
+        [string]$InstallDir,
+        [switch]$Yes
+    )
+    $ModifyPath = $Yes -or ($env:DUYET_MODIFY_PATH -eq "1")
     $script:Target = Get-DuyetTarget
     $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ("duyet-install-" + [guid]::NewGuid().ToString("N"))
     New-Item -ItemType Directory -Path $tmp | Out-Null
@@ -157,9 +163,9 @@ function Install-Duyet {
         Copy-Item -Path $bin.FullName -Destination $dest -Force
         Write-DuyetInfo "installed $dest"
 
-        Write-Host ""
-        Write-Host "SmartScreen: this binary is not Authenticode-signed in v1. If Windows blocks it, choose More info -> Run anyway."
-        Write-Host ""
+        Write-Output ""
+        Write-Output "SmartScreen: this binary is not Authenticode-signed in v1. If Windows blocks it, choose More info -> Run anyway."
+        Write-Output ""
 
         try {
             & $dest version
@@ -190,7 +196,7 @@ function Install-Duyet {
                 Write-DuyetInfo "added $InstallDir to the user PATH"
             } else {
                 Write-DuyetInfo "not editing PATH. Add:"
-                Write-Host "  $InstallDir"
+                Write-Output "  $InstallDir"
             }
         }
     } finally {
@@ -200,5 +206,5 @@ function Install-Duyet {
 
 $script:DuyetInstallerDotSourced = $MyInvocation.InvocationName -eq "." -or $MyInvocation.Line -match "^\.\s"
 if (-not $script:DuyetInstallerDotSourced) {
-    Install-Duyet
+    Install-Duyet -Channel $Channel -Version $Version -InstallDir $InstallDir -Yes:$Yes
 }
