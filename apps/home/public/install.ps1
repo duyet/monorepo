@@ -58,7 +58,17 @@ function Get-DuyetJsonProperty {
 }
 
 function ConvertFrom-DuyetManifest([string]$Json) {
-    return $Json | ConvertFrom-Json
+    if ($null -eq $Json) { throw "manifest JSON is empty" }
+    # Trim BOM / whitespace and isolate the first JSON object. Windows
+    # fixtures have occasionally appended a trailing digit after Set-Content.
+    $trimmed = $Json.Trim().Trim([char]0xFEFF)
+    $start = $trimmed.IndexOf([char]'{')
+    $end = $trimmed.LastIndexOf([char]'}')
+    if ($start -lt 0 -or $end -le $start) {
+        throw "manifest JSON has no object payload"
+    }
+    $object = $trimmed.Substring($start, $end - $start + 1)
+    return $object | ConvertFrom-Json
 }
 
 function Install-Duyet {
@@ -89,7 +99,12 @@ function Install-Duyet {
             $manifestUrl = "$BaseUrl/cli/$Channel.json"
             Write-DuyetInfo "fetching channel manifest $manifestUrl"
             try {
-                $manifestText = (Invoke-WebRequest -UseBasicParsing -Uri $manifestUrl).Content
+                $resp = Invoke-WebRequest -UseBasicParsing -Uri $manifestUrl
+                if ($resp.Content -is [byte[]]) {
+                    $manifestText = [System.Text.Encoding]::UTF8.GetString($resp.Content)
+                } else {
+                    $manifestText = [string]$resp.Content
+                }
             } catch {
                 throw "failed to fetch $manifestUrl (channel manifests land with #1444)"
             }
