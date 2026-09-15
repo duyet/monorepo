@@ -8,6 +8,7 @@ pub mod markdown;
 pub mod output;
 pub mod paths;
 pub mod term;
+pub mod update;
 
 use std::ffi::OsString;
 
@@ -52,7 +53,11 @@ pub fn run(args: impl IntoIterator<Item = OsString>) -> ExitCode {
         }
     };
     match cli::dispatch(&command, &ctx) {
-        Ok(()) => ExitCode::Ok,
+        Ok(()) => {
+            crate::update::maybe_background_check(&command, &ctx);
+            ExitCode::Ok
+        }
+        Err(err) if matches!(err, CliError::UpdateAvailable) => ExitCode::UpdateAvailable,
         Err(err) => {
             emit_error(&err, ctx.mode, &ctx.style, &ctx.redactor);
             err.exit_code()

@@ -230,23 +230,55 @@ impl Http {
         }
         let response = self.send_with_retry(url, None)?;
         let status = response.status();
-        let request_id = request_id(response.headers());
+        let headers = response.headers().clone();
+        let request_id = request_id(&headers);
         if !status.is_success() {
             return Err(CliError::Http {
                 url: url.to_string(),
                 status: status.as_u16(),
                 request_id,
-                retry_after: retry_after(response.headers()),
+                retry_after: retry_after(&headers),
             });
         }
-        response
-            .bytes()
-            .map(|b| b.to_vec())
+        response.bytes().map(|b| b.to_vec()).map_err(|err| CliError::Network {
+            url: url.to_string(),
+            message: describe(&err),
+            request_id,
+        })
+    }
+
+    pub fn get_text_once(&self, url: &Url, timeout: Duration) -> Result<String, CliError> {
+        if self.offline {
+            return Err(CliError::Offline {
+                url: url.to_string(),
+            });
+        }
+        let response = self
+            .client
+            .get(url.clone())
+            .timeout(timeout)
+            .send()
             .map_err(|err| CliError::Network {
                 url: url.to_string(),
                 message: describe(&err),
+                request_id: None,
+            })?;
+        let status = response.status();
+        let headers = response.headers().clone();
+        let request_id = request_id(&headers);
+        if !status.is_success() {
+            return Err(CliError::Http {
+                url: url.to_string(),
+                status: status.as_u16(),
                 request_id,
-            })
+                retry_after: retry_after(&headers),
+            });
+        }
+        response.text().map_err(|err| CliError::Network {
+            url: url.to_string(),
+            message: describe(&err),
+            request_id,
+        })
     }
 
     fn send_with_retry(&self, url: &Url, etag: Option<&str>) -> Result<Response, CliError> {

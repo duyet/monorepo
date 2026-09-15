@@ -1357,6 +1357,9 @@ Reads the channel manifest at https://duyet.net/cli/<channel>.json, verifies SHA
 signature, swaps the binary atomically, and keeps the previous one for --rollback. --check exits 10
 when a newer release exists and 0 otherwise.
 
+A TTY session checks the channel manifest at most once per 24h and prints a one-line hint on stderr.
+Disable with `update.check = false` or DUYET_NO_UPDATE_CHECK=1. Never runs under --json or --quiet.
+
 Examples:
   duyet update --check
   duyet update
@@ -1369,8 +1372,6 @@ JSON (duyet.update.v1):
     {"current":"0.1.0","latest":"0.2.0","channel":"stable","update_available":true}
   update:
     {"from":"0.1.0","to":"0.2.0","channel":"stable","previous_kept":true}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1447
 ```
 
 ## `duyet doctor`

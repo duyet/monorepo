@@ -126,6 +126,15 @@ pub enum CliError {
     },
     Declined,
     Internal(String),
+    UpdateAvailable,
+    ChecksumMismatch {
+        expected: String,
+        actual: String,
+    },
+    BadSignature,
+    UnmanagedInstall {
+        path: PathBuf,
+    },
 }
 
 impl CliError {
@@ -144,6 +153,10 @@ impl CliError {
             CliError::Missing { .. } => "not_found".into(),
             CliError::Declined => "declined".into(),
             CliError::Internal(_) => "internal".into(),
+            CliError::UpdateAvailable => "update_available".into(),
+            CliError::ChecksumMismatch { .. } => "checksum_mismatch".into(),
+            CliError::BadSignature => "bad_signature".into(),
+            CliError::UnmanagedInstall { .. } => "unmanaged_install".into(),
         }
     }
 
@@ -163,6 +176,9 @@ impl CliError {
             CliError::Missing { .. } => ExitCode::NotFound,
             CliError::Declined => ExitCode::Declined,
             CliError::Internal(_) => ExitCode::Generic,
+            CliError::UpdateAvailable => ExitCode::UpdateAvailable,
+            CliError::ChecksumMismatch { .. } | CliError::BadSignature => ExitCode::Generic,
+            CliError::UnmanagedInstall { .. } => ExitCode::Generic,
         }
     }
 
@@ -205,6 +221,15 @@ impl CliError {
             CliError::Missing { resource, id } => format!("{resource} `{id}` not found"),
             CliError::Declined => "confirmation required but not given".into(),
             CliError::Internal(text) => text.clone(),
+            CliError::UpdateAvailable => "update available".into(),
+            CliError::ChecksumMismatch { expected, actual } => {
+                format!("SHA256 mismatch (expected {expected}, got {actual})")
+            }
+            CliError::BadSignature => "minisign signature verification failed".into(),
+            CliError::UnmanagedInstall { path } => format!(
+                "this binary ({}) is outside the duyet install directory",
+                path.display()
+            ),
         }
     }
 
@@ -239,6 +264,17 @@ impl CliError {
             CliError::Missing { .. } => Some("check the slug or id; run `duyet doctor`".into()),
             CliError::Declined => Some("pass --yes to confirm non-interactively".into()),
             CliError::Internal(_) => None,
+            CliError::UpdateAvailable => Some("run `duyet update`".into()),
+            CliError::ChecksumMismatch { .. } => {
+                Some("the download is corrupt; retry, or check the channel manifest".into())
+            }
+            CliError::BadSignature => Some(
+                "the SHA256SUMS file was not signed with the embedded duyet minisign key".into(),
+            ),
+            CliError::UnmanagedInstall { .. } => Some(
+                "install with the script at https://duyet.net/cli or update via your package manager"
+                    .into(),
+            ),
         }
     }
 
@@ -256,7 +292,11 @@ impl CliError {
             | CliError::InvalidPayload { .. }
             | CliError::Missing { .. }
             | CliError::Declined
-            | CliError::Internal(_) => None,
+            | CliError::Internal(_)
+            | CliError::UpdateAvailable
+            | CliError::ChecksumMismatch { .. }
+            | CliError::BadSignature
+            | CliError::UnmanagedInstall { .. } => None,
         }
     }
 
@@ -274,7 +314,11 @@ impl CliError {
             | CliError::InvalidPayload { .. }
             | CliError::Missing { .. }
             | CliError::Declined
-            | CliError::Internal(_) => None,
+            | CliError::Internal(_)
+            | CliError::UpdateAvailable
+            | CliError::ChecksumMismatch { .. }
+            | CliError::BadSignature
+            | CliError::UnmanagedInstall { .. } => None,
         }
     }
 
@@ -407,6 +451,21 @@ mod tests {
             ),
             (CliError::Declined, ExitCode::Declined),
             (CliError::Internal("i".into()), ExitCode::Generic),
+            (CliError::UpdateAvailable, ExitCode::UpdateAvailable),
+            (
+                CliError::ChecksumMismatch {
+                    expected: "a".into(),
+                    actual: "b".into(),
+                },
+                ExitCode::Generic,
+            ),
+            (CliError::BadSignature, ExitCode::Generic),
+            (
+                CliError::UnmanagedInstall {
+                    path: PathBuf::from("/usr/bin/duyet"),
+                },
+                ExitCode::Generic,
+            ),
         ];
         for (err, expected) in cases {
             assert_eq!(err.exit_code(), expected, "{err:?}");
