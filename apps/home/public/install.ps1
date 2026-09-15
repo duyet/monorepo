@@ -205,6 +205,6 @@ function Install-Duyet {
 }
 
 $script:DuyetInstallerDotSourced = $MyInvocation.InvocationName -eq "." -or $MyInvocation.Line -match "^\.\s"
-if (-not $script:DuyetInstallerDotSourced) {
+if ($env:DUYET_INSTALLER_TEST -ne "1" -and -not $script:DuyetInstallerDotSourced) {
     Install-Duyet -Channel $Channel -Version $Version -InstallDir $InstallDir -Yes:$Yes
 }

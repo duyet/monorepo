@@ -1,12 +1,19 @@
 # Pester tests for install.ps1 target selection and manifest parsing.
-# Run: pwsh -File apps/home/scripts/Install.Tests.ps1
-
-$here = Split-Path -Parent $MyInvocation.MyCommand.Path
-$install = Join-Path (Split-Path $here -Parent) "public/install.ps1"
+# Run: Invoke-Pester -Path apps/home/scripts/Install.Tests.ps1
 
 Describe "duyet install.ps1" {
     BeforeAll {
-        . $install
+        # Pester 5 does not set $MyInvocation.MyCommand.Path; $PSScriptRoot does.
+        $installPath = Join-Path $PSScriptRoot "../public/install.ps1"
+        if (-not (Test-Path -LiteralPath $installPath)) {
+            throw "missing installer at $installPath (PSScriptRoot=$PSScriptRoot)"
+        }
+        $env:DUYET_INSTALLER_TEST = "1"
+        . $installPath
+    }
+
+    AfterAll {
+        Remove-Item Env:DUYET_INSTALLER_TEST -ErrorAction SilentlyContinue
     }
 
     It "selects x64 Windows target" {
@@ -19,7 +26,6 @@ Describe "duyet install.ps1" {
 
     It "parses stub channel manifest targets" {
         # Channel JSON on trunk is an empty schema filled by the #1444 host job.
-        # Use an inline fixture that matches the published shape.
         $json = @'
 {
   "schema": "duyet.cli.channel.v1",
