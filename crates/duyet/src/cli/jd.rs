@@ -1,24 +1,20 @@
 use clap::{Args as ClapArgs, Subcommand};
 
-use crate::error::{CliError, Slice};
+use super::Ctx;
+use crate::domain::Submission;
+use crate::error::CliError;
 
-const SLICE: Slice = Slice::P7Submissions;
-
-const AFTER_HELP: &str = "\
-Prints the full payload and destination, then asks `Send? [y/N]`. --yes skips the prompt; without
-a terminal and without --yes the command exits 5. --dry-run shows the payload and sends nothing.
+const PRIVACY: &str = "\
+Sends a job description as JSON to POST {api_url}/api/jd: file contents as `text` (32 KB cap) or
+an https `url`. The CLI stores no secrets. Prints the payload, then asks `Send? [y/N]`. --yes
+skips the prompt; --no-input without --yes exits 5. --json returns {id, kind, accepted_at} and
+does not echo the payload.
 
 Examples:
-  duyet jd submit ./role.md --company Acme --note \"remote, EU hours\"
-  duyet jd submit https://example.com/jobs/123 --yes --json
-
-JSON (duyet.submission.v1):
-  {\"kind\":\"jd\",\"id\":\"..\",\"accepted\":true,\"idempotency_key\":\"..\"}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1448";
+  duyet jd submit ./role.md --company Acme --note \"remote, EU hours\" --yes";
 
 #[derive(Debug, ClapArgs)]
-#[command(after_long_help = AFTER_HELP)]
+#[command(after_long_help = PRIVACY)]
 pub struct Args {
     #[command(subcommand)]
     pub command: JdCommand,
@@ -27,9 +23,9 @@ pub struct Args {
 #[derive(Debug, Subcommand)]
 pub enum JdCommand {
     /// Submit a job description from a file or URL
-    #[command(after_long_help = AFTER_HELP)]
+    #[command(after_long_help = PRIVACY)]
     Submit {
-        /// Path to a text/Markdown/PDF file, or an http(s) URL
+        /// Path to a text/Markdown file, or an https URL
         source: String,
         /// Company name
         #[arg(long)]
@@ -40,6 +36,12 @@ pub enum JdCommand {
     },
 }
 
-pub fn run(_args: &Args) -> Result<(), CliError> {
-    Err(CliError::NotImplemented(SLICE))
+pub fn run(args: &Args, ctx: &Ctx) -> Result<(), CliError> {
+    let JdCommand::Submit {
+        source,
+        company,
+        note,
+    } = &args.command;
+    let submission = Submission::jd(source, company.as_deref(), note.as_deref())?;
+    super::submit::send(ctx, submission)
 }

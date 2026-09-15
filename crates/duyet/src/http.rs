@@ -4,7 +4,7 @@ use std::thread;
 use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 
 use reqwest::blocking::{Client, Response};
-use reqwest::header::{CACHE_CONTROL, ETAG, HeaderMap, IF_NONE_MATCH};
+use reqwest::header::{HeaderMap, CACHE_CONTROL, ETAG, IF_NONE_MATCH};
 use reqwest::{Method, StatusCode};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
@@ -184,6 +184,7 @@ impl Http {
                 url: url.to_string(),
                 status: status.as_u16(),
                 request_id,
+                retry_after: retry_after(&headers),
             });
         }
         let etag = headers
@@ -248,6 +249,88 @@ impl Http {
                 &format!("retry {attempt}/{ATTEMPTS} after {}ms", backoff.as_millis()),
             );
             thread::sleep(backoff);
+        }
+    }
+
+    /// POST JSON with the same retry policy as GET (connect/timeout/5xx only). Never cached.
+    pub fn post_json(
+        &self,
+        url: &Url,
+        body: &serde_json::Value,
+        idempotency_key: &str,
+    ) -> Result<Fetched, CliError> {
+        if self.offline {
+            return Err(CliError::Offline {
+                url: url.to_string(),
+            });
+        }
+        let payload = serde_json::to_string(body)
+            .map_err(|err| CliError::Internal(format!("json body: {err}")))?;
+        let mut attempt = 0;
+        loop {
+            attempt += 1;
+            let started = Instant::now();
+            let outcome = self
+                .client
+                .post(url.clone())
+                .header("content-type", "application/json")
+                .header("idempotency-key", idempotency_key)
+                .body(payload.clone())
+                .send();
+            let elapsed = started.elapsed().as_millis();
+            let retry = match &outcome {
+                Ok(response) => {
+                    self.log(
+                        1,
+                        &format!("POST {url} -> {} {elapsed}ms", response.status().as_u16()),
+                    );
+                    response.status().is_server_error()
+                }
+                Err(err) => {
+                    self.log(
+                        1,
+                        &format!("POST {url} -> error {elapsed}ms: {}", describe(err)),
+                    );
+                    err.is_connect() || err.is_timeout() || err.is_request()
+                }
+            };
+            if retry && attempt < ATTEMPTS {
+                let backoff = BACKOFF_BASE * 2u32.pow(attempt - 1);
+                self.log(
+                    2,
+                    &format!("retry {attempt}/{ATTEMPTS} after {}ms", backoff.as_millis()),
+                );
+                thread::sleep(backoff);
+                continue;
+            }
+            let response = outcome.map_err(|err| CliError::Network {
+                url: url.to_string(),
+                message: describe(&err),
+                request_id: None,
+            })?;
+            let status = response.status();
+            let headers = response.headers().clone();
+            let request_id = request_id(&headers);
+            let retry_after = retry_after(&headers);
+            if status.is_success() {
+                let body = response.text().map_err(|err| CliError::Network {
+                    url: url.to_string(),
+                    message: describe(&err),
+                    request_id: request_id.clone(),
+                })?;
+                return Ok(Fetched {
+                    body,
+                    from_cache: false,
+                    etag: None,
+                    request_id,
+                });
+            }
+            return Err(CliError::Http {
+                url: url.to_string(),
+                status: status.as_u16(),
+                request_id,
+                retry_after,
+            });
         }
     }
 
@@ -341,6 +424,13 @@ fn request_id(headers: &HeaderMap) -> Option<String> {
         .map(str::to_owned)
 }
 
+fn retry_after(headers: &HeaderMap) -> Option<String> {
+    headers
+        .get("retry-after")
+        .and_then(|value| value.to_str().ok())
+        .map(str::to_owned)
+}
+
 fn max_age(headers: &HeaderMap) -> Option<u64> {
     let value = headers.get(CACHE_CONTROL)?.to_str().ok()?;
     value
@@ -389,13 +479,11 @@ mod tests {
         };
         assert!(entry.fresh(1_059));
         assert!(!entry.fresh(1_060));
-        assert!(
-            !CacheEntry {
-                max_age: 0,
-                ..entry
-            }
-            .fresh(1_000)
-        );
+        assert!(!CacheEntry {
+            max_age: 0,
+            ..entry
+        }
+        .fresh(1_000));
     }
 
     #[test]

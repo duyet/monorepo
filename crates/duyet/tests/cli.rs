@@ -200,7 +200,7 @@ fn version_human_and_json() {
 #[test]
 fn stubs_exit_2_with_tracking_issue() {
     let sb = Sandbox::new();
-    let cases: [(&[&str], u32); 13] = [
+    let cases: [(&[&str], u32); 10] = [
         (&["posts", "list"], 1443),
         (&["notes", "list"], 1443),
         (&["series", "list"], 1443),
@@ -209,12 +209,6 @@ fn stubs_exit_2_with_tracking_issue() {
         (&["images", "download", "x", "--out", "d"], 1443),
         (&["insights", "overview"], 1443),
         (&["chat"], 1445),
-        (
-            &["contact", "--name", "a", "--email", "b", "--message", "c"],
-            1448,
-        ),
-        (&["jd", "submit", "f"], 1448),
-        (&["comment", "s", "--body", "b"], 1448),
         (&["auth", "status"], 1445),
         (&["update", "--check"], 1447),
     ];
@@ -672,4 +666,232 @@ fn http_offline_serves_cache_or_fails() {
     let offline = http(dir.path(), true).get(&url).unwrap();
     assert!(offline.from_cache);
     assert_eq!(offline.body, "seed");
+}
+
+fn origin(url: &url::Url) -> String {
+    let mut origin = url.clone();
+    origin.set_path("/");
+    origin.set_query(None);
+    origin.to_string()
+}
+
+#[test]
+fn contact_invalid_email_exits_2_with_no_request() {
+    let sb = Sandbox::new();
+    let (url, requests) = serve(vec![scripted(202, &[], r#"{"id":"x"}"#)]);
+    let output = sb
+        .cmd()
+        .args([
+            "contact",
+            "--name",
+            "Ada",
+            "--email",
+            "not-an-email",
+            "--message",
+            "hi",
+            "--yes",
+        ])
+        .env("DUYET_API_URL", origin(&url))
+        .output()
+        .unwrap();
+    assert_eq!(exit(&output), 2, "{}", stderr(&output));
+    assert!(stderr(&output).contains("invalid email"));
+    assert!(requests.lock().unwrap().is_empty());
+}
+
+#[test]
+fn contact_declined_confirm_exits_5_with_no_request() {
+    let sb = Sandbox::new();
+    let (url, requests) = serve(vec![scripted(202, &[], r#"{"id":"x"}"#)]);
+    let output = sb
+        .cmd()
+        .args([
+            "contact",
+            "--name",
+            "Ada",
+            "--email",
+            "ada@example.com",
+            "--message",
+            "hi",
+            "--no-input",
+        ])
+        .env("DUYET_API_URL", origin(&url))
+        .output()
+        .unwrap();
+    assert_eq!(exit(&output), 5, "{}", stderr(&output));
+    assert!(stderr(&output).contains("POST "));
+    assert!(stderr(&output).contains("ada@example.com"));
+    assert!(requests.lock().unwrap().is_empty());
+}
+
+#[test]
+fn contact_yes_sends_once_and_json_omits_payload() {
+    let sb = Sandbox::new();
+    let (url, requests) = serve(vec![scripted(
+        202,
+        &[],
+        r#"{"id":"sub-1","status":"pending"}"#,
+    )]);
+    let output = sb
+        .cmd()
+        .args([
+            "contact",
+            "--name",
+            "Ada",
+            "--email",
+            "ada@example.com",
+            "--message",
+            "hi",
+            "--yes",
+            "--json",
+        ])
+        .env("DUYET_API_URL", origin(&url))
+        .output()
+        .unwrap();
+    assert_eq!(exit(&output), 0, "{}", stderr(&output));
+    let value: serde_json::Value = serde_json::from_slice(&output.stdout).unwrap();
+    assert_eq!(value["ok"], true);
+    assert_eq!(value["schema"], "duyet.submission.v1");
+    assert_eq!(value["data"]["id"], "sub-1");
+    assert_eq!(value["data"]["kind"], "contact");
+    assert!(value["data"]["accepted_at"].as_str().unwrap().ends_with('Z'));
+    let stdout = stdout(&output);
+    assert!(!stdout.contains("ada@example.com"));
+    assert!(!stdout.contains("\"message\""));
+    assert_eq!(requests.lock().unwrap().len(), 1);
+    assert!(
+        requests.lock().unwrap()[0]
+            .to_lowercase()
+            .contains("idempotency-key:")
+    );
+}
+
+#[test]
+fn contact_429_prints_retry_after_and_exits_3() {
+    let sb = Sandbox::new();
+    let (url, _) = serve(vec![scripted(429, &[("Retry-After", "42")], r#"{}"#)]);
+    let output = sb
+        .cmd()
+        .args([
+            "contact",
+            "--name",
+            "Ada",
+            "--email",
+            "ada@example.com",
+            "--message",
+            "hi",
+            "--yes",
+        ])
+        .env("DUYET_API_URL", origin(&url))
+        .output()
+        .unwrap();
+    assert_eq!(exit(&output), 3, "{}", stderr(&output));
+    assert!(
+        stderr(&output).contains("Retry-After: 42"),
+        "{}",
+        stderr(&output)
+    );
+}
+
+#[test]
+fn jd_32kb_cap_exits_2_with_no_request() {
+    let sb = Sandbox::new();
+    let (url, requests) = serve(vec![scripted(202, &[], r#"{"id":"x"}"#)]);
+    let path = sb.cache_dir.path().join("jd.txt");
+    fs::write(&path, "x".repeat(32_769)).unwrap();
+    let output = sb
+        .cmd()
+        .args(["jd", "submit", path.to_str().unwrap(), "--yes"])
+        .env("DUYET_API_URL", origin(&url))
+        .output()
+        .unwrap();
+    assert_eq!(exit(&output), 2, "{}", stderr(&output));
+    assert!(stderr(&output).contains("32768"));
+    assert!(requests.lock().unwrap().is_empty());
+}
+
+#[test]
+fn jd_submit_file_yes_sends_text() {
+    let sb = Sandbox::new();
+    let (url, requests) = serve(vec![scripted(202, &[], r#"{"id":"jd-1"}"#)]);
+    let path = sb.cache_dir.path().join("role.md");
+    fs::write(&path, "hire a rust person").unwrap();
+    let output = sb
+        .cmd()
+        .args([
+            "jd",
+            "submit",
+            path.to_str().unwrap(),
+            "--company",
+            "Acme",
+            "--yes",
+        ])
+        .env("DUYET_API_URL", origin(&url))
+        .output()
+        .unwrap();
+    assert_eq!(exit(&output), 0, "{}", stderr(&output));
+    assert_eq!(stdout(&output).trim(), "jd-1");
+    assert_eq!(requests.lock().unwrap().len(), 1);
+}
+
+#[test]
+fn comment_unknown_slug_exits_6_without_post() {
+    let sb = Sandbox::new();
+    let (blog, blog_reqs) = serve(vec![scripted(
+        200,
+        &[("Cache-Control", "max-age=3600")],
+        r#"[{"slug":"/2026/08/grok-bot"}]"#,
+    )]);
+    let (api, api_reqs) = serve(vec![scripted(202, &[], r#"{"id":"c-1"}"#)]);
+    let output = sb
+        .cmd()
+        .args([
+            "comment",
+            "2026/08/nope",
+            "--body",
+            "x",
+            "--author",
+            "Ada",
+            "--yes",
+        ])
+        .env("DUYET_BLOG_URL", origin(&blog))
+        .env("DUYET_API_URL", origin(&api))
+        .output()
+        .unwrap();
+    assert_eq!(exit(&output), 6, "{}", stderr(&output));
+    assert_eq!(blog_reqs.lock().unwrap().len(), 1);
+    assert!(api_reqs.lock().unwrap().is_empty());
+}
+
+#[test]
+fn comment_known_slug_posts_once() {
+    let sb = Sandbox::new();
+    let (blog, _) = serve(vec![scripted(
+        200,
+        &[("Cache-Control", "max-age=3600")],
+        r#"[{"slug":"/2026/08/grok-bot"}]"#,
+    )]);
+    let (api, api_reqs) = serve(vec![scripted(202, &[], r#"{"id":"c-9"}"#)]);
+    let output = sb
+        .cmd()
+        .args([
+            "comment",
+            "2026/08/grok-bot",
+            "--body",
+            "nice",
+            "--author",
+            "Ada",
+            "--yes",
+            "--json",
+        ])
+        .env("DUYET_BLOG_URL", origin(&blog))
+        .env("DUYET_API_URL", origin(&api))
+        .output()
+        .unwrap();
+    assert_eq!(exit(&output), 0, "{}", stderr(&output));
+    let value: serde_json::Value = serde_json::from_slice(&output.stdout).unwrap();
+    assert_eq!(value["data"]["id"], "c-9");
+    assert_eq!(value["data"]["kind"], "comment");
+    assert!(!stdout(&output).contains("nice"));
+    assert_eq!(api_reqs.lock().unwrap().len(), 1);
 }

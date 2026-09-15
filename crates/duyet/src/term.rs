@@ -33,6 +33,27 @@ impl Interactivity {
     }
 }
 
+/// Prompt for a required flag on a TTY. `--no-input` / non-TTY exits 2, never hangs.
+pub fn prompt_required(flag: &str, interactivity: &Interactivity) -> Result<String, CliError> {
+    match interactivity {
+        Interactivity::NonInteractive { reason } => Err(CliError::Usage(format!(
+            "--{flag} is required ({reason}; pass --{flag} or run on a TTY)"
+        ))),
+        Interactivity::Interactive => {
+            eprint!("{flag}: ");
+            io::stderr().flush().ok();
+            let mut answer = String::new();
+            io::stdin().lock().read_line(&mut answer).ok();
+            let trimmed = answer.trim();
+            if trimmed.is_empty() {
+                Err(CliError::Usage(format!("--{flag} is required")))
+            } else {
+                Ok(trimmed.to_owned())
+            }
+        }
+    }
+}
+
 /// `--yes` always confirms. Without a terminal the answer is `Declined`, never a hang.
 pub fn confirm(prompt: &str, yes: bool, interactivity: &Interactivity) -> Result<(), CliError> {
     if yes {
