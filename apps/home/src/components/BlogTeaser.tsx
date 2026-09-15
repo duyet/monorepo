@@ -64,12 +64,12 @@ export function BlogTeaser({
     <div className="grid gap-8 min-[900px]:grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)]">
       <article className="overflow-hidden rounded-[var(--rd-r-lg)] border border-[var(--rd-border)] bg-[var(--rd-surface)]">
         {thumb ? (
-          <div className="aspect-[16/9] overflow-hidden bg-[var(--rd-bg-sub)]">
+          <div className="overflow-hidden bg-[var(--rd-bg-sub)]">
             <img
               src={thumb}
               alt=""
               loading="lazy"
-              className="h-full w-full object-cover"
+              className="w-full"
             />
           </div>
         ) : null}
