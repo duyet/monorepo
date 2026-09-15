@@ -1,38 +1,31 @@
 type Tool = {
   name: string;
-  icon: string;
   desc: string;
 };
 
 const TOOLS: Tool[] = [
   {
     name: "search_blog",
-    icon: "book",
     desc: "Search 299 posts across 11 years of writing.",
   },
   {
     name: "get_cv",
-    icon: "dl",
     desc: "Read the full résumé — roles, scope, and impact.",
   },
   {
     name: "query_data",
-    icon: "disk",
     desc: "Run read-only queries against the public ClickHouse.",
   },
   {
     name: "homelab_status",
-    icon: "server",
     desc: "Check live cluster + service health.",
   },
   {
     name: "list_projects",
-    icon: "layers",
     desc: "Enumerate shipped products and OSS repos.",
   },
   {
     name: "contact",
-    icon: "link",
     desc: "Pass a message or feedback straight to Duyet.",
   },
 ];

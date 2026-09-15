@@ -1,4 +1,4 @@
-import { Eyebrow, Reveal, SecHead } from "@duyet/components";
+import { Eyebrow, Reveal } from "@duyet/components";
 import { createFileRoute } from "@tanstack/react-router";
 
 const CHANNELS: Array<{ label: string; href: string; desc: string }> = [
@@ -84,11 +84,10 @@ function ContactPage() {
         {/* what to reach out about */}
         <section className="mt-9 border-t border-[var(--rd-border)] pt-7">
           <Reveal>
-            <SecHead
-              eyebrow="Good fits"
-              title="What to reach out about"
-            />
-            <ul className="flex flex-col gap-3 text-[14.5px] leading-[1.6] text-[var(--rd-text-2)]">
+            <h2 className="text-[1.05rem] font-medium tracking-[-0.01em]">
+              What to reach out about
+            </h2>
+            <ul className="mt-4 flex flex-col gap-3 text-[14.5px] leading-[1.6] text-[var(--rd-text-2)]">
               <li>
                 Full-time or contract data engineering work — platform builds,
                 ClickHouse migrations, AI agents in production.
