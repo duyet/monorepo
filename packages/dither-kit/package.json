@@ -1,0 +1,70 @@
+{
+  "name": "@duyet/dither-kit",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./area-chart": "./src/area-chart.tsx",
+    "./area": "./src/area.tsx",
+    "./bar-canvas": "./src/bar-canvas.tsx",
+    "./bar-chart": "./src/bar-chart.tsx",
+    "./bar": "./src/bar.tsx",
+    "./block-legend": "./src/block-legend.tsx",
+    "./cartesian-canvas": "./src/cartesian-canvas.tsx",
+    "./cartesian-root": "./src/cartesian-root.tsx",
+    "./chart-context": "./src/chart-context.tsx",
+    "./common-context": "./src/common-context.tsx",
+    "./dither-paint": "./src/dither-paint.ts",
+    "./dot": "./src/dot.tsx",
+    "./grid": "./src/grid.tsx",
+    "./legend": "./src/legend.tsx",
+    "./lib": "./src/lib.ts",
+    "./palette": "./src/palette.ts",
+    "./pie-canvas": "./src/pie-canvas.tsx",
+    "./pie-chart": "./src/pie-chart.tsx",
+    "./pie": "./src/pie.tsx",
+    "./polar-context": "./src/polar-context.tsx",
+    "./polar-root": "./src/polar-root.tsx",
+    "./polar": "./src/polar.ts",
+    "./radar-canvas": "./src/radar-canvas.tsx",
+    "./radar-chart": "./src/radar-chart.tsx",
+    "./radar-frame": "./src/radar-frame.tsx",
+    "./radar": "./src/radar.tsx",
+    "./reference-line": "./src/reference-line.tsx",
+    "./scales": "./src/scales.ts",
+    "./series-context": "./src/series-context.tsx",
+    "./sparkline": "./src/sparkline.tsx",
+    "./tooltip": "./src/tooltip.tsx",
+    "./use-chart-dimensions": "./src/use-chart-dimensions.ts",
+    "./x-axis": "./src/x-axis.tsx",
+    "./y-axis": "./src/y-axis.tsx"
+  },
+  "scripts": {
+    "lint": "tsc --noEmit",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "cn": "^0.3.0",
+    "d3-scale": "^4.0.2",
+    "d3-shape": "^3.2.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@duyet/tsconfig": "*",
+    "@types/node": "^25.0.0",
+    "@types/d3-scale": "^4.0.8",
+    "@types/d3-shape": "^3.1.6",
+    "@types/react": "^19.1.4",
+    "@types/react-dom": "^19.1.5",
+    "typescript": "*"
+  },
+  "peerDependencies": {
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19"
+  }
+}

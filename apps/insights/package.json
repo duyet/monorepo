@@ -31,6 +31,7 @@
     "@duckdb/node-api": "^1.5.2-r.1",
     "@duyet/components": "*",
     "@duyet/config": "*",
+    "@duyet/dither-kit": "workspace:*",
     "@duyet/libs": "*",
     "@phosphor-icons/react": "^2.1.10",
     "@radix-ui/react-progress": "^1.1.7",
