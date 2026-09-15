@@ -9,6 +9,7 @@ pub mod output;
 pub mod paths;
 pub mod term;
 pub mod update;
+pub mod token;
 
 use std::ffi::OsString;
 

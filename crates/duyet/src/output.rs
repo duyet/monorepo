@@ -235,9 +235,26 @@ impl Redactor {
         }
     }
 
-    /// The only secret P1 knows about is the agent token in `DUYET_AGENT_TOKEN`.
+    /// Env and keychain tokens, if present. Never logs the value.
     pub fn from_env() -> Redactor {
-        Redactor::new(std::env::var(TOKEN_ENV).ok())
+        let mut secrets = Vec::new();
+        if let Ok(value) = std::env::var(TOKEN_ENV) {
+            secrets.push(value);
+        }
+        if let Some(resolved) = crate::token::resolve() {
+            if !secrets.iter().any(|s| s == &resolved.value) {
+                secrets.push(resolved.value);
+            }
+        }
+        Redactor::new(secrets)
+    }
+
+    pub fn with_secret(mut self, secret: impl Into<String>) -> Redactor {
+        let secret = secret.into();
+        if !secret.is_empty() && !self.secrets.iter().any(|s| s == &secret) {
+            self.secrets.push(secret);
+        }
+        self
     }
 
     pub fn redact(&self, text: &str) -> String {

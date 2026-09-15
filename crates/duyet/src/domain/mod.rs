@@ -6,6 +6,7 @@ use std::io::{self, Write};
 use std::path::PathBuf;
 
 use serde::{Deserialize, Serialize};
+use serde_json::Value as JsonValue;
 
 use crate::config::{Channel, Severity, Source};
 use crate::http::{Probe, ProbeStatus};
@@ -153,6 +154,13 @@ impl TokenState {
             Some(_) | None => TokenState::Unset,
         }
     }
+
+    pub fn from_resolved(resolved: Option<&crate::token::ResolvedToken>) -> TokenState {
+        match resolved {
+            Some(_) => TokenState::Set,
+            None => TokenState::Unset,
+        }
+    }
 }
 
 #[derive(Debug, Serialize)]
@@ -186,7 +194,7 @@ impl Render for DoctorReport {
             out,
             "token:   {}",
             match self.agent_token {
-                TokenState::Set => "set (DUYET_AGENT_TOKEN)",
+                TokenState::Set => "set",
                 TokenState::Unset => "unset",
             }
         )?;
@@ -356,6 +364,48 @@ impl Render for ManReport {
         for file in &self.files {
             writeln!(out, "{}", self.out.join(file).display())?;
         }
+        Ok(())
+    }
+}
+
+#[derive(Debug, Serialize)]
+pub struct AuthStatus {
+    pub state: TokenState,
+    pub source: &'static str,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub preview: Option<String>,
+}
+
+impl Render for AuthStatus {
+    const SCHEMA: &'static str = "duyet.auth.v1";
+
+    fn human(&self, out: &mut dyn Write, _style: &Style) -> io::Result<()> {
+        match (self.state, &self.preview) {
+            (TokenState::Set, Some(preview)) => writeln!(out, "set ({preview})"),
+            (TokenState::Set, None) => writeln!(out, "set"),
+            (TokenState::Unset, _) => writeln!(out, "unset"),
+        }
+    }
+}
+
+#[derive(Debug, Serialize)]
+pub struct ChatReply {
+    pub session_id: String,
+    pub text: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub usage: Option<JsonValue>,
+}
+
+impl Render for ChatReply {
+    const SCHEMA: &'static str = "duyet.chat.v1";
+
+    fn human(&self, out: &mut dyn Write, style: &Style) -> io::Result<()> {
+        writeln!(
+            out,
+            "{}",
+            style.dim("duyet agent (agents-api.duyet.net)")
+        )?;
+        writeln!(out, "{}", self.text)?;
         Ok(())
     }
 }

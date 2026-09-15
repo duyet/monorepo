@@ -35,7 +35,7 @@ duyet comment  Comment on a post (confirms before sending)
 duyet auth  Manage the agent token
 duyet auth login  Store an agent token in the OS keychain
 duyet auth logout  Remove the stored token
-duyet auth status  Report whether a token is available (never prints it)
+duyet auth status  Report whether a token is available (never prints more than 4 characters)
 duyet config  Read and edit the config file
 duyet config path  Print the config file path
 duyet config show  Print every key with its effective value and where it came from
@@ -796,10 +796,10 @@ Options:
   -h, --help
           Print help (see a summary with '-h')
 
-Talks to the duyet agent at <agents_api_url> (apps/agent-api). Requires a token from `duyet auth
-login`
-or DUYET_AGENT_TOKEN. Without a prompt, reads one from stdin. Streams tokens to stdout on a TTY;
---json streams NDJSON, one {"schema":"duyet.chat.v1","data":{..}} per line.
+Talks to the duyet agent (agents-api.duyet.net) at <agents_api_url> (apps/agent-api,
+POST /api/v1/chat). Requires a token from `duyet auth login` or DUYET_AGENT_TOKEN.
+Without a prompt, reads one from stdin. Streams tokens to stdout on a TTY; --json
+emits one final envelope.
 
 Examples:
   duyet chat "what did duyet write about rust wasm?"
@@ -807,9 +807,7 @@ Examples:
   duyet chat --session 8f2c "continue"
 
 JSON (duyet.chat.v1):
-  {"session":"..","role":"assistant","text":"..","done":true}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1445
+  {"session_id":"..","text":"..","usage":{}}
 ```
 
 ## `duyet contact`
@@ -939,7 +937,7 @@ Usage: duyet auth <COMMAND>
 Commands:
   login   Store an agent token in the OS keychain
   logout  Remove the stored token
-  status  Report whether a token is available (never prints it)
+  status  Report whether a token is available (never prints more than 4 characters)
   help    Print this message or the help of the given subcommand(s)
 
 Options:
@@ -947,7 +945,9 @@ Options:
           Print help (see a summary with '-h')
 
 The token lives in the OS keychain (key `agent_token`) or in DUYET_AGENT_TOKEN for CI. It is never
-written to the config file and never printed: `status` reports set|unset only.
+written to the config file. `status` reports set|unset and the first 4 characters only.
+
+This talks to the duyet agent (agents-api.duyet.net).
 
 Examples:
   duyet auth login                 # prompts for the token on a TTY
@@ -958,8 +958,6 @@ Examples:
 JSON (duyet.auth.v1):
   status: {"state":"set|unset","source":"keychain|env|none"}
   login/logout: {"state":"set|unset"}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1445
 ```
 
 ## `duyet auth login`
@@ -977,7 +975,9 @@ Options:
           Print help (see a summary with '-h')
 
 The token lives in the OS keychain (key `agent_token`) or in DUYET_AGENT_TOKEN for CI. It is never
-written to the config file and never printed: `status` reports set|unset only.
+written to the config file. `status` reports set|unset and the first 4 characters only.
+
+This talks to the duyet agent (agents-api.duyet.net).
 
 Examples:
   duyet auth login                 # prompts for the token on a TTY
@@ -988,8 +988,6 @@ Examples:
 JSON (duyet.auth.v1):
   status: {"state":"set|unset","source":"keychain|env|none"}
   login/logout: {"state":"set|unset"}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1445
 ```
 
 ## `duyet auth logout`
@@ -1004,7 +1002,9 @@ Options:
           Print help (see a summary with '-h')
 
 The token lives in the OS keychain (key `agent_token`) or in DUYET_AGENT_TOKEN for CI. It is never
-written to the config file and never printed: `status` reports set|unset only.
+written to the config file. `status` reports set|unset and the first 4 characters only.
+
+This talks to the duyet agent (agents-api.duyet.net).
 
 Examples:
   duyet auth login                 # prompts for the token on a TTY
@@ -1015,14 +1015,12 @@ Examples:
 JSON (duyet.auth.v1):
   status: {"state":"set|unset","source":"keychain|env|none"}
   login/logout: {"state":"set|unset"}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1445
 ```
 
 ## `duyet auth status`
 
 ```text
-Report whether a token is available (never prints it)
+Report whether a token is available (never prints more than 4 characters)
 
 Usage: duyet auth status
 
@@ -1031,7 +1029,9 @@ Options:
           Print help (see a summary with '-h')
 
 The token lives in the OS keychain (key `agent_token`) or in DUYET_AGENT_TOKEN for CI. It is never
-written to the config file and never printed: `status` reports set|unset only.
+written to the config file. `status` reports set|unset and the first 4 characters only.
+
+This talks to the duyet agent (agents-api.duyet.net).
 
 Examples:
   duyet auth login                 # prompts for the token on a TTY
@@ -1042,8 +1042,6 @@ Examples:
 JSON (duyet.auth.v1):
   status: {"state":"set|unset","source":"keychain|env|none"}
   login/logout: {"state":"set|unset"}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1445
 ```
 
 ## `duyet config`

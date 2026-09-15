@@ -19,11 +19,15 @@ The full command reference is generated from the clap tree into [`docs/reference
 by `duyet docs markdown`; `cargo test -p duyet` fails when it is stale and
 `UPDATE_GOLDEN=1 cargo test -p duyet` rewrites it together with `tests/golden/*.txt`.
 
-## What works in this release (P2 + P7)
+## What works in this release (P1 + P2 + P7 + P8)
 
 `version`, `config path|show|set|unset|doctor`, `doctor`, `completions`, `docs man|markdown|tree`,
 `contact`, `jd submit`, `comment` (confirm-before-send against `api.duyet.net`),
-`update` (channels, minisign, rollback).
+`update` (channels, minisign, rollback),
+`auth login|logout|status`, `chat`.
+
+`duyet chat` talks to the duyet agent at `agents-api.duyet.net` (`POST /api/v1/chat`). The token
+lives in the OS keychain or `DUYET_AGENT_TOKEN`, never in config.
 
 Read-only content against live public files: `posts`, `notes`, `series`, `kb`, `news`, `images`,
 `insights`. Search is local over cached indexes. `--no-cache` bypasses the disk HTTP cache.
@@ -35,12 +39,7 @@ than the retired news app digest.
 `insights overview` maps `api.duyet.net/api/insights/overview` dashboard totals (Cloudflare,
 PostHog, WakaTime, AI metrics), not blog post counts.
 
-Every other command is present in the tree with full arguments and `--help`, and exits 2 with
-`not implemented yet, tracked in #<issue>` (JSON: `code: "not_implemented"`, `tracking: <issue URL>`):
-
-| Commands | Tracked in |
-|---|---|
-| `chat`, `auth` | [#1445](https://github.com/duyet/monorepo/issues/1445) |
+All epic #1440 command slices in this release are implemented.
 
 Release pipeline is [#1444](https://github.com/duyet/monorepo/issues/1444): tags `duyet-vX.Y.Z`
 (and `duyet-vX.Y.Z-beta.N`) publish five archives, `SHA256SUMS` + minisign, attestations, and
@@ -91,7 +90,7 @@ cycle. Consumers should select on `schema`, not on the command they ran.
 | 1 | generic failure | `internal`, `io`, `config_invalid` (from `config doctor`) |
 | 2 | usage error or not implemented | `usage`, `not_implemented`, `config_unknown_key`, `config_invalid_value` |
 | 3 | network or HTTP failure | `network`, `offline`, `http_<status>` |
-| 4 | authentication required or rejected | (P8) |
+| 4 | authentication required or rejected | `auth` |
 | 5 | confirmation declined or unavailable | `declined` |
 | 6 | resource not found | `http_404` |
 | 10 | update available (`update --check`) | `update_available` is not an error envelope; `--check` prints the report and exits 10 |

@@ -200,10 +200,7 @@ fn version_human_and_json() {
 #[test]
 fn stubs_exit_2_with_tracking_issue() {
     let sb = Sandbox::new();
-    let cases: [(&[&str], u32); 2] = [
-        (&["chat"], 1445),
-        (&["auth", "status"], 1445),
-    ];
+    let cases: [(&[&str], u32); 0] = [];
     for (args, issue) in cases {
         let output = sb.run(args);
         assert_eq!(exit(&output), 2, "{args:?}");
@@ -1078,3 +1075,220 @@ fn http_no_cache_skips_fresh_entry() {
     assert!(!second.from_cache);
     assert_eq!(requests.lock().unwrap().len(), 2);
 }
+
+fn serve_chat(responses: Vec<Scripted>) -> (String, Arc<Mutex<Vec<String>>>) {
+    let listener = TcpListener::bind("127.0.0.1:0").unwrap();
+    let addr = listener.local_addr().unwrap();
+    let requests = Arc::new(Mutex::new(Vec::new()));
+    let seen = Arc::clone(&requests);
+    thread::spawn(move || {
+        for response in responses {
+            let (mut stream, _) = match listener.accept() {
+                Ok(pair) => pair,
+                Err(_) => return,
+            };
+            let mut reader = BufReader::new(stream.try_clone().unwrap());
+            let mut head = String::new();
+            let mut content_length = 0usize;
+            loop {
+                let mut line = String::new();
+                if reader.read_line(&mut line).unwrap() == 0 || line == "\r\n" {
+                    break;
+                }
+                if let Some(rest) = line
+                    .to_ascii_lowercase()
+                    .strip_prefix("content-length:")
+                {
+                    content_length = rest.trim().parse().unwrap_or(0);
+                }
+                head.push_str(&line);
+            }
+            let mut body = vec![0; content_length];
+            if content_length > 0 {
+                use std::io::Read;
+                reader.read_exact(&mut body).ok();
+            }
+            head.push_str(&String::from_utf8_lossy(&body));
+            seen.lock().unwrap().push(head);
+            let mut text = format!("HTTP/1.1 {} X\r\nConnection: close\r\n", response.status);
+            for (name, value) in &response.headers {
+                text.push_str(&format!("{name}: {value}\r\n"));
+            }
+            text.push_str(&format!(
+                "Content-Length: {}\r\n\r\n{}",
+                response.body.len(),
+                response.body
+            ));
+            stream.write_all(text.as_bytes()).ok();
+            stream.flush().ok();
+        }
+    });
+    (format!("http://{addr}"), requests)
+}
+
+#[test]
+fn chat_help_names_duyet_agent_not_duyetbot() {
+    let sb = Sandbox::new();
+    let output = sb.run(&["chat", "--help"]);
+    assert_eq!(exit(&output), 0);
+    let text = stdout(&output);
+    assert!(text.contains("duyet agent (agents-api.duyet.net)"));
+    assert!(!text.to_ascii_lowercase().contains("duyetbot"));
+}
+
+#[test]
+fn auth_status_env_preview_and_no_token_in_config() {
+    let sb = Sandbox::new();
+    let output = sb.run(&["auth", "status"]);
+    assert_eq!(exit(&output), 0, "{}", stderr(&output));
+    assert_eq!(stdout(&output).trim(), "unset");
+
+    let output = sb
+        .cmd()
+        .args(["auth", "status"])
+        .env("DUYET_AGENT_TOKEN", "abcd-super-secret")
+        .output()
+        .unwrap();
+    assert_eq!(exit(&output), 0, "{}", stderr(&output));
+    assert_eq!(stdout(&output).trim(), "set (abcd...)");
+    assert!(!stdout(&output).contains("super-secret"));
+
+    let (value, code) = {
+        let output = sb
+            .cmd()
+            .args(["auth", "status", "--json"])
+            .env("DUYET_AGENT_TOKEN", "abcd-super-secret")
+            .output()
+            .unwrap();
+        let stdout = String::from_utf8(output.stdout).unwrap();
+        let value: serde_json::Value = serde_json::from_str(stdout.trim()).unwrap();
+        (value, output.status.code().unwrap())
+    };
+    assert_eq!(code, 0);
+    assert_eq!(value["schema"], "duyet.auth.v1");
+    assert_eq!(value["data"]["state"], "set");
+    assert_eq!(value["data"]["source"], "env");
+    assert_eq!(value["data"]["preview"], "abcd...");
+    assert!(!serde_json::to_string(&value).unwrap().contains("super-secret"));
+
+    assert_eq!(exit(&sb.run(&["config", "set", "blog_url", "https://blog.duyet.net"])), 0);
+    let shown = stdout(&sb.run(&["config", "show"]));
+    assert!(!shown.contains("abcd"));
+    assert!(!shown.contains("token"));
+    let toml = fs::read_to_string(sb.config_file()).unwrap();
+    assert!(!toml.contains("abcd"));
+    assert!(!toml.contains("agent_token"));
+}
+
+#[test]
+fn chat_requires_token() {
+    let sb = Sandbox::new();
+    let output = sb.run(&["chat", "hello", "--session", "test"]);
+    assert_eq!(exit(&output), 4, "{}", stderr(&output));
+    assert!(stderr(&output).contains("run `duyet auth login`"), "{}", stderr(&output));
+}
+
+#[test]
+fn chat_mock_stream_401_429_network_and_redacts_token() {
+    let token = "sk-test-redact-me-please";
+    let body = r#"{"ok":true,"sessionId":"test","assistantText":"hello from agent","usage":{"total_tokens":4}}"#;
+    let (base, requests) = serve_chat(vec![scripted(
+        200,
+        &[("Content-Type", "application/json")],
+        body,
+    )]);
+    let sb = Sandbox::new();
+    let output = sb
+        .cmd()
+        .args([
+            "chat",
+            "hello",
+            "--session",
+            "test",
+            "--json",
+            "-vv",
+            "--timeout",
+            "5",
+        ])
+        .env("DUYET_AGENT_TOKEN", token)
+        .env("DUYET_AGENTS_API_URL", &base)
+        .output()
+        .unwrap();
+    assert_eq!(exit(&output), 0, "{}", stderr(&output));
+    let value: serde_json::Value = serde_json::from_str(stdout(&output).trim()).unwrap();
+    assert_eq!(value["schema"], "duyet.chat.v1");
+    assert_eq!(value["data"]["text"], "hello from agent");
+    assert_eq!(value["data"]["session_id"], "test");
+    assert_eq!(value["data"]["usage"]["total_tokens"], 4);
+    let err = stderr(&output);
+    assert!(!err.contains(token), "{err}");
+    assert!(!stdout(&output).contains(token));
+    let seen = requests.lock().unwrap().join("\n").to_ascii_lowercase();
+    assert!(
+        seen.contains("authorization:") && seen.contains("bearer"),
+        "{seen}"
+    );
+    assert!(seen.contains("\"sessionid\":\"test\""), "{seen}");
+
+    let (base, _) = serve_chat(vec![scripted(401, &[], r#"{"error":"nope"}"#)]);
+    let output = sb
+        .cmd()
+        .args(["chat", "hello", "--session", "test", "--timeout", "5"])
+        .env("DUYET_AGENT_TOKEN", token)
+        .env("DUYET_AGENTS_API_URL", &base)
+        .output()
+        .unwrap();
+    assert_eq!(exit(&output), 4, "{}", stderr(&output));
+    assert!(stderr(&output).contains("run `duyet auth login`"));
+    assert!(!stderr(&output).contains(token));
+
+    let (base, _) = serve_chat(vec![
+        scripted(429, &[], "slow"),
+        scripted(429, &[], "slow"),
+        scripted(429, &[], "slow"),
+    ]);
+    let output = sb
+        .cmd()
+        .args(["chat", "hello", "--session", "test", "--timeout", "5"])
+        .env("DUYET_AGENT_TOKEN", token)
+        .env("DUYET_AGENTS_API_URL", &base)
+        .output()
+        .unwrap();
+    assert_eq!(exit(&output), 3, "{}", stderr(&output));
+    assert!(stderr(&output).contains("429"));
+
+    let output = sb
+        .cmd()
+        .args(["chat", "hello", "--session", "test", "--timeout", "2"])
+        .env("DUYET_AGENT_TOKEN", token)
+        .env("DUYET_AGENTS_API_URL", "http://127.0.0.1:1")
+        .output()
+        .unwrap();
+    assert_eq!(exit(&output), 3, "{}", stderr(&output));
+    assert!(!stderr(&output).contains(token));
+}
+
+#[test]
+fn auth_login_token_or_env_only_fallback() {
+    let sb = Sandbox::new();
+    let output = sb.run(&["auth", "login", "--token", "wxyz-key"]);
+    if exit(&output) == 0 {
+        let status = sb.run(&["auth", "status"]);
+        assert_eq!(exit(&status), 0);
+        if stdout(&status).trim() == "unset" {
+            // Some Linux sessions accept set_password but do not persist a retrievable entry.
+            return;
+        }
+        assert_eq!(stdout(&status).trim(), "set (wxyz...)");
+        assert_eq!(exit(&sb.run(&["auth", "logout"])), 0);
+        assert_eq!(stdout(&sb.run(&["auth", "status"])).trim(), "unset");
+    } else {
+        assert_eq!(exit(&output), 1, "{}", stderr(&output));
+        assert!(
+            stderr(&output).contains("only DUYET_AGENT_TOKEN is supported"),
+            "{}",
+            stderr(&output)
+        );
+    }
+}
+
