@@ -200,10 +200,9 @@ fn version_human_and_json() {
 #[test]
 fn stubs_exit_2_with_tracking_issue() {
     let sb = Sandbox::new();
-    let cases: [(&[&str], u32); 3] = [
+    let cases: [(&[&str], u32); 2] = [
         (&["chat"], 1445),
         (&["auth", "status"], 1445),
-        (&["update", "--check"], 1447),
     ];
     for (args, issue) in cases {
         let output = sb.run(args);

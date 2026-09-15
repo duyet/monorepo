@@ -221,7 +221,7 @@ pub fn dispatch(command: &Command, ctx: &Ctx) -> Result<(), CliError> {
         Command::Comment(args) => comment::run(args, ctx),
         Command::Auth(args) => auth::run(args),
         Command::Config(args) => config_cmd::run(args, ctx),
-        Command::Update(args) => update::run(args),
+        Command::Update(args) => crate::update::run(args, ctx),
         Command::Doctor(args) => doctor::run(args, ctx),
         Command::Version(args) => version::run(args, ctx),
         Command::Completions(args) => completions::run(args),

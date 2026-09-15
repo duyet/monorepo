@@ -475,6 +475,10 @@ impl Settings {
     pub fn telemetry(&self) -> bool {
         matches!(self.get(ConfigKey::Telemetry).0, Value::Bool(true))
     }
+
+    pub fn update_check(&self) -> bool {
+        matches!(self.get(ConfigKey::UpdateCheck).0, Value::Bool(true))
+    }
 }
 
 fn resolve_key(

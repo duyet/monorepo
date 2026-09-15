@@ -22,6 +22,111 @@ pub struct VersionInfo {
     pub commit: &'static str,
 }
 
+/// Channel manifest at `https://duyet.net/cli/{stable,beta}.json` (#1444).
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub struct ReleaseManifest {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub schema: Option<String>,
+    pub version: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub tag: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub published_at: Option<String>,
+    pub targets: BTreeMap<String, ReleaseAsset>,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub struct ReleaseAsset {
+    pub url: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub sha256: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub size: Option<u64>,
+}
+
+#[derive(Debug, Serialize)]
+pub struct UpdateCheck {
+    pub current: String,
+    pub latest: String,
+    pub channel: Channel,
+    pub update_available: bool,
+}
+
+impl Render for UpdateCheck {
+    const SCHEMA: &'static str = "duyet.update.v1";
+
+    fn human(&self, out: &mut dyn Write, _style: &Style) -> io::Result<()> {
+        writeln!(out, "current: {}", self.current)?;
+        writeln!(out, "latest:  {}", self.latest)?;
+        writeln!(out, "channel: {}", self.channel)?;
+        if self.update_available {
+            writeln!(out, "update available")?;
+        } else {
+            writeln!(out, "up to date")?;
+        }
+        Ok(())
+    }
+}
+
+#[derive(Debug, Serialize)]
+pub struct UpdateApplied {
+    pub from: String,
+    pub to: String,
+    pub channel: Channel,
+    pub previous_kept: bool,
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub downgraded: bool,
+}
+
+impl Render for UpdateApplied {
+    const SCHEMA: &'static str = "duyet.update.v1";
+
+    fn human(&self, out: &mut dyn Write, _style: &Style) -> io::Result<()> {
+        if self.downgraded {
+            writeln!(
+                out,
+                "downgraded from beta {} to stable {}",
+                self.from, self.to
+            )?;
+        } else {
+            writeln!(
+                out,
+                "updated {} -> {} ({})",
+                self.from, self.to, self.channel
+            )?;
+        }
+        if self.previous_kept {
+            writeln!(
+                out,
+                "previous binary kept; run `duyet update --rollback` to restore"
+            )?;
+        }
+        Ok(())
+    }
+}
+
+#[derive(Debug, Serialize)]
+pub struct UpdateRollback {
+    pub restored: bool,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub version: Option<String>,
+}
+
+impl Render for UpdateRollback {
+    const SCHEMA: &'static str = "duyet.update.v1";
+
+    fn human(&self, out: &mut dyn Write, _style: &Style) -> io::Result<()> {
+        if self.restored {
+            match &self.version {
+                Some(version) => writeln!(out, "restored {version}"),
+                None => writeln!(out, "restored previous binary"),
+            }
+        } else {
+            writeln!(out, "nothing to roll back")
+        }
+    }
+}
+
 impl Render for VersionInfo {
     const SCHEMA: &'static str = "duyet.version.v1";
 

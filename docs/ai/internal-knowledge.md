@@ -142,7 +142,7 @@ Rust crates in `crates/` serve two purposes:
 - **Build-time**: Native CLI binary (`duyet-cli`) for data sync and prerender
 - **Runtime**: WASM modules for browser/CF Workers (diff, exif, utils, markdown)
 
-Two binaries share the `duyet` name and must not be confused. `duyet-cli` (`crates/cli`) is the build-time JSON stdin/stdout tool consumed by `callCli()`; it is unchanged by the CLI program. `duyet` (`crates/duyet`) is the user-facing CLI for readers and agents from epic #1440: clap command tree, `--json` envelope `{"ok","schema","data"|"error"}`, exit codes 0/1/2/3/4/5/6/10 in one `ExitCode` enum, TOML config with no secrets under the OS config dir, `doctor`, completions, man pages, generated `crates/duyet/docs/reference.md`, and write commands `contact` / `jd submit` / `comment` (confirm-before-send, `--yes` to skip). Remaining later-slice commands are present with `--help` and exit 2 with the tracked issue number. Contracts live in `crates/duyet/README.md`; drive it with `.cursor/skills/verify-duyet-cli/SKILL.md`. `Cargo.lock` is committed because `duyet` ships as a binary; `test.yml` caches on it.
+Two binaries share the `duyet` name and must not be confused. `duyet-cli` (`crates/cli`) is the build-time JSON stdin/stdout tool consumed by `callCli()`; it is unchanged by the CLI program. `duyet` (`crates/duyet`) is the user-facing CLI for readers and agents from epic #1440: clap command tree, `--json` envelope `{"ok","schema","data"|"error"}`, exit codes 0/1/2/3/4/5/6/10 in one `ExitCode` enum, TOML config with no secrets under the OS config dir, `doctor`, completions, man pages, generated `crates/duyet/docs/reference.md`, write commands `contact` / `jd submit` / `comment` (confirm-before-send, `--yes` to skip), and `update` (#1447). Remaining later-slice commands are present with `--help` and exit 2 with the tracked issue number. Contracts live in `crates/duyet/README.md`; drive it with `.cursor/skills/verify-duyet-cli/SKILL.md`. `Cargo.lock` is committed because `duyet` ships as a binary; `test.yml` caches on it.
 
 ### `duyet` CLI dist releases (#1444)
 
@@ -164,6 +164,8 @@ Channel manifests (Pages via `apps/home`):
 
 Post-announce job `.github/workflows/duyet-sign-channel.yml` writes SHA256SUMS, minisigns it, and opens a PR to `master` with the channel JSON (branch protection blocks direct push). Repo secret **`MINISIGN_SECRET_KEY`**: unencrypted minisign secret matching the committed public key. If unset, the release still publishes archives/attestations; `.minisig` is skipped.
 
+`duyet update` (P5 / #1447) reads those channel manifests, verifies `SHA256SUMS` with minisign (`minisign-verify`, embedded `crates/duyet/minisign.pub` / `duyet::MINISIGN_PUB`, overridable via `DUYET_MINISIGN_PUB` in tests), then the archive SHA256, unpacks into `<install_dir>/staging/`, and swaps. Unix: `duyet` → `duyet.prev` then new → `duyet`. Windows: running `duyet.exe` → `duyet.prev.exe`; a leftover `duyet.prev.old.exe` is deleted on the next start. `versions.json` stores `current`, `previous`, `channel`, `installed_at`. `--rollback` is idempotent. `--channel` is written to config. Opt out of the once-per-24h TTY background check with `update.check = false` or `DUYET_NO_UPDATE_CHECK=1`. Self-update only for binaries in `~/.duyet/bin` or `%LOCALAPPDATA%\duyet\bin`; anything else prints the installer URL and exits 1. Does not update `duyet-cli`. Tests use a local fixture with `DUYET_CLI_BASE_URL` and `DUYET_MINISIGN_PUB`.
+
 ### Build & Test
 
 - `pnpm run rust:build` — build native CLI binary (`target/release/duyet-cli`)
@@ -177,7 +179,7 @@ Post-announce job `.github/workflows/duyet-sign-channel.yml` writes SHA256SUMS, 
 | Crate | Mode | Function | Consumer |
 |-------|------|----------|----------|
 | `crates/cli/` | Build | Unified CLI: `csv`, `normalize`, `dedup`, `markdown` subcommands | JS wrappers via `callCli()` |
-| `crates/duyet/` | User CLI | `duyet` binary: `version`, `config`, `doctor`, `completions`, `docs`; content/chat/submission/update groups stubbed until #1443/#1445/#1447/#1448 | Readers and agents (released in #1444/#1446) |
+| `crates/duyet/` | User CLI | `duyet` binary: `version`, `config`, `doctor`, `completions`, `docs`, `contact`/`jd`/`comment`, `update`; content/chat stubbed until #1443/#1445 | Readers and agents (released in #1444/#1446) |
 | `crates/markdown/` | Both | `markdown_to_html(input) -> String` | WASM for per-page, CLI for batch |
 | `crates/csv-parser/` | Build | `parse_csv(input) -> String` | `apps/llm-timeline/lib/csv.ts` |
 | `crates/normalizers/` | Build | 8 normalize functions | `apps/llm-timeline/lib/normalizers.ts` |

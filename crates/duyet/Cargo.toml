@@ -18,13 +18,19 @@ clap = { version = "4.6", features = ["derive", "env", "wrap_help"] }
 clap_complete = "4.6"
 clap_mangen = "0.3"
 directories = "6"
+flate2 = "1"
+lzma-rs = "0.3"
+minisign-verify = "0.2"
 reqwest = { version = "0.13", default-features = false, features = ["blocking", "rustls-no-provider", "json"] }
 rustls = { version = "0.23", default-features = false, features = ["ring", "std", "tls12"] }
 serde.workspace = true
 serde_json.workspace = true
 sha2 = "0.11"
+tar = "0.4"
 toml = "1"
 url = "2"
+zip = { version = "2", default-features = false, features = ["deflate"] }
 
 [dev-dependencies]
+minisign = "0.7"
 tempfile = "3"

@@ -22,7 +22,8 @@ by `duyet docs markdown`; `cargo test -p duyet` fails when it is stale and
 ## What works in this release (P2 + P7)
 
 `version`, `config path|show|set|unset|doctor`, `doctor`, `completions`, `docs man|markdown|tree`,
-`contact`, `jd submit`, `comment` (confirm-before-send against `api.duyet.net`).
+`contact`, `jd submit`, `comment` (confirm-before-send against `api.duyet.net`),
+`update` (channels, minisign, rollback).
 
 Read-only content against live public files: `posts`, `notes`, `series`, `kb`, `news`, `images`,
 `insights`. Search is local over cached indexes. `--no-cache` bypasses the disk HTTP cache.
@@ -40,7 +41,6 @@ Every other command is present in the tree with full arguments and `--help`, and
 | Commands | Tracked in |
 |---|---|
 | `chat`, `auth` | [#1445](https://github.com/duyet/monorepo/issues/1445) |
-| `update` | [#1447](https://github.com/duyet/monorepo/issues/1447) |
 
 Release pipeline is [#1444](https://github.com/duyet/monorepo/issues/1444): tags `duyet-vX.Y.Z`
 (and `duyet-vX.Y.Z-beta.N`) publish five archives, `SHA256SUMS` + minisign, attestations, and
@@ -94,7 +94,7 @@ cycle. Consumers should select on `schema`, not on the command they ran.
 | 4 | authentication required or rejected | (P8) |
 | 5 | confirmation declined or unavailable | `declined` |
 | 6 | resource not found | `http_404` |
-| 10 | update available (`update --check`) | (P5) |
+| 10 | update available (`update --check`) | `update_available` is not an error envelope; `--check` prints the report and exits 10 |
 
 `doctor` exits 0 whenever it could produce a report, even if every endpoint is unreachable.
 
@@ -146,8 +146,32 @@ file that fails to parse; every other command refuses such a file with the parse
 release, and in the OS keychain once `auth login` lands (#1445).
 
 Other environment variables: `DUYET_OFFLINE=1` (same as `--offline`), `DUYET_TIMEOUT` (seconds,
-same as `--timeout`), `DUYET_CA_BUNDLE` (see below), `DUYET_AGENT_TOKEN`, `NO_COLOR`,
+same as `--timeout`), `DUYET_CA_BUNDLE` (see below), `DUYET_AGENT_TOKEN`, `DUYET_NO_UPDATE_CHECK=1`,
+`DUYET_CLI_BASE_URL` (channel manifest root, default `https://duyet.net/cli`), `NO_COLOR`,
 `CLICOLOR_FORCE`, `CI`.
+
+## Self-update
+
+`duyet update` reads `https://duyet.net/cli/{stable,beta}.json` (shape from [#1444](https://github.com/duyet/monorepo/issues/1444):
+`version`, `tag`, `published_at`, `targets.<triple>.{url,sha256,size}`), downloads the archive for
+the running target, verifies `SHA256SUMS` with the embedded minisign public key
+(`crates/duyet/minisign.pub`, overridable via `DUYET_MINISIGN_PUB` in tests), then verifies the
+archive hash. Unix swap is `rename(current, duyet.prev)` then `rename(new, current)`. Windows
+renames the running `duyet.exe` to `duyet.prev.exe` and deletes a stale `.prev.old.exe` on the next
+start. `versions.json` records `current`, `previous`, `channel`, `installed_at`.
+
+`--rollback` swaps `prev` back. A second rollback prints `nothing to roll back` and exits 0.
+`--channel beta` writes `channel = "beta"` so later checks follow beta. `--channel stable` from a
+beta build downgrades to latest stable.
+
+A background check runs after any command on a TTY, at most once per 24h (stamp in the cache dir),
+1s timeout: `duyet 0.3.0 available (stable). Run duyet update.` Disabled by `update.check = false`
+or `DUYET_NO_UPDATE_CHECK=1`. Never under `--json` or `--quiet`.
+
+Binaries outside `~/.duyet/bin` (and `%LOCALAPPDATA%\duyet\bin` on Windows) are treated as package-
+manager installs: print the manual instruction and exit 1.
+
+Channel manifests come from the #1444 dist pipeline at `https://duyet.net/cli/{stable,beta}.json`.
 
 ### Directories
 
