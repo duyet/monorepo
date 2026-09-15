@@ -116,6 +116,14 @@ pub enum CliError {
         request_id: Option<String>,
         retry_after: Option<String>,
     },
+    InvalidPayload {
+        url: String,
+        message: String,
+    },
+    Missing {
+        resource: &'static str,
+        id: String,
+    },
     Declined,
     Internal(String),
 }
@@ -132,6 +140,8 @@ impl CliError {
             CliError::Offline { .. } => "offline".into(),
             CliError::Network { .. } => "network".into(),
             CliError::Http { status, .. } => format!("http_{status}"),
+            CliError::InvalidPayload { .. } => "invalid_payload".into(),
+            CliError::Missing { .. } => "not_found".into(),
             CliError::Declined => "declined".into(),
             CliError::Internal(_) => "internal".into(),
         }
@@ -149,6 +159,8 @@ impl CliError {
             CliError::Network { .. } => ExitCode::Network,
             CliError::Http { status: 404, .. } => ExitCode::NotFound,
             CliError::Http { .. } => ExitCode::Network,
+            CliError::InvalidPayload { .. } => ExitCode::NotFound,
+            CliError::Missing { .. } => ExitCode::NotFound,
             CliError::Declined => ExitCode::Declined,
             CliError::Internal(_) => ExitCode::Generic,
         }
@@ -187,6 +199,10 @@ impl CliError {
                 Some(after) => format!("{url}: HTTP {status} (Retry-After: {after})"),
                 None => format!("{url}: HTTP {status}"),
             },
+            CliError::InvalidPayload { url, message } => {
+                format!("{url}: could not parse response ({message})")
+            }
+            CliError::Missing { resource, id } => format!("{resource} `{id}` not found"),
             CliError::Declined => "confirmation required but not given".into(),
             CliError::Internal(text) => text.clone(),
         }
@@ -217,6 +233,10 @@ impl CliError {
             }
             CliError::Http { status: 404, .. } => Some("check the slug or id".into()),
             CliError::Http { .. } => None,
+            CliError::InvalidPayload { .. } => {
+                Some("run `duyet doctor` and retry; the public file shape may have changed".into())
+            }
+            CliError::Missing { .. } => Some("check the slug or id; run `duyet doctor`".into()),
             CliError::Declined => Some("pass --yes to confirm non-interactively".into()),
             CliError::Internal(_) => None,
         }
@@ -233,6 +253,8 @@ impl CliError {
             | CliError::ConfigInvalid { .. }
             | CliError::Io { .. }
             | CliError::Offline { .. }
+            | CliError::InvalidPayload { .. }
+            | CliError::Missing { .. }
             | CliError::Declined
             | CliError::Internal(_) => None,
         }
@@ -249,6 +271,8 @@ impl CliError {
             | CliError::Offline { .. }
             | CliError::Network { .. }
             | CliError::Http { .. }
+            | CliError::InvalidPayload { .. }
+            | CliError::Missing { .. }
             | CliError::Declined
             | CliError::Internal(_) => None,
         }
@@ -364,6 +388,20 @@ mod tests {
                     status: 404,
                     request_id: Some("r".into()),
                     retry_after: None,
+                },
+                ExitCode::NotFound,
+            ),
+            (
+                CliError::InvalidPayload {
+                    url: "u".into(),
+                    message: "m".into(),
+                },
+                ExitCode::NotFound,
+            ),
+            (
+                CliError::Missing {
+                    resource: "post",
+                    id: "x".into(),
                 },
                 ExitCode::NotFound,
             ),

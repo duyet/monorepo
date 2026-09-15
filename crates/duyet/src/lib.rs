@@ -1,8 +1,10 @@
 pub mod cli;
 pub mod config;
+pub mod content;
 pub mod domain;
 pub mod error;
 pub mod http;
+pub mod markdown;
 pub mod output;
 pub mod paths;
 pub mod term;

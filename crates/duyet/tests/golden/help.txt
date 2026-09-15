@@ -58,6 +58,9 @@ Global options:
       --offline
           Serve from cache only and skip network probes (or DUYET_OFFLINE=1)
 
+      --no-cache
+          Bypass the disk HTTP cache (always refetch)
+
       --timeout <SECS>
           HTTP timeout in seconds
           

@@ -19,17 +19,26 @@ The full command reference is generated from the clap tree into [`docs/reference
 by `duyet docs markdown`; `cargo test -p duyet` fails when it is stale and
 `UPDATE_GOLDEN=1 cargo test -p duyet` rewrites it together with `tests/golden/*.txt`.
 
-## What works in this release (P1 + P7)
+## What works in this release (P2 + P7)
 
 `version`, `config path|show|set|unset|doctor`, `doctor`, `completions`, `docs man|markdown|tree`,
 `contact`, `jd submit`, `comment` (confirm-before-send against `api.duyet.net`).
+
+Read-only content against live public files: `posts`, `notes`, `series`, `kb`, `news`, `images`,
+`insights`. Search is local over cached indexes. `--no-cache` bypasses the disk HTTP cache.
+
+`news today` reads `https://aidr.today/api/public` (the default `news_url`; `news.duyet.net`
+host-redirects there). The payload is `{tldr:{date,bullets_en,bullets_vi}, stories:[...]}` rather
+than the retired news app digest.
+
+`insights overview` maps `api.duyet.net/api/insights/overview` dashboard totals (Cloudflare,
+PostHog, WakaTime, AI metrics), not blog post counts.
 
 Every other command is present in the tree with full arguments and `--help`, and exits 2 with
 `not implemented yet, tracked in #<issue>` (JSON: `code: "not_implemented"`, `tracking: <issue URL>`):
 
 | Commands | Tracked in |
 |---|---|
-| `posts`, `notes`, `series`, `kb`, `news`, `images`, `insights` | [#1443](https://github.com/duyet/monorepo/issues/1443) |
 | `chat`, `auth` | [#1445](https://github.com/duyet/monorepo/issues/1445) |
 | `update` | [#1447](https://github.com/duyet/monorepo/issues/1447) |
 

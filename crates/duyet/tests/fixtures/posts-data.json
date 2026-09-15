@@ -1,0 +1,21 @@
+[
+  {
+    "slug": "/2026/08/grok-bot",
+    "title": "Grok Bot",
+    "date": "2026-08-19T00:00:00.000Z",
+    "category": "AI",
+    "category_slug": "ai",
+    "tags": ["Grok", "Agents"],
+    "excerpt": "The harness is surprisingly good.",
+    "thumbnail": "/media/hero.jpg"
+  },
+  {
+    "slug": "/2024/01/hello",
+    "title": "Hello",
+    "date": "2024-01-01T00:00:00.000Z",
+    "category": "data",
+    "category_slug": "data",
+    "tags": ["Rust"],
+    "excerpt": "A first post about rust wasm."
+  }
+]

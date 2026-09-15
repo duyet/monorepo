@@ -1,8 +1,10 @@
 use clap::{Args as ClapArgs, Subcommand};
 
-use crate::error::{CliError, Slice};
-
-const SLICE: Slice = Slice::P2Content;
+use super::Ctx;
+use crate::config::ConfigKey;
+use crate::content::{http, load_series, series_read, series_summaries};
+use crate::domain::SeriesList;
+use crate::error::CliError;
 
 const AFTER_HELP: &str = "\
 Source: <blog_url>/series-data.json.
@@ -15,9 +17,7 @@ JSON (duyet.series.v1):
   list:
     {\"items\":[{\"slug\":\"..\",\"title\":\"..\",\"count\":N,\"url\":\"..\"}]}
   read:
-    {\"slug\":\"..\",\"title\":\"..\",\"description\":\"..\",\"posts\":[{\"slug\":\"..\",\"title\":\"..\",\"date\":\"..\"}]}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443";
+    {\"slug\":\"..\",\"title\":\"..\",\"description\":\"..\",\"posts\":[{\"slug\":\"..\",\"title\":\"..\",\"date\":\"..\"}]}";
 
 #[derive(Debug, ClapArgs)]
 #[command(after_long_help = AFTER_HELP)]
@@ -39,6 +39,23 @@ pub enum SeriesCommand {
     },
 }
 
-pub fn run(_args: &Args) -> Result<(), CliError> {
-    Err(CliError::NotImplemented(SLICE))
+pub fn run(args: &Args, ctx: &Ctx) -> Result<(), CliError> {
+    let http = http(ctx)?;
+    let blog = ctx.settings.url(ConfigKey::BlogUrl).clone();
+    let series = load_series(ctx, &http)?;
+    match &args.command {
+        SeriesCommand::List => ctx.emit(&SeriesList {
+            items: series_summaries(&blog, &series),
+        }),
+        SeriesCommand::Read { slug } => {
+            let entry = series
+                .iter()
+                .find(|s| s.slug == *slug || s.name.eq_ignore_ascii_case(slug))
+                .ok_or_else(|| CliError::Missing {
+                    resource: "series",
+                    id: slug.clone(),
+                })?;
+            ctx.emit(&series_read(entry))
+        }
+    }
 }

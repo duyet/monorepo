@@ -200,14 +200,7 @@ fn version_human_and_json() {
 #[test]
 fn stubs_exit_2_with_tracking_issue() {
     let sb = Sandbox::new();
-    let cases: [(&[&str], u32); 10] = [
-        (&["posts", "list"], 1443),
-        (&["notes", "list"], 1443),
-        (&["series", "list"], 1443),
-        (&["kb", "list"], 1443),
-        (&["news", "today"], 1443),
-        (&["images", "download", "x", "--out", "d"], 1443),
-        (&["insights", "overview"], 1443),
+    let cases: [(&[&str], u32); 3] = [
         (&["chat"], 1445),
         (&["auth", "status"], 1445),
         (&["update", "--check"], 1447),
@@ -894,4 +887,195 @@ fn comment_known_slug_posts_once() {
     assert_eq!(value["data"]["kind"], "comment");
     assert!(!stdout(&output).contains("nice"));
     assert_eq!(api_reqs.lock().unwrap().len(), 1);
+}
+
+fn fixture(name: &str) -> String {
+    fs::read_to_string(
+        Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("tests/fixtures")
+            .join(name),
+    )
+    .unwrap()
+}
+
+/// Serves GET paths from a map until the thread is dropped (bounded accepts).
+fn serve_routes(routes: Vec<(&'static str, String)>) -> url::Url {
+    let listener = TcpListener::bind("127.0.0.1:0").unwrap();
+    let addr = listener.local_addr().unwrap();
+    thread::spawn(move || {
+        for _ in 0..64 {
+            let Ok((mut stream, _)) = listener.accept() else {
+                break;
+            };
+            let mut reader = BufReader::new(stream.try_clone().unwrap());
+            let mut request = String::new();
+            loop {
+                let mut line = String::new();
+                if reader.read_line(&mut line).unwrap() == 0 || line == "\r\n" {
+                    break;
+                }
+                if request.is_empty() {
+                    request = line;
+                }
+            }
+            let path = request
+                .split_whitespace()
+                .nth(1)
+                .unwrap_or("/")
+                .split('?')
+                .next()
+                .unwrap_or("/");
+            let body = routes
+                .iter()
+                .find(|(p, _)| *p == path)
+                .map(|(_, b)| b.as_str());
+            let (status, body) = match body {
+                Some(body) => (200, body.as_bytes().to_vec()),
+                None => (404, b"nope".to_vec()),
+            };
+            let text = format!(
+                "HTTP/1.1 {status} X\r\nConnection: close\r\nContent-Length: {}\r\n\r\n",
+                body.len()
+            );
+            stream.write_all(text.as_bytes()).ok();
+            stream.write_all(&body).ok();
+        }
+    });
+    url::Url::parse(&format!("http://{addr}/")).unwrap()
+}
+
+#[test]
+fn content_commands_against_fixture_server() {
+    let posts = fixture("posts-data.json");
+    let content = fixture("posts-content/2026-08-grok-bot.json");
+    let notes = fixture("notes-data.json");
+    let llms = fixture("llms.txt");
+    let news = fixture("api-public.json");
+    let welcome = "---\ntitle: \"Welcome to the Knowledge Base\"\n---\n# Hi\n";
+    let series = r#"[{"name":"AI Harness","slug":"ai-harness","posts":[{"slug":"/2026/08/grok-bot","title":"Grok Bot","date":"2026-08-19"}]}]"#;
+    let insights = r#"{"cloudflare":{"generatedAt":"2026-09-15T00:00:00Z","totalRequests":9,"totalPageviews":3},"posthog":{"totalViews":1,"totalVisitors":1},"wakaMetrics":{"totalHours":2.5,"topLanguage":"Rust"},"aiMetrics":{"totalTokens":10,"totalCost":0.1}}"#;
+    let img = "IMG";
+    let origin = serve_routes(vec![
+        ("/posts-data.json", posts),
+        ("/posts-content/2026-08-grok-bot.json", content),
+        ("/notes-data.json", notes),
+        ("/series-data.json", series.into()),
+        ("/llms.txt", llms),
+        ("/k/welcome.md", welcome.into()),
+        ("/api/public", news),
+        ("/api/insights/overview", insights.into()),
+        ("/media/a.jpg", img.into()),
+        ("/media/b.jpg", img.into()),
+        ("/media/c.jpg", img.into()),
+        ("/media/hero.jpg", img.into()),
+        (
+            "/note/how-do-i-trust.md",
+            "---\ntitle: How do I trust\n---\nbody\n".into(),
+        ),
+    ]);
+    let sb = Sandbox::new();
+    let base = origin.as_str().trim_end_matches('/').to_owned();
+    let run_json = |args: &[&str]| {
+        let mut cmd = sb.cmd();
+        cmd.env("DUYET_BLOG_URL", &base)
+            .env("DUYET_KB_URL", &base)
+            .env("DUYET_NEWS_URL", &base)
+            .env("DUYET_API_URL", &base)
+            .args(args);
+        let output = cmd.output().unwrap();
+        let stdout = String::from_utf8(output.stdout).unwrap();
+        let value: serde_json::Value =
+            serde_json::from_str(stdout.trim()).unwrap_or_else(|err| panic!("{err}: {stdout}"));
+        (value, output.status.code().unwrap(), stdout)
+    };
+
+    let (value, code, _) = run_json(&["posts", "list", "--json"]);
+    assert_eq!(code, 0);
+    assert_eq!(value["ok"], true);
+    assert_eq!(value["data"]["items"].as_array().unwrap().len(), 2);
+    assert_eq!(value["data"]["items"][0]["slug"], "2026/08/grok-bot");
+
+    let (value, code, _) = run_json(&["posts", "search", "grok", "--json"]);
+    assert_eq!(code, 0);
+    assert!(
+        value["data"]["items"][0]["slug"]
+            .as_str()
+            .unwrap()
+            .contains("grok-bot")
+    );
+
+    let (value, code, _) = run_json(&["posts", "read", "no-such-post", "--json"]);
+    assert_eq!(code, 6);
+    assert_eq!(value["error"]["code"], "not_found");
+
+    let out_dir = sb.cache_dir.path().join("imgs");
+    let (value, code, _) = run_json(&[
+        "posts",
+        "read",
+        "2026/08/grok-bot",
+        "--images",
+        out_dir.to_str().unwrap(),
+        "--json",
+    ]);
+    assert_eq!(code, 0, "{value}");
+    assert_eq!(value["data"]["title"], "Grok Bot");
+    let written: Vec<_> = fs::read_dir(&out_dir)
+        .unwrap()
+        .filter_map(|e| e.ok())
+        .collect();
+    assert!(written.len() >= 3, "{written:?}");
+
+    let (value, code, _) = run_json(&["notes", "list", "--json"]);
+    assert_eq!(code, 0);
+    assert_eq!(value["data"]["items"][0]["id"], "how-do-i-trust");
+
+    let (value, code, _) = run_json(&["series", "read", "ai-harness", "--json"]);
+    assert_eq!(code, 0);
+    assert_eq!(value["data"]["posts"][0]["slug"], "2026/08/grok-bot");
+
+    let (value, code, _) = run_json(&["kb", "list", "--json"]);
+    assert_eq!(code, 0);
+    assert_eq!(value["data"]["items"][0]["slug"], "welcome");
+
+    let output = sb
+        .cmd()
+        .env("DUYET_KB_URL", &base)
+        .args(["kb", "read", "welcome"])
+        .output()
+        .unwrap();
+    assert_eq!(exit(&output), 0, "{}", stderr(&output));
+    assert!(stdout(&output).contains("Welcome to the Knowledge Base"));
+
+    let (value, code, _) = run_json(&["news", "today", "--json"]);
+    assert_eq!(code, 0);
+    assert_eq!(value["ok"], true);
+    assert_eq!(value["data"]["date"], "2026-09-16");
+
+    let (value, code, _) = run_json(&["insights", "overview", "--json"]);
+    assert_eq!(code, 0);
+    assert_eq!(value["data"]["cloudflare_requests"], 9);
+}
+
+#[test]
+fn http_no_cache_skips_fresh_entry() {
+    let dir = tempfile::tempdir().unwrap();
+    let (url, requests) = serve(vec![
+        scripted(200, &[("Cache-Control", "max-age=60")], "one"),
+        scripted(200, &[("Cache-Control", "max-age=60")], "two"),
+    ]);
+    let first = http(dir.path(), false).get(&url).unwrap();
+    assert_eq!(first.body, "one");
+    let mut args = vec!["duyet", "--timeout", "5", "--no-cache", "version"];
+    let cli = Cli::try_parse_from(args.drain(..)).unwrap();
+    let paths = Paths {
+        config_file: dir.path().join("config.toml"),
+        cache_dir: dir.path().to_path_buf(),
+        data_dir: dir.path().to_path_buf(),
+    };
+    let settings = Settings::resolve(None, &cli.globals).unwrap();
+    let client = Http::new(&paths, &cli.globals, &settings).unwrap();
+    let second = client.get(&url).unwrap();
+    assert_eq!(second.body, "two");
+    assert!(!second.from_cache);
+    assert_eq!(requests.lock().unwrap().len(), 2);
 }

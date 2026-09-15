@@ -115,6 +115,9 @@ Global options:
       --offline
           Serve from cache only and skip network probes (or DUYET_OFFLINE=1)
 
+      --no-cache
+          Bypass the disk HTTP cache (always refetch)
+
       --timeout <SECS>
           HTTP timeout in seconds
           
@@ -173,9 +176,7 @@ JSON (duyet.posts.v1):
     {"items":[{"slug":"..","title":"..","date":"YYYY-MM-DD","category":"..","tags":[..],"url":".."}],
      "next_cursor":".."?}
   read:
-    {"slug":"..","title":"..","date":"..","markdown":"..","images":[".."]}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443
+    {"slug":"..","title":"..","date":"..","markdown":"..","images":[".."],"is_mdx":false}
 ```
 
 ## `duyet posts list`
@@ -195,6 +196,12 @@ Options:
       --tag <T>
           Only posts with this tag
 
+      --format <FORMAT>
+          table (default) or rss XML
+          
+          [default: table]
+          [possible values: table, rss]
+
   -h, --help
           Print help (see a summary with '-h')
 
@@ -212,9 +219,7 @@ JSON (duyet.posts.v1):
     {"items":[{"slug":"..","title":"..","date":"YYYY-MM-DD","category":"..","tags":[..],"url":".."}],
      "next_cursor":".."?}
   read:
-    {"slug":"..","title":"..","date":"..","markdown":"..","images":[".."]}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443
+    {"slug":"..","title":"..","date":"..","markdown":"..","images":[".."],"is_mdx":false}
 ```
 
 ## `duyet posts search`
@@ -246,9 +251,7 @@ JSON (duyet.posts.v1):
     {"items":[{"slug":"..","title":"..","date":"YYYY-MM-DD","category":"..","tags":[..],"url":".."}],
      "next_cursor":".."?}
   read:
-    {"slug":"..","title":"..","date":"..","markdown":"..","images":[".."]}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443
+    {"slug":"..","title":"..","date":"..","markdown":"..","images":[".."],"is_mdx":false}
 ```
 
 ## `duyet posts read`
@@ -286,9 +289,7 @@ JSON (duyet.posts.v1):
     {"items":[{"slug":"..","title":"..","date":"YYYY-MM-DD","category":"..","tags":[..],"url":".."}],
      "next_cursor":".."?}
   read:
-    {"slug":"..","title":"..","date":"..","markdown":"..","images":[".."]}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443
+    {"slug":"..","title":"..","date":"..","markdown":"..","images":[".."],"is_mdx":false}
 ```
 
 ## `duyet posts open`
@@ -320,9 +321,7 @@ JSON (duyet.posts.v1):
     {"items":[{"slug":"..","title":"..","date":"YYYY-MM-DD","category":"..","tags":[..],"url":".."}],
      "next_cursor":".."?}
   read:
-    {"slug":"..","title":"..","date":"..","markdown":"..","images":[".."]}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443
+    {"slug":"..","title":"..","date":"..","markdown":"..","images":[".."],"is_mdx":false}
 ```
 
 ## `duyet notes`
@@ -351,8 +350,6 @@ Examples:
 JSON (duyet.notes.v1):
   list: {"items":[{"id":"..","title":"..","date":"YYYY-MM-DD","url":".."}]}
   read: {"id":"..","title":"..","date":"..","markdown":".."}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443
 ```
 
 ## `duyet notes list`
@@ -376,8 +373,6 @@ Examples:
 JSON (duyet.notes.v1):
   list: {"items":[{"id":"..","title":"..","date":"YYYY-MM-DD","url":".."}]}
   read: {"id":"..","title":"..","date":"..","markdown":".."}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443
 ```
 
 ## `duyet notes read`
@@ -405,8 +400,6 @@ Examples:
 JSON (duyet.notes.v1):
   list: {"items":[{"id":"..","title":"..","date":"YYYY-MM-DD","url":".."}]}
   read: {"id":"..","title":"..","date":"..","markdown":".."}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443
 ```
 
 ## `duyet series`
@@ -436,8 +429,6 @@ JSON (duyet.series.v1):
     {"items":[{"slug":"..","title":"..","count":N,"url":".."}]}
   read:
     {"slug":"..","title":"..","description":"..","posts":[{"slug":"..","title":"..","date":".."}]}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443
 ```
 
 ## `duyet series list`
@@ -462,8 +453,6 @@ JSON (duyet.series.v1):
     {"items":[{"slug":"..","title":"..","count":N,"url":".."}]}
   read:
     {"slug":"..","title":"..","description":"..","posts":[{"slug":"..","title":"..","date":".."}]}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443
 ```
 
 ## `duyet series read`
@@ -492,8 +481,6 @@ JSON (duyet.series.v1):
     {"items":[{"slug":"..","title":"..","count":N,"url":".."}]}
   read:
     {"slug":"..","title":"..","description":"..","posts":[{"slug":"..","title":"..","date":".."}]}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443
 ```
 
 ## `duyet kb`
@@ -523,8 +510,6 @@ Examples:
 JSON (duyet.kb.v1):
   list/search: {"items":[{"slug":"..","title":"..","category":"..","url":".."}]}
   read:        {"slug":"..","title":"..","markdown":"..","links":[".."]}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443
 ```
 
 ## `duyet kb list`
@@ -551,8 +536,6 @@ Examples:
 JSON (duyet.kb.v1):
   list/search: {"items":[{"slug":"..","title":"..","category":"..","url":".."}]}
   read:        {"slug":"..","title":"..","markdown":"..","links":[".."]}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443
 ```
 
 ## `duyet kb search`
@@ -580,8 +563,6 @@ Examples:
 JSON (duyet.kb.v1):
   list/search: {"items":[{"slug":"..","title":"..","category":"..","url":".."}]}
   read:        {"slug":"..","title":"..","markdown":"..","links":[".."]}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443
 ```
 
 ## `duyet kb read`
@@ -612,8 +593,6 @@ Examples:
 JSON (duyet.kb.v1):
   list/search: {"items":[{"slug":"..","title":"..","category":"..","url":".."}]}
   read:        {"slug":"..","title":"..","markdown":"..","links":[".."]}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443
 ```
 
 ## `duyet news`
@@ -631,7 +610,11 @@ Options:
   -h, --help
           Print help (see a summary with '-h')
 
-Source: <news_url>/api/public.
+Source: <news_url>/api/public (default https://aidr.today; news.duyet.net host-redirects there).
+
+The live payload is `{tldr:{date,bullets_en,bullets_vi}, stories:[{title,title_vi,url,category}]}`.
+`news today` maps bullets for `--lang` plus the stories list. There is no `score` field on
+aidr.today.
 
 Examples:
   duyet news today
@@ -640,10 +623,8 @@ Examples:
 
 JSON (duyet.news.v1):
   today:
-    {"date":"YYYY-MM-DD","lang":"en|vi",
-     "stories":[{"title":"..","summary":"..","url":"..","score":N}]}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443
+    {"date":"YYYY-MM-DD","lang":"en|vi","source":"..",
+     "stories":[{"title":"..","summary":"..?","url":"..?","score":N?}]}
 ```
 
 ## `duyet news today`
@@ -663,7 +644,11 @@ Options:
   -h, --help
           Print help (see a summary with '-h')
 
-Source: <news_url>/api/public.
+Source: <news_url>/api/public (default https://aidr.today; news.duyet.net host-redirects there).
+
+The live payload is `{tldr:{date,bullets_en,bullets_vi}, stories:[{title,title_vi,url,category}]}`.
+`news today` maps bullets for `--lang` plus the stories list. There is no `score` field on
+aidr.today.
 
 Examples:
   duyet news today
@@ -672,10 +657,8 @@ Examples:
 
 JSON (duyet.news.v1):
   today:
-    {"date":"YYYY-MM-DD","lang":"en|vi",
-     "stories":[{"title":"..","summary":"..","url":"..","score":N}]}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443
+    {"date":"YYYY-MM-DD","lang":"en|vi","source":"..",
+     "stories":[{"title":"..","summary":"..?","url":"..?","score":N?}]}
 ```
 
 ## `duyet images`
@@ -702,8 +685,6 @@ Examples:
 JSON (duyet.images.v1):
   download:
     {"slug":"..","out":"DIR","files":[{"url":"..","path":"..","bytes":N}],"skipped":[".."]}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443
 ```
 
 ## `duyet images download`
@@ -736,8 +717,6 @@ Examples:
 JSON (duyet.images.v1):
   download:
     {"slug":"..","out":"DIR","files":[{"url":"..","path":"..","bytes":N}],"skipped":[".."]}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443
 ```
 
 ## `duyet insights`
@@ -757,16 +736,17 @@ Options:
 
 Source: <api_url>/api/insights/overview.
 
+Live shape is the insights dashboard (Cloudflare / PostHog / WakaTime / AI metrics), not
+blog post counts. Unknown fields are ignored.
+
 Examples:
   duyet insights overview
   duyet insights overview --json | jq .data
 
 JSON (duyet.insights.v1):
-  overview:
-    {"posts":N,"words":N,"first_post":"YYYY-MM-DD","latest_post":"YYYY-MM-DD",
-     "categories":[{"name":"..","count":N}]}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443
+  {"generated_at":"..?","cloudflare_requests":N,"cloudflare_pageviews":N,
+   "posthog_views":N,"posthog_visitors":N,"waka_hours":N,"waka_top_language":"..",
+   "ai_tokens":N,"ai_cost":N}
 ```
 
 ## `duyet insights overview`
@@ -782,16 +762,17 @@ Options:
 
 Source: <api_url>/api/insights/overview.
 
+Live shape is the insights dashboard (Cloudflare / PostHog / WakaTime / AI metrics), not
+blog post counts. Unknown fields are ignored.
+
 Examples:
   duyet insights overview
   duyet insights overview --json | jq .data
 
 JSON (duyet.insights.v1):
-  overview:
-    {"posts":N,"words":N,"first_post":"YYYY-MM-DD","latest_post":"YYYY-MM-DD",
-     "categories":[{"name":"..","count":N}]}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443
+  {"generated_at":"..?","cloudflare_requests":N,"cloudflare_pageviews":N,
+   "posthog_views":N,"posthog_visitors":N,"waka_hours":N,"waka_top_language":"..",
+   "ai_tokens":N,"ai_cost":N}
 ```
 
 ## `duyet chat`

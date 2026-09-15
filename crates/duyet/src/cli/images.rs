@@ -2,9 +2,11 @@ use std::path::PathBuf;
 
 use clap::{Args as ClapArgs, Subcommand};
 
-use crate::error::{CliError, Slice};
-
-const SLICE: Slice = Slice::P2Content;
+use super::Ctx;
+use crate::config::ConfigKey;
+use crate::content::{download_images, find_post, http, load_post_content, load_posts};
+use crate::domain::{ImageManifest, normalize_slug};
+use crate::error::CliError;
 
 const AFTER_HELP: &str = "\
 Only images on the post's own origin (blog_url) are fetched unless --allow-external is passed.
@@ -15,9 +17,7 @@ Examples:
 
 JSON (duyet.images.v1):
   download:
-    {\"slug\":\"..\",\"out\":\"DIR\",\"files\":[{\"url\":\"..\",\"path\":\"..\",\"bytes\":N}],\"skipped\":[\"..\"]}
-
-Status: not implemented yet, tracked in https://github.com/duyet/monorepo/issues/1443";
+    {\"slug\":\"..\",\"out\":\"DIR\",\"files\":[{\"url\":\"..\",\"path\":\"..\",\"bytes\":N}],\"skipped\":[\"..\"]}";
 
 #[derive(Debug, ClapArgs)]
 #[command(after_long_help = AFTER_HELP)]
@@ -42,6 +42,34 @@ pub enum ImagesCommand {
     },
 }
 
-pub fn run(_args: &Args) -> Result<(), CliError> {
-    Err(CliError::NotImplemented(SLICE))
+pub fn run(args: &Args, ctx: &Ctx) -> Result<(), CliError> {
+    let http = http(ctx)?;
+    let blog = ctx.settings.url(ConfigKey::BlogUrl).clone();
+    match &args.command {
+        ImagesCommand::Download {
+            post_slug,
+            out,
+            allow_external,
+        } => {
+            let posts = load_posts(ctx, &http)?;
+            let post = find_post(&posts, post_slug)?;
+            let content = load_post_content(ctx, &http, &post.slug)?;
+            let extra = post.thumbnail.clone().into_iter().collect::<Vec<_>>();
+            let (files, skipped) = download_images(
+                &http,
+                &blog,
+                &content.content,
+                &content.html,
+                &extra,
+                out,
+                *allow_external,
+            )?;
+            ctx.emit(&ImageManifest {
+                slug: normalize_slug(&post.slug),
+                out: out.clone(),
+                files,
+                skipped,
+            })
+        }
+    }
 }
