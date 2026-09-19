@@ -109,7 +109,7 @@ const CLOUDFLARE_ENV = {
 const PRODUCTION_BRANCH =
   process.env.CF_PAGES_PRODUCTION_BRANCH ||
   DEPLOY_ENV.CF_PAGES_PRODUCTION_BRANCH ||
-  "master";
+  "main";
 
 // Dynamically discover Cloudflare Pages apps
 const APPS_CONFIG = discoverPagesApps();
@@ -264,10 +264,10 @@ async function preflightCloudflareAuth(): Promise<boolean> {
  * 2. Changes to shared packages (affects all apps)
  * 3. Changes to shared config files (affects all apps)
  *
- * @param baseBranch - The git branch to compare against (default: origin/master)
+ * @param baseBranch - The git branch to compare against (default: origin/main)
  * @returns Array of app names that need to be built
  */
-function getChangedApps(baseBranch = "origin/master"): string[] {
+function getChangedApps(baseBranch = "origin/main"): string[] {
   if (force) {
     console.log("[INFO] Force mode enabled, building all apps");
     return appsToDeployList;
@@ -614,7 +614,7 @@ async function deployApp(appName: string): Promise<{
       encoding: "utf-8",
     });
     const branch = (gitBranch.stdout ?? "").trim();
-    if (branch && branch !== "main" && branch !== "master") {
+    if (branch && branch !== "main") {
       wranglerCmd.push(`--branch=${branch}`);
     }
   }

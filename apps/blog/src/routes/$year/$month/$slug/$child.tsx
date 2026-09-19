@@ -79,7 +79,7 @@ export const Route = createFileRoute("/$year/$month/$slug/$child")({
       "https://github.com/duyet/monorepo";
     const sourceExt = postWithContent.isMDX ? "mdx" : "md";
     const file = `${year}/${month}/${slug}/${child}.${sourceExt}`;
-    const edit_url = `${repoUrl}/edit/master/apps/blog/_posts/${file}`;
+    const edit_url = `${repoUrl}/edit/main/apps/blog/_posts/${file}`;
 
     const { htmlContent, mdxSource } =
       await resolveArticleHtml(postWithContent);

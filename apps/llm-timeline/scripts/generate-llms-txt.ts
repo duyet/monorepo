@@ -53,7 +53,7 @@ Each model entry includes:
 ## Source
 
 - Data: https://lifearchitect.ai/models-table
-- Code: https://github.com/duyet/monorepo/tree/master/apps/llm-timeline
+- Code: https://github.com/duyet/monorepo/tree/main/apps/llm-timeline
 - Last updated: ${lastSynced}
 
 ## License

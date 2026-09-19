@@ -14,7 +14,7 @@ Each plan file ends with a `## Kickoff Prompt` block. Copy it into a new agent s
 ### Overnight Agent Contract (applies to every kickoff prompt)
 
 1. **Read first:** `CLAUDE.md` → `docs/ai/internal-knowledge.md` → the referenced plan file. Do not skip.
-2. **Autonomy:** full — implement, commit, push to `master`, and deploy to production (`pnpm run cf:deploy:prod` or the app's `cf:deploy:prod`). Pushing to `master` also auto-deploys via `.github/workflows/cf-deploy.yml`.
+2. **Autonomy:** full — implement, commit, push to `main`, and deploy to production (`pnpm run cf:deploy:prod` or the app's `cf:deploy:prod`). Pushing to `main` also auto-deploys via `.github/workflows/cf-deploy.yml`.
 3. **Commits:** semantic messages with a scope from `.commitlintrc.js` (e.g. `feat(blog): …`). Keep changes surgical; do not reformat unrelated code.
 4. **Verify narrow → broad:** `pnpm exec biome lint <path>` first, then `pnpm run lint` / `pnpm run check-types` / `pnpm run test` for the touched apps. Never mark done on a red check.
 5. **Build/deploy on the main thread**, never inside a subagent (repo rule). Subagents may explore/implement; the main thread builds, deploys, and QAs.

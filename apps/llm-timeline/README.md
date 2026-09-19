@@ -54,4 +54,4 @@ Edit `lib/data.ts` and add models to the `models` array following the type struc
 pnpm run cf:deploy:prod  # Deploy to Cloudflare Pages production
 ```
 
-GitHub Actions automatically deploy on push to `master`.
+GitHub Actions automatically deploy on push to `main`.

@@ -86,7 +86,7 @@ export const Route = createFileRoute("/$year/$month/$slug/")({
       import.meta.env.VITE_GITHUB_REPO_URL ||
       "https://github.com/duyet/monorepo";
     const file = `${year}/${month}/${slug}.md`;
-    const edit_url = `${repoUrl}/edit/master/apps/blog/_posts/${file}`;
+    const edit_url = `${repoUrl}/edit/main/apps/blog/_posts/${file}`;
 
     const { htmlContent, mdxSource } =
       await resolveArticleHtml(postWithContent);
