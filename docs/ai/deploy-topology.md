@@ -7,7 +7,7 @@ behavior change without a real `pnpm run cf:deploy -- --dry-run`.
 
 | Train | Workflow | Trigger | What it ships |
 | --- | --- | --- | --- |
-| Pages | `.github/workflows/cf-deploy.yml` (prod) and `cf-deploy-preview.yml` (PRs) | push to `master`/`main`, PRs, daily cron for `burns` | Any `apps/*` with `pages_build_output_dir` in `wrangler.toml` **and** a `cf:deploy:prod` script. Discovery is `scripts/cf-pages-apps.ts` — do not hardcode the app list. |
+| Pages | `.github/workflows/cf-deploy.yml` (prod) and `cf-deploy-preview.yml` (PRs) | push to `main`, PRs, daily cron for `burns` | Any `apps/*` with `pages_build_output_dir` in `wrangler.toml` **and** a `cf:deploy:prod` script. Discovery is `scripts/cf-pages-apps.ts` — do not hardcode the app list. |
 | Workers | `.github/workflows/cf-worker-deploy.yml` | path filters on `apps/agent-api`, `apps/api`, `apps/news-redirect`, `packages/**` | `duyet-agents-api`, `duyet-api`, `duyet-news` |
 
 Orchestration locally / in CI Pages jobs: `scripts/cf-deploy.ts`. App-level `cf:deploy:prod` scripts remain authoritative when present.
@@ -17,7 +17,7 @@ Orchestration locally / in CI Pages jobs: `scripts/cf-deploy.ts`. App-level `cf:
 ### CI Pages workflows (`scripts/cf-deploy-matrix.ts`)
 
 Prod and preview workflows call the matrix with workflow-provided `--base` /
-`--head` SHAs (not `origin/master...HEAD`). Shared rebuilds fire only when
+`--head` SHAs (not `origin/main...HEAD`). Shared rebuilds fire only when
 changed files match:
 
 - `apps/` (per-app selection)
@@ -31,7 +31,7 @@ Pages app to rebuild in CI.
 
 ### Local / manual (`scripts/cf-deploy.ts`)
 
-`pnpm run cf:deploy` still diffs `origin/master...HEAD` and also watches
+`pnpm run cf:deploy` still diffs `origin/main...HEAD` and also watches
 `turbo.json`, `.env.production`, and `scripts/` for full rebuilds. A
 lockfile-only or `packages/**` change rebuilds every requested Pages app.
 `--force` skips detection (`pnpm run cf:deploy -- --force`).
@@ -64,7 +64,7 @@ Runtime data, not deploy edges:
 
 ## Pages vs Worker race
 
-`cf-deploy.yml` and `cf-worker-deploy.yml` both fire on `master` pushes and do **not** `needs:` each other. That is safe for static Pages that bake data at build time.
+`cf-deploy.yml` and `cf-worker-deploy.yml` both fire on `main` pushes and do **not** `needs:` each other. That is safe for static Pages that bake data at build time.
 
 The one runtime coupling is **agent-ui → agent-api**. A breaking Worker contract can land while Pages still serves the previous UI (or the reverse). Prefer:
 

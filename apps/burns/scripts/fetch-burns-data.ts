@@ -10,7 +10,7 @@ const MOTHERDUCK_TOKEN = process.env.MOTHERDUCK_TOKEN;
 const OUTPUT_DIR = join(import.meta.dirname, "..", "public");
 const OUTPUT_FILE = join(OUTPUT_DIR, "token-data.json");
 
-/** Master/cron/manual deploys must refresh. Preview and local can keep the snapshot. */
+/** Main/cron/manual deploys must refresh. Preview and local can keep the snapshot. */
 function requiresFreshBurnsData(
   eventName = process.env.GITHUB_EVENT_NAME,
   ref = process.env.GITHUB_REF,
@@ -18,7 +18,6 @@ function requiresFreshBurnsData(
   return (
     eventName === "schedule" ||
     eventName === "workflow_dispatch" ||
-    ref === "refs/heads/master" ||
     ref === "refs/heads/main"
   );
 }

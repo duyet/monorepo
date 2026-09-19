@@ -90,7 +90,7 @@ if (!existsSync(appPath)) {
 
 const env = loadDeployEnv();
 const outputDir = readOutputDir(appDir, explicitOutputDir);
-const productionBranch = env.CF_PAGES_PRODUCTION_BRANCH || "master";
+const productionBranch = env.CF_PAGES_PRODUCTION_BRANCH || "main";
 const envLocal = join(rootDir, ".env.local");
 const envLocalBackup = join(rootDir, ".env.local.deploy-bak");
 let movedEnvLocal = false;

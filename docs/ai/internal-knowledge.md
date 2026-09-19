@@ -32,7 +32,7 @@ When this session has `HERDR_ENV=1` and the user asks for a Herdr worktree / par
 3. Required follow-up — parse `.result.root_pane.pane_id`, then start and prompt:
 
 ```bash
-CREATE=$(herdr worktree create --cwd "$PWD" --branch feat/<name> --base origin/master --no-focus)
+CREATE=$(herdr worktree create --cwd "$PWD" --branch feat/<name> --base origin/main --no-focus)
 PANE=$(printf '%s' "$CREATE" | jq -r '.result.root_pane.pane_id')
 herdr agent start feat-<short> --kind cursor --pane "$PANE"
 herdr agent prompt feat-<short> "<full task spec>" --wait --timeout 600000
@@ -93,7 +93,7 @@ When the user asks for Tailscale / tailnet / remote access to a local Vite app:
 - `apps/data-sync`: operational CLI for ClickHouse analytics/activity syncs and migrations.
 - `apps/agent-assistant`: Vite-powered TanStack Start application with assistant-ui + LangGraph serving as a local agent interface. Deployed directly serverless on Cloudflare Workers/Pages (`duyet-agent-assistant`) for `https://agent-assistant.duyet.net` utilizing a native Cloudflare Durable Object (`ThreadStateDO`) backed by SQLite for checkpoint persistence.
 - `apps/kb`: static TanStack Start knowledge base for `https://kb.duyet.net`, bundling `content/**/*.md` at build time and generating `llms.txt`, `llms-full.txt`, `sitemap.xml`, `robots.txt`, and raw `public/k/*.md` article endpoints.
-- `apps/burns`: Vite/Cloudflare Pages dashboard (`duyet-burns`) that prerenders Claude Code usage stats. `build` runs `scripts/fetch-burns-data.ts`, which pulls `ccusage` data from MotherDuck (`MOTHERDUCK_TOKEN`); a daily cron refreshes it. Preview CI uses the GitHub `staging` environment secret (synced from local `.env.production.local`). If the token is missing, preview/local builds keep committed `public/token-data.json`; master/cron/manual deploys still require the token.
+- `apps/burns`: Vite/Cloudflare Pages dashboard (`duyet-burns`) that prerenders Claude Code usage stats. `build` runs `scripts/fetch-burns-data.ts`, which pulls `ccusage` data from MotherDuck (`MOTHERDUCK_TOKEN`); a daily cron refreshes it. Preview CI uses the GitHub `staging` environment secret (synced from local `.env.production.local`). If the token is missing, preview/local builds keep committed `public/token-data.json`; main/cron/manual deploys still require the token.
 - `apps/x-algo`: static TanStack Start explainer for the open-sourced X For You ranking weights at `https://x-algo.duyet.net`. Numbers live in `src/lib/scoring.ts` and must match `xai-org/x-algorithm` `home-mixer/params/param.rs`.
 - `apps/tip`: Ko-fi tip page on Cloudflare Pages for `https://tip.duyet.net` (Pages project `duyet-tip`). A single centered section embeds the official Ko-fi widget; widget URL lives in `src/lib/site.ts`. Keep the shared `SiteHeader`/`SiteFooter` chrome and the prerendered static HTML.
 - `apps/paid-api`: standalone x402 USDC-gated chat Worker for `https://paid.duyet.net` (`duyet-paid-api`). Payment replaces auth; see `apps/paid-api/README.md`.
@@ -111,7 +111,7 @@ When the user asks for Tailscale / tailnet / remote access to a local Vite app:
 
 ## Deployment Notes
 
-- Cloudflare Pages production deploys happen on pushes to `master` or `main`; PRs receive preview deploys.
+- Cloudflare Pages production deploys happen on pushes to `main`; PRs receive preview deploys.
 - Pages CI (`cf-deploy.yml`, `cf-deploy-preview.yml`) discovers deployable apps at runtime via `scripts/cf-pages-apps.ts`: any `apps/*` with `pages_build_output_dir` in `wrangler.toml` and a `cf:deploy:prod` script is included. Do not hardcode the app list in the workflow. New Pages apps (for example `kb`) deploy automatically when their tree or `packages/**` changes.
 - A scheduled daily job (cron `0 0 * * *` in `.github/workflows/cf-deploy.yml`) rebuilds and redeploys the `burns` app to refresh its prerendered stats from MotherDuck.
 - Pages vs Worker topology, lockfile-based rebuilds, and the agent-ui ↔ agent-api race: [`docs/ai/deploy-topology.md`](deploy-topology.md).

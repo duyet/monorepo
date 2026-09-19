@@ -41,5 +41,5 @@ For scoped reviews after the last run timestamp:
 - `cd apps/kb && pnpm run build` regenerates `public/{robots,sitemap,llms,llms-full}.txt` plus `public/k/*.md`; keep article `links` frontmatter intact for raw markdown consumers
 - Keep durable findings in `docs/ai/core-memory.md` and list reference docs in `docs/INDEX.md`
 - Do not create dated `docs/reviews/code-smell-dead-code-<DATE>.md` files
-- `gh run list --branch master --event push --limit 10 --json databaseId,headSha,status,conclusion,name,updatedAt` to confirm post-merge `master` CI is green
+- `gh run list --branch main --event push --limit 10 --json databaseId,headSha,status,conclusion,name,updatedAt` to confirm post-merge `main` CI is green
 - `gh run view <run-id> --job <job-id> --log-failed` to inspect CI failures with line-level stack traces

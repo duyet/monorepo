@@ -112,7 +112,7 @@ Track repos as targets, not as the center of the system.
 repos:
   monorepo:
     purpose: public apps maintenance
-    default_branch: master
+    default_branch: main
     normal_work: docs, UI polish, CI, dead code, small fixes
     risky_work: public redesign, deploy config, auth, data deletion
   anyrouter:

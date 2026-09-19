@@ -7,7 +7,7 @@ Read-only audit across four clusters. Evidence cited by path (line numbers appro
 1. **Leaked secrets in git (agent-assistant).** `apps/agent-assistant/backend/agent.ts` hardcodes real API-key prefixes as "placeholder detection" (`startsWith("sk-proj-epynv")`, `startsWith("AIzaSyBfJXU8rnLS1btLv")`); `apps/agent-assistant/scratch/test-anyrouter.ts` hardcodes a full `sk-ar-v1-…` AnyRouter key; on-disk `.env.local` holds matching full keys. **Treat these keys as compromised — rotate.**
 2. **`apps/api` is fully unauthenticated.** `POST /api/llm/generate` calls paid OpenRouter with no auth/rate-limit (cost-abuse/DoS, `routes/card-description-streaming.ts`); `/api/ai/percentage/*` runs unauthenticated ClickHouse queries; `/api/insights/overview` is gated only by a trivially-bypassable CORS check. `wrangler.toml` declares no KV/D1/R2 bindings. Contrast the exemplar `apps/agent-api/src/auth.ts` (timing-safe compare + Clerk).
 3. **Deceptive offline fallback.** When keys are invalid, `agent-assistant` `getOfflineFallbackResponse()` returns canned copy claiming the assistant is working normally. With the committed placeholder prefixes matching the only keys, the **default deployed state serves fake answers**.
-4. **Ungated Worker deploys.** `.github/workflows/cf-worker-deploy.yml` ships `api` + `agent-api` on push to `master` with no typecheck/test/lint gate.
+4. **Ungated Worker deploys.** `.github/workflows/cf-worker-deploy.yml` ships `api` + `agent-api` on push to `main` with no typecheck/test/lint gate.
 
 ## Cluster A — AI agents (`agent-api`, `agent-ui`, `agent-assistant`, `mcp`)
 

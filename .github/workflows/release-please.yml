@@ -1,9 +1,9 @@
 name: Release Please
 
-# release-please watches conventional commits landing on master and maintains
+# release-please watches conventional commits landing on main and maintains
 # standing release PRs (humans merge them; this workflow never auto-merges):
-#   - duyet (root): "chore(master): release X.Y.Z" → CHANGELOG.md, tag vX.Y.Z
-#   - crates/duyet CLI: "chore(master): release duyet X.Y.Z" → crates/duyet/CHANGELOG.md, tag duyet-vX.Y.Z
+#   - duyet (root): "chore(main): release X.Y.Z" → CHANGELOG.md, tag vX.Y.Z
+#   - crates/duyet CLI: "chore(main): release duyet X.Y.Z" → crates/duyet/CHANGELOG.md, tag duyet-vX.Y.Z
 # CLI commits under crates/duyet are exclude-paths on the root package.
 # Config + manifest live under .github/ to keep the repo root clean. Pre-1.0 bump
 # rules (see release-please-config.json): a plain feat bumps the PATCH; only a
@@ -12,7 +12,7 @@ name: Release Please
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   workflow_dispatch:
 
 permissions:

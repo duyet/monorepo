@@ -56,4 +56,4 @@ jobs:
           git commit -m "chore(llm-timeline): sync model data from Google Sheets + Epoch AI" \
             -m "Co-Authored-By: duyet <me@duyet.net>" \
             -m "Co-Authored-By: duyetbot <duyetbot@users.noreply.github.com>"
-          git push "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" HEAD:master
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" HEAD:main
