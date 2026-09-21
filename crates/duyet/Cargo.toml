@@ -34,5 +34,5 @@ url = "2"
 zip = { version = "2", default-features = false, features = ["deflate"] }
 
 [dev-dependencies]
-minisign = "0.7"
+minisign = "0.9"
 tempfile = "3"
