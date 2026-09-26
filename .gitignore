@@ -74,3 +74,6 @@ target/
 
 # Design handoff bundles (reference only)
 scratch/
+
+# Herdr desk run state (local only, never commit)
+.herdr-desk/runs/*/
