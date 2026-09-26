@@ -102,7 +102,7 @@ function NotePage(): ReactElement {
       </div>
       <div className="mx-auto max-w-3xl">
         {newer || older ? (
-          <nav className="mt-16 grid gap-3 border-t pt-8 sm:grid-cols-2">
+          <nav className="mt-16 grid gap-3 pt-8 sm:grid-cols-2">
             {newer ? (
               <NeighborCard note={newer} direction="newer" />
             ) : (
