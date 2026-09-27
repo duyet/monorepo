@@ -118,13 +118,16 @@ jobs:
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:ci
 
-      - name: Test Tailscale connectivity
+      - name: Test ClickHouse connectivity
         run: |
-          echo "Testing connectivity to ClickHouse at $CLICKHOUSE_HOST..."
-          if ping -c 3 "$CLICKHOUSE_HOST"; then
-            echo "✓ Successfully pinged ClickHouse host via Tailscale"
+          # ICMP is not reliable over Tailscale (ACLs commonly deny it), so probe
+          # the TCP port ClickHouse actually serves on instead of pinging.
+          port="${CLICKHOUSE_PORT:-443}"
+          echo "Testing TCP connectivity to ClickHouse at $CLICKHOUSE_HOST:$port..."
+          if timeout 15 bash -c "exec 3<>/dev/tcp/$CLICKHOUSE_HOST/$port"; then
+            echo "✓ Reached ClickHouse at $CLICKHOUSE_HOST:$port via Tailscale"
           else
-            echo "✗ Failed to ping ClickHouse host"
+            echo "✗ Failed to reach ClickHouse at $CLICKHOUSE_HOST:$port"
             echo "Available Tailscale IPs:"
             tailscale status --json | jq -r '.Peer[].TailscaleIPs[]' 2>/dev/null || echo "Could not retrieve Tailscale peers"
             exit 1
@@ -213,13 +216,16 @@ jobs:
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:ci
 
-      - name: Test Tailscale connectivity
+      - name: Test ClickHouse connectivity
         run: |
-          echo "Testing connectivity to ClickHouse at $CLICKHOUSE_HOST..."
-          if ping -c 3 "$CLICKHOUSE_HOST"; then
-            echo "✓ Successfully pinged ClickHouse host via Tailscale"
+          # ICMP is not reliable over Tailscale (ACLs commonly deny it), so probe
+          # the TCP port ClickHouse actually serves on instead of pinging.
+          port="${CLICKHOUSE_PORT:-443}"
+          echo "Testing TCP connectivity to ClickHouse at $CLICKHOUSE_HOST:$port..."
+          if timeout 15 bash -c "exec 3<>/dev/tcp/$CLICKHOUSE_HOST/$port"; then
+            echo "✓ Reached ClickHouse at $CLICKHOUSE_HOST:$port via Tailscale"
           else
-            echo "✗ Failed to ping ClickHouse host"
+            echo "✗ Failed to reach ClickHouse at $CLICKHOUSE_HOST:$port"
             echo "Available Tailscale IPs:"
             tailscale status --json | jq -r '.Peer[].TailscaleIPs[]' 2>/dev/null || echo "Could not retrieve Tailscale peers"
             exit 1
