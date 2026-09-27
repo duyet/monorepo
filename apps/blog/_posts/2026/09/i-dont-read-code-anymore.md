@@ -20,7 +20,7 @@ Agents are really much better now, and they'll keep getting better. People are s
 
 Disagree or debate me all you want, but soon you'll realize and admit I was right.
 
-You are also an asshole that slows things down on accept, prompt, and validating that agents work. My 60 agents are working right now. I have nothing to share here, everything is already out there and outdated every random morning. People keep building more ways for agents to validate themselves — pstack or whatever similar right now — but that changes soon too. Just keep up with all the tech you find and try them all, don't be stuck with your software engineer role anymore.
+You are also an asshole that slows things down on accept, prompt, and validating that agents work. My 60 agents are working right now. I have nothing to share here, everything is already out there and outdated every random morning. People keep building more ways for agents to validate themselves — pstack or whatever similar right now — but that changes soon too. Just keep up with all the techniq you found and try them all, don't be stick with your software engineer role anymore.
 
 I retired as a professional software engineer (damn, I miss the time when debugging took days or weeks with debug print out). Now I'm just the one who makes agents make programs.
 
