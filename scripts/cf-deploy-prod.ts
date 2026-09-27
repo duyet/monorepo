@@ -60,6 +60,13 @@ function readOutputDir(appDir: string, explicitOutputDir?: string): string {
   return outputDir?.[1] ?? "dist";
 }
 
+/** Carries a child process's exit code out so the top level can mirror it. */
+class CommandFailed extends Error {
+  constructor(readonly code: number) {
+    super(`Command exited with code ${code}`);
+  }
+}
+
 function runCommand(cmd: string[], cwd: string, env: Record<string, string>) {
   const result = spawnSync(cmd[0], cmd.slice(1), {
     cwd,
@@ -67,8 +74,14 @@ function runCommand(cmd: string[], cwd: string, env: Record<string, string>) {
     stdio: "inherit",
   });
 
+  if (result.error) {
+    throw result.error;
+  }
+
+  // Throw instead of process.exit(): process.exit() terminates immediately and
+  // skips the caller's finally, which is what restores .env.local.
   if (result.status !== 0) {
-    process.exit(result.status ?? 1);
+    throw new CommandFailed(result.status ?? 1);
   }
 }
 
@@ -94,6 +107,41 @@ const productionBranch = env.CF_PAGES_PRODUCTION_BRANCH || "main";
 const envLocal = join(rootDir, ".env.local");
 const envLocalBackup = join(rootDir, ".env.local.deploy-bak");
 let movedEnvLocal = false;
+
+// Self-heal a leak from a previous run that died uncatchably (SIGTERM, OOM
+// kill, power loss). Without this, .env.local stays parked as the .bak file
+// and every later deploy refuses to start.
+if (!existsSync(envLocal) && existsSync(envLocalBackup)) {
+  renameSync(envLocalBackup, envLocal);
+  console.log("  ↩ Restored .env.local left behind by an interrupted deploy");
+}
+
+/** Idempotent: safe to call from both the finally block and signal handlers. */
+function restoreEnvLocal() {
+  if (movedEnvLocal && existsSync(envLocalBackup)) {
+    renameSync(envLocalBackup, envLocal);
+    movedEnvLocal = false;
+    console.log("  ↩ Restored .env.local");
+  }
+}
+
+// The event loop is blocked inside spawnSync while the build runs, so these
+// fire only once the child returns. Registering them matters anyway: without a
+// listener Node terminates on SIGTERM immediately and never reaches the
+// finally block, stranding .env.local. The 128+signal exit codes are the
+// conventional shell convention.
+for (const [signal, code] of [
+  ["SIGHUP", 129],
+  ["SIGINT", 130],
+  ["SIGTERM", 143],
+] as const) {
+  process.on(signal, () => {
+    restoreEnvLocal();
+    process.exit(code);
+  });
+}
+
+let exitCode = 0;
 
 try {
   if (existsSync(envLocal)) {
@@ -121,8 +169,12 @@ try {
     appPath,
     env
   );
+} catch (err) {
+  exitCode = err instanceof CommandFailed ? err.code : 1;
+  console.error(err instanceof CommandFailed ? `✗ ${err.message}` : err);
 } finally {
-  if (movedEnvLocal && existsSync(envLocalBackup)) {
-    renameSync(envLocalBackup, envLocal);
-  }
+  restoreEnvLocal();
 }
+
+// Exiting only after the finally block keeps the .env.local restore in effect.
+process.exit(exitCode);
