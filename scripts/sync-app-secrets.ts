@@ -268,7 +268,6 @@ function loadEnvFiles(): Record<string, string> {
     ".env",
     ".env.local",
     ".env.production",
-    ".env.production.local",
   ];
   for (const file of rootEnvFiles) {
     const filePath = join(rootDir, file);
