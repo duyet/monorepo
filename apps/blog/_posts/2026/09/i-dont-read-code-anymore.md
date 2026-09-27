@@ -16,7 +16,11 @@ x: https://x.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2026%2F09%2Fi-dont-read
 
 It's actually been a year or two.
 
+Agents are really much better now, and they'll keep getting better. People are still surprised when I say that, but reading code makes no sense anymore.
+
 Disagree or debate me all you want, but soon you'll realize and admit I was right.
 
-I retired as a professional software engineer (damn, I miss it). Now I'm just the one who makes agents make programs.
+Keep up with your product, because you are the bottleneck on validating that agents work. 60 agents are running right now. People keep building more ways for agents to validate themselves — pstack or whatever it's called — but that changes soon too. Nothing to share there; everything is already out there, and it updates every morning.
+
+I retired as a professional software engineer (damn, I miss the time when debugging took days or weeks with debug print out). Now I'm just the one who makes agents make programs.
 
