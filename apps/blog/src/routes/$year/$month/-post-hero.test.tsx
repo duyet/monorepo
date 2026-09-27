@@ -43,4 +43,28 @@ describe("PostHero", () => {
     expect(video?.className).toContain("rounded");
     expect(container.querySelector("img")).toBeNull();
   });
+
+  it("renders comment links for Hacker News and X when set", () => {
+    const { getByText } = render(
+      <PostHero
+        post={{
+          ...post,
+          hackerNews: "https://news.ycombinator.com/item?id=49869107",
+          x: "https://x.com/search?q=post",
+        }}
+      />,
+    );
+    expect(getByText("Comment on HN ↗").getAttribute("href")).toBe(
+      "https://news.ycombinator.com/item?id=49869107",
+    );
+    expect(getByText("Comment on X ↗").getAttribute("href")).toBe(
+      "https://x.com/search?q=post",
+    );
+  });
+
+  it("omits comment links that are not set", () => {
+    const { queryByText } = render(<PostHero post={post} />);
+    expect(queryByText("Comment on HN ↗")).toBeNull();
+    expect(queryByText("Comment on X ↗")).toBeNull();
+  });
 });

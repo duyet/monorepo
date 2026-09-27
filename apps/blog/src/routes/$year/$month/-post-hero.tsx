@@ -3,6 +3,9 @@ import { formatReadingTime } from "@duyet/libs/date";
 import { MarkdownMenuWrapper } from "./-markdown-menu-wrapper";
 import type { LoadedPost } from "./-types";
 
+const commentLinkClass =
+  "font-[var(--font-mono)] text-[var(--rd-text-3)] text-[12.5px] underline underline-offset-4 decoration-[var(--rd-border)] hover:text-[var(--rd-text-1)] transition-colors";
+
 export function PostHero({ post }: { post: LoadedPost }) {
   const date = new Date(post.date).toLocaleDateString("en-US", {
     year: "numeric",
@@ -36,12 +39,22 @@ export function PostHero({ post }: { post: LoadedPost }) {
             {post.changelog.length} updates · updated {post.changelog[0].date}
           </span>
         )}
+        {post.hackerNews && (
+          <a
+            href={post.hackerNews}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={commentLinkClass}
+          >
+            Comment on HN ↗
+          </a>
+        )}
         {post.x && (
           <a
             href={post.x}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[12.5px] underline underline-offset-4 decoration-[var(--rd-border)] hover:text-[var(--rd-text-1)] transition-colors"
+            className={commentLinkClass}
           >
             Comment on X ↗
           </a>

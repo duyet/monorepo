@@ -247,6 +247,13 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
           : undefined;
     }
 
+    if (field === "hackerNews") {
+      post.hackerNews =
+        typeof data.hackerNews === "string" && data.hackerNews.trim().length > 0
+          ? data.hackerNews.trim()
+          : undefined;
+    }
+
     if (field === "changelog") {
       post.changelog = Array.isArray(data.changelog)
         ? data.changelog

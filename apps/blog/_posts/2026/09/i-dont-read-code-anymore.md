@@ -10,6 +10,8 @@ tags:
 slug: /2026/09/i-dont-read-code-anymore
 description: "It's been a year or two. Disagree or debate me all you want, but soon you'll realize and admit I was right."
 thumbnail: /media/2026/09/i-dont-read-code-anymore/thumbnail.jpg
+hackerNews: https://news.ycombinator.com/item?id=49869107
+x: https://x.com/search?q=https%3A%2F%2Fblog.duyet.net%2F2026%2F09%2Fi-dont-read-code-anymore%2F&src=typed_query
 ---
 
 It's actually been a year or two.
