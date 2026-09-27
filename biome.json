@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.4.15/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.5.14/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -23,6 +23,7 @@
       "!**/llm-timeline/lib/data.ts",
       "!**/x-algo/src/routeTree.gen.ts",
       "!**/.claude",
+      "!**/.cursor",
       "!**/routeTree.gen.ts",
       "!apps/kb/kb"
     ]
