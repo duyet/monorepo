@@ -32,9 +32,10 @@ jobs:
 
       - name: Run Claude Code
         id: claude
-        uses: anthropics/claude-code-action@cfc3eb22bfed5c26ef66e3223c982af27e4524de  # v1
+        uses: duyet/claude-anyrouter-action@main
         with:
-          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          anyrouter_api_key: ${{ secrets.ANYROUTER_API_KEY }}
+          app_attribution: ${{ github.server_url }}/${{ github.repository }}
 
           # This is an optional setting that allows Claude to read CI results on PRs
           additional_permissions: |
@@ -42,6 +43,9 @@ jobs:
 
           # Optional: Give a custom prompt to Claude. If this is not specified, Claude will perform the instructions specified in the comment that tagged it.
           # prompt: 'Update the pull request description to include a summary of changes.'
+
+          # Optional: Override the model. Defaults to AnyRouter's `anyrouter/auto` smart router.
+          # model: 'anthropic/claude-sonnet-5'
 
           # Optional: Add claude_args to customize behavior and configuration
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
