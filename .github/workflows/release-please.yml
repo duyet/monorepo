@@ -2,9 +2,14 @@ name: Release Please
 
 # release-please watches conventional commits landing on main and maintains
 # standing release PRs (humans merge them; this workflow never auto-merges):
-#   - duyet (root): "chore(main): release X.Y.Z" → CHANGELOG.md, tag vX.Y.Z
+#   - monorepo (root): "chore(main): release monorepo X.Y.Z" → CHANGELOG.md, tag vX.Y.Z
 #   - crates/duyet CLI: "chore(main): release duyet X.Y.Z" → crates/duyet/CHANGELOG.md, tag duyet-vX.Y.Z
 # CLI commits under crates/duyet are exclude-paths on the root package.
+# Each package needs a distinct `component` (see release-please-config.json):
+# the root package.json name is "duyet", which is also the CLI component, so
+# without an explicit root component both releases share the branch
+# release-please--branches--main--components--duyet and race each other — the
+# second ref update fails and the root changelog/version bump is silently lost.
 # Config + manifest live under .github/ to keep the repo root clean. Pre-1.0 bump
 # rules (see release-please-config.json): a plain feat bumps the PATCH; only a
 # breaking change (feat! / BREAKING CHANGE) cuts a new minor. bootstrap-sha pins

@@ -10,6 +10,7 @@
     ".": {
       "release-type": "simple",
       "package-name": "duyet",
+      "component": "monorepo",
       "changelog-path": "CHANGELOG.md",
       "draft": false,
       "prerelease": false,
