@@ -5,7 +5,7 @@
   X-Content-Type-Options: nosniff
   Permissions-Policy: geolocation=(), microphone=(), camera=()
   Referrer-Policy: strict-origin-when-cross-origin
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com https://www.googletagmanager.com https://cdn.seline.so https://pageview.duyet.net https://www.clarity.ms https://app.posthog.com https://j.duyet.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://www.clarity.ms https://app.posthog.com https://pageview.duyet.net https://j.duyet.net; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
 
 # Hashed assets: immutable long cache
 /assets/*

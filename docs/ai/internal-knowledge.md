@@ -56,6 +56,13 @@ When the user asks for Tailscale / tailnet / remote access to a local Vite app:
 - `apps/agent-ui` is a signed-in chat surface at `https://agents.duyet.net`. Its `index.html` must still contain a prerendered chat shell (`Ask Duyet anything.`). Conversation rows use shared shadcn chat primitives; Clerk/auth and streaming stay client-only.
 - `apps/insights` is static HTML plus calls to `apps/api`. Do not use TanStack Start server functions for runtime data loading.
 
+### Stale app-level `node_modules` silently break prerender
+
+- `.npmrc` uses `node-linker=hoisted`, so pnpm keeps every dependency in the root `node_modules` and `apps/*/node_modules` should hold workspace links only. A previous `bun install` left `apps/*/node_modules/@tanstack/*` symlinks into `node_modules/.bun/@tanstack+<pkg>@<old>`, and Node resolves those first.
+- Symptom: `apps/blog` build prints `Prerendered 0 pages` and exits **0** (`prerender.failOnError: false` hides it), every route 500s with `TypeError: object is not iterable` at `handleServerRoutes`, and the deployed site 404s or shows the React error boundary. The live mismatch was `@tanstack/react-router@1.168.1` shadowing the pinned `1.170.38` (missing `router.getMatchedRoutes`).
+- Fix: `rm -rf apps/*/node_modules packages/*/node_modules && pnpm install`, then confirm with `node -e "console.log(require.resolve('@tanstack/react-router/package.json',{paths:['./apps/blog']}))"` and check the build log for `Prerendered N pages` with `N > 0`.
+- Guard rail: exact `@tanstack/*` pins in app manifests must match `pnpm.overrides` in the root `package.json`, otherwise `pnpm install --frozen-lockfile` fails in CI with `ERR_PNPM_OUTDATED_LOCKFILE`.
+
 ## Root Commands
 
 - `pnpm run build` builds all apps and packages through Turbo.
