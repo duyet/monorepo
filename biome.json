@@ -23,7 +23,6 @@
       "!**/llm-timeline/lib/data.ts",
       "!**/x-algo/src/routeTree.gen.ts",
       "!**/.claude",
-      "!**/.cursor",
       "!**/routeTree.gen.ts",
       "!apps/kb/kb"
     ]
