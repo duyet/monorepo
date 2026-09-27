@@ -1,5 +1,6 @@
 name = "duyet-agent-assistant"
 main = "dist/server/server.js"
+account_id = "23050adb6c92e313643a29e1ba64c88a"
 compatibility_date = "2026-05-14"
 compatibility_flags = ["nodejs_compat"]
 

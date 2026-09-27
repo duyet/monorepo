@@ -40,7 +40,7 @@ function parseEnvFile(filePath: string): Record<string, string> {
 function loadDeployEnv(): Record<string, string> {
   return {
     ...parseEnvFile(join(rootDir, ".env.production")),
-    ...parseEnvFile(join(rootDir, ".env.production.local")),
+    ...parseEnvFile(join(rootDir, ".env.local")),
     ...Object.fromEntries(
       Object.entries(process.env).filter(
         (entry): entry is [string, string] => typeof entry[1] === "string"
