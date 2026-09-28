@@ -566,6 +566,7 @@ export const apps: AppItem[] = [
     workTone: "#b4532a",
     domain: "summa.duyet.net",
     repo: "https://github.com/duyet/summa",
+    extraLinks: [{ label: "burn.duyet.net", href: "https://burn.duyet.net" }],
     license: "MIT",
     iconName: "Flame",
     showcaseLogoArt: true,
