@@ -67,8 +67,8 @@ const FEATURED: { name: string; tag: string; label: string }[] = [
   { name: "ClickHouse Monitoring", tag: "Data", label: "chmonitor.dev" },
   { name: "Templatebot", tag: "Marketplace", label: "templatebot" },
   { name: "AI;DR", tag: "News", label: "aidr.today" },
-  { name: "OMA", tag: "AI", label: "oma.duyet.net" },
-  { name: "Summa", tag: "Data", label: "summa.duyet.net" },
+  { name: "OMA", tag: "AI", label: "OMA" },
+  { name: "Summa", tag: "Data", label: "summa" },
   { name: "Agent State", tag: "AI", label: "agentstate.app" },
   {
     name: "Rust Tieng Viet",
