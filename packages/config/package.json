@@ -9,6 +9,8 @@
     ".": "./src/index.ts",
     "./app": "./src/app.config.ts",
     "./api": "./src/api.config.ts",
+    "./og": "./src/og.ts",
+    "./og-card": "./src/og-card.ts",
     "./ui": "./src/ui.config.ts"
   },
   "scripts": {
