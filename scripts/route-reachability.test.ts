@@ -36,17 +36,6 @@ import { analyzeApp, POSITIVE_CONTROLS } from "./route-reachability";
  * needs a root entry, not a deletion.
  */
 const KNOWN_UNREACHABLE: Record<string, string> = {
-  "apps/agent-assistant/scratch/deploy.ts":
-    "Manual Durable Object bundle-patching step. `plans/AUDIT.md` and " +
-    "plans/42-platform-hygiene.md both state the build relies on it, but no " +
-    "workflow, vite config, deploy script or package.json references it and " +
-    "`git log --all -S 'scratch/inject'` finds no commit that ever wired it in. " +
-    "Ambiguous on purpose — reported for the owner, not deleted.",
-
-  "apps/agent-assistant/scratch/inject.ts":
-    "Same as scratch/deploy.ts. Both also hardcode /Users/duet/... (typo: " +
-    "'duet'), so neither runs as written.",
-
   "apps/llm-timeline/test-fixtures.ts":
     "Test-only. Used by filter-info.test.tsx, which tests filter-info.tsx — a " +
     "live module. The walk follows production source, so a fixture looks dead " +

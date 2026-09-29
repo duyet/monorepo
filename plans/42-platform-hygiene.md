@@ -12,7 +12,7 @@ Env is read raw (no zod); `.env.example` drifted (`NEXT_PUBLIC_*` vs runtime `VI
 - [ ] Next→Vite env drift resolved (standardize on `VITE_*`); the stale `scripts/audit-env.ts` replaced by the schema.
 - [ ] Dead code removed: `crates/diff`, `crates/placeholder`, `parseModelParams`, `clearUrl`, `navigation-menu.tsx` (if not already in `41`) — after confirming zero non-test refs.
 - [ ] Slugify consolidated onto `crates/utils` (via WASM/`@duyet/wasm`), removing the 3 JS copies' drift risk.
-- [ ] agent-assistant build cleaned: replace `scratch/inject.ts`+`deploy.ts` string-patching with proper DO wiring; reconcile `wrangler.toml main`; gitignore `.vercel/`; fix the "Next.js" README.
+- [ ] agent-assistant build cleaned: ~~replace `scratch/inject.ts`+`deploy.ts` string-patching with proper DO wiring~~ **done 2026-29-09** — the DO was already wired properly (`ThreadStateDO` in `src/entry-server.tsx`, which is the server bundle's rollup input, bound in `wrangler.toml`) and the scratch scripts were pre-migration leftovers from the Next.js era; they patched `dist/duyet_agent_assistant/index.js`, a path the current build never produces (`vite.config.server.ts` emits `dist/server/server.js`, matching `wrangler.toml`'s `main`). Deleted. Still open: gitignore `.vercel/`, fix the "Next.js" README.
 - [ ] `duyet-cli` gains `new-post`/`new-note` scaffolders matching the `getPost` frontmatter contract.
 
 ## Scope
