@@ -61,10 +61,7 @@ describe("selectAppsToBuild", () => {
 
   it("builds every requested app when a shared package changes", () => {
     const { apps, logLines } = selectAppsToBuild({
-      changedFiles: [
-        "packages/components/src/A.tsx",
-        "packages/urls/src/B.ts",
-      ],
+      changedFiles: ["packages/components/src/A.tsx", "packages/urls/src/B.ts"],
       requestedApps: REQUESTED,
     });
     expect(apps).toEqual(REQUESTED);
@@ -81,8 +78,10 @@ describe("selectAppsToBuild", () => {
         requestedApps: REQUESTED,
       });
       expect(apps).toEqual(REQUESTED);
-      expect(logLines).toEqual(["[INFO] Building all apps: core config changed"]);
-    },
+      expect(logLines).toEqual([
+        "[INFO] Building all apps: core config changed",
+      ]);
+    }
   );
 
   it("reports both reasons when packages and core config change together", () => {

@@ -2,10 +2,7 @@ import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import {
-  DEFAULT_APPS_DIR,
-  discoverPagesApps,
-} from "./cf-pages-apps.ts";
+import { DEFAULT_APPS_DIR, discoverPagesApps } from "./cf-pages-apps.ts";
 import {
   firstTomlString,
   isPagesProject,
@@ -34,12 +31,17 @@ describe("firstTomlString", () => {
     // not be read as the real value, or the deploy would target a directory
     // the app does not build into.
     expect(
-      firstTomlString('# pages_build_output_dir = "nope"', "pages_build_output_dir"),
+      firstTomlString(
+        '# pages_build_output_dir = "nope"',
+        "pages_build_output_dir"
+      )
     ).toBeUndefined();
   });
 
   it("returns undefined for a missing key", () => {
-    expect(firstTomlString('name = "x"', "pages_build_output_dir")).toBeUndefined();
+    expect(
+      firstTomlString('name = "x"', "pages_build_output_dir")
+    ).toBeUndefined();
   });
 });
 
@@ -57,7 +59,7 @@ describe("readPagesOutputDir", () => {
 
   it("reads the output dir for a Pages app", () => {
     const app = makeApp(
-      'name = "duyet-kb"\npages_build_output_dir = "dist/client"\n',
+      'name = "duyet-kb"\npages_build_output_dir = "dist/client"\n'
     );
     expect(readPagesOutputDir(app)).toBe("dist/client");
     expect(isPagesProject(app)).toBe(true);
@@ -69,7 +71,7 @@ describe("readPagesOutputDir", () => {
     const apps = discoverPagesApps(DEFAULT_APPS_DIR);
     for (const [name, app] of Object.entries(apps)) {
       expect(readPagesOutputDir(join(DEFAULT_APPS_DIR, name))).toBe(
-        app.outputDir,
+        app.outputDir
       );
     }
   });

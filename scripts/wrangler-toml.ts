@@ -16,7 +16,10 @@ import { join } from "node:path";
  */
 
 /** First value of a top-level string key in a TOML file, if present. */
-export function firstTomlString(content: string, key: string): string | undefined {
+export function firstTomlString(
+  content: string,
+  key: string
+): string | undefined {
   return content.match(new RegExp(`^${key}\\s*=\\s*"([^"]+)"`, "m"))?.[1];
 }
 
@@ -24,7 +27,10 @@ export function firstTomlString(content: string, key: string): string | undefine
 export function readPagesOutputDir(appDir: string): string | undefined {
   const wranglerPath = join(appDir, "wrangler.toml");
   if (!existsSync(wranglerPath)) return undefined;
-  return firstTomlString(readFileSync(wranglerPath, "utf-8"), "pages_build_output_dir");
+  return firstTomlString(
+    readFileSync(wranglerPath, "utf-8"),
+    "pages_build_output_dir"
+  );
 }
 
 /** True when an app's `wrangler.toml` marks it as a Cloudflare Pages project. */

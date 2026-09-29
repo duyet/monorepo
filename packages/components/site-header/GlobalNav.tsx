@@ -34,10 +34,9 @@ export function GlobalNav({
   useEffect(() => {
     if (!openDropdown) return;
     const onPointerDown = (e: PointerEvent) => {
-      if (
-        !containerRef.current ||
-        !containerRef.current.contains(e.target as Node)
-      ) {
+      // `?.` rather than a `!ref.current ||` guard: the ref can be null on the
+      // first pointerdown after unmount, and a bare `.contains` would throw.
+      if (!containerRef.current?.contains(e.target as Node)) {
         setOpenDropdown(null);
       }
     };
