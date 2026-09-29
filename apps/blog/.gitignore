@@ -14,6 +14,11 @@ public/og/
 
 # Generated individual .md files for plain-text post access
 public/20[0-9][0-9]/
+# Quick-note .md exports, written by the same script as the line above.
+# Nine stale ones are still tracked from before this entry existed; they are
+# left in place rather than deleted, so nothing that reads them from git
+# history loses a file.
+public/note/
 
 # Build output
 dist/
