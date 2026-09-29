@@ -7,6 +7,7 @@
 
 import { getWakaTimeRangeForElapsedDays, wakatimeConfig } from "@duyet/config";
 import { getClickHouseActivity, hasActivityData } from "./clickhouse";
+import { WAKA_TIME_HYBRID_STYLE, wakaTimeJson } from "./transport";
 import {
   DEFAULT_HYBRID_CONFIG,
   type HybridFetchConfig,
@@ -15,6 +16,12 @@ import {
   type WakaTimeActivityForChart,
   type WakaTimeDailyActivity,
 } from "./types";
+
+/** One row of the `/insights/days` payload. */
+interface DayRow {
+  date: string;
+  total: number;
+}
 
 /**
  * Format date to YYYY-MM-DD string
@@ -33,6 +40,20 @@ function toHours(seconds: number): number {
 /**
  * Fetch fresh activity data from WakaTime API (last N days)
  *
+ * The request itself is the shared transport (`./transport`): key, base-URL
+ * join, Basic header, timeout and the five-minute response cache. This function
+ * only shapes the payload. It used to re-do all of that inline, which is how the
+ * hybrid path ended up with no timeout and no cache while the stats path had
+ * both — and, because `/insights/days` is also requested by
+ * `getActivityFromInsights`, a single render could ask WakaTime for the same
+ * window twice.
+ *
+ * A failed request is a `null` body, which is the empty array this function has
+ * always returned. That is the `.catch -> []` behaviour the dashboard depends
+ * on, and unifying the transport preserves it: the transport classifies the
+ * failure and returns, so a timeout or a dropped connection costs the same
+ * nothing a 500 already cost.
+ *
  * @param days - Size of the *fresh tail*, i.e. `HybridFetchConfig.freshDataDays`
  *   — not the reader's selected period. Everything older comes from ClickHouse,
  *   so this window is deliberately bounded rather than following the selector,
@@ -41,60 +62,37 @@ function toHours(seconds: number): number {
 async function fetchFreshActivityFromAPI(
   days: number
 ): Promise<WakaTimeDailyActivity[]> {
-  const apiKey = process.env.WAKATIME_API_KEY;
-
-  if (!apiKey) {
-    console.warn("[WakaTime Hybrid] WAKATIME_API_KEY not set");
-    return [];
-  }
-
   const range = getWakaTimeRangeForElapsedDays(days);
 
-  const endpoint = wakatimeConfig.endpoints.insights.days(range);
-  const url = `${wakatimeConfig.baseUrl}${endpoint}`;
+  const data = await wakaTimeJson<{ data?: { days?: DayRow[] } }>(
+    wakatimeConfig.endpoints.insights.days(range),
+    { style: WAKA_TIME_HYBRID_STYLE }
+  );
 
-  try {
-    const res = await fetch(url, {
-      headers: {
-        Authorization: `Basic ${Buffer.from(apiKey).toString("base64")}`,
-      },
-    });
-
-    if (!res.ok) {
-      console.error(`[WakaTime Hybrid] API error: ${res.status}`);
-      return [];
-    }
-
-    const data = await res.json();
-
-    if (!data?.data?.days || !Array.isArray(data.data.days)) {
-      console.warn("[WakaTime Hybrid] No days data from API");
-      return [];
-    }
-
-    // Filter by dataStartYear and limit to requested days
-    const startYear = wakatimeConfig.dataStartYear;
-    const filteredDays = data.data.days
-      .filter((day: { date: string; total: number }) => {
-        if (!day.date || day.total == null) return false;
-        const date = new Date(day.date);
-        return date.getFullYear() >= startYear;
-      })
-      .slice(0, days);
-
-    // Convert to our format (no AI breakdown from insights endpoint)
-    return filteredDays.map((day: { date: string; total: number }) => ({
-      date: day.date,
-      total_seconds: day.total,
-      human_seconds: day.total,
-      ai_seconds: 0,
-      has_ai_breakdown: false,
-      source: "api" as const,
-    }));
-  } catch (error) {
-    console.error("[WakaTime Hybrid] API fetch failed:", error);
+  if (!data?.data?.days || !Array.isArray(data.data.days)) {
+    if (data) console.warn("[WakaTime Hybrid] No days data from API");
     return [];
   }
+
+  // Filter by dataStartYear and limit to requested days
+  const startYear = wakatimeConfig.dataStartYear;
+  const filteredDays = data.data.days
+    .filter((day: DayRow) => {
+      if (!day.date || day.total == null) return false;
+      const date = new Date(day.date);
+      return date.getFullYear() >= startYear;
+    })
+    .slice(0, days);
+
+  // Convert to our format (no AI breakdown from insights endpoint)
+  return filteredDays.map((day: DayRow) => ({
+    date: day.date,
+    total_seconds: day.total,
+    human_seconds: day.total,
+    ai_seconds: 0,
+    has_ai_breakdown: false,
+    source: "api" as const,
+  }));
 }
 
 /**

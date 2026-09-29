@@ -1,5 +1,12 @@
 import { getWakaTimeRange, wakatimeConfig } from "@duyet/config";
 import { sanitizePathLabel } from "@/lib/sanitize-path";
+import {
+  type WakaTimeErrorStyle,
+  wakaTimeApiKey,
+  wakaTimeFetch,
+  wakaTimeJson,
+  WAKA_TIME_STATS_STYLE,
+} from "./lib/transport";
 
 interface WakaTimeBreakdownItem {
   name: string;
@@ -70,90 +77,15 @@ export interface WakaMetrics {
 
 // Using stats endpoint instead of summaries (summaries requires premium)
 
-// Simple in-memory cache for WakaTime API responses (per-request lifetime)
-const wakaTimeCache = new Map<string, { data: unknown; expiry: number }>();
-
-/**
- * The API key, or null after warning once per call. Every request site needs
- * the same "no key configured" guard, and each one bails out differently (null
- * vs an empty array), so only the lookup is shared.
- */
-function getApiKey(): string | null {
-  const apiKey = process.env.WAKATIME_API_KEY;
-  if (!apiKey) {
-    console.warn("WAKATIME_API_KEY not found in environment variables");
-    return null;
-  }
-  return apiKey;
-}
-
-/** Basic-auth header for the WakaTime API. */
-function authHeaders(apiKey: string) {
-  return {
-    Authorization: `Basic ${Buffer.from(apiKey).toString("base64")}`,
-  };
-}
-
-async function wakaTimeRequest(endpoint: string) {
-  const apiKey = getApiKey();
-
-  if (!apiKey) {
-    return null;
-  }
-
-  // Check cache first (5 minute TTL)
-  const cached = wakaTimeCache.get(endpoint);
-  if (cached && cached.expiry > Date.now()) {
-    return cached.data;
-  }
-
-  const url = `${wakatimeConfig.baseUrl}${endpoint}`;
-
-  try {
-    const res = await fetch(url, {
-      headers: authHeaders(apiKey),
-    });
-
-    if (!res.ok) {
-      if (res.status === 401) {
-        console.error(
-          "WakaTime API authentication failed: Invalid or expired API key",
-          `URL: ${url}`
-        );
-      } else if (res.status === 403) {
-        console.error("WakaTime API access forbidden - check permissions");
-      } else {
-        console.error(
-          `WakaTime API error: ${res.status} ${res.statusText}`,
-          `URL: ${url}`
-        );
-      }
-      return null;
-    }
-
-    const data = await res.json();
-
-    // Populate cache (5 minute TTL)
-    wakaTimeCache.set(endpoint, { data, expiry: Date.now() + 5 * 60 * 1000 });
-
-    // Basic validation to ensure we have a valid response object
-    if (!data || typeof data !== "object") {
-      console.error("WakaTime API returned invalid response format");
-      return null;
-    }
-
-    return data;
-  } catch (error) {
-    console.error("WakaTime API request failed:", error);
-    return null;
-  }
-}
+// The request itself — key, URL, Basic header, timeout, failure ladder and the
+// five-minute response cache — lives in `./lib/transport`, shared with the
+// hybrid fetch. Everything below is response shaping.
 
 export async function getWakaTimeStats(
   days: number | "all" = 30
 ): Promise<WakaTimeStats | null> {
   const range = getWakaTimeRange(days);
-  return wakaTimeRequest(wakatimeConfig.endpoints.stats(range));
+  return wakaTimeJson<WakaTimeStats>(wakatimeConfig.endpoints.stats(range));
 }
 
 /**
@@ -206,13 +138,32 @@ interface DurationsResponse {
 // Helper function to add delay between requests (rate limiting)
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
+/**
+ * Statuses WakaTime returns for the premium-only `/durations` endpoint. 402 is
+ * the documented answer; 401 and 403 are what a free-tier key actually gets, so
+ * all three are treated as "needs premium" rather than as errors.
+ */
+const PREMIUM_DURATIONS_STATUSES = new Set([402, 401, 403]);
+
+/**
+ * The sweep keeps the shared transport's timeout and its log lines, but owns its
+ * own failure wording: a 402 is an expected answer for most accounts, so
+ * reporting it as an error would print one error per day of a 30-day sweep. The
+ * premium ladder below reports those, and `onHttpError` reports everything else
+ * with the day in the message.
+ */
+const DURATIONS_STYLE: WakaTimeErrorStyle = {
+  ...WAKA_TIME_STATS_STYLE,
+  transport: "Error fetching WakaTime activity with AI data:",
+};
+
 // Get activity from durations endpoint (with AI breakdown) for smaller periods
 async function getActivityFromDurations(
   days: number
 ): Promise<Array<{ date: string; "Human Hours": number; "AI Hours": number }>> {
-  const apiKey = getApiKey();
-
-  if (!apiKey) {
+  // Checked before the sweep rather than per request: without a key the loop
+  // would spend `days` round trips logging the same warning.
+  if (!wakaTimeApiKey()) {
     return [];
   }
 
@@ -226,104 +177,108 @@ async function getActivityFromDurations(
   let consecutivePremiumErrors = 0;
   const MAX_CONSECUTIVE_ERRORS = 5; // Fall back after 5 consecutive 402s
 
-  try {
-    // Fetch durations for each day in the range
-    for (let i = 0; i < numDays; i++) {
-      const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
-      const dateStr = date.toISOString().split("T")[0];
+  // Fetch durations for each day in the range
+  for (let i = 0; i < numDays; i++) {
+    const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
+    const dateStr = date.toISOString().split("T")[0];
 
-      const url = `${wakatimeConfig.baseUrl}${wakatimeConfig.endpoints.durations(dateStr)}`;
+    const result = await wakaTimeFetch<DurationsResponse>(
+      wakatimeConfig.endpoints.durations(dateStr),
+      {
+        onHttpError: (error) => {
+          // Premium statuses are reported by the ladder below, once.
+          if (PREMIUM_DURATIONS_STATUSES.has(error.status)) return;
+          console.error(
+            `WakaTime API error fetching durations for ${dateStr}: ${error.status}`,
+            `URL: ${error.url}`
+          );
+        },
+        style: DURATIONS_STYLE,
+      }
+    );
 
-      const res = await fetch(url, {
-        headers: authHeaders(apiKey),
-      });
-
-      if (!res.ok) {
+    if (!result.ok) {
+      if (result.reason === "http") {
         // 402 = Payment Required (premium feature), 401/403 = auth issues
         // These are expected for free tier accounts
-        if (res.status === 402 || res.status === 401 || res.status === 403) {
-          consecutivePremiumErrors++;
+        consecutivePremiumErrors++;
 
-          // If we get many consecutive premium errors, fall back early
-          if (consecutivePremiumErrors >= MAX_CONSECUTIVE_ERRORS) {
-            console.warn(
-              `WakaTime durations endpoint requires premium account (status ${res.status}). Falling back to aggregated stats after ${consecutivePremiumErrors} errors.`
-            );
-            // If we have some data, use it; otherwise fall back
-            if (activityMap.size > 0) {
-              break; // Use what we have
-            }
-            return getFallbackActivityData(numDays);
+        // If we get many consecutive premium errors, fall back early
+        if (consecutivePremiumErrors >= MAX_CONSECUTIVE_ERRORS) {
+          console.warn(
+            `WakaTime durations endpoint requires premium account (status ${result.status}). Falling back to aggregated stats after ${consecutivePremiumErrors} errors.`
+          );
+          // If we have some data, use it; otherwise fall back
+          if (activityMap.size > 0) {
+            break; // Use what we have
           }
-
-          // Log once on first error, then silently continue
-          if (i === 0) {
-            console.warn(
-              `WakaTime durations endpoint requires premium account (status ${res.status}). Will attempt to fetch available days.`
-            );
-          }
-          // Continue to next day instead of breaking
-          continue;
+          return getFallbackActivityData(numDays);
         }
 
-        console.error(
-          `WakaTime API error fetching durations for ${dateStr}: ${res.status}`
-        );
+        // Log once on first error, then silently continue
+        if (i === 0) {
+          console.warn(
+            `WakaTime durations endpoint requires premium account (status ${result.status}). Will attempt to fetch available days.`
+          );
+        }
+        // Continue to next day instead of breaking
         continue;
       }
 
-      // Reset counter on successful request
-      consecutivePremiumErrors = 0;
+      // A dropped connection or a timeout ends the sweep: there is no
+      // per-day status to reason about, so the days already collected (or
+      // nothing) is the answer. The transport logged the reason.
+      break;
+    }
 
-      const data: DurationsResponse = await res.json();
+    // Reset counter on successful request
+    consecutivePremiumErrors = 0;
 
-      if (data.data && Array.isArray(data.data)) {
-        let dayHumanSeconds = 0;
-        let dayAiSeconds = 0;
+    const data = result.data;
 
-        for (const duration of data.data) {
-          if (duration.duration) {
-            // Estimate human vs AI contributions based on additions/deletions
-            const humanAdditions = duration.human_additions || 0;
-            const humanDeletions = duration.human_deletions || 0;
-            const aiAdditions = duration.ai_additions || 0;
-            const aiDeletions = duration.ai_deletions || 0;
+    if (data.data && Array.isArray(data.data)) {
+      let dayHumanSeconds = 0;
+      let dayAiSeconds = 0;
 
-            const totalActivity =
-              humanAdditions + humanDeletions + aiAdditions + aiDeletions;
+      for (const duration of data.data) {
+        if (duration.duration) {
+          // Estimate human vs AI contributions based on additions/deletions
+          const humanAdditions = duration.human_additions || 0;
+          const humanDeletions = duration.human_deletions || 0;
+          const aiAdditions = duration.ai_additions || 0;
+          const aiDeletions = duration.ai_deletions || 0;
 
-            // If we have activity data, allocate duration based on ratio
-            if (totalActivity > 0) {
-              const humanRatio =
-                (humanAdditions + humanDeletions) / totalActivity;
-              const aiRatio = (aiAdditions + aiDeletions) / totalActivity;
+          const totalActivity =
+            humanAdditions + humanDeletions + aiAdditions + aiDeletions;
 
-              dayHumanSeconds += duration.duration * humanRatio;
-              dayAiSeconds += duration.duration * aiRatio;
-            } else {
-              // Default to 80% human, 20% AI if no activity data
-              dayHumanSeconds += duration.duration * 0.8;
-              dayAiSeconds += duration.duration * 0.2;
-            }
+          // If we have activity data, allocate duration based on ratio
+          if (totalActivity > 0) {
+            const humanRatio = (humanAdditions + humanDeletions) / totalActivity;
+            const aiRatio = (aiAdditions + aiDeletions) / totalActivity;
+
+            dayHumanSeconds += duration.duration * humanRatio;
+            dayAiSeconds += duration.duration * aiRatio;
+          } else {
+            // Default to 80% human, 20% AI if no activity data
+            dayHumanSeconds += duration.duration * 0.8;
+            dayAiSeconds += duration.duration * 0.2;
           }
         }
-
-        if (dayHumanSeconds > 0 || dayAiSeconds > 0) {
-          activityMap.set(dateStr, {
-            humanSeconds: dayHumanSeconds,
-            aiSeconds: dayAiSeconds,
-          });
-        }
       }
 
-      // Rate limiting: small delay between requests to stay under 10 req/sec
-      // 30 requests * 100ms = 3 seconds total (well under rate limit)
-      if (i < numDays - 1) {
-        await delay(100);
+      if (dayHumanSeconds > 0 || dayAiSeconds > 0) {
+        activityMap.set(dateStr, {
+          humanSeconds: dayHumanSeconds,
+          aiSeconds: dayAiSeconds,
+        });
       }
     }
-  } catch (error) {
-    console.error("Error fetching WakaTime activity with AI data:", error);
+
+    // Rate limiting: small delay between requests to stay under 10 req/sec
+    // 30 requests * 100ms = 3 seconds total (well under rate limit)
+    if (i < numDays - 1) {
+      await delay(100);
+    }
   }
 
   // If no data was fetched (premium endpoint failed), return fallback
@@ -351,62 +306,47 @@ async function getActivityFromDurations(
 async function getActivityFromInsights(
   days: number | "all"
 ): Promise<Array<{ date: string; "Total Hours": number }>> {
-  const apiKey = getApiKey();
-
-  if (!apiKey) {
-    return [];
-  }
-
   // The same mapping the stats path uses, deliberately: the reader picked one
   // option in the period switcher, so `/stats/` and `/insights/days?range=` must
   // describe the same window. This used to be a second ladder that sent
   // `all_time` here while `/stats/` received `last_year` for the same selection.
   const range = getWakaTimeRange(days);
 
-  const url = `${wakatimeConfig.baseUrl}${wakatimeConfig.endpoints.insights.days(range)}`;
+  // The transport reports a missing key, a bad status, a timeout and a dropped
+  // connection identically here: a `null` body, which is the empty array this
+  // function has always returned for a failed request. It used to log
+  // `WakaTime insights API error: <status>` with no 401/403/429 wording, which
+  // the shared ladder now covers.
+  const data = await wakaTimeJson<InsightsResponse>(
+    wakatimeConfig.endpoints.insights.days(range)
+  );
 
-  try {
-    const res = await fetch(url, {
-      headers: authHeaders(apiKey),
-    });
-
-    if (!res.ok) {
-      console.error(`WakaTime insights API error: ${res.status}`);
-      return [];
-    }
-
-    const data: InsightsResponse | null = await res.json();
-
-    if (!data?.data?.days || !Array.isArray(data.data.days)) {
-      console.warn("No days data available from WakaTime insights");
-      return [];
-    }
-
-    // Check if data is up to date for large ranges
-    if (data.data.is_up_to_date === false) {
-      console.warn(
-        `WakaTime insights data not fully up to date for range: ${range}`
-      );
-    }
-
-    // Filter by dataStartYear and limit if specified number of days
-    const startYear = wakatimeConfig.dataStartYear;
-    const filteredDays = data.data.days
-      .filter((day) => {
-        if (!day.date || day.total == null) return false;
-        const date = new Date(day.date);
-        return date.getFullYear() >= startYear;
-      })
-      .slice(0, typeof days === "number" ? days : undefined);
-
-    return filteredDays.map((day) => ({
-      date: day.date,
-      "Total Hours": toHours(day.total),
-    }));
-  } catch (error) {
-    console.error("Error fetching WakaTime insights activity:", error);
+  if (!data?.data?.days || !Array.isArray(data.data.days)) {
+    if (data) console.warn("No days data available from WakaTime insights");
     return [];
   }
+
+  // Check if data is up to date for large ranges
+  if (data.data.is_up_to_date === false) {
+    console.warn(
+      `WakaTime insights data not fully up to date for range: ${range}`
+    );
+  }
+
+  // Filter by dataStartYear and limit if specified number of days
+  const startYear = wakatimeConfig.dataStartYear;
+  const filteredDays = data.data.days
+    .filter((day) => {
+      if (!day.date || day.total == null) return false;
+      const date = new Date(day.date);
+      return date.getFullYear() >= startYear;
+    })
+    .slice(0, typeof days === "number" ? days : undefined);
+
+  return filteredDays.map((day) => ({
+    date: day.date,
+    "Total Hours": toHours(day.total),
+  }));
 }
 
 // Union type for activity data formats
@@ -608,7 +548,7 @@ function groupSumBy<T>(
 async function getMonthlyTotals(): Promise<Array<[string, number]>> {
   const startYear = wakatimeConfig.dataStartYear;
 
-  const insights: InsightsResponse | null = await wakaTimeRequest(
+  const insights: InsightsResponse | null = await wakaTimeJson<InsightsResponse>(
     wakatimeConfig.endpoints.insights.days(wakatimeConfig.ranges.all_time)
   );
 
@@ -692,11 +632,12 @@ export async function getWakaTimeHourlyHeatmap() {
   try {
     // Get weekday insights - use last_30_days as last_year may not be supported
     // by the weekday insights endpoint (returns 400)
-    const weekdayInsights: WeekdayInsights | null = await wakaTimeRequest(
-      wakatimeConfig.endpoints.insights.weekday(
-        wakatimeConfig.ranges.last_30_days
-      )
-    );
+    const weekdayInsights: WeekdayInsights | null =
+      await wakaTimeJson<WeekdayInsights>(
+        wakatimeConfig.endpoints.insights.weekday(
+          wakatimeConfig.ranges.last_30_days
+        )
+      );
 
     if (
       !weekdayInsights?.data?.weekdays ||
