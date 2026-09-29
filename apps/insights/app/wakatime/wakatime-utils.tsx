@@ -1,4 +1,4 @@
-import { wakatimeConfig } from "@duyet/config";
+import { getWakaTimeRange, wakatimeConfig } from "@duyet/config";
 import { sanitizePathLabel } from "@/lib/sanitize-path";
 
 interface WakaTimeBreakdownItem {
@@ -73,11 +73,31 @@ export interface WakaMetrics {
 // Simple in-memory cache for WakaTime API responses (per-request lifetime)
 const wakaTimeCache = new Map<string, { data: unknown; expiry: number }>();
 
-async function wakaTimeRequest(endpoint: string) {
+/**
+ * The API key, or null after warning once per call. Every request site needs
+ * the same "no key configured" guard, and each one bails out differently (null
+ * vs an empty array), so only the lookup is shared.
+ */
+function getApiKey(): string | null {
   const apiKey = process.env.WAKATIME_API_KEY;
-
   if (!apiKey) {
     console.warn("WAKATIME_API_KEY not found in environment variables");
+    return null;
+  }
+  return apiKey;
+}
+
+/** Basic-auth header for the WakaTime API. */
+function authHeaders(apiKey: string) {
+  return {
+    Authorization: `Basic ${Buffer.from(apiKey).toString("base64")}`,
+  };
+}
+
+async function wakaTimeRequest(endpoint: string) {
+  const apiKey = getApiKey();
+
+  if (!apiKey) {
     return null;
   }
 
@@ -91,9 +111,7 @@ async function wakaTimeRequest(endpoint: string) {
 
   try {
     const res = await fetch(url, {
-      headers: {
-        Authorization: `Basic ${Buffer.from(apiKey).toString("base64")}`,
-      },
+      headers: authHeaders(apiKey),
     });
 
     if (!res.ok) {
@@ -129,16 +147,6 @@ async function wakaTimeRequest(endpoint: string) {
     console.error("WakaTime API request failed:", error);
     return null;
   }
-}
-
-// Map our period values to WakaTime API ranges
-function getWakaTimeRange(days: number | "all"): string {
-  if (typeof days === "number") {
-    return (
-      wakatimeConfig.rangeMapping[days] || wakatimeConfig.ranges.last_30_days
-    );
-  }
-  return wakatimeConfig.ranges.last_year;
 }
 
 export async function getWakaTimeStats(
@@ -202,10 +210,9 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 async function getActivityFromDurations(
   days: number
 ): Promise<Array<{ date: string; "Human Hours": number; "AI Hours": number }>> {
-  const apiKey = process.env.WAKATIME_API_KEY;
+  const apiKey = getApiKey();
 
   if (!apiKey) {
-    console.warn("WAKATIME_API_KEY not found in environment variables");
     return [];
   }
 
@@ -228,9 +235,7 @@ async function getActivityFromDurations(
       const url = `${wakatimeConfig.baseUrl}${wakatimeConfig.endpoints.durations(dateStr)}`;
 
       const res = await fetch(url, {
-        headers: {
-          Authorization: `Basic ${Buffer.from(apiKey).toString("base64")}`,
-        },
+        headers: authHeaders(apiKey),
       });
 
       if (!res.ok) {
@@ -356,10 +361,9 @@ function getInsightsRange(days: number | "all"): string {
 async function getActivityFromInsights(
   days: number | "all"
 ): Promise<Array<{ date: string; "Total Hours": number }>> {
-  const apiKey = process.env.WAKATIME_API_KEY;
+  const apiKey = getApiKey();
 
   if (!apiKey) {
-    console.warn("WAKATIME_API_KEY not found in environment variables");
     return [];
   }
 
@@ -370,9 +374,7 @@ async function getActivityFromInsights(
 
   try {
     const res = await fetch(url, {
-      headers: {
-        Authorization: `Basic ${Buffer.from(apiKey).toString("base64")}`,
-      },
+      headers: authHeaders(apiKey),
     });
 
     if (!res.ok) {

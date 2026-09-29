@@ -145,6 +145,8 @@ export type {
   AiActivity,
   AiMetrics,
   AiModel,
+  BucketedActivity,
+  ProjectLeaderboardEntry,
   WakaTimeMetrics,
   WakaTimeLanguage,
   WakaTimeTrend,

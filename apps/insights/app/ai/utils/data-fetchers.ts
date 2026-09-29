@@ -183,12 +183,15 @@ export async function pingClickHouse(): Promise<{
 
 /**
  * Get overview metrics for the specified time period
+ *
+ * The ClickHouse and DuckDB statements differ only in how the date filter
+ * spells "now", so the body is written once and rendered per dialect — the
+ * same shape `fetchDailyUsage` uses below.
  */
 export async function getCCUsageMetrics(
   days: DateRangeDays = 30
 ): Promise<CCUsageMetricsData> {
-  const dateCondition = getDateCondition(days);
-  const query = `
+  const buildMetricsQuery = (dateCondition: string) => `
     SELECT
       SUM(total_tokens) as total_tokens,
       SUM(input_tokens) as input_tokens,
@@ -200,17 +203,10 @@ export async function getCCUsageMetrics(
     ${dateCondition}
   `;
 
-  const duckDBQuery = `
-    SELECT
-      SUM(total_tokens) as total_tokens,
-      SUM(input_tokens) as input_tokens,
-      SUM(output_tokens) as output_tokens,
-      SUM(cache_creation_tokens + cache_read_tokens) as cache_tokens,
-      SUM(total_cost) as total_cost,
-      COUNT(DISTINCT date) as active_days
-    FROM ccusage_usage_daily
-    ${getDuckDBDateCondition(days, "date")}
-  `;
+  const [query, duckDBQuery] = [
+    buildMetricsQuery(getDateCondition(days)),
+    buildMetricsQuery(getDuckDBDateCondition(days, "date")),
+  ];
 
   const results = await executeAnalyticsQuery(query, duckDBQuery);
 
@@ -232,24 +228,22 @@ export async function getCCUsageMetrics(
   const totalCost = Number(data.total_cost) || 0;
 
   // Get top model separately
-  const modelDateCondition = getCreatedAtCondition(days);
-  const modelQuery = `
+  // `trailing` carries the two spaces the ClickHouse statement has always had
+  // after its filter; DuckDB's copy has none, and the emitted SQL must not
+  // change.
+  const buildTopModelQuery = (dateCondition: string, trailing: string) => `
     SELECT model_name, SUM(input_tokens + output_tokens + cache_creation_tokens + cache_read_tokens) as total_tokens
     FROM ccusage_model_breakdowns
-    ${modelDateCondition}  
+    ${dateCondition}${trailing}
     GROUP BY model_name
     ORDER BY total_tokens DESC
     LIMIT 1
   `;
 
-  const modelDuckDBQuery = `
-    SELECT model_name, SUM(input_tokens + output_tokens + cache_creation_tokens + cache_read_tokens) as total_tokens
-    FROM ccusage_model_breakdowns
-    ${getDuckDBDateCondition(days, "created_at")}
-    GROUP BY model_name
-    ORDER BY total_tokens DESC
-    LIMIT 1
-  `;
+  const [modelQuery, modelDuckDBQuery] = [
+    buildTopModelQuery(getCreatedAtCondition(days), "  "),
+    buildTopModelQuery(getDuckDBDateCondition(days, "created_at"), ""),
+  ];
 
   const modelResults = await executeAnalyticsQuery(
     modelQuery,

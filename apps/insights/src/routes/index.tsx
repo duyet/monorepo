@@ -20,10 +20,18 @@ import {
 import {
   getTrafficData,
   shortDate,
-  compactName,
   formatNumber,
   formatCompact,
 } from "@/components/overview/helpers";
+import {
+  buildKpis,
+  deriveBurnMetrics,
+  deriveTokenBreakdown,
+  toTokenBuckets,
+  topLanguages,
+  topModels,
+  topProjects,
+} from "@/components/overview/derive";
 
 export const Route = createFileRoute("/")({
   loader: async (): Promise<LoaderData> =>
@@ -57,125 +65,23 @@ function IndexPage() {
     tokens: d.totalTokens,
   }));
   // ---- Derived breakdowns from daily activity ----
-  const tokenSums = data.aiActivity.reduce(
-    (acc, day) => {
-      acc.input += day["Input Tokens"] ?? 0;
-      acc.output += day["Output Tokens"] ?? 0;
-      acc.cache += day["Cache Tokens"] ?? 0;
-      return acc;
-    },
-    { input: 0, output: 0, cache: 0 },
-  );
-  const totalTokensDerived =
-    tokenSums.input + tokenSums.output + tokenSums.cache;
-  const inpPct =
-    totalTokensDerived > 0
-      ? Math.round((tokenSums.input / totalTokensDerived) * 1000) / 10
-      : 0;
-  const outPct =
-    totalTokensDerived > 0
-      ? Math.round((tokenSums.output / totalTokensDerived) * 1000) / 10
-      : 0;
-  const cachePct =
-    totalTokensDerived > 0
-      ? Math.round((tokenSums.cache / totalTokensDerived) * 1000) / 10
-      : 0;
-  const tokenTypeShares = [
-    { name: "Input", cost: tokenSums.input, pct: inpPct },
-    { name: "Output", cost: tokenSums.output, pct: outPct },
-    { name: "Cache", cost: tokenSums.cache, pct: cachePct },
-  ];
-  // Cost breakdown by token type (proportional using token ratios)
-  const totalAiCost = data.aiActivity.reduce(
-    (s, d) => s + (d["Total Cost"] ?? 0),
-    0,
-  );
-  const costTypeShares =
-    totalTokensDerived > 0
-      ? [
-          {
-            name: "Input Cost",
-            cost: (totalAiCost * tokenSums.input) / totalTokensDerived,
-            pct:
-              Math.round(
-                ((totalAiCost * tokenSums.input) / totalTokensDerived /
-                  totalAiCost) *
-                  1000,
-              ) / 10 || 0,
-          },
-          {
-            name: "Output Cost",
-            cost: (totalAiCost * tokenSums.output) / totalTokensDerived,
-            pct:
-              Math.round(
-                ((totalAiCost * tokenSums.output) / totalTokensDerived /
-                  totalAiCost) *
-                  1000,
-              ) / 10 || 0,
-          },
-          {
-            name: "Cache Cost",
-            cost: (totalAiCost * tokenSums.cache) / totalTokensDerived,
-            pct:
-              Math.round(
-                ((totalAiCost * tokenSums.cache) / totalTokensDerived /
-                  totalAiCost) *
-                  1000,
-              ) / 10 || 0,
-          },
-        ]
-      : [];
-  // Normalise cost pct to sum exactly 100
-  const costPctSum = costTypeShares.reduce((s, r) => s + r.pct, 0);
-  const costDrift = 100 - costPctSum;
-  if (costTypeShares.length > 0 && Math.abs(costDrift) > 0.01) {
-    costTypeShares[0].pct = Math.max(
-      0,
-      Math.round(costTypeShares[0].pct + costDrift),
-    );
-  }
+  const { tokenSums, tokenTypeShares, costTypeShares } =
+    deriveTokenBreakdown(data.aiActivity);
 
   // ---- Token burn metrics ----
-  const activeDays = data.aiMetrics.activeDays || 1;
-  const ioRatio =
-    tokenSums.output > 0
-      ? (tokenSums.input / tokenSums.output).toFixed(1)
-      : "—";
-  const avgTokensPerDay = formatCompact(
-    data.aiMetrics.totalTokens / activeDays,
+  const burn = deriveBurnMetrics(
+    data.aiMetrics,
+    tokenSums,
+    data.projectLeaderboard.length,
   );
-  const cacheRate =
-    data.aiMetrics.totalTokens > 0
-      ? `${Math.round((data.aiMetrics.cacheTokens / data.aiMetrics.totalTokens) * 100)}%`
-      : "—";
-  const projectCount = data.projectLeaderboard.length;
+  const { ioRatio, avgTokensPerDay, cacheRate } = burn;
+  const projectCount = burn.projectCount;
 
-  const weekday = data.activityByWeekday.map((d) => ({
-    label: d.label,
-    Tokens: d.tokens,
-    key: d.key,
-  }));
-  const hourly = data.activityByHour.map((d) => ({
-    label: d.label,
-    Tokens: d.tokens,
-    key: d.key,
-  }));
-  const projectLeaderboard = data.projectLeaderboard
-    .slice(0, 6)
-    .map((p) => ({
-      name: p.name,
-      pct: p.pct,
-      tokens: p.tokens,
-      cost: p.cost,
-    }));
-  const topModels = data.aiModels.slice(0, 5).map((model) => ({
-    name: compactName(model.name),
-    pct: model.percent,
-  }));
-  const topLanguages = data.wakaLanguages.slice(0, 5).map((language) => ({
-    name: language.name,
-    pct: language.percent,
-  }));
+  const weekday = toTokenBuckets(data.activityByWeekday);
+  const hourly = toTokenBuckets(data.activityByHour);
+  const projectLeaderboard = topProjects(data.projectLeaderboard);
+  const modelShare = topModels(data.aiModels);
+  const languageShare = topLanguages(data.wakaLanguages);
   const topPosts = data.posthog.paths.slice(0, 5);
   const pageViews =
     data.cloudflare.totalPageviews || data.posthog.totalViews;
@@ -188,65 +94,20 @@ function IndexPage() {
       })
     : null;
 
-  /* ---- KPI data ----
-   * Trend is a real period-over-period delta: mean of the second half of the
-   * series vs the first half. Returns "—" when the series is too short or the
-   * baseline is zero (an undefined ratio, not a synthetic +100%). */
-  const trendPct = (series: number[]): string => {
-    const s = series.filter((n) => Number.isFinite(n));
-    if (s.length < 4) return "—";
-    const mid = Math.floor(s.length / 2);
-    const mean = (arr: number[]) =>
-      arr.reduce((a, b) => a + b, 0) / (arr.length || 1);
-    const first = mean(s.slice(0, mid));
-    const second = mean(s.slice(mid));
-    if (first === 0) return "—";
-    // |first| in the denominator keeps the real sign for a negative baseline.
-    const pct = Math.round(((second - first) / Math.abs(first)) * 1000) / 10;
-    if (Math.abs(pct) < 0.05) return "0.0%";
-    return `${pct > 0 ? "+" : ""}${pct.toFixed(1)}%`;
-  };
-
   const wakaSpark = data.wakaTrend.map((t) => Number(t.hours) || 0);
   const viewsSpark = traffic.map((t) => Number(t.pageViews) || 0);
   const tokensSpark = aiActivity.map((a) => Number(a.tokens) || 0);
   const costSpark = aiActivity.map((a) => Number(a.cost) || 0);
 
-  const kpis: KpiTileData[] = [
-    {
-      k: "Coding hours",
-      v: formatNumber(data.wakaMetrics.totalHours),
-      unit: "h",
-      sub: `${formatNumber(data.wakaMetrics.avgDailyHours)}h avg / active day`,
-      trend: trendPct(wakaSpark),
-      spark: wakaSpark,
-    },
-    {
-      k: "Page views",
-      v: formatCompact(pageViews),
-      unit: "",
-      sub: "Cloudflare · 30d",
-      trend: trendPct(viewsSpark),
-      spark: viewsSpark,
-    },
-    {
-      k: "AI tokens",
-      v: formatCompact(data.aiMetrics.totalTokens),
-      unit: "",
-      sub: `across ${data.aiMetrics.activeDays} active days`,
-      trend: trendPct(tokensSpark),
-      spark: tokensSpark,
-    },
-    {
-      k: "AI spend",
-      v: formatNumber(data.aiMetrics.totalCost),
-      unit: "$",
-      sub: `top: ${compactName(data.aiMetrics.topModel)}`,
-      trend: trendPct(costSpark),
-      good: true,
-      spark: costSpark,
-    },
-  ];
+  const kpis: KpiTileData[] = buildKpis({
+    wakaMetrics: data.wakaMetrics,
+    aiMetrics: data.aiMetrics,
+    pageViews,
+    wakaSpark,
+    viewsSpark,
+    tokensSpark,
+    costSpark,
+  });
 
   /* ---- Repo data for grid ---- */
   const totalStars = data.githubRepos.reduce(
@@ -312,7 +173,7 @@ function IndexPage() {
               30d
             </span>
           </div>
-          <DistRows rows={topLanguages} />
+          <DistRows rows={languageShare} />
         </div>
 
         {/* Models */}
@@ -335,7 +196,7 @@ function IndexPage() {
               {formatCompact(data.aiMetrics.totalTokens)}
             </span>
           </div>
-          <DistRows rows={topModels} />
+          <DistRows rows={modelShare} />
         </div>
       </div>
 
