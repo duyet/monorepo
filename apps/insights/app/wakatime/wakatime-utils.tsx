@@ -7,6 +7,7 @@ import {
   wakaTimeJson,
   WAKA_TIME_STATS_STYLE,
 } from "./lib/transport";
+import { toHours, toPercent } from "./lib/units";
 
 interface WakaTimeBreakdownItem {
   name: string;
@@ -93,12 +94,9 @@ export async function getWakaTimeStats(
  * getWakaTimeMetrics and getWakaTimeOverview so both stay in sync.
  */
 function toMetrics(data: WakaTimeStats["data"]): WakaMetrics {
-  const totalHours = (data.total_seconds || 0) / 3600;
-  const avgDailyHours = (data.daily_average || 0) / 3600;
-
   return {
-    totalHours: Math.round(totalHours * 10) / 10,
-    avgDailyHours: Math.round(avgDailyHours * 10) / 10,
+    totalHours: toHours(data.total_seconds || 0),
+    avgDailyHours: toHours(data.daily_average || 0),
     daysActive: data.days_minus_holidays || 0,
     topLanguage: data.languages?.[0]?.name || "N/A",
   };
@@ -113,7 +111,7 @@ export async function getWakaTimeLanguages(days: number | "all" = 30) {
     .slice(0, wakatimeConfig.topLanguagesLimit)
     .map((lang) => ({
       name: lang?.name || "Unknown",
-      percent: Math.round((lang?.percent || 0) * 100) / 100,
+      percent: toPercent(lang?.percent || 0),
       total_seconds: lang?.total_seconds || 0,
     }));
 }
@@ -291,13 +289,10 @@ async function getActivityFromDurations(
 
   return sortedDates.map((date) => {
     const activity = activityMap.get(date)!;
-    const humanHours = (activity.humanSeconds / 3600).toFixed(2);
-    const aiHours = (activity.aiSeconds / 3600).toFixed(2);
-
     return {
       date,
-      "Human Hours": Number.parseFloat(humanHours),
-      "AI Hours": Number.parseFloat(aiHours),
+      "Human Hours": toHours(activity.humanSeconds),
+      "AI Hours": toHours(activity.aiSeconds),
     };
   });
 }
@@ -454,9 +449,9 @@ function normalizeBreakdown(
     .slice(0, limit)
     .map((item) => ({
       name: sanitizePathLabel(item?.name),
-      percent: Math.round((item?.percent || 0) * 100) / 100,
+      percent: toPercent(item?.percent || 0),
       total_seconds: item?.total_seconds || 0,
-      hours: Math.round(((item?.total_seconds || 0) / 3600) * 10) / 10,
+      hours: toHours(item?.total_seconds || 0),
     }));
 }
 
@@ -471,7 +466,7 @@ function extractBestDay(
     date: best.date,
     text: best.text || "",
     totalSeconds: best.total_seconds,
-    hours: Math.round((best.total_seconds / 3600) * 10) / 10,
+    hours: toHours(best.total_seconds),
   };
 }
 
@@ -499,8 +494,6 @@ export async function getWakaTimeOverview(
 }
 
 // Helper functions for data processing
-const toHours = (seconds: number) => Math.round((seconds / 3600) * 10) / 10;
-
 // Interface definitions for WakaTime API responses
 interface DayData {
   date: string;

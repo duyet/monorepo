@@ -101,25 +101,47 @@ async function renderPage(data: LoaderData): Promise<string> {
 }
 
 describe("overview route render equivalence", () => {
-  it("renders the full dashboard byte-for-byte as the pre-split golden", async () => {
-    const html = await renderPage(fixture);
+  // Rendering the whole dashboard runs every d3 layout and every dither-kit
+  // canvas computation, and takes 4–5s. The 5s Vitest default therefore sits
+  // *on* the measurement, which makes this test fail intermittently under load
+  // with a timeout rather than an assertion — the most misleading possible
+  // failure, because it looks like the golden diverged when nothing did.
+  //
+  // It was observed doing exactly that while three other worktrees were
+  // building concurrently. The budget is explicit for that reason: this test
+  // does real work, and the time is part of its cost.
+  const RENDER_TIMEOUT_MS = 60_000;
 
-    if (process.env.UPDATE_OVERVIEW_SNAPSHOT === "1") {
-      writeFileSync(GOLDEN, `${html}\n`);
-      return;
-    }
+  it(
+    "renders the full dashboard byte-for-byte as the pre-split golden",
+    async () => {
+      const html = await renderPage(fixture);
 
-    const golden = pretty(readFileSync(GOLDEN, "utf8")).trimEnd();
-    expect(html).toBe(golden);
-  });
+      if (process.env.UPDATE_OVERVIEW_SNAPSHOT === "1") {
+        writeFileSync(GOLDEN, `${html}\n`);
+        return;
+      }
 
-  it("is deterministic across renders", async () => {
-    // Guards the golden file itself: a non-deterministic render (Date.now, a
-    // random id, an unordered map) would make every run of this test flaky and
-    // would quietly destroy the value of the diff.
-    const [a, b] = await Promise.all([renderPage(fixture), renderPage(fixture)]);
-    expect(a).toBe(b);
-  });
+      const golden = pretty(readFileSync(GOLDEN, "utf8")).trimEnd();
+      expect(html).toBe(golden);
+    },
+    RENDER_TIMEOUT_MS
+  );
+
+  it(
+    "is deterministic across renders",
+    async () => {
+      // Guards the golden file itself: a non-deterministic render (Date.now, a
+      // random id, an unordered map) would make every run of this test flaky and
+      // would quietly destroy the value of the diff.
+      const [a, b] = await Promise.all([
+        renderPage(fixture),
+        renderPage(fixture),
+      ]);
+      expect(a).toBe(b);
+    },
+    RENDER_TIMEOUT_MS
+  );
 
   it("drops the optional sections, and only those, for an empty window", async () => {
     // Every card family in the route is conditional. This pins the *set* of

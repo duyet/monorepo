@@ -8,6 +8,7 @@
 import { getWakaTimeRangeForElapsedDays, wakatimeConfig } from "@duyet/config";
 import { getClickHouseActivity, hasActivityData } from "./clickhouse";
 import { WAKA_TIME_HYBRID_STYLE, wakaTimeJson } from "./transport";
+import { toHours } from "./units";
 import {
   DEFAULT_HYBRID_CONFIG,
   type HybridFetchConfig,
@@ -28,13 +29,6 @@ interface DayRow {
  */
 function formatDate(date: Date): string {
   return date.toISOString().split("T")[0];
-}
-
-/**
- * Convert seconds to hours (rounded to 2 decimal places)
- */
-function toHours(seconds: number): number {
-  return Math.round((seconds / 3600) * 100) / 100;
 }
 
 /**
