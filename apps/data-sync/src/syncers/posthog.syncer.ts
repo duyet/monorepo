@@ -147,8 +147,15 @@ export class PostHogSyncer extends BaseSyncer<
       return records;
     }
 
-    // Aggregate events by date and path
-    const pathMap = new Map<string, AggregatedPathData>();
+    // Aggregate events by date and path.
+    //
+    // Two levels rather than one composite string key: a key like
+    // `${eventDate}:${path}` has to be split apart again to recover the path,
+    // and ":" is a legal character in a URL path, so "/a:b" was read back as
+    // path "/a" — every path after a colon was truncated, and two paths
+    // sharing a prefix ("/a:b", "/a:c") collapsed onto the same (date, path)
+    // row, where the table's ReplacingMergeTree would keep only one of them.
+    const byDate = new Map<string, Map<string, AggregatedPathData>>();
 
     for (const response of data) {
       for (const event of response.results) {
@@ -180,18 +187,22 @@ export class PostHogSyncer extends BaseSyncer<
         // Extract date from timestamp
         const eventDate = isoDate(event.timestamp);
 
-        // Create key for aggregation
-        const key = `${eventDate}:${path}`;
+        let pathsForDate = byDate.get(eventDate);
+        if (!pathsForDate) {
+          pathsForDate = new Map<string, AggregatedPathData>();
+          byDate.set(eventDate, pathsForDate);
+        }
 
-        if (!pathMap.has(key)) {
-          pathMap.set(key, {
+        let aggregated = pathsForDate.get(path);
+        if (!aggregated) {
+          aggregated = {
             visitors: new Set<string>(),
             views: 0,
             sessions: new Set<string>(),
-          });
+          };
+          pathsForDate.set(path, aggregated);
         }
 
-        const aggregated = pathMap.get(key)!;
         aggregated.visitors.add(event.distinct_id);
         aggregated.views++;
 
@@ -205,16 +216,16 @@ export class PostHogSyncer extends BaseSyncer<
     }
 
     // Convert aggregated data to records
-    for (const [key, data] of pathMap.entries()) {
-      const [date, path] = key.split(":");
-
-      records.push({
-        date,
-        path,
-        visitors: data.visitors.size,
-        views: data.views,
-        sessions: data.sessions.size,
-      });
+    for (const [date, pathsForDate] of byDate.entries()) {
+      for (const [path, aggregated] of pathsForDate.entries()) {
+        records.push({
+          date,
+          path,
+          visitors: aggregated.visitors.size,
+          views: aggregated.views,
+          sessions: aggregated.sessions.size,
+        });
+      }
     }
 
     this.logger.info(

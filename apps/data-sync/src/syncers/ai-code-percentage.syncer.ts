@@ -68,6 +68,15 @@ interface RawCommitRecord {
 
 const GITHUB_GRAPHQL_URL = "https://api.github.com/graphql";
 
+/**
+ * A commit as `fetchAllCommits` returns it, tagged with the owner it was
+ * fetched under. This is the type that travels from `fetchFromApi` to
+ * `transform` — the syncer used to re-shape these into a synthetic GraphQL
+ * envelope on the way out and re-parse it on the way in, which lost the repo
+ * name in `repository.url` and recomputed `web_url` from it.
+ */
+type FetchedCommit = GitHubCommit & { repo_owner: string };
+
 const REPO_COMMIT_QUERY = `
   query($owner: String!, $name: String!, $after: String, $since: GitTimestamp) {
     repository(owner: $owner, name: $name) {
@@ -134,7 +143,10 @@ const REPO_COMMIT_QUERY = `
   }
 `;
 
-export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord> {
+export class AICodePercentageSyncer extends BaseSyncer<
+  FetchedCommit,
+  RawCommitRecord
+> {
   private owners: string[];
 
   constructor(client: ClickHouseClient, owner?: string | string[]) {
@@ -154,7 +166,7 @@ export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord> {
     return "github_commits_raw";
   }
 
-  protected async fetchFromApi(options: SyncOptions): Promise<any[]> {
+  protected async fetchFromApi(options: SyncOptions): Promise<FetchedCommit[]> {
     const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || "";
     if (!token) {
       throw new Error(
@@ -172,9 +184,7 @@ export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord> {
     );
 
     // Fetch repos and commits for all owners
-    const allCommits: Array<
-      GitHubCommit & { repo: string; repo_owner: string }
-    > = [];
+    const allCommits: FetchedCommit[] = [];
 
     for (const currentOwner of this.owners) {
       this.logger.info(`Fetching repositories for ${currentOwner}...`);
@@ -232,90 +242,11 @@ export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord> {
 
     this.logger.info(`Total commits fetched: ${allCommits.length}`);
 
-    if (allCommits.length === 0) {
-      return [];
-    }
-
-    // Group by owner to create separate responses
-    const commitsByOwner = new Map<string, Array<(typeof allCommits)[0]>>();
-    for (const commit of allCommits) {
-      if (!commitsByOwner.has(commit.repo_owner)) {
-        commitsByOwner.set(commit.repo_owner, []);
-      }
-      commitsByOwner.get(commit.repo_owner)!.push(commit);
-    }
-
-    // Create separate response for each owner
-    const responses: any[] = [];
-    for (const [currentOwner, commits] of commitsByOwner) {
-      responses.push({
-        data: {
-          repository: {
-            url: `https://github.com/${currentOwner}`,
-            defaultBranchRef: {
-              target: {
-                history: {
-                  pageInfo: {
-                    hasNextPage: false,
-                    endCursor: "",
-                  },
-                  edges: commits.map((commit) => ({
-                    // Include repo name as custom field
-                    _repo: commit.repo,
-                    node: {
-                      oid: commit.sha,
-                      abbreviatedOid: commit.short_sha,
-                      url: commit.commit_url,
-                      message: commit.message,
-                      messageHeadline: commit.message_headline,
-                      messageBody: commit.message_body || "",
-                      author: {
-                        name: commit.author_name,
-                        email: commit.author_email,
-                        date: commit.author_date,
-                      },
-                      committer: {
-                        name: commit.committer_name,
-                        email: commit.committer_email,
-                        date: commit.committer_date,
-                      },
-                      signature: {
-                        exists: commit.signature_exists,
-                        valid: commit.signature_valid
-                          ? commit.signature_valid
-                          : null,
-                        method: commit.signature_method,
-                      },
-                      additions: commit.additions,
-                      deletions: commit.deletions,
-                      changedFiles: commit.changed_files,
-                      pushedDate: commit.pushed_date,
-                      committedDate: commit.committed_date,
-                      authoredDate: commit.authored_date,
-                      parents: {
-                        edges: commit.parents.map((oid) => ({
-                          node: { oid },
-                        })),
-                      },
-                      coAuthors: {
-                        edges: commit.co_authors.map((author) => ({
-                          node: {
-                            name: author.name,
-                            email: author.email,
-                          },
-                        })),
-                      },
-                    },
-                  })),
-                },
-              },
-            },
-          },
-        },
-      });
-    }
-
-    return responses;
+    // Handed to `transform` as-is. The commits already carry every field the
+    // record needs — including the per-repo `web_url` that
+    // `fetchAllCommits` builds from the repository's own url — so there is
+    // nothing to re-shape.
+    return allCommits;
   }
 
   private async fetchAllRepos(token: string, owner: string): Promise<string[]> {
@@ -483,64 +414,49 @@ export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord> {
     return commits;
   }
 
-  protected async transform(data: any[]): Promise<RawCommitRecord[]> {
+  protected async transform(data: FetchedCommit[]): Promise<RawCommitRecord[]> {
     if (!data || data.length === 0) {
       return [];
     }
 
     const records: RawCommitRecord[] = [];
 
-    // Process all responses (one per owner)
-    for (const response of data) {
-      const edges =
-        response.data?.repository?.defaultBranchRef?.target?.history?.edges ||
-        [];
+    for (const commit of data) {
+      // co_authors are stored as "name <email>" strings
+      const coAuthorsFormatted = commit.co_authors.map(
+        (author) => `${author.name} <${author.email}>`
+      );
 
-      const repoUrl = response.data?.repository?.url || "";
-      // Extract repo_owner from URL (e.g., "https://github.com/duyet" -> "duyet")
-      const repoOwner = repoUrl.split("github.com/")[1] || this.owners[0];
-
-      for (const edge of edges) {
-        const commit = edge.node;
-
-        // Format co_authors as array of "name <email>" strings
-        const coAuthorsFormatted = commit.coAuthors.edges.map((e: any) => {
-          const name = e.node.name;
-          const email = e.node.email;
-          return `${name} <${email}>`;
-        });
-
-        records.push({
-          date: isoDateOf(new Date(commit.committedDate)),
-          repo: edge._repo || "unknown", // Use repo name from edge
-          repo_owner: repoOwner,
-          repo_url: repoUrl,
-          sha: commit.oid,
-          short_sha: commit.abbreviatedOid,
-          commit_url: commit.url,
-          web_url: `${repoUrl}/commit/${commit.abbreviatedOid}`,
-          author_name: commit.author.name,
-          author_email: commit.author.email,
-          author_date: commit.author.date,
-          committer_name: commit.committer.name,
-          committer_email: commit.committer.email,
-          committer_date: commit.committer.date,
-          message: commit.message,
-          message_headline: commit.messageHeadline,
-          message_body: commit.messageBody || "",
-          additions: commit.additions,
-          deletions: commit.deletions,
-          changed_files: commit.changedFiles,
-          parents: commit.parents.edges.map((e: any) => e.node.oid),
-          co_authors: coAuthorsFormatted,
-          signature_exists: commit.signature?.exists ? 1 : 0,
-          signature_valid: commit.signature?.valid ? 1 : 0,
-          signature_method: commit.signature?.method || "",
-          committed_at: commit.committedDate,
-          authored_at: commit.authoredDate,
-          pushed_date: commit.pushedDate || null,
-        });
-      }
+      records.push({
+        date: isoDateOf(new Date(commit.committed_date)),
+        repo: commit.repo,
+        repo_owner: commit.repo_owner,
+        repo_url: commit.repo_url,
+        sha: commit.sha,
+        short_sha: commit.short_sha,
+        commit_url: commit.commit_url,
+        web_url: commit.web_url,
+        author_name: commit.author_name,
+        author_email: commit.author_email,
+        author_date: commit.author_date,
+        committer_name: commit.committer_name,
+        committer_email: commit.committer_email,
+        committer_date: commit.committer_date,
+        message: commit.message,
+        message_headline: commit.message_headline,
+        message_body: commit.message_body || "",
+        additions: commit.additions,
+        deletions: commit.deletions,
+        changed_files: commit.changed_files,
+        parents: commit.parents,
+        co_authors: coAuthorsFormatted,
+        signature_exists: commit.signature_exists ? 1 : 0,
+        signature_valid: commit.signature_valid ? 1 : 0,
+        signature_method: commit.signature_method || "",
+        committed_at: commit.committed_date,
+        authored_at: commit.authored_date,
+        pushed_date: commit.pushed_date || null,
+      });
     }
 
     this.logger.info(`Transformed ${records.length} commit records`);
