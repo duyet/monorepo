@@ -1,28 +1,44 @@
-import type { UnsplashPhoto } from "./types";
-
 /**
- * Masonry grid and responsive layout utilities
+ * Masonry grid configuration for the photo gallery.
+ *
+ * ## Why this file is so small
+ *
+ * It used to be 261 lines of "grid utilities": column calculation, sorting,
+ * filtering, year grouping, item dimension maths and a preload policy. Measured
+ * against the app, **none of it was reachable.** `components/PhotoGrid.tsx`
+ * imports exactly two things — `MASONRY_CONFIG.breakpoints` and
+ * `getMasonryClasses()` — and the rest was referenced only by
+ * `__tests__/lib/GridUtilities.test.ts`.
+ *
+ * `MASONRY_CONFIG.gutter` and `.animation` are the sharpest example: nothing read
+ * them, and the only thing that did was a test asserting
+ * `MASONRY_CONFIG.gutter.mobile === "16px"` — a test pinning a literal to
+ * itself, which made unread config look configured.
+ *
+ * `groupPhotosByYear` was duplicated verbatim in `lib/unsplash.ts`, where the
+ * live version lives; the copy here had no callers.
+ *
+ * Git has the rest (`git show <sha>^:apps/photos/lib/GridUtilities.ts`), and the
+ * recovery command is in `docs/ai/core-memory.md`.
  */
 
-export interface BreakpointConfig {
+interface BreakpointConfig {
   [key: string]: number;
 }
 
-export interface GridConfiguration {
+interface GridConfiguration {
+  /**
+   * Column count per viewport width, keyed by min-width in px plus a
+   * `default` fallback. Passed straight to `react-masonry-css`'s
+   * `breakpointCols`, which is why the `default` key matters — it is the
+   * column count above the largest breakpoint.
+   */
   breakpoints: BreakpointConfig;
-  gutter: {
-    mobile: string;
-    tablet: string;
-    desktop: string;
-  };
-  animation: {
-    duration: string;
-    easing: string;
-  };
 }
 
 /**
- * Professional masonry grid configuration optimized for photo display
+ * Masonry breakpoints for photo display, widest-first: 7 columns at 1920px+,
+ * tapering to 1 on mobile.
  */
 export const MASONRY_CONFIG: GridConfiguration = {
   breakpoints: {
@@ -34,35 +50,13 @@ export const MASONRY_CONFIG: GridConfiguration = {
     768: 2, // 2 columns on tablet
     640: 1, // 1 column on mobile
   },
-  gutter: {
-    mobile: "16px", // 4 (1rem)
-    tablet: "24px", // 6 (1.5rem)
-    desktop: "32px", // 8 (2rem)
-  },
-  animation: {
-    duration: "0.3s",
-    easing: "cubic-bezier(0.4, 0, 0.2, 1)",
-  },
 };
 
 /**
- * Calculate optimal grid columns based on viewport width
- */
-export function getColumnsForViewport(width: number): number {
-  const { breakpoints } = MASONRY_CONFIG;
-  const keys = Object.keys(breakpoints)
-    .filter((key) => key !== "default")
-    .map(Number)
-    .sort((a, b) => a - b);
-  for (const key of keys) {
-    if (width <= key) return breakpoints[String(key)];
-  }
-  return breakpoints.default;
-}
-
-/**
- * Generate responsive CSS classes for masonry grid
- * With proper spacing between photos
+ * Static class strings for the masonry container and its columns.
+ *
+ * Hoisted to module scope by `PhotoGrid` — these never change, so there is no
+ * reason to rebuild the object on every render.
  */
 export function getMasonryClasses(): {
   container: string;
@@ -73,189 +67,3 @@ export function getMasonryClasses(): {
     column: "bg-clip-padding",
   };
 }
-
-/**
- * Photo sorting and filtering utilities
- */
-export interface SortOptions {
-  by: "date" | "popularity" | "dimensions" | "random";
-  direction: "asc" | "desc";
-}
-
-export function sortPhotos(
-  photos: UnsplashPhoto[],
-  options: SortOptions
-): UnsplashPhoto[] {
-  const { by, direction } = options;
-  const sorted = [...photos];
-
-  sorted.sort((a, b) => {
-    let compareValue = 0;
-
-    switch (by) {
-      case "date":
-        compareValue =
-          new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
-        break;
-
-      case "popularity": {
-        const aPopularity =
-          (a.stats?.views || 0) + (a.stats?.downloads || 0) + (a.likes || 0);
-        const bPopularity =
-          (b.stats?.views || 0) + (b.stats?.downloads || 0) + (b.likes || 0);
-        compareValue = aPopularity - bPopularity;
-        break;
-      }
-
-      case "dimensions": {
-        const aArea = a.width * a.height;
-        const bArea = b.width * b.height;
-        compareValue = aArea - bArea;
-        break;
-      }
-
-      case "random":
-        compareValue = Math.random() - 0.5;
-        break;
-    }
-
-    return direction === "desc" ? -compareValue : compareValue;
-  });
-
-  return sorted;
-}
-
-/**
- * Filter photos by various criteria
- */
-export interface FilterOptions {
-  aspectRatio?: "portrait" | "landscape" | "square" | "all";
-  year?: number;
-  hasLocation?: boolean;
-  hasExif?: boolean;
-  minViews?: number;
-  photographer?: string;
-}
-
-export function filterPhotos(
-  photos: UnsplashPhoto[],
-  options: FilterOptions
-): UnsplashPhoto[] {
-  return photos.filter((photo) => {
-    // Aspect ratio filter
-    if (options.aspectRatio && options.aspectRatio !== "all") {
-      const ratio = photo.width / photo.height;
-      switch (options.aspectRatio) {
-        case "portrait":
-          if (ratio >= 0.8) return false;
-          break;
-        case "landscape":
-          if (ratio <= 1.5) return false;
-          break;
-        case "square":
-          if (ratio < 0.8 || ratio > 1.2) return false;
-          break;
-      }
-    }
-
-    // Year filter
-    if (options.year) {
-      const photoYear = new Date(photo.created_at).getFullYear();
-      if (photoYear !== options.year) return false;
-    }
-
-    // Location filter
-    if (options.hasLocation !== undefined) {
-      const hasLocation = !!(
-        photo.location &&
-        (photo.location.city || photo.location.country)
-      );
-      if (hasLocation !== options.hasLocation) return false;
-    }
-
-    // EXIF filter
-    if (options.hasExif !== undefined) {
-      const hasExif = !!(photo.exif && (photo.exif.make || photo.exif.model));
-      if (hasExif !== options.hasExif) return false;
-    }
-
-    // Minimum views filter
-    if (
-      options.minViews &&
-      (!photo.stats || photo.stats.views < options.minViews)
-    ) {
-      return false;
-    }
-
-    // Photographer filter
-    if (options.photographer && photo.user.username !== options.photographer) {
-      return false;
-    }
-
-    return true;
-  });
-}
-
-/**
- * Group photos by year for chronological display
- */
-export interface PhotosByYear {
-  [year: string]: UnsplashPhoto[];
-}
-
-export function groupPhotosByYear(photos: UnsplashPhoto[]): PhotosByYear {
-  return photos.reduce((groups, photo) => {
-    const year = new Date(photo.created_at).getFullYear().toString();
-    if (!groups[year]) {
-      groups[year] = [];
-    }
-    groups[year].push(photo);
-    return groups;
-  }, {} as PhotosByYear);
-}
-
-/**
- * Calculate grid item dimensions for optimal layout
- */
-export interface GridItemDimensions {
-  width: number;
-  height: number;
-  aspectRatio: number;
-  spanColumns?: number;
-}
-
-export function calculateGridItemDimensions(
-  photo: UnsplashPhoto,
-  containerWidth: number,
-  columns: number
-): GridItemDimensions {
-  const gutter = 24; // Default gutter in pixels
-  const availableWidth = containerWidth - gutter * (columns - 1);
-  const columnWidth = availableWidth / columns;
-
-  const aspectRatio = photo.width / photo.height;
-  const width = columnWidth;
-  const height = width / aspectRatio;
-
-  return {
-    width,
-    height,
-    aspectRatio,
-    spanColumns: 1, // Single column span for masonry layout
-  };
-}
-
-/**
- * Preload configuration for performance optimization
- */
-export interface PreloadConfig {
-  priorityCount: number;
-  intersectionThreshold: number;
-  rootMargin: string;
-}
-
-export const PRELOAD_CONFIG: PreloadConfig = {
-  priorityCount: 6, // Number of images to prioritize
-  intersectionThreshold: 0.01, // Trigger when 1% visible
-  rootMargin: "200px", // Load 200px before entering viewport
-};

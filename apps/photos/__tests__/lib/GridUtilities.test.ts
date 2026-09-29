@@ -1,215 +1,148 @@
 import { describe, expect, test } from "vitest";
-import {
-  calculateGridItemDimensions,
-  filterPhotos,
-  getColumnsForViewport,
-  getMasonryClasses,
-  groupPhotosByYear,
-  MASONRY_CONFIG,
-  PRELOAD_CONFIG,
-  sortPhotos,
-} from "@/lib/GridUtilities";
+import { getMasonryClasses, MASONRY_CONFIG } from "@/lib/GridUtilities";
 
-const mockPhotos = [
-  {
-    id: "1",
-    width: 1920,
-    height: 1080,
-    created_at: "2024-01-01T00:00:00Z",
-    urls: { raw: "", full: "", regular: "", small: "", thumb: "" },
-    user: { id: "u1", username: "user1", name: "User 1" },
-    stats: { views: 1000, downloads: 100 },
-    likes: 50,
-    location: { city: "SF", country: "USA" },
-    exif: { make: "Canon", model: "5D" },
-  },
-  {
-    id: "2",
-    width: 1080,
-    height: 1920,
-    created_at: "2023-06-15T00:00:00Z",
-    urls: { raw: "", full: "", regular: "", small: "", thumb: "" },
-    user: { id: "u2", username: "user2", name: "User 2" },
-    stats: { views: 500, downloads: 50 },
-    likes: 25,
-    location: { city: "NYC", country: "USA" },
-    exif: { make: "Nikon", model: "D850" },
-  },
-  {
-    id: "3",
-    width: 1000,
-    height: 1000,
-    created_at: "2022-12-01T00:00:00Z",
-    urls: { raw: "", full: "", regular: "", small: "", thumb: "" },
-    user: { id: "u3", username: "user3", name: "User 3" },
-    location: null,
-    exif: null,
-  },
-];
+/**
+ * `components/PhotoGrid.tsx` imports exactly two things from this module:
+ * `MASONRY_CONFIG.breakpoints` (forwarded to `react-masonry-css`'s
+ * `breakpointCols`) and `getMasonryClasses()`.
+ *
+ * This file used to be 261 lines and the other ~185 were unreachable — sorting,
+ * filtering, year grouping, item dimension maths and a preload policy, none of
+ * it called from anywhere. `MASONRY_CONFIG.gutter` and `.animation` are the
+ * clearest case: nothing read them, and the only reader was a test asserting
+ * `gutter.mobile === "16px"`, i.e. a literal compared against itself.
+ *
+ * So the tests now cover what the app actually uses, plus a guard that keeps
+ * unreachable exports from creeping back.
+ */
 
-describe("GridUtilities", () => {
-  describe("getColumnsForViewport", () => {
-    test("returns 1 column at the 640px masonry boundary", () => {
-      expect(getColumnsForViewport(640)).toBe(1);
-    });
+describe("MASONRY_CONFIG.breakpoints", () => {
+  test("has a `default` fallback, which react-masonry-css needs", () => {
+    // `default` is the column count above the largest breakpoint. Without it
+    // the gallery renders with no columns at all on a wide monitor, and it
+    // cannot be inferred from the other keys.
+    expect(MASONRY_CONFIG.breakpoints.default).toBeGreaterThan(0);
+  });
 
-    test("returns 2 columns at the 768px masonry boundary", () => {
-      expect(getColumnsForViewport(768)).toBe(2);
-    });
+  test("gives more columns to wider viewports, and `default` the most", () => {
+    // `react-masonry-css` treats each key as a **min-width** and `default` as
+    // the fallback above the largest one. So columns increase with width:
+    // 640px->1, 768px->2, ... 1920px->6, default->7.
+    const { breakpoints } = MASONRY_CONFIG;
+    const widths = Object.keys(breakpoints)
+      .filter((key) => key !== "default")
+      .map(Number)
+      .sort((a, b) => a - b);
 
-    test("returns 3 columns for tablet", () => {
-      expect(getColumnsForViewport(800)).toBe(3);
-    });
+    expect(widths.length).toBeGreaterThan(1);
+    for (let i = 1; i < widths.length; i += 1) {
+      expect(
+        breakpoints[String(widths[i])],
+        `${widths[i]}px should not have fewer columns than ${widths[i - 1]}px`,
+      ).toBeGreaterThanOrEqual(breakpoints[String(widths[i - 1])]);
+    }
 
-    test("returns 4 columns for desktop", () => {
-      expect(getColumnsForViewport(1200)).toBe(4);
-    });
+    expect(breakpoints.default).toBeGreaterThanOrEqual(
+      breakpoints[String(widths.at(-1) as number)],
+    );
+  });
 
-    test("returns 6 columns for wide screens", () => {
-      expect(getColumnsForViewport(1600)).toBe(6);
-    });
+  test("never drops below one column", () => {
+    for (const [key, cols] of Object.entries(MASONRY_CONFIG.breakpoints)) {
+      expect(cols, key).toBeGreaterThanOrEqual(1);
+    }
+  });
 
-    test("returns 7 columns for ultra-wide screens", () => {
-      expect(getColumnsForViewport(2560)).toBe(7);
+  test("has no duplicate viewport widths", () => {
+    const keys = Object.keys(MASONRY_CONFIG.breakpoints);
+    expect(new Set(keys).size).toBe(keys.length);
+  });
+});
+
+describe("getMasonryClasses", () => {
+  test("returns the container and column classes", () => {
+    expect(getMasonryClasses()).toEqual({
+      container: "flex w-full gap-3 sm:gap-4",
+      column: "bg-clip-padding",
     });
   });
 
-  describe("getMasonryClasses", () => {
-    test("returns container and column classes", () => {
-      const result = getMasonryClasses();
-      expect(result.container).toBe("flex w-full gap-3 sm:gap-4");
-      expect(result.column).toBe("bg-clip-padding");
-    });
+  test("is stable across calls, since PhotoGrid hoists it to module scope", () => {
+    // `PhotoGrid.tsx` evaluates this once at import. If it were not pure the
+    // hoisted value would go stale relative to the class strings in use.
+    expect(getMasonryClasses()).toEqual(getMasonryClasses());
+  });
+});
+
+describe("reachability", () => {
+  test("nothing here is exported for nobody", () => {
+    // The check that would have caught the 185 dead lines. Reads the app and
+    // fails if a name this module exports has no consumer outside itself and
+    // its own test file.
+    const { readFileSync, readdirSync, statSync } = require("node:fs") as
+      typeof import("node:fs");
+    const { dirname, join } = require("node:path") as typeof import("node:path");
+    const { fileURLToPath } = require("node:url") as typeof import("node:url");
+
+    const appDir = join(dirname(fileURLToPath(import.meta.url)), "../..");
+    const here = join(appDir, "lib/GridUtilities.ts");
+
+    // Handles both shapes: `export const x`, `export function x`,
+    // `export interface x`, and a trailing `export { a, b }` re-export list.
+    const source = readFileSync(here, "utf8");
+    const declared = [...source.matchAll(
+      /^export\s+(?:declare\s+)?(?:async\s+)?(?:const|let|var|function|class|interface|type|enum)\s+(\w+)/gm,
+    )].map((m) => m[1]);
+    const reexported = [...source.matchAll(/^export\s*\{([^}]*)\}/gm)].flatMap(
+      (m) =>
+        m[1]
+          .split(",")
+          .map((part) => part.trim().split(/\s+as\s+/).pop() ?? "")
+          .filter(Boolean),
+    );
+    const exported = [...new Set([...declared, ...reexported])];
+
+    expect(exported.length).toBeGreaterThan(0);
+
+    const appFiles: string[] = [];
+    const walk = (dir: string) => {
+      for (const entry of readdirSync(dir)) {
+        if (entry === "node_modules" || entry === "dist" || entry === ".output") {
+          continue;
+        }
+        const full = join(dir, entry);
+        if (statSync(full).isDirectory()) {
+          walk(full);
+        } else if (/\.tsx?$/.test(entry) && !/\.test\.tsx?$/.test(entry)) {
+          appFiles.push(full);
+        }
+      }
+    };
+    walk(appDir);
+
+    const orphaned = exported.filter(
+      (name) =>
+        !appFiles.some((file) => {
+          if (file === here) return false;
+          return new RegExp(`\\b${name}\\b`).test(readFileSync(file, "utf8"));
+        }),
+    );
+
+    expect(orphaned).toEqual([]);
   });
 
-  describe("sortPhotos", () => {
-    test("sorts by date ascending", () => {
-      const result = sortPhotos(mockPhotos, { by: "date", direction: "asc" });
-      expect(result[0].id).toBe("3");
-      expect(result[2].id).toBe("1");
-    });
+  test("does not re-export a year grouper that lives elsewhere", () => {
+    // `groupPhotosByYear` existed here *and* in `lib/unsplash.ts`. The copy in
+    // this file had no callers. A duplicate export name is how that happens, so
+    // assert the name is absent from this module.
+    const { readFileSync } = require("node:fs") as typeof import("node:fs");
+    const { dirname, join } = require("node:path") as typeof import("node:path");
+    const { fileURLToPath } = require("node:url") as typeof import("node:url");
 
-    test("sorts by date descending", () => {
-      const result = sortPhotos(mockPhotos, { by: "date", direction: "desc" });
-      expect(result[0].id).toBe("1");
-      expect(result[2].id).toBe("3");
-    });
-
-    test("sorts by popularity", () => {
-      const result = sortPhotos(mockPhotos, {
-        by: "popularity",
-        direction: "desc",
-      });
-      expect(result[0].id).toBe("1"); // 1000 views + 100 downloads + 50 likes
-      expect(result[2].id).toBe("3"); // 0 views/downloads/likes
-    });
-
-    test("sorts by dimensions", () => {
-      const result = sortPhotos(mockPhotos, {
-        by: "dimensions",
-        direction: "desc",
-      });
-      expect(result[0].id).toBe("1"); // 1920x1080 = 2,073,600 pixels
-      expect(result[2].id).toBe("3"); // 1000x1000 = 1,000,000 pixels
-    });
-  });
-
-  describe("filterPhotos", () => {
-    test("filters by portrait aspect ratio", () => {
-      const result = filterPhotos(mockPhotos, { aspectRatio: "portrait" });
-      expect(result).toHaveLength(1);
-      expect(result[0].id).toBe("2");
-    });
-
-    test("filters by landscape aspect ratio", () => {
-      const result = filterPhotos(mockPhotos, { aspectRatio: "landscape" });
-      expect(result).toHaveLength(1);
-      expect(result[0].id).toBe("1");
-    });
-
-    test("filters by square aspect ratio", () => {
-      const result = filterPhotos(mockPhotos, { aspectRatio: "square" });
-      expect(result).toHaveLength(1);
-      expect(result[0].id).toBe("3");
-    });
-
-    test("filters by year", () => {
-      const result = filterPhotos(mockPhotos, { year: 2024 });
-      expect(result).toHaveLength(1);
-      expect(result[0].id).toBe("1");
-    });
-
-    test("filters by hasLocation", () => {
-      const result = filterPhotos(mockPhotos, { hasLocation: true });
-      expect(result).toHaveLength(2);
-      expect(result.every((p) => p.location)).toBe(true);
-    });
-
-    test("filters by hasExif", () => {
-      const result = filterPhotos(mockPhotos, { hasExif: true });
-      expect(result).toHaveLength(2);
-      expect(result.every((p) => p.exif)).toBe(true);
-    });
-
-    test("filters by minViews", () => {
-      const result = filterPhotos(mockPhotos, { minViews: 750 });
-      expect(result).toHaveLength(1);
-      expect(result[0].id).toBe("1");
-    });
-
-    test("filters by photographer", () => {
-      const result = filterPhotos(mockPhotos, { photographer: "user1" });
-      expect(result).toHaveLength(1);
-      expect(result[0].id).toBe("1");
-    });
-  });
-
-  describe("groupPhotosByYear", () => {
-    test("groups photos by year", () => {
-      const result = groupPhotosByYear(mockPhotos);
-      expect(result["2024"]).toHaveLength(1);
-      expect(result["2023"]).toHaveLength(1);
-      expect(result["2022"]).toHaveLength(1);
-    });
-  });
-
-  describe("calculateGridItemDimensions", () => {
-    test("calculates dimensions for grid item", () => {
-      const result = calculateGridItemDimensions(mockPhotos[0], 1200, 3);
-      expect(result.width).toBeCloseTo(384, 0); // (1200 - 24*2) / 3
-      expect(result.aspectRatio).toBeCloseTo(1.78, 2);
-      expect(result.spanColumns).toBe(1);
-    });
-  });
-
-  describe("MASONRY_CONFIG", () => {
-    test("has correct breakpoints", () => {
-      expect(MASONRY_CONFIG.breakpoints.default).toBe(7);
-      expect(MASONRY_CONFIG.breakpoints["1920"]).toBe(6);
-      expect(MASONRY_CONFIG.breakpoints["1536"]).toBe(5);
-      expect(MASONRY_CONFIG.breakpoints["1280"]).toBe(4);
-      expect(MASONRY_CONFIG.breakpoints["768"]).toBe(2);
-      expect(MASONRY_CONFIG.breakpoints["640"]).toBe(1);
-    });
-
-    test("has gutter configuration", () => {
-      expect(MASONRY_CONFIG.gutter.mobile).toBe("16px");
-      expect(MASONRY_CONFIG.gutter.tablet).toBe("24px");
-      expect(MASONRY_CONFIG.gutter.desktop).toBe("32px");
-    });
-  });
-
-  describe("PRELOAD_CONFIG", () => {
-    test("has priority count of 6", () => {
-      expect(PRELOAD_CONFIG.priorityCount).toBe(6);
-    });
-
-    test("has intersection threshold", () => {
-      expect(PRELOAD_CONFIG.intersectionThreshold).toBe(0.01);
-    });
-
-    test("has root margin for preloading", () => {
-      expect(PRELOAD_CONFIG.rootMargin).toBe("200px");
-    });
+    const source = readFileSync(
+      join(dirname(fileURLToPath(import.meta.url)), "../../lib/GridUtilities.ts"),
+      "utf8",
+    );
+    expect(source).not.toMatch(/^export .*\bgroupPhotosByYear\b/m);
   });
 });

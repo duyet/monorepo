@@ -68,11 +68,22 @@ describe("@duyet/config", () => {
       const pkgDir = fileURLToPath(new URL("..", import.meta.url));
       const repoRoot = join(pkgDir, "..", "..");
 
-      const exported = readFileSync(join(pkgDir, "src/app.config.ts"), "utf8")
-        .split("\n")
-        .filter((line) => line.startsWith("export "))
-        .map((line) => line.match(/export (?:const|interface|type) (\w+)/)?.[1])
-        .filter((name): name is string => Boolean(name));
+      // Handles both shapes: `export const x`, `export interface x`,
+      // `export type x`, and a trailing `export { a, b }` re-export list.
+      const source = readFileSync(join(pkgDir, "src/app.config.ts"), "utf8");
+      const declared = [
+        ...source.matchAll(
+          /^export\s+(?:declare\s+)?(?:async\s+)?(?:const|let|var|function|class|interface|type|enum)\s+(\w+)/gm,
+        ),
+      ].map((m) => m[1]);
+      const reexported = [...source.matchAll(/^export\s*\{([^}]*)\}/gm)].flatMap(
+        (m) =>
+          m[1]
+            .split(",")
+            .map((part) => part.trim().split(/\s+as\s+/).pop() ?? "")
+            .filter(Boolean),
+      );
+      const exported = [...new Set([...declared, ...reexported])];
 
       const sourceFiles: string[] = [];
       const walk = (dir: string) => {
