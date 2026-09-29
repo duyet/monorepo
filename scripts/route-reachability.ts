@@ -259,9 +259,18 @@ function resolveSpecifier(
   return null;
 }
 
-// `from "x"`, `import("x")`, and the backtick form `import(`./x`)`.
+/**
+ * `from "x"`, `from 'x'`, `import("x")`, `import('./x')`, and the backtick form.
+ *
+ * **Both quote styles are required.** `apps/blog` contains 791 single-quoted
+ * imports; matching only double quotes made `CornerDecoration.tsx` read as dead
+ * when `NoteCard.tsx` imports it as `from './CornerDecoration'`. A module
+ * reachable only through a single-quoted import is a *false positive*, and
+ * false positives are the one failure mode that makes this script dangerous:
+ * they name real files with a confident "unreachable" verdict.
+ */
 const IMPORT_PATTERNS =
-  /from\s*"([^"]+)"|import\(\s*"([^"]+)"\s*\)|import\(\s*`([^`]+)`\s*\)/g;
+  /from\s*"([^"]+)"|from\s*'([^']+)'|import\(\s*"([^"]+)"\s*\)|import\(\s*'([^']+)'\s*\)|import\(\s*`([^`]+)`\s*\)/g;
 
 function importsOf(
   file: string,
@@ -273,7 +282,7 @@ function importsOf(
   const out: string[] = [];
   for (const match of text.matchAll(IMPORT_PATTERNS)) {
     const resolved = resolveSpecifier(
-      match[1] ?? match[2] ?? match[3] ?? "",
+      match[1] ?? match[2] ?? match[3] ?? match[4] ?? match[5] ?? "",
       file,
       source,
       aliases,
@@ -305,7 +314,15 @@ export const POSITIVE_CONTROLS: Record<string, string[]> = {
     "components/charts/CompactChart.tsx",
   ],
   home: ["src/routes/index.tsx", "src/components/HomeHero.tsx"],
-  blog: ["src/routes/index.tsx", "lib/head.ts"],
+  blog: [
+    "src/routes/index.tsx",
+    "lib/head.ts",
+    // Reachable only because `NoteCard.tsx` imports it with **single quotes**.
+    // This control exists specifically so the single-quoted-import case cannot
+    // regress: without it, `CornerDecoration.tsx` reported as dead and looked
+    // like a real finding.
+    "components/blog/CornerDecoration.tsx",
+  ],
   "llm-timeline": ["src/routes/index.tsx", "components/StaticView.tsx"],
   photos: ["src/routes/index.tsx", "components/PhotoGrid.tsx"],
   homelab: ["src/routes/index.tsx", "hooks/useDashboard.ts"],
