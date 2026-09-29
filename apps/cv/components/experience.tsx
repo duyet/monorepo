@@ -82,9 +82,34 @@ function CompanyLine({
   return <>{company}</>;
 }
 
+/**
+ * Render a job period as `"Oct 2023 – Present"`.
+ *
+ * `from`/`to` come from `new Date("2023-10")` in `cv.data.tsx`, and ECMAScript
+ * parses a bare `YYYY-MM` as **UTC**, so these are calendar months and have to
+ * be read back in UTC. Formatting them in the viewer's local zone showed the
+ * *previous* month to anyone west of UTC — `2023-10-01T00:00Z` is still
+ * September 30th in the Americas — so all seven dates on the CV read a month
+ * early for every visitor in North and South America.
+ *
+ * Extracted as a pure function so it can be tested under a real `TZ`: Node
+ * caches the process timezone, so a test cannot switch zones in-process and
+ * every in-process assertion silently runs in UTC.
+ */
+export function formatPeriod(from: Date, to?: Date): string {
+  const month = new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    timeZone: "UTC",
+  });
+
+  const fromStr = `${month.format(from)} ${from.getUTCFullYear()}`;
+  const toStr = to
+    ? `${month.format(to)} ${to.getUTCFullYear()}`
+    : "Present";
+
+  return `${fromStr} – ${toStr}`;
+}
+
 function PeriodText({ from, to }: { from: Date; to?: Date }) {
-  const monthFmt = new Intl.DateTimeFormat("en-US", { month: "short" });
-  const fromStr = `${monthFmt.format(from)} ${from.getFullYear()}`;
-  const toStr = to ? `${monthFmt.format(to)} ${to.getFullYear()}` : "Present";
-  return <>{`${fromStr} – ${toStr}`}</>;
+  return <>{formatPeriod(from, to)}</>;
 }
