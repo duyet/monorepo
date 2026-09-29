@@ -1,13 +1,13 @@
 import { describe, expect, test } from "vitest";
 import {
   apiConfig,
-  appConfig,
-  blogConfig,
   calculateBackoffDelay,
   getPeriodDays,
   getWakaTimeRange,
   githubConfig,
-  insightsConfig,
+  homelabConfig,
+  ogHeadLinks,
+  ogMetaFromConfig,
   PERIODS,
   uiConfig,
   wakatimeConfig,
@@ -15,29 +15,92 @@ import {
 
 describe("@duyet/config", () => {
   describe("App Configuration", () => {
-    test("should export all app configs", () => {
-      expect(appConfig).toBeDefined();
-      expect(appConfig.urls).toBeDefined();
-      expect(appConfig.blog).toBeDefined();
-      expect(appConfig.insights).toBeDefined();
+    /**
+     * This block previously asserted on `appConfig`, `blogConfig`,
+     * `insightsConfig` and `appConfig.urls` — four values with **zero
+     * consumers**. `@duyet/config/app` had no importers at all, and of the
+     * eleven exported values only `homelabConfig` had a consumer
+     * (`apps/homelab/src/routes/__root.tsx`, and only its `.metadata`).
+     *
+     * The tests passed the whole time, which is the problem: they pinned
+     * config that nothing read, so they could never fail for a reason anyone
+     * cared about, and they made the file look load-bearing.
+     *
+     * What replaces them tests the invariant that actually matters — that
+     * whatever this package exports is read by someone — rather than
+     * re-asserting the contents of a value. The reachability check is
+     * mechanical and lives in `scripts/app-registry-coverage.test.ts`'s
+     * spirit; here it is a smaller, local version that reads the repo.
+     */
+
+    test("exports metadata an app can actually consume through ogMetaFromConfig", () => {
+      // The opt-in path is `ogMetaFromConfig`, so anything left in
+      // `app.config.ts` has to survive that round trip. `ogHeadLinks` is the
+      // other half — `apps/homelab` uses both.
+      const meta = ogMetaFromConfig(homelabConfig.metadata);
+
+      const prop = (key: string) =>
+        meta.find((tag) => tag.property === key)?.content;
+      const named = (key: string) =>
+        meta.find((tag) => tag.name === key)?.content;
+
+      expect(prop("og:url")).toBe("https://homelab.duyet.net");
+      expect(prop("og:title")).toBe("Homelab Dashboard | duyet.net");
+      expect(prop("og:image")).toBe("https://homelab.duyet.net/og-image.svg");
+      expect(prop("og:locale")).toBe("en_US");
+      expect(named("twitter:card")).toBe("summary_large_image");
+      expect(named("twitter:creator")).toBe("@duyetdev");
+
+      expect(
+        ogHeadLinks(homelabConfig.metadata).map((link) => link.rel),
+      ).toContain("manifest");
     });
 
-    test("should have valid blog configuration", () => {
-      expect(blogConfig.metadata.title).toBe("Tôi là Duyệt");
-      expect(blogConfig.metadata.lang).toBe("en");
-      expect(blogConfig.fonts.inter.variable).toBe("--font-inter");
-      expect(blogConfig.fontFamily).toContain("var(--font-inter)");
-    });
+    test("does not export any value that no app reads", () => {
+      // The check that would have caught the original problem. Reads the repo
+      // and fails if a name exported from `app.config.ts` has no consumer
+      // outside this package's own barrel and tests.
+      const { readFileSync, readdirSync, statSync } = require("node:fs") as
+        typeof import("node:fs");
+      const { join } = require("node:path") as typeof import("node:path");
+      const { fileURLToPath } = require("node:url") as typeof import("node:url");
 
-    test("should have valid insights configuration", () => {
-      expect(insightsConfig.metadata.title).toBe("Insights | duyet.net");
-      expect(insightsConfig.header.longText).toBe("Insights");
-    });
+      const pkgDir = fileURLToPath(new URL("..", import.meta.url));
+      const repoRoot = join(pkgDir, "..", "..");
 
-    test("should have valid app URLs", () => {
-      expect(appConfig.urls.blog).toBeTruthy();
-      expect(appConfig.urls.insights).toBeTruthy();
-      expect(appConfig.urls.cv).toBeTruthy();
+      const exported = readFileSync(join(pkgDir, "src/app.config.ts"), "utf8")
+        .split("\n")
+        .filter((line) => line.startsWith("export "))
+        .map((line) => line.match(/export (?:const|interface|type) (\w+)/)?.[1])
+        .filter((name): name is string => Boolean(name));
+
+      const sourceFiles: string[] = [];
+      const walk = (dir: string) => {
+        for (const entry of readdirSync(dir)) {
+          if (entry === "node_modules" || entry === "dist" || entry === ".turbo") {
+            continue;
+          }
+          const full = join(dir, entry);
+          if (statSync(full).isDirectory()) {
+            walk(full);
+          } else if (/\.(ts|tsx)$/.test(entry) && !/\.test\.ts$/.test(entry)) {
+            sourceFiles.push(full);
+          }
+        }
+      };
+      walk(join(repoRoot, "apps"));
+      walk(join(repoRoot, "packages"));
+
+      const orphaned = exported.filter(
+        (name) =>
+          !sourceFiles.some(
+            (file) =>
+              file !== join(pkgDir, "src/app.config.ts") &&
+              new RegExp(`\\b${name}\\b`).test(readFileSync(file, "utf8")),
+          ),
+      );
+
+      expect(orphaned).toEqual([]);
     });
   });
 

@@ -1,11 +1,25 @@
 /**
- * Application Configuration
+ * App-level metadata for apps that read it from here.
  *
- * Centralized configuration for all apps in the monorepo.
- * Contains metadata, URLs, fonts, and other app-level settings.
+ * ## Why this file is so small
+ *
+ * It used to hold curated `metadata`, `fonts` and `fontFamily` blocks for ten
+ * apps plus an `appUrls` table, on the strength of its own docstring claiming to
+ * be "centralized configuration for all apps in the monorepo". Nothing read
+ * them. Measured: `@duyet/config/app` had **zero** importers, and of the eleven
+ * exported values only `homelabConfig` had a consumer
+ * (`apps/homelab/src/routes/__root.tsx`, via the barrel, and only its
+ * `.metadata`). `FontConfig` and the local `AppUrls` had none at all — the
+ * `AppUrls` that matters is `packages/urls/src/types.ts`, a different type that
+ * shadows this name.
+ *
+ * So the unreachable values are gone rather than left to look load-bearing. Git
+ * has them, and the recovery command is in `docs/ai/core-memory.md`.
+ *
+ * The pattern that made this work is `ogMetaFromConfig` in `./og`: an app opts
+ * in by passing its metadata through it, which is what homelab does. Adding an
+ * app here is only worth it if the app actually reads it back.
  */
-
-import { agentsConfig } from "./agents.config";
 
 export interface AppMetadata {
   title: string;
@@ -40,155 +54,9 @@ export interface AppMetadata {
   manifest?: string;
 }
 
-export interface FontConfig {
-  name: string;
-  weights: readonly string[];
-  subsets: readonly string[];
-  variable: string;
-  display: "auto" | "block" | "swap" | "fallback" | "optional";
-}
-
-export interface AppUrls {
-  blog: string;
-  cv: string;
-  insights: string;
-  home: string;
-  photos: string;
-  homelab: string;
-  agents: string;
-  llmTimeline: string;
-  burns: string;
-  news: string;
-}
-
-// Environment-aware URL configuration
-// Vite replaces import.meta.env.VITE_* at build time.
-// Falling back to process.env makes the same source work in Node / test contexts.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const viteEnv: Record<string, string> =
-  typeof import.meta !== "undefined" ? ((import.meta as any).env ?? {}) : {};
-const env = (key: string): string | undefined =>
-  viteEnv[key] ?? process.env[key];
-
-export const appUrls: AppUrls = {
-  blog: env("VITE_DUYET_BLOG_URL") ?? "https://blog.duyet.net",
-  cv: env("VITE_DUYET_CV_URL") ?? "https://cv.duyet.net",
-  insights: env("VITE_DUYET_INSIGHTS_URL") ?? "https://insights.duyet.net",
-  home: env("VITE_DUYET_HOME_URL") ?? "https://duyet.net",
-  photos: env("VITE_DUYET_PHOTOS_URL") ?? "https://photos.duyet.net",
-  homelab: env("VITE_DUYET_HOMELAB_URL") ?? "https://homelab.duyet.net",
-  agents: env("VITE_DUYET_AGENTS_URL") ?? "https://agents.duyet.net",
-  llmTimeline:
-    env("VITE_DUYET_LLM_TIMELINE_URL") ?? "https://llm-timeline.duyet.net",
-  burns: env("VITE_DUYET_BURNS_URL") ?? "https://burns.duyet.net",
-  news: env("VITE_DUYET_NEWS_URL") ?? "https://aidr.today",
-};
-
-// Blog app configuration
-export const blogConfig = {
-  metadata: {
-    title: "Tôi là Duyệt",
-    description: "Data Engineer. I blog about Data Engineering, Rust and more",
-    lang: "en",
-  } as AppMetadata,
-  fonts: {
-    inter: {
-      name: "Inter",
-      weights: ["400", "700"] as const,
-      subsets: ["latin", "vietnamese"] as const,
-      variable: "--font-inter",
-      display: "swap",
-    } as const,
-    libreBaskerville: {
-      name: "Libre Baskerville",
-      weights: ["400", "700"] as const,
-      subsets: ["latin", "latin-ext"] as const,
-      variable: "--font-serif",
-      display: "swap",
-    } as const,
-  },
-  fontFamily:
-    "var(--font-inter), -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, sans-serif",
-};
-
-// Insights app configuration
-export const insightsConfig = {
-  metadata: {
-    title: "Insights | duyet.net",
-    description: "Insights for duyet.net",
-    lang: "en",
-  } as AppMetadata,
-  fonts: {
-    inter: {
-      name: "Inter",
-      weights: ["100", "200", "300", "400", "700"] as const,
-      subsets: ["latin"] as const,
-      variable: "--font-sans",
-      display: "swap",
-    } as const,
-  },
-  header: {
-    longText: "Insights",
-    shortText: "Insights",
-  },
-};
-
-// CV app configuration
-export const cvConfig = {
-  metadata: {
-    title: "Duyet Le - Résumé",
-    description:
-      "Data Engineer with 6+ years of experience in modern data warehousing, distributed systems, and cloud computing",
-    lang: "en",
-  } as AppMetadata,
-  fonts: {
-    inter: {
-      name: "Inter",
-      weights: ["400", "700"] as const,
-      subsets: ["latin"] as const,
-      variable: "--font-sans",
-      display: "swap",
-    } as const,
-  },
-};
-
-// Home app configuration
-export const homeConfig = {
-  metadata: {
-    title: "duyet.net",
-    description: "Personal website and URL shortener",
-    lang: "en",
-  } as AppMetadata,
-  fonts: {
-    inter: {
-      name: "Inter",
-      weights: ["400", "700"] as const,
-      subsets: ["latin"] as const,
-      variable: "--font-sans",
-      display: "swap",
-    } as const,
-  },
-};
-
-// Photos app configuration
-export const photosConfig = {
-  metadata: {
-    title: "Photos | duyet.net",
-    description: "Photography portfolio by Duyet Le",
-    lang: "en",
-  } as AppMetadata,
-  fonts: {
-    inter: {
-      name: "Inter",
-      weights: ["400", "500", "600", "700"] as const,
-      subsets: ["latin"] as const,
-      variable: "--font-sans",
-      display: "swap",
-    } as const,
-  },
-};
-
-// Homelab app configuration
+// Homelab app configuration.
+// The only entry here with a consumer: `apps/homelab/src/routes/__root.tsx`
+// reads `.metadata` and hands it to `ogMetaFromConfig`.
 export const homelabConfig = {
   metadata: {
     title: "Homelab | duyet.net",
@@ -241,79 +109,3 @@ export const homelabConfig = {
     shortText: "Homelab",
   },
 };
-
-// LLM Timeline app configuration
-export const llmTimelineConfig = {
-  metadata: {
-    title: "LLM Timeline | duyet.net",
-    description:
-      "Interactive timeline of Large Language Model releases from 2017 to present",
-    lang: "en",
-  } as AppMetadata,
-  fonts: {
-    inter: {
-      name: "Inter",
-      weights: ["300", "400", "500", "600", "700"] as const,
-      subsets: ["latin"] as const,
-      variable: "--font-inter",
-      display: "swap",
-    } as const,
-  },
-};
-
-// Burns app configuration
-export const burnsConfig = {
-  metadata: {
-    title: "Burns | Token Counter",
-    description:
-      "Total Claude Code token consumption — input, output, cached — visualized.",
-    lang: "en",
-  } as AppMetadata,
-  fonts: {
-    inter: {
-      name: "Inter",
-      weights: ["300", "400", "500", "600", "700"] as const,
-      subsets: ["latin"] as const,
-      variable: "--font-inter",
-      display: "swap",
-    } as const,
-  },
-  header: { longText: "Burns", shortText: "Burns" },
-};
-
-// News app configuration
-export const newsConfig = {
-  metadata: {
-    title: "AI News | duyet.net",
-    description: "AI news aggregated, rated and translated by LLMs",
-    lang: "en",
-  } as AppMetadata,
-  fonts: {
-    inter: {
-      name: "Inter",
-      weights: ["400", "500", "600", "700"] as const,
-      subsets: ["latin"] as const,
-      variable: "--font-inter",
-      display: "swap",
-    } as const,
-  },
-  header: { longText: "AI News", shortText: "News" },
-};
-
-// Export all configs
-export const appConfig = {
-  urls: appUrls,
-  blog: blogConfig,
-  insights: insightsConfig,
-  cv: cvConfig,
-  home: homeConfig,
-  photos: photosConfig,
-  homelab: homelabConfig,
-  agents: agentsConfig,
-  llmTimeline: llmTimelineConfig,
-  burns: burnsConfig,
-  news: newsConfig,
-};
-
-// Named exports for convenience
-export { agentsConfig };
