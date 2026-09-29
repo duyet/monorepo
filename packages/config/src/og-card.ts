@@ -19,8 +19,14 @@
 import { mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
 import { BAYER as BAYER_4X4 } from "@duyet/dither-kit/dither-cell";
+import { ditherPixelsToSvg } from "./og-dither";
 
-/** 4×4 Bayer matrix normalized to 0–1 thresholds, shared with dither-kit. */
+/**
+ * 4x4 Bayer matrix, re-exported from `@duyet/dither-kit` under the name this
+ * module has always used. The dither itself now lives in `og-dither`, which
+ * imports the same constant directly; the re-export stays because
+ * `__tests__/og.test.ts` and any consumer may import it from here.
+ */
 export { BAYER_4X4 };
 
 export const OG_WIDTH = 1200;
@@ -114,14 +120,6 @@ function clamp(s: string, max: number): string {
   return `${s.slice(0, max - 1).trimEnd()}…`;
 }
 
-/** Rec. 709 luma, normalized to 0..1. */
-function lumaAt(px: Buffer, offset: number): number {
-  return (
-    (0.2126 * px[offset] + 0.7152 * px[offset + 1] + 0.0722 * px[offset + 2]) /
-    255
-  );
-}
-
 /**
  * Ordered-dither an image buffer into a standalone SVG using an embedded
  * low-resolution pixel matrix.
@@ -151,54 +149,29 @@ async function ditherToSvg(
     .toBuffer({ resolveWithObject: true });
 
   const px = raw.data;
-  const w = raw.info.width;
-  const h = raw.info.height;
-
-  // Group lit cells into horizontal runs so the SVG stays small: a full-bleed
-  // 6px dither is ~200x105 = 21k cells, which collapses to a few hundred rects.
-  const runs: Array<[number, number, number]> = [];
-  for (let y = 0; y < h; y++) {
-    let runStart = -1;
-    // `x <= w` walks one past the last column so a run flushes at row end.
-    for (let x = 0; x <= w; x++) {
-      const lit =
-        x < w &&
-        Math.min(1, Math.max(0, lumaAt(px, (y * w + x) * 3))) ** gamma >
-          BAYER_4X4[y & 3][x & 3] + bias;
-      if (lit && runStart === -1) runStart = x;
-      if (!lit && runStart !== -1) {
-        runs.push([runStart, y, x - runStart]);
-        runStart = -1;
-      }
-    }
-  }
 
   // Above this luma a cell keeps the paper-colored ink instead of flipping to
   // the accent, so light highlights read as holes rather than blobs.
   const accentCutoff = mode === "invert" ? 0.78 : 0.72;
 
-  const colorFor = (y: number, x: number): string => {
-    if (mode === "duotone" || mode === "invert") {
-      return lumaAt(px, (y * w + x) * 3) > accentCutoff
-        ? theme.ink
-        : theme.accent;
-    }
-    return theme.ink;
-  };
-
-  const rects = runs
-    .map(([rx, ry, rw]) => {
-      const fill = colorFor(ry, rx);
-      return `<rect x="${rx * cell}" y="${ry * cell}" width="${rw * cell}" height="${cell}" fill="${fill}"/>`;
-    })
-    .join("");
-
-  const ground = mode === "invert" ? theme.ink : theme.paper;
-
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-<rect width="${width}" height="${height}" fill="${ground}"/>
-<g>${rects}</g>
-</svg>`;
+  // The threshold, run-grouping and colour choice live in `og-dither`, as pure
+  // functions over a pixel buffer. Only the resampling above needs sharp, so
+  // only this function needs a native dependency.
+  return ditherPixelsToSvg({
+    pixels: px,
+    pixelWidth: raw.info.width,
+    pixelHeight: raw.info.height,
+    outWidth: width,
+    outHeight: height,
+    cell,
+    gamma,
+    bias,
+    useAccent: mode === "duotone" || mode === "invert",
+    accentCutoff,
+    ink: theme.ink,
+    accent: theme.accent,
+    ground: mode === "invert" ? theme.ink : theme.paper,
+  });
 }
 
 /**
