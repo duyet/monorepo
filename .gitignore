@@ -79,3 +79,7 @@ scratch/
 
 # Herdr desk run state (local only, never commit)
 .herdr-desk/runs/*/
+
+# Test-runner artifacts (never commit a recorded pass/fail)
+test-results/
+playwright-report/

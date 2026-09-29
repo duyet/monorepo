@@ -15,6 +15,8 @@
       "!**/build",
       "!**/.turbo",
       "!**/coverage",
+    "!**/test-results",
+    "!**/playwright-report",
       "!**/bun.lock",
       "!**/public",
       "!**/_posts",
