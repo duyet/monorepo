@@ -124,8 +124,12 @@ describe("SubscribeCapture", () => {
   });
 
   it("posts email to the subscribe endpoint from the inline form", async () => {
+    // Declare the real fetch signature so `mock.calls` is typed as
+    // `[input, init]` instead of `[]`. The old `as [string, RequestInit]` cast
+    // was unsound and only compiled because tsc never saw this file.
     const fetchMock = vi.fn(
-      async () => new Response(JSON.stringify({ ok: true }), { status: 200 }),
+      async (_input: RequestInfo | URL, _init?: RequestInit) =>
+        new Response(JSON.stringify({ ok: true }), { status: 200 }),
     );
     vi.stubGlobal("fetch", fetchMock);
     render(<SubscribeCapture variant="inline" source="blog" />);
@@ -134,8 +138,9 @@ describe("SubscribeCapture", () => {
     });
     fireEvent.click(screen.getByRole("button", { name: "Subscribe" }));
     await waitFor(() => expect(fetchMock).toHaveBeenCalled());
-    const [, init] = fetchMock.mock.calls[0] as [string, RequestInit];
-    expect(JSON.parse(String(init.body))).toMatchObject({
+    const [input, init] = fetchMock.mock.calls[0];
+    expect(String(input)).toContain("/api/subscribe");
+    expect(JSON.parse(String(init?.body))).toMatchObject({
       email: "reader@example.com",
       source: "blog",
     });
