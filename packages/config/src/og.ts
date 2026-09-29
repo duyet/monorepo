@@ -183,9 +183,3 @@ export function ogHeadLinks(options: {
   return links;
 }
 
-/** Make a possibly-relative OG image path absolute against a site origin. */
-export function absoluteOgUrl(path: string | undefined, origin: string): string | undefined {
-  if (!path) return undefined;
-  if (/^https?:\/\//i.test(path)) return path;
-  return new URL(path, origin).toString();
-}
