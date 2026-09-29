@@ -151,6 +151,7 @@ export type {
   WakaTimeLanguage,
   WakaTimeTrend,
   TrafficGroup,
+  CacheRatioPoint,
   CloudflareData,
   CloudflareSummary,
   PostHogPath,

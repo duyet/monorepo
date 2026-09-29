@@ -22,6 +22,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import type { ComponentType } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
 import { fixture } from "@/components/overview/fixture";
@@ -45,10 +46,38 @@ const GOLDEN = resolve(
   "overview.html"
 );
 
-/** One tag per line so a golden diff points at the element that moved. */
+/**
+ * One tag per line so a golden diff points at the element that moved, and
+ * normalise the one thing that cannot survive a refactor.
+ *
+ * Two things on this page build their SVG `<defs>` ids from React's `useId()`
+ * — `@thesvg/react` (`tsvg…`) and `Sparkline` (`sg_…_`) — and React derives
+ * `useId` from a component's *position in the tree*. Splitting one component
+ * into several therefore renumbers those ids. That is a property of the tree
+ * shape, not of the data, and it is invisible to a reader: the id's only job is
+ * to be unique within the document.
+ *
+ * They are renumbered to `1, 2, 3…` in order of first appearance rather than
+ * collapsed to one constant, so a change in how *many* distinct ids are
+ * emitted (a missing sparkline, a dropped logo) still shows up as a diff. The
+ * page's own anchor ids (`ins-coding`, `ins-projects`, …) are never touched.
+ * Everything else is compared byte-for-byte.
+ */
 function pretty(html: string): string {
+  const seen = new Map<string, string>();
+  const nextId = (raw: string) => {
+    let alias = seen.get(raw);
+    if (!alias) {
+      alias = String(seen.size + 1);
+      seen.set(raw, alias);
+    }
+    return alias;
+  };
+
   return html
     .replace(/<!--[^>]*-->/g, "")
+    .replace(/tsvg[A-Za-z0-9]+-/g, (id) => nextId(id))
+    .replace(/sg_[A-Za-z0-9_]+/g, (id) => nextId(id))
     .replace(/></g, ">\n<")
     .split("\n")
     .map((line) => line.trim())
@@ -59,9 +88,9 @@ function pretty(html: string): string {
 async function renderPage(data: LoaderData): Promise<string> {
   loader.data = data;
   const { Route } = await import("./index");
-  const Page = (Route as unknown as { options: { component: () => unknown } })
+  const Page = (Route as unknown as { options: { component: ComponentType } })
     .options.component;
-  return pretty(renderToStaticMarkup(<Page /> as never));
+  return pretty(renderToStaticMarkup(<Page />));
 }
 
 describe("overview route render equivalence", () => {
@@ -73,7 +102,7 @@ describe("overview route render equivalence", () => {
       return;
     }
 
-    const golden = readFileSync(GOLDEN, "utf8").trimEnd();
+    const golden = pretty(readFileSync(GOLDEN, "utf8")).trimEnd();
     expect(html).toBe(golden);
   });
 
