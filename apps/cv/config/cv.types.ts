@@ -67,25 +67,3 @@ export interface CVData {
   education: Education[];
   skills: SkillCategory[];
 }
-
-// For generating llms.txt
-export interface LLMsInfo {
-  name: string;
-  role: string;
-  email: string;
-  website: string;
-  bio: string;
-  expertise: string[];
-  currentRole: {
-    title: string;
-    company: string;
-    duration: string;
-  };
-  keyAchievements: string[];
-  technologies: string[];
-  links: {
-    github: string;
-    blog: string;
-    linkedin: string;
-  };
-}

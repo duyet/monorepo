@@ -2,11 +2,10 @@
  * Shared field normalization functions
  * Used by all data source adapters for consistent data formatting
  *
- * Batch mode uses native Rust binary (duyet-cli normalize).
- * Individual functions fall back to WASM for per-call usage.
+ * Batch dedup goes through the native Rust binary (duyet-cli dedup) in
+ * `lib/deduplicator.ts`. Field normalization here runs per-field via WASM.
  */
 
-import { callCli } from "@duyet/libs/native-cli"
 import {
   initSync,
   normalize_date as wasm_normalize_date,
@@ -34,33 +33,7 @@ function ensureInit() {
   _initialized = true
 }
 
-// --- Batch mode (native binary, no WASM boundary cost) ---
-
-export interface NormalizeOp {
-  fn:
-    | "normalize_date"
-    | "normalize_params"
-    | "normalize_license"
-    | "map_accessibility"
-    | "normalize_type"
-    | "normalize_text"
-    | "convert_numeric_params"
-    | "format_training_compute"
-  args: [string] | [number]
-}
-
-/**
- * Process N normalization operations in a single native binary call.
- * Returns results in the same order, with empty strings mapped to null.
- */
-export function normalizeBatch(
-  ops: NormalizeOp[]
-): (string | null)[] {
-  const results = callCli<string[]>("normalize", ops)
-  return results.map((r) => r || null)
-}
-
-// --- Individual functions (WASM fallback for per-call usage) ---
+// --- Per-field normalization (WASM) ---
 
 export function normalizeDate(raw: string): string | null {
   ensureInit()

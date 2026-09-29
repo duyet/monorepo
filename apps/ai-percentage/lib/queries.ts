@@ -35,10 +35,3 @@ export async function getCurrentAICodePercentage(): Promise<CurrentAICodePercent
     "/api/ai/percentage/current"
   );
 }
-
-export async function isAICodePercentageDataAvailable(): Promise<boolean> {
-  const result = await fetchFromAPI<{ available: boolean }>(
-    "/api/ai/percentage/available"
-  );
-  return result?.available || false;
-}

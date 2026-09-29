@@ -15,11 +15,4 @@ export function getDateCondition(days: DateRangeDays): string {
   return `WHERE date > today() - INTERVAL ${days} DAY`;
 }
 
-export function formatPercentage(value: number): string {
-  if (value === 0) return "0%";
-  if (value < 1) return `${value.toFixed(1)}%`;
-  if (value < 10) return `${value.toFixed(1)}%`;
-  return `${value.toFixed(1)}%`;
-}
-
 export { formatNumber } from "@duyet/libs";

@@ -17,9 +17,6 @@ export const AUTHOR_DIVERSITY_DECAY = 0.5;
 export const AUTHOR_DIVERSITY_FLOOR = 0.25;
 export const REPLY_WEIGHT = 5;
 export const MUTUAL_REPLY_BOOST = 15;
-export const MAX_POST_AGE_HOURS = 48;
-export const COLD_START_FOLLOWER_CAP = 1000;
-export const COLD_START_IMPRESSION_THRESHOLD = 1000;
 
 export type WeightRow = {
   id: string;

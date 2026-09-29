@@ -6,7 +6,7 @@ import FptLogo from "@/public/fpt.svg";
 import JvnLogo from "@/public/jvn.png";
 import CartrackLogo from "@/public/karo.svg";
 
-import type { CVData, LLMsInfo } from "./cv.types";
+import type { CVData } from "./cv.types";
 
 export const cvData: CVData = {
   personal: {
@@ -281,55 +281,4 @@ export const cvData: CVData = {
       ],
     },
   ],
-};
-
-export const llmsInfo: LLMsInfo = {
-  name: "Duyet Le",
-  role: "Senior Data & AI Engineer",
-  email: "me@duyet.net",
-  website: "https://duyet.net",
-  bio: "Data & AI Engineer with 8+ years of experience in modern data warehousing, distributed systems, AI/ML, and cloud computing. Proficient in LlamaIndex, AI SDK, LangGraph, ClickHouse, Spark, Airflow, Python, and Rust.",
-  expertise: [
-    "Data Engineering",
-    "Distributed Systems",
-    "Cloud Computing",
-    "Data Warehousing",
-    "Machine Learning Infrastructure",
-    "DevOps",
-  ],
-  currentRole: {
-    title: "Sr. Data Engineer",
-    company: "Cartrack",
-    duration: "Oct 2023 - Present",
-  },
-  keyAchievements: [
-    "Migrated 350TB+ Iceberg Data Lake to ClickHouse on Kubernetes",
-    "Enhanced ClickHouse for 300% better data compression and 2x-100x faster queries",
-    "Optimized cloud costs from $45,000 to $20,000/month at Fossil Group",
-    "Managed team of 6 engineers and analysts",
-    "Designed next-gen Data Platform in Rust",
-    "Built multi-agent LLM + RAG systems with LangGraph",
-  ],
-  technologies: [
-    "LlamaIndex",
-    "AI SDK",
-    "LangGraph",
-    "ClickHouse",
-    "Apache Spark",
-    "Apache Airflow",
-    "Python",
-    "Rust",
-    "TypeScript",
-    "Kubernetes",
-    "AWS",
-    "GCP",
-    "Kafka",
-    "BigQuery",
-    "Helm",
-  ],
-  links: {
-    github: "https://github.com/duyet",
-    blog: "https://blog.duyet.net",
-    linkedin: "https://linkedin.com/in/duyet",
-  },
 };
