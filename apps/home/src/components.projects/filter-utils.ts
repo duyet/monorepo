@@ -1,18 +1,6 @@
-import { type AppItem, apps } from "../data/projects";
+import type { AppItem } from "../data/projects";
 
-export type FilterKey = "All" | "Live" | "OSS" | string;
 export type ViewMode = "list" | "grid";
-
-export function categoryOf(item: AppItem): "Live" | "OSS" {
-  return item.host === "github.com" ? "OSS" : "Live";
-}
-
-/** Unique tags across all projects, sorted alphabetically. */
-export const ALL_TAGS = [...new Set(apps.flatMap((a) => a.tags ?? []))].sort();
-
-export const FILTER_KEYS: FilterKey[] = ["All", "Live", "OSS", ...ALL_TAGS];
-
-export const liveCount = apps.filter((a) => a.host !== "github.com").length;
 
 export const PROJECT_CATEGORY_ORDER = [
   "AI",
