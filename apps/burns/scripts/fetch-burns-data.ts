@@ -3,24 +3,13 @@
 import { Database } from "duckdb-async";
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { requiresFreshBurnsData } from "../src/lib/freshness";
 import { normalizeSource } from "../src/lib/sources";
 
 const MOTHERDUCK_TOKEN = process.env.MOTHERDUCK_TOKEN;
 
 const OUTPUT_DIR = join(import.meta.dirname, "..", "public");
 const OUTPUT_FILE = join(OUTPUT_DIR, "token-data.json");
-
-/** Main/cron/manual deploys must refresh. Preview and local can keep the snapshot. */
-function requiresFreshBurnsData(
-  eventName = process.env.GITHUB_EVENT_NAME,
-  ref = process.env.GITHUB_REF,
-): boolean {
-  return (
-    eventName === "schedule" ||
-    eventName === "workflow_dispatch" ||
-    ref === "refs/heads/main"
-  );
-}
 
 interface SourceAgg {
   source: string;

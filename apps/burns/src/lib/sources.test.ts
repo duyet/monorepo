@@ -1,10 +1,6 @@
-import { readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
 import { describe, expect, test } from "vitest";
+import { requiresFreshBurnsData } from "./freshness";
 import { normalizeSource, SOURCE_COLORS, sourceSwatch } from "./sources";
-
-const burnsRoot = join(dirname(fileURLToPath(import.meta.url)), "../..");
 
 describe("normalizeSource", () => {
   test("maps only raw antigravity to Google Antigravity", () => {
@@ -58,29 +54,19 @@ describe("source colors", () => {
   });
 });
 
-describe("fetch-burns-data mapping", () => {
-  const fetchSrc = readFileSync(
-    join(burnsRoot, "scripts/fetch-burns-data.ts"),
-    "utf8"
-  );
-
-  test("maps gemini and antigravity independently via normalizeSource", () => {
-    expect(normalizeSource("gemini")).toBe("Gemini CLI");
-    expect(normalizeSource("antigravity")).toBe("Google Antigravity");
-    expect(normalizeSource("gemini")).not.toBe(normalizeSource("antigravity"));
-
-    expect(fetchSrc).toContain("normalizeSource(");
-    expect(fetchSrc).not.toContain("IN ('antigravity', 'gemini')");
-    expect(fetchSrc).not.toMatch(
-      /source\s*=\s*'gemini'\s+THEN\s+'Google Antigravity'/i
-    );
+describe("requiresFreshBurnsData", () => {
+  test("refreshes on cron, manual dispatch, and main-branch builds", () => {
+    expect(requiresFreshBurnsData("schedule")).toBe(true);
+    expect(requiresFreshBurnsData("workflow_dispatch")).toBe(true);
+    expect(requiresFreshBurnsData("push", "refs/heads/main")).toBe(true);
   });
 
-  test("keeps committed snapshot when preview has no MotherDuck token", () => {
-    expect(fetchSrc).toContain("keeping committed public/token-data.json");
-    expect(fetchSrc).toContain("existsSync(OUTPUT_FILE)");
-    expect(fetchSrc).toContain('eventName === "schedule"');
-    expect(fetchSrc).toContain('eventName === "workflow_dispatch"');
-    expect(fetchSrc).toContain('ref === "refs/heads/main"');
+  test("keeps the committed snapshot for previews and local runs", () => {
+    // Without this the script would hard-fail on a PR build that has no
+    // MOTHERDUCK_TOKEN, and the committed public/token-data.json would go
+    // stale on any push to a non-main branch.
+    expect(requiresFreshBurnsData("pull_request")).toBe(false);
+    expect(requiresFreshBurnsData("push", "refs/heads/feature")).toBe(false);
+    expect(requiresFreshBurnsData(undefined, undefined)).toBe(false);
   });
 });
