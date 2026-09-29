@@ -1,11 +1,18 @@
 import { describe, expect, it } from "vitest";
 import {
   buildKpis,
+  buildSparklines,
   deriveBurnMetrics,
   deriveTokenBreakdown,
+  formatGeneratedAt,
+  resolvePageViews,
+  toActivitySeries,
+  toCacheRatioSeries,
+  toRepoCards,
   toTokenBuckets,
   topLanguages,
   topModels,
+  topPosts,
   topProjects,
   trendPct,
 } from "./derive";
@@ -206,6 +213,167 @@ describe("trendPct", () => {
     // -10 -> -5 rises by 5; |first| in the denominator gives +5/10 = +50%,
     // not the -50% a bare `first` denominator would produce.
     expect(trendPct([-10, -10, -5, -5])).toBe("+50.0%");
+  });
+});
+
+describe("toActivitySeries", () => {
+  it("keeps the cost, the short date, and the token count", () => {
+    expect(
+      toActivitySeries([
+        day({ date: "2026-01-05", "Total Cost": 12.3456, "Total Tokens": 900 }),
+      ])
+    ).toEqual([{ cost: 12.35, date: "Jan 5", tokens: 900 }]);
+  });
+
+  it("rounds the cost to 2dp once, so the trend and the sparkline agree", () => {
+    // The cost sparkline and the KPI trend both read this series. If the
+    // rounding happened at render time in one place only, the two would
+    // disagree in the last cent.
+    const [point] = toActivitySeries([
+      day({ date: "2026-01-05", "Total Cost": 0.005 }),
+    ]);
+    expect(point.cost).toBe(0.01);
+  });
+
+  it("returns an empty series for an empty window", () => {
+    expect(toActivitySeries([])).toEqual([]);
+  });
+});
+
+describe("toCacheRatioSeries", () => {
+  it("renames totalTokens to tokens and shortens the date", () => {
+    expect(
+      toCacheRatioSeries([
+        { date: "2026-01-05", pct: 62.5, totalTokens: 1000, cacheTokens: 625 },
+      ])
+    ).toEqual([{ date: "Jan 5", pct: 62.5, tokens: 1000 }]);
+  });
+
+  it("passes the percentage through unrounded", () => {
+    const [point] = toCacheRatioSeries([
+      { date: "2026-01-05", pct: 0.05, totalTokens: 1, cacheTokens: 0 },
+    ]);
+    expect(point.pct).toBe(0.05);
+  });
+});
+
+describe("resolvePageViews", () => {
+  it("prefers the Cloudflare count when it is non-zero", () => {
+    expect(resolvePageViews(1234, 5678)).toBe(1234);
+  });
+
+  it("falls through to PostHog on a zero Cloudflare count", () => {
+    // `||` and not `??`: a 0 from the zone query means "no data", not "no
+    // traffic", and the KPI tile should not claim the site served nothing.
+    expect(resolvePageViews(0, 5678)).toBe(5678);
+  });
+});
+
+describe("formatGeneratedAt", () => {
+  it("returns null for a missing timestamp", () => {
+    expect(formatGeneratedAt("")).toBeNull();
+  });
+
+  it("formats a timestamp for the header stamp", () => {
+    // Not an exact literal: `formatGeneratedAt` deliberately does not pin a
+    // timezone (the page's original behaviour), so the day can shift by one
+    // depending on where the test runs. The golden in
+    // src/routes/index.render.test.tsx pins TZ=UTC and asserts the exact
+    // string; this asserts only the shape.
+    expect(formatGeneratedAt("2026-08-15T09:30:00.000Z")).toMatch(
+      /^\w{3} \d{1,2}, \d{4}$/
+    );
+  });
+});
+
+describe("toRepoCards", () => {
+  const repos = Array.from({ length: 9 }, (_, i) => ({
+    name: `repo-${i}`,
+    description: null,
+    stars: i,
+    forks: 0,
+    watchers: 0,
+    language: i === 1 ? null : "TypeScript",
+    license: i === 2 ? null : "MIT",
+    updatedAt: "2026-01-01",
+  }));
+
+  it("shows six cards", () => {
+    expect(toRepoCards(repos).repos).toHaveLength(6);
+  });
+
+  it("sums stars across every repo, not just the six shown", () => {
+    // 0+1+...+8 = 36; the six visible cards only account for 0+1+2+3+4+5.
+    expect(toRepoCards(repos).totalStars).toBe(36);
+  });
+
+  it("keeps a missing language or license as null so the chip is dropped", () => {
+    const { repos: cards } = toRepoCards(repos);
+    expect(cards[1].language).toBeNull();
+    expect(cards[2].license).toBeNull();
+    expect(cards[0].language).toBe("TypeScript");
+  });
+
+  it("handles an empty repo list", () => {
+    expect(toRepoCards([])).toEqual({ repos: [], totalStars: 0 });
+  });
+});
+
+describe("buildSparklines", () => {
+  const activity = toActivitySeries([
+    day({ date: "2026-01-05", "Total Tokens": 100 }),
+    day({ date: "2026-01-06", "Total Cost": 1.239, "Total Tokens": 200 }),
+  ]);
+
+  it("projects each source series onto its own array", () => {
+    const sparks = buildSparklines({
+      wakaTrend: [
+        { displayDate: "2026-01-05", hours: 1.5, yearMonth: "2026-01" },
+        { displayDate: "2026-01-06", hours: 2, yearMonth: "2026-01" },
+      ],
+      traffic: [{ pageViews: 10 }, { pageViews: 30 }],
+      aiActivity: activity,
+    });
+    expect(sparks.wakaSpark).toEqual([1.5, 2]);
+    expect(sparks.viewsSpark).toEqual([10, 30]);
+    expect(sparks.tokensSpark).toEqual([100, 200]);
+  });
+
+  it("reads the rounded cost series, not the raw rows", () => {
+    const sparks = buildSparklines({
+      wakaTrend: [],
+      traffic: [],
+      aiActivity: activity,
+    });
+    expect(sparks.costSpark).toEqual([0, 1.24]);
+  });
+
+  it("replaces a non-numeric sample with 0 rather than a hole", () => {
+    const sparks = buildSparklines({
+      wakaTrend: [
+        { displayDate: "2026-01-05", hours: Number.NaN, yearMonth: "2026-01" },
+      ],
+      traffic: [],
+      aiActivity: [],
+    });
+    expect(sparks.wakaSpark).toEqual([0]);
+  });
+});
+
+describe("topPosts", () => {
+  it("keeps the five most-read paths in the upstream order", () => {
+    const paths = Array.from({ length: 8 }, (_, i) => ({
+      path: `/p${i}`,
+      views: 100 - i,
+      visitors: 10 - i,
+    }));
+    expect(topPosts(paths).map((p) => p.path)).toEqual([
+      "/p0",
+      "/p1",
+      "/p2",
+      "/p3",
+      "/p4",
+    ]);
   });
 });
 

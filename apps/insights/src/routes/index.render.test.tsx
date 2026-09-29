@@ -22,6 +22,13 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+
+// Pinned before anything renders. `formatGeneratedAt` calls `toLocaleDateString`
+// without a `timeZone` — the page's existing behaviour — so a golden recorded
+// on a machine in one zone would fail on a machine in another. Fixing the
+// zone here makes the snapshot reproducible without changing the page.
+process.env.TZ = "UTC";
+
 import type { ComponentType } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
