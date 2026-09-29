@@ -15,6 +15,7 @@
     "start": "dotenv -- turbo start",
     "test": "dotenv -- turbo test && pnpm run test:scripts",
     "test:scripts": "vitest run --root scripts",
+    "test:turbo": "dotenv -- turbo test --concurrency=2",
     "config": "turbo run config",
     "deploy": "turbo deploy && pnpm run config",
     "cf:deploy": "tsx scripts/cf-deploy.ts",

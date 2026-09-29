@@ -1,17 +1,33 @@
 #!/bin/sh
-# Redirect to temp file to avoid pipe buffer overflow with 14+ concurrent test suites.
-# On failure, cat the output so you can see which test broke.
+# Run the full test suite before a commit.
 #
-# --concurrency is capped deliberately. `turbo test` defaults to 10 parallel
-# tasks, and a 29-package monorepo means 10 vitest processes plus their tsc
-# siblings at once. On a memory-constrained machine that gets the whole run
-# OOM-killed: every task reports exit 143 (SIGTERM) and the hook fails with no
-# real error in the output, which reads like a broken test but is not one.
-# 4 keeps peak memory well under the limit while still running 7 batches.
+# Redirect to a temp file to avoid a pipe-buffer overflow with 20+ concurrent
+# test suites; on failure, cat the output so you can see which test broke.
+#
+# `test:turbo` rather than `test`, deliberately. The root `test` script is
+# `dotenv -- turbo test && pnpm run test:scripts`, and turbo defaults to 10
+# parallel tasks. In this 29-package monorepo that starts 10 vitest processes
+# at once, and on a memory-limited machine the whole run gets OOM-killed: a
+# *different* task reports exit 143 (SIGTERM) on each run, with no assertion
+# failure anywhere in the output. The signature to recognise is that — the
+# failing package changes between runs, and it passes when run alone.
+#
+# `--concurrency=2` measured, not guessed. 4 still failed intermittently on a
+# 15 GB box with ~4 GB free; 2 ran 24/24 twice in a row, and
+# `@duyet/components` peaks at 385 MB resident on its own. The `dotenv --` prefix
+# is preserved so the env files the suites read stay identical.
+#
+# The scripts suite (66 tests; `scripts/` is not a workspace package so turbo
+# never sees it) runs separately afterwards, at its own concurrency.
 TMPOUT=$(mktemp)
-# `dotenv --` is kept from the root `test` script: it loads .env files, and
-# dropping it would change which env vars the suites see.
-if ! pnpm exec dotenv -- turbo test --concurrency=4 > "$TMPOUT" 2>&1; then
+if ! pnpm run test:turbo > "$TMPOUT" 2>&1; then
+  cat "$TMPOUT"
+  rm -f "$TMPOUT"
+  exit 1
+fi
+rm -f "$TMPOUT"
+
+if ! pnpm run test:scripts > "$TMPOUT" 2>&1; then
   cat "$TMPOUT"
   rm -f "$TMPOUT"
   exit 1
