@@ -9,7 +9,7 @@ import {
   Thermometer,
   Wind,
 } from "lucide-react";
-import { useMemo, useState, type ReactNode } from "react";
+import { type ReactNode, useMemo, useState } from "react";
 import { Area, Line } from "@/components/dither-kit/area";
 import { AreaChart, LineChart } from "@/components/dither-kit/area-chart";
 import type { ChartConfig } from "@/components/dither-kit/chart-context";
@@ -22,36 +22,44 @@ import { useSmartDevices } from "@/hooks/useDashboard";
 import { BENTO_CELL } from "@/lib/constants";
 import type { AirQualityLevel } from "@/lib/data";
 
-const AQ_COLORS: Record<AirQualityLevel, string> = {
-  good: "#8fd4ab",
-  fair: "#f5cc70",
-  moderate: "#ffc9a0",
-  poor: "#ff8585",
-  "very-poor": "#ff8585",
-};
-
-const AQ_BG: Record<AirQualityLevel, string> = {
-  good: "bg-claude-mint/20 dark:bg-claude-mint/10",
-  fair: "bg-claude-yellow/25 dark:bg-claude-yellow/10",
-  moderate: "bg-claude-peach/30 dark:bg-claude-peach/10",
-  poor: "bg-claude-coral/20 dark:bg-claude-coral/10",
-  "very-poor": "bg-claude-coral/30 dark:bg-claude-coral/15",
-};
-
-const AQ_TEXT: Record<AirQualityLevel, string> = {
-  good: "text-claude-mint",
-  fair: "text-claude-yellow",
-  moderate: "text-claude-peach",
-  poor: "text-claude-coral",
-  "very-poor": "text-claude-coral",
-};
-
-const AQ_LABEL: Record<AirQualityLevel, string> = {
-  good: "Good",
-  fair: "Fair",
-  moderate: "Moderate",
-  poor: "Poor",
-  "very-poor": "Very Poor",
+/**
+ * Presentation for each air quality level: the ring/pill text colour, the
+ * background tint used for pollutant tiles and the AQI badge, and the label.
+ */
+const AQ_STYLE: Record<
+  AirQualityLevel,
+  { color: string; bg: string; text: string; label: string }
+> = {
+  good: {
+    color: "#8fd4ab",
+    bg: "bg-claude-mint/20 dark:bg-claude-mint/10",
+    text: "text-claude-mint",
+    label: "Good",
+  },
+  fair: {
+    color: "#f5cc70",
+    bg: "bg-claude-yellow/25 dark:bg-claude-yellow/10",
+    text: "text-claude-yellow",
+    label: "Fair",
+  },
+  moderate: {
+    color: "#ffc9a0",
+    bg: "bg-claude-peach/30 dark:bg-claude-peach/10",
+    text: "text-claude-peach",
+    label: "Moderate",
+  },
+  poor: {
+    color: "#ff8585",
+    bg: "bg-claude-coral/20 dark:bg-claude-coral/10",
+    text: "text-claude-coral",
+    label: "Poor",
+  },
+  "very-poor": {
+    color: "#ff8585",
+    bg: "bg-claude-coral/30 dark:bg-claude-coral/15",
+    text: "text-claude-coral",
+    label: "Very Poor",
+  },
 };
 
 const STATUS_CONFIG = {
@@ -67,8 +75,7 @@ const STATUS_CONFIG = {
   },
   offline: {
     label: "Offline",
-    badgeClass:
-      "bg-white/10 text-muted-foreground",
+    badgeClass: "bg-white/10 text-muted-foreground",
     dotClass: "bg-neutral-400",
   },
 } as const;
@@ -100,7 +107,7 @@ function AirQualityRing({
   temperature: number;
   humidity: number;
 }) {
-  const color = AQ_COLORS[level];
+  const { color, label } = AQ_STYLE[level];
 
   return (
     <div className="flex items-center gap-6">
@@ -133,7 +140,7 @@ function AirQualityRing({
         </svg>
         <div className="text-center">
           <p className="text-lg font-bold" style={{ color }}>
-            {AQ_LABEL[level]}
+            {label}
           </p>
         </div>
       </div>
@@ -179,12 +186,12 @@ function PollutantGrid() {
       {data.pollutants.map((p) => (
         <div
           key={p.shortLabel}
-          className={`rounded-md p-2.5 text-center ${AQ_BG[p.level]}`}
+          className={`rounded-md p-2.5 text-center ${AQ_STYLE[p.level].bg}`}
         >
           <p className="text-[10px] font-medium text-neutral-600 dark:text-neutral-300">
             {p.shortLabel}
           </p>
-          <p className={`mt-1 text-xl font-bold ${AQ_TEXT[p.level]}`}>
+          <p className={`mt-1 text-xl font-bold ${AQ_STYLE[p.level].text}`}>
             {p.value}
           </p>
           <p className="text-[9px] text-neutral-500 dark:text-neutral-400">
@@ -196,13 +203,16 @@ function PollutantGrid() {
   );
 }
 
-function AirQualityChart() {
+/** The chart shows the most recent 24h of readings. */
+function useRecentHistory() {
   const { dysonAirPurifier: data } = useSmartDevices();
+  return useMemo(() => data.history.slice(-24), [data.history]);
+}
+
+function AirQualityChart() {
   const [activeMetric, setActiveMetric] = useState<AqMetric>("pm25");
 
-  const chartData = useMemo(() => {
-    return data.history.slice(-24);
-  }, [data.history]);
+  const chartData = useRecentHistory();
 
   const config = METRIC_CONFIG[activeMetric];
 
@@ -238,7 +248,9 @@ function AirQualityChart() {
       <div className="h-[200px] w-full min-w-0">
         <AreaChart
           data={chartData}
-          config={{ [activeMetric]: { label: config.label, color: config.color } }}
+          config={{
+            [activeMetric]: { label: config.label, color: config.color },
+          }}
           bloom="aura"
         >
           <Grid />
@@ -256,11 +268,7 @@ function AirQualityChart() {
 }
 
 function TemperatureHumidityChart() {
-  const { dysonAirPurifier: data } = useSmartDevices();
-
-  const chartData = useMemo(() => {
-    return data.history.slice(-24);
-  }, [data.history]);
+  const chartData = useRecentHistory();
 
   return (
     <div className={`${BENTO_CELL} md:col-span-2 lg:col-span-2`}>
@@ -325,9 +333,7 @@ function FilterStatus() {
                 </span>
                 <span
                   className={`text-sm font-bold ${
-                    isLow
-                      ? "text-claude-coral"
-                      : "text-foreground"
+                    isLow ? "text-claude-coral" : "text-foreground"
                   }`}
                 >
                   {filter.remainingPercent}%
@@ -407,17 +413,21 @@ function AirQualityReport() {
           </span>
         </ReportRow>
         <ReportRow label="Highest pollution">
-          <span className="text-xs font-medium">{report.highestPollutionDate}</span>
+          <span className="text-xs font-medium">
+            {report.highestPollutionDate}
+          </span>
         </ReportRow>
         <ReportRow label="AQI">
           <span
-            className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${AQ_BG[report.aqiRating]} ${AQ_TEXT[report.aqiRating]}`}
+            className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${AQ_STYLE[report.aqiRating].bg} ${AQ_STYLE[report.aqiRating].text}`}
           >
-            {AQ_LABEL[report.aqiRating]}
+            {AQ_STYLE[report.aqiRating].label}
           </span>
         </ReportRow>
         <ReportRow label="Dominant">
-          <span className="text-xs font-medium">{report.dominantPollutant}</span>
+          <span className="text-xs font-medium">
+            {report.dominantPollutant}
+          </span>
         </ReportRow>
       </div>
     </div>

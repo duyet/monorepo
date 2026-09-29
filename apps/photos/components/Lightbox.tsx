@@ -27,6 +27,49 @@ interface LightboxProps {
   totalCount: number;
 }
 
+/**
+ * Two-layer progressive image: the regular-sized preview paints immediately and
+ * the high-resolution source fades in over it once decoded. Used by both the
+ * fullscreen and contained layouts.
+ */
+function ProgressivePhotoImage({
+  previewSrc,
+  hiresSrc,
+  alt,
+  isLoading,
+  onLoaded,
+}: {
+  previewSrc: string;
+  hiresSrc: string;
+  alt: string;
+  isLoading: boolean;
+  onLoaded: () => void;
+}) {
+  return (
+    <>
+      {/* Thumbnail/preview image - loads immediately */}
+      <img
+        src={previewSrc}
+        alt={alt}
+        className="absolute inset-0 h-full w-full object-contain"
+        loading="eager"
+      />
+
+      {/* High-resolution image - loads progressively */}
+      <img
+        src={hiresSrc}
+        alt={alt}
+        className={cn(
+          "absolute inset-0 h-full w-full object-contain transition-opacity duration-700",
+          isLoading ? "opacity-0" : "opacity-100"
+        )}
+        onLoad={onLoaded}
+        loading="eager"
+      />
+    </>
+  );
+}
+
 export default function Lightbox({
   photo,
   isOpen,
@@ -49,8 +92,6 @@ export default function Lightbox({
   const progressIntervalRef = useRef<ReturnType<typeof setInterval> | null>(
     null
   );
-  const lastPhotoIdRef = useRef<string | null>(null);
-
   // Keep a current ref to onNext so the interval always calls the latest callback
   const onNextRef = useRef(onNext);
   useEffect(() => {
@@ -191,18 +232,6 @@ export default function Lightbox({
     setIsLoading(true);
   }, [photo.id]);
 
-  // Handle photo change during slideshow
-  useEffect(() => {
-    // Only restart if slideshow is playing and photo actually changed
-    if (isSlideshowPlaying && lastPhotoIdRef.current !== photo.id) {
-      // Photo changed during slideshow - the progress interval will handle advancing
-      lastPhotoIdRef.current = photo.id;
-    } else if (!lastPhotoIdRef.current) {
-      // Initialize on first photo
-      lastPhotoIdRef.current = photo.id;
-    }
-  }, [photo.id, isSlideshowPlaying]);
-
   // Cleanup slideshow when lightbox closes
   useEffect(() => {
     if (isOpen) {
@@ -298,24 +327,12 @@ export default function Lightbox({
                   onClick={() => setIsFullscreen(false)}
                   title="Click to exit fullscreen"
                 >
-                  {/* Thumbnail/preview image - loads immediately */}
-                  <img
-                    src={thumbnailSrc}
+                  <ProgressivePhotoImage
+                    previewSrc={thumbnailSrc}
+                    hiresSrc={hiresSrc}
                     alt={description}
-                    className="absolute inset-0 h-full w-full object-contain"
-                    loading="eager"
-                  />
-
-                  {/* High-resolution image - loads progressively */}
-                  <img
-                    src={hiresSrc}
-                    alt={description}
-                    className={cn(
-                      "absolute inset-0 h-full w-full object-contain transition-opacity duration-700",
-                      isLoading ? "opacity-0" : "opacity-100"
-                    )}
-                    onLoad={() => setIsLoading(false)}
-                    loading="eager"
+                    isLoading={isLoading}
+                    onLoaded={() => setIsLoading(false)}
                   />
                 </div>
               ) : (
@@ -327,24 +344,12 @@ export default function Lightbox({
                       onClick={() => setIsFullscreen(true)}
                       title="Click to enter fullscreen"
                     >
-                      {/* Thumbnail/preview image - loads immediately */}
-                      <img
-                        src={thumbnailSrc}
+                      <ProgressivePhotoImage
+                        previewSrc={thumbnailSrc}
+                        hiresSrc={hiresSrc}
                         alt={description}
-                        className="absolute inset-0 h-full w-full object-contain"
-                        loading="eager"
-                      />
-
-                      {/* High-resolution image - loads progressively */}
-                      <img
-                        src={hiresSrc}
-                        alt={description}
-                        className={cn(
-                          "absolute inset-0 h-full w-full object-contain transition-opacity duration-700",
-                          isLoading ? "opacity-0" : "opacity-100"
-                        )}
-                        onLoad={() => setIsLoading(false)}
-                        loading="eager"
+                        isLoading={isLoading}
+                        onLoaded={() => setIsLoading(false)}
                       />
                     </div>
                   </div>

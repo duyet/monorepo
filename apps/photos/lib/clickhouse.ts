@@ -120,10 +120,3 @@ export async function executeQuery<T>(
     return [];
   }
 }
-
-/**
- * Check if ClickHouse is available and configured.
- */
-export function isClickHouseConfigured(): boolean {
-  return getConfig() !== null;
-}

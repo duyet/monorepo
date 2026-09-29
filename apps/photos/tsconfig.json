@@ -26,8 +26,6 @@
     "**/*.test.ts",
     "**/*.test.tsx",
     "test-setup.ts",
-    "scripts",
-    "lib/localPhotos.ts",
-    "lib/exifExtractor.ts"
+    "scripts"
   ]
 }

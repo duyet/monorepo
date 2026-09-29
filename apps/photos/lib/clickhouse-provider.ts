@@ -156,23 +156,3 @@ export async function getAllClickHousePhotos(): Promise<Photo[]> {
 
   return photos;
 }
-
-/**
- * Check if ClickHouse has photos available.
- * Used to determine whether to use ClickHouse or fallback to API.
- */
-export async function hasClickHousePhotos(): Promise<boolean> {
-  const query = `
-    SELECT count() as count
-    FROM monorepo_unsplash_photos FINAL
-    WHERE is_deleted = 0
-      AND user_username = {username:String}
-  `;
-
-  const result = await executeQuery<{ count: string }>(query, {
-    username: UNSPLASH_USERNAME,
-  });
-  const count = result.length > 0 ? Number.parseInt(result[0].count, 10) : 0;
-  console.log(`   📊 ClickHouse photos for '${UNSPLASH_USERNAME}': ${count}`);
-  return count > 0;
-}

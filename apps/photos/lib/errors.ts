@@ -136,27 +136,6 @@ export class UnknownPhotoError extends PhotoFetchError {
 }
 
 /**
- * Result type for photo fetching operations
- */
-export type PhotoFetchResult<T> =
-  | { success: true; data: T }
-  | { success: false; error: PhotoFetchError };
-
-/**
- * Helper to create a success result
- */
-export function photoSuccess<T>(data: T): PhotoFetchResult<T> {
-  return { success: true, data };
-}
-
-/**
- * Helper to create an error result
- */
-export function photoError<T>(error: PhotoFetchError): PhotoFetchResult<T> {
-  return { success: false, error };
-}
-
-/**
  * Check if an error is a rate limit error
  */
 export function isRateLimitError(error: unknown): error is RateLimitError {

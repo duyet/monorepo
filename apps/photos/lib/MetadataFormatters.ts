@@ -185,58 +185,6 @@ export function formatCompactMetadata(photo: Photo): {
 }
 
 /**
- * Format metadata for professional portfolio display
- */
-export function formatPortfolioMetadata(photo: Photo): {
-  title: string;
-  subtitle: string;
-  technical: string[];
-  creative: string[];
-} {
-  const title = photo.description || "Untitled Photography";
-  const subtitle = formatPhotoDate(photo.created_at);
-
-  const technical: string[] = [`${photo.width} × ${photo.height}`];
-
-  const creative: string[] = [];
-
-  // Add EXIF technical data
-  if (photo.exif) {
-    if (photo.exif.make || photo.exif.model) {
-      technical.push(
-        [photo.exif.make, photo.exif.model].filter(Boolean).join(" ")
-      );
-    }
-    if (photo.exif.aperture || photo.exif.exposure_time || photo.exif.iso) {
-      const settings = [
-        photo.exif.aperture && `f/${photo.exif.aperture}`,
-        photo.exif.exposure_time && `${photo.exif.exposure_time}s`,
-        photo.exif.iso && `ISO ${photo.exif.iso}`,
-      ]
-        .filter(Boolean)
-        .join(" • ");
-      if (settings) technical.push(settings);
-    }
-    if (photo.exif.focal_length) {
-      technical.push(`${photo.exif.focal_length}mm`);
-    }
-  }
-
-  // Add creative context
-  if (photo.location && (photo.location.city || photo.location.country)) {
-    creative.push(
-      [photo.location.city, photo.location.country].filter(Boolean).join(", ")
-    );
-  }
-
-  if (photo.stats && photo.stats.views !== undefined) {
-    creative.push(`${photo.stats.views.toLocaleString()} views`);
-  }
-
-  return { title, subtitle, technical, creative };
-}
-
-/**
  * Format caption for photo stream/feed display
  * Priority: description → alt_description → location + date → date only
  */

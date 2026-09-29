@@ -152,17 +152,6 @@ export function useNode(nodeName: string): Node | undefined {
   return useMemo(() => nodes.find((n) => n.name === nodeName), [nodeName]);
 }
 
-const _namespaces = Array.from(
-  new Set(services.map((s) => s.namespace))
-).sort();
-
-/**
- * Hook for getting all unique namespaces
- */
-export function useNamespaces() {
-  return _namespaces;
-}
-
 const _smartDevicesResult = {
   devices: smartDevices,
   boschWashingMachine,

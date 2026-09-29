@@ -224,6 +224,54 @@ function needsEnrichment(photo: UnsplashPhoto): boolean {
   return !hasExif || !hasLocation;
 }
 
+/**
+ * The subset of photo fields that enrichment can contribute, either from the
+ * detail API or from a cache entry.
+ */
+type EnrichmentSource = {
+  location?: UnsplashPhoto["location"];
+  exif?: UnsplashPhoto["exif"];
+  description?: UnsplashPhoto["description"];
+  alt_description?: UnsplashPhoto["alt_description"];
+};
+
+/**
+ * Merge enrichment data into a photo, keeping the photo's existing value
+ * whenever the incoming source does not carry a field. Applied identically
+ * for fresh cache, stale cache, and successful API responses.
+ */
+function applyEnrichment(
+  photo: UnsplashPhoto,
+  source: EnrichmentSource
+): void {
+  Object.assign(photo, {
+    location: source.location || photo.location,
+    exif: source.exif || photo.exif,
+    description: source.description || photo.description,
+    alt_description: source.alt_description || photo.alt_description,
+  });
+}
+
+/**
+ * Running tallies used to report enrichment progress.
+ */
+type EnrichmentCounters = {
+  success: number;
+  freshCache: number;
+  staleCache: number;
+  apiCalls: number;
+};
+
+function logEnrichmentProgress(
+  completed: number,
+  total: number,
+  counters: EnrichmentCounters
+): void {
+  console.log(
+    `   ✓ Enriched ${completed}/${total} photos (${counters.success} success, ${counters.freshCache} fresh cache, ${counters.staleCache} stale cache, ${counters.apiCalls} API calls)`
+  );
+}
+
 export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
   const allPhotos: UnsplashPhoto[] = [];
   let page = 1;
@@ -299,13 +347,37 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
       `🔍 Enriching ${photosNeedingEnrichment.length} photos with detailed EXIF and location data...`
     );
 
-    let successCount = 0;
+    const counters: EnrichmentCounters = {
+      success: 0,
+      freshCache: 0,
+      staleCache: 0,
+      apiCalls: 0,
+    };
     let failureCount = 0;
-    let freshCacheHits = 0;
-    let expiredCacheUsed = 0;
-    let apiCalls = 0;
     let rateLimitHit = false;
     const failedPhotos: string[] = [];
+
+    const total = photosNeedingEnrichment.length;
+
+    /**
+     * Fall back to an expired cache entry for a photo whose API enrichment did
+     * not happen. Returns true when the cache entry was usable.
+     */
+    const useStaleCache = (
+      photo: UnsplashPhoto,
+      cacheResult: ReturnType<typeof getCachedPhotoData>
+    ): boolean => {
+      if (cacheResult) {
+        applyEnrichment(photo, cacheResult.data);
+        counters.success++;
+        counters.staleCache++;
+        return true;
+      }
+
+      failureCount++;
+      failedPhotos.push(photo.id);
+      return false;
+    };
 
     for (let i = 0; i < photosNeedingEnrichment.length; i++) {
       const photo = photosNeedingEnrichment[i];
@@ -316,20 +388,12 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
 
         // If cache is fresh (not expired), use it directly
         if (cacheResult && !cacheResult.isExpired) {
-          Object.assign(photo, {
-            location: cacheResult.data.location || photo.location,
-            exif: cacheResult.data.exif || photo.exif,
-            description: cacheResult.data.description || photo.description,
-            alt_description:
-              cacheResult.data.alt_description || photo.alt_description,
-          });
-          successCount++;
-          freshCacheHits++;
+          applyEnrichment(photo, cacheResult.data);
+          counters.success++;
+          counters.freshCache++;
 
           if ((i + 1) % 10 === 0) {
-            console.log(
-              `   ✓ Enriched ${i + 1}/${photosNeedingEnrichment.length} photos (${successCount} success, ${freshCacheHits} fresh cache, ${expiredCacheUsed} stale cache, ${apiCalls} API calls)`
-            );
+            logEnrichmentProgress(i + 1, total, counters);
           }
           continue;
         }
@@ -342,28 +406,18 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
             console.log(
               `   📦 Using stale cache for ${photo.id} (rate limit reached)`
             );
-            Object.assign(photo, {
-              location: cacheResult.data.location || photo.location,
-              exif: cacheResult.data.exif || photo.exif,
-              description: cacheResult.data.description || photo.description,
-              alt_description:
-                cacheResult.data.alt_description || photo.alt_description,
-            });
-            successCount++;
-            expiredCacheUsed++;
           } else {
             console.log(
               `   ⏭️  Skipping ${photo.id} (rate limit reached, no cache available)`
             );
-            failureCount++;
-            failedPhotos.push(photo.id);
           }
+          useStaleCache(photo, cacheResult);
           continue;
         }
 
         // Fetch from API
         const details = await getPhotoDetails(photo.id);
-        apiCalls++;
+        counters.apiCalls++;
 
         // Check if we hit rate limit
         if (details === "RATE_LIMIT") {
@@ -376,20 +430,7 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
           console.warn("");
 
           // Use expired cache as fallback for this photo
-          if (cacheResult) {
-            Object.assign(photo, {
-              location: cacheResult.data.location || photo.location,
-              exif: cacheResult.data.exif || photo.exif,
-              description: cacheResult.data.description || photo.description,
-              alt_description:
-                cacheResult.data.alt_description || photo.alt_description,
-            });
-            successCount++;
-            expiredCacheUsed++;
-          } else {
-            failureCount++;
-            failedPhotos.push(photo.id);
-          }
+          useStaleCache(photo, cacheResult);
           continue;
         }
 
@@ -399,36 +440,18 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
           setCachedPhotoData(cache, photo.id, details);
 
           // Merge detailed data into the photo
-          Object.assign(photo, {
-            location: details.location || photo.location,
-            exif: details.exif || photo.exif,
-            description: details.description || photo.description,
-            alt_description: details.alt_description || photo.alt_description,
-          });
-          successCount++;
+          applyEnrichment(photo, details);
+          counters.success++;
 
           if ((i + 1) % 10 === 0) {
-            console.log(
-              `   ✓ Enriched ${i + 1}/${photosNeedingEnrichment.length} photos (${successCount} success, ${freshCacheHits} fresh cache, ${expiredCacheUsed} stale cache, ${apiCalls} API calls)`
-            );
+            logEnrichmentProgress(i + 1, total, counters);
           }
         } else {
           // API returned null (error) - use expired cache as fallback
           if (cacheResult) {
             console.log(`   📦 API error for ${photo.id}, using stale cache`);
-            Object.assign(photo, {
-              location: cacheResult.data.location || photo.location,
-              exif: cacheResult.data.exif || photo.exif,
-              description: cacheResult.data.description || photo.description,
-              alt_description:
-                cacheResult.data.alt_description || photo.alt_description,
-            });
-            successCount++;
-            expiredCacheUsed++;
-          } else {
-            failureCount++;
-            failedPhotos.push(photo.id);
           }
+          useStaleCache(photo, cacheResult);
         }
 
         // Rate limiting: add delay after API calls
@@ -449,18 +472,18 @@ export async function getAllUserPhotos(): Promise<UnsplashPhoto[]> {
 
     console.log("");
     console.log(
-      `   ✅ Enrichment complete: ${successCount}/${photosNeedingEnrichment.length} photos enriched successfully`
+      `   ✅ Enrichment complete: ${counters.success}/${total} photos enriched successfully`
     );
     console.log(
-      `   📊 Fresh cache: ${freshCacheHits}, Stale cache: ${expiredCacheUsed}, API calls: ${apiCalls}`
+      `   📊 Fresh cache: ${counters.freshCache}, Stale cache: ${counters.staleCache}, API calls: ${counters.apiCalls}`
     );
     console.log(
-      `   💰 Saved ${freshCacheHits + expiredCacheUsed} API requests by using cache!`
+      `   💰 Saved ${counters.freshCache + counters.staleCache} API requests by using cache!`
     );
 
-    if (expiredCacheUsed > 0) {
+    if (counters.staleCache > 0) {
       console.log(
-        `   💡 ${expiredCacheUsed} photos used stale cache data (TTL expired but kept as fallback)`
+        `   💡 ${counters.staleCache} photos used stale cache data (TTL expired but kept as fallback)`
       );
     }
 
@@ -567,14 +590,4 @@ export function groupPhotosByYear(photos: UnsplashPhoto[]): PhotosByYear {
     acc[year].push(photo);
     return acc;
   }, {});
-}
-
-export function getPhotosByYear(
-  photos: UnsplashPhoto[],
-  year: string
-): UnsplashPhoto[] {
-  return photos.filter((photo) => {
-    const photoYear = new Date(photo.created_at).getFullYear().toString();
-    return photoYear === year;
-  });
 }

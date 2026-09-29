@@ -231,19 +231,3 @@ export async function getFallbackPhotos(): Promise<Photo[]> {
     provider: "unsplash" as const,
   }));
 }
-
-/**
- * Check if fallback photos should be enabled.
- * Enabled when no other providers are configured or available.
- */
-export function isFallbackEnabled(): boolean {
-  const hasClickHouse =
-    process.env.CLICKHOUSE_HOST &&
-    process.env.CLICKHOUSE_PASSWORD &&
-    process.env.CLICKHOUSE_DATABASE;
-  const hasUnsplash = process.env.UNSPLASH_ACCESS_KEY;
-  const hasCloudinary = process.env.CLOUDINARY_CLOUD_NAME;
-
-  // If no providers are configured, fallback is enabled
-  return !hasClickHouse && !hasUnsplash && !hasCloudinary;
-}

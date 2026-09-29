@@ -2,369 +2,228 @@
  * Node mock data generation
  */
 
-import { HISTORICAL_DATA, NODE_RESOURCE_RANGES } from "../constants";
-import type { Node, ClusterInfo } from "./types";
+import {
+  HISTORICAL_DATA,
+  NODE_RESOURCE_RANGES,
+  TIME_POINTS,
+} from "../constants";
+import type { ClusterInfo, Node } from "./types";
 import { generateUptime, getHistoricalTime, random } from "./utils";
+
+type ResourceRange =
+  (typeof NODE_RESOURCE_RANGES)[keyof typeof NODE_RESOURCE_RANGES];
+
+/** Round a random draw from `range` to `decimals` places. */
+const ranged = (
+  range: { min: number; max: number },
+  decimals: number
+): number => Number(random(range.min, range.max).toFixed(decimals));
+
+/**
+ * Build an online node, drawing cpu/memory/memoryUsed from the device's
+ * resource range in `NODE_RESOURCE_RANGES`.
+ */
+const onlineNode = (
+  base: Omit<Node, "cpu" | "memory" | "memoryUsed" | "uptime">,
+  ranges: ResourceRange
+): Node => ({
+  ...base,
+  cpu: ranged(ranges.CPU, 1),
+  memory: ranged(ranges.MEMORY, 1),
+  memoryUsed: ranged(ranges.MEMORY_USED, 2),
+  uptime: generateUptime(),
+});
+
+/** An offline node reports no load and no uptime. */
+const offlineNode = (
+  base: Omit<Node, "cpu" | "memory" | "memoryUsed" | "uptime">
+): Node => ({
+  ...base,
+  cpu: 0,
+  memory: 0,
+  memoryUsed: 0,
+  uptime: "0d 0h 0m",
+});
 
 /**
  * Cluster nodes with dynamic resource data
  */
 export const nodes: Node[] = [
-  {
-    id: "node-1",
-    name: "minipc-01",
-    ip: "192.168.1.110",
-    status: "online",
-    type: "minipc",
-    cpu: Number(
-      random(
-        NODE_RESOURCE_RANGES.MINIPC_01.CPU.min,
-        NODE_RESOURCE_RANGES.MINIPC_01.CPU.max
-      ).toFixed(1)
-    ),
-    memory: Number(
-      random(
-        NODE_RESOURCE_RANGES.MINIPC_01.MEMORY.min,
-        NODE_RESOURCE_RANGES.MINIPC_01.MEMORY.max
-      ).toFixed(1)
-    ),
-    memoryUsed: Number(
-      random(
-        NODE_RESOURCE_RANGES.MINIPC_01.MEMORY_USED.min,
-        NODE_RESOURCE_RANGES.MINIPC_01.MEMORY_USED.max
-      ).toFixed(2)
-    ),
-    memoryTotal: 16,
-    storage: 2560,
-    uptime: generateUptime(),
-    services: 6,
-  },
-  {
-    id: "node-2",
-    name: "minipc-02",
-    ip: "192.168.1.111",
-    status: "online",
-    type: "minipc",
-    cpu: Number(
-      random(
-        NODE_RESOURCE_RANGES.MINIPC_02.CPU.min,
-        NODE_RESOURCE_RANGES.MINIPC_02.CPU.max
-      ).toFixed(1)
-    ),
-    memory: Number(
-      random(
-        NODE_RESOURCE_RANGES.MINIPC_02.MEMORY.min,
-        NODE_RESOURCE_RANGES.MINIPC_02.MEMORY.max
-      ).toFixed(1)
-    ),
-    memoryUsed: Number(
-      random(
-        NODE_RESOURCE_RANGES.MINIPC_02.MEMORY_USED.min,
-        NODE_RESOURCE_RANGES.MINIPC_02.MEMORY_USED.max
-      ).toFixed(2)
-    ),
-    memoryTotal: 16,
-    storage: 2560,
-    uptime: generateUptime(),
-    services: 7,
-  },
-  {
+  onlineNode(
+    {
+      id: "node-1",
+      name: "minipc-01",
+      ip: "192.168.1.110",
+      status: "online",
+      type: "minipc",
+      memoryTotal: 16,
+      storage: 2560,
+      services: 6,
+    },
+    NODE_RESOURCE_RANGES.MINIPC_01
+  ),
+  onlineNode(
+    {
+      id: "node-2",
+      name: "minipc-02",
+      ip: "192.168.1.111",
+      status: "online",
+      type: "minipc",
+      memoryTotal: 16,
+      storage: 2560,
+      services: 7,
+    },
+    NODE_RESOURCE_RANGES.MINIPC_02
+  ),
+  offlineNode({
     id: "node-3",
     name: "minipc-03",
     ip: "192.168.1.112",
     status: "offline",
     type: "minipc",
-    cpu: 0,
-    memory: 0,
-    memoryUsed: 0,
     memoryTotal: 16,
     storage: 1024,
-    uptime: "0d 0h 0m",
     services: 0,
-  },
-  {
-    id: "node-4",
-    name: "rp-01",
-    ip: "192.168.1.120",
-    status: "online",
-    type: "raspberry-pi",
-    cpu: Number(
-      random(
-        NODE_RESOURCE_RANGES.RASPBERRY_PI.CPU.min,
-        NODE_RESOURCE_RANGES.RASPBERRY_PI.CPU.max
-      ).toFixed(1)
-    ),
-    memory: Number(
-      random(
-        NODE_RESOURCE_RANGES.RASPBERRY_PI.MEMORY.min,
-        NODE_RESOURCE_RANGES.RASPBERRY_PI.MEMORY.max
-      ).toFixed(1)
-    ),
-    memoryUsed: Number(
-      random(
-        NODE_RESOURCE_RANGES.RASPBERRY_PI.MEMORY_USED.min,
-        NODE_RESOURCE_RANGES.RASPBERRY_PI.MEMORY_USED.max
-      ).toFixed(2)
-    ),
-    memoryTotal: 8,
-    storage: 512,
-    uptime: generateUptime(),
-    services: 3,
-  },
-  {
-    id: "node-5",
-    name: "dienquangsmart",
-    ip: "192.168.1.130",
-    status: "online",
-    type: "banana-board",
-    cpu: Number(
-      random(
-        NODE_RESOURCE_RANGES.BANANA_BOARD.CPU.min,
-        NODE_RESOURCE_RANGES.BANANA_BOARD.CPU.max
-      ).toFixed(1)
-    ),
-    memory: Number(
-      random(
-        NODE_RESOURCE_RANGES.BANANA_BOARD.MEMORY.min,
-        NODE_RESOURCE_RANGES.BANANA_BOARD.MEMORY.max
-      ).toFixed(1)
-    ),
-    memoryUsed: Number(
-      random(
-        NODE_RESOURCE_RANGES.BANANA_BOARD.MEMORY_USED.min,
-        NODE_RESOURCE_RANGES.BANANA_BOARD.MEMORY_USED.max
-      ).toFixed(2)
-    ),
-    memoryTotal: 4,
-    storage: 512,
-    uptime: generateUptime(),
-    services: 1,
-  },
-  {
+  }),
+  onlineNode(
+    {
+      id: "node-4",
+      name: "rp-01",
+      ip: "192.168.1.120",
+      status: "online",
+      type: "raspberry-pi",
+      memoryTotal: 8,
+      storage: 512,
+      services: 3,
+    },
+    NODE_RESOURCE_RANGES.RASPBERRY_PI
+  ),
+  onlineNode(
+    {
+      id: "node-5",
+      name: "dienquangsmart",
+      ip: "192.168.1.130",
+      status: "online",
+      type: "banana-board",
+      memoryTotal: 4,
+      storage: 512,
+      services: 1,
+    },
+    NODE_RESOURCE_RANGES.BANANA_BOARD
+  ),
+  offlineNode({
     id: "node-6",
     name: "openclaw",
     ip: "192.168.1.140",
     status: "offline",
     type: "server",
-    cpu: 0,
-    memory: 0,
-    memoryUsed: 0,
     memoryTotal: 16,
     storage: 1024,
-    uptime: "0d 0h 0m",
     services: 0,
-  },
+  }),
+  onlineNode(
+    {
+      id: "node-7",
+      name: "hermes-agent",
+      ip: "192.168.1.150",
+      status: "online",
+      type: "server",
+      memoryTotal: 16,
+      storage: 1024,
+      services: 2,
+    },
+    NODE_RESOURCE_RANGES.HERMES_AGENT
+  ),
+];
+
+/**
+ * Hours-ago labels for the 24h history series, newest last. Shared with the
+ * rest of the mock data so the time axis stays consistent.
+ */
+
+/**
+ * One historical sample: offsets applied to an anchor to produce each node's
+ * value. When `varianced` is true the anchor is `baseLoad - variance`
+ * (the low-traffic overnight period) rather than `baseLoad`.
+ */
+type HistoryOffset = [varianced: boolean, minipc01: number, minipc02: number];
+
+/**
+ * Build a 24h history series for the two minipcs. `minipc-03` is always
+ * offline, so it is pinned at 0. The final row is the live node reading.
+ */
+const generateHistory = (
+  baseLoad: number,
+  variance: number,
+  offsets: readonly HistoryOffset[],
+  readCurrent: (node: Node) => number
+) => [
+  ...TIME_POINTS.map((hours, i) => {
+    const [varianced, minipc01, minipc02] = offsets[i];
+    const anchor = varianced ? baseLoad - variance : baseLoad;
+    return {
+      time: getHistoricalTime(hours),
+      "minipc-01": anchor + minipc01,
+      "minipc-02": anchor + minipc02,
+      "minipc-03": 0,
+    };
+  }),
   {
-    id: "node-7",
-    name: "hermes-agent",
-    ip: "192.168.1.150",
-    status: "online",
-    type: "server",
-    cpu: Number(
-      random(
-        NODE_RESOURCE_RANGES.HERMES_AGENT.CPU.min,
-        NODE_RESOURCE_RANGES.HERMES_AGENT.CPU.max
-      ).toFixed(1)
-    ),
-    memory: Number(
-      random(
-        NODE_RESOURCE_RANGES.HERMES_AGENT.MEMORY.min,
-        NODE_RESOURCE_RANGES.HERMES_AGENT.MEMORY.max
-      ).toFixed(1)
-    ),
-    memoryUsed: Number(
-      random(
-        NODE_RESOURCE_RANGES.HERMES_AGENT.MEMORY_USED.min,
-        NODE_RESOURCE_RANGES.HERMES_AGENT.MEMORY_USED.max
-      ).toFixed(2)
-    ),
-    memoryTotal: 16,
-    storage: 1024,
-    uptime: generateUptime(),
-    services: 2,
+    time: "Now",
+    "minipc-01": readCurrent(nodes[0]),
+    "minipc-02": readCurrent(nodes[1]),
+    "minipc-03": 0,
   },
 ];
 
 /**
- * Generate historical CPU data (last 24 hours) with realistic patterns
+ * Historical CPU data (last 24 hours) with realistic patterns
  */
-const generateCpuData = (baseLoad: number, variance: number) => {
-  return [
-    {
-      time: getHistoricalTime(24),
-      "minipc-01": baseLoad - variance,
-      "minipc-02": baseLoad - variance - 5,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(22),
-      "minipc-01": baseLoad - variance + 2,
-      "minipc-02": baseLoad - variance - 3,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(20),
-      "minipc-01": baseLoad - variance + 5,
-      "minipc-02": baseLoad - variance,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(18),
-      "minipc-01": baseLoad + 3,
-      "minipc-02": baseLoad,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(16),
-      "minipc-01": baseLoad + 8,
-      "minipc-02": baseLoad + 5,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(14),
-      "minipc-01": baseLoad + 12,
-      "minipc-02": baseLoad + 8,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(12),
-      "minipc-01": baseLoad + 5,
-      "minipc-02": baseLoad + 2,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(10),
-      "minipc-01": baseLoad + 8,
-      "minipc-02": baseLoad + 5,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(8),
-      "minipc-01": baseLoad + 15,
-      "minipc-02": baseLoad + 12,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(6),
-      "minipc-01": baseLoad + 8,
-      "minipc-02": baseLoad + 5,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(4),
-      "minipc-01": baseLoad + 2,
-      "minipc-02": baseLoad,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(2),
-      "minipc-01": baseLoad,
-      "minipc-02": baseLoad - 2,
-      "minipc-03": 0,
-    },
-    {
-      time: "Now",
-      "minipc-01": nodes[0].cpu,
-      "minipc-02": nodes[1].cpu,
-      "minipc-03": 0,
-    },
-  ];
-};
+const CPU_OFFSETS: readonly HistoryOffset[] = [
+  [true, 0, -5],
+  [true, 2, -3],
+  [true, 5, 0],
+  [false, 3, 0],
+  [false, 8, 5],
+  [false, 12, 8],
+  [false, 5, 2],
+  [false, 8, 5],
+  [false, 15, 12],
+  [false, 8, 5],
+  [false, 2, 0],
+  [false, 0, -2],
+];
 
-export const cpuHistory = generateCpuData(
+export const cpuHistory = generateHistory(
   HISTORICAL_DATA.CPU.BASE_LOAD,
-  HISTORICAL_DATA.CPU.VARIANCE
+  HISTORICAL_DATA.CPU.VARIANCE,
+  CPU_OFFSETS,
+  (node) => node.cpu
 );
 
 /**
- * Generate historical Memory data with realistic patterns
+ * Historical Memory data with realistic patterns
  */
-const generateMemoryData = (baseLoad: number, variance: number) => {
-  return [
-    {
-      time: getHistoricalTime(24),
-      "minipc-01": baseLoad - variance,
-      "minipc-02": baseLoad - variance - 2,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(22),
-      "minipc-01": baseLoad - variance + 1,
-      "minipc-02": baseLoad - variance - 1,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(20),
-      "minipc-01": baseLoad - variance + 2,
-      "minipc-02": baseLoad - variance,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(18),
-      "minipc-01": baseLoad + 1,
-      "minipc-02": baseLoad,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(16),
-      "minipc-01": baseLoad + 4,
-      "minipc-02": baseLoad + 2,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(14),
-      "minipc-01": baseLoad + 6,
-      "minipc-02": baseLoad + 4,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(12),
-      "minipc-01": baseLoad + 2,
-      "minipc-02": baseLoad + 1,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(10),
-      "minipc-01": baseLoad + 3,
-      "minipc-02": baseLoad + 2,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(8),
-      "minipc-01": baseLoad + 5,
-      "minipc-02": baseLoad + 4,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(6),
-      "minipc-01": baseLoad + 4,
-      "minipc-02": baseLoad + 3,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(4),
-      "minipc-01": baseLoad + 2,
-      "minipc-02": baseLoad + 1,
-      "minipc-03": 0,
-    },
-    {
-      time: getHistoricalTime(2),
-      "minipc-01": baseLoad + 1,
-      "minipc-02": baseLoad,
-      "minipc-03": 0,
-    },
-    {
-      time: "Now",
-      "minipc-01": nodes[0].memory,
-      "minipc-02": nodes[1].memory,
-      "minipc-03": 0,
-    },
-  ];
-};
+const MEMORY_OFFSETS: readonly HistoryOffset[] = [
+  [true, 0, -2],
+  [true, 1, -1],
+  [true, 2, 0],
+  [false, 1, 0],
+  [false, 4, 2],
+  [false, 6, 4],
+  [false, 2, 1],
+  [false, 3, 2],
+  [false, 5, 4],
+  [false, 4, 3],
+  [false, 2, 1],
+  [false, 1, 0],
+];
 
-export const memoryHistory = generateMemoryData(
+export const memoryHistory = generateHistory(
   HISTORICAL_DATA.MEMORY.BASE_LOAD,
-  HISTORICAL_DATA.MEMORY.VARIANCE
+  HISTORICAL_DATA.MEMORY.VARIANCE,
+  MEMORY_OFFSETS,
+  (node) => node.memory
 );
 
 /**
@@ -401,7 +260,7 @@ export const clusterInfo: ClusterInfo = {
     "minipc-02": "worker",
     "minipc-03": "worker",
     "rp-01": "worker",
-    "dienquangsmart": "worker",
+    dienquangsmart: "worker",
     "hermes-agent": "worker",
   },
   cni: "flannel",

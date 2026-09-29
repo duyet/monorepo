@@ -259,37 +259,3 @@ export const PRELOAD_CONFIG: PreloadConfig = {
   intersectionThreshold: 0.01, // Trigger when 1% visible
   rootMargin: "200px", // Load 200px before entering viewport
 };
-
-/**
- * Generate optimized grid layout for server-side rendering
- */
-export function generateSSRGridLayout(
-  photos: UnsplashPhoto[],
-  columns = 3
-): {
-  columnHeights: number[];
-  photoColumns: UnsplashPhoto[][];
-} {
-  const photoColumns: UnsplashPhoto[][] = Array.from(
-    { length: columns },
-    () => []
-  );
-  const columnHeights: number[] = Array(columns).fill(0);
-
-  photos.forEach((photo) => {
-    // Find the shortest column
-    const shortestColumnIndex = columnHeights.indexOf(
-      Math.min(...columnHeights)
-    );
-
-    // Add photo to shortest column
-    photoColumns[shortestColumnIndex].push(photo);
-
-    // Update column height (simplified calculation)
-    const aspectRatio = photo.width / photo.height;
-    const estimatedHeight = 300 / aspectRatio; // Base width of 300px
-    columnHeights[shortestColumnIndex] += estimatedHeight + 24; // Add gutter
-  });
-
-  return { columnHeights, photoColumns };
-}

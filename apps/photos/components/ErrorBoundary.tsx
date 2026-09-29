@@ -100,4 +100,3 @@ function DefaultErrorFallback({
 }
 
 export default ErrorBoundary;
-export { DefaultErrorFallback };
