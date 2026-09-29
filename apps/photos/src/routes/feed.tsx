@@ -1,35 +1,41 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import Container from "@duyet/components/Container";
+import { ogHeadLinks, ogMeta } from "@duyet/config/og";
 import PhotoFeed from "@/components/PhotoFeed";
 import { RetryButton } from "@/components/RetryButton";
 import { LoadingGrid } from "@/components/LoadingStates";
 import { usePhotos } from "@/hooks/usePhotos";
 import { RateLimitError, NetworkError, AuthError } from "@/lib/errors";
 
+const FEED_URL = "https://photos.duyet.net/feed";
+const FEED_TITLE = "Photo Stream | duyet.net";
+const FEED_DESCRIPTION =
+  "A chronological stream of photography by Duyệt. One image at a time, each with its story—explore the latest photos in a continuous feed.";
+
 export const Route = createFileRoute("/feed")({
   head: () => ({
     meta: [
-      { title: "Photo Stream | duyet.net" },
-      {
-        name: "description",
-        content:
-          "A chronological stream of photography by Duyệt. One image at a time, each with its story—explore the latest photos in a continuous feed.",
-      },
+      { title: FEED_TITLE },
+      { name: "description", content: FEED_DESCRIPTION },
       {
         name: "keywords",
         content: "photography feed, photo stream, latest photos, photography blog",
       },
+      ...ogMeta({
+        url: FEED_URL,
+        title: FEED_TITLE,
+        description: FEED_DESCRIPTION,
+        image: "https://photos.duyet.net/og.png",
+        imageAlt: "Photo Stream — photography by Duyet",
+      }),
     ],
     links: [
-      {
-        rel: "canonical",
-        href: "https://photos.duyet.net/feed",
-      },
+      ...ogHeadLinks({ url: FEED_URL }),
       {
         rel: "alternate",
         type: "application/rss+xml",
         title: "Photo Stream - Photos",
-        href: "https://photos.duyet.net/feed",
+        href: FEED_URL,
       },
     ],
   }),

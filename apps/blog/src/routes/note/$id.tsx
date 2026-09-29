@@ -1,71 +1,85 @@
-import { dateFormat } from '@duyet/libs/date'
-import { createFileRoute, Link, notFound } from '@tanstack/react-router'
-import { type ReactElement, Suspense } from 'react'
-import { Markdown } from '@/components/Markdown'
-import { getShortformById, getShortforms } from '@/lib/shortforms'
-import type { Shortform } from '@/lib/shortforms'
+import { dateFormat } from "@duyet/libs/date";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { type ReactElement, Suspense } from "react";
+import { Markdown } from "@/components/Markdown";
+import { buildArticleHead } from "@/lib/head";
+import { ogAbsolute, ogNoteCardPath } from "@/lib/og";
+import { getShortformById, getShortforms } from "@/lib/shortforms";
+import type { Shortform } from "@/lib/shortforms";
 
+const SITE_URL = "https://blog.duyet.net";
 
-type NeighborNote = { id: string; title?: string; excerpt: string }
+type NeighborNote = { id: string; title?: string; excerpt: string };
 
 interface NoteData {
-  note: Shortform
-  newer: NeighborNote | null
-  older: NeighborNote | null
+  note: Shortform;
+  newer: NeighborNote | null;
+  older: NeighborNote | null;
 }
 
-export const Route = createFileRoute('/note/$id')({
-  head: ({ loaderData }) => {
-    const note = (loaderData as NoteData | undefined)?.note
-    return {
-      meta: [{ title: `${note?.title ?? note?.id ?? 'Note'} | Quick Notes` }],
-    }
+export const Route = createFileRoute("/note/$id")({
+  head: ({ params, loaderData }) => {
+    const note = (loaderData as NoteData | undefined)?.note;
+    const id = (params.id ?? "").replace(/\.(md|html)$/, "");
+    const title = note?.title ?? (id ? id.replace(/-/g, " ") : "Note");
+    const canonical = `${SITE_URL}/note/${id}`;
+    // Notes are shortform, so the card is type-only (notes carry no thumbnail)
+    // and lives at /og/note-<id>.png — see scripts/generate-og.ts. No markdown
+    // alternate: a note has no standalone .md form.
+    return buildArticleHead({
+      title,
+      description: note?.excerpt ?? "",
+      url: canonical,
+      image: ogAbsolute(ogNoteCardPath(id)),
+      titleSuffix: " | Quick Notes",
+      datePublished: note?.date,
+    });
   },
   loader: ({ params }) => {
-    const note = getShortformById(params.id)
-    if (!note) throw notFound()
-    const all = getShortforms()
-    const idx = all.findIndex((n) => n.id === note.id)
+    const note = getShortformById(params.id);
+    if (!note) throw notFound();
+    const all = getShortforms();
+    const idx = all.findIndex((n) => n.id === note.id);
     const toNeighbor = (n: Shortform): NeighborNote => ({
       id: n.id,
       title: n.title,
       excerpt: n.excerpt,
-    })
+    });
     // `all` is sorted newest-first, so idx-1 is the newer note, idx+1 the older.
-    const newer = idx > 0 ? toNeighbor(all[idx - 1]) : null
+    const newer = idx > 0 ? toNeighbor(all[idx - 1]) : null;
     const older =
-      idx >= 0 && idx < all.length - 1 ? toNeighbor(all[idx + 1]) : null
-    return { note, newer, older } satisfies NoteData
+      idx >= 0 && idx < all.length - 1 ? toNeighbor(all[idx + 1]) : null;
+    return { note, newer, older } satisfies NoteData;
   },
   component: NotePage,
-})
+});
 
 function NeighborCard({
   note,
   direction,
 }: {
-  note: NeighborNote
-  direction: 'newer' | 'older'
+  note: NeighborNote;
+  direction: "newer" | "older";
 }): ReactElement {
-  const older = direction === 'older'
+  const older = direction === "older";
   return (
     <Link
       to="/note/$id/"
       params={{ id: note.id }}
-      className={`group flex flex-col gap-1.5 rounded-[var(--rd-r)] border p-4 no-underline transition-colors hover:bg-[var(--rd-surface-2)] ${older ? 'sm:items-end sm:text-right' : ''}`}
+      className={`group flex flex-col gap-1.5 rounded-[var(--rd-r)] border p-4 no-underline transition-colors hover:bg-[var(--rd-surface-2)] ${older ? "sm:items-end sm:text-right" : ""}`}
     >
       <span className="text-[11px] font-mono uppercase tracking-[0.14em] text-[var(--rd-text-3)]">
-        {older ? 'Older →' : '← Newer'}
+        {older ? "Older →" : "← Newer"}
       </span>
       <span className="line-clamp-2 text-[0.95rem] font-[560] leading-snug tracking-[-0.01em] text-[var(--rd-text)] transition-colors group-hover:text-[var(--rd-accent-ink)]">
         {note.title || note.excerpt}
       </span>
     </Link>
-  )
+  );
 }
 
 function NotePage(): ReactElement {
-  const { note, newer, older } = Route.useLoaderData() as NoteData
+  const { note, newer, older } = Route.useLoaderData() as NoteData;
 
   return (
     <article className="post-reader post-reader--note mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16 md:py-24">
@@ -83,12 +97,14 @@ function NotePage(): ReactElement {
           <div>
             <p className="text-sm font-medium">Duyet Le</p>
             <p className="text-xs text-muted-foreground tabular-nums">
-              {dateFormat(note.date, 'MMM d, yyyy')}
+              {dateFormat(note.date, "MMM d, yyyy")}
             </p>
           </div>
         </div>
         {note.title ? (
-          <h1 className="mt-8 text-2xl font-bold tracking-tight">{note.title}</h1>
+          <h1 className="mt-8 text-2xl font-bold tracking-tight">
+            {note.title}
+          </h1>
         ) : null}
         <Suspense
           fallback={
@@ -113,5 +129,5 @@ function NotePage(): ReactElement {
         ) : null}
       </div>
     </article>
-  )
+  );
 }

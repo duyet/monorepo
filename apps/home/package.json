@@ -20,6 +20,7 @@
     "@clerk/clerk-react": "^5.61.2",
     "@cloudflare/ai-search-snippet": "^0.0.43",
     "@duyet/components": "*",
+    "@duyet/config": "*",
     "@duyet/libs": "*",
     "@duyet/urls": "*",
     "@phosphor-icons/react": "^2.1.10",

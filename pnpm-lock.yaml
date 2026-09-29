@@ -777,6 +777,9 @@ importers:
       '@duyet/components':
         specifier: '*'
         version: link:../../packages/components
+      '@duyet/config':
+        specifier: '*'
+        version: link:../../packages/config
       '@duyet/libs':
         specifier: '*'
         version: link:../../packages/libs

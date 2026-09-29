@@ -9,11 +9,13 @@
     "dev": "vite dev --port 3012",
     "fmt": "biome format --write .",
     "lint": "biome lint .",
+    "og:card": "tsx scripts/generate-og.ts",
     "test": "vitest run",
     "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh tip duyet-tip"
   },
   "dependencies": {
     "@duyet/components": "*",
+    "@duyet/config": "*",
     "@duyet/libs": "*",
     "@tanstack/react-router": "^1.0.0",
     "@tanstack/react-start": "^1.0.0",

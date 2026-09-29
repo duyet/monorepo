@@ -1,5 +1,6 @@
 import { Separator } from "@duyet/components/ui/separator";
 import { createFileRoute } from "@tanstack/react-router";
+import { ogHeadLinks } from "@duyet/config/og";
 import { Education } from "@/components/education";
 import { ExperienceItem } from "@/components/experience";
 import { Profile } from "@/components/profile";
@@ -9,6 +10,13 @@ import { SkillsSection } from "@/components/skills-section";
 import { cvData } from "@/config/cv.data";
 
 export const Route = createFileRoute("/")({
+  // Title, description and the full OG/Twitter set come from the root route,
+  // which already targets this URL. This route only contributes the canonical:
+  // TanStack Start concatenates `links` across the matched route chain without
+  // deduplicating, so a root-level canonical would emit a second one on /pdf.
+  head: () => ({
+    links: ogHeadLinks({ url: "https://cv.duyet.net" }),
+  }),
   component: Page,
 });
 

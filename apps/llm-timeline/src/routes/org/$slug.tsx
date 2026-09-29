@@ -1,7 +1,9 @@
+import { ogHeadLinks, ogMeta } from "@duyet/config/og";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { PageLayout } from "@/components/page-layout";
 import { TimelinePage } from "@/components/timeline-page";
 import { organizations } from "@/lib/data";
+import { ogImageUrl } from "@/lib/og";
 import { slugify } from "@/lib/utils";
 
 export const Route = createFileRoute("/org/$slug")({
@@ -15,22 +17,22 @@ export const Route = createFileRoute("/org/$slug")({
     const org = organizations.find((o) => slugify(o) === params.slug);
     if (!org) return {};
     const canonicalUrl = `https://llm-timeline.duyet.net/org/${params.slug}`;
+    const title = `${org} LLM Models | LLM Timeline`;
+    const description = `A comprehensive timeline of Large Language Model releases from ${org}.`;
     return {
       meta: [
-        { title: `${org} LLM Models | LLM Timeline` },
-        {
-          name: "description",
-          content: `A comprehensive timeline of Large Language Model releases from ${org}.`,
-        },
-        { property: "og:type", content: "website" },
-        { property: "og:url", content: canonicalUrl },
-        { property: "og:title", content: `${org} LLM Models | LLM Timeline` },
-        {
-          property: "og:description",
-          content: `A comprehensive timeline of Large Language Model releases from ${org}.`,
-        },
+        { title },
+        { name: "description", content: description },
+        // ~1,448 of these pages exist and every one of them used to unfurl as a
+        // text-only card. `generate-og.ts` writes the matching PNG in prebuild.
+        ...ogMeta({
+          url: canonicalUrl,
+          title,
+          description,
+          image: ogImageUrl("org", params.slug),
+        }),
       ],
-      links: [{ rel: "canonical", href: canonicalUrl }],
+      links: ogHeadLinks({ url: canonicalUrl }),
     };
   },
   component: OrgPage,

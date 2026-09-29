@@ -17,9 +17,29 @@ import {
 } from "@duyet/urls/referral";
 
 // ---------------------------------------------------------------------------
+// Blog intro text
+// ---------------------------------------------------------------------------
+const BLOG_INTRO =
+  "Notes on data engineering, distributed systems, Rust, and — lately — AI agents. I've been writing here since 2015; some posts are reference docs I keep coming back to, others are thinking out loud.";
+
+// ---------------------------------------------------------------------------
 // Route & loader
 // ---------------------------------------------------------------------------
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      // ogMeta in the root already emits title/description/site_name for the
+      // site; the index restates them so the homepage unfurls as the blog
+      // itself rather than inheriting a bare `og:url` from the root.
+      { title: "Tôi là Duyệt | blog.duyet.net" },
+      { name: "description", content: BLOG_INTRO },
+    ],
+    links: [
+      // `links` are concatenated across matches with no dedup, so exactly one
+      // route in the tree may own the canonical.
+      { rel: "canonical", href: "https://blog.duyet.net" },
+    ],
+  }),
   loader: async () => {
     const [postsByYear, shortforms] = await Promise.all([
       getPostsByAllYear(),
@@ -29,12 +49,6 @@ export const Route = createFileRoute("/")({
   },
   component: HomePage,
 });
-
-// ---------------------------------------------------------------------------
-// Blog intro text
-// ---------------------------------------------------------------------------
-const BLOG_INTRO =
-  "Notes on data engineering, distributed systems, Rust, and — lately — AI agents. I've been writing here since 2015; some posts are reference docs I keep coming back to, others are thinking out loud.";
 
 // ---------------------------------------------------------------------------
 // Home page

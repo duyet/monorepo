@@ -1,28 +1,30 @@
 import { DownloadIcon } from "@radix-ui/react-icons";
 import { createFileRoute } from "@tanstack/react-router";
+import { ogHeadLinks, ogMeta } from "@duyet/config/og";
+
+const PDF_URL = "https://cv.duyet.net/pdf";
+const PDF_TITLE = "CV - PDF View | duyet.net";
+const PDF_DESCRIPTION =
+  "View and download Duyet Le's CV as a PDF. Software engineer specializing in full-stack development, Rust, and modern web technologies.";
 
 export const Route = createFileRoute("/pdf")({
   head: () => ({
     meta: [
-      { title: "CV - PDF View | duyet.net" },
-      {
-        name: "description",
-        content:
-          "View and download Duyet Le's CV as a PDF. Software engineer specializing in full-stack development, Rust, and modern web technologies.",
-      },
-      { property: "og:title", content: "CV - PDF View | duyet.net" },
-      {
-        property: "og:description",
-        content:
-          "View and download Duyet Le's CV as a PDF. Software engineer specializing in full-stack development, Rust, and modern web technologies.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://cv.duyet.net/pdf" },
-      {
-        rel: "canonical",
-        href: "https://cv.duyet.net/pdf",
-      },
+      { title: PDF_TITLE },
+      { name: "description", content: PDF_DESCRIPTION },
+      ...ogMeta({
+        url: PDF_URL,
+        title: PDF_TITLE,
+        description: PDF_DESCRIPTION,
+        image: "https://cv.duyet.net/og.png",
+        imageAlt: "Duyet Le — Senior Data Engineer résumé",
+      }),
     ],
+    // `canonical` has to live in `links`, not `meta`: a `rel=canonical` entry
+    // inside `meta[]` carries no `name`/`property` and is emitted as a bare
+    // <meta rel="canonical">, which crawlers ignore. It was silently dropped
+    // here before.
+    links: ogHeadLinks({ url: PDF_URL }),
   }),
   component: Page,
 });

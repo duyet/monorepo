@@ -2,6 +2,8 @@ import type { Post, Series } from "@duyet/interfaces";
 import { extractHeadings } from "@duyet/libs/extractHeadings";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
+import { buildArticleHead } from "@/lib/head";
+import { ogAbsolute, ogCardPath } from "@/lib/og";
 import {
   type ChildNavItem,
   fetchAllPosts,
@@ -25,34 +27,20 @@ export const Route = createFileRoute("/$year/$month/$slug/$child")({
     const child = rawChild.replace(/\.(md|html)$/, "");
     const post = (loaderData as { post?: Post } | undefined)?.post;
     const title = post?.title || child.replace(/-/g, " ");
-    const ogImage = post?.thumbnail
-      ? new URL(post.thumbnail, "https://blog.duyet.net").toString()
-      : undefined;
-    return {
-      meta: [
-        { title: `${title} | Tôi là Duyệt` },
-        { property: "og:type", content: "article" },
-        {
-          property: "og:url",
-          content: `https://blog.duyet.net/${year}/${month}/${slug}/${child}`,
-        },
-        ...(post?.title ? [{ property: "og:title", content: post.title }] : []),
-        ...(post?.excerpt
-          ? [
-              { name: "description", content: post.excerpt },
-              { property: "og:description", content: post.excerpt },
-            ]
-          : []),
-        ...(ogImage ? [{ property: "og:image", content: ogImage }] : []),
-      ],
-      links: [
-        {
-          rel: "alternate",
-          type: "text/markdown",
-          href: `https://blog.duyet.net/${year}/${month}/${slug}/${child}.${post?.isMDX ? "mdx" : "md"}`,
-        },
-      ],
-    };
+    const canonical = `https://blog.duyet.net/${year}/${month}/${slug}/${child}`;
+    // Child posts are chapters of a parent overview, so their card is keyed on
+    // the full path (`2026-01-coding-agent-opencode.png`) to stay collision-free.
+    const ogImage = ogAbsolute(
+      ogCardPath(`/${year}/${month}/${slug}/${child}`)
+    );
+    return buildArticleHead({
+      title,
+      description: post?.excerpt ?? "",
+      url: canonical,
+      image: ogImage,
+      markdownHref: `${canonical}.${post?.isMDX ? "mdx" : "md"}`,
+      datePublished: post?.date,
+    });
   },
   loader: async ({ params }) => {
     const { year, month, slug: rawSlug, child: rawChild } = params;

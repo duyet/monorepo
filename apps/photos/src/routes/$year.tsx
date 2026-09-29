@@ -1,8 +1,12 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import Container from "@duyet/components/Container";
+import { ogHeadLinks, ogMeta } from "@duyet/config/og";
 import PhotoGallery from "@/components/PhotoGallery";
 import { LoadingGrid } from "@/components/LoadingStates";
 import { usePhotos } from "@/hooks/usePhotos";
+
+const SITE_URL = "https://photos.duyet.net";
+const SITE_OG_IMAGE = `${SITE_URL}/og.png`;
 
 export const Route = createFileRoute("/$year")({
   beforeLoad: ({ params }) => {
@@ -17,6 +21,7 @@ export const Route = createFileRoute("/$year")({
   },
   head: ({ params }) => {
     const year = params.year;
+    const url = `${SITE_URL}/${year}`;
     return {
       meta: [
         { title: `Photos from ${year} | duyet.net` },
@@ -24,13 +29,17 @@ export const Route = createFileRoute("/$year")({
           name: "description",
           content: `Photography collection from ${year} by Duyệt. Explore stunning landscapes, portraits, and street photography captured throughout ${year}.`,
         },
+        // Overrides the root's og:url/og:title/og:description for this page; the
+        // card itself is shared, so only the identity tags change.
+        ...ogMeta({
+          url,
+          title: `Photos from ${year} | duyet.net`,
+          description: `Photography from ${year} by Duyệt — landscapes, portraits, and street photography.`,
+          image: SITE_OG_IMAGE,
+          imageAlt: `Photography by Duyet from ${year}`,
+        }),
       ],
-      links: [
-        {
-          rel: "canonical",
-          href: `https://photos.duyet.net/${year}`,
-        },
-      ],
+      links: ogHeadLinks({ url }),
     };
   },
   component: YearPage,

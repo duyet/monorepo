@@ -9,6 +9,7 @@
     "build": "node --import ../../scripts/force-workspace-react.mjs ../../node_modules/vite/bin/vite.js build && tsx ../../scripts/patch-html-for-cloudflare.ts",
     "check-types": "tsc --noEmit",
     "dev": "vite dev --port 3017",
+    "og:card": "tsx scripts/generate-og.ts",
     "fmt": "pnpm run fix",
     "lint": "biome lint .",
     "preview": "vite preview",
@@ -18,6 +19,7 @@
   },
   "dependencies": {
     "@duyet/components": "*",
+    "@duyet/config": "*",
     "@duyet/libs": "*",
     "@icons-pack/react-simple-icons": "^13.0.0",
     "@radix-ui/react-separator": "^1.1.0",

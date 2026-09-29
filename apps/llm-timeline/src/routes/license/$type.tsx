@@ -1,42 +1,38 @@
+import { ogHeadLinks, ogMeta } from "@duyet/config/og";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { PageLayout } from "@/components/page-layout";
 import { TimelinePage } from "@/components/timeline-page";
-
-const LICENSES = ["open", "closed", "partial"] as const;
-type LicenseType = (typeof LICENSES)[number];
-
-const LICENSE_LABELS: Record<LicenseType, string> = {
-  open: "Open License",
-  closed: "Closed License",
-  partial: "Partial License",
-};
-
-const LICENSE_DESCRIPTIONS: Record<LicenseType, string> = {
-  open: "Models with openly available weights and code",
-  closed: "Proprietary models with API-only access",
-  partial: "Models with some restricted access or partial weights",
-};
+import {
+  isLicenseType,
+  LICENSE_DESCRIPTIONS,
+  LICENSE_LABELS,
+  ogImageUrl,
+} from "@/lib/og";
 
 export const Route = createFileRoute("/license/$type")({
   beforeLoad: ({ params }) => {
-    if (!LICENSES.includes(params.type as LicenseType)) {
+    if (!isLicenseType(params.type)) {
       throw notFound();
     }
   },
   head: ({ params }) => {
-    const type = params.type as LicenseType;
-    if (!LICENSES.includes(type)) return {};
+    if (!isLicenseType(params.type)) return {};
+    const type = params.type;
     const canonicalUrl = `https://llm-timeline.duyet.net/license/${type}`;
+    const title = `${LICENSE_LABELS[type]} Models | LLM Timeline`;
+    const description = LICENSE_DESCRIPTIONS[type];
     return {
       meta: [
-        { title: `${LICENSE_LABELS[type]} Models | LLM Timeline` },
-        { name: "description", content: LICENSE_DESCRIPTIONS[type] },
-        { property: "og:type", content: "website" },
-        { property: "og:url", content: canonicalUrl },
-        { property: "og:title", content: `${LICENSE_LABELS[type]} Models | LLM Timeline` },
-        { property: "og:description", content: LICENSE_DESCRIPTIONS[type] },
+        { title },
+        { name: "description", content: description },
+        ...ogMeta({
+          url: canonicalUrl,
+          title,
+          description,
+          image: ogImageUrl("license", type),
+        }),
       ],
-      links: [{ rel: "canonical", href: canonicalUrl }],
+      links: ogHeadLinks({ url: canonicalUrl }),
     };
   },
   component: LicensePage,
@@ -44,7 +40,7 @@ export const Route = createFileRoute("/license/$type")({
 
 function LicensePage() {
   const { type } = Route.useParams();
-  const licenseType = type as LicenseType;
+  const licenseType = type as keyof typeof LICENSE_DESCRIPTIONS;
 
   return (
     <PageLayout description={LICENSE_DESCRIPTIONS[licenseType]}>

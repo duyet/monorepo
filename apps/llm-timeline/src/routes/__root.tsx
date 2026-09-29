@@ -10,6 +10,7 @@ import {
   SiteHeader,
 } from "@duyet/components";
 import ThemeProvider from "@duyet/components/ThemeProvider";
+import { ogHeadLinks, ogMeta } from "@duyet/config/og";
 import {
   createRootRoute,
   HeadContent,
@@ -17,6 +18,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
+import { ogImageUrl, SITE_DESCRIPTION, SITE_TITLE } from "@/lib/og";
 
 function NotFoundComponent() {
   return (
@@ -62,35 +64,20 @@ export const Route = createRootRoute({
         content: "#0d0e0c",
         media: "(prefers-color-scheme: dark)",
       },
-      { title: "LLM Timeline | llm-timeline.duyet.net" },
-      {
-        name: "description",
-        content:
-          "Interactive timeline of 3,923+ Large Language Model releases from 1950–2026 across 1,378+ organizations.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://llm-timeline.duyet.net/" },
-      {
-        property: "og:title",
-        content: "LLM Timeline | llm-timeline.duyet.net",
-      },
-      {
-        property: "og:description",
-        content:
-          "Interactive timeline of 3,923+ Large Language Model releases from 1950–2026 across 1,378+ organizations.",
-      },
-      {
-        property: "og:image",
-        content: "https://duyet.net/screenshots/llm-timeline.png",
-      },
-      { name: "twitter:card", content: "summary_large_image" },
-      {
-        name: "twitter:image",
-        content: "https://duyet.net/screenshots/llm-timeline.png",
-      },
+      { title: SITE_TITLE },
+      { name: "description", content: SITE_DESCRIPTION },
+      // Was borrowing a screenshot from another app; now points at this app's own
+      // generated card (see scripts/generate-og.ts).
+      ...ogMeta({
+        url: "https://llm-timeline.duyet.net/",
+        title: SITE_TITLE,
+        description: SITE_DESCRIPTION,
+        image: ogImageUrl("index"),
+      }),
     ],
     links: [
       ...duyetFontHeadLinks(),
+      ...ogHeadLinks({ url: "https://llm-timeline.duyet.net/" }),
       ...duyetFaviconHeadLinks(),
       {
         rel: "alternate",

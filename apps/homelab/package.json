@@ -10,6 +10,7 @@
     "dev": "vite dev --port 3016",
     "fmt": "pnpm run fix",
     "lint": "biome lint .",
+    "og:card": "tsx scripts/generate-og.ts",
     "start": "vite preview --port 3002",
     "test": "vitest run",
     "deploy": "pnpm run build && pnpm dlx wrangler pages deploy dist/client --project-name=duyet-homelab",

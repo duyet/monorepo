@@ -2,6 +2,8 @@ import type { Post, Series } from "@duyet/interfaces";
 import { extractHeadings } from "@duyet/libs/extractHeadings";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
+import { buildArticleHead } from "@/lib/head";
+import { ogAbsolute, ogCardPath } from "@/lib/og";
 import {
   getChildren,
   getPostBySlug,
@@ -24,48 +26,22 @@ export const Route = createFileRoute("/$year/$month/$slug/")({
     const post = (loaderData as { post?: Post } | undefined)?.post;
     const title = post?.title || slug.replace(/-/g, " ");
     const canonical = `https://blog.duyet.net/${year}/${month}/${slug}`;
-    const ogImage = post?.thumbnail
-      ? new URL(post.thumbnail, "https://blog.duyet.net").toString()
-      : undefined;
-    const jsonLd = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      headline: title,
+    // The dither card for this post, written by scripts/generate-og.ts. Always
+    // present, so every post gets a card even when it has no thumbnail (71 of
+    // 319 posts have none) — those render as the type-only fallback.
+    const ogImage = ogAbsolute(ogCardPath(`/${year}/${month}/${slug}`));
+    return buildArticleHead({
+      title,
+      description: post?.excerpt ?? "",
       url: canonical,
+      image: ogImage,
+      markdownHref: `${canonical}.md`,
       datePublished: post?.date,
-      author: { "@type": "Person", name: "Duyet Le", url: "https://duyet.net" },
-      ...(ogImage ? { image: ogImage } : {}),
+      // X embeds inside the post body become live iframes only once
+      // widgets.js runs, so it loads on post pages (which can embed) but not
+      // on the lighter child/note surfaces.
+      scripts: [{ src: TWITTER_WIDGETS_SRC, async: true }],
     });
-    return {
-      meta: [
-        { title: `${title} | Tôi là Duyệt` },
-        { property: "og:type", content: "article" },
-        {
-          property: "og:url",
-          content: canonical,
-        },
-        ...(post?.title ? [{ property: "og:title", content: post.title }] : []),
-        ...(post?.excerpt
-          ? [
-              { name: "description", content: post.excerpt },
-              { property: "og:description", content: post.excerpt },
-            ]
-          : []),
-        ...(ogImage ? [{ property: "og:image", content: ogImage }] : []),
-      ],
-      links: [
-        { rel: "canonical", href: canonical },
-        {
-          rel: "alternate",
-          type: "text/markdown",
-          href: `${canonical}.md`,
-        },
-      ],
-      scripts: [
-        { type: "application/ld+json", children: jsonLd },
-        { src: TWITTER_WIDGETS_SRC, async: true },
-      ],
-    };
   },
   loader: async ({ params }) => {
     const { year, month, slug: rawSlug } = params;

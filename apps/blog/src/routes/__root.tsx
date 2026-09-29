@@ -8,6 +8,7 @@ import ThemeProvider, {
 import { duyetFaviconHeadLinks } from "@duyet/components/brand/duyet-logo";
 import { duyetFontHeadLinks } from "@duyet/components/brand/fonts";
 import { SiteHeader } from "@duyet/components/site-header/SiteHeader";
+import { ogMeta } from "@duyet/config/og";
 import {
   createRootRoute,
   HeadContent,
@@ -15,6 +16,12 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
+import {
+  ogAbsolute,
+  OG_INDEX_CARD,
+  OG_SITE_NAME,
+  OG_TWITTER_CREATOR,
+} from "@/lib/og";
 
 function NotFoundComponent() {
   return (
@@ -53,22 +60,37 @@ function NotFoundComponent() {
   );
 }
 
+const SITE_URL = "https://blog.duyet.net";
+const SITE_TITLE = "Tôi là Duyệt";
+const SITE_DESCRIPTION =
+  "Sr. Data Engineer. Rustacean at night. Technical blog on data engineering, distributed systems, and open source.";
+
 export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
       { name: "robots", content: "follow, index" },
-      { title: "Tôi là Duyệt | blog.duyet.net" },
-      {
-        name: "description",
-        content:
-          "Sr. Data Engineer. Rustacean at night. Technical blog on data engineering, distributed systems, and open source.",
-      },
+      { title: `${SITE_TITLE} | blog.duyet.net` },
+      { name: "description", content: SITE_DESCRIPTION },
+      // The site-wide card: the "minimal hairline" type-only style, written by
+      // scripts/generate-og.ts. `meta` dedups by property/name with the deepest
+      // match winning, so post routes correctly override this og:image.
+      ...ogMeta({
+        url: SITE_URL,
+        title: SITE_TITLE,
+        description: SITE_DESCRIPTION,
+        image: ogAbsolute(OG_INDEX_CARD),
+        siteName: OG_SITE_NAME,
+        creator: OG_TWITTER_CREATOR,
+      }),
     ],
     links: [
       ...duyetFontHeadLinks({ display: true }),
       ...duyetFaviconHeadLinks(),
+      // No canonical here on purpose: `links` are concatenated across all
+      // matched routes with no dedup, so a root-level canonical would emit a
+      // second, wrong canonical on every post page. The index route owns it.
       {
         rel: "alternate",
         type: "application/rss+xml",
