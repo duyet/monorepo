@@ -60,12 +60,12 @@ export default function AnalyticWrapper() {
       });
     }
 
-    loadInlineScript(`
-      !function(e,n,t){e.onload=function(){
-      let e=n.createElement("script");
-      e.src=t,n.body.appendChild(e)}}
-      (window,document,"//pageview.duyet.net/pageview.js");
-    `);
+    // Load the pageview tag directly rather than from a `window.onload`
+    // handler. This component mounts from a React effect, which runs long
+    // after `load` has already fired, so the handler was never invoked and
+    // pageview.js was never requested. Assigning `window.onload` also
+    // clobbered any handler another script had already installed.
+    loadScript("//pageview.duyet.net/pageview.js");
 
     loadInlineScript(`
       (function(c,l,a,r,i,t,y){

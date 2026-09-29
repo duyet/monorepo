@@ -162,6 +162,11 @@ export default function Header({
             } as CSSProperties
           }
           aria-hidden={!mobileOpen}
+          // `opacity-0 pointer-events-none` only hides the panel visually —
+          // the links inside stayed in the tab order, so keyboard users
+          // tabbed into an invisible menu. `inert` removes the subtree from
+          // focus and from the a11y tree, and is a no-op for pointer input.
+          inert={!mobileOpen}
         >
           <div className="border-y border-[var(--hairline)] py-4 dark:border-white/8">
             <MenuNav

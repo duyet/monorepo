@@ -257,6 +257,7 @@ export interface ExploreAppsProps {
 
 export function ExploreApps({
   currentApp,
+  eyebrow,
   title = "More from duyet.net",
   className,
 }: ExploreAppsProps) {
@@ -268,6 +269,11 @@ export function ExploreApps({
       style={{ borderTop: "1px solid var(--rd-border)" }}
     >
       <div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-4">
+        {eyebrow && (
+          <p className="mb-1 font-mono text-[10.5px] font-medium tracking-[0.14em] text-[var(--rd-text-3)] uppercase">
+            {eyebrow}
+          </p>
+        )}
         <h2 className="mb-1.5 text-[12px] font-medium tracking-tight text-[var(--rd-text-3)]">
           {title}
         </h2>
