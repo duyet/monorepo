@@ -1,16 +1,29 @@
 import type { DateRangeDays } from "../types";
 
 /**
+ * Build a `WHERE <column> > <now> - INTERVAL n DAY` filter shared by every
+ * dated query in this module. Returns an empty string for "all time" so the
+ * caller can inline it unconditionally.
+ *
+ * `nowExpr` differs per backend: ClickHouse spells it `today()`, DuckDB
+ * `current_date`.
+ */
+export function buildDateCondition(
+  column: string,
+  days: DateRangeDays,
+  nowExpr = "today()"
+): string {
+  const safeDays = validateDaysParameter(days);
+  if (safeDays === "all") return "";
+  return `WHERE ${column} > ${nowExpr} - INTERVAL ${safeDays} DAY`;
+}
+
+/**
  * Generate date filter condition for ClickHouse queries
  * Returns the last N days including today
  */
 export function getDateCondition(days: DateRangeDays): string {
-  if (days === "all") {
-    return ""; // No date filter for all time
-  }
-  const safeDays = validateDaysParameter(days);
-  if (safeDays === "all") return "";
-  return `WHERE date > today() - INTERVAL ${safeDays} DAY`;
+  return buildDateCondition("date", days);
 }
 
 /**
@@ -18,12 +31,7 @@ export function getDateCondition(days: DateRangeDays): string {
  * Returns the last N days including today
  */
 export function getCreatedAtCondition(days: DateRangeDays): string {
-  if (days === "all") {
-    return ""; // No date filter for all time
-  }
-  const safeDays = validateDaysParameter(days);
-  if (safeDays === "all") return "";
-  return `WHERE created_at > today() - INTERVAL ${safeDays} DAY`;
+  return buildDateCondition("created_at", days);
 }
 
 /**

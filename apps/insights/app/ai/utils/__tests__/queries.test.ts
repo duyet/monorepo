@@ -1,9 +1,40 @@
 import { describe, expect, test } from "vitest";
 import {
+  buildDateCondition,
   getCreatedAtCondition,
   getDateCondition,
   validateDaysParameter,
 } from "../queries";
+
+describe("buildDateCondition", () => {
+  test("defaults to the ClickHouse now expression", () => {
+    expect(buildDateCondition("date", 7)).toBe(
+      "WHERE date > today() - INTERVAL 7 DAY"
+    );
+  });
+
+  test("accepts an alternate now expression for DuckDB", () => {
+    expect(buildDateCondition("date", 7, "current_date")).toBe(
+      "WHERE date > current_date - INTERVAL 7 DAY"
+    );
+  });
+
+  test("returns empty string for 'all'", () => {
+    expect(buildDateCondition("date", "all")).toBe("");
+    expect(buildDateCondition("date", "all", "current_date")).toBe("");
+  });
+
+  test("sanitises out-of-range windows through validateDaysParameter", () => {
+    expect(buildDateCondition("date", 0)).toBe(
+      "WHERE date > today() - INTERVAL 30 DAY"
+    );
+  });
+
+  test("the named helpers delegate to it", () => {
+    expect(getDateCondition(7)).toBe(buildDateCondition("date", 7));
+    expect(getCreatedAtCondition(7)).toBe(buildDateCondition("created_at", 7));
+  });
+});
 
 describe("getDateCondition", () => {
   test("returns empty string for 'all'", () => {

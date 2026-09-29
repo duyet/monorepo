@@ -591,29 +591,6 @@ export async function testClickHouseConnection(): Promise<{
 }
 
 /**
- * Execute query and return data array (backward compatibility)
- */
-export async function executeClickHouseQueryLegacy(
-  query: string,
-  timeoutMs?: number,
-  maxRetries?: number
-): Promise<Record<string, unknown>[]> {
-  const result = await executeClickHouseQuery(query, timeoutMs, maxRetries);
-
-  if (!result.success && result.error) {
-    console.error("[ClickHouse Query Legacy] Query failed:", result.error);
-  }
-
-  if (result.data.length === 0 && !result.success) {
-    console.warn(
-      "[ClickHouse Query Legacy] Returning empty array due to failure"
-    );
-  }
-
-  return result.data;
-}
-
-/**
  * Close the ClickHouse client connection (for graceful shutdown)
  * Should only be called when the application is shutting down
  */

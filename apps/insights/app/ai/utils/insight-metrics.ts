@@ -9,6 +9,7 @@
 import { executeDuckDBQuery } from "./duckdb-cache";
 import type { DateRangeDays } from "../types";
 import { getDuckDBDateCondition } from "./data-fetchers";
+import { sanitizePathLabel } from "@/lib/sanitize-path";
 
 /* ----------------------------- Cache ratio ------------------------------ */
 
@@ -196,12 +197,6 @@ export interface ProjectLeaderboardEntry {
   pct: number;
 }
 
-function anonymizeProject(path: string): string {
-  if (!path) return "Unknown";
-  const parts = path.split(/[\\/]/).filter(Boolean);
-  return parts[parts.length - 1] || "Unknown";
-}
-
 /**
  * Top projects by token volume for the window — the "where the work happened".
  */
@@ -225,7 +220,7 @@ export async function getProjectLeaderboard(
   if (rows.length === 0) return [];
   const total = rows.reduce((s, r) => s + (Number(r.tokens) || 0), 0);
   return rows.map((r) => ({
-    name: anonymizeProject(String(r.project_path ?? "Unknown")),
+    name: sanitizePathLabel(r.project_path),
     tokens: Number(r.tokens) || 0,
     cost: Number(r.cost) || 0,
     pct: total > 0 ? Math.round((Number(r.tokens) / total) * 100) : 0,

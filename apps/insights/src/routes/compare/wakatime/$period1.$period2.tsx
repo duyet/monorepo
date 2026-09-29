@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { getWakaTimeComparison } from "@/app/wakatime/wakatime-comparison-utils";
 import { ComparisonMetrics } from "@/components/comparison";
+import { getPeriodLabel } from "@/lib/comparison";
 import type { PeriodDays } from "@/lib/periods";
 import { getPeriodConfig, getPeriodDays, isPeriodValue } from "@/lib/periods";
 import {
@@ -70,8 +71,8 @@ function WakaTimeComparisonPage() {
     );
   }
 
-  const period1Label = days1 === "all" ? "All time" : `${days1} days`;
-  const period2Label = days2 === "all" ? "All time" : `${days2} days`;
+  const period1Label = getPeriodLabel(days1);
+  const period2Label = getPeriodLabel(days2);
 
   return (
     <div>

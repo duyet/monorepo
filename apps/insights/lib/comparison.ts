@@ -43,44 +43,9 @@ export function calculateDelta(
 }
 
 /**
- * Format delta for display
+ * Human label for a period, e.g. "All time" or "30 days". Shared by the
+ * comparison routes so both render the same wording.
  */
-export function formatDelta(delta: ComparisonDelta): string {
-  const sign = delta.trend === "up" ? "+" : delta.trend === "down" ? "-" : "";
-  return `${sign}${delta.absoluteChange.toFixed(1)} (${sign}${delta.percentageChange.toFixed(1)}%)`;
-}
-
-/**
- * Calculate period dates based on period value
- */
-export function getPeriodDates(days: number | "all"): {
-  start: Date;
-  end: Date;
-} {
-  const end = new Date();
-  const start =
-    days === "all"
-      ? new Date(2020, 0, 1)
-      : new Date(Date.now() - days * 24 * 60 * 60 * 1000);
-  return { start, end };
-}
-
-/**
- * Generate static params for comparison pages
- * Creates all valid combinations of period pairs
- */
-export function generateComparisonStaticParams() {
-  const periods = ["7", "30", "365", "all"] as const;
-  const params: { period1: string; period2: string }[] = [];
-
-  for (const period1 of periods) {
-    for (const period2 of periods) {
-      // Only include combinations where period1 > period2 (comparing longer vs shorter period)
-      if (period1 !== period2) {
-        params.push({ period1, period2 });
-      }
-    }
-  }
-
-  return params;
+export function getPeriodLabel(days: number | "all"): string {
+  return days === "all" ? "All time" : `${days} days`;
 }

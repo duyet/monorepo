@@ -1,4 +1,5 @@
 import { wakatimeConfig } from "@duyet/config";
+import { sanitizePathLabel } from "@/lib/sanitize-path";
 
 interface WakaTimeBreakdownItem {
   name: string;
@@ -147,6 +148,22 @@ export async function getWakaTimeStats(
   return wakaTimeRequest(wakatimeConfig.endpoints.stats(range));
 }
 
+/**
+ * Project a stats payload into the dashboard metric tiles. Shared by
+ * getWakaTimeMetrics and getWakaTimeOverview so both stay in sync.
+ */
+function toMetrics(data: WakaTimeStats["data"]): WakaMetrics {
+  const totalHours = (data.total_seconds || 0) / 3600;
+  const avgDailyHours = (data.daily_average || 0) / 3600;
+
+  return {
+    totalHours: Math.round(totalHours * 10) / 10,
+    avgDailyHours: Math.round(avgDailyHours * 10) / 10,
+    daysActive: data.days_minus_holidays || 0,
+    topLanguage: data.languages?.[0]?.name || "N/A",
+  };
+}
+
 export async function getWakaTimeLanguages(days: number | "all" = 30) {
   const stats = await getWakaTimeStats(days);
   if (!stats?.data?.languages || !Array.isArray(stats.data.languages))
@@ -159,26 +176,6 @@ export async function getWakaTimeLanguages(days: number | "all" = 30) {
       percent: Math.round((lang?.percent || 0) * 100) / 100,
       total_seconds: lang?.total_seconds || 0,
     }));
-}
-
-export async function getWakaTimeActivity(days: number | "all" = 30) {
-  // Activity chart - using aggregated stats since daily summaries require premium
-  const stats = await getWakaTimeStats(days);
-  if (!stats?.data) return [];
-
-  const { data } = stats;
-  const avgHours = (data.daily_average || 0) / 3600;
-  const activeDays = data.days_minus_holidays || 30;
-
-  // Generate approximated daily data points for visualization
-  return Array.from({ length: Math.min(activeDays, 30) }, (_, i) => ({
-    range: {
-      date: new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000)
-        .toISOString()
-        .split("T")[0],
-    },
-    "Coding Hours": (avgHours * (0.8 + Math.random() * 0.4)).toFixed(1), // Approximate variation
-  }));
 }
 
 interface DurationItem {
@@ -478,42 +475,38 @@ async function getFallbackActivityData(_days: number) {
   return [];
 }
 
+const EMPTY_WAKA_METRICS: WakaMetrics = {
+  totalHours: 0,
+  avgDailyHours: 0,
+  daysActive: 0,
+  topLanguage: "N/A",
+};
+
+/**
+ * Fresh empty overview. Callers own the object they get back, so hand out a new
+ * one every time rather than the shared EMPTY_WAKATIME_OVERVIEW constant.
+ */
+function emptyWakaTimeOverview(): WakaTimeOverview {
+  return {
+    metrics: { ...EMPTY_WAKA_METRICS },
+    editors: [],
+    operatingSystems: [],
+    categories: [],
+    machines: [],
+    projects: [],
+    bestDay: null,
+  };
+}
+
 export async function getWakaTimeMetrics(
   days: number | "all" = 30
 ): Promise<WakaMetrics> {
   const stats = await getWakaTimeStats(days);
   if (!stats?.data) {
-    return {
-      totalHours: 0,
-      avgDailyHours: 0,
-      daysActive: 0,
-      topLanguage: "N/A",
-    };
+    return { ...EMPTY_WAKA_METRICS };
   }
 
-  const { data } = stats;
-  const totalHours = (data.total_seconds || 0) / 3600;
-  const avgDailyHours = (data.daily_average || 0) / 3600;
-  const topLanguage = data.languages?.[0]?.name || "N/A";
-  const daysActive = data.days_minus_holidays || 0;
-
-  return {
-    totalHours: Math.round(totalHours * 10) / 10,
-    avgDailyHours: Math.round(avgDailyHours * 10) / 10,
-    daysActive,
-    topLanguage,
-  };
-}
-
-// Strip directory structure so machine/project labels can't leak absolute
-// paths or user-identifying directory names when rendered on the dashboard.
-function sanitizeBreakdownName(name: string): string {
-  if (!name) return "Unknown";
-  if (name.includes("/") || name.includes("\\")) {
-    const parts = name.split(/[\\/]/).filter(Boolean);
-    return parts[parts.length - 1] || "Unknown";
-  }
-  return name;
+  return toMetrics(stats.data);
 }
 
 function normalizeBreakdown(
@@ -525,62 +518,14 @@ function normalizeBreakdown(
     .filter((item) => (item?.total_seconds || 0) > 0)
     .slice(0, limit)
     .map((item) => ({
-      name: sanitizeBreakdownName(item?.name || "Unknown"),
+      name: sanitizePathLabel(item?.name),
       percent: Math.round((item?.percent || 0) * 100) / 100,
       total_seconds: item?.total_seconds || 0,
       hours: Math.round(((item?.total_seconds || 0) / 3600) * 10) / 10,
     }));
 }
 
-export const EMPTY_WAKATIME_OVERVIEW: WakaTimeOverview = {
-  metrics: {
-    totalHours: 0,
-    avgDailyHours: 0,
-    daysActive: 0,
-    topLanguage: "N/A",
-  },
-  editors: [],
-  operatingSystems: [],
-  categories: [],
-  machines: [],
-  projects: [],
-  bestDay: null,
-};
-
-export async function getWakaTimeEditors(
-  days: number | "all" = 30
-): Promise<WakaTimeBreakdown[]> {
-  const stats = await getWakaTimeStats(days);
-  return normalizeBreakdown(stats?.data?.editors);
-}
-
-export async function getWakaTimeOperatingSystems(
-  days: number | "all" = 30
-): Promise<WakaTimeBreakdown[]> {
-  const stats = await getWakaTimeStats(days);
-  return normalizeBreakdown(stats?.data?.operating_systems);
-}
-
-export async function getWakaTimeCategories(
-  days: number | "all" = 30
-): Promise<WakaTimeBreakdown[]> {
-  const stats = await getWakaTimeStats(days);
-  return normalizeBreakdown(stats?.data?.categories);
-}
-
-export async function getWakaTimeMachines(
-  days: number | "all" = 30
-): Promise<WakaTimeBreakdown[]> {
-  const stats = await getWakaTimeStats(days);
-  return normalizeBreakdown(stats?.data?.machines, 6);
-}
-
-export async function getWakaTimeProjects(
-  days: number | "all" = 30
-): Promise<WakaTimeBreakdown[]> {
-  const stats = await getWakaTimeStats(days);
-  return normalizeBreakdown(stats?.data?.projects, 10);
-}
+export const EMPTY_WAKATIME_OVERVIEW: WakaTimeOverview = emptyWakaTimeOverview();
 
 function extractBestDay(
   stats: WakaTimeStats | null
@@ -595,13 +540,6 @@ function extractBestDay(
   };
 }
 
-export async function getWakaTimeBestDayInsight(
-  days: number | "all" = 30
-): Promise<WakaTimeBestDayInsight | null> {
-  const stats = await getWakaTimeStats(days);
-  return extractBestDay(stats);
-}
-
 /**
  * Fetch the full overview from a single stats call to avoid redundant API hits.
  */
@@ -610,34 +548,12 @@ export async function getWakaTimeOverview(
 ): Promise<WakaTimeOverview> {
   const stats = await getWakaTimeStats(days);
 
-  const empty: WakaTimeOverview = {
-    metrics: {
-      totalHours: 0,
-      avgDailyHours: 0,
-      daysActive: 0,
-      topLanguage: "N/A",
-    },
-    editors: [],
-    operatingSystems: [],
-    categories: [],
-    machines: [],
-    projects: [],
-    bestDay: null,
-  };
-
-  if (!stats?.data) return empty;
+  if (!stats?.data) return emptyWakaTimeOverview();
 
   const { data } = stats;
-  const totalHours = (data.total_seconds || 0) / 3600;
-  const avgDailyHours = (data.daily_average || 0) / 3600;
 
   return {
-    metrics: {
-      totalHours: Math.round(totalHours * 10) / 10,
-      avgDailyHours: Math.round(avgDailyHours * 10) / 10,
-      daysActive: data.days_minus_holidays || 0,
-      topLanguage: data.languages?.[0]?.name || "N/A",
-    },
+    metrics: toMetrics(data),
     editors: normalizeBreakdown(data.editors),
     operatingSystems: normalizeBreakdown(data.operating_systems),
     categories: normalizeBreakdown(data.categories),
@@ -689,51 +605,54 @@ function groupSumBy<T>(
   }, new Map<string, number>());
 }
 
+// Monthly totals from the all_time insights feed, oldest first. Shared by the
+// chart and the trend views, which only differ in how they label each row.
+async function getMonthlyTotals(): Promise<Array<[string, number]>> {
+  const startYear = wakatimeConfig.dataStartYear;
+
+  const insights: InsightsResponse | null = await wakaTimeRequest(
+    wakatimeConfig.endpoints.insights.days(wakatimeConfig.ranges.all_time)
+  );
+
+  if (!insights?.data?.days || !Array.isArray(insights.data.days)) {
+    console.warn("No days data available from WakaTime insights");
+    return [];
+  }
+
+  // Filter by start year
+  const filteredDays = insights.data.days.filter((day) => {
+    if (!day.date || day.total == null) return false;
+    const date = new Date(day.date);
+    return date.getFullYear() >= startYear;
+  });
+
+  // Group by month
+  const monthlyMap = groupSumBy(
+    filteredDays,
+    (day) => {
+      const date = new Date(day.date);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      return `${year}-${String(month).padStart(2, "0")}`;
+    },
+    (day) => day.total
+  );
+
+  // Convert to array and sort by year-month
+  return Array.from(monthlyMap.entries()).sort(([a], [b]) =>
+    a.localeCompare(b)
+  );
+}
+
 // Get monthly activity data for charts (used when period is "all")
 export async function getWakaTimeMonthlyActivity(): Promise<
   Array<{ date: string; "Total Hours": number }>
 > {
-  const startYear = wakatimeConfig.dataStartYear;
-
   try {
-    const insights: InsightsResponse | null = await wakaTimeRequest(
-      wakatimeConfig.endpoints.insights.days(wakatimeConfig.ranges.all_time)
-    );
-
-    if (!insights?.data?.days || !Array.isArray(insights.data.days)) {
-      console.warn("No days data available from WakaTime insights");
-      return [];
-    }
-
-    // Filter by start year
-    const filteredDays = insights.data.days.filter((day) => {
-      if (!day.date || day.total == null) return false;
-      const date = new Date(day.date);
-      return date.getFullYear() >= startYear;
-    });
-
-    // Group by month
-    const monthlyMap = groupSumBy(
-      filteredDays,
-      (day) => {
-        const date = new Date(day.date);
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1;
-        return `${year}-${String(month).padStart(2, "0")}`;
-      },
-      (day) => day.total
-    );
-
-    // Convert to array and sort by year-month
-    return Array.from(monthlyMap.entries())
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([yearMonth]) => {
-        const totalSeconds = monthlyMap.get(yearMonth) || 0;
-        return {
-          date: yearMonth,
-          "Total Hours": toHours(totalSeconds),
-        };
-      });
+    return (await getMonthlyTotals()).map(([yearMonth, totalSeconds]) => ({
+      date: yearMonth,
+      "Total Hours": toHours(totalSeconds),
+    }));
   } catch (error) {
     console.error("Error fetching WakaTime monthly activity:", error);
     return [];
@@ -742,51 +661,18 @@ export async function getWakaTimeMonthlyActivity(): Promise<
 
 // Get historical monthly activity trend for multiple years
 export async function getWakaTimeMonthlyTrend() {
-  const startYear = wakatimeConfig.dataStartYear;
-
   try {
-    // Fetch data for all_time to get historical data
-    const insights: InsightsResponse | null = await wakaTimeRequest(
-      wakatimeConfig.endpoints.insights.days(wakatimeConfig.ranges.all_time)
-    );
-
-    if (!insights?.data?.days || !Array.isArray(insights.data.days)) {
-      console.warn("No days data available from WakaTime insights");
-      return [];
-    }
-
-    // Filter and group data by year-month (only from 2025 onwards)
-    const filteredDays = insights.data.days.filter((day) => {
-      if (!day.date || day.total == null) return false;
-      const date = new Date(day.date);
-      return date.getFullYear() >= startYear;
+    return (await getMonthlyTotals()).map(([yearMonth, totalSeconds]) => {
+      const [year, month] = yearMonth.split("-").map(Number);
+      return {
+        yearMonth,
+        hours: toHours(totalSeconds),
+        displayDate: new Date(year, month - 1).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+        }),
+      };
     });
-
-    const monthlyMap = groupSumBy(
-      filteredDays,
-      (day) => {
-        const date = new Date(day.date);
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1;
-        return `${year}-${String(month).padStart(2, "0")}`;
-      },
-      (day) => day.total
-    );
-
-    // Convert to array and sort by year-month
-    return Array.from(monthlyMap.entries())
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([yearMonth, totalSeconds]) => {
-        const [year, month] = yearMonth.split("-").map(Number);
-        return {
-          yearMonth,
-          hours: toHours(totalSeconds),
-          displayDate: new Date(year, month - 1).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "short",
-          }),
-        };
-      });
   } catch (error) {
     console.error("Error fetching WakaTime monthly trend:", error);
     return [];
@@ -840,24 +726,5 @@ export async function getWakaTimeHourlyHeatmap() {
   } catch (error) {
     console.error("Error fetching WakaTime hourly heatmap:", error);
     return [];
-  }
-}
-
-// Get best day insight - when you're most productive
-export async function getWakaTimeBestDay() {
-  try {
-    const bestDayInsights = await wakaTimeRequest(
-      wakatimeConfig.endpoints.insights.bestDay(wakatimeConfig.ranges.last_year)
-    );
-
-    if (!bestDayInsights?.data) {
-      console.warn("Best day insights not available");
-      return null;
-    }
-
-    return bestDayInsights.data;
-  } catch (error) {
-    console.error("Error fetching WakaTime best day:", error);
-    return null;
   }
 }

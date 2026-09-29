@@ -5,6 +5,7 @@ import {
   getCCUsageComparison,
 } from "@/app/ai/ccusage-comparison-utils";
 import { ComparisonMetrics } from "@/components/comparison";
+import { getPeriodLabel } from "@/lib/comparison";
 import type { PeriodDays } from "@/lib/periods";
 import { getPeriodConfig, getPeriodDays, isPeriodValue } from "@/lib/periods";
 import {
@@ -74,6 +75,9 @@ function AIComparisonPage() {
     );
   }
 
+  const period1Label = getPeriodLabel(days1);
+  const period2Label = getPeriodLabel(days2);
+
   return (
     <div>
       <InsightsPageHeader
@@ -93,8 +97,8 @@ function AIComparisonPage() {
           description="Period-over-period comparison of key AI usage metrics."
         >
           <ComparisonMetrics
-            period1Label={days1 === "all" ? "All time" : `${days1} days`}
-            period2Label={days2 === "all" ? "All time" : `${days2} days`}
+            period1Label={period1Label}
+            period2Label={period2Label}
             metrics={[
               {
                 label: "Total Tokens",
@@ -123,8 +127,7 @@ function AIComparisonPage() {
           />
           <p className="mt-6 text-xs italic text-muted-foreground">
             Data from ClickHouse • Positive values indicate increase in{" "}
-            {days1 === "all" ? "All time" : `${days1} days`} compared to{" "}
-            {days2 === "all" ? "All time" : `${days2} days`}
+            {period1Label} compared to {period2Label}
           </p>
         </InsightsSection>
       )}

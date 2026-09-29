@@ -10,6 +10,7 @@ import type {
 } from "../types";
 import { anonymizeProjects, distributePercentages } from "./data-processing";
 import {
+  buildDateCondition,
   getCreatedAtCondition,
   getDateCondition,
   validateDaysParameter,
@@ -96,9 +97,7 @@ async function executeAnalyticsQuery(
 }
 
 export function getDuckDBDateCondition(days: DateRangeDays, column: string): string {
-  const safeDays = validateDaysParameter(days);
-  if (safeDays === "all") return "";
-  return `WHERE ${column} > current_date - INTERVAL ${safeDays} DAY`;
+  return buildDateCondition(column, days, "current_date");
 }
 
 // Single in-flight promise prevents concurrent callers from running duplicate checks
@@ -270,16 +269,14 @@ export async function getCCUsageMetrics(
 }
 
 /**
- * Get daily usage activity for the specified time period including cost data
- * Returns token values in thousands for chart display
+ * Daily usage rollup shared by getCCUsageActivity (chart scale) and
+ * getCCUsageActivityRaw (exact counts) — both hit the same query and differ
+ * only in how the returned token columns are scaled.
  */
-export async function getCCUsageActivity(
-  days: DateRangeDays = 30
-): Promise<CCUsageActivityData[]> {
-  const dateCondition = getDateCondition(days);
-  const query = `
+function buildDailyUsageQuery(dateCondition: string, dateSelect: string) {
+  return `
     SELECT
-      date,
+      ${dateSelect},
       SUM(total_tokens) as "Total Tokens",
       SUM(input_tokens) as "Input Tokens",
       SUM(output_tokens) as "Output Tokens",
@@ -290,33 +287,49 @@ export async function getCCUsageActivity(
     GROUP BY date
     ORDER BY date ASC
   `;
+}
 
-  const duckDBQuery = `
-    SELECT
-      CAST(date AS VARCHAR) as date,
-      SUM(total_tokens) as "Total Tokens",
-      SUM(input_tokens) as "Input Tokens",
-      SUM(output_tokens) as "Output Tokens",
-      SUM(cache_creation_tokens + cache_read_tokens) as "Cache Tokens",
-      SUM(total_cost) as "Total Cost"
-    FROM ccusage_usage_daily
-    ${getDuckDBDateCondition(days, "date")}
-    GROUP BY date
-    ORDER BY date ASC
-  `;
+async function fetchDailyUsage(
+  days: DateRangeDays
+): Promise<Record<string, unknown>[]> {
+  return executeAnalyticsQuery(
+    buildDailyUsageQuery(getDateCondition(days), "date"),
+    buildDailyUsageQuery(
+      getDuckDBDateCondition(days, "date"),
+      "CAST(date AS VARCHAR) as date"
+    )
+  );
+}
 
-  const results = await executeAnalyticsQuery(query, duckDBQuery);
+function mapDailyUsage(
+  results: Record<string, unknown>[],
+  tokenValue: (tokens: number) => number
+): CCUsageActivityData[] {
+  return results.map((row) => ({
+    date: String(row.date) || "Unknown",
+    "Total Tokens": tokenValue(Number(row["Total Tokens"]) || 0),
+    "Input Tokens": tokenValue(Number(row["Input Tokens"]) || 0),
+    "Output Tokens": tokenValue(Number(row["Output Tokens"]) || 0),
+    "Cache Tokens": tokenValue(Number(row["Cache Tokens"]) || 0),
+    "Total Cost": Number(row["Total Cost"]) || 0, // Keep cost in actual dollars
+  }));
+}
+
+/**
+ * Get daily usage activity for the specified time period including cost data
+ * Returns token values in thousands for chart display
+ */
+export async function getCCUsageActivity(
+  days: DateRangeDays = 30
+): Promise<CCUsageActivityData[]> {
+  const results = await fetchDailyUsage(days);
 
   if (!results || results.length === 0) return [];
 
-  return results.map((row) => ({
-    date: String(row.date) || "Unknown",
-    "Total Tokens": Math.round((Number(row["Total Tokens"]) || 0) / 1000), // Convert to thousands for chart readability
-    "Input Tokens": Math.round((Number(row["Input Tokens"]) || 0) / 1000),
-    "Output Tokens": Math.round((Number(row["Output Tokens"]) || 0) / 1000),
-    "Cache Tokens": Math.round((Number(row["Cache Tokens"]) || 0) / 1000),
-    "Total Cost": Number(row["Total Cost"]) || 0, // Keep cost in actual dollars
-  }));
+  return mapDailyUsage(
+    results,
+    (tokens) => Math.round(tokens / 1000) // Convert to thousands for chart readability
+  );
 }
 
 /**
@@ -326,47 +339,11 @@ export async function getCCUsageActivity(
 export async function getCCUsageActivityRaw(
   days: DateRangeDays = 30
 ): Promise<CCUsageActivityData[]> {
-  const dateCondition = getDateCondition(days);
-  const query = `
-    SELECT
-      date,
-      SUM(total_tokens) as "Total Tokens",
-      SUM(input_tokens) as "Input Tokens",
-      SUM(output_tokens) as "Output Tokens",
-      SUM(cache_creation_tokens + cache_read_tokens) as "Cache Tokens",
-      SUM(total_cost) as "Total Cost"
-    FROM ccusage_usage_daily
-    ${dateCondition}
-    GROUP BY date
-    ORDER BY date ASC
-  `;
-
-  const duckDBQuery = `
-    SELECT
-      CAST(date AS VARCHAR) as date,
-      SUM(total_tokens) as "Total Tokens",
-      SUM(input_tokens) as "Input Tokens",
-      SUM(output_tokens) as "Output Tokens",
-      SUM(cache_creation_tokens + cache_read_tokens) as "Cache Tokens",
-      SUM(total_cost) as "Total Cost"
-    FROM ccusage_usage_daily
-    ${getDuckDBDateCondition(days, "date")}
-    GROUP BY date
-    ORDER BY date ASC
-  `;
-
-  const results = await executeAnalyticsQuery(query, duckDBQuery);
+  const results = await fetchDailyUsage(days);
 
   if (!results || results.length === 0) return [];
 
-  return results.map((row) => ({
-    date: String(row.date) || "Unknown",
-    "Total Tokens": Number(row["Total Tokens"]) || 0, // Keep actual token counts
-    "Input Tokens": Number(row["Input Tokens"]) || 0,
-    "Output Tokens": Number(row["Output Tokens"]) || 0,
-    "Cache Tokens": Number(row["Cache Tokens"]) || 0,
-    "Total Cost": Number(row["Total Cost"]) || 0,
-  }));
+  return mapDailyUsage(results, (tokens) => tokens); // Keep actual token counts
 }
 
 /**
