@@ -17,6 +17,12 @@ interface ErrorBoundaryProps {
     | ReactNode;
   onError?: (error: Error, errorInfo: unknown) => void;
   className?: string;
+  /**
+   * Copy for the default fallback, used when the thrown value has no message.
+   * Lets an app describe the surface that failed without forking the
+   * component. No app-specific wording lives in this package.
+   */
+  fallbackMessage?: string;
 }
 
 /**
@@ -66,7 +72,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
   render() {
     if (this.state.hasError) {
-      const { fallback, className } = this.props;
+      const { fallback, className, fallbackMessage } = this.props;
 
       // If fallback is provided
       if (fallback) {
@@ -89,6 +95,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
           error={this.state.error}
           retry={this.handleRetry}
           className={className}
+          fallbackMessage={fallbackMessage}
         />
       );
     }
@@ -101,12 +108,14 @@ interface DefaultErrorFallbackProps {
   error: Error | null;
   retry: () => void;
   className?: string;
+  fallbackMessage?: string;
 }
 
 function DefaultErrorFallback({
   error,
   retry,
   className,
+  fallbackMessage,
 }: DefaultErrorFallbackProps) {
   return (
     <div
@@ -118,7 +127,9 @@ function DefaultErrorFallback({
           Something went wrong
         </h3>
         <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-          {error?.message || "An unexpected error occurred."}
+          {error?.message ||
+            fallbackMessage ||
+            "An unexpected error occurred."}
         </p>
         <div className="mt-6 flex justify-center gap-3">
           <button

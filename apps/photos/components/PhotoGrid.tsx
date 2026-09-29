@@ -1,16 +1,20 @@
+import { ErrorBoundary } from "@duyet/components";
 import { cn } from "@duyet/libs/utils";
 import { Images } from "lucide-react";
 import { useCallback, useState } from "react";
 import Masonry from "react-masonry-css";
 import { getMasonryClasses, MASONRY_CONFIG } from "@/lib/GridUtilities";
 import type { Photo } from "@/lib/photo-provider";
-import ErrorBoundary from "./ErrorBoundary";
 import Lightbox from "./Lightbox";
 import { EmptyState } from "./LoadingStates";
 import PhotoCard from "./PhotoCard";
 
 // Hoisted to module level — getMasonryClasses() returns static class strings that never change
 const MASONRY_CLASSES = getMasonryClasses();
+
+// App-specific copy, kept here rather than in the shared boundary.
+const PHOTOS_ERROR_MESSAGE =
+  "An unexpected error occurred while loading the photos.";
 
 interface PhotoGridProps {
   photos: Photo[];
@@ -61,7 +65,7 @@ export default function PhotoGrid({ photos, className }: PhotoGridProps) {
   }
 
   return (
-    <ErrorBoundary>
+    <ErrorBoundary fallbackMessage={PHOTOS_ERROR_MESSAGE}>
       <div className={cn("w-full px-3 sm:px-4", className)}>
         <Masonry
           breakpointCols={MASONRY_CONFIG.breakpoints}

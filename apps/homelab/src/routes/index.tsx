@@ -1,4 +1,4 @@
-import { SecHead } from "@duyet/components";
+import { ErrorBoundary, SecHead } from "@duyet/components";
 import { createFileRoute } from "@tanstack/react-router";
 import { AgentActionsTile, NodesTile, SmartDevicesTile, StatusDot } from "@/components/tiles";
 import { ClusterOverview } from "@/components/dashboard/ClusterOverview";
@@ -8,7 +8,6 @@ import { ResourceMetrics } from "@/components/dashboard/ResourceMetrics";
 import { ServiceDowntime } from "@/components/dashboard/ServiceDowntime";
 import { ServicesStatus } from "@/components/dashboard/ServicesStatus";
 import { SmartDevicesOverview } from "@/components/smart-devices/SmartDevicesOverview";
-import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { useClusterInfo, useClusterStats, useNodes } from "@/hooks/useDashboard";
 
 const sections = [

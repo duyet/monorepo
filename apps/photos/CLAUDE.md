@@ -60,7 +60,6 @@ apps/photos/
 │   ├── LazyImage.tsx       # Lazy-loaded image component
 │   ├── PhotoMetadata.tsx   # EXIF/metadata display
 │   ├── PhotoNav.tsx        # Navigation controls
-│   ├── ErrorBoundary.tsx   # Error handling
 │   ├── LoadingStates.tsx   # Loading skeletons
 │   └── RetryButton.tsx     # Retry on error
 ├── hooks/
