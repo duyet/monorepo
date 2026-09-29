@@ -40,6 +40,20 @@ const KNOWN_UNREACHABLE: Record<string, string> = {
     "Test-only. Used by filter-info.test.tsx, which tests filter-info.tsx — a " +
     "live module. The walk follows production source, so a fixture looks dead " +
     "by construction. Recorded as a stated blind spot.",
+  "apps/photos/__tests__/test-fixtures.ts":
+    "Test-only shared fixture (the Unsplash `urls` block), imported by " +
+    "ImageOptimization.test.ts and LightboxSlideshow.test.tsx. Same blind " +
+    "spot as above: a production entry cannot reach a test fixture.",
+  "apps/api/src/lib/clickhouse.test-fixtures.ts":
+    "Test-only shared fixture (the ClickHouse `Env` block and PASSWORD), " +
+    "imported by clickhouse.test.ts and ai-percentage.test.ts. **Note the " +
+    "placement:** it lives under `src/lib/`, so it is nominally production " +
+    "source even though nothing in production imports it. That is " +
+    "deliberate — apps/api keeps its suites beside their subjects, and the " +
+    "`*.test-fixtures.ts` name keeps vitest from collecting it as a suite. " +
+    "The entry doubles as a tripwire: if a production file ever imports it, " +
+    "the file becomes reachable, this entry goes stale, and the guard " +
+    "surfaces the change.",
 };
 
 /** Apps that have at least one positive control, so the walk is validated. */
