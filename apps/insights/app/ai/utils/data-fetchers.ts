@@ -585,6 +585,53 @@ export async function getCCUsageCosts(
 }
 
 /**
+ * Pivot daily token rows into `[{ date, <model>: tokensInK }]` for Recharts.
+ *
+ * Colliding names are **summed**, not overwritten. `normalizeModelName` maps
+ * several distinct names onto one chart series on purpose — date and version
+ * suffixes are noise for a stacked area chart — and the real model set contains
+ * four such pairs:
+ *
+ *   claude-haiku-4-5   <- claude-haiku-4-5-20251001
+ *   claude-opus-4-5    <- claude-opus-4-5-20251101
+ *   claude-3-5-sonnet  <- claude-3-5-sonnet-20241022
+ *   glm-5              <- glm-5:cloud
+ *
+ * The pivot used to be `pivoted[date][model] = tokens`, i.e. last-write-wins,
+ * so one of each pair's totals was silently discarded and *which* one depended
+ * on the order the database returned rows in. DuckDB's parallel GROUP BY does
+ * not guarantee that order, so the same data could render two different charts
+ * on two consecutive builds. Summing is both the intended aggregation and
+ * order-independent.
+ *
+ * Exported so it can be tested directly: `executeAnalyticsQuery` is
+ * module-private, so a test can reach this logic but not the code around it.
+ */
+export function pivotActivityByModel(
+  rows: Record<string, unknown>[]
+): CCUsageActivityByModelData[] {
+  const pivoted = new Map<string, Record<string, number>>();
+
+  for (const row of rows) {
+    const date = String(row.date);
+    const model = normalizeModelName(String(row.model_name));
+    const tokens = Math.round((Number(row.total_tokens) || 0) / 1000); // Convert to K
+
+    const forDate = pivoted.get(date);
+    if (forDate) {
+      forDate[model] = (forDate[model] ?? 0) + tokens;
+    } else {
+      pivoted.set(date, { [model]: tokens });
+    }
+  }
+
+  return Array.from(pivoted.entries()).map(([date, models]) => ({
+    date,
+    ...models,
+  }));
+}
+
+/**
  * Normalize model names for better display
  * Removes date suffixes while preserving the core model identifier
  * Examples:
@@ -636,26 +683,5 @@ export async function getCCUsageActivityByModel(
 
   if (!results || results.length === 0) return [];
 
-  // Normalize model names and convert to thousands
-  const normalizedResults = results.map((row) => ({
-    date: String(row.date),
-    model_name: normalizeModelName(String(row.model_name)),
-    total_tokens: Math.round((Number(row.total_tokens) || 0) / 1000), // Convert to K
-  }));
-
-  // Pivot: create object with date as key, object of model tokens as values
-  const pivoted = new Map<string, Record<string, number>>();
-
-  for (const row of normalizedResults) {
-    if (!pivoted.has(row.date)) {
-      pivoted.set(row.date, {});
-    }
-    pivoted.get(row.date)![row.model_name] = row.total_tokens;
-  }
-
-  // Convert to array format for Recharts
-  return Array.from(pivoted.entries()).map(([date, models]) => ({
-    date,
-    ...models,
-  }));
+  return pivotActivityByModel(results);
 }
