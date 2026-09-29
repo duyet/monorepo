@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import { getCurrentAICodePercentage } from "../lib/queries";
 
@@ -8,27 +8,37 @@ export function AIPercentageHero() {
   );
 
   const [displayPercentage, setDisplayPercentage] = useState(0);
+  // The count-up needs the value it is animating away from. Keeping it in a ref
+  // takes it out of the effect's deps on purpose: listing `displayPercentage`
+  // there re-runs the effect on every frame, so each frame re-arms a fresh 1s
+  // animation and one rAF chain keeps running long after the count-up is over.
+  const startPercentageRef = useRef(0);
 
   useEffect(() => {
-    if (data?.ai_percentage) {
-      const target = data.ai_percentage;
-      const start = displayPercentage;
-      const duration = 1000;
-      const startTime = performance.now();
+    const target = data?.ai_percentage;
+    if (target == null) return;
 
-      const animate = () => {
-        const elapsed = performance.now() - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        setDisplayPercentage(start + (target - start) * progress);
+    const duration = 1000;
+    const start = startPercentageRef.current;
+    const startTime = performance.now();
+    let raf = 0;
 
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        }
-      };
+    const animate = (now: number) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      // Land exactly on the target rather than on `start + (target - start)`,
+      // which is not bit-identical in floating point.
+      const next = progress >= 1 ? target : start + (target - start) * progress;
+      startPercentageRef.current = next;
+      setDisplayPercentage(next);
 
-      requestAnimationFrame(animate);
-    }
-  }, [data?.ai_percentage, displayPercentage]);
+      if (progress < 1) {
+        raf = requestAnimationFrame(animate);
+      }
+    };
+
+    raf = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(raf);
+  }, [data?.ai_percentage]);
 
   if (isLoading) {
     return (

@@ -9,7 +9,12 @@ export const Route = createFileRoute("/")({
   component: Page,
 });
 
-function Page() {
+export function Page() {
+  // The selected range lives here rather than inside the selector, so both
+  // charts are re-requested when it changes.
+  const [period, setPeriod] = useState<string>("1y");
+  const days = DATE_RANGES.find((range) => range.value === period)?.days ?? 365;
+
   return (
     <main className="relative z-10 px-5 pb-16 pt-8 sm:px-8 lg:px-10">
       <div className="mx-auto max-w-[1360px]">
@@ -27,7 +32,7 @@ function Page() {
                 detected via co-author signatures and email patterns.
               </p>
             </div>
-            <TimeRange />
+            <TimeRange value={period} onChange={setPeriod} />
           </div>
         </header>
 
@@ -46,8 +51,8 @@ function Page() {
           <AIPercentageHero />
 
           <div className="grid gap-5 xl:grid-cols-2">
-            <AIPercentageTrend />
-            <AIPercentageChart />
+            <AIPercentageTrend days={days} />
+            <AIPercentageChart days={days} />
           </div>
 
           <p className="border-t border-border px-4 py-4 text-center text-sm text-muted-foreground">
@@ -63,9 +68,13 @@ function Page() {
   );
 }
 
-function TimeRange() {
-  const [selectedPeriod, setSelectedPeriod] = useState<string>("1y");
-
+function TimeRange({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+}) {
   return (
     <div className="flex items-center gap-2 lg:justify-end">
       <label
@@ -76,13 +85,13 @@ function TimeRange() {
       </label>
       <select
         id="time-range"
-        value={selectedPeriod}
-        onChange={(e) => setSelectedPeriod(e.target.value)}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
         className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition focus:border-foreground"
       >
-        {DATE_RANGES.map((period) => (
-          <option key={period.value} value={period.value}>
-            {period.label}
+        {DATE_RANGES.map((range) => (
+          <option key={range.value} value={range.value}>
+            {range.label}
           </option>
         ))}
       </select>
