@@ -11,6 +11,7 @@ const baseUrls: UrlsConfig = {
     home: "https://home.example.com",
     photos: "https://photos.example.com",
     homelab: "https://homelab.example.com",
+    news: "https://news.example.com",
   },
   external: {
     rust: "https://rust.example.com",
@@ -208,6 +209,7 @@ describe("getAppUrl", () => {
       "home",
       "photos",
       "homelab",
+      "news",
     ] as const;
     for (const app of apps) {
       expect(getAppUrl(baseUrls, app)).toBe(baseUrls.apps[app]);

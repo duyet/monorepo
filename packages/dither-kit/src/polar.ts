@@ -1,7 +1,9 @@
 type Row = Record<string, unknown>
 
-const TOP = -Math.PI / 2
-const TAU = Math.PI * 2
+/** Angle the first axis / slice starts at — 12 o'clock. */
+export const TOP = -Math.PI / 2
+/** A full turn; slice spans and angle normalizing are measured in this. */
+export const TAU = Math.PI * 2
 
 export type PieSlice = {
   name: string

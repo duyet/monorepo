@@ -30,8 +30,10 @@ import { type DeepPartial, deepMerge } from "@duyet/libs";
 
 /**
  * Personal information about the profile owner
+ *
+ * Part of the `Profile` contract; consumers reach it as `Profile["personal"]`.
  */
-export interface PersonalInfo {
+interface PersonalInfo {
   /** Full name */
   name: string;
   /** Short name (used in header, navbar) */
@@ -50,8 +52,10 @@ export interface PersonalInfo {
 
 /**
  * Social media and professional network links
+ *
+ * Part of the `Profile` contract; consumers reach it as `Profile["social"]`.
  */
-export interface SocialLinks {
+interface SocialLinks {
   /** GitHub profile URL */
   github?: string;
   /** Twitter/X profile URL */
@@ -72,8 +76,10 @@ export interface SocialLinks {
 
 /**
  * Visual appearance and branding
+ *
+ * Part of the `Profile` contract; consumers reach it as `Profile["appearance"]`.
  */
-export interface Appearance {
+interface Appearance {
   /** Avatar image URL or path */
   avatar?: string;
   /** Favicon URL or path */

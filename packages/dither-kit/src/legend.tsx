@@ -1,6 +1,7 @@
 "use client"
 
 import { useCommonChart } from "./common-context"
+import { emphasisOf, isDimmed } from "./emphasis"
 import { cn } from "./lib"
 import { rgb } from "./palette"
 
@@ -19,6 +20,7 @@ export function Legend({
   align?: "left" | "center" | "right"
 }) {
   const chart = useCommonChart()
+  const emphasis = emphasisOf(chart)
 
   return (
     <div
@@ -31,8 +33,7 @@ export function Legend({
     >
       {chart.names.map((name) => {
         const seed = chart.seedOf(name)
-        const emphasis = chart.selectedDataKey ?? chart.focusDataKey
-        const dimmed = emphasis !== null && emphasis !== name
+        const dimmed = isDimmed(emphasis, name)
         return (
           <button
             key={name}

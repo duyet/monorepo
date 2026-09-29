@@ -1,34 +1,21 @@
 "use client"
 
-import {
-  Children,
-  type ComponentType,
-  isValidElement,
-  type ReactNode,
-} from "react"
+import type { ComponentType, ReactNode } from "react"
 import type { ChartConfig, Margins } from "./chart-context"
 import { CommonChartContext } from "./common-context"
 import type { BloomInput } from "./dither-paint"
+import { partitionByLayer } from "./layers"
 import { cn } from "./lib"
 import { axisAtAngle, sliceAtAngle } from "./polar"
 import { PolarChartContext, usePolarController } from "./polar-context"
+import type { ChartRow as Row } from "./row"
 import { useChartDimensions } from "./use-chart-dimensions"
-
-// `object` rather than `Record<string, unknown>`: interfaces don't get an
-// implicit index signature, so interface-typed rows failed to satisfy the
-// generic. Internal layers still index rows through their own Row type.
-type Row = object
 
 const DEFAULT_POLAR_MARGINS: Margins = {
   top: 22,
   right: 14,
   bottom: 14,
   left: 14,
-}
-
-function layerOf(node: ReactNode): "back" | "dom" | "svg" {
-  if (!isValidElement(node) || typeof node.type === "string") return "svg"
-  return (node.type as { chartLayer?: "back" | "dom" }).chartLayer ?? "svg"
 }
 
 export type PolarRootProps<TData extends Row> = {
@@ -96,15 +83,8 @@ export function PolarRoot<TData extends Row>({
     onSelectionChange,
   })
 
-  const backChildren: ReactNode[] = []
-  const svgChildren: ReactNode[] = []
-  const domChildren: ReactNode[] = []
-  Children.forEach(children, (child) => {
-    const layer = layerOf(child)
-    if (layer === "back") backChildren.push(child)
-    else if (layer === "dom") domChildren.push(child)
-    else svgChildren.push(child)
-  })
+  const { back: backChildren, svg: svgChildren, dom: domChildren } =
+    partitionByLayer(children)
 
   const onMove = (clientX: number, clientY: number) => {
     const el = ref.current

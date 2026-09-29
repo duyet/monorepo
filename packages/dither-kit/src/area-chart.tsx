@@ -1,10 +1,6 @@
 import { CartesianCanvas } from "./cartesian-canvas"
 import { type CartesianChartProps, CartesianRoot } from "./cartesian-root"
-
-// `object` rather than `Record<string, unknown>`: interfaces don't get an
-// implicit index signature, so interface-typed rows failed to satisfy the
-// generic. Internal layers still index rows through their own Row type.
-type Row = object
+import type { ChartRow as Row } from "./row"
 
 /** Composable dither **area** chart. Compose `<Area>`, `<Grid>`, axes, … inside. */
 export function AreaChart<TData extends Row>(

@@ -1,10 +1,16 @@
 import { describe, expect, it } from "vitest";
-import { DEFAULT_AUTHORIZED_PARTIES } from "../../../apps/agent-api/src/auth.ts";
 import {
   APP_REGISTRY,
   getClerkAuthorizedOrigins,
   getRegistryOrigins,
 } from "./app-registry";
+
+// Hosts that are authorized but are not derivable from the registry: the
+// agents API backend, and the legacy news host the redirect Worker still serves.
+const EXTRA_AUTHORIZED_ORIGINS = [
+  "https://agents-api.duyet.net",
+  "https://news.duyet.net",
+];
 
 describe("app registry", () => {
   it("lists all 19 nav apps", () => {
@@ -18,14 +24,31 @@ describe("app registry", () => {
     }
   });
 
-  it("keeps Clerk authorized parties aligned with registry origins", () => {
-    const registryOrigins = new Set(getRegistryOrigins());
-    for (const origin of registryOrigins) {
-      expect(DEFAULT_AUTHORIZED_PARTIES).toContain(origin);
+  it("authorizes every registry origin plus the extra hosts", () => {
+    const authorized = getClerkAuthorizedOrigins();
+    for (const origin of getRegistryOrigins()) {
+      expect(authorized).toContain(origin);
     }
-    expect(DEFAULT_AUTHORIZED_PARTIES).toEqual(getClerkAuthorizedOrigins());
-    expect(DEFAULT_AUTHORIZED_PARTIES).toContain("https://news.duyet.net");
-    expect(DEFAULT_AUTHORIZED_PARTIES).toContain("https://aidr.today");
+    expect(authorized).toContain("https://news.duyet.net");
+    expect(authorized).toContain("https://aidr.today");
+    expect(authorized).toContain("https://agents-api.duyet.net");
+  });
+
+  it("adds nothing beyond the registry origins and the extra hosts", () => {
+    // Guards the list against silent growth: every authorized origin must be a
+    // registry origin or one of the explicitly-declared extras.
+    const known = new Set([
+      ...getRegistryOrigins(),
+      ...EXTRA_AUTHORIZED_ORIGINS,
+    ]);
+    for (const origin of getClerkAuthorizedOrigins()) {
+      expect(known.has(origin)).toBe(true);
+    }
+  });
+
+  it("returns origins deduped and sorted", () => {
+    const origins = getClerkAuthorizedOrigins();
+    expect(origins).toEqual([...new Set(origins)].sort());
   });
 
   it("matches the derived registry snapshot", () => {

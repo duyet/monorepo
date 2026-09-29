@@ -1,15 +1,16 @@
 "use client"
 
 import { type RefObject, useEffect, useMemo, useRef } from "react"
+import { DitherCanvases, paintSignature, plotRect } from "./canvas-shared"
 import { type ChartContextValue, useChart } from "./chart-context"
 import {
   backingSize,
-  bloomLayerStyle,
   easeInOutCubic,
   paintColumn,
   prefersReducedMotion,
   resample,
 } from "./dither-paint"
+import { dimOf, emphasisOf } from "./emphasis"
 import { rgb } from "./palette"
 
 type Star = { key: string; xi: number; depth: number; phase: number }
@@ -71,6 +72,7 @@ function startCartesianLoop({
     const s = state.current
     const stacked = s.stackType === "stacked" || s.stackType === "percent"
     const revealCols = Math.ceil(reveal * cols)
+    const emphasis = emphasisOf(s)
     s.configKeys.forEach((key, si) => {
       const cur = current[key]
       if (!cur) return
@@ -79,8 +81,7 @@ function startCartesianLoop({
       const isLine =
         (s.seriesSpecs[key]?.kind ??
           (s.chartType === "line" ? "line" : "area")) === "line"
-      const emphasis = s.selectedDataKey ?? s.focusDataKey
-      const dim = emphasis !== null && emphasis !== key ? 0.3 : 1
+      const dim = dimOf(emphasis, key)
       // Overlapping (non-stacked) layers thin out front-to-back so they
       // read as distinct layers instead of a muddy blend.
       const sparse = stacked ? 0 : si * 0.14
@@ -173,7 +174,7 @@ function startCartesianLoop({
       }
     }
     if (moving) needsFill = true
-    const emphasisNow = s.selectedDataKey ?? s.focusDataKey
+    const emphasisNow = emphasisOf(s)
     if (emphasisNow !== lastSelected) {
       lastSelected = emphasisNow
       needsFill = true
@@ -193,9 +194,7 @@ function startCartesianLoop({
     const winkDue = !reduce && now - last >= 100
     // Repaint when a tweak-driven paint input changes (variant, stacking) so
     // the panel updates the fill live — without resetting the entrance reveal.
-    const paintSig = `${s.stackType}|${s.configKeys
-      .map((k) => s.seriesSpecs[k]?.variant ?? "")
-      .join(",")}`
+    const paintSig = paintSignature(s)
     const sigChanged = paintSig !== lastPaintSig
     if (sigChanged) {
       lastPaintSig = paintSig
@@ -371,33 +370,14 @@ export function CartesianCanvas() {
     })
   }, [cols, rows])
 
-  const bloomActive = ctx.bloomOnHover
-    ? ctx.isMouseInChart || ctx.hovered
-    : true
-  const bloom = bloomLayerStyle(ctx.bloom, bloomActive)
-  const pos = {
-    left: ctx.margins.left,
-    top: ctx.margins.top,
-    width,
-    height,
-  } as const
-
   return (
-    <>
-      <canvas
-        ref={canvasRef}
-        className="pointer-events-none absolute"
-        style={{ ...pos, imageRendering: "pixelated" }}
-      />
-      <canvas
-        ref={bloomRef}
-        className="pointer-events-none absolute"
-        style={{
-          ...pos,
-          transition: "opacity 220ms ease",
-          ...(bloom ?? { opacity: 0 }),
-        }}
-      />
-    </>
+    <DitherCanvases
+      canvasRef={canvasRef}
+      bloomRef={bloomRef}
+      bloom={ctx.bloom}
+      bloomOnHover={ctx.bloomOnHover}
+      active={ctx.isMouseInChart || ctx.hovered}
+      pos={plotRect(ctx.margins, ctx.plot)}
+    />
   )
 }

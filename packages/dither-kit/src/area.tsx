@@ -4,7 +4,9 @@ import {
   type SeriesKind,
   type StrokeVariant,
   useChartPart,
+  warnUnconfiguredSeries,
 } from "./chart-context"
+import { emphasisOf, isDimmed } from "./emphasis"
 import { SeriesContext } from "./series-context"
 
 export type SeriesProps = {
@@ -33,11 +35,7 @@ function CartesianSeries({
   const ctx = useChartPart(part, kind === "line" ? "line" : "area")
   const { registerSeries, unregisterSeries } = ctx
 
-  if (process.env.NODE_ENV !== "production" && !ctx.config[dataKey]) {
-    console.warn(
-      `<${part} dataKey="${dataKey}" />: "${dataKey}" is not in the chart \`config\`. Add it so the series has a colour and label.`
-    )
-  }
+  warnUnconfiguredSeries(part, dataKey, Boolean(ctx.config[dataKey]))
 
   useEffect(() => {
     registerSeries({ dataKey, kind, variant, strokeVariant })
@@ -48,8 +46,7 @@ function CartesianSeries({
   if (!ctx.ready || !band) return null
 
   const seed = ctx.seedOf(dataKey)
-  const emphasis = ctx.selectedDataKey ?? ctx.focusDataKey
-  const dimmed = emphasis !== null && emphasis !== dataKey
+  const dimmed = isDimmed(emphasisOf(ctx), dataKey)
   const onClick = isClickable
     ? () => ctx.selectDataKey(ctx.selectedDataKey === dataKey ? null : dataKey)
     : undefined

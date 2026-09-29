@@ -10,6 +10,7 @@ import {
 } from "./chart-context"
 import type { CommonChart } from "./common-context"
 import type { BloomInput } from "./dither-paint"
+import { emphasisOf, isDimmed } from "./emphasis"
 import type { Seed } from "./palette"
 import { seedOfColor } from "./palette"
 import { type PieSlice, pieSlices, type RadarAxis, radarAxes } from "./polar"
@@ -226,7 +227,7 @@ export function usePolarController({
   const common: CommonChart = useMemo<CommonChart>(() => {
     const tooltipLeft = Math.max(48, Math.min(plotWidth + mLeft - 48, cursorX))
     const tooltipTop = Math.max(mTop + 44, cursorY)
-    const emphasis = selectedDataKey ?? focusDataKey
+    const emphasis = emphasisOf({ selectedDataKey, focusDataKey })
     if (chartType === "pie" && pie) {
       const names = pie.map((s) => s.name)
       return {
@@ -251,7 +252,7 @@ export function usePolarController({
               label: config[s.name]?.label ?? s.name,
               value: s.value,
               seed: seedOf(s.name),
-              dimmed: emphasis !== null && emphasis !== s.name,
+              dimmed: isDimmed(emphasis, s.name),
             },
           ]
         },
@@ -279,7 +280,7 @@ export function usePolarController({
             label: config[name]?.label ?? name,
             value: typeof raw === "number" ? raw : 0,
             seed: seedOf(name),
-            dimmed: emphasis !== null && emphasis !== name,
+            dimmed: isDimmed(emphasis, name),
           }
         }),
     }

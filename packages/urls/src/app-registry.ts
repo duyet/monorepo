@@ -3,6 +3,8 @@
  * Single source of truth for production origins and deploy aliases.
  */
 
+import type { AppUrls } from "./types";
+
 export interface AppRegistryEntry {
   id: string;
   /** Hostname shown in nav (e.g. blog.duyet.net). */
@@ -123,13 +125,17 @@ const registryById = new Map(
   APP_REGISTRY.map((entry) => [entry.id, entry] as const)
 );
 
-export function appOrigin(id: AppRegistryId): string {
+/** The href of one registry app, by id. Throws on an id outside the registry. */
+function appHref(id: AppRegistryId): string {
   const entry = registryById.get(id);
   if (!entry) {
     throw new Error(`Unknown app id: ${id}`);
   }
+  return entry.href;
+}
 
-  const url = new URL(entry.href);
+export function appOrigin(id: AppRegistryId): string {
+  const url = new URL(appHref(id));
   return `${url.protocol}//${url.host}`;
 }
 
@@ -154,17 +160,17 @@ export const PAGES_DOMAIN_OVERRIDES: Record<string, string> = {
   burns: "duyet-burns.pages.dev",
 };
 
-export function getDuyetUrlsApps(): Record<
-  "blog" | "cv" | "insights" | "home" | "photos" | "homelab" | "news",
-  string
-> {
+/** The `apps` block of {@link UrlsConfig}, resolved straight from the registry so
+ * there is one source of truth. Typed as `Record<keyof AppUrls, …>` so the key
+ * list can't drift from the `AppUrls` interface this has to satisfy. */
+export function getDuyetUrlsApps(): Record<keyof AppUrls, string> {
   return {
-    blog: registryById.get("blog")!.href,
-    cv: registryById.get("cv")!.href,
-    insights: registryById.get("insights")!.href,
-    home: registryById.get("home")!.href,
-    photos: registryById.get("photos")!.href,
-    homelab: registryById.get("homelab")!.href,
-    news: registryById.get("news")!.href,
+    blog: appHref("blog"),
+    cv: appHref("cv"),
+    insights: appHref("insights"),
+    home: appHref("home"),
+    photos: appHref("photos"),
+    homelab: appHref("homelab"),
+    news: appHref("news"),
   };
 }

@@ -1,15 +1,16 @@
 "use client"
 
 import { useEffect, useMemo, useRef } from "react"
+import { DitherCanvases, paintSignature, plotRect } from "./canvas-shared"
 import { useChart } from "./chart-context"
 import {
   backingSize,
-  bloomLayerStyle,
   clamp01,
   easeOutCubic,
   paintColumn,
   prefersReducedMotion,
 } from "./dither-paint"
+import { dimOf, emphasisOf } from "./emphasis"
 
 type Bars = { top: number[]; base: number[] } // per data index, in backing rows
 
@@ -93,13 +94,13 @@ export function BarCanvas() {
       c.clearRect(0, 0, cols, rows)
       const stacked = s.stackType === "stacked" || s.stackType === "percent"
       const keys = s.configKeys
+      const emphasis = emphasisOf(s)
       keys.forEach((key, si) => {
         const t = targetsRef.current[key]
         if (!t) return
         const seed = s.seedOf(key)
         const variant = s.seriesSpecs[key]?.variant ?? "gradient"
-        const emphasis = s.selectedDataKey ?? s.focusDataKey
-        const selDim = emphasis !== null && emphasis !== key ? 0.3 : 1
+        const selDim = dimOf(emphasis, key)
         for (let i = 0; i < s.dataLength; i++) {
           const bp = barProgress(i, s.dataLength, prog)
           const base = t.base[i] ?? rows - 1
@@ -162,7 +163,7 @@ export function BarCanvas() {
         lastProg = prog
         needsFill = true
       }
-      const emphasisNow = s.selectedDataKey ?? s.focusDataKey
+      const emphasisNow = emphasisOf(s)
       if (emphasisNow !== lastSelected) {
         lastSelected = emphasisNow
         needsFill = true
@@ -178,9 +179,7 @@ export function BarCanvas() {
       } else intensity = itTarget
 
       // Live tweak repaint (variant, stacking) without replaying the wave.
-      const paintSig = `${s.stackType}|${s.configKeys
-        .map((k) => s.seriesSpecs[k]?.variant ?? "")
-        .join(",")}`
+      const paintSig = paintSignature(s)
       if (paintSig !== lastPaintSig) {
         lastPaintSig = paintSig
         needsFill = true
@@ -195,33 +194,14 @@ export function BarCanvas() {
     return () => cancelAnimationFrame(raf)
   }, [cols, rows, width])
 
-  const bloomActive = ctx.bloomOnHover
-    ? ctx.isMouseInChart || ctx.hovered
-    : true
-  const bloom = bloomLayerStyle(ctx.bloom, bloomActive)
-  const pos = {
-    left: ctx.margins.left,
-    top: ctx.margins.top,
-    width,
-    height,
-  } as const
-
   return (
-    <>
-      <canvas
-        ref={canvasRef}
-        className="pointer-events-none absolute"
-        style={{ ...pos, imageRendering: "pixelated" }}
-      />
-      <canvas
-        ref={bloomRef}
-        className="pointer-events-none absolute"
-        style={{
-          ...pos,
-          transition: "opacity 220ms ease",
-          ...(bloom ?? { opacity: 0 }),
-        }}
-      />
-    </>
+    <DitherCanvases
+      canvasRef={canvasRef}
+      bloomRef={bloomRef}
+      bloom={ctx.bloom}
+      bloomOnHover={ctx.bloomOnHover}
+      active={ctx.isMouseInChart || ctx.hovered}
+      pos={plotRect(ctx.margins, ctx.plot)}
+    />
   )
 }

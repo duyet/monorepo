@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
-import type { AreaVariant } from "./chart-context"
+import { type AreaVariant, warnUnconfiguredSeries } from "./chart-context"
 import { usePolarPart } from "./polar-context"
 
 export type RadarProps = {
@@ -17,11 +17,7 @@ export function Radar({ dataKey, variant = "gradient" }: RadarProps) {
   const ctx = usePolarPart("Radar", "radar")
   const { registerVariant, unregisterVariant } = ctx
 
-  if (process.env.NODE_ENV !== "production" && !ctx.config[dataKey]) {
-    console.warn(
-      `<Radar dataKey="${dataKey}" />: "${dataKey}" is not in the chart \`config\`. Add it so the series has a colour and label.`
-    )
-  }
+  warnUnconfiguredSeries("Radar", dataKey, Boolean(ctx.config[dataKey]))
 
   useEffect(() => {
     registerVariant(dataKey, variant)

@@ -2,6 +2,7 @@ import type { ScaleLinear } from "d3-scale"
 import { createContext, use, useCallback, useMemo, useState } from "react"
 import type { CommonChart } from "./common-context"
 import type { BloomInput } from "./dither-paint"
+import { emphasisOf, isDimmed } from "./emphasis"
 import type { DitherColor, Seed } from "./palette"
 import { seedOfColor } from "./palette"
 import {
@@ -157,6 +158,19 @@ export function useChartPart(
 }
 
 export { ChartContext }
+
+/** Dev-time guard every series part shares: a `dataKey` that isn't in the chart
+ * `config` renders colourless and unlabelled, so say so loudly in dev only. */
+export function warnUnconfiguredSeries(
+  part: string,
+  dataKey: string,
+  configured: boolean
+) {
+  if (process.env.NODE_ENV === "production" || configured) return
+  console.warn(
+    `<${part} dataKey="${dataKey}" />: "${dataKey}" is not in the chart \`config\`. Add it so the series has a colour and label.`
+  )
+}
 
 /** A counter that advances whenever `data` changes identity or `token` advances
  * — drives entrance replays without remounting. Uses the adjust-state-during-
@@ -356,6 +370,7 @@ export function useChartController({
 
   // Memoized: this is the value handed to CommonChartContext (Legend/Tooltip),
   // so it needs its own stable identity independent of the parent value.
+  const emphasis = emphasisOf({ selectedDataKey, focusDataKey })
   const common: CommonChart = useMemo(() => ({
     names: configKeys,
     labelOf: (n) => config[n]?.label ?? n,
@@ -390,10 +405,7 @@ export function useChartController({
           label: config[name]?.label ?? name,
           value: typeof raw === "number" ? raw : 0,
           seed: seedOf(name),
-          dimmed: (() => {
-            const emphasis = selectedDataKey ?? focusDataKey
-            return emphasis !== null && emphasis !== name
-          })(),
+          dimmed: isDimmed(emphasis, name),
         }
       }),
   }), [

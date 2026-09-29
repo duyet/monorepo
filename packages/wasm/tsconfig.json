@@ -4,5 +4,5 @@
     "outDir": "dist",
     "rootDir": "."
   },
-  "include": ["index.ts", "types.d.ts"]
+  "include": ["index.ts", "stub.ts"]
 }

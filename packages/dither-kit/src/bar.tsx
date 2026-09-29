@@ -3,6 +3,7 @@ import {
   type AreaVariant,
   type StrokeVariant,
   useChartPart,
+  warnUnconfiguredSeries,
 } from "./chart-context"
 import { SeriesContext } from "./series-context"
 
@@ -30,11 +31,7 @@ export function Bar({
   const ctx = useChartPart("Bar", "bar")
   const { registerSeries, unregisterSeries } = ctx
 
-  if (process.env.NODE_ENV !== "production" && !ctx.config[dataKey]) {
-    console.warn(
-      `<Bar dataKey="${dataKey}" />: "${dataKey}" is not in the chart \`config\`. Add it so the series has a colour and label.`
-    )
-  }
+  warnUnconfiguredSeries("Bar", dataKey, Boolean(ctx.config[dataKey]))
 
   useEffect(() => {
     registerSeries({ dataKey, kind: "bar", variant, strokeVariant })

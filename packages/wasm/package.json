@@ -5,6 +5,7 @@
   "main": "./index.ts",
   "scripts": {
     "build": "echo 'WASM modules built via cargo/wasm-pack at repo root'",
+    "check-types": "tsc --noEmit",
     "test": "echo 'WASM tests run via cargo test — see pnpm run wasm:test'"
   },
   "devDependencies": {

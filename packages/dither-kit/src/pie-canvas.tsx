@@ -1,20 +1,19 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import { DitherCanvases, plotRect } from "./canvas-shared"
 import {
   BAYER,
   backingSize,
-  bloomLayerStyle,
   easeInOutCubic,
   OFF_TIER,
   prefersReducedMotion,
 } from "./dither-paint"
+import { dimOf, emphasisOf } from "./emphasis"
 import { rgb } from "./palette"
-import { sliceAtAngle } from "./polar"
+import { sliceAtAngle, TAU, TOP } from "./polar"
 import { usePolarChart } from "./polar-context"
 
-const TOP = -Math.PI / 2
-const TAU = Math.PI * 2
 const POP = 6 // px the hovered slice bulges outward
 
 /**
@@ -79,6 +78,7 @@ export function PieCanvas() {
       const outerR = s.outerRadius
       const innerR = s.innerRadius
       const revealAngle = TOP + easeInOutCubic(prog) * TAU
+      const emphasis = emphasisOf(s)
 
       for (let y = 0; y < rows; y++) {
         const py = ((y + 0.5) * height) / rows
@@ -102,8 +102,7 @@ export function PieCanvas() {
 
           const seed = s.seedOf(slice.name)
           const variant = s.variantOf(slice.name)
-          const emphasis = s.selectedDataKey ?? s.focusDataKey
-          const selDim = emphasis !== null && emphasis !== slice.name ? 0.3 : 1
+          const selDim = dimOf(emphasis, slice.name)
           const it = intensity + (active ? 0.4 * popEase : 0)
 
           // Bright rim on the outer edge — thicker on the hovered slice.
@@ -148,7 +147,7 @@ export function PieCanvas() {
       if (!animStart) animStart = now
       const prog = animate ? Math.min(1, (now - animStart) / duration) : 1
 
-      const emphasisNow = s.selectedDataKey ?? s.focusDataKey
+      const emphasisNow = emphasisOf(s)
       if (emphasisNow !== lastSelected) {
         lastSelected = emphasisNow
         needsFill = true
@@ -192,33 +191,14 @@ export function PieCanvas() {
     return () => cancelAnimationFrame(raf)
   }, [cols, rows, width, height])
 
-  const bloom = bloomLayerStyle(
-    ctx.bloom,
-    ctx.bloomOnHover ? ctx.isMouseInChart : true
-  )
-  const pos = {
-    left: ctx.margins.left,
-    top: ctx.margins.top,
-    width,
-    height,
-  } as const
-
   return (
-    <>
-      <canvas
-        ref={canvasRef}
-        className="pointer-events-none absolute"
-        style={{ ...pos, imageRendering: "pixelated" }}
-      />
-      <canvas
-        ref={bloomRef}
-        className="pointer-events-none absolute"
-        style={{
-          ...pos,
-          transition: "opacity 220ms ease",
-          ...(bloom ?? { opacity: 0 }),
-        }}
-      />
-    </>
+    <DitherCanvases
+      canvasRef={canvasRef}
+      bloomRef={bloomRef}
+      bloom={ctx.bloom}
+      bloomOnHover={ctx.bloomOnHover}
+      active={ctx.isMouseInChart}
+      pos={plotRect(ctx.margins, ctx.plot)}
+    />
   )
 }

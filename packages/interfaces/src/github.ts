@@ -1,4 +1,6 @@
-export interface GithubUser {
+// Not re-exported from the package entry — only `GithubRepo` is public, and
+// this is just its `owner` shape.
+interface GithubUser {
   login: string;
   avatar_url: string;
 }

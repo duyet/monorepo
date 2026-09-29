@@ -1,4 +1,5 @@
-export type ChangelogEntry = {
+// Not re-exported from the package entry — only `Post.changelog` uses it.
+type ChangelogEntry = {
   date: string;
   note: string;
 };

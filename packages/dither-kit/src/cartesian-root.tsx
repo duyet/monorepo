@@ -1,9 +1,4 @@
-import {
-  Children,
-  type ComponentType,
-  isValidElement,
-  type ReactNode,
-} from "react"
+import type { ComponentType, ReactNode } from "react"
 import {
   type ChartConfig,
   ChartContext,
@@ -13,14 +8,11 @@ import {
 } from "./chart-context"
 import { CommonChartContext } from "./common-context"
 import type { BloomInput } from "./dither-paint"
+import { partitionByLayer } from "./layers"
 import { cn } from "./lib"
+import type { ChartRow as Row } from "./row"
 import type { StackType } from "./scales"
 import { useChartDimensions } from "./use-chart-dimensions"
-
-// `object` rather than `Record<string, unknown>`: interfaces don't get an
-// implicit index signature, so interface-typed rows failed to satisfy the
-// generic. Internal layers still index rows through their own Row type.
-type Row = object
 
 const DEFAULT_MARGINS: Margins = {
   top: 10,
@@ -55,12 +47,6 @@ export type CartesianChartProps<TData extends Row> = {
   onHoverChange?: (index: number | null) => void
   defaultSelectedDataKey?: string | null
   onSelectionChange?: (key: string | null) => void
-}
-
-/** Which render layer a composed part targets — defaults to the front SVG. */
-function layerOf(node: ReactNode): "back" | "dom" | "svg" {
-  if (!isValidElement(node) || typeof node.type === "string") return "svg"
-  return (node.type as { chartLayer?: "back" | "dom" }).chartLayer ?? "svg"
 }
 
 /**
@@ -118,15 +104,8 @@ export function CartesianRoot<TData extends Row>({
     onSelectionChange,
   })
 
-  const backChildren: ReactNode[] = []
-  const svgChildren: ReactNode[] = []
-  const domChildren: ReactNode[] = []
-  Children.forEach(children, (child) => {
-    const layer = layerOf(child)
-    if (layer === "back") backChildren.push(child)
-    else if (layer === "dom") domChildren.push(child)
-    else svgChildren.push(child)
-  })
+  const { back: backChildren, svg: svgChildren, dom: domChildren } =
+    partitionByLayer(children)
 
   const onMove = (clientX: number) => {
     const el = ref.current

@@ -5,11 +5,7 @@ import type { ChartConfig, Margins } from "./chart-context"
 import type { BloomInput } from "./dither-paint"
 import { PieCanvas } from "./pie-canvas"
 import { PolarRoot } from "./polar-root"
-
-// `object` rather than `Record<string, unknown>`: interfaces don't get an
-// implicit index signature, so interface-typed rows failed to satisfy the
-// generic. Internal layers still index rows through their own Row type.
-type Row = object
+import type { ChartRow as Row } from "./row"
 
 export type PieChartProps<TData extends Row> = {
   data: TData[]

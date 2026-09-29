@@ -1,14 +1,15 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import { DitherCanvases, plotRect } from "./canvas-shared"
 import {
   BAYER,
   backingSize,
-  bloomLayerStyle,
   easeInOutCubic,
   OFF_TIER,
   prefersReducedMotion,
 } from "./dither-paint"
+import { dimOf, emphasisOf } from "./emphasis"
 import { rgb } from "./palette"
 import { distToPolygonEdge, pointInPolygon, polarX, polarY } from "./polar"
 import { usePolarChart } from "./polar-context"
@@ -93,6 +94,7 @@ export function RadarCanvas() {
       c.clearRect(0, 0, cols, rows)
       const polys = buildPolys(easeInOutCubic(prog))
       const band = Math.max(s.outerRadius * 0.45, 1)
+      const emphasis = emphasisOf(s)
 
       for (let y = 0; y < rows; y++) {
         const py = ((y + 0.5) * height) / rows
@@ -107,8 +109,7 @@ export function RadarCanvas() {
             if (!pointInPolygon(px, py, poly)) continue
             const seed = s.seedOf(key)
             const variant = s.variantOf(key)
-            const emphasis = s.selectedDataKey ?? s.focusDataKey
-            const selDim = emphasis !== null && emphasis !== key ? 0.3 : 1
+            const selDim = dimOf(emphasis, key)
             const dist = distToPolygonEdge(px, py, poly)
             if (dist < 1.4) {
               c.fillStyle = rgb(seed.fill, 1, selDim)
@@ -141,8 +142,7 @@ export function RadarCanvas() {
       // Vertex markers — larger on the hovered axis.
       for (const { key, pts } of polys) {
         const seed = s.seedOf(key)
-        const emphasis = s.selectedDataKey ?? s.focusDataKey
-        const selDim = emphasis !== null && emphasis !== key ? 0.3 : 1
+        const selDim = dimOf(emphasis, key)
         pts.forEach((p, i) => {
           const bx = Math.round(p.x * fx)
           const by = Math.round(p.y * fy)
@@ -173,7 +173,7 @@ export function RadarCanvas() {
       if (!animStart) animStart = now
       const prog = animate ? Math.min(1, (now - animStart) / duration) : 1
 
-      const emphasisNow = s.selectedDataKey ?? s.focusDataKey
+      const emphasisNow = emphasisOf(s)
       if (emphasisNow !== lastSelected) {
         lastSelected = emphasisNow
         needsFill = true
@@ -208,33 +208,14 @@ export function RadarCanvas() {
     return () => cancelAnimationFrame(raf)
   }, [cols, rows, width, height])
 
-  const bloom = bloomLayerStyle(
-    ctx.bloom,
-    ctx.bloomOnHover ? ctx.isMouseInChart : true
-  )
-  const pos = {
-    left: ctx.margins.left,
-    top: ctx.margins.top,
-    width,
-    height,
-  } as const
-
   return (
-    <>
-      <canvas
-        ref={canvasRef}
-        className="pointer-events-none absolute"
-        style={{ ...pos, imageRendering: "pixelated" }}
-      />
-      <canvas
-        ref={bloomRef}
-        className="pointer-events-none absolute"
-        style={{
-          ...pos,
-          transition: "opacity 220ms ease",
-          ...(bloom ?? { opacity: 0 }),
-        }}
-      />
-    </>
+    <DitherCanvases
+      canvasRef={canvasRef}
+      bloomRef={bloomRef}
+      bloom={ctx.bloom}
+      bloomOnHover={ctx.bloomOnHover}
+      active={ctx.isMouseInChart}
+      pos={plotRect(ctx.margins, ctx.plot)}
+    />
   )
 }
