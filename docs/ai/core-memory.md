@@ -10,6 +10,25 @@ This file stores durable outcomes from code-smell and dead-code automation runs.
 
 ## Durable Findings
 
+### 2026-09-29
+
+- OG card generation (feature, previously uncommitted work landed): nine apps pointed `og:image` at a hand-made PNG, a missing file, or nothing. The blog was the worst case — 319 posts and a card must exist before any crawler asks, so most post cards 404'd on share.
+  - `packages/config/og-card` renders a deterministic 1200x630 card; small apps ship a checked-in PNG via a one-line `scripts/generate-og.ts`.
+  - `apps/blog/scripts/generate-og.ts` writes one card per post / child post / quick note plus a site-wide default, behind a content-hash cache that keeps ~224 remote thumbnail fetches off every build but the first. Verified: 331 targets, 243 dithered, 88 type-only fallback.
+  - `apps/blog/lib/og.ts` is the single source of truth for the filename mapping and is imported by BOTH the writer and every route `head()`, so the two cannot drift into a silent 404. Keep it that way: any new card surface must go through it.
+- Brittle source-text test replaced with a real one (warning -> fixed): `apps/blog/src/routes/$year/$month/$slug/canonical.test.ts` asserted the route *source* contained `rel: "canonical"`, so it broke when canonical moved into `ogHeadLinks` even though the rendered page was unchanged. Deleted, and replaced by `apps/blog/lib/head.test.ts` asserting emitted arrays.
+  - This is now a known repo-wide pattern to watch for: `rg -l "readFileSync" apps packages --glob '**/*.test.ts' --glob '**/*.test.tsx' | xargs rg -l "toContain|toMatch"` lists every candidate. A source-text test asserts the *shape of the code*, not the behavior, so any correct refactor looks like a regression.
+- Duplicate article `head()` collapsed (info -> fixed): the post, child-chapter and quick-note routes each hand-rolled the same six-part `head()` and had already drifted (title suffix, markdown alternate, X widget script). Now one `buildArticleHead()` in `apps/blog/lib/head.ts`, covered by 9 tests.
+  - Side effect worth knowing: `datePublished` is normalized to an ISO string. `Post["date"]` is a `Date`, and `JSON.stringify` emits ISO for a valid Date but *silently drops the key* for an Invalid Date — so the two failure modes were previously indistinguishable, and a null key would have failed Google's rich-result validator.
+- Turbo cache-correctness gap (warning -> fixed): `pnpm run lint` reported 4 `noUndeclaredEnvVars` warnings in the two Cloudflare deploy orchestrators. `CF_PAGES_PRODUCTION_BRANCH` and `CLOUDFLARE_EMAIL` are now in `globalEnv`.
+  - `GITHUB_EVENT_NAME` / `GITHUB_OUTPUT` stay out **on purpose**: `scripts/cf-deploy-matrix.ts` is a GitHub Actions step, never a turbo task, and `GITHUB_OUTPUT` holds a per-run file path, so declaring it would bust the build cache on every CI run to protect a task that never reads it. The inline `biome-ignore` records this.
+- Local commit hook OOM (warning -> fixed): `.husky/pre-commit` ran `pnpm run test` uncapped, and turbo defaults to 10 parallel tasks, so a commit in this 29-package monorepo starts 10 vitest processes at once. On a memory-limited machine the run is OOM-killed and every task exits 143 (SIGTERM) — the hook then prints a wall of output containing no actual failure, so it reads as a broken test when nothing is broken. Capped at `--concurrency=4`, keeping the `dotenv --` prefix from the root `test` script so env files stay identical.
+  - Diagnostic signature to recognise: many tasks reporting exit 143 and no real assertion failure. Not a test problem.
+- CI supply chain (info -> fixed): the last four floating third-party action refs are now pinned to SHAs — `tailscale/github-action` (2x), `peter-evans/find-comment`, `peter-evans/create-or-update-comment`, `github/codeql-action/upload-sarif`. `actions/*` and `pnpm/action-setup` stay on major tags (first-party); `duyet/claude-anyrouter-action@main` stays on the moving ref because pinning a first-party action means shipping a bump for every feature of the action itself.
+- Dead-code review (confident): removed `absoluteOgUrl` from `packages/config/src/og.ts`.
+  - Evidence: `rg -n "absoluteOgUrl" . --glob '!node_modules'` returned only the declaration. It also duplicated `ogAbsolute` in `apps/blog/lib/og.ts`, which is the version actually used (it hardcodes the blog origin), so the 23 `og.test.ts` cases never covered the dead one.
+- Performance audit: no grounded runtime regression claim from this window. The one measured signal was the pre-commit OOM above, which is a throughput problem, not a code regression.
+
 ### 2026-06-05
 
 - Blog prebuild regression (warning -> fixed): `packages/libs/getPost.ts` had reverted from the earlier `process.getBuiltinModule(...)` Node 24-safe loader back to `createRequire(import.meta.url)`, reintroducing the same browser-bundle/ESM ambiguity path that `3caa801620d5e1d4216c8afb41ef49bb583d52df` had already fixed.
