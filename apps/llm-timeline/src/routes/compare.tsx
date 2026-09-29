@@ -19,14 +19,15 @@ import {
   ParameterChart,
 } from "@/components/compare/ParameterChart";
 import {
+  getMaxParams,
   MAX_COMPARE,
   MIN_COMPARE,
   parseModelNamesFromParam,
+  sortModelsByDateDesc,
 } from "@/components/compare/compare-utils";
 import type { Model } from "@/lib/data";
 import { models } from "@/lib/data";
 import { slugify } from "@/lib/utils";
-import { parseParamValue } from "@duyet/libs";
 
 export const Route = createFileRoute("/compare")({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -82,9 +83,7 @@ function ComparePage() {
   }, [searchQuery, selectedModels]);
 
   const sortedModels = useMemo(() => {
-    return [...selectedModels].sort(
-      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-    );
+    return sortModelsByDateDesc(selectedModels);
   }, [selectedModels]);
 
   const addModel = (model: Model) => {
@@ -103,10 +102,7 @@ function ComparePage() {
     updateUrl(next);
   };
 
-  const maxParams = Math.max(
-    ...sortedModels.map((m) => parseParamValue(m.params) || 0),
-    1
-  );
+  const maxParams = getMaxParams(sortedModels);
 
   const hasComparison = sortedModels.length >= MIN_COMPARE;
 

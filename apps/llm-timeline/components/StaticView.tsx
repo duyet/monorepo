@@ -1,6 +1,5 @@
-import { parseParamValue } from "@duyet/libs";
 import { cn } from "@duyet/libs/utils";
-import { Calendar, CalendarDays, LayoutGrid, Table2, X } from "lucide-react";
+import { Calendar, CalendarDays, LayoutGrid, Table2 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { FilterInfo } from "@/components/filter-info";
 import {
@@ -13,16 +12,7 @@ import { TimelineGrid } from "@/components/TimelineGrid";
 import { TimelineTable } from "@/components/TimelineTable";
 import { MonthGroupedTimeline } from "@/components/MonthGroupedTimeline";
 import { ModelCardGrid } from "@/components/ModelCardGrid";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { ComparisonDock } from "@/components/compare/ComparisonDock";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { Model } from "@/lib/data";
 import { organizations } from "@/lib/data";
@@ -30,9 +20,6 @@ import {
   DEFAULT_FILTERS,
   type FilterState,
   filterModels,
-  formatDate,
-  getLicenseBarColor,
-  getLicenseBadgeVariant,
   groupByOrg,
   groupByYear,
 } from "@/lib/utils";
@@ -349,217 +336,15 @@ export function StaticView({
       <KeyboardHelpButton onClick={() => setShowHelp(true)} />
 
       {enableComparisonToggle && (
-        <>
-          {selectedModels.length > 0 && (
-            <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-[var(--rd-border)] bg-background p-3 animate-in slide-in-from-bottom">
-              <div className="mx-auto max-w-4xl">
-                <div className="flex items-center gap-3">
-                  <div className="flex flex-1 flex-wrap gap-1.5">
-                    {selectedModels.map((model) => (
-                      <div
-                        key={model.name}
-                        className="flex items-center gap-1.5 rounded-lg border border-[var(--rd-border)] bg-card px-2.5 py-1.5 text-sm"
-                      >
-                        <span className="font-medium text-foreground">
-                          {model.name}
-                        </span>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="h-5 w-5 p-0 text-muted-foreground [&_svg]:size-3"
-                          onClick={() => removeModel(model.name)}
-                          aria-label={`Remove ${model.name} from comparison`}
-                        >
-                          <X className="h-3 w-3" />
-                        </Button>
-                      </div>
-                    ))}
-                  </div>
-                  <Button
-                    onClick={() => setIsModalOpen(true)}
-                    disabled={!canCompare}
-                    size="sm"
-                    className="shrink-0"
-                  >
-                    Compare ({selectedModels.length})
-                  </Button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {isModalOpen && canCompare && (
-            <div
-              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 animate-in fade-in"
-              onClick={() => setIsModalOpen(false)}
-            >
-              <div
-                className="max-h-[90vh] w-full max-w-5xl overflow-auto rounded-[var(--rd-r-lg)] border border-[var(--rd-border)] bg-background"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <ComparisonModalContent
-                  models={selectedModels}
-                  onClose={() => setIsModalOpen(false)}
-                />
-              </div>
-            </div>
-          )}
-        </>
+        <ComparisonDock
+          selectedModels={selectedModels}
+          canCompare={canCompare}
+          isModalOpen={isModalOpen}
+          onRemove={removeModel}
+          onOpenModal={() => setIsModalOpen(true)}
+          onCloseModal={() => setIsModalOpen(false)}
+        />
       )}
-    </>
-  );
-}
-
-interface ComparisonModalContentProps {
-  models: Model[];
-  onClose: () => void;
-}
-
-function ComparisonModalContent({
-  models,
-  onClose,
-}: ComparisonModalContentProps) {
-  const sortedModels = [...models].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
-
-  const maxParams = Math.max(
-    ...sortedModels.map((m) => parseParamValue(m.params) || 0),
-    1
-  );
-
-  return (
-    <>
-      <div className="sticky top-0 z-10 border-b border-[var(--rd-border)] p-6 bg-background">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-xl font-semibold text-foreground">
-              Model Comparison
-            </h2>
-            <p className="text-sm text-muted-foreground">
-              {sortedModels.length} model{sortedModels.length > 1 ? "s" : ""}{" "}
-              selected
-            </p>
-          </div>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={onClose}
-            aria-label="Close comparison"
-          >
-            <X className="h-4 w-4" />
-          </Button>
-        </div>
-      </div>
-
-      <div className="p-6 space-y-6">
-        <Table>
-          <TableHeader>
-            <TableRow className="bg-[var(--rd-surface-2)]">
-              <TableHead className="w-32 text-xs uppercase tracking-wider text-muted-foreground">
-                Metric
-              </TableHead>
-              {sortedModels.map((model) => (
-                <TableHead key={model.name}>{model.name}</TableHead>
-              ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                Organization
-              </TableCell>
-              {sortedModels.map((model) => (
-                <TableCell key={model.name}>{model.org}</TableCell>
-              ))}
-            </TableRow>
-            <TableRow>
-              <TableCell className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                Release Date
-              </TableCell>
-              {sortedModels.map((model) => (
-                <TableCell
-                  key={model.name}
-                  className="font-[family-name:var(--font-mono)] text-sm"
-                >
-                  {formatDate(model.date)}
-                </TableCell>
-              ))}
-            </TableRow>
-            <TableRow>
-              <TableCell className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                Parameters
-              </TableCell>
-              {sortedModels.map((model) => (
-                <TableCell
-                  key={model.name}
-                  className="font-[family-name:var(--font-mono)] text-sm"
-                >
-                  {model.params || "Unknown"}
-                </TableCell>
-              ))}
-            </TableRow>
-            <TableRow>
-              <TableCell className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                License
-              </TableCell>
-              {sortedModels.map((model) => (
-                <TableCell key={model.name}>
-                  <Badge variant={getLicenseBadgeVariant(model.license)}>
-                    {model.license}
-                  </Badge>
-                </TableCell>
-              ))}
-            </TableRow>
-            <TableRow className="border-b-0">
-              <TableCell className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                Type
-              </TableCell>
-              {sortedModels.map((model) => (
-                <TableCell key={model.name} className="capitalize">
-                  {model.type}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableBody>
-        </Table>
-
-        {sortedModels.some((m) => m.params) && (
-          <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-              Parameter Count Comparison
-            </h3>
-            <div className="space-y-3">
-              {sortedModels.map((model) => {
-                const paramValue = parseParamValue(model.params);
-                if (!paramValue) return null;
-                const percentage = (paramValue / maxParams) * 100;
-                return (
-                  <div key={model.name}>
-                    <div className="mb-1 flex justify-between text-sm">
-                      <span className="font-medium text-foreground">
-                        {model.name}
-                      </span>
-                      <span className="font-[family-name:var(--font-mono)] text-muted-foreground">
-                        {model.params}
-                      </span>
-                    </div>
-                    <div className="relative h-7 overflow-hidden rounded-lg bg-[var(--rd-surface-2)]">
-                      <div
-                        className="h-full rounded-lg transition-all duration-500"
-                        style={{
-                          width: `${percentage}%`,
-                          backgroundColor: getLicenseBarColor(model.license),
-                        }}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </div>
     </>
   );
 }
