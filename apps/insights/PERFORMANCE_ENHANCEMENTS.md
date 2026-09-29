@@ -1,5 +1,28 @@
 # Insights Dashboard Performance Enhancements
 
+> **Status: superseded — read before following any of this.**
+>
+> This document is written in the past tense ("changes made", "created", "reduced
+> initial bundle size") but describes work that **never reached a rendered page**.
+> A route-rooted reachability check over every `apps/insights` entry point proved
+> that `components/error/EnhancedErrorBoundary.tsx`, `components/loading/
+> EnhancedSkeletons.tsx`, `components/table/PaginatedTable.tsx`,
+> `components/sw/ServiceWorkerProvider.tsx` and `components/SkeletonCard.tsx` had
+> **no import path from any route** — they were built, never wired up, and were
+> removed on 2026-09-29.
+>
+> So the per-section "Usage" examples below import modules that no longer exist,
+> and the performance claims were never measured against a shipped page. Kept for
+> the design intent, not as a record of what shipped.
+>
+> One section is still accurate and still load-bearing: §1
+> (`components/charts/LazyCharts.tsx`) *is* reachable, via
+> `lazy(() => import("./CompactChart"))`. Reachable-only-through-a-dynamic-edge
+> is easy to mistake for dead — that check was worth an hour of false positives
+> before the dynamic import was modelled.
+>
+> Regenerate this document from what actually ships rather than editing it again.
+
 ## Summary
 
 This document outlines the performance enhancements made to the Insights Dashboard application to improve load times, user experience, and offline capability.

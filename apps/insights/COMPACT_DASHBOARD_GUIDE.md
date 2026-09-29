@@ -1,5 +1,21 @@
 # Compact Analytics Dashboard - Implementation Guide
 
+> **Status: superseded — read before following any of this.**
+>
+> This guide is written as an implementation record ("improvements made",
+> "Before / After") but describes a redesign that **never reached a rendered
+> page**. `OverviewDashboard.tsx`, `MobileOptimizedChart.tsx`,
+> `ProgressiveDisclosure.tsx`, `DateRangeSelector.tsx`, `CompactCard.tsx`,
+> `DashboardGrid.tsx`, `PageLayout.tsx` and `SectionLayout.tsx` were all proven
+> unreachable from every route on 2026-09-29 and removed — so the "Before / After"
+> pairs describe an intent, not an outcome, and the components directory they
+> reference is now 13 files smaller.
+>
+> The live dashboard is `src/routes/index.tsx` +
+> `components/overview/{charts,derive,types}.tsx`. Read those instead.
+>
+> Regenerate this document from what actually ships rather than editing it again.
+
 ## Overview
 
 This guide documents the comprehensive UI/UX improvements made to the insights app for a more compact, efficient analytics dashboard design. The redesign focuses on **information density**, **mobile optimization**, and **professional analytics experience**.
