@@ -2,6 +2,7 @@ import { act, cleanup, fireEvent, render, screen } from "@testing-library/react"
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import Lightbox from "@/components/Lightbox";
 import type { Photo } from "@/lib/types";
+import { PHOTO_URLS } from "../test-fixtures";
 
 const photo: Photo = {
   id: "p1",
@@ -9,13 +10,7 @@ const photo: Photo = {
   created_at: "2024-01-01 00:00:00",
   width: 100,
   height: 100,
-  urls: {
-    raw: "https://example.com/raw.jpg",
-    full: "https://example.com/full.jpg",
-    regular: "https://example.com/regular.jpg",
-    small: "https://example.com/small.jpg",
-    thumb: "https://example.com/thumb.jpg",
-  },
+  urls: PHOTO_URLS,
   user: { id: "u1", username: "u1", name: "U One" },
 };
 

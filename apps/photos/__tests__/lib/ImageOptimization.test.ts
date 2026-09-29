@@ -6,6 +6,7 @@ import {
   getResponsiveSizes,
   shouldPrioritizeLoading,
 } from "@/lib/ImageOptimization";
+import { PHOTO_URLS } from "../test-fixtures";
 
 const mockPhoto = {
   id: "test-1",
@@ -13,13 +14,7 @@ const mockPhoto = {
   width: 1920,
   height: 1080,
   color: "#ff0000",
-  urls: {
-    raw: "https://example.com/raw.jpg",
-    full: "https://example.com/full.jpg",
-    regular: "https://example.com/regular.jpg",
-    small: "https://example.com/small.jpg",
-    thumb: "https://example.com/thumb.jpg",
-  },
+  urls: PHOTO_URLS,
   created_at: "2024-01-01T00:00:00Z",
   provider: "unsplash" as const,
 };

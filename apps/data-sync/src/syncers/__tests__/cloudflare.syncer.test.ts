@@ -1,16 +1,16 @@
-import { afterEach, beforeEach, describe, expect, vi, test } from "vitest";
-import type { ClickHouseClient } from "@clickhouse/client";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { CloudflareSyncer } from "../cloudflare.syncer";
+import {
+  createMockClickHouseClient,
+  expectSyncFailsWithoutWriting,
+  type MockClickHouseClient,
+} from "./test-fixtures";
 
 describe("CloudflareSyncer", () => {
-  let mockClient: ClickHouseClient;
+  let mockClient: MockClickHouseClient;
 
   beforeEach(() => {
-    mockClient = {
-      insert: vi.fn(() => Promise.resolve()),
-      query: vi.fn(() => Promise.resolve()),
-      close: vi.fn(() => Promise.resolve()),
-    } as unknown as ClickHouseClient;
+    mockClient = createMockClickHouseClient();
   });
 
   afterEach(() => {
@@ -27,19 +27,16 @@ describe("CloudflareSyncer", () => {
     expect(syncer).toBeInstanceOf(CloudflareSyncer);
   });
 
-  // `BaseSyncer.sync()` never rejects: it catches and reports through
-  // SyncResult.errors, so this asserts on the result rather than a throw.
   test("should fail the sync without writing when CLOUDFLARE credentials are missing", async () => {
-    vi.stubEnv("CLOUDFLARE_ZONE_ID", undefined);
-    vi.stubEnv("CLOUDFLARE_API_KEY", undefined);
-    vi.stubEnv("CLOUDFLARE_API_TOKEN", undefined);
-
-    const syncer = new CloudflareSyncer(mockClient);
-    const result = await syncer.sync({ dryRun: true });
-
-    expect(result.success).toBe(false);
-    expect(result.errors[0]?.message).toContain("CLOUDFLARE");
-    expect(result.recordsInserted).toBe(0);
-    expect(mockClient.insert).not.toHaveBeenCalled();
+    await expectSyncFailsWithoutWriting({
+      syncer: new CloudflareSyncer(mockClient),
+      client: mockClient,
+      missingEnvVars: [
+        "CLOUDFLARE_ZONE_ID",
+        "CLOUDFLARE_API_KEY",
+        "CLOUDFLARE_API_TOKEN",
+      ],
+      errorMentions: "CLOUDFLARE",
+    });
   });
 });
