@@ -1,6 +1,41 @@
 import { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
+import { formatNumber } from "@duyet/libs";
 import { getCurrentAICodePercentage } from "../lib/queries";
+
+/**
+ * One line-count tile.
+ *
+ * The three tiles were inline `{(x / 1000).toFixed(1)}K` expressions, which
+ * had two consequences beyond the repetition. A repo with fewer than 1,000
+ * lines rendered `0.5K` (or `0.0K` at zero) rather than the actual count, and
+ * a million-line repo rendered `1234.6K` — the `k` tier had no upper bound, so
+ * the number grew without ever switching to `m`.
+ */
+function LineCountTile({
+  label,
+  value,
+  tone,
+}: {
+  label: string;
+  value: number;
+  tone: "blue" | "orange" | "emerald";
+}) {
+  const tones = {
+    blue: "bg-blue-100 dark:bg-blue-950/40",
+    orange: "bg-orange-100 dark:bg-orange-950/40",
+    emerald: "bg-emerald-100 dark:bg-emerald-950/40",
+  } as const;
+
+  return (
+    <div className={`rounded-xl p-4 ${tones[tone]}`}>
+      <div className="text-xs text-muted-foreground">{label}</div>
+      <div className="mt-2 text-xl font-semibold tabular-nums">
+        {formatNumber(value)}
+      </div>
+    </div>
+  );
+}
 
 export function AIPercentageHero() {
   const { data, error, isLoading } = useSWR("ai-percentage-current", () =>
@@ -72,32 +107,17 @@ export function AIPercentageHero() {
       </div>
 
       <div className="grid gap-3 sm:grid-cols-3">
-        <div className="rounded-xl bg-blue-100 p-4 dark:bg-blue-950/40">
-          <div className="text-xs text-muted-foreground">
-            Total Lines
-          </div>
-          <div className="mt-2 text-xl font-semibold tabular-nums">
-            {(total_lines_added / 1000).toFixed(1)}K
-          </div>
-        </div>
-
-        <div className="rounded-xl bg-orange-100 p-4 dark:bg-orange-950/40">
-          <div className="text-xs text-muted-foreground">
-            AI Lines
-          </div>
-          <div className="mt-2 text-xl font-semibold tabular-nums">
-            {(ai_lines_added / 1000).toFixed(1)}K
-          </div>
-        </div>
-
-        <div className="rounded-xl bg-emerald-100 p-4 dark:bg-emerald-950/40">
-          <div className="text-xs text-muted-foreground">
-            Human Lines
-          </div>
-          <div className="mt-2 text-xl font-semibold tabular-nums">
-            {(human_lines_added / 1000).toFixed(1)}K
-          </div>
-        </div>
+        <LineCountTile
+          label="Total Lines"
+          value={total_lines_added}
+          tone="blue"
+        />
+        <LineCountTile label="AI Lines" value={ai_lines_added} tone="orange" />
+        <LineCountTile
+          label="Human Lines"
+          value={human_lines_added}
+          tone="emerald"
+        />
       </div>
     </div>
   );

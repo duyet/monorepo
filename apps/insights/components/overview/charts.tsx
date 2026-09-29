@@ -11,7 +11,12 @@ import {
   YAxis,
   type ChartConfig,
 } from "@/components/dither-kit";
-import { formatNumber, compactName } from "./helpers";
+// Aliased deliberately: the canonical `@duyet/libs` formatter appends a
+// k/m/b suffix, while this file's local `formatNumber` is plain `Intl` with no
+// suffix — correct for a dollar amount, wrong for a token count. Both are
+// needed, so the canonical one is aliased rather than shadowing the local.
+import { formatNumber as formatCanonicalNumber } from "@duyet/libs";
+import { compactName, formatNumber } from "./helpers";
 
 const COLORS = {
   accent: "blue",
@@ -100,7 +105,9 @@ function InsightStackedBarChart({
         {modelKeys.map((key) => (
           <Bar key={key} dataKey={key} />
         ))}
-        <Tooltip labelKey="date" valueFormatter={(v) => `${formatNumber(v)}K`} />
+        {/* Was `${formatNumber(v)}K` — a `K` appended to an already-formatted
+            number, so 25,000 rendered as "25,000K" and 1.5M as "1,500,000K". */}
+        <Tooltip labelKey="date" valueFormatter={formatCanonicalNumber} />
       </BarChart>
     </div>
   );
@@ -198,11 +205,15 @@ function InsightDistributionChart({
   );
 }
 
-function formatCompactTick(v: number) {
-  if (v >= 1_000_000) return `${Math.round(v / 1_000_000)}M`;
-  if (v >= 1_000) return `${Math.round(v / 1_000)}K`;
-  return String(v);
-}
+/**
+ * Axis tick label.
+ *
+ * Was a local compact-number formatter using `Math.round`, uppercase suffixes
+ * and no `b` tier — so `1500` rendered as `2K`, rounding *up* past the value it
+ * labels, and `1.5e9` rendered as `1500M`. Routed through the canonical helper
+ * instead, so overview axes now match the rest of the dashboard.
+ */
+const formatCompactTick = formatCanonicalNumber;
 
 function EmptyChart({ label }: { label: string }) {
   return (
