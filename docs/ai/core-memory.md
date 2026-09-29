@@ -485,3 +485,26 @@ Eleventh 2026-09-29 entry.
   - Left alone deliberately: four cards carry duplicated
     `rd-card p-[clamp(18px,2.2vw,26px)] p-[clamp(22px,2.6vw,30px)]` padding. It is obviously redundant CSS, but it is **in the rendered class attribute**, so "preserve rendering exactly" wins.
 - **The reachability guard has now fired on four separate occasions, each for a legitimate reason** (two test fixtures, one `test-fixtures.ts`, one `llm-timeline` fixture, one insights fixture). It is cheap, it names files precisely, and it has never been wrong about a *test-only* module. The standing instruction stands: **verify a flagged file is test-only before recording it**, and record the placement, because a fixture sitting in a production directory reads as a mistake otherwise.
+
+### 2026-09-29 (wave 12: five ways to round an hour, on one dashboard)
+
+Twelfth 2026-09-29 entry. The best bug in the whole body of work, and it came from looking for *formatting* inconsistency rather than duplication.
+
+- **The WakaTime dashboard had five different shapes of the same conversion, across ~12 call sites:**
+
+  | Form | Where |
+  | --- | --- |
+  | `Math.round((s / 3600) * 10) / 10` — 1 dp | `wakatime-utils` ×3 |
+  | `Math.round((s / 3600) * 100) / 100` — **2 dp** | `lib/hybrid-fetch` ×3 |
+  | `Math.round(totalHours * 10) / 10` after pre-dividing | `toMetrics` ×2 |
+  | `.toFixed(2)` → **string** → `Number.parseFloat` | activity series ×2 |
+  | `Math.round((x \|\| 0) * 100) / 100` — percent | breakdowns, languages ×2 |
+
+  **The 1 dp / 2 dp split is user-visible on one page.** `/wakatime` renders the stats-derived breakdown tiles (editors, operating systems, categories, machines) next to the hybrid activity chart's "Human Hours" and "AI Hours" series — so the same day could read `1.5` in one panel and `1.53` in the next. **Nothing caught it because every individual site was internally consistent**; the disagreement was only ever between sites.
+  - The `.toFixed(2)` form deserves its own note: it converts a number to a string and immediately parses it back, reaching two decimal places the long way. **A rounding helper nobody recognised as one.**
+  - All 15 sites now route through `app/wakatime/lib/units.ts`. Hours round to **one** dp — six of the nine hour sites already did, it is the coarser of the two, and a second decimal place is noise on a chart axis. Percentages stay at **two**, deliberately: they are compared and summed against each other, where 1 dp loses real distinctions between small shares. The first mutation below fails the suite on the exact divergence it documents.
+  - **Visible consequence, stated rather than buried:** the "Human Hours" / "AI Hours" series and the hybrid "AI Hours" tile previously rendered two decimals and now render one. That is the fix — the panels they sit next to always showed one.
+- **How the bug was found, which is the reusable part:** the previous wave had already consolidated a transport in these same files, so the remaining duplication was examined — and the interesting thing was not the duplication but that one of the *already-shared-looking* helpers disagreed with a private one. **"Same conversion, different precision" is a bug class that duplication-hunting finds and that reachability analysis never will.** It is worth grepping for a unit conversion in a new area before assuming the area is clean.
+- **The overview route's golden-render test had no explicit timeout** and runs in 4–5s, so the 5s Vitest default sat *on* the measurement. It failed intermittently under concurrent build load with a **timeout rather than an assertion** — the most misleading possible failure, because it reads as "the golden diverged" when nothing had. Budgeted explicitly at 60s.
+  - **A test whose runtime sits on the default timeout is a flaky test that will eventually be mistaken for a real regression.** Worth checking runtimes when a suite passes locally under no load and fails in CI.
+- **Reminder that paid off again:** when a lane reported a starting size, asking it to verify the number was worth it — the route brief's "~20 inline values" was stale, and acting on it would have meant re-doing finished work. Similarly, the KB lane's "output identical" claim needed the `graph-data.json` timestamp caveat spelled out before it could be trusted as stated.
