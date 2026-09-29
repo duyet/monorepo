@@ -1,4 +1,5 @@
 import type { Post } from "@duyet/interfaces";
+import { formatNumber } from "@duyet/libs";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { yearColor } from "@/lib/colors";
@@ -83,9 +84,7 @@ function PostList({
         {filteredPosts.map((post) => {
           const tokens =
             post.tokenCount || Math.round((post.readingTime ?? 1) * 200);
-          const tokenLabel = tokens >= 1000
-            ? `${(tokens / 1000).toFixed(1)}k`
-            : tokens;
+          const tokenLabel = formatNumber(tokens);
           const children = childrenByParent[post.slug];
           return (
             <div key={post.slug} className="contents">

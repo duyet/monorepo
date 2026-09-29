@@ -24,6 +24,7 @@
 
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
+import { formatNumber } from "@duyet/libs";
 import sharp from "sharp";
 
 // ---- config ---------------------------------------------------------------
@@ -224,7 +225,6 @@ async function update(): Promise<Cache> {
 
 // ---- chart generators -----------------------------------------------------
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-const kfmt = (v: number) => (v >= 1000 ? `${(v / 1000).toFixed(1)}k` : String(v));
 
 function niceStep(maxPerTick: number): number {
   return [500, 1000, 2000, 2500, 5000, 10000, 20000].find((c) => c >= maxPerTick) ?? 20000;
@@ -266,7 +266,7 @@ function shareCard(c: Cache, th: Theme): string {
   for (let gv = step; gv <= mx; gv += step) {
     const gy = BASE - gv * sc;
     p.push(`<line x1="${L}" y1="${gy.toFixed(1)}" x2="${R}" y2="${gy.toFixed(1)}" stroke="${th.ink}" stroke-opacity="0.10"/>`);
-    p.push(`<text x="${L - 6}" y="${(gy + 3).toFixed(1)}" font-family="${MONO}" font-size="10" fill="${th.sub}" text-anchor="end">${kfmt(gv)}</text>`);
+    p.push(`<text x="${L - 6}" y="${(gy + 3).toFixed(1)}" font-family="${MONO}" font-size="10" fill="${th.sub}" text-anchor="end">${formatNumber(gv)}</text>`);
   }
   p.push(`<line x1="${L}" y1="${BASE}" x2="${R}" y2="${BASE}" stroke="${th.ink}" stroke-opacity="0.25"/>`);
 

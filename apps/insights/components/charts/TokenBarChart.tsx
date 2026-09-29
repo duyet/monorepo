@@ -1,5 +1,6 @@
 "use client";
 
+import { formatNumber } from "@duyet/libs";
 import {
   Bar,
   CartesianGrid,
@@ -23,15 +24,6 @@ interface TokenBarChartProps {
   showInThousands?: boolean;
   /** Chart height in pixels */
   height?: number;
-}
-
-// Format large numbers with appropriate units (K, M, B)
-function formatYAxisLabel(value: number): string {
-  if (value === 0) return "0";
-  if (value >= 1000000000) return `${(value / 1000000000).toFixed(1)}B`;
-  if (value >= 1000000) return `${(value / 1000000).toFixed(1)}M`;
-  if (value >= 1000) return `${(value / 1000).toFixed(1)}K`;
-  return value.toString();
 }
 
 /**
@@ -83,7 +75,9 @@ export function TokenBarChart({
         <YAxis
           tickLine={false}
           axisLine={false}
-          tickFormatter={formatYAxisLabel}
+          // formatNumber already returns "0" below 1000, so the axis origin
+          // needs no call-site zero guard (the old local one was a no-op).
+          tickFormatter={formatNumber}
         />
         <ChartTooltip
           content={

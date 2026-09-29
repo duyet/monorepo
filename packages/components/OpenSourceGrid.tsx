@@ -1,3 +1,4 @@
+import { formatNumber } from "@duyet/libs";
 import { ExternalLink, Star } from "lucide-react";
 import { Badge } from "./ui/badge";
 
@@ -62,11 +63,6 @@ function languageColor(lang: string | null): string {
   return map[lang] ?? "bg-muted-foreground/40";
 }
 
-function formatStars(n: number): string {
-  if (n >= 1000) return `${(n / 1000).toFixed(1)}k`;
-  return String(n);
-}
-
 function RepoCell({ repo }: { repo: Repo }) {
   return (
     <a
@@ -81,7 +77,7 @@ function RepoCell({ repo }: { repo: Repo }) {
         </span>
         <span className="flex items-center gap-1 shrink-0 text-xs text-muted-foreground tabular-nums">
           <Star className="h-3 w-3" />
-          {formatStars(repo.stars)}
+          {formatNumber(repo.stars)}
         </span>
       </div>
 
@@ -131,8 +127,8 @@ export function OpenSourceGrid({ repos, user }: OpenSourceGridProps) {
             Public Repositories
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            {repos.length} public repositories · {formatStars(totalStars)} total
-            stars
+            {repos.length} public repositories · {formatNumber(totalStars)}{" "}
+            total stars
           </p>
         </div>
         <a

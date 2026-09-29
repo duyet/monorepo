@@ -1,3 +1,4 @@
+import { formatNumber } from "@duyet/libs";
 import {
   Brain,
   Calendar,
@@ -8,19 +9,6 @@ import {
 import { CompactMetric } from "@/components/ui/CompactMetric";
 import type { CCUsageMetricsData } from "./types";
 import { formatCurrency } from "./utils/formatting";
-
-function formatTokens(tokens: number): string {
-  if (tokens >= 1000000000) {
-    return `${(tokens / 1000000000).toFixed(1)}B`;
-  }
-  if (tokens >= 1000000) {
-    return `${(tokens / 1000000).toFixed(1)}M`;
-  }
-  if (tokens >= 1000) {
-    return `${(tokens / 1000).toFixed(1)}K`;
-  }
-  return tokens.toString();
-}
 
 export function CCUsageMetricsView({
   rawMetrics,
@@ -64,7 +52,7 @@ export function CCUsageMetricsView({
     <div className={`grid grid-cols-2 gap-4 lg:grid-cols-5 ${className || ""}`}>
       <CompactMetric
         label="Total Tokens"
-        value={formatTokens(metrics.totalTokens)}
+        value={formatNumber(metrics.totalTokens)}
         icon={<Database className="h-4 w-4" />}
       />
       <CompactMetric
