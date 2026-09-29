@@ -57,12 +57,21 @@ apps/data-sync/
 |--------|---------|-------------|------------------|
 | `wakatime` | `pnpm run sync wakatime` | Aggregate coding stats | `monorepo_wakatime` |
 | `wakatime-activity` | `pnpm run sync wakatime-activity` | Daily granular activity with AI breakdown | `monorepo_wakatime_activity` |
+| `wakatime-goals` | `pnpm run sync wakatime-goals` | Daily coding-goal attainment | `monorepo_wakatime_goals` |
+| `wakatime-projects` | `pnpm run sync wakatime-projects` | Per-project time totals | `monorepo_wakatime_projects` |
+| `wakatime-insights-best-day` | `pnpm run sync wakatime-insights-best-day` | Best coding day per range | `monorepo_wakatime_insights_best_day` |
+| `wakatime-insights-weekday` | `pnpm run sync wakatime-insights-weekday` | Weekday distribution per range | `monorepo_wakatime_insights_weekday` |
 | `cloudflare` | `pnpm run sync cloudflare` | Website analytics | `monorepo_cloudflare` |
 | `github` | `pnpm run sync github` | Repository statistics | `monorepo_github` |
 | `posthog` | `pnpm run sync posthog` | Product analytics | `monorepo_posthog` |
 | `unsplash` | `pnpm run sync unsplash` | Photo statistics | `monorepo_unsplash` |
 | `unsplash-photos` | `pnpm run sync unsplash-photos` | Individual photo data | `monorepo_unsplash_photos` |
-| `ai-code-percentage` | `pnpm run sync ai-code-percentage` | AI vs human code metrics | `monorepo_ai_code_percentage` |
+| `ai-code-percentage` | `pnpm run sync ai-code-percentage` | AI vs human code metrics | `github_commits_raw` (aggregated by `monorepo_ai_code_percentage_mv`) |
+
+The `ai-code-percentage` row is the one to read carefully: it writes **raw commit
+rows** to `github_commits_raw`, not to a table named after itself. Everything is
+derived from the materialized view, so a query against
+`monorepo_ai_code_percentage` reads a view, never the insert target.
 
 ## Development Commands
 
@@ -133,7 +142,16 @@ export const syncerMap: Record<string, SyncerConstructor> = {
 
 ### 3. Create Migration
 
-In `migrations/XXX_my_table.sql`:
+Every sync target table must declare `sync_version`, `is_deleted` and
+`synced_at` — `BaseSyncer.insert` stamps all three on every record, and
+ClickHouse's `input_format_skip_unknown_fields` defaults to 1, so a table missing
+them drops those columns **silently** and, without
+`ReplacingMergeTree(sync_version, is_deleted)`, re-running the sync appends a
+duplicate copy of every row. `src/lib/__tests__/sync-schema.test.ts` replays the
+migration files and fails if a syncer writes a column its table does not declare,
+so run it after adding a migration.
+
+In `migrations/NNN_my_table.sql`:
 
 ```sql
 CREATE TABLE IF NOT EXISTS monorepo_my_table (
@@ -147,6 +165,19 @@ ENGINE = ReplacingMergeTree(sync_version, is_deleted)
 ORDER BY id
 PARTITION BY toYYYYMM(synced_at);
 ```
+
+### Migration versioning
+
+The runner applies pending migrations in **ascending `@version:` order**, and
+`-- @version:` is the number, not the filename prefix. Two consequences worth
+knowing before adding one:
+
+- A `011_*.sql` file runs **before** `20250109_*.sql`, because 11 < 20250109.
+  If your change depends on a later migration's shape, its version number has to
+  be higher than that migration's.
+- Editing an already-applied migration file is detected by `pnpm run
+  migrate:verify` (the recorded `checksum` covers **both** the UP and the DOWN
+  sections). Add a new migration instead.
 
 ## WakaTime Activity Syncer
 
