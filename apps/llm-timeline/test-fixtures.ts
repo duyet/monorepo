@@ -1,28 +1,11 @@
 /**
- * Shared test fixtures for llm-timeline component tests
+ * Shared test fixtures for llm-timeline component tests.
+ *
+ * Only `filterInfoBaseProps` is still used — by `filter-info.test.tsx`.
+ * `testModel` and `testModel2` were used by `model-card.test.tsx`, which went with
+ * the unreachable `model-card.tsx`; they are removed rather than left as
+ * unreferenced fixtures that read as coverage.
  */
-
-export const testModel = {
-  name: "GPT-4",
-  date: "2023-03-14",
-  org: "OpenAI",
-  params: "1.8T",
-  type: "model" as const,
-  license: "closed" as const,
-  desc: "A large multimodal model",
-  source: "curated" as const,
-} as const;
-
-export const testModel2 = {
-  name: "Claude 2",
-  date: "2023-07-11",
-  org: "Anthropic",
-  params: null,
-  type: "model" as const,
-  license: "closed" as const,
-  desc: "A helpful assistant model",
-  source: "curated" as const,
-} as const;
 
 export const filterInfoBaseProps = {
   resultCount: 42,
