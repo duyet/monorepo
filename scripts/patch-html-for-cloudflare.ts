@@ -69,6 +69,41 @@ export function preferStaticFirstPaint(html: string): string {
   return out.replace(/<head([^>]*)>/i, `<head$1>${cleaned.join("")}`);
 }
 
+/**
+ * The full per-file transform: opt scripts out of Rocket Loader, reorder head
+ * assets, and inject the hydration retry.
+ *
+ * Extracted from the directory walk so it can be tested directly. The tests
+ * used to assert on this file's *source text* via `readFileSync(...).toContain`,
+ * which only checked that a minified substring existed somewhere in the file —
+ * it passed even if the injection were never applied to a real page.
+ */
+export function patchHtml(original: string): {
+  html: string;
+  scriptTags: number;
+  addedRetry: boolean;
+} {
+  let count = 0;
+  let updated = preferStaticFirstPaint(original).replace(SCRIPT_OPEN, () => {
+    count += 1;
+    return '<script data-cfasync="false"';
+  });
+
+  let addedRetry = false;
+  if (
+    (updated.includes("/assets/index-") ||
+      updated.includes("/static/index-") ||
+      updated.includes("/assets/main-")) &&
+    !updated.includes("cf-hydrate-retry") &&
+    updated.includes("</body>")
+  ) {
+    updated = updated.replace("</body>", `${HYDRATION_RETRY}</body>`);
+    addedRetry = true;
+  }
+
+  return { html: updated, scriptTags: count, addedRetry };
+}
+
 function patchHtmlFiles(dir: string) {
   for (const entry of readdirSync(dir)) {
     const filePath = join(dir, entry);
@@ -79,21 +114,9 @@ function patchHtmlFiles(dir: string) {
     if (!filePath.endsWith(".html")) continue;
 
     const original = readFileSync(filePath, "utf8");
-    let count = 0;
-    let updated = preferStaticFirstPaint(original).replace(SCRIPT_OPEN, () => {
-      count += 1;
-      return '<script data-cfasync="false"';
-    });
-    if (
-      (updated.includes("/assets/index-") ||
-        updated.includes("/static/index-") ||
-        updated.includes("/assets/main-")) &&
-      !updated.includes("cf-hydrate-retry") &&
-      updated.includes("</body>")
-    ) {
-      updated = updated.replace("</body>", `${HYDRATION_RETRY}</body>`);
-      retries += 1;
-    }
+    const { html: updated, scriptTags: count, addedRetry } = patchHtml(original);
+
+    if (addedRetry) retries += 1;
     if (count > 0 || updated !== original) {
       writeFileSync(filePath, updated);
       files += 1;
