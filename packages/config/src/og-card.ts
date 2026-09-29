@@ -115,6 +115,14 @@ function clamp(s: string, max: number): string {
   return `${s.slice(0, max - 1).trimEnd()}…`;
 }
 
+/** Rec. 709 luma, normalized to 0..1. */
+function lumaAt(px: Buffer, offset: number): number {
+  return (
+    (0.2126 * px[offset] + 0.7152 * px[offset + 1] + 0.0722 * px[offset + 2]) /
+    255
+  );
+}
+
 /**
  * Ordered-dither an image buffer into a standalone SVG using an embedded
  * low-resolution pixel matrix.
@@ -128,7 +136,7 @@ async function ditherToSvg(
   style: DitherStyle,
   theme: CardTheme,
   width: number,
-  height: number,
+  height: number
 ): Promise<string> {
   const sharp = (await import("sharp")).default;
 
@@ -152,15 +160,12 @@ async function ditherToSvg(
   const runs: Array<[number, number, number]> = [];
   for (let y = 0; y < h; y++) {
     let runStart = -1;
+    // `x <= w` walks one past the last column so a run flushes at row end.
     for (let x = 0; x <= w; x++) {
       const lit =
-        x < w && (() => {
-          const o = (y * w + x) * 3;
-          const luma =
-            (0.2126 * px[o] + 0.7152 * px[o + 1] + 0.0722 * px[o + 2]) / 255;
-          const g = Math.pow(Math.min(1, Math.max(0, luma)), gamma);
-          return g > BAYER_4X4[y & 3][x & 3] + bias;
-        })();
+        x < w &&
+        Math.min(1, Math.max(0, lumaAt(px, (y * w + x) * 3))) ** gamma >
+          BAYER_4X4[y & 3][x & 3] + bias;
       if (lit && runStart === -1) runStart = x;
       if (!lit && runStart !== -1) {
         runs.push([runStart, y, x - runStart]);
@@ -169,18 +174,15 @@ async function ditherToSvg(
     }
   }
 
+  // Above this luma a cell keeps the paper-colored ink instead of flipping to
+  // the accent, so light highlights read as holes rather than blobs.
+  const accentCutoff = mode === "invert" ? 0.78 : 0.72;
+
   const colorFor = (y: number, x: number): string => {
-    if (mode === "duotone") {
-      const o = (y * w + x) * 3;
-      const luma =
-        (0.2126 * px[o] + 0.7152 * px[o + 1] + 0.0722 * px[o + 2]) / 255;
-      return luma > 0.72 ? theme.ink : theme.accent;
-    }
-    if (mode === "invert") {
-      const o = (y * w + x) * 3;
-      const luma =
-        (0.2126 * px[o] + 0.7152 * px[o + 1] + 0.0722 * px[o + 2]) / 255;
-      return luma > 0.78 ? theme.ink : theme.accent;
+    if (mode === "duotone" || mode === "invert") {
+      return lumaAt(px, (y * w + x) * 3) > accentCutoff
+        ? theme.ink
+        : theme.accent;
     }
     return theme.ink;
   };
@@ -208,10 +210,29 @@ async function ditherToSvg(
  * table exists to prevent.
  */
 const SERIF_RATIO: Record<string, number> = {
-  " ": 0.26, i: 0.28, j: 0.3, l: 0.3, I: 0.34, t: 0.34, f: 0.36, r: 0.38,
-  ".": 0.28, ",": 0.28, "'": 0.22, "’": 0.22, ":": 0.3, ";": 0.3,
-  m: 0.86, w: 0.74, M: 0.9, W: 0.88,
-  "-": 0.36, "—": 0.9, "/": 0.4, "(": 0.36, ")": 0.36,
+  " ": 0.26,
+  i: 0.28,
+  j: 0.3,
+  l: 0.3,
+  I: 0.34,
+  t: 0.34,
+  f: 0.36,
+  r: 0.38,
+  ".": 0.28,
+  ",": 0.28,
+  "'": 0.22,
+  "’": 0.22,
+  ":": 0.3,
+  ";": 0.3,
+  m: 0.86,
+  w: 0.74,
+  M: 0.9,
+  W: 0.88,
+  "-": 0.36,
+  "—": 0.9,
+  "/": 0.4,
+  "(": 0.36,
+  ")": 0.36,
 };
 
 const DEFAULT_SERIF_RATIO = 0.52;
@@ -245,7 +266,7 @@ function fitText(
   maxWidth: number,
   startSize: number,
   maxLines: number,
-  measure: (t: string, size: number) => number,
+  measure: (t: string, size: number) => number
 ): { lines: string[]; size: number } {
   let size = startSize;
   let best: { lines: string[]; size: number } | undefined;
@@ -305,7 +326,7 @@ function fitText(
 export function cardToSvg(
   input: CardInput,
   options: RenderCardOptions = {},
-  ditherSvg?: string,
+  ditherSvg?: string
 ): string {
   const theme = { ...LIGHT_THEME, ...options.theme };
   const { panelWidth = 0.62, logoSvg } = options;
@@ -366,49 +387,47 @@ export function cardToSvg(
   // Dither background (full bleed) + solid type panel over its left portion.
   if (ditherSvg) {
     parts.push(
-      `<g>${ditherSvg
-        .replace(/^<svg[^>]*>/, "")
-        .replace(/<\/svg>$/, "")}</g>`,
+      `<g>${ditherSvg.replace(/^<svg[^>]*>/, "").replace(/<\/svg>$/, "")}</g>`
     );
     parts.push(
-      `<rect x="0" y="0" width="${panelW}" height="${OG_HEIGHT}" fill="${theme.paper}"/>`,
+      `<rect x="0" y="0" width="${panelW}" height="${OG_HEIGHT}" fill="${theme.paper}"/>`
     );
   } else {
     parts.push(
-      `<rect x="0" y="0" width="${OG_WIDTH}" height="${OG_HEIGHT}" fill="${theme.paper}"/>`,
+      `<rect x="0" y="0" width="${OG_WIDTH}" height="${OG_HEIGHT}" fill="${theme.paper}"/>`
     );
   }
 
   // Eyebrow.
   if (input.eyebrow) {
     parts.push(
-      `<text x="${pad}" y="${pad + 14}" font-family="${esc(theme.monoFont)}" font-size="17" letter-spacing="1.7" fill="${theme.muted}">${esc(clamp(input.eyebrow.toUpperCase(), 58))}</text>`,
+      `<text x="${pad}" y="${pad + 14}" font-family="${esc(theme.monoFont)}" font-size="17" letter-spacing="1.7" fill="${theme.muted}">${esc(clamp(input.eyebrow.toUpperCase(), 58))}</text>`
     );
   }
 
   // Title, serif display, tight leading.
   titleLines.forEach((line, i) => {
     parts.push(
-      `<text x="${pad}" y="${titleY + renderedTitleSize * (i + 0.82)}" font-family="${esc(theme.displayFont)}" font-size="${renderedTitleSize}" fill="${theme.ink}" letter-spacing="-1.2">${esc(line)}</text>`,
+      `<text x="${pad}" y="${titleY + renderedTitleSize * (i + 0.82)}" font-family="${esc(theme.displayFont)}" font-size="${renderedTitleSize}" fill="${theme.ink}" letter-spacing="-1.2">${esc(line)}</text>`
     );
   });
 
   // Description.
   descLines.forEach((line, i) => {
     parts.push(
-      `<text x="${pad}" y="${titleY + titleLines.length * renderedTitleSize * 1.06 + 24 + renderedDescSize * (i + 0.85)}" font-family="${esc(theme.sansFont)}" font-size="${renderedDescSize}" fill="${theme.muted}">${esc(line)}</text>`,
+      `<text x="${pad}" y="${titleY + titleLines.length * renderedTitleSize * 1.06 + 24 + renderedDescSize * (i + 0.85)}" font-family="${esc(theme.sansFont)}" font-size="${renderedDescSize}" fill="${theme.muted}">${esc(line)}</text>`
     );
   });
 
   // Accent hairline.
   parts.push(
-    `<rect x="${pad}" y="${accentRuleY}" width="72" height="5" rx="2.5" fill="${theme.accent}"/>`,
+    `<rect x="${pad}" y="${accentRuleY}" width="72" height="5" rx="2.5" fill="${theme.accent}"/>`
   );
 
   // Meta line (date · read time).
   if (input.meta) {
     parts.push(
-      `<text x="${pad}" y="${metaY}" font-family="${esc(theme.monoFont)}" font-size="18" fill="${theme.muted}">${esc(input.meta)}</text>`,
+      `<text x="${pad}" y="${metaY}" font-family="${esc(theme.monoFont)}" font-size="18" fill="${theme.muted}">${esc(input.meta)}</text>`
     );
   }
 
@@ -418,13 +437,13 @@ export function cardToSvg(
     parts.push(
       `<g transform="translate(${pad} ${footY - 26}) scale(0.41)">${logoSvg
         .replace(/^<svg[^>]*>/, "")
-        .replace(/<\/svg>$/, "")}</g>`,
+        .replace(/<\/svg>$/, "")}</g>`
     );
   }
   if (input.siteName) {
     const siteX = logoSvg ? pad + 40 : pad;
     parts.push(
-      `<text x="${siteX}" y="${footY - 6}" font-family="${esc(theme.monoFont)}" font-size="18" fill="${theme.muted}">${esc(input.siteName)}</text>`,
+      `<text x="${siteX}" y="${footY - 6}" font-family="${esc(theme.monoFont)}" font-size="18" fill="${theme.muted}">${esc(input.siteName)}</text>`
     );
   }
 
@@ -445,7 +464,7 @@ ${parts.join("\n")}
  */
 export async function loadCardImage(
   source: string,
-  opts: { timeoutMs?: number; retries?: number } = {},
+  opts: { timeoutMs?: number; retries?: number } = {}
 ): Promise<Buffer | undefined> {
   const { timeoutMs = 15_000, retries = 2 } = opts;
 
@@ -487,7 +506,7 @@ export async function loadCardImage(
 export async function renderOgCard(
   input: CardInput,
   outPath: string,
-  options: RenderCardOptions = {},
+  options: RenderCardOptions = {}
 ): Promise<{ path: string; usedImage: boolean }> {
   const sharp = (await import("sharp")).default;
   const style: DitherStyle = { ...DEFAULT_STYLE, ...options.style };
@@ -508,7 +527,7 @@ export async function renderOgCard(
           style,
           theme,
           meta.width ?? OG_WIDTH,
-          meta.height ?? OG_HEIGHT,
+          meta.height ?? OG_HEIGHT
         );
         usedImage = true;
       } catch {
@@ -533,7 +552,7 @@ export async function renderOgCard(
 /** Rasterize an SVG card to a PNG buffer (used by tests and previews). */
 export async function cardToPng(
   input: CardInput,
-  options: RenderCardOptions = {},
+  options: RenderCardOptions = {}
 ): Promise<Buffer> {
   const sharp = (await import("sharp")).default;
   const style: DitherStyle = { ...DEFAULT_STYLE, ...options.style };
@@ -551,7 +570,7 @@ export async function cardToPng(
         style,
         theme,
         meta.width ?? OG_WIDTH,
-        meta.height ?? OG_HEIGHT,
+        meta.height ?? OG_HEIGHT
       );
     }
   }
