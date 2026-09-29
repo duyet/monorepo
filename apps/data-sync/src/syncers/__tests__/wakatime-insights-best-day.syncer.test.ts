@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, vi, test } from "vitest";
+import { afterEach, beforeEach, describe, expect, vi, test } from "vitest";
 import type { ClickHouseClient } from "@clickhouse/client";
 import { WakaTimeInsightsBestDaySyncer } from "../wakatime-insights-best-day.syncer";
 
@@ -13,6 +13,10 @@ describe("WakaTimeInsightsBestDaySyncer", () => {
     } as unknown as ClickHouseClient;
   });
 
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
   test("should create syncer instance", () => {
     const syncer = new WakaTimeInsightsBestDaySyncer(mockClient);
     expect(syncer).toBeDefined();
@@ -23,30 +27,34 @@ describe("WakaTimeInsightsBestDaySyncer", () => {
     expect(syncer).toBeInstanceOf(WakaTimeInsightsBestDaySyncer);
   });
 
-  test("should throw error when WAKATIME_API_KEY is missing", async () => {
-    const originalKey = process.env.WAKATIME_API_KEY;
-    process.env.WAKATIME_API_KEY = undefined;
+  // `BaseSyncer.sync()` never rejects: it catches and reports through
+  // SyncResult.errors, so this asserts on the result rather than a throw.
+  test("should fail the sync without writing when WAKATIME_API_KEY is missing", async () => {
+    vi.stubEnv("WAKATIME_API_KEY", undefined);
 
     const syncer = new WakaTimeInsightsBestDaySyncer(mockClient);
+    const result = await syncer.sync({ dryRun: true });
 
-    try {
-      await syncer.sync({ dryRun: true });
-    } catch (error) {
-      expect(error instanceof Error).toBe(true);
-      expect((error as Error).message).toContain("WAKATIME_API_KEY");
-    }
-
-    if (originalKey) {
-      process.env.WAKATIME_API_KEY = originalKey;
-    }
+    expect(result.success).toBe(false);
+    expect(result.errors[0]?.message).toContain("WAKATIME_API_KEY");
+    expect(result.recordsInserted).toBe(0);
+    expect(mockClient.insert).not.toHaveBeenCalled();
   });
 
   test("should transform best day data into records correctly", async () => {
     const syncer = new WakaTimeInsightsBestDaySyncer(mockClient);
 
     const mockData = [
-      { range: "last_7_days" as const, date: "2026-05-20", total_seconds: 28800 },
-      { range: "last_year" as const, date: "2025-12-01", total_seconds: 43200.7 },
+      {
+        range: "last_7_days" as const,
+        date: "2026-05-20",
+        total_seconds: 28800,
+      },
+      {
+        range: "last_year" as const,
+        date: "2025-12-01",
+        total_seconds: 43200.7,
+      },
     ];
 
     const records = await (
@@ -69,7 +77,7 @@ describe("WakaTimeInsightsBestDaySyncer", () => {
   });
 
   test("should fetch all four ranges and produce one record per range", async () => {
-    process.env.WAKATIME_API_KEY = "test-key-best-day";
+    vi.stubEnv("WAKATIME_API_KEY", "test-key-best-day");
 
     const syncer = new WakaTimeInsightsBestDaySyncer(mockClient);
 
@@ -78,7 +86,8 @@ describe("WakaTimeInsightsBestDaySyncer", () => {
       json: () => Promise.resolve({ data: { date, total_seconds: seconds } }),
     });
 
-    const fetchSpy = vi.spyOn(global, "fetch")
+    const fetchSpy = vi
+      .spyOn(global, "fetch")
       .mockResolvedValueOnce(makeMockResponse("2026-05-24", 10000) as Response)
       .mockResolvedValueOnce(makeMockResponse("2026-04-15", 20000) as Response)
       .mockResolvedValueOnce(makeMockResponse("2025-09-10", 30000) as Response)
@@ -98,6 +107,5 @@ describe("WakaTimeInsightsBestDaySyncer", () => {
     expect(urls.some((u) => u.includes("all_time"))).toBe(true);
 
     fetchSpy.mockRestore();
-    delete process.env.WAKATIME_API_KEY;
   });
 });

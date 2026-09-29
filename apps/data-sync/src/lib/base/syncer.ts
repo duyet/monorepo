@@ -1,4 +1,5 @@
 import type { ClickHouseClient } from "@clickhouse/client";
+import { clickHouseDateTime } from "../clickhouse/format";
 import { createLogger } from "../logger";
 import type { SyncError, SyncOptions, SyncResult } from "./types";
 
@@ -125,9 +126,11 @@ export abstract class BaseSyncer<TApiResponse, TRecord> {
     let totalInserted = 0;
 
     // Add sync metadata to all records
-    // Use ClickHouse-compatible DateTime format: YYYY-MM-DD HH:MM:SS
+    // Use ClickHouse-compatible DateTime format: YYYY-MM-DD HH:MM:SS.
+    // Derived from the same `now` as sync_version so the two can never straddle
+    // a second boundary.
     const now = new Date();
-    const currentTimestamp = now.toISOString().slice(0, 19).replace("T", " ");
+    const currentTimestamp = clickHouseDateTime(now.toISOString());
     // sync_version as simple incrementing value (seconds since epoch fits in UInt32 until 2106)
     const syncVersion = Math.floor(now.getTime() / 1000);
     const recordsWithMetadata = records.map((record) => ({

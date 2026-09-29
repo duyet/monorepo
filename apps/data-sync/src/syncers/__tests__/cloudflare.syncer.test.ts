@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, vi, test } from "vitest";
+import { afterEach, beforeEach, describe, expect, vi, test } from "vitest";
 import type { ClickHouseClient } from "@clickhouse/client";
 import { CloudflareSyncer } from "../cloudflare.syncer";
 
@@ -13,6 +13,10 @@ describe("CloudflareSyncer", () => {
     } as unknown as ClickHouseClient;
   });
 
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
   test("should create syncer instance", () => {
     const syncer = new CloudflareSyncer(mockClient);
     expect(syncer).toBeDefined();
@@ -23,23 +27,19 @@ describe("CloudflareSyncer", () => {
     expect(syncer).toBeInstanceOf(CloudflareSyncer);
   });
 
-  test("should throw error when CLOUDFLARE credentials are missing", async () => {
-    const originalZoneId = process.env.CLOUDFLARE_ZONE_ID;
-    const originalApiKey = process.env.CLOUDFLARE_API_KEY;
-
-    process.env.CLOUDFLARE_ZONE_ID = undefined;
-    process.env.CLOUDFLARE_API_KEY = undefined;
+  // `BaseSyncer.sync()` never rejects: it catches and reports through
+  // SyncResult.errors, so this asserts on the result rather than a throw.
+  test("should fail the sync without writing when CLOUDFLARE credentials are missing", async () => {
+    vi.stubEnv("CLOUDFLARE_ZONE_ID", undefined);
+    vi.stubEnv("CLOUDFLARE_API_KEY", undefined);
+    vi.stubEnv("CLOUDFLARE_API_TOKEN", undefined);
 
     const syncer = new CloudflareSyncer(mockClient);
+    const result = await syncer.sync({ dryRun: true });
 
-    try {
-      await syncer.sync({ dryRun: true });
-    } catch (error) {
-      expect(error instanceof Error).toBe(true);
-      expect((error as Error).message).toContain("CLOUDFLARE");
-    }
-
-    if (originalZoneId) process.env.CLOUDFLARE_ZONE_ID = originalZoneId;
-    if (originalApiKey) process.env.CLOUDFLARE_API_KEY = originalApiKey;
+    expect(result.success).toBe(false);
+    expect(result.errors[0]?.message).toContain("CLOUDFLARE");
+    expect(result.recordsInserted).toBe(0);
+    expect(mockClient.insert).not.toHaveBeenCalled();
   });
 });

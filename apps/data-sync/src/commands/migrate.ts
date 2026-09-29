@@ -2,6 +2,7 @@
 import { join } from "node:path";
 import { logger } from "../lib";
 import { closeClient, MigrationRunner } from "../lib/clickhouse";
+import { isoDateOf } from "../lib/clickhouse/format";
 
 const MIGRATIONS_DIR = join(import.meta.dirname!, "../../migrations");
 
@@ -48,7 +49,7 @@ async function printStatus(runner: MigrationRunner) {
   if (status.applied.length > 0) {
     console.log(`\n${"Applied Migrations:".padEnd(60, "-")}`);
     for (const migration of status.applied) {
-      const date = new Date(migration.applied_at).toISOString().split("T")[0];
+      const date = isoDateOf(new Date(migration.applied_at));
       console.log(
         `  ${"\x1b[32m"}✓${"\x1b[0m"} v${migration.version.toString().padEnd(3)} ${migration.name.padEnd(30)} ${date}`
       );

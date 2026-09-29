@@ -12,19 +12,6 @@ import { WakaTimeProjectsSyncer } from "./wakatime-projects.syncer";
 import { WakaTimeInsightsBestDaySyncer } from "./wakatime-insights-best-day.syncer";
 import { WakaTimeInsightsWeekdaySyncer } from "./wakatime-insights-weekday.syncer";
 
-export { AICodePercentageSyncer } from "./ai-code-percentage.syncer";
-export { CloudflareSyncer } from "./cloudflare.syncer";
-export { GitHubSyncer } from "./github.syncer";
-export { PostHogSyncer } from "./posthog.syncer";
-export { UnsplashSyncer } from "./unsplash.syncer";
-export { UnsplashPhotosSyncer } from "./unsplash-photos.syncer";
-export { WakaTimeSyncer } from "./wakatime.syncer";
-export { WakaTimeActivitySyncer } from "./wakatime-activity.syncer";
-export { WakaTimeGoalsSyncer } from "./wakatime-goals.syncer";
-export { WakaTimeProjectsSyncer } from "./wakatime-projects.syncer";
-export { WakaTimeInsightsBestDaySyncer } from "./wakatime-insights-best-day.syncer";
-export { WakaTimeInsightsWeekdaySyncer } from "./wakatime-insights-weekday.syncer";
-
 export type SyncerConstructor = new (
   client: ClickHouseClient
 ) => {
@@ -45,5 +32,3 @@ export const syncerMap: Record<string, SyncerConstructor> = {
   posthog: PostHogSyncer,
   "ai-code-percentage": AICodePercentageSyncer,
 };
-
-export const ALL_SYNCERS = Object.keys(syncerMap);

@@ -2,6 +2,7 @@ import type { ClickHouseClient } from "@clickhouse/client";
 import { request } from "graphql-request";
 import { BaseSyncer } from "../lib/base";
 import type { SyncOptions } from "../lib/base/types";
+import { daysBefore, isoDateOf } from "../lib/clickhouse/format";
 
 interface CloudflareHttpRequest {
   date: {
@@ -196,13 +197,11 @@ export class CloudflareSyncer extends BaseSyncer<
     endDate: string;
   } {
     const endDate = options.endDate || new Date();
-    const startDate =
-      options.startDate ||
-      new Date(endDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const startDate = options.startDate || daysBefore(endDate, 7);
 
     return {
-      startDate: startDate.toISOString().split("T")[0],
-      endDate: endDate.toISOString().split("T")[0],
+      startDate: isoDateOf(startDate),
+      endDate: isoDateOf(endDate),
     };
   }
 
@@ -234,8 +233,8 @@ export class CloudflareSyncer extends BaseSyncer<
       }
 
       chunks.push({
-        start: currentStart.toISOString().split("T")[0],
-        end: currentEnd.toISOString().split("T")[0],
+        start: isoDateOf(currentStart),
+        end: isoDateOf(currentEnd),
       });
 
       currentStart = currentEnd;

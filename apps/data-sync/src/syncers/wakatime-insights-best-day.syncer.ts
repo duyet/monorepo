@@ -1,17 +1,13 @@
 import type { ClickHouseClient } from "@clickhouse/client";
 import { BaseSyncer } from "../lib/base";
 import type { SyncOptions } from "../lib/base/types";
-
-const WAKATIME_API_BASE_URL = "https://wakatime.com/api/v1";
-
-const RANGES = [
-  "last_7_days",
-  "last_30_days",
-  "last_year",
-  "all_time",
-] as const;
-
-type InsightRange = (typeof RANGES)[number];
+import {
+  fetchWakaTimeJson,
+  WAKA_TIME_INSIGHT_RANGES,
+  type WakaTimeInsightRange,
+  WAKA_TIME_INSIGHTS_STYLE,
+  wakaTimeApiUrl,
+} from "../lib/wakatime";
 
 interface BestDayData {
   date: string;
@@ -24,7 +20,7 @@ interface BestDayInsightResponse {
 
 // Internal envelope carries the range alongside the API response
 interface BestDayWithRange {
-  range: InsightRange;
+  range: WakaTimeInsightRange;
   date: string;
   total_seconds: number;
 }
@@ -59,31 +55,19 @@ export class WakaTimeInsightsBestDaySyncer extends BaseSyncer<
 
     const results: BestDayWithRange[] = [];
 
-    for (const range of RANGES) {
-      const url = `${WAKATIME_API_BASE_URL}/users/current/insights/best_day/${range}?api_key=${apiKey}`;
+    for (const range of WAKA_TIME_INSIGHT_RANGES) {
+      const url = wakaTimeApiUrl(
+        `/users/current/insights/best_day/${range}`,
+        apiKey
+      );
 
       try {
-        const response = await this.withRetry(async () => {
-          const res = await fetch(url, {
-            headers: { "User-Agent": "data-sync-app" },
-          });
-
-          if (!res.ok) {
-            if (res.status === 401) {
-              throw new Error(
-                "WakaTime API authentication failed: Invalid or expired API key"
-              );
-            }
-            if (res.status === 429) {
-              throw new Error("WakaTime API rate limit exceeded");
-            }
-            throw new Error(
-              `WakaTime API error: ${res.status} ${res.statusText}`
-            );
-          }
-
-          return res.json() as Promise<BestDayInsightResponse>;
-        });
+        const response = await this.withRetry(() =>
+          fetchWakaTimeJson<BestDayInsightResponse>(
+            url,
+            WAKA_TIME_INSIGHTS_STYLE
+          )
+        );
 
         if (response?.data?.date) {
           results.push({

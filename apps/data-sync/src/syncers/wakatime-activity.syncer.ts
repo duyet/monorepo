@@ -2,6 +2,13 @@ import type { ClickHouseClient } from "@clickhouse/client";
 import { wakatimeConfig } from "@duyet/config";
 import { BaseSyncer } from "../lib/base";
 import type { SyncOptions } from "../lib/base/types";
+import { daysBefore, daysBetween, isoDateOf } from "../lib/clickhouse/format";
+import {
+  fetchWakaTimeJson,
+  WAKA_TIME_ACTIVITY_STYLE,
+  wakaTimeApiUrl,
+  wakaTimeRangeForDays,
+} from "../lib/wakatime";
 
 /**
  * WakaTime Activity Syncer
@@ -76,40 +83,21 @@ export class WakaTimeActivitySyncer extends BaseSyncer<
 
     // Determine date range
     const endDate = options.endDate || new Date();
-    const startDate =
-      options.startDate ||
-      new Date(endDate.getTime() - 30 * 24 * 60 * 60 * 1000);
-
-    const daysDiff = Math.floor(
-      (endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)
-    );
+    const startDate = options.startDate || daysBefore(endDate, 30);
 
     // Choose appropriate range for the API
-    const range = this.determineRange(daysDiff);
+    const range = wakaTimeRangeForDays(daysBetween(startDate, endDate));
     this.logger.info(`Fetching WakaTime activity for range: ${range}`);
 
-    const endpoint = wakatimeConfig.endpoints.insights.days(range);
-    const separator = endpoint.includes("?") ? "&" : "?";
-    const url = `${wakatimeConfig.baseUrl}${endpoint}${separator}api_key=${this.apiKey}`;
+    const url = wakaTimeApiUrl(
+      wakatimeConfig.endpoints.insights.days(range),
+      this.apiKey
+    );
 
     try {
-      const response = await this.withRetry(async () => {
-        const res = await fetch(url, {
-          headers: { "User-Agent": "data-sync-app" },
-        });
-
-        if (!res.ok) {
-          if (res.status === 401) {
-            throw new Error("WakaTime API authentication failed");
-          }
-          if (res.status === 429) {
-            throw new Error("WakaTime API rate limit exceeded");
-          }
-          throw new Error(`WakaTime API error: ${res.status}`);
-        }
-
-        return res.json();
-      });
+      const response = await this.withRetry(() =>
+        fetchWakaTimeJson<InsightsResponse>(url, WAKA_TIME_ACTIVITY_STYLE)
+      );
 
       const data: InsightsResponse = response;
 
@@ -120,8 +108,8 @@ export class WakaTimeActivitySyncer extends BaseSyncer<
 
       // Filter by date range and dataStartYear
       const startYear = wakatimeConfig.dataStartYear;
-      const startDateStr = this.formatDate(startDate);
-      const endDateStr = this.formatDate(endDate);
+      const startDateStr = isoDateOf(startDate);
+      const endDateStr = isoDateOf(endDate);
 
       const filteredDays = data.data.days.filter((day) => {
         if (!day.date || day.total == null) return false;
@@ -203,8 +191,10 @@ export class WakaTimeActivitySyncer extends BaseSyncer<
     const MAX_ERRORS = 3;
 
     for (const date of dates) {
-      const endpoint = wakatimeConfig.endpoints.durations(date);
-      const url = `${wakatimeConfig.baseUrl}${endpoint}&api_key=${this.apiKey}`;
+      const url = wakaTimeApiUrl(
+        wakatimeConfig.endpoints.durations(date),
+        this.apiKey
+      );
 
       try {
         const res = await fetch(url, {
@@ -276,23 +266,5 @@ export class WakaTimeActivitySyncer extends BaseSyncer<
     const cutoff = new Date();
     cutoff.setDate(cutoff.getDate() - days);
     return date >= cutoff;
-  }
-
-  /**
-   * Format date to YYYY-MM-DD
-   */
-  private formatDate(date: Date): string {
-    return date.toISOString().split("T")[0];
-  }
-
-  /**
-   * Determine WakaTime range based on days
-   */
-  private determineRange(days: number): string {
-    if (days <= 7) return wakatimeConfig.ranges.last_7_days;
-    if (days <= 30) return wakatimeConfig.ranges.last_30_days;
-    if (days <= 180) return wakatimeConfig.ranges.last_6_months;
-    if (days <= 365) return wakatimeConfig.ranges.last_year;
-    return wakatimeConfig.ranges.all_time;
   }
 }

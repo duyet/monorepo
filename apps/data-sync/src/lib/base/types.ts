@@ -22,11 +22,4 @@ export interface SyncOptions {
   startDate?: Date;
   endDate?: Date;
   retryCount?: number;
-  batchSize?: number;
-}
-
-export interface SyncMetadata {
-  sync_version: number;
-  is_deleted: number;
-  synced_at: string;
 }

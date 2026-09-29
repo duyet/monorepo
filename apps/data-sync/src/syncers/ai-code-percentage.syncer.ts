@@ -1,6 +1,7 @@
 import type { ClickHouseClient } from "@clickhouse/client";
 import { BaseSyncer } from "../lib/base";
 import type { SyncOptions } from "../lib/base/types";
+import { isoDateOf } from "../lib/clickhouse/format";
 
 interface GitHubCommit {
   repo: string;
@@ -342,33 +343,9 @@ export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord> {
 
     try {
       do {
-        const response = await this.withRetry(async () => {
-          const headers: Record<string, string> = {
-            "Content-Type": "application/json",
-            "User-Agent": "data-sync-app",
-          };
-
-          if (token) {
-            headers.Authorization = `Bearer ${token}`;
-          }
-
-          const res = await fetch(GITHUB_GRAPHQL_URL, {
-            method: "POST",
-            headers,
-            body: JSON.stringify({
-              query: reposQuery,
-              variables: { login: owner, after },
-            }),
-          });
-
-          if (!res.ok) {
-            throw new Error(
-              `GitHub API error: ${res.status} ${res.statusText}`
-            );
-          }
-
-          return res.json();
-        });
+        const response = await this.withRetry(() =>
+          this.graphqlRequest(token, reposQuery, { login: owner, after })
+        );
 
         const repoNodes = response.data?.user?.repositories?.edges || [];
 
@@ -392,6 +369,38 @@ export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord> {
     return repos;
   }
 
+  /**
+   * Single GitHub GraphQL transport shared by every query in this syncer:
+   * identical headers, identical non-OK handling. Retry policy is the
+   * caller's (`this.withRetry`), so attempt counts are unchanged.
+   */
+  private async graphqlRequest(
+    token: string,
+    query: string,
+    variables: Record<string, unknown>
+  ): Promise<any> {
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+      "User-Agent": "data-sync-app",
+    };
+
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+
+    const res = await fetch(GITHUB_GRAPHQL_URL, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({ query, variables }),
+    });
+
+    if (!res.ok) {
+      throw new Error(`GitHub API error: ${res.status} ${res.statusText}`);
+    }
+
+    return res.json();
+  }
+
   private async fetchAllCommits(
     token: string,
     repoName: string,
@@ -405,36 +414,14 @@ export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord> {
     const currentOwner = owner || this.owners[0];
 
     do {
-      const response = await this.withRetry(async () => {
-        const headers: Record<string, string> = {
-          "Content-Type": "application/json",
-          "User-Agent": "data-sync-app",
-        };
-
-        if (token) {
-          headers.Authorization = `Bearer ${token}`;
-        }
-
-        const res = await fetch(GITHUB_GRAPHQL_URL, {
-          method: "POST",
-          headers,
-          body: JSON.stringify({
-            query: REPO_COMMIT_QUERY,
-            variables: {
-              owner: currentOwner,
-              name: repoName,
-              after,
-              since,
-            },
-          }),
-        });
-
-        if (!res.ok) {
-          throw new Error(`GitHub API error: ${res.status} ${res.statusText}`);
-        }
-
-        return res.json();
-      });
+      const response = await this.withRetry(() =>
+        this.graphqlRequest(token, REPO_COMMIT_QUERY, {
+          owner: currentOwner,
+          name: repoName,
+          after,
+          since,
+        })
+      );
 
       const edges =
         response.data?.repository?.defaultBranchRef?.target?.history?.edges ||
@@ -524,7 +511,7 @@ export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord> {
         });
 
         records.push({
-          date: new Date(commit.committedDate).toISOString().split("T")[0],
+          date: isoDateOf(new Date(commit.committedDate)),
           repo: edge._repo || "unknown", // Use repo name from edge
           repo_owner: repoOwner,
           repo_url: repoUrl,
@@ -559,20 +546,5 @@ export class AICodePercentageSyncer extends BaseSyncer<any, RawCommitRecord> {
     this.logger.info(`Transformed ${records.length} commit records`);
 
     return records;
-  }
-
-  protected async getBatchRecords(
-    records: RawCommitRecord[],
-    _options: SyncOptions
-  ): Promise<RawCommitRecord[][]> {
-    // Split into batches of 1000 records for efficient insertion
-    const batchSize = 1000;
-    const batches: RawCommitRecord[][] = [];
-
-    for (let i = 0; i < records.length; i += batchSize) {
-      batches.push(records.slice(i, i + batchSize));
-    }
-
-    return batches;
   }
 }

@@ -1,8 +1,8 @@
 import type { ClickHouseClient } from "@clickhouse/client";
 import { BaseSyncer } from "../lib/base";
 import type { SyncOptions } from "../lib/base/types";
-
-const WAKATIME_API_BASE_URL = "https://wakatime.com/api/v1";
+import { clickHouseDateTime, clickHouseNow } from "../lib/clickhouse/format";
+import { fetchWakaTimeJson, wakaTimeApiUrl } from "../lib/wakatime";
 
 interface WakaTimeProjectUrls {
   main?: string;
@@ -58,45 +58,20 @@ export class WakaTimeProjectsSyncer extends BaseSyncer<
       throw new Error("WAKATIME_API_KEY environment variable not set");
     }
 
-    const url = `${WAKATIME_API_BASE_URL}/users/current/projects?api_key=${apiKey}`;
+    const url = wakaTimeApiUrl("/users/current/projects", apiKey);
 
     this.logger.info("Fetching WakaTime projects");
 
     try {
-      const response = await this.withRetry(async () => {
-        const res = await fetch(url, {
-          headers: { "User-Agent": "data-sync-app" },
-        });
+      const response = await this.withRetry(() =>
+        fetchWakaTimeJson<WakaTimeProjectsResponse>(url)
+      );
 
-        if (!res.ok) {
-          if (res.status === 401) {
-            throw new Error(
-              "WakaTime API authentication failed: Invalid or expired API key"
-            );
-          }
-          if (res.status === 403) {
-            throw new Error(
-              "WakaTime API access forbidden - check permissions"
-            );
-          }
-          if (res.status === 429) {
-            throw new Error("WakaTime API rate limit exceeded");
-          }
-          throw new Error(
-            `WakaTime API error: ${res.status} ${res.statusText}`
-          );
-        }
-
-        const data: WakaTimeProjectsResponse = await res.json();
-
-        if (!data || !Array.isArray(data.data)) {
-          throw new Error(
-            "WakaTime projects API returned invalid response format"
-          );
-        }
-
-        return data;
-      });
+      if (!response || !Array.isArray(response.data)) {
+        throw new Error(
+          "WakaTime projects API returned invalid response format"
+        );
+      }
 
       this.logger.info(`Retrieved ${response.data.length} projects`);
       return response.data;
@@ -111,10 +86,7 @@ export class WakaTimeProjectsSyncer extends BaseSyncer<
   protected async transform(
     data: WakaTimeProjectItem[]
   ): Promise<WakaTimeProjectRecord[]> {
-    const fallbackTimestamp = new Date()
-      .toISOString()
-      .slice(0, 19)
-      .replace("T", " ");
+    const fallbackTimestamp = clickHouseNow();
 
     return data.map((project) => {
       // Normalise urls: prefer the dedicated urls object, fall back to top-level fields
@@ -128,13 +100,13 @@ export class WakaTimeProjectsSyncer extends BaseSyncer<
         name: project.name ?? "",
         repository: project.repository ?? "",
         last_heartbeat_at: project.last_heartbeat_at
-          ? project.last_heartbeat_at.slice(0, 19).replace("T", " ")
+          ? clickHouseDateTime(project.last_heartbeat_at)
           : fallbackTimestamp,
         has_public_url: project.has_public_url ? 1 : 0,
         urls: JSON.stringify(urlsObj),
         languages: JSON.stringify(project.languages ?? []),
         created_at: project.created_at
-          ? project.created_at.slice(0, 19).replace("T", " ")
+          ? clickHouseDateTime(project.created_at)
           : fallbackTimestamp,
       };
     });

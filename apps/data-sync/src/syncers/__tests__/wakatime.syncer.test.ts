@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, vi, test } from "vitest";
+import { afterEach, beforeEach, describe, expect, vi, test } from "vitest";
 import type { ClickHouseClient } from "@clickhouse/client";
 import { WakaTimeSyncer } from "../wakatime.syncer";
 
@@ -13,6 +13,10 @@ describe("WakaTimeSyncer", () => {
     } as unknown as ClickHouseClient;
   });
 
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
   test("should create syncer instance", () => {
     const syncer = new WakaTimeSyncer(mockClient);
     expect(syncer).toBeDefined();
@@ -23,21 +27,17 @@ describe("WakaTimeSyncer", () => {
     expect(syncer).toBeInstanceOf(WakaTimeSyncer);
   });
 
-  test("should throw error when WAKATIME_API_KEY is missing", async () => {
-    const originalKey = process.env.WAKATIME_API_KEY;
-    process.env.WAKATIME_API_KEY = undefined;
+  // `BaseSyncer.sync()` never rejects: it catches and reports through
+  // SyncResult.errors, so this asserts on the result rather than a throw.
+  test("should fail the sync without writing when WAKATIME_API_KEY is missing", async () => {
+    vi.stubEnv("WAKATIME_API_KEY", undefined);
 
     const syncer = new WakaTimeSyncer(mockClient);
+    const result = await syncer.sync({ dryRun: true });
 
-    try {
-      await syncer.sync({ dryRun: true });
-    } catch (error) {
-      expect(error instanceof Error).toBe(true);
-      expect((error as Error).message).toContain("WAKATIME_API_KEY");
-    }
-
-    if (originalKey) {
-      process.env.WAKATIME_API_KEY = originalKey;
-    }
+    expect(result.success).toBe(false);
+    expect(result.errors[0]?.message).toContain("WAKATIME_API_KEY");
+    expect(result.recordsInserted).toBe(0);
+    expect(mockClient.insert).not.toHaveBeenCalled();
   });
 });

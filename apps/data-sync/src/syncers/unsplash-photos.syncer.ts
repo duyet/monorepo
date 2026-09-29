@@ -1,6 +1,7 @@
 import type { ClickHouseClient } from "@clickhouse/client";
 import { BaseSyncer } from "../lib/base";
 import type { SyncOptions } from "../lib/base/types";
+import { clickHouseDateTime } from "../lib/clickhouse/format";
 
 /**
  * Full Unsplash API response types (complete photo metadata)
@@ -356,7 +357,7 @@ export class UnsplashPhotosSyncer extends BaseSyncer<
 
     // Add sync metadata
     const now = new Date();
-    const currentTimestamp = now.toISOString().slice(0, 19).replace("T", " ");
+    const currentTimestamp = clickHouseDateTime(now.toISOString());
     const syncVersion = Math.floor(now.getTime() / 1000);
 
     // Get ClickHouse connection info from environment

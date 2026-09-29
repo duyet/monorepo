@@ -1,5 +1,6 @@
 import type { RetentionPolicy as ConfigRetentionPolicy } from "../../config/retention.config";
 import { executeQuery } from "./client";
+import { isoDateOf } from "./format";
 
 /**
  * Retention policy interface
@@ -47,7 +48,7 @@ async function countExpiredRecords(policy: RetentionPolicy): Promise<number> {
   const query = `
     SELECT count() as count
     FROM ${policy.table}
-    WHERE ${dateColumn} < '${cutoffDate.toISOString().split("T")[0]}'
+    WHERE ${dateColumn} < '${isoDateOf(cutoffDate)}'
     ${conditions}
   `;
 
@@ -85,7 +86,7 @@ async function deleteExpiredRecords(
 
   const query = `
     ALTER TABLE ${policy.table}
-    DELETE WHERE ${dateColumn} < '${cutoffDate.toISOString().split("T")[0]}'
+    DELETE WHERE ${dateColumn} < '${isoDateOf(cutoffDate)}'
     ${conditions}
   `;
 

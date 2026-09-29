@@ -2,6 +2,7 @@
 import { ALL_SOURCES, sourceConfigs } from "../config";
 import { logger } from "../lib";
 import { closeClient, getClient } from "../lib/clickhouse";
+import { daysBefore } from "../lib/clickhouse/format";
 import { getTableStatus, writeJobSummary } from "../lib/github-summary";
 import { syncerMap } from "../syncers";
 
@@ -51,7 +52,7 @@ async function main() {
       process.exit(1);
     }
     endDate = endDate || new Date();
-    startDate = new Date(endDate.getTime() - days * 24 * 60 * 60 * 1000);
+    startDate = daysBefore(endDate, days);
     logger.info(`Backfill mode: fetching ${days} days of data`);
   }
 

@@ -1,22 +1,13 @@
 import type { ClickHouseClient } from "@clickhouse/client";
+import { wakatimeConfig } from "@duyet/config";
 import { BaseSyncer } from "../lib/base";
 import type { SyncOptions } from "../lib/base/types";
-
-const WAKATIME_API_BASE_URL = "https://wakatime.com/api/v1";
-
-const wakatimeConfig = {
-  baseUrl: WAKATIME_API_BASE_URL,
-  endpoints: {
-    stats: (range: string) => `/users/current/stats/${range}`,
-  },
-  ranges: {
-    last_7_days: "last_7_days",
-    last_30_days: "last_30_days",
-    last_6_months: "last_6_months",
-    last_year: "last_year",
-    all_time: "all_time",
-  },
-};
+import { daysBefore, daysBetween, isoDate } from "../lib/clickhouse/format";
+import {
+  fetchWakaTimeJson,
+  wakaTimeApiUrl,
+  wakaTimeRangeForDays,
+} from "../lib/wakatime";
 
 interface WakaTimeCategory {
   name: string;
@@ -124,45 +115,16 @@ export class WakaTimeSyncer extends BaseSyncer<
     const range = this.determineRange(options);
     this.logger.info(`Fetching WakaTime stats for range: ${range}`);
 
-    const endpoint = wakatimeConfig.endpoints.stats(range);
-    const separator = endpoint.includes("?") ? "&" : "?";
-    const url = `${wakatimeConfig.baseUrl}${endpoint}${separator}api_key=${apiKey}`;
+    const url = wakaTimeApiUrl(wakatimeConfig.endpoints.stats(range), apiKey);
 
     try {
-      const response = await this.withRetry(async () => {
-        const res = await fetch(url, {
-          headers: {
-            "User-Agent": "data-sync-app",
-          },
-        });
+      const response = await this.withRetry(() =>
+        fetchWakaTimeJson<WakaTimeStatsResponse>(url)
+      );
 
-        if (!res.ok) {
-          if (res.status === 401) {
-            throw new Error(
-              "WakaTime API authentication failed: Invalid or expired API key"
-            );
-          }
-          if (res.status === 403) {
-            throw new Error(
-              "WakaTime API access forbidden - check permissions"
-            );
-          }
-          if (res.status === 429) {
-            throw new Error("WakaTime API rate limit exceeded");
-          }
-          throw new Error(
-            `WakaTime API error: ${res.status} ${res.statusText}`
-          );
-        }
-
-        const data = await res.json();
-
-        if (!data || typeof data !== "object" || !data.data) {
-          throw new Error("WakaTime API returned invalid response format");
-        }
-
-        return data;
-      });
+      if (!response || typeof response !== "object" || !response.data) {
+        throw new Error("WakaTime API returned invalid response format");
+      }
 
       return [response];
     } catch (error) {
@@ -180,7 +142,7 @@ export class WakaTimeSyncer extends BaseSyncer<
       const { data: statsData } = response;
 
       // Use end date as the record date (end is top-level in data, not nested under range)
-      const date = statsData.end.split("T")[0];
+      const date = isoDate(statsData.end);
 
       return {
         date,
@@ -210,20 +172,12 @@ export class WakaTimeSyncer extends BaseSyncer<
     // If date range specified, use appropriate range
     if (options.startDate || options.endDate) {
       const now = new Date();
-      const start =
-        options.startDate || new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-      const daysDiff = Math.floor(
-        (now.getTime() - start.getTime()) / (24 * 60 * 60 * 1000)
-      );
+      const start = options.startDate || daysBefore(now, 7);
 
-      if (daysDiff <= 7) return wakatimeConfig.ranges.last_7_days;
-      if (daysDiff <= 30) return wakatimeConfig.ranges.last_30_days;
-      if (daysDiff <= 180) return wakatimeConfig.ranges.last_6_months;
-      if (daysDiff <= 365) return wakatimeConfig.ranges.last_year;
-      return wakatimeConfig.ranges.all_time;
+      return wakaTimeRangeForDays(daysBetween(start, now));
     }
 
     // Default to last 7 days for frequent syncing
-    return wakatimeConfig.ranges.last_7_days;
+    return wakaTimeRangeForDays(7);
   }
 }

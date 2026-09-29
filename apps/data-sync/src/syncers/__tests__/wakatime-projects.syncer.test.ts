@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, vi, test } from "vitest";
+import { afterEach, beforeEach, describe, expect, vi, test } from "vitest";
 import type { ClickHouseClient } from "@clickhouse/client";
 import { WakaTimeProjectsSyncer } from "../wakatime-projects.syncer";
 
@@ -13,6 +13,10 @@ describe("WakaTimeProjectsSyncer", () => {
     } as unknown as ClickHouseClient;
   });
 
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
   test("should create syncer instance", () => {
     const syncer = new WakaTimeProjectsSyncer(mockClient);
     expect(syncer).toBeDefined();
@@ -23,22 +27,18 @@ describe("WakaTimeProjectsSyncer", () => {
     expect(syncer).toBeInstanceOf(WakaTimeProjectsSyncer);
   });
 
-  test("should throw error when WAKATIME_API_KEY is missing", async () => {
-    const originalKey = process.env.WAKATIME_API_KEY;
-    process.env.WAKATIME_API_KEY = undefined;
+  // `BaseSyncer.sync()` never rejects: it catches and reports through
+  // SyncResult.errors, so this asserts on the result rather than a throw.
+  test("should fail the sync without writing when WAKATIME_API_KEY is missing", async () => {
+    vi.stubEnv("WAKATIME_API_KEY", undefined);
 
     const syncer = new WakaTimeProjectsSyncer(mockClient);
+    const result = await syncer.sync({ dryRun: true });
 
-    try {
-      await syncer.sync({ dryRun: true });
-    } catch (error) {
-      expect(error instanceof Error).toBe(true);
-      expect((error as Error).message).toContain("WAKATIME_API_KEY");
-    }
-
-    if (originalKey) {
-      process.env.WAKATIME_API_KEY = originalKey;
-    }
+    expect(result.success).toBe(false);
+    expect(result.errors[0]?.message).toContain("WAKATIME_API_KEY");
+    expect(result.recordsInserted).toBe(0);
+    expect(mockClient.insert).not.toHaveBeenCalled();
   });
 
   test("should transform projects into records correctly", async () => {
@@ -60,7 +60,7 @@ describe("WakaTimeProjectsSyncer", () => {
 
     const records = await (
       syncer as unknown as {
-        transform: (data: typeof mockProject[]) => Promise<unknown[]>;
+        transform: (data: (typeof mockProject)[]) => Promise<unknown[]>;
       }
     ).transform([mockProject]);
 
@@ -88,7 +88,7 @@ describe("WakaTimeProjectsSyncer", () => {
 
     const records = await (
       syncer as unknown as {
-        transform: (data: typeof mockProject[]) => Promise<unknown[]>;
+        transform: (data: (typeof mockProject)[]) => Promise<unknown[]>;
       }
     ).transform([mockProject]);
 
@@ -112,7 +112,7 @@ describe("WakaTimeProjectsSyncer", () => {
 
     const records = await (
       syncer as unknown as {
-        transform: (data: typeof mockProject[]) => Promise<unknown[]>;
+        transform: (data: (typeof mockProject)[]) => Promise<unknown[]>;
       }
     ).transform([mockProject]);
 
@@ -122,7 +122,7 @@ describe("WakaTimeProjectsSyncer", () => {
   });
 
   test("should fetch projects with correct API URL", async () => {
-    process.env.WAKATIME_API_KEY = "test-key-456";
+    vi.stubEnv("WAKATIME_API_KEY", "test-key-456");
 
     const syncer = new WakaTimeProjectsSyncer(mockClient);
 
@@ -152,6 +152,5 @@ describe("WakaTimeProjectsSyncer", () => {
     expect(fetchedUrl).toContain("api_key=test-key-456");
 
     fetchSpy.mockRestore();
-    delete process.env.WAKATIME_API_KEY;
   });
 });

@@ -1,6 +1,7 @@
 import type { ClickHouseClient } from "@clickhouse/client";
 import { BaseSyncer } from "../lib/base";
 import type { SyncOptions } from "../lib/base/types";
+import { daysBefore, daysBetween, isoDate } from "../lib/clickhouse/format";
 
 interface PostHogEvent {
   uuid: string;
@@ -177,7 +178,7 @@ export class PostHogSyncer extends BaseSyncer<
         }
 
         // Extract date from timestamp
-        const eventDate = event.timestamp.split("T")[0];
+        const eventDate = isoDate(event.timestamp);
 
         // Create key for aggregation
         const key = `${eventDate}:${path}`;
@@ -227,24 +228,18 @@ export class PostHogSyncer extends BaseSyncer<
     endDate: string;
   } {
     const endDate = options.endDate || new Date();
-    const startDate =
-      options.startDate ||
-      new Date(endDate.getTime() - 30 * 24 * 60 * 60 * 1000); // Default 30 days
+    const startDate = options.startDate || daysBefore(endDate, 30); // Default 30 days
 
     // PostHog Events API has recommended date range limits
     const maxDaysPerRequest = 7; // Use 7 days to avoid timeouts
-    const daysDiff = Math.floor(
-      (endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)
-    );
+    const daysDiff = daysBetween(startDate, endDate);
 
     let actualStartDate = startDate;
     if (daysDiff > maxDaysPerRequest) {
       this.logger.warn(
         `Requested ${daysDiff} days but limiting to ${maxDaysPerRequest} days for Events API`
       );
-      actualStartDate = new Date(
-        endDate.getTime() - maxDaysPerRequest * 24 * 60 * 60 * 1000
-      );
+      actualStartDate = daysBefore(endDate, maxDaysPerRequest);
     }
 
     // Convert to ISO format for Events API (needs full timestamp)

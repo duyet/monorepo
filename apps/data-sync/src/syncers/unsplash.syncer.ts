@@ -1,6 +1,7 @@
 import type { ClickHouseClient } from "@clickhouse/client";
 import { BaseSyncer } from "../lib/base";
 import type { SyncOptions } from "../lib/base/types";
+import { isoDateOf } from "../lib/clickhouse/format";
 
 interface UnsplashPhoto {
   id: string;
@@ -163,7 +164,7 @@ export class UnsplashSyncer extends BaseSyncer<
   protected async transform(
     data: UnsplashResponse[]
   ): Promise<UnsplashPhotoRecord[]> {
-    const snapshotDate = new Date().toISOString().split("T")[0];
+    const snapshotDate = isoDateOf(new Date());
     const records: UnsplashPhotoRecord[] = [];
 
     for (const response of data) {

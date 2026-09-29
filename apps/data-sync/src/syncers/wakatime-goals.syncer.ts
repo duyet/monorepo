@@ -1,8 +1,8 @@
 import type { ClickHouseClient } from "@clickhouse/client";
 import { BaseSyncer } from "../lib/base";
 import type { SyncOptions } from "../lib/base/types";
-
-const WAKATIME_API_BASE_URL = "https://wakatime.com/api/v1";
+import { clickHouseDateTime, clickHouseNow } from "../lib/clickhouse/format";
+import { fetchWakaTimeJson, wakaTimeApiUrl } from "../lib/wakatime";
 
 interface WakaTimeGoal {
   id: string;
@@ -46,51 +46,24 @@ export class WakaTimeGoalsSyncer extends BaseSyncer<
     return "monorepo_wakatime_goals";
   }
 
-  protected async fetchFromApi(
-    _options: SyncOptions
-  ): Promise<WakaTimeGoal[]> {
+  protected async fetchFromApi(_options: SyncOptions): Promise<WakaTimeGoal[]> {
     const apiKey = process.env.WAKATIME_API_KEY;
     if (!apiKey) {
       throw new Error("WAKATIME_API_KEY environment variable not set");
     }
 
-    const url = `${WAKATIME_API_BASE_URL}/users/current/goals?api_key=${apiKey}`;
+    const url = wakaTimeApiUrl("/users/current/goals", apiKey);
 
     this.logger.info("Fetching WakaTime goals");
 
     try {
-      const response = await this.withRetry(async () => {
-        const res = await fetch(url, {
-          headers: { "User-Agent": "data-sync-app" },
-        });
+      const response = await this.withRetry(() =>
+        fetchWakaTimeJson<WakaTimeGoalsResponse>(url)
+      );
 
-        if (!res.ok) {
-          if (res.status === 401) {
-            throw new Error(
-              "WakaTime API authentication failed: Invalid or expired API key"
-            );
-          }
-          if (res.status === 403) {
-            throw new Error(
-              "WakaTime API access forbidden - check permissions"
-            );
-          }
-          if (res.status === 429) {
-            throw new Error("WakaTime API rate limit exceeded");
-          }
-          throw new Error(
-            `WakaTime API error: ${res.status} ${res.statusText}`
-          );
-        }
-
-        const data: WakaTimeGoalsResponse = await res.json();
-
-        if (!data || !Array.isArray(data.data)) {
-          throw new Error("WakaTime goals API returned invalid response format");
-        }
-
-        return data;
-      });
+      if (!response || !Array.isArray(response.data)) {
+        throw new Error("WakaTime goals API returned invalid response format");
+      }
 
       this.logger.info(`Retrieved ${response.data.length} goals`);
       return response.data;
@@ -116,8 +89,8 @@ export class WakaTimeGoalsSyncer extends BaseSyncer<
       range_text: goal.range_text ?? "",
       snoozed: goal.snoozed ? 1 : 0,
       modified_at: goal.modified_at
-        ? goal.modified_at.slice(0, 19).replace("T", " ")
-        : new Date().toISOString().slice(0, 19).replace("T", " "),
+        ? clickHouseDateTime(goal.modified_at)
+        : clickHouseNow(),
     }));
   }
 }

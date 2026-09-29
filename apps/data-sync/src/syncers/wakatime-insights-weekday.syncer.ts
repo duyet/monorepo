@@ -1,21 +1,17 @@
 import type { ClickHouseClient } from "@clickhouse/client";
 import { BaseSyncer } from "../lib/base";
 import type { SyncOptions } from "../lib/base/types";
-
-const WAKATIME_API_BASE_URL = "https://wakatime.com/api/v1";
-
-const RANGES = [
-  "last_7_days",
-  "last_30_days",
-  "last_year",
-  "all_time",
-] as const;
-
-type InsightRange = (typeof RANGES)[number];
+import {
+  fetchWakaTimeJson,
+  WAKA_TIME_INSIGHT_RANGES,
+  type WakaTimeInsightRange,
+  WAKA_TIME_INSIGHTS_STYLE,
+  wakaTimeApiUrl,
+} from "../lib/wakatime";
 
 interface WeekdayBucket {
-  id: number;      // 0-6 (Sunday-Saturday per WakaTime)
-  name: string;    // e.g. "Sunday"
+  id: number; // 0-6 (Sunday-Saturday per WakaTime)
+  name: string; // e.g. "Sunday"
   total: number;
   average: number;
   percent?: number;
@@ -27,7 +23,7 @@ interface WeekdayInsightResponse {
 
 // Internal envelope carries the range alongside individual buckets
 interface WeekdayWithRange {
-  range: InsightRange;
+  range: WakaTimeInsightRange;
   weekday: number;
   name: string;
   total_seconds: number;
@@ -66,31 +62,19 @@ export class WakaTimeInsightsWeekdaySyncer extends BaseSyncer<
 
     const results: WeekdayWithRange[] = [];
 
-    for (const range of RANGES) {
-      const url = `${WAKATIME_API_BASE_URL}/users/current/insights/weekday/${range}?api_key=${apiKey}`;
+    for (const range of WAKA_TIME_INSIGHT_RANGES) {
+      const url = wakaTimeApiUrl(
+        `/users/current/insights/weekday/${range}`,
+        apiKey
+      );
 
       try {
-        const response = await this.withRetry(async () => {
-          const res = await fetch(url, {
-            headers: { "User-Agent": "data-sync-app" },
-          });
-
-          if (!res.ok) {
-            if (res.status === 401) {
-              throw new Error(
-                "WakaTime API authentication failed: Invalid or expired API key"
-              );
-            }
-            if (res.status === 429) {
-              throw new Error("WakaTime API rate limit exceeded");
-            }
-            throw new Error(
-              `WakaTime API error: ${res.status} ${res.statusText}`
-            );
-          }
-
-          return res.json() as Promise<WeekdayInsightResponse>;
-        });
+        const response = await this.withRetry(() =>
+          fetchWakaTimeJson<WeekdayInsightResponse>(
+            url,
+            WAKA_TIME_INSIGHTS_STYLE
+          )
+        );
 
         const buckets = response?.data;
         if (!Array.isArray(buckets) || buckets.length === 0) {
@@ -109,16 +93,17 @@ export class WakaTimeInsightsWeekdaySyncer extends BaseSyncer<
           });
         }
 
-        this.logger.info(
-          `Got ${buckets.length} weekday buckets for ${range}`
-        );
+        this.logger.info(`Got ${buckets.length} weekday buckets for ${range}`);
 
         // Respect rate limits between range requests
         await this.sleep(200);
       } catch (error) {
-        this.logger.error(`Failed to fetch weekday insights for range ${range}`, {
-          error: error instanceof Error ? error.message : String(error),
-        });
+        this.logger.error(
+          `Failed to fetch weekday insights for range ${range}`,
+          {
+            error: error instanceof Error ? error.message : String(error),
+          }
+        );
         throw error;
       }
     }
