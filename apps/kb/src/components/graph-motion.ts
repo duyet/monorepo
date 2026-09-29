@@ -42,6 +42,72 @@ export const GRAPH_MOTION_CONTRACT = {
   graph3dRemountsOnHighlight: false,
 } as const;
 
+// ── Mount choreography ──────────────────────────────────────────────────────
+//
+// Every number and easing curve that decides how the graph *arrives*. These
+// used to be inline in the Sigma mount effect, where a typo in a coefficient is
+// invisible to a type check and only shows up as "the graph feels subtly off".
+// They are the one part of the mount that is worth asserting on, so they live
+// here as plain functions and are covered by `graph-motion.test.ts`.
+
+/** How long the staged node reveal takes, hub-first, before the graph rests. */
+export const REVEAL_MS = 1400;
+
+/** The reveal starts this much wider than the settled frame and eases in. */
+export const REVEAL_START_STRETCH = 0.3;
+
+/** Click-to-read only ever zooms in, never out past the current frame. */
+export const CLICK_FOCUS_RATIO = 0.55;
+export const CLICK_FOCUS_MS = 280;
+
+/** Search / panel focus flies further in than a click does. */
+export const FOCUS_FLY_RATIO = 0.45;
+export const FOCUS_FLY_MS = 320;
+
+/** "reset camera" is a short animated return to the fitted frame. */
+export const CAMERA_RESET_MS = 300;
+
+/**
+ * Ease-out cubic on a 0..1 linear clock — fast start, long settle, so the
+ * reveal decelerates into a still frame instead of stopping dead.
+ */
+export function revealEase(linear: number): number {
+  return 1 - (1 - linear) ** 3;
+}
+
+/**
+ * Camera ratio for one frame of the reveal: the settled frame scaled out by
+ * `REVEAL_START_STRETCH` at `eased = 0`, and exactly the settled frame at 1.
+ */
+export function revealRatio(finalRatio: number, eased: number): number {
+  return finalRatio * (1 + REVEAL_START_STRETCH - REVEAL_START_STRETCH * eased);
+}
+
+/**
+ * Where the camera goes when a node is clicked, in *camera* space — the live
+ * layout rescales graph coordinates, so the node's own attributes are not where
+ * it appears on screen.
+ */
+export function clickFocusTarget(
+  display: { x: number; y: number },
+  ratio: number
+): { x: number; y: number; ratio: number } {
+  return {
+    x: display.x,
+    y: display.y,
+    ratio: Math.min(ratio, CLICK_FOCUS_RATIO),
+  };
+}
+
+/** Where the camera goes when a node is focused from search or the read panel. */
+export function focusFlyTarget(display: { x: number; y: number }): {
+  x: number;
+  y: number;
+  ratio: number;
+} {
+  return { x: display.x, y: display.y, ratio: FOCUS_FLY_RATIO };
+}
+
 export type KbGraphProbe = {
   hideLabelsOnMove: boolean;
   hideEdgesOnMove: boolean;
