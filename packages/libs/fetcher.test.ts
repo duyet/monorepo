@@ -57,16 +57,15 @@ describe("fetcher", () => {
   });
 
   test("falls back to text when error body is not JSON", async () => {
-    const mockResponse = {
-      ok: false,
+    // A real Response with only `json` broken, rather than a hand-rolled
+    // object cast to Response — that cast was unsound and hid 11 missing
+    // properties from the compiler.
+    const response = new Response("Internal Server Error", {
       status: 500,
       statusText: "Internal Server Error",
-      json: () => Promise.reject(new Error("JSON parse error")),
-      text: () => Promise.resolve("Internal Server Error"),
-    };
-    globalThis.fetch = vi.fn(() =>
-      Promise.resolve(mockResponse as Response)
-    ) as typeof fetch;
+    });
+    vi.spyOn(response, "json").mockRejectedValue(new Error("JSON parse error"));
+    globalThis.fetch = vi.fn(() => Promise.resolve(response)) as typeof fetch;
 
     const err = await fetcher("https://example.com/crash").catch((e) => e);
     expect(err).toBeInstanceOf(NetworkError);
@@ -74,16 +73,13 @@ describe("fetcher", () => {
   });
 
   test("falls back to generic message when both JSON and text parsing fail", async () => {
-    const mockResponse = {
-      ok: false,
+    const response = new Response("unreadable", {
       status: 503,
       statusText: "Service Unavailable",
-      json: () => Promise.reject(new Error("JSON parse error")),
-      text: () => Promise.reject(new Error("Text read error")),
-    };
-    globalThis.fetch = vi.fn(() =>
-      Promise.resolve(mockResponse as Response)
-    ) as typeof fetch;
+    });
+    vi.spyOn(response, "json").mockRejectedValue(new Error("JSON parse error"));
+    vi.spyOn(response, "text").mockRejectedValue(new Error("Text read error"));
+    globalThis.fetch = vi.fn(() => Promise.resolve(response)) as typeof fetch;
 
     const err = await fetcher("https://example.com/broken").catch((e) => e);
     expect(err).toBeInstanceOf(NetworkError);
