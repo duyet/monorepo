@@ -10,6 +10,7 @@
  */
 
 import yaml from "js-yaml";
+import { extractWikilinks, normalizeRelatedRefs } from "./wikilinks";
 
 // Browser-safe basename: `node:path` is undefined in the client bundle, so the
 // loader (which re-runs on client-side navigation) must not depend on it.
@@ -20,13 +21,25 @@ function slugFromPath(filePath: string): string {
 // Browser-safe frontmatter parser. Replaces `gray-matter`, which pulls in
 // Node's `Buffer` and crashes during client-side navigation. js-yaml is the
 // same engine gray-matter uses, so parsed output is identical.
-// Frontmatter shape is dynamic; callers guard each field with typeof/Array.isArray.
+// Frontmatter shape is dynamic; the accessors below guard every field.
 type Frontmatter = Record<string, any>;
 function parseFrontmatter(raw: string): { data: Frontmatter; content: string } {
   const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
   if (!match) return { data: {}, content: raw };
   const data = (yaml.load(match[1]) as Frontmatter) ?? {};
   return { data, content: match[2] };
+}
+
+/** Frontmatter string field, falling back when absent or the wrong type. */
+function fmString(data: Frontmatter, key: string, fallback: string): string {
+  const value = data[key];
+  return typeof value === "string" ? value : fallback;
+}
+
+/** Frontmatter list field, stringified, or `[]` when absent or not a list. */
+function fmStringList(data: Frontmatter, key: string): string[] {
+  const value = data[key];
+  return Array.isArray(value) ? value.map(String) : [];
 }
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -84,6 +97,14 @@ export interface KbGraph {
   /** Map from slug to list of slugs that link to it (incoming). */
   incoming: Record<string, string[]>;
 }
+
+const MEMORY_TYPES = [
+  "user",
+  "feedback",
+  "project",
+  "reference",
+  "tech",
+] as const;
 
 interface KbContent {
   articles: Article[];
@@ -146,21 +167,6 @@ const RAW_INBOX = import.meta.glob("../kb/raw/inbox/*.md", {
   eager: true,
 }) as Record<string, string>;
 
-// ── Wikilink parsing ─────────────────────────────────────────────────────────
-
-/** Extracts `[[wikilink]]` targets from a markdown body. Brackets stripped, deduped. */
-export function extractWikilinks(md: string): string[] {
-  const found = new Set<string>();
-  const re = /\[\[([^\]|#]+)(?:#[^\]|]*)?(?:\|[^\]]*)?\]\]/g;
-  let match: RegExpExecArray | null;
-  // biome-ignore lint/suspicious/noAssignInExpressions: standard regex-exec loop
-  while ((match = re.exec(md))) {
-    const target = match[1].trim();
-    if (target) found.add(target);
-  }
-  return [...found];
-}
-
 // ── Parsers ───────────────────────────────────────────────────────────────────
 
 function parseArticle(filePath: string, raw: string): Article | null {
@@ -170,13 +176,12 @@ function parseArticle(filePath: string, raw: string): Article | null {
 
   return {
     slug,
-    title: typeof data.title === "string" ? data.title : slug,
-    category:
-      typeof data.category === "string" ? data.category : "uncategorized",
-    tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
-    links: Array.isArray(data.links) ? data.links.map(String) : [],
-    summary: typeof data.summary === "string" ? data.summary : "",
-    updated: typeof data.updated === "string" ? data.updated : "",
+    title: fmString(data, "title", slug),
+    category: fmString(data, "category", "uncategorized"),
+    tags: fmStringList(data, "tags"),
+    links: fmStringList(data, "links"),
+    summary: fmString(data, "summary", ""),
+    updated: fmString(data, "updated", ""),
     raw: content.trim(),
   };
 }
@@ -186,34 +191,25 @@ function parseMemory(filePath: string, raw: string): MemoryNote | null {
   const slug = slugFromPath(filePath);
   if (slug.startsWith("_") || slug === "index" || slug === "log") return null;
 
-  // Strip [[wikilink]] brackets from related slugs
-  const related = (Array.isArray(data.related) ? data.related : []).map(
-    (r: string) => r.replace(/^\[\[/, "").replace(/\]\]$/, "").trim()
-  );
+  const name = fmString(data, "name", slug);
 
   return {
     slug,
-    name: typeof data.name === "string" ? data.name : slug,
-    title:
-      typeof data.title === "string"
-        ? data.title
-        : typeof data.name === "string"
-          ? data.name
-          : slug,
-    description: typeof data.description === "string" ? data.description : "",
-    memoryType: (["user", "feedback", "project", "reference", "tech"].includes(
-      data.type
-    )
-      ? data.type
-      : "reference") as MemoryType,
-    category: typeof data.category === "string" ? data.category : "general",
-    tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
-    related,
-    sources: Array.isArray(data.sources) ? data.sources.map(String) : [],
-    aliases: Array.isArray(data.aliases) ? data.aliases.map(String) : [],
-    created: typeof data.created === "string" ? data.created : "",
-    updated: typeof data.updated === "string" ? data.updated : "",
-    timestamp: typeof data.timestamp === "string" ? data.timestamp : "",
+    name,
+    title: typeof data.title === "string" ? data.title : name,
+    description: fmString(data, "description", ""),
+    memoryType: (MEMORY_TYPES as readonly string[]).includes(data.type)
+      ? (data.type as MemoryType)
+      : "reference",
+    category: fmString(data, "category", "general"),
+    tags: fmStringList(data, "tags"),
+    // Strip [[wikilink]] brackets from related slugs
+    related: normalizeRelatedRefs(data.related),
+    sources: fmStringList(data, "sources"),
+    aliases: fmStringList(data, "aliases"),
+    created: fmString(data, "created", ""),
+    updated: fmString(data, "updated", ""),
+    timestamp: fmString(data, "timestamp", ""),
     raw: content.trim(),
   };
 }
@@ -229,16 +225,24 @@ function parseInbox(filePath: string, raw: string): InboxNote | null {
   return {
     slug,
     date: slug,
-    title:
-      typeof data.title === "string"
-        ? data.title
-        : (headingMatch?.[1]?.trim() ?? `Inbox ${slug}`),
+    title: fmString(data, "title", headingMatch?.[1]?.trim() ?? `Inbox ${slug}`),
     links: extractWikilinks(body),
     raw: body,
   };
 }
 
 // ── Content loading ───────────────────────────────────────────────────────────
+
+/** Newest `updated` first; undated items sort after dated ones, then by title. */
+function byUpdatedThenTitle(
+  a: { updated: string; title: string },
+  b: { updated: string; title: string }
+): number {
+  if (a.updated && b.updated) return b.updated.localeCompare(a.updated);
+  if (a.updated) return -1;
+  if (b.updated) return 1;
+  return a.title.localeCompare(b.title);
+}
 
 export function loadContent(): KbContent {
   if (_cache) return _cache;
@@ -263,12 +267,7 @@ export function loadContent(): KbContent {
   inbox.sort((a, b) => b.date.localeCompare(a.date));
 
   // Sort articles by updated date descending
-  articles.sort((a, b) => {
-    if (a.updated && b.updated) return b.updated.localeCompare(a.updated);
-    if (a.updated) return -1;
-    if (b.updated) return 1;
-    return a.title.localeCompare(b.title);
-  });
+  articles.sort(byUpdatedThenTitle);
 
   // Sort memory by type order, then name
   const typeOrder: Record<string, number> = {
@@ -308,39 +307,30 @@ export function loadContent(): KbContent {
     byMemoryType[note.memoryType].push(note);
   }
 
-  // Build graph edges from both content types
+  // Build graph edges from all three content types. Every type resolves its
+  // outgoing edges the same way — declared refs plus body wikilinks, kept only
+  // when they name a slug that exists — so it is one pass over one shape.
   const outgoing: Record<string, string[]> = {};
   const incoming: Record<string, string[]> = {};
 
-  // Article links (frontmatter + body wikilinks) → article targets
-  for (const article of articles) {
-    const targets = new Set([
-      ...article.links,
-      ...extractWikilinks(article.raw),
-    ]);
-    outgoing[article.slug] = [...targets].filter((l) => l in bySlug);
-    for (const link of outgoing[article.slug]) {
-      if (!incoming[link]) incoming[link] = [];
-      incoming[link].push(article.slug);
-    }
-  }
+  const linkSources: Array<{ slug: string; refs: string[] }> = [
+    ...articles.map((a) => ({
+      slug: a.slug,
+      refs: [...new Set([...a.links, ...extractWikilinks(a.raw)])],
+    })),
+    ...memory.map((n) => ({
+      slug: n.slug,
+      refs: [...new Set([...n.related, ...extractWikilinks(n.raw)])],
+    })),
+    ...inbox.map((n) => ({ slug: n.slug, refs: n.links })),
+  ];
 
-  // Memory note related (frontmatter + body wikilinks) → any target
-  for (const note of memory) {
-    const targets = new Set([...note.related, ...extractWikilinks(note.raw)]);
-    outgoing[note.slug] = [...targets].filter((r) => r in bySlug);
-    for (const link of outgoing[note.slug]) {
-      if (!incoming[link]) incoming[link] = [];
-      incoming[link].push(note.slug);
-    }
-  }
-
-  // Inbox note body wikilinks → any target
-  for (const note of inbox) {
-    outgoing[note.slug] = note.links.filter((l) => l in bySlug);
-    for (const link of outgoing[note.slug]) {
-      if (!incoming[link]) incoming[link] = [];
-      incoming[link].push(note.slug);
+  for (const { slug, refs } of linkSources) {
+    const targets = refs.filter((r) => r in bySlug);
+    outgoing[slug] = targets;
+    for (const target of targets) {
+      if (!incoming[target]) incoming[target] = [];
+      incoming[target].push(slug);
     }
   }
 
@@ -421,14 +411,6 @@ export function getAllContent(): ContentItem[] {
     ...loadContent().memory,
     ...loadContent().inbox,
   ];
-}
-
-export function getContentBySlug(slug: string): ContentItem | null {
-  return loadContent().bySlug[slug] ?? null;
-}
-
-export function getGraph(): KbGraph {
-  return loadContent().graph;
 }
 
 export function getLinkedArticles(slug: string): {

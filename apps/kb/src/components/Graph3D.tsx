@@ -1,5 +1,6 @@
 import { type ReactElement, useEffect, useMemo, useRef } from "react";
-import { MEMORY_PALETTE } from "./graph-palette";
+import type { GraphTheme } from "./graph-theme";
+import { nodeColor as resolveNodeColor } from "./graph-theme";
 
 /**
  * 3D view of the knowledge graph (3d-force-graph / three.js).
@@ -25,14 +26,7 @@ interface Graph3DEdge {
   target: string;
 }
 
-interface Graph3DTheme {
-  bg: string;
-  edge: string;
-  label: string;
-  article: string;
-  inbox: string;
-  tag: string;
-}
+type Graph3DTheme = GraphTheme;
 
 interface Graph3DProps {
   nodes: Graph3DNode[];
@@ -44,11 +38,7 @@ interface Graph3DProps {
 }
 
 function nodeColor3d(node: Graph3DNode, theme: Graph3DTheme): string {
-  if (node.kind === "memory")
-    return MEMORY_PALETTE[node.memoryType ?? ""] ?? theme.article;
-  if (node.kind === "inbox") return theme.inbox;
-  if (node.kind === "tag") return theme.tag;
-  return theme.article;
+  return resolveNodeColor(node.kind, node.memoryType, theme);
 }
 
 function topologyKey(nodes: Graph3DNode[], edges: Graph3DEdge[]): string {

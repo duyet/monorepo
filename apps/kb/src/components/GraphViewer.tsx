@@ -4,6 +4,7 @@ import {
   preprocessObsidian,
   stripFrontmatter,
 } from "../../lib/markdown";
+import type { GraphData, GraphNode } from "../../lib/graph-types";
 import { graphNodeMatches } from "../../lib/search";
 import { Graph3D } from "./Graph3D";
 import {
@@ -11,7 +12,12 @@ import {
   SIGMA_HOMEPAGE_RENDER,
   type SigmaProbeHost,
 } from "./graph-motion";
-import { MEMORY_PALETTE } from "./graph-palette";
+import {
+  kindSwatch,
+  nodeColor as resolveNodeColor,
+  readDark,
+  THEME,
+} from "./graph-theme";
 
 // Lazy-loaded in the browser only — sigma/graphology touch WebGL at import time
 // and crash Node prerender (WebGL2RenderingContext is not defined).
@@ -33,30 +39,7 @@ type SigmaCtor = typeof import("sigma").default;
  * search. Hover highlight is ref-only so the overlay tree does not re-render.
  */
 
-type NodeKind = "article" | "memory" | "inbox" | "tag";
-
-interface GraphNode {
-  id: string;
-  label: string;
-  kind: NodeKind;
-  memoryType?: string;
-  href: string;
-  tags: string[];
-  description: string;
-  updated: string;
-}
-
-interface GraphEdge {
-  source: string;
-  target: string;
-  kind: "link" | "tag";
-}
-
-interface GraphData {
-  generated: string;
-  nodes: GraphNode[];
-  edges: GraphEdge[];
-}
+type NodeKind = GraphNode["kind"];
 
 type AttrMap = Record<string, unknown>;
 
@@ -67,42 +50,26 @@ const KIND_LABEL: Record<NodeKind, string> = {
   tag: "Tag",
 };
 
-const THEME = {
-  light: {
-    bg: "#fafafa",
-    edge: "#d4d4d8",
-    edgeHover: "#71717a",
-    dim: "#e4e4e7",
-    label: "#3f3f46",
-    article: "#6b7280",
-    inbox: "#3b82f6",
-    tag: "#22c55e",
-  },
-  dark: {
-    bg: "#0a0a0a",
-    edge: "#3f3f46",
-    edgeHover: "#a1a1aa",
-    dim: "#1c1c1f",
-    label: "#a1a1aa",
-    article: "#9ca3af",
-    inbox: "#3b82f6",
-    tag: "#22c55e",
-  },
-};
-
-function nodeColor(node: GraphNode, theme: typeof THEME.light): string {
-  if (node.kind === "memory")
-    return MEMORY_PALETTE[node.memoryType ?? ""] ?? theme.article;
-  if (node.kind === "inbox") return theme.inbox;
-  if (node.kind === "tag") return theme.tag;
-  return theme.article;
+/** Strip the `memory:<type>` suffix a filter key carries, back to its base kind. */
+function baseKind(key: string): NodeKind {
+  return (key.startsWith("memory:") ? "memory" : key) as NodeKind;
 }
 
-function readDark(): boolean {
-  if (typeof document === "undefined") return true;
-  if (document.documentElement.classList.contains("dark")) return true;
-  if (document.documentElement.classList.contains("light")) return false;
-  return window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? true;
+/**
+ * The `nodeKind` index key for a node: memory nodes are keyed by their memory
+ * type so each type is separately filterable, everything else by bare kind.
+ *
+ * Written as the Sigma `nodeKind` node attribute, and recomputed on the JS side
+ * to match against the user's hidden-kind set. The 2D reducer reads the Sigma
+ * attribute, the 3D filter and the kind chips read this function — all four must
+ * agree, so it is defined once.
+ */
+function nodeKindKey(node: GraphNode): string {
+  return node.kind === "memory" ? `memory:${node.memoryType ?? "other"}` : node.kind;
+}
+
+function nodeColor(node: GraphNode, theme: typeof THEME.light): string {
+  return resolveNodeColor(node.kind, node.memoryType, theme);
 }
 
 function rawMdUrl(node: GraphNode): string | null {
@@ -214,11 +181,7 @@ export function GraphViewer() {
 
   const kinds = useMemo(() => {
     const set = new Set<string>();
-    for (const n of data?.nodes ?? []) {
-      set.add(
-        n.kind === "memory" ? `memory:${n.memoryType ?? "other"}` : n.kind
-      );
-    }
+    for (const n of data?.nodes ?? []) set.add(nodeKindKey(n));
     return [...set].sort();
   }, [data]);
 
@@ -273,7 +236,10 @@ export function GraphViewer() {
       .then((html) => {
         if (!cancelled) setBodyHtml(html);
       })
-      .catch(() => {
+      .catch((err) => {
+        // Panel stays empty on a failed read, but log it — a silently blank
+        // panel is indistinguishable from a note with an empty body.
+        console.error(`[GraphViewer] failed to load ${url}`, err);
         if (!cancelled) setBodyHtml("");
       })
       .finally(() => {
@@ -336,10 +302,7 @@ export function GraphViewer() {
             size: base + Math.sqrt(deg) * 1.8,
             color: nodeColor(node, themeRef.current),
             type: "circle",
-            nodeKind:
-              node.kind === "memory"
-                ? `memory:${node.memoryType ?? "other"}`
-                : node.kind,
+            nodeKind: nodeKindKey(node),
             forceLabel: false,
             zIndex: 1,
             revealOrder: revealRank.get(node.id) ?? 0,
@@ -524,17 +487,16 @@ export function GraphViewer() {
             res.hidden = true;
             return res;
           }
-          if (searching) {
-            if (hits.has(a) && hits.has(b)) {
-              res.color = theme.edgeHover;
-              res.size = 1.2;
-              res.zIndex = 1;
-            } else {
-              res.color = theme.dim;
-              res.zIndex = 0;
-            }
-          } else if (focus && neighbors.size) {
-            if (neighbors.has(a) && neighbors.has(b)) {
+          // Search hits and the hovered/selected neighborhood dim and highlight
+          // edges identically — only the membership set differs, so pick the set
+          // once and share the branch.
+          const emphasis = searching
+            ? hits
+            : focus && neighbors.size
+              ? neighbors
+              : null;
+          if (emphasis) {
+            if (emphasis.has(a) && emphasis.has(b)) {
               res.color = theme.edgeHover;
               res.size = 1.2;
               res.zIndex = 1;
@@ -821,9 +783,7 @@ export function GraphViewer() {
   const visible3d = useMemo(() => {
     if (!data) return { nodes: [], edges: [] };
     const nodes = data.nodes.filter((n) => {
-      const k =
-        n.kind === "memory" ? `memory:${n.memoryType ?? "other"}` : n.kind;
-      if (hiddenKinds.has(k)) return false;
+      if (hiddenKinds.has(nodeKindKey(n))) return false;
       if (orphansOnly && (degree[n.id] ?? 0) > 0) return false;
       return true;
     });
@@ -980,13 +940,7 @@ export function GraphViewer() {
               <div className="flex flex-wrap gap-1">
                 {kinds.map((k) => {
                   const on = !hiddenKinds.has(k);
-                  const swatch = k.startsWith("memory:")
-                    ? (MEMORY_PALETTE[k.slice(7)] ?? theme.article)
-                    : k === "inbox"
-                      ? theme.inbox
-                      : k === "tag"
-                        ? theme.tag
-                        : theme.article;
+                  const swatch = kindSwatch(k, theme);
                   return (
                     <button
                       key={k}
@@ -1005,11 +959,7 @@ export function GraphViewer() {
                         className="inline-block h-1.5 w-1.5 rounded-full"
                         style={{ background: swatch }}
                       />
-                      {
-                        KIND_LABEL[
-                          k.startsWith("memory:") ? "memory" : (k as NodeKind)
-                        ]
-                      }
+                      {KIND_LABEL[baseKind(k)]}
                       {k.startsWith("memory:") ? `: ${k.slice(7)}` : ""}
                     </button>
                   );

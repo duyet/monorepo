@@ -8,8 +8,9 @@
 
 import { useNavigate } from "@tanstack/react-router";
 import { type ReactElement, useEffect, useMemo, useRef, useState } from "react";
+import type { GraphEdge, GraphNode } from "../../lib/graph-types";
 import { SIGMA_CAMERA_MOTION } from "./graph-motion";
-import { MEMORY_PALETTE } from "./graph-palette";
+import { nodeColor as resolveNodeColor, THEME } from "./graph-theme";
 
 type GraphologyGraph = import("graphology").default;
 type SigmaInstance = import("sigma").default;
@@ -17,39 +18,19 @@ type GraphologyCtor = typeof import("graphology").default;
 type ForceAtlas2 = typeof import("graphology-layout-forceatlas2").default;
 type SigmaCtor = typeof import("sigma").default;
 
-export interface LocalGraphNode {
-  id: string;
-  label: string;
-  kind: "article" | "memory" | "inbox" | "tag";
-  memoryType?: string;
-  href: string;
-  tags: string[];
-  description: string;
-  updated: string;
-}
+export type LocalGraphNode = GraphNode;
+export type LocalGraphEdge = GraphEdge;
 
-export interface LocalGraphEdge {
-  source: string;
-  target: string;
-  kind: "link" | "tag";
-}
-
-export interface LocalGraphData {
-  nodes: LocalGraphNode[];
-  edges: LocalGraphEdge[];
-}
-
-const KIND_COLOR: Record<string, string> = {
-  article: "#6b7280",
-  inbox: "#3b82f6",
-  tag: "#22c55e",
-};
+/**
+ * Local graphs are always drawn on the light surface (they sit in a light-mode
+ * sidebar next to the note body), so they pin `THEME.light` rather than tracking
+ * the viewer's theme. Previously this file hardcoded its own copies of the same
+ * three hex values, which had already drifted from the shared theme.
+ */
+const NODE_COLORS = THEME.light;
 
 function nodeColor(node: LocalGraphNode): string {
-  if (node.kind === "memory") {
-    return MEMORY_PALETTE[node.memoryType ?? ""] ?? KIND_COLOR.article;
-  }
-  return KIND_COLOR[node.kind] ?? KIND_COLOR.article;
+  return resolveNodeColor(node.kind, node.memoryType, NODE_COLORS);
 }
 
 /** Hard cap on nodes pulled into a local graph, so a heavily shared tag can't
@@ -65,7 +46,7 @@ export function extractLocalGraph(
   graph: { nodes: LocalGraphNode[]; edges: LocalGraphEdge[] },
   id: string,
   maxDepth: number = 2
-): LocalGraphData {
+): { nodes: LocalGraphNode[]; edges: LocalGraphEdge[] } {
   const adjacency = new Map<string, Set<string>>();
   for (const edge of graph.edges) {
     if (!adjacency.has(edge.source)) adjacency.set(edge.source, new Set());
@@ -185,7 +166,7 @@ export function LocalGraph({
         labelDensity: 0.2,
         labelGridCellSize: 60,
         labelRenderedSizeThreshold: 4,
-        defaultNodeColor: KIND_COLOR.article,
+        defaultNodeColor: NODE_COLORS.article,
         defaultEdgeColor: "#71717a",
         defaultEdgeType: "arrow",
         stagePadding: 20,

@@ -9,34 +9,12 @@
 import {
   type Article,
   type ContentItem,
-  extractWikilinks,
   getAllContent,
   type InboxNote,
   type MemoryNote,
 } from "./content";
 
-export interface GraphNode {
-  id: string;
-  label: string;
-  kind: "article" | "memory" | "inbox" | "tag";
-  memoryType?: string;
-  href: string;
-  tags: string[];
-  description: string;
-  updated: string;
-}
-
-export interface GraphEdge {
-  source: string;
-  target: string;
-  kind: "link" | "tag";
-}
-
-export interface GraphData {
-  generated: string;
-  nodes: GraphNode[];
-  edges: GraphEdge[];
-}
+export type { GraphData, GraphEdge, GraphNode } from "./graph-types";
 
 function isArticle(item: ContentItem): item is Article {
   return "summary" in item;
@@ -51,6 +29,8 @@ function isInbox(item: ContentItem): item is InboxNote {
 }
 
 import { kbSlugify as slugify } from "@duyet/libs/slugify";
+import type { GraphData, GraphEdge, GraphNode } from "./graph-types";
+import { extractWikilinks } from "./wikilinks";
 
 /** Builds the full KB graph (articles + memory + inbox + tags) from the current content set. */
 export function buildKbGraph(

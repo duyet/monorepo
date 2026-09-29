@@ -14,7 +14,9 @@
  * - public/graph-data.json    (nodes + edges for the knowledge graph)
  *
  * This script is self-contained — it does NOT import lib/content.ts so
- * the runtime loader can stay Vite-only (import.meta.glob).
+ * the runtime loader can stay Vite-only (import.meta.glob). The two lib/ imports
+ * it does have (`graph-types.ts`, `wikilinks.ts`) carry zero runtime code or
+ * `node:*` dependencies, so they evaluate identically under plain Node.
  */
 
 import {
@@ -27,6 +29,8 @@ import {
 import { basename, extname, join } from "node:path";
 import matter from "gray-matter";
 import { kbSlugify } from "@duyet/libs/slugify";
+import type { GraphEdge, GraphNode } from "../lib/graph-types";
+import { extractWikilinks, normalizeRelatedRefs } from "../lib/wikilinks";
 
 const SCRIPT_DIR = import.meta.dirname!;
 const APP_DIR = join(SCRIPT_DIR, "..");
@@ -82,18 +86,6 @@ interface InboxNote {
   raw: string;
 }
 
-function extractWikilinks(md: string): string[] {
-  const found = new Set<string>();
-  const re = /\[\[([^\]|#]+)(?:#[^\]|]*)?(?:\|[^\]]*)?\]\]/g;
-  let match: RegExpExecArray | null;
-  // biome-ignore lint/suspicious/noAssignInExpressions: standard regex-exec loop
-  while ((match = re.exec(md))) {
-    const target = match[1].trim();
-    if (target) found.add(target);
-  }
-  return [...found];
-}
-
 function walkMd(dir: string): string[] {
   const out: string[] = [];
   let entries: string[];
@@ -119,6 +111,35 @@ function walkMd(dir: string): string[] {
 
 const slugify = kbSlugify;
 
+/**
+ * Frontmatter field accessors. `matter` types `data` as `{[key: string]: any}`,
+ * so every field needs a runtime type guard; these keep the guard in one place
+ * instead of inline at each of the ~25 read sites below. `fmStringList` is
+ * deliberately NOT the same shape as `lib/content.ts` — see MEMORY_TYPE_NOTE.
+ */
+type Frontmatter = Record<string, any>;
+
+function fmString(data: Frontmatter, key: string, fallback: string): string {
+  const value = data[key];
+  return typeof value === "string" ? value : fallback;
+}
+
+function fmStringList(data: Frontmatter, key: string): string[] {
+  const value = data[key];
+  return Array.isArray(value) ? value.map(String) : [];
+}
+
+/** Comparator shared with `lib/content.ts`: newest `updated` first, title as tiebreak. */
+function byUpdatedThenTitle(
+  a: { updated: string; title: string },
+  b: { updated: string; title: string }
+): number {
+  if (a.updated && b.updated) return b.updated.localeCompare(a.updated);
+  if (a.updated) return -1;
+  if (b.updated) return 1;
+  return a.title.localeCompare(b.title);
+}
+
 // ── Walk articles ────────────────────────────────────────────────────────────
 
 const articles: Article[] = [];
@@ -130,25 +151,19 @@ for (const filePath of walkMd(ARTICLES_DIR)) {
   const slug = basename(filePath, ".md");
   const article: Article = {
     slug,
-    title: typeof data.title === "string" ? data.title : slug,
-    category:
-      typeof data.category === "string" ? data.category : "uncategorized",
-    tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
-    links: Array.isArray(data.links) ? data.links.map(String) : [],
-    summary: typeof data.summary === "string" ? data.summary : "",
-    updated: typeof data.updated === "string" ? data.updated : "",
+    title: fmString(data, "title", slug),
+    category: fmString(data, "category", "uncategorized"),
+    tags: fmStringList(data, "tags"),
+    links: fmStringList(data, "links"),
+    summary: fmString(data, "summary", ""),
+    updated: fmString(data, "updated", ""),
     raw: content.trim(),
   };
   articles.push(article);
   categories.add(article.category);
 }
 
-articles.sort((a, b) => {
-  if (a.updated && b.updated) return b.updated.localeCompare(a.updated);
-  if (a.updated) return -1;
-  if (b.updated) return 1;
-  return a.title.localeCompare(b.title);
-});
+articles.sort(byUpdatedThenTitle);
 
 // ── Walk memory notes ─────────────────────────────────────────────────────────
 
@@ -161,29 +176,26 @@ for (const filePath of walkMd(MEMORY_DIR)) {
 
   const raw = readFileSync(filePath, "utf-8");
   const { data, content } = matter(raw);
-  const related = (Array.isArray(data.related) ? data.related : []).map(
-    (r: string) => r.replace(/^\[\[/, "").replace(/\]\]$/, "").trim()
-  );
 
   const note: MemoryNote = {
     slug,
-    name: typeof data.name === "string" ? data.name : slug,
-    title:
-      typeof data.title === "string"
-        ? data.title
-        : typeof data.name === "string"
-          ? data.name
-          : slug,
-    description: typeof data.description === "string" ? data.description : "",
-    memoryType: typeof data.type === "string" ? data.type : "reference",
-    category: typeof data.category === "string" ? data.category : "general",
-    tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
-    related,
-    sources: Array.isArray(data.sources) ? data.sources.map(String) : [],
-    aliases: Array.isArray(data.aliases) ? data.aliases.map(String) : [],
-    created: typeof data.created === "string" ? data.created : "",
-    updated: typeof data.updated === "string" ? data.updated : "",
-    timestamp: typeof data.timestamp === "string" ? data.timestamp : "",
+    name: fmString(data, "name", slug),
+    title: fmString(data, "title", fmString(data, "name", slug)),
+    description: fmString(data, "description", ""),
+    // memoryType is the ONE field where this script and `lib/content.ts` must
+    // disagree: the runtime loader validates `type` against the known set and
+    // falls back to "reference", while the generator passes any string through
+    // so the emitted `/m/<slug>.md` frontmatter and `graph-data.json` keep the
+    // author's raw value. Do not "unify" these two.
+    memoryType: fmString(data, "type", "reference"),
+    category: fmString(data, "category", "general"),
+    tags: fmStringList(data, "tags"),
+    related: normalizeRelatedRefs(data.related),
+    sources: fmStringList(data, "sources"),
+    aliases: fmStringList(data, "aliases"),
+    created: fmString(data, "created", ""),
+    updated: fmString(data, "updated", ""),
+    timestamp: fmString(data, "timestamp", ""),
     raw: content.trim(),
   };
   memory.push(note);
@@ -206,10 +218,7 @@ for (const filePath of walkMd(INBOX_DIR)) {
   inbox.push({
     slug,
     date: slug,
-    title:
-      typeof data.title === "string"
-        ? data.title
-        : (headingMatch?.[1]?.trim() ?? `Inbox ${slug}`),
+    title: fmString(data, "title", headingMatch?.[1]?.trim() ?? `Inbox ${slug}`),
     links: extractWikilinks(body),
     raw: body,
   });
@@ -485,23 +494,6 @@ console.log(`  d/<date>.md × ${inbox.length}`);
 
 // ── public/graph-data.json (knowledge graph) ─────────────────────────────────
 
-interface GraphNode {
-  id: string;
-  label: string;
-  kind: "article" | "memory" | "inbox" | "tag";
-  memoryType?: string;
-  href: string;
-  tags: string[];
-  description: string;
-  updated: string;
-}
-
-interface GraphEdge {
-  source: string;
-  target: string;
-  kind: "link" | "tag";
-}
-
 // Resolution map: slug | name | title | aliases → node id
 const resolve = new Map<string, string>();
 
@@ -574,26 +566,29 @@ const addEdge = (
   edges.push({ source, target, kind });
 };
 
-// Link edges: frontmatter links/related + body wikilinks, directed source→target.
-for (const a of articles) {
-  const refs = new Set([...a.links, ...extractWikilinks(a.raw)]);
+// Link edges: frontmatter links/related + body wikilinks, resolved and directed
+// source→target. All three content types use the same shape, so one loop covers
+// them. `linkSources` is built here (not earlier) because `resolve` must be
+// complete before any ref is looked up.
+const linkSources: Array<{ slug: string; refs: string[] }> = [
+  ...articles.map((a) => ({
+    slug: a.slug,
+    refs: [...new Set([...a.links, ...extractWikilinks(a.raw)])],
+  })),
+  ...memory.map((n) => ({
+    slug: n.slug,
+    refs: [...new Set([...n.related, ...extractWikilinks(n.raw)])],
+  })),
+  ...inbox.map((d) => ({
+    slug: d.slug,
+    refs: [...new Set([...d.links, ...extractWikilinks(d.raw)])],
+  })),
+];
+
+for (const { slug, refs } of linkSources) {
   for (const ref of refs) {
     const target = resolve.get(slugify(ref));
-    if (target) addEdge(a.slug, target, "link");
-  }
-}
-for (const n of memory) {
-  const refs = new Set([...n.related, ...extractWikilinks(n.raw)]);
-  for (const ref of refs) {
-    const target = resolve.get(slugify(ref));
-    if (target) addEdge(n.slug, target, "link");
-  }
-}
-for (const d of inbox) {
-  const refs = new Set([...d.links, ...extractWikilinks(d.raw)]);
-  for (const ref of refs) {
-    const target = resolve.get(slugify(ref));
-    if (target) addEdge(d.slug, target, "link");
+    if (target) addEdge(slug, target, "link");
   }
 }
 
