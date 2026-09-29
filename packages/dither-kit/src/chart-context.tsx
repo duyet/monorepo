@@ -5,6 +5,7 @@ import type { BloomInput } from "./dither-paint"
 import { emphasisOf, isDimmed } from "./emphasis"
 import type { DitherColor, Seed } from "./palette"
 import { seedOfColor } from "./palette"
+import type { AreaVariant } from "./variants"
 import {
   buildBandScale,
   buildXScale,
@@ -33,7 +34,7 @@ export type Margins = {
 
 type Row = Record<string, unknown>
 
-export type AreaVariant = "gradient" | "dotted" | "hatched" | "solid"
+export type { AreaVariant } from "./variants"
 export type StrokeVariant = "solid" | "dashed"
 export type SeriesKind = "area" | "line" | "bar"
 

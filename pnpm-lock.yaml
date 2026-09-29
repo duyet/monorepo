@@ -1524,6 +1524,10 @@ importers:
         version: 6.0.3
 
   packages/config:
+    dependencies:
+      '@duyet/dither-kit':
+        specifier: '*'
+        version: link:../dither-kit
     devDependencies:
       '@duyet/tsconfig':
         specifier: '*'

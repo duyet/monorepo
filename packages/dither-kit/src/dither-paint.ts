@@ -1,4 +1,4 @@
-import type { AreaVariant } from "./chart-context"
+import type { AreaVariant } from "./variants"
 import { ALPHA_RAMP, BAYER, clamp01, ditherCell, OFF_TIER } from "./dither-cell"
 import { rgb, type Seed } from "./palette"
 

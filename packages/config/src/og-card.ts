@@ -5,8 +5,11 @@
  * full-bleed ordered-dither background, with the page title/description set on
  * a solid paper panel so text stays legible.
  *
- * Uses the same 4×4 Bayer matrix as `@duyet/dither-kit` (`dither-paint.ts`) so
- * cards match the dither aesthetic used elsewhere in the monorepo.
+ * Uses the same 4×4 Bayer matrix as `@duyet/dither-kit`, imported rather than
+ * copied, so cards match the dither aesthetic used elsewhere in the monorepo.
+ * It used to be a hand-copied duplicate of `BAYER` with a comment saying
+ * "Mirrors dither-kit" and no import — exactly the arrangement where the two
+ * can drift while the comment still reads as a guarantee.
  *
  * Deterministic by design: the same inputs always produce byte-identical PNGs,
  * which is what lets us commit generated cards to `public/og/` and reference
@@ -15,14 +18,10 @@
 
 import { mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
+import { BAYER as BAYER_4X4 } from "@duyet/dither-kit/dither-cell";
 
-/** 4×4 Bayer matrix normalized to 0–1 thresholds. Mirrors dither-kit. */
-export const BAYER_4X4 = [
-  [0, 8, 2, 10],
-  [12, 4, 14, 6],
-  [3, 11, 1, 9],
-  [15, 7, 13, 5],
-].map((row) => row.map((v) => (v + 0.5) / 16));
+/** 4×4 Bayer matrix normalized to 0–1 thresholds, shared with dither-kit. */
+export { BAYER_4X4 };
 
 export const OG_WIDTH = 1200;
 export const OG_HEIGHT = 630;

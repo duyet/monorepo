@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import { BAYER } from "@duyet/dither-kit/dither-cell";
 import {
   BAYER_4X4,
   OG_HEIGHT,
@@ -178,8 +179,16 @@ describe("dither card", () => {
     siteName: "blog.duyet.net",
   };
 
-  it("uses the same 4x4 Bayer matrix as dither-kit", () => {
-    // the dither-kit matrix, verbatim
+  it("uses dither-kit's Bayer matrix, not a copy of it", () => {
+    // The claim in the test name used to be checked by asserting the *shape*
+    // (4x4, 16 distinct values in (0,1)) — which a hand-copied duplicate also
+    // satisfies. It is an identity claim, so compare against the real thing.
+    // `og-card.ts` re-exports dither-kit's `BAYER` under the older name, so
+    // this is a reference check, and it fails if the two ever drift apart.
+    expect(BAYER_4X4).toBe(BAYER);
+
+    // Kept as a property check: a 4x4 matrix of 16 distinct thresholds in the
+    // open unit interval, so no cell is unconditionally lit or unlit.
     expect(BAYER_4X4.length).toBe(4);
     for (const row of BAYER_4X4) {
       expect(row.length).toBe(4);
@@ -188,9 +197,7 @@ describe("dither card", () => {
         expect(v).toBeLessThan(1);
       }
     }
-    // distinct 16 thresholds
-    const flat = BAYER_4X4.flat();
-    expect(new Set(flat).size).toBe(16);
+    expect(new Set(BAYER_4X4.flat()).size).toBe(16);
   });
 
   it("renders a type-only card at 1200x630 with no image", () => {

@@ -1,4 +1,4 @@
-import type { AreaVariant } from "./chart-context"
+import type { AreaVariant } from "./variants"
 
 /**
  * 4×4 ordered (Bayer) matrix, normalized to 0–1 thresholds — the exact matrix

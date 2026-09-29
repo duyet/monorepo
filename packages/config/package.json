@@ -22,5 +22,7 @@
     "@duyet/tsconfig": "*",
     "typescript": "^6.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@duyet/dither-kit": "*"
+  }
 }
