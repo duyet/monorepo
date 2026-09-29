@@ -12,15 +12,24 @@
  * the simplified expression in IEEE-754, and these values are rendered, so the
  * long form stays until someone verifies the output against real data.
  */
-import { compactName, formatCompact, formatNumber } from "./helpers";
+import type { Repo } from "@duyet/components";
+import {
+  compactName,
+  formatCompact,
+  formatNumber,
+  shortDate,
+} from "./helpers";
 import type {
   AiActivity,
   AiMetrics,
   AiModel,
   BucketedActivity,
+  CacheRatioPoint,
+  PostHogPath,
   ProjectLeaderboardEntry,
   WakaTimeLanguage,
   WakaTimeMetrics,
+  WakaTimeTrend,
 } from "./types";
 import type { KpiTileData } from "./KpiTile";
 
@@ -180,6 +189,132 @@ export function toTokenBuckets(
   rows: BucketedActivity[]
 ): Array<{ label: string; Tokens: number; key: number }> {
   return rows.map((d) => ({ label: d.label, Tokens: d.tokens, key: d.key }));
+}
+
+/**
+ * Daily AI activity, reduced to the three fields the page actually plots.
+ *
+ * The cost is rounded to 2dp *here* rather than at the point of render so that
+ * the KPI trend, the sparkline, and the donut all read the same rounded value.
+ */
+export function toActivitySeries(aiActivity: AiActivity[]) {
+  return aiActivity.map((item) => ({
+    cost: Number(item["Total Cost"].toFixed(2)),
+    date: shortDate(item.date),
+    tokens: item["Total Tokens"],
+  }));
+}
+
+/**
+ * Daily cache hit ratio, keyed for the area chart's `date`/`pct` axes.
+ *
+ * A `type`, not an `interface`, on purpose: `InsightAreaChart` takes
+ * `Array<Record<string, string | number>>` and TypeScript only hands implicit
+ * index signatures to object *type aliases*. Declaring this as an interface
+ * makes the chart props unassignable.
+ */
+export type CacheRatioRow = {
+  date: string;
+  pct: number;
+  tokens: number;
+};
+
+export function toCacheRatioSeries(
+  cacheRatio: CacheRatioPoint[]
+): CacheRatioRow[] {
+  return cacheRatio.map((d) => ({
+    date: shortDate(d.date),
+    pct: d.pct,
+    tokens: d.totalTokens,
+  }));
+}
+
+/**
+ * Page views for the KPI tile, preferring Cloudflare.
+ *
+ * `||` and not `??`: a 0 pageview count means the Cloudflare query failed or
+ * was not configured, not that the site served nothing, so a zero falls through
+ * to the PostHog total instead of rendering a truthful-looking "0".
+ */
+export function resolvePageViews(
+  cloudflareTotal: number,
+  posthogTotal: number
+): number {
+  return cloudflareTotal || posthogTotal;
+}
+
+/**
+ * The "Last updated …" stamp under the page title.
+ *
+ * Returns null when Cloudflare never reported a generation time, which the
+ * header renders as a plain "Last 30 days" instead. Note the timezone is left
+ * to the runtime here, unlike `shortDate` which pins UTC: a calendar date that
+ * drifts by one day across the two renders of a prerender is a real bug, and
+ * the original page had the same behaviour.
+ */
+export function formatGeneratedAt(generatedAt: string): string | null {
+  return generatedAt
+    ? new Date(generatedAt).toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })
+    : null;
+}
+
+/** One GitHub repo as the grid card needs it. */
+export interface RepoCard {
+  name: string;
+  stars: number;
+  language: string | null;
+  license: string | null;
+}
+
+/**
+ * The six repo cards plus the star total in the section's link.
+ *
+ * The star count sums *all* fetched repos, not just the six shown, so the
+ * "N repos · M stars" link describes the account rather than the visible grid.
+ */
+export function toRepoCards(githubRepos: Repo[]): {
+  repos: RepoCard[];
+  totalStars: number;
+} {
+  // `stars` is passed through untouched: the card renders it verbatim, and a
+  // `|| 0` here would silently replace a missing count with a real-looking 0.
+  const cards = githubRepos.slice(0, 6).map((r) => ({
+    name: r.name,
+    stars: r.stars,
+    language: r.language,
+    license: r.license,
+  }));
+  const totalStars = githubRepos.reduce((sum, r) => sum + (r.stars || 0), 0);
+  return { repos: cards, totalStars };
+}
+
+/**
+ * The four sparkline series behind the KPI tiles.
+ *
+ * Each is a plain `Number(x) || 0` projection: a missing or non-numeric sample
+ * becomes a 0 rather than a hole in the line. `costSpark` reads the already
+ * rounded activity series so the sparkline and the tile's trend agree.
+ */
+export function buildSparklines(input: {
+  wakaTrend: WakaTimeTrend[];
+  traffic: Array<{ pageViews: number }>;
+  aiActivity: ReturnType<typeof toActivitySeries>;
+}): Record<"wakaSpark" | "viewsSpark" | "tokensSpark" | "costSpark", number[]> {
+  return {
+    wakaSpark: input.wakaTrend.map((t) => Number(t.hours) || 0),
+    viewsSpark: input.traffic.map((t) => Number(t.pageViews) || 0),
+    tokensSpark: input.aiActivity.map((a) => Number(a.tokens) || 0),
+    costSpark: input.aiActivity.map((a) => Number(a.cost) || 0),
+  };
+}
+
+/** The five most-read posts, ranked by the upstream PostHog order. */
+export function topPosts(paths: PostHogPath[]): PostHogPath[] {
+  return paths.slice(0, 5);
 }
 
 /** Top 5 models for the "where the tokens went" rows. */
