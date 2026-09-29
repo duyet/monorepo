@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, use, useCallback, useMemo, useState } from "react"
+import { createContext, use, useCallback, useMemo } from "react"
 import {
   type AreaVariant,
   type ChartConfig,
@@ -9,6 +9,12 @@ import {
   useRevision,
 } from "./chart-context"
 import type { CommonChart } from "./common-context"
+import {
+  useConfigKeys,
+  useInteractionState,
+  usePlotBox,
+  useVariantRegistry,
+} from "./controller-state"
 import type { BloomInput } from "./dither-paint"
 import { emphasisOf, isDimmed } from "./emphasis"
 import type { Seed } from "./palette"
@@ -130,61 +136,42 @@ export function usePolarController({
   // cheap scalars (radii, ready) are left bare as plain recomputed reads.
 
   // Memoized: drives `pie`/`radar`/`common` — a fresh array would bust them.
-  const configKeys = useMemo(() => Object.keys(config), [config])
+  const configKeys = useConfigKeys(config)
   const revision = useRevision(data, replayToken)
 
-  const [selectedDataKey, setSelectedDataKey] = useState<string | null>(
-    defaultSelectedDataKey
-  )
-  const [focusDataKey, setFocusDataKey] = useState<string | null>(null)
-  const [hoverIndex, setHoverIndex] = useState<number | null>(null)
-  const [cursorX, setCursorX] = useState(0)
-  const [cursorY, setCursorY] = useState(0)
-  const [isMouseInChart, setMouseInChart] = useState(false)
+  const {
+    selectedDataKey,
+    focusDataKey,
+    hoverIndex,
+    cursorX,
+    cursorY,
+    isMouseInChart,
+    setFocusDataKey,
+    setHoverIndex,
+    setCursorX,
+    setCursorY,
+    setIsMouseInChart: setMouseInChart,
+    selectDataKey,
+  } = useInteractionState(defaultSelectedDataKey, onSelectionChange)
+
   // Stable (only wraps two useState setters) so the value keeps its identity.
-  const setCursor = useCallback((px: number, py: number) => {
-    setCursorX(px)
-    setCursorY(py)
-  }, [])
-  const [variants, setVariants] = useState<Record<string, AreaVariant>>({})
-
-  // useCallback for the same reason as registerSeries in chart-context.tsx:
-  // pie.tsx/radar.tsx list these as effect deps, so without stable identities
-  // the unregister/register effect re-fires and its setState pair loops.
-  const registerVariant = useCallback((key: string, variant: AreaVariant) => {
-    setVariants((prev) =>
-      prev[key] === variant ? prev : { ...prev, [key]: variant }
-    )
-  }, [])
-  const unregisterVariant = useCallback((key: string) => {
-    setVariants((prev) => {
-      if (!(key in prev)) return prev
-      const next = { ...prev }
-      delete next[key]
-      return next
-    })
-  }, [])
-
-  // Stable so the value keeps its identity; re-created only on config change.
-  const selectDataKey = useCallback(
-    (key: string | null) => {
-      setSelectedDataKey(key)
-      onSelectionChange?.(key)
+  const setCursor = useCallback(
+    (px: number, py: number) => {
+      setCursorX(px)
+      setCursorY(py)
     },
-    [onSelectionChange]
+    [setCursorX, setCursorY]
   )
 
-  // The root spreads margins fresh every render; pin a stable object off the
-  // four numbers so it doesn't, on its own, invalidate the value.
-  const { top: mTop, right: mRight, bottom: mBottom, left: mLeft } = margins
-  const stableMargins = useMemo(
-    () => ({ top: mTop, right: mRight, bottom: mBottom, left: mLeft }),
-    [mTop, mRight, mBottom, mLeft]
-  )
+  // One `AreaVariant` per key, so identity comparison is the whole test.
+  const { entries: variants, register, unregister } =
+    useVariantRegistry<AreaVariant>()
+  const registerVariant = register
+  const unregisterVariant = unregister
 
-  const plotWidth = Math.max(0, dimensions.width - mLeft - mRight)
-  const plotHeight = Math.max(0, dimensions.height - mTop - mBottom)
-  const ready = plotWidth > 0 && plotHeight > 0
+  const { stableMargins, plotWidth, plotHeight, ready, top: mTop, left: mLeft } =
+    usePlotBox(dimensions, margins)
+
   const pad = chartType === "radar" ? 20 : 6
   const outerRadius = Math.max(0, Math.min(plotWidth, plotHeight) / 2 - pad)
   const innerRadius = chartType === "pie" ? outerRadius * innerRadiusRatio : 0

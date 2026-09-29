@@ -19,6 +19,7 @@
     "./cartesian-root": "./src/cartesian-root.tsx",
     "./chart-context": "./src/chart-context.tsx",
     "./common-context": "./src/common-context.tsx",
+    "./controller-state": "./src/controller-state.ts",
     "./dither-cell": "./src/dither-cell.ts",
     "./dither-paint": "./src/dither-paint.ts",
     "./dot": "./src/dot.tsx",

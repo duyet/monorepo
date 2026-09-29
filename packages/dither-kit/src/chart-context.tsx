@@ -1,6 +1,12 @@
 import type { ScaleLinear } from "d3-scale"
 import { createContext, use, useCallback, useMemo, useState } from "react"
 import type { CommonChart } from "./common-context"
+import {
+  useConfigKeys,
+  useInteractionState,
+  usePlotBox,
+  useRegisteredMap,
+} from "./controller-state"
 import type { BloomInput } from "./dither-paint"
 import { emphasisOf, isDimmed } from "./emphasis"
 import type { DitherColor, Seed } from "./palette"
@@ -234,65 +240,42 @@ export function useChartController({
   // memoized below; only cheap scalars (bandwidth, ready, plot sizes) are left
   // bare, since they're just recomputed reads, not identities anyone depends on.
 
-  // Memoized: configKeys is the dep that drives `bands`, `common` and the
-  // canvas `targets` memo — a fresh array each render would bust all of them.
-  const configKeys = useMemo(() => Object.keys(config), [config])
+  // configKeys is the dep that drives `bands`, `common` and the canvas
+  // `targets` memo — a fresh array each render would bust all of them.
+  const configKeys = useConfigKeys(config)
   const revision = useRevision(data, replayToken)
 
-  const [selectedDataKey, setSelectedDataKey] = useState<string | null>(
-    defaultSelectedDataKey
+  const {
+    selectedDataKey,
+    focusDataKey,
+    hoverIndex,
+    cursorX,
+    isMouseInChart,
+    setFocusDataKey,
+    setHoverIndex,
+    setCursorX,
+    setIsMouseInChart: setMouseInChart,
+    selectDataKey,
+  } = useInteractionState(defaultSelectedDataKey, onSelectionChange)
+
+  // A `SeriesSpec` is a multi-field value, so "did it change" is a field
+  // comparison rather than identity — see `useRegisteredMap`.
+  const seriesEquals = useCallback((a: SeriesSpec, b: SeriesSpec) =>
+    a.kind === b.kind &&
+    a.variant === b.variant &&
+    a.strokeVariant === b.strokeVariant, [])
+  const { entries: seriesSpecs, register, unregister } =
+    useRegisteredMap<SeriesSpec>(seriesEquals)
+
+  // Registered by key; `<Area>`/`<Bar>` read `seriesSpecs[dataKey]`.
+  const registerSeries = useCallback(
+    (spec: SeriesSpec) => register(spec.dataKey, spec),
+    [register]
   )
-  const [focusDataKey, setFocusDataKey] = useState<string | null>(null)
-  const [hoverIndex, setHoverIndex] = useState<number | null>(null)
-  const [cursorX, setCursorX] = useState(0)
-  const [isMouseInChart, setMouseInChart] = useState(false)
-  const [seriesSpecs, setSeriesSpecs] = useState<Record<string, SeriesSpec>>({})
+  const unregisterSeries = unregister
 
-  // useCallback because the series effects in area.tsx/bar.tsx list these as
-  // deps — without stable identities the unregister/register effect re-fires
-  // every render and its setState pair loops ("Maximum update depth exceeded").
-  const registerSeries = useCallback((spec: SeriesSpec) => {
-    setSeriesSpecs((prev) => {
-      const cur = prev[spec.dataKey]
-      return cur &&
-        cur.kind === spec.kind &&
-        cur.variant === spec.variant &&
-        cur.strokeVariant === spec.strokeVariant
-        ? prev
-        : { ...prev, [spec.dataKey]: spec }
-    })
-  }, [])
-  const unregisterSeries = useCallback((dataKey: string) => {
-    setSeriesSpecs((prev) => {
-      if (!(dataKey in prev)) return prev
-      const next = { ...prev }
-      delete next[dataKey]
-      return next
-    })
-  }, [])
-
-  // Stable so the memoized value keeps its identity; only re-created when the
-  // caller's selection handler does.
-  const selectDataKey = useCallback(
-    (key: string | null) => {
-      setSelectedDataKey(key)
-      onSelectionChange?.(key)
-    },
-    [onSelectionChange]
-  )
-
-  // The root spreads `{ ...DEFAULT_MARGINS, ...marginsProp }` fresh every
-  // render, so `margins` never keeps its identity. Pin one off the four numbers
-  // so it doesn't, on its own, invalidate the value or the plot geometry.
-  const { top: mTop, right: mRight, bottom: mBottom, left: mLeft } = margins
-  const stableMargins = useMemo(
-    () => ({ top: mTop, right: mRight, bottom: mBottom, left: mLeft }),
-    [mTop, mRight, mBottom, mLeft]
-  )
-
-  const plotWidth = Math.max(0, dimensions.width - mLeft - mRight)
-  const plotHeight = Math.max(0, dimensions.height - mTop - mBottom)
-  const ready = plotWidth > 0 && plotHeight > 0
+  const { stableMargins, plotWidth, plotHeight, ready, top: mTop, left: mLeft } =
+    usePlotBox(dimensions, margins)
 
   // The entrance gate flips true when the canvas reveal completes (via
   // `markEntranceDone`) so DOM markers fade in with the fill, and re-arms on
