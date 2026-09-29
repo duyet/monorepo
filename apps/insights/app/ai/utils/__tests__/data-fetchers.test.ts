@@ -25,7 +25,6 @@ const RANGES: DateRangeDays[] = [1, 7, 30, 90, 365, "all"];
 type Sent = { clickhouse: string; duckdb: string };
 
 const sent: Sent[] = [];
-const counters: Record<string, unknown> = {};
 
 // `executeServerClickHouseQuery` is reached through a dynamic import of
 // "./database"; `executeDuckDBCacheQuery` through "./duckdb-cache". Both are
