@@ -1,27 +1,19 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { Env } from "../env.js";
 import app from "../index.js";
 import {
   buildClickHouseRequest,
   executeClickHouseQuery,
-  getClickHouseConfig,
 } from "../lib/clickhouse.js";
+import {
+  CLICKHOUSE_TEST_PASSWORD as PASSWORD,
+  clickHouseTestEnv as env,
+  expectClickHouseUnconfigured,
+} from "../lib/clickhouse.test-fixtures.js";
 import {
   clampHistoryDays,
   getDateCondition,
   parseHistoryDays,
 } from "./ai-percentage.js";
-
-const PASSWORD = "s3cret-clickhouse-pass";
-
-const env: Env = {
-  CLICKHOUSE_DATABASE: "analytics",
-  CLICKHOUSE_HOST: "ch.example.com",
-  CLICKHOUSE_PASSWORD: PASSWORD,
-  CLICKHOUSE_PORT: "8443",
-  CLICKHOUSE_PROTOCOL: "https",
-  CLICKHOUSE_USER: "reader",
-};
 
 afterEach(() => {
   vi.unstubAllGlobals();
@@ -42,8 +34,7 @@ describe("ClickHouse request builder", () => {
   });
 
   it("returns null when ClickHouse is not configured", () => {
-    expect(getClickHouseConfig({})).toBeNull();
-    expect(buildClickHouseRequest({}, "SELECT 1")).toBeNull();
+    expectClickHouseUnconfigured();
   });
 });
 

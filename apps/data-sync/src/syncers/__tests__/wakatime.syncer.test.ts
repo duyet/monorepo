@@ -1,16 +1,16 @@
-import { afterEach, beforeEach, describe, expect, vi, test } from "vitest";
-import type { ClickHouseClient } from "@clickhouse/client";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { WakaTimeSyncer } from "../wakatime.syncer";
+import {
+  createMockClickHouseClient,
+  expectSyncFailsWithoutWriting,
+  type MockClickHouseClient,
+} from "./test-fixtures";
 
 describe("WakaTimeSyncer", () => {
-  let mockClient: ClickHouseClient;
+  let mockClient: MockClickHouseClient;
 
   beforeEach(() => {
-    mockClient = {
-      insert: vi.fn(() => Promise.resolve()),
-      query: vi.fn(() => Promise.resolve()),
-      close: vi.fn(() => Promise.resolve()),
-    } as unknown as ClickHouseClient;
+    mockClient = createMockClickHouseClient();
   });
 
   afterEach(() => {
@@ -27,17 +27,12 @@ describe("WakaTimeSyncer", () => {
     expect(syncer).toBeInstanceOf(WakaTimeSyncer);
   });
 
-  // `BaseSyncer.sync()` never rejects: it catches and reports through
-  // SyncResult.errors, so this asserts on the result rather than a throw.
   test("should fail the sync without writing when WAKATIME_API_KEY is missing", async () => {
-    vi.stubEnv("WAKATIME_API_KEY", undefined);
-
-    const syncer = new WakaTimeSyncer(mockClient);
-    const result = await syncer.sync({ dryRun: true });
-
-    expect(result.success).toBe(false);
-    expect(result.errors[0]?.message).toContain("WAKATIME_API_KEY");
-    expect(result.recordsInserted).toBe(0);
-    expect(mockClient.insert).not.toHaveBeenCalled();
+    await expectSyncFailsWithoutWriting({
+      syncer: new WakaTimeSyncer(mockClient),
+      client: mockClient,
+      missingEnvVars: ["WAKATIME_API_KEY"],
+      errorMentions: "WAKATIME_API_KEY",
+    });
   });
 });
